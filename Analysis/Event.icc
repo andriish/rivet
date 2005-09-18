@@ -1,0 +1,28 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the Event class.
+//
+
+namespace Rivet {
+
+inline Event::Event(const GenEvent & geneve)
+  : theGenEvent(geneve) {}
+
+inline Event::Event(const Event & x)
+  : theGenEvent(x.theGenEvent) {}
+
+inline const HepMC::GenEvent & Event::genEvent() const {
+  return *theGenEvent;
+}
+
+template <typename PROJ>
+inline const PROJ * Event::addProjection<PROJ>(Proj & p) const {
+  set<const Projection *>::iterator old = theProjections.find(&p);
+  if ( old != theProjections.end() ) return *old;
+  p.project(*this);
+  theProjections.insert(&p);
+  return &p;
+}
+
+}
