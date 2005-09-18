@@ -1,0 +1,26 @@
+// -*- C++ -*-
+#ifndef Rivet_Rotation_FH
+#define Rivet_Rotation_FH
+
+// This is the forward declaration of the <!id>HepRotation<!!id> class
+// from CLHEP, placing it in the <!id>CLHEP<!!id> namespace as
+// <!id>Rotation<!!id> and making it available in the
+// <!id>Rivet<!!id> namespace.
+
+#include "CLHEP.h"
+#include "CLHEP/Vector/Rotation.h"
+
+namespace CLHEP {
+
+/** Typedef in the CLHEP namespace to get rid of Hep prefix. */
+typedef HepRotation Rotation;
+
+}
+
+namespace Rivet {
+
+using CLHEP::Rotation;
+
+}
+
+#endif /* Rivet_Rotation_FH */

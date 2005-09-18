@@ -1,0 +1,26 @@
+// -*- C++ -*-
+#ifndef Rivet_LorentzRotation_FH
+#define Rivet_LorentzRotation_FH
+
+// This is the forward declaration of the
+// <!id>HepLorentzRotation<!!id> class from CLHEP, placing it in the
+// <!id>CLHEP<!!id> namespace as <!id>LorentzRotation<!!id> and making
+// it available in the <!id>Rivet<!!id> namespace.
+
+#include "CLHEP.h"
+#include "CLHEP/Vector/LorentzRotation.h"
+
+namespace CLHEP {
+
+/** Typedef in the CLHEP namespace to get rid of Hep prefix. */
+typedef HepLorentzRotation LorentzRotation;
+
+}
+
+namespace Rivet {
+
+using CLHEP::LorentzRotation;
+
+}
+
+#endif /* Rivet_LorentzRotation_FH */
