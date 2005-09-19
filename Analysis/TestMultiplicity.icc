@@ -1,0 +1,14 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the TestMultiplicity class.
+//
+
+namespace Rivet {
+
+inline TestMultiplicity::TestMultiplicity() {}
+
+inline TestMultiplicity::TestMultiplicity(const TestMultiplicity & x)
+  : AnalysisBase(x), fsproj(x.fsproj) {}
+
+}

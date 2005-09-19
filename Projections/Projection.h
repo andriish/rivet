@@ -27,6 +27,11 @@ class Projection {
 
 public:
 
+  /** Event is a friend. */
+  friend class Event;
+
+public:
+
   /** @name Standard constructors and destructors. */
   //@{
   /**

@@ -81,7 +81,7 @@ private:
   /**
    * The set of Projection objects applied so far.
    */
-  set<const Projection *> theProjections;
+  mutable set<const Projection *> theProjections;
 
 private:
 
