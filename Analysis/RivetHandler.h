@@ -120,4 +120,6 @@ private:
 
 }
 
+#include "RivetHandler.icc"
+
 #endif /* RIVET_RivetHandler_H */

@@ -62,7 +62,7 @@ protected:
    * be added to the Event using the Even::addProjection(Projection *)
    * function.
    */
-  void project(const Event & e);
+  virtual void project(const Event & e) = 0;
 
   /**
    * This function is used to define a unique ordering between
@@ -85,11 +85,10 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  int cmp(const Projection & p) const;
+  virtual int cmp(const Projection & p) const = 0;
 
 public:
 
-  
   /**
    * Determine whether this object should be ordered before the object
    * \a p given as argument. If \a p is of a different class than

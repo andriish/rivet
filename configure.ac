@@ -38,6 +38,7 @@ Config/Makefile
 Projections/Makefile
 Analysis/Makefile
 lib/Makefile
+test/Makefile
 Makefile],)
 
 AC_OUTPUT
