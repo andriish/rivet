@@ -1,0 +1,7 @@
+Makefile
+Makefile.in
+*.tar.gz
+autom4te.cache
+config.status
+configure
+libtool

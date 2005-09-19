@@ -7,7 +7,7 @@
 namespace Rivet {
 
 inline Event::Event(const GenEvent & geneve)
-  : theGenEvent(geneve) {}
+  : theGenEvent(&geneve) {}
 
 inline Event::Event(const Event & x)
   : theGenEvent(x.theGenEvent) {}
@@ -17,7 +17,7 @@ inline const HepMC::GenEvent & Event::genEvent() const {
 }
 
 template <typename PROJ>
-inline const PROJ * Event::addProjection<PROJ>(Proj & p) const {
+inline const PROJ * Event::addProjection(PROJ & p) const {
   set<const Projection *>::iterator old = theProjections.find(&p);
   if ( old != theProjections.end() ) return *old;
   p.project(*this);

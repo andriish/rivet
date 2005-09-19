@@ -1,0 +1,17 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the RivetHandler class.
+//
+
+namespace Rivet {
+
+inline RivetHandler::RivetHandler(string aname)
+  : name(aname), nRun(0), iRun(0) {}
+
+template <typename ANA>
+inline void RivetHandler::addAnalysis(const ANA & ana) {
+  anaVector.push_back(new ANA(ana));
+}
+
+}

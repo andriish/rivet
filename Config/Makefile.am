@@ -1,0 +1,6 @@
+DOCFILES = Rivet.h 
+
+INCLUDEFILES = $(DOCFILES) config.h
+
+noinst_HEADERS= $(INCLUDEFILES)
+

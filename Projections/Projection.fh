@@ -5,11 +5,10 @@
 #ifndef Rivet_Projection_FH
 #define Rivet_Projection_FH
 
-#include "ThePEG/Config/Pointers.h"
-
 namespace Rivet {
 
 class Projection;
+
 typedef Projection * ProjPtr;
 typedef const Projection * cProjPtr;
 

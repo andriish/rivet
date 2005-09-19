@@ -1,0 +1,14 @@
+// -*- C++ -*-
+//
+// This is the forward declaration of the RivetHandler class.
+//
+#ifndef RIVET_RivetHandler_FH
+#define RIVET_RivetHandler_FH
+
+namespace Rivet {
+
+class RivetHandler;
+
+}
+
+#endif

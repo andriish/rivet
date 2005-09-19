@@ -16,3 +16,5 @@ inline bool Projection::before(const Projection & p) const {
   if ( thisid == otherid ) return cmp(p) < 0;
   else return thisid.before(otherid);
 }
+
+}

@@ -1,0 +1,16 @@
+// -*- C++ -*-
+//
+// This is the forward declaration of the Particle class.
+//
+#ifndef RIVET_Particle_FH
+#define RIVET_Particle_FH
+
+#include "Rivet/Config/Rivet.h"
+
+namespace Rivet {
+
+class Particle;
+
+}
+
+#endif

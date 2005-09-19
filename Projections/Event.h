@@ -9,7 +9,14 @@
 #include "Event.fh"
 #include "Rivet/Projections/Projection.h"
 #include "CLHEP/HepMC/GenEvent.h"
+
 namespace Rivet {
+
+/** Alias for the HepMC namespace. */
+namespace CLHEPMC = HepMC;
+
+/** Forward typedefs from CLHEPMC. */
+typedef CLHEPMC::GenEvent GenEvent;
 
 /**
  * Event is a concrete class representing an generated event in
@@ -46,12 +53,11 @@ public:
 
 public:
 
-
   /**
    * Return the generated event obtained from an external event
    * generator.
    */
-  inline const HepMC::GenEvent & genEvent() const;
+  inline const GenEvent & genEvent() const;
 
   /**
    * Add a projection \a p to this Event. If an equivalent Projection
@@ -62,7 +68,7 @@ public:
    * pointer to p is returned.
    */
   template <typename PROJ>
-  inline const PROJ * addProjection(Proj & p) const;
+  inline const PROJ * addProjection(PROJ & p) const;
 
 private:
 
@@ -70,7 +76,7 @@ private:
    * A pointer to the generated event obtained from an external event
    * generator.
    */
-  const HepMC::GenEvent * theGenEvent;
+  const GenEvent * theGenEvent;
 
   /**
    * The set of Projection objects applied so far.
@@ -89,40 +95,6 @@ private:
 
 }
 
-#include "ThePEG/Utilities/ClassTraits.h"
-
-namespace ThePEG {
-
-/** @cond TRAITSPECIALIZATIONS */
-
-/** This template specialization informs ThePEG about the
- *  base classes of Event. */
-template <>
-struct BaseClassTrait<Rivet::Event,1> {
-  /** Typedef of the first base class of Event. */
-  typedef  NthBase;
-};
-
-/** This template specialization informs ThePEG about the name of
- *  the Event class and the shared object where it is defined. */
-template <>
-struct ClassTraits<Rivet::Event>
-  : public ClassTraitsBase<Rivet::Event> {
-  /** Return a platform-independent class name */
-  static string className() { return "Rivet::Event"; }
-  /** Return the name of the shared library be loaded to get
-   *  access to the Event class and every other class it uses
-   *  (except the base class). */
-  static string library() { return "Event.so"; }
-};
-
-/** @endcond */
-
-}
-
 #include "Event.icc"
-#ifndef ThePEG_TEMPLATES_IN_CC_FILE
-// #include "Event.tcc"
-#endif
 
 #endif /* RIVET_Event_H */

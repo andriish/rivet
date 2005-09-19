@@ -1,0 +1,57 @@
+// -*- C++ -*-
+#ifndef RIVET_Particle_H
+#define RIVET_Particle_H
+//
+// This is the declaration of the Particle class.
+//
+
+#include "Rivet/Config/Rivet.h"
+#include "Rivet/CLHEPWrap/LorentzVector.h"
+#include "CLHEP/HepMC/GenParticle.h"
+#include "Particle.fh"
+
+namespace Rivet {
+
+/** Alias for the HepMC namespace. */
+namespace CLHEPMC = HepMC;
+
+/** Forward typedefs from CLHEPMC. */
+typedef CLHEPMC::GenParticle GenParticle;
+
+/**
+ * This class is used to represent particles projected from a
+ * HepMC::GenEvent. It is currently just a struct to access the
+ * members directly, but it should probably be promoted to a proper
+ * class.
+ */
+struct Particle {
+
+  /**
+   * A pointer to the original GenParticle from which this Particle is
+   * projected.
+   */
+  GenParticle * original;
+
+  /**
+   * The PDG id number for this Particle.
+   */
+  long id;
+
+  /**
+   * The momentum of this projection of the Particle.
+   */
+  LorentzVector momentum;
+
+  /**
+   * The mass of this Particle.
+   */
+  double mass;
+
+};
+
+/** Typedef a vector of Particle objects. */
+typedef vector<Particle> PVector;
+
+}
+
+#endif /* RIVET_Particle_H */

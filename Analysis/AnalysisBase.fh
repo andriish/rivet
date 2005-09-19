@@ -1,0 +1,17 @@
+// -*- C++ -*-
+//
+// This is the forward declaration of the AnalysisBase class.
+//
+#ifndef RIVET_AnalysisBase_FH
+#define RIVET_AnalysisBase_FH
+
+namespace Rivet {
+
+class AnalysisBase;
+
+typedef AnalysisBase * AnaPtr;
+typedef const AnalysisBase * cAnaPtr;
+
+}
+
+#endif

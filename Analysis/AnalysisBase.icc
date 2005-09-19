@@ -1,0 +1,13 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the AnalysisBase class.
+//
+
+namespace Rivet {
+
+inline AnalysisBase::AnalysisBase() {}
+
+inline AnalysisBase::AnalysisBase(const AnalysisBase & x) {}
+
+}

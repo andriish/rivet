@@ -1,29 +1,21 @@
 // -*- C++ -*-
-#ifndef RIVET_Projection_H
-#define RIVET_Projection_H
+#ifndef RIVET_FinalStateProjection_H
+#define RIVET_FinalStateProjection_H
 //
-// This is the declaration of the Projection class.
+// This is the declaration of the FinalStateProjection class.
 //
 
-// #include "Rivet/Config/Rivet.h"
-#include "Rivet/Config/Rivet.h"
-#include "Projection.fh"
-#include "Rivet/Projections/Event.fh"
+#include "Rivet/Projections/Projection.h"
+#include "Rivet/Projections/Particle.h"
+#include "Rivet/Projections/Event.h"
+
 
 namespace Rivet {
 
 /**
- * Projection is the base class of all Projections to be used by
- * Rivet. A Projection object can be assigned to an Event object and
- * will then define a processed part of the information available in
- * the Event, which then can be used by other Projection objects
- * and/or Analysis objects.
- *
- * The main virtual functions to be overridden by concrete sub-classes
- * are project(const Event &) and cmp(const Projection &).
- *
+ * Here is the documentation of the FinalStateProjection class.
  */
-class Projection {
+class FinalStateProjection: public Projection {
 
 public:
 
@@ -32,17 +24,17 @@ public:
   /**
    * The default constructor.
    */
-  inline Projection();
+  inline FinalStateProjection();
 
   /**
    * The copy constructor.
    */
-  inline Projection(const Projection &);
+  inline FinalStateProjection(const FinalStateProjection &);
 
   /**
    * The destructor.
    */
-  virtual ~Projection();
+  virtual ~FinalStateProjection();
   //@}
 
 protected:
@@ -84,15 +76,18 @@ protected:
 
 public:
 
-  
   /**
-   * Determine whether this object should be ordered before the object
-   * \a p given as argument. If \a p is of a different class than
-   * this, the before() function of the corresponding type_info
-   * objects is used. Otherwise, if the objects are of the same class,
-   * the virtual cmp(const Projection &) will be returned.
+   * Access the projected final-state particles.
    */
-  inline bool before(const Projection & p) const;
+  inline const PVector & particles() const;
+
+
+private:
+
+  /**
+   * The final-state particles.
+   */
+  PVector theParticles;
 
 private:
 
@@ -100,30 +95,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  Projection & operator=(const Projection &);
+  FinalStateProjection & operator=(const FinalStateProjection &);
 
 };
 
 }
 
-namespace std {
-template <>
-struct less<const Rivet::Projection *> :
-    public binary_function<const Rivet::Projection *,
-                           const Rivet::Projection *, bool> 
-{
-  /**
-   * This is the function called when comparing two pointers to
-   * Rivet::Projection.
-   */
-  bool operator()(const Rivet::Projection * x,
-		  const Rivet::Projection * y) const {
-    return x->before(*y);
-  }
-};
+#include "FinalStateProjection.icc"
 
-}
-
-#include "Projection.icc"
-
-#endif /* RIVET_Projection_H */
+#endif /* RIVET_FinalStateProjection_H */
