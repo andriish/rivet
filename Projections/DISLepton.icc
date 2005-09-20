@@ -1,0 +1,23 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the DISLepton class.
+//
+
+namespace Rivet {
+
+inline DISLepton::DISLepton(long inid, long outid)
+  : idin(inid), idout(outid) {}
+
+inline DISLepton::DISLepton(const DISLepton & x)
+  : Projection(x), idin(x.idin), idout(x.idout) {}
+
+inline const Particle & DISLepton::in() const {
+  return incoming;
+}
+
+inline const Particle & DISLepton::out() const {
+  return outgoing;
+}
+
+}

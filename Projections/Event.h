@@ -15,8 +15,11 @@ namespace Rivet {
 /** Alias for the HepMC namespace. */
 namespace CLHEPMC = HepMC;
 
-/** Forward typedefs from CLHEPMC. */
+/** Forward typedef from CLHEPMC. */
 typedef CLHEPMC::GenEvent GenEvent;
+
+/** Forward typedef from CLHEPMC. */
+typedef CLHEPMC::GenVertex GenVertex;
 
 /**
  * Event is a concrete class representing an generated event in

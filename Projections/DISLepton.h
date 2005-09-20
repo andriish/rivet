@@ -1,42 +1,41 @@
 // -*- C++ -*-
-#ifndef RIVET_FinalStateProjection_H
-#define RIVET_FinalStateProjection_H
+#ifndef RIVET_DISLepton_H
+#define RIVET_DISLepton_H
 //
-// This is the declaration of the FinalStateProjection class.
+// This is the declaration of the DISLepton class.
 //
 
 #include "Rivet/Projections/Projection.h"
 #include "Rivet/Projections/Particle.h"
 #include "Rivet/Projections/Event.h"
 
-
 namespace Rivet {
 
 /**
- * Here is the documentation of the FinalStateProjection class.
+ * This class projects out the incoming and outgoing leptons in a DIS
+ * event.
  */
-class FinalStateProjection: public Projection {
+class DISLepton: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. May specify the minimum and maximum
-   * pseudorapidity.
+   * The default constructor. Must specify the incoming and outgoing
+   * PDG codes of the leptons to project.
    */
-  inline FinalStateProjection(double mineta = -MaxRapidity,
-			      double maxeta = MaxRapidity);
+  inline DISLepton(long inid, long outid);
 
   /**
    * The copy constructor.
    */
-  inline FinalStateProjection(const FinalStateProjection &);
+  inline DISLepton(const DISLepton &);
 
   /**
    * The destructor.
    */
-  virtual ~FinalStateProjection();
+  virtual ~DISLepton();
   //@}
 
 protected:
@@ -51,7 +50,7 @@ protected:
    * be added to the Event using the Even::addProjection(Projection *)
    * function.
    */
-  void project(const Event & e);
+  virtual void project(const Event & e);
 
   /**
    * This function is used to define a unique ordering between
@@ -74,32 +73,41 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  int cmp(const Projection & p) const;
+  virtual int cmp(const Projection & p) const;
 
 public:
 
   /**
-   * Access the projected final-state particles.
+   * The incoming lepton.
    */
-  inline const PVector & particles() const;
+  inline const Particle & in() const;
 
+  /**
+   * The outgoing lepton.
+   */
+  inline const Particle & out() const;
 
 private:
 
   /**
-   * The minimum allowed pseudo-rapidity.
+   * The PDG id of the incoming lepton.
    */
-  double etamin;
+  long idin;
 
   /**
-   * The maximum allowed pseudo-rapidity.
+   * The PDG id of the outcoming lepton.
    */
-  double etamax;
+  long idout;
 
   /**
-   * The final-state particles.
+   * The incoming lepton.
    */
-  PVector theParticles;
+  Particle incoming;
+
+  /**
+   * The incoming lepton.
+   */
+  Particle outgoing;
 
 private:
 
@@ -107,12 +115,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  FinalStateProjection & operator=(const FinalStateProjection &);
+  DISLepton & operator=(const DISLepton &);
 
 };
 
 }
 
-#include "FinalStateProjection.icc"
+#include "DISLepton.icc"
 
-#endif /* RIVET_FinalStateProjection_H */
+#endif /* RIVET_DISLepton_H */

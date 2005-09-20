@@ -27,10 +27,25 @@ typedef CLHEPMC::GenParticle GenParticle;
 struct Particle {
 
   /**
+   * Simple constructor for copying a GenParticle.
+   */
+  inline Particle(const GenParticle & p);
+
+  /**
+   * Default constructor.
+   */
+  inline Particle();
+
+  /**
+   * Copy-constructor.
+   */
+  inline Particle(const Particle & p);
+
+  /**
    * A pointer to the original GenParticle from which this Particle is
    * projected.
    */
-  GenParticle * original;
+  const GenParticle * original;
 
   /**
    * The PDG id number for this Particle.
@@ -53,5 +68,7 @@ struct Particle {
 typedef vector<Particle> PVector;
 
 }
+
+#include "Particle.icc"
 
 #endif /* RIVET_Particle_H */

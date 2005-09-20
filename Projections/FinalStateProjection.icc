@@ -6,11 +6,13 @@
 
 namespace Rivet {
 
-inline FinalStateProjection::FinalStateProjection() {}
+inline FinalStateProjection::FinalStateProjection(double maxeta, double mineta)
+  : etamin(mineta), etamax(maxeta) {}
 
 inline FinalStateProjection::
 FinalStateProjection(const FinalStateProjection & x)
-  : Projection(x), theParticles(x.theParticles) {}
+  : Projection(x), etamin(x.etamin), etamax(x.etamax),
+    theParticles(x.theParticles) {}
 
 inline const PVector & FinalStateProjection::particles() const {
   return theParticles;

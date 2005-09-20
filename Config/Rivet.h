@@ -17,6 +17,8 @@ using std::string;
 using std::less;
 using std::vector;
 
+const double MaxRapidity = 100000.0;
+
 }
 
 #endif
