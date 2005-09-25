@@ -6,7 +6,7 @@
 //
 
 #include "Rivet/Analysis/AnalysisBase.h"
-#include "Rivet/Projections/FinalStateProjection.h"
+#include "Rivet/Projections/FinalStateHCM.h"
 
 namespace Rivet {
 
@@ -67,7 +67,7 @@ private:
   /**
    * The FinalStateProjector used.
    */
-  FinalStateProjection fsproj;
+  FinalStateHCM fsproj;
 
 private:
 

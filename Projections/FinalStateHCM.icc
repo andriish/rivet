@@ -1,0 +1,23 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the FinalStateHCM class.
+//
+
+namespace Rivet {
+
+inline FinalStateHCM::FinalStateHCM(long inid, long outid, long hadid,
+				    double mineta, double maxeta)
+  : lepton(inid, outid), kinematics(inid, outid, hadid),
+    fsproj(mineta, maxeta) {}
+
+inline FinalStateHCM::
+FinalStateHCM(const FinalStateHCM & x)
+  : Projection(x), lepton(x.lepton), kinematics(x.kinematics), fsproj(x.fsproj),
+    theParticles(x.theParticles) {}
+
+inline const PVector & FinalStateHCM::particles() const {
+  return theParticles;
+}
+
+}

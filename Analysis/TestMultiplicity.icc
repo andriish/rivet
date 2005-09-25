@@ -6,7 +6,8 @@
 
 namespace Rivet {
 
-inline TestMultiplicity::TestMultiplicity() {}
+inline TestMultiplicity::TestMultiplicity()
+  : fsproj(11, 11, 2212) {}
 
 inline TestMultiplicity::TestMultiplicity(const TestMultiplicity & x)
   : AnalysisBase(x), fsproj(x.fsproj) {}

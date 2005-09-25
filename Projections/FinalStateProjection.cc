@@ -5,6 +5,7 @@
 //
 
 #include "FinalStateProjection.h"
+#include "Rivet/Projections/Cmp.h"
 
 using namespace Rivet;
 
@@ -13,11 +14,7 @@ FinalStateProjection::~FinalStateProjection() {}
 int FinalStateProjection::compare(const Projection & p) const {
   const FinalStateProjection & other =
     dynamic_cast<const FinalStateProjection &>(p);
-  if ( etamin < other.etamin ) return -1;
-  else if ( etamin > other.etamin ) return 1;
-  if ( etamax < other.etamax ) return -1;
-  else if ( etamax > other.etamax ) return 1;
-  return 0;
+  return cmp(etamin, other.etamin) || cmp(etamax, other.etamax);
 }
 
 void FinalStateProjection::project(const Event & e) {

@@ -105,7 +105,7 @@ private:
  * Global helper function for easy creation of Cmp objects.
  */
 template <typename T>
-Cmp<T> cmp(const T & t1, const T & t2) {
+inline Cmp<T> cmp(const T & t1, const T & t2) {
   return Cmp<T>(t1, t2);
 }
 
@@ -204,7 +204,7 @@ private:
 /**
  * Global helper function for easy creation of Cmp objects.
  */
-Cmp<Projection> pcmp(const Projection & p1, const Projection & p2) {
+inline Cmp<Projection> pcmp(const Projection & p1, const Projection & p2) {
   return Cmp<Projection>(p1, p2);
 }
 

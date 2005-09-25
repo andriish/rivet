@@ -1,45 +1,46 @@
 // -*- C++ -*-
-#ifndef RIVET_DISKinematics_H
-#define RIVET_DISKinematics_H
+#ifndef RIVET_FinalStateHCM_H
+#define RIVET_FinalStateHCM_H
 //
-// This is the declaration of the DISKinematics class.
+// This is the declaration of the FinalStateHCM class.
 //
 
-#include "Rivet/Projections/Projection.h"
 #include "Rivet/Projections/Particle.h"
 #include "Rivet/Projections/Event.h"
-#include "Rivet/Projections/DISLepton.h"
-#include "Rivet/Projections/BeamProjection.h"
-#include "Rivet/CLHEPWrap/LorentzRotation.h"
+#include "Rivet/Projections/FinalStateProjection.h"
+#include "Rivet/Projections/DISKinematics.h"
+
 
 namespace Rivet {
 
 /**
- * This class projects out the DIS kinematic variables and relevant
- * boosts for an event.
+ * Project all final state particles (except the scattered lepton)
+ * boosted to the hadronic center of mass system.
  */
-class DISKinematics: public Projection {
+class FinalStateHCM: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify, the incoming and outgoing
-   * (\a inid and \a outid respectively) PDG codes of the scattered
-   * lepton as well as the PDG code of the incoming hadron (\a hadid).
+   * The default constructor. Must specify the PDG id of the incoming
+   * and scattered lepton and of the incoming hadron. May also specify
+   * the minimum and maximum pseudorapidity (in the lab-system).
    */
-  inline DISKinematics(long inid, long outid, long hadid);
+  inline FinalStateHCM(long inid, long outid, long hadid,
+		       double mineta = -MaxRapidity,
+		       double maxeta = MaxRapidity);
 
   /**
    * The copy constructor.
    */
-  inline DISKinematics(const DISKinematics &);
+  inline FinalStateHCM(const FinalStateHCM &);
 
   /**
    * The destructor.
    */
-  virtual ~DISKinematics();
+  virtual ~FinalStateHCM();
   //@}
 
 protected:
@@ -54,7 +55,7 @@ protected:
    * be added to the Event using the Even::addProjection(Projection *)
    * function.
    */
-  virtual void project(const Event & e);
+  void project(const Event & e);
 
   /**
    * This function is used to define a unique ordering between
@@ -77,80 +78,37 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  virtual int compare(const Projection & p) const;
+  int compare(const Projection & p) const;
 
 public:
 
   /**
-   * The \f$Q^2\f$.
+   * Access the projected final-state particles.
    */
-  inline double Q2() const;
+  inline const PVector & particles() const;
 
-  /**
-   * The \f$W^2\f$.
-   */
-  inline double W2() const;
-
-  /**
-   * The Bjorken \f$x\f$.
-   */
-  inline double x() const;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic CM
-   * frame.
-   */
-  inline const LorentzRotation & boostHCM() const;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic Breit
-   * frame.
-   */
-  inline const LorentzRotation & boostBreit() const;
 
 private:
 
   /**
-   * The BeamProjector object defining the incoming beam particles.
-   */
-  BeamProjection beams;
-
-  /**
-   * The projector for the scattered lepton.
+   * The projector for the DIS kinematics.
    */
   DISLepton lepton;
 
   /**
-   * The PDG id of the incoming hadron.
+   * The projector for the DIS kinematics.
    */
-  long idhad;
+  DISKinematics kinematics;
 
   /**
-   * The \f$Q^2\f$.
+   * The projector for the full final state.
    */
-  double theQ2;
+  FinalStateProjection fsproj;
 
   /**
-   * The \f$W^2\f$.
+   * The final-state particles.
    */
-  double theW2;
-
-  /**
-   * The Bjorken \f$x\f$.
-   */
-  double theX;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic CM
-   * frame.
-   */
-  LorentzRotation hcm;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic Breit
-   * frame.
-   */
-  LorentzRotation breit;
+  PVector theParticles;
 
 private:
 
@@ -158,12 +116,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  DISKinematics & operator=(const DISKinematics &);
+  FinalStateHCM & operator=(const FinalStateHCM &);
 
 };
 
 }
 
-#include "DISKinematics.icc"
+#include "FinalStateHCM.icc"
 
-#endif /* RIVET_DISKinematics_H */
+#endif /* RIVET_FinalStateHCM_H */

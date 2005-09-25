@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-inline FinalStateProjection::FinalStateProjection(double maxeta, double mineta)
+inline FinalStateProjection::FinalStateProjection(double mineta, double maxeta)
   : etamin(mineta), etamax(maxeta) {}
 
 inline FinalStateProjection::

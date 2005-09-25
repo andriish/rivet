@@ -15,9 +15,9 @@ void TestMultiplicity::init() {
 }
 
 void TestMultiplicity::analyze(const Event & event) {
-  const FinalStateProjection * fs = event.addProjection(fsproj);
+  const FinalStateHCM & fs = event(fsproj);
   // int mult =
-    fs->particles().size();
+    fs.particles().size();
   // Fill histogram here.
 }
 

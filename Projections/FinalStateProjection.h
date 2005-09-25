@@ -13,7 +13,7 @@
 namespace Rivet {
 
 /**
- * Here is the documentation of the FinalStateProjection class.
+ * Project out all final-state particles in an event.
  */
 class FinalStateProjection: public Projection {
 
