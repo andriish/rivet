@@ -73,6 +73,13 @@ public:
   template <typename PROJ>
   inline const PROJ * addProjection(PROJ & p) const;
 
+  /**
+   * Same as addProjection() except that a reference to the projected
+   * object is returned.
+   */
+  template <typename PROJ>
+  inline const PROJ & operator()(PROJ & p) const;
+
 private:
 
   /**

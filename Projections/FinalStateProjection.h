@@ -74,7 +74,7 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  int cmp(const Projection & p) const;
+  int compare(const Projection & p) const;
 
 public:
 

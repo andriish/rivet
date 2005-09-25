@@ -1,43 +1,39 @@
 // -*- C++ -*-
-#ifndef RIVET_DISKinematics_H
-#define RIVET_DISKinematics_H
+#ifndef RIVET_BeamProjection_H
+#define RIVET_BeamProjection_H
 //
-// This is the declaration of the DISKinematics class.
+// This is the declaration of the BeamProjection class.
 //
 
 #include "Rivet/Projections/Projection.h"
-#include "Rivet/Projections/Particle.h"
 #include "Rivet/Projections/Event.h"
-#include "Rivet/Projections/DISLepton.h"
+#include "Rivet/Projections/Particle.h"
 
 namespace Rivet {
 
 /**
- * This class projects out the DIS kinematic variables and relevant
- * boosts for an event.
+ * This class is used to project out the beams in a HepMC::GenEvent.
  */
-class DISKinematics: public Projection {
+class BeamProjection: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify, the incoming and outgoing
-   * (\a inid and \a outid respectively) PDG codes of the scattered
-   * lepton as well as the PDG code of the incoming hadron (\a hadid).
+   * The default constructor.
    */
-  inline DISKinematics(long inid, long outid, long hadid);
+  inline BeamProjection();
 
   /**
    * The copy constructor.
    */
-  inline DISKinematics(const DISKinematics &);
+  inline BeamProjection(const BeamProjection &);
 
   /**
    * The destructor.
    */
-  virtual ~DISKinematics();
+  virtual ~BeamProjection();
   //@}
 
 protected:
@@ -80,70 +76,16 @@ protected:
 public:
 
   /**
-   * The \f$Q^2\f$.
+   * The pair of beam particles in the current collision in GenEvent 
    */
-  inline double Q2() const;
-
-  /**
-   * The \f$W^2\f$.
-   */
-  inline double W2() const;
-
-  /**
-   * The Bjorken \f$x\f$.
-   */
-  inline double x() const;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic CM
-   * frame.
-   */
-  inline const LorentzRotation & boostHCM() const;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic Breit
-   * frame.
-   */
-  inline const LorentzRotation & boostBreit() const;
+  inline const PPair & operator()() const;
 
 private:
 
   /**
-   * The projector for the scattered lepton.
+   * The beam particles in the current collision in GenEvent 
    */
-  DISLepton lepton;
-
-  /**
-   * The PDG id of the incoming hadron.
-   */
-  long idhad;
-
-  /**
-   * The \f$Q^2\f$.
-   */
-  double theQ2();
-
-  /**
-   * The \f$W^2\f$.
-   */
-  double theW2;
-
-  /**
-   * The Bjorken \f$x\f$.
-   */
-  double theX;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic CM
-   * frame.
-   */
-  LorentzRotation hcm;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic Breit
-   * frame.
-   */
-  LorentzRotation breit;
+  PPair theBeams;
 
 private:
 
@@ -151,12 +93,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  DISKinematics & operator=(const DISKinematics &);
+  BeamProjection & operator=(const BeamProjection &);
 
 };
 
 }
 
-#include "DISKinematics.icc"
+#include "BeamProjection.icc"
 
-#endif /* RIVET_DISKinematics_H */
+#endif /* RIVET_BeamProjection_H */

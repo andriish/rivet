@@ -1,0 +1,18 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the BeamProjection class.
+//
+
+namespace Rivet {
+
+inline BeamProjection::BeamProjection() {}
+
+inline BeamProjection::BeamProjection(const BeamProjection & x)
+  : Projection(x), theBeams(x.theBeams) {}
+
+inline const PPair & BeamProjection::operator()() const {
+  return theBeams;
+}
+
+}

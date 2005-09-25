@@ -67,6 +67,9 @@ struct Particle {
 /** Typedef a vector of Particle objects. */
 typedef vector<Particle> PVector;
 
+/** Typedef a pair of Particle objects. */
+typedef pair<Particle, Particle> PPair;
+
 }
 
 #include "Particle.icc"

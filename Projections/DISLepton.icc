@@ -10,7 +10,8 @@ inline DISLepton::DISLepton(long inid, long outid)
   : idin(inid), idout(outid) {}
 
 inline DISLepton::DISLepton(const DISLepton & x)
-  : Projection(x), idin(x.idin), idout(x.idout) {}
+  : Projection(x), beams(x.beams), idin(x.idin), idout(x.idout),
+    incoming(x.incoming), outgoing(x.outgoing) {}
 
 inline const Particle & DISLepton::in() const {
   return incoming;

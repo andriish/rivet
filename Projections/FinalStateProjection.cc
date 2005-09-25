@@ -10,7 +10,7 @@ using namespace Rivet;
 
 FinalStateProjection::~FinalStateProjection() {}
 
-int FinalStateProjection::cmp(const Projection & p) const {
+int FinalStateProjection::compare(const Projection & p) const {
   const FinalStateProjection & other =
     dynamic_cast<const FinalStateProjection &>(p);
   if ( etamin < other.etamin ) return -1;

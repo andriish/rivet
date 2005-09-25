@@ -5,7 +5,7 @@
 // This is the declaration of the DISLepton class.
 //
 
-#include "Rivet/Projections/Projection.h"
+#include "Rivet/Projections/BeamProjection.h"
 #include "Rivet/Projections/Particle.h"
 #include "Rivet/Projections/Event.h"
 
@@ -73,7 +73,7 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  virtual int cmp(const Projection & p) const;
+  virtual int compare(const Projection & p) const;
 
 public:
 
@@ -88,6 +88,11 @@ public:
   inline const Particle & out() const;
 
 private:
+
+  /**
+   * The BeamProjector object defining the incoming beam particles.
+   */
+  BeamProjection beams;
 
   /**
    * The PDG id of the incoming lepton.

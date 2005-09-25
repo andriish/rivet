@@ -26,4 +26,9 @@ inline const PROJ * Event::addProjection(PROJ & p) const {
   return &p;
 }
 
+template <typename PROJ>
+inline const PROJ & Event::operator()(PROJ & p) const {
+  return *addProjection(p);
+}
+
 }

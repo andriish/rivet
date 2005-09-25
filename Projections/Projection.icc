@@ -13,7 +13,7 @@ inline Projection::Projection(const Projection &) {}
 inline bool Projection::before(const Projection & p) const {
   const type_info & thisid = typeid(*this);
   const type_info & otherid = typeid(p);
-  if ( thisid == otherid ) return cmp(p) < 0;
+  if ( thisid == otherid ) return compare(p) < 0;
   else return thisid.before(otherid);
 }
 

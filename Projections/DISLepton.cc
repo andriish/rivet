@@ -5,6 +5,7 @@
 //
 
 #include "DISLepton.h"
+#include "Rivet/Projections/Cmp.h"
 
 using namespace Rivet;
 
@@ -12,10 +13,15 @@ DISLepton::~DISLepton() {}
 
 
 void DISLepton::project(const Event & e) {
-  vector<GenParticle*> inc =
-    e.genEvent().signal_process_vertex()->listParents();
-  for ( int i = 0, N = inc.size(); i < N; ++i )
-    if ( inc[i]->pdg_id() == idin ) incoming = Particle(*inc[i]);
+  const PPair & inc = e(beams)();
+  if ( inc.first.id == idin )
+    incoming = inc.first;
+  else if ( inc.second.id == idin )
+    incoming = inc.second;
+  else
+    throw runtime_error("DISLepton projector could not find the correct beam.");
+  // *** ATTENTION *** Should we have our own exception classes?
+
   double emax = 0.0;
   for ( GenEvent::particle_const_iterator pi = e.genEvent().particles_begin();
 	pi != e.genEvent().particles_end(); ++pi ) {
@@ -28,12 +34,9 @@ void DISLepton::project(const Event & e) {
   }
 }
 
-int DISLepton::cmp(const Projection & p) const {
+int DISLepton::compare(const Projection & p) const {
   const DISLepton & other = dynamic_cast<const DISLepton &>(p);
-  if ( idin < other.idin ) return -1;
-  else if ( idin > other.idin ) return 1;
-  if ( idout < other.idout ) return -1;
-  else if ( idout > other.idout ) return 1;
-  return 0;
+  return pcmp(beams, other.beams) ||
+    cmp(idin, other.idin) || cmp(idout, other.idout);
 }
 

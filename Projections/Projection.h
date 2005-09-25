@@ -9,6 +9,7 @@
 #include "Rivet/Config/Rivet.h"
 #include "Projection.fh"
 #include "Rivet/Projections/Event.fh"
+#include "Rivet/Projections/Cmp.fh"
 
 namespace Rivet {
 
@@ -20,7 +21,7 @@ namespace Rivet {
  * and/or Analysis objects.
  *
  * The main virtual functions to be overridden by concrete sub-classes
- * are project(const Event &) and cmp(const Projection &).
+ * are project(const Event &) and compare(const Projection &).
  *
  */
 class Projection {
@@ -29,6 +30,9 @@ public:
 
   /** Event is a friend. */
   friend class Event;
+
+  /** The Cmp specialization for Projection is a friend. */
+  friend class Cmp<Projection>;
 
 public:
 
@@ -85,7 +89,7 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  virtual int cmp(const Projection & p) const = 0;
+  virtual int compare(const Projection & p) const = 0;
 
 public:
 
@@ -94,7 +98,7 @@ public:
    * \a p given as argument. If \a p is of a different class than
    * this, the before() function of the corresponding type_info
    * objects is used. Otherwise, if the objects are of the same class,
-   * the virtual cmp(const Projection &) will be returned.
+   * the virtual compare(const Projection &) will be returned.
    */
   inline bool before(const Projection & p) const;
 
