@@ -1,0 +1,47 @@
+mv bndtst.fpp    bndtst.F
+mv   bounds.fpp	 bounds.F
+mv   bucmve.fpp	 bucmve.F
+mv   bufopt.fpp	 bufopt.F
+mv  delbnd.fpp	 delbnd.F
+mv   delete.fpp	 delete.F
+mv   delslv.fpp	 delslv.F
+mv   divon.fpp 	 divon.F 
+mv   dvcopy.fpp	 dvcopy.F
+mv   dvdot.fpp 	 dvdot.F 
+mv   dvnbkd.fpp	 dvnbkd.F
+mv   exmbuc.fpp	 exmbuc.F
+mv   feasmv.fpp	 feasmv.F
+mv   feqn.fpp  	 feqn.F  
+mv   fun.fpp   	 fun.F   
+mv   genpnt.fpp	 genpnt.F
+mv   grdcmp.fpp	 grdcmp.F
+mv   intgrl.fpp	 intgrl.F
+mv   ldlsol.fpp	 ldlsol.F
+mv   locsch.fpp	 locsch.F
+mv   modchl.fpp	 modchl.F
+mv   mulchk.fpp	 mulchk.F
+mv   mxstep.fpp	 mxstep.F
+mv   newptq.fpp	 newptq.F
+mv   nmdchl.fpp	 nmdchl.F
+mv   nocut.fpp 	 nocut.F 
+mv   nodaud.fpp	 nodaud.F
+mv   orthvc.fpp	 orthvc.F
+mv   partn.fpp 	 partn.F 
+mv   quad.fpp  	 quad.F  
+mv   quasi.fpp 	 quasi.F 
+mv   ranums.fpp	 ranums.F
+mv   recparz.fpp	 recparz.F
+mv   rlen.fpp  	 rlen.F  
+mv  settol.fpp	 settol.F
+mv   shrnk.fpp 	 shrnk.F 
+mv   split.fpp 	 split.F 
+mv   treaud.fpp	 treaud.F
+mv   tredmp.fpp	 tredmp.F
+mv   tstext.fpp	 tstext.F
+mv   usrint.fpp	 usrint.F
+mv   usrtrm.fpp	 usrtrm.F
+
+
+
+
+
