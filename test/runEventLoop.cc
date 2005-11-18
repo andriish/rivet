@@ -77,7 +77,6 @@ int main(int argc, char * argv[]) {
     rh.init();
 
     if ( eg ) {
-
       if ( seed > 0 ) eg->setSeed(seed);
 
       // Initialize the Event generator
