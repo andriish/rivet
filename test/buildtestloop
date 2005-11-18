@@ -1,0 +1,1 @@
+LD_LIBRARY_PATH=/usr/local/lib/ThePEG:/usr/local/lib:/usr/local/lib:/home/buckley/scratch/local/lib: ./runEventLoop SimpleLEP.run
