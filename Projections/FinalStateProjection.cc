@@ -18,11 +18,12 @@ int FinalStateProjection::compare(const Projection & p) const {
 }
 
 void FinalStateProjection::project(const Event & e) {
+  theParticles.clear();
   for ( GenEvent::particle_const_iterator pi = e.genEvent().particles_begin();
-	pi != e.genEvent().particles_end(); ++pi ) {
+        pi != e.genEvent().particles_end(); ++pi ) {
     if ( (*pi)->status() == 1 &&
-	 (*pi)->momentum().eta() > etamin &&
-	 (*pi)->momentum().eta() < etamax)
+         (*pi)->momentum().eta() > etamin &&
+         (*pi)->momentum().eta() < etamax)
       theParticles.push_back(Particle(**pi));
   }
 }

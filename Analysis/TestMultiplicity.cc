@@ -7,6 +7,7 @@
 #include "TestMultiplicity.h"
 
 using namespace Rivet;
+using namespace std;
 
 TestMultiplicity::~TestMultiplicity() {}
 
@@ -15,9 +16,9 @@ void TestMultiplicity::init() {
 }
 
 void TestMultiplicity::analyze(const Event & event) {
-  const FinalStateHCM & fs = event(fsproj);
-  // int mult =
-    fs.particles().size();
+  const FinalStateProjection & fs = event(fsproj);
+  int mult =  fs.particles().size();
+  cout << "Event multiplicity = " << mult << endl;
   // Fill histogram here.
 }
 
