@@ -8,6 +8,7 @@
 #include "ThePEG/CLHEPWrap/GenEventConverter.h"
 
 #include "Rivet/Analysis/RivetHandler.h"
+#include "Rivet/Analysis/TestMultiplicity.h"
 
 int main(int argc, char * argv[]) {
   using namespace ThePEG;
@@ -72,6 +73,8 @@ int main(int argc, char * argv[]) {
    
     // Rivet things
     Rivet::RivetHandler rh("rivettest");
+    rh.addAnalysis(Rivet::TestMultiplicity());
+    rh.init();
 
     if ( eg ) {
 
@@ -86,26 +89,29 @@ int main(int argc, char * argv[]) {
       // HERE IS THE MAIN EVENT LOOP
       N = 10;
       for ( int ieve = 0; ieve < N; ++ieve ) {
+        // Generate an event 
+        EventPtr event = eg->shoot();
+        // Convert to a CLHEP::GenEvent
+        CLHEPMC::GenEvent * geneve = GenEventConverter::convert(*event);
 
-	// Generate an event 
-	EventPtr event = eg->shoot();
+        // Do whatever you want with the event here
+        if ( ieve < 10 ) geneve->print(cout);
 
-	// Convert to a CLHEP::GenEvent
-	CLHEPMC::GenEvent * geneve = GenEventConverter::convert(*event);
+        // Perform Rivet analysis
+        rh.analyze(*geneve);
 
-	// Do whatever you want with the event here
-	if ( ieve < 10 ) geneve->print(cout);
-
-	// Don't forget to delete the CLHEP::GenEvent (The
-	// ThePEG::Event is automatically garbage collected)
-	delete geneve;
-
+        // Don't forget to delete the CLHEP::GenEvent (The
+        // ThePEG::Event is automatically garbage collected)
+        delete geneve;
       }
 
       // End the run
       eg->finalize();
+      rh.finalize();
 
-    } else std::cout << "eg = nil" << endl;
+    } else {
+      std::cout << "eg = nil" << endl;
+    }
 
   }
   catch ( std::exception & e ) {
