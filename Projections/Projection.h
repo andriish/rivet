@@ -10,6 +10,7 @@
 #include "Projection.fh"
 #include "Rivet/Projections/Event.fh"
 #include "Rivet/Projections/Cmp.fh"
+#include "Rivet/Analysis/RivetInfo.h"
 
 namespace Rivet {
 
@@ -101,6 +102,14 @@ public:
    * the virtual compare(const Projection &) will be returned.
    */
   inline bool before(const Projection & p) const;
+
+protected:
+
+  /**
+   * The object containing the parameters of this Projection to be
+   * communicated to the outside world.
+   */
+  RivetInfo info;
 
 private:
 

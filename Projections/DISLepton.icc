@@ -7,7 +7,9 @@
 namespace Rivet {
 
 inline DISLepton::DISLepton(long inid, long outid)
-  : idin(inid), idout(outid) {}
+  : idin(inid), idout(outid) {
+  info.declareParameter("BeamA", inid);
+}
 
 inline DISLepton::DISLepton(const DISLepton & x)
   : Projection(x), beams(x.beams), idin(x.idin), idout(x.idout),

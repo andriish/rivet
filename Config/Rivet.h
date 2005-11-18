@@ -3,6 +3,7 @@
 
 #include <typeinfo>
 #include <set>
+#include <map>
 #include <string>
 #include <vector>
 #include <stdexcept>
@@ -13,6 +14,8 @@
 namespace Rivet {
 
 using std::set;
+using std::map;
+using std::multimap;
 using std::type_info;
 using std::string;
 using std::less;

@@ -1,0 +1,15 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the RivetInfo class.
+//
+
+namespace Rivet {
+
+inline RivetInfo::RivetInfo() {}
+
+inline RivetInfo::RivetInfo(const RivetInfo & x)
+  : theParTypes(x.theParTypes), theParDescriptions(x.theParDescriptions),
+  theIntPars(x.theIntPars), theFloatPars(x.theFloatPars) {}
+
+}
