@@ -7,8 +7,11 @@
 #include "ThePEG/Utilities/Exception.h"
 #include "ThePEG/CLHEPWrap/GenEventConverter.h"
 
+#include "Rivet/Analysis/RivetHandler.h"
+
 int main(int argc, char * argv[]) {
   using namespace ThePEG;
+  //using namespace Rivet;
 
   // First we get some command-line arguments
 
@@ -66,6 +69,9 @@ int main(int argc, char * argv[]) {
     MainTimer timer(".runThePEG.timer." + run);
 
     breakThePEG();
+   
+    // Rivet things
+    Rivet::RivetHandler rh("rivettest");
 
     if ( eg ) {
 
@@ -78,6 +84,7 @@ int main(int argc, char * argv[]) {
       if ( N < 0 ) N = eg->N();
 
       // HERE IS THE MAIN EVENT LOOP
+      N = 10;
       for ( int ieve = 0; ieve < N; ++ieve ) {
 
 	// Generate an event 
