@@ -1,7 +1,7 @@
 // -*- C++ -*-
 
 #include "Rivet/Analysis/RivetHandler.h"
-#include "Rivet/Analysis/TestMultiplicity.h"
+#include "Rivet/Analysis/Examples/TestMultiplicity.h"
 
 int main() {
 

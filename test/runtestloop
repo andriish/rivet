@@ -1,1 +1,1 @@
-LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib/ThePEG:/hepforge/rivet/local/lib/Rivet:/home/buckley/scratch/local/lib: ./runEventLoop SimpleLEP.run
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/lib/ThePEG ./testloop SimpleLEP.run

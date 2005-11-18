@@ -1,9 +1,12 @@
-mySOURCES = AnalysisBase.cc RivetHandler.cc TestMultiplicity.cc
+SUBDIRS = Examples
 
-DOCFILES = AnalysisBase.h RivetHandler.h TestMultiplicity.h
+mySOURCES = AnalysisBase.cc RivetHandler.cc 
 
-INCLUDEFILES = $(DOCFILES) AnalysisBase.fh AnalysisBase.icc \
-               RivetHandler.fh RivetHandler.icc TestMultiplicity.icc
+DOCFILES = AnalysisBase.h RivetHandler.h 
+
+INCLUDEFILES = $(DOCFILES) \
+               AnalysisBase.fh AnalysisBase.icc \
+               RivetHandler.fh RivetHandler.icc
 
 noinst_LTLIBRARIES = libRivetAnalysis.la
 libRivetAnalysis_la_SOURCES = $(mySOURCES) $(INCLUDEFILES)

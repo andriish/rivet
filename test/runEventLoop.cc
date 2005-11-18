@@ -8,7 +8,7 @@
 #include "ThePEG/CLHEPWrap/GenEventConverter.h"
 
 #include "Rivet/Analysis/RivetHandler.h"
-#include "Rivet/Analysis/TestMultiplicity.h"
+#include "Rivet/Analysis/Examples/TestMultiplicity.h"
 
 int main(int argc, char * argv[]) {
   using namespace ThePEG;

@@ -1,1 +1,0 @@
-g++ -L/hepforge/rivet/local/lib/Rivet -I/hepforge/rivet/local/include -L/usr/local/lib/ThePEG -L/hepforge/rivet/local/lib -lCLHEP -lThePEG -lRivet runEventLoop.cc -o runEventLoop

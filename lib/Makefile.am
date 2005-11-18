@@ -10,6 +10,7 @@ libRivet_la_LDFLAGS = -version-info 1:0:0 -export-dynamic -L$(CLHEPPATH)/lib
 libRivet_la_SOURCES =
 libRivet_la_LIBADD = \
 	$(top_builddir)/Analysis/libRivetAnalysis.la \
+	$(top_builddir)/Analysis/Examples/libRivetAnalysisExamples.la \
 	$(top_builddir)/Projections/libRivetProjections.la \
 	$(CLHEPLIB) -ldl 
 
