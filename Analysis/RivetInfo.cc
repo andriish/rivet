@@ -5,7 +5,6 @@
 //
 
 #include "RivetInfo.h"
-#include "ThePEG/Interface/ClassDocumentation.h"
 
 using namespace Rivet;
 
