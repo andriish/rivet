@@ -1,8 +1,7 @@
 noinst_PROGRAMS = testrivet testloop
 
 myLDADD = $(top_builddir)/lib/libRivet.la -lCLHEP -lThePEG
-myLDFLAGS = -export-dynamic \
-            -L/usr/local/lib/ThePEG
+myLDFLAGS = -export-dynamic -L$(THEPEGPATH)/lib/ThePEG
 
 testrivet_SOURCES = testrivet.cc
 testrivet_LDADD = $(myLDADD)

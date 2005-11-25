@@ -18,10 +18,13 @@ AC_PROG_MAKE_SET #???
 AC_PROG_LN_S
 AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
-
 AC_PROG_LIBTOOL
 
+## Find CLHEP
 AC_SEARCH_CLHEP
+
+## Find ThePEG (should be optional)
+AC_CEDAR_CHECK_THEPEG
 
 AM_CPPFLAGS="-I\$(top_builddir)/include $CLHEPINCLUDE"
 AM_CXXFLAGS="-ansi -pedantic -Wall"

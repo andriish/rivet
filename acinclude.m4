@@ -1,4 +1,6 @@
 # Search for CLHEP in standard directories using standard CLHEP names
+#AC_SEARCH_CLHEP
+#----------------------------------------
 AC_DEFUN([AC_SEARCH_CLHEP],
 [AC_MSG_CHECKING([if CLHEPPATH, CLHEPLIB and CLHEPINCLUDE are set])
 notset=""
@@ -77,3 +79,174 @@ AC_DEFUN([AC_EMPTY_SUBST],
 AC_SUBST(EMPTY)
 ])
 
+
+#AC_CEDAR_CHECK_GENERATOR([Name], [Version])
+#----------------------------------------
+AC_DEFUN([AC_CEDAR_CHECK_GENERATOR], [
+  m4_define([cedar_prettyname], [$1 $2])dnl
+  m4_define([cedar_PKGNAME], [translit([translit([$1$2], [a-z], [A-Z])], [.])])dnl
+  m4_define([cedar_pkgname], [translit([translit([$1$2], [A-Z], [a-z])], [.])])dnl
+  m4_define([cedar_libname], [lib@&t@cedar_pkgname@&t@.a])dnl
+  m4_define([cedar_incname], [cedar_pkgname])dnl
+
+  AC_MSG_RESULT([Checking for cedar_prettyname:]) 
+  # Don't know why this isn't working by default:
+  test x${prefix} == xNONE && prefix=${ac_default_prefix}
+  AC_ARG_WITH([cedar_pkgname],
+              AC_HELP_STRING(--with-@&t@cedar_pkgname, path to cedar_prettyname generator),
+              [pkgpath=$with_@&t@cedar_pkgname],
+              [pkgpath=${prefix}])
+  pkglib=yes; pkginc=yes; pkggood=yes
+
+  if test x$pkgpath != xno; then
+    AC_CHECK_FILE([$pkgpath/lib/cedar_libname],
+                  [AC_MSG_NOTICE([Found cedar_libname])], 
+                  [pkglib=no; AC_MSG_NOTICE([trying to find cedar_prettyname library in build directory structure...])])
+    if test x$pkglib == xno; then
+      AC_CHECK_FILE([$pkgpath/src/cedar_libname],
+                    [pkglib=yes; AC_MSG_NOTICE([Found cedar_libname])], 
+                    [pkggood=no; AC_MSG_RESULT([cedar_prettyname library "cedar_libname" is not in a standard location])])
+    fi
+    if test x$pkggood != xno; then
+      AC_CHECK_FILE([$pkgpath/include/cedar_incname],
+                    [AC_MSG_NOTICE([Found cedar_prettyname header directory])],
+                    [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
+      if test x$pkginc == xno; then
+        AC_CHECK_FILE([$pkgpath/include],
+                      [pkginc=yes; AC_MSG_NOTICE([Found cedar_prettyname header directory])], 
+                      [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
+      fi
+    fi
+  else
+    pkggood=no
+  fi
+  if test x$pkggood != xno; then
+    AC_MSG_RESULT([cedar_prettyname paths verified])
+  else
+    AC_MSG_RESULT([Not building against cedar_prettyname])
+  fi
+  # Note quoting subtlty on first arg of AM_CONDITIONAL:
+  AM_CONDITIONAL(WITH_@&t@cedar_PKGNAME, [test x$pkggood != xno])
+  cedar_PKGNAME@&t@PATH=${pkgpath}
+  AC_SUBST(cedar_PKGNAME@&t@PATH)
+])
+
+
+#AC_CEDAR_CHECK_GENHEAD([Name], [Version])
+#----------------------------------------
+AC_DEFUN([AC_CEDAR_CHECK_GENHEAD], [
+  m4_define([cedar_prettyname], [$1 $2])dnl
+  m4_define([cedar_PKGNAME], [translit([translit([$1$2], [a-z], [A-Z])], [.])])dnl
+  m4_define([cedar_pkgname], [translit([translit([$1$2], [A-Z], [a-z])], [.])])dnl
+  m4_define([cedar_libname], [lib@&t@cedar_pkgname@&t@.a])dnl
+  m4_define([cedar_incname], [cedar_pkgname])dnl
+
+  AC_MSG_RESULT([Checking for cedar_prettyname:]) 
+  # Don't know why this isn't working by default:
+  test x${prefix} == xNONE && prefix=${ac_default_prefix}
+  AC_ARG_WITH([cedar_pkgname],
+              AC_HELP_STRING(--with-@&t@cedar_pkgname, path to cedar_prettyname generator),
+              [pkgpath=$with_@&t@cedar_pkgname],
+              [pkgpath=${prefix}])
+  pkglib=yes; pkginc=yes; pkggood=yes
+
+  if test x$pkgpath != xno; then
+    if test x$pkggood != xno; then
+      AC_CHECK_FILE([$pkgpath/include/cedar_incname],
+                    [AC_MSG_NOTICE([Found cedar_prettyname header directory])],
+                    [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
+      if test x$pkginc == xno; then
+        AC_CHECK_FILE([$pkgpath/include],
+                      [pkginc=yes; AC_MSG_NOTICE([Found cedar_prettyname header directory])], 
+                      [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
+      fi
+    fi
+  else
+    pkggood=no
+  fi
+  if test x$pkggood != xno; then
+    AC_MSG_RESULT([cedar_prettyname paths verified])
+  else
+    AC_MSG_RESULT([Not building against cedar_prettyname])
+  fi
+  # Note quoting subtlty on first arg of AM_CONDITIONAL:
+  AM_CONDITIONAL(WITH_@&t@cedar_PKGNAME, [test x$pkggood != xno])
+  cedar_PKGNAME@&t@PATH=${pkgpath}
+  AC_SUBST(cedar_PKGNAME@&t@PATH)
+])
+
+
+#AC_CEDAR_CHECK_REQDPKG([Name], [Version])
+#--------------------------------------
+AC_DEFUN([AC_CEDAR_CHECK_REQDPKG], [
+  m4_define([cedar_prettyname], [$1])dnl
+  m4_define([cedar_PKGNAME], [translit([translit([$1], [a-z], [A-Z])], [.])])dnl
+  m4_define([cedar_pkgname], [translit([translit([$1], [A-Z], [a-z])], [.])])dnl
+  m4_define([cedar_libname], [lib@&t@cedar_pkgname@&t@.a])dnl
+  m4_define([cedar_incname], [cedar_pkgname])dnl
+
+  AC_MSG_RESULT([Checking for cedar_prettyname:])
+  # Don't know why this isn't working by default:
+  test x${prefix} == xNONE && prefix=${ac_default_prefix}
+  AC_ARG_WITH([cedar_pkgname],
+              AC_HELP_STRING(--with-@&t@cedar_pkgname, path to cedar_prettyname),
+              [pkgpath=$with_@&t@cedar_pkgname], 
+              [pkgpath=${prefix}])
+  pkglib=yes; pkginc=yes; pkggood=yes
+
+  if test x$pkgpath != xno; then
+    AC_CHECK_FILE([${pkgpath}/lib/cedar_libname], [],
+                  [pkglib=no; AC_MSG_NOTICE([trying to find cedar_prettyname library in build directory structure...])])
+    if test x$pkglib == xno; then
+      AC_CHECK_FILE([${pkgpath}/src/cedar_libname], [pkglib=yes], 
+                    [AC_MSG_ERROR([cedar_prettyname library "cedar_libname" is not in a standard location])])
+    fi
+    AC_MSG_NOTICE([Found cedar_libname])
+    AC_CHECK_FILE([${pkgpath}/include/cedar_incname], [], 
+                  [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
+    if test x$pkginc == xno; then
+      AC_CHECK_FILE([${pkgpath}/inc], [pkginc=yes],
+                    [AC_MSG_ERROR([cedar_prettyname header directory is not in a standard location])])
+    fi
+    AC_MSG_NOTICE([Found cedar_prettyname header directory])
+  else
+    AC_MSG_ERROR([You've specified "--without-@&t@cedar_pkgname", but cedar_prettyname is required to build ${PACKAGE_NAME}])
+  fi
+  AC_MSG_RESULT([cedar_prettyname paths verified])
+  cedar_PKGNAME@&t@PATH=${pkgpath}
+  AC_SUBST(cedar_PKGNAME@&t@PATH)
+])
+
+
+#AC_CEDAR_CHECK_THEPEG()
+#--------------------------------------
+AC_DEFUN([AC_CEDAR_CHECK_THEPEG], [
+  #m4_define([cedar_prettyname], [$1])dnl
+  #m4_define([cedar_PKGNAME], [translit([translit([$1], [a-z], [A-Z])], [.])])dnl
+  #m4_define([cedar_pkgname], [translit([translit([$1], [A-Z], [a-z])], [.])])dnl
+  #m4_define([cedar_libname], [lib@&t@cedar_pkgname@&t@.a])dnl
+  #m4_define([cedar_incname], [cedar_pkgname])dnl
+
+  AC_MSG_RESULT([Checking for ThePEG:])
+  # Don't know why this isn't working by default:
+  test x${prefix} == xNONE && prefix=${ac_default_prefix}
+  AC_ARG_WITH(thepeg,
+              AC_HELP_STRING(--with-thepeg, path to ThePEG),
+              [pkgpath=$with_thepeg], 
+              [pkgpath=${prefix}])
+  pkglib=yes; pkginc=yes; pkggood=yes
+
+  if test x$pkgpath != xno; then
+    AC_CHECK_FILE([${pkgpath}/lib/ThePEG/libThePEG.so], [],
+                  [pkglib=no; AC_MSG_ERROR([ThePEG library "libThePEG.so" is not in a standard location])])
+    AC_MSG_NOTICE([Found ThePEG libraries])
+    AC_CHECK_FILE([${pkgpath}/include/ThePEG], [],
+                  [pkginc=no; AC_MSG_ERROR([cedar_prettyname header directory is not in a standard location])])
+    AC_MSG_NOTICE([Found ThePEG header directory])
+  else
+    AC_MSG_ERROR([You've specified "--without-thepeg", but ThePEG is required to build ${PACKAGE_NAME}])
+  fi
+  AC_MSG_RESULT([ThePEG paths verified])
+  THEPEGPATH=${pkgpath}
+  AC_SUBST(THEPEGPATH)
+])
