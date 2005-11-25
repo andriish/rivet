@@ -110,12 +110,13 @@ AC_DEFUN([AC_CEDAR_CHECK_GENERATOR], [
     if test x$pkggood != xno; then
       AC_CHECK_FILE([$pkgpath/include/cedar_incname],
                     [AC_MSG_NOTICE([Found cedar_prettyname header directory])],
-                    [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
-      if test x$pkginc == xno; then
-        AC_CHECK_FILE([$pkgpath/include],
-                      [pkginc=yes; AC_MSG_NOTICE([Found cedar_prettyname header directory])], 
-                      [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
-      fi
+                    [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
+      #              [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
+      #if test x$pkginc == xno; then
+      #  AC_CHECK_FILE([$pkgpath/include],
+      #                [pkginc=yes; AC_MSG_NOTICE([Found cedar_prettyname header directory])], 
+      #                [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
+      #fi
     fi
   else
     pkggood=no
@@ -154,12 +155,13 @@ AC_DEFUN([AC_CEDAR_CHECK_GENHEAD], [
     if test x$pkggood != xno; then
       AC_CHECK_FILE([$pkgpath/include/cedar_incname],
                     [AC_MSG_NOTICE([Found cedar_prettyname header directory])],
-                    [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
-      if test x$pkginc == xno; then
-        AC_CHECK_FILE([$pkgpath/include],
-                      [pkginc=yes; AC_MSG_NOTICE([Found cedar_prettyname header directory])], 
-                      [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
-      fi
+                    [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
+      #              [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
+      #if test x$pkginc == xno; then
+      #  AC_CHECK_FILE([$pkgpath/include],
+      #                [pkginc=yes; AC_MSG_NOTICE([Found cedar_prettyname header directory])], 
+      #                [pkggood=no; AC_MSG_RESULT([cedar_prettyname header directory is not in a standard location])])
+      #fi
     fi
   else
     pkggood=no
@@ -203,11 +205,11 @@ AC_DEFUN([AC_CEDAR_CHECK_REQDPKG], [
     fi
     AC_MSG_NOTICE([Found cedar_libname])
     AC_CHECK_FILE([${pkgpath}/include/cedar_incname], [], 
-                  [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
-    if test x$pkginc == xno; then
-      AC_CHECK_FILE([${pkgpath}/inc], [pkginc=yes],
+    #              [pkginc=no; AC_MSG_NOTICE([trying to find cedar_prettyname header directory in build directory structure...])])
+    #if test x$pkginc == xno; then
+    #  AC_CHECK_FILE([${pkgpath}/inc], [pkginc=yes],
                     [AC_MSG_ERROR([cedar_prettyname header directory is not in a standard location])])
-    fi
+    #fi
     AC_MSG_NOTICE([Found cedar_prettyname header directory])
   else
     AC_MSG_ERROR([You've specified "--without-@&t@cedar_pkgname", but cedar_prettyname is required to build ${PACKAGE_NAME}])
