@@ -71,15 +71,13 @@ extern "C" void*  herwig_common_block_address_(char*, int len);
 
 static int Initialized = 0;
 
-					// define pointers to FORTRAN common-blocks
-					// it is important that they are returned 
-					// by a FORTRAN routine, so it doesn't 
-					// require linking in any additional 
-					// object files
-void InitHerwigCommonBlocks(){
+// Define pointers to FORTRAN common-blocks it is important that they are 
+// returned by a FORTRAN routine, so it doesn't require linking in any 
+// additional object files
+void InitHerwigCommonBlocks() {
 
   if (Initialized) return;
-  Initialized = 1;
+
   gHwbeam    = (Hwbeam_t*   ) herwig_common_block_address_("HWBEAM",6); 
   gHwbmch    = (Hwbmch_t*   ) herwig_common_block_address_("HWBMCH",6); 
   gHwproc    = (Hwproc_t*   ) herwig_common_block_address_("HWPROC",6);
@@ -136,12 +134,7 @@ void InitHerwigCommonBlocks(){
   // Jimmy common blocks
   gJmparm    = (Jmparm_t*   ) herwig_common_block_address_("JMPARM",6);;
 
-  // atlas special
-
-//   gHwumsc    = (Hwumsc_t*   ) herwig_common_block_address_("HWUMSC",6); 
-  //  gHepevt    = (Hepevt_t*  ) herwig_common_block_address_("HEPEVTD",7); 
-
-
+  Initialized = 1;
 }
 
 

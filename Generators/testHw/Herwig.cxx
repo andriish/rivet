@@ -31,11 +31,16 @@
 //#include "GeneratorUtils/StringParse.h"
 //#include <stdlib.h>
 
+#include "StringParse.h"
+
 #include "CLHEP/Random/RandFlat.h"
+#include "CLHEP/Random/RandEngine.h"
+#include "CLHEP/Random/RandomEngine.h"
 //#include "AthenaKernel/IAtRndmGenSvc.h"
 //#include "StoreGate/StoreGateSvc.h"
 
 //-------------------------------
+
 
 #define evtcon evtcon_
 
@@ -45,24 +50,19 @@ extern struct
 } evtcon;
 
 // Pointer On AtRndmGenSvc
-IAtRndmGenSvc* 	p_AtRndmGenSvc;
-std::string	herwig_stream	=	"HERWIG_INIT";
-extern "C" double atl_hwrgen_( int* idummy )
-{
-  CLHEP::HepRandomEngine* engine = p_AtRndmGenSvc->GetEngine(herwig_stream);
+extern "C" double atl_hwrgen_( int* idummy ) {
+  CLHEP::HepRandomEngine* engine = new CLHEP::RandEngine();
   return CLHEP::RandFlat::shoot(engine);
 }
 
 // calls to fortran routines
-extern "C" double atl_phoran_( int* idummy )
-{
-  CLHEP::HepRandomEngine* engine = p_AtRndmGenSvc->GetEngine("PHOTOS");
+extern "C" double atl_phoran_( int* idummy ) {
+  CLHEP::HepRandomEngine* engine = new CLHEP::RandEngine();
   return CLHEP::RandFlat::shoot(engine);
 }
 
-extern "C" float atl_ranmar_()
-{
-  CLHEP::HepRandomEngine* engine = p_AtRndmGenSvc->GetEngine("TAUOLA");
+extern "C" float atl_ranmar_() {
+  CLHEP::HepRandomEngine* engine = new CLHEP::RandEngine();
   return (float) CLHEP::RandFlat::shoot(engine);
 }
 
@@ -75,13 +75,13 @@ extern "C" {
   void herwiginterface_(int* itopd);
   //  void cdfreadsusy_(char* file,int *syunit);
   void cdfreadsusy_(const char* ,int * , int);
-  //  In Herwig 
+  //  In Herwig
   //susy
   void hwissp_(int *syunit);
 
   // Alpgen special
   //void hwigup_();
-    
+
   void hwuinc_();
   //  void hwusta(int *tstab);
   //  void hwabeg_();
@@ -97,7 +97,7 @@ extern "C" {
   void hwdhad_();
   void hwdhvy_();
   void hwmevt_();
-  void hwufne_(); 
+  void hwufne_();
   void hwefin_();
   void hwanal_(int *ihwcod);
   //  void hwefin_();
@@ -108,11 +108,11 @@ extern "C" {
   void extproc_(int*);
 
   void upveto_(int*);
-  
+
 }
 //-----------------------------------
 //using HepMC::Vertex;
-//using HepMC::Particle;  
+//using HepMC::Particle;
 using HepMC::IO_HERWIG;
 using HepMC::IO_HEPEVT;
 using HepMC::IO_Ascii;
@@ -120,52 +120,47 @@ using HepMC::IO_Ascii;
 // File scope declarations:-
 
 // set pointer to zero at start
-Atlas_HEPEVT*  Herwig::atlas_HEPEVT = new Atlas_HEPEVT();
+//Atlas_HEPEVT*  Herwig::atlas_HEPEVT = new Atlas_HEPEVT();
 
 //--------------------------------------------------------------------------
-Herwig::Herwig(const std::string& name, 
-	       ISvcLocator* pSvcLocator): GenModule(name,pSvcLocator)
-{
-  //--------------------------------------------------------------------------  
-  declareProperty("HerwigCommand", m_herwigCommandVector);
+Herwig::Herwig(const std::string& name) {
+  //AGB:   declareProperty("HerwigCommand", m_herwigCommandVector);
 }
 //--------------------------------------------------------------------------
-Herwig::~Herwig(){
-  //--------------------------------------------------------------------------
-}
+Herwig::~Herwig(){}
 //-------------------------------------------------------------
-AcerMC_acset& Herwig::acermc_acset() {
-  return m_acermc_acset;
-}
+//AGB: AcerMC_acset& Herwig::acermc_acset() {
+//AGB:   return m_acermc_acset;
+//AGB: }
 
 //---------------------------------------------------------------------------
 StatusCode Herwig::genInitialize() {
   //---------------------------------------------------------------------------
   // Initialise the listing output, parameter and decay data input streams
   //
-  MsgStream log(messageService(), name());
-  log << MSG:: INFO << " HERWIG INITIALISING.  \n"  << endreq;
-  
+  //AGB: MsgStream log(messageService(), name());
+  std::cout << " HERWIG INITIALISING"  << std::endl;
+
   static const bool CREATEIFNOTTHERE(true);
-  StatusCode RndmStatus = service("AtRndmGenSvc", p_AtRndmGenSvc, CREATEIFNOTTHERE);
-  if (!RndmStatus.isSuccess() || 0 == p_AtRndmGenSvc)
-    {
-      log << MSG::ERROR << " Could not initialize Random Number Service" << endreq;
-      return RndmStatus;
-    }	
+  //StatusCode RndmStatus = service("AtRndmGenSvc", p_AtRndmGenSvc, CREATEIFNOTTHERE);
+  //if (!RndmStatus.isSuccess() || 0 == p_AtRndmGenSvc)
+  //  {
+  //    std::coutERROR << " Could not initialize Random Number Service" << std::endl;
+  //    return RndmStatus;
+  //  }
 
   m_noshower_Parm=false;
   m_nohadroniz_Parm=false;
   // default is to shower and hadronize
   HepMC::HEPEVT_Wrapper::set_sizeof_int(4);
   HepMC::HEPEVT_Wrapper::set_sizeof_real(8);
-  HepMC::HEPEVT_Wrapper::set_max_number_entries(10000); 
+  HepMC::HEPEVT_Wrapper::set_max_number_entries(10000);
   // Map Herwig Common blocks to global C structures
   InitHerwigCommonBlocks();
 
   // Initialize all local parameters to Herwig defaults
-  Her2Localpar();  
-  
+  Her2Localpar();
+
   // set some defaults
   m_Beamtype1_Parm="P       ";
   m_Beamtype2_Parm="P       ";
@@ -177,8 +172,8 @@ StatusCode Herwig::genInitialize() {
   m_randomseed2_Parm=63565;
   m_process=1400;  // default process is W+Jets
   m_maxer_Parm=500000; // max number of events
-  m_modpdf=12;  
-  m_ExternalProcess = 0;
+  m_modpdf=12;
+  //m_ExternalProcess = 0;
 
   //Set defaults parameters for weak boson decays
   m_modBos_Parm[0] = 0;
@@ -196,41 +191,41 @@ StatusCode Herwig::genInitialize() {
   bool                          proc_not_found  =       true;
   do {
     StringParse mystring(*ic);
-    string myvar=mystring.piece(1);
-    int myint1=mystring.intpiece(2);
-    if(myvar=="iproc") {
-      m_process             =       myint1;
-      proc_not_found        =       false;
+    std::string myvar = mystring.piece(1);
+    int myint1 = mystring.intpiece(2);
+    if (myvar=="iproc") {
+      m_process = myint1;
+      proc_not_found = false;
     }
     ic++;
   } while (ic != m_herwigCommandVector.end() && proc_not_found);
   //  initialized  values of Localpars into Herwig Commons
   Localpar2Her();
   // Call Fortran Routine to Initialize Herwig Common Block
-  // cout <<  " calling herwiginterface" << endl;
+  // cout <<  " calling herwiginterface" << std::endl;
   ic              =       m_herwigCommandVector.begin();
   bool   itopd_not_found  =       true;
   m_itopd = 0;
   do {
     StringParse mystring(*ic);
-    string myvar=mystring.piece(1);
-    int myint1=mystring.intpiece(2);
-    if(myvar=="topdec") {
-      m_itopd             =       myint1;
-      itopd_not_found        =       false;
+    std::string myvar = mystring.piece(1);
+    int myint1 = mystring.intpiece(2);
+    if (myvar == "topdec") {
+      m_itopd = myint1;
+      itopd_not_found = false;
     }
     ic++;
   } while (ic != m_herwigCommandVector.end() && itopd_not_found);
   herwiginterface_(&m_itopd);
   // Transfer numbers from Herwig Common Blocks to Localpars
-  //   cout <<  " calling Her2Localpar" << endl;
-  Her2Localpar();  
+  //   cout <<  " calling Her2Localpar" << std::endl;
+  Her2Localpar();
   //now read in all the parameter changes from the user
   for (size_t i = 0; i < m_herwigCommandVector.size(); i++) {
-    log << MSG:: INFO  << " Command is: " << m_herwigCommandVector[i] << endreq;
+    std::cout  << " Command is: " << m_herwigCommandVector[i] << std::endl;
     StringParse mystring(m_herwigCommandVector[i]);
-    string myvar=mystring.piece(1);
-    string myvar1=mystring.piece(2);
+    std::string myvar=mystring.piece(1);
+    std::string myvar1=mystring.piece(2);
     int myint1=mystring.intpiece(2);
     int myint2=mystring.intpiece(3);
     double  myfl1=mystring.numpiece(2);
@@ -244,33 +239,33 @@ StatusCode Herwig::genInitialize() {
     else if (  myvar== "qcdlam") {m_lambdaQCD_Parm=myfl1;}
     else if(myvar=="iproc"){
       if (myvar1 == "acermc") {
-	m_process=-600;
-	m_ExternalProcess = 3;
+        m_process=-600;
+        //AGB: m_ExternalProcess = 3;
       } else if(myvar1 == "alpgen") {
-	m_process=-100;
-	m_ExternalProcess = 4;
+        m_process=-100;
+        //AGB: m_ExternalProcess = 4;
       } else if (myvar1 == "madgraph") {
-	m_process=-950;
-	m_ExternalProcess = 5;
+        m_process=-950;
+        //AGB: m_ExternalProcess = 5;
       } else if (myvar1 == "madcup") {
-	m_process=-800;
-	m_ExternalProcess = 6;
+        m_process=-800;
+        //AGB: m_ExternalProcess = 6;
       } else if(myvar1 == "lhaext") {
-	m_process=-900;
-	m_ExternalProcess = 8;
+        m_process=-900;
+        //AGB: m_ExternalProcess = 8;
       } else if (myvar1 == "mcatnlo") {
-	m_process=-700;
-	m_ExternalProcess = 9;
+        m_process=-700;
+        //AGB: m_ExternalProcess = 9;
       } else {m_process=myint1;}
-      extproc_(&m_ExternalProcess);
+      //AGB: extproc_(&m_ExternalProcess);
     }
     // AcerMC tt~ decay mode switching
     else if(myvar=="acset12") {
-      if (m_process==-600) {
-	this->acermc_acset().acset12()=myint1;
-      }
+      //AGB: if (m_process==-600) {
+      //AGB:   this->acermc_acset().acset12()=myint1;
+      //AGB: }
     }
-    // kinematic limits    
+    // kinematic limits
     else if(myvar=="ptmin"){m_ptm_Parm=myfl1;}
     else if(myvar=="ptmax"){m_ptM_Parm=myfl1;}
     else if(myvar=="emmin"){m_invarmassm_Parm=myfl1;}
@@ -279,7 +274,8 @@ StatusCode Herwig::genInitialize() {
     else if(myvar=="modpdf"){m_modpdf=myint1;}
     else if(myvar=="q2min"){ m_q2dilsm_Parm=myfl1;}
     else if(myvar=="pltcut"){ m_pltcut_Parm=myfl1;}
-    else if(myvar=="prsof"){ m_prsof_Parm=myfl1;}
+    //AGB query double -> int conversion
+    else if(myvar=="prsof"){ m_prsof_Parm = floor(myfl1); }
     else if(myvar=="clpow"){ m_clpow_Parm=myfl1;}
 
     // output control and random numbers
@@ -335,14 +331,14 @@ StatusCode Herwig::genInitialize() {
       else if(myint1 >8){m_modBos_Parm[8]=myint2;}
     }
 
-    // susy filename 
+    // susy filename
     else if(myvar=="susyfile"){m_read_Filesusy=myvar1;}
 
     // Zprime menu
     else if(myvar=="zprime"){m_zprime_Parm=myint1;}
     else if(myvar=="gamzp"){m_zpwidth_Parm=myfl1;}
 
-    // version 6.3 
+    // version 6.3
     // graviton stuff
 
     else if(myvar=="grvlam"){m_grvlam_Parm=myfl1;}
@@ -355,9 +351,9 @@ StatusCode Herwig::genInitialize() {
     // Spin correlations menu
     else if(myvar=="syspin"){m_syspin_Parm=myint1;}
     else if(myvar=="spcopt"){m_spcopt_Parm=myint1;}
-    
+
     else {
-      if (myvar!="topdec") log << MSG:: INFO << " ERROR in HERWIG PARAMETERS   " << myvar << " is not a variable name that I recognize. it could be a typo on your part or a mistake on mine. Not all variables are changeable" << endreq;
+      if (myvar!="topdec") std::cout << " ERROR in HERWIG PARAMETERS   " << myvar << " is not a variable name that I recognize. it could be a typo on your part or a mistake on mine. Not all variables are changeable" << std::endl;
     }
   }
 
@@ -365,10 +361,10 @@ StatusCode Herwig::genInitialize() {
   m_pizstable_Parm = 0;
 
   // Save the HERWIG_INIT stream seeds....
-  CLHEP::HepRandomEngine* engine = p_AtRndmGenSvc->GetEngine(herwig_stream);
-  const long*	sip	=	engine->getSeeds();
-  long	int	si1	=	sip[0];
-  long	int	si2	=	sip[1];
+  CLHEP::HepRandomEngine* engine = new CLHEP::RandEngine();
+  const long* sip = engine->getSeeds();
+  long int si1 = sip[0];
+  long int si2 = sip[1];
 
   // Special settings for Alpgen
   if ( m_process == -100 ) m_maxpr_Parm=4;
@@ -378,21 +374,21 @@ StatusCode Herwig::genInitialize() {
   // now for susy
   if(m_process >= 3000 && m_process < 5000){
     int syunit = 66;
-    ////    cdfreadsusy_(const_cast<char*>(_read_Filesusy.value().c_str()),&syunit); 
-    const string& fileName = m_read_Filesusy; 
-    cdfreadsusy_(fileName.c_str(),&syunit,fileName.size()); 
+    ////    cdfreadsusy_(const_cast<char*>(_read_Filesusy.value().c_str()),&syunit);
+    const std::string& fileName = m_read_Filesusy;
+    cdfreadsusy_(fileName.c_str(),&syunit,fileName.size());
     hwissp_(&syunit);
-  }	
-  
+  }
+
   // Special initialization for Alpgen
   //  if ( m_process == -100 ) hwigup_();
-  
+
   hwuinc_(); // calculate herwig constants
   hweini_(); // initialise herwig event.
-  
+
   // ... and set them back to the stream for proper save
-  p_AtRndmGenSvc->CreateStream(si1, si2, herwig_stream);
-  herwig_stream = "HERWIG";
+  //AGB: p_AtRndmGenSvc->CreateStream(si1, si2, herwig_stream);
+  //AGB: herwig_stream = "HERWIG";
 
   return StatusCode::SUCCESS;
 }
@@ -400,15 +396,15 @@ StatusCode Herwig::genInitialize() {
 //---------------------------------------------------------------------------
 StatusCode Herwig::callGenerator() {
   //---------------------------------------------------------------------------
-  MsgStream log(messageService(), name());
-  log << MSG:: INFO << " HERWIG generating.  \n"  << endreq;
+  //MsgStream log(messageService(), name());
+  std::cout << " HERWIG generating.  \n"  << std::endl;
   const int mxerr = 100;
   int nterr = 0;
   bool goodev = false;
 
   // Save the random number seeds in the event
-  CLHEP::HepRandomEngine*	engine	=	p_AtRndmGenSvc->GetEngine(herwig_stream);
-  const long*		s	=	engine->getSeeds();
+  CLHEP::HepRandomEngine* engine = new CLHEP::RandEngine();
+  const long*  s = engine->getSeeds();
   m_seeds.clear();
   m_seeds.push_back(s[0]);
   m_seeds.push_back(s[1]);
@@ -422,43 +418,43 @@ StatusCode Herwig::callGenerator() {
       int ipveto = 0;
       upveto_(&ipveto);
       if(ipveto != 0) {
-	gHwevnt->ierror = -1;
-	std::cout << " EVENT KILLED BY UPVETO.    EXECUTION CONTINUES" << std::endl;
+        gHwevnt->ierror = -1;
+        std::cout << " EVENT KILLED BY UPVETO.    EXECUTION CONTINUES" << std::endl;
       }
 
       if (evtcon.istg <= 0) {
-	hwbgen_();  // Generate parton cascade
-	hwdhob_();  // Do heavy quark decays 
-	hwcfor_();  // Do cluster formation
-	hwcdec_();  // Do cluster decays
-	hwdhad_();  // Do unstable particle decays
-	hwdhvy_();  // Do heavy flavor decays
-	hwmevt_();  // Add soft underlying event
+        hwbgen_();  // Generate parton cascade
+        hwdhob_();  // Do heavy quark decays
+        hwcfor_();  // Do cluster formation
+        hwcdec_();  // Do cluster decays
+        hwdhad_();  // Do unstable particle decays
+        hwdhvy_();  // Do heavy flavor decays
+        hwmevt_();  // Add soft underlying event
       }
     } else {
-      hwepro_();  // Generate Hard Process	
+      hwepro_();  // Generate Hard Process
       if ( evtcon.istg <= 0 ) {
-	if(! m_noshower_Parm) {
-	  hwbgen_();  // Generate parton cascade
-	  //hwdhqk_();  // Do heavy quark decays removed in version 6.1
-	  hwdhob_();  // Do heavy quark decays 
-	  if(! m_nohadroniz_Parm) {
-	    hwcfor_();  // Do cluster formation
-	    hwcdec_();  // Do cluster decays
-	    hwdhad_();  // Do unstable particle decays
-	    hwdhvy_();  // Do heavy flavor decays
-	    hwmevt_();  // Add soft underlying event
-	  }
-	}
+        if(! m_noshower_Parm) {
+          hwbgen_();  // Generate parton cascade
+          //hwdhqk_();  // Do heavy quark decays removed in version 6.1
+          hwdhob_();  // Do heavy quark decays
+          if(! m_nohadroniz_Parm) {
+            hwcfor_();  // Do cluster formation
+            hwcdec_();  // Do cluster decays
+            hwdhad_();  // Do unstable particle decays
+            hwdhvy_();  // Do heavy flavor decays
+            hwmevt_();  // Add soft underlying event
+          }
+        }
       }
-    } 
+    }
     hwufne_();  // Finish event
     //  cout << "Event Finished" <<endl;
     // User event analysis if wanted
     if ( evtcon.istg > 0 ) {
       //     if ( HepMC::HEPEVT_Wrapper::number_entries() <= 0 ) {
       std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-      std::cout << "!!! " << generator_name(100000 * m_ExternalProcess) << " TERMINATES NORMALY: NO MORE EVENTS IN FILE !!!" << std::endl;
+      //AGB: std::cout << "!!! " << generator_name(100000 * m_ExternalProcess) << " TERMINATES NORMALY: NO MORE EVENTS IN FILE !!!" << std::endl;
       std::cout << "!!! PLEASE IGNORE ANY ATHENA ERROR MESSAGES LIKE !!!" << std::endl;
       std::cout << "!!! AthenaEventLoopMgr  ERROR Terminating event processing loop due to errors !!!" << std::endl;
       std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
@@ -470,40 +466,37 @@ StatusCode Herwig::callGenerator() {
     if(gHwevnt->ierror > 99 || gHwevnt->ierror < 0) {
       ++nterr;
       if(nterr>mxerr) {
-	log << MSG:: INFO << "Herwig:Too many errors on event generation" << endreq;
-	goodev=true;
-      }
-    } else {
-      if(ihwcod != 0) {
+        std::cout << "Herwig:Too many errors on event generation" << std::endl;
         goodev=true;
       }
-    }
-  }
-
-  return StatusCode::SUCCESS;  
-  log << MSG:: INFO << " HERWIG generating done.  \n"  << endreq;
+    } else {
+      if(ihwcod != 0) {goodev=true;}
+    }  
+  }  return StatusCode::SUCCESS;
+  std::cout << " HERWIG generating done.  \n"  << std::endl;
 }
 
 //---------------------------------------------------------------------------
 StatusCode Herwig::genFinalize() {
   //---------------------------------------------------------------------------
-  MsgStream log(messageService(), name());
-  log << MSG:: INFO << " HERWIG Ending.  \n"  << endreq;
-  log << MSG::INFO <<"Call HWEFIN and HWAEND at endRun" << endreq;
+  //MsgStream log(messageService(), name());
+  std::cout << " HERWIG Ending.  \n"  << std::endl;
+  std::cout <<"Call HWEFIN and HWAEND at endRun" << std::endl;
   hwefin_();
   // User terminal calculations if wanted
   // hwaend_();
   return StatusCode::SUCCESS;
 }
+
 //---------------------------------------------------------------------------
-StatusCode Herwig::fillEvt(GenEvent* evt) {
+StatusCode Herwig::fillEvt(HepMC::GenEvent* evt) {
   //---------------------------------------------------------------------------
-  MsgStream log(messageService(), name());
+  //MsgStream log(messageService(), name());
 
-  log << MSG::INFO << " HERWIG Atlas_HEPEVT Filing.  \n"  << endreq;
-  store_Atlas_HEPEVT();
+  std::cout << " HERWIG Atlas_HEPEVT Filing.  \n"  << std::endl;
+  //AGB: store_Atlas_HEPEVT();
 
-  log << MSG:: INFO << " HERWIG Filing.  \n"  << endreq;
+  std::cout << " HERWIG Filing.  \n"  << std::endl;
   HepMC::IO_HERWIG hepio;
   //  hepio.set_trust_mothers_before_daughters(0);
   //hepio.set_print_inconsistency_errors(0);
@@ -512,23 +505,25 @@ StatusCode Herwig::fillEvt(GenEvent* evt) {
   //  int i = 1;
   // Fill event into HepMC and transient store
   hepio.fill_next_event(evt);
-  int pr_id = HERWIG + 100000 * m_ExternalProcess + m_process;
-  if (m_process < 0) pr_id = HERWIG + 100000 * m_ExternalProcess;
-  if (m_taudec_Parm == "TAUOLA") pr_id += TAUOLA_PHOTOS;
+
+  int pr_id = 100000 + m_process;
+  //AGB: int pr_id = HERWIG + 100000 * m_ExternalProcess + m_process;
+  //AGB: if (m_process < 0) pr_id = HERWIG + 100000 * m_ExternalProcess;
+  //AGB: if (m_taudec_Parm == "TAUOLA") pr_id += TAUOLA_PHOTOS;
   evt->set_signal_process_id(pr_id);
   evt->set_random_states(m_seeds);
   if (gHwevnt->evwgt < 0.) evt->weights().push_back(-1.);
   if (gHwevnt->evwgt > 0.) evt->weights().push_back(1.);
-  if (gHwevnt->evwgt == 0.) log << MSG::WARNING << " EVENT WEIGHT = 0 !!!!!! \n" << endreq;
-  //  cout << " ----------------- Print evt " << endl;
+  if (gHwevnt->evwgt == 0.) std::cout << " EVENT WEIGHT = 0 !!!!!! \n" << std::endl;
+  //  cout << " ----------------- Print evt " << std::endl;
   //    evt -> print();
-  //  cout << " ----------------- END " << endl;
+  //  cout << " ----------------- END " << std::endl;
   
   //  output << evt;
   
   // Convert cm->mm and GeV->MeV
   //   cmTomm(evt);
-  GeVToMeV(evt);
+  //GeVToMeV(evt);
   
   return StatusCode::SUCCESS;
 }
@@ -536,7 +531,7 @@ StatusCode Herwig::fillEvt(GenEvent* evt) {
 void Herwig::Her2Localpar() {
   // this changed from CDF code which has .set() and .value() which 
   // are not part of the STL  classes. The belong to the CDF Abspar class.
-  string mystring;
+  std::string mystring;
   mystring.assign(gHwbmch->part1,8);
   m_Beamtype1_Parm=mystring;
   mystring.assign(gHwbmch->part2,8);
@@ -833,10 +828,11 @@ void Herwig::Localpar2Her() {
 
 }
 
+/*
 void
 Herwig::store_Atlas_HEPEVT(void)
 {
-  MsgStream log(messageService(), name());
+  //MsgStream log(messageService(), name());
 
   // std::cout << "atlas_HEPEVT------" << atlas_HEPEVT->nhep()  << std::endl;
   //std::cout << "atlas_HEPEVT------" << atlas_HEPEVT->isthep(10)  << std::endl;
@@ -850,5 +846,5 @@ Herwig::store_Atlas_HEPEVT(void)
   *(Ahep)=*(atlas_HEPEVT);
   std::string keyid = "Herwig";
   m_sgSvc->record(Ahep, keyid);
-
 }
+*/

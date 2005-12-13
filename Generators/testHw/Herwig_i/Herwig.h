@@ -20,21 +20,36 @@
 
 #ifndef GENERATORMODULESHERWIG_H
 #define GENERATORMODULESHERWIG_H
+
+#include "HepMC/GenEvent.h"
+
 //#include "GeneratorModules/GenModule.h"
 //#include "AcerMC_i/AcerMC_acset.h"
 //#include "Tauola_i/Atlas_HEPEVT.h"
+
 #include <string>
+#include <vector>
 
 typedef std::vector<std::string> CommandVector;
 
-class Herwig : public GenModule {
+class StatusCode {
 public:
-  Herwig(const std::string& name, ISvcLocator* pSvcLocator);
+  StatusCode(int newval) { _value = newval; }
+  static const int SUCCESS = 0;
+  static const int FAILURE = 1;
+private:
+  int _value;
+};
+
+//class Herwig : public GenModule {
+class Herwig {
+public:
+  Herwig(const std::string& name);
   virtual ~Herwig();
   virtual StatusCode genInitialize();
   virtual StatusCode callGenerator();
   virtual StatusCode genFinalize();
-  virtual StatusCode fillEvt(GenEvent* evt);
+  virtual StatusCode fillEvt(HepMC::GenEvent* evt);
   void Localpar2Her();
   void Her2Localpar();
   // accessor for external processes
