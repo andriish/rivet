@@ -7,17 +7,17 @@ INCCLHEP=/usr/local/include/
 INCCERNLIB=
 LIBCERNLIB=/usr/local/lib
 
-Herwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o Address_i.o Address_f.o Address_c.o Address_cx.o
+CCHerwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o Address_i.o Address_f.o Address_c.o Address_cx.o Herwig.o
 	g++ -I$(INCHEPMC) -I$(INCCLHEP) $(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) -lg2c \
-	StringParse.o InitHerwigCommonBlocks_65.o \
+	Herwig.o StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o \
 	Address_i.o Address_f.o Address_c.o Address_cx.o \
-	herwig_common_block_address_65.o HerwigInterface_65.o \
-	Herwig.cxx -o libCxxHerwig.a \
-	2>&1
+	CCHerwig.cc -o CCHerwig
+
+Herwig.o:
+	g++ -c -I$(INCHEPMC) -I$(INCCLHEP) Herwig.cxx
 
 InitHerwigCommonBlocks_65.o:
-	g++ -c InitHerwigCommonBlocks_65.cxx \
-	herwig_common_block_address_65.o
+	g++ -c InitHerwigCommonBlocks_65.cxx
 
 StringParse.o: StringParse.cxx StringParse.h
 	g++ -c StringParse.cxx

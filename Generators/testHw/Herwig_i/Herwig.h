@@ -34,9 +34,16 @@ typedef std::vector<std::string> CommandVector;
 
 class StatusCode {
 public:
+  StatusCode() { _value = 0; }
   StatusCode(int newval) { _value = newval; }
+  StatusCode(const StatusCode& newsc) { _value = newsc.value(); }
+
+  int value() const { return _value; }
+  int operator()() const { return this->value(); }
+
   static const int SUCCESS = 0;
   static const int FAILURE = 1;
+
 private:
   int _value;
 };
