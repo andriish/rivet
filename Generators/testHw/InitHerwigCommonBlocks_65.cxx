@@ -67,7 +67,7 @@ Hw6504_t* gHw6504;
 // Jimmy common blocks
 Jmparm_t* gJmparm;
 
-extern "C" void*  herwig_common_block_address_(char*, int len);
+extern "C" void*  herwig_common_block_address__(char*, int len);
 
 static int Initialized = 0;
 
@@ -78,61 +78,61 @@ void InitHerwigCommonBlocks() {
 
   if (Initialized) return;
 
-  gHwbeam    = (Hwbeam_t*   ) herwig_common_block_address_("HWBEAM",6); 
-  gHwbmch    = (Hwbmch_t*   ) herwig_common_block_address_("HWBMCH",6); 
-  gHwproc    = (Hwproc_t*   ) herwig_common_block_address_("HWPROC",6);
-  gHwpram    = (Hwpram_t*   ) herwig_common_block_address_("HWPRAM",6);
-  gHwprch    = (Hwprch_t*   ) herwig_common_block_address_("HWPRCH",6);
-  gHwpart    = (Hwpart_t*   ) herwig_common_block_address_("HWPART",6);
-  gHwparp    = (Hwparp_t*   ) herwig_common_block_address_("HWPARP",6);
-  gHwbosc    = (Hwbosc_t*   ) herwig_common_block_address_("HWBOSC",6);
-  gHwparc    = (Hwparc_t*   ) herwig_common_block_address_("HWPARC",6);
-  gHwbrch    = (Hwbrch_t*   ) herwig_common_block_address_("HWBRCH",6);
-  gHwevnt    = (Hwevnt_t*   ) herwig_common_block_address_("HWEVNT",6); 
-  gHwhard    = (Hwhard_t*   ) herwig_common_block_address_("HWHARD",6); 
-  gHwprop    = (Hwprop_t*   ) herwig_common_block_address_("HWPROP",6); 
-  gHwunam    = (Hwunam_t*   ) herwig_common_block_address_("HWUNAM",6);  
-  gHwupdt    = (Hwupdt_t*   ) herwig_common_block_address_("HWUPDT",6); 
-  gHwuwts    = (Hwuwts_t*   ) herwig_common_block_address_("HWUWTS",6); 
-  gHwuclu    = (Hwuclu_t*   ) herwig_common_block_address_("HWUCLU",6); 
-  gHwdist    = (Hwdist_t*   ) herwig_common_block_address_("HWDIST",6); 
-  gHwqdks    = (Hwqdks_t*   ) herwig_common_block_address_("HWQDKS",6); 
-  gHwusud    = (Hwusud_t*   ) herwig_common_block_address_("HWUSUD",6);
+  gHwbeam    = (Hwbeam_t*   ) herwig_common_block_address__("HWBEAM",6); 
+  gHwbmch    = (Hwbmch_t*   ) herwig_common_block_address__("HWBMCH",6); 
+  gHwproc    = (Hwproc_t*   ) herwig_common_block_address__("HWPROC",6);
+  gHwpram    = (Hwpram_t*   ) herwig_common_block_address__("HWPRAM",6);
+  gHwprch    = (Hwprch_t*   ) herwig_common_block_address__("HWPRCH",6);
+  gHwpart    = (Hwpart_t*   ) herwig_common_block_address__("HWPART",6);
+  gHwparp    = (Hwparp_t*   ) herwig_common_block_address__("HWPARP",6);
+  gHwbosc    = (Hwbosc_t*   ) herwig_common_block_address__("HWBOSC",6);
+  gHwparc    = (Hwparc_t*   ) herwig_common_block_address__("HWPARC",6);
+  gHwbrch    = (Hwbrch_t*   ) herwig_common_block_address__("HWBRCH",6);
+  gHwevnt    = (Hwevnt_t*   ) herwig_common_block_address__("HWEVNT",6); 
+  gHwhard    = (Hwhard_t*   ) herwig_common_block_address__("HWHARD",6); 
+  gHwprop    = (Hwprop_t*   ) herwig_common_block_address__("HWPROP",6); 
+  gHwunam    = (Hwunam_t*   ) herwig_common_block_address__("HWUNAM",6);  
+  gHwupdt    = (Hwupdt_t*   ) herwig_common_block_address__("HWUPDT",6); 
+  gHwuwts    = (Hwuwts_t*   ) herwig_common_block_address__("HWUWTS",6); 
+  gHwuclu    = (Hwuclu_t*   ) herwig_common_block_address__("HWUCLU",6); 
+  gHwdist    = (Hwdist_t*   ) herwig_common_block_address__("HWDIST",6); 
+  gHwqdks    = (Hwqdks_t*   ) herwig_common_block_address__("HWQDKS",6); 
+  gHwusud    = (Hwusud_t*   ) herwig_common_block_address__("HWUSUD",6);
   // v6.1
-  gHwsusy    = (Hwsusy_t*   ) herwig_common_block_address_("HWSUSY",6);
-  gHwrpar    = (Hwrpar_t*   ) herwig_common_block_address_("HWRPAR",6);
-  gHwminb    = (Hwminb_t*   ) herwig_common_block_address_("HWMINB",6);
-  gHwclus    = (Hwclus_t*   ) herwig_common_block_address_("HWCLUS",6);
+  gHwsusy    = (Hwsusy_t*   ) herwig_common_block_address__("HWSUSY",6);
+  gHwrpar    = (Hwrpar_t*   ) herwig_common_block_address__("HWRPAR",6);
+  gHwminb    = (Hwminb_t*   ) herwig_common_block_address__("HWMINB",6);
+  gHwclus    = (Hwclus_t*   ) herwig_common_block_address__("HWCLUS",6);
   // v6.202
 
-  gHw6202    = (Hw6202_t*   ) herwig_common_block_address_("HW6202",6);
-  gHwgrav    = (Hwgrav_t*   ) herwig_common_block_address_("HWGRAV",6);
+  gHw6202    = (Hw6202_t*   ) herwig_common_block_address__("HW6202",6);
+  gHwgrav    = (Hwgrav_t*   ) herwig_common_block_address__("HWGRAV",6);
 
   // v6.203
-  gHw6203    = (Hw6203_t*   ) herwig_common_block_address_("HW6203",6);
+  gHw6203    = (Hw6203_t*   ) herwig_common_block_address__("HW6203",6);
   // v6.301
 
-  gHw6300    = (Hw6300_t*   ) herwig_common_block_address_("HW6300",6);
-  gHwcirc    = (Hwcirc_t*   ) herwig_common_block_address_("HWCIRC",6);
-  gHwpmrs    = (Hwpmrs_t*   ) herwig_common_block_address_("HWPMRS",6);
+  gHw6300    = (Hw6300_t*   ) herwig_common_block_address__("HW6300",6);
+  gHwcirc    = (Hwcirc_t*   ) herwig_common_block_address__("HWCIRC",6);
+  gHwpmrs    = (Hwpmrs_t*   ) herwig_common_block_address__("HWPMRS",6);
   // v6.400
-  gHwdspb    = (Hwdspb_t*   ) herwig_common_block_address_("HWDSPB",6);
-  gHwdsp2    = (Hwdsp2_t*   ) herwig_common_block_address_("HWDSP2",6);
-  gHwdsp3    = (Hwdsp3_t*   ) herwig_common_block_address_("HWDSP3",6);
-  gHwdsp4    = (Hwdsp4_t*   ) herwig_common_block_address_("HWDSP4",6);
-  gHwdspn    = (Hwdspn_t*   ) herwig_common_block_address_("HWDSPN",6);
-  gHwspin    = (Hwspin_t*   ) herwig_common_block_address_("HWSPIN",6);
-  gHwstau    = (Hwstau_t*   ) herwig_common_block_address_("HWSTAU",6);
+  gHwdspb    = (Hwdspb_t*   ) herwig_common_block_address__("HWDSPB",6);
+  gHwdsp2    = (Hwdsp2_t*   ) herwig_common_block_address__("HWDSP2",6);
+  gHwdsp3    = (Hwdsp3_t*   ) herwig_common_block_address__("HWDSP3",6);
+  gHwdsp4    = (Hwdsp4_t*   ) herwig_common_block_address__("HWDSP4",6);
+  gHwdspn    = (Hwdspn_t*   ) herwig_common_block_address__("HWDSPN",6);
+  gHwspin    = (Hwspin_t*   ) herwig_common_block_address__("HWSPIN",6);
+  gHwstau    = (Hwstau_t*   ) herwig_common_block_address__("HWSTAU",6);
 
   // new 6500
-  gHwgupr    = (Hwgupr_t*   ) herwig_common_block_address_("HWGUPR",6);
-  gHw6500    = (Hw6500_t*   ) herwig_common_block_address_("HW6500",6);
+  gHwgupr    = (Hwgupr_t*   ) herwig_common_block_address__("HWGUPR",6);
+  gHw6500    = (Hw6500_t*   ) herwig_common_block_address__("HW6500",6);
   // new 6504
-  gHw6504    = (Hw6504_t*   ) herwig_common_block_address_("HW6504",6);
+  gHw6504    = (Hw6504_t*   ) herwig_common_block_address__("HW6504",6);
   //
 
   // Jimmy common blocks
-  gJmparm    = (Jmparm_t*   ) herwig_common_block_address_("JMPARM",6);;
+  gJmparm    = (Jmparm_t*   ) herwig_common_block_address__("JMPARM",6);;
 
   Initialized = 1;
 }

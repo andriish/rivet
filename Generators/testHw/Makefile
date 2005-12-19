@@ -6,12 +6,18 @@ LIBCLHEP=/usr/local/lib/libCLHEP.so
 INCCLHEP=/usr/local/include/
 INCCERNLIB=
 LIBCERNLIB=/usr/local/lib
+#INCPDFLIB=$(HOME)/local/include/pdflib/
+#LIBPDFLIB=$(HOME)/local/lib/libpdflib.a
+INCPDFLIB=
+LIBPDFLIB=$(HOME)/local/lib/libLHAPDF.a
 
 CCHerwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o Address_i.o Address_f.o Address_c.o Address_cx.o Herwig.o
-	g++ -I$(INCHEPMC) -I$(INCCLHEP) $(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) -lg2c \
-	Herwig.o StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o \
+	g++ -I$(INCHEPMC) -I$(INCCLHEP) -I$(INCPDFLIB) \
+    CCHerwig.cc -o CCHerwig \
+	Herwig.o StringParse.o InitHerwigCommonBlocks_65.o HerwigInterface_65.o herwig_common_block_address_65.o \
 	Address_i.o Address_f.o Address_c.o Address_cx.o \
-	CCHerwig.cc -o CCHerwig
+    $(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) $(LIBPDFLIB) -lg2c
+
 
 Herwig.o:
 	g++ -c -I$(INCHEPMC) -I$(INCCLHEP) Herwig.cxx
