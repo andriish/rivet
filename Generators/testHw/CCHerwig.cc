@@ -1,10 +1,17 @@
 #include "Herwig_i/Herwig.h"
 #include "HepMC/GenEvent.h"
 
+struct
+{
+  int istg;
+} evtcon_;
+
+
 int main() {
   Herwig foo("hwinstance");
   HepMC::GenEvent myevent;
 
+  evtcon_.istg = 1;
   StatusCode status;
 
   status = foo.genInitialize();

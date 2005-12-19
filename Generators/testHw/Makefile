@@ -8,18 +8,16 @@ INCCERNLIB=
 LIBCERNLIB=/usr/local/lib
 #INCPDFLIB=$(HOME)/local/include/pdflib/
 #LIBPDFLIB=$(HOME)/local/lib/libpdflib.a
-INCPDFLIB=
+INCPDFLIB=$(HOME)
 LIBPDFLIB=$(HOME)/local/lib/libLHAPDF.a
 
 
-CCHerwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o \
-	      Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o Herwig.o 
+CCHerwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o Herwig.o 
 	g++ -I$(INCHEPMC) -I$(INCCLHEP) -I$(INCPDFLIB) \
-    CCHerwig.cc -o CCHerwig \
-	Herwig.o StringParse.o InitHerwigCommonBlocks_65.o HerwigInterface_65.o herwig_common_block_address_65.o \
-	Address_i.o Address_f.o Address_c.o Address_cx.o \
-	upveto_hw.o	topdec.o \
-    $(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) $(LIBPDFLIB) -lg2c
+Herwig.o StringParse.o InitHerwigCommonBlocks_65.o HerwigInterface_65.o herwig_common_block_address_65.o \
+Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o \
+$(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) $(LIBPDFLIB) -lg2c \
+CCHerwig.cc -o CCHerwig
 
 
 Herwig.o:
