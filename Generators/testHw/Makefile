@@ -11,14 +11,19 @@ LIBCERNLIB=/usr/local/lib
 INCPDFLIB=$(HOME)
 LIBPDFLIB=$(HOME)/local/lib/libLHAPDF.a
 
+DEBUG=-g
 
-CCHerwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o Herwig.o 
-	g++ -I$(INCHEPMC) -I$(INCCLHEP) -I$(INCPDFLIB) \
-Herwig.o StringParse.o InitHerwigCommonBlocks_65.o HerwigInterface_65.o herwig_common_block_address_65.o \
-Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o \
-$(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) $(LIBPDFLIB) -lg2c \
-CCHerwig.cc -o CCHerwig
+CCHerwig: Makefile CCHerwig.o StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o \
+          HerwigInterface_65.o Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o Herwig.o 
+	g++ $(DEBUG) -I$(INCHEPMC) -I$(INCCLHEP) -I$(INCPDFLIB) \
+	CCHerwig.cc Herwig.o StringParse.o InitHerwigCommonBlocks_65.o HerwigInterface_65.o \
+	herwig_common_block_address_65.o \
+	Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o \
+	$(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) $(LIBPDFLIB) -lg2c \
+	-o CCHerwig
 
+CCHerwig.o:
+	g++ -c -I$(INCHEPMC) -I$(INCCLHEP) CCHerwig.cc
 
 Herwig.o:
 	g++ -c -I$(INCHEPMC) -I$(INCCLHEP) Herwig.cxx

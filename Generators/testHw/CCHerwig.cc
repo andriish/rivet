@@ -11,7 +11,7 @@ int main() {
   Herwig foo("hwinstance");
   HepMC::GenEvent myevent;
 
-  evtcon_.istg = 1;
+  evtcon_.istg = 0;
   StatusCode status;
 
   status = foo.genInitialize();
