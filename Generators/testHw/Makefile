@@ -11,11 +11,14 @@ LIBCERNLIB=/usr/local/lib
 INCPDFLIB=
 LIBPDFLIB=$(HOME)/local/lib/libLHAPDF.a
 
-CCHerwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o Address_i.o Address_f.o Address_c.o Address_cx.o Herwig.o
+
+CCHerwig: StringParse.o InitHerwigCommonBlocks_65.o herwig_common_block_address_65.o HerwigInterface_65.o \
+	      Address_i.o Address_f.o Address_c.o Address_cx.o upveto_hw.o topdec.o Herwig.o 
 	g++ -I$(INCHEPMC) -I$(INCCLHEP) -I$(INCPDFLIB) \
     CCHerwig.cc -o CCHerwig \
 	Herwig.o StringParse.o InitHerwigCommonBlocks_65.o HerwigInterface_65.o herwig_common_block_address_65.o \
 	Address_i.o Address_f.o Address_c.o Address_cx.o \
+	upveto_hw.o	topdec.o \
     $(LIBHERWIG) $(LIBCLHEP) $(LIBHEPMC) $(LIBPDFLIB) -lg2c
 
 
@@ -39,6 +42,12 @@ Address_c.o:
 
 Address_cx.o:
 	g++ -c Address_cx.cxx
+
+upveto_hw.o:
+	g77 -c -I$(INCHERWIG) upveto_hw.F
+
+topdec.o:
+	g77 -c -I$(INCHERWIG) topdec.F
 
 HerwigInterface_65.o:
 	g77 -c -I$(INCHERWIG) HerwigInterface_65.F
