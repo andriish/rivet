@@ -140,7 +140,7 @@ StatusCode Herwig::genInitialize() {
   // Initialise the listing output, parameter and decay data input streams
   //
   //AGB: MsgStream log(messageService(), name());
-  std::cout << " HERWIG INITIALISING"  << std::endl;
+  std::cout << "HERWIG INITIALISING"  << std::endl;
 
   static const bool CREATEIFNOTTHERE(true);
   //StatusCode RndmStatus = service("AtRndmGenSvc", p_AtRndmGenSvc, CREATEIFNOTTHERE);
@@ -188,35 +188,39 @@ StatusCode Herwig::genInitialize() {
   m_modBos_Parm[8] = 0;
 
   // special loop over the input parameters to load iproc before the call to herwiginterface_()
-  CommandVector::const_iterator ic              =       m_herwigCommandVector.begin();
-  bool                          proc_not_found  =       true;
-  do {
-    StringParse mystring(*ic);
-    std::string myvar = mystring.piece(1);
-    int myint1 = mystring.intpiece(2);
-    if (myvar=="iproc") {
-      m_process = myint1;
-      proc_not_found = false;
-    }
-    ic++;
-  } while (ic != m_herwigCommandVector.end() && proc_not_found);
-  //  initialized  values of Localpars into Herwig Commons
-  Localpar2Her();
-  // Call Fortran Routine to Initialize Herwig Common Block
-  // cout <<  " calling herwiginterface" << std::endl;
-  ic              =       m_herwigCommandVector.begin();
-  bool   itopd_not_found  =       true;
-  m_itopd = 0;
-  do {
-    StringParse mystring(*ic);
-    std::string myvar = mystring.piece(1);
-    int myint1 = mystring.intpiece(2);
-    if (myvar == "topdec") {
-      m_itopd = myint1;
-      itopd_not_found = false;
-    }
-    ic++;
-  } while (ic != m_herwigCommandVector.end() && itopd_not_found);
+  CommandVector::const_iterator ic = m_herwigCommandVector.begin();
+  bool           proc_not_found    = true;
+  if (m_herwigCommandVector.empty()) {
+    std::cerr << "Herwig command vector is empty" << std::endl;
+  } else {
+    do {
+      StringParse mystring(*ic);
+      std::string myvar = mystring.piece(1);
+      int myint1 = mystring.intpiece(2);
+      if (myvar=="iproc") {
+        m_process = myint1;
+        proc_not_found = false;
+      }
+      ic++;
+    } while (ic != m_herwigCommandVector.end() && proc_not_found);
+    //  initialized  values of Localpars into Herwig Commons
+    Localpar2Her();
+    // Call Fortran Routine to Initialize Herwig Common Block
+    // cout <<  " calling herwiginterface" << std::endl;
+    ic              =       m_herwigCommandVector.begin();
+    bool   itopd_not_found  =       true;
+    m_itopd = 0;
+    do {
+      StringParse mystring(*ic);
+      std::string myvar = mystring.piece(1);
+      int myint1 = mystring.intpiece(2);
+      if (myvar == "topdec") {
+        m_itopd = myint1;
+        itopd_not_found = false;
+      }
+      ic++;
+    } while (ic != m_herwigCommandVector.end() && itopd_not_found);
+  }
   herwiginterface_(&m_itopd);
   // Transfer numbers from Herwig Common Blocks to Localpars
   //   cout <<  " calling Her2Localpar" << std::endl;
