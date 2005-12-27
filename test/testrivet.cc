@@ -12,7 +12,7 @@ int main() {
 
   rivet.init();
 
-  rivet.info();
+  cout << rivet.info();
 
   rivet.finalize();
 

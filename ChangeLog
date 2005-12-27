@@ -1,5 +1,16 @@
 2005-12-27  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
+	* configure.ac: Added -I$THEPEGPATH/include to AM_CPPFLAGS.
+
+	* Config/Rivet.h: Added some std incudes and using std::
+	declaration.
+
+	* Analysis/RivetInfo.*: Fixed some bugs. The RivetInfo facility
+	now works, although it has not been thoroughly tested.
+
+	* Analysis/Examples/TestMultiplicity.*: Re-introduced
+	FinalStateHCM for testing purposes but commented it away again.
+
 	* .: Made a number of changes to implement handling of RivetInfo
 	objects.
 

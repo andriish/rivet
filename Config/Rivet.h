@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <iostream>
+#include <iomanip>
 
 /**
  * This is the main namespace in which all Rivet classes are defined.
@@ -25,6 +27,13 @@ using std::make_pair;
 using std::runtime_error;
 using std::min;
 using std::max;
+using std::ostream;
+using std::istream;
+using std::cout;
+using std::cin;
+using std::cerr;
+using std::setw;
+using std::endl;
 
 const double MaxRapidity = 100000.0;
 

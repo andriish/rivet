@@ -77,6 +77,7 @@ private:
    * The FinalStateProjector used.
    */
   FinalStateProjection fsproj;
+  //  FinalStateHCM fsproj;
 
 private:
 

@@ -26,7 +26,7 @@ AC_SEARCH_CLHEP
 ## Find ThePEG (should be optional)
 AC_CEDAR_CHECK_THEPEG
 
-AM_CPPFLAGS="-I\$(top_builddir)/include $CLHEPINCLUDE"
+AM_CPPFLAGS="-I\$(top_builddir)/include $CLHEPINCLUDE -I$THEPEGPATH/include"
 AM_CXXFLAGS="-ansi -pedantic -Wall"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)

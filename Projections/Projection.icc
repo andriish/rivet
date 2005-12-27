@@ -8,7 +8,8 @@ namespace Rivet {
 
 inline Projection::Projection() {}
 
-inline Projection::Projection(const Projection & p) {}
+inline Projection::Projection(const Projection & p)
+  : info(p.info) {}
 
 inline bool Projection::before(const Projection & p) const {
   const type_info & thisid = typeid(*this);

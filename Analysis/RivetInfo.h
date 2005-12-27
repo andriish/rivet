@@ -137,6 +137,16 @@ public:
 			string type = "", string description = "");
 
   /**
+   * Add a \a description of the parameter with the given \a name.
+   */
+  void describeParameter(string name, string description);
+
+  /**
+   * Set the \a type of the parameter with the given \a name.
+   */
+  void parameterType(string name, string type);
+
+  /**
    * Append all the parameters from \a inf.
    */
   void append(const RivetInfo & inf);
@@ -181,7 +191,12 @@ public:
   /**
    * Return the type of the parameter with the given \a name.
    */
-  string getType(string name) const;
+  inline string getType(string name) const;
+
+  /**
+   * Print the parameters to the given \a stream.
+   */
+  ostream & print(ostream & stream) const;
 
 private:
 
@@ -210,6 +225,10 @@ private:
   InfoDMap theFloatPars;
 
 };
+
+inline ostream & operator<<(ostream & os, const RivetInfo & i) {
+  return i.print(os);
+}
 
 }
 
