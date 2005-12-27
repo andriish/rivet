@@ -97,7 +97,7 @@ public:
   /**
    * The default constructor.
    */
-  inline RivetInfo();
+  RivetInfo();
 
   /**
    * The copy constructor.
@@ -135,6 +135,53 @@ public:
    */
   void declareParameter(string name, double value,
 			string type = "", string description = "");
+
+  /**
+   * Append all the parameters from \a inf.
+   */
+  void append(const RivetInfo & inf);
+
+  /**
+   * Append all the parameters from \a inf.
+   */
+  inline RivetInfo & operator+=(const RivetInfo & inf);
+
+  /**
+   * Return a new RivetInfo object with all information in this and
+   * \a inf added together.
+   */
+  inline RivetInfo operator+(const RivetInfo & inf) const;
+
+  /**
+   * Check consistency and purge multiple parameter
+   * definitions. @throw runtime_error if there were conflicting
+   * parameters.
+   */
+  void check();
+
+  /**
+   * Return the value of the parameter with the given \a name. If
+   * several values exist, the average value is returned. Returns zero
+   * if no parameter with corresponding \a name is found.
+   */
+  double getFloatParameter(string name) const;
+
+  /**
+   * Return the value of the parameter with the given \a name. If
+   * several values exist, the average value is returned. Returns zero
+   * if no parameter with corresponding \a name is found.
+   */
+  long getIntParameter(string name) const;
+
+  /**
+   * Return the description of the parameter with the given \a name.
+   */
+  string getDescription(string name) const;
+
+  /**
+   * Return the type of the parameter with the given \a name.
+   */
+  string getType(string name) const;
 
 private:
 

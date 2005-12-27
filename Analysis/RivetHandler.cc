@@ -32,3 +32,9 @@ void RivetHandler::finalize() {
   // the histogram factory.
 }
 
+RivetInfo RivetHandler::info() const {
+  RivetInfo ret;
+  for ( int i = 0, N = anaVector.size(); i < N; ++i )
+    ret += anaVector[i]->getInfo();
+  return ret;
+}

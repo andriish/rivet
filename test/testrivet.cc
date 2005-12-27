@@ -12,6 +12,8 @@ int main() {
 
   rivet.init();
 
+  rivet.info();
+
   rivet.finalize();
 
 }

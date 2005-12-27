@@ -7,7 +7,9 @@
 namespace Rivet {
 
 inline DISKinematics::DISKinematics(long inid, long outid, long hadid)
-  : lepton(inid, outid), idhad(hadid), theQ2(-1.0), theW2(-1.0), theX(-1.0) {}
+  : lepton(inid, outid), idhad(hadid), theQ2(-1.0), theW2(-1.0), theX(-1.0) {
+  info.declareParameter("BeamB", hadid);
+}
 
 inline DISKinematics::DISKinematics(const DISKinematics & x)
   : Projection(x), beams(x.beams), lepton(x.lepton), idhad(x.idhad),

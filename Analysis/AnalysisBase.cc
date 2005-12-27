@@ -15,3 +15,8 @@ void AnalysisBase::init() {}
 void AnalysisBase::analyze(const Event & event) {}
 
 void AnalysisBase::finalize() {}
+
+RivetInfo AnalysisBase::getInfo() const {
+  return info;
+}
+

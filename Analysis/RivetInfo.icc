@@ -6,10 +6,31 @@
 
 namespace Rivet {
 
-inline RivetInfo::RivetInfo() {}
-
 inline RivetInfo::RivetInfo(const RivetInfo & x)
   : theParTypes(x.theParTypes), theParDescriptions(x.theParDescriptions),
   theIntPars(x.theIntPars), theFloatPars(x.theFloatPars) {}
+
+inline string RivetInfo::getDescription(string name) const {
+  InfoTMap::const_iterator it = theParDescriptions.find(name);
+  return it == theParDescriptions.end()? string(): it->second;
+}
+
+inline string RivetInfo::getType(string name) const {
+  InfoTMap::const_iterator it = theParTypes.find(name);
+  return it == theParTypes.end()? string(): it->second;
+}
+
+inline RivetInfo & RivetInfo::operator+=(const RivetInfo & inf) {
+  append(inf);
+  return *this;
+}
+
+
+inline RivetInfo
+RivetInfo::operator+(const RivetInfo & inf) const {
+  RivetInfo ret(*this);
+  ret += inf;
+  return ret;
+}
 
 }

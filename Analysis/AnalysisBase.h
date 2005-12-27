@@ -7,6 +7,7 @@
 
 #include "Rivet/Config/Rivet.h"
 #include "Rivet/Projections/Event.fh"
+#include "Rivet/Analysis/RivetInfo.h"
 #include "AnalysisBase.fh"
 
 namespace Rivet {
@@ -76,6 +77,22 @@ public:
    * function.
    */
   virtual void finalize() = 0;
+
+  /**
+   * Return the RivetInfo object of this analysis object. Derived
+   * classes should re-implement this function to return the combined
+   * RivetInfo object of this object and of any Projection objects
+   * upon which this depends.
+   */
+  virtual RivetInfo getInfo() const;
+
+private:
+
+  /**
+   * The object containing the parameters of this analysis object to
+   * be communicated to the outside world.
+   */
+  RivetInfo info;
 
 private:
 

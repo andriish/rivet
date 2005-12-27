@@ -1,0 +1,5 @@
+2005-12-27  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* .: Made a number of changes to implement handling of RivetInfo
+	objects.
+

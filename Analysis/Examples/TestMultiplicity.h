@@ -63,6 +63,14 @@ public:
    */
   virtual void finalize();
 
+  /**
+   * Return the RivetInfo object of this analysis object. Derived
+   * classes should re-implement this function to return the combined
+   * RivetInfo object of this object and of any Projection objects
+   * upon which this depends.
+   */
+  virtual RivetInfo getInfo() const;
+
 private:
 
   /**

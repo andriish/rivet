@@ -26,4 +26,6 @@ void TestMultiplicity::finalize() {
   // Nothing to do here.
 }
 
-
+RivetInfo TestMultiplicity::getInfo() const {
+  return AnalysisBase::getInfo() + fsproj.getInfo();
+}

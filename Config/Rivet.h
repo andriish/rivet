@@ -21,7 +21,10 @@ using std::string;
 using std::less;
 using std::vector;
 using std::pair;
+using std::make_pair;
 using std::runtime_error;
+using std::min;
+using std::max;
 
 const double MaxRapidity = 100000.0;
 

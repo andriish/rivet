@@ -10,3 +10,9 @@ using namespace Rivet;
 
 Projection::~Projection() {}
 
+RivetInfo Projection::getInfo() const {
+  return info;
+}
+
+
+

@@ -48,7 +48,7 @@ protected:
    * Event::addProjection(Projection *) function. If the information
    * from other projections are necessary, their project(const Event
    * &) should not be called, rather the corresponding objects should
-   * be added to the Event using the Even::addProjection(Projection *)
+   * be added to the Event using the Event::addProjection(Projection *)
    * function.
    */
   void project(const Event & e);
@@ -82,7 +82,6 @@ public:
    * Access the projected final-state particles.
    */
   inline const PVector & particles() const;
-
 
 private:
 

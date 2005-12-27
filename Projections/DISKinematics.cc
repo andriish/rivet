@@ -15,8 +15,7 @@ void DISKinematics::project(const Event & e) {
   const DISLepton & dislep = e(lepton);
   const PPair & inc = e(beams)();
   Particle hadron;
-  if ( inc.first.id == idhad ) hadron = inc.first;
-  else if ( inc.second.id == idhad ) hadron = inc.second;
+  if ( inc.second.id == idhad ) hadron = inc.second;
   else
     throw
       runtime_error("DISKinematics projector could not find the correct beam.");
@@ -50,6 +49,7 @@ int DISKinematics::compare(const Projection & p) const {
     cmp(idhad, other.idhad);
 }
 
-
-  
+RivetInfo DISKinematics::getInfo() const {
+  return Projection::getInfo() + beams.getInfo() + lepton.getInfo();
+}
 
