@@ -1,8 +1,0 @@
-cd /Pythia7/Generators
-set StdLHC:NumberOfEvents 1000
-set StdLHC:DebugLevel 1
-set StdLHC:PrintEvent 10
-cp /Defaults/Particles/pi0 /Pythia7/Particles/pi0
-set /Pythia7/Particles/pi0:Stable 1
-insert /Pythia7/StdStrategy:LocalParticles[0] /Pythia7/Particles/pi0
-saverun SimpleLHC StdLHC
