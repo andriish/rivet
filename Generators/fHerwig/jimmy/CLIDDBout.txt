@@ -1,8 +1,0 @@
-2101 EventInfo
-2102 PileUpEventInfo
-2221 Gen_HEPEVT
-2411 IdDictManager
-6166 Atlas_HEPEVT
-133273 McEventCollection
-77641104 SG::Folder
-222376821 DataHeader
