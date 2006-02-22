@@ -42,7 +42,6 @@ Projections/Makefile
 Analysis/Makefile
 Analysis/Examples/Makefile
 lib/Makefile
-test/Makefile
 Makefile],)
 
 AC_OUTPUT
