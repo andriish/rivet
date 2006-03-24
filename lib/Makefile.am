@@ -1,4 +1,4 @@
-## workaround for OS X, automake doesn't realize it's meant to use c++
+## Workaround for OS X, automake doesn't realize it's meant to use c++
 LINK = $(LIBTOOL) --tag=CXX --mode=link $(CXX) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 
@@ -13,4 +13,3 @@ libRivet_la_LIBADD = \
 	$(top_builddir)/Analysis/Examples/libRivetAnalysisExamples.la \
 	$(top_builddir)/Projections/libRivetProjections.la \
 	-l$(CLHEPLIBNAME) -ldl 
-
