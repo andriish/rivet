@@ -6,11 +6,8 @@
 
 namespace Rivet {
 
-inline Event::Event(const GenEvent & geneve)
-  : theGenEvent(&geneve) {}
-
 inline Event::Event(const Event & x)
-  : theGenEvent(x.theGenEvent) {}
+  : theGenEvent(x.theGenEvent), theWeight(x.theWeight) {}
 
 inline const HepMC::GenEvent & Event::genEvent() const {
   return *theGenEvent;
@@ -29,6 +26,10 @@ inline const PROJ * Event::addProjection(PROJ & p) const {
 template <typename PROJ>
 inline const PROJ & Event::operator()(PROJ & p) const {
   return *addProjection(p);
+}
+
+inline double Event::weight() const {
+  return theWeight;
 }
 
 }

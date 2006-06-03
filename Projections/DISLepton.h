@@ -24,7 +24,9 @@ public:
   //@{
   /**
    * The default constructor. Must specify the incoming and outgoing
-   * PDG codes of the leptons to project.
+   * PDG codes of the leptons to project.  If \a inid is the
+   * anti-particle of \a outid, either a scattered lepton or
+   * anti-lepton is searched for.
    */
   inline DISLepton(long inid, long outid);
 

@@ -28,6 +28,8 @@ public:
    * The default constructor. Must specify, the incoming and outgoing
    * (\a inid and \a outid respectively) PDG codes of the scattered
    * lepton as well as the PDG code of the incoming hadron (\a hadid).
+   * If \a inid is the anti-particle of \a outid, either a scattered
+   * lepton or anti-lepton is searched for.
    */
   inline DISKinematics(long inid, long outid, long hadid);
 

@@ -1,0 +1,15 @@
+// -*- C++ -*-
+//
+// This is the implementation of the inlined member functions of
+// the HZ95108 class.
+//
+
+namespace Rivet {
+
+inline HZ95108::HZ95108()
+  : fsproj(11, -11, 2212), diskin(11, -11, 2212) {}
+
+inline HZ95108::HZ95108(const HZ95108 & x)
+  : AnalysisBase(x), fsproj(x.fsproj), diskin(x.diskin) {}
+
+}

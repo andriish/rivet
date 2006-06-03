@@ -41,7 +41,7 @@ public:
   /**
    * The default constructor.
    */
-  inline Event(const HepMC::GenEvent & geneve);
+  Event(const HepMC::GenEvent & geneve);
 
   /**
    * The copy constructor.
@@ -80,6 +80,11 @@ public:
   template <typename PROJ>
   inline const PROJ & operator()(PROJ & p) const;
 
+  /**
+   * The weight associated with the event.
+   */
+  inline double weight() const;
+
 private:
 
   /**
@@ -92,6 +97,11 @@ private:
    * The set of Projection objects applied so far.
    */
   mutable set<const Projection *> theProjections;
+
+  /**
+   * The weight associated with the event.
+   */
+  double theWeight;
 
 private:
 

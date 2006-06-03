@@ -13,7 +13,8 @@ DISLepton::~DISLepton() {}
 
 void DISLepton::project(const Event & e) {
   const PPair & inc = e(beams)();
-  if ( inc.first.id == idin ) incoming = inc.first;
+  if ( ( idin == -idin && abs(inc.first.id) == abs(idin) ) ||
+       inc.first.id ) incoming = inc.first;
   else
     throw runtime_error("DISLepton projector could not find the correct beam.");
   // *** ATTENTION *** Should we have our own exception classes?
@@ -21,7 +22,8 @@ void DISLepton::project(const Event & e) {
   double emax = 0.0;
   for ( GenEvent::particle_const_iterator pi = e.genEvent().particles_begin();
 	pi != e.genEvent().particles_end(); ++pi ) {
-    if ( (*pi)->pdg_id() == idout && (*pi)->momentum().e() > emax ) {
+    if ( ( idin == -idin && abs((*pi)->pdg_id()) == abs(idout) ) ||
+	 (*pi)->pdg_id() == idout && (*pi)->momentum().e() > emax ) {
       // *** ATTENTION *** This is probably not the correct way to
       // select the scattered lepton
       emax = (*pi)->momentum().e();

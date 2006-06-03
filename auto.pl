@@ -22,7 +22,7 @@ if ( defined $opts{'t'} ) {
   $tee = "2>&1 | tee -a " . $opts{'t'} if defined $opts{'t'};
 }
 
-system("aclocal; autoconf; libtoolize --automake; autoheader; automake  --foreign --add-missing") == 0 or die "aborted";
+system("aclocal -I ac-cedar; autoconf; libtoolize --automake; autoheader; automake  --foreign --add-missing") == 0 or die "aborted";
 if ( $quiet ) {
   my $files = `find . -name Makefile.in`;
   $files =~ s/\n/ /gs;

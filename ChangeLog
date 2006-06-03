@@ -1,3 +1,23 @@
+2006-06-03  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Analysis/Examples/HZ95108.*: Added the hz95108 energy flow
+	analysis from HZtool.
+
+	* Projections/DISLepton.*: Since many HERA measurements do not
+	care if we have electron or positron beam, it is now possible to
+	specify lepton or anti-lepton.
+
+	* Projections/Event.*: Added member and access function for the
+	weight of an event (taken from the GenEvent object.weights()[0].
+
+	* Analysis/RivetHandler.*: Now depends explicitly on the AIDA
+	interface. An AIDA analysis factory must be specified in the
+	constructor, where a tree and histogram factory is automatically
+	created. Added access functions to the relevant AIDA objects.
+
+	* Analysis/AnalysisBase.*: Added access to the RivetHandler and
+	its AIDA factories.
+
 2005-12-27  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* configure.ac: Added -I$THEPEGPATH/include to AM_CPPFLAGS.

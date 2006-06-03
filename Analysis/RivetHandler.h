@@ -9,6 +9,9 @@
 #include "Rivet/Analysis/AnalysisBase.h"
 #include "Rivet/Projections/Event.h"
 #include "RivetHandler.fh"
+#include "AIDA/IAnalysisFactory.h"
+#include "AIDA/ITree.h"
+#include "AIDA/IHistogramFactory.h"
 
 namespace Rivet {
 
@@ -28,11 +31,18 @@ public:
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor is given a string which will be used to
-   * derive the filename where the histograms are dumped. Probably it
-   * should also be given a histogram factory.
+   * The standard constructor.
+   * @param filename the name of the file where histograms are stored.
+   * @param storetype a string indicating to the AIDA analysis factory
+   * how to store the histograms. Which strings are allowed depends on
+   * actual AIDA implementation used. To output in standard AIDA XML the
+   * string is typically "xml".
+   * @param afac an AIDA analysis factory object. The caller must make
+   * sure that the lifetime of the factory object exceeds the RivetHandler
+   * object.
    */
-  inline RivetHandler(string aname);
+  RivetHandler(string filename, string storetype,
+	       AIDA::IAnalysisFactory & afac);
 
   /**
    * The destructor is not virtual as this class should not be
@@ -80,13 +90,23 @@ public:
    */
   RivetInfo info() const;
 
-private:
+  /**
+   * The AIDA analysis factory.
+   */
+  inline AIDA::IAnalysisFactory & analysisFactory();
 
   /**
-   * The name of this RivetHandler to be used to derive a filename
-   * where the histograms are dumped.
+   * The AIDA tree object.
    */
-  string name;
+  inline AIDA::ITree & tree();
+
+  /**
+   * The AIDA histogram factory.
+   */
+  inline AIDA::IHistogramFactory & histogramFactory();
+
+
+private:
 
   /**
    * The vector of AnalysisBase objects to be used.
@@ -103,6 +123,21 @@ private:
    * be combined into one.
    */
   int iRun;
+
+  /**
+   * The AIDA analysis factory.
+   */
+  AIDA::IAnalysisFactory * theAnalysisFactory;
+
+  /**
+   * The AIDA tree object.
+   */
+  AIDA::ITree * theTree;
+
+  /**
+   * The AIDA histogram factory.
+   */
+  AIDA::IHistogramFactory * theHistogramFactory;
 
 private:
 

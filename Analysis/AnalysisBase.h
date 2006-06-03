@@ -8,6 +8,10 @@
 #include "Rivet/Config/Rivet.h"
 #include "Rivet/Projections/Event.fh"
 #include "Rivet/Analysis/RivetInfo.h"
+#include "Rivet/Analysis/RivetHandler.fh"
+#include "AIDA/IAnalysisFactory.h"
+#include "AIDA/ITree.h"
+#include "AIDA/IHistogramFactory.h"
 #include "AnalysisBase.fh"
 
 namespace Rivet {
@@ -31,6 +35,11 @@ namespace Rivet {
  * the Rivet class.
  */
 class AnalysisBase {
+
+  /**
+   * The RivetHandler is a friend;
+   */
+  friend class RivetHandler;
 
 public:
 
@@ -86,7 +95,34 @@ public:
    */
   virtual RivetInfo getInfo() const;
 
+  /**
+   * Access the controlling RivetHandler object.
+   */
+  inline RivetHandler & handler();
+
+  /**
+   * Access the AIDA analysis factory of the controlling RivetHandler
+   * object.
+   */
+  AIDA::IAnalysisFactory & analysisFactory();
+
+  /**
+   * Access the AIDA tree of the controlling RivetHandler object.
+   */
+  AIDA::ITree & tree();
+
+  /**
+   * Access the AIDA histogram factory of the controlling RivetHandler
+   * object.
+   */
+  AIDA::IHistogramFactory & histogramFactory();
+
 private:
+
+  /**
+   * The controlling RivetHandler object.
+   */
+  RivetHandler * theHandler;
 
   /**
    * The object containing the parameters of this analysis object to
