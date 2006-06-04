@@ -7,9 +7,9 @@
 namespace Rivet {
 
 inline HZ95108::HZ95108()
-  : fsproj(11, -11, 2212), diskin(11, -11, 2212) {}
+  : fsproj(11, -11, 2212), diskin(11, -11, 2212), y1hcm(11, -11, 2212) {}
 
 inline HZ95108::HZ95108(const HZ95108 & x)
-  : AnalysisBase(x), fsproj(x.fsproj), diskin(x.diskin) {}
+  : AnalysisBase(x), fsproj(x.fsproj), diskin(x.diskin), y1hcm(x.y1hcm) {}
 
 }

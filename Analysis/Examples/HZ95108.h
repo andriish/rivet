@@ -7,7 +7,7 @@
 
 #include "Rivet/Analysis/AnalysisBase.h"
 #include "Rivet/Projections/FinalStateHCM.h"
-#include "Rivet/Projections/FinalStateProjection.h"
+#include "Rivet/Projections/CentralEtHCM.h"
 #include "AIDA/IHistogram1D.h"
 
 namespace Rivet {
@@ -91,6 +91,11 @@ private:
    * The DISKinematics projector used.
    */
   DISKinematics diskin;
+
+  /**
+   * The CentralEtHCM projector used.
+   */
+  CentralEtHCM y1hcm;
 
   /**
    * Some integer constants used.

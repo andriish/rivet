@@ -10,6 +10,7 @@
 
 using namespace Rivet;
 using namespace std;
+using namespace CLHEP;
 
 HZ95108::~HZ95108() {}
 
@@ -45,7 +46,7 @@ void HZ95108::init() {
 }
 
 int HZ95108::getbin(const DISKinematics & dk) {
-  const double GeV2 = CLHEP::GeV*CLHEP::GeV;
+  const double GeV2 = GeV*GeV;
 
   if ( dk.Q2() > 5.0*GeV2 && dk.Q2() <= 10.0*GeV2 ) {
     if ( dk.x() > 0.0001 && dk.x() <= 0.0002 )
@@ -77,28 +78,23 @@ int HZ95108::getbin(const DISKinematics & dk) {
 void HZ95108::analyze(const Event & event) {
   const FinalStateHCM & fs = event(fsproj);
   const DISKinematics & dk = event(diskin);
+  const CentralEtHCM y1 = event(y1hcm);
 
   int ibin = getbin(dk);
   if ( ibin < 0 ) return;
 
-  double etcent = 0.0;
-
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
     double rap = fs.particles()[i].momentum.rapidity();
     double et = fs.particles()[i].momentum.et();
-    hEtFlow[ibin]->fill(rap, et*event.weight());
-    hEtFlowStat[ibin]->fill(rap, et*event.weight());
-
-    if ( abs(rap) < 0.5 ) {
-      etcent += et;
-    }
+    hEtFlow[ibin]->fill(rap, et*event.weight()/GeV);
+    hEtFlowStat[ibin]->fill(rap, et*event.weight()/GeV);
   }
 
   nev[ibin] += event.weight();
 
-  hAvEt->fill(ibin + 1.5, etcent*event.weight());
+  hAvEt->fill(ibin + 1.5, y1.sumEt()*event.weight()/GeV);
   hAvX->fill(ibin + 1.5, dk.x()*event.weight());
-  hAvQ2->fill(ibin + 1.5, dk.Q2()*event.weight());
+  hAvQ2->fill(ibin + 1.5, dk.Q2()*event.weight()/(GeV*GeV));
   hN->fill(ibin + 1.5, event.weight());
 
 }

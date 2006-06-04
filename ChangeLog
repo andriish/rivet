@@ -1,3 +1,12 @@
+2006-06-04  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* Analysis/Examples/HZ95108.*: Now uses CentralEtHCM. Also set GeV
+	units on the relevant histograms.
+
+	* Projections/CentralEtHCM.*: Making a special class just to get
+	out one number - the summed Et in the central rapidity bin - may
+	seem like an overkill. But in case some one else might nees it...
+
 2006-06-03  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Analysis/Examples/HZ95108.*: Added the hz95108 energy flow
