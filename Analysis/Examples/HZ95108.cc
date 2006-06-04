@@ -19,7 +19,7 @@ const double HZ95108::xmax = 6.0;
 void HZ95108::init() {
   hEtFlow = vector<AIDA::IHistogram1D *>(nbin);
   hEtFlowStat = vector<AIDA::IHistogram1D *>(nbin);
-  etmean = xmean = q2mean = nev = vector<double>(nbin);
+  nev = vector<double>(nbin);
 
   tree().mkdir("/HZ95108");
   for ( int i = 0; i < nbin; ++i ) {
@@ -32,6 +32,7 @@ void HZ95108::init() {
   }
   hAvEt =
     histogramFactory().createHistogram1D("/HZ95108/21tmp", nbin, 1.0, 10.0);
+  hAvEt->setTitle("<Et> vs kin. bin");
   hAvX =
     histogramFactory().createHistogram1D("/HZ95108/22tmp", nbin, 1.0, 10.0);
   hAvX->setTitle("<x>  vs kin. bin");
@@ -89,14 +90,11 @@ void HZ95108::analyze(const Event & event) {
     hEtFlowStat[ibin]->fill(rap, et*event.weight());
 
     if ( abs(rap) < 0.5 ) {
-      etmean[ibin] += et;
       etcent += et;
     }
   }
 
   nev[ibin] += event.weight();
-  xmean[ibin] += dk.x();
-  q2mean[ibin] += dk.Q2();
 
   hAvEt->fill(ibin + 1.5, etcent*event.weight());
   hAvX->fill(ibin + 1.5, dk.x()*event.weight());

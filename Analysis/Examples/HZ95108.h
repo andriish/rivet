@@ -113,13 +113,10 @@ private:
   AIDA::IHistogram1D * hAvEt, * hAvX, * hAvQ2, * hN;
 
   /**
-   * Some helper vectors;
+   * Helper vector;
    */
-  vector<double> etmean, xmean, q2mean, nev;
+  vector<double> nev;
   
-  /**
-   * Some helper vectors;
-   */
 private:
 
   /**
