@@ -18,9 +18,10 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 ## Find CLHEP
-AC_CEDAR_LIBRARYANDHEADERS([CLHEP], , 
-  [AC_TEST_CLHEP], 
-  [AC_MSG_ERROR([CLHEP must be installed])])
+#AC_CEDAR_LIBRARYANDHEADERS([CLHEP], , 
+#  [AC_TEST_CLHEP], 
+#  [AC_MSG_ERROR([CLHEP must be installed])])
+AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed])])
 
 ## Find ThePEG (should be optional)
 #AC_CEDAR_CHECK_THEPEG
