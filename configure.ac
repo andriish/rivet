@@ -18,14 +18,10 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 ## Find CLHEP
-#AC_CEDAR_LIBRARYANDHEADERS([CLHEP], , 
+#AC_CEDAR_LIBRARYANDHEADERS([CLHEP], [2.?.?.?],
 #  [AC_TEST_CLHEP], 
 #  [AC_MSG_ERROR([CLHEP must be installed])])
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed])])
-
-## Find ThePEG (should be optional)
-#AC_CEDAR_CHECK_THEPEG
-#AC_CEDAR_LIBRARYANDHEADERS([ThePEG])
 
 AM_CPPFLAGS="-I\$(top_builddir)/include"
 AM_CXXFLAGS="-ansi -pedantic -Wall"
