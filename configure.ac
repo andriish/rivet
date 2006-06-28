@@ -1,4 +1,4 @@
-dnl Process this file with autoconf to produce a configure script.
+## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
 AC_INIT([Rivet],[1.0],[],[Rivet])
@@ -9,7 +9,7 @@ AC_LANG(C++)
 AC_CONFIG_SRCDIR([Analysis/RivetHandler.h])
 AC_CONFIG_HEADERS([Config/config.h])
 
-dnl Checks for programs.
+## Checks for programs.
 AC_PROG_CXX
 AC_PROG_INSTALL
 AC_PROG_LN_S
@@ -18,9 +18,6 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 ## Find CLHEP
-#AC_CEDAR_LIBRARYANDHEADERS([CLHEP], [2.?.?.?],
-#  [AC_TEST_CLHEP], 
-#  [AC_MSG_ERROR([CLHEP must be installed])])
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed])])
 
 AM_CPPFLAGS="-I\$(top_builddir)/include"
@@ -42,4 +39,3 @@ lib/Makefile
 Makefile],)
 
 AC_OUTPUT
-
