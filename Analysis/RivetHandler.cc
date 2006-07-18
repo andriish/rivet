@@ -9,6 +9,8 @@
 
 using namespace Rivet;
 
+RivetHandler::RivetHandler() {}
+
 RivetHandler::RivetHandler(string filename, string storetype,
 			   AIDA::IAnalysisFactory & afac)
   : nRun(0), iRun(0), theAnalysisFactory(&afac) {

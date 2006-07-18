@@ -6,9 +6,12 @@
 
 namespace Rivet {
 
+  //inline Particle::Particle(const GenParticle & p)
+  // : original(&p), id(p.pdg_id()), momentum(p.momentum()),
+  //  mass(p.generatedMass()) {}
 inline Particle::Particle(const GenParticle & p)
   : original(&p), id(p.pdg_id()), momentum(p.momentum()),
-    mass(p.generatedMass()) {}
+    mass(p.momentum().m()) {}
 
 inline Particle::Particle()
   : original(0), id(0), mass(0.0) {}

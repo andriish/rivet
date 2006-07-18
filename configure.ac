@@ -19,6 +19,7 @@ AC_PROG_LIBTOOL
 
 ## Find CLHEP
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed])])
+AC_CEDAR_HEADERS([AIDA])
 
 AM_CPPFLAGS="-I\$(top_builddir)/include"
 AM_CXXFLAGS="-ansi -pedantic -Wall"

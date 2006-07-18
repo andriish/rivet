@@ -45,6 +45,11 @@ public:
 	       AIDA::IAnalysisFactory & afac);
 
   /**
+   * Default constructor: no AIDA analysis factory required
+   */
+  RivetHandler();
+
+  /**
    * The destructor is not virtual as this class should not be
    * inherited from.
    */
