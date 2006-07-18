@@ -9,3 +9,4 @@ INCLUDEFILES = $(DOCFILES) AnalysisBase.fh AnalysisBase.icc \
 
 noinst_LTLIBRARIES = libRivetAnalysis.la
 libRivetAnalysis_la_SOURCES = $(mySOURCES) $(INCLUDEFILES)
+libRivetAnalysis_la_CPPFLAGS = -I$(AIDAINCPATH) -I$(top_srcdir)/include

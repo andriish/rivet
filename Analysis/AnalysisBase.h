@@ -5,7 +5,6 @@
 // This is the declaration of the AnalysisBase class.
 //
 
-#include "Rivet/Config/Rivet.h"
 #include "Rivet/Projections/Event.fh"
 #include "Rivet/Analysis/RivetInfo.h"
 #include "Rivet/Analysis/RivetHandler.fh"
