@@ -141,6 +141,6 @@ private:
 
 }
 
-#include "AnalysisBase.icc"
+#include "Rivet/Analysis/AnalysisBase.icc"
 
 #endif /* RIVET_AnalysisBase_H */

@@ -129,6 +129,6 @@ private:
 
 }
 
-#include "FinalStateHCM.icc"
+#include "Rivet/Projections/FinalStateHCM.icc"
 
 #endif /* RIVET_FinalStateHCM_H */

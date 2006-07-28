@@ -166,6 +166,6 @@ private:
 
 }
 
-#include "RivetHandler.icc"
+#include "Rivet/Analysis/RivetHandler.icc"
 
 #endif /* RIVET_RivetHandler_H */

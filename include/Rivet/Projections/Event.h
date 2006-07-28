@@ -96,7 +96,7 @@ private:
   /**
    * The set of Projection objects applied so far.
    */
-  mutable set<const Projection *> theProjections;
+  mutable std::set<const Projection *> theProjections;
 
   /**
    * The weight associated with the event.
@@ -115,6 +115,6 @@ private:
 
 }
 
-#include "Event.icc"
+#include "Rivet/Projections/Event.icc"
 
 #endif /* RIVET_Event_H */

@@ -15,7 +15,7 @@ inline const HepMC::GenEvent & Event::genEvent() const {
 
 template <typename PROJ>
 inline const PROJ * Event::addProjection(PROJ & p) const {
-  set<const Projection *>::const_iterator old = theProjections.find(&p);
+  std::set<const Projection *>::const_iterator old = theProjections.find(&p);
   if ( old != theProjections.end() ) return dynamic_cast<const PROJ *>(*old);
   Projection * pp = &p;
   pp->project(*this);

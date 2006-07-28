@@ -149,6 +149,6 @@ struct less<const Rivet::Projection *> :
 
 }
 
-#include "Projection.icc"
+#include "Rivet/Projections/Projection.icc"
 
 #endif /* RIVET_Projection_H */

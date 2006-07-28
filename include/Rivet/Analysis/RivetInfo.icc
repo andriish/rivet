@@ -10,9 +10,9 @@ inline RivetInfo::RivetInfo(const RivetInfo & x)
   : theParTypes(x.theParTypes), theParDescriptions(x.theParDescriptions),
   theIntPars(x.theIntPars), theFloatPars(x.theFloatPars) {}
 
-inline string RivetInfo::getType(string name) const {
+inline std::string RivetInfo::getType(std::string name) const {
   InfoTMap::const_iterator it = theParTypes.find(name);
-  return it == theParTypes.end()? string(): it->second;
+  return it == theParTypes.end()? std::string(): it->second;
 }
 
 inline RivetInfo & RivetInfo::operator+=(const RivetInfo & inf) {

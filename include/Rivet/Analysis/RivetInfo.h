@@ -236,6 +236,6 @@ inline std::ostream & operator<<(std::ostream & os, const RivetInfo & i) {
 
 }
 
-#include "RivetInfo.icc"
+#include "Rivet/Analysis/RivetInfo.icc"
 
 #endif /* RIVET_RivetInfo_H */

@@ -118,6 +118,6 @@ private:
 
 }
 
-#include "CentralEtHCM.icc"
+#include "Rivet/Projections/CentralEtHCM.icc"
 
 #endif /* RIVET_CentralEtHCM_H */

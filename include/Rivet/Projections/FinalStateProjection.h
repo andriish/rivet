@@ -112,6 +112,6 @@ private:
 
 }
 
-#include "FinalStateProjection.icc"
+#include "Rivet/Projections/FinalStateProjection.icc"
 
 #endif /* RIVET_FinalStateProjection_H */

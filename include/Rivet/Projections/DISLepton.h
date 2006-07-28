@@ -137,6 +137,6 @@ private:
 
 }
 
-#include "DISLepton.icc"
+#include "Rivet/Projections/DISLepton.icc"
 
 #endif /* RIVET_DISLepton_H */

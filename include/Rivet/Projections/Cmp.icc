@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+#include <typeinfo>
+
 template <typename T>
 inline Cmp<T>::Cmp(const T & t1, const T & t2)
   : value(undefined), objects(&t1, &t2) {}
@@ -74,8 +76,8 @@ inline Cmp<Projection>::operator int() const {
 
 inline void Cmp<Projection>::compare() const {
   if ( value == undefined ) {
-    const type_info & id1 = typeid(*objects.first);
-    const type_info & id2 = typeid(*objects.second);
+    const std::type_info & id1 = typeid(*objects.first);
+    const std::type_info & id2 = typeid(*objects.second);
     if ( id1.before(id2) ) value = ordered;
     else if ( id2.before(id1) ) value = unordered;
     else {

@@ -210,6 +210,6 @@ inline Cmp<Projection> pcmp(const Projection & p1, const Projection & p2) {
 
 }
 
-#include "Cmp.icc"
+#include "Rivet/Projections/Cmp.icc"
 
 #endif /* RIVET_Cmp_H */

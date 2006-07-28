@@ -65,13 +65,13 @@ struct Particle {
 };
 
 /** Typedef a vector of Particle objects. */
-typedef vector<Particle> PVector;
+typedef std::vector<Particle> PVector;
 
 /** Typedef a pair of Particle objects. */
-typedef pair<Particle, Particle> PPair;
+typedef std::pair<Particle, Particle> PPair;
 
 }
 
-#include "Particle.icc"
+#include "Rivet/Projections/Particle.icc"
 
 #endif /* RIVET_Particle_H */

@@ -99,6 +99,6 @@ private:
 
 }
 
-#include "BeamProjection.icc"
+#include "Rivet/Projections/BeamProjection.icc"
 
 #endif /* RIVET_BeamProjection_H */

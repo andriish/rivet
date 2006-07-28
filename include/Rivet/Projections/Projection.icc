@@ -6,16 +6,21 @@
 
 namespace Rivet {
 
+#include <typeinfo>
+
 inline Projection::Projection() {}
 
 inline Projection::Projection(const Projection & p)
   : info(p.info) {}
 
 inline bool Projection::before(const Projection & p) const {
-  const type_info & thisid = typeid(*this);
-  const type_info & otherid = typeid(p);
-  if ( thisid == otherid ) return compare(p) < 0;
-  else return thisid.before(otherid);
+  const std::type_info & thisid = typeid(*this);
+  const std::type_info & otherid = typeid(p);
+  if ( thisid == otherid ) {
+    return compare(p) < 0;
+  } else {
+    return thisid.before(otherid);
+  }
 }
 
 }

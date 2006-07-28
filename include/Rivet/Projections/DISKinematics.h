@@ -174,6 +174,6 @@ private:
 
 }
 
-#include "DISKinematics.icc"
+#include "Rivet/Projections/DISKinematics.icc"
 
 #endif /* RIVET_DISKinematics_H */
