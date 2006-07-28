@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I ac-cedar
-SUBDIRS =  include src CLHEPWrap lib
+SUBDIRS =  include src lib
 
-pkglib_SCRIPTS = libtool
+#pkglib_SCRIPTS = libtool
 
 #check-local:
 #	@echo "libpath: $(CLHEPLIBPATH)"
