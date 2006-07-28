@@ -2,12 +2,12 @@
 
 AC_PREREQ(2.59)
 AC_INIT([Rivet],[1.0],[],[Rivet])
-AC_CONFIG_AUX_DIR([Config])
+#AC_CONFIG_AUX_DIR([Config])
 AM_INIT_AUTOMAKE
 AC_LANG(C++)
 
-AC_CONFIG_SRCDIR([Analysis/RivetHandler.h])
-AC_CONFIG_HEADERS([Config/config.h])
+AC_CONFIG_SRCDIR([src/Analysis/RivetHandler.h])
+#AC_CONFIG_HEADERS([Config/config.h])
 
 ## Checks for programs.
 AC_PROG_CXX
@@ -30,12 +30,13 @@ AC_EMPTY_SUBST
 
 AC_PATH_PROG(PERL, perl)
 
-AC_CONFIG_FILES([include/Makefile
+AC_CONFIG_FILES([
 CLHEPWrap/Makefile
-Config/Makefile
-Projections/Makefile
-Analysis/Makefile
-Analysis/Examples/Makefile
+include/Makefile
+src/Makefile
+src/Projections/Makefile
+src/Analysis/Makefile
+src/Analysis/Examples/Makefile
 lib/Makefile
 Makefile],)
 
