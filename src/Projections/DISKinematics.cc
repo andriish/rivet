@@ -4,7 +4,7 @@
 // functions of the DISKinematics class.
 //
 
-#include "DISKinematics.h"
+#include "Rivet/Projections/DISKinematics.h"
 #include "Rivet/Projections/Cmp.h"
 
 using namespace Rivet;

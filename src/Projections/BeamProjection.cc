@@ -4,7 +4,7 @@
 // functions of the BeamProjection class.
 //
 
-#include "BeamProjection.h"
+#include "Rivet/Projections/BeamProjection.h"
 
 #ifdef ThePEG_TEMPLATES_IN_CC_FILE
 // #include "BeamProjection.tcc"

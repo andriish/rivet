@@ -5,6 +5,10 @@
 // This is the declaration of the RivetInfo class.
 //
 
+#include <map>
+//#include <multimap>
+#include <string>
+#include <iostream>
 #include "Rivet/Config/Rivet.h"
 
 namespace Rivet {
@@ -69,25 +73,25 @@ public:
   /**
    * Typedef for maps of parameter types keyed by the parameter name.
    */
-  typedef map<string,string> InfoTMap;
+  typedef std::map<std::string,std::string> InfoTMap;
 
   /**
    * Typedef for maps of parameter descriptions keyed by the
    * parameter name.
    */
-  typedef multimap<string,string> InfoMap;
+  typedef std::multimap<std::string,std::string> InfoMap;
 
   /**
    * Typedef for maps of integer parameters keyed by the parameter
    * name.
    */
-  typedef multimap<string,long> InfoIMap;
+  typedef std::multimap<std::string,long> InfoIMap;
 
   /**
    * Typedef for maps of floating point parameters keyed by the
    * parameter name.
    */
-  typedef multimap<string,double> InfoDMap;
+  typedef std::multimap<std::string,double> InfoDMap;
 
 
 public:
@@ -124,8 +128,8 @@ public:
    * a standard parameter, the \a type and \a description should be
    * given as well.
    */
-  void declareParameter(string name, long value,
-			string type = "", string description = "");
+  void declareParameter(std::string name, long value,
+			std::string type = "", std::string description = "");
 
   /**
    * Declare an floating point parameter to be accessible to the
@@ -133,18 +137,18 @@ public:
    * this is not a standard parameter, the \a type and \a description
    * should be given as well.
    */
-  void declareParameter(string name, double value,
-			string type = "", string description = "");
+  void declareParameter(std::string name, double value,
+			std::string type = "", std::string description = "");
 
   /**
    * Add a \a description of the parameter with the given \a name.
    */
-  void describeParameter(string name, string description);
+  void describeParameter(std::string name, std::string description);
 
   /**
    * Set the \a type of the parameter with the given \a name.
    */
-  void parameterType(string name, string type);
+  void parameterType(std::string name, std::string type);
 
   /**
    * Append all the parameters from \a inf.
@@ -174,29 +178,29 @@ public:
    * several values exist, the average value is returned. Returns zero
    * if no parameter with corresponding \a name is found.
    */
-  double getFloatParameter(string name) const;
+  double getFloatParameter(std::string name) const;
 
   /**
    * Return the value of the parameter with the given \a name. If
    * several values exist, the average value is returned. Returns zero
    * if no parameter with corresponding \a name is found.
    */
-  long getIntParameter(string name) const;
+  long getIntParameter(std::string name) const;
 
   /**
    * Return the description of the parameter with the given \a name.
    */
-  string getDescription(string name) const;
+  std::string getDescription(std::string name) const;
 
   /**
    * Return the type of the parameter with the given \a name.
    */
-  inline string getType(string name) const;
+  inline std::string getType(std::string name) const;
 
   /**
    * Print the parameters to the given \a stream.
    */
-  ostream & print(ostream & stream) const;
+  std::ostream & print(std::ostream & stream) const;
 
 private:
 
@@ -226,7 +230,7 @@ private:
 
 };
 
-inline ostream & operator<<(ostream & os, const RivetInfo & i) {
+inline std::ostream & operator<<(std::ostream & os, const RivetInfo & i) {
   return i.print(os);
 }
 

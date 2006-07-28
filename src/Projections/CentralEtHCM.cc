@@ -4,7 +4,7 @@
 // functions of the CentralEtHCM class.
 //
 
-#include "CentralEtHCM.h"
+#include "Rivet/Projections/CentralEtHCM.h"
 #include "Rivet/Projections/Cmp.h"
 
 using namespace Rivet;

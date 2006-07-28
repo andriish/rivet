@@ -1,12 +1,12 @@
-SUBDIRS = Examples
+noinst_LTLIBRARIES = libRivetAnalysis.la libRivetAnalysisExamples.la
 
-mySOURCES = AnalysisBase.cc RivetHandler.cc RivetInfo.cc
-
-DOCFILES = AnalysisBase.h RivetHandler.h  RivetInfo.h
-
-INCLUDEFILES = $(DOCFILES) AnalysisBase.fh AnalysisBase.icc \
+mySOURCES1    = AnalysisBase.cc RivetHandler.cc RivetInfo.cc
+DOCFILES1     = AnalysisBase.h RivetHandler.h  RivetInfo.h
+INCLUDEFILES1 = $(DOCFILES1) AnalysisBase.fh AnalysisBase.icc \
                RivetHandler.fh RivetHandler.icc RivetInfo.icc
+libRivetAnalysis_la_SOURCES = $(mySOURCES1) $(INCLUDEFILES1)
 
-noinst_LTLIBRARIES = libRivetAnalysis.la
-libRivetAnalysis_la_SOURCES = $(mySOURCES) $(INCLUDEFILES)
-libRivetAnalysis_la_CPPFLAGS = -I$(AIDAINCPATH) -I$(top_srcdir)/include
+mySOURCES2    = TestMultiplicity.cc HZ95108.cc
+DOCFILES2     = TestMultiplicity.h HZ95108.h
+INCLUDEFILES2 = $(DOCFILES2) TestMultiplicity.icc HZ95108.icc
+libRivetAnalysisExamples_la_SOURCES = $(mySOURCES2) $(INCLUDEFILES2)

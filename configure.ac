@@ -6,8 +6,8 @@ AC_CONFIG_AUX_DIR([config])
 AM_INIT_AUTOMAKE
 AC_LANG(C++)
 
-AC_CONFIG_SRCDIR([src/Analysis/RivetHandler.h])
-#AC_CONFIG_HEADERS([include/Rivet/Rivet.h])
+AC_CONFIG_SRCDIR([src/Analysis/RivetHandler.cc])
+AC_CONFIG_HEADERS([include/Rivet/Config/Rivet.h])
 
 ## Checks for programs.
 AC_PROG_CXX
@@ -19,7 +19,6 @@ AC_PROG_LIBTOOL
 
 ## Find CLHEP
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed])])
-AC_CEDAR_HEADERS([AIDA])
 
 AM_CPPFLAGS="-I\$(top_builddir)/include"
 AM_CXXFLAGS="-ansi -pedantic -Wall"
@@ -32,10 +31,10 @@ AC_PATH_PROG(PERL, perl)
 
 AC_CONFIG_FILES([
 include/Makefile
+include/Rivet/Makefile
 src/Makefile
 src/Projections/Makefile
 src/Analysis/Makefile
-src/Analysis/Examples/Makefile
 lib/Makefile
 Makefile],)
 

@@ -4,7 +4,7 @@
 // functions of the FinalStateHCM class.
 //
 
-#include "FinalStateHCM.h"
+#include "Rivet/Projections/FinalStateHCM.h"
 #include "Rivet/Projections/Cmp.h"
 
 using namespace Rivet;

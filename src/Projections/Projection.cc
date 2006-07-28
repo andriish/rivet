@@ -4,7 +4,7 @@
 // functions of the Projection class.
 //
 
-#include "Projection.h"
+#include "Rivet/Projections/Projection.h"
 
 using namespace Rivet;
 
