@@ -1,8 +1,8 @@
 #ifndef Event_Shapes_EE_H
 #define Event_Shapes_EE_H
 
-#include "Primitive_Observable_Base.H"
-#include "Final_Selector.H"
+//#include "Primitive_Observable_Base.H"
+//#include "Final_Selector.H"
 #include "Vector.H"
 #include "Matrix.H"
 
@@ -13,19 +13,19 @@ namespace ANALYSIS {
     double        thrust, major, minor, oblateness;
     ATOOLS::Vec3D thrustaxis,majoraxis,minoraxis;
     Event_Shape_EE_Data(double thru,double m1,double m2,double oblate,
-			ATOOLS::Vec3D ta,ATOOLS::Vec3D m1a,ATOOLS::Vec3D m2a);
+                        ATOOLS::Vec3D ta,ATOOLS::Vec3D m1a,ATOOLS::Vec3D m2a);
   };
-
+  
   class Event_Shapes_EE : public Final_Selector {
   private:
     unsigned int                      m_startaxes,m_maxidentaxes;
     double                            m_accuracy;
     std::string                       m_key;
     std::vector<ATOOLS::Vec3D>        m_vectors, m_vectors_save;
-
+    
     void          Select(const ATOOLS::Particle_List &,double=1.,int ncount=1);
     void          CalculateLinears();
-
+    
     void          RotateMoms(std::vector<ATOOLS::Vec3D> &,const ATOOLS::Vec3D &);
     ATOOLS::Vec3D NewAxis(const std::vector<ATOOLS::Vec3D> &,const ATOOLS::Vec3D &);
     double        CalculateThrust(const std::vector<ATOOLS::Vec3D> &,const ATOOLS::Vec3D &);
@@ -38,12 +38,12 @@ namespace ANALYSIS {
     double        m_cparameter, m_dparameter;
   public:
     Event_Shapes_EE(const std::string & inlistname,
-		    const std::string & outlistname,
-		    ATOOLS::Particle_Qualifier_Base * const);
+                    const std::string & outlistname,
+                    ATOOLS::Particle_Qualifier_Base * const);
     void Evaluate(const ATOOLS::Blob_List &,double=1.,int ncount=1);
     void Evaluate(const ATOOLS::Particle_List &,double=1.,int ncount=1);
     Primitive_Observable_Base * Copy() const;
-
+    
     double        Thrust()     { return m_thrust;     }
     double        Major()      { return m_major;      }
     double        Minor()      { return m_minor;      }

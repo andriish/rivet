@@ -6,9 +6,6 @@
 
 
 #include "Vector.H"
-#include "Run_Parameter.H"
-#include "Exception.H"
-#include "MyStrStream.H"
 
 using namespace ATOOLS;
 
@@ -45,6 +42,7 @@ std::ostream& ATOOLS::operator<< (std::ostream& s, const Vec3D& vec)
   return s<<'('<<vec[1]<<','<<vec[2]<<','<<vec[3]<<')';
 }
 
+/*
 std::istream& ATOOLS::operator>>(std::istream& s,Vec4D& vec)
 {
   std::string out;
@@ -80,6 +78,7 @@ std::istream& ATOOLS::operator>>(std::istream& s,Vec3D& vec)
     THROW(critical_error,"Vector is not a three vector.");
   return s;
 }
+*/
 
 bool ATOOLS::operator==(const Vec4D& v1, const Vec4D& v2) 
 {
@@ -105,7 +104,7 @@ bool Vec4D::IsZero() const
 }
 void Vec4D::ResetAccu()                
 { 
-  s_accu=rpa.gen.Accu(); 
+  //AB s_accu=rpa.gen.Accu(); 
 }
 
 const double Vec4D::PPerp(const Vec4D &ref) const 

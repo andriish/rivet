@@ -1,5 +1,5 @@
 #include "Matrix.H"
-#include "Message.H"
+//#include "Message.H"
 #include <iomanip>
 
 
@@ -97,6 +97,7 @@ Matrix<_rank> Matrix<_rank>::operator*(const Matrix<_rank>& in)
 template<int _rank>
 void Matrix<_rank>::MatrixOut() const 
 {
+  /*
   double temp=0.;
   short int range=0, prcsn=0;
   short int io=msg.Out().precision(9);
@@ -111,7 +112,10 @@ void Matrix<_rank>::MatrixOut() const
   do { temp/=10.0; range+=1; } 
   while (temp>=1.0);
   
-  msg.Out()/*<<double(range)<<msg.Out().precision()*/<<endl;
+  msg.Out()
+
+//<<double(range)<<msg.Out().precision()
+<<endl;
   
   for(short int i=0; i<_rank; i++) {
     for(short int j=0; j<(range+12); j++) msg.Out()<<"-";
@@ -145,6 +149,7 @@ void Matrix<_rank>::MatrixOut() const
   
   msg.Out()<<std::resetiosflags(std::ios::fixed); 
   msg.Out().precision(io);
+  */
 }   
 
 template<int _rank>
@@ -312,7 +317,7 @@ void Matrix<_rank>::Jacobi(double d[], Matrix<_rank>& v, int *nrot) const
       z[ip]=0.0;
     }
   }
-  msg.Error()<<"Too many iterations in routine jacobi"<<endl;
+  //AB msg.Error()<<"Too many iterations in routine jacobi"<<endl;
 }
 #undef ROTATE
 #undef NRANSI
