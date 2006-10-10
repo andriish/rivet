@@ -20,6 +20,8 @@ void TestMultiplicity::analyze(const Event & event) {
   //  const FinalStateHCM & fs = event(fsproj);
   int mult =  fs.particles().size();
   cout << "Event multiplicity = " << mult << endl;
+  /// @todo How to make the projection clear itself per-event?
+  //fsproj.particles().clear();
   // Fill histogram here.
 }
 
