@@ -1,1 +1,2 @@
-SUBDIRS = Projections Analysis SherpaTools
+SUBDIRS = Projections Analysis 
+#SherpaTools

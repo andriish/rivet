@@ -37,5 +37,6 @@ src/Projections/Makefile
 src/Analysis/Makefile
 lib/Makefile
 Makefile],)
+#src/SherpaTools/Makefile
 
 AC_OUTPUT

@@ -2,8 +2,8 @@
 
 using namespace ANALYSIS;
 
-#include "MyStrStream.H"
-#include "Run_Parameter.H"
+//#include "MyStrStream.H"
+//#include "Run_Parameter.H"
 #include <algorithm>
 #include <iomanip>
 
@@ -155,18 +155,18 @@ void Event_Shapes_EE::CalculateLinears()
       currthrust       = SumNP(m_vectors,curraxis)/sump;
       lastthrust       = 0.;
       while (currthrust > lastthrust+m_accuracy) {
-	lastthrust     = currthrust;
-	lastaxis       = curraxis;
-	curraxis       = NewAxis(m_vectors,curraxis);
-	currthrust     = SumNP(m_vectors,curraxis)/sump;
+        lastthrust     = currthrust;
+        lastaxis       = curraxis;
+        curraxis       = NewAxis(m_vectors,curraxis);
+        currthrust     = SumNP(m_vectors,curraxis)/sump;
       }
       // if it gets worse then skip this axis alltogether
       if (lastthrust < maxthrust-m_accuracy) break;
       // if it is a better solution then keep this one
       if (lastthrust > maxthrust+m_accuracy) {
-	ident          = 0;
-	maxthrustaxis  = lastaxis;
-	maxthrust      = lastthrust;
+        ident          = 0;
+        maxthrustaxis  = lastaxis;
+        maxthrust      = lastthrust;
       }
       ident++;
     }
