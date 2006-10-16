@@ -33,3 +33,6 @@ analysisexamplesincludedir = $(analysisincludedir)/Examples
 analysisexamplesinclude_HEADERS = \
 Analysis/Examples/HZ95108.h  Analysis/Examples/HZ95108.icc  \
 Analysis/Examples/TestMultiplicity.h  Analysis/Examples/TestMultiplicity.icc
+
+mathtoolsincludedir = $(pkgincludedir)/Tools/Math
+mathtoolsinclude_HEADERS = Tools/Math/MyComplex.h Tools/Math/MathTools.h Tools/Math/Vector.h 
