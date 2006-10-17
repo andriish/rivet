@@ -1,1 +1,1 @@
-SUBDIRS = Projections Analysis Tools
+SUBDIRS = Projections Analysis Tools Test

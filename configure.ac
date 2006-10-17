@@ -36,6 +36,7 @@ src/Makefile
 src/Tools/Makefile
 src/Projections/Makefile
 src/Analysis/Makefile
+src/Test/Makefile
 lib/Makefile
 Makefile],)
 
