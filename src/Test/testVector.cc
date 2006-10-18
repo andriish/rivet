@@ -9,7 +9,7 @@ int main() {
   Vec4D myvec = Vec4D::ZVEC;
   cout << "Before: " << myvec << endl;
 
-  Vec4D myboostvec = 4.0 * Vec4D(0.0, 0.0, 0.0, 1.0);
+  Vec4D myboostvec = 4.0 * Vec4D(2.0, 0.0, 0.0, 1.0);
   cout << "Boost vector: " << myboostvec << endl;
   cout << "Boost vector mass: " << myboostvec.Mass() << endl;
 
