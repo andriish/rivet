@@ -1,3 +1,27 @@
+2006-11-02  Andy Buckley  <andy@insectnation.org>
+
+	* Yet more, almost pointless, administrative moving around of
+	things with the intention of making the structure a bit
+	better-defined:
+
+	* The RivetInfo and RivetHandler classes have been
+	moved from src/Analysis into src as they are really the main Rivet
+	interface classes. The Rivet.h header has also been moved into the
+	"header root". 
+
+	* The build of a single shared library in lib has been disabled,
+	with the library being built instead in src.
+
+2006-10-14  Andy Buckley  <andy@insectnation.org>
+
+	* Introduced a minimal subset of the Sherpa math tools, such as
+	Vector{3,4}D, Matrix, etc. The intention is to eventually cut the
+	dependency on CLHEP.
+	
+2006-07-28  Andy Buckley  <andy@insectnation.org>
+
+	* Moving things around: all sources now in directories under src
+	
 2006-06-04  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Analysis/Examples/HZ95108.*: Now uses CentralEtHCM. Also set GeV

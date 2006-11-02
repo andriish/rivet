@@ -4,7 +4,7 @@
 // functions of the RivetHandler class.
 //
 
-#include "Rivet/Analysis/RivetHandler.h"
+#include "Rivet/RivetHandler.h"
 #include "AIDA/ITreeFactory.h"
 
 using namespace Rivet;

@@ -4,7 +4,7 @@
 // functions of the RivetInfo class.
 //
 
-#include "Rivet/Analysis/RivetInfo.h"
+#include "Rivet/RivetInfo.h"
 
 using namespace Rivet;
 
