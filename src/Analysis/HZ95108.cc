@@ -4,8 +4,7 @@
 // functions of the HZ95108 class.
 //
 
-#include "Rivet/Analysis/Examples/HZ95108.h"
-#include "Rivet/Analysis/RivetHandler.h"
+#include "Rivet/Analysis/HZ95108.h"
 #include "Rivet/CLHEPWrap/SystemOfUnits.h"
 
 using namespace Rivet;

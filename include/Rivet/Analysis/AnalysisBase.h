@@ -6,12 +6,14 @@
 //
 
 #include "Rivet/Projections/Event.fh"
-#include "Rivet/Analysis/RivetInfo.h"
-#include "Rivet/Analysis/RivetHandler.fh"
+#include "Rivet/RivetInfo.h"
+#include "Rivet/RivetHandler.fh"
+#include "AnalysisBase.fh"
+
 #include "AIDA/IAnalysisFactory.h"
 #include "AIDA/ITree.h"
 #include "AIDA/IHistogramFactory.h"
-#include "AnalysisBase.fh"
+
 
 namespace Rivet {
 

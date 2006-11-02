@@ -5,7 +5,7 @@
 // This is the declaration of the RivetHandler class.
 //
 
-#include "Rivet/Config/Rivet.h"
+#include "Rivet/Rivet.h"
 #include "Rivet/Analysis/AnalysisBase.h"
 #include "Rivet/Projections/Event.h"
 #include "RivetHandler.fh"
@@ -166,6 +166,6 @@ private:
 
 }
 
-#include "Rivet/Analysis/RivetHandler.icc"
+#include "Rivet/RivetHandler.icc"
 
 #endif /* RIVET_RivetHandler_H */

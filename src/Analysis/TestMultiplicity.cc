@@ -4,7 +4,7 @@
 // functions of the TestMultiplicity class.
 //
 
-#include "Rivet/Analysis/Examples/TestMultiplicity.h"
+#include "Rivet/Analysis/TestMultiplicity.h"
 
 using namespace Rivet;
 using namespace std;

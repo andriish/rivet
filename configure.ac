@@ -6,7 +6,7 @@ AC_CONFIG_AUX_DIR([config])
 AM_INIT_AUTOMAKE
 AC_LANG(C++)
 
-AC_CONFIG_SRCDIR([src/Analysis/RivetHandler.cc])
+AC_CONFIG_SRCDIR([src/RivetHandler.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.h])
 
 ## Checks for programs.
@@ -18,7 +18,7 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 ## Find CLHEP
-AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed])])
+AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
 
 AM_CPPFLAGS="-I\$(top_builddir)/include"
 AM_CXXFLAGS="-ansi -pedantic -Wall"

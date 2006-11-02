@@ -9,7 +9,7 @@
 //#include <multimap>
 #include <string>
 #include <iostream>
-#include "Rivet/Config/Rivet.h"
+#include "Rivet/Rivet.h"
 
 namespace Rivet {
 
@@ -236,6 +236,6 @@ inline std::ostream & operator<<(std::ostream & os, const RivetInfo & i) {
 
 }
 
-#include "Rivet/Analysis/RivetInfo.icc"
+#include "Rivet/RivetInfo.icc"
 
 #endif /* RIVET_RivetInfo_H */

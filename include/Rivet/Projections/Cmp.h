@@ -5,7 +5,7 @@
 // This is the declaration of the Cmp class.
 //
 
-#include "Rivet/Config/Rivet.h"
+#include "Rivet/Rivet.h"
 #include "Rivet/Projections/Projection.h"
 #include "Cmp.fh"
 

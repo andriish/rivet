@@ -6,11 +6,12 @@
 //
 
 // #include "Rivet/Config/Rivet.h"
-#include "Rivet/Config/Rivet.h"
+#include "Rivet/Rivet.h"
+#include "Rivet/RivetInfo.h"
 #include "Projection.fh"
 #include "Rivet/Projections/Event.fh"
 #include "Rivet/Projections/Cmp.fh"
-#include "Rivet/Analysis/RivetInfo.h"
+
 
 namespace Rivet {
 

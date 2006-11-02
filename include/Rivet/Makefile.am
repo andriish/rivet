@@ -1,18 +1,16 @@
-configincludedir = $(pkgincludedir)/Config
-configinclude_HEADERS = Config/Rivet.h
+## Rivet interface
+nobase_pkginclude_HEADERS = \
+  Rivet.h         RivetInfo.h      RivetInfo.icc \
+  RivetHandler.h  RivetHandler.fh  RivetHandler.icc
 
-## Not for much longer...
-clhepincludedir = $(pkgincludedir)/CLHEPWrap
-clhepinclude_HEADERS = \
-  CLHEPWrap/CLHEP.h             CLHEPWrap/Rotation.h \
-  CLHEPWrap/LorentzRotation.fh  CLHEPWrap/SystemOfUnits.h \
-  CLHEPWrap/LorentzRotation.h   CLHEPWrap/ThreeVector.fh \
-  CLHEPWrap/LorentzVector.fh    CLHEPWrap/PhysicalConstants.h \
-  CLHEPWrap/LorentzVector.h     CLHEPWrap/Rotation.fh \
-  CLHEPWrap/ThreeVector.h
+## Analyses
+nobase_pkginclude_HEADERS += \
+  Analysis/AnalysisBase.h       Analysis/AnalysisBase.fh       Analysis/AnalysisBase.icc \
+  Analysis/HZ95108.h            Analysis/HZ95108.icc  \
+  Analysis/TestMultiplicity.h   Analysis/TestMultiplicity.icc
 
-projectionsincludedir = $(pkgincludedir)/Projections
-projectionsinclude_HEADERS = \
+## Projections
+nobase_pkginclude_HEADERS += \
   Projections/BeamProjection.h  Projections/BeamProjection.icc \
   Projections/CentralEtHCM.h    Projections/CentralEtHCM.icc   \
   Projections/FinalStateHCM.h   Projections/FinalStateHCM.icc  \
@@ -24,18 +22,16 @@ projectionsinclude_HEADERS = \
   Projections/Projection.h      Projections/Projection.fh        Projections/Projection.icc \
   Projections/FinalStateProjection.h   Projections/FinalStateProjection.icc
 
-analysisincludedir = $(pkgincludedir)/Analysis
-analysisinclude_HEADERS = \
-  Analysis/AnalysisBase.h   Analysis/AnalysisBase.fh  Analysis/AnalysisBase.icc \
-  Analysis/RivetHandler.h   Analysis/RivetHandler.fh  Analysis/RivetHandler.icc \
-  Analysis/RivetInfo.h      Analysis/RivetInfo.icc
+## Tools
+nobase_pkginclude_HEADERS += \
+  Tools/Math/MyComplex.h        Tools/Math/MathTools.h \
+  Tools/Math/Vector.h           Tools/Math/Poincare.h 
 
-analysisexamplesincludedir = $(analysisincludedir)/Examples
-analysisexamplesinclude_HEADERS = \
-  Analysis/Examples/HZ95108.h  Analysis/Examples/HZ95108.icc  \
-  Analysis/Examples/TestMultiplicity.h  Analysis/Examples/TestMultiplicity.icc
-
-mathtoolsincludedir = $(pkgincludedir)/Tools/Math
-mathtoolsinclude_HEADERS = \
-  Tools/Math/MyComplex.h Tools/Math/MathTools.h \
-  Tools/Math/Vector.h Tools/Math/Poincare.h 
+## CLHEP wrappers... but not for much longer!
+nobase_pkginclude_HEADERS += \
+  CLHEPWrap/CLHEP.h             CLHEPWrap/Rotation.h \
+  CLHEPWrap/LorentzRotation.fh  CLHEPWrap/SystemOfUnits.h \
+  CLHEPWrap/LorentzRotation.h   CLHEPWrap/ThreeVector.fh \
+  CLHEPWrap/LorentzVector.fh    CLHEPWrap/PhysicalConstants.h \
+  CLHEPWrap/LorentzVector.h     CLHEPWrap/Rotation.fh \
+  CLHEPWrap/ThreeVector.h
