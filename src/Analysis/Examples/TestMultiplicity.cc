@@ -17,17 +17,12 @@ void TestMultiplicity::init() {
 
 void TestMultiplicity::analyze(const Event & event) {
   const FinalStateProjection & fs = event(fsproj);
-  //  const FinalStateHCM & fs = event(fsproj);
   int mult =  fs.particles().size();
   cout << "Event multiplicity = " << mult << endl;
-  /// @todo How to make the projection clear itself per-event?
-  //fsproj.particles().clear();
   // Fill histogram here.
 }
 
-void TestMultiplicity::finalize() {
-  // Nothing to do here.
-}
+void TestMultiplicity::finalize() {}
 
 RivetInfo TestMultiplicity::getInfo() const {
   return AnalysisBase::getInfo() + fsproj.getInfo();
