@@ -14,18 +14,21 @@ inline const HepMC::GenEvent & Event::genEvent() const {
 }
 
 template <typename PROJ>
-inline const PROJ * Event::addProjection(PROJ & p) const {
+inline const PROJ &  Event::addProjection(PROJ & p) const {
   std::set<const Projection *>::const_iterator old = theProjections.find(&p);
-  if ( old != theProjections.end() ) return dynamic_cast<const PROJ *>(*old);
+  if ( old != theProjections.end() ) {
+    return *(dynamic_cast<const PROJ*>(*old));
+  }
   Projection * pp = &p;
-  pp->project(*this);
+  pp->project(*this); /// @todo How does this bypass the access = protected on project()???
   theProjections.insert(&p);
-  return &p;
+  return p;
 }
 
 template <typename PROJ>
-inline const PROJ & Event::operator()(PROJ & p) const {
-  return *addProjection(p);
+inline const PROJ& Event::operator()(PROJ & p) const {
+  std::cerr << "Event::() is deprecated" << std::endl;
+  return addProjection(p);
 }
 
 inline double Event::weight() const {

@@ -7,7 +7,8 @@ nobase_pkginclude_HEADERS = \
 nobase_pkginclude_HEADERS += \
   Analysis/AnalysisBase.h       Analysis/AnalysisBase.fh       Analysis/AnalysisBase.icc \
   Analysis/HZ95108.h            Analysis/HZ95108.icc  \
-  Analysis/TestMultiplicity.h   Analysis/TestMultiplicity.icc
+  Analysis/TestMultiplicity.h   Analysis/TestMultiplicity.icc \
+  Analysis/TestChargedMultiplicity.h
 
 ## Projections
 nobase_pkginclude_HEADERS += \

@@ -36,47 +36,36 @@ class Event {
 
 public:
 
-  /** @name Standard constructors and destructors. */
+  /// @name Standard constructors and destructors.
   //@{
-  /**
-   * The default constructor.
-   */
+  /// The default constructor.
   Event(const HepMC::GenEvent & geneve);
 
-  /**
-   * The copy constructor.
-   */
+  /// The copy constructor.
   inline Event(const Event &);
 
-  /**
-   * The destructor.
-   */
+  /// The destructor.
   virtual ~Event();
   //@}
 
 public:
 
-  /**
-   * Return the generated event obtained from an external event
-   * generator.
-   */
+  /// Return the generated event obtained from an external event generator.
   inline const GenEvent & genEvent() const;
 
-  /**
-   * Add a projection \a p to this Event. If an equivalent Projection
-   * has been applied before, the Projection::project(const Event &)
-   * of \a p is not called and a pointer to the previous equivalent
-   * projection is returned. If no previous Projection was found, the
-   * Projection::project(const Event &) of \a p is called and a
-   * pointer to p is returned.
-   */
+  /// Add a projection \a p to this Event. If an equivalent Projection
+  /// has been applied before, the Projection::project(const Event &)
+  /// of \a p is not called and a reference to the previous equivalent
+  /// projection is returned. If no previous Projection was found, the
+  /// Projection::project(const Event &) of \a p is called and a
+  /// reference to p is returned.
   template <typename PROJ>
-  inline const PROJ * addProjection(PROJ & p) const;
+  inline const PROJ & addProjection(PROJ & p) const;
 
-  /**
-   * Same as addProjection() except that a reference to the projected
-   * object is returned.
-   */
+  /// @deprecated May be deprecated in future: is "an event acting on 
+  /// a projection" a natural concept? addProjection() is certainly clearer.
+  ///
+  /// Same as addProjection().
   template <typename PROJ>
   inline const PROJ & operator()(PROJ & p) const;
 

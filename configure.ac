@@ -17,10 +17,16 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
+## More comprehensible error messages if possible. See:
+## http://www.bdsoft.com/tools/stlfilt.html
+AC_PATH_PROG(GFILT, gfilt, $CXX, $PATH:$HOME/bin:$HOME/local/bin)
+CXX=$GFILT
+
 ## Find CLHEP
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
+AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 
-AM_CPPFLAGS="-I\$(top_builddir)/include"
+AM_CPPFLAGS="-I\$(top_builddir)/include -I\$(HEPMCINCPATH) "
 AM_CXXFLAGS="-ansi -pedantic -Wall"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
