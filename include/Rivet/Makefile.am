@@ -1,7 +1,8 @@
 ## Rivet interface
 nobase_pkginclude_HEADERS = \
-  Rivet.h         RivetInfo.h      RivetInfo.icc \
-  RivetHandler.h  RivetHandler.fh  RivetHandler.icc
+  Rivet.h         RivetInfo.h      RivetInfo.icc    \
+  RivetHandler.h  RivetHandler.fh  RivetHandler.icc \
+  Logging.h
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
