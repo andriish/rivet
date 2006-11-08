@@ -5,6 +5,7 @@
 /// @Todo Wouldn't it be nice if there was a simple fallback method 
 /// that didn't use log4cpp but used the same interface
 #include "log4cpp/Category.hh"
+#include "log4cpp/CategoryStream.hh"
 #include "log4cpp/FileAppender.hh"
 #include "log4cpp/OstreamAppender.hh"
 #include "log4cpp/BasicLayout.hh"
@@ -12,9 +13,10 @@
 
 namespace Rivet {
   typedef log4cpp::Category Logger;
+  typedef log4cpp::Priority LogPriority;
+  static log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;
 
   Logger& getLogger(std::string logfile = "") {
-    static bool ready(false);
     static log4cpp::Layout* layout = 0;
     static log4cpp::Appender* app = 0;
 
