@@ -4,8 +4,8 @@
 //
 // This is the declaration of the FinalStateHCM class.
 
-#include "Rivet/Projections/Particle.hh"
-#include "Rivet/Projections/Event.hh"
+#include "Rivet/Tools/Event/Particle.hh"
+#include "Rivet/Tools/Event/Event.hh"
 #include "Rivet/Projections/FinalStateProjection.hh"
 #include "Rivet/Projections/DISKinematics.hh"
 

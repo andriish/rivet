@@ -7,7 +7,7 @@
 // <!id>LorentzVector<!!id> and making it available in the
 // <!id>Rivet<!!id> namespace.
 
-#include "CLHEP.h"
+#include "CLHEP.hh"
 #include "CLHEP/Vector/LorentzVector.h"
 
 namespace CLHEP {

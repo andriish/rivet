@@ -5,8 +5,8 @@
 // This is the declaration of the CentralEtHCM class.
 //
 
-#include "Rivet/Projections/Particle.hh"
-#include "Rivet/Projections/Event.hh"
+#include "Rivet/Tools/Event/Particle.hh"
+#include "Rivet/Tools/Event/Event.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
 
 

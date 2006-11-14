@@ -5,7 +5,7 @@
 #ifndef RIVET_Particle_FH
 #define RIVET_Particle_FH
 
-#include "Rivet/Rivet.h"
+#include "Rivet/Rivet.hh"
 
 namespace Rivet {
 

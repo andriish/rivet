@@ -7,7 +7,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetInfo.hh"
 #include "Projection.fh"
-#include "Rivet/Projections/Event.fh"
+#include "Rivet/Tools/Event/Event.fh"
 #include "Rivet/Projections/Cmp.fh"
 
 

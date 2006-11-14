@@ -5,7 +5,7 @@
 // This is the declaration of the Particle class.
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/CLHEPWrap/LorentzVector.h"
+#include "Rivet/CLHEPWrap/LorentzVector.hh"
 #include "HepMC/GenParticle.h"
 #include "Particle.fh"
 
@@ -68,6 +68,6 @@ typedef std::pair<Particle, Particle> ParticlePair;
 
 }
 
-#include "Rivet/Projections/Particle.icc"
+#include "Particle.icc"
 
 #endif /* RIVET_Particle_H */

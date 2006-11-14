@@ -5,7 +5,7 @@
 /** @file SystemOfUnits.h is a wrapper around the
  *  SystemOfUnits.h header file from CLHEP. */
 
-#include "CLHEP.h"
+#include "CLHEP.hh"
 #include "CLHEP/Units/SystemOfUnits.h"
 
 #endif /* Rivet_SystemOfUnits_H */

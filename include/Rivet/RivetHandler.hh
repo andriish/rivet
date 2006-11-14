@@ -7,7 +7,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis/AnalysisBase.hh"
-#include "Rivet/Projections/Event.hh"
+#include "Rivet/Tools/Event/Event.hh"
 #include "RivetHandler.fh"
 #include "AIDA/IAnalysisFactory.h"
 #include "AIDA/ITree.h"

@@ -6,8 +6,8 @@
 //
 
 #include "Rivet/Projections/BeamProjection.hh"
-#include "Rivet/Projections/Particle.hh"
-#include "Rivet/Projections/Event.hh"
+#include "Rivet/Tools/Event/Particle.hh"
+#include "Rivet/Tools/Event/Event.hh"
 
 namespace Rivet {
 

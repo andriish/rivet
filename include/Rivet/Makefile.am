@@ -6,29 +6,29 @@ nobase_pkginclude_HEADERS = \
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
-  Analysis/AnalysisBase.hh       Analysis/AnalysisBase.fh       Analysis/AnalysisBase.icc \
+  Analysis/AnalysisBase.hh       Analysis/AnalysisBase.fh         Analysis/AnalysisBase.icc \
   Analysis/HZ95108.hh            Analysis/HZ95108.icc  \
   Analysis/TestMultiplicity.hh   Analysis/TestMultiplicity.icc \
   Analysis/TestChargedMultiplicity.hh
 
 ## Projections
 nobase_pkginclude_HEADERS += \
+  Projections/Cmp.hh             Projections/Cmp.fh               Projections/Cmp.icc        \
+  Projections/Projection.hh      Projections/Projection.fh        Projections/Projection.icc \
   Projections/BeamProjection.hh  Projections/BeamProjection.icc \
   Projections/CentralEtHCM.hh    Projections/CentralEtHCM.icc   \
   Projections/FinalStateHCM.hh   Projections/FinalStateHCM.icc  \
   Projections/DISKinematics.hh   Projections/DISKinematics.icc  \
   Projections/DISLepton.hh       Projections/DISLepton.icc      \
-  Projections/Cmp.hh             Projections/Cmp.fh               Projections/Cmp.icc        \
-  Projections/Event.hh           Projections/Event.fh             Projections/Event.icc      \
-  Projections/Particle.hh        Projections/Particle.fh          Projections/Particle.icc   \
-  Projections/Projection.hh      Projections/Projection.fh        Projections/Projection.icc \
   Projections/FinalStateProjection.hh   Projections/FinalStateProjection.icc
 
 ## Tools
 nobase_pkginclude_HEADERS += \
+  Tools/Logging.hh \
   Tools/Math/MyComplex.hh        Tools/Math/MathTools.hh \
-  Tools/Math/Vector.hh           Tools/Math/Poincare.hh \
-  Tools/Logging.hh
+  Tools/Math/Vector.hh           Tools/Math/Poincare.hh  \
+  Tools/Event/Event.hh           Tools/Event/Event.fh             Tools/Event/Event.icc      \
+  Tools/Event/Particle.hh        Tools/Event/Particle.fh          Tools/Event/Particle.icc
 
 ## CLHEP wrappers... but not for much longer!
 nobase_pkginclude_HEADERS += \
