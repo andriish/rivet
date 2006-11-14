@@ -1,4 +1,4 @@
-#include "Rivet/Logging.h"
+#include "Rivet/Rivet.h"
 #include "HepPDT/ParticleID.hh"
 #include <cstdlib>
 
@@ -6,7 +6,7 @@ using namespace std;
 using namespace Rivet;
 
 int main() {
-  Logger& log = getLogger(); //("rivet.log");
+  Logger& log = getLogger();
   log.setPriority(LogPriority::INFO);
   
   HepPDT::ParticleID pInfo(11);

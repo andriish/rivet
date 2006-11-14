@@ -1,4 +1,4 @@
-#include "Rivet/Logging.h"
+#include "Rivet/Tools/Logging.h"
 #include <cstdlib>
 
 using namespace std;

@@ -1,7 +1,6 @@
 // -*- C++ -*-
 
 #include "Rivet/Analysis/TestChargedMultiplicity.h"
-#include "Rivet/Logging.h"
 #include "HepPDT/ParticleID.hh"
 
 using namespace Rivet;

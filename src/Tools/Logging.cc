@@ -2,7 +2,9 @@
 
 #include "Rivet/Tools/Logging.h"
 
-Rivet::Logger& getLogger(std::string logfile) {
+using namespace Rivet;
+
+Logger& Rivet::getLogger(std::string logfile) {
   static log4cpp::Layout* layout = 0;
   static log4cpp::Appender* app = 0;
   

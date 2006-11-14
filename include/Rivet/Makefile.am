@@ -1,8 +1,8 @@
 ## Rivet interface
 nobase_pkginclude_HEADERS = \
-  Rivet.h         RivetInfo.h      RivetInfo.icc    \
-  RivetHandler.h  RivetHandler.fh  RivetHandler.icc \
-  Logging.h
+  Rivet.h  \
+  RivetInfo.h     RivetInfo.icc  \
+  RivetHandler.h  RivetHandler.fh  RivetHandler.icc 
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
@@ -27,7 +27,8 @@ nobase_pkginclude_HEADERS += \
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/Math/MyComplex.h        Tools/Math/MathTools.h \
-  Tools/Math/Vector.h           Tools/Math/Poincare.h 
+  Tools/Math/Vector.h           Tools/Math/Poincare.h \
+  Tools/Logging.h
 
 ## CLHEP wrappers... but not for much longer!
 nobase_pkginclude_HEADERS += \
