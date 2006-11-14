@@ -3,11 +3,9 @@
 #define RIVET_Projection_H
 //
 // This is the declaration of the Projection class.
-//
 
-// #include "Rivet/Config/Rivet.h"
-#include "Rivet/Rivet.h"
-#include "Rivet/RivetInfo.h"
+#include "Rivet/Rivet.hh"
+#include "Rivet/RivetInfo.hh"
 #include "Projection.fh"
 #include "Rivet/Projections/Event.fh"
 #include "Rivet/Projections/Cmp.fh"

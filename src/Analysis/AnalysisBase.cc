@@ -4,8 +4,8 @@
 // functions of the AnalysisBase class.
 //
 
-#include "Rivet/RivetHandler.h"
-#include "Rivet/Analysis/AnalysisBase.h"
+#include "Rivet/RivetHandler.hh"
+#include "Rivet/Analysis/AnalysisBase.hh"
 
 using namespace Rivet;
 

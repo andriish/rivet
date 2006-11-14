@@ -2,8 +2,8 @@
 #ifndef RIVET_TestChargedMultiplicity_H
 #define RIVET_TestChargedMultiplicity_H
 
-#include "Rivet/Analysis/AnalysisBase.h"
-#include "Rivet/Projections/FinalStateProjection.h"
+#include "Rivet/Analysis/AnalysisBase.hh"
+#include "Rivet/Projections/FinalStateProjection.hh"
 
 namespace Rivet {
 

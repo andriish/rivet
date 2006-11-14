@@ -3,11 +3,10 @@
 #define RIVET_Particle_H
 //
 // This is the declaration of the Particle class.
-//
 
-#include "Rivet/Rivet.h"
+#include "Rivet/Rivet.hh"
 #include "Rivet/CLHEPWrap/LorentzVector.h"
-#include "CLHEP/HepMC/GenParticle.h"
+#include "HepMC/GenParticle.h"
 #include "Particle.fh"
 
 namespace Rivet {

@@ -1,47 +1,44 @@
 // -*- C++ -*-
-#ifndef RIVET_DISKinematics_H
-#define RIVET_DISKinematics_H
+#ifndef RIVET_DISLepton_H
+#define RIVET_DISLepton_H
 //
-// This is the declaration of the DISKinematics class.
+// This is the declaration of the DISLepton class.
 //
 
-#include "Rivet/Projections/Projection.h"
-#include "Rivet/Projections/Particle.h"
-#include "Rivet/Projections/Event.h"
-#include "Rivet/Projections/DISLepton.h"
-#include "Rivet/Projections/BeamProjection.h"
-#include "Rivet/CLHEPWrap/LorentzRotation.h"
+#include "Rivet/Projections/BeamProjection.hh"
+#include "Rivet/Projections/Particle.hh"
+#include "Rivet/Projections/Event.hh"
 
 namespace Rivet {
 
 /**
- * This class projects out the DIS kinematic variables and relevant
- * boosts for an event.
+ * This class projects out the incoming and outgoing leptons in a DIS
+ * event. The incoming incoming lepton is assumed to be along the
+ * positive z-axis.
  */
-class DISKinematics: public Projection {
+class DISLepton: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify, the incoming and outgoing
-   * (\a inid and \a outid respectively) PDG codes of the scattered
-   * lepton as well as the PDG code of the incoming hadron (\a hadid).
-   * If \a inid is the anti-particle of \a outid, either a scattered
-   * lepton or anti-lepton is searched for.
+   * The default constructor. Must specify the incoming and outgoing
+   * PDG codes of the leptons to project.  If \a inid is the
+   * anti-particle of \a outid, either a scattered lepton or
+   * anti-lepton is searched for.
    */
-  inline DISKinematics(long inid, long outid, long hadid);
+  inline DISLepton(long inid, long outid);
 
   /**
    * The copy constructor.
    */
-  inline DISKinematics(const DISKinematics &);
+  inline DISLepton(const DISLepton &);
 
   /**
    * The destructor.
    */
-  virtual ~DISKinematics();
+  virtual ~DISLepton();
   //@}
 
 protected:
@@ -84,31 +81,14 @@ protected:
 public:
 
   /**
-   * The \f$Q^2\f$.
+   * The incoming lepton.
    */
-  inline double Q2() const;
+  inline const Particle & in() const;
 
   /**
-   * The \f$W^2\f$.
+   * The outgoing lepton.
    */
-  inline double W2() const;
-
-  /**
-   * The Bjorken \f$x\f$.
-   */
-  inline double x() const;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic CM
-   * frame.
-   */
-  inline const LorentzRotation & boostHCM() const;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic Breit
-   * frame.
-   */
-  inline const LorentzRotation & boostBreit() const;
+  inline const Particle & out() const;
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -126,41 +106,24 @@ private:
   BeamProjection beams;
 
   /**
-   * The projector for the scattered lepton.
+   * The PDG id of the incoming lepton.
    */
-  DISLepton lepton;
+  long idin;
 
   /**
-   * The PDG id of the incoming hadron.
+   * The PDG id of the outcoming lepton.
    */
-  long idhad;
+  long idout;
 
   /**
-   * The \f$Q^2\f$.
+   * The incoming lepton.
    */
-  double theQ2;
+  Particle incoming;
 
   /**
-   * The \f$W^2\f$.
+   * The incoming lepton.
    */
-  double theW2;
-
-  /**
-   * The Bjorken \f$x\f$.
-   */
-  double theX;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic CM
-   * frame.
-   */
-  LorentzRotation hcm;
-
-  /**
-   * The LorentzRotation needed to boost a particle to the hadronic Breit
-   * frame.
-   */
-  LorentzRotation breit;
+  Particle outgoing;
 
 private:
 
@@ -168,12 +131,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  DISKinematics & operator=(const DISKinematics &);
+  DISLepton & operator=(const DISLepton &);
 
 };
 
 }
 
-#include "Rivet/Projections/DISKinematics.icc"
+#include "Rivet/Projections/DISLepton.icc"
 
-#endif /* RIVET_DISKinematics_H */
+#endif /* RIVET_DISLepton_H */

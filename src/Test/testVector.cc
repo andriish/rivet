@@ -1,5 +1,5 @@
-#include "Rivet/Tools/Math/Vector.h"
-#include "Rivet/Tools/Math/Poincare.h"
+#include "Rivet/Tools/Math/Vector.hh"
+#include "Rivet/Tools/Math/Poincare.hh"
 #include <iostream>
 
 using namespace std;

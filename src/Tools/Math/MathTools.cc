@@ -1,4 +1,4 @@
-#include "Rivet/Tools/Math/MathTools.h"
+#include "Rivet/Tools/Math/MathTools.hh"
 #include <iostream>
 
 namespace Rivet {

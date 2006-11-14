@@ -1,14 +1,13 @@
 // -*- C++ -*-
-#ifndef RIVET_HZ95108_H
-#define RIVET_HZ95108_H
+#ifndef RIVET_TestMultiplicity_H
+#define RIVET_TestMultiplicity_H
 //
-// This is the declaration of the HZ95108 class.
+// This is the declaration of the TestMultiplicity class.
 //
 
-#include "Rivet/Analysis/AnalysisBase.h"
-#include "Rivet/Projections/FinalStateHCM.h"
-#include "Rivet/Projections/CentralEtHCM.h"
-#include "AIDA/IHistogram1D.h"
+#include "Rivet/Analysis/AnalysisBase.hh"
+#include "Rivet/Projections/FinalStateHCM.hh"
+#include "Rivet/Projections/FinalStateProjection.hh"
 
 namespace Rivet {
 
@@ -16,7 +15,7 @@ namespace Rivet {
  * This class simply measures the total multiplicity. It is only
  * intended for testing purposes.
  */
-class HZ95108: public AnalysisBase {
+class TestMultiplicity: public AnalysisBase {
 
 public:
 
@@ -25,17 +24,17 @@ public:
   /**
    * The default constructor.
    */
-  inline HZ95108();
+  inline TestMultiplicity();
 
   /**
    * The copy constructor.
    */
-  inline HZ95108(const HZ95108 &);
+  inline TestMultiplicity(const TestMultiplicity &);
 
   /**
    * The destructor.
    */
-  virtual ~HZ95108();
+  virtual ~TestMultiplicity();
   //@}
 
 public:
@@ -72,68 +71,26 @@ public:
    */
   virtual RivetInfo getInfo() const;
 
-protected:
-
-  /**
-   * Calculate the bin number from the DISKinematics projection.
-   */
-  int getbin(const DISKinematics & dk);
-
-
 private:
 
   /**
    * The FinalStateProjector used.
    */
-  FinalStateHCM fsproj;
+  FinalStateProjection fsproj;
+  //  FinalStateHCM fsproj;
 
-  /**
-   * The DISKinematics projector used.
-   */
-  DISKinematics diskin;
-
-  /**
-   * The CentralEtHCM projector used.
-   */
-  CentralEtHCM y1hcm;
-
-  /**
-   * Some integer constants used.
-   */
-  static const int nb = 24, nbin = 9;
-
-  /**
-   * Some double constants used.
-   */
-  static const double xmin, xmax;
-
-  /**
-   * Histograms for the Et flows
-   */
-  vector<AIDA::IHistogram1D *> hEtFlow, hEtFlowStat;
-
-  /**
-   * Histograms for averages in different kinematical bins.
-   */
-  AIDA::IHistogram1D * hAvEt, * hAvX, * hAvQ2, * hN;
-
-  /**
-   * Helper vector;
-   */
-  vector<double> nev;
-  
 private:
 
   /**
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  HZ95108 & operator=(const HZ95108 &);
+  TestMultiplicity & operator=(const TestMultiplicity &);
 
 };
 
 }
 
-#include "HZ95108.icc"
+#include "TestMultiplicity.icc"
 
-#endif /* RIVET_HZ95108_H */
+#endif /* RIVET_TestMultiplicity_H */

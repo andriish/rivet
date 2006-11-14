@@ -5,7 +5,7 @@
  */
 
 
-#include "Rivet/Tools/Math/Vector.h"
+#include "Rivet/Tools/Math/Vector.hh"
 using namespace Rivet;
 
 double Vec4D::s_accu=1.0e-12;

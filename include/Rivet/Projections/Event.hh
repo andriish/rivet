@@ -3,12 +3,11 @@
 #define RIVET_Event_H
 //
 // This is the declaration of the Event class.
-//
 
-#include "Rivet/Rivet.h"
+#include "Rivet/Rivet.hh"
 #include "Event.fh"
-#include "Rivet/Projections/Projection.h"
-#include "CLHEP/HepMC/GenEvent.h"
+#include "Rivet/Projections/Projection.hh"
+#include "HepMC/GenEvent.h"
 
 namespace Rivet {
 

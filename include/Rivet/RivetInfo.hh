@@ -9,7 +9,7 @@
 //#include <multimap>
 #include <string>
 #include <iostream>
-#include "Rivet/Rivet.h"
+#include "Rivet/Rivet.hh"
 
 namespace Rivet {
 

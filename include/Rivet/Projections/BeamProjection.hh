@@ -1,45 +1,38 @@
 // -*- C++ -*-
-#ifndef RIVET_CentralEtHCM_H
-#define RIVET_CentralEtHCM_H
+#ifndef RIVET_BeamProjection_H
+#define RIVET_BeamProjection_H
 //
-// This is the declaration of the CentralEtHCM class.
-//
+// This is the declaration of the BeamProjection class.
 
-#include "Rivet/Projections/Particle.h"
-#include "Rivet/Projections/Event.h"
-#include "Rivet/Projections/FinalStateHCM.h"
-
+#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projections/Event.hh"
+#include "Rivet/Projections/Particle.hh"
 
 namespace Rivet {
 
 /**
- * Sum up Et of all particles in the hadronic final state in the
- * central rapidity bin of the HCM system.
+ * This class is used to project out the beams in a HepMC::GenEvent.
  */
-class CentralEtHCM: public Projection {
+class BeamProjection: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify the PDG id of the incoming
-   * and scattered lepton and of the incoming hadron. May also specify
-   * the minimum and maximum pseudorapidity (in the lab-system).
+   * The default constructor.
    */
-  inline CentralEtHCM(long inid, long outid, long hadid,
-		      double mineta = -MaxRapidity,
-		      double maxeta = MaxRapidity);
+  inline BeamProjection();
 
   /**
    * The copy constructor.
    */
-  inline CentralEtHCM(const CentralEtHCM &);
+  inline BeamProjection(const BeamProjection &);
 
   /**
    * The destructor.
    */
-  virtual ~CentralEtHCM();
+  virtual ~BeamProjection();
   //@}
 
 protected:
@@ -54,7 +47,7 @@ protected:
    * be added to the Event using the Even::addProjection(Projection *)
    * function.
    */
-  void project(const Event & e);
+  virtual void project(const Event & e);
 
   /**
    * This function is used to define a unique ordering between
@@ -77,34 +70,21 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  int compare(const Projection & p) const;
+  virtual int compare(const Projection & p) const;
 
 public:
 
   /**
-   * The sum of the Et in the central rapidity bin.
+   * The pair of beam particles in the current collision in GenEvent 
    */
-  inline double sumEt() const;
-
-  /**
-   * Return the RivetInfo object of this Projection. Derived classes
-   * should re-implement this function to return the combined
-   * RivetInfo object of this and of any other Projection upon which
-   * this depends.
-   */
-  virtual RivetInfo getInfo() const;
+  inline const PPair & operator()() const;
 
 private:
 
   /**
-   * The projector for the full final state.
+   * The beam particles in the current collision in GenEvent 
    */
-  FinalStateHCM fshcm;
-
-  /**
-   *The sum of the Et in the central rapidity bin.
-   */
-  double sumet;
+  PPair theBeams;
 
 private:
 
@@ -112,12 +92,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  CentralEtHCM & operator=(const CentralEtHCM &);
+  BeamProjection & operator=(const BeamProjection &);
 
 };
 
 }
 
-#include "Rivet/Projections/CentralEtHCM.icc"
+#include "Rivet/Projections/BeamProjection.icc"
 
-#endif /* RIVET_CentralEtHCM_H */
+#endif /* RIVET_BeamProjection_H */

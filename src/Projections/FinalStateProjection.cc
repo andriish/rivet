@@ -4,8 +4,8 @@
 // functions of the FinalStateProjection class.
 //
 
-#include "Rivet/Projections/FinalStateProjection.h"
-#include "Rivet/Projections/Cmp.h"
+#include "Rivet/Projections/FinalStateProjection.hh"
+#include "Rivet/Projections/Cmp.hh"
 
 using namespace Rivet;
 

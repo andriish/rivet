@@ -1,6 +1,6 @@
 // $Id: $
 
-#include "Rivet/Tools/Logging.h"
+#include "Rivet/Tools/Logging.hh"
 
 using namespace Rivet;
 

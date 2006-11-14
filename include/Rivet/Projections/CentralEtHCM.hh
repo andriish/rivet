@@ -1,42 +1,45 @@
 // -*- C++ -*-
-#ifndef RIVET_FinalStateProjection_H
-#define RIVET_FinalStateProjection_H
+#ifndef RIVET_CentralEtHCM_H
+#define RIVET_CentralEtHCM_H
 //
-// This is the declaration of the FinalStateProjection class.
+// This is the declaration of the CentralEtHCM class.
 //
 
-#include "Rivet/Projections/Projection.h"
-#include "Rivet/Projections/Particle.h"
-#include "Rivet/Projections/Event.h"
+#include "Rivet/Projections/Particle.hh"
+#include "Rivet/Projections/Event.hh"
+#include "Rivet/Projections/FinalStateHCM.hh"
 
 
 namespace Rivet {
 
 /**
- * Project out all final-state particles in an event.
+ * Sum up Et of all particles in the hadronic final state in the
+ * central rapidity bin of the HCM system.
  */
-class FinalStateProjection: public Projection {
+class CentralEtHCM: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. May specify the minimum and maximum
-   * pseudorapidity.
+   * The default constructor. Must specify the PDG id of the incoming
+   * and scattered lepton and of the incoming hadron. May also specify
+   * the minimum and maximum pseudorapidity (in the lab-system).
    */
-  inline FinalStateProjection(double mineta = -MaxRapidity,
-			      double maxeta = MaxRapidity);
+  inline CentralEtHCM(long inid, long outid, long hadid,
+		      double mineta = -MaxRapidity,
+		      double maxeta = MaxRapidity);
 
   /**
    * The copy constructor.
    */
-  inline FinalStateProjection(const FinalStateProjection &);
+  inline CentralEtHCM(const CentralEtHCM &);
 
   /**
    * The destructor.
    */
-  virtual ~FinalStateProjection();
+  virtual ~CentralEtHCM();
   //@}
 
 protected:
@@ -45,10 +48,10 @@ protected:
    * Take the information available in the Event and make the
    * calculations necessary to obtain the projection. Note that this
    * function must never be called except inside the
-   * Event::addProjection(Projection &) function. If the information
+   * Event::addProjection(Projection *) function. If the information
    * from other projections are necessary, their project(const Event
    * &) should not be called, rather the corresponding objects should
-   * be added to the Event using the Event::addProjection(Projection *)
+   * be added to the Event using the Even::addProjection(Projection *)
    * function.
    */
   void project(const Event & e);
@@ -79,26 +82,29 @@ protected:
 public:
 
   /**
-   * Access the projected final-state particles.
+   * The sum of the Et in the central rapidity bin.
    */
-  inline const PVector & particles() const;
+  inline double sumEt() const;
+
+  /**
+   * Return the RivetInfo object of this Projection. Derived classes
+   * should re-implement this function to return the combined
+   * RivetInfo object of this and of any other Projection upon which
+   * this depends.
+   */
+  virtual RivetInfo getInfo() const;
 
 private:
 
   /**
-   * The minimum allowed pseudo-rapidity.
+   * The projector for the full final state.
    */
-  double etamin;
+  FinalStateHCM fshcm;
 
   /**
-   * The maximum allowed pseudo-rapidity.
+   *The sum of the Et in the central rapidity bin.
    */
-  double etamax;
-
-  /**
-   * The final-state particles.
-   */
-  PVector theParticles;
+  double sumet;
 
 private:
 
@@ -106,12 +112,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  FinalStateProjection & operator=(const FinalStateProjection &);
+  CentralEtHCM & operator=(const CentralEtHCM &);
 
 };
 
 }
 
-#include "Rivet/Projections/FinalStateProjection.icc"
+#include "Rivet/Projections/CentralEtHCM.icc"
 
-#endif /* RIVET_FinalStateProjection_H */
+#endif /* RIVET_CentralEtHCM_H */

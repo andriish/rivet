@@ -1,44 +1,42 @@
 // -*- C++ -*-
-#ifndef RIVET_DISLepton_H
-#define RIVET_DISLepton_H
+#ifndef RIVET_FinalStateProjection_H
+#define RIVET_FinalStateProjection_H
 //
-// This is the declaration of the DISLepton class.
+// This is the declaration of the FinalStateProjection class.
 //
 
-#include "Rivet/Projections/BeamProjection.h"
-#include "Rivet/Projections/Particle.h"
-#include "Rivet/Projections/Event.h"
+#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projections/Particle.hh"
+#include "Rivet/Projections/Event.hh"
+
 
 namespace Rivet {
 
 /**
- * This class projects out the incoming and outgoing leptons in a DIS
- * event. The incoming incoming lepton is assumed to be along the
- * positive z-axis.
+ * Project out all final-state particles in an event.
  */
-class DISLepton: public Projection {
+class FinalStateProjection: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify the incoming and outgoing
-   * PDG codes of the leptons to project.  If \a inid is the
-   * anti-particle of \a outid, either a scattered lepton or
-   * anti-lepton is searched for.
+   * The default constructor. May specify the minimum and maximum
+   * pseudorapidity.
    */
-  inline DISLepton(long inid, long outid);
+  inline FinalStateProjection(double mineta = -MaxRapidity,
+			      double maxeta = MaxRapidity);
 
   /**
    * The copy constructor.
    */
-  inline DISLepton(const DISLepton &);
+  inline FinalStateProjection(const FinalStateProjection &);
 
   /**
    * The destructor.
    */
-  virtual ~DISLepton();
+  virtual ~FinalStateProjection();
   //@}
 
 protected:
@@ -47,13 +45,13 @@ protected:
    * Take the information available in the Event and make the
    * calculations necessary to obtain the projection. Note that this
    * function must never be called except inside the
-   * Event::addProjection(Projection *) function. If the information
+   * Event::addProjection(Projection &) function. If the information
    * from other projections are necessary, their project(const Event
    * &) should not be called, rather the corresponding objects should
-   * be added to the Event using the Even::addProjection(Projection *)
+   * be added to the Event using the Event::addProjection(Projection *)
    * function.
    */
-  virtual void project(const Event & e);
+  void project(const Event & e);
 
   /**
    * This function is used to define a unique ordering between
@@ -76,54 +74,31 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  virtual int compare(const Projection & p) const;
+  int compare(const Projection & p) const;
 
 public:
 
   /**
-   * The incoming lepton.
+   * Access the projected final-state particles.
    */
-  inline const Particle & in() const;
-
-  /**
-   * The outgoing lepton.
-   */
-  inline const Particle & out() const;
-
-  /**
-   * Return the RivetInfo object of this Projection. Derived classes
-   * should re-implement this function to return the combined
-   * RivetInfo object of this and of any other Projection upon which
-   * this depends.
-   */
-  virtual RivetInfo getInfo() const;
+  inline const PVector & particles() const;
 
 private:
 
   /**
-   * The BeamProjector object defining the incoming beam particles.
+   * The minimum allowed pseudo-rapidity.
    */
-  BeamProjection beams;
+  double etamin;
 
   /**
-   * The PDG id of the incoming lepton.
+   * The maximum allowed pseudo-rapidity.
    */
-  long idin;
+  double etamax;
 
   /**
-   * The PDG id of the outcoming lepton.
+   * The final-state particles.
    */
-  long idout;
-
-  /**
-   * The incoming lepton.
-   */
-  Particle incoming;
-
-  /**
-   * The incoming lepton.
-   */
-  Particle outgoing;
+  PVector theParticles;
 
 private:
 
@@ -131,12 +106,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  DISLepton & operator=(const DISLepton &);
+  FinalStateProjection & operator=(const FinalStateProjection &);
 
 };
 
 }
 
-#include "Rivet/Projections/DISLepton.icc"
+#include "Rivet/Projections/FinalStateProjection.icc"
 
-#endif /* RIVET_DISLepton_H */
+#endif /* RIVET_FinalStateProjection_H */

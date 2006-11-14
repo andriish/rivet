@@ -7,7 +7,7 @@ AM_INIT_AUTOMAKE
 AC_LANG(C++)
 
 AC_CONFIG_SRCDIR([src/RivetHandler.cc])
-AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.h])
+AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
 
 ## Checks for programs.
 AC_PROG_CXX

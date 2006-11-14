@@ -6,7 +6,7 @@
 //
 
 #include "Rivet/Projections/Event.fh"
-#include "Rivet/RivetInfo.h"
+#include "Rivet/RivetInfo.hh"
 #include "Rivet/RivetHandler.fh"
 #include "AnalysisBase.fh"
 

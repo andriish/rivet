@@ -1,39 +1,45 @@
 // -*- C++ -*-
-#ifndef RIVET_BeamProjection_H
-#define RIVET_BeamProjection_H
+#ifndef RIVET_FinalStateHCM_H
+#define RIVET_FinalStateHCM_H
 //
-// This is the declaration of the BeamProjection class.
-//
+// This is the declaration of the FinalStateHCM class.
 
-#include "Rivet/Projections/Projection.h"
-#include "Rivet/Projections/Event.h"
-#include "Rivet/Projections/Particle.h"
+#include "Rivet/Projections/Particle.hh"
+#include "Rivet/Projections/Event.hh"
+#include "Rivet/Projections/FinalStateProjection.hh"
+#include "Rivet/Projections/DISKinematics.hh"
+
 
 namespace Rivet {
 
 /**
- * This class is used to project out the beams in a HepMC::GenEvent.
+ * Project all final state particles (except the scattered lepton)
+ * boosted to the hadronic center of mass system.
  */
-class BeamProjection: public Projection {
+class FinalStateHCM: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor.
+   * The default constructor. Must specify the PDG id of the incoming
+   * and scattered lepton and of the incoming hadron. May also specify
+   * the minimum and maximum pseudorapidity (in the lab-system).
    */
-  inline BeamProjection();
+  inline FinalStateHCM(long inid, long outid, long hadid,
+		       double mineta = -MaxRapidity,
+		       double maxeta = MaxRapidity);
 
   /**
    * The copy constructor.
    */
-  inline BeamProjection(const BeamProjection &);
+  inline FinalStateHCM(const FinalStateHCM &);
 
   /**
    * The destructor.
    */
-  virtual ~BeamProjection();
+  virtual ~FinalStateHCM();
   //@}
 
 protected:
@@ -48,7 +54,7 @@ protected:
    * be added to the Event using the Even::addProjection(Projection *)
    * function.
    */
-  virtual void project(const Event & e);
+  void project(const Event & e);
 
   /**
    * This function is used to define a unique ordering between
@@ -71,21 +77,44 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  virtual int compare(const Projection & p) const;
+  int compare(const Projection & p) const;
 
 public:
 
   /**
-   * The pair of beam particles in the current collision in GenEvent 
+   * Access the projected final-state particles.
    */
-  inline const PPair & operator()() const;
+  inline const PVector & particles() const;
+
+  /**
+   * Return the RivetInfo object of this Projection. Derived classes
+   * should re-implement this function to return the combined
+   * RivetInfo object of this and of any other Projection upon which
+   * this depends.
+   */
+  virtual RivetInfo getInfo() const;
 
 private:
 
   /**
-   * The beam particles in the current collision in GenEvent 
+   * The projector for the DIS kinematics.
    */
-  PPair theBeams;
+  DISLepton lepton;
+
+  /**
+   * The projector for the DIS kinematics.
+   */
+  DISKinematics kinematics;
+
+  /**
+   * The projector for the full final state.
+   */
+  FinalStateProjection fsproj;
+
+  /**
+   * The final-state particles.
+   */
+  PVector theParticles;
 
 private:
 
@@ -93,12 +122,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  BeamProjection & operator=(const BeamProjection &);
+  FinalStateHCM & operator=(const FinalStateHCM &);
 
 };
 
 }
 
-#include "Rivet/Projections/BeamProjection.icc"
+#include "Rivet/Projections/FinalStateHCM.icc"
 
-#endif /* RIVET_BeamProjection_H */
+#endif /* RIVET_FinalStateHCM_H */

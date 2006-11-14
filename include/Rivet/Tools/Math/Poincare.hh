@@ -1,7 +1,7 @@
 #ifndef Poincare_H
 #define Poincare_H
 
-#include "Rivet/Tools/Math/Vector.h"
+#include "Rivet/Tools/Math/Vector.hh"
 
 namespace Rivet {
 

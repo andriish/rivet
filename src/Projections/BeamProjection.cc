@@ -4,7 +4,8 @@
 // functions of the BeamProjection class.
 //
 
-#include "Rivet/Projections/BeamProjection.h"
+#include "Rivet/Projections/BeamProjection.hh"
+#include "HepMC/GenVertex.h"
 #include <stdexcept>
 
 #ifdef ThePEG_TEMPLATES_IN_CC_FILE
@@ -12,21 +13,22 @@
 #endif
 
 using namespace Rivet;
-using std::vector;
 using std::runtime_error;
 
 BeamProjection::~BeamProjection() {}
 
-void BeamProjection::project(const Event & e) {
-  vector<GenParticle*> inc =
-    e.genEvent().signal_process_vertex()->listParents();
-  if ( inc.size() != 2 )
+void BeamProjection::project(const Event& e) {
+  //vector<GenParticle*> inc = e.genEvent().signal_process_vertex()->listParents();
+  GenVertex* sigvertex = e.genEvent().signal_process_vertex();
+  if ( sigvertex->particles_in_size() != 2 ) {
     throw std::runtime_error("Wrong number of beams.");
-    /// *** ATTENTION *** Maybe we should have our own exception classes.
-
-  theBeams.first = Particle(*inc[0]);
-  theBeams.second = Particle(*inc[1]);
-
+    /// @todo Maybe we should have our own exception classes?
+  }
+  // Why can't HepMC just give us the list of particles? *sigh*
+  GenVertex::particles_in_const_iterator pp = sigvertex->particles_in_const_begin();
+  theBeams.first = Particle(**pp);
+  ++pp;
+  theBeams.second = Particle(**pp);
 }
 
 int BeamProjection::compare(const Projection &) const {

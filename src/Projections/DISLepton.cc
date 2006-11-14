@@ -4,8 +4,8 @@
 // functions of the DISLepton class.
 //
 
-#include "Rivet/Projections/DISLepton.h"
-#include "Rivet/Projections/Cmp.h"
+#include "Rivet/Projections/DISLepton.hh"
+#include "Rivet/Projections/Cmp.hh"
 
 using namespace Rivet;
 

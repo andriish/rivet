@@ -28,7 +28,7 @@
 #endif
 
 
-#include "Rivet/Tools/Math/MyComplex.h"
+#include "Rivet/Tools/Math/MyComplex.hh"
 
 namespace Rivet {
 

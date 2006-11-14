@@ -7,7 +7,7 @@
 // <!id>CLHEP<!!id> namespace as <!id>LorentzRotation<!!id> and making
 // it available in the <!id>Rivet<!!id> namespace.
 
-#include "CLHEP.h"
+#include "CLHEP.hh"
 #include "CLHEP/Vector/LorentzRotation.h"
 
 namespace CLHEP {

@@ -5,9 +5,9 @@
 // This is the declaration of the RivetHandler class.
 //
 
-#include "Rivet/Rivet.h"
-#include "Rivet/Analysis/AnalysisBase.h"
-#include "Rivet/Projections/Event.h"
+#include "Rivet/Rivet.hh"
+#include "Rivet/Analysis/AnalysisBase.hh"
+#include "Rivet/Projections/Event.hh"
 #include "RivetHandler.fh"
 #include "AIDA/IAnalysisFactory.h"
 #include "AIDA/ITree.h"

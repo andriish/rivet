@@ -1,5 +1,5 @@
-#include "Rivet/Tools/Math/Poincare.h"
-#include "Rivet/Tools/Math/MathTools.h"
+#include "Rivet/Tools/Math/Poincare.hh"
+#include "Rivet/Tools/Math/MathTools.hh"
 
 #ifdef DEBUG__Poincare
 #include <iostream>

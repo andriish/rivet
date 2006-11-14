@@ -1,46 +1,47 @@
 // -*- C++ -*-
-#ifndef RIVET_FinalStateHCM_H
-#define RIVET_FinalStateHCM_H
+#ifndef RIVET_DISKinematics_H
+#define RIVET_DISKinematics_H
 //
-// This is the declaration of the FinalStateHCM class.
+// This is the declaration of the DISKinematics class.
 //
 
-#include "Rivet/Projections/Particle.h"
-#include "Rivet/Projections/Event.h"
-#include "Rivet/Projections/FinalStateProjection.h"
-#include "Rivet/Projections/DISKinematics.h"
-
+#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projections/Particle.hh"
+#include "Rivet/Projections/Event.hh"
+#include "Rivet/Projections/DISLepton.hh"
+#include "Rivet/Projections/BeamProjection.hh"
+#include "Rivet/CLHEPWrap/LorentzRotation.hh"
 
 namespace Rivet {
 
 /**
- * Project all final state particles (except the scattered lepton)
- * boosted to the hadronic center of mass system.
+ * This class projects out the DIS kinematic variables and relevant
+ * boosts for an event.
  */
-class FinalStateHCM: public Projection {
+class DISKinematics: public Projection {
 
 public:
 
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify the PDG id of the incoming
-   * and scattered lepton and of the incoming hadron. May also specify
-   * the minimum and maximum pseudorapidity (in the lab-system).
+   * The default constructor. Must specify, the incoming and outgoing
+   * (\a inid and \a outid respectively) PDG codes of the scattered
+   * lepton as well as the PDG code of the incoming hadron (\a hadid).
+   * If \a inid is the anti-particle of \a outid, either a scattered
+   * lepton or anti-lepton is searched for.
    */
-  inline FinalStateHCM(long inid, long outid, long hadid,
-		       double mineta = -MaxRapidity,
-		       double maxeta = MaxRapidity);
+  inline DISKinematics(long inid, long outid, long hadid);
 
   /**
    * The copy constructor.
    */
-  inline FinalStateHCM(const FinalStateHCM &);
+  inline DISKinematics(const DISKinematics &);
 
   /**
    * The destructor.
    */
-  virtual ~FinalStateHCM();
+  virtual ~DISKinematics();
   //@}
 
 protected:
@@ -55,7 +56,7 @@ protected:
    * be added to the Event using the Even::addProjection(Projection *)
    * function.
    */
-  void project(const Event & e);
+  virtual void project(const Event & e);
 
   /**
    * This function is used to define a unique ordering between
@@ -78,14 +79,36 @@ protected:
    * whether this should be ordered before or after \a p, or if it is
    * equivalent with \a p.
    */
-  int compare(const Projection & p) const;
+  virtual int compare(const Projection & p) const;
 
 public:
 
   /**
-   * Access the projected final-state particles.
+   * The \f$Q^2\f$.
    */
-  inline const PVector & particles() const;
+  inline double Q2() const;
+
+  /**
+   * The \f$W^2\f$.
+   */
+  inline double W2() const;
+
+  /**
+   * The Bjorken \f$x\f$.
+   */
+  inline double x() const;
+
+  /**
+   * The LorentzRotation needed to boost a particle to the hadronic CM
+   * frame.
+   */
+  inline const LorentzRotation & boostHCM() const;
+
+  /**
+   * The LorentzRotation needed to boost a particle to the hadronic Breit
+   * frame.
+   */
+  inline const LorentzRotation & boostBreit() const;
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -98,24 +121,46 @@ public:
 private:
 
   /**
-   * The projector for the DIS kinematics.
+   * The BeamProjector object defining the incoming beam particles.
+   */
+  BeamProjection beams;
+
+  /**
+   * The projector for the scattered lepton.
    */
   DISLepton lepton;
 
   /**
-   * The projector for the DIS kinematics.
+   * The PDG id of the incoming hadron.
    */
-  DISKinematics kinematics;
+  long idhad;
 
   /**
-   * The projector for the full final state.
+   * The \f$Q^2\f$.
    */
-  FinalStateProjection fsproj;
+  double theQ2;
 
   /**
-   * The final-state particles.
+   * The \f$W^2\f$.
    */
-  PVector theParticles;
+  double theW2;
+
+  /**
+   * The Bjorken \f$x\f$.
+   */
+  double theX;
+
+  /**
+   * The LorentzRotation needed to boost a particle to the hadronic CM
+   * frame.
+   */
+  LorentzRotation hcm;
+
+  /**
+   * The LorentzRotation needed to boost a particle to the hadronic Breit
+   * frame.
+   */
+  LorentzRotation breit;
 
 private:
 
@@ -123,12 +168,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  FinalStateHCM & operator=(const FinalStateHCM &);
+  DISKinematics & operator=(const DISKinematics &);
 
 };
 
 }
 
-#include "Rivet/Projections/FinalStateHCM.icc"
+#include "Rivet/Projections/DISKinematics.icc"
 
-#endif /* RIVET_FinalStateHCM_H */
+#endif /* RIVET_DISKinematics_H */

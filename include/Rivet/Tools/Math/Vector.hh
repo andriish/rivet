@@ -9,7 +9,7 @@
 
 
 #include <iostream>
-#include "Rivet/Tools/Math/MathTools.h"
+#include "Rivet/Tools/Math/MathTools.hh"
  
 namespace Rivet {
   class Vec4D;

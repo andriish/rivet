@@ -1,4 +1,4 @@
-#include "Rivet/Rivet.h"
+#include "Rivet/Rivet.hh"
 #include "HepPDT/ParticleID.hh"
 #include <cstdlib>
 

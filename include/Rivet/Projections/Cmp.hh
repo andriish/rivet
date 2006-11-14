@@ -5,8 +5,8 @@
 // This is the declaration of the Cmp class.
 //
 
-#include "Rivet/Rivet.h"
-#include "Rivet/Projections/Projection.h"
+#include "Rivet/Rivet.hh"
+#include "Rivet/Projections/Projection.hh"
 #include "Cmp.fh"
 
 namespace Rivet {
