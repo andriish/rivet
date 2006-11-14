@@ -4,7 +4,7 @@
 // functions of the Event class.
 //
 
-#include "Rivet/Projections/Event.hh"
+#include "Rivet/Tools/Event/Event.hh"
 
 using namespace Rivet;
 
