@@ -14,7 +14,7 @@ FinalStateProjection(const FinalStateProjection & x)
   : Projection(x), etamin(x.etamin), etamax(x.etamax),
     theParticles(x.theParticles) {}
 
-inline const PVector & FinalStateProjection::particles() const {
+inline const ParticleVector & FinalStateProjection::particles() const {
   return theParticles;
 }
 

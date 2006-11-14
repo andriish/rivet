@@ -16,7 +16,7 @@ FinalStateHCM(const FinalStateHCM & x)
   : Projection(x), lepton(x.lepton), kinematics(x.kinematics), fsproj(x.fsproj),
     theParticles(x.theParticles) {}
 
-inline const PVector & FinalStateHCM::particles() const {
+inline const ParticleVector & FinalStateHCM::particles() const {
   return theParticles;
 }
 

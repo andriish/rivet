@@ -84,7 +84,7 @@ public:
   /**
    * Access the projected final-state particles.
    */
-  inline const PVector & particles() const;
+  inline const ParticleVector & particles() const;
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -114,7 +114,7 @@ private:
   /**
    * The final-state particles.
    */
-  PVector theParticles;
+  ParticleVector theParticles;
 
 private:
 

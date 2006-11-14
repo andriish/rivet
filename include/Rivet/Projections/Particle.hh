@@ -11,11 +11,8 @@
 
 namespace Rivet {
 
-/** Alias for the HepMC namespace. */
-namespace CLHEPMC = HepMC;
-
-/** Forward typedefs from CLHEPMC. */
-typedef CLHEPMC::GenParticle GenParticle;
+/** Forward typedefs from HepMC. */
+typedef HepMC::GenParticle GenParticle;
 
 /**
  * This class is used to represent particles projected from a
@@ -64,10 +61,10 @@ struct Particle {
 };
 
 /** Typedef a vector of Particle objects. */
-typedef std::vector<Particle> PVector;
+typedef std::vector<Particle> ParticleVector;
 
 /** Typedef a pair of Particle objects. */
-typedef std::pair<Particle, Particle> PPair;
+typedef std::pair<Particle, Particle> ParticlePair;
 
 }
 

@@ -13,7 +13,7 @@ DISKinematics::~DISKinematics() {}
 
 void DISKinematics::project(const Event & e) {
   const DISLepton & dislep = e(lepton);
-  const PPair & inc = e(beams)();
+  const ParticlePair & inc = e(beams)();
   Particle hadron;
   if ( inc.second.id == idhad ) hadron = inc.second;
   else

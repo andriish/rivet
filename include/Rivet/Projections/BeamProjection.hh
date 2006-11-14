@@ -77,14 +77,14 @@ public:
   /**
    * The pair of beam particles in the current collision in GenEvent 
    */
-  inline const PPair & operator()() const;
+  inline const ParticlePair & operator()() const;
 
 private:
 
   /**
    * The beam particles in the current collision in GenEvent 
    */
-  PPair theBeams;
+  ParticlePair theBeams;
 
 private:
 

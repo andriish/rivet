@@ -25,8 +25,7 @@ public:
    * The default constructor. May specify the minimum and maximum
    * pseudorapidity.
    */
-  inline FinalStateProjection(double mineta = -MaxRapidity,
-			      double maxeta = MaxRapidity);
+  inline FinalStateProjection(double mineta = -MaxRapidity, double maxeta = MaxRapidity);
 
   /**
    * The copy constructor.
@@ -81,7 +80,7 @@ public:
   /**
    * Access the projected final-state particles.
    */
-  inline const PVector & particles() const;
+  inline const ParticleVector & particles() const;
 
 private:
 
@@ -98,7 +97,7 @@ private:
   /**
    * The final-state particles.
    */
-  PVector theParticles;
+  ParticleVector theParticles;
 
 private:
 

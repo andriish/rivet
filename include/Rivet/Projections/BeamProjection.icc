@@ -11,7 +11,7 @@ inline BeamProjection::BeamProjection() {}
 inline BeamProjection::BeamProjection(const BeamProjection & x)
   : Projection(x), theBeams(x.theBeams) {}
 
-inline const PPair & BeamProjection::operator()() const {
+inline const ParticlePair & BeamProjection::operator()() const {
   return theBeams;
 }
 

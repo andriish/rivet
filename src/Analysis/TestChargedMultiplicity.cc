@@ -24,7 +24,7 @@ void TestChargedMultiplicity::analyze(const Event & event) {
   const FinalStateProjection& fs = event.addProjection(fsproj);
   unsigned int chmult(0), unchmult(0);
   unsigned int particleNum(0);
-  for (PVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+  for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
     ++particleNum;
     HepPDT::ParticleID pInfo(p->id);
     if (pInfo.isHadron()) {

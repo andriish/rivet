@@ -75,7 +75,7 @@ public:
   inline operator int () const;
 
   /**
-   * If this state is equaivalent, set this state to the state of \a c.
+   * If this state is equivalent, set this state to the state of \a c.
    */
   template <typename U>
   inline const Cmp<T> & operator||(const Cmp<U> & c) const;
