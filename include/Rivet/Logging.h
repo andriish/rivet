@@ -2,8 +2,6 @@
 #ifndef RIVET_LOGGING_H 
 #define RIVET_LOGGING_H 1
 
-/// @Todo Wouldn't it be nice if there was a simple fallback method 
-/// that didn't use log4cpp but used the same interface
 #include "log4cpp/Category.hh"
 #include "log4cpp/CategoryStream.hh"
 #include "log4cpp/FileAppender.hh"
@@ -16,24 +14,7 @@ namespace Rivet {
   typedef log4cpp::Priority LogPriority;
   static log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;
 
-  Logger& getLogger(std::string logfile = "") {
-    static log4cpp::Layout* layout = 0;
-    static log4cpp::Appender* app = 0;
-
-    Logger& log = Logger::getInstance("rivet");
-    log.setAdditivity(false);
-    if (!layout) { layout = new log4cpp::BasicLayout(); }
-    if (app) delete app;
-
-    if (!logfile.empty()) {
-      app = new log4cpp::FileAppender("FileAppender", logfile);
-    } else {
-      app = new log4cpp::OstreamAppender("StreamAppender", &std::cout);
-    }
-    app->setLayout(layout);
-    log.setAppender(app);
-    return log;
-  }
-  
+  Logger& getLogger(std::string logfile = "");
 }
+
 #endif // RIVET_LOGGING_H

@@ -7,7 +7,7 @@
 
 namespace Rivet {
 
-  /// This class just measures the charged multiplicity.
+/// This class just measures the charged multiplicity
 class TestChargedMultiplicity : public AnalysisBase {
 
 public:

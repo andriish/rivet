@@ -19,8 +19,10 @@ inline const PROJ &  Event::addProjection(PROJ & p) const {
   if ( old != theProjections.end() ) {
     return *(dynamic_cast<const PROJ*>(*old));
   }
-  Projection * pp = &p;
-  pp->project(*this); /// @todo How does this bypass the access = protected on project()???
+  // Add the projection via the Projection base class (only 
+  // possible because Event is a friend of Projection)
+  FinalStateProjection * pp = &p;
+  pp->project(*this);
   theProjections.insert(&p);
   return p;
 }

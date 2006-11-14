@@ -41,8 +41,7 @@ public:
    * sure that the lifetime of the factory object exceeds the RivetHandler
    * object.
    */
-  RivetHandler(string filename, string storetype,
-	       AIDA::IAnalysisFactory & afac);
+  RivetHandler(string filename, string storetype, AIDA::IAnalysisFactory & afac);
 
   /**
    * Default constructor: no AIDA analysis factory required
