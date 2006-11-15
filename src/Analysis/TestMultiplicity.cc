@@ -1,5 +1,6 @@
 // -*- C++ -*-
 
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/TestMultiplicity.hh"
 
 using namespace Rivet;

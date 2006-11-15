@@ -10,8 +10,6 @@
 #include <iostream>
 #include <iomanip>
 
-#include "Rivet/Tools/Logging.hh"
-
 /**
  * This is the main namespace in which all Rivet classes are defined.
  */

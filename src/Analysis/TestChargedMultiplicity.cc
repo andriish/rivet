@@ -1,5 +1,6 @@
 // -*- C++ -*-
 
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/TestChargedMultiplicity.hh"
 #include "HepPDT/ParticleID.hh"
 
