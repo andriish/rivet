@@ -12,7 +12,8 @@
 namespace Rivet {
   typedef log4cpp::Category Logger;
   typedef log4cpp::Priority LogPriority;
-  static log4cpp::CategoryStream::Separator endlog = log4cpp::CategoryStream::ENDLINE;
+  typedef log4cpp::CategoryStream LogStream;
+  static const LogStream::Separator endlog = LogStream::ENDLINE;
 
   Logger& getLogger(std::string logfile = "");
 }
