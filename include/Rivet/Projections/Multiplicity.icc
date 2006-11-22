@@ -3,8 +3,8 @@
 namespace Rivet {
 
   inline Multiplicity::Multiplicity()
-    : totalMult_(-1), totalChMult_(-1), totalUnchMult_(-1), 
-      hadMult_(-1), hadChMult_(-1), hadUnchMult_(-1) 
+    : totalMult_(0), totalChMult_(0), totalUnchMult_(0),
+      hadMult_(0), hadChMult_(0), hadUnchMult_(0)
   {}
   
   inline Multiplicity::Multiplicity(const Multiplicity & x)
@@ -13,16 +13,16 @@ namespace Rivet {
       hadMult_(x.hadMult_), hadChMult_(x.hadChMult_), hadUnchMult_(x.hadUnchMult_)
   {}
   
-  inline const int Multiplicity::totalMultiplicity() const { return totalMult_; }
+  inline const unsigned int Multiplicity::totalMultiplicity() const { return totalMult_; }
 
-  inline const int Multiplicity::totalChargedMultiplicity() const { return totalChMult_; }
+  inline const unsigned int Multiplicity::totalChargedMultiplicity() const { return totalChMult_; }
   
-  inline const int Multiplicity::totalUnchargedMultiplicity() const { return totalUnchMult_; }
+  inline const unsigned int Multiplicity::totalUnchargedMultiplicity() const { return totalUnchMult_; }
   
-  inline const int Multiplicity::hadronMultiplicity() const { return hadMult_; }
+  inline const unsigned int Multiplicity::hadronMultiplicity() const { return hadMult_; }
   
-  inline const int Multiplicity::hadronChargedMultiplicity() const { return hadChMult_; }
+  inline const unsigned int Multiplicity::hadronChargedMultiplicity() const { return hadChMult_; }
   
-  inline const int Multiplicity::hadronUnchargedMultiplicity() const { return hadUnchMult_; }
+  inline const unsigned int Multiplicity::hadronUnchargedMultiplicity() const { return hadUnchMult_; }
   
 }

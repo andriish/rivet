@@ -1,5 +1,5 @@
-noinst_LTLIBRARIES = libRivetMath.la libRivetEvent.la
-pkglib_LTLIBRARIES = libRivetTools.la
+noinst_LTLIBRARIES = libRivetMath.la libRivetEvent.la libRivetTools.la
+#lib_LTLIBRARIES = libRivetTools.la
 
 libRivetMath_la_SOURCES  = Math/MathTools.cc Math/Vector.cc Math/Poincare.cc
 libRivetEvent_la_SOURCES = Event/Event.cc

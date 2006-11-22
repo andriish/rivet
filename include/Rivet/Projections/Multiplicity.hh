@@ -4,6 +4,7 @@
 // Declaration of the Multiplicity class.
 
 #include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projections/FinalStateProjection.hh"
 #include "Rivet/Tools/Event/Particle.hh"
 #include "Rivet/Tools/Event/Event.hh"
 
@@ -45,31 +46,34 @@ namespace Rivet {
     /// @name Access the projected multiplicities.
     //@ {
     /// Total multiplicity
-    inline const int totalMultiplicity() const;
+    inline const unsigned int totalMultiplicity() const;
 
     /// Charged multiplicity
-    inline const int totalChargedMultiplicity() const;
+    inline const unsigned int totalChargedMultiplicity() const;
 
     /// Uncharged multiplicity
-    inline const int totalUnchargedMultiplicity() const;
+    inline const unsigned int totalUnchargedMultiplicity() const;
 
     /// Hadron multiplicity
-    inline const int hadronMultiplicity() const;
+    inline const unsigned int hadronMultiplicity() const;
 
     /// Hadronic charged multiplicity
-    inline const int hadronChargedMultiplicity() const;
+    inline const unsigned int hadronChargedMultiplicity() const;
 
     /// Hadronic uncharged multiplicity
-    inline const int hadronUnchargedMultiplicity() const;
+    inline const unsigned int hadronUnchargedMultiplicity() const;
     //@ }
 
   private:
 
     /// Total multiplicities
-    int totalMult_, totalChMult_, totalUnchMult_;
+    unsigned int totalMult_, totalChMult_, totalUnchMult_;
 
     /// Hadronic multiplicities
-    int hadMult_, hadChMult_, hadUnchMult_;
+    unsigned int hadMult_, hadChMult_, hadUnchMult_;
+
+    /// The FinalStateProjector used.
+    FinalStateProjection fsproj;
 
   private:
 

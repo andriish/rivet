@@ -21,7 +21,7 @@ nobase_pkginclude_HEADERS += \
   Projections/DISKinematics.hh   Projections/DISKinematics.icc  \
   Projections/DISLepton.hh       Projections/DISLepton.icc      \
   Projections/Multiplicity.hh    Projections/Multiplicity.icc   \
-  Projections/FinalStateProjection.hh   Projections/FinalStateProjection.icc \
+  Projections/FinalStateProjection.hh   Projections/FinalStateProjection.icc
 
 ## Tools
 nobase_pkginclude_HEADERS += \

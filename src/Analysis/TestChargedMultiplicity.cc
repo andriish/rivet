@@ -21,7 +21,13 @@ void TestChargedMultiplicity::analyze(const Event & event) {
   log.setPriority(LogPriority::INFO);
   log << LogPriority::DEBUG << "Starting analyzing" << endlog;
 
-
+  const Multiplicity& m = event.addProjection(mult);
+  log << LogPriority::INFO << "Total multiplicity            = " << m.hadronChargedMultiplicity()   << endlog;
+  log << LogPriority::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endlog;
+  log << LogPriority::INFO << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endlog;
+  log << LogPriority::INFO << "Hadron multiplicity           = " << m.hadronChargedMultiplicity()   << endlog;
+  log << LogPriority::INFO << "Hadron charged multiplicity   = " << m.hadronChargedMultiplicity()   << endlog;
+  log << LogPriority::INFO << "Hadron uncharged multiplicity = " << m.hadronUnchargedMultiplicity() << endlog;
 
   /// @todo Fill histogram here
 
@@ -33,5 +39,5 @@ void TestChargedMultiplicity::finalize() {}
 
 
 RivetInfo TestChargedMultiplicity::getInfo() const {
-  return AnalysisBase::getInfo() + fsproj.getInfo();
+  return AnalysisBase::getInfo() + mult.getInfo();
 }

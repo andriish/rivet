@@ -3,7 +3,7 @@
 #define RIVET_TestChargedMultiplicity_H
 
 #include "Rivet/Analysis/AnalysisBase.hh"
-#include "Rivet/Projections/FinalStateProjection.hh"
+#include "Rivet/Projections/Multiplicity.hh"
 
 namespace Rivet {
 
@@ -34,8 +34,8 @@ public:
 
 private:
 
-  /// The FinalStateProjector used.
-  FinalStateProjection fsproj;
+  /// The Multiplicity projector used by this analysis.
+  Multiplicity mult;
 
 private:
 
@@ -45,11 +45,10 @@ private:
 
 
 inline TestChargedMultiplicity::TestChargedMultiplicity()
-  : fsproj() {}
-  //  : fsproj(11, 11, 2212) {} // for FinalStateHCM
+  : mult() {}
 
 inline TestChargedMultiplicity::TestChargedMultiplicity(const TestChargedMultiplicity & x)
-  : AnalysisBase(x), fsproj(x.fsproj) {}
+  : AnalysisBase(x), mult(x.mult) {}
 
 
 }
