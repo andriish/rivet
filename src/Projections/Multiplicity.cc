@@ -38,12 +38,18 @@ void Multiplicity::project(const Event & e) {
     bool isHadron = pInfo.isHadron();
     if (pInfo.threeCharge() != 0) {
       ++totalChMult_;
-      if (isHadron) ++hadChMult_;
+      if (isHadron) {
+        ++hadMult_;
+        ++hadChMult_;
+      }
       log << LogPriority::DEBUG << "Incrementing charged multiplicity   = " << totalChMult_ 
           << " (" << hadChMult_ << " hadrons)" << endlog;
     } else {
       ++totalUnchMult_;
-      if (isHadron) ++hadUnchMult_;
+      if (isHadron) {
+        ++hadMult_;
+        ++hadUnchMult_;
+      }
       log << LogPriority::DEBUG << "Incrementing uncharged multiplicity = " << totalUnchMult_
           << " (" << hadUnchMult_ << " hadrons)" << endlog;
     }

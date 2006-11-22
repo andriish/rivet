@@ -1,7 +1,4 @@
 noinst_LTLIBRARIES = libRivetProjections.la
 libRivetProjections_la_SOURCES  = \
-    Projection.cc \
-    BeamProjection.cc FinalStateProjection.cc \
-    DISLepton.cc      DISKinematics.cc        \
-    FinalStateHCM.cc  CentralEtHCM.cc         \
-    Multiplicity.cc
+    Projection.cc  Multiplicity.cc   Beam.cc       CentralEtHCM.cc \
+    FinalState.cc  FinalStateHCM.cc  DISLepton.cc  DISKinematics.cc 

@@ -22,10 +22,10 @@ void TestChargedMultiplicity::analyze(const Event & event) {
   log << LogPriority::DEBUG << "Starting analyzing" << endlog;
 
   const Multiplicity& m = event.addProjection(mult);
-  log << LogPriority::INFO << "Total multiplicity            = " << m.hadronChargedMultiplicity()   << endlog;
+  log << LogPriority::INFO << "Total multiplicity            = " << m.totalMultiplicity()           << endlog;
   log << LogPriority::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endlog;
   log << LogPriority::INFO << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endlog;
-  log << LogPriority::INFO << "Hadron multiplicity           = " << m.hadronChargedMultiplicity()   << endlog;
+  log << LogPriority::INFO << "Hadron multiplicity           = " << m.hadronMultiplicity()          << endlog;
   log << LogPriority::INFO << "Hadron charged multiplicity   = " << m.hadronChargedMultiplicity()   << endlog;
   log << LogPriority::INFO << "Hadron uncharged multiplicity = " << m.hadronUnchargedMultiplicity() << endlog;
 
