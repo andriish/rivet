@@ -13,14 +13,15 @@ nobase_pkginclude_HEADERS += \
 
 ## Projections
 nobase_pkginclude_HEADERS += \
-  Projections/Cmp.hh             Projections/Cmp.fh               Projections/Cmp.icc        \
-  Projections/Projection.hh      Projections/Projection.fh        Projections/Projection.icc \
+  Projections/Cmp.hh             Projections/Cmp.icc              Projections/Cmp.fh         \
+  Projections/Projection.hh      Projections/Projection.icc       Projections/Projection.fh  \
   Projections/BeamProjection.hh  Projections/BeamProjection.icc \
   Projections/CentralEtHCM.hh    Projections/CentralEtHCM.icc   \
   Projections/FinalStateHCM.hh   Projections/FinalStateHCM.icc  \
   Projections/DISKinematics.hh   Projections/DISKinematics.icc  \
   Projections/DISLepton.hh       Projections/DISLepton.icc      \
-  Projections/FinalStateProjection.hh   Projections/FinalStateProjection.icc
+  Projections/Multiplicity.hh    Projections/Multiplicity.icc   \
+  Projections/FinalStateProjection.hh   Projections/FinalStateProjection.icc \
 
 ## Tools
 nobase_pkginclude_HEADERS += \

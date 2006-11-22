@@ -1,21 +1,16 @@
 // -*- C++ -*-
-//
-// This is the implementation of the inlined member functions of
-// the FinalStateProjection class.
-//
 
 namespace Rivet {
 
-inline FinalStateProjection::FinalStateProjection(double mineta, double maxeta)
-  : etamin(mineta), etamax(maxeta) {}
-
-inline FinalStateProjection::
-FinalStateProjection(const FinalStateProjection & x)
-  : Projection(x), etamin(x.etamin), etamax(x.etamax),
-    theParticles(x.theParticles) {}
-
-inline const ParticleVector & FinalStateProjection::particles() const {
-  return theParticles;
-}
+  inline FinalStateProjection::FinalStateProjection(double mineta, double maxeta)
+    : etamin(mineta), etamax(maxeta) {}
+  
+  inline FinalStateProjection::FinalStateProjection(const FinalStateProjection & x)
+    : Projection(x), etamin(x.etamin), etamax(x.etamax),
+      theParticles(x.theParticles) {}
+  
+  inline const ParticleVector & FinalStateProjection::particles() const {
+    return theParticles;
+  }
 
 }
