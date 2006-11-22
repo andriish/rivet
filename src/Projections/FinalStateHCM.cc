@@ -21,7 +21,7 @@ int FinalStateHCM::compare(const Projection & p) const {
 void FinalStateHCM::project(const Event & e) {
   const DISLepton & dislep = e(lepton);
   const DISKinematics & diskin = e(kinematics);
-  const FinalStateProjection & fs = e(fsproj);
+  const FinalState & fs = e(fsproj);
   theParticles.clear();
   theParticles.reserve(fs.particles().size());
   for ( int i = 0, N = fs.particles().size(); i < N; ++i )

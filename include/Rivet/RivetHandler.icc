@@ -6,22 +6,22 @@
 
 namespace Rivet {
 
-template <typename ANA>
-inline void RivetHandler::addAnalysis(const ANA & ana) {
-  anaVector.push_back(new ANA(ana));
-  anaVector.back()->theHandler = this;
-}
+  template <typename ANA>
+  inline void RivetHandler::addAnalysis(const ANA & ana) {
+    anaVector.push_back(new ANA(ana));
+    anaVector.back()->theHandler = this;
+  }
 
-inline AIDA::IAnalysisFactory & RivetHandler::analysisFactory() {
-  return *theAnalysisFactory;
-}
+  inline AIDA::IAnalysisFactory & RivetHandler::analysisFactory() {
+    return *theAnalysisFactory;
+  }
 
-inline AIDA::ITree & RivetHandler::tree() {
-  return *theTree;
-}
+  inline AIDA::ITree & RivetHandler::tree() {
+    return *theTree;
+  }
 
-inline AIDA::IHistogramFactory & RivetHandler::histogramFactory() {
-  return *theHistogramFactory;
-}
+  inline AIDA::IHistogramFactory & RivetHandler::histogramFactory() {
+    return *theHistogramFactory;
+  }
 
 }

@@ -30,7 +30,7 @@ void Multiplicity::project(const Event & e) {
   hadUnchMult_ = 0;
 
   // Project into final state
-  const FinalStateProjection& fs = e.addProjection(fsproj);
+  const FinalState& fs = e.addProjection(fsproj);
   // Get hadron and charge info for each particle, and fill counters appropriately
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
     ++totalMult_;

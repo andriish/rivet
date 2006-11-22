@@ -6,9 +6,9 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetInfo.hh"
-#include "Projection.fh"
-#include "Rivet/Tools/Event/Event.fh"
-#include "Rivet/Projections/Cmp.fh"
+#include "Projection.fhh"
+#include "Rivet/Tools/Event/Event.fhh"
+#include "Rivet/Projections/Cmp.fhh"
 
 
 namespace Rivet {

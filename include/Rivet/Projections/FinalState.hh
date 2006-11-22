@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_FinalStateProjection_H
-#define RIVET_FinalStateProjection_H
+#ifndef RIVET_FinalState_H
+#define RIVET_FinalState_H
 //
-// This is the declaration of the FinalStateProjection class.
+// This is the declaration of the FinalState class.
 //
 
 #include "Rivet/Projections/Projection.hh"
@@ -15,7 +15,7 @@ namespace Rivet {
 /**
  * Project out all final-state particles in an event.
  */
-class FinalStateProjection: public Projection {
+class FinalState: public Projection {
 
 public:
 
@@ -25,17 +25,17 @@ public:
    * The default constructor. May specify the minimum and maximum
    * pseudorapidity.
    */
-  inline FinalStateProjection(double mineta = -MaxRapidity, double maxeta = MaxRapidity);
+  inline FinalState(double mineta = -MaxRapidity, double maxeta = MaxRapidity);
 
   /**
    * The copy constructor.
    */
-  inline FinalStateProjection(const FinalStateProjection &);
+  inline FinalState(const FinalState &);
 
   /**
    * The destructor.
    */
-  virtual ~FinalStateProjection();
+  virtual ~FinalState();
   //@}
 
 protected:
@@ -105,12 +105,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  FinalStateProjection & operator=(const FinalStateProjection &);
+  FinalState & operator=(const FinalState &);
 
 };
 
 }
 
-#include "Rivet/Projections/FinalStateProjection.icc"
+#include "Rivet/Projections/FinalState.icc"
 
-#endif /* RIVET_FinalStateProjection_H */
+#endif /* RIVET_FinalState_H */

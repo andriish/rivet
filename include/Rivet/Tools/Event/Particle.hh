@@ -7,7 +7,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/CLHEPWrap/LorentzVector.hh"
 #include "HepMC/GenParticle.h"
-#include "Particle.fh"
+#include "Particle.fhh"
 
 namespace Rivet {
 

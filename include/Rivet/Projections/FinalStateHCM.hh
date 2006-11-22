@@ -6,7 +6,7 @@
 
 #include "Rivet/Tools/Event/Particle.hh"
 #include "Rivet/Tools/Event/Event.hh"
-#include "Rivet/Projections/FinalStateProjection.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
 
 
@@ -109,7 +109,7 @@ private:
   /**
    * The projector for the full final state.
    */
-  FinalStateProjection fsproj;
+  FinalState fsproj;
 
   /**
    * The final-state particles.

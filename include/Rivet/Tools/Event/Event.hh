@@ -5,9 +5,9 @@
 // This is the declaration of the Event class.
 
 #include "Rivet/Rivet.hh"
-#include "Event.fh"
 #include "Rivet/Projections/Projection.hh"
 #include "HepMC/GenEvent.h"
+#include "Event.fhh"
 
 namespace Rivet {
 

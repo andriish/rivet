@@ -7,6 +7,6 @@ f// -*- C++ -*-
  *  aliased as CLHEP::Rotation and made available in the Rivet
  *  namespace. */
 
-#include "Rotation.fh"
+#include "Rotation.fhh"
 
 #endif /* Rivet_Rotation_H */

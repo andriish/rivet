@@ -8,8 +8,7 @@ nobase_pkginclude_HEADERS = \
 nobase_pkginclude_HEADERS += \
   Analysis/AnalysisBase.hh       Analysis/AnalysisBase.fhh         Analysis/AnalysisBase.icc \
   Analysis/HZ95108.hh            Analysis/HZ95108.icc  \
-  Analysis/Test.hh               Analysis/Test.icc \
-  Analysis/TestMultiplicity.hh   Analysis/TestMultiplicity.icc \
+  Analysis/TestAnalysis.hh       Analysis/TestAnalysis.icc 
 
 ## Projections
 nobase_pkginclude_HEADERS += \

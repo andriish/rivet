@@ -7,6 +7,6 @@
  *  as CLHEP::LorentzVector and made available in the Rivet
  *  namespace. */
 
-#include "LorentzVector.fh"
+#include "LorentzVector.fhh"
 
 #endif /* Rivet_LorentzVector_H */

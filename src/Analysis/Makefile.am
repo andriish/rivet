@@ -1,7 +1,4 @@
 noinst_LTLIBRARIES = libRivetAnalysis.la
 
-ANALYSISSOURCES = \
-	AnalysisBase.cc \
-	TestMultiplicity.cc TestChargedMultiplicity.cc \
-	HZ95108.cc
-libRivetAnalysis_la_SOURCES = $(ANALYSISSOURCES)
+libRivetAnalysis_la_SOURCES = \
+	AnalysisBase.cc TestAnalysis.cc	HZ95108.cc

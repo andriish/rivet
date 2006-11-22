@@ -1,22 +1,22 @@
 // -*- C++ -*-
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analysis/TestChargedMultiplicity.hh"
+#include "Rivet/Analysis/TestAnalysis.hh"
 #include "HepPDT/ParticleID.hh"
 
 using namespace Rivet;
 using namespace HepMC;
 
 
-TestChargedMultiplicity::~TestChargedMultiplicity() {}
+TestAnalysis::~TestAnalysis() {}
 
 
-void TestChargedMultiplicity::init() {
+void TestAnalysis::init() {
   /// @todo Book histogram here.
 }
 
 
-void TestChargedMultiplicity::analyze(const Event & event) {
+void TestAnalysis::analyze(const Event & event) {
   Logger& log = getLogger();
   log.setPriority(LogPriority::INFO);
   log << LogPriority::DEBUG << "Starting analyzing" << endlog;
@@ -35,9 +35,9 @@ void TestChargedMultiplicity::analyze(const Event & event) {
 }
 
 
-void TestChargedMultiplicity::finalize() {}
+void TestAnalysis::finalize() {}
 
 
-RivetInfo TestChargedMultiplicity::getInfo() const {
+RivetInfo TestAnalysis::getInfo() const {
   return AnalysisBase::getInfo() + mult.getInfo();
 }

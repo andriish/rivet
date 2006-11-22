@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_BeamProjection_H
-#define RIVET_BeamProjection_H
+#ifndef RIVET_Beam_H
+#define RIVET_Beam_H
 //
-// This is the declaration of the BeamProjection class.
+// This is the declaration of the Beam class.
 
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Tools/Event/Event.hh"
@@ -13,7 +13,7 @@ namespace Rivet {
 /**
  * This class is used to project out the beams in a HepMC::GenEvent.
  */
-class BeamProjection: public Projection {
+class Beam: public Projection {
 
 public:
 
@@ -22,17 +22,17 @@ public:
   /**
    * The default constructor.
    */
-  inline BeamProjection();
+  inline Beam();
 
   /**
    * The copy constructor.
    */
-  inline BeamProjection(const BeamProjection &);
+  inline Beam(const Beam &);
 
   /**
    * The destructor.
    */
-  virtual ~BeamProjection();
+  virtual ~Beam();
   //@}
 
 protected:
@@ -92,12 +92,12 @@ private:
    * The assignment operator is private and must never be called.
    * In fact, it should not even be implemented.
    */
-  BeamProjection & operator=(const BeamProjection &);
+  Beam & operator=(const Beam &);
 
 };
 
 }
 
-#include "Rivet/Projections/BeamProjection.icc"
+#include "Rivet/Projections/Beam.icc"
 
-#endif /* RIVET_BeamProjection_H */
+#endif /* RIVET_Beam_H */

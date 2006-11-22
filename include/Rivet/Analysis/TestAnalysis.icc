@@ -1,0 +1,12 @@
+// -*- C++ -*-
+
+namespace Rivet {
+
+  inline TestAnalysis::TestAnalysis()
+    : mult() {}
+
+  inline TestAnalysis::TestAnalysis(const TestAnalysis & x)
+    : AnalysisBase(x), mult(x.mult) {}
+
+}
+

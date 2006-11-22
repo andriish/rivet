@@ -5,7 +5,7 @@
 // This is the declaration of the DISLepton class.
 //
 
-#include "Rivet/Projections/BeamProjection.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Tools/Event/Particle.hh"
 #include "Rivet/Tools/Event/Event.hh"
 
@@ -101,9 +101,9 @@ public:
 private:
 
   /**
-   * The BeamProjector object defining the incoming beam particles.
+   * The Beam projector object defining the incoming beam particles.
    */
-  BeamProjection beams;
+  Beam beams;
 
   /**
    * The PDG id of the incoming lepton.

@@ -9,7 +9,7 @@
 #include "Rivet/Tools/Event/Particle.hh"
 #include "Rivet/Tools/Event/Event.hh"
 #include "Rivet/Projections/DISLepton.hh"
-#include "Rivet/Projections/BeamProjection.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "Rivet/CLHEPWrap/LorentzRotation.hh"
 
 namespace Rivet {
@@ -121,9 +121,9 @@ public:
 private:
 
   /**
-   * The BeamProjector object defining the incoming beam particles.
+   * The Beam projector object defining the incoming beam particles.
    */
-  BeamProjection beams;
+  Beam beams;
 
   /**
    * The projector for the scattered lepton.

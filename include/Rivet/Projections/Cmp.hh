@@ -7,7 +7,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/Projection.hh"
-#include "Cmp.fh"
+#include "Cmp.fhh"
 
 namespace Rivet {
 

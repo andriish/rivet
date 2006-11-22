@@ -7,6 +7,6 @@
  *  aliased as CLHEP::LorentzRotation and made available in the Rivet
  *  namespace. */
 
-#include "LorentzRotation.fh"
+#include "LorentzRotation.fhh"
 
 #endif /* Rivet_LorentzRotation_H */

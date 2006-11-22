@@ -4,7 +4,7 @@
 // Declaration of the Multiplicity class.
 
 #include "Rivet/Projections/Projection.hh"
-#include "Rivet/Projections/FinalStateProjection.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Tools/Event/Particle.hh"
 #include "Rivet/Tools/Event/Event.hh"
 
@@ -72,14 +72,14 @@ namespace Rivet {
     /// Hadronic multiplicities
     unsigned int hadMult_, hadChMult_, hadUnchMult_;
 
-    /// The FinalStateProjector used.
-    FinalStateProjection fsproj;
+    /// The FinalState projection used by this projection
+    FinalState fsproj;
 
   private:
 
     /**
      * The assignment operator is private and must never be called.
-     * In fact, it should not even be implemented.
+     * In fact, it shouldn't even be implemented.
      */
     Multiplicity & operator=(const Multiplicity &);
 

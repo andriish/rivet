@@ -6,6 +6,6 @@
  *  <code>Hep3Vector</code> class in CLHEP. The class is aliased as
  *  CLHEP::Vector3 and made available in the Rivet namespace. */
 
-#include "ThreeVector.fh"
+#include "ThreeVector.fhh"
 
 #endif /* Rivet_ThreeVector_H */
