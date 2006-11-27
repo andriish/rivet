@@ -1,0 +1,136 @@
+// -*- C++ -*-
+
+#include <sstream>
+
+namespace Rivet {
+
+  inline double LorentzVector::rapidity() const { if (status_ == BADSNOW) calcSnow(); return rapidity_; }
+  inline double LorentzVector::phi() const      { if (status_ == BADSNOW) calcSnow(); return phi_; }
+  inline double LorentzVector::perp() const     { if (status_ == BADSNOW) calcSnow(); return perp_; }
+  inline double LorentzVector::perp2() const    { if (status_ == BADSNOW) calcSnow(); return perp2_; }
+  inline double LorentzVector::m() const        { if (status_ == BADSNOW) calcSnow(); return m_; }
+
+  inline double LorentzVector::ct() const  { if (status_ == BADCART) calcCart(); return ct_; }
+  inline double LorentzVector::x() const { if (status_ == BADCART) calcCart(); return x_; }
+  inline double LorentzVector::y() const { if (status_ == BADCART) calcCart(); return y_; }
+  inline double LorentzVector::z() const { if (status_ == BADCART) calcCart(); return z_; }
+
+
+  inline void LorentzVector::setCartesian(double ct, double x, double y, double z) {
+    ct_ = ct;
+    x_ = x;
+    y_ = y;
+    z_ = z;
+    status_ = BADSNOW;
+  }
+
+  inline void LorentzVector::setSnowmass(double rapidity, double phi, double perp, double M) {
+    rapidity_  = rapidity;
+    phi_       = phi;
+    perp_      = perp;
+    perp2_     = perp * perp;
+    m_         = M;
+    status_ = BADCART;
+  }
+
+  inline void LorentzVector::calcSnow() const {
+    if (status_ == BADSNOW) {
+      const double etamax = 10.0;
+      phi_   = atan(y_/x_);
+      perp2_ = x_*x_ + y_*y_;
+      perp_  = sqrt(perp2_);
+      m_     = ct_*ct_ - (x_*x_ + y_*y_ + z_*z_);
+      if (fabs(z_) == ct_) {
+        rapidity_ = (z_ > 0.0) ? (etamax + 2.0) : -(etamax + 2.0);
+      } else {
+        double  temp = sqrt(x_*x_ + y_*y_ + z_*z_) + fabs(z_); //?
+        rapidity_ = ( (z_ > 0.0) ? 0.5 : -0.5 ) * std::log(temp*temp / perp2_);
+      }
+      status_ = CONSISTENT;
+    }
+  }
+    
+  inline void LorentzVector::calcCart() const {
+    if (status_ == BADCART) {
+      // TODO : maybe improve accuracy of these calculations
+      x_ = perp_ * cos(phi_);
+      y_ = perp_ * sin(phi_);
+      z_ = sqrt(m_*m_ + perp_*perp_) * sinh(rapidity_);
+      ct_ = sqrt(m_*m_ + perp_*perp_) * cosh(rapidity_);
+      status_ = CONSISTENT;
+    }
+  }
+
+
+  inline double LorentzVector::lorentzInvariant() const {
+    return this->ct() * this->ct() - 
+      ( this->x() * this->x() + this->y() * this->y() + this->z() * this->z() );
+  }
+
+  
+  inline void LorentzVector::clear() {
+    // Cartesian variables
+    ct_ = 0.0;
+    x_ = 0.0;
+    y_ = 0.0;
+    z_ = 0.0;
+    // Snowmass variables
+    rapidity_ = 0.0;
+    phi_      = 0.0;
+    perp_     = 0.0;
+    perp2_    = 0.0;
+    m_        = 0.0;
+    // Consistency status: ok
+    status_ = CONSISTENT;
+  }
+  
+
+  inline std::string LorentzVector::toString() const {
+    std::stringstream s;
+    s << "(";
+    s << this->ct() << ", ";
+    s << this->x() << ", ";
+    s << this->y() << ", ";
+    s << this->z() << ")";
+    return s.str();
+  }
+
+
+  //////////////////////////////////////////////////////////////////////
+
+
+  //   inline bool LorentzVector::operator== (const LorentzVector& v2) const{
+  //     return (getID() == v2.getID());
+  //   }
+  
+  //   inline bool LorentzVector::operator!= (const LorentzVector& v2) const{
+  //     return (getID() != v2.getID());
+  //   }
+  
+  //   inline bool LorentzVector::operator< (const LorentzVector& v2) const{
+  //     return (getID() < v2.getID());
+  //   }
+  
+  //   inline bool LorentzVector::operator> (const LorentzVector& v2) const{
+  //     return (getID() > v2.getID());
+  //   }
+
+  LorentzVector & LorentzVector::operator+= (const LorentzVector& other){
+    this->setCartesian(this->ct() + other.ct(), 
+                       this->x() + other.x(), 
+                       this->y() + other.y(), 
+                       this->z() + other.z()
+                       );
+    return *this;
+  }
+
+  LorentzVector & LorentzVector::operator-= (const LorentzVector& other){
+    this->setCartesian(this->ct() - other.ct(), 
+                       this->x() - other.x(), 
+                       this->y() - other.y(), 
+                       this->z() - other.z()
+                       );
+    return *this;
+  }
+  
+}
