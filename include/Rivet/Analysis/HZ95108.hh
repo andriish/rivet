@@ -5,132 +5,132 @@
 // This is the declaration of the HZ95108 class.
 //
 
-#include "Rivet/Analysis/AnalysisBase.hh"
+#include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
 #include "Rivet/Projections/CentralEtHCM.hh"
 #include "AIDA/IHistogram1D.h"
 
 namespace Rivet {
 
-/**
- * This class simply measures the total multiplicity. It is only
- * intended for testing purposes.
- */
-class HZ95108: public AnalysisBase {
-
-public:
-
-  /** @name Standard constructors and destructors. */
-  //@{
   /**
-   * The default constructor.
+   * This class simply measures the total multiplicity. It is only
+   * intended for testing purposes.
    */
-  inline HZ95108();
+  class HZ95108 : public Analysis {
 
-  /**
-   * The copy constructor.
-   */
-  inline HZ95108(const HZ95108 &);
+  public:
 
-  /**
-   * The destructor.
-   */
-  virtual ~HZ95108();
-  //@}
+    /** @name Standard constructors and destructors. */
+    //@{
+    /**
+     * The default constructor.
+     */
+    inline HZ95108();
 
-public:
+    /**
+     * The copy constructor.
+     */
+    inline HZ95108(const HZ95108 &);
 
-  /**
-   * Initialize this analysis object. A concrete class should here
-   * book all necessary histograms. An overridden function must make
-   * sure it first calls the base class function.
-   */
-  virtual void init();
+    /**
+     * The destructor.
+     */
+    virtual ~HZ95108();
+    //@}
 
-  /**
-   * Analyze one event. A concrete class should here apply the
-   * necessary projections on the \a event and fill the relevant
-   * histograms. An overridden function must make sure it first calls
-   * the base class function.
-   */
-  virtual void analyze(const Event & event);
+  public:
 
-  /**
-   * Finalize this analysis object. A concrete class should here make
-   * all necessary operations on the histograms. Writing the
-   * histograms to a file is, however, done by the Rivet class. An
-   * overridden function must make sure it first calls the base class
-   * function.
-   */
-  virtual void finalize();
+    /**
+     * Initialize this analysis object. A concrete class should here
+     * book all necessary histograms. An overridden function must make
+     * sure it first calls the base class function.
+     */
+    virtual void init();
 
-  /**
-   * Return the RivetInfo object of this analysis object. Derived
-   * classes should re-implement this function to return the combined
-   * RivetInfo object of this object and of any Projection objects
-   * upon which this depends.
-   */
-  virtual RivetInfo getInfo() const;
+    /**
+     * Analyze one event. A concrete class should here apply the
+     * necessary projections on the \a event and fill the relevant
+     * histograms. An overridden function must make sure it first calls
+     * the base class function.
+     */
+    virtual void analyze(const Event & event);
 
-protected:
+    /**
+     * Finalize this analysis object. A concrete class should here make
+     * all necessary operations on the histograms. Writing the
+     * histograms to a file is, however, done by the Rivet class. An
+     * overridden function must make sure it first calls the base class
+     * function.
+     */
+    virtual void finalize();
 
-  /**
-   * Calculate the bin number from the DISKinematics projection.
-   */
-  int getbin(const DISKinematics & dk);
+    /**
+     * Return the RivetInfo object of this analysis object. Derived
+     * classes should re-implement this function to return the combined
+     * RivetInfo object of this object and of any Projection objects
+     * upon which this depends.
+     */
+    virtual RivetInfo getInfo() const;
+
+  protected:
+
+    /**
+     * Calculate the bin number from the DISKinematics projection.
+     */
+    int getbin(const DISKinematics & dk);
 
 
-private:
+  private:
 
-  /**
-   * The FinalStateProjector used.
-   */
-  FinalStateHCM fsproj;
+    /**
+     * The FinalStateProjector used.
+     */
+    FinalStateHCM fsproj;
 
-  /**
-   * The DISKinematics projector used.
-   */
-  DISKinematics diskin;
+    /**
+     * The DISKinematics projector used.
+     */
+    DISKinematics diskin;
 
-  /**
-   * The CentralEtHCM projector used.
-   */
-  CentralEtHCM y1hcm;
+    /**
+     * The CentralEtHCM projector used.
+     */
+    CentralEtHCM y1hcm;
 
-  /**
-   * Some integer constants used.
-   */
-  static const int nb = 24, nbin = 9;
+    /**
+     * Some integer constants used.
+     */
+    static const int nb = 24, nbin = 9;
 
-  /**
-   * Some double constants used.
-   */
-  static const double xmin, xmax;
+    /**
+     * Some double constants used.
+     */
+    static const double xmin, xmax;
 
-  /**
-   * Histograms for the Et flows
-   */
-  vector<AIDA::IHistogram1D *> hEtFlow, hEtFlowStat;
+    /**
+     * Histograms for the Et flows
+     */
+    vector<AIDA::IHistogram1D *> hEtFlow, hEtFlowStat;
 
-  /**
-   * Histograms for averages in different kinematical bins.
-   */
-  AIDA::IHistogram1D * hAvEt, * hAvX, * hAvQ2, * hN;
+    /**
+     * Histograms for averages in different kinematical bins.
+     */
+    AIDA::IHistogram1D * hAvEt, * hAvX, * hAvQ2, * hN;
 
-  /**
-   * Helper vector;
-   */
-  vector<double> nev;
-  
-private:
+    /**
+     * Helper vector;
+     */
+    vector<double> nev;
 
-  /**
-   * The assignment operator is private and must never be called.
-   * In fact, it should not even be implemented.
-   */
-  HZ95108 & operator=(const HZ95108 &);
+  private:
 
-};
+    /**
+     * The assignment operator is private and must never be called.
+     * In fact, it should not even be implemented.
+     */
+    HZ95108 & operator=(const HZ95108 &);
+
+  };
 
 }
 

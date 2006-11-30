@@ -6,7 +6,7 @@ namespace Rivet {
     : mult() {}
 
   inline TestAnalysis::TestAnalysis(const TestAnalysis & x)
-    : AnalysisBase(x), mult(x.mult) {}
+    : Analysis(x), mult(x.mult) {}
 
 }
 

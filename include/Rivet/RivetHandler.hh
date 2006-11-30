@@ -6,8 +6,8 @@
 //
 
 #include "Rivet/Rivet.hh"
-#include "RivetHandler.fhh"
-#include "Rivet/Analysis/AnalysisBase.hh"
+#include "Rivet/RivetHandler.fhh"
+#include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Tools/Event/Event.hh"
 
 #include "AIDA/IAnalysisFactory.h"
@@ -26,7 +26,7 @@ namespace Rivet {
   public:
 
     /** Typedef a vector of analysis objects. */
-    typedef vector<AnaPtr> AnaVector;
+    typedef vector<AnalysisPtr> AnalysisVector;
 
   public:
 
@@ -115,9 +115,9 @@ namespace Rivet {
   private:
 
     /**
-     * The vector of AnalysisBase objects to be used.
+     * The vector of Analysis objects to be used.
      */
-    AnaVector anaVector;
+    AnalysisVector anaVector;
 
     /**
      * If non-zero the number of runs to be combined into one analysis.

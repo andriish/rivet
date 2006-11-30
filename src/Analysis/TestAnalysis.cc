@@ -39,5 +39,5 @@ void TestAnalysis::finalize() {}
 
 
 RivetInfo TestAnalysis::getInfo() const {
-  return AnalysisBase::getInfo() + mult.getInfo();
+  return Analysis::getInfo() + mult.getInfo();
 }

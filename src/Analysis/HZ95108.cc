@@ -120,5 +120,5 @@ void HZ95108::finalize() {
 }
 
 RivetInfo HZ95108::getInfo() const {
-  return AnalysisBase::getInfo() + fsproj.getInfo();
+  return Analysis::getInfo() + fsproj.getInfo();
 }

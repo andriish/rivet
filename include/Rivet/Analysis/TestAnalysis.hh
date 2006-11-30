@@ -2,13 +2,13 @@
 #ifndef RIVET_TestAnalysis_H
 #define RIVET_TestAnalysis_H
 
-#include "Rivet/Analysis/AnalysisBase.hh"
+#include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 
 namespace Rivet {
 
   /// This class just measures the charged multiplicity
-  class TestAnalysis : public AnalysisBase {
+  class TestAnalysis : public Analysis {
 
   public:
 

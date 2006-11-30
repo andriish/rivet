@@ -1,0 +1,17 @@
+// -*- C++ -*-
+//
+// This is the forward declaration of the Analysis class.
+//
+#ifndef RIVET_Analysis_FH
+#define RIVET_Analysis_FH
+
+namespace Rivet {
+
+class Analysis;
+
+typedef Analysis * AnalysisPtr;
+typedef const Analysis * cAnalysisPtr;
+
+}
+
+#endif

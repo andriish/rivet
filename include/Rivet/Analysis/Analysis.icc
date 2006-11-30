@@ -1,18 +1,18 @@
 // -*- C++ -*-
 //
 // This is the implementation of the inlined member functions of
-// the AnalysisBase class.
+// the Analysis class.
 //
 
 namespace Rivet {
 
-inline AnalysisBase::AnalysisBase()
+inline Analysis::Analysis()
   : theHandler(0) {}
 
-inline AnalysisBase::AnalysisBase(const AnalysisBase & x)
+inline Analysis::Analysis(const Analysis & x)
   : theHandler(x.theHandler), info(x.info) {}
 
-inline RivetHandler & AnalysisBase::handler() {
+inline RivetHandler & Analysis::handler() {
   return *theHandler;
 }
 
