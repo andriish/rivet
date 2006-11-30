@@ -19,14 +19,14 @@ Analysis::~Analysis() {}
 //////////////////////////////////////////////////////////////
 
 
-Analysis* getAnalysis(const Analysis::Name atype) {
+Analysis& Analysis::getAnalysis(const AnalysisName atype) {
   switch (atype) {
-  case Analysis::TEST:
-    return new TestAnalysis();
-  case Analysis::HZ95108:
-    return new HZ95108();
+  case ANALYSIS_TEST:
+    return *(new TestAnalysis());
+  case ANALYSIS_HZ95108:
+    return *(new HZ95108());
   }
-  throw runtime_error("Tried to get an analysis not known in the Rivet::AnalysisType enum.");
+  throw runtime_error("Tried to get an analysis not known in the Rivet::AnalysisName enum.");
 }
 
 

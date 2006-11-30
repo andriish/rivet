@@ -7,9 +7,17 @@
 namespace Rivet {
 
   template <typename ANA>
-  inline void RivetHandler::addAnalysis(const ANA & ana) {
+  inline RivetHandler& RivetHandler::addAnalysis(const ANA & ana) {
     anaVector.push_back(new ANA(ana));
     anaVector.back()->theHandler = this;
+    return *this;
+  }
+
+  inline RivetHandler& RivetHandler::addAnalysis(const AnalysisName aname) {
+    Analysis* ana = & (Analysis::getAnalysis(aname));
+    anaVector.push_back(ana);
+    anaVector.back()->theHandler = this;
+    return *this;
   }
 
   inline AIDA::IAnalysisFactory & RivetHandler::analysisFactory() {

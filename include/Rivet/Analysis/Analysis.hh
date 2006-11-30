@@ -17,6 +17,10 @@
 
 namespace Rivet {
 
+  /// List of known available analyses
+  enum AnalysisName { ANALYSIS_TEST, ANALYSIS_HZ95108 };
+
+
   /**
    * This is the base class of all analysis classes in Rivet. There are
    * three virtual functions which should be implemented in base classes:
@@ -44,11 +48,8 @@ namespace Rivet {
 
   public:
 
-    /// List of known available analyses
-    enum Name { TEST, HZ95108 };
-
     /// Factory method for getting Analyses
-    static Analysis* getAnalysis(const Name atype = TEST);
+    static Analysis& getAnalysis(const AnalysisName atype = ANALYSIS_TEST);
 
   public:
 

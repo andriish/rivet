@@ -60,13 +60,20 @@ namespace Rivet {
   public:
 
     /**
-     * Add an object of base class AnalysisBase to the list of analysis
+     * Add an object of base class Analysis to the list of analysis
      * objects to be used in a run. Note that the object will be copied,
-     * and the agrument object given will not be used and can be
+     * and the argument object given will not be used and can be
      * discarded directly.
      */
     template <typename ANA>
-    inline void addAnalysis(const ANA & ana);
+    inline RivetHandler& addAnalysis(const ANA & ana);
+
+    /**
+     * Add an object of base class Analysis to the list of analysis objects to
+     * be used in a run. The Analysis will be obtained from the
+     * Analysis::getAnalysis() factory method, according to the argument enum.
+     */
+    inline RivetHandler& addAnalysis(const AnalysisName aname);
 
     /**
      * Initialize a run. If this run is to be joined together with other

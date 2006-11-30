@@ -1,4 +1,4 @@
-noinst_PROGRAMS = testVector testLogging testHepPDT
+noinst_PROGRAMS = testVector testLogging testRivetHandler testHepPDT
 
 MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
 
@@ -10,8 +10,18 @@ testLogging_SOURCES  = testLogging.cc
 testLogging_LDFLAGS  = $(MYLDFLAGS)
 testLogging_LDADD    = -lRivet
 
+testRivetHandler_SOURCES  = testRivetHandler.cc
+testRivetHandler_LDFLAGS  = $(MYLDFLAGS)
+testRivetHandler_LDADD    = -lRivet
+
 testHepPDT_SOURCES   = testHepPDT.cc
 testHepPDT_LDFLAGS   = $(MYLDFLAGS) -L$(HEPIDLIBPATH)
 testHepPDT_LDADD     = -lRivet 
 #-l$(HEPPIDLIBNAME) -lRivetTools
 testHepPDT_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPPIDINCPATH)
+
+check-local:
+	./testVector
+	./testLogging
+	./testRivetHandler
+	./testHepPDT
