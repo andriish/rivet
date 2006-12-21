@@ -4,7 +4,7 @@ MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
 
 testVector_SOURCES   = testVector.cc
 testVector_LDFLAGS   = $(MYLDFLAGS)
-testVector_LDADD     = -lRivet
+testVector_LDADD     = -lRivet -lHepPDT
 
 testLogging_SOURCES  = testLogging.cc
 testLogging_LDFLAGS  = $(MYLDFLAGS)

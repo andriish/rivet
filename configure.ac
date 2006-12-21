@@ -26,12 +26,12 @@ CXX=$GFILT
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
-dnl AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
+AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
 
 ## Logging framework
 AC_CEDAR_LIBRARYANDHEADERS([log4cpp], , , [AC_MSG_ERROR([log4cpp is required])])
 
-AM_CPPFLAGS="-I\$(top_builddir)/include -I\$(HEPMCINCPATH) -I\$(LOG4CPPINCPATH) -I\$(HEPPIDINCPATH) "
+AM_CPPFLAGS="-I\$(top_builddir)/include -I\$(HEPMCINCPATH) -I\$(LOG4CPPINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) "
 AM_CXXFLAGS="-ansi -pedantic -Wall"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
