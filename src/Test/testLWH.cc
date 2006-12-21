@@ -6,6 +6,8 @@
 #include "LWH/Histogram1D.h"
 
 #include <iostream>
+#include <fstream>
+
 
 using namespace LWH;
 
@@ -17,10 +19,15 @@ int main(int argc, char* argv[]) {
   Histogram1D h(20, 0.0, 5.0);
 
   for (int i = 0 ; i < 10000 ; ++i) {
-    h.fill(i/2000.0);
+    double x = i/2000.0;
+    double y = sin(x);
+    std::cout << "Filling: " << x << ", " << y << std::endl;
+    h.fill(x, y);
   }
 
   h.writeXML(std::cout, "/test1", "foooo");
+  std::ofstream filestr("test.data");
+  h.writeFLAT(filestr, "/test1", "baaaar");
 
   return EXIT_SUCCESS;
 }
