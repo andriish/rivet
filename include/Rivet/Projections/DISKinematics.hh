@@ -10,7 +10,7 @@
 #include "Rivet/Tools/Event/Event.hh"
 #include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "Rivet/CLHEPWrap/LorentzRotation.hh"
+#include "Rivet/RivetCLHEP.hh"
 
 namespace Rivet {
 

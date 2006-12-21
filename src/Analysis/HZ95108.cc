@@ -5,7 +5,7 @@
 //
 
 #include "Rivet/Analysis/HZ95108.hh"
-#include "Rivet/CLHEPWrap/SystemOfUnits.hh"
+#include "Rivet/RivetCLHEP.hh"
 
 using namespace Rivet;
 using namespace std;

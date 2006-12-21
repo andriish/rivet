@@ -5,7 +5,7 @@
 // This is the declaration of the Particle class.
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/CLHEPWrap/LorentzVector.hh"
+#include "Rivet/RivetCLHEP.hh"
 #include "HepMC/GenParticle.h"
 #include "Particle.fhh"
 

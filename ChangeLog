@@ -1,3 +1,18 @@
+2006-12-21  Andy Buckley  <andy@insectnation.org>
+
+	* Started integrating Leif's LWH package to fulfill the AIDA
+	duties.
+
+	* Replaced multitude of CLHEP wrapper headers with a single
+	RivetCLHEP.h header.
+
+2006-11-20  Andy Buckley  <andy@insectnation.org>
+
+	* Introduced log4cpp logging.
+
+	* Added analysis enum, which can be used as input to an analysis
+	factory by Rivet users.
+	
 2006-11-02  Andy Buckley  <andy@insectnation.org>
 
 	* Yet more, almost pointless, administrative moving around of

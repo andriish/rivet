@@ -1,6 +1,7 @@
 ## Rivet interface
 nobase_pkginclude_HEADERS = \
   Rivet.hh  \
+  RivetCLHEP.hh  \
   RivetInfo.hh     RivetInfo.icc  \
   RivetHandler.hh  RivetHandler.fhh  RivetHandler.icc 
 
@@ -30,10 +31,10 @@ nobase_pkginclude_HEADERS += \
   Tools/Event/Particle.hh        Tools/Event/Particle.fhh   Tools/Event/Particle.icc
 
 ## CLHEP wrappers... but not for much longer!
-nobase_pkginclude_HEADERS += \
-  CLHEPWrap/CLHEP.hh \
-  CLHEPWrap/Rotation.hh         CLHEPWrap/Rotation.fhh         \
-  CLHEPWrap/LorentzRotation.hh  CLHEPWrap/LorentzRotation.fhh  \
-  CLHEPWrap/ThreeVector.hh      CLHEPWrap/ThreeVector.fhh      \
-  CLHEPWrap/LorentzVector.hh    CLHEPWrap/LorentzVector.fhh    \
-  CLHEPWrap/SystemOfUnits.hh    CLHEPWrap/PhysicalConstants.hh
+#nobase_pkginclude_HEADERS += \
+#  CLHEPWrap/CLHEP.hh \
+#  CLHEPWrap/Rotation.hh         CLHEPWrap/Rotation.fhh         \
+#  CLHEPWrap/LorentzRotation.hh  CLHEPWrap/LorentzRotation.fhh  \
+#  CLHEPWrap/ThreeVector.hh      CLHEPWrap/ThreeVector.fhh      \
+#  CLHEPWrap/LorentzVector.hh    CLHEPWrap/LorentzVector.fhh    \
+#  CLHEPWrap/SystemOfUnits.hh    CLHEPWrap/PhysicalConstants.hh
