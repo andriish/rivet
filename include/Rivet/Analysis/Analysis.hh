@@ -17,10 +17,6 @@
 
 namespace Rivet {
 
-  /// List of known available analyses
-  enum AnalysisName { ANALYSIS_TEST, ANALYSIS_HZ95108 };
-
-
   /**
    * This is the base class of all analysis classes in Rivet. There are
    * three virtual functions which should be implemented in base classes:

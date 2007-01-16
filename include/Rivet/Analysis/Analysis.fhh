@@ -7,10 +7,15 @@
 
 namespace Rivet {
 
-class Analysis;
+  /// Forward declaration of analysis class
+  class Analysis;
 
-typedef Analysis * AnalysisPtr;
-typedef const Analysis * cAnalysisPtr;
+  // Convenience typedefs (allows conversion to smart pointers)
+  typedef Analysis * AnalysisPtr;
+  typedef const Analysis * cAnalysisPtr;
+
+  /// List of known available analyses
+  enum AnalysisName { ANALYSIS_TEST, ANALYSIS_HZ95108 };
 
 }
 
