@@ -19,11 +19,11 @@ int main(int argc, char* argv[]) {
   //ITree* tree = af->createTreeFactory()->create("/foo");
   //IHistogramFactory* hf = af->createHistogramFactory(*tree);
   //IHistogram1D* h = hf->createHistogram1D("test1", "Testing histo", 20, 0.0, 5.0);
-  Histogram1D* h = new Histogram1D(20, 0.0, 5.0);
+  Histogram1D* h = new Histogram1D(100, 0.0, 5.0);
 
   for (int i = 0 ; i < 10000 ; ++i) {
     double x = i/2000.0;
-    double y = sin(x);
+    double y = sin(2*x);
     //std::cout << "Filling: " << x << ", " << y << std::endl;
     h->fill(x, y);
   }
