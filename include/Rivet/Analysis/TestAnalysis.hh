@@ -5,6 +5,11 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 
+#include "AIDA/IAnalysisFactory.h"
+#include "AIDA/IHistogramFactory.h"
+#include "AIDA/ITree.h"
+
+
 namespace Rivet {
 
   /// This class just measures the charged multiplicity

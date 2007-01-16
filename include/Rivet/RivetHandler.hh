@@ -10,12 +10,11 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Tools/Event/Event.hh"
 
-//#include "AIDA/IAnalysisFactory.h"
-//#include "AIDA/IHistogramFactory.h"
-//#include "AIDA/ITree.h"
-class AIDA::IAnalysisFactory;
-class AIDA::IHistogramFactory;
-class AIDA::ITree;
+namespace AIDA {
+  class IAnalysisFactory;
+  class IHistogramFactory;
+  class ITree;
+}
 
 
 namespace Rivet {

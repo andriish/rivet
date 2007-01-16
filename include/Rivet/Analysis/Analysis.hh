@@ -10,9 +10,11 @@
 #include "Rivet/Tools/Event/Event.fhh"
 #include "Analysis.fhh"
 
-#include "AIDA/IAnalysisFactory.h"
-#include "AIDA/ITree.h"
-#include "AIDA/IHistogramFactory.h"
+namespace AIDA {
+  class IAnalysisFactory;
+  class IHistogramFactory;
+  class ITree;
+}
 
 
 namespace Rivet {

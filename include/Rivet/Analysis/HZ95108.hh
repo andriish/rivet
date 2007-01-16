@@ -8,6 +8,10 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
 #include "Rivet/Projections/CentralEtHCM.hh"
+
+#include "AIDA/IAnalysisFactory.h"
+#include "AIDA/IHistogramFactory.h"
+#include "AIDA/ITree.h"
 #include "AIDA/IHistogram1D.h"
 
 namespace Rivet {
