@@ -2,7 +2,7 @@
 
 AC_PREREQ(2.59)
 AC_INIT([Rivet],[1.0],[],[Rivet])
-AC_CONFIG_AUX_DIR([config])
+
 AM_INIT_AUTOMAKE
 AC_LANG(C++)
 
