@@ -6,6 +6,8 @@
 
 #include "Rivet/RivetHandler.hh"
 #include "AIDA/ITreeFactory.h"
+#include "AIDA/IAnalysisFactory.h"
+#include "AIDA/ITree.h"
 
 using namespace Rivet;
 
