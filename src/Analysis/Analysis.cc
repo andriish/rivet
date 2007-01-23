@@ -19,12 +19,12 @@ Analysis::~Analysis() {}
 //////////////////////////////////////////////////////////////
 
 
-Analysis& Analysis::getAnalysis(const AnalysisName atype) {
+Analysis* Analysis::getAnalysis(const AnalysisName atype) {
   switch (atype) {
   case ANALYSIS_TEST:
-    return *(new TestAnalysis());
+    return new TestAnalysis();
   case ANALYSIS_HZ95108:
-    return *(new HZ95108());
+    return new HZ95108();
   }
   throw runtime_error("Tried to get an analysis not known in the Rivet::AnalysisName enum.");
 }
@@ -49,17 +49,17 @@ RivetInfo Analysis::getInfo() const {
 //////////////////////////////////////////////////////////////
 
 
-AIDA::IAnalysisFactory & Analysis::analysisFactory() {
+AIDA::IAnalysisFactory* Analysis::analysisFactory() {
   return handler().analysisFactory();
 }
 
 
-AIDA::ITree & Analysis::tree() {
+AIDA::ITree* Analysis::tree() {
   return handler().tree();
 }
 
 
-AIDA::IHistogramFactory & Analysis::histogramFactory() {
+AIDA::IHistogramFactory* Analysis::histogramFactory() {
   return handler().histogramFactory();
 }
 

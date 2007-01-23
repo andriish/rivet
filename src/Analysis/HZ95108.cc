@@ -21,26 +21,21 @@ void HZ95108::init() {
   hEtFlowStat = vector<AIDA::IHistogram1D *>(nbin);
   nev = vector<double>(nbin);
 
-  tree().mkdir("/HZ95108");
+  tree()->mkdir("/HZ95108");
   for ( int i = 0; i < nbin; ++i ) {
     string I(1, char('1' + i));
-    hEtFlow[i] =
-      histogramFactory().createHistogram1D("/HZ95108/" + I, nb, xmin,xmax);
+    hEtFlow[i] = histogramFactory()->createHistogram1D("/HZ95108/" + I, nb, xmin,xmax);
     hEtFlow[i]->setTitle("dEt/d[c] CMS bin=" +I);
-    histogramFactory().createHistogram1D("/HZ95108/1" + I, nb, xmin,xmax);
+    histogramFactory()->createHistogram1D("/HZ95108/1" + I, nb, xmin,xmax);
     hEtFlow[i]->setTitle("stat dEt/d[c] CMS bin=1" + I);
   }
-  hAvEt =
-    histogramFactory().createHistogram1D("/HZ95108/21tmp", nbin, 1.0, 10.0);
+  hAvEt = histogramFactory()->createHistogram1D("/HZ95108/21tmp", nbin, 1.0, 10.0);
   hAvEt->setTitle("<Et> vs kin. bin");
-  hAvX =
-    histogramFactory().createHistogram1D("/HZ95108/22tmp", nbin, 1.0, 10.0);
+  hAvX =  histogramFactory()->createHistogram1D("/HZ95108/22tmp", nbin, 1.0, 10.0);
   hAvX->setTitle("<x>  vs kin. bin");
-  hAvQ2 =
-    histogramFactory().createHistogram1D("/HZ95108/23tmp", nbin, 1.0, 10.0);
+  hAvQ2 = histogramFactory()->createHistogram1D("/HZ95108/23tmp", nbin, 1.0, 10.0);
   hAvQ2->setTitle("<Q2> vs kin. bin");
-  hN =
-    histogramFactory().createHistogram1D("/HZ95108/24", nbin, 1.0, 10.0);
+  hN =    histogramFactory()->createHistogram1D("/HZ95108/24", nbin, 1.0, 10.0);
   hN->setTitle("# events vs kin. bin");
 }
 
@@ -98,26 +93,23 @@ void HZ95108::analyze(const Event & event) {
 
 }
 
-void HZ95108::finalize() {
 
+void HZ95108::finalize() {
   for ( int ibin = 0; ibin < nbin; ++ibin ) {
     hEtFlow[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
     hEtFlowStat[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
   }
-  AIDA::IHistogram1D * h =
-    histogramFactory().divide("/HZ95108/21", *hAvEt, *hN);
+  AIDA::IHistogram1D * h = histogramFactory()->divide("/HZ95108/21", *hAvEt, *hN);
   h->setTitle(hAvEt->title());
-  histogramFactory().destroy(hAvEt);
-  h =
-    histogramFactory().divide("/HZ95108/22", *hAvX, *hN);
+  histogramFactory()->destroy(hAvEt);
+  h = histogramFactory()->divide("/HZ95108/22", *hAvX, *hN);
   h->setTitle(hAvX->title());
-  histogramFactory().destroy(hAvX);
-  h =
-    histogramFactory().divide("/HZ95108/23", *hAvQ2, *hN);
+  histogramFactory()->destroy(hAvX);
+  h = histogramFactory()->divide("/HZ95108/23", *hAvQ2, *hN);
   h->setTitle(hAvQ2->title());
-  histogramFactory().destroy(hAvQ2);
-
+  histogramFactory()->destroy(hAvQ2);
 }
+
 
 RivetInfo HZ95108::getInfo() const {
   return Analysis::getInfo() + fsproj.getInfo();

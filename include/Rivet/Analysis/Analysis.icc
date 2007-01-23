@@ -6,14 +6,14 @@
 
 namespace Rivet {
 
-inline Analysis::Analysis()
-  : theHandler(0) {}
+  inline Analysis::Analysis()
+    : theHandler(0) {}
 
-inline Analysis::Analysis(const Analysis & x)
-  : theHandler(x.theHandler), info(x.info) {}
+  inline Analysis::Analysis(const Analysis & x)
+    : theHandler(x.theHandler), info(x.info) {}
 
-inline RivetHandler & Analysis::handler() {
-  return *theHandler;
-}
+  inline RivetHandler & Analysis::handler() {
+    return *theHandler;
+  }
 
 }

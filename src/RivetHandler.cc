@@ -5,46 +5,65 @@
 //
 
 #include "Rivet/RivetHandler.hh"
-#include "AIDA/ITreeFactory.h"
-#include "AIDA/IAnalysisFactory.h"
-#include "AIDA/ITree.h"
+#include "Rivet/RivetAIDA.hh"
 
-using namespace Rivet;
 
-RivetHandler::RivetHandler() {}
+namespace Rivet {
 
-RivetHandler::RivetHandler(string filename, string storetype,
-			   AIDA::IAnalysisFactory & afac)
-  : nRun(0), iRun(0), theAnalysisFactory(&afac) {
-  theTree = afac.createTreeFactory()->create(filename, storetype, false, true);
-  theHistogramFactory = afac.createHistogramFactory(tree());
-}
+  /// @todo Abstract histo booking in a function elsewhere. Auto-append file extension.
 
-RivetHandler::~RivetHandler() {
-  for ( int i = 0, N = anaVector.size(); i < N; ++i ) delete anaVector[i];
-}
+  RivetHandler::RivetHandler() {
+    theAnalysisFactory = AIDA_createAnalysisFactory();
+    theTree = theAnalysisFactory->createTreeFactory()->create("Rivet.data", "flat", false, true);
+    //ITree* tree = theAnalysisFactory->createTreeFactory()->create("test.aida.xml", "xml", false, true);
+    theHistogramFactory = theAnalysisFactory->createHistogramFactory(*theTree);
+  }
 
-void RivetHandler::init(int i, int N) {
-  nRun = N;
-  iRun = i;
-  for ( int i = 0, N = anaVector.size(); i < N; ++i ) anaVector[i]->init();
-}
+  RivetHandler::RivetHandler(string filename, string storetype, AIDA::IAnalysisFactory& afac)
+    : nRun(0), iRun(0), theAnalysisFactory(&afac) {
+    theTree = afac.createTreeFactory()->create(filename, storetype, false, true);
+    theHistogramFactory = afac.createHistogramFactory(*tree());
+  }
 
-void RivetHandler::analyze(const GenEvent & geneve) {
-  Event event(geneve);
-  for ( int i = 0, N = anaVector.size(); i < N; ++i )
-    anaVector[i]->analyze(event);
-}
+  RivetHandler::~RivetHandler() {
+    /// @todo Can these for loops be made to use iterators?
+    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+      delete analysisVector[i]; 
+    }
+  }
 
-void RivetHandler::finalize() {
-  for ( int i = 0, N = anaVector.size(); i < N; ++i )
-    anaVector[i]->finalize();
-  tree().commit();
-}
+  void RivetHandler::init(int i, int N) {
+    nRun = N;
+    iRun = i;
+    /// @todo Can these for loops be made to use iterators?
+    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+      analysisVector[i]->init();
+    }
+  }
 
-RivetInfo RivetHandler::info() const {
-  RivetInfo ret;
-  for ( int i = 0, N = anaVector.size(); i < N; ++i )
-    ret += anaVector[i]->getInfo();
-  return ret;
+  void RivetHandler::analyze(const GenEvent & geneve) {
+    Event event(geneve);
+    /// @todo Can these for loops be made to use iterators?
+    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+      analysisVector[i]->analyze(event);
+    }
+  }
+
+  void RivetHandler::finalize() {
+    /// @todo Can these for loops be made to use iterators?
+    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+      analysisVector[i]->finalize();
+    }
+    if (tree()) { tree()->commit(); }
+  }
+
+  RivetInfo RivetHandler::info() const {
+    RivetInfo ret;
+    /// @todo Can these for loops be made to use iterators?
+    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+      ret += analysisVector[i]->getInfo();
+    }
+    return ret;
+  }
+
 }

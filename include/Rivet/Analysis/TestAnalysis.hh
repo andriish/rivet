@@ -4,10 +4,8 @@
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
-
-#include "AIDA/IAnalysisFactory.h"
-#include "AIDA/IHistogramFactory.h"
-#include "AIDA/ITree.h"
+#include "Rivet/RivetAIDA.hh"
+#include "AIDA/IHistogram1D.h"
 
 
 namespace Rivet {
@@ -44,7 +42,16 @@ namespace Rivet {
 
   private:
 
+    // Hide the assignment operator
     TestAnalysis & operator=(const TestAnalysis &);
+
+    // Histograms
+    AIDA::IHistogram1D* histTot_;
+    AIDA::IHistogram1D* histChTot_;
+    AIDA::IHistogram1D* histUnchTot_;
+    AIDA::IHistogram1D* histHadrTot_;
+    AIDA::IHistogram1D* histHadrChTot_;
+    AIDA::IHistogram1D* histHadrUnchTot_;
 
   };
 

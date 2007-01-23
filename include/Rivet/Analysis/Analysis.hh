@@ -1,14 +1,16 @@
 // -*- C++ -*-
-#ifndef RIVET_Analysis_H
-#define RIVET_Analysis_H
+#ifndef RIVET_Analysis_HH
+#define RIVET_Analysis_HH
 //
 // This is the declaration of the Analysis base class.
 //
 
+#include "Rivet/Analysis/Analysis.fhh"
+
 #include "Rivet/RivetInfo.hh"
 #include "Rivet/RivetHandler.fhh"
 #include "Rivet/Tools/Event/Event.fhh"
-#include "Analysis.fhh"
+
 
 namespace AIDA {
   class IAnalysisFactory;
@@ -32,8 +34,8 @@ namespace Rivet {
    * analysis class should apply the necessary Projections and fill the
    * histograms.
    *
-   * void finish() is called after a run is finsished. Here the analysis
-   * class should do whatever manipulations are necessay on the
+   * void finish() is called after a run is finished. Here the analysis
+   * class should do whatever manipulations are necessary on the
    * histograms. Writing the histograms to a file is, however, done by
    * the Rivet class.
    */
@@ -47,7 +49,7 @@ namespace Rivet {
   public:
 
     /// Factory method for getting Analyses
-    static Analysis& getAnalysis(const AnalysisName atype = ANALYSIS_TEST);
+    static Analysis* getAnalysis(const AnalysisName atype = ANALYSIS_TEST);
 
   public:
 
@@ -61,7 +63,7 @@ namespace Rivet {
     /**
      * The copy constructor.
      */
-    inline Analysis(const Analysis &);
+    inline Analysis(const Analysis&);
 
     /**
      * The destructor.
@@ -84,7 +86,7 @@ namespace Rivet {
      * histograms. An overridden function must make sure it first calls
      * the base class function.
      */
-    virtual void analyze(const Event & event) = 0;
+    virtual void analyze(const Event& event) = 0;
 
     /**
      * Finalize this analysis object. A concrete class should here make
@@ -106,31 +108,31 @@ namespace Rivet {
     /**
      * Access the controlling RivetHandler object.
      */
-    inline RivetHandler & handler();
+    inline RivetHandler& handler();
 
     /**
      * Access the AIDA analysis factory of the controlling RivetHandler
      * object.
      */
-    AIDA::IAnalysisFactory & analysisFactory();
+    AIDA::IAnalysisFactory* analysisFactory();
 
     /**
      * Access the AIDA tree of the controlling RivetHandler object.
      */
-    AIDA::ITree & tree();
+    AIDA::ITree* tree();
 
     /**
      * Access the AIDA histogram factory of the controlling RivetHandler
      * object.
      */
-    AIDA::IHistogramFactory & histogramFactory();
+    AIDA::IHistogramFactory* histogramFactory();
 
   private:
 
     /**
      * The controlling RivetHandler object.
      */
-    RivetHandler * theHandler;
+    RivetHandler* theHandler;
 
     /**
      * The object containing the parameters of this analysis object to

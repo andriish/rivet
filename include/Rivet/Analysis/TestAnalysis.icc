@@ -9,4 +9,3 @@ namespace Rivet {
     : Analysis(x), mult(x.mult) {}
 
 }
-

@@ -17,13 +17,10 @@ testRivetHandler_LDADD    = -lRivet
 testHepPDT_SOURCES   = testHepPDT.cc
 testHepPDT_LDFLAGS   = $(MYLDFLAGS) -L$(HEPIDLIBPATH)
 testHepPDT_LDADD     = -lRivet 
-#-l$(HEPPIDLIBNAME) -lRivetTools
 testHepPDT_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPPIDINCPATH)
 
 testLWH_SOURCES  = testLWH.cc
-#testLogging_LDFLAGS  = $(MYLDFLAGS)
-#testLogging_LDADD    = -lRivet
-
+testLWH_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA
 
 check-local:
 	./testVector

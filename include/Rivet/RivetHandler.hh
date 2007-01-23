@@ -67,15 +67,15 @@ namespace Rivet {
      * and the argument object given will not be used and can be
      * discarded directly.
      */
-    template <typename ANA>
-    inline RivetHandler& addAnalysis(const ANA & ana);
+    template <typename A>
+    inline RivetHandler& addAnalysis(const A& analysis);
 
     /**
      * Add an object of base class Analysis to the list of analysis objects to
      * be used in a run. The Analysis will be obtained from the
      * Analysis::getAnalysis() factory method, according to the argument enum.
      */
-    inline RivetHandler& addAnalysis(const AnalysisName aname);
+    inline RivetHandler& addAnalysis(const AnalysisName analysisname);
 
     /**
      * Initialize a run. If this run is to be joined together with other
@@ -108,17 +108,17 @@ namespace Rivet {
     /**
      * The AIDA analysis factory.
      */
-    inline AIDA::IAnalysisFactory & analysisFactory();
+    inline AIDA::IAnalysisFactory* analysisFactory();
 
     /**
      * The AIDA tree object.
      */
-    inline AIDA::ITree & tree();
+    inline AIDA::ITree* tree();
 
     /**
      * The AIDA histogram factory.
      */
-    inline AIDA::IHistogramFactory & histogramFactory();
+    inline AIDA::IHistogramFactory* histogramFactory();
 
 
   private:
@@ -126,7 +126,7 @@ namespace Rivet {
     /**
      * The vector of Analysis objects to be used.
      */
-    AnalysisVector anaVector;
+    AnalysisVector analysisVector;
 
     /**
      * If non-zero the number of runs to be combined into one analysis.
@@ -142,17 +142,17 @@ namespace Rivet {
     /**
      * The AIDA analysis factory.
      */
-    AIDA::IAnalysisFactory * theAnalysisFactory;
+    AIDA::IAnalysisFactory* theAnalysisFactory;
 
     /**
      * The AIDA tree object.
      */
-    AIDA::ITree * theTree;
+    AIDA::ITree* theTree;
 
     /**
      * The AIDA histogram factory.
      */
-    AIDA::IHistogramFactory * theHistogramFactory;
+    AIDA::IHistogramFactory* theHistogramFactory;
 
   private:
 
@@ -167,10 +167,6 @@ namespace Rivet {
      * fact, it should not even be implemented.
      */
     inline RivetHandler(const RivetHandler &);
-
-    /*
-     * *** ATTENTION *** Here we should have a histogram factory.
-     */
 
   };
 

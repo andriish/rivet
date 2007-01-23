@@ -7,7 +7,7 @@
 
 namespace Rivet {
 
-class RivetHandler;
+  class RivetHandler;
 
 }
 
