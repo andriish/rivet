@@ -1,6 +1,4 @@
-noinst_PROGRAMS = testVector testLogging testRivetHandler \
-                  testHepPDT testLWH testXerces 
-#testHepMC
+noinst_PROGRAMS = testVector testLogging testRivetHandler testHepPDT testLWH 
 
 MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
 
@@ -24,13 +22,17 @@ testHepPDT_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPPIDINCPATH)
 testLWH_SOURCES  = testLWH.cc
 testLWH_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA
 
+if WITH_XERCES_C
+noinst_PROGRAMS += testXerces 
 testXerces_SOURCES  = testXerces.cc
 testXerces_CPPFLAGS = $(AM_CPPFLAGS) -I$(XERCES_CINCPATH)
 testXerces_LDFLAGS = $(AM_LDFLAGS) -L$(XERCES_CLIBPATH)
 testXerces_LDADD = -l$(XERCES_CLIBNAME)
+endif
 
 check-local:
 	./testVector
 	./testLogging
 	./testRivetHandler
 	./testHepPDT
+	./testLWH

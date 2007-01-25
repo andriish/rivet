@@ -1,4 +1,4 @@
-#include "dom/DOMWriter.hpp"
+#include "xercesc/dom/DOMWriter.hpp"
 #include <cstdlib>
 
 using namespace std;
