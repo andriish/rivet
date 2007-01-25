@@ -1,11 +1,22 @@
-#include "xercesc/dom/DOMWriter.hpp"
-#include <cstdlib>
+#include <xercesc/util/PlatformUtils.hpp>
 
-using namespace std;
+XERCES_CPP_NAMESPACE_USE 
+  
+int main(int argc, char* argv[])
+{
+  try {
+    XMLPlatformUtils::Initialize();
+  }
+  catch (const XMLException& toCatch) {
+    // Do your failure processing here
+    return 1;
+  }
 
-int main() {
-  // TODO
+  // Do your actual work with Xerces-C++ here.
 
+  XMLPlatformUtils::Terminate();
+
+  // Other terminations and cleanup.
   return EXIT_SUCCESS;
 }
 
