@@ -24,35 +24,43 @@ int main(int argc, char* argv[]) {
 
   cout << "Getting bin edges from document..." << endl;
   try {
-    TiXmlNode* hepml = doc.FirstChild("hepml");
+
+    // Walk down tree to get to the <paper> element
+    const TiXmlNode* hepml = doc.FirstChild("hepml");
     if (!hepml) throw runtime_error("Couldn't get <hepml> root element");
-    TiXmlNode* data = hepml->FirstChild("data");
+    const TiXmlNode* data = hepml->FirstChild("data");
     if (!data) throw runtime_error("Couldn't get <data> element");
-    TiXmlNode* paper = data->FirstChild("paper")->ToElement();
+    const TiXmlNode* paper = data->FirstChild("paper")->ToElement();
     if (!paper) throw runtime_error("Couldn't get <paper> element");
-    TiXmlElement* p = paper->ToElement();
+    const TiXmlElement* p = paper->ToElement();
     cout << "SPIRES ID: " << p->Attribute("irn") << endl;
 
-    TiXmlNode* ds = paper->FirstChild("dataset");
+    // Walk down tree to get to the <bins> element of the first dataset's first x-axis
+    const TiXmlNode* ds = paper->FirstChild("dataset");
     if (!ds) throw runtime_error("Couldn't get <dataset> element");
-    TiXmlNode* xaxis = ds->FirstChild("xaxis");
+    const TiXmlNode* xaxis = ds->FirstChild("xaxis");
     if (!xaxis) throw runtime_error("Couldn't get <xaxis> element");
-    TiXmlNode* bins = xaxis->FirstChild("bins");
+    const TiXmlNode* bins = xaxis->FirstChild("bins");
     if (!bins) throw runtime_error("Couldn't get <bins> element");
 
-    for( TiXmlNode* bin = bins->FirstChild("bin"); bin; bin = bin->NextSibling()) {
-      TiXmlElement* b = bin->ToElement();
+    // Get the bin edges for each <bin>
+    for( const TiXmlNode* bin = bins->FirstChild("bin"); bin; bin = bin->NextSibling()) {
+      const TiXmlElement* b = bin->ToElement();
       double low, high;
-      istringstream ss1(b->Attribute("lowedge"));
-      istringstream ss2(b->Attribute("highedge"));
+      const char* lowstr = b->Attribute("low");
+      const char* highstr = b->Attribute("high");
+      if (!lowstr) throw runtime_error("Couldn't get a valid 'low' attribute on <bin>");
+      if (!highstr) throw runtime_error("Couldn't get a valid 'high' attribute on <bin>");
+      istringstream ss1(lowstr);
+      istringstream ss2(highstr);
       ss1 >> low; ss2 >> high;
       cout << low << "-" << high << endl;
     }
-  } catch (exception& e) {
+
+  } 
+  catch (exception& e) {
     cerr << e.what() << endl;
     return EXIT_FAILURE;
   }
-  
-
   return EXIT_SUCCESS;
 }

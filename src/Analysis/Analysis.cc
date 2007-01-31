@@ -8,7 +8,7 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
 #include "Rivet/Analysis/HZ95108.hh"
-#include <exception>
+#include <stdexcept>
 
 using namespace Rivet;
 

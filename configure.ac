@@ -61,6 +61,7 @@ src/Projections/Makefile
 src/Analysis/Makefile
 src/Test/Makefile
 lib/Makefile
+data/Makefile
 Makefile],)
 
 AC_OUTPUT
