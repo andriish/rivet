@@ -1,4 +1,4 @@
-noinst_PROGRAMS = testVector testLogging testRivetHandler testHepPDT testLWH 
+noinst_PROGRAMS = testVector testLogging testRivetHandler testHepPDT testLWH testTinyXML 
 
 MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
 
@@ -22,6 +22,11 @@ testHepPDT_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPPIDINCPATH)
 testLWH_SOURCES  = testLWH.cc
 testLWH_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA
 
+testTinyXML_SOURCES  = testTinyXML.cc
+testTinyXML_LDFLAGS  = $(MYLDFLAGS)
+testTinyXML_LDADD    = -lRivetXML
+testTinyXML_CPPFLAGS = $(AM_CPPFLAGS) -DTIXML_USE_STL
+
 if WITH_XERCES_C
 noinst_PROGRAMS += testXerces 
 testXerces_SOURCES  = testXerces.cc
@@ -36,3 +41,4 @@ check-local:
 	./testRivetHandler
 	./testHepPDT
 	./testLWH
+	./testTinyXML
