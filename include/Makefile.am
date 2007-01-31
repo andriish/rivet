@@ -1,9 +1,12 @@
 SUBDIRS = Rivet
 
-#dist_noinst_HEADERS = AIDA/AIDA.h AIDA/IAnalysisFactory.h \
-#                      AIDA/ITree.h AIDA/IHistogramFactory.h 
-
 nobase_include_HEADERS =
+nobase_dist_noinst_HEADERS = 
+
+
+nobase_dist_noinst_HEADERS += \
+  TinyXML/tinystr.h  TinyXML/tinyxml.h
+
 
 if NO_INSTALLED_AIDA
 nobase_include_HEADERS += \
