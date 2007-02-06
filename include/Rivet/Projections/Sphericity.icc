@@ -1,0 +1,22 @@
+// -*- C++ -*-
+
+namespace Rivet {
+
+  inline Sphericity::Sphericity()
+    : sphericity_(0), planarity_(0), aplanarity_(0)
+  {}
+  
+  inline Sphericity::Sphericity(const Sphericity & sp)
+    : Projection(sp), 
+      sphericity_(sp.sphericity_), planarity_(sp.planarity_), aplanarity_(sp.aplanarity_)
+
+  {}
+  
+  inline const double Sphericity::eventSphericity() const { return sphericity_; }
+
+  inline const double Sphericity::eventPlanarity() const { return planarity_; }
+
+  inline const double Sphericity::eventAplanarity() const { return aplanarity_; }
+
+  
+}

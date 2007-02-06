@@ -1,0 +1,11 @@
+// -*- C++ -*-
+
+namespace Rivet {
+
+  inline PL273B181::PL273B181()
+    : mult() {}
+
+  inline PL273B181::PL273B181(const PL273B181 & x)
+    : Analysis(x), mult(x.mult) {}
+
+}

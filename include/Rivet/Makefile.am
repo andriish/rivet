@@ -9,6 +9,7 @@ nobase_pkginclude_HEADERS = \
 nobase_pkginclude_HEADERS += \
   Analysis/Analysis.hh       Analysis/Analysis.fhh         Analysis/Analysis.icc \
   Analysis/HZ95108.hh        Analysis/HZ95108.icc  \
+  Analysis/PL273B181.hh        Analysis/PL273B181.icc  \
   Analysis/TestAnalysis.hh   Analysis/TestAnalysis.icc 
 
 ## Projections
@@ -21,7 +22,8 @@ nobase_pkginclude_HEADERS += \
   Projections/DISKinematics.hh   Projections/DISKinematics.icc  \
   Projections/DISLepton.hh       Projections/DISLepton.icc      \
   Projections/Multiplicity.hh    Projections/Multiplicity.icc   \
-  Projections/FinalState.hh      Projections/FinalState.icc
+  Projections/FinalState.hh      Projections/FinalState.icc     \
+  Projections/Sphericity.hh      Projections/Sphericity.icc
 
 ## Tools
 nobase_pkginclude_HEADERS += \

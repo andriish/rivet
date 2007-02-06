@@ -8,6 +8,7 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
 #include "Rivet/Analysis/HZ95108.hh"
+#include "Rivet/Analysis/PL273B181.hh"
 #include <stdexcept>
 
 using namespace Rivet;
@@ -25,6 +26,8 @@ Analysis* Analysis::getAnalysis(const AnalysisName atype) {
     return new TestAnalysis();
   case ANALYSIS_HZ95108:
     return new HZ95108();
+  case ANALYSIS_PL273B181:
+    return new PL273B181();
   }
   throw runtime_error("Tried to get an analysis not known in the Rivet::AnalysisName enum.");
 }
