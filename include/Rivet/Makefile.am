@@ -28,6 +28,5 @@ nobase_pkginclude_HEADERS += \
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/Logging.hh \
-  Tools/Math/LorentzVector.hh    Tools/Math/LorentzVector.icc  \
-  Tools/Event/Event.hh           Tools/Event/Event.fhh      Tools/Event/Event.icc      \
+  Tools/Event/Event.hh           Tools/Event/Event.fhh   \
   Tools/Event/Particle.hh        Tools/Event/Particle.fhh   Tools/Event/Particle.icc

@@ -6,7 +6,7 @@
 
 using namespace Rivet;
 using namespace HepMC;
-
+using namespace AIDA;
 
 TestAnalysis::~TestAnalysis() {}
 
@@ -15,28 +15,26 @@ TestAnalysis::~TestAnalysis() {}
 void TestAnalysis::init() {
 
   // Book histograms
-  AIDA::IHistogramFactory* hf = histogramFactory();
-  /// @todo Use subdirs in AIDA tree.
-  tree()->mkdir("/Test/");
+  IHistogramFactory* hf = histogramFactory();
+  tree()->mkdir("/Test");
   histTot_         = hf->createHistogram1D("/Test/TotalMult", 
                                            "Total multiplicity", 100, -0.5, 999.5);
-//   histChTot_       = hf->createHistogram1D("/TotalChMult", 
-//                                            "Total charged multiplicity", 51, -0.5, 50.5);
-//   histUnchTot_     = hf->createHistogram1D("/TotalUnchMult", 
-//                                            "Total uncharged multiplicity", 51, -0.5, 50.5);
-//   histHadrTot_     = hf->createHistogram1D("/HadrTotalMult", 
-//                                            "Total hadronic multiplicity", 51, -0.5, 50.5);
-//   histHadrChTot_   = hf->createHistogram1D("/HadrTotalChMult", 
-//                                            "Total hadronic charged multiplicity", 51, -0.5, 50.5);
-//   histHadrUnchTot_ = hf->createHistogram1D("/HadrTotalUnchMult", 
-//                                            "Total hadronic uncharged multiplicity", 51, -0.5, 50.5);
+  histChTot_       = hf->createHistogram1D("/TotalChMult", 
+                                           "Total charged multiplicity", 51, -0.5, 50.5);
+  histUnchTot_     = hf->createHistogram1D("/TotalUnchMult", 
+                                           "Total uncharged multiplicity", 51, -0.5, 50.5);
+  histHadrTot_     = hf->createHistogram1D("/HadrTotalMult", 
+                                           "Total hadronic multiplicity", 51, -0.5, 50.5);
+  histHadrChTot_   = hf->createHistogram1D("/HadrTotalChMult", 
+                                           "Total hadronic charged multiplicity", 51, -0.5, 50.5);
+  histHadrUnchTot_ = hf->createHistogram1D("/HadrTotalUnchMult", 
+                                           "Total hadronic uncharged multiplicity", 51, -0.5, 50.5);
 }
 
 
 // Do the analysis
 void TestAnalysis::analyze(const Event & event) {
-  Logger& log = getLogger();
-  log.setPriority(LogPriority::INFO);
+  Logger& log = getLogger(ANALYSIS_TEST);
   log << LogPriority::DEBUG << "Starting analyzing" << endlog;
 
   // Analyse and print some info
@@ -50,11 +48,11 @@ void TestAnalysis::analyze(const Event & event) {
 
   // Fill histograms here
   histTot_->fill(m.totalMultiplicity(), 1.0);
-//   histChTot_->fill(m.totalChargedMultiplicity(), 1.0);
-//   histUnchTot_->fill(m.totalUnchargedMultiplicity(), 1.0);
-//   histHadrTot_->fill(m.hadronMultiplicity(), 1.0);
-//   histHadrChTot_->fill(m.hadronChargedMultiplicity(), 1.0);
-//   histHadrUnchTot_->fill(m.hadronUnchargedMultiplicity(), 1.0);
+  histChTot_->fill(m.totalChargedMultiplicity(), 1.0);
+  histUnchTot_->fill(m.totalUnchargedMultiplicity(), 1.0);
+  histHadrTot_->fill(m.hadronMultiplicity(), 1.0);
+  histHadrChTot_->fill(m.hadronChargedMultiplicity(), 1.0);
+  histHadrUnchTot_->fill(m.hadronUnchargedMultiplicity(), 1.0);
   
   // Finished...
   log << LogPriority::DEBUG << "Finished analyzing" << endlog;

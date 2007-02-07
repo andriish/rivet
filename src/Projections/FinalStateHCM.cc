@@ -18,17 +18,18 @@ int FinalStateHCM::compare(const Projection & p) const {
     pcmp(kinematics, other.kinematics) || pcmp(fsproj, other.fsproj);
 }
 
-void FinalStateHCM::project(const Event & e) {
-  const DISLepton & dislep = e(lepton);
-  const DISKinematics & diskin = e(kinematics);
-  const FinalState & fs = e(fsproj);
+void FinalStateHCM::project(const Event& e) {
+  const DISLepton & dislep = e.applyProjection(lepton);
+  const DISKinematics & diskin = e.applyProjection(kinematics);
+  const FinalState & fs = e.applyProjection(fsproj);
   theParticles.clear();
   theParticles.reserve(fs.particles().size());
-  for ( int i = 0, N = fs.particles().size(); i < N; ++i )
+  for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
     if ( fs.particles()[i].original != dislep.out().original ) {
       theParticles.push_back(fs.particles()[i]);
       theParticles[i].momentum *= diskin.boostHCM();
     }
+  }
 }
 
 RivetInfo FinalStateHCM::getInfo() const {

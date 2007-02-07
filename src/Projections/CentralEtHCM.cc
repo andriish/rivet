@@ -19,7 +19,7 @@ int CentralEtHCM::compare(const Projection & p) const {
 }
 
 void CentralEtHCM::project(const Event & e) {
-  const FinalStateHCM & fs = e(fshcm);
+  const FinalStateHCM & fs = e.applyProjection(fshcm);
   sumet = 0.0;
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
     if ( abs(fs.particles()[i].momentum.rapidity()) < 0.5 )

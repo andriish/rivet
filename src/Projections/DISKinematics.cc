@@ -11,9 +11,9 @@ using namespace Rivet;
 
 DISKinematics::~DISKinematics() {}
 
-void DISKinematics::project(const Event & e) {
-  const DISLepton & dislep = e(lepton);
-  const ParticlePair & inc = e(beams)();
+void DISKinematics::project(const Event& e) {
+  const DISLepton & dislep = e.applyProjection(lepton);
+  const ParticlePair & inc = e.applyProjection(beams)();
   Particle hadron;
   if ( inc.second.id == idhad ) hadron = inc.second;
   else

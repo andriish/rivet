@@ -26,3 +26,10 @@ Logger& Rivet::getLogger(std::string logfile) {
     return log;
   }
 } 
+
+/// @todo Get logger priorities by analysis from RivetHandler
+Logger& Rivet::getLogger(AnalysisName analysis) {
+  Logger& log = getLogger();
+  log.setPriority(LogPriority::INFO);
+  return log;
+}

@@ -12,7 +12,7 @@ using namespace Rivet;
 DISLepton::~DISLepton() {}
 
 void DISLepton::project(const Event & e) {
-  const ParticlePair & inc = e(beams)();
+  const ParticlePair & inc = e.applyProjection(beams)();
   if ( ( idin == -idin && abs(inc.first.id) == abs(idin) ) || inc.first.id ) {
     incoming = inc.first;
   } else {

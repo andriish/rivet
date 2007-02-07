@@ -70,9 +70,9 @@ int HZ95108::getbin(const DISKinematics & dk) {
 }
 
 void HZ95108::analyze(const Event & event) {
-  const FinalStateHCM & fs = event(fsproj);
-  const DISKinematics & dk = event(diskin);
-  const CentralEtHCM y1 = event(y1hcm);
+  const FinalStateHCM & fs = event.applyProjection(fsproj);
+  const DISKinematics & dk = event.applyProjection(diskin);
+  const CentralEtHCM y1 = event.applyProjection(y1hcm);
 
   int ibin = getbin(dk);
   if ( ibin < 0 ) return;
