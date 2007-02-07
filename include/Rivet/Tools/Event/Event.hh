@@ -9,16 +9,14 @@
 #include "HepMC/GenEvent.h"
 #include "Event.fhh"
 
+
 namespace Rivet {
 
-  /** Alias for the HepMC namespace. */
-  namespace CLHEPMC = HepMC;
-
   /** Forward typedef from CLHEPMC. */
-  typedef CLHEPMC::GenEvent GenEvent;
-
+  typedef HepMC::GenEvent GenEvent;
+  
   /** Forward typedef from CLHEPMC. */
-  typedef CLHEPMC::GenVertex GenVertex;
+  typedef HepMC::GenVertex GenVertex;
 
   /**
    * Event is a concrete class representing an generated event in
@@ -38,7 +36,7 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    Event(const HepMC::GenEvent & geneve);
+    Event(const GenEvent & geneve);
 
     /// The copy constructor.
     inline Event(const Event &);
@@ -52,6 +50,10 @@ namespace Rivet {
     /// Return the generated event obtained from an external event generator.
     inline const GenEvent & genEvent() const;
 
+    /// Synonym for applyProjection(). May be deprecated.
+    template <typename PROJ>
+    inline const PROJ & addProjection(PROJ & p) const;
+
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
     /// of \a p is not called and a reference to the previous equivalent
@@ -59,14 +61,7 @@ namespace Rivet {
     /// Projection::project(const Event &) of \a p is called and a
     /// reference to p is returned.
     template <typename PROJ>
-    inline const PROJ & addProjection(PROJ & p) const;
-
-    /// @deprecated May be deprecated in future: is "an event acting on 
-    /// a projection" a natural concept? addProjection() is certainly clearer.
-    ///
-    /// Same as addProjection().
-    template <typename PROJ>
-    inline const PROJ & operator()(PROJ & p) const;
+    inline const PROJ & applyProjection(PROJ & p) const;
 
     /**
      * The weight associated with the event.
@@ -79,7 +74,7 @@ namespace Rivet {
      * A pointer to the generated event obtained from an external event
      * generator.
      */
-    const GenEvent * theGenEvent;
+    const GenEvent* theGenEvent;
 
     /**
      * The set of Projection objects applied so far.
@@ -101,37 +96,43 @@ namespace Rivet {
 
   };
 
+
+
+  ////////////////////////////////////////////////////////
+
+
   
   inline Event::Event(const Event& x)
-    : theGenEvent(x.theGenEvent), theWeight(x.theWeight) {}
+    : theGenEvent(x.theGenEvent), theWeight(x.theWeight) { }
+
   
   inline const HepMC::GenEvent & Event::genEvent() const {
     return *theGenEvent;
   }
-  
+
+
   template <typename PROJ>
-  inline const PROJ&  Event::addProjection(PROJ& p) const {
+  inline const PROJ&  Event::applyProjection(PROJ& p) const {
     std::set<const Projection*>::const_iterator old = theProjections.find(&p);
     if ( old != theProjections.end() ) {
       return *(dynamic_cast<const PROJ*>(*old));
     }
-    /// @todo Need a Projection "== method"? Should we actually copy the
-    /// passed projection and only store the pointer internally?
-
     // Add the projection via the Projection base class (only 
     // possible because Event is a friend of Projection)
-    Projection& pp = p;
-    pp.project(*this);
+    Projection* pp = &p;
+    pp->project(*this);
     theProjections.insert(&p);
     return p;
   }
-  
+
+
   template <typename PROJ>
-  inline const PROJ& Event::operator()(PROJ & p) const {
-    std::cerr << "Event::() is deprecated" << std::endl;
+  inline const PROJ&  Event::addProjection(PROJ& p) const {
+    //std::cerr << "Event::addProjection() is deprecated" << std::endl;
     return addProjection(p);
   }
   
+    
   inline double Event::weight() const {
     return theWeight;
   }
