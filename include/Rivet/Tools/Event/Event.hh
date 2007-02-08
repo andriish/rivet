@@ -48,11 +48,11 @@ namespace Rivet {
   public:
 
     /// Return the generated event obtained from an external event generator.
-    inline const GenEvent & genEvent() const;
+    inline const GenEvent& genEvent() const;
 
-    /// Synonym for applyProjection(). May be deprecated.
+    /// @deprecated Synonym for applyProjection().
     template <typename PROJ>
-    inline const PROJ & addProjection(PROJ & p) const;
+    inline const PROJ& addProjection(PROJ& p) const;
 
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
@@ -61,7 +61,7 @@ namespace Rivet {
     /// Projection::project(const Event &) of \a p is called and a
     /// reference to p is returned.
     template <typename PROJ>
-    inline const PROJ & applyProjection(PROJ & p) const;
+    inline const PROJ& applyProjection(PROJ& p) const;
 
     /**
      * The weight associated with the event.
@@ -115,21 +115,21 @@ namespace Rivet {
   inline const PROJ&  Event::applyProjection(PROJ& p) const {
     std::set<const Projection*>::const_iterator old = theProjections.find(&p);
     if ( old != theProjections.end() ) {
-      return *(dynamic_cast<const PROJ*>(*old));
+      return *( dynamic_cast<const PROJ*>(*old) );
     }
     // Add the projection via the Projection base class (only 
     // possible because Event is a friend of Projection)
     Projection* pp = &p;
     pp->project(*this);
-    theProjections.insert(&p);
+    theProjections.insert(pp);
     return p;
   }
 
 
   template <typename PROJ>
   inline const PROJ&  Event::addProjection(PROJ& p) const {
-    //std::cerr << "Event::addProjection() is deprecated" << std::endl;
-    return addProjection(p);
+    std::cerr << "Event::addProjection() is deprecated" << std::endl;
+    return applyProjection(p);
   }
   
     

@@ -2,6 +2,7 @@
 
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/RivetCLHEP.hh"
+#include <bitset>
 
 using namespace Rivet;
 using namespace CLHEP;
@@ -49,8 +50,10 @@ const vector<Vector3> Thrust::calcThrustAxes(const FinalState& fs) {
   //Vector3 n = sum of 3-momenta
   double maxThrust = 0;
   Vector3 maxThrustAxis;
+
+  std::bitset<2> foo;
   for (...) {
-    // Use std::bitfield
+    // Use std::bitset
     Vector3 n = ...;
     thrust = calcThrust(threeMomenta, n);
     if (thrust > maxThrust) {

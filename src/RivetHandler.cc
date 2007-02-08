@@ -18,7 +18,7 @@ namespace Rivet {
   RivetHandler::RivetHandler() {
     theAnalysisFactory = AIDA_createAnalysisFactory();
     theTree = theAnalysisFactory->createTreeFactory()->create("Rivet.data", "flat", false, true);
-    //ITree* tree = theAnalysisFactory->createTreeFactory()->create("test.aida.xml", "xml", false, true);
+    //ITree* tree = theAnalysisFactory->createTreeFactory()->create("Rivet.aida.xml", "xml", false, true);
     theHistogramFactory = theAnalysisFactory->createHistogramFactory(*theTree);
   }
 

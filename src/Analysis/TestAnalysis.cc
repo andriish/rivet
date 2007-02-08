@@ -38,7 +38,7 @@ void TestAnalysis::analyze(const Event & event) {
   log << LogPriority::DEBUG << "Starting analyzing" << endlog;
 
   // Analyse and print some info
-  const Multiplicity& m = event.addProjection(mult);
+  const Multiplicity& m = event.applyProjection(mult);
   log << LogPriority::INFO << "Total multiplicity            = " << m.totalMultiplicity()           << endlog;
   log << LogPriority::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endlog;
   log << LogPriority::INFO << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endlog;
