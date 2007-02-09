@@ -27,7 +27,7 @@ AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
-AC_CEDAR_LIBRARYANDHEADERS([Xerces-C], , , [AC_MSG_WARN([Xerces XML parser is recommended])])
+dnl AC_CEDAR_LIBRARYANDHEADERS([Xerces-C], , , [AC_MSG_WARN([Xerces XML parser is recommended])])
 
 ## Logging framework
 AC_CEDAR_LIBRARYANDHEADERS([log4cpp], , , [AC_MSG_ERROR([log4cpp is required])])

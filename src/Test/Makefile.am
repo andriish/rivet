@@ -4,7 +4,7 @@ MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
 
 testVector_SOURCES   = testVector.cc
 testVector_LDFLAGS   = $(MYLDFLAGS)
-testVector_LDADD     = -lRivet -lHepPDT
+testVector_LDADD     = -lRivet
 
 testLogging_SOURCES  = testLogging.cc
 testLogging_LDFLAGS  = $(MYLDFLAGS)
@@ -27,13 +27,13 @@ testTinyXML_LDFLAGS  = $(MYLDFLAGS)
 testTinyXML_LDADD    = -lRivetXML
 testTinyXML_CPPFLAGS = $(AM_CPPFLAGS)
 
-if WITH_XERCES_C
-noinst_PROGRAMS += testXerces 
-testXerces_SOURCES  = testXerces.cc
-testXerces_CPPFLAGS = $(AM_CPPFLAGS) -I$(XERCES_CINCPATH)
-testXerces_LDFLAGS = $(AM_LDFLAGS) -L$(XERCES_CLIBPATH)
-testXerces_LDADD = -l$(XERCES_CLIBNAME)
-endif
+#if WITH_XERCES_C
+#noinst_PROGRAMS += testXerces 
+#testXerces_SOURCES  = testXerces.cc
+#testXerces_CPPFLAGS = $(AM_CPPFLAGS) -I$(XERCES_CINCPATH)
+#testXerces_LDFLAGS = $(AM_LDFLAGS) -L$(XERCES_CLIBPATH)
+#testXerces_LDADD = -l$(XERCES_CLIBNAME)
+#endif
 
 check-local:
 	./testVector
