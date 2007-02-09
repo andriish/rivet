@@ -1,12 +1,9 @@
 SUBDIRS = Rivet
 
-nobase_include_HEADERS =
-nobase_dist_noinst_HEADERS = 
+nobase_include_HEADERS = 
 
-
-nobase_dist_noinst_HEADERS += \
-  TinyXML/tinystr.h  TinyXML/tinyxml.h
-
+nobase_dist_noinst_HEADERS = \
+  TinyXML/tinyxml.h
 
 if NO_INSTALLED_AIDA
 nobase_include_HEADERS += \

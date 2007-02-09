@@ -4,7 +4,7 @@ libRivetMath_la_SOURCES  = Math/LorentzVector.cc
 
 libRivetEvent_la_SOURCES = Event/Event.cc
 
-libRivetXML_la_SOURCES   = TinyXML/tinystr.cpp TinyXML/tinyxml.cpp TinyXML/tinyxmlerror.cpp TinyXML/tinyxmlparser.cpp
+libRivetXML_la_SOURCES   = TinyXML/tinyxml.cpp TinyXML/tinyxmlerror.cpp TinyXML/tinyxmlparser.cpp
 libRivetXML_la_CPPFLAGS  = -I$(top_srcdir)/include/TinyXML -DTIXML_USE_STL
 
 libRivetTools_la_SOURCES  = Logging.cc RivetAIDA.cc
