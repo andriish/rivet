@@ -41,4 +41,4 @@ check-local:
 	./testRivetHandler
 	./testHepPDT
 	./testLWH
-	./testTinyXML
+#	./testTinyXML ../../data/4781.hepml.xml
