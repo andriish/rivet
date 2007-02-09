@@ -10,22 +10,33 @@
 #include "AIDA/IAnalysisFactory.h"
 #include "AIDA/ITree.h"
 
+using namespace std;
+
 
 namespace Rivet {
 
-  /// @todo Abstract histo booking in a function elsewhere. Auto-append file extension.
-
-  RivetHandler::RivetHandler() {
-    theAnalysisFactory = AIDA_createAnalysisFactory();
-    theTree = theAnalysisFactory->createTreeFactory()->create("Rivet.data", "flat", false, true);
-    //ITree* tree = theAnalysisFactory->createTreeFactory()->create("Rivet.aida.xml", "xml", false, true);
-    theHistogramFactory = theAnalysisFactory->createHistogramFactory(*theTree);
+  void RivetHandler::setupFactories(string basefilename, HistoFormat storetype) {
+    string filename(basefilename), storetypestr("");
+    if (storetype == XML) {
+      filename += ".aida";
+      storetypestr = "xml";
+    } else {
+      filename += ".data";
+      storetypestr = "flat";
+    }
+    theTree = theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
+    theHistogramFactory = theAnalysisFactory->createHistogramFactory(*tree());
   }
 
-  RivetHandler::RivetHandler(string filename, string storetype, AIDA::IAnalysisFactory& afac)
+  RivetHandler::RivetHandler(string basefilename, HistoFormat storetype)
+    : nRun(0), iRun(0) {
+    theAnalysisFactory = AIDA_createAnalysisFactory();
+    setupFactories(basefilename, storetype);
+  }
+
+  RivetHandler::RivetHandler(AIDA::IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
     : nRun(0), iRun(0), theAnalysisFactory(&afac) {
-    theTree = afac.createTreeFactory()->create(filename, storetype, false, true);
-    theHistogramFactory = afac.createHistogramFactory(*tree());
+    setupFactories(basefilename, storetype);
   }
 
   RivetHandler::~RivetHandler() {
