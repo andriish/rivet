@@ -5,7 +5,6 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "AIDA/IHistogram1D.h"
 
 
 namespace Rivet {
@@ -16,24 +15,29 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline TestAnalysis();
+    inline TestAnalysis() : mult() {}
 
     /// Copy constructor.
-    inline TestAnalysis(const TestAnalysis &);
+    inline TestAnalysis(const TestAnalysis& x) : Analysis(x), mult(x.mult) {}
 
     /// Destructor
-    virtual ~TestAnalysis();
+    ~TestAnalysis();
+
+    /// The name of this analysis is "Test"
+    inline std::string name() const {
+      return "Test";
+    }
 
   public:
 
-    virtual void init();
-
-    virtual void analyze(const Event & event);
-
-    virtual void finalize();
+    void init();
+    
+    void analyze(const Event & event);
+    
+    void finalize();
 
     /// Return the RivetInfo object of this analysis object.
-    virtual RivetInfo getInfo() const;
+    RivetInfo getInfo() const;
 
   private:
 
@@ -42,21 +46,21 @@ namespace Rivet {
 
   private:
 
-    // Hide the assignment operator
-    TestAnalysis & operator=(const TestAnalysis &);
+    /// Hide the assignment operator
+    TestAnalysis & operator=(const TestAnalysis& x);
 
-    // Histograms
+    //@{
+    /// Histograms
     AIDA::IHistogram1D* histTot_;
     AIDA::IHistogram1D* histChTot_;
     AIDA::IHistogram1D* histUnchTot_;
     AIDA::IHistogram1D* histHadrTot_;
     AIDA::IHistogram1D* histHadrChTot_;
     AIDA::IHistogram1D* histHadrUnchTot_;
+    //@}
 
   };
 
 }
-
-#include "Rivet/Analysis/TestAnalysis.icc"
 
 #endif

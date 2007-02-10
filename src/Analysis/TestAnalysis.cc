@@ -2,33 +2,30 @@
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
-#include "HepPDT/ParticleID.hh"
-
 using namespace Rivet;
-using namespace HepMC;
+
+#include "AIDA/IHistogram1D.h"
 using namespace AIDA;
+
+#include "HepPDT/ParticleID.hh"
+using namespace HepMC;
+
+
+
+/////////////////////////////////////////////////
+
 
 TestAnalysis::~TestAnalysis() {}
 
 
 // Book histograms
 void TestAnalysis::init() {
-
-  // Book histograms
-  IHistogramFactory* hf = histogramFactory();
-  tree()->mkdir("/Test");
-  histTot_         = hf->createHistogram1D("/Test/TotalMult", 
-                                           "Total multiplicity", 100, -0.5, 999.5);
-  histChTot_       = hf->createHistogram1D("/TotalChMult", 
-                                           "Total charged multiplicity", 51, -0.5, 50.5);
-  histUnchTot_     = hf->createHistogram1D("/TotalUnchMult", 
-                                           "Total uncharged multiplicity", 51, -0.5, 50.5);
-  histHadrTot_     = hf->createHistogram1D("/HadrTotalMult", 
-                                           "Total hadronic multiplicity", 51, -0.5, 50.5);
-  histHadrChTot_   = hf->createHistogram1D("/HadrTotalChMult", 
-                                           "Total hadronic charged multiplicity", 51, -0.5, 50.5);
-  histHadrUnchTot_ = hf->createHistogram1D("/HadrTotalUnchMult", 
-                                           "Total hadronic uncharged multiplicity", 51, -0.5, 50.5);
+  histTot_         = bookHistogram1D("TotalMult", "Total multiplicity", 100, -0.5, 999.5);
+  histChTot_       = bookHistogram1D("TotalChMult", "Total charged multiplicity", 100, -0.5, 999.5);
+  histUnchTot_     = bookHistogram1D("TotalUnchMult", "Total uncharged multiplicity", 100, -0.5, 999.5);
+  histHadrTot_     = bookHistogram1D("HadrTotalMult", "Total hadronic multiplicity", 100, -0.5, 999.5);
+  histHadrChTot_   = bookHistogram1D("HadrTotalChMult", "Total hadronic charged multiplicity", 100, -0.5, 999.5);
+  histHadrUnchTot_ = bookHistogram1D("HadrTotalUnchMult", "Total hadronic uncharged multiplicity", 100, -0.5, 999.5);
 }
 
 
@@ -46,7 +43,7 @@ void TestAnalysis::analyze(const Event & event) {
   log << LogPriority::INFO << "Hadron charged multiplicity   = " << m.hadronChargedMultiplicity()   << endlog;
   log << LogPriority::INFO << "Hadron uncharged multiplicity = " << m.hadronUnchargedMultiplicity() << endlog;
 
-  // Fill histograms here
+  // Fill histograms
   histTot_->fill(m.totalMultiplicity(), 1.0);
   histChTot_->fill(m.totalChargedMultiplicity(), 1.0);
   histUnchTot_->fill(m.totalUnchargedMultiplicity(), 1.0);
@@ -63,6 +60,7 @@ void TestAnalysis::analyze(const Event & event) {
 void TestAnalysis::finalize() { }
 
 
+// Provide info object
 RivetInfo TestAnalysis::getInfo() const {
   return Analysis::getInfo() + mult.getInfo();
 }

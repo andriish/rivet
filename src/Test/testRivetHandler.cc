@@ -7,8 +7,7 @@
 using namespace Rivet;
 
 int main() {
-  Analysis* a = Analysis::getAnalysis(ANALYSIS_TEST);
-  a->getInfo();
+  Analysis::getAnalysis(ANALYSIS_TEST).getInfo();
 
   RivetHandler rh;
   rh.addAnalysis(ANALYSIS_TEST);

@@ -16,6 +16,7 @@ namespace AIDA {
   class IAnalysisFactory;
   class IHistogramFactory;
   class ITree;
+  class IHistogram1D;
 }
 
 
@@ -41,33 +42,25 @@ namespace Rivet {
    */
   class Analysis {
     
-    /**
-     * The RivetHandler is a friend;
-     */
+    /// The RivetHandler is a friend.
     friend class RivetHandler;
 
   public:
 
-    /// Factory method for getting Analyses
-    static Analysis* getAnalysis(const AnalysisName atype = ANALYSIS_TEST);
+    /// Factory method for getting Analyses.
+    static Analysis& getAnalysis(const AnalysisName atype = ANALYSIS_TEST);
 
   public:
 
-    /** @name Standard constructors and destructors. */
+    /// @name Standard constructors and destructors.
     //@{
-    /**
-     * The default constructor.
-     */
-    inline Analysis();
+    /// The default constructor.
+    inline Analysis() : theHandler(0) {}
 
-    /**
-     * The copy constructor.
-     */
-    inline Analysis(const Analysis&);
+    /// The copy constructor.
+    inline Analysis(const Analysis& x) : theHandler(x.theHandler), info(x.info) {}
 
-    /**
-     * The destructor.
-     */
+    /// The destructor.
     virtual ~Analysis();
     //@}
 
@@ -105,10 +98,18 @@ namespace Rivet {
      */
     virtual RivetInfo getInfo() const;
 
-    /**
-     * Access the controlling RivetHandler object.
-     */
-    inline RivetHandler& handler();
+    /// Access the controlling RivetHandler object.
+    inline RivetHandler& handler() const {
+      return *theHandler;
+    }
+
+    /// Get the name of the analysis
+    virtual std::string name() const {
+      return "";
+    }
+
+
+  protected:
 
     /**
      * Access the AIDA analysis factory of the controlling RivetHandler
@@ -127,31 +128,37 @@ namespace Rivet {
      */
     AIDA::IHistogramFactory* histogramFactory();
 
+    /// Book a 1D histogram
+    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
+                                        int nbins, double lower, double upper);
+
+    /// Make the histogram directory
+    void makeHistoDir();
+
+    const std::string histoDir() const {
+        return "/" + name();
+    }
+
   private:
 
-    /**
-     * The controlling RivetHandler object.
-     */
+    /// The controlling RivetHandler object.
     RivetHandler* theHandler;
 
-    /**
-     * The object containing the parameters of this analysis object to
-     * be communicated to the outside world.
-     */
+    /// The object containing the parameters of this analysis object to
+    /// be communicated to the outside world.
     RivetInfo info;
 
-  private:
+    /// The assignment operator is private and must never be called.
+    /// In fact, it should not even be implemented.
+    Analysis& operator=(const Analysis&);
 
-    /**
-     * The assignment operator is private and must never be called.
-     * In fact, it should not even be implemented.
-     */
-    Analysis & operator=(const Analysis &);
+    /// Flag to determine whether the AIDA directory has been made.
+    /// @todo Can this be replaced with an AIDA "isDir()"?
+    bool madeHistoDir;
 
   };
 
-}
 
-#include "Rivet/Analysis/Analysis.icc"
+}
 
 #endif /* RIVET_Analysis_H */

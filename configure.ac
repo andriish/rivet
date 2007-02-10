@@ -43,7 +43,7 @@ no_lwh=yes)
 AM_CONDITIONAL(NO_INSTALLED_LWH, [test "$no_lwh" == "yes"])
 
 ## Set default build flags
-AM_CPPFLAGS="-I\$(top_builddir)/include -I\$(HEPMCINCPATH) -I\$(LOG4CPPINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) "
+AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(HEPMCINCPATH) -I\$(LOG4CPPINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) "
 AM_CXXFLAGS="-ansi -pedantic -Wall"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
@@ -60,7 +60,6 @@ src/Tools/Makefile
 src/Projections/Makefile
 src/Analysis/Makefile
 src/Test/Makefile
-lib/Makefile
 data/Makefile
 Makefile],)
 

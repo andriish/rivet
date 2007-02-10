@@ -173,8 +173,34 @@ namespace Rivet {
 
   };
 
-}
 
-#include "Rivet/RivetHandler.icc"
+  template <typename A>
+  inline RivetHandler& RivetHandler::addAnalysis(const A& analysis) {
+    analysisVector.push_back(new A(analysis));
+    analysisVector.back()->theHandler = this;
+    return *this;
+  }
+
+  inline RivetHandler& RivetHandler::addAnalysis(const AnalysisName analysisname) {
+    Analysis& analysis = Analysis::getAnalysis(analysisname);
+    analysisVector.push_back(&analysis);
+    analysisVector.back()->theHandler = this;
+    return *this;
+  }
+
+  inline AIDA::IAnalysisFactory* RivetHandler::analysisFactory() {
+    return theAnalysisFactory;
+  }
+
+  inline AIDA::ITree* RivetHandler::tree() {
+    return theTree;
+  }
+
+  inline AIDA::IHistogramFactory* RivetHandler::histogramFactory() {
+    return theHistogramFactory;
+  }
+
+
+}
 
 #endif /* RIVET_RivetHandler_H */

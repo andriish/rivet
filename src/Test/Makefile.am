@@ -25,7 +25,7 @@ testLWH_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA
 testTinyXML_SOURCES  = testTinyXML.cc
 testTinyXML_LDFLAGS  = $(MYLDFLAGS)
 testTinyXML_LDADD    = -lRivetXML
-testTinyXML_CPPFLAGS = $(AM_CPPFLAGS)
+testTinyXML_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include
 
 #if WITH_XERCES_C
 #noinst_PROGRAMS += testXerces 
@@ -40,5 +40,5 @@ check-local:
 	./testLogging
 	./testRivetHandler
 	./testHepPDT
-	./testLWH
+	./testLWH && test -e test.aida.xml && rm -f test.aida.xml
 #	./testTinyXML ../../data/4781.hepml.xml

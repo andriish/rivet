@@ -28,16 +28,19 @@ namespace Rivet {
     theHistogramFactory = theAnalysisFactory->createHistogramFactory(*tree());
   }
 
+
   RivetHandler::RivetHandler(string basefilename, HistoFormat storetype)
     : nRun(0), iRun(0) {
     theAnalysisFactory = AIDA_createAnalysisFactory();
     setupFactories(basefilename, storetype);
   }
 
+
   RivetHandler::RivetHandler(AIDA::IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
     : nRun(0), iRun(0), theAnalysisFactory(&afac) {
     setupFactories(basefilename, storetype);
   }
+
 
   RivetHandler::~RivetHandler() {
     /// @todo Can these for loops be made to use iterators?

@@ -1,16 +1,14 @@
 ## Rivet interface
 nobase_pkginclude_HEADERS = \
-  Rivet.hh  \
-  RivetCLHEP.hh    RivetAIDA.hh  \
-  RivetInfo.hh     RivetInfo.icc  \
-  RivetHandler.hh  RivetHandler.fhh  RivetHandler.icc 
+  Rivet.hh      RivetCLHEP.hh    RivetAIDA.hh  \
+  RivetInfo.hh  RivetHandler.hh  RivetHandler.fhh
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
-  Analysis/Analysis.hh       Analysis/Analysis.fhh         Analysis/Analysis.icc \
+  Analysis/Analysis.hh       Analysis/Analysis.fhh \
   Analysis/HZ95108.hh        Analysis/HZ95108.icc  \
   Analysis/PL273B181.hh        Analysis/PL273B181.icc  \
-  Analysis/TestAnalysis.hh   Analysis/TestAnalysis.icc 
+  Analysis/TestAnalysis.hh
 
 ## Projections
 nobase_pkginclude_HEADERS += \

@@ -28,6 +28,11 @@ namespace Rivet {
 
   public:
 
+    /// The name of this analysis is "PL273B181"
+    inline std::string name() const {
+      return "PL273B181";
+    }
+
     virtual void init();
 
     virtual void analyze(const Event & event);
