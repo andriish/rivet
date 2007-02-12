@@ -1,0 +1,15 @@
+// -*- C++ -*-
+
+namespace Rivet {
+  
+  inline KtJets::KtJets()
+    : NJets_(0)
+  {}
+  
+  inline KtJets::KtJets(const KtJets & x)
+    : Projection(x), 
+      NJets_(x.NJets_)
+  {}
+  
+  inline const unsigned int KtJets::NJets() const { return NJets_; }
+}

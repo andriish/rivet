@@ -9,13 +9,15 @@ libRivet_la_LDFLAGS = -version-info 1:0:0 -export-dynamic \
                       -L$(CLHEPLIBPATH)   -R$(CLHEPLIBPATH) \
                       -L$(LOG4CPPLIBPATH) -R$(LOG4CPPLIBPATH) \
                       -L$(HEPPIDLIBPATH)  -R$(HEPPIDLIBPATH) \
-                      -L$(HEPPDTLIBPATH)  -R$(HEPPDTLIBPATH)
+                      -L$(HEPPDTLIBPATH)  -R$(HEPPDTLIBPATH) \
+                      -L$(KTEVENTLIBPATH) -R$(KTEVENTLIBPATH)
 libRivet_la_SOURCES = RivetHandler.cc RivetInfo.cc
 libRivet_la_LIBADD  = Analysis/libRivetAnalysis.la \
                       Projections/libRivetProjections.la \
                       Tools/libRivetTools.la \
                       -ldl -l$(CLHEPLIBNAME) \
                       -l$(LOG4CPPLIBNAME) \
-                      -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME)
+                      -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME) \
+                      -l$(KTEVENTLIBNAME)
 
 ## Mandatory "-l"s above?

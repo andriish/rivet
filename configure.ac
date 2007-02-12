@@ -24,6 +24,8 @@ CXX=$GFILT
 
 ## Find CLHEP
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
+AC_CEDAR_LIBRARY([KtEvent], , , [AC_MSG_ERROR([KtEvent library is required])])
+AC_CEDAR_HEADERS([KtJet], , , [AC_MSG_ERROR([KtJet headers are required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
@@ -43,7 +45,7 @@ no_lwh=yes)
 AM_CONDITIONAL(NO_INSTALLED_LWH, [test "$no_lwh" == "yes"])
 
 ## Set default build flags
-AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(HEPMCINCPATH) -I\$(LOG4CPPINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) "
+AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(HEPMCINCPATH) -I\$(LOG4CPPINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"
 AM_CXXFLAGS="-ansi -pedantic -Wall"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
