@@ -2,12 +2,12 @@
 
 namespace Rivet {
 
-  inline FinalState::FinalState(double mineta, double maxeta)
-    : etamin(mineta), etamax(maxeta) {}
+  inline FinalState::FinalState(double mineta, double maxeta, double minpt)
+    : etamin(mineta), etamax(maxeta), ptmin(minpt) {}
   
   inline FinalState::FinalState(const FinalState & x)
     : Projection(x), etamin(x.etamin), etamax(x.etamax),
-      theParticles(x.theParticles) {}
+      ptmin(x.ptmin), theParticles(x.theParticles) {}
   
   inline const ParticleVector & FinalState::particles() const {
     return theParticles;

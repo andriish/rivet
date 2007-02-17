@@ -25,7 +25,9 @@ public:
    * The default constructor. May specify the minimum and maximum
    * pseudorapidity.
    */
-  inline FinalState(double mineta = -MaxRapidity, double maxeta = MaxRapidity);
+  inline FinalState(double mineta = -MaxRapidity,
+		    double maxeta = MaxRapidity,
+		    double minpt = 0.0);
 
   /**
    * The copy constructor.
@@ -93,6 +95,11 @@ private:
    * The maximum allowed pseudo-rapidity.
    */
   double etamax;
+
+  /**
+   * The minimum allowed transverse momentum.
+   */
+  double ptmin;
 
   /**
    * The final-state particles.
