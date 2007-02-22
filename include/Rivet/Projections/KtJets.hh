@@ -20,7 +20,12 @@ namespace Rivet {
     //@{
     /// Default constructor.
     inline KtJets();
-    
+
+    /// Argument constructor.
+    // Added so that same projection can be ran but with different parameters
+    // Not working.
+    inline KtJets(int, int, int, double);
+
     /// Copy constructor.
     inline KtJets(const KtJets &);
     
@@ -43,19 +48,33 @@ protected:
     
     /// @name Access the projected NJets.
     //@ {
-    /// NJets
-    const unsigned int NJets() const;
-    void getJetsE() ;
  
+    int getNJets() const;
+    int getNConstituents() const;
+    vector<KtJet::KtLorentzVector> copyConstituents() const;
+    double getETot() const;  // had trouble building with Ktfloat, used double instead
+    int getType() const;
+    int getAngle() const;
+    int getRecom() const;
+    bool isInclusive() const;
+
+    vector<KtJet::KtLorentzVector> getVecs();
+    vector<KtJet::KtLorentzVector> getJets();
+    vector<KtJet::KtLorentzVector> getJetsE();
+    vector<KtJet::KtLorentzVector> getJetsEt();
+    vector<KtJet::KtLorentzVector> getJetsPt();
+    vector<KtJet::KtLorentzVector> getJetsRapidity();
+    vector<KtJet::KtLorentzVector> getJetsEta();
+
   private:
     
-    /// Total NJets
-    unsigned int NJets_;
-    std::vector<KtJet::KtLorentzVector> jetVecs_;
+    vector<KtJet::KtLorentzVector> vecs_;
+    int type_, angle_, recom_;
+    double rparameter_;       // had trouble building with Ktfloat, used double instead
 
     /// The FinalState projection used by this projection
     FinalState fsproj;
- 
+
   private:
     
     /**

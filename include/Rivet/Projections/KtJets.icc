@@ -3,13 +3,88 @@
 namespace Rivet {
   
   inline KtJets::KtJets()
-    : NJets_(0)
+    : type_(4), angle_(3), recom_(1), rparameter_(1.0)
   {}
   
+  inline KtJets::KtJets(int type, int angle, int recom, double rparameter)
+    : type_(type), angle_(angle), recom_(recom), rparameter_(rparameter)
+  {}
+
   inline KtJets::KtJets(const KtJets & x)
     : Projection(x), 
-      NJets_(x.NJets_)
+      vecs_(x.vecs_), type_(x.type_), angle_(x.angle_), recom_(x.recom_), rparameter_(x.rparameter_)
   {}
+
+  inline vector<KtJet::KtLorentzVector> KtJets::getVecs() {return vecs_;}
   
-  inline const unsigned int KtJets::NJets() const { return NJets_; }
+  inline int KtJets::getNJets() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getNJets();
+  }
+
+  inline int KtJets::getNConstituents() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getNConstituents();
+  }
+
+  inline vector<KtJet::KtLorentzVector> KtJets::copyConstituents() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.copyConstituents();
+  }
+  
+  inline double KtJets::getETot() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getETot();
+  }
+
+  inline int KtJets::getType() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getType();
+  }
+  
+  inline int KtJets::getAngle() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getAngle();
+  }
+  
+  inline int KtJets::getRecom() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getRecom();
+  }
+  
+  inline bool KtJets::isInclusive() const {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.isInclusive();
+  }
+
+  inline vector<KtJet::KtLorentzVector> KtJets::getJets() {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getJets();
+  }
+
+  inline vector<KtJet::KtLorentzVector> KtJets::getJetsE() {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+  return ktev.getJetsE();
+  }
+
+  inline vector<KtJet::KtLorentzVector> KtJets::getJetsEt() {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getJetsEt();
+  }
+
+  inline vector<KtJet::KtLorentzVector> KtJets::getJetsPt() {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+  return ktev.getJetsPt();
+  }
+
+  inline vector<KtJet::KtLorentzVector> KtJets::getJetsRapidity() {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+    return ktev.getJetsRapidity();
+  }
+
+  inline vector<KtJet::KtLorentzVector> KtJets::getJetsEta() {
+    KtJet::KtEvent ktev(vecs_, type_, angle_, recom_, rparameter_);
+  return ktev.getJetsEta();
+  }
+  
 }
