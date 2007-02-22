@@ -15,6 +15,7 @@ using namespace std;
 
 namespace Rivet {
 
+
   void RivetHandler::setupFactories(string basefilename, HistoFormat storetype) {
     string filename(basefilename), storetypestr("");
     if (storetype == XML) {
@@ -43,44 +44,44 @@ namespace Rivet {
 
 
   RivetHandler::~RivetHandler() {
-    /// @todo Can these for loops be made to use iterators?
-    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
       delete analysisVector[i]; 
     }
   }
 
+
   void RivetHandler::init(int i, int N) {
     nRun = N;
     iRun = i;
-    /// @todo Can these for loops be made to use iterators?
-    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
       analysisVector[i]->init();
     }
   }
 
+
   void RivetHandler::analyze(const GenEvent & geneve) {
     Event event(geneve);
-    /// @todo Can these for loops be made to use iterators?
-    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
       analysisVector[i]->analyze(event);
     }
   }
 
+
   void RivetHandler::finalize() {
-    /// @todo Can these for loops be made to use iterators?
-    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
       analysisVector[i]->finalize();
     }
     if (tree()) { tree()->commit(); }
   }
 
+
   RivetInfo RivetHandler::info() const {
     RivetInfo ret;
-    /// @todo Can these for loops be made to use iterators?
-    for ( int i = 0, N = analysisVector.size(); i < N; ++i ) {
+    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
       ret += analysisVector[i]->getInfo();
     }
     return ret;
   }
+
 
 }
