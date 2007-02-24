@@ -93,14 +93,29 @@ namespace Rivet {
   private:
 
     /**
-     * The FinalStateProjector used.
+     * The Beam projector used.
      */
-    FinalStateHCM fsproj;
+    Beam beams;
 
-    /**
+     /**
+     * The DISLepton projector used.
+     */
+    DISLepton lepton;
+
+     /**
      * The DISKinematics projector used.
      */
     DISKinematics diskin;
+
+   /**
+     * The FinalState projector used.
+     */
+    FinalState fsp;
+
+   /**
+     * The FinalStateHCM projector used.
+     */
+    FinalStateHCM fsproj;
 
     /**
      * The CentralEtHCM projector used.

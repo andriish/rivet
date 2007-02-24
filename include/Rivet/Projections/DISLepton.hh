@@ -26,9 +26,10 @@ public:
    * The default constructor. Must specify the incoming and outgoing
    * PDG codes of the leptons to project.  If \a inid is the
    * anti-particle of \a outid, either a scattered lepton or
-   * anti-lepton is searched for.
+   * anti-lepton is searched for. Must also specify a Beam projection
+   * object which is assumed to live thoughout the run.
    */
-  inline DISLepton(long inid, long outid);
+  inline DISLepton(Beam & beamp, long inid, long outid);
 
   /**
    * The copy constructor.
@@ -103,7 +104,7 @@ private:
   /**
    * The Beam projector object defining the incoming beam particles.
    */
-  Beam beams;
+  Beam * beams;
 
   /**
    * The PDG id of the incoming lepton.

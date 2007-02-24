@@ -18,10 +18,10 @@ namespace Rivet {
 
   public:
 
-    /// @name Standard constructors and destructors.
-    //@{
-    /// Default constructor.
-    inline Multiplicity();
+    /// @name Standard constructors and destructors.  @{ / Default
+    //constructor. Must specify a FinalState projection which is
+    //assumed to live throughout the run.
+    inline Multiplicity(FinalState & fsp);
 
     /// Copy constructor.
     inline Multiplicity(const Multiplicity &);
@@ -64,6 +64,14 @@ namespace Rivet {
     inline const unsigned int hadronUnchargedMultiplicity() const;
     //@ }
 
+  /**
+   * Return the RivetInfo object of this Projection. Derived classes
+   * should re-implement this function to return the combined
+   * RivetInfo object of this and of any other Projection upon which
+   * this depends.
+   */
+  virtual RivetInfo getInfo() const;
+
   private:
 
     /// Total multiplicities
@@ -73,7 +81,7 @@ namespace Rivet {
     unsigned int hadMult_, hadChMult_, hadUnchMult_;
 
     /// The FinalState projection used by this projection
-    FinalState fsproj;
+    FinalState * fsproj;
 
   private:
 

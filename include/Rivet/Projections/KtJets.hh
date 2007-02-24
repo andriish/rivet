@@ -18,13 +18,15 @@ namespace Rivet {
     
     /// @name Standard constructors and destructors.
     //@{
-    /// Default constructor.
-    inline KtJets();
+    /// Default constructor. Must specify a FinalState projection which is
+    //assumed to live throughout the run.
+    inline KtJets(FinalState & fsp);
 
     /// Argument constructor.
-    // Added so that same projection can be ran but with different parameters
-    // Not working.
-    inline KtJets(int, int, int, double);
+    // Added so that same projection can be ran but with different parameters.
+    // Must specify a FinalState projection which is
+    // assumed to live throughout the run. Not working.
+    inline KtJets(FinalState & fsp, int, int, int, double);
 
     /// Copy constructor.
     inline KtJets(const KtJets &);
@@ -66,6 +68,16 @@ protected:
     vector<KtJet::KtLorentzVector> getJetsRapidity();
     vector<KtJet::KtLorentzVector> getJetsEta();
 
+    //@}
+
+  /**
+   * Return the RivetInfo object of this Projection. Derived classes
+   * should re-implement this function to return the combined
+   * RivetInfo object of this and of any other Projection upon which
+   * this depends.
+   */
+  virtual RivetInfo getInfo() const;
+
   private:
     
     vector<KtJet::KtLorentzVector> vecs_;
@@ -73,7 +85,7 @@ protected:
     double rparameter_;       // had trouble building with Ktfloat, used double instead
 
     /// The FinalState projection used by this projection
-    FinalState fsproj;
+    FinalState * fsproj;
 
   private:
     

@@ -112,5 +112,6 @@ void HZ95108::finalize() {
 
 
 RivetInfo HZ95108::getInfo() const {
-  return Analysis::getInfo() + fsproj.getInfo();
+  return Analysis::getInfo() + beams.getInfo() + lepton.getInfo() + 
+    diskin.getInfo() + fsp.getInfo() + fsproj.getInfo() + y1hcm.getInfo();
 }

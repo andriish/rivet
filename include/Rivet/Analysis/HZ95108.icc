@@ -7,9 +7,11 @@
 namespace Rivet {
 
 inline HZ95108::HZ95108()
-  : fsproj(11, -11, 2212), diskin(11, -11, 2212), y1hcm(11, -11, 2212) {}
+  : lepton(beams, 11, -11), diskin(beams, lepton, 2212),
+    fsproj(lepton, diskin, fsp), y1hcm(fsproj) {}
 
 inline HZ95108::HZ95108(const HZ95108 & x)
-  : Analysis(x), fsproj(x.fsproj), diskin(x.diskin), y1hcm(x.y1hcm) {}
+  : Analysis(x), beams(x.beams), lepton(x.lepton), diskin(x.diskin), fsp(x.fsp),
+    fsproj(x.fsproj), y1hcm(x.y1hcm) {}
 
 }

@@ -2,6 +2,7 @@
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/KtJets.hh"
+#include "Rivet/Projections/Cmp.hh"
 
 using namespace Rivet;
 
@@ -10,8 +11,10 @@ KtJets::~KtJets() {}
 /* The compare method is incomplete? */
 
 int KtJets::compare(const Projection & p) const {
-  //const KtJets & other = dynamic_cast<const KtJets &>(p);
-  return 0;
+  const KtJets & other = dynamic_cast<const KtJets &>(p);
+  return pcmp(*fsproj, *other.fsproj) || cmp(type_, other.type_) ||
+    cmp(angle_, other.angle_) || cmp(recom_, other.recom_) ||
+    cmp(rparameter_, other.rparameter_);
 }
 
 void KtJets::project(const Event & e) {
@@ -23,7 +26,7 @@ void KtJets::project(const Event & e) {
   type_ = (*this).type_;
       
   // Project into final state
-  const FinalState& fs = e.applyProjection(fsproj);
+  const FinalState& fs = e.addProjection(*fsproj);
   
   // Store 4 vector data about each particle into vecs
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
@@ -38,3 +41,8 @@ void KtJets::project(const Event & e) {
   recom_ = this-> recom_;
   rparameter_ = this-> rparameter_;
 }
+
+RivetInfo KtJets::getInfo() const {
+  return Projection::getInfo() + fsproj->getInfo();
+}
+

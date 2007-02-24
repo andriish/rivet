@@ -15,10 +15,11 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline TestAnalysis() : mult() {}
+    inline TestAnalysis() : mult(fsproj) {}
 
     /// Copy constructor.
-    inline TestAnalysis(const TestAnalysis& x) : Analysis(x), mult(x.mult) {}
+    inline TestAnalysis(const TestAnalysis& x)
+      : Analysis(x), fsproj(x.fsproj), mult(x.mult) {}
 
     /// Destructor
     ~TestAnalysis();
@@ -40,6 +41,9 @@ namespace Rivet {
     RivetInfo getInfo() const;
 
   private:
+
+    /// The FinalState projector used by this analysis.
+    FinalState fsproj;
 
     /// The Multiplicity projector used by this analysis.
     Multiplicity mult;

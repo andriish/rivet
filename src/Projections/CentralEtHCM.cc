@@ -15,11 +15,11 @@ CentralEtHCM::~CentralEtHCM() {}
 int CentralEtHCM::compare(const Projection & p) const {
   const CentralEtHCM & other =
     dynamic_cast<const CentralEtHCM &>(p);
-  return pcmp(fshcm, other.fshcm);
+  return pcmp(*fshcm, *other.fshcm);
 }
 
 void CentralEtHCM::project(const Event & e) {
-  const FinalStateHCM & fs = e.applyProjection(fshcm);
+  const FinalStateHCM & fs = e.applyProjection(*fshcm);
   sumet = 0.0;
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
     if ( abs(fs.particles()[i].momentum.rapidity()) < 0.5 )
@@ -28,6 +28,6 @@ void CentralEtHCM::project(const Event & e) {
 }
 
 RivetInfo CentralEtHCM::getInfo() const {
-  return Projection::getInfo() + fshcm.getInfo();
+  return Projection::getInfo() + fshcm->getInfo();
 }
 

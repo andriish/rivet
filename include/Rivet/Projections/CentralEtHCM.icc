@@ -6,9 +6,8 @@
 
 namespace Rivet {
 
-inline CentralEtHCM::CentralEtHCM(long inid, long outid, long hadid,
-				    double mineta, double maxeta)
-  : fshcm(inid, outid, hadid, mineta, maxeta) {}
+inline CentralEtHCM::CentralEtHCM(FinalStateHCM & fs)
+  : fshcm(&fs) {}
 
 inline CentralEtHCM::
 CentralEtHCM(const CentralEtHCM & x)

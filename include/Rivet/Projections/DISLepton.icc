@@ -6,8 +6,8 @@
 
 namespace Rivet {
 
-inline DISLepton::DISLepton(long inid, long outid)
-  : idin(inid), idout(outid) {
+inline DISLepton::DISLepton(Beam & beamp, long inid, long outid)
+  : beams(&beamp), idin(inid), idout(outid) {
   info.declareParameter("BeamA", inid);
   info.declareParameter("DISLepton", outid, "none",
 			"The type of the scattered lepton.");

@@ -23,13 +23,12 @@ public:
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify the PDG id of the incoming
-   * and scattered lepton and of the incoming hadron. May also specify
-   * the minimum and maximum pseudorapidity (in the lab-system).
+   * The default constructor. Must specify DISLepton, DISKinematics
+   * and FinalState projection objects which are assumed to live
+   * throughout the run.
    */
-  inline FinalStateHCM(long inid, long outid, long hadid,
-		       double mineta = -MaxRapidity,
-		       double maxeta = MaxRapidity);
+  inline FinalStateHCM(DISLepton & leptonp, DISKinematics & kinematicsp,
+		       FinalState & fsp);
 
   /**
    * The copy constructor.
@@ -99,17 +98,17 @@ private:
   /**
    * The projector for the DIS kinematics.
    */
-  DISLepton lepton;
+  DISLepton * lepton;
 
   /**
    * The projector for the DIS kinematics.
    */
-  DISKinematics kinematics;
+  DISKinematics * kinematics;
 
   /**
    * The projector for the full final state.
    */
-  FinalState fsproj;
+  FinalState * fsproj;
 
   /**
    * The final-state particles.

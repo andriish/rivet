@@ -45,6 +45,8 @@ namespace Rivet {
   private:
 
     /// The projectors used by this analysis.
+    FinalState fsproj;
+
     Multiplicity mult;
 
     Sphericity spher;

@@ -23,13 +23,10 @@ public:
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify the PDG id of the incoming
-   * and scattered lepton and of the incoming hadron. May also specify
-   * the minimum and maximum pseudorapidity (in the lab-system).
+   * The default constructor. Must specify a FinalStateHCM projection
+   * object which is guaranteed to live throughout the run.
    */
-  inline CentralEtHCM(long inid, long outid, long hadid,
-		      double mineta = -MaxRapidity,
-		      double maxeta = MaxRapidity);
+  inline CentralEtHCM(FinalStateHCM & fs);
 
   /**
    * The copy constructor.
@@ -99,7 +96,7 @@ private:
   /**
    * The projector for the full final state.
    */
-  FinalStateHCM fshcm;
+  FinalStateHCM * fshcm;
 
   /**
    *The sum of the Et in the central rapidity bin.

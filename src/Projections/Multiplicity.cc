@@ -12,8 +12,8 @@ Multiplicity::~Multiplicity() {}
 
 
 int Multiplicity::compare(const Projection & p) const {
-  //const Multiplicity & other = dynamic_cast<const Multiplicity &>(p);
-  return 0;
+  const Multiplicity & other = dynamic_cast<const Multiplicity &>(p);
+  return pcmp(*fsproj, *other.fsproj);
 }
 
 
@@ -30,7 +30,7 @@ void Multiplicity::project(const Event & e) {
   hadUnchMult_ = 0;
 
   // Project into final state
-  const FinalState& fs = e.applyProjection(fsproj);
+  const FinalState& fs = e.applyProjection(*fsproj);
 
   // Get hadron and charge info for each particle, and fill counters appropriately
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
@@ -55,5 +55,9 @@ void Multiplicity::project(const Event & e) {
           << " (" << hadUnchMult_ << " hadrons)" << endlog;
     }
   }
+}
+
+RivetInfo Multiplicity::getInfo() const {
+  return Projection::getInfo() + fsproj->getInfo();
 }
 

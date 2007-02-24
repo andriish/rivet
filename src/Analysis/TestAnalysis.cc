@@ -62,5 +62,5 @@ void TestAnalysis::finalize() { }
 
 // Provide info object
 RivetInfo TestAnalysis::getInfo() const {
-  return Analysis::getInfo() + mult.getInfo();
+  return Analysis::getInfo() + fsproj.getInfo() + mult.getInfo();
 }

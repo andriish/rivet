@@ -15,8 +15,12 @@ Sphericity::~Sphericity() {}
 
 
 int Sphericity::compare(const Projection & p) const {
-  //const Sphericity & other = dynamic_cast<const Sphericity &>(p);
-  return 0;
+  const Sphericity & other = dynamic_cast<const Sphericity &>(p);
+  return pcmp(*fsproj, *other.fsproj);
+}
+
+RivetInfo Sphericity::getInfo() const {
+  return Projection::getInfo() + fsproj->getInfo();
 }
 
 void Sphericity::project(const Event & e) {
@@ -26,7 +30,7 @@ void Sphericity::project(const Event & e) {
   planarity_ = 7;
   aplanarity_ = 0;
 
-  const FinalState& fs = e.addProjection(fsproj);
+  const FinalState& fs = e.addProjection(*fsproj);
  
   CLHEP::HepMatrix mMom(3,3,0);
   //  map<int, const char*> cMap;

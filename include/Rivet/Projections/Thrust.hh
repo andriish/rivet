@@ -20,8 +20,9 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
-    /// Default constructor.
-    inline Thrust();
+    /// Default constructor. Must specify a FinalState projection which is
+    //assumed to live throughout the run.
+    inline Thrust(FinalState & fsp);
 
     /// Copy constructor.
     inline Thrust(const Thrust &);
@@ -69,7 +70,7 @@ namespace Rivet {
     vector<Vector3> thrustAxes_;
 
     /// The FinalState projection used by this projection
-    FinalState fsproj;
+    FinalState * fsproj;
 
   private:
 

@@ -25,13 +25,12 @@ public:
   /** @name Standard constructors and destructors. */
   //@{
   /**
-   * The default constructor. Must specify, the incoming and outgoing
-   * (\a inid and \a outid respectively) PDG codes of the scattered
-   * lepton as well as the PDG code of the incoming hadron (\a hadid).
-   * If \a inid is the anti-particle of \a outid, either a scattered
-   * lepton or anti-lepton is searched for.
+   * The default constructor. Must specify Beam and DISLepton
+   * projection objects which are guaranteed to live throughout the
+   * run. Also the PDG code of the incoming hadron (\a hadid) must be
+   * specified.
    */
-  inline DISKinematics(long inid, long outid, long hadid);
+  inline DISKinematics(Beam & beamp, DISLepton & leptonp, long hadid);
 
   /**
    * The copy constructor.
@@ -123,12 +122,12 @@ private:
   /**
    * The Beam projector object defining the incoming beam particles.
    */
-  Beam beams;
+  Beam * beams;
 
   /**
    * The projector for the scattered lepton.
    */
-  DISLepton lepton;
+  DISLepton * lepton;
 
   /**
    * The PDG id of the incoming hadron.

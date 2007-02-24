@@ -20,8 +20,9 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
-    /// Default constructor.
-    inline Sphericity();
+    /// Default constructor. Must specify a FinalState projection which is
+    //assumed to live throughout the run.
+    inline Sphericity(FinalState & fsp);
 
     /// Copy constructor.
     inline Sphericity(const Sphericity &);
@@ -49,13 +50,21 @@ namespace Rivet {
     inline const double eventPlanarity() const;
     inline const double eventAplanarity() const;
 
+  /**
+   * Return the RivetInfo object of this Projection. Derived classes
+   * should re-implement this function to return the combined
+   * RivetInfo object of this and of any other Projection upon which
+   * this depends.
+   */
+  virtual RivetInfo getInfo() const;
+
   private:
 
     /// The event shapes
     double sphericity_, planarity_, aplanarity_;
 
     /// The FinalState projection used by this projection
-    FinalState fsproj;
+    FinalState * fsproj;
 
   private:
 

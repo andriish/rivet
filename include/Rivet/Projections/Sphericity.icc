@@ -2,13 +2,14 @@
 
 namespace Rivet {
 
-  inline Sphericity::Sphericity()
-    : sphericity_(0), planarity_(0), aplanarity_(0)
+  inline Sphericity::Sphericity(FinalState & fsp)
+    : sphericity_(0), planarity_(0), aplanarity_(0), fsproj(&fsp)
   {}
   
   inline Sphericity::Sphericity(const Sphericity & sp)
     : Projection(sp), 
-      sphericity_(sp.sphericity_), planarity_(sp.planarity_), aplanarity_(sp.aplanarity_)
+      sphericity_(sp.sphericity_), planarity_(sp.planarity_),
+      aplanarity_(sp.aplanarity_), fsproj(fsproj)
 
   {}
   

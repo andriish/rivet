@@ -1,3 +1,19 @@
+2007-02-24  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Projections/KtJets.cc: Added comparison of member variables
+	in compare() function
+
+	* all: Merged changes from polymorphic-projections branch into
+	trunk
+
+2007-02-17  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* all: projections and analysis handlers: All projections which
+	uses other projctions now has a pointer rather than a copy of
+	those projections to allow for polymorphism. The constructors has
+	also been changed to require the used projections themselves,
+	rather than the arguments needed to construct them.
+
 2007-02-17  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Projections/FinalState.cc,

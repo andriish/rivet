@@ -2,17 +2,19 @@
 
 namespace Rivet {
   
-  inline KtJets::KtJets()
-    : type_(4), angle_(3), recom_(1), rparameter_(1.0)
+  inline KtJets::KtJets(FinalState & fsp)
+    : type_(4), angle_(3), recom_(1), rparameter_(1.0), fsproj(&fsp)
   {}
   
-  inline KtJets::KtJets(int type, int angle, int recom, double rparameter)
-    : type_(type), angle_(angle), recom_(recom), rparameter_(rparameter)
+  inline KtJets::KtJets(FinalState & fsp,
+			int type, int angle, int recom, double rparameter)
+    : type_(type), angle_(angle), recom_(recom), rparameter_(rparameter),
+      fsproj(&fsp)
   {}
 
   inline KtJets::KtJets(const KtJets & x)
     : Projection(x), 
-      vecs_(x.vecs_), type_(x.type_), angle_(x.angle_), recom_(x.recom_), rparameter_(x.rparameter_)
+      vecs_(x.vecs_), type_(x.type_), angle_(x.angle_), recom_(x.recom_), rparameter_(x.rparameter_), fsproj(x.fsproj)
   {}
 
   inline vector<KtJet::KtLorentzVector> KtJets::getVecs() {return vecs_;}
