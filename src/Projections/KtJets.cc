@@ -6,8 +6,6 @@
 
 using namespace Rivet;
 
-KtJets::~KtJets() {}
-
 /* The compare method is incomplete? */
 
 int KtJets::compare(const Projection & p) const {
@@ -45,4 +43,3 @@ void KtJets::project(const Event & e) {
 RivetInfo KtJets::getInfo() const {
   return Projection::getInfo() + fsproj->getInfo();
 }
-
