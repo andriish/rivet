@@ -6,6 +6,7 @@
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "KtJet/KtJet.h"
+#include "KtJet/KtEvent.h"
 
 namespace Rivet {
   

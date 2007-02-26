@@ -23,7 +23,12 @@ AC_PATH_PROG(GFILT, gfilt, $CXX, $PATH:$HOME/bin:$HOME/local/bin)
 CXX=$GFILT
 
 ## Find CLHEP
-AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
+#AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
+AC_CEDAR_HEADERS([CLHEP], [?.?.?.?]) 
+AC_CEDAR_LIBRARY([CLHEP-Vector], [?.?.?.?]) 
+AC_CEDAR_LIBRARY([CLHEP-Matrix], [?.?.?.?]) 
+dnl AC_CEDAR_HEADERS([CLHEP-Vector], [?.?.?.?]) 
+dnl AC_CEDAR_HEADERS([CLHEP-Matrix], [?.?.?.?]) 
 AC_CEDAR_LIBRARY([KtEvent], , , [AC_MSG_ERROR([KtEvent library is required])])
 AC_CEDAR_HEADERS([KtJet], , , [AC_MSG_ERROR([KtJet headers are required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
