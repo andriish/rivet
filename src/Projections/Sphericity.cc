@@ -11,9 +11,6 @@
 using namespace Rivet;
 
 
-Sphericity::~Sphericity() {}
-
-
 int Sphericity::compare(const Projection & p) const {
   const Sphericity & other = dynamic_cast<const Sphericity &>(p);
   return pcmp(*fsproj, *other.fsproj);

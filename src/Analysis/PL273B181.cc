@@ -29,7 +29,7 @@ struct histogramData {
   double bin;
   double yExp;
   double yExpErr;  
-  };
+};
  
 // Function to split the lines of the data files
 vector<string> split(const string& s)
@@ -65,12 +65,13 @@ double chi (double yexp, double yerr, double ysim) {
 // Template function to convert to double
 template <class T>
 double conv (T value) {
-  double doubleOut;   stringstream valueIn;
+  double doubleOut;   
+  stringstream valueIn;
   valueIn.clear();
   valueIn << value;
   valueIn >> doubleOut;
   return doubleOut;
-  }
+}
 
 // Main function that will calculate chi squared 
 // from two given histograms (in files)
@@ -129,12 +130,10 @@ return chitot;
 void PL273B181::init() {
 
   // Book histograms
-  AIDA::IHistogramFactory* hf = histogramFactory();
-  tree()->mkdir("/Test/");
-  histChTot_       = hf->createHistogram1D("/TotalChMult","Total charged multiplicity", 25, 1.0, 51.0);
-  histSphericity_  = hf->createHistogram1D("/Sphericity", "Event Shape: Sphericity", 8, 0.0, 0.70);
-  histAplanarity_  = hf->createHistogram1D("/Aplanarity", "Event Shape: APlanarity", 10, 0.0, 0.09);
-  histPlanarity_   = hf->createHistogram1D("/Planarity",  "Event Shape: Planarity", 16, 0.0, 0.70);
+  histChTot_       = bookHistogram1D("TotalChMult","Total charged multiplicity", 25, 1.0, 51.0);
+  histSphericity_  = bookHistogram1D("Sphericity", "Event Shape: Sphericity", 8, 0.0, 0.70);
+  histAplanarity_  = bookHistogram1D("Aplanarity", "Event Shape: APlanarity", 10, 0.0, 0.09);
+  histPlanarity_   = bookHistogram1D("Planarity",  "Event Shape: Planarity", 16, 0.0, 0.70);
 }
 
 // Do the analysis

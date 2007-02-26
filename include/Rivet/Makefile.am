@@ -21,8 +21,8 @@ nobase_pkginclude_HEADERS += \
   Projections/DISLepton.hh       Projections/DISLepton.icc      \
   Projections/Multiplicity.hh    Projections/Multiplicity.icc   \
   Projections/FinalState.hh      Projections/FinalState.icc     \
-  Projections/Sphericity.hh      Projections/Sphericity.icc     \
-  Projections/KtJets.hh          Projections/KtJets.icc
+  Projections/Sphericity.hh  \
+  Projections/KtJets.hh
 
 ## Tools
 nobase_pkginclude_HEADERS += \

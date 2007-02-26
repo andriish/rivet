@@ -22,13 +22,19 @@ namespace Rivet {
     //@{
     /// Default constructor. Must specify a FinalState projection which is
     //assumed to live throughout the run.
-    inline Sphericity(FinalState & fsp);
+    inline Sphericity(FinalState& fsp)
+      : sphericity_(0), planarity_(0), aplanarity_(0), fsproj(&fsp)
+    { }
 
     /// Copy constructor.
-    inline Sphericity(const Sphericity &);
+    inline Sphericity(const Sphericity& sp)
+      : Projection(sp), 
+        sphericity_(sp.sphericity_), planarity_(sp.planarity_),
+        aplanarity_(sp.aplanarity_), fsproj(fsproj)
+    { }
 
     /// Destructor.
-    virtual ~Sphericity();
+    virtual ~Sphericity() { }
     //@}
 
   protected:
@@ -46,9 +52,9 @@ namespace Rivet {
 
     /// name access the event shapes, 
     /// Sphericity, Planarity and APlanarity
-    inline const double eventSphericity() const;
-    inline const double eventPlanarity() const;
-    inline const double eventAplanarity() const;
+    inline const double eventSphericity() const { return sphericity_; }
+    inline const double eventPlanarity() const { return planarity_; }
+    inline const double eventAplanarity() const { return aplanarity_; }
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -78,6 +84,5 @@ namespace Rivet {
 
 }
 
-#include "Rivet/Projections/Sphericity.icc"
 
 #endif /* RIVET_Sphericity_HH */
