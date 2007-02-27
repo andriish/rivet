@@ -143,12 +143,12 @@ void PL273B181::analyze(const Event & event) {
   log << LogPriority::DEBUG << "Starting analyzing" << endlog;
 
   // Analyse and print some info
-  const Multiplicity& m = event.addProjection(mult);
+  const Multiplicity& m = event.applyProjection(mult);
   //log << LogPriority::INFO << "Total charged multiplicity    = " 
   //    << m.totalChargedMultiplicity() << endlog;
 
   //Analyse the event shape info
-  const Sphericity& s = event.addProjection(spher);
+  const Sphericity& s = event.applyProjection(spher);
   log << LogPriority::INFO << "Sphericity    = " 
       << s.eventSphericity() << endlog;
   log << LogPriority::INFO << "Aplanarity    = " 
