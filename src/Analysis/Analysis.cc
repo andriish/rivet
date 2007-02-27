@@ -9,6 +9,7 @@
 #include "Rivet/Analysis/TestAnalysis.hh"
 #include "Rivet/Analysis/HZ95108.hh"
 #include "Rivet/Analysis/PL273B181.hh"
+#include "Rivet/Analysis/HepEx0112029.hh"
 using namespace Rivet;
 
 #include "AIDA/ITree.h"
@@ -20,7 +21,9 @@ using namespace AIDA;
 
 //////////////////////////////////////////////////////////////
 
-
+/*
+ * If you write a new analysis, add the ID for it here.
+ */
 Analysis& Analysis::getAnalysis(const AnalysisName atype) {
   switch (atype) {
   case ANALYSIS_TEST:
@@ -29,6 +32,8 @@ Analysis& Analysis::getAnalysis(const AnalysisName atype) {
     return *(new HZ95108());
   case ANALYSIS_PL273B181:
     return *(new PL273B181());
+  case ANALYSIS_HEPEX0112029:
+    return *(new HepEx0112029());
   }
   throw runtime_error("Tried to get an analysis not known in the Rivet::AnalysisName enum.");
 }

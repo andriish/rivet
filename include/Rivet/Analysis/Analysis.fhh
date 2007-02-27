@@ -16,7 +16,7 @@ namespace Rivet {
   typedef const Analysis* cAnalysisPtr;
 
   /// List of known available analyses
-  enum AnalysisName { ANALYSIS_TEST, ANALYSIS_HZ95108, ANALYSIS_PL273B181 };
+  enum AnalysisName { ANALYSIS_TEST, ANALYSIS_HZ95108, ANALYSIS_PL273B181, ANALYSIS_HEPEX0112029 };
 
 }
 
