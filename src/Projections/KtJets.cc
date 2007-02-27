@@ -21,10 +21,8 @@ void KtJets::project(const Event & e) {
 
   vector<KtJet::KtLorentzVector> vecs;
 
-  type_ = (*this).type_;
-      
   // Project into final state
-  const FinalState& fs = e.addProjection(*fsproj);
+  const FinalState& fs = e.applyProjection(*fsproj);
   
   // Store 4 vector data about each particle into vecs
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
@@ -33,11 +31,8 @@ void KtJets::project(const Event & e) {
     KtJet::KtLorentzVector ktlv(fv.px(), fv.py(), fv.pz(), fv.e());
     vecs.push_back(ktlv);
   }
-  vecs_ = vecs;
-  type_ = this->type_;
-  angle_ = this->angle_;
-  recom_ = this-> recom_;
-  rparameter_ = this-> rparameter_;
+  pktev_ = new KtJet::KtEvent(vecs, type_, angle_, recom_, rparameter_);
+
 }
 
 RivetInfo KtJets::getInfo() const {

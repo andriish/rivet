@@ -19,7 +19,7 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// Default constructor. Must specify a FinalState projection which is
-    //assumed to live throughout the run.
+    //  assumed to live throughout the run.
     inline KtJets(FinalState& fsp)
       : type_(4), angle_(3), recom_(1), rparameter_(1.0), fsproj(&fsp) 
     { }
@@ -27,19 +27,19 @@ namespace Rivet {
     /// Argument constructor.
     // Added so that same projection can be ran but with different parameters.
     // Must specify a FinalState projection which is
-    // assumed to live throughout the run. Not working.
+    // assumed to live throughout the run. 
     inline KtJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
       : type_(type), angle_(angle), recom_(recom), rparameter_(rparameter), fsproj(&fsp)
     { }
 
     /// Copy constructor.
     inline KtJets(const KtJets& x)
-      : Projection(x), vecs_(x.vecs_), type_(x.type_), angle_(x.angle_), 
+      : Projection(x), type_(x.type_), angle_(x.angle_), 
         recom_(x.recom_), rparameter_(x.rparameter_), fsproj(x.fsproj)
     { }
     
     /// Destructor.
-    virtual ~KtJets() {};
+    virtual ~KtJets() { delete pktev_; };
     //@}
 
   protected:   
@@ -57,22 +57,21 @@ namespace Rivet {
     
     /// @name Access the projected NJets.
     //@ {
-    inline int getNJets() const { return makeEvent().getNJets(); }
-    inline int getNConstituents() const { return makeEvent().getNConstituents(); }
-    inline vector<KtJet::KtLorentzVector> copyConstituents() const { return makeEvent().copyConstituents(); }
-    inline double getETot() const { return makeEvent().getETot(); } // had trouble building with Ktfloat, used double instead
-    inline int getType() const { return makeEvent().getType(); }
-    inline int getAngle() const { return makeEvent().getAngle(); }
-    inline int getRecom() const { return makeEvent().getRecom(); }
-    inline bool isInclusive() const { return makeEvent().isInclusive(); }
+    inline int getNJets() const { return pktev_->getNJets(); }
+    inline int getNConstituents() const { return pktev_->getNConstituents(); }
+    inline vector<KtJet::KtLorentzVector> copyConstituents() const { return pktev_->copyConstituents(); }
+    inline double getETot() const { return pktev_->getETot(); } // had trouble building with Ktfloat, used double instead
+    inline int getType() const { return pktev_->getType(); }
+    inline int getAngle() const { return pktev_->getAngle(); }
+    inline int getRecom() const { return pktev_->getRecom(); }
+    inline bool isInclusive() const { return pktev_->isInclusive(); }
 
-    inline vector<KtJet::KtLorentzVector> getVecs() { return vecs_; }
-    inline vector<KtJet::KtLorentzVector> getJets() { return makeEvent().getJets(); }
-    inline vector<KtJet::KtLorentzVector> getJetsE() { return makeEvent().getJetsE(); }
-    inline vector<KtJet::KtLorentzVector> getJetsEt() { return makeEvent().getJetsEt(); }
-    inline vector<KtJet::KtLorentzVector> getJetsPt() { return makeEvent().getJetsPt(); }
-    inline vector<KtJet::KtLorentzVector> getJetsRapidity() { return makeEvent().getJetsRapidity(); }
-    inline vector<KtJet::KtLorentzVector> getJetsEta() { return makeEvent().getJetsEta(); }
+    inline vector<KtJet::KtLorentzVector> getJets() const { return pktev_->getJets(); }
+    inline vector<KtJet::KtLorentzVector> getJetsE() const { return pktev_->getJetsE(); }
+    inline vector<KtJet::KtLorentzVector> getJetsEt() const { return pktev_->getJetsEt(); }
+    inline vector<KtJet::KtLorentzVector> getJetsPt() const { return pktev_->getJetsPt(); }
+    inline vector<KtJet::KtLorentzVector> getJetsRapidity() const { return pktev_->getJetsRapidity(); }
+    inline vector<KtJet::KtLorentzVector> getJetsEta() const { return pktev_->getJetsEta(); }
     //@}
 
     /// Return the RivetInfo object of this Projection.
@@ -80,7 +79,12 @@ namespace Rivet {
 
   private:
     
-    vector<KtJet::KtLorentzVector> vecs_;
+    // Internal ktevent, rebuilt every time an event is projected, but not otherwise.
+    KtJet::KtEvent * pktev_;
+
+    // Vector of all
+    //vector<KtJet::KtLorentzVector> vecs_;
+
     int type_, angle_, recom_;
     double rparameter_;  // had trouble building with Ktfloat, used double instead
 
@@ -93,14 +97,6 @@ namespace Rivet {
     /// In fact, it shouldn't even be implemented.
     KtJets & operator=(const KtJets &);
   
-    /// Make a temporary KtJet event for computing quantities (there's no caching, so 
-    /// this is very inefficient if you want to obtain more than one quantity via a KtEvent method).
-    inline KtJet::KtEvent makeEvent() const {
-      KtJet::KtEvent ktev();
-      return KtJet::KtEvent(vecs_, type_, angle_, recom_, rparameter_);
-    }
-
-
   };
 
   
