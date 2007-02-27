@@ -99,7 +99,6 @@ namespace Rivet {
   
   };
 
-  
 }
 
 #endif /* RIVET_KtJets_HH */

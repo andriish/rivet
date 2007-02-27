@@ -21,13 +21,22 @@ namespace Rivet {
     /// @name Standard constructors and destructors.  @{ / Default
     //constructor. Must specify a FinalState projection which is
     //assumed to live throughout the run.
-    inline Multiplicity(FinalState & fsp);
+    inline Multiplicity(FinalState& fsp)
+      : totalMult_(0), totalChMult_(0), totalUnchMult_(0),
+        hadMult_(0), hadChMult_(0), hadUnchMult_(0), fsproj(&fsp)
+    { }
 
     /// Copy constructor.
-    inline Multiplicity(const Multiplicity &);
+    inline Multiplicity(const Multiplicity & x)
+      : Projection(x), 
+        totalMult_(x.totalMult_), totalChMult_(x.totalChMult_),
+        totalUnchMult_(x.totalUnchMult_), hadMult_(x.hadMult_),
+        hadChMult_(x.hadChMult_), hadUnchMult_(x.hadUnchMult_),
+        fsproj(fsproj)
+    { }
 
     /// Destructor.
-    virtual ~Multiplicity();
+    virtual ~Multiplicity() { }
     //@}
 
   protected:
@@ -46,22 +55,22 @@ namespace Rivet {
     /// @name Access the projected multiplicities.
     //@ {
     /// Total multiplicity
-    inline const unsigned int totalMultiplicity() const;
+    inline const unsigned int totalMultiplicity() const { return totalMult_; }
 
     /// Charged multiplicity
-    inline const unsigned int totalChargedMultiplicity() const;
+    inline const unsigned int totalChargedMultiplicity() const { return totalChMult_; }
 
     /// Uncharged multiplicity
-    inline const unsigned int totalUnchargedMultiplicity() const;
+    inline const unsigned int totalUnchargedMultiplicity() const { return totalUnchMult_; }
 
     /// Hadron multiplicity
-    inline const unsigned int hadronMultiplicity() const;
+    inline const unsigned int hadronMultiplicity() const { return hadMult_; }
 
     /// Hadronic charged multiplicity
-    inline const unsigned int hadronChargedMultiplicity() const;
+    inline const unsigned int hadronChargedMultiplicity() const { return hadChMult_; }
 
     /// Hadronic uncharged multiplicity
-    inline const unsigned int hadronUnchargedMultiplicity() const;
+    inline const unsigned int hadronUnchargedMultiplicity() const { return hadUnchMult_; }
     //@ }
 
   /**
@@ -94,7 +103,5 @@ namespace Rivet {
   };
 
 }
-
-#include "Rivet/Projections/Multiplicity.icc"
 
 #endif /* RIVET_Multiplicity_HH */

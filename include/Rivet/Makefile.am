@@ -19,7 +19,7 @@ nobase_pkginclude_HEADERS += \
   Projections/FinalStateHCM.hh   Projections/FinalStateHCM.icc  \
   Projections/DISKinematics.hh   Projections/DISKinematics.icc  \
   Projections/DISLepton.hh       Projections/DISLepton.icc      \
-  Projections/Multiplicity.hh    Projections/Multiplicity.icc   \
+  Projections/Multiplicity.hh  \
   Projections/FinalState.hh      Projections/FinalState.icc     \
   Projections/Sphericity.hh  \
   Projections/KtJets.hh

@@ -8,9 +8,6 @@
 using namespace Rivet;
 
 
-Multiplicity::~Multiplicity() {}
-
-
 int Multiplicity::compare(const Projection & p) const {
   const Multiplicity & other = dynamic_cast<const Multiplicity &>(p);
   return pcmp(*fsproj, *other.fsproj);
