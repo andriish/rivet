@@ -45,11 +45,11 @@ namespace Rivet {
      * sure that the lifetime of the factory object exceeds the RivetHandler
      * object.
      */
-    RivetHandler(AIDA::IAnalysisFactory& afac, std::string basefilename="Rivet", HistoFormat storetype=XML);
+    RivetHandler(AIDA::IAnalysisFactory& afac, std::string basefilename="Rivet", HistoFormat storetype=AIDA);
 
     /// Make a Rivet handler with a set base filename and store type.
     /// @todo storetype -> enum
-    RivetHandler(std::string basefilename="Rivet", HistoFormat storetype=XML);
+    RivetHandler(std::string basefilename="Rivet", HistoFormat storetype=AIDA);
 
     /**
      * The destructor is not virtual as this class should not be

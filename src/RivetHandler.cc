@@ -18,12 +18,15 @@ namespace Rivet {
 
   void RivetHandler::setupFactories(string basefilename, HistoFormat storetype) {
     string filename(basefilename), storetypestr("");
-    if (storetype == XML) {
+    if (storetype == AIDA) {
       filename += ".aida";
       storetypestr = "xml";
-    } else {
+    } else if (storetype == FLAT) {
       filename += ".data";
       storetypestr = "flat";
+    } else if (storetype == ROOT) {
+      filename += ".root";
+      storetypestr = "root";
     }
     theTree = theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
     theHistogramFactory = theAnalysisFactory->createHistogramFactory(*tree());
