@@ -3,7 +3,11 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/PL273B181.hh"
 #include "HepPDT/ParticleID.hh"
+
 #include "AIDA/IAxis.h"
+#include "AIDA/IHistogram1D.h"
+using namespace AIDA;
+
 
 // includes for chi squared calculations:
 #include <fstream>
@@ -179,7 +183,9 @@ void PL273B181::finalize() {
 
 
   // Normalize the histogram areas to 1
-  histChTot_->scale(1/histChTot_->sumBinHeights() );
+  if (histChTot_->sumBinHeights()!=0){
+    histChTot_->scale(1/histChTot_->sumBinHeights() );
+  }
   //histSphericity_->scale(1/histSphericity_->sumBinHeights() );
   histSphericity_->scale(1/area);
   histPlanarity_->scale(1/histPlanarity_->sumBinHeights() ); 
