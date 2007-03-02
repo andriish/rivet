@@ -80,7 +80,7 @@ void Thrust::project(const Event & e) {
   // Reset parameters
   for (int i = 0; i < 3; ++i) lambdas[i] = 0;
 
-  const FinalState& fs = e.addProjection(fsproj);
+  const FinalState& fs = e.applyProjection(fsproj);
 
   thrustAxes_ = calcThrustAxes();
 

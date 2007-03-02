@@ -27,7 +27,7 @@ void Sphericity::project(const Event & e) {
   planarity_ = 7;
   aplanarity_ = 0;
 
-  const FinalState& fs = e.addProjection(*fsproj);
+  const FinalState& fs = e.applyProjection(*fsproj);
  
   CLHEP::HepMatrix mMom(3,3,0);
   //  map<int, const char*> cMap;

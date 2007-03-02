@@ -34,7 +34,7 @@ namespace Rivet {
   protected:
 
     /// Perform the projection on the Event: only to be called by 
-    /// Event::addProjection(Projection &).
+    /// Event::applyProjection(Projection &).
     void project(const Event & e);
 
     /// This function defines a unique ordering between different 

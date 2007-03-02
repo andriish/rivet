@@ -48,10 +48,10 @@ protected:
    * Take the information available in the Event and make the
    * calculations necessary to obtain the projection. Note that this
    * function must never be called except inside the
-   * Event::addProjection(Projection *) function. If the information
+   * Event::applyProjection(Projection *) function. If the information
    * from other projections are necessary, their project(const Event
    * &) should not be called, rather the corresponding objects should
-   * be added to the Event using the Even::addProjection(Projection *)
+   * be added to the Event using the Even::applyProjection(Projection *)
    * function.
    */
   virtual void project(const Event & e);

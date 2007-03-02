@@ -50,10 +50,6 @@ namespace Rivet {
     /// Return the generated event obtained from an external event generator.
     inline const GenEvent& genEvent() const;
 
-    /// @deprecated Synonym for applyProjection().
-    template <typename PROJ>
-    inline const PROJ& addProjection(PROJ& p) const;
-
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
     /// of \a p is not called and a reference to the previous equivalent
@@ -125,13 +121,6 @@ namespace Rivet {
     return p;
   }
 
-
-  template <typename PROJ>
-  inline const PROJ&  Event::addProjection(PROJ& p) const {
-    std::cerr << "Event::addProjection() is deprecated" << std::endl;
-    return applyProjection(p);
-  }
-  
     
   inline double Event::weight() const {
     return theWeight;
