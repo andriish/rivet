@@ -29,12 +29,18 @@ namespace Rivet {
     /**
      * The default constructor.
      */
-    inline HZ95108();
+    inline HZ95108()
+      : lepton(beams, 11, -11), diskin(beams, lepton, 2212),
+        fsproj(lepton, diskin, fsp), y1hcm(fsproj) 
+    { }
 
     /**
      * The copy constructor.
      */
-    inline HZ95108(const HZ95108 &);
+    inline HZ95108(const HZ95108& x)
+      : Analysis(x), beams(x.beams), lepton(x.lepton), diskin(x.diskin), fsp(x.fsp),
+        fsproj(x.fsproj), y1hcm(x.y1hcm) 
+    { }
 
     /**
      * The destructor.
@@ -158,7 +164,5 @@ namespace Rivet {
   };
 
 }
-
-#include "HZ95108.icc"
 
 #endif /* RIVET_HZ95108_H */

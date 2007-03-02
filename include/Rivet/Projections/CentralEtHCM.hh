@@ -26,12 +26,15 @@ public:
    * The default constructor. Must specify a FinalStateHCM projection
    * object which is guaranteed to live throughout the run.
    */
-  inline CentralEtHCM(FinalStateHCM & fs);
+  inline CentralEtHCM(FinalStateHCM & fs)
+    : fshcm(&fs) { }
+
 
   /**
    * The copy constructor.
    */
-  inline CentralEtHCM(const CentralEtHCM &);
+  inline CentralEtHCM(const CentralEtHCM & x)
+    : Projection(x), fshcm(x.fshcm), sumet(x.sumet) {}
 
   /**
    * The destructor.
@@ -81,7 +84,7 @@ public:
   /**
    * The sum of the Et in the central rapidity bin.
    */
-  inline double sumEt() const;
+  inline double sumEt() const { return sumet; }
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -115,6 +118,5 @@ private:
 
 }
 
-#include "Rivet/Projections/CentralEtHCM.icc"
 
 #endif /* RIVET_CentralEtHCM_H */

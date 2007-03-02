@@ -15,8 +15,6 @@
 using namespace Rivet;
 using std::runtime_error;
 
-Beam::~Beam() {}
-
 void Beam::project(const Event& e) {
   //vector<GenParticle*> inc = e.genEvent().signal_process_vertex()->listParents();
   GenVertex* sigvertex = e.genEvent().signal_process_vertex();

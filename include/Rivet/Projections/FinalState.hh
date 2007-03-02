@@ -26,13 +26,18 @@ public:
    * pseudorapidity.
    */
   inline FinalState(double mineta = -MaxRapidity,
-		    double maxeta = MaxRapidity,
-		    double minpt = 0.0);
+                    double maxeta = MaxRapidity,
+                    double minpt = 0.0)
+    : etamin(mineta), etamax(maxeta), ptmin(minpt) 
+  { }
 
   /**
    * The copy constructor.
    */
-  inline FinalState(const FinalState &);
+  inline FinalState(const FinalState& x)
+    : Projection(x), etamin(x.etamin), etamax(x.etamax),
+      ptmin(x.ptmin), theParticles(x.theParticles) 
+  { }
 
   /**
    * The destructor.
@@ -82,7 +87,7 @@ public:
   /**
    * Access the projected final-state particles.
    */
-  inline const ParticleVector & particles() const;
+  inline const ParticleVector & particles() const { return theParticles; }
 
 private:
 
@@ -118,6 +123,5 @@ private:
 
 }
 
-#include "Rivet/Projections/FinalState.icc"
 
 #endif /* RIVET_FinalState_H */

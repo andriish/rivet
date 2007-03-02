@@ -25,17 +25,25 @@ struct Particle {
   /**
    * Simple constructor for copying a GenParticle.
    */
-  inline Particle(const GenParticle & p);
+  inline Particle(const GenParticle & p)
+    : original(&p), id(p.pdg_id()), 
+      momentum(p.momentum().x(), p.momentum().y(), p.momentum().z(), p.momentum().t()),
+      mass(p.momentum().m()) 
+  { }
 
   /**
    * Default constructor.
    */
-  inline Particle();
+  inline Particle()
+    : original(0), id(0), mass(0.0) 
+  { }
 
   /**
    * Copy-constructor.
    */
-  inline Particle(const Particle & p);
+  inline Particle(const Particle & p)
+    : original(p.original), id(p.id), momentum(p.momentum), mass(p.mass) 
+  { }
 
   /**
    * A pointer to the original GenParticle from which this Particle is
@@ -67,7 +75,5 @@ typedef std::vector<Particle> ParticleVector;
 typedef std::pair<Particle, Particle> ParticlePair;
 
 }
-
-#include "Particle.icc"
 
 #endif /* RIVET_Particle_H */

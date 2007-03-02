@@ -10,6 +10,7 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Tools/Event/Event.hh"
 
+
 namespace AIDA {
   class IAnalysisFactory;
   class IHistogramFactory;
@@ -76,6 +77,7 @@ namespace Rivet {
       return *this;
     }
 
+
     /// Add a collection of analyses
     /// @todo Make the addAnalyses(vector<Analysis*>) method work
     inline RivetHandler& addAnalyses(const std::vector<Analysis*>& analyses) { 
@@ -88,6 +90,7 @@ namespace Rivet {
       return *this;
     }
 
+
     /// Add an object of base class Analysis to the list of analysis objects to
     /// be used in a run. The Analysis will be obtained from the
     /// Analysis::getAnalysis() factory method, according to the argument enum.
@@ -98,6 +101,7 @@ namespace Rivet {
       return *this;
     }
 
+
     /// Add a collection of analyses via their analysis name enums
     inline RivetHandler& addAnalyses(const std::vector<AnalysisName>& analysisnames) { 
       for (std::vector<AnalysisName>::const_iterator ananame = analysisnames.begin();
@@ -106,6 +110,7 @@ namespace Rivet {
       }
       return *this;
     }
+
     
     /// Initialize a run. If this run is to be joined together with other
     /// runs, \a N should be set to the total number of runs to be
@@ -114,34 +119,38 @@ namespace Rivet {
     /// AnalysisBase::init() function of all included analysis objects.
     void init(int i = 0, int N = 0);
 
+
     /// Analyze the given \a event. This function will call the
     /// AnalysisBase::analyze() function of all included analysis objects.
     void analyze(const GenEvent & event);
+
 
     /// Finalize a run. This function first calls the
     /// AnalysisBase::finalize() functions of all included analysis
     /// objects and then writes out all histograms to a file.
     void finalize();
 
+
     /// Return a RivetInfo object containing all parameters of all
     /// included analysis handlers and all their included Projections.
     RivetInfo info() const;
 
+
     /// The AIDA analysis factory.
-    inline AIDA::IAnalysisFactory* analysisFactory() {
-      return theAnalysisFactory;
+    inline AIDA::IAnalysisFactory& analysisFactory() {
+      return *theAnalysisFactory;
     }
     
 
     /// The AIDA tree object.
-    inline AIDA::ITree* tree() {
-      return theTree;
+    inline AIDA::ITree& tree() {
+      return *theTree;
     }
     
     
     /// The AIDA histogram factory.
-    inline AIDA::IHistogramFactory* histogramFactory() {
-      return theHistogramFactory;
+    inline AIDA::IHistogramFactory& histogramFactory() {
+      return *theHistogramFactory;
     }
     
 

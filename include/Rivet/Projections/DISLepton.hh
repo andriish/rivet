@@ -29,17 +29,25 @@ public:
    * anti-lepton is searched for. Must also specify a Beam projection
    * object which is assumed to live thoughout the run.
    */
-  inline DISLepton(Beam & beamp, long inid, long outid);
+  inline DISLepton(Beam & beamp, long inid, long outid)
+    : beams(&beamp), idin(inid), idout(outid) {
+    info.declareParameter("BeamA", inid);
+    info.declareParameter("DISLepton", outid, "none",
+                          "The type of the scattered lepton.");
+  }
 
   /**
    * The copy constructor.
    */
-  inline DISLepton(const DISLepton &);
-
+  inline DISLepton(const DISLepton & x)
+    : Projection(x), beams(x.beams), idin(x.idin), idout(x.idout),
+      incoming(x.incoming), outgoing(x.outgoing) 
+  { }
+  
   /**
    * The destructor.
    */
-  virtual ~DISLepton();
+  virtual ~DISLepton() {}
   //@}
 
 protected:
@@ -84,12 +92,12 @@ public:
   /**
    * The incoming lepton.
    */
-  inline const Particle & in() const;
+  inline const Particle & in() const { return incoming; }
 
   /**
    * The outgoing lepton.
    */
-  inline const Particle & out() const;
+  inline const Particle & out() const { return outgoing; }
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -138,6 +146,5 @@ private:
 
 }
 
-#include "Rivet/Projections/DISLepton.icc"
 
 #endif /* RIVET_DISLepton_H */

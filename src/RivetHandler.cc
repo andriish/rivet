@@ -29,7 +29,7 @@ namespace Rivet {
       storetypestr = "root";
     }
     theTree = theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
-    theHistogramFactory = theAnalysisFactory->createHistogramFactory(*tree());
+    theHistogramFactory = theAnalysisFactory->createHistogramFactory(tree());
   }
 
 
@@ -74,7 +74,7 @@ namespace Rivet {
     for (int i = 0, N = analysisVector.size(); i < N; ++i) {
       analysisVector[i]->finalize();
     }
-    if (tree()) { tree()->commit(); }
+    tree().commit();
   }
 
 

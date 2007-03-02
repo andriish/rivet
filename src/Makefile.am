@@ -6,21 +6,19 @@ SUBDIRS = Projections Analysis Tools . Test
 
 lib_LTLIBRARIES  = libRivet.la
 libRivet_la_LDFLAGS = -version-info 1:0:0 -export-dynamic \
-                      -L$(CLHEP_VECTORLIBPATH)   -R$(CLHEP_VECTORLIBPATH) \
-                      -L$(CLHEP_MATRIXLIBPATH)   -R$(CLHEP_MATRIXLIBPATH) \
+                      -L$(CLHEP_VECTORLIBPATH) -R$(CLHEP_VECTORLIBPATH) \
+                      -L$(CLHEP_MATRIXLIBPATH) -R$(CLHEP_MATRIXLIBPATH) \
                       -L$(LOG4CPPLIBPATH) -R$(LOG4CPPLIBPATH) \
                       -L$(HEPPIDLIBPATH)  -R$(HEPPIDLIBPATH) \
                       -L$(HEPPDTLIBPATH)  -R$(HEPPDTLIBPATH) \
-                      -L$(KTEVENTLIBPATH) -R$(KTEVENTLIBPATH)
+                      -L$(KTJETLIBPATH) -R$(KTJETLIBPATH)
 libRivet_la_SOURCES = RivetHandler.cc RivetInfo.cc
 libRivet_la_LIBADD  = Analysis/libRivetAnalysis.la \
                       Projections/libRivetProjections.la \
                       Tools/libRivetTools.la \
-                      -ldl \
-					  -l$(CLHEP_MATRIXLIBNAME) \
- -l$(CLHEP_VECTORLIBNAME) \
-                      -l$(LOG4CPPLIBNAME) \
+                      -ldl -l$(LOG4CPPLIBNAME) \
+					  -l$(CLHEP_MATRIXLIBNAME) -l$(CLHEP_VECTORLIBNAME) \
                       -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME) \
-                      -l$(KTEVENTLIBNAME)
+                      -l$(KTJETLIBNAME)
 
 ## Mandatory "-l"s above?

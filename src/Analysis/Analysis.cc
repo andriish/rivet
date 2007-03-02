@@ -21,9 +21,8 @@ using namespace AIDA;
 
 //////////////////////////////////////////////////////////////
 
-/*
- * If you write a new analysis, add the ID for it here.
- */
+
+/// If you write a new analysis, add the ID for it here.
 Analysis& Analysis::getAnalysis(const AnalysisName atype) {
   switch (atype) {
   case ANALYSIS_TEST:
@@ -60,32 +59,31 @@ RivetInfo Analysis::getInfo() const {
 //////////////////////////////////////////////////////////////
 
 
-IAnalysisFactory* Analysis::analysisFactory() {
+IAnalysisFactory& Analysis::analysisFactory() {
   return handler().analysisFactory();
 }
 
 
-ITree* Analysis::tree() {
+ITree& Analysis::tree() {
   return handler().tree();
 }
 
 
-IHistogramFactory* Analysis::histogramFactory() {
+IHistogramFactory& Analysis::histogramFactory() {
   return handler().histogramFactory();
 }
 
 
 IHistogram1D* Analysis::bookHistogram1D(const std::string& name, const std::string& title, 
-                              int nbins, double lower, double upper) {
+                                        const int nbins, const double lower, const double upper) {
   makeHistoDir();
-  IHistogram1D* h = histogramFactory()->
-    createHistogram1D(histoDir() + "/" + name, title, nbins, lower, upper);
-  return h;
+  return histogramFactory().createHistogram1D(histoDir() + "/" + name, title, nbins, lower, upper);
 }
 
 
 void Analysis::makeHistoDir() {
-  if (!madeHistoDir && !name().empty()) 
-    tree()->mkdir(histoDir());
+  if (!madeHistoDir && !name().empty()) {
+    tree().mkdir(histoDir());
+  }
   madeHistoDir = true;
 }

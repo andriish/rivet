@@ -27,13 +27,17 @@ public:
    * and FinalState projection objects which are assumed to live
    * throughout the run.
    */
-  inline FinalStateHCM(DISLepton & leptonp, DISKinematics & kinematicsp,
-		       FinalState & fsp);
-
+  inline FinalStateHCM(DISLepton & leptonp, DISKinematics & kinematicsp, FinalState & fsp)
+    : lepton(&leptonp), kinematics(&kinematicsp), fsproj(&fsp) 
+  { }
+  
   /**
    * The copy constructor.
    */
-  inline FinalStateHCM(const FinalStateHCM &);
+  inline FinalStateHCM(const FinalStateHCM & x)
+    : Projection(x), lepton(x.lepton), kinematics(x.kinematics), fsproj(x.fsproj),
+      theParticles(x.theParticles) 
+  { }
 
   /**
    * The destructor.
@@ -83,7 +87,7 @@ public:
   /**
    * Access the projected final-state particles.
    */
-  inline const ParticleVector & particles() const;
+  inline const ParticleVector & particles() const { return theParticles; }
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -127,6 +131,5 @@ private:
 
 }
 
-#include "Rivet/Projections/FinalStateHCM.icc"
 
 #endif /* RIVET_FinalStateHCM_H */

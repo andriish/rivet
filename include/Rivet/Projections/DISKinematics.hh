@@ -30,17 +30,24 @@ public:
    * run. Also the PDG code of the incoming hadron (\a hadid) must be
    * specified.
    */
-  inline DISKinematics(Beam & beamp, DISLepton & leptonp, long hadid);
+  inline DISKinematics(Beam & beamp, DISLepton & leptonp, long hadid)
+    : beams(&beamp), lepton(&leptonp), idhad(hadid), theQ2(-1.0), theW2(-1.0),
+      theX(-1.0) {
+    info.declareParameter("BeamB", hadid);
+  }
 
   /**
    * The copy constructor.
    */
-  inline DISKinematics(const DISKinematics &);
-
+  inline DISKinematics(const DISKinematics & x)
+    : Projection(x), beams(x.beams), lepton(x.lepton), idhad(x.idhad),
+      theQ2(x.theQ2), theW2(x.theW2), theX(x.theX), hcm(x.hcm), breit(x.breit) 
+  { }
+  
   /**
    * The destructor.
    */
-  virtual ~DISKinematics();
+  virtual ~DISKinematics() { };
   //@}
 
 protected:
@@ -85,29 +92,33 @@ public:
   /**
    * The \f$Q^2\f$.
    */
-  inline double Q2() const;
+  inline double Q2() const { return theQ2; }
 
   /**
    * The \f$W^2\f$.
    */
-  inline double W2() const;
+  inline double W2() const { return theW2; }
 
   /**
    * The Bjorken \f$x\f$.
    */
-  inline double x() const;
+  inline double x() const { return theX; }
 
   /**
    * The LorentzRotation needed to boost a particle to the hadronic CM
    * frame.
    */
-  inline const LorentzRotation & boostHCM() const;
+  inline const LorentzRotation & boostHCM() const {
+    return hcm; 
+  }
 
   /**
    * The LorentzRotation needed to boost a particle to the hadronic Breit
    * frame.
    */
-  inline const LorentzRotation & boostBreit() const;
+  inline const LorentzRotation & boostBreit() const {
+    return breit;
+  }
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -172,7 +183,5 @@ private:
 };
 
 }
-
-#include "Rivet/Projections/DISKinematics.icc"
 
 #endif /* RIVET_DISKinematics_H */

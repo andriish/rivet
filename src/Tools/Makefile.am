@@ -1,6 +1,6 @@
 noinst_LTLIBRARIES = libRivetMath.la libRivetEvent.la libRivetXML.la libRivetTools.la
 
-libRivetMath_la_SOURCES  = Math/LorentzVector.cc
+libRivetMath_la_SOURCES  = 
 
 libRivetEvent_la_SOURCES = Event/Event.cc
 

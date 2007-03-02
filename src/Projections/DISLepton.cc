@@ -9,7 +9,6 @@
 
 using namespace Rivet;
 
-DISLepton::~DISLepton() {}
 
 void DISLepton::project(const Event & e) {
   const ParticlePair & inc = e.applyProjection(*beams)();

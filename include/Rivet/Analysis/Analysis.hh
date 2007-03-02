@@ -22,24 +22,22 @@ namespace AIDA {
 
 namespace Rivet {
 
-  /**
-   * This is the base class of all analysis classes in Rivet. There are
-   * three virtual functions which should be implemented in base classes:
-   *
-   * void init() is called by Rivet before a run is started. Here the
-   * analysis class should book necessary histograms. The needed
-   * projections should probably rather be constructed in the
-   * constructor.
-   *
-   * void analyze(const Event &) is called once for each event. Here the
-   * analysis class should apply the necessary Projections and fill the
-   * histograms.
-   *
-   * void finish() is called after a run is finished. Here the analysis
-   * class should do whatever manipulations are necessary on the
-   * histograms. Writing the histograms to a file is, however, done by
-   * the Rivet class.
-   */
+  /// This is the base class of all analysis classes in Rivet. There are
+  /// three virtual functions which should be implemented in base classes:
+  ///
+  /// void init() is called by Rivet before a run is started. Here the
+  /// analysis class should book necessary histograms. The needed
+  /// projections should probably rather be constructed in the
+  /// constructor.
+  ///
+  /// void analyze(const Event &) is called once for each event. Here the
+  /// analysis class should apply the necessary Projections and fill the
+  /// histograms.
+  ///
+  /// void finish() is called after a run is finished. Here the analysis
+  /// class should do whatever manipulations are necessary on the
+  /// histograms. Writing the histograms to a file is, however, done by
+  /// the Rivet class.
   class Analysis {
     
     /// The RivetHandler is a friend.
@@ -55,10 +53,14 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    inline Analysis() : theHandler(0) {}
+    inline Analysis() 
+      : theHandler(0) 
+    { }
 
     /// The copy constructor.
-    inline Analysis(const Analysis& x) : theHandler(x.theHandler), info(x.info) {}
+    inline Analysis(const Analysis& x) 
+      : theHandler(x.theHandler), info(x.info) 
+    { }
 
     /// The destructor.
     virtual ~Analysis();
@@ -66,36 +68,28 @@ namespace Rivet {
 
   public:
 
-    /**
-     * Initialize this analysis object. A concrete class should here
-     * book all necessary histograms. An overridden function must make
-     * sure it first calls the base class function.
-     */
+    /// Initialize this analysis object. A concrete class should here
+    /// book all necessary histograms. An overridden function must make
+    /// sure it first calls the base class function.
     virtual void init() = 0;
 
-    /**
-     * Analyze one event. A concrete class should here apply the
-     * necessary projections on the \a event and fill the relevant
-     * histograms. An overridden function must make sure it first calls
-     * the base class function.
-     */
+    /// Analyze one event. A concrete class should here apply the
+    /// necessary projections on the \a event and fill the relevant
+    /// histograms. An overridden function must make sure it first calls
+    /// the base class function.
     virtual void analyze(const Event& event) = 0;
 
-    /**
-     * Finalize this analysis object. A concrete class should here make
-     * all necessary operations on the histograms. Writing the
-     * histograms to a file is, however, done by the Rivet class. An
-     * overridden function must make sure it first calls the base class
-     * function.
-     */
+    /// Finalize this analysis object. A concrete class should here make
+    /// all necessary operations on the histograms. Writing the
+    /// histograms to a file is, however, done by the Rivet class. An
+    /// overridden function must make sure it first calls the base class
+    /// function.
     virtual void finalize() = 0;
 
-    /**
-     * Return the RivetInfo object of this analysis object. Derived
-     * classes should re-implement this function to return the combined
-     * RivetInfo object of this object and of any Projection objects
-     * upon which this depends.
-     */
+    /// Return the RivetInfo object of this analysis object. Derived
+    /// classes should re-implement this function to return the combined
+    /// RivetInfo object of this object and of any Projection objects
+    /// upon which this depends.
     virtual RivetInfo getInfo() const;
 
     /// Access the controlling RivetHandler object.
@@ -111,26 +105,18 @@ namespace Rivet {
 
   protected:
 
-    /**
-     * Access the AIDA analysis factory of the controlling RivetHandler
-     * object.
-     */
-    AIDA::IAnalysisFactory* analysisFactory();
+    /// Access the AIDA analysis factory of the controlling RivetHandler object.
+    AIDA::IAnalysisFactory& analysisFactory();
 
-    /**
-     * Access the AIDA tree of the controlling RivetHandler object.
-     */
-    AIDA::ITree* tree();
+    /// Access the AIDA tree of the controlling RivetHandler object.
+    AIDA::ITree& tree();
 
-    /**
-     * Access the AIDA histogram factory of the controlling RivetHandler
-     * object.
-     */
-    AIDA::IHistogramFactory* histogramFactory();
+    /// Access the AIDA histogram factory of the controlling RivetHandler object.
+    AIDA::IHistogramFactory& histogramFactory();
 
     /// Book a 1D histogram
     AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
-                                        int nbins, double lower, double upper);
+                                        const int nbins, const double lower, const double upper);
 
     /// Make the histogram directory
     void makeHistoDir();

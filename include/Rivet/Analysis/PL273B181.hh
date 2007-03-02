@@ -18,10 +18,16 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline PL273B181();
+    inline PL273B181()
+      : mult(fsproj), spher(fsproj) 
+    { }
+
 
     /// Copy constructor.
-    inline PL273B181(const PL273B181 &);
+    inline PL273B181(const PL273B181& x)
+      : Analysis(x), fsproj(x.fsproj), mult(x.mult), spher(x.spher) 
+    { }
+
 
     /// Destructor
     virtual ~PL273B181();
@@ -66,6 +72,5 @@ namespace Rivet {
 
 }
 
-#include "Rivet/Analysis/PL273B181.icc"
 
 #endif

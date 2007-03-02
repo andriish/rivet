@@ -41,12 +41,14 @@ public:
   /**
    * The default constructor.
    */
-  inline Projection();
+  inline Projection() { };
 
   /**
    * The copy constructor.
    */
-  inline Projection(const Projection &);
+  inline Projection(const Projection& p)
+    : info(p.info) 
+  { }
 
   /**
    * The destructor.
@@ -100,7 +102,15 @@ public:
    * objects is used. Otherwise, if the objects are of the same class,
    * the virtual compare(const Projection &) will be returned.
    */
-  inline bool before(const Projection & p) const;
+  inline bool before(const Projection & p) const {
+    const std::type_info & thisid = typeid(*this);
+    const std::type_info & otherid = typeid(p);
+    if ( thisid == otherid ) {
+      return compare(p) < 0;
+    } else {
+      return thisid.before(otherid);
+    }
+  }
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -148,6 +158,5 @@ struct less<const Rivet::Projection *> :
 
 }
 
-#include "Rivet/Projections/Projection.icc"
 
 #endif /* RIVET_Projection_H */

@@ -9,7 +9,6 @@
 
 using namespace Rivet;
 
-DISKinematics::~DISKinematics() {}
 
 void DISKinematics::project(const Event& e) {
   const DISLepton & dislep = e.applyProjection(*lepton);
