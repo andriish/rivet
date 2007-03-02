@@ -9,7 +9,7 @@ namespace Rivet {
 
   class RivetHandler;
 
-  enum HistoFormat { AIDA, FLAT, ROOT };
+  enum HistoFormat { AIDAML, FLAT, ROOT };
 
 }
 

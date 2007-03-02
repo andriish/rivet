@@ -18,7 +18,7 @@ namespace Rivet {
 
   void RivetHandler::setupFactories(string basefilename, HistoFormat storetype) {
     string filename(basefilename), storetypestr("");
-    if (storetype == AIDA) {
+    if (storetype == AIDAML) {
       filename += ".aida";
       storetypestr = "xml";
     } else if (storetype == FLAT) {
