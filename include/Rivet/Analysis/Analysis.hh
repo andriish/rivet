@@ -138,9 +138,6 @@ namespace Rivet {
     /// In fact, it should not even be implemented.
     Analysis& operator=(const Analysis&);
 
-    /// Flag to determine whether the AIDA directory has been made.
-    /// @todo Can this be replaced with an AIDA "isDir()"?
-    bool madeHistoDir;
 
   };
 

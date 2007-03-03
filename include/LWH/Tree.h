@@ -113,6 +113,12 @@ public:
    */
   bool insert(std::string str, IManagedObject * o) {
     Path path = purgepath(str2pth(fullpath(str)));
+    //PathSet::iterator theIterator;
+    //for( theIterator = dirs.begin(); theIterator != dirs.end(); theIterator++ ) {
+    //std::cout << "1:" << pth2str(*theIterator);
+    //}   
+    //std::cout << std::endl;
+
     if ( dirs.find(path) == dirs.end() ) {
       std::string fullname = pth2str(path);
       path.pop_back();
