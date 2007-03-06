@@ -82,7 +82,10 @@ IHistogram1D* Analysis::bookHistogram1D(const std::string& name, const std::stri
 
 
 void Analysis::makeHistoDir() {
-  if (!name().empty()) {
-    tree().mkdir(histoDir());
+  if (!_madeHistoDir) {
+    if (!name().empty()) {
+      tree().mkdir(histoDir());
+    }
+    _madeHistoDir = true;
   }
 }

@@ -54,12 +54,12 @@ namespace Rivet {
     //@{
     /// The default constructor.
     inline Analysis() 
-      : theHandler(0) 
+      : theHandler(0), _madeHistoDir(false)
     { }
 
     /// The copy constructor.
     inline Analysis(const Analysis& x) 
-      : theHandler(x.theHandler), info(x.info) 
+      : theHandler(x.theHandler), info(x.info), _madeHistoDir(false) 
     { }
 
     /// The destructor.
@@ -114,7 +114,9 @@ namespace Rivet {
     /// Access the AIDA histogram factory of the controlling RivetHandler object.
     AIDA::IHistogramFactory& histogramFactory();
 
-    /// Book a 1D histogram
+    /// Book a 1D histogram (NB. this returns a pointer rather than a reference since it will 
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// get the pointer from a reference before they can use it!)
     AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
                                         const int nbins, const double lower, const double upper);
 
@@ -138,6 +140,8 @@ namespace Rivet {
     /// In fact, it should not even be implemented.
     Analysis& operator=(const Analysis&);
 
+    /// Flag to indicate whether the histogram directory is present
+    bool _madeHistoDir;
 
   };
 
