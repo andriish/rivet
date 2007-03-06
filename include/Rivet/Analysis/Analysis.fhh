@@ -74,10 +74,6 @@ namespace Rivet {
   }
 
 
-  /// Convenience typedef for the ubiquitous vector of strings.
-  typedef std::vector<std::string> StringList;
-
-
   /// Function which returns a vector of all the analysis name strings.
   inline std::vector<std::string> getKnownAnalysisNames() {
     std::vector<std::string> names;
