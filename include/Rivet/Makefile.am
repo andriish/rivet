@@ -2,11 +2,13 @@
 nobase_pkginclude_HEADERS = \
   Rivet.hh         RivetInfo.hh  \
   RivetCLHEP.hh    RivetAIDA.hh  \
-  RivetHandler.hh  RivetHandler.fhh
+  RivetHandler.hh  RivetHandler.fhh \
+  HistoFormat.hh
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
   Analysis/Analysis.hh       Analysis/Analysis.fhh \
+  Analysis/AnalysisName.hh   \
   Analysis/TestAnalysis.hh   \
   Analysis/HZ95108.hh        \
   Analysis/PL273B181.hh      \
