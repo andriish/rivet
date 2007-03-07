@@ -23,7 +23,7 @@ class IAnalysisFactory {
 
 public:
 
-  virtual ~IAnalysisFactory() {}
+  virtual ~IAnalysisFactory() {};
 
   virtual ITreeFactory * createTreeFactory() = 0;
   virtual IHistogramFactory * createHistogramFactory(ITree & tree) = 0;

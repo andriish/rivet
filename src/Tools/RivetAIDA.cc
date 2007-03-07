@@ -1,7 +1,7 @@
 // $Id: $
 // Include files 
 //#include "Rivet/RivetAIDA.hh"
-#include "AIDA/IAnalysisFactory.h"
+//#include "AIDA/IAnalysisFactory.h"
 #include "LWH/AnalysisFactory.h"
 
 /// "Plugin" function to return an AIDA system (LWH impl.)

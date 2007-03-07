@@ -1,6 +1,7 @@
-noinst_LTLIBRARIES = libRivetMath.la libRivetEvent.la libRivetXML.la libRivetTools.la
+#noinst_LTLIBRARIES = libRivetMath.la libRivetEvent.la libRivetXML.la libRivetTools.la
+noinst_LTLIBRARIES = libRivetEvent.la libRivetXML.la libRivetTools.la
 
-libRivetMath_la_SOURCES  = 
+#libRivetMath_la_SOURCES  = 
 
 libRivetEvent_la_SOURCES = Event/Event.cc
 
@@ -10,4 +11,5 @@ libRivetXML_la_CPPFLAGS  = -I$(top_srcdir)/include/TinyXML
 libRivetTools_la_SOURCES  = Logging.cc RivetAIDA.cc
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA
 libRivetTools_la_LDFLAGS  = -L$(LOG4CPPLIBPATH) -R$(LOG4CPPLIBPATH)
-libRivetTools_la_LIBADD   = libRivetMath.la libRivetEvent.la libRivetXML.la -l$(LOG4CPPLIBNAME)
+#libRivetTools_la_LIBADD   = libRivetMath.la libRivetEvent.la libRivetXML.la -l$(LOG4CPPLIBNAME)
+libRivetTools_la_LIBADD   = libRivetEvent.la libRivetXML.la -l$(LOG4CPPLIBNAME)
