@@ -4,6 +4,7 @@
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
+#include "Rivet/Projections/Thrust.hh"
 #include "Rivet/RivetAIDA.hh"
 
 
@@ -14,15 +15,20 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor.
-    inline TestAnalysis() : mult(fsproj) {}
+    /// Default constructor
+    inline TestAnalysis() 
+      : p_mult(p_fs), p_thrust(p_fs)
+    { }
 
     /// Copy constructor.
     inline TestAnalysis(const TestAnalysis& x)
-      : Analysis(x), fsproj(x.fsproj), mult(x.mult) {}
+      : Analysis(x), p_fs(x.p_fs), p_mult(x.p_mult), p_thrust(x.p_thrust) 
+    { }
 
     /// Destructor
-    ~TestAnalysis();
+    ~TestAnalysis() { }
+
+  public:
 
     /// The name of this analysis is "Test"
     inline std::string name() const {
@@ -43,10 +49,13 @@ namespace Rivet {
   private:
 
     /// The FinalState projector used by this analysis.
-    FinalState fsproj;
+    FinalState p_fs;
 
     /// The Multiplicity projector used by this analysis.
-    Multiplicity mult;
+    Multiplicity p_mult;
+
+    /// The thrust projector
+    Thrust p_thrust;
 
   private:
 
@@ -55,12 +64,14 @@ namespace Rivet {
 
     //@{
     /// Histograms
-    AIDA::IHistogram1D* histTot_;
-    AIDA::IHistogram1D* histChTot_;
-    AIDA::IHistogram1D* histUnchTot_;
-    AIDA::IHistogram1D* histHadrTot_;
-    AIDA::IHistogram1D* histHadrChTot_;
-    AIDA::IHistogram1D* histHadrUnchTot_;
+    AIDA::IHistogram1D* _histTot;
+    AIDA::IHistogram1D* _histChTot;
+    AIDA::IHistogram1D* _histUnchTot;
+    AIDA::IHistogram1D* _histHadrTot;
+    AIDA::IHistogram1D* _histHadrChTot;
+    AIDA::IHistogram1D* _histHadrUnchTot;
+    AIDA::IHistogram1D* _histThrust;
+
     //@}
 
   };
