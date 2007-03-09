@@ -1,6 +1,6 @@
 noinst_LTLIBRARIES = libRivetMath.la libRivetXML.la libRivetTools.la
 
-#libRivetMath_la_SOURCES  = 
+libRivetMath_la_SOURCES  = 
 
 libRivetXML_la_SOURCES   = TinyXML/tinyxml.cpp TinyXML/tinyxmlerror.cpp TinyXML/tinyxmlparser.cpp
 libRivetXML_la_CPPFLAGS  = -I$(top_srcdir)/include/TinyXML
