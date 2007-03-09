@@ -59,7 +59,7 @@ protected:
    * Event::applyProjection(Projection *) function. If the information
    * from other projections are necessary, their project(const Event
    * &) should not be called, rather the corresponding objects should
-   * be added to the Event using the Even::applyProjection(Projection *)
+   * be added to the Event using the Event::applyProjection(Projection *)
    * function.
    */
   virtual void project(const Event & e);

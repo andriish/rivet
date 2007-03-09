@@ -12,11 +12,12 @@
 
 namespace Rivet {
 
-  /** Forward typedef from CLHEPMC. */
+  /** Forward typedef from HepMC. */
   typedef HepMC::GenEvent GenEvent;
   
-  /** Forward typedef from CLHEPMC. */
+  /** Forward typedef from HepMC. */
   typedef HepMC::GenVertex GenVertex;
+
 
   /**
    * Event is a concrete class representing an generated event in
@@ -36,19 +37,24 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    Event(const GenEvent & geneve);
+    inline Event(const GenEvent & geneve)
+      : theGenEvent(&geneve), theWeight(1.0) {
+      if ( geneve.weights().size() ) theWeight = geneve.weights()[0];
+    }
 
     /// The copy constructor.
-    inline Event(const Event &);
+    inline Event(const Event& x)  
+      : theGenEvent(x.theGenEvent), theWeight(x.theWeight) 
+    { }
 
     /// The destructor.
-    virtual ~Event();
+    virtual ~Event() { }
     //@}
 
   public:
 
     /// Return the generated event obtained from an external event generator.
-    inline const GenEvent& genEvent() const;
+    inline const GenEvent& genEvent() const { return *theGenEvent; }
 
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
@@ -57,12 +63,23 @@ namespace Rivet {
     /// Projection::project(const Event &) of \a p is called and a
     /// reference to p is returned.
     template <typename PROJ>
-    inline const PROJ& applyProjection(PROJ& p) const;
+    inline const PROJ& applyProjection(PROJ& p) const {
+      std::set<const Projection*>::const_iterator old = theProjections.find(&p);
+      if ( old != theProjections.end() ) {
+        return *( dynamic_cast<const PROJ*>(*old) );
+      }
+      // Add the projection via the Projection base class (only 
+      // possible because Event is a friend of Projection)
+      Projection* pp = &p;
+      pp->project(*this);
+      theProjections.insert(pp);
+      return p;
+    }
 
     /**
      * The weight associated with the event.
      */
-    inline double weight() const;
+    inline double weight() const { return theWeight; }
 
   private:
 
@@ -91,40 +108,6 @@ namespace Rivet {
     Event & operator=(const Event&);
 
   };
-
-
-
-  ////////////////////////////////////////////////////////
-
-
-  
-  inline Event::Event(const Event& x)
-    : theGenEvent(x.theGenEvent), theWeight(x.theWeight) { }
-
-  
-  inline const HepMC::GenEvent & Event::genEvent() const {
-    return *theGenEvent;
-  }
-
-
-  template <typename PROJ>
-  inline const PROJ&  Event::applyProjection(PROJ& p) const {
-    std::set<const Projection*>::const_iterator old = theProjections.find(&p);
-    if ( old != theProjections.end() ) {
-      return *( dynamic_cast<const PROJ*>(*old) );
-    }
-    // Add the projection via the Projection base class (only 
-    // possible because Event is a friend of Projection)
-    Projection* pp = &p;
-    pp->project(*this);
-    theProjections.insert(pp);
-    return p;
-  }
-
-    
-  inline double Event::weight() const {
-    return theWeight;
-  }
   
 }
 
