@@ -7,11 +7,11 @@
 
 namespace Rivet {
 
-class Projection;
-
-typedef Projection * ProjPtr;
-typedef const Projection * cProjPtr;
-
+  class Projection;
+  
+  typedef Projection* ProjPtr;
+  typedef const Projection* cProjPtr;
+  
 }
 
 #endif

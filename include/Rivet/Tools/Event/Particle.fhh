@@ -9,7 +9,13 @@
 
 namespace Rivet {
 
-class Particle;
+  class Particle;
+  
+  /** Typedef a vector of Particle objects. */
+  typedef std::vector<Particle> ParticleVector;
+  
+  /** Typedef a pair of Particle objects. */
+  typedef std::pair<Particle, Particle> ParticlePair;
 
 }
 

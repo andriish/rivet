@@ -5,7 +5,6 @@
 
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Tools/Event/Particle.hh"
 #include "Rivet/Tools/Event/Event.hh"
 
 
