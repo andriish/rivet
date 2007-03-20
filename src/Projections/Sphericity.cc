@@ -34,16 +34,17 @@ RivetInfo Sphericity::getInfo() const {
 
 
 void Sphericity::project(const Event & e) {
-  // Reset Parameters
+  // Reset parameters
   _sphericity = 0;  
   _planarity = 7;
   _aplanarity = 0;
+  for (size_t i =0 ; i < 3; ++i) 
+    _lambdas[i] = 0;
 
+  // Apply projection to event
   const FinalState& fs = e.applyProjection(*_fsproj);
  
   CLHEP::HepMatrix mMom(3,3,0);
-  //  map<int, const char*> cMap;
-  //  cMap[1]="x()"; cMap[2]="y()"; cMap[3]="z()";
   double totalMomentum = 0.0;
 
   // Iterate over all the final state particles
@@ -103,20 +104,16 @@ void Sphericity::project(const Event & e) {
     //cout << symMat << endl << endl;
 
     // Put the eigenvalues in the correct order
-    vector<double> order;
     for (int i=0; i!=3; ++i){
-      order.push_back(symMat[i][i]); 
-      //cout << "   " << symMat[i][i] << endl;
+      _lambdas[i] = symMat[i][i]; 
     }
-    sort(order.begin(), order.end());
-    //double lambdaOne   = order[2]; 
-    double lambdaTwo   = order[1];
-    double lambdaThree = order[0];
-    
+    const int N = sizeof(_lambdas) / sizeof(double);
+    sort(_lambdas, _lambdas + N); 
+    reverse(_lambdas, _lambdas + N); 
     //cout << "sum of lambdas =  " << lambdaOne + lambdaTwo + lambdaThree << endl;
     
-    _sphericity = 3 / 2.0 * (lambdaTwo + lambdaThree); 
-    _aplanarity = 3 / 2.0 *  lambdaThree;
+    _sphericity = 3 / 2.0 * (lambda2() + lambda3()); 
+    _aplanarity = 3 / 2.0 *  lambda3();
     _planarity  = 2 * (_sphericity - 2 * _aplanarity) / 3.0; 
   } else { 
     cerr << "Error: momentum tensor not symmetric" << endl; 

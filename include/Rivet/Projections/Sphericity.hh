@@ -58,6 +58,10 @@ namespace Rivet {
     inline const double planarity() const { return _planarity; }
     inline const double aplanarity() const { return _aplanarity; }
 
+    inline const double lambda1() const { return _lambdas[0]; }
+    inline const double lambda2() const { return _lambdas[1]; }
+    inline const double lambda3() const { return _lambdas[2]; }
+
   /**
    * Return the RivetInfo object of this Projection. Derived classes
    * should re-implement this function to return the combined
@@ -67,6 +71,9 @@ namespace Rivet {
   virtual RivetInfo getInfo() const;
 
   private:
+
+    /// Eigenvalues
+    double _lambdas[3];
 
     /// The event shapes
     double _sphericity, _planarity, _aplanarity;
