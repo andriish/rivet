@@ -11,9 +11,40 @@
 
 namespace Rivet {
 
-  /**
-   * Project out the event shape.
-   */
+  /// @brief Calculate the sphericity event shape.
+  ///
+  /// The sphericity tensor (or quadratic momentum tensor) is defined as 
+  /// \f[
+  /// S^{\alpha \beta} = 
+  /// \frac{\sum_i p_i^\alpha p_i^\beta}
+  ///      {\sum_i |\mathbf{p}_i|^2}
+  /// \f],
+  /// from which the sphericity, aplanarity and planarity can be
+  /// calculated by combinations of eigenvalues. Defining the three eigenvalues
+  /// \f$\lambda_1 \ge \lambda_2 \ge \lambda_3\f$, with \f$\lambda_1 + \lambda_2 + 
+  /// \lambda_3 = 1\f$, the sphericity is
+  /// \f[
+  /// S = \frac{3}{2} (\lambda_2 + \lambda_3)
+  /// \f].
+  /// The aplanarity is \f$A = \frac{3}{2}\lambda_3\f$ and the planarity
+  /// can be obtained through the trace constraint. The eigenvectors define a 
+  /// set of spatial axes comparable with the thrust axes, but more sensitive to 
+  /// high momentum particles due to the quadratic sensitivity of the tensor to
+  /// the particle momenta.
+  ///
+  /// Since the sphericity is quadratic in the particle momenta, it is not an
+  /// infrared safe observable in perturbative QCD. This can be fixed by adding
+  /// a regularizing power of \f$r\f$ to the definition:
+  /// \f[
+  /// S^{\alpha \beta} = 
+  /// \frac{\sum_i |\mathbf{p}_i|^{r-2} \sum_i p_i^\alpha p_i^\beta}
+  ///      {\sum_i |\mathbf{p}_i|^r}
+  /// \f].
+  ///
+  /// \f$r\f$ is available as a constructor argument on this class and will be
+  /// taken into account by the Cmp<Projection> operation, so a single analysis
+  /// can use several sphericity projections with different \f$r\f$ values without
+  /// fear of a clash.
   class Sphericity : public Projection {
 
   public:
