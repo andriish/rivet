@@ -26,7 +26,7 @@ namespace Rivet {
      the sphericity is
      \f[ 
      S = \frac{3}{2} (\lambda_2 + \lambda_3) 
-     \f].
+     \f]
      
      The aplanarity is \f$ A = \frac{3}{2}\lambda_3 \f$ and the planarity
      can be obtained through the trace constraint. The eigenvectors define a 
@@ -41,7 +41,7 @@ namespace Rivet {
      S^{\alpha \beta} = 
      \frac{\sum_i |\mathbf{p}_i|^{r-2} \sum_i p_i^\alpha p_i^\beta}
      {\sum_i |\mathbf{p}_i|^r} 
-     \f].
+     \f]
      
      \f$r\f$ is available as a constructor argument on this class and will be
      taken into account by the Cmp<Projection> operation, so a single analysis
