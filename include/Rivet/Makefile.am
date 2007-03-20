@@ -3,7 +3,7 @@ nobase_pkginclude_HEADERS = \
   Rivet.hh         RivetInfo.hh  \
   RivetCLHEP.hh    RivetAIDA.hh  \
   RivetHandler.hh  RivetHandler.fhh \
-  HistoFormat.hh
+  BeamParticle.hh  HistoFormat.hh
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
