@@ -22,15 +22,17 @@ namespace Rivet {
     //@{
     /// Default constructor. Must specify a FinalState projection which is
     //assumed to live throughout the run.
-    inline Sphericity(FinalState& fsp)
-      : sphericity_(0), planarity_(0), aplanarity_(0), fsproj(&fsp)
+    inline Sphericity(FinalState& fsp, double rparam=2)
+      : _sphericity(0), _planarity(0), _aplanarity(0), _regparam(rparam), 
+        _fsproj(&fsp)
     { }
 
     /// Copy constructor.
     inline Sphericity(const Sphericity& sp)
       : Projection(sp), 
-        sphericity_(sp.sphericity_), planarity_(sp.planarity_),
-        aplanarity_(sp.aplanarity_), fsproj(fsproj)
+        _sphericity(sp._sphericity), _planarity(sp._planarity),
+        _aplanarity(sp._aplanarity), _regparam(sp._regparam),
+        _fsproj(sp._fsproj)
     { }
 
     /// Destructor.
@@ -41,20 +43,20 @@ namespace Rivet {
 
     /// Perform the projection on the Event: only to be called by 
     /// Event::applyProjection(Projection &).
-    void project(const Event & e);
+    void project(const Event& e);
 
     /// This function defines a unique ordering between different 
     /// Projection objects of the same class. Should only be called from 
     /// operator<(const Projection &).
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
 
   public:
 
     /// name access the event shapes, 
     /// Sphericity, Planarity and APlanarity
-    inline const double eventSphericity() const { return sphericity_; }
-    inline const double eventPlanarity() const { return planarity_; }
-    inline const double eventAplanarity() const { return aplanarity_; }
+    inline const double sphericity() const { return _sphericity; }
+    inline const double planarity() const { return _planarity; }
+    inline const double aplanarity() const { return _aplanarity; }
 
   /**
    * Return the RivetInfo object of this Projection. Derived classes
@@ -67,10 +69,13 @@ namespace Rivet {
   private:
 
     /// The event shapes
-    double sphericity_, planarity_, aplanarity_;
+    double _sphericity, _planarity, _aplanarity;
 
-    /// The FinalState projection used by this projection
-    FinalState * fsproj;
+    /// Regularizing parameter, used to force infra-red safety.
+    const double _regparam;
+
+    /// The FinalState projection used by this projection.
+    FinalState* _fsproj;
 
   private:
 

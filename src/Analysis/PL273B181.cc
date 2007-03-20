@@ -28,104 +28,104 @@ PL273B181::~PL273B181() {}
 //------------------------------------------------
 // Functions for chi squared calculations:
 
-// Structure for storing the data
-struct histogramData {
-  double bin;
-  double yExp;
-  double yExpErr;  
-};
+// // Structure for storing the data
+// struct histogramData {
+//   double bin;
+//   double yExp;
+//   double yExpErr;  
+// };
  
-// Function to split the lines of the data files
-vector<string> split(const string& s)
-{
-  vector<string> ret;
-  typedef string::size_type string_size;
-  string_size i = 0;
+// // Function to split the lines of the data files
+// vector<string> split(const string& s)
+// {
+//   vector<string> ret;
+//   typedef string::size_type string_size;
+//   string_size i = 0;
 
-  while (i != s.size()) {
-    while (i != s.size() && isspace(s[i]))
-      ++i;
-      string_size j = i;
-      while (j != s.size() && !isspace(s[j]))
-	++j;
-	if (i != j) {
-	  ret.push_back(s.substr(i, j - i));
-	  i = j;
-	}
-  }
-  return ret;
-}
+//   while (i != s.size()) {
+//     while (i != s.size() && isspace(s[i]))
+//       ++i;
+//       string_size j = i;
+//       while (j != s.size() && !isspace(s[j]))
+// 	++j;
+// 	if (i != j) {
+// 	  ret.push_back(s.substr(i, j - i));
+// 	  i = j;
+// 	}
+//   }
+//   return ret;
+// }
 
-// Calculate Chi Squared for a given set of values/error
-double chi (double yexp, double yerr, double ysim) {
-  if (yerr == 0) {
-    return ((ysim - yexp)*(ysim-yexp)); 
-  }
-  else {
-    return  ((ysim - yexp)*(ysim-yexp)/(yerr*yerr));
-  }
-}
+// // Calculate Chi Squared for a given set of values/error
+// double chi (double yexp, double yerr, double ysim) {
+//   if (yerr == 0) {
+//     return ((ysim - yexp)*(ysim-yexp)); 
+//   }
+//   else {
+//     return  ((ysim - yexp)*(ysim-yexp)/(yerr*yerr));
+//   }
+// }
 
-// Template function to convert to double
-template <class T>
-double conv (T value) {
-  double doubleOut;   
-  stringstream valueIn;
-  valueIn.clear();
-  valueIn << value;
-  valueIn >> doubleOut;
-  return doubleOut;
-}
+// // Template function to convert to double
+// template <class T>
+// double conv (T value) {
+//   double doubleOut;   
+//   stringstream valueIn;
+//   valueIn.clear();
+//   valueIn << value;
+//   valueIn >> doubleOut;
+//   return doubleOut;
+// }
 
-// Main function that will calculate chi squared 
-// from two given histograms (in files)
-double ChiError(const char* simData, const char* expData)
-{
-  string s, test;
-  vector<string> store;
-  vector<double> ySim;
-  histogramData hD;
-  vector<histogramData> mExp;
-  double chitot = 0;
-  ySim.clear();
-  ifstream expFile(expData);
-  ifstream simFile(simData);
+// // Main function that will calculate chi squared 
+// // from two given histograms (in files)
+// double ChiError(const char* simData, const char* expData)
+// {
+//   string s, test;
+//   vector<string> store;
+//   vector<double> ySim;
+//   histogramData hD;
+//   vector<histogramData> mExp;
+//   double chitot = 0;
+//   ySim.clear();
+//   ifstream expFile(expData);
+//   ifstream simFile(simData);
 
-  //read in experimental data for comparison with all other files
-  while (getline(expFile, s)) {                           
-    store.clear();
-    store = split(s);
-    test = store[0];
-    if (isalnum(test[0])) {
-      hD.bin     = conv(store[0]);
-      hD.yExp    = conv(store[1]);
-      hD.yExpErr = (conv(store[2])+conv(store[3]));
-      mExp.push_back(hD);
-    }
-  } 
+//   //read in experimental data for comparison with all other files
+//   while (getline(expFile, s)) {                           
+//     store.clear();
+//     store = split(s);
+//     test = store[0];
+//     if (isalnum(test[0])) {
+//       hD.bin     = conv(store[0]);
+//       hD.yExp    = conv(store[1]);
+//       hD.yExpErr = (conv(store[2])+conv(store[3]));
+//       mExp.push_back(hD);
+//     }
+//   } 
      
-  //read in the simulated data file and store it for comparison       
-  while (getline(simFile, s)) {
-    store.clear();
-    store = split(s);
-    test = store[0];
-    if (isalnum(test[0])) {
-      ySim.push_back(conv(store[1]));
-    }
-  }
+//   //read in the simulated data file and store it for comparison       
+//   while (getline(simFile, s)) {
+//     store.clear();
+//     store = split(s);
+//     test = store[0];
+//     if (isalnum(test[0])) {
+//       ySim.push_back(conv(store[1]));
+//     }
+//   }
 
-  //add up the chi squared values
-  for (vector<double>::size_type i = 0; i != ySim.size(); ++i) {
-    chitot += chi(mExp[i].yExp, mExp[i].yExpErr, ySim[i]);          
+//   //add up the chi squared values
+//   for (vector<double>::size_type i = 0; i != ySim.size(); ++i) {
+//     chitot += chi(mExp[i].yExp, mExp[i].yExpErr, ySim[i]);          
  
- cout << "  yExp:   = " << mExp[i].yExp
-      << "  yErr:    = " << mExp[i].yExpErr     
-      << "  ySim:   = " << ySim[i] 
-      << endl;
+//  cout << "  yExp:   = " << mExp[i].yExp
+//       << "  yErr:    = " << mExp[i].yExpErr     
+//       << "  ySim:   = " << ySim[i] 
+//       << endl;
 
-  }
-return chitot;
-}
+//   }
+// return chitot;
+// }
 
 // ------------------------------------------------
 
@@ -154,17 +154,17 @@ void PL273B181::analyze(const Event & event) {
   //Analyse the event shape info
   const Sphericity& s = event.applyProjection(spher);
   log << LogPriority::INFO << "Sphericity    = " 
-      << s.eventSphericity() << endlog;
+      << s.sphericity() << endlog;
   log << LogPriority::INFO << "Aplanarity    = " 
-      << s.eventAplanarity() << endlog;
+      << s.aplanarity() << endlog;
   log << LogPriority::INFO << "Planarity     = " 
-      << s.eventPlanarity() << endlog;
+      << s.planarity() << endlog;
 
   // Fill histograms here, and scale them later
   histChTot_->fill(m.totalChargedMultiplicity(), 1.0);
-  histSphericity_->fill(s.eventSphericity(), 1.0);
-  histPlanarity_->fill(s.eventPlanarity(), 1.0);
-  histAplanarity_->fill(s.eventAplanarity(), 1.0);
+  histSphericity_->fill(s.sphericity(), 1.0);
+  histPlanarity_->fill(s.planarity(), 1.0);
+  histAplanarity_->fill(s.aplanarity(), 1.0);
   
   // Finished...
   log << LogPriority::DEBUG << "Finished analyzing" << endlog;
