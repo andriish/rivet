@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+# This variable needs to exist
+prefix=@prefix@
+
+if [[ -n $( echo $* | egrep -- "--help|-h" ) ]]; then
+    echo "rivet-config: configuration tool for the Rivet generator validation system"
+    echo "              http://projects.hepforge.org/rivet/"
+    echo
+    echo "Usage: `basename $0` [[--help|-h] | [--prefix] | [--sharedir]]"
+    echo "Options:"
+    echo "  --help | -h   : show this help message"
+    echo "  --prefix      : show the installation prefix (cf. autoconf)"
+    echo "  --sharedir    : show the path to the directory containing shared data"
+    echo
+fi
+
+if [[ -n $( echo $* | egrep -- --prefix ) ]]; then
+    echo $prefix
+fi
+
+if [[ -n $( echo $* | egrep -- --sharedir ) ]]; then
+    echo @datadir@/@PACKAGE_TARNAME@/
+fi
