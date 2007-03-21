@@ -64,6 +64,8 @@ src/Projections/Makefile
 src/Analysis/Makefile
 src/Test/Makefile
 data/Makefile
+bin/Makefile
+bin/rivet-config
 Makefile],)
 
 AC_OUTPUT
