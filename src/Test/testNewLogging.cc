@@ -9,7 +9,7 @@ using namespace std;
 class Log {
 
 public:
-  enum Level { 
+  enum Level {
     TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, ERROR = 40 
   };
   
@@ -111,9 +111,10 @@ ostream& operator<<(Log& log, const Log::Level& level) {
 
 
 int main() {
-  Log log("foo");
+  Log log = Log::getLog("foo");
   log << Log::INFO << "hello" << endl;
   log << Log::DEBUG << "hi" << endl;
+  log.setLevel(Log::DEBUG);
   log << Log::WARN << "hola" << endl;
   log << Log::DEBUG << "hey" << endl;
   return EXIT_SUCCESS;
