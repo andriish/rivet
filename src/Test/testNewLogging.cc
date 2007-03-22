@@ -6,33 +6,40 @@
 using namespace std;
 
 
-enum LogLevel { 
-  TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, ERROR = 40 
-};
-
-
-class Logger {
-
-  friend ostream& operator<<(Logger& log, const LogLevel& level);
+class Log {
 
 public:
-  Logger(const string& name) 
-    : _name(name), _level(INFO), _nostream(new ostream(0)), _writeTime(true) { }
-
-  Logger(const string& name, const LogLevel& level) 
-    : _name(name), _level(level), _nostream(new ostream(0)), _writeTime(true) { }
+  enum Level { 
+    TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, ERROR = 40 
+  };
   
 public:
-  LogLevel getLevel() const {
+  Log(const string& name) 
+    : _name(name), _level(INFO), _nostream(new ostream(0)), _writeTime(true) { }
+
+  Log(const string& name, const Level& level) 
+    : _name(name), _level(level), _nostream(new ostream(0)), _writeTime(true) { }
+
+public:
+  static Log& getLog(const string& name) {
+    return *(new Log(name));
+  }
+
+  static Log& getLog(const string& name, const Level& level) {
+    return *(new Log(name, level));
+  }
+    
+public:
+  Level getLevel() const {
     return _level;
   }
 
-  Logger& setLevel(const LogLevel& level) {
+  Log& setLevel(const Level& level) {
     _level = level;
     return *this;
   }
 
-  static string getLevelName(const LogLevel& level) {
+  static string getLevelName(const Level& level) {
     switch(level) {
     case TRACE:
       return "TRACE";
@@ -51,7 +58,7 @@ public:
     return _name;
   }
 
-  Logger& setName(const string& name) {
+  Log& setName(const string& name) {
     _name = name;
     return *this;
   }
@@ -60,35 +67,38 @@ public:
     return _writeTime;
   }
 
-  Logger& writeTime(const bool writeTime) {
+  Log& writeTime(const bool writeTime) {
     _writeTime = writeTime;
     return *this;
   }
 
-  bool isActive(const LogLevel& level) const {
+  bool isActive(const Level& level) const {
     return (level >= _level);
   }
 
 private:
   string _name;
 
-  LogLevel _level;
+  Level _level;
 
   bool _writeTime;
 
   ostream* const _nostream;
 
+public:
+  friend ostream& operator<<(Log& log, const Level& level);
+
 };
   
   
-ostream& operator<<(Logger& log, const LogLevel& level) {
+ostream& operator<<(Log& log, const Log::Level& level) {
   if (log.isActive(level)) {
     time_t rawtime;
     time(&rawtime);
     char* timestr = ctime(&rawtime);
     timestr[24] = ' ';
 
-    cout << Logger::getLevelName(level) << " ";
+    cout << Log::getLevelName(level) << " ";
     cout << log.getName() << ": ";
     if (log.writeTime()) {
       cout << timestr << " ";
@@ -101,10 +111,10 @@ ostream& operator<<(Logger& log, const LogLevel& level) {
 
 
 int main() {
-  Logger log("foo");
-  log << INFO << "hello" << endl;
-  log << DEBUG << "hi" << endl;
-  log << WARN << "hola" << endl;
-  log << DEBUG << "hey" << endl;
+  Log log("foo");
+  log << Log::INFO << "hello" << endl;
+  log << Log::DEBUG << "hi" << endl;
+  log << Log::WARN << "hola" << endl;
+  log << Log::DEBUG << "hey" << endl;
   return EXIT_SUCCESS;
 }
