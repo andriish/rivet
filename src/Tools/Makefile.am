@@ -9,5 +9,4 @@ libRivetExtTools_la_SOURCES =
 
 libRivetTools_la_SOURCES  = Logging.cc RivetAIDA.cc
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA
-libRivetTools_la_LDFLAGS  = -L$(LOG4CPPLIBPATH) -R$(LOG4CPPLIBPATH)
-libRivetTools_la_LIBADD   = libRivetMath.la libRivetXML.la libRivetExtTools.la -l$(LOG4CPPLIBNAME)
+libRivetTools_la_LIBADD   = libRivetMath.la libRivetXML.la libRivetExtTools.la

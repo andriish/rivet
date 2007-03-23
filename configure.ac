@@ -33,20 +33,20 @@ AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
 
 ## Logging framework
-AC_CEDAR_LIBRARYANDHEADERS([log4cpp], , , [AC_MSG_ERROR([log4cpp is required])])
+dnl AC_CEDAR_LIBRARYANDHEADERS([log4cpp], , , [AC_MSG_ERROR([log4cpp is required])])
 
 ## Conditionally install AIDA headers
-AC_CEDAR_HEADERS([AIDA], , [no_aida=no], [AC_MSG_NOTICE([Installing AIDA headers])]
-no_aida=yes)
-AM_CONDITIONAL(NO_INSTALLED_AIDA, [test "$no_aida" == "yes"])
+dnl AC_CEDAR_HEADERS([AIDA], , [no_aida=no], [AC_MSG_NOTICE([Installing AIDA headers])]
+dnl no_aida=yes)
+dnl AM_CONDITIONAL(NO_INSTALLED_AIDA, [test "$no_aida" == "yes"])
 
 ## Conditionally install LWH headers
-AC_CEDAR_HEADERS([LWH], , [no_lwh=no], [AC_MSG_NOTICE([Installing LWH headers])] 
-no_lwh=yes)
-AM_CONDITIONAL(NO_INSTALLED_LWH, [test "$no_lwh" == "yes"])
+dnl AC_CEDAR_HEADERS([LWH], , [no_lwh=no], [AC_MSG_NOTICE([Installing LWH headers])] 
+dnl no_lwh=yes)
+dnl AM_CONDITIONAL(NO_INSTALLED_LWH, [test "$no_lwh" == "yes"])
 
 ## Set default build flags
-AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(CLHEPINCPATH) -I\$(HEPMCINCPATH) -I\$(LOG4CPPINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"
+AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(CLHEPINCPATH) -I\$(HEPMCINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"
 AM_CXXFLAGS="-ansi -pedantic -Wall"
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
