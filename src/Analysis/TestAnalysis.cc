@@ -29,20 +29,20 @@ void TestAnalysis::init() {
 
 // Do the analysis
 void TestAnalysis::analyze(const Event & event) {
-  Logger& log = getLogger(ANALYSIS_TEST);
-  log << LogPriority::DEBUG << "Starting analyzing" << endlog;
+  Log log = Log::getLog("Rivet.Analyses.AnalysisTest");
+  log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info
   const Multiplicity& m = event.applyProjection(p_mult);
-  log << LogPriority::INFO << "Total multiplicity            = " << m.totalMultiplicity()           << endlog;
-  log << LogPriority::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endlog;
-  log << LogPriority::INFO << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endlog;
-  log << LogPriority::INFO << "Hadron multiplicity           = " << m.hadronMultiplicity()          << endlog;
-  log << LogPriority::INFO << "Hadron charged multiplicity   = " << m.hadronChargedMultiplicity()   << endlog;
-  log << LogPriority::INFO << "Hadron uncharged multiplicity = " << m.hadronUnchargedMultiplicity() << endlog;
+  log << Log::INFO << "Total multiplicity            = " << m.totalMultiplicity()           << endl;
+  log << Log::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endl;
+  log << Log::INFO << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endl;
+  log << Log::INFO << "Hadron multiplicity           = " << m.hadronMultiplicity()          << endl;
+  log << Log::INFO << "Hadron charged multiplicity   = " << m.hadronChargedMultiplicity()   << endl;
+  log << Log::INFO << "Hadron uncharged multiplicity = " << m.hadronUnchargedMultiplicity() << endl;
 
   const Thrust& t = event.applyProjection(p_thrust);
-  log << LogPriority::INFO << "Thrust = " << t.thrust() << endlog;
+  log << Log::INFO << "Thrust = " << t.thrust() << endl;
 
   // Fill histograms
   _histTot->fill(m.totalMultiplicity(), 1.0);
@@ -55,7 +55,7 @@ void TestAnalysis::analyze(const Event & event) {
   _histThrust->fill(t.thrust(), 1.0);
   
   // Finished...
-  log << LogPriority::DEBUG << "Finished analyzing" << endlog;
+  log << Log::DEBUG << "Finished analyzing" << endl;
 }
 
 

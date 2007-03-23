@@ -4,7 +4,7 @@ MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
 
 testLogging_SOURCES  = testLogging.cc
 testLogging_LDFLAGS  = $(MYLDFLAGS)
-testLogging_LDADD    = -lRivet
+testLogging_LDADD    = -lRivetTools
 
 testRivetHandler_SOURCES  = testRivetHandler.cc
 testRivetHandler_LDFLAGS  = $(MYLDFLAGS)

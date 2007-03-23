@@ -9,7 +9,6 @@
 //#include "AIDA/IHistogram1D.h"
 
 
-
 namespace Rivet {
 
   /// This class just measures the charged multiplicity
@@ -30,7 +29,8 @@ namespace Rivet {
 
 
     /// Destructor
-    virtual ~PL273B181();
+    inline ~PL273B181() 
+    { }
 
   public:
 

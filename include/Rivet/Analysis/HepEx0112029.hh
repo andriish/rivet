@@ -20,13 +20,18 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    HepEx0112029();
+    inline HepEx0112029()
+      : fs(), ktjets(fs) 
+    { }
 
     /// Copy constructor.
-    inline HepEx0112029(const HepEx0112029& x) : Analysis(x), ktjets(x.ktjets) {}
+    inline HepEx0112029(const HepEx0112029& x) 
+      : Analysis(x), ktjets(x.ktjets) 
+    { }
 
     /// Destructor
-    ~HepEx0112029();
+    inline ~HepEx0112029()
+    { }
 
     /// The name of this analysis is "HepEx0112029"
     inline std::string name() const {

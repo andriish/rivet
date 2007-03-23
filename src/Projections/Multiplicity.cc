@@ -15,8 +15,7 @@ int Multiplicity::compare(const Projection & p) const {
 
 
 void Multiplicity::project(const Event & e) {
-  Logger& log = getLogger();
-  log.setPriority(LogPriority::INFO);
+  Log& log = Log::getLog("Rivet.Projections.Multiplicity");
 
   // Clear counters
   totalMult_ = 0;
@@ -40,16 +39,16 @@ void Multiplicity::project(const Event & e) {
         ++hadMult_;
         ++hadChMult_;
       }
-      log << LogPriority::DEBUG << "Incrementing charged multiplicity   = " << totalChMult_ 
-          << " (" << hadChMult_ << " hadrons)" << endlog;
+      log << Log::DEBUG << "Incrementing charged multiplicity   = " << totalChMult_ 
+          << " (" << hadChMult_ << " hadrons)" << endl;
     } else {
       ++totalUnchMult_;
       if (isHadron) {
         ++hadMult_;
         ++hadUnchMult_;
       }
-      log << LogPriority::DEBUG << "Incrementing uncharged multiplicity = " << totalUnchMult_
-          << " (" << hadUnchMult_ << " hadrons)" << endlog;
+      log << Log::DEBUG << "Incrementing uncharged multiplicity = " << totalUnchMult_
+          << " (" << hadUnchMult_ << " hadrons)" << endl;
     }
   }
 }

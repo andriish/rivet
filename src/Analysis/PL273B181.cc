@@ -6,133 +6,14 @@
 
 #include "AIDA/IAxis.h"
 #include "AIDA/IHistogram1D.h"
+
 using namespace AIDA;
-
-
-// includes for chi squared calculations:
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <vector>
-#include <sstream>
-#include <cctype>
-
-
 using namespace Rivet;
 using namespace HepMC;
 using namespace std;
 
 
-PL273B181::~PL273B181() {}
-
-//------------------------------------------------
-// Functions for chi squared calculations:
-
-// // Structure for storing the data
-// struct histogramData {
-//   double bin;
-//   double yExp;
-//   double yExpErr;  
-// };
- 
-// // Function to split the lines of the data files
-// vector<string> split(const string& s)
-// {
-//   vector<string> ret;
-//   typedef string::size_type string_size;
-//   string_size i = 0;
-
-//   while (i != s.size()) {
-//     while (i != s.size() && isspace(s[i]))
-//       ++i;
-//       string_size j = i;
-//       while (j != s.size() && !isspace(s[j]))
-// 	++j;
-// 	if (i != j) {
-// 	  ret.push_back(s.substr(i, j - i));
-// 	  i = j;
-// 	}
-//   }
-//   return ret;
-// }
-
-// // Calculate Chi Squared for a given set of values/error
-// double chi (double yexp, double yerr, double ysim) {
-//   if (yerr == 0) {
-//     return ((ysim - yexp)*(ysim-yexp)); 
-//   }
-//   else {
-//     return  ((ysim - yexp)*(ysim-yexp)/(yerr*yerr));
-//   }
-// }
-
-// // Template function to convert to double
-// template <class T>
-// double conv (T value) {
-//   double doubleOut;   
-//   stringstream valueIn;
-//   valueIn.clear();
-//   valueIn << value;
-//   valueIn >> doubleOut;
-//   return doubleOut;
-// }
-
-// // Main function that will calculate chi squared 
-// // from two given histograms (in files)
-// double ChiError(const char* simData, const char* expData)
-// {
-//   string s, test;
-//   vector<string> store;
-//   vector<double> ySim;
-//   histogramData hD;
-//   vector<histogramData> mExp;
-//   double chitot = 0;
-//   ySim.clear();
-//   ifstream expFile(expData);
-//   ifstream simFile(simData);
-
-//   //read in experimental data for comparison with all other files
-//   while (getline(expFile, s)) {                           
-//     store.clear();
-//     store = split(s);
-//     test = store[0];
-//     if (isalnum(test[0])) {
-//       hD.bin     = conv(store[0]);
-//       hD.yExp    = conv(store[1]);
-//       hD.yExpErr = (conv(store[2])+conv(store[3]));
-//       mExp.push_back(hD);
-//     }
-//   } 
-     
-//   //read in the simulated data file and store it for comparison       
-//   while (getline(simFile, s)) {
-//     store.clear();
-//     store = split(s);
-//     test = store[0];
-//     if (isalnum(test[0])) {
-//       ySim.push_back(conv(store[1]));
-//     }
-//   }
-
-//   //add up the chi squared values
-//   for (vector<double>::size_type i = 0; i != ySim.size(); ++i) {
-//     chitot += chi(mExp[i].yExp, mExp[i].yExpErr, ySim[i]);          
- 
-//  cout << "  yExp:   = " << mExp[i].yExp
-//       << "  yErr:    = " << mExp[i].yExpErr     
-//       << "  ySim:   = " << ySim[i] 
-//       << endl;
-
-//   }
-// return chitot;
-// }
-
-// ------------------------------------------------
-
-
-// Book histograms
 void PL273B181::init() {
-
   // Book histograms
   histChTot_       = bookHistogram1D("TotalChMult","Total charged multiplicity", 25, 1.0, 51.0);
   histSphericity_  = bookHistogram1D("Sphericity", "Event Shape: Sphericity", 8, 0.0, 0.70);
@@ -140,25 +21,21 @@ void PL273B181::init() {
   histPlanarity_   = bookHistogram1D("Planarity",  "Event Shape: Planarity", 16, 0.0, 0.70);
 }
 
+
 // Do the analysis
 void PL273B181::analyze(const Event & event) {
-  Logger& log = getLogger();
-  log.setPriority(LogPriority::INFO);
-  log << LogPriority::DEBUG << "Starting analyzing" << endlog;
+  Log& log = Log::getLog("Rivet.Analyses.PL273B181");
+  log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info
   const Multiplicity& m = event.applyProjection(mult);
-  //log << LogPriority::INFO << "Total charged multiplicity    = " 
-  //    << m.totalChargedMultiplicity() << endlog;
+  log << Log::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity() << endl;
 
   //Analyse the event shape info
   const Sphericity& s = event.applyProjection(spher);
-  log << LogPriority::INFO << "Sphericity    = " 
-      << s.sphericity() << endlog;
-  log << LogPriority::INFO << "Aplanarity    = " 
-      << s.aplanarity() << endlog;
-  log << LogPriority::INFO << "Planarity     = " 
-      << s.planarity() << endlog;
+  log << Log::INFO << "Sphericity    = " << s.sphericity() << endl;
+  log << Log::INFO << "Aplanarity    = " << s.aplanarity() << endl;
+  log << Log::INFO << "Planarity     = " << s.planarity() << endl;
 
   // Fill histograms here, and scale them later
   histChTot_->fill(m.totalChargedMultiplicity(), 1.0);
@@ -167,19 +44,18 @@ void PL273B181::analyze(const Event & event) {
   histAplanarity_->fill(s.aplanarity(), 1.0);
   
   // Finished...
-  log << LogPriority::DEBUG << "Finished analyzing" << endlog;
+  log << Log::DEBUG << "Finished analyzing" << endl;
 }
 
 // Finalize
 void PL273B181::finalize() { 
-  Logger& log = getLogger();
-  log.setPriority(LogPriority::INFO);
+  Log& log = Log::getLog("Rivet.Analyses.PL273B181");
 
   double area = 0;
   for (int i=0; i < histSphericity_->axis().bins(); ++i) {
     area += histSphericity_->binHeight(i) * histSphericity_->axis().binWidth(i); 
   }
-  log << LogPriority::INFO << "Area under histogram: " << area << endlog;
+  log << Log::INFO << "Area under histogram: " << area << endl;
 
 
   // Normalize the histogram areas to 1
@@ -191,8 +67,8 @@ void PL273B181::finalize() {
   histPlanarity_->scale(1/histPlanarity_->sumBinHeights() ); 
   histAplanarity_->scale(1/histAplanarity_->sumBinHeights() );
 
-  log << LogPriority::INFO << "Sum of sph bin heights after normalization: " 
-      << histSphericity_->sumBinHeights() << endlog;
+  log << Log::INFO << "Sum of sph bin heights after normalization: " 
+      << histSphericity_->sumBinHeights() << endl;
 }
 
 

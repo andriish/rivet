@@ -14,52 +14,39 @@ using namespace HepMC;
 /////////////////////////////////////////////////
 
 
-// Constructore
-HepEx0112029::HepEx0112029() :
-  fs(),
-  ktjets(fs) 
-{ }
-
-
-
-
-HepEx0112029::~HepEx0112029() {}
-
-
 // Book histograms
 void HepEx0112029::init() {
-  histJetEt1_         = bookHistogram1D("JetET1", "Jet transverse energy", 11, 14., 75.);
+  histJetEt1_ = bookHistogram1D("JetET1", "Jet transverse energy", 11, 14., 75.);
 }
 
 
 // Do the analysis
 void HepEx0112029::analyze(const Event & event) {
-  Logger& log = getLogger(ANALYSIS_HEPEX0112029);
-  log << LogPriority::DEBUG << "Starting analyzing" << endlog;
+  Log& log = Log::getLog("Rivet.Analyses.HepEx0112029");
+  log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info
   const KtJets& jets = event.applyProjection(ktjets);
 
   int nj = jets.getNJets();
 
-  log << LogPriority::INFO << "Jet multiplicity            = " << nj << endlog;
+  log << Log::INFO << "Jet multiplicity            = " << nj << endl;
 
   std::vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
 
   // Fill histograms
   for (std::vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); j++) {
-
     histJetEt1_->fill(j->perp(), 1.0);
-
   }
   
   // Finished...
-  log << LogPriority::DEBUG << "Finished analyzing" << endlog;
+  log << Log::DEBUG << "Finished analyzing" << endl;
 }
 
 
 // Finalize
-void HepEx0112029::finalize() { }
+void HepEx0112029::finalize() 
+{ }
 
 
 // Provide info object

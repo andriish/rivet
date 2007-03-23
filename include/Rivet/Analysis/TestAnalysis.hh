@@ -26,7 +26,8 @@ namespace Rivet {
     { }
 
     /// Destructor
-    ~TestAnalysis() { }
+    inline ~TestAnalysis() 
+    { }
 
   public:
 

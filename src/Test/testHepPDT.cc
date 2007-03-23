@@ -7,11 +7,10 @@ using namespace std;
 using namespace Rivet;
 
 int main() {
-  Logger& log = getLogger();
-  log.setPriority(LogPriority::INFO);
+  Log& log = Log::getLog("Test");
   
   HepPDT::ParticleID pInfo(11);
-  log << LogPriority::INFO << "PID: " << pInfo.pid() << endlog;
+  log << Log::INFO << "PID: " << pInfo.pid() << endl;
   if (pInfo.isHadron()) log.info("It's a hadron");
   if (pInfo.isLepton()) log.info("It's a lepton");
 

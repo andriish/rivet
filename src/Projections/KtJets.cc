@@ -16,9 +16,6 @@ int KtJets::compare(const Projection & p) const {
 }
 
 void KtJets::project(const Event & e) {
-  Logger& log = getLogger();
-  log.setPriority(LogPriority::INFO);
-
   vector<KtJet::KtLorentzVector> vecs;
 
   // Project into final state
