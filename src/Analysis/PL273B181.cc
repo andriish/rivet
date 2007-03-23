@@ -24,7 +24,7 @@ void PL273B181::init() {
 
 // Do the analysis
 void PL273B181::analyze(const Event & event) {
-  Log& log = Log::getLog("Rivet.Analyses.PL273B181");
+  Log& log = getLog();
   log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info
@@ -49,7 +49,7 @@ void PL273B181::analyze(const Event & event) {
 
 // Finalize
 void PL273B181::finalize() { 
-  Log& log = Log::getLog("Rivet.Analyses.PL273B181");
+  Log& log = getLog();
 
   double area = 0;
   for (int i=0; i < histSphericity_->axis().bins(); ++i) {

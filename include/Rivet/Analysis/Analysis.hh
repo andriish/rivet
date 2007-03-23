@@ -1,16 +1,12 @@
 // -*- C++ -*-
 #ifndef RIVET_Analysis_HH
 #define RIVET_Analysis_HH
-//
-// This is the declaration of the Analysis base class.
-//
 
 #include "Rivet/Analysis/Analysis.fhh"
-
 #include "Rivet/RivetInfo.hh"
 #include "Rivet/RivetHandler.fhh"
 #include "Rivet/Tools/Event/Event.fhh"
-
+#include "Rivet/Tools/Logging.hh"
 
 namespace AIDA {
   class IAnalysisFactory;
@@ -104,7 +100,10 @@ namespace Rivet {
 
 
   protected:
+    /// Get a Log object based on the name() property of the calling analysis object.
+    Log& getLog();
 
+  protected:
     /// Access the AIDA analysis factory of the controlling RivetHandler object.
     AIDA::IAnalysisFactory& analysisFactory();
 
@@ -119,6 +118,23 @@ namespace Rivet {
     /// get the pointer from a reference before they can use it!)
     AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
                                         const int nbins, const double lower, const double upper);
+
+    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
+                                        const vector<double>& binedges);
+
+    /// Book a 1D histogram based on the paper, dataset and y-axis IDs in the corresponding
+    /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
+    /// of the same filename as the analysis' name() property.
+    /// @todo Implement auto-binning histo booking methods!
+    AIDA::IHistogram1D* bookHistogram1D(const unsigned int paperId, const unsigned int datasetId, 
+                                        const unsigned int axisId, const std::string& title);
+
+    /// Book a 1D histogram based on the paper-dataset-axis ID code for the corresponding
+    /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
+    /// of the same filename as the analysis' name() property.
+    /// @todo Implement auto-binning histo booking methods!
+    AIDA::IHistogram1D* bookHistogram1D(const string hdcode, const std::string& title);
+
 
     /// Make the histogram directory
     void makeHistoDir();

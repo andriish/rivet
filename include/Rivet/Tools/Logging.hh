@@ -91,7 +91,7 @@ namespace Rivet {
   };
   
 
-  std::ostream& operator<<(Rivet::Log& log, const Rivet::Log::Level& level);
+  std::ostream& operator<<(Log& log, const Log::Level& level);
   
 }
 

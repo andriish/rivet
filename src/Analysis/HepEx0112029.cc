@@ -22,7 +22,7 @@ void HepEx0112029::init() {
 
 // Do the analysis
 void HepEx0112029::analyze(const Event & event) {
-  Log& log = Log::getLog("Rivet.Analyses.HepEx0112029");
+  Log& log = getLog();
   log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info

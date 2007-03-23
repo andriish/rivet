@@ -29,7 +29,7 @@ void TestAnalysis::init() {
 
 // Do the analysis
 void TestAnalysis::analyze(const Event & event) {
-  Log log = Log::getLog("Rivet.Analyses.AnalysisTest");
+  Log log = getLog();
   log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info

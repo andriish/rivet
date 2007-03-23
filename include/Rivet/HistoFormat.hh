@@ -5,6 +5,10 @@
 #ifndef RIVET_HistoFormat_HH
 #define RIVET_HistoFormat_HH
 
+#include <vector>
+#include <string>
+
+
 namespace Rivet {
 
   /// Enumeration of available histogram output formats.

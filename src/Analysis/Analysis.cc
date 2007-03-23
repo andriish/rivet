@@ -74,6 +74,22 @@ IHistogramFactory& Analysis::histogramFactory() {
 }
 
 
+Log& Analysis::getLog() {
+  string logname = "Rivet.Analysis." + name();
+  return Log::getLog(logname);
+}
+
+
+IHistogram1D* bookHistogram1D(const unsigned int paperId, const unsigned int datasetId, 
+                              const unsigned int axisId, const std::string& title) {
+  throw runtime_error("Analysis::bookHistogram1D(int paperId, int datasetId, int axisId, string title) is not yet implemented.");
+}
+
+IHistogram1D* bookHistogram1D(const string hdcode, const std::string& title) {
+  throw runtime_error("Analysis::bookHistogram1D(string hdcode, string title) is not yet implemented.");
+}
+
+
 IHistogram1D* Analysis::bookHistogram1D(const std::string& name, const std::string& title, 
                                         const int nbins, const double lower, const double upper) {
   makeHistoDir();
