@@ -1,0 +1,17 @@
+// $Id: $
+#ifndef ANALYSIS_RIVETAIDA_FHH 
+#define ANALYSIS_RIVETAIDA_FHH 1
+
+/// @author Andy Buckley
+/// @date   2007-03-23
+/// @brief Forward declarations of AIDA interfaces
+
+namespace AIDA {
+  class IAnalysisFactory;
+  class IHistogramFactory;
+  class IHistogram1D;
+  class ITreeFactory;
+  class ITree;
+}
+
+#endif // ANALYSIS_RIVETAIDA_FHH

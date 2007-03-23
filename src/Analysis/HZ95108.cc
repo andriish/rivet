@@ -6,15 +6,19 @@
 
 #include "Rivet/Analysis/HZ95108.hh"
 #include "Rivet/RivetCLHEP.hh"
+#include "Rivet/RivetAIDA.hh"
 
 using namespace Rivet;
 using namespace std;
 using namespace CLHEP;
 
+
 HZ95108::~HZ95108() {}
+
 
 const double HZ95108::xmin = -6.0;
 const double HZ95108::xmax = 6.0;
+
 
 void HZ95108::init() {
   hEtFlow = vector<AIDA::IHistogram1D *>(nbin);
@@ -38,6 +42,7 @@ void HZ95108::init() {
   hN =    histogramFactory().createHistogram1D("/HZ95108/24", nbin, 1.0, 10.0);
   hN->setTitle("# events vs kin. bin");
 }
+
 
 int HZ95108::getbin(const DISKinematics & dk) {
   const double GeV2 = GeV*GeV;
@@ -68,6 +73,7 @@ int HZ95108::getbin(const DISKinematics & dk) {
   }
   return -1;
 }
+
 
 void HZ95108::analyze(const Event & event) {
   const FinalStateHCM & fs = event.applyProjection(fsproj);

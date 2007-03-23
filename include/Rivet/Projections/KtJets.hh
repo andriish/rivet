@@ -42,6 +42,12 @@ namespace Rivet {
     virtual ~KtJets() { delete pktev_; };
     //@}
 
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "KtJets";
+    }
+
   protected:   
 
     /// Perform the projection on the Event: only to be called by 

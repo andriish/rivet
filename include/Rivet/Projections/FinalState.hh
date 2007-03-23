@@ -44,6 +44,12 @@ namespace Rivet {
      */
     virtual ~FinalState();
     //@}
+
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "FinalState";
+    }
     
   protected:
     

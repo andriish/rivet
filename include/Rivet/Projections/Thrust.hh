@@ -35,6 +35,12 @@ namespace Rivet {
     virtual ~Thrust() { }
     //@}
 
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "Thrust";
+    }
+
   protected:
 
     /// Perform the projection on the Event: only to be called by 

@@ -6,18 +6,11 @@
 #include "Rivet/RivetInfo.hh"
 #include "Rivet/RivetHandler.fhh"
 #include "Rivet/Tools/Event/Event.fhh"
-#include "Rivet/Tools/Logging.hh"
-
-namespace AIDA {
-  class IAnalysisFactory;
-  class IHistogramFactory;
-  class ITree;
-  class IHistogram1D;
-}
+#include "Rivet/Tools/Logging.fhh"
+#include "Rivet/RivetAIDA.fhh"
 
 
 namespace Rivet {
-
   /// This is the base class of all analysis classes in Rivet. There are
   /// three virtual functions which should be implemented in base classes:
   ///
@@ -94,7 +87,7 @@ namespace Rivet {
     }
 
     /// Get the name of the analysis
-    virtual std::string name() const {
+    inline virtual std::string name() const {
       return "";
     }
 

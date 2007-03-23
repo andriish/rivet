@@ -4,8 +4,7 @@
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/KtJets.hh"
-#include "Rivet/RivetAIDA.hh"
-
+#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {
 

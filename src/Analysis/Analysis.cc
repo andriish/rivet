@@ -10,6 +10,7 @@
 #include "Rivet/Analysis/HZ95108.hh"
 #include "Rivet/Analysis/PL273B181.hh"
 #include "Rivet/Analysis/HepEx0112029.hh"
+#include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
 
 #include "AIDA/ITree.h"

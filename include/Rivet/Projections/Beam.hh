@@ -30,6 +30,12 @@ public:
   virtual ~Beam() { }
   //@}
 
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "Beam";
+    }
+
 protected:
 
   /*

@@ -50,6 +50,12 @@ public:
   virtual ~DISKinematics() { };
   //@}
 
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "DISKinematics";
+    }
+
 protected:
 
   /**

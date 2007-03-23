@@ -8,6 +8,7 @@
 // Include files
 #include "AIDA/IAnalysisFactory.h"
 #include "AIDA/IHistogramFactory.h"
+#include "AIDA/IHistogram1D.h"
 #include "AIDA/ITreeFactory.h"
 #include "AIDA/ITree.h"
 

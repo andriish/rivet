@@ -45,6 +45,12 @@ public:
   virtual ~FinalStateHCM();
   //@}
 
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "FinalStateHCM";
+    }
+
 protected:
 
   /**

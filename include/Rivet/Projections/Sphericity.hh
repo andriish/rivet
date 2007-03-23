@@ -73,6 +73,12 @@ namespace Rivet {
     virtual ~Sphericity() { }
     //@}
 
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "Sphericity";
+    }
+
   protected:
 
     /// Perform the projection on the Event: only to be called by 

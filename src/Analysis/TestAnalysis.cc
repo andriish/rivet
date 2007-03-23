@@ -2,6 +2,7 @@
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
+#include "Rivet/RivetAIDA.hh"
 using namespace Rivet;
 
 #include "AIDA/IHistogram1D.h"

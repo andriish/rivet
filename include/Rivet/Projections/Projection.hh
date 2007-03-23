@@ -7,12 +7,13 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetInfo.hh"
 #include "Projection.fhh"
+#include "Rivet/Tools/Logging.fhh"
 #include "Rivet/Tools/Event/Event.fhh"
 #include "Rivet/Projections/Cmp.fhh"
 
 
 namespace Rivet {
-  
+
   /**
    * Projection is the base class of all Projections to be used by
    * Rivet. A Projection object can be assigned to an Event object and
@@ -119,8 +120,17 @@ namespace Rivet {
      * this depends.
      */
     virtual RivetInfo getInfo() const;
+
+
+    /// Get the name of the projection
+    inline virtual std::string name() const {
+      return "";
+    }
     
   protected:
+
+    /// Get a Log object based on the name() property of the calling projection object.
+    Log& getLog();
     
     /**
      * The object containing the parameters of this Projection to be

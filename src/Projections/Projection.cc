@@ -5,6 +5,7 @@
 //
 
 #include "Rivet/Projections/Projection.hh"
+#include "Rivet/Tools/Logging.hh"
 
 using namespace Rivet;
 
@@ -14,5 +15,7 @@ RivetInfo Projection::getInfo() const {
   return info;
 }
 
-
-
+Log& Projection::getLog() {
+  string logname = "Rivet.Projection." + name();
+  return Log::getLog(logname);
+}

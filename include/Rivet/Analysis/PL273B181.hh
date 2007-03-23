@@ -5,9 +5,7 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Sphericity.hh"
-#include "Rivet/RivetAIDA.hh"
-//#include "AIDA/IHistogram1D.h"
-
+#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {
 

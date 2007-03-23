@@ -5,7 +5,7 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Thrust.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetAIDA.fhh"
 
 
 namespace Rivet {

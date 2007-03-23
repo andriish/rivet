@@ -15,7 +15,7 @@ int Multiplicity::compare(const Projection & p) const {
 
 
 void Multiplicity::project(const Event & e) {
-  Log& log = Log::getLog("Rivet.Projections.Multiplicity");
+  Log& log = getLog();
 
   // Clear counters
   totalMult_ = 0;

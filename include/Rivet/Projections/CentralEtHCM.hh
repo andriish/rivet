@@ -42,6 +42,12 @@ public:
   virtual ~CentralEtHCM();
   //@}
 
+public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "CentralEtHCM";
+    }
+
 protected:
 
   /**

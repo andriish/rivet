@@ -50,6 +50,12 @@ public:
   virtual ~DISLepton() {}
   //@}
 
+  public:
+    /// Return the name of the projection
+    inline string name() const {
+      return "DISLepton";
+    }
+
 protected:
 
   /**
