@@ -36,7 +36,6 @@ nobase_dist_noinst_HEADERS += \
 #endif
 
 nobase_dist_noinst_HEADERS += \
-  D0RunIIcone/HepEntity.h                     D0RunIIcone/inline_maths.h \
-  D0RunIIcone/energycluster/ConeJetInfo.hpp   D0RunIIcone/energycluster/ConeSplitMerge.hpp \
-  D0RunIIcone/energycluster/ProtoJet.hpp      D0RunIIcone/energycluster/ILConeAlgorithm.hpp
+  D0RunIIcone/HepEntity.h       D0RunIIcone/inline_maths.h \
+  D0RunIIcone/energycluster/ConeJetInfo.hpp   D0RunIIcone/energycluster/ConeSplitMerge.hpp   D0RunIIcone/energycluster/ProtoJet.hpp   D0RunIIcone/energycluster/ILConeAlgorithm.hpp
 

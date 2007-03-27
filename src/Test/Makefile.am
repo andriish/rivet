@@ -1,5 +1,4 @@
-noinst_PROGRAMS = testLogging testRivetHandler testHepPDT testLWH testTinyXML 
-
+noinst_PROGRAMS = testLogging testRivetHandler testHepPDT testLWH testTinyXML testD0RunIIcone
 MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
 
 testLogging_SOURCES  = testLogging.cc
@@ -23,9 +22,15 @@ testTinyXML_LDFLAGS  = $(MYLDFLAGS)
 testTinyXML_LDADD    = -lRivetXML
 testTinyXML_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include
 
+testD0RunIIcone_SOURCES  = testD0RunIIcone.cc
+testD0RunIIcone_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include/D0RunIIcone
+
+
 check-local:
 	./testLogging
 	./testRivetHandler
 	./testHepPDT
 	./testLWH && test -e test.aida.xml && rm -f test.aida.xml
 #	./testTinyXML ../../data/4781.hepml.xml
+	./testD0RunIIcone
+

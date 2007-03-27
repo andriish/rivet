@@ -8,7 +8,7 @@ class HepEntity {
 
  public:
 
-  HepEntity::HepEntity() {
+  HepEntity() {
     E=0.;
     px=0.;
     py=0.;
@@ -23,7 +23,7 @@ class HepEntity {
   }
 
 
-  HepEntity::HepEntity(double E_in, double px_in, double py_in, double pz_in) : 
+  HepEntity(double E_in, double px_in, double py_in, double pz_in) : 
     E(E_in), px(px_in), py(py_in), pz(pz_in) {
     /*
     pt = sqrt(sqr(px)+sqr(py));
@@ -35,45 +35,45 @@ class HepEntity {
   }
 
 
-  //HepEntity::HepEntity(const HepEntity& in) : E(in.E), px(in.px), py(in.py), pz(in.pz),
+  //HepEntity(const HepEntity& in) : E(in.E), px(in.px), py(in.py), pz(in.pz),
   //pt(in.pt), p(in.p), azi(in.azi), rap(in.rap) {
-  HepEntity::HepEntity(const HepEntity& in) : E(in.E), px(in.px), py(in.py), pz(in.pz) {
+  HepEntity(const HepEntity& in) : E(in.E), px(in.px), py(in.py), pz(in.pz) {
     return;
   }
 
   
-  inline double HepEntity::y() const {
+  inline double y() const {
     //rap = inline_maths::y(E,pz);
     //return rap;
     return inline_maths::y(E,pz);
   }
 
 
-  inline double HepEntity::phi() const {
+  inline double phi() const {
     //azi = inline_maths::phi(px,py);
     //return azi;
     return inline_maths::phi(px,py);
   }
 
-  inline double HepEntity::pT() const {
+  inline double pT() const {
     //pt = sqrt(sqr(px)+sqr(py));
     //return pt;
     return sqrt(sqr(px)+sqr(py));
   }
 
   /*  
-  inline double HepEntity::p() const {
+  inline double p() const {
     return sqrt(sqr(px)+sqr(py)+sqr(pz));
   }
   
-  inline double HepEntity::m() const {
+  inline double m() const {
     double m2 = (sqr(E)-sqr(px)-sqr(py)-sqr(pz));
     return (m2>0) ? m2 : 0.;
   }
   */
 
 
-  inline void HepEntity::p4vec(float* p) const {
+  inline void p4vec(float* p) const {
     p[0] = px;
     p[1] = py;
     p[2] = pz;
@@ -81,7 +81,7 @@ class HepEntity {
     return;
   }
 
-  inline void HepEntity::Add(const HepEntity el) {
+  inline void Add(const HepEntity el) {
     E += el.E;
     px += el.px;
     py += el.py;
@@ -95,7 +95,7 @@ class HepEntity {
     return;
   }
 
-  inline void HepEntity::Fill(double E_in, double px_in, double py_in, double pz_in) {
+  inline void Fill(double E_in, double px_in, double py_in, double pz_in) {
     E = E_in;
     px = px_in;
     py = py_in;
