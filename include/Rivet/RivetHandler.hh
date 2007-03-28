@@ -103,8 +103,8 @@ namespace Rivet {
 
 
     /// Add a collection of analyses via their analysis name enums
-    inline RivetHandler& addAnalyses(const std::vector<AnalysisName>& analysisnames) { 
-      for (std::vector<AnalysisName>::const_iterator ananame = analysisnames.begin();
+    inline RivetHandler& addAnalyses(cAnalysisList& analysisnames) { 
+      for (cAnalysisList::const_iterator ananame = analysisnames.begin();
            ananame != analysisnames.end(); ++ananame) {
         addAnalysis(*ananame);
       }

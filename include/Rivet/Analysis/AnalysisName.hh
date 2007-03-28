@@ -5,9 +5,7 @@
 #ifndef RIVET_AnalysisName_HH
 #define RIVET_AnalysisName_HH
 
-#include <vector>
-#include <map>
-#include <string>
+#include "Rivet/Rivet.hh"
 
 namespace Rivet {
 
@@ -51,7 +49,8 @@ namespace Rivet {
 
 
   /// Typedef for a collection of analysis name enums.
-  typedef std::vector<AnalysisName> AnalysisList;
+  typedef std::set<AnalysisName> AnalysisList;
+  typedef const std::set<AnalysisName> cAnalysisList;
 
 
   /// Function which returns a vector of all the analysis values in 
@@ -60,7 +59,7 @@ namespace Rivet {
     AnalysisList names;
     AnalysisMap amap = getKnownAnalyses();
     for (AnalysisMap::const_iterator a = amap.begin(); a != amap.end(); ++a) {
-      names.push_back(a->first);
+      names.insert(a->first);
     }
     return names;
   }

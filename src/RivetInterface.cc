@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
 
   // Make a handler and add analyses
   RivetHandler rh;
-  rh.addAnalyses(vector<AnalysisName>(cfgAnalyses.begin(), cfgAnalyses.end()));
+  rh.addAnalyses(cfgAnalyses);
   rh.init();
   log << Log::INFO << "RivetHandler info: " << rh.info() << endl;
 

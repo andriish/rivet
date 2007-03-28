@@ -35,6 +35,4 @@ nobase_pkginclude_HEADERS += \
   Tools/Logging.hh           Tools/Logging.fhh \
   Tools/Event/Event.hh       Tools/Event/Event.fhh   \
   Tools/Event/Particle.hh    Tools/Event/Particle.fhh \
-  Commandline.hh
-
-## TODO Move Commandline.hh into Tools
+  Tools/Commandline.hh
