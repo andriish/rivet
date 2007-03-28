@@ -124,9 +124,16 @@ namespace Rivet {
       // Do nothing if CLI pointers are null
       if (!logsArg) return;
 
-      if (logsArg->isSet()) {
-        /// @todo Handle log level arguments
-        throw std::runtime_error("Log level specifying not yet enabled");
+      for (vector<string>::const_iterator l = logsArg->getValue().begin(); 
+           l != logsArg->getValue().end(); ++l) {
+        unsigned int breakpos = l->find(":");
+        if (breakpos != string::npos) {
+          string key = l->substr(0, breakpos);
+          string value = l->substr(breakpos + 1, l->size() - breakpos - 1);
+          cfgLogLevels[key] = Log::getLevelFromName(value);
+        } else {
+          throw runtime_error("Invalid log setting format: " + *l);
+        }
       }
 
       delete logsArg;

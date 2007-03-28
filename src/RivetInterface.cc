@@ -5,6 +5,7 @@
 #include "Rivet/Tools/Commandline.hh"
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
+using namespace TCLAP;
 
 #include "HepMC/IO_Ascii.h"
 #include "HepMC/GenEvent.h"
@@ -20,36 +21,41 @@ int main(int argc, char* argv[]) {
   HistoFormat cfgHistoFormat;
   map<string, Log::Level> cfgLogLevels;
   unsigned int cfgNumEvents;
+  string cfgEventFile;
 
   try {
-      // Set up command line arguments
-      TCLAP::CmdLine cmd("Analyse HepMC events from file using Rivet library", ' ', "0.1"); 
-      //
-      TCLAP::MultiArg<string>* analysesArg(0);
-      TCLAP::SwitchArg* analysesAllArg(0);
-      TCLAP::ValuesConstraint<string>* anaNameConstraint(0);
-      Commandline::addAnalysisArgs(cmd, analysesArg, analysesAllArg, anaNameConstraint);
-      //
-      TCLAP::ValueArg<string>* histoNameArg(0);
-      TCLAP::ValueArg<string>* histoTypeArg(0);
-      TCLAP::ValuesConstraint<string>* histoTypeConstraint(0);
-      Commandline::addHistoArgs(cmd, histoNameArg, histoTypeArg, histoTypeConstraint);
-      //
-      TCLAP::MultiArg<string>* logsArg(0);
-      Commandline::addLoggingArgs(cmd, logsArg);
-      //
-      TCLAP::ValueArg<unsigned int> 
-        numEventsArg("n", "numevents", "Max number of events to read (100000 by default)", 
-                     false, 100000, "num", cmd);
-      
-      // Parse command line args
-      cmd.parse(argc, argv);
-      Commandline::useAnalysisArgs(cmd, analysesArg, analysesAllArg, cfgAnalyses);
-      Commandline::useHistoArgs(cmd, histoNameArg, histoTypeArg, cfgHistoFileName, cfgHistoFormat);
-      Commandline::useLoggingArgs(cmd, logsArg, cfgLogLevels);
-      cfgNumEvents = numEventsArg.getValue();
+    // Set up command line arguments
+    CmdLine cmd("Analyse HepMC events from a file using the Rivet system", ' ', "0.1"); 
+    //
+    MultiArg<string>* analysesArg(0);
+    SwitchArg* analysesAllArg(0);
+    ValuesConstraint<string>* anaNameConstraint(0);
+    Commandline::addAnalysisArgs(cmd, analysesArg, analysesAllArg, anaNameConstraint);
+    //
+    ValueArg<string>* histoNameArg(0);
+    ValueArg<string>* histoTypeArg(0);
+    ValuesConstraint<string>* histoTypeConstraint(0);
+    Commandline::addHistoArgs(cmd, histoNameArg, histoTypeArg, histoTypeConstraint);
+    //
+    MultiArg<string>* logsArg(0);
+    Commandline::addLoggingArgs(cmd, logsArg);
+    //
+    ValueArg<unsigned int> 
+      numEventsArg("n", "numevents", "Max number of events to read (100000 by default)", 
+                   false, 100000, "num", cmd);
+    
+    UnlabeledValueArg<string>
+      eventFileArg("eventfile", "File containing ASCII format HepMC events", true, "-", "filename", cmd);      
+    
+    // Parse command line args
+    cmd.parse(argc, argv);
+    Commandline::useAnalysisArgs(cmd, analysesArg, analysesAllArg, cfgAnalyses);
+    Commandline::useHistoArgs(cmd, histoNameArg, histoTypeArg, cfgHistoFileName, cfgHistoFormat);
+    Commandline::useLoggingArgs(cmd, logsArg, cfgLogLevels);
+    cfgNumEvents = numEventsArg.getValue();
+    cfgEventFile = eventFileArg.getValue();
 
-  } catch (TCLAP::ArgException& e) { 
+  } catch (ArgException& e) { 
     cerr << "Command line error: " << e.error() << " for arg " << e.argId() << endl; 
     return EXIT_FAILURE;
   } catch (runtime_error& e) { 
@@ -57,26 +63,33 @@ int main(int argc, char* argv[]) {
     return EXIT_FAILURE;
   }
 
+
   // Make a handler and add analyses
   RivetHandler rh;
   rh.addAnalyses(cfgAnalyses);
   rh.init();
   log << Log::INFO << "RivetHandler info: " << rh.info() << endl;
 
-  // Make a HepMC output strategy
-  /// @todo Add an option to specify an output file
-  //HepMC::IO_Ascii hepmcOut("rivetgun.hepmc", std::ios::out);
+
+  // Make a HepMC input
+  IO_Ascii hepmcIn(cfgEventFile.c_str(), std::ios::in);
+  if (hepmcIn.rdstate() != 0) {
+    log << Log::ERROR << "Couldn't read HepMC events from file: " << cfgEventFile << endl;
+  }
+
 
   // Event loop
   HepMC::GenEvent myevent;
-  for (unsigned int i = 0; i < cfgNumEvents; ++i) {    
-    log << Log::INFO << "Event number " << i+1 << endl;
+  unsigned int num = 0;
+  while (num < cfgNumEvents && hepmcIn.fill_next_event(&myevent)) {
+    log << Log::INFO << "Event number " << num + 1 << endl;
     rh.analyze(myevent);
+    ++num;
   }
+
+
+  // Finish up
   log << Log::INFO << "Finished!"  << endl;
-
-  // Finalise
   rh.finalize();
-
   return EXIT_SUCCESS;
 }

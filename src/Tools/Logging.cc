@@ -51,6 +51,7 @@ namespace Rivet {
     return *(new Log(name, level));
   }
 
+
   string Log::getLevelName(const Level& level) {
     switch(level) {
     case TRACE:
@@ -64,6 +65,17 @@ namespace Rivet {
     case ERROR:
       return "ERROR";
     }
+    throw runtime_error("Enum value was not a valid log level. How did that happen?");
+  }
+
+
+  Log::Level Log::getLevelFromName(const string& level) {
+    if (level == "TRACE") return TRACE;
+    if (level == "DEBUG") return DEBUG;
+    if (level == "INFO") return INFO;
+    if (level == "WARN") return WARN;
+    if (level == "ERROR") return ERROR;
+    throw runtime_error("Couldn't create a log level from string '" + level + "'");
   }
 
 

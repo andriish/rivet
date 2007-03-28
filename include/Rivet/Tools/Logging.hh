@@ -2,8 +2,8 @@
 #ifndef RIVET_LOGGING_H 
 #define RIVET_LOGGING_H 1
 
-#include <string>
-#include <iostream>
+#include "Rivet/Rivet.hh"
+
 
 namespace Rivet {
   
@@ -14,14 +14,14 @@ namespace Rivet {
     };
 
   private:
-    Log(const std::string& name);
+    Log(const string& name);
 
-    Log(const std::string& name, const Level& level);
+    Log(const string& name, const Level& level);
 
   public:
-    static Log& getLog(const std::string& name);
+    static Log& getLog(const string& name);
 
-    static Log& getLog(const std::string& name, const Level& level);
+    static Log& getLog(const string& name, const Level& level);
 
   public:
     inline Level getLevel() const {
@@ -33,13 +33,15 @@ namespace Rivet {
       return *this;
     }
 
-    static std::string getLevelName(const Level& level);
+    static Level getLevelFromName(const string& level);
 
-    inline std::string getName() const {
+    static string getLevelName(const Level& level);
+
+    inline string getName() const {
       return _name;
     }
 
-    inline Log& setName(const std::string& name) {
+    inline Log& setName(const string& name) {
       _name = name;
       return *this;
     }
@@ -57,18 +59,18 @@ namespace Rivet {
       return (level >= _level);
     }
 
-    inline void trace(const std::string& message) { log(TRACE, message); }
+    inline void trace(const string& message) { log(TRACE, message); }
 
-    inline void debug(const std::string& message) { log(DEBUG, message); }
+    inline void debug(const string& message) { log(DEBUG, message); }
     
-    inline void info(const std::string& message) { log(INFO, message); }
+    inline void info(const string& message) { log(INFO, message); }
 
-    inline void warn(const std::string& message) { log(WARN, message); }
+    inline void warn(const string& message) { log(WARN, message); }
 
-    inline void error(const std::string& message) { log(ERROR, message); }
+    inline void error(const string& message) { log(ERROR, message); }
 
   private:
-    std::string _name;
+    string _name;
     
     Level _level;
     
@@ -77,21 +79,21 @@ namespace Rivet {
   protected:
     //public:
 
-    void log(const Level& level, const std::string& message);
+    void log(const Level& level, const string& message);
 
-    std::string formatMessage(const Level& level, const std::string& message);
+    string formatMessage(const Level& level, const string& message);
 
   public:
 
     /// @todo Hide this...
-    std::ostream* const _nostream;
+    ostream* const _nostream;
 
-    friend std::ostream& operator<<(Log& log, const Log::Level& level);
+    friend ostream& operator<<(Log& log, const Log::Level& level);
 
   };
   
 
-  std::ostream& operator<<(Log& log, const Log::Level& level);
+  ostream& operator<<(Log& log, const Log::Level& level);
   
 }
 
