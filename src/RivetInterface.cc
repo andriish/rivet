@@ -2,7 +2,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetHandler.hh"
-#include "Rivet/Commandline.hh"
+#include "Rivet/Tools/Commandline.hh"
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
 

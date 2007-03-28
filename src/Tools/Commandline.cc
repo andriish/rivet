@@ -1,8 +1,8 @@
 // $Id: $
 
-#include "Rivet/Commandline.hh"
 #include "Rivet/HistoFormat.hh"
 #include "Rivet/Analysis/Analysis.fhh"
+#include "Rivet/Tools/Commandline.hh"
 #include <tclap/CmdLine.h>
 #include <fstream>
 #include <iostream>

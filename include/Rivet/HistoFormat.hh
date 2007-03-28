@@ -5,8 +5,7 @@
 #ifndef RIVET_HistoFormat_HH
 #define RIVET_HistoFormat_HH
 
-#include <vector>
-#include <string>
+#include "Rivet/Rivet.hh"
 
 
 namespace Rivet {
@@ -15,11 +14,11 @@ namespace Rivet {
   enum HistoFormat { AIDAML, FLAT, ROOT };
 
   /// Typedef for a map of histogram format enums to strings.
-  typedef std::map<HistoFormat, std::string> HistoFormatMap;
+  typedef map<HistoFormat, string> HistoFormatMap;
 
 
   /// Typedef for a map of histogram format name strings to enums.
-  typedef std::map<std::string, HistoFormat> HistoFormatMapR;
+  typedef map<string, HistoFormat> HistoFormatMapR;
 
 
   /// Function which returns a map from histogram format enums to the corresponding name strings.
@@ -43,7 +42,7 @@ namespace Rivet {
 
 
   /// Typedef for a collection of histogram format name enums.
-  typedef std::vector<HistoFormat> HistoFormatList;
+  typedef vector<HistoFormat> HistoFormatList;
 
 
   /// Function which returns a vector of all the histogram format
@@ -59,8 +58,8 @@ namespace Rivet {
 
 
   /// Function which returns a vector of all the histogram format name strings.
-  inline std::vector<std::string> getKnownHistoFormatNames() {
-    std::vector<std::string> names;
+  inline vector<string> getKnownHistoFormatNames() {
+    vector<string> names;
     HistoFormatMap hfmap = getKnownHistoFormats();
     for (HistoFormatMap::const_iterator hf = hfmap.begin(); hf != hfmap.end(); ++hf) {
       names.push_back(hf->second);
