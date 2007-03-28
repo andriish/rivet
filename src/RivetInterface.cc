@@ -79,9 +79,10 @@ int main(int argc, char* argv[]) {
 
 
   // Event loop
-  HepMC::GenEvent myevent;
   unsigned int num = 0;
-  while (num < cfgNumEvents && hepmcIn.fill_next_event(&myevent)) {
+  while (num < cfgNumEvents) {
+    HepMC::GenEvent myevent;
+    if (! hepmcIn.fill_next_event(&myevent)) break;
     log << Log::INFO << "Event number " << num + 1 << endl;
     rh.analyze(myevent);
     ++num;
