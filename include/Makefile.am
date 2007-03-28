@@ -5,8 +5,6 @@ nobase_include_HEADERS =
 nobase_dist_noinst_HEADERS = \
   TinyXML/tinyxml.h
 
-#if NO_INSTALLED_AIDA
-#nobase_include_HEADERS += \
 nobase_dist_noinst_HEADERS += \
   AIDA/IFitParameterSettings.h    AIDA/IHistogram.h               AIDA/IDataPointSetFactory.h     AIDA/ICloud3D.h  \
   AIDA/IFunctionCatalog.h         AIDA/IDataPointSet.h            AIDA/IPlotterFactory.h          AIDA/IPlotterRegion.h  \
@@ -22,10 +20,7 @@ nobase_dist_noinst_HEADERS += \
   AIDA/IDataStyle.h               AIDA/ITupleEntry.h              AIDA/ITuple.h                   AIDA/IInfoStyle.h  \
   AIDA/IBaseStyle.h               AIDA/IConstants.h               AIDA/ICloud1D.h                 AIDA/IInfo.h  \
   AIDA/IHistogram1D.h             AIDA/ICloud2D.h                 AIDA/IFitResult.h               AIDA/IFitter.h
-#endif
 
-#if NO_INSTALLED_LWH
-#nobase_include_HEADERS += \
 nobase_dist_noinst_HEADERS += \
   LWH/AIAnalysisFactory.h         LWH/AIManagedObject.h           LWH/Axis.h                      LWH/VariAxis.h  \
   LWH/AIAxis.h                    LWH/AIDataPoint.h               LWH/Tree.h                      LWH/DataPoint.h  \
@@ -33,9 +28,10 @@ nobase_dist_noinst_HEADERS += \
   LWH/AIHistogramFactory.h        LWH/AIDataPointSetFactory.h     LWH/Histogram1D.h               LWH/DataPointSetFactory.h  \
   LWH/AITree.h                    LWH/AIMeasurement.h             LWH/HistogramFactory.h          LWH/Measurement.h  \
   LWH/AITreeFactory.h             LWH/AnalysisFactory.h           LWH/ManagedObject.h
-#endif
 
 nobase_dist_noinst_HEADERS += \
   D0RunIIcone/HepEntity.h       D0RunIIcone/inline_maths.h \
-  D0RunIIcone/energycluster/ConeJetInfo.hpp   D0RunIIcone/energycluster/ConeSplitMerge.hpp   D0RunIIcone/energycluster/ProtoJet.hpp   D0RunIIcone/energycluster/ILConeAlgorithm.hpp
+  D0RunIIcone/energycluster/ConeJetInfo.hpp   D0RunIIcone/energycluster/ConeSplitMerge.hpp \
+  D0RunIIcone/energycluster/ProtoJet.hpp   D0RunIIcone/energycluster/ILConeAlgorithm.hpp
 
+EXTRA_DIST = tclap

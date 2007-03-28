@@ -18,3 +18,8 @@ libRivet_la_LIBADD  = Analysis/libRivetAnalysis.la \
 					  -l$(CLHEP_MATRIXLIBNAME) -l$(CLHEP_VECTORLIBNAME) \
                       -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME) \
                       -l$(KTJETLIBNAME)
+
+bin_PROGRAMS = rivet
+rivet_SOURCES = RivetInterface.cc
+rivet_LDFLAGS = -L$(HEPMCLIBPATH) -R$(HEPMCLIBPATH)
+rivet_LDADD = -lRivet -l$(HEPMCLIBNAME)
