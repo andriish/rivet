@@ -3,4 +3,7 @@ noinst_LTLIBRARIES = libRivetProjections.la
 libRivetProjections_la_SOURCES  = \
     Projection.cc  Multiplicity.cc   Beam.cc       CentralEtHCM.cc  \
     FinalState.cc  FinalStateHCM.cc  DISLepton.cc  DISKinematics.cc \
-    Sphericity.cc  KtJets.cc         Thrust.cc     ParisiTensor.cc
+    Sphericity.cc  KtJets.cc         Thrust.cc     ParisiTensor.cc \
+    D0RunIIconeJets.cc  PVertex.cc     CalMET.cc
+
+libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS) -I../../include/Rivet/Tools/D0RunIIcone

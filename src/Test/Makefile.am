@@ -7,11 +7,16 @@ testLogging_LDADD    = -lRivetTools
 
 testRivetHandler_SOURCES  = testRivetHandler.cc
 testRivetHandler_LDFLAGS  = $(MYLDFLAGS)
-testRivetHandler_LDADD    = -lRivet
+# testRivetHandler_LDADD    = -lRivet
+# testRivetHandler_LDADD    = -lRivet -lHepMC
+testRivetHandler_LDADD    = -lRivet -l$(HEPMCLIBNAME)
+# testRivetHamdler_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPMCINCPATH)
 
 testHepPDT_SOURCES   = testHepPDT.cc
 testHepPDT_LDFLAGS   = $(MYLDFLAGS) -L$(HEPIDLIBPATH)
-testHepPDT_LDADD     = -lRivet 
+# testHepPDT_LDADD     = -lRivet
+# testHepPDT_LDADD     = -lRivet -lHepMC
+testHepPDT_LDADD     = -lRivet -l$(HEPMCLIBNAME)
 testHepPDT_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPPIDINCPATH)
 
 testLWH_SOURCES  = testLWH.cc
@@ -23,7 +28,7 @@ testTinyXML_LDADD    = -lRivetXML
 testTinyXML_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include
 
 testD0RunIIcone_SOURCES  = testD0RunIIcone.cc
-testD0RunIIcone_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include/D0RunIIcone
+testD0RunIIcone_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include/Rivet/Tools/D0RunIIcone
 
 
 check-local:

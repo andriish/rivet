@@ -10,6 +10,7 @@
 #include "Rivet/Analysis/HZ95108.hh"
 #include "Rivet/Analysis/PL273B181.hh"
 #include "Rivet/Analysis/HepEx0112029.hh"
+#include "Rivet/Analysis/HepEx0409040.hh"
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
 
@@ -34,6 +35,8 @@ Analysis& Analysis::getAnalysis(const AnalysisName atype) {
     return *(new PL273B181());
   case ANALYSIS_HEPEX0112029:
     return *(new HepEx0112029());
+  case ANALYSIS_HEPEX0409040:
+    return *(new HepEx0409040());  
   }
   throw runtime_error("Tried to get an analysis not known in the Rivet::AnalysisName enum.");
 }

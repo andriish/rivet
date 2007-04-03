@@ -13,7 +13,9 @@ nobase_pkginclude_HEADERS += \
   Analysis/TestAnalysis.hh   \
   Analysis/HZ95108.hh        \
   Analysis/PL273B181.hh      \
-  Analysis/HepEx0112029.hh
+  Analysis/HepEx0112029.hh   \
+  Analysis/HepEx0409040.hh
+
 
 ## Projections
 nobase_pkginclude_HEADERS += \
@@ -29,11 +31,16 @@ nobase_pkginclude_HEADERS += \
   Projections/Sphericity.hh    \
   Projections/KtJets.hh        \
   Projections/Thrust.hh        \
-  Projections/ParisiTensor.hh
+  Projections/ParisiTensor.hh  \
+  Projections/D0RunIIconeJets.hh
+
 
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/Logging.hh           Tools/Logging.fhh \
   Tools/Event/Event.hh       Tools/Event/Event.fhh   \
   Tools/Event/Particle.hh    Tools/Event/Particle.fhh \
-  Tools/Commandline.hh
+  Tools/Commandline.hh \
+  Tools/D0RunIIcone/HepEntity.h       Tools/D0RunIIcone/inline_maths.h \
+  Tools/D0RunIIcone/energycluster/ConeJetInfo.hpp   Tools/D0RunIIcone/energycluster/ConeSplitMerge.hpp \
+  Tools/D0RunIIcone/energycluster/ProtoJet.hpp   Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp

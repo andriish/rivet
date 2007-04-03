@@ -30,8 +30,9 @@ nobase_dist_noinst_HEADERS += \
   LWH/AITreeFactory.h             LWH/AnalysisFactory.h           LWH/ManagedObject.h
 
 nobase_dist_noinst_HEADERS += \
-  D0RunIIcone/HepEntity.h       D0RunIIcone/inline_maths.h \
-  D0RunIIcone/energycluster/ConeJetInfo.hpp   D0RunIIcone/energycluster/ConeSplitMerge.hpp \
-  D0RunIIcone/energycluster/ProtoJet.hpp   D0RunIIcone/energycluster/ILConeAlgorithm.hpp
+  Rivet/Tools/D0RunIIcone/HepEntity.h       Rivet/Tools/D0RunIIcone/inline_maths.h \
+  Rivet/Tools/D0RunIIcone/energycluster/ConeJetInfo.hpp   Rivet/Tools/D0RunIIcone/energycluster/ConeSplitMerge.hpp \
+  Rivet/Tools/D0RunIIcone/energycluster/ProtoJet.hpp   Rivet/Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp
+
 
 EXTRA_DIST = tclap
