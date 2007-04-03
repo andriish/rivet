@@ -16,17 +16,8 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    inline TestAnalysis() 
+    inline TestAnalysis()
       : p_mult(p_fs), p_thrust(p_fs)
-    { }
-
-    /// Copy constructor.
-    inline TestAnalysis(const TestAnalysis& x)
-      : Analysis(x), p_fs(x.p_fs), p_mult(x.p_mult), p_thrust(x.p_thrust) 
-    { }
-
-    /// Destructor
-    inline ~TestAnalysis() 
     { }
 
   public:
