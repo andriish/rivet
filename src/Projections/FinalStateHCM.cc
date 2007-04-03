@@ -1,15 +1,10 @@
 // -*- C++ -*-
-//
-// This is the implementation of the non-inlined, non-templated member
-// functions of the FinalStateHCM class.
-//
 
 #include "Rivet/Projections/FinalStateHCM.hh"
 #include "Rivet/Projections/Cmp.hh"
 
 using namespace Rivet;
 
-FinalStateHCM::~FinalStateHCM() {}
 
 int FinalStateHCM::compare(const Projection & p) const {
   const FinalStateHCM & other =

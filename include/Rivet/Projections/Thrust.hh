@@ -17,23 +17,11 @@ namespace Rivet {
 
   public:
 
-    /// @name Standard constructors and destructors.
-    //@{
-    /// Default constructor. Must specify a FinalState projection which is
-    //assumed to live throughout the run.
-    inline Thrust(FinalState& fsp) 
+    /// Constructor. The FinalState projection must live throughout the run.
+    inline Thrust(FinalState& fsp)
       : _calculatedThrust(false), _fsproj(&fsp)
     { }
 
-    /// Copy constructor.
-    /// @todo More? or is the default enough?
-    inline Thrust(const Thrust& x)
-      : Projection(x)
-    { }
-
-    /// Destructor.
-    virtual ~Thrust() { }
-    //@}
 
   public:
     /// Return the name of the projection
@@ -43,34 +31,31 @@ namespace Rivet {
 
   protected:
 
-    /// Perform the projection on the Event: only to be called by 
-    /// Event::applyProjection(Projection &).
+    /// Perform the projection on the Event
     void project(const Event& e);
 
-    /// This function defines a unique ordering between different 
-    /// Projection objects of the same class. Should only be called from 
-    /// operator<(const Projection &).
+    /// Compare projections
     int compare(const Projection& p) const;
 
   public:
 
+    ///@{ Thrust scalar accessors
     /// The thrust scalar (maximum thrust).
     inline const double thrust() const { return _thrusts[0]; }
-
     /// The thrust major scalar (thrust along thrust major axis).
     inline const double thrustMajor() const { return _thrusts[1]; }
-
     /// The thrust minor scalar (thrust along thrust minor axis).
     inline const double thrustMinor() const { return _thrusts[2]; }
+    ///@}
 
+    ///@{ Thrust axis accessors
     /// The thrust axis.
     inline const Vector3& thrustAxis() const { return _thrustAxes[0]; }
-
     /// The thrust major axis (axis of max thrust perpendicular to thrust axis).
     inline const Vector3& thrustMajorAxis() const { return _thrustAxes[1]; }
-
     /// The thrust minor axis (axis perpendicular to thrust and thrust major).
     inline const Vector3& thrustMinorAxis() const { return _thrustAxes[2]; }
+    ///@}
 
 
   private:

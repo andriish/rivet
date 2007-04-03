@@ -19,17 +19,6 @@ namespace Rivet {
       : mult(fsproj), spher(fsproj) 
     { }
 
-
-    /// Copy constructor.
-    inline PL273B181(const PL273B181& x)
-      : Analysis(x), fsproj(x.fsproj), mult(x.mult), spher(x.spher) 
-    { }
-
-
-    /// Destructor
-    inline ~PL273B181() 
-    { }
-
   public:
 
     /// The name of this analysis is "PL273B181"

@@ -1,9 +1,6 @@
 // -*- C++ -*-
 #ifndef RIVET_Cmp_H
 #define RIVET_Cmp_H
-//
-// This is the declaration of the Cmp class.
-//
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/Projection.hh"
@@ -29,9 +26,7 @@ namespace Rivet {
     
   public:
     
-    /**
-     * Enumerate the possible states of a Cmp object.
-     */
+    /// Enumerate the possible states of a Cmp object.
     enum CmpState {
       undefined = -2, /**< Undefined state. */
       ordered = -1,   /**< The two corresponding objects are ordered. */

@@ -24,10 +24,8 @@ namespace Rivet {
       : type_(4), angle_(3), recom_(1), rparameter_(1.0), fsproj(&fsp) 
     { }
 
-    /// Argument constructor.
-    // Added so that same projection can be ran but with different parameters.
-    // Must specify a FinalState projection which is
-    // assumed to live throughout the run. 
+    /// Argument constructor. Allows the to be run with different parameters.
+    /// Must specify a FinalState projection which is assumed to live throughout the run. 
     inline KtJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
       : type_(type), angle_(angle), recom_(recom), rparameter_(rparameter), fsproj(&fsp)
     { }
@@ -50,13 +48,10 @@ namespace Rivet {
 
   protected:   
 
-    /// Perform the projection on the Event: only to be called by 
-    /// Event::applyProjection(Projection &).
+    /// Perform the projection on the Event.
     void project(const Event& e);
 
-    /// This function defines a unique ordering between different 
-    /// Projection objects of the same class. Should only be called from 
-    /// operator<(const Projection&).
+    /// Compare projections.
     int compare(const Projection& p) const;  
 
   public:
@@ -85,8 +80,8 @@ namespace Rivet {
 
   private:
     
-    // Internal ktevent, rebuilt every time an event is projected, but not otherwise.
-    KtJet::KtEvent * pktev_;
+    /// Internal KtEvent, rebuilt every time an event is projected, but not otherwise.
+    KtJet::KtEvent* pktev_;
 
     // Vector of all
     //vector<KtJet::KtLorentzVector> vecs_;
@@ -95,13 +90,12 @@ namespace Rivet {
     double rparameter_;  // had trouble building with Ktfloat, used double instead
 
     /// The FinalState projection used by this projection.
-    FinalState * fsproj;
+    FinalState* fsproj;
 
   private:
     
-    /// The assignment operator is private and must never be called.
-    /// In fact, it shouldn't even be implemented.
-    KtJets & operator=(const KtJets &);
+    /// Hiding the assignment operator.
+    KtJets& operator=(const KtJets &);
   
   };
 

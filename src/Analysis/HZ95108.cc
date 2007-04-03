@@ -13,9 +13,6 @@ using namespace std;
 using namespace CLHEP;
 
 
-HZ95108::~HZ95108() {}
-
-
 const double HZ95108::xmin = -6.0;
 const double HZ95108::xmax = 6.0;
 

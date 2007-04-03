@@ -8,12 +8,10 @@
 
 namespace Rivet {
 
-  /**
-   *  This class is under construction. It will be a reproduction of the HZTool routine
-   *  for the ZEUS dijet photoproduction paper which was used in the ZEUS Jets PDF fit.
-   *  And hopefully it will teach me how to write a rivet analysis.
-   *  @author Jon Butterworth
-   */
+  /// This class is under construction. It will be a reproduction of the HZTool routine
+  /// for the ZEUS dijet photoproduction paper which was used in the ZEUS Jets PDF fit.
+  /// And hopefully it will teach me how to write a Rivet analysis.
+  /// @author Jon Butterworth
   class HepEx0112029 : public Analysis {
 
   public:
@@ -21,15 +19,6 @@ namespace Rivet {
     /// Default constructor.
     inline HepEx0112029()
       : fs(), ktjets(fs) 
-    { }
-
-    /// Copy constructor.
-    inline HepEx0112029(const HepEx0112029& x) 
-      : Analysis(x), ktjets(x.ktjets) 
-    { }
-
-    /// Destructor
-    inline ~HepEx0112029()
     { }
 
     /// The name of this analysis is "HepEx0112029"

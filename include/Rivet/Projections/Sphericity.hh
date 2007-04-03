@@ -51,8 +51,7 @@ namespace Rivet {
 
   public:
 
-    /// Constructor. Must specify a FinalState projection which is
-    /// assumed to live throughout the run.
+    /// Constructor. Supplied FinalState projection must live throughout the run.
     inline Sphericity(FinalState& fsp, double rparam=2.0)
       : _sphericity(0), _planarity(0), _aplanarity(0), _regparam(rparam), 
         _fsproj(&fsp)

@@ -29,31 +29,25 @@ namespace Rivet {
     
   public:
     
-    /** Event is a friend. */
+    /// Event is a friend.
     friend class Event;
     
-    /** The Cmp specialization for Projection is a friend. */
+    /// The Cmp specialization for Projection is a friend.
     friend class Cmp<Projection>;
     
   public:
     
-    /** @name Standard constructors and destructors. */
+    /// @name Standard constructors and destructors.
     //@{
-    /**
-     * The default constructor.
-     */
+    /// The default constructor.
     inline Projection() { };
     
-    /**
-     * The copy constructor.
-     */
+    /// The copy constructor.
     inline Projection(const Projection& p)
       : info(p.info) 
     { }
     
-    /**
-     * The destructor.
-     */
+    /// The destructor.
     virtual ~Projection();
     //@}
     
@@ -132,18 +126,14 @@ namespace Rivet {
     /// Get a Log object based on the name() property of the calling projection object.
     Log& getLog();
     
-    /**
-     * The object containing the parameters of this Projection to be
-     * communicated to the outside world.
-     */
+    /// The object containing the parameters of this Projection to be
+    /// communicated to the outside world.
     RivetInfo info;
     
   private:
     
-    /**
-     * The assignment operator is private and must never be called.
-     * In fact, it should not even be implemented.
-     */
+    /// The assignment operator is private and must never be called.
+    /// In fact, it should not even be implemented.
     Projection & operator=(const Projection &);
     
   };
@@ -151,15 +141,12 @@ namespace Rivet {
 }
 
 namespace std {
+
+  /// This is the function called when comparing two pointers to Rivet::Projection.
   template <>
   struct less<const Rivet::Projection *> :
-    public binary_function<const Rivet::Projection *,
-                           const Rivet::Projection *, bool> 
+    public binary_function<const Rivet::Projection *, const Rivet::Projection *, bool> 
   {
-    /**
-     * This is the function called when comparing two pointers to
-     * Rivet::Projection.
-     */
     bool operator()(const Rivet::Projection * x,
                     const Rivet::Projection * y) const {
       return x->before(*y);

@@ -1,9 +1,6 @@
 // -*- C++ -*-
 #ifndef RIVET_HZ95108_H
 #define RIVET_HZ95108_H
-//
-// This is the declaration of the HZ95108 class.
-//
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
@@ -13,37 +10,16 @@
 
 namespace Rivet {
 
-  /**
-   * This class simply measures the total multiplicity. It is only
-   * intended for testing purposes.
-   */
+  /// This analysis simply measures the total multiplicity.
   class HZ95108 : public Analysis {
 
   public:
 
-    /** @name Standard constructors and destructors. */
-    //@{
-    /**
-     * The default constructor.
-     */
+    /// The default constructor.
     inline HZ95108()
       : lepton(beams, 11, -11), diskin(beams, lepton, 2212),
         fsproj(lepton, diskin, fsp), y1hcm(fsproj) 
     { }
-
-    /**
-     * The copy constructor.
-     */
-    inline HZ95108(const HZ95108& x)
-      : Analysis(x), beams(x.beams), lepton(x.lepton), diskin(x.diskin), fsp(x.fsp),
-        fsproj(x.fsproj), y1hcm(x.y1hcm) 
-    { }
-
-    /**
-     * The destructor.
-     */
-    virtual ~HZ95108();
-    //@}
 
   public:
 

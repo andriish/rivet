@@ -10,7 +10,6 @@
 using namespace Rivet;
 using namespace std;
 
-CentralEtHCM::~CentralEtHCM() {}
 
 int CentralEtHCM::compare(const Projection & p) const {
   const CentralEtHCM & other =

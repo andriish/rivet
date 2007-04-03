@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #ifndef RIVET_Beam_H
 #define RIVET_Beam_H
-//
-// This is the declaration of the Beam class.
 
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Tools/Event/Event.hh"
@@ -10,94 +8,46 @@
 
 namespace Rivet {
 
-/**
- * This class is used to project out the beams in a HepMC::GenEvent.
- */
-class Beam: public Projection {
-
-public:
-
-  /// @name Standard constructors and destructors.
-  //@{
-  /// The default constructor.
-  inline Beam() { }
-
-  /// The copy constructor.
-  inline Beam(const Beam& x)
-    : Projection(x), theBeams(x.theBeams) { }
-
-  /// The destructor.
-  virtual ~Beam() { }
-  //@}
+  /// Project out the beams in a HepMC::GenEvent.
+  class Beam: public Projection {
 
   public:
-    /// Return the name of the projection
-    inline string name() const {
-      return "Beam";
+
+    /// The default constructor.
+    inline Beam() { }
+
+    public:
+      /// Return the name of the projection
+      inline string name() const {
+        return "Beam";
+      }
+
+  protected:
+
+    /// Project on to the Event
+    virtual void project(const Event& e);
+
+    /// Compare with other projections.
+    virtual int compare(const Projection & p) const;
+
+  public:
+
+    /// The pair of beam particles in the current collision in GenEvent 
+    inline const ParticlePair & operator()() const {
+      return theBeams;
     }
 
-protected:
+  private:
 
-  /*
-   * Take the information available in the Event and make the
-   * calculations necessary to obtain the projection. Note that this
-   * function must never be called except inside the
-   * Event::applyProjection(Projection *) function. If the information
-   * from other projections are necessary, their project(const Event
-   * &) should not be called, rather the corresponding objects should
-   * be added to the Event using the Event::applyProjection(Projection *)
-   * function.
-   */
-  virtual void project(const Event & e);
+    /// The beam particles in the current collision in GenEvent 
+    ParticlePair theBeams;
 
-  /**
-   * This function is used to define a unique ordering between
-   * different Projection objects of the same class. If this is
-   * considered to be equivalent to the Projector object, \a p, in the
-   * argument the function should return 0. If this object should be
-   * ordered before \a p a negative value should be returned,
-   * otherwise a positive value should be returned. This function must
-   * never be called explicitly, but should only be called from the
-   * operator<(const Projection &). When implementing the function in
-   * concrete sub-classes, it is then guarranteed that the Projection
-   * object \a p in the argument is of the same class as the sub-class
-   * and can be safely dynamically casted to that class.
-   *
-   * When implementing this function in a sub-class, the immediate
-   * base class version of the function should be called first. If the
-   * base class function returns a non-zero value, that value should
-   * be returned immediately. Only if zero is returned should this
-   * function check the member variables of the sub-class to determine
-   * whether this should be ordered before or after \a p, or if it is
-   * equivalent with \a p.
-   */
-  virtual int compare(const Projection & p) const;
+  private:
 
-public:
+    /// Hiding the assignment operator.
+    Beam & operator=(const Beam &);
 
-  /**
-   * The pair of beam particles in the current collision in GenEvent 
-   */
-  inline const ParticlePair & operator()() const {
-    return theBeams;
-  }
-
-private:
-
-  /**
-   * The beam particles in the current collision in GenEvent 
-   */
-  ParticlePair theBeams;
-
-private:
-
-  /**
-   * The assignment operator is private and must never be called.
-   * In fact, it should not even be implemented.
-   */
-  Beam & operator=(const Beam &);
-
-};
+  };
 
 }
 

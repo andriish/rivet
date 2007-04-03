@@ -63,12 +63,14 @@ namespace Rivet {
 
   public:
 
-    ///@{ Access the C and D params.
+    /// @name Access the C and D params.
+    ///@{
     inline const double C() const { return _C; }
     inline const double D() const { return _D; }
     ///@}
 
-    ///@{ Access the eigenvalues of \f$\theta\f$.
+    /// @name Access the eigenvalues of \f$\theta\f$.
+    ///@{
     inline const double lambda1() const { return _lambda[0]; }
     inline const double lambda2() const { return _lambda[1]; }
     inline const double lambda3() const { return _lambda[2]; }
