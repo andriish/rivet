@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
   set<AnalysisName> cfgAnalyses;
   string cfgHistoFileName;
   HistoFormat cfgHistoFormat;
-  map<string, Log::Level> cfgLogLevels;
+  Log::LevelMap cfgLogLevels;
   unsigned int cfgNumEvents;
   string cfgEventFile;
 
@@ -62,6 +62,13 @@ int main(int argc, char* argv[]) {
     cerr << "Error: " << e.what() << endl; 
     return EXIT_FAILURE;
   }
+
+
+  /////////////////////////////////////////////////////////////////////////////
+
+
+  // Add all the log levels from the command line into the logging framework
+  Log::setDefaultLevels(cfgLogLevels);
 
 
   // Make a handler and add analyses

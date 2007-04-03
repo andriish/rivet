@@ -54,7 +54,7 @@ namespace Rivet {
     /// object.
     void useLoggingArgs(TCLAP::CmdLine& cmd,
                         TCLAP::MultiArg<string>* logsArg,
-                        map<string, Log::Level>& cfgLogLevels);
+                        Log::LevelMap& cfgLogLevels);
 
   }  
 }

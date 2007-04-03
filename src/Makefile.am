@@ -21,5 +21,5 @@ libRivet_la_LIBADD  = Analysis/libRivetAnalysis.la \
 
 bin_PROGRAMS = rivet
 rivet_SOURCES = RivetInterface.cc
-rivet_LDFLAGS = -L$(HEPMCLIBPATH) -R$(HEPMCLIBPATH)
+rivet_LDFLAGS = -L$(top_srcdir/src) -L$(HEPMCLIBPATH) -R$(HEPMCLIBPATH)
 rivet_LDADD = -lRivet -l$(HEPMCLIBNAME)

@@ -5,50 +5,38 @@
 
 using namespace std;
 
-// Logger& Rivet::getLogger(std::string logfile) {
-//   static log4cpp::Layout* layout = 0;
-//   static log4cpp::Appender* app = 0;
-  
-//   if (Logger* p_log = Logger::exists("rivet")) {
-//     return *p_log;
-//   } else {
-//     Logger& log = Logger::getInstance("rivet");
-//     log.setAdditivity(false);
-//     if (!layout) { layout = new log4cpp::BasicLayout(); }
-//     if (app) delete app;
-    
-//     if (!logfile.empty()) {
-//       app = new log4cpp::FileAppender("FileAppender", logfile);
-//     } else {
-//       app = new log4cpp::OstreamAppender("StreamAppender", &std::cout);
-//     }
-//     app->setLayout(layout);
-//     log.setAppender(app);
-//     return log;
-//   }
-// } 
-
-// /// @todo Get logger priorities by analysis from RivetHandler
-// Logger& Rivet::getLogger(AnalysisName analysis) {
-//   Logger& log = getLogger();
-//   log.setPriority(LogPriority::INFO);
-//   return log;
-// }
 
 namespace Rivet {
+
+  Log::LogMap Log::existingLogs;
+  Log::LevelMap Log::defaultLevels;
+
 
   Log::Log(const string& name) 
     : _name(name), _level(INFO), _writeTime(true), _nostream(new ostream(0)) { }
 
-  Log::Log(const string& name, const Level& level) 
+
+  Log::Log(const string& name, const Level& level)
     : _name(name), _level(level), _writeTime(true), _nostream(new ostream(0)) { }
 
+
   Log& Log::getLog(const string& name) {
-    return *(new Log(name));
+    if (existingLogs.find(name) == existingLogs.end()) {
+      Level level = INFO;
+      if (defaultLevels.find(name) != defaultLevels.end()) {
+        level = defaultLevels.find(name)->second;
+      }
+      existingLogs[name] = new Log(name, level);
+    }
+    return *existingLogs[name];
   }
 
+
   Log& Log::getLog(const string& name, const Level& level) {
-    return *(new Log(name, level));
+    if (existingLogs.find(name) == existingLogs.end()) {
+      existingLogs[name] = new Log(name, level);
+    }
+    return *existingLogs[name];
   }
 
 
@@ -87,7 +75,7 @@ namespace Rivet {
     out += getName();
     out += ": ";
 
-    if (writeTime()) {
+    if (isTimeInOutput()) {
       time_t rawtime;
       time(&rawtime);
       char* timestr = ctime(&rawtime);

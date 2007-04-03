@@ -7,7 +7,7 @@ AM_INIT_AUTOMAKE
 AC_LANG(C++)
 
 AC_CONFIG_SRCDIR([src/RivetHandler.cc])
-dnl AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
+AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
 
 ## Checks for programs.
 AC_PROG_CXX
@@ -31,19 +31,6 @@ AC_CEDAR_LIBRARYANDHEADERS([KtJet], , , [AC_MSG_ERROR([KtJet library is required
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
-
-## Logging framework
-dnl AC_CEDAR_LIBRARYANDHEADERS([log4cpp], , , [AC_MSG_ERROR([log4cpp is required])])
-
-## Conditionally install AIDA headers
-dnl AC_CEDAR_HEADERS([AIDA], , [no_aida=no], [AC_MSG_NOTICE([Installing AIDA headers])]
-dnl no_aida=yes)
-dnl AM_CONDITIONAL(NO_INSTALLED_AIDA, [test "$no_aida" == "yes"])
-
-## Conditionally install LWH headers
-dnl AC_CEDAR_HEADERS([LWH], , [no_lwh=no], [AC_MSG_NOTICE([Installing LWH headers])] 
-dnl no_lwh=yes)
-dnl AM_CONDITIONAL(NO_INSTALLED_LWH, [test "$no_lwh" == "yes"])
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(CLHEPINCPATH) -I\$(HEPMCINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"

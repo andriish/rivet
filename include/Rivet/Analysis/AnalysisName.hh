@@ -21,11 +21,11 @@ namespace Rivet {
 
 
   /// Typedef for a map of analysis name enums to strings.
-  typedef std::map<AnalysisName, std::string> AnalysisMap;
+  typedef map<AnalysisName, string> AnalysisMap;
 
 
   /// Typedef for a map of analysis name strings to enums.
-  typedef std::map<std::string, AnalysisName> AnalysisMapR;
+  typedef map<string, AnalysisName> AnalysisMapR;
 
 
   /// Function which returns a map from analysis enums to the corresponding name strings.
@@ -51,8 +51,8 @@ namespace Rivet {
 
 
   /// Typedef for a collection of analysis name enums.
-  typedef std::set<AnalysisName> AnalysisList;
-  typedef const std::set<AnalysisName> cAnalysisList;
+  typedef set<AnalysisName> AnalysisList;
+  typedef const set<AnalysisName> cAnalysisList;
 
 
   /// Function which returns a vector of all the analysis values in 
@@ -68,8 +68,8 @@ namespace Rivet {
 
 
   /// Function which returns a vector of all the analysis name strings.
-  inline std::vector<std::string> getKnownAnalysisNames() {
-    std::vector<std::string> names;
+  inline vector<string> getKnownAnalysisNames() {
+    vector<string> names;
     AnalysisMap amap = getKnownAnalyses();
     for (AnalysisMap::const_iterator a = amap.begin(); a != amap.end(); ++a) {
       names.push_back(a->second);
