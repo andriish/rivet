@@ -40,7 +40,8 @@ nobase_pkginclude_HEADERS += \
   Tools/Logging.hh           Tools/Logging.fhh \
   Tools/Event/Event.hh       Tools/Event/Event.fhh   \
   Tools/Event/Particle.hh    Tools/Event/Particle.fhh \
-  Tools/Commandline.hh \
+  Tools/Commandline.hh
+
 
 ## Internal tools
 nobase_dist_noinst_HEADERS = \
