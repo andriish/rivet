@@ -1,15 +1,9 @@
 // -*- C++ -*-
-#ifndef RIVET_RivetInfo_H
-#define RIVET_RivetInfo_H
-//
-// This is the declaration of the RivetInfo class.
-//
+#ifndef RIVET_RivetInfo_HH
+#define RIVET_RivetInfo_HH
 
-#include <map>
-//#include <multimap>
-#include <string>
-#include <iostream>
 #include "Rivet/Rivet.hh"
+#include <iostream>
 
 namespace Rivet {
 
@@ -70,194 +64,123 @@ namespace Rivet {
 
   public:
 
-    /**
-     * Typedef for maps of parameter types keyed by the parameter name.
-     */
-    typedef std::map<std::string,std::string> InfoTMap;
+    /// Typedef for maps of parameter types keyed by the parameter name.
+    typedef map<string, string> InfoTMap;
 
-    /**
-     * Typedef for maps of parameter descriptions keyed by the
-     * parameter name.
-     */
-    typedef std::multimap<std::string,std::string> InfoMap;
+    /// Typedef for maps of parameter descriptions keyed by the parameter name.
+    typedef multimap<string, string> InfoMap;
 
-    /**
-     * Typedef for maps of integer parameters keyed by the parameter
-     * name.
-     */
-    typedef std::multimap<std::string,long> InfoIMap;
+    /// Typedef for maps of integer parameters keyed by the parameter name.
+    typedef multimap<string, long> InfoIMap;
 
-    /**
-     * Typedef for maps of floating point parameters keyed by the
-     * parameter name.
-     */
-    typedef std::multimap<std::string,double> InfoDMap;
+    /// Typedef for maps of floating point parameters keyed by the parameter name.
+    typedef multimap<string, double> InfoDMap;
 
 
   public:
 
-    /** @name Standard constructors, destructorsand assignment. */
+    /** @name Standard constructors, destructors and assignment. */
     //@{
-    /**
-     * The default constructor.
-     */
+    /// The default constructor.
     RivetInfo();
 
-    /**
-     * The copy constructor.
-     */
-    inline RivetInfo(const RivetInfo &);
+    /// The copy constructor.
+    //inline RivetInfo(const RivetInfo &);
 
-    /**
-     * The destructor.
-     */
+    /// The destructor.
     virtual ~RivetInfo();
 
-    /**
-     * The assignment operator.
-     */
+    /// The assignment operator.
     RivetInfo & operator=(const RivetInfo &);
-
     //@}
 
   public:
 
-    /**
-     * Declare an integer parameter to be accessible to the outside
-     * world. The \a name and the \a value must be given. If this is not
-     * a standard parameter, the \a type and \a description should be
-     * given as well.
-     */
-    void declareParameter(std::string name, long value,
-        std::string type = "", std::string description = "");
+    /// Declare an integer parameter to be accessible to the outside
+    /// world. The \a name and the \a value must be given. If this is not
+    /// a standard parameter, the \a type and \a description should be
+    /// given as well.
+    void declareParameter(string name, long value,
+        string type="", string description="");
 
-    /**
-     * Declare an floating point parameter to be accessible to the
-     * outside world. The \a name and the \a value must be given. If
-     * this is not a standard parameter, the \a type and \a description
-     * should be given as well.
-     */
-    void declareParameter(std::string name, double value,
-        std::string type = "", std::string description = "");
+    /// Declare an floating point parameter to be accessible to the
+    /// outside world. The \a name and the \a value must be given. If
+    /// this is not a standard parameter, the \a type and \a description
+    /// should be given as well.
+    void declareParameter(string name, double value,
+        string type = "", string description = "");
 
-    /**
-     * Add a \a description of the parameter with the given \a name.
-     */
-    void describeParameter(std::string name, std::string description);
+    /// Add a \a description of the parameter with the given \a name.
+    void describeParameter(string name, string description);
 
-    /**
-     * Set the \a type of the parameter with the given \a name.
-     */
-    void parameterType(std::string name, std::string type);
+    /// Set the \a type of the parameter with the given \a name.
+    void parameterType(string name, string type);
 
-    /**
-     * Append all the parameters from \a inf.
-     */
+    /// Append all the parameters from \a inf.
     void append(const RivetInfo & inf);
 
-    /**
-     * Append all the parameters from \a inf.
-     */
-    inline RivetInfo & operator+=(const RivetInfo & inf);
+    /// Append all the parameters from \a inf.
+    inline RivetInfo& operator+=(const RivetInfo & inf) {
+      append(inf);
+      return *this;
+    }
 
-    /**
-     * Return a new RivetInfo object with all information in this and
-     * \a inf added together.
-     */
-    inline RivetInfo operator+(const RivetInfo & inf) const;
+    /// Return a new RivetInfo object with all information in this and
+    /// \a inf added together.
+    inline RivetInfo operator+(const RivetInfo & inf) const {
+      RivetInfo ret(*this);
+      ret += inf;
+      return ret;
+    }
 
-    /**
-     * Check consistency and purge multiple parameter
-     * definitions. @throw runtime_error if there were conflicting
-     * parameters.
-     */
+    /// Check consistency and purge multiple parameter
+    /// definitions. @throw runtime_error if there were conflicting
+    /// parameters.
     void check();
 
-    /**
-     * Return the value of the parameter with the given \a name. If
-     * several values exist, the average value is returned. Returns zero
-     * if no parameter with corresponding \a name is found.
-     */
-    double getFloatParameter(std::string name) const;
+    /// Return the value of the parameter with the given \a name. If
+    /// several values exist, the average value is returned. Returns zero
+    /// if no parameter with corresponding \a name is found.
+    double getFloatParameter(string name) const;
 
-    /**
-     * Return the value of the parameter with the given \a name. If
-     * several values exist, the average value is returned. Returns zero
-     * if no parameter with corresponding \a name is found.
-     */
-    long getIntParameter(std::string name) const;
+    /// Return the value of the parameter with the given \a name. If
+    /// several values exist, the average value is returned. Returns zero
+    /// if no parameter with corresponding \a name is found.
+    long getIntParameter(string name) const;
 
-    /**
-     * Return the description of the parameter with the given \a name.
-     */
-    std::string getDescription(std::string name) const;
+    /// Return the description of the parameter with the given \a name.
+    string getDescription(string name) const;
 
-    /**
-     * Return the type of the parameter with the given \a name.
-     */
-    inline std::string getType(std::string name) const;
+    /// Return the type of the parameter with the given \a name.
+    inline string getType(string name) const {
+      InfoTMap::const_iterator it = theParTypes.find(name);
+      return it == theParTypes.end()? string(): it->second;
+    }
 
-    /**
-     * Print the parameters to the given \a stream.
-     */
-    std::ostream & print(std::ostream & stream) const;
+    /// Print the parameters to the given \a stream.
+    ostream & print(ostream & stream) const;
 
   private:
 
-    /**
-     * Map the parameter names of this projection to strings
-     * representing their types.
-     */
+    /// Map the parameter names of this projection to strings representing their types.
     InfoTMap theParTypes;
 
-    /**
-     * Map the parameter names of this projection to strings
-     * describing them.
-     */
+    /// Map the parameter names of this projection to strings describing them.
     InfoMap theParDescriptions;
 
-    /**
-     * Map the names of the integer parameters of this projection to
-     * their value.
-     */
+    /// Map the names of the integer parameters of this projection to their value.
     InfoIMap theIntPars;
 
-    /**
-     * Map the names of the floating point parameters of this projection
-     * to their value.
-     */
+    /// Map the names of the floating point parameters of this projection to their value.
     InfoDMap theFloatPars;
   };
 
 
-  inline std::ostream & operator<<(std::ostream & os, const RivetInfo& i) {
+  /// Allow RivetInfo to be passed to an iostream
+  inline ostream & operator<<(ostream & os, const RivetInfo& i) {
     return i.print(os);
-  }
-
-
-  inline RivetInfo::RivetInfo(const RivetInfo& x)
-    : theParTypes(x.theParTypes), theParDescriptions(x.theParDescriptions),
-    theIntPars(x.theIntPars), theFloatPars(x.theFloatPars) {}
-
-
-  inline std::string RivetInfo::getType(std::string name) const {
-    InfoTMap::const_iterator it = theParTypes.find(name);
-    return it == theParTypes.end()? std::string(): it->second;
-  }
-
-
-  inline RivetInfo& RivetInfo::operator+=(const RivetInfo& inf) {
-    append(inf);
-    return *this;
-  }
-
-
-  inline RivetInfo RivetInfo::operator+(const RivetInfo& inf) const {
-    RivetInfo ret(*this);
-    ret += inf;
-    return ret;
   }
 
 }
 
-#endif /* RIVET_RivetInfo_H */
+#endif

@@ -13,15 +13,15 @@ int Thrust::compare(const Projection & p) const {
 
 
 void Thrust::calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const {
-  double tval;
   t = 0.0;
   Vector3 tv, ptot;
-  vector<Vector3> cpm;
-  for (unsigned int k = 1; k < p.size(); ++k) {
-    for (unsigned int j = 0; j < k; ++j) {
+  vector<Vector3> cpm(4);
+  const size_t psize = p.size();
+  for (size_t k = 1; k < psize; ++k) {
+    for (size_t j = 0; j < k; ++j) {
       tv = p[j].cross(p[k]);
       ptot = Vector3();
-      for (unsigned int l = 0; l < p.size(); l++) {
+      for (size_t l = 0; l < psize; ++l) {
         if (l != j && l != k) {
           if (p[l].dot(tv) > 0.0) { 
             ptot += p[l];
@@ -30,16 +30,15 @@ void Thrust::calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const {
           }
         }
       }
-      cpm.clear();
-      cpm.push_back(ptot - p[j] - p[k]);
-      cpm.push_back(ptot - p[j] + p[k]);
-      cpm.push_back(ptot + p[j] - p[k]);
-      cpm.push_back(ptot + p[j] + p[k]);
-      for (vector<Vector3>::iterator it = cpm.begin(); it != cpm.end(); ++it) {
-        tval = it->mag2();
+      cpm[0] = ptot - p[j] - p[k];
+      cpm[1] = ptot - p[j] + p[k];
+      cpm[2] = ptot + p[j] - p[k];
+      cpm[3] = ptot + p[j] + p[k];
+      for (size_t i = 0; i < 4; ++i) {
+        double tval = cpm[i].mag2();
         if (tval > t) {
           t = tval;
-          taxis = *it;
+          taxis = cpm[i];
         }
       }
     } // j loop
@@ -169,7 +168,7 @@ void Thrust::calcThrust(const FinalState& fs) {
     // Get the part of each 3-momentum which is perpendicular to the thrust axis
     Vector3 v = p->momentum.vect();
     Vector3 vpar = v.dot(axis.unit()) * axis.unit();
-    threeMomenta.push_back((v - vpar) / MeV);
+    threeMomenta.push_back(v - vpar);
   }
   calcM(threeMomenta, val, axis);
   _thrusts.push_back(sqrt(val) / momentumSum);
@@ -182,7 +181,7 @@ void Thrust::calcThrust(const FinalState& fs) {
     _thrustAxes.push_back(axis);
     val = 0.0;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      val += fabs(axis * p->momentum.vect()) / MeV;
+      val += fabs(axis * p->momentum.vect());
     }
     _thrusts.push_back(val / momentumSum);
   } else {
@@ -191,15 +190,6 @@ void Thrust::calcThrust(const FinalState& fs) {
   }
 
 }
-
-
-// void Thrust::orderEigenvalues(vector<double>& eigenvalues) {
-//   // Check that there are 3 eigenvalues
-//   assert(eigenvalues.size() == 3);
-
-//   // Put the eigenvalues in the correct order
-//   rsort(order.begin(), order.end()); 
-// }
 
 
 void Thrust::project(const Event& e) {
