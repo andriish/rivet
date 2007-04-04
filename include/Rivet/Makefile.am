@@ -41,6 +41,9 @@ nobase_pkginclude_HEADERS += \
   Tools/Event/Event.hh       Tools/Event/Event.fhh   \
   Tools/Event/Particle.hh    Tools/Event/Particle.fhh \
   Tools/Commandline.hh \
+
+## Internal tools
+nobase_dist_noinst_HEADERS = \
   Tools/D0RunIIcone/HepEntity.h       Tools/D0RunIIcone/inline_maths.h \
   Tools/D0RunIIcone/energycluster/ConeJetInfo.hpp   Tools/D0RunIIcone/energycluster/ConeSplitMerge.hpp \
   Tools/D0RunIIcone/energycluster/ProtoJet.hpp   Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp
