@@ -23,10 +23,26 @@ void Beam::project(const Event& e) {
     /// @todo Maybe we should have our own exception classes?
   }
   // Why can't HepMC just give us the list of particles? *sigh*
+  //ls: Oh it can (see bottom)
+
+
   GenVertex::particles_in_const_iterator pp = sigvertex->particles_in_const_begin();
   theBeams.first = Particle(**pp);
   ++pp;
   theBeams.second = Particle(**pp);
+
+  /*
+  const HepMC::GenEvent ge = e.genEvent();
+
+  GenEvent::particle_const_iterator pp = ge.particles_begin();
+  theBeams.first = Particle(**pp);
+  //cout << "first Beam particle id=" << (**pp).pdg_id() << endl;
+  ++pp;
+  theBeams.second = Particle(**pp);
+  //cout << "second Beam particle id=" << (**pp).pdg_id() << endl;
+  */
+
+
 }
 
 int Beam::compare(const Projection &) const {

@@ -18,7 +18,7 @@ using namespace HepMC;
 void HepEx0409040::init() {
   double bins[] = {64., 80., 88., 96., 100., 102., 104., 106., 108., 110.,
 		    112., 114., 116., 118., 120., 122., 124., 126., 128.};
-  histJetAzimuthpTmax75_100 = bookHistogram1D("JetAzimuth", "Jet Jet azimuthal angle", 18, 64., 128.);
+  histJetAzimuthpTmax75_100 = bookHistogram1D("JetAzimuthpTmax75_100", "Jet Jet azimuthal angle, pTmax=75..100", 18, 64., 128.);
   histJetAzimuthpTmax100_130 = bookHistogram1D("JetAzimuthpTmax100_130", "Jet Jet azimuthal angle, pTmax=100..130", 18, 64., 128.);
   histJetAzimuthpTmax130_180 = bookHistogram1D("JetAzimuthpTmax130_180", "Jet Jet azimuthal angle, pTmax=130..180", 18, 64., 128.);
   histJetAzimuthpTmax180_ = bookHistogram1D("JetAzimuthpTmax180_", "Jet Jet azimuthal angle, pTmax>180", 18, 64., 128.);
@@ -73,7 +73,7 @@ void HepEx0409040::analyze(const Event & event) {
       }
     }
     
-    if (Njet>=2) log << Log::INFO << "Jet multiplicity after pT>40GeV cut = " << Njet << endl;
+    //if (Njet>=2) log << Log::INFO << "Jet multiplicity after pT>40GeV cut = " << Njet << endl;
     
     /*
     if (jetpro.jets->size()>=2) {
@@ -95,7 +95,7 @@ void HepEx0409040::analyze(const Event & event) {
 	if (CaloMissEt.MET() < 0.7*jetpTmax->pT()) {
 	  
 	  double dphi = delta_phi(jetpTmax->phi(),jet2ndpTmax->phi());
-	  dphi *= PI/128.; //publication histogramming choice
+	  dphi *= 128./PI; //publication histogramming choice
 	  
 	  if (jetpTmax->pT() > 75. && jetpTmax->pT() <= 100.)
 	    histJetAzimuthpTmax75_100->fill(dphi, 1.0);
