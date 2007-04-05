@@ -1,8 +1,4 @@
 // -*- C++ -*-
-//
-// This is the implementation of the non-inlined, non-templated member
-// functions of the PVertex class.
-//
 
 #include "Rivet/Projections/PVertex.hh"
 #include "HepMC/GenVertex.h"
@@ -48,11 +44,11 @@ void PVertex::project(const Event& e) {
     cout << "vertex.id()=" << (*vit)->id()
       //<< " particle_ID=" << (*pp)->pdg_id()
       //<< " particle_ID=" << (*vit)->particle_iterator()->pdg_id()
-	 << " particle_ID=" << (*((*vit)->particles_in_const_begin()))->pdg_id()
-	 << " particle_status=" << (*((*vit)->particles_in_const_begin()))->status()
+         << " particle_ID=" << (*((*vit)->particles_in_const_begin()))->pdg_id()
+         << " particle_status=" << (*((*vit)->particles_in_const_begin()))->status()
       //<< " production_vertex-barcode=" << (*((*vit)->particles_in_const_begin()))->production_vertex()->barcode()
-	   << "  position().px()=" << (*vit)->position().px() << "  py=" << (*vit)->position().py()<< "  pz=" << (*vit)->position().pz()
-	   << "  barcode()=" << (*vit)->barcode() << endl;
+         << "  position().px()=" << (*vit)->position().px() << "  py=" << (*vit)->position().py()<< "  pz=" << (*vit)->position().pz()
+         << "  barcode()=" << (*vit)->barcode() << endl;
   }
 
 

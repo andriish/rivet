@@ -5,8 +5,8 @@
 
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Tools/Event/Event.hh"
-
+#include "Rivet/Event.hh"
+#include "Rivet/RivetCLHEP.hh"
 
 namespace Rivet {
 

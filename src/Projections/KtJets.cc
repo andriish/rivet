@@ -23,7 +23,7 @@ void KtJets::project(const Event & e) {
   
   // Store 4 vector data about each particle into vecs
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-    HepMC::FourVector fv = p->momentum;
+    HepMC::FourVector fv = p->getMomentum();
     // store the FourVector in the KtLorentzVector form
     KtJet::KtLorentzVector ktlv(fv.px(), fv.py(), fv.pz(), fv.e());
     vecs.push_back(ktlv);

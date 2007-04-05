@@ -17,7 +17,7 @@ namespace Rivet {
 
     /// The default constructor.
     inline HZ95108()
-      : lepton(beams, 11, -11), diskin(beams, lepton, 2212),
+      : lepton(beams, ELECTRON, POSITRON), diskin(beams, lepton, PROTON),
         fsproj(lepton, diskin, fsp), y1hcm(fsproj) 
     { }
 

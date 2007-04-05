@@ -1,16 +1,8 @@
 // -*- C++ -*-
-//
-// This is the implementation of the non-inlined, non-templated member
-// functions of the Beam class.
-//
 
 #include "Rivet/Projections/Beam.hh"
 #include "HepMC/GenVertex.h"
 #include <stdexcept>
-
-#ifdef ThePEG_TEMPLATES_IN_CC_FILE
-// #include "Beam.tcc"
-#endif
 
 using namespace Rivet;
 using std::runtime_error;
@@ -44,6 +36,7 @@ void Beam::project(const Event& e) {
 
 
 }
+
 
 int Beam::compare(const Projection &) const {
   return 0;

@@ -3,6 +3,7 @@
 
 #include <typeinfo>
 #include <set>
+#include <list>
 #include <map>
 #include <string>
 #include <vector>
@@ -10,9 +11,7 @@
 #include <iostream>
 #include <iomanip>
 
-/**
- * This is the main namespace in which all Rivet classes are defined.
- */
+/// This is the main namespace in which all Rivet classes are defined.
 namespace Rivet {
 
   using std::set;
@@ -21,6 +20,7 @@ namespace Rivet {
   using std::type_info;
   using std::string;
   using std::less;
+  using std::list;
   using std::vector;
   using std::pair;
   using std::make_pair;

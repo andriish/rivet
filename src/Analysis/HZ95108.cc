@@ -81,8 +81,8 @@ void HZ95108::analyze(const Event & event) {
   if ( ibin < 0 ) return;
 
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
-    double rap = fs.particles()[i].momentum.rapidity();
-    double et = fs.particles()[i].momentum.et();
+    double rap = fs.particles()[i].getMomentum().rapidity();
+    double et = fs.particles()[i].getMomentum().et();
     hEtFlow[ibin]->fill(rap, et*event.weight()/GeV);
     hEtFlowStat[ibin]->fill(rap, et*event.weight()/GeV);
   }

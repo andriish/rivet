@@ -51,7 +51,7 @@ void Sphericity::project(const Event & e) {
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
   
     // Get the momentum vector for the final state particle
-    CLHEP::HepLorentzVector lv = p->momentum;
+    LorentzVector lv = p->getMomentum();
  
     // Build the normalising factor
     if (fabs(_regparam - 2.0) > 1e-3) {

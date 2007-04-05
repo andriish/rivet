@@ -2,8 +2,8 @@
 #ifndef RIVET_CentralEtHCM_H
 #define RIVET_CentralEtHCM_H
 
-#include "Rivet/Tools/Event/Particle.hh"
-#include "Rivet/Tools/Event/Event.hh"
+#include "Rivet/Particle.hh"
+#include "Rivet/Event.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
 
 

@@ -3,78 +3,75 @@
 #define RIVET_RivetInfo_HH
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/BeamParticle.hh"
 #include <iostream>
 
 namespace Rivet {
 
-  /**
-   * RivetInfo contains information which can be passed from the
-   * different Projection and AnalysisBase objects in Rivet to the
-   * outside world. The info is in the form of integers or floating
-   * point numbers mapped to names given as simple strings. The typical
-   * information is about cuts assumed in an analysis which can be used
-   * by the event generators to speed up the generation.  The names of
-   * the parameters are completely implementation-defined, but there are
-   * a number of pre-defined names of specific types. Each parameter can
-   * be assigned a type and a description. The type is simply given by a
-   * string and is also implementation-defined athough, again, there are
-   * some pre-defined types.
-   * 
-   * The following types of parameters are defined:
-   * <ul>
-   *
-   * <li> \c min means the parameter specifies a minimum value of a
-   * parameter. If different objects in the same run specify different
-   * values of the same parameter, they will be reduced to just one
-   * taking the minimum of all values.
-   *
-   * <li> \c unique means that if different objects in the same run
-   * specify this parameter the values must be the same.
-   *
-   * <li> \c none is the default type. If different objects in the same
-   * run specify different values of the same parameter, they will all
-   * be reported.
-   *
-   * <li> \c limited:par A parameter similar to \c none, the variation
-   * in which is limited by another parameter named \c par. If different
-   * objects in the same run specify different values, the minimum and
-   * maximum may not differ by more than the amount specified by \c
-   * par. If \c par is missing or zero this is the same as \c unique.
-   *
-   * </ul>
-   *
-   * The pre-defined parameter names are:<ul>
-   *
-   * <li> \c BeamA and \c BeamB (type: \c unique) the particle id
-   * numbers of the incoming beams (A is assumed to be along the
-   * positive z-axis).
-   *
-   * <li> \c EBeamA and \c EBeamB (\c limited:ETolBeamA and \c
-   * limited:ETolBeamB) the energy of the incoming beams.
-   *
-   * <li> \c ETolBeamA and \c ETolBeamB (\c min) The tolerance allowed
-   * in the energy of the beams.
-   *
-   * <li> \c MinQ2 (\c min) The minimum \f$ Q^2 \f$ assumed in a DIS
-   * event.
-   *
-   * </ul>
-   */
+  /// RivetInfo contains information which can be passed from the
+  /// different Projection and Analysis objects in Rivet to the
+  /// outside world. The main purpose of the RivetInfo objects is
+  /// to allow applications which use Rivet to determine whether or
+  /// not a given analysis "makes sense" on the provided events. An
+  /// Analysis' RivetInfo object should be the combination of those
+  /// from its projections, plus the additional constraints (experiment
+  /// conditions and cuts) specific to that analysis.
+  ///
+  /// To make the output constraints predictable, the valid quantities
+  /// and their comparison operations are defined via enums. If 
+  /// additional enums are required for an analysis that you are 
+  /// implementing, please put a request in to the Rivet developers 
+  /// to extend the Quantity enum.
   class RivetInfo {
+    
+  public:
+    
+    enum Comparison {
+      LESS, GREATER, EQUAL
+    };
+    
+    inline static const string comparisonToStr(const Comparison& c) {
+      switch(c) {
+      case LESS:
+        return "<";
+      case GREATER:
+        return ">";
+      case EQUAL:
+        return "=";
+      }
+    }
+
+    enum Quantity {
+      SQRTS, PT, Q2
+    };
+
+    inline static const string quantityToStr(const Quantity& q) {
+      switch(q) {
+      case SQRTS:
+        return "sqrt(s)";
+      case PT:
+        return "pT";
+      case Q2:
+        return "Q^2";
+      }
+    }
 
   public:
 
-    /// Typedef for maps of parameter types keyed by the parameter name.
-    typedef map<string, string> InfoTMap;
+    /// Typedef for a param name and comparison-type pair.
+    typedef pair<Quantity, Comparison> ParamKey;
 
-    /// Typedef for maps of parameter descriptions keyed by the parameter name.
-    typedef multimap<string, string> InfoMap;
+    /// Typedef for a collection of params.
+    typedef map<ParamKey, double> Params;
 
-    /// Typedef for maps of integer parameters keyed by the parameter name.
-    typedef multimap<string, long> InfoIMap;
+    /// Typedef for a beam particle and momentum.
+    typedef pair<BeamParticle, double> Beam;
 
-    /// Typedef for maps of floating point parameters keyed by the parameter name.
-    typedef multimap<string, double> InfoDMap;
+    /// Typedef for a pair of beam particles.
+    typedef pair<Beam, Beam> BeamPair;
+
+    /// Typedef for a set of pairs of beams.
+    typedef set<BeamPair> BeamsSet;
 
 
   public:
@@ -82,97 +79,79 @@ namespace Rivet {
     /** @name Standard constructors, destructors and assignment. */
     //@{
     /// The default constructor.
-    RivetInfo();
+    //RivetInfo();
 
     /// The copy constructor.
     //inline RivetInfo(const RivetInfo &);
 
     /// The destructor.
-    virtual ~RivetInfo();
+    //virtual ~RivetInfo();
 
     /// The assignment operator.
-    RivetInfo & operator=(const RivetInfo &);
+    //RivetInfo & operator=(const RivetInfo &);
     //@}
 
   public:
 
-    /// Declare an integer parameter to be accessible to the outside
-    /// world. The \a name and the \a value must be given. If this is not
-    /// a standard parameter, the \a type and \a description should be
-    /// given as well.
-    void declareParameter(string name, long value,
-        string type="", string description="");
+    /// Add a parameter, defined by a quantity to be constrained, the comparison type
+    /// of the constraint and a value.
+    RivetInfo& addParam(Quantity quantity, Comparison comparison, double value);
 
-    /// Declare an floating point parameter to be accessible to the
-    /// outside world. The \a name and the \a value must be given. If
-    /// this is not a standard parameter, the \a type and \a description
-    /// should be given as well.
-    void declareParameter(string name, double value,
-        string type = "", string description = "");
+    /// Get the collection of parameters.
+    inline const Params& getParams() const { return _params; }
 
-    /// Add a \a description of the parameter with the given \a name.
-    void describeParameter(string name, string description);
+    /// Add a valid pair of beams, with optional momentum constraints in GeV. 
+    /// Negative momenta will be counted as declaring that there is no momentum constraint.
+    RivetInfo& addValidBeamPair(BeamParticle b1, BeamParticle b2, double mom1 = -1, double mom2 = -1);
 
-    /// Set the \a type of the parameter with the given \a name.
-    void parameterType(string name, string type);
+    /// Get the set of allowed beam pairs
+    inline const BeamsSet& getValidBeamPairs() const { return _validBeams; }
 
     /// Append all the parameters from \a inf.
-    void append(const RivetInfo & inf);
-
-    /// Append all the parameters from \a inf.
-    inline RivetInfo& operator+=(const RivetInfo & inf) {
-      append(inf);
+    inline RivetInfo& operator+=(const RivetInfo& inf) {
+      _append(inf);
       return *this;
     }
 
     /// Return a new RivetInfo object with all information in this and
     /// \a inf added together.
-    inline RivetInfo operator+(const RivetInfo & inf) const {
+    inline RivetInfo operator+(const RivetInfo& inf) const {
       RivetInfo ret(*this);
       ret += inf;
       return ret;
     }
 
-    /// Check consistency and purge multiple parameter
-    /// definitions. @throw runtime_error if there were conflicting
-    /// parameters.
-    void check();
+    /// Print the parameters to the given \a stream.
+    ostream& print(ostream& stream) const;
 
-    /// Return the value of the parameter with the given \a name. If
-    /// several values exist, the average value is returned. Returns zero
-    /// if no parameter with corresponding \a name is found.
-    double getFloatParameter(string name) const;
+  protected:
 
-    /// Return the value of the parameter with the given \a name. If
-    /// several values exist, the average value is returned. Returns zero
-    /// if no parameter with corresponding \a name is found.
-    long getIntParameter(string name) const;
-
-    /// Return the description of the parameter with the given \a name.
-    string getDescription(string name) const;
-
-    /// Return the type of the parameter with the given \a name.
-    inline string getType(string name) const {
-      InfoTMap::const_iterator it = theParTypes.find(name);
-      return it == theParTypes.end()? string(): it->second;
+    /// Check consistency and purge multiple parameter definitions. 
+    /// @throw runtime_error if there were conflicting parameters.
+    void _check() const;
+    
+    /// Combine params and beam type constraints and check consistency.
+    /// If inconsistent, throw a runtime_error.
+    inline void _append(const RivetInfo& inf) {
+      _combineParams(inf.getParams());
+      _combineValidBeams(inf.getValidBeamPairs());
+      _check();
     }
 
-    /// Print the parameters to the given \a stream.
-    ostream & print(ostream & stream) const;
+    /// Combine parameters into a new minimal set.
+    void _combineParams(const Params& otherps);
+
+    /// Combine beam types into the intersection of the two input sets.
+    void _combineValidBeams(const BeamsSet& otherbs);
 
   private:
 
-    /// Map the parameter names of this projection to strings representing their types.
-    InfoTMap theParTypes;
+    /// Map of parameter names, types and values.
+    Params _params;
 
-    /// Map the parameter names of this projection to strings describing them.
-    InfoMap theParDescriptions;
+    /// Set of allowed beam pairs.
+    BeamsSet _validBeams;
 
-    /// Map the names of the integer parameters of this projection to their value.
-    InfoIMap theIntPars;
-
-    /// Map the names of the floating point parameters of this projection to their value.
-    InfoDMap theFloatPars;
   };
 
 

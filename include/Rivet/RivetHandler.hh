@@ -7,8 +7,8 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetHandler.fhh"
+#include "Rivet/Event.hh"
 #include "Rivet/Analysis/Analysis.hh"
-#include "Rivet/Tools/Event/Event.hh"
 
 
 namespace AIDA {

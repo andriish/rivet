@@ -1,10 +1,14 @@
 ## Rivet interface
 nobase_pkginclude_HEADERS = \
-  Rivet.hh         RivetInfo.hh  \
+  Rivet.hh         \
+  RivetInfo.hh     \
   RivetCLHEP.hh    \
-  RivetAIDA.hh     RivetAIDA.fhh  \
+  BeamParticle.hh  \
+  HistoFormat.hh   \
+  RivetAIDA.hh     RivetAIDA.fhh    \
   RivetHandler.hh  RivetHandler.fhh \
-  BeamParticle.hh  HistoFormat.hh
+  Event.hh         Event.fhh        \
+  Particle.hh      Particle.fhh 
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
@@ -37,10 +41,7 @@ nobase_pkginclude_HEADERS += \
 
 ## Tools
 nobase_pkginclude_HEADERS += \
-  Tools/Logging.hh           Tools/Logging.fhh \
-  Tools/Event/Event.hh       Tools/Event/Event.fhh   \
-  Tools/Event/Particle.hh    Tools/Event/Particle.fhh \
-  Tools/Commandline.hh
+  Tools/Logging.hh  Tools/Logging.fhh  Tools/Commandline.hh
 
 
 ## Internal tools

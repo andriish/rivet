@@ -1,11 +1,8 @@
 // -*- C++ -*-
-//
-// This is the implementation of the non-inlined, non-templated member
-// functions of the CentralEtHCM class.
-//
 
 #include "Rivet/Projections/CentralEtHCM.hh"
 #include "Rivet/Projections/Cmp.hh"
+#include "Rivet/RivetCLHEP.hh"
 
 using namespace Rivet;
 using namespace std;
@@ -21,8 +18,8 @@ void CentralEtHCM::project(const Event & e) {
   const FinalStateHCM & fs = e.applyProjection(*fshcm);
   sumet = 0.0;
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
-    if ( abs(fs.particles()[i].momentum.rapidity()) < 0.5 )
-      sumet += fs.particles()[i].momentum.et();
+    if ( abs(fs.particles()[i].getMomentum().rapidity()) < 0.5 )
+      sumet += fs.particles()[i].getMomentum().et();
   }
 }
 

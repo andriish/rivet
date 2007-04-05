@@ -2,9 +2,9 @@
 #ifndef RIVET_DISKinematics_H
 #define RIVET_DISKinematics_H
 
+#include "Rivet/Particle.hh"
+#include "Rivet/Event.hh"
 #include "Rivet/Projections/Projection.hh"
-#include "Rivet/Tools/Event/Particle.hh"
-#include "Rivet/Tools/Event/Event.hh"
 #include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/RivetCLHEP.hh"
@@ -22,10 +22,10 @@ namespace Rivet {
     /// projection objects which are guaranteed to live throughout the
     /// run. Also the PDG code of the incoming hadron (\a hadid) must be
     /// specified.
-    inline DISKinematics(Beam & beamp, DISLepton & leptonp, long hadid)
+    inline DISKinematics(Beam & beamp, DISLepton & leptonp, BeamParticle hadid)
       : beams(&beamp), lepton(&leptonp), idhad(hadid), theQ2(-1.0), theW2(-1.0),
         theX(-1.0) {
-      info.declareParameter("BeamB", hadid);
+      //info.declareParameter("BeamB", hadid);
     }
     
   public:

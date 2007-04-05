@@ -3,8 +3,8 @@
 #define RIVET_FinalState_H
 
 #include "Rivet/Projections/Projection.hh"
-#include "Rivet/Tools/Event/Particle.hh"
-#include "Rivet/Tools/Event/Event.hh"
+#include "Rivet/Particle.hh"
+#include "Rivet/Event.hh"
 
 
 namespace Rivet {

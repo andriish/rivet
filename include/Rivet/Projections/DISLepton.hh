@@ -3,8 +3,8 @@
 #define RIVET_DISLepton_H
 
 #include "Rivet/Projections/Beam.hh"
-#include "Rivet/Tools/Event/Particle.hh"
-#include "Rivet/Tools/Event/Event.hh"
+#include "Rivet/Particle.hh"
+#include "Rivet/Event.hh"
 
 namespace Rivet {
 
@@ -14,18 +14,14 @@ namespace Rivet {
     
   public:
     
-    /**
-     * The default constructor. Must specify the incoming and outgoing
-     * PDG codes of the leptons to project.  If \a inid is the
-     * anti-particle of \a outid, either a scattered lepton or
-     * anti-lepton is searched for. Must also specify a Beam projection
-     * object which is assumed to live thoughout the run.
-     */
-    inline DISLepton(Beam & beamp, long inid, long outid)
-      : beams(&beamp), idin(inid), idout(outid) {
-      info.declareParameter("BeamA", inid);
-      info.declareParameter("DISLepton", outid, "none",
-                            "The type of the scattered lepton.");
+    /// The default constructor. Must specify the incoming and outgoing
+    /// PDG codes of the leptons to project.  If \a inid is the
+    /// anti-particle of \a outid, either a scattered lepton or
+    /// anti-lepton is searched for. Must also specify a Beam projection
+    /// object which is assumed to live thoughout the run.
+    inline DISLepton(Beam& beamproj, BeamParticle inid, BeamParticle outid)
+      : _beams(&beamproj), _idin(inid), _idout(outid) {
+      info.addValidBeamPair(inid, ANY);
     }
     
     
@@ -46,10 +42,10 @@ namespace Rivet {
   public:
     
     /// The incoming lepton.
-    inline const Particle & in() const { return incoming; }
+    inline const Particle & in() const { return _incoming; }
     
     /// The outgoing lepton.
-    inline const Particle & out() const { return outgoing; }
+    inline const Particle & out() const { return _outgoing; }
     
     /// Return the RivetInfo object of this Projection.
     virtual RivetInfo getInfo() const;
@@ -57,19 +53,19 @@ namespace Rivet {
   private:
     
     /// The Beam projector object defining the incoming beam particles.
-    Beam* beams;
+    Beam* _beams;
     
     /// The PDG id of the incoming lepton.
-    long idin;
+    long _idin;
     
     /// The PDG id of the outcoming lepton.
-    long idout;
+    long _idout;
     
     /// The incoming lepton.
-    Particle incoming;
+    Particle _incoming;
     
     /// The incoming lepton.
-    Particle outgoing;
+    Particle _outgoing;
     
   private:
     

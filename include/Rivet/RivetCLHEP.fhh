@@ -1,0 +1,24 @@
+// $Id: $
+#ifndef RIVET_RIVETCLHEP_FHH 
+#define RIVET_RIVETCLHEP_FHH 1
+
+namespace CLHEP {
+  class HepLorentzRotation;
+  class HepLorentzVector;
+  class HepRotation;
+  class Hep3Vector;
+
+  typedef HepLorentzRotation LorentzRotation;
+  typedef HepLorentzVector LorentzVector;
+  typedef HepRotation Rotation;
+  typedef Hep3Vector Vector3;
+}
+
+namespace Rivet {
+  using CLHEP::LorentzRotation;
+  using CLHEP::LorentzVector;
+  using CLHEP::Rotation;
+  using CLHEP::Vector3;
+}
+
+#endif // RIVET_RIVETCLHEP_FHH

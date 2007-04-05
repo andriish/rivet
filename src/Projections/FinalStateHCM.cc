@@ -20,9 +20,9 @@ void FinalStateHCM::project(const Event& e) {
   theParticles.clear();
   theParticles.reserve(fs.particles().size());
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
-    if ( fs.particles()[i].original != dislep.out().original ) {
+    if ( fs.particles()[i].getHepMCParticle() != dislep.out().getHepMCParticle() ) {
       theParticles.push_back(fs.particles()[i]);
-      theParticles[i].momentum *= diskin.boostHCM();
+      theParticles[i].getMomentum() *= diskin.boostHCM();
     }
   }
 }

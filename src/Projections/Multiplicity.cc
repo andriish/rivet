@@ -31,7 +31,7 @@ void Multiplicity::project(const Event & e) {
   // Get hadron and charge info for each particle, and fill counters appropriately
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
     ++totalMult_;
-    HepPDT::ParticleID pInfo = p->id;
+    HepPDT::ParticleID pInfo = p->getPdgId();
     bool isHadron = pInfo.isHadron();
     if (pInfo.threeCharge() != 0) {
       ++totalChMult_;

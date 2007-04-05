@@ -3,7 +3,7 @@
 #define RIVET_D0RunIIconeJets_HH
 // Declaration of the D0RunIIconeJets class.
 
-#include<list.h>
+#include "Rivet/Rivet.hh"
 
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"

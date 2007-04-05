@@ -1,7 +1,7 @@
 #ifndef INLINE_MATHS
 #define INLINE_MATHS
 
-#include<errno.h>
+#include <cerrno>
 
 
 #ifndef PI

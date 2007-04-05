@@ -2,8 +2,8 @@
 #ifndef RIVET_FinalStateHCM_H
 #define RIVET_FinalStateHCM_H
 
-#include "Rivet/Tools/Event/Particle.hh"
-#include "Rivet/Tools/Event/Event.hh"
+#include "Rivet/Particle.hh"
+#include "Rivet/Event.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
 

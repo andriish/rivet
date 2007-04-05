@@ -1,0 +1,20 @@
+// -*- C++ -*-
+
+#ifndef RIVET_Particle_FHH
+#define RIVET_Particle_FHH
+
+#include "Rivet/Rivet.hh"
+
+namespace Rivet {
+
+  class Particle;
+  
+  /** Typedef a vector of Particle objects. */
+  typedef vector<Particle> ParticleVector;
+  
+  /** Typedef a pair of Particle objects. */
+  typedef pair<Particle, Particle> ParticlePair;
+
+}
+
+#endif

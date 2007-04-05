@@ -1,10 +1,9 @@
 // -*- C++ -*-
 
-#include<list.h>
-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/D0RunIIconeJets.hh"
 #include "Rivet/Projections/Cmp.hh"
+#include "Rivet/RivetCLHEP.hh"
 
 #include "Rivet/Tools/D0RunIIcone/inline_maths.h"
 #include "Rivet/Tools/D0RunIIcone/HepEntity.h"
@@ -29,7 +28,7 @@ void D0RunIIconeJets::project(const Event & e) {
   //double SET=0.;
   // Store 4 vector data about each particle into list
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-    HepMC::FourVector fv = p->momentum;
+    LorentzVector fv = p->getMomentum();
     // store the FourVector in the KtLorentzVector form
     //KtJet::KtLorentzVector ktlv(fv.px(), fv.py(), fv.pz(), fv.e());
     const HepEntity* listelement = new HepEntity(fv.e(), fv.px(), fv.py(), fv.pz());

@@ -5,7 +5,7 @@
 #include "Rivet/Analysis/Analysis.fhh"
 #include "Rivet/RivetInfo.hh"
 #include "Rivet/RivetHandler.fhh"
-#include "Rivet/Tools/Event/Event.fhh"
+#include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
 

@@ -32,13 +32,13 @@ void CalMET::project(const Event & e) {
   _metx = 0.;
   _mety = 0.;
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
-    if (abs(fs.particles()[i].id) != 12 && //no nu_e
-	abs(fs.particles()[i].id) != 14 && //no nu_mu
-	abs(fs.particles()[i].id) != 16 && //no nu_tau
-	(abs(fs.particles()[i].id) != 13 || _addMuons) //no mu
-	&& fabs(fs.particles()[i].momentum.eta()) < _etaMax )
-      _metx -= fs.particles()[i].momentum.px();
-      _mety -= fs.particles()[i].momentum.py();
+    if (abs(fs.particles()[i].getPdgId()) != 12 && //no nu_e
+	abs(fs.particles()[i].getPdgId()) != 14 && //no nu_mu
+	abs(fs.particles()[i].getPdgId()) != 16 && //no nu_tau
+	(abs(fs.particles()[i].getPdgId()) != 13 || _addMuons) //no mu
+	&& fabs(fs.particles()[i].getMomentum().eta()) < _etaMax )
+      _metx -= fs.particles()[i].getMomentum().px();
+      _mety -= fs.particles()[i].getMomentum().py();
   }
 
   _met = sqrt(_metx * _metx  + _mety * _mety);

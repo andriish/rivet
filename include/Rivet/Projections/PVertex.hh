@@ -5,8 +5,8 @@
 // This is the declaration of the Beam class.
 
 #include "Rivet/Projections/Projection.hh"
-#include "Rivet/Tools/Event/Event.hh"
-#include "Rivet/Tools/Event/Particle.hh"
+#include "Rivet/Event.hh"
+#include "Rivet/Particle.hh"
 
 namespace Rivet {
 

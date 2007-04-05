@@ -165,7 +165,7 @@ public:
   //void makeClusters(const EnergyClusterReco* r,
   void makeClusters(
 		    // the input list modified (ordered)
-		    list<Item> &jets,
+		    std::list<Item> &jets,
 		    std::list<const Item*>& itemlist, 
 		    //float zvertex,   
 		    ////std::list<const Item*>& itemlist);   
@@ -338,7 +338,7 @@ template <class Item>
 void ILConeAlgorithm <Item>::
 //makeClusters(const EnergyClusterReco* r,
 makeClusters(
-             list<Item> &jets,
+             std::list<Item> &jets,
 	     std::list<const Item*>& ilist, 
 	     //float Zvertex, 
 	     ////std::list<const Item*>& ilist) 

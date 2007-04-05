@@ -87,7 +87,7 @@ void Thrust::calcThrust(const FinalState& fs) {
   vector<Vector3> threeMomenta;
   double momentumSum(0.0);
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-    Vector3 p3 = p->momentum.vect();
+    Vector3 p3 = p->getMomentum().vect();
     threeMomenta.push_back(p3);
     momentumSum += threeMomenta.back().mag();
   }
@@ -166,7 +166,7 @@ void Thrust::calcThrust(const FinalState& fs) {
   threeMomenta.clear();
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
     // Get the part of each 3-momentum which is perpendicular to the thrust axis
-    Vector3 v = p->momentum.vect();
+    Vector3 v = p->getMomentum().vect();
     Vector3 vpar = v.dot(axis.unit()) * axis.unit();
     threeMomenta.push_back(v - vpar);
   }
@@ -181,7 +181,7 @@ void Thrust::calcThrust(const FinalState& fs) {
     _thrustAxes.push_back(axis);
     val = 0.0;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      val += fabs(axis * p->momentum.vect());
+      val += fabs(axis * p->getMomentum().vect());
     }
     _thrusts.push_back(val / momentumSum);
   } else {

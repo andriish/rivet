@@ -1,14 +1,12 @@
 // -*- C++ -*-
 #ifndef RIVET_Projection_H
 #define RIVET_Projection_H
-//
-// This is the declaration of the Projection class.
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetInfo.hh"
 #include "Projection.fhh"
+#include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.fhh"
-#include "Rivet/Tools/Event/Event.fhh"
 #include "Rivet/Projections/Cmp.fhh"
 
 
@@ -41,11 +39,6 @@ namespace Rivet {
     //@{
     /// The default constructor.
     inline Projection() { };
-    
-    /// The copy constructor.
-    inline Projection(const Projection& p)
-      : info(p.info) 
-    { }
     
     /// The destructor.
     virtual ~Projection();

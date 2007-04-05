@@ -1,12 +1,9 @@
 // -*- C++ -*-
 #ifndef RIVET_CalMET_H
 #define RIVET_CalMET_H
-//
-// This is the declaration of the CentralEtHCM class.
-//
 
-#include "Rivet/Tools/Event/Particle.hh"
-#include "Rivet/Tools/Event/Event.hh"
+#include "Rivet/Particle.hh"
+#include "Rivet/Event.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
 
 
