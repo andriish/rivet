@@ -72,7 +72,7 @@ void PL273B181::finalize() {
 }
 
 
-RivetInfo PL273B181::getInfo() const {
-  return Analysis::getInfo() + fsproj.getInfo() +
-    mult.getInfo() + spher.getInfo();
-}
+// RivetInfo PL273B181::getInfo() const {
+//   return Analysis::getInfo() + fsproj.getInfo() +
+//     mult.getInfo() + spher.getInfo();
+// }

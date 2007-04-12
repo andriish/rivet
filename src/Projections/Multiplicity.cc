@@ -53,7 +53,7 @@ void Multiplicity::project(const Event & e) {
   }
 }
 
-RivetInfo Multiplicity::getInfo() const {
-  return Projection::getInfo() + fsproj->getInfo();
-}
+// RivetInfo Multiplicity::getInfo() const {
+//   return Projection::getInfo() + fsproj->getInfo();
+// }
 

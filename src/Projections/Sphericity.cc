@@ -28,9 +28,9 @@ int Sphericity::compare(const Projection& p) const {
 }
 
 
-RivetInfo Sphericity::getInfo() const {
-  return Projection::getInfo() + _fsproj->getInfo();
-}
+// RivetInfo Sphericity::getInfo() const {
+//   return Projection::getInfo() + _fsproj->getInfo();
+// }
 
 
 void Sphericity::project(const Event & e) {

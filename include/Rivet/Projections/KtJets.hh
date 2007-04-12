@@ -75,8 +75,8 @@ namespace Rivet {
     inline vector<KtJet::KtLorentzVector> getJetsEta() const { return pktev_->getJetsEta(); }
     //@}
 
-    /// Return the RivetInfo object of this Projection.
-    virtual RivetInfo getInfo() const;
+//     /// Return the RivetInfo object of this Projection.
+//     virtual RivetInfo getInfo() const;
 
   private:
     

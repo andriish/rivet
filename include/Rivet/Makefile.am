@@ -1,7 +1,8 @@
 ## Rivet interface
 nobase_pkginclude_HEADERS = \
   Rivet.hh         \
-  RivetInfo.hh     \
+  ParamConstraint.hh \
+  BeamConstraint.hh BeamConstraint.fhh \
   RivetCLHEP.hh    \
   BeamParticle.hh  \
   HistoFormat.hh   \

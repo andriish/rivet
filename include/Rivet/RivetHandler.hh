@@ -133,7 +133,7 @@ namespace Rivet {
 
     /// Return a RivetInfo object containing all parameters of all
     /// included analysis handlers and all their included Projections.
-    RivetInfo info() const;
+    //RivetInfo info() const;
 
 
     /// The AIDA analysis factory.

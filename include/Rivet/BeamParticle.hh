@@ -43,11 +43,11 @@ namespace Rivet {
 
 
   /// Typedef for a map of beam particle name enums to strings.
-  typedef std::map<BeamParticle, std::string> BeamParticleMap;
+  typedef map<BeamParticle, string> BeamParticleMap;
 
 
   /// Typedef for a map of beam particle name strings to enums.
-  typedef std::map<std::string, BeamParticle> BeamParticleMapR;
+  typedef map<string, BeamParticle> BeamParticleMapR;
 
 
   /// Function which returns a map from beam particle enums to the corresponding name strings.
@@ -78,6 +78,7 @@ namespace Rivet {
     bpmap[PHOTOANTIMUON] = "PHOTOANTIMUON";
     bpmap[PHOTOTAU] = "PHOTOTAU"; 
     bpmap[PHOTOANTITAU] = "PHOTOANTITAU";
+    bpmap[ANY] = "*";
     return bpmap;
   }
 
@@ -93,7 +94,7 @@ namespace Rivet {
 
 
   /// Typedef for a collection of beam particle name enums.
-  typedef std::vector<BeamParticle> BeamParticleList;
+  typedef vector<BeamParticle> BeamParticleList;
 
 
   /// Function which returns a vector of all the beam particle values in 
@@ -109,15 +110,39 @@ namespace Rivet {
 
 
   /// Function which returns a vector of all the beam particle name strings.
-  inline std::vector<std::string> getKnownBeamParticleNames() {
-    std::vector<std::string> names;
+  inline vector<string> getKnownBeamParticleNames() {
+    vector<string> names;
     BeamParticleMap bpmap = getKnownBeamParticles();
     for (BeamParticleMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
       names.push_back(bp->second);
     }
     return names;
   }
+
+
+  /////////////////////////////////////////////////
+
   
+
+  /// Typedef for a pair of beam particle names.
+  typedef pair<BeamParticle, BeamParticle> BeamPair;
+
+  /// Print a BeamPair as a string
+  inline string toString(BeamPair pair) {
+    string out = "["
+      + getKnownBeamParticles()[pair.first] 
+      + ", "
+      + getKnownBeamParticles()[pair.second]
+      + "]";
+    return out;
+  }
+
+  /// Allow BeamPair to be passed to an iostream
+  inline ostream& operator<<(ostream& os, const BeamPair& bp) {
+    os << toString(bp);
+    return os;
+  }
+
   
 }
 

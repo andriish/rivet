@@ -36,7 +36,7 @@ int DISLepton::compare(const Projection & p) const {
   return pcmp(*_beams, *other._beams) || cmp(_idin, other._idin) || cmp(_idout, other._idout);
 }
 
-RivetInfo DISLepton::getInfo() const {
-  return Projection::getInfo() + _beams->getInfo();
-}
+// RivetInfo DISLepton::getInfo() const {
+//   return info + _beams->getInfo();
+// }
 

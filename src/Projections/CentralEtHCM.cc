@@ -23,7 +23,7 @@ void CentralEtHCM::project(const Event & e) {
   }
 }
 
-RivetInfo CentralEtHCM::getInfo() const {
-  return Projection::getInfo() + fshcm->getInfo();
-}
+// RivetInfo CentralEtHCM::getInfo() const {
+//   return Projection::getInfo() + fshcm->getInfo();
+// }
 

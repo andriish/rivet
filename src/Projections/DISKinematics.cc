@@ -46,6 +46,6 @@ int DISKinematics::compare(const Projection & p) const {
     cmp(idhad, other.idhad);
 }
 
-RivetInfo DISKinematics::getInfo() const {
-  return Projection::getInfo() + beams->getInfo() + lepton->getInfo();
-}
+// RivetInfo DISKinematics::getInfo() const {
+//   return Projection::getInfo() + beams->getInfo() + lepton->getInfo();
+// }

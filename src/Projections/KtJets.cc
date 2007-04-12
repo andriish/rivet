@@ -32,6 +32,6 @@ void KtJets::project(const Event & e) {
 
 }
 
-RivetInfo KtJets::getInfo() const {
-  return Projection::getInfo() + fsproj->getInfo();
-}
+// RivetInfo KtJets::getInfo() const {
+//   return Projection::getInfo() + fsproj->getInfo();
+// }

@@ -17,7 +17,9 @@ namespace Rivet {
     /// Default constructor.
     inline PL273B181()
       : mult(fsproj), spher(fsproj) 
-    { }
+    { 
+      setBeams(ELECTRON, POSITRON); 
+    }
 
   public:
 
@@ -33,7 +35,7 @@ namespace Rivet {
     virtual void finalize();
 
     /// Return the RivetInfo object of this analysis object.
-    virtual RivetInfo getInfo() const;
+    //virtual RivetInfo getInfo() const;
 
   private:
 

@@ -27,8 +27,8 @@ void FinalStateHCM::project(const Event& e) {
   }
 }
 
-RivetInfo FinalStateHCM::getInfo() const {
-  return Projection::getInfo() + lepton->getInfo() +
-    kinematics->getInfo() + fsproj->getInfo();
-}
+// RivetInfo FinalStateHCM::getInfo() const {
+//   return Projection::getInfo() + lepton->getInfo() +
+//     kinematics->getInfo() + fsproj->getInfo();
+// }
 

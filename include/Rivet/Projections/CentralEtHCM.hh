@@ -41,7 +41,7 @@ namespace Rivet {
     inline double sumEt() const { return sumet; }
 
     /// Return the RivetInfo object of this Projection.
-    virtual RivetInfo getInfo() const;
+    //virtual RivetInfo getInfo() const;
 
   private:
 

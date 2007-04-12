@@ -19,10 +19,12 @@ namespace Rivet {
     /// Default constructor.
     inline HepEx0112029()
       : fs(), ktjets(fs) 
-    { }
+    { 
+      setBeams(POSITRON, PROTON);
+    }
 
     /// The name of this analysis is "HepEx0112029"
-    inline std::string name() const {
+    inline string name() const {
       return "HepEx0112029";
     }
 
@@ -35,7 +37,7 @@ namespace Rivet {
     void finalize();
 
     /// Return the RivetInfo object of this analysis object.
-    RivetInfo getInfo() const;
+    //RivetInfo getInfo() const;
 
   private:
 

@@ -17,9 +17,11 @@ namespace Rivet {
 
     /// The default constructor.
     inline HZ95108()
-      : lepton(beams, ELECTRON, POSITRON), diskin(beams, lepton, PROTON),
+      : beams(), lepton(beams, ELECTRON, POSITRON), diskin(beams, lepton, PROTON),
         fsproj(lepton, diskin, fsp), y1hcm(fsproj) 
-    { }
+    { 
+      setBeams(ELECTRON, PROTON);
+    }
 
   public:
 
@@ -34,7 +36,7 @@ namespace Rivet {
      * book all necessary histograms. An overridden function must make
      * sure it first calls the base class function.
      */
-    virtual void init();
+    void init();
 
     /**
      * Analyze one event. A concrete class should here apply the
@@ -42,7 +44,7 @@ namespace Rivet {
      * histograms. An overridden function must make sure it first calls
      * the base class function.
      */
-    virtual void analyze(const Event & event);
+    void analyze(const Event & event);
 
     /**
      * Finalize this analysis object. A concrete class should here make
@@ -51,15 +53,12 @@ namespace Rivet {
      * overridden function must make sure it first calls the base class
      * function.
      */
-    virtual void finalize();
+    void finalize();
 
     /**
-     * Return the RivetInfo object of this analysis object. Derived
-     * classes should re-implement this function to return the combined
-     * RivetInfo object of this object and of any Projection objects
-     * upon which this depends.
+     * Return the RivetInfo object of this analysis object. 
      */
-    virtual RivetInfo getInfo() const;
+    //RivetInfo getInfo() const;
 
   protected:
 

@@ -43,9 +43,6 @@ namespace Rivet {
     /// Access the projected final-state particles.
     inline const ParticleVector & particles() const { return theParticles; }
     
-    /// Get the RivetInfo object of this Projection.
-    virtual RivetInfo getInfo() const;
-    
   private:
     
     /// The projector for the DIS lepton.

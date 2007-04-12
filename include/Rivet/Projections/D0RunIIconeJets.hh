@@ -128,8 +128,8 @@ namespace Rivet {
 
 
 
-    /// Return the RivetInfo object of this Projection.
-    virtual RivetInfo getInfo() const;
+//     /// Return the RivetInfo object of this Projection.
+//     virtual RivetInfo getInfo() const;
 
     list<HepEntity> * jets;
     

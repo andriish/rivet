@@ -123,7 +123,7 @@ void HepEx0409040::finalize()
 { }
 
 
-// Provide info object
-RivetInfo HepEx0409040::getInfo() const {
-  return Analysis::getInfo() + conejets.getInfo();
-}
+// // Provide info object
+// RivetInfo HepEx0409040::getInfo() const {
+//   return Analysis::getInfo() + conejets.getInfo();
+// }

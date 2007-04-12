@@ -65,9 +65,9 @@ void TestAnalysis::finalize() { }
 
 
 // Provide info object
-RivetInfo TestAnalysis::getInfo() const {
-  return Analysis::getInfo() 
-    + p_fs.getInfo() 
-    + p_mult.getInfo()
-    + p_thrust.getInfo();
-}
+// RivetInfo TestAnalysis::getInfo() const {
+//   return Analysis::getInfo() 
+//     + p_fs.getInfo() 
+//     + p_mult.getInfo()
+//     + p_thrust.getInfo();
+// }

@@ -3,7 +3,8 @@
 #define RIVET_Analysis_HH
 
 #include "Rivet/Analysis/Analysis.fhh"
-#include "Rivet/RivetInfo.hh"
+#include "Rivet/ParamConstraint.hh"
+#include "Rivet/BeamConstraint.hh"
 #include "Rivet/RivetHandler.fhh"
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.fhh"
@@ -44,15 +45,12 @@ namespace Rivet {
     /// The default constructor.
     inline Analysis() 
       : theHandler(0), _madeHistoDir(false)
-    { }
-
-    /// The copy constructor.
-    inline Analysis(const Analysis& x) 
-      : theHandler(x.theHandler), info(x.info), _madeHistoDir(false) 
-    { }
+    { 
+      setBeams(ANY, ANY);
+    }
 
     /// The destructor.
-    virtual ~Analysis();
+    inline virtual ~Analysis() { }
     //@}
 
   public:
@@ -75,11 +73,33 @@ namespace Rivet {
     /// function.
     virtual void finalize() = 0;
 
-    /// Return the RivetInfo object of this analysis object. Derived
+    /// Return the ParamConstraints objects of this analysis object. Derived
     /// classes should re-implement this function to return the combined
     /// RivetInfo object of this object and of any Projection objects
     /// upon which this depends.
-    virtual RivetInfo getInfo() const;
+    inline virtual const set<ParamConstraint> getParamConstraints() const {
+      return _paramConstraints;
+    }
+
+    /// Return the pair of incoming beams required by this analysis.
+    inline virtual const BeamPair getBeams() const {
+      return _beams;
+    }
+
+    /// Is this analysis able to run on the supplied pair of beams?
+    inline virtual const bool isCompatible(BeamParticle beam1, BeamParticle beam2) const {
+      BeamPair beams(beam1, beam2);
+      return compatible(beams, _beams);
+      /// @todo Need to also check internal consistency of the analysis' 
+      /// beam requirements with those of the projections it uses.
+    }
+
+    /// Is this analysis able to run on the BeamPair @a beams ?
+    inline virtual const bool isCompatible(BeamPair beams) const {
+      return compatible(beams, _beams);
+      /// @todo Need to also check internal consistency of the analysis' 
+      /// beam requirements with those of the projections it uses.
+    }
 
     /// Access the controlling RivetHandler object.
     inline RivetHandler& handler() const {
@@ -87,7 +107,7 @@ namespace Rivet {
     }
 
     /// Get the name of the analysis
-    inline virtual std::string name() const {
+    inline virtual string name() const {
       return "";
     }
 
@@ -95,6 +115,7 @@ namespace Rivet {
   protected:
     /// Get a Log object based on the name() property of the calling analysis object.
     Log& getLog();
+
 
   protected:
     /// Access the AIDA analysis factory of the controlling RivetHandler object.
@@ -129,29 +150,42 @@ namespace Rivet {
     AIDA::IHistogram1D* bookHistogram1D(const string hdcode, const std::string& title);
 
 
-    /// Make the histogram directory
+    /// Make the histogram directory.
     void makeHistoDir();
 
-    const std::string histoDir() const {
+
+    /// Get the canonical AIDA histogram path for this analysis.
+    const string histoDir() const {
         return "/" + name();
+    }
+
+
+  protected:
+
+    inline virtual void setBeams(const BeamParticle& beam1, const BeamParticle& beam2) {
+      _beams.first = beam1;
+      _beams.second = beam2;
     }
 
   private:
 
+    /// Parameter constraints.
+    set<ParamConstraint> _paramConstraints;
+
+    /// Allowed beam-type pair.
+    BeamPair _beams;
+
     /// The controlling RivetHandler object.
     RivetHandler* theHandler;
-
-    /// The object containing the parameters of this analysis object to
-    /// be communicated to the outside world.
-    RivetInfo info;
-
-    /// The assignment operator is private and must never be called.
-    /// In fact, it should not even be implemented.
-    Analysis& operator=(const Analysis&);
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
 
+
+  private:
+    /// The assignment operator is private and must never be called.
+    /// In fact, it should not even be implemented.
+    Analysis& operator=(const Analysis&);
   };
 
 

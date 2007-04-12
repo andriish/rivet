@@ -56,8 +56,8 @@ void D0RunIIconeJets::project(const Event & e) {
 
 }
 
-RivetInfo D0RunIIconeJets::getInfo() const {
-  return Projection::getInfo() + fsproj->getInfo();
-}
+// RivetInfo D0RunIIconeJets::getInfo() const {
+//   return Projection::getInfo() + fsproj->getInfo();
+// }
 
 

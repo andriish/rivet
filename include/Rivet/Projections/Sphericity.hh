@@ -87,8 +87,8 @@ namespace Rivet {
     inline const double lambda3() const { return _lambdas[2]; }
     ///@}
 
-    /// Return the RivetInfo object of this Projection. Derived classes
-    virtual RivetInfo getInfo() const;
+//     /// Return the RivetInfo object of this Projection. Derived classes
+//     virtual RivetInfo getInfo() const;
 
   private:
 

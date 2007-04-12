@@ -45,20 +45,14 @@ Analysis& Analysis::getAnalysis(const AnalysisName atype) {
 //////////////////////////////////////////////////////////////
 
 
-Analysis::~Analysis() {}
-
-void Analysis::init() {}
+//void Analysis::init() {}
 
 
-void Analysis::analyze(const Event &) {}
+//void Analysis::analyze(const Event &) {}
 
 
-void Analysis::finalize() {}
+//void Analysis::finalize() {}
 
-
-RivetInfo Analysis::getInfo() const {
-  return info;
-}
 
 //////////////////////////////////////////////////////////////
 

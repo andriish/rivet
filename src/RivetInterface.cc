@@ -1,5 +1,7 @@
 // -*- C++ -*-
 
+#include "Rivet/Projections/DISLepton.hh"
+
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetHandler.hh"
 #include "Rivet/Tools/Commandline.hh"
@@ -73,9 +75,14 @@ int main(int argc, char* argv[]) {
 
   // Make a handler and add analyses
   RivetHandler rh;
-  rh.addAnalyses(cfgAnalyses);
+  for (AnalysisList::const_iterator ai = cfgAnalyses.begin(); ai != cfgAnalyses.end(); ++ai) {
+     Analysis& a = Analysis::getAnalysis(*ai);
+     BeamPair beams = a.getBeams();
+     cout << a.name() << ": " << a.getBeams() << " " 
+          << a.isCompatible(PROTON, PROTON) << endl;
+     rh.addAnalysis(*ai);
+   }
   rh.init();
-  log << Log::INFO << "RivetHandler info: " << rh.info() << endl;
 
 
   // Make a HepMC input

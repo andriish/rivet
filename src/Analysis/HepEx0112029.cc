@@ -49,7 +49,7 @@ void HepEx0112029::finalize()
 { }
 
 
-// Provide info object
-RivetInfo HepEx0112029::getInfo() const {
-  return Analysis::getInfo() + ktjets.getInfo();
-}
+// // Provide info object
+// RivetInfo HepEx0112029::getInfo() const {
+//   return Analysis::getInfo() + ktjets.getInfo();
+// }

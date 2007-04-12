@@ -76,19 +76,19 @@ void HZ95108::analyze(const Event & event) {
   const FinalStateHCM & fs = event.applyProjection(fsproj);
   const DISKinematics & dk = event.applyProjection(diskin);
   const CentralEtHCM y1 = event.applyProjection(y1hcm);
-
+  
   int ibin = getbin(dk);
   if ( ibin < 0 ) return;
-
+  
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
     double rap = fs.particles()[i].getMomentum().rapidity();
     double et = fs.particles()[i].getMomentum().et();
     hEtFlow[ibin]->fill(rap, et*event.weight()/GeV);
     hEtFlowStat[ibin]->fill(rap, et*event.weight()/GeV);
   }
-
+  
   nev[ibin] += event.weight();
-
+  
   hAvEt->fill(ibin + 1.5, y1.sumEt()*event.weight()/GeV);
   hAvX->fill(ibin + 1.5, dk.x()*event.weight());
   hAvQ2->fill(ibin + 1.5, dk.Q2()*event.weight()/(GeV*GeV));
@@ -114,7 +114,13 @@ void HZ95108::finalize() {
 }
 
 
-RivetInfo HZ95108::getInfo() const {
-  return Analysis::getInfo() + beams.getInfo() + lepton.getInfo() + 
-    diskin.getInfo() + fsp.getInfo() + fsproj.getInfo() + y1hcm.getInfo();
-}
+// RivetInfo HZ95108::getInfo() const {
+//   RivetInfo i = info;
+//   i += beams.getInfo();
+//   i += lepton.getInfo();
+//   i += diskin.getInfo();
+//   i += fsp.getInfo();
+//   i += fsproj.getInfo();
+//   i += y1hcm.getInfo();
+//   return info;
+// }

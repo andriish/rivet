@@ -79,7 +79,9 @@ namespace Rivet {
     /** @name Standard constructors, destructors and assignment. */
     //@{
     /// The default constructor.
-    //RivetInfo();
+    inline RivetInfo() {
+      addValidBeamPair(ANY, ANY);
+    }
 
     /// The copy constructor.
     //inline RivetInfo(const RivetInfo &);
@@ -156,7 +158,7 @@ namespace Rivet {
 
 
   /// Allow RivetInfo to be passed to an iostream
-  inline ostream & operator<<(ostream & os, const RivetInfo& i) {
+  inline ostream& operator<<(ostream& os, const RivetInfo& i) {
     return i.print(os);
   }
 

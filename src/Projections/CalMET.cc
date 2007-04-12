@@ -46,7 +46,7 @@ void CalMET::project(const Event & e) {
   return;
 }
 
-RivetInfo CalMET::getInfo() const {
-  return Projection::getInfo() + _fs->getInfo();
-}
+// RivetInfo CalMET::getInfo() const {
+//   return Projection::getInfo() + _fs->getInfo();
+// }
 

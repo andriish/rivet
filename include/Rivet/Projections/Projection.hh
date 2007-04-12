@@ -1,10 +1,12 @@
 // -*- C++ -*-
-#ifndef RIVET_Projection_H
-#define RIVET_Projection_H
+#ifndef RIVET_Projection_HH
+#define RIVET_Projection_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetInfo.hh"
 #include "Projection.fhh"
+#include "Rivet/ParamConstraint.hh"
+#include "Rivet/BeamConstraint.fhh"
+#include "Rivet/BeamParticle.hh"
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/Projections/Cmp.fhh"
@@ -21,7 +23,6 @@ namespace Rivet {
    *
    * The main virtual functions to be overridden by concrete sub-classes
    * are project(const Event &) and compare(const Projection &).
-   *
    */
   class Projection {
     
@@ -41,7 +42,7 @@ namespace Rivet {
     inline Projection() { };
     
     /// The destructor.
-    virtual ~Projection();
+    inline virtual ~Projection() { };
     //@}
     
   protected:
@@ -90,27 +91,34 @@ namespace Rivet {
      * objects is used. Otherwise, if the objects are of the same class,
      * the virtual compare(const Projection &) will be returned.
      */
-    inline bool before(const Projection & p) const {
-      const std::type_info & thisid = typeid(*this);
-      const std::type_info & otherid = typeid(p);
-      if ( thisid == otherid ) {
+    inline bool before(const Projection& p) const {
+      const std::type_info& thisid = typeid(*this);
+      const std::type_info& otherid = typeid(p);
+      if (thisid == otherid) {
         return compare(p) < 0;
       } else {
         return thisid.before(otherid);
       }
     }
     
-    /**
-     * Return the RivetInfo object of this Projection. Derived classes
-     * should re-implement this function to return the combined
-     * RivetInfo object of this and of any other Projection upon which
-     * this depends.
-     */
-    virtual RivetInfo getInfo() const;
+    /// Return the ParamConstraints objects for this projection. Derived
+    /// classes should re-implement this function to return the combined
+    /// RivetInfo object of this object and of any Projection objects
+    /// upon which this depends.
+    inline virtual const set<ParamConstraint> getParamConstraints() const {
+      return _paramConstraints;
+    }
 
+    /// Return the BeamConstraints for this analysis. Derived
+    /// classes should re-implement this function to return the combined
+    /// allowed beam pairs for this object and for any other Projections
+    /// upon which it depends.
+    inline virtual const set<BeamPair> getBeamPairs() const {
+      return _beamPairs;
+    }
 
     /// Get the name of the projection
-    inline virtual std::string name() const {
+    inline virtual string name() const {
       return "";
     }
     
@@ -119,10 +127,13 @@ namespace Rivet {
     /// Get a Log object based on the name() property of the calling projection object.
     Log& getLog();
     
-    /// The object containing the parameters of this Projection to be
-    /// communicated to the outside world.
-    RivetInfo info;
-    
+    /// Parameter constraints
+    set<ParamConstraint> _paramConstraints;
+
+    /// Beam-type constraint
+    set<BeamPair> _beamPairs;
+
+
   private:
     
     /// The assignment operator is private and must never be called.
@@ -133,20 +144,19 @@ namespace Rivet {
   
 }
 
-namespace std {
 
+namespace std {
+  
   /// This is the function called when comparing two pointers to Rivet::Projection.
   template <>
-  struct less<const Rivet::Projection *> :
-    public binary_function<const Rivet::Projection *, const Rivet::Projection *, bool> 
-  {
-    bool operator()(const Rivet::Projection * x,
-                    const Rivet::Projection * y) const {
+  struct less<const Rivet::Projection*> 
+    : public binary_function<const Rivet::Projection*, const Rivet::Projection*, bool> {
+    bool operator()(const Rivet::Projection* x, const Rivet::Projection* y) const {
       return x->before(*y);
     }
   };
-  
+
 }
 
 
-#endif /* RIVET_Projection_H */
+#endif

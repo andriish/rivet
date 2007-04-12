@@ -10,12 +10,8 @@
 
 namespace Rivet {
 
-  /**
-   *  This class is under construction. It will be a reproduction of the HZTool routine
-   *  for the ZEUS dijet photoproduction paper which was used in the ZEUS Jets PDF fit.
-   *  And hopefully it will teach me how to write a rivet analysis.
-   *  @author Jon Butterworth
-   */
+  /// Analysis based on the D0 run II jet analysis described in hep-ex/0409040 .
+  /// @author Lars Sonnenschein
   class HepEx0409040 : public Analysis {
 
   public:
@@ -23,19 +19,12 @@ namespace Rivet {
     /// Default constructor.
     inline HepEx0409040()
       : fs(-3., 3.), conejets(fs), p_vertex(), p_calmet(fs)
-    { }
-
-    /// Copy constructor.
-    inline HepEx0409040(const HepEx0409040& x) 
-      : Analysis(x), conejets(x.conejets), p_vertex(x.p_vertex), p_calmet(fs)
-    { }
-
-    /// Destructor
-    inline ~HepEx0409040()
-    { }
+    { 
+      setBeams(PROTON, ANTIPROTON);
+    }
 
     /// The name of this analysis is "HepEx0409040"
-    inline std::string name() const {
+    inline string name() const {
       return "HepEx0409040";
     }
 
@@ -48,7 +37,7 @@ namespace Rivet {
     void finalize();
 
     /// Return the RivetInfo object of this analysis object.
-    RivetInfo getInfo() const;
+    //RivetInfo getInfo() const;
 
   private:
 

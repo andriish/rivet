@@ -103,13 +103,7 @@ public:
   //initialization optional
   void initialize(double etaMax, bool addMuons); 
 
-  /**
-   * Return the RivetInfo object of this Projection. Derived classes
-   * should re-implement this function to return the combined
-   * RivetInfo object of this and of any other Projection upon which
-   * this depends.
-   */
-  virtual RivetInfo getInfo() const;
+  //  virtual RivetInfo getInfo() const;
 
 private:
 

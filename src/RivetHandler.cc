@@ -78,13 +78,13 @@ namespace Rivet {
   }
 
 
-  RivetInfo RivetHandler::info() const {
-    RivetInfo ret;
-    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
-      ret += analysisVector[i]->getInfo();
-    }
-    return ret;
-  }
+//   RivetInfo RivetHandler::info() const {
+//     RivetInfo ret;
+//     for (int i = 0, N = analysisVector.size(); i < N; ++i) {
+//       ret += analysisVector[i]->getInfo();
+//     }
+//     return ret;
+//   }
 
 
 }

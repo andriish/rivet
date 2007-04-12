@@ -63,9 +63,6 @@ namespace Rivet {
       return breit;
     }
 
-    /// Return the RivetInfo object of this Projection.
-    virtual RivetInfo getInfo() const;
-
   private:
 
     /// The Beam projector object defining the incoming beam particles.

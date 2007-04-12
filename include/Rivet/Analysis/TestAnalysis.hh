@@ -23,7 +23,7 @@ namespace Rivet {
   public:
 
     /// The name of this analysis is "Test"
-    inline std::string name() const {
+    inline string name() const {
       return "Test";
     }
 
@@ -36,7 +36,7 @@ namespace Rivet {
     void finalize();
 
     /// Return the RivetInfo object of this analysis object.
-    RivetInfo getInfo() const;
+    //    RivetInfo getInfo() const;
 
   private:
 

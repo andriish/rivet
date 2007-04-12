@@ -1,0 +1,52 @@
+// -*- C++ -*-
+#ifndef RIVET_ParamConstraint_FHH
+#define RIVET_ParamConstraint_FHH
+
+#include "Rivet/Rivet.hh"
+
+namespace Rivet {
+
+  /// Forward declaration
+  class ParamConstraint;
+
+    
+  enum Comparison {
+    LESS, GREATER, EQUAL
+  };
+  
+  inline const string toString(const Comparison& c) {
+    switch(c) {
+    case LESS:
+      return "<";
+    case GREATER:
+      return ">";
+    case EQUAL:
+      return "=";
+    }
+  }
+  
+
+  enum Quantity {
+    SQRTS, PT, Q2
+  };
+
+  inline const string toString(const Quantity& q) {
+    switch(q) {
+    case SQRTS:
+      return "sqrt(s)";
+    case PT:
+      return "pT";
+    case Q2:
+      return "Q^2";
+    }
+  }
+  
+  /// Typedef for a param name and comparison-type pair.
+  typedef pair<Quantity, Comparison> ParamKey;
+  
+  /// Typedef for a collection of params.
+  typedef map<ParamKey, double> Params;
+  
+}
+
+#endif

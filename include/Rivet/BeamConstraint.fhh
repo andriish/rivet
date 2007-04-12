@@ -1,0 +1,15 @@
+// -*- C++ -*-
+#ifndef RIVET_BeamConstraint_FHH
+#define RIVET_BeamConstraint_FHH
+
+#include "Rivet/Rivet.hh"
+
+namespace Rivet {
+
+  /// Typedef for a pair of beam particles.
+
+
+
+}
+
+#endif
