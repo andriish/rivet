@@ -6,7 +6,7 @@ AC_INIT([Rivet],[1.0],[],[Rivet])
 AM_INIT_AUTOMAKE
 AC_LANG(C++)
 
-AC_CONFIG_SRCDIR([src/RivetHandler.cc])
+AC_CONFIG_SRCDIR([src/RivetInterface.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
 
 ## Checks for programs.
@@ -25,8 +25,8 @@ CXX=$GFILT
 ## Find CLHEP
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
 dnl AC_CEDAR_HEADERS([CLHEP], [?.?.?.?]) 
-AC_CEDAR_LIBRARY([CLHEP-Vector], [?.?.?.?]) 
-AC_CEDAR_LIBRARY([CLHEP-Matrix], [?.?.?.?]) 
+dnl AC_CEDAR_LIBRARY([CLHEP-Vector], [?.?.?.?]) 
+dnl AC_CEDAR_LIBRARY([CLHEP-Matrix], [?.?.?.?]) 
 AC_CEDAR_LIBRARYANDHEADERS([KtJet], , , [AC_MSG_ERROR([KtJet library is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
