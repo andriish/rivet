@@ -1,23 +1,23 @@
 ## Rivet interface
 nobase_pkginclude_HEADERS = \
-  Rivet.hh         \
-  ParamConstraint.hh \
-  BeamConstraint.hh BeamConstraint.fhh \
-  RivetCLHEP.hh    \
-  BeamParticle.hh  \
-  HistoFormat.hh   \
-  RivetAIDA.hh     RivetAIDA.fhh    \
-  RivetHandler.hh  RivetHandler.fhh \
-  Event.hh         Event.fhh        \
-  Particle.hh      Particle.fhh 
+  Rivet.hh \
+  Constraints.hh BeamConstraint.hh \
+  ParamConstraint.hh ParamConstraint.fhh \
+  ParticleName.hh   HistoFormat.hh     \
+  Event.hh       Event.fhh      \
+  Particle.hh    Particle.fhh   \
+  RivetCLHEP.hh  RivetCLHEP.fhh \
+  RivetAIDA.hh   RivetAIDA.fhh  \
+  AnalysisHandler.hh  AnalysisHandler.fhh 
+
 
 ## Analyses
 nobase_pkginclude_HEADERS += \
   Analysis/Analysis.hh       Analysis/Analysis.fhh \
   Analysis/AnalysisName.hh   \
   Analysis/TestAnalysis.hh   \
-  Analysis/HZ95108.hh        \
   Analysis/PL273B181.hh      \
+  Analysis/HepEx9506012.hh   \
   Analysis/HepEx0112029.hh   \
   Analysis/HepEx0409040.hh
 

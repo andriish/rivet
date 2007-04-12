@@ -1,13 +1,13 @@
 // $Id: $
-#ifndef RIVET_BEAMPARTICLE_H 
-#define RIVET_BEAMPARTICLE_H 1
+#ifndef RIVET_PARTICLENAME_HH 
+#define RIVET_PARTICLENAME_HH 1
 
 #include "Rivet/Rivet.hh"
 
 namespace Rivet {
 
   /// Enumeration of available beam particles (using PDG IDs where available)
-  enum BeamParticle { 
+  enum ParticleName { 
     ELECTRON = 11, 
     POSITRON = -11, 
     PROTON = 2212, 
@@ -43,16 +43,16 @@ namespace Rivet {
 
 
   /// Typedef for a map of beam particle name enums to strings.
-  typedef map<BeamParticle, string> BeamParticleMap;
+  typedef map<ParticleName, string> ParticleNameMap;
 
 
   /// Typedef for a map of beam particle name strings to enums.
-  typedef map<string, BeamParticle> BeamParticleMapR;
+  typedef map<string, ParticleName> ParticleNameMapR;
 
 
   /// Function which returns a map from beam particle enums to the corresponding name strings.
-  inline BeamParticleMap getKnownBeamParticles() {
-    BeamParticleMap bpmap;
+  inline ParticleNameMap getKnownParticleNames() {
+    ParticleNameMap bpmap;
     bpmap[ELECTRON] = "ELECTRON";
     bpmap[POSITRON] = "POSITRON";
     bpmap[PROTON] = "PROTON";
@@ -83,10 +83,10 @@ namespace Rivet {
   }
 
   /// Function which returns a map from beam particle name strings to the corresponding enums.
-  inline BeamParticleMapR getKnownBeamParticlesR() {
-    BeamParticleMap bpmap = getKnownBeamParticles();
-    BeamParticleMapR bpmapr;
-    for (BeamParticleMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
+  inline ParticleNameMapR getKnownParticleNamesR() {
+    ParticleNameMap bpmap = getKnownParticleNames();
+    ParticleNameMapR bpmapr;
+    for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
       bpmapr[bp->second] = bp->first;
     }
     return bpmapr;
@@ -94,15 +94,15 @@ namespace Rivet {
 
 
   /// Typedef for a collection of beam particle name enums.
-  typedef vector<BeamParticle> BeamParticleList;
+  typedef vector<ParticleName> ParticleNameList;
 
 
   /// Function which returns a vector of all the beam particle values in 
-  /// the BeamParticle enum.
-  inline BeamParticleList getKnownBeamParticleEnums() {
-    BeamParticleList names;
-    BeamParticleMap bpmap = getKnownBeamParticles();
-    for (BeamParticleMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
+  /// the ParticleName enum.
+  inline ParticleNameList getKnownParticleNameEnums() {
+    ParticleNameList names;
+    ParticleNameMap bpmap = getKnownParticleNames();
+    for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
       names.push_back(bp->first);
     }
     return names;
@@ -110,10 +110,10 @@ namespace Rivet {
 
 
   /// Function which returns a vector of all the beam particle name strings.
-  inline vector<string> getKnownBeamParticleNames() {
+  inline vector<string> getKnownParticleNameNames() {
     vector<string> names;
-    BeamParticleMap bpmap = getKnownBeamParticles();
-    for (BeamParticleMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
+    ParticleNameMap bpmap = getKnownParticleNames();
+    for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
       names.push_back(bp->second);
     }
     return names;
@@ -125,14 +125,14 @@ namespace Rivet {
   
 
   /// Typedef for a pair of beam particle names.
-  typedef pair<BeamParticle, BeamParticle> BeamPair;
+  typedef pair<ParticleName, ParticleName> BeamPair;
 
   /// Print a BeamPair as a string
   inline string toString(BeamPair pair) {
     string out = "["
-      + getKnownBeamParticles()[pair.first] 
+      + getKnownParticleNames()[pair.first] 
       + ", "
-      + getKnownBeamParticles()[pair.second]
+      + getKnownParticleNames()[pair.second]
       + "]";
     return out;
   }
@@ -147,4 +147,4 @@ namespace Rivet {
 }
 
 
-#endif // RIVET_BEAMPARTICLE_H
+#endif

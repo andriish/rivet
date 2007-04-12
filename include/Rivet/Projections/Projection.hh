@@ -4,9 +4,8 @@
 
 #include "Rivet/Rivet.hh"
 #include "Projection.fhh"
-#include "Rivet/ParamConstraint.hh"
-#include "Rivet/BeamConstraint.fhh"
-#include "Rivet/BeamParticle.hh"
+#include "Rivet/Constraints.hh"
+#include "Rivet/ParticleName.hh"
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/Projections/Cmp.fhh"

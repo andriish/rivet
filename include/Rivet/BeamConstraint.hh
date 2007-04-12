@@ -3,16 +3,16 @@
 #define RIVET_BeamConstraint_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/BeamParticle.hh"
+#include "Rivet/ParticleName.hh"
 #include <iostream>
 
 
 namespace Rivet {
 
-  /// Find whether BeamParticle @a p is compatible with the
-  /// template BeamParticle @a allowed. Effectively this is
+  /// Find whether ParticleName @a p is compatible with the
+  /// template ParticleName @a allowed. Effectively this is
   /// asking whether @a p is a subset of @a allowed.
-  inline bool compatible(BeamParticle p, BeamParticle allowed) {
+  inline bool compatible(ParticleName p, ParticleName allowed) {
     //assert(p != ANY);
     return (allowed == ANY || p == allowed);
   }

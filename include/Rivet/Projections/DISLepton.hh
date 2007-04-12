@@ -19,7 +19,7 @@ namespace Rivet {
     /// anti-particle of \a outid, either a scattered lepton or
     /// anti-lepton is searched for. Must also specify a Beam projection
     /// object which is assumed to live thoughout the run.
-    inline DISLepton(Beam& beamproj, const BeamParticle inid, const BeamParticle outid)
+    inline DISLepton(Beam& beamproj, const ParticleName& inid, const ParticleName& outid)
       : _beams(&beamproj), _idin(inid), _idout(outid) {
       _beamPairs.insert(BeamPair(inid, ANY));
     }

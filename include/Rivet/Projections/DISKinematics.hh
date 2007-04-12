@@ -22,7 +22,7 @@ namespace Rivet {
     /// projection objects which are guaranteed to live throughout the
     /// run. Also the PDG code of the incoming hadron (\a hadid) must be
     /// specified.
-    inline DISKinematics(Beam & beamp, DISLepton & leptonp, BeamParticle hadid)
+    inline DISKinematics(Beam& beamp, DISLepton& leptonp, const ParticleName& hadid)
       : beams(&beamp), lepton(&leptonp), idhad(hadid), theQ2(-1.0), theW2(-1.0),
         theX(-1.0) {
       //info.declareParameter("BeamB", hadid);

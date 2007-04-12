@@ -2,10 +2,10 @@
 #ifndef RIVET_Analysis_HH
 #define RIVET_Analysis_HH
 
+#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis/Analysis.fhh"
-#include "Rivet/ParamConstraint.hh"
-#include "Rivet/BeamConstraint.hh"
-#include "Rivet/RivetHandler.fhh"
+#include "Rivet/Constraints.hh"
+#include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
@@ -30,8 +30,8 @@ namespace Rivet {
   /// the Rivet class.
   class Analysis {
     
-    /// The RivetHandler is a friend.
-    friend class RivetHandler;
+    /// The AnalysisHandler is a friend.
+    friend class AnalysisHandler;
 
   public:
 
@@ -87,7 +87,7 @@ namespace Rivet {
     }
 
     /// Is this analysis able to run on the supplied pair of beams?
-    inline virtual const bool isCompatible(BeamParticle beam1, BeamParticle beam2) const {
+    inline virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
       BeamPair beams(beam1, beam2);
       return compatible(beams, _beams);
       /// @todo Need to also check internal consistency of the analysis' 
@@ -95,14 +95,14 @@ namespace Rivet {
     }
 
     /// Is this analysis able to run on the BeamPair @a beams ?
-    inline virtual const bool isCompatible(BeamPair beams) const {
+    inline virtual const bool isCompatible(const BeamPair& beams) const {
       return compatible(beams, _beams);
       /// @todo Need to also check internal consistency of the analysis' 
       /// beam requirements with those of the projections it uses.
     }
 
-    /// Access the controlling RivetHandler object.
-    inline RivetHandler& handler() const {
+    /// Access the controlling AnalysisHandler object.
+    inline AnalysisHandler& handler() const {
       return *theHandler;
     }
 
@@ -118,22 +118,27 @@ namespace Rivet {
 
 
   protected:
-    /// Access the AIDA analysis factory of the controlling RivetHandler object.
+    /// Access the AIDA analysis factory of the controlling AnalysisHandler object.
     AIDA::IAnalysisFactory& analysisFactory();
 
-    /// Access the AIDA tree of the controlling RivetHandler object.
+    /// Access the AIDA tree of the controlling AnalysisHandler object.
     AIDA::ITree& tree();
 
-    /// Access the AIDA histogram factory of the controlling RivetHandler object.
+    /// Access the AIDA histogram factory of the controlling AnalysisHandler object.
     AIDA::IHistogramFactory& histogramFactory();
 
-    /// Book a 1D histogram (NB. this returns a pointer rather than a reference since it will 
+    /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
+    /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
+    AIDA::IHistogram1D* bookHistogram1D(const string& name, const string& title, 
                                         const int nbins, const double lower, const double upper);
 
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
+    /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @binedges .
+    /// (NB. this returns a pointer rather than a reference since it will 
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// get the pointer from a reference before they can use it!)
+    AIDA::IHistogram1D* bookHistogram1D(const string& name, const string& title, 
                                         const vector<double>& binedges);
 
     /// Book a 1D histogram based on the paper, dataset and y-axis IDs in the corresponding
@@ -141,13 +146,13 @@ namespace Rivet {
     /// of the same filename as the analysis' name() property.
     /// @todo Implement auto-binning histo booking methods!
     AIDA::IHistogram1D* bookHistogram1D(const unsigned int paperId, const unsigned int datasetId, 
-                                        const unsigned int axisId, const std::string& title);
+                                        const unsigned int axisId, const string& title);
 
     /// Book a 1D histogram based on the paper-dataset-axis ID code for the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
     /// @todo Implement auto-binning histo booking methods!
-    AIDA::IHistogram1D* bookHistogram1D(const string hdcode, const std::string& title);
+    AIDA::IHistogram1D* bookHistogram1D(const string hdcode, const string& title);
 
 
     /// Make the histogram directory.
@@ -162,7 +167,7 @@ namespace Rivet {
 
   protected:
 
-    inline virtual void setBeams(const BeamParticle& beam1, const BeamParticle& beam2) {
+    inline virtual void setBeams(const ParticleName& beam1, const ParticleName& beam2) {
       _beams.first = beam1;
       _beams.second = beam2;
     }
@@ -175,8 +180,8 @@ namespace Rivet {
     /// Allowed beam-type pair.
     BeamPair _beams;
 
-    /// The controlling RivetHandler object.
-    RivetHandler* theHandler;
+    /// The controlling AnalysisHandler object.
+    AnalysisHandler* theHandler;
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;

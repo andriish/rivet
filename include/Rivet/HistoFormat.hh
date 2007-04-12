@@ -1,7 +1,4 @@
 // -*- C++ -*-
-//
-// This is the forward declaration of the RivetHandler class.
-//
 #ifndef RIVET_HistoFormat_HH
 #define RIVET_HistoFormat_HH
 

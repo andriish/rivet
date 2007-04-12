@@ -1,12 +1,9 @@
 // -*- C++ -*-
 #ifndef RIVET_RivetHandler_H
 #define RIVET_RivetHandler_H
-//
-// This is the declaration of the RivetHandler class.
-//
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetHandler.fhh"
+#include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.hh"
 #include "Rivet/Analysis/Analysis.hh"
 
@@ -21,10 +18,10 @@ namespace AIDA {
 namespace Rivet {
 
   /**
-   * RivetHandler is a concrete class which handles a number of analysis
+   * AnalysisHandler is a concrete class which handles a number of analysis
    * objects to be applied to generated events.
    */
-  class RivetHandler {
+  class AnalysisHandler {
 
   public:
 
@@ -43,20 +40,20 @@ namespace Rivet {
      * actual AIDA implementation used. To output in standard AIDA XML the
      * string is typically "xml".
      * @param afac an AIDA analysis factory object. The caller must make
-     * sure that the lifetime of the factory object exceeds the RivetHandler
+     * sure that the lifetime of the factory object exceeds the AnalysisHandler
      * object.
      */
-    RivetHandler(AIDA::IAnalysisFactory& afac, std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
+    AnalysisHandler(AIDA::IAnalysisFactory& afac, std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
 
     /// Make a Rivet handler with a set base filename and store type.
     /// @todo storetype -> enum
-    RivetHandler(std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
+    AnalysisHandler(std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
 
     /**
      * The destructor is not virtual as this class should not be
      * inherited from.
      */
-    ~RivetHandler();
+    ~AnalysisHandler();
     //@}
 
   private:
@@ -71,7 +68,7 @@ namespace Rivet {
     /// and the argument object given will not be used and can be
     /// discarded directly.
     template <typename A>
-    inline RivetHandler& addAnalysis(const A& analysis) {
+    inline AnalysisHandler& addAnalysis(const A& analysis) {
       analysisVector.push_back(new A(analysis));
       analysisVector.back()->theHandler = this;
       return *this;
@@ -80,7 +77,7 @@ namespace Rivet {
 
     /// Add a collection of analyses
     /// @todo Make the addAnalyses(vector<Analysis*>) method work
-    inline RivetHandler& addAnalyses(const std::vector<Analysis*>& analyses) { 
+    inline AnalysisHandler& addAnalyses(const std::vector<Analysis*>& analyses) { 
       throw runtime_error("addAnalyses(vector<Analysis*>) doesn't yet work...");
       //for (std::vector<Analysis*>::const_iterator ana = analyses.begin();
       //     ana != analyses.end(); ++ana) {
@@ -94,7 +91,7 @@ namespace Rivet {
     /// Add an object of base class Analysis to the list of analysis objects to
     /// be used in a run. The Analysis will be obtained from the
     /// Analysis::getAnalysis() factory method, according to the argument enum.
-    inline RivetHandler& addAnalysis(const AnalysisName analysisname) { 
+    inline AnalysisHandler& addAnalysis(const AnalysisName analysisname) { 
       Analysis& analysis = Analysis::getAnalysis(analysisname);
       analysisVector.push_back(&analysis);
       analysisVector.back()->theHandler = this;
@@ -103,7 +100,7 @@ namespace Rivet {
 
 
     /// Add a collection of analyses via their analysis name enums
-    inline RivetHandler& addAnalyses(cAnalysisList& analysisnames) { 
+    inline AnalysisHandler& addAnalyses(cAnalysisList& analysisnames) { 
       for (cAnalysisList::const_iterator ananame = analysisnames.begin();
            ananame != analysisnames.end(); ++ananame) {
         addAnalysis(*ananame);
@@ -180,15 +177,15 @@ namespace Rivet {
 
     /// The assignment operator is private and must never be called.
     /// In fact, it should not even be implemented.
-    RivetHandler & operator=(const RivetHandler &);
+    AnalysisHandler & operator=(const AnalysisHandler&);
 
     /// The copy constructor is private and must never be called.  In
     /// fact, it should not even be implemented.
-    inline RivetHandler(const RivetHandler &);
+    inline AnalysisHandler(const AnalysisHandler&);
 
   };
 
 
 }
 
-#endif /* RIVET_RivetHandler_H */
+#endif

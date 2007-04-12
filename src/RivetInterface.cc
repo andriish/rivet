@@ -3,7 +3,7 @@
 #include "Rivet/Projections/DISLepton.hh"
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetHandler.hh"
+#include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Tools/Commandline.hh"
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
 
 
   // Make a handler and add analyses
-  RivetHandler rh;
+  AnalysisHandler rh;
   for (AnalysisList::const_iterator ai = cfgAnalyses.begin(); ai != cfgAnalyses.end(); ++ai) {
      Analysis& a = Analysis::getAnalysis(*ai);
      BeamPair beams = a.getBeams();

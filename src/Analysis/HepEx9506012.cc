@@ -1,10 +1,5 @@
 // -*- C++ -*-
-//
-// This is the implementation of the non-inlined, non-templated member
-// functions of the HZ95108 class.
-//
-
-#include "Rivet/Analysis/HZ95108.hh"
+#include "Rivet/Analysis/HepEx9506012.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "Rivet/RivetAIDA.hh"
 
@@ -13,35 +8,35 @@ using namespace std;
 using namespace CLHEP;
 
 
-const double HZ95108::xmin = -6.0;
-const double HZ95108::xmax = 6.0;
+const double HepEx9506012::xmin = -6.0;
+const double HepEx9506012::xmax = 6.0;
 
 
-void HZ95108::init() {
+void HepEx9506012::init() {
   hEtFlow = vector<AIDA::IHistogram1D *>(nbin);
   hEtFlowStat = vector<AIDA::IHistogram1D *>(nbin);
   nev = vector<double>(nbin);
 
-  tree().mkdir("/HZ95108");
+  tree().mkdir("/HepEx9506012");
   for ( int i = 0; i < nbin; ++i ) {
     string I(1, char('1' + i));
-    hEtFlow[i] = histogramFactory().createHistogram1D("/HZ95108/" + I, nb, xmin, xmax);
+    hEtFlow[i] = histogramFactory().createHistogram1D("/HepEx9506012/" + I, nb, xmin, xmax);
     hEtFlow[i]->setTitle("dEt/d[c] CMS bin=" +I);
-    histogramFactory().createHistogram1D("/HZ95108/1" + I, nb, xmin, xmax);
+    histogramFactory().createHistogram1D("/HepEx9506012/1" + I, nb, xmin, xmax);
     hEtFlow[i]->setTitle("stat dEt/d[c] CMS bin=1" + I);
   }
-  hAvEt = histogramFactory().createHistogram1D("/HZ95108/21tmp", nbin, 1.0, 10.0);
+  hAvEt = histogramFactory().createHistogram1D("/HepEx9506012/21tmp", nbin, 1.0, 10.0);
   hAvEt->setTitle("<Et> vs kin. bin");
-  hAvX =  histogramFactory().createHistogram1D("/HZ95108/22tmp", nbin, 1.0, 10.0);
+  hAvX =  histogramFactory().createHistogram1D("/HepEx9506012/22tmp", nbin, 1.0, 10.0);
   hAvX->setTitle("<x>  vs kin. bin");
-  hAvQ2 = histogramFactory().createHistogram1D("/HZ95108/23tmp", nbin, 1.0, 10.0);
+  hAvQ2 = histogramFactory().createHistogram1D("/HepEx9506012/23tmp", nbin, 1.0, 10.0);
   hAvQ2->setTitle("<Q2> vs kin. bin");
-  hN =    histogramFactory().createHistogram1D("/HZ95108/24", nbin, 1.0, 10.0);
+  hN =    histogramFactory().createHistogram1D("/HepEx9506012/24", nbin, 1.0, 10.0);
   hN->setTitle("# events vs kin. bin");
 }
 
 
-int HZ95108::getbin(const DISKinematics & dk) {
+int HepEx9506012::getbin(const DISKinematics & dk) {
   const double GeV2 = GeV*GeV;
 
   if ( dk.Q2() > 5.0*GeV2 && dk.Q2() <= 10.0*GeV2 ) {
@@ -72,7 +67,7 @@ int HZ95108::getbin(const DISKinematics & dk) {
 }
 
 
-void HZ95108::analyze(const Event & event) {
+void HepEx9506012::analyze(const Event & event) {
   const FinalStateHCM & fs = event.applyProjection(fsproj);
   const DISKinematics & dk = event.applyProjection(diskin);
   const CentralEtHCM y1 = event.applyProjection(y1hcm);
@@ -97,24 +92,24 @@ void HZ95108::analyze(const Event & event) {
 }
 
 
-void HZ95108::finalize() {
+void HepEx9506012::finalize() {
   for ( int ibin = 0; ibin < nbin; ++ibin ) {
     hEtFlow[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
     hEtFlowStat[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
   }
-  AIDA::IHistogram1D* h = histogramFactory().divide("/HZ95108/21", *hAvEt, *hN);
+  AIDA::IHistogram1D* h = histogramFactory().divide("/HepEx9506012/21", *hAvEt, *hN);
   h->setTitle(hAvEt->title());
   histogramFactory().destroy(hAvEt);
-  h = histogramFactory().divide("/HZ95108/22", *hAvX, *hN);
+  h = histogramFactory().divide("/HepEx9506012/22", *hAvX, *hN);
   h->setTitle(hAvX->title());
   histogramFactory().destroy(hAvX);
-  h = histogramFactory().divide("/HZ95108/23", *hAvQ2, *hN);
+  h = histogramFactory().divide("/HepEx9506012/23", *hAvQ2, *hN);
   h->setTitle(hAvQ2->title());
   histogramFactory().destroy(hAvQ2);
 }
 
 
-// RivetInfo HZ95108::getInfo() const {
+// RivetInfo HepEx9506012::getInfo() const {
 //   RivetInfo i = info;
 //   i += beams.getInfo();
 //   i += lepton.getInfo();

@@ -1,7 +1,4 @@
 // -*- C++ -*-
-//
-// This is the forward declaration of the Analysis class.
-//
 #ifndef RIVET_AnalysisName_HH
 #define RIVET_AnalysisName_HH
 
@@ -9,12 +6,11 @@
 
 namespace Rivet {
 
-
   /// List of known available analyses
   enum AnalysisName { 
     ANALYSIS_TEST, 
-    ANALYSIS_HZ95108, 
     ANALYSIS_PL273B181, 
+    ANALYSIS_HEPEX9506012,
     ANALYSIS_HEPEX0112029,
     ANALYSIS_HEPEX0409040
   };
@@ -32,8 +28,8 @@ namespace Rivet {
   inline AnalysisMap getKnownAnalyses() {
     AnalysisMap amap;
     amap[ANALYSIS_TEST] = "TEST";
-    amap[ANALYSIS_HZ95108] = "HZ95108";
     amap[ANALYSIS_PL273B181] = "PL273B181";
+    amap[ANALYSIS_HEPEX9506012] = "HEPEX9506012";
     amap[ANALYSIS_HEPEX0112029] = "HEPEX0112029";
     amap[ANALYSIS_HEPEX0409040] = "HEPEX0409040";
     return amap;
