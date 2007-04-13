@@ -15,7 +15,6 @@ using namespace HepMC;
 
 
 int main(int argc, char* argv[]) {
-  Log& log = Log::getLog("Rivet.Main");
 
   // Configuration variables
   set<AnalysisName> cfgAnalyses;
@@ -71,6 +70,7 @@ int main(int argc, char* argv[]) {
 
   // Add all the log levels from the command line into the logging framework
   Log::setDefaultLevels(cfgLogLevels);
+  Log& log = Log::getLog("Rivet.Main");
 
 
   // Make a handler and add analyses
@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
      cout << a.name() << ": " << a.getBeams() << " " 
           << a.isCompatible(PROTON, PROTON) << endl;
      rh.addAnalysis(*ai);
-   }
+  }
   rh.init();
 
 

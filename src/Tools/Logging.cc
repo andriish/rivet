@@ -23,6 +23,9 @@ namespace Rivet {
   Log& Log::getLog(const string& name) {
     if (existingLogs.find(name) == existingLogs.end()) {
       Level level = INFO;
+      //for (LevelMap::const_iterator l = defaultLevels.begin(); l != defaultLevels.end(); ++l) {
+      //  cout << "LEVELS: " << l->first << ": " << l->second << endl;
+      //}
       if (defaultLevels.find(name) != defaultLevels.end()) {
         level = defaultLevels.find(name)->second;
       }
