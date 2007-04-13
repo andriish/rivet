@@ -54,7 +54,7 @@
 #include "ConeSplitMerge.hpp"
 //#include "energycluster/ConeJetInfoChunk.hpp"
 
-#include "inline_maths.h"
+#include "../inline_maths.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -360,7 +360,7 @@ makeClusters(
 
   // create an energy cluster collection for jets 
   //EnergyClusterCollection<ItemAddress>* ptrcol;
-  Item* ptrcol;
+  //Item* ptrcol;
   //r->createClusterCollection(chunkptr,ptrcol);
   ////std::vector<const EnergyCluster<ItemAddress>*> ecv;
   std::vector<const Item*> ecv;
@@ -401,7 +401,6 @@ makeClusters(
   std::vector<ProtoJet<Item> > mcoll;
   std::vector<TemporaryJet> scoll; 
 
-  int tempint=1;
 
   // find stable jets around seeds 
   //typename std::vector<const EnergyCluster<ItemAddress>* >::iterator jclu;
@@ -418,7 +417,7 @@ makeClusters(
     // don't keep preclusters close to jet
     bool is_far= true;
     // ?? if(_Kill_Far_Clusters) {
-    for(int i = 0; i < scoll.size(); ++i) 
+    for(unsigned int i = 0; i < scoll.size(); ++i) 
     {
       float y  = scoll[i].y();
       float phi= scoll[i].phi();
@@ -459,7 +458,7 @@ makeClusters(
 	{
 	  // check if we are not finding the same jet again
 	  float distmax = 999.; int imax = -1;
-	  for(int i = 0; i < scoll.size(); ++i) 
+	  for(unsigned int i = 0; i < scoll.size(); ++i) 
 	  {
 	    float dist = jet.dist(scoll[i]);
 	    if ( dist < distmax )
@@ -495,9 +494,9 @@ makeClusters(
   }
 
   // find stable jets around midpoints
-  for(int i = 0; i < scoll.size(); ++i) 
+  for(unsigned int i = 0; i < scoll.size(); ++i) 
   {
-    for(int k = i+1; k < scoll.size(); ++k) 
+    for(unsigned int k = i+1; k < scoll.size(); ++k) 
     {
       float djet= scoll[i].dist(scoll[k]);
       if(djet > _CONE_RADIUS && djet < 2.*_CONE_RADIUS) 
@@ -528,7 +527,7 @@ makeClusters(
   pjets.split_merge(ilcv,_SPLIT_RATIO, _PT_MIN_LEADING_PROTOJET, _PT_MIN_SECOND_PROTOJET, _MERGE_MAX, _PT_MIN_noMERGE_MAX);
 
 
-  for(int i = 0; i < ilcv.size(); ++i) 
+  for(unsigned int i = 0; i < ilcv.size(); ++i) 
   {
     if ( ilcv[i].pT() > _MIN_JET_ET )
     {

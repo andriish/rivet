@@ -197,7 +197,7 @@ void ConeSplitMerge<Item>::split_merge(std::vector<ProtoJet<Item> >& jcv,
 	  if ( ! same ) 
 	    {
 	      // recalculate
-	      float old_pT = imax.pT();
+	      //float old_pT = imax.pT();
 	      
 	      imax.updateJet();
 	      imax.merged();

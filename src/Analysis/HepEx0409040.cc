@@ -16,17 +16,37 @@ using namespace HepMC;
 
 // Book histograms
 void HepEx0409040::init() {
-  double bins[] = {64., 80., 88., 96., 100., 102., 104., 106., 108., 110.,
-		    112., 114., 116., 118., 120., 122., 124., 126., 128.};
+  vector<double> bins(19);
+  bins[0] = 64.;
+  bins[1] = 80.;
+  bins[2] = 88.;
+  bins[3] = 96.;
+  bins[4] = 100.;
+  bins[5] = 102.;
+  bins[6] = 104.;
+  bins[7] = 106.;
+  bins[8] = 108.;
+  bins[9] = 110.;
+  bins[10] = 112.;
+  bins[11] = 114.;
+  bins[12] = 116.;
+  bins[13] = 118.;
+  bins[14] = 120.;
+  bins[15] = 122.;
+  bins[16] = 124.;
+  bins[17] = 126.;
+  bins[18] = 128.;
+
+  
   histJetAzimuthpTmax75_100 = bookHistogram1D("JetAzimuthpTmax75_100", "Jet Jet azimuthal angle, pTmax=75..100", 18, 64., 128.);
   histJetAzimuthpTmax100_130 = bookHistogram1D("JetAzimuthpTmax100_130", "Jet Jet azimuthal angle, pTmax=100..130", 18, 64., 128.);
   histJetAzimuthpTmax130_180 = bookHistogram1D("JetAzimuthpTmax130_180", "Jet Jet azimuthal angle, pTmax=130..180", 18, 64., 128.);
   histJetAzimuthpTmax180_ = bookHistogram1D("JetAzimuthpTmax180_", "Jet Jet azimuthal angle, pTmax>180", 18, 64., 128.);
   /*
-  histJetAzimuthpTmax75_100 = bookHistogram1D("JetAzimuthpTmax75_100", "Jet Jet azimuthal angle, pTmax=75..100", 18, bins);
-  histJetAzimuthpTmax100_130 = bookHistogram1D("JetAzimuthpTmax100_130", "Jet Jet azimuthal angle, pTmax=100..130", 18, bins);
-  histJetAzimuthpTmax130_180 = bookHistogram1D("JetAzimuthpTmax130_180", "Jet Jet azimuthal angle, pTmax=130..180", 18, bins);
-  histJetAzimuthpTmax180_ = bookHistogram1D("JetAzimuthpTmax180_", "Jet Jet azimuthal angle, pTmax>180", 18, bins);
+  histJetAzimuthpTmax75_100 = bookHistogram1D("JetAzimuthpTmax75_100", "Jet Jet azimuthal angle, pTmax=75..100", bins);
+  histJetAzimuthpTmax100_130 = bookHistogram1D("JetAzimuthpTmax100_130", "Jet Jet azimuthal angle, pTmax=100..130", bins);
+  histJetAzimuthpTmax130_180 = bookHistogram1D("JetAzimuthpTmax130_180", "Jet Jet azimuthal angle, pTmax=130..180", bins);
+  histJetAzimuthpTmax180_ = bookHistogram1D("JetAzimuthpTmax180_", "Jet Jet azimuthal angle, pTmax>180", bins);
   */
 }
 
@@ -40,8 +60,7 @@ void HepEx0409040::analyze(const Event & event) {
   
   const D0RunIIconeJets& jetpro = event.applyProjection(conejets);
   
-  int nj = jetpro.getNJets();
-  
+  //int nj = jetpro.getNJets();
   //log << Log::INFO << "Jet multiplicity before any pT cut = " << nj << endl;
   
    

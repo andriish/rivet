@@ -62,7 +62,7 @@ int main() {
 	   pT_min_second_protojet, merge_max, pT_min_nomerge);
  
   float Item_ET_Threshold = 0.;
-  float* Item_ET_Threshold_ptr = &Item_ET_Threshold;
+  //float* Item_ET_Threshold_ptr = &Item_ET_Threshold;
 
   list<HepEntity> jets;
   ilegac.makeClusters(jets, *ensemble, Item_ET_Threshold);

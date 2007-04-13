@@ -19,7 +19,7 @@
 #include <list>
 #include <cmath>
 
-#include "inline_maths.h" //ls
+#include "../inline_maths.h" //ls
 
 using namespace inline_maths;
 
@@ -123,9 +123,9 @@ void ProtoJet<Item>::setJet(float y,float phi,float pT) {
 
 template<class Item>
 void ProtoJet<Item>::updateJet() { 
-  float ETsum = 0.0;
-  float ysum  = 0.0;
-  float PHIsum= 0.0;
+  //float ETsum = 0.0;
+  //float ysum  = 0.0;
+  //float PHIsum= 0.0;
   float p[4] = {0.,0.,0.,0.};
   typename std::list<const Item*>::iterator it;
   for(it = _LItems.begin(); it != _LItems.end(); ++it) 

@@ -4,7 +4,6 @@
 // Declaration of the D0RunIIconeJets class.
 
 #include "Rivet/Rivet.hh"
-
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 
@@ -42,7 +41,7 @@ namespace Rivet {
 		      duplicate_dPT, search_factor, pT_min_leading_protojet, 
 		      pT_min_second_protojet, merge_max, pT_min_nomerge);
       
-      jets = new list<HepEntity>;
+      jets = new std::list<HepEntity>;
 }
 
     /// Argument constructor.
@@ -57,7 +56,7 @@ namespace Rivet {
 					      duplicate_dPT, search_factor, pT_min_leading_protojet, 
 					      pT_min_second_protojet, merge_max, pT_min_nomerge);
       
-      jets = new list<HepEntity>;
+      jets = new std::list<HepEntity>;
     }
 
     /// Copy constructor.
@@ -71,7 +70,7 @@ namespace Rivet {
 	     pT_min_second_protojet, merge_max, pT_min_nomerge);
       
       jets->clear();
-      for (list<HepEntity>::iterator it=x.jets->begin(); it!=x.jets->end(); ++it)
+      for (std::list<HepEntity>::iterator it=x.jets->begin(); it!=x.jets->end(); ++it)
 	jets->push_back(*it);
   
     }
@@ -128,10 +127,10 @@ namespace Rivet {
 
 
 
-//     /// Return the RivetInfo object of this Projection.
-//     virtual RivetInfo getInfo() const;
+    /// Return the RivetInfo object of this Projection.
+    // virtual RivetInfo getInfo() const;
 
-    list<HepEntity> * jets;
+    std::list<HepEntity> * jets;
     
     
   private:
@@ -145,7 +144,7 @@ namespace Rivet {
 
     // Vector of all
     //vector<KtJet::KtLorentzVector> vecs_;
-    list<const HepEntity*> *particlelist;
+    std::list<const HepEntity*> *particlelist;
     
     //initialize D0RunII cone algorithm
     float cone_radius;
