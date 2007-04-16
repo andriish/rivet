@@ -80,19 +80,26 @@ namespace Rivet {
 
 
   IHistogram1D* bookHistogram1D(const unsigned int paperId, const unsigned int datasetId, 
-                                const unsigned int axisId, const std::string& title) {
+                                const unsigned int axisId, const string& title) {
     throw runtime_error("Analysis::bookHistogram1D(int paperId, int datasetId, int axisId, string title) is not yet implemented.");
   }
 
-  IHistogram1D* bookHistogram1D(const string hdcode, const std::string& title) {
+  IHistogram1D* bookHistogram1D(const string hdcode, const string& title) {
     throw runtime_error("Analysis::bookHistogram1D(string hdcode, string title) is not yet implemented.");
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const std::string& name, const std::string& title, 
+  IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
                                           const int nbins, const double lower, const double upper) {
     makeHistoDir();
     return histogramFactory().createHistogram1D(histoDir() + "/" + name, title, nbins, lower, upper);
+  }
+
+
+  IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
+                                          const vector<double>& binedges) {
+    makeHistoDir();
+    return histogramFactory().createHistogram1D(histoDir() + "/" + name, title, binedges);
   }
 
 
