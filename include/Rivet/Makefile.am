@@ -38,7 +38,8 @@ nobase_pkginclude_HEADERS += \
   Projections/Thrust.hh        \
   Projections/ParisiTensor.hh  \
   Projections/D0RunIIconeJets.hh \
-  Projections/PVertex.hh
+  Projections/PVertex.hh       \
+  Projections/CalMET.hh
 
 
 ## Tools
