@@ -1,4 +1,4 @@
 dist_pkgdata_DATA = \
-  3429.hep.xml  5524.hep.xml  616.hep.xml  743.hep.xml  \
-  3429.aida  5524.aida  616.aida  743.aida  \
+  PL273B181.hep.xml HepEx0112029.hep.xml  HepEx0409040.hep.xml  HepEx9506012.hep.xml \
+  PL273B181.aida    HepEx0112029.aida     HepEx0409040.aida     HepEx9506012.aida \
   FPythiaLEP10.hepmc
