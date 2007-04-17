@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="FreeHEP"/>
+  <dataPointSet name="ds1-y1" dimension="2" path="/"
+    title="ds1-y1">
+    <annotation>
+      <item key="Title" value="ds1-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds1-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds1-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987" value="1.1"
+        errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="180.74852696495208"
+        value="1120.5" errorMinus="170.25043318593936"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="1.2999999999999998" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="117.70106201729872"
+        value="967.7" errorMinus="129.68534998217802"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009" value="1.5"
+        errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="84.18515308532734" value="853.6"
+        errorMinus="101.87983117379024"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="1.7000000000000002" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="71.50741220321149" value="690.5"
+        errorMinus="63.03729055091121"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009" value="1.9"
+        errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="58.924867416057886"
+        value="549.4" errorMinus="48.41167214629134"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.16500000000000004"
+        value="2.165" errorMinus="0.16500000000000004"/>
+      <measurement errorPlus="29.888292022128" value="368.2"
+        errorMinus="29.440618200031057"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.16999999999999993" value="2.5"
+        errorMinus="0.16999999999999993"/>
+      <measurement errorPlus="15.6377747777617" value="219.1"
+        errorMinus="15.814550262337528"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.16500000000000004"
+        value="2.835" errorMinus="0.16500000000000004"/>
+      <measurement errorPlus="7.041306696913578" value="113.5"
+        errorMinus="8.096295449154509"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.25" value="3.25"
+        errorMinus="0.25"/>
+      <measurement errorPlus="3.627671429443411" value="44.2"
+        errorMinus="2.946183972531247"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.25" value="3.75"
+        errorMinus="0.25"/>
+      <measurement errorPlus="1.104536101718726" value="8.7"
+        errorMinus="1.0677078252031311"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds10-y1" dimension="2" path="/"
+    title="ds10-y1">
+    <annotation>
+      <item key="Title" value="ds10-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds10-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds10-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="5.953990258641678" value="44.2"
+        errorMinus="5.017967716117751"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="5.958187643906492" value="87.1"
+        errorMinus="7.431016081263719"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="8.261961026293939" value="104.0"
+        errorMinus="10.526632889960588"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="10.49809506529637" value="75.7"
+        errorMinus="5.445181356024793"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.1" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="5.249761899362675" value="38.1"
+        errorMinus="4.80936586256442"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds11-y1" dimension="2" path="/"
+    title="ds11-y1">
+    <annotation>
+      <item key="Title" value="ds11-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds11-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds11-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="1.4730919862656235" value="6.4"
+        errorMinus="1.1532562594670797"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="2.638181191654584" value="31.1"
+        errorMinus="3.539774004085572"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="4.9779513858614575" value="47.5"
+        errorMinus="4.053393639902248"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="4.042276586281547" value="54.2"
+        errorMinus="6.2697687357668945"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.1" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="4.561797891182818" value="33.1"
+        errorMinus="3.844476557348217"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds12-y1" dimension="2" path="/"
+    title="ds12-y1">
+    <annotation>
+      <item key="Title" value="ds12-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds12-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds12-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="1.8193405398660252" value="5.2"
+        errorMinus="1.9235384061671346"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="3.4146742157927745" value="18.7"
+        errorMinus="2.4186773244895647"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="3.374907406137241" value="32.3"
+        errorMinus="3.1780497164141406"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.1" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="3.234192325759246" value="28.9"
+        errorMinus="2.3622023622035435"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999998"
+        value="-0.9" errorMinus="0.09999999999999998"/>
+      <measurement errorPlus="1.96468827043885" value="18.6"
+        errorMinus="2.215851980616034"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999998"
+        value="-0.7" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="1.3379088160259651" value="5.6"
+        errorMinus="1.1224972160321824"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds13-y1" dimension="2" path="/"
+    title="ds13-y1">
+    <annotation>
+      <item key="Title" value="ds13-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds13-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds13-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="0.8602325267042626" value="0.9"
+        errorMinus="0.4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.1" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="1.16619037896906" value="6.4"
+        errorMinus="1.5684387141358123"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999998"
+        value="-0.9" errorMinus="0.09999999999999998"/>
+      <measurement errorPlus="1.3784048752090223" value="5.7"
+        errorMinus="0.9273618495495705"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999998"
+        value="-0.7" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="1.0488088481701516" value="6.9"
+        errorMinus="1.2569805089976536"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999998"
+        value="-0.5" errorMinus="0.09999999999999998"/>
+      <measurement errorPlus="0.714142842854285" value="1.9"
+        errorMinus="0.6480740698407861"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds2-y1" dimension="2" path="/"
+    title="ds2-y1">
+    <annotation>
+      <item key="Title" value="ds2-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds2-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds2-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.3500000000000001"
+        value="-1.35" errorMinus="0.34999999999999987"/>
+      <measurement errorPlus="2.293468988235943" value="27.6"
+        errorMinus="1.7349351572897473"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.15000000000000002"
+        value="-0.85" errorMinus="0.15000000000000002"/>
+      <measurement errorPlus="6.727555276621664" value="96.5"
+        errorMinus="7.887331614684398"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.2" value="-0.5"
+        errorMinus="0.19999999999999996"/>
+      <measurement errorPlus="13.023440405668543"
+        value="213.2" errorMinus="13.490737563232042"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.15" value="-0.15"
+        errorMinus="0.15"/>
+      <measurement errorPlus="36.51479152343609" value="429.5"
+        errorMinus="30.897896368523213"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.15" value="0.15"
+        errorMinus="0.15"/>
+      <measurement errorPlus="56.87723621977425" value="640.9"
+        errorMinus="56.948836686977195"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.19999999999999996" value="0.5"
+        errorMinus="0.2"/>
+      <measurement errorPlus="88.97628897633346" value="901.3"
+        errorMinus="87.42368100234627"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.15000000000000002"
+        value="0.85" errorMinus="0.15000000000000002"/>
+      <measurement errorPlus="67.49444421580193" value="688.7"
+        errorMinus="74.9877990075719"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.34999999999999987"
+        value="1.35" errorMinus="0.3500000000000001"/>
+      <measurement errorPlus="12.371741995369932"
+        value="113.6" errorMinus="13.798913000667843"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds3-y1" dimension="2" path="/"
+    title="ds3-y1">
+    <annotation>
+      <item key="Title" value="ds3-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds3-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds3-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999964"
+        value="-2.3" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="30.564358327961013"
+        value="198.2" errorMinus="28.79461755259132"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-2.1" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="64.03100811325712" value="636.4"
+        errorMinus="83.32040566391885"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="102.94921077890787"
+        value="1084.5" errorMinus="107.08244487309767"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="105.38567265050786"
+        value="1251.4" errorMinus="107.8469749228044"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="93.18224079726781"
+        value="1147.9" errorMinus="98.51395840184273"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="68.26858721256798" value="653.7"
+        errorMinus="51.025189857559575"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.1" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="22.797148944550063"
+        value="273.9" errorMinus="25.42813402513051"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999998"
+        value="-0.9" errorMinus="0.09999999999999998"/>
+      <measurement errorPlus="8.895504482602433" value="82.6"
+        errorMinus="9.445104552094698"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds4-y1" dimension="2" path="/"
+    title="ds4-y1">
+    <annotation>
+      <item key="Title" value="ds4-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds4-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds4-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999964"
+        value="-2.3" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="10.796758772891057" value="70.2"
+        errorMinus="9.542536350467836"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-2.1" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="26.163715332498175"
+        value="169.9" errorMinus="28.291871624196233"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="34.903581478123414"
+        value="261.9" errorMinus="35.59297683532525"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="28.737084055276032"
+        value="251.5" errorMinus="27.957288852819758"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="24.843711477957555"
+        value="199.6" errorMinus="28.758650872389683"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="15.201973556088038" value="78.4"
+        errorMinus="8.107404023483719"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds5-y1" dimension="2" path="/"
+    title="ds5-y1">
+    <annotation>
+      <item key="Title" value="ds5-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds5-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds5-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999964"
+        value="-2.3" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="9.435041070392858" value="55.9"
+        errorMinus="12.206965224821442"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-2.1" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="21.09786719078495" value="142.2"
+        errorMinus="19.020515240129537"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="21.36866865296011" value="222.5"
+        errorMinus="25.446807265352565"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="24.186153063271554"
+        value="212.8" errorMinus="17.46682569902156"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="16.764247671756703"
+        value="181.2" errorMinus="22.743350676626346"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="17.133884556632218" value="83.3"
+        errorMinus="9.306449376641984"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds6-y1" dimension="2" path="/"
+    title="ds6-y1">
+    <annotation>
+      <item key="Title" value="ds6-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds6-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds6-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999964"
+        value="-2.3" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="7.712976079309465" value="33.9"
+        errorMinus="5.122499389946279"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-2.1" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="11.191067866830224"
+        value="128.0" errorMinus="21.737755173890427"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="15.558277539625008"
+        value="182.7" errorMinus="20.701207694238516"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="17.562744660217547"
+        value="198.4" errorMinus="26.766583644537082"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="19.53330489190193" value="165.2"
+        errorMinus="15.117208737065186"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="11.208478933378963" value="89.5"
+        errorMinus="13.128213892224638"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds7-y1" dimension="2" path="/"
+    title="ds7-y1">
+    <annotation>
+      <item key="Title" value="ds7-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds7-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds7-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999964"
+        value="-2.3" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="4.4821869662029945" value="25.5"
+        errorMinus="5.057667446560717"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-2.1" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="10.32811696293182" value="83.0"
+        errorMinus="12.047406359876803"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="17.891338686638292"
+        value="146.4" errorMinus="16.64752233817393"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="26.304562341920843"
+        value="172.0" errorMinus="14.305593311708535"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="12.895347998406246"
+        value="149.1" errorMinus="13.315029102484155"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="10.480935072788116" value="69.2"
+        errorMinus="8.845903006477066"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds8-y1" dimension="2" path="/"
+    title="ds8-y1">
+    <annotation>
+      <item key="Title" value="ds8-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds8-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds8-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-2.1" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="8.322259308625274" value="61.6"
+        errorMinus="8.650433515148244"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="9.91866926558195" value="113.0"
+        errorMinus="11.284502647436438"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="16.496666329898293"
+        value="133.7" errorMinus="12.27436352728727"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="12.619033243477885"
+        value="124.5" errorMinus="12.332477447779906"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="11.977478866606276" value="66.8"
+        errorMinus="8.94930164873215"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="ds9-y1" dimension="2" path="/"
+    title="ds9-y1">
+    <annotation>
+      <item key="Title" value="ds9-y1" sticky="true"/>
+      <item key="AidaPath" value="/ds9-y1" sticky="true"/>
+      <item key="FullPath" value="/616.hep.xml.aida/ds9-y1"
+        sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-2.1" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="6.604543890383347" value="43.2"
+        errorMinus="4.8342527861087286"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.9" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="13.606983501129116"
+        value="105.9" errorMinus="12.135073135337915"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.7000000000000002" errorMinus="0.09999999999999987"/>
+      <measurement errorPlus="10.991815136727872"
+        value="153.2" errorMinus="15.391556126655939"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.10000000000000009"
+        value="-1.5" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="13.026895255585654"
+        value="148.7" errorMinus="10.112863096077193"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.09999999999999987"
+        value="-1.2999999999999998" errorMinus="0.10000000000000009"/>
+      <measurement errorPlus="8.584287972802404" value="94.7"
+        errorMinus="10.31309846748299"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
