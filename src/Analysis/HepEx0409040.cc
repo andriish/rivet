@@ -37,17 +37,17 @@ void HepEx0409040::init() {
   bins[17] = 126.;
   bins[18] = 128.;
 
-  
+  /*  
   histJetAzimuthpTmax75_100 = bookHistogram1D("JetAzimuthpTmax75_100", "Jet Jet azimuthal angle, pTmax=75..100", 18, 64., 128.);
   histJetAzimuthpTmax100_130 = bookHistogram1D("JetAzimuthpTmax100_130", "Jet Jet azimuthal angle, pTmax=100..130", 18, 64., 128.);
   histJetAzimuthpTmax130_180 = bookHistogram1D("JetAzimuthpTmax130_180", "Jet Jet azimuthal angle, pTmax=130..180", 18, 64., 128.);
   histJetAzimuthpTmax180_ = bookHistogram1D("JetAzimuthpTmax180_", "Jet Jet azimuthal angle, pTmax>180", 18, 64., 128.);
-  /*
+  */
   histJetAzimuthpTmax75_100 = bookHistogram1D("JetAzimuthpTmax75_100", "Jet Jet azimuthal angle, pTmax=75..100", bins);
   histJetAzimuthpTmax100_130 = bookHistogram1D("JetAzimuthpTmax100_130", "Jet Jet azimuthal angle, pTmax=100..130", bins);
   histJetAzimuthpTmax130_180 = bookHistogram1D("JetAzimuthpTmax130_180", "Jet Jet azimuthal angle, pTmax=130..180", bins);
   histJetAzimuthpTmax180_ = bookHistogram1D("JetAzimuthpTmax180_", "Jet Jet azimuthal angle, pTmax>180", bins);
-  */
+
 }
 
 
@@ -55,14 +55,15 @@ void HepEx0409040::init() {
 void HepEx0409040::analyze(const Event & event) {
   Log& log = getLog();
   log << Log::DEBUG << "Starting analyzing" << endl;
-  
+  //cout << "Start analyzing" << endl; //ls
+
   // Analyse and print some info
   
   const D0RunIIconeJets& jetpro = event.applyProjection(conejets);
   
-  //int nj = jetpro.getNJets();
-  //log << Log::INFO << "Jet multiplicity before any pT cut = " << nj << endl;
-  
+  //int nj = jetpro.getNJets(); //ls
+  //log << Log::INFO << "Jet multiplicity before any pT cut = " << nj << endl; //ls
+  //cout << "Jet multiplicity before any pT cut = " << nj << endl; //ls
    
   //check fabs(z-vertex) < 50 cm 
   //const PVertex& PV = event.applyProjection(p_vertex); //segmentation violation
@@ -91,13 +92,16 @@ void HepEx0409040::analyze(const Event & event) {
 	jet2ndpTmax = jt;
       }
     }
-    
-    //if (Njet>=2) log << Log::INFO << "Jet multiplicity after pT>40GeV cut = " << Njet << endl;
-    
+       
+    //if (Njet>=2) {
+    //log << Log::INFO << "Jet multiplicity after pT>40GeV cut = " << Njet << endl; //ls
+    //cout << "Jet multiplicity after pT>40GeV cut = " << Njet << endl; //ls
+    //}
+
     /*
     if (jetpro.jets->size()>=2) {
-      cout << "1st jet: E=" << jetpTmax->E << "  pz=" << jetpTmax->pz 
-	   << "  2nd jet E=" << jet2ndpTmax->E << "  pz=" << jetpTmax->pz << endl;
+      cout << "1st jet: E=" << jetpTmax->E << "  pz=" << jetpTmax->pz << " pt=" << jetpTmax->pT() << endl;
+      cout << "2nd jet E=" << jet2ndpTmax->E << "  pz=" << jet2ndpTmax->pz << " pt=" << jet2ndpTmax->pT() << endl;
       //cout << "1st jet: pT=" << jetpTmax->pT() << "  y=" << jetpTmax->y() 
       //   << "  2nd jet pT=" << jet2ndpTmax->pT() << "  y=" << jetpTmax->y() << endl;
     }
@@ -105,17 +109,19 @@ void HepEx0409040::analyze(const Event & event) {
 
     if (jetpro.jets->size()>=2 && jet2ndpTmax->pT() > 40.) {
       if (fabs(jetpTmax->y())<0.5 && fabs(jet2ndpTmax->y())<0.5) {
-	//cout << "jet eta and pT requirements fulfilled" << endl;
+	//cout << "jet eta and pT requirements fulfilled" << endl; //ls
 	double etaMax = 3.0; //D0 calorimeter boundary
 	bool addMuons = false; //Muons pass calorimeter almost without energy loss
 	p_calmet.initialize(etaMax, addMuons);
 	const CalMET& CaloMissEt = event.applyProjection(p_calmet);
-	//cout << "CaloMissEt.MET()=" << CaloMissEt.MET() << endl;
+	//cout << "CaloMissEt.MET()=" << CaloMissEt.MET() << endl; //ls
 	if (CaloMissEt.MET() < 0.7*jetpTmax->pT()) {
 	  
 	  double dphi = delta_phi(jetpTmax->phi(),jet2ndpTmax->phi());
 	  dphi *= 128./PI; //publication histogramming choice
 	  
+	  //cout << "Filling histograms now: dphi=" << dphi << endl;
+
 	  if (jetpTmax->pT() > 75. && jetpTmax->pT() <= 100.)
 	    histJetAzimuthpTmax75_100->fill(dphi, 1.0);
 	  else if (jetpTmax->pT() > 100. && jetpTmax->pT() <= 130.)
