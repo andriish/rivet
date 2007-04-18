@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 
 /// This is the main namespace in which all Rivet classes are defined.
 namespace Rivet {
@@ -36,6 +37,7 @@ namespace Rivet {
   using std::endl;
 
   const double MaxRapidity = 100000.0;
+  const double PI = 4*atan(1);
 
 }
 

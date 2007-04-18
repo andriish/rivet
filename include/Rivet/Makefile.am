@@ -19,6 +19,7 @@ nobase_pkginclude_HEADERS += \
   Analysis/PL273B181.hh      \
   Analysis/HepEx9506012.hh   \
   Analysis/HepEx0112029.hh   \
+  Analysis/PRD65092002.hh    \
   Analysis/HepEx0409040.hh
 
 
@@ -27,19 +28,20 @@ nobase_pkginclude_HEADERS += \
   Projections/Projection.hh    Projections/Projection.fhh  \
   Projections/Cmp.hh           Projections/Cmp.fhh         \
   Projections/Beam.hh          \
+  Projections/CalMET.hh        \
   Projections/CentralEtHCM.hh  \
-  Projections/FinalStateHCM.hh \
   Projections/DISKinematics.hh \
   Projections/DISLepton.hh     \
-  Projections/Multiplicity.hh  \
-  Projections/FinalState.hh    \
-  Projections/Sphericity.hh    \
-  Projections/KtJets.hh        \
-  Projections/Thrust.hh        \
-  Projections/ParisiTensor.hh  \
   Projections/D0RunIIconeJets.hh \
+  Projections/FinalState.hh    \
+  Projections/FinalStateHCM.hh \
+  Projections/KtJets.hh        \
+  Projections/Multiplicity.hh  \
+  Projections/ParisiTensor.hh  \
   Projections/PVertex.hh       \
-  Projections/CalMET.hh
+  Projections/Sphericity.hh    \
+  Projections/Thrust.hh        \
+  Projections/TrackJet.hh
 
 
 ## Tools

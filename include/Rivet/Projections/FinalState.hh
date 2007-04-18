@@ -14,12 +14,10 @@ namespace Rivet {
     
   public:
     
-    /** @name Standard constructors and destructors. */
+    /// @name Standard constructors and destructors. */
     //@{
-    /**
-     * The default constructor. May specify the minimum and maximum
-     * pseudorapidity.
-     */
+    /// The default constructor. May specify the minimum and maximum
+    /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     inline FinalState(double mineta = -MaxRapidity,
                       double maxeta = MaxRapidity,
                       double minpt = 0.0)
@@ -69,4 +67,4 @@ namespace Rivet {
 }
 
 
-#endif /* RIVET_FinalState_H */
+#endif
