@@ -118,6 +118,8 @@ namespace Rivet {
 
 
   protected:
+    /// @name AIDA analysis infrastructure.
+    //@{
     /// Access the AIDA analysis factory of the controlling AnalysisHandler object.
     AIDA::IAnalysisFactory& analysisFactory();
 
@@ -126,7 +128,10 @@ namespace Rivet {
 
     /// Access the AIDA histogram factory of the controlling AnalysisHandler object.
     AIDA::IHistogramFactory& histogramFactory();
+    //@}
 
+    /// @name Internal histogram booking (for use by Analysis sub-classes).
+    ///@{
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
@@ -155,6 +160,9 @@ namespace Rivet {
     AIDA::IHistogram1D* bookHistogram1D(const string hdcode, const string& title);
 
 
+    /// @todo Add profile histograms.
+
+
     /// Make the histogram directory.
     void makeHistoDir();
 
@@ -163,7 +171,7 @@ namespace Rivet {
     const string histoDir() const {
         return "/" + name();
     }
-
+    //@}
 
   protected:
 

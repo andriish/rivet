@@ -57,7 +57,8 @@ void PRD65092002::analyze(const Event& event) {
   for (TrackJet::Jets::const_iterator j = jets.begin()+1; j != jets.end(); ++j) {
     for (TrackJet::Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
       // Calculate delta phi from leading jet
-      const double deltaPhi = fabs(p->phi() - phiLead);
+      double deltaPhi = fabs(p->phi() - phiLead);
+      if (deltaPhi > PI) deltaPhi -= PI;
       assert(deltaPhi >= 0);
       assert(deltaPhi <= PI);
 

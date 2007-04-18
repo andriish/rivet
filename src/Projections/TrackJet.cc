@@ -25,8 +25,8 @@ void TrackJet::project(const Event & e) {
   // Project into final state
   // NB to be true to the original, the final state projection should have 
   // specific cuts on eta, pT and require stable charged particles.
+  log << Log::DEBUG << "About to apply the final state projection with eta and pt cuts" << endl;
   const FinalState& fs = e.applyProjection(*_fsproj);
-
   
   // Put each particle into the collection of tracks and sort (decreasing in pT)
   vector<LorentzVector> tracksvector; // Need to use a vector because you can't use std::sort with lists
@@ -40,18 +40,23 @@ void TrackJet::project(const Event & e) {
   // Make it into a list
   Tracks tracks(tracksvector.begin(), tracksvector.end());
 
-
   // Now find jets using Field & Stuart criteria
-  for (Tracks::iterator t = tracks.begin(); t != tracks.end(); ++t) {
+  log << Log::DEBUG << "About to assign tracks into jets" << endl;
+  while (!tracks.empty()) {
+
+    Tracks::iterator t = tracks.begin();
     // Get eta and phi for this track
     const double eta = t->eta();
     const double phi = t->phi();
               
-    // Make a new jet
+    // Make a new jet and put this seed track into it
     Jet thisjet;
-      
+    thisjet.addParticle(*t);
+    tracks.erase(t);
+    
     // Compare with all unassociated tracks with a smaller pT measure
-    for (Tracks::iterator t2 = tracks.begin(); t2 != tracks.end(); ++t2) {
+    Tracks::iterator t2 = tracks.begin();
+    while (t2 != tracks.end()) {
       // Compute Deta and Dphi, mapping Dphi into [0,pi]
       double Deta = eta - t2->eta();
       double Dphi = phi - t2->phi();
@@ -61,7 +66,9 @@ void TrackJet::project(const Event & e) {
       if (sqrt(Deta*Deta + Dphi*Dphi) <= 0.7) {
         // Move this particle into the current jet (no extra sorting needed)
         thisjet.addParticle(*t2);
-        tracks.erase(t2);
+        tracks.erase(t2++); // the postfix ++ is important!
+      } else {
+        ++t2;
       }
     }
 

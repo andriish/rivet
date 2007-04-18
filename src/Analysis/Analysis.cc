@@ -1,23 +1,19 @@
 // -*- C++ -*-
-//
-// This is the implementation of the non-inlined, non-templated member
-// functions of the Analysis abstract base class.
-//
 
+#include "Rivet/Rivet.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
 #include "Rivet/Analysis/PL273B181.hh"
 #include "Rivet/Analysis/HepEx9506012.hh"
 #include "Rivet/Analysis/HepEx0112029.hh"
+#include "Rivet/Analysis/PRD65092002.hh"
 #include "Rivet/Analysis/HepEx0409040.hh"
 #include "Rivet/Tools/Logging.hh"
 
 #include "AIDA/ITree.h"
 #include "AIDA/IHistogramFactory.h"
 using namespace AIDA;
-
-#include <stdexcept>
 
 
 //////////////////////////////////////////////////////////////
@@ -36,23 +32,13 @@ namespace Rivet {
       return *(new HepEx9506012());
     case ANALYSIS_HEPEX0112029:
       return *(new HepEx0112029());
+    case ANALYSIS_PRD65092002:
+      return *(new PRD65092002());
     case ANALYSIS_HEPEX0409040:
       return *(new HepEx0409040());  
     }
     throw runtime_error("Tried to get an analysis not known in the Rivet::AnalysisName enum.");
   }
-
-
-  //////////////////////////////////////////////////////////////
-
-
-  //void Analysis::init() {}
-
-
-  //void Analysis::analyze(const Event &) {}
-
-
-  //void Analysis::finalize() {}
 
 
   //////////////////////////////////////////////////////////////
