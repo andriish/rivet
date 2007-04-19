@@ -11,7 +11,7 @@ if [[ -n $( echo $* | egrep -- "--help|-h" ) ]]; then
     echo "Options:"
     echo "  --help | -h   : show this help message"
     echo "  --prefix      : show the installation prefix (cf. autoconf)"
-    echo "  --sharedir    : show the path to the directory containing shared data"
+    echo "  --datadir     : show the path to the directory containing shared data"
     echo
 fi
 
@@ -19,6 +19,6 @@ if [[ -n $( echo $* | egrep -- --prefix ) ]]; then
     echo $prefix
 fi
 
-if [[ -n $( echo $* | egrep -- --sharedir ) ]]; then
+if [[ -n $( echo $* | egrep -- --datadir ) ]]; then
     echo @datadir@/@PACKAGE_TARNAME@/
 fi
