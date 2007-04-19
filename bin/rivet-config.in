@@ -3,7 +3,7 @@
 # This variable needs to exist
 prefix=@prefix@
 
-if [[ -n $( echo $* | egrep -- "--help|-h" ) ]]; then
+if [[ $# -eq 0 || -n $( echo $* | egrep -- "--help|-h" ) ]]; then
     echo "rivet-config: configuration tool for the Rivet generator validation system"
     echo "              http://projects.hepforge.org/rivet/"
     echo
