@@ -7,7 +7,7 @@
 #include "Rivet/Analysis/PL273B181.hh"
 #include "Rivet/Analysis/HepEx9506012.hh"
 #include "Rivet/Analysis/HepEx0112029.hh"
-#include "Rivet/Analysis/PRD65092002.hh"
+//#include "Rivet/Analysis/PRD65092002.hh"
 #include "Rivet/Analysis/HepEx0409040.hh"
 #include "Rivet/Tools/Logging.hh"
 
@@ -32,8 +32,8 @@ namespace Rivet {
       return *(new HepEx9506012());
     case ANALYSIS_HEPEX0112029:
       return *(new HepEx0112029());
-    case ANALYSIS_PRD65092002:
-      return *(new PRD65092002());
+      //    case ANALYSIS_PRD65092002:
+      //return *(new PRD65092002());
     case ANALYSIS_HEPEX0409040:
       return *(new HepEx0409040());  
     }

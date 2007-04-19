@@ -5,6 +5,7 @@
 using namespace Rivet;
 
 #include "AIDA/IHistogram1D.h"
+#include "AIDA/IAxis.h"
 using namespace AIDA;
 
 #include "HepPDT/ParticleID.hh"
@@ -144,8 +145,72 @@ void HepEx0409040::analyze(const Event & event) {
 
 
 // Finalize
-void HepEx0409040::finalize() 
-{ }
+void HepEx0409040::finalize() { 
+
+  Log& log = getLog();
+
+  double area75_100 = 0;
+  for (int i=0; i < histJetAzimuthpTmax75_100->axis().bins(); ++i) {
+    area75_100 += histJetAzimuthpTmax75_100->binHeight(i) * 
+      histJetAzimuthpTmax75_100->axis().binWidth(i);
+  }
+  log << Log::INFO << "Area under histJetAzimuthpTmax75_100 histogram: " << area75_100 << endl;
+
+  double area100_130 = 0;
+  for (int i=0; i < histJetAzimuthpTmax100_130->axis().bins(); ++i) {
+    area100_130 += histJetAzimuthpTmax100_130->binHeight(i) * 
+      histJetAzimuthpTmax100_130->axis().binWidth(i);
+  }
+  log << Log::INFO << "Area under histJetAzimuthpTmax100_130 histogram: " << area100_130 << endl;
+
+  double area130_180 = 0;
+  for (int i=0; i < histJetAzimuthpTmax130_180->axis().bins(); ++i) {
+    area130_180 += histJetAzimuthpTmax130_180->binHeight(i) * 
+      histJetAzimuthpTmax130_180->axis().binWidth(i);
+  }
+  log << Log::INFO << "Area under histJetAzimuthpTmax130_180 histogram: " << area130_180 << endl;
+
+  double area180_ = 0;
+  for (int i=0; i < histJetAzimuthpTmax180_->axis().bins(); ++i) {
+    area180_ += histJetAzimuthpTmax180_->binHeight(i) * 
+      histJetAzimuthpTmax180_->axis().binWidth(i);
+  }
+  log << Log::INFO << "Area under histJetAzimuthpTmax180_ histogram: " << area180_ << endl;
+
+  
+  // Normalize the histogram areas to 1
+  if (histJetAzimuthpTmax75_100->sumBinHeights()!=0){
+    histJetAzimuthpTmax75_100->scale(1/histJetAzimuthpTmax75_100->sumBinHeights() );
+  }
+  if (histJetAzimuthpTmax100_130->sumBinHeights()!=0){
+    histJetAzimuthpTmax100_130->scale(1/histJetAzimuthpTmax100_130->sumBinHeights() );
+  }
+  if (histJetAzimuthpTmax130_180->sumBinHeights()!=0){
+    histJetAzimuthpTmax130_180->scale(1/histJetAzimuthpTmax130_180->sumBinHeights() );
+  }
+  if (histJetAzimuthpTmax180_->sumBinHeights()!=0){
+    histJetAzimuthpTmax180_->scale(1/histJetAzimuthpTmax180_->sumBinHeights() );
+  }
+
+
+  /*
+  //histSphericity_->scale(1/histSphericity_->sumBinHeights() );
+  histSphericity_->scale(1/area);
+  histPlanarity_->scale(1/histPlanarity_->sumBinHeights() );
+  histAplanarity_->scale(1/histAplanarity_->sumBinHeights() );
+  */
+
+  log << Log::INFO << "Sum of histJetAzimuthpTmax75_100 bin heights after normalization: "
+      << histJetAzimuthpTmax75_100->sumBinHeights() << endl;
+  log << Log::INFO << "Sum of histJetAzimuthpTmax100_130 bin heights after normalization: "
+      << histJetAzimuthpTmax100_130->sumBinHeights() << endl;
+  log << Log::INFO << "Sum of histJetAzimuthpTmax130_180 bin heights after normalization: "
+      << histJetAzimuthpTmax130_180->sumBinHeights() << endl;
+  log << Log::INFO << "Sum of histJetAzimuthpTmax180_ bin heights after normalization: "
+      << histJetAzimuthpTmax180_->sumBinHeights() << endl;
+
+
+}
 
 
 // // Provide info object

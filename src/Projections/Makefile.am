@@ -15,8 +15,8 @@ libRivetProjections_la_SOURCES  = \
   ParisiTensor.cc \
   PVertex.cc \
   Sphericity.cc \
-  Thrust.cc \
-  TrackJet.cc
+  Thrust.cc 
+#  TrackJet.cc
 
 libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)
 ## This shouldn't be here:  -I../../include/Rivet/Tools/D0RunIIcone
