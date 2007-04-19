@@ -75,21 +75,24 @@ void HepEx0409040::analyze(const Event & event) {
     // Fill histograms
     //for (std::vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); j++) {
     //std::list<HepEntity>::iterator jetpTmax = jetpro.jets->begin(), jet2ndpTmax = jetpTmax;
-    std::list<HepEntity>::iterator jetpTmax=0, jet2ndpTmax=0;
+    std::list<HepEntity>::iterator jetpTmax = jetpro.jets->end(),
+      jet2ndpTmax = jetpro.jets->end();
     //cout << "jetlist size = " << jetpro.jets->size() << endl;
     
     int Njet=0;
-    for (std::list<HepEntity>::iterator jt = jetpro.jets->begin(); jt != jetpro.jets->end(); jt++) {
+    for (std::list<HepEntity>::iterator jt = jetpro.jets->begin();
+	 jt != jetpro.jets->end(); jt++) {
       //cout << "list item pT = " << jt->pT() << " E=" << jt->E << " pz=" << jt->pz << endl;
       if (jt->pT()>40.) {
 	Njet++;
 	//cout << "jet pT=" << jt->pT() << " y=" << jt->y() << " phi=" << jt->phi() << endl; 
       }
-      if (jetpTmax==0 || jt->pT() > jetpTmax->pT()) {
+      if (jetpTmax == jetpro.jets->end() || jt->pT() > jetpTmax->pT()) {
 	jet2ndpTmax = jetpTmax;
 	jetpTmax = jt;
       }
-      else if (jet2ndpTmax==0 || jt->pT() > jet2ndpTmax->pT()) {
+      else if (jet2ndpTmax == jetpro.jets->end() ||
+	       jt->pT() > jet2ndpTmax->pT()) {
 	jet2ndpTmax = jt;
       }
     }

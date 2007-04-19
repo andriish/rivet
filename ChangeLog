@@ -1,3 +1,11 @@
+2007-04-19  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Analysis/HepEx0409040.cc: The reason this did not compile
+	under gcc-4 is that some iterators into a vector were wrongly
+	assued to be pointers and were initialized to 0 and later compared
+	to 0. I've changed this to initialize to end() of the
+	corresponding vector and to compare with the same end() later.
+
 2007-02-24  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Projections/KtJets.cc: Added comparison of member variables
