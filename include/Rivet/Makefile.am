@@ -2,7 +2,7 @@
 nobase_pkginclude_HEADERS = \
   Rivet.hh \
   Constraints.hh BeamConstraint.hh \
-  ParamConstraint.hh ParamConstraint.fhh \
+  Cut.hh         Cut.fhh \
   ParticleName.hh   HistoFormat.hh     \
   Event.hh       Event.fhh      \
   Particle.hh    Particle.fhh   \

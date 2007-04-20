@@ -45,8 +45,7 @@ namespace Rivet {
     void addLoggingArgs(TCLAP::CmdLine& cmd, 
                         TCLAP::MultiArg<string>*& logsArg) {
       string mesg;
-      mesg += "Analysis log level in 'name:level' format. Name 'RivetGun' is reserved for ";
-      mesg += "RivetGun's own logging. Levels are INFO, DEBUG and WARNING";
+      mesg += "Set log level in 'name:level' format. The levels are INFO, DEBUG and WARNING";
       logsArg = new TCLAP::MultiArg<string>("l", "loglevel", mesg, false, "name:level", cmd);
       //TCLAP::ValueArg<string> logFileArg("L", "logfile", "File to write logs to", false, "", "logfile", cmd);
     }

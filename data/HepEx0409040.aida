@@ -2,13 +2,14 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
-  <dataPointSet name="ds1-y1" dimension="2" path="/"
-    title="ds1-y1">
+  <dataPointSet name="ds1-y1" dimension="2" path="/HepData/"
+    title="HepData/ds1-y1">
     <annotation>
-      <item key="Title" value="ds1-y1" sticky="true"/>
-      <item key="AidaPath" value="/ds1-y1" sticky="true"/>
-      <item key="FullPath" value="/5524.hep.xml.aida/ds1-y1"
+      <item key="Title" value="HepData/ds1-y1" sticky="true"/>
+      <item key="AidaPath" value="/HepData/ds1-y1"
         sticky="true"/>
+      <item key="FullPath"
+        value="/5524.hep.xml.aida/HepData/ds1-y1" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="8.0" value="72.0"
@@ -119,13 +120,14 @@
         value="4.57" errorMinus="0.18027756377319948"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds2-y1" dimension="2" path="/"
-    title="ds2-y1">
+  <dataPointSet name="ds2-y1" dimension="2" path="/HepData/"
+    title="HepData/ds2-y1">
     <annotation>
-      <item key="Title" value="ds2-y1" sticky="true"/>
-      <item key="AidaPath" value="/ds2-y1" sticky="true"/>
-      <item key="FullPath" value="/5524.hep.xml.aida/ds2-y1"
+      <item key="Title" value="HepData/ds2-y1" sticky="true"/>
+      <item key="AidaPath" value="/HepData/ds2-y1"
         sticky="true"/>
+      <item key="FullPath"
+        value="/5524.hep.xml.aida/HepData/ds2-y1" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="68.0"
@@ -266,13 +268,14 @@
         value="5.26" errorMinus="0.14866068747318506"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds3-y1" dimension="2" path="/"
-    title="ds3-y1">
+  <dataPointSet name="ds3-y1" dimension="2" path="/HepData/"
+    title="HepData/ds3-y1">
     <annotation>
-      <item key="Title" value="ds3-y1" sticky="true"/>
-      <item key="AidaPath" value="/ds3-y1" sticky="true"/>
-      <item key="FullPath" value="/5524.hep.xml.aida/ds3-y1"
+      <item key="Title" value="HepData/ds3-y1" sticky="true"/>
+      <item key="AidaPath" value="/HepData/ds3-y1"
         sticky="true"/>
+      <item key="FullPath"
+        value="/5524.hep.xml.aida/HepData/ds3-y1" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="8.0" value="72.0"
@@ -437,13 +440,14 @@
         errorMinus="0.19697715603592209"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds4-y1" dimension="2" path="/"
-    title="ds4-y1">
+  <dataPointSet name="ds4-y1" dimension="2" path="/HepData/"
+    title="HepData/ds4-y1">
     <annotation>
-      <item key="Title" value="ds4-y1" sticky="true"/>
-      <item key="AidaPath" value="/ds4-y1" sticky="true"/>
-      <item key="FullPath" value="/5524.hep.xml.aida/ds4-y1"
+      <item key="Title" value="HepData/ds4-y1" sticky="true"/>
+      <item key="AidaPath" value="/HepData/ds4-y1"
         sticky="true"/>
+      <item key="FullPath"
+        value="/5524.hep.xml.aida/HepData/ds4-y1" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="8.0" value="72.0"
