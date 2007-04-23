@@ -3,7 +3,8 @@
 # This variable needs to exist
 prefix=@prefix@
 
-if [[ $# -eq 0 || -n $( echo $* | egrep -- "--help|-h" ) ]]; then
+tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
+if test $# -eq 0 || test -n "$tmp"; then
     echo "rivet-config: configuration tool for the Rivet generator validation system"
     echo "              http://projects.hepforge.org/rivet/"
     echo
@@ -15,10 +16,8 @@ if [[ $# -eq 0 || -n $( echo $* | egrep -- "--help|-h" ) ]]; then
     echo
 fi
 
-if [[ -n $( echo $* | egrep -- --prefix ) ]]; then
-    echo $prefix
-fi
+tmp=$(echo "$*" | egrep -- '--\<prefix\>')
+test -n "$tmp" && echo $prefix
 
-if [[ -n $( echo $* | egrep -- --datadir ) ]]; then
-    echo @datadir@/@PACKAGE_TARNAME@/
-fi
+tmp=$( echo "$*" | egrep -- '--\<datadir\>')
+test -n "$tmp" && echo @datadir@/@PACKAGE_TARNAME@

@@ -57,6 +57,7 @@ src/Test/Makefile
 data/Makefile
 bin/Makefile
 bin/rivet-config
+src/Tools/RivetPaths.cc
 Makefile],)
 
 AC_OUTPUT

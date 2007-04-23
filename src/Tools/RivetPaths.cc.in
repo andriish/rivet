@@ -1,0 +1,15 @@
+#include "Rivet/Rivet.hh"
+
+namespace Rivet {
+  const string getInstalledDataPath() {
+    const string prefix = "@prefix@";
+    //cout << "PREFIX: " << prefix << endl;
+    string datadir = "@datadir@/@PACKAGE_TARNAME@";
+    //cout << "DATADIR1: " << datadir << endl;
+    datadir.replace(datadir.begin(), datadir.begin()+9, prefix);
+    //cout << "DATADIR2: " << datadir << endl;
+    //return "data/" + papername + ".aida";
+    return datadir;
+  }
+
+}

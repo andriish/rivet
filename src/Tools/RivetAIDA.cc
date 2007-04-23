@@ -16,9 +16,12 @@ using namespace std;
 
 namespace Rivet {
 
+  // Forward declaration of generated function.
+  const string getInstalledDataPath();
+
+
   const string getDataPath(string papername) {
-    //system / popen?
-    return "data/" + papername + ".aida";
+    return getInstalledDataPath() + "/" + papername + ".aida";
   }
 
 
