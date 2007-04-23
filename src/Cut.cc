@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-#include "Rivet/ParamConstraint.hh"
+#include "Rivet/Cut.hh"
 #include <sstream>
 #include <cmath>
 
@@ -59,7 +59,7 @@ using namespace std;
 // }
 
 
-ostream& ParamConstraint::print(ostream & os) const {
+ostream& Cut::print(ostream & os) const {
   os << std::left;
   os << setw(12) << toString(_quantity)
      << setw(12) << toString(_comp)

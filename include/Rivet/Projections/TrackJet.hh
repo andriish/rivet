@@ -98,25 +98,29 @@ namespace Rivet {
       /// Get the average \f$ \phi \f$ for this jet, with the average weighted
       /// by the \f$ p_T \f$ values of the constituent tracks. (caches)
       inline double getPtWeightedPhi() const {
-        if (_ptWeightedPhi >= 0) return _ptWeightedPhi;
-        double ptwphi(0.0), ptsum(0.0);
-        for (const_iterator p = this->begin(); p != this->end(); ++p) {
-          double pt = pT(*p);
-          ptwphi += pt * p->phi();
-          ptsum += pt;
+        if (_ptWeightedPhi < 0) {
+          double ptwphi(0.0), ptsum(0.0);
+          for (const_iterator p = this->begin(); p != this->end(); ++p) {
+            double pt = pT(*p);
+            ptwphi += pt * p->phi();
+            ptsum += pt;
+          }
+          _totalPt = ptsum;
+          _ptWeightedPhi = ptwphi / getPtSum();
         }
-        _totalPt = ptsum;
-        _ptWeightedPhi = ptwphi / getPtSum();
+        return _ptWeightedPhi;
       }
 
       /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
       inline double getPtSum() const {
-        if (_totalPt >= 0) return _totalPt;
-        double ptsum(0.0);
-        for (const_iterator p = this->begin(); p != this->end(); ++p) {
-          ptsum += pT(*p);
+        if (_totalPt < 0) {
+          double ptsum(0.0);
+          for (const_iterator p = this->begin(); p != this->end(); ++p) {
+            ptsum += pT(*p);
+          }
+          _totalPt = ptsum;
         }
-        _totalPt = ptsum;
+        return _totalPt;
       }
 
       /// Get the number of particles/tracks in this jet.

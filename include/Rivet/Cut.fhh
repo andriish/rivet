@@ -1,13 +1,13 @@
 // -*- C++ -*-
-#ifndef RIVET_ParamConstraint_FHH
-#define RIVET_ParamConstraint_FHH
+#ifndef RIVET_Cut_FHH
+#define RIVET_Cut_FHH
 
 #include "Rivet/Rivet.hh"
 
 namespace Rivet {
 
   /// Forward declaration
-  class ParamConstraint;
+  class Cut;
 
     
   enum Comparison {

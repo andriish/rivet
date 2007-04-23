@@ -9,11 +9,11 @@ namespace Rivet {
   /// List of known available analyses
   enum AnalysisName { 
     ANALYSIS_TEST, 
-    ANALYSIS_PL273B181, 
     ANALYSIS_HEPEX9506012,
     ANALYSIS_HEPEX0112029,
-    //    ANALYSIS_PRD65092002,
-    ANALYSIS_HEPEX0409040
+    ANALYSIS_PL273B181,     
+    ANALYSIS_HEPEX0409040,
+    ANALYSIS_PRD65092002
   };
 
 
@@ -29,11 +29,11 @@ namespace Rivet {
   inline AnalysisMap getKnownAnalyses() {
     AnalysisMap amap;
     amap[ANALYSIS_TEST] = "TEST";
-    amap[ANALYSIS_PL273B181] = "PL273B181";
     amap[ANALYSIS_HEPEX9506012] = "HEPEX9506012";
     amap[ANALYSIS_HEPEX0112029] = "HEPEX0112029";
-    //    amap[ANALYSIS_PRD65092002] = "PRD65092002";
+    amap[ANALYSIS_PL273B181]    = "PL273B181";    
     amap[ANALYSIS_HEPEX0409040] = "HEPEX0409040";
+    amap[ANALYSIS_PRD65092002]  = "PRD65092002";
     return amap;
   }
 

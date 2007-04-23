@@ -1,6 +1,6 @@
-
 #include <iostream>
 #include <string>
+#include <list>
 #include <sstream>
 #include <stdexcept>
 
@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
   string xmlpath = "test.xml";
   if (argc > 1) xmlpath = argv[1];
 
+  //popen("ls -l");
 
   TiXmlDocument doc(xmlpath);
   doc.LoadFile();
@@ -26,35 +27,60 @@ int main(int argc, char* argv[]) {
   try {
 
     // Walk down tree to get to the <paper> element
-    const TiXmlNode* hepml = doc.FirstChild("hepml");
-    if (!hepml) throw runtime_error("Couldn't get <hepml> root element");
-    const TiXmlNode* data = hepml->FirstChild("data");
-    if (!data) throw runtime_error("Couldn't get <data> element");
-    const TiXmlNode* paper = data->FirstChild("paper")->ToElement();
-    if (!paper) throw runtime_error("Couldn't get <paper> element");
-    const TiXmlElement* p = paper->ToElement();
-    cout << "SPIRES ID: " << p->Attribute("irn") << endl;
+    const TiXmlNode* aidaN = doc.FirstChild("aida");
+    if (!aidaN) throw runtime_error("Couldn't get <aida> root element");
+    for (const TiXmlNode* dpsN = aidaN->FirstChild("dataPointSet"); dpsN; dpsN = dpsN->NextSibling()) {
+      const TiXmlElement* dpsE = dpsN->ToElement();
+      cout << "DataPointSet: " << dpsE->Attribute("name") << endl;
+      list<double> edges;
+      for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling()) {
+        const TiXmlNode* xMeasN = dpN->FirstChild("measurement");
+        if (xMeasN) {
+          const TiXmlElement* xMeasE = xMeasN->ToElement();
+          const string centreStr = xMeasE->Attribute("value");
+          const string errplusStr = xMeasE->Attribute("errorPlus"); 
+          const string errminusStr = xMeasE->Attribute("errorMinus"); 
+          istringstream ssC(centreStr);
+          istringstream ssP(errplusStr);
+          istringstream ssM(errminusStr);
+          double centre, errplus, errminus;
+          ssC >> centre; ssP >> errplus; ssM >> errminus;
+          cout << "  " << centre << " + " << errplus << " - " << errminus << endl;
+          const double lowedge = centre - errminus;
+          const double highedge = centre + errplus;
+          edges.push_back(lowedge);
+          edges.push_back(highedge);
+        } else {
+          cerr << "Couldn't get <measurement> tag" << endl;
+        }
+      }
 
-    // Walk down tree to get to the <bins> element of the first dataset's first x-axis
-    const TiXmlNode* ds = paper->FirstChild("dataset");
-    if (!ds) throw runtime_error("Couldn't get <dataset> element");
-    const TiXmlNode* xaxis = ds->FirstChild("xaxis");
-    if (!xaxis) throw runtime_error("Couldn't get <xaxis> element");
-    const TiXmlNode* bins = xaxis->FirstChild("bins");
-    if (!bins) throw runtime_error("Couldn't get <bins> element");
+      // Print out the edges
+      cout << "Raw: [";
+      for (list<double>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+        cout << *e << " ";
+      }
+      cout << "]" << endl;
 
-    // Get the bin edges for each <bin>
-    for( const TiXmlNode* bin = bins->FirstChild("bin"); bin; bin = bin->NextSibling()) {
-      const TiXmlElement* b = bin->ToElement();
-      double low, high;
-      const char* lowstr = b->Attribute("low");
-      const char* highstr = b->Attribute("high");
-      if (!lowstr) throw runtime_error("Couldn't get a valid 'low' attribute on <bin>");
-      if (!highstr) throw runtime_error("Couldn't get a valid 'high' attribute on <bin>");
-      istringstream ss1(lowstr);
-      istringstream ss2(highstr);
-      ss1 >> low; ss2 >> high;
-      cout << low << "-" << high << endl;
+      // Remove duplicates(within fractional 10^-3)
+      for (list<double>::iterator e = edges.begin(); e != edges.end(); ++e) {
+        list<double>::iterator e2 = e;
+        while (e2 != edges.end()) {
+          if (e != e2 && *e == *e2) {
+            edges.erase(e2++);
+          } else {
+            ++e2;
+          }
+        }
+      }
+
+      // Print out the edges
+      cout << "Stripped: [";
+      for (list<double>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+        cout << *e << " ";
+      }
+      cout << "]" << endl;
+      cout << endl;
     }
 
   } 

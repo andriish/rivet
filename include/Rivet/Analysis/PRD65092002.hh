@@ -62,11 +62,10 @@ namespace Rivet {
       inline MiniHisto() : numEntries(0), sumPt(0.0), sumPtSq(0.0) { }
 
       /// Appending operator
-      inline MiniHisto& operator+=(const double evtPtSum) { 
+      inline void operator+=(const double evtPtSum) { 
         numEntries += 1;
         sumPt += evtPtSum;
         sumPtSq += evtPtSum*evtPtSum;
-        return *this;
       }
 
       double numEntries;

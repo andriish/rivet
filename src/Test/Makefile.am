@@ -1,31 +1,32 @@
-noinst_PROGRAMS = testLogging testRivetHandler testHepPDT testLWH testTinyXML testD0RunIIcone
-MYLDFLAGS  = -L$(top_builddir)/src -L$(top_builddir)/src/Tools
+if WITH_TESTPROGS
+
+noinst_PROGRAMS = \
+  testLogging testRivetHandler \
+  testHepPDT testLWH testTinyXML \
+  testD0RunIIcone testBookFromAIDA
+MYLDADD  = -L$(top_builddir)/src -lRivet -L$(HEPMCLIBPATH) -l$(HEPMCLIBNAME)
 
 testLogging_SOURCES  = testLogging.cc
-testLogging_LDFLAGS  = $(MYLDFLAGS)
-testLogging_LDADD    = -lRivetTools
+testLogging_LDADD    = $(MYLDADD)
 
 testRivetHandler_SOURCES  = testRivetHandler.cc
-testRivetHandler_LDFLAGS  = $(MYLDFLAGS)
-# testRivetHandler_LDADD    = -lRivet
-# testRivetHandler_LDADD    = -lRivet -lHepMC
-testRivetHandler_LDADD    = -lRivet -l$(HEPMCLIBNAME)
-# testRivetHamdler_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPMCINCPATH)
+testRivetHandler_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPMCINCPATH)
+testRivetHandler_LDADD    = $(MYLDADD)
 
 testHepPDT_SOURCES   = testHepPDT.cc
-testHepPDT_LDFLAGS   = $(MYLDFLAGS) -L$(HEPIDLIBPATH)
-# testHepPDT_LDADD     = -lRivet
-# testHepPDT_LDADD     = -lRivet -lHepMC
-testHepPDT_LDADD     = -lRivet -l$(HEPMCLIBNAME)
 testHepPDT_CPPFLAGS  = $(AM_CPPFLAGS) -I$(HEPPIDINCPATH)
+testHepPDT_LDADD     = $(MYLDADD)
 
 testLWH_SOURCES  = testLWH.cc
 testLWH_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA
 
 testTinyXML_SOURCES  = testTinyXML.cc
-testTinyXML_LDFLAGS  = $(MYLDFLAGS)
-testTinyXML_LDADD    = -lRivetXML
 testTinyXML_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include
+testTinyXML_LDADD    = $(MYLDADD)
+
+testBookFromAIDA_SOURCES  = testBookFromAIDA.cc
+testBookFromAIDA_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include
+testBookFromAIDA_LDADD    = $(MYLDADD)
 
 testD0RunIIcone_SOURCES  = testD0RunIIcone.cc
 testD0RunIIcone_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_builddir)/include/Rivet/Tools/D0RunIIcone
@@ -39,3 +40,4 @@ check-local:
 #	./testTinyXML ../../data/4781.hepml.xml
 	./testD0RunIIcone
 
+endif

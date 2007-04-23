@@ -13,11 +13,9 @@ using namespace AIDA;
 #include "HepPDT/ParticleID.hh"
 using namespace HepMC;
 
+#include <cassert>
 
 /////////////////////////////////////////////////
-
-
-
 
 
 
@@ -28,6 +26,11 @@ void PRD65092002::init() {
   _dataToward.reserve(numBins);
   _dataAway.reserve(numBins);
   _dataTrans.reserve(numBins);
+  for (size_t i = 0; i < numBins; ++i) {
+    _dataToward[i] = MiniHisto();
+    _dataAway[i] = MiniHisto();
+    _dataTrans[i] = MiniHisto();
+  }
   _histToward = bookHistogram1D("PtSumToward", "pT sum toward total", numBins, 0.0, 50.0);
   _histTrans = bookHistogram1D("PtSumTransverse", "pT sum transverse total", numBins, 0.0, 50.0);
   _histAway = bookHistogram1D("PtSumAway", "pT sum away total", numBins, 0.0, 50.0);
@@ -49,8 +52,8 @@ void PRD65092002::analyze(const Event& event) {
 
   // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
   if (ptLead < 0.5) return;
-  if (ptLead < 0.5) return;
-  const size_t nBin = size_t(floor(ptLead/50.0));
+  if (ptLead > 50.0) return;
+  const size_t nBin = size_t(floor(ptLead));
   
   // Run over tracks in non-leading jets
   double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
@@ -74,6 +77,16 @@ void PRD65092002::analyze(const Event& event) {
     }
   }
 
+  // Log some event details
+  log << Log::DEBUG 
+      << "pT [lead; twd, away, trans] = ["
+      << ptLead << "; " 
+      << ptSumToward << ", " 
+      << ptSumAway << ", " 
+      << ptSumTrans << "]" 
+      << ", nbin = " << nBin
+      << endl;
+
   // Update the proto-profile histograms
   _dataToward[nBin] += ptSumToward;
   _dataAway[nBin] += ptSumAway;
@@ -87,8 +100,11 @@ void PRD65092002::finalize() {
     const double leadPt = double(bin) + 0.5;
     /// @todo Should really use proper profile histograms here.
     /// @todo Should also compute the error, using var = <pt^2> - <pt>^2
-    _histToward->fill(leadPt, _dataToward[bin].sumPt/double(_dataToward[bin].numEntries));
-    _histAway->fill(leadPt, _dataAway[bin].sumPt/double(_dataAway[bin].numEntries));
-    _histTrans->fill(leadPt, _dataTrans[bin].sumPt/double(_dataTrans[bin].numEntries));
+    const double nToward = _dataToward[bin].numEntries;
+    const double nAway = _dataAway[bin].numEntries;
+    const double nTrans = _dataTrans[bin].numEntries;
+    if (nToward) _histToward->fill(leadPt, _dataToward[bin].sumPt/double(_dataToward[bin].numEntries));
+    if (nAway) _histAway->fill(leadPt, _dataAway[bin].sumPt/double(_dataAway[bin].numEntries));
+    if (nTrans) _histTrans->fill(leadPt, _dataTrans[bin].sumPt/double(_dataTrans[bin].numEntries));
   }
 }

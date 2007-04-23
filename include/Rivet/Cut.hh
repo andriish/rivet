@@ -1,19 +1,19 @@
 // -*- C++ -*-
-#ifndef RIVET_ParamConstraint_HH
-#define RIVET_ParamConstraint_HH
+#ifndef RIVET_Cut_HH
+#define RIVET_Cut_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/ParamConstraint.fhh"
+#include "Rivet/Cut.fhh"
 #include <iostream>
 
 namespace Rivet {
 
-  /// ParamConstraint contains information which can be passed from the
+  /// Cut contains information which can be passed from the
   /// different Projection and Analysis objects in Rivet to the
-  /// outside world. The main purpose of the ParamConstraint objects is
+  /// outside world. The main purpose of the Cut objects is
   /// to allow applications which use Rivet to determine whether or
   /// not a given analysis "makes sense" on the provided events. An
-  /// Analysis' ParamConstraint object should be the combination of those
+  /// Analysis' Cut object should be the combination of those
   /// from its projections, plus the additional constraints (experiment
   /// conditions and cuts) specific to that analysis.
   ///
@@ -22,30 +22,30 @@ namespace Rivet {
   /// additional enums are required for an analysis that you are 
   /// implementing, please put a request in to the Rivet developers 
   /// to extend the Quantity enum.
-  class ParamConstraint {
+  class Cut {
     
   public:
 
     /** @name Standard constructors, destructors and assignment. */
     //@{
     /// The default constructor.
-    //inline ParamConstraint() {}
+    //inline Cut() {}
 
     /// The copy constructor.
-    //inline ParamConstraint(const ParamConstraint &);
+    //inline Cut(const Cut &);
 
     /// The destructor.
-    //virtual ~ParamConstraint();
+    //virtual ~Cut();
 
     /// The assignment operator.
-    //ParamConstraint & operator=(const ParamConstraint &);
+    //Cut & operator=(const Cut &);
     //@}
 
   public:
 
     /// Add a parameter, defined by a quantity to be constrained, the comparison type
     /// of the constraint and a value.
-    inline ParamConstraint& set(Quantity quantity, Comparison comparison, double value) {
+    inline Cut& set(Quantity quantity, Comparison comparison, double value) {
       _quantity = quantity;
       _comp = comparison;
       _value = value;
@@ -53,15 +53,15 @@ namespace Rivet {
     }
 
 //    /// Append all the parameters from \a inf.
-//     inline ParamConstraint& operator+=(const ParamConstraint& inf) {
+//     inline Cut& operator+=(const Cut& inf) {
 //       _append(inf);
 //       return *this;
 //     }
 
-//     /// Return a new ParamConstraint object with all information in this and
+//     /// Return a new Cut object with all information in this and
 //     /// \a inf added together.
-//     inline ParamConstraint operator+(const ParamConstraint& inf) const {
-//       ParamConstraint ret(*this);
+//     inline Cut operator+(const Cut& inf) const {
+//       Cut ret(*this);
 //       ret += inf;
 //       return ret;
 //     }
@@ -77,7 +77,7 @@ namespace Rivet {
     
     /// Combine params and beam type constraints and check consistency.
     /// If inconsistent, throw a runtime_error.
-//     inline void _append(const ParamConstraint& inf) {
+//     inline void _append(const Cut& inf) {
 //       _combineParams(inf.getParams());
 //       _check();
 //     }
@@ -94,8 +94,8 @@ namespace Rivet {
   };
 
 
-  /// Allow ParamConstraint to be passed to an iostream
-  inline ostream& operator<<(ostream& os, const ParamConstraint& p) {
+  /// Allow Cut to be passed to an iostream
+  inline ostream& operator<<(ostream& os, const Cut& p) {
     return p.print(os);
   }
 

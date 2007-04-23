@@ -1,14 +1,12 @@
 // $Id: $
 
+#include "Rivet/Rivet.hh"
 #include "Rivet/HistoFormat.hh"
 #include "Rivet/Analysis/Analysis.fhh"
 #include "Rivet/Tools/Commandline.hh"
 #include <tclap/CmdLine.h>
 #include <fstream>
 #include <iostream>
-
-using std::string;
-using std::vector;
 
 namespace Rivet {
 
@@ -26,6 +24,7 @@ namespace Rivet {
       anaNameConstraint = new TCLAP::ValuesConstraint<string>(knownAnalyses);
       analysesArg = new TCLAP::MultiArg<string>("a", "analysis", "A Rivet analysis to be run. Prefix name with a ~ to disable instead", false, anaNameConstraint, cmd);
       analysesAllArg = new TCLAP::SwitchArg("A", "all_analyses", "Run all Rivet analyses (unless any are disabled)", cmd, false);
+      /// @todo Can we use -A for removals and get the ordering right?
     }
 
 

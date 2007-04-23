@@ -23,11 +23,27 @@ namespace Rivet {
   Log& Log::getLog(const string& name) {
     if (existingLogs.find(name) == existingLogs.end()) {
       Level level = INFO;
-      //for (LevelMap::const_iterator l = defaultLevels.begin(); l != defaultLevels.end(); ++l) {
-      //  cout << "LEVELS: " << l->first << ": " << l->second << endl;
-      //}
-      if (defaultLevels.find(name) != defaultLevels.end()) {
-        level = defaultLevels.find(name)->second;
+      // Try running through all parent classes to find an existing level
+      string tmpname = name;
+      bool triedAllParents = false;
+      while (! triedAllParents) {
+        // Is there a default level?
+        if (defaultLevels.find(tmpname) != defaultLevels.end()) {
+          level = defaultLevels.find(tmpname)->second;
+          break;
+        }
+        // Is there already such a logger?
+        if (existingLogs.find(tmpname) != existingLogs.end()) {
+          level = existingLogs.find(tmpname)->second->getLevel();
+          break;
+        }
+        // Crop the string back to the next parent level
+        size_t lastDot = tmpname.find_last_of(".");
+        if (lastDot == string::npos) {
+          triedAllParents = true;
+        } else {
+          tmpname = tmpname.substr(0, lastDot);
+        }
       }
       existingLogs[name] = new Log(name, level);
     }
@@ -36,6 +52,7 @@ namespace Rivet {
 
 
   Log& Log::getLog(const string& name, const Level& level) {
+    //cout << "Log::getLog(name, level): are we really using this? Does it make sense?" << endl;
     if (existingLogs.find(name) == existingLogs.end()) {
       existingLogs[name] = new Log(name, level);
     }
@@ -72,11 +89,11 @@ namespace Rivet {
 
   string Log::formatMessage(const Level& level, const std::string& message) {
     string out;
-    out += Log::getLevelName(level);
-    out += " ";
-
     out += getName();
     out += ": ";
+
+    out += Log::getLevelName(level);
+    out += " ";
 
     if (isTimeInOutput()) {
       time_t rawtime;

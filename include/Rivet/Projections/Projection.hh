@@ -100,12 +100,12 @@ namespace Rivet {
       }
     }
     
-    /// Return the ParamConstraints objects for this projection. Derived
+    /// Return the Cuts objects for this projection. Derived
     /// classes should re-implement this function to return the combined
     /// RivetInfo object of this object and of any Projection objects
     /// upon which this depends.
-    inline virtual const set<ParamConstraint> getParamConstraints() const {
-      return _paramConstraints;
+    inline virtual const set<Cut> getCuts() const {
+      return _cuts;
     }
 
     /// Return the BeamConstraints for this analysis. Derived
@@ -127,7 +127,7 @@ namespace Rivet {
     Log& getLog();
     
     /// Parameter constraints
-    set<ParamConstraint> _paramConstraints;
+    set<Cut> _cuts;
 
     /// Beam-type constraint
     set<BeamPair> _beamPairs;

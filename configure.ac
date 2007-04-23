@@ -32,6 +32,10 @@ AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
 
+## Conditionally build the test programs
+AC_ARG_WITH([testprogs], [AC_HELP_STRING(--with-testprogs, [build internal test programs])], [], [])
+AM_CONDITIONAL(WITH_TESTPROGS, [test x$with_testprogs == xyes])
+
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(CLHEPINCPATH) -I\$(HEPMCINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"
 AM_CXXFLAGS="-ansi -pedantic -Wall"
@@ -56,3 +60,4 @@ bin/rivet-config
 Makefile],)
 
 AC_OUTPUT
+        

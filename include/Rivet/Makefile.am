@@ -16,12 +16,11 @@ nobase_pkginclude_HEADERS += \
   Analysis/Analysis.hh       Analysis/Analysis.fhh \
   Analysis/AnalysisName.hh   \
   Analysis/TestAnalysis.hh   \
-  Analysis/PL273B181.hh      \
   Analysis/HepEx9506012.hh   \
   Analysis/HepEx0112029.hh   \
-  Analysis/PRD65092002.hh    \
-  Analysis/HepEx0409040.hh
-
+  Analysis/HepEx0409040.hh   \
+  Analysis/PL273B181.hh      \
+  Analysis/PRD65092002.hh    
 
 ## Projections
 nobase_pkginclude_HEADERS += \
