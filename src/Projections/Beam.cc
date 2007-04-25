@@ -33,6 +33,16 @@ void Beam::project(const Event& e) {
   theBeams.second = Particle(**pp);
   //cout << "second Beam particle id=" << (**pp).pdg_id() << endl;
   */
+  
+  HepMC::GenEvent::particle_const_iterator bp = e.genEvent().particles_begin();
+  HepMC::GenParticle beam, target;
+  //beam = **bp;
+  //cout << "first Beam particle id=" << beam.pdg_id() << endl;
+  theBeams.first = **bp;
+  ++bp;
+  //target = **bp;
+  //cout << "second Beam particle id=" << target.pdg_id() << endl;
+  theBeams.second = **bp;
 
 
 }
