@@ -1,18 +1,18 @@
-// $Id: $
-
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
-//#include "AIDA/IAnalysisFactory.h"
 #include "LWH/AnalysisFactory.h"
 #include "TinyXML/tinyxml.h"
 #include <sstream>
+using namespace std;
+
+
 
 /// "Plugin" function to return an AIDA system (LWH impl.)
 extern "C" AIDA::IAnalysisFactory* AIDA_createAnalysisFactory() {
   return new LWH::AnalysisFactory();
 }
 
-using namespace std;
+
 
 namespace Rivet {
 
