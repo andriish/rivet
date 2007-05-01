@@ -70,7 +70,7 @@ namespace Rivet {
     template <typename A>
     inline AnalysisHandler& addAnalysis(const A& analysis) {
       analysisVector.push_back(new A(analysis));
-      analysisVector.back()->theHandler = this;
+      analysisVector.back()->_theHandler = this;
       return *this;
     }
 
@@ -94,7 +94,7 @@ namespace Rivet {
     inline AnalysisHandler& addAnalysis(const AnalysisName analysisname) { 
       Analysis& analysis = Analysis::getAnalysis(analysisname);
       analysisVector.push_back(&analysis);
-      analysisVector.back()->theHandler = this;
+      analysisVector.back()->_theHandler = this;
       return *this;
     }
 

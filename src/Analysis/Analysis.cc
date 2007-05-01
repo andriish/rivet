@@ -1,6 +1,7 @@
 // -*- C++ -*-
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
@@ -65,27 +66,30 @@ namespace Rivet {
   }
 
 
-  IHistogram1D* bookHistogram1D(const unsigned int paperId, const unsigned int datasetId, 
-                                const unsigned int axisId, const string& title) {
-    throw runtime_error("Analysis::bookHistogram1D(int paperId, int datasetId, int axisId, string title) is not yet implemented.");
-  }
-
-  IHistogram1D* bookHistogram1D(const string hdcode, const string& title) {
-    throw runtime_error("Analysis::bookHistogram1D(string hdcode, string title) is not yet implemented.");
+  IHistogram1D* Analysis::bookHistogram1D(const unsigned int datasetId, const unsigned int xAxisId, 
+                                          const unsigned int yAxisId, const string& title) {
+    stringstream axisCode("d");
+    axisCode << datasetId << "-x" << xAxisId << "-y" << yAxisId;
+    const map<string, BinEdges> data = getBinEdges(name());
+    makeHistoDir();
+    const string path = histoDir() + "/" + axisCode.str();
+    return histogramFactory().createHistogram1D(path, title, data.at(axisCode.str()));
   }
 
 
   IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
                                           const int nbins, const double lower, const double upper) {
     makeHistoDir();
-    return histogramFactory().createHistogram1D(histoDir() + "/" + name, title, nbins, lower, upper);
+    const string path = histoDir() + "/" + name;
+    return histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
   }
 
 
   IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
                                           const vector<double>& binedges) {
     makeHistoDir();
-    return histogramFactory().createHistogram1D(histoDir() + "/" + name, title, binedges);
+    const string path = histoDir() + "/" + name;
+    return histogramFactory().createHistogram1D(path, title, binedges);
   }
 
 

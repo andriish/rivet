@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <stdexcept>
 #include <iostream>
@@ -20,6 +21,7 @@ namespace Rivet {
   using std::multimap;
   using std::type_info;
   using std::string;
+  using std::stringstream;
   using std::less;
   using std::list;
   using std::vector;

@@ -44,7 +44,7 @@ namespace Rivet {
     //@{
     /// The default constructor.
     inline Analysis() 
-      : theHandler(0), _madeHistoDir(false)
+      : _theHandler(0), _madeHistoDir(false)
     { 
       setBeams(ANY, ANY);
     }
@@ -103,7 +103,7 @@ namespace Rivet {
 
     /// Access the controlling AnalysisHandler object.
     inline AnalysisHandler& handler() const {
-      return *theHandler;
+      return *_theHandler;
     }
 
     /// Get the name of the analysis
@@ -132,6 +132,7 @@ namespace Rivet {
 
     /// @name Internal histogram booking (for use by Analysis sub-classes).
     ///@{
+
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
@@ -146,18 +147,12 @@ namespace Rivet {
     AIDA::IHistogram1D* bookHistogram1D(const string& name, const string& title, 
                                         const vector<double>& binedges);
 
-    /// Book a 1D histogram based on the paper, dataset and y-axis IDs in the corresponding
+    /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' name() property. NOT YET IMPLEMENTED!
+    /// of the same filename as the analysis' name() property.
     /// @todo Implement auto-binning histo booking methods!
-    AIDA::IHistogram1D* bookHistogram1D(const unsigned int paperId, const unsigned int datasetId, 
-                                        const unsigned int axisId, const string& title);
-
-    /// Book a 1D histogram based on the paper-dataset-axis ID code for the corresponding
-    /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' name() property. NOT YET IMPLEMENTED!
-    /// @todo Implement auto-binning histo booking methods!
-    AIDA::IHistogram1D* bookHistogram1D(const string hdcode, const string& title);
+    AIDA::IHistogram1D* bookHistogram1D(const unsigned int datasetId, const unsigned int xAxisId, 
+                                        const unsigned int yAxisId, const string& title);
 
 
     /// @todo Add profile histograms.
@@ -189,7 +184,7 @@ namespace Rivet {
     BeamPair _beams;
 
     /// The controlling AnalysisHandler object.
-    AnalysisHandler* theHandler;
+    AnalysisHandler* _theHandler;
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
@@ -204,4 +199,4 @@ namespace Rivet {
 
 }
 
-#endif /* RIVET_Analysis_H */
+#endif
