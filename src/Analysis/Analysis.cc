@@ -73,7 +73,7 @@ namespace Rivet {
     const map<string, BinEdges> data = getBinEdges(name());
     makeHistoDir();
     const string path = histoDir() + "/" + axisCode.str();
-    return histogramFactory().createHistogram1D(path, title, data.at(axisCode.str()));
+    return histogramFactory().createHistogram1D(path, title, data.find(axisCode.str())->second);
   }
 
 
