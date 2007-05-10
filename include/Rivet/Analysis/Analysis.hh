@@ -131,7 +131,7 @@ namespace Rivet {
     //@}
 
     /// @name Internal histogram booking (for use by Analysis sub-classes).
-    ///@{
+    //@{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     /// (NB. this returns a pointer rather than a reference since it will 
