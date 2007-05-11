@@ -73,30 +73,39 @@ namespace Rivet {
     /// function.
     virtual void finalize() = 0;
 
-    /// Return the Cuts objects of this analysis object. Derived
+    /// Return the Cuts object of this analysis object. Derived
     /// classes should re-implement this function to return the combined
     /// RivetInfo object of this object and of any Projection objects
     /// upon which this depends.
-    inline virtual const set<Cut> getCuts() const {
+    inline virtual const Cuts& getCuts() const {
       return _cuts;
     }
 
     /// Return the pair of incoming beams required by this analysis.
-    inline virtual const BeamPair getBeams() const {
+    inline virtual const BeamPair& getBeams() const {
       return _beams;
+    }
+
+    /// Is this analysis compatible with the named quantity set at the supplied value?
+    inline virtual const bool isCompatible(const string& quantity, const double value) const {
+      Cuts::const_iterator cut = getCuts().find(quantity);
+      if (cut == getCuts().end()) return true;
+      if (value > cut->second.lowerthan()) return false;
+      if (value < cut->second.higherthan()) return false;
+      return true;
     }
 
     /// Is this analysis able to run on the supplied pair of beams?
     inline virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
       BeamPair beams(beam1, beam2);
-      return compatible(beams, _beams);
+      return compatible(beams, getBeams());
       /// @todo Need to also check internal consistency of the analysis' 
       /// beam requirements with those of the projections it uses.
     }
 
     /// Is this analysis able to run on the BeamPair @a beams ?
     inline virtual const bool isCompatible(const BeamPair& beams) const {
-      return compatible(beams, _beams);
+      return compatible(beams, getBeams());
       /// @todo Need to also check internal consistency of the analysis' 
       /// beam requirements with those of the projections it uses.
     }
@@ -178,7 +187,7 @@ namespace Rivet {
   private:
 
     /// Parameter constraints.
-    set<Cut> _cuts;
+    Cuts _cuts;
 
     /// Allowed beam-type pair.
     BeamPair _beams;

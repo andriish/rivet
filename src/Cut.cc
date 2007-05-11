@@ -1,70 +1,71 @@
 // -*- C++ -*-
 
 #include "Rivet/Cut.hh"
-#include <sstream>
-#include <cmath>
 
 using namespace Rivet;
 using namespace std;
 
 
-// RivetInfo& RivetInfo::addParam(Quantity quantity, Comparison comparison, double value) {
-//   ParamKey key(quantity, comparison);
-//   Params::iterator p = _params.find(key);
-//   if (p == _params.end()) {
-//     _params[key] = value;
-//   } else {
-//     switch (comparison) {
-//     case LESS: 
-//       if (value < p->second) _params[key] = value;
-//     case GREATER: 
-//       if (value > p->second) _params[key] = value;
-//     case EQUAL:
-//       _params[key] = value;
-//     }
-//   }
-//   return *this;
-// }
+namespace Rivet {
 
 
-// void RivetInfo::_check() const { 
-//   for (Params::const_iterator p1 = _params.begin(); p1 != _params.end(); ++p1) {
-//     ParamKey key1 = p1->first;
-//     for (Params::const_iterator p2 = p1; p2 != _params.end(); ++p2) {
-//       ParamKey key2 = p2->first;
-//       if (key1.first == key2.first) {
-//         if ((key1.second == LESS && key2.second == GREATER && p1->second <= p2->second) ||
-//             (key2.second == LESS && key1.second == GREATER && p2->second <= p1->second)) {
-//           ostringstream msg;
-//           msg << "Constraints on " << quantityToStr(key1.first) << " are incompatible: "
-//               << comparisonToStr(key1.second) << p1->second << " AND "
-//               << comparisonToStr(key2.second) << p2->second;
-//           throw runtime_error(msg.str());
-//         }
-//       }
-//     }
-//   }
-// }
+  Cuts& Cuts::addCut(const string& quantity, const Comparison& comparison, const double value) {
+    // If this quantity doesn't yet have any associated cuts, make a
+    // default cut with effectively infinitely loose cuts.
+    if (_cuts.find(quantity) == _cuts.end()) {
+      _cuts[quantity] = BinaryCut();
+    }
+    // Combine cuts in the most restrictive way.
+    switch (comparison) {
+    case LESS_EQ: 
+      if (value < _cuts[quantity].lowerthan()) 
+        _cuts[quantity].lowerthan() = value;
+    case GREATER_EQ: 
+      if (value > _cuts[quantity].higherthan()) 
+        _cuts[quantity].higherthan() = value;
+    case EQUAL: 
+      _cuts[quantity].lowerthan() = value;
+      _cuts[quantity].higherthan() = value;
+    }
+    // Allow method chaining.
+    return *this;
+  }
 
 
-// void RivetInfo::_combineParams(const Params& otherps) {
-//   for (Params::const_iterator op = otherps.begin(); op != otherps.end(); ++op) {
-//     addParam(op->first.first, op->first.second, op->second);
-//   }
-// }
+
+  bool Cuts::checkConsistency() const { 
+    for (Cuts::const_iterator c = begin(); c != end(); ++c) {
+      if (c->second.lowerthan() < c->second.lowerthan()) {
+        ostringstream msg;
+        msg << "Constraints on " << c->first << " are incompatible: "
+            << ">=" << c->second.higherthan() << " AND "
+            << "<=" << c->second.lowerthan();
+        throw runtime_error(msg.str());
+      }
+    }
+    return true;
+  }
 
 
-// bool same(BeamParticle a, BeamParticle b) {
-//   return (a == b || a == ANY || b == ANY);
-// }
+
+  ostream& Cuts::print(ostream & os) const {
+    for (Cuts::const_iterator cut = begin(); cut != end(); ++cut) {
+      os << std::left;
+      os << setw(12) << cut->first;
+      if (cut->second.higherthan() > numeric_limits<double>::min()) {
+        os << setw(10) << ">=" << cut->second.higherthan();
+      } else {
+        os << setw(10) << "";
+      }
+      if (cut->second.lowerthan() < numeric_limits<double>::max()) {
+        os << setw(10) << "<=" << cut->second.lowerthan();
+      } else {
+        os << setw(10) << "";
+      }
+      os << endl;
+    }
+    return os;
+  }
 
 
-ostream& Cut::print(ostream & os) const {
-  os << std::left;
-  os << setw(12) << toString(_quantity)
-     << setw(12) << toString(_comp)
-     << setw(10) << _value 
-     << endl;
-  return os;
 }
-

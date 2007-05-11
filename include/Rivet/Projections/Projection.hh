@@ -104,7 +104,7 @@ namespace Rivet {
     /// classes should re-implement this function to return the combined
     /// RivetInfo object of this object and of any Projection objects
     /// upon which this depends.
-    inline virtual const set<Cut> getCuts() const {
+    inline virtual const Cuts getCuts() const {
       return _cuts;
     }
 
@@ -127,7 +127,7 @@ namespace Rivet {
     Log& getLog();
     
     /// Parameter constraints
-    set<Cut> _cuts;
+    Cuts _cuts;
 
     /// Beam-type constraint
     set<BeamPair> _beamPairs;

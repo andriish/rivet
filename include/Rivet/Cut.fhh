@@ -7,48 +7,29 @@
 namespace Rivet {
 
   /// Forward declaration
-  class Cut;
+  class Cuts;
 
-    
+  /// Comparison operations. We're being clear about the <= and >= equality aspects
+  /// since these will actually be implemented as inclusive binary cuts with EQUAL
+  /// being translated into a matched "back-to-back" pair of inequalities.
   enum Comparison {
-    LESS, GREATER, EQUAL
+    LESS_EQ, GREATER_EQ, EQUAL
   };
+
   
+  /// String representations of the comparison enum values.
   inline const string toString(const Comparison& c) {
     switch(c) {
-    case LESS:
+    case LESS_EQ:
       return "<";
-    case GREATER:
+    case GREATER_EQ:
       return ">";
     case EQUAL:
       return "=";
     }
     return "";
   }
-  
-
-  enum Quantity {
-    SQRTS, PT, Q2
-  };
-
-  inline const string toString(const Quantity& q) {
-    switch(q) {
-    case SQRTS:
-      return "sqrt(s)";
-    case PT:
-      return "pT";
-    case Q2:
-      return "Q^2";
-    }
-    return "";
-  }
-  
-  /// Typedef for a param name and comparison-type pair.
-  typedef pair<Quantity, Comparison> ParamKey;
-  
-  /// Typedef for a collection of params.
-  typedef map<ParamKey, double> Params;
-  
+    
 }
 
 #endif

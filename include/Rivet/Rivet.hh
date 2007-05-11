@@ -12,6 +12,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <limits>
 
 /// This is the main namespace in which all Rivet classes are defined.
 namespace Rivet {
@@ -30,6 +31,7 @@ namespace Rivet {
   using std::runtime_error;
   using std::min;
   using std::max;
+  using std::numeric_limits;
   using std::ostream;
   using std::istream;
   using std::cout;
