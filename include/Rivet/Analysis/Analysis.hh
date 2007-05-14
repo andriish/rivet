@@ -158,7 +158,7 @@ namespace Rivet {
 
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' name() property.
+    /// of the same filename as the analysis' getName() property.
     /// @todo Implement auto-binning histo booking methods!
     AIDA::IHistogram1D* bookHistogram1D(const unsigned int datasetId, const unsigned int xAxisId, 
                                         const unsigned int yAxisId, const string& title);

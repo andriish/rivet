@@ -24,7 +24,7 @@ namespace Rivet {
     }
 
     /// The name of this analysis is "HepEx0112029"
-    inline string name() const {
+    inline string getName() const {
       return "HepEx0112029";
     }
 
@@ -53,8 +53,8 @@ namespace Rivet {
     /// Hide the assignment operator
     HepEx0112029 & operator=(const HepEx0112029& x);
 
+    /// @name Histograms
     //@{
-    /// Histograms
     AIDA::IHistogram1D* histJetEt1_;
     //@}
 

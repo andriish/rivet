@@ -24,7 +24,7 @@ namespace Rivet {
   public:
 
     /// The name of this analysis is "PL273B181"
-    inline std::string name() const {
+    inline string getName() const {
       return "PL273B181";
     }
 
@@ -48,14 +48,16 @@ namespace Rivet {
 
   private:
 
-    // Hide the assignment operator
+    /// Hide the assignment operator
     PL273B181 & operator=(const PL273B181 &);
 
-    // Histograms
+    /// @name Histograms
+    //@{
     AIDA::IHistogram1D* histChTot_;
     AIDA::IHistogram1D* histSphericity_;
     AIDA::IHistogram1D* histPlanarity_;
     AIDA::IHistogram1D* histAplanarity_;
+    //@}
 
   };
 

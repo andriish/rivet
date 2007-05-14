@@ -29,10 +29,9 @@ namespace Rivet {
   public:
 
     /// The name of this analysis is "HepEx9506012"
-    inline std::string name() const {
+    inline string getName() const {
       return "HepEx9506012";
     }
-
     
     /// Initialize this analysis object.
     void init();

@@ -24,7 +24,7 @@ namespace Rivet {
   public:
 
     /// The name of this analysis is "Test"
-    inline string name() const {
+    inline string getName() const {
       return "PRD65092002";
     }
 
