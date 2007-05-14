@@ -26,7 +26,7 @@ namespace Rivet {
     
   public:
     /// Return the name of the projection
-    inline string name() const {
+    inline string getName() const {
       return "FinalState";
     }
     

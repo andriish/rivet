@@ -117,13 +117,13 @@ namespace Rivet {
     }
 
     /// Get the name of the projection
-    inline virtual string name() const {
+    inline virtual string getName() const {
       return "";
     }
     
   protected:
 
-    /// Get a Log object based on the name() property of the calling projection object.
+    /// Get a Log object based on the getName() property of the calling projection object.
     Log& getLog();
     
     /// Parameter constraints
