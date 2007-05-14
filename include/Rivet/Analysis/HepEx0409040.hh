@@ -10,7 +10,7 @@
 
 namespace Rivet {
 
-  /// Analysis based on the D0 run II jet analysis described in hep-ex/0409040 .
+  /// Analysis based on the D0 Run II jet analysis described in hep-ex/0409040.
   /// @author Lars Sonnenschein
   class HepEx0409040 : public Analysis {
 
@@ -18,13 +18,13 @@ namespace Rivet {
 
     /// Default constructor.
     inline HepEx0409040()
-      : fs(-3., 3.), conejets(fs), p_vertex(), p_calmet(fs)
+      : fs(-3.0, 3.0), conejets(fs), p_vertex(), p_calmet(fs)
     { 
       setBeams(PROTON, ANTIPROTON);
     }
 
     /// The name of this analysis is "HepEx0409040"
-    inline string name() const {
+    inline string getName() const {
       return "HepEx0409040";
     }
 
@@ -53,18 +53,16 @@ namespace Rivet {
     /// The Calorimeter Missing Et projector
     CalMET p_calmet;
 
-
     /// Hide the assignment operator
     HepEx0409040 & operator=(const HepEx0409040& x);
 
+    /// @name Histograms
     //@{
-    /// Histograms
     AIDA::IHistogram1D* histJetAzimuthpTmax75_100;
     AIDA::IHistogram1D* histJetAzimuthpTmax100_130;
     AIDA::IHistogram1D* histJetAzimuthpTmax130_180;
     AIDA::IHistogram1D* histJetAzimuthpTmax180_;
     //@}
-
   };
 
 }

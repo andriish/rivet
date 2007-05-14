@@ -12,8 +12,6 @@
 #include "Rivet/Analysis/HepEx0409040.hh"
 #include "Rivet/Tools/Logging.hh"
 
-#include "AIDA/ITree.h"
-#include "AIDA/IHistogramFactory.h"
 using namespace AIDA;
 
 
@@ -46,22 +44,22 @@ namespace Rivet {
 
 
   IAnalysisFactory& Analysis::analysisFactory() {
-    return handler().analysisFactory();
+    return getHandler().analysisFactory();
   }
 
 
   ITree& Analysis::tree() {
-    return handler().tree();
+    return getHandler().tree();
   }
 
 
   IHistogramFactory& Analysis::histogramFactory() {
-    return handler().histogramFactory();
+    return getHandler().histogramFactory();
   }
 
 
   Log& Analysis::getLog() {
-    string logname = "Rivet.Analysis." + name();
+    string logname = "Rivet.Analysis." + getName();
     return Log::getLog(logname);
   }
 
@@ -70,9 +68,9 @@ namespace Rivet {
                                           const unsigned int yAxisId, const string& title) {
     stringstream axisCode("d");
     axisCode << datasetId << "-x" << xAxisId << "-y" << yAxisId;
-    const map<string, BinEdges> data = getBinEdges(name());
+    const map<string, BinEdges> data = getBinEdges(getName());
     makeHistoDir();
-    const string path = histoDir() + "/" + axisCode.str();
+    const string path = getHistoDir() + "/" + axisCode.str();
     return histogramFactory().createHistogram1D(path, title, data.find(axisCode.str())->second);
   }
 
@@ -80,7 +78,7 @@ namespace Rivet {
   IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
                                           const int nbins, const double lower, const double upper) {
     makeHistoDir();
-    const string path = histoDir() + "/" + name;
+    const string path = getHistoDir() + "/" + name;
     return histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
   }
 
@@ -88,15 +86,15 @@ namespace Rivet {
   IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
                                           const vector<double>& binedges) {
     makeHistoDir();
-    const string path = histoDir() + "/" + name;
+    const string path = getHistoDir() + "/" + name;
     return histogramFactory().createHistogram1D(path, title, binedges);
   }
 
 
   void Analysis::makeHistoDir() {
     if (!_madeHistoDir) {
-      if (!name().empty()) {
-        tree().mkdir(histoDir());
+      if (! getName().empty()) {
+        tree().mkdir(getHistoDir());
       }
       _madeHistoDir = true;
     }

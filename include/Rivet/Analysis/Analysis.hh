@@ -111,18 +111,18 @@ namespace Rivet {
     }
 
     /// Access the controlling AnalysisHandler object.
-    inline AnalysisHandler& handler() const {
+    inline AnalysisHandler& getHandler() const {
       return *_theHandler;
     }
 
     /// Get the name of the analysis
-    inline virtual string name() const {
+    inline virtual string getName() const {
       return "";
     }
 
 
   protected:
-    /// Get a Log object based on the name() property of the calling analysis object.
+    /// Get a Log object based on the getName() property of the calling analysis object.
     Log& getLog();
 
 
@@ -172,13 +172,14 @@ namespace Rivet {
 
 
     /// Get the canonical AIDA histogram path for this analysis.
-    const string histoDir() const {
-        return "/" + name();
+    const string getHistoDir() const {
+        return "/" + getName();
     }
     //@}
 
   protected:
 
+    /// Set the colliding beam pair.
     inline virtual void setBeams(const ParticleName& beam1, const ParticleName& beam2) {
       _beams.first = beam1;
       _beams.second = beam2;
