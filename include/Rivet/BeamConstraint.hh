@@ -30,7 +30,7 @@ namespace Rivet {
 
   /// Find whether a BeamPair @a pair is compatible with at least one template
   /// beam pair in a set @a allowedpairs.
-  inline bool subset(BeamPair pair, set<BeamPair> allowedpairs) {
+  inline bool compatible(BeamPair pair, set<BeamPair> allowedpairs) {
     for (set<BeamPair>::const_iterator bp = allowedpairs.begin(); bp != allowedpairs.end(); ++bp) {
       if (compatible(pair, *bp)) return true;
     }

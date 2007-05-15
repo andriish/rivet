@@ -74,15 +74,15 @@ int main(int argc, char* argv[]) {
 
 
   // Make a handler and add analyses
-  AnalysisHandler rh;
+  AnalysisHandler handler;
   for (AnalysisList::const_iterator ai = cfgAnalyses.begin(); ai != cfgAnalyses.end(); ++ai) {
      Analysis& a = Analysis::getAnalysis(*ai);
      BeamPair beams = a.getBeams();
      cout << a.getName() << ": " << a.getBeams() << " " 
           << a.isCompatible(PROTON, PROTON) << endl;
-     rh.addAnalysis(*ai);
+     handler.addAnalysis(*ai);
   }
-  rh.init();
+  handler.init();
 
 
   // Make a HepMC input
@@ -98,13 +98,13 @@ int main(int argc, char* argv[]) {
     HepMC::GenEvent myevent;
     if (! hepmcIn.fill_next_event(&myevent)) break;
     log << Log::INFO << "Event number " << num + 1 << endl;
-    rh.analyze(myevent);
+    handler.analyze(myevent);
     ++num;
   }
 
 
   // Finish up
   log << Log::INFO << "Finished!"  << endl;
-  rh.finalize();
+  handler.finalize();
   return EXIT_SUCCESS;
 }

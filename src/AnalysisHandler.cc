@@ -53,6 +53,7 @@ namespace Rivet {
     iRun = i;
     for (int i = 0, N = analysisVector.size(); i < N; ++i) {
       analysisVector[i]->init();
+      analysisVector[i]->checkConsistency();
     }
   }
 

@@ -32,6 +32,16 @@ namespace Rivet {
     /// Define this cut by a quantity to be constrained and the comparison type of the constraint.
     Cuts& addCut(const string& quantity, const Comparison& comparison, const double value);
 
+
+    /// Combine with another set of Cuts, using addCut iternally.
+    inline Cuts& addCuts(const Cuts& other) {
+      for (const_iterator cut = other.begin(); cut != other.end(); ++cut) {
+        addCut(cut->first, GREATER_EQ, cut->second.higherthan());
+        addCut(cut->first, LESS_EQ, cut->second.lowerthan());
+      }
+      return *this;
+    }
+
     /// Set the value of this cut, bypassing the combination mechanism.
     // inline Cuts& setCut(const string& quantity, const BinaryCut& bincut) {
     //   _cuts[quantity] = bincut;

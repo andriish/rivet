@@ -43,11 +43,11 @@ namespace Rivet {
      * sure that the lifetime of the factory object exceeds the AnalysisHandler
      * object.
      */
-    AnalysisHandler(AIDA::IAnalysisFactory& afac, std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
+    AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet", HistoFormat storetype=AIDAML);
 
     /// Make a Rivet handler with a set base filename and store type.
     /// @todo storetype -> enum
-    AnalysisHandler(std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
+    AnalysisHandler(string basefilename="Rivet", HistoFormat storetype=AIDAML);
 
     /**
      * The destructor is not virtual as this class should not be
@@ -77,9 +77,9 @@ namespace Rivet {
 
     /// Add a collection of analyses
     /// @todo Make the addAnalyses(vector<Analysis*>) method work
-    inline AnalysisHandler& addAnalyses(const std::vector<Analysis*>& analyses) { 
+    inline AnalysisHandler& addAnalyses(const vector<Analysis*>& analyses) { 
       throw runtime_error("addAnalyses(vector<Analysis*>) doesn't yet work...");
-      //for (std::vector<Analysis*>::const_iterator ana = analyses.begin();
+      //for (vector<Analysis*>::const_iterator ana = analyses.begin();
       //     ana != analyses.end(); ++ana) {
       //  Analysis& atemp = **ana;
       //  addAnalysis(atemp);

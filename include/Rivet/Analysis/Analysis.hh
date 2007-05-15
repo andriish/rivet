@@ -4,6 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis/Analysis.fhh"
+#include "Rivet/Projections/Projection.fhh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.fhh"
@@ -77,9 +78,7 @@ namespace Rivet {
     /// classes should re-implement this function to return the combined
     /// RivetInfo object of this object and of any Projection objects
     /// upon which this depends.
-    inline virtual const Cuts& getCuts() const {
-      return _cuts;
-    }
+    virtual const Cuts getCuts() const;
 
     /// Return the pair of incoming beams required by this analysis.
     inline virtual const BeamPair& getBeams() const {
@@ -125,6 +124,12 @@ namespace Rivet {
     /// Get a Log object based on the getName() property of the calling analysis object.
     Log& getLog();
 
+    /// Is this analysis able to run on the BeamPair @a beams ?
+    virtual const bool checkConsistency() const;
+    
+    /// Get all the projections used by this analysis, including recursion. 
+    /// WARNING: No caching or loop-avoidance is implemented at the moment.
+    set<Projection*> getProjections() const;
 
   protected:
     /// @name AIDA analysis infrastructure.
@@ -185,6 +190,9 @@ namespace Rivet {
       _beams.second = beam2;
     }
 
+    /// Collection of pointers to projections, for automatically combining constraints.
+    set<Projection*> _projections;
+
   private:
 
     /// Parameter constraints.
@@ -198,7 +206,6 @@ namespace Rivet {
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
-
 
   private:
     /// The assignment operator is private and must never be called.

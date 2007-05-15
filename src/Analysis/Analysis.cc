@@ -101,4 +101,35 @@ namespace Rivet {
   }
 
 
+  const Cuts Analysis::getCuts() const {
+    Cuts totalCuts = _cuts;
+    for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+      totalCuts.addCuts((*p)->getCuts());
+    }
+    return totalCuts;
+  }
+  
+
+  const bool Analysis::checkConsistency() const {
+    // Check consistency of analysis beams with allowed beams of each contained projection.
+    for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+      if (! compatible(getBeams(), (*p)->getBeamPairs()) ) {
+        throw runtime_error("Analysis " + getName() + " beams are inconsistent with " 
+                            + "allowed beams for projection " + (*p)->getName());
+      }
+    }
+    // Check the consistency of the accumulated cuts (throws if wrong).
+    getCuts().checkConsistency();
+    return true;
+  }
+
+
+  set<Projection*> Analysis::getProjections() const {
+    set<Projection*> totalProjections = _projections;
+    for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+      totalProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
+    }
+  }
+
+
 }

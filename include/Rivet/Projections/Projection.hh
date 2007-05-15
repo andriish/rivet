@@ -56,7 +56,7 @@ namespace Rivet {
      * be added to the Event using the Event::applyProjection(Projection *)
      * function.
      */
-    virtual void project(const Event & e) = 0;
+    virtual void project(const Event& e) = 0;
     
     /**
      * This function is used to define a unique ordering between
@@ -79,7 +79,7 @@ namespace Rivet {
      * whether this should be ordered before or after \a p, or if it is
      * equivalent with \a p.
      */
-    virtual int compare(const Projection & p) const = 0;
+    virtual int compare(const Projection& p) const = 0;
     
   public:
     
@@ -101,11 +101,15 @@ namespace Rivet {
     }
     
     /// Return the Cuts objects for this projection. Derived
-    /// classes should re-implement this function to return the combined
-    /// RivetInfo object of this object and of any Projection objects
-    /// upon which this depends.
+    /// classes should ensure that all contained projections are
+    /// registered in the @a _projections set for the cut chaining 
+    /// to work.
     inline virtual const Cuts getCuts() const {
-      return _cuts;
+      Cuts totalCuts = _cuts;
+      for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+        totalCuts.addCuts((*p)->getCuts());
+      }
+      return totalCuts;
     }
 
     /// Return the BeamConstraints for this analysis. Derived
@@ -116,9 +120,18 @@ namespace Rivet {
       return _beamPairs;
     }
 
-    /// Get the name of the projection
+    /// Get the name of the projection.
     inline virtual string getName() const {
       return "";
+    }
+
+    /// Get the contained projections, including recursion.
+    inline set<Projection*> getProjections() const {
+      set<Projection*> allProjections = _projections;
+      for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+        allProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
+      }
+      return allProjections;
     }
     
   protected:
@@ -132,9 +145,11 @@ namespace Rivet {
     /// Beam-type constraint
     set<BeamPair> _beamPairs;
 
+    /// Collection of pointers to projections, for automatically combining constraints.
+    set<Projection*> _projections;
 
   private:
-    
+   
     /// The assignment operator is private and must never be called.
     /// In fact, it should not even be implemented.
     Projection & operator=(const Projection &);
