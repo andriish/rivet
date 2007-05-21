@@ -22,6 +22,8 @@ namespace LWH {
 
 using namespace AIDA;
 
+using namespace std;
+
 /**
  * An DataPointSet represents a binned histogram axis. A 1D Histogram would have
  * one DataPointSet representing the X axis, while a 2D Histogram would have two
