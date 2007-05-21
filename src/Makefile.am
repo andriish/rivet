@@ -28,7 +28,7 @@ rivet_CPPFLAGS = $(AM_CPPFLAGS) -I$(RIVETINCPATH)
 if WITH_ROOT
   rivet_CPPFLAGS += -DHAVE_ROOT -pthread -I${ROOTSYS}/include 
   libRivet_la_LIBADD += -L${ROOTSYS}/lib -lCore -lCint -lHist -lGraf \
-    -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lm -ldl
+    -lGraf3d -lGpad -lTree -lRint -lRIO -lNet -lPostscript -lMatrix -lPhysics -lm -ldl
     rivet_LDFLAGS += -L${ROOTSYS}/lib -pthread -rdynamic
 endif
 
