@@ -8,6 +8,10 @@
 #include "AIManagedObject.h"
 #include <iostream>
 
+#ifdef HAVE_ROOT
+  #include "TFile.h"
+#endif
+
 namespace LWH {
 
 using namespace AIDA;
@@ -33,6 +37,17 @@ public:
    */
   virtual bool writeFLAT(std::ostream & os,
 			 std::string path, std::string name) = 0;
+
+
+
+#ifdef HAVE_ROOT
+  /**
+   * Write out the object to the given TFile in Root format.
+   */
+  virtual bool writeROOT(TFile* file,
+			 std::string path, std::string name) = 0;
+#endif
+
 
 };
 

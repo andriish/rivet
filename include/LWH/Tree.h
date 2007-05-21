@@ -16,7 +16,12 @@
 
 namespace LWH {
 
+
 using namespace AIDA;
+
+
+enum fileformat {flat, xml, root};
+
 
 /**
  * The Tree class is a simple implementation of the AIDA::ITree
@@ -38,20 +43,24 @@ public:
   /** Map of paths to objects. */
   typedef std::map<std::string, IManagedObject *> ObjMap;
 
+
 public:
 
   /**
    * The standard constructor.
    */
-  Tree(std::string storename, bool xml = true)
-    : name(storename), flat(!xml), cwd("/"), overwrite(true) {
+  //  Tree(std::string storename, bool xml = true)
+  Tree(std::string storename, fileformat fchoice = xml)
+    : name(storename), fform(fchoice), cwd("/"), overwrite(true) {
     dirs.insert(Path());
+    //: name(storename), flat(!xml), cwd("/"), overwrite(true) {
   }
 
   /**
    * The default constructor.
    */
-  Tree(): name(""), flat(false), cwd("/") {
+  //Tree(): name(""), flat(false), cwd("/") {
+  Tree(): name(""), fform(xml), cwd("/") {
     dirs.insert(Path());
   }
 
@@ -59,7 +68,8 @@ public:
    * The copy constructor.
    */
   Tree(const Tree & dt)
-    : ITree(dt), name(dt.name), flat(dt.flat), dirs(dt.dirs),
+    //: ITree(dt), name(dt.name), flat(dt.flat), dirs(dt.dirs),
+    : ITree(dt), name(dt.name), fform(dt.fform), dirs(dt.dirs),
       objs(dt.objs), cwd(dt.cwd), overwrite(true) {}
 
   /// Destructor.
@@ -280,22 +290,46 @@ public:
   bool commit() {
     std::ofstream of(name.c_str());
     if ( !of ) return false;
-    if ( !flat ) of
+    //if ( !flat ) of
+    if (fform==xml) of
       << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE aida SYSTEM "
       << "\"http://aida.freehep.org/schemas/3.0/aida.dtd\">\n"
       << "<aida version=\"3.0\">\n"
       << "<implementation version=\"1.0\" package=\"FreeHEP\"/>" << std::endl;
+
+  #ifdef HAVE_ROOT
+    #include "TFile.h"
+    TFile* file = 0;
+    if (fform==root) file = new TFile(name.c_str(),"RECREATE");
+  #endif
+
     for ( ObjMap::const_iterator it = objs.begin(); it != objs.end(); ++it ) {
       ManagedObject * o = dynamic_cast<ManagedObject *>(it->second);
       if ( !o ) continue;
       std::string path = it->first.substr(0, it->first.rfind('/'));
       std::string name = it->first.substr(it->first.rfind('/') + 1);
-      if ( flat )
+
+      /*
+      std::cout << "Tree.h: chosen file format = ";
+      if (fform==flat) std::cout << "flat";
+      else if (fform==root) std::cout << "ROOT";
+      else if (fform==xml) std::cout << "xml";
+      std::cout << std::endl;
+      */
+
+      if (fform==flat)
 	o->writeFLAT(of, path, name);
+
+  #ifdef HAVE_ROOT    
+      else if (fform==root)
+	o->writeROOT(file, path, name);
+  #endif
+
       else
 	o->writeXML(of, path, name);
     }
-    if ( !flat ) of << "</aida>" << std::endl;
+    //if ( !flat ) of << "</aida>" << std::endl;
+    if (fform==xml) of << "</aida>" << std::endl;
     return of.good();
   }
 
@@ -412,7 +446,8 @@ private:
   std::string name;
 
   /** If true write histograms in FLAT format, otherwise in XML. */
-  bool flat;
+  //bool flat;
+  fileformat fform;
 
   /** The set of defined directories. */
   PathSet dirs;

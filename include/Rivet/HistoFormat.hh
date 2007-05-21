@@ -22,8 +22,10 @@ namespace Rivet {
   inline HistoFormatMap getKnownHistoFormats() {
     HistoFormatMap hfmap;
     hfmap[AIDAML] = "AIDA";
-    hfmap[FLAT] = "flat";
+    hfmap[FLAT] = "FLAT";
+#ifdef HAVE_ROOT
     hfmap[ROOT] = "ROOT";
+#endif
     return hfmap;
   }
 

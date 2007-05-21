@@ -12,6 +12,13 @@
 #include <vector>
 #include <stdexcept>
 
+#include <iostream.h>
+#ifdef HAVE_ROOT
+  #include "TH1D.h"
+#endif
+
+
+
 namespace LWH {
 
 using namespace AIDA;
@@ -427,6 +434,9 @@ public:
    * Write out the histogram in the AIDA xml format.
    */
   bool writeXML(std::ostream & os, std::string path, std::string name) {
+
+    cout << "Writing out histogram " << name.c_str() << " in AIDA file format!" <<endl;
+
     os << "  <histogram1d name=\"" << name
        << "\"\n    title=\"" << title()
        << "\" path=\"" << path
@@ -478,6 +488,65 @@ public:
     os << std::endl;
     return true;
   }
+
+
+
+ #ifdef HAVE_ROOT
+  /**
+   * Write out the histogram in Root file format.
+   */
+  //bool writeROOT(std::ostream & os, std::string path, std::string name) {
+  bool writeROOT(TFile* file, std::string path, std::string name) {
+
+    cout << "Writing out histogram " << name.c_str() << " in ROOT file format" << endl;
+
+    TH1D* hist1d;
+    int nbins;
+    if (!vax || vax->isFixedBinning() ) {//equidistant binning (easier case)
+      nbins = ax->bins();
+      hist1d = new TH1D(name.c_str(), name.c_str(), nbins, ax->lowerEdge(), ax->upperEdge());
+    }
+    else {
+      nbins = vax->bins();
+      double* bins = new double[nbins+1];
+      for (int i=0; i<nbins; ++i) {
+	bins[i] = vax->binEdges(i).first;
+      } 
+      bins[nbins] = vax->binEdges(nbins-1).second; //take last bin right border 
+      hist1d = new TH1D(name.c_str(), name.c_str(), nbins, bins);
+    }
+
+
+    double entries = 0;
+    for ( int i = 0; i < nbins + 2; ++i ) { 
+      if ( sum[i] ) {
+	//i==0: underflow->RootBin(0), i==1: overflow->RootBin(NBins+1)
+	entries = entries + sum[i];
+	int j=i;
+	if (i==0) j=0; //underflow
+	else if (i==1) j=nbins+1; //overflow
+	if (i>=2) j=i-1; //normal bin entries
+	hist1d->SetBinContent(j, sumw[i]);
+	hist1d->SetBinError(j, sqrt(sumw2[i]));
+	//hist1d->Fill(binMean(i), sumw[i]);
+      }
+    }
+    
+    hist1d->Sumw2();
+    hist1d->SetEntries(entries);
+    
+    std::string DirName; //remove preceding slash from directory name, else ROOT error
+    for (unsigned int i=1; i<path.size(); ++i) DirName += path[i];
+    if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
+    file->cd(DirName.c_str());
+    hist1d->Write();
+
+    return true;
+  }
+
+ #endif
+
+
 
 private:
 

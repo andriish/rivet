@@ -14,6 +14,10 @@
 #include "ManagedObject.h"
 #include "DataPoint.h"
 
+#ifdef HAVE_ROOT
+  #include "TGraphAsymmErrors.h"
+#endif
+
 namespace LWH {
 
 using namespace AIDA;
@@ -339,6 +343,59 @@ public:
     os << std::endl;
     return true;
   }
+
+
+
+ #ifdef HAVE_ROOT
+  /**
+   * Write out the histogram in Root file format.
+   */
+  //bool writeROOT(std::ostream & os, std::string path, std::string name) {
+  bool writeROOT(TFile* file, std::string path, std::string name) {
+
+    if (dimension()!=2) {
+      cout << "DataPointSet.h: writeROOT: dimension!=2, can't write TGraph, "
+	   << "choose different file format!" << endl;
+      return false;
+    }
+    else {
+      cout << "Writing out TGraph " << name.c_str() << " in ROOT file format" << endl;
+      
+      int N = size();
+      Double_t *x, *y, *exl, *exh, *eyl, *eyh;
+      x = new Double_t[N];
+      y = new Double_t[N];
+      exl = new Double_t[N];
+      exh = new Double_t[N];
+      eyl = new Double_t[N];
+      eyh = new Double_t[N];
+      
+      for ( int i = 0, N = size(); i < N; ++i ) {
+	x[i] = point(i)->coordinate(0)->value();
+	exl[i] = point(i)->coordinate(0)->errorMinus();
+	exh[i] = point(i)->coordinate(0)->errorPlus();
+	y[i] = point(i)->coordinate(1)->value();
+	exl[i] = point(i)->coordinate(1)->errorMinus();
+	exh[i] = point(i)->coordinate(1)->errorPlus();
+      }
+      
+      TGraphAsymmErrors* graph = new TGraphAsymmErrors(N, x, y, exl, exh, eyl, eyh); 
+      
+      std::string DirName; //remove preceding slash from directory name, else ROOT error
+      for (unsigned int i=1; i<path.size(); ++i) DirName += path[i];
+      if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
+      file->cd(DirName.c_str());
+
+      graph->Write();
+   
+      return true;
+    }
+  }
+
+ #endif
+
+
+
 
 private:
 

@@ -62,11 +62,25 @@ public:
 		 const std::string & storeType = "",
 		 bool readOnly = false, bool createNew = false,
 		 const std::string & = "") {
+
+#ifndef HAVE_ROOT
     if ( storeType != "xml" && storeType != "" && storeType != "flat" )
-      throw std::runtime_error("Can only store trees in xml or flat format.");
+      throw std::runtime_error("Can only store trees in flat and xml format.");
+#endif
+
+#ifdef HAVE_ROOT
+    if ( storeType != "xml" && storeType != "" && storeType != "flat" && storeType !="root")
+      throw std::runtime_error("Can only store trees in flat, xml or root format.");
+#endif
     if ( readOnly || !createNew )
       throw std::runtime_error("Cannot read in trees.");
-    return new Tree(storeName, storeType != "flat");
+    fileformat fchoice=xml;
+    if (storeType=="flat") fchoice=flat;
+#ifdef HAVE_ROOT
+    else if (storeType=="root") fchoice=root;
+#endif
+    //return new Tree(storeName, storeType != "flat");
+    return new Tree(storeName, fchoice);
   }
 
 private:
