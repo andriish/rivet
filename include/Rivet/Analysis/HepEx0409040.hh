@@ -17,11 +17,16 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline HepEx0409040()
+    inline HepEx0409040(bool xrad=true)
       : fs(-3.0, 3.0), conejets(fs), p_vertex(), p_calmet(fs)
     { 
       setBeams(PROTON, ANTIPROTON);
+      if (xrad) 
+	xscale = PI/128.; //histo x-axis range in [rad]
+      else
+	xscale = 1.; //histo x-axis range in [rad*128/Pi]
     }
+
 
     /// The name of this analysis is "HepEx0409040"
     inline string getName() const {
@@ -58,11 +63,13 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* histJetAzimuthpTmax75_100;
-    AIDA::IHistogram1D* histJetAzimuthpTmax100_130;
-    AIDA::IHistogram1D* histJetAzimuthpTmax130_180;
-    AIDA::IHistogram1D* histJetAzimuthpTmax180_;
+    AIDA::IHistogram1D* histJetAzimuth_pTmax75_100;
+    AIDA::IHistogram1D* histJetAzimuth_pTmax100_130;
+    AIDA::IHistogram1D* histJetAzimuth_pTmax130_180;
+    AIDA::IHistogram1D* histJetAzimuth_pTmax180_;
     //@}
+    double xscale;
+
   };
 
 }
