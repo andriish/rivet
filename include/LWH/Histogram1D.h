@@ -12,7 +12,7 @@
 #include <vector>
 #include <stdexcept>
 
-#include <iostream.h>
+#include <iostream>
 #ifdef HAVE_ROOT
   #include "TH1D.h"
 #endif
@@ -20,6 +20,8 @@
 
 
 namespace LWH {
+
+using namespace AIDA;
 
 using namespace AIDA;
 
@@ -435,7 +437,7 @@ public:
    */
   bool writeXML(std::ostream & os, std::string path, std::string name) {
 
-    cout << "Writing out histogram " << name.c_str() << " in AIDA file format!" <<endl;
+    std::cout << "Writing out histogram " << name.c_str() << " in AIDA file format!" <<std::endl;
 
     os << "  <histogram1d name=\"" << name
        << "\"\n    title=\"" << title()
@@ -498,7 +500,7 @@ public:
   //bool writeROOT(std::ostream & os, std::string path, std::string name) {
   bool writeROOT(TFile* file, std::string path, std::string name) {
 
-    cout << "Writing out histogram " << name.c_str() << " in ROOT file format" << endl;
+    std::cout << "Writing out histogram " << name.c_str() << " in ROOT file format" << std::endl;
 
     TH1D* hist1d;
     int nbins;
