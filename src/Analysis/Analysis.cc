@@ -129,6 +129,7 @@ namespace Rivet {
     for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
       totalProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
     }
+    return totalProjections;
   }
 
 
