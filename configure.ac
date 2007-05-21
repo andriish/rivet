@@ -33,6 +33,15 @@ AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
 AC_ARG_WITH([testprogs], [AC_HELP_STRING(--with-testprogs, [build internal test programs])], [], [])
 AM_CONDITIONAL(WITH_TESTPROGS, [test x$with_testprogs == xyes])
 
+
+## Find Root
+#AC_SEARCH_ROOT([AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
+
+## Enable Root Analysis Framework
+AC_ARG_WITH([Root], [AC_HELP_STRING(--with-root, [build Root persistency])], [], [])
+AM_CONDITIONAL(WITH_ROOT, [test x$with_root == xyes])
+
+
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(CLHEPINCPATH) -I\$(HEPMCINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"
 AM_CXXFLAGS="-ansi -pedantic -Wall"
