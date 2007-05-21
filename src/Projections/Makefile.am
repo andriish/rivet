@@ -19,4 +19,3 @@ libRivetProjections_la_SOURCES  = \
   TrackJet.cc
 
 libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)
-## This shouldn't be here:  -I../../include/Rivet/Tools/D0RunIIcone

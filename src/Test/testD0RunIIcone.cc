@@ -41,7 +41,7 @@ int main() {
 
   //initialize D0RunII cone algorithm
   float cone_radius = 0.5;
-  float min_jet_Et = 0.;
+  float min_jet_Et = 8.0;
   float split_ratio = 0.5;
 
   float far_ratio=0.5;

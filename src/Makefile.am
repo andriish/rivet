@@ -15,7 +15,20 @@ libRivet_la_LIBADD  = Analysis/libRivetAnalysis.la \
                       -l$(HEPPDTLIBNAME) \
                       -l$(KTJETLIBNAME)
 
+
 bin_PROGRAMS = rivet
 rivet_SOURCES = RivetInterface.cc
 rivet_LDFLAGS = -L$(top_srcdir/src) -L$(HEPMCLIBPATH) -R$(HEPMCLIBPATH)
 rivet_LDADD = -lRivet -l$(HEPMCLIBNAME)
+
+
+
+rivet_CPPFLAGS = $(AM_CPPFLAGS) -I$(RIVETINCPATH)
+
+if WITH_ROOT
+  rivet_CPPFLAGS += -DHAVE_ROOT -pthread -I${ROOTSYS}/include 
+  libRivet_la_LIBADD += -L${ROOTSYS}/lib -lCore -lCint -lHist -lGraf \
+    -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lm -ldl
+    rivet_LDFLAGS += -L${ROOTSYS}/lib -pthread -rdynamic
+endif
+

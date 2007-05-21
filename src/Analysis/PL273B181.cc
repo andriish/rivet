@@ -38,10 +38,10 @@ void PL273B181::analyze(const Event & event) {
   log << Log::INFO << "Planarity     = " << s.planarity() << endl;
 
   // Fill histograms here, and scale them later
-  histChTot_->fill(m.totalChargedMultiplicity(), 1.0);
-  histSphericity_->fill(s.sphericity(), 1.0);
-  histPlanarity_->fill(s.planarity(), 1.0);
-  histAplanarity_->fill(s.aplanarity(), 1.0);
+  histChTot_->fill(m.totalChargedMultiplicity(), event.weight() );
+  histSphericity_->fill(s.sphericity(), event.weight() );
+  histPlanarity_->fill(s.planarity(), event.weight() );
+  histAplanarity_->fill(s.aplanarity(), event.weight() );
   
   // Finished...
   log << Log::DEBUG << "Finished analyzing" << endl;

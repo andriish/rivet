@@ -103,13 +103,14 @@ namespace Rivet {
       // Get histogram format
       if (histoTypeArg->getValue() == "AIDA") {
         cfgHistoFormat = AIDAML;
-      } else if (histoTypeArg->getValue() == "flat") {
+      } else if (histoTypeArg->getValue() == "FLAT") {
         cfgHistoFormat = FLAT;
       } else if (histoTypeArg->getValue() == "ROOT") {
-        cfgHistoFormat = ROOT;
-        throw std::runtime_error("ROOT is not currently supported as an output histogram format");
+	cfgHistoFormat = ROOT;
+        //throw std::runtime_error("ROOT is not currently supported as an output histogram format");
         /// @todo Support ROOT histogram output (possibly via a ROOT AIDA reader).
       }
+
 
       delete histoNameArg;
       delete histoTypeArg;

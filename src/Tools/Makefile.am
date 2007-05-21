@@ -8,3 +8,8 @@ libRivetTools_la_SOURCES  = Logging.cc RivetAIDA.cc Commandline.cc RivetPaths.cc
                             TinyXML/tinyxml.cpp TinyXML/tinyxmlerror.cpp TinyXML/tinyxmlparser.cpp
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DLWH_USING_AIDA -I$(top_srcdir)/include/TinyXML
 libRivetTools_la_LIBADD   = libRivetMath.la
+
+
+if WITH_ROOT
+  libRivetTools_la_CPPFLAGS += -DHAVE_ROOT -I${ROOTSYS}/include -fpermissive
+endif

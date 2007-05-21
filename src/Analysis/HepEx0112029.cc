@@ -36,7 +36,7 @@ void HepEx0112029::analyze(const Event & event) {
 
   // Fill histograms
   for (std::vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); j++) {
-    histJetEt1_->fill(j->perp(), 1.0);
+    histJetEt1_->fill(j->perp(), event.weight() );
   }
   
   // Finished...
