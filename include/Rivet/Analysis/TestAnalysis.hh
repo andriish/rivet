@@ -18,7 +18,11 @@ namespace Rivet {
     /// Default constructor
     inline TestAnalysis()
       : p_mult(p_fs), p_thrust(p_fs)
-    { }
+    { 
+      addProjection(p_fs);
+      addProjection(p_mult);
+      addProjection(p_thrust);
+    }
 
   public:
 

@@ -13,7 +13,7 @@ namespace Rivet {
   /// since these will actually be implemented as inclusive binary cuts with EQUAL
   /// being translated into a matched "back-to-back" pair of inequalities.
   enum Comparison {
-    LESS_EQ, GREATER_EQ, EQUAL
+    LESS_EQ, MORE_EQ, EQUAL
   };
 
   
@@ -22,7 +22,7 @@ namespace Rivet {
     switch(c) {
     case LESS_EQ:
       return "<";
-    case GREATER_EQ:
+    case MORE_EQ:
       return ">";
     case EQUAL:
       return "=";

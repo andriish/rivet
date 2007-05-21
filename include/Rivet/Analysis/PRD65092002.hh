@@ -18,7 +18,9 @@ namespace Rivet {
     inline PRD65092002()
       : _fsproj(-1.0, 1.0, 0.5), _trackjetproj(_fsproj), 
         _histToward(0), _histAway(0), _histTrans(0)
-    { }
+    { 
+      setBeams(PROTON, ANTIPROTON);
+    }
 
 
   public:

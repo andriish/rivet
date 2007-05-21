@@ -37,6 +37,15 @@ namespace Rivet {
     return false;
   }
 
+  /// Return the intersection of two sets of {@link BeamPair}s.
+  inline set<BeamPair> intersection(set<BeamPair> a, set<BeamPair> b) {
+    set<BeamPair> ret;
+    for (set<BeamPair>::const_iterator bp = a.begin(); bp != a.end(); ++bp) {
+      if (compatible(*bp, b)) ret.insert(*bp);
+    }
+    return ret;
+  }
+
 
 }
 

@@ -1,3 +1,14 @@
+2007-05-13  Andy Buckley  <andy@insectnation.org>
+
+	* Added self-consistency checking mechanisms for Cuts and Beam
+	
+	* Re-implemented the cut-handling part of RivetInfo as a Cuts class.
+	
+	* Changed names of Analysis and Projection name() and handler()
+	methods to getName() and getHandler() to be more consistent with
+	the rest of the public method names in those classes.
+
+
 2007-05-02  Andy Buckley  <andy@insectnation.org>
 
 	* Added auto-booking of histogram bins from AIDA XML files. The

@@ -78,8 +78,9 @@ int main(int argc, char* argv[]) {
   for (AnalysisList::const_iterator ai = cfgAnalyses.begin(); ai != cfgAnalyses.end(); ++ai) {
      Analysis& a = Analysis::getAnalysis(*ai);
      BeamPair beams = a.getBeams();
-     cout << a.getName() << ": " << a.getBeams() << " " 
-          << a.isCompatible(PROTON, PROTON) << endl;
+     log << Log::INFO << a.getName() << ": " << endl;
+     log << Log::DEBUG << a.getBeams() << a.isCompatible(PROTON, PROTON) << endl;
+     log << Log::INFO << "Cuts:" << endl << a.getCuts() << endl;
      handler.addAnalysis(*ai);
   }
   handler.init();

@@ -185,9 +185,22 @@ namespace Rivet {
   protected:
 
     /// Set the colliding beam pair.
-    inline virtual void setBeams(const ParticleName& beam1, const ParticleName& beam2) {
+    inline Analysis& setBeams(const ParticleName& beam1, const ParticleName& beam2) {
       _beams.first = beam1;
       _beams.second = beam2;
+      return *this;
+    }
+
+    /// Add a cut
+    inline Analysis& addCut(const string& quantity, const Comparison& comparison, const double value) {
+      _cuts.addCut(quantity, comparison, value);
+      return *this;
+    }
+
+    /// Add a projection dependency to the projection list.
+    inline Analysis& addProjection(Projection& proj) {
+      _projections.insert(&proj);
+      return *this;
     }
 
     /// Collection of pointers to projections, for automatically combining constraints.

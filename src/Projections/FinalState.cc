@@ -7,14 +7,12 @@ using namespace Rivet;
 
 
 int FinalState::compare(const Projection & p) const {
-  const FinalState & other =
-    dynamic_cast<const FinalState &>(p);
-  return cmp(etamin, other.etamin) || cmp(etamax, other.etamax) ||
-    cmp(ptmin, other.ptmin);
+  const FinalState & other = dynamic_cast<const FinalState &>(p);
+  return cmp(_etamin, other._etamin) || cmp(_etamax, other._etamax) || cmp(_ptmin, other._ptmin);
 }
 
 void FinalState::project(const Event & e) {
-  theParticles.clear();
+  _theParticles.clear();
   for ( GenEvent::particle_const_iterator pi = e.genEvent().particles_begin();
         pi != e.genEvent().particles_end(); ++pi ) {
     // Only include particles which are final state (status = 1) and which
@@ -24,10 +22,9 @@ void FinalState::project(const Event & e) {
     if ( (*pi)->status() == 1 &&
          fabs((*pi)->momentum().x()) > 0.0 &&
          fabs((*pi)->momentum().y()) > 0.0 &&
-         (*pi)->momentum().eta() > etamin &&
-         (*pi)->momentum().eta() < etamax &&
-         (*pi)->momentum().perp() >= ptmin )
-      theParticles.push_back(Particle(**pi));
+         (*pi)->momentum().eta() > _etamin &&
+         (*pi)->momentum().eta() < _etamax &&
+         (*pi)->momentum().perp() >= _ptmin )
+      _theParticles.push_back(Particle(**pi));
   }
 }
-

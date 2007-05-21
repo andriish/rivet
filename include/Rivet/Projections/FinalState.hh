@@ -21,8 +21,14 @@ namespace Rivet {
     inline FinalState(double mineta = -MaxRapidity,
                       double maxeta = MaxRapidity,
                       double minpt = 0.0)
-      : etamin(mineta), etamax(maxeta), ptmin(minpt) 
-    { }
+      : _etamin(mineta), _etamax(maxeta), _ptmin(minpt) 
+    { 
+      cout << "min: " << mineta << endl;
+      cout << "max: " << maxeta << endl;
+      addCut("eta", MORE_EQ, mineta);
+      addCut("eta", LESS_EQ, maxeta);
+      addCut("pT",  MORE_EQ, minpt);
+    }
     
   public:
     /// Return the name of the projection
@@ -33,7 +39,7 @@ namespace Rivet {
   protected:
     
     /// Apply the projection to the event.
-    void project(const Event & e);
+    void project(const Event& e);
     
     /// Compare projections.
     int compare(const Projection & p) const;
@@ -41,21 +47,21 @@ namespace Rivet {
   public:
     
     /// Access the projected final-state particles.
-    inline const ParticleVector & particles() const { return theParticles; }
+    inline const ParticleVector& particles() const { return _theParticles; }
     
   private:
     
     /// The minimum allowed pseudo-rapidity.
-    double etamin;
+    double _etamin;
     
     /// The maximum allowed pseudo-rapidity.
-    double etamax;
+    double _etamax;
     
     /// The minimum allowed transverse momentum.
-    double ptmin;
+    double _ptmin;
     
     /// The final-state particles.
-    ParticleVector theParticles;
+    ParticleVector _theParticles;
     
   private:
     

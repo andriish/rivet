@@ -36,7 +36,7 @@ namespace Rivet {
     /// Combine with another set of Cuts, using addCut iternally.
     inline Cuts& addCuts(const Cuts& other) {
       for (const_iterator cut = other.begin(); cut != other.end(); ++cut) {
-        addCut(cut->first, GREATER_EQ, cut->second.higherthan());
+        addCut(cut->first, MORE_EQ, cut->second.higherthan());
         addCut(cut->first, LESS_EQ, cut->second.lowerthan());
       }
       return *this;

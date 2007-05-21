@@ -17,13 +17,15 @@ namespace Rivet {
     }
     // Combine cuts in the most restrictive way.
     switch (comparison) {
-    case LESS_EQ: 
-      if (value < _cuts[quantity].lowerthan()) 
+    case LESS_EQ:
+      if (value < _cuts[quantity].lowerthan()) {
         _cuts[quantity].lowerthan() = value;
-    case GREATER_EQ: 
-      if (value > _cuts[quantity].higherthan()) 
+      }
+    case MORE_EQ:
+      if (value > _cuts[quantity].higherthan()) {
         _cuts[quantity].higherthan() = value;
-    case EQUAL: 
+      }
+    case EQUAL:
       _cuts[quantity].lowerthan() = value;
       _cuts[quantity].higherthan() = value;
     }
@@ -53,14 +55,16 @@ namespace Rivet {
       os << std::left;
       os << setw(12) << cut->first;
       if (cut->second.higherthan() > numeric_limits<double>::min()) {
-        os << setw(10) << ">=" << cut->second.higherthan();
+        os << setw(3) << ">=";
+        os << setw(10) << cut->second.higherthan();
       } else {
-        os << setw(10) << "";
+        os << setw(13) << "";
       }
       if (cut->second.lowerthan() < numeric_limits<double>::max()) {
-        os << setw(10) << "<=" << cut->second.lowerthan();
+        os << setw(3) << "<=";
+        os << setw(10) << cut->second.lowerthan();
       } else {
-        os << setw(10) << "";
+        os << setw(13) << "";
       }
       os << endl;
     }
