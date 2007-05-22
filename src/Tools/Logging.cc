@@ -10,14 +10,16 @@ namespace Rivet {
 
   Log::LogMap Log::existingLogs;
   Log::LevelMap Log::defaultLevels;
-
+  bool Log::showTimestamp = false;
+  bool Log::showLogLevel = true;
+  bool Log::showLoggerName = true;
 
   Log::Log(const string& name) 
-    : _name(name), _level(INFO), _writeTime(true), _nostream(new ostream(0)) { }
+    : _name(name), _level(INFO), _nostream(new ostream(0)) { }
 
 
   Log::Log(const string& name, const Level& level)
-    : _name(name), _level(level), _writeTime(true), _nostream(new ostream(0)) { }
+    : _name(name), _level(level), _nostream(new ostream(0)) { }
 
 
   Log& Log::getLog(const string& name) {
@@ -89,13 +91,17 @@ namespace Rivet {
 
   string Log::formatMessage(const Level& level, const std::string& message) {
     string out;
-    out += getName();
-    out += ": ";
+    if (Log::showLoggerName) {
+      out += getName();
+      out += ": ";
+    }
 
-    out += Log::getLevelName(level);
-    out += " ";
+    if (Log::showLogLevel) {
+      out += Log::getLevelName(level);
+      out += " ";
+    }
 
-    if (isTimeInOutput()) {
+    if (Log::showTimestamp) {
       time_t rawtime;
       time(&rawtime);
       char* timestr = ctime(&rawtime);

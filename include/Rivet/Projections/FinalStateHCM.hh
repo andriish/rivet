@@ -19,9 +19,13 @@ namespace Rivet {
     /// The default constructor. Must specify DISLepton, DISKinematics
     /// and FinalState projection objects which are assumed to live
     /// throughout the run.
-    inline FinalStateHCM(DISLepton & leptonp, DISKinematics & kinematicsp, FinalState & fsp)
+    inline FinalStateHCM(DISLepton& leptonp, DISKinematics& kinematicsp, FinalState& fsp)
       : lepton(&leptonp), kinematics(&kinematicsp), fsproj(&fsp) 
-    { }
+    { 
+      addProjection(leptonp);
+      addProjection(kinematicsp);
+      addProjection(fsp);
+    }
     
 
   public:

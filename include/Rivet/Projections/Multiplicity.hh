@@ -20,7 +20,9 @@ namespace Rivet {
     inline Multiplicity(FinalState& fsp)
       : totalMult_(0), totalChMult_(0), totalUnchMult_(0),
         hadMult_(0), hadChMult_(0), hadUnchMult_(0), fsproj(&fsp)
-    { }
+    { 
+      addProjection(fsp);
+    }
 
   public:
     /// Return the name of the projection

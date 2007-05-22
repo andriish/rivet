@@ -20,7 +20,9 @@ namespace Rivet {
     /// Constructor. The FinalState projection must live throughout the run.
     inline Thrust(FinalState& fsp)
       : _calculatedThrust(false), _fsproj(&fsp)
-    { }
+    { 
+      addProjection(fsp);
+    }
 
 
   public:

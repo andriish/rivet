@@ -20,7 +20,8 @@ public:
   /// @name Standard constructors and destructors.
   //@{
   /// The default constructor.
-  inline PVertex() { }
+  inline PVertex() { 
+  }
 
   /// The copy constructor.
   inline PVertex(const PVertex& x)

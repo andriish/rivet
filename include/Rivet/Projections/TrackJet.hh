@@ -27,6 +27,22 @@ namespace Rivet {
   
   /// Project out all final-state particles in an event.
   class TrackJet : public Projection {
+  public:
+
+    /// @name Standard constructors and destructors.
+    //@{
+    /// Constructor. The specified FinalState projection is assumed to live
+    /// throughout the run and should be used to specify the max and min \f$
+    /// \eta \f$ values and the min \f$ p_T \f$ (in GeV).
+    inline TrackJet(FinalState& fsp)
+      : _fsproj(&fsp)
+    { 
+      addProjection(fsp);
+    }
+
+    /// Typedef for the tracks (a list so that elements can be consistently removed
+    typedef list<LorentzVector> Tracks;
+
 
   public:    
 
@@ -149,30 +165,9 @@ namespace Rivet {
     };
 
 
-    /// Typedef for the tracks (a list so that elements can be consistently removed
-    typedef list<LorentzVector> Tracks;
-
-
     /// Typedef for a collection of Jet objects.
     typedef vector<Jet> Jets;
 
-  public:
-
-    /// @name Standard constructors and destructors.
-    //@{
-    /// Constructor. The specified FinalState projection is assumed to live
-    /// throughout the run and should be used to specify the max and min \f$
-    /// \eta \f$ values and the min \f$ p_T \f$ (in GeV).
-    inline TrackJet(FinalState& fsp)
-      : _fsproj(&fsp)
-    { }
-
-//     /// Argument constructor. 
-//     /// The specified FinalState projection is assumed to live throughout the run. 
-//     inline TrackJet(FinalState& fsp, const double etaMin, const double etaMax, const double ptMin)
-//       : _fsproj(&fsp)
-//     { }
-    //@}
 
   public:
     /// Return the name of the projection

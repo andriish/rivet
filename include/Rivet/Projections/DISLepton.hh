@@ -22,6 +22,7 @@ namespace Rivet {
     inline DISLepton(Beam& beamproj, const ParticleName& inid, const ParticleName& outid)
       : _beams(&beamproj), _idin(inid), _idout(outid) {
       _beamPairs.insert(BeamPair(inid, ANY));
+      addProjection(beamproj);
     }
     
     

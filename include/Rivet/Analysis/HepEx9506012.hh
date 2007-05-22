@@ -24,6 +24,11 @@ namespace Rivet {
         y1hcm(fsproj)
     { 
       setBeams(ELECTRON, PROTON);
+      addProjection(beams);
+      addProjection(lepton);
+      addProjection(diskin);
+      addProjection(fsproj);
+      addProjection(y1hcm);
     }
 
   public:

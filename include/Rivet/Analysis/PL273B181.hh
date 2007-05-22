@@ -19,6 +19,9 @@ namespace Rivet {
       : mult(fsproj), spher(fsproj) 
     { 
       setBeams(ELECTRON, POSITRON); 
+      addProjection(fsproj);
+      addProjection(mult);
+      addProjection(spher);
     }
 
   public:

@@ -28,11 +28,33 @@ namespace Rivet {
     /// A static map of default log levels.
     static LevelMap defaultLevels;
 
+    /// Show timestamp?
+    static bool showTimestamp;
+
+    /// Show log level?
+    static bool showLogLevel;
+
+    /// Show logger name?
+    static bool showLoggerName;
+
   public:
     /// Set the default log levels
     inline static void setDefaultLevels(const LevelMap& logLevels) {
       defaultLevels = logLevels;
     }
+
+    inline static void setShowTimestamp(const bool showTime=true) {
+      showTimestamp = showTime;
+    }
+
+    inline static void setShowLevel(const bool showLevel=true) {
+      showLogLevel = showLevel;
+    }
+
+    inline static void setShowLoggerName(const bool showName=true) {
+      showLoggerName = showName;
+    }
+
 
   protected:
     /// @name Hidden constructors etc.
@@ -87,17 +109,6 @@ namespace Rivet {
       return *this;
     }
 
-    /// Check if the logger output will include a timestamp.
-    inline bool isTimeInOutput() const {
-      return _writeTime;
-    }
-
-    /// Choose if the logger output will include a timestamp.
-    inline Log& setTimeInOutput(const bool writeTime = true) {
-      _writeTime = writeTime;
-      return *this;
-    }
-
     /// Will this log level produce output on this logger at the moment?
     inline bool isActive(const Level& level) const {
       return (level >= _level);
@@ -123,9 +134,6 @@ namespace Rivet {
     /// Threshold level for this logger.
     Level _level;
     
-    /// Write a timestamp in the output.
-    bool _writeTime;
-
   protected:
     /// Write a message at a particular level.
     void log(const Level& level, const string& message);

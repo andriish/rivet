@@ -1,3 +1,23 @@
+2007-05-22  Andy Buckley  <andy@insectnation.org>
+
+	* Added an ostream method for AnalysisName enums.
+
+	* Converted Analyses and Projections to use projection lists, cuts
+	and beam constraints.
+
+	* Added beam pair combining to the BeamPair sets of Projections
+	by finding set meta-intersections.
+
+	* Added methods to Cuts, Analysis and Projection to make Cut
+	definition easier.
+
+	* Fixed default fall-through in cut handling switch statement and
+	now using -numeric_limits<double>::max() rather than min()
+
+	* Added more control of logging presentation via static flag 
+	methods on Log.
+
+	
 2007-05-13  Andy Buckley  <andy@insectnation.org>
 
 	* Added self-consistency checking mechanisms for Cuts and Beam

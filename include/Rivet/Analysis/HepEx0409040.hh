@@ -21,10 +21,15 @@ namespace Rivet {
       : fs(-3.0, 3.0), conejets(fs), p_vertex(), p_calmet(fs)
     { 
       setBeams(PROTON, ANTIPROTON);
+      addProjection(fs);
+      addProjection(conejets);
+      addProjection(p_vertex);
+      addProjection(p_calmet);
+      /// @todo Remove - the analysis must be absolutely repeatable.
       if (xrad) 
-	xscale = PI/128.; //histo x-axis range in [rad]
+        xscale = PI/128.; //histo x-axis range in [rad]
       else
-	xscale = 1.; //histo x-axis range in [rad*128/Pi]
+        xscale = 1.; //histo x-axis range in [rad*128/Pi]
     }
 
 

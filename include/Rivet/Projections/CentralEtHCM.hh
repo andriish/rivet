@@ -18,8 +18,11 @@ namespace Rivet {
 
     /// The default constructor. Must specify a FinalStateHCM projection
     /// object which is guaranteed to live throughout the run.
-    inline CentralEtHCM(FinalStateHCM & fs)
-      : fshcm(&fs) { }
+    inline CentralEtHCM(FinalStateHCM& fs)
+      : fshcm(&fs)
+    {
+      addProjection(fs); 
+    }
 
   public:
       /// Return the name of the projection

@@ -18,17 +18,26 @@ namespace Rivet {
     // Combine cuts in the most restrictive way.
     switch (comparison) {
     case LESS_EQ:
+      //cout << LESS_EQ << endl;
       if (value < _cuts[quantity].lowerthan()) {
         _cuts[quantity].lowerthan() = value;
       }
+      break;
     case MORE_EQ:
+      //cout << MORE_EQ << endl;
       if (value > _cuts[quantity].higherthan()) {
         _cuts[quantity].higherthan() = value;
       }
+      break;
     case EQUAL:
+      //cout << EQUAL << endl;
       _cuts[quantity].lowerthan() = value;
       _cuts[quantity].higherthan() = value;
+      break;
     }
+    //cout << "Cuts::addCut(): " << quantity << " <= " << _cuts[quantity].lowerthan() << " (" << value << ")" << endl;
+    //cout << "Cuts::addCut(): " << quantity << " >= " << _cuts[quantity].higherthan() << " (" << value << ")" << endl;
+
     // Allow method chaining.
     return *this;
   }
@@ -52,9 +61,9 @@ namespace Rivet {
 
   ostream& Cuts::print(ostream & os) const {
     for (Cuts::const_iterator cut = begin(); cut != end(); ++cut) {
-      os << std::left;
+      os << endl << std::left;
       os << setw(12) << cut->first;
-      if (cut->second.higherthan() > numeric_limits<double>::min()) {
+      if (cut->second.higherthan() > -numeric_limits<double>::max()) {
         os << setw(3) << ">=";
         os << setw(10) << cut->second.higherthan();
       } else {
@@ -66,7 +75,6 @@ namespace Rivet {
       } else {
         os << setw(13) << "";
       }
-      os << endl;
     }
     return os;
   }

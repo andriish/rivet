@@ -44,7 +44,9 @@ namespace Rivet {
     /// Constructor. The provided FinalState projection must live throughout the run.
     inline ParisiTensor(FinalState& fsp)
       : _C(0), _D(0), _sphproj(Sphericity(fsp, 1.0))
-    { }
+    { 
+      addProjection(_sphproj);
+    }
 
   public:
     /// Return the name of the projection

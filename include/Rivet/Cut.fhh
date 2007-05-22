@@ -21,13 +21,22 @@ namespace Rivet {
   inline const string toString(const Comparison& c) {
     switch(c) {
     case LESS_EQ:
-      return "<";
+      return "<=";
     case MORE_EQ:
-      return ">";
+      return ">=";
     case EQUAL:
-      return "=";
+      return "==";
     }
     return "";
+  }
+
+  /// Forward declare the ability to stream a Cuts object.
+  ostream& operator<<(ostream& os, const Cuts& cuts);
+
+  /// Method to write a Comparison to a stream.
+  inline ostream& operator<<(ostream& os, const Comparison& comp) {
+    os << toString(comp);
+    return os;
   }
     
 }

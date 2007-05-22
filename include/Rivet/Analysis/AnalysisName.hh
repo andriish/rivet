@@ -37,6 +37,17 @@ namespace Rivet {
     return amap;
   }
 
+  /// Method to write an AnalysisName to a stream.
+  inline ostream& operator<<(ostream& os, const AnalysisName& an) {
+    const AnalysisMap anames = getKnownAnalyses();
+    if (anames.find(an) != anames.end()) {
+      os << anames.find(an)->second;
+    } else {
+      os << "<unknown analysis>";
+    }
+    return os;
+  }
+
   /// Function which returns a map from analysis name strings to the corresponding enums.
   inline AnalysisMapR getKnownAnalysesR() {
     AnalysisMap amap = getKnownAnalyses();

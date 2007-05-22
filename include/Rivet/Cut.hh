@@ -62,7 +62,7 @@ namespace Rivet {
     public:
       /// Default constructor.
       BinaryCut() {
-        _raw = pair<double, double>(numeric_limits<double>::max(), numeric_limits<double>::min());
+        _raw = pair<double, double>(numeric_limits<double>::max(), -numeric_limits<double>::max());
       }
 
       /// Valued constructor.
@@ -111,7 +111,7 @@ namespace Rivet {
   };
 
 
-  /// Allow Cut to be passed to an iostream
+  /// Allow Cuts to be passed to an ostream.
   inline ostream& operator<<(ostream& os, const Cuts& cuts) {
     return cuts.print(os);
   }

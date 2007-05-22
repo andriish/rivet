@@ -20,6 +20,8 @@ namespace Rivet {
         _histToward(0), _histAway(0), _histTrans(0)
     { 
       setBeams(PROTON, ANTIPROTON);
+      addProjection(_fsproj);
+      addProjection(_trackjetproj);
     }
 
 

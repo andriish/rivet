@@ -50,8 +50,8 @@ namespace Rivet {
     /// calculations necessary to obtain the projection. Note that this
     /// function must never be called except inside the
     /// Event::applyProjection(Projection *) function. If the information
-    /// from other projections are necessary, their project(const Event
-    /// &) should not be called, rather the corresponding objects should
+    /// from other projections are necessary, their project(const Event&)
+    /// should not be called, rather the corresponding objects should
     /// be added to the Event using the Event::applyProjection(Projection *)
     /// function.
     virtual void project(const Event& e) = 0;
@@ -150,7 +150,7 @@ namespace Rivet {
 
     /// Add a cut.
     inline Projection& addCut(const string& quantity, const Comparison& comparison, const double value) {
-      cout << "addCut" << quantity << " " << comparison << " " << value << endl;
+      //cout << getName() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
       _cuts.addCut(quantity, comparison, value);
       return *this;
     }

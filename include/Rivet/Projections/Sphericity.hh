@@ -54,7 +54,9 @@ namespace Rivet {
     inline Sphericity(FinalState& fsp, double rparam=2.0)
       : _sphericity(0), _planarity(0), _aplanarity(0), _regparam(rparam), 
         _fsproj(&fsp)
-    { }
+    { 
+      addProjection(fsp);
+    }
 
   public:
     /// Return the name of the projection
@@ -86,9 +88,6 @@ namespace Rivet {
     inline const double lambda2() const { return _lambdas[1]; }
     inline const double lambda3() const { return _lambdas[2]; }
     ///@}
-
-//     /// Return the RivetInfo object of this Projection. Derived classes
-//     virtual RivetInfo getInfo() const;
 
   private:
 

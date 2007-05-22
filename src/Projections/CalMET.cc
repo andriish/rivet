@@ -10,8 +10,6 @@
 using namespace Rivet;
 using namespace std;
 
-CalMET::~CalMET() {}
-
 
 int CalMET::compare(const Projection & p) const {
   const CalMET & other =

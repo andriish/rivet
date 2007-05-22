@@ -23,8 +23,6 @@ namespace Rivet {
                       double minpt = 0.0)
       : _etamin(mineta), _etamax(maxeta), _ptmin(minpt) 
     { 
-      cout << "min: " << mineta << endl;
-      cout << "max: " << maxeta << endl;
       addCut("eta", MORE_EQ, mineta);
       addCut("eta", LESS_EQ, maxeta);
       addCut("pT",  MORE_EQ, minpt);

@@ -21,6 +21,8 @@ namespace Rivet {
       : fs(), ktjets(fs) 
     { 
       setBeams(POSITRON, PROTON);
+      addProjection(fs);
+      addProjection(ktjets);
     }
 
     /// The name of this analysis is "HepEx0112029"

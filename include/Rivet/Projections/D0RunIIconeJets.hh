@@ -24,17 +24,20 @@ namespace Rivet {
     //  assumed to live throughout the run.
     inline D0RunIIconeJets(FinalState& fsp)
       : cone_radius(0.7), min_jet_Et(0.), split_ratio(0.5), fsproj(&fsp) 
-    { //the parameters are supposed to be set as used by D0 in RunII
-      far_ratio=0.5;
-      Et_min_ratio=0.5;
-      kill_duplicate=true;
-      duplicate_dR=0.005; 
-      duplicate_dPT=0.01; 
-      search_factor=1.0; 
-      pT_min_leading_protojet=0.; 
-      pT_min_second_protojet=0.;
-      merge_max=10000; 
-      pT_min_nomerge=0.;
+    { 
+      addProjection(fsp);
+
+      // The parameters are supposed to be set as used by D0 in RunII
+      far_ratio = 0.5;
+      Et_min_ratio = 0.5;
+      kill_duplicate = true;
+      duplicate_dR = 0.005; 
+      duplicate_dPT = 0.01; 
+      search_factor = 1.0; 
+      pT_min_leading_protojet = 0.0; 
+      pT_min_second_protojet = 0.0;
+      merge_max = 10000;
+      pT_min_nomerge = 0.0;
       
       algo = new ILConeAlgorithm<HepEntity>(cone_radius, min_jet_Et, split_ratio,
 		      far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
@@ -42,7 +45,7 @@ namespace Rivet {
 		      pT_min_second_protojet, merge_max, pT_min_nomerge);
       
       jets = new std::list<HepEntity>;
-}
+    }
 
     /// Argument constructor.
     // Added so that same projection can be ran but with different parameters.
