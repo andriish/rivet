@@ -16,6 +16,7 @@ nobase_pkginclude_HEADERS += \
   Analysis/Analysis.hh       Analysis/Analysis.fhh \
   Analysis/AnalysisName.hh   \
   Analysis/TestAnalysis.hh   \
+  Analysis/ExampleTree.hh    \
   Analysis/HepEx9506012.hh   \
   Analysis/HepEx0112029.hh   \
   Analysis/HepEx0409040.hh   \

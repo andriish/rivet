@@ -5,6 +5,7 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
+#include "Rivet/Analysis/ExampleTree.hh"
 #include "Rivet/Analysis/PL273B181.hh"
 #include "Rivet/Analysis/HepEx9506012.hh"
 #include "Rivet/Analysis/HepEx0112029.hh"
@@ -25,6 +26,8 @@ namespace Rivet {
     switch (atype) {
     case ANALYSIS_TEST:
       return *(new TestAnalysis());
+    case ANALYSIS_EXAMPLETREE:
+      return *(new ExampleTree());
     case ANALYSIS_HEPEX9506012:
       return *(new HepEx9506012());
     case ANALYSIS_HEPEX0112029:
