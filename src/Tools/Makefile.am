@@ -11,5 +11,5 @@ libRivetTools_la_LIBADD   = libRivetMath.la
 
 
 if WITH_ROOT
-  libRivetTools_la_CPPFLAGS += -DHAVE_ROOT -I${ROOTSYS}/include -fpermissive
+  libRivetTools_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS) -fpermissive
 endif

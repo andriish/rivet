@@ -35,7 +35,7 @@ AM_CONDITIONAL(WITH_TESTPROGS, [test x$with_testprogs == xyes])
 
 
 ## Find Root
-#AC_SEARCH_ROOT([AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
+AC_SEARCH_ROOT([AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
 
 ## Enable Root Analysis Framework
 AC_ARG_WITH([Root], [AC_HELP_STRING(--with-root, [build Root persistency])], [], [])
