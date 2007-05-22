@@ -17,6 +17,13 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
+## OS X
+AC_CHECK_TOOL(SWVERS, sw_vers)
+if test x$SWVERS != x; then
+  MACOSX_DEPLOYMENT_TARGET=`$SWVERS -productVersion | cut -f 1,2 -d.`
+  AC_SUBST(MACOSX_DEPLOYMENT_TARGET)
+fi
+
 ## More comprehensible error messages if possible. See:
 ## http://www.bdsoft.com/tools/stlfilt.html
 AC_PATH_PROG(GFILT, gfilt, $CXX, $PATH:$HOME/bin:$HOME/local/bin)
