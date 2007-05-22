@@ -9,6 +9,13 @@ AC_LANG(C++)
 AC_CONFIG_SRCDIR([src/RivetInterface.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
 
+## OS X
+AC_CHECK_TOOL(SWVERS, sw_vers)
+if test x$SWVERS != x; then
+  MACOSX_DEPLOYMENT_TARGET=`$SWVERS -productVersion | cut -f 1,2 -d.`
+  AC_MSG_NOTICE([MACOSX_DEPLOYMENT_TARGET = $MACOSX_DEPLOYMENT_TARGET])
+fi
+
 ## Checks for programs.
 AC_PROG_CXX
 AC_PROG_INSTALL
@@ -16,13 +23,6 @@ AC_PROG_LN_S
 AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
-
-## OS X
-AC_CHECK_TOOL(SWVERS, sw_vers)
-if test x$SWVERS != x; then
-  MACOSX_DEPLOYMENT_TARGET=`$SWVERS -productVersion | cut -f 1,2 -d.`
-  AC_SUBST(MACOSX_DEPLOYMENT_TARGET)
-fi
 
 ## More comprehensible error messages if possible. See:
 ## http://www.bdsoft.com/tools/stlfilt.html
