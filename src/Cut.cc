@@ -61,17 +61,17 @@ namespace Rivet {
 
   ostream& Cuts::print(ostream & os) const {
     for (Cuts::const_iterator cut = begin(); cut != end(); ++cut) {
-      os << endl << std::left;
-      os << setw(12) << cut->first;
+      os << endl;
+      os << setw(12) << std::left << cut->first;
       if (cut->second.higherthan() > -numeric_limits<double>::max()) {
         os << setw(3) << ">=";
-        os << setw(10) << cut->second.higherthan();
+        os << setw(10) << std::right << cut->second.higherthan();
       } else {
         os << setw(13) << "";
       }
       if (cut->second.lowerthan() < numeric_limits<double>::max()) {
         os << setw(3) << "<=";
-        os << setw(10) << cut->second.lowerthan();
+        os << setw(10) << std::right << cut->second.lowerthan();
       } else {
         os << setw(13) << "";
       }
