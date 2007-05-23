@@ -48,7 +48,7 @@ void TrackJet::project(const Event & e) {
     // Get eta and phi for this track
     const double eta = t->eta();
     const double phi = t->phi();
-              
+    
     // Make a new jet and put this seed track into it
     Jet thisjet;
     thisjet.addParticle(*t);
@@ -57,6 +57,8 @@ void TrackJet::project(const Event & e) {
     // Compare with all unassociated tracks with a smaller pT measure
     Tracks::iterator t2 = tracks.begin();
     while (t2 != tracks.end()) {
+      log << Log::DEBUG << "Building jet from tracks" << endl;
+
       // Compute Deta and Dphi, mapping Dphi into [0,pi]
       double Deta = eta - t2->eta();
       double Dphi = phi - t2->phi();
@@ -66,7 +68,7 @@ void TrackJet::project(const Event & e) {
       if (sqrt(Deta*Deta + Dphi*Dphi) <= 0.7) {
         // Move this particle into the current jet (no extra sorting needed)
         thisjet.addParticle(*t2);
-        tracks.erase(t2++); // the postfix ++ is important!
+        t2 = tracks.erase(t2);
       } else {
         ++t2;
       }

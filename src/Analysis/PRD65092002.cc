@@ -13,10 +13,8 @@ using namespace AIDA;
 #include "HepPDT/ParticleID.hh"
 using namespace HepMC;
 
-#include <cassert>
 
 /////////////////////////////////////////////////
-
 
 
 // Book histograms

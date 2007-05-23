@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <cmath>
 #include <limits>
+#include <cassert>
 
 /// This is the main namespace in which all Rivet classes are defined.
 namespace Rivet {
