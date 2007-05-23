@@ -1,3 +1,8 @@
+2007-05-23  Andy Buckley  <andy@insectnation.org>
+
+	* Added configure checking for Mac OS X version, and setting the
+	development target flag accordingly.
+
 2007-05-22  Andy Buckley  <andy@insectnation.org>
 
 	* Added an ostream method for AnalysisName enums.

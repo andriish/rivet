@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[0.9b1],[],[Rivet])
+AC_INIT([Rivet],[0.9b2],[],[Rivet])
 
 AM_INIT_AUTOMAKE
 AC_LANG(C++)
