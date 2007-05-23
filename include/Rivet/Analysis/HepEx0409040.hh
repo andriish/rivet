@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline HepEx0409040(bool xrad=true)
+    inline HepEx0409040()
       : fs(-3.0, 3.0), conejets(fs), p_vertex(), p_calmet(fs)
     { 
       setBeams(PROTON, ANTIPROTON);
@@ -25,11 +25,6 @@ namespace Rivet {
       addProjection(conejets);
       addProjection(p_vertex);
       addProjection(p_calmet);
-      /// @todo Remove - the analysis must be absolutely repeatable.
-      if (xrad) 
-        xscale = PI/128.; //histo x-axis range in [rad]
-      else
-        xscale = 1.; //histo x-axis range in [rad*128/Pi]
     }
 
 
@@ -46,12 +41,9 @@ namespace Rivet {
     
     void finalize();
 
-    /// Return the RivetInfo object of this analysis object.
-    //RivetInfo getInfo() const;
-
   private:
 
-    /// The FinalState projector used by this analysis.
+    /// The final state projector used by this analysis.
     FinalState fs;
 
     /// The D0RunIIconeJets projector used by this analysis.
@@ -73,7 +65,6 @@ namespace Rivet {
     AIDA::IHistogram1D* histJetAzimuth_pTmax130_180;
     AIDA::IHistogram1D* histJetAzimuth_pTmax180_;
     //@}
-    double xscale;
 
   };
 
