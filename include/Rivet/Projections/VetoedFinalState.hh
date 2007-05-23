@@ -43,6 +43,29 @@ namespace Rivet {
     
     /// Access the projected final-state particles.
     inline const ParticleVector& particles() const { return _theParticles; }
+
+    /// Get the list of particle IDs to veto.
+    inline const vector<long>& getVetoIds() const {
+      return _vetoCodes;
+    }
+
+    /// Add a particle ID to veto.
+    inline VetoedFinalState& addVetoId(const long id) {
+      _vetoCodes.push_back(id);
+      return *this;
+    }
+
+    /// Set the list of particle IDs to veto.
+    inline VetoedFinalState& setVetoIds(const vector<long>& ids) {
+      _vetoCodes = ids;
+      return *this;
+    }
+
+    /// Clear the list of particle IDs to veto.
+    inline VetoedFinalState& clearVetoIds() {
+      _vetoCodes.clear();
+      return *this;
+    }
     
   private:
     
