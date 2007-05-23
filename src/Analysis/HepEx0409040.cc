@@ -31,34 +31,27 @@ void HepEx0409040::analyze(const Event & event) {
 
   // Analyse and print some info  
   const D0RunIIconeJets& jetpro = event.applyProjection(conejets);
-  
-  //int nj = jetpro.getNJets(); //ls
-  //log << Log::INFO << "Jet multiplicity before any pT cut = " << nj << endl; //ls
-  //cout << "Jet multiplicity before any pT cut = " << nj << endl; //ls
+  log << Log::INFO << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
    
-  // Check z-component of vertex is < 50 cm from the nominal IP
+  // Find vertex and check  that its z-component is < 50 cm from the nominal IP
   const PVertex& PV = event.applyProjection(p_vertex);
   /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
-  if (fabs(PV().position().z())< 500.0) { /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
-
-    // Fill histograms
+  /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
+  if (fabs(PV().position().z())< 500.0) {
     list<HepEntity>::iterator jetpTmax = jetpro.jets->end();
     list<HepEntity>::iterator jet2ndpTmax = jetpro.jets->end();
-    //cout << "jetlist size = " << jetpro.jets->size() << endl;
+    log << Log::DEBUG << "jetlist size = " << jetpro.jets->size() << endl;
     
     int Njet=0;
     for (list<HepEntity>::iterator jt = jetpro.jets->begin(); jt != jetpro.jets->end(); ++jt) {
-      //cout << "list item pT = " << jt->pT() << " E=" << jt->E << " pz=" << jt->pz << endl;
-      if (jt->pT()>40.) ++Njet;
-      //cout << "jet pT=" << jt->pT() << " y=" << jt->y() << " phi=" << jt->phi() << endl; 
-
+      log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E << " pz=" << jt->pz << endl;
+      if (jt->pT() > 40.0) ++Njet;
+      log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->y() << " phi=" << jt->phi() << endl; 
       if (jetpTmax == jetpro.jets->end() || jt->pT() > jetpTmax->pT()) {
         jet2ndpTmax = jetpTmax;
         jetpTmax = jt;
-      } else {
-        if (jet2ndpTmax == jetpro.jets->end() || jt->pT() > jet2ndpTmax->pT()) {
-          jet2ndpTmax = jt;
-        }
+      } else if (jet2ndpTmax == jetpro.jets->end() || jt->pT() > jet2ndpTmax->pT()) {
+        jet2ndpTmax = jt;
       }
     }
     
@@ -78,18 +71,19 @@ void HepEx0409040::analyze(const Event & event) {
 
     if (jetpro.jets->size()>=2 && jet2ndpTmax->pT() > 40.) {
       if (fabs(jetpTmax->y())<0.5 && fabs(jet2ndpTmax->y())<0.5) {
-        //cout << "jet eta and pT requirements fulfilled" << endl; //ls
+        log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
+        /// @todo Declare this eta cut via Analysis::addCut()?
         double etaMax = 3.0; //D0 calorimeter boundary
         bool addMuons = false; //Muons pass calorimeter almost without energy loss
         p_calmet.initialize(etaMax, addMuons);
         const CalMET& CaloMissEt = event.applyProjection(p_calmet);
-        //cout << "CaloMissEt.MET()=" << CaloMissEt.MET() << endl; //ls
+        log << Log::DEBUG << "CaloMissEt.MET() = " << CaloMissEt.MET() << endl;
         if (CaloMissEt.MET() < 0.7*jetpTmax->pT()) {
 	  
-          double dphi = delta_phi(jetpTmax->phi(),jet2ndpTmax->phi());
-          if (fabs(xscale-1.)<1.e-3) dphi /= xscale; //x-axis range [64,128]
+          double dphi = delta_phi(jetpTmax->phi(), jet2ndpTmax->phi());
+          /// @todo Change this when/if histograms are re-booked
+          dphi *= 128.0/PI;
           
-          //cout << "Filling histograms now: dphi=" << dphi << endl;          
           if (jetpTmax->pT() > 75.0 && jetpTmax->pT() <= 100.0)
             histJetAzimuth_pTmax75_100->fill(dphi, event.weight());
           else if (jetpTmax->pT() > 100.0 && jetpTmax->pT() <= 130.0)
