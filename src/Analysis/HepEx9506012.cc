@@ -8,6 +8,7 @@ using namespace std;
 using namespace CLHEP;
 
 
+/// @todo Declare via Cuts mechanism?
 const double HepEx9506012::xmin = -6.0;
 const double HepEx9506012::xmax = 6.0;
 
@@ -16,24 +17,15 @@ void HepEx9506012::init() {
   hEtFlow = vector<AIDA::IHistogram1D *>(nbin);
   hEtFlowStat = vector<AIDA::IHistogram1D *>(nbin);
   nev = vector<double>(nbin);
-
-  tree().mkdir("/HepEx9506012");
   for ( int i = 0; i < nbin; ++i ) {
     string I(1, char('1' + i));
-    hEtFlow[i] = bookHistogram1D("/HepEx9506012/" + I, "dEt/d[c] CMS bin=" +I,
-				 nb, xmin, xmax);
-    hEtFlowStat[i] = bookHistogram1D("/HepEx9506012/1" + I,
-				     "stat dEt/d[c] CMS bin=1" + I,
-				     nb, xmin, xmax);
+    hEtFlow[i] = bookHistogram1D(I, "dEt/d[c] CMS bin=" + I, nb, xmin, xmax);
+    hEtFlowStat[i] = bookHistogram1D(I, "stat dEt/d[c] CMS bin=1" + I, nb, xmin, xmax);
   }
-  hAvEt = bookHistogram1D("/HepEx9506012/21tmp", "<Et> vs kin. bin",
-			  nbin, 1.0, 10.0);
-  hAvX = bookHistogram1D("/HepEx9506012/22tmp", "<x>  vs kin. bin",
-			 nbin, 1.0, 10.0);
-  hAvQ2 = bookHistogram1D("/HepEx9506012/23tmp", "<Q2> vs kin. bin",
-			  nbin, 1.0, 10.0);
-  hN = bookHistogram1D("/HepEx9506012/24", "# events vs kin. bin",
-		       nbin, 1.0, 10.0);
+  hAvEt = bookHistogram1D("21tmp", "<Et> vs kin. bin", nbin, 1.0, 10.0);
+  hAvX = bookHistogram1D("22tmp", "<x>  vs kin. bin", nbin, 1.0, 10.0);
+  hAvQ2 = bookHistogram1D("23tmp", "<Q2> vs kin. bin", nbin, 1.0, 10.0);
+  hN = bookHistogram1D("24", "# events vs kin. bin", nbin, 1.0, 10.0);
 }
 
 
@@ -69,12 +61,12 @@ int HepEx9506012::getbin(const DISKinematics & dk) {
 
 
 void HepEx9506012::analyze(const Event & event) {
-  const FinalStateHCM & fs = event.applyProjection(fsproj);
-  const DISKinematics & dk = event.applyProjection(diskin);
+  const FinalStateHCM& fs = event.applyProjection(fsproj);
+  const DISKinematics& dk = event.applyProjection(diskin);
   const CentralEtHCM y1 = event.applyProjection(y1hcm);
   
   int ibin = getbin(dk);
-  if ( ibin < 0 ) return;
+  if (ibin < 0) return;
   
   for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
     double rap = fs.particles()[i].getMomentum().rapidity();
@@ -83,13 +75,11 @@ void HepEx9506012::analyze(const Event & event) {
     hEtFlowStat[ibin]->fill(rap, et*event.weight()/GeV);
   }
   
-  nev[ibin] += event.weight();
-  
+  nev[ibin] += event.weight();  
   hAvEt->fill(ibin + 1.5, y1.sumEt()*event.weight()/GeV);
   hAvX->fill(ibin + 1.5, dk.x()*event.weight());
   hAvQ2->fill(ibin + 1.5, dk.Q2()*event.weight()/(GeV*GeV));
   hN->fill(ibin + 1.5, event.weight());
-
 }
 
 
@@ -98,8 +88,8 @@ void HepEx9506012::finalize() {
     hEtFlow[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
     hEtFlowStat[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
   }
-  AIDA::IHistogram1D* h =
-    histogramFactory().divide("/HepEx9506012/21", *hAvEt, *hN);
+  AIDA::IHistogram1D* h = 0;
+  h = histogramFactory().divide("/HepEx9506012/21", *hAvEt, *hN);
   h->setTitle(hAvEt->title());
   histogramFactory().destroy(hAvEt);
   h = histogramFactory().divide("/HepEx9506012/22", *hAvX, *hN);
@@ -109,15 +99,3 @@ void HepEx9506012::finalize() {
   h->setTitle(hAvQ2->title());
   histogramFactory().destroy(hAvQ2);
 }
-
-
-// RivetInfo HepEx9506012::getInfo() const {
-//   RivetInfo i = info;
-//   i += beams.getInfo();
-//   i += lepton.getInfo();
-//   i += diskin.getInfo();
-//   i += fsp.getInfo();
-//   i += fsproj.getInfo();
-//   i += y1hcm.getInfo();
-//   return info;
-// }
