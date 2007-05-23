@@ -13,7 +13,7 @@
 
 namespace Rivet {
   
-  /// Project out all final-state particles in an event.
+  /// Find jets according to a D0 cone algorithm.
   class D0RunIIconeJets : public Projection {
     
   public:

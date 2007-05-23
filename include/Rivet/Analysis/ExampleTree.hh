@@ -16,7 +16,11 @@
 
 namespace Rivet {
 
-  /// This class just measures the charged multiplicity
+  /// This class books and fills a ROOT tree with simulated data.
+  /*
+    Based initially on the ntuples used in Phys. Rev. D65; 096014 (2002) and
+                                           JHEP05 (2007) 033
+   */
   class ExampleTree : public Analysis {
 
   public:
@@ -85,10 +89,8 @@ namespace Rivet {
     float         vjet[50][4];     // four momentum of the jets
 
     int           nsub;            // number of jets for which the subjet analysis was performed.
-    float         sjet1[200][4];   // four vectors of the first 3 subjets for each jet 
-    float         sjet2[200][4];
-    float         sjet3[200][4];
-    float         ysubsj[200];     // y 1->2 for each jet.
+    float         sjet3[200][4];   // four vector of jets for which we found subjets.
+    float         ysubsj[200];     // y 1->2 for the above jet.
     float         tjet[2][4];
     int           nlep;
     int           leptype[150][3];
@@ -108,6 +110,10 @@ namespace Rivet {
 
     /// Hide the assignment operator
     ExampleTree & operator=(const ExampleTree& x);
+
+    // Minimum pt of jets which will go into the tree.
+    int _jet_pt_cut;
+
 
   };
 
