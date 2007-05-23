@@ -69,8 +69,8 @@ namespace Rivet {
 
   IHistogram1D* Analysis::bookHistogram1D(const unsigned int datasetId, const unsigned int xAxisId, 
                                           const unsigned int yAxisId, const string& title) {
-    stringstream axisCode("d");
-    axisCode << datasetId << "-x" << xAxisId << "-y" << yAxisId;
+    stringstream axisCode;
+    axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
     const map<string, BinEdges> data = getBinEdges(getName());
     makeHistoDir();
     const string path = getHistoDir() + "/" + axisCode.str();

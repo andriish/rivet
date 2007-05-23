@@ -17,10 +17,10 @@ using namespace HepMC;
 // Book histograms
 void HepEx0409040::init() {
   // Use histogram auto-booking
-  histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 1, 1, "Jet Jet azimuthal angle, pTmax=75..100");
-  histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 1, 1, "Jet Jet azimuthal angle, pTmax=100..130");
-  histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 1, 1, "Jet Jet azimuthal angle, pTmax=130..180");
-  histJetAzimuth_pTmax180_    = bookHistogram1D(4, 1, 1, "Jet Jet azimuthal angle, pTmax>180");
+  histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1, "Jet Jet azimuthal angle, pTmax=75..100");
+  histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1, "Jet Jet azimuthal angle, pTmax=100..130");
+  histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 2, 1, "Jet Jet azimuthal angle, pTmax=130..180");
+  histJetAzimuth_pTmax180_    = bookHistogram1D(4, 2, 1, "Jet Jet azimuthal angle, pTmax>180");
 }
 
 
@@ -81,8 +81,6 @@ void HepEx0409040::analyze(const Event & event) {
         if (CaloMissEt.MET() < 0.7*jetpTmax->pT()) {
 	  
           double dphi = delta_phi(jetpTmax->phi(), jet2ndpTmax->phi());
-          /// @todo Change this when/if histograms are re-booked
-          dphi *= 128.0/PI;
           
           if (jetpTmax->pT() > 75.0 && jetpTmax->pT() <= 100.0)
             histJetAzimuth_pTmax75_100->fill(dphi, event.weight());

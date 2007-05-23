@@ -1,3 +1,11 @@
+2007-05-23  Andy Buckley  <andy@insectnation.org>
+
+	* src/Analysis/HepEx0409040.cc: Changed range of the histograms to
+	the "pi" range rather than the "128" range.
+
+	* src/Analysis/Analysis.cc: Fixed a bug in the AIDA path building.
+	Histogram auto-booking now works.
+
 2007-05-23  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Analysis/HepEx9506012.cc: Now uses the histogram booking
