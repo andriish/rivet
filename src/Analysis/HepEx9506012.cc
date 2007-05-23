@@ -20,19 +20,20 @@ void HepEx9506012::init() {
   tree().mkdir("/HepEx9506012");
   for ( int i = 0; i < nbin; ++i ) {
     string I(1, char('1' + i));
-    hEtFlow[i] = histogramFactory().createHistogram1D("/HepEx9506012/" + I, nb, xmin, xmax);
-    hEtFlow[i]->setTitle("dEt/d[c] CMS bin=" +I);
-    histogramFactory().createHistogram1D("/HepEx9506012/1" + I, nb, xmin, xmax);
-    hEtFlow[i]->setTitle("stat dEt/d[c] CMS bin=1" + I);
+    hEtFlow[i] = bookHistogram1D("/HepEx9506012/" + I, "dEt/d[c] CMS bin=" +I,
+				 nb, xmin, xmax);
+    hEtFlowStat[i] = bookHistogram1D("/HepEx9506012/1" + I,
+				     "stat dEt/d[c] CMS bin=1" + I,
+				     nb, xmin, xmax);
   }
-  hAvEt = histogramFactory().createHistogram1D("/HepEx9506012/21tmp", nbin, 1.0, 10.0);
-  hAvEt->setTitle("<Et> vs kin. bin");
-  hAvX =  histogramFactory().createHistogram1D("/HepEx9506012/22tmp", nbin, 1.0, 10.0);
-  hAvX->setTitle("<x>  vs kin. bin");
-  hAvQ2 = histogramFactory().createHistogram1D("/HepEx9506012/23tmp", nbin, 1.0, 10.0);
-  hAvQ2->setTitle("<Q2> vs kin. bin");
-  hN =    histogramFactory().createHistogram1D("/HepEx9506012/24", nbin, 1.0, 10.0);
-  hN->setTitle("# events vs kin. bin");
+  hAvEt = bookHistogram1D("/HepEx9506012/21tmp", "<Et> vs kin. bin",
+			  nbin, 1.0, 10.0);
+  hAvX = bookHistogram1D("/HepEx9506012/22tmp", "<x>  vs kin. bin",
+			 nbin, 1.0, 10.0);
+  hAvQ2 = bookHistogram1D("/HepEx9506012/23tmp", "<Q2> vs kin. bin",
+			  nbin, 1.0, 10.0);
+  hN = bookHistogram1D("/HepEx9506012/24", "# events vs kin. bin",
+		       nbin, 1.0, 10.0);
 }
 
 
@@ -97,7 +98,8 @@ void HepEx9506012::finalize() {
     hEtFlow[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
     hEtFlowStat[ibin]->scale(1.0/(nev[ibin]*double(nb)/(xmax-xmin)));
   }
-  AIDA::IHistogram1D* h = histogramFactory().divide("/HepEx9506012/21", *hAvEt, *hN);
+  AIDA::IHistogram1D* h =
+    histogramFactory().divide("/HepEx9506012/21", *hAvEt, *hN);
   h->setTitle(hAvEt->title());
   histogramFactory().destroy(hAvEt);
   h = histogramFactory().divide("/HepEx9506012/22", *hAvX, *hN);
