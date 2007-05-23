@@ -9,6 +9,8 @@
 
 2007-05-23  Andy Buckley  <andy@insectnation.org>
 
+	* Added (but haven't properly tested) a VetoedFinalState projection.
+
 	* Added normalize() method for AIDA 1D histograms.
 
 	* Added configure checking for Mac OS X version, and setting the

@@ -16,6 +16,7 @@ libRivetProjections_la_SOURCES  = \
   PVertex.cc \
   Sphericity.cc \
   Thrust.cc \
-  TrackJet.cc
+  TrackJet.cc \
+  VetoedFinalState.cc
 
 libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)

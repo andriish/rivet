@@ -30,7 +30,7 @@ namespace Rivet {
     assert(norm != 0.0);
     double area = 0;
     for (int i=0; i < histo->axis().bins(); ++i) {
-      area += histo->binHeight(i) * histo->axis().binWidth(i); 
+      area += histo->binHeight(i) * histo->axis().binWidth(i);
     }
     if (area != 0) {
       histo->scale(norm/area);

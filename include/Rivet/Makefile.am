@@ -41,7 +41,8 @@ nobase_pkginclude_HEADERS += \
   Projections/PVertex.hh       \
   Projections/Sphericity.hh    \
   Projections/Thrust.hh        \
-  Projections/TrackJet.hh
+  Projections/TrackJet.hh      \
+  Projections/VetoedFinalState.hh
 
 
 ## Tools

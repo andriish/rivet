@@ -4,7 +4,7 @@
 #include "Rivet/Analysis/HepEx0112029.hh"
 using namespace Rivet;
 
-#include "AIDA/IHistogram1D.h"
+#include "Rivet/RivetAIDA.hh"
 using namespace AIDA;
 
 #include "HepPDT/ParticleID.hh"
@@ -27,19 +27,16 @@ void HepEx0112029::analyze(const Event & event) {
 
   // Analyse and print some info
   const KtJets& jets = event.applyProjection(ktjets);
-
   int nj = jets.getNJets();
-
   log << Log::INFO << "Jet multiplicity            = " << nj << endl;
 
-  std::vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
-
   // Fill histograms
-  for (std::vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); j++) {
+  vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
+  for (vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); ++j) {
     histJetEt1_->fill(j->perp(), event.weight() );
   }
   
-  // Finished...
+  // Finished
   log << Log::DEBUG << "Finished analyzing" << endl;
 }
 
@@ -47,9 +44,3 @@ void HepEx0112029::analyze(const Event & event) {
 // Finalize
 void HepEx0112029::finalize() 
 { }
-
-
-// // Provide info object
-// RivetInfo HepEx0112029::getInfo() const {
-//   return Analysis::getInfo() + ktjets.getInfo();
-// }

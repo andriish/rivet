@@ -7,7 +7,7 @@
 #include "Rivet/Analysis/PRD65092002.hh"
 using namespace Rivet;
 
-#include "AIDA/IHistogram1D.h"
+#include "Rivet/RivetAIDA.hh"
 using namespace AIDA;
 
 #include "HepPDT/ParticleID.hh"
