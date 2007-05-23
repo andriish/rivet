@@ -17,7 +17,7 @@ namespace Rivet {
     /// \f$ p_T > 0.5 \f$ GeV.
     inline PRD65092002()
       : _fsproj(-1.0, 1.0, 0.5), _trackjetproj(_fsproj), 
-        _histToward(0), _histAway(0), _histTrans(0)
+        _histToward(0), _histAway(0), _histTrans(0), _numBins(50)
     { 
       setBeams(PROTON, ANTIPROTON);
       addProjection(_fsproj);
@@ -58,6 +58,9 @@ namespace Rivet {
     AIDA::IHistogram1D* _histAway;
     AIDA::IHistogram1D* _histTrans;
     //@}
+
+    // number of bins in the histograms
+    const size_t _numBins;
 
     /// Internal storage of \f$ p_T \f$ flow data.
     class MiniHisto {

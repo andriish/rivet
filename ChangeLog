@@ -1,3 +1,7 @@
+2007-05-23  Jon Butterworth  <jmb@hep.ucl.ac.uk>
+
+	* Fixed bug in PRD65092002 (was failing on zero jets)
+
 2007-05-23  Andy Buckley  <andy@insectnation.org>
 
 	* Added normalize() method for AIDA 1D histograms.

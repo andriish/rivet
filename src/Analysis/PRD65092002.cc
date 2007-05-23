@@ -20,18 +20,17 @@ using namespace HepMC;
 // Book histograms
 void PRD65092002::init() {
   // Book mini histos (for the profile histo effect) and storage histos
-  const size_t numBins = 50;
-  _dataToward.reserve(numBins);
-  _dataAway.reserve(numBins);
-  _dataTrans.reserve(numBins);
-  for (size_t i = 0; i < numBins; ++i) {
+  _dataToward.reserve(_numBins);
+  _dataAway.reserve(_numBins);
+  _dataTrans.reserve(_numBins);
+  for (size_t i = 0; i < _numBins; ++i) {
     _dataToward[i] = MiniHisto();
     _dataAway[i] = MiniHisto();
     _dataTrans[i] = MiniHisto();
   }
-  _histToward = bookHistogram1D("PtSumToward", "pT sum toward total", numBins, 0.0, 50.0);
-  _histTrans = bookHistogram1D("PtSumTransverse", "pT sum transverse total", numBins, 0.0, 50.0);
-  _histAway = bookHistogram1D("PtSumAway", "pT sum away total", numBins, 0.0, 50.0);
+  _histToward = bookHistogram1D("PtSumToward", "pT sum toward total", _numBins, 0.0, 50.0);
+  _histTrans = bookHistogram1D("PtSumTransverse", "pT sum transverse total", _numBins, 0.0, 50.0);
+  _histAway = bookHistogram1D("PtSumAway", "pT sum away total", _numBins, 0.0, 50.0);
 }
 
 
@@ -44,6 +43,8 @@ void PRD65092002::analyze(const Event& event) {
 
   // Get jets, sorted by pT
   const TrackJet::Jets jets = tj.getJets();
+  if (jets.size()==0) { return; }
+
   TrackJet::Jet leadingJet = jets[0];
   const double phiLead = leadingJet.getPtWeightedPhi();
   const double ptLead = leadingJet.getPtSum();
@@ -86,9 +87,13 @@ void PRD65092002::analyze(const Event& event) {
       << endl;
 
   // Update the proto-profile histograms
-  _dataToward[nBin] += ptSumToward;
-  _dataAway[nBin] += ptSumAway;
-  _dataTrans[nBin] += ptSumTrans;
+  if (nBin>_numBins) {
+    log << Log::ERROR << "nBin out of range: " << nBin << endl;
+  } else {
+    _dataToward[nBin] += ptSumToward;
+    _dataAway[nBin] += ptSumAway;
+    _dataTrans[nBin] += ptSumTrans;
+  }
 }
 
 
