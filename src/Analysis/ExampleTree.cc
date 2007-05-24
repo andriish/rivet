@@ -50,8 +50,6 @@ void ExampleTree::init() {
   rivetTree->Branch("vjet",&vjet,"vjet[njet][4]/F");
 
   rivetTree->Branch("nsub",&nsub,"nsub/I");
-  rivetTree->Branch("sjet1",&sjet1,"sjet1[nsub][4]/F");
-  rivetTree->Branch("sjet2",&sjet2,"sjet2[nsub][4]/F");
   rivetTree->Branch("sjet3",&sjet3,"sjet3[nsub][4]/F");
   rivetTree->Branch("ysubsj",&ysubsj,"ysubsj[nsub]/F");
 
