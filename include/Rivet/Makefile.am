@@ -35,6 +35,7 @@ nobase_pkginclude_HEADERS += \
   Projections/D0RunIIconeJets.hh \
   Projections/FinalState.hh    \
   Projections/FinalStateHCM.hh \
+  Projections/ChargedLeptons.hh \
   Projections/KtJets.hh        \
   Projections/Multiplicity.hh  \
   Projections/ParisiTensor.hh  \

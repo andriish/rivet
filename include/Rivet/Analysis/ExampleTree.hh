@@ -3,7 +3,7 @@
 #define RIVET_ExampleTree_H
 
 #include "Rivet/Analysis/Analysis.hh"
-#include "Rivet/Projections/Multiplicity.hh"
+#include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/KtJets.hh"
 #include "Rivet/RivetAIDA.fhh"
 
@@ -27,10 +27,10 @@ namespace Rivet {
 
     /// Default constructor
     inline ExampleTree()
-      : p_mult(p_fs), p_ktjets(p_fs)
+      : p_chargedleptons(p_fs), p_ktjets(p_fs)
     { 
       addProjection(p_fs);
-      addProjection(p_mult);
+      addProjection(p_chargedleptons);
       addProjection(p_ktjets);
     }
 
@@ -57,8 +57,8 @@ namespace Rivet {
     /// The FinalState projector used by this analysis.
     FinalState p_fs;
 
-    /// The Multiplicity projector used by this analysis.
-    Multiplicity p_mult;
+    /// The Charged Lepton projector used by this analysis.
+    ChargedLeptons p_chargedleptons;
 
     /// The jet projector
     KtJets p_ktjets;
@@ -114,6 +114,8 @@ namespace Rivet {
     // Minimum pt of jets which will go into the tree.
     int _jet_pt_cut;
 
+    // Minimum pt of charged leptons which will go into the tree.
+    int _lepton_pt_cut;
 
   };
 

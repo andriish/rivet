@@ -25,6 +25,7 @@ void ExampleTree::init() {
 #else
 
   _jet_pt_cut = 20;
+  _lepton_pt_cut = 20;
 
   treeFileName = "rivetTree.root";
 
@@ -56,8 +57,7 @@ void ExampleTree::init() {
   rivetTree->Branch("tjet",&tjet,"tjet[2][4]/F");
 
   rivetTree->Branch("nlep",&nlep,"nlep/I");
-
-
+  rivetTree->Branch("ptlep",&ptlep,"ptlep[nlep]/F");
 
 #endif
 }
@@ -80,6 +80,12 @@ void ExampleTree::analyze(const Event & event) {
   // Jets.
   const KtJets& jets = event.applyProjection(p_ktjets);
 
+  // Leptons
+  const ChargedLeptons& cl = event.applyProjection(p_chargedleptons);
+
+  // Vector bosons.
+
+
   // Get the jets in decreasing ET order.
   vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
   njet = 0;
@@ -93,6 +99,14 @@ void ExampleTree::analyze(const Event & event) {
       vjet[njet][2] = j->pz();
       vjet[njet][3] = j->e();
       njet++;
+    }
+  }
+
+  // Loop over leptons
+  nlep=0;
+  for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
+    if (p->getMomentum().perp()>_lepton_pt_cut) {
+      nlep++;
     }
   }
   

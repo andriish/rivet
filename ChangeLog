@@ -1,3 +1,7 @@
+2007-05-25  Jon Butterworth  <jmb@hep.ucl.ac.uk>
+
+	* Added a charged lepton projection
+
 2007-05-23  Andy Buckley  <andy@insectnation.org>
 
 	* src/Analysis/HepEx0409040.cc: Changed range of the histograms to
