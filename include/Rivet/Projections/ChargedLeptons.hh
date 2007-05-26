@@ -10,7 +10,7 @@
 
 namespace Rivet {
 
-  /// Project out all final-state particles in an event.
+  /// Project out charged final-state leptons (i.e. electrons and muons, unless you set taus stable!).
   class ChargedLeptons: public Projection {
     
   public:
@@ -46,7 +46,7 @@ namespace Rivet {
     /// The FinalState projection used by this projection
     FinalState * fsproj;
 
-    /// The final-state particles.
+    /// The leptons
     ParticleVector _theChargedLeptons;
     
   private:

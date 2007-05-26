@@ -33,6 +33,8 @@ void ChargedLeptons::project(const Event& e) {
       }
     }
   }
+  log << Log::DEBUG << "Done" << endl;
+
 }
 
 

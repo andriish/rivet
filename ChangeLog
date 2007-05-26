@@ -1,3 +1,8 @@
+2007-05-26  Jon Butterworth  <jmb@hep.ucl.ac.uk>
+
+	* Added leptons to the Example Tree.
+	* Added TotalVisibleEnergy projection, and added output to the example Tree.
+
 2007-05-25  Jon Butterworth  <jmb@hep.ucl.ac.uk>
 
 	* Added a charged lepton projection

@@ -4,6 +4,7 @@
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/KtJets.hh"
 #include "Rivet/RivetAIDA.fhh"
 
@@ -27,11 +28,24 @@ namespace Rivet {
 
     /// Default constructor
     inline ExampleTree()
-      : p_chargedleptons(p_fs), p_ktjets(p_fs)
+      : p_chargedleptons(p_fs), p_ktjets(p_fs), 
+	_invisibles(7),
+	p_vfs(p_fs, _invisibles), 
+	p_totalvisiblemomentum(p_vfs)
     { 
+      /// Particle IDs for neutrinos and anitneutrinos and LSP
+      _invisibles.push_back(12);
+      _invisibles.push_back(14);
+      _invisibles.push_back(16);
+      _invisibles.push_back(-12);
+      _invisibles.push_back(-14);
+      _invisibles.push_back(-16);
+      _invisibles.push_back(1000022);
       addProjection(p_fs);
       addProjection(p_chargedleptons);
       addProjection(p_ktjets);
+      addProjection(p_vfs);
+      addProjection(p_totalvisiblemomentum);
     }
 
   public:
@@ -62,6 +76,17 @@ namespace Rivet {
 
     /// The jet projector
     KtJets p_ktjets;
+
+    /// The list of IDs of invisible particles
+    vector<long> _invisibles; 
+
+    /// The VetoedFinalState projector used by this analysis.
+    VetoedFinalState p_vfs;
+
+    /// The total visible momentum projector
+    TotalVisibleMomentum p_totalvisiblemomentum;
+
+
 
 #ifdef HAVE_ROOT
     /// The tree
@@ -103,7 +128,6 @@ namespace Rivet {
     int           qtype[200][3];
     int           npart;
     float         ppart[4000][4];
-    float         esum[4];
     float         esumr[4];
 
   private:

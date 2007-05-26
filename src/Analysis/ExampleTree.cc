@@ -58,6 +58,11 @@ void ExampleTree::init() {
 
   rivetTree->Branch("nlep",&nlep,"nlep/I");
   rivetTree->Branch("ptlep",&ptlep,"ptlep[nlep]/F");
+  rivetTree->Branch("etalep",&etalep,"etalep[nlep]/F");
+  rivetTree->Branch("philep",&philep,"philep[nlep]/F");
+  rivetTree->Branch("vlep",&vlep,"vlep[nlep][4]/F");
+
+  rivetTree->Branch("esumr",&esumr,"esumr[4]/F");
 
 #endif
 }
@@ -83,6 +88,9 @@ void ExampleTree::analyze(const Event & event) {
   // Leptons
   const ChargedLeptons& cl = event.applyProjection(p_chargedleptons);
 
+  // Missing Et/total energy
+  const TotalVisibleMomentum& tvm = event.applyProjection(p_totalvisiblemomentum);
+
   // Vector bosons.
 
 
@@ -106,10 +114,23 @@ void ExampleTree::analyze(const Event & event) {
   nlep=0;
   for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
     if (p->getMomentum().perp()>_lepton_pt_cut) {
+      ptlep[nlep] = p->getMomentum().perp();
+      etalep[nlep] = p->getMomentum().eta();
+      philep[nlep] = p->getMomentum().phi();
+      vlep[nlep][0] = p->getMomentum().px();
+      vlep[nlep][1] = p->getMomentum().py();
+      vlep[nlep][2] = p->getMomentum().pz();
+      vlep[nlep][3] = p->getMomentum().e();
       nlep++;
     }
   }
-  
+
+  // Total/missing energy.  
+  esumr[0] = tvm.getMomentum().px();
+  esumr[1] = tvm.getMomentum().py();
+  esumr[2] = tvm.getMomentum().pz();
+  esumr[3] = tvm.getMomentum().e();
+
   // Finished...
   log << Log::DEBUG << "Finished analyzing" << endl;
 

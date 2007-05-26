@@ -26,6 +26,7 @@ nobase_pkginclude_HEADERS += \
 ## Projections
 nobase_pkginclude_HEADERS += \
   Projections/Projection.hh    Projections/Projection.fhh  \
+  Projections/ChargedLeptons.hh \
   Projections/Cmp.hh           Projections/Cmp.fhh         \
   Projections/Beam.hh          \
   Projections/CalMET.hh        \
@@ -35,13 +36,13 @@ nobase_pkginclude_HEADERS += \
   Projections/D0RunIIconeJets.hh \
   Projections/FinalState.hh    \
   Projections/FinalStateHCM.hh \
-  Projections/ChargedLeptons.hh \
   Projections/KtJets.hh        \
   Projections/Multiplicity.hh  \
   Projections/ParisiTensor.hh  \
   Projections/PVertex.hh       \
   Projections/Sphericity.hh    \
   Projections/Thrust.hh        \
+  Projections/TotalVisibleMomentum.hh \
   Projections/TrackJet.hh      \
   Projections/VetoedFinalState.hh
 
