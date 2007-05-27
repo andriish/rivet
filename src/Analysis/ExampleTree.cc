@@ -89,7 +89,7 @@ void ExampleTree::analyze(const Event & event) {
   const ChargedLeptons& cl = event.applyProjection(p_chargedleptons);
 
   // Missing Et/total energy
-  const TotalVisibleMomentum& tvm = event.applyProjection(p_totalvisiblemomentum);
+  const TotalVisibleMomentum& tvm = event.applyProjection(*p_totalvisiblemomentum);
 
   // Vector bosons.
 

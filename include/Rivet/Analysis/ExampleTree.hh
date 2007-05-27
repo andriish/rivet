@@ -28,12 +28,10 @@ namespace Rivet {
 
     /// Default constructor
     inline ExampleTree()
-      : p_chargedleptons(p_fs), p_ktjets(p_fs), 
-	_invisibles(7),
-	p_vfs(p_fs, _invisibles), 
-	p_totalvisiblemomentum(p_vfs)
+      : p_chargedleptons(p_fs), p_ktjets(p_fs)
     { 
-      /// Particle IDs for neutrinos and anitneutrinos and LSP
+      /// Particle IDs for neutrinos and antineutrinos and LSP
+      vector<long> _invisibles; 
       _invisibles.push_back(12);
       _invisibles.push_back(14);
       _invisibles.push_back(16);
@@ -41,11 +39,19 @@ namespace Rivet {
       _invisibles.push_back(-14);
       _invisibles.push_back(-16);
       _invisibles.push_back(1000022);
+      p_vfs = new VetoedFinalState(p_fs, _invisibles);
+      p_totalvisiblemomentum = new TotalVisibleMomentum(*p_vfs);
+
       addProjection(p_fs);
       addProjection(p_chargedleptons);
       addProjection(p_ktjets);
-      addProjection(p_vfs);
-      addProjection(p_totalvisiblemomentum);
+      addProjection(*p_vfs);
+      addProjection(*p_totalvisiblemomentum);
+    }
+
+    inline ~ExampleTree() {
+      delete p_vfs;
+      delete p_totalvisiblemomentum;
     }
 
   public:
@@ -78,13 +84,12 @@ namespace Rivet {
     KtJets p_ktjets;
 
     /// The list of IDs of invisible particles
-    vector<long> _invisibles; 
 
     /// The VetoedFinalState projector used by this analysis.
-    VetoedFinalState p_vfs;
+    VetoedFinalState* p_vfs;
 
     /// The total visible momentum projector
-    TotalVisibleMomentum p_totalvisiblemomentum;
+    TotalVisibleMomentum* p_totalvisiblemomentum;
 
 
 

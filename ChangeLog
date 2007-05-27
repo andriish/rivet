@@ -1,3 +1,7 @@
+2007-05-27  Jon Butterworth  <jmb@hep.ucl.ac.uk>
+
+	* Fixed initialization of VetoedFinalStateProjection in ExampleTree
+
 2007-05-27  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/Rivet/Projections/KtJets.*: Make sure the KtEvent is
@@ -5,8 +9,8 @@
 
 2007-05-26  Jon Butterworth  <jmb@hep.ucl.ac.uk>
 
-	* Added leptons to the Example Tree.
-	* Added TotalVisibleEnergy projection, and added output to the example Tree.
+	* Added leptons to the ExampleTree.
+	* Added TotalVisibleEnergy projection, and added output to ExampleTree.
 
 2007-05-25  Jon Butterworth  <jmb@hep.ucl.ac.uk>
 

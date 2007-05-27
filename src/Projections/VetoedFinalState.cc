@@ -30,12 +30,16 @@ namespace Rivet {
   }
 
   void VetoedFinalState::project(const Event& e) {
+    Log log = getLog();
     const FinalState& fs = e.applyProjection(*_fsproj);
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
     const ParticleVector fsps = fs.particles();
     for (ParticleVector::const_iterator p = fsps.begin(); p != fsps.end(); ++p) {
+      log << Log::DEBUG << p->getPdgId() << " codes " << _vetoCodes.size() << endl;
+      log << Log::DEBUG <<_vetoCodes.at(0) << "," << _vetoCodes.at(1) << "," <<_vetoCodes.at(2) << "," <<_vetoCodes.at(3) << "," <<_vetoCodes.at(4) << "," <<_vetoCodes.at(5) << "," <<_vetoCodes.at(6) << "," << endl;
       if (find(_vetoCodes.begin(), _vetoCodes.end(), p->getPdgId()) == _vetoCodes.end()) {
+	log << Log::DEBUG << "stored" << endl;
         _theParticles.push_back(*p);
       }
     }

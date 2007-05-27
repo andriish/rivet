@@ -1,7 +1,8 @@
 // -*- C++ -*-
 #ifndef RIVET_VetoedFinalState_H
 #define RIVET_VetoedFinalState_H
-
+#
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Rivet.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
