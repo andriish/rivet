@@ -21,7 +21,8 @@ namespace Rivet {
     /// Default constructor. Must specify a FinalState projection which is
     //  assumed to live throughout the run.
     inline KtJets(FinalState& fsp)
-      : type_(4), angle_(3), recom_(1), rparameter_(1.0), fsproj(&fsp) 
+      : pktev_(0),type_(4), angle_(3), recom_(1), rparameter_(1.0),
+	fsproj(&fsp) 
     { 
       addProjection(fsp);
     }
@@ -29,13 +30,14 @@ namespace Rivet {
     /// Argument constructor. Allows the to be run with different parameters.
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
     inline KtJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
-      : type_(type), angle_(angle), recom_(recom), rparameter_(rparameter), fsproj(&fsp)
+      : pktev_(0), type_(type), angle_(angle), recom_(recom),
+	rparameter_(rparameter), fsproj(&fsp)
     { 
       addProjection(fsp);
     }
     
     /// Destructor.
-    inline virtual ~KtJets() { delete pktev_; };
+    inline virtual ~KtJets() { if ( pktev_ ) delete pktev_; };
     //@}
 
   public:

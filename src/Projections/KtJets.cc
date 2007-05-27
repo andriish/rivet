@@ -28,6 +28,8 @@ void KtJets::project(const Event & e) {
     KtJet::KtLorentzVector ktlv(fv.px(), fv.py(), fv.pz(), fv.e());
     vecs.push_back(ktlv);
   }
+  if ( pktev_ ) delete pktev_;
+
   pktev_ = new KtJet::KtEvent(vecs, type_, angle_, recom_, rparameter_);
 
 }
