@@ -11,7 +11,7 @@
 
 namespace Rivet {
   
-  /// Project out all final-state particles in an event.
+  /// Project out jets based on configurable kT algorithm.
   class KtJets : public Projection {
     
   public:

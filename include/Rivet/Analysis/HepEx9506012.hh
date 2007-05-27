@@ -10,7 +10,7 @@
 
 namespace Rivet {
 
-  /// This analysis simply measures the total multiplicity.
+  /// This analysis measures energy flow in DIS?
   class HepEx9506012 : public Analysis {
 
   public:

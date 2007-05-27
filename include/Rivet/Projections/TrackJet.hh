@@ -25,7 +25,7 @@ namespace Rivet {
   }
 
   
-  /// Project out all final-state particles in an event.
+  /// Project out jets of charged tracks a la CDF.
   class TrackJet : public Projection {
   public:
 
