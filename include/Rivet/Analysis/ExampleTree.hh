@@ -29,14 +29,14 @@ namespace Rivet {
       : p_chargedleptons(p_fs), p_ktjets(p_fs)
     { 
       /// Particle IDs for neutrinos and antineutrinos and LSP
-      vector<long> _invisibles; 
-      _invisibles.push_back(12);
-      _invisibles.push_back(14);
-      _invisibles.push_back(16);
-      _invisibles.push_back(-12);
-      _invisibles.push_back(-14);
-      _invisibles.push_back(-16);
-      _invisibles.push_back(1000022);
+      set<long> _invisibles; 
+      _invisibles.insert(12);
+      _invisibles.insert(14);
+      _invisibles.insert(16);
+      _invisibles.insert(-12);
+      _invisibles.insert(-14);
+      _invisibles.insert(-16);
+      _invisibles.insert(1000022);
       p_vfs = new VetoedFinalState(p_fs, _invisibles);
       p_totalvisiblemomentum = new TotalVisibleMomentum(*p_vfs);
 

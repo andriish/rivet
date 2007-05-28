@@ -19,7 +19,7 @@ namespace Rivet {
     
     /// The default constructor. Must specify a FinalState projection 
     /// object which is assumed to live through the run.
-    inline VetoedFinalState(FinalState& fsp, vector<long> vetocodes)
+    inline VetoedFinalState(FinalState& fsp, const set<long>& vetocodes)
       : _fsproj(&fsp), _vetoCodes(vetocodes)
     {
       addProjection(fsp);
@@ -46,18 +46,18 @@ namespace Rivet {
     inline const ParticleVector& particles() const { return _theParticles; }
 
     /// Get the list of particle IDs to veto.
-    inline const vector<long>& getVetoIds() const {
+    inline const set<long>& getVetoIds() const {
       return _vetoCodes;
     }
 
     /// Add a particle ID to veto.
     inline VetoedFinalState& addVetoId(const long id) {
-      _vetoCodes.push_back(id);
+      _vetoCodes.insert(id);
       return *this;
     }
 
     /// Set the list of particle IDs to veto.
-    inline VetoedFinalState& setVetoIds(const vector<long>& ids) {
+    inline VetoedFinalState& setVetoIds(const set<long>& ids) {
       _vetoCodes = ids;
       return *this;
     }
@@ -77,7 +77,7 @@ namespace Rivet {
     ParticleVector _theParticles;
 
     /// The final-state particles.
-    vector<long> _vetoCodes;
+    set<long> _vetoCodes;
 
     
   private:
