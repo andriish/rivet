@@ -13,12 +13,8 @@ namespace Rivet {
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
     const int fscmp = pcmp(*_fsproj, *other._fsproj);
     if (fscmp != 0) return fscmp;
-    if (_vetoCodes.size() != other._vetoCodes.size()) {
-      return (_vetoCodes.size() < other._vetoCodes.size()) ? -1 : +1;
-    } else {
-      if (_vetoCodes == other._vetoCodes) return 0;
-      if (_vetoCodes < other._vetoCodes) return -1; else return 1;
-    }
+    if (_vetoCodes == other._vetoCodes) return 0;
+    if (_vetoCodes < other._vetoCodes) return -1; else return 1;
   }
 
 
