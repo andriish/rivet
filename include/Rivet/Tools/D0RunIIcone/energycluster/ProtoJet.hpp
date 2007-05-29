@@ -1,5 +1,5 @@
-#ifndef PROTOJET
-#define PROTOJET
+#ifndef  D0RunIIconeJets_PROTOJET
+#define  D0RunIIconeJets_PROTOJET
 // ---------------------------------------------------------------------------
 // ProtoJet.hpp
 //
@@ -22,8 +22,9 @@
 #include "../inline_maths.h" //ls
 
 using namespace inline_maths;
+using namespace D0RunIIconeJets_CONEJETINFO;
 
-//
+
 inline float RD2(float y1,float phi1,float y2,float phi2) 
 {
   float dphi= delta_phi(phi1,phi2);

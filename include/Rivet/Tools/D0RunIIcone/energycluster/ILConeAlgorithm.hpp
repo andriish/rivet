@@ -1,5 +1,5 @@
-#ifndef ILCONEALGORITHM
-#define ILCONEALGORITHM
+#ifndef  D0RunIIconeJets_ILCONEALGORITHM
+#define  D0RunIIconeJets_ILCONEALGORITHM
 // ---------------------------------------------------------------------------
 // ILConeAlgorithm.hpp
 //
@@ -58,14 +58,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef PI
-#define PI fabs(acos(-1.))
-#endif
-
-#ifndef TWOPI
-#define TWOPI 2*PI
-#endif 
-
+using namespace inline_maths;
 
 /*
  NB: Some attempt at optimizing the code has been made by ordering the object

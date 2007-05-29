@@ -34,10 +34,10 @@ void HepEx0409040::analyze(const Event & event) {
   log << Log::INFO << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
    
   // Find vertex and check  that its z-component is < 50 cm from the nominal IP
-  const PVertex& PV = event.applyProjection(p_vertex);
+  //const PVertex& PV = event.applyProjection(p_vertex);
   /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
   /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
-  if (fabs(PV().position().z())< 500.0) {
+  //if (fabs(PV().position().z())< 500.0) {
     list<HepEntity>::iterator jetpTmax = jetpro.jets->end();
     list<HepEntity>::iterator jet2ndpTmax = jetpro.jets->end();
     log << Log::DEBUG << "jetlist size = " << jetpro.jets->size() << endl;
@@ -95,7 +95,7 @@ void HepEx0409040::analyze(const Event & event) {
       } //jets N, pT
     } //jets y (raqpidity) 
     
-  } //z-vertex
+    //} //z-vertex
   
   
   // Finished

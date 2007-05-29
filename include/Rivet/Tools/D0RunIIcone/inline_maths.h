@@ -4,15 +4,12 @@
 #include <cerrno>
 
 
-#ifndef PI
-#define PI fabs(acos(-1.))
-#endif
-
-#ifndef TWOPI
-#define TWOPI 2*PI
-#endif 
-
 namespace inline_maths {
+
+const double PI = fabs(acos(-1.));
+
+const double TWOPI = 2*PI;
+
 
 inline double sqr(double a) {
   return a*a;

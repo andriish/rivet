@@ -1,5 +1,5 @@
-#ifndef CONESPLITMERGE
-#define CONESPLITMERGE
+#ifndef  D0RunIIconeJets_CONESPLITMERGE
+#define  D0RunIIconeJets_CONESPLITMERGE
 // ---------------------------------------------------------------------------
 // ConeSplitMerge.hpp
 //
@@ -33,8 +33,9 @@
 #include <map>
 #include <utility>
 #include <vector>
-//#include "energycluster/ProtoJet.hpp"
 #include "ProtoJet.hpp"
+
+//using namespace D0RunIIconeJets_CONEJETINFO;
 
 //
 // this class is used to order ProtoJets by decreasing ET and seed ET

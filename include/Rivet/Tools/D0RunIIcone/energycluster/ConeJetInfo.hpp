@@ -1,5 +1,5 @@
-#ifndef CONEJETINFO_HPP
-#define CONEJETINFO_HPP
+#ifndef D0RunIIconeJets_CONEJETINFO_HPP
+#define D0RunIIconeJets_CONEJETINFO_HPP
 
 // --------------------------------------------------------------------------
 // ConeJetInfo.hpp
@@ -13,9 +13,12 @@
 //   + add initial jet ET (i.e. before split/merge) 
 // --------------------------------------------------------------------------
 
-#define CONEJET_SPLITMERGE_MOD 100
+//#define CONEJET_SPLITMERGE_MOD 100
 
-//class ProtoJet;
+
+namespace D0RunIIconeJets_CONEJETINFO {
+
+const int CONEJET_SPLITMERGE_MOD = 100;
 
 class ConeJetInfo
 {
@@ -37,10 +40,15 @@ public:
   void splitted() { _nb_split_merge += CONEJET_SPLITMERGE_MOD;};
   void merged() { _nb_split_merge += 1;};
 
+
 private:
   float _seedET;
   float _initial_jet_ET;  // stable cone ET before split/merge
   int _nb_split_merge;
+  
 };
+
+}
+
 #endif
 

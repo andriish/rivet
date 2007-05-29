@@ -1,5 +1,5 @@
-#ifndef HepEntity_class
-#define HepEntity_class
+#ifndef  D0RunIIconeJets_HepEntity_class
+#define  D0RunIIconeJets_HepEntity_class
 
 #include "inline_maths.h"
 
