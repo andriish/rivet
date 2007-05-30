@@ -26,9 +26,13 @@ namespace Rivet {
       : fs(-3.0, 3.0), vfs(fs, vetopids), conejets(fs, vfs), vertex(), calmet(vfs) //ls
     { 
       //veto pids: 12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
+      vetopids.insert(-12);
       vetopids.insert(12);
+      vetopids.insert(-14);
       vetopids.insert(14);
+      vetopids.insert(-16);
       vetopids.insert(16);
+      vetopids.insert(-13);
       vetopids.insert(13);
       
       setBeams(PROTON, ANTIPROTON);
