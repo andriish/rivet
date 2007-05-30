@@ -29,7 +29,7 @@ namespace Rivet {
       vetopids.insert(12);
       vetopids.insert(14);
       vetopids.insert(16);
-      //vetopids.insert(13);
+      vetopids.insert(13);
       
       setBeams(PROTON, ANTIPROTON);
       addProjection(fs);
