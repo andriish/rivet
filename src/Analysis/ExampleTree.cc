@@ -25,6 +25,7 @@ void ExampleTree::init() {
 #else
 
   _jet_pt_cut = 20;
+  _subj_pt_cut = 20;
   _lepton_pt_cut = 20;
 
   treeFileName = "rivetTree.root";
@@ -97,6 +98,7 @@ void ExampleTree::analyze(const Event & event) {
   // Get the jets in decreasing ET order.
   vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
   njet = 0;
+  nsub = 0;
   for (vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); ++j) {
     if (j->perp()>_jet_pt_cut) {
       ptjet[njet] = j->perp();
@@ -106,6 +108,20 @@ void ExampleTree::analyze(const Event & event) {
       vjet[njet][1] = j->py();
       vjet[njet][2] = j->pz();
       vjet[njet][3] = j->e();
+      if (j->perp()>_subj_pt_cut) {
+	sjet3[nsub][0] = j->px();
+	sjet3[nsub][1] = j->py();
+	sjet3[nsub][2] = j->pz();
+	sjet3[nsub][3] = j->e();
+	vector<double> ys = jets.getYSubJet(*j);
+	if (ys.size()>0) {
+	  cout << "adding " << ys.at(0) << " " << ys.size() << endl;
+	  ysubsj[nsub] = ys.at(0);
+	} else {
+	  ysubsj[nsub] = 0;
+	}
+	nsub++;
+      }
       njet++;
     }
   }

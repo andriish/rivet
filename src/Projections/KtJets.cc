@@ -6,14 +6,13 @@
 
 using namespace Rivet;
 
-/* The compare method is incomplete? */
-
 int KtJets::compare(const Projection & p) const {
   const KtJets & other = dynamic_cast<const KtJets &>(p);
   return pcmp(*fsproj, *other.fsproj) || cmp(type_, other.type_) ||
     cmp(angle_, other.angle_) || cmp(recom_, other.recom_) ||
     cmp(rparameter_, other.rparameter_);
 }
+
 
 void KtJets::project(const Event & e) {
   vector<KtJet::KtLorentzVector> vecs;
@@ -34,6 +33,23 @@ void KtJets::project(const Event & e) {
 
 }
 
-// RivetInfo KtJets::getInfo() const {
-//   return Projection::getInfo() + fsproj->getInfo();
-// }
+vector<double> KtJets::getYSubJet(const KtJet::KtLorentzVector &jet) const {
+
+  map<int,vector<double> >::iterator iter = yscales_.find(jet.getID());
+
+  if( iter == yscales_.end() ) {
+    
+    KtJet::KtEvent subj = KtJet::KtEvent(jet, angle_, recom_);
+    vector<double> yMergeVals = vector<double>();
+    for(int i=1; i<4; ++i) {
+      yMergeVals.push_back(subj.getYMerge(i));
+    }
+    yscales_.insert(make_pair( jet.getID(), yMergeVals ));
+    return yMergeVals;
+
+  } else {
+    // This was cached.
+    return iter->second;
+
+  }
+}

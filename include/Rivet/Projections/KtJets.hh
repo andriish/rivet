@@ -45,7 +45,7 @@ namespace Rivet {
     inline string getName() const {
       return "KtJets";
     }
-
+    
   protected:   
 
     /// Perform the projection on the Event.
@@ -75,22 +75,22 @@ namespace Rivet {
     inline vector<KtJet::KtLorentzVector> getJetsEta() const { return pktev_->getJetsEta(); }
     //@}
 
-//     /// Return the RivetInfo object of this Projection.
-//     virtual RivetInfo getInfo() const;
+    /// Get the subjet splitting variables for the given jet.
+    vector<double> getYSubJet(const KtJet::KtLorentzVector &jet) const; 
 
   private:
     
     /// Internal KtEvent, rebuilt every time an event is projected, but not otherwise.
     KtJet::KtEvent* pktev_;
 
-    // Vector of all
-    //vector<KtJet::KtLorentzVector> vecs_;
-
     int type_, angle_, recom_;
     double rparameter_;  // had trouble building with Ktfloat, used double instead
 
     /// The FinalState projection used by this projection.
     FinalState* fsproj;
+
+    /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
+    mutable map<int,vector<double> > yscales_;
 
   private:
     

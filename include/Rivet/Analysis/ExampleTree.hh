@@ -138,10 +138,16 @@ namespace Rivet {
     /// Hide the assignment operator
     ExampleTree & operator=(const ExampleTree& x);
 
-    // Minimum pt of jets which will go into the tree.
+
+  public:
+
+    /// Minimum pt of jets which will go into the tree.
     int _jet_pt_cut;
 
-    // Minimum pt of charged leptons which will go into the tree.
+    /// Minimum pt of jets which will have y evaluated and stored.
+    int _subj_pt_cut;
+
+    /// Minimum pt of charged leptons which will go into the tree.
     int _lepton_pt_cut;
 
   };
