@@ -16,7 +16,9 @@ using namespace Rivet;
 
 int D0RunIIconeJets::compare(const Projection & p) const {
   const D0RunIIconeJets & other = dynamic_cast<const D0RunIIconeJets &>(p);
-  return pcmp(*fsproj, *other.fsproj) || cmp(cone_radius, other.cone_radius) ||
+  return pcmp(*fsproj, *other.fsproj) 
+    || pcmp(*vfsproj, *other.vfsproj)
+    || cmp(cone_radius, other.cone_radius) ||
     cmp(min_jet_Et, other.min_jet_Et) || cmp(split_ratio, other.split_ratio);
 }
 
@@ -26,10 +28,13 @@ void D0RunIIconeJets::project(const Event & e) {
 
   // Project into final state
   const FinalState& fs = e.applyProjection(*fsproj);
-  
+  const VetoedFinalState& vfs = e.applyProjection(*vfsproj); //ls
+   
+
   //double SET=0.;
   // Store 4 vector data about each particle into list
-  for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+  //for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+  for (ParticleVector::const_iterator p = vfs.particles().begin(); p != vfs.particles().end(); ++p) { //ls
     //LorentzVector fv = p->getMomentum();
     HepMC::FourVector fv = p->getMomentum();
     // store the FourVector in the KtLorentzVector form

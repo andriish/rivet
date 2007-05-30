@@ -8,7 +8,11 @@
 #include "Rivet/Projections/CalMET.hh"
 #include "Rivet/RivetAIDA.fhh"
 
+//#include "Rivet/Projections/VetoedFinalState.hh"
+
 namespace Rivet {
+
+  
 
   /// Analysis based on the D0 Run II jet analysis described in hep-ex/0409040.
   /// @author Lars Sonnenschein
@@ -18,13 +22,21 @@ namespace Rivet {
 
     /// Default constructor.
     inline HepEx0409040()
-      : fs(-3.0, 3.0), conejets(fs), p_vertex(), p_calmet(fs)
+      //: fs(-3.0, 3.0), conejets(fs), vertex(), calmet(fs)
+      : fs(-3.0, 3.0), vfs(fs, vetopids), conejets(fs, vfs), vertex(), calmet(vfs) //ls
     { 
+      //veto pids: 12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
+      vetopids.insert(12);
+      vetopids.insert(14);
+      vetopids.insert(16);
+      //vetopids.insert(13);
+      
       setBeams(PROTON, ANTIPROTON);
       addProjection(fs);
+      ////addProjection(vfs); //ls
       addProjection(conejets);
-      addProjection(p_vertex);
-      addProjection(p_calmet);
+      addProjection(vertex);
+      addProjection(calmet);
     }
 
 
@@ -46,14 +58,23 @@ namespace Rivet {
     /// The final state projector used by this analysis.
     FinalState fs;
 
+    ///The veto against final state particles
+    set<long> vetopids; //12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
+
+    ///The vetoed final state projector needed by the jet algorithm
+    //VetoedFinalState vfs(FinalState fs, set<long> vetopids); //ls
+    VetoedFinalState vfs; //ls
+
+
+
     /// The D0RunIIconeJets projector used by this analysis.
     D0RunIIconeJets conejets;
 
     /// The Primary Vertex projector
-    PVertex p_vertex;
+    PVertex vertex;
 
     /// The Calorimeter Missing Et projector
-    CalMET p_calmet;
+    CalMET calmet;
 
     /// Hide the assignment operator
     HepEx0409040 & operator=(const HepEx0409040& x);

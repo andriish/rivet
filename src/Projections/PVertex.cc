@@ -30,7 +30,8 @@ void PVertex::project(const Event& e) {
   cout << "tempGenEvent assigned" << endl;
   */
 
-  HepMC::GenEvent genevt = e.genEvent();
+  //HepMC::GenEvent genevt = e.genEvent();
+  const HepMC::GenEvent & genevt = e.genEvent();
 
   /*
   cout << "tempGenEvent.signal_process_id()=" << tempGenEvent.signal_process_id() << endl;
@@ -103,8 +104,9 @@ void PVertex::project(const Event& e) {
 	 && vit != genevt.vertices_end(); 
        ++vit) {
     cout << "vit: size=" << GenVertex(**vit).particles_in_size() << endl;
-}
+    }
   */
+
   thePVertex = GenVertex(**vit);
 
 

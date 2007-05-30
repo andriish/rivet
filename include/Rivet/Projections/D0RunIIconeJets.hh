@@ -6,6 +6,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 
 #include "Rivet/Tools/D0RunIIcone/HepEntity.h"
 #include "Rivet/Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp"
@@ -21,12 +22,15 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// Default constructor. Must specify a FinalState projection which is
-    //  assumed to live throughout the run.
-    inline D0RunIIconeJets(FinalState& fsp)
-      : cone_radius(0.7), min_jet_Et(0.), split_ratio(0.5), fsproj(&fsp) 
+    //  assumed to live throughout the run.    
+    //inline D0RunIIconeJets(FinalState& fsp)
+    inline D0RunIIconeJets(FinalState& fsp, VetoedFinalState& vfsp) //ls
+      //: cone_radius(0.7), min_jet_Et(0.), split_ratio(0.5), fsproj(&fsp) 
+      : cone_radius(0.7), min_jet_Et(0.), split_ratio(0.5), fsproj(&fsp), vfsproj(&vfsp) //ls
     { 
       addProjection(fsp);
-
+      addProjection(vfsp); //ls
+    
       // The parameters are supposed to be set as used by D0 in RunII
       far_ratio = 0.5;
       Et_min_ratio = 0.5;
@@ -51,8 +55,10 @@ namespace Rivet {
     // Added so that same projection can be ran but with different parameters.
     // Must specify a FinalState projection which is
     // assumed to live throughout the run. 
-    inline D0RunIIconeJets(FinalState& fsp, float R, float Etmin, float split)
-      : cone_radius(R), min_jet_Et(Etmin), split_ratio(split), fsproj(&fsp)
+    //inline D0RunIIconeJets(FinalState& fsp, float R, float Etmin, float split)
+    inline D0RunIIconeJets(FinalState& fsp, VetoedFinalState& vfsp, float R, float Etmin, float split) //ls
+      //: cone_radius(R), min_jet_Et(Etmin), split_ratio(split), fsproj(&fsp)
+      : cone_radius(R), min_jet_Et(Etmin), split_ratio(split), fsproj(&fsp), vfsproj(&vfsp) //ls
     { 
       algo = new ILConeAlgorithm<HepEntity>(cone_radius, min_jet_Et, split_ratio,
 					      far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
@@ -65,7 +71,8 @@ namespace Rivet {
     /// Copy constructor.
     inline D0RunIIconeJets(const D0RunIIconeJets& x)
       : Projection(x), cone_radius(x.cone_radius), min_jet_Et(x.min_jet_Et), 
-	split_ratio(x.split_ratio), fsproj(x.fsproj)
+	////split_ratio(x.split_ratio), fsproj(x.fsproj)
+	split_ratio(x.split_ratio), fsproj(x.fsproj), vfsproj(x.vfsproj) //ls
     { 
       algo = new ILConeAlgorithm<HepEntity>(cone_radius, min_jet_Et, split_ratio,
 	     far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
@@ -167,6 +174,7 @@ namespace Rivet {
 
     /// The FinalState projection used by this projection.
     FinalState * fsproj;
+    VetoedFinalState * vfsproj;
 
     ILConeAlgorithm<HepEntity> * algo;
 
