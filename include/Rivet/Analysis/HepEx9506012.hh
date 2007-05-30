@@ -29,6 +29,8 @@ namespace Rivet {
       addProjection(diskin);
       addProjection(fsproj);
       addProjection(y1hcm);
+      addCut("x", MORE_EQ, xmin);
+      addCut("x", LESS_EQ, xmax);
     }
 
   public:

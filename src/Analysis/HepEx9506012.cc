@@ -8,7 +8,6 @@ using namespace std;
 using namespace CLHEP;
 
 
-/// @todo Declare via Cuts mechanism?
 const double HepEx9506012::xmin = -6.0;
 const double HepEx9506012::xmax = 6.0;
 
@@ -17,15 +16,15 @@ void HepEx9506012::init() {
   hEtFlow = vector<AIDA::IHistogram1D *>(nbin);
   hEtFlowStat = vector<AIDA::IHistogram1D *>(nbin);
   nev = vector<double>(nbin);
-  for ( int i = 0; i < nbin; ++i ) {
+  for (int i = 0; i < nbin; ++i) {
     string I(1, char('1' + i));
     hEtFlow[i] = bookHistogram1D(I, "dEt/d[c] CMS bin=" + I, nb, xmin, xmax);
     hEtFlowStat[i] = bookHistogram1D(I, "stat dEt/d[c] CMS bin=1" + I, nb, xmin, xmax);
   }
   hAvEt = bookHistogram1D("21tmp", "<Et> vs kin. bin", nbin, 1.0, 10.0);
-  hAvX = bookHistogram1D("22tmp", "<x>  vs kin. bin", nbin, 1.0, 10.0);
+  hAvX  = bookHistogram1D("22tmp", "<x>  vs kin. bin", nbin, 1.0, 10.0);
   hAvQ2 = bookHistogram1D("23tmp", "<Q2> vs kin. bin", nbin, 1.0, 10.0);
-  hN = bookHistogram1D("24", "# events vs kin. bin", nbin, 1.0, 10.0);
+  hN    = bookHistogram1D("24", "# events vs kin. bin", nbin, 1.0, 10.0);
 }
 
 
@@ -75,11 +74,12 @@ void HepEx9506012::analyze(const Event & event) {
     hEtFlowStat[ibin]->fill(rap, et*event.weight()/GeV);
   }
   
-  nev[ibin] += event.weight();  
-  hAvEt->fill(ibin + 1.5, y1.sumEt()*event.weight()/GeV);
-  hAvX->fill(ibin + 1.5, dk.x()*event.weight());
-  hAvQ2->fill(ibin + 1.5, dk.Q2()*event.weight()/(GeV*GeV));
-  hN->fill(ibin + 1.5, event.weight());
+  const double weight = event.weight();
+  nev[ibin] += weight;
+  hAvEt->fill(ibin + 1.5, y1.sumEt()*weight/GeV);
+  hAvX->fill(ibin + 1.5, dk.x()*weight);
+  hAvQ2->fill(ibin + 1.5, dk.Q2()*weight/(GeV*GeV));
+  hN->fill(ibin + 1.5, weight);
 }
 
 
