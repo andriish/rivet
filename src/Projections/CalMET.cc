@@ -33,7 +33,10 @@ void CalMET::project(const Event & e) {
     if (abs(fs.particles()[i].getPdgId()) != 12 && //no nu_e
 	abs(fs.particles()[i].getPdgId()) != 14 && //no nu_mu
 	abs(fs.particles()[i].getPdgId()) != 16 && //no nu_tau
-	(abs(fs.particles()[i].getPdgId()) != 13 || _addMuons) //no mu
+	(abs(fs.particles()[i].getPdgId()) != 13 || _addMuons
+	 || ( abs(fs.particles()[i].getPdgId()) == 13 && 
+	      sqrt(fs.particles()[i].getMomentum().px()*fs.particles()[i].getMomentum().px()+
+		   fs.particles()[i].getMomentum().py()*fs.particles()[i].getMomentum().py())<1.0 ) ) //no mu (<1GeV pT mu's don't make it beyond the calorimeter)
 	&& fabs(fs.particles()[i].getMomentum().eta()) < _etaMax )
       _metx -= fs.particles()[i].getMomentum().px();
       _mety -= fs.particles()[i].getMomentum().py();

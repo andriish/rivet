@@ -38,7 +38,9 @@ namespace Rivet {
       if (_vetoCodes.find(pdgid) == _vetoCodes.end()) {
         log << Log::DEBUG << "Storing with PDG code " << pdgid << endl;
         _theParticles.push_back(*p);
+	//cout << "VetoedFinalState.cc: Particle (pdgid=" << pdgid << " accepted, _vetoCodes.size()=" << _vetoCodes.size() << "   eta=" << p->getMomentum().eta()  << endl;
       }
+      //else {cout << "VetoedFinalState.cc: p->getPdgId()=" << pdgid << ": particle skipped!" << endl; }
     }
   }
 

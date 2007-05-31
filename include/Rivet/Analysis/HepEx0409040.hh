@@ -23,9 +23,11 @@ namespace Rivet {
     /// Default constructor.
     inline HepEx0409040()
       //: fs(-3.0, 3.0), conejets(fs), vertex(), calmet(fs)
-      : fs(-3.0, 3.0), vfs(fs, vetopids), conejets(fs, vfs), vertex(), calmet(vfs) //ls
+      //: fs(-3.0, 3.0), vfs(fs, vetopids), conejets(fs, vfs), vertex(), calmet(vfs) //ls
+      : fs(-3.0, 3.0), vertex(), calmet(fs) //ls
     { 
       //veto pids: 12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
+      /*
       vetopids.insert(-12);
       vetopids.insert(12);
       vetopids.insert(-14);
@@ -34,14 +36,23 @@ namespace Rivet {
       vetopids.insert(16);
       vetopids.insert(-13);
       vetopids.insert(13);
-      
+      */
+
       setBeams(PROTON, ANTIPROTON);
       addProjection(fs);
-      ////addProjection(vfs); //ls
-      addProjection(conejets);
       addProjection(vertex);
+
+      vfs = new VetoedFinalState(fs, vetopids);
+      addProjection(*vfs); //ls
+
+      conejets = new D0RunIIconeJets(*vfs);
+      addProjection(*conejets);
+
+      //calmet = new CalMET(fs);
       addProjection(calmet);
-    }
+ 
+
+   }
 
 
     /// The name of this analysis is "HepEx0409040"
@@ -67,12 +78,12 @@ namespace Rivet {
 
     ///The vetoed final state projector needed by the jet algorithm
     //VetoedFinalState vfs(FinalState fs, set<long> vetopids); //ls
-    VetoedFinalState vfs; //ls
+    VetoedFinalState* vfs; //ls
 
 
 
     /// The D0RunIIconeJets projector used by this analysis.
-    D0RunIIconeJets conejets;
+    D0RunIIconeJets* conejets;
 
     /// The Primary Vertex projector
     PVertex vertex;

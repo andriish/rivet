@@ -30,7 +30,7 @@ void HepEx0409040::analyze(const Event & event) {
   log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info  
-  const D0RunIIconeJets& jetpro = event.applyProjection(conejets);
+  const D0RunIIconeJets& jetpro = event.applyProjection(*conejets);
   log << Log::INFO << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
    
   // Find vertex and check  that its z-component is < 50 cm from the nominal IP

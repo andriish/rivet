@@ -16,8 +16,8 @@ using namespace Rivet;
 
 int D0RunIIconeJets::compare(const Projection & p) const {
   const D0RunIIconeJets & other = dynamic_cast<const D0RunIIconeJets &>(p);
-  return pcmp(*fsproj, *other.fsproj) 
-    || pcmp(*vfsproj, *other.vfsproj)
+  return //pcmp(*fsproj, *other.fsproj) || 
+    pcmp(*vfsproj, *other.vfsproj)
     || cmp(cone_radius, other.cone_radius) ||
     cmp(min_jet_Et, other.min_jet_Et) || cmp(split_ratio, other.split_ratio);
 }
@@ -27,7 +27,7 @@ void D0RunIIconeJets::project(const Event & e) {
   particlelist = new std::list<const HepEntity*>; //privately declared
 
   // Project into final state
-  const FinalState& fs = e.applyProjection(*fsproj);
+  //const FinalState& fs = e.applyProjection(*fsproj);
   const VetoedFinalState& vfs = e.applyProjection(*vfsproj); //ls
    
 
