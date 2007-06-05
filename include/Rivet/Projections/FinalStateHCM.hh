@@ -12,7 +12,7 @@ namespace Rivet {
 
   /// Project all final state particles (except the scattered lepton)
   /// boosted to the hadronic center of mass system.
-  class FinalStateHCM: public Projection {
+  class FinalStateHCM: public FinalState {
 
   public:
     

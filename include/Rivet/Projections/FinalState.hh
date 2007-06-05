@@ -64,7 +64,7 @@ namespace Rivet {
   private:
     
     /// Hide the assignment operator.
-    FinalState & operator=(const FinalState &);
+    FinalState& operator=(const FinalState &);
     
   };
   
