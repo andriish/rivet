@@ -1,3 +1,8 @@
+2007-06-06  Jon Butterworth  <jmb@hep.ucl.ac.uk>
+
+	* Merged TotalVisibleMomentum and CalMET
+	* Added pT ranges to Vetoed final state projection
+
 2007-05-27  Jon Butterworth  <jmb@hep.ucl.ac.uk>
 
 	* Fixed initialization of VetoedFinalStateProjection in ExampleTree

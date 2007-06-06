@@ -3,7 +3,6 @@ noinst_LTLIBRARIES = libRivetProjections.la
 libRivetProjections_la_SOURCES  = \
   Projection.cc \
   Beam.cc \
-  CalMET.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc  \
   DISLepton.cc \
@@ -19,6 +18,7 @@ libRivetProjections_la_SOURCES  = \
   Thrust.cc \
   TotalVisibleMomentum.cc \
   TrackJet.cc \
-  VetoedFinalState.cc
+  VetoedFinalState.cc \
+  WZandh.cc
 
 libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)

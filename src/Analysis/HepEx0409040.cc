@@ -31,7 +31,7 @@ void HepEx0409040::analyze(const Event & event) {
 
   // Analyse and print some info  
   const D0RunIIconeJets& jetpro = event.applyProjection(*conejets);
-  log << Log::INFO << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
+  log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
    
   // Find vertex and check  that its z-component is < 50 cm from the nominal IP
   const PVertex& PV = event.applyProjection(vertex);
@@ -55,30 +55,20 @@ void HepEx0409040::analyze(const Event & event) {
       }
     }
     
-    //if (Njet>=2) {
-    //log << Log::INFO << "Jet multiplicity after pT>40GeV cut = " << Njet << endl; //ls
-    //cout << "Jet multiplicity after pT>40GeV cut = " << Njet << endl; //ls
-    //}
-
-    /*
-    if (jetpro.jets->size()>=2) {
-      cout << "1st jet: E=" << jetpTmax->E << "  pz=" << jetpTmax->pz << " pt=" << jetpTmax->pT() << endl;
-      cout << "2nd jet E=" << jet2ndpTmax->E << "  pz=" << jet2ndpTmax->pz << " pt=" << jet2ndpTmax->pT() << endl;
-      //cout << "1st jet: pT=" << jetpTmax->pT() << "  y=" << jetpTmax->y() 
-      //   << "  2nd jet pT=" << jet2ndpTmax->pT() << "  y=" << jetpTmax->y() << endl;
+    if (Njet>=2) {
+      log << Log::DEBUG << "Jet multiplicity after pT>40GeV cut = " << Njet << endl; 
     }
-    */
 
     if (jetpro.jets->size()>=2 && jet2ndpTmax->pT() > 40.) {
       if (fabs(jetpTmax->y())<0.5 && fabs(jet2ndpTmax->y())<0.5) {
         log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
         /// @todo Declare this eta cut via Analysis::addCut()?
-        double etaMax = 3.0; //D0 calorimeter boundary
-        bool addMuons = false; //Muons pass calorimeter almost without energy loss
-        calmet.initialize(etaMax, addMuons);
-        const CalMET& CaloMissEt = event.applyProjection(calmet);
-        log << Log::DEBUG << "CaloMissEt.MET() = " << CaloMissEt.MET() << endl;
-        if (CaloMissEt.MET() < 0.7*jetpTmax->pT()) {
+        //double etaMax = 3.0; //D0 calorimeter boundary
+        //bool addMuons = false; //Muons pass calorimeter almost without energy loss
+        //calmet.initialize(etaMax, addMuons);
+        const TotalVisibleMomentum& CaloMissEt = event.applyProjection(*calmet);
+        log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << CaloMissEt.getMomentum().perp() << endl;
+        if (CaloMissEt.getMomentum().perp() < 0.7*jetpTmax->pT()) {
 	  
           double dphi = delta_phi(jetpTmax->phi(), jet2ndpTmax->phi());
           

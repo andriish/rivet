@@ -43,7 +43,6 @@ void ExampleTree::init() {
   rivetTree->Branch("nw",&nw,"nw/I");
   rivetTree->Branch("wtype",&wtype,"wtype[nw][2]/I");
   rivetTree->Branch("wvec",&wvec,"wtype[nw][4]/F");
-  rivetTree->Branch("hvec",&hvec,"hvec[4]/F");
 
   rivetTree->Branch("njet",&njet,"njet/I");
   rivetTree->Branch("ptjet",&ptjet,"ptjet[njet]/F");
@@ -115,7 +114,6 @@ void ExampleTree::analyze(const Event & event) {
 	sjet3[nsub][3] = j->e();
 	vector<double> ys = jets.getYSubJet(*j);
 	if (ys.size()>0) {
-	  cout << "adding " << ys.at(0) << " " << ys.size() << endl;
 	  ysubsj[nsub] = ys.at(0);
 	} else {
 	  ysubsj[nsub] = 0;

@@ -5,7 +5,7 @@
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/D0RunIIconeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/CalMET.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/RivetAIDA.fhh"
 
 //#include "Rivet/Projections/VetoedFinalState.hh"
@@ -22,35 +22,31 @@ namespace Rivet {
 
     /// Default constructor.
     inline HepEx0409040()
-      //: fs(-3.0, 3.0), conejets(fs), vertex(), calmet(fs)
-      //: fs(-3.0, 3.0), vfs(fs, vetopids), conejets(fs, vfs), vertex(), calmet(vfs) //ls
-      : fs(-3.0, 3.0), vertex(), calmet(fs) //ls
+      : fs(-3.0, 3.0), vertex()
     { 
-      //veto pids: 12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
-      /*
-      vetopids.insert(-12);
-      vetopids.insert(12);
-      vetopids.insert(-14);
-      vetopids.insert(14);
-      vetopids.insert(-16);
-      vetopids.insert(16);
-      vetopids.insert(-13);
-      vetopids.insert(13);
-      */
 
       setBeams(PROTON, ANTIPROTON);
       addProjection(fs);
       addProjection(vertex);
 
-      vfs = new VetoedFinalState(fs, vetopids);
+      vfs = new VetoedFinalState(fs);
+      vfs->addVetoId(12);
+      vfs->addVetoId(14);
+      vfs->addVetoId(16);
+      vfs->addVetoId(-12);
+      vfs->addVetoId(-14);
+      vfs->addVetoId(-16);
+      vfs->addVetoId(13,1.0,100000.0);  // veto muons with pt above 1.0 GeV
+
       addProjection(*vfs); //ls
 
-      conejets = new D0RunIIconeJets(*vfs);
+      // Put all particles into the jet finder.
+      conejets = new D0RunIIconeJets(fs);
       addProjection(*conejets);
 
-      //calmet = new CalMET(fs);
-      addProjection(calmet);
- 
+      // Don't put neutrinos or low pT muons into the cal missing ET.
+      calmet = new TotalVisibleMomentum(*vfs);
+      addProjection(*calmet);
 
    }
 
@@ -74,13 +70,10 @@ namespace Rivet {
     FinalState fs;
 
     ///The veto against final state particles
-    set<long> vetopids; //12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
+    //map<long,double*> vetopids; //12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
 
     ///The vetoed final state projector needed by the jet algorithm
-    //VetoedFinalState vfs(FinalState fs, set<long> vetopids); //ls
-    VetoedFinalState* vfs; //ls
-
-
+    VetoedFinalState* vfs; 
 
     /// The D0RunIIconeJets projector used by this analysis.
     D0RunIIconeJets* conejets;
@@ -89,7 +82,7 @@ namespace Rivet {
     PVertex vertex;
 
     /// The Calorimeter Missing Et projector
-    CalMET calmet;
+    TotalVisibleMomentum* calmet;
 
     /// Hide the assignment operator
     HepEx0409040 & operator=(const HepEx0409040& x);

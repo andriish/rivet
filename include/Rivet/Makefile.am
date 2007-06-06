@@ -29,7 +29,6 @@ nobase_pkginclude_HEADERS += \
   Projections/ChargedLeptons.hh \
   Projections/Cmp.hh           Projections/Cmp.fhh         \
   Projections/Beam.hh          \
-  Projections/CalMET.hh        \
   Projections/CentralEtHCM.hh  \
   Projections/DISKinematics.hh \
   Projections/DISLepton.hh     \
@@ -44,7 +43,8 @@ nobase_pkginclude_HEADERS += \
   Projections/Thrust.hh        \
   Projections/TotalVisibleMomentum.hh \
   Projections/TrackJet.hh      \
-  Projections/VetoedFinalState.hh
+  Projections/VetoedFinalState.hh \
+  Projections/WZandh.hh
 
 
 ## Tools

@@ -28,22 +28,34 @@ namespace Rivet {
       if (log.isActive(Log::DEBUG)) {
         stringstream codes; 
         codes << "{";
-        for (set<long>::const_iterator code = _vetoCodes.begin(); 
-             code != _vetoCodes.end(); ++code) codes << " " << *code;
+        for (map<long,vector<double> >::const_iterator code = _vetoCodes.begin(); 
+             code != _vetoCodes.end(); ++code) {
+	  codes << " " << code->first;
+	}
         codes << " }";
         log << Log::DEBUG << p->getPdgId() << " vs. veto codes = " 
             << codes.str() << " (" << _vetoCodes.size() << ")" << endl;
       }
       const long pdgid = p->getPdgId();
-      if (_vetoCodes.find(pdgid) == _vetoCodes.end()) {
-        log << Log::DEBUG << "Storing with PDG code " << pdgid << endl;
-        _theParticles.push_back(*p);
-        //cout << "VetoedFinalState.cc: Particle (pdgid=" << pdgid << " accepted, _vetoCodes.size()=" << 
-        //_vetoCodes.size() << "   eta=" << p->getMomentum().eta()  << endl;
+      map<long,vector<double> >::iterator iter = _vetoCodes.find(pdgid);
+      if ( (iter == _vetoCodes.end())) {
+	log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " << p->getMomentum().perp() << endl;
+	_theParticles.push_back(*p);
+      } else {
+	vector<double> range = iter->second;
+	double pt = p->getMomentum().perp();
+	if (range.size()>1) log << Log::DEBUG << "ID " << pdgid << " pt range " << range.at(0) << "," << range.at(1) << endl;
+	if ( range.size()>1 &&
+	     (pt < range.at(0) || (pt>range.at(1) && range.at(1)>0.0))) {
+	  log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " << p->getMomentum().perp() << endl;
+	  _theParticles.push_back(*p);
+	} else {
+	  log << Log::DEBUG << "Vetoed with PDG code " << pdgid << " pt " << p->getMomentum().perp()<< endl;
+	}
       }
-      //else {cout << "VetoedFinalState.cc: p->getPdgId()=" << pdgid << ": particle skipped!" << endl; }
     }
-  }
-
+  } 
 
 }
+
+

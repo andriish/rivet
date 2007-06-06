@@ -8,7 +8,7 @@
 
 namespace Rivet {
 
-  /// Project out the beams in a HepMC::GenEvent.
+  /// Project out the incoming beams
   class Beam : public Projection {
 
   public:
