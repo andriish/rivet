@@ -9,7 +9,7 @@
 namespace Rivet {
   
   
-  /// @todo This is wrong: This class is used to project out the beams in a HepMC::GenEvent.
+  /// Returns the primary vertex of an event
   class PVertex: public Projection {
 
   public:
