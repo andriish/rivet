@@ -1198,7 +1198,7 @@ int TiXmlAttribute::QueryIntValue( int* ival ) const
 
 int TiXmlAttribute::QueryDoubleValue( double* dval ) const
 {
-	if ( sscanf( value.c_str(), "%lf", dval ) == 1 )
+	if ( sscanf( value.c_str(), "%f", dval ) == 1 )
 		return TIXML_SUCCESS;
 	return TIXML_WRONG_TYPE;
 }
@@ -1218,9 +1218,9 @@ void TiXmlAttribute::SetDoubleValue( double _value )
 {
 	char buf [256];
 	#if defined(TIXML_SNPRINTF)		
-		TIXML_SNPRINTF( buf, sizeof(buf), "%lf", _value);
+		TIXML_SNPRINTF( buf, sizeof(buf), "%f", _value);
 	#else
-		sprintf (buf, "%lf", _value);
+		sprintf (buf, "%f", _value);
 	#endif
 	SetValue (buf);
 }
