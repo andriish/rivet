@@ -80,7 +80,7 @@ public:
    * The pair of beam particles in the current collision in GenEvent 
    */
   inline const GenVertex & operator()() const {
-   return thePVertex;
+   return *thePVertex;
   }
 
 private:
@@ -88,7 +88,7 @@ private:
   /**
    * The Primary Vertex in the current collision in GenEvent 
    */
-  GenVertex thePVertex;
+  GenVertex  * thePVertex;
 
 private:
 
