@@ -92,7 +92,7 @@ void ExampleTree::analyze(const Event & event) {
   const TotalVisibleMomentum& tvm = event.applyProjection(*p_totalvisiblemomentum);
 
   // Vector bosons.
-
+  const WZandh& wzh = event.applyProjection(*p_wzandh);
 
   // Get the jets in decreasing ET order.
   vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();

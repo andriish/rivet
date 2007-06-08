@@ -6,6 +6,7 @@
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/KtJets.hh"
+#include "Rivet/Projections/WZandh.hh"
 #include "Rivet/RivetAIDA.fhh"
 
 // Root stuff
@@ -26,7 +27,7 @@ namespace Rivet {
 
     /// Default constructor
     inline ExampleTree()
-      : p_fs(-4.0, 4.0, 0.0), p_chargedleptons(p_fs), p_ktjets(p_fs)
+      : p_fs(-4.0, 4.0, 0.0), p_chargedleptons(p_fs), p_ktjets(p_fs), p_wzandh()
     { 
       /// Particle IDs for neutrinos and antineutrinos and LSP
       p_vfs = new VetoedFinalState(p_fs);
@@ -44,6 +45,7 @@ namespace Rivet {
       addProjection(p_ktjets);
       addProjection(*p_vfs);
       addProjection(*p_totalvisiblemomentum);
+      addProjection(p_wzandh);
     }
 
     inline ~ExampleTree() {
@@ -80,7 +82,8 @@ namespace Rivet {
     /// The jet projector
     KtJets p_ktjets;
 
-    /// The list of IDs of invisible particles
+    /// The vector boson projector
+    WZandh p_wzandh;
 
     /// The VetoedFinalState projector used by this analysis.
     VetoedFinalState* p_vfs;
