@@ -2,11 +2,10 @@
 
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "CLHEP/Matrix/Matrix.h"
 #include "CLHEP/Matrix/SymMatrix.h"
-
-//#include <Matrix.h>
 
 using namespace Rivet;
 using namespace std;
@@ -34,25 +33,28 @@ int Sphericity::compare(const Projection& p) const {
 
 
 void Sphericity::project(const Event & e) {
+  Log& log = getLog();
+
   // Reset parameters
   _sphericity = 0;  
   _planarity = 7;
   _aplanarity = 0;
-  for (size_t i =0 ; i < 3; ++i) 
+  for (size_t i =0 ; i < 3; ++i) {
     _lambdas[i] = 0;
+  }
 
   // Apply projection to event
   const FinalState& fs = e.applyProjection(*_fsproj);
  
   CLHEP::HepMatrix mMom(3,3,0);
   double totalMomentum = 0.0;
-
+  
   // Iterate over all the final state particles
   for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-  
+    
     // Get the momentum vector for the final state particle
     LorentzVector lv = p->getMomentum();
- 
+    
     // Build the normalising factor
     if (fabs(_regparam - 2.0) > 1e-3) {
       totalMomentum += pow(_regparam, lv.x());
@@ -63,7 +65,7 @@ void Sphericity::project(const Event & e) {
       totalMomentum += lv.y() * lv.y(); 
       totalMomentum += lv.z() * lv.z();
     }
-
+    
     // For now this crude method works
     double power = _regparam - 2.0;
     if (fabs(power) > 1e-3) {
@@ -94,14 +96,14 @@ void Sphericity::project(const Event & e) {
   // Check that the matrix is symmetric and if it is convert it,
   // diagonlize it, and rearrange the eigenvalues into the correct
   // order. Return the event shapes
-  if   (mMom[0][1] == mMom[1][0]
-    &&  mMom[0][2] == mMom[2][0]
-    &&  mMom[1][2] == mMom[2][1]) {
+  if (mMom[0][1] == mMom[1][0] && 
+      mMom[0][2] == mMom[2][0] &&  
+      mMom[1][2] == mMom[2][1]) {
     CLHEP::HepSymMatrix symMat;
     symMat.assign(mMom);
     CLHEP::diagonalize(&symMat);
-    //cout << mMom << endl << endl;
-    //cout << symMat << endl << endl;
+    log << Log::DEBUG << mMom << endl;
+    log << Log::DEBUG << endl;
 
     // Put the eigenvalues in the correct order
     for (int i=0; i!=3; ++i){
@@ -110,13 +112,13 @@ void Sphericity::project(const Event & e) {
     const int N = sizeof(_lambdas) / sizeof(double);
     sort(_lambdas, _lambdas + N); 
     reverse(_lambdas, _lambdas + N); 
-    //cout << "sum of lambdas =  " << lambdaOne + lambdaTwo + lambdaThree << endl;
+    log << Log::DEBUG << "Sum of lambdas = " << lambda1() + lambda2() + lambda3() << endl;
     
-    _sphericity = 3 / 2.0 * (lambda2() + lambda3()); 
+    _sphericity = 3 / 2.0 * (lambda2() + lambda3());
     _aplanarity = 3 / 2.0 *  lambda3();
     _planarity  = 2 * (_sphericity - 2 * _aplanarity) / 3.0; 
-  } else { 
-    cerr << "Error: momentum tensor not symmetric" << endl; 
+  } else {
+    log << Log::ERROR << "Error: momentum tensor not symmetric" << endl;
   }
 
 }

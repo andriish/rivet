@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #ifndef RIVET_D0RunIIconeJets_HH
 #define RIVET_D0RunIIconeJets_HH
-// Declaration of the D0RunIIconeJets class.
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/Projection.hh"
@@ -14,7 +13,7 @@
 
 namespace Rivet {
   
-  /// Find jets according to a D0 cone algorithm.
+  /// Find jets according to the D0 "improved legacy" cone algorithm.
   class D0RunIIconeJets : public Projection {
     
   public:
@@ -22,12 +21,12 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// Default constructor. Must specify a FinalState projection which is
-    //  assumed to live throughout the run.    
+    ///  assumed to live throughout the run.    
     inline D0RunIIconeJets(FinalState& fsp)
       : cone_radius(0.7), min_jet_Et(0.), split_ratio(0.5), fsproj(&fsp) //ls
     { 
       addProjection(fsp);
-    
+      
       // The parameters are supposed to be set as used by D0 in RunII
       far_ratio = 0.5;
       Et_min_ratio = 0.5;
@@ -40,47 +39,54 @@ namespace Rivet {
       merge_max = 10000;
       pT_min_nomerge = 0.0;
       
+      /// @todo Why not use the stack?
       algo = new ILConeAlgorithm<HepEntity>(cone_radius, min_jet_Et, split_ratio,
-		      far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
-		      duplicate_dPT, search_factor, pT_min_leading_protojet, 
-		      pT_min_second_protojet, merge_max, pT_min_nomerge);
-      
-      jets = new std::list<HepEntity>;
+                                            far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
+                                            duplicate_dPT, search_factor, pT_min_leading_protojet, 
+                                            pT_min_second_protojet, merge_max, pT_min_nomerge);
+      /// @todo Why not use the stack?
+      jets = new list<HepEntity>;
     }
 
+    
     /// Argument constructor.
-    // Added so that same projection can be ran but with different parameters.
-    // Must specify a FinalState projection which is
-    // assumed to live throughout the run. 
+    /// Added so that same projection can be ran but with different parameters.
+    /// Must specify a FinalState projection which is
+    /// assumed to live throughout the run. 
     inline D0RunIIconeJets(FinalState& fsp, float R, float Etmin, float split) 
       : cone_radius(R), min_jet_Et(Etmin), split_ratio(split), fsproj(&fsp) 
-    { 
+    {
+      /// @todo Why not use the stack?
       algo = new ILConeAlgorithm<HepEntity>(cone_radius, min_jet_Et, split_ratio,
-					      far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
-					      duplicate_dPT, search_factor, pT_min_leading_protojet, 
-					      pT_min_second_protojet, merge_max, pT_min_nomerge);
-      
-      jets = new std::list<HepEntity>;
+                                            far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
+                                            duplicate_dPT, search_factor, pT_min_leading_protojet, 
+                                            pT_min_second_protojet, merge_max, pT_min_nomerge);
+      /// @todo Why not use the stack?
+      jets = new list<HepEntity>;
     }
 
+
     /// Copy constructor.
+    /// @todo Really needed?
     inline D0RunIIconeJets(const D0RunIIconeJets& x)
       : Projection(x), cone_radius(x.cone_radius), min_jet_Et(x.min_jet_Et), 
-	split_ratio(x.split_ratio), fsproj(x.fsproj)
+        split_ratio(x.split_ratio), fsproj(x.fsproj)
     { 
+      /// @todo Why not use the stack?
       algo = new ILConeAlgorithm<HepEntity>(cone_radius, min_jet_Et, split_ratio,
-	     far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
-	     duplicate_dPT, search_factor, pT_min_leading_protojet, 
-	     pT_min_second_protojet, merge_max, pT_min_nomerge);
-      
+                                            far_ratio, Et_min_ratio, kill_duplicate, duplicate_dR, 
+                                            duplicate_dPT, search_factor, pT_min_leading_protojet, 
+                                            pT_min_second_protojet, merge_max, pT_min_nomerge);
       jets->clear();
-      for (std::list<HepEntity>::iterator it=x.jets->begin(); it!=x.jets->end(); ++it)
-	jets->push_back(*it);
+      for (list<HepEntity>::iterator it = x.jets->begin(); it != x.jets->end(); ++it) {
+        jets->push_back(*it);
+      }
   
     }
     
     /// Destructor.
     virtual ~D0RunIIconeJets() { 
+      /// @todo Memory leaks are very likely...
       delete particlelist; 
       delete algo;
       delete jets;
@@ -106,55 +112,28 @@ namespace Rivet {
 
   public:
     
-    /// @name Access the projected NJets.
-    //@ {
-    /*
-    inline int getNJets() const { return pktev_->getNJets(); }
-    inline int getNConstituents() const { return pktev_->getNConstituents(); }
-    inline vector<KtJet::KtLorentzVector> copyConstituents() const { return pktev_->copyConstituents(); }
-    inline double getETot() const { return pktev_->getETot(); } // had trouble building with Ktfloat, used double instead
-    inline int getType() const { return pktev_->getType(); }
-    inline int getAngle() const { return pktev_->getAngle(); }
-    inline int getRecom() const { return pktev_->getRecom(); }
-    inline bool isInclusive() const { return pktev_->isInclusive(); }
-
-    inline vector<KtJet::KtLorentzVector> getJets() const { return pktev_->getJets(); }
-    inline vector<KtJet::KtLorentzVector> getJetsE() const { return pktev_->getJetsE(); }
-    inline vector<KtJet::KtLorentzVector> getJetsEt() const { return pktev_->getJetsEt(); }
-    inline vector<KtJet::KtLorentzVector> getJetsPt() const { return pktev_->getJetsPt(); }
-    inline vector<KtJet::KtLorentzVector> getJetsRapidity() const { return pktev_->getJetsRapidity(); }
-    inline vector<KtJet::KtLorentzVector> getJetsEta() const { return pktev_->getJetsEta(); }
-    */
-    //@}
-
     inline int getNJets() const { return jets->size(); }
+  
+
+  public:
+    /// @todo Why public? And why a pointer to a list?
+    list<HepEntity>* jets;
 
 
-
-    /// Return the RivetInfo object of this Projection.
-    // virtual RivetInfo getInfo() const;
-
-    std::list<HepEntity> * jets;
-    
-    
   private:
-    
     /// The assignment operator is private and must never be called.
     /// In fact, it shouldn't even be implemented.
     D0RunIIconeJets & operator=(const D0RunIIconeJets &);
   
-    // Internal ktevent, rebuilt every time an event is projected, but not otherwise.
-    //KtJet::KtEvent * pktev_;
-
-    // Vector of all
-    //vector<KtJet::KtLorentzVector> vecs_;
-    std::list<const HepEntity*> *particlelist;
+    /// @todo Why a pointer to the list?
+    list<const HepEntity*>* particlelist;
     
-    //initialize D0RunII cone algorithm
+    // Initialize D0RunII cone algorithm (what does this mean?)
     float cone_radius;
     float min_jet_Et;
     float split_ratio;
-    
+
+    /// @todo Documentation! 
     float far_ratio;
     float Et_min_ratio;
     bool kill_duplicate;
@@ -175,4 +154,4 @@ namespace Rivet {
 
 }
 
-#endif /* RIVET_D0RunIIconeJets_HH */
+#endif
