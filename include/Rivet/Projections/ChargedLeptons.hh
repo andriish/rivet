@@ -17,7 +17,7 @@ namespace Rivet {
     
     /// Constructor. The provided FinalState projection must live throughout the run.
     inline ChargedLeptons(FinalState& fsp)
-      : fsproj(&fsp)
+      : _fsproj(&fsp)
     { 
       addProjection(fsp);
     }
@@ -34,7 +34,7 @@ namespace Rivet {
     void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
     
   public:
     
@@ -44,7 +44,7 @@ namespace Rivet {
   private:
         
     /// The FinalState projection used by this projection
-    FinalState * fsproj;
+    FinalState* _fsproj;
 
     /// The leptons
     ParticleVector _theChargedLeptons;

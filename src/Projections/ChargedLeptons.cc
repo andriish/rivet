@@ -5,36 +5,36 @@
 #include "Rivet/Projections/Cmp.hh"
 #include "HepPDT/ParticleID.hh"
 
-using namespace Rivet;
+
+namespace Rivet {
+
+  int ChargedLeptons::compare(const Projection& p) const {
+    const ChargedLeptons& other = dynamic_cast<const ChargedLeptons &>(p);
+    return pcmp(*_fsproj, *other._fsproj);
+  }
 
 
-int ChargedLeptons::compare(const Projection& p) const {
-  const ChargedLeptons & other = dynamic_cast<const ChargedLeptons &>(p);
-  return pcmp(*fsproj, *other.fsproj);
-}
+  void ChargedLeptons::project(const Event& e) {
+    Log& log = getLog();
 
+    // Reset result
+    _theChargedLeptons.clear();
 
-void ChargedLeptons::project(const Event& e) {
-  Log& log = getLog();
+    // Project into final state
+    const FinalState& fs = e.applyProjection(*_fsproj);
 
-  _theChargedLeptons.clear();
-
-  // Project into final state
-  const FinalState& fs = e.applyProjection(*fsproj);
-
-  // Get hadron and charge info for each particle, and fill counters appropriately
-  for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-    HepPDT::ParticleID pInfo = p->getPdgId();
-    bool isHadron = pInfo.isHadron();
-    if (!isHadron) {
-      if (pInfo.threeCharge() != 0) {
-	// put it into the cl vector
-      _theChargedLeptons.push_back(Particle(*p));
+    // Get hadron and charge info for each particle, and fill counters appropriately
+    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      HepPDT::ParticleID pInfo = p->getPdgId();
+      bool isHadron = pInfo.isHadron();
+      if (!isHadron) {
+        if (pInfo.threeCharge() != 0) {
+          // Put it into the C.L. vector
+          _theChargedLeptons.push_back(Particle(*p));
+        }
       }
     }
+    log << Log::DEBUG << "Done" << endl;
   }
-  log << Log::DEBUG << "Done" << endl;
 
 }
-
-

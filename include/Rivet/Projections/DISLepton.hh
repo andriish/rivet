@@ -20,7 +20,8 @@ namespace Rivet {
     /// anti-lepton is searched for. Must also specify a Beam projection
     /// object which is assumed to live thoughout the run.
     inline DISLepton(Beam& beamproj, const ParticleName& inid, const ParticleName& outid)
-      : _beams(&beamproj), _idin(inid), _idout(outid) {
+      : _beams(&beamproj), _idin(inid), _idout(outid) 
+    {
       _beamPairs.insert(BeamPair(inid, ANY));
       addProjection(beamproj);
     }
@@ -35,18 +36,18 @@ namespace Rivet {
   protected:
     
     /// Perform the projection operation on the supplied event.
-    virtual void project(const Event & e);
+    virtual void project(const Event& e);
     
     /// Compare with other projections.
-    virtual int compare(const Projection & p) const;
+    virtual int compare(const Projection& p) const;
     
   public:
     
     /// The incoming lepton.
-    inline const Particle & in() const { return _incoming; }
+    inline const Particle& in() const { return _incoming; }
     
     /// The outgoing lepton.
-    inline const Particle & out() const { return _outgoing; }
+    inline const Particle& out() const { return _outgoing; }
     
   private:
     
@@ -68,11 +69,11 @@ namespace Rivet {
   private:
     
     /// Hide the assignment operator.
-    DISLepton & operator=(const DISLepton &);
+    DISLepton& operator=(const DISLepton&);
     
   };
   
 }
 
 
-#endif /* RIVET_DISLepton_H */
+#endif

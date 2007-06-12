@@ -16,14 +16,15 @@ namespace Rivet {
   class DISKinematics: public Projection {
 
   public:
-    
-    
+        
     /// The default constructor. Must specify Beam and DISLepton
     /// projection objects which are guaranteed to live throughout the
     /// run. Also the PDG code of the incoming hadron (\a hadid) must be
     /// specified.
     inline DISKinematics(Beam& beamp, DISLepton& leptonp, const ParticleName& hadid)
-      : beams(&beamp), lepton(&leptonp), idhad(hadid), theQ2(-1.0), theW2(-1.0), theX(-1.0) {
+      : _beams(&beamp), _lepton(&leptonp), _idhad(hadid), 
+        _theQ2(-1.0), _theW2(-1.0), _theX(-1.0) 
+    {
       addBeamPair(ANY, hadid);
       addProjection(beamp);
       addProjection(leptonp);
@@ -38,57 +39,57 @@ namespace Rivet {
   protected:
     
     /// Perform the projection operation on the supplied event.
-    virtual void project(const Event & e);
+    virtual void project(const Event& e);
 
     /// Compare with other projections.
-    virtual int compare(const Projection & p) const;
+    virtual int compare(const Projection& p) const;
 
   public:
 
     /// The \f$Q^2\f$.
-    inline double Q2() const { return theQ2; }
+    inline double Q2() const { return _theQ2; }
 
     /// The \f$W^2\f$.
-    inline double W2() const { return theW2; }
+    inline double W2() const { return _theW2; }
 
     /// The Bjorken \f$x\f$.
-    inline double x() const { return theX; }
+    inline double x() const { return _theX; }
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
-    inline const LorentzRotation & boostHCM() const {
-      return hcm; 
+    inline const LorentzRotation& boostHCM() const {
+      return _hcm; 
     }
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
-    inline const LorentzRotation & boostBreit() const {
-      return breit;
+    inline const LorentzRotation& boostBreit() const {
+      return _breit;
     }
 
   private:
 
     /// The Beam projector object defining the incoming beam particles.
-    Beam* beams;
+    Beam* _beams;
 
     /// The projector for the scattered lepton.
-    DISLepton* lepton;
+    DISLepton* _lepton;
 
     /// The PDG id of the incoming hadron.
-    long idhad;
+    long _idhad;
 
     /// The \f$Q^2\f$.
-    double theQ2;
+    double _theQ2;
 
     /// The \f$W^2\f$.
-    double theW2;
+    double _theW2;
 
     /// The Bjorken \f$x\f$.
-    double theX;
+    double _theX;
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
-    LorentzRotation hcm;
+    LorentzRotation _hcm;
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
-    LorentzRotation breit;
+    LorentzRotation _breit;
 
   private:
 
@@ -100,4 +101,4 @@ namespace Rivet {
 
 }
 
-#endif /* RIVET_DISKinematics_H */
+#endif

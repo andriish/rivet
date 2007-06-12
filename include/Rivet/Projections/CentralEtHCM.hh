@@ -19,9 +19,11 @@ namespace Rivet {
     /// The default constructor. Must specify a FinalStateHCM projection
     /// object which is guaranteed to live throughout the run.
     inline CentralEtHCM(FinalStateHCM& fs)
-      : fshcm(&fs)
+      : _fshcm(&fs)
     {
       addProjection(fs); 
+      addCut("eta", MORE_EQ, -0.5);
+      addCut("eta", LESS_EQ,  0.5);
     }
 
   public:
@@ -33,26 +35,23 @@ namespace Rivet {
   protected:
 
     /// Apply the projection on to the Event.
-    void project(const Event & e);
+    void project(const Event& e);
 
     /// Compare with other projections
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
 
   public:
 
     /// The sum of the Et in the central rapidity bin.
-    inline double sumEt() const { return sumet; }
-
-    /// Return the RivetInfo object of this Projection.
-    //virtual RivetInfo getInfo() const;
+    inline double sumEt() const { return _sumet; }
 
   private:
 
     /// The projector for the full final state.
-    FinalStateHCM * fshcm;
+    FinalStateHCM* _fshcm;
 
     /// The sum of the Et in the central rapidity bin.
-    double sumet;
+    double _sumet;
 
   private:
 
