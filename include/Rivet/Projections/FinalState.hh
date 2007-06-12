@@ -40,7 +40,7 @@ namespace Rivet {
     void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
     
   public:
     
@@ -64,7 +64,7 @@ namespace Rivet {
   private:
     
     /// Hide the assignment operator.
-    FinalState& operator=(const FinalState &);
+    FinalState& operator=(const FinalState&);
     
   };
   

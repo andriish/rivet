@@ -4,52 +4,54 @@
 #include "Rivet/Projections/KtJets.hh"
 #include "Rivet/Projections/Cmp.hh"
 
-using namespace Rivet;
 
-int KtJets::compare(const Projection & p) const {
-  const KtJets & other = dynamic_cast<const KtJets &>(p);
-  return pcmp(*fsproj, *other.fsproj) || cmp(type_, other.type_) ||
-    cmp(angle_, other.angle_) || cmp(recom_, other.recom_) ||
-    cmp(rparameter_, other.rparameter_);
-}
+namespace Rivet {
 
-
-void KtJets::project(const Event & e) {
-  vector<KtJet::KtLorentzVector> vecs;
-
-  // Project into final state
-  const FinalState& fs = e.applyProjection(*fsproj);
-  
-  // Store 4 vector data about each particle into vecs
-  for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-    HepMC::FourVector fv = p->getMomentum();
-    // store the FourVector in the KtLorentzVector form
-    KtJet::KtLorentzVector ktlv(fv.px(), fv.py(), fv.pz(), fv.e());
-    vecs.push_back(ktlv);
+  int KtJets::compare(const Projection& p) const {
+    const KtJets& other = dynamic_cast<const KtJets&>(p);
+    return \
+      pcmp(*_fsproj, *other._fsproj) || 
+      cmp(_type, other._type) ||
+      cmp(_angle, other._angle) || 
+      cmp(_recom, other._recom) ||
+      cmp(_rparameter, other._rparameter);
   }
-  if ( pktev_ ) delete pktev_;
 
-  pktev_ = new KtJet::KtEvent(vecs, type_, angle_, recom_, rparameter_);
 
-}
+  void KtJets::project(const Event& e) {
+    // Project into final state
+    const FinalState& fs = e.applyProjection(*_fsproj);
 
-vector<double> KtJets::getYSubJet(const KtJet::KtLorentzVector &jet) const {
-
-  map<int,vector<double> >::iterator iter = yscales_.find(jet.getID());
-
-  if( iter == yscales_.end() ) {
-    
-    KtJet::KtEvent subj = KtJet::KtEvent(jet, angle_, recom_);
-    vector<double> yMergeVals = vector<double>();
-    for(int i=0; i<4; ++i) {
-      yMergeVals.push_back(subj.getYMerge(i+1));
+    // Store 4 vector data about each particle into vecs
+    vector<KtJet::KtLorentzVector> vecs;
+    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      HepMC::FourVector fv = p->getMomentum();
+      // Store the FourVector in the KtLorentzVector form
+      KtJet::KtLorentzVector ktlv(fv.px(), fv.py(), fv.pz(), fv.e());
+      vecs.push_back(ktlv);
     }
-    yscales_.insert(make_pair( jet.getID(), yMergeVals ));
-    return yMergeVals;
+    if (_pktev) delete _pktev;
+    _pktev = new KtJet::KtEvent(vecs, _type, _angle, _recom, _rparameter);
+  }
 
-  } else {
-    // This was cached.
-    return iter->second;
+
+  vector<double> KtJets::getYSubJet(const KtJet::KtLorentzVector& jet) const {
+    map<int,vector<double> >::iterator iter = _yscales.find(jet.getID());
+
+    if (iter == _yscales.end()) {
+      KtJet::KtEvent subj = KtJet::KtEvent(jet, _angle, _recom);
+      vector<double> yMergeVals;
+      for (int i=1; i<4; ++i) {
+        yMergeVals.push_back(subj.getYMerge(i));
+      }
+      _yscales.insert(make_pair( jet.getID(), yMergeVals ));
+      return yMergeVals;
+    } else {
+      // This was cached.
+      return iter->second;
+    }
 
   }
+
+
 }

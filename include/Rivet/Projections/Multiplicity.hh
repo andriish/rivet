@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #ifndef RIVET_Multiplicity_HH
 #define RIVET_Multiplicity_HH
-// Declaration of the Multiplicity class.
 
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -18,8 +17,9 @@ namespace Rivet {
 
     /// Constructor. The provided FinalState projection must live throughout the run.
     inline Multiplicity(FinalState& fsp)
-      : totalMult_(0), totalChMult_(0), totalUnchMult_(0),
-        hadMult_(0), hadChMult_(0), hadUnchMult_(0), fsproj(&fsp)
+      : _totalMult(0), _totalChMult(0), _totalUnchMult(0),
+        _hadMult(0), _hadChMult(0), _hadUnchMult(0), 
+        _fsproj(&fsp)
     { 
       addProjection(fsp);
     }
@@ -33,56 +33,52 @@ namespace Rivet {
   protected:
 
     /// Perform the projection on the Event.
-    void project(const Event & e);
+    void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
 
   public:
 
     /// @name Access the projected multiplicities.
     //@ {
     /// Total multiplicity
-    inline const unsigned int totalMultiplicity() const { return totalMult_; }
+    inline const unsigned int totalMultiplicity() const { return _totalMult; }
 
     /// Charged multiplicity
-    inline const unsigned int totalChargedMultiplicity() const { return totalChMult_; }
+    inline const unsigned int totalChargedMultiplicity() const { return _totalChMult; }
 
     /// Uncharged multiplicity
-    inline const unsigned int totalUnchargedMultiplicity() const { return totalUnchMult_; }
+    inline const unsigned int totalUnchargedMultiplicity() const { return _totalUnchMult; }
 
     /// Hadron multiplicity
-    inline const unsigned int hadronMultiplicity() const { return hadMult_; }
+    inline const unsigned int hadronMultiplicity() const { return _hadMult; }
 
     /// Hadronic charged multiplicity
-    inline const unsigned int hadronChargedMultiplicity() const { return hadChMult_; }
+    inline const unsigned int hadronChargedMultiplicity() const { return _hadChMult; }
 
     /// Hadronic uncharged multiplicity
-    inline const unsigned int hadronUnchargedMultiplicity() const { return hadUnchMult_; }
+    inline const unsigned int hadronUnchargedMultiplicity() const { return _hadUnchMult; }
     //@ }
-
-    
-    /// Return the RivetInfo object of this Projection.
-    //virtual RivetInfo getInfo() const;
 
   private:
 
     /// Total multiplicities
-    unsigned int totalMult_, totalChMult_, totalUnchMult_;
+    unsigned int _totalMult, _totalChMult, _totalUnchMult;
 
     /// Hadronic multiplicities
-    unsigned int hadMult_, hadChMult_, hadUnchMult_;
+    unsigned int _hadMult, _hadChMult, _hadUnchMult;
 
     /// The FinalState projection used by this projection
-    FinalState * fsproj;
+    FinalState* _fsproj;
 
   private:
 
     /// Hide the assignment operator.
-    Multiplicity & operator=(const Multiplicity &);
+    Multiplicity& operator=(const Multiplicity&);
 
   };
 
 }
 
-#endif /* RIVET_Multiplicity_HH */
+#endif

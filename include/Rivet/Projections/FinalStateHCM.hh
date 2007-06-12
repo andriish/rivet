@@ -20,7 +20,7 @@ namespace Rivet {
     /// and FinalState projection objects which are assumed to live
     /// throughout the run.
     inline FinalStateHCM(DISLepton& leptonp, DISKinematics& kinematicsp, FinalState& fsp)
-      : lepton(&leptonp), kinematics(&kinematicsp), fsproj(&fsp) 
+      : _lepton(&leptonp), _kinematics(&kinematicsp), _fsproj(&fsp) 
     { 
       addProjection(leptonp);
       addProjection(kinematicsp);
@@ -37,38 +37,38 @@ namespace Rivet {
   protected:
     
     /// Apply the projection on the supplied event.
-    void project(const Event & e);
+    void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
     
   public:
     
     /// Access the projected final-state particles.
-    inline const ParticleVector & particles() const { return theParticles; }
+    inline const ParticleVector& particles() const { return _theParticles; }
     
   private:
     
     /// The projector for the DIS lepton.
-    DISLepton * lepton;
+    DISLepton* _lepton;
     
     /// The projector for the DIS kinematics.
-    DISKinematics * kinematics;
+    DISKinematics* _kinematics;
 
     /// The projector for the full final state.
-    FinalState * fsproj;
+    FinalState* _fsproj;
     
     /// The final-state particles.
-    ParticleVector theParticles;
+    ParticleVector _theParticles;
     
   private:
     
     /// Hide the assignment operator.
-    FinalStateHCM & operator=(const FinalStateHCM &);
+    FinalStateHCM& operator=(const FinalStateHCM&);
     
   };
   
 }
 
 
-#endif /* RIVET_FinalStateHCM_H */
+#endif

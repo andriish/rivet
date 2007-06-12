@@ -5,55 +5,53 @@
 #include "Rivet/Projections/Cmp.hh"
 #include "HepPDT/ParticleID.hh"
 
-using namespace Rivet;
+
+namespace Rivet {
+
+  int Multiplicity::compare(const Projection& p) const {
+    const Multiplicity& other = dynamic_cast<const Multiplicity&>(p);
+    return pcmp(*_fsproj, *other._fsproj);
+  }
 
 
-int Multiplicity::compare(const Projection& p) const {
-  const Multiplicity & other = dynamic_cast<const Multiplicity &>(p);
-  return pcmp(*fsproj, *other.fsproj);
-}
+  void Multiplicity::project(const Event& e) {
+    Log& log = getLog();
 
+    // Clear counters
+    _totalMult = 0;
+    _totalChMult = 0;
+    _totalUnchMult = 0;
+    _hadMult = 0;
+    _hadChMult = 0;
+    _hadUnchMult = 0;
 
-void Multiplicity::project(const Event& e) {
-  Log& log = getLog();
+    // Project into final state
+    const FinalState& fs = e.applyProjection(*_fsproj);
 
-  // Clear counters
-  totalMult_ = 0;
-  totalChMult_ = 0;
-  totalUnchMult_ = 0;
-  hadMult_ = 0;
-  hadChMult_ = 0;
-  hadUnchMult_ = 0;
-
-  // Project into final state
-  const FinalState& fs = e.applyProjection(*fsproj);
-
-  // Get hadron and charge info for each particle, and fill counters appropriately
-  for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-    ++totalMult_;
-    HepPDT::ParticleID pInfo = p->getPdgId();
-    bool isHadron = pInfo.isHadron();
-    if (pInfo.threeCharge() != 0) {
-      ++totalChMult_;
-      if (isHadron) {
-        ++hadMult_;
-        ++hadChMult_;
+    // Get hadron and charge info for each particle, and fill counters appropriately
+    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      ++_totalMult;
+      HepPDT::ParticleID pInfo = p->getPdgId();
+      bool isHadron = pInfo.isHadron();
+      if (pInfo.threeCharge() != 0) {
+        ++_totalChMult;
+        if (isHadron) {
+          ++_hadMult;
+          ++_hadChMult;
+        }
+        log << Log::DEBUG << "Incrementing charged multiplicity = " << _totalChMult
+            << " (" << _hadChMult << " hadrons)" << endl;
+      } else {
+        ++_totalUnchMult;
+        if (isHadron) {
+          ++_hadMult;
+          ++_hadUnchMult;
+        }
+        log << Log::DEBUG << "Incrementing uncharged multiplicity = " << _totalUnchMult
+            << " (" << _hadUnchMult << " hadrons)" << endl;
       }
-      log << Log::DEBUG << "Incrementing charged multiplicity   = " << totalChMult_ 
-          << " (" << hadChMult_ << " hadrons)" << endl;
-    } else {
-      ++totalUnchMult_;
-      if (isHadron) {
-        ++hadMult_;
-        ++hadUnchMult_;
-      }
-      log << Log::DEBUG << "Incrementing uncharged multiplicity = " << totalUnchMult_
-          << " (" << hadUnchMult_ << " hadrons)" << endl;
     }
   }
+
+
 }
-
-// RivetInfo Multiplicity::getInfo() const {
-//   return Projection::getInfo() + fsproj->getInfo();
-// }
-
