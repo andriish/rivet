@@ -13,6 +13,7 @@ int WZandh::compare(const Projection & p) const {
   return true;
 }
 
+/// @todo define Z W and h more carefully/model independently, based on final state.
 void WZandh::project(const Event & e) {
   _theWens.clear();
   _theZees.clear();

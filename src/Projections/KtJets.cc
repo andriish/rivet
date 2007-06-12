@@ -41,8 +41,8 @@ vector<double> KtJets::getYSubJet(const KtJet::KtLorentzVector &jet) const {
     
     KtJet::KtEvent subj = KtJet::KtEvent(jet, angle_, recom_);
     vector<double> yMergeVals = vector<double>();
-    for(int i=1; i<4; ++i) {
-      yMergeVals.push_back(subj.getYMerge(i));
+    for(int i=0; i<4; ++i) {
+      yMergeVals.push_back(subj.getYMerge(i+1));
     }
     yscales_.insert(make_pair( jet.getID(), yMergeVals ));
     return yMergeVals;

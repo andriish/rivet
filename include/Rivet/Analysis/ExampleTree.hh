@@ -108,32 +108,28 @@ namespace Rivet {
 
     // The ntuple variables.
     int           nevt;            // event number
-    int           nw;              // number of W bosons
-    int           wtype[8][2];     // type (i.e. decay mode) of W bosons.
-    float         wvec[8][4];      // 4 momentum of W bosons.
-    float         hvec[4];
+
+    int           nvb;             // number of W bosons
+    float         vbvec[8][4];     // 4 momentum of W bosons.
+    int           vbtype[8];       // type (i.e. decay mode) of W bosons.
+
     int           njet;            // number of jets
-    float         ptjet[50];       // pt of jets
-    float         etajet[50];      // pseudorapidity of jets
-    float         phijet[50];      // phi of jets
     float         vjet[50][4];     // four momentum of the jets
 
     int           nsub;            // number of jets for which the subjet analysis was performed.
     float         sjet3[200][4];   // four vector of jets for which we found subjets.
-    float         ysubsj[200];     // y 1->2 for the above jet.
-    float         tjet[2][4];
+    float         ysubsj[200][4];     // y 1->2, 2->3, 3->4, 4->5 for the above jets.
+
     int           nlep;
     int           leptype[150][3];
-    float         ptlep[150];
-    float         etalep[150];
-    float         philep[150];
     float         vlep[150][4];
-    int           nq;
-    float         vq[200][4];
-    int           qtype[200][3];
-    int           npart;
+
+    int           npart;           // Partons
     float         ppart[4000][4];
-    float         esumr[4];
+    int           pid[4000];
+    int           mo[4000];
+
+    float         esumr[4];        // Total visible momentum
 
   private:
 
@@ -151,6 +147,9 @@ namespace Rivet {
 
     /// Minimum pt of charged leptons which will go into the tree.
     int _lepton_pt_cut;
+
+    /// Store the partons or not?
+    bool _store_partons;
 
   };
 
