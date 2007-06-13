@@ -37,6 +37,9 @@ namespace Rivet {
     /// Get a const reference to the original GenParticle.
     inline const GenParticle& getHepMCParticle() const { return *_original; }
     
+    /// Check if the particle corresponds to a GenParticle.
+    inline bool hasHepMCParticle() const { return _original; }
+    
     /// The PDG ID code for this Particle.
     inline const long getPdgId() const { return _id; }
     
