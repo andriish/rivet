@@ -18,7 +18,7 @@ namespace Rivet {
     /// The default constructor.
     inline HepEx9506012()
       : beams(), 
-        lepton(beams, ELECTRON, POSITRON), 
+        lepton(beams, fsp, ELECTRON, POSITRON), 
         diskin(beams, lepton, PROTON),
         fsproj(lepton, diskin, fsp), 
         y1hcm(fsproj)
