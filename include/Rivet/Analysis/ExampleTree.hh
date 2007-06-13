@@ -28,30 +28,30 @@ namespace Rivet {
 
     /// Default constructor
     inline ExampleTree()
-      : _p_fs(-4.0, 4.0, 0.0), _p_chargedleptons(_p_fs), _p_ktjets(_p_fs), _p_wzandh()
-    { 
+      : _fsproj(-4.0, 4.0, 0.0), _chgleptonsproj(_fsproj), 
+        _ktjetsproj(_fsproj), _wzandhproj(), _vfsproj(_fsproj),
+        _p_totvismomproj(0)
+    {
       /// Particle IDs for neutrinos and antineutrinos and LSP
-      _p_vfs = new VetoedFinalState(_p_fs);
-      _p_vfs->addVetoId(12, 10.0, 50.0);
-      _p_vfs->addVetoId(14);
-      _p_vfs->addVetoId(16);
-      _p_vfs->addVetoId(-12);
-      _p_vfs->addVetoId(-14);
-      _p_vfs->addVetoId(-16);
-      _p_vfs->addVetoId(1000022);
-      _p_totalvisiblemomentum = new TotalVisibleMomentum(*_p_vfs);
+      _vfsproj.addVetoId(12, 10.0, 50.0);
+      _vfsproj.addVetoId(14);
+      _vfsproj.addVetoId(16);
+      _vfsproj.addVetoId(-12);
+      _vfsproj.addVetoId(-14);
+      _vfsproj.addVetoId(-16);
+      _vfsproj.addVetoId(1000022);
+      _p_totvismomproj = new TotalVisibleMomentum(_vfsproj);
 
-      addProjection(_p_fs);
-      addProjection(_p_chargedleptons);
-      addProjection(_p_ktjets);
-      addProjection(*_p_vfs);
-      addProjection(*_p_totalvisiblemomentum);
-      addProjection(_p_wzandh);
+      addProjection(_fsproj);
+      addProjection(_chgleptonsproj);
+      addProjection(_ktjetsproj);
+      addProjection(_wzandhproj);
+      addProjection(_vfsproj);
+      addProjection(*_p_totvismomproj);
     }
 
     inline ~ExampleTree() {
-      delete _p_vfs;
-      delete _p_totalvisiblemomentum;
+      if (_p_totvismomproj) delete _p_totvismomproj;
     }
 
   public:
@@ -76,22 +76,22 @@ namespace Rivet {
   private:
 
     /// The FinalState projector used by this analysis.
-    FinalState _p_fs;
+    FinalState _fsproj;
 
     /// The Charged Lepton projector used by this analysis.
-    ChargedLeptons _p_chargedleptons;
+    ChargedLeptons _chgleptonsproj;
 
     /// The jet projector.
-    KtJets _p_ktjets;
+    KtJets _ktjetsproj;
 
     /// The vector boson projector.
-    WZandh _p_wzandh;
+    WZandh _wzandhproj;
 
     /// The VetoedFinalState projector used by this analysis.
-    VetoedFinalState* _p_vfs;
+    VetoedFinalState _vfsproj;
 
     /// The total visible momentum projector.
-    TotalVisibleMomentum* _p_totalvisiblemomentum;
+    TotalVisibleMomentum* _p_totvismomproj;
 
 
 #ifdef HAVE_ROOT

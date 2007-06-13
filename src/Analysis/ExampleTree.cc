@@ -77,16 +77,19 @@ namespace Rivet {
     _nevt = ev.event_number();
 
     // Jets.
-    const KtJets& jets = event.applyProjection(_p_ktjets);
+    const KtJets& jets = event.applyProjection(_ktjetsproj);
 
     // Leptons
-    const ChargedLeptons& cl = event.applyProjection(_p_chargedleptons);
+    const ChargedLeptons& cl = event.applyProjection(_chgleptonsproj);
 
     // Missing Et/total energy
-    const TotalVisibleMomentum& tvm = event.applyProjection(*_p_totalvisiblemomentum);
+    if (! _p_totvismomproj) {
+      throw runtime_error("ExampleTree::analyze: TotalVisibleMomentum projection is a null pointer");
+    }
+    const TotalVisibleMomentum& tvm = event.applyProjection(*_p_totvismomproj);
 
     // Vector bosons.
-    const WZandh& wzh = event.applyProjection(_p_wzandh);
+    const WZandh& wzh = event.applyProjection(_wzandhproj);
 
     // Get the vector bosons
     _nvb = 0;

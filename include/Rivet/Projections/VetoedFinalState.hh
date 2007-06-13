@@ -54,12 +54,12 @@ namespace Rivet {
     /// Access the projected final-state particles.
     inline const ParticleVector& particles() const { return _theParticles; }
 
-    /// Get the list of particle IDs and pt ranges to veto.
+    /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
     inline const map<long,vector<double> >& getVetoIds() const {
       return _vetoCodes;
     }
   
-    /// Add a particle ID and pt range to veto. ptmax=0.0 would give the same effect as infinity.
+    /// Add a particle ID and \f$ p_T \f$ range to veto. ptmax = 0.0 would give the same effect as infinity.
     inline VetoedFinalState& addVetoId(const long id, const double ptmin, const double ptmax) {
       vector<double> range; 
       range.push_back(ptmin);
@@ -68,14 +68,14 @@ namespace Rivet {
       return *this;
     }
 
-    /// Add a particle ID to veto (all pT range will be vetoed).
+    /// Add a particle ID to veto (all \f$ p_T \f$ range will be vetoed).
     inline VetoedFinalState& addVetoId(const long id) {
       vector<double> range; 
       _vetoCodes.insert(make_pair( id, range ));
       return *this;
     }
 
-    /// Set the list of particle IDs and pt ranges to veto.
+    /// Set the list of particle IDs and \f$ p_T \f$ ranges to veto.
     inline VetoedFinalState& setVetoIds(const map<long,vector<double> >& ids) {
       _vetoCodes = ids;
       return *this;
