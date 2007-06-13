@@ -33,13 +33,14 @@ namespace Rivet {
         _p_totvismomproj(0)
     {
       /// Particle IDs for neutrinos and antineutrinos and LSP
-      _vfsproj.addVetoId(12, 10.0, 50.0);
-      _vfsproj.addVetoId(14);
-      _vfsproj.addVetoId(16);
-      _vfsproj.addVetoId(-12);
-      _vfsproj.addVetoId(-14);
-      _vfsproj.addVetoId(-16);
-      _vfsproj.addVetoId(1000022);
+      _vfsproj
+        .addVetoDetail(12, 10.0, 50.0)
+        .addVetoId(14)
+        .addVetoId(16)
+        .addVetoId(-12)
+        .addVetoId(-14)
+        .addVetoId(-16)
+        .addVetoId(1000022);
       _p_totvismomproj = new TotalVisibleMomentum(_vfsproj);
 
       addProjection(_fsproj);

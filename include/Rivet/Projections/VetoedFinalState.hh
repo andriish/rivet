@@ -17,6 +17,9 @@ namespace Rivet {
 
   public:
     
+    /// Typedef for a vetoing entry.
+    typedef map<long, pair<double, double> > VetoDetails;
+
     /// The default constructor. Must specify a FinalState projection 
     /// object which is assumed to live through the run.
     inline VetoedFinalState(FinalState& fsp)
@@ -28,7 +31,7 @@ namespace Rivet {
     /// You can add a map of ID plus a 2D vector containing ptmin,
     /// ptmax defined the range of particles to be vetoed. 
     /// zero is the same as infinity for ptmax.
-    inline VetoedFinalState(FinalState& fsp, const map<long,vector<double> >& vetocodes)
+    inline VetoedFinalState(FinalState& fsp, const VetoDetails& vetocodes)
       : _fsproj(&fsp), _vetoCodes(vetocodes)
     {
       addProjection(fsp);
@@ -55,34 +58,39 @@ namespace Rivet {
     inline const ParticleVector& particles() const { return _theParticles; }
 
     /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
-    inline const map<long,vector<double> >& getVetoIds() const {
+    inline const VetoDetails& getVetoDetails() const {
       return _vetoCodes;
     }
   
-    /// Add a particle ID and \f$ p_T \f$ range to veto. ptmax = 0.0 would give the same effect as infinity.
-    inline VetoedFinalState& addVetoId(const long id, const double ptmin, const double ptmax) {
-      vector<double> range; 
-      range.push_back(ptmin);
-      range.push_back(ptmax);
-      _vetoCodes.insert(make_pair( id, range ));
+    /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_t \f$ IN the given range will be rejected.
+    inline VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
+      pair<double, double> ptrange; 
+      /// @todo Get the sign of the veto range clear: do we accept or reject pTs between min and max? Currently rejecting.
+      /// @todo Is there any situation where we'd want to be able to veto disjoint ranges? (I hope not!)
+      ptrange.first = ptmin;
+      ptrange.second = ptmax;
+      _vetoCodes.insert(make_pair(id, ptrange));
       return *this;
     }
 
     /// Add a particle ID to veto (all \f$ p_T \f$ range will be vetoed).
     inline VetoedFinalState& addVetoId(const long id) {
-      vector<double> range; 
-      _vetoCodes.insert(make_pair( id, range ));
+      pair<double, double> ptrange;
+      /// @todo Get the sign of the veto range clear: do we accept or reject pTs between min and max? Currently rejecting.
+      ptrange.first = 0.0;
+      ptrange.second = numeric_limits<double>::max();
+      _vetoCodes.insert(make_pair(id, ptrange));
       return *this;
     }
 
     /// Set the list of particle IDs and \f$ p_T \f$ ranges to veto.
-    inline VetoedFinalState& setVetoIds(const map<long,vector<double> >& ids) {
+    inline VetoedFinalState& setVetoDetails(const VetoDetails& ids) {
       _vetoCodes = ids;
       return *this;
     }
 
     /// Clear the list of particle IDs and ranges to veto.
-    inline VetoedFinalState& clearVetoIds() {
+    inline VetoedFinalState& clearVetoDetails() {
       _vetoCodes.clear();
       return *this;
     }
@@ -96,13 +104,13 @@ namespace Rivet {
     ParticleVector _theParticles;
 
     /// The final-state particles.
-    map<long,vector<double> > _vetoCodes;
+    VetoDetails _vetoCodes;
 
     
   private:
     
     /// Hide the assignment operator.
-    VetoedFinalState & operator=(const VetoedFinalState&);
+    VetoedFinalState& operator=(const VetoedFinalState&);
     
   };
 

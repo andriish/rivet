@@ -28,34 +28,39 @@ namespace Rivet {
       if (log.isActive(Log::DEBUG)) {
         stringstream codes; 
         codes << "{";
-        for (map<long,vector<double> >::const_iterator code = _vetoCodes.begin(); 
-             code != _vetoCodes.end(); ++code) {
-	  codes << " " << code->first;
-	}
+        for (VetoDetails::const_iterator code = _vetoCodes.begin(); code != _vetoCodes.end(); ++code) {
+          codes << " " << code->first;
+        }
         codes << " }";
         log << Log::DEBUG << p->getPdgId() << " vs. veto codes = " 
             << codes.str() << " (" << _vetoCodes.size() << ")" << endl;
       }
       const long pdgid = p->getPdgId();
-      map<long,vector<double> >::iterator iter = _vetoCodes.find(pdgid);
+      VetoDetails::iterator iter = _vetoCodes.find(pdgid);
       if ( (iter == _vetoCodes.end())) {
-	log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " << p->getMomentum().perp() << endl;
-	_theParticles.push_back(*p);
+        log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " << p->getMomentum().perp() << endl;
+        _theParticles.push_back(*p);
       } else {
-	vector<double> range = iter->second;
-	double pt = p->getMomentum().perp();
-	if (range.size()>1) log << Log::DEBUG << "ID " << pdgid << " pt range " << range.at(0) << "," << range.at(1) << endl;
-	if ( range.size()>1 &&
-	     (pt < range.at(0) || (pt>range.at(1) && range.at(1)>0.0))) {
-	  log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " << p->getMomentum().perp() << endl;
-	  _theParticles.push_back(*p);
-	} else {
-	  log << Log::DEBUG << "Vetoed with PDG code " << pdgid << " pt " << p->getMomentum().perp()<< endl;
-	}
+        // This particle code is listed as a possible veto... check pT.
+        pair<double, double> ptrange = iter->second;
+        // Make sure that the pT range is sensible.
+        assert(ptrange.first <= ptrange.second);
+        double pt = p->getMomentum().perp();
+        stringstream rangess;
+        if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.first;
+        rangess << " - ";
+        if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
+        log << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
+        stringstream debugline;
+        debugline << "with PDG code = " << pdgid << " pT = " << p->getMomentum().perp();
+        if (pt < ptrange.first || pt > ptrange.second) { /// @todo Is this the right way round?
+          log << Log::DEBUG << "Storing " << debugline << endl;
+          _theParticles.push_back(*p);
+        } else {
+          log << Log::DEBUG << "Vetoing " << debugline << endl;
+        }
       }
     }
   } 
-
+  
 }
-
-

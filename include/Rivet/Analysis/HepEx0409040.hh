@@ -8,11 +8,7 @@
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/RivetAIDA.fhh"
 
-//#include "Rivet/Projections/VetoedFinalState.hh"
-
-namespace Rivet {
-
-  
+namespace Rivet {  
 
   /// Analysis based on the D0 Run II jet analysis described in hep-ex/0409040.
   /// @author Lars Sonnenschein
@@ -22,36 +18,35 @@ namespace Rivet {
 
     /// Default constructor.
     inline HepEx0409040()
-      : fs(-3.0, 3.0), vertex()
+      : fs(-3.0, 3.0), vfs(fs), vertex()
     { 
-
       setBeams(PROTON, ANTIPROTON);
       addProjection(fs);
       addProjection(vertex);
+      addProjection(vfs);
 
-      vfs = new VetoedFinalState(fs);
-      vfs->addVetoId(12);
-      vfs->addVetoId(14);
-      vfs->addVetoId(16);
-      vfs->addVetoId(-12);
-      vfs->addVetoId(-14);
-      vfs->addVetoId(-16);
-      vfs->addVetoId(13,1.0,100000.0);  // veto muons with pt above 1.0 GeV
-
-      addProjection(*vfs); //ls
+      vfs.addVetoId(12);
+      vfs.addVetoId(14);
+      vfs.addVetoId(16);
+      vfs.addVetoId(-12);
+      vfs.addVetoId(-14);
+      vfs.addVetoId(-16);
+      // Veto muons with pT above 1.0 GeV
+      vfs.addVetoDetail(13, 1.0, numeric_limits<double>::max());
 
       // Put all particles into the jet finder.
+      /// @todo Spot the memory leak!
       conejets = new D0RunIIconeJets(fs);
       addProjection(*conejets);
 
       // Don't put neutrinos or low pT muons into the cal missing ET.
-      calmet = new TotalVisibleMomentum(*vfs);
+      /// @todo Spot the memory leak!
+      calmet = new TotalVisibleMomentum(vfs);
       addProjection(*calmet);
-
    }
 
 
-    /// The name of this analysis is "HepEx0409040"
+    /// Return the name of this analysis.
     inline string getName() const {
       return "HepEx0409040";
     }
@@ -73,7 +68,7 @@ namespace Rivet {
     //map<long,double*> vetopids; //12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
 
     ///The vetoed final state projector needed by the jet algorithm
-    VetoedFinalState* vfs; 
+    VetoedFinalState vfs; 
 
     /// The D0RunIIconeJets projector used by this analysis.
     D0RunIIconeJets* conejets;
@@ -85,7 +80,7 @@ namespace Rivet {
     TotalVisibleMomentum* calmet;
 
     /// Hide the assignment operator
-    HepEx0409040 & operator=(const HepEx0409040& x);
+    HepEx0409040& operator=(const HepEx0409040& x);
 
     /// @name Histograms
     //@{
