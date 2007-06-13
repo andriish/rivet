@@ -1,209 +1,207 @@
 // -*- C++ -*-
 
+#include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/ExampleTree.hh"
 #include "Rivet/RivetAIDA.hh"
-using namespace Rivet;
-
-#include "AIDA/IHistogram1D.h"
 using namespace AIDA;
 
 #include "HepPDT/ParticleID.hh"
 using namespace HepMC;
 
 
+namespace Rivet {
 
-/////////////////////////////////////////////////
 
-
-// Book histograms
-void ExampleTree::init() {
-
+  // Book histograms
+  void ExampleTree::init() {
+    
 #ifndef HAVE_ROOT
-  Log log = getLog();
-  log << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << std::endl;
+    Log log = getLog();
+    log << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
 #else
+    
+    _jet_pt_cut = 20;
+    _subj_pt_cut = 20;
+    _lepton_pt_cut = 20;
+    _store_partons = true;
 
-  _jet_pt_cut = 20;
-  _subj_pt_cut = 20;
-  _lepton_pt_cut = 20;
-  _store_partons = true;
+    _treeFileName = "rivetTree.root";
 
-  treeFileName = "rivetTree.root";
+    // Create a file for the Tree
+    _treeFile = new TFile(treeFileName, "recreate");
 
-  // Create a file for the Tree
-  treeFile = new TFile(treeFileName,"recreate");
+    // Book the ntuple.
+    _rivetTree = new TTree("Rivet Tree", "Rivet Example Tree");
 
-  // book the ntuple.
-  rivetTree = new TTree("Rivet Tree","Rivet Example Tree");
+    // Event number 
+    _rivetTree->Branch("nevt", &_nevt, "nevt/I");
 
-  // event number 
-  rivetTree->Branch("nevt",&nevt,"nevt/I");
+    // Vector bosons
+    _rivetTree->Branch("nvb", &_nvb, "nvb/I");
+    _rivetTree->Branch("vbtype", &_vbtype, "vbtype[nvb]/I");
+    _rivetTree->Branch("vbvec", &_vbvec, "vbvec[nvb][4]/F");
 
-  // Vector bosons
-  rivetTree->Branch("nvb",&nvb,"nvb/I");
-  rivetTree->Branch("vbtype",&vbtype,"vbtype[nvb]/I");
-  rivetTree->Branch("vbvec",&vbvec,"vbvec[nvb][4]/F");
+    _rivetTree->Branch("njet", &_njet, "njet/I");
+    _rivetTree->Branch("vjet", &_vjet, "vjet[njet][4]/F");
 
-  rivetTree->Branch("njet",&njet,"njet/I");
-  rivetTree->Branch("vjet",&vjet,"vjet[njet][4]/F");
+    _rivetTree->Branch("nsub", &_nsub, "nsub/I");
+    _rivetTree->Branch("sjet3", &_sjet3, "sjet3[nsub][4]/F");
+    _rivetTree->Branch("ysubsj", &_ysubsj, "ysubsj[nsub][4]/F");
 
-  rivetTree->Branch("nsub",&nsub,"nsub/I");
-  rivetTree->Branch("sjet3",&sjet3,"sjet3[nsub][4]/F");
-  rivetTree->Branch("ysubsj",&ysubsj,"ysubsj[nsub][4]/F");
+    _rivetTree->Branch("nlep", &_nlep, "nlep/I");
+    _rivetTree->Branch("vlep", &_vlep, "vlep[nlep][4]/F");
+    _rivetTree->Branch("leptype", &_leptype, "leptype[nlep][3]/F");
 
-  rivetTree->Branch("nlep",&nlep,"nlep/I");
-  rivetTree->Branch("vlep",&vlep,"vlep[nlep][4]/F");
-  rivetTree->Branch("leptype",&leptype,"leptype[nlep][3]/F");
+    _rivetTree->Branch("npart", &_npart, "npart/I");
+    _rivetTree->Branch("ppart", &_ppart, "ppart[njet][4]/F");
+    _rivetTree->Branch("pid", &_pid, "pid[npart]/I");
+    _rivetTree->Branch("mo", &_mo, "mo[npart]/I");  // first mother.
 
-  rivetTree->Branch("npart",&npart,"npart/I");
-  rivetTree->Branch("ppart",&ppart,"ppart[njet][4]/F");
-  rivetTree->Branch("pid",&pid,"pid[npart]/I");
-  rivetTree->Branch("mo",&mo,"mo[npart]/I");  // first mother.
-
-  rivetTree->Branch("esumr",&esumr,"esumr[4]/F");
+    _rivetTree->Branch("esumr", &_esumr, "esumr[4]/F");
 
 #endif
-}
-
-
-// Do the analysis
-void ExampleTree::analyze(const Event & event) {
-#ifdef HAVE_ROOT
-  Log log = getLog();
-  log << Log::DEBUG << "Filling the ntuple" << endl;
-
-  GenEvent ev = event.genEvent();
-
-  // Event number
-  nevt = ev.event_number();
-
-  // Jets.
-  const KtJets& jets = event.applyProjection(p_ktjets);
-
-  // Leptons
-  const ChargedLeptons& cl = event.applyProjection(p_chargedleptons);
-
-  // Missing Et/total energy
-  const TotalVisibleMomentum& tvm = event.applyProjection(*p_totalvisiblemomentum);
-
-  // Vector bosons.
-  const WZandh& wzh = event.applyProjection(p_wzandh);
-
-  // Get the vector bosons
-  nvb = 0;
-  for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
-    vbvec[nvb][1] = p->getMomentum().px();
-    vbvec[nvb][2] = p->getMomentum().py();
-    vbvec[nvb][3] = p->getMomentum().pz();
-    vbvec[nvb][0] = p->getMomentum().e();
-    vbtype[nvb]   = 1;
-    nvb++;
   }
 
-  // Get the partons. This is generator dependent and should not be
-  // used in normal analyses.
-  npart = 0;
-  if (_store_partons) {
-
-    for ( GenEvent::particle_const_iterator pi = event.genEvent().particles_begin(); 
-	  pi != event.genEvent().particles_end(); ++pi ) {
-      // Only include particles which are documentation line (status = 3) 
-      // The result/meaning will be generator dependent.
-      if ( (*pi)->status() >= 2 ) {
-	ppart[npart][1] = (*pi)->momentum().px();
-	ppart[npart][2] = (*pi)->momentum().py();
-	ppart[npart][3] = (*pi)->momentum().pz();
-	ppart[npart][0] = (*pi)->momentum().e();
-	HepPDT::ParticleID pInfo = (*pi)->pdg_id();
-	pid[npart]=pInfo.pid();
-	const GenVertex *vertex = (*pi)->production_vertex();
-	// get the first mother
-	if (vertex) {
-	  if (vertex->particles_in_size()>0) {
-	    GenVertex::particles_in_const_iterator p1 = vertex->particles_in_const_begin();
-	    mo[npart] = (*p1)->pdg_id();
-	  } else {
-	    mo[npart] = 0;
-	  }
-	} else {
-	  mo[npart] = 0;
-	}
 
 
-	//const GenParticle mother = **(vertex->particles_in_const_begin());
-	
-	log << Log::DEBUG << npart << ":" << pid[npart] << endl;
-	npart++;
+  // Do the analysis
+  void ExampleTree::analyze(const Event & event) {
+#ifdef HAVE_ROOT
+    Log log = getLog();
+    log << Log::DEBUG << "Filling the ntuple" << endl;
+
+    const GenEvent& ev = event.genEvent();
+
+    // Event number
+    _nevt = ev.event_number();
+
+    // Jets.
+    const KtJets& jets = event.applyProjection(_p_ktjets);
+
+    // Leptons
+    const ChargedLeptons& cl = event.applyProjection(_p_chargedleptons);
+
+    // Missing Et/total energy
+    const TotalVisibleMomentum& tvm = event.applyProjection(*_p_totalvisiblemomentum);
+
+    // Vector bosons.
+    const WZandh& wzh = event.applyProjection(_p_wzandh);
+
+    // Get the vector bosons
+    _nvb = 0;
+    for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
+      _vbvec[nvb][1] = p->getMomentum().px();
+      _vbvec[nvb][2] = p->getMomentum().py();
+      _vbvec[nvb][3] = p->getMomentum().pz();
+      _vbvec[nvb][0] = p->getMomentum().e();
+      _vbtype[nvb]   = 1;
+      ++_nvb;
+    }
+
+    // Get the partons. This is generator dependent and should not be
+    // used in normal analyses.
+    _npart = 0;
+    if (_store_partons) {
+
+      for (GenEvent::particle_const_iterator pi = event.genEvent().particles_begin(); 
+           pi != event.genEvent().particles_end(); ++pi ) {
+        // Only include particles which are documentation line (status = 3) 
+        // The result/meaning will be generator dependent.
+        if ( (*pi)->status() >= 2 ) {
+          _ppart[_npart][1] = (*pi)->momentum().px();
+          _ppart[_npart][2] = (*pi)->momentum().py();
+          _ppart[_npart][3] = (*pi)->momentum().pz();
+          _ppart[_npart][0] = (*pi)->momentum().e();
+          HepPDT::ParticleID pInfo = (*pi)->pdg_id();
+          _pid[_npart] = pInfo.pid();
+          const GenVertex* vertex = (*pi)->production_vertex();
+          // get the first mother
+          if (vertex) {
+            if (vertex->particles_in_size()>0) {
+              GenVertex::particles_in_const_iterator p1 = vertex->particles_in_const_begin();
+              _mo[_npart] = (*p1)->pdg_id();
+            } else {
+              _mo[_npart] = 0;
+            }
+          } else {
+            _mo[_npart] = 0;
+          }
+          
+          //const GenParticle mother = **(vertex->particles_in_const_begin());
+          log << Log::DEBUG << _npart << ":" << _pid[_npart] << endl;
+          ++_npart;
+        }
       }
     }
-  }
-
-
-  // Get the jets in decreasing ET order.
-  vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
-  njet = 0;
-  nsub = 0;
-  for (vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); ++j) {
-    if (j->perp()>_jet_pt_cut) {
-      vjet[njet][1] = j->px();
-      vjet[njet][2] = j->py();
-      vjet[njet][3] = j->pz();
-      vjet[njet][0] = j->e();
-      if (j->perp()>_subj_pt_cut) {
-	sjet3[nsub][1] = j->px();
-	sjet3[nsub][2] = j->py();
-	sjet3[nsub][3] = j->pz();
-	sjet3[nsub][0] = j->e();
-	vector<double> ys = jets.getYSubJet(*j);
-	if (ys.size()>3) {
-	  ysubsj[nsub][0] = ys.at(0);
-	  ysubsj[nsub][1] = ys.at(1);
-	  ysubsj[nsub][2] = ys.at(2);
-	  ysubsj[nsub][3] = ys.at(3);
-	} else {
-	  ysubsj[nsub][0] = 0;
-	  ysubsj[nsub][1] = 0;
-	  ysubsj[nsub][2] = 0;
-	  ysubsj[nsub][3] = 0;
-	}
-	nsub++;
+    
+    
+    // Get the jets in decreasing ET order.
+    vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
+    _njet = 0;
+    _nsub = 0;
+    for (vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); ++j) {
+      if (j->perp() > _jet_pt_cut) {
+        _vjet[_njet][1] = j->px();
+        _vjet[_njet][2] = j->py();
+        _vjet[_njet][3] = j->pz();
+        _vjet[_njet][0] = j->e();
+        if (j->perp() > _subj_pt_cut) {
+          _sjet3[_nsub][1] = j->px();
+          _sjet3[_nsub][2] = j->py();
+          _sjet3[_nsub][3] = j->pz();
+          _sjet3[_nsub][0] = j->e();
+          vector<double> ys = jets.getYSubJet(*j);
+          if (ys.size()>3) {
+            _ysubsj[_nsub][0] = ys.at(0);
+            _ysubsj[_nsub][1] = ys.at(1);
+            _ysubsj[_nsub][2] = ys.at(2);
+            _ysubsj[_nsub][3] = ys.at(3);
+          } else {
+            _ysubsj[_nsub][0] = 0;
+            _ysubsj[_nsub][1] = 0;
+            _ysubsj[_nsub][2] = 0;
+            _ysubsj[_nsub][3] = 0;
+          }
+          ++_nsub;
+        }
+        ++_njet;
       }
-      njet++;
     }
-  }
 
-  // Loop over leptons
-  nlep=0;
-  for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
-    if (p->getMomentum().perp()>_lepton_pt_cut) {
-      vlep[nlep][1] = p->getMomentum().px();
-      vlep[nlep][2] = p->getMomentum().py();
-      vlep[nlep][3] = p->getMomentum().pz();
-      vlep[nlep][0] = p->getMomentum().e();
-      nlep++;
+    // Loop over leptons
+    _nlep = 0;
+    for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
+      if (p->getMomentum().perp() > _lepton_pt_cut) {
+        _vlep[_nlep][1] = p->getMomentum().px();
+        _vlep[_nlep][2] = p->getMomentum().py();
+        _vlep[_nlep][3] = p->getMomentum().pz();
+        _vlep[_nlep][0] = p->getMomentum().e();
+        ++_nlep;
+      }
     }
-  }
 
-  // Total/missing energy.  
-  esumr[1] = tvm.getMomentum().px();
-  esumr[2] = tvm.getMomentum().py();
-  esumr[3] = tvm.getMomentum().pz();
-  esumr[0] = tvm.getMomentum().e();
+    // Total/missing energy.  
+    _esumr[1] = tvm.getMomentum().px();
+    _esumr[2] = tvm.getMomentum().py();
+    _esumr[3] = tvm.getMomentum().pz();
+    _esumr[0] = tvm.getMomentum().e();
 
-  // Finished...
-  log << Log::DEBUG << "Finished analyzing" << endl;
+    // Finished...
+    log << Log::DEBUG << "Finished analyzing" << endl;
 
-  rivetTree->Fill();
+    _rivetTree->Fill();
 #endif
-}
+  }
 
 
-// Finalize
-void ExampleTree::finalize() { 
+  // Finalize
+  void ExampleTree::finalize() { 
 #ifdef HAVE_ROOT
-  // Write the tree to file.
-  rivetTree->Write();
+    // Write the tree to file.
+    _rivetTree->Write();
 #endif
-}
+  }
+  
 
+}

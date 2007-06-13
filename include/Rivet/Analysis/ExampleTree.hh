@@ -16,6 +16,7 @@
 #include "TString.h"
 #endif
 
+
 namespace Rivet {
 
   /// This Analysis books and fills a ROOT tree with simulated data.
@@ -27,118 +28,136 @@ namespace Rivet {
 
     /// Default constructor
     inline ExampleTree()
-      : p_fs(-4.0, 4.0, 0.0), p_chargedleptons(p_fs), p_ktjets(p_fs), p_wzandh()
+      : _p_fs(-4.0, 4.0, 0.0), _p_chargedleptons(_p_fs), _p_ktjets(_p_fs), _p_wzandh()
     { 
       /// Particle IDs for neutrinos and antineutrinos and LSP
-      p_vfs = new VetoedFinalState(p_fs);
-      p_vfs->addVetoId(12,10.0,50.0);
-      p_vfs->addVetoId(14);
-      p_vfs->addVetoId(16);
-      p_vfs->addVetoId(-12);
-      p_vfs->addVetoId(-14);
-      p_vfs->addVetoId(-16);
-      p_vfs->addVetoId(1000022);
-      p_totalvisiblemomentum = new TotalVisibleMomentum(*p_vfs);
+      _p_vfs = new VetoedFinalState(_p_fs);
+      _p_vfs->addVetoId(12, 10.0, 50.0);
+      _p_vfs->addVetoId(14);
+      _p_vfs->addVetoId(16);
+      _p_vfs->addVetoId(-12);
+      _p_vfs->addVetoId(-14);
+      _p_vfs->addVetoId(-16);
+      _p_vfs->addVetoId(1000022);
+      _p_totalvisiblemomentum = new TotalVisibleMomentum(*_p_vfs);
 
-      addProjection(p_fs);
-      addProjection(p_chargedleptons);
-      addProjection(p_ktjets);
-      addProjection(*p_vfs);
-      addProjection(*p_totalvisiblemomentum);
-      addProjection(p_wzandh);
+      addProjection(_p_fs);
+      addProjection(_p_chargedleptons);
+      addProjection(_p_ktjets);
+      addProjection(*_p_vfs);
+      addProjection(*_p_totalvisiblemomentum);
+      addProjection(_p_wzandh);
     }
 
     inline ~ExampleTree() {
-      delete p_vfs;
-      delete p_totalvisiblemomentum;
+      delete _p_vfs;
+      delete _p_totalvisiblemomentum;
     }
 
   public:
 
-    /// The name of this analysis is "Test"
+    /// Return the name of this analysis
     inline string getName() const {
-      return "Test";
+      return "ExampleTree";
     }
 
   public:
 
+    /// Initialise the analysis.
     void init();
     
-    void analyze(const Event & event);
+    /// Perform the analysis for this event.
+    void analyze(const Event& event);
     
+    /// Finish off the analysis.
     void finalize();
 
-    /// Return the RivetInfo object of this analysis object.
-    //    RivetInfo getInfo() const;
 
   private:
 
     /// The FinalState projector used by this analysis.
-    FinalState p_fs;
+    FinalState _p_fs;
 
     /// The Charged Lepton projector used by this analysis.
-    ChargedLeptons p_chargedleptons;
+    ChargedLeptons _p_chargedleptons;
 
-    /// The jet projector
-    KtJets p_ktjets;
+    /// The jet projector.
+    KtJets _p_ktjets;
 
-    /// The vector boson projector
-    WZandh p_wzandh;
+    /// The vector boson projector.
+    WZandh _p_wzandh;
 
     /// The VetoedFinalState projector used by this analysis.
-    VetoedFinalState* p_vfs;
+    VetoedFinalState* _p_vfs;
 
-    /// The total visible momentum projector
-    TotalVisibleMomentum* p_totalvisiblemomentum;
-
+    /// The total visible momentum projector.
+    TotalVisibleMomentum* _p_totalvisiblemomentum;
 
 
 #ifdef HAVE_ROOT
+  private:
+
     /// The tree
-    TTree *rivetTree;
+    TTree* _rivetTree;
 
     /// The file for the Tree
-    TFile *treeFile;
+    TFile* _treeFile;
 
     /// The filename
-    TString treeFileName;
-
+    TString _treeFileName;
 #endif
 
 
-    // The ntuple variables.
-    int           nevt;            // event number
+  private:
 
-    int           nvb;             // number of W bosons
-    float         vbvec[8][4];     // 4 momentum of W bosons.
-    int           vbtype[8];       // type (i.e. decay mode) of W bosons.
+    /// @name The ntuple variables.
+    //@{
+    /// Event number
+    int _nevt;            
 
-    int           njet;            // number of jets
-    float         vjet[50][4];     // four momentum of the jets
+    /// Number of W bosons
+    int _nvb;             
+    /// 4 momentum of W bosons.
+    float _vbvec[8][4];
+    /// Type (i.e. decay mode) of W bosons.
+    int _vbtype[8]; 
 
-    int           nsub;            // number of jets for which the subjet analysis was performed.
-    float         sjet3[200][4];   // four vector of jets for which we found subjets.
-    float         ysubsj[200][4];     // y 1->2, 2->3, 3->4, 4->5 for the above jets.
+    /// Number of jets
+    int _njet; 
+    /// Four momentum of the jets
+    float _vjet[50][4]; 
 
-    int           nlep;
-    int           leptype[150][3];
-    float         vlep[150][4];
+    /// Number of jets for which the subjet analysis was performed.
+    int _nsub; 
+    /// Four vector of jets for which we found subjets.
+    float _sjet3[200][4];
+    /// y 1->2, 2->3, 3->4, 4->5 for the above jets.
+    float _ysubsj[200][4];
 
-    int           npart;           // Partons
-    float         ppart[4000][4];
-    int           pid[4000];
-    int           mo[4000];
+    /// Number of leptons
+    int _nlep;
+    /// Lepton types
+    int _leptype[150][3];
+    float _vlep[150][4];
 
-    float         esumr[4];        // Total visible momentum
+    /// Number of partons
+    int _npart; 
+    float _ppart[4000][4];
+    int _pid[4000];
+    int _mo[4000];
+
+    /// Total visible momentum
+    float _esumr[4];
+    //@}
+
 
   private:
 
     /// Hide the assignment operator
-    ExampleTree & operator=(const ExampleTree& x);
+    ExampleTree& operator=(const ExampleTree&);
 
 
   public:
-
     /// Minimum pt of jets which will go into the tree.
     int _jet_pt_cut;
 
@@ -150,7 +169,6 @@ namespace Rivet {
 
     /// Store the partons or not?
     bool _store_partons;
-
   };
 
 }

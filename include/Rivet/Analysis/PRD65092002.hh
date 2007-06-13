@@ -27,7 +27,7 @@ namespace Rivet {
 
   public:
 
-    /// The name of this analysis is "Test"
+    /// Return the name of the analysis.
     inline string getName() const {
       return "PRD65092002";
     }
@@ -49,17 +49,16 @@ namespace Rivet {
     /// The TrackJet projection used by this analysis.
     TrackJet _trackjetproj;
 
-
   private:
 
+    /// @name Histograms
     //@{
-    /// Histograms
     AIDA::IHistogram1D* _histToward;
     AIDA::IHistogram1D* _histAway;
     AIDA::IHistogram1D* _histTrans;
     //@}
 
-    // number of bins in the histograms
+    // Number of bins in the histograms
     const size_t _numBins;
 
     /// Internal storage of \f$ p_T \f$ flow data.
@@ -80,9 +79,10 @@ namespace Rivet {
       double sumPtSq;
     };
 
+    /// @name Histogram collections
+    //@{
     /// These arrays of minimal histogram data, binned in the \f$ p_T \f$ of the
     /// leading jet, will be used to calculate the output profile histograms.
-    //@{
     vector<MiniHisto> _dataToward;
     vector<MiniHisto> _dataAway;
     vector<MiniHisto> _dataTrans;
@@ -91,8 +91,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    PRD65092002& operator=(const PRD65092002& x);
-
+    PRD65092002& operator=(const PRD65092002&);
 
   };
 

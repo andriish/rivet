@@ -169,7 +169,7 @@ namespace Rivet {
                                         const unsigned int yAxisId, const string& title);
 
 
-    /// @todo Add profile histograms.
+    /// @todo Add profile histograms / DPS.
 
 
     /// Make the histogram directory.
