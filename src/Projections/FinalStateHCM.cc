@@ -22,7 +22,8 @@ namespace Rivet {
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
     for (int i=0, N=fs.particles().size(); i < N; ++i) {
-      if (fs.particles()[i].getHepMCParticle() != dislep.out().getHepMCParticle()) {
+      if ( &(fs.particles()[i].getHepMCParticle()) !=
+	   &(dislep.out().getHepMCParticle()) ) {
         _theParticles.push_back(fs.particles()[i]);
         _theParticles[i].getMomentum() *= diskin.boostHCM();
       }

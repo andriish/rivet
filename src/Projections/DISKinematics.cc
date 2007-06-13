@@ -12,11 +12,15 @@ namespace Rivet {
     const ParticlePair& inc = e.applyProjection(*_beams).getBeams();
     Particle hadron;
 
-    if (inc.second.getPdgId() == _idhad) hadron = inc.second;
-    else throw runtime_error("DISKinematics projector could not find the correct beam.");
+    if ( inc.second.getPdgId() == _idhad ) hadron = inc.second;
+    else if ( inc.first.getPdgId() == _idhad ) hadron = inc.first;
+    else throw runtime_error("DISKinematics projector could not find "
+			     "the correct beam.");
 
-    if (dislep.in().getHepMCParticle() == hadron.getHepMCParticle())
-      throw runtime_error("DISKinematics projector could not find the correct beam.");
+    if ( &(dislep.in().getHepMCParticle()) ==
+	 &(hadron.getHepMCParticle()) )
+      throw runtime_error("DISKinematics projector could not find the "
+			  "correct beam.");
 
     LorentzVector pgam(dislep.in().getMomentum() - dislep.out().getMomentum());
     _theQ2 = -pgam.m2();

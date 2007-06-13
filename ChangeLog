@@ -1,3 +1,20 @@
+2007-06-13  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Projections/FinalStateHCM.cc,
+	src/Projections/DISKinematics.cc: Equality checks using
+	GenParticle::operator== changed to check for pointer equality.
+
+	* include/Rivet/Analysis/HepEx9506012.hh: Uses modified DISLepton
+	projection.
+
+	* include/Rivet/Particle.hh: Added member function to check if a
+	GenParticle is associated.
+
+	* include/Rivet/Projections/DISLepton.hh,
+	src/Projections/DISLepton.cc: Fixed bug in projection. Introduced
+	final state projection to limit searching for scattered
+	lepton. Still not properly tested.
+
 2007-06-08  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/Rivet/Projections/PVertex.hh,
