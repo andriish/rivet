@@ -105,6 +105,7 @@ namespace Rivet {
     VetoedFinalState & operator=(const VetoedFinalState&);
     
   };
+
   
 }
 

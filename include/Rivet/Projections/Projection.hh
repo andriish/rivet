@@ -171,7 +171,7 @@ namespace Rivet {
    
     /// The assignment operator is private and must never be called.
     /// In fact, it should not even be implemented.
-    Projection & operator=(const Projection &);
+    Projection& operator=(const Projection&);
     
   };
   

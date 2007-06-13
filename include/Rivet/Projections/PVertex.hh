@@ -6,6 +6,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
 
+
 namespace Rivet {
   
   
@@ -20,10 +21,6 @@ namespace Rivet {
     inline PVertex() { 
     }
 
-    /// The copy constructor.
-    inline PVertex(const PVertex& x)
-      : Projection(x), thePVertex(x.thePVertex) { }
-
     /// The destructor.
     virtual ~PVertex() { }
     //@}
@@ -36,68 +33,41 @@ namespace Rivet {
 
   protected:
 
-    /*
-     * Take the information available in the Event and make the
-     * calculations necessary to obtain the projection. Note that this
-     * function must never be called except inside the
-     * Event::applyProjection(Projection *) function. If the information
-     * from other projections are necessary, their project(const Event
-     * &) should not be called, rather the corresponding objects should
-     * be added to the Event using the Event::applyProjection(Projection *)
-     * function.
-     */
+    /// Do the projection.
     virtual void project(const Event & e);
 
-    /**
-     * This function is used to define a unique ordering between
-     * different Projection objects of the same class. If this is
-     * considered to be equivalent to the Projector object, \a p, in the
-     * argument the function should return 0. If this object should be
-     * ordered before \a p a negative value should be returned,
-     * otherwise a positive value should be returned. This function must
-     * never be called explicitly, but should only be called from the
-     * operator<(const Projection &). When implementing the function in
-     * concrete sub-classes, it is then guarranteed that the Projection
-     * object \a p in the argument is of the same class as the sub-class
-     * and can be safely dynamically casted to that class.
-     *
-     * When implementing this function in a sub-class, the immediate
-     * base class version of the function should be called first. If the
-     * base class function returns a non-zero value, that value should
-     * be returned immediately. Only if zero is returned should this
-     * function check the member variables of the sub-class to determine
-     * whether this should be ordered before or after \a p, or if it is
-     * equivalent with \a p.
-     */
-    virtual int compare(const Projection & p) const;
+    /// Compare projections.
+    inline virtual int compare(const Projection & p) const {
+      return 0;
+    }
 
   public:
 
-    /**
-     * The pair of beam particles in the current collision in GenEvent 
-     */
-    inline const GenVertex & operator()() const {
-     return *thePVertex;
+    /// Get the primary vertex.
+    inline const GenVertex& getPrimaryVertex() const {
+      return *_thePVertex;
+    }
+
+    /// Get the primary vertex via obsfucated method.
+    /// @deprecated
+    inline const GenVertex& operator()() const {
+      return getPrimaryVertex();
     }
 
   private:
 
-    /**
-     * The Primary Vertex in the current collision in GenEvent 
-     */
-    GenVertex * thePVertex;
+
+    /// The Primary Vertex in the current collision.
+    GenVertex* _thePVertex;
 
   private:
 
-    /**
-     * The assignment operator is private and must never be called.
-     * In fact, it should not even be implemented.
-     */
-    PVertex & operator=(const PVertex &);
+    /// The assignment operator is private and must never be called.
+    PVertex& operator=(const PVertex&);
 
   };
 
 }
 
 
-#endif /* RIVET_PVertex_H */
+#endif

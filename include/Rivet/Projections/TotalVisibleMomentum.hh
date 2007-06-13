@@ -11,14 +11,15 @@
 
 namespace Rivet {
 
-  /// Project out the total visible energy vector, allowing missing ET etc to be calculated.
+  /// Project out the total visible energy vector, allowing missing 
+  /// \f$ E_T \f$ etc. to be calculated.
   class TotalVisibleMomentum: public Projection {
     
   public:
     
     /// Constructor. The provided FinalState projection must live throughout the run.
     inline TotalVisibleMomentum(VetoedFinalState& vfsp)
-      : vfsproj(&vfsp)
+      : _vfsproj(&vfsp)
     { 
       addProjection(vfsp);
     }
@@ -30,10 +31,10 @@ namespace Rivet {
     }
 
     /// The projected four-momentum vector
-    inline CLHEP::LorentzVector& getMomentum() { return _momentum; }
+    inline LorentzVector& getMomentum() { return _momentum; }
 
     /// The projected four-momentum vector
-    inline const CLHEP::LorentzVector& getMomentum() const { return _momentum; }
+    inline const LorentzVector& getMomentum() const { return _momentum; }
 
     
   protected:
@@ -42,12 +43,12 @@ namespace Rivet {
     void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
         
   private:
         
     /// The FinalState projection used by this projection
-    VetoedFinalState * vfsproj;
+    VetoedFinalState* _vfsproj;
 
     /// The total visible momentum
     CLHEP::LorentzVector _momentum;
@@ -55,7 +56,7 @@ namespace Rivet {
   private:
     
     /// Hide the assignment operator.
-    TotalVisibleMomentum & operator=(const TotalVisibleMomentum &);
+    TotalVisibleMomentum& operator=(const TotalVisibleMomentum&);
     
   };
   

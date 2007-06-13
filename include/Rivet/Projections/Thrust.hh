@@ -1,17 +1,43 @@
 // -*- C++ -*-
 #ifndef RIVET_Thrust_HH
 #define RIVET_Thrust_HH
-// Declaration of the Thrust class.
 
 #include "Rivet/Projections/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/RivetCLHEP.hh"
 
+
 namespace Rivet {
 
   /**
-   * Project out the event shape.
+    @brief Obtain the e+ e- thrust event shape, consisting of the thrust basis and the 
+    thrust scalar values in each direction (the thrust, thrust major and thrust
+    minor).
+
+    @author Andy Buckley
+   
+    The scalar (maximum) thrust is defined as
+    \f[
+    T = \max_\vec{n} \frac{\sum_i |\vec{p}_i \cdot \vec{n}|}{\sum_i |\vec{p}_i|}
+    \f],
+    with the direction of the unit vector \f$ \vec{n} \f$ which maximises \f$ T \f$ 
+    being identified as the thrust axis. The unit vector which maximises the thrust
+    scalar in the plane perpendicular to \f$ n_\text{thrust} \f$ is the "thrust major"
+    direction, and the vector perpendicular to both the thrust and thrust major is
+    the thrust minor. Both the major and minor directions have associated thrust 
+    scalars.
+
+    Thrust calculations have particularly simple forms for less than 4 particles, and
+    in those cases this projection is computationally minimal. For 4 or more particles,
+    a more general calculation must be carried out, based on the Brandt/Dahmen method 
+    from Z. Phys. C1 (1978). While a polynomial improvement on the exponential scaling
+    of the naive method, this algorithm scales asymptotically as \f$ n^3 \f$. Be aware
+    that the thrust may easily be the most computationally demanding projection in
+    Rivet for large events!
+
+    The Rivet implementation of thrust is based heavily on Stefan Gieseke's Herwig++
+    re-coding of the 'tasso' code from HERWIG.
    */
   class Thrust : public Projection {
 
@@ -93,4 +119,4 @@ namespace Rivet {
 }
 
 
-#endif /* RIVET_Thrust_HH */
+#endif

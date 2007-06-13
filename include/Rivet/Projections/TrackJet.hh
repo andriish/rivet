@@ -199,15 +199,6 @@ namespace Rivet {
     /// The FinalState projection used by this projection.
     FinalState* _fsproj;
 
-//     /// The minimum value of \f$ \eta \f$.
-//     const double _etaMin;
-
-//     /// The maximum value of \f$ \eta \f$.    
-//     const double _etaMax;
-
-//     /// The minimum value of \f$ p_T \f$ in GeV.
-//     const double _ptMin;
-
     /// The computed jets
     Jets _jets;
 

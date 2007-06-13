@@ -16,7 +16,8 @@ namespace Rivet {
      \f[ 
      S^{\alpha \beta} = \frac{\sum_i p_i^\alpha p_i^\beta}{\sum_i |\mathbf{p}_i|^2} 
      \f],
-     from which the sphericity, aplanarity and planarity can be
+     where the Greek indices are spatial components and the Latin indices are used
+     for sums over particles. From this, the sphericity, aplanarity and planarity can be
      calculated by combinations of eigenvalues.
      
      Defining the three eigenvalues
@@ -105,15 +106,12 @@ namespace Rivet {
 
   private:
 
-    /**
-     * The assignment operator is private and must never be called.
-     * In fact, it shouldn't even be implemented.
-     */
-    Sphericity & operator=(const Sphericity &);
+    /// The assignment operator is private and must never be called.
+    Sphericity& operator=(const Sphericity&);
 
   };
 
 }
 
 
-#endif /* RIVET_Sphericity_HH */
+#endif

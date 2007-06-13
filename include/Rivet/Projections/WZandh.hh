@@ -17,7 +17,7 @@ namespace Rivet {
     /// @name Standard constructors and destructors. */
     //@{
     /// The default constructor. 
-    inline WZandh(){     }
+    inline WZandh() {}
     
   public:
     /// Return the name of the projection
@@ -31,7 +31,7 @@ namespace Rivet {
     void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection & p) const;
+    int compare(const Projection& p) const;
     
   public:
     
@@ -62,12 +62,13 @@ namespace Rivet {
     /// Access the Z's decayed to qq
     inline const ParticleVector& Zqqs() const { return _theZqqs; }
 
-    /// Access higgses
+    /// Access Higgses
     inline const ParticleVector& hs() const { return _thehs; }
     
   private:
     
-    /// The particles.
+    /// @name The particles.
+    //@{
     ParticleVector _theWens;
     ParticleVector _theZees;
     ParticleVector _theWmns;
@@ -78,6 +79,7 @@ namespace Rivet {
     ParticleVector _theWqqs;
     ParticleVector _theZqqs;
     ParticleVector _thehs;
+    //@}
     
   private:
     

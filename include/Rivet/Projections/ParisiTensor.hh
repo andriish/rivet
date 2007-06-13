@@ -76,19 +76,16 @@ namespace Rivet {
     inline const double lambda2() const { return _lambda[1]; }
     inline const double lambda3() const { return _lambda[2]; }
     ///@}
-    
-//     /// Return the RivetInfo object of this Projection.
-//     virtual RivetInfo getInfo() const;
-    
+        
   private:
     
-    /// The event shapes
+    /// The Parisi event shape variables.
     double _C, _D;
 
-    /// Eigenvalues
+    /// Eigenvalues.
     double _lambda[3];
 
-    /// The Sphericity projection which this projection is really just a wrapper for.
+    /// The Sphericity projection for which this projection is really just a wrapper.
     Sphericity _sphproj;
 
   private:
@@ -102,4 +99,4 @@ namespace Rivet {
 }
 
 
-#endif /* RIVET_ParisiTensor_HH */
+#endif
