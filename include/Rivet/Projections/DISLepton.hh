@@ -3,6 +3,7 @@
 #define RIVET_DISLepton_H
 
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -14,16 +15,19 @@ namespace Rivet {
     
   public:
     
-    /// The default constructor. Must specify the incoming and outgoing
-    /// PDG codes of the leptons to project.  If \a inid is the
-    /// anti-particle of \a outid, either a scattered lepton or
-    /// anti-lepton is searched for. Must also specify a Beam projection
-    /// object which is assumed to live thoughout the run.
-    inline DISLepton(Beam& beamproj, const ParticleName& inid, const ParticleName& outid)
-      : _beams(&beamproj), _idin(inid), _idout(outid) 
+    /// The default constructor. Must specify the incoming and
+    /// outgoing PDG codes of the leptons to project.  If \a inid is
+    /// an anti-particle and \a outid a particle, or vice versa,
+    /// either a scattered lepton or anti-lepton is searched for. Must
+    /// also specify a Beam and FinalState projection object which is
+    /// assumed to live thoughout the run.
+    inline DISLepton(Beam& beamproj, FinalState& fsp,
+		     const ParticleName& inid, const ParticleName& outid)
+      : _beams(&beamproj), _fsproj(&fsp), _idin(inid), _idout(outid) 
     {
       _beamPairs.insert(BeamPair(inid, ANY));
       addProjection(beamproj);
+      addProjection(fsp);
     }
     
     
@@ -54,6 +58,9 @@ namespace Rivet {
     /// The Beam projector object defining the incoming beam particles.
     Beam* _beams;
     
+    /// The FinalState projection used by this projection
+    FinalState* _fsproj;
+
     /// The PDG id of the incoming lepton.
     long _idin;
     
