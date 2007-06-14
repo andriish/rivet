@@ -1,18 +1,13 @@
 // -*- C++ -*-
+
 #ifndef RIVET_RivetHandler_H
 #define RIVET_RivetHandler_H
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.fhh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.hh"
 #include "Rivet/Analysis/Analysis.hh"
-
-
-namespace AIDA {
-  class IAnalysisFactory;
-  class IHistogramFactory;
-  class ITree;
-}
 
 
 namespace Rivet {
