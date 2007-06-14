@@ -23,64 +23,55 @@ namespace Rivet {
       filename += ".root";
       storetypestr = "root";
     }
-    theTree = theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
-    theHistogramFactory = theAnalysisFactory->createHistogramFactory(tree());
+    _theTree = _theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
+    _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
   }
 
 
   AnalysisHandler::AnalysisHandler(string basefilename, HistoFormat storetype)
-    : nRun(0), iRun(0) {
-    theAnalysisFactory = AIDA_createAnalysisFactory();
+    : _nRun(0), _iRun(0) {
+    _theAnalysisFactory = AIDA_createAnalysisFactory();
     setupFactories(basefilename, storetype);
   }
 
 
   AnalysisHandler::AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
-    : nRun(0), iRun(0), theAnalysisFactory(&afac) {
+    : _nRun(0), _iRun(0), _theAnalysisFactory(&afac) {
     setupFactories(basefilename, storetype);
   }
 
 
   AnalysisHandler::~AnalysisHandler() {
-    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
-      delete analysisVector[i]; 
+    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
+      delete _analysisVector[i]; 
     }
   }
 
 
   void AnalysisHandler::init(int i, int N) {
-    nRun = N;
-    iRun = i;
-    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
-      analysisVector[i]->init();
-      analysisVector[i]->checkConsistency();
+    _nRun = N;
+    _iRun = i;
+    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
+      _analysisVector[i]->init();
+      _analysisVector[i]->checkConsistency();
     }
   }
 
 
   void AnalysisHandler::analyze(const GenEvent & geneve) {
     Event event(geneve);
-    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
-      analysisVector[i]->analyze(event);
+    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
+      _analysisVector[i]->analyze(event);
     }
   }
 
 
   void AnalysisHandler::finalize() {
-    for (int i = 0, N = analysisVector.size(); i < N; ++i) {
-      analysisVector[i]->finalize();
+    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
+      _analysisVector[i]->finalize();
     }
     tree().commit();
   }
-
-
-//   RivetInfo AnalysisHandler::info() const {
-//     RivetInfo ret;
-//     for (int i = 0, N = analysisVector.size(); i < N; ++i) {
-//       ret += analysisVector[i]->getInfo();
-//     }
-//     return ret;
-//   }
 
 
 }
