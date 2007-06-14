@@ -29,7 +29,7 @@ namespace Rivet {
     _treeFileName = "rivetTree.root";
 
     // Create a file for the Tree
-    _treeFile = new TFile(treeFileName, "recreate");
+    _treeFile = new TFile(_treeFileName, "recreate");
 
     // Book the ntuple.
     _rivetTree = new TTree("Rivet Tree", "Rivet Example Tree");
@@ -94,11 +94,11 @@ namespace Rivet {
     // Get the vector bosons
     _nvb = 0;
     for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
-      _vbvec[nvb][1] = p->getMomentum().px();
-      _vbvec[nvb][2] = p->getMomentum().py();
-      _vbvec[nvb][3] = p->getMomentum().pz();
-      _vbvec[nvb][0] = p->getMomentum().e();
-      _vbtype[nvb]   = 1;
+      _vbvec[_nvb][1] = p->getMomentum().px();
+      _vbvec[_nvb][2] = p->getMomentum().py();
+      _vbvec[_nvb][3] = p->getMomentum().pz();
+      _vbvec[_nvb][0] = p->getMomentum().e();
+      _vbtype[_nvb]   = 1;
       ++_nvb;
     }
 
