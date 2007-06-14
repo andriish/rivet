@@ -13,23 +13,23 @@ namespace Rivet {
 
   void PL273B181::init() {
     // Book histogram
-    histChTot_ = bookHistogram1D(1, 1, 1, "Total charged multiplicity");
+    _histChTot = bookHistogram1D(1, 1, 1, "Total charged multiplicity");
   }
 
 
   // Do the analysis
   void PL273B181::analyze(const Event& event) {
     Log& log = getLog();
-    const Multiplicity& m = event.applyProjection(mult);
+    const Multiplicity& m = event.applyProjection(_multproj);
     log << Log::INFO << "Total charged multiplicity = " << m.totalChargedMultiplicity() << endl;
-    histChTot_->fill(m.totalChargedMultiplicity(), event.weight());
+    _histChTot->fill(m.totalChargedMultiplicity(), event.weight());
   }
 
 
   // Finalize
   void PL273B181::finalize() { 
     // Normalize the histogram
-    normalize(histChTot_);
+    normalize(_histChTot);
   }
 
 }

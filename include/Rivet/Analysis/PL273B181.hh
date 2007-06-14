@@ -4,8 +4,8 @@
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
-#include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/RivetAIDA.fhh"
+
 
 namespace Rivet {
 
@@ -16,16 +16,16 @@ namespace Rivet {
 
     /// Default constructor.
     inline PL273B181()
-      : mult(fsproj)
+      : _multproj(_fsproj)
     { 
       setBeams(ELECTRON, POSITRON); 
-      addProjection(fsproj);
-      addProjection(mult);
+      addProjection(_fsproj);
+      addProjection(_multproj);
     }
 
   public:
 
-    /// The name of this analysis is "PL273B181"
+    /// Return the name of this analysis.
     inline string getName() const {
       return "PL273B181";
     }
@@ -40,19 +40,19 @@ namespace Rivet {
 
     /// @name The projectors used by this analysis.
     //{
-    FinalState fsproj;
+    FinalState _fsproj;
 
-    Multiplicity mult;
+    Multiplicity _multproj;
     //}
 
   private:
 
     /// Hide the assignment operator
-    PL273B181 & operator=(const PL273B181 &);
+    PL273B181& operator=(const PL273B181&);
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* histChTot_;
+    AIDA::IHistogram1D* _histChTot;
     //@}
 
   };
