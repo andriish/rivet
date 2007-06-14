@@ -17,25 +17,25 @@ namespace Rivet {
 
     /// The default constructor.
     inline HepEx9506012()
-      : beams(), 
-        lepton(beams, fsp, ELECTRON, POSITRON), 
-        diskin(beams, lepton, PROTON),
-        fsproj(lepton, diskin, fsp), 
-        y1hcm(fsproj)
+      : _beamsproj(), 
+        _leptonproj(_beamsproj, _fsproj, ELECTRON, POSITRON), 
+        _diskinproj(_beamsproj, _leptonproj, PROTON),
+        _fshcmproj(_leptonproj, _diskinproj, _fsproj), 
+        _y1hcmproj(_fshcmproj)
     { 
       setBeams(ELECTRON, PROTON);
-      addProjection(beams);
-      addProjection(lepton);
-      addProjection(diskin);
-      addProjection(fsproj);
-      addProjection(y1hcm);
-      addCut("x", MORE_EQ, xmin);
-      addCut("x", LESS_EQ, xmax);
+      addProjection(_beamsproj);
+      addProjection(_leptonproj);
+      addProjection(_diskinproj);
+      addProjection(_fshcmproj);
+      addProjection(_y1hcmproj);
+      addCut("x", MORE_EQ, _xmin);
+      addCut("x", LESS_EQ, _xmax);
     }
 
   public:
 
-    /// The name of this analysis is "HepEx9506012"
+    /// Get the name of this analysis.
     inline string getName() const {
       return "HepEx9506012";
     }
@@ -44,14 +44,11 @@ namespace Rivet {
     void init();
     
     /// Analyze one event.
-    void analyze(const Event & event);
+    void analyze(const Event& event);
     
     /// Finalize this analysis object.
     void finalize();
     
-    /// Return the RivetInfo object of this analysis object. 
-    //RivetInfo getInfo() const;
-
   protected:
 
     /// Calculate the bin number from the DISKinematics projection.
@@ -61,42 +58,42 @@ namespace Rivet {
   private:
     
     /// The Beam projector used.
-    Beam beams;
+    Beam _beamsproj;
     
     /// The DISLepton projector used.
-    DISLepton lepton;
+    DISLepton _leptonproj;
     
     /// The DISKinematics projector used.
-    DISKinematics diskin;
+    DISKinematics _diskinproj;
     
     /// The FinalState projector used.
-    FinalState fsp;
+    FinalState _fsproj;
     
     /// The FinalStateHCM projector used.
-    FinalStateHCM fsproj;
+    FinalStateHCM _fshcmproj;
     
     /// The CentralEtHCM projector used.
-    CentralEtHCM y1hcm;
+    CentralEtHCM _y1hcmproj;
     
     /// Some integer constants used.
-    static const int nb = 24, nbin = 9;
+    static const int _nb = 24, _nbin = 9;
     
     /// Some double constants used.
-    static const double xmin, xmax;
+    static const double _xmin, _xmax;
 
-    /// Histograms for the \f$ E_t \f$ flows
-    vector<AIDA::IHistogram1D*> hEtFlow, hEtFlowStat;
+    /// Histograms for the \f$ E_T \f$ flows
+    vector<AIDA::IHistogram1D*> _hEtFlow, _hEtFlowStat;
 
     /// Histograms for averages in different kinematical bins.
-    AIDA::IHistogram1D *hAvEt, *hAvX, *hAvQ2, *hN;
+    AIDA::IHistogram1D *_hAvEt, *_hAvX, *_hAvQ2, *_hN;
 
     /// Helper vector;
-    vector<double> nev;
+    vector<double> _nev;
 
   private:
 
     /// Hidden assignment operator.
-    HepEx9506012 & operator=(const HepEx9506012&);
+    HepEx9506012& operator=(const HepEx9506012&);
 
   };
 
