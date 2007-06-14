@@ -66,8 +66,6 @@ namespace Rivet {
     /// IN the given range will be rejected.
     inline VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
       pair<double, double> ptrange; 
-      /// @todo Get the sign of the veto range clear: do we accept or reject pTs between min and max? Currently rejecting.
-      /// @todo Is there any situation where we'd want to be able to veto disjoint ranges? (I hope not!)
       ptrange.first = ptmin;
       ptrange.second = ptmax;
       _vetoCodes.insert(make_pair(id, ptrange));
@@ -93,7 +91,6 @@ namespace Rivet {
     /// Add a particle ID to veto (all \f$ p_T \f$ range will be vetoed).
     inline VetoedFinalState& addVetoId(const long id) {
       pair<double, double> ptrange;
-      /// @todo Get the sign of the veto range clear: do we accept or reject pTs between min and max? Currently rejecting.
       ptrange.first = 0.0;
       ptrange.second = numeric_limits<double>::max();
       _vetoCodes.insert(make_pair(id, ptrange));
