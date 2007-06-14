@@ -1,14 +1,25 @@
 // -*- C++ -*-
+
+#include "Rivet/Rivet.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "AIDA/IHistogramFactory.h"
-#include "AIDA/IAnalysisFactory.h"
-#include "AIDA/ITree.h"
+//#include "AIDA/IHistogramFactory.h"
+//#include "AIDA/IAnalysisFactory.h"
+//#include "AIDA/ITree.h"
+#include "AIDA/IManagedObject.h"
+#include "AIDA/IDataPointSetFactory.h"
+
 
 using namespace std;
 
 
 namespace Rivet {
+
+
+  inline Log& AnalysisHandler::getLog() { 
+    return Log::getLog("Rivet.AnalysisHandler");
+  }
 
 
   void AnalysisHandler::setupFactories(string basefilename, HistoFormat storetype) {
@@ -25,6 +36,22 @@ namespace Rivet {
     }
     _theTree = _theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
     _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
+  }
+
+
+  void AnalysisHandler::normalizeTree(AIDA::ITree& tree) {
+    const vector<string> paths = tree.listObjectNames(".", true); // args set recursive listing
+    getLog() << Log::INFO << "Number of objects in AIDA tree = " << paths.size() << endl;
+    for (vector<string>::const_iterator path = paths.begin(); path != paths.end(); ++path) {
+      AIDA::IManagedObject* obj = tree.find(*path);
+      cout << "Testing type of " << *path << endl;
+      if (obj) {
+        AIDA::IHistogram1D* histo = (AIDA::IHistogram1D*) obj->cast("AIDA::IHistogram");
+        if (histo) {
+          cout << *path << " is a IH1D" << endl;
+        }
+      }
+    }
   }
 
 
@@ -67,9 +94,14 @@ namespace Rivet {
 
 
   void AnalysisHandler::finalize() {
+    Log& log = getLog();
+    log << Log::INFO << "Finalising analysis" << endl;
     for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
       _analysisVector[i]->finalize();
     }
+    log << Log::INFO << "Normalising the AIDA tree" << endl;
+    assert(_theTree != 0);
+    normalizeTree(tree());
     tree().commit();
   }
 

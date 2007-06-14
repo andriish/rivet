@@ -4,6 +4,7 @@
 #define RIVET_RivetHandler_H
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.hh"
@@ -49,6 +50,12 @@ namespace Rivet {
 
     /// Do the initialisation of the AIDA analysis factories.
     void setupFactories(string basefilename, HistoFormat storetype);
+
+    /// Convert any IHistogram1D objects in the AIDA tree to IDataPointSet objects.
+    void normalizeTree(AIDA::ITree& tree);
+
+    /// Get a logger object.
+    Log& getLog();
 
   public:
 
