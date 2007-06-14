@@ -62,7 +62,8 @@ namespace Rivet {
       return _vetoCodes;
     }
   
-    /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_t \f$ IN the given range will be rejected.
+    /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_T \f$ 
+    /// IN the given range will be rejected.
     inline VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
       pair<double, double> ptrange; 
       /// @todo Get the sign of the veto range clear: do we accept or reject pTs between min and max? Currently rejecting.
@@ -70,6 +71,22 @@ namespace Rivet {
       ptrange.first = ptmin;
       ptrange.second = ptmax;
       _vetoCodes.insert(make_pair(id, ptrange));
+      return *this;
+    }
+
+    /// Add a particle/antiparticle pair to veto in a given \f$ p_T \f$ range. Given a single ID, both
+    /// the particle and its conjugate antiparticle will be rejected if their \f$ p_T \f$ is IN the given range.
+    inline VetoedFinalState& addVetoPairDetail(const long id, const double ptmin, const double ptmax) {
+      addVetoPairDetail(id,  ptmin, ptmax);
+      addVetoPairDetail(-id, ptmin, ptmax);
+      return *this;
+    }
+
+    /// Add a particle/antiparticle pair to veto. Given a single ID, both the particle and its corresponding 
+    /// antiparticle (for all \f$ p_T \f$ values) will be vetoed.
+    inline VetoedFinalState& addVetoPairId(const long id) {
+      addVetoId(id);
+      addVetoId(-id);
       return *this;
     }
 

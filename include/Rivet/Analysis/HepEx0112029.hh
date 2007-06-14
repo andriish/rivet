@@ -8,7 +8,9 @@
 
 namespace Rivet {
 
-  /// This class will be a reproduction of the HZTool routine for the ZEUS dijet photoproduction paper which was used in the ZEUS Jets PDF fit.  
+  /// This class is a reproduction of the HZTool routine for the ZEUS 
+  /// dijet photoproduction paper which was used in the ZEUS Jets PDF fit.  
+  ///
   /// @author Jon Butterworth
   class HepEx0112029 : public Analysis {
 
@@ -16,14 +18,14 @@ namespace Rivet {
 
     /// Default constructor.
     inline HepEx0112029()
-      : fs(), ktjets(fs) 
+      : _fsproj(), _ktjetsproj(_fsproj) 
     { 
       setBeams(POSITRON, PROTON);
-      addProjection(fs);
-      addProjection(ktjets);
+      addProjection(_fsproj);
+      addProjection(_ktjetsproj);
     }
 
-    /// The name of this analysis is "HepEx0112029"
+    /// Get the name of this analysis.
     inline string getName() const {
       return "HepEx0112029";
     }
@@ -32,29 +34,26 @@ namespace Rivet {
 
     void init();
     
-    void analyze(const Event & event);
+    void analyze(const Event& event);
     
     void finalize();
-
-    /// Return the RivetInfo object of this analysis object.
-    //RivetInfo getInfo() const;
 
   private:
 
     /// The FinalState projector used by this analysis.
-    FinalState fs;
+    FinalState _fsproj;
 
     /// The KtJets projector used by this analysis.
-    KtJets ktjets;
+    KtJets _ktjetsproj;
 
   private:
 
     /// Hide the assignment operator
-    HepEx0112029 & operator=(const HepEx0112029& x);
+    HepEx0112029& operator=(const HepEx0112029&);
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* histJetEt1_;
+    AIDA::IHistogram1D* _histJetEt1;
     //@}
 
   };

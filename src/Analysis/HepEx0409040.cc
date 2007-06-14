@@ -17,10 +17,10 @@ using namespace HepMC;
 // Book histograms
 void HepEx0409040::init() {
   // Use histogram auto-booking
-  histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1, "Jet Jet azimuthal angle, pTmax=75..100");
-  histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1, "Jet Jet azimuthal angle, pTmax=100..130");
-  histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 2, 1, "Jet Jet azimuthal angle, pTmax=130..180");
-  histJetAzimuth_pTmax180_    = bookHistogram1D(4, 2, 1, "Jet Jet azimuthal angle, pTmax>180");
+  _histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1, "Jet Jet azimuthal angle, pTmax=75..100");
+  _histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1, "Jet Jet azimuthal angle, pTmax=100..130");
+  _histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 2, 1, "Jet Jet azimuthal angle, pTmax=130..180");
+  _histJetAzimuth_pTmax180_    = bookHistogram1D(4, 2, 1, "Jet Jet azimuthal angle, pTmax>180");
 }
 
 
@@ -30,19 +30,19 @@ void HepEx0409040::analyze(const Event & event) {
   log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info  
-  const D0RunIIconeJets& jetpro = event.applyProjection(*conejets);
+  const D0RunIIconeJets& jetpro = event.applyProjection(_conejetsproj);
   log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
    
   // Find vertex and check  that its z-component is < 50 cm from the nominal IP
-  const PVertex& PV = event.applyProjection(vertex);
+  const PVertex& pv = event.applyProjection(_vertexproj);
   /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
   /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
-  if (fabs(PV().position().z())< 500.0) {
+  if (fabs(pv.getPrimaryVertex().position().z()) < 500.0) {
     list<HepEntity>::iterator jetpTmax = jetpro.jets->end();
     list<HepEntity>::iterator jet2ndpTmax = jetpro.jets->end();
     log << Log::DEBUG << "jetlist size = " << jetpro.jets->size() << endl;
     
-    int Njet=0;
+    int Njet = 0;
     for (list<HepEntity>::iterator jt = jetpro.jets->begin(); jt != jetpro.jets->end(); ++jt) {
       log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E << " pz=" << jt->pz << endl;
       if (jt->pT() > 40.0) ++Njet;
@@ -55,31 +55,29 @@ void HepEx0409040::analyze(const Event & event) {
       }
     }
     
-    if (Njet>=2) {
-      log << Log::DEBUG << "Jet multiplicity after pT>40GeV cut = " << Njet << endl; 
+    if (Njet >= 2) {
+      log << Log::DEBUG << "Jet multiplicity after pT > 40GeV cut = " << Njet << endl; 
     }
 
     if (jetpro.jets->size()>=2 && jet2ndpTmax->pT() > 40.) {
       if (fabs(jetpTmax->y())<0.5 && fabs(jet2ndpTmax->y())<0.5) {
         log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
+        /// @todo Should this commented eta cut be happening via a FinalState configuration?
         /// @todo Declare this eta cut via Analysis::addCut()?
         //double etaMax = 3.0; //D0 calorimeter boundary
-        //bool addMuons = false; //Muons pass calorimeter almost without energy loss
-        //calmet.initialize(etaMax, addMuons);
-        const TotalVisibleMomentum& CaloMissEt = event.applyProjection(*calmet);
-        log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << CaloMissEt.getMomentum().perp() << endl;
-        if (CaloMissEt.getMomentum().perp() < 0.7*jetpTmax->pT()) {
-	  
+        const TotalVisibleMomentum& caloMissEt = event.applyProjection(*_calmetproj);
+        log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << caloMissEt.getMomentum().perp() << endl;
+        if (caloMissEt.getMomentum().perp() < 0.7*jetpTmax->pT()) {
           double dphi = delta_phi(jetpTmax->phi(), jet2ndpTmax->phi());
           
           if (jetpTmax->pT() > 75.0 && jetpTmax->pT() <= 100.0)
-            histJetAzimuth_pTmax75_100->fill(dphi, event.weight());
+            _histJetAzimuth_pTmax75_100->fill(dphi, event.weight());
           else if (jetpTmax->pT() > 100.0 && jetpTmax->pT() <= 130.0)
-            histJetAzimuth_pTmax100_130->fill(dphi, event.weight());
+            _histJetAzimuth_pTmax100_130->fill(dphi, event.weight());
           else if (jetpTmax->pT() > 130.0 && jetpTmax->pT() <= 180.0)
-            histJetAzimuth_pTmax130_180->fill(dphi, event.weight());
+            _histJetAzimuth_pTmax130_180->fill(dphi, event.weight());
           else if (jetpTmax->pT() > 180.0)
-            histJetAzimuth_pTmax180_->fill(dphi, event.weight());
+            _histJetAzimuth_pTmax180_->fill(dphi, event.weight());
           
         } //CalMET
       } //jets N, pT
@@ -98,17 +96,17 @@ void HepEx0409040::finalize() {
   Log& log = getLog();
 
   // Normalize histograms to unit area
-  normalize(histJetAzimuth_pTmax75_100);
-  normalize(histJetAzimuth_pTmax100_130);
-  normalize(histJetAzimuth_pTmax130_180);
-  normalize(histJetAzimuth_pTmax180_);
+  normalize(_histJetAzimuth_pTmax75_100);
+  normalize(_histJetAzimuth_pTmax100_130);
+  normalize(_histJetAzimuth_pTmax130_180);
+  normalize(_histJetAzimuth_pTmax180_);
 
   log << Log::INFO << "Sum of histJetAzimuth_pTmax75_100 bin heights after normalization: "
-      << histJetAzimuth_pTmax75_100->sumBinHeights() << endl;
+      << _histJetAzimuth_pTmax75_100->sumBinHeights() << endl;
   log << Log::INFO << "Sum of histJetAzimuth_pTmax100_130 bin heights after normalization: "
-      << histJetAzimuth_pTmax100_130->sumBinHeights() << endl;
+      << _histJetAzimuth_pTmax100_130->sumBinHeights() << endl;
   log << Log::INFO << "Sum of histJetAzimuth_pTmax130_180 bin heights after normalization: "
-      << histJetAzimuth_pTmax130_180->sumBinHeights() << endl;
+      << _histJetAzimuth_pTmax130_180->sumBinHeights() << endl;
   log << Log::INFO << "Sum of histJetAzimuth_pTmax180_ bin heights after normalization: "
-      << histJetAzimuth_pTmax180_->sumBinHeights() << endl;
+      << _histJetAzimuth_pTmax180_->sumBinHeights() << endl;
 }

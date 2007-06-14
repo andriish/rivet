@@ -48,12 +48,6 @@ namespace Rivet {
       return *_thePVertex;
     }
 
-    /// Get the primary vertex via obsfucated method.
-    /// @deprecated
-    inline const GenVertex& operator()() const {
-      return getPrimaryVertex();
-    }
-
   private:
 
 

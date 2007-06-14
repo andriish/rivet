@@ -18,31 +18,28 @@ namespace Rivet {
 
     /// Default constructor.
     inline HepEx0409040()
-      : fs(-3.0, 3.0), vfs(fs), vertex()
+      // NB. eta in [-3,3] cut specified via FinalState constructor
+      : _fsproj(-3.0, 3.0), _vfsproj(_fsproj), _conejetsproj(_fsproj), _vertexproj()
     { 
       setBeams(PROTON, ANTIPROTON);
-      addProjection(fs);
-      addProjection(vertex);
-      addProjection(vfs);
+      addProjection(_fsproj);
+      addProjection(_vertexproj);
+      addProjection(_vfsproj);
+      addProjection(_conejetsproj);
 
-      vfs.addVetoId(12);
-      vfs.addVetoId(14);
-      vfs.addVetoId(16);
-      vfs.addVetoId(-12);
-      vfs.addVetoId(-14);
-      vfs.addVetoId(-16);
-      // Veto muons with pT above 1.0 GeV
-      vfs.addVetoDetail(13, 1.0, numeric_limits<double>::max());
-
-      // Put all particles into the jet finder.
-      /// @todo Spot the memory leak!
-      conejets = new D0RunIIconeJets(fs);
-      addProjection(*conejets);
+      // Add particle/antiparticle vetoing: 12=nu_e, 14=nu_mu, 16=nu_tau
+      _vfsproj
+        .addVetoPairId(12)
+        .addVetoPairId(14)
+        .addVetoPairId(16);
+      
+      // Veto muons (PDG code = 13) with pT above 1.0 GeV
+      _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
 
       // Don't put neutrinos or low pT muons into the cal missing ET.
       /// @todo Spot the memory leak!
-      calmet = new TotalVisibleMomentum(vfs);
-      addProjection(*calmet);
+      _calmetproj = new TotalVisibleMomentum(_vfsproj);
+      addProjection(*_calmetproj);
    }
 
 
@@ -55,39 +52,36 @@ namespace Rivet {
 
     void init();
     
-    void analyze(const Event & event);
+    void analyze(const Event& event);
     
     void finalize();
 
   private:
 
     /// The final state projector used by this analysis.
-    FinalState fs;
-
-    ///The veto against final state particles
-    //map<long,double*> vetopids; //12=nu_e, 14=nu_mu, 16=nu_tau, 13=mu
+    FinalState _fsproj;
 
     ///The vetoed final state projector needed by the jet algorithm
-    VetoedFinalState vfs; 
+    VetoedFinalState _vfsproj; 
 
     /// The D0RunIIconeJets projector used by this analysis.
-    D0RunIIconeJets* conejets;
+    D0RunIIconeJets _conejetsproj;
 
     /// The Primary Vertex projector
-    PVertex vertex;
+    PVertex _vertexproj;
 
     /// The Calorimeter Missing Et projector
-    TotalVisibleMomentum* calmet;
+    TotalVisibleMomentum* _calmetproj;
 
     /// Hide the assignment operator
     HepEx0409040& operator=(const HepEx0409040& x);
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* histJetAzimuth_pTmax75_100;
-    AIDA::IHistogram1D* histJetAzimuth_pTmax100_130;
-    AIDA::IHistogram1D* histJetAzimuth_pTmax130_180;
-    AIDA::IHistogram1D* histJetAzimuth_pTmax180_;
+    AIDA::IHistogram1D* _histJetAzimuth_pTmax75_100;
+    AIDA::IHistogram1D* _histJetAzimuth_pTmax100_130;
+    AIDA::IHistogram1D* _histJetAzimuth_pTmax130_180;
+    AIDA::IHistogram1D* _histJetAzimuth_pTmax180_;
     //@}
 
   };
