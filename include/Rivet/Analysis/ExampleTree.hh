@@ -157,8 +157,6 @@ namespace Rivet {
     /// Hide the assignment operator
     ExampleTree& operator=(const ExampleTree&);
 
-
-  public:
     /// Minimum pt of jets which will go into the tree.
     int _jet_pt_cut;
 
