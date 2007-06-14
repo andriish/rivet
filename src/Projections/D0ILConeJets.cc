@@ -24,6 +24,7 @@ namespace Rivet {
 
 
   void D0ILConeJets::project(const Event& e) {
+    /// @todo Enormous memory leak!
     _particlelist = new list<const HepEntity*>;
 
     // Project into final state
@@ -32,7 +33,8 @@ namespace Rivet {
     // Store 4 vector data about each particle into list
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       HepMC::FourVector fv = p->getMomentum();
-      /// @todo Why HepEntity* rather than just HepEntity? I'm not sure where the delete will happen...
+      /// @todo Why HepEntity* rather than just HepEntity?
+      /// @todo Is this ever deleted?
       const HepEntity* listelement = new HepEntity(fv.e(), fv.px(), fv.py(), fv.pz());
       _particlelist->push_back(listelement);
     }
