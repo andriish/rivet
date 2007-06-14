@@ -53,7 +53,7 @@ namespace Rivet {
         log << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
         debugline << "with PDG code = " << pdgid << " pT = " << p->getMomentum().perp();
-        if (pt < ptrange.first || pt > ptrange.second) { /// @todo Is this the right way round?
+        if (pt < ptrange.first || pt > ptrange.second) { 
           log << Log::DEBUG << "Storing " << debugline << endl;
           _theParticles.push_back(*p);
         } else {
