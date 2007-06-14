@@ -17,16 +17,16 @@ namespace Rivet {
 
     /// Default constructor
     inline TestAnalysis()
-      : p_mult(p_fs), p_thrust(p_fs)
-    { 
-      addProjection(p_fs);
-      addProjection(p_mult);
-      addProjection(p_thrust);
+      : _multproj(_fsproj), _thrustproj(_fsproj)
+    {
+      addProjection(_fsproj);
+      addProjection(_multproj);
+      addProjection(_thrustproj);
     }
 
   public:
 
-    /// The name of this analysis is "Test"
+    /// Get the name of this analysis.
     inline string getName() const {
       return "Test";
     }
@@ -39,24 +39,21 @@ namespace Rivet {
     
     void finalize();
 
-    /// Return the RivetInfo object of this analysis object.
-    //    RivetInfo getInfo() const;
-
   private:
 
     /// The FinalState projector used by this analysis.
-    FinalState p_fs;
+    FinalState _fsproj;
 
     /// The Multiplicity projector used by this analysis.
-    Multiplicity p_mult;
+    Multiplicity _multproj;
 
     /// The thrust projector
-    Thrust p_thrust;
+    Thrust _thrustproj;
 
   private:
 
     /// Hide the assignment operator
-    TestAnalysis & operator=(const TestAnalysis& x);
+    TestAnalysis& operator=(const TestAnalysis&);
 
     //@{
     /// Histograms

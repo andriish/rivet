@@ -18,6 +18,8 @@ using namespace HepMC;
 
 // Book histograms
 void TestAnalysis::init() {
+  // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
+  // Since this is just a demo analysis, there is no associate paper!
   _histTot         = bookHistogram1D("TotalMult", "Total multiplicity", 100, -0.5, 999.5);
   _histChTot       = bookHistogram1D("TotalChMult", "Total charged multiplicity", 100, -0.5, 999.5);
   _histUnchTot     = bookHistogram1D("TotalUnchMult", "Total uncharged multiplicity", 100, -0.5, 999.5);
@@ -34,7 +36,7 @@ void TestAnalysis::analyze(const Event& event) {
   log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info
-  const Multiplicity& m = event.applyProjection(p_mult);
+  const Multiplicity& m = event.applyProjection(_multproj);
   log << Log::INFO << "Total multiplicity            = " << m.totalMultiplicity()           << endl;
   log << Log::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endl;
   log << Log::INFO << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endl;
@@ -42,7 +44,7 @@ void TestAnalysis::analyze(const Event& event) {
   log << Log::DEBUG << "Hadron charged multiplicity   = " << m.hadronChargedMultiplicity()   << endl;
   log << Log::DEBUG << "Hadron uncharged multiplicity = " << m.hadronUnchargedMultiplicity() << endl;
 
-  const Thrust& t = event.applyProjection(p_thrust);
+  const Thrust& t = event.applyProjection(_thrustproj);
   log << Log::INFO << "Thrust = " << t.thrust() << endl;
 
   // Fill histograms
