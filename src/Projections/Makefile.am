@@ -7,7 +7,7 @@ libRivetProjections_la_SOURCES  = \
   CentralEtHCM.cc  \
   DISLepton.cc \
   DISKinematics.cc \
-  D0RunIIconeJets.cc \
+  D0ILConeJets.cc \
   FinalState.cc \
   FinalStateHCM.cc \
   KtJets.cc \

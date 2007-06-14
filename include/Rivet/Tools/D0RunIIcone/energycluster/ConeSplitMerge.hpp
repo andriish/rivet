@@ -37,6 +37,8 @@
 
 //using namespace D0RunIIconeJets_CONEJETINFO;
 
+using std::make_pair;
+
 //
 // this class is used to order ProtoJets by decreasing ET and seed ET
 template <class Item>
@@ -297,4 +299,5 @@ void ConeSplitMerge<Item>::split_merge(std::vector<ProtoJet<Item> >& jcv,
   } // while
 }
 ///////////////////////////////////////////////////////////////////////////////
+
 #endif

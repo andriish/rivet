@@ -3,7 +3,7 @@
 #define RIVET_HepEx0409040_H
 
 #include "Rivet/Analysis/Analysis.hh"
-#include "Rivet/Projections/D0RunIIconeJets.hh"
+#include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/RivetAIDA.fhh"
@@ -64,8 +64,8 @@ namespace Rivet {
     ///The vetoed final state projector needed by the jet algorithm
     VetoedFinalState _vfsproj; 
 
-    /// The D0RunIIconeJets projector used by this analysis.
-    D0RunIIconeJets _conejetsproj;
+    /// The D0ILConeJets projector used by this analysis.
+    D0ILConeJets _conejetsproj;
 
     /// The Primary Vertex projector
     PVertex _vertexproj;

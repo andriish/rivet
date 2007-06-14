@@ -32,7 +32,7 @@ nobase_pkginclude_HEADERS += \
   Projections/CentralEtHCM.hh  \
   Projections/DISKinematics.hh \
   Projections/DISLepton.hh     \
-  Projections/D0RunIIconeJets.hh \
+  Projections/D0ILConeJets.hh \
   Projections/FinalState.hh    \
   Projections/FinalStateHCM.hh \
   Projections/KtJets.hh        \
