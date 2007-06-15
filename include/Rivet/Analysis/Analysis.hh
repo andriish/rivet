@@ -154,7 +154,7 @@ namespace Rivet {
     AIDA::IHistogram1D* bookHistogram1D(const string& name, const string& title, 
                                         const int nbins, const double lower, const double upper);
 
-    /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @binedges .
+    /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)

@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_PL273B181_H
-#define RIVET_PL273B181_H
+#ifndef RIVET_ZPHYS73C11_H
+#define RIVET_ZPHYS73C11_H
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
@@ -9,60 +9,60 @@
 
 namespace Rivet {
 
-  /// This class just measures the charged multiplicity
-  class PL273B181 : public Analysis {
 
-  public:
+//   class PL273B181 : public Analysis {
 
-    /// Default constructor.
-    inline PL273B181()
-      : mult(fsproj), spher(fsproj) 
-    { 
-      setBeams(ELECTRON, POSITRON); 
-      addProjection(fsproj);
-      addProjection(mult);
-      addProjection(spher);
-    }
+//   public:
 
-  public:
+//     /// Default constructor.
+//     inline PL273B181()
+//       : mult(fsproj), spher(fsproj) 
+//     { 
+//       setBeams(ELECTRON, POSITRON); 
+//       addProjection(fsproj);
+//       addProjection(mult);
+//       addProjection(spher);
+//     }
 
-    /// The name of this analysis is "PL273B181"
-    inline string getName() const {
-      return "PL273B181";
-    }
+//   public:
 
-    virtual void init();
+//     /// The name of this analysis is "PL273B181"
+//     inline string getName() const {
+//       return "PL273B181";
+//     }
 
-    virtual void analyze(const Event & event);
+//     virtual void init();
 
-    virtual void finalize();
+//     virtual void analyze(const Event & event);
 
-    /// Return the RivetInfo object of this analysis object.
-    //virtual RivetInfo getInfo() const;
+//     virtual void finalize();
 
-  private:
+//     /// Return the RivetInfo object of this analysis object.
+//     //virtual RivetInfo getInfo() const;
 
-    /// The projectors used by this analysis.
-    FinalState fsproj;
+//   private:
 
-    Multiplicity mult;
+//     /// The projectors used by this analysis.
+//     FinalState fsproj;
 
-    Sphericity spher;
+//     Multiplicity mult;
 
-  private:
+//     Sphericity spher;
 
-    /// Hide the assignment operator
-    PL273B181 & operator=(const PL273B181 &);
+//   private:
 
-    /// @name Histograms
-    //@{
-    AIDA::IHistogram1D* histChTot_;
-    AIDA::IHistogram1D* histSphericity_;
-    AIDA::IHistogram1D* histPlanarity_;
-    AIDA::IHistogram1D* histAplanarity_;
-    //@}
+//     /// Hide the assignment operator
+//     PL273B181 & operator=(const PL273B181 &);
 
-  };
+//     /// @name Histograms
+//     //@{
+//     AIDA::IHistogram1D* histChTot_;
+//     AIDA::IHistogram1D* histSphericity_;
+//     AIDA::IHistogram1D* histPlanarity_;
+//     AIDA::IHistogram1D* histAplanarity_;
+//     //@}
+
+//   };
 
 }
 
