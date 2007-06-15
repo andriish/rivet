@@ -19,11 +19,11 @@ namespace Rivet {
    
     The scalar (maximum) thrust is defined as
     \f[
-    T = \max_\vec{n} \frac{\sum_i |\vec{p}_i \cdot \vec{n}|}{\sum_i |\vec{p}_i|}
+    T = \mathrm{max}_\vec{\hat{n_T}} \frac{\sum_i |\vec{p}_i \cdot \vec{hat{n_T}}|}{\sum_i |\vec{p}_i|}
     \f],
-    with the direction of the unit vector \f$ \vec{n} \f$ which maximises \f$ T \f$ 
+    with the direction of the unit vector \f$ \vec{\hat{n}_T} \f$ which maximises \f$ T \f$ 
     being identified as the thrust axis. The unit vector which maximises the thrust
-    scalar in the plane perpendicular to \f$ n_\text{thrust} \f$ is the "thrust major"
+    scalar in the plane perpendicular to \f$ \hat{n}_\text{thrust} \f$ is the "thrust major"
     direction, and the vector perpendicular to both the thrust and thrust major is
     the thrust minor. Both the major and minor directions have associated thrust 
     scalars.
