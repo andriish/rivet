@@ -19,22 +19,22 @@ namespace Rivet {
    
     The scalar (maximum) thrust is defined as
     \f[
-    T = \mathrm{max}_\vec{\hat{n_T}} \frac{\sum_i |\vec{p}_i \cdot \vec{hat{n_T}}|}{\sum_i |\vec{p}_i|}
+    T = \mathrm{max}_{\vec{n}} \frac{\sum_i \left|\vec{p}_i \cdot \vec{n} \right|}{\sum_i |\vec{p}_i|}
     \f],
-    with the direction of the unit vector \f$ \vec{\hat{n}_T} \f$ which maximises \f$ T \f$ 
+    with the direction of the unit vector \f$ \vec{n} \f$ which maximises \f$ T \f$ 
     being identified as the thrust axis. The unit vector which maximises the thrust
-    scalar in the plane perpendicular to \f$ \hat{n}_\text{thrust} \f$ is the "thrust major"
-    direction, and the vector perpendicular to both the thrust and thrust major is
-    the thrust minor. Both the major and minor directions have associated thrust 
+    scalar in the plane perpendicular to \f$ \vec{n} \f$ is the "thrust major"
+    direction, and the vector perpendicular to both the thrust and thrust major directions
+    is the thrust minor. Both the major and minor directions have associated thrust 
     scalars.
 
     Thrust calculations have particularly simple forms for less than 4 particles, and
     in those cases this projection is computationally minimal. For 4 or more particles,
     a more general calculation must be carried out, based on the Brandt/Dahmen method 
     from Z. Phys. C1 (1978). While a polynomial improvement on the exponential scaling
-    of the naive method, this algorithm scales asymptotically as \f$ n^3 \f$. Be aware
-    that the thrust may easily be the most computationally demanding projection in
-    Rivet for large events!
+    of the naive method, this algorithm scales asymptotically as 
+    \f$ \mathcal{O}\left( n^3 \right) \f$. Be aware that the thrust may easily be the 
+    most computationally demanding projection in Rivet for large events!
 
     The Rivet implementation of thrust is based heavily on Stefan Gieseke's Herwig++
     re-coding of the 'tasso' code from HERWIG.
