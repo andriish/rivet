@@ -13,7 +13,10 @@
 
 
 namespace Rivet {
-  /// This is the base class of all analysis classes in Rivet. There are
+
+  /// @brief This is the base class of all analysis classes in Rivet.
+  ///
+  /// There are
   /// three virtual functions which should be implemented in base classes:
   ///
   /// void init() is called by Rivet before a run is started. Here the
@@ -21,7 +24,7 @@ namespace Rivet {
   /// projections should probably rather be constructed in the
   /// constructor.
   ///
-  /// void analyze(const Event &) is called once for each event. Here the
+  /// void analyze(const Event&) is called once for each event. Here the
   /// analysis class should apply the necessary Projections and fill the
   /// histograms.
   ///
@@ -43,6 +46,7 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
+
     /// The default constructor.
     inline Analysis() 
       : _theHandler(0), _madeHistoDir(false)
@@ -114,9 +118,9 @@ namespace Rivet {
       return *_theHandler;
     }
 
-    /// Get the name of the analysis
+    /// Get the name of the analysis (returns mangled RTTI name by default)
     inline virtual string getName() const {
-      return "";
+      return typeid(*this).name();
     }
 
 
