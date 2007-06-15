@@ -60,6 +60,10 @@ namespace Rivet {
     return getHandler().histogramFactory();
   }
 
+  IDataPointSetFactory& Analysis::datapointsetFactory() {
+    return getHandler().datapointsetFactory();
+  }
+
 
   Log& Analysis::getLog() {
     string logname = "Rivet.Analysis." + getName();
@@ -94,11 +98,23 @@ namespace Rivet {
   }
 
 
-  void Analysis::makeHistoDir() {
+  IDataPointSet* Analysis::bookDataPointSet(const string& name, const string& title) {
+    makeHistoDir();
+    const string path = getHistoDir() + "/" + name;
+    return datapointsetFactory().create(path, title, 2);
+  }
+
+
+  IDataPointSet* Analysis::bookDataPointSet(const unsigned int datasetId, const unsigned int xAxisId, 
+                                            const unsigned int yAxisId, const string& title) {
+    /// @todo Implement this?
+    throw runtime_error("Auto-booking of DataPointSets is not yet implemented");
+  }
+
+
+  inline void Analysis::makeHistoDir() {
     if (!_madeHistoDir) {
-      if (! getName().empty()) {
-        tree().mkdir(getHistoDir());
-      }
+      if (! getName().empty()) tree().mkdir(getHistoDir());
       _madeHistoDir = true;
     }
   }

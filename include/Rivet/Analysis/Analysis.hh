@@ -147,6 +147,9 @@ namespace Rivet {
     /// Access the AIDA histogram factory of the controlling AnalysisHandler object.
     AIDA::IHistogramFactory& histogramFactory();
 
+    /// Access the AIDA histogram factory of the controlling AnalysisHandler object.
+    AIDA::IDataPointSetFactory& datapointsetFactory();
+
     /// Get the canonical AIDA histogram path for this analysis.
     inline const string getHistoDir() const {
         return "/" + getName();
@@ -174,23 +177,21 @@ namespace Rivet {
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' getName() property.
-    /// @todo Implement auto-binning histo booking methods!
     AIDA::IHistogram1D* bookHistogram1D(const unsigned int datasetId, const unsigned int xAxisId, 
                                         const unsigned int yAxisId, const string& title);
 
 
 
-    /// Book a data point set.
+    /// Book a 2-dimensional data point set.
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
     AIDA::IDataPointSet* bookDataPointSet(const string& name, const string& title);
     //const int nbins, const double lower, const double upper);
 
-    /// Book a data point set based on the paper, dataset and x/y-axis IDs in the corresponding
+    /// Book a 2-dimensional data point set based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' getName() property.
-    /// @todo Implement auto-binning histo booking methods!
     AIDA::IDataPointSet* bookDataPointSet(const unsigned int datasetId, const unsigned int xAxisId, 
                                           const unsigned int yAxisId, const string& title);
     //@}
@@ -199,7 +200,7 @@ namespace Rivet {
   private:
 
     /// Make the histogram directory.
-    void makeHistoDir();
+    inline void makeHistoDir();
 
 
   protected:
