@@ -4,9 +4,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/RivetAIDA.hh"
-//#include "AIDA/IHistogramFactory.h"
-//#include "AIDA/IAnalysisFactory.h"
-//#include "AIDA/ITree.h"
 #include "AIDA/IManagedObject.h"
 #include "AIDA/IDataPointSetFactory.h"
 
@@ -36,6 +33,7 @@ namespace Rivet {
     }
     _theTree = _theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
     _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
+    _theDataPointSetFactory = _theAnalysisFactory->createDataPointSetFactory(tree());
   }
 
 

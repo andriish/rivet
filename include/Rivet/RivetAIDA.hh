@@ -11,6 +11,8 @@
 #include "AIDA/IHistogramFactory.h"
 #include "AIDA/IHistogram1D.h"
 #include "AIDA/ITreeFactory.h"
+#include "AIDA/IDataPointSetFactory.h"
+#include "AIDA/IDataPointSet.h"
 #include "AIDA/ITree.h"
 #include "AIDA/IAxis.h"
 

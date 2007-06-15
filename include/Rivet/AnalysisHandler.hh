@@ -144,6 +144,12 @@ namespace Rivet {
     }
     
 
+    /// The AIDA histogram factory.
+    inline AIDA::IDataPointSetFactory& datapointsetFactory() {
+      return *_theDataPointSetFactory;
+    }
+
+
 
   private:
 
@@ -165,6 +171,9 @@ namespace Rivet {
 
     /// The AIDA histogram factory.
     AIDA::IHistogramFactory* _theHistogramFactory;
+
+    /// The AIDA data point set factory.
+    AIDA::IDataPointSetFactory* _theDataPointSetFactory;
 
   private:
 

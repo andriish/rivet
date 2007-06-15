@@ -146,9 +146,15 @@ namespace Rivet {
 
     /// Access the AIDA histogram factory of the controlling AnalysisHandler object.
     AIDA::IHistogramFactory& histogramFactory();
+
+    /// Get the canonical AIDA histogram path for this analysis.
+    inline const string getHistoDir() const {
+        return "/" + getName();
+    }
     //@}
 
-    /// @name Internal histogram booking (for use by Analysis sub-classes).
+
+    /// @name Internal histogram and data point set booking (for use by Analysis sub-classes).
     //@{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
@@ -173,18 +179,28 @@ namespace Rivet {
                                         const unsigned int yAxisId, const string& title);
 
 
-    /// @todo Add profile histograms / DPS.
 
+    /// Book a data point set.
+    /// (NB. this returns a pointer rather than a reference since it will 
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// get the pointer from a reference before they can use it!)
+    AIDA::IDataPointSet* bookDataPointSet(const string& name, const string& title);
+    //const int nbins, const double lower, const double upper);
+
+    /// Book a data point set based on the paper, dataset and x/y-axis IDs in the corresponding
+    /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
+    /// of the same filename as the analysis' getName() property.
+    /// @todo Implement auto-binning histo booking methods!
+    AIDA::IDataPointSet* bookDataPointSet(const unsigned int datasetId, const unsigned int xAxisId, 
+                                          const unsigned int yAxisId, const string& title);
+    //@}
+
+
+  private:
 
     /// Make the histogram directory.
     void makeHistoDir();
 
-
-    /// Get the canonical AIDA histogram path for this analysis.
-    const string getHistoDir() const {
-        return "/" + getName();
-    }
-    //@}
 
   protected:
 
