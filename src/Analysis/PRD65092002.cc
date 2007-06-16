@@ -1,4 +1,5 @@
 // -*- C++ -*-
+
 // Field & Stuart underlying event analysis at CDF.
 // Phys.Rev.D65:092002,2002 // no hep-ex code
 // FNAL-PUB 01/211-E
@@ -31,6 +32,22 @@ void PRD65092002::init() {
   _histToward = bookHistogram1D("PtSumToward", "pT sum toward total", _numBins, 0.0, 50.0);
   _histTrans = bookHistogram1D("PtSumTransverse", "pT sum transverse total", _numBins, 0.0, 50.0);
   _histAway = bookHistogram1D("PtSumAway", "pT sum away total", _numBins, 0.0, 50.0);
+
+  // Data point sets
+  _dpsToward = bookDataPointSet("PtSumToward", "pT sum toward total");
+  _dpsTrans = bookDataPointSet("PtSumTransverse", "pT sum transverse total");
+  _dpsAway = bookDataPointSet("PtSumAway", "pT sum away total");
+  /// @todo Turn this into a convenience method on Analysis
+  vector<double> xvals, xerrs;
+  for (size_t bin = 0; bin < _numBins; ++bin) {
+    const double binwidth = 50.0/_numBins;
+    const double bincentre = (bin + 0.5) * binwidth;
+    xvals.push_back(bincentre);
+    xerrs.push_back(binwidth/2.0);
+  }
+  _dpsToward->setCoordinate(0, xvals, xerrs);
+  _dpsTrans->setCoordinate(0, xvals, xerrs);
+  _dpsAway->setCoordinate(0, xvals, xerrs);
 }
 
 
@@ -98,16 +115,45 @@ void PRD65092002::analyze(const Event& event) {
 
 
 // Create the profile histograms
-void PRD65092002::finalize() { 
-  for (size_t bin = 0; bin < 50; ++bin) {
+void PRD65092002::finalize() {
+  vector<double> valsToward, errsToward;
+  vector<double> valsTrans, errsTrans;
+  vector<double> valsAway, errsAway;
+
+  for (size_t bin = 0; bin < _numBins; ++bin) {
     const double leadPt = double(bin) + 0.5;
     /// @todo Should really use proper profile histograms here.
-    /// @todo Should also compute the error, using var = <pt^2> - <pt>^2
+
     const double nToward = _dataToward[bin].numEntries;
-    const double nAway = _dataAway[bin].numEntries;
+    const double avgPtToward = _dataToward[bin].sumPt/nToward;
+    const double avgPt2Toward = _dataToward[bin].sumPtSq/nToward;
+    if (nToward) {
+      _histToward->fill(leadPt, avgPtToward);
+      valsToward.push_back(avgPtToward);
+      errsToward.push_back(sqrt( avgPt2Toward - avgPtToward*avgPtToward ));
+    }
+
     const double nTrans = _dataTrans[bin].numEntries;
-    if (nToward) _histToward->fill(leadPt, _dataToward[bin].sumPt/double(_dataToward[bin].numEntries));
-    if (nAway) _histAway->fill(leadPt, _dataAway[bin].sumPt/double(_dataAway[bin].numEntries));
-    if (nTrans) _histTrans->fill(leadPt, _dataTrans[bin].sumPt/double(_dataTrans[bin].numEntries));
+    const double avgPtTrans = _dataTrans[bin].sumPt/nTrans;
+    const double avgPt2Trans = _dataTrans[bin].sumPtSq/nTrans;
+    if (nTrans) {
+      _histTrans->fill(leadPt, avgPtTrans);
+      valsTrans.push_back(avgPtTrans);
+      errsTrans.push_back(sqrt( avgPt2Trans - avgPtTrans*avgPtTrans ));
+    }
+
+    const double nAway = _dataAway[bin].numEntries;
+    const double avgPtAway = _dataAway[bin].sumPt/nAway;
+    const double avgPt2Away = _dataAway[bin].sumPtSq/nAway;
+    if (nAway) {
+      _histAway->fill(leadPt, avgPtAway);
+      valsAway.push_back(avgPtAway);
+      errsAway.push_back(sqrt( avgPt2Away - avgPtAway*avgPtAway ));
+    }
   }
+
+  // Set DPS y-coordinate values and errors
+  _dpsToward->setCoordinate(1, valsToward, errsToward);
+  _dpsTrans->setCoordinate(1, valsTrans, errsTrans);
+  _dpsAway->setCoordinate(1, valsAway, errsAway);
 }

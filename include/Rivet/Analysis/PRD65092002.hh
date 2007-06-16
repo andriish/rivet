@@ -51,11 +51,14 @@ namespace Rivet {
 
   private:
 
-    /// @name Histograms
+    /// @name Histograms and data point sets
     //@{
     AIDA::IHistogram1D* _histToward;
     AIDA::IHistogram1D* _histAway;
     AIDA::IHistogram1D* _histTrans;
+    AIDA::IDataPointSet* _dpsToward;
+    AIDA::IDataPointSet* _dpsAway;
+    AIDA::IDataPointSet* _dpsTrans;
     //@}
 
     // Number of bins in the histograms
