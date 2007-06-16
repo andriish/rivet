@@ -57,6 +57,8 @@ namespace Rivet {
     
     /// The minimum allowed transverse momentum.
     double _ptmin;
+
+  protected:
     
     /// The final-state particles.
     ParticleVector _theParticles;
