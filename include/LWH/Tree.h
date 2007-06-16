@@ -51,7 +51,7 @@ public:
    */
   //  Tree(std::string storename, bool xml = true)
   Tree(std::string storename, fileformat fchoice = xml)
-    : name(storename), fform(fchoice), cwd("/"), overwrite(true) {
+    : name(storename), fform(fchoice), cwd(""), overwrite(true) {
     dirs.insert(Path());
     //: name(storename), flat(!xml), cwd("/"), overwrite(true) {
   }
@@ -60,7 +60,7 @@ public:
    * The default constructor.
    */
   //Tree(): name(""), flat(false), cwd("/") {
-  Tree(): name(""), fform(xml), cwd("/") {
+  Tree(): name(""), fform(xml), cwd("") {
     dirs.insert(Path());
   }
 
@@ -156,21 +156,63 @@ public:
   }
 
   /** 
-   * Not implemented in LWH.
-   * @return false always.
+   * List, into a given output stream, all the IManagedObjects, including
+   * directories (but not "." and ".."), in a given path. Directories end
+   * with "/". The list can be recursive.
+   * @param path      The path where the list has to be performed
+   *                  (by default the current directory ".").
+   * @param recursive If <code>true</code> the list is extended recursively
+   *                  in all the directories under path (the default is
+   *                  <code>false</code>.
+   * @param os        The output stream into which the list is dumped
+   *                  (by default the standard output).
+   * @return false If the path does not exist.
    *
    */
-  bool ls(const std::string & = ".", bool = false,
-	  std::ostream & = std::cout) const {
-    return false;
+  bool ls(const std::string & path = ".", bool recursive = false,
+	  std::ostream & os = std::cout) const {
+    std::vector<std::string> names = listObjectNames(path, recursive);
+    if ( names.empty() ) return false;
+    for ( int i = 0, N = names.size(); i < N; ++i )
+      os << names[i] << std::endl;
+    return true;
   }
 
   /**
-   * Not implemented in LWH.
+   * Get the list of names of the IManagedObjects under a given path,
+   * including directories (but not "." and ".."). Directories end with "/".
+   * The returned names are appended to the given path unless the latter is ".".
+   * @param path      The path where the list has to be performed
+   *                  (by default the current directory ".").
+   * @param recursive If <code>true</code> the list is extended recursively
+   *                  in all the directories under path (the default is
+   *                   <code>false</code>.
    */
-  std::vector<std::string> listObjectNames(const std::string & = ".",
-					   bool = false) const {
-    return std::vector<std::string>();
+  std::vector<std::string> listObjectNames(const std::string & path = ".",
+					   bool recursive = false) const {
+    std::vector<std::string> ret;
+    PathSet::iterator it = dirs.find(purgepath(str2pth(fullpath(sts(path)))));
+    if ( it == dirs.end() ) return ret;
+    std::string dir = pth2str(*it) + "/";
+    if ( recursive ) {
+      for ( ObjMap::const_iterator oi = objs.begin(); oi != objs.end(); ++oi )
+	if ( oi->first.substr(0, dir.length()) == dir )
+	  ret.push_back(oi->first);
+    } else {
+      for ( ObjMap::const_iterator oi = objs.begin(); oi != objs.end(); ++oi )
+	if ( stn(oi->first) + "/" == dir ) ret.push_back(oi->first);
+      for ( PathSet::iterator pit = dirs.begin(); pit != dirs.end(); ++pit) {
+	std::string pth = pth2str(*pit);
+	if (stn(pth) + "/"  == dir && pth + "/" != dir )
+	  ret.push_back(pth + "/");
+      }
+    }
+
+    if ( path == "." )
+      for ( int i = 0, N = ret.size(); i < N; ++i )
+	ret[i] = ret[i].substr(dir.size());
+
+    return ret;
   }
 
   /**
@@ -404,7 +446,8 @@ protected:
 
   /** Get proper full path from possibly relative path. */
   std::string fullpath(std::string d) const {
-    if ( d[0] != '/' ) d = cwd + "/" + d;
+    if ( d.empty() ) d = cwd;
+    else if ( d[0] != '/' ) d = cwd + "/" + d;
     return pth2str(purgepath(str2pth(d)));
   }
 

@@ -1,5 +1,8 @@
 2007-06-16  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
+	* include/LWH/Tree.h: Implemented the listObjectNames and ls
+	functions.
+
 	* include/Rivet/Projections/FinalStateHCM.hh,
 	include/Rivet/Projections/VetoedFinalState.hh: removed
 	_theParticles and corresponding access function. Use base class

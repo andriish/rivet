@@ -6,6 +6,9 @@
 
 /** @cond DONT_DOCUMENT_STRIPPED_DOWN_AIDA_INTERFACES */
 
+#include <vector>
+#include <iostream>
+
 namespace AIDA {
 
 class IManagedObject;
@@ -30,7 +33,10 @@ public:
   virtual bool mv(const std::string & oldo, const std::string & newo) = 0;
   virtual void setOverwrite(bool o = true) = 0;
   virtual bool cp(const std::string &, const std::string &, bool = false) = 0;
-
+  virtual bool ls(const std::string & = ".", bool = false,
+		  std::ostream & = std::cout) const = 0;
+  virtual std::vector<std::string>  listObjectNames(const std::string & = ".",
+						    bool = false) const = 0;
 };
 
 }
