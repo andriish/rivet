@@ -42,11 +42,6 @@ namespace Rivet {
     /// Compare projections.
     int compare(const Projection& p) const;
     
-  public:
-    
-    /// Access the projected final-state particles.
-    inline const ParticleVector& particles() const { return _theParticles; }
-    
   private:
     
     /// The projector for the DIS lepton.
@@ -57,9 +52,6 @@ namespace Rivet {
 
     /// The projector for the full final state.
     FinalState* _fsproj;
-    
-    /// The final-state particles.
-    ParticleVector _theParticles;
     
   private:
     

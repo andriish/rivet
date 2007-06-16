@@ -54,9 +54,6 @@ namespace Rivet {
     
   public:
     
-    /// Access the projected final-state particles.
-    inline const ParticleVector& particles() const { return _theParticles; }
-
     /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
     inline const VetoDetails& getVetoDetails() const {
       return _vetoCodes;
@@ -114,9 +111,6 @@ namespace Rivet {
     /// The projector for the full final state.
     FinalState* _fsproj;
     
-    /// The final-state particles.
-    ParticleVector _theParticles;
-
     /// The final-state particles.
     VetoDetails _vetoCodes;
 
