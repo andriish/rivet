@@ -4,6 +4,7 @@
 // Phys.Rev.D65:092002,2002 // no hep-ex code
 // FNAL-PUB 01/211-E
 
+#include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/PRD65092002.hh"
 using namespace Rivet;
@@ -34,9 +35,9 @@ void PRD65092002::init() {
   _histAway = bookHistogram1D("PtSumAway", "pT sum away total", _numBins, 0.0, 50.0);
 
   // Data point sets
-  _dpsToward = bookDataPointSet("PtSumToward", "pT sum toward total");
-  _dpsTrans = bookDataPointSet("PtSumTransverse", "pT sum transverse total");
-  _dpsAway = bookDataPointSet("PtSumAway", "pT sum away total");
+  _dpsToward = bookDataPointSet("PtSumTowardDPS", "pT sum toward total");
+  _dpsTrans = bookDataPointSet("PtSumTransverseDPS", "pT sum transverse total");
+  _dpsAway = bookDataPointSet("PtSumAwayDPS", "pT sum away total");
   /// @todo Turn this into a convenience method on Analysis
   vector<double> xvals, xerrs;
   for (size_t bin = 0; bin < _numBins; ++bin) {
@@ -125,32 +126,38 @@ void PRD65092002::finalize() {
     /// @todo Should really use proper profile histograms here.
 
     const double nToward = _dataToward[bin].numEntries;
-    const double avgPtToward = _dataToward[bin].sumPt/nToward;
-    const double avgPt2Toward = _dataToward[bin].sumPtSq/nToward;
     if (nToward) {
+      const double avgPtToward = _dataToward[bin].sumPt/nToward;
+      const double avgPt2Toward = _dataToward[bin].sumPtSq/nToward;
       _histToward->fill(leadPt, avgPtToward);
       valsToward.push_back(avgPtToward);
       errsToward.push_back(sqrt( avgPt2Toward - avgPtToward*avgPtToward ));
     }
 
     const double nTrans = _dataTrans[bin].numEntries;
-    const double avgPtTrans = _dataTrans[bin].sumPt/nTrans;
-    const double avgPt2Trans = _dataTrans[bin].sumPtSq/nTrans;
     if (nTrans) {
+      const double avgPtTrans = _dataTrans[bin].sumPt/nTrans;
+      const double avgPt2Trans = _dataTrans[bin].sumPtSq/nTrans;
       _histTrans->fill(leadPt, avgPtTrans);
       valsTrans.push_back(avgPtTrans);
       errsTrans.push_back(sqrt( avgPt2Trans - avgPtTrans*avgPtTrans ));
     }
 
     const double nAway = _dataAway[bin].numEntries;
-    const double avgPtAway = _dataAway[bin].sumPt/nAway;
-    const double avgPt2Away = _dataAway[bin].sumPtSq/nAway;
     if (nAway) {
+      const double avgPtAway = _dataAway[bin].sumPt/nAway;
+      const double avgPt2Away = _dataAway[bin].sumPtSq/nAway;
       _histAway->fill(leadPt, avgPtAway);
       valsAway.push_back(avgPtAway);
       errsAway.push_back(sqrt( avgPt2Away - avgPtAway*avgPtAway ));
     }
   }
+
+  cout << "Vals away = " << valsAway << endl;
+//   for (vector<double>::iterator i = valsAway.begin(); i != valsAway.end(); ++i) {
+//     cout << *i << " ";
+//   }
+//   cout << "]" << endl;
 
   // Set DPS y-coordinate values and errors
   _dpsToward->setCoordinate(1, valsToward, errsToward);
