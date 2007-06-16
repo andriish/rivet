@@ -20,7 +20,7 @@ namespace Rivet {
     /// Default constructor. Must specify a FinalState projection which is
     //  assumed to live throughout the run.
     inline KtJets(FinalState& fsp)
-      : _pktev(0), _type(4), _angle(3), _recom(1), 
+      : _pktev(0), _type(4), _angle(2), _recom(1), 
         _rparameter(1.0),	_fsproj(&fsp) 
     { 
       addProjection(fsp);
