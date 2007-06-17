@@ -38,17 +38,6 @@ void PRD65092002::init() {
   _dpsToward = bookDataPointSet("PtSumTowardDPS", "pT sum toward total");
   _dpsTrans = bookDataPointSet("PtSumTransverseDPS", "pT sum transverse total");
   _dpsAway = bookDataPointSet("PtSumAwayDPS", "pT sum away total");
-  /// @todo Turn this into a convenience method on Analysis
-  vector<double> xvals, xerrs;
-  for (size_t bin = 0; bin < _numBins; ++bin) {
-    const double binwidth = 50.0/_numBins;
-    const double bincentre = (bin + 0.5) * binwidth;
-    xvals.push_back(bincentre);
-    xerrs.push_back(binwidth/2.0);
-  }
-  _dpsToward->setCoordinate(0, xvals, xerrs);
-  _dpsTrans->setCoordinate(0, xvals, xerrs);
-  _dpsAway->setCoordinate(0, xvals, xerrs);
 }
 
 
@@ -122,8 +111,11 @@ void PRD65092002::finalize() {
   vector<double> valsToward, errsToward;
   vector<double> valsTrans, errsTrans;
   vector<double> valsAway, errsAway;
+  vector<double> xvalsTw, xerrsTw, xvalsTr, xerrsTr, xvalsA, xerrsA;
 
   for (size_t bin = 0; bin < _numBins; ++bin) {
+    const double binwidth = 50.0/_numBins;
+    const double bincentre = (bin + 0.5) * binwidth;
     const double leadPt = double(bin) + 0.5;
     /// @todo Should really use proper profile histograms here.
 
@@ -132,6 +124,9 @@ void PRD65092002::finalize() {
       const double avgPtToward = _dataToward[bin].sumPt/nToward;
       const double avgPt2Toward = _dataToward[bin].sumPtSq/nToward;
       _histToward->fill(leadPt, avgPtToward);
+      xvalsTw.push_back(bincentre);
+      xerrsTw.push_back(binwidth/2.0);
+      _dpsToward->addPoint();
       valsToward.push_back(avgPtToward);
       errsToward.push_back(sqrt( avgPt2Toward - avgPtToward*avgPtToward ));
     }
@@ -141,6 +136,9 @@ void PRD65092002::finalize() {
       const double avgPtTrans = _dataTrans[bin].sumPt/nTrans;
       const double avgPt2Trans = _dataTrans[bin].sumPtSq/nTrans;
       _histTrans->fill(leadPt, avgPtTrans);
+      xvalsTr.push_back(bincentre);
+      xerrsTr.push_back(binwidth/2.0);
+      _dpsTrans->addPoint();
       valsTrans.push_back(avgPtTrans);
       errsTrans.push_back(sqrt( avgPt2Trans - avgPtTrans*avgPtTrans ));
     }
@@ -150,12 +148,22 @@ void PRD65092002::finalize() {
       const double avgPtAway = _dataAway[bin].sumPt/nAway;
       const double avgPt2Away = _dataAway[bin].sumPtSq/nAway;
       _histAway->fill(leadPt, avgPtAway);
+      xvalsA.push_back(bincentre);
+      xerrsA.push_back(binwidth/2.0);
+      _dpsAway->addPoint();
       valsAway.push_back(avgPtAway);
       errsAway.push_back(sqrt( avgPt2Away - avgPtAway*avgPtAway ));
     }
   }
 
+  log << Log::INFO << "Vals toward = " << valsToward << endl;
+  log << Log::INFO << "Vals transverse = " << valsTrans << endl;
   log << Log::INFO << "Vals away = " << valsAway << endl;
+
+  // Set DPS x-coordinate values and errors
+  _dpsToward->setCoordinate(0, xvalsTw, xerrsTw);
+  _dpsTrans->setCoordinate(0, xvalsTr, xerrsTr);
+  _dpsAway->setCoordinate(0, xvalsA, xerrsA);
 
   // Set DPS y-coordinate values and errors
   const bool st1 = _dpsToward->setCoordinate(1, valsToward, errsToward);
