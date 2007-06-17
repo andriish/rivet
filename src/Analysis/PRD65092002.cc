@@ -117,6 +117,8 @@ void PRD65092002::analyze(const Event& event) {
 
 // Create the profile histograms
 void PRD65092002::finalize() {
+  Log& log = getLog();
+
   vector<double> valsToward, errsToward;
   vector<double> valsTrans, errsTrans;
   vector<double> valsAway, errsAway;
@@ -153,14 +155,11 @@ void PRD65092002::finalize() {
     }
   }
 
-  cout << "Vals away = " << valsAway << endl;
-//   for (vector<double>::iterator i = valsAway.begin(); i != valsAway.end(); ++i) {
-//     cout << *i << " ";
-//   }
-//   cout << "]" << endl;
+  log << Log::INFO << "Vals away = " << valsAway << endl;
 
   // Set DPS y-coordinate values and errors
-  _dpsToward->setCoordinate(1, valsToward, errsToward);
-  _dpsTrans->setCoordinate(1, valsTrans, errsTrans);
-  _dpsAway->setCoordinate(1, valsAway, errsAway);
+  const bool st1 = _dpsToward->setCoordinate(1, valsToward, errsToward);
+  const bool st2 = _dpsTrans->setCoordinate(1, valsTrans, errsTrans);
+  const bool st3 = _dpsAway->setCoordinate(1, valsAway, errsAway);
+  log << Log::INFO << "DPS statuses = " << st1 << ", "<< st2 << ", " << st3 << endl;
 }
