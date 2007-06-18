@@ -1,5 +1,7 @@
 2007-06-18  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
+	* include/LWH/Tree.h: Fixed minor bug in listObjectNames.
+
 	* include/LWH/DataPointSet.h: Fixed setCoordinate functions so
 	that they resize the vector of DataPoints if it initially was
 	empty.

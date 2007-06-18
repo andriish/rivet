@@ -194,6 +194,7 @@ public:
     PathSet::iterator it = dirs.find(purgepath(str2pth(fullpath(sts(path)))));
     if ( it == dirs.end() ) return ret;
     std::string dir = pth2str(*it) + "/";
+    if ( path == "/" ) dir = "/";
     if ( recursive ) {
       for ( ObjMap::const_iterator oi = objs.begin(); oi != objs.end(); ++oi )
 	if ( oi->first.substr(0, dir.length()) == dir )
