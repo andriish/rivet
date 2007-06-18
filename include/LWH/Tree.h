@@ -317,10 +317,16 @@ public:
     std::string foldp = fullpath(oldp);
     Path oldpath = purgepath(str2pth(foldp));
     ObjMap::iterator it = objs.find(foldp);
+    //std::cout << 1 << std::endl;
     if ( it == objs.end() ) return false;
-    if ( dirs.find(newpath) != dirs.end() ) return false;
+    //std::cout << 2 << std::endl;
+    // Changed from != by AB: surely the directory you're copying to must 
+    // exist? Why can't we just change the name in the same directory?
+    if ( dirs.find(newpath) == dirs.end() ) return false;
     newpath.push_back(oldpath.back());
+    //std::cout << 3 << std::endl;
     if ( !insert(pth2str(newpath), it->second) ) return false;
+    //std::cout << 4 << std::endl;
     objs.erase(foldp);
     return true;
   }

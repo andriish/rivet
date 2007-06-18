@@ -38,20 +38,28 @@ namespace Rivet {
 
   void AnalysisHandler::normalizeTree(ITree& tree) {
     const vector<string> paths = tree.listObjectNames("/", true); // args set recursive listing
-    getLog() << Log::INFO << "Number of objects in AIDA tree = " << paths.size() << endl;
+    getLog() << Log::DEBUG << "Number of objects in AIDA tree = " << paths.size() << endl;
+    const string tmpdir = "/RivetNormalizeTmp";
+    tree.mkdir(tmpdir);
     for (vector<string>::const_iterator path = paths.begin(); path != paths.end(); ++path) {
       IManagedObject* obj = tree.find(*path);
-      cout << "Testing type of " << *path << endl;
       if (obj) {
         IHistogram1D* histo = dynamic_cast<IHistogram1D*>(obj);
         if (histo) {
-          cout << *path << " is a IH1D" << endl;
-          tree.unmount(*path);
-          string dpspath = *path + "DPS";
-          datapointsetFactory().create(dpspath, *histo);
+          tree.mv(*path, tmpdir);
+          const size_t lastslash = path->find_last_of("/");
+          const string basename = path->substr(lastslash+1, path->length() - (lastslash+1));
+          const string tmppath = tmpdir + "/" + basename;
+          IHistogram1D* tmphisto = dynamic_cast<IHistogram1D*>(tree.find(tmppath));
+          if (tmphisto) {
+            getLog() << Log::DEBUG << "Temp histo " << tmppath << " exists" << endl;
+            datapointsetFactory().create(*path, *tmphisto);
+          }
+          tree.rm(tmppath);
         }
       }
     }
+    tree.rmdir(tmpdir);
   }
 
 
