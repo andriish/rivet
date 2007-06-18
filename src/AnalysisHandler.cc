@@ -5,10 +5,9 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "AIDA/IManagedObject.h"
-#include "AIDA/IDataPointSetFactory.h"
 
 
-using namespace std;
+using namespace AIDA;
 
 
 namespace Rivet {
@@ -37,16 +36,19 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::normalizeTree(AIDA::ITree& tree) {
-    const vector<string> paths = tree.listObjectNames(".", true); // args set recursive listing
+  void AnalysisHandler::normalizeTree(ITree& tree) {
+    const vector<string> paths = tree.listObjectNames("/", true); // args set recursive listing
     getLog() << Log::INFO << "Number of objects in AIDA tree = " << paths.size() << endl;
     for (vector<string>::const_iterator path = paths.begin(); path != paths.end(); ++path) {
-      AIDA::IManagedObject* obj = tree.find(*path);
+      IManagedObject* obj = tree.find(*path);
       cout << "Testing type of " << *path << endl;
       if (obj) {
-        AIDA::IHistogram1D* histo = (AIDA::IHistogram1D*) obj->cast("AIDA::IHistogram");
+        IHistogram1D* histo = dynamic_cast<IHistogram1D*>(obj);
         if (histo) {
           cout << *path << " is a IH1D" << endl;
+          tree.unmount(*path);
+          string dpspath = *path + "DPS";
+          datapointsetFactory().create(dpspath, *histo);
         }
       }
     }
@@ -60,7 +62,7 @@ namespace Rivet {
   }
 
 
-  AnalysisHandler::AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
+  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
     : _nRun(0), _iRun(0), _theAnalysisFactory(&afac) {
     setupFactories(basefilename, storetype);
   }
