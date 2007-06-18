@@ -13,8 +13,11 @@
 #include "AIDA/ITreeFactory.h"
 #include "AIDA/IDataPointSetFactory.h"
 #include "AIDA/IDataPointSet.h"
+#include "AIDA/IDataPoint.h"
+#include "AIDA/IMeasurement.h"
 #include "AIDA/ITree.h"
 #include "AIDA/IAxis.h"
+
 
 namespace Rivet {
   /// Typedef for a collection of bin edges.

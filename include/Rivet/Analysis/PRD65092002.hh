@@ -17,7 +17,7 @@ namespace Rivet {
     /// \f$ p_T > 0.5 \f$ GeV.
     inline PRD65092002()
       : _fsproj(-1.0, 1.0, 0.5), _trackjetproj(_fsproj), 
-        _histToward(0), _histAway(0), _histTrans(0), _numBins(50)
+        _dpsToward(0), _dpsAway(0), _dpsTrans(0), _numBins(50)
     { 
       setBeams(PROTON, ANTIPROTON);
       addProjection(_fsproj);
@@ -53,9 +53,6 @@ namespace Rivet {
 
     /// @name Histograms and data point sets
     //@{
-    AIDA::IHistogram1D* _histToward;
-    AIDA::IHistogram1D* _histAway;
-    AIDA::IHistogram1D* _histTrans;
     AIDA::IDataPointSet* _dpsToward;
     AIDA::IDataPointSet* _dpsAway;
     AIDA::IDataPointSet* _dpsTrans;
