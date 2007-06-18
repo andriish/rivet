@@ -28,37 +28,15 @@ void PRD65092002::init() {
 
   // Data point sets
   /// @todo Should really use proper profile histograms.
-  _dpsToward = bookDataPointSet("PtSumToward", "pT sum toward total");
-  _dpsTrans = bookDataPointSet("PtSumTransverse", "pT sum transverse total");
-  _dpsAway = bookDataPointSet("PtSumAway", "pT sum away total");
+  _dpsToward = bookDataPointSet("PtSumToward", "pT sum toward total", 50, 0.0, 50.0);
+  _dpsTrans = bookDataPointSet("PtSumTransverse", "pT sum transverse total", 50, 0.0, 50.0);
+  _dpsAway = bookDataPointSet("PtSumAway", "pT sum away total", 50, 0.0, 50.0);
 
-  // Book mini-histos and initialise the DPS x-coords
+  // Book mini-histos
   for (size_t bin = 0; bin < _numBins; ++bin) {
     _dataToward[bin] = MiniHisto();
     _dataAway[bin] = MiniHisto();
     _dataTrans[bin] = MiniHisto();
-
-    const double binwidth = 50.0/_numBins;
-    const double bincentre = (bin + 0.5) * binwidth;
-    IMeasurement* meas;
-
-    _dpsToward->addPoint();
-    meas = _dpsToward->point(bin)->coordinate(0);
-    meas->setValue(bincentre);
-    meas->setErrorPlus(binwidth/2.0);
-    meas->setErrorMinus(binwidth/2.0);
-
-    _dpsTrans->addPoint();
-    meas = _dpsTrans->point(bin)->coordinate(0);
-    meas->setValue(bincentre);
-    meas->setErrorPlus(binwidth/2.0);
-    meas->setErrorMinus(binwidth/2.0);
-
-    _dpsAway->addPoint();
-    meas = _dpsAway->point(bin)->coordinate(0);
-    meas->setValue(bincentre);
-    meas->setErrorPlus(binwidth/2.0);
-    meas->setErrorMinus(binwidth/2.0);
   }
 
 }
@@ -136,8 +114,7 @@ void PRD65092002::finalize() {
       const double avgPt = _dataToward[bin].sumPt/nToward;
       const double avgPt2 = _dataToward[bin].sumPtSq/nToward;
       const double err = sqrt(avgPt2 - avgPt*avgPt);
-      IDataPoint* pt = _dpsToward->point(bin);
-      IMeasurement* meas = pt->coordinate(1);
+      IMeasurement* meas = _dpsToward->point(bin)->coordinate(1);
       meas->setValue(avgPt);
       meas->setErrorPlus(err);
       meas->setErrorMinus(err);

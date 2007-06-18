@@ -165,7 +165,7 @@ namespace Rivet {
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
     AIDA::IHistogram1D* bookHistogram1D(const string& name, const string& title, 
-                                        const int nbins, const double lower, const double upper);
+                                        const size_t nbins, const double lower, const double upper);
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will 
@@ -177,8 +177,8 @@ namespace Rivet {
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' getName() property.
-    AIDA::IHistogram1D* bookHistogram1D(const unsigned int datasetId, const unsigned int xAxisId, 
-                                        const unsigned int yAxisId, const string& title);
+    AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
+                                        const size_t yAxisId, const string& title);
 
 
 
@@ -187,13 +187,20 @@ namespace Rivet {
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
     AIDA::IDataPointSet* bookDataPointSet(const string& name, const string& title);
-    //const int nbins, const double lower, const double upper);
+
+
+    /// Book a 2-dimensional data point set with equally spaced points in a range.
+    /// (NB. this returns a pointer rather than a reference since it will 
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// get the pointer from a reference before they can use it!)
+    AIDA::IDataPointSet* bookDataPointSet(const string& name, const string& title, 
+                                          const size_t npts, const double lower, const double upper);
 
     /// Book a 2-dimensional data point set based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' getName() property.
-    AIDA::IDataPointSet* bookDataPointSet(const unsigned int datasetId, const unsigned int xAxisId, 
-                                          const unsigned int yAxisId, const string& title);
+    AIDA::IDataPointSet* bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
+                                          const size_t yAxisId, const string& title);
     //@}
 
 

@@ -60,6 +60,7 @@ namespace Rivet {
     return getHandler().histogramFactory();
   }
 
+
   IDataPointSetFactory& Analysis::datapointsetFactory() {
     return getHandler().datapointsetFactory();
   }
@@ -71,8 +72,8 @@ namespace Rivet {
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const unsigned int datasetId, const unsigned int xAxisId, 
-                                          const unsigned int yAxisId, const string& title) {
+  IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
+                                          const size_t yAxisId, const string& title) {
     stringstream axisCode;
     axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
     const map<string, BinEdges> data = getBinEdges(getName());
@@ -83,7 +84,7 @@ namespace Rivet {
 
 
   IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
-                                          const int nbins, const double lower, const double upper) {
+                                          const size_t nbins, const double lower, const double upper) {
     makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
@@ -105,8 +106,24 @@ namespace Rivet {
   }
 
 
-  IDataPointSet* Analysis::bookDataPointSet(const unsigned int datasetId, const unsigned int xAxisId, 
-                                            const unsigned int yAxisId, const string& title) {
+  IDataPointSet* Analysis::bookDataPointSet(const string& name, const string& title, 
+                                            const size_t npts, const double lower, const double upper) {
+    IDataPointSet* dps = bookDataPointSet(name, title);
+    for (size_t pt = 0; pt < npts; ++pt) {
+      const double binwidth = (upper-lower)/npts;
+      const double bincentre = lower + (pt + 0.5) * binwidth;
+      dps->addPoint();
+      IMeasurement* meas = dps->point(pt)->coordinate(0);
+      meas->setValue(bincentre);
+      meas->setErrorPlus(binwidth/2.0);
+      meas->setErrorMinus(binwidth/2.0);
+    }
+    return dps;
+  }
+
+
+  IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
+                                            const size_t yAxisId, const string& title) {
     /// @todo Implement this?
     throw runtime_error("Auto-booking of DataPointSets is not yet implemented");
   }
