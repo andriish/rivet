@@ -48,7 +48,10 @@ namespace Rivet {
                                              _pT_min_second_protojet, _merge_max, _pT_min_nomerge);
       /// @todo Why not use the stack?
       jets = new list<HepEntity>;
+      _particlelist = new list<const HepEntity*>;
+
     }
+
 
     
     /// Argument constructor.
@@ -67,7 +70,10 @@ namespace Rivet {
 
       /// @todo Why not use the stack?
       jets = new list<HepEntity>;
+      _particlelist = new list<const HepEntity*>;
+
     }
+
 
     
     /// Destructor.

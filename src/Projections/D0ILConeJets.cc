@@ -20,12 +20,13 @@ namespace Rivet {
       cmp(_cone_radius, other._cone_radius) ||
       cmp(_min_jet_Et, other._min_jet_Et) || 
       cmp(_split_ratio, other._split_ratio);
+    //cmp(jets, other.jets);
   }
 
 
   void D0ILConeJets::project(const Event& e) {
     /// @todo Enormous memory leak!
-    _particlelist = new list<const HepEntity*>;
+    //_particlelist = new list<const HepEntity*>;
 
     // Project into final state
     const FinalState& fs = e.applyProjection(*_fsproj);
@@ -43,6 +44,8 @@ namespace Rivet {
     // jets = pointer to list of type HepEntity
     jets->clear(); // Be sure to have no jets from old event(s)
     _algo->makeClusters(*jets, *_particlelist, item_ET_Threshold); // Turn the crank!!!
+    _particlelist->clear();
+    
   }
 
 
