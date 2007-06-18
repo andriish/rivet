@@ -1,3 +1,12 @@
+2007-06-18  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* include/LWH/DataPointSet.h: Fixed setCoordinate functions so
+	that they resize the vector of DataPoints if it initially was
+	empty.
+
+	* include/LWH/DataPoint.h: Added constructor taking a vector of
+	measuremts.
+
 2007-06-16  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/LWH/Tree.h: Implemented the listObjectNames and ls

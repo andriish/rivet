@@ -160,6 +160,7 @@ public:
 		     const std::vector<double>  & errp,
 		     const std::vector<double>  & errm) {
     if ( coord < 0 || coord >= dimension() ) return false;
+    if ( dset.empty() ) dset.resize(val.size(), DataPoint(dimension()));
     if ( val.size() != dset.size() || errp.size() != dset.size() ||
 	 errm.size() != dset.size() ) return false;
     for ( int i = 0, N = val.size(); i < N; ++i ) {
