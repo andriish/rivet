@@ -32,6 +32,12 @@ public:
     : m(dim) {}
 
   /**
+   * Constructor taking a vector of measurements as argument.
+   */
+  DataPoint(const std::vector<Measurement> & vm)
+    : m(vm) {}
+
+  /**
    * Copy constructor.
    */
   DataPoint(const DataPoint & d)
