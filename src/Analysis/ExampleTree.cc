@@ -54,7 +54,7 @@ namespace Rivet {
     _rivetTree->Branch("leptype", &_leptype, "leptype[nlep][3]/F");
 
     _rivetTree->Branch("npart", &_npart, "npart/I");
-    _rivetTree->Branch("ppart", &_ppart, "ppart[njet][4]/F");
+    _rivetTree->Branch("ppart", &_ppart, "ppart[npart][4]/F");
     _rivetTree->Branch("pid", &_pid, "pid[npart]/I");
     _rivetTree->Branch("mo", &_mo, "mo[npart]/I");  // first mother.
 
