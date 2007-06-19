@@ -30,7 +30,7 @@ namespace Rivet {
     inline ExampleTree()
       : _fsproj(-4.0, 4.0, 0.0), _chgleptonsproj(_fsproj), 
         _ktjetsproj(_fsproj), _wzandhproj(), _vfsproj(_fsproj),
-        _p_totvismomproj(0)
+        _totvismomproj(_fsproj)
     {
       /// Particle IDs for neutrinos and antineutrinos and LSP
       _vfsproj
@@ -41,19 +41,17 @@ namespace Rivet {
         .addVetoId(-14)
         .addVetoId(-16)
         .addVetoId(1000022);
-      _p_totvismomproj = new TotalVisibleMomentum(_vfsproj);
+      _totvismomproj = TotalVisibleMomentum(_vfsproj);
 
       addProjection(_fsproj);
       addProjection(_chgleptonsproj);
       addProjection(_ktjetsproj);
       addProjection(_wzandhproj);
       addProjection(_vfsproj);
-      addProjection(*_p_totvismomproj);
+      addProjection(_totvismomproj);
     }
 
-    inline ~ExampleTree() {
-      if (_p_totvismomproj) delete _p_totvismomproj;
-    }
+    inline ~ExampleTree() {}
 
   public:
 
@@ -92,7 +90,7 @@ namespace Rivet {
     VetoedFinalState _vfsproj;
 
     /// The total visible momentum projector.
-    TotalVisibleMomentum* _p_totvismomproj;
+    TotalVisibleMomentum _totvismomproj;
 
 
 #ifdef HAVE_ROOT
