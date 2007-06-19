@@ -41,8 +41,10 @@ namespace Rivet {
     if (iter == _yscales.end()) {
       KtJet::KtEvent subj = KtJet::KtEvent(jet, _angle, _recom);
       vector<double> yMergeVals;
-      for (int i=1; i<4; ++i) {
-        yMergeVals.push_back(subj.getYMerge(i));
+      for (int i=1; i<5; ++i) {
+	if (subj.getNConstituents()>i){
+	  yMergeVals.push_back(subj.getYMerge(i));
+	}
       }
       _yscales.insert(make_pair( jet.getID(), yMergeVals ));
       return yMergeVals;

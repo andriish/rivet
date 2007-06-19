@@ -155,16 +155,12 @@ namespace Rivet {
           _sjet3[_nsub][3] = j->pz();
           _sjet3[_nsub][0] = j->e();
           vector<double> ys = jets.getYSubJet(*j);
-          if (ys.size()>3) {
-            _ysubsj[_nsub][0] = ys.at(0);
-            _ysubsj[_nsub][1] = ys.at(1);
-            _ysubsj[_nsub][2] = ys.at(2);
-            _ysubsj[_nsub][3] = ys.at(3);
-          } else {
-            _ysubsj[_nsub][0] = 0;
-            _ysubsj[_nsub][1] = 0;
-            _ysubsj[_nsub][2] = 0;
-            _ysubsj[_nsub][3] = 0;
+	  for (unsigned int i=0; i<5; ++i){
+	    if (ys.size()>i) {
+	      _ysubsj[_nsub][i] = ys.at(i);
+	    } else {
+	      _ysubsj[_nsub][i] = 0;
+	    }
           }
           ++_nsub;
         }
