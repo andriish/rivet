@@ -15,6 +15,16 @@ namespace Rivet {
   
   /// Find jets according to the D0 "improved legacy" cone algorithm.
   class D0ILConeJets : public Projection {
+
+    ///@name description
+    //@{ 
+    /// The jet algorithm is described in:
+    /// D0 Note Number: 003750, Date: 4/20/00,
+    /// Title: Run II Jet Physics,
+    /// Proceedings of the jet physics group of the Run II QCD Workshop
+    /// Author(s): Gerald C. Blazey, Jay R. Dittmann, Stephen D. Ellis, V. Daniel Elvira, K. Frame, S. Grinstein, Robert Hirosky, R.Peigaia, H. Schellman, R. Snihur,V. Sorin, Dieter Zeppenfeld
+    ///The actual implementation differs in details like: mid points are only considered between
+    /// 4-vectors above threshold and the midpoint is determined pT weighted.
     
   public:
     
@@ -24,64 +34,48 @@ namespace Rivet {
     ///  assumed to live throughout the run.    
     inline D0ILConeJets(FinalState& fsp)
       /// @todo Why is _fsproj a pointer?
-      : _cone_radius(0.7), _min_jet_Et(0.0), _split_ratio(0.5), _fsproj(&fsp)
+      : _fsproj(&fsp), _cone_radius(0.7), _min_jet_Et(0.0), _split_ratio(0.5),
+      _far_ratio(0.5), _et_min_ratio(0.5), _kill_duplicate(true), _duplicate_dR(0.005), 
+      _duplicate_dPT(0.01), _search_factor(1.0), _pT_min_leading_protojet(0.0), 
+      _pT_min_second_protojet(0.0), _merge_max(1000), _pT_min_nomerge(0.0)
+	, _algo(_cone_radius, _min_jet_Et, _split_ratio,
+		_far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
+		_duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
+		_pT_min_second_protojet, _merge_max, _pT_min_nomerge)
+
     { 
       addProjection(fsp);
-      
-      // The parameters are supposed to be set as used by D0 in RunII
-      /// @todo Set these in the argument list and make the members const
-      _far_ratio = 0.5;
-      _et_min_ratio = 0.5;
-      _kill_duplicate = true;
-      _duplicate_dR = 0.005; 
-      _duplicate_dPT = 0.01; 
-      _search_factor = 1.0; 
-      _pT_min_leading_protojet = 0.0; 
-      _pT_min_second_protojet = 0.0;
-      _merge_max = 10000;
-      _pT_min_nomerge = 0.0;
-      
-      /// @todo Why not use the stack?
-      _algo = new ILConeAlgorithm<HepEntity>(_cone_radius, _min_jet_Et, _split_ratio,
-                                             _far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
-                                             _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
-                                             _pT_min_second_protojet, _merge_max, _pT_min_nomerge);
-      /// @todo Why not use the stack?
-      jets = new list<HepEntity>;
-      _particlelist = new list<const HepEntity*>;
-
     }
 
 
-    
+        
     /// Argument constructor.
     /// Added so that same projection can be ran but with different parameters.
     /// Must specify a FinalState projection which is
     /// assumed to live throughout the run. 
-    inline D0ILConeJets(FinalState& fsp, float R, float Etmin, float split) 
-      : _cone_radius(R), _min_jet_Et(Etmin), _split_ratio(split), _fsproj(&fsp) 
-    {
-      /// @todo Why not use the stack?
-      _algo = new ILConeAlgorithm<HepEntity>(_cone_radius, _min_jet_Et, _split_ratio,
-                                             _far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
-                                             _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
-                                             _pT_min_second_protojet, _merge_max, _pT_min_nomerge);
-      /// @todo Most of the variables in the previous line are undefined!
-
-      /// @todo Why not use the stack?
-      jets = new list<HepEntity>;
-      _particlelist = new list<const HepEntity*>;
-
-    }
-
+    inline D0ILConeJets(FinalState& fsp, float R, float Etmin, float split,
+			float Far_Ratio, float Et_Min_Ratio, bool Kill_Duplicate,
+			float Duplicate_DR, float Duplicate_DPT, float Search_Factor,
+			float PT_Min_Leading_Protojet, float PT_Min_Second_Protojet,
+			int Merge_Max, float PT_Min_Nomerge)
+      : _fsproj(&fsp), _cone_radius(R), _min_jet_Et(Etmin), _split_ratio(split),
+	_far_ratio(Far_Ratio), _et_min_ratio(Et_Min_Ratio), _kill_duplicate(Kill_Duplicate),
+	_duplicate_dR(Duplicate_DR), _duplicate_dPT(Duplicate_DPT), _search_factor(Search_Factor),
+	_pT_min_leading_protojet(PT_Min_Leading_Protojet), 
+	_pT_min_second_protojet(PT_Min_Second_Protojet), _merge_max(Merge_Max),
+	_pT_min_nomerge(PT_Min_Nomerge)
+	, _algo(_cone_radius, _min_jet_Et, _split_ratio,
+		_far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
+		_duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
+		_pT_min_second_protojet, _merge_max, _pT_min_nomerge)
+ 
+    {  }
+    
 
     
     /// Destructor.
     virtual ~D0ILConeJets() { 
-      /// @todo Memory leaks are very likely...
-      delete _particlelist; 
-      delete _algo;
-      delete jets;
+
     };
     //@}
 
@@ -104,14 +98,20 @@ namespace Rivet {
 
   public:
     
-    inline int getNJets() const { return jets->size(); }
+    inline int getNJets() const { return _jets.size(); }
   
+    //Here is a problem: 
+    //If I stick with the upper version alone I get into trouble in D0IIConeJets.cc
+    //If I stick with the lower version alone I get into trouble in ILConeAlgorithm.hpp
+    //I tried to dig into both possibilities but get still more trouble
+    //Notice that this only happens since the public list jets has been made private: _jets
+    inline list<HepEntity>* getJets() { return &_jets; }
+    inline const list<HepEntity>* getJets() const { return &_jets; }
 
-  public:
-    /// @todo Why public? And why a pointer to a list? Name should get 
-    /// an underscore prefix and there should be relevant reference-based 
-    /// accessor methods.
-    list<HepEntity>* jets;
+    inline void clearJets() { _jets.clear(); return; }
+
+  private:
+    list<HepEntity> _jets;
 
 
   private:
@@ -119,32 +119,40 @@ namespace Rivet {
     /// In fact, it shouldn't even be implemented.
     D0ILConeJets& operator=(const D0ILConeJets&);
   
-    /// @todo Why a pointer to the list?
-    list<const HepEntity*>* _particlelist;
-    
-    // Initialize D0RunII cone algorithm (what does this mean?)
-    float _cone_radius;
-    float _min_jet_Et;
-    float _split_ratio;
-
-    /// @todo Documentation! 
-    float _far_ratio;
-    float _et_min_ratio;
-    bool _kill_duplicate;
-    float _duplicate_dR; 
-    float _duplicate_dPT; 
-    float _search_factor; 
-    float _pT_min_leading_protojet; 
-    float _pT_min_second_protojet;
-    int _merge_max; 
-    float _pT_min_nomerge;
+    list<HepEntity> _particlelist;
+    list<const HepEntity*> _particlepointerlist;
 
     /// The FinalState projection used by this projection.
     /// @todo Why a pointer?
+    /// That's how I learned it from the KtJet projection
     FinalState* _fsproj;
 
-    /// @todo Why a pointer?
-    ILConeAlgorithm<HepEntity>* _algo;
+
+
+    // Initialize D0RunII cone algorithm (what does this mean?)
+    // This means that when the constructer gets instantiated the cone radius has to be specified
+    // D0 JCCA: _cone_radius=0.7, D0 JCCB: _cone_radius=0.5
+    const float _cone_radius;
+    const float _min_jet_Et;
+    const float _split_ratio;
+
+    /// @todo Documentation! 
+    /// The original author Laurent Duflot might be able to explain those.
+    /// The parameters are supposed to be set as used by D0 in RunII,
+    /// correct values are preset in the default constructor
+    const float _far_ratio;
+    const float _et_min_ratio;
+    const bool _kill_duplicate;
+    const float _duplicate_dR; 
+    const float _duplicate_dPT; 
+    const float _search_factor; 
+    const float _pT_min_leading_protojet; 
+    const float _pT_min_second_protojet;
+    const int _merge_max; 
+    const float _pT_min_nomerge;
+
+    ///The jet algorithm function itself
+     ILConeAlgorithm<HepEntity> _algo;
 
   };
 

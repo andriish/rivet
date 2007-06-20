@@ -351,6 +351,8 @@ makeClusters(
       else ++it;
   }
 
+  //std::cout << "ILConeAlgorithm: ilist.size()=" << ilist.size() << std::endl; //ls
+
   // create an energy cluster collection for jets 
   //EnergyClusterCollection<ItemAddress>* ptrcol;
   //Item* ptrcol;
@@ -362,6 +364,7 @@ makeClusters(
     ecv.push_back(*it);
   }
 
+  //std::cout << "ILConeAlgorithm: ecv.size()=" << ecv.size() << std::endl; //ls
 
   //preclu.getClusters(ecv);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% need to fill here vector ecv
@@ -519,6 +522,7 @@ makeClusters(
   std::vector<ProtoJet<Item> > ilcv;
   pjets.split_merge(ilcv,_SPLIT_RATIO, _PT_MIN_LEADING_PROTOJET, _PT_MIN_SECOND_PROTOJET, _MERGE_MAX, _PT_MIN_noMERGE_MAX);
 
+  //std::cout << "ILConeAlgorithm: ilcv.size()=" << ilcv.size() << std::endl; //ls
 
   for(unsigned int i = 0; i < ilcv.size(); ++i) 
   {
