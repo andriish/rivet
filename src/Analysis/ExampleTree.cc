@@ -83,10 +83,7 @@ namespace Rivet {
     const ChargedLeptons& cl = event.applyProjection(_chgleptonsproj);
 
     // Missing Et/total energy
-    if (! _p_totvismomproj) {
-      throw runtime_error("ExampleTree::analyze: TotalVisibleMomentum projection is a null pointer");
-    }
-    const TotalVisibleMomentum& tvm = event.applyProjection(*_p_totvismomproj);
+    const TotalVisibleMomentum& tvm = event.applyProjection(_totvismomproj);
 
     // Vector bosons.
     const WZandh& wzh = event.applyProjection(_wzandhproj);
