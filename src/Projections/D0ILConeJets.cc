@@ -29,8 +29,8 @@ namespace Rivet {
       cmp(_pT_min_leading_protojet, other._pT_min_leading_protojet) || 
       cmp(_pT_min_second_protojet, other._pT_min_second_protojet) ||
       cmp(_merge_max, other._merge_max) || 
-      cmp(_pT_min_nomerge, other._pT_min_nomerge); // ||
-      //pcmp(_jets, other._jets);
+      cmp(_pT_min_nomerge, other._pT_min_nomerge);
+      // || cmp(_jets, other._jets);
   }
 
 
@@ -52,7 +52,7 @@ namespace Rivet {
     float item_ET_Threshold = 0.0;
     // jets = list of type HepEntity
     clearJets(); //Clear jets of previous event
-    _algo.makeClusters(*getJets(), _particlepointerlist, item_ET_Threshold); // Turn the crank!!!
+    _algo.makeClusters(getJets(), _particlepointerlist, item_ET_Threshold); // Turn the crank!!!
     _particlelist.clear(); //Clear this event
     _particlepointerlist.clear(); //Clear this event
 

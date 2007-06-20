@@ -40,20 +40,21 @@ void HepEx0409040::analyze(const Event & event) {
   //if (fabs(pv.getPrimaryVertex().position().z()) < 500.0) {
     //list<HepEntity>::const_iterator jetpTmax = jetpro._jets.end();
     //list<HepEntity>* jets = (const list<HepEntity>*) 
-    const list<HepEntity>* jets = jetpro.getJets();
-    list<HepEntity>::const_iterator jetpTmax = jets->end();
-    list<HepEntity>::const_iterator jet2ndpTmax = jets->end();
-    log << Log::DEBUG << "jetlist size = " << jets->size() << endl;
+    const list<HepEntity>& jets = jetpro.getJets();
+    //list<HepEntity>* jets = jetpro.getJets();
+    list<HepEntity>::const_iterator jetpTmax = jets.end();
+    list<HepEntity>::const_iterator jet2ndpTmax = jets.end();
+    log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
 
     int Njet = 0;
-    for (list<HepEntity>::const_iterator jt = jets->begin(); jt != jets->end(); ++jt) {
+    for (list<HepEntity>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
       log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E << " pz=" << jt->pz << endl;
       if (jt->pT() > 40.0) ++Njet;
       log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->y() << " phi=" << jt->phi() << endl; 
-      if (jetpTmax == jets->end() || jt->pT() > jetpTmax->pT()) {
+      if (jetpTmax == jets.end() || jt->pT() > jetpTmax->pT()) {
         jet2ndpTmax = jetpTmax;
         jetpTmax = jt;
-      } else if (jet2ndpTmax == jets->end() || jt->pT() > jet2ndpTmax->pT()) {
+      } else if (jet2ndpTmax == jets.end() || jt->pT() > jet2ndpTmax->pT()) {
         jet2ndpTmax = jt;
       }
     }
@@ -62,7 +63,7 @@ void HepEx0409040::analyze(const Event & event) {
       log << Log::DEBUG << "Jet multiplicity after pT > 40GeV cut = " << Njet << endl; 
     }
 
-    if (jets->size()>=2 && jet2ndpTmax->pT() > 40.) {
+    if (jets.size()>=2 && jet2ndpTmax->pT() > 40.) {
       if (fabs(jetpTmax->y())<0.5 && fabs(jet2ndpTmax->y())<0.5) {
         log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
         /// @todo Should this commented eta cut be happening via a FinalState configuration?

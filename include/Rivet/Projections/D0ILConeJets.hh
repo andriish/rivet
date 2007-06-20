@@ -105,8 +105,8 @@ namespace Rivet {
     //If I stick with the lower version alone I get into trouble in ILConeAlgorithm.hpp
     //I tried to dig into both possibilities but get still more trouble
     //Notice that this only happens since the public list jets has been made private: _jets
-    inline list<HepEntity>* getJets() { return &_jets; }
-    inline const list<HepEntity>* getJets() const { return &_jets; }
+    inline list<HepEntity>& getJets() { return _jets; }
+    inline const list<HepEntity>& getJets() const { return _jets; }
 
     inline void clearJets() { _jets.clear(); return; }
 
