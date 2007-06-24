@@ -57,7 +57,7 @@ namespace Rivet {
   private:
 
     /// The assignment operator is private and must never be called.
-    PVertex& operator=(const PVertex&);
+    //PVertex& operator=(const PVertex&);
 
   };
 

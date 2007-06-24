@@ -53,10 +53,10 @@ namespace Rivet {
     /// The sum of the Et in the central rapidity bin.
     double _sumet;
 
-  private:
+//   private:
 
-    /// Hide the assignment operator.
-    CentralEtHCM & operator=(const CentralEtHCM &);
+//     /// Hide the assignment operator.
+//     CentralEtHCM & operator=(const CentralEtHCM &);
 
   };
 

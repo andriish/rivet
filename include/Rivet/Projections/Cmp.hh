@@ -296,4 +296,4 @@ namespace Rivet {
 }
 
 
-#endif /* RIVET_Cmp_H */
+#endif

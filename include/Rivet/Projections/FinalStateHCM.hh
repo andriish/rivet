@@ -53,10 +53,10 @@ namespace Rivet {
     /// The projector for the full final state.
     FinalState* _fsproj;
     
-  private:
+//   private:
     
-    /// Hide the assignment operator.
-    FinalStateHCM& operator=(const FinalStateHCM&);
+//     /// Hide the assignment operator.
+//     FinalStateHCM& operator=(const FinalStateHCM&);
     
   };
   

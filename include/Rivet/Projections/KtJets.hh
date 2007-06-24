@@ -95,8 +95,8 @@ namespace Rivet {
 
   private:
     
-    /// Hiding the assignment operator.
-    KtJets& operator=(const KtJets&);
+//     /// Hiding the assignment operator.
+//     KtJets& operator=(const KtJets&);
   
   };
 

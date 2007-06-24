@@ -118,7 +118,7 @@ namespace Rivet {
   private:
     
     /// Hide the assignment operator.
-    VetoedFinalState& operator=(const VetoedFinalState&);
+    //VetoedFinalState& operator=(const VetoedFinalState&);
     
   };
 

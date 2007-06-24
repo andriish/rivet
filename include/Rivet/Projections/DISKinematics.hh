@@ -91,11 +91,10 @@ namespace Rivet {
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
     LorentzRotation _breit;
 
-  private:
+//   private:
 
-
-    /// Hide the assignment operator.
-    DISKinematics & operator=(const DISKinematics &);
+//     /// Hide the assignment operator.
+//     DISKinematics & operator=(const DISKinematics &);
 
   };
 

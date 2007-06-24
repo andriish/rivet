@@ -114,10 +114,10 @@ namespace Rivet {
     list<HepEntity> _jets;
 
 
-  private:
-    /// The assignment operator is private and must never be called.
-    /// In fact, it shouldn't even be implemented.
-    D0ILConeJets& operator=(const D0ILConeJets&);
+//   private:
+//     /// The assignment operator is private and must never be called.
+//     /// In fact, it shouldn't even be implemented.
+//     D0ILConeJets& operator=(const D0ILConeJets&);
   
     list<HepEntity> _particlelist;
     list<const HepEntity*> _particlepointerlist;

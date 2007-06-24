@@ -107,7 +107,7 @@ namespace Rivet {
   private:
 
     /// The assignment operator is private and must never be called.
-    Sphericity& operator=(const Sphericity&);
+    //Sphericity& operator=(const Sphericity&);
 
   };
 

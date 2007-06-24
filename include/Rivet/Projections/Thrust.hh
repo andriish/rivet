@@ -112,7 +112,7 @@ namespace Rivet {
     void calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const;
 
     /// The assignment operator is private and must never be called.
-    Thrust& operator=(const Thrust &);
+    //Thrust& operator=(const Thrust &);
 
   };
   

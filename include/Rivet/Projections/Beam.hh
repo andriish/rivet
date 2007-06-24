@@ -46,9 +46,9 @@ namespace Rivet {
     /// The beam particles in the current collision in GenEvent 
     ParticlePair _theBeams;
 
-  private:
-    /// Hiding the assignment operator.
-    Beam & operator=(const Beam &);
+//   private:
+//     /// Hiding the assignment operator.
+//     Beam & operator=(const Beam &);
 
   };
 

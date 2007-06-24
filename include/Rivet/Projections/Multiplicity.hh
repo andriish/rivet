@@ -72,10 +72,10 @@ namespace Rivet {
     /// The FinalState projection used by this projection
     FinalState* _fsproj;
 
-  private:
+//   private:
 
-    /// Hide the assignment operator.
-    Multiplicity& operator=(const Multiplicity&);
+//     /// Hide the assignment operator.
+//     Multiplicity& operator=(const Multiplicity&);
 
   };
 

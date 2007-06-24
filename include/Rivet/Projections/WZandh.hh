@@ -84,7 +84,7 @@ namespace Rivet {
   private:
     
     /// Hide the assignment operator.
-    WZandh & operator=(const WZandh &);
+    //WZandh & operator=(const WZandh &);
     
   };
   

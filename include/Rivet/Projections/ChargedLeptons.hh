@@ -49,10 +49,10 @@ namespace Rivet {
     /// The leptons
     ParticleVector _theChargedLeptons;
     
-  private:
+//   private:
     
-    /// Hide the assignment operator.
-    ChargedLeptons & operator=(const ChargedLeptons &);
+//     /// Hide the assignment operator.
+//     ChargedLeptons & operator=(const ChargedLeptons &);
     
   };
   

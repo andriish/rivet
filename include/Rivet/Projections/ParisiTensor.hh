@@ -88,11 +88,10 @@ namespace Rivet {
     /// The Sphericity projection for which this projection is really just a wrapper.
     Sphericity _sphproj;
 
-  private:
+    //  private:
 
     /// The assignment operator is private and must never be called.
-    /// In fact, it shouldn't even be implemented.
-    ParisiTensor & operator=(const ParisiTensor &);
+    //ParisiTensor & operator=(const ParisiTensor &);
 
   };
 

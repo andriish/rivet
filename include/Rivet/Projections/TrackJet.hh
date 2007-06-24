@@ -205,7 +205,7 @@ namespace Rivet {
   private:
     
     /// Hiding the assignment operator.
-    TrackJet& operator=(const TrackJet&);
+    //TrackJet& operator=(const TrackJet&);
   
   };
 

@@ -73,10 +73,10 @@ namespace Rivet {
     /// The incoming lepton.
     Particle _outgoing;
     
-  private:
+//   private:
     
-    /// Hide the assignment operator.
-    DISLepton& operator=(const DISLepton&);
+//     /// Hide the assignment operator.
+//     DISLepton& operator=(const DISLepton&);
     
   };
   

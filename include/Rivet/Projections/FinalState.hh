@@ -63,10 +63,10 @@ namespace Rivet {
     /// The final-state particles.
     ParticleVector _theParticles;
     
-  private:
+//   private:
     
-    /// Hide the assignment operator.
-    FinalState& operator=(const FinalState&);
+//     /// Hide the assignment operator.
+//     FinalState& operator=(const FinalState&);
     
   };
   
