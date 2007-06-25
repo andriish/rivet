@@ -1,3 +1,7 @@
+2007-06-25  Jon Butterworth  <jmb@hep.ucl.ac.uk>
+
+	* Fixed some bugs in the root output for DataPoint.h
+
 2007-06-25  Andy Buckley  <andy@insectnation.org>
 
 	* include/Rivet/**/Makefile.am: No longer installing headers for

@@ -82,8 +82,8 @@ public:
   }
 
   /**
-   * Get the Histogram's title.
-   * @return The Histogram's title.
+   * Get the Histogram's name.
+   * @return The Histogram's name
    */
   std::string name() const {
     return theTitle;
@@ -506,7 +506,7 @@ public:
     int nbins;
     if (!vax || vax->isFixedBinning() ) {//equidistant binning (easier case)
       nbins = ax->bins();
-      hist1d = new TH1D(name.c_str(), name.c_str(), nbins, ax->lowerEdge(), ax->upperEdge());
+      hist1d = new TH1D(name.c_str(), title().c_str(), nbins, ax->lowerEdge(), ax->upperEdge());
     }
     else {
       nbins = vax->bins();
@@ -515,7 +515,8 @@ public:
 	bins[i] = vax->binEdges(i).first;
       } 
       bins[nbins] = vax->binEdges(nbins-1).second; //take last bin right border 
-      hist1d = new TH1D(name.c_str(), name.c_str(), nbins, bins);
+      hist1d = new TH1D(name.c_str(), title().c_str(), nbins, bins);
+      delete bins;
     }
 
 
@@ -542,6 +543,8 @@ public:
     if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
     file->cd(DirName.c_str());
     hist1d->Write();
+
+    delete hist1d;
 
     return true;
   }
