@@ -1,9 +1,9 @@
 // -*- C++ -*-
-#ifndef RIVET_Cut_HH
-#define RIVET_Cut_HH
+#ifndef RIVET_Cuts_HH
+#define RIVET_Cuts_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Cut.fhh"
+#include "Rivet/Cuts.fhh"
 #include <iostream>
 
 

@@ -1,10 +1,9 @@
 // -*- C++ -*-
 
-#include "Rivet/Cut.hh"
+#include "Rivet/Rivet.hh"
+#include "Rivet/Cuts.hh"
 
-using namespace Rivet;
-using namespace std;
-
+using std::ostringstream;
 
 namespace Rivet {
 
@@ -18,25 +17,20 @@ namespace Rivet {
     // Combine cuts in the most restrictive way.
     switch (comparison) {
     case LESS_EQ:
-      //cout << LESS_EQ << endl;
       if (value < _cuts[quantity].lowerthan()) {
         _cuts[quantity].lowerthan() = value;
       }
       break;
     case MORE_EQ:
-      //cout << MORE_EQ << endl;
       if (value > _cuts[quantity].higherthan()) {
         _cuts[quantity].higherthan() = value;
       }
       break;
     case EQUAL:
-      //cout << EQUAL << endl;
       _cuts[quantity].lowerthan() = value;
       _cuts[quantity].higherthan() = value;
       break;
     }
-    //cout << "Cuts::addCut(): " << quantity << " <= " << _cuts[quantity].lowerthan() << " (" << value << ")" << endl;
-    //cout << "Cuts::addCut(): " << quantity << " >= " << _cuts[quantity].higherthan() << " (" << value << ")" << endl;
 
     // Allow method chaining.
     return *this;

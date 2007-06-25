@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_Cut_FHH
-#define RIVET_Cut_FHH
+#ifndef RIVET_Cuts_FHH
+#define RIVET_Cuts_FHH
 
 #include "Rivet/Rivet.hh"
 
