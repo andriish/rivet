@@ -21,7 +21,7 @@ namespace Rivet {
     //  assumed to live throughout the run.
     inline KtJets(FinalState& fsp)
       : _pktev(0), _type(4), _angle(2), _recom(1), 
-        _rparameter(1.0),	_fsproj(&fsp) 
+        _rparameter(1.0),	_fsproj(fsp) 
     { 
       addProjection(fsp);
     }
@@ -30,7 +30,7 @@ namespace Rivet {
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
     inline KtJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
       : _pktev(0), _type(type), _angle(angle), _recom(recom),
-        _rparameter(rparameter), _fsproj(&fsp)
+        _rparameter(rparameter), _fsproj(fsp)
     { 
       addProjection(fsp);
     }
@@ -88,16 +88,13 @@ namespace Rivet {
     double _rparameter;  // had trouble building with Ktfloat, used double instead
 
     /// The FinalState projection used by this projection.
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;
 
   private:
     
-//     /// Hiding the assignment operator.
-//     KtJets& operator=(const KtJets&);
-  
   };
 
 }

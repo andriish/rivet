@@ -19,8 +19,8 @@ namespace Rivet {
     /// Default constructor.
     inline HepEx0409040()
       // NB. eta in [-3,3] cut specified via FinalState constructor
-      : _fsproj(-3.0, 3.0), _vfsproj(_fsproj), _totvismomproj(_fsproj), 
-	_conejetsproj(_fsproj), _calmetproj(_totvismomproj), _vertexproj()
+      : _fsproj(-3.0, 3.0), _vfsproj(_fsproj), 
+	_conejetsproj(_fsproj), _calmetproj(_fsproj), _vertexproj()
     { 
 
       setBeams(PROTON, ANTIPROTON);
@@ -35,14 +35,11 @@ namespace Rivet {
       // Veto muons (PDG code = 13) with pT above 1.0 GeV
       _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
 
-      _totvismomproj = TotalVisibleMomentum(_vfsproj);
-
-      _calmetproj = _totvismomproj;
+      _calmetproj = TotalVisibleMomentum(_vfsproj);
 
 
       addProjection(_fsproj);
       addProjection(_vfsproj);
-      addProjection(_totvismomproj);
       addProjection(_conejetsproj);
       addProjection(_calmetproj);
       addProjection(_vertexproj);
@@ -71,9 +68,6 @@ namespace Rivet {
     ///The vetoed final state projector needed by the jet algorithm
     VetoedFinalState _vfsproj; 
 
-    /// The total visible momentum projector.
-    TotalVisibleMomentum _totvismomproj;
-
     /// The D0ILConeJets projector used by this analysis.
     D0ILConeJets _conejetsproj;
 
@@ -82,8 +76,6 @@ namespace Rivet {
 
     /// The Primary Vertex projector
     PVertex _vertexproj;
-
-
 
     /// Hide the assignment operator
     HepEx0409040& operator=(const HepEx0409040& x);

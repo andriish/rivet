@@ -11,7 +11,7 @@ namespace Rivet {
 
   int VetoedFinalState::compare(const Projection& p) const {
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
-    const int fscmp = pcmp(*_fsproj, *other._fsproj);
+    const int fscmp = pcmp(_fsproj, other._fsproj);
     if (fscmp != 0) return fscmp;
     if (_vetoCodes == other._vetoCodes) return 0;
     if (_vetoCodes < other._vetoCodes) return -1; else return 1;
@@ -20,7 +20,7 @@ namespace Rivet {
 
   void VetoedFinalState::project(const Event& e) {
     Log log = getLog();
-    const FinalState& fs = e.applyProjection(*_fsproj);
+    const FinalState& fs = e.applyProjection(_fsproj);
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
     const ParticleVector& fsps = fs.particles();
