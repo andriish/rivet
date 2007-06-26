@@ -38,10 +38,7 @@ void HepEx0409040::analyze(const Event & event) {
   /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
   /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
   //if (fabs(pv.getPrimaryVertex().position().z()) < 500.0) {
-    //list<HepEntity>::const_iterator jetpTmax = jetpro._jets.end();
-    //list<HepEntity>* jets = (const list<HepEntity>*) 
     const list<HepEntity>& jets = jetpro.getJets();
-    //list<HepEntity>* jets = jetpro.getJets();
     list<HepEntity>::const_iterator jetpTmax = jets.end();
     list<HepEntity>::const_iterator jet2ndpTmax = jets.end();
     log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
@@ -66,11 +63,11 @@ void HepEx0409040::analyze(const Event & event) {
     if (jets.size()>=2 && jet2ndpTmax->pT() > 40.) {
       if (fabs(jetpTmax->y())<0.5 && fabs(jet2ndpTmax->y())<0.5) {
         log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
-        /// @todo Should this commented eta cut be happening via a FinalState configuration?
-        /// @todo Declare this eta cut via Analysis::addCut()?
-        //double etaMax = 3.0; //D0 calorimeter boundary
+
         const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
+
         log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << caloMissEt.getMomentum().perp() << endl;
+
         if (caloMissEt.getMomentum().perp() < 0.7*jetpTmax->pT()) {
           double dphi = delta_phi(jetpTmax->phi(), jet2ndpTmax->phi());
           

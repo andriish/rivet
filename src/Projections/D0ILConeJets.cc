@@ -16,7 +16,7 @@ namespace Rivet {
   int D0ILConeJets::compare(const Projection& p) const {
     const D0ILConeJets& other = dynamic_cast<const D0ILConeJets&>(p);
     return 
-      pcmp(*_fsproj, *other._fsproj) || 
+      pcmp(_fsproj, other._fsproj) || 
       cmp(_cone_radius, other._cone_radius) ||
       cmp(_min_jet_Et, other._min_jet_Et) || 
       cmp(_split_ratio, other._split_ratio) ||   
@@ -37,7 +37,7 @@ namespace Rivet {
   void D0ILConeJets::project(const Event& e) {
 
     // Project into final state
-    const FinalState& fs = e.applyProjection(*_fsproj);
+    const FinalState& fs = e.applyProjection(_fsproj);
    
     // Store 4 vector data about each particle into list
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
@@ -63,7 +63,6 @@ namespace Rivet {
     //cout << "event " << count << "   jet pT=" << (*cit).pT() 
     //     << "   y=" << (*cit).y() << "   phi=" << (*cit).phi() << endl;
     //}
-
 
   }
 

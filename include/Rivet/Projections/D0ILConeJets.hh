@@ -25,7 +25,9 @@ namespace Rivet {
     /// Author(s): Gerald C. Blazey, Jay R. Dittmann, Stephen D. Ellis, V. Daniel Elvira, K. Frame, S. Grinstein, Robert Hirosky, R.Peigaia, H. Schellman, R. Snihur,V. Sorin, Dieter Zeppenfeld
     ///The actual implementation differs in details like: mid points are only considered between
     /// 4-vectors above threshold and the midpoint is determined pT weighted.
-    
+
+    ///The cone radius has to be specified according to the analysis
+    ///D0 JCCA: _cone_radius=0.7, D0 JCCB: _cone_radius=0.5    
   public:
     
     /// @name Standard constructors and destructors.
@@ -33,8 +35,7 @@ namespace Rivet {
     /// Default constructor. Must specify a FinalState projection which is
     ///  assumed to live throughout the run.    
     inline D0ILConeJets(FinalState& fsp)
-      /// @todo Why is _fsproj a pointer?
-      : _fsproj(&fsp), _cone_radius(0.7), _min_jet_Et(0.0), _split_ratio(0.5),
+      : _fsproj(fsp), _cone_radius(0.7), _min_jet_Et(0.0), _split_ratio(0.5),
       _far_ratio(0.5), _et_min_ratio(0.5), _kill_duplicate(true), _duplicate_dR(0.005), 
       _duplicate_dPT(0.01), _search_factor(1.0), _pT_min_leading_protojet(0.0), 
       _pT_min_second_protojet(0.0), _merge_max(1000), _pT_min_nomerge(0.0)
@@ -58,7 +59,7 @@ namespace Rivet {
 			float Duplicate_DR, float Duplicate_DPT, float Search_Factor,
 			float PT_Min_Leading_Protojet, float PT_Min_Second_Protojet,
 			int Merge_Max, float PT_Min_Nomerge)
-      : _fsproj(&fsp), _cone_radius(R), _min_jet_Et(Etmin), _split_ratio(split),
+      : _fsproj(fsp), _cone_radius(R), _min_jet_Et(Etmin), _split_ratio(split),
 	_far_ratio(Far_Ratio), _et_min_ratio(Et_Min_Ratio), _kill_duplicate(Kill_Duplicate),
 	_duplicate_dR(Duplicate_DR), _duplicate_dPT(Duplicate_DPT), _search_factor(Search_Factor),
 	_pT_min_leading_protojet(PT_Min_Leading_Protojet), 
@@ -100,11 +101,6 @@ namespace Rivet {
     
     inline int getNJets() const { return _jets.size(); }
   
-    //Here is a problem: 
-    //If I stick with the upper version alone I get into trouble in D0IIConeJets.cc
-    //If I stick with the lower version alone I get into trouble in ILConeAlgorithm.hpp
-    //I tried to dig into both possibilities but get still more trouble
-    //Notice that this only happens since the public list jets has been made private: _jets
     inline list<HepEntity>& getJets() { return _jets; }
     inline const list<HepEntity>& getJets() const { return _jets; }
 
@@ -114,24 +110,20 @@ namespace Rivet {
     list<HepEntity> _jets;
 
 
-//   private:
-//     /// The assignment operator is private and must never be called.
-//     /// In fact, it shouldn't even be implemented.
-//     D0ILConeJets& operator=(const D0ILConeJets&);
+    //     /// The assignment operator is private and must never be called.
+    //     /// In fact, it shouldn't even be implemented.
+    //     D0ILConeJets& operator=(const D0ILConeJets&);
   
     list<HepEntity> _particlelist;
     list<const HepEntity*> _particlepointerlist;
 
     /// The FinalState projection used by this projection.
-    /// @todo Why a pointer?
-    /// That's how I learned it from the KtJet projection
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
 
 
-    // Initialize D0RunII cone algorithm (what does this mean?)
-    // This means that when the constructer gets instantiated the cone radius has to be specified
-    // D0 JCCA: _cone_radius=0.7, D0 JCCB: _cone_radius=0.5
+    /// D0RunII cone algorithm parameters, being initialized in the constructor 
+    /// cone radius, jet Et threshold and the split/merge fraction parameter
     const float _cone_radius;
     const float _min_jet_Et;
     const float _split_ratio;
