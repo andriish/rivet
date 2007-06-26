@@ -13,71 +13,82 @@
 
 namespace Rivet {
   
-  /// Find jets according to the D0 "improved legacy" cone algorithm.
+  /// @brief Find jets according to the D0 "improved legacy" cone algorithm.
+  ///
+  /// The jet algorithm is described in:
+  ///
+  /// D0 Note Number: 003750, Date: 4/20/00,
+  /// Title: Run II Jet Physics,
+  /// Proceedings of the jet physics group of the Run II QCD Workshop
+  /// Author(s): Gerald C. Blazey, Jay R. Dittmann, Stephen D. Ellis, 
+  /// V. Daniel Elvira, K. Frame, S. Grinstein, Robert Hirosky, R.Peigaia, 
+  /// H. Schellman, R. Snihur,V. Sorin, Dieter Zeppenfeld.
+  ///
+  /// The actual implementation differs in details: mid points are only 
+  /// considered between 4-vectors above threshold and the midpoint is 
+  /// determined \f$ p_T \f$-weighted.
+  ///
+  /// The cone radius has to be specified according to the analysis
+  /// D0 JCCA: _cone_radius=0.7, D0 JCCB: _cone_radius=0.5    
   class D0ILConeJets : public Projection {
 
-    ///@name description
-    //@{ 
-    /// The jet algorithm is described in:
-    /// D0 Note Number: 003750, Date: 4/20/00,
-    /// Title: Run II Jet Physics,
-    /// Proceedings of the jet physics group of the Run II QCD Workshop
-    /// Author(s): Gerald C. Blazey, Jay R. Dittmann, Stephen D. Ellis, V. Daniel Elvira, K. Frame, S. Grinstein, Robert Hirosky, R.Peigaia, H. Schellman, R. Snihur,V. Sorin, Dieter Zeppenfeld
-    ///The actual implementation differs in details like: mid points are only considered between
-    /// 4-vectors above threshold and the midpoint is determined pT weighted.
-
-    ///The cone radius has to be specified according to the analysis
-    ///D0 JCCA: _cone_radius=0.7, D0 JCCB: _cone_radius=0.5    
   public:
     
-    /// @name Standard constructors and destructors.
+    /// @name Constructors and destructors.
     //@{
-    /// Default constructor. Must specify a FinalState projection which is
-    ///  assumed to live throughout the run.    
-    inline D0ILConeJets(FinalState& fsp)
-      : _fsproj(fsp), _cone_radius(0.7), _min_jet_Et(0.0), _split_ratio(0.5),
-      _far_ratio(0.5), _et_min_ratio(0.5), _kill_duplicate(true), _duplicate_dR(0.005), 
-      _duplicate_dPT(0.01), _search_factor(1.0), _pT_min_leading_protojet(0.0), 
-      _pT_min_second_protojet(0.0), _merge_max(1000), _pT_min_nomerge(0.0)
-	, _algo(_cone_radius, _min_jet_Et, _split_ratio,
-		_far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
-		_duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
-		_pT_min_second_protojet, _merge_max, _pT_min_nomerge)
 
+    /// @brief Default constructor. 
+    ///
+    /// The algorithm parameters are supposed to be set as used by D0 in RunII -
+    /// this constructor will initialise the correct parameter values.
+    /// Must specify a FinalState projection which is assumed to live throughout the run.    
+    inline D0ILConeJets(FinalState& fsp)
+      : _fsproj(&fsp), _cone_radius(0.7), _min_jet_Et(0.0), 
+        _split_ratio(0.5), _far_ratio(0.5), 
+        _et_min_ratio(0.5), _kill_duplicate(true), 
+        _duplicate_dR(0.005), _duplicate_dPT(0.01), 
+        _search_factor(1.0), 
+        _pT_min_leading_protojet(0.0), 
+        _pT_min_second_protojet(0.0), 
+        _merge_max(1000), _pT_min_nomerge(0.0), 
+        _algo(_cone_radius, _min_jet_Et, _split_ratio,
+              _far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
+              _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
+              _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
     { 
-      addProjection(fsp);
+      addProjection(*_fsproj);
     }
 
-
         
-    /// Argument constructor.
+    /// @brief Alternative constructor.
+    ///
     /// Added so that same projection can be ran but with different parameters.
-    /// Must specify a FinalState projection which is
-    /// assumed to live throughout the run. 
-    inline D0ILConeJets(FinalState& fsp, float R, float Etmin, float split,
-			float Far_Ratio, float Et_Min_Ratio, bool Kill_Duplicate,
-			float Duplicate_DR, float Duplicate_DPT, float Search_Factor,
-			float PT_Min_Leading_Protojet, float PT_Min_Second_Protojet,
-			int Merge_Max, float PT_Min_Nomerge)
-      : _fsproj(fsp), _cone_radius(R), _min_jet_Et(Etmin), _split_ratio(split),
-	_far_ratio(Far_Ratio), _et_min_ratio(Et_Min_Ratio), _kill_duplicate(Kill_Duplicate),
-	_duplicate_dR(Duplicate_DR), _duplicate_dPT(Duplicate_DPT), _search_factor(Search_Factor),
-	_pT_min_leading_protojet(PT_Min_Leading_Protojet), 
-	_pT_min_second_protojet(PT_Min_Second_Protojet), _merge_max(Merge_Max),
-	_pT_min_nomerge(PT_Min_Nomerge)
-	, _algo(_cone_radius, _min_jet_Et, _split_ratio,
-		_far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
-		_duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
-		_pT_min_second_protojet, _merge_max, _pT_min_nomerge)
- 
-    {  }
+    /// Must specify a FinalState projection which is assumed to live throughout the run. 
+    inline D0ILConeJets(FinalState& fsp, float r, float etMin, float split,
+			float farRatio, float etMinRatio, bool killDuplicate,
+			float duplicateDR, float duplicateDPT, float searchFactor,
+			float pTMinLeadingProtojet, float pTMinSecondProtojet,
+			int mergeMax, float pTMinNomerge)
+      : _fsproj(&fsp), _cone_radius(r), _min_jet_Et(etMin), 
+        _split_ratio(split), _far_ratio(farRatio), 
+        _et_min_ratio(etMinRatio), _kill_duplicate(killDuplicate),
+        _duplicate_dR(duplicateDR), _duplicate_dPT(duplicateDPT), 
+        _search_factor(searchFactor),
+        _pT_min_leading_protojet(pTMinLeadingProtojet), 
+        _pT_min_second_protojet(pTMinSecondProtojet), 
+        _merge_max(mergeMax), _pT_min_nomerge(pTMinNomerge),
+        _algo(_cone_radius, _min_jet_Et, _split_ratio,
+              _far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
+              _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
+              _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
+    {  
+      addProjection(*_fsproj);
+    }
     
 
-    
     /// Destructor.
-    virtual ~D0ILConeJets() { 
+    virtual ~D0ILConeJets() {};
 
-    };
     //@}
 
   public:
@@ -88,8 +99,7 @@ namespace Rivet {
 
   protected:   
 
-    /// Perform the projection on the Event: only to be called by 
-    /// Event::applyProjection(Projection &).
+    /// Perform the projection on the Event.
     void project(const Event& e);
 
     /// This function defines a unique ordering between different 
@@ -99,39 +109,48 @@ namespace Rivet {
 
   public:
     
+    /// Get the number of jets.
     inline int getNJets() const { return _jets.size(); }
   
+    /// Get a reference to the jets collection.
     inline list<HepEntity>& getJets() { return _jets; }
+
+    /// Get a reference to the jets collection (const version).
     inline const list<HepEntity>& getJets() const { return _jets; }
 
-    inline void clearJets() { _jets.clear(); return; }
+    /// Clear the jets list.
+    inline D0ILConeJets& clearJets() { 
+      _jets.clear(); 
+      return *this; 
+    }
 
   private:
+    /// The collection of jets.
     list<HepEntity> _jets;
 
-
-    //     /// The assignment operator is private and must never be called.
-    //     /// In fact, it shouldn't even be implemented.
-    //     D0ILConeJets& operator=(const D0ILConeJets&);
-  
+    /// List of the event particles
     list<HepEntity> _particlelist;
+    /// List of the event particles (as pointers)
     list<const HepEntity*> _particlepointerlist;
 
     /// The FinalState projection used by this projection.
-    FinalState _fsproj;
+    FinalState* _fsproj;
 
 
-
-    /// D0RunII cone algorithm parameters, being initialized in the constructor 
-    /// cone radius, jet Et threshold and the split/merge fraction parameter
+    /// @name Cone algorithm parameters
+    //@{
+    /// Cone radius
     const float _cone_radius;
+    /// Jet \f$ E_T \f$ threshold
     const float _min_jet_Et;
+    /// Split/merge fraction
     const float _split_ratio;
+    //@}
 
-    /// @todo Documentation! 
-    /// The original author Laurent Duflot might be able to explain those.
-    /// The parameters are supposed to be set as used by D0 in RunII,
-    /// correct values are preset in the default constructor
+
+    /// @name More algorithm parameters
+    //@{
+    /// The original author Laurent Duflot might be able to explain these.
     const float _far_ratio;
     const float _et_min_ratio;
     const bool _kill_duplicate;
@@ -142,9 +161,10 @@ namespace Rivet {
     const float _pT_min_second_protojet;
     const int _merge_max; 
     const float _pT_min_nomerge;
+    //@}
 
-    ///The jet algorithm function itself
-     ILConeAlgorithm<HepEntity> _algo;
+    /// The jet algorithm function itself
+    ILConeAlgorithm<HepEntity> _algo;
 
   };
 

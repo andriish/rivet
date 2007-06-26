@@ -23,16 +23,15 @@ namespace Rivet {
     /// The default constructor. Must specify a FinalState projection 
     /// object which is assumed to live through the run.
     inline VetoedFinalState(FinalState& fsp)
-      : _fsproj(fsp)
+      : _fsproj(&fsp)
     {
       addProjection(fsp);
     }
 
-    /// You can add a map of ID plus a 2D vector containing ptmin,
-    /// ptmax defined the range of particles to be vetoed. 
-    /// zero is the same as infinity for ptmax.
+    /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
+    /// \f$ p_{Tmax} \f$ - these define the range of particles to be vetoed.
     inline VetoedFinalState(FinalState& fsp, const VetoDetails& vetocodes)
-      : _fsproj(fsp), _vetoCodes(vetocodes)
+      : _fsproj(&fsp), _vetoCodes(vetocodes)
     {
       addProjection(fsp);
     }
@@ -109,17 +108,11 @@ namespace Rivet {
   private:
     
     /// The projector for the full final state.
-    FinalState _fsproj;
+    FinalState* _fsproj;
     
     /// The final-state particles.
     VetoDetails _vetoCodes;
-
-    
-  private:
-    
-    /// Hide the assignment operator.
-    //VetoedFinalState& operator=(const VetoedFinalState&);
-    
+  
   };
 
   

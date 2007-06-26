@@ -1,13 +1,12 @@
 // -*- C++ -*-
 
+#include "Rivet/Rivet.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/Cmp.hh"
 #include <algorithm>
 
-using namespace std;
 
 namespace Rivet {
-
 
   int VetoedFinalState::compare(const Projection& p) const {
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
