@@ -364,7 +364,7 @@ public:
     else {
       cout << "Writing out TGraph " << name.c_str() << " in ROOT file format" << endl;
       
-      Int_t N = size();
+      int N = size();
 
       Double_t *x, *y, *exl, *exh, *eyl, *eyh;
       x = new Double_t[N];
