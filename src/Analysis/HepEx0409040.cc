@@ -69,7 +69,7 @@ void HepEx0409040::analyze(const Event & event) {
         /// @todo Should this commented eta cut be happening via a FinalState configuration?
         /// @todo Declare this eta cut via Analysis::addCut()?
         //double etaMax = 3.0; //D0 calorimeter boundary
-        const TotalVisibleMomentum& caloMissEt = event.applyProjection(*_calmetproj);
+        const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
         log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << caloMissEt.getMomentum().perp() << endl;
         if (caloMissEt.getMomentum().perp() < 0.7*jetpTmax->pT()) {
           double dphi = delta_phi(jetpTmax->phi(), jet2ndpTmax->phi());

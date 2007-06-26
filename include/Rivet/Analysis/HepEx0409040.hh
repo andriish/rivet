@@ -19,7 +19,7 @@ namespace Rivet {
     /// Default constructor.
     inline HepEx0409040()
       // NB. eta in [-3,3] cut specified via FinalState constructor
-      : _fsproj(-3.0, 3.0), _vfsproj(_fsproj), _conejetsproj(_fsproj), _vertexproj()
+      : _fsproj(-3.0, 3.0), _vfsproj(_fsproj), _calmetproj(_fsproj), _conejetsproj(_fsproj), _vertexproj()
     { 
       setBeams(PROTON, ANTIPROTON);
       addProjection(_fsproj);
@@ -38,8 +38,8 @@ namespace Rivet {
 
       // Don't put neutrinos or low pT muons into the cal missing ET.
       /// @todo Spot the memory leak!
-      _calmetproj = new TotalVisibleMomentum(_vfsproj);
-      addProjection(*_calmetproj);
+      _calmetproj = TotalVisibleMomentum(_vfsproj);
+      addProjection(_calmetproj);
    }
 
 
@@ -64,14 +64,14 @@ namespace Rivet {
     ///The vetoed final state projector needed by the jet algorithm
     VetoedFinalState _vfsproj; 
 
+    /// The Calorimeter Missing Et projector
+    TotalVisibleMomentum _calmetproj;
+
     /// The D0ILConeJets projector used by this analysis.
     D0ILConeJets _conejetsproj;
 
     /// The Primary Vertex projector
     PVertex _vertexproj;
-
-    /// The Calorimeter Missing Et projector
-    TotalVisibleMomentum* _calmetproj;
 
     /// Hide the assignment operator
     HepEx0409040& operator=(const HepEx0409040& x);
