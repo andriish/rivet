@@ -3,7 +3,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analysis/TestAnalysis.hh"
 #include "Rivet/RivetAIDA.hh"
-using namespace AIDA;
 
 
 namespace Rivet {
@@ -13,12 +12,14 @@ namespace Rivet {
     // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
     // Since this is just a demo analysis, there is no associate paper!
     _histTot         = bookHistogram1D("TotalMult", "Total multiplicity", 100, -0.5, 99.5);
-    _histChTot       = bookHistogram1D("TotalChMult", "Total charged multiplicity", 100, -0.5, 99.5);
+    _histChTot       = bookHistogram1D("TotalChMult", "Total charged multiplicity", 50, -1.0, 99.0);
     _histUnchTot     = bookHistogram1D("TotalUnchMult", "Total uncharged multiplicity", 100, -0.5, 99.5);
     _histHadrTot     = bookHistogram1D("HadrTotalMult", "Total hadronic multiplicity", 100, -0.5, 99.5);
-    _histHadrChTot   = bookHistogram1D("HadrTotalChMult", "Total hadronic charged multiplicity", 100, -0.5, 99.5);
+    _histHadrChTot   = bookHistogram1D("HadrTotalChMult", "Total hadronic charged multiplicity", 50, -1.0, 99.0);
     _histHadrUnchTot = bookHistogram1D("HadrTotalUnchMult", "Total hadronic uncharged multiplicity", 100, -0.5, 99.5);
-    _histThrust      = bookHistogram1D("Thrust", "Thrust", 100, 0.5, 1.0);
+    //_histThrust      = bookHistogram1D("Thrust", "Thrust", 100, 0.5, 1.0);
+    double edges[11] = { 0.0, 0.25, 0.5, 0.75, 0.80, 0.85, 0.9, 0.925, 0.95, 0.975, 1.0 };
+    _histThrust     = bookHistogram1D("Thrust", "Thrust with different binning", vector<double>(edges, edges+11));
   }
 
 

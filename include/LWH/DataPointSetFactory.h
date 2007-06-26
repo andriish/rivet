@@ -539,9 +539,9 @@ public:
     for ( int i = 2, N = hist.axis().bins() + 2; i < N; ++i ) {
       dset->addPoint(DataPoint(2));
       x.push_back(hist.binMean(i - 2));
-      ex.push_back(hist.axis().binWidth(i - 2));
+      ex.push_back(hist.axis().binWidth(i - 2)/2.0);
       y.push_back(hist.binHeight(i - 2));
-      ey.push_back(hist.binError(i - 2));
+      ey.push_back(hist.binError(i - 2)/2.0);
     }
     if ( !dset->setCoordinate(0, x, ex, ex) ||
          !dset->setCoordinate(1, y, ey, ey) )
