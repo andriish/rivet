@@ -393,8 +393,6 @@ public:
       if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
       file->cd(DirName.c_str());
 
-      graph->Draw("AC*");
-
       graph->Write();
 
       delete graph;
