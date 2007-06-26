@@ -10,7 +10,7 @@ namespace Rivet {
   int KtJets::compare(const Projection& p) const {
     const KtJets& other = dynamic_cast<const KtJets&>(p);
     return \
-      pcmp(_fsproj, other._fsproj) || 
+      pcmp(*_fsproj, *other._fsproj) || 
       cmp(_type, other._type) ||
       cmp(_angle, other._angle) || 
       cmp(_recom, other._recom) ||
@@ -20,7 +20,7 @@ namespace Rivet {
 
   void KtJets::project(const Event& e) {
     // Project into final state
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const FinalState& fs = e.applyProjection(*_fsproj);
 
     // Store 4 vector data about each particle into vecs
     vector<KtJet::KtLorentzVector> vecs;
