@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[0.9b3],[],[Rivet])
+AC_INIT([Rivet],[0.9],[],[Rivet])
 
 AM_INIT_AUTOMAKE
 AC_LANG(C++)
@@ -41,11 +41,10 @@ AC_ARG_WITH([testprogs], [AC_HELP_STRING(--with-testprogs, [build internal test 
 AM_CONDITIONAL(WITH_TESTPROGS, [test x$with_testprogs == xyes])
 
 
-## Find Root
+## Find ROOT
 AC_SEARCH_ROOT([AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
-
-## Enable Root Analysis Framework
-AC_ARG_WITH([Root], [AC_HELP_STRING(--with-root, [build Root persistency])], [], [])
+## Enable ROOT analysis framework if requested
+AC_ARG_WITH([ROOT], [AC_HELP_STRING(--with-root, [build ROOT persistency])], [], [])
 AM_CONDITIONAL(WITH_ROOT, [test x$with_root == xyes])
 
 
@@ -56,9 +55,6 @@ AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
 
 AC_EMPTY_SUBST
-
-AC_PATH_PROG(PERL, perl)
-
 AC_CONFIG_FILES([
 include/Makefile
 include/Rivet/Makefile

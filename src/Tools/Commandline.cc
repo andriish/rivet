@@ -84,8 +84,8 @@ namespace Rivet {
         }
       }
 
-      delete analysesArg;
-      delete analysesAllArg;
+      delete analysesArg; analysesArg = 0;
+      delete analysesAllArg; analysesAllArg = 0;
     }
     
 
@@ -112,8 +112,8 @@ namespace Rivet {
       }
 
 
-      delete histoNameArg;
-      delete histoTypeArg;
+      delete histoNameArg; histoNameArg = 0;
+      delete histoTypeArg; histoTypeArg = 0;
     }
 
 
@@ -135,7 +135,7 @@ namespace Rivet {
         }
       }
 
-      delete logsArg;
+      delete logsArg; logsArg = 0;
     }
 
 
