@@ -60,7 +60,8 @@ nobase_dist_noinst_HEADERS +=   \
   Projections/TotalVisibleMomentum.hh \
   Projections/TrackJet.hh       \
   Projections/VetoedFinalState.hh \
-  Projections/WZandh.hh
+  Projections/WZandh.hh \
+  Projections/FastJets.hh
 
 
 ## Tools

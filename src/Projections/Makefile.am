@@ -22,3 +22,11 @@ libRivetProjections_la_SOURCES  = \
   WZandh.cc
 
 libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)
+
+if WITH_FASTJET
+  libRivetProjections_la_SOURCES += FastJets.cc 
+  libRivetProjections_la_CPPFLAGS += -DHAVE_FASTJET
+endif
+
+
+
