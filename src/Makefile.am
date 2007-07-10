@@ -3,14 +3,14 @@ SUBDIRS = Projections Analysis Tools . Test
 lib_LTLIBRARIES  = libRivet.la
 libRivet_la_LDFLAGS = \
   -version-info 1:0:0 -export-dynamic  \
-  -R$(CLHEPLIBPATH) -R$(HEPPIDLIBPATH) -R$(HEPPDTLIBPATH) -R$(KTJETLIBPATH)
-
+  -R$(CLHEPLIBPATH) -L$(CLHEPLIBPATH) -R$(HEPPIDLIBPATH) -R$(HEPPDTLIBPATH) -R$(KTJETLIBPATH)
 libRivet_la_SOURCES = AnalysisHandler.cc Particle.cc Cuts.cc
 libRivet_la_LIBADD  = \
   Analysis/libRivetAnalysis.la \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl \
-  $(CLHEPLIB) $(HEPPIDLIB) $(HEPPDTLIB) $(KTJETLIB)
+  -l$(CLHEPLIBNAME) \
+  $(HEPPIDLIB) $(HEPPDTLIB) $(KTJETLIB)
 
 
 bin_PROGRAMS = rivet

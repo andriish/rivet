@@ -42,11 +42,11 @@ AC_ARG_WITH([testprogs], [AC_HELP_STRING(--with-testprogs, [build internal test 
 AM_CONDITIONAL(WITH_TESTPROGS, [test x$with_testprogs == xyes])
 
 ## Find ROOT
-AC_SEARCH_ROOT([AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
-## Enable ROOT analysis framework if requested
 AC_ARG_WITH([ROOT], [AC_HELP_STRING(--with-root, [build ROOT persistency])], [], [])
+AC_SEARCH_ROOT([with_root=yes
+  AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
+## Enable ROOT analysis framework if requested
 AM_CONDITIONAL(WITH_ROOT, [test x$with_root == xyes])
-
 
 ## Set default build flags
 # Uncomment this and comment the line after
