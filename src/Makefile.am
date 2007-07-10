@@ -16,7 +16,7 @@ libRivet_la_LIBADD  = \
 bin_PROGRAMS = rivet
 rivet_SOURCES = RivetInterface.cc
 rivet_LDFLAGS = -L$(top_srcdir/src)
-rivet_LDADD = -lRivet $(HEPMCLIB) $(KTJETLIB)
+rivet_LDADD = -lRivet $(HEPMCLIB) $(KTJETLIB) $(HEPPIDLIB) $(HEPPDTLIB)
 rivet_CPPFLAGS = $(AM_CPPFLAGS) -I$(RIVETINCPATH)
 if WITH_ROOT
   rivet_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
