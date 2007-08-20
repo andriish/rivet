@@ -44,20 +44,6 @@ AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_WARN([fastjet not found])])
 AC_ARG_WITH([testprogs], [AC_HELP_STRING(--with-testprogs, [build internal test programs])], [], [])
 AM_CONDITIONAL(WITH_TESTPROGS, [test x$with_testprogs == xyes])
 
-## Optimisation level (default=3)
-dnl AC_ARG_WITH([optimization], [AC_HELP_STRING(--with-optimization, [build with optimization level (default=yes)])], [], [])
-dnl m4_define([cedar_optlevel], [$with_optimization])dnl
-dnl if test x$with_optimization == xno; then
-dnl   AC_MSG_NOTICE([Setting optimization level to O0 (disabled)])
-dnl   [CXXFLAGS="`echo $CXXFLAGS | sed -e s/'-g'//g -e s/'-O[1-3]'/'-O0'/g`"]
-dnl elif test x$with_optimization == xyes; then
-dnl   AC_MSG_NOTICE([Setting optimization level to O3 (maximum)])
-dnl   [CXXFLAGS="`echo $CXXFLAGS | sed -e s/'-g'//g -e s/'-O[0-2]'/'-O3'/g`"]
-dnl elif test x$with_optimization != x; then
-dnl   AC_MSG_NOTICE([Setting optimization level to O$cedar_optlevel])
-dnl   [CXXFLAGS="`echo $CXXFLAGS | sed -e s/'-g'//g -e s/'-O[0-3]'/'-O@&t@cedar_optlevel'/g`"]
-dnl fi
-
 ## Find ROOT
 AC_ARG_WITH([ROOT], [AC_HELP_STRING(--with-root, [build ROOT persistency])], [], [])
 AC_SEARCH_ROOT([with_root=yes
