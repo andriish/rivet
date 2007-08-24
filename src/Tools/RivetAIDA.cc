@@ -65,7 +65,7 @@ namespace Rivet {
             istringstream ssM(errminusStr);
             double centre, errplus, errminus;
             ssC >> centre; ssP >> errplus; ssM >> errminus;
-            //cout << "  " << centre << " + " << errplus << " - " << errminus << endl;
+            cout << "  " << centre << " + " << errplus << " - " << errminus << endl;
             const double lowedge = centre - errminus;
             const double highedge = centre + errplus;
             edges.push_back(lowedge);
@@ -76,18 +76,24 @@ namespace Rivet {
           }
         }
 
-        // Remove duplicates
+        //cout << edges.size() << " edges -> " << edges.size()/2 << " bins" << endl;
+
+        // Remove duplicates (the careful testing is why we haven't used a set)
         for (list<double>::iterator e = edges.begin(); e != edges.end(); ++e) {
           list<double>::iterator e2 = e;
           while (e2 != edges.end()) {
-            /// @todo Use a more robust test of equality, e.g. within fractional 10^-3 (0 == 0 is a special case)
-            if (e != e2 && *e == *e2) {
-              edges.erase(e2++);
-            } else {
-              ++e2;
+            if (e != e2) {
+              const double absavg = fabs(*e + *e2)/2.0;
+              const double absdiff = fabs(*e - *e2);
+              if ((absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < 0.001) {
+                edges.erase(e2++);
+              }
             }
+            ++e2;
           }
         }
+
+        //cout << edges.size() << " edges after dups removal (should be #bins+1)" << endl;
 
         // Add to the map
         //BinEdges edgesvec = 
