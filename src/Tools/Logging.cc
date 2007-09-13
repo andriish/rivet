@@ -1,4 +1,3 @@
-// $Id: $
 
 #include "Rivet/Tools/Logging.hh"
 #include <ctime>

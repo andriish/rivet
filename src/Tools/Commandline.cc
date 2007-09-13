@@ -2,11 +2,13 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/HistoFormat.hh"
-#include "Rivet/Analysis/Analysis.fhh"
+#include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Tools/Commandline.hh"
+#include "Rivet/Tools/Utils.hh"
 #include <tclap/CmdLine.h>
 #include <fstream>
 #include <iostream>
+
 
 namespace Rivet {
 
@@ -16,9 +18,10 @@ namespace Rivet {
                          TCLAP::MultiArg<string>*& analysesArg,
                          TCLAP::SwitchArg*& analysesAllArg,
                          TCLAP::ValuesConstraint<string>*& anaNameConstraint) {
-      vector<string> knownAnalyses = Rivet::getKnownAnalysisNames();
-      vector<string> tmp = knownAnalyses;
-      for (vector<string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
+      set<string> tmp = AnalysisLoader::getAllAnalysisNames();
+      vector<string> knownAnalyses;
+      for (set<string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
+        knownAnalyses.push_back(*i);
         knownAnalyses.push_back("~" + *i);
       }
       anaNameConstraint = new TCLAP::ValuesConstraint<string>(knownAnalyses);
@@ -53,34 +56,28 @@ namespace Rivet {
     void useAnalysisArgs(TCLAP::CmdLine& cmd,
                          TCLAP::MultiArg<string>* analysesArg,
                          TCLAP::SwitchArg* analysesAllArg,
-                         set<AnalysisName>& cfgAnalyses) {
+                         set<string>& cfgAnalyses) {
       // Do nothing if CLI pointer(s) are null
       if (!analysesArg || !analysesAllArg) return;
 
       // First handle the "enable all analyses" option...
       if (analysesAllArg->getValue()) {
-        Rivet::AnalysisList alist = Rivet::getKnownAnalysisEnums();
-        for (Rivet::AnalysisList::const_iterator a = alist.begin(); a != alist.end(); ++a) {
-          cfgAnalyses.insert(*a);
-        }
+        cfgAnalyses = AnalysisLoader::getAllAnalysisNames();
       }
       // ...then handle individuals, including negations
-      for (vector<string>::const_iterator a = analysesArg->getValue().begin(); 
-           a != analysesArg->getValue().end(); ++a) {
-        Rivet::AnalysisMapR amapr = Rivet::getKnownAnalysesR();
+      for (vector<string>::const_iterator ai = analysesArg->getValue().begin(); 
+           ai != analysesArg->getValue().end(); ++ai) {
+        string a = toUpper(*ai);
         try {
           // Check for analysis disabling with ~ prefix
-          if (a->rfind("~", 0) == string::npos) {
-            cfgAnalyses.insert(amapr[*a]);
+          if (a.rfind("~", 0) == string::npos) {
+            cfgAnalyses.insert(a);
           } else {
-            string aneg = a->substr(1, a->size() - 1);
-            // Not really necessary since sets should have no duplicates...
-            if (cfgAnalyses.find(amapr[aneg]) != cfgAnalyses.end()) {
-              cfgAnalyses.erase(amapr[aneg]);
-            }
+            string aneg = a.substr(1, a.size()-1);
+            cfgAnalyses.erase(aneg);
           }
         } catch (std::exception& e) {
-          throw std::runtime_error("Invalid analysis choice: " + *a);
+          throw std::runtime_error("Invalid analysis choice: " + *ai);
         }
       }
 

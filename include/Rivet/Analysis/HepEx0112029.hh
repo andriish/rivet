@@ -25,6 +25,9 @@ namespace Rivet {
       addProjection(_ktjetsproj);
     }
 
+    /// Factory method
+    static Analysis* create() { return new HepEx0112029(); }
+
     /// Get the name of this analysis.
     inline string getName() const {
       return "HepEx0112029";

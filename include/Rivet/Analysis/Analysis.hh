@@ -3,7 +3,6 @@
 #define RIVET_Analysis_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Analysis/Analysis.fhh"
 #include "Rivet/Projections/Projection.fhh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
@@ -39,8 +38,9 @@ namespace Rivet {
 
   public:
 
-    /// Factory method for getting Analyses.
-    static Analysis& getAnalysis(const AnalysisName atype = ANALYSIS_TEST);
+    /// Factory method for making an analysis - to be implemented in concrete classes.
+    /// @todo Does inheritance apply to statics? Is this useful in enforcing a uniform interface?
+    //static Analysis* create() = 0;
 
   public:
 
@@ -53,6 +53,13 @@ namespace Rivet {
     { 
       setBeams(ANY, ANY);
     }
+
+//     /// Copy constructor from a pointer.
+//     inline Analysis(const Analysis* other) 
+//       : _theHandler(other->_theHandler), _madeHistoDir(other->_madeHistoDir)
+//     { 
+//       setBeams(ANY, ANY);
+//     }
 
     /// The destructor.
     inline virtual ~Analysis() { }

@@ -1,11 +1,9 @@
 // -*- C++ -*-
-
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "AIDA/IManagedObject.h"
-
 
 using namespace AIDA;
 
@@ -13,8 +11,18 @@ using namespace AIDA;
 namespace Rivet {
 
 
-  inline Log& AnalysisHandler::getLog() { 
+  Log& AnalysisHandler::getLog() { 
     return Log::getLog("Rivet.AnalysisHandler");
+  }
+
+
+  AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) { 
+    Analysis* analysis = AnalysisLoader::getAnalysis(analysisname);
+    if (analysis) { // < Check for null analysis.
+      analysis->_theHandler = this;
+      _analyses.insert(analysis);
+    }
+    return *this;
   }
 
 
@@ -77,8 +85,8 @@ namespace Rivet {
 
 
   AnalysisHandler::~AnalysisHandler() {
-    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
-      delete _analysisVector[i]; 
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      delete *a;
     }
   }
 
@@ -86,17 +94,17 @@ namespace Rivet {
   void AnalysisHandler::init(int i, int N) {
     _nRun = N;
     _iRun = i;
-    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
-      _analysisVector[i]->init();
-      _analysisVector[i]->checkConsistency();
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      (*a)->init();
+      (*a)->checkConsistency();
     }
   }
 
 
   void AnalysisHandler::analyze(const GenEvent & geneve) {
     Event event(geneve);
-    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
-      _analysisVector[i]->analyze(event);
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      (*a)->analyze(event);
     }
   }
 
@@ -104,8 +112,8 @@ namespace Rivet {
   void AnalysisHandler::finalize() {
     Log& log = getLog();
     log << Log::INFO << "Finalising analysis" << endl;
-    for (int i = 0, N = _analysisVector.size(); i < N; ++i) {
-      _analysisVector[i]->finalize();
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      (*a)->finalize();
     }
     log << Log::INFO << "Normalising the AIDA tree" << endl;
     assert(_theTree != 0);

@@ -1,6 +1,6 @@
 // $Id: $
-#ifndef RIVET_LOGGING_H 
-#define RIVET_LOGGING_H 1
+#ifndef RIVET_LOGGING_HH 
+#define RIVET_LOGGING_HH 1
 
 #include "Rivet/Rivet.hh"
 
@@ -158,4 +158,4 @@ namespace Rivet {
 }
 
 
-#endif // RIVET_LOGGING_H
+#endif

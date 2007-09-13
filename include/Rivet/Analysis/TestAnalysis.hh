@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_TestAnalysis_H
-#define RIVET_TestAnalysis_H
+#ifndef RIVET_TestAnalysis_HH
+#define RIVET_TestAnalysis_HH
 
 #include "Rivet/Analysis/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
@@ -25,6 +25,9 @@ namespace Rivet {
     }
 
   public:
+
+    /// Factory method
+    static Analysis* create() { return new TestAnalysis(); }
 
     /// Get the name of this analysis.
     inline string getName() const {
@@ -68,6 +71,8 @@ namespace Rivet {
     //@}
 
   };
+
+
 
 }
 

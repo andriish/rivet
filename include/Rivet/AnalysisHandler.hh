@@ -1,7 +1,6 @@
 // -*- C++ -*-
-
-#ifndef RIVET_RivetHandler_H
-#define RIVET_RivetHandler_H
+#ifndef RIVET_RivetHandler_HH
+#define RIVET_RivetHandler_HH
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.fhh"
@@ -9,6 +8,7 @@
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.hh"
 #include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis/AnalysisLoader.hh"
 
 
 namespace Rivet {
@@ -18,11 +18,6 @@ namespace Rivet {
   /// generated events. An {@link Analysis}' AnalysisHandler is also responsible
   /// for handling the final writing-out of histograms.
   class AnalysisHandler {
-
-  public:
-
-    /// Typedef a vector of analysis objects.
-    typedef vector<AnalysisPtr> AnalysisVector;
 
   public:
 
@@ -59,54 +54,25 @@ namespace Rivet {
 
   public:
 
-    /// Add an object of base class Analysis to the list of analysis
-    /// objects to be used in a run. Note that the object will be copied,
-    /// and the argument object given will not be used and can be
-    /// discarded directly.
+
+    /// Add an analysis to the run list using its name. The actual Analysis 
+    /// to be used will be obtained via AnalysisHandler::getAnalysis(string).
+    /// If no matching analysis is found, no analysis is added (i.e. the
+    /// null pointer is checked and discarded.
+    AnalysisHandler& addAnalysis(const string& analysisname);
+
+
+    /// Add an analysis to the run list by supplying a "template" analysis.
+    /// @todo Is there a good reason to not allow "direct" submission?
     template <typename A>
     inline AnalysisHandler& addAnalysis(const A& analysis) {
-      /// @todo Check that there aren't any duplicate analyses?
-      _analysisVector.push_back(new A(analysis));
-      _analysisVector.back()->_theHandler = this;
+      A* a = new A(analysis);
+      a->_theHandler = this;
+      _analyses.insert(a);
       return *this;
     }
-
-
-    /// Add a collection of analyses. Note that this method doesn't make a 
-    /// copy of the passed analyses, since it can't dereference the abstract 
-    /// Analysis* pointer - be careful not to use the parameter analyses 
-    /// afterwards - Rivet will have taken ownership of them.
-    inline AnalysisHandler& addAnalyses(const vector<Analysis*>& analyses) { 
-      throw runtime_error("addAnalyses(vector<Analysis*>) doesn't yet work...");
-      for (vector<Analysis*>::const_iterator ana = analyses.begin(); ana != analyses.end(); ++ana) {
-        _analysisVector.push_back(*ana);
-        _analysisVector.back()->_theHandler = this;
-      }
-      return *this;
-    }
-
-
-    /// Add an object of base class Analysis to the list of analysis objects to
-    /// be used in a run. The Analysis will be obtained from the
-    /// Analysis::getAnalysis() factory method, according to the argument enum.
-    inline AnalysisHandler& addAnalysis(const AnalysisName analysisname) { 
-      Analysis& analysis = Analysis::getAnalysis(analysisname);
-      _analysisVector.push_back(&analysis);
-      _analysisVector.back()->_theHandler = this;
-      return *this;
-    }
-
-
-    /// Add a collection of analyses via their analysis name enums
-    inline AnalysisHandler& addAnalyses(cAnalysisList& analysisnames) { 
-      for (cAnalysisList::const_iterator ananame = 
-             analysisnames.begin(); ananame != analysisnames.end(); ++ananame) {
-        addAnalysis(*ananame);
-      }
-      return *this;
-    }
-
     
+
     /// Initialize a run. If this run is to be joined together with other
     /// runs, \a N should be set to the total number of runs to be
     /// combined, and \a i should be the index of this run. This function
@@ -153,9 +119,9 @@ namespace Rivet {
 
   private:
 
-    /// The vector of Analysis objects to be used.
-    AnalysisVector _analysisVector;
-
+    /// The collection of Analysis objects to be used.
+    set<Analysis*> _analyses;
+    
     /// If non-zero the number of runs to be combined into one analysis.
     int _nRun;
 

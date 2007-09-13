@@ -27,6 +27,9 @@ namespace Rivet {
 
   public:
 
+    /// Factory method
+    static Analysis* create() { return new PRD65092002(); }
+
     /// Return the name of the analysis.
     inline string getName() const {
       return "PRD65092002";

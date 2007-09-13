@@ -1,15 +1,18 @@
-// $Id: $
+// -*- C++ -*-
 #ifndef RIVET_COMMANDLINE_HH 
 #define RIVET_COMMANDLINE_HH 1
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/HistoFormat.hh"
-#include "Rivet/Analysis/Analysis.fhh"
+#include "Rivet/Analysis/AnalysisLoader.hh"
 #include "Rivet/Tools/Logging.hh"
 #include <tclap/CmdLine.h>
 
 
 namespace Rivet {
+
+  class Analysis;
+
 
   namespace Commandline {
     /// @author Andy Buckley
@@ -38,7 +41,7 @@ namespace Rivet {
     void useAnalysisArgs(TCLAP::CmdLine& cmd,
                          TCLAP::MultiArg<string>* analysesArg,
                          TCLAP::SwitchArg* analysesAllArg,
-                         set<AnalysisName>& cfgAnalyses);
+                         set<string>& cfgAnalyses);
 
     /// Set the histogramming components of the Configuration object based on
     /// the command line arguments.  Be careful - this function deletes the
@@ -59,4 +62,4 @@ namespace Rivet {
   }  
 }
 
-#endif // RIVET_COMMANDLINE_HH
+#endif

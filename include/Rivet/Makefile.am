@@ -24,8 +24,8 @@ nobase_pkginclude_HEADERS += \
 ## Analyses
 nobase_pkginclude_HEADERS += \
   Analysis/Analysis.hh       \
-  Analysis/Analysis.fhh      \
-  Analysis/AnalysisName.hh
+  Analysis/AnalysisLoader.hh
+
 nobase_dist_noinst_HEADERS += \
   Analysis/TestAnalysis.hh    \
   Analysis/ExampleTree.hh     \

@@ -35,6 +35,9 @@ namespace Rivet {
 
   public:
 
+    /// Factory method
+    static Analysis* create() { return new HepEx9506012(); }
+
     /// Get the name of this analysis.
     inline string getName() const {
       return "HepEx9506012";

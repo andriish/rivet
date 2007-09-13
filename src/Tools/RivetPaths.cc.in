@@ -1,15 +1,39 @@
 #include "Rivet/Rivet.hh"
 
 namespace Rivet {
+
   const string getInstalledDataPath() {
     const string prefix = "@prefix@";
-    //cout << "PREFIX: " << prefix << endl;
     string datadir = "@datadir@/@PACKAGE_TARNAME@";
-    //cout << "DATADIR1: " << datadir << endl;
     datadir.replace(datadir.begin(), datadir.begin()+9, prefix);
-    //cout << "DATADIR2: " << datadir << endl;
-    //return "data/" + papername + ".aida";
+    if (datadir.find("${") != string::npos) {
+      string msg = "Shell characters remaining in data install path: ";
+      msg += datadir;
+      throw runtime_error(msg);
+    }
     return datadir;
+  }
+
+
+  const string getInstalledLibPath() {
+    const string prefix = "@prefix@";
+    string execprefix = "@exec_prefix@";
+    if (execprefix.find("${prefix}") == 0) {
+      execprefix.replace(execprefix.begin(), execprefix.begin()+9, prefix);
+    }
+    string libdir = "@libdir@";
+    if (libdir.find("${prefix}") == 0) {
+      libdir.replace(libdir.begin(), libdir.begin()+9, prefix);
+    } else if (libdir.find("${exec_prefix}") == 0) {
+      libdir.replace(libdir.begin(), libdir.begin()+14, execprefix);
+    }
+
+    if (libdir.find("${") != string::npos) {
+      string msg = "Shell characters remaining in library install path: ";
+      msg += libdir;
+      throw runtime_error(msg);
+    }
+    return libdir;
   }
 
 }

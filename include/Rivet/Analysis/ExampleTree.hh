@@ -55,6 +55,9 @@ namespace Rivet {
 
   public:
 
+    /// Factory method
+    static Analysis* create() { return new ExampleTree(); }
+
     /// Return the name of this analysis
     inline string getName() const {
       return "ExampleTree";

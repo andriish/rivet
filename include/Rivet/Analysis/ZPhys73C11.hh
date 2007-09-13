@@ -26,6 +26,9 @@ namespace Rivet {
 
   public:
 
+    /// Factory method
+    static Analysis* create() { return new ZPhys73C11(); }
+
     /// The name of this analysis is "ZPhys73C11"
     inline string getName() const {
       return "ZPhys73C11";
