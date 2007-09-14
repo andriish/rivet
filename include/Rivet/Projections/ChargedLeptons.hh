@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_ChargedLeptons_H
-#define RIVET_ChargedLeptons_H
+#ifndef RIVET_ChargedLeptons_HH
+#define RIVET_ChargedLeptons_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
@@ -48,12 +48,7 @@ namespace Rivet {
 
     /// The leptons
     ParticleVector _theChargedLeptons;
-    
-//   private:
-    
-//     /// Hide the assignment operator.
-//     ChargedLeptons & operator=(const ChargedLeptons &);
-    
+        
   };
   
 }

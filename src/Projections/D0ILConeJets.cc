@@ -3,7 +3,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 #include "Rivet/RivetCLHEP.hh"
 
 #include "Rivet/Tools/D0RunIIcone/inline_maths.h"

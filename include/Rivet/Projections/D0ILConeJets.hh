@@ -3,7 +3,7 @@
 #define RIVET_D0ILConeJets_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 

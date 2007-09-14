@@ -2,7 +2,7 @@
 #ifndef RIVET_Multiplicity_HH
 #define RIVET_Multiplicity_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
@@ -71,11 +71,6 @@ namespace Rivet {
 
     /// The FinalState projection used by this projection
     FinalState* _fsproj;
-
-//   private:
-
-//     /// Hide the assignment operator.
-//     Multiplicity& operator=(const Multiplicity&);
 
   };
 

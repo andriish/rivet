@@ -2,7 +2,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/DISKinematics.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 
 
 namespace Rivet {

@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_EURPHYS40C287_H
-#define RIVET_EURPHYS40C287_H
+#ifndef RIVET_EURPHYS40C287_HH
+#define RIVET_EURPHYS40C287_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/RivetAIDA.fhh"

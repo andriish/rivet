@@ -3,7 +3,7 @@
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/TrackJet.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include <algorithm>
 

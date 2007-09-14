@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_CentralEtHCM_H
-#define RIVET_CentralEtHCM_H
+#ifndef RIVET_CentralEtHCM_HH
+#define RIVET_CentralEtHCM_HH
 
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
@@ -53,14 +53,9 @@ namespace Rivet {
     /// The sum of the Et in the central rapidity bin.
     double _sumet;
 
-//   private:
-
-//     /// Hide the assignment operator.
-//     CentralEtHCM & operator=(const CentralEtHCM &);
-
   };
 
 }
 
 
-#endif /* RIVET_CentralEtHCM_H */
+#endif

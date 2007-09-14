@@ -76,7 +76,7 @@ include/Rivet/Makefile
 src/Makefile
 src/Tools/Makefile
 src/Projections/Makefile
-src/Analysis/Makefile
+src/Analyses/Makefile
 src/Test/Makefile
 data/Makefile
 bin/Makefile

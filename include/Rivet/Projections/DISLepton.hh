@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_DISLepton_H
-#define RIVET_DISLepton_H
+#ifndef RIVET_DISLepton_HH
+#define RIVET_DISLepton_HH
 
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -72,12 +72,7 @@ namespace Rivet {
     
     /// The incoming lepton.
     Particle _outgoing;
-    
-//   private:
-    
-//     /// Hide the assignment operator.
-//     DISLepton& operator=(const DISLepton&);
-    
+        
   };
   
 }

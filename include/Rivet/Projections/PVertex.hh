@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_PVertex_H
-#define RIVET_PVertex_H
+#ifndef RIVET_PVertex_HH
+#define RIVET_PVertex_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
 
@@ -50,14 +50,8 @@ namespace Rivet {
 
   private:
 
-
     /// The Primary Vertex in the current collision.
     GenVertex* _thePVertex;
-
-  private:
-
-    /// The assignment operator is private and must never be called.
-    //PVertex& operator=(const PVertex&);
 
   };
 

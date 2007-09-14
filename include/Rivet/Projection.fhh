@@ -1,9 +1,9 @@
 // -*- C++ -*-
-//
-// This is the forward declaration of the Projection class.
-//
-#ifndef Rivet_Projection_FH
-#define Rivet_Projection_FH
+#ifndef Rivet_Projection_FHH
+#define Rivet_Projection_FHH
+
+#include "Rivet/Cmp.fhh"
+
 
 namespace Rivet {
 

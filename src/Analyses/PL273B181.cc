@@ -1,8 +1,7 @@
 // -*- C++ -*-
-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Analysis/PL273B181.hh"
+#include "Rivet/Analyses/PL273B181.hh"
 #include "HepPDT/ParticleID.hh"
 
 using namespace AIDA;

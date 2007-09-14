@@ -2,7 +2,7 @@
 #ifndef RIVET_PRD65092002_HH
 #define RIVET_PRD65092002_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/TrackJet.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/RivetAIDA.fhh"

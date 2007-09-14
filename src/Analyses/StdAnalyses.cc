@@ -1,18 +1,17 @@
-
-#include "Rivet/Analysis/Analysis.hh"
-#include "Rivet/Analysis/AnalysisLoader.hh"
+// -*- C++ -*-
+#include "Rivet/Analysis.hh"
+#include "Rivet/AnalysisLoader.hh"
 
 // Concrete analyses
-#include "Rivet/Analysis/TestAnalysis.hh"
-//#include "Rivet/Analysis/EurPhys40C287.hh"
-#include "Rivet/Analysis/ExampleTree.hh"
-#include "Rivet/Analysis/HepEx0112029.hh"
-#include "Rivet/Analysis/HepEx0409040.hh"
-#include "Rivet/Analysis/HepEx9506012.hh"
-#include "Rivet/Analysis/PL273B181.hh"
-#include "Rivet/Analysis/PRD65092002.hh"
-#include "Rivet/Analysis/TestAnalysis.hh"
-//#include "Rivet/Analysis/ZPhys73C11.hh"
+#include "Rivet/Analyses/TestAnalysis.hh"
+//#include "Rivet/Analyses/EurPhys40C287.hh"
+#include "Rivet/Analyses/ExampleTree.hh"
+#include "Rivet/Analyses/HepEx0112029.hh"
+#include "Rivet/Analyses/HepEx0409040.hh"
+#include "Rivet/Analyses/HepEx9506012.hh"
+#include "Rivet/Analyses/PL273B181.hh"
+#include "Rivet/Analyses/PRD65092002.hh"
+//#include "Rivet/Analyses/ZPhys73C11.hh"
 
 
 extern "C" {

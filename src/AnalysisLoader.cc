@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Analysis/AnalysisLoader.hh"
+#include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "osdir.hh"
 #include <dlfcn.h>

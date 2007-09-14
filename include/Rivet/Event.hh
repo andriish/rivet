@@ -1,35 +1,31 @@
 // -*- C++ -*-
-#ifndef RIVET_Event_H
-#define RIVET_Event_H
-//
-// This is the declaration of the Event class.
+#ifndef RIVET_Event_HH
+#define RIVET_Event_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "HepMC/GenEvent.h"
 #include "Event.fhh"
 
 
 namespace Rivet {
 
-  /** Forward typedef from HepMC. */
+  /// Forward typedef from HepMC.
   typedef HepMC::GenEvent GenEvent;
   
-  /** Forward typedef from HepMC. */
+  /// Forward typedef from HepMC.
   typedef HepMC::GenVertex GenVertex;
 
 
-  /**
-   * Event is a concrete class representing an generated event in
-   * Rivet. It is constructed given a HepMC::GenEvent, a pointer to
-   * which is kept by the Event object throughout its lifetime. The user
-   * must therefore make sure that the corresponding HepMC::GenEvent
-   * will persist at least as long as the Event object.
-   *
-   * In addition to the HepMC::GenEvent object the Event also keeps
-   * track of all Projections object which have been applied to the
-   * Event so far.
-   */
+  /// Event is a concrete class representing an generated event in
+  /// Rivet. It is constructed given a HepMC::GenEvent, a pointer to
+  /// which is kept by the Event object throughout its lifetime. The user
+  /// must therefore make sure that the corresponding HepMC::GenEvent
+  /// will persist at least as long as the Event object.
+  ///
+  /// In addition to the HepMC::GenEvent object the Event also keeps
+  /// track of all Projections object which have been applied to the
+  /// Event so far.
   class Event {
 
   public:
@@ -76,39 +72,28 @@ namespace Rivet {
       return p;
     }
 
-    /**
-     * The weight associated with the event.
-     */
+    /// The weight associated with the event.
     inline double weight() const { return theWeight; }
 
   private:
 
-    /**
-     * A pointer to the generated event obtained from an external event
-     * generator.
-     */
+    /// A pointer to the generated event obtained from an external generator.
     const GenEvent* theGenEvent;
 
-    /**
-     * The set of Projection objects applied so far.
-     */
+    /// The set of Projection objects applied so far.
     mutable std::set<const Projection*> theProjections;
 
-    /**
-     * The weight associated with the event.
-     */
+    /// The weight associated with the event.
     double theWeight;
 
   private:
 
-    /**
-     * The assignment operator is private and must never be called.
-     * In fact, it should not even be implemented.
-     */
+    /// The assignment operator is private and must never be called.
+    /// In fact, it should not even be implemented.
     Event& operator=(const Event&);
 
   };
   
 }
 
-#endif /* RIVET_Event_H */
+#endif

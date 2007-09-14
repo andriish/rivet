@@ -2,7 +2,7 @@
 #ifndef RIVET_Sphericity_HH
 #define RIVET_Sphericity_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Event.hh"
 

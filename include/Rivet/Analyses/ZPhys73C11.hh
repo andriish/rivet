@@ -1,11 +1,12 @@
 // -*- C++ -*-
-#ifndef RIVET_ZPHYS73C11_H
-#define RIVET_ZPHYS73C11_H
+#ifndef RIVET_ZPHYS73C11_HH
+#define RIVET_ZPHYS73C11_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/RivetAIDA.fhh"
+
 
 namespace Rivet {
 

@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_TotalVisibleMomentum_H
-#define RIVET_TotalVisibleMomentum_H
+#ifndef RIVET_TotalVisibleMomentum_HH
+#define RIVET_TotalVisibleMomentum_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/RivetCLHEP.fhh"

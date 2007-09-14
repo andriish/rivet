@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_Beam_H
-#define RIVET_Beam_H
+#ifndef RIVET_Beam_HH
+#define RIVET_Beam_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
 
@@ -45,10 +45,6 @@ namespace Rivet {
   private:
     /// The beam particles in the current collision in GenEvent 
     ParticlePair _theBeams;
-
-//   private:
-//     /// Hiding the assignment operator.
-//     Beam & operator=(const Beam &);
 
   };
 

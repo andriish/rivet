@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_FinalState_H
-#define RIVET_FinalState_H
+#ifndef RIVET_FinalState_HH
+#define RIVET_FinalState_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -62,11 +62,6 @@ namespace Rivet {
     
     /// The final-state particles.
     ParticleVector _theParticles;
-    
-//   private:
-    
-//     /// Hide the assignment operator.
-//     FinalState& operator=(const FinalState&);
     
   };
   

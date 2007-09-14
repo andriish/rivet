@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_WZandh_H
-#define RIVET_WZandh_H
+#ifndef RIVET_WZandh_HH
+#define RIVET_WZandh_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -80,12 +80,7 @@ namespace Rivet {
     ParticleVector _theZqqs;
     ParticleVector _thehs;
     //@}
-    
-  private:
-    
-    /// Hide the assignment operator.
-    //WZandh & operator=(const WZandh &);
-    
+        
   };
   
 }

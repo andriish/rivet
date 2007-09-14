@@ -2,7 +2,7 @@
 #ifndef RIVET_HepEx9506012_HH
 #define RIVET_HepEx9506012_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
 #include "Rivet/Projections/CentralEtHCM.hh"
 #include "Rivet/RivetAIDA.fhh"

@@ -1,7 +1,6 @@
 // -*- C++ -*-
-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analysis/HepEx0409040.hh"
+#include "Rivet/Analyses/HepEx0409040.hh"
 using namespace Rivet;
 
 #include "Rivet/RivetAIDA.hh"

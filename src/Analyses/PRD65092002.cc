@@ -6,7 +6,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analysis/PRD65092002.hh"
+#include "Rivet/Analyses/PRD65092002.hh"
 using namespace Rivet;
 
 #include "Rivet/RivetAIDA.hh"

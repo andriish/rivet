@@ -1,7 +1,6 @@
 // -*- C++ -*-
-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analysis/TestAnalysis.hh"
+#include "Rivet/Analyses/TestAnalysis.hh"
 #include "Rivet/RivetAIDA.hh"
 
 

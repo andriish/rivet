@@ -8,7 +8,7 @@ using namespace CLHEP;
 namespace Rivet {
 
 
-  int Thrust::compare(const Projection & p) const {
+  int Thrust::compare(const Projection& p) const {
     return 0;
   }
 

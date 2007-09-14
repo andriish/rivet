@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_HepEx0409040_H
-#define RIVET_HepEx0409040_H
+#ifndef RIVET_HepEx0409040_HH
+#define RIVET_HepEx0409040_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"

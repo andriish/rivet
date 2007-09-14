@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_FinalStateHCM_H
-#define RIVET_FinalStateHCM_H
+#ifndef RIVET_FinalStateHCM_HH
+#define RIVET_FinalStateHCM_HH
 
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
@@ -52,12 +52,7 @@ namespace Rivet {
 
     /// The projector for the full final state.
     FinalState* _fsproj;
-    
-//   private:
-    
-//     /// Hide the assignment operator.
-//     FinalStateHCM& operator=(const FinalStateHCM&);
-    
+        
   };
   
 }

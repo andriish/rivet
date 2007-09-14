@@ -3,7 +3,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Projections/DISLepton.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 
 
 namespace Rivet {

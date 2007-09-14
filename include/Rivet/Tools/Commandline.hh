@@ -4,7 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/HistoFormat.hh"
-#include "Rivet/Analysis/AnalysisLoader.hh"
+#include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/Logging.hh"
 #include <tclap/CmdLine.h>
 

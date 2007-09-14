@@ -7,8 +7,8 @@
 #include "Rivet/RivetAIDA.fhh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.hh"
-#include "Rivet/Analysis/Analysis.hh"
-#include "Rivet/Analysis/AnalysisLoader.hh"
+#include "Rivet/Analysis.hh"
+#include "Rivet/AnalysisLoader.hh"
 
 
 namespace Rivet {

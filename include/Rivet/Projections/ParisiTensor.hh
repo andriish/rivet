@@ -2,7 +2,7 @@
 #ifndef RIVET_ParisiTensor_HH
 #define RIVET_ParisiTensor_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Event.hh"
@@ -87,11 +87,6 @@ namespace Rivet {
 
     /// The Sphericity projection for which this projection is really just a wrapper.
     Sphericity _sphproj;
-
-    //  private:
-
-    /// The assignment operator is private and must never be called.
-    //ParisiTensor & operator=(const ParisiTensor &);
 
   };
 

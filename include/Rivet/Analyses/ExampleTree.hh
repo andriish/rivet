@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_ExampleTree_H
-#define RIVET_ExampleTree_H
+#ifndef RIVET_ExampleTree_HH
+#define RIVET_ExampleTree_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/KtJets.hh"

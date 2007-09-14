@@ -2,7 +2,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 #include <algorithm>
 
 

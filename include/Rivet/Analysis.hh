@@ -3,7 +3,7 @@
 #define RIVET_Analysis_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Projections/Projection.fhh"
+#include "Rivet/Projection.fhh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.fhh"

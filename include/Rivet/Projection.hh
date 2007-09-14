@@ -8,7 +8,6 @@
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.fhh"
-#include "Rivet/Projections/Cmp.fhh"
 
 
 namespace Rivet {

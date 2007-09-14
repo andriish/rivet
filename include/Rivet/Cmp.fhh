@@ -1,0 +1,12 @@
+// -*- C++ -*-
+#ifndef RIVET_Cmp_FHH
+#define RIVET_Cmp_FHH
+
+namespace Rivet {
+
+template <typename T>
+class Cmp;
+
+}
+
+#endif

@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_HepEx0112029_H
-#define RIVET_HepEx0112029_H
+#ifndef RIVET_HepEx0112029_HH
+#define RIVET_HepEx0112029_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/KtJets.hh"
 #include "Rivet/RivetAIDA.fhh"
 

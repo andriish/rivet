@@ -1,7 +1,7 @@
 // -*- C++ -*-
 
 #include "Rivet/Projections/Sphericity.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "CLHEP/Matrix/Matrix.h"

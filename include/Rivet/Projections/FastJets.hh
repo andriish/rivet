@@ -2,7 +2,7 @@
 #ifndef RIVET_FastJets_HH
 #define RIVET_FastJets_HH
 
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "fastjet/ClusterSequence.hh"
@@ -97,15 +97,8 @@ namespace Rivet {
 
     fastjet::Strategy _strat;
 
-
-
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;
-
-  private:
-    
-    /// Hiding the assignment operator.
-    FastJets& operator=(const FastJets&);
   
   };
 

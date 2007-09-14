@@ -2,7 +2,7 @@
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/KtJets.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 
 
 namespace Rivet {

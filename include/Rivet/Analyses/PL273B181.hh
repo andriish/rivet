@@ -1,8 +1,8 @@
 // -*- C++ -*-
-#ifndef RIVET_PL273B181_H
-#define RIVET_PL273B181_H
+#ifndef RIVET_PL273B181_HH
+#define RIVET_PL273B181_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/RivetAIDA.fhh"
 

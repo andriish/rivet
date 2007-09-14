@@ -1,7 +1,6 @@
 // -*- C++ -*-
-
 #include "Rivet/Rivet.hh"
-#include "Rivet/Analysis/HepEx9506012.hh"
+#include "Rivet/Analyses/HepEx9506012.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "Rivet/RivetAIDA.hh"
 using namespace CLHEP;

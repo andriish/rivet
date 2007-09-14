@@ -1,7 +1,7 @@
 // -*- C++ -*-
 
 #include "Rivet/Projections/CentralEtHCM.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Rivet.hh"
 

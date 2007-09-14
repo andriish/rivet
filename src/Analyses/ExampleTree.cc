@@ -1,8 +1,7 @@
 // -*- C++ -*-
-
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analysis/ExampleTree.hh"
+#include "Rivet/Analyses/ExampleTree.hh"
 #include "Rivet/RivetAIDA.hh"
 using namespace AIDA;
 

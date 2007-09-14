@@ -1,9 +1,7 @@
 ## Internal headers - not to be installed
 nobase_dist_noinst_HEADERS = 
-
 ## Public headers - to be installed
 nobase_pkginclude_HEADERS = 
-
 
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
@@ -15,33 +13,25 @@ nobase_pkginclude_HEADERS += \
   Particle.hh    Particle.fhh   \
   RivetCLHEP.hh  RivetCLHEP.fhh \
   RivetAIDA.hh   RivetAIDA.fhh  \
-  AnalysisHandler.hh  \
-  AnalysisHandler.fhh \
+  AnalysisHandler.hh  AnalysisHandler.fhh \
+  Projection.hh  Projection.fhh \
+  Cmp.hh Cmp.fhh \
   ParticleName.hh   \
-  HistoFormat.hh     
+  HistoFormat.hh    \
+  Analysis.hh       \
+  AnalysisLoader.hh 
 
-
-## Analyses
-nobase_pkginclude_HEADERS += \
-  Analysis/Analysis.hh       \
-  Analysis/AnalysisLoader.hh
-
+## Standard analyses
 nobase_dist_noinst_HEADERS += \
-  Analysis/TestAnalysis.hh    \
-  Analysis/ExampleTree.hh     \
-  Analysis/HepEx9506012.hh    \
-  Analysis/HepEx0112029.hh    \
-  Analysis/HepEx0409040.hh    \
-  Analysis/PL273B181.hh       \
-  Analysis/PRD65092002.hh    
-
+  Analyses/TestAnalysis.hh    \
+  Analyses/ExampleTree.hh     \
+  Analyses/HepEx9506012.hh    \
+  Analyses/HepEx0112029.hh    \
+  Analyses/HepEx0409040.hh    \
+  Analyses/PL273B181.hh       \
+  Analyses/PRD65092002.hh    
 
 ## Projections
-nobase_pkginclude_HEADERS += \
-  Projections/Projection.hh  \
-  Projections/Projection.fhh \
-  Projections/Cmp.hh         \
-  Projections/Cmp.fhh
 nobase_dist_noinst_HEADERS +=   \
   Projections/Beam.hh           \
   Projections/CentralEtHCM.hh   \
@@ -63,13 +53,12 @@ nobase_dist_noinst_HEADERS +=   \
   Projections/WZandh.hh \
   Projections/FastJets.hh
 
-
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
   Tools/Logging.fhh \
-  Tools/Commandline.hh
-
+  Tools/Commandline.hh \
+  Tools/Utils.hh
 
 ## D0 internals
 nobase_dist_noinst_HEADERS += \

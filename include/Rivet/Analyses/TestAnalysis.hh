@@ -2,7 +2,7 @@
 #ifndef RIVET_TestAnalysis_HH
 #define RIVET_TestAnalysis_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/RivetAIDA.fhh"

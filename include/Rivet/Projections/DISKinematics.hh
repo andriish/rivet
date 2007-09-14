@@ -1,10 +1,10 @@
 // -*- C++ -*-
-#ifndef RIVET_DISKinematics_H
-#define RIVET_DISKinematics_H
+#ifndef RIVET_DISKinematics_HH
+#define RIVET_DISKinematics_HH
 
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
-#include "Rivet/Projections/Projection.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/RivetCLHEP.hh"
@@ -90,11 +90,6 @@ namespace Rivet {
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
     LorentzRotation _breit;
-
-//   private:
-
-//     /// Hide the assignment operator.
-//     DISKinematics & operator=(const DISKinematics &);
 
   };
 

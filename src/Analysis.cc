@@ -1,15 +1,10 @@
 // -*- C++ -*-
-
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/AnalysisHandler.hh"
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
-
 using namespace AIDA;
-
-
-//////////////////////////////////////////////////////////////
 
 
 namespace Rivet {

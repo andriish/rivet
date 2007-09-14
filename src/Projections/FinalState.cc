@@ -1,7 +1,7 @@
 // -*- C++ -*-
 
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 
 
 namespace Rivet {

@@ -2,7 +2,7 @@
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 #include "HepPDT/ParticleID.hh"
 
 

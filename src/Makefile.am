@@ -7,6 +7,7 @@ libRivet_la_LDFLAGS = \
 libRivet_la_SOURCES = \
   Particle.cc \
   Cuts.cc \
+  Projection.cc \
   Analysis.cc \
   AnalysisLoader.cc \
   AnalysisHandler.cc 
