@@ -24,21 +24,19 @@ namespace Rivet {
       addProjection(_thrustproj);
     }
 
-  public:
-
     /// Factory method
-    static Analysis* create() { return new TestAnalysis(); }
+    static Analysis* create() { 
+      return new TestAnalysis(); 
+    }
 
     /// Get the name of this analysis.
     inline string getName() const {
       return "Test";
     }
 
-  public:
-
     void init();
     
-    void analyze(const Event & event);
+    void analyze(const Event& event);
     
     void finalize();
 
@@ -71,8 +69,6 @@ namespace Rivet {
     //@}
 
   };
-
-
 
 }
 

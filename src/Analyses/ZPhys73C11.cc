@@ -1,11 +1,13 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Analyses/ZPhys73C11.hh"
 #include "HepPDT/ParticleID.hh"
 
 using namespace AIDA;
 using namespace HepMC;
+
 
 namespace Rivet {
 
@@ -64,26 +66,30 @@ namespace Rivet {
 
 
   // Do the analysis
-  void ZPhys73C11::analyze(const Event & event) {
+  void ZPhys73C11::analyze(const Event& e) {
     Log& log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
 
-    // Analyse and print some info
-    const Multiplicity& m = event.applyProjection(mult);
-    log << Log::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity() << endl;
+    // Get final state and beam
+    const FinalState& fs = e.applyProjection(_fsproj);
+    const ParticlePair& beams = e.applyProjection(_beamsproj)();
+    const double meanBeamMom = ( beams.first.getMomentum().vect().mag() + beams.second.getMomentum().vect().mag() ) / 2.0;
 
-    //Analyse the event shape info
-    const Sphericity& s = event.applyProjection(spher);
-    log << Log::INFO << "Sphericity    = " << s.sphericity() << endl;
-    log << Log::INFO << "Aplanarity    = " << s.aplanarity() << endl;
-    log << Log::INFO << "Planarity     = " << s.planarity() << endl;
+    // Get event weight for histo filling
+    const double weight = e.weight();
+
+    // Iterate over all the final state particles
+    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      const double mom = p->getMomentum().vect().mag();
+      const double scaledMom = mom/meanBeamMom;
+      log << Log::INFO << mom << "/" << meanBeamMom << " = " << scaledMom << endl;
+    }
 
     // Fill histograms here, and scale them later
-    const double weight = event.weight();
-    histChTot_->fill(m.totalChargedMultiplicity(), weight);
-    histSphericity_->fill(s.sphericity(), weight);
-    histPlanarity_->fill(s.planarity(), weight);
-    histAplanarity_->fill(s.aplanarity(), weight);
+    //histChTot_->fill(m.totalChargedMultiplicity(), weight);
+    //histSphericity_->fill(s.sphericity(), weight);
+    //histPlanarity_->fill(s.planarity(), weight);
+    //histAplanarity_->fill(s.aplanarity(), weight);
 
     // Finished...
     log << Log::DEBUG << "Finished analyzing" << endl;
@@ -93,10 +99,10 @@ namespace Rivet {
   // Finalize
   void ZPhys73C11::finalize() { 
     // Normalize the histogram areas to 1
-    normalize(histChTot_);
-    normalize(histSphericity_);
-    normalize(histPlanarity_); 
-    normalize(histAplanarity_);
+    //normalize(histChTot_);
+    //normalize(histSphericity_);
+    //normalize(histPlanarity_); 
+    //normalize(histAplanarity_);
   }
 
 }

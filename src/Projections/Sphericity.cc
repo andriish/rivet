@@ -1,5 +1,4 @@
 // -*- C++ -*-
-
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Cmp.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -43,7 +42,7 @@ void Sphericity::project(const Event & e) {
     _lambdas[i] = 0;
   }
 
-  // Apply projection to event
+  // Get final state
   const FinalState& fs = e.applyProjection(*_fsproj);
  
   CLHEP::HepMatrix mMom(3,3,0);

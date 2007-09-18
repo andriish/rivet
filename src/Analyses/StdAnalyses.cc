@@ -11,7 +11,7 @@
 #include "Rivet/Analyses/HepEx9506012.hh"
 #include "Rivet/Analyses/PL273B181.hh"
 #include "Rivet/Analyses/PRD65092002.hh"
-//#include "Rivet/Analyses/ZPhys73C11.hh"
+#include "Rivet/Analyses/ZPhys73C11.hh"
 
 
 extern "C" {
@@ -30,7 +30,7 @@ extern "C" {
     fns["HEPEX9506012"] = Rivet::HepEx9506012::create;
     fns["PL273B181"] = Rivet::PL273B181::create;
     fns["PRD65092002"] = Rivet::PRD65092002::create;
-    //fns["ZPHYS73C11"] = Rivet::ZPhys73C11::create;
+    fns["ZPHYS73C11"] = Rivet::ZPhys73C11::create;
     return fns;
   }
 

@@ -7,7 +7,8 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     HepEx0112029.cc \
     HepEx0409040.cc \
     PL273B181.cc    \
-    PRD65092002.cc
+    PRD65092002.cc  \
+    ZPhys73C11.cc
 
 libRivetAnalysisStd_la_CPPFLAGS = $(AM_CPPFLAGS)
 if WITH_ROOT

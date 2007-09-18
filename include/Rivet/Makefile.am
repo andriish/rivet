@@ -22,17 +22,19 @@ nobase_pkginclude_HEADERS += \
   AnalysisLoader.hh 
 
 ## Standard analyses
+nobase_pkginclude_HEADERS += \
+  Analyses/TestAnalysis.hh
 nobase_dist_noinst_HEADERS += \
-  Analyses/TestAnalysis.hh    \
   Analyses/ExampleTree.hh     \
   Analyses/HepEx9506012.hh    \
   Analyses/HepEx0112029.hh    \
   Analyses/HepEx0409040.hh    \
   Analyses/PL273B181.hh       \
-  Analyses/PRD65092002.hh    
+  Analyses/PRD65092002.hh     \
+  Analyses/ZPhys73C11.hh
 
 ## Projections
-nobase_dist_noinst_HEADERS +=   \
+nobase_pkginclude_HEADERS +=   \
   Projections/Beam.hh           \
   Projections/CentralEtHCM.hh   \
   Projections/ChargedLeptons.hh \
