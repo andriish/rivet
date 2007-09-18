@@ -82,6 +82,7 @@ namespace Rivet {
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       const double mom = p->getMomentum().vect().mag();
       const double scaledMom = mom/meanBeamMom;
+      const double logInvScaledMom = -log10(scaledMom);
       log << Log::INFO << mom << "/" << meanBeamMom << " = " << scaledMom << endl;
     }
 

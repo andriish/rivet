@@ -1,3 +1,7 @@
+2007-09-14  Andy Buckley  <andy@insectnation.org>
+
+	* Merged in a branch of pluggable analysis mechanisms.
+
 2007-06-25  Jon Butterworth  <jmb@hep.ucl.ac.uk>
 
 	* Fixed some bugs in the root output for DataPoint.h
