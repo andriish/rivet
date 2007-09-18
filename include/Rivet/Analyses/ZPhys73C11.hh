@@ -5,6 +5,8 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/Sphericity.hh"
+#include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/ParisiTensor.hh"
 #include "Rivet/RivetAIDA.fhh"
 
 
@@ -18,20 +20,25 @@ namespace Rivet {
 
     /// Default constructor.
     inline ZPhys73C11()
-      : _spherproj(_fsproj)
-    { 
+      : _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
+        _thrustproj(_cfsproj), _parisiproj(_cfsproj)
+    {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(_fsproj);
+      addProjection(_cfsproj);
+      addProjection(_cnfsproj);
       addProjection(_beamsproj);
-      addProjection(_spherproj);
+      addProjection(_cspherproj);
+      addProjection(_cnspherproj);
+      addProjection(_thrustproj);
+      addProjection(_parisiproj);
     }
 
-    /// Factory method
+    /// Factory method.
     static Analysis* create() { 
       return new ZPhys73C11(); 
     }
 
-    /// The name of this analysis is "ZPhys73C11"
+    /// Get the name of this analysis.
     inline string getName() const {
       return "ZPhys73C11";
     }
@@ -44,12 +51,27 @@ namespace Rivet {
 
   private:
 
-    /// The projectors used by this analysis.
-    FinalState _fsproj;
+    /// Charged final state projector.
+    /// @todo Make into ChargedFinalState
+    FinalState _cfsproj;
 
+    /// The final state projector.
+    FinalState _cnfsproj;
+
+    /// Projection to get the beams.
     Beam _beamsproj;
 
-    Sphericity _spherproj;
+    /// Sphericity projection for charged particles.
+    Sphericity _cspherproj;
+
+    /// Sphericity projection for all particles.
+    Sphericity _cnspherproj;
+
+    /// Thrust projection.
+    Thrust _thrustproj;
+
+    /// Parisi tensor (C and D params) projection.
+    ParisiTensor _parisiproj;
 
   private:
 
@@ -101,7 +123,7 @@ namespace Rivet {
            
     AIDA::IHistogram1D* _histEEC;
     AIDA::IHistogram1D* _histAEEC;
-  //@}
+    //@}
   
   };
 

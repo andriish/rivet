@@ -1,4 +1,4 @@
-// $Id: $
+// -*- C++ -*-
 #ifndef RIVET_RIVETCLHEP_FHH 
 #define RIVET_RIVETCLHEP_FHH 1
 
@@ -21,4 +21,4 @@ namespace Rivet {
   using CLHEP::Vector3;
 }
 
-#endif // RIVET_RIVETCLHEP_FHH
+#endif

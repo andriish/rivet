@@ -68,12 +68,14 @@ namespace Rivet {
   public:
 
     ///@{ Thrust scalar accessors
-    /// The thrust scalar (maximum thrust).
+    /// The thrust scalar, \f$ T \f$, (maximum thrust).
     inline const double thrust() const { return _thrusts[0]; }
-    /// The thrust major scalar (thrust along thrust major axis).
+    /// The thrust major scalar, \f$ M \f$, (thrust along thrust major axis).
     inline const double thrustMajor() const { return _thrusts[1]; }
-    /// The thrust minor scalar (thrust along thrust minor axis).
+    /// The thrust minor scalar, \f$ m \f$, (thrust along thrust minor axis).
     inline const double thrustMinor() const { return _thrusts[2]; }
+    /// The oblateness, \f$ O = M - m \f$ .
+    inline const double oblateness() const { return _thrusts[1] - _thrusts[2]; }
     ///@}
 
     ///@{ Thrust axis accessors
@@ -110,9 +112,6 @@ namespace Rivet {
 
     /// Explicitly calculate the thrust value and axis.
     void calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const;
-
-    /// The assignment operator is private and must never be called.
-    //Thrust& operator=(const Thrust &);
 
   };
   

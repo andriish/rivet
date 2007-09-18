@@ -70,27 +70,90 @@ namespace Rivet {
     Log& log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
 
-    // Get final state and beam
-    const FinalState& fs = e.applyProjection(_fsproj);
+    // Get beams and average beam momentum
+    /// @todo Some problem with how the beams projection's destructor handles particles: segfaults.
     const ParticlePair& beams = e.applyProjection(_beamsproj)();
     const double meanBeamMom = ( beams.first.getMomentum().vect().mag() + beams.second.getMomentum().vect().mag() ) / 2.0;
+
+    // Calculate event-wise shape distributions
+    const Thrust& thrust = e.applyProjection(_thrustproj);
+    const Sphericity& sphericityC = e.applyProjection(_cspherproj);
+    const Sphericity& sphericityCN = e.applyProjection(_cnspherproj);
+    const ParisiTensor& parisi = e.applyProjection(_parisiproj);
 
     // Get event weight for histo filling
     const double weight = e.weight();
 
-    // Iterate over all the final state particles
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      const double mom = p->getMomentum().vect().mag();
+    // Iterate over all the final state particles.
+    const FinalState& cfs = e.applyProjection(_cfsproj);
+    for (ParticleVector::const_iterator p = cfs.particles().begin(); p != cfs.particles().end(); ++p) {
+      // Get momentum and energy of each particle.
+      const Vector3 mom3 = p->getMomentum().vect();
+      const double mom = mom3.mag();
+      const double energy = p->getMomentum().getT();
+
+      // Calculate scaled momenta.
       const double scaledMom = mom/meanBeamMom;
       const double logInvScaledMom = -log10(scaledMom);
-      log << Log::INFO << mom << "/" << meanBeamMom << " = " << scaledMom << endl;
+
+      // Get momenta components w.r.t. thrust and sphericity.
+      const double momT = thrust.thrustAxis().dot(mom3);
+      const double momS = sphericityC.sphericityAxis().dot(mom3);
+      const double pTinT = mom3.dot(thrust.thrustMajorAxis());
+      const double pToutT = mom3.dot(thrust.thrustMinorAxis());
+      const double pTinS = mom3.dot(sphericityC.sphericityMinorAxis());
+      const double pToutS = mom3.dot(sphericityC.sphericityMinorAxis());
+
+      // Calculate rapidities w.r.t. thrust and sphericity.
+      const double rapidityT = 0.5 * (energy + momT) / (energy - momT);
+      const double rapidityS = 0.5 * (energy + momS) / (energy - momS);
+
+      // Fill histograms.
+      _histLogScaledMom->fill(logInvScaledMom, weight); 
+      _histScaledMom->fill(scaledMom, weight); 
+      _histRapidityT->fill(rapidityT, weight); 
+      _histRapidityS->fill(rapidityS, weight); 
+      _histPtTIn->fill(pTinT, weight); 
+      _histPtTOut->fill(pToutT, weight); 
+      _histPtTInVsXp->fill(pTinS, weight); 
+      _histPtTOutVsXp->fill(pToutS, weight); 
     }
 
-    // Fill histograms here, and scale them later
-    //histChTot_->fill(m.totalChargedMultiplicity(), weight);
-    //histSphericity_->fill(s.sphericity(), weight);
-    //histPlanarity_->fill(s.planarity(), weight);
-    //histAplanarity_->fill(s.aplanarity(), weight);
+    // Fill histograms.
+    _hist1MinusT->fill(1 - thrust.thrust(), weight); 
+    _histTMajor->fill(thrust.thrustMajor(), weight); 
+    _histTMinor->fill(thrust.thrustMinor(), weight); 
+    _histOblateness->fill(thrust.oblateness(), weight);
+
+    //_histDiffRate2Durham->fill(, weight); 
+    //_histDiffRate2Jade->fill(, weight); 
+    //_histDiffRate2JadeCN->fill(, weight); 
+    //_histDiffRate3Durham->fill(, weight);
+    //_histDiffRate3Jade->fill(, weight); 
+    //_histDiffRate3JadeCN->fill(, weight);
+    //_histDiffRate4Durham->fill(, weight);
+    //_histDiffRate4Jade->fill(, weight); 
+    
+    _histSphericity->fill(sphericityC.sphericity(), weight); 
+    _histAplanarity->fill(sphericityC.aplanarity(), weight); 
+    _histPlanarity->fill(sphericityC.planarity(), weight); 
+    _histSphericityCN->fill(sphericityCN.sphericity(), weight); 
+    _histAplanarityCN->fill(sphericityCN.aplanarity(), weight); 
+
+    //_histHemiMassD->fill(, weight); 
+    //_histHemiMassH->fill(, weight); 
+    //_histHemiMassL->fill(, weight); 
+
+    //_histHemiBroadW->fill(, weight); 
+    //_histHemiBroadN->fill(, weight); 
+    //_histHemiBroadT->fill(, weight); 
+    //_histHemiBroadD->fill(, weight); 
+    
+    _histCParam->fill(parisi.C(), weight); 
+    _histDParam->fill(parisi.D(), weight); 
+    
+    //_histEEC->fill(, weight); 
+    //_histAEEC->fill(, weight); 
 
     // Finished...
     log << Log::DEBUG << "Finished analyzing" << endl;
@@ -100,10 +163,49 @@ namespace Rivet {
   // Finalize
   void ZPhys73C11::finalize() { 
     // Normalize the histogram areas to 1
-    //normalize(histChTot_);
-    //normalize(histSphericity_);
-    //normalize(histPlanarity_); 
-    //normalize(histAplanarity_);
+//     normalize(_histLogScaledMom); 
+//     normalize(_histScaledMom); 
+//     normalize(_histRapidityT); 
+//     normalize(_histRapidityS); 
+//     normalize(_histPtTIn); 
+//     normalize(_histPtTOut); 
+//     normalize(_histPtTInVsXp); 
+//     normalize(_histPtTOutVsXp); 
+    
+//     normalize(_hist1MinusT); 
+//     normalize(_histTMajor); 
+//     normalize(_histTMinor); 
+//     normalize(_histOblateness); 
+    
+//     normalize(_histDiffRate2Durham); 
+//     normalize(_histDiffRate2Jade); 
+//     normalize(_histDiffRate2JadeCN);
+//     normalize(_histDiffRate3Durham);
+//     normalize(_histDiffRate3Jade); 
+//     normalize(_histDiffRate3JadeCN);
+//     normalize(_histDiffRate4Durham);
+//     normalize(_histDiffRate4Jade); 
+    
+//     normalize(_histSphericity); 
+//     normalize(_histAplanarity); 
+//     normalize(_histPlanarity); 
+//     normalize(_histSphericityCN); 
+//     normalize(_histAplanarityCN); 
+    
+//     normalize(_histHemiMassD); 
+//     normalize(_histHemiMassH); 
+//     normalize(_histHemiMassL); 
+    
+//     normalize(_histHemiBroadW); 
+//     normalize(_histHemiBroadN); 
+//     normalize(_histHemiBroadT); 
+//     normalize(_histHemiBroadD); 
+    
+//     normalize(_histCParam); 
+//     normalize(_histDParam); 
+    
+//     normalize(_histEEC); 
+//     normalize(_histAEEC); 
   }
 
 }

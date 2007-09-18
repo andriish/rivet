@@ -5,7 +5,7 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Event.hh"
-
+#include "Rivet/RivetCLHEP.hh"
 
 namespace Rivet {
 
@@ -38,7 +38,7 @@ namespace Rivet {
      a regularizing power of \f$r\f$ to the definition:
      \f[ 
      S^{\alpha \beta} = 
-     \frac{\sum_i |\mathbf{p}_i|^{r-2} \sum_i p_i^\alpha p_i^\beta}
+     \frac{\sum_i |\mathbf{p}_i|^{r-2} p_i^\alpha p_i^\beta}
      {\sum_i |\mathbf{p}_i|^r} 
      \f]
      
@@ -82,6 +82,18 @@ namespace Rivet {
     inline const double planarity() const { return _planarity; }
     /// Aplanarity
     inline const double aplanarity() const { return _aplanarity; }
+    ///@}
+
+    ///@{ Access the sphericity basis vectors
+    /// Sphericity axis
+    /// @todo Implement something that isn't garbage!  
+    inline const Vector3 sphericityAxis() const { return Vector3(0,0,1); }
+    /// Sphericity major axis
+    /// @todo Implement something that isn't garbage!
+    inline const Vector3 sphericityMajorAxis() const { return Vector3(1,0,0); }
+    /// Sphericity minor axis
+    /// @todo Implement something that isn't garbage!
+    inline const Vector3 sphericityMinorAxis() const { return Vector3(0,1,0); }
     ///@}
 
     ///@{ Access the momentum tensor eigenvalues

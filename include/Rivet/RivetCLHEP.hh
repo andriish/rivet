@@ -1,4 +1,4 @@
-// $Id: $
+// -*- C++ -*-
 #ifndef RIVET_RIVETCLHEP_HH 
 #define RIVET_RIVETCLHEP_HH 1
 
@@ -16,4 +16,4 @@
 #include "CLHEP/Vector/ThreeVector.h"
 
 
-#endif // RIVET_RIVETCLHEP_HH
+#endif

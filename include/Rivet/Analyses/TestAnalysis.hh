@@ -42,13 +42,13 @@ namespace Rivet {
 
   private:
 
-    /// The FinalState projector used by this analysis.
+    /// The final state projector.
     FinalState _fsproj;
 
-    /// The Multiplicity projector used by this analysis.
+    /// The multiplicity projector.
     Multiplicity _multproj;
 
-    /// The thrust projector
+    /// The thrust projector.
     Thrust _thrustproj;
 
   private:

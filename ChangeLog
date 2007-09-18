@@ -1,3 +1,14 @@
+2007-09-18  Andy Buckley  <andy@insectnation.org>
+
+	* Major bug fixes to the regularised version of the sphericity
+	projection (and hence the Parisi tensor projection). Don't trust
+	C & D param results from any previous version!
+
+	* Added extra methods to thrust and sphericity projections to get
+	the oblateness and the sphericity basis (currently returns dummy
+	axes since I can't yet work out how to get the similarity
+	transform eigenvectors from CLHEP)
+
 2007-09-14  Andy Buckley  <andy@insectnation.org>
 
 	* Merged in a branch of pluggable analysis mechanisms.
