@@ -28,7 +28,7 @@ namespace Rivet {
      \f]
      
      The aplanarity is \f$ A = \frac{3}{2}\lambda_3 \f$ and the planarity
-     can be obtained through the trace constraint. The eigenvectors define a 
+     is \f$ P = \frac{2}{3}(S-2A) = \lambda_2 - \lambda_3 \f$. The eigenvectors define a 
      set of spatial axes comparable with the thrust axes, but more sensitive to 
      high momentum particles due to the quadratic sensitivity of the tensor to
      the particle momenta.
@@ -115,11 +115,6 @@ namespace Rivet {
 
     /// The FinalState projection used by this projection.
     FinalState* _fsproj;
-
-  private:
-
-    /// The assignment operator is private and must never be called.
-    //Sphericity& operator=(const Sphericity&);
 
   };
 
