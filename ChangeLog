@@ -1,5 +1,9 @@
 2007-09-19  Andy Buckley  <andy@insectnation.org>
 
+	* Added a "fuzzy equals" utility function for float/double types
+	to Utils.hh (which already contains a variety of handy little
+	functions).
+
 	* Removed deprecated Beam::operator().
 
 	* Added ChargedFinalState projection and de-pointered the

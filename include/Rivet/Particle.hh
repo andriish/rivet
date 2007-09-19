@@ -1,8 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_Particle_H
-#define RIVET_Particle_H
-//
-// This is the declaration of the Particle class.
+#ifndef RIVET_Particle_HH
+#define RIVET_Particle_HH
 
 #include "Rivet/Rivet.hh"
 #include "HepMC/GenParticle.h"
@@ -71,4 +69,4 @@ namespace Rivet {
   
 }
 
-#endif /* RIVET_Particle_H */
+#endif

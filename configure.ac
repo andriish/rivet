@@ -17,7 +17,7 @@ if test x$SWVERS != x; then
 fi
 
 ## Set default compiler flags
-if test "x$CXXFLAGS" != "x"; then CXXFLAGS="-O3"; fi
+if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O3"; fi
 
 ## Checks for programs.
 AC_PROG_CXX

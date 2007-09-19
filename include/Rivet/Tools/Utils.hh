@@ -39,6 +39,15 @@ namespace Rivet {
     return out;
   }
 
+
+  template <typename Real>
+  inline bool fuzzyEquals(Real a, Real b, Real tolerance = 0.001) {
+    const double absavg = fabs(a + b)/2.0;
+    const double absdiff = fabs(a - b);
+    return (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
+  }
+
+
   /// Split a string with single-character delimiters, ignoring zero-length 
   /// substrings. Designed for getting elements of filesystem paths, naturally.
   inline vector<string> split(const string& s, const string delim = ":") {

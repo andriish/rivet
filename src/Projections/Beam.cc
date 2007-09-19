@@ -12,6 +12,7 @@ namespace Rivet {
 
     // Assume that the first two particles in the event are the beam particles
     /// @todo This is not a robust assumption! HepMC should support directly accessing the beams.
+    assert(e.genEvent().particles_size() >= 2);
     HepMC::GenEvent::particle_const_iterator bp = e.genEvent().particles_begin();
     _theBeams.first = **bp;
     ++bp;

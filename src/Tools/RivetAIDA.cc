@@ -1,5 +1,6 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/Utils.hh"
 #include "LWH/AnalysisFactory.h"
 #include "TinyXML/tinyxml.h"
 #include <sstream>
@@ -83,9 +84,7 @@ namespace Rivet {
           list<double>::iterator e2 = e;
           while (e2 != edges.end()) {
             if (e != e2) {
-              const double absavg = fabs(*e + *e2)/2.0;
-              const double absdiff = fabs(*e - *e2);
-              if ((absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < 0.001) {
+              if (fuzzyEquals(*e, *e2)) {
                 edges.erase(e2++);
               }
             }

@@ -2,6 +2,7 @@
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Cmp.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/Utils.hh"
 #include "CLHEP/Matrix/Matrix.h"
 #include "CLHEP/Matrix/SymMatrix.h"
 
@@ -69,7 +70,10 @@ void Sphericity::project(const Event & e) {
   mMom /= totalMomentum;
 
   // Check that the matrix is symmetric.
-  bool isSymm = mMom[0][1] == mMom[1][0] && mMom[0][2] == mMom[2][0] && mMom[1][2] == mMom[2][1];
+  const bool isSymm = 
+    fuzzyEquals(mMom[0][1], mMom[1][0]) && 
+    fuzzyEquals(mMom[0][2], mMom[2][0]) && 
+    fuzzyEquals(mMom[1][2], mMom[2][1]);
   if (!isSymm) {
     log << Log::ERROR << "Error: momentum tensor not symmetric (r=" << _regparam << ")" << endl;
     log << Log::ERROR << "[0,1] vs. [1,0]: " << mMom[0][1] << ", " << mMom[1][0] << endl;
