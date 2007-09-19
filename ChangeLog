@@ -1,5 +1,7 @@
 2007-09-19  Andy Buckley  <andy@insectnation.org>
 
+	* Removed deprecated Beam::operator().
+
 	* Added ChargedFinalState projection and de-pointered the
 	contained FinalState projection in VetoedFinalState.
 

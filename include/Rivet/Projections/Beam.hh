@@ -6,6 +6,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
 
+
 namespace Rivet {
 
   /// Project out the incoming beams
@@ -15,24 +16,21 @@ namespace Rivet {
     
     /// The default constructor.
     inline Beam() { }
-    
-  public:
+
+    /// The default destructor.
+    inline ~Beam() { }
+
     /// Return the name of the projection
     inline string getName() const {
       return "Beam";
     }
     
-  public:
     /// The pair of beam particles in the current collision in GenEvent 
     inline const ParticlePair& getBeams() const {
       return _theBeams;
     }
 
-    /// @deprecated  Obsfucated way to get the beam particles
-    inline const ParticlePair& operator()() const {
-      return getBeams();
-    }
-    
+
   protected:
     /// Project on to the Event
     virtual void project(const Event& e);
@@ -41,6 +39,7 @@ namespace Rivet {
     inline virtual int compare(const Projection& p) const {
       return 0;
     }
+
 
   private:
     /// The beam particles in the current collision in GenEvent 

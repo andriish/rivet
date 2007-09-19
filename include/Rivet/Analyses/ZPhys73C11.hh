@@ -22,7 +22,7 @@ namespace Rivet {
 
     /// Default constructor.
     inline ZPhys73C11()
-      : _cfsproj(_cnfsproj), 
+      : _cnfsproj(), _cfsproj(_cnfsproj),
         _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
         _thrustproj(_cfsproj), _parisiproj(_cfsproj)
     {
@@ -52,13 +52,14 @@ namespace Rivet {
 
     virtual void finalize();
 
-  private:
 
-    /// Charged final state projector.
-    ChargedFinalState _cfsproj;
+  private:
 
     /// The final state projector.
     FinalState _cnfsproj;
+
+    /// Charged final state projector.
+    ChargedFinalState _cfsproj;
 
     /// Projection to get the beams.
     Beam _beamsproj;

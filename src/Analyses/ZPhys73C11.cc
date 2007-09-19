@@ -72,7 +72,7 @@ namespace Rivet {
 
     // Get beams and average beam momentum
     /// @todo Some problem with how the beams projection's destructor handles particles: segfaults.
-    const ParticlePair& beams = e.applyProjection(_beamsproj)();
+    const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
     const double meanBeamMom = ( beams.first.getMomentum().vect().mag() + beams.second.getMomentum().vect().mag() ) / 2.0;
 
     // Calculate event-wise shape distributions

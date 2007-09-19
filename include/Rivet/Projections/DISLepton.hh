@@ -21,12 +21,12 @@ namespace Rivet {
     /// either a scattered lepton or anti-lepton is searched for. Must
     /// also specify a Beam and FinalState projection object which is
     /// assumed to live thoughout the run.
-    inline DISLepton(Beam& beamproj, FinalState& fsp,
+    inline DISLepton(Beam& beam, FinalState& fsp,
 		     const ParticleName& inid, const ParticleName& outid)
-      : _beams(&beamproj), _fsproj(&fsp), _idin(inid), _idout(outid) 
+      : _beamproj(beam), _fsproj(fsp), _idin(inid), _idout(outid) 
     {
       _beamPairs.insert(BeamPair(inid, ANY));
-      addProjection(beamproj);
+      addProjection(_beamproj);
       addProjection(fsp);
     }
     
@@ -56,10 +56,10 @@ namespace Rivet {
   private:
     
     /// The Beam projector object defining the incoming beam particles.
-    Beam* _beams;
+    Beam _beamproj;
     
     /// The FinalState projection used by this projection
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
     /// The PDG id of the incoming lepton.
     long _idin;

@@ -14,7 +14,7 @@ namespace Rivet {
     
   public:
     
-    /// @name Standard constructors and destructors. */
+    /// @name Standard constructors and destructors.
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
@@ -28,12 +28,15 @@ namespace Rivet {
       addCut("pT",  MORE_EQ, minpt);
     }
     
-  public:
     /// Return the name of the projection
     inline string getName() const {
       return "FinalState";
     }
     
+    /// Access the projected final-state particles.
+    inline const ParticleVector& particles() const { return _theParticles; }
+
+
   protected:
     
     /// Apply the projection to the event.
@@ -42,17 +45,13 @@ namespace Rivet {
     /// Compare projections.
     int compare(const Projection& p) const;
     
-  public:
-    
-    /// Access the projected final-state particles.
-    inline const ParticleVector& particles() const { return _theParticles; }
     
   private:
     
-    /// The minimum allowed pseudo-rapidity.
+    /// The minimum allowed pseudorapidity.
     double _etamin;
     
-    /// The maximum allowed pseudo-rapidity.
+    /// The maximum allowed pseudorapidity.
     double _etamax;
     
     /// The minimum allowed transverse momentum.

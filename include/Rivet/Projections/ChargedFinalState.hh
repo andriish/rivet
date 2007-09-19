@@ -17,8 +17,7 @@ namespace Rivet {
 
   public:
     
-    /// The default constructor. Must specify a FinalState projection 
-    /// object which is assumed to live through the run.
+    /// Constructor: the supplied FinalState projection is assumed to live through the run.
     inline ChargedFinalState(FinalState& fsp)
       : _fsproj(fsp)
     {
