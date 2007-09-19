@@ -1,3 +1,8 @@
+2007-09-19  Andy Buckley  <andy@insectnation.org>
+
+	* Added ChargedFinalState projection and de-pointered the
+	contained FinalState projection in VetoedFinalState.
+
 2007-09-18  Andy Buckley  <andy@insectnation.org>
 
 	* Major bug fixes to the regularised version of the sphericity

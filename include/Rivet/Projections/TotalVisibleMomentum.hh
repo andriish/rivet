@@ -2,10 +2,11 @@
 #ifndef RIVET_TotalVisibleMomentum_HH
 #define RIVET_TotalVisibleMomentum_HH
 
+#include "Rivet/Rivet.hh"
+#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Particle.hh"
-#include "Rivet/RivetCLHEP.fhh"
 #include "Rivet/Event.hh"
 
 

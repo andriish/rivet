@@ -7,6 +7,8 @@
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/RivetAIDA.fhh"
 
 
@@ -20,7 +22,8 @@ namespace Rivet {
 
     /// Default constructor.
     inline ZPhys73C11()
-      : _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
+      : _cfsproj(_cnfsproj), 
+        _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
         _thrustproj(_cfsproj), _parisiproj(_cfsproj)
     {
       setBeams(ELECTRON, POSITRON); 
@@ -52,8 +55,7 @@ namespace Rivet {
   private:
 
     /// Charged final state projector.
-    /// @todo Make into ChargedFinalState
-    FinalState _cfsproj;
+    ChargedFinalState _cfsproj;
 
     /// The final state projector.
     FinalState _cnfsproj;

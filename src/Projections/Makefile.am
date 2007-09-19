@@ -2,6 +2,7 @@ LIBS =
 noinst_LTLIBRARIES = libRivetProjections.la
 libRivetProjections_la_SOURCES  = \
   Beam.cc \
+  ChargedFinalState.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc  \
   DISLepton.cc \
@@ -26,6 +27,3 @@ if WITH_FASTJET
   libRivetProjections_la_SOURCES += FastJets.cc 
   libRivetProjections_la_CPPFLAGS += -DHAVE_FASTJET
 endif
-
-
-

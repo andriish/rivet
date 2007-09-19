@@ -1,13 +1,13 @@
 // -*- C++ -*-
-#ifndef RIVET_VetoedFinalState_H
-#define RIVET_VetoedFinalState_H
+#ifndef RIVET_VetoedFinalState_HH
+#define RIVET_VetoedFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Rivet.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/DISKinematics.hh"
 
 
 namespace Rivet {
@@ -23,17 +23,17 @@ namespace Rivet {
     /// The default constructor. Must specify a FinalState projection 
     /// object which is assumed to live through the run.
     inline VetoedFinalState(FinalState& fsp)
-      : _fsproj(&fsp)
+      : _fsproj(fsp)
     {
-      addProjection(fsp);
+      addProjection(_fsproj);
     }
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
     /// \f$ p_{Tmax} \f$ - these define the range of particles to be vetoed.
     inline VetoedFinalState(FinalState& fsp, const VetoDetails& vetocodes)
-      : _fsproj(&fsp), _vetoCodes(vetocodes)
+      : _fsproj(fsp), _vetoCodes(vetocodes)
     {
-      addProjection(fsp);
+      addProjection(_fsproj);
     }
     
 
@@ -108,7 +108,7 @@ namespace Rivet {
   private:
     
     /// The projector for the full final state.
-    FinalState* _fsproj;
+    FinalState _fsproj;
     
     /// The final-state particles.
     VetoDetails _vetoCodes;

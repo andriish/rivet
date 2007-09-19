@@ -37,6 +37,7 @@ nobase_dist_noinst_HEADERS += \
 nobase_pkginclude_HEADERS +=   \
   Projections/Beam.hh           \
   Projections/CentralEtHCM.hh   \
+  Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
   Projections/DISKinematics.hh  \
   Projections/DISLepton.hh      \
