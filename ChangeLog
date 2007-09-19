@@ -1,5 +1,9 @@
 2007-09-19  Andy Buckley  <andy@insectnation.org>
 
+	* Added an explicit copy assignment operator to Particle: the
+	absence of one of these was responsible for the double-delete
+	error.
+
 	* Added a "fuzzy equals" utility function for float/double types
 	to Utils.hh (which already contains a variety of handy little
 	functions).

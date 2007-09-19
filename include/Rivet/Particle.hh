@@ -28,8 +28,12 @@ namespace Rivet {
     /// Copy-constructor.
     Particle(const Particle& p);
 
-    /// Destructor
+    /// Destructor.
     ~Particle();
+
+    // Copy-assignment.
+    Particle& operator=(const Particle& p);
+
 
   public:
     /// Get a const reference to the original GenParticle.
