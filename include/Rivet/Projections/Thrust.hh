@@ -40,7 +40,6 @@ namespace Rivet {
     re-coding of the 'tasso' code from HERWIG.
    */
   class Thrust : public Projection {
-
   public:
 
     /// Constructor. The FinalState projection must live throughout the run.
@@ -50,12 +49,11 @@ namespace Rivet {
       addProjection(fsp);
     }
 
-
-  public:
     /// Return the name of the projection
     inline string getName() const {
       return "Thrust";
     }
+
 
   protected:
 
@@ -63,7 +61,10 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections
-    int compare(const Projection& p) const;
+    inline int compare(const Projection& p) const { 
+      return 0; 
+    }
+
 
   public:
 
@@ -101,6 +102,7 @@ namespace Rivet {
 
     /// The FinalState projection used by this projection
     FinalState* _fsproj;
+
 
   private:
 

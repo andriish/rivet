@@ -1,3 +1,8 @@
+2007-09-20  Andy Buckley  <andy@insectnation.org>
+
+	* Added Hemispheres projection, which calculates event hemisphere
+	masses and broadenings.
+
 2007-09-19  Andy Buckley  <andy@insectnation.org>
 
 	* Added an explicit copy assignment operator to Particle: the

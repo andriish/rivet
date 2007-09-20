@@ -10,6 +10,7 @@ libRivetProjections_la_SOURCES  = \
   D0ILConeJets.cc \
   FinalState.cc \
   FinalStateHCM.cc \
+  Hemispheres.cc \
   KtJets.cc \
   Multiplicity.cc \
   ParisiTensor.cc \

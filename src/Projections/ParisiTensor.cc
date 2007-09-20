@@ -15,11 +15,6 @@ int ParisiTensor::compare(const Projection& p) const {
 }
 
 
-// RivetInfo ParisiTensor::getInfo() const {
-//   return Projection::getInfo() + _sphproj.getInfo();
-// }
-
-
 void ParisiTensor::project(const Event & e) {
   // Apply sphericity projection to event
   Sphericity sph = e.applyProjection(_sphproj);

@@ -8,11 +8,6 @@ using namespace CLHEP;
 namespace Rivet {
 
 
-  int Thrust::compare(const Projection& p) const {
-    return 0;
-  }
-
-
   void Thrust::calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const {
     t = 0.0;
     Vector3 tv, ptot;
