@@ -36,6 +36,8 @@ namespace Rivet {
     /// Access the projected final-state particles.
     inline const ParticleVector& particles() const { return _theParticles; }
 
+    /// Is this final state empty?
+    inline const bool isEmpty() const { return _theParticles.empty(); }
 
   protected:
     

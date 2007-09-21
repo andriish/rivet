@@ -53,13 +53,12 @@ namespace Rivet {
 
     /// Constructor. Supplied FinalState projection must live throughout the run.
     inline Sphericity(FinalState& fsp, double rparam=2.0)
-      : _sphericity(0), _planarity(0), _aplanarity(0), _regparam(rparam), 
-        _fsproj(&fsp)
+      : _sphericity(-1), _planarity(-1), _aplanarity(-1), _regparam(rparam), 
+        _fsproj(fsp)
     { 
-      addProjection(fsp);
+      addProjection(_fsproj);
     }
 
-  public:
     /// Return the name of the projection
     inline string getName() const {
       return "Sphericity";
@@ -114,7 +113,7 @@ namespace Rivet {
     const double _regparam;
 
     /// The FinalState projection used by this projection.
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
   };
 

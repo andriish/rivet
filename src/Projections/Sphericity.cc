@@ -11,40 +11,38 @@ using namespace std;
 
 
 int Sphericity::compare(const Projection& p) const {
-  const Sphericity & other = dynamic_cast<const Sphericity &>(p);
-  int fscmp = pcmp(*_fsproj, *other._fsproj);
-  if (fscmp == 0) {
-    double rcmp = _regparam - other._regparam;
-    if (fabs(rcmp) < 1e-3) {
-      return 0;
-    } else {
-      return (rcmp > 0) ? 1 : -1;
-    }
-  } else {
-    return fscmp;
-  }
+  const Sphericity& other = dynamic_cast<const Sphericity&>(p);
+  int fscmp = pcmp(_fsproj, other._fsproj);
+  if (fscmp != 0) return fscmp;
+  if (fuzzyEquals(_regparam, other._regparam)) return 0;
+  return (_regparam > other._regparam) ? 1 : -1;
 }
 
 
-void Sphericity::project(const Event & e) {
+void Sphericity::project(const Event& e) {
   Log& log = getLog();
+  log << Log::DEBUG << "Calculating sphericity with r = " << _regparam << endl;
 
   // Reset parameters
-  _sphericity = 0;  
-  _planarity = 7;
-  _aplanarity = 0;
-  for (size_t i =0 ; i < 3; ++i) {
-    _lambdas[i] = 0;
-  }
+  _sphericity = -1;  
+  _planarity = -1;
+  _aplanarity = -1;
+  for (size_t i =0 ; i < 3; ++i) _lambdas[i] = -1;
 
   // Get final state.
-  const FinalState& fs = e.applyProjection(*_fsproj);
- 
+  const FinalState& fs = e.applyProjection(_fsproj);
+  const ParticleVector prts = fs.particles();
+
+  // Return (with "safe nonsense" sphericity params) if there are no final state particles.
+  if (prts.empty()) {
+    log << Log::DEBUG << "No particles in final state..." << endl; 
+    return;
+  }
+
+  // Iterate over all the final state particles.
   CLHEP::HepMatrix mMom(3,3,0);
   double totalMomentum = 0.0;
-  
-  // Iterate over all the final state particles.
-  for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+  for (ParticleVector::const_iterator p = prts.begin(); p != prts.end(); ++p) {
     
     // Get the momentum vector for the final state particle.
     LorentzVector lv = p->getMomentum();
@@ -54,7 +52,9 @@ void Sphericity::project(const Event & e) {
     
     // Build (regulated) quadratic momentum components.
     const double regfactor = pow(lv.vect().mag(), _regparam-2);
-    log << Log::DEBUG << "Regfactor (r=" << _regparam << ") = " << regfactor << endl;
+    if (!fuzzyEquals(regfactor, 1.0)) {
+      log << Log::DEBUG << "Regfactor (r=" << _regparam << ") = " << regfactor << endl;
+    }
     mMom[0][0] += regfactor * lv.x() * lv.x(); 
     mMom[1][1] += regfactor * lv.y() * lv.y();
     mMom[2][2] += regfactor * lv.z() * lv.z();
@@ -68,6 +68,7 @@ void Sphericity::project(const Event & e) {
 
   // Normalise to total (regulated) momentum.
   mMom /= totalMomentum;
+  log << Log::DEBUG << "Momentum tensor = " << endl << mMom << endl;
 
   // Check that the matrix is symmetric.
   const bool isSymm = 
@@ -87,8 +88,7 @@ void Sphericity::project(const Event & e) {
   CLHEP::HepSymMatrix symMat;
   symMat.assign(mMom);
   CLHEP::diagonalize(&symMat);
-  log << Log::DEBUG << mMom << endl;
-  log << Log::DEBUG << endl;
+  log << Log::DEBUG << "Diag momentum tensor = " << endl << symMat << endl;
   
   // Put the eigenvalues in the correct order.
   for (int i=0; i!=3; ++i){

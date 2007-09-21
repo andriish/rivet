@@ -71,18 +71,59 @@ namespace Rivet {
     log << Log::DEBUG << "Starting analyzing" << endl;
 
     // Get beams and average beam momentum
-    /// @todo Some problem with how the beams projection's destructor handles particles: segfaults.
     const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
-    const double meanBeamMom = ( beams.first.getMomentum().vect().mag() + beams.second.getMomentum().vect().mag() ) / 2.0;
-
-    // Calculate event-wise shape distributions
-    const Thrust& thrust = e.applyProjection(_thrustproj);
-    const Sphericity& sphericityC = e.applyProjection(_cspherproj);
-    const Sphericity& sphericityCN = e.applyProjection(_cnspherproj);
-    const ParisiTensor& parisi = e.applyProjection(_parisiproj);
+    const double meanBeamMom = ( beams.first.getMomentum().vect().mag() + 
+                                 beams.second.getMomentum().vect().mag() ) / 2.0;
 
     // Get event weight for histo filling
     const double weight = e.weight();
+
+    const Thrust& thrust = e.applyProjection(_thrustproj);
+    _hist1MinusT->fill(1 - thrust.thrust(), weight); 
+    _histTMajor->fill(thrust.thrustMajor(), weight); 
+    _histTMinor->fill(thrust.thrustMinor(), weight); 
+    _histOblateness->fill(thrust.oblateness(), weight);
+
+    //const DurhamJet& durjetC = e.applyProjection(_cdurproj);
+    //_histDiffRate2Durham->fill(, weight); 
+    //_histDiffRate3Durham->fill(, weight);
+    //_histDiffRate4Durham->fill(, weight);
+
+    //const JadeJet& durjetC = e.applyProjection(_cjadeproj);
+    //_histDiffRate2Jade->fill(, weight); 
+    //_histDiffRate3Jade->fill(, weight); 
+    //_histDiffRate4Jade->fill(, weight);
+
+    //const JadeJet& durjetCN = e.applyProjection(_cnjadeproj);
+    //_histDiffRate2JadeCN->fill(, weight); 
+    //_histDiffRate3JadeCN->fill(, weight);
+
+    const Sphericity& sphericityC = e.applyProjection(_cspherproj);
+    _histSphericity->fill(sphericityC.sphericity(), weight); 
+    _histAplanarity->fill(sphericityC.aplanarity(), weight); 
+    _histPlanarity->fill(sphericityC.planarity(), weight); 
+
+    const Sphericity& sphericityCN = e.applyProjection(_cnspherproj);
+    _histSphericityCN->fill(sphericityCN.sphericity(), weight); 
+    _histAplanarityCN->fill(sphericityCN.aplanarity(), weight); 
+
+    const Hemispheres& hemi = e.applyProjection(_hemiproj);
+    _histHemiMassH->fill(hemi.getScaledM2high(), weight); 
+    _histHemiMassL->fill(hemi.getScaledM2low(), weight); 
+    _histHemiMassD->fill(hemi.getScaledM2diff(), weight); 
+    _histHemiBroadW->fill(hemi.getBmax(), weight); 
+    _histHemiBroadN->fill(hemi.getBmin(), weight); 
+    _histHemiBroadT->fill(hemi.getBsum(), weight); 
+    _histHemiBroadD->fill(hemi.getBdiff(), weight); 
+
+    const ParisiTensor& parisi = e.applyProjection(_parisiproj);    
+    _histCParam->fill(parisi.C(), weight); 
+    _histDParam->fill(parisi.D(), weight); 
+    
+    //const EEC& eec = e.applyProjection(_eecproj);
+    //_histEEC->fill(, weight); 
+    //_histAEEC->fill(, weight); 
+
 
     // Iterate over all the final state particles.
     const FinalState& cfs = e.applyProjection(_cfsproj);
@@ -118,42 +159,6 @@ namespace Rivet {
       _histPtTInVsXp->fill(pTinS, weight); 
       _histPtTOutVsXp->fill(pToutS, weight); 
     }
-
-    // Fill histograms.
-    _hist1MinusT->fill(1 - thrust.thrust(), weight); 
-    _histTMajor->fill(thrust.thrustMajor(), weight); 
-    _histTMinor->fill(thrust.thrustMinor(), weight); 
-    _histOblateness->fill(thrust.oblateness(), weight);
-
-    //_histDiffRate2Durham->fill(, weight); 
-    //_histDiffRate2Jade->fill(, weight); 
-    //_histDiffRate2JadeCN->fill(, weight); 
-    //_histDiffRate3Durham->fill(, weight);
-    //_histDiffRate3Jade->fill(, weight); 
-    //_histDiffRate3JadeCN->fill(, weight);
-    //_histDiffRate4Durham->fill(, weight);
-    //_histDiffRate4Jade->fill(, weight); 
-    
-    _histSphericity->fill(sphericityC.sphericity(), weight); 
-    _histAplanarity->fill(sphericityC.aplanarity(), weight); 
-    _histPlanarity->fill(sphericityC.planarity(), weight); 
-    _histSphericityCN->fill(sphericityCN.sphericity(), weight); 
-    _histAplanarityCN->fill(sphericityCN.aplanarity(), weight); 
-
-    //_histHemiMassD->fill(, weight); 
-    //_histHemiMassH->fill(, weight); 
-    //_histHemiMassL->fill(, weight); 
-
-    //_histHemiBroadW->fill(, weight); 
-    //_histHemiBroadN->fill(, weight); 
-    //_histHemiBroadT->fill(, weight); 
-    //_histHemiBroadD->fill(, weight); 
-    
-    _histCParam->fill(parisi.C(), weight); 
-    _histDParam->fill(parisi.D(), weight); 
-    
-    //_histEEC->fill(, weight); 
-    //_histAEEC->fill(, weight); 
 
     // Finished...
     log << Log::DEBUG << "Finished analyzing" << endl;

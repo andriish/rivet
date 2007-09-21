@@ -1,6 +1,6 @@
 // -*- C++ -*-
-
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Cmp.hh"
 
 
@@ -28,6 +28,8 @@ namespace Rivet {
            (*pi)->momentum().perp() >= _ptmin )
         _theParticles.push_back(Particle(**pi));
     }
+    getLog() << Log::DEBUG << "Number of final-state particles = " 
+             << _theParticles.size() << endl;
   }
 
 }

@@ -25,6 +25,8 @@ namespace Rivet {
         _theParticles.push_back(*p);
       }
     }
+    getLog() << Log::DEBUG << "Number of charged final-state particles = " 
+             << _theParticles.size() << endl;
   } 
   
 }

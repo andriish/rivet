@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_ParisiTensor_HH
-#define RIVET_ParisiTensor_HH
+#ifndef RIVET_Hemispheres_HH
+#define RIVET_Hemispheres_HH
 
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -120,7 +120,7 @@ namespace Rivet {
     inline const double getBmax() const { return _Bmax; }
     inline const double getBmin() const { return _Bmin; }
     inline const double getBsum() const { return _Bmax + _Bmin; }
-    inline const double getBdiff() const { return fabs(_Bmax - _Bmin); } // <- Just in case...
+    inline const double getBdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
     ///@}
 
 

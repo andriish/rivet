@@ -1,3 +1,10 @@
+2007-09-21  Andy Buckley  <andy@insectnation.org>
+
+	* Added isEmpty() method to final state projection.
+
+	* Added testing for empty final state and useful debug log
+	messages to sphericity projection.
+
 2007-09-20  Andy Buckley  <andy@insectnation.org>
 
 	* Added Hemispheres projection, which calculates event hemisphere

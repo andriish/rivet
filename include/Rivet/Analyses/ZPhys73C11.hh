@@ -7,6 +7,7 @@
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
+#include "Rivet/Projections/Hemispheres.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/RivetAIDA.fhh"
@@ -24,7 +25,9 @@ namespace Rivet {
     inline ZPhys73C11()
       : _cnfsproj(), _cfsproj(_cnfsproj),
         _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
-        _thrustproj(_cfsproj), _parisiproj(_cfsproj)
+        _thrustproj(_cfsproj), 
+        _parisiproj(_cfsproj),
+        _hemiproj(_cfsproj)
     {
       setBeams(ELECTRON, POSITRON); 
       addProjection(_cfsproj);
@@ -34,6 +37,7 @@ namespace Rivet {
       addProjection(_cnspherproj);
       addProjection(_thrustproj);
       addProjection(_parisiproj);
+      addProjection(_hemiproj);
     }
 
     /// Factory method.
@@ -51,6 +55,12 @@ namespace Rivet {
     virtual void analyze(const Event& event);
 
     virtual void finalize();
+
+
+  private:
+
+    /// Hide the assignment operator
+    ZPhys73C11& operator=(const ZPhys73C11&);
 
 
   private:
@@ -76,10 +86,9 @@ namespace Rivet {
     /// Parisi tensor (C and D params) projection.
     ParisiTensor _parisiproj;
 
-  private:
+    /// Projection to calculate event hemisphere masses and broadenings.
+    Hemispheres _hemiproj;
 
-    /// Hide the assignment operator
-    ZPhys73C11& operator=(const ZPhys73C11&);
 
     /// @name Histograms
     //@{
