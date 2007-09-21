@@ -17,16 +17,16 @@ libRivet_la_LIBADD  = \
   $(CLHEPLIB) $(KTJETLIB) \
   -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME) 
 
+
 bin_PROGRAMS = rivet
 rivet_SOURCES = RivetInterface.cc
 rivet_LDFLAGS = -L$(top_srcdir)/src
-rivet_LDADD = -lRivet $(HEPMCLIB) 
+rivet_LDADD = -lRivet $(HEPMCLIB) $(CLHEPLIB) 
 rivet_CPPFLAGS = $(AM_CPPFLAGS) -I$(RIVETINCPATH)
 
 if WITH_ROOT
   rivet_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
   libRivet_la_LIBADD += $(ROOTLIBS)	
-  # libRivet_la_LIBADD += $(FASTJETLIB) -lblub	
 endif
 
 if WITH_FASTJET
