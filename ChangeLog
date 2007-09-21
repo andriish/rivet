@@ -1,5 +1,8 @@
 2007-09-21  Andy Buckley  <andy@insectnation.org>
 
+	* Downclassed the log messages from the Test analysis to DEBUG
+	level.
+
 	* Added isEmpty() method to final state projection.
 
 	* Added testing for empty final state and useful debug log

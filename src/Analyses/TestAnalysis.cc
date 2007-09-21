@@ -29,15 +29,15 @@ namespace Rivet {
 
     // Analyse and print some info
     const Multiplicity& m = event.applyProjection(_multproj);
-    log << Log::INFO << "Total multiplicity            = " << m.totalMultiplicity()           << endl;
-    log << Log::INFO << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endl;
-    log << Log::INFO << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endl;
+    log << Log::DEBUG << "Total multiplicity            = " << m.totalMultiplicity()           << endl;
+    log << Log::DEBUG << "Total charged multiplicity    = " << m.totalChargedMultiplicity()    << endl;
+    log << Log::DEBUG << "Total uncharged multiplicity  = " << m.totalUnchargedMultiplicity()  << endl;
     log << Log::DEBUG << "Hadron multiplicity           = " << m.hadronMultiplicity()          << endl;
     log << Log::DEBUG << "Hadron charged multiplicity   = " << m.hadronChargedMultiplicity()   << endl;
     log << Log::DEBUG << "Hadron uncharged multiplicity = " << m.hadronUnchargedMultiplicity() << endl;
 
     const Thrust& t = event.applyProjection(_thrustproj);
-    log << Log::INFO << "Thrust = " << t.thrust() << endl;
+    log << Log::DEBUG << "Thrust = " << t.thrust() << endl;
 
     // Fill histograms
     const double weight = event.weight();
