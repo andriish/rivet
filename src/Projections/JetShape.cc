@@ -1,17 +1,18 @@
 // -*- C++ -*-
-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/JetShape.hh"
-#include "Rivet/Projections/Cmp.hh"
+#include "Rivet/Cmp.hh"
 #include "HepPDT/ParticleID.hh"
 
 using namespace inline_maths;
+
 
 namespace Rivet {
 
   int JetShape::compare(const Projection& p) const {
     const JetShape& other = dynamic_cast<const JetShape&>(p);
-    return pcmp(*_vfsproj, *other._vfsproj) 
+    return 
+      pcmp(*_vfsproj, *other._vfsproj) 
       && (*_jetaxes == *other._jetaxes);
   }
 

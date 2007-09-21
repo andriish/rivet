@@ -1,11 +1,13 @@
 // -*- C++ -*-
-#ifndef RIVET_HepEx0505013_H
-#define RIVET_HepEx0505013_H
+#ifndef RIVET_HepEx0505013_HH
+#define RIVET_HepEx0505013_HH
 
-#include "Rivet/Analysis/Analysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/KtJets.hh"
+#ifdef HAVE_FASTJET	
 #include "Rivet/Projections/FastJets.hh"
+#endif
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/JetShape.hh"
@@ -15,7 +17,7 @@
 
 namespace Rivet {
 
-  /// This class just measures the charged multiplicity
+  /// @todo Need a class description.
   class HepEx0505013 : public Analysis {
 
   public:
@@ -25,15 +27,15 @@ namespace Rivet {
       // NB. eta in [-2.,2.] cut specified via FinalState constructor
       // NB. jetshape rmin=0.0, rmax=0.7, interval=0.1, r1minPsi=0.3
       : _fsproj(-2., 2.), _vfsproj(_fsproj), 
-#ifdef HAVE_FASTJET	
-	_jetsproj(_fsproj), 
-#else
-	_jetsproj(_fsproj), 
-#endif
-	_calmetproj(_fsproj), _vertexproj(), 
-	_jetshapeproj(_vfsproj, 0.0, 0.7, 0.1, 0.3) 
+        #ifdef HAVE_FASTJET	
+        _jetsproj(_fsproj), 
+        #else
+        _jetsproj(_fsproj), 
+        #endif
+        _calmetproj(_fsproj), _vertexproj(), 
+        _jetshapeproj(_vfsproj, 0.0, 0.7, 0.1, 0.3) 
     { 
-
+      
       setBeams(PROTON, ANTIPROTON);
 
 
@@ -118,15 +120,15 @@ namespace Rivet {
     ////D0ILConeJets _jetsproj;
     /// The KtJets projector alternatively usable by this analysis.
     ////KtJets _jetsproj;
-#ifdef HAVE_FASTJET
+    #ifdef HAVE_FASTJET
     /// The FastJets projector alternatively usable by this analysis.
     FastJets _jetsproj;
-#else
+    #else
     /// The D0ILConeJets projector used by this analysis.
     D0ILConeJets _jetsproj;
     /// The KtJets projector alternatively usable by this analysis.
     ////KtJets _jetsproj;
-#endif
+    #endif
     
     /// The Calorimeter Missing Et projector
     TotalVisibleMomentum _calmetproj;

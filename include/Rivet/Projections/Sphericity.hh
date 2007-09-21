@@ -74,16 +74,18 @@ namespace Rivet {
 
   public:
 
-    ///@{ Access the event shapes by name
+    /// @name Access the event shapes by name
+    /// @{
     /// Sphericity
     inline const double sphericity() const { return _sphericity; }
     /// Planarity
     inline const double planarity() const { return _planarity; }
     /// Aplanarity
     inline const double aplanarity() const { return _aplanarity; }
-    ///@}
+    /// @}
 
-    ///@{ Access the sphericity basis vectors
+    /// @name Access the sphericity basis vectors
+    /// @{
     /// Sphericity axis
     /// @todo Implement something that isn't garbage!  
     inline const Vector3 sphericityAxis() const { return Vector3(0,0,1); }
@@ -93,13 +95,14 @@ namespace Rivet {
     /// Sphericity minor axis
     /// @todo Implement something that isn't garbage!
     inline const Vector3 sphericityMinorAxis() const { return Vector3(0,1,0); }
-    ///@}
+    /// @}
 
-    ///@{ Access the momentum tensor eigenvalues
+    /// @name Access the momentum tensor eigenvalues
+    /// @{
     inline const double lambda1() const { return _lambdas[0]; }
     inline const double lambda2() const { return _lambdas[1]; }
     inline const double lambda3() const { return _lambdas[2]; }
-    ///@}
+    /// @}
 
   private:
 
