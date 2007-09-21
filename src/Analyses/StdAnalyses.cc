@@ -8,6 +8,7 @@
 #include "Rivet/Analyses/ExampleTree.hh"
 #include "Rivet/Analyses/HepEx0112029.hh"
 #include "Rivet/Analyses/HepEx0409040.hh"
+#include "Rivet/Analyses/HepEx0505013.hh"
 #include "Rivet/Analyses/HepEx9506012.hh"
 #include "Rivet/Analyses/PL273B181.hh"
 #include "Rivet/Analyses/PRD65092002.hh"
@@ -27,6 +28,7 @@ extern "C" {
     fns["EXAMPLETREE"] = Rivet::ExampleTree::create;
     fns["HEPEX0112029"] = Rivet::HepEx0112029::create;
     fns["HEPEX0409040"] = Rivet::HepEx0409040::create;
+    fns["HEPEX0505013"] = Rivet::HepEx0505013::create;
     fns["HEPEX9506012"] = Rivet::HepEx9506012::create;
     fns["PL273B181"] = Rivet::PL273B181::create;
     fns["PRD65092002"] = Rivet::PRD65092002::create;

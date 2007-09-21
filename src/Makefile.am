@@ -26,11 +26,12 @@ rivet_CPPFLAGS = $(AM_CPPFLAGS) -I$(RIVETINCPATH)
 if WITH_ROOT
   rivet_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
   libRivet_la_LIBADD += $(ROOTLIBS)	
+  # libRivet_la_LIBADD += $(FASTJETLIB) -lblub	
 endif
 
 if WITH_FASTJET
   rivet_CPPFLAGS += -DHAVE_FASTJET
-  libRivet_la_LIBADD += $(FASTJETLIB)	
+  libRivet_la_LIBADD += -l$(FASTJETLIBNAME)
 endif
 
 #check-local:

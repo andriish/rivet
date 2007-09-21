@@ -23,12 +23,15 @@ namespace Rivet {
     _momentum.setPz(0.0);
     _momentum.setE(0.0);
 
+    _set = 0.;
+
     // Project into final state
     const FinalState& fs = e.applyProjection(*_fsproj);
 
     // Get hadron and charge info for each particle, and fill counters appropriately
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       _momentum += p->getMomentum();
+      _set += p->getMomentum().perp(); 
     }
 
     log << Log::DEBUG << "Done" << endl;

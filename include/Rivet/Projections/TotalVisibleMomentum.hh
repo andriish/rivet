@@ -37,6 +37,9 @@ namespace Rivet {
     /// The projected four-momentum vector
     inline const LorentzVector& getMomentum() const { return _momentum; }
 
+    /// The projected Scalar Transverse Momentum
+    inline const double getSET() const { return _set; }
+
     
   protected:
     
@@ -54,6 +57,9 @@ namespace Rivet {
     /// The total visible momentum
     LorentzVector _momentum;
     
+    /// Scalar Transverse Energy
+    double _set;
+
 //   private:
     
 //     /// Hide the assignment operator.

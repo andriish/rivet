@@ -38,7 +38,7 @@ namespace Rivet {
 
     // Project into final state
     const FinalState& fs = e.applyProjection(*_fsproj);
-   
+
     // Store 4 vector data about each particle into list
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       HepMC::FourVector fv = p->getMomentum();
@@ -63,7 +63,32 @@ namespace Rivet {
     //cout << "event " << count << "   jet pT=" << (*cit).pT() 
     //     << "   y=" << (*cit).y() << "   phi=" << (*cit).phi() << endl;
     //}
+    
+    _lorentzvecjets.clear();
+    for (list<HepEntity>::const_iterator jt = _jets.begin(); jt != _jets.end(); ++jt) {
+      LorentzVector jet(jt->px, jt->py, jt->pz, jt->E);
+      _lorentzvecjets.push_back(jet);
+    }
 
   }
+
+  
+  /*
+  /// Get a reference to the lorentzvecjets collection.
+  list<LorentzVector>& D0ILConeJets::getLorentzJets() { 
+
+    //LorentzVector jet;
+    for (list<HepEntity>::const_iterator jt = _jets.begin(); jt != _jets.end(); ++jt) {
+      //jet.setPx(jt->px);
+      //jet.setPy(jt->py);
+      //jet.setPz(jt->pz);
+      //jet.setE(jt->E);
+      LorentzVector jet(jt->px, jt->py, jt->pz, jt->E);
+      _lorentzvecjets.push_back(jet);
+    }
+
+    return _lorentzvecjets; 
+  }
+*/
 
 }

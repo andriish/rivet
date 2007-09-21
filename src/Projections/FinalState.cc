@@ -14,6 +14,8 @@ namespace Rivet {
 
   void FinalState::project(const Event& e) {
     _theParticles.clear();
+
+
     for ( GenEvent::particle_const_iterator pi = e.genEvent().particles_begin();
           pi != e.genEvent().particles_end(); ++pi ) {
       // Only include particles which are final state (status = 1) and which

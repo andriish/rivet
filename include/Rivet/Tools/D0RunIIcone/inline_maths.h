@@ -29,6 +29,13 @@ inline double delta_phi(double phi1, double phi2) {
 
 
 
+inline double delta_rad(double y1, double phi1, double y2, double phi2) {
+  double dphi = min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
+  return sqrt(sqr(y1-y2)+sqr(dphi));
+}
+
+
+
 inline double phi(double px, double py) {
   return atan2(py, px);
 }

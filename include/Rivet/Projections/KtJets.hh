@@ -94,7 +94,7 @@ namespace Rivet {
     mutable map<int, vector<double> > _yscales;
     
   };
-
+  
 }
 
 #endif

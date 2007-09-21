@@ -1,4 +1,5 @@
 // -*- C++ -*-
+
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/HepEx0409040.hh"
 using namespace Rivet;
@@ -31,26 +32,28 @@ void HepEx0409040::analyze(const Event & event) {
   // Analyse and print some info  
   const D0ILConeJets& jetpro = event.applyProjection(_conejetsproj);
   log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
-   
+
   // Find vertex and check  that its z-component is < 50 cm from the nominal IP
   //const PVertex& pv = event.applyProjection(_vertexproj);
   /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
   /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
   //if (fabs(pv.getPrimaryVertex().position().z()) < 500.0) {
-    const list<HepEntity>& jets = jetpro.getJets();
-    list<HepEntity>::const_iterator jetpTmax = jets.end();
-    list<HepEntity>::const_iterator jet2ndpTmax = jets.end();
+    const list<LorentzVector>& jets = jetpro.getLorentzJets();
+    list<LorentzVector>::const_iterator jetpTmax = jets.end();
+    list<LorentzVector>::const_iterator jet2ndpTmax = jets.end();
     log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
 
     int Njet = 0;
-    for (list<HepEntity>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E << " pz=" << jt->pz << endl;
-      if (jt->pT() > 40.0) ++Njet;
-      log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->y() << " phi=" << jt->phi() << endl; 
-      if (jetpTmax == jets.end() || jt->pT() > jetpTmax->pT()) {
+    for (list<LorentzVector>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
+      log << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->e() 
+	  << " pz=" << jt->pz() << endl;
+      if (jt->perp() > 40.0) ++Njet;
+      log << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->rapidity() 
+	  << " phi=" << jt->phi() << endl; 
+      if (jetpTmax == jets.end() || jt->perp() > jetpTmax->perp()) {
         jet2ndpTmax = jetpTmax;
         jetpTmax = jt;
-      } else if (jet2ndpTmax == jets.end() || jt->pT() > jet2ndpTmax->pT()) {
+      } else if (jet2ndpTmax == jets.end() || jt->perp() > jet2ndpTmax->perp()) {
         jet2ndpTmax = jt;
       }
     }
@@ -59,24 +62,24 @@ void HepEx0409040::analyze(const Event & event) {
       log << Log::DEBUG << "Jet multiplicity after pT > 40GeV cut = " << Njet << endl; 
     }
 
-    if (jets.size()>=2 && jet2ndpTmax->pT() > 40.) {
-      if (fabs(jetpTmax->y())<0.5 && fabs(jet2ndpTmax->y())<0.5) {
+    if (jets.size()>=2 && jet2ndpTmax->perp() > 40.) {
+      if (fabs(jetpTmax->rapidity())<0.5 && fabs(jet2ndpTmax->rapidity())<0.5) {
         log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
 
         const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
 
         log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << caloMissEt.getMomentum().perp() << endl;
 
-        if (caloMissEt.getMomentum().perp() < 0.7*jetpTmax->pT()) {
+        if (caloMissEt.getMomentum().perp() < 0.7*jetpTmax->perp()) {
           double dphi = delta_phi(jetpTmax->phi(), jet2ndpTmax->phi());
           
-          if (jetpTmax->pT() > 75.0 && jetpTmax->pT() <= 100.0)
+          if (jetpTmax->perp() > 75.0 && jetpTmax->perp() <= 100.0)
             _histJetAzimuth_pTmax75_100->fill(dphi, event.weight());
-          else if (jetpTmax->pT() > 100.0 && jetpTmax->pT() <= 130.0)
+          else if (jetpTmax->perp() > 100.0 && jetpTmax->perp() <= 130.0)
             _histJetAzimuth_pTmax100_130->fill(dphi, event.weight());
-          else if (jetpTmax->pT() > 130.0 && jetpTmax->pT() <= 180.0)
+          else if (jetpTmax->perp() > 130.0 && jetpTmax->perp() <= 180.0)
             _histJetAzimuth_pTmax130_180->fill(dphi, event.weight());
-          else if (jetpTmax->pT() > 180.0)
+          else if (jetpTmax->perp() > 180.0)
             _histJetAzimuth_pTmax180_->fill(dphi, event.weight());
           
         } //CalMET

@@ -55,6 +55,15 @@ AM_CONDITIONAL(WITH_ROOT, [test x$with_root == xyes])
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(CLHEPINCPATH) -I\$(HEPMCINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"
 AM_CXXFLAGS="$AM_CXXFLAGS -ansi -pedantic -Wall"
 
+## Set fastjet/fastjet include subdirectory in include search path
+#if test -d ${FASTJETINCPATH}  
+if test "${FASTJETINCPATH}" != ""; then
+  AC_MSG_NOTICE([adding subdirectory: ${FASTJETINCPATH}/fastjet into inlcude path])
+  AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)/fastjet"
+  AM_CXXFLAGS="$AM_CXXFLAGS -I\$(FASTJETINCPATH)/fastjet"
+fi
+
+
 ## Debug flag (default=none)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug, [build with debugging symbols (default=no)])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then

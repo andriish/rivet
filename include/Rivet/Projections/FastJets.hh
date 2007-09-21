@@ -29,7 +29,7 @@ namespace Rivet {
     // @todo implement configurable constructor for fastJet
     /// Argument constructor. Allows the to be run with different parameters.
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
-    //    inline FastJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
+    //inline FastJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
     //  : _pktev(0), _type(type), _angle(angle), _recom(recom),
     //    _rparameter(rparameter), _fsproj(&fsp)
     //{ 

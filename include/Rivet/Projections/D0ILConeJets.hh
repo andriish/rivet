@@ -7,6 +7,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
+#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Tools/D0RunIIcone/HepEntity.h"
 #include "Rivet/Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp"
 
@@ -114,9 +115,14 @@ namespace Rivet {
   
     /// Get a reference to the jets collection.
     inline list<HepEntity>& getJets() { return _jets; }
-
     /// Get a reference to the jets collection (const version).
     inline const list<HepEntity>& getJets() const { return _jets; }
+
+    /// Get a reference to the lorentzvecjets collection.
+    inline const list<LorentzVector>& getLorentzJets() const {
+      return _lorentzvecjets; 
+    }
+
 
     /// Clear the jets list.
     inline D0ILConeJets& clearJets() { 
@@ -124,9 +130,14 @@ namespace Rivet {
       return *this; 
     }
 
+
+
   private:
     /// The collection of jets.
     list<HepEntity> _jets;
+
+    //Collection of jets converted to tlist of LorentzVector's
+    list<LorentzVector> _lorentzvecjets;
 
     /// List of the event particles
     list<HepEntity> _particlelist;

@@ -20,7 +20,8 @@ libRivetProjections_la_SOURCES  = \
   TotalVisibleMomentum.cc \
   TrackJet.cc \
   VetoedFinalState.cc \
-  WZandh.cc
+  WZandh.cc \
+  JetShape.cc
 
 libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)
 

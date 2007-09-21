@@ -29,6 +29,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/HepEx9506012.hh    \
   Analyses/HepEx0112029.hh    \
   Analyses/HepEx0409040.hh    \
+  Analyses/HepEx0505013.hh    \
   Analyses/PL273B181.hh       \
   Analyses/PRD65092002.hh     \
   Analyses/ZPhys73C11.hh
