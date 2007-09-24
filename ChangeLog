@@ -1,3 +1,8 @@
+2007-09-21  Lars Sonnenschein  <sonne@mail.cern.ch>
+
+	* Added HepEx0505013 analysis and JetShape projection (some fixes
+	by AB.)
+
 2007-09-21  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed lots if bugs and bad practice in HepEx0505013 (to make it

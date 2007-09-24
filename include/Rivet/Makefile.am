@@ -46,6 +46,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FinalState.hh     \
   Projections/FinalStateHCM.hh  \
   Projections/Hemispheres.hh    \
+  Projections/JetShape.hh       \
   Projections/KtJets.hh         \
   Projections/Multiplicity.hh   \
   Projections/ParisiTensor.hh   \

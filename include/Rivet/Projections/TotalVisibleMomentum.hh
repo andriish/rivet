@@ -20,9 +20,9 @@ namespace Rivet {
     
     /// Constructor. The provided FinalState projection must live throughout the run.
     inline TotalVisibleMomentum(FinalState& fsp)
-      : _fsproj(&fsp)
+      : _fsproj(fsp)
     { 
-      addProjection(*_fsproj);
+      addProjection(_fsproj);
     }
     
   public:
@@ -52,18 +52,13 @@ namespace Rivet {
   private:
         
     /// The FinalState projection used by this projection
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
     /// The total visible momentum
     LorentzVector _momentum;
     
     /// Scalar Transverse Energy
     double _set;
-
-//   private:
-    
-//     /// Hide the assignment operator.
-//     TotalVisibleMomentum& operator=(const TotalVisibleMomentum&);
     
   };
   

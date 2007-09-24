@@ -20,7 +20,6 @@ namespace Rivet {
     _theParticles.reserve(fsps.size());
     for (ParticleVector::const_iterator p = fsps.begin(); p != fsps.end(); ++p) {
       HepPDT::ParticleID pInfo = p->getPdgId();
-      bool isHadron = pInfo.isHadron();
       if (pInfo.threeCharge() != 0) {
         _theParticles.push_back(*p);
       }
