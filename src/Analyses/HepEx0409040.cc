@@ -28,7 +28,7 @@ void HepEx0409040::init() {
 void HepEx0409040::analyze(const Event & event) {
   Log& log = getLog();
   log << Log::DEBUG << "Starting analyzing" << endl;
-
+  
   // Analyse and print some info  
   const D0ILConeJets& jetpro = event.applyProjection(_conejetsproj);
   log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
@@ -88,7 +88,7 @@ void HepEx0409040::analyze(const Event & event) {
     
     //} //z-vertex
   
-  
+    
   // Finished
   log << Log::DEBUG << "Finished analyzing" << endl;
 }

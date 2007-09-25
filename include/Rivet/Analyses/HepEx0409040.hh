@@ -37,8 +37,6 @@ namespace Rivet {
       // Veto muons (PDG code = 13) with pT above 1.0 GeV
       _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
 
-      _calmetproj = TotalVisibleMomentum(_vfsproj);
-
 
       addProjection(_fsproj);
       addProjection(_vfsproj);

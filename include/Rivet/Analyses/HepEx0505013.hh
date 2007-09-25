@@ -26,16 +26,12 @@ namespace Rivet {
     inline HepEx0505013()
       // NB. eta in [-2.,2.] cut specified via FinalState constructor
       // NB. jetshape rmin=0.0, rmax=0.7, interval=0.1, r1minPsi=0.3
-      : _fsproj(-2., 2.), _vfsproj(_fsproj), 
-        #ifdef HAVE_FASTJET	
-        _jetsproj(_fsproj), 
-        #else
-        _jetsproj(_fsproj), 
-        #endif
+      : _fsproj(-2., 2.), _vfsproj(_fsproj), _jetsproj(_fsproj), 
         _calmetproj(_fsproj), _vertexproj(), 
-        _jetshapeproj(_vfsproj, 0.0, 0.7, 0.1, 0.3) 
+        _jetshapeproj(_vfsproj, _jetaxes, _diffjetshapes, _intjetshapes,  
+		      _oneminPsiShape, 0.0, 0.7, 0.1, 0.3, ENERGY) 
     { 
-      
+
       setBeams(PROTON, ANTIPROTON);
 
 
@@ -47,11 +43,6 @@ namespace Rivet {
       
       // Veto muons (PDG code = 13) with pT above 1.0 GeV
       _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
-
-      _jetshapeproj.setJetAxes(_jetaxes);
-      _jetshapeproj.setDiffJetShapes(_diffjetshapes);
-      _jetshapeproj.setIntJetShapes(_intjetshapes);
-      _jetshapeproj.setOneMinPsiShape(_oneminPsishape);
 
       addProjection(_fsproj);
       addProjection(_vfsproj);
@@ -146,7 +137,7 @@ namespace Rivet {
 
     vector<vector<double> >  _diffjetshapes;
     vector<vector<double> >  _intjetshapes;
-    vector<double> _oneminPsishape;
+    vector<double> _oneminPsiShape;
 
     double _Rjet;
 

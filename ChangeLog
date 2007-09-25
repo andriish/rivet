@@ -3,6 +3,8 @@
 	* Added HepEx0505013 analysis and JetShape projection (some fixes
 	by AB.)
 
+	* Added GetLorentzJets member function to D0 RunII cone jet projection
+	
 2007-09-21  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed lots if bugs and bad practice in HepEx0505013 (to make it

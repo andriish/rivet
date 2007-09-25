@@ -70,8 +70,6 @@ namespace Rivet {
     bool jetcutpass = false;
     
     for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      ////for (vector<KtJet::KtLorentzVector>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      
       log << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->e() << " pz=" << jt->pz() << endl;
       if (jt->perp()>37. && fabs(jt->rapidity())>0.1 && fabs(jt->rapidity())<0.7) jetcutpass = true;
       ++Njet;
@@ -82,28 +80,27 @@ namespace Rivet {
       
       const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
       log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << caloMissEt.getMomentum().perp() << endl;
-      
+
       if (caloMissEt.getMomentum().perp()/sqrt(caloMissEt.getSET()) < 3.5) {
         
         LorentzVector jetaxis;
         _jetaxes.clear();
-        //cout << "Jets: N=" << jetpro.getNJets() << endl;
         for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-          ////for (vector<KtJet::KtLorentzVector>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
+
           if (fabs(jt->rapidity())<1.1) { //only Central Calorimeter jets
             jetaxis.setPx(jt->px());
             jetaxis.setPy(jt->py());
             jetaxis.setPz(jt->pz());
             jetaxis.setE(jt->e());
-            //cout << "jet: px=" << jt->px() << " py=" << jt->py() << " pz=" << jt->pz() 
-            // << " E=" << jt->e() << endl;
+
             _jetaxes.push_back(jetaxis);
           }
         }
         if (_jetaxes.size()>0) { //determine jet shapes
           
+	  
           const JetShape& jetShape = event.applyProjection(_jetshapeproj);
-          
+	  
           //fill histograms
           for (unsigned int jind=0; jind<_jetaxes.size(); ++jind) {
             for (int ipT=0; ipT<18; ++ipT) {
@@ -115,10 +112,10 @@ namespace Rivet {
                   _histPsi_pT[ipT]->fill(rad/_Rjet, double(_intjetshapes[jind][rbin]) * event.weight());
                 }
                 _histOneMinPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., 
-                                     _oneminPsishape[jind] * event.weight());
+                                     _oneminPsiShape[jind] * event.weight());
               }
             }
-          }
+          }	  
         }
       }
     }
@@ -138,7 +135,7 @@ namespace Rivet {
     for (int i=0; i<18; ++i) { //18 pT bins, one histogram each
       
       if (_ShapeWeights[i] > 0.) {
-        //divide each histogram, each bin by sum of event weights _EventWeights
+        //divide each histogram, each bin, by sum of event weights _EventWeights
         _histRho_pT[i]->scale(1./_ShapeWeights[i]);
         _histPsi_pT[i]->scale(1./_ShapeWeights[i]);	
         OneMinPsiBins[i] = _histOneMinPsi->binHeight(i)/_ShapeWeights[i];
@@ -150,6 +147,7 @@ namespace Rivet {
     for (int i=0; i<18; ++i) { //refill the reset histogram with normalized bins
       _histOneMinPsi->fill((_pTbins[i]+_pTbins[i+1])/2., OneMinPsiBins[i]);
     }
+    
   }
   
   
