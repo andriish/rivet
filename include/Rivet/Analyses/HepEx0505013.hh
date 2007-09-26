@@ -17,7 +17,7 @@
 
 namespace Rivet {
 
-  /// @todo Need a class description.
+  /// Implementation of CDF RunII jet shape paper hep-ex/0505013 
   class HepEx0505013 : public Analysis {
 
   public:
