@@ -41,7 +41,6 @@ int main(int argc, char* argv[]) {
     ValueArg<unsigned int> 
       numEventsArg("n", "numevents", "Max number of events to read (100000 by default)", 
                    false, 100000, "num", cmd);
-    
     UnlabeledValueArg<string>
       eventFileArg("eventfile", "File containing ASCII format HepMC events", true, "-", "filename", cmd);      
     
@@ -52,7 +51,7 @@ int main(int argc, char* argv[]) {
     Commandline::useLoggingArgs(cmd, logsArg, cfgLogLevels);
     cfgNumEvents = numEventsArg.getValue();
     cfgEventFile = eventFileArg.getValue();
-
+    
   } catch (ArgException& e) { 
     cerr << "Command line error: " << e.error() << " for arg " << e.argId() << endl; 
     return EXIT_FAILURE;
@@ -79,6 +78,7 @@ int main(int argc, char* argv[]) {
     log << Log::DEBUG << a->getBeams() << a->isCompatible(PROTON, PROTON) << endl;
     log << Log::INFO << "Cuts:" << a->getCuts() << endl;
     handler.addAnalysis(a->getName());
+    delete a;
   }
   handler.init();
 

@@ -4,6 +4,7 @@
 #include "osdir.hh"
 #include <dlfcn.h>
 
+
 namespace Rivet {
 
   bool AnalysisLoader::_loaded = false;
@@ -45,26 +46,24 @@ namespace Rivet {
 
 
   AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromFile(const string& filename, AnalysisBuilders& builders) {      
+    //cout << "Trying " << filename << endl;
     void* handle = dlopen((filename).c_str(), RTLD_LAZY); 
     if (!handle) {
       cerr << "Cannot open " << filename << ": " << dlerror() << endl;
       return builders;
-    } else {
-      // Store a list of libs to be neatly closed later
-      _handles.insert(handle);
-    }      
+    }
+    // Store a list of libs to be neatly closed later
+    _handles.insert(handle);
+     
     
-    //cout << "Loading symbol..." << endl;
     anabuilders_fn getBuilders = (anabuilders_fn) dlsym(handle, "getAnalysisBuilders");
     if (!getBuilders) {
-      //cerr << "Cannot load symbol 'getAnalysisBuilders': " << dlerror() << endl;
+      _handles.erase(handle);
       dlclose(handle);
       return builders;
     }
     
-    //cout << "Calling fn..." << endl;
     AnalysisBuilders mybuilders = getBuilders();
-    //cout << "Loading " << mybuilders.size() << " analyses from " << filename << endl;
     for (AnalysisBuilders::iterator b = mybuilders.begin(); b != mybuilders.end(); ++b) {
       builders[b->first] = b->second;
     }
@@ -76,8 +75,8 @@ namespace Rivet {
   void AnalysisLoader::closeAnalysisBuilders() {
     for (set<void*>::iterator h = _handles.begin(); h != _handles.end(); ++h) {
       if (*h) dlclose(*h);
-      _handles.erase(*h);
     }
+    _handles.clear();
   }
     
 
@@ -93,14 +92,14 @@ namespace Rivet {
       size_t posn = filename.find(SYSDSO);
       if (posn == string::npos || posn != filename.length()-SYSDSO.length()) continue;
       if (filename.find("Rivet") == string::npos) continue;
-      //cout << "Found dlopen()-able file: " << filename << endl;
       libfiles.insert(filename);
     }
     
     for (set<string>::const_iterator l = libfiles.begin(); l != libfiles.end(); ++l) {        
       // Make sure this is an abs path
       /// @todo Sys-dependent path separator instead of "/"
-      loadAnalysisBuildersFromFile(dirname + "/" + *l, builders);        
+      const string filename  = dirname + "/" + *l;
+      loadAnalysisBuildersFromFile(filename, builders);        
     }
     
     return builders;
@@ -120,6 +119,7 @@ namespace Rivet {
     char* env = 0;
     
     // Always (try to) use the Rivet library install path
+    //cout << "** LIBS = " << getInstalledLibPath() << endl;
     dirs.push_back(getInstalledLibPath());
     
     // Then use the Rivet analysis path variable

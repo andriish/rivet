@@ -38,7 +38,7 @@ namespace Rivet {
     AnalysisHandler(string basefilename="Rivet", HistoFormat storetype=AIDAML);
 
     /// The destructor is not virtual as this class should not be inherited from.
-    ~AnalysisHandler();
+    ~AnalysisHandler() {}
     //@}
 
   private:
@@ -65,7 +65,7 @@ namespace Rivet {
     /// Add an analysis to the run list by supplying a "template" analysis.
     /// @todo Is there a good reason to not allow "direct" submission?
     template <typename A>
-    inline AnalysisHandler& addAnalysis(const A& analysis) {
+    AnalysisHandler& addAnalysis(const A& analysis) {
       A* a = new A(analysis);
       a->_theHandler = this;
       _analyses.insert(a);

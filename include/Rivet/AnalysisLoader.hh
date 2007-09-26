@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #ifndef RIVET_AnalysisLoader_HH
-#define RIVET_AnalysisLoader_HH 1
+#define RIVET_AnalysisLoader_HH
 
 #include "Rivet/Rivet.hh"
 

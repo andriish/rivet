@@ -84,13 +84,6 @@ namespace Rivet {
   }
 
 
-  AnalysisHandler::~AnalysisHandler() {
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      delete *a;
-    }
-  }
-
-
   void AnalysisHandler::init(int i, int N) {
     _nRun = N;
     _iRun = i;
@@ -115,10 +108,19 @@ namespace Rivet {
     for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
       (*a)->finalize();
     }
+
+    // Change AIDA histos into data point sets
     log << Log::INFO << "Normalising the AIDA tree" << endl;
     assert(_theTree != 0);
     normalizeTree(tree());
     tree().commit();
+
+    // Delete analyses
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      delete *a;
+    }
+    _analyses.clear();
+    AnalysisLoader::closeAnalysisBuilders();
   }
 
 

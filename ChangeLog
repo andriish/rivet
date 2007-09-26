@@ -1,10 +1,20 @@
+2007-09-26  Andy Buckley  <andy@insectnation.org>
+
+	* Added the analysis library closer function to the
+	AnalysisHandler finalize() method, and also moved the analysis
+	delete loop into AnalysisHandler::finalize() so as not to try
+	deleting objects whose libraries have already closed.
+
+	* Replaced the RivetPaths.cc.in method for portable paths with
+	something using -D defines - much simpler!
+
 2007-09-21  Lars Sonnenschein  <sonne@mail.cern.ch>
 
 	* Added HepEx0505013 analysis and JetShape projection (some fixes
 	by AB.)
 
 	* Added GetLorentzJets member function to D0 RunII cone jet projection
-	
+
 2007-09-21  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed lots if bugs and bad practice in HepEx0505013 (to make it

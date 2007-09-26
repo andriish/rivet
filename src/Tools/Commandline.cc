@@ -1,5 +1,3 @@
-// $Id: $
-
 #include "Rivet/Rivet.hh"
 #include "Rivet/HistoFormat.hh"
 #include "Rivet/AnalysisHandler.hh"

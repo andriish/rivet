@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    inline TestAnalysis()
+    TestAnalysis()
       : _multproj(_fsproj), _thrustproj(_fsproj)
     {
       addProjection(_fsproj);
@@ -30,7 +30,7 @@ namespace Rivet {
     }
 
     /// Get the name of this analysis.
-    inline string getName() const {
+    string getName() const {
       return "Test";
     }
 
