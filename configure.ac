@@ -70,10 +70,11 @@ if test x$enable_debug == xyes; then
   [AM_CXXFLAGS="$AM_CXXFLAGS -g"]
 fi
 
-## KtJet double precision build
-## Needed? Does Rivet code actually use this preprocessor directive? Anyway, 
-## *if* needed, use AC_ARG_ENABLE instead of asking users to hack this file.
-#AM_CPPFLAGS="$AM_CPPFLAGS -DKTDOUBLEPRECISION"
+## KtJet double precision build? (default=single)
+AC_ARG_ENABLE([ktdouble], [AC_HELP_STRING(--enable-ktdouble, [building against KtJet library using double precision (default=single precision)])], [], [enable_ktdouble=no])
+if test x$enable_ktdouble == xyes; then
+  [AM_CXXFLAGS="$AM_CXXFLAGS -DKTDOUBLEPRECISION"]
+fi
 
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
