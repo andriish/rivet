@@ -40,10 +40,17 @@ namespace Rivet {
                                           const size_t yAxisId, const string& title) {
     stringstream axisCode;
     axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
+    getLog() << Log::DEBUG << "Getting histo bin edges for " << getName() << ":" << axisCode.str() << endl;
     const map<string, BinEdges> data = getBinEdges(getName());
+    getLog() << Log::DEBUG << "1" << endl;
     makeHistoDir();
+    getLog() << Log::DEBUG << "2" << endl;
     const string path = getHistoDir() + "/" + axisCode.str();
-    return histogramFactory().createHistogram1D(path, title, data.find(axisCode.str())->second);
+    getLog() << Log::DEBUG << "3" << endl;
+    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, data.find(axisCode.str())->second);
+    getLog() << Log::DEBUG << "4" << endl;
+    getLog() << Log::DEBUG << "Made histogram " << axisCode.str() <<  " for " << getName() << endl;
+    return hist;
   }
 
 

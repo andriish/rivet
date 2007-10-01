@@ -1,3 +1,12 @@
+2007-10-01  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed portable path to Rivet share directory.
+
+2007-09-28  Andy Buckley  <andy@insectnation.org>
+
+	* Added more functionality to the rivet-config script: now has
+	libdir, includedir, cppflags, ldflags and ldlibs options.
+
 2007-09-26  Andy Buckley  <andy@insectnation.org>
 
 	* Added the analysis library closer function to the

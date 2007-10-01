@@ -1,7 +1,5 @@
 #include "Rivet/Rivet.hh"
 
-#define STRINGIFY(x) #x
-
 namespace Rivet {
 
   const string getInstalledDataPath() {

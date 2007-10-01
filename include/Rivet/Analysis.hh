@@ -38,12 +38,6 @@ namespace Rivet {
 
   public:
 
-    /// Factory method for making an analysis - to be implemented in concrete classes.
-    /// @todo Does inheritance apply to statics? Is this useful in enforcing a uniform interface?
-    //static Analysis* create() = 0;
-
-  public:
-
     /// @name Standard constructors and destructors.
     //@{
 

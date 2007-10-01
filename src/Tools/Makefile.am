@@ -7,7 +7,7 @@ libRivetTools_la_SOURCES  = Logging.cc RivetAIDA.cc Commandline.cc RivetPaths.cc
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) \
   -I$(top_srcdir)/include/TinyXML \
   -DLWH_USING_AIDA \
-  -DRIVETDATADIR=\"$(datadir)\" \
+  -DRIVETDATADIR=\"$(datadir)/$(PACKAGE_TARNAME)\" \
   -DRIVETLIBDIR=\"$(libdir)\"
 libRivetTools_la_LIBADD   = libRivetMath.la
 if WITH_ROOT

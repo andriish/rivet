@@ -36,6 +36,7 @@ namespace Rivet {
     if (doc.Error()) {
       string err = "Error in " + string(doc.Value());
       err += ": " + string(doc.ErrorDesc());
+      cerr << err << endl;
       throw runtime_error(err);
     }
 

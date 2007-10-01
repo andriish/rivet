@@ -88,8 +88,11 @@ namespace Rivet {
     _nRun = N;
     _iRun = i;
     for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      getLog() << Log::DEBUG << "Initialising analysis: " << (*a)->getName() << endl;
       (*a)->init();
+      getLog() << Log::DEBUG << "Checking consistency of analysis: " << (*a)->getName() << endl;
       (*a)->checkConsistency();
+      getLog() << Log::DEBUG << "Done initialising analysis: " << (*a)->getName() << endl;
     }
   }
 
