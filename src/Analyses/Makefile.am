@@ -7,6 +7,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     HepEx0112029.cc \
     HepEx0409040.cc \
     HepEx0505013.cc \
+    HepEx0701051.cc \
     PL273B181.cc    \
     PRD65092002.cc  \
     ZPhys73C11.cc
