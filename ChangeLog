@@ -1,3 +1,10 @@
+2007-10-02  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed possible null-pointer dereference in Particle copy
+	constructor and copy assignment: this removes one of two blocker
+	segfaults, the other of which is related to the copy-assignment of
+	the TotalVisMomentum projection in the ExampleTree analysis.
+
 2007-10-01  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed portable path to Rivet share directory.

@@ -26,7 +26,7 @@ namespace Rivet {
     _hAvQ2 = bookHistogram1D("23tmp", "<Q2> vs kin. bin", _nbin, 1.0, 10.0);
     _hN    = bookHistogram1D("24", "# events vs kin. bin", _nbin, 1.0, 10.0);
   }
-
+  
 
   int HepEx9506012::getbin(const DISKinematics& dk) {
     const double GeV2 = GeV*GeV;
@@ -72,14 +72,14 @@ namespace Rivet {
     for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
       double rap = fs.particles()[i].getMomentum().rapidity();
       double et = fs.particles()[i].getMomentum().et();
-      _hEtFlow[ibin]->fill(rap, weight*et/GeV);
-      _hEtFlowStat[ibin]->fill(rap, weight*et/GeV);
+      _hEtFlow[ibin]->fill(rap, weight * et/GeV);
+      _hEtFlowStat[ibin]->fill(rap, weight * et/GeV);
     }
 
     _nev[ibin] += weight;
-    _hAvEt->fill(ibin + 1.5, weight*y1.sumEt()/GeV);
-    _hAvX->fill(ibin + 1.5, weight*dk.x());
-    _hAvQ2->fill(ibin + 1.5, weight*dk.Q2()/(GeV*GeV));
+    _hAvEt->fill(ibin + 1.5, weight * y1.sumEt()/GeV);
+    _hAvX->fill(ibin + 1.5, weight * dk.x());
+    _hAvQ2->fill(ibin + 1.5, weight * dk.Q2()/(GeV*GeV));
     _hN->fill(ibin + 1.5, weight);
   }
 

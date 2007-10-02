@@ -28,9 +28,12 @@ namespace Rivet {
 
     /// Default constructor
     inline ExampleTree()
-      : _fsproj(-4.0, 4.0, 0.0), _chgleptonsproj(_fsproj), 
-        _ktjetsproj(_fsproj), _wzandhproj(), _vfsproj(_fsproj),
-        _totvismomproj(_fsproj)
+      : _fsproj(-4.0, 4.0, 0.0), 
+        _chgleptonsproj(_fsproj), 
+        _ktjetsproj(_fsproj), 
+        _wzandhproj(), 
+        _vfsproj(_fsproj),
+        _totvismomproj(_vfsproj)
     {
       /// Particle IDs for neutrinos and antineutrinos and LSP
       _vfsproj
@@ -41,6 +44,7 @@ namespace Rivet {
         .addVetoId(-14)
         .addVetoId(-16)
         .addVetoId(1000022);
+      /// @todo BLOCKER! Something is going wrong here!
       _totvismomproj = TotalVisibleMomentum(_vfsproj);
 
       addProjection(_fsproj);
@@ -51,7 +55,7 @@ namespace Rivet {
       addProjection(_totvismomproj);
     }
 
-    inline ~ExampleTree() {}
+    inline ~ExampleTree() { }
 
   public:
 
@@ -63,7 +67,6 @@ namespace Rivet {
       return "ExampleTree";
     }
 
-  public:
 
     /// Initialise the analysis.
     void init();
@@ -96,21 +99,17 @@ namespace Rivet {
     TotalVisibleMomentum _totvismomproj;
 
 
-#ifdef HAVE_ROOT
-  private:
-
+    #ifdef HAVE_ROOT
     /// The tree
     TTree* _rivetTree;
-
+    
     /// The file for the Tree
     TFile* _treeFile;
 
     /// The filename
     TString _treeFileName;
-#endif
-
-
-  private:
+    #endif
+    
 
     /// @name The ntuple variables.
     //@{

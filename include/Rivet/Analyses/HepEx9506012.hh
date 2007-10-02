@@ -17,7 +17,7 @@ namespace Rivet {
 
     /// The default constructor.
     inline HepEx9506012()
-      : _beamsproj(), 
+      : _fsproj(), _beamsproj(), 
         _leptonproj(_beamsproj, _fsproj, ELECTRON, POSITRON), 
         _diskinproj(_beamsproj, _leptonproj, PROTON),
         _fshcmproj(_leptonproj, _diskinproj, _fsproj), 
@@ -59,6 +59,9 @@ namespace Rivet {
 
 
   private:
+
+    /// The FinalState projector used.
+    FinalState _fsproj;
     
     /// The Beam projector used.
     Beam _beamsproj;
@@ -68,9 +71,6 @@ namespace Rivet {
     
     /// The DISKinematics projector used.
     DISKinematics _diskinproj;
-    
-    /// The FinalState projector used.
-    FinalState _fsproj;
     
     /// The FinalStateHCM projector used.
     FinalStateHCM _fshcmproj;

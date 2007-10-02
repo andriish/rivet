@@ -6,7 +6,8 @@
 namespace Rivet {
 
   Particle::Particle(const GenParticle& gp)
-    : _original(&gp), _id(gp.pdg_id()), _momentum(0) {
+    : _original(&gp), _id(gp.pdg_id()), 
+      _momentum(0), _mass(0.) {
     _momentum = new CLHEP::LorentzVector(gp.momentum().x(), gp.momentum().y(), 
                                          gp.momentum().z(), gp.momentum().t());
     _mass = gp.momentum().m();
@@ -15,9 +16,16 @@ namespace Rivet {
   
   Particle::Particle(const Particle& p)
     : _original(p._original), _id(p._id), 
-      _momentum(new CLHEP::LorentzVector(*p._momentum)), 
-      _mass(p._mass) 
-  { }
+      _momentum(0), _mass(p._mass) 
+  { 
+    if (p._momentum) {
+      _momentum = new CLHEP::LorentzVector(*p._momentum);
+    } else if (p._original) {
+      const GenParticle& gp = *p._original;
+      _momentum = new CLHEP::LorentzVector(gp.momentum().x(), gp.momentum().y(), 
+                                           gp.momentum().z(), gp.momentum().t());
+    }
+  }
   
   
   Particle::~Particle() {
@@ -29,8 +37,15 @@ namespace Rivet {
     if (&p != this) {
       _original = p._original;
       _id = p._id;
-      _momentum = new CLHEP::LorentzVector(*p._momentum);
       _mass = p._mass;
+
+      if (p._momentum) {
+        _momentum = new CLHEP::LorentzVector(*p._momentum);
+      } else if (p._original) {
+        const GenParticle& gp = *p._original;
+        _momentum = new CLHEP::LorentzVector(gp.momentum().x(), gp.momentum().y(), 
+                                             gp.momentum().z(), gp.momentum().t());
+      }
     }
     return *this;
   }

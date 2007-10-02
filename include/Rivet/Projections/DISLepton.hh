@@ -22,8 +22,11 @@ namespace Rivet {
     /// also specify a Beam and FinalState projection object which is
     /// assumed to live thoughout the run.
     inline DISLepton(Beam& beam, FinalState& fsp,
-		     const ParticleName& inid, const ParticleName& outid)
-      : _beamproj(beam), _fsproj(fsp), _idin(inid), _idout(outid) 
+                     const ParticleName& inid, const ParticleName& outid)
+      : _fsproj(fsp), 
+        _beamproj(beam), 
+        _idin(inid), 
+        _idout(outid) 
     {
       _beamPairs.insert(BeamPair(inid, ANY));
       addProjection(_beamproj);
@@ -55,12 +58,12 @@ namespace Rivet {
     
   private:
     
-    /// The Beam projector object defining the incoming beam particles.
-    Beam _beamproj;
-    
     /// The FinalState projection used by this projection
     FinalState _fsproj;
 
+    /// The Beam projector object defining the incoming beam particles.
+    Beam _beamproj;
+    
     /// The PDG id of the incoming lepton.
     long _idin;
     

@@ -114,6 +114,7 @@ namespace Rivet {
     inline virtual const set<BeamPair> getBeamPairs() const {
       set<BeamPair> ret = _beamPairs;
       for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+        //cout << "Proj addr = " << *p << endl;
         ret = intersection(ret, (*p)->getBeamPairs());
       }
       return ret;
