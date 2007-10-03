@@ -1,997 +1,403 @@
 <hepml>
- <data>
-  <paper spiresId="None" redId="None">
-   <modification who="MRW" when="21 AUG 1995" />
+ <data timestamp="2007-10-03T13:40:03.375410">
+  <paper spiresId="3167097" redId="7114">
+   <title>
+    Transverse energy and forward jet production in the low x regime at HERA
+   </title>
+   <modification who="SRS" when="20 SEP 1995" />
    <comment>
-    DESY-HERA. Study of the fragmentation in deep inelastic e- p scattering from the H1 Collaboration.. Numerical values supplied by D. Kant.
+    DESY-HERA. Transverse Energy and Forward Jet Production in the Low x Regime at HERA
    </comment>
-   <author name="AID" />
-   <reference description="DESY-95-072" />
-   <author name="AID" />
-   <reference description="NP B445,3" />
-   <dataset id="ds-7539-1" datasetId="1">
-    <comment>
-     Distribution of the cosine of the Breit frame polar angle for data with the Breit frame energy flow selection. Statistical errors only.
-    </comment>
-    <comment>
-     Location: F 2
-    </comment>
-    <xaxis id="xax-7539-1-1" xaxisId="1" header="COS(THETA)">
-     <bins>
-      <bin binId="1" relation="eq" center="-1.0" />
-      <bin binId="2" relation="eq" center="-0.9" />
-      <bin binId="3" relation="eq" center="-0.8" />
-      <bin binId="4" relation="eq" center="-0.7" />
-      <bin binId="5" relation="eq" center="-0.6" />
-      <bin binId="6" relation="eq" center="-0.5" />
-      <bin binId="7" relation="eq" center="-0.4" />
-      <bin binId="8" relation="eq" center="-0.3" />
-      <bin binId="9" relation="eq" center="-0.2" />
-      <bin binId="10" relation="eq" center="-0.1" />
-      <bin binId="11" relation="eq" center="0.0" />
-      <bin binId="12" relation="eq" center="0.1" />
-      <bin binId="13" relation="eq" center="0.2" />
-      <bin binId="14" relation="eq" center="0.3" />
-      <bin binId="15" relation="eq" center="0.4" />
-      <bin binId="16" relation="eq" center="0.5" />
-      <bin binId="17" relation="eq" center="0.6" />
-      <bin binId="18" relation="eq" center="0.7" />
-      <bin binId="19" relation="eq" center="0.8" />
-      <bin binId="20" relation="eq" center="0.9" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-7539-1-1" header="(1/N(C=TOTAL))*DN(P=4)/DCOS(THETA)">
-     <reaction id="reac-7539-1-1-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="12" high="80" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-1-1-1" pointId="1" value="2.85" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.17" minus="0.17" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-2" pointId="2" value="2.44" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.15" minus="0.15" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-3" pointId="3" value="2.25" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.15" minus="0.15" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-4" pointId="4" value="2.05" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-5" pointId="5" value="2.0" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-6" pointId="6" value="2.05" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-7" pointId="7" value="1.89" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-8" pointId="8" value="1.81" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-9" pointId="9" value="1.73" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-10" pointId="10" value="1.47" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-11" pointId="11" value="1.58" relation="eq">
-       <pointerror pointId="11" pointerrorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-12" pointId="12" value="1.77" relation="eq">
-       <pointerror pointId="12" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-13" pointId="13" value="1.91" relation="eq">
-       <pointerror pointId="13" pointerrorId="1" plus="0.15" minus="0.15" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-14" pointId="14" value="1.78" relation="eq">
-       <pointerror pointId="14" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-15" pointId="15" value="1.86" relation="eq">
-       <pointerror pointId="15" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-16" pointId="16" value="2.11" relation="eq">
-       <pointerror pointId="16" pointerrorId="1" plus="0.15" minus="0.15" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-17" pointId="17" value="2.57" relation="eq">
-       <pointerror pointId="17" pointerrorId="1" plus="0.16" minus="0.16" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-18" pointId="18" value="3.27" relation="eq">
-       <pointerror pointId="18" pointerrorId="1" plus="0.19" minus="0.19" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-19" pointId="19" value="4.65" relation="eq">
-       <pointerror pointId="19" pointerrorId="1" plus="0.22" minus="0.22" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-1-20" pointId="20" value="10.32" relation="eq">
-       <pointerror pointId="20" pointerrorId="1" plus="0.33" minus="0.33" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-    <yaxis id="yax-7539-1-2" header="(1/N(C=TOTAL))*DN(P=4)/DCOS(THETA)">
-     <reaction id="reac-7539-1-2-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="100" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-1-2-1" pointId="1" value="14.7" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="1.10" minus="1.10" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-2" pointId="2" value="6.4" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.63" minus="0.63" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-3" pointId="3" value="5.1" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.56" minus="0.56" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-4" pointId="4" value="3.16" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.42" minus="0.42" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-5" pointId="5" value="4.04" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.49" minus="0.49" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-6" pointId="6" value="2.98" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.41" minus="0.41" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-7" pointId="7" value="2.32" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.37" minus="0.37" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-8" pointId="8" value="1.98" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.34" minus="0.34" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-9" pointId="9" value="2.48" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.39" minus="0.39" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-10" pointId="10" value="2.53" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.39" minus="0.39" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-11" pointId="11" value="1.66" relation="eq">
-       <pointerror pointId="11" pointerrorId="1" plus="0.31" minus="0.31" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-12" pointId="12" value="1.43" relation="eq">
-       <pointerror pointId="12" pointerrorId="1" plus="0.29" minus="0.29" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-13" pointId="13" value="1.89" relation="eq">
-       <pointerror pointId="13" pointerrorId="1" plus="0.35" minus="0.35" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-14" pointId="14" value="1.6" relation="eq">
-       <pointerror pointId="14" pointerrorId="1" plus="0.32" minus="0.32" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-15" pointId="15" value="2.6" relation="eq">
-       <pointerror pointId="15" pointerrorId="1" plus="0.41" minus="0.41" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-16" pointId="16" value="2.5" relation="eq">
-       <pointerror pointId="16" pointerrorId="1" plus="0.40" minus="0.40" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-17" pointId="17" value="3.11" relation="eq">
-       <pointerror pointId="17" pointerrorId="1" plus="0.43" minus="0.43" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-18" pointId="18" value="3.9" relation="eq">
-       <pointerror pointId="18" pointerrorId="1" plus="0.50" minus="0.50" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-19" pointId="19" value="5.93" relation="eq">
-       <pointerror pointId="19" pointerrorId="1" plus="0.63" minus="0.63" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-1-2-20" pointId="20" value="11.2" relation="eq">
-       <pointerror pointId="20" pointerrorId="1" plus="0.94" minus="0.94" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-   </dataset>
-   <dataset id="ds-7539-2" datasetId="2">
-    <comment>
-     Distribution of the cosine of the Breit frame polar angle for data before the Breit frame energy flow selection. Statistical errors only.
-    </comment>
-    <comment>
-     Location: F 2
-    </comment>
-    <xaxis id="xax-7539-2-1" xaxisId="1" header="COS(THETA)">
-     <bins>
-      <bin binId="1" relation="eq" center="-1.0" />
-      <bin binId="2" relation="eq" center="-0.9" />
-      <bin binId="3" relation="eq" center="-0.8" />
-      <bin binId="4" relation="eq" center="-0.7" />
-      <bin binId="5" relation="eq" center="-0.6" />
-      <bin binId="6" relation="eq" center="-0.5" />
-      <bin binId="7" relation="eq" center="-0.4" />
-      <bin binId="8" relation="eq" center="-0.3" />
-      <bin binId="9" relation="eq" center="-0.2" />
-      <bin binId="10" relation="eq" center="-0.1" />
-      <bin binId="11" relation="eq" center="0.0" />
-      <bin binId="12" relation="eq" center="0.1" />
-      <bin binId="13" relation="eq" center="0.2" />
-      <bin binId="14" relation="eq" center="0.3" />
-      <bin binId="15" relation="eq" center="0.4" />
-      <bin binId="16" relation="eq" center="0.5" />
-      <bin binId="17" relation="eq" center="0.6" />
-      <bin binId="18" relation="eq" center="0.7" />
-      <bin binId="19" relation="eq" center="0.8" />
-      <bin binId="20" relation="eq" center="0.9" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-7539-2-1" header="(1/N(C=TOTAL))*DN(P=4)/DCOS(THETA)">
-     <reaction id="reac-7539-2-1-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="12" high="80" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-2-1-1" pointId="1" value="2.27" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-2" pointId="2" value="1.9" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-3" pointId="3" value="1.9" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-4" pointId="4" value="1.81" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-5" pointId="5" value="1.75" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.10" minus="0.10" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-6" pointId="6" value="1.84" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-7" pointId="7" value="1.73" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-8" pointId="8" value="1.74" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-9" pointId="9" value="1.65" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-10" pointId="10" value="1.57" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-11" pointId="11" value="1.65" relation="eq">
-       <pointerror pointId="11" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-12" pointId="12" value="1.87" relation="eq">
-       <pointerror pointId="12" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-13" pointId="13" value="1.93" relation="eq">
-       <pointerror pointId="13" pointerrorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-14" pointId="14" value="2.1" relation="eq">
-       <pointerror pointId="14" pointerrorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-15" pointId="15" value="2.36" relation="eq">
-       <pointerror pointId="15" pointerrorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-16" pointId="16" value="2.43" relation="eq">
-       <pointerror pointId="16" pointerrorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-17" pointId="17" value="3.09" relation="eq">
-       <pointerror pointId="17" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-18" pointId="18" value="3.91" relation="eq">
-       <pointerror pointId="18" pointerrorId="1" plus="0.16" minus="0.16" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-19" pointId="19" value="5.63" relation="eq">
-       <pointerror pointId="19" pointerrorId="1" plus="0.20" minus="0.20" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-1-20" pointId="20" value="11.63" relation="eq">
-       <pointerror pointId="20" pointerrorId="1" plus="0.28" minus="0.28" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-    <yaxis id="yax-7539-2-2" header="(1/N(C=TOTAL))*DN(P=4)/DCOS(THETA)">
-     <reaction id="reac-7539-2-2-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="100" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-2-2-1" pointId="1" value="12.13" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.88" minus="0.88" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-2" pointId="2" value="5.28" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.52" minus="0.52" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-3" pointId="3" value="4.29" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.46" minus="0.46" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-4" pointId="4" value="2.89" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.36" minus="0.36" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-5" pointId="5" value="3.43" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.41" minus="0.41" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-6" pointId="6" value="2.69" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.35" minus="0.35" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-7" pointId="7" value="2.16" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.32" minus="0.32" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-8" pointId="8" value="1.97" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.30" minus="0.30" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-9" pointId="9" value="2.27" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.33" minus="0.33" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-10" pointId="10" value="2.46" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.34" minus="0.34" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-11" pointId="11" value="1.99" relation="eq">
-       <pointerror pointId="11" pointerrorId="1" plus="0.30" minus="0.30" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-12" pointId="12" value="1.46" relation="eq">
-       <pointerror pointId="12" pointerrorId="1" plus="0.26" minus="0.26" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-13" pointId="13" value="2.2" relation="eq">
-       <pointerror pointId="13" pointerrorId="1" plus="0.32" minus="0.32" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-14" pointId="14" value="1.96" relation="eq">
-       <pointerror pointId="14" pointerrorId="1" plus="0.30" minus="0.30" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-15" pointId="15" value="2.97" relation="eq">
-       <pointerror pointId="15" pointerrorId="1" plus="0.38" minus="0.38" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-16" pointId="16" value="3.15" relation="eq">
-       <pointerror pointId="16" pointerrorId="1" plus="0.39" minus="0.39" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-17" pointId="17" value="2.99" relation="eq">
-       <pointerror pointId="17" pointerrorId="1" plus="0.37" minus="0.37" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-18" pointId="18" value="4.24" relation="eq">
-       <pointerror pointId="18" pointerrorId="1" plus="0.46" minus="0.46" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-19" pointId="19" value="6.25" relation="eq">
-       <pointerror pointId="19" pointerrorId="1" plus="0.57" minus="0.57" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-2-2-20" pointId="20" value="12.05" relation="eq">
-       <pointerror pointId="20" pointerrorId="1" plus="0.86" minus="0.86" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-   </dataset>
-   <dataset id="ds-7539-3" datasetId="3">
-    <comment>
-     The fragmentation function for the current hemisphere of the Breit frame. Data are Breit frame energy flow selected only. Statistical errors only.
-    </comment>
-    <comment>
-     Location: F 3
-    </comment>
-    <xaxis id="xax-7539-3-1" xaxisId="1" header="X(DEF=2*P(P=4)/SQRT(S))">
-     <bins>
-      <bin binId="1" relation="eq" low="0.0" high="0.1" />
-      <bin binId="2" relation="eq" low="0.1" high="0.2" />
-      <bin binId="3" relation="eq" low="0.2" high="0.3" />
-      <bin binId="4" relation="eq" low="0.3" high="0.4" />
-      <bin binId="5" relation="eq" low="0.4" high="0.5" />
-      <bin binId="6" relation="eq" low="0.5" high="0.6" />
-      <bin binId="7" relation="eq" low="0.6" high="0.7" />
-      <bin binId="8" relation="eq" low="0.7" high="0.8" />
-      <bin binId="9" relation="eq" low="0.8" high="0.9" />
-      <bin binId="10" relation="eq" low="0.9" high="1.0" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-7539-3-1" header="(1/N(C=TOTAL))*DN(P=4)/DX">
-     <reaction id="reac-7539-3-1-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED+" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="12" high="80" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-3-1-1" pointId="1" value="2.49" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.17" minus="0.17" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-2" pointId="2" value="3.29" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.19" minus="0.19" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-3" pointId="3" value="2.0" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-4" pointId="4" value="1.16" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-5" pointId="5" value="0.73" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.08" minus="0.08" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-6" pointId="6" value="0.29" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.05" minus="0.05" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-7" pointId="7" value="0.21" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.04" minus="0.04" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-8" pointId="8" value="0.15" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.03" minus="0.03" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-9" pointId="9" value="0.05" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.02" minus="0.02" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-1-10" pointId="10" value="0.05" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.02" minus="0.02" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-    <yaxis id="yax-7539-3-2" header="(1/N(C=TOTAL))*DN(P=4)/DX">
-     <reaction id="reac-7539-3-2-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED+" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="12" high="80" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-3-2-1" pointId="1" value="2.44" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.16" minus="0.16" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-2" pointId="2" value="3.27" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.18" minus="0.18" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-3" pointId="3" value="2.05" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-4" pointId="4" value="1.1" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.10" minus="0.10" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-5" pointId="5" value="0.56" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.07" minus="0.07" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-6" pointId="6" value="0.42" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.06" minus="0.06" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-7" pointId="7" value="0.19" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.04" minus="0.04" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-8" pointId="8" value="0.11" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.03" minus="0.03" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-9" pointId="9" value="0.07" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.02" minus="0.02" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-2-10" pointId="10" value="0.008" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.005" minus="0.005" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-    <yaxis id="yax-7539-3-3" header="(1/N(C=TOTAL))*DN(P=4)/DX">
-     <reaction id="reac-7539-3-3-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED-" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="100" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-3-3-1" pointId="1" value="13.27" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.93" minus="0.93" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-2" pointId="2" value="5.27" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.58" minus="0.58" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-3" pointId="3" value="2.35" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.39" minus="0.39" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-4" pointId="4" value="0.65" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.20" minus="0.20" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-5" pointId="5" value="0.74" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.23" minus="0.23" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-6" pointId="6" value="0.25" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-7" pointId="7" value="0.1" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.07" minus="0.07" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-8" pointId="8" value="0.17" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-9" pointId="9" value="0.0" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.00" minus="0.00" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-3-10" pointId="10" value="0.0" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.00" minus="0.00" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-    <yaxis id="yax-7539-3-4" header="(1/N(C=TOTAL))*DN(P=4)/DX">
-     <reaction id="reac-7539-3-4-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED-" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="100" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-3-4-1" pointId="1" value="13.68" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.93" minus="0.93" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-2" pointId="2" value="5.62" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.60" minus="0.60" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-3" pointId="3" value="1.91" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.35" minus="0.35" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-4" pointId="4" value="0.86" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.23" minus="0.23" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-5" pointId="5" value="0.61" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.20" minus="0.20" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-6" pointId="6" value="0.17" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.10" minus="0.10" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-7" pointId="7" value="0.17" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.10" minus="0.10" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-8" pointId="8" value="0.0" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.00" minus="0.00" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-9" pointId="9" value="0.12" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.14" minus="0.14" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-3-4-10" pointId="10" value="0.0" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.00" minus="0.00" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-   </dataset>
-   <dataset id="ds-7539-4" datasetId="4">
-    <comment>
-     Fragmentation function for Breit frame energy flow selected events for the current hemisphere as a function ln(1/x). Statistical errors only.
-    </comment>
-    <comment>
-     Location: F 4
-    </comment>
-    <xaxis id="xax-7539-4-1" xaxisId="1" header="LN(1/X(DEF=2*P(P=4)/SQRT(S)))">
-     <bins>
-      <bin binId="1" relation="eq" low="0.0" high="0.2" />
-      <bin binId="2" relation="eq" low="0.2" high="0.4" />
-      <bin binId="3" relation="eq" low="0.4" high="0.6" />
-      <bin binId="4" relation="eq" low="0.6" high="0.8" />
-      <bin binId="5" relation="eq" low="0.8" high="1.0" />
-      <bin binId="6" relation="eq" low="1.0" high="1.2" />
-      <bin binId="7" relation="eq" low="1.2" high="1.4" />
-      <bin binId="8" relation="eq" low="1.4" high="1.6" />
-      <bin binId="9" relation="eq" low="1.6" high="1.8" />
-      <bin binId="10" relation="eq" low="1.8" high="2.0" />
-      <bin binId="11" relation="eq" low="2.0" high="2.2" />
-      <bin binId="12" relation="eq" low="2.2" high="2.4" />
-      <bin binId="13" relation="eq" low="2.4" high="2.6" />
-      <bin binId="14" relation="eq" low="2.6" high="2.8" />
-      <bin binId="15" relation="eq" low="2.8" high="3.0" />
-      <bin binId="16" relation="eq" low="3.0" high="3.2" />
-      <bin binId="17" relation="eq" low="3.2" high="3.4" />
-      <bin binId="18" relation="eq" low="3.4" high="3.6" />
-      <bin binId="19" relation="eq" low="3.6" high="3.8" />
-      <bin binId="20" relation="eq" low="3.8" high="4.0" />
-      <bin binId="21" relation="eq" low="4.0" high="4.2" />
-      <bin binId="22" relation="eq" low="4.2" high="4.4" />
-      <bin binId="23" relation="eq" low="4.4" high="4.6" />
-      <bin binId="24" relation="eq" low="4.6" high="4.8" />
-      <bin binId="25" relation="eq" low="4.8" high="5.0" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-7539-4-1" header="(1/N(C=TOTAL))*DN(P=4)/DLN(1/X)">
-     <reaction id="reac-7539-4-1-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="12" high="80" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-4-1-1" pointId="1" value="0.066" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.013" minus="0.013" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-2" pointId="2" value="0.21" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.028" minus="0.028" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-3" pointId="3" value="0.298" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.034" minus="0.034" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-4" pointId="4" value="0.504" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.048" minus="0.048" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-5" pointId="5" value="0.661" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.054" minus="0.054" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-6" pointId="6" value="0.789" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.061" minus="0.061" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-7" pointId="7" value="1.0" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.070" minus="0.070" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-8" pointId="8" value="1.0" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.069" minus="0.069" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-9" pointId="9" value="1.116" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.075" minus="0.075" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-10" pointId="10" value="1.042" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.074" minus="0.074" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-11" pointId="11" value="0.836" relation="eq">
-       <pointerror pointId="11" pointerrorId="1" plus="0.064" minus="0.064" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-12" pointId="12" value="0.761" relation="eq">
-       <pointerror pointId="12" pointerrorId="1" plus="0.062" minus="0.062" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-13" pointId="13" value="0.595" relation="eq">
-       <pointerror pointId="13" pointerrorId="1" plus="0.056" minus="0.056" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-14" pointId="14" value="0.434" relation="eq">
-       <pointerror pointId="14" pointerrorId="1" plus="0.047" minus="0.047" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-15" pointId="15" value="0.402" relation="eq">
-       <pointerror pointId="15" pointerrorId="1" plus="0.049" minus="0.049" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-16" pointId="16" value="0.254" relation="eq">
-       <pointerror pointId="16" pointerrorId="1" plus="0.037" minus="0.037" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-17" pointId="17" value="0.142" relation="eq">
-       <pointerror pointId="17" pointerrorId="1" plus="0.026" minus="0.026" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-18" pointId="18" value="0.105" relation="eq">
-       <pointerror pointId="18" pointerrorId="1" plus="0.025" minus="0.025" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-19" pointId="19" value="0.04" relation="eq">
-       <pointerror pointId="19" pointerrorId="1" plus="0.015" minus="0.015" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-20" pointId="20" value="0.012" relation="eq">
-       <pointerror pointId="20" pointerrorId="1" plus="0.007" minus="0.007" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-21" pointId="21" value="0.017" relation="eq">
-       <pointerror pointId="21" pointerrorId="1" plus="0.009" minus="0.009" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-22" pointId="22" value="0.019" relation="eq">
-       <pointerror pointId="22" pointerrorId="1" plus="0.013" minus="0.013" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-23" pointId="23" value="0.0" relation="eq">
-       <pointerror pointId="23" pointerrorId="1" plus="0.000" minus="0.000" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-24" pointId="24" value="0.018" relation="eq">
-       <pointerror pointId="24" pointerrorId="1" plus="0.023" minus="0.023" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-1-25" pointId="25" value="0.0" relation="eq">
-       <pointerror pointId="25" pointerrorId="1" plus="0.000" minus="0.000" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-    <yaxis id="yax-7539-4-2" header="(1/N(C=TOTAL))*DN(P=4)/DLN(1/X)">
-     <reaction id="reac-7539-4-2-1">
-      <initialstate>
-       <particle name="E-" />
-       <particle name="P" />
-      </initialstate>
-      <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
-      </finalstate>
-     </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="Q**2" unit="GEV**2" low="100" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
-     <points>
-      <point id="pt-7539-4-2-1" pointId="1" value="0.015" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.016" minus="0.016" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-2" pointId="2" value="0.078" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.047" minus="0.047" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-3" pointId="3" value="0.227" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.084" minus="0.084" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-4" pointId="4" value="0.557" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.140" minus="0.140" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-5" pointId="5" value="0.318" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.098" minus="0.098" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-6" pointId="6" value="0.669" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.144" minus="0.144" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-7" pointId="7" value="0.946" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.171" minus="0.171" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-8" pointId="8" value="1.06" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.188" minus="0.188" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-9" pointId="9" value="1.625" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.230" minus="0.230" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-10" pointId="10" value="1.555" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.223" minus="0.223" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-11" pointId="11" value="1.402" relation="eq">
-       <pointerror pointId="11" pointerrorId="1" plus="0.210" minus="0.210" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-12" pointId="12" value="1.844" relation="eq">
-       <pointerror pointId="12" pointerrorId="1" plus="0.246" minus="0.246" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-13" pointId="13" value="1.915" relation="eq">
-       <pointerror pointId="13" pointerrorId="1" plus="0.250" minus="0.250" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-14" pointId="14" value="1.718" relation="eq">
-       <pointerror pointId="14" pointerrorId="1" plus="0.241" minus="0.241" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-15" pointId="15" value="1.758" relation="eq">
-       <pointerror pointId="15" pointerrorId="1" plus="0.233" minus="0.233" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-16" pointId="16" value="1.529" relation="eq">
-       <pointerror pointId="16" pointerrorId="1" plus="0.219" minus="0.219" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-17" pointId="17" value="1.391" relation="eq">
-       <pointerror pointId="17" pointerrorId="1" plus="0.216" minus="0.216" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-18" pointId="18" value="1.177" relation="eq">
-       <pointerror pointId="18" pointerrorId="1" plus="0.193" minus="0.193" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-19" pointId="19" value="0.906" relation="eq">
-       <pointerror pointId="19" pointerrorId="1" plus="0.168" minus="0.168" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-20" pointId="20" value="0.675" relation="eq">
-       <pointerror pointId="20" pointerrorId="1" plus="0.150" minus="0.150" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-21" pointId="21" value="0.562" relation="eq">
-       <pointerror pointId="21" pointerrorId="1" plus="0.133" minus="0.133" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-22" pointId="22" value="0.18" relation="eq">
-       <pointerror pointId="22" pointerrorId="1" plus="0.075" minus="0.075" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-23" pointId="23" value="0.185" relation="eq">
-       <pointerror pointId="23" pointerrorId="1" plus="0.078" minus="0.078" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-24" pointId="24" value="0.241" relation="eq">
-       <pointerror pointId="24" pointerrorId="1" plus="0.090" minus="0.090" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-4-2-25" pointId="25" value="0.125" relation="eq">
-       <pointerror pointId="25" pointerrorId="1" plus="0.066" minus="0.066" source="unknown" norm="abs" />
-      </point>
-     </points>
-    </yaxis>
-   </dataset>
-   <dataset id="ds-7539-5" datasetId="5">
-    <comment>
-     Average charged particle multiplicity using energy flow selection.
-    </comment>
+   <author>
+    AID
+   </author>
+   <reference description="DESY-95-108" />
+   <author>
+    AID
+   </author>
+   <reference description="PL 356B,118" />
+   <experiment name="DESY-HERA-H1" laboratory="DESY-HERA" informalname="H1" />
+   <dataset id="ds-7507-1" datasetId="1">
     <comment>
      Location: T 2
     </comment>
-    <xaxis id="xax-7539-5-1" xaxisId="1" header="Q**2 IN GEV**2">
+    <xaxis id="xax-7507-1-1" xaxisId="1" header="X">
      <bins>
-      <bin binId="1" relation="eq" low="12.0" high="15.0" />
-      <bin binId="2" relation="eq" low="15.0" high="20.0" />
-      <bin binId="3" relation="eq" low="20.0" high="40.0" />
-      <bin binId="4" relation="eq" low="40.0" high="60.0" />
-      <bin binId="5" relation="eq" low="60.0" high="80.0" />
-      <bin binId="6" relation="eq" low="100.0" high="175.0" />
-      <bin binId="7" relation="eq" low="175.0" high="250.0" />
-      <bin binId="8" relation="eq" low="250.0" high="450.0" />
-      <bin binId="9" relation="eq" low="450.0" high="1000.0" />
-      <bin binId="10" relation="eq" low="1000.0" high="8000.0" />
+      <bin binId="1" low="0.0002" high="0.001" />
+      <bin binId="2" low="0.001" high="0.002" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7539-5-1" header="MULT">
-     <reaction id="reac-7539-5-1-1">
+    <yaxis id="yax-7507-1-1" header="SIG IN PB">
+     <reaction>
       <initialstate>
        <particle name="E-" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
+     <observable name="SIG" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <property name="Q**2" unit="GEV**2" error="None" low="20" high="20" />
+     <comment>
+      RE : E- P --&gt; E- JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7539-5-1-1" pointId="1" value="1.54" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
+      <point id="pt-7507-1-1-1" pointId="1" value="709.0" relation="eq">
+       <error errorId="1" plus="42.0" minus="42.0" source="stat" norm="abs" />
+       <error errorId="2" plus="166.0" minus="166.0" source="sys" norm="abs" />
       </point>
-      <point id="pt-7539-5-1-2" pointId="2" value="1.77" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.10" minus="0.10" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-3" pointId="3" value="2.18" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.08" minus="0.08" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-4" pointId="4" value="2.6" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-5" pointId="5" value="3.2" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.19" minus="0.19" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-6" pointId="6" value="4.05" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.58" minus="0.58" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-7" pointId="7" value="4.73" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.35" minus="0.35" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-8" pointId="8" value="4.75" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.32" minus="0.32" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-9" pointId="9" value="5.43" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.39" minus="0.39" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-5-1-10" pointId="10" value="6.27" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="1.20" minus="1.20" source="unknown" norm="abs" />
+      <point id="pt-7507-1-1-2" pointId="2" value="475.0" relation="eq">
+       <error errorId="1" plus="39.0" minus="39.0" source="stat" norm="abs" />
+       <error errorId="2" plus="110.0" minus="110.0" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7539-6" datasetId="6">
+   <dataset id="ds-7507-2" datasetId="2">
     <comment>
-     Average charged particle multiplicity using total current hemisphere of the Breit frame.
+     Location: T 1
     </comment>
-    <comment>
-     Location: T 2
-    </comment>
-    <xaxis id="xax-7539-6-1" xaxisId="1" header="Q**2 IN GEV**2">
+    <xaxis id="xax-7507-2-1" xaxisId="1" header="X">
      <bins>
-      <bin binId="1" relation="eq" low="12.0" high="15.0" />
-      <bin binId="2" relation="eq" low="15.0" high="20.0" />
-      <bin binId="3" relation="eq" low="20.0" high="40.0" />
-      <bin binId="4" relation="eq" low="40.0" high="60.0" />
-      <bin binId="5" relation="eq" low="60.0" high="80.0" />
-      <bin binId="6" relation="eq" low="100.0" high="175.0" />
-      <bin binId="7" relation="eq" low="175.0" high="250.0" />
-      <bin binId="8" relation="eq" low="250.0" high="450.0" />
-      <bin binId="9" relation="eq" low="450.0" high="1000.0" />
-      <bin binId="10" relation="eq" low="1000.0" high="8000.0" />
+      <bin binId="1" focus="0.00016" low="0.0001" high="0.0002" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7539-6-1" header="MULT">
-     <reaction id="reac-7539-6-1-1">
+    <yaxis id="yax-7507-2-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
       <initialstate>
        <particle name="E-" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E-" mult="1" />
-       <particle name="CHARGED" mult="1" />
-       <particle name="X" mult="1" />
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="296.000" high="296.000" />
-      <property name="P(P=1)" unit="GEV" low="26.7" high="26.7" />
-      <property name="P(P=2)" unit="GEV" low="820" high="820" />
-     </properties>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 5 TO 10 (MEAN=6.8)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7539-6-1-1" pointId="1" value="1.35" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.08" minus="0.08" source="unknown" norm="abs" />
+      <point id="pt-7507-2-1-1" pointId="1" value="2.12" relation="eq">
+       <error errorId="1" plus="0.15" minus="0.15" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-2" pointId="2" value="1.63" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="0.08" minus="0.08" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-3" datasetId="3">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-3-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.0003" low="0.0002" high="0.0005" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-3-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 6 TO 10 (MEAN=8.6)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-3-1-1" pointId="1" value="2.09" relation="eq">
+       <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-3" pointId="3" value="2.02" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.06" minus="0.06" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-4" datasetId="4">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-4-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.00037" low="0.0002" high="0.0005" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-4-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 10 TO 20 (MEAN=13.1)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-4-1-1" pointId="1" value="2.17" relation="eq">
+       <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-4" pointId="4" value="2.39" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-5" datasetId="5">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-5-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.00063" low="0.0005" high="0.0008" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-5-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 10 TO 20 (MEAN=14.2)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-5-1-1" pointId="1" value="1.95" relation="eq">
+       <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-5" pointId="5" value="2.84" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.16" minus="0.16" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-6" datasetId="6">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-6-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.0011" low="0.0008" high="0.0015" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-6-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 10 TO 20 (MEAN=14.0)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-6-1-1" pointId="1" value="1.87" relation="eq">
+       <error errorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-6" pointId="6" value="3.71" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.50" minus="0.50" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-7" datasetId="7">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-7-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.0023" low="0.0015" high="0.004" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-7-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 10 TO 20 (MEAN=14.5)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-7-1-1" pointId="1" value="1.67" relation="eq">
+       <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-7" pointId="7" value="4.05" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="0.29" minus="0.29" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-8" datasetId="8">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-8-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.00093" low="0.0005" high="0.0014" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-8-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 20 TO 50 (MEAN=28.8)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-8-1-1" pointId="1" value="2.12" relation="eq">
+       <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-8" pointId="8" value="4.0" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="0.25" minus="0.25" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-9" datasetId="9">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-9-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.0021" low="0.0014" high="0.003" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-9-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 20 TO 50 (MEAN=30.9)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-9-1-1" pointId="1" value="1.99" relation="eq">
+       <error errorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
       </point>
-      <point id="pt-7539-6-1-9" pointId="9" value="4.97" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="0.36" minus="0.36" source="unknown" norm="abs" />
-      </point>
-      <point id="pt-7539-6-1-10" pointId="10" value="5.67" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="1.02" minus="1.02" source="unknown" norm="abs" />
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7507-10" datasetId="10">
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7507-10-1" xaxisId="1" header="X">
+     <bins>
+      <bin binId="1" focus="0.0049" low="0.003" high="0.01" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7507-10-1" header="MEAN(N=ET(P=4)) IN GEV">
+     <reaction>
+      <initialstate>
+       <particle name="E-" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="E-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="MEAN(N=ET)" />
+     <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
+     <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
+     <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
+     <comment>
+      Q**2 IN GEV**2 : 20 TO 50 (MEAN=32.6)
+     </comment>
+     <comment>
+      RE : E- P --&gt; E- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
+     <points>
+      <point id="pt-7507-10-1-1" pointId="1" value="1.75" relation="eq">
+       <error errorId="1" plus="0.17" minus="0.17" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>

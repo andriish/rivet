@@ -1,3 +1,8 @@
+2007-10-03  Andy Buckley  <andy@insectnation.org>
+
+	* Added newly built HepML and AIDA reference files for current
+	analyses.
+
 2007-10-02  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed possible null-pointer dereference in Particle copy

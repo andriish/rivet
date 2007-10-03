@@ -1,1033 +1,2067 @@
 <hepml>
- <data>
-  <paper irn="4730372" red="3301">
-   <modification who="MRW" when="13 NOV 2001" />
+ <data timestamp="2007-10-03T13:43:40.820890">
+  <paper spiresId="4815815" redId="3308">
+   <title>
+    Dijet photoproduction at HERA and the structure of the photon
+   </title>
+   <modification who="MRW" when="4 MAR 2002" />
    <comment>
-    DESY-HERA. Measurement of the Dijet cross sections in neutral current deep inelastic scattering of 27.5 GeV postirons on 820 GeV protons. The cross sections are measured in the Breit Frame using the kT jet alogrithm. The data were collected during the 1996 and 1997 HERA runnning periods and have an integrated luminsoity of 38.4 +- 0.6 pb.-1. The following conditions hold for all the tables:. E(P=1) = 27.5 GeV. E(P=2) = 820 GeV. Y &gt; 0.04. ET(P=4,RF=BREIT) &gt; 8 GeV. ET(P=5,RF=BREIT) &gt; 5 GeV. ET(P=4,RF=LAB) &gt; 5 GeV. ET(P=5,RF=LAB) &gt; 5 GeV. ABS(ETARAP(P=3,4,RF=LAB)) &lt; 2. E(P=3) &gt; 10 GeV. The variable XI is defined as X*(1+M(P_4_5)**2/Q**2 and MEAN(ET) is the average transverse energy of the two jets with highest transverse energy in the event.. In the tables the column headed ISR/FSR is the multiplicative correction which has been applied to account for effects if initial and final-state QED radiation. The second DSYS (systematic) error in the tables is the uncertainty in the jet-energy-scale.
+    DESY-HERA. Measurement of the di-jet cross section in photoproduction data from collisions of 27.5 GeV positrons with 820 GeV protons. The data were taken during a dedicated run in 1996 and 1997 and have an integrated luminosity of 38.6 +- 0.6 pb-1. The variable X(C=GAMMA), is defined as:&amp; lt;p&amp; gt; X(C=GAMMA)=(ET(JET1)*EXP(-ETARAP(JET1)+ET(JET2)*EXP(-ETARAP(JET2))/2*Y*E_e where Y is the energy fraction of the radiated photon in the proton rest frame and E_e is the positron beamenergy. X(C=GAMMA) is the fractional momentum of the photon carried by the inte racting parton. The jets are defined so that ET(JET1) &amp; gt; ET(JET2). In all the distributions, unless otherwise stated the following kinematical ranges apply:&amp; lt;p&amp; gt; 134 &amp; lt; W_GAMMA-P &amp; lt; 277 GeV&amp; lt;br&amp; gt; ET(JET1) &amp; gt; 14 GeV&amp; lt;br&amp; gt; ET(JET2) &amp; gt; 11 GeV&amp; lt;br&amp; gt; -1 &amp; lt; ETRAP(JET1 and JET2) &amp; lt; 2.4
    </comment>
-   <author name="CHEKANOV" />
-   <reference description="DESY-01-127" />
-   <author name="CHEKANOV" />
-   <reference description="EPJ C23,13" />
-   <dataset id="ds-9388-1" datasetId="1">
+   <author>
+    CHEKANOV
+   </author>
+   <reference description="DESY-01-220" />
+   <author>
+    CHEKANOV
+   </author>
+   <reference description="EPJ C23,615" />
+   <experiment name="DESY-HERA-ZEUS" laboratory="DESY-HERA" informalname="ZEUS" />
+   <dataset id="ds-9267-1" datasetId="1">
     <comment>
-     Dijet cross section as a function of LOG10(Q**2)
+     Measured cross section as a function of COS(THETA*), where THETA* is the dijet angle in the parton-parton c.m. frame. The data are shown in two X(C=GAMMA) regions.
     </comment>
     <comment>
-     Location: T 1
+     Location: T 1,F 3
     </comment>
-    <xaxis id="xax-9388-1-1" xaxisId="1" header="LOG10(Q**2)">
+    <xaxis id="xax-9267-1-1" xaxisId="1" header="ABS(COS(THETA*))">
      <bins>
-      <bin binId="1" relation="eq" low="1.0" high="1.2" />
-      <bin binId="2" relation="eq" low="1.2" high="1.4" />
-      <bin binId="3" relation="eq" low="1.4" high="1.6" />
-      <bin binId="4" relation="eq" low="1.6" high="1.8" />
-      <bin binId="5" relation="eq" low="1.8" high="2.0" />
-      <bin binId="6" relation="eq" low="2.0" high="2.33" />
-      <bin binId="7" relation="eq" low="2.33" high="2.67" />
-      <bin binId="8" relation="eq" low="2.67" high="3.0" />
-      <bin binId="9" relation="eq" low="3.0" high="3.5" />
-      <bin binId="10" relation="eq" low="3.5" high="4.0" />
+      <bin binId="1" low="0.0" high="0.1" />
+      <bin binId="2" low="0.1" high="0.2" />
+      <bin binId="3" low="0.2" high="0.3" />
+      <bin binId="4" low="0.3" high="0.4" />
+      <bin binId="5" low="0.4" high="0.5" />
+      <bin binId="6" low="0.5" high="0.6" />
+      <bin binId="7" low="0.6" high="0.7" />
+      <bin binId="8" low="0.7" high="0.8" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-1-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.024" low="1.012" high="1.036" />
-      <bin binId="2" relation="eq" center="1.04" low="1.026" high="1.054" />
-      <bin binId="3" relation="eq" center="0.99" low="0.976" high="1.004" />
-      <bin binId="4" relation="eq" center="1.002" low="0.986" high="1.018" />
-      <bin binId="5" relation="eq" center="0.987" low="0.969" high="1.005" />
-      <bin binId="6" relation="eq" center="0.989" low="0.977" high="1.001" />
-      <bin binId="7" relation="eq" center="1.004" low="0.993" high="1.015" />
-      <bin binId="8" relation="eq" center="1.021" low="1.009" high="1.033" />
-      <bin binId="9" relation="eq" center="0.98" low="0.973" high="0.987" />
-      <bin binId="10" relation="eq" center="0.96" low="0.952" high="0.968" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-1-1" header="D(SIG)/DLOG10(Q**2) IN PB">
-     <reaction id="reac-9388-1-1-1">
+    <yaxis id="yax-9267-1-1" header="D(SIG)/DABS(COS(THETA*)) IN PB">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-     </properties>
+     <observable name="DSIG/DCOS(THETA)" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
+     <comment>
+      ETARAP(P=3) : -1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 2.4
+     </comment>
+     <comment>
+      ET(P=3) IN GEV : &gt; 14
+     </comment>
+     <comment>
+      ET(P=4) IN GEV : &gt; 11
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
      <points>
-      <point id="pt-9388-1-1-1" pointId="1" value="1120.5" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="18.5" minus="18.5" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+154.3" minus="-141.4" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+92.3" minus="-93.0" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-1" pointId="1" value="44.5" relation="eq">
+       <error errorId="1" plus="3.5" minus="3.5" source="stat" norm="abs" />
+       <error errorId="2" plus="1.6" minus="3.8" source="sys" norm="abs" />
+       <error errorId="3" plus="2.7" minus="2.0" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-1-1-2" pointId="2" value="967.7" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="17.7" minus="17.7" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+80.0" minus="-95.8" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+84.5" minus="-85.6" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-2" pointId="2" value="40.1" relation="eq">
+       <error errorId="1" plus="3.3" minus="3.3" source="stat" norm="abs" />
+       <error errorId="2" plus="3.2" minus="2.4" source="sys" norm="abs" />
+       <error errorId="3" plus="2.3" minus="1.3" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-1-1-3" pointId="3" value="853.6" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="16.7" minus="16.7" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+46.0" minus="-66.9" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+68.5" minus="-75.0" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-3" pointId="3" value="48.1" relation="eq">
+       <error errorId="1" plus="3.6" minus="3.6" source="stat" norm="abs" />
+       <error errorId="2" plus="2.5" minus="3.3" source="sys" norm="abs" />
+       <error errorId="3" plus="2.4" minus="2.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-1-1-4" pointId="4" value="690.5" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="15.1" minus="15.1" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+34.3" minus="-24.0" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+60.9" minus="-56.3" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-4" pointId="4" value="54.5" relation="eq">
+       <error errorId="1" plus="3.7" minus="3.7" source="stat" norm="abs" />
+       <error errorId="2" plus="4.4" minus="0.9" source="sys" norm="abs" />
+       <error errorId="3" plus="2.0" minus="2.5" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-1-1-5" pointId="5" value="549.4" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="13.3" minus="13.3" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+35.0" minus="-14.6" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+45.5" minus="-44.2" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-5" pointId="5" value="83.9" relation="eq">
+       <error errorId="1" plus="4.7" minus="4.7" source="stat" norm="abs" />
+       <error errorId="2" plus="2.7" minus="5.4" source="sys" norm="abs" />
+       <error errorId="3" plus="4.5" minus="3.6" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-1-1-6" pointId="6" value="368.2" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="7.3" minus="7.3" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+16.1" minus="-11.5" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+24.1" minus="-26.1" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-6" pointId="6" value="115.7" relation="eq">
+       <error errorId="1" plus="5.5" minus="5.5" source="stat" norm="abs" />
+       <error errorId="2" plus="1.4" minus="4.1" source="sys" norm="abs" />
+       <error errorId="3" plus="4.8" minus="4.5" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-1-1-7" pointId="7" value="219.1" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="5.1" minus="5.1" source="stat" norm="abs" />
-       <pointerror pointId="7" pointerrorId="2" plus="+5.3" minus="-5.3" source="sys" norm="abs" />
-       <pointerror pointId="7" pointerrorId="3" plus="+13.8" minus="-14.0" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-7" pointId="7" value="205.5" relation="eq">
+       <error errorId="1" plus="7.6" minus="7.6" source="stat" norm="abs" />
+       <error errorId="2" plus="14.7" minus="4.7" source="sys" norm="abs" />
+       <error errorId="3" plus="8.1" minus="10.7" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-1-1-8" pointId="8" value="113.5" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="3.5" minus="3.5" source="stat" norm="abs" />
-       <pointerror pointId="8" pointerrorId="2" plus="+2.2" minus="-4.3" source="sys" norm="abs" />
-       <pointerror pointId="8" pointerrorId="3" plus="+5.7" minus="-5.9" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-1-1-9" pointId="9" value="44.2" relation="eq">
-       <pointerror pointId="9" pointerrorId="1" plus="1.6" minus="1.6" source="stat" norm="abs" />
-       <pointerror pointId="9" pointerrorId="2" plus="+2.4" minus="-0.6" source="sys" norm="abs" />
-       <pointerror pointId="9" pointerrorId="3" plus="+2.2" minus="-2.4" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-1-1-10" pointId="10" value="8.7" relation="eq">
-       <pointerror pointId="10" pointerrorId="1" plus="0.7" minus="0.7" source="stat" norm="abs" />
-       <pointerror pointId="10" pointerrorId="2" plus="+0.8" minus="-0.7" source="sys" norm="abs" />
-       <pointerror pointId="10" pointerrorId="3" plus="+0.3" minus="-0.4" source="sys" norm="abs" />
+      <point id="pt-9267-1-1-8" pointId="8" value="406.9" relation="eq">
+       <error errorId="1" plus="11.5" minus="11.5" source="stat" norm="abs" />
+       <error errorId="2" plus="9.5" minus="32.7" source="sys" norm="abs" />
+       <error errorId="3" plus="16.3" minus="15.3" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <yaxis id="yax-9267-1-2" header="D(SIG)/DABS(COS(THETA*)) IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="DSIG/DCOS(THETA)" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
+     <comment>
+      ETARAP(P=3) : -1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 2.4
+     </comment>
+     <comment>
+      ET(P=3) IN GEV : &gt; 14
+     </comment>
+     <comment>
+      ET(P=4) IN GEV : &gt; 11
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <points>
+      <point id="pt-9267-1-2-1" pointId="1" value="141.8" relation="eq">
+       <error errorId="1" plus="7.1" minus="7.1" source="stat" norm="abs" />
+       <error errorId="2" plus="4.0" minus="8.1" source="sys" norm="abs" />
+       <error errorId="3" plus="5.5" minus="5.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-1-2-2" pointId="2" value="142.1" relation="eq">
+       <error errorId="1" plus="7.1" minus="7.1" source="stat" norm="abs" />
+       <error errorId="2" plus="2.7" minus="10.0" source="sys" norm="abs" />
+       <error errorId="3" plus="5.7" minus="5.6" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-1-2-3" pointId="3" value="155.3" relation="eq">
+       <error errorId="1" plus="7.3" minus="7.3" source="stat" norm="abs" />
+       <error errorId="2" plus="7.9" minus="6.8" source="sys" norm="abs" />
+       <error errorId="3" plus="6.5" minus="6.4" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-1-2-4" pointId="4" value="182.7" relation="eq">
+       <error errorId="1" plus="7.9" minus="7.9" source="stat" norm="abs" />
+       <error errorId="2" plus="5.2" minus="7.7" source="sys" norm="abs" />
+       <error errorId="3" plus="7.3" minus="6.5" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-1-2-5" pointId="5" value="233.8" relation="eq">
+       <error errorId="1" plus="8.8" minus="8.8" source="stat" norm="abs" />
+       <error errorId="2" plus="9.6" minus="10.7" source="sys" norm="abs" />
+       <error errorId="3" plus="8.8" minus="8.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-1-2-6" pointId="6" value="283.9" relation="eq">
+       <error errorId="1" plus="9.7" minus="9.7" source="stat" norm="abs" />
+       <error errorId="2" plus="9.1" minus="10.8" source="sys" norm="abs" />
+       <error errorId="3" plus="9.4" minus="9.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-1-2-7" pointId="7" value="439.7" relation="eq">
+       <error errorId="1" plus="12.2" minus="12.2" source="stat" norm="abs" />
+       <error errorId="2" plus="9.2" minus="17.2" source="sys" norm="abs" />
+       <error errorId="3" plus="16.3" minus="17.8" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-1-2-8" pointId="8" value="686.6" relation="eq">
+       <error errorId="1" plus="15.9" minus="15.9" source="stat" norm="abs" />
+       <error errorId="2" plus="26.0" minus="18.3" source="sys" norm="abs" />
+       <error errorId="3" plus="24.8" minus="22.6" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-2" datasetId="2">
+   <dataset id="ds-9267-2" datasetId="2">
     <comment>
-     Dijet cross section as a function of LOG10(MEAN(ET)**2/Q**2)
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &gt; 0.75 for:. -1 &lt; ETARAP(JET1) &lt; 0. -1 &lt; ETARAP(JET2) &lt; 0
     </comment>
     <comment>
-     Location: T 2
+     Location: T 2,F 4
     </comment>
-    <xaxis id="xax-9388-2-1" xaxisId="1" header="LOG10(MEAN(ET)**2/Q**2)">
+    <xaxis id="xax-9267-2-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-1.7" high="-1.0" />
-      <bin binId="2" relation="eq" low="-1.0" high="-0.7" />
-      <bin binId="3" relation="eq" low="-0.7" high="-0.3" />
-      <bin binId="4" relation="eq" low="-0.3" high="0.0" />
-      <bin binId="5" relation="eq" low="0.0" high="0.3" />
-      <bin binId="6" relation="eq" low="0.3" high="0.7" />
-      <bin binId="7" relation="eq" low="0.7" high="1.0" />
-      <bin binId="8" relation="eq" low="1.0" high="1.7" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-2-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="0.943" low="0.933" high="0.953" />
-      <bin binId="2" relation="eq" center="0.978" low="0.965" high="0.991" />
-      <bin binId="3" relation="eq" center="1.009" low="0.997" high="1.021" />
-      <bin binId="4" relation="eq" center="1.0" low="0.986" high="1.014" />
-      <bin binId="5" relation="eq" center="0.994" low="0.981" high="1.007" />
-      <bin binId="6" relation="eq" center="1.01" low="1.0" high="1.02" />
-      <bin binId="7" relation="eq" center="1.021" low="1.008" high="1.034" />
-      <bin binId="8" relation="eq" center="1.029" low="1.012" high="1.046" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-2-1" header="D(SIG)/DLOG10(MEAN(ET)**2/Q**2) IN PB">
-     <reaction id="reac-9388-2-1-1">
+    <yaxis id="yax-9267-2-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : -1 TO 0
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-2-1-1" pointId="1" value="27.6" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="1.1" minus="1.1" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+1.8" minus="-1.2" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+0.9" minus="-0.6" source="sys" norm="abs" />
+      <point id="pt-9267-2-1-1" pointId="1" value="12.2" relation="eq">
+       <error errorId="1" plus="0.6" minus="0.6" source="stat" norm="abs" />
+       <error errorId="2" plus="3.6" minus="1.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.6" minus="0.5" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-2-1-2" pointId="2" value="96.5" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="3.4" minus="3.4" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+3.9" minus="-2.4" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+4.3" minus="-6.7" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-2-1-3" pointId="3" value="213.2" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="5.0" minus="5.0" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+7.5" minus="-5.2" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+9.4" minus="-11.4" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-2-1-4" pointId="4" value="429.5" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="9.4" minus="9.4" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+21.6" minus="-12.6" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+27.9" minus="-26.6" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-2-1-5" pointId="5" value="640.9" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="12.2" minus="12.2" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+30.7" minus="-26.7" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+46.3" minus="-48.8" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-2-1-6" pointId="6" value="901.3" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="12.7" minus="12.7" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+45.0" minus="-45.6" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+75.7" minus="-73.5" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-2-1-7" pointId="7" value="688.7" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="12.5" minus="12.5" source="stat" norm="abs" />
-       <pointerror pointId="7" pointerrorId="2" plus="+14.6" minus="-30.4" source="sys" norm="abs" />
-       <pointerror pointId="7" pointerrorId="3" plus="+64.7" minus="-67.4" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-2-1-8" pointId="8" value="113.6" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="2.8" minus="2.8" source="stat" norm="abs" />
-       <pointerror pointId="8" pointerrorId="2" plus="+1.9" minus="-6.4" source="sys" norm="abs" />
-       <pointerror pointId="8" pointerrorId="3" plus="+11.9" minus="-11.9" source="sys" norm="abs" />
+      <point id="pt-9267-2-1-2" pointId="2" value="3.0" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="0.6" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-3" datasetId="3">
+   <dataset id="ds-9267-3" datasetId="3">
     <comment>
-     Dijet cross section as a function of LOG10(XI) for the ful Q**2 range.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &gt; 0.75 for:. 0 &lt; ETARAP(JET1) &lt; 1. -1 &lt; ETARAP(JET2) &lt; 0
     </comment>
     <comment>
-     Location: T 3
+     Location: T 2,F 4
     </comment>
-    <xaxis id="xax-9388-3-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-3-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.4" high="-2.2" />
-      <bin binId="2" relation="eq" low="-2.2" high="-2.0" />
-      <bin binId="3" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="4" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="5" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="6" relation="eq" low="-1.4" high="-1.2" />
-      <bin binId="7" relation="eq" low="-1.2" high="-1.0" />
-      <bin binId="8" relation="eq" low="-1.0" high="-0.8" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-3-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.138" low="1.101" high="1.175" />
-      <bin binId="2" relation="eq" center="1.052" low="1.034" high="1.07" />
-      <bin binId="3" relation="eq" center="1.043" low="1.03" high="1.056" />
-      <bin binId="4" relation="eq" center="0.995" low="0.984" high="1.006" />
-      <bin binId="5" relation="eq" center="0.98" low="0.969" high="0.991" />
-      <bin binId="6" relation="eq" center="0.994" low="0.981" high="1.007" />
-      <bin binId="7" relation="eq" center="0.986" low="0.967" high="1.005" />
-      <bin binId="8" relation="eq" center="0.997" low="0.966" high="1.028" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-3-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-3-1-1">
+    <yaxis id="yax-9267-3-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="Q**2" unit="GEV**2" low="10" high="10000" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 0 TO 1
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-3-1-1" pointId="1" value="198.2" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="8.1" minus="8.1" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+13.1" minus="-10.4" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+26.4" minus="-25.6" source="sys" norm="abs" />
+      <point id="pt-9267-3-1-1" pointId="1" value="34.3" relation="eq">
+       <error errorId="1" plus="0.7" minus="0.7" source="stat" norm="abs" />
+       <error errorId="2" plus="2.2" minus="1.6" source="sys" norm="abs" />
+       <error errorId="3" plus="1.3" minus="1.0" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-3-1-2" pointId="2" value="636.4" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="14.8" minus="14.8" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+27.7" minus="-59.8" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+55.8" minus="-56.1" source="sys" norm="abs" />
+      <point id="pt-9267-3-1-2" pointId="2" value="16.0" relation="eq">
+       <error errorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
+       <error errorId="2" plus="0.5" minus="2.0" source="sys" norm="abs" />
+       <error errorId="3" plus="0.7" minus="0.5" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-3-1-3" pointId="3" value="1084.5" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="19.5" minus="19.5" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+57.7" minus="-57.2" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+83.0" minus="-88.4" source="sys" norm="abs" />
+      <point id="pt-9267-3-1-3" pointId="3" value="4.0" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.5" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.2" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-3-1-4" pointId="4" value="1251.4" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="20.6" minus="20.6" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+63.3" minus="-63.1" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+81.7" minus="-85.0" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-3-1-5" pointId="5" value="1147.9" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="20.0" minus="20.0" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+52.7" minus="-53.6" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+74.2" minus="-80.2" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-3-1-6" pointId="6" value="653.7" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="15.0" minus="15.0" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+39.8" minus="-24.1" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+53.4" minus="-42.4" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-3-1-7" pointId="7" value="273.9" relation="eq">
-       <pointerror pointId="7" pointerrorId="1" plus="9.5" minus="9.5" source="stat" norm="abs" />
-       <pointerror pointId="7" pointerrorId="2" plus="+11.1" minus="-9.7" source="sys" norm="abs" />
-       <pointerror pointId="7" pointerrorId="3" plus="+17.5" minus="-21.5" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-3-1-8" pointId="8" value="82.6" relation="eq">
-       <pointerror pointId="8" pointerrorId="1" plus="5.0" minus="5.0" source="stat" norm="abs" />
-       <pointerror pointId="8" pointerrorId="2" plus="+3.8" minus="-7.0" source="sys" norm="abs" />
-       <pointerror pointId="8" pointerrorId="3" plus="+6.3" minus="-3.9" source="sys" norm="abs" />
+      <point id="pt-9267-3-1-4" pointId="4" value="0.74" relation="eq">
+       <error errorId="1" plus="0.08" minus="0.08" source="stat" norm="abs" />
+       <error errorId="2" plus="0.08" minus="0.17" source="sys" norm="abs" />
+       <error errorId="3" plus="0.02" minus="0.03" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-4" datasetId="4">
+   <dataset id="ds-9267-4" datasetId="4">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 10 to 15.8 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &gt; 0.75 for:. 0 &lt; ETARAP(JET1) &lt; 1. 0 &lt; ETARAP(JET2) &lt; 1
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 2,F 4
     </comment>
-    <xaxis id="xax-9388-4-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-4-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.4" high="-2.2" />
-      <bin binId="2" relation="eq" low="-2.2" high="-2.0" />
-      <bin binId="3" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="4" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="5" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="6" relation="eq" low="-1.4" high="-1.2" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
+      <bin binId="6" low="35.0" high="41.0" />
+      <bin binId="7" low="41.0" high="48.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-4-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.173" low="1.108" high="1.238" />
-      <bin binId="2" relation="eq" center="1.021" low="0.987" high="1.055" />
-      <bin binId="3" relation="eq" center="1.073" low="1.045" high="1.101" />
-      <bin binId="4" relation="eq" center="1.002" low="0.978" high="1.026" />
-      <bin binId="5" relation="eq" center="1.012" low="0.986" high="1.038" />
-      <bin binId="6" relation="eq" center="0.967" low="0.933" high="1.001" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-4-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-4-1-1">
+    <yaxis id="yax-9267-4-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="1.0" high="1.2" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 0 TO 1
+     </comment>
+     <comment>
+      ETARAP(P=4) : 0 TO 1
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-4-1-1" pointId="1" value="70.2" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="4.9" minus="4.9" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+7.0" minus="-3.9" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+6.6" minus="-7.2" source="sys" norm="abs" />
+      <point id="pt-9267-4-1-1" pointId="1" value="51.4" relation="eq">
+       <error errorId="1" plus="1.1" minus="1.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="5.7" source="sys" norm="abs" />
+       <error errorId="3" plus="1.6" minus="0.9" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-4-1-2" pointId="2" value="169.9" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="7.7" minus="7.7" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+20.3" minus="-21.5" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+14.6" minus="-16.7" source="sys" norm="abs" />
+      <point id="pt-9267-4-1-2" pointId="2" value="26.1" relation="eq">
+       <error errorId="1" plus="0.7" minus="0.7" source="stat" norm="abs" />
+       <error errorId="2" plus="0.7" minus="2.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.9" minus="1.0" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-4-1-3" pointId="3" value="261.9" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="9.9" minus="9.9" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+25.9" minus="-27.8" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+21.2" minus="-19.9" source="sys" norm="abs" />
+      <point id="pt-9267-4-1-3" pointId="3" value="12.3" relation="eq">
+       <error errorId="1" plus="0.5" minus="0.5" source="stat" norm="abs" />
+       <error errorId="2" plus="0.3" minus="1.5" source="sys" norm="abs" />
+       <error errorId="3" plus="0.4" minus="0.4" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-4-1-4" pointId="4" value="251.5" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="9.3" minus="9.3" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+22.2" minus="-21.4" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+15.7" minus="-15.4" source="sys" norm="abs" />
+      <point id="pt-9267-4-1-4" pointId="4" value="6.3" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.8" source="sys" norm="abs" />
+       <error errorId="3" plus="0.3" minus="0.2" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-4-1-5" pointId="5" value="199.6" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="8.4" minus="8.4" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+18.8" minus="-21.7" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+13.9" minus="-16.9" source="sys" norm="abs" />
+      <point id="pt-9267-4-1-5" pointId="5" value="1.7" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.03" minus="0.2" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-4-1-6" pointId="6" value="78.4" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="5.0" minus="5.0" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+12.9" minus="-3.7" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+6.3" minus="-5.2" source="sys" norm="abs" />
+      <point id="pt-9267-4-1-6" pointId="6" value="0.56" relation="eq">
+       <error errorId="1" plus="0.08" minus="0.08" source="stat" norm="abs" />
+       <error errorId="2" plus="0.02" minus="0.08" source="sys" norm="abs" />
+       <error errorId="3" plus="0.03" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-4-1-7" pointId="7" value="0.122" relation="eq">
+       <error errorId="1" plus="0.037" minus="0.037" source="stat" norm="abs" />
+       <error errorId="2" plus="0.031" minus="0.014" source="sys" norm="abs" />
+       <error errorId="3" plus="0.003" minus="0.01" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-5" datasetId="5">
+   <dataset id="ds-9267-5" datasetId="5">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 15.8 to 25.1 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &gt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4. -1 &lt; ETARAP(JET2) &lt; 0
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 2,F 4
     </comment>
-    <xaxis id="xax-9388-5-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-5-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.4" high="-2.2" />
-      <bin binId="2" relation="eq" low="-2.2" high="-2.0" />
-      <bin binId="3" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="4" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="5" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="6" relation="eq" low="-1.4" high="-1.2" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
+      <bin binId="6" low="35.0" high="41.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-5-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.214" low="1.137" high="1.291" />
-      <bin binId="2" relation="eq" center="1.092" low="1.051" high="1.133" />
-      <bin binId="3" relation="eq" center="1.089" low="1.057" high="1.121" />
-      <bin binId="4" relation="eq" center="1.003" low="0.976" high="1.03" />
-      <bin binId="5" relation="eq" center="0.968" low="0.94" high="0.996" />
-      <bin binId="6" relation="eq" center="1.108" low="1.066" high="1.15" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-5-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-5-1-1">
+    <yaxis id="yax-9267-5-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="1.2" high="1.4" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-5-1-1" pointId="1" value="55.9" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="4.6" minus="4.6" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+1.5" minus="-7.1" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+8.1" minus="-8.8" source="sys" norm="abs" />
+      <point id="pt-9267-5-1-1" pointId="1" value="28.1" relation="eq">
+       <error errorId="1" plus="0.6" minus="0.6" source="stat" norm="abs" />
+       <error errorId="2" plus="3.4" minus="0.7" source="sys" norm="abs" />
+       <error errorId="3" plus="1.0" minus="1.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-5-1-2" pointId="2" value="142.2" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="7.2" minus="7.2" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+13.2" minus="-13.5" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+14.8" minus="-11.3" source="sys" norm="abs" />
+      <point id="pt-9267-5-1-2" pointId="2" value="15.8" relation="eq">
+       <error errorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
+       <error errorId="2" plus="0.3" minus="1.2" source="sys" norm="abs" />
+       <error errorId="3" plus="0.6" minus="0.6" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-5-1-3" pointId="3" value="222.5" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="9.3" minus="9.3" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+7.3" minus="-13.3" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+17.8" minus="-19.6" source="sys" norm="abs" />
+      <point id="pt-9267-5-1-3" pointId="3" value="5.4" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.2" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.2" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-5-1-4" pointId="4" value="212.8" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="8.6" minus="8.6" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+17.0" minus="-10.7" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+14.9" minus="-10.8" source="sys" norm="abs" />
+      <point id="pt-9267-5-1-4" pointId="4" value="1.6" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.2" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-5-1-5" pointId="5" value="181.2" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="8.2" minus="8.2" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+9.4" minus="-14.9" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+11.2" minus="-15.1" source="sys" norm="abs" />
+      <point id="pt-9267-5-1-5" pointId="5" value="0.41" relation="eq">
+       <error errorId="1" plus="0.05" minus="0.05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.02" minus="0.05" source="sys" norm="abs" />
+       <error errorId="3" plus="0.01" minus="0.02" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-5-1-6" pointId="6" value="83.3" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="5.6" minus="5.6" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+15.0" minus="-2.2" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+6.1" minus="-7.1" source="sys" norm="abs" />
+      <point id="pt-9267-5-1-6" pointId="6" value="0.043" relation="eq">
+       <error errorId="1" plus="0.014" minus="0.014" source="stat" norm="abs" />
+       <error errorId="2" plus="0.013" minus="0.013" source="sys" norm="abs" />
+       <error errorId="3" plus="0.004" minus="0.003" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-6" datasetId="6">
+   <dataset id="ds-9267-6" datasetId="6">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 25.1 to 39.8 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &gt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4. 0 &lt; ETARAP(JET2) &lt; 1
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 2,F 4
     </comment>
-    <xaxis id="xax-9388-6-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-6-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.4" high="-2.2" />
-      <bin binId="2" relation="eq" low="-2.2" high="-2.0" />
-      <bin binId="3" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="4" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="5" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="6" relation="eq" low="-1.4" high="-1.2" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
+      <bin binId="6" low="35.0" high="41.0" />
+      <bin binId="7" low="41.0" high="48.0" />
+      <bin binId="8" low="48.0" high="55.0" />
+      <bin binId="9" low="55.0" high="65.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-6-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.084" low="1.001" high="1.167" />
-      <bin binId="2" relation="eq" center="1.064" low="1.02" high="1.108" />
-      <bin binId="3" relation="eq" center="0.988" low="0.956" high="1.02" />
-      <bin binId="4" relation="eq" center="0.938" low="0.91" high="0.966" />
-      <bin binId="5" relation="eq" center="1.0" low="0.969" high="1.031" />
-      <bin binId="6" relation="eq" center="0.977" low="0.937" high="1.017" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-6-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-6-1-1">
+    <yaxis id="yax-9267-6-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="1.4" high="1.6" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : 0 TO 1
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-6-1-1" pointId="1" value="33.9" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="3.2" minus="3.2" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+3.8" minus="-2.4" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+5.9" minus="-3.2" source="sys" norm="abs" />
+      <point id="pt-9267-6-1-1" pointId="1" value="38.9" relation="eq">
+       <error errorId="1" plus="0.7" minus="0.7" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="2.0" source="sys" norm="abs" />
+       <error errorId="3" plus="1.1" minus="1.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-6-1-2" pointId="2" value="128.0" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="7.0" minus="7.0" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+3.0" minus="-17.2" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+8.2" minus="-11.3" source="sys" norm="abs" />
+      <point id="pt-9267-6-1-2" pointId="2" value="23.1" relation="eq">
+       <error errorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
+       <error errorId="2" plus="0.2" minus="1.0" source="sys" norm="abs" />
+       <error errorId="3" plus="0.8" minus="0.9" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-6-1-3" pointId="3" value="182.7" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="8.2" minus="8.2" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+2.9" minus="-8.7" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+12.9" minus="-16.9" source="sys" norm="abs" />
+      <point id="pt-9267-6-1-3" pointId="3" value="11.2" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.0" source="sys" norm="abs" />
+       <error errorId="3" plus="0.4" minus="0.3" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-6-1-4" pointId="4" value="198.4" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="8.5" minus="8.5" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+8.8" minus="-19.2" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+12.6" minus="-16.6" source="sys" norm="abs" />
+      <point id="pt-9267-6-1-4" pointId="4" value="5.3" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.03" minus="0.2" source="sys" norm="abs" />
+       <error errorId="3" plus="0.2" minus="0.2" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-6-1-5" pointId="5" value="165.2" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="7.9" minus="7.9" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+11.7" minus="-8.6" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+13.5" minus="-9.6" source="sys" norm="abs" />
+      <point id="pt-9267-6-1-5" pointId="5" value="2.1" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.01" minus="0.06" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-6-1-6" pointId="6" value="89.5" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="6.1" minus="6.1" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+5.1" minus="-6.7" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+7.9" minus="-9.5" source="sys" norm="abs" />
+      <point id="pt-9267-6-1-6" pointId="6" value="0.87" relation="eq">
+       <error errorId="1" plus="0.07" minus="0.07" source="stat" norm="abs" />
+       <error errorId="2" plus="0.06" minus="0.05" source="sys" norm="abs" />
+       <error errorId="3" plus="0.06" minus="0.03" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-6-1-7" pointId="7" value="0.34" relation="eq">
+       <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
+       <error errorId="2" plus="0.01" minus="0.02" source="sys" norm="abs" />
+       <error errorId="3" plus="0.02" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-6-1-8" pointId="8" value="0.13" relation="eq">
+       <error errorId="1" plus="0.03" minus="0.03" source="stat" norm="abs" />
+       <error errorId="2" plus="0.01" minus="0.03" source="sys" norm="abs" />
+       <error errorId="3" plus="0.01" minus="0.01" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-6-1-9" pointId="9" value="0.035" relation="eq">
+       <error errorId="1" plus="0.011" minus="0.011" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0" minus="0.014" source="sys" norm="abs" />
+       <error errorId="3" plus="0.002" minus="0.002" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-7" datasetId="7">
+   <dataset id="ds-9267-7" datasetId="7">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 39.8 to 63.1 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &gt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4. 1 &lt; ETARAP(JET2) &lt; 2.4
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 2,F 4
     </comment>
-    <xaxis id="xax-9388-7-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-7-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.4" high="-2.2" />
-      <bin binId="2" relation="eq" low="-2.2" high="-2.0" />
-      <bin binId="3" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="4" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="5" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="6" relation="eq" low="-1.4" high="-1.2" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
+      <bin binId="6" low="35.0" high="41.0" />
+      <bin binId="7" low="41.0" high="48.0" />
+      <bin binId="8" low="48.0" high="55.0" />
+      <bin binId="9" low="55.0" high="65.0" />
+      <bin binId="10" low="65.0" high="75.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-7-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.085" low="0.985" high="1.185" />
-      <bin binId="2" relation="eq" center="1.032" low="0.982" high="1.082" />
-      <bin binId="3" relation="eq" center="1.059" low="1.021" high="1.097" />
-      <bin binId="4" relation="eq" center="1.0" low="0.967" high="1.033" />
-      <bin binId="5" relation="eq" center="0.942" low="0.91" high="0.974" />
-      <bin binId="6" relation="eq" center="0.988" low="0.942" high="1.034" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-7-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-7-1-1">
+    <yaxis id="yax-9267-7-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="1.6" high="1.8" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : 1 TO 2.4
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-7-1-1" pointId="1" value="25.5" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="2.9" minus="2.9" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+1.2" minus="-1.4" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+3.2" minus="-3.9" source="sys" norm="abs" />
+      <point id="pt-9267-7-1-1" pointId="1" value="1.5" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="0.4" source="sys" norm="abs" />
+       <error errorId="3" plus="0.0" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-7-1-2" pointId="2" value="83.0" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="5.3" minus="5.3" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+1.7" minus="-7.7" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+8.7" minus="-7.6" source="sys" norm="abs" />
+      <point id="pt-9267-7-1-2" pointId="2" value="4.0" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.8" minus="0.5" source="sys" norm="abs" />
+       <error errorId="3" plus="0.2" minus="0.2" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-7-1-3" pointId="3" value="146.4" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="7.3" minus="7.3" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+11.6" minus="-8.8" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+11.5" minus="-12.1" source="sys" norm="abs" />
+      <point id="pt-9267-7-1-3" pointId="3" value="5.0" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.3" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.2" minus="0.2" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-7-1-4" pointId="4" value="172.0" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="8.0" minus="8.0" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+21.3" minus="-3.9" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+13.2" minus="-11.2" source="sys" norm="abs" />
+      <point id="pt-9267-7-1-4" pointId="4" value="3.3" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.3" minus="0.2" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-7-1-5" pointId="5" value="149.1" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="7.6" minus="7.6" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+3.8" minus="-1.7" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+9.7" minus="-10.8" source="sys" norm="abs" />
+      <point id="pt-9267-7-1-5" pointId="5" value="1.9" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.0" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-7-1-6" pointId="6" value="69.2" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="5.2" minus="5.2" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+3.5" minus="-6.0" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+8.4" minus="-3.9" source="sys" norm="abs" />
+      <point id="pt-9267-7-1-6" pointId="6" value="0.93" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.04" minus="0.03" source="sys" norm="abs" />
+       <error errorId="3" plus="0.08" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-7-1-7" pointId="7" value="0.41" relation="eq">
+       <error errorId="1" plus="0.06" minus="0.06" source="stat" norm="abs" />
+       <error errorId="2" plus="0.06" minus="0.02" source="sys" norm="abs" />
+       <error errorId="3" plus="0.02" minus="0.03" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-7-1-8" pointId="8" value="0.23" relation="eq">
+       <error errorId="1" plus="0.05" minus="0.05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.03" minus="0.04" source="sys" norm="abs" />
+       <error errorId="3" plus="0.01" minus="0.01" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-7-1-9" pointId="9" value="0.033" relation="eq">
+       <error errorId="1" plus="0.015" minus="0.015" source="stat" norm="abs" />
+       <error errorId="2" plus="0.029" minus="0.008" source="sys" norm="abs" />
+       <error errorId="3" plus="0.002" minus="0.002" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-7-1-10" pointId="10" value="0.041" relation="eq">
+       <error errorId="1" plus="0.017" minus="0.017" source="stat" norm="abs" />
+       <error errorId="2" plus="0.004" minus="0.01" source="sys" norm="abs" />
+       <error errorId="3" plus="0.002" minus="0.002" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-8" datasetId="8">
+   <dataset id="ds-9267-8" datasetId="8">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 63.1 to 100 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &lt; 0.75 for:. -1 &lt; ETARAP(JET1) &lt; 0. -1 &lt; ETARAP(JET2) &lt; 0
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 3,F 6
     </comment>
-    <xaxis id="xax-9388-8-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-8-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.2" high="-2.0" />
-      <bin binId="2" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="3" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="4" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="5" relation="eq" low="-1.4" high="-1.2" />
+      <bin binId="1" low="14.0" high="17.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-8-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.019" low="0.962" high="1.076" />
-      <bin binId="2" relation="eq" center="1.008" low="0.967" high="1.049" />
-      <bin binId="3" relation="eq" center="1.019" low="0.982" high="1.056" />
-      <bin binId="4" relation="eq" center="0.941" low="0.906" high="0.976" />
-      <bin binId="5" relation="eq" center="0.943" low="0.899" high="0.987" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-8-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-8-1-1">
+    <yaxis id="yax-9267-8-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="1.8" high="2.0" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : -1 TO 0
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-8-1-1" pointId="1" value="61.6" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="4.5" minus="4.5" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+2.6" minus="-5.7" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+6.5" minus="-4.7" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-8-1-2" pointId="2" value="113.0" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="6.3" minus="6.3" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+4.5" minus="-3.7" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+6.2" minus="-8.6" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-8-1-3" pointId="3" value="133.7" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="6.9" minus="6.9" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+8.7" minus="-3.3" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+12.2" minus="-9.6" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-8-1-4" pointId="4" value="124.5" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="6.8" minus="6.8" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+7.0" minus="-3.7" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+8.0" minus="-9.6" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-8-1-5" pointId="5" value="66.8" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="5.1" minus="5.1" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+7.2" minus="-5.2" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+8.1" minus="-5.2" source="sys" norm="abs" />
+      <point id="pt-9267-8-1-1" pointId="1" value="0.3" relation="eq">
+       <error errorId="1" plus="0.08" minus="0.08" source="stat" norm="abs" />
+       <error errorId="2" plus="0.07" minus="0.04" source="sys" norm="abs" />
+       <error errorId="3" plus="0.01" minus="0.01" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-9" datasetId="9">
+   <dataset id="ds-9267-9" datasetId="9">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 100 to 214 GeV**2.. XI = X*(1+M(P_4_5)**2/Q**2
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &lt; 0.75 for:. 0 &lt; ETARAP(JET1) &lt; 1. -1 &lt; ETARAP(JET2) &lt; 0
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 3,F 6
     </comment>
-    <xaxis id="xax-9388-9-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-9-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.2" high="-2.0" />
-      <bin binId="2" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="3" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="4" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="5" relation="eq" low="-1.4" high="-1.2" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-9-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.126" low="1.072" high="1.18" />
-      <bin binId="2" relation="eq" center="0.997" low="0.968" high="1.026" />
-      <bin binId="3" relation="eq" center="0.98" low="0.956" high="1.004" />
-      <bin binId="4" relation="eq" center="0.972" low="0.949" high="0.995" />
-      <bin binId="5" relation="eq" center="0.981" low="0.953" high="1.009" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-9-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-9-1-1">
+    <yaxis id="yax-9267-9-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="2.0" high="2.33" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 0 TO 1
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-9-1-1" pointId="1" value="43.2" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="3.2" minus="3.2" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+5.3" minus="-1.7" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+2.3" minus="-3.2" source="sys" norm="abs" />
+      <point id="pt-9267-9-1-1" pointId="1" value="6.2" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.9" minus="0.3" source="sys" norm="abs" />
+       <error errorId="3" plus="0.2" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-9-1-2" pointId="2" value="105.9" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="5.1" minus="5.1" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+9.5" minus="-7.0" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+8.3" minus="-8.5" source="sys" norm="abs" />
+      <point id="pt-9267-9-1-2" pointId="2" value="2.1" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.4" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-9-1-3" pointId="3" value="153.2" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="6.5" minus="6.5" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+3.6" minus="-7.6" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+8.1" minus="-11.7" source="sys" norm="abs" />
+      <point id="pt-9267-9-1-3" pointId="3" value="0.23" relation="eq">
+       <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
+       <error errorId="2" plus="0.05" minus="0.06" source="sys" norm="abs" />
+       <error errorId="3" plus="0.01" minus="0.01" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-9-1-4" pointId="4" value="148.7" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="6.5" minus="6.5" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+6.4" minus="-3.1" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+9.3" minus="-7.1" source="sys" norm="abs" />
-      </point>
-      <point id="pt-9388-9-1-5" pointId="5" value="94.7" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="5.4" minus="5.4" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+2.2" minus="-6.6" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+6.3" minus="-5.8" source="sys" norm="abs" />
+      <point id="pt-9267-9-1-4" pointId="4" value="0.032" relation="eq">
+       <error errorId="1" plus="0.015" minus="0.015" source="stat" norm="abs" />
+       <error errorId="2" plus="0.019" minus="0.004" source="sys" norm="abs" />
+       <error errorId="3" plus="0.003" minus="0.003" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-10" datasetId="10">
+   <dataset id="ds-9267-10" datasetId="10">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 214 to 468 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &lt; 0.75 for:. 0 &lt; ETARAP(JET1) &lt; 1. 0 &lt; ETARAP(JET2) &lt; 1
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 3,F 6
     </comment>
-    <xaxis id="xax-9388-10-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-10-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="2" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="3" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="4" relation="eq" low="-1.4" high="-1.2" />
-      <bin binId="5" relation="eq" low="-1.2" high="-1.0" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-10-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.03" low="0.998" high="1.062" />
-      <bin binId="2" relation="eq" center="1.062" low="1.038" high="1.086" />
-      <bin binId="3" relation="eq" center="0.988" low="0.968" high="1.008" />
-      <bin binId="4" relation="eq" center="0.964" low="0.943" high="0.985" />
-      <bin binId="5" relation="eq" center="0.979" low="0.949" high="1.009" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-10-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-10-1-1">
+    <yaxis id="yax-9267-10-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="2.33" high="2.67" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 0 TO 1
+     </comment>
+     <comment>
+      ETARAP(P=4) : 0 TO 1
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-10-1-1" pointId="1" value="44.2" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="3.0" minus="3.0" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+2.3" minus="-3.3" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+4.6" minus="-2.3" source="sys" norm="abs" />
+      <point id="pt-9267-10-1-1" pointId="1" value="29.4" relation="eq">
+       <error errorId="1" plus="0.8" minus="0.8" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="1.9" source="sys" norm="abs" />
+       <error errorId="3" plus="1.1" minus="1.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-10-1-2" pointId="2" value="87.1" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="4.5" minus="4.5" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+3.0" minus="-1.9" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+2.5" minus="-5.6" source="sys" norm="abs" />
+      <point id="pt-9267-10-1-2" pointId="2" value="12.7" relation="eq">
+       <error errorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="1.4" source="sys" norm="abs" />
+       <error errorId="3" plus="0.5" minus="0.5" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-10-1-3" pointId="3" value="104.0" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="5.1" minus="5.1" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+3.9" minus="-5.2" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+5.2" minus="-7.6" source="sys" norm="abs" />
+      <point id="pt-9267-10-1-3" pointId="3" value="4.6" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.2" minus="0.5" source="sys" norm="abs" />
+       <error errorId="3" plus="0.3" minus="0.2" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-10-1-4" pointId="4" value="75.7" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="4.2" minus="4.2" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+7.6" minus="-2.4" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+5.9" minus="-2.5" source="sys" norm="abs" />
+      <point id="pt-9267-10-1-4" pointId="4" value="1.2" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.2" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.04" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-10-1-5" pointId="5" value="38.1" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="3.2" minus="3.2" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+3.4" minus="-0.8" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+2.4" minus="-3.5" source="sys" norm="abs" />
+      <point id="pt-9267-10-1-5" pointId="5" value="0.21" relation="eq">
+       <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
+       <error errorId="2" plus="0.07" minus="0.02" source="sys" norm="abs" />
+       <error errorId="3" plus="0.02" minus="0.01" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-11" datasetId="11">
+   <dataset id="ds-9267-11" datasetId="11">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 468 to 1000 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &lt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4. -1 &lt; ETARAP(JET2) &lt; 0
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 3,F 6
     </comment>
-    <xaxis id="xax-9388-11-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-11-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-2.0" high="-1.8" />
-      <bin binId="2" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="3" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="4" relation="eq" low="-1.4" high="-1.2" />
-      <bin binId="5" relation="eq" low="-1.2" high="-1.0" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-11-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.052" low="0.99" high="1.114" />
-      <bin binId="2" relation="eq" center="0.992" low="0.963" high="1.021" />
-      <bin binId="3" relation="eq" center="1.01" low="0.986" high="1.034" />
-      <bin binId="4" relation="eq" center="1.034" low="1.01" high="1.058" />
-      <bin binId="5" relation="eq" center="1.053" low="1.024" high="1.082" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-11-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-11-1-1">
+    <yaxis id="yax-9267-11-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="2.67" high="3.00" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-11-1-1" pointId="1" value="6.4" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.9" minus="0.9" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+1.0" minus="-0.6" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+0.6" minus="-0.4" source="sys" norm="abs" />
+      <point id="pt-9267-11-1-1" pointId="1" value="15.4" relation="eq">
+       <error errorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
+       <error errorId="2" plus="2.3" minus="0.5" source="sys" norm="abs" />
+       <error errorId="3" plus="0.8" minus="0.5" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-11-1-2" pointId="2" value="31.1" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="2.2" minus="2.2" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+0.4" minus="-1.2" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+1.4" minus="-2.5" source="sys" norm="abs" />
+      <point id="pt-9267-11-1-2" pointId="2" value="6.0" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.5" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.3" minus="0.3" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-11-1-3" pointId="3" value="47.5" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="2.9" minus="2.9" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+3.1" minus="-1.9" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+2.6" minus="-2.1" source="sys" norm="abs" />
+      <point id="pt-9267-11-1-3" pointId="3" value="1.4" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.2" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.05" minus="0.04" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-11-1-4" pointId="4" value="54.2" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="3.3" minus="3.3" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+1.7" minus="-4.9" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+1.6" minus="-2.1" source="sys" norm="abs" />
+      <point id="pt-9267-11-1-4" pointId="4" value="0.38" relation="eq">
+       <error errorId="1" plus="0.05" minus="0.05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.03" minus="0.18" source="sys" norm="abs" />
+       <error errorId="3" plus="0.03" minus="0.03" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-11-1-5" pointId="5" value="33.1" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="2.6" minus="2.6" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+2.7" minus="-2.1" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+2.6" minus="-1.9" source="sys" norm="abs" />
+      <point id="pt-9267-11-1-5" pointId="5" value="0.057" relation="eq">
+       <error errorId="1" plus="0.015" minus="0.015" source="stat" norm="abs" />
+       <error errorId="2" plus="0.013" minus="0.022" source="sys" norm="abs" />
+       <error errorId="3" plus="0.001" minus="0.001" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-12" datasetId="12">
+   <dataset id="ds-9267-12" datasetId="12">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 1000 to 3162 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &lt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4. 0 &lt; ETARAP(JET2) &lt; 1
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 3,F 6
     </comment>
-    <xaxis id="xax-9388-12-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-12-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-1.8" high="-1.6" />
-      <bin binId="2" relation="eq" low="-1.6" high="-1.4" />
-      <bin binId="3" relation="eq" low="-1.4" high="-1.2" />
-      <bin binId="4" relation="eq" low="-1.2" high="-1.0" />
-      <bin binId="5" relation="eq" low="-1.0" high="-0.8" />
-      <bin binId="6" relation="eq" low="-0.8" high="-0.6" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
+      <bin binId="6" low="35.0" high="41.0" />
+      <bin binId="7" low="41.0" high="48.0" />
+      <bin binId="8" low="48.0" high="55.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-12-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.06" low="1.022" high="1.098" />
-      <bin binId="2" relation="eq" center="0.981" low="0.963" high="0.999" />
-      <bin binId="3" relation="eq" center="0.982" low="0.968" high="0.996" />
-      <bin binId="4" relation="eq" center="0.968" low="0.954" high="0.982" />
-      <bin binId="5" relation="eq" center="0.969" low="0.952" high="0.986" />
-      <bin binId="6" relation="eq" center="0.981" low="0.949" high="1.013" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-12-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-12-1-1">
+    <yaxis id="yax-9267-12-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="3.0" high="3.5" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : 0 TO 1
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-12-1-1" pointId="1" value="5.2" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.9" minus="0.9" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+1.5" minus="-1.5" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+0.5" minus="-0.8" source="sys" norm="abs" />
+      <point id="pt-9267-12-1-1" pointId="1" value="56.7" relation="eq">
+       <error errorId="1" plus="0.8" minus="0.8" source="stat" norm="abs" />
+       <error errorId="2" plus="1.6" minus="1.0" source="sys" norm="abs" />
+       <error errorId="3" plus="2.1" minus="2.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-12-1-2" pointId="2" value="18.7" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="1.7" minus="1.7" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+2.9" minus="-1.0" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+0.6" minus="-1.4" source="sys" norm="abs" />
+      <point id="pt-9267-12-1-2" pointId="2" value="26.6" relation="eq">
+       <error errorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
+       <error errorId="2" plus="0.5" minus="0.5" source="sys" norm="abs" />
+       <error errorId="3" plus="1.3" minus="1.0" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-12-1-3" pointId="3" value="32.3" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="2.3" minus="2.3" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+1.3" minus="-1.6" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+2.1" minus="-1.5" source="sys" norm="abs" />
+      <point id="pt-9267-12-1-3" pointId="3" value="11.2" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.7" source="sys" norm="abs" />
+       <error errorId="3" plus="0.6" minus="0.5" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-12-1-4" pointId="4" value="28.9" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="2.1" minus="2.1" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+2.2" minus="-0.6" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+1.1" minus="-0.9" source="sys" norm="abs" />
+      <point id="pt-9267-12-1-4" pointId="4" value="3.7" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.2" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.2" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-12-1-5" pointId="5" value="18.6" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="1.7" minus="1.7" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+0.9" minus="-1.1" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+0.4" minus="-0.9" source="sys" norm="abs" />
+      <point id="pt-9267-12-1-5" pointId="5" value="1.3" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.05" minus="0.05" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-12-1-6" pointId="6" value="5.6" relation="eq">
-       <pointerror pointId="6" pointerrorId="1" plus="0.9" minus="0.9" source="stat" norm="abs" />
-       <pointerror pointId="6" pointerrorId="2" plus="+0.7" minus="-0.6" source="sys" norm="abs" />
-       <pointerror pointId="6" pointerrorId="3" plus="+0.7" minus="-0.3" source="sys" norm="abs" />
+      <point id="pt-9267-12-1-6" pointId="6" value="0.35" relation="eq">
+       <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
+       <error errorId="2" plus="0.04" minus="0.04" source="sys" norm="abs" />
+       <error errorId="3" plus="0.03" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-12-1-7" pointId="7" value="0.064" relation="eq">
+       <error errorId="1" plus="0.016" minus="0.016" source="stat" norm="abs" />
+       <error errorId="2" plus="0.007" minus="0.009" source="sys" norm="abs" />
+       <error errorId="3" plus="0.003" minus="0.005" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-12-1-8" pointId="8" value="0.019" relation="eq">
+       <error errorId="1" plus="0.009" minus="0.009" source="stat" norm="abs" />
+       <error errorId="2" plus="0.014" minus="0.005" source="sys" norm="abs" />
+       <error errorId="3" plus="0.001" minus="0.001" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
-   <dataset id="ds-9388-13" datasetId="13">
+   <dataset id="ds-9267-13" datasetId="13">
     <comment>
-     Dijet cross section as a function of LOG10(XI), in the Q**2 range 3162 to 10000 GeV**2.
+     Measured cross section as a function of ET(JET1) for X(C=GAMMA) &lt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4. 1 &lt; ETARAP(JET2) &lt; 2.4
     </comment>
     <comment>
-     Location: T 4_5
+     Location: T 3,F 6
     </comment>
-    <xaxis id="xax-9388-13-1" xaxisId="1" header="LOG10(XI)">
+    <xaxis id="xax-9267-13-1" xaxisId="1" header="ET(P=3) IN GEV">
      <bins>
-      <bin binId="1" relation="eq" low="-1.4" high="-1.2" />
-      <bin binId="2" relation="eq" low="-1.2" high="-1.0" />
-      <bin binId="3" relation="eq" low="-1.0" high="-0.8" />
-      <bin binId="4" relation="eq" low="-0.8" high="-0.6" />
-      <bin binId="5" relation="eq" low="-0.6" high="-0.4" />
+      <bin binId="1" low="14.0" high="17.0" />
+      <bin binId="2" low="17.0" high="21.0" />
+      <bin binId="3" low="21.0" high="25.0" />
+      <bin binId="4" low="25.0" high="29.0" />
+      <bin binId="5" low="29.0" high="35.0" />
+      <bin binId="6" low="35.0" high="41.0" />
+      <bin binId="7" low="41.0" high="48.0" />
+      <bin binId="8" low="48.0" high="55.0" />
+      <bin binId="9" low="55.0" high="65.0" />
      </bins>
     </xaxis>
-    <xaxis id="xax-9388-13-2" xaxisId="2" header="ISR/FSR">
-     <bins>
-      <bin binId="1" relation="eq" center="1.092" low="1.051" high="1.133" />
-      <bin binId="2" relation="eq" center="0.981" low="0.963" high="0.999" />
-      <bin binId="3" relation="eq" center="0.957" low="0.943" high="0.971" />
-      <bin binId="4" relation="eq" center="0.923" low="0.908" high="0.938" />
-      <bin binId="5" relation="eq" center="0.964" low="0.937" high="0.991" />
-     </bins>
-    </xaxis>
-    <yaxis id="yax-9388-13-1" header="D(SIG)/DLOG10(XI) IN PB">
-     <reaction id="reac-9388-13-1-1">
+    <yaxis id="yax-9267-13-1" header="D(SIG)/DET(P=3) IN PB/GEV">
+     <reaction>
       <initialstate>
-       <particle name="E+" />
+       <particle name="GAMMA" />
        <particle name="P" />
       </initialstate>
       <finalstate>
-       <particle name="E+" mult="1" />
-       <particle name="JET" mult="2" />
-       <particle name="X" mult="1" />
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <properties>
-      <property name="SQRTS" unit="GEV" low="0.000" high="0.000" />
-      <property name="LOG10(Q**2)" unit="num" low="3.5" high="4.0" />
-     </properties>
+     <observable name="DSIG/DET" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      ETARAP(P=4) : 1 TO 2.4
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
      <points>
-      <point id="pt-9388-13-1-1" pointId="1" value="0.9" relation="eq">
-       <pointerror pointId="1" pointerrorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
-       <pointerror pointId="1" pointerrorId="2" plus="+0.7" minus="-0.0" source="sys" norm="abs" />
-       <pointerror pointId="1" pointerrorId="3" plus="+0.3" minus="-0.0" source="sys" norm="abs" />
+      <point id="pt-9267-13-1-1" pointId="1" value="78.4" relation="eq">
+       <error errorId="1" plus="1.4" minus="1.4" source="stat" norm="abs" />
+       <error errorId="2" plus="6.6" minus="5.4" source="sys" norm="abs" />
+       <error errorId="3" plus="2.3" minus="2.8" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-13-1-2" pointId="2" value="6.4" relation="eq">
-       <pointerror pointId="2" pointerrorId="1" plus="1.0" minus="1.0" source="stat" norm="abs" />
-       <pointerror pointId="2" pointerrorId="2" plus="+0.6" minus="-1.1" source="sys" norm="abs" />
-       <pointerror pointId="2" pointerrorId="3" plus="+0.0" minus="-0.5" source="sys" norm="abs" />
+      <point id="pt-9267-13-1-2" pointId="2" value="38.2" relation="eq">
+       <error errorId="1" plus="0.7" minus="0.7" source="stat" norm="abs" />
+       <error errorId="2" plus="2.5" minus="0.9" source="sys" norm="abs" />
+       <error errorId="3" plus="1.7" minus="1.6" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-13-1-3" pointId="3" value="5.7" relation="eq">
-       <pointerror pointId="3" pointerrorId="1" plus="0.9" minus="0.9" source="stat" norm="abs" />
-       <pointerror pointId="3" pointerrorId="2" plus="+1.0" minus="-0.2" source="sys" norm="abs" />
-       <pointerror pointId="3" pointerrorId="3" plus="+0.3" minus="-0.1" source="sys" norm="abs" />
+      <point id="pt-9267-13-1-3" pointId="3" value="16.9" relation="eq">
+       <error errorId="1" plus="0.5" minus="0.5" source="stat" norm="abs" />
+       <error errorId="2" plus="0.9" minus="0.3" source="sys" norm="abs" />
+       <error errorId="3" plus="0.8" minus="0.7" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-13-1-4" pointId="4" value="6.9" relation="eq">
-       <pointerror pointId="4" pointerrorId="1" plus="1.0" minus="1.0" source="stat" norm="abs" />
-       <pointerror pointId="4" pointerrorId="2" plus="+0.3" minus="-0.7" source="sys" norm="abs" />
-       <pointerror pointId="4" pointerrorId="3" plus="+0.1" minus="-0.3" source="sys" norm="abs" />
+      <point id="pt-9267-13-1-4" pointId="4" value="6.3" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="0.1" source="sys" norm="abs" />
+       <error errorId="3" plus="0.3" minus="0.3" source="sys" norm="abs" />
       </point>
-      <point id="pt-9388-13-1-5" pointId="5" value="1.9" relation="eq">
-       <pointerror pointId="5" pointerrorId="1" plus="0.5" minus="0.5" source="stat" norm="abs" />
-       <pointerror pointId="5" pointerrorId="2" plus="+0.5" minus="-0.4" source="sys" norm="abs" />
-       <pointerror pointId="5" pointerrorId="3" plus="+0.1" minus="-0.1" source="sys" norm="abs" />
+      <point id="pt-9267-13-1-5" pointId="5" value="2.5" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.0" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-13-1-6" pointId="6" value="0.92" relation="eq">
+       <error errorId="1" plus="0.08" minus="0.08" source="stat" norm="abs" />
+       <error errorId="2" plus="0.05" minus="0.01" source="sys" norm="abs" />
+       <error errorId="3" plus="0.09" minus="0.06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-13-1-7" pointId="7" value="0.31" relation="eq">
+       <error errorId="1" plus="0.05" minus="0.05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.03" minus="0.04" source="sys" norm="abs" />
+       <error errorId="3" plus="0.02" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-13-1-8" pointId="8" value="0.12" relation="eq">
+       <error errorId="1" plus="0.03" minus="0.03" source="stat" norm="abs" />
+       <error errorId="2" plus="0.01" minus="0.01" source="sys" norm="abs" />
+       <error errorId="3" plus="0.01" minus="0.01" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-13-1-9" pointId="9" value="0.045" relation="eq">
+       <error errorId="1" plus="0.016" minus="0.016" source="stat" norm="abs" />
+       <error errorId="2" plus="0.014" minus="0.016" source="sys" norm="abs" />
+       <error errorId="3" plus="0.004" minus="0.003" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-14" datasetId="14">
+    <comment>
+     Measured cross section as a function of ETARAP(JET2) for X(C=GAMMA) &gt; 0.75 for:. -1 &lt; ETARAP(JET1) &lt; 0
+    </comment>
+    <comment>
+     Location: T 4,F 8
+    </comment>
+    <xaxis id="xax-9267-14-1" xaxisId="1" header="ETARAP(P=4) IN GEV">
+     <bins>
+      <bin binId="1" low="-1.0" high="-0.5" />
+      <bin binId="2" low="-0.5" high="0.0" />
+      <bin binId="3" low="0.0" high="0.5" />
+      <bin binId="4" low="0.5" high="1.0" />
+      <bin binId="5" low="1.0" high="1.5" />
+      <bin binId="6" low="1.5" high="2.0" />
+      <bin binId="7" low="2.0" high="2.4" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-14-1" header="D(SIG)/DETRAP(P=4) IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
+     <points>
+      <point id="pt-9267-14-1-1" pointId="1" value="8.9" relation="eq">
+       <error errorId="1" plus="1.0" minus="1.0" source="stat" norm="abs" />
+       <error errorId="2" plus="9.5" minus="1.4" source="sys" norm="abs" />
+       <error errorId="3" plus="0.5" minus="0.8" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-14-1-2" pointId="2" value="88.2" relation="eq">
+       <error errorId="1" plus="2.8" minus="2.8" source="stat" norm="abs" />
+       <error errorId="2" plus="15.6" minus="9.2" source="sys" norm="abs" />
+       <error errorId="3" plus="4.2" minus="3.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-14-1-3" pointId="3" value="175.0" relation="eq">
+       <error errorId="1" plus="3.8" minus="3.8" source="stat" norm="abs" />
+       <error errorId="2" plus="11.1" minus="15.7" source="sys" norm="abs" />
+       <error errorId="3" plus="5.8" minus="5.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-14-1-4" pointId="4" value="195.8" relation="eq">
+       <error errorId="1" plus="4.0" minus="4.0" source="stat" norm="abs" />
+       <error errorId="2" plus="6.7" minus="12.4" source="sys" norm="abs" />
+       <error errorId="3" plus="8.5" minus="6.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-14-1-5" pointId="5" value="160.3" relation="eq">
+       <error errorId="1" plus="3.4" minus="3.4" source="stat" norm="abs" />
+       <error errorId="2" plus="9.8" minus="5.0" source="sys" norm="abs" />
+       <error errorId="3" plus="6.5" minus="5.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-14-1-6" pointId="6" value="130.0" relation="eq">
+       <error errorId="1" plus="3.3" minus="3.3" source="stat" norm="abs" />
+       <error errorId="2" plus="6.9" minus="2.6" source="sys" norm="abs" />
+       <error errorId="3" plus="4.2" minus="4.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-14-1-7" pointId="7" value="89.3" relation="eq">
+       <error errorId="1" plus="3.5" minus="3.5" source="stat" norm="abs" />
+       <error errorId="2" plus="5.1" minus="5.6" source="sys" norm="abs" />
+       <error errorId="3" plus="3.6" minus="3.1" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-15" datasetId="15">
+    <comment>
+     Measured cross section as a function of ETARAP(JET2) for X(C=GAMMA) &gt; 0.75 for:. 0 &lt; ETARAP(JET1) &lt; 1
+    </comment>
+    <comment>
+     Location: T 4,F 8
+    </comment>
+    <xaxis id="xax-9267-15-1" xaxisId="1" header="ETARAP(P=4) IN GEV">
+     <bins>
+      <bin binId="1" low="-1.0" high="-0.5" />
+      <bin binId="2" low="-0.5" high="0.0" />
+      <bin binId="3" low="0.0" high="0.5" />
+      <bin binId="4" low="0.5" high="1.0" />
+      <bin binId="5" low="1.0" high="1.5" />
+      <bin binId="6" low="1.5" high="2.0" />
+      <bin binId="7" low="2.0" high="2.4" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-15-1" header="D(SIG)/DETRAP(P=4) IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 0 TO 1
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
+     <points>
+      <point id="pt-9267-15-1-1" pointId="1" value="99.3" relation="eq">
+       <error errorId="1" plus="3.1" minus="3.1" source="stat" norm="abs" />
+       <error errorId="2" plus="11.1" minus="1.9" source="sys" norm="abs" />
+       <error errorId="3" plus="4.7" minus="2.8" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-15-1-2" pointId="2" value="272.0" relation="eq">
+       <error errorId="1" plus="4.6" minus="4.6" source="stat" norm="abs" />
+       <error errorId="2" plus="10.7" minus="26.6" source="sys" norm="abs" />
+       <error errorId="3" plus="9.8" minus="9.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-15-1-3" pointId="3" value="347.0" relation="eq">
+       <error errorId="1" plus="5.1" minus="5.1" source="stat" norm="abs" />
+       <error errorId="2" plus="3.6" minus="37.8" source="sys" norm="abs" />
+       <error errorId="3" plus="12.1" minus="10.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-15-1-4" pointId="4" value="347.1" relation="eq">
+       <error errorId="1" plus="5.0" minus="5.0" source="stat" norm="abs" />
+       <error errorId="2" plus="2.2" minus="32.5" source="sys" norm="abs" />
+       <error errorId="3" plus="11.7" minus="9.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-15-1-5" pointId="5" value="287.9" relation="eq">
+       <error errorId="1" plus="4.2" minus="4.2" source="stat" norm="abs" />
+       <error errorId="2" plus="2.7" minus="19.5" source="sys" norm="abs" />
+       <error errorId="3" plus="9.3" minus="9.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-15-1-6" pointId="6" value="208.1" relation="eq">
+       <error errorId="1" plus="3.7" minus="3.7" source="stat" norm="abs" />
+       <error errorId="2" plus="1.6" minus="5.4" source="sys" norm="abs" />
+       <error errorId="3" plus="7.5" minus="7.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-15-1-7" pointId="7" value="125.1" relation="eq">
+       <error errorId="1" plus="3.7" minus="3.7" source="stat" norm="abs" />
+       <error errorId="2" plus="1.9" minus="7.9" source="sys" norm="abs" />
+       <error errorId="3" plus="3.9" minus="4.3" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-16" datasetId="16">
+    <comment>
+     Measured cross section as a function of ETARAP(JET2) for X(C=GAMMA) &gt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4
+    </comment>
+    <comment>
+     Location: T 4,F 8
+    </comment>
+    <xaxis id="xax-9267-16-1" xaxisId="1" header="ETARAP(P=4) IN GEV">
+     <bins>
+      <bin binId="1" low="-1.0" high="-0.5" />
+      <bin binId="2" low="-0.5" high="0.0" />
+      <bin binId="3" low="0.0" high="0.5" />
+      <bin binId="4" low="0.5" high="1.0" />
+      <bin binId="5" low="1.0" high="1.5" />
+      <bin binId="6" low="1.5" high="2.0" />
+      <bin binId="7" low="2.0" high="2.4" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-16-1" header="D(SIG)/DETRAP(P=4) IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &gt; 0.75
+     </comment>
+     <points>
+      <point id="pt-9267-16-1-1" pointId="1" value="115.4" relation="eq">
+       <error errorId="1" plus="3.2" minus="3.2" source="stat" norm="abs" />
+       <error errorId="2" plus="20.5" minus="6.8" source="sys" norm="abs" />
+       <error errorId="3" plus="5.2" minus="4.8" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-16-1-2" pointId="2" value="241.7" relation="eq">
+       <error errorId="1" plus="4.2" minus="4.2" source="stat" norm="abs" />
+       <error errorId="2" plus="6.6" minus="3.5" source="sys" norm="abs" />
+       <error errorId="3" plus="8.5" minus="8.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-16-1-3" pointId="3" value="315.7" relation="eq">
+       <error errorId="1" plus="4.6" minus="4.6" source="stat" norm="abs" />
+       <error errorId="2" plus="3.8" minus="13.3" source="sys" norm="abs" />
+       <error errorId="3" plus="11.4" minus="11.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-16-1-4" pointId="4" value="277.5" relation="eq">
+       <error errorId="1" plus="4.2" minus="4.2" source="stat" norm="abs" />
+       <error errorId="2" plus="1.2" minus="18.6" source="sys" norm="abs" />
+       <error errorId="3" plus="8.5" minus="9.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-16-1-5" pointId="5" value="104.0" relation="eq">
+       <error errorId="1" plus="2.4" minus="2.4" source="stat" norm="abs" />
+       <error errorId="2" plus="4.1" minus="3.5" source="sys" norm="abs" />
+       <error errorId="3" plus="3.8" minus="4.0" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-16-1-6" pointId="6" value="37.2" relation="eq">
+       <error errorId="1" plus="1.5" minus="1.5" source="stat" norm="abs" />
+       <error errorId="2" plus="0.8" minus="1.4" source="sys" norm="abs" />
+       <error errorId="3" plus="1.5" minus="1.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-16-1-7" pointId="7" value="13.2" relation="eq">
+       <error errorId="1" plus="1.1" minus="1.1" source="stat" norm="abs" />
+       <error errorId="2" plus="0.9" minus="2.3" source="sys" norm="abs" />
+       <error errorId="3" plus="0.5" minus="0.4" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-17" datasetId="17">
+    <comment>
+     Measured cross section as a function of ETARAP(JET2) for X(C=GAMMA) &lt; 0.75 for:. -1 &lt; ETARAP(JET1) &lt; 0
+    </comment>
+    <comment>
+     Location: T 5,F 9
+    </comment>
+    <xaxis id="xax-9267-17-1" xaxisId="1" header="ETARAP(P=4) IN GEV">
+     <bins>
+      <bin binId="1" low="-0.5" high="0.0" />
+      <bin binId="2" low="0.0" high="0.5" />
+      <bin binId="3" low="0.5" high="1.0" />
+      <bin binId="4" low="1.0" high="1.5" />
+      <bin binId="5" low="1.5" high="2.0" />
+      <bin binId="6" low="2.0" high="2.4" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-17-1" header="D(SIG)/DETRAP(P=4) IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : -1 TO 0
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
+     <points>
+      <point id="pt-9267-17-1-1" pointId="1" value="2.2" relation="eq">
+       <error errorId="1" plus="0.4" minus="0.4" source="stat" norm="abs" />
+       <error errorId="2" plus="1.4" minus="0.8" source="sys" norm="abs" />
+       <error errorId="3" plus="0.1" minus="0.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-17-1-2" pointId="2" value="15.8" relation="eq">
+       <error errorId="1" plus="1.0" minus="1.0" source="stat" norm="abs" />
+       <error errorId="2" plus="2.9" minus="0.5" source="sys" norm="abs" />
+       <error errorId="3" plus="0.6" minus="0.6" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-17-1-3" pointId="3" value="40.0" relation="eq">
+       <error errorId="1" plus="1.7" minus="1.7" source="stat" norm="abs" />
+       <error errorId="2" plus="2.7" minus="2.2" source="sys" norm="abs" />
+       <error errorId="3" plus="1.3" minus="1.0" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-17-1-4" pointId="4" value="52.4" relation="eq">
+       <error errorId="1" plus="1.8" minus="1.8" source="stat" norm="abs" />
+       <error errorId="2" plus="6.2" minus="0.4" source="sys" norm="abs" />
+       <error errorId="3" plus="2.6" minus="1.8" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-17-1-5" pointId="5" value="60.4" relation="eq">
+       <error errorId="1" plus="2.0" minus="2.0" source="stat" norm="abs" />
+       <error errorId="2" plus="7.5" minus="4.6" source="sys" norm="abs" />
+       <error errorId="3" plus="3.0" minus="2.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-17-1-6" pointId="6" value="54.1" relation="eq">
+       <error errorId="1" plus="2.4" minus="2.4" source="stat" norm="abs" />
+       <error errorId="2" plus="6.9" minus="3.5" source="sys" norm="abs" />
+       <error errorId="3" plus="2.7" minus="1.4" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-18" datasetId="18">
+    <comment>
+     Measured cross section as a function of ETARAP(JET2) for X(C=GAMMA) &lt; 0.75 for:. 0 &lt; ETARAP(JET1) &lt; 1
+    </comment>
+    <comment>
+     Location: T 5,F 9
+    </comment>
+    <xaxis id="xax-9267-18-1" xaxisId="1" header="ETARAP(P=4) IN GEV">
+     <bins>
+      <bin binId="1" low="-1.0" high="-0.5" />
+      <bin binId="2" low="-0.5" high="0.0" />
+      <bin binId="3" low="0.0" high="0.5" />
+      <bin binId="4" low="0.5" high="1.0" />
+      <bin binId="5" low="1.0" high="1.5" />
+      <bin binId="6" low="1.5" high="2.0" />
+      <bin binId="7" low="2.0" high="2.4" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-18-1" header="D(SIG)/DETRAP(P=4) IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 0 TO 1
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
+     <points>
+      <point id="pt-9267-18-1-1" pointId="1" value="4.1" relation="eq">
+       <error errorId="1" plus="0.5" minus="0.5" source="stat" norm="abs" />
+       <error errorId="2" plus="1.5" minus="0.6" source="sys" norm="abs" />
+       <error errorId="3" plus="0.3" minus="0.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-18-1-2" pointId="2" value="51.7" relation="eq">
+       <error errorId="1" plus="1.9" minus="1.9" source="stat" norm="abs" />
+       <error errorId="2" plus="4.7" minus="2.2" source="sys" norm="abs" />
+       <error errorId="3" plus="1.6" minus="1.6" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-18-1-3" pointId="3" value="131.7" relation="eq">
+       <error errorId="1" plus="3.1" minus="3.1" source="stat" norm="abs" />
+       <error errorId="2" plus="3.3" minus="11.7" source="sys" norm="abs" />
+       <error errorId="3" plus="6.6" minus="5.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-18-1-4" pointId="4" value="195.4" relation="eq">
+       <error errorId="1" plus="3.8" minus="3.8" source="stat" norm="abs" />
+       <error errorId="2" plus="4.4" minus="14.4" source="sys" norm="abs" />
+       <error errorId="3" plus="7.4" minus="7.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-18-1-5" pointId="5" value="230.1" relation="eq">
+       <error errorId="1" plus="3.7" minus="3.7" source="stat" norm="abs" />
+       <error errorId="2" plus="4.8" minus="11.3" source="sys" norm="abs" />
+       <error errorId="3" plus="9.7" minus="9.4" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-18-1-6" pointId="6" value="262.4" relation="eq">
+       <error errorId="1" plus="4.1" minus="4.1" source="stat" norm="abs" />
+       <error errorId="2" plus="5.7" minus="4.1" source="sys" norm="abs" />
+       <error errorId="3" plus="11.5" minus="10.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-18-1-7" pointId="7" value="243.7" relation="eq">
+       <error errorId="1" plus="5.0" minus="5.0" source="stat" norm="abs" />
+       <error errorId="2" plus="6.7" minus="7.1" source="sys" norm="abs" />
+       <error errorId="3" plus="10.1" minus="9.1" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-19" datasetId="19">
+    <comment>
+     Measured cross section as a function of ETARAP(JET2) for X(C=GAMMA) &lt; 0.75 for:. 1 &lt; ETARAP(JET1) &lt; 2.4
+    </comment>
+    <comment>
+     Location: T 5,F 9
+    </comment>
+    <xaxis id="xax-9267-19-1" xaxisId="1" header="ETARAP(P=4) IN GEV">
+     <bins>
+      <bin binId="1" low="-1.0" high="-0.5" />
+      <bin binId="2" low="-0.5" high="0.0" />
+      <bin binId="3" low="0.0" high="0.5" />
+      <bin binId="4" low="0.5" high="1.0" />
+      <bin binId="5" low="1.0" high="1.5" />
+      <bin binId="6" low="1.5" high="2.0" />
+      <bin binId="7" low="2.0" high="2.4" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-19-1" header="D(SIG)/DETRAP(P=4) IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ETARAP(P=3) : 1 TO 2.4
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <comment>
+      X(C=GAMMA) : &lt; 0.75
+     </comment>
+     <points>
+      <point id="pt-9267-19-1-1" pointId="1" value="20.5" relation="eq">
+       <error errorId="1" plus="1.2" minus="1.2" source="stat" norm="abs" />
+       <error errorId="2" plus="5.1" minus="0.3" source="sys" norm="abs" />
+       <error errorId="3" plus="0.9" minus="0.8" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-19-1-2" pointId="2" value="135.0" relation="eq">
+       <error errorId="1" plus="3.0" minus="3.0" source="stat" norm="abs" />
+       <error errorId="2" plus="13.5" minus="5.1" source="sys" norm="abs" />
+       <error errorId="3" plus="6.9" minus="5.0" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-19-1-3" pointId="3" value="288.8" relation="eq">
+       <error errorId="1" plus="4.4" minus="4.4" source="stat" norm="abs" />
+       <error errorId="2" plus="5.6" minus="6.5" source="sys" norm="abs" />
+       <error errorId="3" plus="12.1" minus="11.6" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-19-1-4" pointId="4" value="403.6" relation="eq">
+       <error errorId="1" plus="5.2" minus="5.2" source="stat" norm="abs" />
+       <error errorId="2" plus="9.6" minus="9.7" source="sys" norm="abs" />
+       <error errorId="3" plus="17.5" minus="15.5" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-19-1-5" pointId="5" value="403.0" relation="eq">
+       <error errorId="1" plus="4.8" minus="4.8" source="stat" norm="abs" />
+       <error errorId="2" plus="24.2" minus="15.6" source="sys" norm="abs" />
+       <error errorId="3" plus="16.3" minus="16.0" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-19-1-6" pointId="6" value="355.2" relation="eq">
+       <error errorId="1" plus="4.5" minus="4.5" source="stat" norm="abs" />
+       <error errorId="2" plus="27.6" minus="20.8" source="sys" norm="abs" />
+       <error errorId="3" plus="13.6" minus="14.4" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-19-1-7" pointId="7" value="305.0" relation="eq">
+       <error errorId="1" plus="5.3" minus="5.3" source="stat" norm="abs" />
+       <error errorId="2" plus="27.4" minus="11.1" source="sys" norm="abs" />
+       <error errorId="3" plus="11.0" minus="10.8" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-20" datasetId="20">
+    <comment>
+     Measured cross section as a function of X(C=GAMMA) for:. 14 &lt; ET(JET1) &lt; 17 GEV
+    </comment>
+    <comment>
+     Location: T 6,F 10
+    </comment>
+    <xaxis id="xax-9267-20-1" xaxisId="1" header="X(C=GAMMA)">
+     <bins>
+      <bin binId="1" low="0.1" high="0.2" />
+      <bin binId="2" low="0.2" high="0.3" />
+      <bin binId="3" low="0.3" high="0.4" />
+      <bin binId="4" low="0.4" high="0.5" />
+      <bin binId="5" low="0.5" high="0.6" />
+      <bin binId="6" low="0.6" high="0.7" />
+      <bin binId="7" low="0.7" high="0.8" />
+      <bin binId="8" low="0.8" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-20-1" header="D(SIG)/DX(C=GAMMA)IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="DSIG/DX" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ET(P=3) IN GEV : 14 TO 17
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <points>
+      <point id="pt-9267-20-1-1" pointId="1" value="421.4" relation="eq">
+       <error errorId="1" plus="14.1" minus="14.1" source="stat" norm="abs" />
+       <error errorId="2" plus="49.9" minus="33.5" source="sys" norm="abs" />
+       <error errorId="3" plus="19.5" minus="16.6" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-20-1-2" pointId="2" value="631.6" relation="eq">
+       <error errorId="1" plus="16.2" minus="16.2" source="stat" norm="abs" />
+       <error errorId="2" plus="48.2" minus="56.9" source="sys" norm="abs" />
+       <error errorId="3" plus="19.3" minus="25.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-20-1-3" pointId="3" value="607.2" relation="eq">
+       <error errorId="1" plus="15.0" minus="15.0" source="stat" norm="abs" />
+       <error errorId="2" plus="38.2" minus="14.3" source="sys" norm="abs" />
+       <error errorId="3" plus="20.2" minus="23.0" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-20-1-4" pointId="4" value="599.9" relation="eq">
+       <error errorId="1" plus="14.4" minus="14.4" source="stat" norm="abs" />
+       <error errorId="2" plus="36.7" minus="4.2" source="sys" norm="abs" />
+       <error errorId="3" plus="26.6" minus="19.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-20-1-5" pointId="5" value="621.2" relation="eq">
+       <error errorId="1" plus="14.6" minus="14.6" source="stat" norm="abs" />
+       <error errorId="2" plus="49.8" minus="6.5" source="sys" norm="abs" />
+       <error errorId="3" plus="21.6" minus="17.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-20-1-6" pointId="6" value="695.8" relation="eq">
+       <error errorId="1" plus="15.4" minus="15.4" source="stat" norm="abs" />
+       <error errorId="2" plus="33.2" minus="12.0" source="sys" norm="abs" />
+       <error errorId="3" plus="24.6" minus="24.5" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-20-1-7" pointId="7" value="842.1" relation="eq">
+       <error errorId="1" plus="16.5" minus="16.5" source="stat" norm="abs" />
+       <error errorId="2" plus="97.5" minus="6.6" source="sys" norm="abs" />
+       <error errorId="3" plus="33.4" minus="25.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-20-1-8" pointId="8" value="1784.0" relation="eq">
+       <error errorId="1" plus="18.8" minus="18.8" source="stat" norm="abs" />
+       <error errorId="2" plus="128.6" minus="78.1" source="sys" norm="abs" />
+       <error errorId="3" plus="57.5" minus="52.7" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-21" datasetId="21">
+    <comment>
+     Measured cross section as a function of X(C=GAMMA) for:. 17 &lt; ET(JET1) &lt; 25 GEV
+    </comment>
+    <comment>
+     Location: T 6,F 10
+    </comment>
+    <xaxis id="xax-9267-21-1" xaxisId="1" header="X(C=GAMMA)">
+     <bins>
+      <bin binId="1" low="0.1" high="0.2" />
+      <bin binId="2" low="0.2" high="0.3" />
+      <bin binId="3" low="0.3" high="0.4" />
+      <bin binId="4" low="0.4" high="0.5" />
+      <bin binId="5" low="0.5" high="0.6" />
+      <bin binId="6" low="0.6" high="0.7" />
+      <bin binId="7" low="0.7" high="0.8" />
+      <bin binId="8" low="0.8" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-21-1" header="D(SIG)/DX(C=GAMMA)IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="DSIG/DX" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ET(P=3) IN GEV : 17 TO 25
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <points>
+      <point id="pt-9267-21-1-1" pointId="1" value="251.2" relation="eq">
+       <error errorId="1" plus="9.6" minus="9.6" source="stat" norm="abs" />
+       <error errorId="2" plus="11.2" minus="15.0" source="sys" norm="abs" />
+       <error errorId="3" plus="15.1" minus="13.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-21-1-2" pointId="2" value="419.2" relation="eq">
+       <error errorId="1" plus="11.3" minus="11.3" source="stat" norm="abs" />
+       <error errorId="2" plus="28.5" minus="20.3" source="sys" norm="abs" />
+       <error errorId="3" plus="20.3" minus="19.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-21-1-3" pointId="3" value="523.1" relation="eq">
+       <error errorId="1" plus="12.5" minus="12.5" source="stat" norm="abs" />
+       <error errorId="2" plus="39.1" minus="21.3" source="sys" norm="abs" />
+       <error errorId="3" plus="27.3" minus="21.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-21-1-4" pointId="4" value="539.7" relation="eq">
+       <error errorId="1" plus="12.5" minus="12.5" source="stat" norm="abs" />
+       <error errorId="2" plus="10.3" minus="14.3" source="sys" norm="abs" />
+       <error errorId="3" plus="22.6" minus="23.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-21-1-5" pointId="5" value="597.3" relation="eq">
+       <error errorId="1" plus="13.2" minus="13.2" source="stat" norm="abs" />
+       <error errorId="2" plus="15.3" minus="18.1" source="sys" norm="abs" />
+       <error errorId="3" plus="28.0" minus="24.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-21-1-6" pointId="6" value="641.3" relation="eq">
+       <error errorId="1" plus="13.6" minus="13.6" source="stat" norm="abs" />
+       <error errorId="2" plus="21.3" minus="12.6" source="sys" norm="abs" />
+       <error errorId="3" plus="29.4" minus="23.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-21-1-7" pointId="7" value="812.2" relation="eq">
+       <error errorId="1" plus="15.2" minus="15.2" source="stat" norm="abs" />
+       <error errorId="2" plus="21.2" minus="21.0" source="sys" norm="abs" />
+       <error errorId="3" plus="34.0" minus="32.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-21-1-8" pointId="8" value="1791.5" relation="eq">
+       <error errorId="1" plus="17.9" minus="17.9" source="stat" norm="abs" />
+       <error errorId="2" plus="30.6" minus="154.1" source="sys" norm="abs" />
+       <error errorId="3" plus="65.9" minus="62.4" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-23" datasetId="22">
+    <comment>
+     Measured cross section as a function of X(C=GAMMA) for:. 25 &lt; ET(JET1) &lt; 35 GEV
+    </comment>
+    <comment>
+     Location: T 6,F 10
+    </comment>
+    <xaxis id="xax-9267-23-1" xaxisId="1" header="X(C=GAMMA)">
+     <bins>
+      <bin binId="1" low="0.1" high="0.4" />
+      <bin binId="2" low="0.4" high="0.6" />
+      <bin binId="3" low="0.6" high="0.8" />
+      <bin binId="4" low="0.8" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-23-1" header="D(SIG)/DX(C=GAMMA)IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="DSIG/DX" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ET(P=3) IN GEV : 25 TO 35
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <points>
+      <point id="pt-9267-23-1-1" pointId="1" value="40.0" relation="eq">
+       <error errorId="1" plus="1.8" minus="1.8" source="stat" norm="abs" />
+       <error errorId="2" plus="8.4" minus="0.7" source="sys" norm="abs" />
+       <error errorId="3" plus="2.0" minus="2.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-23-1-2" pointId="2" value="89.8" relation="eq">
+       <error errorId="1" plus="3.3" minus="3.3" source="stat" norm="abs" />
+       <error errorId="2" plus="5.4" minus="2.1" source="sys" norm="abs" />
+       <error errorId="3" plus="3.9" minus="3.5" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-23-1-3" pointId="3" value="130.0" relation="eq">
+       <error errorId="1" plus="4.0" minus="4.0" source="stat" norm="abs" />
+       <error errorId="2" plus="2.3" minus="3.3" source="sys" norm="abs" />
+       <error errorId="3" plus="5.1" minus="5.7" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-23-1-4" pointId="4" value="332.2" relation="eq">
+       <error errorId="1" plus="7.3" minus="7.3" source="stat" norm="abs" />
+       <error errorId="2" plus="30.7" minus="32.0" source="sys" norm="abs" />
+       <error errorId="3" plus="11.6" minus="12.7" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
+   </dataset>
+   <dataset id="ds-9267-24" datasetId="23">
+    <comment>
+     Measured cross section as a function of X(C=GAMMA) for:. 35 &lt; ET(JET1) &lt; 90 GEV
+    </comment>
+    <comment>
+     Location: T 6,F 10
+    </comment>
+    <xaxis id="xax-9267-24-1" xaxisId="1" header="X(C=GAMMA)">
+     <bins>
+      <bin binId="1" low="0.1" high="0.4" />
+      <bin binId="2" low="0.4" high="0.6" />
+      <bin binId="3" low="0.6" high="0.8" />
+      <bin binId="4" low="0.8" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-9267-24-1" header="D(SIG)/DX(C=GAMMA)IN PB">
+     <reaction>
+      <initialstate>
+       <particle name="GAMMA" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="2" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="DSIG/DX" />
+     <property name="sqrts" unit="GeV" low="0.000" high="0.000" />
+     <comment>
+      ET(P=3) IN GEV : 35 TO 90
+     </comment>
+     <comment>
+      M(P=1_2) IN GEV : 134 TO 277
+     </comment>
+     <comment>
+      Q**2 IN GEV**2 : &lt; 1
+     </comment>
+     <comment>
+      RE : GAMMA P --&gt; JET JET X
+     </comment>
+     <points>
+      <point id="pt-9267-24-1-1" pointId="1" value="3.9" relation="eq">
+       <error errorId="1" plus="0.6" minus="0.6" source="stat" norm="abs" />
+       <error errorId="2" plus="0.4" minus="2.0" source="sys" norm="abs" />
+       <error errorId="3" plus="0.3" minus="0.2" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-24-1-2" pointId="2" value="12.7" relation="eq">
+       <error errorId="1" plus="1.2" minus="1.2" source="stat" norm="abs" />
+       <error errorId="2" plus="1.1" minus="0.3" source="sys" norm="abs" />
+       <error errorId="3" plus="1.1" minus="0.8" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-24-1-3" pointId="3" value="24.5" relation="eq">
+       <error errorId="1" plus="1.7" minus="1.7" source="stat" norm="abs" />
+       <error errorId="2" plus="1.3" minus="2.5" source="sys" norm="abs" />
+       <error errorId="3" plus="2.2" minus="1.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-9267-24-1-4" pointId="4" value="77.6" relation="eq">
+       <error errorId="1" plus="3.6" minus="3.6" source="stat" norm="abs" />
+       <error errorId="2" plus="1.6" minus="6.1" source="sys" norm="abs" />
+       <error errorId="3" plus="4.5" minus="3.3" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct" />
+     <comment>
+      In all the tables the first DSYS error is the systematics uncertainty, and the second DSYS is the uncertainty on the jet energy scale.
+     </comment>
    </dataset>
   </paper>
  </data>
