@@ -20,7 +20,7 @@ namespace Rivet {
   void PL273B181::analyze(const Event& event) {
     Log& log = getLog();
     const Multiplicity& m = event.applyProjection(_multproj);
-    log << Log::INFO << "Total charged multiplicity = " << m.totalChargedMultiplicity() << endl;
+    log << Log::DEBUG << "Total charged multiplicity = " << m.totalChargedMultiplicity() << endl;
     _histChTot->fill(m.totalChargedMultiplicity(), event.weight());
   }
 

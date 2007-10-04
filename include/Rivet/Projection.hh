@@ -7,7 +7,7 @@
 #include "Rivet/Constraints.hh"
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Event.fhh"
-#include "Rivet/Tools/Logging.fhh"
+#include "Rivet/Tools/Logging.hh"
 
 
 namespace Rivet {
@@ -35,12 +35,16 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    inline Projection() { 
+    Projection() {
       addBeamPair(ANY, ANY);
-    };
+      getLog() << Log::DEBUG << "Creating " << this->getName() << " at " << this << endl;
+    }
     
+
     /// The destructor.
-    inline virtual ~Projection() { };
+    virtual ~Projection() {
+      getLog() << Log::DEBUG << "Destroying " << this->getName() << " at " << this << endl;
+    }
     //@}
     
   protected:
@@ -107,22 +111,23 @@ namespace Rivet {
       return totalCuts;
     }
 
-    /// Return the BeamConstraints for this projection. Derived
-    /// classes should ensure that all contained projections are
-    /// registered in the @a _projections set for the beam constraint 
+    /// Return the BeamConstraints for this projection, not including
+    /// recursion. Derived classes should ensure that all contained projections
+    /// are registered in the @a _projections set for the beam constraint
     /// chaining to work.
     inline virtual const set<BeamPair> getBeamPairs() const {
       set<BeamPair> ret = _beamPairs;
-      for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
-        //cout << "Proj addr = " << *p << endl;
-        ret = intersection(ret, (*p)->getBeamPairs());
+      for (set<Projection*>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
+        Projection* p = *ip;
+        getLog() << Log::DEBUG << "Proj addr = " << p << endl;
+        ret = intersection(ret, p->getBeamPairs());
       }
       return ret;
     }
 
     /// Get the name of the projection.
     inline virtual string getName() const {
-      return "";
+      return "BaseProjection";
     }
 
     /// Get the contained projections, including recursion.
@@ -138,6 +143,8 @@ namespace Rivet {
 
     /// Add a projection dependency to the projection list.
     inline Projection& addProjection(Projection& proj) {
+      getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
+      getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
       _projections.insert(&proj);
       return *this;
     }
@@ -150,13 +157,16 @@ namespace Rivet {
 
     /// Add a cut.
     inline Projection& addCut(const string& quantity, const Comparison& comparison, const double value) {
-      //cout << getName() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
+      getLog() << Log::DEBUG << getName() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
       _cuts.addCut(quantity, comparison, value);
       return *this;
     }
 
     /// Get a Log object based on the getName() property of the calling projection object.
-    Log& getLog();
+    Log& getLog() const {
+      string logname = "Rivet.Projection." + getName();
+      return Log::getLog(logname);
+    }
     
     /// Parameter constraints
     Cuts _cuts;

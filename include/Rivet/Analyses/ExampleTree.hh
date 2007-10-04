@@ -44,7 +44,6 @@ namespace Rivet {
         .addVetoId(-14)
         .addVetoId(-16)
         .addVetoId(1000022);
-      /// @todo BLOCKER! Something is going wrong here!
       _totvismomproj = TotalVisibleMomentum(_vfsproj);
 
       addProjection(_fsproj);

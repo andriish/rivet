@@ -22,8 +22,9 @@ namespace Rivet {
     inline TotalVisibleMomentum(FinalState& fsp)
       : _fsproj(fsp)
     { 
-      addProjection(_fsproj);
+      addProjection(fsp);
     }
+
     
   public:
     /// Return the name of the projection
@@ -50,10 +51,10 @@ namespace Rivet {
     int compare(const Projection& p) const;
         
   private:
-        
+    
     /// The FinalState projection used by this projection
     FinalState _fsproj;
-
+    
     /// The total visible momentum
     LorentzVector _momentum;
     

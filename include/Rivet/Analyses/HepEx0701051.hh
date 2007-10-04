@@ -1,11 +1,10 @@
 // -*- C++ -*-
-#ifndef RIVET_HepEx0701051_H
-#define RIVET_HepEx0701051_H
+#ifndef RIVET_HepEx0701051_HH
+#define RIVET_HepEx0701051_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.fhh"
 
-// include the projection(s) your  analysis depends on
 #include "Rivet/Projections/KtJets.hh"
 #ifdef HAVE_FASTJET	
 #include "Rivet/Projections/FastJets.hh"
@@ -14,19 +13,24 @@
 
 namespace Rivet {
 
+
+  /// @todo Needs full Doxygen commenting
   class HepEx0701051 : public Analysis {
 
   public:
 
     /// Default constructor
-    HepEx0701051();
+    HepEx0701051() {}
+
     /// Destructor
-    ~HepEx0701051();
+    ~HepEx0701051() {}
 
   public:
 
     /// Factory method
-    static Analysis* create() { return new HepEx0701051(); }
+    static Analysis* create() { 
+      return new HepEx0701051(); 
+    }
 
     /// Get the name of this analysis.
     inline string getName() const {
@@ -50,6 +54,7 @@ namespace Rivet {
 
     //@{
     /// Histograms
+    /// @todo Private members should have an "_" prefix. Convention for histograms is _histName.
     AIDA::IHistogram1D* pHistogramObject1;
     AIDA::IHistogram1D* pHistogramObject1N;
     AIDA::IHistogram1D* pHistogramObject2;

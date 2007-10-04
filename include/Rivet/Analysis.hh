@@ -3,7 +3,7 @@
 #define RIVET_Analysis_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Projection.fhh"
+#include "Rivet/Projection.hh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.fhh"
@@ -119,9 +119,10 @@ namespace Rivet {
       return *_theHandler;
     }
 
-    /// Get the name of the analysis (returns mangled RTTI name by default)
+    /// Get the name of the analysis.
     inline virtual string getName() const {
-      return typeid(*this).name();
+      return "BaseAnalysis";
+      //return typeid(*this).name(); (returns mangled RTTI name by default)
     }
 
 
@@ -229,6 +230,8 @@ namespace Rivet {
     /// Add a projection dependency to the projection list.
     inline Analysis& addProjection(Projection& proj) {
       _projections.insert(&proj);
+      getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
+      getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
       return *this;
     }
 

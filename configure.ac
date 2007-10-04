@@ -19,6 +19,13 @@ fi
 ## Set default compiler flags
 if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O3"; fi
 
+## More comprehensible error messages if possible. See:
+## http://www.bdsoft.com/tools/stlfilt.html
+if test "x$CXXFLAGS" == "x"; then 
+   AC_PATH_PROG(GFILT, gfilt, $CXX, $PATH:$HOME/bin:$HOME/local/bin)
+   CXX=$GFILT
+fi
+
 ## Checks for programs.
 AC_PROG_CXX
 AC_PROG_INSTALL
@@ -26,11 +33,6 @@ AC_PROG_LN_S
 AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
-
-## More comprehensible error messages if possible. See:
-## http://www.bdsoft.com/tools/stlfilt.html
-AC_PATH_PROG(GFILT, gfilt, $CXX, $PATH:$HOME/bin:$HOME/local/bin)
-CXX=$GFILT
 
 ## Find CLHEP
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])

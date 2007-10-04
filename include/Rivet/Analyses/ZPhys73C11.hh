@@ -92,49 +92,47 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _histLogScaledMom;
-    AIDA::IHistogram1D* _histScaledMom;
-    AIDA::IHistogram1D* _histRapidityT;
-    AIDA::IHistogram1D* _histRapidityS;
-    AIDA::IHistogram1D* _histPtTIn;
-    AIDA::IHistogram1D* _histPtTOut;
-    AIDA::IHistogram1D* _histPtTInVsXp;
-    AIDA::IHistogram1D* _histPtTOutVsXp;
+    AIDA::IHistogram1D *_histPtTIn,  *_histPtTInCN;
+    AIDA::IHistogram1D *_histPtTOut, *_histPtTOutCN;
+    AIDA::IHistogram1D *_histPtSIn,  *_histPtSInCN;
+    AIDA::IHistogram1D *_histPtSOut, *_histPtSOutCN;
 
-    AIDA::IHistogram1D* _hist1MinusT; 
-    AIDA::IHistogram1D* _histTMajor; 
-    AIDA::IHistogram1D* _histTMinor; 
-    AIDA::IHistogram1D* _histOblateness; 
+    AIDA::IHistogram1D *_histRapidityT, *_histRapidityTCN;
+    AIDA::IHistogram1D *_histRapidityS, *_histRapiditySCN;
 
-    AIDA::IHistogram1D* _histDiffRate2Durham;
-    AIDA::IHistogram1D* _histDiffRate2Jade; 
-    AIDA::IHistogram1D* _histDiffRate2JadeCN;
-    AIDA::IHistogram1D* _histDiffRate3Durham;
-    AIDA::IHistogram1D* _histDiffRate3Jade;
-    AIDA::IHistogram1D* _histDiffRate3JadeCN;
-    AIDA::IHistogram1D* _histDiffRate4Durham;
-    AIDA::IHistogram1D* _histDiffRate4Jade;
+    AIDA::IHistogram1D *_histScaledMom, *_histLogScaledMom;
 
-    AIDA::IHistogram1D* _histSphericity;
-    AIDA::IHistogram1D* _histAplanarity;
-    AIDA::IHistogram1D* _histPlanarity;
-    AIDA::IHistogram1D* _histSphericityCN; 
-    AIDA::IHistogram1D* _histAplanarityCN;
+    AIDA::IHistogram1D *_histPtTOutVsXp, *_histPtTInVsXp;
 
-    AIDA::IHistogram1D* _histHemiMassD;
-    AIDA::IHistogram1D* _histHemiMassH;
-    AIDA::IHistogram1D* _histHemiMassL;
+    AIDA::IHistogram1D *_hist1MinusT, *_hist1MinusTCN; 
+    AIDA::IHistogram1D *_histTMajor, *_histTMajorCN; 
+    AIDA::IHistogram1D *_histTMinor, *_histTMinorCN; 
+    AIDA::IHistogram1D *_histOblateness, *_histOblatenessCN; 
+
+    AIDA::IHistogram1D *_histSphericity, *_histSphericityCN;
+    AIDA::IHistogram1D *_histAplanarity, *_histAplanarityCN;
+    AIDA::IHistogram1D *_histPlanarity, *_histPlanarityCN;
+
+    AIDA::IHistogram1D *_histCParam, *_histCParamCN;
+    AIDA::IHistogram1D *_histDParam, *_histDParamCN;
+
+    AIDA::IHistogram1D *_histHemiMassD, *_histHemiMassDCN;
+    AIDA::IHistogram1D *_histHemiMassH, *_histHemiMassHCN;
+    AIDA::IHistogram1D *_histHemiMassL, *_histHemiMassLCN;
                
-    AIDA::IHistogram1D* _histHemiBroadW;
-    AIDA::IHistogram1D* _histHemiBroadN;
-    AIDA::IHistogram1D* _histHemiBroadT;
-    AIDA::IHistogram1D* _histHemiBroadD;
+    AIDA::IHistogram1D *_histHemiBroadW, *_histHemiBroadWCN;
+    AIDA::IHistogram1D *_histHemiBroadN, *_histHemiBroadNCN;
+    AIDA::IHistogram1D *_histHemiBroadT, *_histHemiBroadTCN;
+    AIDA::IHistogram1D *_histHemiBroadD, *_histHemiBroadDCN;
 
-    AIDA::IHistogram1D* _histCParam;
-    AIDA::IHistogram1D* _histDParam;
-           
-    AIDA::IHistogram1D* _histEEC;
-    AIDA::IHistogram1D* _histAEEC;
+    AIDA::IHistogram1D *_histDiffRate2Durham, *_histDiffRate2DurhamCN;
+    AIDA::IHistogram1D *_histDiffRate2Jade,   *_histDiffRate2JadeCN; 
+    AIDA::IHistogram1D *_histDiffRate3Durham, *_histDiffRate3DurhamCN;
+    AIDA::IHistogram1D *_histDiffRate3Jade,   *_histDiffRate3JadeCN;
+    AIDA::IHistogram1D *_histDiffRate4Durham, *_histDiffRate4DurhamCN;
+    AIDA::IHistogram1D *_histDiffRate4Jade,   *_histDiffRate4JadeCN;
+
+    AIDA::IHistogram1D *_histEEC, *_histAEEC;
     //@}
   
   };

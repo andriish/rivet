@@ -3,9 +3,9 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="ds1-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds1-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTIN IN GEV**-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds1-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds1-x1-y1" sticky="true"/>
@@ -159,9 +159,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds1-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds1-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTIN IN GEV-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds1-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds1-x1-y2" sticky="true"/>
@@ -315,9 +315,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds10-x1-y1">
+    path="/HepData/ZPhys73C11/" title="MEAN(NAME=PT) IN GEV">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds10-x1-y1"
+      <item key="Title" value="MEAN(NAME=PT) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds10-x1-y1" sticky="true"/>
@@ -464,9 +464,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds11-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(1-THRUST)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds11-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds11-x1-y1" sticky="true"/>
@@ -595,9 +595,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds11-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(1-THRUST)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds11-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds11-x1-y2" sticky="true"/>
@@ -726,10 +726,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds12-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DMAJOR">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds12-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DMAJOR" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds12-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -869,10 +868,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds12-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DMAJOR">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds12-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DMAJOR" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds12-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1012,10 +1010,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds13-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DMINOR">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds13-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DMINOR" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds13-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1113,10 +1110,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds13-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DMINOR">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds13-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DMINOR" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds13-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1214,9 +1210,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds14-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds14-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DOBLATENESS">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds14-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DOBLATENESS"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds14-x1-y1" sticky="true"/>
@@ -1321,9 +1317,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds14-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds14-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DOBLATENESS">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds14-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DOBLATENESS"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds14-x1-y2" sticky="true"/>
@@ -1428,9 +1424,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds15-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds15-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DSPHERICITY">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds15-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DSPHERICITY"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds15-x1-y1" sticky="true"/>
@@ -1553,9 +1549,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds15-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds15-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DSPHERICITY">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds15-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DSPHERICITY"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds15-x1-y2" sticky="true"/>
@@ -1678,9 +1674,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds16-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds16-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DAPLANARITY">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds16-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DAPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds16-x1-y1" sticky="true"/>
@@ -1779,9 +1775,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds16-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds16-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DAPLANARITY">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds16-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DAPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds16-x1-y2" sticky="true"/>
@@ -1880,9 +1876,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds17-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds17-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPLANARITY">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds17-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds17-x1-y1" sticky="true"/>
@@ -2011,9 +2007,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds17-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds17-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPLANARITY">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds17-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds17-x1-y2" sticky="true"/>
@@ -2142,9 +2138,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds18-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds18-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DC-PARAMETER">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds18-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DC-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds18-x1-y1" sticky="true"/>
@@ -2291,9 +2287,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds18-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds18-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DC-PARAMETER">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds18-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DC-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds18-x1-y2" sticky="true"/>
@@ -2440,9 +2436,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds19-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds19-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DD-PARAMETER">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds19-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DD-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds19-x1-y1" sticky="true"/>
@@ -2583,9 +2579,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds19-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds19-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DD-PARAMETER">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds19-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DD-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds19-x1-y2" sticky="true"/>
@@ -2726,9 +2722,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds2-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTOUT IN GEV**-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds2-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds2-x1-y1" sticky="true"/>
@@ -2839,9 +2835,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds2-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTOUT IN GEV-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds2-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds2-x1-y2" sticky="true"/>
@@ -2952,9 +2948,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds20-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds20-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds20-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds20-x1-y1" sticky="true"/>
@@ -3059,9 +3055,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds20-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds20-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds20-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds20-x1-y2" sticky="true"/>
@@ -3166,9 +3162,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds21-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds21-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds21-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds21-x1-y1" sticky="true"/>
@@ -3231,9 +3227,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds21-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds21-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds21-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds21-x1-y2" sticky="true"/>
@@ -3296,9 +3292,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds22-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds22-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds22-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds22-x1-y1" sticky="true"/>
@@ -3385,9 +3381,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds22-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds22-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds22-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds22-x1-y2" sticky="true"/>
@@ -3474,10 +3470,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds23-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds23-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBMAX">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds23-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBMAX" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds23-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3575,10 +3570,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds23-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds23-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBMAX">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds23-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBMAX" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds23-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3676,10 +3670,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds24-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds24-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBMIN">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds24-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBMIN" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds24-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3753,10 +3746,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds24-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds24-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBMIN">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds24-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBMIN" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds24-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3830,10 +3822,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds25-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds25-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBSUM">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds25-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBSUM" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds25-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3955,10 +3946,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds25-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds25-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBSUM">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds25-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBSUM" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds25-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -4080,10 +4070,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds26-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds26-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBDIFF">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds26-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBDIFF" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds26-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -4193,10 +4182,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds26-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds26-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DBDIFF">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds26-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DBDIFF" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds26-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -4306,10 +4294,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds27-x1-y1">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds27-x1-y1"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds27-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -4407,10 +4395,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds27-x1-y2">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds27-x1-y2"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds27-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -4508,10 +4496,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds28-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds28-x1-y1">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds28-x1-y1"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds28-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -4609,10 +4597,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds28-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds28-x1-y2">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds28-x1-y2"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds28-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -4710,10 +4698,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds29-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds29-x1-y1">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds29-x1-y1"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds29-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -4811,10 +4799,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds29-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds29-x1-y2">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds29-x1-y2"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds29-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -4912,9 +4900,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds3-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTIN IN GEV**-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds3-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds3-x1-y1" sticky="true"/>
@@ -5068,9 +5056,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds3-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTIN IN GEV-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds3-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds3-x1-y2" sticky="true"/>
@@ -5224,10 +5212,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds30-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds30-x1-y1">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds30-x1-y1"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds30-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -5325,10 +5313,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds30-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds30-x1-y2">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds30-x1-y2"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds30-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -5426,10 +5414,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds31-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds31-x1-y1">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds31-x1-y1"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds31-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -5527,10 +5515,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds31-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds31-x1-y2">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds31-x1-y2"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds31-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -5628,10 +5616,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds32-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds32-x1-y1">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds32-x1-y1"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds32-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -5735,10 +5723,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds32-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds32-x1-y2">
+    path="/HepData/ZPhys73C11/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds32-x1-y2"
-        sticky="true"/>
+      <item key="Title"
+        value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds32-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -5842,10 +5830,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds33-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds33-x1-y1">
+    path="/HepData/ZPhys73C11/" title="EEC">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds33-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="EEC" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds33-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -6153,10 +6140,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds34-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds34-x1-y1">
+    path="/HepData/ZPhys73C11/" title="AEEC">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds34-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="AEEC" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds34-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -6314,9 +6300,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds4-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTOUT IN GEV**-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds4-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds4-x1-y1" sticky="true"/>
@@ -6427,9 +6413,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds4-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DPTOUT IN GEV-1">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds4-x1-y2"
+      <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds4-x1-y2" sticky="true"/>
@@ -6540,10 +6526,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds5-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DYRAP">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds5-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds5-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -6677,10 +6662,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds5-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DYRAP">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds5-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds5-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -6814,10 +6798,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds6-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DYRAP">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds6-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds6-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -6951,10 +6934,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y2" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds6-x1-y2">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DYRAP">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds6-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds6-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -7088,10 +7070,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds7-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DX">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds7-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds7-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -7237,9 +7218,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds8-x1-y1">
+    path="/HepData/ZPhys73C11/" title="(1/N)*D(N)/DLN(1/X)">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds8-x1-y1"
+      <item key="Title" value="(1/N)*D(N)/DLN(1/X)"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds8-x1-y1" sticky="true"/>
@@ -7409,9 +7390,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y1" dimension="2"
-    path="/HepData/ZPhys73C11/" title="HepData/ZPhys73C11/ds9-x1-y1">
+    path="/HepData/ZPhys73C11/" title="MEAN(NAME=PTOUT) IN GEV">
     <annotation>
-      <item key="Title" value="HepData/ZPhys73C11/ds9-x1-y1"
+      <item key="Title" value="MEAN(NAME=PTOUT) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/ZPhys73C11/ds9-x1-y1" sticky="true"/>

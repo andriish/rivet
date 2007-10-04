@@ -1,5 +1,17 @@
 2007-10-03  Andy Buckley  <andy@insectnation.org>
 
+	* Fixed bug in configure.ac which led to explicit CXX setting
+	being ignored.
+
+	* Including Logging.hh in Projection.hh, hence new transitive
+	dependency on Logging.hh being installed. Since this is the normal
+	behaviour, I don't think this is a problem.
+
+	* Fixed segfaulting bug due to use of addProjection() in
+	locally-scoped contained projections. This isn't a proper fix,
+	since the whole framework should be designed to avoid the
+	possibility of bugs like this.
+
 	* Added newly built HepML and AIDA reference files for current
 	analyses.
 
