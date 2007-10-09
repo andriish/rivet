@@ -12,8 +12,14 @@ AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
 ## OS X
 AC_CHECK_TOOL(SWVERS, sw_vers)
 if test x$SWVERS != x; then
+  PROD_NAME=`$SWVERS -productName | cut -f 2 -d:`
+
+fi
+
+if test "$PROD_NAME" == "Mac OS X"; then
   MACOSX_DEPLOYMENT_TARGET=`$SWVERS -productVersion | cut -f 1,2 -d.`
   AC_MSG_NOTICE([MACOSX_DEPLOYMENT_TARGET = $MACOSX_DEPLOYMENT_TARGET])
+  AM_CXXFLAGS="$AM_CXXFLAGS -Dunix"
 fi
 
 ## Set default compiler flags
@@ -33,6 +39,10 @@ AC_PROG_LN_S
 AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
+
+  LIB_SUFFIX=\\\"$shrext_cmds\\\"
+
+AC_SUBST([LIB_SUFFIX])
 
 ## Find CLHEP
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
@@ -55,7 +65,10 @@ AM_CONDITIONAL(WITH_ROOT, [test x$with_root == xyes])
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include -I\$(CLHEPINCPATH) -I\$(HEPMCINCPATH) -I\$(HEPPIDINCPATH) -I\$(HEPPDTINCPATH) -I\$(KTJETINCPATH)"
-AM_CXXFLAGS="$AM_CXXFLAGS -ansi -pedantic -Wall"
+#AM_CXXFLAGS="$AM_CXXFLAGS -ansi -pedantic -Wall"
+
+echo $LIB_SUFFIX
+AM_CXXFLAGS="$AM_CXXFLAGS -ansi -pedantic -Wall -Wno-long-long -DLIB_SUFFIX=$LIB_SUFFIX "
 
 ## Set fastjet/fastjet include subdirectory in include search path
 #if test -d ${FASTJETINCPATH}  

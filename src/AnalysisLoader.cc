@@ -13,6 +13,7 @@ namespace Rivet {
 
 
   set<string> AnalysisLoader::getAllAnalysisNames() {
+    
     if (!_loaded) loadAnalyses();
     set<string> names;
     for (AnalysisBuilders::const_iterator ab = _analysisbuilders.begin(); 
@@ -24,6 +25,7 @@ namespace Rivet {
 
 
   Analysis* AnalysisLoader::getAnalysis(const string& analysisname) { 
+    
     if (!_loaded) loadAnalyses();
     AnalysisBuilders::iterator ab = _analysisbuilders.find(toUpper(analysisname));
     if (ab != _analysisbuilders.end()) {
@@ -71,24 +73,29 @@ namespace Rivet {
     return builders;
   }
 
-
   void AnalysisLoader::closeAnalysisBuilders() {
     for (set<void*>::iterator h = _handles.begin(); h != _handles.end(); ++h) {
       if (*h) dlclose(*h);
     }
     _handles.clear();
   }
-    
-
+  
   AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromDir(const string& dirname, AnalysisBuilders& builders) {
     set<string> libfiles;
+    
+#ifdef LIB_SUFFIX
+#define SYSDSO string(LIB_SUFFIX)
+#else
+#define SYSDSO string(".so")
+#endif
+    
     oslink::directory dir(dirname);
     while (dir) {
       string filename = dir.next();
-      
       // Require that lib filename matches "*Rivet*.{so,dylib,dll}" (basic glob)
       // @todo Use #define SYSDSO ".so", ".dylib", ".dll"
-      #define SYSDSO string(".so")
+      
+//      #define SYSDSO string(".so")
       size_t posn = filename.find(SYSDSO);
       if (posn == string::npos || posn != filename.length()-SYSDSO.length()) continue;
       if (filename.find("Rivet") == string::npos) continue;
