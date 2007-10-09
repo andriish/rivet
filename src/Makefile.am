@@ -22,7 +22,8 @@ bin_PROGRAMS = rivet
 rivet_SOURCES = RivetInterface.cc
 rivet_LDFLAGS = -L$(top_srcdir)/src
 rivet_LDADD = -lRivet $(HEPMCLIB) $(CLHEPLIB) 
-rivet_CPPFLAGS = $(AM_CPPFLAGS) -I$(RIVETINCPATH)
+rivet_CPPFLAGS = $(AM_CPPFLAGS)
+
 
 if WITH_ROOT
   rivet_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
@@ -34,5 +35,3 @@ if WITH_FASTJET
   libRivet_la_LIBADD += -l$(FASTJETLIBNAME)
 endif
 
-#check-local:
-#	echo "HepPDT = $(HEPPDTLIB)"

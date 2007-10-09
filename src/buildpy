@@ -1,0 +1,4 @@
+swig -c++ -python -o rivetinterface_wrap.cc rivetinterface.i
+g++ -c SWIGTest.cc -o SWIGTest.o -I../include -I$HOME/cedarlocal/include -I../include 
+g++ -c rivetinterface_wrap.cc -o rivetinterface_wrap.o -I/usr/local/python-2.5.1/include/python2.5 -I../include -I$HOME/cedarlocal/include -fpermissive
+g++ -shared -o _rivetinterface.so rivetinterface_wrap.o SWIGTest.o -L$HOME/cedarlocal/lib -lRivet -lHepMC -lCLHEP
