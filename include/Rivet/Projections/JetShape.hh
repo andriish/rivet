@@ -33,19 +33,28 @@ namespace Rivet {
 
      The differential jet shape around a given jet axes at distance interval 
      \f$ r/pm\delta r/2 \f$ is defined as
-     \f$ \rho(r)=\frac{1}{\delta r}\frac{1}{N_{jets}}
-     \sum_jets\frac{P_{\perp}(r-\delta r/2, r+\delta r/2)}{P_{\perp}(0,R)} \f$
-     with \f$ 0\lesseq r \lesseq R \f$
+     \f[
+     \rho(r) = 
+     \frac{1}{\delta r} \frac{1}{N_\mathrm{jets}}
+     \sum_\mathrm{jets} \frac{P_{\perp}(r - \delta r/2, r+\delta r/2)}{P_{\perp}(0,R)}
+     \f]
+     with \f$ 0 \le r \le R \f$
 
      The integral jet shape around a given jet axes until distance r is defined as
-     \f$ \Psi(r)=\frac{1}{N_{jets}}\sum_jets\frac{P_{\perp}(0, r)}{P_{\perp}(0,R)} \f$
-     with \f$ 0\lesseq r \lesseq R \f$
+     \f[
+     \Psi(r) = 
+       \frac{1}{N_\mathrm{jets}} \sum_\mathrm{jets} 
+       \frac{P_{\perp}(0, r)}{P_{\perp}(0,R)} 
+     \f]
+     with \f$ 0 \le r \le R \f$
      
      The constructor expects also the equidistant binning in radius r to produce the
      jet shape of all bins in a vector and this separately for each jet to allow
      post selection.
+
      Internally, this projection uses the Vetoed Final State projection to determine the
      jet shapes around the jet axes.
+
      The jet axes are passed for each event.
   */
   class JetShape: public Projection {

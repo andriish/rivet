@@ -43,7 +43,7 @@ namespace Rivet {
      B_\pm =
      \frac{
        \sum{\pm \vec{p}_i \cdot \vec{n}_\mathrm{T} > 0} 
-       |\vec{p}_i \cross \vec{n}_\mathrm{T} | 
+       |\vec{p}_i \times \vec{n}_\mathrm{T} | 
      }{
        2 \sum_i | \vec{p}_i | 
      }
