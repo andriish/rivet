@@ -3,7 +3,6 @@
 #define RIVET_HepEx0701051_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 #include "Rivet/Projections/KtJets.hh"
 #ifdef HAVE_FASTJET	
@@ -20,13 +19,15 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    HepEx0701051() {}
 
-    /// Destructor
-    ~HepEx0701051() {}
-
-  public:
-
+    inline HepEx0701051():
+    _fsproj(),
+    _ktproj(_fsproj, KTTYPE, KTANGLE, KTRECOMBINATION, _ktRParam){
+      setBeams(PROTON, ANTIPROTON);
+      addProjection(_fsproj);
+      addProjection(_ktproj);
+    };
+    
     /// Factory method
     static Analysis* create() { 
       return new HepEx0701051(); 
@@ -51,21 +52,32 @@ namespace Rivet {
 
     /// Hide the assignment operator
     HepEx0701051& operator=(const HepEx0701051&);
-
-    //@{
-    /// Histograms
-    /// @todo Private members should have an "_" prefix. Convention for histograms is _histName.
-    AIDA::IHistogram1D* pHistogramObject1;
-    AIDA::IHistogram1D* pHistogramObject1N;
-    AIDA::IHistogram1D* pHistogramObject2;
-    AIDA::IHistogram1D* pHistogramObject2N;
-    AIDA::IHistogram1D* pHistogramObject3;
-    AIDA::IHistogram1D* pHistogramObject3N;
-    AIDA::IHistogram1D* pHistogramObject4;
-    AIDA::IHistogram1D* pHistogramObject4N;
-    AIDA::IHistogram1D* pHistogramObject5;
-    AIDA::IHistogram1D* pHistogramObject5N;
-    //@}
+    
+    /// ...and the copy constructor
+    HepEx0701051(const HepEx0701051&);
+    
+    FinalState _fsproj;
+    KtJets _ktproj;
+    
+    //Parameters used in the KT algorithm
+    enum KTParam {KTTYPE = 4, KTANGLE = 2, KTRECOMBINATION = 1};
+    const static double _ktRParam;
+    
+    //Min jet PT cut
+    const static double _jetMinPT;
+    
+    //Counter for the number of events analysed
+    double _eventsTried;
+    
+    //The total generated cross section
+    // @todo set the cross section from the generator
+    double _xSecTot;
+    
+    //Histograms in different eta regions and the number of events
+    //in each histogram
+    
+    map<double, AIDA::IHistogram1D*> _histos;
+    map<AIDA::IHistogram1D*, double> _eventsPassed;
 
   };
 

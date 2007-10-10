@@ -1,141 +1,103 @@
 // -*- C++ -*-
 
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/HepEx0701051.hh"
 
 #include "Rivet/RivetAIDA.hh"
-using namespace Rivet;
 
-#include "AIDA/IHistogram1D.h"
 using namespace AIDA;
 
-#include "HepPDT/ParticleID.hh"
-using namespace HepMC;
+///////////////////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////
-
-
-// Initialization definition, in this case simply books a 1D histogram
-void HepEx0701051::init() {
-  vector<double> binedges; 
-  binedges.push_back(54);
-  binedges.push_back(62);
-  binedges.push_back(72);
-  binedges.push_back(83);
-  binedges.push_back(96);
-  binedges.push_back(110);
-  binedges.push_back(127);
-  binedges.push_back(146);
-  binedges.push_back(169);
-  binedges.push_back(195);
-  binedges.push_back(224);
-  binedges.push_back(259);
-  binedges.push_back(298);
-  binedges.push_back(344);
-  binedges.push_back(396);
-  binedges.push_back(457);
-  binedges.push_back(527);
-  binedges.push_back(700); 
+namespace Rivet{
   
-  pHistogramObject1 = bookHistogram1D("eta less than 0.1", "eta less than 0.1", binedges);
-  pHistogramObject2 = bookHistogram1D("eta between 0.1 and 0.7", "eta between 0.1 and 0.7", binedges);
-  pHistogramObject3 = bookHistogram1D("eta between 0.7 and 1.1", "eta between 0.7 and 1.1", binedges);
-  pHistogramObject4 = bookHistogram1D("eta between 1.1 and 1.6", "eta between 1.1 and 1.6", binedges);
-  pHistogramObject5 = bookHistogram1D("eta between 1.6 and 2.1", "eta between 1.6 and 2.1", binedges);
-  pHistogramObject1N = bookHistogram1D("eta less than 0.1 N", "eta less than 0.1 N", binedges);
-  pHistogramObject2N = bookHistogram1D("eta between 0.1 and 0.7 N", "eta between 0.1 and 0.7 N", binedges);
-  pHistogramObject3N = bookHistogram1D("eta between 0.7 and 1.1 N", "eta between 0.7 and 1.1 N", binedges);
-  pHistogramObject4N = bookHistogram1D("eta between 1.1 and 1.6 N", "eta between 1.1 and 1.6 N", binedges);
-  pHistogramObject5N = bookHistogram1D("eta between 1.6 and 2.1 N", "eta between 1.6 and 2.1 N", binedges);
-}
-
-
-// Do the analysis
-void HepEx0701051::analyze(const Event& event) {
-  Log log = getLog();
-  log << Log::DEBUG << "Starting analyzing" << endl;
-
-  double binEdges[18] = {54, 62, 72, 83, 96, 110, 127, 146, 169, 195, 224, 259, 298, 344, 396, 457, 527, 700};
+  const double HepEx0701051::_ktRParam = 0.7;
+  const double HepEx0701051::_jetMinPT = 54.0;
   
-  // Declare projections here
-  FinalState fsproj;
-  KtJets ktproj(fsproj, 4, 2, 1, 0.7);
+  // Book histos and set counters for number of events passed in each one
+  void HepEx0701051::init() {
+    //@todo set _xSecTot from generator
+    //just a guess at the generated cross section for now!
+    _xSecTot = 600.0;
+    _eventsTried = 0.0;
+    _histos[0.1] = bookHistogram1D(1,1,1,"eta &lt; 0.1");
+    _histos[0.7] = bookHistogram1D(2,1,1,"0.1 &lt; eta &lt; 0.7");
+    _histos[1.1] = bookHistogram1D(3,1,1,"0.7 &lt; eta &lt; 1.1");
+    _histos[1.6] = bookHistogram1D(4,1,1,"1.1 &lt; eta &lt; 1.6");
+    _histos[2.1] = bookHistogram1D(5,1,1,"1.6 &lt; eta &lt; 2.1");
+    
+    for(map<double, IHistogram1D*>::iterator histIt = _histos.begin();
+        histIt != _histos.end();
+        ++histIt){
+      _eventsPassed[histIt->second] = 0.0;
+    }
+  }
   
-  // Apply projections
-  const KtJets& kt = event.applyProjection(ktproj);
+  /////////////////////////////////////////////////////////////////////////////
   
-  // Extract data from projected objects
-  vector<KtJet::KtLorentzVector> jetList = kt.getJets();
-
-  // Fill histograms
-  for (std::vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); j++) {
-        
-    if (j->perp() >= 54) {
+  void HepEx0701051::analyze(const Event& event) {
+    
+    event.applyProjection(_ktproj);
+    
+    vector<KtJet::KtLorentzVector> jetList = _ktproj.getJets();
+    
+    set<IHistogram1D*> passed;
+    
+    const double weight = event.weight();
+    
+    for(vector<KtJet::KtLorentzVector>::iterator jet = jetList.begin();
+        jet != jetList.end();
+        ++jet){
       
-      // ITERATE OVER EACH BIN
-      for (int i=0; i<17; i++) {
+      double pt = jet->perp();
+      
+      if(pt > _jetMinPT){
+        map<double, IHistogram1D*>::iterator histIt = 
+        _histos.upper_bound(jet->eta());
         
-        // ETA LESS THAN 0.1
-        if (sqrt(j->eta()*j->eta()) < 0.1) {
-          if ((j->perp() >= binEdges[i]) && (j->perp() < binEdges[i+1])){
-            pHistogramObject1->fill(j->perp());
+        if(histIt != _histos.end()){
+          IHistogram1D* histo = histIt->second;
+          histo->fill(pt, weight);
+          if(histo->coordToIndex(pt) != IAxis::OVERFLOW_BIN){
+            passed.insert(histo);
           }
         }
-	
-	// ETA BETWEEN 0.1 AND 0.7
-	
-	if (sqrt(j->eta()*j->eta()) > 0.1 && sqrt(j->eta()*j->eta()) < 0.7){
-	  if ((j->perp() >= binEdges[i]) && (j->perp() < binEdges[i+1])){
-	    pHistogramObject2->fill(j->perp());
-	  }
-	}
-	
-	// ETA BETWEEN 0.7 AND 1.1
-	
-	if (sqrt(j->eta()*j->eta()) > 0.7 && sqrt(j->eta()*j->eta()) < 1.1){
-	  if ((j->perp() >= binEdges[i]) && (j->perp() < binEdges[i+1])){
-	    pHistogramObject3->fill(j->perp());
-	  }
-	}
-	
-	// ETA BETWEEN 1.1 AND 1.6
-	
-	if (sqrt(j->eta()*j->eta()) > 1.1 && sqrt(j->eta()*j->eta()) < 1.6){
-	  if ((j->perp() >= binEdges[i]) && (j->perp() < binEdges[i+1])){
-	    pHistogramObject4->fill(j->perp());
-	  }
-	}
-	
-	// ETA BETWEEN 1.6  AND 2.1
-	
-	if (sqrt(j->eta()*j->eta()) > 1.6  && sqrt(j->eta()*j->eta()) < 2.1) {
-	  if ((j->perp() >= binEdges[i]) && (j->perp() < binEdges[i+1])){
-	    pHistogramObject5->fill(j->perp());
-	  }
-	}
       }
-    }  
+    }
+    
+    //increment the event counters for each histogram
+    _eventsTried += weight;
+    
+    for(set<IHistogram1D*>::iterator histIt = passed.begin();
+        histIt != passed.end();
+        ++histIt){
+      
+      _eventsPassed[*histIt] += weight;
+    }
+    return;
   }
   
-  // Finished
-  log << Log::DEBUG << "Finished analyzing" << endl;
-}
-
-
-// Finalize
-void HepEx0701051::finalize() {
-  // luminosity is calculated from MC generator
-  double luminosity = 1;
-  double binValues[17] = {58, 68, 77.5, 89.5, 103, 118.5, 136.5, 157.5, 182, 209.5, 241.5, 278.5, 321, 370, 426.5, 492, 613.5};
-  double binWidths[17] = {8, 10, 11, 13, 14, 17, 19, 23, 26, 29, 35, 39, 46, 52, 61, 70, 173};
-  int a = 0;
-  for (int i = 0; i < 17; ++i) {
-    pHistogramObject1N->fill(binValues[i], (1 / (binWidths[i]*0.1*luminosity)) * pHistogramObject1->binEntries(i));
-    pHistogramObject2N->fill(binValues[i], (1 / (binWidths[i]*0.6*luminosity)) * pHistogramObject2->binEntries(i));
-    pHistogramObject3N->fill(binValues[i], (1 / (binWidths[i]*0.4*luminosity)) * pHistogramObject3->binEntries(i));
-    pHistogramObject4N->fill(binValues[i], (1 / (binWidths[i]*0.5*luminosity)) * pHistogramObject4->binEntries(i));
-    pHistogramObject5N->fill(binValues[i], (1 / (binWidths[i]*0.5*luminosity)) * pHistogramObject5->binEntries(i));
-    a = a + pHistogramObject1->binEntries(i);
+  /////////////////////////////////////////////////////////////////////////////
+  
+  void HepEx0701051::finalize() {
+    
+    //normalise histograms to cross section
+    
+    double xSecPerEvent = _xSecTot / _eventsTried;
+    
+    for(map<IHistogram1D*, double>::iterator histIt = _eventsPassed.begin();
+        histIt != _eventsPassed.end();
+        ++histIt){
+      IHistogram1D* hist = histIt->first;
+      double xSec = xSecPerEvent * histIt->second;
+      int nBins = hist->axis().bins();
+      double hArea = 0.0;
+      for(int iBin = 0; iBin != nBins; ++iBin){
+        hArea += hist->binHeight(iBin) * hist->axis().binWidth(iBin);
+      }
+      hist->scale(xSec / hArea);
+    }
+    return;
   }
+  
 }
+///////////////////////////////////////////////////////////////////////////////
