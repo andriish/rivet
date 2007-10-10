@@ -64,7 +64,7 @@ public:
       fax(0), vax(0), sum(h.sum), sumw(h.sumw), sumw2(h.sumw2),
       sumxw(h.sumxw), sumx2w(h.sumx2w) {
     const VariAxis * hvax = dynamic_cast<const VariAxis *>(h.ax);
-    if ( vax ) ax = vax = new VariAxis(*hvax);
+    if ( hvax ) ax = vax = new VariAxis(*hvax);
     else ax = fax = new Axis(dynamic_cast<const Axis &>(*h.ax));
 }
 
