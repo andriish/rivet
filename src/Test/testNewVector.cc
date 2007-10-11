@@ -7,6 +7,8 @@
 
 using std::string;
 using std::ostringstream;
+using std::cout;
+using std::endl;
 
 // Forward declarations.
 class Vector3;
@@ -153,7 +155,7 @@ public:
   }
 
   /// Get the spatial part of the 4-vector as a 3-vector.
-  //Vector3 vector3() const = 0;
+  //virtual Vector3 vector3() const = 0;
 
 protected:
   mutable bool _dirty;
@@ -185,6 +187,7 @@ public:
   Vector4X& y(double y) { _elements[2] = y; _dirty = true; return *this; }
   Vector4X& z(double z) { _elements[3] = z; _dirty = true; return *this; }
   double interval() const { return this->invariant(); }
+  Vector3X vector3() const { return Vector3X(x(), y(), z()); }
 };
 
 
@@ -209,6 +212,7 @@ public:
   Vector4P& py(double py) { _elements[2] = py; _dirty = true; return *this; }
   Vector4P& pz(double pz) { _elements[3] = pz; _dirty = true; return *this; }
   double mass() const { return this->invariant(); }
+  Vector3P vector3() const { return Vector3P(px(), py(), pz()); }
 };
 
 
@@ -282,10 +286,11 @@ std::ostream& operator<<(std::ostream& out, const Vector4& v4) {
 
 int main() {
   Vector4X a(1,0,0,0);
-  std::cout << a << ": interval = " << a.interval() << std::endl;
+  cout << a << ": interval = " << a.interval() << endl;
   a.z(1);
-  std::cout << a << ": interval = " << a.interval() << std::endl;
+  cout << a << ": interval = " << a.interval() << endl;
   a.y(2).z(3);
-  std::cout << a << ": interval = " << a.interval() << std::endl;
+  cout << a << ": interval = " << a.interval() << endl;
+  cout << a << ": vector = " << a.vector3() << endl;
   return EXIT_SUCCESS;
 }
