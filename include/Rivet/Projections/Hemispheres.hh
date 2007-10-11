@@ -16,6 +16,8 @@ namespace Rivet {
      Calculate the hemisphere masses and broadenings, with event hemispheres
      defined by the plane normal to the thrust vector, \f$ \vec{n}_\mathrm{T} \f$.
 
+     @todo Allow axes to be defined by sphericity: superclass Thrust and Sphericity as AxisDefinition?
+
      The "high" hemisphere mass, 
      \f$ M^2_\mathrm{high} / E^2_\mathrm{vis} \f$, is defined as
      \f[
@@ -49,12 +51,10 @@ namespace Rivet {
      }
      \f]
      and then a set of the broadening maximum, minimum, sum and difference as follows:
-     \f[
-     B_\mathrm{max}  = \max(B_+, B_-)\\
-     B_\mathrm{min}  = \min(B_+, B_-)\\
-     B_\mathrm{sum}  = B_+ + B_-\\
-     B_\mathrm{diff} = |B_+ - B_-|
-     \f]
+     \f[ B_\mathrm{max}  = \max(B_+, B_-) \f]
+     \f[ B_\mathrm{min}  = \min(B_+, B_-) \f]
+     \f[ B_\mathrm{sum}  = B_+ + B_- \f]
+     \f[ B_\mathrm{diff} = |B_+ - B_-| \f]
 
      Internally, this projection uses the Thrust projection to determine the
      hemisphere orientation.
