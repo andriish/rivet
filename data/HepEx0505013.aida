@@ -3,10 +3,9 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="ds1-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds1-x1-y1">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds1-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds1-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -56,10 +55,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds1-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds1-x1-y2">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds1-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds1-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -109,10 +107,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds1-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds1-x1-y3">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds1-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds1-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -162,10 +159,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds10-x1-y1">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds10-x1-y1" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds10-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -214,10 +210,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds10-x1-y2">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds10-x1-y2" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds10-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -266,10 +261,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds10-x1-y3">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds10-x1-y3" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds10-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -318,10 +312,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds11-x1-y1">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds11-x1-y1" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds11-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -370,10 +363,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds11-x1-y2">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds11-x1-y2" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds11-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -422,10 +414,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds11-x1-y3">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds11-x1-y3" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds11-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -474,10 +465,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds12-x1-y1">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds12-x1-y1" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds12-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -526,10 +516,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds12-x1-y2">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds12-x1-y2" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds12-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -578,10 +567,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds12-x1-y3">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds12-x1-y3" sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds12-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -630,10 +618,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds13-x1-y1">
+    path="/HepData/HepEx0505013/" title="PSI(0.3/R0)">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0505013/ds13-x1-y1" sticky="true"/>
+      <item key="Title" value="PSI(0.3/R0)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds13-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -749,10 +736,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds2-x1-y1">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds2-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds2-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -802,10 +788,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds2-x1-y2">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds2-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds2-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -855,10 +840,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds2-x1-y3">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds2-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds2-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -908,10 +892,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds3-x1-y1">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds3-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds3-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -961,10 +944,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds3-x1-y2">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds3-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds3-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1014,10 +996,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds3-x1-y3">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds3-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds3-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1067,10 +1048,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds4-x1-y1">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds4-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds4-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1120,10 +1100,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds4-x1-y2">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds4-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds4-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1173,10 +1152,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds4-x1-y3">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds4-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds4-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1226,10 +1204,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds5-x1-y1">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds5-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds5-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1279,10 +1256,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds5-x1-y2">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds5-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds5-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1332,10 +1308,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds5-x1-y3">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds5-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds5-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1385,10 +1360,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds6-x1-y1">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds6-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds6-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1438,10 +1412,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds6-x1-y2">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds6-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds6-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1491,10 +1464,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds6-x1-y3">
+    path="/HepData/HepEx0505013/" title="RHO">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds6-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="RHO" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds6-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1544,10 +1516,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds7-x1-y1">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds7-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds7-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1596,10 +1567,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds7-x1-y2">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds7-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds7-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1648,10 +1618,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds7-x1-y3">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds7-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds7-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1700,10 +1669,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds8-x1-y1">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds8-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds8-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1752,10 +1720,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds8-x1-y2">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds8-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds8-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1804,10 +1771,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds8-x1-y3">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds8-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds8-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1856,10 +1822,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y1" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds9-x1-y1">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds9-x1-y1"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds9-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1908,10 +1873,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y2" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds9-x1-y2">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds9-x1-y2"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds9-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1960,10 +1924,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y3" dimension="2"
-    path="/HepData/HepEx0505013/" title="HepData/HepEx0505013/ds9-x1-y3">
+    path="/HepData/HepEx0505013/" title="PSI">
     <annotation>
-      <item key="Title" value="HepData/HepEx0505013/ds9-x1-y3"
-        sticky="true"/>
+      <item key="Title" value="PSI" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0505013/ds9-x1-y3" sticky="true"/>
       <item key="FullPath"

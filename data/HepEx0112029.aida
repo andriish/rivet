@@ -3,9 +3,9 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="ds1-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds1-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DABS(COS(THETA*)) IN PB">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds1-x1-y1"
+      <item key="Title" value="D(SIG)/DABS(COS(THETA*)) IN PB"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds1-x1-y1" sticky="true"/>
@@ -62,9 +62,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds1-x1-y2" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds1-x1-y2">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DABS(COS(THETA*)) IN PB">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds1-x1-y2"
+      <item key="Title" value="D(SIG)/DABS(COS(THETA*)) IN PB"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds1-x1-y2" sticky="true"/>
@@ -121,10 +121,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds10-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds10-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds10-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -162,10 +162,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds11-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds11-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds11-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -203,10 +203,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds12-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds12-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds12-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -262,10 +262,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds13-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds13-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds13-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -327,10 +327,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds14-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds14-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds14-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds14-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -380,10 +380,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds15-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds15-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds15-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds15-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -433,10 +433,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds16-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds16-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds16-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds16-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -486,10 +486,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds17-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds17-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds17-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds17-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -533,10 +533,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds18-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds18-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds18-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds18-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -586,10 +586,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds19-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds19-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds19-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds19-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -639,9 +639,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds2-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds2-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds2-x1-y1" sticky="true"/>
@@ -662,10 +662,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds20-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds20-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds20-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds20-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -721,10 +721,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds21-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds21-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds21-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds21-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -780,10 +780,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds22-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds22-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds22-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds22-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -815,10 +815,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds23-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds23-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
-      <item key="Title"
-        value="HepData/HepEx0112029/ds23-x1-y1" sticky="true"/>
+      <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds23-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -850,9 +850,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds3-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds3-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds3-x1-y1" sticky="true"/>
@@ -885,9 +885,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds4-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds4-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds4-x1-y1" sticky="true"/>
@@ -938,9 +938,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds5-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds5-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds5-x1-y1" sticky="true"/>
@@ -985,9 +985,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds6-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds6-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds6-x1-y1" sticky="true"/>
@@ -1050,9 +1050,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds7-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds7-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds7-x1-y1" sticky="true"/>
@@ -1121,9 +1121,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds8-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds8-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds8-x1-y1" sticky="true"/>
@@ -1138,9 +1138,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y1" dimension="2"
-    path="/HepData/HepEx0112029/" title="HepData/HepEx0112029/ds9-x1-y1">
+    path="/HepData/HepEx0112029/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
-      <item key="Title" value="HepData/HepEx0112029/ds9-x1-y1"
+      <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
         value="/HepData/HepEx0112029/ds9-x1-y1" sticky="true"/>

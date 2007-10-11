@@ -3,10 +3,10 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="ds1-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds1-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds1-x1-y1" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds1-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -80,10 +80,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds1-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds1-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds1-x1-y2" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds1-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -157,10 +157,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds1-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds1-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds1-x1-y3" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds1-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -234,10 +234,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds1-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds1-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds1-x1-y4" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds1-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -311,10 +311,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds10-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds10-x1-y1" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds10-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -370,10 +370,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds10-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds10-x1-y2" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds10-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -429,10 +429,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds10-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds10-x1-y3" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds10-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -488,10 +488,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds10-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds10-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds10-x1-y4" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds10-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -547,10 +547,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds11-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds11-x1-y1" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds11-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -606,10 +606,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds11-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds11-x1-y2" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds11-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -665,10 +665,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds11-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds11-x1-y3" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds11-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -724,10 +724,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds11-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds11-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds11-x1-y4" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds11-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -783,10 +783,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds12-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds12-x1-y1" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds12-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -860,10 +860,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds12-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds12-x1-y2" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds12-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -937,10 +937,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds12-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds12-x1-y3" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds12-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1014,10 +1014,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds12-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds12-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds12-x1-y4" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds12-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -1091,10 +1091,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds13-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds13-x1-y1" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds13-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1174,10 +1174,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds13-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds13-x1-y2" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds13-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1257,10 +1257,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds13-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds13-x1-y3" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds13-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1340,10 +1340,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds13-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds13-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds13-x1-y4" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds13-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -1423,10 +1423,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds14-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds14-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds14-x1-y1" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds14-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1506,10 +1506,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds14-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds14-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds14-x1-y2" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds14-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1589,10 +1589,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds14-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds14-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds14-x1-y3" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds14-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1672,10 +1672,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds14-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds14-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds14-x1-y4" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds14-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -1755,10 +1755,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds15-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds15-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds15-x1-y1" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds15-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1791,10 +1791,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds15-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds15-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds15-x1-y2" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds15-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1827,10 +1827,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds15-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds15-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds15-x1-y3" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds15-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -1863,10 +1863,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds15-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds15-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds15-x1-y4" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds15-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -1899,10 +1899,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds16-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds16-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds16-x1-y1" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds16-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -1935,10 +1935,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds16-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds16-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds16-x1-y2" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds16-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -1971,10 +1971,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds16-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds16-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds16-x1-y3" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds16-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -2007,10 +2007,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds16-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds16-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds16-x1-y4" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds16-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -2043,10 +2043,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds17-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds17-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds17-x1-y1" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds17-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -2079,10 +2079,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds17-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds17-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds17-x1-y2" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds17-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -2115,10 +2115,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds17-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds17-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds17-x1-y3" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds17-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -2151,10 +2151,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds17-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds17-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds17-x1-y4" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds17-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -2187,10 +2187,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds18-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds18-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds18-x1-y1" sticky="true"/>
+        value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds18-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -2223,10 +2223,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds18-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds18-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds18-x1-y2" sticky="true"/>
+        value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds18-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -2259,10 +2259,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds18-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds18-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds18-x1-y3" sticky="true"/>
+        value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds18-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -2295,10 +2295,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds18-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds18-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds18-x1-y4" sticky="true"/>
+        value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds18-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -2331,10 +2331,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds19-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds19-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds19-x1-y1" sticky="true"/>
+        value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds19-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -2367,10 +2367,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds19-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds19-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds19-x1-y2" sticky="true"/>
+        value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds19-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -2403,10 +2403,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds19-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds19-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds19-x1-y3" sticky="true"/>
+        value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds19-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -2439,10 +2439,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds19-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds19-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds19-x1-y4" sticky="true"/>
+        value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds19-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -2475,10 +2475,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds2-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds2-x1-y1" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds2-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -2552,10 +2552,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds2-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds2-x1-y2" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds2-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -2629,10 +2629,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds2-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds2-x1-y3" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds2-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -2706,10 +2706,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds2-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds2-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds2-x1-y4" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds2-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -2783,10 +2783,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds20-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds20-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds20-x1-y1" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(Y23)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds20-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -2819,10 +2819,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds20-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds20-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds20-x1-y2" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(Y23)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds20-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -2855,10 +2855,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds20-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds20-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds20-x1-y3" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(Y23)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds20-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -2891,10 +2891,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds20-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds20-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds20-x1-y4" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(Y23)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds20-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -2927,10 +2927,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds21-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds21-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds21-x1-y1" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds21-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -2963,10 +2963,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds21-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds21-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds21-x1-y2" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds21-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -2999,10 +2999,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds21-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds21-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds21-x1-y3" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds21-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -3035,10 +3035,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds21-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds21-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds21-x1-y4" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds21-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -3071,10 +3071,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds22-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds22-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds22-x1-y1" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds22-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3107,10 +3107,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds22-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds22-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds22-x1-y2" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds22-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3143,10 +3143,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds22-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds22-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds22-x1-y3" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds22-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -3179,10 +3179,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds22-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds22-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds22-x1-y4" sticky="true"/>
+        value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds22-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -3215,10 +3215,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds23-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds23-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds23-x1-y1" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds23-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3251,10 +3251,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds23-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds23-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds23-x1-y2" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds23-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3287,10 +3287,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds23-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds23-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds23-x1-y3" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds23-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -3323,10 +3323,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds23-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds23-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds23-x1-y4" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds23-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -3359,10 +3359,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds24-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds24-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds24-x1-y1" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds24-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3395,10 +3395,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds24-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds24-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds24-x1-y2" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds24-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3431,10 +3431,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds24-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds24-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds24-x1-y3" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds24-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -3467,10 +3467,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds24-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds24-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds24-x1-y4" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds24-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -3503,10 +3503,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds25-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds25-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds25-x1-y1" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds25-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3539,10 +3539,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds25-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds25-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds25-x1-y2" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds25-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3575,10 +3575,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds25-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds25-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds25-x1-y3" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds25-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -3611,10 +3611,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds25-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds25-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds25-x1-y4" sticky="true"/>
+      <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds25-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -3647,10 +3647,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds26-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds26-x1-y1">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds26-x1-y1" sticky="true"/>
+        value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds26-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3683,10 +3683,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds26-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds26-x1-y2">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds26-x1-y2" sticky="true"/>
+        value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds26-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3719,10 +3719,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds26-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds26-x1-y3">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds26-x1-y3" sticky="true"/>
+        value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds26-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -3755,10 +3755,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds26-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds26-x1-y4">
+    path="/HepData/EurPhys40C287/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds26-x1-y4" sticky="true"/>
+        value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds26-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -3791,10 +3791,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y1">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y1" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -3826,10 +3825,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y10" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y10">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y10" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y10" sticky="true"/>
       <item key="FullPath"
@@ -3861,10 +3859,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y11" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y11">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y11" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y11" sticky="true"/>
       <item key="FullPath"
@@ -3896,10 +3893,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y12" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y12">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y12" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y12" sticky="true"/>
       <item key="FullPath"
@@ -3931,10 +3927,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y2">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y2" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -3966,10 +3961,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y3">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y3" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -4001,10 +3995,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y4">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y4" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -4036,10 +4029,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y5" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y5">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y5" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y5" sticky="true"/>
       <item key="FullPath"
@@ -4071,10 +4063,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y6" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y6">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y6" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y6" sticky="true"/>
       <item key="FullPath"
@@ -4106,10 +4097,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y7" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y7">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y7" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y7" sticky="true"/>
       <item key="FullPath"
@@ -4141,10 +4131,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y8" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y8">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y8" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y8" sticky="true"/>
       <item key="FullPath"
@@ -4176,10 +4165,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds27-x1-y9" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds27-x1-y9">
+    path="/HepData/EurPhys40C287/" title="VARIANCE">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds27-x1-y9" sticky="true"/>
+      <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds27-x1-y9" sticky="true"/>
       <item key="FullPath"
@@ -4211,10 +4199,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds3-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds3-x1-y1" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds3-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -4294,10 +4282,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds3-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds3-x1-y2" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds3-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -4377,10 +4365,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds3-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds3-x1-y3" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds3-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -4460,10 +4448,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds3-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds3-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds3-x1-y4" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds3-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -4543,10 +4531,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds4-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds4-x1-y1" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds4-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -4632,10 +4620,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds4-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds4-x1-y2" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds4-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -4721,10 +4709,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds4-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds4-x1-y3" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds4-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -4810,10 +4798,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds4-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds4-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds4-x1-y4" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds4-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -4899,10 +4887,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds5-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds5-x1-y1" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds5-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -4976,10 +4964,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds5-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds5-x1-y2" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds5-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -5053,10 +5041,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds5-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds5-x1-y3" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds5-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -5130,10 +5118,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds5-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds5-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds5-x1-y4" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds5-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -5207,10 +5195,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds6-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds6-x1-y1" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds6-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -5290,10 +5278,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds6-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds6-x1-y2" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds6-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -5373,10 +5361,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds6-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds6-x1-y3" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds6-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -5456,10 +5444,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds6-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds6-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds6-x1-y4" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds6-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -5539,10 +5527,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds7-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds7-x1-y1" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds7-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -5604,10 +5592,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds7-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds7-x1-y2" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds7-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -5669,10 +5657,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds7-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds7-x1-y3" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds7-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -5734,10 +5722,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds7-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds7-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds7-x1-y4" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds7-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -5799,10 +5787,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds8-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds8-x1-y1" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds8-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -5876,10 +5864,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds8-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds8-x1-y2" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds8-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -5953,10 +5941,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds8-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds8-x1-y3" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds8-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -6030,10 +6018,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds8-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds8-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
-        value="HepData/EurPhys40C287/ds8-x1-y4" sticky="true"/>
+        value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds8-x1-y4" sticky="true"/>
       <item key="FullPath"
@@ -6107,10 +6095,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y1" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds9-x1-y1">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds9-x1-y1" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds9-x1-y1" sticky="true"/>
       <item key="FullPath"
@@ -6160,10 +6148,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y2" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds9-x1-y2">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds9-x1-y2" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds9-x1-y2" sticky="true"/>
       <item key="FullPath"
@@ -6213,10 +6201,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y3" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds9-x1-y3">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds9-x1-y3" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds9-x1-y3" sticky="true"/>
       <item key="FullPath"
@@ -6266,10 +6254,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="ds9-x1-y4" dimension="2"
-    path="/HepData/EurPhys40C287/" title="HepData/EurPhys40C287/ds9-x1-y4">
+    path="/HepData/EurPhys40C287/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
-      <item key="Title"
-        value="HepData/EurPhys40C287/ds9-x1-y4" sticky="true"/>
+      <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
+        sticky="true"/>
       <item key="AidaPath"
         value="/HepData/EurPhys40C287/ds9-x1-y4" sticky="true"/>
       <item key="FullPath"
