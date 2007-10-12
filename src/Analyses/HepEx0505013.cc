@@ -26,7 +26,6 @@ namespace Rivet {
     
     string hist_title_oneminPsi = "One minus Psi(0.3 over R)";
     _histOneMinPsi = bookHistogram1D(13, 1, 1, hist_title_oneminPsi);
-    
   }
   
   

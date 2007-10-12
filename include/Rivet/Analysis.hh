@@ -184,6 +184,31 @@ namespace Rivet {
 
 
 
+    /// @name Internal profile histogram and data point set booking (for use by Analysis sub-classes).
+    //@{
+
+
+    /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
+    /// (NB. this returns a pointer rather than a reference since it will 
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// get the pointer from a reference before they can use it!)
+    AIDA::IProfile1D* bookProfile1D(const string& name, const string& title, 
+                                        const size_t nbins, const double lower, const double upper);
+
+    /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
+    /// (NB. this returns a pointer rather than a reference since it will 
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// get the pointer from a reference before they can use it!)
+    AIDA::IProfile1D* bookProfile1D(const string& name, const string& title, 
+				        const vector<double>& binedges);
+
+    /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
+    /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
+    /// of the same filename as the analysis' getName() property.
+    AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId, 
+                                        const size_t yAxisId, const string& title);
+
+
     /// Book a 2-dimensional data point set.
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 

@@ -22,7 +22,8 @@ nobase_dist_noinst_HEADERS += \
   AIDA/IPlotter.h                 AIDA/ILineStyle.h               AIDA/ITreeFactory.h             AIDA/IFitData.h  \
   AIDA/IDataStyle.h               AIDA/ITupleEntry.h              AIDA/ITuple.h                   AIDA/IInfoStyle.h  \
   AIDA/IBaseStyle.h               AIDA/IConstants.h               AIDA/ICloud1D.h                 AIDA/IInfo.h  \
-  AIDA/IHistogram1D.h             AIDA/ICloud2D.h                 AIDA/IFitResult.h               AIDA/IFitter.h
+  AIDA/IHistogram1D.h             AIDA/ICloud2D.h                 AIDA/IFitResult.h               AIDA/IFitter.h \
+  AIDA/IProfile1D.h               
 
 nobase_dist_noinst_HEADERS += \
   LWH/AIAnalysisFactory.h         LWH/AIManagedObject.h           LWH/Axis.h                      LWH/VariAxis.h  \
@@ -30,7 +31,8 @@ nobase_dist_noinst_HEADERS += \
   LWH/AIHistogram1D.h             LWH/AIDataPointSet.h            LWH/TreeFactory.h               LWH/DataPointSet.h  \
   LWH/AIHistogramFactory.h        LWH/AIDataPointSetFactory.h     LWH/Histogram1D.h               LWH/DataPointSetFactory.h  \
   LWH/AITree.h                    LWH/AIMeasurement.h             LWH/HistogramFactory.h          LWH/Measurement.h  \
-  LWH/AITreeFactory.h             LWH/AnalysisFactory.h           LWH/ManagedObject.h
+  LWH/AITreeFactory.h             LWH/AnalysisFactory.h           LWH/ManagedObject.h             LWH/AIProfile1D.h  \
+  LWH/Profile1D.h
 
 nobase_dist_noinst_HEADERS += \
   Rivet/Tools/D0RunIIcone/HepEntity.h       Rivet/Tools/D0RunIIcone/inline_maths.h \

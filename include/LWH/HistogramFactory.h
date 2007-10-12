@@ -7,6 +7,7 @@
 
 #include "AIHistogramFactory.h"
 #include "Histogram1D.h"
+#include "Profile1D.h"
 #include "Tree.h"
 #include <string>
 #include <stdexcept>
@@ -285,14 +286,112 @@ public:
     return error<IHistogram3D>("IHistogram3D");
   }
 
+
+
+  //////////////////////////////////////////////////////////////////////////////
   /**
-   * LWH cannot create a IProfile1D.
+   * Create a IProfile1D.
+   * @param path      The path of the created IProfile. The path must be a
+   *                  full path.  ("/folder1/folder2/dataName" is a valid path).
+   *                  The character `/` cannot be used in names; it is only
+   *                  used to delimit directories within paths.
+   * @param title     The title of the IProfile1D.
+   * @param nBins     The number of bins of the x axis.
+   * @param lowerEdge The lower edge of the x axis.
+   * @param upperEdge The upper edge of the x axis.
+   * @return          The newly created IProfile1D ot the null pointer
+   *                  if something went wrong, such as a non existing
+   *                  directrory in the path or that an object with the
+   *                  given path already existed.
+   * @throws          std::runtime_error if profile histogram could not be created.
    */
-  IProfile1D * createProfile1D(const std::string &, const std::string &,
-			       int, double, double, const std::string & = "") {
-    return error<IProfile1D>("IProfile1D");
+  IProfile1D *
+  createProfile1D(const std::string & path, const std::string & title,
+		    int nBins, double lowerEdge, double upperEdge,
+		    const std::string & = "") {
+    Profile1D * prof = new Profile1D(nBins, lowerEdge, upperEdge);
+    prof->setTitle(title);
+    if ( !tree->insert(path, prof) ) {
+      delete prof;
+      prof = 0;
+      throw std::runtime_error("LWH could not create profile histogram '"
+			       + title + "'." );
+    }
+    return prof;
   }
 
+  /**
+   * Create a IProfile1D.
+   * @param pathAndTitle The path of the created IProfile. The path must be a
+   *                     full path.  ("/folder1/folder2/dataName" is a valid
+   *                     path). The character `/` cannot be used in names; it
+   *                     is only used to delimit directories within paths.
+   * @param nBins        The number of bins of the x axis.
+   * @param lowerEdge    The lower edge of the x axis.
+   * @param upperEdge    The upper edge of the x axis.
+   * @return             The newly created IProfile1D.
+   * @throws             std::runtime_error if profile histogram could not be created.
+   */
+  IProfile1D *
+  createProfile1D(const std::string & pathAndTitle,
+		    int nBins, double lowerEdge, double upperEdge) {
+    std::string title = pathAndTitle.substr(pathAndTitle.rfind('/') + 1);
+    return createProfile1D(pathAndTitle, title, nBins, lowerEdge, upperEdge);
+  }
+
+
+    /**
+     * Create a IProfile1D.
+
+     * @param path      The path of the created IProfile. The path can either
+     *                  be a relative or full path.
+     *                  ("/folder1/folder2/dataName" and "../folder/dataName"
+     *                  are valid paths). All the directories in the path must
+     *                  exist. The characther `/` cannot be used in names;
+     *                  it is only used to delimit directories within paths.
+     * @param title     The title of the IProfile1D.
+     * @param binEdges  The array of the bin edges for the x axis.
+     */
+  IProfile1D *
+  createProfile1D(const std::string & path, const std::string & title,
+		    const std::vector<double> & binEdges,
+		    const std::string & = "") {
+    Profile1D * prof = new Profile1D(binEdges);
+    prof->setTitle(title);
+    if ( !tree->insert(path, prof) ) {
+      delete prof;
+      prof = 0;
+      throw std::runtime_error("LWH could not create profile histogram '"
+			       + title + "'." );
+    }
+    return prof;
+  }
+
+  /**
+   * Create a copy of an IProfile1D.
+   * @param path The path of the created IProfile. The path must be a
+   *             full path.  ("/folder1/folder2/dataName" is a valid
+   *             path). The character `/` cannot be used in names; it
+   *             is only used to delimit directories within paths.
+   * @param hist The IProfile1D to be copied.
+   * @return     The copy of the IProfile1D.
+   * @throws     std::runtime_error if profile histogram could not be created.
+   */
+  IProfile1D *
+  createCopy(const std::string & path, const IProfile1D & prof) {
+    Profile1D * p = new Profile1D(dynamic_cast<const Profile1D &>(prof));
+    p->setTitle(path.substr(path.rfind('/') + 1));
+    if ( !tree->insert(path, p) ) {
+      delete p;
+      p = 0;
+      throw std::runtime_error("LWH could not create a copy of profile histogram '"
+			       + p->title() + "'." );
+    }
+    return p;
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////
   /**
    * LWH cannot create a IProfile1D.
    */
@@ -302,14 +401,6 @@ public:
     return error<IProfile1D>("IProfile1D");
   }
 
-  /**
-   * LWH cannot create a IProfile1D.
-   */
-  IProfile1D * createProfile1D(const std::string &, const std::string &,
-			       const std::vector<double> &,
-			       const std::string & = "") {
-    return error<IProfile1D>("IProfile1D");
-  }
 
   /**
    * LWH cannot create a IProfile1D.
@@ -323,25 +414,12 @@ public:
   /**
    * LWH cannot create a IProfile1D.
    */
-  IProfile1D * createProfile1D(const std::string &, int, double, double) {
-    return error<IProfile1D>("IProfile1D");
-  }
-
-  /**
-   * LWH cannot create a IProfile1D.
-   */
   IProfile1D * createProfile1D(const std::string &,
 			       int, double, double, double, double) {
     return error<IProfile1D>("IProfile1D");
   }
 
-  /**
-   * LWH cannot create a copy of an IProfile1D.
-   */
-  IProfile1D * createCopy(const std::string &, const IProfile1D &) {
-    return error<IProfile1D>("IProfile1D");
-  }
-
+  ////////////////////////////////////////////////////////////////////////////
   /**
    * LWH cannot create a IProfile2D.
    */
