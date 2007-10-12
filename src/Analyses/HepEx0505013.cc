@@ -8,25 +8,24 @@ namespace Rivet {
   
   // Book histograms
   void HepEx0505013::init() {
-    // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
-    // Since this is just a demo analysis, there is no associate paper!
+
     string hist_title[18][2];
-    //string hist_name[18][2];
     
-    for (int i=0; i<18; ++i) { //18 pT bins, one histogram each
-      stringstream lStream; 
-      lStream << i;
-      hist_title[i][0] = "Differential Jet Shape Rho, Pt bin " + lStream.str();
-      //_histRho_pT[i]  = bookHistogram1D(i+1, 1, 1, hist_title[i][0]);
-      _histRho_pT[i] = bookHistogram1D(hist_title[i][0], hist_title[i][0], 7, 0., 1.);
-      hist_title[i][1] = "Integral Jet Shape Psi, Pt bin " + lStream.str();
-      //_histPsi_pT[i]  = bookHistogram1D(i+1, 1, 1, hist_title[i][1]);
-      _histPsi_pT[i] = bookHistogram1D(hist_title[i][1], hist_title[i][1], 7, 0., 1.);
+    for (int i=0; i<6; ++i) { //18=6x3 pT bins, one histogram each
+      for (int j=0; j<3; ++j) {
+	int k = i*3+j;
+	stringstream lStream; 
+	lStream << k+1;
+	hist_title[k][0] = "Differential Jet Shape Rho, Pt bin " + lStream.str();
+	_histRho_pT[k]  = bookHistogram1D(i+1, 1, j+1, hist_title[k][0]);
+	
+	hist_title[k][1] = "Integral Jet Shape Psi, Pt bin " + lStream.str();
+	_histPsi_pT[k]  = bookHistogram1D(6+i+1, 1, j+1, hist_title[k][1]);
+      }
     }
     
     string hist_title_oneminPsi = "One minus Psi(0.3 over R)";
-    //_histOneMinPsi = bookHistogram1D(19, 1, 1, hist_title_oneminPsi);
-    _histOneMinPsi = bookHistogram1D(hist_title_oneminPsi, hist_title_oneminPsi, _pTbins);
+    _histOneMinPsi = bookHistogram1D(13, 1, 1, hist_title_oneminPsi);
     
   }
   
