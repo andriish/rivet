@@ -26,6 +26,7 @@ namespace Rivet {
     
     string hist_title_oneminPsi = "One minus Psi(0.3 over R)";
     _histOneMinPsi = bookHistogram1D(13, 1, 1, hist_title_oneminPsi);
+    //_proftest = bookProfile1D("proftest","proftest", 7, 0., 1.);
   }
   
   
@@ -108,6 +109,7 @@ namespace Rivet {
                   double rad = _jetshapeproj.getRmin() +(rbin+0.5)*_jetshapeproj.getInterval();
                   _histRho_pT[ipT]->fill(rad/_Rjet, double(_diffjetshapes[jind][rbin]) * event.weight());
                   _histPsi_pT[ipT]->fill(rad/_Rjet, double(_intjetshapes[jind][rbin]) * event.weight());
+                  //_proftest->fill(rad/_Rjet, double(_intjetshapes[jind][rbin]) * event.weight());
                 }
                 _histOneMinPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., 
                                      _oneminPsiShape[jind] * event.weight());

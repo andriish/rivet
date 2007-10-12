@@ -8,6 +8,7 @@
 #include "AIDataPointSetFactory.h"
 #include "DataPointSet.h"
 #include "Histogram1D.h"
+#include "Profile1D.h"
 #include "Tree.h"
 #include <string>
 #include <stdexcept>
@@ -552,6 +553,42 @@ public:
     return dset;
   }
 
+
+  /**
+   * Create an IDataPointSet from an IProfile1D.
+   * @param path  The path of the IDataPointSet. The path can either
+   *              be a relative or full path.
+   *              ("/folder1/folder2/dataName" and "../folder/dataName"
+   *              are valid paths). All the directories in the path
+   *              must exist. The characther `/` cannot be used in
+   *              names; it is only used to delimit directories within
+   *		    paths.
+   * @param prof    The IProfile1D from which the data is taken.
+   * @param options Options, currently not specified
+   * @return        The newly created IDataPointSet.
+   */
+  virtual IDataPointSet *
+  create(const std::string & path, const IProfile1D & prof,
+	 const std::string & = "") {
+    IDataPointSet * dset = create(path, prof.title(), 2);
+    std::vector<double> x, y, ex, ey;
+    for ( int i = 2, N = prof.axis().bins() + 2; i < N; ++i ) {
+      dset->addPoint(DataPoint(2));
+      //x.push_back(prof.binMean(i - 2)); // < "Dynamic" version
+      // Shouldn't IAxis have a binCentre(size_t binId) method? (According to Java AIDA v3.3.0 API)
+      x.push_back((prof.axis().binLowerEdge(i - 2) + prof.axis().binUpperEdge(i - 2))/2.0);
+      ex.push_back(prof.axis().binWidth(i - 2)/2.0);
+      y.push_back(prof.binHeight(i - 2));
+      ey.push_back(prof.binError(i - 2)/2.0);
+    }
+    if ( !dset->setCoordinate(0, x, ex, ex) ||
+         !dset->setCoordinate(1, y, ey, ey) )
+      throw std::runtime_error("LWH could add points to DataPointSet '" +
+			       prof.title() +  "'." );
+    return dset;
+  }
+
+
   /**
    * LWH cannot handle a IHistogram2D.
    */
@@ -590,14 +627,6 @@ public:
   virtual IDataPointSet * create(const std::string &, const ICloud3D &,
 				 const std::string & = "") {
     return error<IDataPointSet>("ICloud3D");
-  }
-
-  /**
-   * LWH cannot handle a IProfile1D.
-   */
-  virtual IDataPointSet * create(const std::string &, const IProfile1D &,
-				 const std::string & = "") {
-    return error<IDataPointSet>("IProfile1D");
   }
 
   /**

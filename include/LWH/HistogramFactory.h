@@ -288,7 +288,6 @@ public:
 
 
 
-  //////////////////////////////////////////////////////////////////////////////
   /**
    * Create a IProfile1D.
    * @param path      The path of the created IProfile. The path must be a
@@ -391,7 +390,6 @@ public:
   }
 
 
-  //////////////////////////////////////////////////////////////////////////
   /**
    * LWH cannot create a IProfile1D.
    */
@@ -419,7 +417,7 @@ public:
     return error<IProfile1D>("IProfile1D");
   }
 
-  ////////////////////////////////////////////////////////////////////////////
+
   /**
    * LWH cannot create a IProfile2D.
    */

@@ -50,9 +50,10 @@ namespace Rivet {
     const string tmpdir = "/RivetNormalizeTmp";
     tree.mkdir(tmpdir);
     for (vector<string>::const_iterator path = paths.begin(); path != paths.end(); ++path) {
-      IManagedObject* obj = tree.find(*path);
-      if (obj) {
-        IHistogram1D* histo = dynamic_cast<IHistogram1D*>(obj);
+
+      IManagedObject* hobj = tree.find(*path);
+      if (hobj) {
+        IHistogram1D* histo = dynamic_cast<IHistogram1D*>(hobj);
         if (histo) {
           tree.mv(*path, tmpdir);
           const size_t lastslash = path->find_last_of("/");
@@ -66,6 +67,24 @@ namespace Rivet {
           tree.rm(tmppath);
         }
       }
+      
+      IManagedObject* pobj = tree.find(*path);
+      if (pobj) {
+	IProfile1D* prof = dynamic_cast<IProfile1D*>(pobj);
+	if (prof) {
+	  tree.mv(*path, tmpdir);
+	  const size_t lastslash = path->find_last_of("/");
+	  const string basename = path->substr(lastslash+1, path->length() - (lastslash+1));
+	  const string tmppath = tmpdir + "/" + basename;
+	  IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
+	  if (tmpprof) {
+	    getLog() << Log::DEBUG << "Temp profile histo " << tmppath << " exists" << endl;
+	    datapointsetFactory().create(*path, *tmpprof);
+	  }
+	  tree.rm(tmppath);
+	}
+      }
+       
     }
     tree.rmdir(tmpdir);
   }

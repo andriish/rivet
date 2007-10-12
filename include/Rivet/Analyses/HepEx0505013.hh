@@ -155,6 +155,8 @@ namespace Rivet {
     AIDA::IHistogram1D* _histRho_pT[18];
     AIDA::IHistogram1D* _histPsi_pT[18];
     AIDA::IHistogram1D* _histOneMinPsi;
+
+    //AIDA::IProfile1D* _proftest;
     //@}
 
   };
