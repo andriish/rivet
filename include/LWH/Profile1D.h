@@ -341,8 +341,6 @@ public:
     double bH = 0.;
     if (sumw[index+2] > 0. && sumyw[index+2] > 0.) 
       bH = sumyw[index+2]/sumw[index+2];
-    std::cout << "Profile1D: sumyw[" << index+2 << "]=" << sumyw[index+2] 
-	 << " sumw[" << index+2 << "]=" << sumw[index+2] << std::endl;
     return bH;
   }
 
