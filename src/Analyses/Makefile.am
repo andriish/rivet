@@ -4,6 +4,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     TestAnalysis.cc \
     ExampleTree.cc  \
     HepEx9506012.cc \
+    HepEx0107012.cc \
     HepEx0112029.cc \
     HepEx0409040.cc \
     HepEx0505013.cc \
