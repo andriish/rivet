@@ -3,6 +3,7 @@
 #include "Rivet/Projections/JetShape.hh"
 #include "Rivet/Cmp.hh"
 #include "HepPDT/ParticleID.hh"
+//#include "Rivet/RivetAIDA.hh"
 
 using namespace inline_maths;
 
@@ -26,30 +27,37 @@ namespace Rivet {
     // Project into vetoed final state if not done yet (supposed to be done by jet algorithm)
     const VetoedFinalState& vfs = e.applyProjection(_vfsproj);
     
+
     //clear for each event and resize with zero vectors
-    for (unsigned int i=0; i<_diffjetshapes.size(); ++i) {
+    for (unsigned int i=0; i<_diffjetshapes.size(); ++i)
       _diffjetshapes[i].clear();
-    }
     _diffjetshapes.clear();
 
     for (unsigned int i=0; i<_jetaxes.size(); ++i) {
-      vector<double> diffjetshape(_nbins,0.);
+      vector<double> diffjetshape(_nbins, 0.);
       _diffjetshapes.push_back(diffjetshape);
+      //AIDA::IHistogram1D elem("diff", "diff", _nbin, _rmin, _rmax);
+      //_diffjetshapes.push_back(elem);
     }
-   
-    for (unsigned int i=0; i<_intjetshapes.size(); ++i) {
+    //_diffjetshapes.resize(_jetaxes.size());
+
+
+    for (unsigned int i=0; i<_intjetshapes.size(); ++i)
       _intjetshapes[i].clear();
-    }
     _intjetshapes.clear();
 
     for (unsigned int i=0; i<_jetaxes.size(); ++i) {
-      vector<double> intjetshape(_nbins,0.);
+      vector<double> intjetshape(_nbins, 0.);
       _intjetshapes.push_back(intjetshape);
+      //AIDA::IHistogram1D ele("int", "int", _nbin, _rmin, _rmax);
+      //_intjetshapes.push_back(ele);
     }
-
-    _oneminPsiShape.clear();
-    _oneminPsiShape.resize(_jetaxes.size(),0.);
-      
+    //_intjetshapes.resize(_jetaxes.size());
+    
+    _PsiSlot.clear();
+    _PsiSlot.resize(_jetaxes.size(), 0.);
+    //_PsiSlot.reset();
+    
     
     //Determine jet shapes
     double y1, y2, eta1, eta2, phi1, phi2, drad, dradmin;
@@ -77,32 +85,43 @@ namespace Rivet {
 	}
 	
 	for (int i=0; i<_nbins; ++i) {
-	  //cout << "_interval=" << _interval << endl;
 	  if (dradmin<_rmin+(i+1)*_interval) {
+	    //cout << "dradmin=" << dradmin << " < _rmin+(i+1)*_interval=" << _rmin+(i+1)*_interval << endl;
 	    _intjetshapes[dradminind][i] += p->getMomentum().perp();
+	    //_intjetshapes[dradminind].fill(_rmin+(i+0.5)*_interval, p->getMomentum().perp());
 	    if (dradmin>_rmin+i*_interval)
 	      _diffjetshapes[dradminind][i] += p->getMomentum().perp()/_interval;
+	    //_diffjetshapes[dradminind].fill(_rmin+(i+0.5)*_interval, p->getMomentum().perp()/_interval);
 	  }
 	}
 	
 	if (dradmin<_r1minPsi/_rmax)
-	  _oneminPsiShape[dradminind] += p->getMomentum().perp();
+	  _PsiSlot[dradminind] += p->getMomentum().perp();
+	//_PsiSlot.fill(dradminind+0.5, p->getMomentum().perp()); //x=i(jet)
 	
       }
    
-    
+      
       //normalize to total pT
       for (unsigned int j=0; j<_jetaxes.size(); j++) {
+	//if (_intjetshapes[j].binHeight(_nbins-1) > 0.) {
 	if (_intjetshapes[j][_nbins-1] > 0.) {
-	  _oneminPsiShape[j] = 1.-_oneminPsiShape[j]/_intjetshapes[j][_nbins-1];
+	  //_PsiShape[j] = 1.-_PsiShape[j]/_intjetshapes[j][_nbins-1];
+	  _PsiSlot[j] /= _intjetshapes[j][_nbins-1];
+	  ////_PsiSlot.scale(1./_intjetshapes[j].binHeight(_nbins-1));
+	  //for (unsigned int j=0; j<_jetaxes.size(); j++) {
 	  for (int i=0; i<_nbins; ++i) {
 	    _diffjetshapes[j][i] /= _intjetshapes[j][_nbins-1];
+	    //_diffjetshapes[j].scale(1./_intjetshapes[j].binHeight(_nbins-1));
 	    _intjetshapes[j][i] /= _intjetshapes[j][_nbins-1];
+	    //_intjetshapes[j].scale(1./_intjetshapes[j].binHeight(_nbins-1));
 	  }
+	  //}
 	}
       }
+      
     }
-
+    
     log << Log::DEBUG << "Done" << endl;
   }
 

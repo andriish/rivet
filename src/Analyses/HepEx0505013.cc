@@ -17,16 +17,15 @@ namespace Rivet {
 	stringstream lStream; 
 	lStream << k+1;
 	hist_title[k][0] = "Differential Jet Shape Rho, Pt bin " + lStream.str();
-	_histRho_pT[k]  = bookHistogram1D(i+1, 1, j+1, hist_title[k][0]);
+	_profhistRho_pT[k]  = bookProfile1D(i+1, 1, j+1, hist_title[k][0]);
 	
 	hist_title[k][1] = "Integral Jet Shape Psi, Pt bin " + lStream.str();
-	_histPsi_pT[k]  = bookHistogram1D(6+i+1, 1, j+1, hist_title[k][1]);
+	_profhistPsi_pT[k]  = bookProfile1D(6+i+1, 1, j+1, hist_title[k][1]);
       }
     }
     
-    string hist_title_oneminPsi = "One minus Psi(0.3 over R)";
-    _histOneMinPsi = bookHistogram1D(13, 1, 1, hist_title_oneminPsi);
-    //_proftest = bookProfile1D("proftest","proftest", 7, 0., 1.);
+    string hist_title_Psi = "Psi(0.3 over R)";
+    _profhistPsi = bookProfile1D(13, 1, 1, hist_title_Psi);
   }
   
   
@@ -97,7 +96,6 @@ namespace Rivet {
         }
         if (_jetaxes.size()>0) { //determine jet shapes
           
-	  
           const JetShape& jetShape = event.applyProjection(_jetshapeproj);
 	  
           //fill histograms
@@ -107,21 +105,18 @@ namespace Rivet {
                 _ShapeWeights[ipT] += event.weight(); 
                 for (int rbin=0; rbin<_jetshapeproj.getNbins(); ++rbin) {
                   double rad = _jetshapeproj.getRmin() +(rbin+0.5)*_jetshapeproj.getInterval();
-                  _histRho_pT[ipT]->fill(rad/_Rjet, double(_diffjetshapes[jind][rbin]) * event.weight());
-                  _histPsi_pT[ipT]->fill(rad/_Rjet, double(_intjetshapes[jind][rbin]) * event.weight());
-                  //_proftest->fill(rad/_Rjet, double(_intjetshapes[jind][rbin]) * event.weight());
+		  _profhistRho_pT[ipT]->fill(rad/_Rjet, _jetshapeproj.getDiffJetShape(jind, rbin), event.weight() );
+		  _profhistPsi_pT[ipT]->fill(rad/_Rjet, _jetshapeproj.getIntJetShape(jind, rbin), event.weight());
                 }
-                _histOneMinPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., 
-                                     _oneminPsiShape[jind] * event.weight());
+                _profhistPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., 
+				   _jetshapeproj.getPsi(jind), event.weight());
               }
             }
-          }	  
+          }
         }
       }
     }
-    
-    
-    
+        
     // Finished
     log << Log::DEBUG << "Finished analyzing" << endl;
   }
@@ -129,24 +124,6 @@ namespace Rivet {
   
   // Finalize
   void HepEx0505013::finalize() { 
-    
-    vector<double> OneMinPsiBins(18, 0.);
-    
-    for (int i=0; i<18; ++i) { //18 pT bins, one histogram each
-      
-      if (_ShapeWeights[i] > 0.) {
-        //divide each histogram, each bin, by sum of event weights _EventWeights
-        _histRho_pT[i]->scale(1./_ShapeWeights[i]);
-        _histPsi_pT[i]->scale(1./_ShapeWeights[i]);	
-        OneMinPsiBins[i] = _histOneMinPsi->binHeight(i)/_ShapeWeights[i];
-      }
-      else OneMinPsiBins[i] = 0.; 
-    }
-    
-    _histOneMinPsi->reset();
-    for (int i=0; i<18; ++i) { //refill the reset histogram with normalized bins
-      _histOneMinPsi->fill((_pTbins[i]+_pTbins[i+1])/2., OneMinPsiBins[i]);
-    }
     
   }
   

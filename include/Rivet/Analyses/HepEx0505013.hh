@@ -28,8 +28,7 @@ namespace Rivet {
       // NB. jetshape rmin=0.0, rmax=0.7, interval=0.1, r1minPsi=0.3
       : _fsproj(-2., 2.), _vfsproj(_fsproj), _jetsproj(_fsproj), 
         _calmetproj(_fsproj), _vertexproj(), 
-        _jetshapeproj(_vfsproj, _jetaxes, _diffjetshapes, _intjetshapes,  
-		      _oneminPsiShape, 0.0, 0.7, 0.1, 0.3, ENERGY) 
+        _jetshapeproj(_vfsproj, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY) 
     { 
 
       setBeams(PROTON, ANTIPROTON);
@@ -135,10 +134,6 @@ namespace Rivet {
 
     vector<LorentzVector> _jetaxes;
 
-    vector<vector<double> >  _diffjetshapes;
-    vector<vector<double> >  _intjetshapes;
-    vector<double> _oneminPsiShape;
-
     double _Rjet;
 
     double _ShapeWeights[18];
@@ -152,11 +147,10 @@ namespace Rivet {
 
     //@{
     /// Histograms
-    AIDA::IHistogram1D* _histRho_pT[18];
-    AIDA::IHistogram1D* _histPsi_pT[18];
-    AIDA::IHistogram1D* _histOneMinPsi;
+    AIDA::IProfile1D* _profhistRho_pT[18];
+    AIDA::IProfile1D* _profhistPsi_pT[18];
+    AIDA::IProfile1D* _profhistPsi;
 
-    //AIDA::IProfile1D* _proftest;
     //@}
 
   };

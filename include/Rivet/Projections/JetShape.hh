@@ -8,6 +8,7 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Event.hh"
+//#include "Rivet/RivetAIDA.hh"
 
 /// @todo: we should have a global math library to define 
 /// such things as Pi, deltaPhi, deltaR, etc.
@@ -64,13 +65,10 @@ namespace Rivet {
 
     /// Constructor. The provided FinalState projection must live throughout the run.
     inline JetShape(VetoedFinalState& vfsp, vector<LorentzVector>& jetaxes, 
-		    vector<vector<double> >&  diffjetshapes,
-		    vector<vector<double> >&  intjetshapes,
-		    vector<double>& oneminPsiShape,
 		    double rmin=0.0, double rmax=0.7, double interval=0.1, 
 		    double r1minPsi=0.3, schemelist distscheme=ENERGY)
-      : _vfsproj(vfsp), _jetaxes(jetaxes), _diffjetshapes(diffjetshapes),
-	_intjetshapes(intjetshapes), _oneminPsiShape(oneminPsiShape), _rmin(rmin), _rmax(rmax), 
+      : _vfsproj(vfsp), _jetaxes(jetaxes), 
+	_rmin(rmin), _rmax(rmax), 
 	_interval(interval), _r1minPsi(r1minPsi), _distscheme(distscheme)
     { 
       _nbins = int(round((rmax-rmin)/interval));
@@ -102,6 +100,22 @@ namespace Rivet {
     inline double getInterval() const {
       return _interval;
     }
+
+
+    /// Return value of diff. jet shape profile histo bin 
+    inline double getDiffJetShape(int pTbin, int rbin) const {
+      return _diffjetshapes[pTbin][rbin];
+    }
+    
+    /// Return value of int. jet shape profile histo bin 
+    inline double getIntJetShape(int pTbin, int rbin) const {
+      return _intjetshapes[pTbin][rbin];
+    }
+    
+    /// Return value of Psi (int. jet shape) - at given radius - for a pTbin 
+    inline double getPsi(int pTbin) const {
+      return _PsiSlot[pTbin];
+    }
     
 
   protected:
@@ -124,9 +138,14 @@ namespace Rivet {
     /// @name The projected jet shapes
     /// @{
     ///Output jets vector containg jet shape vectors
-    vector<vector<double> >&  _diffjetshapes;
-    vector<vector<double> >&  _intjetshapes;
-    vector<double>& _oneminPsiShape;
+    vector<vector<double> >  _diffjetshapes;
+    vector<vector<double> >  _intjetshapes;
+    vector<double> _PsiSlot;
+
+    //vector<AIDA::IHistogram1D> _diffjetshapes;
+    //vector<AIDA::IHistogram1D> _intjetshapes;
+    //AIDA::IHistogram1D* _PsiSlot;
+
     /// @}
 
     ///Jet shape parameters
