@@ -71,7 +71,6 @@ nobase_pkginclude_HEADERS += \
 ## D0 internals
 nobase_dist_noinst_HEADERS += \
   Tools/D0RunIIcone/HepEntity.h \
-  Tools/D0RunIIcone/inline_maths.h \
   Tools/D0RunIIcone/energycluster/ConeJetInfo.hpp \
   Tools/D0RunIIcone/energycluster/ConeSplitMerge.hpp \
   Tools/D0RunIIcone/energycluster/ProtoJet.hpp \

@@ -47,18 +47,14 @@
 #include <iostream>
 
 
-//#include "energycluster/EnergyClusterReco.hpp"
-//#include "energycluster/ProtoJet.hpp"
 #include "ProtoJet.hpp"
-//#include "energycluster/ConeSplitMerge.hpp"
 #include "ConeSplitMerge.hpp"
-//#include "energycluster/ConeJetInfoChunk.hpp"
-
-#include "../inline_maths.h"
+#include "Rivet/Tools/Utils.hh"
 
 ///////////////////////////////////////////////////////////////////////////////
 
-using namespace inline_maths;
+using namespace math;
+//using namespace inline_maths;
 
 /*
  NB: Some attempt at optimizing the code has been made by ordering the object

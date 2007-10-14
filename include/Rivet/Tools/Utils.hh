@@ -93,4 +93,66 @@ namespace std {
 
 }
 
+
+
+
+#include <cerrno>
+
+namespace math {
+  
+  const double PI = fabs(acos(-1.));
+  
+  const double TWOPI = 2*PI;
+  
+  
+  inline double sqr(double a) {
+    return a*a;
+  }
+  
+  
+  
+  inline double min(double a, double b) {
+    return (a < b) ? a : b;
+  }
+  
+  
+  
+  inline double delta_phi(double phi1, double phi2) {
+    return min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
+  }
+  
+  
+  
+  inline double delta_rad(double y1, double phi1, double y2, double phi2) {
+    double dphi = min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
+    return sqrt(sqr(y1-y2)+sqr(dphi));
+  }
+  
+  
+  
+  inline double phi(double px, double py) {
+    return atan2(py, px);
+  }
+  
+  
+  
+  inline double y(double E, double pz) {
+    errno=0;
+    double y;
+    if (fabs(E-pz) == 0.) {
+      errno=721;
+      y = 99999.;
+    }
+    else {
+      y = 0.5*log((E+pz)/(E-pz));
+    }
+    return y;
+  }
+  
+  
+  
+} //namespace math
+
+
+
 #endif

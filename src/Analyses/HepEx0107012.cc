@@ -12,9 +12,8 @@ using namespace AIDA;
 #include "HepPDT/ParticleID.hh"
 using namespace HepMC;
 
-
-#define PI (3.1415926)
-
+//#include "Rivet/Tools/Utils.hh"
+//using namespace math;
 
 
 
@@ -84,8 +83,9 @@ void HepEx0107012::analyze(const Event & event) {
 	    	if ( !( pInfo.abspid() == 12 || pInfo.abspid() == 14 || pInfo.abspid() == 16 ) ) 
 			    p_tot = p_tot + pmom;
 	    	if (pInfo.abspid() == 11) { // || pInfo.abspid() == 13) { // e+-, mu+-
-			if ( pmom.perp() >= 25. /*25*/  && abs(pmom.eta()) <= 2.5   ) { // <=== cuts from HEPEX-0106027 (see HEPEX-0010026)
-				double E_cone_0_4 = 0., E_em_02 = 0., f_iso;
+			if ( pmom.perp() >= 25. /*25*/  && fabs(pmom.eta()) <= 2.5   ) { // <=== cuts from HEPEX-0106027 (see HEPEX-0010026)
+				double E_cone_0_4 = 0., f_iso;
+				//double E_em_02 = 0.;
 			    	log << Log::DEBUG << "e+-: " << pInfo.pid() << " " << pmom 
 					         << std::endl << "-----" << std::endl;
 			    	for (ParticleVector::const_iterator p1 = fs.particles().begin(); p1 != fs.particles().end(); ++p1) {
@@ -135,7 +135,7 @@ void HepEx0107012::analyze(const Event & event) {
     	} // End of cycle over FS particles
     
 
-	double PTW = 0.;
+	//double PTW = 0.;
 	double pt_miss = p_tot.perp();
     
    	 _h_pt_miss->fill (pt_miss, weight);
@@ -174,7 +174,7 @@ void HepEx0107012::analyze(const Event & event) {
 
 
 void HepEx0107012::finalize() { 
-  Log& log = getLog();
+  //Log& log = getLog();
 
   _h_w_rec_eff_factor = histogramFactory().divide("/HepEx0107012/W_rec_eff", *_h_pt_w_true, *_h_pt_w); // true/measured(after cuts) => factors large one!
 

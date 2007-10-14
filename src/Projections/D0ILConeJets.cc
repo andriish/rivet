@@ -6,8 +6,6 @@
 #include "Rivet/Cmp.hh"
 #include "Rivet/RivetCLHEP.hh"
 
-#include "Rivet/Tools/D0RunIIcone/inline_maths.h"
-#include "Rivet/Tools/D0RunIIcone/HepEntity.h"
 
 namespace Rivet {
 
@@ -50,19 +48,10 @@ namespace Rivet {
 
 
     float item_ET_Threshold = 0.0;
-    // jets = list of type HepEntity
     clearJets(); //Clear jets of previous event
     _algo.makeClusters(getJets(), _particlepointerlist, item_ET_Threshold); // Turn the crank!!!
     _particlelist.clear(); //Clear this event
     _particlepointerlist.clear(); //Clear this event
-
-    //static int count = 0; 
-    //count++;
-    //cout << "_jets.size()=" << _jets.size() << endl;
-    //for (std::list<HepEntity>::const_iterator cit=_jets.begin(); cit!=_jets.end(); ++cit) {
-    //cout << "event " << count << "   jet pT=" << (*cit).pT() 
-    //     << "   y=" << (*cit).y() << "   phi=" << (*cit).phi() << endl;
-    //}
     
     _lorentzvecjets.clear();
     for (list<HepEntity>::const_iterator jt = _jets.begin(); jt != _jets.end(); ++jt) {
@@ -72,23 +61,5 @@ namespace Rivet {
 
   }
 
-  
-  /*
-  /// Get a reference to the lorentzvecjets collection.
-  list<LorentzVector>& D0ILConeJets::getLorentzJets() { 
-
-    //LorentzVector jet;
-    for (list<HepEntity>::const_iterator jt = _jets.begin(); jt != _jets.end(); ++jt) {
-      //jet.setPx(jt->px);
-      //jet.setPy(jt->py);
-      //jet.setPz(jt->pz);
-      //jet.setE(jt->E);
-      LorentzVector jet(jt->px, jt->py, jt->pz, jt->E);
-      _lorentzvecjets.push_back(jet);
-    }
-
-    return _lorentzvecjets; 
-  }
-*/
 
 }

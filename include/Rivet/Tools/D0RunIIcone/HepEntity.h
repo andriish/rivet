@@ -1,7 +1,8 @@
 #ifndef  D0RunIIconeJets_HepEntity_class
 #define  D0RunIIconeJets_HepEntity_class
 
-#include "inline_maths.h"
+//#include "inline_maths.h"
+#include "Rivet/Tools/Utils.hh"
 
 //Author: Lars Sonnenschein 28/Mar/2007
 //This is an example class fulfilling the minimal requirements needed by the
@@ -32,17 +33,20 @@ class HepEntity {
 
   
   inline double y() const {
-    return inline_maths::y(E,pz);
+    //return inline_maths::y(E,pz);
+    return math::y(E,pz);
   }
 
 
   inline double phi() const {
-     return inline_maths::phi(px,py);
+    //return inline_maths::phi(px,py);
+    return math::phi(px,py);
   }
 
 
   inline double pT() const {
-     return sqrt(inline_maths::sqr(px)+inline_maths::sqr(py));
+    //return sqrt(inline_maths::sqr(px)+inline_maths::sqr(py));
+    return sqrt(math::sqr(px)+math::sqr(py));
   }
 
 

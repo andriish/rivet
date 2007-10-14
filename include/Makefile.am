@@ -35,7 +35,7 @@ nobase_dist_noinst_HEADERS += \
   LWH/Profile1D.h
 
 nobase_dist_noinst_HEADERS += \
-  Rivet/Tools/D0RunIIcone/HepEntity.h       Rivet/Tools/D0RunIIcone/inline_maths.h \
+  Rivet/Tools/D0RunIIcone/HepEntity.h       Rivet/Tools/Utils.hh \
   Rivet/Tools/D0RunIIcone/energycluster/ConeJetInfo.hpp   Rivet/Tools/D0RunIIcone/energycluster/ConeSplitMerge.hpp \
   Rivet/Tools/D0RunIIcone/energycluster/ProtoJet.hpp   Rivet/Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp
 

@@ -8,13 +8,7 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Event.hh"
-//#include "Rivet/RivetAIDA.hh"
-
-/// @todo: we should have a global math library to define 
-/// such things as Pi, deltaPhi, deltaR, etc.
-/// @todo Remove use of D0-specific code.
-/// The inline_maths.h code is not D0 specific, but globally useful
-#include "Rivet/Tools/D0RunIIcone/inline_maths.h"
+#include "Rivet/Tools/Utils.hh"
 
 
 namespace Rivet {

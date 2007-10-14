@@ -5,7 +5,7 @@
 #include "HepPDT/ParticleID.hh"
 //#include "Rivet/RivetAIDA.hh"
 
-using namespace inline_maths;
+using namespace math;
 
 
 namespace Rivet {
@@ -60,8 +60,9 @@ namespace Rivet {
     
     
     //Determine jet shapes
-    double y1, y2, eta1, eta2, phi1, phi2, drad, dradmin;
-    int dradminind;
+    double y1, y2, eta1, eta2, phi1, phi2, drad;
+    double dradmin=TWOPI; //dummy assignment, to avoid compile warning
+    int dradminind=0; //dummy asignment, to avoid compile warning
     if (_jetaxes.size()>0) {
       for (ParticleVector::const_iterator p = vfs.particles().begin(); p != vfs.particles().end(); ++p) {
 	

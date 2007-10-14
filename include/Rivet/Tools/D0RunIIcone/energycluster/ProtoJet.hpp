@@ -19,9 +19,9 @@
 #include <list>
 #include <cmath>
 
-#include "../inline_maths.h" //ls
+#include "Rivet/Tools/Utils.hh"
 
-using namespace inline_maths;
+using namespace math;
 using namespace D0RunIIconeJets_CONEJETINFO;
 
 
