@@ -1,6 +1,5 @@
-// $Id: $
 #ifndef RIVET_PARTICLENAME_HH 
-#define RIVET_PARTICLENAME_HH 1
+#define RIVET_PARTICLENAME_HH
 
 #include "Rivet/Rivet.hh"
 

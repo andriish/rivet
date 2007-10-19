@@ -2,8 +2,9 @@ SUBDIRS = Projections Analyses Tools . Test
 
 lib_LTLIBRARIES  = libRivet.la
 libRivet_la_LDFLAGS = \
-  -version-info 1:0:0 -export-dynamic \
-  -L$(HEPPIDLIBPATH) -L$(HEPPDTLIBPATH) 
+  -L$(HEPPIDLIBPATH) -L$(HEPPDTLIBPATH) \
+  -export-dynamic -dlopen \
+  -version-info 1:0:0
 libRivet_la_SOURCES = \
   Particle.cc \
   Cuts.cc \
@@ -20,7 +21,7 @@ libRivet_la_LIBADD  = \
 
 bin_PROGRAMS = rivet
 rivet_SOURCES = RivetInterface.cc
-rivet_LDFLAGS = -L$(top_srcdir)/src
+rivet_LDFLAGS = -L$(top_srcdir)/src -export-dynamic -dlopen
 rivet_LDADD = -lRivet $(HEPMCLIB) $(CLHEPLIB) 
 rivet_CPPFLAGS = $(AM_CPPFLAGS)
 
@@ -32,6 +33,7 @@ endif
 
 if WITH_FASTJET
   rivet_CPPFLAGS += -DHAVE_FASTJET
+  ## TODO: Use abs path rather than -l flag
   libRivet_la_LIBADD += -l$(FASTJETLIBNAME)
 endif
 
