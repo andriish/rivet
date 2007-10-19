@@ -3,8 +3,7 @@ SUBDIRS = Projections Analyses Tools . Test
 lib_LTLIBRARIES  = libRivet.la
 libRivet_la_LDFLAGS = \
   -L$(HEPPIDLIBPATH) -L$(HEPPDTLIBPATH) \
-  -export-dynamic -dlopen \
-  -version-info 1:0:0
+  -export-dynamic -version-info 1:0:0
 libRivet_la_SOURCES = \
   Particle.cc \
   Cuts.cc \
@@ -21,7 +20,7 @@ libRivet_la_LIBADD  = \
 
 bin_PROGRAMS = rivet
 rivet_SOURCES = RivetInterface.cc
-rivet_LDFLAGS = -L$(top_srcdir)/src -export-dynamic -dlopen
+rivet_LDFLAGS = -L$(top_srcdir)/src -export-dynamic
 rivet_LDADD = -lRivet $(HEPMCLIB) $(CLHEPLIB) 
 rivet_CPPFLAGS = $(AM_CPPFLAGS)
 
