@@ -21,23 +21,10 @@ using namespace HepMC;
 
 // Book histograms
 void PRD65092002::init() {
-  // Book mini histos (for the profile histo effect) and storage histos
-  _dataToward.reserve(_numBins);
-  _dataAway.reserve(_numBins);
-  _dataTrans.reserve(_numBins);
 
-  // Data point sets
-  /// @todo Should really use proper profile histograms.
-  _dpsToward = bookDataPointSet("PtSumToward", "pT sum toward total", 50, 0.0, 50.0);
-  _dpsTrans = bookDataPointSet("PtSumTransverse", "pT sum transverse total", 50, 0.0, 50.0);
-  _dpsAway = bookDataPointSet("PtSumAway", "pT sum away total", 50, 0.0, 50.0);
-
-  // Book mini-histos
-  for (size_t bin = 0; bin < _numBins; ++bin) {
-    _dataToward[bin] = MiniHisto();
-    _dataAway[bin] = MiniHisto();
-    _dataTrans[bin] = MiniHisto();
-  }
+  _dataToward = bookProfile1D(1, 1, 1, "pT sum toward total");
+  _dataTrans = bookProfile1D(1, 1, 2, "pT sum transverse total");
+  _dataAway = bookProfile1D(1, 1, 3, "pT sum away total");
 
 }
 
@@ -60,7 +47,7 @@ void PRD65092002::analyze(const Event& event) {
   // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
   if (ptLead < 0.5) return;
   if (ptLead > 50.0) return;
-  const size_t nBin = size_t(floor(ptLead));
+  //const size_t nBin = size_t(floor(ptLead));
   
   // Run over tracks in non-leading jets
   double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
@@ -91,57 +78,18 @@ void PRD65092002::analyze(const Event& event) {
       << ptSumToward << ", " 
       << ptSumAway << ", " 
       << ptSumTrans << "]" 
-      << ", nbin = " << nBin
       << endl;
 
   // Update the proto-profile histograms
-  if (nBin>_numBins) {
-    log << Log::ERROR << "nBin out of range: " << nBin << endl;
-  } else {
-    _dataToward[nBin] += ptSumToward;
-    _dataAway[nBin] += ptSumAway;
-    _dataTrans[nBin] += ptSumTrans;
-  }
+  _dataToward->fill(ptLead, ptSumToward, event.weight());
+  _dataTrans->fill(ptLead, ptSumTrans, event.weight());
+  _dataAway->fill(ptLead, ptSumAway, event.weight());
+  //}
+
 }
 
 
 // Create the profile histograms
 void PRD65092002::finalize() {
-  for (size_t bin = 0; bin < _numBins; ++bin) {
-
-    const double nToward = _dataToward[bin].numEntries;
-    if (nToward) {
-      const double avgPt = _dataToward[bin].sumPt/nToward;
-      const double avgPt2 = _dataToward[bin].sumPtSq/nToward;
-      const double err = sqrt(avgPt2 - avgPt*avgPt);
-      IMeasurement* meas = _dpsToward->point(bin)->coordinate(1);
-      meas->setValue(avgPt);
-      meas->setErrorPlus(err);
-      meas->setErrorMinus(err);
-    }
-
-    const double nTrans = _dataTrans[bin].numEntries;
-    if (nTrans) {
-      const double avgPt = _dataTrans[bin].sumPt/nTrans;
-      const double avgPt2 = _dataTrans[bin].sumPtSq/nTrans;
-      const double err = sqrt(avgPt2 - avgPt*avgPt);
-      IMeasurement* meas = _dpsTrans->point(bin)->coordinate(1);
-      meas->setValue(avgPt);
-      meas->setErrorPlus(err);
-      meas->setErrorMinus(err);
-    }
-
-    const double nAway = _dataAway[bin].numEntries;
-    if (nAway) {
-      const double avgPt = _dataAway[bin].sumPt/nAway;
-      const double avgPt2 = _dataAway[bin].sumPtSq/nAway;
-      const double err = sqrt(avgPt2 - avgPt*avgPt);
-      IMeasurement* meas = _dpsAway->point(bin)->coordinate(1);
-      meas->setValue(avgPt);
-      meas->setErrorPlus(err);
-      meas->setErrorMinus(err);
-    }
-
-  }
 
 }
