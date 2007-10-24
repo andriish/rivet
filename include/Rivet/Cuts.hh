@@ -9,6 +9,53 @@
 
 namespace Rivet {
 
+
+  /// A minimal wrapper class to define >=, <= cut pairs.
+  class BinaryCut {
+  public:
+    /// Default constructor.
+    BinaryCut() {
+      _raw = pair<double, double>(-numeric_limits<double>::max(), numeric_limits<double>::max());
+    }
+    
+    /// Valued constructor.
+    BinaryCut(double higherthan, double lowerthan) {
+      _raw = pair<double, double>(higherthan, lowerthan);
+    }
+    
+    /// @name Accessing the low and high cut values
+    //@{
+    BinaryCut& setLowerThan(double val) { _raw.second = val; return *this; }
+    BinaryCut& setHigherThan(double val) { _raw.first = val; return *this; }
+    double& getLowerThan() { return _raw.second; }
+    double& getHigherThan() { return _raw.first; }
+    const double& getLowerThan() const { return _raw.second; }
+    const double& getHigherThan() const { return _raw.first; }
+    //@}
+    
+  private:
+    pair<double, double> _raw;
+  };
+
+  inline bool operator==(BinaryCut a, BinaryCut b) {
+    return a.getLowerThan() == b.getLowerThan() && a.getHigherThan() == b.getHigherThan();
+  }  
+
+  inline bool operator<(BinaryCut a, BinaryCut b) {
+    const bool lowersEqual = a.getLowerThan() == b.getLowerThan();
+    if (!lowersEqual) return a.getLowerThan() < b.getLowerThan();
+    return a.getHigherThan() < b.getHigherThan();
+  }  
+
+  inline bool operator>(BinaryCut a, BinaryCut b) {
+    const bool lowersEqual = a.getLowerThan() == b.getLowerThan();
+    if (!lowersEqual) return a.getLowerThan() > b.getLowerThan();
+    return a.getHigherThan() > b.getHigherThan();
+  }  
+
+
+
+
   /// A Cuts object contains information which can be passed from the
   /// different Projection and Analysis objects in Rivet to the
   /// outside world. The main purpose of the Cut objects is
@@ -24,7 +71,7 @@ namespace Rivet {
     /// @name Standard constructors, destructors and assignment.
     //@{
     /// The default constructor.
-    inline Cuts() { }
+    Cuts() { }
     //@}
 
   public:
@@ -34,16 +81,16 @@ namespace Rivet {
 
 
     /// Combine with another set of Cuts, using addCut iternally.
-    inline Cuts& addCuts(const Cuts& other) {
+    Cuts& addCuts(const Cuts& other) {
       for (const_iterator cut = other.begin(); cut != other.end(); ++cut) {
-        addCut(cut->first, MORE_EQ, cut->second.higherthan());
-        addCut(cut->first, LESS_EQ, cut->second.lowerthan());
+        addCut(cut->first, MORE_EQ, cut->second.getHigherThan());
+        addCut(cut->first, LESS_EQ, cut->second.getLowerThan());
       }
       return *this;
     }
 
     /// Set the value of this cut, bypassing the combination mechanism.
-    // inline Cuts& setCut(const string& quantity, const BinaryCut& bincut) {
+    // Cuts& setCut(const string& quantity, const BinaryCut& bincut) {
     //   _cuts[quantity] = bincut;
     //   return *this;
     // }
@@ -57,31 +104,6 @@ namespace Rivet {
 
 
   public:
-    /// A minimal wrapper class to define >=, <= cut pairs.
-    class BinaryCut {
-    public:
-      /// Default constructor.
-      BinaryCut() {
-        _raw = pair<double, double>(numeric_limits<double>::max(), -numeric_limits<double>::max());
-      }
-
-      /// Valued constructor.
-      BinaryCut(double lowerthan, double higherthan) {
-        _raw = pair<double, double>(lowerthan, higherthan);
-      }
-
-      /// @name Accessing the low and high cut values
-      //@{
-      inline double& lowerthan() { return _raw.first; }
-      inline double& higherthan() { return _raw.second; }
-      inline const double& lowerthan() const { return _raw.first; }
-      inline const double& higherthan() const { return _raw.second; }
-      //@}
-
-    private:
-      pair<double, double> _raw;
-    };
-
     /// Typedef for a named collection of binary cut objects.
     typedef map<string, BinaryCut> NamedBinaryCuts;
 
@@ -91,17 +113,17 @@ namespace Rivet {
     /// @name Non-const iterators over the cuts
     //@{
     typedef NamedBinaryCuts::iterator iterator;
-    inline iterator begin() { return _cuts.begin(); }
-    inline iterator end() { return _cuts.end(); }
-    inline iterator find(const string& quantity) { return _cuts.find(quantity); }
+    iterator begin() { return _cuts.begin(); }
+    iterator end() { return _cuts.end(); }
+    iterator find(const string& quantity) { return _cuts.find(quantity); }
     //@}
 
     /// @name Non-const iterators over the cuts
     //@{
     typedef NamedBinaryCuts::const_iterator const_iterator;
-    inline const const_iterator begin() const { return _cuts.begin(); }
-    inline const const_iterator end() const { return _cuts.end(); }
-    inline const const_iterator find(const string& quantity) const { return _cuts.find(quantity); }
+    const const_iterator begin() const { return _cuts.begin(); }
+    const const_iterator end() const { return _cuts.end(); }
+    const const_iterator find(const string& quantity) const { return _cuts.find(quantity); }
     //@}
 
 

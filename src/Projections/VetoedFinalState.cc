@@ -3,6 +3,7 @@
 #include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Cmp.hh"
+#include "Rivet/Tools/Utils.hh"
 #include <algorithm>
 
 
@@ -25,14 +26,13 @@ namespace Rivet {
     const ParticleVector& fsps = fs.particles();
     for (ParticleVector::const_iterator p = fsps.begin(); p != fsps.end(); ++p) {
       if (log.isActive(Log::DEBUG)) {
-        stringstream codes; 
-        codes << "{";
+        vector<long> codes; 
         for (VetoDetails::const_iterator code = _vetoCodes.begin(); code != _vetoCodes.end(); ++code) {
-          codes << " " << code->first;
+          codes.push_back(code->first);
         }
-        codes << " }";
+        const string codestr = "{ " + join(codes) + " }";
         log << Log::DEBUG << p->getPdgId() << " vs. veto codes = " 
-            << codes.str() << " (" << _vetoCodes.size() << ")" << endl;
+            << codestr << " (" << codes.size() << ")" << endl;
       }
       const long pdgid = p->getPdgId();
       VetoDetails::iterator iter = _vetoCodes.find(pdgid);
@@ -41,18 +41,18 @@ namespace Rivet {
         _theParticles.push_back(*p);
       } else {
         // This particle code is listed as a possible veto... check pT.
-        pair<double, double> ptrange = iter->second;
+        BinaryCut ptrange = iter->second;
         // Make sure that the pT range is sensible.
-        assert(ptrange.first <= ptrange.second);
+        assert(ptrange.getHigherThan() <= ptrange.getLowerThan());
         double pt = p->getMomentum().perp();
         stringstream rangess;
-        if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.first;
+        if (ptrange.getHigherThan() < numeric_limits<double>::max()) rangess << ptrange.getHigherThan();
         rangess << " - ";
-        if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
+        if (ptrange.getLowerThan() < numeric_limits<double>::max()) rangess << ptrange.getLowerThan();
         log << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
         debugline << "with PDG code = " << pdgid << " pT = " << p->getMomentum().perp();
-        if (pt < ptrange.first || pt > ptrange.second) { 
+        if (pt < ptrange.getHigherThan() || pt > ptrange.getLowerThan()) { 
           log << Log::DEBUG << "Storing " << debugline << endl;
           _theParticles.push_back(*p);
         } else {

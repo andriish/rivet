@@ -91,6 +91,16 @@ namespace std {
     }
   }
 
+  template <typename T>
+  inline string join(const vector<T>& v, const string& sep = " ") {
+    stringstream out; 
+    for (size_t i = 0; i < v.size(); ++i) {
+      if (i != 0) out << sep;
+      out << v[i];
+    }
+    return out.str();
+  }
+
 }
 
 
@@ -98,6 +108,8 @@ namespace std {
 
 #include <cerrno>
 
+
+/// @todo Put in a separate MathUtils.hh header and namespace Rivet::Math
 namespace math {
   
   const double PI = fabs(acos(-1.));

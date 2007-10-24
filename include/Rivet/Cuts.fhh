@@ -6,8 +6,9 @@
 
 namespace Rivet {
 
-  /// Forward declaration
+  /// Forward declarations
   class Cuts;
+  class BinaryCut;
 
   /// Comparison operations. We're being clear about the <= and >= equality aspects
   /// since these will actually be implemented as inclusive binary cuts with EQUAL

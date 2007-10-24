@@ -18,7 +18,7 @@ namespace Rivet {
   public:
     
     /// Typedef for a vetoing entry.
-    typedef map<long, pair<double, double> > VetoDetails;
+    typedef map<long, BinaryCut> VetoDetails;
 
     /// The default constructor. Must specify a FinalState projection 
     /// object which is assumed to live through the run.
@@ -61,9 +61,7 @@ namespace Rivet {
     /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_T \f$ 
     /// IN the given range will be rejected.
     inline VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
-      pair<double, double> ptrange; 
-      ptrange.first = ptmin;
-      ptrange.second = ptmax;
+      BinaryCut ptrange(ptmin, ptmax);
       _vetoCodes.insert(make_pair(id, ptrange));
       return *this;
     }
@@ -71,8 +69,8 @@ namespace Rivet {
     /// Add a particle/antiparticle pair to veto in a given \f$ p_T \f$ range. Given a single ID, both
     /// the particle and its conjugate antiparticle will be rejected if their \f$ p_T \f$ is IN the given range.
     inline VetoedFinalState& addVetoPairDetail(const long id, const double ptmin, const double ptmax) {
-      addVetoPairDetail(id,  ptmin, ptmax);
-      addVetoPairDetail(-id, ptmin, ptmax);
+      addVetoDetail(id,  ptmin, ptmax);
+      addVetoDetail(-id, ptmin, ptmax);
       return *this;
     }
 
@@ -86,9 +84,7 @@ namespace Rivet {
 
     /// Add a particle ID to veto (all \f$ p_T \f$ range will be vetoed).
     inline VetoedFinalState& addVetoId(const long id) {
-      pair<double, double> ptrange;
-      ptrange.first = 0.0;
-      ptrange.second = numeric_limits<double>::max();
+      BinaryCut ptrange(0.0, numeric_limits<double>::max());
       _vetoCodes.insert(make_pair(id, ptrange));
       return *this;
     }

@@ -94,8 +94,8 @@ namespace Rivet {
     inline virtual const bool isCompatible(const string& quantity, const double value) const {
       Cuts::const_iterator cut = getCuts().find(quantity);
       if (cut == getCuts().end()) return true;
-      if (value > cut->second.lowerthan()) return false;
-      if (value < cut->second.higherthan()) return false;
+      if (value < cut->second.getHigherThan()) return false;
+      if (value > cut->second.getLowerThan()) return false;
       return true;
     }
 
