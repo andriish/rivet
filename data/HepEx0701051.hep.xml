@@ -1,0 +1,845 @@
+<hepml>
+ <data timestamp="2007-10-10T07:44:46.313291">
+  <paper spiresId="7057202" redId="4717">
+   <title>
+    Measurement of the Inclusive Jet Cross Section using the k(T) algorithm in p anti-p collisions at s**(1/2) = 1.96-TeV with the CDF II Detector
+   </title>
+   <modification who="MRW" when="23 JUN 2007" />
+   <comment>
+    Fermilab-Tevatron. Measurement of the inclusive jet cross section in PBAR-P collisions at centre-of-mass energy 1.96 TeV. The jet definition uses the KT algorithm with a jet resolution parameter D. The data cover the jet rapidity region -2.1 to 2.1 and transverse momentum 54 to 700 GeV. The data sample has an integrated luminosity of 1.0 fb-1. The paper contains a detailed study of the systematic errors.
+   </comment>
+   <author>
+    ABULENCIA
+   </author>
+   <reference description="HEP-EX/0701051" />
+   <author>
+    ABULENCIA
+   </author>
+   <reference description="PR D75,092006" />
+   <experiment name="FNAL-830" laboratory="FNAL" informalname="CDF" />
+   <dataset id="ds-10133-1" datasetId="1">
+    <comment>
+     Measured inclusive jet differential cross section as a function of PT for the rapidity range -0.1 to 0.1 with the jet resolution parameter D = 0.7.
+    </comment>
+    <comment>
+     Location: T 4, F 9
+    </comment>
+    <xaxis id="xax-10133-1-1" xaxisId="1" header="PT(P=3) IN GEV">
+     <bins>
+      <bin binId="1" low="54.0" high="62.0" />
+      <bin binId="2" low="62.0" high="72.0" />
+      <bin binId="3" low="72.0" high="83.0" />
+      <bin binId="4" low="83.0" high="96.0" />
+      <bin binId="5" low="96.0" high="110.0" />
+      <bin binId="6" low="110.0" high="127.0" />
+      <bin binId="7" low="127.0" high="146.0" />
+      <bin binId="8" low="146.0" high="169.0" />
+      <bin binId="9" low="169.0" high="195.0" />
+      <bin binId="10" low="195.0" high="224.0" />
+      <bin binId="11" low="224.0" high="259.0" />
+      <bin binId="12" low="259.0" high="298.0" />
+      <bin binId="13" low="298.0" high="344.0" />
+      <bin binId="14" low="344.0" high="396.0" />
+      <bin binId="15" low="396.0" high="457.0" />
+      <bin binId="16" low="457.0" high="527.0" />
+      <bin binId="17" low="527.0" high="700.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-10133-1-1" header="D2(SIG)/DPT/DYRAP IN NB/GEV">
+     <reaction>
+      <initialstate>
+       <particle name="PBAR" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="D2SIG/DPT/DYRAP" />
+     <property name="sqrts" unit="GeV" low="1960.000" high="1960.000" />
+     <comment>
+      ABS(YRAP(P=3)) : &lt; 0.1
+     </comment>
+     <comment>
+      RE : PBAR P --&gt; JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
+     <points>
+      <point id="pt-10133-1-1-1" pointId="1" value="14.5" relation="eq">
+       <error errorId="1" plus="0.5" minus="0.5" source="stat" norm="abs" />
+       <error errorId="2" plus="2.0" minus="1.9" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-2" pointId="2" value="6.68" relation="eq">
+       <error errorId="1" plus="0.08" minus="0.08" source="stat" norm="abs" />
+       <error errorId="2" plus="0.85" minus="0.84" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-3" pointId="3" value="2.87" relation="eq">
+       <error errorId="1" plus="0.05" minus="0.05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.35" minus="0.34" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-4" pointId="4" value="1.24" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.14" minus="0.14" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-5" pointId="5" value="0.531" relation="eq">
+       <error errorId="1" plus="0.011" minus="0.011" source="stat" norm="abs" />
+       <error errorId="2" plus="0.06" minus="0.061" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-6" pointId="6" value="0.233" relation="eq">
+       <error errorId="1" plus="0.006" minus="0.006" source="stat" norm="abs" />
+       <error errorId="2" plus="0.027" minus="0.026" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-7" pointId="7" value="0.0936" relation="eq">
+       <error errorId="1" plus="0.0012" minus="0.0012" source="stat" norm="abs" />
+       <error errorId="2" plus="0.011" minus="0.0108" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-8" pointId="8" value="0.0363" relation="eq">
+       <error errorId="1" plus="0.0006" minus="0.0006" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0045" minus="0.0043" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-9" pointId="9" value="0.0139" relation="eq">
+       <error errorId="1" plus="0.0001" minus="0.0001" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0019" minus="0.0018" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-10" pointId="10" value="0.00522" relation="eq">
+       <error errorId="1" plus="6e-05" minus="6e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00077" minus="0.00072" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-11" pointId="11" value="0.00179" relation="eq">
+       <error errorId="1" plus="3e-05" minus="3e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00029" minus="0.00027" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-12" pointId="12" value="0.000592" relation="eq">
+       <error errorId="1" plus="1.1e-05" minus="1.1e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.000108" minus="0.0001" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-13" pointId="13" value="0.000178" relation="eq">
+       <error errorId="1" plus="6e-06" minus="6e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="3.6e-05" minus="3.3e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-14" pointId="14" value="4.68e-05" relation="eq">
+       <error errorId="1" plus="2.8e-06" minus="2.8e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="1.08e-05" minus="9.4e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-15" pointId="15" value="1.29e-05" relation="eq">
+       <error errorId="1" plus="1.2e-06" minus="1.2e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="3.4e-06" minus="2.9e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-16" pointId="16" value="2.47e-06" relation="eq">
+       <error errorId="1" plus="5e-07" minus="5e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="8e-07" minus="6.8e-07" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-1-1-17" pointId="17" value="2.13e-07" relation="eq">
+       <error errorId="1" plus="9.5e-08" minus="9.5e-08" source="stat" norm="abs" />
+       <error errorId="2" plus="9.7e-08" minus="7.5e-08" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="5.8" minus="5.8" source="sys" norm="pct" />
+     <comment>
+      Additional error due to the uncertainty on the integrated luminosity.
+     </comment>
+   </dataset>
+   <dataset id="ds-10133-2" datasetId="2">
+    <comment>
+     Measured inclusive jet differential cross section as a function of PT for the absoloute rapidity range 0.1 to 0.7 with the jet resolution parameter D = 0.7.
+    </comment>
+    <comment>
+     Location: T 4, F 9
+    </comment>
+    <xaxis id="xax-10133-2-1" xaxisId="1" header="PT(P=3) IN GEV">
+     <bins>
+      <bin binId="1" low="54.0" high="62.0" />
+      <bin binId="2" low="62.0" high="72.0" />
+      <bin binId="3" low="72.0" high="83.0" />
+      <bin binId="4" low="83.0" high="96.0" />
+      <bin binId="5" low="96.0" high="110.0" />
+      <bin binId="6" low="110.0" high="127.0" />
+      <bin binId="7" low="127.0" high="146.0" />
+      <bin binId="8" low="146.0" high="169.0" />
+      <bin binId="9" low="169.0" high="195.0" />
+      <bin binId="10" low="195.0" high="224.0" />
+      <bin binId="11" low="224.0" high="259.0" />
+      <bin binId="12" low="259.0" high="298.0" />
+      <bin binId="13" low="298.0" high="344.0" />
+      <bin binId="14" low="344.0" high="396.0" />
+      <bin binId="15" low="396.0" high="457.0" />
+      <bin binId="16" low="457.0" high="527.0" />
+      <bin binId="17" low="527.0" high="700.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-10133-2-1" header="D2(SIG)/DPT/DYRAP IN NB/GEV">
+     <reaction>
+      <initialstate>
+       <particle name="PBAR" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="D2SIG/DPT/DYRAP" />
+     <property name="sqrts" unit="GeV" low="1960.000" high="1960.000" />
+     <comment>
+      ABS(YRAP(P=3)) : 0.1 TO 0.7
+     </comment>
+     <comment>
+      RE : PBAR P --&gt; JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
+     <points>
+      <point id="pt-10133-2-1-1" pointId="1" value="14.0" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="1.6" minus="1.6" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-2" pointId="2" value="6.14" relation="eq">
+       <error errorId="1" plus="0.12" minus="0.12" source="stat" norm="abs" />
+       <error errorId="2" plus="0.66" minus="0.65" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-3" pointId="3" value="2.69" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.29" minus="0.27" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-4" pointId="4" value="1.14" relation="eq">
+       <error errorId="1" plus="0.01" minus="0.01" source="stat" norm="abs" />
+       <error errorId="2" plus="0.12" minus="0.11" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-5" pointId="5" value="0.49" relation="eq">
+       <error errorId="1" plus="0.004" minus="0.004" source="stat" norm="abs" />
+       <error errorId="2" plus="0.051" minus="0.048" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-6" pointId="6" value="0.208" relation="eq">
+       <error errorId="1" plus="0.002" minus="0.002" source="stat" norm="abs" />
+       <error errorId="2" plus="0.022" minus="0.021" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-7" pointId="7" value="0.0851" relation="eq">
+       <error errorId="1" plus="0.0004" minus="0.0004" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0095" minus="0.0089" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-8" pointId="8" value="0.0333" relation="eq">
+       <error errorId="1" plus="0.0002" minus="0.0002" source="stat" norm="abs" />
+       <error errorId="2" plus="0.004" minus="0.0037" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-9" pointId="9" value="0.0123" relation="eq">
+       <error errorId="1" plus="0.0001" minus="0.0001" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0016" minus="0.0015" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-10" pointId="10" value="0.00453" relation="eq">
+       <error errorId="1" plus="2e-05" minus="2e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00065" minus="0.00061" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-11" pointId="11" value="0.00157" relation="eq">
+       <error errorId="1" plus="1e-05" minus="1e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00026" minus="0.00024" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-12" pointId="12" value="0.000487" relation="eq">
+       <error errorId="1" plus="6e-06" minus="6e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="9.1e-05" minus="8.3e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-13" pointId="13" value="0.000143" relation="eq">
+       <error errorId="1" plus="2e-06" minus="2e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="3.1e-05" minus="2.7e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-14" pointId="14" value="3.69e-05" relation="eq">
+       <error errorId="1" plus="1e-06" minus="1e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="9.4e-06" minus="8e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-15" pointId="15" value="7.18e-06" relation="eq">
+       <error errorId="1" plus="3.4e-07" minus="3.4e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="2.2e-06" minus="1.8e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-16" pointId="16" value="1.16e-06" relation="eq">
+       <error errorId="1" plus="1.3e-07" minus="1.3e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="4.4e-07" minus="3.5e-07" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-2-1-17" pointId="17" value="8.97e-08" relation="eq">
+       <error errorId="1" plus="2.4e-08" minus="2.4e-08" source="stat" norm="abs" />
+       <error errorId="2" plus="4.75e-08" minus="3.64e-08" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="5.8" minus="5.8" source="sys" norm="pct" />
+     <comment>
+      Additional error due to the uncertainty on the integrated luminosity.
+     </comment>
+   </dataset>
+   <dataset id="ds-10133-3" datasetId="3">
+    <comment>
+     Measured inclusive jet differential cross section as a function of PT for the absolute rapidity range 0.7 to 1.1 with the jet resolution parameter D = 0.7.
+    </comment>
+    <comment>
+     Location: T 5, F 9
+    </comment>
+    <xaxis id="xax-10133-3-1" xaxisId="1" header="PT(P=3) IN GEV">
+     <bins>
+      <bin binId="1" low="54.0" high="62.0" />
+      <bin binId="2" low="62.0" high="72.0" />
+      <bin binId="3" low="72.0" high="83.0" />
+      <bin binId="4" low="83.0" high="96.0" />
+      <bin binId="5" low="96.0" high="110.0" />
+      <bin binId="6" low="110.0" high="127.0" />
+      <bin binId="7" low="127.0" high="146.0" />
+      <bin binId="8" low="146.0" high="169.0" />
+      <bin binId="9" low="169.0" high="195.0" />
+      <bin binId="10" low="195.0" high="224.0" />
+      <bin binId="11" low="224.0" high="259.0" />
+      <bin binId="12" low="259.0" high="298.0" />
+      <bin binId="13" low="298.0" high="344.0" />
+      <bin binId="14" low="344.0" high="396.0" />
+      <bin binId="15" low="396.0" high="457.0" />
+      <bin binId="16" low="457.0" high="527.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-10133-3-1" header="D2(SIG)/DPT/DYRAP IN NB/GEV">
+     <reaction>
+      <initialstate>
+       <particle name="PBAR" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="D2SIG/DPT/DYRAP" />
+     <property name="sqrts" unit="GeV" low="1960.000" high="1960.000" />
+     <comment>
+      ABS(YRAP(P=3)) : 0.7 TO 1.1
+     </comment>
+     <comment>
+      RE : PBAR P --&gt; JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
+     <points>
+      <point id="pt-10133-3-1-1" pointId="1" value="12.3" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="1.5" minus="1.5" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-2" pointId="2" value="5.48" relation="eq">
+       <error errorId="1" plus="0.14" minus="0.14" source="stat" norm="abs" />
+       <error errorId="2" plus="0.65" minus="0.65" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-3" pointId="3" value="2.4" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.28" minus="0.27" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-4" pointId="4" value="1.0" relation="eq">
+       <error errorId="1" plus="0.01" minus="0.01" source="stat" norm="abs" />
+       <error errorId="2" plus="0.15" minus="0.11" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-5" pointId="5" value="0.415" relation="eq">
+       <error errorId="1" plus="0.005" minus="0.005" source="stat" norm="abs" />
+       <error errorId="2" plus="0.048" minus="0.046" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-6" pointId="6" value="0.173" relation="eq">
+       <error errorId="1" plus="0.003" minus="0.003" source="stat" norm="abs" />
+       <error errorId="2" plus="0.021" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-7" pointId="7" value="0.0683" relation="eq">
+       <error errorId="1" plus="0.0005" minus="0.0005" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0087" minus="0.0082" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-8" pointId="8" value="0.0252" relation="eq">
+       <error errorId="1" plus="0.0003" minus="0.0003" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0035" minus="0.0033" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-9" pointId="9" value="0.00895" relation="eq">
+       <error errorId="1" plus="6e-05" minus="6e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00136" minus="0.00126" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-10" pointId="10" value="0.00304" relation="eq">
+       <error errorId="1" plus="2e-05" minus="2e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00051" minus="0.00047" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-11" pointId="11" value="0.000952" relation="eq">
+       <error errorId="1" plus="1.1e-05" minus="1.1e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.000182" minus="0.000168" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-12" pointId="12" value="0.000253" relation="eq">
+       <error errorId="1" plus="5e-06" minus="5e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="5.6e-05" minus="5.1e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-13" pointId="13" value="6.18e-05" relation="eq">
+       <error errorId="1" plus="1.7e-06" minus="1.7e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="1.64e-05" minus="1.49e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-14" pointId="14" value="1.11e-05" relation="eq">
+       <error errorId="1" plus="7e-07" minus="7e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="3.6e-06" minus="3.1e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-15" pointId="15" value="1.53e-06" relation="eq">
+       <error errorId="1" plus="2e-07" minus="2e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="6.5e-07" minus="5e-07" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-3-1-16" pointId="16" value="2.17e-07" relation="eq">
+       <error errorId="1" plus="7.2e-08" minus="7.2e-08" source="stat" norm="abs" />
+       <error errorId="2" plus="1.25e-07" minus="8.8e-08" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="5.8" minus="5.8" source="sys" norm="pct" />
+     <comment>
+      Additional error due to the uncertainty on the integrated luminosity.
+     </comment>
+   </dataset>
+   <dataset id="ds-10133-4" datasetId="4">
+    <comment>
+     Measured inclusive jet differential cross section as a function of PT for the absolute rapidity range 1.1 to 1.6 with the jet resolution parameter D = 0.7.
+    </comment>
+    <comment>
+     Location: T 5, F 9
+    </comment>
+    <xaxis id="xax-10133-4-1" xaxisId="1" header="PT(P=3) IN GEV">
+     <bins>
+      <bin binId="1" low="54.0" high="62.0" />
+      <bin binId="2" low="62.0" high="72.0" />
+      <bin binId="3" low="72.0" high="83.0" />
+      <bin binId="4" low="83.0" high="96.0" />
+      <bin binId="5" low="96.0" high="110.0" />
+      <bin binId="6" low="110.0" high="127.0" />
+      <bin binId="7" low="127.0" high="146.0" />
+      <bin binId="8" low="146.0" high="169.0" />
+      <bin binId="9" low="169.0" high="195.0" />
+      <bin binId="10" low="195.0" high="224.0" />
+      <bin binId="11" low="224.0" high="259.0" />
+      <bin binId="12" low="259.0" high="298.0" />
+      <bin binId="13" low="298.0" high="344.0" />
+      <bin binId="14" low="344.0" high="396.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-10133-4-1" header="D2(SIG)/DPT/DYRAP IN NB/GEV">
+     <reaction>
+      <initialstate>
+       <particle name="PBAR" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="D2SIG/DPT/DYRAP" />
+     <property name="sqrts" unit="GeV" low="1960.000" high="1960.000" />
+     <comment>
+      ABS(YRAP(P=3)) : 1.1 TO 1.6
+     </comment>
+     <comment>
+      RE : PBAR P --&gt; JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
+     <points>
+      <point id="pt-10133-4-1-1" pointId="1" value="11.0" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="stat" norm="abs" />
+       <error errorId="2" plus="1.4" minus="1.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-2" pointId="2" value="4.4" relation="eq">
+       <error errorId="1" plus="0.15" minus="0.15" source="stat" norm="abs" />
+       <error errorId="2" plus="0.54" minus="0.53" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-3" pointId="3" value="1.82" relation="eq">
+       <error errorId="1" plus="0.06" minus="0.06" source="stat" norm="abs" />
+       <error errorId="2" plus="0.22" minus="0.22" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-4" pointId="4" value="0.722" relation="eq">
+       <error errorId="1" plus="0.037" minus="0.037" source="stat" norm="abs" />
+       <error errorId="2" plus="0.09" minus="0.09" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-5" pointId="5" value="0.298" relation="eq">
+       <error errorId="1" plus="0.005" minus="0.005" source="stat" norm="abs" />
+       <error errorId="2" plus="0.038" minus="0.038" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-6" pointId="6" value="0.114" relation="eq">
+       <error errorId="1" plus="0.003" minus="0.003" source="stat" norm="abs" />
+       <error errorId="2" plus="0.015" minus="0.015" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-7" pointId="7" value="0.041" relation="eq">
+       <error errorId="1" plus="0.0004" minus="0.0004" source="stat" norm="abs" />
+       <error errorId="2" plus="0.006" minus="0.006" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-8" pointId="8" value="0.0139" relation="eq">
+       <error errorId="1" plus="0.0002" minus="0.0002" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0022" minus="0.0023" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-9" pointId="9" value="0.00419" relation="eq">
+       <error errorId="1" plus="4e-05" minus="4e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00078" minus="0.00076" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-10" pointId="10" value="0.00115" relation="eq">
+       <error errorId="1" plus="2e-05" minus="2e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00025" minus="0.00024" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-11" pointId="11" value="0.000273" relation="eq">
+       <error errorId="1" plus="9e-06" minus="9e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="7.3e-05" minus="6.4e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-12" pointId="12" value="5.18e-05" relation="eq">
+       <error errorId="1" plus="2.3e-06" minus="2.3e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="1.68e-05" minus="1.39e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-13" pointId="13" value="7.99e-06" relation="eq">
+       <error errorId="1" plus="6.1e-07" minus="6.1e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="3.31e-06" minus="2.56e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-4-1-14" pointId="14" value="1.05e-06" relation="eq">
+       <error errorId="1" plus="2.2e-07" minus="2.2e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="7.1e-07" minus="4.5e-07" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="5.8" minus="5.8" source="sys" norm="pct" />
+     <comment>
+      Additional error due to the uncertainty on the integrated luminosity.
+     </comment>
+   </dataset>
+   <dataset id="ds-10133-5" datasetId="5">
+    <comment>
+     Measured inclusive jet differential cross section as a function of PT for the absolute rapidity range 1.6 to 2.1 with the jet resolution parameter D = 0.7.
+    </comment>
+    <comment>
+     Location: T 5, F 9
+    </comment>
+    <xaxis id="xax-10133-5-1" xaxisId="1" header="PT(P=3) IN GEV">
+     <bins>
+      <bin binId="1" low="54.0" high="62.0" />
+      <bin binId="2" low="62.0" high="72.0" />
+      <bin binId="3" low="72.0" high="83.0" />
+      <bin binId="4" low="83.0" high="96.0" />
+      <bin binId="5" low="96.0" high="110.0" />
+      <bin binId="6" low="110.0" high="127.0" />
+      <bin binId="7" low="127.0" high="146.0" />
+      <bin binId="8" low="146.0" high="169.0" />
+      <bin binId="9" low="169.0" high="195.0" />
+      <bin binId="10" low="195.0" high="224.0" />
+      <bin binId="11" low="224.0" high="259.0" />
+      <bin binId="12" low="259.0" high="298.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-10133-5-1" header="D2(SIG)/DPT/DYRAP IN NB/GEV">
+     <reaction>
+      <initialstate>
+       <particle name="PBAR" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="D2SIG/DPT/DYRAP" />
+     <property name="sqrts" unit="GeV" low="1960.000" high="1960.000" />
+     <comment>
+      ABS(YRAP(P=3)) : 1.6 TO 2.1
+     </comment>
+     <comment>
+      RE : PBAR P --&gt; JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
+     <points>
+      <point id="pt-10133-5-1-1" pointId="1" value="6.67" relation="eq">
+       <error errorId="1" plus="0.15" minus="0.15" source="stat" norm="abs" />
+       <error errorId="2" plus="0.84" minus="0.75" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-2" pointId="2" value="2.68" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.32" minus="0.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-3" pointId="3" value="1.04" relation="eq">
+       <error errorId="1" plus="0.01" minus="0.01" source="stat" norm="abs" />
+       <error errorId="2" plus="0.12" minus="0.12" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-4" pointId="4" value="0.377" relation="eq">
+       <error errorId="1" plus="0.004" minus="0.004" source="stat" norm="abs" />
+       <error errorId="2" plus="0.049" minus="0.046" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-5" pointId="5" value="0.132" relation="eq">
+       <error errorId="1" plus="0.002" minus="0.002" source="stat" norm="abs" />
+       <error errorId="2" plus="0.019" minus="0.018" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-6" pointId="6" value="0.0418" relation="eq">
+       <error errorId="1" plus="0.0004" minus="0.0004" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0072" minus="0.0065" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-7" pointId="7" value="0.0121" relation="eq">
+       <error errorId="1" plus="0.0002" minus="0.0002" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0024" minus="0.0022" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-8" pointId="8" value="0.00292" relation="eq">
+       <error errorId="1" plus="4e-05" minus="4e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0007" minus="0.00061" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-9" pointId="9" value="0.000574" relation="eq">
+       <error errorId="1" plus="9e-06" minus="9e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="0.000165" minus="0.000138" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-10" pointId="10" value="8.49e-05" relation="eq">
+       <error errorId="1" plus="3.1e-06" minus="3.1e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="3.09e-05" minus="2.42e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-11" pointId="11" value="8.65e-06" relation="eq">
+       <error errorId="1" plus="6.3e-07" minus="6.3e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="4.18e-06" minus="3.08e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-5-1-12" pointId="12" value="5.67e-07" relation="eq">
+       <error errorId="1" plus="1.65e-07" minus="1.65e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="3.25e-07" minus="2.8e-07" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="5.8" minus="5.8" source="sys" norm="pct" />
+     <comment>
+      Additional error due to the uncertainty on the integrated luminosity.
+     </comment>
+   </dataset>
+   <dataset id="ds-10133-6" datasetId="6">
+    <comment>
+     Measured inclusive jet differential cross section as a function of PT for the absolute rapidity range 0.1 TO 0.7 with the jet resolution parameter D = 0.5.
+    </comment>
+    <comment>
+     Location: T 7, F 11
+    </comment>
+    <xaxis id="xax-10133-6-1" xaxisId="1" header="PT(P=3) IN GEV">
+     <bins>
+      <bin binId="1" low="54.0" high="62.0" />
+      <bin binId="2" low="62.0" high="72.0" />
+      <bin binId="3" low="72.0" high="83.0" />
+      <bin binId="4" low="83.0" high="96.0" />
+      <bin binId="5" low="96.0" high="110.0" />
+      <bin binId="6" low="110.0" high="127.0" />
+      <bin binId="7" low="127.0" high="146.0" />
+      <bin binId="8" low="146.0" high="169.0" />
+      <bin binId="9" low="169.0" high="195.0" />
+      <bin binId="10" low="195.0" high="224.0" />
+      <bin binId="11" low="224.0" high="259.0" />
+      <bin binId="12" low="259.0" high="298.0" />
+      <bin binId="13" low="298.0" high="344.0" />
+      <bin binId="14" low="344.0" high="396.0" />
+      <bin binId="15" low="396.0" high="457.0" />
+      <bin binId="16" low="457.0" high="527.0" />
+      <bin binId="17" low="527.0" high="700.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-10133-6-1" header="D2(SIG)/DPT/DYRAP IN NB/GEV">
+     <reaction>
+      <initialstate>
+       <particle name="PBAR" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="D2SIG/DPT/DYRAP" />
+     <property name="sqrts" unit="GeV" low="1960.000" high="1960.000" />
+     <comment>
+      ABS(YRAP(P=3)) : 0.1 TO 0.7
+     </comment>
+     <comment>
+      RE : PBAR P --&gt; JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
+     <points>
+      <point id="pt-10133-6-1-1" pointId="1" value="10.5" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="1.2" minus="1.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-2" pointId="2" value="4.81" relation="eq">
+       <error errorId="1" plus="0.03" minus="0.03" source="stat" norm="abs" />
+       <error errorId="2" plus="0.54" minus="0.5" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-3" pointId="3" value="2.09" relation="eq">
+       <error errorId="1" plus="0.01" minus="0.01" source="stat" norm="abs" />
+       <error errorId="2" plus="0.23" minus="0.21" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-4" pointId="4" value="0.91" relation="eq">
+       <error errorId="1" plus="0.01" minus="0.01" source="stat" norm="abs" />
+       <error errorId="2" plus="0.1" minus="0.09" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-5" pointId="5" value="0.395" relation="eq">
+       <error errorId="1" plus="0.004" minus="0.004" source="stat" norm="abs" />
+       <error errorId="2" plus="0.042" minus="0.039" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-6" pointId="6" value="0.171" relation="eq">
+       <error errorId="1" plus="0.002" minus="0.002" source="stat" norm="abs" />
+       <error errorId="2" plus="0.018" minus="0.017" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-7" pointId="7" value="0.071" relation="eq">
+       <error errorId="1" plus="0.001" minus="0.001" source="stat" norm="abs" />
+       <error errorId="2" plus="0.008" minus="0.007" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-8" pointId="8" value="0.0276" relation="eq">
+       <error errorId="1" plus="0.0002" minus="0.0002" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0032" minus="0.0031" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-9" pointId="9" value="0.0104" relation="eq">
+       <error errorId="1" plus="0.0001" minus="0.0001" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0014" minus="0.0013" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-10" pointId="10" value="0.00387" relation="eq">
+       <error errorId="1" plus="2e-05" minus="2e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00057" minus="0.00053" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-11" pointId="11" value="0.00134" relation="eq">
+       <error errorId="1" plus="1e-05" minus="1e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00023" minus="0.00021" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-12" pointId="12" value="0.000426" relation="eq">
+       <error errorId="1" plus="4e-06" minus="4e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="8.3e-05" minus="7.4e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-13" pointId="13" value="0.000122" relation="eq">
+       <error errorId="1" plus="2e-06" minus="2e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="2.8e-05" minus="2.4e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-14" pointId="14" value="3.16e-05" relation="eq">
+       <error errorId="1" plus="9e-07" minus="9e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="8.2e-06" minus="7.1e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-15" pointId="15" value="6.3e-06" relation="eq">
+       <error errorId="1" plus="3.2e-07" minus="3.2e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="1.96e-06" minus="1.63e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-16" pointId="16" value="1.01e-06" relation="eq">
+       <error errorId="1" plus="1.2e-07" minus="1.2e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="4e-07" minus="3.1e-07" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-6-1-17" pointId="17" value="8.3e-08" relation="eq">
+       <error errorId="1" plus="2.3e-08" minus="2.3e-08" source="stat" norm="abs" />
+       <error errorId="2" plus="4.4e-08" minus="3.2e-08" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="5.8" minus="5.8" source="sys" norm="pct" />
+     <comment>
+      Additional error due to the uncertainty on the integrated luminosity.
+     </comment>
+   </dataset>
+   <dataset id="ds-10133-7" datasetId="7">
+    <comment>
+     Measured inclusive jet differential cross section as a function of PT for the absolute rapidity range 0.1 TO 0.7 with the jet resolution parameter D = 1.0
+    </comment>
+    <comment>
+     Location: T 7, F 11
+    </comment>
+    <xaxis id="xax-10133-7-1" xaxisId="1" header="PT(P=3) IN GEV">
+     <bins>
+      <bin binId="1" low="54.0" high="62.0" />
+      <bin binId="2" low="62.0" high="72.0" />
+      <bin binId="3" low="72.0" high="83.0" />
+      <bin binId="4" low="83.0" high="96.0" />
+      <bin binId="5" low="96.0" high="110.0" />
+      <bin binId="6" low="110.0" high="127.0" />
+      <bin binId="7" low="127.0" high="146.0" />
+      <bin binId="8" low="146.0" high="169.0" />
+      <bin binId="9" low="169.0" high="195.0" />
+      <bin binId="10" low="195.0" high="224.0" />
+      <bin binId="11" low="224.0" high="259.0" />
+      <bin binId="12" low="259.0" high="298.0" />
+      <bin binId="13" low="298.0" high="344.0" />
+      <bin binId="14" low="344.0" high="396.0" />
+      <bin binId="15" low="396.0" high="457.0" />
+      <bin binId="16" low="457.0" high="527.0" />
+      <bin binId="17" low="527.0" high="700.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-10133-7-1" header="D2(SIG)/DPT/DYRAP IN NB/GEV">
+     <reaction>
+      <initialstate>
+       <particle name="PBAR" />
+       <particle name="P" />
+      </initialstate>
+      <finalstate>
+       <particle name="JET" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <observable name="D2SIG/DPT/DYRAP" />
+     <property name="sqrts" unit="GeV" low="1960.000" high="1960.000" />
+     <comment>
+      ABS(YRAP(P=3)) : 0.1 TO 0.7
+     </comment>
+     <comment>
+      RE : PBAR P --&gt; JET X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
+     <points>
+      <point id="pt-10133-7-1-1" pointId="1" value="20.0" relation="eq">
+       <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
+       <error errorId="2" plus="2.6" minus="2.3" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-2" pointId="2" value="8.65" relation="eq">
+       <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
+       <error errorId="2" plus="1.1" minus="1.0" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-3" pointId="3" value="3.59" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.42" minus="0.39" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-4" pointId="4" value="1.49" relation="eq">
+       <error errorId="1" plus="0.01" minus="0.01" source="stat" norm="abs" />
+       <error errorId="2" plus="0.17" minus="0.16" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-5" pointId="5" value="0.627" relation="eq">
+       <error errorId="1" plus="0.005" minus="0.005" source="stat" norm="abs" />
+       <error errorId="2" plus="0.07" minus="0.065" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-6" pointId="6" value="0.263" relation="eq">
+       <error errorId="1" plus="0.003" minus="0.003" source="stat" norm="abs" />
+       <error errorId="2" plus="0.029" minus="0.027" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-7" pointId="7" value="0.105" relation="eq">
+       <error errorId="1" plus="0.001" minus="0.001" source="stat" norm="abs" />
+       <error errorId="2" plus="0.012" minus="0.011" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-8" pointId="8" value="0.0404" relation="eq">
+       <error errorId="1" plus="0.0003" minus="0.0003" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0048" minus="0.0045" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-9" pointId="9" value="0.0148" relation="eq">
+       <error errorId="1" plus="0.0001" minus="0.0001" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0019" minus="0.0018" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-10" pointId="10" value="0.00541" relation="eq">
+       <error errorId="1" plus="2e-05" minus="2e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.00077" minus="0.00073" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-11" pointId="11" value="0.00186" relation="eq">
+       <error errorId="1" plus="1e-05" minus="1e-05" source="stat" norm="abs" />
+       <error errorId="2" plus="0.0003" minus="0.00028" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-12" pointId="12" value="0.000577" relation="eq">
+       <error errorId="1" plus="4e-06" minus="4e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="0.000105" minus="0.0001" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-13" pointId="13" value="0.00017" relation="eq">
+       <error errorId="1" plus="2e-06" minus="2e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="3.6e-05" minus="3.2e-05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-14" pointId="14" value="4.26e-05" relation="eq">
+       <error errorId="1" plus="1e-06" minus="1e-06" source="stat" norm="abs" />
+       <error errorId="2" plus="1.05e-05" minus="9.3e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-15" pointId="15" value="8.17e-06" relation="eq">
+       <error errorId="1" plus="3.6e-07" minus="3.6e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="2.49e-06" minus="2.06e-06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-16" pointId="16" value="1.39e-06" relation="eq">
+       <error errorId="1" plus="1.4e-07" minus="1.4e-07" source="stat" norm="abs" />
+       <error errorId="2" plus="5.5e-07" minus="4.2e-07" source="sys" norm="abs" />
+      </point>
+      <point id="pt-10133-7-1-17" pointId="17" value="1.19e-07" relation="eq">
+       <error errorId="1" plus="2.7e-08" minus="2.7e-08" source="stat" norm="abs" />
+       <error errorId="2" plus="6e-08" minus="4.6e-08" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="5.8" minus="5.8" source="sys" norm="pct" />
+     <comment>
+      Additional error due to the uncertainty on the integrated luminosity.
+     </comment>
+   </dataset>
+  </paper>
+ </data>
+</hepml>

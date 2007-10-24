@@ -67,7 +67,7 @@ namespace Rivet {
             istringstream ssM(errminusStr);
             double centre, errplus, errminus;
             ssC >> centre; ssP >> errplus; ssM >> errminus;
-            cout << "  " << centre << " + " << errplus << " - " << errminus << endl;
+            //cout << "  " << centre << " + " << errplus << " - " << errminus << endl;
             const double lowedge = centre - errminus;
             const double highedge = centre + errplus;
             edges.push_back(lowedge);

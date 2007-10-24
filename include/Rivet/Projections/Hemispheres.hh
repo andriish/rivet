@@ -4,7 +4,7 @@
 
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/AxesDefinition.hh"
 #include "Rivet/Event.hh"
 
 
@@ -63,13 +63,15 @@ namespace Rivet {
   public:
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    inline Hemispheres(FinalState& fsp)
+    /// @todo Improve this: shouldn't have to effectively provide the
+    /// FinalState twice (AxesDefn already has an FSP and they have to match up)
+    inline Hemispheres(FinalState& fsp, AxesDefinition& ax)
       : _E2vis(-1), _M2high(-1), _M2low(-1),
         _Bmax(-1), _Bmin(-1),
         _highMassEqMaxBroad(true),
-        _fsproj(fsp), _thrustproj(fsp)
+        _fsproj(fsp), _axproj(&ax)
     {
-      addProjection(_thrustproj);
+      addProjection(ax);
     }
 
     /// Return the name of the projection
@@ -148,7 +150,7 @@ namespace Rivet {
     FinalState _fsproj;
     
     /// The Thrust projection used to get the hemisphere alignment.
-    Thrust _thrustproj;
+    AxesDefinition* _axproj;
 
   };
 

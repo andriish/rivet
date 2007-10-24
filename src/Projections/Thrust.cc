@@ -3,7 +3,6 @@
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/RivetCLHEP.hh"
 
-using namespace CLHEP;
 
 namespace Rivet {
 
@@ -166,8 +165,8 @@ namespace Rivet {
     threeMomenta.clear();
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       // Get the part of each 3-momentum which is perpendicular to the thrust axis
-      Vector3 v = p->getMomentum().vect();
-      Vector3 vpar = v.dot(axis.unit()) * axis.unit();
+      const Vector3 v = p->getMomentum().vect();
+      const Vector3 vpar = v.dot(axis.unit()) * axis.unit();
       threeMomenta.push_back(v - vpar);
     }
     calcM(threeMomenta, val, axis);
@@ -193,7 +192,7 @@ namespace Rivet {
 
 
   void Thrust::project(const Event& e) {
-    const FinalState& fs = e.applyProjection(*_fsproj);
+    const FinalState& fs = e.applyProjection(_fsproj);
     calcThrust(fs);
   }
 

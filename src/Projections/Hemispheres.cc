@@ -8,8 +8,8 @@ using namespace std;
 
 void Hemispheres::project(const Event& e) {
   // Get thrust axes.
-  const Thrust th = e.applyProjection(_thrustproj);
-  const Vector3 nT = th.thrustAxis();
+  const AxesDefinition& ax = e.applyProjection(*_axproj);
+  const Vector3 n = ax.axis1();
 
   LorentzVector p4With, p4Against;
   double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
@@ -18,8 +18,8 @@ void Hemispheres::project(const Event& e) {
     const LorentzVector p4 = p->getMomentum();
     const Vector3 p3 = p4.vect();
     const double p3Mag = p3.mag();
-    const double p3Para = p3.dot(nT);
-    const double p3Trans = (p3 - p3Para * nT).mag();
+    const double p3Para = p3.dot(n);
+    const double p3Trans = (p3 - p3Para * n).mag();
 
     // Update normalisations
     Evis += p4.t();

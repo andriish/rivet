@@ -24,12 +24,20 @@ namespace Rivet {
     // Get event weight for histo filling
     const double weight = e.weight();
 
-    const Thrust& thrust = e.applyProjection(_thrustproj);
-    _hist1MinusT->fill(1 - thrust.thrust(), weight); 
-    _histTMajor->fill(thrust.thrustMajor(), weight); 
-    _histTMinor->fill(thrust.thrustMinor(), weight); 
-    _histOblateness->fill(thrust.oblateness(), weight);
+    // Thrusts
+    const Thrust& thrustC = e.applyProjection(_cthrustproj);
+    _hist1MinusTC->fill(1 - thrustC.thrust(), weight); 
+    _histTMajorC->fill(thrustC.thrustMajor(), weight); 
+    _histTMinorC->fill(thrustC.thrustMinor(), weight); 
+    _histOblatenessC->fill(thrustC.oblateness(), weight);
 
+    const Thrust& thrustCN = e.applyProjection(_cnthrustproj);
+    _hist1MinusTCN->fill(1 - thrustCN.thrust(), weight); 
+    _histTMajorCN->fill(thrustCN.thrustMajor(), weight); 
+    _histTMinorCN->fill(thrustCN.thrustMinor(), weight); 
+    _histOblatenessCN->fill(thrustCN.oblateness(), weight);
+
+    // Jets
     //const DurhamJet& durjetC = e.applyProjection(_cdurproj);
     //_histDiffRate2Durham->fill(, weight); 
     //_histDiffRate3Durham->fill(, weight);
@@ -47,27 +55,43 @@ namespace Rivet {
     //_histDiffRate3JadeCN->fill(, weight);
     //_histDiffRate4JadeCN->fill(, weight);
 
+    // Sphericities
     const Sphericity& sphericityC = e.applyProjection(_cspherproj);
-    _histSphericity->fill(sphericityC.sphericity(), weight); 
-    _histAplanarity->fill(sphericityC.aplanarity(), weight); 
-    _histPlanarity->fill(sphericityC.planarity(), weight); 
+    _histSphericityC->fill(sphericityC.sphericity(), weight); 
+    _histAplanarityC->fill(sphericityC.aplanarity(), weight); 
+    _histPlanarityC->fill(sphericityC.planarity(), weight); 
 
     const Sphericity& sphericityCN = e.applyProjection(_cnspherproj);
     _histSphericityCN->fill(sphericityCN.sphericity(), weight); 
     _histAplanarityCN->fill(sphericityCN.aplanarity(), weight); 
 
-    const ParisiTensor& parisi = e.applyProjection(_parisiproj);    
-    _histCParam->fill(parisi.C(), weight); 
-    _histDParam->fill(parisi.D(), weight); 
+    // C & D params
+    const ParisiTensor& parisiC = e.applyProjection(_cparisiproj);    
+    _histCParamC->fill(parisiC.C(), weight); 
+    _histDParamC->fill(parisiC.D(), weight); 
 
-    const Hemispheres& hemi = e.applyProjection(_hemiproj);
-    _histHemiMassH->fill(hemi.getScaledM2high(), weight); 
-    _histHemiMassL->fill(hemi.getScaledM2low(), weight); 
-    _histHemiMassD->fill(hemi.getScaledM2diff(), weight); 
-    _histHemiBroadW->fill(hemi.getBmax(), weight); 
-    _histHemiBroadN->fill(hemi.getBmin(), weight); 
-    _histHemiBroadT->fill(hemi.getBsum(), weight); 
-    _histHemiBroadD->fill(hemi.getBdiff(), weight); 
+    const ParisiTensor& parisiCN = e.applyProjection(_cnparisiproj);    
+    _histCParamCN->fill(parisiCN.C(), weight); 
+    _histDParamCN->fill(parisiCN.D(), weight); 
+
+    // Hemispheres
+    const Hemispheres& hemiC = e.applyProjection(_chemiproj);
+    _histHemiMassHC->fill(hemiC.getScaledM2high(), weight); 
+    _histHemiMassLC->fill(hemiC.getScaledM2low(), weight); 
+    _histHemiMassDC->fill(hemiC.getScaledM2diff(), weight); 
+    _histHemiBroadWC->fill(hemiC.getBmax(), weight); 
+    _histHemiBroadNC->fill(hemiC.getBmin(), weight); 
+    _histHemiBroadTC->fill(hemiC.getBsum(), weight); 
+    _histHemiBroadDC->fill(hemiC.getBdiff(), weight); 
+
+    const Hemispheres& hemiCN = e.applyProjection(_cnhemiproj);
+    _histHemiMassHCN->fill(hemiCN.getScaledM2high(), weight); 
+    _histHemiMassLCN->fill(hemiCN.getScaledM2low(), weight); 
+    _histHemiMassDCN->fill(hemiCN.getScaledM2diff(), weight); 
+    _histHemiBroadWCN->fill(hemiCN.getBmax(), weight); 
+    _histHemiBroadNCN->fill(hemiCN.getBmin(), weight); 
+    _histHemiBroadTCN->fill(hemiCN.getBsum(), weight); 
+    _histHemiBroadDCN->fill(hemiCN.getBdiff(), weight); 
 
     //const EEC& eec = e.applyProjection(_eecproj);
     //_histEEC->fill(, weight); 
@@ -76,9 +100,9 @@ namespace Rivet {
 
     // Iterate over all the final state particles.
     double totalPtInT(0), totalPtOutT(0);
-    const FinalState& cfs = e.applyProjection(_cfsproj);
-    const size_t numParticles = cfs.particles().size();
-    for (ParticleVector::const_iterator p = cfs.particles().begin(); p != cfs.particles().end(); ++p) {
+    const FinalState& cfsC = e.applyProjection(_cfsproj);
+    const size_t numParticles = cfsC.particles().size();
+    for (ParticleVector::const_iterator p = cfsC.particles().begin(); p != cfsC.particles().end(); ++p) {
       /// @todo Add missing CN variants
 
       // Get momentum and energy of each particle.
@@ -91,10 +115,10 @@ namespace Rivet {
       const double logInvScaledMom = -log10(scaledMom);
 
       // Get momenta components w.r.t. thrust and sphericity.
-      const double momT = thrust.thrustAxis().dot(mom3);
+      const double momT = thrustC.thrustAxis().dot(mom3);
       const double momS = sphericityC.sphericityAxis().dot(mom3);
-      const double pTinT = mom3.dot(thrust.thrustMajorAxis());
-      const double pToutT = mom3.dot(thrust.thrustMinorAxis());
+      const double pTinT = mom3.dot(thrustC.thrustMajorAxis());
+      const double pToutT = mom3.dot(thrustC.thrustMinorAxis());
       const double pTinS = mom3.dot(sphericityC.sphericityMinorAxis());
       const double pToutS = mom3.dot(sphericityC.sphericityMinorAxis());
       totalPtInT += pTinT; 
@@ -107,12 +131,12 @@ namespace Rivet {
       // Fill histograms.
       _histLogScaledMom->fill(logInvScaledMom, weight); 
       _histScaledMom->fill(scaledMom, weight); 
-      _histRapidityT->fill(rapidityT, weight); 
-      _histRapidityS->fill(rapidityS, weight); 
-      _histPtTIn->fill(pTinT, weight);
-      _histPtTOut->fill(pToutT, weight);
-      _histPtSIn->fill(pTinS, weight);
-      _histPtSOut->fill(pToutS, weight);
+      _histRapidityTC->fill(rapidityT, weight); 
+      _histRapiditySC->fill(rapidityS, weight); 
+      _histPtTInC->fill(pTinT, weight);
+      _histPtTOutC->fill(pToutT, weight);
+      _histPtSInC->fill(pTinS, weight);
+      _histPtSOutC->fill(pToutS, weight);
     }
     const double avgPtInT  = (numParticles > 0) ? totalPtInT/fabs(numParticles) : -1;
     const double avgPtOutT = (numParticles > 0) ? totalPtOutT/fabs(numParticles) : -1;
@@ -127,18 +151,18 @@ namespace Rivet {
 
 
   void ZPhys73C11::init() {
-    _histPtTIn        = bookHistogram1D(1, 1, 1, "In-plane p_T in GeV w.r.t. thrust axes (charged)");
+    _histPtTInC       = bookHistogram1D(1, 1, 1, "In-plane p_T in GeV w.r.t. thrust axes (charged)");
     _histPtTInCN      = bookHistogram1D(1, 1, 2, "In-plane p_T in GeV w.r.t. thrust axes (charged and neutral)");
-    _histPtTOut       = bookHistogram1D(2, 1, 1, "Out-of-plane p_T in GeV w.r.t. thrust axes (charged)");
+    _histPtTOutC      = bookHistogram1D(2, 1, 1, "Out-of-plane p_T in GeV w.r.t. thrust axes (charged)");
     _histPtTOutCN     = bookHistogram1D(2, 1, 2, "Out-of-plane p_T in GeV w.r.t. thrust axes (charged and neutral)");
-    _histPtSIn        = bookHistogram1D(3, 1, 1, "In-plane p_T in GeV w.r.t. sphericity axes (charged)");
+    _histPtSInC       = bookHistogram1D(3, 1, 1, "In-plane p_T in GeV w.r.t. sphericity axes (charged)");
     _histPtSInCN      = bookHistogram1D(3, 1, 2, "In-plane p_T in GeV w.r.t. sphericity axes (charged and neutral)");
-    _histPtSOut       = bookHistogram1D(4, 1, 1, "Out-of-plane p_T in GeV w.r.t. sphericity axes (charged)");
+    _histPtSOutC      = bookHistogram1D(4, 1, 1, "Out-of-plane p_T in GeV w.r.t. sphericity axes (charged)");
     _histPtSOutCN     = bookHistogram1D(4, 1, 2, "Out-of-plane p_T in GeV w.r.t. sphericity axes (charged and neutral)");
 
-    _histRapidityT    = bookHistogram1D(5, 1, 1, "Rapidity w.r.t. thrust axes, y_T (charged)");
+    _histRapidityTC   = bookHistogram1D(5, 1, 1, "Rapidity w.r.t. thrust axes, y_T (charged)");
     _histRapidityTCN  = bookHistogram1D(5, 1, 2, "Rapidity w.r.t. thrust axes, y_T (charged and neutral)");
-    _histRapidityS    = bookHistogram1D(6, 1, 1, "Rapidity w.r.t. sphericity axes, y_S (charged)");
+    _histRapiditySC   = bookHistogram1D(6, 1, 1, "Rapidity w.r.t. sphericity axes, y_S (charged)");
     _histRapiditySCN  = bookHistogram1D(6, 1, 2, "Rapidity w.r.t. sphericity axes, y_S (charged and neutral)");
 
     _histScaledMom    = bookHistogram1D(7, 1, 1, "Scaled momentum, x_p = |p|/|p_beam| (charged)");
@@ -147,54 +171,54 @@ namespace Rivet {
     _histPtTOutVsXp   = bookHistogram1D(9, 1, 1, "Mean out-of-plane p_T in GeV w.r.t. thrust axes vs. x_p (charged)"); // binned in Xp
     _histPtTInVsXp    = bookHistogram1D(10, 1, 1, "Mean in-plane p_T in GeV w.r.t. thrust axes vs. x_p (charged)"); // binned in Xp
 
-    _hist1MinusT      = bookHistogram1D(11, 1, 1, "1-thrust, 1-T (charged)");
+    _hist1MinusTC     = bookHistogram1D(11, 1, 1, "1-thrust, 1-T (charged)");
     _hist1MinusTCN    = bookHistogram1D(11, 1, 2, "1-thrust, 1-T (charged and neutral)");
-    _histTMajor       = bookHistogram1D(12, 1, 1, "Thrust major, M (charged)");
+    _histTMajorC      = bookHistogram1D(12, 1, 1, "Thrust major, M (charged)");
     _histTMajorCN     = bookHistogram1D(12, 1, 2, "Thrust major, M (charged and neutral)");
-    _histTMinor       = bookHistogram1D(13, 1, 1, "Thrust minor, m (charged)");
+    _histTMinorC      = bookHistogram1D(13, 1, 1, "Thrust minor, m (charged)");
     _histTMinorCN     = bookHistogram1D(13, 1, 2, "Thrust minor, m (charged and neutral)");
-    _histOblateness   = bookHistogram1D(14, 1, 1, "Oblateness = M - m (charged)");
+    _histOblatenessC  = bookHistogram1D(14, 1, 1, "Oblateness = M - m (charged)");
     _histOblatenessCN = bookHistogram1D(14, 1, 2, "Oblateness = M - m (charged and neutral)");
 
-    _histSphericity   = bookHistogram1D(15, 1, 1, "Sphericity, S (charged)");
+    _histSphericityC  = bookHistogram1D(15, 1, 1, "Sphericity, S (charged)");
     _histSphericityCN = bookHistogram1D(15, 1, 2, "Sphericity, S (charged and neutral)");
-    _histAplanarity   = bookHistogram1D(16, 1, 1, "Aplanarity, A (charged)");
+    _histAplanarityC  = bookHistogram1D(16, 1, 1, "Aplanarity, A (charged)");
     _histAplanarityCN = bookHistogram1D(16, 1, 2, "Aplanarity, A (charged and neutral)");
-    _histPlanarity    = bookHistogram1D(17, 1, 1, "Planarity, P (charged)");
+    _histPlanarityC   = bookHistogram1D(17, 1, 1, "Planarity, P (charged)");
     _histPlanarityCN  = bookHistogram1D(17, 1, 2, "Planarity, P (charged and neutral)");
 
-    _histCParam       = bookHistogram1D(18, 1, 1, "C parameter (charged)");
+    _histCParamC      = bookHistogram1D(18, 1, 1, "C parameter (charged)");
     _histCParamCN     = bookHistogram1D(18, 1, 2, "C parameter (charged and neutral)");
-    _histDParam       = bookHistogram1D(19, 1, 1, "D parameter (charged)");
+    _histDParamC      = bookHistogram1D(19, 1, 1, "D parameter (charged)");
     _histDParamCN     = bookHistogram1D(19, 1, 2, "D parameter (charged and neutral)");
 
-    _histHemiMassH    = bookHistogram1D(20, 1, 1, "Heavy hemisphere masses, M_h^2/E_vis^2 (charged)");
+    _histHemiMassHC   = bookHistogram1D(20, 1, 1, "Heavy hemisphere masses, M_h^2/E_vis^2 (charged)");
     _histHemiMassHCN  = bookHistogram1D(20, 1, 2, "Heavy hemisphere masses, M_h^2/E_vis^2 (charged and neutral)");
-    _histHemiMassL    = bookHistogram1D(21, 1, 1, "Light hemisphere masses, M_l^2/E_vis^2 (charged)");
+    _histHemiMassLC   = bookHistogram1D(21, 1, 1, "Light hemisphere masses, M_l^2/E_vis^2 (charged)");
     _histHemiMassLCN  = bookHistogram1D(21, 1, 2, "Light hemisphere masses, M_l^2/E_vis^2 (charged and neutral)");
-    _histHemiMassD    = bookHistogram1D(22, 1, 1, "Difference in hemisphere masses, M_d^2/E_vis^2 (charged)");
+    _histHemiMassDC   = bookHistogram1D(22, 1, 1, "Difference in hemisphere masses, M_d^2/E_vis^2 (charged)");
     _histHemiMassDCN  = bookHistogram1D(22, 1, 2, "Difference in hemisphere masses, M_d^2/E_vis^2 (charged and neutral)");
 
-    _histHemiBroadW   = bookHistogram1D(23, 1, 1, "Wide hemisphere broadening, B_max (charged)");
+    _histHemiBroadWC  = bookHistogram1D(23, 1, 1, "Wide hemisphere broadening, B_max (charged)");
     _histHemiBroadWCN = bookHistogram1D(23, 1, 2, "Wide hemisphere broadening, B_max (charged and neutral)");
-    _histHemiBroadN   = bookHistogram1D(24, 1, 1, "Narrow hemisphere broadening, B_min (charged)");
+    _histHemiBroadNC  = bookHistogram1D(24, 1, 1, "Narrow hemisphere broadening, B_min (charged)");
     _histHemiBroadNCN = bookHistogram1D(24, 1, 2, "Narrow hemisphere broadening, B_min (charged and neutral)");
-    _histHemiBroadT   = bookHistogram1D(25, 1, 1, "Total hemisphere broadening, B_sum (charged)");
+    _histHemiBroadTC  = bookHistogram1D(25, 1, 1, "Total hemisphere broadening, B_sum (charged)");
     _histHemiBroadTCN = bookHistogram1D(25, 1, 2, "Total hemisphere broadening, B_sum (charged and neutral)");
-    _histHemiBroadD   = bookHistogram1D(26, 1, 1, "Difference in hemisphere broadening, B_diff (charged)");
+    _histHemiBroadDC  = bookHistogram1D(26, 1, 1, "Difference in hemisphere broadening, B_diff (charged)");
     _histHemiBroadDCN = bookHistogram1D(26, 1, 2, "Difference in hemisphere broadening, B_diff (charged and neutral)");
 
-    _histDiffRate2Durham   = bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, D_2^Durham (charged)"); // binned in y_cut
+    _histDiffRate2DurhamC  = bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, D_2^Durham (charged)"); // binned in y_cut
     _histDiffRate2DurhamCN = bookHistogram1D(27, 1, 2, "Differential 2-jet rate with Durham algorithm, D_2^Durham (charged and neutral)"); // binned in y_cut
-    _histDiffRate2Jade     = bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, D_2^Jade (charged)"); // binned in y_cut
+    _histDiffRate2JadeC    = bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, D_2^Jade (charged)"); // binned in y_cut
     _histDiffRate2JadeCN   = bookHistogram1D(28, 1, 2, "Differential 2-jet rate with Jade algorithm, D_2^Jade (charged and neutral)"); // binned in y_cut
-    _histDiffRate3Durham   = bookHistogram1D(29, 1, 1, "Differential 3-jet rate with Durham algorithm, D_3^Durham (charged)"); // binned in y_cut
+    _histDiffRate3DurhamC  = bookHistogram1D(29, 1, 1, "Differential 3-jet rate with Durham algorithm, D_3^Durham (charged)"); // binned in y_cut
     _histDiffRate3DurhamCN = bookHistogram1D(29, 1, 2, "Differential 3-jet rate with Durham algorithm, D_3^Durham (charged and neutral)"); // binned in y_cut
-    _histDiffRate3Jade     = bookHistogram1D(30, 1, 1, "Differential 3-jet rate with Jade algorithm, D_3^Jade (charged)"); // binned in y_cut
+    _histDiffRate3JadeC    = bookHistogram1D(30, 1, 1, "Differential 3-jet rate with Jade algorithm, D_3^Jade (charged)"); // binned in y_cut
     _histDiffRate3JadeCN   = bookHistogram1D(30, 1, 2, "Differential 3-jet rate with Jade algorithm, D_3^Jade (charged and neutral)"); // binned in y_cut
-    _histDiffRate4Durham   = bookHistogram1D(31, 1, 1, "Differential 4-jet rate with Durham algorithm, D_4^Durham (charged)"); // binned in y_cut
+    _histDiffRate4DurhamC  = bookHistogram1D(31, 1, 1, "Differential 4-jet rate with Durham algorithm, D_4^Durham (charged)"); // binned in y_cut
     _histDiffRate4DurhamCN = bookHistogram1D(31, 1, 2, "Differential 4-jet rate with Durham algorithm, D_4^Durham (charged and neutral)"); // binned in y_cut
-    _histDiffRate4Jade     = bookHistogram1D(32, 1, 1, "Differential 4-jet rate with Jade algorithm, D_4^Jade (charged)"); // binned in y_cut
+    _histDiffRate4JadeC    = bookHistogram1D(32, 1, 1, "Differential 4-jet rate with Jade algorithm, D_4^Jade (charged)"); // binned in y_cut
     _histDiffRate4JadeCN   = bookHistogram1D(32, 1, 2, "Differential 4-jet rate with Jade algorithm, D_4^Jade (charged and neutral)"); // binned in y_cut
 
     _histEEC  = bookHistogram1D(33, 1, 1, "Energy-energy correlation, EEC (charged)"); // binned in cos(chi)
@@ -209,71 +233,71 @@ namespace Rivet {
 
   // Finalize
   void ZPhys73C11::finalize() { 
-     normalize(_histPtTIn);
+     normalize(_histPtTInC);
      normalize(_histPtTInCN);
-     normalize(_histPtTOut); 
+     normalize(_histPtTOutC); 
      normalize(_histPtTOutCN); 
-     normalize(_histPtSIn);
+     normalize(_histPtSInC);
      normalize(_histPtSInCN);
-     normalize(_histPtSOut); 
+     normalize(_histPtSOutC); 
      normalize(_histPtSOutCN); 
 
-     normalize(_histRapidityT); 
+     normalize(_histRapidityTC); 
      normalize(_histRapidityTCN); 
-     normalize(_histRapidityS); 
+     normalize(_histRapiditySC); 
      normalize(_histRapiditySCN); 
 
      normalize(_histLogScaledMom); 
      normalize(_histScaledMom); 
 
-     normalize(_hist1MinusT); 
+     normalize(_hist1MinusTC); 
      normalize(_hist1MinusTCN); 
-     normalize(_histTMajor); 
+     normalize(_histTMajorC); 
      normalize(_histTMajorCN); 
-     normalize(_histTMinor); 
+     normalize(_histTMinorC); 
      normalize(_histTMinorCN); 
-     normalize(_histOblateness); 
+     normalize(_histOblatenessC); 
      normalize(_histOblatenessCN); 
 
-    normalize(_histSphericity); 
+    normalize(_histSphericityC); 
     normalize(_histSphericityCN); 
-    normalize(_histAplanarity); 
+    normalize(_histAplanarityC); 
     normalize(_histAplanarityCN); 
-    normalize(_histPlanarity); 
+    normalize(_histPlanarityC); 
     normalize(_histPlanarityCN); 
 
-    normalize(_histHemiMassD); 
+    normalize(_histHemiMassDC); 
     normalize(_histHemiMassDCN); 
-    normalize(_histHemiMassH); 
+    normalize(_histHemiMassHC); 
     normalize(_histHemiMassHCN); 
-    normalize(_histHemiMassL); 
+    normalize(_histHemiMassLC); 
     normalize(_histHemiMassLCN); 
     
-    normalize(_histHemiBroadW); 
+    normalize(_histHemiBroadWC); 
     normalize(_histHemiBroadWCN); 
-    normalize(_histHemiBroadN); 
+    normalize(_histHemiBroadNC); 
     normalize(_histHemiBroadNCN); 
-    normalize(_histHemiBroadT); 
+    normalize(_histHemiBroadTC); 
     normalize(_histHemiBroadTCN); 
-    normalize(_histHemiBroadD); 
+    normalize(_histHemiBroadDC); 
     normalize(_histHemiBroadDCN); 
     
-    normalize(_histCParam); 
+    normalize(_histCParamC); 
     normalize(_histCParamCN); 
-    normalize(_histDParam); 
+    normalize(_histDParamC); 
     normalize(_histDParamCN); 
     
-    normalize(_histDiffRate2Durham); 
+    normalize(_histDiffRate2DurhamC); 
     normalize(_histDiffRate2DurhamCN); 
-    normalize(_histDiffRate2Jade); 
+    normalize(_histDiffRate2JadeC); 
     normalize(_histDiffRate2JadeCN);
-    normalize(_histDiffRate3Durham);
+    normalize(_histDiffRate3DurhamC);
     normalize(_histDiffRate3DurhamCN);
-    normalize(_histDiffRate3Jade); 
+    normalize(_histDiffRate3JadeC); 
     normalize(_histDiffRate3JadeCN);
-    normalize(_histDiffRate4Durham);
+    normalize(_histDiffRate4DurhamC);
     normalize(_histDiffRate4DurhamCN);
-    normalize(_histDiffRate4Jade); 
+    normalize(_histDiffRate4JadeC); 
     normalize(_histDiffRate4JadeCN); 
   }
 

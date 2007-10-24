@@ -3,6 +3,7 @@
 #define RIVET_Sphericity_HH
 
 #include "Rivet/Projection.hh"
+#include "Rivet/Projections/AxesDefinition.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/RivetCLHEP.hh"
@@ -47,20 +48,25 @@ namespace Rivet {
      can use several sphericity projections with different \f$r\f$ values without
      fear of a clash.
   */
-  class Sphericity : public Projection {
+  class Sphericity : public AxesDefinition {
 
   public:
 
     /// Constructor. Supplied FinalState projection must live throughout the run.
-    inline Sphericity(FinalState& fsp, double rparam=2.0)
+    Sphericity(FinalState& fsp, double rparam=2.0)
       : _sphericity(-1), _planarity(-1), _aplanarity(-1), _regparam(rparam), 
         _fsproj(fsp)
     { 
       addProjection(_fsproj);
+
+      /// @todo Do this properly! Currently no calculation performed, so this result is meaningless.
+      _sphAxes.push_back( Vector3(0,0,1) );
+      _sphAxes.push_back( Vector3(0,0,1) );
+      _sphAxes.push_back( Vector3(0,0,1) );
     }
 
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "Sphericity";
     }
 
@@ -77,25 +83,29 @@ namespace Rivet {
     /// @name Access the event shapes by name
     /// @{
     /// Sphericity
-    inline const double sphericity() const { return _sphericity; }
+    const double sphericity() const { return _sphericity; }
     /// Planarity
-    inline const double planarity() const { return _planarity; }
+    const double planarity() const { return _planarity; }
     /// Aplanarity
-    inline const double aplanarity() const { return _aplanarity; }
+    const double aplanarity() const { return _aplanarity; }
     /// @}
 
     /// @name Access the sphericity basis vectors
     /// @{
     /// Sphericity axis
-    /// @todo Implement something that isn't garbage!  
-    inline const Vector3 sphericityAxis() const { return Vector3(0,0,1); }
+    const Vector3& sphericityAxis() const { return _sphAxes[0]; }
     /// Sphericity major axis
-    /// @todo Implement something that isn't garbage!
-    inline const Vector3 sphericityMajorAxis() const { return Vector3(1,0,0); }
+    const Vector3& sphericityMajorAxis() const { return _sphAxes[1]; }
     /// Sphericity minor axis
-    /// @todo Implement something that isn't garbage!
-    inline const Vector3 sphericityMinorAxis() const { return Vector3(0,1,0); }
+    const Vector3& sphericityMinorAxis() const { return _sphAxes[2]; }
     /// @}
+
+    ///@{ AxesDefinition axis accessors.
+    const Vector3& axis1() const { return sphericityAxis(); }
+    const Vector3& axis2() const { return sphericityMajorAxis(); }
+    const Vector3& axis3() const { return sphericityMinorAxis(); }
+    ///@}
+
 
     /// @name Access the momentum tensor eigenvalues
     /// @{
@@ -104,13 +114,16 @@ namespace Rivet {
     inline const double lambda3() const { return _lambdas[2]; }
     /// @}
 
-  private:
 
-    /// Eigenvalues
+  private:
+    /// Eigenvalues.
     double _lambdas[3];
 
-    /// The event shapes
+    /// The event shape scalars.
     double _sphericity, _planarity, _aplanarity;
+
+    /// Sphericity axes.
+    vector<Vector3> _sphAxes;
 
     /// Regularizing parameter, used to force infra-red safety.
     const double _regparam;

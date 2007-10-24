@@ -3,6 +3,7 @@
 #define RIVET_Thrust_HH
 
 #include "Rivet/Projection.hh"
+#include "Rivet/Projections/AxesDefinition.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/RivetCLHEP.hh"
@@ -39,18 +40,18 @@ namespace Rivet {
     The Rivet implementation of thrust is based heavily on Stefan Gieseke's Herwig++
     re-coding of the 'tasso' code from HERWIG.
    */
-  class Thrust : public Projection {
+  class Thrust : public AxesDefinition {
   public:
 
     /// Constructor. The FinalState projection must live throughout the run.
-    inline Thrust(FinalState& fsp)
-      : _calculatedThrust(false), _fsproj(&fsp)
+    Thrust(FinalState& fsp)
+      : _calculatedThrust(false), _fsproj(fsp)
     { 
       addProjection(fsp);
     }
 
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "Thrust";
     }
 
@@ -61,7 +62,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections
-    inline int compare(const Projection& p) const { 
+    int compare(const Projection& p) const { 
       return 0; 
     }
 
@@ -70,23 +71,30 @@ namespace Rivet {
 
     ///@{ Thrust scalar accessors
     /// The thrust scalar, \f$ T \f$, (maximum thrust).
-    inline const double thrust() const { return _thrusts[0]; }
+    const double thrust() const { return _thrusts[0]; }
     /// The thrust major scalar, \f$ M \f$, (thrust along thrust major axis).
-    inline const double thrustMajor() const { return _thrusts[1]; }
+    const double thrustMajor() const { return _thrusts[1]; }
     /// The thrust minor scalar, \f$ m \f$, (thrust along thrust minor axis).
-    inline const double thrustMinor() const { return _thrusts[2]; }
+    const double thrustMinor() const { return _thrusts[2]; }
     /// The oblateness, \f$ O = M - m \f$ .
-    inline const double oblateness() const { return _thrusts[1] - _thrusts[2]; }
+    const double oblateness() const { return _thrusts[1] - _thrusts[2]; }
     ///@}
 
     ///@{ Thrust axis accessors
     /// The thrust axis.
-    inline const Vector3& thrustAxis() const { return _thrustAxes[0]; }
+    const Vector3& thrustAxis() const { return _thrustAxes[0]; }
     /// The thrust major axis (axis of max thrust perpendicular to thrust axis).
-    inline const Vector3& thrustMajorAxis() const { return _thrustAxes[1]; }
+    const Vector3& thrustMajorAxis() const { return _thrustAxes[1]; }
     /// The thrust minor axis (axis perpendicular to thrust and thrust major).
-    inline const Vector3& thrustMinorAxis() const { return _thrustAxes[2]; }
+    const Vector3& thrustMinorAxis() const { return _thrustAxes[2]; }
     ///@}
+
+    ///@{ AxesDefinition axis accessors.
+    const Vector3& axis1() const { return thrustAxis(); }
+    const Vector3& axis2() const { return thrustMajorAxis(); }
+    const Vector3& axis3() const { return thrustMinorAxis(); }
+    ///@}
+
 
 
   private:
@@ -101,7 +109,7 @@ namespace Rivet {
     bool _calculatedThrust;
 
     /// The FinalState projection used by this projection
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
 
   private:
@@ -118,6 +126,5 @@ namespace Rivet {
   };
   
 }
-
 
 #endif

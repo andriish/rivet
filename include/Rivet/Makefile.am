@@ -38,6 +38,7 @@ nobase_dist_noinst_HEADERS += \
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \
+  Projections/AxesDefinition.hh \
   Projections/Beam.hh           \
   Projections/CentralEtHCM.hh   \
   Projections/ChargedFinalState.hh \
