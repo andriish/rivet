@@ -1,3 +1,28 @@
+2007-10-25  Andy Buckley  <andy@insectnation.org>
+
+	* Added AxesDefinition base interface to Sphericity and Thrust,
+	used by Hemispheres.
+
+	* Exposed BinaryCut class, improved its interface and fixed a few
+	bugs. It's now used by VetoedFinalState for momentum cuts.
+
+	* Removed extra output from autobooking AIDA reader.
+
+	* Added automatic DPS booking.
+
+2007-10-12  Andy Buckley  <andy@insectnation.org>
+
+	* Improved a few features of the build system
+	
+2007-10-09  James Monk
+
+	* Fixed dylib dlopen on Mac OS X.
+
+2007-10-05  Andy Buckley  <andy@insectnation.org>
+
+	* Added new reference files.
+
+
 2007-10-03  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed bug in configure.ac which led to explicit CXX setting
