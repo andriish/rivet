@@ -1,3 +1,8 @@
+2007-10-31  Andy Buckley  <andy@insectnation.org>
+
+ 	* Tagging as 1.0b2 for HERA-LHC meeting.
+
+
 2007-10-25  Andy Buckley  <andy@insectnation.org>
 
 	* Added AxesDefinition base interface to Sphericity and Thrust,

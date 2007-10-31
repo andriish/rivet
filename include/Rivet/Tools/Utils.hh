@@ -23,7 +23,7 @@ namespace Rivet {
     // Return -1,0 or 1 according to strings' lengths
     if (size1 == size2) return 0;
     return (size1 < size2) ? -1 : 1;
-}
+  }
 
 
   inline string toLower(const string& s) {
