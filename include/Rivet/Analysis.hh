@@ -45,6 +45,7 @@ namespace Rivet {
     inline Analysis() 
       : _theHandler(0), _madeHistoDir(false)
     { 
+      _gotCrossSection = false;
       setBeams(ANY, ANY);
     }
 
@@ -125,8 +126,25 @@ namespace Rivet {
       //return typeid(*this).name(); (returns mangled RTTI name by default)
     }
 
+    /// set the cross section from the generator
+    const inline Analysis & setCrossSection(const double &xs){
+      _crossSection = xs;
+      _gotCrossSection = true;
+      return *this;
+    }
 
   protected:
+
+    const inline double & crossSection(){
+      if(!_gotCrossSection){
+	string errMsg = "You did not set the cross section for the analysis "+
+	  getName();
+	throw runtime_error(errMsg);
+      }
+      return _crossSection;
+    }
+    
+
     /// Get a Log object based on the getName() property of the calling analysis object.
     Log& getLog();
 
@@ -264,6 +282,9 @@ namespace Rivet {
     set<Projection*> _projections;
 
   private:
+
+    double _crossSection;
+    bool _gotCrossSection;
 
     /// Parameter constraints.
     Cuts _cuts;

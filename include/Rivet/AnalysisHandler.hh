@@ -114,7 +114,15 @@ namespace Rivet {
     inline AIDA::IDataPointSetFactory& datapointsetFactory() {
       return *_theDataPointSetFactory;
     }
-
+    
+    const inline AnalysisHandler & setCrossSection(const double & xs){
+      for(set<Analysis*>::iterator anIt = _analyses.begin();
+	  anIt != _analyses.end();
+	  ++anIt){
+	(*anIt)->setCrossSection(xs);
+      }
+      return *this;
+    }
 
 
   private:
