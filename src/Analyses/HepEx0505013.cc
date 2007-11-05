@@ -103,13 +103,13 @@ namespace Rivet {
             for (int ipT=0; ipT<18; ++ipT) {
               if (_jetaxes[jind].perp() > _pTbins[ipT] && _jetaxes[jind].perp() <= _pTbins[ipT+1]) {
                 _ShapeWeights[ipT] += event.weight(); 
-                for (int rbin=0; rbin<_jetshapeproj.getNbins(); ++rbin) {
-                  double rad = _jetshapeproj.getRmin() +(rbin+0.5)*_jetshapeproj.getInterval();
-		  _profhistRho_pT[ipT]->fill(rad/_Rjet, _jetshapeproj.getDiffJetShape(jind, rbin), event.weight() );
-		  _profhistPsi_pT[ipT]->fill(rad/_Rjet, _jetshapeproj.getIntJetShape(jind, rbin), event.weight());
+                for (int rbin=0; rbin<jetShape.getNbins(); ++rbin) {
+                  double rad = jetShape.getRmin() +(rbin+0.5)*jetShape.getInterval();
+		  _profhistRho_pT[ipT]->fill(rad/_Rjet, jetShape.getDiffJetShape(jind, rbin), event.weight() );
+		  _profhistPsi_pT[ipT]->fill(rad/_Rjet, jetShape.getIntJetShape(jind, rbin), event.weight());
                 }
                 _profhistPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., 
-				   _jetshapeproj.getPsi(jind), event.weight());
+				   jetShape.getPsi(jind), event.weight());
               }
             }
           }
