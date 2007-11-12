@@ -82,7 +82,10 @@ namespace Rivet{
     
     //normalise histograms to cross section
     
-    double xSecPerEvent = _xSecTot / _eventsTried;
+    //double xSecPerEvent = _xSecTot / _eventsTried;
+    double xSecPerEvent = crossSection() / _eventsTried;
+    //HepData data is in nb, crossSection returns pb.
+    xSecPerEvent = 0.001 * xSecPerEvent; 
     
     for(map<IHistogram1D*, double>::iterator histIt = _eventsPassed.begin();
         histIt != _eventsPassed.end();
