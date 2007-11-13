@@ -126,7 +126,7 @@ namespace Rivet {
     /// The Primary Vertex projector
     PVertex _vertexproj;
 
-    /// The Calorimeter Missing Et projector
+    /// The Jet Shape projector
     JetShape _jetshapeproj;
     
 

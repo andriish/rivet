@@ -21,7 +21,8 @@ libRivetProjections_la_SOURCES  = \
   TrackJet.cc \
   VetoedFinalState.cc \
   WZandh.cc \
-  JetShape.cc
+  JetShape.cc \
+  SVertex.cc
 
 libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)
 

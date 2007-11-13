@@ -11,3 +11,4 @@ dist_pkgdata_DATA = \
 
 dist_pkgdata_DATA += \
   FPythiaLEP10.hepmc
+
