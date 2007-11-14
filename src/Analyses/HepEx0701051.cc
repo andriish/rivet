@@ -15,9 +15,7 @@ namespace Rivet{
   
   // Book histos and set counters for number of events passed in each one
   void HepEx0701051::init() {
-    //@todo set _xSecTot from generator
-    //just a guess at the generated cross section for now!
-    _xSecTot = 600.0;
+
     _eventsTried = 0.0;
     _histos[0.1] = bookHistogram1D(1,1,1,"eta &lt; 0.1");
     _histos[0.7] = bookHistogram1D(2,1,1,"0.1 &lt; eta &lt; 0.7");

@@ -47,6 +47,7 @@ namespace Rivet {
     { 
       _gotCrossSection = false;
       setBeams(ANY, ANY);
+      setNeedsCrossSection(false);
     }
 
 //     /// Copy constructor from a pointer.
@@ -133,6 +134,10 @@ namespace Rivet {
       return *this;
     }
 
+    inline bool needsCrossSection()const{
+      return _needsCrossSection;
+    }
+    
   protected:
 
     const inline double & crossSection(){
@@ -278,6 +283,11 @@ namespace Rivet {
       return *this;
     }
 
+    inline Analysis & setNeedsCrossSection(bool needed){
+      _needsCrossSection = needed;
+      return *this;
+    }
+    
     /// Collection of pointers to projections, for automatically combining constraints.
     set<Projection*> _projections;
 
@@ -285,7 +295,8 @@ namespace Rivet {
 
     double _crossSection;
     bool _gotCrossSection;
-
+    bool _needsCrossSection;
+    
     /// Parameter constraints.
     Cuts _cuts;
 

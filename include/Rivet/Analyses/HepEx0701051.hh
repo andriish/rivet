@@ -26,6 +26,7 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       addProjection(_fsproj);
       addProjection(_ktproj);
+      setNeedsCrossSection(true);
     };
     
     /// Factory method
