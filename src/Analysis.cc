@@ -4,6 +4,7 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "AIDA/IManagedObject.h"
 using namespace AIDA;
 
 
@@ -173,6 +174,34 @@ namespace Rivet {
     }
     return totalProjections;
   }
+
+void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
+  double oldintg = histo->sumAllBinHeights();
+  if ( oldintg == 0.0 ) return;
+
+  double scale = norm/oldintg;
+  std::vector<double> x, y, ex, ey;
+  for ( int i = 0, N = histo->axis().bins(); i < N; ++i ) {
+    x.push_back((histo->axis().binLowerEdge(i) +
+		 histo->axis().binUpperEdge(i))/2.0);
+    ex.push_back(histo->axis().binWidth(i)/2.0);
+    y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
+    ey.push_back(histo->binError(i)*scale/(2.0*histo->axis().binWidth(i)));
+  }
+
+  std::string path =
+    tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo));
+  std::string title = histo->title();
+  tree().mkdir("/tmpnormalize");
+  tree().mv(path, "/tmpnormalize");
+
+  datapointsetFactory().createXY(path, title, x, y, ex, ey);
+
+  tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
+  tree().rmdir("/tmpnormalize");
+  histo = 0;
+
+}
 
 
 }

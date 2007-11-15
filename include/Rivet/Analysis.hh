@@ -127,6 +127,12 @@ namespace Rivet {
       //return typeid(*this).name(); (returns mangled RTTI name by default)
     }
 
+    /// Normalize the given histogram. After this call the histogram
+    /// will have been transformed to a DataPointSet with the same
+    /// name and path, and the old histogram will be deleted, and the
+    /// pointer will be set to zero.
+    void normalize(AIDA::IHistogram1D*& histo, const double norm=1.0);
+
     /// set the cross section from the generator
     const inline Analysis & setCrossSection(const double &xs){
       _crossSection = xs;
