@@ -15,11 +15,10 @@ namespace Rivet {
   // Book histograms
   void ExampleTree::init() {
     
-#ifndef HAVE_ROOT
+    #ifndef HAVE_ROOT
     Log log = getLog();
     log << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
-#else
-    
+    #else
     _jet_pt_cut = 20;
     _subj_pt_cut = 20;
     _lepton_pt_cut = 20;
@@ -58,15 +57,14 @@ namespace Rivet {
     _rivetTree->Branch("mo", &_mo, "mo[npart]/I");  // first mother.
 
     _rivetTree->Branch("esumr", &_esumr, "esumr[4]/F");
-
-#endif
+    #endif
   }
 
 
 
   // Do the analysis
   void ExampleTree::analyze(const Event & event) {
-#ifdef HAVE_ROOT
+    #ifdef HAVE_ROOT
     Log log = getLog();
     log << Log::DEBUG << "Filling the ntuple" << endl;
 
@@ -90,10 +88,11 @@ namespace Rivet {
     // Get the vector bosons
     _nvb = 0;
     for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
-      _vbvec[_nvb][1] = p->getMomentum().px();
-      _vbvec[_nvb][2] = p->getMomentum().py();
-      _vbvec[_nvb][3] = p->getMomentum().pz();
-      _vbvec[_nvb][0] = p->getMomentum().e();
+      const FourMomentum p4 = p->getMomentum();
+      _vbvec[_nvb][1] = p4.px();
+      _vbvec[_nvb][2] = p4.py();
+      _vbvec[_nvb][3] = p4.pz();
+      _vbvec[_nvb][0] = p4.E();
       _vbtype[_nvb]   = 1;
       ++_nvb;
     }
@@ -108,10 +107,11 @@ namespace Rivet {
         // Only include particles which are documentation line (status = 3) 
         // The result/meaning will be generator dependent.
         if ( (*pi)->status() >= 2 ) {
-          _ppart[_npart][1] = (*pi)->momentum().px();
-          _ppart[_npart][2] = (*pi)->momentum().py();
-          _ppart[_npart][3] = (*pi)->momentum().pz();
-          _ppart[_npart][0] = (*pi)->momentum().e();
+          const FourMomentum p4 = (*pi)->momentum();
+          _ppart[_npart][1] = p4.px();
+          _ppart[_npart][2] = p4.py();
+          _ppart[_npart][3] = p4.pz();
+          _ppart[_npart][0] = p4.E();
           HepPDT::ParticleID pInfo = (*pi)->pdg_id();
           _pid[_npart] = pInfo.pid();
           const GenVertex* vertex = (*pi)->production_vertex();
@@ -167,11 +167,12 @@ namespace Rivet {
     // Loop over leptons
     _nlep = 0;
     for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
-      if (p->getMomentum().perp() > _lepton_pt_cut) {
-        _vlep[_nlep][1] = p->getMomentum().px();
-        _vlep[_nlep][2] = p->getMomentum().py();
-        _vlep[_nlep][3] = p->getMomentum().pz();
-        _vlep[_nlep][0] = p->getMomentum().e();
+      const FourMomentum p4 = p->getMomentum();
+      if (p4.pT() > _lepton_pt_cut) {
+        _vlep[_nlep][1] = p4.px();
+        _vlep[_nlep][2] = p4.py();
+		_vlep[_nlep][3] = p4.pz();
+		_vlep[_nlep][0] = p4.E();
         ++_nlep;
       }
     }
@@ -180,22 +181,22 @@ namespace Rivet {
     _esumr[1] = tvm.getMomentum().px();
     _esumr[2] = tvm.getMomentum().py();
     _esumr[3] = tvm.getMomentum().pz();
-    _esumr[0] = tvm.getMomentum().e();
+    _esumr[0] = tvm.getMomentum().E();
 
     // Finished...
     log << Log::DEBUG << "Finished analyzing" << endl;
 
     _rivetTree->Fill();
-#endif
+    #endif
   }
 
 
   // Finalize
   void ExampleTree::finalize() { 
-#ifdef HAVE_ROOT
+    #ifdef HAVE_ROOT
     // Write the tree to file.
     _rivetTree->Write();
-#endif
+    #endif
   }
   
 

@@ -19,9 +19,9 @@
 #include <list>
 #include <cmath>
 
-#include "Rivet/Tools/Utils.hh"
+#include "Math/MathUtils.hh"
+using namespace Rivet;
 
-using namespace math;
 using namespace D0RunIIconeJets_CONEJETINFO;
 
 

@@ -6,7 +6,7 @@
 #include "Rivet/Projections/AxesDefinition.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Event.hh"
-#include "Rivet/RivetCLHEP.hh"
+
 
 namespace Rivet {
 
@@ -54,15 +54,9 @@ namespace Rivet {
 
     /// Constructor. Supplied FinalState projection must live throughout the run.
     Sphericity(FinalState& fsp, double rparam=2.0)
-      : _sphericity(-1), _planarity(-1), _aplanarity(-1), _regparam(rparam), 
-        _fsproj(fsp)
+      : _regparam(rparam), _fsproj(fsp)
     { 
       addProjection(_fsproj);
-
-      /// @todo Do this properly! Currently no calculation performed, so this result is meaningless.
-      _sphAxes.push_back( Vector3(0,0,1) );
-      _sphAxes.push_back( Vector3(0,0,1) );
-      _sphAxes.push_back( Vector3(0,0,1) );
     }
 
     /// Return the name of the projection
@@ -83,11 +77,11 @@ namespace Rivet {
     /// @name Access the event shapes by name
     /// @{
     /// Sphericity
-    const double sphericity() const { return _sphericity; }
+    const double sphericity() const { return 3 / 2.0 * (lambda2() + lambda3()); }
     /// Planarity
-    const double planarity() const { return _planarity; }
+    const double planarity() const { return 2 * (sphericity() - 2 * aplanarity()) / 3.0; }
     /// Aplanarity
-    const double aplanarity() const { return _aplanarity; }
+    const double aplanarity() const { return 3 / 2.0 * lambda3(); }
     /// @}
 
     /// @name Access the sphericity basis vectors
@@ -109,18 +103,15 @@ namespace Rivet {
 
     /// @name Access the momentum tensor eigenvalues
     /// @{
-    inline const double lambda1() const { return _lambdas[0]; }
-    inline const double lambda2() const { return _lambdas[1]; }
-    inline const double lambda3() const { return _lambdas[2]; }
+    const double lambda1() const { return _lambdas[0]; }
+    const double lambda2() const { return _lambdas[1]; }
+    const double lambda3() const { return _lambdas[2]; }
     /// @}
 
 
   private:
     /// Eigenvalues.
-    double _lambdas[3];
-
-    /// The event shape scalars.
-    double _sphericity, _planarity, _aplanarity;
+    vector<double> _lambdas;
 
     /// Sphericity axes.
     vector<Vector3> _sphAxes;

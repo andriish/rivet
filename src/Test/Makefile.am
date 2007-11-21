@@ -1,11 +1,6 @@
-if WITH_DEVTESTS
+check_PROGRAMS = testMatVec
 
-noinst_PROGRAMS = testMatVec testGSL
-
-testMatVec_SOURCES = testMatVec.cc Vectors.hh Matrices.hh
+testMatVec_SOURCES = testMatVec.cc
 testMatVec_LDADD   = -lm -lgsl -lgslcblas
 
-testGSL_SOURCES = testGSL.cc
-testGSL_LDADD   = -lgsl -lgslcblas -lm
-
-endif
+TESTS = testMatVec

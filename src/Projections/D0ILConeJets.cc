@@ -1,20 +1,16 @@
 // -*- C++ -*-
-
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Cmp.hh"
-#include "Rivet/RivetCLHEP.hh"
-
 
 namespace Rivet {
-
 
   /// @todo The compare method is incomplete?
   int D0ILConeJets::compare(const Projection& p) const {
     const D0ILConeJets& other = dynamic_cast<const D0ILConeJets&>(p);
     return 
-      pcmp(*_fsproj, *other._fsproj) || 
+      pcmp(_fsproj, other._fsproj) || 
       cmp(_cone_radius, other._cone_radius) ||
       cmp(_min_jet_Et, other._min_jet_Et) || 
       cmp(_split_ratio, other._split_ratio) ||   
@@ -35,7 +31,7 @@ namespace Rivet {
   void D0ILConeJets::project(const Event& e) {
 
     // Project into final state
-    const FinalState& fs = e.applyProjection(*_fsproj);
+    const FinalState& fs = e.applyProjection(_fsproj);
 
     // Store 4 vector data about each particle into list
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
@@ -55,7 +51,8 @@ namespace Rivet {
     
     _lorentzvecjets.clear();
     for (list<HepEntity>::const_iterator jt = _jets.begin(); jt != _jets.end(); ++jt) {
-      LorentzVector jet(jt->px, jt->py, jt->pz, jt->E);
+      /// @todo Check that ordering is good. Eliminate HepEntity
+      FourMomentum jet(jt->E, jt->px, jt->py, jt->pz);
       _lorentzvecjets.push_back(jet);
     }
 

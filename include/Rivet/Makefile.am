@@ -11,7 +11,6 @@ nobase_pkginclude_HEADERS += \
   Cuts.hh        Cuts.fhh       \
   Event.hh       Event.fhh      \
   Particle.hh    Particle.fhh   \
-  RivetCLHEP.hh  RivetCLHEP.fhh \
   RivetAIDA.hh   RivetAIDA.fhh  \
   AnalysisHandler.hh  AnalysisHandler.fhh \
   Projection.hh  Projection.fhh \

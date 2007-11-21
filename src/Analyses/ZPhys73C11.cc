@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Analyses/ZPhys73C11.hh"
 #include "HepPDT/ParticleID.hh"
 
@@ -18,8 +17,8 @@ namespace Rivet {
 
     // Get beams and average beam momentum
     const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
-    const double meanBeamMom = ( beams.first.getMomentum().vect().mag() + 
-                                 beams.second.getMomentum().vect().mag() ) / 2.0;
+    const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
+                                 beams.second.getMomentum().vector3().mod() ) / 2.0;
 
     // Get event weight for histo filling
     const double weight = e.weight();
@@ -106,21 +105,21 @@ namespace Rivet {
       /// @todo Add missing CN variants
 
       // Get momentum and energy of each particle.
-      const Vector3 mom3 = p->getMomentum().vect();
-      const double mom = mom3.mag();
-      const double energy = p->getMomentum().getT();
+      const Vector3 mom3 = p->getMomentum().vector3();
+      const double mom = mom3.mod();
+      const double energy = p->getMomentum().E();
 
       // Calculate scaled momenta.
       const double scaledMom = mom/meanBeamMom;
       const double logInvScaledMom = -log10(scaledMom);
 
       // Get momenta components w.r.t. thrust and sphericity.
-      const double momT = thrustC.thrustAxis().dot(mom3);
-      const double momS = sphericityC.sphericityAxis().dot(mom3);
-      const double pTinT = mom3.dot(thrustC.thrustMajorAxis());
-      const double pToutT = mom3.dot(thrustC.thrustMinorAxis());
-      const double pTinS = mom3.dot(sphericityC.sphericityMinorAxis());
-      const double pToutS = mom3.dot(sphericityC.sphericityMinorAxis());
+      const double momT = dot(thrustC.thrustAxis(), mom3);
+      const double momS = dot(sphericityC.sphericityAxis(), mom3);
+      const double pTinT = dot(mom3, thrustC.thrustMajorAxis());
+      const double pToutT = dot(mom3, thrustC.thrustMinorAxis());
+      const double pTinS = dot(mom3, sphericityC.sphericityMinorAxis());
+      const double pToutS = dot(mom3, sphericityC.sphericityMinorAxis());
       totalPtInT += pTinT; 
       totalPtOutT += pToutT;
 

@@ -1,11 +1,8 @@
 // -*- C++ -*-
-
+#include "Rivet/Rivet.hh"
 #include "Rivet/Projections/Thrust.hh"
-#include "Rivet/RivetCLHEP.hh"
-
 
 namespace Rivet {
-
 
   void Thrust::calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const {
     t = 0.0;
@@ -30,7 +27,7 @@ namespace Rivet {
         cpm[2] = ptot + p[j] - p[k];
         cpm[3] = ptot + p[j] + p[k];
         for (size_t i = 0; i < 4; ++i) {
-          double tval = cpm[i].mag2();
+          double tval = mod2(cpm[i]);
           if (tval > t) {
             t = tval;
             taxis = cpm[i];
@@ -63,7 +60,7 @@ namespace Rivet {
       cpm.push_back(ptot - p[j]);
       cpm.push_back(ptot + p[j]);
       for (vector<Vector3>::iterator it = cpm.begin(); it != cpm.end(); ++it) {
-        mval = it->mag2();
+        mval = it->mod2();
         if (mval > m) {
           m = mval;
           maxis = *it;
@@ -72,26 +69,23 @@ namespace Rivet {
     } // j loop
   }
 
-
+  inline bool mod2ReverseCmp(const Vector3& a, const Vector3& b) {
+    return a.mod2() < b.mod2();
+  }
 
   void Thrust::calcThrust(const FinalState& fs) {
-    // If we've already been here, stop
-    //if (_calculatedThrust) return;
-
     // Make a vector of the three-momenta in the final state
     vector<Vector3> threeMomenta;
     double momentumSum(0.0);
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      Vector3 p3 = p->getMomentum().vect();
+      Vector3 p3 = p->getMomentum().vector3();
       threeMomenta.push_back(p3);
-      momentumSum += threeMomenta.back().mag();
+      momentumSum += mod(threeMomenta.back());
     }
 
     // Clear the caches
     _thrusts.clear();
     _thrustAxes.clear(); 
-    //_calculatedThrust = true; // Pre-emptive strike to avoid repeats in each special case
-
 
     // If there are fewer than 2 visible particles, we can't do much
     if (threeMomenta.size() < 2) {
@@ -112,7 +106,9 @@ namespace Rivet {
       axis = threeMomenta[0].unit();
       if (axis.z() < 0) axis = -axis;
       _thrustAxes.push_back(axis);
-      _thrustAxes.push_back(axis.orthogonal());
+      /// @todo Improve this --- special directions bad...
+      /// (a,b,c) _|_ 1/(a^2+b^2) (b,-a,0) etc., but which combination minimises error?
+      _thrustAxes.push_back( axis.cross(Vector3(0,0,1)) );
       _thrustAxes.push_back( _thrustAxes[0].cross(_thrustAxes[1]) );
       return;
     }
@@ -122,17 +118,15 @@ namespace Rivet {
     if (threeMomenta.size() == 3) {
       Vector3 axis;
       // Order by magnitude
-      /// @todo rsort with mag2() functor is much neater
-      if (threeMomenta[0].mag2() < threeMomenta[1].mag2()) std::swap(threeMomenta[0], threeMomenta[1]);
-      if (threeMomenta[0].mag2() < threeMomenta[2].mag2()) std::swap(threeMomenta[0], threeMomenta[2]);
-      if (threeMomenta[1].mag2() < threeMomenta[2].mag2()) std::swap(threeMomenta[1], threeMomenta[2]);
+      std::sort(threeMomenta.begin(), threeMomenta.end(), mod2ReverseCmp);
+      //std::reverse(threeMomenta.begin(), threeMomenta.end());
       // Thrust
       axis = threeMomenta[0].unit();
       if (axis.z() < 0) axis = -axis;
-      _thrusts.push_back(2.0 * threeMomenta[0].mag() / momentumSum);
+      _thrusts.push_back(2.0 * mod(threeMomenta[0]) / momentumSum);
       _thrustAxes.push_back(axis);
       // Thrust major (independent part of next largest momentum)
-      axis = ( threeMomenta[1] - (axis.dot(threeMomenta[1])) * axis ).unit();
+      axis = ( threeMomenta[1] - dot(axis, threeMomenta[1]) * axis ).unit();
       if (axis.x() < 0) axis = -axis;
       _thrusts.push_back( (fabs(threeMomenta[1].dot(axis)) + 
                            fabs(threeMomenta[2].dot(axis)))  / momentumSum);
@@ -148,9 +142,8 @@ namespace Rivet {
     // we explicitly calculate in units of MeV using an algorithm based on 
     // Brandt/Dahmen Z Phys C1 (1978) and 'tasso' code from HERWIG. Re-coded
     // from Herwig++ implementation by Stefan Gieseke by Andy Buckley.
-    // NB. special case with >= 4 coplanar particles will still fail. 
+    // NB. special case with >= 4 coplanar particles will still fail.
     // probably not too important... 
-    /// @todo Thrust assumes all momenta are in the CoM system: no explicit boost is performed.
 
     // Temporary variables for calcs
     Vector3 axis; double val;
@@ -165,8 +158,8 @@ namespace Rivet {
     threeMomenta.clear();
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       // Get the part of each 3-momentum which is perpendicular to the thrust axis
-      const Vector3 v = p->getMomentum().vect();
-      const Vector3 vpar = v.dot(axis.unit()) * axis.unit();
+      const Vector3 v = p->getMomentum().vector3();
+      const Vector3 vpar = dot(v, axis.unit()) * axis.unit();
       threeMomenta.push_back(v - vpar);
     }
     calcM(threeMomenta, val, axis);
@@ -180,7 +173,7 @@ namespace Rivet {
       _thrustAxes.push_back(axis);
       val = 0.0;
       for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-        val += fabs(axis * p->getMomentum().vect());
+        val += fabs(dot(axis, p->getMomentum().vector3()));
       }
       _thrusts.push_back(val / momentumSum);
     } else {

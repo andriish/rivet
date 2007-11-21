@@ -1,10 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analyses/HepEx9506012.hh"
-#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/RivetAIDA.hh"
-using namespace CLHEP;
-
 
 namespace Rivet {
 
@@ -16,6 +13,7 @@ namespace Rivet {
     _hEtFlow = vector<AIDA::IHistogram1D *>(_nbin);
     _hEtFlowStat = vector<AIDA::IHistogram1D *>(_nbin);
     _nev = vector<double>(_nbin);
+    /// @todo Automate this sort of thing so that the analysis code is more readable.
     for (int i = 0; i < _nbin; ++i) {
       string istr(1, char('1' + i));
       _hEtFlow[i] = bookHistogram1D(istr, "dEt/d[c] CMS bin=" + istr, _nb, _xmin, _xmax);
@@ -70,8 +68,8 @@ namespace Rivet {
     const double weight = event.weight();
 
     for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
-      double rap = fs.particles()[i].getMomentum().rapidity();
-      double et = fs.particles()[i].getMomentum().et();
+      const double rap = fs.particles()[i].getMomentum().rapidity();
+      const double et = fs.particles()[i].getMomentum().Et();
       _hEtFlow[ibin]->fill(rap, weight * et/GeV);
       _hEtFlowStat[ibin]->fill(rap, weight * et/GeV);
     }
@@ -89,6 +87,8 @@ namespace Rivet {
       _hEtFlow[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
       _hEtFlowStat[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
     }
+    /// @todo Automate this sort of thing so that the analysis code is more readable.
+    /// @todo Eliminate AIDA in favour of a histo interface that is "more C++", less factory-obsessive.
     AIDA::IHistogram1D* h = 0;
     h = histogramFactory().divide("/HepEx9506012/21", *_hAvEt, *_hN);
     h->setTitle(_hAvEt->title());

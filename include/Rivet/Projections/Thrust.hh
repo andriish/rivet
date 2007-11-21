@@ -6,8 +6,6 @@
 #include "Rivet/Projections/AxesDefinition.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Event.hh"
-#include "Rivet/RivetCLHEP.hh"
-
 
 namespace Rivet {
 
@@ -39,6 +37,10 @@ namespace Rivet {
 
     The Rivet implementation of thrust is based heavily on Stefan Gieseke's Herwig++
     re-coding of the 'tasso' code from HERWIG.
+
+    NB. special case with >= 4 coplanar particles will still fail. 
+    NB. Thrust assumes all momenta are in the CoM system: no explicit boost is performed.
+      This can be dealt with by appropriate choice of the supplied FinalState.
    */
   class Thrust : public AxesDefinition {
   public:

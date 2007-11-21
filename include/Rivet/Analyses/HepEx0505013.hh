@@ -12,7 +12,6 @@
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/JetShape.hh"
 #include "Rivet/RivetAIDA.fhh"
-#include "Rivet/RivetCLHEP.hh"
 
 
 namespace Rivet {
@@ -74,9 +73,9 @@ namespace Rivet {
       _pTbins[17] = 340.;
       _pTbins[18] = 380.;
 
-      for (int i=0; i<18; ++i)
-	_ShapeWeights[i] = 0.;
-
+      for (int i=0; i<18; ++i) {
+        _ShapeWeights[i] = 0.;
+      }
     }
       
 
@@ -132,7 +131,7 @@ namespace Rivet {
 
   private:
 
-    vector<LorentzVector> _jetaxes;
+    vector<FourMomentum> _jetaxes;
 
     double _Rjet;
 

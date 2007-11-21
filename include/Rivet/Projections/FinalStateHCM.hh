@@ -20,7 +20,7 @@ namespace Rivet {
     /// and FinalState projection objects which are assumed to live
     /// throughout the run.
     inline FinalStateHCM(DISLepton& leptonp, DISKinematics& kinematicsp, FinalState& fsp)
-      : _lepton(&leptonp), _kinematics(&kinematicsp), _fsproj(&fsp) 
+      : _lepton(leptonp), _kinematics(kinematicsp), _fsproj(fsp)
     { 
       addProjection(leptonp);
       addProjection(kinematicsp);
@@ -45,14 +45,13 @@ namespace Rivet {
   private:
     
     /// The projector for the DIS lepton.
-    DISLepton* _lepton;
+    DISLepton _lepton;
     
     /// The projector for the DIS kinematics.
-    DISKinematics* _kinematics;
+    DISKinematics _kinematics;
 
     /// The projector for the full final state.
-    FinalState* _fsproj;
-        
+    FinalState _fsproj;
   };
   
 }

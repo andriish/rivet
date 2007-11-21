@@ -6,7 +6,6 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Particle.hh"
-#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Tools/Utils.hh"
 
@@ -14,7 +13,7 @@
 namespace Rivet {
 
   /// Enums to distinguish between different recombination schemes
-  enum schemelist {ENERGY, SNOWMASS};
+  enum schemelist { ENERGY, SNOWMASS };
 
 
   /**
@@ -58,12 +57,12 @@ namespace Rivet {
 
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    inline JetShape(VetoedFinalState& vfsp, vector<LorentzVector>& jetaxes, 
-		    double rmin=0.0, double rmax=0.7, double interval=0.1, 
-		    double r1minPsi=0.3, schemelist distscheme=ENERGY)
+    inline JetShape(VetoedFinalState& vfsp, vector<FourMomentum>& jetaxes, 
+                    double rmin=0.0, double rmax=0.7, double interval=0.1, 
+                    double r1minPsi=0.3, schemelist distscheme=ENERGY)
       : _vfsproj(vfsp), _jetaxes(jetaxes), 
-	_rmin(rmin), _rmax(rmax), 
-	_interval(interval), _r1minPsi(r1minPsi), _distscheme(distscheme)
+        _rmin(rmin), _rmax(rmax), 
+        _interval(interval), _r1minPsi(r1minPsi), _distscheme(distscheme)
     { 
       _nbins = int(round((rmax-rmin)/interval));
       addProjection(_vfsproj);
@@ -127,7 +126,7 @@ namespace Rivet {
     VetoedFinalState _vfsproj;
 
     ///The jet axes of the jet algorithm projection
-    vector<LorentzVector>& _jetaxes;
+    vector<FourMomentum> _jetaxes;
 
     /// @name The projected jet shapes
     /// @{
@@ -153,9 +152,7 @@ namespace Rivet {
     double _r1minPsi;
     ///ENERGY or SNOWMASS recombination scheme
     schemelist _distscheme;
-    int _nbins;
-
-    
+    size_t _nbins;
   };
   
 }

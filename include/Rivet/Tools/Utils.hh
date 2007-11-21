@@ -1,9 +1,11 @@
 // -*- C++ -*-
 #ifndef RIVET_Utils_HH
-#define RIVET_Utils_HH 1
+#define RIVET_Utils_HH
 
+#include <Rivet/Rivet.hh>
 #include <cctype>
 #include <algorithm>
+#include <cerrno>
 
 namespace Rivet {
 
@@ -40,14 +42,6 @@ namespace Rivet {
   }
 
 
-  template <typename Real>
-  inline bool fuzzyEquals(Real a, Real b, Real tolerance = 0.001) {
-    const double absavg = fabs(a + b)/2.0;
-    const double absdiff = fabs(a - b);
-    return (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
-  }
-
-
   /// Split a string with single-character delimiters, ignoring zero-length 
   /// substrings. Designed for getting elements of filesystem paths, naturally.
   inline vector<string> split(const string& s, const string delim = ":") {
@@ -73,6 +67,7 @@ namespace Rivet {
   const string getInstalledLibPath();
 
 }
+
 
 
 namespace std {
@@ -102,69 +97,5 @@ namespace std {
   }
 
 }
-
-
-
-
-#include <cerrno>
-
-
-/// @todo Put in a separate MathUtils.hh header and namespace Rivet::Math
-namespace math {
-  
-  const double PI = fabs(acos(-1.));
-  
-  const double TWOPI = 2*PI;
-  
-  
-  inline double sqr(double a) {
-    return a*a;
-  }
-  
-  
-  
-  inline double min(double a, double b) {
-    return (a < b) ? a : b;
-  }
-  
-  
-  
-  inline double delta_phi(double phi1, double phi2) {
-    return min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
-  }
-  
-  
-  
-  inline double delta_rad(double y1, double phi1, double y2, double phi2) {
-    double dphi = min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
-    return sqrt(sqr(y1-y2)+sqr(dphi));
-  }
-  
-  
-  
-  inline double phi(double px, double py) {
-    return atan2(py, px);
-  }
-  
-  
-  
-  inline double y(double E, double pz) {
-    errno=0;
-    double y;
-    if (fabs(E-pz) == 0.) {
-      errno=721;
-      y = 99999.;
-    }
-    else {
-      y = 0.5*log((E+pz)/(E-pz));
-    }
-    return y;
-  }
-  
-  
-  
-} //namespace math
-
-
 
 #endif

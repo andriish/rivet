@@ -3,7 +3,6 @@
 #define RIVET_TotalVisibleMomentum_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Particle.hh"
@@ -33,10 +32,10 @@ namespace Rivet {
     }
 
     /// The projected four-momentum vector
-    inline LorentzVector& getMomentum() { return _momentum; }
+    inline FourMomentum& getMomentum() { return _momentum; }
 
     /// The projected four-momentum vector
-    inline const LorentzVector& getMomentum() const { return _momentum; }
+    inline const FourMomentum& getMomentum() const { return _momentum; }
 
     /// The projected Scalar Transverse Momentum
     inline const double getSET() const { return _set; }
@@ -56,7 +55,7 @@ namespace Rivet {
     FinalState _fsproj;
     
     /// The total visible momentum
-    LorentzVector _momentum;
+    FourMomentum _momentum;
     
     /// Scalar Transverse Energy
     double _set;

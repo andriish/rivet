@@ -13,14 +13,14 @@ namespace Rivet {
     
     for (int i=0; i<6; ++i) { //18=6x3 pT bins, one histogram each
       for (int j=0; j<3; ++j) {
-	int k = i*3+j;
-	stringstream lStream; 
-	lStream << k+1;
-	hist_title[k][0] = "Differential Jet Shape Rho, Pt bin " + lStream.str();
-	_profhistRho_pT[k]  = bookProfile1D(i+1, 1, j+1, hist_title[k][0]);
-	
-	hist_title[k][1] = "Integral Jet Shape Psi, Pt bin " + lStream.str();
-	_profhistPsi_pT[k]  = bookProfile1D(6+i+1, 1, j+1, hist_title[k][1]);
+        int k = i*3+j;
+        stringstream lStream; 
+        lStream << k+1;
+        hist_title[k][0] = "Differential Jet Shape Rho, Pt bin " + lStream.str();
+        _profhistRho_pT[k]  = bookProfile1D(i+1, 1, j+1, hist_title[k][0]);
+        
+        hist_title[k][1] = "Integral Jet Shape Psi, Pt bin " + lStream.str();
+        _profhistPsi_pT[k]  = bookProfile1D(6+i+1, 1, j+1, hist_title[k][1]);
       }
     }
     
@@ -50,14 +50,14 @@ namespace Rivet {
     /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
     /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
     //if (fabs(pv.getPrimaryVertex().position().z()) < 600.0) {
-
-
+    
+    
     /// @todo Remove compile-time flags like this when possible.
     #ifdef HAVE_FASTJET
     typedef vector<fastjet::PseudoJet> Jets;
     const Jets& jets = jetpro.getJetsPt();
     #else
-    typedef list<LorentzVector> Jets;
+    typedef list<FourMomentum> Jets;
     const Jets& jets = jetpro.getLorentzJets();
     ////const vector<KtJet::KtLorentzVector>& jets = jetpro.getJets();
     #endif
@@ -68,57 +68,53 @@ namespace Rivet {
     bool jetcutpass = false;
     
     for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      log << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->e() << " pz=" << jt->pz() << endl;
-      if (jt->perp()>37. && fabs(jt->rapidity())>0.1 && fabs(jt->rapidity())<0.7) jetcutpass = true;
+      log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E() << " pz=" << jt->pz() << endl;
+      if (jt->pT()>37. && fabs(jt->rapidity())>0.1 && fabs(jt->rapidity())<0.7) jetcutpass = true;
       ++Njet;
-      log << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->rapidity() << " phi=" << jt->phi() << endl; 
+      log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->rapidity() << " phi=" << jt->azimuthalAngle() << endl; 
     }
     
     if (jetcutpass) {
       
       const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
-      log << Log::DEBUG << "CaloMissEt.getMomentum().perp() = " << caloMissEt.getMomentum().perp() << endl;
-
-      if (caloMissEt.getMomentum().perp()/sqrt(caloMissEt.getSET()) < 3.5) {
+      log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
+      
+      if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) < 3.5) {
         
-        LorentzVector jetaxis;
+        FourMomentum jetaxis;
         _jetaxes.clear();
         for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-
-          if (fabs(jt->rapidity())<1.1) { //only Central Calorimeter jets
-            jetaxis.setPx(jt->px());
-            jetaxis.setPy(jt->py());
-            jetaxis.setPz(jt->pz());
-            jetaxis.setE(jt->e());
-
+          // Only Central Calorimeter jets
+          if (fabs(jt->rapidity()) < 1.1) {
+            jetaxis.px(jt->px());
+            jetaxis.py(jt->py());
+            jetaxis.pz(jt->pz());
+            jetaxis.E(jt->E());
             _jetaxes.push_back(jetaxis);
           }
         }
-        if (_jetaxes.size()>0) { //determine jet shapes
-          
+        if (_jetaxes.size()>0) { //determine jet shapes 
           const JetShape& jetShape = event.applyProjection(_jetshapeproj);
 	  
-          //fill histograms
+          // Fill histograms.
           for (unsigned int jind=0; jind<_jetaxes.size(); ++jind) {
             for (int ipT=0; ipT<18; ++ipT) {
-              if (_jetaxes[jind].perp() > _pTbins[ipT] && _jetaxes[jind].perp() <= _pTbins[ipT+1]) {
+              if (_jetaxes[jind].pT() > _pTbins[ipT] && _jetaxes[jind].pT() <= _pTbins[ipT+1]) {
                 _ShapeWeights[ipT] += event.weight(); 
                 for (int rbin=0; rbin<jetShape.getNbins(); ++rbin) {
                   double rad_Rho = jetShape.getRmin() +(rbin+0.5)*jetShape.getInterval();
-		  _profhistRho_pT[ipT]->fill(rad_Rho/_Rjet, jetShape.getDiffJetShape(jind, rbin), event.weight() );
+                  _profhistRho_pT[ipT]->fill(rad_Rho/_Rjet, jetShape.getDiffJetShape(jind, rbin), event.weight() );
                   double rad_Psi = jetShape.getRmin() +(rbin+1.0)*jetShape.getInterval();
-		  _profhistPsi_pT[ipT]->fill(rad_Psi/_Rjet, jetShape.getIntJetShape(jind, rbin), event.weight() );
-
+                  _profhistPsi_pT[ipT]->fill(rad_Psi/_Rjet, jetShape.getIntJetShape(jind, rbin), event.weight() );
                 }
-                _profhistPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., 
-				   jetShape.getPsi(jind), event.weight());
+                _profhistPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., jetShape.getPsi(jind), event.weight());
               }
             }
           }
         }
       }
     }
-        
+    
     // Finished
     log << Log::DEBUG << "Finished analyzing" << endl;
   }

@@ -1,11 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Cmp.hh"
 #include "Rivet/Tools/Utils.hh"
 #include <algorithm>
-
 
 namespace Rivet {
 
@@ -37,21 +35,22 @@ namespace Rivet {
       const long pdgid = p->getPdgId();
       VetoDetails::iterator iter = _vetoCodes.find(pdgid);
       if ( (iter == _vetoCodes.end())) {
-        log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " << p->getMomentum().perp() << endl;
+        log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " 
+            << p->getMomentum().vector3().polarRadius() << endl;
         _theParticles.push_back(*p);
       } else {
         // This particle code is listed as a possible veto... check pT.
         BinaryCut ptrange = iter->second;
         // Make sure that the pT range is sensible.
         assert(ptrange.getHigherThan() <= ptrange.getLowerThan());
-        double pt = p->getMomentum().perp();
+        double pt = p->getMomentum().vector3().polarRadius();
         stringstream rangess;
         if (ptrange.getHigherThan() < numeric_limits<double>::max()) rangess << ptrange.getHigherThan();
         rangess << " - ";
         if (ptrange.getLowerThan() < numeric_limits<double>::max()) rangess << ptrange.getLowerThan();
         log << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
-        debugline << "with PDG code = " << pdgid << " pT = " << p->getMomentum().perp();
+        debugline << "with PDG code = " << pdgid << " pT = " << p->getMomentum().vector3().polarRadius();
         if (pt < ptrange.getHigherThan() || pt > ptrange.getLowerThan()) { 
           log << Log::DEBUG << "Storing " << debugline << endl;
           _theParticles.push_back(*p);

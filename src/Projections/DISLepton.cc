@@ -1,9 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Cmp.hh"
-
 
 namespace Rivet {
 
@@ -33,9 +31,9 @@ namespace Rivet {
     double emax = 0.0;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       if ( ( _idout == p->getPdgId() || allowAnti && _idout == -p->getPdgId() ) && 
-           p->getMomentum().e() > emax ) {
-        // @todo change this to a correct way of finding the scattered lepton.
-        emax = p->getMomentum().e();
+           p->getMomentum().E() > emax ) {
+        /// @todo change this to a correct way of finding the scattered lepton.
+        emax = p->getMomentum().E();
         _outgoing = *p;
       }
     }

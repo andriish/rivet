@@ -49,12 +49,11 @@
 
 #include "ProtoJet.hpp"
 #include "ConeSplitMerge.hpp"
-#include "Rivet/Tools/Utils.hh"
+#include "Math/MathUtils.hh"
+using namespace Rivet;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-using namespace math;
-//using namespace inline_maths;
 
 /*
  NB: Some attempt at optimizing the code has been made by ordering the object

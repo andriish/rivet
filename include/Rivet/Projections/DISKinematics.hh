@@ -7,7 +7,6 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "Rivet/RivetCLHEP.hh"
 
 namespace Rivet {
 
@@ -22,7 +21,7 @@ namespace Rivet {
     /// run. Also the PDG code of the incoming hadron (\a hadid) must be
     /// specified.
     inline DISKinematics(Beam& beamp, DISLepton& leptonp, const ParticleName& hadid)
-      : _beams(&beamp), _lepton(&leptonp), _idhad(hadid), 
+      : _beams(beamp), _lepton(leptonp), _idhad(hadid), 
         _theQ2(-1.0), _theW2(-1.0), _theX(-1.0) 
     {
       addBeamPair(ANY, hadid);
@@ -56,22 +55,22 @@ namespace Rivet {
     inline double x() const { return _theX; }
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
-    inline const LorentzRotation& boostHCM() const {
+    inline const LorentzTransform& boostHCM() const {
       return _hcm; 
     }
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
-    inline const LorentzRotation& boostBreit() const {
+    inline const LorentzTransform& boostBreit() const {
       return _breit;
     }
 
   private:
 
     /// The Beam projector object defining the incoming beam particles.
-    Beam* _beams;
+    Beam _beams;
 
     /// The projector for the scattered lepton.
-    DISLepton* _lepton;
+    DISLepton _lepton;
 
     /// The PDG id of the incoming hadron.
     long _idhad;
@@ -86,10 +85,10 @@ namespace Rivet {
     double _theX;
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
-    LorentzRotation _hcm;
+    LorentzTransform _hcm;
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
-    LorentzRotation _breit;
+    LorentzTransform _breit;
 
   };
 

@@ -22,7 +22,7 @@
 namespace Rivet {
 
   
-  /// This CDF analysis provides pT and eta ditributions of jets
+  /// This CDF analysis provides pT and eta distributions of jets
   /// in Z +(b) jet production, before and after tagging
   class HepEx0605099 : public Analysis {
 
@@ -30,9 +30,9 @@ namespace Rivet {
 
     /// Default constructor
     /// Max. distance (eta,phi) between vertex vis. momentum and 
-    ///jet to be probed = 0.7
-    /// Tracker geometrical acceptance (eta<2.0)
-    /// Impact Parameter resolution=34e-3mm, including beam spot
+    /// jet to be probed = 0.7
+    /// Tracker geometrical acceptance (eta < 2.0)
+    /// Impact Parameter resolution = 34e-3mm, including beam spot
     /// cut on Decay Length Significance = 7.5
     /// Decay Length Significance resolution (assumed to be 34e-3mm)
     HepEx0605099()
@@ -51,7 +51,7 @@ namespace Rivet {
         .addVetoPairId(14)
         .addVetoPairId(16);
 
-      // Veto muons (PDG code = 13) with pT above 1.0 GeV
+      // Veto muons (PDG code = 13) with \f$ p_T \f$ above 1.0 GeV
       _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
 
       addProjection(_fsproj);
@@ -64,7 +64,7 @@ namespace Rivet {
       addProjection(_svtxproj);
     }
 
-    /// Factory method
+    /// Factory method.
     static Analysis* create() { 
       return new HepEx0605099(); 
     }
@@ -74,9 +74,9 @@ namespace Rivet {
       return "HEPEX0605099";
     }
 
-    ///applying complex quality cuts on tracks to establish displaced vertices
-    ///will be read as function pointer from the SVertex projection constructor
-    static bool applyVtxTrackCuts(SVertex&, ParticleVector&, const HepMC::GenVertex& gpvtx, LorentzVector);
+    /// Applying complex quality cuts on tracks to establish displaced vertices
+    /// will be read as function pointer from the SVertex projection constructor.
+    static bool applyVtxTrackCuts(SVertex&, ParticleVector&, const HepMC::GenVertex& gpvtx, FourMomentum);
 
     void init();
     
@@ -117,11 +117,9 @@ namespace Rivet {
 
     
 
-
-
   private:
 
-    vector<LorentzVector> _jetaxes;
+    vector<FourMomentum> _jetaxes;
     
     /// Hide the assignment operator
     HepEx0605099& operator=(const HepEx0605099&);

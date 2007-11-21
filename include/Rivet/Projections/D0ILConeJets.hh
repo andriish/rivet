@@ -6,8 +6,6 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-
-#include "Rivet/RivetCLHEP.hh"
 #include "Rivet/Tools/D0RunIIcone/HepEntity.h"
 #include "Rivet/Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp"
 
@@ -44,7 +42,7 @@ namespace Rivet {
     /// this constructor will initialise the correct parameter values.
     /// Must specify a FinalState projection which is assumed to live throughout the run.    
     inline D0ILConeJets(FinalState& fsp)
-      : _fsproj(&fsp), _cone_radius(0.7), _min_jet_Et(0.0), 
+      : _fsproj(fsp), _cone_radius(0.7), _min_jet_Et(0.0), 
         _split_ratio(0.5), _far_ratio(0.5), 
         _et_min_ratio(0.5), _kill_duplicate(true), 
         _duplicate_dR(0.005), _duplicate_dPT(0.01), 
@@ -57,7 +55,7 @@ namespace Rivet {
               _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
               _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
     { 
-      addProjection(*_fsproj);
+      addProjection(fsp);
     }
 
         
@@ -70,7 +68,7 @@ namespace Rivet {
 			float duplicateDR, float duplicateDPT, float searchFactor,
 			float pTMinLeadingProtojet, float pTMinSecondProtojet,
 			int mergeMax, float pTMinNomerge)
-      : _fsproj(&fsp), _cone_radius(r), _min_jet_Et(etMin), 
+      : _fsproj(fsp), _cone_radius(r), _min_jet_Et(etMin), 
         _split_ratio(split), _far_ratio(farRatio), 
         _et_min_ratio(etMinRatio), _kill_duplicate(killDuplicate),
         _duplicate_dR(duplicateDR), _duplicate_dPT(duplicateDPT), 
@@ -83,7 +81,7 @@ namespace Rivet {
               _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
               _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
     {  
-      addProjection(*_fsproj);
+      addProjection(fsp);
     }
     
 
@@ -119,7 +117,7 @@ namespace Rivet {
     inline const list<HepEntity>& getJets() const { return _jets; }
 
     /// Get a reference to the lorentzvecjets collection.
-    inline const list<LorentzVector>& getLorentzJets() const {
+    inline const list<FourMomentum>& getLorentzJets() const {
       return _lorentzvecjets; 
     }
 
@@ -136,16 +134,17 @@ namespace Rivet {
     /// The collection of jets.
     list<HepEntity> _jets;
 
-    //Collection of jets converted to tlist of LorentzVector's
-    list<LorentzVector> _lorentzvecjets;
+    /// Collection of jets converted to list of Lorentz vectors
+    list<FourMomentum> _lorentzvecjets;
 
     /// List of the event particles
     list<HepEntity> _particlelist;
     /// List of the event particles (as pointers)
+    /// @todo Why both? Can we eliminate the pointers?
     list<const HepEntity*> _particlepointerlist;
 
     /// The FinalState projection used by this projection.
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
 
     /// @name Cone algorithm parameters

@@ -4,25 +4,12 @@
 
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/RivetCLHEP.hh"
 
 
 // *** Only count hits where SUMPT is different from 0! 
 
 
 namespace Rivet {
-
-  namespace {
-    /// Calculate \f$ p_T^2 \f$ for the provided LorentzVector.
-    inline double pT2(const LorentzVector& lv) {
-      return lv.x()*lv.x() + lv.y()*lv.y();
-    }
-    
-    /// Calculate \f$ p_T \f$ for the provided LorentzVector.
-    inline double pT(const LorentzVector& lv) {
-      return sqrt(pT2(lv));
-    }
-  }
 
   
   /// Project out jets of charged tracks a la CDF.
@@ -35,13 +22,13 @@ namespace Rivet {
     /// throughout the run and should be used to specify the max and min \f$
     /// \eta \f$ values and the min \f$ p_T \f$ (in GeV).
     inline TrackJet(FinalState& fsp)
-      : _fsproj(&fsp)
+      : _fsproj(fsp)
     { 
       addProjection(fsp);
     }
 
     /// Typedef for the tracks (a list so that elements can be consistently removed
-    typedef list<LorentzVector> Tracks;
+    typedef list<FourMomentum> Tracks;
 
 
   public:    
@@ -55,10 +42,10 @@ namespace Rivet {
       }
 
       /// Define a Jet::iterator via a typedef.
-      typedef vector<LorentzVector>::iterator iterator;
+      typedef vector<FourMomentum>::iterator iterator;
 
       /// Define a Jet::const_iterator via a typedef.
-      typedef vector<LorentzVector>::const_iterator const_iterator;
+      typedef vector<FourMomentum>::const_iterator const_iterator;
 
       /// Get a begin iterator over the particles/tracks in this jet.
       inline iterator begin() {
@@ -81,24 +68,24 @@ namespace Rivet {
       }
 
       /// Get the particles (tracks) in this jet.
-      inline vector<LorentzVector>& getParticles() {
+      inline vector<FourMomentum>& getParticles() {
         return _particles;
       }
 
       /// Get the particles (tracks) in this jet (const version).
-      inline const vector<LorentzVector>& getParticles() const {
+      inline const vector<FourMomentum>& getParticles() const {
         return _particles;
       }
 
       /// Set the particles/tracks collection.
-      inline Jet setParticles(vector<LorentzVector> particles) {
+      inline Jet setParticles(vector<FourMomentum> particles) {
         _particles = particles;
         _resetCaches();
         return *this;
       }
 
       /// Add a particle/track to this jet.
-      inline Jet addParticle(LorentzVector particle) {
+      inline Jet addParticle(FourMomentum particle) {
         _particles.push_back(particle);
         _resetCaches();
         return *this;
@@ -118,7 +105,7 @@ namespace Rivet {
           double ptwphi(0.0), ptsum(0.0);
           for (const_iterator p = this->begin(); p != this->end(); ++p) {
             double pt = pT(*p);
-            ptwphi += pt * p->phi();
+            ptwphi += pt * p->vector3().azimuthalAngle();
             ptsum += pt;
           }
           _totalPt = ptsum;
@@ -155,7 +142,7 @@ namespace Rivet {
       }
 
       /// The particle tracks.
-      vector<LorentzVector> _particles;
+      vector<FourMomentum> _particles;
 
       /// Cached value of the \f$ p_T \f$-weighted \f$ \bar{\phi} \f$
       mutable double _ptWeightedPhi;
@@ -197,34 +184,28 @@ namespace Rivet {
   private:
     
     /// The FinalState projection used by this projection.
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
     /// The computed jets
     Jets _jets;
-
-  private:
-    
-    /// Hiding the assignment operator.
-    //TrackJet& operator=(const TrackJet&);
   
   };
 
 
   /// Hide helper functions in an anonymous namespace
-  namespace {
-    /// Sorts Lorentz four-vectors by pT.
-    inline bool compareVecsByPt(const LorentzVector& first, const LorentzVector& second) {
-      return pT2(first) > pT2(second);
-    }
-    
-    /// Sorts Jet objects by pT.
+  namespace {    
+    /// For sorting Jet objects by pT.
     inline bool compareJetsByPt(const TrackJet::Jet& first, const TrackJet::Jet& second) {
       return first.getPtSum() > second.getPtSum();
     }
+
+    /// For sorting Lorentz four-vectors by pT.
+    inline bool compareVecsByPt(const FourMomentum& first, const FourMomentum& second) {
+      return pT2(first) > pT2(second);
+    }
   }
   
-
-  
+ 
 }
 
 #endif

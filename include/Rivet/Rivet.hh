@@ -16,6 +16,11 @@
 #include <limits>
 #include <cassert>
 
+#include "HepMC/GenEvent.h"
+#include "HepMC/GenVertex.h"
+#include "HepMC/GenParticle.h"
+
+
 /// This is the main namespace in which all Rivet classes are defined.
 namespace Rivet {
 
@@ -43,11 +48,12 @@ namespace Rivet {
   using std::setw;
   using std::endl;
 
+  using HepMC::GenEvent;
+  using HepMC::GenParticle;
+  using HepMC::GenVertex;
+
   /// A sensible default maximum value of rapidity for Rivet analyses to use.
   const double MaxRapidity = 100000.0;
-
-  /// A pre-defined value of pi.
-  const double PI = 4*atan(1);
 
   /// Convenient function for streaming out vectors of any streamable object.
   template<typename T>
@@ -61,5 +67,13 @@ namespace Rivet {
   }
 
 }
+
+// Now import some Rivet classes
+#include "Rivet/RivetAIDA.fhh"
+#include "Rivet/Tools/Utils.hh"
+#include "Math/MathUtils.hh"
+#include "Math/Vectors.hh"
+#include "Math/Matrices.hh"
+#include "Math/Units.hh"
 
 #endif

@@ -1,9 +1,8 @@
-// $Id: $
 #ifndef RIVETAIDA_HH 
-#define RIVETAIDA_HH 1
+#define RIVETAIDA_HH 
 
 /// @author Andy Buckley
-/// @date   2007-01-23
+/// @date   2007-11-08
 
 // Include files
 #include "Rivet/Rivet.hh"
@@ -42,6 +41,14 @@ namespace Rivet {
       histo->scale(norm/area);
     }
   }
+
+  using AIDA::IHistogram1D;
+  using AIDA::IDataPointSet;
+  using AIDA::IDataPoint;
+  using AIDA::IMeasurement;
+  using AIDA::ITree;
+  using AIDA::IAxis;
+  using AIDA::IProfile1D;
 
 }
 

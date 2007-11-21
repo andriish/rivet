@@ -4,8 +4,6 @@
 
 #include "Rivet/Projection.hh"
 #include "Rivet/Event.hh"
-#include "Rivet/RivetCLHEP.hh"
-
 
 namespace Rivet {
 
@@ -35,6 +33,5 @@ namespace Rivet {
   };
   
 }
-
 
 #endif
