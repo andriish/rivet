@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_HepEx9506012_HH
-#define RIVET_HepEx9506012_HH
+#ifndef RIVET_S3167097_HH
+#define RIVET_S3167097_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
@@ -11,12 +11,12 @@
 namespace Rivet {
 
   /// This analysis measures energy flow in DIS?
-  class HepEx9506012 : public Analysis {
+  class S3167097 : public Analysis {
 
   public:
 
     /// The default constructor.
-    inline HepEx9506012()
+    inline S3167097()
       : _fsproj(), _beamsproj(), 
         _leptonproj(_beamsproj, _fsproj, ELECTRON, POSITRON), 
         _diskinproj(_beamsproj, _leptonproj, PROTON),
@@ -36,11 +36,11 @@ namespace Rivet {
   public:
 
     /// Factory method
-    static Analysis* create() { return new HepEx9506012(); }
+    static Analysis* create() { return new S3167097(); }
 
     /// Get the name of this analysis.
     inline string getName() const {
-      return "HepEx9506012";
+      return "S3167097";
     }
     
     /// Initialize this analysis object.
@@ -96,7 +96,7 @@ namespace Rivet {
   private:
 
     /// Hidden assignment operator.
-    HepEx9506012& operator=(const HepEx9506012&);
+    S3167097& operator=(const S3167097&);
 
   };
 

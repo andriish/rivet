@@ -1,15 +1,15 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
-#include "Rivet/Analyses/HepEx9506012.hh"
+#include "Rivet/Analyses/S3167097.hh"
 #include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
 
-  const double HepEx9506012::_xmin = -6.0;
-  const double HepEx9506012::_xmax = 6.0;
+  const double S3167097::_xmin = -6.0;
+  const double S3167097::_xmax = 6.0;
 
 
-  void HepEx9506012::init() {
+  void S3167097::init() {
     _hEtFlow = vector<AIDA::IHistogram1D *>(_nbin);
     _hEtFlowStat = vector<AIDA::IHistogram1D *>(_nbin);
     _nev = vector<double>(_nbin);
@@ -26,7 +26,7 @@ namespace Rivet {
   }
   
 
-  int HepEx9506012::getbin(const DISKinematics& dk) {
+  int S3167097::getbin(const DISKinematics& dk) {
     const double GeV2 = GeV*GeV;
 
     if ( dk.Q2() > 5.0*GeV2 && dk.Q2() <= 10.0*GeV2 ) {
@@ -57,7 +57,7 @@ namespace Rivet {
   }
 
 
-  void HepEx9506012::analyze(const Event& event) {
+  void S3167097::analyze(const Event& event) {
     const FinalStateHCM& fs = event.applyProjection(_fshcmproj);
     const DISKinematics& dk = event.applyProjection(_diskinproj);
     const CentralEtHCM y1 = event.applyProjection(_y1hcmproj);
@@ -82,7 +82,7 @@ namespace Rivet {
   }
 
 
-  void HepEx9506012::finalize() {
+  void S3167097::finalize() {
     for ( int ibin = 0; ibin < _nbin; ++ibin ) {
       _hEtFlow[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
       _hEtFlowStat[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
@@ -90,13 +90,13 @@ namespace Rivet {
     /// @todo Automate this sort of thing so that the analysis code is more readable.
     /// @todo Eliminate AIDA in favour of a histo interface that is "more C++", less factory-obsessive.
     AIDA::IHistogram1D* h = 0;
-    h = histogramFactory().divide("/HepEx9506012/21", *_hAvEt, *_hN);
+    h = histogramFactory().divide("/S3167097/21", *_hAvEt, *_hN);
     h->setTitle(_hAvEt->title());
     histogramFactory().destroy(_hAvEt);
-    h = histogramFactory().divide("/HepEx9506012/22", *_hAvX, *_hN);
+    h = histogramFactory().divide("/S3167097/22", *_hAvX, *_hN);
     h->setTitle(_hAvX->title());
     histogramFactory().destroy(_hAvX);
-    h = histogramFactory().divide("/HepEx9506012/23", *_hAvQ2, *_hN);
+    h = histogramFactory().divide("/S3167097/23", *_hAvQ2, *_hN);
     h->setTitle(_hAvQ2->title());
     histogramFactory().destroy(_hAvQ2);
   }

@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Analyses/PL273B181.hh"
+#include "Rivet/Analyses/S2435284.hh"
 #include "HepPDT/ParticleID.hh"
 
 using namespace AIDA;
@@ -9,7 +9,7 @@ using namespace HepMC;
 
 namespace Rivet {
 
-  void PL273B181::init() {
+  void S2435284::init() {
     // Book histograms
     // histChTot_       = bookHistogram1D("TotalChMult","Total charged multiplicity", 25, 1.0, 51.0);
     histChTot_       = bookHistogram1D(1, 1, 1, "Total charged multiplicity");
@@ -21,7 +21,7 @@ namespace Rivet {
 
 
   // Do the analysis
-  void PL273B181::analyze(const Event & event) {
+  void S2435284::analyze(const Event & event) {
     Log& log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
 
@@ -48,7 +48,7 @@ namespace Rivet {
 
 
   // Finalize
-  void PL273B181::finalize() { 
+  void S2435284::finalize() { 
     // Normalize the histogram areas to 1
     normalize(histChTot_);
     normalize(histSphericity_);

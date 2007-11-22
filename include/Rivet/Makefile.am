@@ -26,15 +26,15 @@ nobase_pkginclude_HEADERS += \
   Analyses/TestAnalysis.hh
 nobase_dist_noinst_HEADERS += \
   Analyses/ExampleTree.hh     \
-  Analyses/HepEx9506012.hh    \
+  Analyses/S3167097.hh    \
   Analyses/HepEx0107012.hh    \
-  Analyses/HepEx0112029.hh    \
-  Analyses/HepEx0409040.hh    \
-  Analyses/HepEx0505013.hh    \
-  Analyses/HepEx0701051.hh    \
-  Analyses/PL273B181.hh       \
-  Analyses/PRD65092002.hh     \
-  Analyses/ZPhys73C11.hh      \
+  Analyses/S4815815.hh    \
+  Analyses/S5992206.hh    \
+  Analyses/S6217184.hh    \
+  Analyses/S7057202.hh    \
+  Analyses/S2435284.hh       \
+  Analyses/S4751469.hh     \
+  Analyses/S3430090.hh      \
   Analyses/HepEx0605099.hh    
 
 ## Projections

@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_PRD65092002_HH
-#define RIVET_PRD65092002_HH
+#ifndef RIVET_S4751469_HH
+#define RIVET_S4751469_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/TrackJet.hh"
@@ -9,13 +9,13 @@
 
 namespace Rivet {
 
-  class PRD65092002 : public Analysis {
+  class S4751469 : public Analysis {
 
   public:
 
     /// Default constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ and
     /// \f$ p_T > 0.5 \f$ GeV.
-    inline PRD65092002()
+    inline S4751469()
       : _fsproj(-1.0, 1.0, 0.5), _trackjetproj(_fsproj) //, 
         //_dpsToward(0), _dpsAway(0), _dpsTrans(0), _numBins(50)
     { 
@@ -28,11 +28,11 @@ namespace Rivet {
   public:
 
     /// Factory method
-    static Analysis* create() { return new PRD65092002(); }
+    static Analysis* create() { return new S4751469(); }
 
     /// Return the name of the analysis.
     inline string getName() const {
-      return "PRD65092002";
+      return "S4751469";
     }
 
   public:
@@ -69,7 +69,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    PRD65092002& operator=(const PRD65092002&);
+    S4751469& operator=(const S4751469&);
 
   };
 

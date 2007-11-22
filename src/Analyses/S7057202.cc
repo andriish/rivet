@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-#include "Rivet/Analyses/HepEx0701051.hh"
+#include "Rivet/Analyses/S7057202.hh"
 
 #include "Rivet/RivetAIDA.hh"
 
@@ -10,11 +10,11 @@ using namespace AIDA;
 
 namespace Rivet{
   
-  const double HepEx0701051::_ktRParam = 0.7;
-  const double HepEx0701051::_jetMinPT = 54.0;
+  const double S7057202::_ktRParam = 0.7;
+  const double S7057202::_jetMinPT = 54.0;
   
   // Book histos and set counters for number of events passed in each one
-  void HepEx0701051::init() {
+  void S7057202::init() {
 
     _eventsTried = 0.0;
     _histos[0.1] = bookHistogram1D(1,1,1,"eta &lt; 0.1");
@@ -32,7 +32,7 @@ namespace Rivet{
   
   /////////////////////////////////////////////////////////////////////////////
   
-  void HepEx0701051::analyze(const Event& event) {
+  void S7057202::analyze(const Event& event) {
     
     event.applyProjection(_ktproj);
     
@@ -76,7 +76,7 @@ namespace Rivet{
   
   /////////////////////////////////////////////////////////////////////////////
   
-  void HepEx0701051::finalize() {
+  void S7057202::finalize() {
     
     //normalise histograms to cross section
     

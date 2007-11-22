@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_HepEx0112029_HH
-#define RIVET_HepEx0112029_HH
+#ifndef RIVET_S4815815_HH
+#define RIVET_S4815815_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/KtJets.hh"
@@ -12,12 +12,12 @@ namespace Rivet {
   /// dijet photoproduction paper which was used in the ZEUS Jets PDF fit.  
   ///
   /// @author Jon Butterworth
-  class HepEx0112029 : public Analysis {
+  class S4815815 : public Analysis {
 
   public:
 
     /// Default constructor.
-    inline HepEx0112029()
+    inline S4815815()
       : _fsproj(), _ktjetsproj(_fsproj) 
     { 
       setBeams(POSITRON, PROTON);
@@ -26,11 +26,11 @@ namespace Rivet {
     }
 
     /// Factory method
-    static Analysis* create() { return new HepEx0112029(); }
+    static Analysis* create() { return new S4815815(); }
 
     /// Get the name of this analysis.
     inline string getName() const {
-      return "HepEx0112029";
+      return "S4815815";
     }
 
   public:
@@ -52,7 +52,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    HepEx0112029& operator=(const HepEx0112029&);
+    S4815815& operator=(const S4815815&);
 
     /// @name Histograms
     //@{

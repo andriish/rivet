@@ -17,12 +17,12 @@ namespace Rivet {
 
 
   /// Implementation of DELPHI event shape paper
-  class ZPhys73C11 : public Analysis {
+  class S3430090 : public Analysis {
 
   public:
 
     /// Default constructor.
-    inline ZPhys73C11()
+    inline S3430090()
       : _cnfsproj(), _cfsproj(_cnfsproj),
         _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
         _cthrustproj(_cfsproj), _cnthrustproj(_cnfsproj), 
@@ -46,12 +46,12 @@ namespace Rivet {
 
     /// Factory method.
     static Analysis* create() { 
-      return new ZPhys73C11(); 
+      return new S3430090(); 
     }
 
     /// Get the name of this analysis.
     inline string getName() const {
-      return "ZPhys73C11";
+      return "S3430090";
     }
 
     virtual void init();
@@ -64,7 +64,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    ZPhys73C11& operator=(const ZPhys73C11&);
+    S3430090& operator=(const S3430090&);
 
 
   private:

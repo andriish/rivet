@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_PL273B181_HH
-#define RIVET_PL273B181_HH
+#ifndef RIVET_S2435284_HH
+#define RIVET_S2435284_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
@@ -10,12 +10,12 @@
 namespace Rivet {
 
   /// This analysis just measures the charged multiplicity.
-  class PL273B181 : public Analysis {
+  class S2435284 : public Analysis {
 
   public:
 
     /// Default constructor.
-    inline PL273B181()
+    inline S2435284()
       : _multproj(_fsproj)
     { 
       setBeams(ELECTRON, POSITRON); 
@@ -27,11 +27,11 @@ namespace Rivet {
 
 
     /// Factory method
-    static Analysis* create() { return new PL273B181(); }
+    static Analysis* create() { return new S2435284(); }
 
     /// Return the name of this analysis.
     inline string getName() const {
-      return "PL273B181";
+      return "S2435284";
     }
 
     virtual void init();
@@ -52,7 +52,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    PL273B181& operator=(const PL273B181&);
+    S2435284& operator=(const S2435284&);
 
     /// @name Histograms
     //@{

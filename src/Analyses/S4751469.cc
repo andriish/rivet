@@ -6,7 +6,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/PRD65092002.hh"
+#include "Rivet/Analyses/S4751469.hh"
 using namespace Rivet;
 
 #include "Rivet/RivetAIDA.hh"
@@ -20,7 +20,7 @@ using namespace HepMC;
 
 
 // Book histograms
-void PRD65092002::init() {
+void S4751469::init() {
 
   _dataToward = bookProfile1D(1, 1, 1, "pT sum toward total");
   _dataTrans = bookProfile1D(1, 1, 2, "pT sum transverse total");
@@ -30,7 +30,7 @@ void PRD65092002::init() {
 
 
 // Do the analysis
-void PRD65092002::analyze(const Event& event) {
+void S4751469::analyze(const Event& event) {
   Log log = getLog();
 
   // Analyse, with pT > 0.5 GeV AND |eta| < 1
@@ -90,6 +90,6 @@ void PRD65092002::analyze(const Event& event) {
 
 
 // Create the profile histograms
-void PRD65092002::finalize() {
+void S4751469::finalize() {
 
 }

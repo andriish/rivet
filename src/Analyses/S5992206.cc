@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/HepEx0409040.hh"
+#include "Rivet/Analyses/S5992206.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "HepPDT/ParticleID.hh"
 //using namespace HepMC;
@@ -10,7 +10,7 @@ namespace Rivet {
 
 
   // Book histograms
-  void HepEx0409040::init() {
+  void S5992206::init() {
     // Use histogram auto-booking
     _histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1, "Jet Jet azimuthal angle, pTmax=75..100");
     _histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1, "Jet Jet azimuthal angle, pTmax=100..130");
@@ -20,7 +20,7 @@ namespace Rivet {
 
 
   // Do the analysis
-  void HepEx0409040::analyze(const Event & event) {
+  void S5992206::analyze(const Event & event) {
     Log& log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
 
@@ -90,7 +90,7 @@ namespace Rivet {
 
 
   // Finalize
-  void HepEx0409040::finalize() { 
+  void S5992206::finalize() { 
     Log& log = getLog();
 
     // Normalize histograms to unit area

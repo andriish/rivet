@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/HepEx0112029.hh"
+#include "Rivet/Analyses/S4815815.hh"
 using namespace Rivet;
 
 #include "Rivet/RivetAIDA.hh"
@@ -14,14 +14,14 @@ using namespace HepMC;
 
 
 // Book histograms
-void HepEx0112029::init() {
+void S4815815::init() {
   /// @todo This doesn't seem to correspond to the plots in the paper (SPIRES 4730372)
   _histJetEt1 = bookHistogram1D("JetET1", "Jet transverse energy", 11, 14.0, 75.0);
 }
 
 
 // Do the analysis
-void HepEx0112029::analyze(const Event& event) {
+void S4815815::analyze(const Event& event) {
   Log& log = getLog();
   log << Log::DEBUG << "Starting analyzing" << endl;
 
@@ -42,5 +42,5 @@ void HepEx0112029::analyze(const Event& event) {
 
 
 // Finalize
-void HepEx0112029::finalize() 
+void S4815815::finalize() 
 { }

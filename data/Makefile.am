@@ -1,13 +1,13 @@
 dist_pkgdata_DATA = \
-  HepEx0112029.aida HepEx0112029.hep.xml \
-  HepEx0409040.aida HepEx0409040.hep.xml \
-  HepEx0505013.aida HepEx0505013.hep.xml \
-  HepEx0701051.aida HepEx0701051.hep.xml \
-  HepEx9506012.aida HepEx9506012.hep.xml \
-  EurPhys40C287.aida EurPhys40C287.hep.xml \
-  PL273B181.aida PL273B181.hep.xml \
-  PRD65092002.aida PRD65092002.hep.xml \
-  ZPhys73C11.aida ZPhys73C11.hep.xml
+  S4815815.aida S4815815.hep.xml \
+  S5992206.aida S5992206.hep.xml \
+  S6217184.aida S6217184.hep.xml \
+  S7057202.aida S7057202.hep.xml \
+  S3167097.aida S3167097.hep.xml \
+  S6132243.aida S6132243.hep.xml \
+  S2435284.aida S2435284.hep.xml \
+  S4751469.aida S4751469.hep.xml \
+  S3430090.aida S3430090.hep.xml
 
 dist_pkgdata_DATA += \
   FPythiaLEP10.hepmc

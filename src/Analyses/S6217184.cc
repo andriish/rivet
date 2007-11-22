@@ -1,13 +1,13 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/HepEx0505013.hh"
+#include "Rivet/Analyses/S6217184.hh"
 #include "Rivet/RivetAIDA.hh"
 
 
 namespace Rivet {
   
   // Book histograms
-  void HepEx0505013::init() {
+  void S6217184::init() {
 
     string hist_title[18][2];
     
@@ -30,7 +30,7 @@ namespace Rivet {
   
   
   // Do the analysis
-  void HepEx0505013::analyze(const Event& event) {
+  void S6217184::analyze(const Event& event) {
     Log log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
     
@@ -121,7 +121,7 @@ namespace Rivet {
   
   
   // Finalize
-  void HepEx0505013::finalize() { 
+  void S6217184::finalize() { 
     
   }
   

@@ -3,15 +3,15 @@ lib_LTLIBRARIES = libRivetAnalysisStd.la
 libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     TestAnalysis.cc \
     ExampleTree.cc  \
-    HepEx9506012.cc \
+    S3167097.cc \
     HepEx0107012.cc \
-    HepEx0112029.cc \
-    HepEx0409040.cc \
-    HepEx0505013.cc \
-    HepEx0701051.cc \
-    PL273B181.cc    \
-    PRD65092002.cc  \
-    ZPhys73C11.cc   \
+    S4815815.cc \
+    S5992206.cc \
+    S6217184.cc \
+    S7057202.cc \
+    S2435284.cc    \
+    S4751469.cc  \
+    S3430090.cc   \
     HepEx0605099.cc 
 #    MyAnalysis.cc	
 

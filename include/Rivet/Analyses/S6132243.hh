@@ -10,12 +10,12 @@
 namespace Rivet {
 
 //   /// This class...
-//   class PL273B181 : public Analysis {
+//   class S2435284 : public Analysis {
 
 //   public:
 
 //     /// Default constructor.
-//     inline PL273B181()
+//     inline S2435284()
 //       : mult(fsproj), spher(fsproj) 
 //     { 
 //       setBeams(ELECTRON, POSITRON); 
@@ -29,9 +29,9 @@ namespace Rivet {
   //    /// Factory method
   //    static Analysis* create() { return new TestAnalysis(); }
 
-//     /// The name of this analysis is "PL273B181"
+//     /// The name of this analysis is "S2435284"
 //     inline string getName() const {
-//       return "PL273B181";
+//       return "S2435284";
 //     }
 
 //     virtual void init();
@@ -55,7 +55,7 @@ namespace Rivet {
 //   private:
 
 //     /// Hide the assignment operator
-//     PL273B181 & operator=(const PL273B181 &);
+//     S2435284 & operator=(const S2435284 &);
 
 //     /// @name Histograms
 //     //@{

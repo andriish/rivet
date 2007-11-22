@@ -4,16 +4,16 @@
 
 // Concrete analyses
 #include "Rivet/Analyses/TestAnalysis.hh"
-////#include "Rivet/Analyses/EurPhys40C287.hh"
+////#include "Rivet/Analyses/S6132243.hh"
 #include "Rivet/Analyses/ExampleTree.hh"
-//#include "Rivet/Analyses/HepEx0112029.hh"
-#include "Rivet/Analyses/HepEx0409040.hh"
-#include "Rivet/Analyses/HepEx0505013.hh"
-//#include "Rivet/Analyses/HepEx9506012.hh"
-#include "Rivet/Analyses/HepEx0701051.hh"
-#include "Rivet/Analyses/PL273B181.hh"
-#include "Rivet/Analyses/PRD65092002.hh"
-#include "Rivet/Analyses/ZPhys73C11.hh"
+//#include "Rivet/Analyses/S4815815.hh"
+#include "Rivet/Analyses/S5992206.hh"
+#include "Rivet/Analyses/S6217184.hh"
+//#include "Rivet/Analyses/S3167097.hh"
+#include "Rivet/Analyses/S7057202.hh"
+#include "Rivet/Analyses/S2435284.hh"
+#include "Rivet/Analyses/S4751469.hh"
+#include "Rivet/Analyses/S3430090.hh"
 #include "Rivet/Analyses/HepEx0605099.hh"
 //#include "Rivet/Analyses/MyAnalysis.hh"
 
@@ -27,16 +27,16 @@ extern "C" {
   AnalysisBuilders getAnalysisBuilders() {
     AnalysisBuilders fns;
     fns["TEST"] = Rivet::TestAnalysis::create;
-    ////fns["EURPHYS40C287"] = Rivet::EurPhys40C287::create;
+    ////fns["EURPHYS40C287"] = Rivet::S6132243::create;
     fns["EXAMPLETREE"] = Rivet::ExampleTree::create;
-    //fns["HEPEX0112029"] = Rivet::HepEx0112029::create;
-    fns["HEPEX0409040"] = Rivet::HepEx0409040::create;
-    fns["HEPEX0505013"] = Rivet::HepEx0505013::create;
-    //fns["HEPEX9506012"] = Rivet::HepEx9506012::create;
-    fns["HEPEX0701051"] = Rivet::HepEx0701051::create;
-    fns["PL273B181"] = Rivet::PL273B181::create;
-    fns["PRD65092002"] = Rivet::PRD65092002::create;
-    fns["ZPHYS73C11"] = Rivet::ZPhys73C11::create;
+    //fns["HEPEX0112029"] = Rivet::S4815815::create;
+    fns["HEPEX0409040"] = Rivet::S5992206::create;
+    fns["HEPEX0505013"] = Rivet::S6217184::create;
+    //fns["HEPEX9506012"] = Rivet::S3167097::create;
+    fns["HEPEX0701051"] = Rivet::S7057202::create;
+    fns["S2435284"] = Rivet::S2435284::create;
+    fns["S4751469"] = Rivet::S4751469::create;
+    fns["ZPHYS73C11"] = Rivet::S3430090::create;
     fns["HEPEX0605099"] = Rivet::HepEx0605099::create;
     //fns["MYANALYSIS"] = Rivet::MyAnalysis::create;
     return fns;
