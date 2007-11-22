@@ -1,8 +1,8 @@
 #ifndef MATH_MATRIXN
 #define MATH_MATRIXN
 
-#include "Math/StdHeader.hh"
-#include "Math/Vectors.hh"
+#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/Vectors.hh"
 
 //class Matrix3;
 template <size_t N>

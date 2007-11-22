@@ -1,8 +1,8 @@
 #ifndef MATH_VECTOR3
 #define MATH_VECTOR3
 
-#include "Math/StdHeader.hh"
-#include "Math/VectorN.hh"
+#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/VectorN.hh"
 
 class Vector3;
 typedef Vector3 ThreeVector;

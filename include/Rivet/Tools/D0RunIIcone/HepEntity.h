@@ -1,7 +1,7 @@
 #ifndef  D0RunIIconeJets_HepEntity_class
 #define  D0RunIIconeJets_HepEntity_class
 
-#include "Math/MathUtils.hh"
+#include "Rivet/Math/MathUtils.hh"
 using namespace Rivet;
 
 //Author: Lars Sonnenschein 28/Mar/2007

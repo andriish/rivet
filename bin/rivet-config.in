@@ -1,7 +1,9 @@
 #! /usr/bin/env bash
 
-# This variable needs to exist
+# These variables need to exist
 prefix=@prefix@
+exec_prefix=@exec_prefix@
+
 
 tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
 if test $# -eq 0 || test -n "$tmp"; then

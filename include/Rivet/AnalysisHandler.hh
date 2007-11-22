@@ -54,7 +54,6 @@ namespace Rivet {
 
   public:
 
-
     /// Add an analysis to the run list using its name. The actual Analysis 
     /// to be used will be obtained via AnalysisHandler::getAnalysis(string).
     /// If no matching analysis is found, no analysis is added (i.e. the
@@ -93,33 +92,32 @@ namespace Rivet {
 
 
     /// The AIDA analysis factory.
-    inline AIDA::IAnalysisFactory& analysisFactory() {
+    AIDA::IAnalysisFactory& analysisFactory() {
       return *_theAnalysisFactory;
     }
     
 
     /// The AIDA tree object.
-    inline AIDA::ITree& tree() {
+    AIDA::ITree& tree() {
       return *_theTree;
     }
-    
+
     
     /// The AIDA histogram factory.
-    inline AIDA::IHistogramFactory& histogramFactory() {
+    AIDA::IHistogramFactory& histogramFactory() {
       return *_theHistogramFactory;
     }
-    
+
 
     /// The AIDA histogram factory.
-    inline AIDA::IDataPointSetFactory& datapointsetFactory() {
+    AIDA::IDataPointSetFactory& datapointsetFactory() {
       return *_theDataPointSetFactory;
     }
+
     
-    const inline AnalysisHandler & setCrossSection(const double & xs){
-      for(set<Analysis*>::iterator anIt = _analyses.begin();
-	  anIt != _analyses.end();
-	  ++anIt){
-	(*anIt)->setCrossSection(xs);
+    AnalysisHandler& setCrossSection(const double & xs) {
+      for (set<Analysis*>::iterator anIt = _analyses.begin(); anIt != _analyses.end(); ++anIt) {
+        (*anIt)->setCrossSection(xs);
       }
       return *this;
     }

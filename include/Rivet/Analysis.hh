@@ -42,7 +42,7 @@ namespace Rivet {
     //@{
 
     /// The default constructor.
-    inline Analysis() 
+    Analysis() 
       : _theHandler(0), _madeHistoDir(false)
     { 
       _gotCrossSection = false;
@@ -50,15 +50,8 @@ namespace Rivet {
       setNeedsCrossSection(false);
     }
 
-//     /// Copy constructor from a pointer.
-//     inline Analysis(const Analysis* other) 
-//       : _theHandler(other->_theHandler), _madeHistoDir(other->_madeHistoDir)
-//     { 
-//       setBeams(ANY, ANY);
-//     }
-
     /// The destructor.
-    inline virtual ~Analysis() { }
+    virtual ~Analysis() { }
     //@}
 
   public:
@@ -88,12 +81,12 @@ namespace Rivet {
     virtual const Cuts getCuts() const;
 
     /// Return the pair of incoming beams required by this analysis.
-    inline virtual const BeamPair& getBeams() const {
+    virtual const BeamPair& getBeams() const {
       return _beams;
     }
 
     /// Is this analysis compatible with the named quantity set at the supplied value?
-    inline virtual const bool isCompatible(const string& quantity, const double value) const {
+    virtual const bool isCompatible(const string& quantity, const double value) const {
       Cuts::const_iterator cut = getCuts().find(quantity);
       if (cut == getCuts().end()) return true;
       if (value < cut->second.getHigherThan()) return false;
@@ -102,7 +95,7 @@ namespace Rivet {
     }
 
     /// Is this analysis able to run on the supplied pair of beams?
-    inline virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
+    virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
       BeamPair beams(beam1, beam2);
       return compatible(beams, getBeams());
       /// @todo Need to also check internal consistency of the analysis' 
@@ -110,19 +103,19 @@ namespace Rivet {
     }
 
     /// Is this analysis able to run on the BeamPair @a beams ?
-    inline virtual const bool isCompatible(const BeamPair& beams) const {
+    virtual const bool isCompatible(const BeamPair& beams) const {
       return compatible(beams, getBeams());
       /// @todo Need to also check internal consistency of the analysis' 
       /// beam requirements with those of the projections it uses.
     }
 
     /// Access the controlling AnalysisHandler object.
-    inline AnalysisHandler& getHandler() const {
+    AnalysisHandler& getHandler() const {
       return *_theHandler;
     }
 
     /// Get the name of the analysis.
-    inline virtual string getName() const {
+    virtual string getName() const {
       return "BaseAnalysis";
       //return typeid(*this).name(); (returns mangled RTTI name by default)
     }
@@ -133,24 +126,23 @@ namespace Rivet {
     /// pointer will be set to zero.
     void normalize(AIDA::IHistogram1D*& histo, const double norm=1.0);
 
-    /// set the cross section from the generator
-    const inline Analysis & setCrossSection(const double &xs){
+    /// Set the cross section from the generator
+    Analysis& setCrossSection(const double& xs) {
       _crossSection = xs;
       _gotCrossSection = true;
       return *this;
     }
 
-    inline bool needsCrossSection()const{
+    bool needsCrossSection() const {
       return _needsCrossSection;
     }
     
   protected:
 
-    const inline double & crossSection(){
-      if(!_gotCrossSection){
-	string errMsg = "You did not set the cross section for the analysis "+
-	  getName();
-	throw runtime_error(errMsg);
+    const double& crossSection() {
+      if (!_gotCrossSection) {
+        string errMsg = "You did not set the cross section for the analysis " + getName();
+        throw runtime_error(errMsg);
       }
       return _crossSection;
     }
@@ -182,7 +174,7 @@ namespace Rivet {
     AIDA::IDataPointSetFactory& datapointsetFactory();
 
     /// Get the canonical AIDA histogram path for this analysis.
-    inline const string getHistoDir() const {
+    const string getHistoDir() const {
         return "/" + getName();
     }
     //@}
@@ -263,33 +255,33 @@ namespace Rivet {
   private:
 
     /// Make the histogram directory.
-    inline void makeHistoDir();
+    void makeHistoDir();
 
 
   protected:
 
     /// Set the colliding beam pair.
-    inline Analysis& setBeams(const ParticleName& beam1, const ParticleName& beam2) {
+    Analysis& setBeams(const ParticleName& beam1, const ParticleName& beam2) {
       _beams.first = beam1;
       _beams.second = beam2;
       return *this;
     }
 
     /// Add a cut
-    inline Analysis& addCut(const string& quantity, const Comparison& comparison, const double value) {
+    Analysis& addCut(const string& quantity, const Comparison& comparison, const double value) {
       _cuts.addCut(quantity, comparison, value);
       return *this;
     }
 
     /// Add a projection dependency to the projection list.
-    inline Analysis& addProjection(Projection& proj) {
+    Analysis& addProjection(Projection& proj) {
       _projections.insert(&proj);
       getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
       getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
       return *this;
     }
 
-    inline Analysis & setNeedsCrossSection(bool needed){
+    Analysis & setNeedsCrossSection(bool needed){
       _needsCrossSection = needed;
       return *this;
     }

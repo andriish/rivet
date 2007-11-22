@@ -1,10 +1,10 @@
 #ifndef MATH_LORENTZTRANS
 #define MATH_LORENTZTRANS
 
-#include "Math/StdHeader.hh"
-#include "Math/MatrixN.hh"
-#include "Math/Matrix3.hh"
-#include "Math/Vector4.hh"
+#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MatrixN.hh"
+#include "Rivet/Math/Matrix3.hh"
+#include "Rivet/Math/Vector4.hh"
 
 class LorentzTransform;
 LorentzTransform inverse(const LorentzTransform& lt);

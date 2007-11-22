@@ -67,9 +67,11 @@ namespace Rivet {
   const string getInstalledLibPath();
 
 }
+#endif
 
 
-
+#ifndef CEDARSTD
+#define CEDARSTD
 namespace std {
 
   template <typename T>
@@ -97,5 +99,4 @@ namespace std {
   }
 
 }
-
 #endif

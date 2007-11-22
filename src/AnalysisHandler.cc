@@ -16,7 +16,7 @@ namespace Rivet {
   }
 
 
-  AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) { 
+  AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) {
     Analysis* analysis = AnalysisLoader::getAnalysis(analysisname);
     if (analysis) { // < Check for null analysis.
       analysis->_theHandler = this;
@@ -50,10 +50,12 @@ namespace Rivet {
     const string tmpdir = "/RivetNormalizeTmp";
     tree.mkdir(tmpdir);
     for (vector<string>::const_iterator path = paths.begin(); path != paths.end(); ++path) {
-
+      
       IManagedObject* hobj = tree.find(*path);
       if (hobj) {
         IHistogram1D* histo = dynamic_cast<IHistogram1D*>(hobj);
+        IProfile1D* prof = dynamic_cast<IProfile1D*>(hobj);
+        // If it's a normal histo:
         if (histo) {
           tree.mv(*path, tmpdir);
           const size_t lastslash = path->find_last_of("/");
@@ -66,25 +68,23 @@ namespace Rivet {
           }
           tree.rm(tmppath);
         }
+        // If it's a profile histo:
+        else if (prof) {
+          tree.mv(*path, tmpdir);
+          const size_t lastslash = path->find_last_of("/");
+          const string basename = path->substr(lastslash+1, path->length() - (lastslash+1));
+          const string tmppath = tmpdir + "/" + basename;
+          IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
+          if (tmpprof) {
+            getLog() << Log::DEBUG << "Temp profile histo " << tmppath << " exists" << endl;
+            datapointsetFactory().create(*path, *tmpprof);
+          }
+          tree.rm(tmppath);
+        }
+
       }
       
-      IManagedObject* pobj = tree.find(*path);
-      if (pobj) {
-	IProfile1D* prof = dynamic_cast<IProfile1D*>(pobj);
-	if (prof) {
-	  tree.mv(*path, tmpdir);
-	  const size_t lastslash = path->find_last_of("/");
-	  const string basename = path->substr(lastslash+1, path->length() - (lastslash+1));
-	  const string tmppath = tmpdir + "/" + basename;
-	  IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
-	  if (tmpprof) {
-	    getLog() << Log::DEBUG << "Temp profile histo " << tmppath << " exists" << endl;
-	    datapointsetFactory().create(*path, *tmpprof);
-	  }
-	  tree.rm(tmppath);
-	}
-      }
-       
+      
     }
     tree.rmdir(tmpdir);
   }
@@ -116,10 +116,12 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::analyze(const GenEvent & geneve) {
+  void AnalysisHandler::analyze(const GenEvent& geneve) {
     Event event(geneve);
     for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      getLog() << Log::DEBUG << "About to run analysis " << (*a)->getName() << endl;
       (*a)->analyze(event);
+      getLog() << Log::DEBUG << "Finished running analysis " << (*a)->getName() << endl;
     }
   }
 

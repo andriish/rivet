@@ -20,10 +20,6 @@ namespace Rivet {
     Log& log = getLog();
     log << Log::DEBUG << "Calculating sphericity with r = " << _regparam << endl;
 
-    // Reset parameters
-    _lambdas.clear();
-    _sphAxes.clear();
-
     // Get final state.
     const FinalState& fs = e.applyProjection(_fsproj);
     const ParticleVector prts = fs.particles();
@@ -88,14 +84,22 @@ namespace Rivet {
     // Diagonalize momentum matrix.
     const EigenSystem<3> eigen3 = diagonalize(mMom);
     log << Log::DEBUG << "Diag momentum tensor = " << endl << eigen3.getDiagMatrix() << endl;
-
-    // Put the eigenvalues in the correct order.
-    const vector<double> lambdas = eigen3.getEigenValues();
-    const vector< Vector<3> > vecs = eigen3.getEigenVectors();
+    
+    // Reset and set eigenvalue/vector parameters.
+    _lambdas.clear();
+    _sphAxes.clear();
+    const EigenSystem<3>::EigenPairs epairs = eigen3.getEigenPairs();
+    assert(epairs.size() == 3);
     for (size_t i = 0; i < 3; ++i) {
-      _lambdas.push_back(lambdas[i]);
-      _sphAxes.push_back(vecs[i]);
+      _lambdas.push_back(epairs[i].first);
+      log << Log::DEBUG << "5b" << endl;
+      _sphAxes.push_back(Vector3(epairs[i].second));
     }
+    log << Log::DEBUG << 1 << endl;
+    const vector<double> evals = eigen3.getEigenValues();
+    log << Log::DEBUG << 2 << endl;
+    const vector< Vector<3> > evecs = eigen3.getEigenVectors();
+    log << Log::DEBUG << 6 << endl;
 
     // Debug output.
     log << Log::DEBUG << "Sum of lambdas = " << lambda1() + lambda2() + lambda3() << endl;

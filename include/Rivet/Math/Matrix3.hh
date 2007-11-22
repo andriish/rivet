@@ -1,9 +1,9 @@
 #ifndef MATH_MATRIX3
 #define MATH_MATRIX3
 
-#include "Math/StdHeader.hh"
-#include "Math/MatrixN.hh"
-#include "Math/Vector3.hh"
+#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MatrixN.hh"
+#include "Rivet/Math/Vector3.hh"
 
 template <typename Real>
 bool isZero(const Real a, const Real tolerance);

@@ -2,7 +2,7 @@
 #ifndef RIVET_MathUtils_HH
 #define RIVET_MathUtils_HH
 
-#include "Math/StdHeader.hh"
+#include "Rivet/Math/MathHeader.hh"
 #include <cerrno>
 
 /// A pre-defined value of \f$ \pi \f$.
@@ -22,23 +22,26 @@ inline bool fuzzyEquals(const Real a, const Real b, const Real tolerance = 1E-10
 }
 
 // Include vectors and matrices
-#include "Math/Vectors.hh"
-#include "Math/Matrices.hh"
+#include "Rivet/Math/Vectors.hh"
+#include "Rivet/Math/Matrices.hh"
 
 template <typename Num>
 inline Num sqr(Num a) {
   return a*a;
 }
 
-template <typename Num>
-inline Num min(Num a, Num b) {
-  return (a < b) ? a : b;
-}
+// template <typename Num>
+// inline Num min(Num a, Num b) {
+//   return (a < b) ? a : b;
+// }
 
-template <typename Num>
-inline Num max(Num a, Num b) {
-  return (a < b) ? b : a;
-}
+// template <typename Num>
+// inline Num max(Num a, Num b) {
+//   return (a < b) ? b : a;
+// }
+
+using std::min;
+using std::max;
 
 inline double delta_phi(double phi1, double phi2) {
   return min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );

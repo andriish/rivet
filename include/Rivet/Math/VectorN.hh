@@ -1,7 +1,7 @@
 #ifndef MATH_VECTORN
 #define MATH_VECTORN
 
-#include "Math/StdHeader.hh"
+#include "Rivet/Math/MathHeader.hh"
 
 template <size_t N>
 class Vector;

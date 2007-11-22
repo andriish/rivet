@@ -33,9 +33,9 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    inline Event(const GenEvent & geneve)
+    inline Event(const GenEvent& geneve)
       : theGenEvent(&geneve), theWeight(1.0) {
-      if ( geneve.weights().size() ) theWeight = geneve.weights()[0];
+      if ( !geneve.weights().empty() ) theWeight = geneve.weights()[0];
     }
 
     /// The copy constructor.

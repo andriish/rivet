@@ -1,9 +1,9 @@
 #ifndef MATH_VECTOR4
 #define MATH_VECTOR4
 
-#include "Math/StdHeader.hh"
-#include "Math/VectorN.hh"
-#include "Math/Vector3.hh"
+#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/VectorN.hh"
+#include "Rivet/Math/Vector3.hh"
 
 class FourVector;
 class FourMomentum;

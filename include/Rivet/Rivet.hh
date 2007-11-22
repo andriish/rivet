@@ -71,9 +71,9 @@ namespace Rivet {
 // Now import some Rivet classes
 #include "Rivet/RivetAIDA.fhh"
 #include "Rivet/Tools/Utils.hh"
-#include "Math/MathUtils.hh"
-#include "Math/Vectors.hh"
-#include "Math/Matrices.hh"
-#include "Math/Units.hh"
+#include "Rivet/Math/MathUtils.hh"
+#include "Rivet/Math/Vectors.hh"
+#include "Rivet/Math/Matrices.hh"
+#include "Rivet/Math/Units.hh"
 
 #endif

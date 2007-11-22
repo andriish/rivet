@@ -1,8 +1,8 @@
 #ifndef MATH_MATRIXDIAG
 #define MATH_MATRIXDIAG
 
-#include "Math/StdHeader.hh"
-#include "Math/MatrixN.hh"
+#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MatrixN.hh"
 
 #include "gsl/gsl_vector.h"
 #include "gsl/gsl_matrix.h"
@@ -22,6 +22,7 @@ class EigenSystem {
 
 public:
   typedef pair<double, Vector<N> > EigenPair;
+  typedef vector<EigenPair> EigenPairs;
 
   Vector<N> getDiagVector() const {
     assert(_eigenPairs.size() == N);
@@ -36,7 +37,7 @@ public:
     return Matrix<N>::Diag(getDiagVector());
   }
 
-  vector<EigenPair> getEigenPairs() const {
+  EigenPairs getEigenPairs() const {
     return _eigenPairs;
   }
 
@@ -44,7 +45,7 @@ public:
     assert(_eigenPairs.size() == N);
     vector<double> ret;
     for (size_t i = 0; i < N; ++i) {
-      ret[i] = _eigenPairs[i].first;
+      ret.push_back(_eigenPairs[i].first);
     }
     return ret;
   }
@@ -53,13 +54,13 @@ public:
     assert(_eigenPairs.size() == N);
     vector<Vector<N> > ret;
     for (size_t i = 0; i < N; ++i) {
-      ret[i] = _eigenPairs[i].second;
+      ret.push_back(_eigenPairs[i].second);
     }
     return ret;
   }
 
 private:
-  vector<EigenPair> _eigenPairs;
+  EigenPairs _eigenPairs;
 };
 
 
@@ -96,7 +97,7 @@ EigenSystem<N> diagonalize(const Matrix<N>& m) {
   gsl_eigen_symmv(A, vals, vecs, workspace);
   
   // Build the vector of "eigen-pairs".
-  vector<typename EigenSystem<N>::EigenPair> eigensolns;
+  typename EigenSystem<N>::EigenPairs eigensolns;
   for (size_t i = 0; i < N; ++i) {
     typename EigenSystem<N>::EigenPair ep;
     ep.first = gsl_vector_get(vals, i);
@@ -125,17 +126,17 @@ EigenSystem<N> diagonalize(const Matrix<N>& m) {
 
 
 template <size_t N>
-inline const string toString(const vector<pair<double, Vector<N> > >& e) {
+inline const string toString(const typename EigenSystem<N>::EigenPair& e) {
   ostringstream ss;
-  for (typename vector<pair<double,Vector<N> > >::const_iterator i = e.begin(); i != e.end(); ++i) {
-    ss << i->first << " -> " << i->second;
-    if (i+1 != e.end()) ss << endl;
-  }
+  //for (typename EigenSystem<N>::EigenPairs::const_iterator i = e.begin(); i != e.end(); ++i) {
+  ss << e->first << " -> " << e->second;
+  //  if (i+1 != e.end()) ss << endl;
+  //}
   return ss.str();
 }
 
 template <size_t N>
-inline ostream& operator<<(std::ostream& out, const vector<pair<double, Vector<N> > >& e) {
+inline ostream& operator<<(std::ostream& out, const typename EigenSystem<N>::EigenPair& e) {
   out << toString(e);
   return out;
 }

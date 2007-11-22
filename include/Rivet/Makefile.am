@@ -3,6 +3,7 @@ nobase_dist_noinst_HEADERS =
 ## Public headers - to be installed
 nobase_pkginclude_HEADERS = 
 
+
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
   Rivet.hh \
@@ -46,6 +47,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/DISKinematics.hh  \
   Projections/DISLepton.hh      \
   Projections/D0ILConeJets.hh   \
+  Projections/FastJets.hh       \
   Projections/FinalState.hh     \
   Projections/FinalStateHCM.hh  \
   Projections/Hemispheres.hh    \
@@ -55,13 +57,12 @@ nobase_pkginclude_HEADERS +=   \
   Projections/ParisiTensor.hh   \
   Projections/PVertex.hh        \
   Projections/Sphericity.hh     \
+  Projections/SVertex.hh	    \
   Projections/Thrust.hh         \
   Projections/TotalVisibleMomentum.hh \
   Projections/TrackJet.hh       \
   Projections/VetoedFinalState.hh \
-  Projections/WZandh.hh \
-  Projections/FastJets.hh \
-  Projections/SVertex.hh	
+  Projections/WZandh.hh 
 
 ## Tools
 nobase_pkginclude_HEADERS += \
@@ -69,6 +70,34 @@ nobase_pkginclude_HEADERS += \
   Tools/Logging.fhh \
   Tools/Commandline.hh \
   Tools/Utils.hh
+
+nobase_pkginclude_HEADERS += \
+  Math/Matrices.hh \
+  Math/Vector3.hh \
+  Math/VectorN.hh \
+  Math/MatrixN.hh \
+  Math/MatrixDiag.hh \
+  Math/MathHeader.hh \
+  Math/Vectors.hh \
+  Math/LorentzTrans.hh \
+  Math/Matrix3.hh \
+  Math/MathUtils.hh \
+  Math/Vector4.hh \
+  Math/Math.hh \
+  Math/Units.hh \
+  Math/Constants.hh \
+  Math/eigen/util.h \
+  Math/eigen/regressioninternal.h \
+  Math/eigen/regression.h \
+  Math/eigen/vector.h \
+  Math/eigen/ludecompositionbase.h \
+  Math/eigen/ludecomposition.h \
+  Math/eigen/linearsolver.h \
+  Math/eigen/linearsolverbase.h \
+  Math/eigen/matrix.h \
+  Math/eigen/vectorbase.h \
+  Math/eigen/projective.h \
+  Math/eigen/matrixbase.h 
 
 ## D0 internals
 nobase_dist_noinst_HEADERS += \

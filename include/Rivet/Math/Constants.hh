@@ -1,8 +1,8 @@
 #ifndef MATH_CONSTANTS
 #define MATH_CONSTANTS
 
-#include "Math/StdHeader.hh"
-#include "Math/Units.hh"
+#include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/Units.hh"
 
 //
 //

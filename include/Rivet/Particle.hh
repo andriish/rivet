@@ -4,7 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Particle.fhh"
-#include "Math/Vectors.hh"
+#include "Rivet/Math/Vectors.hh"
 
 
 namespace Rivet {

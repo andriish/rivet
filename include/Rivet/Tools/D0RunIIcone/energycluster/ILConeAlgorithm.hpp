@@ -49,7 +49,7 @@
 
 #include "ProtoJet.hpp"
 #include "ConeSplitMerge.hpp"
-#include "Math/MathUtils.hh"
+#include "Rivet/Math/MathUtils.hh"
 using namespace Rivet;
 
 ///////////////////////////////////////////////////////////////////////////////
