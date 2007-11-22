@@ -1,5 +1,5 @@
-#ifndef MATH_STD
-#define MATH_STD
+#ifndef MATH_MATHHEADER
+#define MATH_MATHHEADER
 
 #include <stdexcept>
 #include <string>
@@ -10,8 +10,8 @@
 #include <map>
 #include <vector>
 
-#include "eigen/vector.h"
-#include "eigen/matrix.h"
+#include "Math/eigen/vector.h"
+#include "Math/eigen/matrix.h"
 
 using std::string;
 using std::ostream;
