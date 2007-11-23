@@ -3,7 +3,7 @@
 #include<iostream>
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/HepEx0107012.hh" 
+#include "Rivet/Analyses/S4674421.hh" 
 using namespace Rivet;
 
 #include "Rivet/RivetAIDA.hh"
@@ -14,9 +14,9 @@ using namespace HepMC;
 
 
 // Booking the histograms:
-void HepEx0107012::init() {	
+void S4674421::init() {	
   Log& log = getLog();
-  log << Log::INFO << "HepEx0107012::init(): fired" << endl;
+  log << Log::INFO << "S4674421::init(): fired" << endl;
 
   _h_pt_e    = bookHistogram1D("pt_e", "pt_e", 20, 0., 200.);
   //_h_pt_e    = bookHistogram1D(20, 1, 1, "pt_e");
@@ -43,7 +43,7 @@ void HepEx0107012::init() {
 }
 
 
-void HepEx0107012::analyze(const Event & event) {
+void S4674421::analyze(const Event & event) {
 	Log& log = getLog();
 	log << Log::DEBUG<< "Starting analyzing" << endl;    
 	const double weight = event.weight();
@@ -149,9 +149,9 @@ void HepEx0107012::analyze(const Event & event) {
 }
 
 
-void HepEx0107012::finalize() { 
+void S4674421::finalize() { 
   //Log& log = getLog();
-  _h_w_rec_eff_factor = histogramFactory().divide("/HepEx0107012/W_rec_eff", *_h_pt_w_true, *_h_pt_w); // true/measured(after cuts) => factors large one!
+  _h_w_rec_eff_factor = histogramFactory().divide("/S4674421/W_rec_eff", *_h_pt_w_true, *_h_pt_w); // true/measured(after cuts) => factors large one!
   
   //histogramFactory().destroy(_h_pt_w);
   //histogramFactory().destroy(_h_pt_w_true);

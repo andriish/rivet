@@ -27,7 +27,7 @@ nobase_pkginclude_HEADERS += \
 nobase_dist_noinst_HEADERS += \
   Analyses/ExampleTree.hh     \
   Analyses/S3167097.hh    \
-  Analyses/HepEx0107012.hh    \
+  Analyses/S4674421.hh    \
   Analyses/S4815815.hh    \
   Analyses/S5992206.hh    \
   Analyses/S6217184.hh    \
@@ -35,7 +35,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/S2435284.hh       \
   Analyses/S4751469.hh     \
   Analyses/S3430090.hh      \
-  Analyses/HepEx0605099.hh    
+  Analyses/S6653332.hh    
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \

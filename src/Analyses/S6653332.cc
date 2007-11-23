@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/HepEx0605099.hh"
+#include "Rivet/Analyses/S6653332.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "HepPDT/ParticleID.hh"
 //#include "Rivet/Tools/Logging.hh"
@@ -19,7 +19,7 @@ namespace Rivet {
   /// out: FourMomentum = visible Momentum of vertex (selected tracks), 
   /// return bool: cuts passed? 1 : 0 
 
-  bool HepEx0605099::applyVtxTrackCuts(SVertex& svtx, ParticleVector& chfsvtx, 
+  bool S6653332::applyVtxTrackCuts(SVertex& svtx, ParticleVector& chfsvtx, 
 				       const HepMC::GenVertex& gpvtx,
 				       FourMomentum vtxVisMom) {
     ///Check vertex final state charged particles, if fulfilling track criteria
@@ -33,7 +33,7 @@ namespace Rivet {
     for (size_t i=0; i<chfsvtx.size(); ++i) {
       double IPsig = svtx.get2dDCAsig(chfsvtx[i].getHepMCParticle(), gpvtx);
 
-      //log << Log::DEBUG << "HepEx0605099::applyVtxTrackCuts: IPsig = " 
+      //log << Log::DEBUG << "S6653332::applyVtxTrackCuts: IPsig = " 
       //  << IPsig << endl;
 
       if (chfsvtx[i].getMomentum().pT() > 0.5) 
@@ -49,7 +49,7 @@ namespace Rivet {
       } 
     }
 
-    // log << Log::DEBUG << "HepEx0605099::applyVtxTrackCuts: pass1trk1pTdcaSig25=" 
+    // log << Log::DEBUG << "S6653332::applyVtxTrackCuts: pass1trk1pTdcaSig25=" 
     // << pass1trk1pTdcaSig25 << " pass1trk05pTdcaSig25="  
     // << pass1trk05pTdcaSig25 << " pass2trk15pTdcaSig3=" << pass2trk15pTdcaSig3 
     // << " pass2trk1pTdcaSig3=" << pass2trk1pTdcaSig3 << endl;     
@@ -58,7 +58,7 @@ namespace Rivet {
     if (pass1trk1pTdcaSig25>=1 && pass1trk1pTdcaSig25+pass1trk05pTdcaSig25>=3 ||
         pass2trk15pTdcaSig3>=1 && pass2trk15pTdcaSig3+pass2trk1pTdcaSig3>=2) {
       cutspassed = true;
-      //log << Log::DEBUG << "HepEx0605099::applyVtxTrackCuts: Vertex track cuts passed!" << endl;
+      //log << Log::DEBUG << "S6653332::applyVtxTrackCuts: Vertex track cuts passed!" << endl;
     }
     
     return cutspassed;
@@ -67,7 +67,7 @@ namespace Rivet {
 
 
   // Book histograms
-  void HepEx0605099::init() {
+  void S6653332::init() {
     /// @todo Use histogram auto-booking if there are comparison datasets in HepData.
     // Will be replaced as soon as HepData is updated and rivet/data subdirectory
     // contains relevant data histo's
@@ -80,7 +80,7 @@ namespace Rivet {
 
 
   // Do the analysis
-  void HepEx0605099::analyze(const Event& event) {
+  void S6653332::analyze(const Event& event) {
     Log log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
     
@@ -124,7 +124,7 @@ namespace Rivet {
       if (dilep.size()==2 && dilep[1]->getMomentum().pT() > 10. 
           && dilep[0]->getPdgId() == -dilep[1]->getPdgId() ) {
 
-        //cout << "HepEx0605099::analyze: Z pre-cuts passed!" << endl;
+        //cout << "S6653332::analyze: Z pre-cuts passed!" << endl;
         
         // Muon and electron geometrical acceptance requirement
         /// @todo Use ParticleName enum for clarity.
@@ -277,7 +277,7 @@ namespace Rivet {
 
   
   // Finalize
-  void HepEx0605099::finalize() { 
+  void S6653332::finalize() { 
     normalize(_histJetsPt);
     normalize(_histJetsEta);
     normalize(_histbJetsPt);

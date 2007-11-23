@@ -14,7 +14,7 @@
 #include "Rivet/Analyses/S2435284.hh"
 #include "Rivet/Analyses/S4751469.hh"
 #include "Rivet/Analyses/S3430090.hh"
-#include "Rivet/Analyses/HepEx0605099.hh"
+#include "Rivet/Analyses/S6653332.hh"
 //#include "Rivet/Analyses/MyAnalysis.hh"
 
 
@@ -37,7 +37,7 @@ extern "C" {
     fns["S2435284"] = Rivet::S2435284::create;
     fns["S4751469"] = Rivet::S4751469::create;
     fns["ZPHYS73C11"] = Rivet::S3430090::create;
-    fns["HEPEX0605099"] = Rivet::HepEx0605099::create;
+    fns["HEPEX0605099"] = Rivet::S6653332::create;
     //fns["MYANALYSIS"] = Rivet::MyAnalysis::create;
     return fns;
   }

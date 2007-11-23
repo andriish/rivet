@@ -23,7 +23,7 @@ namespace Rivet {
      by an external function
      bool f(SVertex&, ParticleVector&, const HepMC::GenVertex&, FourMomentum);
      which can be embedded in the analysis code. An example can be found 
-     in the HepEx0605099 analysis. A pointer to this function has to be given 
+     in the S6653332 analysis. A pointer to this function has to be given 
      to the constructor of the SVertex projection. Its arguments are as follows:
 
      in: reference to instance of SVertex projection, ParticleVector of
