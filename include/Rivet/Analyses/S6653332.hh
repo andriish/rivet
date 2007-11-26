@@ -7,12 +7,8 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
-
 #include "Rivet/Projections/D0ILConeJets.hh"
-#ifdef HAVE_FASTJET
 #include "Rivet/Projections/FastJets.hh"
-#endif
-
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/SVertex.hh"
@@ -95,13 +91,8 @@ namespace Rivet {
     /// The charged final state projector.
     ChargedFinalState _chfsproj;
 
-    #ifdef HAVE_FASTJET
-      /// The FastJets projector used by this analysis.
-      FastJets _jetsproj;
-    #else
-      /// The D0ILConeJets projector alternatively usable by this analysis.
-      D0ILConeJets _jetsproj;
-    #endif
+    /// The FastJets projector used by this analysis.
+    FastJets _jetsproj;
 
     /// The Calorimeter MET projector.
     TotalVisibleMomentum _calmetproj;
@@ -114,7 +105,6 @@ namespace Rivet {
 
     /// The Secondary Vertex projector.
     SVertex _svtxproj;
-
     
 
   private:

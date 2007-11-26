@@ -7,6 +7,7 @@ libRivetProjections_la_SOURCES = \
   DISKinematics.cc \
   DISLepton.cc \
   D0ILConeJets.cc \
+  FastJets.cc \
   FinalState.cc \
   FinalStateHCM.cc \
   Hemispheres.cc \
@@ -22,10 +23,3 @@ libRivetProjections_la_SOURCES = \
   TrackJet.cc \
   VetoedFinalState.cc \
   WZandh.cc 
-
-libRivetProjections_la_CPPFLAGS = $(AM_CPPFLAGS)
-## Make FastJet a definite requirement and ditch this conditional:
-if WITH_FASTJET
-  libRivetProjections_la_SOURCES += FastJets.cc 
-  libRivetProjections_la_CPPFLAGS += -DHAVE_FASTJET
-endif

@@ -35,12 +35,7 @@ namespace Rivet {
     log << Log::DEBUG << "Starting analyzing" << endl;
     
     // Analyse and print some info  
-    #ifdef HAVE_FASTJET
     const FastJets& jetpro = event.applyProjection(_jetsproj);
-    #else
-    const D0ILConeJets& jetpro = event.applyProjection(_jetsproj);
-    ////const KtJets& jetpro = event.applyProjection(_jetsproj);    
-    #endif
     
     log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
     
@@ -52,15 +47,10 @@ namespace Rivet {
     //if (fabs(pv.getPrimaryVertex().position().z()) < 600.0) {
     
     
-    /// @todo Remove compile-time flags like this when possible.
-    #ifdef HAVE_FASTJET
+    /// @todo Don't expose FastJet objects in Rivet analyses: the FastJets projection
+    /// should convert them to Rivet 4-momentum classes (or similar).
     typedef vector<fastjet::PseudoJet> Jets;
     const Jets& jets = jetpro.getJetsPt();
-    #else
-    typedef list<FourMomentum> Jets;
-    const Jets& jets = jetpro.getLorentzJets();
-    ////const vector<KtJet::KtLorentzVector>& jets = jetpro.getJets();
-    #endif
     
     log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
     
@@ -68,10 +58,10 @@ namespace Rivet {
     bool jetcutpass = false;
     
     for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E() << " pz=" << jt->pz() << endl;
-      if (jt->pT()>37. && fabs(jt->rapidity())>0.1 && fabs(jt->rapidity())<0.7) jetcutpass = true;
+      log << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() << " pz=" << jt->pz() << endl;
+      if (jt->perp() > 37. && fabs(jt->rapidity())>0.1 && fabs(jt->rapidity())<0.7) jetcutpass = true;
       ++Njet;
-      log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->rapidity() << " phi=" << jt->azimuthalAngle() << endl; 
+      log << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->rapidity() << " phi=" << jt->phi() << endl; 
     }
     
     if (jetcutpass) {

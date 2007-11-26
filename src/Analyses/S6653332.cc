@@ -6,7 +6,6 @@
 //#include "Rivet/Tools/Logging.hh"
 
 
-
 namespace Rivet {
 
 
@@ -208,30 +207,17 @@ namespace Rivet {
                 
                 log << Log::DEBUG << "Both leptons are isolated" << endl;
                 
-                /// @todo Remove compile-time flags like this when possible.
-                #ifdef HAVE_FASTJET
                 const FastJets& jetpro = event.applyProjection(_jetsproj);
+                /// @todo Don't expose FastJet objects in Rivet analyses.
                 typedef vector<fastjet::PseudoJet> Jets;
                 const Jets& jets = jetpro.getJetsPt();
-                #else
-                const D0ILConeJets& jetpro = event.applyProjection(_jetsproj);
-                typedef list<FourMomentum> Jets;
-                const Jets& jets = jetpro.getLorentzJets();
-                #endif
                 
                 // Remove leptons from list of jets
-                FourMomentum jetaxis;
                 _jetaxes.clear();
                 for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-                  
-                  if (deltaR(dilep[0]->getMomentum(), *jt) > R_isol && 
-                      deltaR(dilep[1]->getMomentum(), *jt) > R_isol) { 
-                    jetaxis.px(jt->px());
-                    jetaxis.py(jt->py());
-                    jetaxis.pz(jt->pz());
-                    jetaxis.E(jt->E()); 
-                    _jetaxes.push_back(jetaxis);
-                  }
+                  const FourMomentum j(jt->E(), jt->px(), jt->py(), jt->pz());
+                  if (deltaR(dilep[0]->getMomentum(), j) > R_isol && 
+                      deltaR(dilep[1]->getMomentum(), j) > R_isol) { _jetaxes.push_back(j); }
                 }
                 
                 

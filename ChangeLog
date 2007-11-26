@@ -1,3 +1,18 @@
+2007-11-26  Andy Buckley  <andy@insectnation.org>
+
+	* Removed conditional HAVE_FASTJET bits: FastJet is now compulsory.
+
+	* Merging appropriate RivetGun parts into Rivet. RivetGun currently broken.
+
+2007-11-23  Andy Buckley  <andy@insectnation.org>
+
+	* Renaming analyses to Spires-ID scheme: currently of form
+	S<SpiresID>, to become <Expt>_<YYYY>_<SpiresID>.
+
+2007-11-20  Andy Buckley  <andy@insectnation.org>
+
+	* Merged replacement vectors, matrices and boosts into trunk.
+
 2007-11-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Analysis.cc, include/Rivet/Analysis.hh: Introduced normalize
@@ -23,7 +38,7 @@
 2007-10-12  Andy Buckley  <andy@insectnation.org>
 
 	* Improved a few features of the build system
-	
+
 2007-10-09  James Monk
 
 	* Fixed dylib dlopen on Mac OS X.

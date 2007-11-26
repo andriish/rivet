@@ -15,24 +15,31 @@ libRivet_la_SOURCES = \
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl -lm \
-  $(CLHEPLIB) $(KTJETLIB) \
+  $(CLHEPLIB) $(KTJETLIB) $(FASTJETLIB) \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME) \
   -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME)
+
 
 ## "rivet" executable
 bin_PROGRAMS   = rivet
 rivet_SOURCES  = RivetInterface.cc
+rivet_CPPFLAGS = $(AM_CPPFLAGS)
 rivet_LDFLAGS  = -export-dynamic
 rivet_LDADD    = libRivet.la $(HEPMCLIB) $(CLHEPLIB) $(GSLLIB) $(GSLCBLASLIB)
-rivet_CPPFLAGS = $(AM_CPPFLAGS)
 
+
+## "rivetgun" executable
+if ENABLE_RIVETGUN
+  bin_PROGRAMS  += rivetgun
+  rivetgun_SOURCES  = RivetGunInterfaceDynamic.cc RivetGunRunner.cc Tools/CommandlineRivetGun.cc
+  rivetgun_CPPFLAGS = $(AM_CPPFLAGS) -I$(AGILEINCPATH)
+  rivetgun_LDFLAGS  = $(AM_LDFLAGS) -export-dynamic
+  rivetgun_LDADD    = $(FCLIBS) $(RIVETLIB) $(AGILELIB) $(HEPMCLIB)
+endif
+
+
+## Optional ROOT histogramming
 if WITH_ROOT
   rivet_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
   libRivet_la_LIBADD += $(ROOTLIBS)	
-endif
-
-# @TODO: Require FastJet unconditionally
-if WITH_FASTJET
-  rivet_CPPFLAGS += -DHAVE_FASTJET
-  libRivet_la_LIBADD += $(FASTJETLIB)
 endif

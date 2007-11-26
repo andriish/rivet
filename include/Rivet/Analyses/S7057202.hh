@@ -3,11 +3,8 @@
 #define RIVET_S7057202_HH
 
 #include "Rivet/Analysis.hh"
-
 #include "Rivet/Projections/KtJets.hh"
-#ifdef HAVE_FASTJET	
 #include "Rivet/Projections/FastJets.hh"
-#endif
 
 
 namespace Rivet {
