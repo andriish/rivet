@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_TestAnalysis_HH
-#define RIVET_TestAnalysis_HH
+#ifndef RIVET_ExampleAnalysis_HH
+#define RIVET_ExampleAnalysis_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
@@ -11,12 +11,12 @@
 namespace Rivet {
 
   /// This class just measures the charged multiplicity
-  class TestAnalysis : public Analysis {
+  class ExampleAnalysis : public Analysis {
 
   public:
 
     /// Default constructor
-    TestAnalysis()
+    ExampleAnalysis()
       : _multproj(_fsproj), _thrustproj(_fsproj)
     {
       addProjection(_fsproj);
@@ -26,7 +26,7 @@ namespace Rivet {
 
     /// Factory method
     static Analysis* create() { 
-      return new TestAnalysis(); 
+      return new ExampleAnalysis(); 
     }
 
     /// Get the name of this analysis.
@@ -54,7 +54,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    TestAnalysis& operator=(const TestAnalysis&);
+    ExampleAnalysis& operator=(const ExampleAnalysis&);
 
     //@{
     /// Histograms
@@ -65,7 +65,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _histHadrChTot;
     AIDA::IHistogram1D* _histHadrUnchTot;
     AIDA::IHistogram1D* _histThrust;
-
     //@}
 
   };

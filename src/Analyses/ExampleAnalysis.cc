@@ -1,13 +1,13 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/TestAnalysis.hh"
+#include "Rivet/Analyses/ExampleAnalysis.hh"
 #include "Rivet/RivetAIDA.hh"
 
 
 namespace Rivet {
 
   // Book histograms
-  void TestAnalysis::init() {
+  void ExampleAnalysis::init() {
     // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
     // Since this is just a demo analysis, there is no associate paper!
     _histTot         = bookHistogram1D("TotalMult", "Total multiplicity", 100, -0.5, 99.5);
@@ -23,7 +23,7 @@ namespace Rivet {
 
 
   // Do the analysis
-  void TestAnalysis::analyze(const Event& event) {
+  void ExampleAnalysis::analyze(const Event& event) {
     Log log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
 
@@ -56,7 +56,7 @@ namespace Rivet {
 
 
   // Finalize
-  void TestAnalysis::finalize() { 
+  void ExampleAnalysis::finalize() { 
     normalize(_histTot);
     normalize(_histChTot);
     normalize(_histUnchTot);
