@@ -9,7 +9,7 @@
 // LEP
 #include "Rivet/Analyses/ALEPH_1991_S2435284.hh"
 #include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
-#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
+//#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
 
 // HERA
 #include "Rivet/Analyses/H1_1995_S3167097.hh"
@@ -39,7 +39,7 @@ extern "C" {
     // LEP
     fns["ALEPH_1991_S2435284"] = Rivet::ALEPH_1991_S2435284::create;
     fns["DELPHI_1996_S3430090"] = Rivet::DELPHI_1996_S3430090::create;
-    fns["OPAL_2004_S6132243"] = Rivet::OPAL_2004_S6132243::create;
+    //fns["OPAL_2004_S6132243"] = Rivet::OPAL_2004_S6132243::create;
 
     // HERA
     fns["H1_1995_S3167097"] = Rivet::H1_1995_S3167097::create;

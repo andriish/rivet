@@ -22,7 +22,7 @@ libRivet_la_LIBADD  = \
 
 ## "rivet" executable
 bin_PROGRAMS   = rivet
-rivet_SOURCES  = RivetInterface.cc
+rivet_SOURCES  = RivetInterface.cc Commandline.cc
 rivet_CPPFLAGS = $(AM_CPPFLAGS)
 rivet_LDFLAGS  = -export-dynamic
 rivet_LDADD    = libRivet.la $(HEPMCLIB) $(CLHEPLIB) $(GSLLIB) $(GSLCBLASLIB)
@@ -31,7 +31,7 @@ rivet_LDADD    = libRivet.la $(HEPMCLIB) $(CLHEPLIB) $(GSLLIB) $(GSLCBLASLIB)
 ## "rivetgun" executable
 if ENABLE_RIVETGUN
   bin_PROGRAMS  += rivetgun
-  rivetgun_SOURCES  = RivetGunInterfaceDynamic.cc RivetGunRunner.cc Tools/CommandlineRivetGun.cc
+  rivetgun_SOURCES  = RivetGunInterface.cc RivetGunRunner.cc Commandline.cc CommandlineRivetGun.cc
   rivetgun_CPPFLAGS = $(AM_CPPFLAGS) -I$(AGILEINCPATH)
   rivetgun_LDFLAGS  = $(AM_LDFLAGS) -export-dynamic
   rivetgun_LDADD    = $(FCLIBS) $(RIVETLIB) $(AGILELIB) $(HEPMCLIB)

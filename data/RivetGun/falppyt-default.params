@@ -1,0 +1,12 @@
+MSUB(20) = 0
+MSUB(25) = 1
+MSUB(95) = 1
+MSTP(51) = 20470
+MSTP(52) = 2
+
+## Read parton-level process from LHA event file
+MSTP(143) = 1
+
+## Handle this specially - we need a single FAlpHer generator 
+## interface rather than the aux generator hack
+ALPGENFILE = zhjj

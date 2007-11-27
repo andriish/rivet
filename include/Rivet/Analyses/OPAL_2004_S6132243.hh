@@ -1,21 +1,22 @@
 // -*- C++ -*-
-#ifndef RIVET_EURPHYS40C287_HH
-#define RIVET_EURPHYS40C287_HH
+#ifndef RIVET_OPAL_2004_S6132243_HH
+#define RIVET_OPAL_2004_S6132243_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/RivetAIDA.fhh"
 
+
 namespace Rivet {
 
 //   /// This class...
-//   class S2435284 : public Analysis {
+//   class OPAL_2004_S6132243 : public Analysis {
 
 //   public:
 
 //     /// Default constructor.
-//     inline S2435284()
+//     OPAL_2004_S6132243()
 //       : mult(fsproj), spher(fsproj) 
 //     { 
 //       setBeams(ELECTRON, POSITRON); 
@@ -29,9 +30,9 @@ namespace Rivet {
   //    /// Factory method
   //    static Analysis* create() { return new TestAnalysis(); }
 
-//     /// The name of this analysis is "S2435284"
+//     /// The name of this analysis is "OPAL_2004_S6132243"
 //     inline string getName() const {
-//       return "S2435284";
+//       return "OPAL_2004_S6132243";
 //     }
 
 //     virtual void init();
@@ -55,7 +56,7 @@ namespace Rivet {
 //   private:
 
 //     /// Hide the assignment operator
-//     S2435284 & operator=(const S2435284 &);
+//     OPAL_2004_S6132243 & operator=(const OPAL_2004_S6132243&);
 
 //     /// @name Histograms
 //     //@{

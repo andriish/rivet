@@ -11,11 +11,6 @@ using namespace AGILe;
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
 
-
-namespace Rivet {
-  void generate(Generator* gen, Configuration& cfg, Log& log);
-}
-
 #ifdef FC_DUMMY_MAIN
 extern "C" int F77_DUMMY_MAIN() { return 1; }
 #endif
@@ -24,6 +19,15 @@ extern "C" int F77_DUMMY_MAIN() { return 1; }
 ////////////////////////////////////////////////
 
 
+// Forward declare the function that actually runs 
+// the event loop and analysis, which is isolated from 
+// the administration and param parsing code in main().
+namespace Rivet {
+  void generate(Generator* gen, Configuration& cfg, Log& log);
+}
+
+
+// The main function of the rivetgun executable.
 int main(int argc, char* argv[]) {
   
   // Configuration flags

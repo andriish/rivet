@@ -23,19 +23,20 @@ nobase_pkginclude_HEADERS += \
 
 ## Standard analyses
 nobase_pkginclude_HEADERS += \
-  Analyses/TestAnalysis.hh
+  Analyses/ExampleAnalysis.hh
 nobase_dist_noinst_HEADERS += \
   Analyses/ExampleTree.hh     \
-  Analyses/S3167097.hh    \
-  Analyses/S4674421.hh    \
-  Analyses/S4815815.hh    \
-  Analyses/S5992206.hh    \
-  Analyses/S6217184.hh    \
-  Analyses/S7057202.hh    \
-  Analyses/S2435284.hh       \
-  Analyses/S4751469.hh     \
-  Analyses/S3430090.hh      \
-  Analyses/S6653332.hh    
+  Analyses/ALEPH_1991_S2435284.hh \
+  Analyses/CDF_2001_S4751469.hh \
+  Analyses/CDF_2005_S6217184.hh \
+  Analyses/CDF_2006_S6653332.hh \
+  Analyses/CDF_2007_S7057202.hh \
+  Analyses/D0_2001_S4674421.hh \
+  Analyses/D0_2004_S5992206.hh \
+  Analyses/DELPHI_1996_S3430090.hh \
+  Analyses/H1_1995_S3167097.hh \
+  Analyses/OPAL_2004_S6132243.hh \
+  Analyses/ZEUS_2001_S4815815.hh
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \

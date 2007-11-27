@@ -11,8 +11,7 @@ using namespace AGILe;
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
 
-#include "HepMC/IO_Ascii.h"
-//#include "HepMC/IO_GenEvent.h"
+#include "HepMC/IO_Ascii.h" // To become #include "HepMC/IO_GenEvent.h"
 using namespace HepMC;
 
 

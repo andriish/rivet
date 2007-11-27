@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
-#include "binreloc.h"
+#include "Rivet/Tools/binreloc.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -9,7 +9,7 @@ using namespace HepMC;
 
 namespace Rivet {
 
-  void S2435284::init() {
+  void OPAL_2004_S6132243::init() {
     // Book histograms
     // histChTot_       = bookHistogram1D("TotalChMult","Total charged multiplicity", 25, 1.0, 51.0);
     histChTot_       = bookHistogram1D(1, 1, 1, "Total charged multiplicity");
@@ -21,7 +21,7 @@ namespace Rivet {
 
 
   // Do the analysis
-  void S2435284::analyze(const Event & event) {
+  void OPAL_2004_S6132243::analyze(const Event & event) {
     Log& log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
 
@@ -48,7 +48,7 @@ namespace Rivet {
 
 
   // Finalize
-  void S2435284::finalize() { 
+  void OPAL_2004_S6132243::finalize() { 
     // Normalize the histogram areas to 1
     normalize(histChTot_);
     normalize(histSphericity_);
