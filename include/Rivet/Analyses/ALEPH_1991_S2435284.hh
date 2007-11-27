@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_S2435284_HH
-#define RIVET_S2435284_HH
+#ifndef RIVET_ALEPH_1991_S2435284_HH
+#define RIVET_ALEPH_1991_S2435284_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Multiplicity.hh"
@@ -10,12 +10,12 @@
 namespace Rivet {
 
   /// This analysis just measures the charged multiplicity.
-  class S2435284 : public Analysis {
+  class ALEPH_1991_S2435284 : public Analysis {
 
   public:
 
     /// Default constructor.
-    inline S2435284()
+    inline ALEPH_1991_S2435284()
       : _multproj(_fsproj)
     { 
       setBeams(ELECTRON, POSITRON); 
@@ -27,11 +27,11 @@ namespace Rivet {
 
 
     /// Factory method
-    static Analysis* create() { return new S2435284(); }
+    static Analysis* create() { return new ALEPH_1991_S2435284(); }
 
     /// Return the name of this analysis.
     inline string getName() const {
-      return "S2435284";
+      return "ALEPH_1991_S2435284";
     }
 
     virtual void init();
@@ -52,7 +52,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    S2435284& operator=(const S2435284&);
+    ALEPH_1991_S2435284& operator=(const ALEPH_1991_S2435284&);
 
     /// @name Histograms
     //@{

@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_S3167097_HH
-#define RIVET_S3167097_HH
+#ifndef RIVET_H1_1995_S3167097_HH
+#define RIVET_H1_1995_S3167097_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
@@ -11,12 +11,12 @@
 namespace Rivet {
 
   /// This analysis measures energy flow in DIS?
-  class S3167097 : public Analysis {
+  class H1_1995_S3167097 : public Analysis {
 
   public:
 
     /// The default constructor.
-    inline S3167097()
+    inline H1_1995_S3167097()
       : _fsproj(), _beamsproj(), 
         _leptonproj(_beamsproj, _fsproj, ELECTRON, POSITRON), 
         _diskinproj(_beamsproj, _leptonproj, PROTON),
@@ -36,11 +36,11 @@ namespace Rivet {
   public:
 
     /// Factory method
-    static Analysis* create() { return new S3167097(); }
+    static Analysis* create() { return new H1_1995_S3167097(); }
 
     /// Get the name of this analysis.
     inline string getName() const {
-      return "S3167097";
+      return "H1_1995_S3167097";
     }
     
     /// Initialize this analysis object.
@@ -96,7 +96,7 @@ namespace Rivet {
   private:
 
     /// Hidden assignment operator.
-    S3167097& operator=(const S3167097&);
+    H1_1995_S3167097& operator=(const H1_1995_S3167097&);
 
   };
 

@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_S4674421_HH
-#define RIVET_S4674421_HH
+#ifndef RIVET_D0_2001_S4674421_HH
+#define RIVET_D0_2001_S4674421_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
@@ -16,12 +16,12 @@ namespace Rivet {
   /// this is the version from Oleg just with adjustments
   /// like e.g. replacing Root histograms by our LWH implementation
   /// It is NOT ready for release!!!
-  class S4674421 : public Analysis {
+  class D0_2001_S4674421 : public Analysis {
 
   public:
 
     /// Default constructor.
-    inline S4674421()
+    inline D0_2001_S4674421()
       // NB. eta in [-3,3] cut specified via FinalState constructor
       : _fsproj(-3.0, 3.0) 
     { 
@@ -59,12 +59,12 @@ namespace Rivet {
 
 
     /// Factory method
-    static Analysis* create() { return new S4674421(); }
+    static Analysis* create() { return new D0_2001_S4674421(); }
 
 
     /// Return the name of this analysis.
     inline string getName() const {
-      return "S4674421";
+      return "D0_2001_S4674421";
     }
 
   public:
@@ -85,7 +85,7 @@ namespace Rivet {
     vector<double> _bins_pt_w;
 
 
-    S4674421& operator=(const S4674421& x);
+    D0_2001_S4674421& operator=(const D0_2001_S4674421& x);
 
 
     //@{

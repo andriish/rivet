@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_S5992206_HH
-#define RIVET_S5992206_HH
+#ifndef RIVET_D0_2004_S5992206_HH
+#define RIVET_D0_2004_S5992206_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
@@ -14,12 +14,12 @@ namespace Rivet {
 
   /// Analysis based on the D0 Run II jet analysis described in hep-ex/0409040.
   /// @author Lars Sonnenschein
-  class S5992206 : public Analysis {
+  class D0_2004_S5992206 : public Analysis {
 
   public:
 
     /// Default constructor.
-    inline S5992206()
+    inline D0_2004_S5992206()
       // NB. eta in [-3,3] cut specified via FinalState constructor
       : _fsproj(-3.0, 3.0), _vfsproj(_fsproj), 
 	_conejetsproj(_fsproj), _calmetproj(_fsproj), _vertexproj()
@@ -47,11 +47,11 @@ namespace Rivet {
     }
 
     /// Factory method
-    static Analysis* create() { return new S5992206(); }
+    static Analysis* create() { return new D0_2004_S5992206(); }
 
     /// Return the name of this analysis.
     inline string getName() const {
-      return "S5992206";
+      return "D0_2004_S5992206";
     }
 
   public:
@@ -80,7 +80,7 @@ namespace Rivet {
     PVertex _vertexproj;
 
     /// Hide the assignment operator
-    S5992206& operator=(const S5992206& x);
+    D0_2004_S5992206& operator=(const D0_2004_S5992206& x);
 
     /// @name Histograms
     //@{

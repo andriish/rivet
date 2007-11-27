@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_S7057202_HH
-#define RIVET_S7057202_HH
+#ifndef RIVET_CDF_2007_S7057202_HH
+#define RIVET_CDF_2007_S7057202_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/KtJets.hh"
@@ -11,13 +11,13 @@ namespace Rivet {
 
 
   /// @todo Needs full Doxygen commenting
-  class S7057202 : public Analysis {
+  class CDF_2007_S7057202 : public Analysis {
 
   public:
 
     /// Default constructor
 
-    inline S7057202():
+    inline CDF_2007_S7057202():
     _fsproj(),
     _ktproj(_fsproj, KTTYPE, KTANGLE, KTRECOMBINATION, _ktRParam){
       setBeams(PROTON, ANTIPROTON);
@@ -28,12 +28,12 @@ namespace Rivet {
     
     /// Factory method
     static Analysis* create() { 
-      return new S7057202(); 
+      return new CDF_2007_S7057202(); 
     }
 
     /// Get the name of this analysis.
     inline string getName() const {
-      return "S7057202";
+      return "CDF_2007_S7057202";
     }
 
   public:
@@ -49,10 +49,10 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    S7057202& operator=(const S7057202&);
+    CDF_2007_S7057202& operator=(const CDF_2007_S7057202&);
     
     /// ...and the copy constructor
-    S7057202(const S7057202&);
+    CDF_2007_S7057202(const CDF_2007_S7057202&);
     
     FinalState _fsproj;
     KtJets _ktproj;

@@ -1,13 +1,13 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/S6217184.hh"
+#include "Rivet/Analyses/CDF_2005_S6217184.hh"
 #include "Rivet/RivetAIDA.hh"
 
 
 namespace Rivet {
   
   // Book histograms
-  void S6217184::init() {
+  void CDF_2005_S6217184::init() {
 
     string hist_title[18][2];
     
@@ -30,7 +30,7 @@ namespace Rivet {
   
   
   // Do the analysis
-  void S6217184::analyze(const Event& event) {
+  void CDF_2005_S6217184::analyze(const Event& event) {
     Log log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
     
@@ -111,7 +111,7 @@ namespace Rivet {
   
   
   // Finalize
-  void S6217184::finalize() { 
+  void CDF_2005_S6217184::finalize() { 
     
   }
   

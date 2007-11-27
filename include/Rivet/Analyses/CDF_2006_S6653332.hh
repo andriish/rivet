@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_S6653332_HH
-#define RIVET_S6653332_HH
+#ifndef RIVET_CDF_2006_S6653332_HH
+#define RIVET_CDF_2006_S6653332_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -20,7 +20,7 @@ namespace Rivet {
   
   /// This CDF analysis provides pT and eta distributions of jets
   /// in Z +(b) jet production, before and after tagging
-  class S6653332 : public Analysis {
+  class CDF_2006_S6653332 : public Analysis {
 
   public:
 
@@ -31,7 +31,7 @@ namespace Rivet {
     /// Impact Parameter resolution = 34e-3mm, including beam spot
     /// cut on Decay Length Significance = 7.5
     /// Decay Length Significance resolution (assumed to be 34e-3mm)
-    S6653332()
+    CDF_2006_S6653332()
       : _fsproj(-3.6, 3.6), _vfsproj(_fsproj), _chfsproj(_vfsproj), _jetsproj(_vfsproj),
         _calmetproj(_vfsproj), _chleproj(_vfsproj), _pvtxproj(),
         _svtxproj(_pvtxproj, _chfsproj, _jetaxes, 0.7,
@@ -62,7 +62,7 @@ namespace Rivet {
 
     /// Factory method.
     static Analysis* create() { 
-      return new S6653332(); 
+      return new CDF_2006_S6653332(); 
     }
 
     /// Get the name of this analysis.
@@ -112,7 +112,7 @@ namespace Rivet {
     vector<FourMomentum> _jetaxes;
     
     /// Hide the assignment operator
-    S6653332& operator=(const S6653332&);
+    CDF_2006_S6653332& operator=(const CDF_2006_S6653332&);
 
     //@{
     /// Histograms

@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_S6217184_HH
-#define RIVET_S6217184_HH
+#ifndef RIVET_CDF_2005_S6217184_HH
+#define RIVET_CDF_2005_S6217184_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
@@ -15,12 +15,12 @@
 namespace Rivet {
 
   /// Implementation of CDF RunII jet shape paper hep-ex/0505013 
-  class S6217184 : public Analysis {
+  class CDF_2005_S6217184 : public Analysis {
 
   public:
 
     /// Default constructor
-    inline S6217184()
+    inline CDF_2005_S6217184()
       // NB. eta in [-2.,2.] cut specified via FinalState constructor
       // NB. jetshape rmin=0.0, rmax=0.7, interval=0.1, r1minPsi=0.3
       : _fsproj(-2., 2.), _vfsproj(_fsproj), _jetsproj(_fsproj), 
@@ -80,11 +80,11 @@ namespace Rivet {
   public:
 
     /// Factory method
-    static Analysis* create() { return new S6217184(); }
+    static Analysis* create() { return new CDF_2005_S6217184(); }
 
     /// Return the name of this analysis.
     inline string getName() const {
-      return "S6217184";
+      return "CDF_2005_S6217184";
     }
 
   public:
@@ -129,7 +129,7 @@ namespace Rivet {
 
 
     /// Hide the assignment operator
-    S6217184& operator=(const S6217184&);
+    CDF_2005_S6217184& operator=(const CDF_2005_S6217184&);
 
     //@{
     /// Histograms

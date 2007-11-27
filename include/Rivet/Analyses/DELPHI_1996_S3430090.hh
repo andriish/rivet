@@ -17,12 +17,12 @@ namespace Rivet {
 
 
   /// Implementation of DELPHI event shape paper
-  class S3430090 : public Analysis {
+  class DELPHI_1996_S3430090 : public Analysis {
 
   public:
 
     /// Default constructor.
-    inline S3430090()
+    inline DELPHI_1996_S3430090()
       : _cnfsproj(), _cfsproj(_cnfsproj),
         _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
         _cthrustproj(_cfsproj), _cnthrustproj(_cnfsproj), 
@@ -46,12 +46,12 @@ namespace Rivet {
 
     /// Factory method.
     static Analysis* create() { 
-      return new S3430090(); 
+      return new DELPHI_1996_S3430090(); 
     }
 
     /// Get the name of this analysis.
     inline string getName() const {
-      return "S3430090";
+      return "DELPHI_1996_S3430090";
     }
 
     virtual void init();
@@ -64,7 +64,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    S3430090& operator=(const S3430090&);
+    DELPHI_1996_S3430090& operator=(const DELPHI_1996_S3430090&);
 
 
   private:

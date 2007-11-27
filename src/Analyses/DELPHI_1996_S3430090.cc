@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Analyses/S3430090.hh"
+#include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
 #include "HepPDT/ParticleID.hh"
 
 using namespace AIDA;
@@ -11,7 +11,7 @@ using namespace HepMC;
 namespace Rivet {
 
 
-  void S3430090::analyze(const Event& e) {
+  void DELPHI_1996_S3430090::analyze(const Event& e) {
     Log& log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
 
@@ -149,7 +149,7 @@ namespace Rivet {
 
 
 
-  void S3430090::init() {
+  void DELPHI_1996_S3430090::init() {
     _histPtTInC       = bookHistogram1D(1, 1, 1, "In-plane p_T in GeV w.r.t. thrust axes (charged)");
     _histPtTInCN      = bookHistogram1D(1, 1, 2, "In-plane p_T in GeV w.r.t. thrust axes (charged and neutral)");
     _histPtTOutC      = bookHistogram1D(2, 1, 1, "Out-of-plane p_T in GeV w.r.t. thrust axes (charged)");
@@ -231,7 +231,7 @@ namespace Rivet {
 
 
   // Finalize
-  void S3430090::finalize() { 
+  void DELPHI_1996_S3430090::finalize() { 
      normalize(_histPtTInC);
      normalize(_histPtTInCN);
      normalize(_histPtTOutC); 
