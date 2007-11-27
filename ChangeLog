@@ -1,3 +1,15 @@
+2007-11-27  Andy Buckley  <andy@insectnation.org>
+
+	* Removed charge differentiation from Multiplicity projection (use
+	CFS proj) and updated ExampleAnalysis to produce more useful numbers.
+
+	* Introduced binreloc for runtime path determination.
+
+	* Fixed several bugs in FinalState, ChargedFinalState, TrackJet
+	and Field analysis.
+
+	* Completed move to new analysis naming scheme.
+
 2007-11-26  Andy Buckley  <andy@insectnation.org>
 
 	* Removed conditional HAVE_FASTJET bits: FastJet is now compulsory.

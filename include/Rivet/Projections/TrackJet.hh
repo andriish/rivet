@@ -21,8 +21,8 @@ namespace Rivet {
     /// Constructor. The specified FinalState projection is assumed to live
     /// throughout the run and should be used to specify the max and min \f$
     /// \eta \f$ values and the min \f$ p_T \f$ (in GeV).
-    inline TrackJet(FinalState& fsp)
-      : _fsproj(fsp)
+    TrackJet(FinalState& fsp, const double Rmax=0.7)
+      : _fsproj(fsp), _Rmax(Rmax)
     { 
       addProjection(fsp);
     }
@@ -37,7 +37,7 @@ namespace Rivet {
     class Jet {
     public:
       /// Constructor.
-      inline Jet() { 
+      Jet() { 
         clear();
       }
 
@@ -48,51 +48,51 @@ namespace Rivet {
       typedef vector<FourMomentum>::const_iterator const_iterator;
 
       /// Get a begin iterator over the particles/tracks in this jet.
-      inline iterator begin() {
+      iterator begin() {
         return _particles.begin();
       }
 
       /// Get an end iterator over the particles/tracks in this jet.
-      inline iterator end() {
+      iterator end() {
         return _particles.end();
       }
 
       /// Get a const begin iterator over the particles/tracks in this jet.
-      inline const_iterator begin() const {
+      const_iterator begin() const {
         return _particles.begin();
       }
 
       /// Get a const end iterator over the particles/tracks in this jet.
-      inline const_iterator end() const {
+      const_iterator end() const {
         return _particles.end();
       }
 
       /// Get the particles (tracks) in this jet.
-      inline vector<FourMomentum>& getParticles() {
+      vector<FourMomentum>& getParticles() {
         return _particles;
       }
 
       /// Get the particles (tracks) in this jet (const version).
-      inline const vector<FourMomentum>& getParticles() const {
+      const vector<FourMomentum>& getParticles() const {
         return _particles;
       }
 
       /// Set the particles/tracks collection.
-      inline Jet setParticles(vector<FourMomentum> particles) {
+      Jet setParticles(vector<FourMomentum> particles) {
         _particles = particles;
         _resetCaches();
         return *this;
       }
 
       /// Add a particle/track to this jet.
-      inline Jet addParticle(FourMomentum particle) {
+      Jet addParticle(FourMomentum particle) {
         _particles.push_back(particle);
         _resetCaches();
         return *this;
       }
 
       /// Reset this jet as empty.
-      inline Jet clear() {
+      Jet clear() {
         _particles.clear();
         _resetCaches();
         return *this;
@@ -100,7 +100,7 @@ namespace Rivet {
 
       /// Get the average \f$ \phi \f$ for this jet, with the average weighted
       /// by the \f$ p_T \f$ values of the constituent tracks. (caches)
-      inline double getPtWeightedPhi() const {
+      double getPtWeightedPhi() const {
         if (_ptWeightedPhi < 0) {
           double ptwphi(0.0), ptsum(0.0);
           for (const_iterator p = this->begin(); p != this->end(); ++p) {
@@ -115,7 +115,7 @@ namespace Rivet {
       }
 
       /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
-      inline double getPtSum() const {
+      double getPtSum() const {
         if (_totalPt < 0) {
           double ptsum(0.0);
           for (const_iterator p = this->begin(); p != this->end(); ++p) {
@@ -127,7 +127,7 @@ namespace Rivet {
       }
 
       /// Get the number of particles/tracks in this jet.
-      inline size_t getNumParticles() const {
+      size_t getNumParticles() const {
         return _particles.size();
       }
 
@@ -135,7 +135,7 @@ namespace Rivet {
     private:
 
       /// Clear the internal cached values.
-      inline Jet _resetCaches() {
+      Jet _resetCaches() {
         _totalPt = -1.0;
         _ptWeightedPhi = -1.0;
         return *this;
@@ -158,17 +158,17 @@ namespace Rivet {
 
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "TrackJet";
     }
 
     /// Get the computed jets.
-    inline Jets& getJets() {
+    Jets& getJets() {
       return _jets;
     }
 
     /// Get the computed jets (const version).
-    inline const Jets& getJets() const {
+    const Jets& getJets() const {
       return _jets;
     }
 
@@ -188,7 +188,9 @@ namespace Rivet {
 
     /// The computed jets
     Jets _jets;
-  
+
+    /// \f$ R = \sqrt{\eta^2 + \phi^2} \f$ cut in jet definition.
+    double _Rmax;
   };
 
 

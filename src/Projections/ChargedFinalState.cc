@@ -3,27 +3,28 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Cmp.hh"
 #include "HepPDT/ParticleID.hh"
+#include <algorithm>
+
 
 namespace Rivet {
 
   int ChargedFinalState::compare(const Projection& p) const {
     const ChargedFinalState& other = dynamic_cast<const ChargedFinalState&>(p);
-    return pcmp(_fsproj, other._fsproj);
+    return FinalState::compare(other);
   }
   
+  bool chargedParticleFilter(const Particle& p) {
+    const HepPDT::ParticleID pInfo( p.getPdgId() );
+    return pInfo.threeCharge() != 0;
+  }
   
   void ChargedFinalState::project(const Event& e) {
     Log log = getLog();
-    const FinalState& fs = e.applyProjection(_fsproj);
+    FinalState fsp = static_cast<FinalState>(*this);
+    const FinalState& fs = e.applyProjection(fsp);
     _theParticles.clear();
-    const ParticleVector& fsps = fs.particles();
-    _theParticles.reserve(fsps.size());
-    for (ParticleVector::const_iterator p = fsps.begin(); p != fsps.end(); ++p) {
-      HepPDT::ParticleID pInfo = p->getPdgId();
-      if (pInfo.threeCharge() != 0) {
-        _theParticles.push_back(*p);
-      }
-    }
+    std::remove_copy_if(fs.particles().begin(), fs.particles().end(), 
+                        std::back_inserter(_theParticles), chargedParticleFilter);
     getLog() << Log::DEBUG << "Number of charged final-state particles = " 
              << _theParticles.size() << endl;
   } 

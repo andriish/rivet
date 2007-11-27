@@ -20,8 +20,8 @@ namespace Rivet {
   void ALEPH_1991_S2435284::analyze(const Event& event) {
     Log& log = getLog();
     const Multiplicity& m = event.applyProjection(_multproj);
-    log << Log::DEBUG << "Total charged multiplicity = " << m.totalChargedMultiplicity() << endl;
-    _histChTot->fill(m.totalChargedMultiplicity(), event.weight());
+    log << Log::DEBUG << "Total charged multiplicity = " << m.totalMultiplicity() << endl;
+    _histChTot->fill(m.totalMultiplicity(), event.weight());
   }
 
 

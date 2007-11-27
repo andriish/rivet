@@ -18,14 +18,18 @@ namespace Rivet {
   public:
     
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
-    inline ChargedFinalState(FinalState& fsp)
-      : _fsproj(fsp)
-    {
-      addProjection(_fsproj);
-    }
+    ChargedFinalState(FinalState& fsp)
+      : FinalState(fsp)
+    { }
     
+    ChargedFinalState(double mineta = -MaxRapidity,
+                      double maxeta = MaxRapidity,
+                      double minpt = 0.0)
+      : FinalState(mineta, maxeta, minpt)
+    { }
+
     /// Return the name of the projection.
-    inline string getName() const {
+    string getName() const {
       return "ChargedFinalState";
     }
 
@@ -36,11 +40,6 @@ namespace Rivet {
     
     /// Compare projections.
     int compare(const Projection& p) const;
-    
-  private:
-    
-    /// The projector for the full final state.
-    FinalState _fsproj;
     
   };
 

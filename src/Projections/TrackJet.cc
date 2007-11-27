@@ -42,8 +42,9 @@ namespace Rivet {
 
       Tracks::iterator t = tracks.begin();
       // Get eta and phi for this track
-      const double eta = t->vector3().pseudorapidity();
-      const double phi = t->vector3().azimuthalAngle();
+      /// @todo Do these need to be recalculated in the t2 while loop below?
+      const double eta = t->pseudorapidity();
+      const double phi = t->azimuthalAngle();
 
       // Make a new jet and put this seed track into it
       Jet thisjet;
@@ -55,13 +56,14 @@ namespace Rivet {
       while (t2 != tracks.end()) {
         log << Log::DEBUG << "Building jet from tracks" << endl;
 
-        // Compute Deta and Dphi, mapping Dphi into [0,pi]
-        double Deta = eta - t2->vector3().pseudorapidity();
-        double Dphi = phi - t2->vector3().azimuthalAngle();
-        if (Dphi > PI) Dphi = 2*PI - Dphi;
+        // Compute D(eta) and D(phi), mapping Dphi into [0,pi]
+        double Deta = eta - t2->pseudorapidity();
+        double Dphi = phi - t2->azimuthalAngle();
+        if (Dphi > PI) Dphi = fabs( 2*PI - Dphi );
+        assert(Dphi >= 0 && Dphi <= PI);
 
-        // Add to this jet if eta-phi distance < 0.7 
-        if (sqrt(Deta*Deta + Dphi*Dphi) <= 0.7) {
+        // Add to this jet if eta-phi distance < Rmax cutoff
+        if (sqrt(Deta*Deta + Dphi*Dphi) <= _Rmax) {
           // Move this particle into the current jet (no extra sorting needed)
           thisjet.addParticle(*t2);
           t2 = tracks.erase(t2);

@@ -3,24 +3,31 @@
 #define RIVET_ExampleAnalysis_HH
 
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/RivetAIDA.fhh"
 
 
 namespace Rivet {
 
-  /// This class just measures the charged multiplicity
+  /// This class just measures a few random things as an example.
   class ExampleAnalysis : public Analysis {
 
   public:
 
     /// Default constructor
     ExampleAnalysis()
-      : _multproj(_fsproj), _thrustproj(_fsproj)
+      : _cmultproj(_cfsproj), _cnmultproj(_fsproj), 
+        _thrustproj(_fsproj), _sphericityproj(_fsproj)
     {
       addProjection(_fsproj);
-      addProjection(_multproj);
+      addProjection(_cfsproj);
+      addProjection(_cmultproj);
+      addProjection(_cnmultproj);
+      addProjection(_thrustproj);
       addProjection(_thrustproj);
     }
 
@@ -28,6 +35,8 @@ namespace Rivet {
     static Analysis* create() { 
       return new ExampleAnalysis(); 
     }
+
+  public:
 
     /// Get the name of this analysis.
     string getName() const {
@@ -42,14 +51,20 @@ namespace Rivet {
 
   private:
 
-    /// The final state projector.
+    /// The final state projectors.
     FinalState _fsproj;
+    ChargedFinalState _cfsproj;
 
-    /// The multiplicity projector.
-    Multiplicity _multproj;
+    /// The multiplicity projectors (charged and all).
+    Multiplicity _cmultproj;
+    Multiplicity _cnmultproj;
 
     /// The thrust projector.
     Thrust _thrustproj;
+
+    /// The sphericity projector.
+    Sphericity _sphericityproj;
+
 
   private:
 
@@ -60,11 +75,12 @@ namespace Rivet {
     /// Histograms
     AIDA::IHistogram1D* _histTot;
     AIDA::IHistogram1D* _histChTot;
-    AIDA::IHistogram1D* _histUnchTot;
     AIDA::IHistogram1D* _histHadrTot;
     AIDA::IHistogram1D* _histHadrChTot;
-    AIDA::IHistogram1D* _histHadrUnchTot;
     AIDA::IHistogram1D* _histThrust;
+    AIDA::IHistogram1D* _histMajor;
+    AIDA::IHistogram1D* _histSphericity;
+    AIDA::IHistogram1D* _histAplanarity;
     //@}
 
   };

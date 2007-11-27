@@ -5,7 +5,7 @@ libRivetTools_la_SOURCES  = Logging.cc RivetAIDA.cc RivetPaths.cc binreloc.c \
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) \
   -I$(top_srcdir)/include/TinyXML \
   -DLWH_USING_AIDA -DENABLE_BINRELOC \
-  -DRIVETDATADIR=\"$(datadir)/$(PACKAGE_TARNAME)\" \
+  -DRIVETDATADIR=\"$(pkgdatadir)\" \
   -DRIVETLIBDIR=\"$(libdir)\"
 
 if WITH_ROOT

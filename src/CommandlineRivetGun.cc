@@ -2,7 +2,8 @@
 #include "RivetGun/RivetGun.hh"
 #include "RivetGun/Commandline.hh"
 #include "RivetGun/Configuration.hh"
-#include "Rivet/AnalysisHandler.fhh"
+#include "Rivet/AnalysisHandler.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Commandline.hh"
 #include <tclap/CmdLine.h>
 #include <fstream>
@@ -10,7 +11,6 @@
 
 namespace Rivet {
 
-  class Analysis;
 
   namespace Commandline {
 

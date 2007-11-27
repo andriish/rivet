@@ -18,9 +18,9 @@ namespace Rivet {
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    inline FinalState(double mineta = -MaxRapidity,
-                      double maxeta = MaxRapidity,
-                      double minpt = 0.0)
+    FinalState(double mineta = -MaxRapidity,
+               double maxeta = MaxRapidity,
+               double minpt = 0.0)
       : _etamin(mineta), _etamax(maxeta), _ptmin(minpt) 
     { 
       addCut("eta", MORE_EQ, mineta);
@@ -29,27 +29,26 @@ namespace Rivet {
     }
     
     /// Return the name of the projection
-    inline string getName() const {
+    virtual string getName() const {
       return "FinalState";
     }
     
     /// Access the projected final-state particles.
-    inline const ParticleVector& particles() const { return _theParticles; }
+    virtual const ParticleVector& particles() const { return _theParticles; }
 
     /// Is this final state empty?
-    inline const bool isEmpty() const { return _theParticles.empty(); }
+    virtual const bool isEmpty() const { return _theParticles.empty(); }
 
   protected:
     
     /// Apply the projection to the event.
-    void project(const Event& e);
+    virtual void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection& p) const;
+    virtual int compare(const Projection& p) const;
     
-    
-  private:
-    
+  protected:
+ 
     /// The minimum allowed pseudorapidity.
     double _etamin;
     
@@ -58,8 +57,6 @@ namespace Rivet {
     
     /// The minimum allowed transverse momentum.
     double _ptmin;
-
-  protected:
     
     /// The final-state particles.
     ParticleVector _theParticles;

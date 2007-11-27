@@ -89,7 +89,7 @@ namespace Rivet {
     /// this, the before() function of the corresponding type_info
     /// objects is used. Otherwise, if the objects are of the same class,
     /// the virtual compare(const Projection &) will be returned.
-    inline bool before(const Projection& p) const {
+    bool before(const Projection& p) const {
       const std::type_info& thisid = typeid(*this);
       const std::type_info& otherid = typeid(p);
       if (thisid == otherid) {
@@ -103,7 +103,7 @@ namespace Rivet {
     /// classes should ensure that all contained projections are
     /// registered in the @a _projections set for the cut chaining 
     /// to work.
-    inline virtual const Cuts getCuts() const {
+    virtual const Cuts getCuts() const {
       Cuts totalCuts = _cuts;
       for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
         totalCuts.addCuts((*p)->getCuts());
@@ -115,7 +115,7 @@ namespace Rivet {
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
     /// chaining to work.
-    inline virtual const set<BeamPair> getBeamPairs() const {
+    virtual const set<BeamPair> getBeamPairs() const {
       set<BeamPair> ret = _beamPairs;
       for (set<Projection*>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
         Projection* p = *ip;
@@ -126,12 +126,12 @@ namespace Rivet {
     }
 
     /// Get the name of the projection.
-    inline virtual string getName() const {
+    virtual string getName() const {
       return "BaseProjection";
     }
 
     /// Get the contained projections, including recursion.
-    inline set<Projection*> getProjections() const {
+    set<Projection*> getProjections() const {
       set<Projection*> allProjections = _projections;
       for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
         allProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
@@ -142,7 +142,7 @@ namespace Rivet {
   protected:
 
     /// Add a projection dependency to the projection list.
-    inline Projection& addProjection(Projection& proj) {
+    Projection& addProjection(Projection& proj) {
       getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
       getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
       _projections.insert(&proj);
@@ -150,13 +150,13 @@ namespace Rivet {
     }
 
     /// Add a colliding beam pair.
-    inline Projection& addBeamPair(const ParticleName& beam1, const ParticleName& beam2) {
+    Projection& addBeamPair(const ParticleName& beam1, const ParticleName& beam2) {
       _beamPairs.insert(BeamPair(beam1, beam2));
       return *this;
     }
 
     /// Add a cut.
-    inline Projection& addCut(const string& quantity, const Comparison& comparison, const double value) {
+    Projection& addCut(const string& quantity, const Comparison& comparison, const double value) {
       getLog() << Log::DEBUG << getName() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
       _cuts.addCut(quantity, comparison, value);
       return *this;
@@ -173,16 +173,10 @@ namespace Rivet {
 
     /// Beam-type constraint
     set<BeamPair> _beamPairs;
-
+ 
     /// Collection of pointers to projections, for automatically combining constraints.
     set<Projection*> _projections;
 
-  private:
-   
-    /// The assignment operator is private and must never be called.
-    /// In fact, it should not even be implemented.
-    //Projection& operator=(const Projection&);
-    
   };
   
 }

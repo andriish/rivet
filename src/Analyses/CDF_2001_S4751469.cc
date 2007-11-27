@@ -38,7 +38,7 @@ void CDF_2001_S4751469::analyze(const Event& event) {
 
   // Get jets, sorted by pT
   const TrackJet::Jets jets = tj.getJets();
-  if (jets.size()==0) { return; }
+  if (jets.empty()) { return; }
 
   TrackJet::Jet leadingJet = jets[0];
   const double phiLead = leadingJet.getPtWeightedPhi();
@@ -47,17 +47,18 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
   if (ptLead < 0.5) return;
   if (ptLead > 50.0) return;
-  //const size_t nBin = size_t(floor(ptLead));
-  
+
+  /// @todo Include leading jet or not?  
   // Run over tracks in non-leading jets
   double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
-  for (TrackJet::Jets::const_iterator j = jets.begin()+1; j != jets.end(); ++j) {
+  // This was skipping the leading jet:
+  //for (TrackJet::Jets::const_iterator j = jets.begin()+1; j != jets.end(); ++j) {
+  for (TrackJet::Jets::const_iterator j = jets.begin(); j != jets.end(); ++j) {
     for (TrackJet::Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
       // Calculate delta phi from leading jet
       double deltaPhi = fabs(p->azimuthalAngle() - phiLead);
-      if (deltaPhi > PI) deltaPhi -= PI;
-      assert(deltaPhi >= 0);
-      assert(deltaPhi <= PI);
+      if (deltaPhi > PI) deltaPhi = fabs( deltaPhi - 2*PI );
+      assert(deltaPhi >= 0 && deltaPhi <= PI);
 
       // Get a pT sum value for each region (1 number for each region per event)
       if (deltaPhi < PI/3.0) {
@@ -84,8 +85,6 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   _dataToward->fill(ptLead, ptSumToward, event.weight());
   _dataTrans->fill(ptLead, ptSumTrans, event.weight());
   _dataAway->fill(ptLead, ptSumAway, event.weight());
-  //}
-
 }
 
 

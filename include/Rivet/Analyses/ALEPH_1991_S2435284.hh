@@ -3,6 +3,7 @@
 #define RIVET_ALEPH_1991_S2435284_HH
 
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/RivetAIDA.fhh"
 
@@ -15,11 +16,11 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline ALEPH_1991_S2435284()
-      : _multproj(_fsproj)
+    ALEPH_1991_S2435284()
+      : _multproj(_cfsproj)
     { 
       setBeams(ELECTRON, POSITRON); 
-      addProjection(_fsproj);
+      addProjection(_cfsproj);
       addProjection(_multproj);
     }
 
@@ -30,7 +31,7 @@ namespace Rivet {
     static Analysis* create() { return new ALEPH_1991_S2435284(); }
 
     /// Return the name of this analysis.
-    inline string getName() const {
+    string getName() const {
       return "ALEPH_1991_S2435284";
     }
 
@@ -44,8 +45,7 @@ namespace Rivet {
 
     /// @name The projectors used by this analysis.
     //{
-    FinalState _fsproj;
-
+    ChargedFinalState _cfsproj;
     Multiplicity _multproj;
     //}
 

@@ -1,4 +1,4 @@
-dist_nobase_data_DATA = \
+nobase_dist_data_DATA = \
   Rivet/ALEPH_1991_S2435284.aida  Rivet/ALEPH_1991_S2435284.hep.xml  \
   Rivet/DELPHI_1996_S3430090.aida Rivet/DELPHI_1996_S3430090.hep.xml \
   Rivet/OPAL_2004_S6132243.aida   Rivet/OPAL_2004_S6132243.hep.xml   \
@@ -11,7 +11,7 @@ dist_nobase_data_DATA = \
   Rivet/D0_2004_S5992206.aida     Rivet/D0_2004_S5992206.hep.xml     \
   Rivet/FPythiaLEP10.hepmc
 
-dist_nobase_data_DATA = \
+nobase_dist_data_DATA += \
   RivetGun/ccpythia-default.params \
   RivetGun/falpher-default.params  \
   RivetGun/falppyt-default.params  \

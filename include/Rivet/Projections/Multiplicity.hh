@@ -16,17 +16,15 @@ namespace Rivet {
   public:
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    inline Multiplicity(FinalState& fsp)
-      : _totalMult(0), _totalChMult(0), _totalUnchMult(0),
-        _hadMult(0), _hadChMult(0), _hadUnchMult(0), 
-        _fsproj(&fsp)
+    Multiplicity(FinalState& fsp)
+      : _fsproj(fsp), _totalMult(0), _hadMult(0)
     { 
       addProjection(fsp);
     }
 
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "Multiplicity";
     }
 
@@ -43,35 +41,22 @@ namespace Rivet {
     /// @name Access the projected multiplicities.
     //@ {
     /// Total multiplicity
-    inline const unsigned int totalMultiplicity() const { return _totalMult; }
-
-    /// Charged multiplicity
-    inline const unsigned int totalChargedMultiplicity() const { return _totalChMult; }
-
-    /// Uncharged multiplicity
-    inline const unsigned int totalUnchargedMultiplicity() const { return _totalUnchMult; }
+    const unsigned int totalMultiplicity() const { return _totalMult; }
 
     /// Hadron multiplicity
-    inline const unsigned int hadronMultiplicity() const { return _hadMult; }
-
-    /// Hadronic charged multiplicity
-    inline const unsigned int hadronChargedMultiplicity() const { return _hadChMult; }
-
-    /// Hadronic uncharged multiplicity
-    inline const unsigned int hadronUnchargedMultiplicity() const { return _hadUnchMult; }
+    const unsigned int hadronMultiplicity() const { return _hadMult; }
     //@ }
 
   private:
 
-    /// Total multiplicities
-    unsigned int _totalMult, _totalChMult, _totalUnchMult;
-
-    /// Hadronic multiplicities
-    unsigned int _hadMult, _hadChMult, _hadUnchMult;
-
     /// The FinalState projection used by this projection
-    FinalState* _fsproj;
+    FinalState _fsproj;
 
+    /// Total multiplicity.
+    unsigned int _totalMult;
+
+    /// Hadronic multiplicity.
+    unsigned int _hadMult;
   };
 
 }
