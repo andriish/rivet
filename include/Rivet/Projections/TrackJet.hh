@@ -6,7 +6,7 @@
 #include "Rivet/Projections/FinalState.hh"
 
 
-// *** Only count hits where SUMPT is different from 0! 
+/// @todo Only count hits where SUMPT is different from 0! 
 
 
 namespace Rivet {
@@ -77,6 +77,11 @@ namespace Rivet {
         return _particles;
       }
 
+      /// Number of particles (tracks) in this jet.
+      size_t getNumParticles() const {
+        return _particles.size();
+      }
+
       /// Set the particles/tracks collection.
       Jet setParticles(vector<FourMomentum> particles) {
         _particles = particles;
@@ -98,30 +103,47 @@ namespace Rivet {
         return *this;
       }
 
+      /// Get the average \f$ \eta \f$ for this jet, with the average weighted
+      /// by the \f$ p_T \f$ values of the constituent tracks. (caches)
+      double getPtWeightedEta() const {
+        _calcPtAvgs();
+        assert(_okPtWeightedEta);
+        return _ptWeightedEta;
+      }
+
       /// Get the average \f$ \phi \f$ for this jet, with the average weighted
       /// by the \f$ p_T \f$ values of the constituent tracks. (caches)
       double getPtWeightedPhi() const {
-        if (_ptWeightedPhi < 0) {
-          double ptwphi(0.0), ptsum(0.0);
-          for (const_iterator p = this->begin(); p != this->end(); ++p) {
-            double pt = pT(*p);
-            ptwphi += pt * p->vector3().azimuthalAngle();
-            ptsum += pt;
-          }
-          _totalPt = ptsum;
-          _ptWeightedPhi = ptwphi / getPtSum();
-        }
+        _calcPtAvgs();
+        assert(_okPtWeightedPhi);
         return _ptWeightedPhi;
       }
 
+      /// Get the unweighted average \f$ \eta \f$ for this jet. (caches)
+      double getPhi() const {
+        _calcAvgs();
+        assert(_okEta);
+        return _eta;
+      }
+
+
+      /// Get the unweighted average \f$ \phi \f$ for this jet. (caches)
+      double getPhi() const {
+        _calcAvgs();
+        assert(_okPhi);
+        return _phi;
+      }
+
+
       /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
       double getPtSum() const {
-        if (_totalPt < 0) {
+        if (!_okTotalPt) {
           double ptsum(0.0);
           for (const_iterator p = this->begin(); p != this->end(); ++p) {
-            ptsum += pT(*p);
+            ptsum += p->pT();
           }
           _totalPt = ptsum;
+          _okTotalPt = true;
         }
         return _totalPt;
       }
@@ -135,20 +157,70 @@ namespace Rivet {
     private:
 
       /// Clear the internal cached values.
-      Jet _resetCaches() {
-        _totalPt = -1.0;
-        _ptWeightedPhi = -1.0;
-        return *this;
+      void _resetCaches() const {
+        _okPhi = false;
+        _okEta = false;
+        _okPtWeightedPhi = false;
+        _okPtWeightedEta = false;
+        _okTotalPt = false;
       }
+
+      /// Internal caching method to calculate the average \f$ \eta \f$ and \f$
+      /// \phi \f$ for this jet, weighted by the \f$ p_T \f$ values of the
+      /// constituent tracks.
+      void _calcPtAvgs() const {
+        if (!_okPtWeightedEta || !_okPtWeightedPhi) {
+          double ptwetasum(0.0), ptwphisum(0.0), ptsum(0.0);
+          for (const_iterator p = this->begin(); p != this->end(); ++p) {
+            double pt = p->pT();
+            ptsum += pt;
+            ptwetasum += pt * p->pseudorapidity();
+            ptwphisum += pt * p->azimuthalAngle();
+          }
+          _totalPt = ptsum;
+          _okTotalPt = true;
+          _ptWeightedEta = ptwetasum / getPtSum();
+          _okPtWeightedEta = true;
+          _ptWeightedPhi = ptwphisum / getPtSum();
+          _okPtWeightedPhi = true;
+        }
+      }
+
+      /// Internal caching method to calculate the unweighted average \f$ \eta
+      /// \f$ and \f$ \phi \f$ for this jet.
+      void _calcAvgs() const {
+        if (!_okEta || !_okPhi) {
+          double etasum(0.0), phisum(0.0);
+          for (const_iterator p = this->begin(); p != this->end(); ++p) {
+            etasum += p->pseudorapidity();
+            phisum += p->azimuthalAngle();
+          }
+          const double dnum(getNumParticles())
+          _eta = etasum / dnum;
+          _okEta = true;
+          _phi = phisum / dnum;
+          _okPhi = true;
+        }
+
+      }
+
+
+    private:
 
       /// The particle tracks.
       vector<FourMomentum> _particles;
 
-      /// Cached value of the \f$ p_T \f$-weighted \f$ \bar{\phi} \f$
-      mutable double _ptWeightedPhi;
+      /// Cached values of \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
+      mutable double _phi, _eta;
+      mutable bool _okPhi, _okEta;
+
+      /// Cached values of the \f$ p_T \f$-weighted \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
+      mutable double _ptWeightedPhi, _ptWeightedEta;
+      mutable bool _okPtWeightedPhi, _okPtWeightedEta;
 
       /// Cached value of the \f$ p_T \f$ sum.
       mutable double _totalPt;
+      mutable bool _okTotalPt;
     };
 
 

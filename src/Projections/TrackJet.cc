@@ -40,14 +40,9 @@ namespace Rivet {
     log << Log::DEBUG << "About to assign tracks into jets" << endl;
     while (!tracks.empty()) {
 
-      Tracks::iterator t = tracks.begin();
-      // Get eta and phi for this track
-      /// @todo Do these need to be recalculated in the t2 while loop below?
-      const double eta = t->pseudorapidity();
-      const double phi = t->azimuthalAngle();
-
-      // Make a new jet and put this seed track into it
+      // Make a new jet based on the highest pT independent track remaining.
       Jet thisjet;
+      Tracks::iterator t = tracks.begin();
       thisjet.addParticle(*t);
       tracks.erase(t);
 
@@ -55,6 +50,11 @@ namespace Rivet {
       Tracks::iterator t2 = tracks.begin();
       while (t2 != tracks.end()) {
         log << Log::DEBUG << "Building jet from tracks" << endl;
+
+        // Get eta and phi for this jet
+        /// @todo Do these need to be recalculated in the t2 while loop below?
+        const double eta = t->pseudorapidity();
+        const double phi = t->azimuthalAngle();
 
         // Compute D(eta) and D(phi), mapping Dphi into [0,pi]
         double Deta = eta - t2->pseudorapidity();
