@@ -124,8 +124,8 @@ namespace Rivet {
       totalPtOutT += pToutT;
 
       // Calculate rapidities w.r.t. thrust and sphericity.
-      const double rapidityT = 0.5 * (energy + momT) / (energy - momT);
-      const double rapidityS = 0.5 * (energy + momS) / (energy - momS);
+      const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
+      const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
 
       // Fill histograms.
       _histLogScaledMom->fill(logInvScaledMom, weight); 
