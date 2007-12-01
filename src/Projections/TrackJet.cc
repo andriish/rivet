@@ -1,10 +1,12 @@
 // -*- C++ -*-
-//     Jet algorithm from the Field & Stuart minimum bias study.
+// Jet algorithm from the CDF Field & Stuart minimum bias study.
+
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/TrackJet.hh"
 #include "Rivet/Cmp.hh"
 #include <algorithm>
+
 
 namespace Rivet {
 
@@ -15,7 +17,7 @@ namespace Rivet {
   }
 
 
-  void TrackJet::project(const Event & e) {
+  void TrackJet::project(const Event& e) {
     Log& log = getLog();
     _jets.clear();
 
@@ -52,18 +54,17 @@ namespace Rivet {
         log << Log::DEBUG << "Building jet from tracks" << endl;
 
         // Get eta and phi for this jet
-        /// @todo Do these need to be recalculated in the t2 while loop below?
-        const double eta = t->pseudorapidity();
-        const double phi = t->azimuthalAngle();
+        const double jeteta = thisjet.getEta();
+        const double jetphi = thisjet.getPhi();
 
         // Compute D(eta) and D(phi), mapping Dphi into [0,pi]
-        double Deta = eta - t2->pseudorapidity();
-        double Dphi = phi - t2->azimuthalAngle();
-        if (Dphi > PI) Dphi = fabs( 2*PI - Dphi );
+        const double Deta = fabs(jeteta - t2->pseudorapidity());
+        double tmpDphi = fabs(jetphi - t2->azimuthalAngle());
+        const double Dphi = (tmpDphi > PI) ? fabs( 2*PI - tmpDphi ) : tmpDphi;
         assert(Dphi >= 0 && Dphi <= PI);
 
         // Add to this jet if eta-phi distance < Rmax cutoff
-        if (sqrt(Deta*Deta + Dphi*Dphi) <= _Rmax) {
+        if (sqrt(Deta*Deta + Dphi*Dphi) < _Rmax) {
           // Move this particle into the current jet (no extra sorting needed)
           thisjet.addParticle(*t2);
           t2 = tracks.erase(t2);
