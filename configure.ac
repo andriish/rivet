@@ -12,12 +12,8 @@ AC_CEDAR_OSX
 ## Set default compiler flags
 if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O3"; fi
 
-## More comprehensible error messages if possible. See:
-## http://www.bdsoft.com/tools/stlfilt.html
-if test "x$CXX" == "x"; then 
-   AC_PATH_PROG(GFILT, gfilt, $CXX, $PATH:$HOME/bin:$HOME/local/bin)
-   CXX=$GFILT
-fi
+## Make compiler error messages more readable if gfilt is installed.
+AC_CEDAR_CXXFILTER
 
 ## Checks for programs.
 AC_LANG(C++)

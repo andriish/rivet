@@ -120,7 +120,7 @@ namespace Rivet {
       }
 
       /// Get the unweighted average \f$ \eta \f$ for this jet. (caches)
-      double getPhi() const {
+      double getEta() const {
         _calcAvgs();
         assert(_okEta);
         return _eta;
@@ -146,11 +146,6 @@ namespace Rivet {
           _okTotalPt = true;
         }
         return _totalPt;
-      }
-
-      /// Get the number of particles/tracks in this jet.
-      size_t getNumParticles() const {
-        return _particles.size();
       }
 
 
@@ -195,7 +190,7 @@ namespace Rivet {
             etasum += p->pseudorapidity();
             phisum += p->azimuthalAngle();
           }
-          const double dnum(getNumParticles())
+          const double dnum( getNumParticles() );
           _eta = etasum / dnum;
           _okEta = true;
           _phi = phisum / dnum;
