@@ -232,39 +232,41 @@ namespace Rivet {
 
   // Finalize
   void DELPHI_1996_S3430090::finalize() { 
-     normalize(_histPtTInC);
-     normalize(_histPtTInCN);
-     normalize(_histPtTOutC); 
-     normalize(_histPtTOutCN); 
-     normalize(_histPtSInC);
-     normalize(_histPtSInCN);
-     normalize(_histPtSOutC); 
-     normalize(_histPtSOutCN); 
+    /// @todo Normalize most to avg number of particles (charged or otherwise)
+    
+    normalize(_histPtTInC);
+    normalize(_histPtTInCN);
+    normalize(_histPtTOutC); 
+    normalize(_histPtTOutCN); 
+    normalize(_histPtSInC);
+    normalize(_histPtSInCN);
+    normalize(_histPtSOutC); 
+    normalize(_histPtSOutCN); 
+    
+    normalize(_histRapidityTC); 
+    normalize(_histRapidityTCN); 
+    normalize(_histRapiditySC); 
+    normalize(_histRapiditySCN); 
+    
+    normalize(_histLogScaledMom); 
+    normalize(_histScaledMom); 
 
-     normalize(_histRapidityTC); 
-     normalize(_histRapidityTCN); 
-     normalize(_histRapiditySC); 
-     normalize(_histRapiditySCN); 
-
-     normalize(_histLogScaledMom); 
-     normalize(_histScaledMom); 
-
-     normalize(_hist1MinusTC); 
-     normalize(_hist1MinusTCN); 
-     normalize(_histTMajorC); 
-     normalize(_histTMajorCN); 
-     normalize(_histTMinorC); 
-     normalize(_histTMinorCN); 
-     normalize(_histOblatenessC); 
-     normalize(_histOblatenessCN); 
-
+    normalize(_hist1MinusTC); 
+    normalize(_hist1MinusTCN); 
+    normalize(_histTMajorC); 
+    normalize(_histTMajorCN); 
+    normalize(_histTMinorC); 
+    normalize(_histTMinorCN); 
+    normalize(_histOblatenessC); 
+    normalize(_histOblatenessCN); 
+    
     normalize(_histSphericityC); 
     normalize(_histSphericityCN); 
     normalize(_histAplanarityC); 
     normalize(_histAplanarityCN); 
     normalize(_histPlanarityC); 
     normalize(_histPlanarityCN); 
-
+    
     normalize(_histHemiMassDC); 
     normalize(_histHemiMassDCN); 
     normalize(_histHemiMassHC); 
