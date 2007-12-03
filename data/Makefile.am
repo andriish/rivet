@@ -17,6 +17,8 @@ nobase_dist_data_DATA += \
   RivetGun/falppyt-default.params  \
   RivetGun/fherwig-default.params RivetGun/fherwig-qcd.params  \
   RivetGun/fpythia-default.params  \
+  RivetGun/charybdisher-default.params  \
+  RivetGun/charybdispyt-default.params  \
   RivetGun/lep1.params \
   RivetGun/tevatron1800.params \
   RivetGun/lhc.params
