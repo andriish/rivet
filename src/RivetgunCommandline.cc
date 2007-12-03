@@ -12,65 +12,18 @@
 #include <tclap/CmdLine.h>
 using namespace TCLAP;
 
-
 namespace {
   using namespace std;
-
-  void handleConfigStream(istream& in, map<string, string>& pmap) {
-    while(in) {
-      string line;
-      getline(in, line);
-      const string origline = line;
-      //cout << "Input param line: " << line << endl;
-
-      // Chop line after a # character
-      size_t commentPosn = line.find_first_of("#");
-      if (commentPosn != string::npos) {
-        line = line.substr(0, commentPosn);
-      }
-
-      // Replace = signs with spaces
-      while (line.find("=") != string::npos) {
-        size_t eqpos = line.find("=");
-        line.replace(eqpos, 1, " ");
-      }
-
-      // If effectively empty, then end
-      if (line.find_first_not_of(' ') == string::npos) continue;
-
-      // Get name and value and add to the param stack by finding the
-      // punctuation tokens at either end of the string.
-      const size_t first = line.find_first_not_of(' ');
-      const size_t last = line.find_last_not_of(' ');
-      line = line.substr(first, last-first+1);
-      //cout << "Stripped line :" << line << ":" << endl;
-      const size_t firstgap = line.find(' ');
-      const size_t lastgap = line.rfind(' ');
-      const string pname = line.substr(first, firstgap-first);
-      const string pval = line.substr(lastgap+1, last-lastgap);
-      //cout << ":" << pname << "=" << pval << ":" << endl;
-
-      // Check if the remaining bit of string isn't emptiness
-      const string remains = line.substr(firstgap, lastgap-firstgap+1);
-      if (remains.find_first_not_of(' ') != string::npos) {
-        cerr << remains << " - error at char #" << remains.find_first_not_of(' ') << endl;
-        throw runtime_error("Param setting string '" + origline + "' is not in a valid format.");
-      }
-
-      // If all is okay, set the parameter
-      if (!pname.empty() && !pval.empty()) {
-        pmap[pname] = pval;
-      } else {
-        throw runtime_error("Param setting key or value is empty, somehow: '" + 
-                            pname + "' = '" + pval + "'");
-      }
-    }
-  }
+  void handleConfigStream(istream& in, map<string, string>& pmap);
 }
+
+
+///////////////////////////////////////////
 
 
 namespace Rivet {
   namespace Commandline {
+
 
     Configuration parseArgs(size_t argc, char** argv) {
       // The Configuration to be returned
@@ -100,7 +53,7 @@ namespace Rivet {
         MultiArg<string> paramsFilesArg("P", "paramsfile", "File containing parameter name, value pairs", false, "paramfile", cmd);
 
         // Add analysis args
-        const set<string> tmp = AnalysisLoader::getAllAnalysisNames();
+        const set<string> tmp = Rivet::AnalysisLoader::getAllAnalysisNames();
         vector<string> knownAnalyses;
         for (set<string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
           knownAnalyses.push_back(*i);
@@ -284,6 +237,65 @@ namespace Rivet {
     }
 
 
-
   }  
+}
+
+
+//////////////////////////////////////////////
+
+
+namespace {
+  using namespace std;
+  void handleConfigStream(istream& in, map<string, string>& pmap) {
+    while(in) {
+      string line;
+      getline(in, line);
+      const string origline = line;
+      //cout << "Input param line: " << line << endl;
+
+      // Chop line after a # character
+      size_t commentPosn = line.find_first_of("#");
+      if (commentPosn != string::npos) {
+        line = line.substr(0, commentPosn);
+      }
+
+      // Replace = signs with spaces
+      while (line.find("=") != string::npos) {
+        size_t eqpos = line.find("=");
+        line.replace(eqpos, 1, " ");
+      }
+
+      // If effectively empty, then end
+      if (line.find_first_not_of(' ') == string::npos) continue;
+
+      // Get name and value and add to the param stack by finding the
+      // punctuation tokens at either end of the string.
+      const size_t first = line.find_first_not_of(' ');
+      const size_t last = line.find_last_not_of(' ');
+      line = line.substr(first, last-first+1);
+      //cout << "Stripped line :" << line << ":" << endl;
+      const size_t firstgap = line.find(' ');
+      const size_t lastgap = line.rfind(' ');
+      const string pname = line.substr(first, firstgap-first);
+      const string pval = line.substr(lastgap+1, last-lastgap);
+      //cout << ":" << pname << "=" << pval << ":" << endl;
+
+      // Check if the remaining bit of string isn't emptiness
+      const string remains = line.substr(firstgap, lastgap-firstgap+1);
+      if (remains.find_first_not_of(' ') != string::npos) {
+        cerr << remains << " - error at char #" << remains.find_first_not_of(' ') << endl;
+        throw runtime_error("Param setting string '" + origline + "' is not in a valid format.");
+      }
+
+      // If all is okay, set the parameter
+      if (!pname.empty() && !pval.empty()) {
+        pmap[pname] = pval;
+      } else {
+        throw runtime_error("Param setting key or value is empty, somehow: '" + 
+                            pname + "' = '" + pval + "'");
+      }
+    }
+
+
+  }
 }

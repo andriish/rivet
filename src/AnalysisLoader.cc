@@ -73,6 +73,7 @@ namespace Rivet {
     return builders;
   }
 
+
   void AnalysisLoader::closeAnalysisBuilders() {
     for (set<void*>::iterator h = _handles.begin(); h != _handles.end(); ++h) {
       if (*h) dlclose(*h);
@@ -80,24 +81,20 @@ namespace Rivet {
     _handles.clear();
   }
   
+
   AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromDir(const string& dirname, AnalysisBuilders& builders) {
+    #ifdef LIB_SUFFIX
+    const string libsuffix(LIB_SUFFIX);
+    #else
+    const string libsuffix(".so");
+    #endif
+
     set<string> libfiles;
-    
-#ifdef LIB_SUFFIX
-#define SYSDSO string(LIB_SUFFIX)
-#else
-#define SYSDSO string(".so")
-#endif
-    
     oslink::directory dir(dirname);
     while (dir) {
       string filename = dir.next();
-      // Require that lib filename matches "*Rivet*.{so,dylib,dll}" (basic glob)
-      // @todo Use #define SYSDSO ".so", ".dylib", ".dll"
-      
-//      #define SYSDSO string(".so")
-      size_t posn = filename.find(SYSDSO);
-      if (posn == string::npos || posn != filename.length()-SYSDSO.length()) continue;
+      size_t posn = filename.find(libsuffix);
+      if (posn == string::npos || posn != filename.length()-libsuffix.length()) continue;
       if (filename.find("Rivet") == string::npos) continue;
       libfiles.insert(filename);
     }
@@ -125,6 +122,8 @@ namespace Rivet {
     vector<string> dirs;
     char* env = 0;
     
+    cout << "**** LIBPATH = " << getInstalledLibPath() << endl;
+
     // Always (try to) use the Rivet library install path
     //cout << "** LIBS = " << getInstalledLibPath() << endl;
     dirs.push_back(getInstalledLibPath());

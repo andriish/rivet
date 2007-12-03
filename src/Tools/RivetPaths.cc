@@ -13,7 +13,7 @@ namespace Rivet {
   const string getInstalledLibPath() {
     BrInitError error;
     br_init_lib(&error);
-    const string libdir = br_find_data_dir(RIVETLIBDIR);
+    const string libdir = br_find_lib_dir(RIVETLIBDIR);
     return libdir;
   }
 

@@ -40,7 +40,7 @@ namespace Rivet {
 
     /// Get the name of this analysis.
     string getName() const {
-      return "Test";
+      return "Example";
     }
 
     void init();

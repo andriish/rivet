@@ -26,7 +26,7 @@ endif
 ## "rivetgun" executable
 if ENABLE_RIVETGUN
   bin_PROGRAMS      = rivetgun
-  rivetgun_SOURCES  = RivetGunInterface.cc RivetGunRunner.cc Commandline.cc
+  rivetgun_SOURCES  = RivetgunInterface.cc RivetgunRunner.cc RivetgunCommandline.cc
   rivetgun_CPPFLAGS = $(AM_CPPFLAGS) -I$(AGILEINCPATH)
   rivetgun_LDFLAGS  = $(AM_LDFLAGS) -export-dynamic
   rivetgun_LDADD    = $(FCLIBS) $(AGILELIB) $(HEPMCLIB) $(GSLLIB) $(GSLCBLASLIB) $(CLHEPLIB) libRivet.la
