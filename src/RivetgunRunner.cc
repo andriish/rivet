@@ -71,11 +71,19 @@ namespace Rivet {
       log << Log::DEBUG << "Rivet analysis handler initialised" << endl;
     }
 
-    // Make a HepMC output strategy
+    // Make a HepMC output
     IO_GenEvent* hepmcOut(0);
     if (cfg.writeHepMC) {
-      /// @todo Use IO_GenEvent
       hepmcOut = new IO_GenEvent(cfg.hepmcOutFile.c_str(), std::ios::out);
+    }
+
+    // Make a HepMC input
+    IO_GenEvent* hepmcIn(0);
+    if (cfg.readHepMC) {
+      hepmcIn = new IO_GenEvent(cfg.hepmcInFile.c_str(), std::ios::in);
+      if (hepmcIn->rdstate() != 0) {
+        log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
+      }
     }
 
     // Log the event number to a special logger
@@ -86,7 +94,15 @@ namespace Rivet {
     HepMC::GenEvent myevent;
     for (unsigned int i = 0; i < cfg.numEvents; ++i) {    
       // Make the event
-      gen->makeEvent(myevent);
+      if (cfg.readHepMC) {
+        if (hepmcIn->rdstate() != 0) {
+          log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
+          break;
+        }
+        hepmcIn->fill_next_event(&myevent);
+      } else {
+        gen->makeEvent(myevent);
+      }
 
       // Notify about event number
       Log::Level lev = Log::DEBUG;
@@ -94,7 +110,7 @@ namespace Rivet {
       if (round((i+1)/1000.0) == (i+1)/1000.0) lev = Log::WARN;
       nevtlog << lev << "Event number " << i+1 << endl;
 
-      // Run Rivet analyse s
+      // Run Rivet analyses
       if (cfg.runRivet) rh.analyze(myevent);
 
       // Write out event to file
@@ -102,7 +118,6 @@ namespace Rivet {
         hepmcOut->write_event(&myevent);
         myevent.print(cout);
       }
-      /// @todo Clean-up
     }
     log << Log::INFO << "Finished!"  << endl;
 

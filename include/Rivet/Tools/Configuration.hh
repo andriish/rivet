@@ -42,9 +42,9 @@ namespace Rivet {
     string histoName;
     Rivet::HistoFormat histoFormat;
     string hepmlInFile, hepmlOutFile;
-    string hepmcOutFile;
+    string hepmcInFile, hepmcOutFile;
     Rivet::Log::LevelMap logLevels;
-    bool runRivet, writeHepMC;
+    bool runRivet, readHepMC, writeHepMC;
     ParamMap params;
     set<string> analyses;
     size_t rngSeed;

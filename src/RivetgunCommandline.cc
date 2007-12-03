@@ -39,9 +39,10 @@ namespace Rivet {
         ValueArg<string> genFileArg("G", "generatorfile", "HepML file defining the generator", true, "", "genfile");
         cmd.xorAdd(genNameArg, genFileArg);
         ValueArg<size_t> rngSeedArg("s", "seed", "random number generator seed", false, 271828, "seed", cmd);
+        ValueArg<string> eventFileArg("i", "ineventfile", "File containing HepMC events", true, "-", "filename", cmd);
 
         // Add initial state args
-        vector<string> particles = Rivet::getKnownParticleNameNames();
+        vector<string> particles = Rivet::getParticleNames();
         ValuesConstraint<string> beamNameConstraint(particles);
         ValueArg<string> beam1Arg("", "beam1", "Particle in beam 1 (PROTON by default)", false, "PROTON", &beamNameConstraint, cmd);
         ValueArg<string> beam2Arg("", "beam2", "Particle in beam 2 (PROTON by default)", false, "PROTON", &beamNameConstraint, cmd);
@@ -75,7 +76,7 @@ namespace Rivet {
 
         // Add misc args
         ValueArg<size_t> numEventsArg("n", "numevents", "Number of events to generate (10 by default)", false, 10, "num", cmd);
-        ValueArg<string> hepmcOutFileArg("o", "eventfile", "File to write HepMC events to (disabled by default)", false, "RivetGun.hepmc", "filename", cmd);
+        ValueArg<string> hepmcOutFileArg("o", "outeventfile", "File to write HepMC events to (disabled by default)", false, "RivetGun.hepmc", "filename", cmd);
         SwitchArg disableRivetArg("R", "norivet", "Disable running of Rivet", cmd, false);
 
 
@@ -133,10 +134,10 @@ namespace Rivet {
               pvalue >> config.mom2;
             }
             if (p->first == "RG:Beam1") {
-              config.beam1 = Rivet::getKnownParticleNamesR()[p->second];
+              config.beam1 = Rivet::getParticleNameEnum(p->second);
             }
             if (p->first == "RG:Beam2") {
-              config.beam2 = Rivet::getKnownParticleNamesR()[p->second];
+              config.beam2 = Rivet::getParticleNameEnum(p->second);
             }
             if (p->first == "RG:Seed") {
               pvalue >> config.rngSeed;
@@ -156,13 +157,15 @@ namespace Rivet {
           throw runtime_error("HepML file reading is not yet supported. Sorry.");
         }
         if (rngSeedArg.isSet()) config.rngSeed = rngSeedArg.getValue();
-
+        if (eventFileArg.isSet()) {
+          config.hepmcInFile = eventFileArg.getValue();
+          config.readHepMC = true;
+        }
 
         // Use initial state args
-        Rivet::ParticleNameMapR beamparticles = Rivet::getKnownParticleNamesR();
         try {
-          if (beam1Arg.isSet()) config.beam1 = beamparticles[beam1Arg.getValue()];
-          if (beam2Arg.isSet()) config.beam2 = beamparticles[beam2Arg.getValue()];
+          if (beam1Arg.isSet()) config.beam1 = getParticleNameEnum(beam1Arg.getValue());
+          if (beam2Arg.isSet()) config.beam2 = getParticleNameEnum(beam2Arg.getValue());
         } catch (exception& e) {
           throw runtime_error("Unknown beam particle: " + beam1Arg.getValue() + 
                               " or " + beam2Arg.getValue());

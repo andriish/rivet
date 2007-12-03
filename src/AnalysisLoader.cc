@@ -122,8 +122,6 @@ namespace Rivet {
     vector<string> dirs;
     char* env = 0;
     
-    cout << "**** LIBPATH = " << getInstalledLibPath() << endl;
-
     // Always (try to) use the Rivet library install path
     //cout << "** LIBS = " << getInstalledLibPath() << endl;
     dirs.push_back(getInstalledLibPath());

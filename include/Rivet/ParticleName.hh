@@ -50,7 +50,7 @@ namespace Rivet {
 
 
   /// Function which returns a map from beam particle enums to the corresponding name strings.
-  inline ParticleNameMap getKnownParticleNames() {
+  inline ParticleNameMap getParticleNamesMap() {
     ParticleNameMap bpmap;
     bpmap[ELECTRON] = "ELECTRON";
     bpmap[POSITRON] = "POSITRON";
@@ -82,8 +82,8 @@ namespace Rivet {
   }
 
   /// Function which returns a map from beam particle name strings to the corresponding enums.
-  inline ParticleNameMapR getKnownParticleNamesR() {
-    ParticleNameMap bpmap = getKnownParticleNames();
+  inline ParticleNameMapR getParticleNamesRMap() {
+    ParticleNameMap bpmap = getParticleNamesMap();
     ParticleNameMapR bpmapr;
     for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
       bpmapr[bp->second] = bp->first;
@@ -98,9 +98,9 @@ namespace Rivet {
 
   /// Function which returns a vector of all the beam particle values in 
   /// the ParticleName enum.
-  inline ParticleNameList getKnownParticleNameEnums() {
+  inline ParticleNameList getParticleNameEnums() {
     ParticleNameList names;
-    ParticleNameMap bpmap = getKnownParticleNames();
+    ParticleNameMap bpmap = getParticleNamesMap();
     for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
       names.push_back(bp->first);
     }
@@ -108,16 +108,35 @@ namespace Rivet {
   }
 
 
+  /// Function which returns a vector of all the beam particle values in 
+  /// the ParticleName enum.
+  inline ParticleName getParticleNameEnum(const string& pname) {
+    return Rivet::getParticleNamesRMap()[pname];
+  }
+
+
+
   /// Function which returns a vector of all the beam particle name strings.
-  inline vector<string> getKnownParticleNameNames() {
+  inline vector<string> getParticleNames() {
     vector<string> names;
-    ParticleNameMap bpmap = getKnownParticleNames();
+    ParticleNameMap bpmap = getParticleNamesMap();
     for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
       names.push_back(bp->second);
     }
     return names;
   }
 
+
+  /// Print a ParticleName as a string.
+  inline string toString(const ParticleName& p) {
+    return getParticleNamesMap()[p];
+  }
+
+  /// Allow ParticleName to be passed to an iostream.
+  inline ostream& operator<<(ostream& os, const ParticleName& p) {
+    os << toString(p);
+    return os;
+  }
 
   /////////////////////////////////////////////////
 
@@ -126,17 +145,13 @@ namespace Rivet {
   /// Typedef for a pair of beam particle names.
   typedef pair<ParticleName, ParticleName> BeamPair;
 
-  /// Print a BeamPair as a string
-  inline string toString(BeamPair pair) {
-    string out = "["
-      + getKnownParticleNames()[pair.first] 
-      + ", "
-      + getKnownParticleNames()[pair.second]
-      + "]";
+  /// Print a BeamPair as a string.
+  inline string toString(const BeamPair& pair) {
+    string out = "[" + toString(pair.first) + ", " + toString(pair.second) + "]";
     return out;
   }
 
-  /// Allow BeamPair to be passed to an iostream
+  /// Allow BeamPair to be passed to an iostream.
   inline ostream& operator<<(ostream& os, const BeamPair& bp) {
     os << toString(bp);
     return os;
