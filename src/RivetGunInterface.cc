@@ -7,7 +7,7 @@ using namespace AGILe;
 
 #include "RivetGun/RivetGun.hh"
 #include "RivetGun/Configuration.hh"
-#include "RivetGun/Commandline.hh"
+#include "Rivet/Tools/Commandline.hh"
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
 
@@ -30,27 +30,22 @@ namespace Rivet {
 // The main function of the rivetgun executable.
 int main(int argc, char* argv[]) {
   
-  // Configuration flags
+  // Parse command line into a configuration object.
   Configuration cfg;
   try {
-    // Use the list of available generators to configure 
-    // and use the command line handler.
-    cfg = Commandline::getConfigFromArgs(argc, argv, Loader::getAvailableGens());
-  } catch (TCLAP::ArgException& e) { 
-    cerr << "Command line error: " << e.error() << " for arg " << e.argId() << endl; 
-    return EXIT_FAILURE;
+    cfg = Commandline::parseArgs(argc, argv);
   } catch (runtime_error& e) { 
     cerr << "Error: " << e.what() << endl; 
     return EXIT_FAILURE;
   }
 
 
+  // Set log levels from command line and get a logger
+  Log::setDefaultLevels(cfg.logLevels);
+  Log& log = Log::getLog("RivetGun.Main");
+
+
   try {
-    // Set log levels from command line and get a logger
-    Log::setDefaultLevels(cfg.logLevels);
-    Log& log = Log::getLog("RivetGun.Main");
-
-
     // Load generator libraries
     Loader::initialize();
     log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;

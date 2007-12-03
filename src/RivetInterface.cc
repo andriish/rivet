@@ -6,7 +6,7 @@
 using namespace Rivet;
 using namespace TCLAP;
 
-#include "HepMC/IO_Ascii.h"
+#include "HepMC/IO_GenEvent.h"
 #include "HepMC/GenEvent.h"
 using namespace HepMC;
 
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
       numEventsArg("n", "numevents", "Max number of events to read (100000 by default)", 
                    false, 100000, "num", cmd);
     UnlabeledValueArg<string>
-      eventFileArg("eventfile", "File containing ASCII format HepMC events", true, "-", "filename", cmd);      
+      eventFileArg("eventfile", "File containing HepMC events", true, "-", "filename", cmd); 
     
     // Parse command line args
     cmd.parse(argc, argv);
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
 
 
   // Make a HepMC input
-  IO_Ascii hepmcIn(cfgEventFile.c_str(), std::ios::in);
+  IO_GenEvent hepmcIn(cfgEventFile.c_str(), std::ios::in);
   if (hepmcIn.rdstate() != 0) {
     log << Log::ERROR << "Couldn't read HepMC events from file: " << cfgEventFile << endl;
   }

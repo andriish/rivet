@@ -18,28 +18,19 @@ libRivet_la_LIBADD  = \
   $(CLHEPLIB) $(KTJETLIB) $(FASTJETLIB) \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME) \
   -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME)
-
-
-## "rivet" executable
-bin_PROGRAMS   = rivet
-rivet_SOURCES  = RivetInterface.cc Commandline.cc
-rivet_CPPFLAGS = $(AM_CPPFLAGS)
-rivet_LDFLAGS  = -export-dynamic
-rivet_LDADD    = libRivet.la $(HEPMCLIB) $(CLHEPLIB) $(GSLLIB) $(GSLCBLASLIB)
+if WITH_ROOT
+  libRivet_la_LIBADD += $(ROOTLIBS)	
+endif
 
 
 ## "rivetgun" executable
 if ENABLE_RIVETGUN
-  bin_PROGRAMS  += rivetgun
-  rivetgun_SOURCES  = RivetGunInterface.cc RivetGunRunner.cc Commandline.cc CommandlineRivetGun.cc
+  bin_PROGRAMS      = rivetgun
+  rivetgun_SOURCES  = RivetGunInterface.cc RivetGunRunner.cc Commandline.cc
   rivetgun_CPPFLAGS = $(AM_CPPFLAGS) -I$(AGILEINCPATH)
   rivetgun_LDFLAGS  = $(AM_LDFLAGS) -export-dynamic
-  rivetgun_LDADD    = $(FCLIBS) $(RIVETLIB) $(AGILELIB) $(HEPMCLIB)
-endif
-
-
-## Optional ROOT histogramming
+  rivetgun_LDADD    = $(FCLIBS) $(AGILELIB) $(HEPMCLIB) $(GSLLIB) $(GSLCBLASLIB) $(CLHEPLIB) libRivet.la
 if WITH_ROOT
-  rivet_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
-  libRivet_la_LIBADD += $(ROOTLIBS)	
+  rivetgun_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
+endif
 endif
