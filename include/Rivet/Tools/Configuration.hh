@@ -26,8 +26,9 @@ namespace Rivet {
     Configuration() :
       numEvents(0), generatorName(""), beam1(Rivet::PROTON), beam2(Rivet::PROTON), 
       mom1(7000.0), mom2(7000.0), histoName("Rivet"), histoFormat(Rivet::AIDAML), 
-      hepmlInFile(""), hepmlOutFile(""), hepmcOutFile(""), 
-      runRivet(false), writeHepMC(false), params(), analyses(), rngSeed(314159)
+      hepmlInFile(""), hepmlOutFile(""), hepmcInFile(""), hepmcOutFile(""), 
+      runRivet(false), readHepMC(false), writeHepMC(false), 
+      params(), analyses(), rngSeed(314159)
     { }
 
 

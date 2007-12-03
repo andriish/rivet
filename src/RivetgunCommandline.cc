@@ -39,7 +39,7 @@ namespace Rivet {
         ValueArg<string> genFileArg("G", "generatorfile", "HepML file defining the generator", true, "", "genfile");
         cmd.xorAdd(genNameArg, genFileArg);
         ValueArg<size_t> rngSeedArg("s", "seed", "random number generator seed", false, 271828, "seed", cmd);
-        ValueArg<string> eventFileArg("i", "ineventfile", "File containing HepMC events", true, "-", "filename", cmd);
+        ValueArg<string> eventFileArg("i", "ineventfile", "File containing HepMC events", false, "-", "filename", cmd);
 
         // Add initial state args
         vector<string> particles = Rivet::getParticleNames();
@@ -71,8 +71,8 @@ namespace Rivet {
         ValueArg<string> histoTypeArg("", "histotype", "Histogram output format (default is AIDA XML)", false, "AIDA", &histoTypeConstraint, cmd);
 
         // Add logging args
-        const string mesg = "Set log level in 'name:level' format. The levels are INFO, DEBUG and WARNING";
-        MultiArg<string> logsArg("l", "loglevel", mesg, false, "name:level", cmd);
+        const string mesg = "Set log level in 'name=level' format. The levels are INFO, DEBUG and WARNING";
+        MultiArg<string> logsArg("l", "loglevel", mesg, false, "name=level", cmd);
 
         // Add misc args
         ValueArg<size_t> numEventsArg("n", "numevents", "Number of events to generate (10 by default)", false, 10, "num", cmd);
@@ -213,7 +213,9 @@ namespace Rivet {
         // Use logging args
         for (vector<string>::const_iterator l = logsArg.getValue().begin(); 
              l != logsArg.getValue().end(); ++l) {
-          unsigned int breakpos = l->find(":");
+          size_t breakpos = l->find("=");
+          /// @todo Remove backwards compatible ":" delimiter
+          if (breakpos == string::npos) breakpos = l->find(":");
           if (breakpos != string::npos) {
             string key = l->substr(0, breakpos);
             string value = l->substr(breakpos + 1, l->size() - breakpos - 1);

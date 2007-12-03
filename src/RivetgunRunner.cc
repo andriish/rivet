@@ -78,13 +78,13 @@ namespace Rivet {
     }
 
     // Make a HepMC input
-    IO_GenEvent* hepmcIn(0);
-    if (cfg.readHepMC) {
-      hepmcIn = new IO_GenEvent(cfg.hepmcInFile.c_str(), std::ios::in);
-      if (hepmcIn->rdstate() != 0) {
-        log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
-      }
-    }
+    // IO_GenEvent* hepmcIn(0);
+    // if (cfg.readHepMC) {
+    //   hepmcIn = new IO_GenEvent(cfg.hepmcInFile.c_str(), std::ios::in);
+    //   if (hepmcIn->rdstate() != 0) {
+    //     log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
+    //   }
+    // }
 
     // Log the event number to a special logger
     Log& nevtlog = Log::getLog("RivetGun.NEvt");
@@ -94,15 +94,15 @@ namespace Rivet {
     HepMC::GenEvent myevent;
     for (unsigned int i = 0; i < cfg.numEvents; ++i) {    
       // Make the event
-      if (cfg.readHepMC) {
-        if (hepmcIn->rdstate() != 0) {
-          log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
-          break;
-        }
-        hepmcIn->fill_next_event(&myevent);
-      } else {
+      // if (cfg.readHepMC) {
+      //   if (hepmcIn->rdstate() != 0) {
+      //     log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
+      //     break;
+      //   }
+      //   hepmcIn->fill_next_event(&myevent);
+      // } else {
         gen->makeEvent(myevent);
-      }
+      // }
 
       // Notify about event number
       Log::Level lev = Log::DEBUG;
