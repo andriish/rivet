@@ -1,3 +1,18 @@
+2007-12-03  Andy Buckley  <andy@insectnation.org>
+
+	* Merged all command line handling functions into one large parse
+	function, since only one executable now needs them. This removes a
+	few awkward memory leaks.
+
+	* Removed rivet executable - HepMC file reading functionality will
+	move into rivetgun.
+
+	* Now using HepMC IO_GenEvent format (IO_Ascii and
+	IO_ExtendedAscii are deprecated). Now requires HepMC >= 2.3.0.
+
+	* Added forward declarations of GSL diagonalisation routines,
+	eliminating need for GSL headers to be installed on build machine.
+
 2007-11-27  Andy Buckley  <andy@insectnation.org>
 
 	* Removed charge differentiation from Multiplicity projection (use

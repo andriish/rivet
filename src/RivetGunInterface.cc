@@ -5,9 +5,8 @@
 #include "AGILe/Loader.hh"
 using namespace AGILe;
 
-#include "RivetGun/RivetGun.hh"
-#include "RivetGun/Configuration.hh"
-#include "Rivet/Tools/Commandline.hh"
+#include "Rivet/Rivet.hh"
+#include "Rivet/Tools/Configuration.hh"
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
 

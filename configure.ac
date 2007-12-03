@@ -29,11 +29,12 @@ LIB_SUFFIX=\\\"$shrext_cmds\\\"
 AC_SUBST([LIB_SUFFIX])
 
 ## Find CLHEP and KtJet
+## TODO: Remove these!
 AC_SEARCH_CLHEP([AC_TEST_CLHEP], [AC_MSG_ERROR([CLHEP must be installed (for now)])])
 AC_CEDAR_LIBRARYANDHEADERS([KtJet], , , [AC_MSG_ERROR([KtJet library is required (for now)])])
 
 ## Find required libraries
-AC_CEDAR_LIBRARYANDHEADERS([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
+AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
@@ -86,7 +87,6 @@ AC_EMPTY_SUBST
 AC_CONFIG_FILES([
 include/Makefile
 include/Rivet/Makefile
-include/RivetGun/Makefile
 src/Makefile
 src/Tools/Makefile
 src/Projections/Makefile

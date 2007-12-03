@@ -69,7 +69,7 @@ nobase_pkginclude_HEADERS +=   \
 nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
   Tools/Logging.fhh \
-  Tools/Commandline.hh \
+  Tools/Configuration.hh \
   Tools/Utils.hh
 
 nobase_pkginclude_HEADERS += \

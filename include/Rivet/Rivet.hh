@@ -1,5 +1,5 @@
-#ifndef RIVET_Rivet_H
-#define RIVET_Rivet_H
+#ifndef RIVET_Rivet_HH
+#define RIVET_Rivet_HH
 
 #include <typeinfo>
 #include <set>
@@ -15,10 +15,13 @@
 #include <cmath>
 #include <limits>
 #include <cassert>
+#include <fstream>
 
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenVertex.h"
 #include "HepMC/GenParticle.h"
+
+
 
 
 /// This is the main namespace in which all Rivet classes are defined.

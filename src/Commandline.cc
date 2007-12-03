@@ -3,7 +3,7 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "RivetGun/Configuration.hh"
+#include "Rivet/Tools/Configuration.hh"
 
 #include "AGILe/Particle.hh"
 #include "AGILe/Generator.hh"
@@ -12,12 +12,10 @@
 #include <tclap/CmdLine.h>
 using namespace TCLAP;
 
-#include <fstream>
-#include <iostream>
-using namespace std;
-
 
 namespace {
+  using namespace std;
+
   void handleConfigStream(istream& in, map<string, string>& pmap) {
     while(in) {
       string line;

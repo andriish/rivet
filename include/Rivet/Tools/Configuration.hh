@@ -1,16 +1,11 @@
 // -*- C++ -*-
-#ifndef RIVETGUN_CONFIGURATION_HH 
-#define RIVETGUN_CONFIGURATION_HH 1
+#ifndef RIVET_CONFIGURATION_HH 
+#define RIVET_CONFIGURATION_HH 1
 
-#include "RivetGun/RivetGun.hh"
+#include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/ParticleName.hh"
-
-
-namespace Rivet {
-  class Analysis;
-}
 
 
 namespace Rivet {
@@ -54,6 +49,13 @@ namespace Rivet {
     set<string> analyses;
     size_t rngSeed;
   };
+
+
+  // Forward declarations
+  class Analysis;
+  namespace Commandline {
+    Configuration parseArgs(size_t argc, char** argv);
+  }
 
 
 }

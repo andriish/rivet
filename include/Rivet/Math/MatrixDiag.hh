@@ -4,9 +4,28 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MatrixN.hh"
 
-#include "gsl/gsl_vector.h"
-#include "gsl/gsl_matrix.h"
-#include "gsl/gsl_eigen.h"
+
+// GSL forward declarations (avoids need for GSL header files)
+extern "C" {
+  // #include "gsl/gsl_vector.h"
+  struct gsl_vector;
+  gsl_vector* gsl_vector_alloc(size_t);
+  double gsl_vector_get(gsl_vector*, size_t);
+  void gsl_vector_set(gsl_vector*, size_t, double);
+  void gsl_vector_free(gsl_vector*);
+  // #include "gsl/gsl_matrix.h"
+  struct gsl_matrix;
+  gsl_matrix* gsl_matrix_alloc(size_t, size_t);
+  double gsl_matrix_get(gsl_matrix*, size_t, size_t);
+  void gsl_matrix_set(gsl_matrix*, size_t, size_t, double);
+  void gsl_matrix_free(gsl_matrix*);
+  // #include "gsl/gsl_eigen.h"
+  struct gsl_eigen_symmv_workspace;
+  gsl_eigen_symmv_workspace* gsl_eigen_symmv_alloc(size_t);
+  void gsl_eigen_symmv(gsl_matrix*, gsl_vector*, gsl_matrix*, gsl_eigen_symmv_workspace*);
+  void gsl_eigen_symmv_free(gsl_eigen_symmv_workspace*);
+}
+
 
 template <size_t N>
 class EigenSystem;

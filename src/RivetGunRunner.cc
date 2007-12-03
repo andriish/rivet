@@ -4,14 +4,14 @@
 #include "AGILe/Generator.hh"
 using namespace AGILe;
 
-#include "RivetGun/Configuration.hh"
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/Configuration.hh"
 using namespace Rivet;
 
-#include "HepMC/IO_Ascii.h" // To become #include "HepMC/IO_GenEvent.h"
+#include "HepMC/IO_GenEvent.h"
 using namespace HepMC;
 
 
@@ -72,10 +72,10 @@ namespace Rivet {
     }
 
     // Make a HepMC output strategy
-    IO_Ascii* hepmcOut(0);
+    IO_GenEvent* hepmcOut(0);
     if (cfg.writeHepMC) {
       /// @todo Use IO_GenEvent
-      hepmcOut = new IO_Ascii(cfg.hepmcOutFile.c_str(), std::ios::out);
+      hepmcOut = new IO_GenEvent(cfg.hepmcOutFile.c_str(), std::ios::out);
     }
 
     // Log the event number to a special logger
