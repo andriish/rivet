@@ -54,8 +54,8 @@ namespace Rivet {
         log << Log::DEBUG << "Building jet from tracks" << endl;
 
         // Get eta and phi for this jet
-        const double jeteta = thisjet.getEta();
-        const double jetphi = thisjet.getPhi();
+        const double jeteta = thisjet.getPtWeightedEta();
+        const double jetphi = thisjet.getPtWeightedPhi();
 
         // Compute D(eta) and D(phi), mapping Dphi into [0,pi]
         const double Deta = fabs(jeteta - t2->pseudorapidity());
