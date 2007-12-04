@@ -59,12 +59,17 @@ namespace Rivet {
     return dirs;
   }
 
+  /// Get library install path
+  const string getLibPath();
+
+  /// Get data install path
+  const string getDataPath();
 
   /// Get Rivet data install path
-  const string getInstalledDataPath();
+  const string getRivetDataPath();
 
-  /// Get Rivet library install path
-  const string getInstalledLibPath();
+  /// Get RivetGun data install path
+  const string getRivetgunDataPath();
 
 }
 #endif

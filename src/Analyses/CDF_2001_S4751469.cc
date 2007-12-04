@@ -12,9 +12,6 @@ using namespace Rivet;
 #include "Rivet/RivetAIDA.hh"
 using namespace AIDA;
 
-#include "HepPDT/ParticleID.hh"
-using namespace HepMC;
-
 
 /////////////////////////////////////////////////
 
@@ -22,9 +19,16 @@ using namespace HepMC;
 // Book histograms
 void CDF_2001_S4751469::init() {
 
-  _dataToward = bookProfile1D(1, 1, 1, "pT sum toward total");
-  _dataTrans = bookProfile1D(1, 1, 2, "pT sum transverse total");
-  _dataAway = bookProfile1D(1, 1, 3, "pT sum away total");
+  _ptsumToward = bookProfile1D(1, 1, 1, "pT sum toward total");
+  _ptsumTrans = bookProfile1D(1, 1, 2, "pT sum transverse total");
+  _ptsumAway = bookProfile1D(1, 1, 3, "pT sum away total");
+  /// @todo Get proper HepData entries for other plots in this paper
+  _numToward = bookProfile1D("NToward", "Num toward", 50, 0.0, 50);
+  _numTrans = bookProfile1D("NTrans", "Num transverse", 50, 0.0, 50);
+  _numAway = bookProfile1D("NAway", "Num away", 50, 0.0, 50);
+  //   _numToward = bookProfile1D(2, 1, 1, "pT sum toward total");
+  //   _numTrans = bookProfile1D(2, 1, 2, "pT sum transverse total");
+  //   _numAway = bookProfile1D(2, 1, 3, "pT sum away total");
 
 }
 
@@ -48,11 +52,9 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   if (ptLead < 0.5) return;
   if (ptLead > 50.0) return;
 
-  /// @todo Include leading jet or not?  
-  // Run over tracks in non-leading jets
+  // Run over tracks
   double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
-  // This was skipping the leading jet:
-  //for (TrackJet::Jets::const_iterator j = jets.begin()+1; j != jets.end(); ++j) {
+  size_t numToward(0), numTrans(0), numAway(0);
   for (TrackJet::Jets::const_iterator j = jets.begin(); j != jets.end(); ++j) {
     for (TrackJet::Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
       // Calculate delta phi from leading jet
@@ -60,13 +62,17 @@ void CDF_2001_S4751469::analyze(const Event& event) {
       if (deltaPhi > PI) deltaPhi = fabs( deltaPhi - 2*PI );
       assert(deltaPhi >= 0 && deltaPhi <= PI);
 
-      // Get a pT sum value for each region (1 number for each region per event)
+      // Get pT sum and multiplicity values for each region 
+      // (each is 1 number for each region per event)
       if (deltaPhi < PI/3.0) {
-        ptSumToward += pT(*p);
+        ptSumToward += p->pT();
+        ++numToward;
       } else if (deltaPhi < 2*PI/3.0) {
-        ptSumTrans += pT(*p);
+        ptSumTrans += p->pT();
+        ++numTrans;
       } else {
-        ptSumAway += pT(*p);
+        ptSumAway += p->pT();
+        ++numAway;
       }
 
     }
@@ -81,14 +87,26 @@ void CDF_2001_S4751469::analyze(const Event& event) {
       << ptSumTrans << "]" 
       << endl;
 
-  // Update the proto-profile histograms
-  _dataToward->fill(ptLead, ptSumToward, event.weight());
-  _dataTrans->fill(ptLead, ptSumTrans, event.weight());
-  _dataAway->fill(ptLead, ptSumAway, event.weight());
+  // Update the pT profile histograms
+  _ptsumToward->fill(ptLead, ptSumToward, event.weight());
+  _ptsumTrans->fill(ptLead, ptSumTrans, event.weight());
+  _ptsumAway->fill(ptLead, ptSumAway, event.weight());
+
+  // Log some event details
+  log << Log::DEBUG 
+      << "N [twd, away, trans] = ["
+      << numToward << ", " 
+      << numTrans << ", " 
+      << numAway << "]" 
+      << endl;
+
+  // Update the N_jet profile histograms
+  _numToward->fill(ptLead, numToward, event.weight());
+  _numTrans->fill(ptLead, numTrans, event.weight());
+  _numAway->fill(ptLead, numAway, event.weight());
 }
 
 
-// Create the profile histograms
 void CDF_2001_S4751469::finalize() {
 
 }

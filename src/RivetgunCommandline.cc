@@ -99,8 +99,14 @@ namespace Rivet {
             // cout << "Using param file " << *pf << endl;
             std::ifstream in;
             in.open(pf->c_str());
-            if (in.fail()) {
-              throw runtime_error("Couldn't read from param file " + *pf);
+            if (in.fail() && pf->find("/") == string::npos) {
+              // Try finding the file in the standard installed RivetGun share directory
+              const string try2 = getRivetgunDataPath() + "/" + *pf;
+              in.clear();
+              in.open(try2.c_str());
+              if (in.fail()) {
+                throw runtime_error("Couldn't read from param file " + *pf + " or " + try2);
+              }
             }
             handleConfigStream(in, config.params);
             in.close();

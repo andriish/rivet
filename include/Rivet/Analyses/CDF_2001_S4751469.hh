@@ -2,11 +2,10 @@
 #ifndef RIVET_CDF_2001_S4751469_HH
 #define RIVET_CDF_2001_S4751469_HH
 
+#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/TrackJet.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {
 
@@ -21,7 +20,8 @@ namespace Rivet {
     /// and \f$ p_T > 0.5 \f$ GeV.
     CDF_2001_S4751469()
       : _fsproj(-1.0, 1.0, 0.5), _trackjetproj(_fsproj),
-        _dataToward(0) ,_dataTrans(0), _dataAway(0)
+        _ptsumToward(0) ,_ptsumTrans(0), _ptsumAway(0),
+        _numToward(0) ,_numTrans(0), _numAway(0)
     { 
       setBeams(PROTON, ANTIPROTON);
       addProjection(_fsproj);
@@ -92,12 +92,18 @@ namespace Rivet {
 
     /// @name Histogram collections
     //@{
-    /// Profile histograms, binned in the \f$ p_T \f$ of the
-    /// leading jet, for the \f$ p_T \f$ sum in the toward, 
-    /// transverse and away regions.
-    AIDA::IProfile1D* _dataToward;
-    AIDA::IProfile1D* _dataTrans;
-    AIDA::IProfile1D* _dataAway;
+    /// Profile histograms, binned in the \f$ p_T \f$ of the leading jet, for
+    /// the \f$ p_T \f$ sum in the toward, transverse and away regions.
+    AIDA::IProfile1D* _ptsumToward;
+    AIDA::IProfile1D* _ptsumTrans;
+    AIDA::IProfile1D* _ptsumAway;
+
+    /// Profile histograms, binned in the \f$ p_T \f$ of the leading jet, for
+    /// the number of charged particles per jet in the toward, transverse and
+    /// away regions.
+    AIDA::IProfile1D* _numToward;
+    AIDA::IProfile1D* _numTrans;
+    AIDA::IProfile1D* _numAway;
     //@}
 
 

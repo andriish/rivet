@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_ZPHYS73C11_HH
-#define RIVET_ZPHYS73C11_HH
+#ifndef RIVET_DELPHI_1996_S3430090_HH
+#define RIVET_DELPHI_1996_S3430090_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Beam.hh"

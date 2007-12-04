@@ -123,8 +123,8 @@ namespace Rivet {
     char* env = 0;
     
     // Always (try to) use the Rivet library install path
-    //cout << "** LIBS = " << getInstalledLibPath() << endl;
-    dirs.push_back(getInstalledLibPath());
+    //cout << "** LIBS = " << getLibPath() << endl;
+    dirs.push_back(getLibPath());
     
     // Then use the Rivet analysis path variable
     env = getenv("RIVET_ANALYSIS_PATH");

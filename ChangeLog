@@ -1,5 +1,9 @@
 2007-12-04  Andy Buckley  <andy@insectnation.org>
 
+	* Param file loading now falls back to the share/RivetGun
+	directory if a local file can't be found and the provided name has
+	no directory separators in it.
+
 	* Converted TrackJet projection to update the jet centroid with
 	each particle added, using pT weighting in the eta and phi
 	averaging.
