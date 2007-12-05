@@ -15,7 +15,7 @@ libRivet_la_SOURCES = \
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl -lm \
-  $(CLHEPLIB) $(KTJETLIB) $(FASTJETLIB) \
+  $(FASTJETLIB) \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME) \
   -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME)
 if WITH_ROOT
@@ -29,7 +29,7 @@ if ENABLE_RIVETGUN
   rivetgun_SOURCES  = RivetgunInterface.cc RivetgunRunner.cc RivetgunCommandline.cc
   rivetgun_CPPFLAGS = $(AM_CPPFLAGS) -I$(AGILEINCPATH)
   rivetgun_LDFLAGS  = $(AM_LDFLAGS) -export-dynamic
-  rivetgun_LDADD    = $(FCLIBS) $(AGILELIB) $(HEPMCLIB) $(GSLLIB) $(GSLCBLASLIB) $(CLHEPLIB) libRivet.la
+  rivetgun_LDADD    = $(FCLIBS) $(AGILELIB) $(HEPMCLIB) $(GSLLIB) $(GSLCBLASLIB) libRivet.la
 if WITH_ROOT
   rivetgun_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
 endif
