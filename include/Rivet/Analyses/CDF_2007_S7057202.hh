@@ -3,7 +3,6 @@
 #define RIVET_CDF_2007_S7057202_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/KtJets.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 
@@ -15,35 +14,39 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor
-
-    inline CDF_2007_S7057202():
-    _fsproj(),
-    _ktproj(_fsproj, KTTYPE, KTANGLE, KTRECOMBINATION, _ktRParam){
+    /// Constructor.
+    CDF_2007_S7057202():
+      _ktRParam(0.7), _jetMinPT(54.0), 
+      _fsproj(), _jetproj(_fsproj)
+      /// @todo Reinstate KTTYPE, KTANGLE, KTRECOMBINATION, _ktRParam args to jet finder
+      // This is a backwards use of an enum - completely unhelpful!
+      //  enum KTParam { KTTYPE = 4, KTANGLE = 2, KTRECOMBINATION = 1 };
+    {
       setBeams(PROTON, ANTIPROTON);
       addProjection(_fsproj);
-      addProjection(_ktproj);
+      addProjection(_jetproj);
       setNeedsCrossSection(true);
     };
     
-    /// Factory method
+    /// Factory method.
     static Analysis* create() { 
       return new CDF_2007_S7057202(); 
     }
 
     /// Get the name of this analysis.
-    inline string getName() const {
+    string getName() const {
       return "CDF_2007_S7057202";
     }
 
   public:
 
-    // Declaration of initialization method
+    // Initializer.
     void init();
 
-    // Declaration of analyzing method
-    void analyze(const Event & event);
+    // The analysis.
+    void analyze(const Event& event);
     
+    // Finalize histos.
     void finalize();
 
   private:
@@ -53,28 +56,29 @@ namespace Rivet {
     
     /// ...and the copy constructor
     CDF_2007_S7057202(const CDF_2007_S7057202&);
+
+    // Parameters used in the KT algorithm.
+    const double _ktRParam;
     
+    /// Min jet \f$ p_T \f$ cut.
+    const double _jetMinPT;
+    
+    /// Projections.
     FinalState _fsproj;
-    KtJets _ktproj;
+    FastJets _jetproj;
     
-    //Parameters used in the KT algorithm
-    enum KTParam {KTTYPE = 4, KTANGLE = 2, KTRECOMBINATION = 1};
-    const static double _ktRParam;
-    
-    //Min jet PT cut
-    const static double _jetMinPT;
-    
-    //Counter for the number of events analysed
+    /// Counter for the number of events analysed.
     double _eventsTried;
     
-    //The total generated cross section
-    // @todo set the cross section from the generator
+    /// The total generated cross section.
+    /// @todo Set the cross section from the generator
     double _xSecTot;
     
-    //Histograms in different eta regions and the number of events
-    //in each histogram
-    
+    // Histograms in different eta regions and the number of events
+    // in each histogram
+    /// @todo Indexing a map by double is a bad idea...
     map<double, AIDA::IHistogram1D*> _histos;
+    /// @todo Aaaargh!
     map<AIDA::IHistogram1D*, double> _eventsPassed;
 
   };

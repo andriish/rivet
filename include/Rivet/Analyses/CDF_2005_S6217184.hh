@@ -4,7 +4,6 @@
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
-#include "Rivet/Projections/KtJets.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"

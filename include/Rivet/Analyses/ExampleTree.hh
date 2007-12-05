@@ -5,11 +5,11 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
-#include "Rivet/Projections/KtJets.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/WZandh.hh"
 #include "Rivet/RivetAIDA.fhh"
 
-// Root stuff
+// ROOT stuff
 #ifdef HAVE_ROOT
 #include "TTree.h"
 #include "TFile.h"
@@ -30,7 +30,7 @@ namespace Rivet {
     inline ExampleTree()
       : _fsproj(-4.0, 4.0, 0.0), 
         _chgleptonsproj(_fsproj), 
-        _ktjetsproj(_fsproj), 
+        _jetsproj(_fsproj), 
         _wzandhproj(), 
         _vfsproj(_fsproj),
         _totvismomproj(_vfsproj)
@@ -48,7 +48,7 @@ namespace Rivet {
 
       addProjection(_fsproj);
       addProjection(_chgleptonsproj);
-      addProjection(_ktjetsproj);
+      addProjection(_jetsproj);
       addProjection(_wzandhproj);
       addProjection(_vfsproj);
       addProjection(_totvismomproj);
@@ -86,7 +86,7 @@ namespace Rivet {
     ChargedLeptons _chgleptonsproj;
 
     /// The jet projector.
-    KtJets _ktjetsproj;
+    FastJets _jetsproj;
 
     /// The vector boson projector.
     WZandh _wzandhproj;

@@ -3,8 +3,9 @@
 #define RIVET_ZEUS_2001_S4815815_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/KtJets.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/RivetAIDA.fhh"
+
 
 namespace Rivet {
 
@@ -17,19 +18,21 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline ZEUS_2001_S4815815()
-      : _fsproj(), _ktjetsproj(_fsproj) 
+    ZEUS_2001_S4815815()
+      : _fsproj(), _jetsproj(_fsproj) 
     { 
       setBeams(POSITRON, PROTON);
       addProjection(_fsproj);
-      addProjection(_ktjetsproj);
+      addProjection(_jetsproj);
     }
 
-    /// Factory method
-    static Analysis* create() { return new ZEUS_2001_S4815815(); }
+    /// Factory method.
+    static Analysis* create() { 
+      return new ZEUS_2001_S4815815(); 
+    }
 
     /// Get the name of this analysis.
-    inline string getName() const {
+    string getName() const {
       return "ZEUS_2001_S4815815";
     }
 
@@ -43,11 +46,11 @@ namespace Rivet {
 
   private:
 
-    /// The FinalState projector used by this analysis.
+    /// The final state projection used by this analysis.
     FinalState _fsproj;
 
-    /// The KtJets projector used by this analysis.
-    KtJets _ktjetsproj;
+    /// The jets projection used by this analysis.
+    FastJets _jetsproj;
 
   private:
 

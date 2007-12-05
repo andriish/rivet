@@ -26,13 +26,14 @@ void ZEUS_2001_S4815815::analyze(const Event& event) {
   log << Log::DEBUG << "Starting analyzing" << endl;
 
   // Analyse and print some info
-  const KtJets& jets = event.applyProjection(_ktjetsproj);
-  const int nj = jets.getNJets();
+  const FastJets& jets = event.applyProjection(_jetsproj);
+  const size_t nj = jets.getNJets();
   log << Log::INFO << "Jet multiplicity = " << nj << endl;
 
   // Fill histograms
-  vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
-  for (vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); ++j) {
+  typedef vector<fastjet::PseudoJet> Jets;
+  Jets jetList = jets.getJets(); // was getJetsEt()
+  for (Jets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
     _histJetEt1->fill(j->perp(), event.weight() );
   }
   
@@ -42,5 +43,4 @@ void ZEUS_2001_S4815815::analyze(const Event& event) {
 
 
 // Finalize
-void ZEUS_2001_S4815815::finalize() 
-{ }
+void ZEUS_2001_S4815815::finalize() { }

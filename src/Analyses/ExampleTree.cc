@@ -2,8 +2,6 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/ExampleTree.hh"
-#include "Rivet/RivetAIDA.hh"
-using namespace AIDA;
 
 #include "HepPDT/ParticleID.hh"
 using namespace HepMC;
@@ -11,14 +9,17 @@ using namespace HepMC;
 
 namespace Rivet {
 
-
-  // Book histograms
+  #ifndef HAVE_ROOT
   void ExampleTree::init() {
-    
-    #ifndef HAVE_ROOT
-    Log log = getLog();
-    log << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
-    #else
+    getLog() << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
+  }
+  void ExampleTree::analyze(const Event & event) { }
+  void ExampleTree::finalize() { }
+  #else
+
+
+  void ExampleTree::init() {
+    // Book histograms
     _jet_pt_cut = 20;
     _subj_pt_cut = 20;
     _lepton_pt_cut = 20;
@@ -57,14 +58,12 @@ namespace Rivet {
     _rivetTree->Branch("mo", &_mo, "mo[npart]/I");  // first mother.
 
     _rivetTree->Branch("esumr", &_esumr, "esumr[4]/F");
-    #endif
   }
 
 
 
   // Do the analysis
   void ExampleTree::analyze(const Event & event) {
-    #ifdef HAVE_ROOT
     Log log = getLog();
     log << Log::DEBUG << "Filling the ntuple" << endl;
 
@@ -74,7 +73,7 @@ namespace Rivet {
     _nevt = ev.event_number();
 
     // Jets.
-    const KtJets& jets = event.applyProjection(_ktjetsproj);
+    const FastJets& jets = event.applyProjection(_jetsproj);
 
     // Leptons
     const ChargedLeptons& cl = event.applyProjection(_chgleptonsproj);
@@ -136,10 +135,11 @@ namespace Rivet {
     
     
     // Get the jets in decreasing ET order.
-    vector<KtJet::KtLorentzVector> jetList = jets.getJetsEt();
+    typedef vector<fastjet::PseudoJet> Jets;
+    Jets jetList = jets.getJets();
     _njet = 0;
     _nsub = 0;
-    for (vector<KtJet::KtLorentzVector>::iterator j = jetList.begin(); j != jetList.end(); ++j) {
+    for (Jets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
       if (j->perp() > _jet_pt_cut) {
         _vjet[_njet][1] = j->px();
         _vjet[_njet][2] = j->py();
@@ -151,19 +151,19 @@ namespace Rivet {
           _sjet3[_nsub][3] = j->pz();
           _sjet3[_nsub][0] = j->e();
           vector<double> ys = jets.getYSubJet(*j);
-	  for (unsigned int i=0; i<5; ++i){
-	    if (ys.size()>i) {
-	      _ysubsj[_nsub][i] = ys.at(i);
-	    } else {
-	      _ysubsj[_nsub][i] = 0;
-	    }
+          for (size_t i=0; i<5; ++i){
+            if (ys.size()>i) {
+              _ysubsj[_nsub][i] = ys.at(i);
+            } else {
+              _ysubsj[_nsub][i] = 0;
+            }
           }
           ++_nsub;
         }
         ++_njet;
       }
     }
-
+    
     // Loop over leptons
     _nlep = 0;
     for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
@@ -176,28 +176,26 @@ namespace Rivet {
         ++_nlep;
       }
     }
-
+    
     // Total/missing energy.  
     _esumr[1] = tvm.getMomentum().px();
     _esumr[2] = tvm.getMomentum().py();
     _esumr[3] = tvm.getMomentum().pz();
     _esumr[0] = tvm.getMomentum().E();
-
+    
     // Finished...
     log << Log::DEBUG << "Finished analyzing" << endl;
-
+    
     _rivetTree->Fill();
-    #endif
-  }
-
-
-  // Finalize
-  void ExampleTree::finalize() { 
-    #ifdef HAVE_ROOT
-    // Write the tree to file.
-    _rivetTree->Write();
-    #endif
   }
   
-
+  
+  // Finalize
+  void ExampleTree::finalize() { 
+    // Write the tree to file.
+    _rivetTree->Write();
+  }
+  
+  #endif
+  
 }

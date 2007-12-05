@@ -12,7 +12,6 @@ libRivetProjections_la_SOURCES = \
   FinalStateHCM.cc \
   Hemispheres.cc \
   JetShape.cc \
-  KtJets.cc \
   Multiplicity.cc \
   ParisiTensor.cc \
   PVertex.cc \

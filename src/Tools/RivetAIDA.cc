@@ -18,11 +18,11 @@ extern "C" AIDA::IAnalysisFactory* AIDA_createAnalysisFactory() {
 namespace Rivet {
 
   // Forward declaration of generated function.
-  const string getDataPath();
+  const string getRivetDataPath();
 
 
   const string getDatafilePath(string papername) {
-    return getDataPath() + "/" + papername + ".aida";
+    return getRivetDataPath() + "/" + papername + ".aida";
   }
 
 
