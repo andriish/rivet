@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+if test -f pyrivet.py; then
+  if test -z "$( grep RTLD_GLOBAL pyrivet.py )"; then
+    cp pyrivet.py pyrivet.py.bak
+    echo "## dlopen global workaround by Andy Buckley" > pyrivet.py
+    echo "import sys, dl" >> pyrivet.py
+    echo "flags = sys.getdlopenflags()" >> pyrivet.py
+    echo "sys.setdlopenflags(flags | dl.RTLD_GLOBAL)" >> pyrivet.py
+    echo "" >> pyrivet.py
+    cat pyrivet.py.bak >> pyrivet.py
+    rm -f pyrivet.py.bak
+  fi
+fi

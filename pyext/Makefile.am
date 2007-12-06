@@ -1,22 +1,18 @@
-ACLOCAL_AMFLAGS = -I acincludes
+SWIG_SOURCES  = pyrivet.i
+BUILT_SOURCES = pyrivet_wrap.cc
+pyrivet_wrap.cc : $(SWIG_SOURCES)
+	$(SWIG) $(SWIG_PYTHON_OPT) $(AM_CPPFLAGS) -o $@ $<
 
-include_HEADERS = HepMCView.hh
+pkgpython_PYTHON = pyrivet.py
+pkgpyexec_LTLIBRARIES = _pyrivet.la
+_pyrivet_la_SOURCES = SWIGTest.cc pyrivet_wrap.cc $(SWIG_SOURCES)
+_pyrivet_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(HEPMCINCPATH) $(SWIG_PYTHON_CPPFLAGS) 
+_pyrivet_la_CXXFLAGS = -Wno-long-long
+_pyrivet_la_LDFLAGS = $(AM_LDFLAGS) -L$(HEPMCLIBPATH) -module
+_pyrivet_la_LIBADD = -lHepMC -lRivet
 
-bin_PROGRAMS = hepmclist
-hepmclist_CPPFLAGS = -I$(HOME)/heplocal/include
-hepmclist_SOURCES  = HepMCView.cc HepMCViewMain.cc
-hepmclist_LDFLAGS = -L$(HOME)/heplocal/lib
-hepmclist_LDADD = -lHepMC
+all-local:
+	@sh fixpyrivet
 
-BUILT_SOURCES = hepmcview_wrap.cc
-SWIG_SOURCES  = hepmcview.i
-
-pkgpython_PYTHON = hepmcview.py
-pkgpyexec_LTLIBRARIES = _hepmcview.la
-_hepmcview_la_SOURCES = HepMCView.cc hepmcview_wrap.cc $(SWIG_SOURCES)
-_hepmcview_la_CPPFLAGS = $(SWIG_PYTHON_CPPFLAGS) -I$(HOME)/heplocal/include
-_hepmcview_la_LDFLAGS = -module -L$(HOME)/heplocal/lib
-_hepmcview_la_LIBADD = -lHepMC
-
-hepmcview_wrap.cc : $(SWIG_SOURCES)
-	$(SWIG) $(SWIG_PYTHON_OPT) -I$(HOME)/heplocal/include -o $@ $<
+clean-local:
+	@rm -f $(BUILT_SOURCES) pyrivet.py pyrivet.pyc

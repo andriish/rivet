@@ -28,6 +28,12 @@ AC_PROG_LIBTOOL
 LIB_SUFFIX=\\\"$shrext_cmds\\\"
 AC_SUBST([LIB_SUFFIX])
 
+## Python interface builder
+AM_PATH_PYTHON(2.3)
+AC_PROG_SWIG(1.3.21)
+SWIG_ENABLE_CXX
+SWIG_PYTHON
+
 ## Find required libraries
 AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
@@ -76,6 +82,7 @@ src/Tools/Makefile
 src/Projections/Makefile
 src/Analyses/Makefile
 src/Test/Makefile
+pyext/Makefile
 data/Makefile
 bin/Makefile
 bin/rivet-config
