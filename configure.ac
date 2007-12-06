@@ -34,6 +34,9 @@ AC_PROG_SWIG(1.3.21)
 SWIG_ENABLE_CXX
 SWIG_PYTHON
 
+## Require Boost for smart pointers
+AX_BOOST_BASE
+
 ## Find required libraries
 AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
@@ -58,6 +61,7 @@ fi
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
+AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPIDINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPDTINCPATH)"

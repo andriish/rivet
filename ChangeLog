@@ -1,3 +1,20 @@
+2007-12-06  Andy Buckley  <andy@insectnation.org>
+
+	* Added checking for Boost library, and the standard Boost test
+	program for shared_ptr.
+
+	* Got basic Python interface running - required some tweaking
+	since Python and Rivet's uses of dlopen collide (another
+	RTLD_GLOBAL issue - see
+	http://muttley.hates-software.com/2006/01/25/c37456e6.html )
+
+2007-12-05  Andy Buckley  <andy@insectnation.org>
+
+	* Replaced all use of KtJets projection with FastJets
+	projection. KtJets projection disabled but left undeleted for
+	now. CLHEP and KtJet libraries removed from configure searches and
+	Makefile flags.
+
 2007-12-04  Andy Buckley  <andy@insectnation.org>
 
 	* Param file loading now falls back to the share/RivetGun
