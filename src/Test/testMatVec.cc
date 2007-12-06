@@ -30,7 +30,9 @@ int main() {
   m.set(1, 1, 13/4.0);
   m.set(2, 2, 9);
   cout << m << endl << endl;
-  cout << "Eigensolns = " << endl << diagonalize(m) << endl << endl;
+  EigenSystem<3> es = diagonalize(m);
+  /// @todo Fix the EigenSystem operator<< and toString() function
+  //cout << "Eigensolns = " << endl << toString(es) << endl << endl;
 
   cout << "Matrices:" << endl;
   cout << Matrix3() << endl;
