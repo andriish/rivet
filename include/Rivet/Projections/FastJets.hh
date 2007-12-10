@@ -30,13 +30,17 @@ namespace Rivet {
     // @todo implement configurable constructor for fastJet
     /// Argument constructor. Allows the to be run with different parameters.
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
-    //inline FastJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
-    //  : _pktev(0), _type(type), _angle(angle), _recom(recom),
-    //    _rparameter(rparameter), _fsproj(fsp)
-    //{ 
-    //  addProjection(fsp);
-    //}
+    inline FastJets(fastjet::JetFinder type,
+                    fastjet::RecombinationScheme recom, double rparameter, 
+		    FinalState& fsp)
+      : _type(type), _recom(recom),
+	_rparameter(rparameter), _fsproj(fsp)
+    {
+      addProjection(fsp);
+      _jdef = fastjet::JetDefinition(_type, _rparameter, _recom);
+    }
     
+
     /// Destructor.
     ~FastJets() { }
     //@}
@@ -92,6 +96,7 @@ namespace Rivet {
 
   private:
     
+    /// FastJet parameters
     fastjet::ClusterSequence _cseq;
     fastjet::JetFinder _type;
     fastjet::RecombinationScheme _recom;

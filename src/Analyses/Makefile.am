@@ -4,6 +4,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     ExampleAnalysis.cc \
     ExampleTree.cc  \
     ALEPH_1991_S2435284.cc \
+    CDF_1994_S2952106.cc \
     CDF_2001_S4751469.cc \
     CDF_2005_S6217184.cc \
     CDF_2006_S6653332.cc \

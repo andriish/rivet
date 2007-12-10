@@ -6,6 +6,7 @@
 #include "Rivet/Projections/FastJets.hh"
 
 
+
 namespace Rivet {
 
 
@@ -14,39 +15,48 @@ namespace Rivet {
 
   public:
 
-    /// Constructor.
+    /// Constructor
     CDF_2007_S7057202():
-      _ktRParam(0.7), _jetMinPT(54.0), 
-      _fsproj(), _jetproj(_fsproj)
-      /// @todo Reinstate KTTYPE, KTANGLE, KTRECOMBINATION, _ktRParam args to jet finder
-      // This is a backwards use of an enum - completely unhelpful!
-      //  enum KTParam { KTTYPE = 4, KTANGLE = 2, KTRECOMBINATION = 1 };
-    {
+      _kttype(fastjet::kt_algorithm), _ktrecomb(fastjet::E_scheme),
+      _ktRParam07(0.7), _ktRParam05(0.5), _ktRParam10(1.0), _jetMinPT(54.0),
+      _fsproj(),
+      _ktprojD07(_kttype, _ktrecomb, _ktRParam07, _fsproj),
+      _ktprojD05(_kttype, _ktrecomb, _ktRParam05, _fsproj),
+      _ktprojD10(_kttype, _ktrecomb, _ktRParam10, _fsproj) 
+   {
       setBeams(PROTON, ANTIPROTON);
       addProjection(_fsproj);
-      addProjection(_jetproj);
+      addProjection(_ktprojD07);
+      addProjection(_ktprojD05);
+      addProjection(_ktprojD10);
       setNeedsCrossSection(true);
+      
+      _ybins.push_back(0.1);
+      _ybins.push_back(0.7);
+      _ybins.push_back(1.1);
+      _ybins.push_back(1.6);
+      _ybins.push_back(2.1);
+     
     };
     
-    /// Factory method.
+    /// Factory method
     static Analysis* create() { 
       return new CDF_2007_S7057202(); 
     }
-
+    
     /// Get the name of this analysis.
-    string getName() const {
+    inline string getName() const {
       return "CDF_2007_S7057202";
     }
-
-  public:
-
-    // Initializer.
-    void init();
-
-    // The analysis.
-    void analyze(const Event& event);
     
-    // Finalize histos.
+  public:
+    
+    // Declaration of initialization method
+    void init();
+    
+    // Declaration of analyzing method
+    void analyze(const Event & event);
+    
     void finalize();
 
   private:
@@ -56,30 +66,49 @@ namespace Rivet {
     
     /// ...and the copy constructor
     CDF_2007_S7057202(const CDF_2007_S7057202&);
-
-    // Parameters used in the KT algorithm.
-    const double _ktRParam;
     
+
+    /// Parameters used in the KT algorithm('s)
+    fastjet::JetFinder _kttype;
+    fastjet::RecombinationScheme _ktrecomb;
+    const double _ktRParam07;
+    const double _ktRParam05;
+    const double _ktRParam10;
+
     /// Min jet \f$ p_T \f$ cut.
     const double _jetMinPT;
-    
+
     /// Projections.
     FinalState _fsproj;
-    FastJets _jetproj;
-    
-    /// Counter for the number of events analysed.
+    FastJets _ktprojD07;
+    FastJets _ktprojD05;
+    FastJets _ktprojD10;
+        
+    /// Rapidity bins of histograms
+    /// @todo should be made constant
+    vector<double> _ybins;
+
+
+    /// Counter for the number of events analysed
     double _eventsTried;
     
-    /// The total generated cross section.
+    /// The total generated cross section
     /// @todo Set the cross section from the generator
     double _xSecTot;
     
-    // Histograms in different eta regions and the number of events
-    // in each histogram
-    /// @todo Indexing a map by double is a bad idea...
-    map<double, AIDA::IHistogram1D*> _histos;
+    //Histograms in different eta regions and the number of events
+    //in each histogram
+    
+    /// @todo Indexing a map by double is a bad idea
+    map<double, AIDA::IHistogram1D*> _histosD07;
     /// @todo Aaaargh!
-    map<AIDA::IHistogram1D*, double> _eventsPassed;
+    map<AIDA::IHistogram1D*, double> _eventsPassedD07;
+
+    AIDA::IHistogram1D* _histoD05;
+    AIDA::IHistogram1D* _histoD10;
+
+    double _eventsPassedD05;
+    double _eventsPassedD10;
 
   };
 
