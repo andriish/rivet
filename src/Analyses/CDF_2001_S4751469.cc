@@ -18,7 +18,6 @@ using namespace AIDA;
 
 // Book histograms
 void CDF_2001_S4751469::init() {
-
   _ptsumToward = bookProfile1D(1, 1, 1, "pT sum toward total");
   _ptsumTrans = bookProfile1D(1, 1, 2, "pT sum transverse total");
   _ptsumAway = bookProfile1D(1, 1, 3, "pT sum away total");
@@ -26,10 +25,9 @@ void CDF_2001_S4751469::init() {
   _numToward = bookProfile1D("NToward", "Num toward", 50, 0.0, 50);
   _numTrans = bookProfile1D("NTrans", "Num transverse", 50, 0.0, 50);
   _numAway = bookProfile1D("NAway", "Num away", 50, 0.0, 50);
-  //   _numToward = bookProfile1D(2, 1, 1, "pT sum toward total");
-  //   _numTrans = bookProfile1D(2, 1, 2, "pT sum transverse total");
-  //   _numAway = bookProfile1D(2, 1, 3, "pT sum away total");
-
+  // _numToward = bookProfile1D(2, 1, 1, "Num toward");
+  // _numTrans = bookProfile1D(2, 1, 2, "Num transverse");
+  // _numAway = bookProfile1D(2, 1, 3, "Num away");
 }
 
 
@@ -38,6 +36,7 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   Log log = getLog();
 
   // Analyse, with pT > 0.5 GeV AND |eta| < 1
+  /// @todo Detector correction: randomly discard 8% of charged particles... how does this fit in with projections?
   const TrackJet& tj = event.applyProjection(_trackjetproj);
 
   // Get jets, sorted by pT
