@@ -3,14 +3,18 @@
 #define Rivet_Projection_FHH
 
 #include "Rivet/Cmp.fhh"
-
+//#include <boost/shared_ptr.hpp>
 
 namespace Rivet {
 
   class Projection;
   
-  typedef Projection* ProjPtr;
-  typedef const Projection* cProjPtr;
+  /// Smart (shared) pointer for handling projections.
+  //typedef boost::shared_ptr<Projection> ProjectionPtr;
+  //typedef boost::shared_ptr<const Projection> ConstProjectionPtr;
+
+  typedef Projection* ProjectionPtr;
+  typedef const Projection* ConstProjectionPtr;
   
 }
 

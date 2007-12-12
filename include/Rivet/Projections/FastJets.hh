@@ -3,15 +3,22 @@
 #define RIVET_FastJets_HH
 
 #include "Rivet/Projection.hh"
+#include "Rivet/Projections/JetAlg.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
+#include "Rivet/Jet.hh"
+
 #include "fastjet/ClusterSequence.hh"
 
 
 namespace Rivet {
+
+  /// Typedef for a collection of PseudoJets.
+  typedef vector<fastjet::PseudoJet> PseudoJets;
   
-  /// Project out kT jets found using fastJet package.
-  class FastJets : public Projection {
+
+  /// Project out jets found using fastJet package.
+  class FastJets : public JetAlg {
     
   public:
     
@@ -52,6 +59,50 @@ namespace Rivet {
       return "FastJets";
     }
     
+    /// @todo For more efficiency, pass the \f$ p_T \f$ cut. (What?)
+    size_t getNumJets() const {
+      return _cseq.inclusive_jets().size();
+    }
+
+    /// Get the pseudo jets (unordered).
+    Jets getJets() const {
+      Jets rtn;
+      const PseudoJets pjets = _cseq.inclusive_jets();
+      for (PseudoJets::const_iterator pj = pjets.begin(); pj != pjets.end(); ++pj) {
+        Jet j;
+        const PseudoJets parts = getClusterSeq().constituents(*pj);
+        for (PseudoJets::const_iterator p = parts.begin(); p != parts.end(); ++p) {
+          const FourMomentum particle(p->E(), p->px(), p->py(), p->pz());
+          j.addParticle(particle);
+        }
+        rtn.push_back(j);
+      }
+      return rtn;
+    }
+
+    /// Get the pseudo jets (unordered).
+    PseudoJets getPseudoJets() const {
+      return _cseq.inclusive_jets();
+    }
+
+    /// Get the jets, ordered by \f$ p_T \f$.
+    PseudoJets getPseudoJetsPt() const {
+      return sorted_by_pt(_cseq.inclusive_jets());
+    }
+
+    /// Return the cluster sequence (FastJet-specific).
+    const fastjet::ClusterSequence& getClusterSeq() const {
+      return _cseq;
+    }
+
+    /// Return the jet definition (FastJet-specific).
+    const fastjet::JetDefinition& getJetDef() const {
+      return _jdef;
+    }
+
+    /// Get the subjet splitting variables for the given jet.
+    vector<double> getYSubJet(const fastjet::PseudoJet& jet) const;
+
 
   protected:   
 
@@ -60,38 +111,6 @@ namespace Rivet {
 
     /// Compare projections.
     int compare(const Projection& p) const;  
-
-
-  public:
-    
-    /// @todo For more efficiency, pass the \f$ p_T \f$ cut. (What?)
-    size_t getNJets() const {
-      return _cseq.inclusive_jets().size();
-    }
-
-    /// Get the jets, unordered by \f$ p_T \f$.
-    vector<fastjet::PseudoJet> getJets() const {
-      return _cseq.inclusive_jets();
-    }
-
-    /// Get the jets, ordered by \f$ p_T \f$.
-    vector<fastjet::PseudoJet> getJetsPt() const {
-      return sorted_by_pt(_cseq.inclusive_jets());
-    }
-
-    /// Return the cluster sequence.
-    /// @todo Really expose this?
-    const fastjet::ClusterSequence& getCSeq() const {
-      return _cseq;
-    }
-
-    /// Return the jet definition.
-    fastjet::JetDefinition getJetDef() const {
-      return _jdef;
-    }
-
-    /// Get the subjet splitting variables for the given jet.
-    vector<double> getYSubJet(const fastjet::PseudoJet& jet) const;
 
 
   private:

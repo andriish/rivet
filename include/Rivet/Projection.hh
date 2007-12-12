@@ -105,7 +105,7 @@ namespace Rivet {
     /// to work.
     virtual const Cuts getCuts() const {
       Cuts totalCuts = _cuts;
-      for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+      for (set<ProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
         totalCuts.addCuts((*p)->getCuts());
       }
       return totalCuts;
@@ -117,10 +117,10 @@ namespace Rivet {
     /// chaining to work.
     virtual const set<BeamPair> getBeamPairs() const {
       set<BeamPair> ret = _beamPairs;
-      for (set<Projection*>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
-        Projection* p = *ip;
+      for (set<ProjectionPtr>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
+        ProjectionPtr p = *ip;
         getLog() << Log::DEBUG << "Proj addr = " << p << endl;
-        ret = intersection(ret, p->getBeamPairs());
+        if (p) ret = intersection(ret, p->getBeamPairs());
       }
       return ret;
     }
@@ -131,9 +131,9 @@ namespace Rivet {
     }
 
     /// Get the contained projections, including recursion.
-    set<Projection*> getProjections() const {
-      set<Projection*> allProjections = _projections;
-      for (set<Projection*>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+    set<ProjectionPtr> getProjections() const {
+      set<ProjectionPtr> allProjections = _projections;
+      for (set<ProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
         allProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
       }
       return allProjections;
@@ -145,7 +145,8 @@ namespace Rivet {
     Projection& addProjection(Projection& proj) {
       getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
       getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
-      _projections.insert(&proj);
+      ProjectionPtr pp(& proj);
+      _projections.insert(pp);
       return *this;
     }
 
@@ -175,7 +176,7 @@ namespace Rivet {
     set<BeamPair> _beamPairs;
  
     /// Collection of pointers to projections, for automatically combining constraints.
-    set<Projection*> _projections;
+    set<ProjectionPtr> _projections;
 
   };
   

@@ -3,8 +3,8 @@ BUILT_SOURCES = pyrivet_wrap.cc
 pyrivet_wrap.cc : $(SWIG_SOURCES)
 	$(SWIG) $(SWIG_PYTHON_OPT) $(AM_CPPFLAGS) -o $@ $<
 
-pkgpython_PYTHON = pyrivet.py
-pkgpyexec_LTLIBRARIES = _pyrivet.la
+python_PYTHON = pyrivet.py
+pyexec_LTLIBRARIES = _pyrivet.la
 _pyrivet_la_SOURCES = SWIGTest.cc pyrivet_wrap.cc $(SWIG_SOURCES)
 _pyrivet_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(HEPMCINCPATH) $(SWIG_PYTHON_CPPFLAGS) 
 _pyrivet_la_CXXFLAGS = -Wno-long-long

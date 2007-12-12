@@ -37,7 +37,7 @@ namespace Rivet {
     // Analyse and print some info  
     const FastJets& jetpro = event.applyProjection(_jetsproj);
     
-    log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
+    log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
     
     
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
@@ -49,15 +49,14 @@ namespace Rivet {
     
     /// @todo Don't expose FastJet objects in Rivet analyses: the FastJets projection
     /// should convert them to Rivet 4-momentum classes (or similar).
-    typedef vector<fastjet::PseudoJet> Jets;
-    const Jets& jets = jetpro.getJetsPt();
+    const PseudoJets& jets = jetpro.getPseudoJetsPt();
     
     log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
     
     int Njet = 0;
     bool jetcutpass = false;
     
-    for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
+    for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
       log << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() << " pz=" << jt->pz() << endl;
       if (jt->perp() > 37. && fabs(jt->rapidity())>0.1 && fabs(jt->rapidity())<0.7) jetcutpass = true;
       ++Njet;
@@ -73,7 +72,7 @@ namespace Rivet {
         
         FourMomentum jetaxis;
         _jetaxes.clear();
-        for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
+        for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
           // Only Central Calorimeter jets
           if (fabs(jt->rapidity()) < 1.1) {
             jetaxis.px(jt->px());

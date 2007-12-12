@@ -10,6 +10,21 @@
 
 namespace Rivet {
 
+  // Helper functions for sorting
+  // For sorting Jet objects by pT.
+  inline bool compareJetsByPt(const Rivet::Jet& first, const Rivet::Jet& second) {
+    return first.getPtSum() > second.getPtSum();
+  }
+  
+
+  // For sorting Lorentz four-vectors by pT.
+  inline bool compareVecsByPt(const FourMomentum& first, const FourMomentum& second) {
+    return pT2(first) > pT2(second);
+  }
+
+
+  /////////////////////////////////
+
 
   int TrackJet::compare(const Projection& p) const {
     const TrackJet& other = dynamic_cast<const TrackJet&>(p);

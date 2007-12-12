@@ -22,7 +22,7 @@ namespace Rivet {
     const FinalState& fs = e.applyProjection(_fsproj);
 
     // Store 4 vector data about each particle into vecs
-    vector<fastjet::PseudoJet> vecs;
+    PseudoJets vecs;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       HepMC::FourVector fv = p->getMomentum();
       fastjet::PseudoJet psj(fv.px(),fv.py(),fv.pz(),fv.e());
@@ -30,8 +30,6 @@ namespace Rivet {
     }
     fastjet::ClusterSequence cs(vecs, _jdef);
     _cseq = cs;
-
-    /// @todo Re-encode as vector<Rivet::Jet>?
   }
 
 

@@ -3,6 +3,7 @@
 #define RIVET_Analysis_HH
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/Analysis.fhh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
@@ -156,7 +157,7 @@ namespace Rivet {
     
     /// Get all the projections used by this analysis, including recursion. 
     /// WARNING: No caching or loop-avoidance is implemented at the moment.
-    set<Projection*> getProjections() const;
+    set<ProjectionPtr> getProjections() const;
 
   protected:
     /// @name AIDA analysis infrastructure.
@@ -275,7 +276,8 @@ namespace Rivet {
 
     /// Add a projection dependency to the projection list.
     Analysis& addProjection(Projection& proj) {
-      _projections.insert(&proj);
+      ProjectionPtr pp(&proj);
+      _projections.insert(pp);
       getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
       getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
       return *this;
@@ -287,7 +289,7 @@ namespace Rivet {
     }
     
     /// Collection of pointers to projections, for automatically combining constraints.
-    set<Projection*> _projections;
+    set<ProjectionPtr> _projections;
 
   private:
 

@@ -209,12 +209,11 @@ namespace Rivet {
                 
                 const FastJets& jetpro = event.applyProjection(_jetsproj);
                 /// @todo Don't expose FastJet objects in Rivet analyses.
-                typedef vector<fastjet::PseudoJet> Jets;
-                const Jets& jets = jetpro.getJetsPt();
+                const PseudoJets& jets = jetpro.getPseudoJetsPt();
                 
                 // Remove leptons from list of jets
                 _jetaxes.clear();
-                for (Jets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
+                for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
                   const FourMomentum j(jt->E(), jt->px(), jt->py(), jt->pz());
                   if (deltaR(dilep[0]->getMomentum(), j) > R_isol && 
                       deltaR(dilep[1]->getMomentum(), j) > R_isol) { _jetaxes.push_back(j); }

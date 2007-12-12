@@ -1,3 +1,7 @@
+2007-12-11  Andy Buckley  <andy@insectnation.org>
+
+	* Added JetAlg base projection for TrackJet, FastJet etc.
+
 2007-12-06  Andy Buckley  <andy@insectnation.org>
 
 	* Added checking for Boost library, and the standard Boost test

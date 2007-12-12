@@ -40,10 +40,10 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   const TrackJet& tj = event.applyProjection(_trackjetproj);
 
   // Get jets, sorted by pT
-  const TrackJet::Jets jets = tj.getJets();
+  const Jets jets = tj.getJets();
   if (jets.empty()) { return; }
 
-  TrackJet::Jet leadingJet = jets[0];
+  Jet leadingJet = jets[0];
   const double phiLead = leadingJet.getPtWeightedPhi();
   const double ptLead = leadingJet.getPtSum();
 
@@ -54,8 +54,8 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   // Run over tracks
   double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
   size_t numToward(0), numTrans(0), numAway(0);
-  for (TrackJet::Jets::const_iterator j = jets.begin(); j != jets.end(); ++j) {
-    for (TrackJet::Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
+  for (Jets::const_iterator j = jets.begin(); j != jets.end(); ++j) {
+    for (Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
       // Calculate delta phi from leading jet
       double deltaPhi = fabs(p->azimuthalAngle() - phiLead);
       if (deltaPhi > PI) deltaPhi = fabs( deltaPhi - 2*PI );

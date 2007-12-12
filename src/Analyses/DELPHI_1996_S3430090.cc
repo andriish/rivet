@@ -92,6 +92,7 @@ namespace Rivet {
     _histHemiBroadTCN->fill(hemiCN.getBsum(), weight); 
     _histHemiBroadDCN->fill(hemiCN.getBdiff(), weight); 
 
+    /// @todo Need more flexible histogramming for (A)EEC?
     //const EEC& eec = e.applyProjection(_eecproj);
     //_histEEC->fill(, weight); 
     //_histAEEC->fill(, weight); 

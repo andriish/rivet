@@ -27,13 +27,12 @@ void ZEUS_2001_S4815815::analyze(const Event& event) {
 
   // Analyse and print some info
   const FastJets& jets = event.applyProjection(_jetsproj);
-  const size_t nj = jets.getNJets();
+  const size_t nj = jets.getNumJets();
   log << Log::INFO << "Jet multiplicity = " << nj << endl;
 
   // Fill histograms
-  typedef vector<fastjet::PseudoJet> Jets;
-  Jets jetList = jets.getJets(); // was getJetsEt()
-  for (Jets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
+  PseudoJets jetList = jets.getPseudoJets(); // was getJetsEt()
+  for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
     _histJetEt1->fill(j->perp(), event.weight() );
   }
   

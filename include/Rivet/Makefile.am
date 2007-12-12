@@ -7,25 +7,23 @@ nobase_pkginclude_HEADERS =
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
   Rivet.hh \
-  Constraints.hh \
-  BeamConstraint.hh \
-  Cuts.hh        Cuts.fhh       \
-  Event.hh       Event.fhh      \
-  Particle.hh    Particle.fhh   \
-  RivetAIDA.hh   RivetAIDA.fhh  \
+  Constraints.hh      BeamConstraint.hh   \
+  Cuts.hh             Cuts.fhh            \
+  Event.hh            Event.fhh           \
+  Particle.hh         Particle.fhh        \
+  RivetAIDA.hh        RivetAIDA.fhh       \
+  Analysis.hh         Analysis.fhh        \
   AnalysisHandler.hh  AnalysisHandler.fhh \
-  Projection.hh  Projection.fhh \
-  Cmp.hh Cmp.fhh \
-  ParticleName.hh   \
-  HistoFormat.hh    \
-  Analysis.hh       \
-  AnalysisLoader.hh 
+  Projection.hh       Projection.fhh      \
+  Cmp.hh              Cmp.fhh             \
+  ParticleName.hh     HistoFormat.hh      \
+  Jet.hh              AnalysisLoader.hh 
 
 ## Standard analyses
 nobase_pkginclude_HEADERS += \
-  Analyses/ExampleAnalysis.hh
+  Analyses/ExampleAnalysis.hh \
+  Analyses/ExampleTree.hh     
 nobase_dist_noinst_HEADERS += \
-  Analyses/ExampleTree.hh     \
   Analyses/ALEPH_1991_S2435284.hh \
   Analyses/CDF_1994_S2952106.hh \
   Analyses/CDF_2001_S4751469.hh \
@@ -53,6 +51,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FinalState.hh     \
   Projections/FinalStateHCM.hh  \
   Projections/Hemispheres.hh    \
+  Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
   Projections/KtJets.hh         \
   Projections/Multiplicity.hh   \

@@ -124,7 +124,7 @@ namespace Rivet {
     // Finalise Rivet and the generator
     gen->finalize();
     if (cfg.runRivet){
-      if(needsCrossSection){
+      if (needsCrossSection) {
         rh.setCrossSection(gen->getCrossSection());
       }
       rh.finalize();

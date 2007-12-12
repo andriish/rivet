@@ -33,24 +33,24 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    inline Event(const GenEvent& geneve)
+    Event(const GenEvent& geneve)
       : theGenEvent(&geneve), theWeight(1.0) {
       if ( !geneve.weights().empty() ) theWeight = geneve.weights()[0];
     }
 
     /// The copy constructor.
-    inline Event(const Event& x)  
+    Event(const Event& x)  
       : theGenEvent(x.theGenEvent), theWeight(x.theWeight) 
     { }
 
     /// The destructor.
-    virtual ~Event() { }
+    ~Event() { }
     //@}
 
   public:
 
     /// Return the generated event obtained from an external event generator.
-    inline const GenEvent& genEvent() const { return *theGenEvent; }
+    const GenEvent& genEvent() const { return *theGenEvent; }
 
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
@@ -59,21 +59,23 @@ namespace Rivet {
     /// Projection::project(const Event &) of \a p is called and a
     /// reference to p is returned.
     template <typename PROJ>
-    inline const PROJ& applyProjection(PROJ& p) const {
-      std::set<const Projection*>::const_iterator old = theProjections.find(&p);
-      if ( old != theProjections.end() ) {
+    const PROJ& applyProjection(PROJ& p) const {
+      ConstProjectionPtr cpp(&p);
+      std::set<ConstProjectionPtr>::const_iterator old = theProjections.find(cpp);
+      if (old != theProjections.end()) {
+        //return *( dynamic_cast<const PROJ*>(old->get()) );
         return *( dynamic_cast<const PROJ*>(*old) );
       }
       // Add the projection via the Projection base class (only 
       // possible because Event is a friend of Projection)
-      Projection* pp = &p;
+      ProjectionPtr pp(&p);
       pp->project(*this);
       theProjections.insert(pp);
       return p;
     }
 
     /// The weight associated with the event.
-    inline double weight() const { return theWeight; }
+    double weight() const { return theWeight; }
 
   private:
 
@@ -81,7 +83,7 @@ namespace Rivet {
     const GenEvent* theGenEvent;
 
     /// The set of Projection objects applied so far.
-    mutable std::set<const Projection*> theProjections;
+    mutable std::set<ConstProjectionPtr> theProjections;
 
     /// The weight associated with the event.
     double theWeight;
