@@ -11,11 +11,13 @@ namespace Rivet {
   void PVertex::project(const Event& e) {
 
     _thePVertex = e.genEvent().signal_process_vertex();
+    getLog() << Log::DEBUG << "PVertex ptr from HepMC = " << _thePVertex << endl;
 
-    /// since no signal vertices are filled (nor Fortran, neither C++ MC's)
-    /// the decay vertex from first particle (supposed to be beam particle)
-    /// is set as Primary Vertex to get right vertex positions. 
+    // Since no signal vertices are filled (nor Fortran, neither C++ MC's)
+    // the decay vertex from first particle (supposed to be beam particle)
+    // is set as Primary Vertex to get right vertex positions. 
 
+    /// @todo Why does this line lead to a segv?
     //if (_thePVertex) cout << "_thePVertex=0" << endl;
     //_thePVertex = (*(e.genEvent().particles_begin()))->production_vertex();
     _thePVertex = (*(e.genEvent().particles_begin()))->end_vertex();

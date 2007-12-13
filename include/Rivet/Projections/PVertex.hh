@@ -7,55 +7,61 @@
 #include "Rivet/Particle.hh"
 
 
-namespace Rivet {
+namespace Rivet {  
   
-  
-  /// Returns the primary vertex of an event
+  /// @brief Get the position of the primary vertex of an event.
+  /// HepMC doesn't reliably return the signal process vertex, so
+  /// we have to use the "decay vertex" of the beam particles. 
+  /// This gives the right position, within experimental resolution,
+  /// but ISR effects can mean that the actual vertex is not right.
+  /// Hence, we don't expose the HepMC GenVertex directly - if it were 
+  /// available, people might try to e.g. look at the \f$ p_T \f$
+  /// of the vertex children, which would be extremely unreliable.
   class PVertex: public Projection {
-
   public:
 
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    inline PVertex() { 
-    }
+    PVertex() : _thePVertex(0) { }
+
 
     /// The destructor.
-    virtual ~PVertex() { }
+    ~PVertex() { }
     //@}
 
-    public:
-      /// Return the name of the projection
-      inline string getName() const {
-        return "PVertex";
-      }
 
+    /// Return the name of the projection
+    string getName() const {
+      return "PVertex";
+    }
+
+
+    /// Get the primary vertex position.
+    const Vector3 getPVPosition() const {
+      if (_thePVertex != 0) return Vector3(_thePVertex->position());
+      return Vector3(0,0,0);
+    }
+
+    
   protected:
-
+    
     /// Do the projection.
-    virtual void project(const Event & e);
+    void project(const Event& e);
 
     /// Compare projections.
-    inline virtual int compare(const Projection & p) const {
+    int compare(const Projection & p) const {
       return 0;
     }
-
-  public:
-
-    /// Get the primary vertex.
-    inline const GenVertex& getPrimaryVertex() const {
-      return *_thePVertex;
-    }
-
+    
+  
   private:
 
     /// The Primary Vertex in the current collision.
     GenVertex* _thePVertex;
-
+    
   };
-
+  
 }
-
 
 #endif

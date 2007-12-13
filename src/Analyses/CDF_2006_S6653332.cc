@@ -9,62 +9,6 @@
 namespace Rivet {
 
 
-  /// Analysis dependent cuts on vertex tracks in SVertex projection 
-  /// Since the analysis specific cuts are very complex, they are not 
-  /// implemented in the projection and are instead passed via a function (object).
-  /// SVertex member function implementation below 
-  /// in: reference to instance of SVertex projection, ParticleVector of
-  ///     vertex to be analyzed, primary (Gen)Vertex
-  /// out: FourMomentum = visible Momentum of vertex (selected tracks), 
-  /// return bool: cuts passed? 1 : 0 
-
-  bool CDF_2006_S6653332::applyVtxTrackCuts(SVertex& svtx, ParticleVector& chfsvtx, 
-				       const HepMC::GenVertex& gpvtx,
-				       FourMomentum vtxVisMom) {
-    ///Check vertex final state charged particles, if fulfilling track criteria
-    int pass1trk1pTdcaSig25 = 0;
-    int pass1trk05pTdcaSig25 = 0;
-    int pass2trk15pTdcaSig3 = 0;
-    int pass2trk1pTdcaSig3 = 0;
- 
-    //Log log = getLog();
-
-    for (size_t i=0; i<chfsvtx.size(); ++i) {
-      double IPsig = svtx.get2dDCAsig(chfsvtx[i].getHepMCParticle(), gpvtx);
-
-      //log << Log::DEBUG << "CDF_2006_S6653332::applyVtxTrackCuts: IPsig = " 
-      //  << IPsig << endl;
-
-      if (chfsvtx[i].getMomentum().pT() > 0.5) 
-        vtxVisMom += chfsvtx[i].getMomentum();
-
-      if (chfsvtx.size()>=3 && IPsig>2.5) { // 1st pass
-        if (chfsvtx[i].getMomentum().pT() > 1.0) pass1trk1pTdcaSig25++;
-        else if (chfsvtx[i].getMomentum().pT()>0.5) pass1trk05pTdcaSig25++;
-      }
-      if (chfsvtx.size()>=2 && IPsig>3.) { // 2nd pass
-        if (chfsvtx[i].getMomentum().pT() > 1.5) pass2trk15pTdcaSig3++;
-        else if (chfsvtx[i].getMomentum().pT()>1.) pass2trk1pTdcaSig3++;
-      } 
-    }
-
-    // log << Log::DEBUG << "CDF_2006_S6653332::applyVtxTrackCuts: pass1trk1pTdcaSig25=" 
-    // << pass1trk1pTdcaSig25 << " pass1trk05pTdcaSig25="  
-    // << pass1trk05pTdcaSig25 << " pass2trk15pTdcaSig3=" << pass2trk15pTdcaSig3 
-    // << " pass2trk1pTdcaSig3=" << pass2trk1pTdcaSig3 << endl;     
-    
-    bool cutspassed = false;
-    if (pass1trk1pTdcaSig25>=1 && pass1trk1pTdcaSig25+pass1trk05pTdcaSig25>=3 ||
-        pass2trk15pTdcaSig3>=1 && pass2trk15pTdcaSig3+pass2trk1pTdcaSig3>=2) {
-      cutspassed = true;
-      //log << Log::DEBUG << "CDF_2006_S6653332::applyVtxTrackCuts: Vertex track cuts passed!" << endl;
-    }
-    
-    return cutspassed;
-  }
-  
-
-
   // Book histograms
   void CDF_2006_S6653332::init() {
     /// @todo Use histogram auto-booking if there are comparison datasets in HepData.
@@ -85,7 +29,7 @@ namespace Rivet {
     
     // Find primary vertex 
     const PVertex& pv = event.applyProjection(_pvtxproj);
-    if (fabs(pv.getPrimaryVertex().position().z()) < 600.0) {
+    if (fabs(pv.getPVPosition().z()) < 600.0) {
 
     const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
     log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;

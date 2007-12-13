@@ -38,7 +38,6 @@ namespace Rivet {
      Associated tracks and vertices to a jet are checked for displacement.
      A list of tagged jets can be obtained via the getTaggedJets() function
   */
-
   class SVertex: public PVertex {
 
   public:
@@ -49,12 +48,8 @@ namespace Rivet {
     /// projection object which is assumed to live through the run.
     SVertex(PVertex& pvtx, ChargedFinalState& chfs, 
             vector<FourMomentum>& jetaxes, double deltaR,
-            bool (*applyVtxTrackCuts) (SVertex&, ParticleVector&, const HepMC::GenVertex&, FourMomentum),
-            double detEta, 
-            double IPres, double DLS, 
-            double DLSres=0.) 
+            double detEta, double IPres, double DLS, double DLSres=0.0) 
       : _pvtx(pvtx), _chfs(chfs), _jetaxes(jetaxes), _deltaR(deltaR),
-        _applyVtxTrackCuts(applyVtxTrackCuts),
         _detEta(detEta), _IPres(IPres), _DLS(DLS), 
         _DLSres(DLSres)
     { 
@@ -78,27 +73,6 @@ namespace Rivet {
       return _taggedjets;
     }
 
-    /// Return Distance of Closest Approach from track to given (primary) vertex
-    double get2dDCA(const HepMC::GenParticle& track, const HepMC::GenVertex& gvtx);
-
-    /// Return Impact Parameter Significance of givern track w.r.t. (primary) vertex
-    double get2dDCAsig(const HepMC::GenParticle& track, const HepMC::GenVertex& gvtx);
-
-    /// Return Distance of Closest Approach from track to given (primary) vertex
-    double get3dDCA(const HepMC::GenParticle& track, const HepMC::GenVertex& gvtx);
-
-    /// Return Impact Parameter Significance of givern track w.r.t. (primary) vertex
-    double get3dDCAsig(const HepMC::GenParticle& track, const HepMC::GenVertex& gvtx);
-
-    /// Return Decay Length Significance between two vertices in transverse plane
-    double get2dDLS(const HepMC::GenVertex& vtx1, const HepMC::GenVertex& vtx2, 
-		    FourMomentum& jetaxis);
-
-    /// Return 3 dimensional Decay Length Significance between vertices 
-    double get3dDLS(const HepMC::GenVertex& vtx1, const HepMC::GenVertex& vtx2, 
-		    FourMomentum& jetaxis);
-
-
   protected:
 
     /// Apply the projection to the event.
@@ -106,7 +80,6 @@ namespace Rivet {
 
     /// Compare projections.
     int compare(const Projection& p) const;
-
 
   private:
 
@@ -123,7 +96,9 @@ namespace Rivet {
     double _deltaR;
 
     /// Analysis dependent cuts to be specified in analysis function
-    bool (*_applyVtxTrackCuts) (SVertex&, ParticleVector&, const HepMC::GenVertex&, FourMomentum);
+    /// @todo Replace with inheritance-based cut method.
+    //bool (*_applyVtxTrackCuts) (const ParticleVector&, const Vector3&, FourMomentum);
+    bool _applyVtxTrackCuts(const ParticleVector&, const Vector3&, FourMomentum);
 
     /// Geometrical acceptance of tracker
     double _detEta;

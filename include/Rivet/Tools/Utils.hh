@@ -3,11 +3,14 @@
 #define RIVET_Utils_HH
 
 #include <Rivet/Rivet.hh>
+#include <Rivet/Math/Math.hh>
 #include <cctype>
 #include <algorithm>
 #include <cerrno>
 
+
 namespace Rivet {
+
 
   inline int nocase_cmp(const string& s1, const string& s2) {
     string::const_iterator it1 = s1.begin();
@@ -70,6 +73,19 @@ namespace Rivet {
 
   /// Get RivetGun data install path
   const string getRivetgunDataPath();
+
+
+  // Return distance of closest approach from track to given (primary) vertex position.
+  double get2dClosestApproach(const HepMC::GenParticle& track, const Vector3& vtx3pos);
+
+  // Return distance of closest approach from track to given (primary) vertex position.
+  double get3dClosestApproach(const HepMC::GenParticle& track, const Vector3& vtx3pos);
+
+  /// Return 2-dimensional decay length between two vertices in transverse plane.
+  double get2dDecayLength(const Vector3& vtx1, const Vector3& vtx2, const FourMomentum& jetaxis);
+
+  /// Return 3-dimensional decay length between vertices.
+  double get3dDecayLength(const Vector3& vtx1, const Vector3& vtx2, const FourMomentum& jetaxis);
 
 }
 #endif

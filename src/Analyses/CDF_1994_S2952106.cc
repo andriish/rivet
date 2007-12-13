@@ -108,7 +108,7 @@ void CDF_1994_S2952106::analyze(const Event & event) {
   // Find vertex and check  that its z-component is < 60 cm from the nominal IP
   const PVertex& pv = event.applyProjection(_vertexproj);
   /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
-  if (fabs(pv.getPrimaryVertex().position().z()) < 600.0) {
+  if (fabs(pv.getPVPosition().z()) < 600.0) {
 
     const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
     log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
@@ -131,65 +131,65 @@ void CDF_1994_S2952106::analyze(const Event & event) {
       int Njet = 0;
       int NjetPtCut = 0;
       for (list<FourMomentum>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-	log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E() 
-	    << " pz=" << jt->pz() << endl;
-	if (jt->pT() > 100.0) ++NjetPtCut;
-	log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->pseudorapidity() 
-	    << " phi=" << jt->azimuthalAngle() << endl; 
-	if (jet1stPt == jets.end() || jt->pT() > jet1stPt->pT()) {
-	  jet3rdPt = jet2ndPt;
-	  jet2ndPt = jet1stPt;
-	  jet1stPt = jt;
-	  Njet++;
-	} else if (jet2ndPt == jets.end() || jt->pT() > jet2ndPt->pT()) {
-	  jet3rdPt = jet2ndPt;
-	  jet2ndPt = jt;
-	  Njet++;
-	} else if (jet3rdPt == jets.end() || jt->pT() > jet3rdPt->pT()) {
-	  jet3rdPt = jt;
-	  Njet++;
-	}
+        log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E() 
+            << " pz=" << jt->pz() << endl;
+        if (jt->pT() > 100.0) ++NjetPtCut;
+        log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->pseudorapidity() 
+            << " phi=" << jt->azimuthalAngle() << endl; 
+        if (jet1stPt == jets.end() || jt->pT() > jet1stPt->pT()) {
+          jet3rdPt = jet2ndPt;
+          jet2ndPt = jet1stPt;
+          jet1stPt = jt;
+          Njet++;
+        } else if (jet2ndPt == jets.end() || jt->pT() > jet2ndPt->pT()) {
+          jet3rdPt = jet2ndPt;
+          jet2ndPt = jt;
+          Njet++;
+        } else if (jet3rdPt == jets.end() || jt->pT() > jet3rdPt->pT()) {
+          jet3rdPt = jt;
+          Njet++;
+        }
       }
       
       if (NjetPtCut >= 1) {
-	log << Log::DEBUG << "Jet multiplicity after pT > 100GeV cut = " << NjetPtCut << endl; 
+        log << Log::DEBUG << "Jet multiplicity after pT > 100GeV cut = " << NjetPtCut << endl; 
       }
       
       if (Njet>=3 && fabs(jet1stPt->pseudorapidity())<0.7 && fabs(jet2ndPt->pseudorapidity())<0.7) {
-	log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
-	
-	if (fabs(fabs(jet1stPt->azimuthalAngle()-jet2ndPt->azimuthalAngle())-PI) < 1./9.*PI/2.) {
-	  log << Log::DEBUG << "1st & 2nd Jet phi requirement fulfilled" << endl;
-	  
-	  
-	  _histJet1Et->fill(jet1stPt->pT(), event.weight());
-	  _histJet2Et->fill(jet2ndPt->pT(), event.weight());
-	  //_histR23->fill(jet2ndPt->deltaR(*jet3rdPt), event.weight());
-	  _histR23->fill(delta_rad(jet2ndPt->pseudorapidity(),jet2ndPt->azimuthalAngle(), 
-			      jet3rdPt->pseudorapidity(),jet3rdPt->azimuthalAngle() ), 
-			 event.weight());
-	  _histJet3eta->fill(jet3rdPt->pseudorapidity(), event.weight());
-	  
-			 
-	  //next cut only required for alpha studies
-	  if (jet3rdPt->pT() > 10.) {
-	    log << Log::DEBUG << "jet3rdPt->pT()=" << jet3rdPt->pT() 
-		 << " (>10.)" << endl;
-
-	    double dPhi = fabs(jet3rdPt->azimuthalAngle() - jet2ndPt->azimuthalAngle());
-	    dPhi -= int(dPhi/PI); //dPhi % PI (modulo)
-	    
-	    double dH = jet3rdPt->pseudorapidity() - jet2ndPt->pseudorapidity();
-	    if (jet2ndPt->pseudorapidity() < 0.) dH *= -1;
-	    
-	    double alpha = atan(dH/dPhi);
-	    //cout << "alpha=" << alpha << "  dH=" << dH 
-	    // << "  dPhi=" << dPhi << endl;
-
-	    _histAlpha->fill(alpha, event.weight());
-	    //_histAlphaMCvsDat->fill(alpha, event.weight());
-
-	  } //3rd jet Pt cut
+        log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
+        
+        if (fabs(fabs(jet1stPt->azimuthalAngle()-jet2ndPt->azimuthalAngle())-PI) < 1./9.*PI/2.) {
+          log << Log::DEBUG << "1st & 2nd Jet phi requirement fulfilled" << endl;
+          
+          
+          _histJet1Et->fill(jet1stPt->pT(), event.weight());
+          _histJet2Et->fill(jet2ndPt->pT(), event.weight());
+          //_histR23->fill(jet2ndPt->deltaR(*jet3rdPt), event.weight());
+          _histR23->fill(delta_rad(jet2ndPt->pseudorapidity(),jet2ndPt->azimuthalAngle(), 
+                                   jet3rdPt->pseudorapidity(),jet3rdPt->azimuthalAngle() ), 
+                         event.weight());
+          _histJet3eta->fill(jet3rdPt->pseudorapidity(), event.weight());
+          
+          
+          //next cut only required for alpha studies
+          if (jet3rdPt->pT() > 10.) {
+            log << Log::DEBUG << "jet3rdPt->pT()=" << jet3rdPt->pT() 
+                << " (>10.)" << endl;
+            
+            double dPhi = fabs(jet3rdPt->azimuthalAngle() - jet2ndPt->azimuthalAngle());
+            dPhi -= int(dPhi/PI); //dPhi % PI (modulo)
+            
+            double dH = jet3rdPt->pseudorapidity() - jet2ndPt->pseudorapidity();
+            if (jet2ndPt->pseudorapidity() < 0.) dH *= -1;
+            
+            double alpha = atan(dH/dPhi);
+            //cout << "alpha=" << alpha << "  dH=" << dH 
+            // << "  dPhi=" << dPhi << endl;
+            
+            _histAlpha->fill(alpha, event.weight());
+            //_histAlphaMCvsDat->fill(alpha, event.weight());
+            
+          } //3rd jet Pt cut
         } //delta phi 1st, 2nd jet
       } //1st + 2nd jet pseudoRapidity & Njet>=3
     } //MET/sqrt(SET) cut
@@ -204,35 +204,34 @@ void CDF_1994_S2952106::analyze(const Event & event) {
 // Finalize
 void CDF_1994_S2952106::finalize() { 
   Log& log = getLog();
-
+  
   /*
   /// @todo Apply correction
   double a, b, c, erra, errb, errc;
   for (int ibin = 0;  ibin < _histAlpha->getNbins(); ++ibin) {
-    a = _histAlpha->GetBinContent(ibin);
-    erra = _histAlpha->GetBinError(ibin);
-    b = _histAlpaIdeal->GetBinContent(ibin);
-    errb = _histAlpaIdeal->GetBinError(ibin);
-    c = _histAlpaCDF->GetBinContent(ibin);
-    errc = _histAlpaCDF->GetBinError(ibin);
-    _histAlpha->SetBinContent(ibin, b/c);
-    _histAlpha->SetBinError(ibin, sqrt(sqr(b)/sqr(c)*sqr(erra) + sqr(a)/sqr(c)*sqr(errb) + 
-				       sqr(a*b/(sqr(c)))*sqr(errc) ) );
+  a = _histAlpha->GetBinContent(ibin);
+  erra = _histAlpha->GetBinError(ibin);
+  b = _histAlpaIdeal->GetBinContent(ibin);
+  errb = _histAlpaIdeal->GetBinError(ibin);
+  c = _histAlpaCDF->GetBinContent(ibin);
+  errc = _histAlpaCDF->GetBinError(ibin);
+  _histAlpha->SetBinContent(ibin, b/c);
+  _histAlpha->SetBinError(ibin, sqrt(sqr(b)/sqr(c)*sqr(erra) + sqr(a)/sqr(c)*sqr(errb) + 
+  sqr(a*b/(sqr(c)))*sqr(errc) ) );
   }
   /// @todo Same correction to be applied for _hisR23 and _histJet3eta histograms
   */
 
-
-  //normalise histograms to integrated publication luminosity of 4.2pb^-1    
-  //crossSection function returns pb.
-  double fac = 4.2 * crossSection() / _eventsTried;
   
-  fac = 1.; //temp, until it works
-
+  // Normalise histograms to integrated publication luminosity of 4.2pb^-1    
+  // crossSection function returns pb.
+  double fac = 4.2 * crossSection() / _eventsTried;
+  /// @todo Fixthis when xsec works
+  fac = 1.0;
+  
   log << Log::INFO << "crossSection()=" << crossSection()
       << "  _eventsTried=" << _eventsTried 
       << "  scale factor=" << fac << endl;
-
   
   //AIDA::IHistogram2D* _histHvsDphi;
   //AIDA::IHistogram2D* _histRvsAlpha;

@@ -18,8 +18,8 @@
 namespace Rivet {
 
   
-  /// This CDF analysis provides pT and eta distributions of jets
-  /// in Z +(b) jet production, before and after tagging
+  /// This CDF analysis provides \f$ p_T \f$ and \f$ \eta \f$ distributions 
+  /// of jets in Z + (b) jet production, before and after tagging.
   class CDF_2006_S6653332 : public Analysis {
 
   public:
@@ -32,11 +32,11 @@ namespace Rivet {
     /// cut on Decay Length Significance = 7.5
     /// Decay Length Significance resolution (assumed to be 34e-3mm)
     CDF_2006_S6653332()
-      : _fsproj(-3.6, 3.6), _vfsproj(_fsproj), _chfsproj(_vfsproj), _jetsproj(_vfsproj),
+      : _fsproj(-3.6, 3.6), _vfsproj(_fsproj), _jetsproj(_vfsproj),
+        //_fsprojit(-2.0, 2.0), _vfsprojit(_fsprojit), 
+        _chfsproj(_vfsproj),
         _calmetproj(_vfsproj), _chleproj(_vfsproj), _pvtxproj(),
-        _svtxproj(_pvtxproj, _chfsproj, _jetaxes, 0.7,
-		  &applyVtxTrackCuts, 
-		  2.0, 34e-3, 7.5, 34e-3)
+        _svtxproj(_pvtxproj, _chfsproj, _jetaxes, 0.7, 2.0, 34e-3, 7.5, 34e-3)
     {
 
       setBeams(PROTON, ANTIPROTON);
@@ -67,12 +67,12 @@ namespace Rivet {
 
     /// Get the name of this analysis.
     string getName() const {
-      return "HEPEX0605099";
+      return "CDF_2006_S6653332";
     }
 
     /// Applying complex quality cuts on tracks to establish displaced vertices
     /// will be read as function pointer from the SVertex projection constructor.
-    static bool applyVtxTrackCuts(SVertex&, ParticleVector&, const HepMC::GenVertex& gpvtx, FourMomentum);
+    //static bool applyVtxTrackCuts(SVertex&, ParticleVector&, const HepMC::GenVertex& gpvtx, FourMomentum);
 
     void init();
     
@@ -88,11 +88,11 @@ namespace Rivet {
     /// The visible final state projector.
     VetoedFinalState _vfsproj;
 
-    /// The charged final state projector.
-    ChargedFinalState _chfsproj;
-
     /// The FastJets projector used by this analysis.
     FastJets _jetsproj;
+
+    /// The charged final state projector.
+    ChargedFinalState _chfsproj;
 
     /// The Calorimeter MET projector.
     TotalVisibleMomentum _calmetproj;
@@ -100,15 +100,16 @@ namespace Rivet {
     /// The charged leptons projector.
     ChargedLeptons _chleproj;
 
-    /// The Primary Vertex projector
+    /// Projection to find the primary vertex.
     PVertex _pvtxproj;
 
-    /// The Secondary Vertex projector.
+    /// Projection to find secondary vertices.
     SVertex _svtxproj;
     
 
   private:
 
+    /// Set of vectors defining the jet axes (for detached vertex finding).
     vector<FourMomentum> _jetaxes;
     
     /// Hide the assignment operator
@@ -120,7 +121,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _histJetsEta;
     AIDA::IHistogram1D* _histbJetsPt;
     AIDA::IHistogram1D* _histbJetsEta;
-
     //@}
 
   };
