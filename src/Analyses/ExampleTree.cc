@@ -135,11 +135,11 @@ namespace Rivet {
     
     
     // Get the jets in decreasing ET order.
-    typedef vector<fastjet::PseudoJet> Jets;
-    Jets jetList = jets.getJets();
+    PseudoJets jetList = jets.getPseudoJets();
+
     _njet = 0;
     _nsub = 0;
-    for (Jets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
+    for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
       if (j->perp() > _jet_pt_cut) {
         _vjet[_njet][1] = j->px();
         _vjet[_njet][2] = j->py();

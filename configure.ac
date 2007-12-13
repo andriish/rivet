@@ -53,6 +53,7 @@ AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes])
 ## Optional ROOT analysis framework
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output])], [], [enable_root=yes])
 if test "x$enable_root" != "xno"; then
+  AC_CEDAR_ROOTSYS()
   AC_SEARCH_ROOT([with_root=yes
     AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long"
     AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
