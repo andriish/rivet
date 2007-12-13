@@ -109,16 +109,16 @@ namespace Rivet {
       } else {
         gen->makeEvent(myevent);
       }
-
+      
       // Notify about event number
       Log::Level lev = Log::DEBUG;
       if (round((i+1)/100.0) == (i+1)/100.0) lev = Log::INFO;
       if (round((i+1)/1000.0) == (i+1)/1000.0) lev = Log::WARN;
       nevtlog << lev << "Event number " << i+1 << endl;
-
+      
       // Run Rivet analyses
       if (cfg.runRivet) rh.analyze(myevent);
-
+      
       // Write out event to file
       if (cfg.writeHepMC) {
         hepmcOut->write_event(&myevent);
@@ -126,7 +126,7 @@ namespace Rivet {
       }
     }
     log << Log::INFO << "Finished!"  << endl;
-
+    
     // Finalise Rivet and the generator
     gen->finalize();
     if (hepmcOut) delete hepmcOut;
