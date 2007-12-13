@@ -74,35 +74,41 @@ namespace Rivet {
     // Make a HepMC output
     IO_GenEvent* hepmcOut(0);
     if (cfg.writeHepMC) {
+      log << Log::DEBUG << "Making a HepMC output stream to " << cfg.hepmcOutFile << endl;
       hepmcOut = new IO_GenEvent(cfg.hepmcOutFile.c_str(), std::ios::out);
     }
 
     // Make a HepMC input
-    // IO_GenEvent* hepmcIn(0);
-    // if (cfg.readHepMC) {
-    //   hepmcIn = new IO_GenEvent(cfg.hepmcInFile.c_str(), std::ios::in);
-    //   if (hepmcIn->rdstate() != 0) {
-    //     log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
-    //   }
-    // }
-
+    IO_GenEvent* hepmcIn(0);
+    if (cfg.readHepMC) {
+      log << Log::DEBUG << "Making a HepMC input stream from " << cfg.hepmcInFile << endl;
+      hepmcIn = new IO_GenEvent(cfg.hepmcInFile.c_str(), std::ios::in);
+      log << Log::DEBUG << "Testing HepMC input stream from " << cfg.hepmcInFile << endl;
+      if (hepmcIn && hepmcIn->rdstate() != 0) {
+        log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
+        throw runtime_error("Couldn't read HepMC event file: " + cfg.hepmcInFile);
+      }
+    }
+    
     // Log the event number to a special logger
     Log& nevtlog = Log::getLog("RivetGun.NEvt");
-
+    
     // Event loop
-    log << Log::INFO << "Generating " << cfg.numEvents << " events."  << endl;
+    string rgverb = "Generating";
+    if (cfg.readHepMC) rgverb = "Reading";
+    log << Log::INFO << rgverb << " " << cfg.numEvents << " events." << endl;
     HepMC::GenEvent myevent;
-    for (unsigned int i = 0; i < cfg.numEvents; ++i) {    
-      // Make the event
-      // if (cfg.readHepMC) {
-      //   if (hepmcIn->rdstate() != 0) {
-      //     log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
-      //     break;
-      //   }
-      //   hepmcIn->fill_next_event(&myevent);
-      // } else {
+    for (size_t i = 0; i < cfg.numEvents; ++i) {    
+      // Make or load the event
+      if (cfg.readHepMC) {
+        if (hepmcIn->rdstate() != 0) {
+          log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
+          break;
+        }
+        hepmcIn->fill_next_event(&myevent);
+      } else {
         gen->makeEvent(myevent);
-      // }
+      }
 
       // Notify about event number
       Log::Level lev = Log::DEBUG;
@@ -116,13 +122,15 @@ namespace Rivet {
       // Write out event to file
       if (cfg.writeHepMC) {
         hepmcOut->write_event(&myevent);
-        myevent.print(cout);
+        //myevent.print(cout);
       }
     }
     log << Log::INFO << "Finished!"  << endl;
 
     // Finalise Rivet and the generator
     gen->finalize();
+    if (hepmcOut) delete hepmcOut;
+    if (hepmcIn) delete hepmcIn;
     if (cfg.runRivet){
       if (needsCrossSection) {
         rh.setCrossSection(gen->getCrossSection());
