@@ -21,7 +21,7 @@ namespace Rivet {
     /// either a scattered lepton or anti-lepton is searched for. Must
     /// also specify a Beam and FinalState projection object which is
     /// assumed to live thoughout the run.
-    inline DISLepton(Beam& beam, FinalState& fsp,
+    DISLepton(Beam& beam, FinalState& fsp,
                      const ParticleName& inid, const ParticleName& outid)
       : _fsproj(fsp), 
         _beamproj(beam), 
@@ -36,7 +36,7 @@ namespace Rivet {
     
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "DISLepton";
     }
     
@@ -51,10 +51,10 @@ namespace Rivet {
   public:
     
     /// The incoming lepton.
-    inline const Particle& in() const { return _incoming; }
+    const Particle& in() const { return _incoming; }
     
     /// The outgoing lepton.
-    inline const Particle& out() const { return _outgoing; }
+    const Particle& out() const { return _outgoing; }
     
   private:
     

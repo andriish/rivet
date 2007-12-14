@@ -35,13 +35,8 @@ namespace Rivet {
 
   public:
 
-    /// @name Metadata
+    /// @name Publication metadata
     //@{
-
-    /// Get the name of the analysis.
-    string getName() const { 
-      return getExpt() + "_" + getYear() + "_S" + getSpiresId();
-    }
     /// Get a description of the analysis.
     string getSpiresId() const {
       return "4751469";
@@ -66,7 +61,6 @@ namespace Rivet {
       // No arXiv code
       return ret;
     }
-
     //@}
 
   public:

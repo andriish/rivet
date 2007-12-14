@@ -65,20 +65,34 @@ namespace Rivet {
       return new CDF_2006_S6653332(); 
     }
 
-    /// Get the name of this analysis.
-    string getName() const {
-      return "CDF_2006_S6653332";
+
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "6653332";
     }
+    /// Get a description of the analysis.
+    //string getDescription() const {
+    //  return "";
+    //}
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "CDF";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "2006";
+    }
+    //@}
 
-    /// Applying complex quality cuts on tracks to establish displaced vertices
-    /// will be read as function pointer from the SVertex projection constructor.
-    //static bool applyVtxTrackCuts(SVertex&, ParticleVector&, const HepMC::GenVertex& gpvtx, FourMomentum);
 
+    /// @name Analysis methods
+    //@{
     void init();
-    
     void analyze(const Event& event);
-    
     void finalize();
+    //@}
 
   private:
 

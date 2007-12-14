@@ -27,7 +27,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    inline ExampleTree()
+    ExampleTree()
       : _fsproj(-4.0, 4.0, 0.0), 
         _chgleptonsproj(_fsproj), 
         _jetsproj(_fsproj), 
@@ -54,28 +54,44 @@ namespace Rivet {
       addProjection(_totvismomproj);
     }
 
-    inline ~ExampleTree() { }
+    ~ExampleTree() { }
 
   public:
 
     /// Factory method
     static Analysis* create() { return new ExampleTree(); }
 
+    /// @name Publication metadata
+    //@{
     /// Return the name of this analysis
-    inline string getName() const {
+    string getName() const {
       return "ExampleTree";
     }
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "NONE";
+    }
+    /// Get a description of the analysis.
+    // string getDescription() const {
+    //   return "";
+    // }
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "NONE";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "NONE";
+    }
+    //@}
 
 
-    /// Initialise the analysis.
+    /// @name Analysis methods
+    //@{
     void init();
-    
-    /// Perform the analysis for this event.
     void analyze(const Event& event);
-    
-    /// Finish off the analysis.
     void finalize();
-
+    //@}
 
   private:
 

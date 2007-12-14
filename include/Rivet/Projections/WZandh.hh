@@ -17,11 +17,11 @@ namespace Rivet {
     /// @name Standard constructors and destructors. */
     //@{
     /// The default constructor. 
-    inline WZandh() {}
+    WZandh() {}
     
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "WZandh";
     }
     
@@ -36,34 +36,34 @@ namespace Rivet {
   public:
     
     /// Access the Z's decayed to e+e-
-    inline const ParticleVector& Zees() const { return _theZees; }
+    const ParticleVector& Zees() const { return _theZees; }
 
     /// Access the W's decayed to e neutrino
-    inline const ParticleVector& Wens() const { return _theWens; }
+    const ParticleVector& Wens() const { return _theWens; }
 
     /// Access the W's decayed to mu neutrino
-    inline const ParticleVector& Wmns() const { return _theWmns; }
+    const ParticleVector& Wmns() const { return _theWmns; }
 
     /// Access the Z's decayed to mu mu
-    inline const ParticleVector& Zmms() const { return _theZmms; }
+    const ParticleVector& Zmms() const { return _theZmms; }
 
     /// Access the W's decayed to tau neutrino
-    inline const ParticleVector& Wtns() const { return _theWtns; }
+    const ParticleVector& Wtns() const { return _theWtns; }
 
     /// Access the Z's decayed to tau tau
-    inline const ParticleVector& Ztts() const { return _theZtts; }
+    const ParticleVector& Ztts() const { return _theZtts; }
 
     /// Access the Z's decayed to nu nu
-    inline const ParticleVector& Znns() const { return _theZnns; }
+    const ParticleVector& Znns() const { return _theZnns; }
 
     /// Access the W's decayed to qq
-    inline const ParticleVector& Wqqs() const { return _theWqqs; }
+    const ParticleVector& Wqqs() const { return _theWqqs; }
 
     /// Access the Z's decayed to qq
-    inline const ParticleVector& Zqqs() const { return _theZqqs; }
+    const ParticleVector& Zqqs() const { return _theZqqs; }
 
     /// Access Higgses
-    inline const ParticleVector& hs() const { return _thehs; }
+    const ParticleVector& hs() const { return _thehs; }
     
   private:
     

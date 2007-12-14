@@ -18,7 +18,7 @@ namespace Rivet {
   public:
     
     /// Constructor. The provided FinalState projection must live throughout the run.
-    inline TotalVisibleMomentum(FinalState& fsp)
+    TotalVisibleMomentum(FinalState& fsp)
       : _fsproj(fsp)
     { 
       addProjection(fsp);
@@ -27,18 +27,18 @@ namespace Rivet {
     
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "TotalVisibleMomentum";
     }
 
     /// The projected four-momentum vector
-    inline FourMomentum& getMomentum() { return _momentum; }
+    FourMomentum& getMomentum() { return _momentum; }
 
     /// The projected four-momentum vector
-    inline const FourMomentum& getMomentum() const { return _momentum; }
+    const FourMomentum& getMomentum() const { return _momentum; }
 
     /// The projected Scalar Transverse Momentum
-    inline const double getSET() const { return _set; }
+    const double getSET() const { return _set; }
 
     
   protected:

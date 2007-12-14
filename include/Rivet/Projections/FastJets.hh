@@ -25,58 +25,65 @@ namespace Rivet {
 
   public:
 
-    /// @name Standard constructors and destructors.
+    /// @name Constructors and destructors.
     //@{
-    /// Default constructor. Must specify a FinalState projection which is
-    //  assumed to live throughout the run.
-    FastJets(FinalState& fsp)
-      : _cseq(), _type(fastjet::kt_algorithm), _recom(fastjet::E_scheme), 
-        _rparameter(1.0), _fsproj(fsp) 
+    /// Default constructor uses Kt algorithm and E-scheme recombination. 
+    /// The FinalState projection must live throughout the run. 
+    FastJets(FinalState& fsp) : _fsproj(fsp), _plugin(0)
     { 
       addProjection(fsp);
-      _jdef = fastjet::JetDefinition(_type,_rparameter,_recom); 
+      const double RPARAM = 1.0;
+      _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, RPARAM, fastjet::E_scheme);
     }
 
-    // @todo implement configurable constructor for fastJet
-    /// Argument constructor. Allows the to be run with different parameters.
-    /// Must specify a FinalState projection which is assumed to live throughout the run. 
-    inline FastJets(fastjet::JetFinder type,
-                    fastjet::RecombinationScheme recom, double rparameter, 
-		    FinalState& fsp)
-      : _type(type), _recom(recom),
-	_rparameter(rparameter), _fsproj(fsp)
+
+    /// Wrapper enum for selected Fastjet jet algorithms.
+    enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT };
+
+
+    /// "Wrapped" argument constructor using Rivet enums for most common
+    /// jet alg choices (including some plugins). For the built-in algs,
+    /// E-scheme recombination is used. For full control of
+    /// FastJet built-in jet algs, use the native arg constructor.
+    /// The FinalState projection must live throughout the run. 
+    FastJets(FinalState& fsp, JetAlg alg, double rparameter)
+      : _fsproj(fsp), _plugin(0)
     {
       addProjection(fsp);
-      _jdef = fastjet::JetDefinition(_type, _rparameter, _recom);
+      if (alg == KT) {
+        _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
+      } else if (alg == CAM) {
+        _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
+      } else if (alg == SISCONE) {
+        const double overlapthreshold = 0.5;
+        _plugin = new fastjet::SISConePlugin(rparameter, overlapthreshold);
+        _jdef = fastjet::JetDefinition(_plugin);
+      } else if (alg == CDFJETCLU) {
+        _plugin = new fastjet::CDFJetCluPlugin(rparameter);
+        _jdef = fastjet::JetDefinition(_plugin);
+      } else if (alg == CDFMIDPOINT) {
+        _plugin = new fastjet::CDFMidPointPlugin(rparameter);
+        _jdef = fastjet::JetDefinition(_plugin);
+      }
     }
+
     
-
-
-    enum ExtJetType {SISCone, CDFJetClu, CDFMidPoint};
-    /// Argument constructor for external plugin algorithms
-    inline FastJets(ExtJetType type, double rparameter, FinalState& fsp)
-      : _extype(type), _rparameter(rparameter), _fsproj(fsp)
+    /// Native argument constructor, using FastJet alg/scheme enums.
+    /// The FinalState projection must live throughout the run. 
+    FastJets(FinalState& fsp, fastjet::JetAlgorithm type,
+             fastjet::RecombinationScheme recom, double rparameter)
+      : _fsproj(fsp), _plugin(0)
     {
       addProjection(fsp);
-      if (_extype == SISCone) {
-	double _overlapthreshold = 0.5;
-	_plugin = new fastjet::SISConePlugin(_rparameter,_overlapthreshold);
-	_jdef = fastjet::JetDefinition(_plugin);
-      }
-      else if (_extype == CDFJetClu) { //use external plugin jet algorithm
-	_plugin = new fastjet::CDFJetCluPlugin(_rparameter);
-	_jdef = fastjet::JetDefinition(_plugin);
-      }
-      else if (_extype == CDFMidPoint) {
-	_plugin = new fastjet::CDFMidPointPlugin(_rparameter);
-	_jdef = fastjet::JetDefinition(_plugin);
-      }
+      _jdef = fastjet::JetDefinition(type, rparameter, recom);
     }
-    
 
 
     /// Destructor.
-    ~FastJets() { }
+    ~FastJets() { 
+      // Delete plugin
+      if (_plugin) delete _plugin;
+    }
     //@}
 
 
@@ -143,24 +150,16 @@ namespace Rivet {
 
 
   private:
-    
-    ///FastJet external jetalgo parameters
-    ExtJetType _extype;
-    fastjet::JetDefinition::Plugin  * _plugin; 
-
-    /// FastJet parameters
-    fastjet::ClusterSequence _cseq;
-    fastjet::JetFinder _type;
-    fastjet::RecombinationScheme _recom;
-    double _rparameter;  
-
 
     /// The FinalState projection used by this projection.
     FinalState _fsproj;
-
+    
     /// Jet definition
-    fastjet::JetDefinition  _jdef;
-    fastjet::Strategy _strat;
+    fastjet::ClusterSequence _cseq;
+    fastjet::JetDefinition _jdef;
+
+    /// FastJet external plugin
+    fastjet::JetDefinition::Plugin* _plugin; 
 
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;

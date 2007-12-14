@@ -28,7 +28,7 @@ namespace Rivet {
   /// analysis class should apply the necessary Projections and fill the
   /// histograms.
   ///
-  /// void finish() is called after a run is finished. Here the analysis
+  /// void finalize() is called after a run is finished. Here the analysis
   /// class should do whatever manipulations are necessary on the
   /// histograms. Writing the histograms to a file is, however, done by
   /// the Rivet class.
@@ -57,6 +57,8 @@ namespace Rivet {
 
   public:
 
+    /// @name Main analysis methods
+    //@{
     /// Initialize this analysis object. A concrete class should here
     /// book all necessary histograms. An overridden function must make
     /// sure it first calls the base class function.
@@ -74,7 +76,42 @@ namespace Rivet {
     /// overridden function must make sure it first calls the base class
     /// function.
     virtual void finalize() = 0;
+    //@}
 
+  public:
+
+    /// @name Metadata
+    //@{
+    /// Get the name of the analysis. By default this is computed by
+    /// combining the results of the experiment, year and Spires ID 
+    /// metadata methods and you should only override it if there's a 
+    /// good reason why those won't work.
+    virtual string getName() const { 
+      return getExpt() + "_" + getYear() + "_S" + getSpiresId();
+    }
+
+    /// Get a description of the analysis.
+    virtual string getSpiresId() const = 0;
+
+    /// Get a description of the analysis.
+    virtual string getDescription() const {
+      return "";
+    }
+    
+    /// Experiment which performed and published this analysis.
+    virtual string getExpt() const = 0;
+
+    /// When published (preprint year according to SPIRES).
+    virtual string getYear() const = 0;
+
+    /// Journal, and preprint references.
+    virtual vector<string> getReferences() const {
+      vector<string> ret;
+      return ret;
+    }
+    //@}
+
+  public:
     /// Return the Cuts object of this analysis object. Derived
     /// classes should re-implement this function to return the combined
     /// RivetInfo object of this object and of any Projection objects
@@ -115,12 +152,6 @@ namespace Rivet {
       return *_theHandler;
     }
 
-    /// Get the name of the analysis.
-    virtual string getName() const {
-      return "BaseAnalysis";
-      //return typeid(*this).name(); (returns mangled RTTI name by default)
-    }
-
     /// Normalize the given histogram. After this call the histogram
     /// will have been transformed to a DataPointSet with the same
     /// name and path, and the old histogram will be deleted, and the
@@ -134,12 +165,14 @@ namespace Rivet {
       return *this;
     }
 
+    /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const {
       return _needsCrossSection;
     }
     
   protected:
 
+    /// Get the process cross-section. Throws if this hasn't been set.
     const double& crossSection() {
       if (!_gotCrossSection) {
         string errMsg = "You did not set the cross section for the analysis " + getName();
@@ -181,7 +214,7 @@ namespace Rivet {
     //@}
 
 
-    /// @name Internal histogram and data point set booking (for use by Analysis sub-classes).
+    /// @name Internal histogram booking (for use by Analysis sub-classes).
     //@{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
@@ -203,12 +236,11 @@ namespace Rivet {
     /// of the same filename as the analysis' getName() property.
     AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
                                         const size_t yAxisId, const string& title);
+    //@}
 
 
-
-    /// @name Internal profile histogram and data point set booking (for use by Analysis sub-classes).
+    /// @name Internal profile histogram booking (for use by Analysis sub-classes).
     //@{
-
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     /// (NB. this returns a pointer rather than a reference since it will 
@@ -229,7 +261,11 @@ namespace Rivet {
     /// of the same filename as the analysis' getName() property.
     AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId, 
                                         const size_t yAxisId, const string& title);
+    //@}
 
+
+    /// @name Internal data point set booking (for use by Analysis sub-classes).
+    //@{
 
     /// Book a 2-dimensional data point set.
     /// (NB. this returns a pointer rather than a reference since it will 
@@ -293,9 +329,12 @@ namespace Rivet {
 
   private:
 
+    /// @name Cross-section variables
+    //@{
     double _crossSection;
     bool _gotCrossSection;
     bool _needsCrossSection;
+    //@}
     
     /// Parameter constraints.
     Cuts _cuts;
@@ -314,7 +353,6 @@ namespace Rivet {
     /// In fact, it should not even be implemented.
     Analysis& operator=(const Analysis&);
   };
-
 
 }
 

@@ -65,7 +65,7 @@ namespace Rivet {
     /// Constructor. The provided FinalState projection must live throughout the run.
     /// @todo Improve this: shouldn't have to effectively provide the
     /// FinalState twice (AxesDefn already has an FSP and they have to match up)
-    inline Hemispheres(FinalState& fsp, AxesDefinition& ax)
+    Hemispheres(FinalState& fsp, AxesDefinition& ax)
       : _E2vis(-1), _M2high(-1), _M2low(-1),
         _Bmax(-1), _Bmin(-1),
         _highMassEqMaxBroad(true),
@@ -75,7 +75,7 @@ namespace Rivet {
     }
 
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "Hemispheres";
     }
 
@@ -86,7 +86,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare with other projections.
-    inline int compare(const Projection& p) const {
+    int compare(const Projection& p) const {
       return 0;
     }
 
@@ -95,21 +95,21 @@ namespace Rivet {
 
     /// @name Hemisphere masses (scaled by \f$ 1 / E^2_\mathrm{vis} \f$).
     ///@{
-    inline const double getE2vis() const { return _E2vis; }
-    inline const double getM2high() const { return _M2high; }
-    inline const double getM2low() const { return _M2low; }
-    inline const double getM2diff() const { return _M2high -_M2low; }
-    inline const double getScaledM2high() const { 
+    const double getE2vis() const { return _E2vis; }
+    const double getM2high() const { return _M2high; }
+    const double getM2low() const { return _M2low; }
+    const double getM2diff() const { return _M2high -_M2low; }
+    const double getScaledM2high() const { 
       if (_M2high == 0.0) return 0.0;
       if (_E2vis != 0.0) return _M2high/_E2vis; 
       else return std::numeric_limits<double>::max(); 
     }
-    inline const double getScaledM2low() const {
+    const double getScaledM2low() const {
       if (_M2low == 0.0) return 0.0;
       if (_E2vis != 0.0) return _M2low/_E2vis;
       else return std::numeric_limits<double>::max(); 
     }
-    inline const double getScaledM2diff() const { 
+    const double getScaledM2diff() const { 
       if (getM2diff() == 0.0) return 0.0;
       if (_E2vis != 0.0) return getM2diff()/_E2vis; 
       else return std::numeric_limits<double>::max(); 
@@ -119,15 +119,15 @@ namespace Rivet {
 
     /// @name Hemisphere broadenings.
     ///@{
-    inline const double getBmax() const { return _Bmax; }
-    inline const double getBmin() const { return _Bmin; }
-    inline const double getBsum() const { return _Bmax + _Bmin; }
-    inline const double getBdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
+    const double getBmax() const { return _Bmax; }
+    const double getBmin() const { return _Bmin; }
+    const double getBsum() const { return _Bmax + _Bmin; }
+    const double getBdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
     ///@}
 
 
     /// Is the hemisphere with the max mass the same as the one with the max broadening?
-    inline const bool massMatchesBroadening() {
+    const bool massMatchesBroadening() {
       return _highMassEqMaxBroad;
     }
 

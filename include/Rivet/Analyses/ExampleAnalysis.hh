@@ -38,16 +38,37 @@ namespace Rivet {
 
   public:
 
-    /// Get the name of this analysis.
+    /// @name Publication metadata
+    //@{
+    /// Return the name of this analysis
     string getName() const {
       return "Example";
     }
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "NONE";
+    }
+    /// Get a description of the analysis.
+    // string getDescription() const {
+    //   return "";
+    // }
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "NONE";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "NONE";
+    }
+    //@}
 
+
+    /// @name Analysis methods
+    //@{
     void init();
-    
     void analyze(const Event& event);
-    
     void finalize();
+    //@}
 
   private:
 

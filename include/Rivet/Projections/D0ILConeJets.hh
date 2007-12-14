@@ -41,7 +41,7 @@ namespace Rivet {
     /// The algorithm parameters are supposed to be set as used by D0 in RunII -
     /// this constructor will initialise the correct parameter values.
     /// Must specify a FinalState projection which is assumed to live throughout the run.    
-    inline D0ILConeJets(FinalState& fsp)
+    D0ILConeJets(FinalState& fsp)
       : _fsproj(fsp), _cone_radius(0.7), _min_jet_Et(0.0), 
         _split_ratio(0.5), _far_ratio(0.5), 
         _et_min_ratio(0.5), _kill_duplicate(true), 
@@ -63,7 +63,7 @@ namespace Rivet {
     ///
     /// Added so that same projection can be ran but with different parameters.
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
-    inline D0ILConeJets(FinalState& fsp, float r, float etMin, float split,
+    D0ILConeJets(FinalState& fsp, float r, float etMin, float split,
 			float farRatio, float etMinRatio, bool killDuplicate,
 			float duplicateDR, float duplicateDPT, float searchFactor,
 			float pTMinLeadingProtojet, float pTMinSecondProtojet,
@@ -92,7 +92,7 @@ namespace Rivet {
 
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "D0ILConeJets";
     }
 
@@ -109,21 +109,21 @@ namespace Rivet {
   public:
     
     /// Get the number of jets.
-    inline int getNJets() const { return _jets.size(); }
+    int getNJets() const { return _jets.size(); }
   
     /// Get a reference to the jets collection.
-    inline list<HepEntity>& getJets() { return _jets; }
+    list<HepEntity>& getJets() { return _jets; }
     /// Get a reference to the jets collection (const version).
-    inline const list<HepEntity>& getJets() const { return _jets; }
+    const list<HepEntity>& getJets() const { return _jets; }
 
     /// Get a reference to the lorentzvecjets collection.
-    inline const list<FourMomentum>& getLorentzJets() const {
+    const list<FourMomentum>& getLorentzJets() const {
       return _lorentzvecjets; 
     }
 
 
     /// Clear the jets list.
-    inline D0ILConeJets& clearJets() { 
+    D0ILConeJets& clearJets() { 
       _jets.clear(); 
       return *this; 
     }

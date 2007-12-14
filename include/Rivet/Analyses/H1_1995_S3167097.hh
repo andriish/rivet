@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     /// The default constructor.
-    inline H1_1995_S3167097()
+    H1_1995_S3167097()
       : _fsproj(), _beamsproj(), 
         _leptonproj(_beamsproj, _fsproj, ELECTRON, POSITRON), 
         _diskinproj(_beamsproj, _leptonproj, PROTON),
@@ -38,19 +38,33 @@ namespace Rivet {
     /// Factory method
     static Analysis* create() { return new H1_1995_S3167097(); }
 
-    /// Get the name of this analysis.
-    inline string getName() const {
-      return "H1_1995_S3167097";
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "3167097";
     }
+    /// Get a description of the analysis.
+    // string getDescription() const {
+    //   return "";
+    // }
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "H1";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "1995";
+    }
+    //@}
     
-    /// Initialize this analysis object.
+
+    /// @name Analysis methods
+    //@{
     void init();
-    
-    /// Analyze one event.
     void analyze(const Event& event);
-    
-    /// Finalize this analysis object.
     void finalize();
+    //@}
     
   protected:
 

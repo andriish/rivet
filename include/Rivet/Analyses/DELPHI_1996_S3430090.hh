@@ -6,6 +6,7 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
 #include "Rivet/Projections/Hemispheres.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -22,8 +23,12 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline DELPHI_1996_S3430090()
+    DELPHI_1996_S3430090()
       : _cnfsproj(), _cfsproj(_cnfsproj),
+        _cjadejetproj(_cfsproj, FastJets::KT, 0.7),
+        _cnjadejetproj(_cnfsproj, FastJets::KT, 0.7),
+        _cdurjetproj(_cfsproj, FastJets::KT, 0.7),
+        _cndurjetproj(_cnfsproj, FastJets::KT, 0.7),
         _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
         _cthrustproj(_cfsproj), _cnthrustproj(_cnfsproj), 
         _cparisiproj(_cfsproj), _cnparisiproj(_cnfsproj),
@@ -44,30 +49,46 @@ namespace Rivet {
       addProjection(_cnhemiproj);
     }
 
+
     /// Factory method.
     static Analysis* create() { 
       return new DELPHI_1996_S3430090(); 
     }
 
-    /// Get the name of this analysis.
-    inline string getName() const {
-      return "DELPHI_1996_S3430090";
+
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "3430090";
     }
+    /// Get a description of the analysis.
+    string getDescription() const {
+      return "Delphi MC tuning on event shapes and identified particles.";
+    }
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "DELPHI";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "1996";
+    }
+    //@}
 
+
+    /// @name Analysis methods
+    //@{
     virtual void init();
-
     virtual void analyze(const Event& event);
-
     virtual void finalize();
+    //@}
 
 
   private:
 
     /// Hide the assignment operator
     DELPHI_1996_S3430090& operator=(const DELPHI_1996_S3430090&);
-
-
-  private:
 
     /// The final state projector.
     FinalState _cnfsproj;
@@ -77,6 +98,10 @@ namespace Rivet {
 
     /// Projection to get the beams.
     Beam _beamsproj;
+
+    /// Jet algorithms
+    FastJets _cjadejetproj, _cnjadejetproj;
+    FastJets _cdurjetproj, _cndurjetproj;
 
     /// Sphericity projections.
     Sphericity _cspherproj, _cnspherproj;

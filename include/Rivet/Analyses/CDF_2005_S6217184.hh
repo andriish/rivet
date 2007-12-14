@@ -19,7 +19,7 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    inline CDF_2005_S6217184()
+    CDF_2005_S6217184()
       // NB. eta in [-2.,2.] cut specified via FinalState constructor
       // NB. jetshape rmin=0.0, rmax=0.7, interval=0.1, r1minPsi=0.3
       : _fsproj(-2., 2.), _vfsproj(_fsproj), _jetsproj(_fsproj), 
@@ -49,6 +49,7 @@ namespace Rivet {
 
       _Rjet = 0.7;
 
+      /// @todo Ahem - replace this.
       _pTbins.resize(19);
       _pTbins[0]  =  37.;
       _pTbins[1]  =  45.;
@@ -81,18 +82,34 @@ namespace Rivet {
     /// Factory method
     static Analysis* create() { return new CDF_2005_S6217184(); }
 
-    /// Return the name of this analysis.
-    inline string getName() const {
-      return "CDF_2005_S6217184";
+
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "6217184";
     }
+    /// Get a description of the analysis.
+    //string getDescription() const {
+    //  return "";
+    //}
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "CDF";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "2005";
+    }
+    //@}
 
-  public:
 
+    /// @name Analysis methods
+    //@{
     void init();
-    
     void analyze(const Event & event);
-    
     void finalize();
+    //@}
 
   private:
 

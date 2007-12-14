@@ -31,18 +31,34 @@ namespace Rivet {
       return new ZEUS_2001_S4815815(); 
     }
 
-    /// Get the name of this analysis.
-    string getName() const {
-      return "ZEUS_2001_S4815815";
+
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "4815815";
     }
+    /// Get a description of the analysis.
+    // string getDescription() const {
+    //   return "ZEUS";
+    // }
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "ZEUS";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "2001";
+    }
+    //@}
 
-  public:
 
+    /// @name Analysis methods
+    //@{
     void init();
-    
     void analyze(const Event& event);
-    
     void finalize();
+    //@}
 
   private:
 

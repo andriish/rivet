@@ -22,7 +22,7 @@ namespace Rivet {
 
     /// The default constructor. Must specify a FinalState projection 
     /// object which is assumed to live through the run.
-    inline VetoedFinalState(FinalState& fsp)
+    VetoedFinalState(FinalState& fsp)
       : _fsproj(fsp)
     {
       addProjection(_fsproj);
@@ -30,7 +30,7 @@ namespace Rivet {
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
     /// \f$ p_{Tmax} \f$ - these define the range of particles to be vetoed.
-    inline VetoedFinalState(FinalState& fsp, const VetoDetails& vetocodes)
+    VetoedFinalState(FinalState& fsp, const VetoDetails& vetocodes)
       : _fsproj(fsp), _vetoCodes(vetocodes)
     {
       addProjection(_fsproj);
@@ -39,7 +39,7 @@ namespace Rivet {
 
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "VetoedFinalState";
     }
 
@@ -54,13 +54,13 @@ namespace Rivet {
   public:
     
     /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
-    inline const VetoDetails& getVetoDetails() const {
+    const VetoDetails& getVetoDetails() const {
       return _vetoCodes;
     }
   
     /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_T \f$ 
     /// IN the given range will be rejected.
-    inline VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
+    VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
       BinaryCut ptrange(ptmin, ptmax);
       _vetoCodes.insert(make_pair(id, ptrange));
       return *this;
@@ -68,7 +68,7 @@ namespace Rivet {
 
     /// Add a particle/antiparticle pair to veto in a given \f$ p_T \f$ range. Given a single ID, both
     /// the particle and its conjugate antiparticle will be rejected if their \f$ p_T \f$ is IN the given range.
-    inline VetoedFinalState& addVetoPairDetail(const long id, const double ptmin, const double ptmax) {
+    VetoedFinalState& addVetoPairDetail(const long id, const double ptmin, const double ptmax) {
       addVetoDetail(id,  ptmin, ptmax);
       addVetoDetail(-id, ptmin, ptmax);
       return *this;
@@ -76,27 +76,27 @@ namespace Rivet {
 
     /// Add a particle/antiparticle pair to veto. Given a single ID, both the particle and its corresponding 
     /// antiparticle (for all \f$ p_T \f$ values) will be vetoed.
-    inline VetoedFinalState& addVetoPairId(const long id) {
+    VetoedFinalState& addVetoPairId(const long id) {
       addVetoId(id);
       addVetoId(-id);
       return *this;
     }
 
     /// Add a particle ID to veto (all \f$ p_T \f$ range will be vetoed).
-    inline VetoedFinalState& addVetoId(const long id) {
+    VetoedFinalState& addVetoId(const long id) {
       BinaryCut ptrange(0.0, numeric_limits<double>::max());
       _vetoCodes.insert(make_pair(id, ptrange));
       return *this;
     }
 
     /// Set the list of particle IDs and \f$ p_T \f$ ranges to veto.
-    inline VetoedFinalState& setVetoDetails(const VetoDetails& ids) {
+    VetoedFinalState& setVetoDetails(const VetoDetails& ids) {
       _vetoCodes = ids;
       return *this;
     }
 
     /// Clear the list of particle IDs and ranges to veto.
-    inline VetoedFinalState& clearVetoDetails() {
+    VetoedFinalState& clearVetoDetails() {
       _vetoCodes.clear();
       return *this;
     }

@@ -57,7 +57,7 @@ namespace Rivet {
 
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    inline JetShape(VetoedFinalState& vfsp, vector<FourMomentum>& jetaxes, 
+    JetShape(VetoedFinalState& vfsp, vector<FourMomentum>& jetaxes, 
                     double rmin=0.0, double rmax=0.7, double interval=0.1, 
                     double r1minPsi=0.3, schemelist distscheme=ENERGY)
       : _vfsproj(vfsp), _jetaxes(jetaxes), 
@@ -70,43 +70,43 @@ namespace Rivet {
     
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "JetShape";
     }
     
     /// Return number of equidistant radius bins
-    inline double getNbins() const {
+    double getNbins() const {
       return _nbins;
     }
     
     /// Return rmin value
-    inline double getRmin() const {
+    double getRmin() const {
       return _rmin;
     }
     
     /// Return rmax value
-    inline double getRmax() const {
+    double getRmax() const {
       return _rmax;
     }
     
     /// Return Rad interval size
-    inline double getInterval() const {
+    double getInterval() const {
       return _interval;
     }
 
 
     /// Return value of diff. jet shape profile histo bin 
-    inline double getDiffJetShape(int pTbin, int rbin) const {
+    double getDiffJetShape(int pTbin, int rbin) const {
       return _diffjetshapes[pTbin][rbin];
     }
     
     /// Return value of int. jet shape profile histo bin 
-    inline double getIntJetShape(int pTbin, int rbin) const {
+    double getIntJetShape(int pTbin, int rbin) const {
       return _intjetshapes[pTbin][rbin];
     }
     
     /// Return value of Psi (int. jet shape) - at given radius - for a pTbin 
-    inline double getPsi(int pTbin) const {
+    double getPsi(int pTbin) const {
       return _PsiSlot[pTbin];
     }
     

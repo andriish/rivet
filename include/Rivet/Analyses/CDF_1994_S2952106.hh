@@ -21,44 +21,29 @@ namespace Rivet {
   /// Since the data has not been corrected to particle final state, a bin by bin correction is 
   /// applied, based on the distributions with ideal and CDF simulation as given in the publication.
   /// Analysis cut values:
-  /// _pvzmax: cunt on primary vertex z position (z(PV) < 60 cm)
+  /// _pvzmax: cut on primary vertex z position (z(PV) < 60 cm)
   /// _leadJetPt, _3rdJetPt: Min. Pt of the leading and 3rd leading jets
   /// _etamax: Max. pseudorapidity range of 2nd and 3rd leading jets
   /// _phimin: Delta phi (azimuthal angle) requirement (transverse back to back'ness)
   /// _metsetmax: MET over sqrt(Scalar ET) cut requirement
-
-
-
-
+  ///
   /// @author Lars Sonnenschein
   class CDF_1994_S2952106 : public Analysis {
 
   public:
 
-    /// Default constructor.
-    inline CDF_1994_S2952106()
-      // NB. eta in [-4.2, 4.2] cut specified via FinalState constructor, CDF CAL acceptance
-      : _fsproj(-4.2, 4.2), _vfsproj(_fsproj), 
-
-	//_conejetsproj(fastjet::kt_algorithm, fastjet::Et_scheme, 0.7, _fsproj),
-
-	//_jetalgotype(FastJets::SISCone), _Rpar(0.7),
-	//_conejetsproj(_jetalgotype, _Rpar, _fsproj), 
-
-	_jetalgotype(FastJets::CDFJetClu), _Rpar(0.7),
-	_conejetsproj(_jetalgotype, _Rpar, _fsproj), 
-
-	_calmetproj(_fsproj), _vertexproj(),
-
-	/// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
-	_pvzmax(600.), _leadJetPt(100.), _etamax(0.7), _phimin(1./9.*PI/2.), 
-	_metsetmax(6.), _3rdJetPt(10.)
-
+    /// Constructor.
+    /// NB. eta in [-4.2, 4.2] cut specified via FinalState constructor, CDF CAL acceptance.
+	/// @todo Set units on _metsetmax
+    CDF_1994_S2952106()
+      : _fsproj(-4.2, 4.2), _vfsproj(_fsproj),
+        _conejetsproj(_fsproj, FastJets::CDFJETCLU, 0.7),
+        _calmetproj(_fsproj), _vertexproj(),
+        _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
+        _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0)
     { 
-      
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-
 
       // Add particle/antiparticle vetoing: 12=nu_e, 14=nu_mu, 16=nu_tau
       _vfsproj
@@ -67,52 +52,58 @@ namespace Rivet {
         .addVetoPairId(16);
       
       // Veto muons (PDG code = 13) with pT above 1.0 GeV
-      _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
-
+      _vfsproj.addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
 
       addProjection(_fsproj);
       addProjection(_vfsproj);
       addProjection(_conejetsproj);
       addProjection(_calmetproj);
       addProjection(_vertexproj);
-      
     }
+
 
     /// Factory method
     static Analysis* create() { return new CDF_1994_S2952106(); }
 
-    /// Return the name of this analysis.
-    inline string getName() const {
-      return "CDF_1994_S2952106";
+
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "2952106";
     }
+    /// Get a description of the analysis.
+    //string getDescription() const {
+    //  return "";
+    //}
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "CDF";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "1994";
+    }
+    //@}
 
-  public:
 
+    /// @name Analysis methods
+    //@{
     void init();
-    
     void analyze(const Event& event);
-    
     void finalize();
+    //@}
 
   private:
 
     /// The final state projector used by this analysis.
     FinalState _fsproj;
 
-    ///The vetoed final state projector needed by the jet algorithm
+    /// The vetoed final state projector needed by the jet algorithm.
     VetoedFinalState _vfsproj; 
 
-
-    /// Parameters used in the CDF Run I cone jet algorithm
-    //fastjet::JetFinder _jetalgo; //=plugin_algorithm
-    //fastjet::RecombinationScheme _recomb; //external_scheme
-    FastJets::ExtJetType _jetalgotype;
-
-    const double _Rpar; // =0.7
-    ///The Fastjet plugin CDF Run I cone jet algorithm
+    ///The cone jet algorithm.
     FastJets _conejetsproj;
-
-    /// The D0ILConeJets projector used by this analysis.
     //D0ILConeJets _conejetsproj;
 
     /// The Calorimeter Missing Et projector
@@ -124,19 +115,28 @@ namespace Rivet {
     /// Counter for the number of events analysed
     double _eventsTried;
 
-    // Analysis cuts
-    ///Cut on primary vertex z-position (z(PV)<60 cm)
+    /// @name Analysis cuts
+    //@{
+    ///Cut on primary vertex z-position (z(PV) < 60 cm)
     const double _pvzmax;
-    /// Min. Pt of the leading and 3rd leading jets
+
+    /// Min \f$ p_T \f$ of the leading and 3rd leading jets.
+    //@{
     const double _leadJetPt;
     const double _3rdJetPt;
-    /// Max. pseudorapidity range of 2nd and 3rd leading jets
-    const double _etamax;
-    /// Delta phi (azimuthal angle) requirement (transverse back to back'ness)
-    const double _phimin;
-    /// MET over sqrt(Scalar ET) cut requirement
-    const double _metsetmax;
+    //@}
 
+    /// Max pseudorapidity range of 2nd and 3rd leading jets.
+    const double _etamax;
+
+    /// Delta phi (azimuthal angle) requirement (transverse back to back'ness).
+    const double _phimin;
+
+    /// MET over sqrt(scalar \f$ E_T \f$) cut requirement.
+    const double _metsetmax;
+    //@}
+
+  private:
     /// Hide the assignment operator
     CDF_1994_S2952106& operator=(const CDF_1994_S2952106& x);
 

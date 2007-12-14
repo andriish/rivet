@@ -19,7 +19,7 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline D0_2004_S5992206()
+    D0_2004_S5992206()
       // NB. eta in [-3,3] cut specified via FinalState constructor
       : _fsproj(-3.0, 3.0), _vfsproj(_fsproj), 
 	_conejetsproj(_fsproj), _calmetproj(_fsproj), _vertexproj()
@@ -49,18 +49,34 @@ namespace Rivet {
     /// Factory method
     static Analysis* create() { return new D0_2004_S5992206(); }
 
-    /// Return the name of this analysis.
-    inline string getName() const {
-      return "D0_2004_S5992206";
+
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "5992206";
     }
+    /// Get a description of the analysis.
+    // string getDescription() const {
+    //   return "";
+    // }
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "D0";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "2004";
+    }
+    //@}
 
-  public:
 
+    /// @name Analysis methods
+    //@{
     void init();
-    
     void analyze(const Event& event);
-    
     void finalize();
+    //@}
 
   private:
 

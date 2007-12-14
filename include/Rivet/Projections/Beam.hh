@@ -15,18 +15,18 @@ namespace Rivet {
   public:
     
     /// The default constructor.
-    inline Beam() { }
+    Beam() { }
 
     /// The default destructor.
-    inline ~Beam() { }
+    ~Beam() { }
 
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "Beam";
     }
     
     /// The pair of beam particles in the current collision in GenEvent 
-    inline const ParticlePair& getBeams() const {
+    const ParticlePair& getBeams() const {
       return _theBeams;
     }
 
@@ -36,7 +36,7 @@ namespace Rivet {
     virtual void project(const Event& e);
 
     /// Compare with other projections.
-    inline virtual int compare(const Projection& p) const {
+    virtual int compare(const Projection& p) const {
       return 0;
     }
 

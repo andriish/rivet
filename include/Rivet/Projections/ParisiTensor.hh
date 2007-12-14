@@ -42,7 +42,7 @@ namespace Rivet {
   public:
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    inline ParisiTensor(FinalState& fsp)
+    ParisiTensor(FinalState& fsp)
       : _C(0), _D(0), _sphproj(Sphericity(fsp, 1.0))
     { 
       addProjection(_sphproj);
@@ -50,7 +50,7 @@ namespace Rivet {
 
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "ParisiTensor";
     }
 
@@ -66,15 +66,15 @@ namespace Rivet {
 
     /// @name Access the C and D params.
     ///@{
-    inline const double C() const { return _C; }
-    inline const double D() const { return _D; }
+    const double C() const { return _C; }
+    const double D() const { return _D; }
     ///@}
 
     /// @name Access the eigenvalues of \f$\theta\f$.
     ///@{
-    inline const double lambda1() const { return _lambda[0]; }
-    inline const double lambda2() const { return _lambda[1]; }
-    inline const double lambda3() const { return _lambda[2]; }
+    const double lambda1() const { return _lambda[0]; }
+    const double lambda2() const { return _lambda[1]; }
+    const double lambda3() const { return _lambda[2]; }
     ///@}
         
   private:

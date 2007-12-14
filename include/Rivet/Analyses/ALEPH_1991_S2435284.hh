@@ -30,16 +30,34 @@ namespace Rivet {
     /// Factory method
     static Analysis* create() { return new ALEPH_1991_S2435284(); }
 
-    /// Return the name of this analysis.
-    string getName() const {
-      return "ALEPH_1991_S2435284";
+
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "2435284";
     }
+    /// Get a description of the analysis.
+    //string getDescription() const {
+    //  return "";
+    //}
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "ALEPH";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "1991";
+    }
+    //@}
 
+
+    /// @name Analysis methods
+    //@{
     virtual void init();
-
     virtual void analyze(const Event & event);
-
     virtual void finalize();
+    //@}
 
   private:
 

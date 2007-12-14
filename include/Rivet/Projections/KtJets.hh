@@ -19,7 +19,7 @@ namespace Rivet {
     //@{
     /// Default constructor. Must specify a FinalState projection which is
     //  assumed to live throughout the run.
-    inline KtJets(FinalState& fsp)
+    KtJets(FinalState& fsp)
       : _pktev(0), _type(4), _angle(2), _recom(1), 
         _rparameter(1.0),	_fsproj(&fsp) 
     { 
@@ -28,7 +28,7 @@ namespace Rivet {
 
     /// Argument constructor. Allows the to be run with different parameters.
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
-    inline KtJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
+    KtJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
       : _pktev(0), _type(type), _angle(angle), _recom(recom),
         _rparameter(rparameter), _fsproj(&fsp)
     { 
@@ -36,14 +36,14 @@ namespace Rivet {
     }
     
     /// Destructor.
-    inline virtual ~KtJets() { 
+    virtual ~KtJets() { 
       if (_pktev) delete _pktev; 
     }
     //@}
 
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "KtJets";
     }
     
@@ -59,21 +59,21 @@ namespace Rivet {
     
     /// @name Access the projected NJets.
     //@ {
-    inline int getNJets() const { return _pktev->getNJets(); }
-    inline int getNConstituents() const { return _pktev->getNConstituents(); }
-    inline vector<KtJet::KtLorentzVector> copyConstituents() const { return _pktev->copyConstituents(); }
-    inline double getETot() const { return _pktev->getETot(); } // had trouble building with Ktfloat, used double instead
-    inline int getType() const { return _pktev->getType(); }
-    inline int getAngle() const { return _pktev->getAngle(); }
-    inline int getRecom() const { return _pktev->getRecom(); }
-    inline bool isInclusive() const { return _pktev->isInclusive(); }
+    int getNJets() const { return _pktev->getNJets(); }
+    int getNConstituents() const { return _pktev->getNConstituents(); }
+    vector<KtJet::KtLorentzVector> copyConstituents() const { return _pktev->copyConstituents(); }
+    double getETot() const { return _pktev->getETot(); } // had trouble building with Ktfloat, used double instead
+    int getType() const { return _pktev->getType(); }
+    int getAngle() const { return _pktev->getAngle(); }
+    int getRecom() const { return _pktev->getRecom(); }
+    bool isInclusive() const { return _pktev->isInclusive(); }
 
-    inline vector<KtJet::KtLorentzVector> getJets() const { return _pktev->getJets(); }
-    inline vector<KtJet::KtLorentzVector> getJetsE() const { return _pktev->getJetsE(); }
-    inline vector<KtJet::KtLorentzVector> getJetsEt() const { return _pktev->getJetsEt(); }
-    inline vector<KtJet::KtLorentzVector> getJetsPt() const { return _pktev->getJetsPt(); }
-    inline vector<KtJet::KtLorentzVector> getJetsRapidity() const { return _pktev->getJetsRapidity(); }
-    inline vector<KtJet::KtLorentzVector> getJetsEta() const { return _pktev->getJetsEta(); }
+    vector<KtJet::KtLorentzVector> getJets() const { return _pktev->getJets(); }
+    vector<KtJet::KtLorentzVector> getJetsE() const { return _pktev->getJetsE(); }
+    vector<KtJet::KtLorentzVector> getJetsEt() const { return _pktev->getJetsEt(); }
+    vector<KtJet::KtLorentzVector> getJetsPt() const { return _pktev->getJetsPt(); }
+    vector<KtJet::KtLorentzVector> getJetsRapidity() const { return _pktev->getJetsRapidity(); }
+    vector<KtJet::KtLorentzVector> getJetsEta() const { return _pktev->getJetsEta(); }
     //@}
 
     /// Get the subjet splitting variables for the given jet.

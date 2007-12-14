@@ -12,15 +12,15 @@ namespace Rivet {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
       pcmp(_fsproj, other._fsproj) || 
-      cmp(_type, other._type) ||
-      cmp(_recom, other._recom) ||
-      cmp(_rparameter, other._rparameter);
+      cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
+      cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
+      cmp(_jdef.plugin(), other._jdef.plugin()) ||
+      cmp(_jdef.R(), other._jdef.R());
   }
 
 
   void FastJets::project(const Event& e) {
     const FinalState& fs = e.applyProjection(_fsproj);
-
     // Store 4 vector data about each particle into vecs
     PseudoJets vecs;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {

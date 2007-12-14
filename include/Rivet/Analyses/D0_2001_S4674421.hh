@@ -21,7 +21,7 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    inline D0_2001_S4674421()
+    D0_2001_S4674421()
       // NB. eta in [-3,3] cut specified via FinalState constructor
       : _fsproj(-3.0, 3.0) 
     { 
@@ -29,7 +29,8 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       
       addProjection(_fsproj);
-      
+
+      /// @todo Fix this!      
       _bins_pt_w.resize(23);
       _bins_pt_w[0] = 0.;
       _bins_pt_w[1] = 2.;
@@ -62,18 +63,33 @@ namespace Rivet {
     static Analysis* create() { return new D0_2001_S4674421(); }
 
 
-    /// Return the name of this analysis.
-    inline string getName() const {
-      return "D0_2001_S4674421";
+    /// @name Publication metadata
+    //@{
+    /// Get a description of the analysis.
+    string getSpiresId() const {
+      return "4674421";
     }
+    /// Get a description of the analysis.
+    // string getDescription() const {
+    //   return "";
+    // }
+    /// Experiment which performed and published this analysis.
+    string getExpt() const {
+      return "D0";
+    }
+    /// When published (preprint year according to SPIRES).
+    string getYear() const {
+      return "2001";
+    }
+    //@}
 
-  public:
-    
+
+    /// @name Analysis methods
+    //@{
     void init();
-    
     void analyze(const Event& event);
-    
     void finalize();
+    //@}
 
   private:
 
@@ -81,7 +97,8 @@ namespace Rivet {
     FinalState _fsproj;
 
 
-    /// pT bins to be distiguished during analysis
+    /// pT bins to be distinguished during analysis
+    /// @todo Remove in favour of autobinning.
     vector<double> _bins_pt_w;
 
 

@@ -37,22 +37,22 @@ namespace Rivet {
     _histOblatenessCN->fill(thrustCN.oblateness(), weight);
 
     // Jets
-    //const DurhamJet& durjetC = e.applyProjection(_cdurproj);
-    //_histDiffRate2Durham->fill(, weight); 
-    //_histDiffRate3Durham->fill(, weight);
-    //_histDiffRate4Durham->fill(, weight);
-    //const DurhamJet& durjetCN = e.applyProjection(_cndurproj);
-    //_histDiffRate2DurhamCN->fill(, weight); 
-    //_histDiffRate3DurhamCN->fill(, weight);
-    //_histDiffRate4DurhamCN->fill(, weight);
-    //const JadeJet& durjetC = e.applyProjection(_cjadeproj);
-    //_histDiffRate2Jade->fill(, weight); 
-    //_histDiffRate3Jade->fill(, weight); 
-    //_histDiffRate4Jade->fill(, weight);
-    //const JadeJet& durjetCN = e.applyProjection(_cnjadeproj);
-    //_histDiffRate2JadeCN->fill(, weight); 
-    //_histDiffRate3JadeCN->fill(, weight);
-    //_histDiffRate4JadeCN->fill(, weight);
+//     const FastJets& durjetC = e.applyProjection(_cdurjetproj);
+//     _histDiffRate2DurhamC->fill(, weight); 
+//     _histDiffRate3DurhamC->fill(, weight);
+//     _histDiffRate4DurhamC->fill(, weight);
+//     const FastJets& durjetCN = e.applyProjection(_cndurjetproj);
+//     _histDiffRate2DurhamCN->fill(, weight); 
+//     _histDiffRate3DurhamCN->fill(, weight);
+//     _histDiffRate4DurhamCN->fill(, weight);
+//     const FastJets& jadejetC = e.applyProjection(_cjadejetproj);
+//     _histDiffRate2JadeC->fill(, weight); 
+//     _histDiffRate3JadeC->fill(, weight); 
+//     _histDiffRate4JadeC->fill(, weight);
+//     const FastJets& jadejetCN = e.applyProjection(_cnjadejetproj);
+//     _histDiffRate2JadeCN->fill(, weight); 
+//     _histDiffRate3JadeCN->fill(, weight);
+//     _histDiffRate4JadeCN->fill(, weight);
 
     // Sphericities
     const Sphericity& sphericityC = e.applyProjection(_cspherproj);

@@ -19,7 +19,7 @@ namespace Rivet {
     /// The default constructor. Must specify DISLepton, DISKinematics
     /// and FinalState projection objects which are assumed to live
     /// throughout the run.
-    inline FinalStateHCM(DISLepton& leptonp, DISKinematics& kinematicsp, FinalState& fsp)
+    FinalStateHCM(DISLepton& leptonp, DISKinematics& kinematicsp, FinalState& fsp)
       : _lepton(leptonp), _kinematics(kinematicsp), _fsproj(fsp)
     { 
       addProjection(leptonp);
@@ -30,7 +30,7 @@ namespace Rivet {
 
   public:
     /// Return the name of the projection
-    inline string getName() const {
+    string getName() const {
       return "FinalStateHCM";
     }
     

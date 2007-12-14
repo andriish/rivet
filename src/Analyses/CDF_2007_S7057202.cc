@@ -9,6 +9,7 @@ using namespace AIDA;
 namespace Rivet{
   
   //const double CDF_2007_S7057202::_ybins[] = {0.1, 0.7, 1.1, 1.6, 2.1};
+
   
   // Book histos and set counters for number of events passed in each one
   void CDF_2007_S7057202::init() {
@@ -21,23 +22,18 @@ namespace Rivet{
     _histosD07[_ybins[2]] = bookHistogram1D(3,1,1,"0.7 &lt; eta &lt; 1.1, D=0.7");
     _histosD07[_ybins[3]] = bookHistogram1D(4,1,1,"1.1 &lt; eta &lt; 1.6, D=0.7");
     _histosD07[_ybins[4]] = bookHistogram1D(5,1,1,"1.6 &lt; eta &lt; 2.1, D=0.7");
-
     _histoD05 = bookHistogram1D(6,1,1,"0.1 &lt; eta &lt; 0.7, D=0.5");
     _histoD10 = bookHistogram1D(7,1,1,"0.1 &lt; eta &lt; 0.7, D=1.0");
 
     
-    for(map<double, IHistogram1D*>::iterator histIt = _histosD07.begin();
-        histIt != _histosD07.end();
-        ++histIt){
+    for (map<double, IHistogram1D*>::iterator histIt = _histosD07.begin();
+         histIt != _histosD07.end(); ++histIt) {
       _eventsPassedD07[histIt->second] = 0.0;
     }
-
+    
     _eventsPassedD05 = 0.0;
     _eventsPassedD10 = 0.0;
-
   }
-  
-
 
   
   void CDF_2007_S7057202::analyze(const Event& event) {
