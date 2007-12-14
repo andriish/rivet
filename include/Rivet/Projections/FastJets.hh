@@ -9,19 +9,22 @@
 #include "Rivet/Jet.hh"
 
 #include "fastjet/ClusterSequence.hh"
+#include "fastjet/SISConePlugin.hh"
+#include "fastjet/CDFJetCluPlugin.hh"
+#include "fastjet/CDFMidPointPlugin.hh"
 
 
 namespace Rivet {
-
+  
   /// Typedef for a collection of PseudoJets.
   typedef vector<fastjet::PseudoJet> PseudoJets;
-  
+
 
   /// Project out jets found using fastJet package.
   class FastJets : public JetAlg {
-    
+
   public:
-    
+
     /// @name Standard constructors and destructors.
     //@{
     /// Default constructor. Must specify a FinalState projection which is
@@ -47,6 +50,30 @@ namespace Rivet {
       _jdef = fastjet::JetDefinition(_type, _rparameter, _recom);
     }
     
+
+
+    enum ExtJetType {SISCone, CDFJetClu, CDFMidPoint};
+    /// Argument constructor for external plugin algorithms
+    inline FastJets(ExtJetType type, double rparameter, FinalState& fsp)
+      : _extype(type), _rparameter(rparameter), _fsproj(fsp)
+    {
+      addProjection(fsp);
+      if (_extype == SISCone) {
+	double _overlapthreshold = 0.5;
+	_plugin = new fastjet::SISConePlugin(_rparameter,_overlapthreshold);
+	_jdef = fastjet::JetDefinition(_plugin);
+      }
+      else if (_extype == CDFJetClu) { //use external plugin jet algorithm
+	_plugin = new fastjet::CDFJetCluPlugin(_rparameter);
+	_jdef = fastjet::JetDefinition(_plugin);
+      }
+      else if (_extype == CDFMidPoint) {
+	_plugin = new fastjet::CDFMidPointPlugin(_rparameter);
+	_jdef = fastjet::JetDefinition(_plugin);
+      }
+    }
+    
+
 
     /// Destructor.
     ~FastJets() { }
@@ -79,6 +106,7 @@ namespace Rivet {
       }
       return rtn;
     }
+
 
     /// Get the pseudo jets (unordered).
     PseudoJets getPseudoJets() const {
@@ -113,13 +141,19 @@ namespace Rivet {
     int compare(const Projection& p) const;  
 
 
+
   private:
     
+    ///FastJet external jetalgo parameters
+    ExtJetType _extype;
+    fastjet::JetDefinition::Plugin  * _plugin; 
+
     /// FastJet parameters
     fastjet::ClusterSequence _cseq;
     fastjet::JetFinder _type;
     fastjet::RecombinationScheme _recom;
     double _rparameter;  
+
 
     /// The FinalState projection used by this projection.
     FinalState _fsproj;

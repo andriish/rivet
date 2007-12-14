@@ -17,8 +17,14 @@ libRivet_la_LIBADD  = \
   Tools/libRivetTools.la -ldl -lm \
   $(FASTJETLIB) \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME) \
-  -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME)
+  -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME) \
+  -lSISConePlugin -lsiscone -lCDFConesPlugin
+#  -lCDFcode -lCDFConesPlugin \
+#  -lsiscone -lSISConePlugin
+#  -l$(FASTJETLIBPATH)/libCDFcode -l$(FASTJETLIBPATH)/libCDFConesPlugin
+#  -L$(FASTJETLIBPATH) #-lCDFcode -lCDFConesPlugin
 if WITH_ROOT
+  # libRivet_la_LIBADD += $(ROOTLIBS)	
   libRivet_la_LIBADD += $(ROOTLIBS)	
 endif
 
