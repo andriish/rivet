@@ -57,6 +57,10 @@ namespace Rivet {
       : _regparam(rparam), _fsproj(fsp)
     { 
       addProjection(_fsproj);
+      for (size_t i = 0; i < 3; ++i) {
+        _lambdas.push_back(0);
+        _sphAxes.push_back(Vector3());
+      }
     }
 
     /// Return the name of the projection
@@ -77,7 +81,7 @@ namespace Rivet {
     /// @name Access the event shapes by name
     /// @{
     /// Sphericity
-    const double sphericity() const { return 3 / 2.0 * (lambda2() + lambda3()); }
+    const double sphericity() const { return 3.0 / 2.0 * (lambda2() + lambda3()); }
     /// Planarity
     const double planarity() const { return 2 * (sphericity() - 2 * aplanarity()) / 3.0; }
     /// Aplanarity

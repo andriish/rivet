@@ -16,6 +16,8 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     ZEUS_2001_S4815815.cc
     #OPAL_2004_S6132243.cc 
 
+libRivetAnalysisStd_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)
+libRivetAnalysisStd_la_LIBADD = -lCDFConesPlugin -lSISConePlugin -lsiscone
 libRivetAnalysisStd_la_CPPFLAGS = $(AM_CPPFLAGS)
 if WITH_ROOT
   libRivetAnalysisStd_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS) -fpermissive

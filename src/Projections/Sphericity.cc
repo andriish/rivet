@@ -96,9 +96,9 @@ namespace Rivet {
     }
 
     // Debug output.
-    log << Log::DEBUG << "Sum of lambdas = " << lambda1() + lambda2() + lambda3() << endl;
     log << Log::DEBUG << "Lambdas = (" 
         << lambda1() << ", " << lambda2() << ", " << lambda3() << ")" << endl;
+    log << Log::DEBUG << "Sum of lambdas = " << lambda1() + lambda2() + lambda3() << endl;
     log << Log::DEBUG << "Vectors = " 
         << sphericityAxis() << ", "
         << sphericityMajorAxis() << ", " 

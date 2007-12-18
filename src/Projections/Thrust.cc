@@ -1,6 +1,8 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Tools/Logging.hh"
+
 
 namespace Rivet {
 
@@ -83,9 +85,11 @@ namespace Rivet {
       momentumSum += mod(threeMomenta.back());
     }
 
+
     // Clear the caches
     _thrusts.clear();
     _thrustAxes.clear(); 
+
 
     // If there are fewer than 2 visible particles, we can't do much
     if (threeMomenta.size() < 2) {
@@ -150,8 +154,10 @@ namespace Rivet {
 
     // Get thrust
     calcT(threeMomenta, val, axis);
+    getLog() << Log::DEBUG << "Mom sum = " << momentumSum << endl;
     _thrusts.push_back(sqrt(val) / momentumSum);
     if (axis.z() < 0) axis = -axis;
+    getLog() << Log::DEBUG << "Axis = " << axis << endl;
     _thrustAxes.push_back(axis.unit()); 
 
     // Get thrust major 

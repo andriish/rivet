@@ -49,6 +49,7 @@ namespace Rivet {
     _histHadrTot->fill(cnm.hadronMultiplicity(), weight);
     _histHadrChTot->fill(cm.hadronMultiplicity(), weight);
     _histThrust->fill(t.thrust(), weight);
+    _histMajor->fill(t.thrustMajor(), weight);
     _histSphericity->fill(s.sphericity(), weight);
     _histAplanarity->fill(s.aplanarity(), weight);
 
@@ -64,6 +65,7 @@ namespace Rivet {
     normalize(_histHadrTot);
     normalize(_histHadrChTot);
     normalize(_histThrust);
+    normalize(_histMajor);
     normalize(_histSphericity);
     normalize(_histAplanarity);
   }

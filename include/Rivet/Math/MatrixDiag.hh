@@ -90,7 +90,7 @@ struct EigenPairCmp :
                               const typename EigenSystem<N>::EigenPair&, bool> {
   bool operator()(const typename EigenSystem<N>::EigenPair& a, 
                   const typename EigenSystem<N>::EigenPair& b) {
-    return a.first > b.first;
+    return a.first < b.first;
   }
 };
 
