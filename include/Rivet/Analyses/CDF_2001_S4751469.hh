@@ -19,7 +19,7 @@ namespace Rivet {
     /// Default constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.5 \f$ GeV.
     CDF_2001_S4751469()
-      : _fsproj(-1.0, 1.0, 0.5), _trackjetproj(_fsproj),
+      : _fsproj(-1.0, 1.0, 0.5*GeV), _trackjetproj(_fsproj),
         _ptsumToward(0) ,_ptsumTrans(0), _ptsumAway(0),
         _numToward(0) ,_numTrans(0), _numAway(0)
     { 

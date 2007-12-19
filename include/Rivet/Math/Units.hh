@@ -60,8 +60,7 @@ static const double pc = parsec;
 static const double radian      = 1.;                  
 static const double milliradian = 1.e-3*radian;
 static const double degree = (3.14159265358979323846/180.0)*radian;
-
-static const double   steradian = 1.;
+static const double steradian = 1.;
 	
 // symbols
 static const double rad  = radian;	
@@ -72,13 +71,13 @@ static const double deg  = degree;
 //
 // Time [T]
 //
-static const double nanosecond  = 1.;
+static const double nanosecond  = 1.0;
 static const double second      = 1.e+9 *nanosecond;
 static const double millisecond = 1.e-3 *second;
 static const double microsecond = 1.e-6 *second;
 static const double  picosecond = 1.e-12*second;
 
-static const double hertz = 1./second;
+static const double hertz = 1.0/second;
 static const double kilohertz = 1.e+3*hertz;
 static const double megahertz = 1.e+6*hertz;
 
@@ -90,26 +89,25 @@ static const double ms = millisecond;
 //
 // Electric charge [Q]
 //
-static const double eplus = 1. ;		// positron charge
+static const double eplus = 1.0;		// positron charge
 static const double e_SI  = 1.60217733e-19;	// positron charge in coulomb
 static const double coulomb = eplus/e_SI;	// coulomb = 6.24150 e+18 * eplus
 
 //
 // Energy [E]
 //
-static const double megaelectronvolt = 1. ;
-static const double     electronvolt = 1.e-6*megaelectronvolt;
-static const double kiloelectronvolt = 1.e-3*megaelectronvolt;
-static const double gigaelectronvolt = 1.e+3*megaelectronvolt;
-static const double teraelectronvolt = 1.e+6*megaelectronvolt;
-static const double petaelectronvolt = 1.e+9*megaelectronvolt;
-
+static const double     electronvolt = 1.e-9*gigaelectronvolt;
+static const double kiloelectronvolt = 1.e-6*gigaelectronvolt;
+static const double megaelectronvolt = 1.e-3*gigaelectronvolt;;
+static const double gigaelectronvolt = 1.;
+static const double teraelectronvolt = 1.e+3*gigaelectronvolt;
+static const double petaelectronvolt = 1.e+6*gigaelectronvolt;
 static const double joule = electronvolt/e_SI;	// joule = 6.24150 e+12 * MeV
 
 // symbols
-static const double MeV = megaelectronvolt;
 static const double  eV = electronvolt;
 static const double keV = kiloelectronvolt;
+static const double MeV = megaelectronvolt;
 static const double GeV = gigaelectronvolt;
 static const double TeV = teraelectronvolt;
 static const double PeV = petaelectronvolt;

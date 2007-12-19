@@ -21,6 +21,7 @@ inline bool fuzzyEquals(const Real a, const Real b, const Real tolerance = 1E-10
   return (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
 }
 
+
 // Include vectors and matrices
 #include "Rivet/Math/Vectors.hh"
 #include "Rivet/Math/Matrices.hh"
@@ -44,11 +45,15 @@ using std::min;
 using std::max;
 
 inline double delta_phi(double phi1, double phi2) {
-  return min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
+  //return min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
+  double deltaPhi = fabs(phi1 - phi2);
+  if (deltaPhi > PI) deltaPhi = fabs(deltaPhi - TWOPI);
+  assert(deltaPhi >= 0 && deltaPhi <= PI);
+  return deltaPhi;
 }
 
 inline double delta_rad(double y1, double phi1, double y2, double phi2) {
-  const double dphi = min( fabs(phi1-phi2), TWOPI-fabs(phi1-phi2) );
+  const double dphi = delta_phi(phi1, phi2);
   return sqrt( sqr(y1-y2) + sqr(dphi) );
 }
 

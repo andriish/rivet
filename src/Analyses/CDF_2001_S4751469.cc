@@ -48,18 +48,16 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   const double ptLead = leadingJet.getPtSum();
 
   // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
-  if (ptLead < 0.5) return;
-  if (ptLead > 50.0) return;
+  if (ptLead/GeV < 0.5) return;
+  if (ptLead/GeV > 50.0) return;
 
   // Run over tracks
   double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
   size_t numToward(0), numTrans(0), numAway(0);
   for (Jets::const_iterator j = jets.begin(); j != jets.end(); ++j) {
     for (Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
-      // Calculate delta phi from leading jet
-      double deltaPhi = fabs(p->azimuthalAngle() - phiLead);
-      if (deltaPhi > PI) deltaPhi = fabs( deltaPhi - 2*PI );
-      assert(deltaPhi >= 0 && deltaPhi <= PI);
+      // Calculate Delta(phi) from leading jet
+      const double deltaPhi = delta_phi(p->azimuthalAngle(), phiLead);
 
       // Get pT sum and multiplicity values for each region 
       // (each is 1 number for each region per event)
@@ -87,9 +85,9 @@ void CDF_2001_S4751469::analyze(const Event& event) {
       << endl;
 
   // Update the pT profile histograms
-  _ptsumToward->fill(ptLead, ptSumToward, event.weight());
-  _ptsumTrans->fill(ptLead, ptSumTrans, event.weight());
-  _ptsumAway->fill(ptLead, ptSumAway, event.weight());
+  _ptsumToward->fill(ptLead/GeV, ptSumToward/GeV, event.weight());
+  _ptsumTrans->fill(ptLead/GeV, ptSumTrans/GeV, event.weight());
+  _ptsumAway->fill(ptLead/GeV, ptSumAway/GeV, event.weight());
 
   // Log some event details
   log << Log::DEBUG 
@@ -106,6 +104,4 @@ void CDF_2001_S4751469::analyze(const Event& event) {
 }
 
 
-void CDF_2001_S4751469::finalize() {
-
-}
+void CDF_2001_S4751469::finalize() { }
