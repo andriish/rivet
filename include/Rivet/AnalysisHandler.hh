@@ -54,6 +54,15 @@ namespace Rivet {
 
   public:
 
+    /// Get the number of events seen. Should only really be used by external
+    /// steering code or analyses in the finalize phase.
+    size_t numEvents() const { return _numEvents; }
+
+    /// Get the sum of the event weights seen - the weighted equivalent of the
+    /// number of events. Should only really be used by external steering code
+    /// or analyses in the finalize phase.
+    double sumOfWeights() const { return _sumOfWeights; }
+
     /// Add an analysis to the run list using its name. The actual Analysis 
     /// to be used will be obtained via AnalysisHandler::getAnalysis(string).
     /// If no matching analysis is found, no analysis is added (i.e. the
@@ -70,7 +79,6 @@ namespace Rivet {
       _analyses.insert(a);
       return *this;
     }
-    
 
     /// Initialize a run. If this run is to be joined together with other
     /// runs, \a N should be set to the total number of runs to be
@@ -134,6 +142,12 @@ namespace Rivet {
     /// If non-zero, the index of this run, if a part of several runs to
     /// be combined into one.
     int _iRun;
+
+    /// Number of events seen.
+    size_t _numEvents;
+
+    /// Sum of event weights seen.
+    double _sumOfWeights;
 
     /// The AIDA analysis factory.
     AIDA::IAnalysisFactory* _theAnalysisFactory;

@@ -96,10 +96,10 @@ static const double coulomb = eplus/e_SI;	// coulomb = 6.24150 e+18 * eplus
 //
 // Energy [E]
 //
+static const double gigaelectronvolt = 1.;
 static const double     electronvolt = 1.e-9*gigaelectronvolt;
 static const double kiloelectronvolt = 1.e-6*gigaelectronvolt;
-static const double megaelectronvolt = 1.e-3*gigaelectronvolt;;
-static const double gigaelectronvolt = 1.;
+static const double megaelectronvolt = 1.e-3*gigaelectronvolt;
 static const double teraelectronvolt = 1.e+3*gigaelectronvolt;
 static const double petaelectronvolt = 1.e+6*gigaelectronvolt;
 static const double joule = electronvolt/e_SI;	// joule = 6.24150 e+12 * MeV

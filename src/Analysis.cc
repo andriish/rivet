@@ -37,6 +37,12 @@ namespace Rivet {
   }
 
 
+  size_t Analysis::numEvents() { return getHandler().numEvents(); }
+
+
+  double Analysis::sumOfWeights() { return getHandler().sumOfWeights(); }
+
+
   IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
                                           const size_t yAxisId, const string& title) {
     stringstream axisCode;

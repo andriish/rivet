@@ -181,9 +181,16 @@ namespace Rivet {
       return _crossSection;
     }
     
-
     /// Get a Log object based on the getName() property of the calling analysis object.
     Log& getLog();
+
+    /// Get the number of events seen (via the analysis handler). Use in the
+    /// finalize phase only.
+    size_t numEvents();
+
+    /// Get the sum of event weights seen (via the analysis handler). Use in the
+    /// finalize phase only.
+    double sumOfWeights();
 
     /// Is this analysis able to run on the BeamPair @a beams ?
     virtual const bool checkConsistency() const;

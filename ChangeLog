@@ -1,3 +1,13 @@
+2007-12-19  Andy Buckley  <andy@insectnation.org>
+
+	* Changed units header to set GeV = 1 (HepMC convention) and using
+	units in CDF UE analysis.
+
+2007-12-15  Andy Buckley  <andy@insectnation.org>
+
+	* Introduced analysis metadata methods for all analyses (and made
+	them part of the Analysis interface).
+
 2007-12-11  Andy Buckley  <andy@insectnation.org>
 
 	* Added JetAlg base projection for TrackJet, FastJet etc.

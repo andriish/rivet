@@ -115,6 +115,10 @@ namespace Rivet {
     /// Projections to calculate event hemisphere masses and broadenings.
     Hemispheres _chemiproj, _cnhemiproj;
 
+    /// Store the weighted sums of numbers of charged / charged+neutral
+    /// particles - used to calculate average number of particles for the 
+    /// inclusive single particle distributions' normalisations.
+    double _weightedTotalPartNumC, _weightedTotalPartNumCN;
 
     /// @name Histograms
     //@{
@@ -128,7 +132,7 @@ namespace Rivet {
 
     AIDA::IHistogram1D *_histScaledMom, *_histLogScaledMom;
 
-    AIDA::IHistogram1D *_histPtTOutVsXp, *_histPtTInVsXp;
+    AIDA::IProfile1D *_histPtTOutVsXp, *_histPtTInVsXp;
 
     AIDA::IHistogram1D *_hist1MinusTC, *_hist1MinusTCN; 
     AIDA::IHistogram1D *_histTMajorC, *_histTMajorCN; 

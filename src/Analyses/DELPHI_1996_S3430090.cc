@@ -37,6 +37,7 @@ namespace Rivet {
     _histOblatenessCN->fill(thrustCN.oblateness(), weight);
 
     // Jets
+    /// @todo Get differential jet rates from FastJet transition distances.
 //     const FastJets& durjetC = e.applyProjection(_cdurjetproj);
 //     _histDiffRate2DurhamC->fill(, weight); 
 //     _histDiffRate3DurhamC->fill(, weight);
@@ -98,50 +99,71 @@ namespace Rivet {
     //_histAEEC->fill(, weight); 
 
 
-    // Iterate over all the final state particles.
-    double totalPtInT(0), totalPtOutT(0);
+    // Iterate over all the charged final state particles.
     const FinalState& cfsC = e.applyProjection(_cfsproj);
-    const size_t numParticles = cfsC.particles().size();
     for (ParticleVector::const_iterator p = cfsC.particles().begin(); p != cfsC.particles().end(); ++p) {
-      /// @todo Add missing CN variants
-
       // Get momentum and energy of each particle.
       const Vector3 mom3 = p->getMomentum().vector3();
-      const double mom = mom3.mod();
       const double energy = p->getMomentum().E();
 
-      // Calculate scaled momenta.
+      // Scaled momenta.
+      const double mom = mom3.mod();
       const double scaledMom = mom/meanBeamMom;
       const double logInvScaledMom = -log10(scaledMom);
+      _histLogScaledMom->fill(logInvScaledMom, weight); 
+      _histScaledMom->fill(scaledMom, weight); 
 
       // Get momenta components w.r.t. thrust and sphericity.
       const double momT = dot(thrustC.thrustAxis(), mom3);
       const double momS = dot(sphericityC.sphericityAxis(), mom3);
       const double pTinT = dot(mom3, thrustC.thrustMajorAxis());
       const double pToutT = dot(mom3, thrustC.thrustMinorAxis());
-      const double pTinS = dot(mom3, sphericityC.sphericityMinorAxis());
+      const double pTinS = dot(mom3, sphericityC.sphericityMajorAxis());
       const double pToutS = dot(mom3, sphericityC.sphericityMinorAxis());
-      totalPtInT += pTinT; 
-      totalPtOutT += pToutT;
+      _histPtTInC->fill(pTinT/GeV, weight);
+      _histPtTOutC->fill(pToutT/GeV, weight);
+      _histPtSInC->fill(pTinS/GeV, weight);
+      _histPtSOutC->fill(pToutS/GeV, weight);
+      _histPtTInVsXp->fill(scaledMom, pTinT/GeV, weight);
+      _histPtTOutVsXp->fill(scaledMom, pToutT/GeV, weight);
 
       // Calculate rapidities w.r.t. thrust and sphericity.
       const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
       const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
-
-      // Fill histograms.
-      _histLogScaledMom->fill(logInvScaledMom, weight); 
-      _histScaledMom->fill(scaledMom, weight); 
       _histRapidityTC->fill(rapidityT, weight); 
       _histRapiditySC->fill(rapidityS, weight); 
-      _histPtTInC->fill(pTinT, weight);
-      _histPtTOutC->fill(pToutT, weight);
-      _histPtSInC->fill(pTinS, weight);
-      _histPtSOutC->fill(pToutS, weight);
     }
-    const double avgPtInT  = (numParticles > 0) ? totalPtInT/fabs(numParticles) : -1;
-    const double avgPtOutT = (numParticles > 0) ? totalPtOutT/fabs(numParticles) : -1;
-    _histPtTInVsXp->fill(avgPtInT, weight); 
-    _histPtTOutVsXp->fill(avgPtOutT, weight); 
+    const size_t numParticlesC = cfsC.particles().size();
+    _weightedTotalPartNumC += numParticlesC * weight;
+
+
+    // Iterate over all the charged and neutral final state particles.
+    const FinalState& cfsCN = e.applyProjection(_cnfsproj);
+    for (ParticleVector::const_iterator p = cfsCN.particles().begin(); p != cfsCN.particles().end(); ++p) {
+      // Get momentum and energy of each particle.
+      const Vector3 mom3 = p->getMomentum().vector3();
+      const double energy = p->getMomentum().E();
+
+      // Get momenta components w.r.t. thrust and sphericity.
+      const double momT = dot(thrustCN.thrustAxis(), mom3);
+      const double momS = dot(sphericityCN.sphericityAxis(), mom3);
+      const double pTinT = dot(mom3, thrustCN.thrustMajorAxis());
+      const double pToutT = dot(mom3, thrustCN.thrustMinorAxis());
+      const double pTinS = dot(mom3, sphericityCN.sphericityMajorAxis());
+      const double pToutS = dot(mom3, sphericityCN.sphericityMinorAxis());
+      _histPtTInCN->fill(pTinT/GeV, weight);
+      _histPtTOutCN->fill(pToutT/GeV, weight);
+      _histPtSInCN->fill(pTinS/GeV, weight);
+      _histPtSOutCN->fill(pToutS/GeV, weight);
+
+      // Calculate rapidities w.r.t. thrust and sphericity.
+      const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
+      const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
+      _histRapidityTCN->fill(rapidityT, weight); 
+      _histRapiditySCN->fill(rapidityS, weight); 
+    }
+    const size_t numParticlesCN = cfsCN.particles().size();
+    _weightedTotalPartNumCN += numParticlesCN * weight;
 
 
     // Finished...
@@ -168,8 +190,8 @@ namespace Rivet {
     _histScaledMom    = bookHistogram1D(7, 1, 1, "Scaled momentum, x_p = |p|/|p_beam| (charged)");
     _histLogScaledMom = bookHistogram1D(8, 1, 1, "Log of scaled momentum, log(1/x_p) (charged)");
 
-    _histPtTOutVsXp   = bookHistogram1D(9, 1, 1, "Mean out-of-plane p_T in GeV w.r.t. thrust axes vs. x_p (charged)"); // binned in Xp
-    _histPtTInVsXp    = bookHistogram1D(10, 1, 1, "Mean in-plane p_T in GeV w.r.t. thrust axes vs. x_p (charged)"); // binned in Xp
+    _histPtTOutVsXp   = bookProfile1D(9,  1, 1, "Mean out-of-plane p_T in GeV w.r.t. thrust axes vs. x_p (charged)"); // binned in Xp
+    _histPtTInVsXp    = bookProfile1D(10, 1, 1, "Mean in-plane p_T in GeV w.r.t. thrust axes vs. x_p (charged)"); // binned in Xp
 
     _hist1MinusTC     = bookHistogram1D(11, 1, 1, "1-thrust, 1-T (charged)");
     _hist1MinusTCN    = bookHistogram1D(11, 1, 2, "1-thrust, 1-T (charged and neutral)");
@@ -233,24 +255,27 @@ namespace Rivet {
 
   // Finalize
   void DELPHI_1996_S3430090::finalize() { 
-    /// @todo Normalize most to avg number of particles (charged or otherwise)
+    // Normalize inclusive single particle distributions to the average number 
+    // of (charged / charged+neutral) particles per event.
+    const double avgNumPartsC = _weightedTotalPartNumC / sumOfWeights();
+    const double avgNumPartsCN = _weightedTotalPartNumCN / sumOfWeights();
     
-    normalize(_histPtTInC);
-    normalize(_histPtTInCN);
-    normalize(_histPtTOutC); 
-    normalize(_histPtTOutCN); 
-    normalize(_histPtSInC);
-    normalize(_histPtSInCN);
-    normalize(_histPtSOutC); 
-    normalize(_histPtSOutCN); 
+    normalize(_histPtTInC, avgNumPartsC);
+    normalize(_histPtTInCN, avgNumPartsCN);
+    normalize(_histPtTOutC, avgNumPartsC); 
+    normalize(_histPtTOutCN, avgNumPartsCN); 
+    normalize(_histPtSInC, avgNumPartsC);
+    normalize(_histPtSInCN, avgNumPartsCN);
+    normalize(_histPtSOutC, avgNumPartsC); 
+    normalize(_histPtSOutCN, avgNumPartsCN); 
     
-    normalize(_histRapidityTC); 
-    normalize(_histRapidityTCN); 
-    normalize(_histRapiditySC); 
-    normalize(_histRapiditySCN); 
+    normalize(_histRapidityTC, avgNumPartsC); 
+    normalize(_histRapidityTCN, avgNumPartsCN);
+    normalize(_histRapiditySC, avgNumPartsC); 
+    normalize(_histRapiditySCN, avgNumPartsCN);
     
-    normalize(_histLogScaledMom); 
-    normalize(_histScaledMom); 
+    normalize(_histLogScaledMom, avgNumPartsC);
+    normalize(_histScaledMom, avgNumPartsC); 
 
     normalize(_hist1MinusTC); 
     normalize(_hist1MinusTCN); 

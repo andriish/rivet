@@ -11,8 +11,70 @@ using namespace AIDA;
 namespace Rivet {
 
 
+  AnalysisHandler::AnalysisHandler(string basefilename, HistoFormat storetype)
+    : _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0) {
+    _theAnalysisFactory = AIDA_createAnalysisFactory();
+    setupFactories(basefilename, storetype);
+  }
+
+
+  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
+    : _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0), _theAnalysisFactory(&afac) {
+    setupFactories(basefilename, storetype);
+  }
+
+
   Log& AnalysisHandler::getLog() { 
     return Log::getLog("Rivet.AnalysisHandler");
+  }
+
+
+  void AnalysisHandler::init(int i, int N) {
+    _nRun = N;
+    _iRun = i;
+    _numEvents = 0;
+    _sumOfWeights = 0.0;
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      getLog() << Log::DEBUG << "Initialising analysis: " << (*a)->getName() << endl;
+      (*a)->init();
+      getLog() << Log::DEBUG << "Checking consistency of analysis: " << (*a)->getName() << endl;
+      (*a)->checkConsistency();
+      getLog() << Log::DEBUG << "Done initialising analysis: " << (*a)->getName() << endl;
+    }
+  }
+  
+
+  void AnalysisHandler::analyze(const GenEvent& geneve) {
+    Event event(geneve);
+    _numEvents++;
+    _sumOfWeights += event.weight();
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      getLog() << Log::DEBUG << "About to run analysis " << (*a)->getName() << endl;
+      (*a)->analyze(event);
+      getLog() << Log::DEBUG << "Finished running analysis " << (*a)->getName() << endl;
+    }
+  }
+
+
+  void AnalysisHandler::finalize() {
+    Log& log = getLog();
+    log << Log::INFO << "Finalising analysis" << endl;
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      (*a)->finalize();
+    }
+
+    // Change AIDA histos into data point sets
+    log << Log::INFO << "Normalising the AIDA tree" << endl;
+    assert(_theTree != 0);
+    normalizeTree(tree());
+    tree().commit();
+
+    // Delete analyses
+    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
+      delete *a;
+    }
+    _analyses.clear();
+    AnalysisLoader::closeAnalysisBuilders();
   }
 
 
@@ -87,64 +149,6 @@ namespace Rivet {
       
     }
     tree.rmdir(tmpdir);
-  }
-
-
-  AnalysisHandler::AnalysisHandler(string basefilename, HistoFormat storetype)
-    : _nRun(0), _iRun(0) {
-    _theAnalysisFactory = AIDA_createAnalysisFactory();
-    setupFactories(basefilename, storetype);
-  }
-
-
-  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
-    : _nRun(0), _iRun(0), _theAnalysisFactory(&afac) {
-    setupFactories(basefilename, storetype);
-  }
-
-
-  void AnalysisHandler::init(int i, int N) {
-    _nRun = N;
-    _iRun = i;
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      getLog() << Log::DEBUG << "Initialising analysis: " << (*a)->getName() << endl;
-      (*a)->init();
-      getLog() << Log::DEBUG << "Checking consistency of analysis: " << (*a)->getName() << endl;
-      (*a)->checkConsistency();
-      getLog() << Log::DEBUG << "Done initialising analysis: " << (*a)->getName() << endl;
-    }
-  }
-
-
-  void AnalysisHandler::analyze(const GenEvent& geneve) {
-    Event event(geneve);
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      getLog() << Log::DEBUG << "About to run analysis " << (*a)->getName() << endl;
-      (*a)->analyze(event);
-      getLog() << Log::DEBUG << "Finished running analysis " << (*a)->getName() << endl;
-    }
-  }
-
-
-  void AnalysisHandler::finalize() {
-    Log& log = getLog();
-    log << Log::INFO << "Finalising analysis" << endl;
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      (*a)->finalize();
-    }
-
-    // Change AIDA histos into data point sets
-    log << Log::INFO << "Normalising the AIDA tree" << endl;
-    assert(_theTree != 0);
-    normalizeTree(tree());
-    tree().commit();
-
-    // Delete analyses
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      delete *a;
-    }
-    _analyses.clear();
-    AnalysisLoader::closeAnalysisBuilders();
   }
 
 
