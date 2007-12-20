@@ -2,7 +2,7 @@
 
 #include "Rivet/Projections/WZandh.hh"
 #include "Rivet/Cmp.hh"
-#include "HepPDT/ParticleID.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 
 
 namespace Rivet {
@@ -27,8 +27,8 @@ namespace Rivet {
     for ( GenEvent::particle_const_iterator pi = e.genEvent().particles_begin();
           pi != e.genEvent().particles_end(); ++pi ) {
       if ( (*pi)->status() != 1 ) {
-        HepPDT::ParticleID pInfo = (*pi)->pdg_id();
-        int id = pInfo.abspid();
+        const int id = abs((*pi)->pdg_id());
+        /// @todo Use ParticleName enum values for clarity.
         if (id == 23 || id == 24 || id == 25 ){
           // This is a W, Z or h.
           // Now find out whether it is the last one before the decay.

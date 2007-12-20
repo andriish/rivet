@@ -25,15 +25,12 @@ static const double kilometer3 = kilometer*kilometer*kilometer;
 static const double parsec = 3.0856775807e+16*meter;
 
 static const double micrometer = 1.e-6 *meter;             
-static const double  nanometer = 1.e-9 *meter;
-static const double  angstrom  = 1.e-10*meter;
-static const double  fermi     = 1.e-15*meter;
-
-static const double      barn = 1.e-28*meter2;
-static const double millibarn = 1.e-3 *barn;
-static const double microbarn = 1.e-6 *barn;
-static const double  nanobarn = 1.e-9 *barn;
-static const double  picobarn = 1.e-12*barn;
+static const double nanometer  = 1.e-9 *meter;
+static const double angstrom   = 1.e-10*meter;
+static const double picometer  = 1.e-12*meter;
+static const double femtometer = 1.e-15*meter;
+static const double attometer  = 1.e-18*meter;
+static const double fermi      = femtometer;
 
 // symbols
 static const double mm  = millimeter;                        
@@ -53,6 +50,17 @@ static const double km2 = kilometer2;
 static const double km3 = kilometer3;
 
 static const double pc = parsec;
+
+
+// static const double      barn = 1.e-28*meter2;
+// Barn-units in terms of the pb returned by AGILe
+static const double  picobarn = 1.0;
+static const double      barn = 1.e+12* picobarn;
+static const double millibarn = 1.e-3 * barn;
+static const double microbarn = 1.e-6 * barn;
+static const double  nanobarn = 1.e-9 * barn;
+static const double femtobarn = 1.e-3 * barn;
+static const double attobarn  = 1.e-3 * barn;
 
 //
 // Angle

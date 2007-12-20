@@ -70,6 +70,7 @@ nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
   Tools/Logging.fhh \
   Tools/Configuration.hh \
+  Tools/ParticleIDMethods.hh \
   Tools/Utils.hh
 
 nobase_pkginclude_HEADERS += \

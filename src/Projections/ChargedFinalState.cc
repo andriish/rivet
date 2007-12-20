@@ -1,8 +1,8 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Cmp.hh"
-#include "HepPDT/ParticleID.hh"
 #include <algorithm>
 
 
@@ -14,8 +14,7 @@ namespace Rivet {
   }
   
   bool chargedParticleFilter(const Particle& p) {
-    const HepPDT::ParticleID pInfo( p.getPdgId() );
-    return pInfo.threeCharge() != 0;
+    return PID::threeCharge(p.getPdgId()) != 0;
   }
   
   void ChargedFinalState::project(const Event& e) {

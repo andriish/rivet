@@ -1,13 +1,10 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/ExampleTree.hh"
 
-#include "HepPDT/ParticleID.hh"
-using namespace HepMC;
-
 
 namespace Rivet {
+
 
   #ifndef HAVE_ROOT
   void ExampleTree::init() {
@@ -111,8 +108,7 @@ namespace Rivet {
           _ppart[_npart][2] = p4.py();
           _ppart[_npart][3] = p4.pz();
           _ppart[_npart][0] = p4.E();
-          HepPDT::ParticleID pInfo = (*pi)->pdg_id();
-          _pid[_npart] = pInfo.pid();
+          _pid[_npart] = (*pi)->pdg_id();
           const GenVertex* vertex = (*pi)->production_vertex();
           // get the first mother
           if (vertex) {

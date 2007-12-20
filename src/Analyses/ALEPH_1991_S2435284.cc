@@ -2,10 +2,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/ALEPH_1991_S2435284.hh"
-#include "HepPDT/ParticleID.hh"
-
-using namespace AIDA;
-using namespace HepMC;
 
 
 namespace Rivet {

@@ -1,13 +1,11 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Analyses/S2435284.hh"
-#include "HepPDT/ParticleID.hh"
+#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
 
-using namespace AIDA;
-using namespace HepMC;
 
 namespace Rivet {
+
 
   void OPAL_2004_S6132243::init() {
     // Book histograms
@@ -16,7 +14,6 @@ namespace Rivet {
     histSphericity_  = bookHistogram1D("Sphericity", "Event Shape: Sphericity", 8, 0.0, 0.70);
     histAplanarity_  = bookHistogram1D("Aplanarity", "Event Shape: APlanarity", 10, 0.0, 0.09);
     histPlanarity_   = bookHistogram1D("Planarity",  "Event Shape: Planarity", 16, 0.0, 0.70);
-
   }
 
 

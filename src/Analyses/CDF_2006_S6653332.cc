@@ -2,8 +2,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/CDF_2006_S6653332.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "HepPDT/ParticleID.hh"
-//#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 
 
 namespace Rivet {
@@ -33,7 +32,8 @@ namespace Rivet {
 
     const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
     log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
-    
+
+    /// @todo Use constants and register these cuts    
     if (caloMissEt.getMomentum().pT()<25. && caloMissEt.getSET()<150.) {
       
       // Get leptons in event
@@ -67,18 +67,17 @@ namespace Rivet {
       if (dilep.size()==2 && dilep[1]->getMomentum().pT() > 10. 
           && dilep[0]->getPdgId() == -dilep[1]->getPdgId() ) {
 
-        //cout << "CDF_2006_S6653332::analyze: Z pre-cuts passed!" << endl;
-        
         // Muon and electron geometrical acceptance requirement
         /// @todo Use ParticleName enum for clarity.
-        if ((abs(dilep[0]->getPdgId() == 11) && fabs(dilep[0]->getMomentum().pseudorapidity()) < 3.6 && fabs(dilep[1]->getMomentum().pseudorapidity()) < 3.6) ||
-            (abs(dilep[0]->getPdgId() == 13) && fabs(dilep[0]->getMomentum().pseudorapidity()) < 1.5 && fabs(dilep[1]->getMomentum().pseudorapidity()) < 1.5)    
-            ) {
+        const double eta0 = dilep[0]->getMomentum().pseudorapidity();
+        const double eta1 = dilep[1]->getMomentum().pseudorapidity();
+        if ((abs(dilep[0]->getPdgId() == 11) && fabs(eta0) < 3.6 && fabs(eta1) < 3.6) ||
+            (abs(dilep[0]->getPdgId() == 13) && fabs(eta0) < 1.5 && fabs(eta1) < 1.5)) {
           
           // Dilepton invariant mass cut
           FourMomentum ll = dilep[0]->getMomentum() + dilep[1]->getMomentum();
           log << Log::DEBUG << "ll.mass()=" << ll.mass() << endl;
-          /// @todo Use const doubles insted of all these magic numbers...
+          /// @todo Use const doubles instead of all these magic numbers...
           if (66. < ll.mass()  &&  ll.mass() < 116.) {
 	    
             log << Log::DEBUG << "Invariant di-lepton mass ll.mass() = " << ll.mass() << endl;
@@ -103,23 +102,21 @@ namespace Rivet {
               double fh = 0.8; // Hadronic calo. fraction of charged hadrons (simplified assumption)
               bool l_isol = true; // Both leptons have to be isolated 
               // => one veto variable suffices
-              for (ParticleVector::const_iterator p = vfs.particles().begin(); 
-                   p != vfs.particles().end(); ++p) {
-                
-                HepPDT::ParticleID pInfo = p->getPdgId();
-                
+              for (ParticleVector::const_iterator p = vfs.particles().begin(); p != vfs.particles().end(); ++p) {
+                const int pid = p->getPdgId();
+                const int abspid = abs(pid);
                 // Determine energy depositions around lepton(s)
                 /// @todo Use ParticleName enum.
-                for (int lind=0; lind<2; ++lind) {
+                for (size_t lind = 0; lind < 2; ++lind) {
                   if (deltaR(p->getMomentum(), dilep[lind]->getMomentum()) < R_isol) {
-                    if (abs(p->getPdgId()) == 11 
-                        || abs(p->getPdgId()) == 13 
-                        || abs(p->getPdgId()) == 22) {
+                    if (abspid == 11 || abspid == 13 || abspid == 22) {
                       Eem[lind] += p->getMomentum().E();
-                    } else if (pInfo.threeCharge() != 0) {//charged hadron: had + em calo fraction
+                    } else if (PID::threeCharge(pid) != 0) { 
+                      // Charged hadron: had + em calo fraction
                       Eem[lind] += (1.-fh)*p->getMomentum().E();
                       Ehad[lind] += fh*p->getMomentum().E();
-                    } else { // Neutral hadron assumed to have vanishing EM fraction
+                    } else { 
+                      // Neutral hadron assumed to have vanishing EM fraction
                       Ehad[lind] += p->getMomentum().E();
                     }
                   }
@@ -128,10 +125,11 @@ namespace Rivet {
               
               /// @todo This is cryptic: use some constants instead of all these magic numbers.
               /// @todo Do leptons fulfill isolation criteria?
-              for (int lind=0; lind < 2; ++lind) {
-                if (abs(dilep[lind]->getPdgId())==11) { // electron
+              /// @todo Use ParticleName enums
+              for (size_t lind = 0; lind < 2; ++lind) {
+                if (abs(dilep[lind]->getPdgId()) == 11) { // electron
                   if (!(Eem[lind]>0.)) l_isol = false;
-                  else if (Ehad[lind]/Eem[lind] > 0.055+0.00045*dilep[lind]->getMomentum().E()) l_isol = false;
+                  else if (Ehad[lind]/Eem[lind] > 0.055 + 0.00045*dilep[lind]->getMomentum().E()) l_isol = false;
                 }
                 else { //muon
                   if (dilep[lind]->getMomentum().E() <= 100.) {
@@ -148,11 +146,8 @@ namespace Rivet {
               }
               
               if (l_isol) { // Both leptons are isolated
-                
                 log << Log::DEBUG << "Both leptons are isolated" << endl;
-                
                 const FastJets& jetpro = event.applyProjection(_jetsproj);
-                /// @todo Don't expose FastJet objects in Rivet analyses.
                 const PseudoJets& jets = jetpro.getPseudoJetsPt();
                 
                 // Remove leptons from list of jets
@@ -162,7 +157,6 @@ namespace Rivet {
                   if (deltaR(dilep[0]->getMomentum(), j) > R_isol && 
                       deltaR(dilep[1]->getMomentum(), j) > R_isol) { _jetaxes.push_back(j); }
                 }
-                
                 
                 // Fill jets Et and eta distributions.
                 for (size_t i=0; i < _jetaxes.size(); ++i) {
@@ -175,9 +169,7 @@ namespace Rivet {
                 
                 // Determine secondary vertices
                 const SVertex& svtx =  event.applyProjection(_svtxproj);
-                
                 const vector<FourMomentum>& taggedJets = svtx.getTaggedJets();
-                
                 log << Log::DEBUG << "taggedJets.size()=" << taggedJets.size() << endl;
 
                 // Fill tagged jets Et and eta distributions
@@ -189,21 +181,21 @@ namespace Rivet {
                   }
                 }
                 
-              } //both leptons are isolated
-            } //dilepton invariant mass cut
-          } //mu,e geometrical acceptance requirement
-        } //at least one trigger lepton (eta, pT) requirement	
-      } //opposite charged leptons, pT>10
+              } // Both leptons are isolated
+            } // Dilepton invariant mass cut
+          } // mu,e geometrical acceptance requirement
+        } // At least one trigger lepton (eta, pT) requirement	
+      } // Opposite charged leptons, pT>10
       
-    }//Cal. missing Et and scalar Et (Ht) cut
+    } // Cal. missing Et and scalar Et (Ht) cut
     
-    }// primary vertex z-position requirement
+    } // Primary vertex z-position requirement
     
     // Finished
     log << Log::DEBUG << "Finished analyzing" << endl;
   }
   
-
+  
   
   // Finalize
   void CDF_2006_S6653332::finalize() { 
@@ -212,6 +204,6 @@ namespace Rivet {
     normalize(_histbJetsPt);
     normalize(_histbJetsEta);
   }
-
-
+  
+  
 }

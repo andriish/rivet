@@ -2,7 +2,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/JetShape.hh"
 #include "Rivet/Cmp.hh"
-#include "HepPDT/ParticleID.hh"
 
 
 namespace Rivet {

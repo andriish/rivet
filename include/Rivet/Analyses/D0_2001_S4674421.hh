@@ -30,6 +30,8 @@ namespace Rivet {
       
       addProjection(_fsproj);
 
+      /// @todo Declare cuts
+
       /// @todo Fix this!      
       _bins_pt_w.resize(23);
       _bins_pt_w[0] = 0.;

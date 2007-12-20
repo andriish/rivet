@@ -1,8 +1,8 @@
-check_PROGRAMS = testBoost testMatVec
+check_PROGRAMS = testMatVec
 
-testBoost_SOURCES = testBoost.cc
+#testBoost_SOURCES = testBoost.cc
 
 testMatVec_SOURCES = testMatVec.cc
 testMatVec_LDADD   = -lm -lgsl -lgslcblas
 
-TESTS = testBoost testMatVec
+TESTS = testMatVec
