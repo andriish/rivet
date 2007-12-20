@@ -1,5 +1,7 @@
 2007-12-20  Andy Buckley  <andy@insectnation.org>
 
+	* Removed HepPID, HepPDT and Boost dependencies.
+
 	* Fixed XML entity encoding in LWH. Updated CDF_2007_S7057202
 	analysis to not do its own XML encoding of titles.
 

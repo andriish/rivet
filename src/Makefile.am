@@ -3,7 +3,6 @@ SUBDIRS = Projections Analyses Tools . Test
 ## "libRivet" library
 lib_LTLIBRARIES  = libRivet.la
 libRivet_la_LDFLAGS = \
-  -L$(HEPPIDLIBPATH) -L$(HEPPDTLIBPATH) \
   -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) \
   -export-dynamic -version-info 1:0:0
 libRivet_la_SOURCES = \
@@ -15,16 +14,10 @@ libRivet_la_SOURCES = \
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl -lm \
-  $(FASTJETLIB) \
-  -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME) \
-  -l$(HEPPIDLIBNAME) -l$(HEPPDTLIBNAME) \
-  -lSISConePlugin -lsiscone -lCDFConesPlugin
-#  -lCDFcode -lCDFConesPlugin \
-#  -lsiscone -lSISConePlugin
-#  -l$(FASTJETLIBPATH)/libCDFcode -l$(FASTJETLIBPATH)/libCDFConesPlugin
-#  -L$(FASTJETLIBPATH) #-lCDFcode -lCDFConesPlugin
+  -L$(FASTJETLIBPATH) -l$(FASTJETLIBNAME) \
+  -lCDFConesPlugin -lsiscone -lSISConePlugin \
+  -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME)
 if WITH_ROOT
-  # libRivet_la_LIBADD += $(ROOTLIBS)	
   libRivet_la_LIBADD += $(ROOTLIBS)	
 endif
 
