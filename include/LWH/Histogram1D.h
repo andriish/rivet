@@ -436,11 +436,9 @@ public:
    * Write out the histogram in the AIDA xml format.
    */
   bool writeXML(std::ostream & os, std::string path, std::string name) {
-
-    std::cout << "Writing out histogram " << name.c_str() << " in AIDA file format!" <<std::endl;
-
-    os << "  <histogram1d name=\"" << name
-       << "\"\n    title=\"" << title()
+    //std::cout << "Writing out histogram " << name << " in AIDA file format!" << std::endl;
+    os << "  <histogram1d name=\"" << encodeForXML(name)
+       << "\"\n    title=\"" << encodeForXML(title())
        << "\" path=\"" << path
        << "\">\n    <axis max=\"" << ax->upperEdge()
        << "\" numberOfBins=\"" << ax->bins()
@@ -449,7 +447,7 @@ public:
     if ( vax ) {
       os << ">\n";
       for ( int i = 0, N = ax->bins() - 1; i < N; ++i )
-	os << "      <binBorder value=\"" << ax->binUpperEdge(i) << "\"/>\n";
+        os << "      <binBorder value=\"" << ax->binUpperEdge(i) << "\"/>\n";
       os << "    </axis>\n";
     } else {
       os << "/>\n";
@@ -459,22 +457,22 @@ public:
        << "\" direction=\"x\"\n        rms=\"" << rms()
        << "\"/>\n    </statistics>\n    <data1d>\n";
     for ( int i = 0; i < ax->bins() + 2; ++i ) if ( sum[i] ) {
-      os << "      <bin1d binNum=\"";
-      if ( i == 0 ) os << "UNDERFLOW";
-      else if ( i == 1 ) os << "OVERFLOW";
-      else os << i - 2;
-      os << "\" entries=\"" << sum[i]
-	 << "\" height=\"" << sumw[i]
-	 << "\"\n        error=\"" << std::sqrt(sumw2[i])
-	 << "\" error2=\"" << sumw2[i]
-	 << "\"\n        weightedMean=\"" << binMean(i - 2)
-	 << "\" weightedRms=\"" << binRms(i - 2)
-	 << "\"/>\n";
-    }
+        os << "      <bin1d binNum=\"";
+        if ( i == 0 ) os << "UNDERFLOW";
+        else if ( i == 1 ) os << "OVERFLOW";
+        else os << i - 2;
+        os << "\" entries=\"" << sum[i]
+           << "\" height=\"" << sumw[i]
+           << "\"\n        error=\"" << std::sqrt(sumw2[i])
+           << "\" error2=\"" << sumw2[i]
+           << "\"\n        weightedMean=\"" << binMean(i - 2)
+           << "\" weightedRms=\"" << binRms(i - 2)
+           << "\"/>\n";
+      }
     os << "    </data1d>\n  </histogram1d>" << std::endl;
     return true;
   }
-
+  
 
   /**
    * Write out the histogram in a flat text file suitable for

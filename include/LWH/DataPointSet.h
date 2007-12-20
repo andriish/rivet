@@ -303,11 +303,12 @@ public:
   }
 
   /**
-   * Write out the data set in the AIDA xml format.
+   * Write out the data set in the AIDA XML format.
    */
   bool writeXML(std::ostream & os, std::string path, std::string name) {
-    os << "  <dataPointSet name=\"" << name
-       << "\"\n    title=\"" << title()
+    //std::cout << "Writing out data point set " << name << " in AIDA file format!" << std::endl;
+    os << "  <dataPointSet name=\"" << encodeForXML(name)
+       << "\"\n    title=\"" << encodeForXML(title())
        << "\" path=\"" << path
        << "\" dimension=\"" << dimension() << "\">\n";
     for ( int i = 0, N = size(); i < N; ++i ) {

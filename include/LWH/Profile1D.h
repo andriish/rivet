@@ -470,11 +470,9 @@ public:
    * Write out the histogram in the AIDA xml format.
    */
   bool writeXML(std::ostream & os, std::string path, std::string name) {
-
-    std::cout << "Writing out profile histogram " << name.c_str() << " in AIDA file format!" <<std::endl;
-
-    os << "  <profile1d name=\"" << name
-       << "\"\n    title=\"" << title()
+    //std::cout << "Writing out profile histogram " << name << " in AIDA file format!" <<std::endl;
+    os << "  <profile1d name=\"" << encodeForXML(name)
+       << "\"\n    title=\"" << encodeForXML(title())
        << "\" path=\"" << path
        << "\">\n    <axis max=\"" << ax->upperEdge()
        << "\" numberOfBins=\"" << ax->bins()
@@ -494,17 +492,17 @@ public:
        << "\"/>\n    </statistics>\n    <data1d>\n";
     for ( int i = 0; i < ax->bins() + 2; ++i ) 
       if ( sum[i] && binError(i)>0.) {
-	os << "      <bin1d binNum=\"";
-	if ( i == 0 ) os << "UNDERFLOW";
-	else if ( i == 1 ) os << "OVERFLOW";
-	else os << i - 2;
-	os << "\" entries=\"" << sum[i]
-	   << "\" height=\"" << binHeight(i)
-	   << "\"\n        error=\"" << binError(i)
-	   << "\" error2=\"" << binError(i)*binError(i)
-	   << "\"\n        weightedMean=\"" << binMean(i - 2)
-	   << "\" weightedRms=\"" << binRms(i - 2)
-	   << "\"/>\n";
+        os << "      <bin1d binNum=\"";
+        if ( i == 0 ) os << "UNDERFLOW";
+        else if ( i == 1 ) os << "OVERFLOW";
+        else os << i - 2;
+        os << "\" entries=\"" << sum[i]
+           << "\" height=\"" << binHeight(i)
+           << "\"\n        error=\"" << binError(i)
+           << "\" error2=\"" << binError(i)*binError(i)
+           << "\"\n        weightedMean=\"" << binMean(i - 2)
+           << "\" weightedRms=\"" << binRms(i - 2)
+           << "\"/>\n";
       }
     os << "    </data1d>\n  </profile1d>" << std::endl;
     return true;
