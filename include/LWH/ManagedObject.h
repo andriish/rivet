@@ -34,7 +34,10 @@ public:
     typedef std::pair<std::string, std::string> CharsToEntities;
     std::vector<CharsToEntities> cs2es;
     // NB. Ampersand replacement must come first!
-    cs2es.push_back(std::make_pair("&", "&amp;"));
+    /// @todo Commented out ampersands until I've worked out how to avoid the infinite loop...
+    // Maybe the searches should only apply to the part of the string that 
+    // hasn't already been replaced...
+    //cs2es.push_back(std::make_pair("&", "&amp;"));
     cs2es.push_back(std::make_pair("<", "&lt;"));
     cs2es.push_back(std::make_pair(">", "&gt;"));
     // Also quotation marks?
