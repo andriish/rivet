@@ -62,9 +62,10 @@ namespace Rivet {
           // Cuts from HEPEX-0106027 (see HEPEX-0010026)
           /// @todo Use units and cut constants
           if ( pmom.polarRadius() >= 25.0 /*25*/  && fabs(pmom.pseudorapidity()) <= 2.5   ) {
-            double E_cone_0_4 = 0.0, f_iso;
+            double E_cone_0_4 = 0.0, f_iso = 0.0;
             //double E_em_02 = 0.0;
             log << Log::DEBUG << "e+-: " << pid << " " << pmom << endl;
+            // Loop over pairs of particles
             for (ParticleVector::const_iterator p1 = fs.particles().begin(); p1 != fs.particles().end(); ++p1) {
               int p1id = p1->getPdgId();
               FourMomentum p1mom(p1->getMomentum());
@@ -78,18 +79,13 @@ namespace Rivet {
               log << Log::DEBUG  << "FS particle: " << p1id << " " << p1mom << " "
                   << "dR: " << deltaR(pmom, p1mom) << thesame << in04 << dE ;
               /// @todo Clarify - use PID enums
-              if ( abs(p1id) == 12 || abs(p1id) == 14 || abs(p1id) == 16 ) {
-                log << Log::DEBUG << endl;
-                continue; // invisible
-              }
-              /// @todo Declare cuts
-              if ( deltaR(pmom, p1mom) > 0.4) {
-                log << Log::DEBUG << endl;
-                continue; // <== cut: off 0.4 cone
-              }
+              // Neutrinos are invisible
+              if ( abs(p1id) == 12 || abs(p1id) == 14 || abs(p1id) == 16 ) continue;
+              /// @todo Use named consts for cuts
+              // Cut: cone radius of 0.4
+              if ( deltaR(pmom, p1mom) > 0.4) continue;
               E_cone_0_4 += dE;
               log << Log::DEBUG<< " | " << E_cone_0_4 << endl;
-
             }
             /// @todo Should be (E_tot(0.4) - E_em(0.2)) / E_em(0.2): we're using a simplified definition instead
             f_iso = (E_cone_0_4 - pmom.E()) / pmom.E(); 
@@ -103,13 +99,13 @@ namespace Rivet {
                   << endl;
             }
           }
-        } // End if (... abspid ... == 12 ...
-      } // End of cycle over FS particles
+        }
+      }
 
       double pt_miss = p_tot.polarRadius();
       _h_pt_miss->fill (pt_miss, weight);
-      if (pt_miss < 25.) // cut: PT_miss >= 25 GeV
-        return;    
+      // Cut: PT_miss >= 25 GeV
+      if (pt_miss < 25.0*GeV) return; 
 
       int nlep = theIsolChargedLeptons.size();
       /// @todo What if there are 2 l+-'s not consistent with Z?
@@ -122,6 +118,7 @@ namespace Rivet {
           psum += plep;
         }
         // Z candidate - drop the event
+        /// @todo Should be fabs(psum.mass() - 91.18) < 15.0 ?
         if (psum.mass() - 91.18 < 15.0) return; 
       }
       else if (nlep == 1) {
