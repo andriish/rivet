@@ -37,13 +37,13 @@ namespace Rivet {
     /// The default constructor.
     Projection() {
       addBeamPair(ANY, ANY);
-      getLog() << Log::DEBUG << "Creating " << this->getName() << " at " << this << endl;
+      getLog() << Log::TRACE << "Creating " << this->getName() << " at " << this << endl;
     }
     
 
     /// The destructor.
     virtual ~Projection() {
-      getLog() << Log::DEBUG << "Destroying " << this->getName() << " at " << this << endl;
+      getLog() << Log::TRACE << "Destroying " << this->getName() << " at " << this << endl;
     }
     //@}
     
@@ -143,8 +143,8 @@ namespace Rivet {
 
     /// Add a projection dependency to the projection list.
     Projection& addProjection(Projection& proj) {
-      getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
-      getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
+      getLog() << Log::TRACE << " Inserting projection at: " << &proj << endl;
+      getLog() << Log::TRACE << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
       ProjectionPtr pp(& proj);
       _projections.insert(pp);
       return *this;

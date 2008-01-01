@@ -321,8 +321,8 @@ namespace Rivet {
     Analysis& addProjection(Projection& proj) {
       ProjectionPtr pp(&proj);
       _projections.insert(pp);
-      getLog() << Log::DEBUG << " Inserting projection at: " << &proj << endl;
-      getLog() << Log::DEBUG << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
+      getLog() << Log::TRACE << " Inserting projection at: " << &proj << endl;
+      getLog() << Log::TRACE << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
       return *this;
     }
 

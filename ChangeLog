@@ -1,5 +1,8 @@
 2008-01-01  Andy Buckley  <andy@insectnation.org>
 
+	* Removed some unwanted DEBUG statements, and lowered the level of
+	some infrastructure DEBUGs to TRACE level.
+
 	* Added bash color escapes to the logger system.
 
 2007-12-21  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>

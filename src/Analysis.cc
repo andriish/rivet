@@ -47,12 +47,12 @@ namespace Rivet {
                                           const size_t yAxisId, const string& title) {
     stringstream axisCode;
     axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
-    getLog() << Log::DEBUG << "Getting histo bin edges for " << getName() << ":" << axisCode.str() << endl;
+    getLog() << Log::TRACE << "Getting histo bin edges for " << getName() << ":" << axisCode.str() << endl;
     const map<string, BinEdges> data = getBinEdges(getName());
     makeHistoDir();
     const string path = getHistoDir() + "/" + axisCode.str();
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, data.find(axisCode.str())->second);
-    getLog() << Log::DEBUG << "Made histogram " << axisCode.str() <<  " for " << getName() << endl;
+    getLog() << Log::TRACE << "Made histogram " << axisCode.str() <<  " for " << getName() << endl;
     return hist;
   }
 
@@ -78,12 +78,12 @@ namespace Rivet {
                                           const size_t yAxisId, const string& title) {
     stringstream axisCode;
     axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
-    getLog() << Log::DEBUG << "Getting profile histo bin edges for " << getName() << ":" << axisCode.str() << endl;
+    getLog() << Log::TRACE << "Getting profile histo bin edges for " << getName() << ":" << axisCode.str() << endl;
     const map<string, BinEdges> data = getBinEdges(getName());
     makeHistoDir();
     const string path = getHistoDir() + "/" + axisCode.str();
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, data.find(axisCode.str())->second);
-    getLog() << Log::DEBUG << "Made profile histogram " << axisCode.str() <<  " for " << getName() << endl;
+    getLog() << Log::TRACE << "Made profile histogram " << axisCode.str() <<  " for " << getName() << endl;
     return prof;
   }
 
