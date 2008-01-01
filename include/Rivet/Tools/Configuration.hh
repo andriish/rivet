@@ -27,7 +27,7 @@ namespace Rivet {
       numEvents(0), generatorName(""), beam1(Rivet::PROTON), beam2(Rivet::PROTON), 
       mom1(7000.0), mom2(7000.0), histoName("Rivet"), histoFormat(Rivet::AIDAML), 
       hepmlInFile(""), hepmlOutFile(""), hepmcInFile(""), hepmcOutFile(""), 
-      runRivet(false), readHepMC(false), writeHepMC(false), 
+      useLogColors(true), runRivet(false), readHepMC(false), writeHepMC(false), 
       params(), analyses(), rngSeed(314159)
     { }
 
@@ -45,7 +45,9 @@ namespace Rivet {
     string hepmlInFile, hepmlOutFile;
     string hepmcInFile, hepmcOutFile;
     Rivet::Log::LevelMap logLevels;
-    bool runRivet, readHepMC, writeHepMC;
+    bool useLogColors;
+    bool runRivet;
+    bool readHepMC, writeHepMC;
     ParamMap params;
     set<string> analyses;
     size_t rngSeed;

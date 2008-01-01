@@ -41,6 +41,7 @@ int main(int argc, char* argv[]) {
 
   // Set log levels from command line and get a logger
   Log::setDefaultLevels(cfg.logLevels);
+  Log::setUseColors(cfg.useLogColors);
   Log& log = Log::getLog("RivetGun.Main");
 
 

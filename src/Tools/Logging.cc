@@ -9,9 +9,13 @@ namespace Rivet {
 
   Log::LogMap Log::existingLogs;
   Log::LevelMap Log::defaultLevels;
+  Log::ColorCodes Log::colorCodes;
+  string Log::endColorCode;
   bool Log::showTimestamp = false;
   bool Log::showLogLevel = true;
   bool Log::showLoggerName = true;
+  bool Log::useShellColors = true;
+
 
   Log::Log(const string& name) 
     : _name(name), _level(INFO), _nostream(new ostream(0)) { }
@@ -78,6 +82,53 @@ namespace Rivet {
   }
 
 
+  string Log::getColorCode(const Level& level) {
+    if (!Log::useShellColors) return "";
+    if (Log::colorCodes.empty()) {
+        char* env = 0;
+        /// @todo Is this "shell" (i.e. lower case) for (t)csh shells?
+        env = getenv("SHELL");
+        bool invalidShell = true;
+
+        // If there is a valid shell, try to use the appropriate codes.
+        if (env) {
+          const string shell = env;
+          /// @todo In a perfect world, these codes could be customised via environment / cfg file...
+          if (shell.find("/bash") != string::npos) {
+            invalidShell = false;
+            Log::colorCodes[TRACE] = "\033[0;37m";
+            Log::colorCodes[DEBUG] = "\033[0;36m";
+            Log::colorCodes[INFO]  = "\033[0;32m";
+            Log::colorCodes[WARN]  = "\033[0;33m";
+            Log::colorCodes[ERROR] = "\033[0;31m";
+            Log::endColorCode      = "\033[0m";
+          } else if (shell.find("/tcsh") != string::npos) {
+            invalidShell = false;
+            Log::colorCodes[TRACE] = "";
+            Log::colorCodes[DEBUG] = "";
+            Log::colorCodes[INFO]  = "";
+            Log::colorCodes[WARN]  = "";
+            Log::colorCodes[ERROR] = "";
+            Log::endColorCode      = "";
+          }
+        }
+
+        // If there is no such environment variable or it's unknown,
+        // fill the map with empty codes.
+        if (invalidShell) {
+          Log::colorCodes[TRACE] = "";
+          Log::colorCodes[DEBUG] = "";
+          Log::colorCodes[INFO] = "";
+          Log::colorCodes[WARN] = "";
+          Log::colorCodes[ERROR] = "";
+        }
+      }
+
+      // Return the appropriate code from the colour map.
+      return colorCodes[level];
+    }
+
+
   Log::Level Log::getLevelFromName(const string& level) {
     if (level == "TRACE") return TRACE;
     if (level == "DEBUG") return DEBUG;
@@ -88,8 +139,12 @@ namespace Rivet {
   }
 
 
-  string Log::formatMessage(const Level& level, const std::string& message) {
+  string Log::formatMessage(const Level& level, const string& message) {
     string out;
+    if (Log::useShellColors) {
+      out += getColorCode(level);
+    }
+
     if (Log::showLoggerName) {
       out += getName();
       out += ": ";
@@ -109,12 +164,18 @@ namespace Rivet {
       out += " ";
     }
 
+    if (Log::useShellColors) {
+      out += endColorCode;
+    }
+
+    out += " ";
     out += message;
+    
     return out;
   }
 
 
-  void Log::log(const Level& level, const std::string& message) {
+  void Log::log(const Level& level, const string& message) {
     if (isActive(level)) {
       cout << formatMessage(level, message) << endl;
     }

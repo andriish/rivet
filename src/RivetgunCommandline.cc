@@ -73,12 +73,13 @@ namespace Rivet {
         // Add logging args
         const string mesg = "Set log level in 'name=level' format. The levels are INFO, DEBUG and WARNING";
         MultiArg<string> logsArg("l", "loglevel", mesg, false, "name=level", cmd);
+        SwitchArg enableLogColorArg("", "color", "Use shell colors if possible (can be overridden by nocolor)", cmd, true);
+        SwitchArg disableLogColorArg("", "nocolor", "Disable shell color escapes (useful for piping output to file)", cmd, false);
 
         // Add misc args
         ValueArg<size_t> numEventsArg("n", "numevents", "Number of events to generate (10 by default)", false, 10, "num", cmd);
         ValueArg<string> hepmcOutFileArg("o", "outeventfile", "File to write HepMC events to (disabled by default)", false, "RivetGun.hepmc", "filename", cmd);
         SwitchArg disableRivetArg("R", "norivet", "Disable running of Rivet", cmd, false);
-
 
         /////////////////////////////////////////////////////////
 
@@ -230,7 +231,8 @@ namespace Rivet {
             throw runtime_error("Invalid log setting format: " + *l);
           }
         }
-
+        if (enableLogColorArg.getValue()) config.useLogColors = true;
+        if (disableLogColorArg.getValue()) config.useLogColors = false;
 
         config.numEvents = numEventsArg.getValue();
         config.runRivet = ! disableRivetArg.getValue();

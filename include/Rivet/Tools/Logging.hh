@@ -1,4 +1,3 @@
-// $Id: $
 #ifndef RIVET_LOGGING_HH 
 #define RIVET_LOGGING_HH 1
 
@@ -12,7 +11,7 @@ namespace Rivet {
 
     /// Log priority levels.
     enum Level {
-      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, ERROR = 40 
+      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, ERROR = 40
     };
 
     /// Typedef for a collection of named logs.
@@ -21,12 +20,21 @@ namespace Rivet {
     /// Typedef for a collection of named log levels.
     typedef map<const string, Level> LevelMap;
 
+    /// Typedef for a collection of shell color codes, accessed by log level.
+    typedef map<Level, string> ColorCodes;
+
   private:
     /// A static map of existing logs: we don't make more loggers than necessary.
     static LogMap existingLogs;
 
     /// A static map of default log levels.
     static LevelMap defaultLevels;
+
+    /// A static map of shell color codes for the log levels.
+    static ColorCodes colorCodes;
+
+    /// Shell color code for the end of the log levels.
+    static string endColorCode;
 
     /// Show timestamp?
     static bool showTimestamp;
@@ -36,6 +44,9 @@ namespace Rivet {
 
     /// Show logger name?
     static bool showLoggerName;
+
+    /// Use shell colour escape codes?
+    static bool useShellColors;
 
   public:
     /// Set the default log levels
@@ -55,6 +66,9 @@ namespace Rivet {
       showLoggerName = showName;
     }
 
+    inline static void setUseColors(const bool useColors=true) {
+      useShellColors = useColors;
+    }
 
   protected:
     /// @name Hidden constructors etc.
@@ -71,6 +85,8 @@ namespace Rivet {
     /// Copy assignment operator
     //Log& operator=(const Log&);
     //@}
+
+    static string getColorCode(const Level& level);
 
   public:
     /// Get a logger with the given name. The level will be taken from the 
@@ -99,32 +115,32 @@ namespace Rivet {
     static string getLevelName(const Level& level);
 
     /// Get the name of this logger.
-    inline string getName() const {
+    string getName() const {
       return _name;
     }
 
     /// Set the name of this logger.
-    inline Log& setName(const string& name) {
+    Log& setName(const string& name) {
       _name = name;
       return *this;
     }
 
     /// Will this log level produce output on this logger at the moment?
-    inline bool isActive(const Level& level) const {
+    bool isActive(const Level& level) const {
       return (level >= _level);
     }
 
     /// @name Explicit log methods
     //@{
-    inline void trace(const string& message) { log(TRACE, message); }
+    void trace(const string& message) { log(TRACE, message); }
 
-    inline void debug(const string& message) { log(DEBUG, message); }
+    void debug(const string& message) { log(DEBUG, message); }
     
-    inline void info(const string& message) { log(INFO, message); }
+    void info(const string& message) { log(INFO, message); }
 
-    inline void warn(const string& message) { log(WARN, message); }
+    void warn(const string& message) { log(WARN, message); }
 
-    inline void error(const string& message) { log(ERROR, message); }
+    void error(const string& message) { log(ERROR, message); }
     //@}
 
   private:
