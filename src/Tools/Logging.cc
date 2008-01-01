@@ -87,14 +87,16 @@ namespace Rivet {
     if (Log::colorCodes.empty()) {
         char* env = 0;
         /// @todo Is this "shell" (i.e. lower case) for (t)csh shells?
+        /// @todo Should we actually be testing for $TERM?
         env = getenv("SHELL");
         bool invalidShell = true;
 
         // If there is a valid shell, try to use the appropriate codes.
         if (env) {
-          const string shell = env;
+          //const string shell = env;
           /// @todo In a perfect world, these codes could be customised via environment / cfg file...
-          if (shell.find("/bash") != string::npos) {
+          /// @todo The bash codes seem to work with tcsh... for me at least (AB)
+          //if (shell.find("/bash") != string::npos) {
             invalidShell = false;
             Log::colorCodes[TRACE] = "\033[0;37m";
             Log::colorCodes[DEBUG] = "\033[0;36m";
@@ -102,15 +104,16 @@ namespace Rivet {
             Log::colorCodes[WARN]  = "\033[0;33m";
             Log::colorCodes[ERROR] = "\033[0;31m";
             Log::endColorCode      = "\033[0m";
-          } else if (shell.find("/tcsh") != string::npos) {
-            invalidShell = false;
-            Log::colorCodes[TRACE] = "";
-            Log::colorCodes[DEBUG] = "";
-            Log::colorCodes[INFO]  = "";
-            Log::colorCodes[WARN]  = "";
-            Log::colorCodes[ERROR] = "";
-            Log::endColorCode      = "";
-          }
+          /// @todo Test this on csh, zsh, tcsh etc. Ncurses is too much pain to be worth trying.
+          // } else if (shell.find("/tcsh") != string::npos) {
+          //   invalidShell = false;
+          //   Log::colorCodes[TRACE] = "";
+          //   Log::colorCodes[DEBUG] = "";
+          //   Log::colorCodes[INFO]  = "";
+          //   Log::colorCodes[WARN]  = "";
+          //   Log::colorCodes[ERROR] = "";
+          //   Log::endColorCode      = "";
+          // }
         }
 
         // If there is no such environment variable or it's unknown,
