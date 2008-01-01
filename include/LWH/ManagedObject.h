@@ -29,11 +29,10 @@ public:
   /**
    * Encode sensitive characters as XML entities.
    */
-std::string encodeForXML(const std::string& in) {
+  std::string encodeForXML(const std::string& in) {
     std::string out = in;
     typedef std::pair<std::string, std::string> CharsToEntities;
     std::vector<CharsToEntities> cs2es;
-
     cs2es.push_back(std::make_pair("&", "&amp;"));
     cs2es.push_back(std::make_pair("<", "&lt;"));
     cs2es.push_back(std::make_pair(">", "&gt;"));
@@ -41,7 +40,7 @@ std::string encodeForXML(const std::string& in) {
     for (std::vector<CharsToEntities>::const_iterator c2e = cs2es.begin();
          c2e != cs2es.end(); ++c2e) {
       std::string::size_type pos = -1;
-      while ( ( pos = out.find(c2e->first, pos + 1) )  != std::string::npos ) {
+      while ( ( pos = out.find(c2e->first, pos + 1) ) != std::string::npos ) {
         out.replace(pos, 1, c2e->second);
       }
     }
