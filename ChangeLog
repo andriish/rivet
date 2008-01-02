@@ -1,5 +1,12 @@
 2008-01-02  Andy Buckley  <andy@insectnation.org>
 
+	* CDF_2001_S4751469 now uses the LossyFinalState projection, with
+	an 8% loss rate.
+
+	* Added LossyFinalState and HadronicFinalState, and fixed a
+	"polarity" bug in the charged final state projection (it was
+	keeping only the *uncharged* particles).
+
 	* Now using isatty(1) to determine whether or not color escapes
 	can be used. Also removed --color argument, since it can't have an
 	effect (TCLAP doesn't do position-based flag toggling).

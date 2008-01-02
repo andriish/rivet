@@ -14,7 +14,7 @@ namespace Rivet {
   }
   
   bool chargedParticleFilter(const Particle& p) {
-    return PID::threeCharge(p.getPdgId()) != 0;
+    return PID::threeCharge(p.getPdgId()) == 0;
   }
   
   void ChargedFinalState::project(const Event& e) {
@@ -26,6 +26,12 @@ namespace Rivet {
                         std::back_inserter(_theParticles), chargedParticleFilter);
     getLog() << Log::DEBUG << "Number of charged final-state particles = " 
              << _theParticles.size() << endl;
+    if (getLog().isActive(Log::TRACE)) {
+      for (vector<Particle>::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
+        getLog() << Log::TRACE << "Charge of filtered charged particle = " 
+                 << PID::threeCharge(p->getPdgId()) << endl;
+      }
+    }
   } 
   
 }

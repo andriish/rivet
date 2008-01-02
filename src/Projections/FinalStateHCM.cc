@@ -1,5 +1,4 @@
 // -*- C++ -*-
-
 #include "Rivet/Projections/FinalStateHCM.hh"
 #include "Rivet/Cmp.hh"
 
@@ -21,9 +20,9 @@ namespace Rivet {
     const FinalState& fs = e.applyProjection(_fsproj);
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
-    for (size_t i=0, N=fs.particles().size(); i < N; ++i) {
-      if ( &(fs.particles()[i].getHepMCParticle()) !=
-	   &(dislep.out().getHepMCParticle()) ) {
+    const GenParticle* dislepGP = &( dislep.out().getHepMCParticle() );
+    for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {
+      if ( &(fs.particles()[i].getHepMCParticle()) != dislepGP ) {
         _theParticles.push_back(fs.particles()[i]);
         FourMomentum p_i = _theParticles[i].getMomentum();
         p_i = diskin.boostHCM().transform(p_i);

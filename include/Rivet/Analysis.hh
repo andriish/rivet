@@ -321,12 +321,12 @@ namespace Rivet {
     Analysis& addProjection(Projection& proj) {
       ProjectionPtr pp(&proj);
       _projections.insert(pp);
-      getLog() << Log::TRACE << " Inserting projection at: " << &proj << endl;
-      getLog() << Log::TRACE << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
+      getLog() << Log::TRACE << this->getName() << " inserts " 
+               << proj.getName() << " at: " << &proj << endl;
       return *this;
     }
 
-    Analysis & setNeedsCrossSection(bool needed){
+    Analysis& setNeedsCrossSection(bool needed){
       _needsCrossSection = needed;
       return *this;
     }

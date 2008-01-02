@@ -37,13 +37,13 @@ namespace Rivet {
     /// The default constructor.
     Projection() {
       addBeamPair(ANY, ANY);
-      getLog() << Log::TRACE << "Creating " << this->getName() << " at " << this << endl;
+      getLog() << Log::TRACE << "Creating " << getName() << " at " << this << endl;
     }
     
 
     /// The destructor.
     virtual ~Projection() {
-      getLog() << Log::TRACE << "Destroying " << this->getName() << " at " << this << endl;
+      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
     }
     //@}
     
@@ -143,8 +143,8 @@ namespace Rivet {
 
     /// Add a projection dependency to the projection list.
     Projection& addProjection(Projection& proj) {
-      getLog() << Log::TRACE << " Inserting projection at: " << &proj << endl;
-      getLog() << Log::TRACE << " Inserter/insertee: " << this->getName() << " inserts " << proj.getName() << endl;
+      getLog() << Log::TRACE << this->getName() << " inserts " 
+               << proj.getName() << " at: " << &proj << endl;
       ProjectionPtr pp(& proj);
       _projections.insert(pp);
       return *this;
@@ -195,6 +195,10 @@ namespace std {
   };
 
 }
+
+
+// Definition of the comparison objects and functions
+#include "Rivet/Cmp.hh"
 
 
 #endif

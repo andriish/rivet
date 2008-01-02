@@ -36,7 +36,6 @@ void CDF_2001_S4751469::analyze(const Event& event) {
   Log log = getLog();
 
   // Analyse, with pT > 0.5 GeV AND |eta| < 1
-  /// @todo Detector correction: randomly discard 8% of charged particles... how does this fit in with projections?
   const TrackJet& tj = event.applyProjection(_trackjetproj);
 
   // Get jets, sorted by pT

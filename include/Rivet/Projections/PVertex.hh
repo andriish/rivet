@@ -23,7 +23,9 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    PVertex() : _thePVertex(0) { }
+    PVertex() : _thePVertex(0) { 
+      getLog() << Log::TRACE << "Creating..." << endl;
+    }
 
 
     /// The destructor.

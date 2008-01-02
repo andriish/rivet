@@ -50,10 +50,12 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FastJets.hh       \
   Projections/FinalState.hh     \
   Projections/FinalStateHCM.hh  \
+  Projections/HadronicFinalState.hh \
   Projections/Hemispheres.hh    \
   Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
   Projections/KtJets.hh         \
+  Projections/LossyFinalState.hh \
   Projections/Multiplicity.hh   \
   Projections/ParisiTensor.hh   \
   Projections/PVertex.hh        \

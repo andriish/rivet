@@ -10,8 +10,10 @@ libRivetProjections_la_SOURCES = \
   FastJets.cc \
   FinalState.cc \
   FinalStateHCM.cc \
+  HadronicFinalState.cc \
   Hemispheres.cc \
   JetShape.cc \
+  LossyFinalState.cc \
   Multiplicity.cc \
   ParisiTensor.cc \
   PVertex.cc \

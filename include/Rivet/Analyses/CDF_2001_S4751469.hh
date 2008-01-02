@@ -6,6 +6,8 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/TrackJet.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/LossyFinalState.hh"
+
 
 namespace Rivet {
 
@@ -17,13 +19,16 @@ namespace Rivet {
     //@{
 
     /// Default constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
-    /// and \f$ p_T > 0.5 \f$ GeV.
+    /// and \f$ p_T > 0.5 \f$ GeV. Use a lossy charged FS projection, which
+    /// randomly discards 8% of charged particles, as a kind of hacky detector 
+    /// correction.
     CDF_2001_S4751469()
-      : _fsproj(-1.0, 1.0, 0.5*GeV), _trackjetproj(_fsproj),
+      : _cfsproj(-1.0, 1.0, 0.5*GeV), _fsproj(_cfsproj, 0.08), _trackjetproj(_fsproj),
         _ptsumToward(0) ,_ptsumTrans(0), _ptsumAway(0),
         _numToward(0) ,_numTrans(0), _numAway(0)
     { 
       setBeams(PROTON, ANTIPROTON);
+      addProjection(_cfsproj);
       addProjection(_fsproj);
       addProjection(_trackjetproj);
     }
@@ -76,8 +81,10 @@ namespace Rivet {
 
     /// @name Internal projections
     //@{
-    /// The FinalState projection used.
-    ChargedFinalState _fsproj;
+    /// Use only charged tracks
+    ChargedFinalState _cfsproj;
+    /// Lose 8% of charged tracks randomly.
+    LossyFinalState _fsproj;
     /// The TrackJet projection used by this analysis.
     TrackJet _trackjetproj;
     //@}
