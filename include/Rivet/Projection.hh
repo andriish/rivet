@@ -119,7 +119,7 @@ namespace Rivet {
       set<BeamPair> ret = _beamPairs;
       for (set<ProjectionPtr>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
         ProjectionPtr p = *ip;
-        getLog() << Log::DEBUG << "Proj addr = " << p << endl;
+        getLog() << Log::TRACE << "Proj addr = " << p << endl;
         if (p) ret = intersection(ret, p->getBeamPairs());
       }
       return ret;

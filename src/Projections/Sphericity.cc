@@ -45,17 +45,8 @@ namespace Rivet {
       // Build (regulated) quadratic momentum components.
       const double regfactor = pow(p3.mod(), _regparam-2);
       if (!fuzzyEquals(regfactor, 1.0)) {
-        log << Log::DEBUG << "Regfactor (r=" << _regparam << ") = " << regfactor << endl;
+        log << Log::TRACE << "Regfactor (r=" << _regparam << ") = " << regfactor << endl;
       }
-      // mMom[0][0] += regfactor * lv.x() * lv.x(); 
-      // mMom[1][1] += regfactor * lv.y() * lv.y();
-      // mMom[2][2] += regfactor * lv.z() * lv.z();
-      // mMom[0][1] += regfactor * lv.y() * lv.x(); 
-      // mMom[1][0] += regfactor * lv.x() * lv.y();
-      // mMom[0][2] += regfactor * lv.z() * lv.x(); 
-      // mMom[2][0] += regfactor * lv.x() * lv.z();
-      // mMom[1][2] += regfactor * lv.z() * lv.y();
-      // mMom[2][1] += regfactor * lv.y() * lv.z(); 
 
       Matrix3 mMomPart;
       for (size_t i = 0; i < 3; ++i) {

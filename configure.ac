@@ -28,15 +28,6 @@ AC_PROG_LIBTOOL
 LIB_SUFFIX=\\\"$shrext_cmds\\\"
 AC_SUBST([LIB_SUFFIX])
 
-## Python interface builder
-AM_PATH_PYTHON(2.3)
-AC_PROG_SWIG(1.3.21)
-SWIG_ENABLE_CXX
-SWIG_PYTHON
-
-## Require Boost for smart pointers
-#AX_BOOST_BASE
-
 ## Find required libraries
 AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
@@ -51,6 +42,15 @@ AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes])
 ## Decide whether to build the Python extension
 AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, [build pyrivet Python module])], [], [enable_pyrivet=no])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyrivet == xyes])
+if test x$enable_pyrivet == xyes; then
+  AM_PATH_PYTHON(2.3)
+  AC_PROG_SWIG(1.3.21)
+  SWIG_ENABLE_CXX
+  SWIG_PYTHON
+fi
+
+## Require Boost for smart pointers
+#AX_BOOST_BASE
 
 ## Optional ROOT analysis framework
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output])], [], [enable_root=yes])

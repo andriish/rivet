@@ -88,7 +88,7 @@ namespace Rivet {
     if (Log::colorCodes.empty()) {
       // If stdout is a valid tty, try to use the appropriate codes.
       if (isatty(1)) {
-        /// @todo In a perfect world, these codes could be customised via environment / cfg file...
+        /// @todo Test for VT100 compliance?
         Log::colorCodes[TRACE] = "\033[0;37m";
         Log::colorCodes[DEBUG] = "\033[0;36m";
         Log::colorCodes[INFO]  = "\033[0;32m";
@@ -102,10 +102,9 @@ namespace Rivet {
         Log::colorCodes[WARN] = "";
         Log::colorCodes[ERROR] = "";
       }
-      
-      // Return the appropriate code from the colour map.
-      return colorCodes[level];
     }
+    // Return the appropriate code from the colour map.
+    return colorCodes[level];
   }
 
 
