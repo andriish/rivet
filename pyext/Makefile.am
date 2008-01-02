@@ -1,3 +1,5 @@
+if ENABLE_PYRIVET
+
 SWIG_SOURCES  = pyrivet.i
 BUILT_SOURCES = pyrivet_wrap.cc
 pyrivet_wrap.cc : $(SWIG_SOURCES)
@@ -16,3 +18,5 @@ all-local:
 
 clean-local:
 	@rm -f $(BUILT_SOURCES) pyrivet.py pyrivet.pyc
+
+endif

@@ -84,52 +84,29 @@ namespace Rivet {
 
   string Log::getColorCode(const Level& level) {
     if (!Log::useShellColors) return "";
+    // If the codes haven't been initialized, do so now.
     if (Log::colorCodes.empty()) {
-        char* env = 0;
-        /// @todo Is this "shell" (i.e. lower case) for (t)csh shells?
-        /// @todo Should we actually be testing for $TERM?
-        env = getenv("SHELL");
-        bool invalidShell = true;
-
-        // If there is a valid shell, try to use the appropriate codes.
-        if (env) {
-          //const string shell = env;
-          /// @todo In a perfect world, these codes could be customised via environment / cfg file...
-          /// @todo The bash codes seem to work with tcsh... for me at least (AB)
-          //if (shell.find("/bash") != string::npos) {
-            invalidShell = false;
-            Log::colorCodes[TRACE] = "\033[0;37m";
-            Log::colorCodes[DEBUG] = "\033[0;36m";
-            Log::colorCodes[INFO]  = "\033[0;32m";
-            Log::colorCodes[WARN]  = "\033[0;33m";
-            Log::colorCodes[ERROR] = "\033[0;31m";
-            Log::endColorCode      = "\033[0m";
-          /// @todo Test this on csh, zsh, tcsh etc. Ncurses is too much pain to be worth trying.
-          // } else if (shell.find("/tcsh") != string::npos) {
-          //   invalidShell = false;
-          //   Log::colorCodes[TRACE] = "";
-          //   Log::colorCodes[DEBUG] = "";
-          //   Log::colorCodes[INFO]  = "";
-          //   Log::colorCodes[WARN]  = "";
-          //   Log::colorCodes[ERROR] = "";
-          //   Log::endColorCode      = "";
-          // }
-        }
-
-        // If there is no such environment variable or it's unknown,
-        // fill the map with empty codes.
-        if (invalidShell) {
-          Log::colorCodes[TRACE] = "";
-          Log::colorCodes[DEBUG] = "";
-          Log::colorCodes[INFO] = "";
-          Log::colorCodes[WARN] = "";
-          Log::colorCodes[ERROR] = "";
-        }
+      // If stdout is a valid tty, try to use the appropriate codes.
+      if (isatty(1)) {
+        /// @todo In a perfect world, these codes could be customised via environment / cfg file...
+        Log::colorCodes[TRACE] = "\033[0;37m";
+        Log::colorCodes[DEBUG] = "\033[0;36m";
+        Log::colorCodes[INFO]  = "\033[0;32m";
+        Log::colorCodes[WARN]  = "\033[0;33m";
+        Log::colorCodes[ERROR] = "\033[0;31m";
+        Log::endColorCode      = "\033[0m";
+      } else {
+        Log::colorCodes[TRACE] = "";
+        Log::colorCodes[DEBUG] = "";
+        Log::colorCodes[INFO] = "";
+        Log::colorCodes[WARN] = "";
+        Log::colorCodes[ERROR] = "";
       }
-
+      
       // Return the appropriate code from the colour map.
       return colorCodes[level];
     }
+  }
 
 
   Log::Level Log::getLevelFromName(const string& level) {

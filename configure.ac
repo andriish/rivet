@@ -41,8 +41,6 @@ SWIG_PYTHON
 AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
-#AC_CEDAR_LIBRARYANDHEADERS([HepPID], , , [AC_MSG_ERROR([HepPID is required])])
-#AC_CEDAR_LIBRARYANDHEADERS([HepPDT], , , [AC_MSG_ERROR([HepPDT is required])])
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 
 ## Decide/determine whether to build the rivetgun executable
@@ -50,10 +48,13 @@ AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun execu
 AC_CEDAR_LIBRARYANDHEADERS([AGILe], , , [AC_MSG_WARN([AGILe not found])])
 AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes])
 
+## Decide whether to build the Python extension
+AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, [build pyrivet Python module])], [], [enable_pyrivet=no])
+AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyrivet == xyes])
+
 ## Optional ROOT analysis framework
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output])], [], [enable_root=yes])
 if test "x$enable_root" != "xno"; then
-  #AC_CEDAR_ROOTSYS()
   AC_SEARCH_ROOT([with_root=yes
     AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long"
     AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])

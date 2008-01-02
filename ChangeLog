@@ -1,3 +1,11 @@
+2008-01-02  Andy Buckley  <andy@insectnation.org>
+
+	* Now using isatty(1) to determine whether or not color escapes
+	can be used. Also removed --color argument, since it can't have an
+	effect (TCLAP doesn't do position-based flag toggling).
+
+	* Made Python extension build optional (and disabled by default).
+
 2008-01-01  Andy Buckley  <andy@insectnation.org>
 
 	* Removed some unwanted DEBUG statements, and lowered the level of
