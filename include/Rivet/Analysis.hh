@@ -298,8 +298,18 @@ namespace Rivet {
 
   private:
 
+    /// @name Utility functions
+    //@{
+
     /// Make the histogram directory.
-    void makeHistoDir();
+    void _makeHistoDir();
+
+    /// Get the bin edges for this paper from the reference AIDA file, and cache them.
+    void _cacheBinEdges();
+
+    /// Make the axis code string (dsDD-xXX-yYY)
+    string _makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId);
+    //@}
 
 
   protected:
@@ -354,6 +364,10 @@ namespace Rivet {
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
+
+    /// Collection of cached bin edges to speed up many autobookings: the 
+    /// AIDA reference file should only be read once.
+    map<string, BinEdges> _histBinEdges;
 
   private:
     /// The assignment operator is private and must never be called.

@@ -1,6 +1,7 @@
-// $Id: $
 #ifndef ANALYSIS_RIVETAIDA_FHH 
 #define ANALYSIS_RIVETAIDA_FHH 1
+
+#include "Rivet/Rivet.hh"
 
 /// @author Andy Buckley
 /// @date   2007-03-23
@@ -18,6 +19,11 @@ namespace AIDA {
   class ITreeFactory;
   class ITree;
   class IAxis;
+}
+
+namespace Rivet {
+  /// Typedef for a collection of bin edges.
+  typedef vector<double> BinEdges;
 }
 
 #endif

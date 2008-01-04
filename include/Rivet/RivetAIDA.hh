@@ -20,8 +20,6 @@
 
 
 namespace Rivet {
-  /// Typedef for a collection of bin edges.
-  typedef vector<double> BinEdges;
 
   /// Function to get a map of all the bin edge vectors in a paper with the
   /// given @a papername.

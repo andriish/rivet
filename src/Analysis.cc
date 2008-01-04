@@ -42,24 +42,40 @@ namespace Rivet {
 
   double Analysis::sumOfWeights() { return getHandler().sumOfWeights(); }
 
+  void Analysis::_cacheBinEdges() {
+    if (_histBinEdges.empty()) {
+      getLog() << Log::TRACE << "Getting histo bin edges from AIDA for paper " << getName() << endl;
+      _histBinEdges = getBinEdges(getName());
+    }
+  }
+
+
+  string Analysis::_makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) {
+    stringstream axisCode;
+    axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
+    return axisCode.str();
+  }
+
 
   IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
                                           const size_t yAxisId, const string& title) {
-    stringstream axisCode;
-    axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
-    getLog() << Log::TRACE << "Getting histo bin edges for " << getName() << ":" << axisCode.str() << endl;
-    const map<string, BinEdges> data = getBinEdges(getName());
-    makeHistoDir();
-    const string path = getHistoDir() + "/" + axisCode.str();
-    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, data.find(axisCode.str())->second);
-    getLog() << Log::TRACE << "Made histogram " << axisCode.str() <<  " for " << getName() << endl;
+    // Get the bin edges (only read the AIDA file once)
+    _cacheBinEdges();
+    // Build the axis code
+    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
+    getLog() << Log::TRACE << "Using histo bin edges for " << getName() << ":" << axisCode << endl;
+    const BinEdges edges = _histBinEdges.find(axisCode)->second;
+    _makeHistoDir();
+    const string path = getHistoDir() + "/" + axisCode;
+    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
+    getLog() << Log::TRACE << "Made histogram " << axisCode <<  " for " << getName() << endl;
     return hist;
   }
 
 
   IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
                                           const size_t nbins, const double lower, const double upper) {
-    makeHistoDir();
+    _makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
   }
@@ -67,7 +83,7 @@ namespace Rivet {
 
   IHistogram1D* Analysis::bookHistogram1D(const string& name, const string& title, 
                                           const vector<double>& binedges) {
-    makeHistoDir();
+    _makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return histogramFactory().createHistogram1D(path, title, binedges);
   }
@@ -76,21 +92,23 @@ namespace Rivet {
 
   IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
                                           const size_t yAxisId, const string& title) {
-    stringstream axisCode;
-    axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
-    getLog() << Log::TRACE << "Getting profile histo bin edges for " << getName() << ":" << axisCode.str() << endl;
-    const map<string, BinEdges> data = getBinEdges(getName());
-    makeHistoDir();
-    const string path = getHistoDir() + "/" + axisCode.str();
-    IProfile1D* prof = histogramFactory().createProfile1D(path, title, data.find(axisCode.str())->second);
-    getLog() << Log::TRACE << "Made profile histogram " << axisCode.str() <<  " for " << getName() << endl;
+    // Get the bin edges (only read the AIDA file once)
+    _cacheBinEdges();
+    // Build the axis code
+    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
+    getLog() << Log::TRACE << "Using profile histo bin edges for " << getName() << ":" << axisCode << endl;
+    const BinEdges edges = _histBinEdges.find(axisCode)->second;
+    _makeHistoDir();
+    const string path = getHistoDir() + "/" + axisCode;
+    IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
+    getLog() << Log::TRACE << "Made profile histogram " << axisCode <<  " for " << getName() << endl;
     return prof;
   }
 
 
   IProfile1D* Analysis::bookProfile1D(const string& name, const string& title, 
                                           const size_t nbins, const double lower, const double upper) {
-    makeHistoDir();
+    _makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return histogramFactory().createProfile1D(path, title, nbins, lower, upper);
   }
@@ -98,14 +116,14 @@ namespace Rivet {
 
   IProfile1D* Analysis::bookProfile1D(const string& name, const string& title, 
                                           const vector<double>& binedges) {
-    makeHistoDir();
+    _makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return histogramFactory().createProfile1D(path, title, binedges);
   }
 
 
   IDataPointSet* Analysis::bookDataPointSet(const string& name, const string& title) {
-    makeHistoDir();
+    _makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return datapointsetFactory().create(path, title, 2);
   }
@@ -134,7 +152,7 @@ namespace Rivet {
   }
 
 
-  inline void Analysis::makeHistoDir() {
+  inline void Analysis::_makeHistoDir() {
     if (!_madeHistoDir) {
       if (! getName().empty()) tree().mkdir(getHistoDir());
       _madeHistoDir = true;
