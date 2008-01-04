@@ -1,5 +1,9 @@
 2008-01-04  Andy Buckley  <andy@insectnation.org>
 
+	* Tidied up JetShape projection a bit, including making the
+	constructor params const references. This seems to have sorted the
+	runtime segfault in the CDF_2005 analysis.
+
 	* Added caching of the analysis bin edges from the AIDA file -
 	each analysis object will now only read its reference file once,
 	which massively speeds up the rivetgun startup time for analyses

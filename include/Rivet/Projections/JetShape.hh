@@ -13,11 +13,11 @@
 namespace Rivet {
 
   /// Enums to distinguish between different recombination schemes
-  enum schemelist { ENERGY, SNOWMASS };
+  enum Scheme { ENERGY, SNOWMASS };
 
 
   /**
-     @brief Calculate the jetshape.
+     @brief Calculate the jet shape.
 
      Calculate the differential and integral jet shapes in \f$P_{\perp}\f$ for a given 
      set of jet axes each event.
@@ -46,7 +46,7 @@ namespace Rivet {
      jet shape of all bins in a vector and this separately for each jet to allow
      post selection.
 
-     Internally, this projection uses the Vetoed Final State projection to determine the
+     Internally, this projection uses the VetoedFinalState projection to determine the
      jet shapes around the jet axes.
 
      The jet axes are passed for each event.
@@ -57,9 +57,9 @@ namespace Rivet {
 
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    JetShape(VetoedFinalState& vfsp, vector<FourMomentum>& jetaxes, 
-                    double rmin=0.0, double rmax=0.7, double interval=0.1, 
-                    double r1minPsi=0.3, schemelist distscheme=ENERGY)
+    JetShape(const VetoedFinalState& vfsp, const vector<FourMomentum>& jetaxes, 
+             double rmin=0.0, double rmax=0.7, double interval=0.1, 
+             double r1minPsi=0.3, Scheme distscheme=ENERGY)
       : _vfsproj(vfsp), _jetaxes(jetaxes), 
         _rmin(rmin), _rmax(rmax), 
         _interval(interval), _r1minPsi(r1minPsi), _distscheme(distscheme)
@@ -69,44 +69,44 @@ namespace Rivet {
     }
     
   public:
-    /// Return the name of the projection
+    /// Return the name of the projection.
     string getName() const {
       return "JetShape";
     }
     
-    /// Return number of equidistant radius bins
+    /// Return number of equidistant radius bins.
     double getNbins() const {
       return _nbins;
     }
     
-    /// Return rmin value
+    /// Return \f$ r_\text{min} \f$ value.
     double getRmin() const {
       return _rmin;
     }
     
-    /// Return rmax value
+    /// Return \f$ r_\text{max} \f$ value.
     double getRmax() const {
       return _rmax;
     }
     
-    /// Return Rad interval size
+    /// Return Rad interval size.
     double getInterval() const {
       return _interval;
     }
 
 
-    /// Return value of diff. jet shape profile histo bin 
-    double getDiffJetShape(int pTbin, int rbin) const {
+    /// Return value of differential jet shape profile histo bin.
+    double getDiffJetShape(size_t pTbin, size_t rbin) const {
       return _diffjetshapes[pTbin][rbin];
     }
     
-    /// Return value of int. jet shape profile histo bin 
-    double getIntJetShape(int pTbin, int rbin) const {
+    /// Return value of integrated jet shape profile histo bin.
+    double getIntJetShape(size_t pTbin, size_t rbin) const {
       return _intjetshapes[pTbin][rbin];
     }
     
-    /// Return value of Psi (int. jet shape) - at given radius - for a pTbin 
-    double getPsi(int pTbin) const {
+    /// Return value of \f$ \Psi \f$ (integrated jet shape) at given radius for a \f$ p_T \f$ bin.
+    double getPsi(size_t pTbin) const {
       return _PsiSlot[pTbin];
     }
     
@@ -151,7 +151,7 @@ namespace Rivet {
     ///One minus Psi radius
     double _r1minPsi;
     ///ENERGY or SNOWMASS recombination scheme
-    schemelist _distscheme;
+    Scheme _distscheme;
     size_t _nbins;
   };
   

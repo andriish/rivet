@@ -63,12 +63,12 @@ namespace Rivet {
     // Determine jet shapes
     double y1, y2, eta1, eta2, phi1, phi2, drad;
     /// @todo Fix!
-    double dradmin=TWOPI; //dummy assignment, to avoid compile warning
-    int dradminind=0; //dummy asignment, to avoid compile warning
-    if (_jetaxes.size()>0) {
+    double dradmin = TWOPI; //< Dummy assignment, to avoid compile warning
+    int dradminind = 0; //< Dummy asignment, to avoid compile warning
+    if (_jetaxes.size() > 0) {
       for (ParticleVector::const_iterator p = vfs.particles().begin(); p != vfs.particles().end(); ++p) {
         
-        for (size_t j = 0; j < _jetaxes.size(); j++) {
+        for (size_t j = 0; j < _jetaxes.size(); ++j) {
           y1 = _jetaxes[j].rapidity();
           y2 = p->getMomentum().rapidity();
           eta1 = _jetaxes[j].vector3().pseudorapidity();
@@ -76,9 +76,9 @@ namespace Rivet {
           phi1 = _jetaxes[j].vector3().azimuthalAngle();
           phi2 = p->getMomentum().vector3().azimuthalAngle();
           
-          if (_distscheme==SNOWMASS) {
+          if (_distscheme == SNOWMASS) {
             drad = delta_rad(eta1, phi1, eta2, phi2);
-          } else { //_distscheme = ENERGY
+          } else { // _distscheme = ENERGY
             drad = delta_rad(y1, phi1, y2, phi2);
           }
           
@@ -87,7 +87,8 @@ namespace Rivet {
             dradmin = drad;
           }
         }
-        
+
+        /// @todo Clear up all these commented out bits. Version control means we can always get them back.
         for (size_t i = 0; i < _nbins; ++i) {
           if (dradmin<_rmin+(i+1)*_interval) {
             //cout << "dradmin=" << dradmin << " < _rmin+(i+1)*_interval=" << _rmin+(i+1)*_interval << endl;
@@ -110,6 +111,7 @@ namespace Rivet {
       
       // Normalize to total pT
       for (size_t j = 0; j < _jetaxes.size(); j++) {
+        /// @todo Clear up all these commented out bits. Version control means we can always get them back.
         //if (_intjetshapes[j].binHeight(_nbins-1) > 0.) {
         if (_intjetshapes[j][_nbins-1] > 0.) {
           //_PsiShape[j] = 1.-_PsiShape[j]/_intjetshapes[j][_nbins-1];
