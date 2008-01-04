@@ -1,0 +1,66 @@
+\documentclass{JHEP3}
+%\JHEP{00(2007)000}
+
+\usepackage{xspace}
+\newcommand{\kbd}[1]{\texttt{#1}\xspace}
+
+
+\title{Rivet and AGILe manual}
+
+\author{
+Andy Buckley\\ IPPP, Durham University, UK.\\ E-mail: \email{andy.buckley@durham.ac.uk}\\
+James Monk\\ HEP Group, Dept. of Physics and Astronomy, UCL, London, UK.\\ E-mail: \email{jmonk@fnal.gov}\\
+Lars Sonnenschein\\ CERN, Gen\`eve 1206, Switzerland.\\ E-mail: \email{sonne@cern.ch}\\
+Jon Butterworth\\ HEP Group, Dept. of Physics and Astronomy, UCL, London, UK.\\ E-mail: \email{jmb@hep.ucl.ac.uk}\\
+Leif L\"onnblad\\ Theoretical Physics, Lund University, Sweden.\\ E-mail: \email{lonnblad@thep.lu.se}%
+}
+
+%\preprint{\hepth{9912999}}
+
+\abstract{This document is the manual and user guide for the Rivet system for
+  the validation and tuning of Monte Carlo event generators. As well as the core
+  Rivet library, this manual describes the usage of the \kbd{rivetgun} program
+  and the AGILe generator interface library. The level of description is
+  generally intended for users of the system, starting with the basics of using
+  validation code written by others, and then covering all the details you need
+  to know to write your own Rivet components.}
+
+\keywords{TeX, LaTeX, JHEP}
+
+%\dedicated{Dedicated to\ldots\\if you want.}
+
+
+\begin{document} 
+
+
+\section{Introduction}
+
+Following the innovation of Donald Knuth in his books on \TeX{}, in this
+document we will indicate paragraphs of particular technicality or esoteric
+nature with a ``dangerous bend'' sign {IMAGE IN MARGIN}. These will typically be
+about the internals of Rivet which most people will be lucky enough never to
+need know about, but for detail obsessives, the inordinately curious and Rivet
+hackers they may be useful. You can almost certianly skip them on a first
+reading of this manual. Similarly, you may see double bend signs {IMAGE IN
+  MARGIN} --- the same rules apply for these, but even more strongly.
+
+OTHER DOCUMENT CONVENTIONS: kbd, italics, replacements
+
+
+\section{Running \kbd{rivetgun}}
+
+\section{The projection/analysis model}
+\subsection{How projection caching works (skippable, but useful as a reference)}
+\section{Analysis histo autobinning}
+\section{Pluggable analyses}
+\section{Standard projection summary}
+\section{Example projection}
+\section{Example analysis}
+\section{Viewing output data files}
+\section{Comparing with reference data (qualitative)}
+
+
+% \begin{thebibliography}{999}
+% \end{thebibliography}
+
+\end{document}
