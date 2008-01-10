@@ -52,7 +52,15 @@ namespace Rivet {
 
   string Analysis::_makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) {
     stringstream axisCode;
-    axisCode << "ds" << datasetId << "-x" << xAxisId << "-y" << yAxisId;
+    axisCode << "d";
+    if (datasetId < 10) axisCode << 0;
+    axisCode << datasetId;
+    axisCode << "-x";
+    if (xAxisId < 10) axisCode << 0;
+    axisCode << xAxisId;
+    axisCode << "-y";
+    if (yAxisId < 10) axisCode << 0;
+    axisCode << yAxisId;
     return axisCode.str();
   }
 

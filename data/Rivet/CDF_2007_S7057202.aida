@@ -2,15 +2,15 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
-  <dataPointSet name="ds1-x1-y1" dimension="2"
-    path="/HepData/HepEx0701051/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
+  <dataPointSet name="d01-x01-y01" dimension="2"
+    path="/HepData/CDF_2007_S7057202/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
     <annotation>
       <item key="Title" value="D2(SIG)/DPT/DYRAP IN NB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/HepEx0701051/ds1-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2007_S7057202/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/HepEx0701051.aida/HepData/HepEx0701051/ds1-x1-y1" sticky="true"/>
+        value="/CDF_2007_S7057202.aida/HepData/CDF_2007_S7057202/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="58.0"
@@ -115,15 +115,15 @@
         value="2.13E-7" errorMinus="1.2166602367136028E-7"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds2-x1-y1" dimension="2"
-    path="/HepData/HepEx0701051/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
+  <dataPointSet name="d02-x01-y01" dimension="2"
+    path="/HepData/CDF_2007_S7057202/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
     <annotation>
       <item key="Title" value="D2(SIG)/DPT/DYRAP IN NB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/HepEx0701051/ds2-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2007_S7057202/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/HepEx0701051.aida/HepData/HepEx0701051/ds2-x1-y1" sticky="true"/>
+        value="/CDF_2007_S7057202.aida/HepData/CDF_2007_S7057202/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="58.0"
@@ -228,15 +228,15 @@
         value="8.97E-8" errorMinus="4.390930478566018E-8"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds3-x1-y1" dimension="2"
-    path="/HepData/HepEx0701051/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
+  <dataPointSet name="d03-x01-y01" dimension="2"
+    path="/HepData/CDF_2007_S7057202/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
     <annotation>
       <item key="Title" value="D2(SIG)/DPT/DYRAP IN NB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/HepEx0701051/ds3-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2007_S7057202/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/HepEx0701051.aida/HepData/HepEx0701051/ds3-x1-y1" sticky="true"/>
+        value="/CDF_2007_S7057202.aida/HepData/CDF_2007_S7057202/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="58.0"
@@ -335,15 +335,15 @@
         value="2.17E-7" errorMinus="1.1439583644521333E-7"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds4-x1-y1" dimension="2"
-    path="/HepData/HepEx0701051/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
+  <dataPointSet name="d04-x01-y01" dimension="2"
+    path="/HepData/CDF_2007_S7057202/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
     <annotation>
       <item key="Title" value="D2(SIG)/DPT/DYRAP IN NB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/HepEx0701051/ds4-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2007_S7057202/d04-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/HepEx0701051.aida/HepData/HepEx0701051/ds4-x1-y1" sticky="true"/>
+        value="/CDF_2007_S7057202.aida/HepData/CDF_2007_S7057202/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="58.0"
@@ -430,15 +430,15 @@
         value="1.05E-6" errorMinus="5.045877624358323E-7"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds5-x1-y1" dimension="2"
-    path="/HepData/HepEx0701051/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
+  <dataPointSet name="d05-x01-y01" dimension="2"
+    path="/HepData/CDF_2007_S7057202/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
     <annotation>
       <item key="Title" value="D2(SIG)/DPT/DYRAP IN NB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/HepEx0701051/ds5-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2007_S7057202/d05-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/HepEx0701051.aida/HepData/HepEx0701051/ds5-x1-y1" sticky="true"/>
+        value="/CDF_2007_S7057202.aida/HepData/CDF_2007_S7057202/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="58.0"
@@ -513,15 +513,15 @@
         value="5.67E-7" errorMinus="3.266595919240701E-7"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds6-x1-y1" dimension="2"
-    path="/HepData/HepEx0701051/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
+  <dataPointSet name="d06-x01-y01" dimension="2"
+    path="/HepData/CDF_2007_S7057202/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
     <annotation>
       <item key="Title" value="D2(SIG)/DPT/DYRAP IN NB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/HepEx0701051/ds6-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2007_S7057202/d06-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/HepEx0701051.aida/HepData/HepEx0701051/ds6-x1-y1" sticky="true"/>
+        value="/CDF_2007_S7057202.aida/HepData/CDF_2007_S7057202/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="58.0"
@@ -626,15 +626,15 @@
         value="8.3E-8" errorMinus="3.970106542650965E-8"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds7-x1-y1" dimension="2"
-    path="/HepData/HepEx0701051/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
+  <dataPointSet name="d07-x01-y01" dimension="2"
+    path="/HepData/CDF_2007_S7057202/" title="D2(SIG)/DPT/DYRAP IN NB/GEV">
     <annotation>
       <item key="Title" value="D2(SIG)/DPT/DYRAP IN NB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/HepEx0701051/ds7-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2007_S7057202/d07-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/HepEx0701051.aida/HepData/HepEx0701051/ds7-x1-y1" sticky="true"/>
+        value="/CDF_2007_S7057202.aida/HepData/CDF_2007_S7057202/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="58.0"

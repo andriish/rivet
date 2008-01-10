@@ -2,15 +2,15 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
-  <dataPointSet name="ds1-x1-y1" dimension="2"
-    path="/HepData/PRD65092002/" title="SUM(NAME=PT(C=CHARGED)) IN GEV">
+  <dataPointSet name="d01-x01-y01" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED)) IN GEV">
     <annotation>
       <item key="Title" value="SUM(NAME=PT(C=CHARGED)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/PRD65092002/ds1-x1-y1" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/PRD65092002.aida/HepData/PRD65092002/ds1-x1-y1" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
@@ -303,15 +303,15 @@
         errorMinus="2.77"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds1-x1-y2" dimension="2"
-    path="/HepData/PRD65092002/" title="SUM(NAME=PT(C=CHARGED)) IN GEV">
+  <dataPointSet name="d01-x01-y02" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED)) IN GEV">
     <annotation>
       <item key="Title" value="SUM(NAME=PT(C=CHARGED)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/PRD65092002/ds1-x1-y2" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d01-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/PRD65092002.aida/HepData/PRD65092002/ds1-x1-y2" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d01-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
@@ -604,15 +604,15 @@
         errorMinus="1.41"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="ds1-x1-y3" dimension="2"
-    path="/HepData/PRD65092002/" title="SUM(NAME=PT(C=CHARGED)) IN GEV">
+  <dataPointSet name="d01-x01-y03" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED)) IN GEV">
     <annotation>
       <item key="Title" value="SUM(NAME=PT(C=CHARGED)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/PRD65092002/ds1-x1-y3" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d01-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/PRD65092002.aida/HepData/PRD65092002/ds1-x1-y3" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d01-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
