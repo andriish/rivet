@@ -354,10 +354,12 @@ public:
     double bE = sumyw[index+2];
     if (sumw[index+2] > 0.) {
       bE = sumy2w2[index+2] - sumyw[index+2]*sumyw[index+2]/sumw[index+2];
-      bE /= sumw[index+2];
+      // bE /= sumw[index+2]; //spread
+      bE /= sumw[index+2] * sqrt(sumw[index+2]); //error = spread/sqrt(N)
     }
     if (bE < 0.) bE = 0.;
-    return sqrt(bE); //std::sqrt(sumw2[index + 2]);
+    //return sqrt(bE); //std::sqrt(sumw2[index + 2]);
+    return bE;
   }
 
   /**
