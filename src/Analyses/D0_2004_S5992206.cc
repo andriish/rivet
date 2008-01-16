@@ -98,15 +98,6 @@ namespace Rivet {
     normalize(_histJetAzimuth_pTmax100_130);
     normalize(_histJetAzimuth_pTmax130_180);
     normalize(_histJetAzimuth_pTmax180_);
-
-    log << Log::DEBUG << "Sum of histJetAzimuth_pTmax75_100 bin heights after normalization: "
-        << _histJetAzimuth_pTmax75_100->sumBinHeights() << endl;
-    log << Log::DEBUG << "Sum of histJetAzimuth_pTmax100_130 bin heights after normalization: "
-        << _histJetAzimuth_pTmax100_130->sumBinHeights() << endl;
-    log << Log::DEBUG << "Sum of histJetAzimuth_pTmax130_180 bin heights after normalization: "
-        << _histJetAzimuth_pTmax130_180->sumBinHeights() << endl;
-    log << Log::DEBUG << "Sum of histJetAzimuth_pTmax180_ bin heights after normalization: "
-        << _histJetAzimuth_pTmax180_->sumBinHeights() << endl;
   }
 
 
