@@ -117,7 +117,7 @@ namespace Rivet {
         // ...then overload the file params with specific command line params
         for (vector<string>::const_iterator p = paramsArg.getValue().begin(); 
              p != paramsArg.getValue().end(); ++p) {
-          unsigned int breakpos = p->find("=");
+          size_t breakpos = p->find("=");
           if (breakpos != string::npos) {
             string key = p->substr(0, breakpos);
             string value = p->substr(breakpos + 1, p->size() - breakpos - 1);

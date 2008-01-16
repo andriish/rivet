@@ -21,7 +21,7 @@ namespace Rivet {
     /// Default constructor
     ExampleAnalysis()
       : _cmultproj(_cfsproj), _cnmultproj(_fsproj), 
-        _thrustproj(_fsproj), _sphericityproj(_fsproj)
+        _thrustproj(_cfsproj), _sphericityproj(_cfsproj)
     {
       addProjection(_fsproj);
       addProjection(_cfsproj);
