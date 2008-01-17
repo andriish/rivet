@@ -231,7 +231,9 @@ inline double polarAngle(const Vector3& v) {
 
 /// Calculate pseudorapidity of a 3-vector.
 inline double pseudorapidity(const Vector3& v) {
-  return -log(tan( 0.5 * polarAngle(v) ));
+  double polarangle = polarAngle(v);
+  if (polarangle < 0) polarangle += PI;
+  return -log(tan( 0.5 * polarangle ));
 }
 
 #endif

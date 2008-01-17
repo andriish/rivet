@@ -92,13 +92,14 @@ namespace Rivet {
     
     // Log the event number to a special logger
     Log& nevtlog = Log::getLog("RivetGun.NEvt");
+
     
     // Event loop
     string rgverb = "Generating";
     if (cfg.readHepMC) rgverb = "Reading";
     log << Log::INFO << rgverb << " " << cfg.numEvents << " events." << endl;
-    HepMC::GenEvent myevent;
     for (size_t i = 0; i < cfg.numEvents; ++i) {    
+      HepMC::GenEvent myevent;
       // Make or load the event
       if (cfg.readHepMC) {
         if (hepmcIn->rdstate() != 0) {
@@ -127,6 +128,7 @@ namespace Rivet {
     }
     log << Log::INFO << "Finished!"  << endl;
     
+
     // Finalise Rivet and the generator
     gen->finalize();
     if (hepmcOut) delete hepmcOut;

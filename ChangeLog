@@ -1,3 +1,8 @@
+2008-01-17  Andy Buckley  <andy@insectnation.org>
+
+	* Added angle range fix to pseudorapidity function (thanks to
+	Piergiulio Lenzi).
+
 2008-01-10  Andy Buckley  <andy@insectnation.org>
 
 	* Changed autobooking plot codes to use zero-padding (gets the

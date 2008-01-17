@@ -44,6 +44,10 @@ inline Num sqr(Num a) {
 using std::min;
 using std::max;
 
+// inline double mapAngle0ToPi(double angle) {}
+// inline double mapAngleMPiToPi(double angle) {}
+// inline double mapAngle0To2Pi(double angle) {}
+
 inline double delta_phi(double phi1, double phi2) {
   //return min( double(fabs(phi1-phi2)), double(2.*PI-fabs(phi1-phi2)) );
   double deltaPhi = fabs(phi1 - phi2);
