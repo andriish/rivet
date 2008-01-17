@@ -20,23 +20,53 @@ namespace Rivet {
   
   /// This CDF analysis provides \f$ p_T \f$ and \f$ \eta \f$ distributions 
   /// of jets in Z + (b) jet production, before and after tagging.
+  ///
+  /// Analysis cut values:
+  ///  - _pvzmax: cut on primary vertex \f$ z \f$ position (\f$ z(\text{PV}) < 60 \text{cm} \f$);
+  ///  - _met: cut on missing transverse energy (\f$ MET < 25 \text{GeV} \f$)
+  ///  - _set: cut on scalar sum of transverse energy (\f$ SET < 150 \text{GeV} \f$)
+  ///  - _lepPtmin: cut on leptons minimum transverse momentum (\f$ pT(\text{lep.}) > 10 \text{GeV} \f$)
+  ///  - _eletamax: cut on max. pseudorapidity of electrons/calorimeter (\f$ |eta(el.)| < 3.6 \f$) 
+  ///  - _muetamax: cut on max. pseudorapidity of muons/muon chambers (\f$ |eta(el.)| < 1.5 \f$) 
+  ///  - _mllmin: cut on min invariant dilepton mass (\f$ m(ll) > 66 \text{GeV} \f$)
+  ///  - _mllmax: cut on max invariant dilepton mass (\f$ m(ll) <116 \text{GeV} \f$)
+  ///  - _triglepPtmin: cut on trigger lepton min. transverse momentum (\f$ pT > 18 \text{GeV} \f$)
+  ///  - _triglepetamax: cut on trigger lepton max pseudorapidity (\f$ |eta| < 1.1 \f$)
+  ///  - _Rlepisol: cut on lepton isolation radius (\f$ R < 0.4 \f$)
+  ///  - hadronic calorimeter fraction of charged hadrons (\f$ fh \f$), needed for cuts on hadr.+el.mag. fractions
+  ///  - hadronic/el.magn. calo. fraction cut const (\f$ fhfemconst=0.055 \f$)
+  ///  - hadronic/el.magn. calo. fraction cut slope (\f$ fhfemslope=0.00045 \f$)
+  ///  - muon Energy cut case separation (\f$ muEsep=100 \text{GeV} \f$)
+  ///  - muon min. E hadr.isol. threshold (\f$ muEhMin = 6 \text{GeV}\f$)
+  ///  - muon min. E el.mag. isol. threshold (\f$ muEemMin = 2 \text{GeV} \f$)
+  ///  - muon had. Energy isol. cut slope (\f$ muEhslope = 0.0280 \f$)
+  ///  - muon el.mag. Energy isol. cut slope (\f$ muEemslope = 0.0115 \f$)
+  ///  - jets transverse momentum cut (\f$ jetPtmin = 20 \text{GeV} \f$)
+  ///  - jets pseudorapidity cut (\f$ jetetamax = 1.5 \f$)
+
+  ///  - Max. distance (eta,phi) between vertex vis. momentum and jet to be probed (\f$ vtxjetRmax= 0.7 \f$) 
+  ///  - Tracker geometrical acceptance (\f$ eta < 2.0 \f$)
+  ///  - Impact Parameter resolution (\f$ ipres = 34e-3 \text{mm} \f$), including beam spot
+  ///  - cut on Decay Length Significance (\f$ dlsmin > 7.5 \f$)
+  ///  - Decay Length Significance resolution (assumed to be (\f$ dlsres = 34e-3 \text{mm} \f$))
+
   class CDF_2006_S6653332 : public Analysis {
 
   public:
 
     /// Default constructor
-    /// Max. distance (eta,phi) between vertex vis. momentum and 
-    /// jet to be probed = 0.7
-    /// Tracker geometrical acceptance (eta < 2.0)
-    /// Impact Parameter resolution = 34e-3mm, including beam spot
-    /// cut on Decay Length Significance = 7.5
-    /// Decay Length Significance resolution (assumed to be 34e-3mm)
     CDF_2006_S6653332()
       : _fsproj(-3.6, 3.6), _vfsproj(_fsproj), _jetsproj(_vfsproj),
-        //_fsprojit(-2.0, 2.0), _vfsprojit(_fsprojit), 
         _chfsproj(_vfsproj),
         _calmetproj(_vfsproj), _chleproj(_vfsproj), _pvtxproj(),
-        _svtxproj(_pvtxproj, _chfsproj, _jetaxes, 0.7, 2.0, 34e-3, 7.5, 34e-3)
+	_pvzmax(600*mm), _metmax(25*GeV), _setmax(150*GeV), _lepPtmin(10*GeV),
+	_eletamax(3.5), _muetamax(1.5), _mllmin(66*GeV), _mllmax(116*GeV),
+	_triglepPtmin(18*GeV), _trigeletamax(1.1), _trigmuetamax(1.0),
+	_Rlepisol(0.4), _fh(0.8), _fhfemconst(0.055), _fhfemslope(0.00045),
+	_muEsep(100*GeV), _muEhMin(6*GeV), _muEemMin(2*GeV), _muEhslope(0.0280),
+	_muEemslope(0.0115), _jetPtmin(20*GeV), _jetetamax(1.5),
+	_vtxjetRmax(0.7), _trketamax(2.0), _ipres(34e-3*mm), _dlsmin(7.5), _dlsres(34e-3*mm),
+        _svtxproj(_pvtxproj, _chfsproj, _jetaxes, _vtxjetRmax, _trketamax, _ipres, _dlsmin, _dlsres)
     {
 
       setBeams(PROTON, ANTIPROTON);
@@ -117,11 +147,96 @@ namespace Rivet {
     /// Projection to find the primary vertex.
     PVertex _pvtxproj;
 
-    /// Projection to find secondary vertices.
-    SVertex _svtxproj;
+    /// @name Analysis cuts
+    //@{
+    ///Cut on primary vertex z-position (z(PV) < 60 cm)
+    const double _pvzmax;
+
+    ///Cut on missing transverse energy (MET < 25 GeV)
+    const double _metmax;
+
+    ///Cut on scalar sum of transverse energy (SET < 150 GeV)
+    const double _setmax;
+
+    ///cut on leptons minimum transverse momentum (pT(lep.) > 10 GeV) 
+    const double _lepPtmin;
+
+    ///cut on max. pseudorapidity of electrons/calorimeter (fabs(eta(el.)) < 3.6) 
+    const double _eletamax;
+
+    ///cut on max. pseudorapidity of muons/muon chambers (fabs(eta(el.)) < 1.5) 
+    const double _muetamax;
+
+    ///cut on min invariant dilepton mass (m(ll) > 66 GeV)
+    const double _mllmin;
+
+    ///cut on max invariant dilepton mass (m(ll) <116 GeV)
+    const double _mllmax;
+
+    ///cut on trigger lepton min transverse momentum (pT > 18 GeV)
+    const double _triglepPtmin;
+
+    ///cut on trigger electron max pseudorapidity (|eta(e)| < 1.1)
+    const double _trigeletamax;
+
+    ///cut on trigger muon max pseudorapidity (|eta(mu)| < 1.0)
+    const double _trigmuetamax;
+
+    ///cut on lepton isolation radius (R_isol < 0.4)
+    const double _Rlepisol;
+
+    ///hadronic calorimeter fraction (fh = 0.8)
+    const double _fh;
+
+    ///hadronic/el.magn. calo. fraction cut const (fhfemconst = 0.055)
+    const double _fhfemconst;
     
+    ///hadronic/el.magn. calo. fraction cut slope (fhfemslope = 0.00045)
+    const double _fhfemslope;
+
+    ///muon Energy cut case separation (muEsep = 100 GeV)
+    const double _muEsep;
+
+    ///muon E hadr. isol. threshold (muEhMin = 6 GeV)
+    const double _muEhMin;
+
+    ///muon E el.mag. isol. threshold (muEemMin = 2 GeV)
+    const double _muEemMin;
+
+    ///muon had. Energy isol. cut slope (muEhslope = 0.0280)
+    const double _muEhslope;
+
+    ///muon el.mag. Energy isol. cut slope (muEemslope = 0.0115)
+    const double _muEemslope;
+    
+    ///jets transverse momentum cut (jetPtmin = 20 GeV)
+    const double _jetPtmin;
+
+    ///jets pseudorapidity cut (jetetamax = 1.5)
+    const double _jetetamax;
+
+    ///Max. distance (eta,phi) between vertex vis. momentum and jet to be probed (vtxjetRmax= 0.7) 
+    const double _vtxjetRmax;
+
+    ///Tracker geometrical acceptance (eta < 2.0)
+    const double _trketamax;
+
+    ///Impact Parameter resolution (ipres = 34e-3mm), including beam spot
+    const double _ipres;
+
+    ///cut on Decay Length Significance (dlsmin = 7.5)
+    const double _dlsmin;
+
+    ///Decay Length Significance resolution (assumed to be (dlsres = 34e-3mm))
+    const double _dlsres;
+
 
   private:
+
+    /// Projection to find secondary vertices.
+    /// Needs to be initialized after constants on which constructor depends
+    SVertex _svtxproj;
+    
 
     /// Set of vectors defining the jet axes (for detached vertex finding).
     vector<FourMomentum> _jetaxes;
