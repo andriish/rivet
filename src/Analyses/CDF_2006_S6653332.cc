@@ -33,9 +33,7 @@ namespace Rivet {
     const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
     log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
 
-    /// @todo Use constants and register these cuts    
-    if (caloMissEt.getMomentum().pT()<_metmax && caloMissEt.getSET()<_setmax) {
-      
+    if (caloMissEt.getMomentum().pT() < _metmax && caloMissEt.getSET() < _setmax) {
       // Get leptons in event
       const ChargedLeptons& chlep = event.applyProjection(_chleproj);
       const ParticleVector& leps = chlep.chargedLeptons();
@@ -43,13 +41,16 @@ namespace Rivet {
       // Sort 2 leading leptons in pT
       vector<ParticleVector::const_iterator> dilep;
       for (ParticleVector::const_iterator p = leps.begin(); p != leps.end(); ++p) {
-        if (dilep.size()==0) dilep.push_back(p);
-        else if (dilep.size()==1) {
-          if (p->getMomentum().pT() > dilep[0]->getMomentum().pT() )  { 
-            dilep.push_back(dilep[0]); 
-            dilep[0]= p; 
+        if (dilep.empty()) {
+          dilep.push_back(p);
+        } 
+        else if (dilep.size() == 1) {
+          if (p->getMomentum().pT() > dilep[0]->getMomentum().pT()) { 
+            dilep.push_back(dilep[0]);
+            dilep[0]= p;
+          } else {
+            dilep.push_back(p);
           }
-          else dilep.push_back(p);
         }
         else { // dilep.size == 2
           if (p->getMomentum().pT() > dilep[0]->getMomentum().pT() )  { 
@@ -64,11 +65,11 @@ namespace Rivet {
       
       
       // Require exactly 2 leptons, same flavour, opposite charge, pTmin > 10 GeV.
-      if (dilep.size()==2 && dilep[1]->getMomentum().pT() > _lepPtmin 
+      if (dilep.size() == 2 && dilep[1]->getMomentum().pT() > _lepPtmin 
           && dilep[0]->getPdgId() == -dilep[1]->getPdgId() ) {
 
         // Muon and electron geometrical acceptance requirement
-	const double eta0 = dilep[0]->getMomentum().pseudorapidity();
+        const double eta0 = dilep[0]->getMomentum().pseudorapidity();
         const double eta1 = dilep[1]->getMomentum().pseudorapidity();
         if ((abs(dilep[0]->getPdgId() == ELECTRON) && fabs(eta0) < _eletamax && fabs(eta1) < _eletamax) ||
             (abs(dilep[0]->getPdgId() == MUON) && fabs(eta0) < _muetamax && fabs(eta1) < _muetamax)) {
@@ -100,7 +101,6 @@ namespace Rivet {
                 const int pid = p->getPdgId();
                 const int abspid = abs(pid);
                 // Determine energy depositions around lepton(s)
-                /// @todo Use ParticleName enum.
                 for (size_t lind = 0; lind < 2; ++lind) {
                   if (deltaR(p->getMomentum(), dilep[lind]->getMomentum()) < _Rlepisol) {
                     if (abspid == ELECTRON || abspid == MUON || abspid == PHOTON) {
@@ -117,9 +117,6 @@ namespace Rivet {
                 }
               }
               
-              /// @todo This is cryptic: use some constants instead of all these magic numbers.
-              /// @todo Do leptons fulfill isolation criteria?
-
               bool l_isol = true; // Both leptons have to be isolated 
               // => one veto variable suffices
               for (size_t lind = 0; lind < 2; ++lind) {
@@ -127,7 +124,7 @@ namespace Rivet {
                   if (!(Eem[lind]>0.)) l_isol = false;
                   else if (Ehad[lind]/Eem[lind] > _fhfemconst + _fhfemslope*dilep[lind]->getMomentum().E()) l_isol = false;
                 }
-                else { //muon
+                else { // muon
                   if (dilep[lind]->getMomentum().E() <= _muEsep) {
                     if (Ehad[lind]-dilep[lind]->getMomentum().E() > _muEhMin
                         || Eem[lind]-dilep[lind]->getMomentum().E() > _muEemMin) l_isol = false;
@@ -187,7 +184,6 @@ namespace Rivet {
     
     } // Primary vertex z-position requirement
     
-    // Finished
     log << Log::DEBUG << "Finished analyzing" << endl;
   }
   
