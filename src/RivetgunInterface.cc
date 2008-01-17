@@ -3,7 +3,8 @@
 #include "AGILe/Particle.hh"
 #include "AGILe/Generator.hh"
 #include "AGILe/Loader.hh"
-using namespace AGILe;
+//using AGILe::Generator;
+//using AGILe::Loader;
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Configuration.hh"
@@ -22,7 +23,7 @@ extern "C" int F77_DUMMY_MAIN() { return 1; }
 // the event loop and analysis, which is isolated from 
 // the administration and param parsing code in main().
 namespace Rivet {
-  void generate(Generator* gen, Configuration& cfg, Log& log);
+  void generate(AGILe::Generator* gen, Configuration& cfg, Log& log);
 }
 
 
@@ -42,22 +43,24 @@ int main(int argc, char* argv[]) {
   // Set log levels from command line and get a logger
   Log::setDefaultLevels(cfg.logLevels);
   Log::setUseColors(cfg.useLogColors);
+  //AGILe::Log::setDefaultLevels(cfg.logLevels);
+  AGILe::Log::setUseColors(cfg.useLogColors);
   Log& log = Log::getLog("RivetGun.Main");
 
 
   try {
     // Load generator libraries
-    Loader::initialize();
+    AGILe::Loader::initialize();
     log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;
     try {
-      Loader::loadGenLibs(cfg.generatorName);
+      AGILe::Loader::loadGenLibs(cfg.generatorName);
     } catch (runtime_error& e) {
       log << Log::ERROR << "Error when loading the generator library:" 
           << endl << e.what() << endl;
     }
 
     // Make a generator object.
-    Generator* gen = Loader::createGen();
+    AGILe::Generator* gen = AGILe::Loader::createGen();
     if (!gen) {
       log << Log::ERROR << "No generator chosen... exiting" << endl;
       return EXIT_FAILURE;
@@ -67,8 +70,8 @@ int main(int argc, char* argv[]) {
     generate(gen, cfg, log);
 
     // Shut down dynamic loader.
-    Loader::destroyGen(gen);
-    Loader::finalize();  
+    AGILe::Loader::destroyGen(gen);
+    AGILe::Loader::finalize();  
   } 
   
   // Main loop exception handling.
