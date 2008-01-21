@@ -24,20 +24,50 @@ namespace Rivet {
     _theWqqs.clear();
     _theZqqs.clear();
     _thehs.clear();
+    bool e_decay = false;
+    bool mu_decay = false;
+    bool tau_decay = false;
+    bool nu_decay = false;
+    bool q_decay = false;
     for ( GenEvent::particle_const_iterator pi = e.genEvent().particles_begin();
           pi != e.genEvent().particles_end(); ++pi ) {
       if ( (*pi)->status() != 1 ) {
         const int id = abs((*pi)->pdg_id());
-        /// @todo Use ParticleName enum values for clarity.
-        if (id == 23 || id == 24 || id == 25 ){
+        //if (id == 23 || id == 24 || id == 25 ){
+        if (id == ZBOSON || id == WBOSON || id == HIGGS) {
           // This is a W, Z or h.
           // Now find out whether it is the last one before the decay.
-          // @todo Trace the decay products of the bosons properly.
-          if (id == 23) {
-            _theZees.push_back(Particle(**pi));
-          } else if (id == 24) {
-            _theWens.push_back(Particle(**pi));	
-          } else if (id == 25) {
+          // Trace the decay products of the bosons properly.
+	  bool bosondecay = true;
+	  for (GenVertex::particles_out_const_iterator dpi 
+		 = (*pi)->end_vertex()->particles_out_const_begin(); 
+	       dpi != (*pi)->end_vertex()->particles_out_const_end(); ++dpi) {  
+	    int did = abs((*dpi)->pdg_id());
+
+	    if (did == id) bosondecay = false; 
+	    else {
+	      if (did == ELECTRON) e_decay = true;
+	      else if (did == MUON) mu_decay = true;
+	      else if (did == TAU) tau_decay = true;
+	      else if (did == NU_E || did == NU_MU || did == NU_TAU) nu_decay = true;
+	      else if (did >= 1 && did <=5) q_decay = true;
+	    }
+	  }
+
+	  if (!bosondecay) continue;
+
+          if (id == ZBOSON) {
+	    if (e_decay) _theZees.push_back(Particle(**pi));
+	    else if (mu_decay) _theZmms.push_back(Particle(**pi));
+	    else if (tau_decay) _theZtts.push_back(Particle(**pi));
+	    else if (nu_decay) _theZnns.push_back(Particle(**pi));
+	    else if (q_decay) _theZqqs.push_back(Particle(**pi));
+          } else if (id == WBOSON) {
+            if (e_decay) _theWens.push_back(Particle(**pi));	
+            if (mu_decay) _theWmns.push_back(Particle(**pi));	
+            if (tau_decay) _theWtns.push_back(Particle(**pi));	
+            if (q_decay) _theWqqs.push_back(Particle(**pi));	
+          } else if (id == HIGGS) {
             _thehs.push_back(Particle(**pi));	
           }         
         }

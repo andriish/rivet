@@ -21,7 +21,7 @@
 #include "Rivet/Analyses/CDF_2005_S6217184.hh"
 #include "Rivet/Analyses/CDF_2006_S6653332.hh"
 #include "Rivet/Analyses/CDF_2007_S7057202.hh"
-//#include "Rivet/Analyses/D0_2001_S4674421.hh"
+#include "Rivet/Analyses/D0_2001_S4674421.hh"
 #include "Rivet/Analyses/D0_2004_S5992206.hh"
 
 
@@ -52,7 +52,7 @@ extern "C" {
     fns["CDF_2005_S6217184"] = Rivet::CDF_2005_S6217184::create;
     fns["CDF_2006_S6653332"] = Rivet::CDF_2006_S6653332::create;
     fns["CDF_2007_S7057202"] = Rivet::CDF_2007_S7057202::create;
-    //fns["D0_2001_S4674421"] = Rivet::D0_2001_S4674421::create;
+    fns["D0_2001_S4674421"] = Rivet::D0_2001_S4674421::create;
     fns["D0_2004_S5992206"] = Rivet::D0_2004_S5992206::create;
 
     return fns;
