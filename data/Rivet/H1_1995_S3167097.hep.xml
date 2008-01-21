@@ -1,6 +1,6 @@
 <hepml>
- <data timestamp="2007-10-10T08:10:10.296172">
-  <paper spiresId="3167097" redId="7114">
+ <data timestamp="2008-01-21T19:12:21.975438">
+  <paper spiresId="3167097" redId="7114" preprintDate="Jun 1995">
    <title>
     Transverse energy and forward jet production in the low x regime at HERA
    </title>
@@ -12,22 +12,19 @@
     AID
    </author>
    <reference description="DESY-95-108" />
-   <author>
-    AID
-   </author>
    <reference description="PL 356B,118" />
    <experiment name="DESY-HERA-H1" laboratory="DESY-HERA" informalname="H1" />
-   <dataset id="ds-7506-1" datasetId="1">
+   <dataset id="ds-7505-1" datasetId="1">
     <comment>
      Location: T 2
     </comment>
-    <xaxis id="xax-7506-1-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-1-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" low="0.0002" high="0.001" />
       <bin binId="2" low="0.001" high="0.002" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-1-1" header="SIG IN PB">
+    <yaxis id="yax-7505-1-1" observable="SIG" header="SIG IN PB">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -39,7 +36,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="SIG" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -49,27 +45,27 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-1-1-1" pointId="1" value="709.0" relation="eq">
+      <point id="pt-7505-1-1-1" pointId="1" value="709.0" relation="eq">
        <error errorId="1" plus="42.0" minus="42.0" source="stat" norm="abs" />
        <error errorId="2" plus="166.0" minus="166.0" source="sys" norm="abs" />
       </point>
-      <point id="pt-7506-1-1-2" pointId="2" value="475.0" relation="eq">
+      <point id="pt-7505-1-1-2" pointId="2" value="475.0" relation="eq">
        <error errorId="1" plus="39.0" minus="39.0" source="stat" norm="abs" />
        <error errorId="2" plus="110.0" minus="110.0" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-2" datasetId="2">
+   <dataset id="ds-7505-2" datasetId="2">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-2-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-2-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.00016" low="0.0001" high="0.0002" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-2-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-2-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -80,7 +76,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -92,22 +87,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-2-1-1" pointId="1" value="2.12" relation="eq">
+      <point id="pt-7505-2-1-1" pointId="1" value="2.12" relation="eq">
        <error errorId="1" plus="0.15" minus="0.15" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-3" datasetId="3">
+   <dataset id="ds-7505-3" datasetId="3">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-3-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-3-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.0003" low="0.0002" high="0.0005" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-3-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-3-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -118,7 +113,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -130,22 +124,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-3-1-1" pointId="1" value="2.09" relation="eq">
+      <point id="pt-7505-3-1-1" pointId="1" value="2.09" relation="eq">
        <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-4" datasetId="4">
+   <dataset id="ds-7505-4" datasetId="4">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-4-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-4-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.00037" low="0.0002" high="0.0005" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-4-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-4-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -156,7 +150,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -168,22 +161,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-4-1-1" pointId="1" value="2.17" relation="eq">
+      <point id="pt-7505-4-1-1" pointId="1" value="2.17" relation="eq">
        <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-5" datasetId="5">
+   <dataset id="ds-7505-5" datasetId="5">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-5-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-5-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.00063" low="0.0005" high="0.0008" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-5-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-5-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -194,7 +187,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -206,22 +198,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-5-1-1" pointId="1" value="1.95" relation="eq">
+      <point id="pt-7505-5-1-1" pointId="1" value="1.95" relation="eq">
        <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-6" datasetId="6">
+   <dataset id="ds-7505-6" datasetId="6">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-6-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-6-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.0011" low="0.0008" high="0.0015" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-6-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-6-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -232,7 +224,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -244,22 +235,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-6-1-1" pointId="1" value="1.87" relation="eq">
+      <point id="pt-7505-6-1-1" pointId="1" value="1.87" relation="eq">
        <error errorId="1" plus="0.11" minus="0.11" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-7" datasetId="7">
+   <dataset id="ds-7505-7" datasetId="7">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-7-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-7-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.0023" low="0.0015" high="0.004" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-7-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-7-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -270,7 +261,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -282,22 +272,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-7-1-1" pointId="1" value="1.67" relation="eq">
+      <point id="pt-7505-7-1-1" pointId="1" value="1.67" relation="eq">
        <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-8" datasetId="8">
+   <dataset id="ds-7505-8" datasetId="8">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-8-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-8-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.00093" low="0.0005" high="0.0014" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-8-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-8-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -308,7 +298,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -320,22 +309,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-8-1-1" pointId="1" value="2.12" relation="eq">
+      <point id="pt-7505-8-1-1" pointId="1" value="2.12" relation="eq">
        <error errorId="1" plus="0.12" minus="0.12" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-9" datasetId="9">
+   <dataset id="ds-7505-9" datasetId="9">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-9-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-9-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.0021" low="0.0014" high="0.003" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-9-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-9-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -346,7 +335,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -358,22 +346,22 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-9-1-1" pointId="1" value="1.99" relation="eq">
+      <point id="pt-7505-9-1-1" pointId="1" value="1.99" relation="eq">
        <error errorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-7506-10" datasetId="10">
+   <dataset id="ds-7505-10" datasetId="10">
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-7506-10-1" xaxisId="1" header="X">
+    <xaxis id="xax-7505-10-1" xaxisId="1" header="X">
      <bins>
       <bin binId="1" focus="0.0049" low="0.003" high="0.01" />
      </bins>
     </xaxis>
-    <yaxis id="yax-7506-10-1" header="MEAN(N=ET(P=4)) IN GEV">
+    <yaxis id="yax-7505-10-1" observable="MEAN(N=ET)" header="MEAN(N=ET(P=4)) IN GEV">
      <reaction>
       <initialstate>
        <particle name="E-" />
@@ -384,7 +372,6 @@
        <particle name="X" relation="eq" mult="1" />
       </finalstate>
      </reaction>
-     <observable name="MEAN(N=ET)" />
      <property name="sqrts" unit="GeV" low="296.000" high="296.000" />
      <property name="P(P=1)" unit="GEV" error="None" low="26.7" high="26.7" />
      <property name="P(P=2)" unit="GEV" error="None" low="820" high="820" />
@@ -396,7 +383,7 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="296" high="296" />
      <points>
-      <point id="pt-7506-10-1-1" pointId="1" value="1.75" relation="eq">
+      <point id="pt-7505-10-1-1" pointId="1" value="1.75" relation="eq">
        <error errorId="1" plus="0.17" minus="0.17" source="unknown" norm="abs" />
       </point>
      </points>
