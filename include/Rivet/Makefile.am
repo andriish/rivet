@@ -17,7 +17,7 @@ nobase_pkginclude_HEADERS += \
   Projection.hh       Projection.fhh      \
   Cmp.hh              Cmp.fhh             \
   ParticleName.hh     HistoFormat.hh      \
-  Jet.hh              AnalysisLoader.hh 
+  Jet.hh              AnalysisLoader.hh
 
 ## Standard analyses
 nobase_pkginclude_HEADERS += \
@@ -72,8 +72,9 @@ nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
   Tools/Logging.fhh \
   Tools/Configuration.hh \
-  Tools/ParticleIDMethods.hh \
-  Tools/Utils.hh
+  Tools/Utils.hh \
+  Tools/BinnedHistogram.hh \
+  Tools/ParticleIDMethods.hh
 
 nobase_pkginclude_HEADERS += \
   Math/Matrices.hh \
