@@ -7,7 +7,7 @@
  *
  */
 
-#include "Rivet/BinnedHistogram.hh"
+#include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/RivetAIDA.hh"
 
 namespace Rivet{
