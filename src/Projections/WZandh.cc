@@ -33,8 +33,9 @@ namespace Rivet {
           pi != e.genEvent().particles_end(); ++pi ) {
       if ( (*pi)->status() != 1 ) {
         const int id = abs((*pi)->pdg_id());
-        //if (id == 23 || id == 24 || id == 25 ){
-        if (id == ZBOSON || id == WBOSON || id == HIGGS) {
+	/// @todo Use ParticleName enum values for clarity.
+        if (id == 23 || id == 24 || id == 25 ){
+	  //if (id == ZBOSON || id == WPLUSBOSON || id == HIGGS) {
           // This is a W, Z or h.
           // Now find out whether it is the last one before the decay.
           // Trace the decay products of the bosons properly.
@@ -56,18 +57,24 @@ namespace Rivet {
 
 	  if (!bosondecay) continue;
 
-          if (id == ZBOSON) {
+	  /// @todo Use ParticleName enum values for clarity.
+          //if (id == ZBOSON) {
+	  if (id == 23) {
 	    if (e_decay) _theZees.push_back(Particle(**pi));
 	    else if (mu_decay) _theZmms.push_back(Particle(**pi));
 	    else if (tau_decay) _theZtts.push_back(Particle(**pi));
 	    else if (nu_decay) _theZnns.push_back(Particle(**pi));
 	    else if (q_decay) _theZqqs.push_back(Particle(**pi));
-          } else if (id == WBOSON) {
+	  /// @todo Use ParticleName enum values for clarity.
+	  //} else if (id == WPLUSBOSON) {
+	  } else if (id == 24) {
             if (e_decay) _theWens.push_back(Particle(**pi));	
             if (mu_decay) _theWmns.push_back(Particle(**pi));	
             if (tau_decay) _theWtns.push_back(Particle(**pi));	
             if (q_decay) _theWqqs.push_back(Particle(**pi));	
-          } else if (id == HIGGS) {
+	    /// @todo Use ParticleName enum values for clarity.
+	    //} else if (id == HIGGS) {
+	  } else if (id == 25) {
             _thehs.push_back(Particle(**pi));	
           }         
         }

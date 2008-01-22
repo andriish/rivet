@@ -31,6 +31,11 @@ namespace Rivet {
     P = 2212, 
     PBAR = -2212,
     GAMMA = 22,
+    /// @todo Need ParticleName enum values for WZandH projection.
+    //WPLUSBOSON = 24,
+    //WMINUSBOSON = -24,
+    //ZBOSON = 23,
+    //HIGGS = 25,
     ANY = 10000,
     PHOTOELECTRON,
     PHOTOPOSITRON,
@@ -70,6 +75,10 @@ namespace Rivet {
     bpmap[PIPLUS] = "PIPLUS"; 
     bpmap[PIMINUS] = "PIMINUS";
     bpmap[TAU] = "TAU"; 
+    //bpmap[WPLUSBOSON] = "WPLUSBOSON";
+    //bpmap[WMINUSBOSON] = "WMINUSBOSON";
+    //bpmap[ZBOSON] = "ZBOSON";
+    //bpmap[HIGGS] = "HIGGS";
     bpmap[ANTITAU] = "ANTITAU";
     bpmap[PHOTOELECTRON] = "PHOTOELECTRON";
     bpmap[PHOTOPOSITRON] = "PHOTOPOSITRON";
