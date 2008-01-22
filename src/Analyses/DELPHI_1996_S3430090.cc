@@ -21,6 +21,7 @@ namespace Rivet {
 
     // Thrusts
     const Thrust& thrustC = e.applyProjection(_cthrustproj);
+      _hist1MinusTC->fill(1 - thrustC.thrust(), weight); 
     _hist1MinusTC->fill(1 - thrustC.thrust(), weight); 
     _histTMajorC->fill(thrustC.thrustMajor(), weight); 
     _histTMinorC->fill(thrustC.thrustMinor(), weight); 

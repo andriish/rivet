@@ -98,19 +98,20 @@ namespace Rivet {
     string rgverb = "Generating";
     if (cfg.readHepMC) rgverb = "Reading";
     log << Log::INFO << rgverb << " " << cfg.numEvents << " events." << endl;
+    HepMC::GenEvent myevent;
     for (size_t i = 0; i < cfg.numEvents; ++i) {    
-      HepMC::GenEvent myevent;
       // Make or load the event
       if (cfg.readHepMC) {
         if (hepmcIn->rdstate() != 0) {
           log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
           break;
         }
+        myevent.clear();
         hepmcIn->fill_next_event(&myevent);
       } else {
         gen->makeEvent(myevent);
       }
-      
+        
       // Notify about event number
       Log::Level lev = Log::DEBUG;
       if (round((i+1)/100.0) == (i+1)/100.0) lev = Log::INFO;

@@ -10,13 +10,10 @@ namespace Rivet {
   void Beam::project(const Event& e) {
     Log& log = getLog();
 
-    // Assume that the first two particles in the event are the beam particles
-    /// @todo This is not a robust assumption! HepMC should support directly accessing the beams.
     assert(e.genEvent().particles_size() >= 2);
-    HepMC::GenEvent::particle_const_iterator bp = e.genEvent().particles_begin();
-    _theBeams.first = **bp;
-    ++bp;
-    _theBeams.second = **bp;
+    std::pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent().beam_particles();
+    _theBeams.first = *(beams.first);
+    _theBeams.second = *(beams.second);
 
     log << Log::DEBUG << "Beam particle IDs = " 
         << _theBeams.first.getPdgId() << ", "
