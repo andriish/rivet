@@ -200,17 +200,30 @@ namespace Rivet {
   }
 
 void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
-  double oldintg = histo->sumAllBinHeights();
+  // Calculate histogram area even with non-uniform bin widths
+  // (sumAllBinHeights works for uniform bin widths)
+  
+  double oldintg = 0.0;
+  int nBins = histo->axis().bins();
+  for(int iBin = 0; iBin != nBins; ++iBin){
+    oldintg += histo->binHeight(iBin) * histo->axis().binWidth(iBin);
+  }
+  //double oldintg = histo->sumAllBinHeights();
   if ( oldintg == 0.0 ) return;
 
   double scale = norm/oldintg;
   std::vector<double> x, y, ex, ey;
   for ( int i = 0, N = histo->axis().bins(); i < N; ++i ) {
-    x.push_back((histo->axis().binLowerEdge(i) +
-		 histo->axis().binUpperEdge(i))/2.0);
-    ex.push_back(histo->axis().binWidth(i)/2.0);
-    y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
-    ey.push_back(histo->binError(i)*scale/(2.0*histo->axis().binWidth(i)));
+    x.push_back(0.5*(histo->axis().binLowerEdge(i) +
+		 histo->axis().binUpperEdge(i)));
+    ex.push_back(histo->axis().binWidth(i)*0.5);
+    ///@todo This didn't seem correct because the histo shape will change 
+    //for a histo with non-uniform bin widths
+    //y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
+    y.push_back(histo->binHeight(i) * scale);
+    ///@todo ditto
+    //ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
+    ey.push_back(histo->binError(i) * scale);
   }
 
   std::string path =
