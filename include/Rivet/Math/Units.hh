@@ -52,15 +52,15 @@ static const double km3 = kilometer3;
 static const double pc = parsec;
 
 
-// static const double      barn = 1.e-28*meter2;
+// static const double barn = 1.e-28*meter2;
 // Barn-units in terms of the pb returned by AGILe
 static const double  picobarn = 1.0;
-static const double      barn = 1.e+12* picobarn;
-static const double millibarn = 1.e-3 * barn;
-static const double microbarn = 1.e-6 * barn;
-static const double  nanobarn = 1.e-9 * barn;
-static const double femtobarn = 1.e-3 * barn;
-static const double attobarn  = 1.e-3 * barn;
+static const double      barn = 1.0e+12* picobarn;
+static const double millibarn = 1.0e-3 * barn;
+static const double microbarn = 1.0e-6 * barn;
+static const double  nanobarn = 1.0e-9 * barn;
+static const double femtobarn = 1.0e-3 * barn;
+static const double attobarn  = 1.0e-3 * barn;
 
 //
 // Angle

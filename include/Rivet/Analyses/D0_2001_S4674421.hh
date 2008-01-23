@@ -17,23 +17,19 @@ namespace Rivet {
   /// _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
   /// _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
   /// _brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
-
   class D0_2001_S4674421 : public Analysis {
 
   public:
 
-    /// Default constructor.
+    /// Constructor.
     D0_2001_S4674421()
       : _WZproj(), 
-	_mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632)
+        _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632)
     { 
       
       setBeams(PROTON, ANTIPROTON);
-      
       addProjection(_WZproj);
-      
       setNeedsCrossSection(true);
-      
     }    
     
     
@@ -48,9 +44,9 @@ namespace Rivet {
       return "4674421";
     }
     /// Get a description of the analysis.
-    // string getDescription() const {
-    //   return "";
-    // }
+    string getDescription() const {
+       return "";
+    }
     /// Experiment which performed and published this analysis.
     string getExpt() const {
       return "D0";
@@ -83,13 +79,12 @@ namespace Rivet {
     /// brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
     const double _brzee;
     
-    D0_2001_S4674421& operator=(const D0_2001_S4674421& x);
+    /// Hide copy assignment operator.
+    D0_2001_S4674421& operator=(const D0_2001_S4674421&);
     
-    //event counters for cross section normalizations
-    double _eventsTried;
+    // Event counters for cross section normalizations
     double _eventsFilledW;
     double _eventsFilledZ;
-    
     
     //@{
     /// Histograms
@@ -97,7 +92,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_dsigdpt_z;
     AIDA::IHistogram1D* _h_dsigdpt_wz_rat;
     //@}    
-    
     
   };
 

@@ -48,15 +48,12 @@ namespace Rivet {
 
 
   void D0_2001_S4674421::finalize() { 
-    // Apply cross-section normaisation corrections to distributions
-    /// @todo For version 2, we need some more automated/built-in system for applying these corrections
-
     // Get cross-section per event (i.e. per unit weight) from generator
-    /// @todo Make units of xSecPerEvent explicit i.e. use crossSection()/GeV or crossSection()/MeV
-    const double xSecPerEvent = crossSection()/1000.0 / sumOfWeights();
+    const double xSecPerEvent = crossSection()/nanobarn / sumOfWeights();
 
     // Correct W pT distribution to W cross-section
     const double xSecW = xSecPerEvent * _eventsFilledW;
+    /// @todo Would a simple call to normalize(_h_dsigdpt_z, xSecW) be equivalent?
     const size_t nBinsW = _h_dsigdpt_w->axis().bins();
     double hAreaW = 0.0;
     for (size_t iBin = 0; iBin != nBinsW; ++iBin) {
@@ -66,6 +63,7 @@ namespace Rivet {
 
     // Correct Z pT distribution to Z cross-section
     const double xSecZ = xSecPerEvent * _eventsFilledZ;
+    /// @todo Would a simple call to normalize(_h_dsigdpt_z, xSecZ) be equivalent?
     const size_t nBinsZ = _h_dsigdpt_z->axis().bins();
     double hAreaZ = 0.0;
     for (size_t iBin = 0; iBin != nBinsZ; ++iBin) {

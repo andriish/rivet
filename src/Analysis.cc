@@ -42,6 +42,7 @@ namespace Rivet {
 
   double Analysis::sumOfWeights() { return getHandler().sumOfWeights(); }
 
+
   void Analysis::_cacheBinEdges() {
     if (_histBinEdges.empty()) {
       getLog() << Log::TRACE << "Getting histo bin edges from AIDA for paper " << getName() << endl;
