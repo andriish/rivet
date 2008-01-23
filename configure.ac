@@ -35,12 +35,12 @@ AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 
 ## Decide/determine whether to build the rivetgun executable
-AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable])], [], [enable_rivetgun=yes])
+AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable @<:@default=yes@:>@])], [], [enable_rivetgun=yes])
 AC_CEDAR_LIBRARYANDHEADERS([AGILe], , , [AC_MSG_WARN([AGILe not found])])
 AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes])
 
 ## Decide whether to build the Python extension
-AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, [build pyrivet Python module])], [], [enable_pyrivet=no])
+AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, [build pyrivet Python module @<:@default=no@:>@])], [], [enable_pyrivet=no])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyrivet == xyes])
 if test x$enable_pyrivet == xyes; then
   AM_PATH_PYTHON(2.3)
@@ -53,7 +53,7 @@ fi
 #AX_BOOST_BASE
 
 ## Optional ROOT analysis framework
-AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output])], [], [enable_root=yes])
+AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output @<:@default=yes@:>@])], [], [enable_root=yes])
 if test "x$enable_root" != "xno"; then
   AC_SEARCH_ROOT([with_root=yes
     AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long"
@@ -71,7 +71,7 @@ AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
 AM_CXXFLAGS="$AM_CXXFLAGS -ansi -pedantic -Wall -DLIB_SUFFIX=$LIB_SUFFIX "
 
 ## Debug flag (default=none)
-AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug, [build with debugging symbols (default=no)])], [], [enable_debug=no])
+AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug, [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
   [AM_CXXFLAGS="$AM_CXXFLAGS -g"]
 fi
