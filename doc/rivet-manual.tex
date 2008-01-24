@@ -1,9 +1,23 @@
 \documentclass{JHEP3}
 %\JHEP{00(2007)000}
 
-\usepackage{xspace}
-\newcommand{\kbd}[1]{\texttt{#1}\xspace}
+\usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url}
 
+\newcommand{\kbd}[1]{\texttt{#1}\xspace}
+\newcommand{\inp}[1]{\texttt{\textdollar\hspace{1mm}#1}\xspace}
+\newcommand{\outp}[1]{\textsf{#1}\xspace}
+\newcommand{\code}[1]{\texttt{#1}\xspace}
+\newcommand{\var}[1]{\textit{\ensuremath{\langle\text{\textrm{#1}\/}\rangle}}\xspace}
+
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{\-\oldmarginpar{\footnotesize \textit{#1}}}
+%\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize \textit{#1}]%
+%{\raggedright\footnotesize \textit{#1}}}
+
+\newcommand{\bendimg}{\includegraphics[height=1cm]{bend}}
+\newcommand{\dblbendimg}{\bendimg\hspace{0.5mm}\bendimg}
+\newenvironment{bend}{\bendimg}{\ignorespacesafterend}
+\newenvironment{dblbend}{\dblbendimg}{\ignorespaceafterend}
 
 \title{Rivet and AGILe manual}
 
@@ -31,20 +45,58 @@
 
 
 \section{Introduction}
+This manual is a users' guide to using the Rivet generator validation
+system. Rivet itself is a C++ class library, with classes to represent
+observable calculations, analyses and their data objects, and a collection of
+infrastructure/management objects which you hopefully won't have to worry about
+very much. The simplest way to use Rivet is via the \kbd{rivetgun} command line
+tool, which can run a generator using the AGILe interface library, analyse the
+events as they are generated, and produce output distributions in your format of
+choice. For those who wish to embed their analyses in some larger framework,
+Rivet can also be run programmatically on HepMC event objects with no special
+executable being required.
 
-Following the innovation of Donald Knuth in his books on \TeX{}, in this
-document we will indicate paragraphs of particular technicality or esoteric
-nature with a ``dangerous bend'' sign {IMAGE IN MARGIN}. These will typically be
-about the internals of Rivet which most people will be lucky enough never to
-need know about, but for detail obsessives, the inordinately curious and Rivet
-hackers they may be useful. You can almost certianly skip them on a first
-reading of this manual. Similarly, you may see double bend signs {IMAGE IN
-  MARGIN} --- the same rules apply for these, but even more strongly.
+Before we get started, a declaration of intent: this manual is intended to be a
+guide to using Rivet, \emph{not} a comprehensive and painstakingly maintained
+reference to the application programming interface (API) of the Rivet and AGILe
+libraries. For that purpose, you will hopefully find the online generated
+documentation at \url{http://projects.hepforge.org/rivet} and
+\url{http://projects.hepforge.org/agile} to be ideal.
 
-OTHER DOCUMENT CONVENTIONS: kbd, italics, replacements
+\subsection{Typographic conventions}
+As is normal in computer user manuals, the typography in this manual is used to
+indicate whether we are describing source code elements, commands to be run in a
+terminal, the output of a command etc.
 
+The main such clue will be the use of \kbd{typewriter-style} text: this
+indicates the name of a command or code element --- class names, function names
+etc. Typewriter font is also used for commands to be run in a terminal, but in
+this case it will be prefixed by a dollar sign, as in \inp{echo ''Hello'' |
+  cat}.  The output of such a command on the terminal will be typeset in
+\outp{sans-serif} font. When we are documenting a code feature in detail (which
+is not the main point of this manual), we will use square brackets to indicate
+optional arguments, and italic font between angle brackets to represent an
+argument name which should be replaced by a value,
+e.g. \code{Event::applyProjection(\var{proj})}.
+
+Following the example of Donald Knuth in his books on \TeX{}, in this document
+we will indicate paragraphs of particular technicality or esoteric nature with a
+``dangerous bend''\marginpar{\bendimg\\Dangerous bend} sign. These will typically be about the
+internals of Rivet which most people will be lucky enough never to need know
+about, but for detail obsessives, the inordinately curious and Rivet hackers
+they may be useful. You can almost certainly skip them on a first
+reading. Similarly, you may see double bend signs
+\marginpar{\dblbendimg\\Double bend} --- the same rules apply for
+these, but even more strongly.
+
+
+\section{Quickstart}
 
 \section{Running \kbd{rivetgun}}
+
+\begin{bend}
+This section is super-hardcore
+\end{bend}
 
 \section{The projection/analysis model}
 \subsection{How projection caching works (skippable, but useful as a reference)}
