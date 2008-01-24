@@ -93,9 +93,9 @@ namespace Rivet {
       return "FastJets";
     }
     
-    /// @todo For more efficiency, pass the \f$ p_T \f$ cut. (What?)
-    size_t getNumJets() const {
-      return _cseq.inclusive_jets().size();
+    /// Return the number of jets above the pt cut 
+    size_t getNumJets(double ptmin = 0.) const {
+      return _cseq.inclusive_jets(ptmin).size();
     }
 
     /// Get the pseudo jets (unordered).
@@ -116,13 +116,13 @@ namespace Rivet {
 
 
     /// Get the pseudo jets (unordered).
-    PseudoJets getPseudoJets() const {
-      return _cseq.inclusive_jets();
+    PseudoJets getPseudoJets(double ptmin = 0.) const {
+      return _cseq.inclusive_jets(ptmin);
     }
 
     /// Get the jets, ordered by \f$ p_T \f$.
-    PseudoJets getPseudoJetsPt() const {
-      return sorted_by_pt(_cseq.inclusive_jets());
+    PseudoJets getPseudoJetsPt(double ptmin = 0.) const {
+      return sorted_by_pt(_cseq.inclusive_jets(ptmin));
     }
 
     /// Return the cluster sequence (FastJet-specific).
