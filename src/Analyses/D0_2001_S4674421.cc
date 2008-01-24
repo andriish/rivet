@@ -61,6 +61,7 @@ namespace Rivet {
     }
     _h_dsigdpt_w->scale(xSecW / hAreaW);
 
+
     // Correct Z pT distribution to Z cross-section
     const double xSecZ = xSecPerEvent * _eventsFilledZ;
     /// @todo Would a simple call to normalize(_h_dsigdpt_z, xSecZ) be equivalent?
@@ -70,10 +71,13 @@ namespace Rivet {
       hAreaZ += _h_dsigdpt_z->binHeight(iBin) * _h_dsigdpt_z->axis().binWidth(iBin);
     }
     _h_dsigdpt_z->scale(xSecZ / hAreaZ);
-
+    
+    
     // Make pT_W/pT_Z ratio histogram
     _h_dsigdpt_wz_rat = histogramFactory().divide("/D0_2001_S4674421/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_z);
-    _h_dsigdpt_wz_rat->scale(_mwmz * _brwenu * _brzee);
+    _h_dsigdpt_wz_rat->scale(_mwmz * _brzee / _brwenu);
+
+
   }
 
 }
