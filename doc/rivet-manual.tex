@@ -1,13 +1,16 @@
 \documentclass{JHEP3}
 %\JHEP{00(2007)000}
 
-\usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url}
+\usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore}
+%\usepackage{dropping}
 
 \newcommand{\kbd}[1]{\texttt{#1}\xspace}
-\newcommand{\inp}[1]{\texttt{\textdollar\hspace{1mm}#1}\xspace}
+\newcommand{\inp}[1]{\textsf{\textdollar}\hspace{1mm}\texttt{#1}\xspace}
 \newcommand{\outp}[1]{\textsf{#1}\xspace}
 \newcommand{\code}[1]{\texttt{#1}\xspace}
-\newcommand{\var}[1]{\textit{\ensuremath{\langle\text{\textrm{#1}\/}\rangle}}\xspace}
+\newcommand{\var}[1]{\texttt{\textdollar{}#1}\xspace}
+\newcommand{\val}[1]{\textit{\ensuremath{\langle\text{\textrm{#1}\/}\rangle}}\xspace}
+\newcommand{\home}{\texttt{\ensuremath{\sim}}\xspace}
 
 \let\oldmarginpar\marginpar
 \renewcommand\marginpar[1]{\-\oldmarginpar{\footnotesize \textit{#1}}}
@@ -77,7 +80,7 @@ this case it will be prefixed by a dollar sign, as in \inp{echo ''Hello'' |
 is not the main point of this manual), we will use square brackets to indicate
 optional arguments, and italic font between angle brackets to represent an
 argument name which should be replaced by a value,
-e.g. \code{Event::applyProjection(\var{proj})}.
+e.g. \code{Event::applyProjection(\val{proj})}.
 
 Following the example of Donald Knuth in his books on \TeX{}, in this document
 we will indicate paragraphs of particular technicality or esoteric nature with a
@@ -91,6 +94,24 @@ these, but even more strongly.
 
 
 \section{Quickstart}
+The point of this section is to get you up and running with Rivet as soon as
+possible. DOing this by hand may be rather frustrating, as Rivet depends on
+several external libraries --- you'll get bored downloading and building them by
+hand in the right order.
+
+To make life more pleasant, we have written a bootstrapping script which will
+download tarballs of Rivet, AGILe and the other required libraries, expand them
+and build them in the right order. You can get this script from the following
+Web address: \url{http://www.hepforge.org/downloads/rivet/rivet-bootstrap}
+
+To run the script, we recommend that you choose a personal installation
+directory. Personally, I make a \kbd{\home/local} directory for this purpose, to
+avoid polluting my home directory with a lot of files. If you already use a
+directory of the same name, you might want to use a separate one, say
+\kbd{\home/rivetlocal}. You'll need to add \kbd{\val{localdir}/bin} to your
+\var{PATH} environment variable and \kbd{\val{localdir}/lib} to your \var{LD_LIBRARY_PATH}.
+
+
 
 \section{Running \kbd{rivetgun}}
 
