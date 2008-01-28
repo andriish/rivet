@@ -236,12 +236,12 @@ namespace Rivet {
 
   private:
 
+    /// Set of vectors defining the jet axes (for detached vertex finding).
+    vector<FourMomentum> _jetaxes;
+
     /// Projection to find secondary vertices.
     /// Needs to be initialized after constants on which constructor depends
     SVertex _svtxproj;
-
-    /// Set of vectors defining the jet axes (for detached vertex finding).
-    vector<FourMomentum> _jetaxes;
     
     /// Hide the assignment operator
     CDF_2006_S6653332& operator=(const CDF_2006_S6653332&);
