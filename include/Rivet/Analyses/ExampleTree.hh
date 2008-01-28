@@ -26,11 +26,11 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor
+    /// Default constructor. This uses the KT algorithm with r parameter = 0.7 for the jets.
     ExampleTree()
       : _fsproj(-4.0, 4.0, 0.0), 
         _chgleptonsproj(_fsproj), 
-        _jetsproj(_fsproj), 
+        _jetsproj(_fsproj, FastJets::KT, 0.7), 
         _wzandhproj(), 
         _vfsproj(_fsproj),
         _totvismomproj(_vfsproj)
