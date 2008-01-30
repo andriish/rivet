@@ -132,7 +132,7 @@ namespace Rivet {
 
     AIDA::IHistogram1D *_histScaledMom, *_histLogScaledMom;
 
-    AIDA::IProfile1D *_histPtTOutVsXp, *_histPtTInVsXp;
+    AIDA::IProfile1D   *_histPtTOutVsXp, *_histPtVsXp;
 
     AIDA::IHistogram1D *_hist1MinusTC, *_hist1MinusTCN; 
     AIDA::IHistogram1D *_histTMajorC, *_histTMajorCN; 

@@ -1,8 +1,10 @@
 \documentclass{JHEP3}
 %\JHEP{00(2007)000}
 
-\usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore}
+\usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore,fancyvrb}
 %\usepackage{dropping}
+
+\newenvironment{snippet}{\Verbatim}{\endVerbatim}
 
 \newcommand{\kbd}[1]{\texttt{#1}\xspace}
 \newcommand{\inp}[1]{\textsf{\textdollar}\hspace{1mm}\texttt{#1}\xspace}
@@ -95,23 +97,28 @@ these, but even more strongly.
 
 \section{Quickstart}
 The point of this section is to get you up and running with Rivet as soon as
-possible. DOing this by hand may be rather frustrating, as Rivet depends on
+possible. Doing this by hand may be rather frustrating, as Rivet depends on
 several external libraries --- you'll get bored downloading and building them by
-hand in the right order.
-
-To make life more pleasant, we have written a bootstrapping script which will
-download tarballs of Rivet, AGILe and the other required libraries, expand them
-and build them in the right order. You can get this script from the following
-Web address: \url{http://www.hepforge.org/downloads/rivet/rivet-bootstrap}
+hand in the right order. To make life more pleasant, we have written a
+bootstrapping script which will download tarballs of Rivet, AGILe and the other
+required libraries, expand them and build them in the right order. You can get
+this script from the following Web address:
+\url{http://www.hepforge.org/downloads/rivet/rivet-bootstrap}
 
 To run the script, we recommend that you choose a personal installation
 directory. Personally, I make a \kbd{\home/local} directory for this purpose, to
 avoid polluting my home directory with a lot of files. If you already use a
 directory of the same name, you might want to use a separate one, say
 \kbd{\home/rivetlocal}. You'll need to add \kbd{\val{localdir}/bin} to your
-\var{PATH} environment variable and \kbd{\val{localdir}/lib} to your \var{LD_LIBRARY_PATH}.
+\var{PATH} environment variable and \kbd{\val{localdir}/lib} to your
+\var{LD_LIBRARY_PATH}.
 
-
+Now, change directory to your build area (you may also want to make this,
+e.g. \kbd{\home/build}), and download the script:\\
+\inp{wget \url{http://www.hepforge.org/downloads/rivet/rivet-bootstrap}}\\
+Now run it, specifying the install area as the argument:\\
+\inp{chmod a+x rivet-bootstrap}\\
+\inp{./rivet-bootstrap \val{localdir}}\\
 
 \section{Running \kbd{rivetgun}}
 

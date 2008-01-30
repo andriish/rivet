@@ -209,22 +209,19 @@ void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
   for(int iBin = 0; iBin != nBins; ++iBin){
     oldintg += histo->binHeight(iBin) * histo->axis().binWidth(iBin);
   }
-  //double oldintg = histo->sumAllBinHeights();
   if ( oldintg == 0.0 ) return;
 
   double scale = norm/oldintg;
   std::vector<double> x, y, ex, ey;
   for ( int i = 0, N = histo->axis().bins(); i < N; ++i ) {
-    x.push_back(0.5*(histo->axis().binLowerEdge(i) +
-		 histo->axis().binUpperEdge(i)));
+    x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
     ex.push_back(histo->axis().binWidth(i)*0.5);
-    ///@todo This didn't seem correct because the histo shape will change 
-    //for a histo with non-uniform bin widths
-    //y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
-    y.push_back(histo->binHeight(i) * scale);
-    ///@todo ditto
-    //ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
-    ey.push_back(histo->binError(i) * scale);
+    ///@todo "Bin height" is a misnomer in the AIDA spec: width is neglected
+    y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
+    // We'd like to do this: y.push_back(histo->binHeight(i) * scale);
+    ///@todo "Bin error" is a misnomer in the AIDA spec: width is neglected
+    ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
+    // We'd like to do this: ey.push_back(histo->binError(i) * scale);
   }
 
   std::string path =

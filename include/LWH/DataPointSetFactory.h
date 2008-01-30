@@ -534,7 +534,7 @@ public:
    */
   virtual IDataPointSet *
   create(const std::string & path, const IHistogram1D & hist,
-	 const std::string & = "") {
+         const std::string & = "") {
     IDataPointSet * dset = create(path, hist.title(), 2);
     std::vector<double> x, y, ex, ey;
     for ( int i = 2, N = hist.axis().bins() + 2; i < N; ++i ) {
@@ -543,8 +543,10 @@ public:
       // Shouldn't IAxis have a binCentre(size_t binId) method? (According to Java AIDA v3.3.0 API)
       x.push_back((hist.axis().binLowerEdge(i - 2) + hist.axis().binUpperEdge(i - 2))/2.0);
       ex.push_back(hist.axis().binWidth(i - 2)/2.0);
-      y.push_back(hist.binHeight(i - 2));
-      ey.push_back(hist.binError(i - 2)/2.0);
+      /// @todo This is not really the height or error: width needs to be included...
+      const double binwidth = hist.axis().binWidth(i - 2);
+      y.push_back(hist.binHeight(i - 2)/binwidth);
+      ey.push_back(hist.binError(i - 2)/2.0/binwidth);
     }
     if ( !dset->setCoordinate(0, x, ex, ex) ||
          !dset->setCoordinate(1, y, ey, ey) )

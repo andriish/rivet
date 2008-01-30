@@ -1,3 +1,12 @@
+2008-01-30  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed the conversion of IHistogram1D to DPS, both via the
+	explicit Analysis::normalize() method and the implicit
+	AnalysisHandler::treeNormalize() route. The root of the problem is
+	the AIDA choice of the word "height" to represent the sum of
+	weights in a bin: i.e. the bin width is not taken into account
+	either in computing bin height or error.
+
 2008-01-22  Andy Buckley  <andy@insectnation.org>
 
 	* Beam projection now uses HepMC GenEvent::beam_particles() method

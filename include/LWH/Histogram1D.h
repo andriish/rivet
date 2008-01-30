@@ -288,6 +288,7 @@ public:
    * @return      The height of the corresponding bin.
    */
   double binHeight(int index) const {
+    /// @todo While this is compatible with the reference AIDA implementation, it is not the bin height!
     return sumw[index + 2];
   }
 
