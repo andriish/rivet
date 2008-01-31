@@ -20,6 +20,9 @@ namespace Rivet {
     /// Typedef for a vetoing entry.
     typedef map<long, BinaryCut> VetoDetails;
 
+    /// Typedef for a veto on a composite particle mass
+    typedef multimap<int, BinaryCut>  CompositeVeto;
+    
     /// The default constructor. Must specify a FinalState projection 
     /// object which is assumed to live through the run.
     VetoedFinalState(FinalState& fsp)
@@ -89,6 +92,25 @@ namespace Rivet {
       return *this;
     }
 
+    /// Add a veto on composite masses within a given width.
+    /// The composite mass is composed of nProducts decay products
+    /// @ todo might we want to specify a range of pdg ids for the decay products?
+    VetoedFinalState& addCompositeMassVeto(const double &mass, const double &width, int nProducts=2){
+      double halfWidth = 0.5*width;
+      BinaryCut massRange(mass - halfWidth, mass + halfWidth);
+      _compositeVetoes.insert(make_pair(nProducts, massRange));
+      _nCompositeDecays.insert(nProducts);
+      return *this;
+    }
+    
+    /// Veto the decay products of particle with pdg id
+    /// @todo Need HepMC to sort themselves out and keep vector bosons from 
+    /// the hard vtx in the event record before this will work reliably for all pdg ids
+    VetoedFinalState& addDecayProductsVeto(const long id){
+      _parentVetoes.push_back(id);
+      return *this;
+    }
+    
     /// Set the list of particle IDs and \f$ p_T \f$ ranges to veto.
     VetoedFinalState& setVetoDetails(const VetoDetails& ids) {
       _vetoCodes = ids;
@@ -108,7 +130,14 @@ namespace Rivet {
     
     /// The final-state particles.
     VetoDetails _vetoCodes;
-  
+    
+    /// Composite particle masses to veto
+    CompositeVeto _compositeVetoes;
+    set<int> _nCompositeDecays;
+    
+    /// List of decaying particle ids to veto
+    vector<long> _parentVetoes;
+    
   };
 
   

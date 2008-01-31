@@ -11,8 +11,14 @@ namespace Rivet {
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
     const int fscmp = pcmp(_fsproj, other._fsproj);
     if (fscmp != 0) return fscmp;
-    if (_vetoCodes == other._vetoCodes) return 0;
-    if (_vetoCodes < other._vetoCodes) return -1; else return 1;
+    if (_vetoCodes == other._vetoCodes && 
+        _compositeVetoes == other._compositeVetoes && 
+        _parentVetoes == other._parentVetoes) return 0;
+    int ret = 1;
+    if (_vetoCodes < other._vetoCodes) ret = -1;
+    if (_compositeVetoes < other._compositeVetoes) ret *= -1;
+    if (_parentVetoes < other._parentVetoes) ret *=-1;
+    return ret;
   }
 
 
@@ -59,6 +65,79 @@ namespace Rivet {
         }
       }
     }
-  } 
   
+    
+    for(set<int>::iterator nIt = _nCompositeDecays.begin();
+        nIt != _nCompositeDecays.end()&&_theParticles.size()!=0; ++nIt){
+      map<set<ParticleVector::iterator>, FourMomentum> oldMasses;
+      map<set<ParticleVector::iterator>, FourMomentum> newMasses;
+      set<ParticleVector::iterator> start;
+      start.insert(_theParticles.begin());
+      oldMasses.insert(pair<set<ParticleVector::iterator>, FourMomentum>
+       (start, _theParticles.begin()->getMomentum()));
+
+      for(int nParts=1; nParts != *nIt; ++nParts){
+
+        for(map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
+            mIt != oldMasses.end(); ++mIt){
+          ParticleVector::iterator pStart = *(mIt->first.rbegin());
+          for(ParticleVector::iterator pIt = pStart + 1; 
+              pIt != _theParticles.end(); ++pIt){
+            //Particle p = (*pIt);
+//            FourMomentum momIncr = pIt->getMomentum();
+            //double tmp = momIncr.p().mod2();
+  
+            FourMomentum cMom = mIt->second + pIt->getMomentum();//momIncr;
+            set<ParticleVector::iterator> pList(mIt->first);
+            pList.insert(pIt);
+            newMasses[pList] = cMom;
+ 
+          }
+        }
+        oldMasses = newMasses;
+        newMasses.clear();
+      }
+
+      for(map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
+          mIt != oldMasses.end(); ++mIt){
+        double mass2 = mIt->second.mass2();
+        if(mass2 >= 0.0){
+          double mass = sqrt(mass2);
+          for(CompositeVeto::iterator cIt = _compositeVetoes.lower_bound(*nIt);
+              cIt != _compositeVetoes.upper_bound(*nIt); ++cIt){
+            BinaryCut massRange = cIt->second;
+
+            if(mass < massRange.getLowerThan() && mass > massRange.getHigherThan()){
+              for(set<ParticleVector::iterator>::iterator lIt = mIt->first.begin();
+                  lIt != mIt->first.end(); ++lIt){
+                _theParticles.erase(*lIt);
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    for(vector<long>::iterator vIt = _parentVetoes.begin();
+        vIt != _parentVetoes.end(); ++vIt){
+      for(ParticleVector::iterator p = _theParticles.begin();
+          p != _theParticles.end(); ++p){
+        GenVertex *startVtx=((*p).getHepMCParticle()).production_vertex();
+        bool veto = false;
+        GenParticle HepMCP = (*p).getHepMCParticle();
+        if(startVtx!=0){
+          for(GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
+              pIt != startVtx->particles_end(HepMC::ancestors) && !veto; ++pIt){
+
+            if(*vIt == (*pIt)->pdg_id()){
+              veto = true;
+              p = _theParticles.erase(p);
+              --p;
+            }
+          }
+        }
+      }
+    }
+    return;
+  } 
 }
