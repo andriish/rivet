@@ -2,6 +2,7 @@
 %\JHEP{00(2007)000}
 
 \usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore,fancyvrb}
+\usepackage{hepnicenames,hepunits}
 %\usepackage{dropping}
 
 \newenvironment{snippet}{\Verbatim}{\endVerbatim}
@@ -13,6 +14,13 @@
 \newcommand{\var}[1]{\texttt{\textdollar{}#1}\xspace}
 \newcommand{\val}[1]{\textit{\ensuremath{\langle\text{\textrm{#1}\/}\rangle}}\xspace}
 \newcommand{\home}{\texttt{\ensuremath{\sim}}\xspace}
+
+\newcommand{\RGnegate}{\texttt{\ensuremath{\sim}}}
+
+\newcommand{\cmdbreak}{\textbackslash\newline}
+
+\newcommand{\SectionRef}[1]{section~\ref{#1}}
+\newcommand{\SubsectionRef}[1]{sub-section~\ref{#1}}
 
 \let\oldmarginpar\marginpar
 \renewcommand\marginpar[1]{\-\oldmarginpar{\footnotesize \textit{#1}}}
@@ -120,14 +128,147 @@ Now run it, specifying the install area as the argument:\\
 \inp{chmod a+x rivet-bootstrap}\\
 \inp{./rivet-bootstrap \val{localdir}}\\
 
-\section{Running \kbd{rivetgun}}
+If you are running on a system where the CERN AFS area is mounted as
+\path{/afs/cern.ch}, then the bootstrap script will attempt to use the
+pre-built HepMC, LHAPDF, FastJet and GSL libraries from the LCG software area.
 
+You should now have a working, installed copy of the Rivet and AGILe libraries,
+and the \kbd{rivetgun} and \kbd{rivet-config} executables. \kbd{rivet-config} is
+a simple script which can be used to determine useful paths when compiling
+against Rivet. \kbd{rivetgun} is the main executable used to run generators and
+process their output with Rivet analyses. We'll discuss it in detail
+in \SectionRef{sec:rivetgun}.
+
+One last thing before continuing, though: the generators themselves. Again, if
+you're running on a system with the CERN LCG AFS area mounted, then
+\kbd{rivetgun} will attempt to automatically use the generators packaged by the
+LCG Genser team. Otherwise, you'll have to build your own mirror of the LCG
+generators. This process is not standardised at the moment (this will hopefully
+change), so we've provided a script, \kbd{mkGenserArea}, in the \kbd{bin}
+directory of the AGILe source distribution (this will have been downloaded by
+the \kbd{rivet-bootstrap} script. Make yourself a Genser installation directory,
+e.g. \kbd{\var{HOME}/genser}, and \kbd{cd} into it. Then run the
+\kbd{mkGenserArea} script, and wait for it all to build. Finally, set the
+\var{AGILE_GEN_PATH} path variable to contain the \kbd{\val{genserDir}/liblinks}
+directory: you should now have a few Fortran generators to play with.
+
+
+\section{Running \kbd{rivetgun}}
+\label{sec:rivetgun}
+The \kbd{rivetgun} executable is the easiest way to use Rivet, and will be our
+example throughout this manual. To get started, just run the command
+\inp{rivetgun} with no arguments. You should get a short usage message, looking
+something like this:
+%
+\begin{snippet}
+buckley@d65:~/proj/cedar/agile\$ rivetgun
+PARSE ERROR:  
+             One or more required arguments missing!
+
+Brief USAGE: 
+   rivetgun  {-g <FHerwig:6510|FPythia:6413>|-G <genfile>} [-R] 
+             [-o <filename>] [-n <num>] [--nocolor] [-l <name=level>] 
+             [--histotype <AIDA|FLAT|ROOT>] [-H <name>]
+             [-A] [-a <ALEPH_1991_S2435284|~ALEPH_1991_S2435284
+             |CDF_1994_S2952106|~CDF_1994_S2952106|CDF_2001_S4751469...]
+             [-P <paramfile>] ...  [-p <param=value>] ...  [--mom2 <mom>]
+             [--mom1 <mom>] [--beam2 <ANTIPROTON|PIMINUS|NU_TAUBAR|...]
+             [--beam1 <ANTIPROTON|PIMINUS|NU_TAUBAR|...]
+             [-i <filename>] [-s <seed>] [--] [--version] [-h]
+
+For complete USAGE and HELP type: 
+   rivetgun --help
+\end{snippet}
+
+The message obtained with \kbd{rivetgun --help} is much more explicit about the
+meanings of these options, but we'll survey a few of them here with concrete examples.
+
+\begin{itemize}
+\item \paragraph{Simple run:}{\kbd{rivetgun -g~FHerwig:6510 -P~lep1.params
+      -n~1000} will use the Fortran Herwig 6.5.10 generator (the \kbd{-g} option
+    switch) to generate 1000 events (the \kbd{-n} switch) in LEP1 mode,
+    i.e. $\Ppositron\Pelectron$ collisions at $\sqrt{s} = \unit{90}{\GeV}$. The
+    \kbd{-P} switch is actually the way of specifying a \kbd{rivetgun}
+    parameters file: in this case, the file \kbd{lep1.params} is loaded from the
+    \kbd{\val{installdir}/share/RivetGun} directory, if it isn't first found in
+    the current directory.}
+
+\item \paragraph{Parameter changes:}{\kbd{rivetgun -g~FPythia:6413
+      -P~lep1.params -n~1000 \cmdbreak -p~"PARJ(82)=5.27"} will generate 1000
+    events using the Fortran Pythia 6.4.13 generator, again in LEP1 mode. The
+    difference this time is that we've used the \kbd{-p} (lower-case) switch to
+    change a named generator parameter, here Pythia's PARJ(82), which sets the
+    parton shower cutoff scale. Being able to change parameters on the command
+    line is useful for scanning parameter ranges from a shell loop, or rapid
+    testing of parameter values without needing to write a parameters file for
+    use with~\kbd{-P}.}
+
+\item \paragraph{Writing out HepMC events:}{\kbd{rivetgun -g~FPythia:6413
+      -P~lhc.params -n~50 -o~out.hepmc -R} will generate 50 LHC events with
+    Pythia. The~\kbd{-o} switch is being used here to tell \kbd{rivetgun} to
+    write the generated events to the \kbd{out.hepmc} file. This file will be a
+    plain text dump of the HepMC event records in the ``IO_GenEvent''
+    format. The~\kbd{-R} flag is used to disable running Rivet at all: in this
+    instance, \kbd{rivetgun} will produce no histogram output file and is
+    basically just a flexible steering program for several generators.}
+
+\item \paragraph{Choosing analyses:}{\kbd{rivetgun -g~FHerwig:6510
+      -P~lep1.params \cmdbreak -a~DELPHI_1996_S3430090} will again generate LEP1
+    events using Pythia. This time, since the \kbd{-n} switch is not present,
+    \kbd{rivetgun} will fall back to its default run of 10 events. We're here
+    running a Rivet analysis for the first time --- in the above runs, even
+    when~\kbd{-R} wasn't specified, we weren't actually running any analyses. In
+    this case, we're running the DELPHI analysis most used for Monte Carlo
+    tuning.}
+
+\item \paragraph{Using all analyses:}{\kbd{rivetgun -g~FHerwig:6510
+      -P~tevatron1800.params \cmdbreak -n~ 50000 -A
+      -a~\RGnegate{}CDF_1994_S2952106} will generate 50k Tevatron events at
+    $\sqrt{s}_{\Pproton\Pproton} = \unit{1.8}{\TeV}$. The~\kbd{-A} switch says
+    that \kbd{rivetgun} should try to run all the analyses that it can: it will
+    automatically disable any analyses not compatible with the Tevatron beam
+    particles. The~\kbd{-a} switch is being used here for the opposite of its
+    usual reason: prefixing the analysis name with a tilde (\kbd{\RGnegate})
+    \emph{removes} that analysis. Here, all Tevatron analyses \emph{other than}
+    CDF_1994_S2952106 will run.}
+
+\item \paragraph{Histogramming:}{\kbd{rivetgun -g~FPythia:6413
+      -P~tevatron1800.params \cmdbreak -H~foo --histotype~ROOT} will make 10
+    Tevatron events. The new features are the \kbd{-H} and \kbd{--histotype}
+    switches, which influence the output data file. The \kbd{-H} chooses the
+    base name of the output file, by default ``Rivet'' and \kbd{--histotype}
+    chooses the format, here set to ROOT. So the output file, which in the above
+    examples was \kbd{Rivet.aida}, will here be \kbd{foo.root}.}
+
+\item \paragraph{Log level:}{\kbd{rivetgun -g~FPythia:6413 -P~lep1.params
+      -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=TRACE -l~RivetGun=WARNING}
+    will again generate LEP1 events using Pythia. The~\kbd{-l} flags are being
+    used to change the level of the logging coming from the various analysis
+    classes. The first tells all Rivet analyses and associated handlers to show
+    any messages at log level ``debug'' --- more than usual --- and above. The
+    second tells Rivet's projections to log at ``trace'' level --- very detailed
+    debug information --- and above. The last controls the log levels of the
+    \kbd{rivetgun} executable itself: this can be used to suppress or enhance
+    information like the event number. The default level is ``info'', which lies
+    between ``debug'' and ``warning''.}
+
+\item \paragraph{More on logging:}{\kbd{rivetgun -g~FPythia:6413 -P~lep1.params
+      \cmdbreak -l~Rivet.Analysis.Handler=WARNING -l~Rivet.Analysis.Test=TRACE}
+    is another demo of Rivet's logging capabilities. The logging system is
+    hierarchical, so the examples above applied to \emph{all} analyses,
+    \emph{all} projections, and so on. It is possible, indeed desirable, to be
+    more specific, as in this example, where the log levels of most classes in
+    the \kbd{Rivet.Analysis} log hierarchy is the default ``info'' level, but
+    \kbd{Analysis.Handler} and \kbd{Analysis.Test} are set to different levels.}
+\end{itemize}
+
+\section{The projection/analysis model}
+
+\subsection{How projection caching works (skippable, but useful as a reference)}
 \begin{bend}
 This section is super-hardcore
 \end{bend}
 
-\section{The projection/analysis model}
-\subsection{How projection caching works (skippable, but useful as a reference)}
 \section{Analysis histo autobinning}
 \section{Pluggable analyses}
 \section{Standard projection summary}
