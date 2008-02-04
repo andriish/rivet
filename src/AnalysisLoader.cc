@@ -57,7 +57,8 @@ namespace Rivet {
     // Store a list of libs to be neatly closed later
     _handles.insert(handle);
      
-    
+    ///@todo this cast is actually forbidden under ISO C++
+    ///"ISO C++ forbids casting between pointer-to-function and pointer-to-object"
     anabuilders_fn getBuilders = (anabuilders_fn) dlsym(handle, "getAnalysisBuilders");
     if (!getBuilders) {
       _handles.erase(handle);
