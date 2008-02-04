@@ -47,14 +47,15 @@ namespace Rivet {
 
   /// Split a string with single-character delimiters, ignoring zero-length 
   /// substrings. Designed for getting elements of filesystem paths, naturally.
-  inline vector<string> split(const string& s, const string delim = ":") {
-    string path = s;
+  inline vector<string> split(string path, const string delim = ":") {
     vector<string> dirs;
     if (delim.length() != 1) {
       throw runtime_error("Rivet::split(string): delimiter must be a single character.");
     }
-    while (size_t delim_pos = path.find(delim) != string::npos) {
-      string dir = path.substr(0, delim_pos);
+    while (true) {
+      const size_t delim_pos = path.find(delim);
+      if (delim_pos == string::npos) break;
+      const string dir = path.substr(0, delim_pos);
       if (dir.length()) dirs.push_back(dir); // Don't insert "empties"
       path.replace(0, delim_pos+1, "");
     }
