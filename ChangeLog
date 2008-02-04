@@ -1,3 +1,8 @@
+2008-02-01  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed another misplaced factor of bin width in the
+	Analysis::normalize() method.
+
 2008-01-30  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed the conversion of IHistogram1D to DPS, both via the

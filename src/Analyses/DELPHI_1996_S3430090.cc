@@ -1,7 +1,8 @@
 // -*- C++ -*-
-#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 
 
 namespace Rivet {
@@ -9,17 +10,29 @@ namespace Rivet {
 
   void DELPHI_1996_S3430090::analyze(const Event& e) {
     Log& log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
+
+    // First, veto on leptonic events by requiring at least 4 charged FS particles
+    /// @todo Work out why this creates a segfault if it's run before the beams projection...
+    const FinalState& fs = e.applyProjection(_cnfsproj);
+    size_t numCharged = 0;
+    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      if (PID::threeCharge(p->getPdgId())) ++numCharged;
+    }
+    const string result = (numCharged < 4) ? "Failed" : "Passed";
+    log << Log::DEBUG << result << " leptonic event cut" << endl;
+    if (numCharged < 4) return;
 
     // Get beams and average beam momentum
     const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
     const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
                                  beams.second.getMomentum().vector3().mod() ) / 2.0;
+    log << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
 
     // Get event weight for histo filling
     const double weight = e.weight();
 
     // Thrusts
+    log << Log::DEBUG << "Calculating thrust" << endl;
     const Thrust& thrustC = e.applyProjection(_cthrustproj);
     _hist1MinusTC->fill(1 - thrustC.thrust(), weight); 
     _hist1MinusTC->fill(1 - thrustC.thrust(), weight); 
@@ -27,6 +40,7 @@ namespace Rivet {
     _histTMinorC->fill(thrustC.thrustMinor(), weight); 
     _histOblatenessC->fill(thrustC.oblateness(), weight);
 
+    log << Log::DEBUG << "Calculating CN thrust" << endl;
     const Thrust& thrustCN = e.applyProjection(_cnthrustproj);
     _hist1MinusTCN->fill(1 - thrustCN.thrust(), weight); 
     _histTMajorCN->fill(thrustCN.thrustMajor(), weight); 
@@ -53,6 +67,7 @@ namespace Rivet {
 //     _histDiffRate4JadeCN->fill(, weight);
 
     // Sphericities
+    log << Log::DEBUG << "Calculating sphericity" << endl;
     const Sphericity& sphericityC = e.applyProjection(_cspherproj);
     _histSphericityC->fill(sphericityC.sphericity(), weight); 
     _histAplanarityC->fill(sphericityC.aplanarity(), weight); 
@@ -63,6 +78,7 @@ namespace Rivet {
     _histAplanarityCN->fill(sphericityCN.aplanarity(), weight); 
 
     // C & D params
+    log << Log::DEBUG << "Calculating Parisi params" << endl;
     const ParisiTensor& parisiC = e.applyProjection(_cparisiproj);    
     _histCParamC->fill(parisiC.C(), weight); 
     _histDParamC->fill(parisiC.D(), weight); 
@@ -72,6 +88,7 @@ namespace Rivet {
     _histDParamCN->fill(parisiCN.D(), weight); 
 
     // Hemispheres
+    log << Log::DEBUG << "Calculating hemisphere variables" << endl;
     const Hemispheres& hemiC = e.applyProjection(_chemiproj);
     _histHemiMassHC->fill(hemiC.getScaledM2high(), weight); 
     _histHemiMassLC->fill(hemiC.getScaledM2low(), weight); 
@@ -97,8 +114,9 @@ namespace Rivet {
 
 
     // Iterate over all the charged final state particles.
-    const FinalState& cfsC = e.applyProjection(_cfsproj);
-    for (ParticleVector::const_iterator p = cfsC.particles().begin(); p != cfsC.particles().end(); ++p) {
+    const FinalState& fsC = e.applyProjection(_cfsproj);
+    log << Log::DEBUG << "About to iterate over charged FS particles" << endl;
+    for (ParticleVector::const_iterator p = fsC.particles().begin(); p != fsC.particles().end(); ++p) {
       // Get momentum and energy of each particle.
       const Vector3 mom3 = p->getMomentum().vector3();
       const double energy = p->getMomentum().E();
@@ -131,13 +149,14 @@ namespace Rivet {
       _histRapidityTC->fill(rapidityT, weight); 
       _histRapiditySC->fill(rapidityS, weight); 
     }
-    const size_t numParticlesC = cfsC.particles().size();
+    const size_t numParticlesC = fsC.particles().size();
     _weightedTotalPartNumC += numParticlesC * weight;
 
 
     // Iterate over all the charged and neutral final state particles.
-    const FinalState& cfsCN = e.applyProjection(_cnfsproj);
-    for (ParticleVector::const_iterator p = cfsCN.particles().begin(); p != cfsCN.particles().end(); ++p) {
+    const FinalState& fsCN = e.applyProjection(_cnfsproj);
+    log << Log::DEBUG << "About to iterate over charged+neutral FS particles" << endl;
+    for (ParticleVector::const_iterator p = fsCN.particles().begin(); p != fsCN.particles().end(); ++p) {
       // Get momentum and energy of each particle.
       const Vector3 mom3 = p->getMomentum().vector3();
       const double energy = p->getMomentum().E();
@@ -160,11 +179,8 @@ namespace Rivet {
       _histRapidityTCN->fill(rapidityT, weight); 
       _histRapiditySCN->fill(rapidityS, weight); 
     }
-    const size_t numParticlesCN = cfsCN.particles().size();
+    const size_t numParticlesCN = fsCN.particles().size();
     _weightedTotalPartNumCN += numParticlesCN * weight;
-
-    // Finished...
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
 
 

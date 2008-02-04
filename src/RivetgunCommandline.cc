@@ -71,8 +71,8 @@ namespace Rivet {
         ValueArg<string> histoTypeArg("", "histotype", "Histogram output format (default is AIDA XML)", false, "AIDA", &histoTypeConstraint, cmd);
 
         // Add logging args
-        const string mesg = "Set log level in 'name=level' format. The levels are INFO, DEBUG and WARNING";
-        MultiArg<string> logsArg("l", "loglevel", mesg, false, "name=level", cmd);
+        const string mesg = "Set log level in 'name=level' format. The levels are TRACE, DEBUG, INFO and WARN";
+        MultiArg<string> logsArg("l", "loglevel", mesg, false, "logname=loglevel", cmd);
         SwitchArg disableLogColorArg("", "nocolor", "Disable shell color escapes (useful for piping output to file)", cmd, false);
 
         // Add misc args

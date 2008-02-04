@@ -203,15 +203,18 @@ namespace Rivet {
 void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
   // Calculate histogram area even with non-uniform bin widths
   // (sumAllBinHeights works for uniform bin widths)
+  Log& log = getLog();
+  log << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
   
   double oldintg = 0.0;
   int nBins = histo->axis().bins();
   for(int iBin = 0; iBin != nBins; ++iBin){
-    oldintg += histo->binHeight(iBin) * histo->axis().binWidth(iBin);
+    /// @todo Leaving out factor of binWidth because AIDA's "height" already includes a width factor
+    oldintg += histo->binHeight(iBin);// * histo->axis().binWidth(iBin);
   }
   if ( oldintg == 0.0 ) return;
 
-  double scale = norm/oldintg;
+  const double scale = norm/oldintg;
   std::vector<double> x, y, ex, ey;
   for ( int i = 0, N = histo->axis().bins(); i < N; ++i ) {
     x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));

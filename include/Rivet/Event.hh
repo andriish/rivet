@@ -4,18 +4,10 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projection.hh"
-#include "HepMC/GenEvent.h"
 #include "Event.fhh"
 
 
 namespace Rivet {
-
-  /// Forward typedef from HepMC.
-  typedef HepMC::GenEvent GenEvent;
-  
-  /// Forward typedef from HepMC.
-  typedef HepMC::GenVertex GenVertex;
-
 
   /// Event is a concrete class representing an generated event in
   /// Rivet. It is constructed given a HepMC::GenEvent, a pointer to
@@ -34,13 +26,13 @@ namespace Rivet {
     //@{
     /// The default constructor.
     Event(const GenEvent& geneve)
-      : theGenEvent(&geneve), theWeight(1.0) {
-      if ( !geneve.weights().empty() ) theWeight = geneve.weights()[0];
+      : _theGenEvent(&geneve), _theWeight(1.0) {
+      if ( !geneve.weights().empty() ) _theWeight = geneve.weights()[0];
     }
 
     /// The copy constructor.
-    Event(const Event& x)  
-      : theGenEvent(x.theGenEvent), theWeight(x.theWeight) 
+    Event(const Event& e)  
+      : _theGenEvent(e._theGenEvent), _theWeight(e._theWeight) 
     { }
 
     /// The destructor.
@@ -50,7 +42,7 @@ namespace Rivet {
   public:
 
     /// Return the generated event obtained from an external event generator.
-    const GenEvent& genEvent() const { return *theGenEvent; }
+    const GenEvent& genEvent() const { return *_theGenEvent; }
 
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
@@ -61,32 +53,31 @@ namespace Rivet {
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
       ConstProjectionPtr cpp(&p);
-      std::set<ConstProjectionPtr>::const_iterator old = theProjections.find(cpp);
-      if (old != theProjections.end()) {
-        //return *( dynamic_cast<const PROJ*>(old->get()) );
+      std::set<ConstProjectionPtr>::const_iterator old = _theProjections.find(cpp);
+      if (old != _theProjections.end()) {
         return *( dynamic_cast<const PROJ*>(*old) );
       }
       // Add the projection via the Projection base class (only 
       // possible because Event is a friend of Projection)
       ProjectionPtr pp(&p);
       pp->project(*this);
-      theProjections.insert(pp);
+      _theProjections.insert(pp);
       return p;
     }
 
     /// The weight associated with the event.
-    double weight() const { return theWeight; }
+    double weight() const { return _theWeight; }
 
   private:
 
     /// A pointer to the generated event obtained from an external generator.
-    const GenEvent* theGenEvent;
+    const GenEvent* _theGenEvent;
 
     /// The set of Projection objects applied so far.
-    mutable std::set<ConstProjectionPtr> theProjections;
+    mutable std::set<ConstProjectionPtr> _theProjections;
 
     /// The weight associated with the event.
-    double theWeight;
+    double _theWeight;
 
   private:
 

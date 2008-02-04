@@ -25,8 +25,11 @@ namespace Rivet {
       const double pT = (*p)->momentum().perp();
       const double eta = (*p)->momentum().eta();
       const bool passed = st == 1 && !isZero(pT) && pT >= _ptmin && eta > _etamin && eta < _etamax;
-      log << Log::TRACE << "Status = " << st << ", pT = " << pT 
-          << ", eta = " << eta << ": " << std::ios::boolalpha << passed << endl;
+      if (log.isActive(Log::TRACE)) {
+        log << Log::TRACE << std::boolalpha 
+            << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT 
+            << ", eta = " << eta << ": result = " << passed << endl;
+      }
       if (passed) _theParticles.push_back(Particle(**p));
     }
     log << Log::DEBUG << "Number of final-state particles = " 
