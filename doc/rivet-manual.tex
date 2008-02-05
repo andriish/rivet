@@ -241,7 +241,7 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     examples was \kbd{Rivet.aida}, will here be \kbd{foo.root}.}
 
 \item \paragraph{Log level:}{\kbd{rivetgun -g~FPythia:6413 -P~lep1.params
-      -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=TRACE -l~RivetGun=WARNING}
+      -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=TRACE -l~RivetGun=WARN}
     will again generate LEP1 events using Pythia. The~\kbd{-l} flags are being
     used to change the level of the logging coming from the various analysis
     classes. The first tells all Rivet analyses and associated handlers to show
@@ -253,7 +253,7 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     between ``debug'' and ``warning''.}
 
 \item \paragraph{More on logging:}{\kbd{rivetgun -g~FPythia:6413 -P~lep1.params
-      \cmdbreak -l~Rivet.Analysis.Handler=WARNING -l~Rivet.Analysis.Test=TRACE}
+      \cmdbreak -l~Rivet.Analysis.Handler=WARN -l~Rivet.Analysis.Test=TRACE}
     is another demo of Rivet's logging capabilities. The logging system is
     hierarchical, so the examples above applied to \emph{all} analyses,
     \emph{all} projections, and so on. It is possible, indeed desirable, to be
