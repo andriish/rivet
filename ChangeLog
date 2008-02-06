@@ -1,3 +1,12 @@
+2008-02-06  Andy Buckley  <andy@insectnation.org>
+
+	* Made projection pointers used for cut combining into const
+	pointers. Required some redefinition of the Projection* comparison
+	operator.
+
+	* Temporarily added FinalState member to ChargedFinalState to stop
+	projection lifetime crash.
+
 2008-02-01  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed another misplaced factor of bin width in the

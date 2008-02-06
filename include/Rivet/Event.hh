@@ -53,6 +53,8 @@ namespace Rivet {
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
       ConstProjectionPtr cpp(&p);
+      /// @todo Does this work? Need to delete when done...
+      //const PROJ* foo = new PROJ(p);
       std::set<ConstProjectionPtr>::const_iterator old = _theProjections.find(cpp);
       if (old != _theProjections.end()) {
         return *( dynamic_cast<const PROJ*>(*old) );
@@ -63,6 +65,11 @@ namespace Rivet {
       pp->project(*this);
       _theProjections.insert(pp);
       return p;
+    }
+
+    template <typename PROJ>
+    const PROJ& applyProjection(PROJ* pp) const {
+      return applyProjection(*pp);
     }
 
     /// The weight associated with the event.

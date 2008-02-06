@@ -23,8 +23,10 @@ namespace Rivet {
   
   void ChargedFinalState::project(const Event& e) {
     Log log = getLog();
-    FinalState fsp = static_cast<FinalState>(*this);
-    const FinalState& fs = e.applyProjection(fsp);
+    /// @todo This goes out of scope immediately!
+    //FinalState fsp = static_cast<FinalState>(*this);
+    //const FinalState& fs = e.applyProjection(fsp);
+    const FinalState& fs = e.applyProjection(_fsproj);
     _theParticles.clear();
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(), 
                         std::back_inserter(_theParticles), chargedParticleFilter);

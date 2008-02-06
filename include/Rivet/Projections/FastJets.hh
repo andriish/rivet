@@ -32,12 +32,12 @@ namespace Rivet {
     FastJets(FinalState* fsp) : _plugin(0)
     { 
       defaultConstructor(fsp);
-    };
+    }
 
     FastJets(FinalState& fsp) : _plugin(0)
     { 
       defaultConstructor(&fsp);
-    };
+    }
     
   private:
     void defaultConstructor(FinalState* fsp){
@@ -46,7 +46,7 @@ namespace Rivet {
       const double RPARAM = 1.0;
       _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, RPARAM, fastjet::E_scheme);
       return;
-    };
+    }
     
   public:
     
@@ -63,7 +63,7 @@ namespace Rivet {
     : _plugin(0)
     {
       wrappedConstructor(fsp, alg, rparameter);
-    };
+    }
 
     FastJets(FinalState& fsp, JetAlg alg, double rparameter)
     //: _fsproj(fsp), _plugin(0)
@@ -71,7 +71,7 @@ namespace Rivet {
     : _plugin(0)
     {
       wrappedConstructor(&fsp, alg, rparameter);
-    };
+    }
     
   private:
     void wrappedConstructor(FinalState* fsp, JetAlg alg, double rparameter){
@@ -93,7 +93,7 @@ namespace Rivet {
         _jdef = fastjet::JetDefinition(_plugin);
       }
       return;
-    };
+    }
     
   public:
     

@@ -28,6 +28,11 @@ namespace Rivet {
       : FinalState(mineta, maxeta, minpt)
     { }
 
+    ~ChargedFinalState() {
+      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
+    }
+
+
     /// Return the name of the projection.
     string getName() const {
       return "ChargedFinalState";
@@ -40,6 +45,11 @@ namespace Rivet {
     
     /// Compare projections.
     int compare(const Projection& p) const;
+
+  private:
+
+    /// @todo For now, we'll hold a constituent FinalState...
+    FinalState _fsproj;
     
   };
 

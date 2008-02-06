@@ -28,6 +28,10 @@ namespace Rivet {
       addCut("pT",  MORE_EQ, minpt);
     }
     
+    ~FinalState() {
+      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
+    }
+
     /// Return the name of the projection
     virtual string getName() const {
       return "FinalState";

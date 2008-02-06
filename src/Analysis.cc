@@ -171,7 +171,7 @@ namespace Rivet {
 
   const Cuts Analysis::getCuts() const {
     Cuts totalCuts = _cuts;
-    for (set<ProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+    for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
       totalCuts.addCuts((*p)->getCuts());
     }
     return totalCuts;
@@ -180,7 +180,7 @@ namespace Rivet {
 
   const bool Analysis::checkConsistency() const {
     // Check consistency of analysis beams with allowed beams of each contained projection.
-    for (set<ProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+    for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
       if (! compatible(getBeams(), (*p)->getBeamPairs()) ) {
         throw runtime_error("Analysis " + getName() + " beams are inconsistent with " 
                             + "allowed beams for projection " + (*p)->getName());
@@ -192,9 +192,9 @@ namespace Rivet {
   }
 
 
-  set<ProjectionPtr> Analysis::getProjections() const {
-    set<ProjectionPtr> totalProjections = _projections;
-    for (set<ProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+  set<ConstProjectionPtr> Analysis::getProjections() const {
+    set<ConstProjectionPtr> totalProjections = _projections;
+    for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
       totalProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
     }
     return totalProjections;
@@ -212,7 +212,7 @@ void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
     /// @todo Leaving out factor of binWidth because AIDA's "height" already includes a width factor
     oldintg += histo->binHeight(iBin);// * histo->axis().binWidth(iBin);
   }
-  if ( oldintg == 0.0 ) return;
+  if (oldintg == 0.0) return;
 
   const double scale = norm/oldintg;
   std::vector<double> x, y, ex, ey;

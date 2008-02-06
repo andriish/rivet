@@ -9,6 +9,18 @@
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.hh"
 
+namespace std {
+  
+  /// This is the function called when comparing two (const) pointers to Rivet::Projection.
+  template <>
+  struct less<const Rivet::Projection*>
+    : public binary_function<const Rivet::Projection*, const Rivet::Projection*, bool> {
+    bool operator()(const Rivet::Projection* x, const Rivet::Projection* y) const;// {
+    //   return x->before(*y);
+    // }
+  };
+
+}
 
 namespace Rivet {
 
@@ -105,7 +117,7 @@ namespace Rivet {
     /// to work.
     virtual const Cuts getCuts() const {
       Cuts totalCuts = _cuts;
-      for (set<ProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+      for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
         totalCuts.addCuts((*p)->getCuts());
       }
       return totalCuts;
@@ -117,8 +129,8 @@ namespace Rivet {
     /// chaining to work.
     virtual const set<BeamPair> getBeamPairs() const {
       set<BeamPair> ret = _beamPairs;
-      for (set<ProjectionPtr>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
-        ProjectionPtr p = *ip;
+      for (set<ConstProjectionPtr>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
+        ConstProjectionPtr p = *ip;
         getLog() << Log::TRACE << "Proj addr = " << p << endl;
         if (p) ret = intersection(ret, p->getBeamPairs());
       }
@@ -131,9 +143,9 @@ namespace Rivet {
     }
 
     /// Get the contained projections, including recursion.
-    set<ProjectionPtr> getProjections() const {
-      set<ProjectionPtr> allProjections = _projections;
-      for (set<ProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+    set<ConstProjectionPtr> getProjections() const {
+      set<ConstProjectionPtr> allProjections = _projections;
+      for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
         allProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
       }
       return allProjections;
@@ -142,11 +154,18 @@ namespace Rivet {
   protected:
 
     /// Add a projection dependency to the projection list.
-    Projection& addProjection(Projection& proj) {
+    Projection& addProjection(const Projection& proj) {
       getLog() << Log::TRACE << this->getName() << " inserts " 
                << proj.getName() << " at: " << &proj << endl;
-      ProjectionPtr pp(& proj);
+      ConstProjectionPtr pp(&proj);
       _projections.insert(pp);
+      return *this;
+    }
+
+    Projection& addProjection(const Projection* pproj) {
+      getLog() << Log::TRACE << this->getName() << " inserts " 
+               << pproj->getName() << " at: " << pproj << endl;
+      _projections.insert(pproj);
       return *this;
     }
 
@@ -176,24 +195,15 @@ namespace Rivet {
     set<BeamPair> _beamPairs;
  
     /// Collection of pointers to projections, for automatically combining constraints.
-    set<ProjectionPtr> _projections;
+    set<ConstProjectionPtr> _projections;
 
   };
-  
+
 }
 
 
-namespace std {
-  
-  /// This is the function called when comparing two pointers to Rivet::Projection.
-  template <>
-  struct less<const Rivet::Projection*> 
-    : public binary_function<const Rivet::Projection*, const Rivet::Projection*, bool> {
-    bool operator()(const Rivet::Projection* x, const Rivet::Projection* y) const {
-      return x->before(*y);
-    }
-  };
-
+inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projection* x, const Rivet::Projection* y) const {
+  return x->before(*y);
 }
 
 

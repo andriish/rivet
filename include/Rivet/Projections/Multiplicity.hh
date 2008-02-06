@@ -22,6 +22,10 @@ namespace Rivet {
       addProjection(fsp);
     }
 
+    ~Multiplicity() {
+      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
+    }
+
   public:
     /// Return the name of the projection
     string getName() const {
@@ -50,7 +54,7 @@ namespace Rivet {
   private:
 
     /// The FinalState projection used by this projection
-    FinalState _fsproj;
+    FinalState& _fsproj;
 
     /// Total multiplicity.
     unsigned int _totalMult;

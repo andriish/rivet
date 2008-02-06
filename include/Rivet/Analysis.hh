@@ -197,7 +197,7 @@ namespace Rivet {
     
     /// Get all the projections used by this analysis, including recursion. 
     /// WARNING: No caching or loop-avoidance is implemented at the moment.
-    set<ProjectionPtr> getProjections() const;
+    set<ConstProjectionPtr> getProjections() const;
 
   protected:
     /// @name AIDA analysis infrastructure.
@@ -328,13 +328,21 @@ namespace Rivet {
     }
 
     /// Add a projection dependency to the projection list.
-    Analysis& addProjection(Projection& proj) {
-      ProjectionPtr pp(&proj);
-      _projections.insert(pp);
+    Analysis& addProjection(const Projection& proj) {
       getLog() << Log::TRACE << this->getName() << " inserts " 
                << proj.getName() << " at: " << &proj << endl;
+      ConstProjectionPtr pp(&proj);
+      _projections.insert(pp);
       return *this;
     }
+
+    Analysis& addProjection(const Projection* pproj) {
+      getLog() << Log::TRACE << this->getName() << " inserts " 
+               << pproj->getName() << " at: " << pproj << endl;
+      _projections.insert(pproj);
+      return *this;
+    }
+
 
     Analysis& setNeedsCrossSection(bool needed){
       _needsCrossSection = needed;
@@ -342,7 +350,7 @@ namespace Rivet {
     }
     
     /// Collection of pointers to projections, for automatically combining constraints.
-    set<ProjectionPtr> _projections;
+    set<ConstProjectionPtr> _projections;
 
   private:
 
