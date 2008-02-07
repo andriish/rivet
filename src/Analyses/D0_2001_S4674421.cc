@@ -53,30 +53,18 @@ namespace Rivet {
 
     // Correct W pT distribution to W cross-section
     const double xSecW = xSecPerEvent * _eventsFilledW;
-    /// @todo Would a simple call to normalize(_h_dsigdpt_z, xSecW) be equivalent?
-    const size_t nBinsW = _h_dsigdpt_w->axis().bins();
-    double hAreaW = 0.0;
-    for (size_t iBin = 0; iBin != nBinsW; ++iBin) {
-      hAreaW += _h_dsigdpt_w->binHeight(iBin) * _h_dsigdpt_w->axis().binWidth(iBin);
-    }
-    _h_dsigdpt_w->scale(xSecW / hAreaW);
-
+    cout << "xSecW=" << xSecW << endl;
 
     // Correct Z pT distribution to Z cross-section
     const double xSecZ = xSecPerEvent * _eventsFilledZ;
-    /// @todo Would a simple call to normalize(_h_dsigdpt_z, xSecZ) be equivalent?
-    const size_t nBinsZ = _h_dsigdpt_z->axis().bins();
-    double hAreaZ = 0.0;
-    for (size_t iBin = 0; iBin != nBinsZ; ++iBin) {
-      hAreaZ += _h_dsigdpt_z->binHeight(iBin) * _h_dsigdpt_z->axis().binWidth(iBin);
-    }
-    _h_dsigdpt_z->scale(xSecZ / hAreaZ);
-    
-    
-    // Make pT_W/pT_Z ratio histogram
-    _h_dsigdpt_wz_rat = histogramFactory().divide("/D0_2001_S4674421/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_z);
-    _h_dsigdpt_wz_rat->scale(_mwmz * _brzee / _brwenu);
+    cout << "xSecZ=" << xSecZ << endl;
 
+    _h_dsigdpt_wz_rat = histogramFactory().divide("/D0_2001_S4674421/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_z);
+    _h_dsigdpt_wz_rat->scale(xSecW/xSecZ * _mwmz * _brzee / _brwenu);
+
+    normalize(_h_dsigdpt_w, xSecW);
+
+    normalize(_h_dsigdpt_z, xSecZ);
 
   }
 
