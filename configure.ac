@@ -9,6 +9,9 @@ AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
 ## OS X
 AC_CEDAR_OSX
 
+## LCG platform tag
+AC_LCG_TAG
+
 ## Set default compiler flags
 if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O3"; fi
 
