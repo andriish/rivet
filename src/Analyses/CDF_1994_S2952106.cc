@@ -79,15 +79,12 @@ namespace Rivet {
   // Do the analysis
   void CDF_1994_S2952106::analyze(const Event & event) {
     Log& log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
 
     // Increment counter for the number of events analysed
-    ///@todo Need to use weights?
+    ///@todo Need to use weights
     _eventsTried++;
-    //cout << "try event # " << int(_eventsTried) << endl;
 
     const FastJets& jetpro = event.applyProjection(_conejetsproj);
-
     log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
 
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
@@ -96,9 +93,6 @@ namespace Rivet {
     //if (fabs(pv.getPrimaryVertex().position().z()) < _pvzmax) {
     //Vector3 pvpos = pv.getPVPosition();
     if (fabs(pv.getPVPosition().z()) < _pvzmax) {
-
-
-
       const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
       log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
       if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) < _metsetmax) {
@@ -173,10 +167,6 @@ namespace Rivet {
         } //1st + 2nd jet pseudoRapidity & Njet>=3
       } //MET/sqrt(SET) cut
     } //z-vertex
-    
-    
-    // Finished
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
   
   

@@ -20,7 +20,6 @@ namespace Rivet {
   // Do the analysis
   void D0_2004_S5992206::analyze(const Event & event) {
     Log& log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
 
     // Analyse and print some info  
     const D0ILConeJets& jetpro = event.applyProjection(_conejetsproj);
@@ -80,12 +79,6 @@ namespace Rivet {
           } //CalMET
         } //jets N, pT
       } //jets y (raqpidity) 
-
-      //} //z-vertex
-
-
-    // Finished
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
 
 

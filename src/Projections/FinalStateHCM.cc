@@ -16,17 +16,25 @@ namespace Rivet {
 
   void FinalStateHCM::project(const Event& e) {
     const DISLepton& dislep = e.applyProjection(_lepton);
+    const GenParticle* dislepGP = &( dislep.out().getHepMCParticle() );
+
     const DISKinematics& diskin = e.applyProjection(_kinematics);
+    const LorentzTransform hcmboost = diskin.boostHCM();
+
     const FinalState& fs = e.applyProjection(_fsproj);
+
+    // Fill the particle list with all particles _other_ than the DIS scattered
+    // lepton, with momenta boosted into the HCM frame.
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
-    const GenParticle* dislepGP = &( dislep.out().getHepMCParticle() );
     for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {
-      if ( &(fs.particles()[i].getHepMCParticle()) != dislepGP ) {
-        _theParticles.push_back(fs.particles()[i]);
-        FourMomentum p_i = _theParticles[i].getMomentum();
-        p_i = diskin.boostHCM().transform(p_i);
-        _theParticles[i].setMomentum(p_i);
+      const GenParticle* loopGP = &( fs.particles()[i].getHepMCParticle() );
+      /// @todo Maybe Particle should have equiv() and same() methods?
+      if (loopGP != dislepGP) {
+        Particle tmpP = fs.particles()[i];
+        const FourMomentum hcmMom = hcmboost.transform(tmpP.getMomentum());
+        tmpP.setMomentum(hcmMom);
+        _theParticles.push_back(tmpP);
       }
     }
   }

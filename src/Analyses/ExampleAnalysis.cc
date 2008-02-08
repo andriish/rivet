@@ -25,7 +25,6 @@ namespace Rivet {
   // Do the analysis
   void ExampleAnalysis::analyze(const Event& event) {
     Log log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
 
     // Analyse and print some info
     const Multiplicity& cm = event.applyProjection(_cmultproj);
@@ -52,9 +51,6 @@ namespace Rivet {
     _histMajor->fill(t.thrustMajor(), weight);
     _histSphericity->fill(s.sphericity(), weight);
     _histAplanarity->fill(s.aplanarity(), weight);
-
-    // Finished
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
 
 

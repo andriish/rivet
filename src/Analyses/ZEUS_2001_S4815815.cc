@@ -17,7 +17,6 @@ namespace Rivet {
   // Do the analysis
   void ZEUS_2001_S4815815::analyze(const Event& event) {
     Log& log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
 
     // Analyse and print some info
     const FastJets& jets = event.applyProjection(_jetsproj);
@@ -29,9 +28,6 @@ namespace Rivet {
     for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
       _histJetEt1->fill(j->perp(), event.weight() );
     }
-
-    // Finished
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
 
 

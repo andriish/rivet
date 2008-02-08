@@ -1,3 +1,8 @@
+2008-02-08  Andy Buckley  <andy@insectnation.org>
+
+	* Applied fixes and extensions to DIS classes, based on
+	submissions by Dan Traynor.
+
 2008-02-06  Andy Buckley  <andy@insectnation.org>
 
 	* Made projection pointers used for cut combining into const

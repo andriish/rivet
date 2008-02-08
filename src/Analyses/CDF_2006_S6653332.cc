@@ -24,7 +24,6 @@ namespace Rivet {
   // Do the analysis
   void CDF_2006_S6653332::analyze(const Event& event) {
     Log log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
     
     // Find primary vertex 
     const PVertex& pv = event.applyProjection(_pvtxproj);
@@ -183,8 +182,6 @@ namespace Rivet {
     } // Cal. missing Et and scalar Et (Ht) cut
     
     } // Primary vertex z-position requirement
-    
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
   
   

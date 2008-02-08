@@ -7,10 +7,11 @@ namespace Rivet {
     // Get thrust axes.
     const AxesDefinition& ax = e.applyProjection(*_axproj);
     const Vector3 n = ax.axis1();
+    getLog() << Log::DEBUG << "Thrust axis = " << n << endl;
 
     FourMomentum p4With, p4Against;
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
-    const ParticleVector particles = e.applyProjection(_fsproj).particles();  
+    const ParticleVector particles = e.applyProjection(_fsproj).particles();
     for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
       const FourMomentum p4 = p->getMomentum();
       const Vector3 p3 = p4.vector3();
@@ -19,8 +20,8 @@ namespace Rivet {
       const double p3Trans = mod(p3 - p3Para * n);
 
       // Update normalisations
-      Evis += p4.t();
-      broadDenom += p3Mag;
+      Evis += p4.E();
+      broadDenom += 2.0 * p3Mag;
 
       // Update the mass and broadening variables
       if (p3Para > 0) {
@@ -32,6 +33,7 @@ namespace Rivet {
       } else {
         // In the incredibly unlikely event that a particle goes exactly along the
         // thrust plane, add half to each hemisphere.
+        getLog() << Log::DEBUG << "Particle split between hemispheres" << endl;
         p4With += 0.5 * p4;
         p4Against += 0.5 * p4;
         broadWith += 0.5 * p3Trans;
@@ -50,15 +52,14 @@ namespace Rivet {
     _M2low = (withIsMaxMass2) ? mass2Against : mass2With;
 
     // Calculate broadenings.
-    broadWith /= 2.0 * broadDenom;
-    broadAgainst /= 2.0 * broadDenom;
+    broadWith /= broadDenom;
+    broadAgainst /= broadDenom;
     const bool withIsMaxBroad = (broadWith > broadAgainst);
     _Bmax = (withIsMaxBroad) ? broadWith : broadAgainst;
     _Bmin = (withIsMaxBroad) ? broadAgainst : broadWith;
 
     // Calculate high-max correlation flag.
     _highMassEqMaxBroad = (withIsMaxMass2 && withIsMaxBroad || !withIsMaxMass2 && !withIsMaxBroad);
-
   }
 
 }

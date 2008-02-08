@@ -20,7 +20,6 @@ namespace Rivet {
   // Do the analysis
   void OPAL_2004_S6132243::analyze(const Event & event) {
     Log& log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
 
     // Analyse and print some info
     const Multiplicity& m = event.applyProjection(mult);
@@ -38,9 +37,6 @@ namespace Rivet {
     histSphericity_->fill(s.sphericity(), weight);
     histPlanarity_->fill(s.planarity(), weight);
     histAplanarity_->fill(s.aplanarity(), weight);
-
-    // Finished...
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
 
 

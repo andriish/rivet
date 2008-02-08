@@ -126,6 +126,11 @@ inline double contract(const FourVector& a, const FourVector& b) {
 }
 
 /// Contract two 4-vectors, with metric signature (+ - - -).
+inline double dot(const FourVector& a, const FourVector& b) {
+  return contract(a, b);
+}
+
+/// Contract two 4-vectors, with metric signature (+ - - -).
 inline double operator*(const FourVector& a, const FourVector& b) {
   return contract(a, b);
 }

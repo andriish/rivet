@@ -3,7 +3,7 @@
 
 \usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore,fancyvrb}
 \usepackage{hepnicenames,hepunits}
-%\usepackage{dropping}
+\usepackage{picinpar}
 
 \newenvironment{snippet}{\Verbatim}{\endVerbatim}
 
@@ -27,10 +27,20 @@
 %\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize \textit{#1}]%
 %{\raggedright\footnotesize \textit{#1}}}
 
-\newcommand{\bendimg}{\includegraphics[height=1cm]{bend}}
+\newcommand{\coneimg}{\includegraphics[height=11mm]{cone}}
+\newcommand{\bendimg}{\includegraphics[height=11mm]{bend}}
 \newcommand{\dblbendimg}{\bendimg\hspace{0.5mm}\bendimg}
-\newenvironment{bend}{\bendimg}{\ignorespacesafterend}
-\newenvironment{dblbend}{\dblbendimg}{\ignorespaceafterend}
+
+\newenvironment{change}{%
+\begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}{\par%
+% \showthe\prevgraf%
+% \showthe\prevdepth%
+% \ifnum\prevgraf<2\rule{1pt}{1.2cm}\fi%
+\end{window}\ignorespacesafterend}
+
+\newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
+\newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
+
 
 \title{Rivet and AGILe manual}
 
@@ -272,20 +282,39 @@ meanings of these options, but we'll survey a few of them here with concrete exa
 \end{itemize}
 
 
-\section{The projection/analysis model}
+\section{How Rivet works}
+The projection/analysis model.
 
 
 \section{Projections}
 \subsection{Projection caching}
-\begin{bend}
+\begin{detail}
 How projection caching works (skippable, but useful as a reference)
 This section is super-hardcore
-\end{bend}
+\end{detail}
+
 \subsection{Standard projection summary}
 \subsection{Example projection}
+\subsection{Cuts and constraints}
+\begin{change}
+How cuts and constraints work. This will change in version 2.
+\end{change}
 
 
 \section{Analyses}
+
+\subsection{Histogramming}
+\begin{change}
+Histo interfaces, AIDA. Formats.\\
+More things.\\
+And more.\\
+And finally some more.\\
+More things.\\
+And more.\\
+And finally some more.
+\end{change}
+
+
 \subsection{Analysis histo autobinning}
 \subsection{Pluggable analyses}
 \subsection{Example analysis}

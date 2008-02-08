@@ -156,9 +156,11 @@ namespace Rivet {
     calcT(threeMomenta, val, axis);
     getLog() << Log::DEBUG << "Mom sum = " << momentumSum << endl;
     _thrusts.push_back(sqrt(val) / momentumSum);
+    // Make sure that thrust always points along the +ve z-axis.
     if (axis.z() < 0) axis = -axis;
+    axis = axis.unit();
     getLog() << Log::DEBUG << "Axis = " << axis << endl;
-    _thrustAxes.push_back(axis.unit()); 
+    _thrustAxes.push_back(axis);
 
     // Get thrust major 
     threeMomenta.clear();
@@ -171,7 +173,8 @@ namespace Rivet {
     calcM(threeMomenta, val, axis);
     _thrusts.push_back(sqrt(val) / momentumSum);
     if (axis.x() < 0) axis = -axis;
-    _thrustAxes.push_back(axis.unit()); 
+    axis = axis.unit();
+    _thrustAxes.push_back(axis); 
 
     // Get thrust minor
     if (_thrustAxes[0].dot(_thrustAxes[1]) < 1e-10) {

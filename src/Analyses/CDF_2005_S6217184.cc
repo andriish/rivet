@@ -32,7 +32,6 @@ namespace Rivet {
   // Do the analysis
   void CDF_2005_S6217184::analyze(const Event& event) {
     Log log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
     
     // Analyse and print some info  
     const FastJets& jetpro = event.applyProjection(_jetsproj);
@@ -103,9 +102,6 @@ namespace Rivet {
         }
       }
     }
-    
-    // Finished
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
   
   

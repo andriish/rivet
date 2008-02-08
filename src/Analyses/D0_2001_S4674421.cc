@@ -20,7 +20,6 @@ namespace Rivet {
 
   void D0_2001_S4674421::analyze(const Event & event) {
       Log& log = getLog();
-      log << Log::DEBUG << "Starting analyzing" << endl;    
 
       const double weight = event.weight();
       const WZandh& WZbosons = event.applyProjection(_WZproj);
@@ -42,8 +41,6 @@ namespace Rivet {
         _h_dsigdpt_z->fill(pmom.pT(), weight);
         _eventsFilledZ += weight;
       }
-
-      log << Log::DEBUG << "Finished analyzing" << endl;
   }
 
 
