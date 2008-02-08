@@ -53,11 +53,9 @@ namespace Rivet {
 
     // Correct W pT distribution to W cross-section
     const double xSecW = xSecPerEvent * _eventsFilledW;
-    cout << "xSecW=" << xSecW << endl;
 
     // Correct Z pT distribution to Z cross-section
     const double xSecZ = xSecPerEvent * _eventsFilledZ;
-    cout << "xSecZ=" << xSecZ << endl;
 
     _h_dsigdpt_wz_rat = histogramFactory().divide("/D0_2001_S4674421/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_z);
     _h_dsigdpt_wz_rat->scale(xSecW/xSecZ * _mwmz * _brzee / _brwenu);
