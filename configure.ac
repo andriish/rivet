@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.0b4],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.0RC],[rivet@projects.hepforge.org],[Rivet])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
@@ -40,7 +40,10 @@ AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 ## Decide/determine whether to build the rivetgun executable
 AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable @<:@default=yes@:>@])], [], [enable_rivetgun=yes])
 AC_CEDAR_LIBRARYANDHEADERS([AGILe], , , [AC_MSG_WARN([AGILe not found])])
-AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes])
+AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes && test x$WITH_AGILE != xno])
+if test x$enable_rivetgun == xyes && test x$WITH_AGILE == xno; then
+  AC_MSG_NOTICE([AGILe not found: not building rivetgun])
+fi
 
 ## Decide whether to build the Python extension
 AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, [build pyrivet Python module @<:@default=no@:>@])], [], [enable_pyrivet=no])

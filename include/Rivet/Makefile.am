@@ -75,6 +75,9 @@ nobase_pkginclude_HEADERS += \
   Tools/Utils.hh \
   Tools/BinnedHistogram.hh \
   Tools/ParticleIDMethods.hh
+nobase_dist_noinst_HEADERS += \
+  Tools/binreloc.h \
+  Tools/osdir.hh
 
 nobase_pkginclude_HEADERS += \
   Math/Matrices.hh \

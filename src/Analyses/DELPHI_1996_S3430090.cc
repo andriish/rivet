@@ -11,6 +11,19 @@ namespace Rivet {
   void DELPHI_1996_S3430090::analyze(const Event& e) {
     Log& log = getLog();
 
+    // First, veto on leptonic events by examining the signal vertex
+    // NB. Doesn't work --- signal vertex not reliable.
+    // GenVertex* sigVtx = e.genEvent().signal_process_vertex();
+    // size_t count = 0;
+    // for (HepMC::GenVertex::particles_out_const_iterator sigp = sigVtx->particles_out_const_begin();
+    //      sigp != sigVtx->particles_out_const_end(); ++sigp) {
+    //   if (*sigp) {
+    //     ++count;
+    //     log << Log::INFO << "Sig part ID = " << (*sigp)->pdg_id() << endl;
+    //   }
+    // }
+    // log << Log::INFO << "Num sig particles = " << count << endl;
+
     // First, veto on leptonic events by requiring at least 4 charged FS particles
     /// @todo Work out why this creates a segfault if it's run before the beams projection...
     const FinalState& fs = e.applyProjection(_cnfsproj);
