@@ -33,11 +33,11 @@ namespace Rivet {
 ////////////////////////////////////////////////////////////////////////////////
   void CDF_2007_S7057202::analyze(const Event& event) {
     const double weight = event.weight();    
-    event.applyProjection(_ktprojD07);
-    event.applyProjection(_ktprojD05);
-    event.applyProjection(_ktprojD10);
+    const FastJets &ktprojD07 = event.applyProjection(_ktprojD07);
+    const FastJets &ktprojD05 = event.applyProjection(_ktprojD05);
+    const FastJets &ktprojD10 = event.applyProjection(_ktprojD10);
     
-    PseudoJets jetList = _ktprojD07.getPseudoJets();
+    PseudoJets jetList = ktprojD07.getPseudoJets();
     
     set< IHistogram1D*> passed;
     for (PseudoJets::const_iterator jet = jetList.begin(); 
@@ -56,7 +56,7 @@ namespace Rivet {
       }
     }
     
-    PseudoJets jetListD05 = _ktprojD05.getPseudoJets();
+    PseudoJets jetListD05 = ktprojD05.getPseudoJets();
     for (PseudoJets::iterator jet = jetListD05.begin(); 
          jet != jetListD05.end(); ++jet) {
       const double pt = jet->perp();
@@ -71,7 +71,7 @@ namespace Rivet {
       }
     }
     
-    PseudoJets jetListD10 = _ktprojD10.getPseudoJets();
+    PseudoJets jetListD10 = ktprojD10.getPseudoJets();
     for(PseudoJets::iterator jet = jetListD10.begin(); 
         jet != jetListD10.end(); ++jet){
       const double pt = jet->perp();
