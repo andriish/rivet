@@ -10,13 +10,10 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2006_S6653332::init() {
-    /// @todo Use histogram auto-booking if there are comparison datasets in HepData.
-    // Will be replaced as soon as HepData is updated and rivet/data subdirectory
-    // contains relevant data histo's
-    _histJetsPt    = bookHistogram1D("JetsPt", "All jets Pt", 10, 0., 100.);
-    _histJetsEta   = bookHistogram1D("JetsEta", "All jets Pseudorapidity", 20, -2., 2.);
-    _histbJetsPt   = bookHistogram1D("bJetsPt", "b jets Pt", 10, 0., 100.);
-    _histbJetsEta  = bookHistogram1D("bJetsEta", "b jets Pseudorapidity", 20, -2., 2.);
+    _histJetsPt    = bookHistogram1D(4,1,1,"All jets Pt");
+    _histJetsEta   = bookHistogram1D(5,1,1,"All jets Pseudorapidity");
+    _histbJetsPt   = bookHistogram1D(6,1,1,"b jets Pt");
+    _histbJetsEta  = bookHistogram1D(7,1,1,"b jets Pseudorapidity");
   }
 
 
