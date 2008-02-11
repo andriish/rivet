@@ -19,11 +19,24 @@ namespace Rivet {
     
     /// Constructor. The provided FinalState projection must live throughout the run.
     TotalVisibleMomentum(FinalState& fsp)
-      : _fsproj(fsp)
     { 
-      addProjection(fsp);
+      defaultConstructor(&fsp);
+    }
+    
+    /// Constructor. The provided FinalState projection must live throughout the run.
+    TotalVisibleMomentum(FinalState *fsp)
+    { 
+      defaultConstructor(fsp);
     }
 
+  private:
+    
+    void defaultConstructor(FinalState *fsp){
+      _fsproj = fsp;
+      addProjection(*_fsproj);
+      return;
+    }
+    
     
   public:
     /// Return the name of the projection
@@ -51,8 +64,8 @@ namespace Rivet {
         
   private:
     
-    /// The FinalState projection used by this projection
-    FinalState _fsproj;
+    /// Pointer to the FinalState projection used by this projection
+    FinalState *_fsproj;
     
     /// The total visible momentum
     FourMomentum _momentum;
