@@ -101,7 +101,7 @@ namespace Rivet {
     double xSecPerEvent = crossSection() / _eventsTried;
     // HepData data is in nb, crossSection returns pb.
     /// @todo Choose consistent units set
-    xSecPerEvent = xSecPerEvent * nanobarn; 
+    xSecPerEvent = xSecPerEvent / nanobarn; 
     
     for (map<IHistogram1D*,double>::iterator histIt = _eventsPassed.begin();
          histIt != _eventsPassed.end(); ++histIt) {
