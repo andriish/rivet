@@ -149,13 +149,18 @@ If you are running on a system where the CERN AFS area is mounted as
 \path{/afs/cern.ch}, then the bootstrap script will attempt to use the pre-built
 HepMC, LHAPDF, FastJet and GSL libraries from the LCG software area. Either way,
 you'll see a large amount of build output, and finally a message telling you
-what changes to your environment variables will make the system useable.
+what changes to your environment variables will make the system useable. Set the
+variables as instructed, if you've not already done so, and check that it works
+by issuing\\
+\inp{rivetgun -g FPythia:6413}\\
+which should make 10 LHC events for you, using the Fortran Pythia 6.4.13
+generator. You're on your way!
 
-You should now have a working, installed copy of the Rivet and AGILe libraries,
-and the \kbd{rivetgun} and \kbd{rivet-config} executables. \kbd{rivet-config} is
-a simple script which can be used to determine useful paths when compiling
-against Rivet. \kbd{rivetgun} is the main executable used to run generators and
-process their output with Rivet analyses. We'll discuss it in detail
+You now have a working, installed copy of the Rivet and AGILe libraries, and the
+\kbd{rivetgun} and \kbd{rivet-config} executables. \kbd{rivet-config} is a
+simple script which can be used to determine useful paths when compiling against
+Rivet. \kbd{rivetgun} is the main executable used to run generators and process
+their output with Rivet analyses. We'll discuss it in detail
 in \SectionRef{sec:rivetgun}.
 
 One last thing before continuing, though: the generators themselves. Again, if
