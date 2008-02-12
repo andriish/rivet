@@ -137,7 +137,7 @@ namespace Rivet {
       // Scaled momenta.
       const double mom = mom3.mod();
       const double scaledMom = mom/meanBeamMom;
-      const double logInvScaledMom = -log10(scaledMom);
+      const double logInvScaledMom = -std::log(scaledMom);
       _histLogScaledMom->fill(logInvScaledMom, weight); 
       _histScaledMom->fill(scaledMom, weight); 
 
