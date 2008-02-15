@@ -33,7 +33,10 @@ namespace Rivet {
     }
     const string result = (numCharged < 4) ? "Failed" : "Passed";
     log << Log::DEBUG << result << " leptonic event cut" << endl;
-    if (numCharged < 4) return;
+    if (numCharged < 4) {
+      _sumOfRejectedWeights+=e.weight();
+      return;
+    }
 
     // Get beams and average beam momentum
     const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
@@ -283,8 +286,8 @@ namespace Rivet {
   void DELPHI_1996_S3430090::finalize() { 
     // Normalize inclusive single particle distributions to the average number 
     // of (charged / charged+neutral) particles per event.
-    const double avgNumPartsC = _weightedTotalPartNumC / sumOfWeights();
-    const double avgNumPartsCN = _weightedTotalPartNumCN / sumOfWeights();
+    const double avgNumPartsC = _weightedTotalPartNumC / (sumOfWeights()-_sumOfRejectedWeights);
+    const double avgNumPartsCN = _weightedTotalPartNumCN / (sumOfWeights()-_sumOfRejectedWeights);
     
     normalize(_histPtTInC, avgNumPartsC);
     normalize(_histPtTInCN, avgNumPartsCN);

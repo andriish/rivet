@@ -119,6 +119,11 @@ namespace Rivet {
     /// particles - used to calculate average number of particles for the 
     /// inclusive single particle distributions' normalisations.
     double _weightedTotalPartNumC, _weightedTotalPartNumCN;
+    
+    /// Store the sum of weights for events which are rejected by the
+    /// lepton veto. We need this number to get the normalisation of single
+    /// particle distributions right.
+    double _sumOfRejectedWeights;
 
     /// @name Histograms
     //@{
