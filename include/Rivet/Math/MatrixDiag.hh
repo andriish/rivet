@@ -24,6 +24,14 @@ extern "C" {
   gsl_eigen_symmv_workspace* gsl_eigen_symmv_alloc(size_t);
   void gsl_eigen_symmv(gsl_matrix*, gsl_vector*, gsl_matrix*, gsl_eigen_symmv_workspace*);
   void gsl_eigen_symmv_free(gsl_eigen_symmv_workspace*);
+  typedef enum {
+    GSL_EIGEN_SORT_VAL_ASC,
+    GSL_EIGEN_SORT_VAL_DESC,
+    GSL_EIGEN_SORT_ABS_ASC,
+    GSL_EIGEN_SORT_ABS_DESC
+  }
+  gsl_eigen_sort_t;
+  int gsl_eigen_symmv_sort(gsl_vector * eval, gsl_matrix * evec, gsl_eigen_sort_t sort_type);
 }
 
 
@@ -114,6 +122,7 @@ EigenSystem<N> diagonalize(const Matrix<N>& m) {
   gsl_vector* vals = gsl_vector_alloc(N);
   gsl_eigen_symmv_workspace* workspace = gsl_eigen_symmv_alloc(N);
   gsl_eigen_symmv(A, vals, vecs, workspace);
+  gsl_eigen_symmv_sort(vals, vecs, GSL_EIGEN_SORT_VAL_DESC);
   
   // Build the vector of "eigen-pairs".
   typename EigenSystem<N>::EigenPairs eigensolns;
@@ -122,16 +131,12 @@ EigenSystem<N> diagonalize(const Matrix<N>& m) {
     ep.first = gsl_vector_get(vals, i);
     Vector<N> ev;
     for (size_t j = 0; j < N; ++j) {
-      ev.set(j, gsl_matrix_get(vecs, i, j));
+      ev.set(j, gsl_matrix_get(vecs, j, i));
     }
     ep.second = ev;
     eigensolns.push_back(ep);
   }
 
-  // Sort pairs by decreasing eigenvalue.
-  std::sort(eigensolns.begin(), eigensolns.end(), EigenPairCmp<N>());
-  std::reverse(eigensolns.begin(), eigensolns.end());
-  
   // Free GSL memory.
   gsl_eigen_symmv_free(workspace);
   gsl_matrix_free(A);
