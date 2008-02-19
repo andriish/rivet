@@ -27,13 +27,19 @@ namespace Rivet {
     // First, veto on leptonic events by requiring at least 4 charged FS particles
     /// @todo Work out why this creates a segfault if it's run before the beams projection...
     const FinalState& fs = e.applyProjection(_cnfsproj);
+
+    // FIXME: This lepton veto cut is merely a hack, but not a solution.
+    // We should really tell the generator to produces only hadronic events.
+    // Cutting on numCharged>=4 is not sufficient, and I have no idea how
+    // good or bad numCharged>=6 really is. And the way we fix the normalisation
+    // of single particle distributions is not nice, either.
     size_t numCharged = 0;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       if (PID::threeCharge(p->getPdgId())) ++numCharged;
     }
     const string result = (numCharged < 4) ? "Failed" : "Passed";
     log << Log::DEBUG << result << " leptonic event cut" << endl;
-    if (numCharged < 4) {
+    if (numCharged < 6) {
       _sumOfRejectedWeights+=e.weight();
       return;
     }
