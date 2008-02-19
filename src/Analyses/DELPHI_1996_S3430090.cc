@@ -153,11 +153,11 @@ namespace Rivet {
       // Get momenta components w.r.t. thrust and sphericity.
       const double momT = dot(thrustC.thrustAxis(), mom3);
       const double momS = dot(sphericityC.sphericityAxis(), mom3);
-      const double pT = mom3.polarRadius();
       const double pTinT = dot(mom3, thrustC.thrustMajorAxis());
       const double pToutT = dot(mom3, thrustC.thrustMinorAxis());
       const double pTinS = dot(mom3, sphericityC.sphericityMajorAxis());
       const double pToutS = dot(mom3, sphericityC.sphericityMinorAxis());
+      const double pT = sqrt(pow(pTinT, 2) + pow(pToutT, 2));
       _histPtTInC->fill(fabs(pTinT/GeV), weight);
       _histPtTOutC->fill(fabs(pToutT/GeV), weight);
       _histPtSInC->fill(fabs(pTinS/GeV), weight);
