@@ -47,7 +47,7 @@ namespace Rivet {
 
     /// Constructor. The FinalState projection must live throughout the run.
     Thrust(FinalState& fsp)
-      : _calculatedThrust(false), _fsproj(fsp)
+      : _calculatedThrust(false), _fsproj(&fsp)
     { 
       addProjection(fsp);
     }
@@ -65,7 +65,7 @@ namespace Rivet {
 
     /// Compare projections
     int compare(const Projection& p) const { 
-      return 0; 
+      return pcmp(*_fsproj, *(dynamic_cast<const Thrust&>(p)._fsproj)); 
     }
 
 
@@ -111,7 +111,7 @@ namespace Rivet {
     bool _calculatedThrust;
 
     /// The FinalState projection used by this projection
-    FinalState _fsproj;
+    FinalState *_fsproj;
 
 
   private:

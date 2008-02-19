@@ -70,6 +70,7 @@ namespace Rivet {
       threeMomenta.push_back(p3);
       momentumSum += mod(threeMomenta.back());
     }
+    getLog() << Log::DEBUG << "number of particles = " << threeMomenta.size() << endl;
 
 
     // Clear the caches
@@ -153,7 +154,7 @@ namespace Rivet {
 
 
   void Thrust::project(const Event& e) {
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const FinalState& fs = e.applyProjection(*_fsproj);
     calcThrust(fs);
   }
 

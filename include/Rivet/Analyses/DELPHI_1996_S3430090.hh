@@ -33,7 +33,7 @@ namespace Rivet {
         _cthrustproj(_cfsproj), _cnthrustproj(_cnfsproj), 
         _cparisiproj(_cfsproj), _cnparisiproj(_cnfsproj),
         _chemiproj(_cfsproj, _cthrustproj), 
-        _cnhemiproj(_cfsproj, _cnthrustproj)
+        _cnhemiproj(_cnfsproj, _cnthrustproj)
     {
       setBeams(ELECTRON, POSITRON); 
       addProjection(_cfsproj);

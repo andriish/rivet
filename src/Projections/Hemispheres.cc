@@ -11,7 +11,8 @@ namespace Rivet {
 
     FourMomentum p4With, p4Against;
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
-    const ParticleVector particles = e.applyProjection(_fsproj).particles();
+    const ParticleVector particles = e.applyProjection(*_fsproj).particles();
+    getLog() << Log::DEBUG << "number of particles = " << particles.size() << endl;
     for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
       const FourMomentum p4 = p->getMomentum();
       const Vector3 p3 = p4.vector3();

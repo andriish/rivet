@@ -69,7 +69,7 @@ namespace Rivet {
       : _E2vis(-1), _M2high(-1), _M2low(-1),
         _Bmax(-1), _Bmin(-1),
         _highMassEqMaxBroad(true),
-        _fsproj(fsp), _axproj(&ax)
+        _fsproj(&fsp), _axproj(&ax)
     {
       addProjection(ax);
     }
@@ -87,7 +87,8 @@ namespace Rivet {
 
     /// Compare with other projections.
     int compare(const Projection& p) const {
-      return 0;
+      return pcmp(*_fsproj, *(dynamic_cast<const Hemispheres&>(p)._fsproj)) ||
+             pcmp(*_axproj, *(dynamic_cast<const Hemispheres&>(p)._axproj)); 
     }
 
 
@@ -147,7 +148,7 @@ namespace Rivet {
     bool _highMassEqMaxBroad;
 
     /// The final state projection used to iterate over particles.
-    FinalState _fsproj;
+    FinalState *_fsproj;
     
     /// The Thrust projection used to get the hemisphere alignment.
     AxesDefinition* _axproj;

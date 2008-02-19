@@ -9,7 +9,7 @@ namespace Rivet {
 
   int Sphericity::compare(const Projection& p) const {
     const Sphericity& other = dynamic_cast<const Sphericity&>(p);
-    int fscmp = pcmp(_fsproj, other._fsproj);
+    int fscmp = pcmp(*_fsproj, *(other._fsproj));
     if (fscmp != 0) return fscmp;
     if (fuzzyEquals(_regparam, other._regparam)) return 0;
     return (_regparam > other._regparam) ? 1 : -1;
@@ -21,7 +21,7 @@ namespace Rivet {
     log << Log::DEBUG << "Calculating sphericity with r = " << _regparam << endl;
 
     // Get final state.
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const FinalState& fs = e.applyProjection(*_fsproj);
     const ParticleVector prts = fs.particles();
 
     // Return (with "safe nonsense" sphericity params) if there are no final state particles.
@@ -33,6 +33,7 @@ namespace Rivet {
     // Iterate over all the final state particles.
     Matrix3 mMom;
     double totalMomentum = 0.0;
+    getLog() << Log::DEBUG << "number of particles = " << prts.size() << endl;
     for (ParticleVector::const_iterator p = prts.begin(); p != prts.end(); ++p) {
 
       // Get the momentum vector for the final state particle.
