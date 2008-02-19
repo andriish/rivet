@@ -123,7 +123,7 @@ namespace Rivet {
     void calcM(const vector<Vector3>& p, double& m, Vector3& maxis) const;
 
     /// Explicitly calculate the thrust value and axis.
-    void calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const;
+    void calcT(vector<Vector3>& p, double& t, Vector3& taxis) const;
 
   };
   

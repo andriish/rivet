@@ -6,73 +6,59 @@
 
 namespace Rivet {
 
-  void Thrust::calcT(const vector<Vector3>& p, double& t, Vector3& taxis) const {
-    t = 0.0;
-    Vector3 tv, ptot;
-    vector<Vector3> cpm(4);
-    const size_t psize = p.size();
-    for (size_t k = 1; k < psize; ++k) {
-      for (size_t j = 0; j < k; ++j) {
-        tv = p[j].cross(p[k]);
-        ptot = Vector3();
-        for (size_t l = 0; l < psize; ++l) {
-          if (l != j && l != k) {
-            if (p[l].dot(tv) > 0.0) { 
-              ptot += p[l];
-            } else {
-              ptot -= p[l];
-            }
-          }
-        }
-        cpm[0] = ptot - p[j] - p[k];
-        cpm[1] = ptot - p[j] + p[k];
-        cpm[2] = ptot + p[j] - p[k];
-        cpm[3] = ptot + p[j] + p[k];
-        for (size_t i = 0; i < 4; ++i) {
-          double tval = mod2(cpm[i]);
-          if (tval > t) {
-            t = tval;
-            taxis = cpm[i];
-          }
-        }
-      } // j loop
-    } // k loop
+  inline bool mod2Cmp(const Vector3& a, const Vector3& b) {
+    return a.mod2() > b.mod2();
   }
 
-
-
-  void Thrust::calcM(const vector<Vector3>& p, double& m, Vector3& maxis) const {
-    double mval;
-    m = 0.0;
-    Vector3 tv, ptot;
-    vector<Vector3> cpm;
-    for (unsigned int j = 0; j < p.size(); ++j) {
-      tv = p[j];
-      ptot = Vector3();
-      for (unsigned int l = 0; l < p.size(); ++l) {
-        if (l != j) {
-          if (p[l].dot(tv) > 0.0) { 
-            ptot += p[l];
-          } else {
-            ptot -= p[l];
-          }
-        }
+  void Thrust::calcT(vector<Vector3>& p, double& t, Vector3& taxis) const {
+    /* This function implements the iterative algorithm as described in the
+     * Pythia manual. We take eight (four) different starting vectors
+     * constructed from the four (three) leading particles to make sure that
+     * we don't find a local maximum.
+     */
+    assert(p.size()>=3);
+    unsigned int n;
+    p.size()==3 ? n=3 : n=4;
+    vector<Vector3> tvec;
+    vector<double> tval;
+    std::sort(p.begin(), p.end(), mod2Cmp);
+    for (unsigned int i=0 ; i<pow(2,n-1) ; i++) {
+      // Create an initial vector from the leading four jets
+      Vector3 foo(0,0,0);
+      int sign=i;
+      for (unsigned int k=0 ; k<n ; k++) {
+        (sign%2)==1 ? foo+=p[k] : foo-=p[k];
+        sign/=2;
       }
-      cpm.clear();
-      cpm.push_back(ptot - p[j]);
-      cpm.push_back(ptot + p[j]);
-      for (vector<Vector3>::iterator it = cpm.begin(); it != cpm.end(); ++it) {
-        mval = it->mod2();
-        if (mval > m) {
-          m = mval;
-          maxis = *it;
-        }
-      }
-    } // j loop
-  }
+      foo=foo.unit();
 
-  inline bool mod2ReverseCmp(const Vector3& a, const Vector3& b) {
-    return a.mod2() < b.mod2();
+      // Iterate
+      double diff=999.;
+      while (diff>1e-5) {
+        Vector3 foobar(0,0,0);
+        for (unsigned int k=0 ; k<p.size() ; k++)
+          foo.dot(p[k])>0 ? foobar+=p[k] : foobar-=p[k];
+        diff=(foo-foobar.unit()).mod();
+        foo=foobar.unit();
+      }
+
+      // Calculate the thrust value for the vector we found
+      t=0.;
+      for (unsigned int k=0 ; k<p.size() ; k++)
+        t+=fabs(foo.dot(p[k]));
+
+      // Store everything
+      tval.push_back(t);
+      tvec.push_back(foo);
+    }
+
+    // Pick the solution with the largest thrust
+    t=0.;
+    for (unsigned int i=0 ; i<tvec.size() ; i++)
+      if (tval[i]>t){
+        t=tval[i];
+        taxis=tvec[i];
+      }
   }
 
   void Thrust::calcThrust(const FinalState& fs) {
@@ -95,7 +81,7 @@ namespace Rivet {
     if (threeMomenta.size() < 2) {
       for (int i = 0; i < 3; ++i) {
         _thrusts.push_back(-1);
-        _thrustAxes.push_back(Vector3());
+        _thrustAxes.push_back(Vector3(0,0,0));
       }
       return;
     }
@@ -103,7 +89,7 @@ namespace Rivet {
 
     // Handle special case of thrust = 1 if there are only 2 particles
     if (threeMomenta.size() == 2) {
-      Vector3 axis;
+      Vector3 axis(0,0,0);
       _thrusts.push_back(1.0);
       _thrusts.push_back(0.0);
       _thrusts.push_back(0.0);
@@ -112,50 +98,23 @@ namespace Rivet {
       _thrustAxes.push_back(axis);
       /// @todo Improve this --- special directions bad...
       /// (a,b,c) _|_ 1/(a^2+b^2) (b,-a,0) etc., but which combination minimises error?
-      _thrustAxes.push_back( axis.cross(Vector3(0,0,1)) );
+      if (axis.z() < 0.75)
+        _thrustAxes.push_back( (axis.cross(Vector3(0,0,1))).unit() );
+      else
+        _thrustAxes.push_back( (axis.cross(Vector3(0,1,0))).unit() );
       _thrustAxes.push_back( _thrustAxes[0].cross(_thrustAxes[1]) );
       return;
     }
 
 
-    // Handle special case where thrust = max{x1,x2,x3} if there are 3 particles
-    if (threeMomenta.size() == 3) {
-      Vector3 axis;
-      // Order by magnitude
-      std::sort(threeMomenta.begin(), threeMomenta.end(), mod2ReverseCmp);
-      //std::reverse(threeMomenta.begin(), threeMomenta.end());
-      // Thrust
-      axis = threeMomenta[0].unit();
-      if (axis.z() < 0) axis = -axis;
-      _thrusts.push_back(2.0 * mod(threeMomenta[0]) / momentumSum);
-      _thrustAxes.push_back(axis);
-      // Thrust major (independent part of next largest momentum)
-      axis = ( threeMomenta[1] - dot(axis, threeMomenta[1]) * axis ).unit();
-      if (axis.x() < 0) axis = -axis;
-      _thrusts.push_back( (fabs(threeMomenta[1].dot(axis)) + 
-                           fabs(threeMomenta[2].dot(axis)))  / momentumSum);
-      _thrustAxes.push_back(axis);
-      // Thrust minor
-      _thrusts.push_back(0.0);
-      _thrustAxes.push_back( _thrustAxes[0].cross(_thrustAxes[1]) );
-      return;
-    }
-
-
-    // If the special cases don't apply, we have to use a general method. Here
-    // we explicitly calculate in units of MeV using an algorithm based on 
-    // Brandt/Dahmen Z Phys C1 (1978) and 'tasso' code from HERWIG. Re-coded
-    // from Herwig++ implementation by Stefan Gieseke by Andy Buckley.
-    // NB. special case with >= 4 coplanar particles will still fail.
-    // probably not too important... 
 
     // Temporary variables for calcs
-    Vector3 axis; double val;
+    Vector3 axis(0,0,0); double val=0.;
 
     // Get thrust
     calcT(threeMomenta, val, axis);
     getLog() << Log::DEBUG << "Mom sum = " << momentumSum << endl;
-    _thrusts.push_back(sqrt(val) / momentumSum);
+    _thrusts.push_back(val / momentumSum);
     // Make sure that thrust always points along the +ve z-axis.
     if (axis.z() < 0) axis = -axis;
     axis = axis.unit();
@@ -170,8 +129,8 @@ namespace Rivet {
       const Vector3 vpar = dot(v, axis.unit()) * axis.unit();
       threeMomenta.push_back(v - vpar);
     }
-    calcM(threeMomenta, val, axis);
-    _thrusts.push_back(sqrt(val) / momentumSum);
+    calcT(threeMomenta, val, axis);
+    _thrusts.push_back(val / momentumSum);
     if (axis.x() < 0) axis = -axis;
     axis = axis.unit();
     _thrustAxes.push_back(axis); 
@@ -187,7 +146,7 @@ namespace Rivet {
       _thrusts.push_back(val / momentumSum);
     } else {
       _thrusts.push_back(-1.0);
-      _thrustAxes.push_back(Vector3());
+      _thrustAxes.push_back(Vector3(0,0,0));
     }
 
   }
