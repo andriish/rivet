@@ -45,8 +45,8 @@ namespace Rivet {
     _E2vis = Evis * Evis;
 
     // Calculate masses.
-    const double mass2With = mod2(p4With);
-    const double mass2Against = mod2(p4Against);
+    const double mass2With = p4With.invariant();
+    const double mass2Against = p4Against.invariant();
     const bool withIsMaxMass2 = (mass2With > mass2Against);
     _M2high = (withIsMaxMass2) ? mass2With : mass2Against;
     _M2low = (withIsMaxMass2) ? mass2Against : mass2With;
