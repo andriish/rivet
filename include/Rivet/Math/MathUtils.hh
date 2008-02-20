@@ -66,13 +66,43 @@ inline double deltaR(const Vector3& a, const Vector3& b) {
                    b.pseudorapidity(), b.azimuthalAngle());
 }
 
-inline double deltaR(const FourVector& a, const FourVector& b) {
-  return deltaR(a.vector3(), b.vector3());
+inline double deltaR(const FourVector& a, const FourVector& b, DeltaRScheme scheme = PSEUDORAPIDITY) {
+  switch (scheme){
+    case PSEUDORAPIDITY :
+      return deltaR(a.vector3(), b.vector3());
+    case RAPIDITY:
+      const FourMomentum* ma = dynamic_cast<const FourMomentum*>(&a);
+      const FourMomentum* mb = dynamic_cast<const FourMomentum*>(&b);
+      if (!ma || !mb) throw std::runtime_error("deltaR with scheme RAPIDITY, can be called with FourMomenta only");
+      return deltaR(*ma, *mb, scheme);
+    default: 
+      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
+  }
 }
 
+inline double deltaR(const FourMomentum& a, const FourMomentum& b, DeltaRScheme scheme = PSEUDORAPIDITY) {
+  switch (scheme){
+    case PSEUDORAPIDITY:
+      return deltaR(a.vector3(), b.vector3());
+    case RAPIDITY:
+      return delta_rad(a.rapidity(), a.azimuthalAngle(),
+                       b.rapidity(), b.azimuthalAngle());
+    default:
+      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
+  }
+}
 
+// returns phi in the interval (-PI, PI]
 inline double phi(double px, double py) {
-  return atan2(py, px);
+  //return atan2(py, px);
+  double value = atan2( py, px );
+  if (value > 2*PI || value < -2*PI){
+    value = fmod(value, 2*PI);
+  }
+  if (value <= -PI) value+=2*PI;
+  if (value >   PI) value-=2*PI;
+  assert(value > -PI && value <= PI);
+  return value;
 }
 
 inline double y(double E, double pz) {

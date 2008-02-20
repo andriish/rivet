@@ -21,4 +21,7 @@ using std::endl;
 using std::pair;
 using std::vector;
 
+enum DeltaRScheme {PSEUDORAPIDITY, RAPIDITY};
+enum PhiMapping {MINUSPIPLUSPI, ZERO2PI};
+
 #endif

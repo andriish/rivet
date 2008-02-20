@@ -72,8 +72,8 @@ public:
     return ::polarRadius(*this);    
   }
   
-  double azimuthalAngle() const {
-    return ::azimuthalAngle(*this);
+  double azimuthalAngle(const PhiMapping mapping = MINUSPIPLUSPI) const {
+    return ::azimuthalAngle(*this, mapping);
   }
   
   double polarAngle() const {
@@ -204,8 +204,8 @@ inline double polarRadius(const FourVector& v) {
 }
 
 /// Calculate azimuthal angle of a Lorentz vector.
-inline double azimuthalAngle(const FourVector& v) {
-  return azimuthalAngle(v.vector3());
+inline double azimuthalAngle(const FourVector& v, const PhiMapping mapping) {
+  return azimuthalAngle(v.vector3(), mapping);
 }
 
 /// Calculate polar angle of a Lorentz vector.

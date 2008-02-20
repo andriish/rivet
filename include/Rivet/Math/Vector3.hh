@@ -21,7 +21,7 @@ Vector3 operator-(const Vector3&, const Vector3&);
 double angle(const Vector3&, const Vector3&);
 double polarRadius2(const Vector3&);
 double polarRadius(const Vector3&);
-double azimuthalAngle(const Vector3&);
+double azimuthalAngle(const Vector3&, const PhiMapping mapping = MINUSPIPLUSPI);
 double polarAngle(const Vector3&);
 double pseudorapidity(const Vector3&);
 
@@ -105,8 +105,8 @@ public:
     return ::polarRadius(*this);    
   }
   
-  double azimuthalAngle() const {
-    return ::azimuthalAngle(*this);
+  double azimuthalAngle(const PhiMapping mapping = MINUSPIPLUSPI) const {
+    return ::azimuthalAngle(*this, mapping);
   }
   
   double polarAngle() {
@@ -220,8 +220,34 @@ inline double polarRadius(const Vector3& v) {
 }
 
 /// Calculate azimuthal angle of a 3-vector.
-inline double azimuthalAngle(const Vector3& v) {
-  return atan( v.y() / v.x() );
+/// returns a number in (-pi, pi]
+/// or in [0, 2pi) according to the mapping scheme selected
+inline double azimuthalAngle(const Vector3& v, const PhiMapping mapping) {
+  //return atan( v.y() / v.x() );
+  double value = atan2( v.y(), v.x() );
+  if (value > 2*PI || value < -2*PI){
+    value = fmod(value, 2*PI);
+  }
+  if (value <= -PI) value+=2*PI;
+  if (value >   PI) value-=2*PI;
+  
+  switch (mapping){
+    case MINUSPIPLUSPI:
+      assert(value > -PI && value <= PI);
+      return value;
+    case ZERO2PI:
+      if (value >= 0) {
+        assert(value >= 0 && value < 2*PI);
+        return value;
+      }
+      else {
+        value = 2*PI + value;
+        assert(value >= 0 && value < 2*PI);
+        return value;
+      }
+    default:
+      throw std::runtime_error("The specified Phi mapping scheme is not yet implemented"); 
+  }
 }
 
 /// Calculate polar angle of a 3-vector.
