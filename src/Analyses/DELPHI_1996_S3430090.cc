@@ -129,19 +129,17 @@ namespace Rivet {
     _histHemiBroadTCN->fill(hemiCN.getBsum(), weight); 
     _histHemiBroadDCN->fill(hemiCN.getBdiff(), weight); 
 
-    /// @todo Need more flexible histogramming for (A)EEC?
-    //const EEC& eec = e.applyProjection(_eecproj);
-    //_histEEC->fill(, weight); 
-    //_histAEEC->fill(, weight); 
-
 
     // Iterate over all the charged final state particles.
     const FinalState& fsC = e.applyProjection(_cfsproj);
+    double Evis = 0.;
+    double Evis2 = 0.;
     log << Log::DEBUG << "About to iterate over charged FS particles" << endl;
     for (ParticleVector::const_iterator p = fsC.particles().begin(); p != fsC.particles().end(); ++p) {
       // Get momentum and energy of each particle.
       const Vector3 mom3 = p->getMomentum().vector3();
       const double energy = p->getMomentum().E();
+      Evis += energy;
 
       // Scaled momenta.
       const double mom = mom3.mod();
@@ -170,6 +168,21 @@ namespace Rivet {
       const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
       _histRapidityTC->fill(rapidityT, weight); 
       _histRapiditySC->fill(rapidityS, weight); 
+    }
+    Evis2 = Evis*Evis;
+    for (ParticleVector::const_iterator p_i = fsC.particles().begin(); p_i != fsC.particles().end(); ++p_i) {
+      for (ParticleVector::const_iterator p_j = fsC.particles().begin(); p_j != fsC.particles().end(); ++p_j) {
+        if (p_i==p_j) continue;
+        const Vector3 mom3_i = p_i->getMomentum().vector3();
+        const Vector3 mom3_j = p_j->getMomentum().vector3();
+        const double energy_i = p_i->getMomentum().E();
+        const double energy_j = p_j->getMomentum().E();
+        const double cosij = dot(mom3_i.unit(), mom3_j.unit());
+        const double eec = (energy_i*energy_j)/(Evis2);
+        _histEEC->fill(cosij, eec*weight);
+        _histAEEC->fill(-cosij,  eec*weight);
+        _histAEEC->fill( cosij, -eec*weight);
+      }
     }
     const size_t numParticlesC = fsC.particles().size();
     _weightedTotalPartNumC += numParticlesC * weight;
@@ -311,6 +324,14 @@ namespace Rivet {
     
     normalize(_histLogScaledMom, avgNumPartsC);
     normalize(_histScaledMom, avgNumPartsC); 
+
+    // FIXME: The normalization of 1D AIDA Histograms is broken (ticket #163).
+    // Until this bug is fixed, you can use this k-factor to get distributions
+    // which look about right:
+    //normalize(_histEEC, 0.444);
+    //normalize(_histAEEC, 0.035);
+    normalize(_histEEC);
+    normalize(_histAEEC);
 
     normalize(_hist1MinusTC); 
     normalize(_hist1MinusTCN); 

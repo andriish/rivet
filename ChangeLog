@@ -1,3 +1,8 @@
+2008-02-21  Hendrik Hoeth  <hendrik.hoeth@cern.ch>
+
+	* Added EEC and AEEC to the DELPHI_1996_S3430090 analysis. The
+	normalisation of these histograms is still broken (ticket #163).
+
 2008-02-19  Hendrik Hoeth  <hendrik.hoeth@cern.ch>
 
 	* Many fixes to the DELPHI_1996_S3430090 analysis: bugfix in the
