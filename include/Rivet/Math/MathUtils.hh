@@ -71,10 +71,12 @@ inline double deltaR(const FourVector& a, const FourVector& b, DeltaRScheme sche
     case PSEUDORAPIDITY :
       return deltaR(a.vector3(), b.vector3());
     case RAPIDITY:
-      const FourMomentum* ma = dynamic_cast<const FourMomentum*>(&a);
-      const FourMomentum* mb = dynamic_cast<const FourMomentum*>(&b);
-      if (!ma || !mb) throw std::runtime_error("deltaR with scheme RAPIDITY, can be called with FourMomenta only");
-      return deltaR(*ma, *mb, scheme);
+      {
+        const FourMomentum* ma = dynamic_cast<const FourMomentum*>(&a);
+        const FourMomentum* mb = dynamic_cast<const FourMomentum*>(&b);
+        if (!ma || !mb) throw std::runtime_error("deltaR with scheme RAPIDITY, can be called with FourMomenta only");
+        return deltaR(*ma, *mb, scheme);
+      }
     default: 
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
   }

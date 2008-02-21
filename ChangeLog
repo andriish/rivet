@@ -1,3 +1,12 @@
+2008-02-19  Hendrik Hoeth  <hendrik.hoeth@cern.ch>
+
+	* Many fixes to the DELPHI_1996_S3430090 analysis: bugfix in the
+	calulation of eigenvalues/eigenvectors in MatrixDiag.hh for the
+	sphericity, rewrite of Thrust/Major/Minor, fixed scaled momentum,
+	hemisphere masses, normalisation in single particle events,
+	final state slicing problems in the projections for Thrust,
+	Sphericity and Hemispheres.
+
 2008-02-08  Andy Buckley  <andy@insectnation.org>
 
 	* Applied fixes and extensions to DIS classes, based on
