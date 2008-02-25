@@ -1,8 +1,7 @@
 // -*- C++ -*-
 #include "AGILe/AGILe.hh"
-#include "AGILe/Particle.hh"
-#include "AGILe/Generator.hh"
-#include "AGILe/Loader.hh"
+//#include "AGILe/Particle.hh"
+//#include "AGILe/Generator.hh"
 //using AGILe::Generator;
 //using AGILe::Loader;
 
@@ -23,7 +22,7 @@ extern "C" int F77_DUMMY_MAIN() { return 1; }
 // the event loop and analysis, which is isolated from 
 // the administration and param parsing code in main().
 namespace Rivet {
-  void generate(AGILe::Generator* gen, Configuration& cfg, Log& log);
+  void generate(Configuration& cfg, Log& log);
 }
 
 
@@ -49,29 +48,8 @@ int main(int argc, char* argv[]) {
 
 
   try {
-    // Load generator libraries
-    AGILe::Loader::initialize();
-    log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;
-    try {
-      AGILe::Loader::loadGenLibs(cfg.generatorName);
-    } catch (runtime_error& e) {
-      log << Log::ERROR << "Error when loading the generator library:" 
-          << endl << e.what() << endl;
-    }
-
-    // Make a generator object.
-    AGILe::Generator* gen = AGILe::Loader::createGen();
-    if (!gen) {
-      log << Log::ERROR << "No generator chosen... exiting" << endl;
-      return EXIT_FAILURE;
-    }
-
     // Configure and run the generator.
-    generate(gen, cfg, log);
-
-    // Shut down dynamic loader.
-    AGILe::Loader::destroyGen(gen);
-    AGILe::Loader::finalize();  
+    generate(cfg, log);
   } 
   
   // Main loop exception handling.

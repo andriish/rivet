@@ -2,6 +2,7 @@
 #include "AGILe/AGILe.hh"
 #include "AGILe/Particle.hh"
 #include "AGILe/Generator.hh"
+#include "AGILe/Loader.hh"
 using namespace AGILe;
 
 #include "Rivet/Rivet.hh"
@@ -17,37 +18,58 @@ using namespace HepMC;
 
 namespace Rivet {
 
-  void generate(Generator* gen, Configuration& cfg, Log& log) {
+  void generate(Configuration& cfg, Log& log) {
 
     log << Log::DEBUG << "In generate method " << endl;
 
-    // Seed random number generator
-    gen->setSeed(cfg.rngSeed);
-
     bool needsCrossSection = false;
-    log << Log::DEBUG << "Finished setting seed " << endl;
-
-
-    // Param passing
-    for (ParamMap::const_iterator p = cfg.params.begin(); p != cfg.params.end(); ++p) {
-      log << Log::INFO << "Setting param " << p->first << ": " << p->second << endl;
-      gen->setParam(p->first, p->second);
-    }
-
-    log << Log::DEBUG << "Finished setting parameters " << endl;
-
-    // Set initial state
-    try {
-      gen->setInitialState(cfg.beam1, cfg.mom1, cfg.beam2, cfg.mom2);
-    } catch (runtime_error& e) {
-      log << Log::ERROR << "Beam particle error: " << cfg.beam1 << " or " 
-          << cfg.beam2 << " is invalid" << endl;
-      throw runtime_error("Invalid beam particle");
-    }
-
-    log << Log::DEBUG << "Finished setting initial state " << endl;
-
     
+    Generator* gen = 0;
+
+    if (!cfg.readHepMC) { 
+      // Load generator libraries
+      Loader::initialize();
+      log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;
+      try {
+        Loader::loadGenLibs(cfg.generatorName);
+      } catch (runtime_error& e) {
+        log << Log::ERROR << "Error when loading the generator library:"
+        << endl << e.what() << endl;
+        throw runtime_error("Error when loading the generator library"); 
+      }
+
+      gen = Loader::createGen();
+      if (!gen) {
+        log << Log::ERROR << "No generator chosen... exiting" << endl;
+        throw runtime_error("No generator chosen");
+      }
+      // Seed random number generator
+      gen->setSeed(cfg.rngSeed);
+
+      log << Log::DEBUG << "Finished setting seed " << endl;
+
+       
+
+      // Param passing
+      for (ParamMap::const_iterator p = cfg.params.begin(); p != cfg.params.end(); ++p) {
+        log << Log::INFO << "Setting param " << p->first << ": " << p->second << endl;
+        gen->setParam(p->first, p->second);
+      }
+
+      log << Log::DEBUG << "Finished setting parameters " << endl;
+
+      // Set initial state
+      try {
+        gen->setInitialState(cfg.beam1, cfg.mom1, cfg.beam2, cfg.mom2);
+      } catch (runtime_error& e) {
+        log << Log::ERROR << "Beam particle error: " << cfg.beam1 << " or " 
+            << cfg.beam2 << " is invalid" << endl;
+        throw runtime_error("Invalid beam particle");
+      }
+
+      log << Log::DEBUG << "Finished setting initial state " << endl;
+
+    } 
 
     // Initialise Rivet
     AnalysisHandler rh(cfg.histoName, cfg.histoFormat); 
@@ -131,14 +153,19 @@ namespace Rivet {
     
 
     // Finalise Rivet and the generator
-    gen->finalize();
+    if (gen) gen->finalize();
     if (hepmcOut) delete hepmcOut;
     if (hepmcIn) delete hepmcIn;
     if (cfg.runRivet){
       if (needsCrossSection) {
-        rh.setCrossSection(gen->getCrossSection());
+        if (gen) rh.setCrossSection(gen->getCrossSection());
+        else throw runtime_error("Cross section needed but no Generator created");
       }
       rh.finalize();
+    }
+    if (gen){
+      Loader::destroyGen(gen);
+      Loader::finalize();
     }
   }
 

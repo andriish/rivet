@@ -35,11 +35,16 @@ namespace Rivet {
         // Add generator args
         vector<string> gens = AGILe::Loader::getAvailableGens();
         ValuesConstraint<string> genNameConstraint(gens);
+        vector<Arg*> genArgs;
         ValueArg<string> genNameArg("g", "generator", "Generator to use", true, "", &genNameConstraint);
+        genArgs.push_back(&genNameArg);
         ValueArg<string> genFileArg("G", "generatorfile", "HepML file defining the generator", true, "", "genfile");
-        cmd.xorAdd(genNameArg, genFileArg);
+        genArgs.push_back(&genFileArg);
+        ValueArg<string> eventFileArg("i", "ineventfile", "File containing HepMC events", true, "-", "filename");
+        genArgs.push_back(&eventFileArg);
+        //cmd.xorAdd(genNameArg, genFileArg);
+        cmd.xorAdd(genArgs);
         ValueArg<size_t> rngSeedArg("s", "seed", "random number generator seed", false, 271828, "seed", cmd);
-        ValueArg<string> eventFileArg("i", "ineventfile", "File containing HepMC events", false, "-", "filename", cmd);
 
         // Add initial state args
         vector<string> particles = Rivet::getParticleNames();
