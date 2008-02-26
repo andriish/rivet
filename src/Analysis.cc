@@ -200,46 +200,62 @@ namespace Rivet {
     return totalProjections;
   }
 
-void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
-  // Calculate histogram area even with non-uniform bin widths
-  // (sumAllBinHeights works for uniform bin widths)
-  Log& log = getLog();
-  log << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
   
-  double oldintg = 0.0;
-  int nBins = histo->axis().bins();
-  for(int iBin = 0; iBin != nBins; ++iBin){
-    /// @todo Leaving out factor of binWidth because AIDA's "height" already includes a width factor
-    oldintg += histo->binHeight(iBin);// * histo->axis().binWidth(iBin);
+  void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm, const NormStrategy strategy) {
+    // Calculate histogram area even with non-uniform bin widths
+    // (sumAllBinHeights works for uniform bin widths)
+    Log& log = getLog();
+    log << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
+    
+    double oldintg = 0.0;
+    int nBins = histo->axis().bins();
+    for(int iBin = 0; iBin != nBins; ++iBin){
+      if (strategy == BYWEIGHT) {
+        // Leaving out factor of binWidth because AIDA's "height" already includes a width factor
+        oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
+      } else {
+        oldintg += histo->binEntries(iBin);
+      }
+    }
+    if (oldintg == 0.0) return;
+    
+    // Scale by the normalisation factor.
+    scale(histo, norm/oldintg);
   }
-  if (oldintg == 0.0) return;
 
-  const double scale = norm/oldintg;
-  std::vector<double> x, y, ex, ey;
-  for ( int i = 0, N = histo->axis().bins(); i < N; ++i ) {
-    x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
-    ex.push_back(histo->axis().binWidth(i)*0.5);
-    ///@todo "Bin height" is a misnomer in the AIDA spec: width is neglected
-    y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
-    // We'd like to do this: y.push_back(histo->binHeight(i) * scale);
-    ///@todo "Bin error" is a misnomer in the AIDA spec: width is neglected
-    ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
-    // We'd like to do this: ey.push_back(histo->binError(i) * scale);
+
+  void Analysis::scale(AIDA::IHistogram1D*& histo, const double scale) {
+    Log& log = getLog();
+    log << Log::TRACE << "Scaling histo " << histo->title() << endl;
+    
+    std::vector<double> x, y, ex, ey;
+    for ( int i = 0, N = histo->axis().bins(); i < N; ++i ) {
+      x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
+      ex.push_back(histo->axis().binWidth(i)*0.5);
+
+      /// @todo "Bin height" is a misnomer in the AIDA spec: width is neglected
+      // We'd like to do this: y.push_back(histo->binHeight(i) * scale);
+      y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
+
+      /// @todo "Bin error" is a misnomer in the AIDA spec: width is neglected
+      // We'd like to do this: ey.push_back(histo->binError(i) * scale);
+      ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
+    }
+    
+    std::string path =
+      tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo));
+    std::string title = histo->title();
+    tree().mkdir("/tmpnormalize");
+    tree().mv(path, "/tmpnormalize");
+    
+    datapointsetFactory().createXY(path, title, x, y, ex, ey);
+    
+    tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
+    tree().rmdir("/tmpnormalize");
+    
+    // Set histo pointer to null - it can no longer be used.
+    histo = 0;
   }
-
-  std::string path =
-    tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo));
-  std::string title = histo->title();
-  tree().mkdir("/tmpnormalize");
-  tree().mv(path, "/tmpnormalize");
-
-  datapointsetFactory().createXY(path, title, x, y, ex, ey);
-
-  tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
-  tree().rmdir("/tmpnormalize");
-  histo = 0;
-
-}
-
-
+  
+  
 }

@@ -172,16 +172,18 @@ namespace Rivet {
     Evis2 = Evis*Evis;
     for (ParticleVector::const_iterator p_i = fsC.particles().begin(); p_i != fsC.particles().end(); ++p_i) {
       for (ParticleVector::const_iterator p_j = fsC.particles().begin(); p_j != fsC.particles().end(); ++p_j) {
-        if (p_i==p_j) continue;
+        /// @todo Double counting here? Should be i < j according to paper.
+        if (p_i == p_j) continue;
         const Vector3 mom3_i = p_i->getMomentum().vector3();
         const Vector3 mom3_j = p_j->getMomentum().vector3();
         const double energy_i = p_i->getMomentum().E();
         const double energy_j = p_j->getMomentum().E();
         const double cosij = dot(mom3_i.unit(), mom3_j.unit());
-        const double eec = (energy_i*energy_j)/(Evis2);
+        const double eec = (energy_i*energy_j) / Evis2;
         _histEEC->fill(cosij, eec*weight);
-        _histAEEC->fill(-cosij,  eec*weight);
-        _histAEEC->fill( cosij, -eec*weight);
+        /// @todo Why do I have to define the signs this way to get a positive plot?
+        _histAEEC->fill( cosij,  eec*weight);
+        _histAEEC->fill(-cosij, -eec*weight);
       }
     }
     const size_t numParticlesC = fsC.particles().size();
@@ -305,8 +307,9 @@ namespace Rivet {
   void DELPHI_1996_S3430090::finalize() { 
     // Normalize inclusive single particle distributions to the average number 
     // of (charged / charged+neutral) particles per event.
-    const double avgNumPartsC = _weightedTotalPartNumC / (sumOfWeights()-_sumOfRejectedWeights);
-    const double avgNumPartsCN = _weightedTotalPartNumCN / (sumOfWeights()-_sumOfRejectedWeights);
+    const double sumOfAcceptedWeights = sumOfWeights() - _sumOfRejectedWeights;
+    const double avgNumPartsC = _weightedTotalPartNumC / sumOfAcceptedWeights;
+    const double avgNumPartsCN = _weightedTotalPartNumCN / sumOfAcceptedWeights;
     
     normalize(_histPtTInC, avgNumPartsC);
     normalize(_histPtTInCN, avgNumPartsCN);
@@ -325,13 +328,8 @@ namespace Rivet {
     normalize(_histLogScaledMom, avgNumPartsC);
     normalize(_histScaledMom, avgNumPartsC); 
 
-    // FIXME: The normalization of 1D AIDA Histograms is broken (ticket #163).
-    // Until this bug is fixed, you can use this k-factor to get distributions
-    // which look about right:
-    //normalize(_histEEC, 0.444);
-    //normalize(_histAEEC, 0.035);
-    normalize(_histEEC);
-    normalize(_histAEEC);
+    scale(_histEEC, 1.0/sumOfAcceptedWeights);
+    scale(_histAEEC, 1.0/sumOfAcceptedWeights);
 
     normalize(_hist1MinusTC); 
     normalize(_hist1MinusTCN); 

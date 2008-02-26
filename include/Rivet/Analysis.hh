@@ -152,11 +152,18 @@ namespace Rivet {
       return *_theHandler;
     }
 
+    /// Enum for choosing normalisation "strategy", i.e. whether the histogram
+    /// is scaled by the number of entries or the sum of weights.
+    enum NormStrategy { BYWEIGHT, BYCOUNT };
+
     /// Normalize the given histogram. After this call the histogram
     /// will have been transformed to a DataPointSet with the same
-    /// name and path, and the old histogram will be deleted, and the
-    /// pointer will be set to zero.
-    void normalize(AIDA::IHistogram1D*& histo, const double norm=1.0);
+    /// name and path.
+    /// @warning The old histogram will be deleted, and its pointer set to zero.
+    void normalize(AIDA::IHistogram1D*& histo, const double norm=1.0, 
+                   const NormStrategy strategy = BYWEIGHT);
+
+    void scale(AIDA::IHistogram1D*& histo, const double scale);
 
     /// Set the cross section from the generator
     Analysis& setCrossSection(const double& xs) {

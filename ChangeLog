@@ -1,3 +1,10 @@
+2008-02-26  Andy Buckley  <andy@insectnation.org>
+
+	* Added third enum argument to Analysis::normalize() to allow the
+	user to specify if they want the histo scale calculation to be
+	done by summing weights or event counts. The DELPHI (A)EEC now
+	normalise using the BYCOUNT strategy.
+
 2008-02-21  Hendrik Hoeth  <hendrik.hoeth@cern.ch>
 
 	* Added EEC and AEEC to the DELPHI_1996_S3430090 analysis. The
