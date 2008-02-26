@@ -171,8 +171,7 @@ namespace Rivet {
     }
     Evis2 = Evis*Evis;
     for (ParticleVector::const_iterator p_i = fsC.particles().begin(); p_i != fsC.particles().end(); ++p_i) {
-      for (ParticleVector::const_iterator p_j = fsC.particles().begin(); p_j != fsC.particles().end(); ++p_j) {
-        /// @todo Double counting here? Should be i < j according to paper.
+      for (ParticleVector::const_iterator p_j = p_i; p_j != fsC.particles().end(); ++p_j) {
         if (p_i == p_j) continue;
         const Vector3 mom3_i = p_i->getMomentum().vector3();
         const Vector3 mom3_j = p_j->getMomentum().vector3();
