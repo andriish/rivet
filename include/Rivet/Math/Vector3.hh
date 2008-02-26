@@ -36,7 +36,7 @@ class Vector3 : public Vector<3> {
   friend Vector3 subtract(const Vector3&, const Vector3&);
 
 public:
-  Vector3() { }
+  Vector3() : Vector<3>() { }
 
   template<typename V3>
   Vector3(const V3& other) {

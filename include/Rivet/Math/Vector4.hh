@@ -20,7 +20,7 @@ class FourVector : public Vector<4> {
   friend FourVector transform(const LorentzTransform& lt, const FourVector& v4);
 
 public:
-  FourVector() { }
+  FourVector() : Vector<4>() { }
 
   template<typename V4>
   FourVector(const V4& other) {
