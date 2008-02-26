@@ -1,9 +1,12 @@
 2008-02-26  Andy Buckley  <andy@insectnation.org>
 
-	* Added third enum argument to Analysis::normalize() to allow the
-	user to specify if they want the histo scale calculation to be
-	done by summing weights or event counts. The DELPHI (A)EEC now
-	normalise using the BYCOUNT strategy.
+	* Vector<N> and derived classes now initialise to have zeroed
+	components when the no-arg constructor is used.
+
+	* Added Analysis::scale() function to scale 1D
+	histograms. Analysis::normalize() uses it internally, and the
+	DELPHI (A)EEC, whose histo weights are not pure event weights, and
+	normalised using scale(h, 1/sumEventWeights).
 
 2008-02-21  Hendrik Hoeth  <hendrik.hoeth@cern.ch>
 

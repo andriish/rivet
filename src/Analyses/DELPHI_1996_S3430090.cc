@@ -180,7 +180,6 @@ namespace Rivet {
         const double cosij = dot(mom3_i.unit(), mom3_j.unit());
         const double eec = (energy_i*energy_j) / Evis2;
         _histEEC->fill(cosij, eec*weight);
-        /// @todo Why do I have to define the signs this way to get a positive plot?
         _histAEEC->fill( cosij,  eec*weight);
         _histAEEC->fill(-cosij, -eec*weight);
       }

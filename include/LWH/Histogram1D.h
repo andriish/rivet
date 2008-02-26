@@ -522,15 +522,15 @@ public:
     double entries = 0;
     for ( int i = 0; i < nbins + 2; ++i ) { 
       if ( sum[i] ) {
-	//i==0: underflow->RootBin(0), i==1: overflow->RootBin(NBins+1)
-	entries = entries + sum[i];
-	int j=i;
-	if (i==0) j=0; //underflow
-	else if (i==1) j=nbins+1; //overflow
-	if (i>=2) j=i-1; //normal bin entries
-	hist1d->SetBinContent(j, sumw[i]);
-	hist1d->SetBinError(j, sqrt(sumw2[i]));
-	//hist1d->Fill(binMean(i), sumw[i]);
+        //i==0: underflow->RootBin(0), i==1: overflow->RootBin(NBins+1)
+        entries = entries + sum[i];
+        int j=i;
+        if (i==0) j=0; //underflow
+        else if (i==1) j=nbins+1; //overflow
+        if (i>=2) j=i-1; //normal bin entries
+        hist1d->SetBinContent(j, sumw[i]);
+        hist1d->SetBinError(j, sqrt(sumw2[i]));
+        //hist1d->Fill(binMean(i), sumw[i]);
       }
     }
     

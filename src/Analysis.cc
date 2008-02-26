@@ -201,21 +201,15 @@ namespace Rivet {
   }
 
   
-  void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm, const NormStrategy strategy) {
-    // Calculate histogram area even with non-uniform bin widths
-    // (sumAllBinHeights works for uniform bin widths)
+  void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
     Log& log = getLog();
     log << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
     
     double oldintg = 0.0;
     int nBins = histo->axis().bins();
     for(int iBin = 0; iBin != nBins; ++iBin){
-      if (strategy == BYWEIGHT) {
-        // Leaving out factor of binWidth because AIDA's "height" already includes a width factor
-        oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
-      } else {
-        oldintg += histo->binEntries(iBin);
-      }
+      // Leaving out factor of binWidth because AIDA's "height" already includes a width factor.
+      oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
     }
     if (oldintg == 0.0) return;
     
@@ -233,11 +227,11 @@ namespace Rivet {
       x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
       ex.push_back(histo->axis().binWidth(i)*0.5);
 
-      /// @todo "Bin height" is a misnomer in the AIDA spec: width is neglected
+      // "Bin height" is a misnomer in the AIDA spec: width is neglected.
       // We'd like to do this: y.push_back(histo->binHeight(i) * scale);
       y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
 
-      /// @todo "Bin error" is a misnomer in the AIDA spec: width is neglected
+      // "Bin error" is a misnomer in the AIDA spec: width is neglected.
       // We'd like to do this: ey.push_back(histo->binError(i) * scale);
       ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
     }

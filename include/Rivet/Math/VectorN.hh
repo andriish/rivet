@@ -26,7 +26,7 @@ class Vector {
   friend Vector<M> multiply(const Matrix<M>& a, const Vector<M>& b);
 
 public:
-  Vector() { }
+  Vector() { _vec.loadZero(); }
 
   Vector(const Vector<N>& other) 
     : _vec(other._vec) { }
