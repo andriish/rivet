@@ -4,7 +4,7 @@ SUBDIRS = Projections Analyses Tools . Test
 lib_LTLIBRARIES  = libRivet.la
 libRivet_la_LDFLAGS = \
   -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) \
-  -export-dynamic -version-info 1:0:0
+  -export-dynamic -version-info 2:0:1
 libRivet_la_SOURCES = \
   Cuts.cc \
   Projection.cc \
@@ -20,9 +20,13 @@ libRivet_la_LIBADD  = \
 if WITH_ROOT
   libRivet_la_LIBADD += $(ROOTLIBS)	
 endif
+if ENABLE_JADE
+  libRivet_la_LIBADD += -lJadePlugin
+endif
 
 
 ## "rivetgun" executable
+EXTRA_PROGRAMS = rivetgun
 if ENABLE_RIVETGUN
   bin_PROGRAMS      = rivetgun
   rivetgun_SOURCES  = RivetgunInterface.cc RivetgunRunner.cc RivetgunCommandline.cc

@@ -55,8 +55,9 @@ if test x$enable_pyrivet == xyes; then
   SWIG_PYTHON
 fi
 
-## Require Boost for smart pointers
-#AX_BOOST_BASE
+## Decide/determine whether to build with FastJet JADE support
+AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade, [use JADE support from patched FastJet @<:@default=no@:>@])])
+AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade])
 
 ## Optional ROOT analysis framework
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output @<:@default=yes@:>@])], [], [enable_root=yes])

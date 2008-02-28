@@ -24,3 +24,7 @@ libRivetProjections_la_SOURCES = \
   TrackJet.cc \
   VetoedFinalState.cc \
   WZandh.cc 
+
+if ENABLE_JADE
+  libRivetProjections_la_CXXFLAGS = $(AM_CXXFLAGS) -D__HAVE_JADE
+endif

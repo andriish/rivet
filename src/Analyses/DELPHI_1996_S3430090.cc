@@ -54,6 +54,7 @@ namespace Rivet {
 
     // Jets
     #ifdef __HAVE_JADE
+    log << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const FastJets& durjetC = e.applyProjection(_cdurjetproj);
     _histDiffRate2DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(2), weight); 
     _histDiffRate3DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(3), weight); 
@@ -264,6 +265,9 @@ namespace Rivet {
     _histHemiBroadDC  = bookHistogram1D(26, 1, 1, "Difference in hemisphere broadening, B_diff (charged)");
     _histHemiBroadDCN = bookHistogram1D(26, 1, 2, "Difference in hemisphere broadening, B_diff (charged and neutral)");
 
+    #ifdef __HAVE_JADE
+    getLog() << Log::WARN << "Using FastJet JADE patch to make diff jet rate plots." << endl;
+    #endif
     _histDiffRate2DurhamC  = bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, D_2^Durham (charged)"); // binned in y_cut
     _histDiffRate2DurhamCN = bookHistogram1D(27, 1, 2, "Differential 2-jet rate with Durham algorithm, D_2^Durham (charged and neutral)"); // binned in y_cut
     _histDiffRate2JadeC    = bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, D_2^Jade (charged)"); // binned in y_cut

@@ -1,5 +1,10 @@
 2008-02-28  Andy Buckley  <andy@insectnation.org>
 
+	* Added --enable-jade flag for Professor studies with patched
+	FastJet.
+
+	* Minor fixes to LCG tag generator and gfilt m4 macros.
+
 	* Fixed projection slicing issues with Field UE analysis.
 
 	* Added Analysis::vetoEvent(e) function, which keeps track of the

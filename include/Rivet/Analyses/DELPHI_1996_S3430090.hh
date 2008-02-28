@@ -17,7 +17,7 @@
 namespace Rivet {
 
 
-  /// Implementation of DELPHI event shape paper
+  /// Implementation of DELPHI event shape paper.
   class DELPHI_1996_S3430090 : public Analysis {
 
   public:
@@ -25,17 +25,17 @@ namespace Rivet {
     /// Default constructor.
     DELPHI_1996_S3430090()
       : _cnfsproj(), _cfsproj(_cnfsproj),
-#ifdef __HAVE_JADE
+        #ifdef __HAVE_JADE
         _cjadejetproj(_cfsproj, FastJets::JADE, 0.7),
         _cnjadejetproj(_cnfsproj, FastJets::JADE, 0.7),
         _cdurjetproj(_cfsproj, FastJets::DURHAM, 0.7),
         _cndurjetproj(_cnfsproj, FastJets::DURHAM, 0.7),
-#else
+        #else
         _cjadejetproj(_cfsproj, FastJets::KT, 0.7),
         _cnjadejetproj(_cnfsproj, FastJets::KT, 0.7),
         _cdurjetproj(_cfsproj, FastJets::KT, 0.7),
         _cndurjetproj(_cnfsproj, FastJets::KT, 0.7),
-#endif
+        #endif
         _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
         _cthrustproj(_cfsproj), _cnthrustproj(_cnfsproj), 
         _cparisiproj(_cfsproj), _cnparisiproj(_cnfsproj),
