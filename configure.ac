@@ -55,9 +55,11 @@ if test x$enable_pyrivet == xyes; then
   SWIG_PYTHON
 fi
 
-## Decide/determine whether to build with FastJet JADE support
+## Decide/determine whether to build with FastJet JADE + Durham support
 AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade, [use JADE support from patched FastJet @<:@default=no@:>@])])
-AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade])
+AC_MSG_CHECKING([whether to try and use the FastJet JADE + Durham plugin patch])
+AC_MSG_RESULT([test x$enable_jade != x])
+AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != x])
 
 ## Optional ROOT analysis framework
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output @<:@default=yes@:>@])], [], [enable_root=yes])
