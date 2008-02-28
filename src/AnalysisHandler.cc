@@ -19,7 +19,8 @@ namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
-    : _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0), _theAnalysisFactory(&afac) {
+    : _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0), 
+      _theAnalysisFactory(&afac) {
     setupFactories(basefilename, storetype);
   }
 

@@ -31,16 +31,16 @@ namespace Rivet {
   }
 
 
-  Log& Analysis::getLog() {
+  Log& Analysis::getLog() const {
     string logname = "Rivet.Analysis." + getName();
     return Log::getLog(logname);
   }
 
 
-  size_t Analysis::numEvents() { return getHandler().numEvents(); }
+  size_t Analysis::numEvents() const { return getHandler().numEvents(); }
 
 
-  double Analysis::sumOfWeights() { return getHandler().sumOfWeights(); }
+  double Analysis::sumOfWeights() const { return getHandler().sumOfWeights() - _vetoedWeightSum; }
 
 
   void Analysis::_cacheBinEdges() {
@@ -51,7 +51,7 @@ namespace Rivet {
   }
 
 
-  string Analysis::_makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) {
+  string Analysis::_makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) const {
     stringstream axisCode;
     axisCode << "d";
     if (datasetId < 10) axisCode << 0;
@@ -100,7 +100,7 @@ namespace Rivet {
 
 
   IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
-                                          const size_t yAxisId, const string& title) {
+                                      const size_t yAxisId, const string& title) {
     // Get the bin edges (only read the AIDA file once)
     _cacheBinEdges();
     // Build the axis code
@@ -161,7 +161,7 @@ namespace Rivet {
   }
 
 
-  inline void Analysis::_makeHistoDir() {
+  void Analysis::_makeHistoDir() {
     if (!_madeHistoDir) {
       if (! getName().empty()) tree().mkdir(getHistoDir());
       _madeHistoDir = true;

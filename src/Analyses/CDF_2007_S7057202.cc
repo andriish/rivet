@@ -4,21 +4,21 @@
 
 
 namespace Rivet {
+
   
   // Book histos and set counters for number of events passed in each one
   void CDF_2007_S7057202::init() {
-    
+    /// @todo Any reason not to use the sumOfWeights() function? 
     _eventsTried = 0.0;
 
-    /// @todo XML escaping should be done by LWH
-    _histoD05 = bookHistogram1D(6,1,1,"0.1 &lt; eta &lt; 0.7, D=0.5");
-    _histoD10 = bookHistogram1D(7,1,1,"0.1 &lt; eta &lt; 0.7, D=1.0");
+    _histoD05 = bookHistogram1D(6,1,1,"0.1 < eta < 0.7, D=0.5");
+    _histoD10 = bookHistogram1D(7,1,1,"0.1 < eta < 0.7, D=1.0");
 
-    _binnedHistosD07.addHistogram(  0, 0.1, bookHistogram1D(1,1,1,"eta &lt; 0.1, D=0.7"));
-    _binnedHistosD07.addHistogram(0.1, 0.7, bookHistogram1D(2,1,1,"0.1 &lt; eta &lt; 0.7, D=0.7"));
-    _binnedHistosD07.addHistogram(0.7, 1.1, bookHistogram1D(3,1,1,"0.7 &lt; eta &lt; 1.1, D=0.7"));
-    _binnedHistosD07.addHistogram(1.1, 1.6, bookHistogram1D(4,1,1,"1.1 &lt; eta &lt; 1.6, D=0.7"));
-    _binnedHistosD07.addHistogram(1.6, 2.1, bookHistogram1D(5,1,1,"1.6 &lt; eta &lt; 2.1, D=0.7"));
+    _binnedHistosD07.addHistogram(  0, 0.1, bookHistogram1D(1,1,1,"eta < 0.1, D=0.7"));
+    _binnedHistosD07.addHistogram(0.1, 0.7, bookHistogram1D(2,1,1,"0.1 < eta < 0.7, D=0.7"));
+    _binnedHistosD07.addHistogram(0.7, 1.1, bookHistogram1D(3,1,1,"0.7 < eta < 1.1, D=0.7"));
+    _binnedHistosD07.addHistogram(1.1, 1.6, bookHistogram1D(4,1,1,"1.1 < eta < 1.6, D=0.7"));
+    _binnedHistosD07.addHistogram(1.6, 2.1, bookHistogram1D(5,1,1,"1.6 < eta < 2.1, D=0.7"));
   
     for(vector<AIDA::IHistogram1D*>::const_iterator histIt = _binnedHistosD07.getHistograms().begin();
         histIt != _binnedHistosD07.getHistograms().end(); ++histIt){
@@ -27,10 +27,10 @@ namespace Rivet {
     
     _eventsPassed[_histoD05] = 0.0;
     _eventsPassed[_histoD10] = 0.0;
-
   }
 
-////////////////////////////////////////////////////////////////////////////////
+
+  // Do the analysis
   void CDF_2007_S7057202::analyze(const Event& event) {
     const double weight = event.weight();    
     const FastJets &ktprojD07 = event.applyProjection(_ktprojD07);
@@ -40,16 +40,14 @@ namespace Rivet {
     PseudoJets jetList = ktprojD07.getPseudoJets();
     
     set< IHistogram1D*> passed;
-    for (PseudoJets::const_iterator jet = jetList.begin(); 
-         jet != jetList.end(); ++jet) {
+    for (PseudoJets::const_iterator jet = jetList.begin(); jet != jetList.end(); ++jet) {
       const double pt = jet->perp();
       if (pt > _jetMinPT) {
-        
         AIDA::IHistogram1D* histo = 
-        _binnedHistosD07.fill(fabs(jet->rapidity()), pt, weight);
+          _binnedHistosD07.fill(fabs(jet->rapidity()), pt, weight);
         
-        if(histo != 0){
-          if(histo->coordToIndex(pt) != IAxis::OVERFLOW_BIN){
+        if (histo != 0) {
+          if (histo->coordToIndex(pt) != IAxis::OVERFLOW_BIN) {
             passed.insert(histo);
           }
         }
@@ -57,8 +55,7 @@ namespace Rivet {
     }
     
     PseudoJets jetListD05 = ktprojD05.getPseudoJets();
-    for (PseudoJets::iterator jet = jetListD05.begin(); 
-         jet != jetListD05.end(); ++jet) {
+    for (PseudoJets::iterator jet = jetListD05.begin(); jet != jetListD05.end(); ++jet) {
       const double pt = jet->perp();
       if (pt > _jetMinPT) {
         double rap = fabs(jet->rapidity());
@@ -72,8 +69,7 @@ namespace Rivet {
     }
     
     PseudoJets jetListD10 = ktprojD10.getPseudoJets();
-    for(PseudoJets::iterator jet = jetListD10.begin(); 
-        jet != jetListD10.end(); ++jet){
+    for(PseudoJets::iterator jet = jetListD10.begin(); jet != jetListD10.end(); ++jet){
       const double pt = jet->perp();
       if (pt > _jetMinPT) {
         double rap = fabs(jet->rapidity());
@@ -87,6 +83,7 @@ namespace Rivet {
     }
     
     // Increment the event counters for each histogram
+    /// @todo Any reason not to use the sumOfWeights() function?    
     _eventsTried += weight;
     
     for (set<IHistogram1D*>::iterator histIt = passed.begin(); 
@@ -95,12 +92,13 @@ namespace Rivet {
     }
     return;
   }  
-//////////////////////////////////////////////////////////////////////////////// 
+
+
+
   // Normalise histograms to cross-section
   void CDF_2007_S7057202::finalize() {
     double xSecPerEvent = crossSection() / _eventsTried;
     // HepData data is in nb, crossSection returns pb.
-    /// @todo Choose consistent units set
     xSecPerEvent = xSecPerEvent / nanobarn; 
     
     for (map<IHistogram1D*,double>::iterator histIt = _eventsPassed.begin();
@@ -113,4 +111,3 @@ namespace Rivet {
   }
   
 }
-////////////////////////////////////////////////////////////////////////////////

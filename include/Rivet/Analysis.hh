@@ -7,9 +7,13 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
-#include "Rivet/Event.fhh"
+#include "Rivet/Event.hh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
+
+
+// Preprocessor define for vetoing events, including the log message and return.
+#define vetoEvent(E) vetoEventWeight(E); getLog() << Log::DEBUG << "Vetoing event" << endl; return
 
 
 namespace Rivet {
@@ -44,7 +48,7 @@ namespace Rivet {
 
     /// The default constructor.
     Analysis() 
-      : _theHandler(0), _madeHistoDir(false)
+      : _theHandler(0), _madeHistoDir(false), _vetoedWeightSum(0)
     { 
       _gotCrossSection = false;
       setBeams(ANY, ANY);
@@ -183,7 +187,7 @@ namespace Rivet {
   protected:
 
     /// Get the process cross-section. Throws if this hasn't been set.
-    const double& crossSection() {
+    const double& crossSection() const {
       if (!_gotCrossSection) {
         string errMsg = "You did not set the cross section for the analysis " + getName();
         throw runtime_error(errMsg);
@@ -191,16 +195,21 @@ namespace Rivet {
       return _crossSection;
     }
     
+    // Veto the current event by subtracting its weight from the tally.
+    void vetoEventWeight(const Event& e) {
+      _vetoedWeightSum += e.weight();
+    }
+
     /// Get a Log object based on the getName() property of the calling analysis object.
-    Log& getLog();
+    Log& getLog() const;
 
     /// Get the number of events seen (via the analysis handler). Use in the
     /// finalize phase only.
-    size_t numEvents();
+    size_t numEvents() const;
 
     /// Get the sum of event weights seen (via the analysis handler). Use in the
     /// finalize phase only.
-    double sumOfWeights();
+    double sumOfWeights() const;
 
     /// Is this analysis able to run on the BeamPair @a beams ?
     virtual const bool checkConsistency() const;
@@ -318,7 +327,7 @@ namespace Rivet {
     void _cacheBinEdges();
 
     /// Make the axis code string (dsDD-xXX-yYY)
-    string _makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId);
+    string _makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) const;
     //@}
 
 
@@ -382,6 +391,8 @@ namespace Rivet {
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
+
+    double _vetoedWeightSum;
 
     /// Collection of cached bin edges to speed up many autobookings: the 
     /// AIDA reference file should only be read once.

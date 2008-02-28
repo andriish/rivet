@@ -9,15 +9,14 @@ namespace Rivet {
 
   int LossyFinalState::compare(const Projection& p) const {
     const LossyFinalState& other = dynamic_cast<const LossyFinalState&>(p);
-    const int fscmp = FinalState::compare(other);
+    const int fscmp = pcmp(*_fsproj, *other._fsproj);
     if (fscmp) return fscmp;
     return cmp(_lossFraction, other._lossFraction);
   }
   
   void LossyFinalState::project(const Event& e) {
     Log log = getLog();
-    FinalState fsp = static_cast<FinalState>(*this);
-    const FinalState& fs = e.applyProjection(fsp);
+    const FinalState& fs = e.applyProjection(*_fsproj);
     getLog() << Log::DEBUG << "Pre-loss number of FS particles = " << fs.particles().size() << endl;
     _theParticles.clear();
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(), 

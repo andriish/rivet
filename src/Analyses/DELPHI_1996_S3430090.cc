@@ -11,42 +11,22 @@ namespace Rivet {
   void DELPHI_1996_S3430090::analyze(const Event& e) {
     Log& log = getLog();
 
-    // First, veto on leptonic events by examining the signal vertex
-    // NB. Doesn't work --- signal vertex not reliable.
-    // GenVertex* sigVtx = e.genEvent().signal_process_vertex();
-    // size_t count = 0;
-    // for (HepMC::GenVertex::particles_out_const_iterator sigp = sigVtx->particles_out_const_begin();
-    //      sigp != sigVtx->particles_out_const_end(); ++sigp) {
-    //   if (*sigp) {
-    //     ++count;
-    //     log << Log::INFO << "Sig part ID = " << (*sigp)->pdg_id() << endl;
-    //   }
-    // }
-    // log << Log::INFO << "Num sig particles = " << count << endl;
-
     // First, veto on leptonic events by requiring at least 4 charged FS particles
     /// @todo Work out why this creates a segfault if it's run before the beams projection...
     const FinalState& fs = e.applyProjection(_cnfsproj);
 
-    // FIXME: This lepton veto cut is merely a hack, but not a solution.
-    // We should really tell the generator to produces only hadronic events.
-    // Cutting on numCharged>=4 is not sufficient, and I have no idea how
-    // good or bad numCharged>=6 really is. And the way we fix the normalisation
-    // of single particle distributions is not nice, either.
-    //
-    // Update: If we only generate hadronic events, we still need a cut on
-    // numCharged>=2, but that's what we should use.
+    // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
+    /// @todo Just use a charged FS and take its size...
     size_t numCharged = 0;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       if (PID::threeCharge(p->getPdgId())) ++numCharged;
     }
     if (numCharged < 2) {
-      _sumOfRejectedWeights+=e.weight();
       log << Log::DEBUG << "Failed leptonic event cut" << endl;
-      return;
+      vetoEvent(e);
     }
     log << Log::DEBUG << "Passed leptonic event cut" << endl;
-
+    
     // Get beams and average beam momentum
     const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
     const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
@@ -73,24 +53,24 @@ namespace Rivet {
     _histOblatenessCN->fill(thrustCN.oblateness(), weight);
 
     // Jets
-#ifdef __HAVE_JADE
-     const FastJets& durjetC = e.applyProjection(_cdurjetproj);
-     _histDiffRate2DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(2), weight); 
-     _histDiffRate3DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(3), weight); 
-     _histDiffRate4DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(4), weight); 
-     const FastJets& durjetCN = e.applyProjection(_cndurjetproj);
-     _histDiffRate2DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(2), weight); 
-     _histDiffRate3DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(3), weight); 
-     _histDiffRate4DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(4), weight); 
-     const FastJets& jadejetC = e.applyProjection(_cjadejetproj);
-     _histDiffRate2JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(2), weight); 
-     _histDiffRate3JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(3), weight); 
-     _histDiffRate4JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(4), weight); 
-     const FastJets& jadejetCN = e.applyProjection(_cnjadejetproj);
-     _histDiffRate2JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(2), weight); 
-     _histDiffRate3JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(3), weight); 
-     _histDiffRate4JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(4), weight); 
-#endif
+    #ifdef __HAVE_JADE
+    const FastJets& durjetC = e.applyProjection(_cdurjetproj);
+    _histDiffRate2DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(2), weight); 
+    _histDiffRate3DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(3), weight); 
+    _histDiffRate4DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(4), weight); 
+    const FastJets& durjetCN = e.applyProjection(_cndurjetproj);
+    _histDiffRate2DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(2), weight); 
+    _histDiffRate3DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(3), weight); 
+    _histDiffRate4DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(4), weight); 
+    const FastJets& jadejetC = e.applyProjection(_cjadejetproj);
+    _histDiffRate2JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(2), weight); 
+    _histDiffRate3JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(3), weight); 
+    _histDiffRate4JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(4), weight); 
+    const FastJets& jadejetCN = e.applyProjection(_cnjadejetproj);
+    _histDiffRate2JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(2), weight); 
+    _histDiffRate3JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(3), weight); 
+    _histDiffRate4JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(4), weight); 
+    #endif
 
     // Sphericities
     log << Log::DEBUG << "Calculating sphericity" << endl;
@@ -100,8 +80,9 @@ namespace Rivet {
     _histPlanarityC->fill(sphericityC.planarity(), weight); 
 
     const Sphericity& sphericityCN = e.applyProjection(_cnspherproj);
-    _histSphericityCN->fill(sphericityCN.sphericity(), weight); 
-    _histAplanarityCN->fill(sphericityCN.aplanarity(), weight); 
+    _histSphericityCN->fill(sphericityCN.sphericity(), weight);
+    _histAplanarityCN->fill(sphericityCN.aplanarity(), weight);
+    _histPlanarityCN->fill(sphericityCN.planarity(), weight);
 
     // C & D params
     log << Log::DEBUG << "Calculating Parisi params" << endl;
@@ -136,8 +117,8 @@ namespace Rivet {
 
     // Iterate over all the charged final state particles.
     const FinalState& fsC = e.applyProjection(_cfsproj);
-    double Evis = 0.;
-    double Evis2 = 0.;
+    double Evis = 0.0;
+    double Evis2 = 0.0;
     log << Log::DEBUG << "About to iterate over charged FS particles" << endl;
     for (ParticleVector::const_iterator p = fsC.particles().begin(); p != fsC.particles().end(); ++p) {
       // Get momentum and energy of each particle.
@@ -174,6 +155,7 @@ namespace Rivet {
       _histRapiditySC->fill(rapidityS, weight); 
     }
     Evis2 = Evis*Evis;
+
     for (ParticleVector::const_iterator p_i = fsC.particles().begin(); p_i != fsC.particles().end(); ++p_i) {
       for (ParticleVector::const_iterator p_j = p_i; p_j != fsC.particles().end(); ++p_j) {
         if (p_i == p_j) continue;
@@ -309,9 +291,8 @@ namespace Rivet {
   void DELPHI_1996_S3430090::finalize() { 
     // Normalize inclusive single particle distributions to the average number 
     // of (charged / charged+neutral) particles per event.
-    const double sumOfAcceptedWeights = sumOfWeights() - _sumOfRejectedWeights;
-    const double avgNumPartsC = _weightedTotalPartNumC / sumOfAcceptedWeights;
-    const double avgNumPartsCN = _weightedTotalPartNumCN / sumOfAcceptedWeights;
+    const double avgNumPartsC = _weightedTotalPartNumC / sumOfWeights();
+    const double avgNumPartsCN = _weightedTotalPartNumCN / sumOfWeights();
     
     normalize(_histPtTInC, avgNumPartsC);
     normalize(_histPtTInCN, avgNumPartsCN);
@@ -330,8 +311,8 @@ namespace Rivet {
     normalize(_histLogScaledMom, avgNumPartsC);
     normalize(_histScaledMom, avgNumPartsC); 
 
-    scale(_histEEC, 1.0/sumOfAcceptedWeights);
-    scale(_histAEEC, 1.0/sumOfAcceptedWeights);
+    scale(_histEEC, 1.0/sumOfWeights());
+    scale(_histAEEC, 1.0/sumOfWeights());
 
     normalize(_hist1MinusTC); 
     normalize(_hist1MinusTCN); 

@@ -54,7 +54,9 @@ namespace Rivet {
     Tracks tracks(tracksvector.begin(), tracksvector.end());
 
     // Now find jets using Field & Stuart criteria
-    log << Log::DEBUG << "About to assign tracks into jets" << endl;
+    if (!tracks.empty()) {
+      log << Log::DEBUG << "About to assign tracks into jets" << endl;
+    }
     while (!tracks.empty()) {
 
       // Make a new jet based on the highest pT independent track remaining.
@@ -66,7 +68,7 @@ namespace Rivet {
       // Compare with all unassociated tracks with a smaller pT measure
       Tracks::iterator t2 = tracks.begin();
       while (t2 != tracks.end()) {
-        log << Log::DEBUG << "Building jet from tracks" << endl;
+        log << Log::TRACE << "Building jet from tracks" << endl;
 
         // Get eta and phi for this jet
         const double jeteta = thisjet.getPtWeightedEta();

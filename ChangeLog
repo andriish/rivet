@@ -1,3 +1,9 @@
+2008-02-28  Andy Buckley  <andy@insectnation.org>
+
+	* Added Analysis::vetoEvent(e) function, which keeps track of the
+	correction to the sum of weights due to event vetoing in analysis
+	classes.
+
 2008-02-26  Andy Buckley  <andy@insectnation.org>
 
 	* Vector<N> and derived classes now initialise to have zeroed
