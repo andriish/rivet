@@ -33,16 +33,19 @@ namespace Rivet {
     // Cutting on numCharged>=4 is not sufficient, and I have no idea how
     // good or bad numCharged>=6 really is. And the way we fix the normalisation
     // of single particle distributions is not nice, either.
+    //
+    // Update: If we only generate hadronic events, we still need a cut on
+    // numCharged>=2, but that's what we should use.
     size_t numCharged = 0;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       if (PID::threeCharge(p->getPdgId())) ++numCharged;
     }
-    const string result = (numCharged < 4) ? "Failed" : "Passed";
-    log << Log::DEBUG << result << " leptonic event cut" << endl;
-    if (numCharged < 6) {
+    if (numCharged < 2) {
       _sumOfRejectedWeights+=e.weight();
+      log << Log::DEBUG << "Failed leptonic event cut" << endl;
       return;
     }
+    log << Log::DEBUG << "Passed leptonic event cut" << endl;
 
     // Get beams and average beam momentum
     const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
