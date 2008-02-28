@@ -10,9 +10,6 @@
 
 namespace Rivet {
 
-  /// @todo Only count hits where SUMPT is different from 0! 
-
-  
   /// Build jets using the non-IR-safe algorithm of the CDF Field/Stuart UE analysis.
   class TrackJet : public JetAlg {
   public:
@@ -53,7 +50,8 @@ namespace Rivet {
   private:
     
     /// The FinalState projection used by this projection.
-    FinalState _fsproj;
+    /// @todo Move to new projection infrastructure.
+    FinalState& _fsproj;
 
     /// The computed jets
     Jets _jets;

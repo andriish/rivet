@@ -1,5 +1,7 @@
 2008-02-28  Andy Buckley  <andy@insectnation.org>
 
+	* Fixed projection slicing issues with Field UE analysis.
+
 	* Added Analysis::vetoEvent(e) function, which keeps track of the
 	correction to the sum of weights due to event vetoing in analysis
 	classes.
