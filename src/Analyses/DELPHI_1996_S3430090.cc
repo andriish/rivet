@@ -70,23 +70,24 @@ namespace Rivet {
     _histOblatenessCN->fill(thrustCN.oblateness(), weight);
 
     // Jets
-    /// @todo Get differential jet rates from FastJet transition distances.
-//     const FastJets& durjetC = e.applyProjection(_cdurjetproj);
-//     _histDiffRate2DurhamC->fill(, weight); 
-//     _histDiffRate3DurhamC->fill(, weight);
-//     _histDiffRate4DurhamC->fill(, weight);
-//     const FastJets& durjetCN = e.applyProjection(_cndurjetproj);
-//     _histDiffRate2DurhamCN->fill(, weight); 
-//     _histDiffRate3DurhamCN->fill(, weight);
-//     _histDiffRate4DurhamCN->fill(, weight);
-//     const FastJets& jadejetC = e.applyProjection(_cjadejetproj);
-//     _histDiffRate2JadeC->fill(, weight); 
-//     _histDiffRate3JadeC->fill(, weight); 
-//     _histDiffRate4JadeC->fill(, weight);
-//     const FastJets& jadejetCN = e.applyProjection(_cnjadejetproj);
-//     _histDiffRate2JadeCN->fill(, weight); 
-//     _histDiffRate3JadeCN->fill(, weight);
-//     _histDiffRate4JadeCN->fill(, weight);
+#ifdef __HAVE_JADE
+     const FastJets& durjetC = e.applyProjection(_cdurjetproj);
+     _histDiffRate2DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(2), weight); 
+     _histDiffRate3DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(3), weight); 
+     _histDiffRate4DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(4), weight); 
+     const FastJets& durjetCN = e.applyProjection(_cndurjetproj);
+     _histDiffRate2DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(2), weight); 
+     _histDiffRate3DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(3), weight); 
+     _histDiffRate4DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(4), weight); 
+     const FastJets& jadejetC = e.applyProjection(_cjadejetproj);
+     _histDiffRate2JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(2), weight); 
+     _histDiffRate3JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(3), weight); 
+     _histDiffRate4JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(4), weight); 
+     const FastJets& jadejetCN = e.applyProjection(_cnjadejetproj);
+     _histDiffRate2JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(2), weight); 
+     _histDiffRate3JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(3), weight); 
+     _histDiffRate4JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(4), weight); 
+#endif
 
     // Sphericities
     log << Log::DEBUG << "Calculating sphericity" << endl;
