@@ -19,14 +19,16 @@ namespace Rivet {
     
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
     ChargedFinalState(FinalState& fsp)
-      : FinalState(fsp)
+      : _fsproj(&fsp) //FinalState(fsp)
     { }
     
     ChargedFinalState(double mineta = -MaxRapidity,
                       double maxeta = MaxRapidity,
                       double minpt = 0.0)
-      : FinalState(mineta, maxeta, minpt)
-    { }
+      : _fsproj(0) //FinalState(mineta, maxeta, minpt)
+    { 
+      _fsproj = new FinalState(mineta, maxeta, minpt);
+    }
 
     ~ChargedFinalState() {
       getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
@@ -49,7 +51,7 @@ namespace Rivet {
   private:
 
     /// @todo For now, we'll hold a constituent FinalState...
-    FinalState _fsproj;
+    FinalState* _fsproj;
     
   };
 

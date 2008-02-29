@@ -10,9 +10,8 @@ namespace Rivet {
 
   int ChargedFinalState::compare(const Projection& p) const {
     const ChargedFinalState& other = dynamic_cast<const ChargedFinalState&>(p);
-    return FinalState::compare(other);
-    //return FinalState::compare(dynamic_cast<const FinalState&>(p));
-    //return true; //&p == this;
+    //return FinalState::compare(other);
+    return pcmp(*_fsproj, *other._fsproj);
   }
 
   
@@ -26,7 +25,7 @@ namespace Rivet {
     /// @todo This goes out of scope immediately!
     //FinalState fsp = static_cast<FinalState>(*this);
     //const FinalState& fs = e.applyProjection(fsp);
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const FinalState& fs = e.applyProjection(*_fsproj);
     _theParticles.clear();
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(), 
                         std::back_inserter(_theParticles), chargedParticleFilter);

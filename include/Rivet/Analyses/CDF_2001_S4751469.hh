@@ -18,7 +18,7 @@ namespace Rivet {
     /// @name Constructors etc.
     //@{
 
-    /// Default constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
+    /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.5 \f$ GeV. Use a lossy charged FS projection, which
     /// randomly discards 8% of charged particles, as a kind of hacky detector 
     /// correction.
