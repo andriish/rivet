@@ -13,7 +13,7 @@
 
 
 // Preprocessor define for vetoing events, including the log message and return.
-#define vetoEvent(E) vetoEventWeight(E); getLog() << Log::DEBUG << "Vetoing event" << endl; return
+#define vetoEvent(E) { vetoEventWeight(E); getLog() << Log::DEBUG << "Vetoing event" << endl; return; }
 
 
 namespace Rivet {
