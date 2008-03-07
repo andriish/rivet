@@ -14,16 +14,12 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2001_S4751469::init() {
-    _ptsumToward = bookProfile1D(1, 1, 1, "pT sum toward total");
-    _ptsumTrans = bookProfile1D(1, 1, 2, "pT sum transverse total");
-    _ptsumAway = bookProfile1D(1, 1, 3, "pT sum away total");
-    /// @todo Get proper HepData entries for other plots in this paper
-    _numToward = bookProfile1D("NToward", "Num toward", 50, 0.0, 50);
-    _numTrans = bookProfile1D("NTrans", "Num transverse", 50, 0.0, 50);
-    _numAway = bookProfile1D("NAway", "Num away", 50, 0.0, 50);
-    // _numToward = bookProfile1D(2, 1, 1, "Num toward");
-    // _numTrans = bookProfile1D(2, 1, 2, "Num transverse");
-    // _numAway = bookProfile1D(2, 1, 3, "Num away");
+    _ptsumToward = bookProfile1D(2, 1, 1, "pT sum (toward)");
+    _ptsumTrans = bookProfile1D(2, 1, 2, "pT sum (transverse)");
+    _ptsumAway = bookProfile1D(2, 1, 3, "pT sum (away)");
+    _numToward = bookProfile1D(5, 1, 1, "Num (toward)");
+    _numTrans = bookProfile1D(5, 1, 2, "Num (transverse)");
+    _numAway = bookProfile1D(5, 1, 3, "Num (away)");
   }
 
 
