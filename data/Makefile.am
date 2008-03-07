@@ -7,6 +7,7 @@ nobase_dist_data_DATA = \
   Rivet/CDF_2001_S4751469.aida    Rivet/CDF_2001_S4751469.hep.xml    \
   Rivet/CDF_2005_S6217184.aida    Rivet/CDF_2005_S6217184.hep.xml    \
   Rivet/CDF_2007_S7057202.aida    Rivet/CDF_2007_S7057202.hep.xml    \
+  Rivet/CDF_2008_S7541902.aida    Rivet/CDF_2008_S7541902.hep.xml    \
   Rivet/D0_2001_S4674421.aida     Rivet/D0_2001_S4674421.hep.xml     \
   Rivet/D0_2004_S5992206.aida     Rivet/D0_2004_S5992206.hep.xml     \
   Rivet/FPythiaLEP10.hepmc
