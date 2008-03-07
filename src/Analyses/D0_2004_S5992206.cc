@@ -84,7 +84,7 @@ namespace Rivet {
 
   // Finalize
   void D0_2004_S5992206::finalize() { 
-    Log& log = getLog();
+    //Log& log = getLog();
 
     // Normalize histograms to unit area
     normalize(_histJetAzimuth_pTmax75_100);
