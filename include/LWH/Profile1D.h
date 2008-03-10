@@ -345,21 +345,18 @@ public:
   }
 
   /**
-   * The error of a given bin.
+   * The correctly weighted error of a given bin.
    * @param index The bin number (0...N-1) or OVERFLOW or UNDERFLOW.
    * @return      The error on the corresponding bin.
    *
    */
   double binError(int index) const {
-    double bE = sumyw[index+2];
-    if (sumw[index+2] > 0.) {
-      bE = sumy2w2[index+2] - sumyw[index+2]*sumyw[index+2]/sumw[index+2];
-      // bE /= sumw[index+2]; //spread
-      bE /= sumw[index+2] * sqrt(sumw[index+2]); //error = spread/sqrt(N)
+    if (sumw[index+2] > 0.0) {
+      double binErr2 = sumy2w[index+2]*sumw[index+2] - sumyw[index+2]*sumyw[index+2];
+      binErr2 /= sumw[index+2]*sumw[index+2] - sumw2[index+2]; 
+      if (binErr2 >= 0.0) return sqrt(binErr2);
     }
-    if (bE < 0.) bE = 0.;
-    //return sqrt(bE); //std::sqrt(sumw2[index + 2]);
-    return bE;
+    return 0.0;
   }
 
   /**

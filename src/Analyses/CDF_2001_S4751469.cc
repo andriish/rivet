@@ -14,12 +14,19 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2001_S4751469::init() {
-    _ptsumToward = bookProfile1D(2, 1, 1, "pT sum (toward)");
-    _ptsumTrans = bookProfile1D(2, 1, 2, "pT sum (transverse)");
-    _ptsumAway = bookProfile1D(2, 1, 3, "pT sum (away)");
-    _numToward = bookProfile1D(5, 1, 1, "Num (toward)");
-    _numTrans = bookProfile1D(5, 1, 2, "Num (transverse)");
-    _numAway = bookProfile1D(5, 1, 3, "Num (away)");
+    // _numToward = bookProfile1D(3, 1, 1, "Num (toward)");
+    // _numTrans = bookProfile1D(3, 1, 2, "Num (transverse)");
+    // _numAway = bookProfile1D(3, 1, 3, "Num (away)");
+    // _ptsumToward = bookProfile1D(4, 1, 1, "pT sum (toward)");
+    // _ptsumTrans = bookProfile1D(4, 1, 2, "pT sum (transverse)");
+    // _ptsumAway = bookProfile1D(4, 1, 3, "pT sum (away)");
+
+    _numToward = bookProfile1D("d03-x01-y01", "Num (toward)", 50, 0.0, 50.0);
+    _numTrans = bookProfile1D("d03-x01-y02", "Num (transverse)", 50, 0.0, 50.0);
+    _numAway = bookProfile1D("d03-x01-y03", "Num (away)", 50, 0.0, 50.0);
+    _ptsumToward = bookProfile1D("d04-x01-y01", "pT sum (toward)", 50, 0.0, 50.0);
+    _ptsumTrans = bookProfile1D("d04-x01-y02", "pT sum (transverse)", 50, 0.0, 50.0);
+    _ptsumAway = bookProfile1D("d04-x01-y03", "pT sum (away)", 50, 0.0, 50.0);
   }
 
 

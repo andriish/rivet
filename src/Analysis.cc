@@ -101,16 +101,24 @@ namespace Rivet {
 
   IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
                                       const size_t yAxisId, const string& title) {
+    Log& log = getLog();
     // Get the bin edges (only read the AIDA file once)
     _cacheBinEdges();
     // Build the axis code
     const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
-    getLog() << Log::TRACE << "Using profile histo bin edges for " << getName() << ":" << axisCode << endl;
+    log << Log::TRACE << "Using profile histo bin edges for " << getName() << ":" << axisCode << endl;
     const BinEdges edges = _histBinEdges.find(axisCode)->second;
+    if (log.isActive(Log::TRACE)) {
+        stringstream edges_ss;
+        for (BinEdges::const_iterator be = edges.begin(); be != edges.end(); ++be) {
+          edges_ss << " " << *be;
+        }
+        log << Log::TRACE << "Edges:" << edges_ss.str() << endl;
+    }
     _makeHistoDir();
     const string path = getHistoDir() + "/" + axisCode;
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
-    getLog() << Log::TRACE << "Made profile histogram " << axisCode <<  " for " << getName() << endl;
+    log << Log::TRACE << "Made profile histogram " << axisCode <<  " for " << getName() << endl;
     return prof;
   }
 
