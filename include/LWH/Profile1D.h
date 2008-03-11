@@ -354,6 +354,7 @@ public:
     if (sumw[index+2] > 0.0) {
       double binErr2 = sumy2w[index+2]*sumw[index+2] - sumyw[index+2]*sumyw[index+2];
       binErr2 /= sumw[index+2]*sumw[index+2] - sumw2[index+2]; 
+      binErr2 /= sumw[index+2]; //< s_hat ~ s/sqrt(N)
       if (binErr2 >= 0.0) return sqrt(binErr2);
     }
     return 0.0;
