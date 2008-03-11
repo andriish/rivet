@@ -1,5 +1,5 @@
 <hepml>
- <data timestamp="2008-03-07T11:40:41.217447">
+ <data timestamp="2008-03-11T14:41:18.229383">
   <paper hepdataId="1038" spiresId="4674421" redId="4589" preprintDate="Jul 2001">
    <title>
     Measurement of the ratio of differential cross-sections for W and Z boson production as a function of transverse momentum in p anti-p collisions at s**(1/2) = 1.8-TeV
@@ -14,14 +14,14 @@
    <reference description="FERMILAB-PUB-01-212-E" />
    <reference description="PL B517,299" />
    <experiment name="FNAL-740" laboratory="FNAL" informalname="D0" />
-   <dataset id="ds-9185-1" datasetId="1">
+   <dataset id="ds-9184-1" datasetId="1">
     <comment>
      The measured W and Z0 cross sections used to compute the ratio.
     </comment>
     <comment>
      Location: T 1,F 2
     </comment>
-    <xaxis id="xax-9185-1-1" xaxisId="1" header="PT IN GEV">
+    <xaxis id="xax-9184-1-1" xaxisId="1" header="PT IN GEV">
      <bins>
       <bin binId="1" low="0.0" high="2.0" />
       <bin binId="2" low="2.0" high="4.0" />
@@ -47,7 +47,7 @@
       <bin binId="22" low="160.0" high="200.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-9185-1-1" observable="DSIG/DPT" header="D(SIG)/DPT IN PB/GEV">
+    <yaxis id="yax-9184-1-1" observable="DSIG/DPT" header="D(SIG)/DPT IN PB/GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -64,97 +64,97 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="1800" high="1800" />
      <points>
-      <point id="pt-9185-1-1-1" pointId="1" value="109.48" relation="eq">
+      <point id="pt-9184-1-1-1" pointId="1" value="109.48" relation="eq">
        <error errorId="1" plus="4.61" minus="4.61" source="stat" norm="abs" />
        <error errorId="2" plus="12.35" minus="12.35" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-2" pointId="2" value="206.21" relation="eq">
+      <point id="pt-9184-1-1-2" pointId="2" value="206.21" relation="eq">
        <error errorId="1" plus="6.85" minus="6.85" source="stat" norm="abs" />
        <error errorId="2" plus="24.64" minus="24.64" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-3" pointId="3" value="171.32" relation="eq">
+      <point id="pt-9184-1-1-3" pointId="3" value="171.32" relation="eq">
        <error errorId="1" plus="5.65" minus="5.65" source="stat" norm="abs" />
        <error errorId="2" plus="9.29" minus="9.29" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-4" pointId="4" value="133.6" relation="eq">
+      <point id="pt-9184-1-1-4" pointId="4" value="133.6" relation="eq">
        <error errorId="1" plus="4.65" minus="4.65" source="stat" norm="abs" />
        <error errorId="2" plus="9.46" minus="9.46" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-5" pointId="5" value="103.48" relation="eq">
+      <point id="pt-9184-1-1-5" pointId="5" value="103.48" relation="eq">
        <error errorId="1" plus="4.04" minus="4.04" source="stat" norm="abs" />
        <error errorId="2" plus="6.95" minus="6.95" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-6" pointId="6" value="77.46" relation="eq">
+      <point id="pt-9184-1-1-6" pointId="6" value="77.46" relation="eq">
        <error errorId="1" plus="3.46" minus="3.46" source="stat" norm="abs" />
        <error errorId="2" plus="7.25" minus="7.25" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-7" pointId="7" value="63.58" relation="eq">
+      <point id="pt-9184-1-1-7" pointId="7" value="63.58" relation="eq">
        <error errorId="1" plus="3.2" minus="3.2" source="stat" norm="abs" />
        <error errorId="2" plus="4.16" minus="4.16" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-8" pointId="8" value="47.77" relation="eq">
+      <point id="pt-9184-1-1-8" pointId="8" value="47.77" relation="eq">
        <error errorId="1" plus="2.77" minus="2.77" source="stat" norm="abs" />
        <error errorId="2" plus="4.29" minus="4.29" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-9" pointId="9" value="37.67" relation="eq">
+      <point id="pt-9184-1-1-9" pointId="9" value="37.67" relation="eq">
        <error errorId="1" plus="2.42" minus="2.42" source="stat" norm="abs" />
        <error errorId="2" plus="2.73" minus="2.73" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-10" pointId="10" value="30.5" relation="eq">
+      <point id="pt-9184-1-1-10" pointId="10" value="30.5" relation="eq">
        <error errorId="1" plus="2.2" minus="2.2" source="stat" norm="abs" />
        <error errorId="2" plus="1.74" minus="1.74" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-11" pointId="11" value="22.02" relation="eq">
+      <point id="pt-9184-1-1-11" pointId="11" value="22.02" relation="eq">
        <error errorId="1" plus="1.23" minus="1.23" source="stat" norm="abs" />
        <error errorId="2" plus="1.22" minus="1.22" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-12" pointId="12" value="13.94" relation="eq">
+      <point id="pt-9184-1-1-12" pointId="12" value="13.94" relation="eq">
        <error errorId="1" plus="0.93" minus="0.93" source="stat" norm="abs" />
        <error errorId="2" plus="1.07" minus="1.07" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-13" pointId="13" value="9.51" relation="eq">
+      <point id="pt-9184-1-1-13" pointId="13" value="9.51" relation="eq">
        <error errorId="1" plus="0.73" minus="0.73" source="stat" norm="abs" />
        <error errorId="2" plus="0.84" minus="0.84" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-14" pointId="14" value="6.79" relation="eq">
+      <point id="pt-9184-1-1-14" pointId="14" value="6.79" relation="eq">
        <error errorId="1" plus="0.63" minus="0.63" source="stat" norm="abs" />
        <error errorId="2" plus="0.51" minus="0.51" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-15" pointId="15" value="3.96" relation="eq">
+      <point id="pt-9184-1-1-15" pointId="15" value="3.96" relation="eq">
        <error errorId="1" plus="0.37" minus="0.37" source="stat" norm="abs" />
        <error errorId="2" plus="0.31" minus="0.31" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-16" pointId="16" value="1.82" relation="eq">
+      <point id="pt-9184-1-1-16" pointId="16" value="1.82" relation="eq">
        <error errorId="1" plus="0.25" minus="0.25" source="stat" norm="abs" />
        <error errorId="2" plus="0.25" minus="0.25" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-17" pointId="17" value="1.14" relation="eq">
+      <point id="pt-9184-1-1-17" pointId="17" value="1.14" relation="eq">
        <error errorId="1" plus="0.2" minus="0.2" source="stat" norm="abs" />
        <error errorId="2" plus="0.23" minus="0.23" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-18" pointId="18" value="0.749" relation="eq">
+      <point id="pt-9184-1-1-18" pointId="18" value="0.749" relation="eq">
        <error errorId="1" plus="0.178" minus="0.178" source="stat" norm="abs" />
        <error errorId="2" plus="0.17" minus="0.17" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-19" pointId="19" value="0.31" relation="eq">
+      <point id="pt-9184-1-1-19" pointId="19" value="0.31" relation="eq">
        <error errorId="1" plus="0.059" minus="0.059" source="stat" norm="abs" />
        <error errorId="2" plus="0.088" minus="0.088" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-20" pointId="20" value="0.0822" relation="eq">
+      <point id="pt-9184-1-1-20" pointId="20" value="0.0822" relation="eq">
        <error errorId="1" plus="0.0287" minus="0.0287" source="stat" norm="abs" />
        <error errorId="2" plus="0.0255" minus="0.0255" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-21" pointId="21" value="0.0433" relation="eq">
+      <point id="pt-9184-1-1-21" pointId="21" value="0.0433" relation="eq">
        <error errorId="1" plus="0.0119" minus="0.0119" source="stat" norm="abs" />
        <error errorId="2" plus="0.0118" minus="0.0118" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-1-22" pointId="22" value="0.00769" relation="eq">
+      <point id="pt-9184-1-1-22" pointId="22" value="0.00769" relation="eq">
        <error errorId="1" plus="0.00545" minus="0.00545" source="stat" norm="abs" />
        <error errorId="2" plus="0.00482" minus="0.00482" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
-    <yaxis id="yax-9185-1-2" observable="DSIG/DPT" header="D(SIG)/DPT IN PB/GEV">
+    <yaxis id="yax-9184-1-2" observable="DSIG/DPT" header="D(SIG)/DPT IN PB/GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -171,105 +171,105 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="1800" high="1800" />
      <points>
-      <point id="pt-9185-1-2-1" pointId="1" value="11.94" relation="eq">
+      <point id="pt-9184-1-2-1" pointId="1" value="11.94" relation="eq">
        <error errorId="1" plus="0.53" minus="0.53" source="stat" norm="abs" />
        <error errorId="2" plus="0.35" minus="0.35" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-2" pointId="2" value="19.63" relation="eq">
+      <point id="pt-9184-1-2-2" pointId="2" value="19.63" relation="eq">
        <error errorId="1" plus="0.65" minus="0.65" source="stat" norm="abs" />
        <error errorId="2" plus="0.57" minus="0.57" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-3" pointId="3" value="14.34" relation="eq">
+      <point id="pt-9184-1-2-3" pointId="3" value="14.34" relation="eq">
        <error errorId="1" plus="0.53" minus="0.53" source="stat" norm="abs" />
        <error errorId="2" plus="0.44" minus="0.44" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-4" pointId="4" value="11.19" relation="eq">
+      <point id="pt-9184-1-2-4" pointId="4" value="11.19" relation="eq">
        <error errorId="1" plus="0.48" minus="0.48" source="stat" norm="abs" />
        <error errorId="2" plus="0.36" minus="0.36" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-5" pointId="5" value="8.05" relation="eq">
+      <point id="pt-9184-1-2-5" pointId="5" value="8.05" relation="eq">
        <error errorId="1" plus="0.41" minus="0.41" source="stat" norm="abs" />
        <error errorId="2" plus="0.27" minus="0.27" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-6" pointId="6" value="6.18" relation="eq">
+      <point id="pt-9184-1-2-6" pointId="6" value="6.18" relation="eq">
        <error errorId="1" plus="0.37" minus="0.37" source="stat" norm="abs" />
        <error errorId="2" plus="0.21" minus="0.21" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-7" pointId="7" value="4.74" relation="eq">
+      <point id="pt-9184-1-2-7" pointId="7" value="4.74" relation="eq">
        <error errorId="1" plus="0.33" minus="0.33" source="stat" norm="abs" />
        <error errorId="2" plus="0.15" minus="0.15" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-8" pointId="8" value="3.39" relation="eq">
+      <point id="pt-9184-1-2-8" pointId="8" value="3.39" relation="eq">
        <error errorId="1" plus="0.28" minus="0.28" source="stat" norm="abs" />
        <error errorId="2" plus="0.11" minus="0.11" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-9" pointId="9" value="3.27" relation="eq">
+      <point id="pt-9184-1-2-9" pointId="9" value="3.27" relation="eq">
        <error errorId="1" plus="0.28" minus="0.28" source="stat" norm="abs" />
        <error errorId="2" plus="0.17" minus="0.17" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-10" pointId="10" value="1.94" relation="eq">
+      <point id="pt-9184-1-2-10" pointId="10" value="1.94" relation="eq">
        <error errorId="1" plus="0.22" minus="0.22" source="stat" norm="abs" />
        <error errorId="2" plus="0.11" minus="0.11" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-11" pointId="11" value="1.59" relation="eq">
+      <point id="pt-9184-1-2-11" pointId="11" value="1.59" relation="eq">
        <error errorId="1" plus="0.12" minus="0.12" source="stat" norm="abs" />
        <error errorId="2" plus="0.08" minus="0.08" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-12" pointId="12" value="0.946" relation="eq">
+      <point id="pt-9184-1-2-12" pointId="12" value="0.946" relation="eq">
        <error errorId="1" plus="0.097" minus="0.097" source="stat" norm="abs" />
        <error errorId="2" plus="0.051" minus="0.051" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-13" pointId="13" value="0.848" relation="eq">
+      <point id="pt-9184-1-2-13" pointId="13" value="0.848" relation="eq">
        <error errorId="1" plus="0.092" minus="0.092" source="stat" norm="abs" />
        <error errorId="2" plus="0.043" minus="0.043" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-14" pointId="14" value="0.435" relation="eq">
+      <point id="pt-9184-1-2-14" pointId="14" value="0.435" relation="eq">
        <error errorId="1" plus="0.066" minus="0.066" source="stat" norm="abs" />
        <error errorId="2" plus="0.022" minus="0.022" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-15" pointId="15" value="0.325" relation="eq">
+      <point id="pt-9184-1-2-15" pointId="15" value="0.325" relation="eq">
        <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
        <error errorId="2" plus="0.016" minus="0.016" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-16" pointId="16" value="0.18" relation="eq">
+      <point id="pt-9184-1-2-16" pointId="16" value="0.18" relation="eq">
        <error errorId="1" plus="0.029" minus="0.029" source="stat" norm="abs" />
        <error errorId="2" plus="0.009" minus="0.009" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-17" pointId="17" value="0.0848" relation="eq">
+      <point id="pt-9184-1-2-17" pointId="17" value="0.0848" relation="eq">
        <error errorId="1" plus="0.0197" minus="0.0197" source="stat" norm="abs" />
        <error errorId="2" plus="0.0045" minus="0.0045" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-18" pointId="18" value="0.0385" relation="eq">
+      <point id="pt-9184-1-2-18" pointId="18" value="0.0385" relation="eq">
        <error errorId="1" plus="0.0129" minus="0.0129" source="stat" norm="abs" />
        <error errorId="2" plus="0.002" minus="0.002" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-19" pointId="19" value="0.0141" relation="eq">
+      <point id="pt-9184-1-2-19" pointId="19" value="0.0141" relation="eq">
        <error errorId="1" plus="0.0054" minus="0.0054" source="stat" norm="abs" />
        <error errorId="2" plus="0.0008" minus="0.0008" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-20" pointId="20" value="0.00764" relation="eq">
+      <point id="pt-9184-1-2-20" pointId="20" value="0.00764" relation="eq">
        <error errorId="1" plus="0.00383" minus="0.00383" source="stat" norm="abs" />
        <error errorId="2" plus="0.00032" minus="0.00032" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-21" pointId="21" value="0.00358" relation="eq">
+      <point id="pt-9184-1-2-21" pointId="21" value="0.00358" relation="eq">
        <error errorId="1" plus="0.0018" minus="0.0018" source="stat" norm="abs" />
        <error errorId="2" plus="0.00018" minus="0.00018" source="sys" norm="abs" />
       </point>
-      <point id="pt-9185-1-2-22" pointId="22" value="0.00163" relation="eq">
+      <point id="pt-9184-1-2-22" pointId="22" value="0.00163" relation="eq">
        <error errorId="1" plus="0.00111" minus="0.00111" source="stat" norm="abs" />
        <error errorId="2" plus="0.0001" minus="0.0001" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-9185-2" datasetId="2">
+   <dataset id="ds-9184-2" datasetId="2">
     <comment>
      The measured ratios of W+-/Z0 cross sections, corrected for the branching ratios BR(W--&gt;e-nue)=0.1073+-0.0025 and BR(Z0--&gt;E+E-)=0.033632+-0.000059 (PDG 2000). The error given is the total error, but note that the 4.3pct error in the luminosity cancels completely in the ratio.
     </comment>
     <comment>
      Location: T 1,F 1
     </comment>
-    <xaxis id="xax-9185-2-1" xaxisId="1" header="PT IN GEV">
+    <xaxis id="xax-9184-2-1" xaxisId="1" header="PT IN GEV">
      <bins>
       <bin binId="1" focus="1.21" low="0.0" high="2.0" />
       <bin binId="2" focus="2.81" low="2.0" high="4.0" />
@@ -295,7 +295,7 @@
       <bin binId="22" focus="180.14" low="160.0" high="200.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-9185-2-1" header="D(SIG(Q=W=+-))/D(SIG(Q=Z0))">
+    <yaxis id="yax-9184-2-1" header="D(SIG(Q=W=+-))/D(SIG(Q=Z0))">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -325,70 +325,70 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="1800" high="1800" />
      <points>
-      <point id="pt-9185-2-1-1" pointId="1" value="2.538" relation="eq">
+      <point id="pt-9184-2-1-1" pointId="1" value="2.538" relation="eq">
        <error errorId="1" plus="0.339" minus="0.339" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-2" pointId="2" value="2.908" relation="eq">
+      <point id="pt-9184-2-1-2" pointId="2" value="2.908" relation="eq">
        <error errorId="1" plus="0.388" minus="0.388" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-3" pointId="3" value="3.306" relation="eq">
+      <point id="pt-9184-2-1-3" pointId="3" value="3.306" relation="eq">
        <error errorId="1" plus="0.275" minus="0.275" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-4" pointId="4" value="3.305" relation="eq">
+      <point id="pt-9184-2-1-4" pointId="4" value="3.305" relation="eq">
        <error errorId="1" plus="0.324" minus="0.324" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-5" pointId="5" value="3.557" relation="eq">
+      <point id="pt-9184-2-1-5" pointId="5" value="3.557" relation="eq">
        <error errorId="1" plus="0.361" minus="0.361" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-6" pointId="6" value="3.471" relation="eq">
+      <point id="pt-9184-2-1-6" pointId="6" value="3.471" relation="eq">
        <error errorId="1" plus="0.439" minus="0.439" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-7" pointId="7" value="3.714" relation="eq">
+      <point id="pt-9184-2-1-7" pointId="7" value="3.714" relation="eq">
        <error errorId="1" plus="0.426" minus="0.426" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-8" pointId="8" value="3.895" relation="eq">
+      <point id="pt-9184-2-1-8" pointId="8" value="3.895" relation="eq">
        <error errorId="1" plus="0.549" minus="0.549" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-9" pointId="9" value="3.187" relation="eq">
+      <point id="pt-9184-2-1-9" pointId="9" value="3.187" relation="eq">
        <error errorId="1" plus="0.449" minus="0.449" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-10" pointId="10" value="4.351" relation="eq">
+      <point id="pt-9184-2-1-10" pointId="10" value="4.351" relation="eq">
        <error errorId="1" plus="0.681" minus="0.681" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-11" pointId="11" value="3.829" relation="eq">
+      <point id="pt-9184-2-1-11" pointId="11" value="3.829" relation="eq">
        <error errorId="1" plus="0.478" minus="0.478" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-12" pointId="12" value="4.078" relation="eq">
+      <point id="pt-9184-2-1-12" pointId="12" value="4.078" relation="eq">
        <error errorId="1" plus="0.638" minus="0.638" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-13" pointId="13" value="3.104" relation="eq">
+      <point id="pt-9184-2-1-13" pointId="13" value="3.104" relation="eq">
        <error errorId="1" plus="0.528" minus="0.528" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-14" pointId="14" value="4.32" relation="eq">
+      <point id="pt-9184-2-1-14" pointId="14" value="4.32" relation="eq">
        <error errorId="1" plus="0.871" minus="0.871" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-15" pointId="15" value="3.373" relation="eq">
+      <point id="pt-9184-2-1-15" pointId="15" value="3.373" relation="eq">
        <error errorId="1" plus="0.613" minus="0.613" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-16" pointId="16" value="2.796" relation="eq">
+      <point id="pt-9184-2-1-16" pointId="16" value="2.796" relation="eq">
        <error errorId="1" plus="0.724" minus="0.724" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-17" pointId="17" value="3.707" relation="eq">
+      <point id="pt-9184-2-1-17" pointId="17" value="3.707" relation="eq">
        <error errorId="1" plus="1.334" minus="1.334" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-18" pointId="18" value="5.384" relation="eq">
+      <point id="pt-9184-2-1-18" pointId="18" value="5.384" relation="eq">
        <error errorId="1" plus="2.551" minus="2.551" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-19" pointId="19" value="6.1" relation="eq">
+      <point id="pt-9184-2-1-19" pointId="19" value="6.1" relation="eq">
        <error errorId="1" plus="3.141" minus="3.141" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-20" pointId="20" value="2.976" relation="eq">
+      <point id="pt-9184-2-1-20" pointId="20" value="2.976" relation="eq">
        <error errorId="1" plus="2.047" minus="2.047" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-21" pointId="21" value="3.352" relation="eq">
+      <point id="pt-9184-2-1-21" pointId="21" value="3.352" relation="eq">
        <error errorId="1" plus="2.138" minus="2.138" source="unknown" norm="abs" />
       </point>
-      <point id="pt-9185-2-1-22" pointId="22" value="1.309" relation="eq">
+      <point id="pt-9184-2-1-22" pointId="22" value="1.309" relation="eq">
        <error errorId="1" plus="1.529" minus="1.529" source="unknown" norm="abs" />
       </point>
      </points>

@@ -1,5 +1,5 @@
 <hepml>
- <data timestamp="2008-03-07T11:40:52.316867">
+ <data timestamp="2008-03-11T14:41:29.123367">
   <paper hepdataId="1275" spiresId="6653332" redId="4728" preprintDate="08/18/2006">
    <title>
     Measurement of the b jet cross-section in events with a Z boson in p anti-p collisions at s**(1/2) = 1.96-TeV
@@ -14,19 +14,19 @@
    <reference description="HEP-EX/0605099" />
    <reference description="PR D74,032008" />
    <experiment name="FNAL-830" laboratory="FNAL" informalname="CDF" />
-   <dataset id="ds-10184-1" datasetId="1">
+   <dataset id="ds-10183-1" datasetId="1">
     <comment>
      B-jet cross section for the di-letpon mass from 66 to 116 GeV
     </comment>
     <comment>
      Location: P 10
     </comment>
-    <xaxis id="xax-10184-1-1" xaxisId="1" header="SQRT(S) IN GEV">
+    <xaxis id="xax-10183-1-1" xaxisId="1" header="SQRT(S) IN GEV">
      <bins>
       <bin binId="1" focus="1960.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10184-1-1" observable="SIG" header="SIG IN PB">
+    <yaxis id="yax-10183-1-1" observable="SIG" header="SIG IN PB">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -63,26 +63,26 @@
       RE : PBAR P --&gt; Z0 &lt;LEPTON+ LEPTON-&gt; JET &lt;BOTTOM X&gt; X
      </comment>
      <points>
-      <point id="pt-10184-1-1-1" pointId="1" value="0.93" relation="eq">
+      <point id="pt-10183-1-1-1" pointId="1" value="0.93" relation="eq">
        <error errorId="1" plus="0.29" minus="0.29" source="stat" norm="abs" />
        <error errorId="2" plus="0.21" minus="0.21" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-10184-2" datasetId="2">
+   <dataset id="ds-10183-2" datasetId="2">
     <comment>
      Ratio of the b-jet cross section to the inclusive Z0 cross section
     </comment>
     <comment>
      Location: P 10
     </comment>
-    <xaxis id="xax-10184-2-1" xaxisId="1" header="SQRT(S) IN GEV">
+    <xaxis id="xax-10183-2-1" xaxisId="1" header="SQRT(S) IN GEV">
      <bins>
       <bin binId="1" focus="1960.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10184-2-1" observable="SIG" header="SIG(Q=B-JET)/SIG(Q=Z0)">
+    <yaxis id="yax-10183-2-1" observable="SIG" header="SIG(Q=B-JET)/SIG(Q=Z0)">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -132,26 +132,26 @@
       RE(Q=Z0) : PBAR P --&gt; Z0 &lt;LEPTON+ LEPTON-&gt; X
      </comment>
      <points>
-      <point id="pt-10184-2-1-1" pointId="1" value="0.0037" relation="eq">
+      <point id="pt-10183-2-1-1" pointId="1" value="0.0037" relation="eq">
        <error errorId="1" plus="0.0011" minus="0.0011" source="stat" norm="abs" />
        <error errorId="2" plus="0.0008" minus="0.0008" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-10184-3" datasetId="3">
+   <dataset id="ds-10183-3" datasetId="3">
     <comment>
      Ratio of the b-jet cross section to the generic jet cross section
     </comment>
     <comment>
      Location: P 10
     </comment>
-    <xaxis id="xax-10184-3-1" xaxisId="1" header="SQRT(S) IN GEV">
+    <xaxis id="xax-10183-3-1" xaxisId="1" header="SQRT(S) IN GEV">
      <bins>
       <bin binId="1" focus="1960.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10184-3-1" observable="SIG" header="SIG(Q=B-JET)/SIG(Q=JET)">
+    <yaxis id="yax-10183-3-1" observable="SIG" header="SIG(Q=B-JET)/SIG(Q=JET)">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -191,21 +191,21 @@
       RE(Q=JET) : PBAR P --&gt; Z0 &lt;LEPTON+ LEPTON-&gt; JET X
      </comment>
      <points>
-      <point id="pt-10184-3-1-1" pointId="1" value="0.0236" relation="eq">
+      <point id="pt-10183-3-1-1" pointId="1" value="0.0236" relation="eq">
        <error errorId="1" plus="0.0074" minus="0.0074" source="stat" norm="abs" />
        <error errorId="2" plus="0.0053" minus="0.0053" source="sys" norm="abs" />
       </point>
      </points>
     </yaxis>
    </dataset>
-   <dataset id="ds-10184-4" datasetId="4">
+   <dataset id="ds-10183-4" datasetId="4">
     <comment>
      ET distribution for generic jets
     </comment>
     <comment>
      Location: T 4A
     </comment>
-    <xaxis id="xax-10184-4-1" xaxisId="1" header="ET IN GEV">
+    <xaxis id="xax-10183-4-1" xaxisId="1" header="ET IN GEV">
      <bins>
       <bin binId="1" low="20.0" high="30.0" />
       <bin binId="2" low="30.0" high="40.0" />
@@ -217,7 +217,7 @@
       <bin binId="8" low="90.0" high="100.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10184-4-1" observable="DN/DET" header="D(N)/DT IN EVENTS/10 GEV">
+    <yaxis id="yax-10183-4-1" observable="DN/DET" header="D(N)/DT IN EVENTS/10 GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -240,28 +240,28 @@
       RE : PBAR P --&gt; Z0 &lt;LEPTON+ LEPTON-&gt; JET X
      </comment>
      <points>
-      <point id="pt-10184-4-1-1" pointId="1" value="3055.0" relation="eq">
+      <point id="pt-10183-4-1-1" pointId="1" value="3055.0" relation="eq">
        <error errorId="1" plus="55.0" minus="55.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-4-1-2" pointId="2" value="1300.0" relation="eq">
+      <point id="pt-10183-4-1-2" pointId="2" value="1300.0" relation="eq">
        <error errorId="1" plus="36.0" minus="36.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-4-1-3" pointId="3" value="701.0" relation="eq">
+      <point id="pt-10183-4-1-3" pointId="3" value="701.0" relation="eq">
        <error errorId="1" plus="26.0" minus="26.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-4-1-4" pointId="4" value="387.0" relation="eq">
+      <point id="pt-10183-4-1-4" pointId="4" value="387.0" relation="eq">
        <error errorId="1" plus="19.0" minus="19.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-4-1-5" pointId="5" value="233.0" relation="eq">
+      <point id="pt-10183-4-1-5" pointId="5" value="233.0" relation="eq">
        <error errorId="1" plus="15.0" minus="15.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-4-1-6" pointId="6" value="146.0" relation="eq">
+      <point id="pt-10183-4-1-6" pointId="6" value="146.0" relation="eq">
        <error errorId="1" plus="12.0" minus="12.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-4-1-7" pointId="7" value="95.0" relation="eq">
+      <point id="pt-10183-4-1-7" pointId="7" value="95.0" relation="eq">
        <error errorId="1" plus="9.0" minus="9.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-4-1-8" pointId="8" value="59.0" relation="eq">
+      <point id="pt-10183-4-1-8" pointId="8" value="59.0" relation="eq">
        <error errorId="1" plus="7.0" minus="7.0" source="unknown" norm="abs" />
       </point>
      </points>
@@ -272,14 +272,14 @@
      </comment>
     </error>
    </dataset>
-   <dataset id="ds-10184-5" datasetId="5">
+   <dataset id="ds-10183-5" datasetId="5">
     <comment>
      Pseudorapidity (YRAP) distribution for generic jets
     </comment>
     <comment>
      Location: T 4B
     </comment>
-    <xaxis id="xax-10184-5-1" xaxisId="1" header="ET IN GEV">
+    <xaxis id="xax-10183-5-1" xaxisId="1" header="ET IN GEV">
      <bins>
       <bin binId="1" low="-1.6" high="-1.4" />
       <bin binId="2" low="-1.4" high="-1.2" />
@@ -299,7 +299,7 @@
       <bin binId="16" low="1.4" high="1.6" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10184-5-1" observable="DN/DYRAP" header="D(N)/DYRAP IN EVENTS/0.2">
+    <yaxis id="yax-10183-5-1" observable="DN/DYRAP" header="D(N)/DYRAP IN EVENTS/0.2">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -322,52 +322,52 @@
       RE : PBAR P --&gt; Z0 &lt;LEPTON+ LEPTON-&gt; JET X
      </comment>
      <points>
-      <point id="pt-10184-5-1-1" pointId="1" value="169.0" relation="eq">
+      <point id="pt-10183-5-1-1" pointId="1" value="169.0" relation="eq">
        <error errorId="1" plus="13.0" minus="13.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-2" pointId="2" value="353.0" relation="eq">
+      <point id="pt-10183-5-1-2" pointId="2" value="353.0" relation="eq">
        <error errorId="1" plus="18.0" minus="18.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-3" pointId="3" value="363.0" relation="eq">
+      <point id="pt-10183-5-1-3" pointId="3" value="363.0" relation="eq">
        <error errorId="1" plus="19.0" minus="19.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-4" pointId="4" value="386.0" relation="eq">
+      <point id="pt-10183-5-1-4" pointId="4" value="386.0" relation="eq">
        <error errorId="1" plus="19.0" minus="19.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-5" pointId="5" value="428.0" relation="eq">
+      <point id="pt-10183-5-1-5" pointId="5" value="428.0" relation="eq">
        <error errorId="1" plus="20.0" minus="20.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-6" pointId="6" value="501.0" relation="eq">
+      <point id="pt-10183-5-1-6" pointId="6" value="501.0" relation="eq">
        <error errorId="1" plus="22.0" minus="22.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-7" pointId="7" value="489.0" relation="eq">
+      <point id="pt-10183-5-1-7" pointId="7" value="489.0" relation="eq">
        <error errorId="1" plus="22.0" minus="22.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-8" pointId="8" value="467.0" relation="eq">
+      <point id="pt-10183-5-1-8" pointId="8" value="467.0" relation="eq">
        <error errorId="1" plus="21.0" minus="21.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-9" pointId="9" value="437.0" relation="eq">
+      <point id="pt-10183-5-1-9" pointId="9" value="437.0" relation="eq">
        <error errorId="1" plus="20.0" minus="20.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-10" pointId="10" value="466.0" relation="eq">
+      <point id="pt-10183-5-1-10" pointId="10" value="466.0" relation="eq">
        <error errorId="1" plus="21.0" minus="21.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-11" pointId="11" value="454.0" relation="eq">
+      <point id="pt-10183-5-1-11" pointId="11" value="454.0" relation="eq">
        <error errorId="1" plus="21.0" minus="21.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-12" pointId="12" value="420.0" relation="eq">
+      <point id="pt-10183-5-1-12" pointId="12" value="420.0" relation="eq">
        <error errorId="1" plus="20.0" minus="20.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-13" pointId="13" value="355.0" relation="eq">
+      <point id="pt-10183-5-1-13" pointId="13" value="355.0" relation="eq">
        <error errorId="1" plus="18.0" minus="18.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-14" pointId="14" value="308.0" relation="eq">
+      <point id="pt-10183-5-1-14" pointId="14" value="308.0" relation="eq">
        <error errorId="1" plus="17.0" minus="17.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-15" pointId="15" value="337.0" relation="eq">
+      <point id="pt-10183-5-1-15" pointId="15" value="337.0" relation="eq">
        <error errorId="1" plus="18.0" minus="18.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-5-1-16" pointId="16" value="148.0" relation="eq">
+      <point id="pt-10183-5-1-16" pointId="16" value="148.0" relation="eq">
        <error errorId="1" plus="12.0" minus="12.0" source="unknown" norm="abs" />
       </point>
      </points>
@@ -378,14 +378,14 @@
      </comment>
     </error>
    </dataset>
-   <dataset id="ds-10184-6" datasetId="6">
+   <dataset id="ds-10183-6" datasetId="6">
     <comment>
      ET distribution for jets tagged as B-jets
     </comment>
     <comment>
      Location: T 5A
     </comment>
-    <xaxis id="xax-10184-6-1" xaxisId="1" header="ET IN GEV">
+    <xaxis id="xax-10183-6-1" xaxisId="1" header="ET IN GEV">
      <bins>
       <bin binId="1" low="20.0" high="30.0" />
       <bin binId="2" low="30.0" high="40.0" />
@@ -397,7 +397,7 @@
       <bin binId="8" low="90.0" high="100.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10184-6-1" observable="DN/DET" header="D(N)/DT IN EVENTS/10 GEV">
+    <yaxis id="yax-10183-6-1" observable="DN/DET" header="D(N)/DT IN EVENTS/10 GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -431,28 +431,28 @@
       RE : PBAR P --&gt; Z0 &lt;LEPTON+ LEPTON-&gt; JET &lt;BOTTOM X&gt; X
      </comment>
      <points>
-      <point id="pt-10184-6-1-1" pointId="1" value="27.2" relation="eq">
+      <point id="pt-10183-6-1-1" pointId="1" value="27.2" relation="eq">
        <error errorId="1" plus="5.2" minus="5.2" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-6-1-2" pointId="2" value="17.1" relation="eq">
+      <point id="pt-10183-6-1-2" pointId="2" value="17.1" relation="eq">
        <error errorId="1" plus="4.1" minus="4.1" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-6-1-3" pointId="3" value="15.2" relation="eq">
+      <point id="pt-10183-6-1-3" pointId="3" value="15.2" relation="eq">
        <error errorId="1" plus="3.9" minus="3.9" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-6-1-4" pointId="4" value="9.4" relation="eq">
+      <point id="pt-10183-6-1-4" pointId="4" value="9.4" relation="eq">
        <error errorId="1" plus="3.1" minus="3.1" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-6-1-5" pointId="5" value="10.5" relation="eq">
+      <point id="pt-10183-6-1-5" pointId="5" value="10.5" relation="eq">
        <error errorId="1" plus="3.2" minus="3.2" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-6-1-6" pointId="6" value="5.6" relation="eq">
+      <point id="pt-10183-6-1-6" pointId="6" value="5.6" relation="eq">
        <error errorId="1" plus="2.4" minus="2.4" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-6-1-7" pointId="7" value="1.7" relation="eq">
+      <point id="pt-10183-6-1-7" pointId="7" value="1.7" relation="eq">
        <error errorId="1" plus="1.3" minus="1.3" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-6-1-8" pointId="8" value="1.8" relation="eq">
+      <point id="pt-10183-6-1-8" pointId="8" value="1.8" relation="eq">
        <error errorId="1" plus="1.3" minus="1.3" source="unknown" norm="abs" />
       </point>
      </points>
@@ -463,14 +463,14 @@
      </comment>
     </error>
    </dataset>
-   <dataset id="ds-10184-7" datasetId="7">
+   <dataset id="ds-10183-7" datasetId="7">
     <comment>
      Pseudorapidity (YRAP) distribution for jets tagged as B-jets
     </comment>
     <comment>
      Location: T 4B
     </comment>
-    <xaxis id="xax-10184-7-1" xaxisId="1" header="ET IN GEV">
+    <xaxis id="xax-10183-7-1" xaxisId="1" header="ET IN GEV">
      <bins>
       <bin binId="1" low="-1.6" high="-1.4" />
       <bin binId="2" low="-1.4" high="-1.2" />
@@ -490,7 +490,7 @@
       <bin binId="16" low="1.4" high="1.6" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10184-7-1" observable="DN/DYRAP" header="D(N)/DYRAP IN EVENTS/0.2">
+    <yaxis id="yax-10183-7-1" observable="DN/DYRAP" header="D(N)/DYRAP IN EVENTS/0.2">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -513,52 +513,52 @@
       RE : PBAR P --&gt; Z0 &lt;LEPTON+ LEPTON-&gt; JET &lt;BOTTOM X&gt; X
      </comment>
      <points>
-      <point id="pt-10184-7-1-1" pointId="1" value="0.0" relation="eq">
+      <point id="pt-10183-7-1-1" pointId="1" value="0.0" relation="eq">
        <error errorId="1" plus="0.0" minus="0.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-2" pointId="2" value="6.8" relation="eq">
+      <point id="pt-10183-7-1-2" pointId="2" value="6.8" relation="eq">
        <error errorId="1" plus="2.6" minus="2.6" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-3" pointId="3" value="3.8" relation="eq">
+      <point id="pt-10183-7-1-3" pointId="3" value="3.8" relation="eq">
        <error errorId="1" plus="1.9" minus="1.9" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-4" pointId="4" value="8.6" relation="eq">
+      <point id="pt-10183-7-1-4" pointId="4" value="8.6" relation="eq">
        <error errorId="1" plus="2.9" minus="2.9" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-5" pointId="5" value="7.6" relation="eq">
+      <point id="pt-10183-7-1-5" pointId="5" value="7.6" relation="eq">
        <error errorId="1" plus="2.8" minus="2.8" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-6" pointId="6" value="5.6" relation="eq">
+      <point id="pt-10183-7-1-6" pointId="6" value="5.6" relation="eq">
        <error errorId="1" plus="2.4" minus="2.4" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-7" pointId="7" value="9.6" relation="eq">
+      <point id="pt-10183-7-1-7" pointId="7" value="9.6" relation="eq">
        <error errorId="1" plus="3.1" minus="3.1" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-8" pointId="8" value="8.6" relation="eq">
+      <point id="pt-10183-7-1-8" pointId="8" value="8.6" relation="eq">
        <error errorId="1" plus="2.9" minus="2.9" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-9" pointId="9" value="6.6" relation="eq">
+      <point id="pt-10183-7-1-9" pointId="9" value="6.6" relation="eq">
        <error errorId="1" plus="2.6" minus="2.6" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-10" pointId="10" value="4.6" relation="eq">
+      <point id="pt-10183-7-1-10" pointId="10" value="4.6" relation="eq">
        <error errorId="1" plus="2.1" minus="2.1" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-11" pointId="11" value="6.5" relation="eq">
+      <point id="pt-10183-7-1-11" pointId="11" value="6.5" relation="eq">
        <error errorId="1" plus="2.5" minus="2.5" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-12" pointId="12" value="12.5" relation="eq">
+      <point id="pt-10183-7-1-12" pointId="12" value="12.5" relation="eq">
        <error errorId="1" plus="3.5" minus="3.5" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-13" pointId="13" value="5.7" relation="eq">
+      <point id="pt-10183-7-1-13" pointId="13" value="5.7" relation="eq">
        <error errorId="1" plus="2.4" minus="2.4" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-14" pointId="14" value="3.8" relation="eq">
+      <point id="pt-10183-7-1-14" pointId="14" value="3.8" relation="eq">
        <error errorId="1" plus="2.0" minus="2.0" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-15" pointId="15" value="0.9" relation="eq">
+      <point id="pt-10183-7-1-15" pointId="15" value="0.9" relation="eq">
        <error errorId="1" plus="0.9" minus="0.9" source="unknown" norm="abs" />
       </point>
-      <point id="pt-10184-7-1-16" pointId="16" value="3.0" relation="eq">
+      <point id="pt-10183-7-1-16" pointId="16" value="3.0" relation="eq">
        <error errorId="1" plus="1.7" minus="1.7" source="unknown" norm="abs" />
       </point>
      </points>

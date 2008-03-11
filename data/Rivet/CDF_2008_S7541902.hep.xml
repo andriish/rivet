@@ -1,5 +1,5 @@
 <hepml>
- <data timestamp="2008-03-07T13:31:55.781890">
+ <data timestamp="2008-03-11T14:41:33.931073">
   <paper hepdataId="35" spiresId="7541902" redId="4738" preprintDate="12/14/2007">
    <title>
     Measurement of the cross section for W-boson production in association with jets in ppbar collisions at s**(1/2) = 1.96-TeV
@@ -14,14 +14,14 @@
    <reference description="ARXIV:0711.4044" />
    <reference description="FERMILAB-PUB-07-622-E" />
    <experiment name="FNAL-830" laboratory="FNAL" informalname="CDF" />
-   <dataset id="ds-10240-1" datasetId="1">
+   <dataset id="ds-10239-1" datasetId="1">
     <comment>
      Measured ET differential cross section of the 1st jet in &gt;= 1 JET plus W &lt; E NU &gt; events.
     </comment>
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-10240-1-1" xaxisId="1" header="ET(C=JET1) IN GEV">
+    <xaxis id="xax-10239-1-1" xaxisId="1" header="ET(C=JET1) IN GEV">
      <bins>
       <bin binId="1" low="20.0" high="25.0" />
       <bin binId="2" low="25.0" high="30.0" />
@@ -37,7 +37,7 @@
       <bin binId="12" low="195.0" high="350.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10240-1-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
+    <yaxis id="yax-10239-1-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -55,51 +55,51 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
      <points>
-      <point id="pt-10240-1-1-1" pointId="1" value="4.46" relation="eq">
+      <point id="pt-10239-1-1-1" pointId="1" value="4.46" relation="eq">
        <error errorId="1" plus="0.07" minus="0.07" source="stat" norm="abs" />
        <error errorId="2" plus="0.29" minus="0.29" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-2" pointId="2" value="2.8" relation="eq">
+      <point id="pt-10239-1-1-2" pointId="2" value="2.8" relation="eq">
        <error errorId="1" plus="0.06" minus="0.06" source="stat" norm="abs" />
        <error errorId="2" plus="0.21" minus="0.21" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-3" pointId="3" value="1.92" relation="eq">
+      <point id="pt-10239-1-1-3" pointId="3" value="1.92" relation="eq">
        <error errorId="1" plus="0.05" minus="0.05" source="stat" norm="abs" />
        <error errorId="2" plus="0.17" minus="0.17" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-4" pointId="4" value="1.31" relation="eq">
+      <point id="pt-10239-1-1-4" pointId="4" value="1.31" relation="eq">
        <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
        <error errorId="2" plus="0.14" minus="0.14" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-5" pointId="5" value="0.839" relation="eq">
+      <point id="pt-10239-1-1-5" pointId="5" value="0.839" relation="eq">
        <error errorId="1" plus="0.023" minus="0.023" source="stat" norm="abs" />
        <error errorId="2" plus="0.093" minus="0.093" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-6" pointId="6" value="0.498" relation="eq">
+      <point id="pt-10239-1-1-6" pointId="6" value="0.498" relation="eq">
        <error errorId="1" plus="0.018" minus="0.018" source="stat" norm="abs" />
        <error errorId="2" plus="0.063" minus="0.063" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-7" pointId="7" value="0.259" relation="eq">
+      <point id="pt-10239-1-1-7" pointId="7" value="0.259" relation="eq">
        <error errorId="1" plus="0.011" minus="0.011" source="stat" norm="abs" />
        <error errorId="2" plus="0.038" minus="0.038" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-8" pointId="8" value="0.158" relation="eq">
+      <point id="pt-10239-1-1-8" pointId="8" value="0.158" relation="eq">
        <error errorId="1" plus="0.008" minus="0.008" source="stat" norm="abs" />
        <error errorId="2" plus="0.024" minus="0.024" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-9" pointId="9" value="0.056" relation="eq">
+      <point id="pt-10239-1-1-9" pointId="9" value="0.056" relation="eq">
        <error errorId="1" plus="0.005" minus="0.005" source="stat" norm="abs" />
        <error errorId="2" plus="0.011" minus="0.011" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-10" pointId="10" value="0.0225" relation="eq">
+      <point id="pt-10239-1-1-10" pointId="10" value="0.0225" relation="eq">
        <error errorId="1" plus="0.0023" minus="0.0023" source="stat" norm="abs" />
        <error errorId="2" plus="0.0044" minus="0.0044" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-11" pointId="11" value="0.0035" relation="eq">
+      <point id="pt-10239-1-1-11" pointId="11" value="0.0035" relation="eq">
        <error errorId="1" plus="0.0011" minus="0.0011" source="stat" norm="abs" />
        <error errorId="2" plus="0.0023" minus="0.0023" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-1-1-12" pointId="12" value="0.00039" relation="eq">
+      <point id="pt-10239-1-1-12" pointId="12" value="0.00039" relation="eq">
        <error errorId="1" plus="0.00022" minus="0.00022" source="stat" norm="abs" />
        <error errorId="2" plus="0.00038" minus="0.00038" source="sys" norm="abs" />
       </point>
@@ -111,14 +111,14 @@
      </comment>
     </error>
    </dataset>
-   <dataset id="ds-10240-2" datasetId="2">
+   <dataset id="ds-10239-2" datasetId="2">
     <comment>
      Measured ET differential cross section of the 2nd jet in &gt;= 2 JET plus W &lt; E NU &gt; events.
     </comment>
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-10240-2-1" xaxisId="1" header="ET(C=JET2) IN GEV">
+    <xaxis id="xax-10239-2-1" xaxisId="1" header="ET(C=JET2) IN GEV">
      <bins>
       <bin binId="1" low="20.0" high="25.0" />
       <bin binId="2" low="25.0" high="30.0" />
@@ -131,7 +131,7 @@
       <bin binId="9" low="95.0" high="190.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10240-2-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
+    <yaxis id="yax-10239-2-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -149,39 +149,39 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
      <points>
-      <point id="pt-10240-2-1-1" pointId="1" value="0.874" relation="eq">
+      <point id="pt-10239-2-1-1" pointId="1" value="0.874" relation="eq">
        <error errorId="1" plus="0.033" minus="0.033" source="stat" norm="abs" />
        <error errorId="2" plus="0.097" minus="0.097" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-2" pointId="2" value="0.483" relation="eq">
+      <point id="pt-10239-2-1-2" pointId="2" value="0.483" relation="eq">
        <error errorId="1" plus="0.025" minus="0.025" source="stat" norm="abs" />
        <error errorId="2" plus="0.066" minus="0.066" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-3" pointId="3" value="0.286" relation="eq">
+      <point id="pt-10239-2-1-3" pointId="3" value="0.286" relation="eq">
        <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
        <error errorId="2" plus="0.045" minus="0.045" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-4" pointId="4" value="0.19" relation="eq">
+      <point id="pt-10239-2-1-4" pointId="4" value="0.19" relation="eq">
        <error errorId="1" plus="0.017" minus="0.017" source="stat" norm="abs" />
        <error errorId="2" plus="0.034" minus="0.034" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-5" pointId="5" value="0.095" relation="eq">
+      <point id="pt-10239-2-1-5" pointId="5" value="0.095" relation="eq">
        <error errorId="1" plus="0.009" minus="0.009" source="stat" norm="abs" />
        <error errorId="2" plus="0.019" minus="0.019" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-6" pointId="6" value="0.057" relation="eq">
+      <point id="pt-10239-2-1-6" pointId="6" value="0.057" relation="eq">
        <error errorId="1" plus="0.007" minus="0.007" source="stat" norm="abs" />
        <error errorId="2" plus="0.012" minus="0.012" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-7" pointId="7" value="0.0269" relation="eq">
+      <point id="pt-10239-2-1-7" pointId="7" value="0.0269" relation="eq">
        <error errorId="1" plus="0.0046" minus="0.0046" source="stat" norm="abs" />
        <error errorId="2" plus="0.0066" minus="0.0066" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-8" pointId="8" value="0.0107" relation="eq">
+      <point id="pt-10239-2-1-8" pointId="8" value="0.0107" relation="eq">
        <error errorId="1" plus="0.0022" minus="0.0022" source="stat" norm="abs" />
        <error errorId="2" plus="0.0028" minus="0.0028" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-2-1-9" pointId="9" value="0.00059" relation="eq">
+      <point id="pt-10239-2-1-9" pointId="9" value="0.00059" relation="eq">
        <error errorId="1" plus="0.00039" minus="0.00039" source="stat" norm="abs" />
        <error errorId="2" plus="0.00049" minus="0.00049" source="sys" norm="abs" />
       </point>
@@ -193,14 +193,14 @@
      </comment>
     </error>
    </dataset>
-   <dataset id="ds-10240-3" datasetId="3">
+   <dataset id="ds-10239-3" datasetId="3">
     <comment>
      Measured ET differential cross section of the 3rd jet in &gt;= 3 JET plus W &lt; E NU &gt; events.
     </comment>
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-10240-3-1" xaxisId="1" header="ET(C=JET3) IN GEV">
+    <xaxis id="xax-10239-3-1" xaxisId="1" header="ET(C=JET3) IN GEV">
      <bins>
       <bin binId="1" low="20.0" high="25.0" />
       <bin binId="2" low="25.0" high="30.0" />
@@ -209,7 +209,7 @@
       <bin binId="5" low="45.0" high="80.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10240-3-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
+    <yaxis id="yax-10239-3-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -227,23 +227,23 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
      <points>
-      <point id="pt-10240-3-1-1" pointId="1" value="0.184" relation="eq">
+      <point id="pt-10239-3-1-1" pointId="1" value="0.184" relation="eq">
        <error errorId="1" plus="0.016" minus="0.016" source="stat" norm="abs" />
        <error errorId="2" plus="0.036" minus="0.036" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-3-1-2" pointId="2" value="0.087" relation="eq">
+      <point id="pt-10239-3-1-2" pointId="2" value="0.087" relation="eq">
        <error errorId="1" plus="0.012" minus="0.012" source="stat" norm="abs" />
        <error errorId="2" plus="0.024" minus="0.024" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-3-1-3" pointId="3" value="0.037" relation="eq">
+      <point id="pt-10239-3-1-3" pointId="3" value="0.037" relation="eq">
        <error errorId="1" plus="0.008" minus="0.008" source="stat" norm="abs" />
        <error errorId="2" plus="0.013" minus="0.013" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-3-1-4" pointId="4" value="0.02" relation="eq">
+      <point id="pt-10239-3-1-4" pointId="4" value="0.02" relation="eq">
        <error errorId="1" plus="0.006" minus="0.006" source="stat" norm="abs" />
        <error errorId="2" plus="0.011" minus="0.011" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-3-1-5" pointId="5" value="0.0015" relation="eq">
+      <point id="pt-10239-3-1-5" pointId="5" value="0.0015" relation="eq">
        <error errorId="1" plus="0.0012" minus="0.0012" source="stat" norm="abs" />
        <error errorId="2" plus="0.0013" minus="0.0013" source="sys" norm="abs" />
       </point>
@@ -255,20 +255,20 @@
      </comment>
     </error>
    </dataset>
-   <dataset id="ds-10240-4" datasetId="4">
+   <dataset id="ds-10239-4" datasetId="4">
     <comment>
      Measured ET differential cross section of the 4th jet in &gt;= 4 JET plus W &lt; E NU &gt; events.
     </comment>
     <comment>
      Location: T 1
     </comment>
-    <xaxis id="xax-10240-4-1" xaxisId="1" header="ET(C=JET4) IN GEV">
+    <xaxis id="xax-10239-4-1" xaxisId="1" header="ET(C=JET4) IN GEV">
      <bins>
       <bin binId="1" low="20.0" high="25.0" />
       <bin binId="2" low="25.0" high="35.0" />
      </bins>
     </xaxis>
-    <yaxis id="yax-10240-4-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
+    <yaxis id="yax-10239-4-1" observable="DSIG/DET" header="D(SIG)/DET IN PB/GEV">
      <reaction>
       <initialstate>
        <particle name="PBAR" />
@@ -286,11 +286,11 @@
      </comment>
      <property name="SQRT(S)" unit="GEV" error="None" low="1960" high="1960" />
      <points>
-      <point id="pt-10240-4-1-1" pointId="1" value="0.0422" relation="eq">
+      <point id="pt-10239-4-1-1" pointId="1" value="0.0422" relation="eq">
        <error errorId="1" plus="0.0087" minus="0.0087" source="stat" norm="abs" />
        <error errorId="2" plus="0.0079" minus="0.0079" source="sys" norm="abs" />
       </point>
-      <point id="pt-10240-4-1-2" pointId="2" value="0.0074" relation="eq">
+      <point id="pt-10239-4-1-2" pointId="2" value="0.0074" relation="eq">
        <error errorId="1" plus="0.0039" minus="0.0039" source="stat" norm="abs" />
        <error errorId="2" plus="0.0036" minus="0.0036" source="sys" norm="abs" />
       </point>

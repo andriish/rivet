@@ -1,0 +1,861 @@
+<hepml>
+ <data timestamp="2008-03-11T14:39:41.462574">
+  <paper hepdataId="387" spiresId="3021912" redId="1745" preprintDate="Aug 1994">
+   <title>
+    Production characteristics of K0 and light meson resonances in hadronic decays of the Z0
+   </title>
+   <modification who="VVE" when="10 MAR 1993" />
+   <comment>
+    CERN-LEP. DELPHI Collaboration. Measurement of inclusive production of the light meson resonances, RHO0, K*(892)+-, F0(980) and F2(1270) in hadronic Z0 decay. Some preliminary data see in: PL 298B, 236, (&amp; lt;a href=http://durpdg.dur.ac.uk/scripts/reacsearch.csh/TESTREAC/red+1674&amp; gt; RED = 1674 &amp; lt;/a&amp; gt;) and PL 275B, 231 (&amp; lt;a href=http://durpdg.dur.ac.uk/scripts/reacsearch.csh/TESTREAC/red+1645&amp; gt; RED = 1645 &amp; lt;/a&amp; gt;).
+   </comment>
+   <author>
+    ABREU
+   </author>
+   <reference description="CERN-PPE-94-130" />
+   <reference description="ZP C65,587" />
+   <experiment name="CERN-LEP-DELPHI" laboratory="CERN-LEP" informalname="DELPHI" />
+   <dataset id="ds-7713-1" datasetId="1">
+    <comment>
+     Average multiplicity per hadronic event. Extrapolation to the full X range using the X-shape predicted by JETSET 7.4 PS model
+    </comment>
+    <comment>
+     Location: P 14,T 4
+    </comment>
+    <xaxis id="xax-7713-1-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.025" high="1.0" />
+      <bin binId="2" low="0.0" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-1-1" observable="MULT" header="MULT(P=3)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="RHO0" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; RHO0 X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-1-1-1" pointId="1" value="0.98" relation="eq">
+       <error errorId="1" plus="0.03" minus="0.03" source="stat" norm="abs" />
+       <error errorId="2" plus="0.12" minus="0.12" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-1-1-2" pointId="2" value="1.21" relation="eq">
+       <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
+       <error errorId="2" plus="0.14" minus="0.14" source="sys" norm="abs" />
+       <error errorId="3" plus="0.05" minus="0.05" source="sys" norm="abs" />
+        <comment>
+         Extrapolation
+        </comment>
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-2" datasetId="2">
+    <comment>
+     Average multiplicity per hadronic event. Extrapolation to the full X range using the X-shape predicted by JETSET 7.4 PS model
+    </comment>
+    <comment>
+     Location: P 10,P 11,T 4
+    </comment>
+    <xaxis id="xax-7713-2-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.0" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-2-1" observable="MULT" header="MULT(P=3)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="K0" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; K0 X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-2-1-1" pointId="1" value="1.962" relation="eq">
+       <error errorId="1" plus="0.022" minus="0.022" source="stat" norm="abs" />
+       <error errorId="2" plus="0.056" minus="0.056" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-3" datasetId="3">
+    <comment>
+     Average multiplicity per hadronic event. Extrapolation to the full X range using the X-shape predicted by JETSET 7.4 PS model
+    </comment>
+    <comment>
+     Location: P 10_11,T 4
+    </comment>
+    <xaxis id="xax-7713-3-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="0.6" />
+      <bin binId="2" low="0.0" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-3-1" observable="MULT" header="MULT(P=3)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="K*(892)+-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; K*(892)+- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-3-1-1" pointId="1" value="0.462" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.021" minus="0.021" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-3-1-2" pointId="2" value="0.712" relation="eq">
+       <error errorId="1" plus="0.031" minus="0.031" source="stat" norm="abs" />
+       <error errorId="2" plus="0.032" minus="0.032" source="sys" norm="abs" />
+       <error errorId="3" plus="0.05" minus="0.05" source="sys" norm="abs" />
+        <comment>
+         EXTRAPOLATION
+        </comment>
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-4" datasetId="4">
+    <comment>
+     Average multiplicity per hadronic event. Extrapolation to the full X range using the X-shape predicted by JETSET 7.4 PS model. Systematic errors are included in quadrature
+    </comment>
+    <comment>
+     Location: T 4
+    </comment>
+    <xaxis id="xax-7713-4-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="0.6" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-4-1" observable="MULT" header="MULT(P=3)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="F0(980)" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; F0(980) X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-4-1-1" pointId="1" value="0.098" relation="eq">
+       <error errorId="1" plus="0.016" minus="0.016" source="unknown" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-5" datasetId="5">
+    <comment>
+     Average multiplicity per hadronic event. Extrapolation to the full X range using the X-shape predicted by JETSET 7.4 PS model. Systematic errors are included in quadrature
+    </comment>
+    <comment>
+     Location: T 4
+    </comment>
+    <xaxis id="xax-7713-5-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="0.6" />
+      <bin binId="2" low="0.05" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-5-1" observable="MULT" header="MULT(P=3)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="F2(1270)" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; F2(1270) X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-5-1-1" pointId="1" value="0.163" relation="eq">
+       <error errorId="1" plus="0.041" minus="0.041" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-5-1-2" pointId="2" value="0.17" relation="eq">
+       <error errorId="1" plus="0.043" minus="0.043" source="unknown" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-6" datasetId="6">
+    <comment>
+     Location: P 14
+    </comment>
+    <xaxis id="xax-7713-6-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-6-1" observable="SIG" header="SIG(Q=F2)/SIG(Q=RHO0)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="F2(1270)" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="RHO0" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE(Q=F2) : E+ E- --&gt; F2(1270) X
+     </comment>
+     <comment>
+      RE(Q=RHO0) : E+ E- --&gt; RHO0 X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-6-1-1" pointId="1" value="0.24" relation="eq">
+       <error errorId="1" plus="0.07" minus="0.07" source="unknown" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7713-7" datasetId="7">
+    <comment>
+     Location: P 14
+    </comment>
+    <xaxis id="xax-7713-7-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="0.6" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-7-1" observable="SIG" header="SIG(Q=F2)/SIG(Q=F0)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="F0(980)" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="F2(1270)" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE(Q=F0) : E+ E- --&gt; F0(980) X
+     </comment>
+     <comment>
+      RE(Q=F2) : E+ E- --&gt; F2(1270) X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-7-1-1" pointId="1" value="1.7" relation="eq">
+       <error errorId="1" plus="0.5" minus="0.5" source="unknown" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+   </dataset>
+   <dataset id="ds-7713-8" datasetId="8">
+    <comment>
+     Systematic errors are included in quadrature
+    </comment>
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7713-8-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" focus="0.774" />
+      <bin binId="2" focus="0.499" />
+      <bin binId="3" focus="0.409" />
+      <bin binId="4" focus="0.335" />
+      <bin binId="5" focus="0.274" />
+      <bin binId="6" focus="0.224" />
+      <bin binId="7" focus="0.184" />
+      <bin binId="8" focus="0.15" />
+      <bin binId="9" focus="0.123" />
+      <bin binId="10" focus="0.101" />
+      <bin binId="11" focus="0.082" />
+      <bin binId="12" focus="0.068" />
+      <bin binId="13" focus="0.055" />
+      <bin binId="14" focus="0.045" />
+      <bin binId="15" focus="0.037" />
+      <bin binId="16" focus="0.03" />
+      <bin binId="17" focus="0.025" />
+      <bin binId="18" focus="0.02" />
+      <bin binId="19" focus="0.017" />
+      <bin binId="20" focus="0.014" />
+      <bin binId="21" focus="0.011" />
+      <bin binId="22" focus="0.009" />
+      <bin binId="23" focus="0.007" />
+      <bin binId="24" focus="0.006" />
+      <bin binId="25" focus="0.005" />
+      <bin binId="26" focus="0.004" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-8-1" observable="DSIG/DX" header="(1/SIG(Q=HAD))*D(SIG(Q=K0))/D(X)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="K0" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE(Q=HAD) : E+ E- --&gt; 2HADRON (HADRONS)
+     </comment>
+     <comment>
+      RE(Q=K0) : E+ E- --&gt; K0 X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-8-1-1" pointId="1" value="0.06" relation="eq">
+       <error errorId="1" plus="0.03" minus="0.03" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-2" pointId="2" value="0.28" relation="eq">
+       <error errorId="1" plus="0.05" minus="0.05" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-3" pointId="3" value="0.4" relation="eq">
+       <error errorId="1" plus="0.06" minus="0.06" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-4" pointId="4" value="0.81" relation="eq">
+       <error errorId="1" plus="0.08" minus="0.08" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-5" pointId="5" value="1.24" relation="eq">
+       <error errorId="1" plus="0.09" minus="0.09" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-6" pointId="6" value="1.97" relation="eq">
+       <error errorId="1" plus="0.1" minus="0.1" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-7" pointId="7" value="2.87" relation="eq">
+       <error errorId="1" plus="0.13" minus="0.13" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-8" pointId="8" value="3.72" relation="eq">
+       <error errorId="1" plus="0.16" minus="0.16" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-9" pointId="9" value="5.15" relation="eq">
+       <error errorId="1" plus="0.19" minus="0.19" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-10" pointId="10" value="6.52" relation="eq">
+       <error errorId="1" plus="0.24" minus="0.24" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-11" pointId="11" value="8.03" relation="eq">
+       <error errorId="1" plus="0.3" minus="0.3" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-12" pointId="12" value="10.09" relation="eq">
+       <error errorId="1" plus="0.37" minus="0.37" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-13" pointId="13" value="11.25" relation="eq">
+       <error errorId="1" plus="0.43" minus="0.43" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-14" pointId="14" value="12.94" relation="eq">
+       <error errorId="1" plus="0.52" minus="0.52" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-15" pointId="15" value="15.79" relation="eq">
+       <error errorId="1" plus="0.66" minus="0.66" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-16" pointId="16" value="17.56" relation="eq">
+       <error errorId="1" plus="0.78" minus="0.78" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-17" pointId="17" value="18.91" relation="eq">
+       <error errorId="1" plus="0.94" minus="0.94" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-18" pointId="18" value="20.2" relation="eq">
+       <error errorId="1" plus="1.1" minus="1.1" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-19" pointId="19" value="23.7" relation="eq">
+       <error errorId="1" plus="1.4" minus="1.4" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-20" pointId="20" value="21.9" relation="eq">
+       <error errorId="1" plus="1.5" minus="1.5" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-21" pointId="21" value="20.8" relation="eq">
+       <error errorId="1" plus="1.6" minus="1.6" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-22" pointId="22" value="19.3" relation="eq">
+       <error errorId="1" plus="1.5" minus="1.5" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-23" pointId="23" value="15.6" relation="eq">
+       <error errorId="1" plus="1.4" minus="1.4" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-24" pointId="24" value="12.7" relation="eq">
+       <error errorId="1" plus="1.2" minus="1.2" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-25" pointId="25" value="8.9" relation="eq">
+       <error errorId="1" plus="1.2" minus="1.2" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-8-1-26" pointId="26" value="7.7" relation="eq">
+       <error errorId="1" plus="1.0" minus="1.0" source="unknown" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-9" datasetId="9">
+    <comment>
+     Systematic errors are included in quadrature
+    </comment>
+    <comment>
+     Location: T 1
+    </comment>
+    <xaxis id="xax-7713-9-1" xaxisId="1" header="LN(1/X(DEF=P(P=3)/P(P=1)))">
+     <bins>
+      <bin binId="1" low="0.0" high="0.6" />
+      <bin binId="2" low="0.6" high="0.8" />
+      <bin binId="3" low="0.8" high="1.0" />
+      <bin binId="4" low="1.0" high="1.2" />
+      <bin binId="5" low="1.2" high="1.4" />
+      <bin binId="6" low="1.4" high="1.6" />
+      <bin binId="7" low="1.6" high="1.8" />
+      <bin binId="8" low="1.8" high="2.0" />
+      <bin binId="9" low="2.0" high="2.2" />
+      <bin binId="10" low="2.2" high="2.4" />
+      <bin binId="11" low="2.4" high="2.6" />
+      <bin binId="12" low="2.6" high="2.8" />
+      <bin binId="13" low="2.8" high="3.0" />
+      <bin binId="14" low="3.0" high="3.2" />
+      <bin binId="15" low="3.2" high="3.4" />
+      <bin binId="16" low="3.4" high="3.6" />
+      <bin binId="17" low="3.6" high="3.8" />
+      <bin binId="18" low="3.8" high="4.0" />
+      <bin binId="19" low="4.0" high="4.2" />
+      <bin binId="20" low="4.2" high="4.4" />
+      <bin binId="21" low="4.4" high="4.6" />
+      <bin binId="22" low="4.6" high="4.8" />
+      <bin binId="23" low="4.8" high="5.0" />
+      <bin binId="24" low="5.0" high="5.2" />
+      <bin binId="25" low="5.3" high="5.4" />
+      <bin binId="26" low="5.4" high="5.6" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-9-1" observable="DSIG/DLN(1/X)" header="(1/SIG(Q=HAD))*D(SIG(Q=K0))/D(LN(1/X))">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="K0" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE(Q=HAD) : E+ E- --&gt; 2HADRON (HADRONS)
+     </comment>
+     <comment>
+      RE(Q=K0) : E+ E- --&gt; K0 X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-9-1-1" pointId="1" value="0.048" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-2" pointId="2" value="0.138" relation="eq">
+       <error errorId="1" plus="0.026" minus="0.026" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-3" pointId="3" value="0.165" relation="eq">
+       <error errorId="1" plus="0.025" minus="0.025" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-4" pointId="4" value="0.27" relation="eq">
+       <error errorId="1" plus="0.027" minus="0.027" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-5" pointId="5" value="0.338" relation="eq">
+       <error errorId="1" plus="0.025" minus="0.025" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-6" pointId="6" value="0.441" relation="eq">
+       <error errorId="1" plus="0.023" minus="0.023" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-7" pointId="7" value="0.526" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-8" pointId="8" value="0.558" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-9" pointId="9" value="0.632" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-10" pointId="10" value="0.654" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-11" pointId="11" value="0.66" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-12" pointId="12" value="0.679" relation="eq">
+       <error errorId="1" plus="0.025" minus="0.025" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-13" pointId="13" value="0.62" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-14" pointId="14" value="0.584" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-15" pointId="15" value="0.583" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-16" pointId="16" value="0.531" relation="eq">
+       <error errorId="1" plus="0.024" minus="0.024" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-17" pointId="17" value="0.468" relation="eq">
+       <error errorId="1" plus="0.023" minus="0.023" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-18" pointId="18" value="0.41" relation="eq">
+       <error errorId="1" plus="0.023" minus="0.023" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-19" pointId="19" value="0.394" relation="eq">
+       <error errorId="1" plus="0.022" minus="0.022" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-20" pointId="20" value="0.298" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-21" pointId="21" value="0.232" relation="eq">
+       <error errorId="1" plus="0.018" minus="0.018" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-22" pointId="22" value="0.176" relation="eq">
+       <error errorId="1" plus="0.013" minus="0.013" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-23" pointId="23" value="0.116" relation="eq">
+       <error errorId="1" plus="0.01" minus="0.01" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-24" pointId="24" value="0.077" relation="eq">
+       <error errorId="1" plus="0.007" minus="0.007" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-25" pointId="25" value="0.045" relation="eq">
+       <error errorId="1" plus="0.006" minus="0.006" source="unknown" norm="abs" />
+      </point>
+      <point id="pt-7713-9-1-26" pointId="26" value="0.032" relation="eq">
+       <error errorId="1" plus="0.004" minus="0.004" source="unknown" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-10" datasetId="10">
+    <comment>
+     Location: T 2
+    </comment>
+    <xaxis id="xax-7713-10-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="0.1" />
+      <bin binId="2" low="0.1" high="0.15" />
+      <bin binId="3" low="0.15" high="0.2" />
+      <bin binId="4" low="0.2" high="0.3" />
+      <bin binId="5" low="0.3" high="0.4" />
+      <bin binId="6" low="0.4" high="0.6" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-10-1" observable="DSIG/DX" header="1/SIG(C=HAD)*D(SIG)/D(X)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="K*(892)+-" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; K*(892)+- X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-10-1-1" pointId="1" value="2.87" relation="eq">
+       <error errorId="1" plus="0.23" minus="0.23" source="stat" norm="abs" />
+       <error errorId="2" plus="0.13" minus="0.13" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-10-1-2" pointId="2" value="1.86" relation="eq">
+       <error errorId="1" plus="0.16" minus="0.16" source="stat" norm="abs" />
+       <error errorId="2" plus="0.09" minus="0.09" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-10-1-3" pointId="3" value="1.28" relation="eq">
+       <error errorId="1" plus="0.14" minus="0.14" source="stat" norm="abs" />
+       <error errorId="2" plus="0.06" minus="0.06" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-10-1-4" pointId="4" value="0.74" relation="eq">
+       <error errorId="1" plus="0.08" minus="0.08" source="stat" norm="abs" />
+       <error errorId="2" plus="0.03" minus="0.03" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-10-1-5" pointId="5" value="0.41" relation="eq">
+       <error errorId="1" plus="0.07" minus="0.07" source="stat" norm="abs" />
+       <error errorId="2" plus="0.02" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-10-1-6" pointId="6" value="0.23" relation="eq">
+       <error errorId="1" plus="0.04" minus="0.04" source="stat" norm="abs" />
+       <error errorId="2" plus="0.01" minus="0.01" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-11" datasetId="11">
+    <comment>
+     Location: T 3
+    </comment>
+    <xaxis id="xax-7713-11-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.025" high="0.05" />
+      <bin binId="2" low="0.05" high="0.1" />
+      <bin binId="3" low="0.1" high="0.2" />
+      <bin binId="4" low="0.2" high="0.35" />
+      <bin binId="5" low="0.35" high="0.6" />
+      <bin binId="6" low="0.6" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-11-1" observable="DSIG/DX" header="1/SIG(C=HAD)*D(SIG)/D(X)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="RHO0" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; RHO0 X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-11-1-1" pointId="1" value="10.5" relation="eq">
+       <error errorId="1" plus="0.8" minus="0.8" source="stat" norm="abs" />
+       <error errorId="2" plus="2.1" minus="2.1" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-11-1-2" pointId="2" value="5.24" relation="eq">
+       <error errorId="1" plus="0.37" minus="0.37" source="stat" norm="abs" />
+       <error errorId="2" plus="0.93" minus="0.93" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-11-1-3" pointId="3" value="2.56" relation="eq">
+       <error errorId="1" plus="0.14" minus="0.14" source="stat" norm="abs" />
+       <error errorId="2" plus="0.12" minus="0.12" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-11-1-4" pointId="4" value="0.93" relation="eq">
+       <error errorId="1" plus="0.06" minus="0.06" source="stat" norm="abs" />
+       <error errorId="2" plus="0.04" minus="0.04" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-11-1-5" pointId="5" value="0.21" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.01" minus="0.01" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-11-1-6" pointId="6" value="0.018" relation="eq">
+       <error errorId="1" plus="0.005" minus="0.005" source="stat" norm="abs" />
+       <error errorId="2" plus="0.001" minus="0.001" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-12" datasetId="12">
+    <comment>
+     Location: T 3
+    </comment>
+    <xaxis id="xax-7713-12-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="0.1" />
+      <bin binId="2" low="0.1" high="0.2" />
+      <bin binId="3" low="0.2" high="0.35" />
+      <bin binId="4" low="0.35" high="0.6" />
+      <bin binId="5" low="0.6" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-12-1" observable="DSIG/DX" header="1/SIG(C=HAD)*D(SIG)/D(X)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="F0(980)" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; F0(980) X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-12-1-1" pointId="1" value="0.79" relation="eq">
+       <error errorId="1" plus="0.16" minus="0.16" source="stat" norm="abs" />
+       <error errorId="2" plus="0.07" minus="0.07" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-12-1-2" pointId="2" value="0.27" relation="eq">
+       <error errorId="1" plus="0.07" minus="0.07" source="stat" norm="abs" />
+       <error errorId="2" plus="0.02" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-12-1-3" pointId="3" value="0.11" relation="eq">
+       <error errorId="1" plus="0.03" minus="0.03" source="stat" norm="abs" />
+       <error errorId="2" plus="0.01" minus="0.01" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-12-1-4" pointId="4" value="0.057" relation="eq">
+       <error errorId="1" plus="0.013" minus="0.013" source="stat" norm="abs" />
+       <error errorId="2" plus="0.006" minus="0.006" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-12-1-5" pointId="5" value="0.003" relation="eq">
+       <error errorId="1" plus="0.003" minus="0.003" source="stat" norm="abs" />
+       <error errorId="2" plus="0.001" minus="0.001" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+   <dataset id="ds-7713-13" datasetId="13">
+    <comment>
+     Location: T 3
+    </comment>
+    <xaxis id="xax-7713-13-1" xaxisId="1" header="X(DEF=P(P=3)/P(P=1))">
+     <bins>
+      <bin binId="1" low="0.05" high="0.1" />
+      <bin binId="2" low="0.1" high="0.2" />
+      <bin binId="3" low="0.2" high="0.35" />
+      <bin binId="4" low="0.35" high="0.6" />
+      <bin binId="5" low="0.6" high="1.0" />
+     </bins>
+    </xaxis>
+    <yaxis id="yax-7713-13-1" observable="DSIG/DX" header="1/SIG(C=HAD)*D(SIG)/D(X)">
+     <reaction>
+      <initialstate>
+       <particle name="E+" />
+       <particle name="E-" />
+      </initialstate>
+      <finalstate>
+       <particle name="F2(1270)" relation="eq" mult="1" />
+       <particle name="X" relation="eq" mult="1" />
+      </finalstate>
+     </reaction>
+     <property name="sqrts" unit="GeV" low="91.200" high="91.200" />
+     <comment>
+      RE : E+ E- --&gt; F2(1270) X
+     </comment>
+     <property name="SQRT(S)" unit="GEV" error="None" low="91.2" high="91.2" />
+     <points>
+      <point id="pt-7713-13-1-1" pointId="1" value="0.82" relation="eq">
+       <error errorId="1" plus="0.29" minus="0.29" source="stat" norm="abs" />
+       <error errorId="2" plus="0.18" minus="0.18" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-13-1-2" pointId="2" value="0.69" relation="eq">
+       <error errorId="1" plus="0.13" minus="0.13" source="stat" norm="abs" />
+       <error errorId="2" plus="0.16" minus="0.16" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-13-1-3" pointId="3" value="0.21" relation="eq">
+       <error errorId="1" plus="0.06" minus="0.06" source="stat" norm="abs" />
+       <error errorId="2" plus="0.05" minus="0.05" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-13-1-4" pointId="4" value="0.09" relation="eq">
+       <error errorId="1" plus="0.02" minus="0.02" source="stat" norm="abs" />
+       <error errorId="2" plus="0.02" minus="0.02" source="sys" norm="abs" />
+      </point>
+      <point id="pt-7713-13-1-5" pointId="5" value="0.019" relation="eq">
+       <error errorId="1" plus="0.006" minus="0.006" source="stat" norm="abs" />
+       <error errorId="2" plus="0.001" minus="0.001" source="sys" norm="abs" />
+      </point>
+     </points>
+    </yaxis>
+    <error errorId="1" plus="0.0" minus="0.0" source="sys" norm="pct">
+     <comment>
+      Systematics data presented in tables in the DSYS items or under CTRES-DEF(RES=K*(892)+-,BACK=CORRECTED)//DECAY-BR(BRN=K*(892)+- --&gt; KS PI+-,BR=0)//RES-DEF(RES=RHO(770)0,BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//RES-DEF(RES=F0(980),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F0(980) --&gt; 2PI,BR=0.781+-0.024,C=RPP-92)//RES-DEF(RES=F2(1270),BACK=CORRECTED,DEF=From fits of 2PI mass distributions)//DECAY-BR(BRN=F2(1270) --&gt; 2PI,BR=0.0.840+0.025-0.013,C=RPP-92)
+     </comment>
+    </error>
+   </dataset>
+  </paper>
+ </data>
+</hepml>
