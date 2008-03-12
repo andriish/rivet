@@ -124,7 +124,7 @@ namespace Rivet {
 
 
   IProfile1D* Analysis::bookProfile1D(const string& name, const string& title, 
-                                          const size_t nbins, const double lower, const double upper) {
+                                      const size_t nbins, const double lower, const double upper) {
     _makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return histogramFactory().createProfile1D(path, title, nbins, lower, upper);
@@ -132,7 +132,7 @@ namespace Rivet {
 
 
   IProfile1D* Analysis::bookProfile1D(const string& name, const string& title, 
-                                          const vector<double>& binedges) {
+                                      const vector<double>& binedges) {
     _makeHistoDir();
     const string path = getHistoDir() + "/" + name;
     return histogramFactory().createProfile1D(path, title, binedges);
@@ -164,8 +164,34 @@ namespace Rivet {
 
   IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
                                             const size_t yAxisId, const string& title) {
-    /// @todo Implement this?
-    throw runtime_error("Auto-booking of DataPointSets is not yet implemented");
+    Log& log = getLog();
+    // Get the bin edges (only read the AIDA file once)
+    _cacheBinEdges();
+    // Build the axis code
+    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
+    log << Log::TRACE << "Using DPS x-positions for " << getName() << ":" << axisCode << endl;
+    IDataPointSet* dps = bookDataPointSet(axisCode, title);
+    const BinEdges edges = _histBinEdges.find(axisCode)->second;
+    if (log.isActive(Log::TRACE)) {
+        stringstream edges_ss;
+        for (BinEdges::const_iterator be = edges.begin(); be != edges.end(); ++be) {
+          edges_ss << " " << *be;
+        }
+        log << Log::TRACE << "Edges:" << edges_ss.str() << endl;
+    }
+    for (size_t pt = 0; pt < edges.size()-1; ++pt) {
+      const double lower = edges[pt];
+      const double upper = edges[pt+1];
+      const double err = (upper-lower)/2.0;
+      const double centre = (lower + upper)/2.0;
+      dps->addPoint();
+      IMeasurement* meas = dps->point(pt)->coordinate(0);
+      meas->setValue(centre);
+      meas->setErrorPlus(err);
+      meas->setErrorMinus(err);
+    }
+    log << Log::TRACE << "Made DPS " << axisCode <<  " for " << getName() << endl;
+    return dps;
   }
 
 
