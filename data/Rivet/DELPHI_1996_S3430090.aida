@@ -7548,8 +7548,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d35-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.24" value="20.92"
         errorMinus="0.24"/>
     </dataPoint>
@@ -7564,8 +7564,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.4" value="17.1"
         errorMinus="0.4"/>
     </dataPoint>
@@ -7580,8 +7580,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.08" value="9.9"
         errorMinus="0.08"/>
     </dataPoint>
@@ -7596,8 +7596,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.13" value="2.42"
         errorMinus="0.13"/>
     </dataPoint>
@@ -7612,8 +7612,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.06" value="2.12"
         errorMinus="0.06"/>
     </dataPoint>
@@ -7628,8 +7628,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y05" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.07" value="0.73"
         errorMinus="0.07"/>
     </dataPoint>
@@ -7644,8 +7644,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y06" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.05" value="0.17"
         errorMinus="0.05"/>
     </dataPoint>
@@ -7660,8 +7660,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y07" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.03" value="0.2"
         errorMinus="0.03"/>
     </dataPoint>
@@ -7676,8 +7676,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y08" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.06" value="0.4"
         errorMinus="0.06"/>
     </dataPoint>
@@ -7692,8 +7692,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y09" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.06" value="0.34"
         errorMinus="0.06"/>
     </dataPoint>
@@ -7708,8 +7708,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d37-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.06" value="0.14"
         errorMinus="0.06"/>
     </dataPoint>
@@ -7724,8 +7724,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.1" value="1.4" errorMinus="0.1"/>
     </dataPoint>
   </dataPointSet>
@@ -7739,8 +7739,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.08" value="0.78"
         errorMinus="0.08"/>
     </dataPoint>
@@ -7755,8 +7755,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.09" value="0.77"
         errorMinus="0.09"/>
     </dataPoint>
@@ -7771,8 +7771,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.02" value="0.17"
         errorMinus="0.02"/>
     </dataPoint>
@@ -7787,8 +7787,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y05" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.018" value="0.086"
         errorMinus="0.018"/>
     </dataPoint>
@@ -7803,8 +7803,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d39-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.12" value="0.31"
         errorMinus="0.12"/>
     </dataPoint>
@@ -7819,8 +7819,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d39-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.07" value="0.19"
         errorMinus="0.07"/>
     </dataPoint>
@@ -7835,8 +7835,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.11" value="0.92"
         errorMinus="0.11"/>
     </dataPoint>
@@ -7851,8 +7851,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.013" value="0.348"
         errorMinus="0.013"/>
     </dataPoint>
@@ -7867,8 +7867,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0024" value="0.0238"
         errorMinus="0.0024"/>
     </dataPoint>
@@ -7883,8 +7883,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0013" value="0.0051"
         errorMinus="0.0013"/>
     </dataPoint>
@@ -7899,8 +7899,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y05" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.065" value="0.124"
         errorMinus="0.065"/>
     </dataPoint>
@@ -7915,8 +7915,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y06" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0062" value="0.038"
         errorMinus="0.0062"/>
     </dataPoint>
@@ -7931,8 +7931,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y07" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0014" value="0.0063"
         errorMinus="0.0014"/>
     </dataPoint>
@@ -7947,8 +7947,8 @@
         value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y08" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.016" value="0.031"
         errorMinus="0.016"/>
     </dataPoint>

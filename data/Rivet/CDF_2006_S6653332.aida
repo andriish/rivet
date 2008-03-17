@@ -12,8 +12,8 @@
         value="/CDF_2006_S6653332.aida/HepData/CDF_2006_S6653332/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="1960.0"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="1960.0"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.3580502757993631" value="0.93"
         errorMinus="0.3580502757993631"/>
     </dataPoint>
@@ -29,8 +29,8 @@
         value="/CDF_2006_S6653332.aida/HepData/CDF_2006_S6653332/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="1960.0"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="1960.0"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0013601470508735444"
         value="0.0037" errorMinus="0.0013601470508735444"/>
     </dataPoint>
@@ -46,8 +46,8 @@
         value="/CDF_2006_S6653332.aida/HepData/CDF_2006_S6653332/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="1960.0"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="1960.0"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.009102197536858888"
         value="0.0236" errorMinus="0.009102197536858888"/>
     </dataPoint>

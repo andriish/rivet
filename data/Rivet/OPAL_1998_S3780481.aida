@@ -1321,8 +1321,8 @@
         value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.38600518131237566"
         value="20.25" errorMinus="0.38600518131237566"/>
     </dataPoint>
@@ -1338,8 +1338,8 @@
         value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.7392563831310488"
         value="21.55" errorMinus="0.7392563831310488"/>
     </dataPoint>
@@ -1355,8 +1355,8 @@
         value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.45044422518220834"
         value="23.16" errorMinus="0.45044422518220834"/>
     </dataPoint>
@@ -1372,8 +1372,8 @@
         value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.21023796041628637"
         value="21.16" errorMinus="0.21023796041628637"/>
     </dataPoint>

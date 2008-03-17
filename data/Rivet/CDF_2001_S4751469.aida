@@ -1863,10 +1863,10 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED) PER 3.6DEGREES">
+    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED,MIN-BIAS) PER 3.6DEGREES">
     <annotation>
-      <item key="Title" value="MULT(C=CHARGED) PER 3.6DEGREES"
-        sticky="true"/>
+      <item key="Title"
+        value="MULT(C=CHARGED,MIN-BIAS) PER 3.6DEGREES" sticky="true"/>
       <item key="AidaPath"
         value="/HepData/CDF_2001_S4751469/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
@@ -1988,6 +1988,271 @@
       <measurement errorPlus="0.788" value="7.0"
         errorMinus="0.788"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y02" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED,MIN-BIAS) PER 3.6DEGREES">
+    <annotation>
+      <item key="Title"
+        value="MULT(C=CHARGED,MIN-BIAS) PER 3.6DEGREES" sticky="true"/>
+      <item key="AidaPath"
+        value="/HepData/CDF_2001_S4751469/d03-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d03-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.01" value="0.255"
+        errorMinus="0.01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.033" value="0.719"
+        errorMinus="0.033"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.067" value="1.249"
+        errorMinus="0.067"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.097" value="1.617"
+        errorMinus="0.097"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.118" value="1.88"
+        errorMinus="0.118"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.16" value="2.061"
+        errorMinus="0.16"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.171" value="2.233"
+        errorMinus="0.171"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.18" value="2.207"
+        errorMinus="0.18"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.237" value="2.225"
+        errorMinus="0.237"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.257" value="2.297"
+        errorMinus="0.257"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="10.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.22" value="2.293"
+        errorMinus="0.22"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="11.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.221" value="2.556"
+        errorMinus="0.221"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="12.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.416" value="2.397"
+        errorMinus="0.416"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="13.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.248" value="2.241"
+        errorMinus="0.248"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="14.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.362" value="2.442"
+        errorMinus="0.362"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="15.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.262" value="2.149"
+        errorMinus="0.262"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="16.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.372" value="1.762"
+        errorMinus="0.372"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="17.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.601" value="2.652"
+        errorMinus="1.601"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="18.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.686" value="2.177"
+        errorMinus="0.686"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="19.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.346" value="1.75"
+        errorMinus="0.346"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="20.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.833" value="1.857"
+        errorMinus="0.833"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y03" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED,MIN-BIAS) PER 3.6DEGREES">
+    <annotation>
+      <item key="Title"
+        value="MULT(C=CHARGED,MIN-BIAS) PER 3.6DEGREES" sticky="true"/>
+      <item key="AidaPath"
+        value="/HepData/CDF_2001_S4751469/d03-x01-y03" sticky="true"/>
+      <item key="FullPath"
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d03-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.011" value="0.264"
+        errorMinus="0.011"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.037" value="0.77"
+        errorMinus="0.037"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.076" value="1.38"
+        errorMinus="0.076"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.107" value="1.854"
+        errorMinus="0.107"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.146" value="2.249"
+        errorMinus="0.146"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.193" value="2.52"
+        errorMinus="0.193"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.21" value="2.721"
+        errorMinus="0.21"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.193" value="2.988"
+        errorMinus="0.193"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.247" value="3.143"
+        errorMinus="0.247"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.44" value="3.287"
+        errorMinus="0.44"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="10.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.362" value="3.322"
+        errorMinus="0.362"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="11.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.179" value="3.487"
+        errorMinus="0.179"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="12.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.582" value="3.706"
+        errorMinus="0.582"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="13.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.367" value="3.848"
+        errorMinus="0.367"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="14.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.381" value="4.404"
+        errorMinus="0.381"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="15.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.426" value="3.638"
+        errorMinus="0.426"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="16.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.342" value="3.095"
+        errorMinus="1.342"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="17.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.105" value="3.957"
+        errorMinus="1.105"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="18.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.231" value="4.294"
+        errorMinus="1.231"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="19.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.284" value="5.5"
+        errorMinus="1.284"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="20.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.149" value="5.0"
+        errorMinus="1.149"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED,JET20) PER 3.6DEGREES">
+    <annotation>
+      <item key="Title"
+        value="MULT(C=CHARGED,JET20) PER 3.6DEGREES" sticky="true"/>
+      <item key="AidaPath"
+        value="/HepData/CDF_2001_S4751469/d04-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d04-x01-y01" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="18.5"
         errorMinus="0.5"/>
@@ -2181,132 +2446,16 @@
         errorMinus="0.715"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y02" dimension="2"
-    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED) PER 3.6DEGREES">
+  <dataPointSet name="d04-x01-y02" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED,JET20) PER 3.6DEGREES">
     <annotation>
-      <item key="Title" value="MULT(C=CHARGED) PER 3.6DEGREES"
-        sticky="true"/>
+      <item key="Title"
+        value="MULT(C=CHARGED,JET20) PER 3.6DEGREES" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d03-x01-y02" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d04-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d03-x01-y02" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d04-x01-y02" sticky="true"/>
     </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.01" value="0.255"
-        errorMinus="0.01"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.033" value="0.719"
-        errorMinus="0.033"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.067" value="1.249"
-        errorMinus="0.067"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.097" value="1.617"
-        errorMinus="0.097"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.118" value="1.88"
-        errorMinus="0.118"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.16" value="2.061"
-        errorMinus="0.16"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.171" value="2.233"
-        errorMinus="0.171"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.18" value="2.207"
-        errorMinus="0.18"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.237" value="2.225"
-        errorMinus="0.237"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.257" value="2.297"
-        errorMinus="0.257"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="10.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.22" value="2.293"
-        errorMinus="0.22"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="11.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.221" value="2.556"
-        errorMinus="0.221"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="12.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.416" value="2.397"
-        errorMinus="0.416"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="13.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.248" value="2.241"
-        errorMinus="0.248"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="14.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.362" value="2.442"
-        errorMinus="0.362"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="15.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.262" value="2.149"
-        errorMinus="0.262"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="16.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.372" value="1.762"
-        errorMinus="0.372"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="17.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.601" value="2.652"
-        errorMinus="1.601"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="18.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.686" value="2.177"
-        errorMinus="0.686"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="19.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.346" value="1.75"
-        errorMinus="0.346"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="20.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.833" value="1.857"
-        errorMinus="0.833"/>
-    </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.5" value="18.5"
         errorMinus="0.5"/>
@@ -2500,132 +2649,16 @@
         errorMinus="0.34"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y03" dimension="2"
-    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED) PER 3.6DEGREES">
+  <dataPointSet name="d04-x01-y03" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="MULT(C=CHARGED,JET20) PER 3.6DEGREES">
     <annotation>
-      <item key="Title" value="MULT(C=CHARGED) PER 3.6DEGREES"
-        sticky="true"/>
+      <item key="Title"
+        value="MULT(C=CHARGED,JET20) PER 3.6DEGREES" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d03-x01-y03" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d04-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d03-x01-y03" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d04-x01-y03" sticky="true"/>
     </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.011" value="0.264"
-        errorMinus="0.011"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.037" value="0.77"
-        errorMinus="0.037"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.076" value="1.38"
-        errorMinus="0.076"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.107" value="1.854"
-        errorMinus="0.107"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.146" value="2.249"
-        errorMinus="0.146"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.193" value="2.52"
-        errorMinus="0.193"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.21" value="2.721"
-        errorMinus="0.21"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.193" value="2.988"
-        errorMinus="0.193"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.247" value="3.143"
-        errorMinus="0.247"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.44" value="3.287"
-        errorMinus="0.44"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="10.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.362" value="3.322"
-        errorMinus="0.362"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="11.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.179" value="3.487"
-        errorMinus="0.179"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="12.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.582" value="3.706"
-        errorMinus="0.582"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="13.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.367" value="3.848"
-        errorMinus="0.367"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="14.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.381" value="4.404"
-        errorMinus="0.381"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="15.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.426" value="3.638"
-        errorMinus="0.426"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="16.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.342" value="3.095"
-        errorMinus="1.342"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="17.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.105" value="3.957"
-        errorMinus="1.105"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="18.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.231" value="4.294"
-        errorMinus="1.231"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="19.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.284" value="5.5"
-        errorMinus="1.284"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="20.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.149" value="5.0"
-        errorMinus="1.149"/>
-    </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.5" value="18.5"
         errorMinus="0.5"/>
@@ -2819,15 +2852,15 @@
         errorMinus="1.192"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED)) IN GEV**-1">
+  <dataPointSet name="d05-x01-y01" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED,MIN-BIAS)) IN GEV**-1">
     <annotation>
       <item key="Title"
-        value="SUM(NAME=PT(C=CHARGED)) IN GEV**-1" sticky="true"/>
+        value="SUM(NAME=PT(C=CHARGED,MIN-BIAS)) IN GEV**-1" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d04-x01-y01" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d05-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d04-x01-y01" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
@@ -2945,6 +2978,271 @@
       <measurement errorPlus="0.455" value="22.174"
         errorMinus="0.455"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y02" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED,MIN-BIAS)) IN GEV**-1">
+    <annotation>
+      <item key="Title"
+        value="SUM(NAME=PT(C=CHARGED,MIN-BIAS)) IN GEV**-1" sticky="true"/>
+      <item key="AidaPath"
+        value="/HepData/CDF_2001_S4751469/d05-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d05-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.0060" value="0.158"
+        errorMinus="0.0060"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.021" value="0.549"
+        errorMinus="0.021"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.046" value="1.068"
+        errorMinus="0.046"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.068" value="1.471"
+        errorMinus="0.068"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.079" value="1.784"
+        errorMinus="0.079"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.127" value="2.007"
+        errorMinus="0.127"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.135" value="2.22"
+        errorMinus="0.135"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.173" value="2.212"
+        errorMinus="0.173"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.211" value="2.255"
+        errorMinus="0.211"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.226" value="2.347"
+        errorMinus="0.226"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="10.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.216" value="2.448"
+        errorMinus="0.216"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="11.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.229" value="2.711"
+        errorMinus="0.229"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="12.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.442" value="2.626"
+        errorMinus="0.442"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="13.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.276" value="2.482"
+        errorMinus="0.276"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="14.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.478" value="2.623"
+        errorMinus="0.478"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="15.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.403" value="2.219"
+        errorMinus="0.403"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="16.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.387" value="1.577"
+        errorMinus="0.387"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="17.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.846" value="3.116"
+        errorMinus="1.846"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="18.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.817" value="2.341"
+        errorMinus="0.817"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="19.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.433" value="1.879"
+        errorMinus="0.433"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="20.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.176" value="2.203"
+        errorMinus="1.176"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y03" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED,MIN-BIAS)) IN GEV**-1">
+    <annotation>
+      <item key="Title"
+        value="SUM(NAME=PT(C=CHARGED,MIN-BIAS)) IN GEV**-1" sticky="true"/>
+      <item key="AidaPath"
+        value="/HepData/CDF_2001_S4751469/d05-x01-y03" sticky="true"/>
+      <item key="FullPath"
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d05-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.0060" value="0.165"
+        errorMinus="0.0060"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.023" value="0.594"
+        errorMinus="0.023"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.052" value="1.197"
+        errorMinus="0.052"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.074" value="1.727"
+        errorMinus="0.074"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.109" value="2.189"
+        errorMinus="0.109"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.141" value="2.563"
+        errorMinus="0.141"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.166" value="2.892"
+        errorMinus="0.166"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.151" value="3.211"
+        errorMinus="0.151"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.269" value="3.518"
+        errorMinus="0.269"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
+      <measurement errorPlus="0.484" value="3.712"
+        errorMinus="0.484"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="10.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.36" value="3.887"
+        errorMinus="0.36"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="11.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.437" value="4.289"
+        errorMinus="0.437"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="12.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.72" value="5.001"
+        errorMinus="0.72"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="13.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.518" value="5.076"
+        errorMinus="0.518"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="14.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.562" value="6.153"
+        errorMinus="0.562"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="15.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.683" value="5.128"
+        errorMinus="0.683"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="16.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.694" value="4.722"
+        errorMinus="1.694"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="17.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="1.997" value="5.715"
+        errorMinus="1.997"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="18.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="2.063" value="6.487"
+        errorMinus="2.063"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="19.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="2.496" value="8.081"
+        errorMinus="2.496"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="20.5"
+        errorMinus="0.5"/>
+      <measurement errorPlus="2.104" value="10.07"
+        errorMinus="2.104"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d06-x01-y01" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED,JET20)) IN GEV**-1">
+    <annotation>
+      <item key="Title"
+        value="SUM(NAME=PT(C=CHARGED,JET20)) IN GEV**-1" sticky="true"/>
+      <item key="AidaPath"
+        value="/HepData/CDF_2001_S4751469/d06-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d06-x01-y01" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="18.5"
         errorMinus="0.5"/>
@@ -3138,132 +3436,16 @@
         errorMinus="0.419"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y02" dimension="2"
-    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED)) IN GEV**-1">
+  <dataPointSet name="d06-x01-y02" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED,JET20)) IN GEV**-1">
     <annotation>
       <item key="Title"
-        value="SUM(NAME=PT(C=CHARGED)) IN GEV**-1" sticky="true"/>
+        value="SUM(NAME=PT(C=CHARGED,JET20)) IN GEV**-1" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d04-x01-y02" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d06-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d04-x01-y02" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d06-x01-y02" sticky="true"/>
     </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.0060" value="0.158"
-        errorMinus="0.0060"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.021" value="0.549"
-        errorMinus="0.021"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.046" value="1.068"
-        errorMinus="0.046"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.068" value="1.471"
-        errorMinus="0.068"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.079" value="1.784"
-        errorMinus="0.079"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.127" value="2.007"
-        errorMinus="0.127"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.135" value="2.22"
-        errorMinus="0.135"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.173" value="2.212"
-        errorMinus="0.173"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.211" value="2.255"
-        errorMinus="0.211"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.226" value="2.347"
-        errorMinus="0.226"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="10.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.216" value="2.448"
-        errorMinus="0.216"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="11.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.229" value="2.711"
-        errorMinus="0.229"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="12.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.442" value="2.626"
-        errorMinus="0.442"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="13.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.276" value="2.482"
-        errorMinus="0.276"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="14.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.478" value="2.623"
-        errorMinus="0.478"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="15.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.403" value="2.219"
-        errorMinus="0.403"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="16.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.387" value="1.577"
-        errorMinus="0.387"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="17.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.846" value="3.116"
-        errorMinus="1.846"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="18.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.817" value="2.341"
-        errorMinus="0.817"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="19.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.433" value="1.879"
-        errorMinus="0.433"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="20.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.176" value="2.203"
-        errorMinus="1.176"/>
-    </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.5" value="18.5"
         errorMinus="0.5"/>
@@ -3457,132 +3639,16 @@
         errorMinus="1.377"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y03" dimension="2"
-    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED)) IN GEV**-1">
+  <dataPointSet name="d06-x01-y03" dimension="2"
+    path="/HepData/CDF_2001_S4751469/" title="SUM(NAME=PT(C=CHARGED,JET20)) IN GEV**-1">
     <annotation>
       <item key="Title"
-        value="SUM(NAME=PT(C=CHARGED)) IN GEV**-1" sticky="true"/>
+        value="SUM(NAME=PT(C=CHARGED,JET20)) IN GEV**-1" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d04-x01-y03" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d06-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d04-x01-y03" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d06-x01-y03" sticky="true"/>
     </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.0060" value="0.165"
-        errorMinus="0.0060"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="1.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.023" value="0.594"
-        errorMinus="0.023"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="2.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.052" value="1.197"
-        errorMinus="0.052"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.074" value="1.727"
-        errorMinus="0.074"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="4.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.109" value="2.189"
-        errorMinus="0.109"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="5.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.141" value="2.563"
-        errorMinus="0.141"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="6.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.166" value="2.892"
-        errorMinus="0.166"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="7.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.151" value="3.211"
-        errorMinus="0.151"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="8.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.269" value="3.518"
-        errorMinus="0.269"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="9.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.484" value="3.712"
-        errorMinus="0.484"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="10.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.36" value="3.887"
-        errorMinus="0.36"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="11.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.437" value="4.289"
-        errorMinus="0.437"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="12.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.72" value="5.001"
-        errorMinus="0.72"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="13.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.518" value="5.076"
-        errorMinus="0.518"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="14.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.562" value="6.153"
-        errorMinus="0.562"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="15.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.683" value="5.128"
-        errorMinus="0.683"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="16.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.694" value="4.722"
-        errorMinus="1.694"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="17.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="1.997" value="5.715"
-        errorMinus="1.997"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="18.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="2.063" value="6.487"
-        errorMinus="2.063"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="19.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="2.496" value="8.081"
-        errorMinus="2.496"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="20.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="2.104" value="10.07"
-        errorMinus="2.104"/>
-    </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.5" value="18.5"
         errorMinus="0.5"/>
@@ -3776,15 +3842,15 @@
         errorMinus="2.621"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y01" dimension="2"
+  <dataPointSet name="d07-x01-y01" dimension="2"
     path="/HepData/CDF_2001_S4751469/" title="DN(C=CHARGED)/DPT IN GEV**-1">
     <annotation>
       <item key="Title" value="DN(C=CHARGED)/DPT IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d05-x01-y01" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d07-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d05-x01-y01" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="0.75"
@@ -3929,15 +3995,15 @@
       <measurement errorPlus="0.0" value="0.0" errorMinus="0.0"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y02" dimension="2"
+  <dataPointSet name="d07-x01-y02" dimension="2"
     path="/HepData/CDF_2001_S4751469/" title="DN(C=CHARGED)/DPT IN GEV**-1">
     <annotation>
       <item key="Title" value="DN(C=CHARGED)/DPT IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d05-x01-y02" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d07-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d05-x01-y02" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d07-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="0.75"
@@ -4082,15 +4148,15 @@
       <measurement errorPlus="0.0" value="0.0" errorMinus="0.0"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y03" dimension="2"
+  <dataPointSet name="d07-x01-y03" dimension="2"
     path="/HepData/CDF_2001_S4751469/" title="DN(C=CHARGED)/DPT IN GEV**-1">
     <annotation>
       <item key="Title" value="DN(C=CHARGED)/DPT IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/CDF_2001_S4751469/d05-x01-y03" sticky="true"/>
+        value="/HepData/CDF_2001_S4751469/d07-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d05-x01-y03" sticky="true"/>
+        value="/CDF_2001_S4751469.aida/HepData/CDF_2001_S4751469/d07-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="0.75"

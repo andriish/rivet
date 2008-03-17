@@ -13,8 +13,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0022847319317591723"
         value="0.025" errorMinus="0.0022847319317591723"/>
     </dataPoint>
@@ -30,8 +30,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d01-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="5.65685424949238E-4"
         value="0.0041" errorMinus="5.65685424949238E-4"/>
     </dataPoint>
@@ -47,8 +47,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d01-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0053" value="0.0382"
         errorMinus="0.0053"/>
     </dataPoint>
@@ -64,8 +64,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d01-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0625859409132754" value="0.17"
         errorMinus="0.0625859409132754"/>
     </dataPoint>
@@ -157,8 +157,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0022847319317591723"
         value="0.025" errorMinus="0.0022847319317591723"/>
     </dataPoint>
@@ -174,8 +174,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="5.65685424949238E-4"
         value="0.0041" errorMinus="5.65685424949238E-4"/>
     </dataPoint>
@@ -191,8 +191,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0053" value="0.0382"
         errorMinus="0.0053"/>
     </dataPoint>
@@ -208,8 +208,8 @@
         value="/DELPHI_1995_S3137023.aida/HepData/DELPHI_1995_S3137023/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0" value="91.2"
-        errorMinus="0.0"/>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
       <measurement errorPlus="0.0625859409132754" value="0.17"
         errorMinus="0.0625859409132754"/>
     </dataPoint>
