@@ -1,4 +1,4 @@
 RG:Beam1 = ELECTRON
 RG:Beam2 = POSITRON
-RG:Mom1 = 45
-RG:Mom2 = 45
+RG:Mom1 = 45.6
+RG:Mom2 = 45.6
