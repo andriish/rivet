@@ -299,18 +299,18 @@ namespace Rivet {
     const double avgNumPartsCN = _weightedTotalPartNumCN / sumOfWeights();
     
     normalize(_histPtTInC, avgNumPartsC);
-    normalize(_histPtTInCN, avgNumPartsCN);
+    normalize(_histPtTInCN, avgNumPartsC);
     normalize(_histPtTOutC, avgNumPartsC); 
-    normalize(_histPtTOutCN, avgNumPartsCN); 
+    normalize(_histPtTOutCN, avgNumPartsC); 
     normalize(_histPtSInC, avgNumPartsC);
-    normalize(_histPtSInCN, avgNumPartsCN);
+    normalize(_histPtSInCN, avgNumPartsC);
     normalize(_histPtSOutC, avgNumPartsC); 
-    normalize(_histPtSOutCN, avgNumPartsCN); 
+    normalize(_histPtSOutCN, avgNumPartsC); 
     
     normalize(_histRapidityTC, avgNumPartsC); 
-    normalize(_histRapidityTCN, avgNumPartsCN);
+    normalize(_histRapidityTCN, avgNumPartsC);
     normalize(_histRapiditySC, avgNumPartsC); 
-    normalize(_histRapiditySCN, avgNumPartsCN);
+    normalize(_histRapiditySCN, avgNumPartsC);
     
     normalize(_histLogScaledMom, avgNumPartsC);
     normalize(_histScaledMom, avgNumPartsC); 
