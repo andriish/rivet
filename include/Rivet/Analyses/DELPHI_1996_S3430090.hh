@@ -175,6 +175,8 @@ namespace Rivet {
     AIDA::IHistogram1D *_histDiffRate4JadeC,   *_histDiffRate4JadeCN;
 
     AIDA::IHistogram1D *_histEEC, *_histAEEC;
+
+    AIDA::IHistogram1D *_histMultiCharged;
     //@}
   
   };

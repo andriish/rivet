@@ -59,18 +59,18 @@ namespace Rivet {
     _histDiffRate2DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(2), weight); 
     _histDiffRate3DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(3), weight); 
     _histDiffRate4DurhamC->fill(durjetC.getClusterSeq().exclusive_dmerge(4), weight); 
-    const FastJets& durjetCN = e.applyProjection(_cndurjetproj);
-    _histDiffRate2DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(2), weight); 
-    _histDiffRate3DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(3), weight); 
-    _histDiffRate4DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(4), weight); 
+//    const FastJets& durjetCN = e.applyProjection(_cndurjetproj);
+//    _histDiffRate2DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(2), weight); 
+//    _histDiffRate3DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(3), weight); 
+//    _histDiffRate4DurhamCN->fill(durjetCN.getClusterSeq().exclusive_dmerge(4), weight); 
     const FastJets& jadejetC = e.applyProjection(_cjadejetproj);
     _histDiffRate2JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(2), weight); 
     _histDiffRate3JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(3), weight); 
     _histDiffRate4JadeC->fill(jadejetC.getClusterSeq().exclusive_dmerge(4), weight); 
-    const FastJets& jadejetCN = e.applyProjection(_cnjadejetproj);
-    _histDiffRate2JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(2), weight); 
-    _histDiffRate3JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(3), weight); 
-    _histDiffRate4JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(4), weight); 
+//    const FastJets& jadejetCN = e.applyProjection(_cnjadejetproj);
+//    _histDiffRate2JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(2), weight); 
+//    _histDiffRate3JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(3), weight); 
+//    _histDiffRate4JadeCN->fill(jadejetCN.getClusterSeq().exclusive_dmerge(4), weight); 
     #endif
 
     // Sphericities
@@ -173,6 +173,7 @@ namespace Rivet {
     }
     const size_t numParticlesC = fsC.particles().size();
     _weightedTotalPartNumC += numParticlesC * weight;
+    _histMultiCharged->fill(_histMultiCharged->binMean(0), numParticlesC*weight);
 
 
     // Iterate over all the charged and neutral final state particles.
@@ -280,9 +281,9 @@ namespace Rivet {
     _histDiffRate4DurhamCN = bookHistogram1D(31, 1, 2, "Differential 4-jet rate with Durham algorithm, D_4^Durham (charged and neutral)"); // binned in y_cut
     _histDiffRate4JadeC    = bookHistogram1D(32, 1, 1, "Differential 4-jet rate with Jade algorithm, D_4^Jade (charged)"); // binned in y_cut
     _histDiffRate4JadeCN   = bookHistogram1D(32, 1, 2, "Differential 4-jet rate with Jade algorithm, D_4^Jade (charged and neutral)"); // binned in y_cut
-
-    _histEEC  = bookHistogram1D(33, 1, 1, "Energy-energy correlation, EEC (charged)"); // binned in cos(chi)
-    _histAEEC = bookHistogram1D(34, 1, 1, "Asymmetry of the energy-energy correlation, AEEC (charged)"); // binned in cos(chi)
+    _histEEC               = bookHistogram1D(33, 1, 1, "Energy-energy correlation, EEC (charged)"); // binned in cos(chi)
+    _histAEEC              = bookHistogram1D(34, 1, 1, "Asymmetry of the energy-energy correlation, AEEC (charged)"); // binned in cos(chi)
+    _histMultiCharged      = bookHistogram1D(35, 1, 1, "Mean charged multiplicity");
 
 
     // Identified particle distributions
@@ -317,6 +318,7 @@ namespace Rivet {
 
     scale(_histEEC, 1.0/sumOfWeights());
     scale(_histAEEC, 1.0/sumOfWeights());
+    scale(_histMultiCharged, 1.0/sumOfWeights());
 
     normalize(_hist1MinusTC); 
     normalize(_hist1MinusTCN); 
