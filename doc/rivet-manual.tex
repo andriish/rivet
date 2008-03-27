@@ -3,8 +3,9 @@
 
 \usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore,fancyvrb}
 \usepackage{hepnicenames,hepunits}
-\usepackage{picinpar}
+\usepackage{picinpar,fancybox}
 %\usepackage{xcolor}
+%\usepackage{palatino,mathpazo}
 
 \DeclareRobustCommand{\TODO}[1]{\ensuremath{\bigstar}{#1}\xspace}
 %\DeclareRobustCommand{\TODO}[1]{\textcolor{red!20!black}{\ensuremath{\bigstar}{#1}}\xspace}
@@ -36,13 +37,30 @@
 \newcommand{\bendimg}{\includegraphics[height=11mm]{bend}}
 \newcommand{\dblbendimg}{\bendimg\hspace{0.5mm}\bendimg}
 
-%% TODO: Put this in a (shaded) box...
-\newenvironment{change}{%
-\begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}{\par%
-% \showthe\prevgraf%
-% \showthe\prevdepth%
-% \ifnum\prevgraf<2\rule{1pt}{1.2cm}\fi%
-\end{window}\ignorespacesafterend}
+\setlength{\fboxsep}{5mm}
+\setlength{\linewidth}{5pt}
+
+\newenvironment{change}%
+{\begin{Sbox}%
+      \begin{minipage}{0.9\textwidth}%
+        \begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}%
+        {\par\end{window}%
+      \end{minipage}%
+  \end{Sbox}%
+  \vspace{5mm}%
+  \noindent%
+  \begin{center}%
+    \fbox{\TheSbox}%
+  \end{center}%
+  \vspace{5mm}%
+  \ignorespacesafterend}
+
+% \newenvironment{change}{%
+% \begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}{\par%
+% % \showthe\prevgraf%
+% % \showthe\prevdepth%
+% % \ifnum\prevgraf<2\rule{1pt}{1.2cm}\fi%
+% \end{window}\ignorespacesafterend}
 
 \newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
