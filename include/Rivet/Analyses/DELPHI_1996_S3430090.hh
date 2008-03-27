@@ -24,36 +24,26 @@ namespace Rivet {
 
     /// Default constructor.
     DELPHI_1996_S3430090()
-      : _cnfsproj(), _cfsproj(_cnfsproj),
+      : _cfsproj(),
         #ifdef __HAVE_JADE
         _cjadejetproj(_cfsproj, FastJets::JADE, 0.7),
-        _cnjadejetproj(_cnfsproj, FastJets::JADE, 0.7),
         _cdurjetproj(_cfsproj, FastJets::DURHAM, 0.7),
-        _cndurjetproj(_cnfsproj, FastJets::DURHAM, 0.7),
         #else
         _cjadejetproj(_cfsproj, FastJets::KT, 0.7),
-        _cnjadejetproj(_cnfsproj, FastJets::KT, 0.7),
         _cdurjetproj(_cfsproj, FastJets::KT, 0.7),
-        _cndurjetproj(_cnfsproj, FastJets::KT, 0.7),
         #endif
-        _cspherproj(_cfsproj), _cnspherproj(_cnfsproj), 
-        _cthrustproj(_cfsproj), _cnthrustproj(_cnfsproj), 
-        _cparisiproj(_cfsproj), _cnparisiproj(_cnfsproj),
-        _chemiproj(_cfsproj, _cthrustproj), 
-        _cnhemiproj(_cnfsproj, _cnthrustproj)
+        _cspherproj(_cfsproj),
+        _cthrustproj(_cfsproj),
+        _cparisiproj(_cfsproj),
+        _chemiproj(_cfsproj, _cthrustproj)
     {
       setBeams(ELECTRON, POSITRON); 
       addProjection(_cfsproj);
-      addProjection(_cnfsproj);
       addProjection(_beamsproj);
       addProjection(_cspherproj);
-      addProjection(_cnspherproj);
       addProjection(_cthrustproj);
-      addProjection(_cnthrustproj);
       addProjection(_cparisiproj);
-      addProjection(_cnparisiproj);
       addProjection(_chemiproj);
-      addProjection(_cnhemiproj);
     }
 
 
@@ -97,9 +87,6 @@ namespace Rivet {
     /// Hide the assignment operator
     DELPHI_1996_S3430090& operator=(const DELPHI_1996_S3430090&);
 
-    /// The final state projector.
-    FinalState _cnfsproj;
-
     /// Charged final state projector.
     ChargedFinalState _cfsproj;
 
@@ -107,72 +94,67 @@ namespace Rivet {
     Beam _beamsproj;
 
     /// Jet algorithms
-    FastJets _cjadejetproj, _cnjadejetproj;
-    FastJets _cdurjetproj, _cndurjetproj;
+    FastJets _cjadejetproj;
+    FastJets _cdurjetproj;
 
     /// Sphericity projections.
-    Sphericity _cspherproj, _cnspherproj;
+    Sphericity _cspherproj;
 
     /// Thrust projections.
-    Thrust _cthrustproj, _cnthrustproj;
+    Thrust _cthrustproj;
 
     /// Parisi tensor (C and D params) projections.
-    ParisiTensor _cparisiproj, _cnparisiproj;
+    ParisiTensor _cparisiproj;
 
     /// Projections to calculate event hemisphere masses and broadenings.
-    Hemispheres _chemiproj, _cnhemiproj;
+    Hemispheres _chemiproj;
 
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the 
     /// inclusive single particle distributions' normalisations.
-    double _weightedTotalPartNumC, _weightedTotalPartNumCN;
-    
-    /// Store the sum of weights for events which are rejected by the
-    /// lepton veto. We need this number to get the normalisation of single
-    /// particle distributions right.
-    double _sumOfRejectedWeights;
+    double _weightedTotalPartNum;
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_histPtTInC,  *_histPtTInCN;
-    AIDA::IHistogram1D *_histPtTOutC, *_histPtTOutCN;
-    AIDA::IHistogram1D *_histPtSInC,  *_histPtSInCN;
-    AIDA::IHistogram1D *_histPtSOutC, *_histPtSOutCN;
+    AIDA::IHistogram1D *_histPtTIn;
+    AIDA::IHistogram1D *_histPtTOut;
+    AIDA::IHistogram1D *_histPtSIn;
+    AIDA::IHistogram1D *_histPtSOut;
 
-    AIDA::IHistogram1D *_histRapidityTC, *_histRapidityTCN;
-    AIDA::IHistogram1D *_histRapiditySC, *_histRapiditySCN;
+    AIDA::IHistogram1D *_histRapidityT;
+    AIDA::IHistogram1D *_histRapidityS;
 
     AIDA::IHistogram1D *_histScaledMom, *_histLogScaledMom;
 
     AIDA::IProfile1D   *_histPtTOutVsXp, *_histPtVsXp;
 
-    AIDA::IHistogram1D *_hist1MinusTC, *_hist1MinusTCN; 
-    AIDA::IHistogram1D *_histTMajorC, *_histTMajorCN; 
-    AIDA::IHistogram1D *_histTMinorC, *_histTMinorCN; 
-    AIDA::IHistogram1D *_histOblatenessC, *_histOblatenessCN; 
+    AIDA::IHistogram1D *_hist1MinusT; 
+    AIDA::IHistogram1D *_histTMajor; 
+    AIDA::IHistogram1D *_histTMinor; 
+    AIDA::IHistogram1D *_histOblateness; 
 
-    AIDA::IHistogram1D *_histSphericityC, *_histSphericityCN;
-    AIDA::IHistogram1D *_histAplanarityC, *_histAplanarityCN;
-    AIDA::IHistogram1D *_histPlanarityC, *_histPlanarityCN;
+    AIDA::IHistogram1D *_histSphericity;
+    AIDA::IHistogram1D *_histAplanarity;
+    AIDA::IHistogram1D *_histPlanarity;
 
-    AIDA::IHistogram1D *_histCParamC, *_histCParamCN;
-    AIDA::IHistogram1D *_histDParamC, *_histDParamCN;
+    AIDA::IHistogram1D *_histCParam;
+    AIDA::IHistogram1D *_histDParam;
 
-    AIDA::IHistogram1D *_histHemiMassDC, *_histHemiMassDCN;
-    AIDA::IHistogram1D *_histHemiMassHC, *_histHemiMassHCN;
-    AIDA::IHistogram1D *_histHemiMassLC, *_histHemiMassLCN;
+    AIDA::IHistogram1D *_histHemiMassD;
+    AIDA::IHistogram1D *_histHemiMassH;
+    AIDA::IHistogram1D *_histHemiMassL;
                
-    AIDA::IHistogram1D *_histHemiBroadWC, *_histHemiBroadWCN;
-    AIDA::IHistogram1D *_histHemiBroadNC, *_histHemiBroadNCN;
-    AIDA::IHistogram1D *_histHemiBroadTC, *_histHemiBroadTCN;
-    AIDA::IHistogram1D *_histHemiBroadDC, *_histHemiBroadDCN;
+    AIDA::IHistogram1D *_histHemiBroadW;
+    AIDA::IHistogram1D *_histHemiBroadN;
+    AIDA::IHistogram1D *_histHemiBroadT;
+    AIDA::IHistogram1D *_histHemiBroadD;
 
-    AIDA::IHistogram1D *_histDiffRate2DurhamC, *_histDiffRate2DurhamCN;
-    AIDA::IHistogram1D *_histDiffRate2JadeC,   *_histDiffRate2JadeCN; 
-    AIDA::IHistogram1D *_histDiffRate3DurhamC, *_histDiffRate3DurhamCN;
-    AIDA::IHistogram1D *_histDiffRate3JadeC,   *_histDiffRate3JadeCN;
-    AIDA::IHistogram1D *_histDiffRate4DurhamC, *_histDiffRate4DurhamCN;
-    AIDA::IHistogram1D *_histDiffRate4JadeC,   *_histDiffRate4JadeCN;
+    AIDA::IHistogram1D *_histDiffRate2Durham;
+    AIDA::IHistogram1D *_histDiffRate2Jade; 
+    AIDA::IHistogram1D *_histDiffRate3Durham;
+    AIDA::IHistogram1D *_histDiffRate3Jade;
+    AIDA::IHistogram1D *_histDiffRate4Durham;
+    AIDA::IHistogram1D *_histDiffRate4Jade;
 
     AIDA::IHistogram1D *_histEEC, *_histAEEC;
 
