@@ -4,6 +4,11 @@
 \usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore,fancyvrb}
 \usepackage{hepnicenames,hepunits}
 \usepackage{picinpar}
+%\usepackage{xcolor}
+
+\DeclareRobustCommand{\TODO}[1]{\ensuremath{\bigstar}{#1}\xspace}
+%\DeclareRobustCommand{\TODO}[1]{\textcolor{red!20!black}{\ensuremath{\bigstar}{#1}}\xspace}
+%\DeclareRobustCommand{\TOCHECK}[1]{\textcolor{blue!20!black}{\ensuremath{\bigcircle}{#1}}\xspace}
 
 \newenvironment{snippet}{\Verbatim}{\endVerbatim}
 
@@ -31,6 +36,7 @@
 \newcommand{\bendimg}{\includegraphics[height=11mm]{bend}}
 \newcommand{\dblbendimg}{\bendimg\hspace{0.5mm}\bendimg}
 
+%% TODO: Put this in a (shaded) box...
 \newenvironment{change}{%
 \begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}{\par%
 % \showthe\prevgraf%
@@ -53,8 +59,8 @@
 \preprint{}
 %\preprint{\hepth{9912999}}
 
-\abstract{This document is the manual and user guide for the Rivet system for
-  the validation and tuning of Monte Carlo event generators. As well as the core
+\abstract{This is the manual and user guide for the Rivet system for the
+  validation and tuning of Monte Carlo event generators. As well as the core
   Rivet library, this manual describes the usage of the \kbd{rivetgun} program
   and the AGILe generator interface library. The level of description is
   generally intended for users of the system, starting with the basics of using
@@ -140,7 +146,7 @@ directory of the same name, you might want to use a separate one, say
 
 Now, change directory to your build area (you may also want to make this,
 e.g. \kbd{\home/build}), and download the script:\\
-\inp{wget \url{http://svn.hepforge.org/rivet/bootstrap/rivet-bootstrap}\\
+\inp{wget \url{http://svn.hepforge.org/rivet/bootstrap/rivet-bootstrap}}\\
 Now run it, specifying the install area as the argument:\\
 \inp{chmod a+x rivet-bootstrap}\\
 \inp{./rivet-bootstrap \val{localdir}}\\
@@ -170,11 +176,14 @@ LCG Genser team. Otherwise, you'll have to build your own mirror of the LCG
 generators. This process is not standardised at the moment (this will hopefully
 change), so we've provided a script, \kbd{mkGenserArea}, in the \kbd{bin}
 directory of the AGILe source distribution (this will have been downloaded by
-the \kbd{rivet-bootstrap} script. Make yourself a Genser installation directory,
-e.g. \kbd{\var{HOME}/genser}, and \kbd{cd} into it. Then run the
-\kbd{mkGenserArea} script, and wait for it all to build. Finally, set the
-\var{AGILE_GEN_PATH} path variable to contain the \kbd{\val{genserDir}/liblinks}
-directory: you should now have a few Fortran generators to play with.
+the \kbd{rivet-bootstrap} script. We recommend getting the latest version from
+SVN, though:\\
+\inp{wget \url{http://svn.hepforge.org/agile/trunk/bin/mkGenserArea}}\\
+Now make yourself a Genser installation directory, e.g. \kbd{\var{HOME}/genser},
+and \kbd{cd} into it. Then run the \kbd{mkGenserArea} script, and wait for it
+all to build. Finally, set the \var{AGILE_GEN_PATH} path variable to contain the
+\kbd{\val{genserDir}/liblinks} directory: you should now have a few Fortran
+generators to play with.
 
 
 \section{Running \kbd{rivetgun}}
@@ -286,39 +295,105 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     \kbd{Analysis.Handler} and \kbd{Analysis.Test} are set to different levels.}
 \end{itemize}
 
+\TODO{Using the output AIDA/other format data files.}
+
+As with most software, the best way to learn it is to try and use it ---
+preferably starting with relatively modest aims and then progressing to more
+ambitious things as your familiarity increases. And give feedback to the authors
+if the design seems a bit screwy!
+
+
 
 \section{How Rivet works}
-The projection/analysis model.
+Hopefully by now you've run Rivet a few times and got the hang of the command
+line interface and viewing the resulting analysis data files. Maybe you've got
+some ideas of analyses that you would like to see in Rivet's library. If so,
+then you'll need to know a little about Rivet's internal workings before you can
+start coding: with any luck by the end of this section that won't seem
+particularly intimidating.
+
+The core objects in Rivet are ``projections'' and ``analyses''. Hopefully
+``analyses'' isn't a surprise --- that's just the collection of routines that
+will make histograms to compare with reference data, and the only things that
+might differ there from experieces with HzTool are the new histogramming system
+and the fact that we've used some OO features to make life a bit easier. The
+meaning of ``projections'', as applied to event analysis, will probably be less
+obvious. We'll discuss them now.
 
 
 \section{Projections}
+The name ``projection'' is meant to evoke thoughts of
+projection operators, low-dimensional slices/views of high-dimensional spaces,
+and other things that might appeal to physicists who view the world through
+quantum-tinted lenses. A more mundane, but equally applicable, name would be
+``observables'', but since they all inherit from the \kbd{Projection} base
+class, we'll stick to that name. Projections can be relatively simple things
+like event shapes (i.e. scalar, vector or tensor quantities), or arbitrarily
+complex things like lossy or selective views of the event final
+state.\footnote{The ability for projections to return arbitrarily complex objects
+  constructed from the event record is why we chose a slightly vague term like
+  ``projection'' rather than ``observable'', which many people take to be
+  ``something I can plot.''}
+
 \subsection{Projection caching}
-\begin{detail}
-How projection caching works (skippable, but useful as a reference)
-This section is super-hardcore
-\end{detail}
+Aside from semantic issues of how we're dividing the computational work of
+analysing events, projections are important computationally because they live
+within a framework which automatically stores (``caches'') their results between
+events.
+
+A concrete example may help here: let's say we have two analyses which
+have the same run conditions, i.e. incoming beam types, beam energies, etc. Each
+also uses the thrust event shape measure to define a set of basis vectors for
+their analysis. For each event that gets passed to Rivet, whichever analysis
+gets called first will first call a final state projection to get a list of
+stable, physical particles (filtering out the intermediate and book-keeping
+entries in the HepMC event record). That final state projection is then
+``attached'' to the event. The analysis will then call a thrust projection which
+has been told to use the same final state projection to define the momentum
+vectors used in the thrust calculation, and similarly the thrust projection will
+be registered with the event.
+
+So far, projections have offered no benefits! However, when the second analysis
+runs, it will similarly apply its final state and thrust projections to the
+event, but the infrastructure will detect that an equivalent calculation has
+already been done and will return references to the already-run
+projections. Since projections can actually contain each other (``nesting''),
+this model allows some substantial computational savings, without the analysis
+author even needing to be particularly aware of what is going on.
+
+\begin{change}
+  The projection model is very likely to change in Rivet version 2.0, to protect
+  analysis authors further from the issues of managing projection object
+  lifecycles. This will take the form of centralising projection object
+  ownership, but won't affect the overall principle of projection caching.
+\end{change}
+
+Observant readers may have noticed a problem with all this projection caching
+cleverness: what if the final states aren't defined the same way? One might
+provide charged final state particles only, or the acceptances (defined in
+rapidity range and a IR $p_\perp$ cutoff) might differ. Rivet handles this by
+making each projection provide a comparison operator which is used to decide
+whether the cached version is acceptable or if the calculation must be re-run
+with different settings. Because projections can be nested, applying a top-level
+projection to an event can spark off a cascade of comparisons, calculations and
+cache accesses, making use of existing results wherever possible.
+
+
+% \begin{detail}
+% How projection caching \emph{really} works
+% (skippable, but useful as a reference)
+% This section is super-hardcore
+% \end{detail}
 
 \subsection{Standard projection summary}
 \subsection{Example projection}
 \subsection{Cuts and constraints}
-\begin{change}
-How cuts and constraints work. This will change in version 2.
-\end{change}
 
 
 \section{Analyses}
 
 \subsection{Histogramming}
-\begin{change}
-Histo interfaces, AIDA. Formats.\\
-More things.\\
-And more.\\
-And finally some more.\\
-More things.\\
-And more.\\
-And finally some more.
-\end{change}
-
+\TODO{Histo interfaces, AIDA and YODA. Formats.}
 
 \subsection{Analysis histo autobinning}
 \subsection{Pluggable analyses}
