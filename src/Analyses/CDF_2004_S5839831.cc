@@ -34,10 +34,55 @@ namespace Rivet {
   }
 
 
+  bool sortJetsByEt(const Jet& a, const Jet& b) {
+    //for (Jet::const_iterator )
+  }
+
+
   // Do the analysis
   void CDF_2004_S5839831::analyze(const Event& event) {
-    //Log log = getLog();
+    Log log = getLog();
 
+    const FastJets& jetproj = event.applyProjection(_jetproj);
+    Jets jets = jetproj.getJets();
+    
+    /// @todo Sort jets by ET --- define ET!
+    //sort(jets.begin(), jets.end(), sortJetsByEt);
+
+    /// @todo Ensure there is only one well-defined primary vertex, i.e. no pileup. 
+    /// Should be automatic as long as generator is run sensibly.
+
+/*
+
+    // Leading jet must be in central |eta| < 0.5 region.
+    const double etaLead = jets.first().getPseudorapidity();
+    if (fabs(etaLead) > 0.5) vetoEvent(event);
+    
+    // Get Et of the leading jet: used to bin histograms.
+    const double ETlead = jets.first().getET();
+
+    // Get the event weight.
+    const double weight = event.weight();
+
+    for (Jet j : jets) {
+
+      const double ptMaxMin = ptMax + ptMin;
+      if (inRange(etaLead/GeV, 40, 80) {
+        _pt90Dbn1800Et40->fill(ptMaxMin/GeV, weight);
+      else if (inRange(etaLead/GeV, 80, 120) {
+        _pt90Dbn1800Et80->fill(ptMaxMin/GeV, weight);
+      else if (inRange(etaLead/GeV, 120, 160) {
+        _pt90Dbn1800Et120->fill(ptMaxMin/GeV, weight);
+      else if (inRange(etaLead/GeV, 160, 200) {
+        _pt90Dbn1800Et160->fill(ptMaxMin/GeV, weight);
+      else if (inRange(etaLead/GeV, 200, 270) {
+        _pt90Dbn1800Et200->fill(ptMaxMin/GeV, weight);
+      }
+
+
+    }
+
+*/
   }
 
 

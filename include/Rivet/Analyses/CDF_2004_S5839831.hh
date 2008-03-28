@@ -20,7 +20,7 @@ namespace Rivet {
     /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
     CDF_2004_S5839831() 
-      : _fsproj(-1.0, 1.0, 0.4*GeV), _jetproj(_fsproj)
+      : _fsproj(-1.0, 1.0, 0.4*GeV), _jetproj(_fsproj, FastJets::CDFJETCLU, 0.7)
     {
       setBeams(PROTON, ANTIPROTON);
       

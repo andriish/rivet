@@ -43,7 +43,7 @@ namespace Rivet {
 
     // Get jets, sorted by pT
     const Jets jets = tj.getJets();
-    if (jets.empty()) { return; }
+    if (jets.empty()) { vetoEvent(event); }
 
     Jet leadingJet = jets[0];
     const double phiLead = leadingJet.getPtWeightedPhi();

@@ -54,11 +54,11 @@ namespace Rivet {
   public:
     
     /// Wrapper enum for selected Fastjet jet algorithms.
-#ifdef __HAVE_JADE
+    #ifdef __HAVE_JADE
     enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT, JADE, DURHAM };
-#else
+    #else
     enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT };
-#endif
+    #endif
 
 
     /// "Wrapped" argument constructor using Rivet enums for most common
@@ -98,14 +98,14 @@ namespace Rivet {
       } else if (alg == CDFMIDPOINT) {
         _plugin = new fastjet::CDFMidPointPlugin(rparameter);
         _jdef = fastjet::JetDefinition(_plugin);
-#ifdef __HAVE_JADE
+      #ifdef __HAVE_JADE
       } else if (alg == JADE) {
         _plugin = new fastjet::JadePlugin("jade");
         _jdef = fastjet::JetDefinition(_plugin);
       } else if (alg == DURHAM) {
         _plugin = new fastjet::JadePlugin("durham");
         _jdef = fastjet::JetDefinition(_plugin);
-#endif
+      #endif
       }
       return;
     }
