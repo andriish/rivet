@@ -581,7 +581,8 @@ public:
       x.push_back((prof.axis().binLowerEdge(i - 2) + prof.axis().binUpperEdge(i - 2))/2.0);
       ex.push_back(prof.axis().binWidth(i - 2)/2.0);
       y.push_back(prof.binHeight(i - 2));
-      ey.push_back(prof.binError(i - 2)/2.0);
+      //ey.push_back(prof.binError(i - 2)/2.0);
+      ey.push_back(prof.binError(i - 2));
     }
     if ( !dset->setCoordinate(0, x, ex, ex) ||
          !dset->setCoordinate(1, y, ey, ey) )

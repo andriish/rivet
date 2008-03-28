@@ -1,5 +1,8 @@
 2008-03-28  Andy Buckley  <buckley@pc54.hep.ucl.ac.uk>
 
+        * Fixed anomalous factor of 2 in LWH conversion from Profile1D 
+          to DataPointSet.
+
 	* Added pT distribution histos to CDF 2001 UE analysis.
 	
 2008-03-26  Andy Buckley  <andy@insectnation.org>
