@@ -546,7 +546,8 @@ public:
       /// @todo This is not really the height or error: width needs to be included...
       const double binwidth = hist.axis().binWidth(i - 2);
       y.push_back(hist.binHeight(i - 2)/binwidth);
-      ey.push_back(hist.binError(i - 2)/2.0/binwidth);
+      //ey.push_back(hist.binError(i - 2)/2.0/binwidth);
+      ey.push_back(hist.binError(i - 2)/binwidth);
     }
     if ( !dset->setCoordinate(0, x, ex, ex) ||
          !dset->setCoordinate(1, y, ey, ey) )
