@@ -14,19 +14,23 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2001_S4751469::init() {
-    // _numToward = bookProfile1D(3, 1, 1, "Num (toward)");
-    // _numTrans = bookProfile1D(3, 1, 2, "Num (transverse)");
-    // _numAway = bookProfile1D(3, 1, 3, "Num (away)");
-    // _ptsumToward = bookProfile1D(4, 1, 1, "pT sum (toward)");
-    // _ptsumTrans = bookProfile1D(4, 1, 2, "pT sum (transverse)");
-    // _ptsumAway = bookProfile1D(4, 1, 3, "pT sum (away)");
+    _numTowardMB = bookProfile1D(3, 1, 1, "Num (toward) for min-bias");
+    _numTransMB = bookProfile1D(3, 1, 2, "Num (transverse) for min-bias");
+    _numAwayMB = bookProfile1D(3, 1, 3, "Num (away) for min-bias");
+    _numTowardJ20 = bookProfile1D(4, 1, 1, "Num (toward) for JET20");
+    _numTransJ20 = bookProfile1D(4, 1, 2, "Num (transverse) for JET20");
+    _numAwayJ20 = bookProfile1D(4, 1, 3, "Num (away) for JET20");
 
-    _numToward = bookProfile1D("d03-x01-y01", "Num (toward)", 50, 0.0, 50.0);
-    _numTrans = bookProfile1D("d03-x01-y02", "Num (transverse)", 50, 0.0, 50.0);
-    _numAway = bookProfile1D("d03-x01-y03", "Num (away)", 50, 0.0, 50.0);
-    _ptsumToward = bookProfile1D("d04-x01-y01", "pT sum (toward)", 50, 0.0, 50.0);
-    _ptsumTrans = bookProfile1D("d04-x01-y02", "pT sum (transverse)", 50, 0.0, 50.0);
-    _ptsumAway = bookProfile1D("d04-x01-y03", "pT sum (away)", 50, 0.0, 50.0);
+    _ptsumTowardMB = bookProfile1D(5, 1, 1, "pT sum (toward) for min-bias");
+    _ptsumTransMB = bookProfile1D(5, 1, 2, "pT sum (transverse) for min-bias");
+    _ptsumAwayMB = bookProfile1D(5, 1, 3, "pT sum (away) for min-bias");
+    _ptsumTowardJ20 = bookProfile1D(6, 1, 1, "pT sum (toward) for JET20");
+    _ptsumTransJ20 = bookProfile1D(6, 1, 2, "pT sum (transverse) for JET20");
+    _ptsumAwayJ20 = bookProfile1D(6, 1, 3, "pT sum (away) for JET20");
+
+    _ptTrans2 = bookHistogram1D(7, 1, 1, "pT distribution (transverse, pT1 > 2 GeV)");
+    _ptTrans5 = bookHistogram1D(7, 1, 2, "pT distribution (transverse, pT1 > 5 GeV)");
+    _ptTrans30 = bookHistogram1D(7, 1, 3, "pT distribution (transverse, pT1 > 30 GeV)");
   }
 
 
@@ -49,6 +53,9 @@ namespace Rivet {
     if (ptLead/GeV < 0.5) vetoEvent(event);
     if (ptLead/GeV > 50.0) vetoEvent(event);
 
+    // Get the event weight
+    const double weight = event.weight();
+
     // Run over tracks
     double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
     size_t numToward(0), numTrans(0), numAway(0);
@@ -59,12 +66,20 @@ namespace Rivet {
 
         // Get pT sum and multiplicity values for each region 
         // (each is 1 number for each region per event)
+	/// @todo Include event weight factor?
         if (deltaPhi < PI/3.0) {
           ptSumToward += p->pT();
           ++numToward;
         } else if (deltaPhi < 2*PI/3.0) {
           ptSumTrans += p->pT();
           ++numTrans;
+
+	  // Fill transverse pT distributions
+	  _totalNumTrans += weight;
+          if (ptLead/GeV > 2)  _ptTrans2->fill(p->pT()/GeV, weight);
+          if (ptLead/GeV > 5)  _ptTrans5->fill(p->pT()/GeV, weight);
+          if (ptLead/GeV > 30) _ptTrans30->fill(p->pT()/GeV, weight);
+
         } else {
           ptSumAway += p->pT();
           ++numAway;
@@ -83,9 +98,14 @@ namespace Rivet {
         << endl;
 
     // Update the pT profile histograms
-    _ptsumToward->fill(ptLead/GeV, ptSumToward/GeV, event.weight());
-    _ptsumTrans->fill(ptLead/GeV, ptSumTrans/GeV, event.weight());
-    _ptsumAway->fill(ptLead/GeV, ptSumAway/GeV, event.weight());
+    _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
+    _ptsumTowardJ20->fill(ptLead/GeV, ptSumToward/GeV, weight);
+
+    _ptsumTransMB->fill(ptLead/GeV, ptSumTrans/GeV, weight);
+    _ptsumTransJ20->fill(ptLead/GeV, ptSumTrans/GeV, weight);
+
+    _ptsumAwayMB->fill(ptLead/GeV, ptSumAway/GeV, weight);
+    _ptsumAwayJ20->fill(ptLead/GeV, ptSumAway/GeV, weight);
 
     // Log some event details
     log << Log::DEBUG 
@@ -96,13 +116,23 @@ namespace Rivet {
         << endl;
 
     // Update the N_jet profile histograms
-    _numToward->fill(ptLead, numToward, event.weight());
-    _numTrans->fill(ptLead, numTrans, event.weight());
-    _numAway->fill(ptLead, numAway, event.weight());
+    _numTowardMB->fill(ptLead, numToward, weight);
+    _numTowardJ20->fill(ptLead, numToward, weight);
+
+    _numTransMB->fill(ptLead, numTrans, weight);
+    _numTransJ20->fill(ptLead, numTrans, weight);
+
+    _numAwayMB->fill(ptLead, numAway, weight);
+    _numAwayJ20->fill(ptLead, numAway, weight);
   }
 
 
-  void CDF_2001_S4751469::finalize() { }
+  void CDF_2001_S4751469::finalize() { 
+    const double avgNumTrans = _totalNumTrans / sumOfWeights();
+    normalize(_ptTrans2, avgNumTrans);
+    normalize(_ptTrans5, avgNumTrans);
+    normalize(_ptTrans30, avgNumTrans);
+  }
 
 
 }
