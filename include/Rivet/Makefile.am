@@ -27,6 +27,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/ALEPH_1991_S2435284.hh \
   Analyses/CDF_1994_S2952106.hh \
   Analyses/CDF_2001_S4751469.hh \
+  Analyses/CDF_2004_S5839831.hh \
   Analyses/CDF_2005_S6217184.hh \
   Analyses/CDF_2006_S6653332.hh \
   Analyses/CDF_2007_S7057202.hh \

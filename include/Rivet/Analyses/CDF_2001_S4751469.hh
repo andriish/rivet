@@ -24,12 +24,7 @@ namespace Rivet {
     /// correction.
     CDF_2001_S4751469()
       : _cfsproj(-1.0, 1.0, 0.5*GeV), _fsproj(_cfsproj, 0.08), _trackjetproj(_fsproj),
-	_totalNumTrans(0),
-        _ptsumTowardMB(0),  _ptsumTransMB(0),  _ptsumAwayMB(0),
-        _ptsumTowardJ20(0), _ptsumTransJ20(0), _ptsumAwayJ20(0),
-        _numTowardMB(0),  _numTransMB(0),  _numAwayMB(0),
-        _numTowardJ20(0), _numTransJ20(0), _numAwayJ20(0),
-        _ptTrans2(0), _ptTrans5(0), _ptTrans30(0)
+        _totalNumTrans(0)
     { 
       setBeams(PROTON, ANTIPROTON);
       addProjection(_cfsproj);
