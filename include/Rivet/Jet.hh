@@ -142,17 +142,27 @@ namespace Rivet {
     void _calcPtAvgs() const {
       if (!_okPtWeightedEta || !_okPtWeightedPhi) {
         double ptwetasum(0.0), ptwphisum(0.0), ptsum(0.0);
+	double phibegin = (0.0);
         for (const_iterator p = this->begin(); p != this->end(); ++p) {
+
           double pt = p->pT();
           ptsum += pt;
           ptwetasum += pt * p->pseudorapidity();
-          ptwphisum += pt * p->azimuthalAngle();
+
+	  if (p == this->begin())
+	    phibegin = p->azimuthalAngle();
+	  else {
+	    double dphi = p->azimuthalAngle() - phibegin;
+	    ptwphisum += pt*
+	      ( dphi > PI ? dphi-TWOPI :
+		dphi < -PI ? dphi+TWOPI : dphi);   
+	  }
         }
         _totalPt = ptsum;
         _okTotalPt = true;
         _ptWeightedEta = ptwetasum / getPtSum();
         _okPtWeightedEta = true;
-        _ptWeightedPhi = ptwphisum / getPtSum();
+	_ptWeightedPhi = phibegin + ptwphisum / getPtSum();
         _okPtWeightedPhi = true;
       }
     }
