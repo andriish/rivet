@@ -126,7 +126,8 @@ namespace Rivet {
     VetoedFinalState _vfsproj;
 
     ///The jet axes of the jet algorithm projection
-    vector<FourMomentum> _jetaxes;
+    //vector<FourMomentum> _jetaxes;
+    const vector<FourMomentum>& _jetaxes;
 
     /// @name The projected jet shapes
     /// @{
@@ -134,11 +135,6 @@ namespace Rivet {
     vector<vector<double> >  _diffjetshapes;
     vector<vector<double> >  _intjetshapes;
     vector<double> _PsiSlot;
-
-    //vector<AIDA::IHistogram1D> _diffjetshapes;
-    //vector<AIDA::IHistogram1D> _intjetshapes;
-    //AIDA::IHistogram1D* _PsiSlot;
-
     /// @}
 
     ///Jet shape parameters

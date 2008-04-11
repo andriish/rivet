@@ -3,7 +3,6 @@
 #define RIVET_CDF_2005_S6217184_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
@@ -24,8 +23,9 @@ namespace Rivet {
     /// interval = 0.1, r1minPsi = 0.3.
     CDF_2005_S6217184()
       : _fsproj(-2.0, 2.0), _vfsproj(_fsproj), _jetsproj(_fsproj), 
-        _calmetproj(_fsproj), _vertexproj(),
-        _jetshapeproj(_vfsproj, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY)
+        _calmetproj(_fsproj), _pvtxproj(),
+        _jetshapeproj(_vfsproj, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY),
+	_pvzmax(600*mm)
     { 
       setBeams(PROTON, ANTIPROTON);
 
@@ -37,14 +37,13 @@ namespace Rivet {
         .addVetoPairId(16);
       
       // Veto muons (PDG code = 13) with pT above 1.0 GeV
-      /// @todo Use ParticleName enum for clarity.
-      _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
+      _vfsproj.addVetoDetail(MUON, 1.0*GeV, numeric_limits<double>::max());
 
       addProjection(_fsproj);
       addProjection(_vfsproj);
       addProjection(_jetsproj);
       addProjection(_calmetproj);
-      addProjection(_vertexproj);
+      addProjection(_pvtxproj);
       addProjection(_jetshapeproj);
 
       _Rjet = 0.7;
@@ -129,11 +128,19 @@ namespace Rivet {
     TotalVisibleMomentum _calmetproj;
 
     /// The primary vertex projector.
-    PVertex _vertexproj;
+    PVertex _pvtxproj;
 
     /// The jet shape projector.
     JetShape _jetshapeproj;
     
+
+    /// @name Analysis cuts
+    //@{
+    /// Cut on primary vertex z-position (\f$ z(\text{PV}) < 60 \text{cm} \f$)
+    const double _pvzmax;
+
+
+
 
   private:
 

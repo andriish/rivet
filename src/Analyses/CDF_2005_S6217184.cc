@@ -8,6 +8,9 @@ namespace Rivet {
   
   // Book histograms
   void CDF_2005_S6217184::init() {
+    Log log = getLog();
+
+    log << Log::DEBUG << "CDF_2005_S6217184::init() entered" << endl;
 
     string hist_title[18][2];
     
@@ -32,24 +35,25 @@ namespace Rivet {
   // Do the analysis
   void CDF_2005_S6217184::analyze(const Event& event) {
     Log log = getLog();
-    
+
+    log << Log::DEBUG << "CDF_2005_S6217184::analyze entered" << endl;
+
     // Analyse and print some info  
     const FastJets& jetpro = event.applyProjection(_jetsproj);
     
     log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
     
     
-    // Find vertex and check  that its z-component is < 60 cm from the nominal IP
-    //const PVertex& pv = event.applyProjection(_vertexproj);
-    /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
-    /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
-    //if (fabs(pv.getPrimaryVertex().position().z()) < 600.0) {
-    
+    // Find primary vertex 
+    const PVertex& pv = event.applyProjection(_pvtxproj);
+    // Check that its z-component is < 60 cm from the nominal IP
+    if (fabs(pv.getPVPosition().z()) < _pvzmax) {
+ 
     
     /// @todo Don't expose FastJet objects in Rivet analyses: the FastJets projection
     /// should convert them to Rivet 4-momentum classes (or similar).
     const PseudoJets& jets = jetpro.getPseudoJetsPt();
-    
+
     log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
     
     int Njet = 0;
@@ -63,7 +67,6 @@ namespace Rivet {
     }
     
     if (jetcutpass) {
-      
       const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
       log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
       
@@ -81,6 +84,7 @@ namespace Rivet {
             _jetaxes.push_back(jetaxis);
           }
         }
+
         if (_jetaxes.size()>0) { //determine jet shapes 
           const JetShape& jetShape = event.applyProjection(_jetshapeproj);
 	  
@@ -102,8 +106,9 @@ namespace Rivet {
         }
       }
     }
-  }
+    } //pvzmax cut
   
+  }
   
   // Finalize
   void CDF_2005_S6217184::finalize() { 
