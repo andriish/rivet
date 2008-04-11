@@ -47,7 +47,7 @@ namespace Rivet {
     /// The default constructor. Must specify a PVertex 
     /// projection object which is assumed to live through the run.
     SVertex(PVertex& pvtx, ChargedFinalState& chfs, 
-            vector<FourMomentum>& jetaxes, double deltaR,
+            const vector<FourMomentum>& jetaxes, double deltaR,
             double detEta, double IPres, double DLS, double DLSres=0.0) 
       : _pvtx(pvtx), _chfs(chfs), _jetaxes(jetaxes), _deltaR(deltaR),
         _detEta(detEta), _IPres(IPres), _DLS(DLS), 
@@ -90,7 +90,7 @@ namespace Rivet {
     ChargedFinalState _chfs;
 
     /// The jet axes of the jet algorithm projection
-    vector<FourMomentum> _jetaxes;
+    const vector<FourMomentum>& _jetaxes;
 
     /// Max distance between vis. momentum of vertex and jet to be probed
     double _deltaR;
