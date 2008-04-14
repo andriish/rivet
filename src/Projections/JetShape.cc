@@ -90,7 +90,7 @@ namespace Rivet {
           }
         }
         
-        if (dradmin < _r1minPsi/_rmax) {
+        if (dradmin < _r1minPsi) {
           _PsiSlot[dradminind] += p->getMomentum().vector3().polarRadius();
         }
         
