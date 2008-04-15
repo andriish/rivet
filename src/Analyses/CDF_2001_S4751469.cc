@@ -63,19 +63,19 @@ namespace Rivet {
       for (Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
         // Calculate Delta(phi) from leading jet
         const double deltaPhi = delta_phi(p->azimuthalAngle(), phiLead);
-
+        
         // Get pT sum and multiplicity values for each region 
         // (each is 1 number for each region per event)
-	/// @todo Include event weight factor?
+        /// @todo Include event weight factor?
         if (deltaPhi < PI/3.0) {
           ptSumToward += p->pT();
           ++numToward;
         } else if (deltaPhi < 2*PI/3.0) {
           ptSumTrans += p->pT();
           ++numTrans;
-
-	  // Fill transverse pT distributions
-	  _totalNumTrans += weight;
+          
+          // Fill transverse pT distributions
+          _totalNumTrans += weight;
           if (ptLead/GeV > 2)  _ptTrans2->fill(p->pT()/GeV, weight);
           if (ptLead/GeV > 5)  _ptTrans5->fill(p->pT()/GeV, weight);
           if (ptLead/GeV > 30) _ptTrans30->fill(p->pT()/GeV, weight);
@@ -84,10 +84,10 @@ namespace Rivet {
           ptSumAway += p->pT();
           ++numAway;
         }
-
+        
       }
     }
-
+    
     // Log some event details
     log << Log::DEBUG 
         << "pT [lead; twd, away, trans] = ["
@@ -116,14 +116,14 @@ namespace Rivet {
         << endl;
 
     // Update the N_jet profile histograms
-    _numTowardMB->fill(ptLead, numToward, weight);
-    _numTowardJ20->fill(ptLead, numToward, weight);
+    _numTowardMB->fill(ptLead/GeV, numToward, weight);
+    _numTowardJ20->fill(ptLead/GeV, numToward, weight);
 
-    _numTransMB->fill(ptLead, numTrans, weight);
-    _numTransJ20->fill(ptLead, numTrans, weight);
+    _numTransMB->fill(ptLead/GeV, numTrans, weight);
+    _numTransJ20->fill(ptLead/GeV, numTrans, weight);
 
-    _numAwayMB->fill(ptLead, numAway, weight);
-    _numAwayJ20->fill(ptLead, numAway, weight);
+    _numAwayMB->fill(ptLead/GeV, numAway, weight);
+    _numAwayJ20->fill(ptLead/GeV, numAway, weight);
   }
 
 
