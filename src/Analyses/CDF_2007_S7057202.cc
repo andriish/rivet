@@ -119,7 +119,6 @@ namespace Rivet {
          histIt != _eventsPassed.end(); 
 	 ++histIt, ++histJt) {
       IHistogram1D* hist = histIt->first;
-      IHistogram1D* jhist = histJt->first;
       double xSec = xSecPerEvent * histIt->second / histJt->second;
       normalize(hist, xSec);
     }
