@@ -8,6 +8,7 @@
 
 namespace Rivet {
 
+
   /// @todo Needs full Doxygen commenting
   class CDF_2007_S7057202 : public Analysis {
 
@@ -91,6 +92,10 @@ namespace Rivet {
     double _eventsTried;
     ///The number of events in each histogram
     map<AIDA::IHistogram1D*, double> _eventsPassed;
+    ///The y bin width of each histogram
+    map<AIDA::IHistogram1D*, double> _yBinWidths;
+    ///The y bin edge values
+    static const double _ybins[6];
     ///Histograms in different eta regions
     BinnedHistogram<double> _binnedHistosD07;
     //@{Single histograms for the R=0.5 and R=1.0 KT jets

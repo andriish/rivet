@@ -1,11 +1,15 @@
 // -*- C++ -*-
 #include "Rivet/Analyses/CDF_2007_S7057202.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/Logging.hh"
 
 
 namespace Rivet {
 
   
+  const double CDF_2007_S7057202::_ybins[] = {0., 0.1, 0.7, 1.1, 1.6, 2.1};
+
+
   // Book histos and set counters for number of events passed in each one
   void CDF_2007_S7057202::init() {
     /// @todo Any reason not to use the sumOfWeights() function? 
@@ -19,14 +23,19 @@ namespace Rivet {
     _binnedHistosD07.addHistogram(0.7, 1.1, bookHistogram1D(3,1,1,"0.7 < eta < 1.1, D=0.7"));
     _binnedHistosD07.addHistogram(1.1, 1.6, bookHistogram1D(4,1,1,"1.1 < eta < 1.6, D=0.7"));
     _binnedHistosD07.addHistogram(1.6, 2.1, bookHistogram1D(5,1,1,"1.6 < eta < 2.1, D=0.7"));
-  
+
+    int yind =0;
     for(vector<AIDA::IHistogram1D*>::const_iterator histIt = _binnedHistosD07.getHistograms().begin();
         histIt != _binnedHistosD07.getHistograms().end(); ++histIt){
       _eventsPassed[*histIt] = 0.0;
+      _yBinWidths[*histIt] = 2.*(_ybins[yind+1]-_ybins[yind++]); 
     }
     
     _eventsPassed[_histoD05] = 0.0;
+    _yBinWidths[_histoD05] = 2.*(-_ybins[1]+_ybins[2]);
     _eventsPassed[_histoD10] = 0.0;
+    _yBinWidths[_histoD10] = 2.*(-_ybins[1]+_ybins[2]);
+
   }
 
 
@@ -97,14 +106,21 @@ namespace Rivet {
 
   // Normalise histograms to cross-section
   void CDF_2007_S7057202::finalize() {
+    Log log = getLog();
     double xSecPerEvent = crossSection() / _eventsTried;
+    log << Log::INFO << "crossSection()=" << crossSection() << endl;
+
     // HepData data is in nb, crossSection returns pb.
     xSecPerEvent = xSecPerEvent / nanobarn; 
+
     
-    for (map<IHistogram1D*,double>::iterator histIt = _eventsPassed.begin();
-         histIt != _eventsPassed.end(); ++histIt) {
+    for (map<IHistogram1D*,double>::iterator histIt = _eventsPassed.begin(),
+	 histJt = _yBinWidths.begin();
+         histIt != _eventsPassed.end(); 
+	 ++histIt, ++histJt) {
       IHistogram1D* hist = histIt->first;
-      double xSec = xSecPerEvent * histIt->second;
+      IHistogram1D* jhist = histJt->first;
+      double xSec = xSecPerEvent * histIt->second / histJt->second;
       normalize(hist, xSec);
     }
     return;
