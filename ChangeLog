@@ -1,12 +1,26 @@
+2008-04-28  Andy Buckley  <andy@insectnation.org>
+
+	* Merged in major "ProjectionHandler" branch. Projections are now
+	all stored centrally in the singleton ProjectionHandler container,
+	rather than as member pointers in projections and analyses. This
+	also affects the applyProjection mechanism, which is now available
+	as a templated method on Analysis and Projection. Still a few
+	wrinkles need to be worked out.
+
+	* The branch changes required a comprehensive review of all
+	existing projections and analyses: lots of tidying up of these
+	classes, as well as the auxiliary code like math utils, has taken
+	place. Too much to list and track, unfortunately!
+
 2008-03-28  Andy Buckley  <buckley@pc54.hep.ucl.ac.uk>
 
   * Started second CDF UE analysis ("Acosta"): histograms defined.
 
-  * Fixed anomalous factor of 2 in LWH conversion from Profile1D 
+  * Fixed anomalous factor of 2 in LWH conversion from Profile1D
     to DataPointSet.
 
 	* Added pT distribution histos to CDF 2001 UE analysis.
-	
+
 2008-03-26  Andy Buckley  <andy@insectnation.org>
 
 	* Removed charged+neutral versions of histograms and projections
