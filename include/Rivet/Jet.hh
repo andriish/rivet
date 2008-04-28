@@ -3,9 +3,10 @@
 #define RIVET_Jet_HH
 
 #include "Rivet/Rivet.hh"
-
+#include <numeric>
 
 namespace Rivet {
+
 
   /// A minimal class representing a jet of particles.
   class Jet {
@@ -109,6 +110,13 @@ namespace Rivet {
     }
 
 
+    /// Get a FourMomentum vector that characterises this jet (the sum of the
+    /// constitutent momenta).
+    FourMomentum vector() const {
+      return accumulate(begin(), end(), FourMomentum());
+    }
+
+
     /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
     double getPtSum() const {
       if (!_okTotalPt) {
@@ -120,6 +128,13 @@ namespace Rivet {
         _okTotalPt = true;
       }
       return _totalPt;
+    }
+
+
+    /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
+    double getEtSum() const {
+      /// @todo Correct this for the real Et definition.
+      return getPtSum();
     }
 
 
@@ -189,7 +204,7 @@ namespace Rivet {
   private:
 
     /// The particle tracks.
-    vector<FourMomentum> _particles;
+    std::vector<FourMomentum> _particles;
 
     /// Cached values of \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
     mutable double _phi, _eta;

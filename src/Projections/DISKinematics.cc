@@ -10,8 +10,8 @@ namespace Rivet {
   void DISKinematics::project(const Event& e) {
     Log& log = getLog();
 
-    const DISLepton& dislep = e.applyProjection(_lepton);
-    const ParticlePair& inc = e.applyProjection(_beams).getBeams();
+    const DISLepton& dislep = applyProjection<DISLepton>(e, "Lepton");
+    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").getBeams();
     Particle hadron;
 
     if ( inc.second.getPdgId() == _idhad ) hadron = inc.second;
@@ -54,10 +54,9 @@ namespace Rivet {
 
 
   int DISKinematics::compare(const Projection & p) const {
-    const DISKinematics& other = dynamic_cast<const DISKinematics&>(p);
+    const DISKinematics& other = pcast<DISKinematics>(p);
     return \
-      pcmp(_lepton, other._lepton) || 
-      pcmp(_beams, other._beams) || 
+      mkNamedPCmp(other, "Lepton") || 
       cmp(_idhad, other._idhad);
   }
 

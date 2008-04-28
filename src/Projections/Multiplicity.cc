@@ -8,14 +8,13 @@
 namespace Rivet {
 
   int Multiplicity::compare(const Projection& p) const {
-    const Multiplicity& other = dynamic_cast<const Multiplicity&>(p);
-    return pcmp(_fsproj, other._fsproj);
+    return mkNamedPCmp(p, "FS");
   }
 
 
   void Multiplicity::project(const Event& e) {
     // Project into final state
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Increment counters
     _totalMult = fs.particles().size();

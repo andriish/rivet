@@ -6,18 +6,18 @@
 namespace Rivet {
 
   int DISLepton::compare(const Projection& p) const {
-    const DISLepton& other = dynamic_cast<const DISLepton&>(p);
+    const DISLepton& other = pcast<DISLepton>(p);
     return
-      pcmp(_beamproj, other._beamproj) || 
-      pcmp(_fsproj, other._fsproj) || 
+      mkNamedPCmp(other, "Beam") || 
+      mkNamedPCmp(other, "FS") || 
       cmp(_idin, other._idin) || 
       cmp(_idout, other._idout);
   }
 
 
   void DISLepton::project(const Event& e) {
-    const ParticlePair& inc = e.applyProjection(_beamproj).getBeams();
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").getBeams();
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     bool allowAnti = (_idin * _idout < 0);
     if ( _idin == inc.first.getPdgId() || (allowAnti && _idin == -inc.first.getPdgId()) ) {

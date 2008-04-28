@@ -13,7 +13,7 @@ namespace Rivet {
 
   /// This class projects out the DIS kinematic variables and relevant
   /// boosts for an event.
-  class DISKinematics: public Projection {
+  class DISKinematics : public Projection {
 
   public:
         
@@ -21,20 +21,15 @@ namespace Rivet {
     /// projection objects which are guaranteed to live throughout the
     /// run. Also the PDG code of the incoming hadron (\a hadid) must be
     /// specified.
-    inline DISKinematics(Beam& beamp, DISLepton& leptonp, const ParticleName& hadid)
-      : _beams(beamp), _lepton(leptonp), _idhad(hadid), 
-        _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0) 
+    DISKinematics(const DISLepton& leptonp, const ParticleName& hadid)
+      : _idhad(hadid), _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0) 
     {
+      setName("DISKinematics");
       addBeamPair(ANY, hadid);
-      addProjection(beamp);
-      addProjection(leptonp);
+      addProjection(*new Beam(), "Beam");
+      addProjection(leptonp, "Lepton");
     }
     
-  public:
-    /// Return the name of the projection
-    inline string getName() const {
-      return "DISKinematics";
-    }
     
   protected:
     
@@ -47,39 +42,33 @@ namespace Rivet {
   public:
 
     /// The \f$Q^2\f$.
-    inline double Q2() const { return _theQ2; }
+    double Q2() const { return _theQ2; }
 
     /// The \f$W^2\f$.
-    inline double W2() const { return _theW2; }
+    double W2() const { return _theW2; }
 
     /// The Bjorken \f$x\f$.
-    inline double x() const { return _theX; }
+    double x() const { return _theX; }
 
     /// The Inelasticity \f$y\f$
-    inline double y() const { return _theY; }
+    double y() const { return _theY; }
 
     /// The centre of mass energy \f$s\f$
-    inline double s() const { return _theS; }
+    double s() const { return _theS; }
 
 
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
-    inline const LorentzTransform& boostHCM() const {
+    const LorentzTransform& boostHCM() const {
       return _hcm; 
     }
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
-    inline const LorentzTransform& boostBreit() const {
+    const LorentzTransform& boostBreit() const {
       return _breit;
     }
 
   private:
-
-    /// The Beam projector object defining the incoming beam particles.
-    Beam& _beams;
-
-    /// The projector for the scattered lepton.
-    DISLepton& _lepton;
 
     /// The PDG id of the incoming hadron.
     long _idhad;

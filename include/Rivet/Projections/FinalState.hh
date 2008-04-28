@@ -19,24 +19,17 @@ namespace Rivet {
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     FinalState(double mineta = -MaxRapidity,
-               double maxeta = MaxRapidity,
-               double minpt = 0.0)
-      : _etamin(mineta), _etamax(maxeta), _ptmin(minpt) 
+               double maxeta =  MaxRapidity,
+               double minpt  =  0.0*GeV)
+      : _etamin(mineta), _etamax(maxeta), 
+        _ptmin(minpt) 
     { 
+      setName("FinalState");
       addCut("eta", MORE_EQ, mineta);
       addCut("eta", LESS_EQ, maxeta);
       addCut("pT",  MORE_EQ, minpt);
     }
-    
-    ~FinalState() {
-      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
-    }
-
-    /// Return the name of the projection
-    virtual string getName() const {
-      return "FinalState";
-    }
-    
+        
     /// Access the projected final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }
 

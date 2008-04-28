@@ -7,25 +7,20 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
 
-  /// Project out charged final-state leptons (i.e. electrons and muons, unless you set taus stable!).
-  class ChargedLeptons: public Projection {
+
+  /// Project out charged final-state leptons (i.e. electrons and muons, unless
+  /// you set taus stable!)
+  class ChargedLeptons : public Projection {
     
   public:
     
-    /// Constructor. The provided FinalState projection must live throughout the run.
-    ChargedLeptons(FinalState& fsp)
-      : _fsproj(&fsp)
+    /// Constructor
+    ChargedLeptons(const FinalState& fsp)
     { 
-      addProjection(fsp);
-    }
-    
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "ChargedLeptons";
+      setName("ChargedLeptons");
+      addProjection(fsp, "FS");
     }
     
   protected:
@@ -34,24 +29,23 @@ namespace Rivet {
     void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection& p) const;
+    int compare(const Projection& other) const;
     
   public:
     
     /// Access the projected leptons.
-    const ParticleVector& chargedLeptons() const { return _theChargedLeptons; }
+    const ParticleVector& chargedLeptons() const { 
+      return _theChargedLeptons; 
+    }
     
   private:
-        
-    /// The FinalState projection used by this projection
-    FinalState* _fsproj;
 
     /// The leptons
     ParticleVector _theChargedLeptons;
         
   };
   
-}
 
+}
 
 #endif

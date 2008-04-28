@@ -8,7 +8,6 @@
 namespace Rivet {
 
 
-  // Book histograms
   void CDF_2008_S7541902::init() {
     /// @todo Use histogram auto-booking when the paper is in HepData.
     /// @todo get root output
@@ -28,73 +27,74 @@ namespace Rivet {
     _histJetEt[3]  = bookHistogram1D("histJetEt_4jet", "Fourth Jet Et", vector<double>(xbins4, xbins4+bins4));
   }
 
-  // Do the analysis
+
+
   void CDF_2008_S7541902::analyze(const Event& event) {
     Log log = getLog();
     log << Log::DEBUG << "Starting analyzing" << endl;
-    
-    bool fail = false;
+   
     // Get final state particles in event  
-    const FinalState& part = event.applyProjection(_fsproj);
+    const FinalState& part = applyProjection<FinalState>(event, "FS");
     const ParticleVector& particles =  part.particles();
 
     // Make kinematic cuts
-    FourMomentum electronP(0.,0.,0.,0.);
-    FourMomentum neutrinoP(0.,0.,0.,0.); 
+    FourMomentum electronP, neutrinoP;
     for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
-      // pick out final state electrons and electron neutrinos
-      int abs_id = abs(p->getPdgId());
-      if (abs_id == 11 || abs_id == 12) {
+      // Pick out final state electrons and electron neutrinos
+      const unsigned int abs_id = abs(p->getPdgId());
+      if (abs_id == ELECTRON || abs_id == NU_E) {
         bool fromW = false;
-	GenVertex *startVtx=(p->getHepMCParticle()).production_vertex();       
-	if(startVtx!=0) {
-	  for(GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
-	      pIt != startVtx->particles_end(HepMC::ancestors); ++pIt){
-	    if(fabs((*pIt)->pdg_id())==24) fromW = true;
-	  }
-        
-	} else log << Log::WARN << "No vertex found for final state particles" << endl;
-        if (fromW && abs_id == 11)  electronP = p->getMomentum();
-        if (fromW && abs_id == 12)  neutrinoP = p->getMomentum();
+        GenVertex *startVtx = (p->getHepMCParticle()).production_vertex();       
+        if (startVtx) {
+          for (GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
+               pIt != startVtx->particles_end(HepMC::ancestors); ++pIt) {
+            if (fabs((*pIt)->pdg_id())==24) fromW = true;
+          }
+        } else {
+          log << Log::WARN << "No vertex found for final state particles" << endl;
+        }
+        if (fromW && abs_id == ELECTRON) electronP = p->getMomentum();
+        if (fromW && abs_id == NU_E) neutrinoP = p->getMomentum();
       }
     }
-    if (electronP.pT() < 20. || fabs(electronP.pseudorapidity()) > 1.1) fail = true;
-    if (neutrinoP.pT() < 30.)  fail = true;
+
+    /// @todo Declare these cuts
+    bool fail = false;
+    if (electronP.pT() < 20.0 || fabs(electronP.pseudorapidity()) > 1.1) fail = true;
+    if (neutrinoP.pT() < 30.0)  fail = true;
     if (electronP.pT() == 0.)  log << Log::WARN << "No final state electron found" << endl;
     if (neutrinoP.pT() == 0.)  log << Log::WARN << "No final state neutrino found" << endl;
     if (!fail) {
-      // should add this as a function in FourMom
+      /// @todo Should add this as a function in FourMom
       float MT = electronP.pT()*neutrinoP.pT() - 
-	electronP.px()*neutrinoP.px() -
-	electronP.py()*neutrinoP.py();
+        electronP.px()*neutrinoP.px() -
+        electronP.py()*neutrinoP.py();
       MT = sqrt(2.0*MT);
-      if(MT < 20.) fail = true;
+      if (MT < 20.) fail = true;
     }
-    // if the event passes the kinematic cuts
-    if (!fail) {      
-      // JetClu 0.4 radius, merging fraction = 0.75 
-      // Remove electron (and neutrinos/muons) before clustering
-      const FastJets& jetpro = event.applyProjection(_conejetsproj);
-      // get pT ordered pseudo jets (whats that?)
-      const PseudoJets& jets = jetpro.getPseudoJetsPt();
-      vector<float> jetPt;  
-      int njets = 0;      
-      for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
- 	if (fabs(jt->pseudorapidity()) < 2.0 ){
-	  if(jt->perp() > 20.) jetPt.push_back(jt->perp());
-	  if(jt->perp() > 25.)  ++njets;
-	} 
+    if (fail) vetoEvent(event);
+
+    // JetClu 0.4 radius, merging fraction = 0.75 
+    // Remove electron (and neutrinos/muons) before clustering
+    const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+    const PseudoJets& jets = jetpro.getPseudoJetsPt();
+    vector<float> jetPt;  
+    size_t njets = 0; 
+    for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
+      if (fabs(jt->pseudorapidity()) < 2.0 ){
+        if (jt->perp() > 20.) jetPt.push_back(jt->perp());
+        if (jt->perp() > 25.) ++njets;
       } 
-      for (int i=0; i<=njets ; i++) {
- 	_histJetMult->fill(i,event.weight());
+    } 
+    for (size_t i = 0; i <= njets ; ++i) {
+      _histJetMult->fill(i,event.weight());
+    }
+    for (size_t i = 0; i < 5; ++i){
+      if (jetPt.size() > i) {
+        _histJetEt[i]->fill(jetPt[i],event.weight());
       }
-      for (unsigned int i=0; i<5; i++){
-      	if(jetPt.size() > i) _histJetEt[i]->fill(jetPt[i],event.weight());
-      }
-    } // end passes
-    // Finished
-    log << Log::DEBUG << "Finished analyzing" << endl;
-    
+    }
+
   }
   
   

@@ -40,30 +40,25 @@ namespace Rivet {
     /// NB. eta in [-4.2, 4.2] cut specified via FinalState constructor, CDF CAL acceptance.
 	/// @todo Set units on _metsetmax
     CDF_1994_S2952106()
-      : _fsproj(-4.2, 4.2), _vfsproj(_fsproj),
-        _conejetsproj(_fsproj, FastJets::CDFJETCLU, 0.7),
-        _calmetproj(_fsproj), _vertexproj(),
-        _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
+      : _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
         _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0)
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
 
-      // Add particle/antiparticle vetoing: 12=nu_e, 14=nu_mu, 16=nu_tau
-      /// @todo Use ParticleName enum
-      _vfsproj
-        .addVetoPairId(12)
-        .addVetoPairId(14)
-        .addVetoPairId(16);
-      
-      // Veto muons with pT above 1.0 GeV
-      _vfsproj.addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+      const FinalState& fs = addProjection(*new FinalState(-4.2, 4.2), "FS");
+      addProjection(*new FastJets(fs, FastJets::CDFJETCLU, 0.7), "ConeJets");
+      addProjection(*new TotalVisibleMomentum(fs), "CalMET");
+      addProjection(*new PVertex(), "PV");
 
-      addProjection(_fsproj);
-      addProjection(_vfsproj);
-      addProjection(_conejetsproj);
-      addProjection(_calmetproj);
-      addProjection(_vertexproj);
+      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
+      VetoedFinalState& vfs = *new VetoedFinalState(fs);
+      vfs
+        .addVetoPairId(NU_E)
+        .addVetoPairId(NU_MU)
+        .addVetoPairId(NU_TAU)
+        .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+      addProjection(vfs, "VFS");
     }
 
 
@@ -106,22 +101,6 @@ namespace Rivet {
     //@}
 
   private:
-
-    /// The final state projector used by this analysis.
-    FinalState _fsproj;
-
-    /// The vetoed final state projector needed by the jet algorithm.
-    VetoedFinalState _vfsproj; 
-
-    ///The cone jet algorithm.
-    FastJets _conejetsproj;
-    //D0ILConeJets _conejetsproj;
-
-    /// The Calorimeter Missing Et projector
-    TotalVisibleMomentum _calmetproj;
-
-    /// The Primary Vertex projector
-    PVertex _vertexproj;
 
     /// Counter for the number of events analysed
     double _eventsTried;

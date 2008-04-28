@@ -6,14 +6,13 @@
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/WZandh.hh"
-//#include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {  
 
+
   /// Implementation of D0 Run I, differential W/Z boson cross 
-  /// section analyisis, publication hep-ex/0107012 
+  /// section analysis, publication hep-ex/0107012 
   /// _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
   /// _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
   /// _brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
@@ -23,18 +22,18 @@ namespace Rivet {
 
     /// Constructor.
     D0_2001_S4674421()
-      : _WZproj(), 
-        _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632)
+      : _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632)
     { 
-      
       setBeams(PROTON, ANTIPROTON);
-      addProjection(_WZproj);
       setNeedsCrossSection(true);
+      addProjection(*new WZandh(), "WZ");
     }    
     
     
     /// Factory method
-    static Analysis* create() { return new D0_2001_S4674421(); }
+    static Analysis* create() { 
+      return new D0_2001_S4674421(); 
+    }
     
     
     /// @name Publication metadata
@@ -45,7 +44,7 @@ namespace Rivet {
     }
     /// Get a description of the analysis.
     string getDescription() const {
-       return "";
+      return "Run I differential W/Z boson cross-section analysis";
     }
     /// Experiment which performed and published this analysis.
     string getExpt() const {
@@ -54,6 +53,12 @@ namespace Rivet {
     /// When published (preprint year according to SPIRES).
     string getYear() const {
       return "2001";
+    }
+    /// Journal, and preprint references.
+    vector<string> getReferences() const {
+      vector<string> ret;
+      ret.push_back("arXiv:hep-ex/0107012");
+      return ret;
     }
     //@}
     
@@ -67,9 +72,6 @@ namespace Rivet {
     
   private:
     
-    /// The final state projector used by this analysis.
-    WZandh _WZproj;
-    
     /// analysis used ratio of mW/mZ 
     const double _mwmz;
     
@@ -78,9 +80,6 @@ namespace Rivet {
     
     /// brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
     const double _brzee;
-    
-    /// Hide copy assignment operator.
-    D0_2001_S4674421& operator=(const D0_2001_S4674421&);
     
     // Event counters for cross section normalizations
     double _eventsFilledW;
@@ -92,7 +91,9 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_dsigdpt_z;
     AIDA::IHistogram1D* _h_dsigdpt_wz_rat;
     //@}    
-    
+
+    /// Hide copy assignment operator.
+    D0_2001_S4674421& operator=(const D0_2001_S4674421&);
   };
 
 }

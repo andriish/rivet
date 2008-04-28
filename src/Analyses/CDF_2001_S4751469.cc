@@ -9,6 +9,7 @@
 #include "Rivet/Analyses/CDF_2001_S4751469.hh"
 #include "Rivet/RivetAIDA.hh"
 
+
 namespace Rivet {
 
 
@@ -39,7 +40,7 @@ namespace Rivet {
     Log log = getLog();
 
     // Analyse, with pT > 0.5 GeV AND |eta| < 1
-    const TrackJet& tj = event.applyProjection(_trackjetproj);
+    const TrackJet& tj = applyProjection<TrackJet>(event, "TrackJet");
 
     // Get jets, sorted by pT
     const Jets jets = tj.getJets();

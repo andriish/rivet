@@ -6,8 +6,8 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
 
-
 namespace Rivet {
+
 
   /// Project out the incoming beams
   class Beam : public Projection {
@@ -15,21 +15,14 @@ namespace Rivet {
   public:
     
     /// The default constructor.
-    Beam() { }
-
-    /// The default destructor.
-    ~Beam() { }
-
-    /// Return the name of the projection
-    string getName() const {
-      return "Beam";
+    Beam() { 
+      setName("Beam");
     }
-    
+
     /// The pair of beam particles in the current collision in GenEvent 
     const ParticlePair& getBeams() const {
       return _theBeams;
     }
-
 
   protected:
     /// Project on to the Event
@@ -37,9 +30,8 @@ namespace Rivet {
 
     /// Compare with other projections.
     virtual int compare(const Projection& p) const {
-      return 0;
+      return PCmp::EQUIVALENT;
     }
-
 
   private:
     /// The beam particles in the current collision in GenEvent 

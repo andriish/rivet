@@ -120,6 +120,13 @@ static const double GeV = gigaelectronvolt;
 static const double TeV = teraelectronvolt;
 static const double PeV = petaelectronvolt;
 
+static const double  eV2 = eV*eV;
+static const double keV2 = keV*keV;
+static const double MeV2 = MeV*MeV;
+static const double GeV2 = GeV*GeV;
+static const double TeV2 = TeV*TeV;
+static const double PeV2 = PeV*PeV;
+
 //
 // Mass [E][T^2][L^-2]
 //

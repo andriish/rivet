@@ -11,6 +11,17 @@ using namespace AIDA;
 namespace Rivet {
 
 
+  Analysis::Analysis() 
+    : _analysishandler(0),  
+      _projhandler(ProjectionHandler::create()),
+      _madeHistoDir(false), _vetoedWeightSum(0)
+  { 
+    _gotCrossSection = false;
+    setBeams(ANY, ANY);
+    setNeedsCrossSection(false);
+  }
+  
+
   IAnalysisFactory& Analysis::analysisFactory() {
     return getHandler().analysisFactory();
   }
@@ -205,7 +216,8 @@ namespace Rivet {
 
   const Cuts Analysis::getCuts() const {
     Cuts totalCuts = _cuts;
-    for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
+    set<ConstProjectionPtr> projections = getProjections();
+    for (set<ConstProjectionPtr>::const_iterator p = projections.begin(); p != projections.end(); ++p) {
       totalCuts.addCuts((*p)->getCuts());
     }
     return totalCuts;
@@ -214,24 +226,16 @@ namespace Rivet {
 
   const bool Analysis::checkConsistency() const {
     // Check consistency of analysis beams with allowed beams of each contained projection.
-    for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
-      if (! compatible(getBeams(), (*p)->getBeamPairs()) ) {
-        throw runtime_error("Analysis " + getName() + " beams are inconsistent with " 
-                            + "allowed beams for projection " + (*p)->getName());
-      }
-    }
-    // Check the consistency of the accumulated cuts (throws if wrong).
-    getCuts().checkConsistency();
+    // set<ConstProjectionPtr> projections = getProjections();
+    // for (set<ConstProjectionPtr>::const_iterator p = projections.begin(); p != projections.end(); ++p) {
+    //   if (! compatible(getBeams(), (*p)->getBeamPairs()) ) {
+    //     throw runtime_error("Analysis " + getName() + " beams are inconsistent with " 
+    //                         + "allowed beams for projection " + (*p)->getName());
+    //   }
+    // }
+    // // Check the consistency of the accumulated cuts (throws if wrong).
+    // getCuts().checkConsistency();
     return true;
-  }
-
-
-  set<ConstProjectionPtr> Analysis::getProjections() const {
-    set<ConstProjectionPtr> totalProjections = _projections;
-    for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
-      totalProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
-    }
-    return totalProjections;
   }
 
   

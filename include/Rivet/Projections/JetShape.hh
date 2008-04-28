@@ -9,8 +9,8 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Tools/Utils.hh"
 
-
 namespace Rivet {
+
 
   /// Enums to distinguish between different recombination schemes
   enum Scheme { ENERGY, SNOWMASS };
@@ -55,24 +55,21 @@ namespace Rivet {
     
   public:
 
-
-    /// Constructor. The provided FinalState projection must live throughout the run.
+    /// Constructor.
     JetShape(const VetoedFinalState& vfsp, const vector<FourMomentum>& jetaxes, 
              double rmin=0.0, double rmax=0.7, double interval=0.1, 
              double r1minPsi=0.3, Scheme distscheme=ENERGY)
-      : _vfsproj(vfsp), _jetaxes(jetaxes), 
+      : _jetaxes(jetaxes), 
         _rmin(rmin), _rmax(rmax), 
         _interval(interval), _r1minPsi(r1minPsi), _distscheme(distscheme)
     { 
+      setName("JetShape");
       _nbins = int(round((rmax-rmin)/interval));
-      addProjection(_vfsproj);
+      addProjection(vfsp, "FS");
     }
+
     
   public:
-    /// Return the name of the projection.
-    string getName() const {
-      return "JetShape";
-    }
     
     /// Return number of equidistant radius bins.
     double getNbins() const {
@@ -121,9 +118,6 @@ namespace Rivet {
  
        
   private:
-        
-    /// The VetoedFinalState projection used by this projection
-    VetoedFinalState _vfsproj;
 
     ///The jet axes of the jet algorithm projection
     //vector<FourMomentum> _jetaxes;
@@ -150,6 +144,7 @@ namespace Rivet {
     Scheme _distscheme;
     size_t _nbins;
   };
+
   
 }
 

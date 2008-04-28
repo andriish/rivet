@@ -16,12 +16,10 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    ALEPH_1991_S2435284()
-      : _multproj(_cfsproj)
-    { 
+    ALEPH_1991_S2435284() { 
       setBeams(ELECTRON, POSITRON); 
-      addProjection(_cfsproj);
-      addProjection(_multproj);
+      const ChargedFinalState& fs = addProjection(*new ChargedFinalState(), "FS");
+      addProjection(*new Multiplicity(fs), "Mult");
     }
 
   public:
@@ -38,9 +36,9 @@ namespace Rivet {
       return "2435284";
     }
     /// Get a description of the analysis.
-    //string getDescription() const {
-    //  return "";
-    //}
+    string getDescription() const {
+      return "ALEPH LEP1 charged multiplicity measurement";
+    }
     /// Experiment which performed and published this analysis.
     string getExpt() const {
       return "ALEPH";
@@ -58,14 +56,6 @@ namespace Rivet {
     virtual void analyze(const Event & event);
     virtual void finalize();
     //@}
-
-  private:
-
-    /// @name The projectors used by this analysis.
-    //{
-    ChargedFinalState _cfsproj;
-    Multiplicity _multproj;
-    //}
 
   private:
 

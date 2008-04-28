@@ -18,12 +18,9 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    ZEUS_2001_S4815815()
-      : _fsproj(), _jetsproj(_fsproj) 
-    { 
+    ZEUS_2001_S4815815() { 
       setBeams(POSITRON, PROTON);
-      addProjection(_fsproj);
-      addProjection(_jetsproj);
+      addProjection(*new FastJets(*new FinalState()), "Jets");
     }
 
     /// Factory method.
@@ -39,9 +36,9 @@ namespace Rivet {
       return "4815815";
     }
     /// Get a description of the analysis.
-    // string getDescription() const {
-    //   return "ZEUS";
-    // }
+    string getDescription() const {
+      return "Dijet photoproduction analysis";
+    }
     /// Experiment which performed and published this analysis.
     string getExpt() const {
       return "ZEUS";
@@ -52,7 +49,6 @@ namespace Rivet {
     }
     //@}
 
-
     /// @name Analysis methods
     //@{
     void init();
@@ -62,22 +58,13 @@ namespace Rivet {
 
   private:
 
-    /// The final state projection used by this analysis.
-    FinalState _fsproj;
-
-    /// The jets projection used by this analysis.
-    FastJets _jetsproj;
-
-  private:
-
-    /// Hide the assignment operator
-    ZEUS_2001_S4815815& operator=(const ZEUS_2001_S4815815&);
-
     /// @name Histograms
     //@{
     AIDA::IHistogram1D* _histJetEt1;
     //@}
 
+    /// Hide the assignment operator
+    ZEUS_2001_S4815815& operator=(const ZEUS_2001_S4815815&);
   };
 
 }

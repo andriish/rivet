@@ -5,13 +5,16 @@
 
 namespace Rivet {
 
-
   #ifndef HAVE_ROOT
+
+
   void ExampleTree::init() {
     getLog() << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
   }
   void ExampleTree::analyze(const Event & event) { }
   void ExampleTree::finalize() { }
+
+
   #else
 
 
@@ -67,22 +70,12 @@ namespace Rivet {
     const GenEvent& ev = event.genEvent();
 
     // Event number
+    /// @todo Is this robust? Use Rivet's counter instead.
     _nevt = ev.event_number();
-
-    // Jets.
-    const FastJets& jets = event.applyProjection(_jetsproj);
-
-    // Leptons
-    const ChargedLeptons& cl = event.applyProjection(_chgleptonsproj);
-
-    // Missing Et/total energy
-    const TotalVisibleMomentum& tvm = event.applyProjection(_totvismomproj);
-
-    // Vector bosons.
-    const WZandh& wzh = event.applyProjection(_wzandhproj);
 
     // Get the vector bosons
     _nvb = 0;
+    const WZandh& wzh = applyProjection<WZandh>(event, "WZh");
     for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
       const FourMomentum p4 = p->getMomentum();
       _vbvec[_nvb][1] = p4.px();
@@ -93,7 +86,7 @@ namespace Rivet {
       ++_nvb;
     }
 
-    // Get the partons. This is generator dependent and should not be
+    // Get the partons. This is generator-dependent and should not be
     // used in normal analyses.
     _npart = 0;
     if (_store_partons) {
@@ -131,6 +124,7 @@ namespace Rivet {
     
     
     // Get the jets in decreasing ET order.
+    const FastJets& jets = applyProjection<FastJets>(event, "Jets");
     PseudoJets jetList = jets.getPseudoJets();
 
     _njet = 0;
@@ -162,6 +156,7 @@ namespace Rivet {
     
     // Loop over leptons
     _nlep = 0;
+    const ChargedLeptons& cl = applyProjection<ChargedLeptons>(event, "ChLeptons");
     for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
       const FourMomentum p4 = p->getMomentum();
       if (p4.pT() > _lepton_pt_cut) {
@@ -173,7 +168,8 @@ namespace Rivet {
       }
     }
     
-    // Total/missing energy.  
+    // Missing Et/total energy
+    const TotalVisibleMomentum& tvm = applyProjection<TotalVisibleMomentum>(event, "TotalVisMom");
     _esumr[1] = tvm.getMomentum().px();
     _esumr[2] = tvm.getMomentum().py();
     _esumr[3] = tvm.getMomentum().pz();

@@ -82,7 +82,7 @@ namespace Rivet {
   AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) {
     Analysis* analysis = AnalysisLoader::getAnalysis(analysisname);
     if (analysis) { // < Check for null analysis.
-      analysis->_theHandler = this;
+      analysis->_analysishandler = this;
       _analyses.insert(analysis);
     }
     return *this;

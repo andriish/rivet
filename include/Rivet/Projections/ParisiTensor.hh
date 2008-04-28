@@ -7,8 +7,8 @@
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
+
 
   /**
      @brief Calculate the Parisi event shape tensor (or linear momentum tensor).
@@ -42,16 +42,11 @@ namespace Rivet {
   public:
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    ParisiTensor(FinalState& fsp)
-      : _C(0), _D(0), _sphproj(Sphericity(fsp, 1.0))
+    ParisiTensor(const FinalState& fsp)
+      : _C(0), _D(0)
     { 
-      addProjection(_sphproj);
-    }
-
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "ParisiTensor";
+      setName("ParisiTensor");
+      addProjection(*new Sphericity(fsp, 1.0), "Sphericity");
     }
 
   protected:
@@ -84,10 +79,6 @@ namespace Rivet {
 
     /// Eigenvalues.
     double _lambda[3];
-
-    /// The Sphericity projection for which this projection is really just a wrapper.
-    Sphericity _sphproj;
-
   };
 
 }

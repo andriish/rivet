@@ -81,19 +81,16 @@ namespace Rivet {
     Log& log = getLog();
 
     // Increment counter for the number of events analysed
-    ///@todo Need to use weights
+    /// @todo Need to use weights, preferably via Rivet internal counter
     _eventsTried++;
 
-    const FastJets& jetpro = event.applyProjection(_conejetsproj);
+    const FastJets& jetpro = applyProjection<FastJets>(event, "ConeJets");
     log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
 
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
-    const PVertex& pv = event.applyProjection(_vertexproj);
-    /// @todo z- value assumed to be in mm, PYTHIA convention: dangerous!
-    //if (fabs(pv.getPrimaryVertex().position().z()) < _pvzmax) {
-    //Vector3 pvpos = pv.getPVPosition();
-    if (fabs(pv.getPVPosition().z()) < _pvzmax) {
-      const TotalVisibleMomentum& caloMissEt = event.applyProjection(_calmetproj);
+    const PVertex& pv = applyProjection<PVertex>(event, "PV");
+    if (fabs(pv.getPVPosition().z())/mm < _pvzmax) {
+      const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
       log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
       if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) < _metsetmax) {
         PseudoJets jets = jetpro.getPseudoJets();

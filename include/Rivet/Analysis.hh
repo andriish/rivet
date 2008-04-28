@@ -4,15 +4,17 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.fhh"
+#include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
+#include "Rivet/ProjectionApplier.hh"
+#include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
-#include "Rivet/Event.hh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
 
 
-// Preprocessor define for vetoing events, including the log message and return.
+/// Preprocessor define for vetoing events, including the log message and return.
 #define vetoEvent(E) { vetoEventWeight(E); getLog() << Log::DEBUG << "Vetoing event" << endl; return; }
 
 
@@ -36,7 +38,7 @@ namespace Rivet {
   /// class should do whatever manipulations are necessary on the
   /// histograms. Writing the histograms to a file is, however, done by
   /// the Rivet class.
-  class Analysis {
+  class Analysis : public ProjectionApplier {
     
     /// The AnalysisHandler is a friend.
     friend class AnalysisHandler;
@@ -45,15 +47,8 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
-
     /// The default constructor.
-    Analysis() 
-      : _theHandler(0), _madeHistoDir(false), _vetoedWeightSum(0)
-    { 
-      _gotCrossSection = false;
-      setBeams(ANY, ANY);
-      setNeedsCrossSection(false);
-    }
+    Analysis();
 
     /// The destructor.
     virtual ~Analysis() { }
@@ -153,7 +148,24 @@ namespace Rivet {
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& getHandler() const {
-      return *_theHandler;
+      return *_analysishandler;
+    }
+
+    /// Get the contained projections, including recursion.
+    set<ConstProjectionPtr> getProjections() const {
+      return getProjHandler().getChildProjections(*this, ProjectionHandler::DEEP);
+    }
+
+    /// Get the named projection, specifying return type via a template argument.
+    template <typename PROJ>
+    const PROJ& getProjection(const string& name) const {
+      const Projection& p = getProjHandler().getProjection(*this, name);
+      return pcast<PROJ>(p);
+    }
+
+    /// Get the named projection (non-templated).
+    const Projection& getProjection(const string& name) const {
+      return getProjHandler().getProjection(*this, name);
     }
 
     /// Normalize the given histogram, @a histo. After this call the 
@@ -186,6 +198,12 @@ namespace Rivet {
     
   protected:
 
+    /// Get a reference to the ProjectionHandler for this thread.
+    ProjectionHandler& getProjHandler() const {
+      assert(_projhandler);
+      return *_projhandler;
+    }
+
     /// Get the process cross-section. Throws if this hasn't been set.
     const double& crossSection() const {
       if (!_gotCrossSection) {
@@ -214,10 +232,6 @@ namespace Rivet {
     /// Is this analysis able to run on the BeamPair @a beams ?
     virtual const bool checkConsistency() const;
     
-    /// Get all the projections used by this analysis, including recursion. 
-    /// WARNING: No caching or loop-avoidance is implemented at the moment.
-    set<ConstProjectionPtr> getProjections() const;
-
   protected:
     /// @name AIDA analysis infrastructure.
     //@{
@@ -346,31 +360,56 @@ namespace Rivet {
       return *this;
     }
 
-    /// Add a projection dependency to the projection list.
-    Analysis& addProjection(const Projection& proj) {
+    /// Register a contained projection (via reference).
+    template <typename PROJ>
+    const PROJ& addProjection(const PROJ& proj, const string& name) {
       getLog() << Log::TRACE << this->getName() << " inserts " 
                << proj.getName() << " at: " << &proj << endl;
-      ConstProjectionPtr pp(&proj);
-      _projections.insert(pp);
-      return *this;
+      const Projection& p = getProjHandler().registerProjection(*this, proj, name);
+      return pcast<PROJ>(p);
     }
 
-    Analysis& addProjection(const Projection* pproj) {
+    /// @todo Discriminate with templated pointer type?
+    // /// Register a contained projection (via pointer).
+    // template <typename PROJ>
+    // const PROJ* addProjection(const PROJ* pproj, const string& name) {
+    //   getLog() << Log::TRACE << this->getName() << " inserts " 
+    //            << pproj->getName() << " at: " << pproj << endl;
+    //   const Projection* p = getProjHandler().registerProjection(*this, pproj, name);
+    //   return dynamic_cast<const PROJ*>(p);
+    // }
+
+    /// Register a contained projection (via pointer, untemplated).
+    const Projection* addProjection(const Projection* pproj, const string& name) {
       getLog() << Log::TRACE << this->getName() << " inserts " 
                << pproj->getName() << " at: " << pproj << endl;
-      _projections.insert(pproj);
-      return *this;
+      return getProjHandler().registerProjection(*this, pproj, name);
     }
 
+    /// Apply the named projection on @a event.
+    template <typename PROJ>
+    const PROJ& applyProjection(const Event& evt, const string& name) {
+      return pcast<PROJ>(evt.applyProjection(getProjection(name)));
+    }
 
-    Analysis& setNeedsCrossSection(bool needed){
+    /// Apply the supplied projection on @a event.
+    template <typename PROJ>
+    const PROJ& applyProjection(const Event& evt, const PROJ& proj) {
+      return pcast<PROJ>(evt.applyProjection(proj));
+    }
+
+    /// Apply the supplied projection on @a event.
+    template <typename PROJ>
+    const PROJ& applyProjection(const Event& evt, const Projection& proj) {
+      return pcast<PROJ>(evt.applyProjection(proj));
+    }
+
+    /// Declare whether this analysis needs to know the process cross-section from the generator.
+    Analysis& setNeedsCrossSection(bool needed) {
       _needsCrossSection = needed;
       return *this;
     }
     
-    /// Collection of pointers to projections, for automatically combining constraints.
-    set<ConstProjectionPtr> _projections;
-
   private:
 
     /// @name Cross-section variables
@@ -387,7 +426,10 @@ namespace Rivet {
     BeamPair _beams;
 
     /// The controlling AnalysisHandler object.
-    AnalysisHandler* _theHandler;
+    AnalysisHandler* _analysishandler;
+
+    /// Central Projection repository.
+    ProjectionHandler* _projhandler;
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;

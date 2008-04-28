@@ -9,36 +9,30 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 
-
 namespace Rivet {
 
+
   /// Project only charged final state particles.
+  /// @todo Can we make this work nicely with inheritance rather than composition?
   class ChargedFinalState : public FinalState {
 
   public:
     
-    /// Constructor: the supplied FinalState projection is assumed to live through the run.
-    ChargedFinalState(FinalState& fsp)
-      : _fsproj(&fsp) //FinalState(fsp)
-    { }
+    /// @name Constructors
+    //@{
+    ChargedFinalState(const FinalState& fsp) { 
+      setName("ChargedFinalState");
+      addProjection(fsp, "FS");
+    }
     
     ChargedFinalState(double mineta = -MaxRapidity,
-                      double maxeta = MaxRapidity,
-                      double minpt = 0.0)
-      : _fsproj(0) //FinalState(mineta, maxeta, minpt)
+                      double maxeta =  MaxRapidity,
+                      double minpt  =  0.0*GeV)
     { 
-      _fsproj = new FinalState(mineta, maxeta, minpt);
+      setName("ChargedFinalState");
+      addProjection(*new FinalState(mineta, maxeta, minpt), "FS");
     }
-
-    ~ChargedFinalState() {
-      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
-    }
-
-
-    /// Return the name of the projection.
-    string getName() const {
-      return "ChargedFinalState";
-    }
+    //@}
 
   protected:
     
@@ -47,12 +41,6 @@ namespace Rivet {
     
     /// Compare projections.
     int compare(const Projection& p) const;
-
-  private:
-
-    /// @todo For now, we'll hold a constituent FinalState...
-    FinalState* _fsproj;
-    
   };
 
   

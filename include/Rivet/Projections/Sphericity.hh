@@ -53,20 +53,17 @@ namespace Rivet {
   public:
 
     /// Constructor. Supplied FinalState projection must live throughout the run.
-    Sphericity(FinalState& fsp, double rparam=2.0)
-      : _regparam(rparam), _fsproj(&fsp)
+    Sphericity(const FinalState& fsp, double rparam=2.0)
+      : _regparam(rparam)
     { 
-      addProjection(_fsproj);
+      setName("Sphericity");
+      addProjection(fsp, "FS");
       for (size_t i = 0; i < 3; ++i) {
         _lambdas.push_back(0);
         _sphAxes.push_back(Vector3());
       }
     }
 
-    /// Return the name of the projection
-    string getName() const {
-      return "Sphericity";
-    }
 
   protected:
 
@@ -122,9 +119,6 @@ namespace Rivet {
 
     /// Regularizing parameter, used to force infra-red safety.
     const double _regparam;
-
-    /// The FinalState projection used by this projection.
-    FinalState *_fsproj;
 
   };
 

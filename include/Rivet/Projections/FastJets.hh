@@ -12,7 +12,7 @@
 #include "fastjet/SISConePlugin.hh"
 #include "fastjet/CDFJetCluPlugin.hh"
 #include "fastjet/CDFMidPointPlugin.hh"
-#ifdef __HAVE_JADE
+#ifdef HAVE_JADE
 #include "fastjet/JadePlugin.hh"
 #endif
 
@@ -27,38 +27,26 @@ namespace Rivet {
   class FastJets : public JetAlg {
 
   public:
+    /// Wrapper enum for selected Fastjet jet algorithms.
+    #ifdef HAVE_JADE
+    enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT, JADE, DURHAM };
+    #else
+    enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT };
+    #endif
+
 
     /// @name Constructors and destructors.
     //@{
     /// Default constructor uses Kt algorithm and E-scheme recombination. 
     /// The FinalState projection must live throughout the run. 
-    FastJets(FinalState* fsp) : _plugin(0)
+    FastJets(const FinalState& fsp) 
+      : _plugin(0)
     { 
-      defaultConstructor(fsp);
-    }
-
-    FastJets(FinalState& fsp) : _plugin(0)
-    { 
-      defaultConstructor(&fsp);
-    }
-    
-  private:
-    void defaultConstructor(FinalState* fsp){
-      _fsproj = fsp;
-      addProjection(*_fsproj);
+      setName("FastJets");
+      addProjection(fsp, "FS");
       const double RPARAM = 1.0;
       _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, RPARAM, fastjet::E_scheme);
-      return;
     }
-    
-  public:
-    
-    /// Wrapper enum for selected Fastjet jet algorithms.
-    #ifdef __HAVE_JADE
-    enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT, JADE, DURHAM };
-    #else
-    enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT };
-    #endif
 
 
     /// "Wrapped" argument constructor using Rivet enums for most common
@@ -66,24 +54,11 @@ namespace Rivet {
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
     /// The FinalState projection must live throughout the run. 
-    FastJets(FinalState* fsp, JetAlg alg, double rparameter)
-    : _plugin(0)
+    FastJets(const FinalState& fsp, JetAlg alg, double rparameter)
+      : _plugin(0)
     {
-      wrappedConstructor(fsp, alg, rparameter);
-    }
-
-    FastJets(FinalState& fsp, JetAlg alg, double rparameter)
-    //: _fsproj(fsp), _plugin(0)
-    //FastJets(FinalState* fsp, JetAlg alg, double rparameter)
-    : _plugin(0)
-    {
-      wrappedConstructor(&fsp, alg, rparameter);
-    }
-    
-  private:
-    void wrappedConstructor(FinalState* fsp, JetAlg alg, double rparameter){
-      _fsproj = fsp;
-      addProjection(*_fsproj);
+      setName("FastJets");
+      addProjection(fsp, "FS");
       if (alg == KT) {
         _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
       } else if (alg == CAM) {
@@ -98,7 +73,7 @@ namespace Rivet {
       } else if (alg == CDFMIDPOINT) {
         _plugin = new fastjet::CDFMidPointPlugin(rparameter);
         _jdef = fastjet::JetDefinition(_plugin);
-      #ifdef __HAVE_JADE
+      #ifdef HAVE_JADE
       } else if (alg == JADE) {
         _plugin = new fastjet::JadePlugin("jade");
         _jdef = fastjet::JetDefinition(_plugin);
@@ -107,40 +82,20 @@ namespace Rivet {
         _jdef = fastjet::JetDefinition(_plugin);
       #endif
       }
-      return;
     }
     
-  public:
     
     /// Native argument constructor, using FastJet alg/scheme enums.
-    /// The FinalState projection must live throughout the run. 
-    FastJets(FinalState* fsp, fastjet::JetAlgorithm type,
+    FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
              fastjet::RecombinationScheme recom, double rparameter)
-    : _plugin(0)
+      : _plugin(0)
     {
-      nativeConstructor(fsp, type, recom, rparameter);
-    }
-
-    FastJets(FinalState& fsp, fastjet::JetAlgorithm type,
-             fastjet::RecombinationScheme recom, double rparameter)
-    : _plugin(0)
-    {
-      nativeConstructor(&fsp, type, recom, rparameter);
-    }
-    
-  private:
-    
-    void nativeConstructor(FinalState* fsp, fastjet::JetAlgorithm type,
-                           fastjet::RecombinationScheme recom, double rparameter){
-      _fsproj = fsp;
-      addProjection(*_fsproj);
+      setName("FastJets");
+      addProjection(fsp, "FS");
       _jdef = fastjet::JetDefinition(type, rparameter, recom);
-      return;
     }
 
-  public:
-    
-    
+  
     /// Destructor.
     ~FastJets() { 
       // Delete plugin
@@ -150,32 +105,13 @@ namespace Rivet {
 
 
   public:
-    /// Return the name of the projection
-    string getName() const {
-      return "FastJets";
-    }
-    
     /// Return the number of jets above the pt cut 
     size_t getNumJets(double ptmin = 0.) const {
       return _cseq.inclusive_jets(ptmin).size();
     }
 
     /// Get the pseudo jets (unordered).
-    Jets getJets() const {
-      Jets rtn;
-      const PseudoJets pjets = _cseq.inclusive_jets();
-      for (PseudoJets::const_iterator pj = pjets.begin(); pj != pjets.end(); ++pj) {
-        Jet j;
-        const PseudoJets parts = getClusterSeq().constituents(*pj);
-        for (PseudoJets::const_iterator p = parts.begin(); p != parts.end(); ++p) {
-          const FourMomentum particle(p->E(), p->px(), p->py(), p->pz());
-          j.addParticle(particle);
-        }
-        rtn.push_back(j);
-      }
-      return rtn;
-    }
-
+    Jets getJets() const;
 
     /// Get the pseudo jets (unordered).
     PseudoJets getPseudoJets(double ptmin = 0.) const {

@@ -26,5 +26,5 @@ libRivetProjections_la_SOURCES = \
   WZandh.cc 
 
 if ENABLE_JADE
-  libRivetProjections_la_CXXFLAGS = $(AM_CXXFLAGS) -D__HAVE_JADE
+  libRivetProjections_la_CXXFLAGS = $(AM_CXXFLAGS) -DHAVE_JADE
 endif

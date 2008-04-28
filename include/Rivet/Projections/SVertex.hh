@@ -18,6 +18,7 @@ namespace Rivet {
      Makes use of PVertex projection.
 
      @todo Replace function with a functor to improve equality comparisons.
+     @todo Why does SVertex inherit from PVertex? Anything that can't be done with composition?
 
      Complex cuts on tracks and vertices to validate them have to be provided
      by an external function
@@ -38,7 +39,7 @@ namespace Rivet {
      Associated tracks and vertices to a jet are checked for displacement.
      A list of tagged jets can be obtained via the getTaggedJets() function
   */
-  class SVertex: public PVertex {
+  class SVertex : public Projection {
 
   public:
 
@@ -46,28 +47,21 @@ namespace Rivet {
     //@{
     /// The default constructor. Must specify a PVertex 
     /// projection object which is assumed to live through the run.
-    SVertex(PVertex& pvtx, ChargedFinalState& chfs, 
+    SVertex(const ChargedFinalState& chfs, 
             const vector<FourMomentum>& jetaxes, double deltaR,
             double detEta, double IPres, double DLS, double DLSres=0.0) 
-      : _pvtx(pvtx), _chfs(chfs), _jetaxes(jetaxes), _deltaR(deltaR),
+      : _jetaxes(jetaxes), _deltaR(deltaR),
         _detEta(detEta), _IPres(IPres), _DLS(DLS), 
         _DLSres(DLSres)
     { 
-      addProjection(_pvtx);
-      addProjection(_chfs);
-      if (_DLSres==0.) _DLSres=_IPres;
+      setName("SVertex");
+      addProjection(*new PVertex(), "PV");
+      addProjection(chfs, "FS");
+      if (_DLSres == 0.0) _DLSres = _IPres;
     }
-
-    /// The destructor.
-    virtual ~SVertex() { }
     //@}
 
   public:
-    /// Return the name of the projection
-    string getName() const {
-      return "SVertex";
-    }
-
     /// Return vector of tagged jets (FourMomentum's)
     const vector<FourMomentum>& getTaggedJets() const {
       return _taggedjets;
@@ -82,12 +76,6 @@ namespace Rivet {
     int compare(const Projection& p) const;
 
   private:
-
-    /// The Primary Vertex projection used by this projection
-    PVertex _pvtx;
-
-    /// The ChargedFinalState projection used by this projection
-    ChargedFinalState _chfs;
 
     /// The jet axes of the jet algorithm projection
     const vector<FourMomentum>& _jetaxes;
@@ -111,9 +99,6 @@ namespace Rivet {
 
     /// Decay length significance uncertainty
     double _DLSres;
-
-    /// Visible Momentum 4-vector of given vertex
-    //FourMomentum _vtxVisMom;
 
     /// Jets which have been tagged
     vector<FourMomentum> _taggedjets;

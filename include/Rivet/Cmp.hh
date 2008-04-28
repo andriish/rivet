@@ -27,61 +27,74 @@ namespace Rivet {
     
     /// Enumerate the possible states of a Cmp object.
     enum CmpState {
-      undefined = -2,  //< Undefined state.
-      ordered = -1,    //< The two corresponding objects are ordered.
-      equivalent = 0,  //< The two corresponding objects are equivalent.
-      unordered = 1    //< The two corresponding objects are unordered.
+      UNDEFINED = -2,  //< Undefined state.
+      ORDERED = -1,    //< The two corresponding objects are ordered.
+      EQUIVALENT = 0,  //< The two corresponding objects are equivalent.
+      UNORDERED = 1    //< The two corresponding objects are unordered.
     };
     
   public:
     
-    /// @name Standard constructors and destructors.
+    /// @name Standard constructors etc.
     //@{
     /// The default constructor.
-    inline Cmp(const T & t1, const T & t2);
+    Cmp(const T& t1, const T& t2)
+      : value(UNDEFINED), objects(&t1, &t2) { }
     
     /// The copy constructor.
     template <typename U>
-    inline Cmp(const Cmp<U> &);
+    Cmp(const Cmp<U>& x)
+      : value(x.operator int()), objects(0, 0) { }
     
     /// The destructor is not virtual since this is not intended to be a base class.
-    inline ~Cmp() {};
+    ~Cmp() { };
     
     /// The assignment operator.
     template <typename U>
-    inline const Cmp<T> & operator=(const Cmp<U> &);
-    
+    const Cmp<T>& operator=(const Cmp<U>& x) {
+      value = x.operator int();
+      return *this;
+    }
     //@}
     
   public:
     
     /// Automatically convert to an integer. 
-    inline operator int () const;
+    operator int() const {
+      compare();
+      return value;
+    }
     
     /// If this state is equivalent, set this state to the state of \a c.
     template <typename U>
-    inline const Cmp<T> & operator||(const Cmp<U> & c) const;
+    const Cmp<T>& operator||(const Cmp<U>& c) const {
+      compare();
+      if ( value == EQUIVALENT ) value = c.operator int();
+      return *this;
+    }
     
+
   private:
     
     /// Perform the actual comparison if necessary.
-    inline void compare() const;
-    
-  private:
+    void compare() const {
+      if ( value == UNDEFINED ) {
+        less<T> l;
+        if ( l(*objects.first, *objects.second) ) value = ORDERED;
+        else if ( l(*objects.second, *objects.first) ) value = UNORDERED;
+        else value = EQUIVALENT;
+      }
+    }
     
     /// The state of this object.
     mutable int value;
     
     /// The objects to be compared.
-    pair<const T *, const T *> objects;
+    pair<const T*, const T*> objects;
     
   };
+
   
-  /// Global helper function for easy creation of Cmp objects.
-  template <typename T>
-  inline Cmp<T> cmp(const T & t1, const T & t2) {
-    return Cmp<T>(t1, t2);
-  }
   
    /// Specialization of the Cmp helper class to be used when checking the
    /// ordering of two Projection objects. When implicitly converted to an
@@ -97,15 +110,14 @@ namespace Rivet {
    /// objects.
   template <>
   class Cmp<Projection> {
-    
   public:
     
     /// Enumerate the possible states of a Cmp object.
     enum CmpState {
-      undefined = -2, //< Undefined state.
-      ordered = -1,   //< The two corresponding objects are ordered.
-      equivalent = 0,  //< The two corresponding objects are equivalent.
-      unordered = 1   //< The two corresponding objects are unordered.
+      UNDEFINED = -2, //< Undefined state.
+      ORDERED = -1,   //< The two corresponding objects are ordered.
+      EQUIVALENT = 0,  //< The two corresponding objects are equivalent.
+      UNORDERED = 1   //< The two corresponding objects are unordered.
     };
     
   public:
@@ -113,34 +125,58 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    inline Cmp(const Projection & p1, const Projection & p2);
+    Cmp(const Projection& p1, const Projection& p2)
+      : value(UNDEFINED), objects(&p1, &p2) { }
     
     /// The copy constructor.
     template <typename U>
-    inline Cmp(const Cmp<U> &);
+    Cmp(const Cmp<U>& x)
+      : value(x.operator int()), objects(0, 0) { }
     
-     /// The destructor is not virtual since this is not intended to be a base class.
-    inline ~Cmp() {};
+    /// The destructor is not virtual since this is not intended to be a base class.
+    ~Cmp() { };
     
-     /// The assignment operator.
+    /// The assignment operator.
     template <typename U>
-    inline const Cmp<Projection> & operator=(const Cmp<U> &);
-    
+    const Cmp<Projection>& operator=(const Cmp<U>& x) {
+      value = x.operator int();
+      return *this;
+    }
     //@}
     
   public:
     
     /// Automatically convert to an integer. 
-    inline operator int () const;
+    operator int() const {
+      compare();
+      return value;
+    }
     
     /// If this state is equaivalent, set this state to the state of \a c.
     template <typename U>
-    inline const Cmp<Projection> & operator||(const Cmp<U> & c) const;
+    const Cmp<Projection>& operator||(const Cmp<U>& c) const {
+      compare();
+      if ( value == EQUIVALENT ) value = c.operator int();
+      return *this;
+    }
     
   private:
     
     /// Perform the actual comparison if necessary.
-    inline void compare() const;
+    void compare() const {
+      if ( value == UNDEFINED ) {
+        const std::type_info & id1 = typeid(*objects.first);
+        const std::type_info & id2 = typeid(*objects.second);
+        if ( id1.before(id2) ) value = ORDERED;
+        else if ( id2.before(id1) ) value = UNORDERED;
+        else {
+          int c = objects.first->compare(*objects.second);
+          if ( c < 0 ) value = ORDERED;
+          else if ( c > 0 ) value = UNORDERED;
+          else value = EQUIVALENT;
+        }
+      }
+    }
     
   private:
     
@@ -148,104 +184,59 @@ namespace Rivet {
     mutable int value;
     
     /// The objects to be compared.
-    pair<const Projection *, const Projection *> objects;
+    pair<const Projection*, const Projection*> objects;
     
   };
   
 
 
-  /////////////////////////////////////////////////////////
+
+  /// Global helper function for easy creation of Cmp objects.
+  template <typename T>
+  inline Cmp<T> cmp(const T& t1, const T& t2) {
+    return Cmp<T>(t1, t2);
+  }
 
 
+  /// Typedef for Cmp<Projection>
+  typedef Cmp<Projection> PCmp;
 
-   /// Global helper function for easy creation of Cmp objects.
-  inline Cmp<Projection> pcmp(const Projection & p1, const Projection & p2) {
+  /// Global helper function for easy creation of Cmp<Projection> objects.
+  inline Cmp<Projection> pcmp(const Projection& p1, const Projection& p2) {
     return Cmp<Projection>(p1, p2);
   }
-  
-  
-  template <typename T>
-  inline Cmp<T>::Cmp(const T & t1, const T & t2)
-    : value(undefined), objects(&t1, &t2) {}
-  
-  template <typename T>
-  template <typename U>
-  inline Cmp<T>::Cmp(const Cmp<U> & x)
-    : value(x.operator int()), objects(0, 0) {}
-  
-  template <typename T>
-  template <typename U>
-  inline const Cmp<T> & Cmp<T>::operator=(const Cmp<U> & x) {
-    value = x.operator int();
-    return *this;
+
+  /// Global helper function for easy creation of Cmp<Projection> objects from
+  /// two parent projections and their common name for the projection to be compared.
+  inline Cmp<Projection> pcmp(const Projection& parent1, const Projection& parent2, const string& pname) {
+    return Cmp<Projection>(parent1.getProjection(pname), parent2.getProjection(pname));
+  }
+
+  /// Global helper function for easy creation of Cmp<Projection> objects from
+  /// two parent projections and their common name for the projection to be compared.
+  /// This version takes one parent as a pointer.
+  inline Cmp<Projection> pcmp(const Projection* parent1, const Projection& parent2, const string& pname) {
+    assert(parent1);
+    return Cmp<Projection>(parent1->getProjection(pname), parent2.getProjection(pname));
+  }
+
+  /// Global helper function for easy creation of Cmp<Projection> objects from
+  /// two parent projections and their common name for the projection to be compared.
+  /// This version takes one parent as a pointer.
+  inline Cmp<Projection> pcmp(const Projection& parent1, const Projection* parent2, const string& pname) {
+    assert(parent2);
+    return Cmp<Projection>(parent1.getProjection(pname), parent2->getProjection(pname));
+  }
+
+  /// Global helper function for easy creation of Cmp<Projection> objects from
+  /// two parent projections and their common name for the projection to be compared.
+  inline Cmp<Projection> pcmp(const Projection* parent1, const Projection* parent2, const string& pname) {
+    assert(parent1);
+    assert(parent2);
+    return Cmp<Projection>(parent1->getProjection(pname), parent2->getProjection(pname));
   }
   
-  template <typename T>
-  template <typename U>
-  inline const Cmp<T> & Cmp<T>::operator||(const Cmp<U> & x) const {
-    compare();
-    if ( value == equivalent ) value = x.operator int();
-    return *this;
-  }
-  
-  template <typename T>
-  inline Cmp<T>::operator int() const {
-    compare();
-    return value;
-  }
-  
-  template <typename T>
-  inline void Cmp<T>::compare() const {
-    if ( value == undefined ) {
-      less<T> l;
-      if ( l(*objects.first, *objects.second) ) value = ordered;
-      else if ( l(*objects.second, *objects.first) ) value = unordered;
-      else value = equivalent;
-    }
-  }
-  
-  inline Cmp<Projection>::Cmp(const Projection & p1, const Projection & p2)
-    : value(undefined), objects(&p1, &p2) {}
-  
-  template <typename U>
-  inline Cmp<Projection>::Cmp(const Cmp<U> & x)
-    : value(x.operator int()), objects(0, 0) {}
-  
-  template <typename U>
-  inline const Cmp<Projection> & Cmp<Projection>::operator=(const Cmp<U> & x) {
-    value = x.operator int();
-    return *this;
-  }
-  
-  template <typename U>
-  inline const Cmp<Projection> &
-  Cmp<Projection>::operator||(const Cmp<U> & x) const {
-    compare();
-    if ( value == equivalent ) value = x.operator int();
-    return *this;
-  }
-  
-  inline Cmp<Projection>::operator int() const {
-    compare();
-    return value;
-  }
-  
-  inline void Cmp<Projection>::compare() const {
-    if ( value == undefined ) {
-      const std::type_info & id1 = typeid(*objects.first);
-      const std::type_info & id2 = typeid(*objects.second);
-      if ( id1.before(id2) ) value = ordered;
-      else if ( id2.before(id1) ) value = unordered;
-      else {
-        int c = objects.first->compare(*objects.second);
-        if ( c < 0 ) value = ordered;
-        else if ( c > 0 ) value = unordered;
-        else value = equivalent;
-      }
-    }
-  }
-  
-   
+
 }
 
 

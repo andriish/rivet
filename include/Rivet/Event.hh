@@ -3,8 +3,8 @@
 #define RIVET_Event_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Projection.hh"
 #include "Event.fhh"
+#include "Rivet/Projection.hh"
 
 
 namespace Rivet {
@@ -26,13 +26,13 @@ namespace Rivet {
     //@{
     /// The default constructor.
     Event(const GenEvent& geneve)
-      : _theGenEvent(&geneve), _theWeight(1.0) {
-      if ( !geneve.weights().empty() ) _theWeight = geneve.weights()[0];
+      : _genEvent(&geneve), _weight(1.0) {
+      if ( !geneve.weights().empty() ) _weight = geneve.weights()[0];
     }
 
     /// The copy constructor.
     Event(const Event& e)  
-      : _theGenEvent(e._theGenEvent), _theWeight(e._theWeight) 
+      : _genEvent(e._genEvent), _weight(e._weight) 
     { }
 
     /// The destructor.
@@ -42,7 +42,7 @@ namespace Rivet {
   public:
 
     /// Return the generated event obtained from an external event generator.
-    const GenEvent& genEvent() const { return *_theGenEvent; }
+    const GenEvent& genEvent() const { return *_genEvent; }
 
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
@@ -52,39 +52,39 @@ namespace Rivet {
     /// reference to p is returned.
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
-      ConstProjectionPtr cpp(&p);
-      /// @todo Does this work? Need to delete when done...
-      //const PROJ* foo = new PROJ(p);
-      std::set<ConstProjectionPtr>::const_iterator old = _theProjections.find(cpp);
-      if (old != _theProjections.end()) {
-        return *( dynamic_cast<const PROJ*>(*old) );
+      const Projection* cpp(&p);
+      std::set<const Projection*>::const_iterator old = _projections.find(cpp);
+      if (old != _projections.end()) {
+        const Projection& pRef = **old;
+        return pcast<PROJ>(pRef);
       }
       // Add the projection via the Projection base class (only 
       // possible because Event is a friend of Projection)
-      ProjectionPtr pp(&p);
+      Projection* pp = const_cast<Projection*>(cpp);
       pp->project(*this);
-      _theProjections.insert(pp);
+      _projections.insert(pp);
       return p;
     }
 
     template <typename PROJ>
     const PROJ& applyProjection(PROJ* pp) const {
+      if (!pp) throw runtime_error("Event::applyProjection(PROJ*): Projection pointer is null.");
       return applyProjection(*pp);
     }
 
     /// The weight associated with the event.
-    double weight() const { return _theWeight; }
+    double weight() const { return _weight; }
 
   private:
 
     /// A pointer to the generated event obtained from an external generator.
-    const GenEvent* _theGenEvent;
+    const GenEvent* _genEvent;
 
     /// The set of Projection objects applied so far.
-    mutable std::set<ConstProjectionPtr> _theProjections;
+    mutable std::set<ConstProjectionPtr> _projections;
 
     /// The weight associated with the event.
-    double _theWeight;
+    double _weight;
 
   private:
 

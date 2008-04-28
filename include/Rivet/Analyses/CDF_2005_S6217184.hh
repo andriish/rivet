@@ -22,61 +22,45 @@ namespace Rivet {
     /// Jet shape \f$ r_\text{min} = 0.0 \f$, \f$ r_\text{max} = 0.7 \f$, 
     /// interval = 0.1, r1minPsi = 0.3.
     CDF_2005_S6217184()
-      : _fsproj(-2.0, 2.0), _vfsproj(_fsproj), _jetsproj(_fsproj), 
-        _calmetproj(_fsproj), _pvtxproj(),
-        _jetshapeproj(_vfsproj, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY),
-	_pvzmax(600*mm)
+      : _pvzmax(600*mm), _Rjet(0.7)
     { 
       setBeams(PROTON, ANTIPROTON);
 
-      // Add particle/antiparticle vetoing: 12=nu_e, 14=nu_mu, 16=nu_tau
-      /// @todo Use ParticleName enum for clarity.
-      _vfsproj
-        .addVetoPairId(12)
-        .addVetoPairId(14)
-        .addVetoPairId(16);
-      
-      // Veto muons (PDG code = 13) with pT above 1.0 GeV
-      _vfsproj.addVetoDetail(MUON, 1.0*GeV, numeric_limits<double>::max());
+      const FinalState& fs  = addProjection(*new FinalState(-2.0, 2.0), "FS");
+      addProjection(*new FastJets(fs), "Jets"); 
+      addProjection(*new TotalVisibleMomentum(fs), "CalMET");
+      addProjection(*new PVertex(), "PV");
+      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
+      VetoedFinalState& vfs = *new VetoedFinalState(fs);
+      vfs
+        .addVetoPairId(NU_E)
+        .addVetoPairId(NU_MU)
+        .addVetoPairId(NU_TAU)
+        .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+      addProjection(vfs, "VFS");
+      /// @todo Understand why this breaks the system...
+      // addProjection(*new JetShape(getProjection<FinalState>("VFS"), 
+      //                             _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
+      addProjection(*new JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
 
-      addProjection(_fsproj);
-      addProjection(_vfsproj);
-      addProjection(_jetsproj);
-      addProjection(_calmetproj);
-      addProjection(_pvtxproj);
-      addProjection(_jetshapeproj);
-
-      _Rjet = 0.7;
-
-      /// @todo Ahem - replace this.
+      // Specify pT bins and initialise weight entries
+      /// @todo Can we get these numbers from HepData?
       _pTbins.resize(19);
-      _pTbins[0]  =  37.0;
-      _pTbins[1]  =  45.0;
-      _pTbins[2]  =  55.0;
-      _pTbins[3]  =  63.0;
-      _pTbins[4]  =  73.0;
-      _pTbins[5]  =  84.0;
-      _pTbins[6]  =  97.0;
-      _pTbins[7]  = 112.0;
-      _pTbins[8]  = 128.0;
-      _pTbins[9]  = 148.0;
-      _pTbins[10] = 166.0;
-      _pTbins[11] = 186.0;
-      _pTbins[12] = 208.0;
-      _pTbins[13] = 229.0;
-      _pTbins[14] = 250.0;
-      _pTbins[15] = 277.0;
-      _pTbins[16] = 304.0;
-      _pTbins[17] = 340.0;
-      _pTbins[18] = 380.0;
-      for (size_t i = 0; i < 18; ++i) _ShapeWeights[i] = 0.0;
+      double ptbins[] = { 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0, 
+                          166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 };
+      for (size_t i = 0; i <= 18; ++i) {
+        _pTbins[i]  =  ptbins[i];
+        _ShapeWeights[i%18] = 0.0;
+      }
     }
       
 
   public:
 
     /// Factory method
-    static Analysis* create() { return new CDF_2005_S6217184(); }
+    static Analysis* create() { 
+      return new CDF_2005_S6217184(); 
+    }
 
 
     /// @name Publication metadata
@@ -113,48 +97,27 @@ namespace Rivet {
     void finalize();
     //@}
 
+
   private:
-
-    /// The final state projector used by this analysis.
-    FinalState _fsproj;
-    
-    ///The vetoed final state projector needed by the jet algorithm.
-    VetoedFinalState _vfsproj; 
-    
-    /// The FastJets projector is used by this analysis.
-    FastJets _jetsproj;
-    
-    /// The calorimeter missing \f$ E_T \f$ projector.
-    TotalVisibleMomentum _calmetproj;
-
-    /// The primary vertex projector.
-    PVertex _pvtxproj;
-
-    /// The jet shape projector.
-    JetShape _jetshapeproj;
-    
 
     /// @name Analysis cuts
     //@{
     /// Cut on primary vertex z-position (\f$ z(\text{PV}) < 60 \text{cm} \f$)
     const double _pvzmax;
+    //@}
 
-
-
-
-  private:
-
+    /// @name Analysis data
+    //@{
     vector<FourMomentum> _jetaxes;
 
     double _Rjet;
 
     double _ShapeWeights[18];
 
-    /// pT bins to be distiguished during analysis
+    /// \f$p_\perp\f$ bins to be distinguished during analysis
     vector<double> _pTbins;
+    //@}
 
-    /// Hide the assignment operator
-    CDF_2005_S6217184& operator=(const CDF_2005_S6217184&);
 
     //@{
     /// Histograms
@@ -162,6 +125,11 @@ namespace Rivet {
     AIDA::IProfile1D* _profhistPsi_pT[18];
     AIDA::IProfile1D* _profhistPsi;
     //@}
+
+
+  private:
+    /// Hide the assignment operator
+    CDF_2005_S6217184& operator=(const CDF_2005_S6217184&);
 
   };
 

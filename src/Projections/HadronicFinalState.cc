@@ -9,8 +9,7 @@
 namespace Rivet {
 
   int HadronicFinalState::compare(const Projection& p) const {
-    const HadronicFinalState& other = dynamic_cast<const HadronicFinalState&>(p);
-    return FinalState::compare(other);
+    return FinalState::compare(p);
   }
   
   bool hadronFilter(const Particle& p) {
@@ -20,7 +19,7 @@ namespace Rivet {
   void HadronicFinalState::project(const Event& e) {
     Log log = getLog();
     FinalState fsp = static_cast<FinalState>(*this);
-    const FinalState& fs = e.applyProjection(fsp);
+    const FinalState& fs = applyProjection(e, fsp);
     _theParticles.clear();
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(), 
                         std::back_inserter(_theParticles), hadronFilter);

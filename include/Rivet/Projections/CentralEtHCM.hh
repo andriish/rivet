@@ -12,25 +12,19 @@ namespace Rivet {
 
   /// Sum up Et of all particles in the hadronic final state in the
   /// central rapidity bin of the HCM system.
-  class CentralEtHCM: public Projection {
+  class CentralEtHCM : public Projection {
 
   public:
 
     /// The default constructor. Must specify a FinalStateHCM projection
     /// object which is guaranteed to live throughout the run.
-    CentralEtHCM(FinalStateHCM& fs)
-      : _fshcm(fs)
+    CentralEtHCM(const FinalStateHCM& fs)
     {
-      addProjection(fs); 
+      setName("CentralEtHCM");
+      addProjection(fs, "FS"); 
       addCut("eta", MORE_EQ, -0.5);
       addCut("eta", LESS_EQ,  0.5);
     }
-
-  public:
-      /// Return the name of the projection
-      string getName() const {
-        return "CentralEtHCM";
-      }
 
   protected:
 
@@ -46,9 +40,6 @@ namespace Rivet {
     double sumEt() const { return _sumet; }
 
   private:
-
-    /// The projector for the full final state.
-    FinalStateHCM _fshcm;
 
     /// The sum of the Et in the central rapidity bin.
     double _sumet;

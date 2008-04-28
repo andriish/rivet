@@ -23,12 +23,12 @@ namespace Rivet {
       _momentum(gp.momentum()), _mass(gp.momentum().m()) 
     { }
 
-    /// Destructor.
-    ~Particle() { }
-
   public:
     /// Get a const reference to the original GenParticle.
-    const GenParticle& getHepMCParticle() const { return *_original; }
+    const GenParticle& getHepMCParticle() const { 
+      assert(_original); 
+      return *_original; 
+    }
     
     /// Check if the particle corresponds to a GenParticle.
     bool hasHepMCParticle() const { return bool(_original); }

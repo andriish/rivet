@@ -47,6 +47,12 @@ namespace Rivet {
   }
 
 
+  template <typename Fn>
+  inline Fn evil_cast(void* ptr) {
+    return reinterpret_cast<Fn>(reinterpret_cast<size_t>(ptr));
+  }
+
+
   AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromFile(const string& filename, AnalysisBuilders& builders) {      
     //cout << "Trying " << filename << endl;
     void* handle = dlopen((filename).c_str(), RTLD_LAZY); 
@@ -56,10 +62,10 @@ namespace Rivet {
     }
     // Store a list of libs to be neatly closed later
     _handles.insert(handle);
-     
-    ///@todo this cast is actually forbidden under ISO C++
-    ///"ISO C++ forbids casting between pointer-to-function and pointer-to-object"
-    anabuilders_fn getBuilders = (anabuilders_fn) dlsym(handle, "getAnalysisBuilders");
+
+    // Perform dodgy cast to factory function     
+    void* fnptr = dlsym(handle, "getAnalysisBuilders");
+    anabuilders_fn getBuilders = evil_cast<anabuilders_fn>(fnptr);
     if (!getBuilders) {
       _handles.erase(handle);
       dlclose(handle);

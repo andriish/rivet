@@ -16,23 +16,13 @@ namespace Rivet {
 
   public:
     
-    /// The default constructor. Must specify DISLepton, DISKinematics
-    /// and FinalState projection objects which are assumed to live
-    /// throughout the run.
-    FinalStateHCM(DISLepton& leptonp, DISKinematics& kinematicsp, FinalState& fsp)
-      : _lepton(leptonp), _kinematics(kinematicsp), _fsproj(fsp)
+    /// Constructor
+    FinalStateHCM(const DISKinematics& kinematicsp)
     { 
-      addProjection(leptonp);
-      addProjection(kinematicsp);
-      addProjection(fsp);
+      setName("FinalStateHCM");
+      addProjection(kinematicsp, "Kinematics");
     }
-    
 
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "FinalStateHCM";
-    }
     
   protected:
     
@@ -40,18 +30,7 @@ namespace Rivet {
     void project(const Event& e);
     
     /// Compare projections.
-    int compare(const Projection& p) const;
-    
-  private:
-    
-    /// The projector for the DIS lepton.
-    DISLepton _lepton;
-    
-    /// The projector for the DIS kinematics.
-    DISKinematics _kinematics;
-
-    /// The projector for the full final state.
-    FinalState _fsproj;
+    int compare(const Projection& p) const;    
   };
   
 }

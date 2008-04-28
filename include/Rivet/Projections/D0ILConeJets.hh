@@ -41,8 +41,8 @@ namespace Rivet {
     /// The algorithm parameters are supposed to be set as used by D0 in RunII -
     /// this constructor will initialise the correct parameter values.
     /// Must specify a FinalState projection which is assumed to live throughout the run.    
-    D0ILConeJets(FinalState& fsp)
-      : _fsproj(fsp), _cone_radius(0.7), _min_jet_Et(0.0), 
+    D0ILConeJets(const FinalState& fsp)
+      : _cone_radius(0.7), _min_jet_Et(0.0), 
         _split_ratio(0.5), _far_ratio(0.5), 
         _et_min_ratio(0.5), _kill_duplicate(true), 
         _duplicate_dR(0.005), _duplicate_dPT(0.01), 
@@ -55,7 +55,8 @@ namespace Rivet {
               _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
               _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
     { 
-      addProjection(fsp);
+      setName("D0ILConeJets");
+      addProjection(fsp, "FS");
     }
 
         
@@ -68,7 +69,7 @@ namespace Rivet {
 			float duplicateDR, float duplicateDPT, float searchFactor,
 			float pTMinLeadingProtojet, float pTMinSecondProtojet,
 			int mergeMax, float pTMinNomerge)
-      : _fsproj(fsp), _cone_radius(r), _min_jet_Et(etMin), 
+      : _cone_radius(r), _min_jet_Et(etMin), 
         _split_ratio(split), _far_ratio(farRatio), 
         _et_min_ratio(etMinRatio), _kill_duplicate(killDuplicate),
         _duplicate_dR(duplicateDR), _duplicate_dPT(duplicateDPT), 
@@ -81,20 +82,11 @@ namespace Rivet {
               _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
               _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
     {  
-      addProjection(fsp);
+      setName("D0ILConeJets");
+      addProjection(fsp, "FS");
     }
-    
-
-    /// Destructor.
-    virtual ~D0ILConeJets() {};
-
     //@}
 
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "D0ILConeJets";
-    }
 
   protected:   
 
@@ -129,7 +121,6 @@ namespace Rivet {
     }
 
 
-
   private:
     /// The collection of jets.
     list<HepEntity> _jets;
@@ -143,10 +134,6 @@ namespace Rivet {
     /// @todo Why both? Can we eliminate the pointers?
     list<const HepEntity*> _particlepointerlist;
 
-    /// The FinalState projection used by this projection.
-    FinalState _fsproj;
-
-
     /// @name Cone algorithm parameters
     //@{
     /// Cone radius
@@ -156,7 +143,6 @@ namespace Rivet {
     /// Split/merge fraction
     const float _split_ratio;
     //@}
-
 
     /// @name More algorithm parameters
     //@{
@@ -175,7 +161,6 @@ namespace Rivet {
 
     /// The jet algorithm function itself
     ILConeAlgorithm<HepEntity> _algo;
-
   };
 
 }

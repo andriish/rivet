@@ -53,40 +53,37 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor
+    /// Constructor
     CDF_2006_S6653332()
-      : _fsproj(-3.6, 3.6), _vfsproj(_fsproj), _jetsproj(_vfsproj),
-        _chfsproj(_vfsproj),
-        _calmetproj(_vfsproj), _chleproj(_vfsproj), _pvtxproj(),
-        _pvzmax(600*mm), _metmax(25*GeV), _setmax(150*GeV), _lepPtmin(10*GeV),
+      : _pvzmax(600*mm), _metmax(25*GeV), _setmax(150*GeV), _lepPtmin(10*GeV),
         _eletamax(3.5), _muetamax(1.5), _mllmin(66*GeV), _mllmax(116*GeV),
         _triglepPtmin(18*GeV), _trigeletamax(1.1), _trigmuetamax(1.0),
         _Rlepisol(0.4), _fh(0.8), _fhfemconst(0.055), _fhfemslope(0.00045),
         _muEsep(100*GeV), _muEhMin(6*GeV), _muEemMin(2*GeV), _muEhslope(0.0280),
         _muEemslope(0.0115), _jetPtmin(20*GeV), _jetetamax(1.5),
-        _vtxjetRmax(0.7), _trketamax(2.0), _ipres(34e-3*mm), _dlsmin(7.5), _dlsres(34e-3*mm),
-        _svtxproj(_pvtxproj, _chfsproj, _jetaxes, _vtxjetRmax, _trketamax, _ipres, _dlsmin, _dlsres)
+        _vtxjetRmax(0.7), _trketamax(2.0), _ipres(34e-3*mm), _dlsmin(7.5), _dlsres(34e-3*mm)
     {
-
       setBeams(PROTON, ANTIPROTON);
 
-      // Add particle/antiparticle vetoing: 12=nu_e, 14=nu_mu, 16=nu_tau
-      _vfsproj
-        .addVetoPairId(12)
-        .addVetoPairId(14)
-        .addVetoPairId(16);
-
-      // Veto muons (PDG code = 13) with \f$ p_T \f$ above 1.0 GeV
-      _vfsproj.addVetoDetail(13, 1.0, numeric_limits<double>::max());
-
-      addProjection(_fsproj);
-      addProjection(_vfsproj);
-      addProjection(_chfsproj);
-      addProjection(_jetsproj);
-      addProjection(_calmetproj);
-      addProjection(_chleproj);
-      addProjection(_pvtxproj);
-      addProjection(_svtxproj);
+      // Veto (anti)neutrinos, and muons with \f$ p_T \f$ above 1.0 GeV
+      /// @todo If we allow VFS constructor to specify eta and pT ranges, we can
+      /// bypass making this FS
+      addProjection(*new FinalState(-3.6, 3.6), "FS");
+      VetoedFinalState& vfs = *new VetoedFinalState(getProjection<FinalState>("FS"));
+      vfs
+        .addVetoPairId(NU_E)
+        .addVetoPairId(NU_MU)
+        .addVetoPairId(NU_TAU)
+        .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+      vfs = addProjection(vfs, "VFS");
+      addProjection(*new FastJets(vfs), "Jets");
+      addProjection(*new ChargedFinalState(vfs), "ChFS");
+      addProjection(*new TotalVisibleMomentum(vfs), "CalMET");
+      addProjection(*new ChargedLeptons(vfs), "ChLeptons");
+      addProjection(*new PVertex(), "PV");
+      addProjection(*new SVertex(getProjection<ChargedFinalState>("ChFS"),
+                                 _jetaxes, _vtxjetRmax, _trketamax, 
+                                 _ipres, _dlsmin, _dlsres), "SVtx");
     }
 
 
@@ -105,7 +102,7 @@ namespace Rivet {
 
     /// Get a description of the analysis.
     string getDescription() const {
-      return "";
+      return "pT and eta distributions of jets in Z + (b)jet production, before and after tagging.";
     }
 
     /// Experiment which performed and published this analysis.
@@ -127,28 +124,8 @@ namespace Rivet {
     void finalize();
     //@}
 
+
   private:
-
-    /// The final state projector.
-    FinalState _fsproj;
-
-    /// The visible final state projector.
-    VetoedFinalState _vfsproj;
-
-    /// The FastJets projector used by this analysis.
-    FastJets _jetsproj;
-
-    /// The charged final state projector.
-    ChargedFinalState _chfsproj;
-
-    /// The Calorimeter MET projector.
-    TotalVisibleMomentum _calmetproj;
-
-    /// The charged leptons projector.
-    ChargedLeptons _chleproj;
-
-    /// Projection to find the primary vertex.
-    PVertex _pvtxproj;
 
     /// @name Analysis cuts
     //@{
@@ -232,20 +209,13 @@ namespace Rivet {
 
     /// Decay Length Significance resolution (assumed to be (dlsres = 34e-3mm))
     const double _dlsres;
+    //@}
 
-
-  private:
 
     /// Set of vectors defining the jet axes (for detached vertex finding).
     vector<FourMomentum> _jetaxes;
 
-    /// Projection to find secondary vertices.
-    /// Needs to be initialized after constants on which constructor depends
-    SVertex _svtxproj;
     
-    /// Hide the assignment operator
-    CDF_2006_S6653332& operator=(const CDF_2006_S6653332&);
-
     //@{
     /// Histograms
     AIDA::IHistogram1D* _histJetsPt;
@@ -253,6 +223,10 @@ namespace Rivet {
     AIDA::IHistogram1D* _histbJetsPt;
     AIDA::IHistogram1D* _histbJetsEta;
     //@}
+
+
+    /// Hide the assignment operator
+    CDF_2006_S6653332& operator=(const CDF_2006_S6653332&);
 
   };
 

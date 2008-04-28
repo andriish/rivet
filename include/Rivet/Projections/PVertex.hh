@@ -23,20 +23,13 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    PVertex() : _thePVertex(0) { 
+    PVertex()
+      : _thePVertex(0) 
+    { 
+      setName("PVertex");
       getLog() << Log::TRACE << "Creating..." << endl;
     }
-
-
-    /// The destructor.
-    ~PVertex() { }
     //@}
-
-
-    /// Return the name of the projection
-    string getName() const {
-      return "PVertex";
-    }
 
 
     /// Get the primary vertex position.

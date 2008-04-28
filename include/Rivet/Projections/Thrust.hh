@@ -9,6 +9,7 @@
 
 namespace Rivet {
 
+
   /**
     @brief Obtain the e+ e- thrust event shape, consisting of the thrust basis and the 
     thrust scalar values in each direction (the thrust, thrust major and thrust
@@ -45,27 +46,25 @@ namespace Rivet {
   class Thrust : public AxesDefinition {
   public:
 
-    /// Constructor. The FinalState projection must live throughout the run.
-    Thrust(FinalState& fsp)
-      : _calculatedThrust(false), _fsproj(&fsp)
-    { 
-      addProjection(fsp);
+    /// Constructor.
+    Thrust(const FinalState& fsp)
+      : _calculatedThrust(false)
+    {
+      setName("Thrust");
+      addProjection(fsp, "FS");
     }
-
-    /// Return the name of the projection
-    string getName() const {
-      return "Thrust";
-    }
-
 
   protected:
 
     /// Perform the projection on the Event
-    void project(const Event& e);
+    void project(const Event& e) {
+      const FinalState& fs = applyProjection<FinalState>(e, "FS");
+      calcThrust(fs);
+    }
 
     /// Compare projections
     int compare(const Projection& p) const { 
-      return pcmp(*_fsproj, *(dynamic_cast<const Thrust&>(p)._fsproj)); 
+      return mkNamedPCmp(p, "FS"); 
     }
 
 
@@ -98,7 +97,6 @@ namespace Rivet {
     ///@}
 
 
-
   private:
 
     /// The thrust scalars.
@@ -109,9 +107,6 @@ namespace Rivet {
 
     /// Caching flag to avoid costly recalculations.
     bool _calculatedThrust;
-
-    /// The FinalState projection used by this projection
-    FinalState *_fsproj;
 
 
   private:

@@ -20,12 +20,11 @@ namespace Rivet {
     /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
     CDF_2004_S5839831() 
-      : _fsproj(-1.0, 1.0, 0.4*GeV), _jetproj(_fsproj, FastJets::CDFJETCLU, 0.7)
+      : _totalNumTrans(0)
     {
       setBeams(PROTON, ANTIPROTON);
-      
-      addProjection(_fsproj);
-      addProjection(_jetproj);
+      const FinalState& fs = addProjection(*new ChargedFinalState(-1.0, 1.0, 0.4*GeV), "FS");
+      addProjection(*new FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
       
       /// @todo Declare that this is to be run on minimum bias data and jet 
       /// data with several ET triggers:
@@ -78,18 +77,6 @@ namespace Rivet {
 
   private:
 
-    /// @name Internal projections
-    //@{
-    /// Use only charged tracks
-    ChargedFinalState _fsproj;
-    /// Lose 8% of charged tracks randomly.
-    //LossyFinalState _fsproj;
-    /// The jet algorithm used by this analysis.
-    FastJets _jetproj;
-    //@}
-
-  private:
-
     /// @name Histogram collections
     //@{
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
@@ -133,6 +120,9 @@ namespace Rivet {
 
 
   private:
+
+    /// Store the sum of weighted particle multiplicities in the transverse region.
+    double _totalNumTrans;
 
     /// Hide the assignment operator.
     CDF_2004_S5839831& operator=(const CDF_2004_S5839831&);

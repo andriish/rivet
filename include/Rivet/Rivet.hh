@@ -22,8 +22,6 @@
 #include "HepMC/GenParticle.h"
 
 
-
-
 /// This is the main namespace in which all Rivet classes are defined.
 namespace Rivet {
 
@@ -57,9 +55,6 @@ namespace Rivet {
 
   /// A sensible default maximum value of rapidity for Rivet analyses to use.
   static const double MaxRapidity = 100000.0;
-
-  static const double MAXDOUBLE = numeric_limits<double>::max();
-  static const double MAXINT = numeric_limits<int>::max();
 
   /// Convenient function for streaming out vectors of any streamable object.
   template<typename T>

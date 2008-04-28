@@ -7,38 +7,44 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
+
 namespace Rivet {
 
   /// This class projects out the incoming and outgoing leptons in a DIS
   /// event. The incoming lepton is assumed to be along the positive z-axis.
-  class DISLepton: public Projection {
+  class DISLepton : public Projection {
     
   public:
     
-    /// The default constructor. Must specify the incoming and
-    /// outgoing PDG codes of the leptons to project.  If \a inid is
-    /// an anti-particle and \a outid a particle, or vice versa,
-    /// either a scattered lepton or anti-lepton is searched for. Must
-    /// also specify a Beam and FinalState projection object which is
-    /// assumed to live thoughout the run.
-    DISLepton(Beam& beam, FinalState& fsp,
-                     const ParticleName& inid, const ParticleName& outid)
-      : _fsproj(fsp), 
-        _beamproj(beam), 
-        _idin(inid), 
-        _idout(outid) 
+    /// @name Constructors.
+    //@{
+    /// Specify the incoming and outgoing PDG codes of the leptons to project.
+    /// If \a inid is an anti-particle and \a outid a particle, or vice versa,
+    /// either a scattered lepton or anti-lepton is searched for. This version
+    /// also specifies a FinalState projection.
+    DISLepton(const FinalState& fsp, const ParticleName& inid, const ParticleName& outid)
+      : _idin(inid), _idout(outid)
     {
-      _beamPairs.insert(BeamPair(inid, ANY));
-      addProjection(_beamproj);
-      addProjection(fsp);
+      setName("DISLepton");
+      addBeamPair(inid, ANY);
+      addProjection(*new Beam(), "Beam");
+      addProjection(fsp, "FS");
     }
     
-    
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "DISLepton";
+    /// Specify the incoming and outgoing PDG codes of the leptons to project.
+    /// If \a inid is an anti-particle and \a outid a particle, or vice versa,
+    /// either a scattered lepton or anti-lepton is searched for. This version
+    /// uses a default-constructed basic FinalState projection.
+    DISLepton(const ParticleName& inid, const ParticleName& outid)
+      : _idin(inid), _idout(outid)
+    {
+      setName("DISLepton");
+      addBeamPair(inid, ANY);
+      addProjection(*new Beam(), "Beam");
+      addProjection(*new FinalState(), "FS");
     }
+    //@}
+    
     
   protected:
     
@@ -57,12 +63,6 @@ namespace Rivet {
     const Particle& out() const { return _outgoing; }
     
   private:
-    
-    /// The FinalState projection used by this projection
-    FinalState _fsproj;
-
-    /// The Beam projector object defining the incoming beam particles.
-    Beam _beamproj;
     
     /// The PDG id of the incoming lepton.
     long _idin;

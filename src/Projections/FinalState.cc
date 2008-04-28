@@ -7,7 +7,10 @@ namespace Rivet {
 
   int FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
-    return cmp(_etamin, other._etamin) || cmp(_etamax, other._etamax) || cmp(_ptmin, other._ptmin);
+    return \
+      cmp(_etamin, other._etamin) || 
+      cmp(_etamax, other._etamax) || 
+      cmp(_ptmin, other._ptmin);
   }
 
 

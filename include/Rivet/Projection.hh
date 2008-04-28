@@ -3,11 +3,16 @@
 #define RIVET_Projection_HH
 
 #include "Rivet/Rivet.hh"
-#include "Projection.fhh"
+#include "Rivet/Projection.fhh"
+#include "Rivet/ProjectionApplier.hh"
+#include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.hh"
+//#include "Rivet/Tools/TypeTraits.hh"
+#include "Rivet/Cmp.fhh"
+
 
 namespace std {
   
@@ -15,14 +20,28 @@ namespace std {
   template <>
   struct less<const Rivet::Projection*>
     : public binary_function<const Rivet::Projection*, const Rivet::Projection*, bool> {
-    bool operator()(const Rivet::Projection* x, const Rivet::Projection* y) const;// {
-    //   return x->before(*y);
-    // }
+    bool operator()(const Rivet::Projection* x, const Rivet::Projection* y) const;
   };
 
 }
 
+
 namespace Rivet {
+
+
+  /// Convenience method for casting to a const Projection reference.
+  template <typename PROJ>
+  inline const PROJ& pcast(const Projection& p) {
+    return dynamic_cast<const PROJ&>(p);
+  }
+  
+  
+  /// Convenience method for casting to a const Projection pointer.
+  template <typename PROJ>
+  inline const PROJ* pcast(const Projection* p) {
+    return dynamic_cast<const PROJ*>(p);
+  }
+
 
   /// Projection is the base class of all Projections to be used by
   /// Rivet. A Projection object can be assigned to an Event object and
@@ -32,7 +51,7 @@ namespace Rivet {
   ///
   /// The main virtual functions to be overridden by concrete sub-classes
   /// are project(const Event &) and compare(const Projection &).
-  class Projection {
+  class Projection : public ProjectionApplier {
     
   public:
     
@@ -47,16 +66,10 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    Projection() {
-      addBeamPair(ANY, ANY);
-      getLog() << Log::TRACE << "Creating " << getName() << " at " << this << endl;
-    }
+    Projection();
     
-
     /// The destructor.
-    virtual ~Projection() {
-      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
-    }
+    virtual ~Projection();
     //@}
     
   protected:
@@ -91,82 +104,109 @@ namespace Rivet {
     /// function check the member variables of the sub-class to determine
     /// whether this should be ordered before or after \a p, or if it is
     /// equivalent with \a p.
-    virtual int compare(const Projection& p) const = 0;
+    ///
+    /// By default, this function returns the result of a comparison between two
+    /// requested child projections named "FS", since almost all projections
+    /// should have such a child.
+    virtual int compare(const Projection& p) const;
     
   public:
-    
 
     /// Determine whether this object should be ordered before the object
     /// \a p given as argument. If \a p is of a different class than
     /// this, the before() function of the corresponding type_info
     /// objects is used. Otherwise, if the objects are of the same class,
     /// the virtual compare(const Projection &) will be returned.
-    bool before(const Projection& p) const {
-      const std::type_info& thisid = typeid(*this);
-      const std::type_info& otherid = typeid(p);
-      if (thisid == otherid) {
-        return compare(p) < 0;
-      } else {
-        return thisid.before(otherid);
-      }
-    }
+    bool before(const Projection& p) const;
     
     /// Return the Cuts objects for this projection. Derived
     /// classes should ensure that all contained projections are
     /// registered in the @a _projections set for the cut chaining 
     /// to work.
-    virtual const Cuts getCuts() const {
-      Cuts totalCuts = _cuts;
-      for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
-        totalCuts.addCuts((*p)->getCuts());
-      }
-      return totalCuts;
-    }
+    virtual const Cuts getCuts() const;
 
     /// Return the BeamConstraints for this projection, not including
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
     /// chaining to work.
-    virtual const set<BeamPair> getBeamPairs() const {
-      set<BeamPair> ret = _beamPairs;
-      for (set<ConstProjectionPtr>::const_iterator ip = _projections.begin(); ip != _projections.end(); ++ip) {
-        ConstProjectionPtr p = *ip;
-        getLog() << Log::TRACE << "Proj addr = " << p << endl;
-        if (p) ret = intersection(ret, p->getBeamPairs());
-      }
-      return ret;
-    }
+    virtual const set<BeamPair> getBeamPairs() const;
 
     /// Get the name of the projection.
     virtual string getName() const {
-      return "BaseProjection";
+      return _name;
     }
 
     /// Get the contained projections, including recursion.
     set<ConstProjectionPtr> getProjections() const {
-      set<ConstProjectionPtr> allProjections = _projections;
-      for (set<ConstProjectionPtr>::const_iterator p = _projections.begin(); p != _projections.end(); ++p) {
-        allProjections.insert((*p)->getProjections().begin(), (*p)->getProjections().end());
-      }
-      return allProjections;
+      return getProjHandler().getChildProjections(*this, ProjectionHandler::DEEP);
     }
+
+    /// Get the named projection, specifying return type via a template argument.
+    template <typename PROJ>
+    const PROJ& getProjection(const string& name) const {
+      const Projection& p = getProjHandler().getProjection(*this, name);
+      return pcast<PROJ>(p);
+    }
+
+    /// Get the named projection (non-templated, so returns as a reference to a
+    /// Projection base class).
+    const Projection& getProjection(const string& name) const {
+      return getProjHandler().getProjection(*this, name);
+    }
+    
+
+    /// Apply the supplied projection on @a event.
+    template <typename PROJ>
+    const PROJ& applyProjection(const Event& evt, const PROJ& proj) const {
+      return pcast<PROJ>(_applyProjection(evt, proj));
+    }
+
+
+    /// Apply the supplied projection on @a event.
+    template <typename PROJ>
+    const PROJ& applyProjection(const Event& evt, const Projection& proj) const {
+      return pcast<PROJ>(_applyProjection(evt, proj));
+    }
+
+
+    /// Apply the named projection on @a event.
+    template <typename PROJ>
+    const PROJ& applyProjection(const Event& evt, const string& name) const {
+      return pcast<PROJ>(_applyProjection(evt, name));
+    }
+
+
+   
+    /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
+    /// object automatically passed as one of the parent projections.
+    Cmp<Projection> mkNamedPCmp(const Projection& otherparent, const string& pname) const;
+
+    /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
+    /// object automatically passed as one of the parent projections.
+    Cmp<Projection> mkPCmp(const Projection&, const string& pname) const;
+
     
   protected:
 
-    /// Add a projection dependency to the projection list.
-    Projection& addProjection(const Projection& proj) {
-      getLog() << Log::TRACE << this->getName() << " inserts " 
-               << proj.getName() << " at: " << &proj << endl;
-      ConstProjectionPtr pp(&proj);
-      _projections.insert(pp);
-      return *this;
+    /// Get a reference to the ProjectionHandler for this thread.
+    ProjectionHandler& getProjHandler() const {
+      assert(_projhandler);
+      return *_projhandler;
     }
 
-    Projection& addProjection(const Projection* pproj) {
-      getLog() << Log::TRACE << this->getName() << " inserts " 
-               << pproj->getName() << " at: " << pproj << endl;
-      _projections.insert(pproj);
-      return *this;
+    // /// Register a contained projection.
+    // template <typename PROJ>
+    // PROJ addProjection(PROJ proj, const string& name) {
+    //   // Use traits to determine ref/ptr type of argument:
+    //   return _addProjHelper(proj, name, TypeTraits<PROJ>::ArgType());
+    // }
+
+    /// Register a contained projection (via reference).
+    template <typename PROJ>
+    const PROJ& addProjection(const PROJ& proj, const string& name) {
+      // getLog() << Log::TRACE << this->getName() << " inserts " 
+      //          << proj.getName() << " at: " << &proj << endl;
+      return dynamic_cast<const PROJ&>(getProjHandler().registerProjection(*this, proj, name));
     }
 
     /// Add a colliding beam pair.
@@ -174,7 +214,8 @@ namespace Rivet {
       _beamPairs.insert(BeamPair(beam1, beam2));
       return *this;
     }
-
+    
+    
     /// Add a cut.
     Projection& addCut(const string& quantity, const Comparison& comparison, const double value) {
       getLog() << Log::DEBUG << getName() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
@@ -182,27 +223,52 @@ namespace Rivet {
       return *this;
     }
 
+    
     /// Get a Log object based on the getName() property of the calling projection object.
     Log& getLog() const {
       string logname = "Rivet.Projection." + getName();
       return Log::getLog(logname);
     }
+
+    /// Used by derived classes to set their name.
+    void setName(const string& name) {
+      _name = name;
+    }
+
+  private:
+
+    /// Non-templated version of string-based applyProjection, to work around
+    /// header dependency issue.
+    const Projection& _applyProjection(const Event& evt, const string& name) const;
     
-    /// Parameter constraints
+    /// Non-templated version of proj-based applyProjection, to work around
+    /// header dependency issue.
+    const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
+    
+
+  private:
+
+    /// Name variable is used by the base class messages to identify
+    /// which derived class is being handled.
+    string _name;
+
+    /// Parameter constraints.
     Cuts _cuts;
-
-    /// Beam-type constraint
+    
+    /// Beam-type constraint.
     set<BeamPair> _beamPairs;
- 
-    /// Collection of pointers to projections, for automatically combining constraints.
-    set<ConstProjectionPtr> _projections;
-
+    
+    /// Pointer to projection handler.
+    ProjectionHandler* _projhandler;
   };
+
 
 }
 
 
-inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projection* x, const Rivet::Projection* y) const {
+/// Define "less" operator for Projection* containers in terms of the Projection::before virtual method.
+inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projection* x, 
+                                                             const Rivet::Projection* y) const {
   return x->before(*y);
 }
 

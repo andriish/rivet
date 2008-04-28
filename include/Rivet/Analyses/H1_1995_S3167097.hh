@@ -16,19 +16,12 @@ namespace Rivet {
   public:
 
     /// The default constructor.
-    H1_1995_S3167097()
-      : _fsproj(), _beamsproj(), 
-        _leptonproj(_beamsproj, _fsproj, ELECTRON, POSITRON), 
-        _diskinproj(_beamsproj, _leptonproj, PROTON),
-        _fshcmproj(_leptonproj, _diskinproj, _fsproj), 
-        _y1hcmproj(_fshcmproj)
-    { 
+    H1_1995_S3167097() { 
       setBeams(ELECTRON, PROTON);
-      addProjection(_beamsproj);
-      addProjection(_leptonproj);
-      addProjection(_diskinproj);
-      addProjection(_fshcmproj);
-      addProjection(_y1hcmproj);
+      const DISLepton& lepton = addProjection(*new DISLepton(ELECTRON, POSITRON), "Lepton");
+      const DISKinematics& diskin = addProjection(*new DISKinematics(lepton, PROTON), "Kinematics");
+      const FinalStateHCM& fshcm = addProjection(*new FinalStateHCM(diskin), "FS");
+      addProjection(*new CentralEtHCM(fshcm), "Y1HCM");
       addCut("x", MORE_EQ, _xmin);
       addCut("x", LESS_EQ, _xmax);
     }
@@ -45,9 +38,9 @@ namespace Rivet {
       return "3167097";
     }
     /// Get a description of the analysis.
-    // string getDescription() const {
-    //   return "";
-    // }
+    string getDescription() const {
+      return "TODO";
+    }
     /// Experiment which performed and published this analysis.
     string getExpt() const {
       return "H1";
@@ -65,35 +58,16 @@ namespace Rivet {
     void analyze(const Event& event);
     void finalize();
     //@}
+
     
-  protected:
-
-    /// Calculate the bin number from the DISKinematics projection.
-    int getbin(const DISKinematics& dk);
-
-
   private:
 
-    /// The FinalState projector used.
-    FinalState _fsproj;
-    
-    /// The Beam projector used.
-    Beam _beamsproj;
-    
-    /// The DISLepton projector used.
-    DISLepton _leptonproj;
-    
-    /// The DISKinematics projector used.
-    DISKinematics _diskinproj;
-    
-    /// The FinalStateHCM projector used.
-    FinalStateHCM _fshcmproj;
-    
-    /// The CentralEtHCM projector used.
-    CentralEtHCM _y1hcmproj;
-    
+    /// Calculate the bin number from the DISKinematics projection.
+    int _getbin(const DISKinematics& dk);
+
+
     /// Some integer constants used.
-    static const int _nb = 24, _nbin = 9;
+    static const size_t _nb = 24, _nbin = 9;
     
     /// Some double constants used.
     static const double _xmin, _xmax;
@@ -106,8 +80,6 @@ namespace Rivet {
 
     /// Helper vector;
     vector<double> _nev;
-
-  private:
 
     /// Hidden assignment operator.
     H1_1995_S3167097& operator=(const H1_1995_S3167097&);

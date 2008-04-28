@@ -12,7 +12,7 @@ namespace Rivet {
     Log& log = getLog();
 
     // First, veto on leptonic events by requiring at least 4 charged FS particles
-    const FinalState& fs = e.applyProjection(_cfsproj);
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
     const size_t numParticles = fs.particles().size();
 
     // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
@@ -27,14 +27,14 @@ namespace Rivet {
     _weightedTotalPartNum += numParticles * weight;
     
     // Get beams and average beam momentum
-    const ParticlePair& beams = e.applyProjection(_beamsproj).getBeams();
+    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
     const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
                                  beams.second.getMomentum().vector3().mod() ) / 2.0;
     log << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
 
     // Thrusts
     log << Log::DEBUG << "Calculating thrust" << endl;
-    const Thrust& thrust = e.applyProjection(_cthrustproj);
+    const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
     _hist1MinusT->fill(1 - thrust.thrust(), weight); 
     _hist1MinusT->fill(1 - thrust.thrust(), weight); 
     _histTMajor->fill(thrust.thrustMajor(), weight); 
@@ -42,13 +42,13 @@ namespace Rivet {
     _histOblateness->fill(thrust.oblateness(), weight);
 
     // Jets
-    #ifdef __HAVE_JADE
+    #ifdef HAVE_JADE
     log << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
-    const FastJets& durjet = e.applyProjection(_cdurjetproj);
+    const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     _histDiffRate2Durham->fill(durjet.getClusterSeq().exclusive_dmerge(2), weight); 
     _histDiffRate3Durham->fill(durjet.getClusterSeq().exclusive_dmerge(3), weight); 
     _histDiffRate4Durham->fill(durjet.getClusterSeq().exclusive_dmerge(4), weight); 
-    const FastJets& jadejet = e.applyProjection(_cjadejetproj);
+    const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
     _histDiffRate2Jade->fill(jadejet.getClusterSeq().exclusive_dmerge(2), weight); 
     _histDiffRate3Jade->fill(jadejet.getClusterSeq().exclusive_dmerge(3), weight); 
     _histDiffRate4Jade->fill(jadejet.getClusterSeq().exclusive_dmerge(4), weight); 
@@ -56,20 +56,20 @@ namespace Rivet {
 
     // Sphericities
     log << Log::DEBUG << "Calculating sphericity" << endl;
-    const Sphericity& sphericity = e.applyProjection(_cspherproj);
+    const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
     _histSphericity->fill(sphericity.sphericity(), weight); 
     _histAplanarity->fill(sphericity.aplanarity(), weight); 
     _histPlanarity->fill(sphericity.planarity(), weight); 
 
     // C & D params
     log << Log::DEBUG << "Calculating Parisi params" << endl;
-    const ParisiTensor& parisi = e.applyProjection(_cparisiproj);    
-    _histCParam->fill(parisi.C(), weight); 
-    _histDParam->fill(parisi.D(), weight); 
+    const ParisiTensor& parisi = applyProjection<ParisiTensor>(e, "Parisi");
+    _histCParam->fill(parisi.C(), weight);
+    _histDParam->fill(parisi.D(), weight);
 
     // Hemispheres
     log << Log::DEBUG << "Calculating hemisphere variables" << endl;
-    const Hemispheres& hemi = e.applyProjection(_chemiproj);
+    const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
     _histHemiMassH->fill(hemi.getScaledM2high(), weight); 
     _histHemiMassL->fill(hemi.getScaledM2low(), weight); 
     _histHemiMassD->fill(hemi.getScaledM2diff(), weight); 
@@ -174,8 +174,8 @@ namespace Rivet {
     _histHemiBroadT  = bookHistogram1D(25, 1, 1, "Total hemisphere broadening, B_sum (charged)");
     _histHemiBroadD  = bookHistogram1D(26, 1, 1, "Difference in hemisphere broadening, B_diff (charged)");
 
-    #ifdef __HAVE_JADE
-    getLog() << Log::WARN << "Using FastJet JADE patch to make diff jet rate plots." << endl;
+    #ifndef HAVE_JADE
+    getLog() << Log::WARN << "No FastJet JADE patch, so not making any diff jet rate plots." << endl;
     #endif
     _histDiffRate2Durham  = bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, D_2^Durham (charged)"); // binned in y_cut
     _histDiffRate2Jade    = bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, D_2^Jade (charged)"); // binned in y_cut

@@ -6,11 +6,11 @@
 
 namespace Rivet {
 
-  /// @todo The compare method is incomplete?
+
   int D0ILConeJets::compare(const Projection& p) const {
     const D0ILConeJets& other = dynamic_cast<const D0ILConeJets&>(p);
     return 
-      pcmp(_fsproj, other._fsproj) || 
+      mkNamedPCmp(other, "FS") || 
       cmp(_cone_radius, other._cone_radius) ||
       cmp(_min_jet_Et, other._min_jet_Et) || 
       cmp(_split_ratio, other._split_ratio) ||   
@@ -24,14 +24,12 @@ namespace Rivet {
       cmp(_pT_min_second_protojet, other._pT_min_second_protojet) ||
       cmp(_merge_max, other._merge_max) || 
       cmp(_pT_min_nomerge, other._pT_min_nomerge);
-      // || cmp(_jets, other._jets);
   }
 
 
   void D0ILConeJets::project(const Event& e) {
-
     // Project into final state
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Store 4 vector data about each particle into list
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
@@ -41,13 +39,11 @@ namespace Rivet {
       _particlepointerlist.push_back(&_particlelist.back());
     }
 
-
-
     float item_ET_Threshold = 0.0;
-    clearJets(); //Clear jets of previous event
-    _algo.makeClusters(getJets(), _particlepointerlist, item_ET_Threshold); // Turn the crank!!!
-    _particlelist.clear(); //Clear this event
-    _particlepointerlist.clear(); //Clear this event
+    clearJets(); // Clear jets of previous event
+    _algo.makeClusters(getJets(), _particlepointerlist, item_ET_Threshold); // Compute...
+    _particlelist.clear(); // Clear this event
+    _particlepointerlist.clear(); // Clear this event
     
     _lorentzvecjets.clear();
     for (list<HepEntity>::const_iterator jt = _jets.begin(); jt != _jets.end(); ++jt) {

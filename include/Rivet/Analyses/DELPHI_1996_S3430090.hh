@@ -23,27 +23,19 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    DELPHI_1996_S3430090()
-      : _cfsproj(),
-        #ifdef __HAVE_JADE
-        _cjadejetproj(_cfsproj, FastJets::JADE, 0.7),
-        _cdurjetproj(_cfsproj, FastJets::DURHAM, 0.7),
-        #else
-        _cjadejetproj(_cfsproj, FastJets::KT, 0.7),
-        _cdurjetproj(_cfsproj, FastJets::KT, 0.7),
-        #endif
-        _cspherproj(_cfsproj),
-        _cthrustproj(_cfsproj),
-        _cparisiproj(_cfsproj),
-        _chemiproj(_cfsproj, _cthrustproj)
+    DELPHI_1996_S3430090() 
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(_cfsproj);
-      addProjection(_beamsproj);
-      addProjection(_cspherproj);
-      addProjection(_cthrustproj);
-      addProjection(_cparisiproj);
-      addProjection(_chemiproj);
+      addProjection(*new Beam(), "Beams");
+      const ChargedFinalState& cfs = addProjection(*new ChargedFinalState(), "FS");
+      #ifdef HAVE_JADE
+      addProjection(*new FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
+      addProjection(*new FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+      #endif
+      addProjection(*new Sphericity(cfs), "Sphericity");
+      addProjection(*new ParisiTensor(cfs), "Parisi");
+      const Thrust& thrust = addProjection(*new Thrust(cfs), "Thrust");
+      addProjection(*new Hemispheres(thrust), "Hemispheres");
     }
 
 
@@ -86,28 +78,6 @@ namespace Rivet {
 
     /// Hide the assignment operator
     DELPHI_1996_S3430090& operator=(const DELPHI_1996_S3430090&);
-
-    /// Charged final state projector.
-    ChargedFinalState _cfsproj;
-
-    /// Projection to get the beams.
-    Beam _beamsproj;
-
-    /// Jet algorithms
-    FastJets _cjadejetproj;
-    FastJets _cdurjetproj;
-
-    /// Sphericity projections.
-    Sphericity _cspherproj;
-
-    /// Thrust projections.
-    Thrust _cthrustproj;
-
-    /// Parisi tensor (C and D params) projections.
-    ParisiTensor _cparisiproj;
-
-    /// Projections to calculate event hemisphere masses and broadenings.
-    Hemispheres _chemiproj;
 
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the 

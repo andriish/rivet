@@ -62,21 +62,14 @@ namespace Rivet {
   class Hemispheres : public Projection {
   public:
 
-    /// Constructor. The provided FinalState projection must live throughout the run.
-    /// @todo Improve this: shouldn't have to effectively provide the
-    /// FinalState twice (AxesDefn already has an FSP and they have to match up)
-    Hemispheres(FinalState& fsp, AxesDefinition& ax)
+    /// Constructor.
+    Hemispheres(const AxesDefinition& ax)
       : _E2vis(-1), _M2high(-1), _M2low(-1),
         _Bmax(-1), _Bmin(-1),
-        _highMassEqMaxBroad(true),
-        _fsproj(&fsp), _axproj(&ax)
+        _highMassEqMaxBroad(true)
     {
-      addProjection(ax);
-    }
-
-    /// Return the name of the projection
-    string getName() const {
-      return "Hemispheres";
+      setName("Hemispheres");
+      addProjection(ax, "Axes");
     }
 
 
@@ -87,8 +80,7 @@ namespace Rivet {
 
     /// Compare with other projections.
     int compare(const Projection& p) const {
-      return pcmp(*_fsproj, *(dynamic_cast<const Hemispheres&>(p)._fsproj)) ||
-             pcmp(*_axproj, *(dynamic_cast<const Hemispheres&>(p)._axproj)); 
+      return mkNamedPCmp(p, "Axes");
     }
 
 
@@ -146,12 +138,6 @@ namespace Rivet {
 
     /// Is the hemisphere with the max mass the same as the one with the max broadening?
     bool _highMassEqMaxBroad;
-
-    /// The final state projection used to iterate over particles.
-    FinalState *_fsproj;
-    
-    /// The Thrust projection used to get the hemisphere alignment.
-    AxesDefinition* _axproj;
 
   };
 

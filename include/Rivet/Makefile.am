@@ -14,6 +14,8 @@ nobase_pkginclude_HEADERS += \
   RivetAIDA.hh        RivetAIDA.fhh       \
   Analysis.hh         Analysis.fhh        \
   AnalysisHandler.hh  AnalysisHandler.fhh \
+  ProjectionHandler.hh   \
+  ProjectionApplier.hh   \
   Projection.hh       Projection.fhh      \
   Cmp.hh              Cmp.fhh             \
   ParticleName.hh     HistoFormat.hh      \
@@ -75,7 +77,8 @@ nobase_pkginclude_HEADERS += \
   Tools/Configuration.hh \
   Tools/Utils.hh \
   Tools/BinnedHistogram.hh \
-  Tools/ParticleIDMethods.hh
+  Tools/ParticleIDMethods.hh \
+  Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \
   Tools/binreloc.h \
   Tools/osdir.hh

@@ -18,19 +18,20 @@ namespace Rivet {
   public:
     
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
-    HadronicFinalState(FinalState& fsp)
+    HadronicFinalState(FinalState& fsp) 
       : FinalState(fsp)
-    { }
+    { 
+      setName("HadronicFinalState");
+      //addProjection(fsp, "FS");
+    }
     
     HadronicFinalState(double mineta = -MaxRapidity,
                        double maxeta = MaxRapidity,
-                       double minpt = 0.0)
+                       double minpt = 0.0*GeV)
       : FinalState(mineta, maxeta, minpt)
-    { }
-
-    /// Return the name of the projection.
-    string getName() const {
-      return "HadronicFinalState";
+    {
+      setName("HadronicFinalState");
+      //addProjection(*new FinalState(mineta, maxeta, minpt), "FS");
     }
 
   protected:

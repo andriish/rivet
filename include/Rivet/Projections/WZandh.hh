@@ -10,19 +10,15 @@
 namespace Rivet {
 
   /// Project out the vector bosons and Higgs particles.
-  class WZandh: public Projection {
+  class WZandh : public Projection {
     
   public:
     
     /// @name Standard constructors and destructors. */
     //@{
     /// The default constructor. 
-    WZandh() {}
-    
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "WZandh";
+    WZandh() {
+      setName("WZandh");
     }
     
   protected:

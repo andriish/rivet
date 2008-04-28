@@ -10,6 +10,7 @@ namespace Rivet {
     return a.mod2() > b.mod2();
   }
 
+
   void Thrust::calcT(vector<Vector3>& p, double& t, Vector3& taxis) const {
     /* This function implements the iterative algorithm as described in the
      * Pythia manual. We take eight (four) different starting vectors
@@ -150,12 +151,6 @@ namespace Rivet {
       _thrustAxes.push_back(Vector3(0,0,0));
     }
 
-  }
-
-
-  void Thrust::project(const Event& e) {
-    const FinalState& fs = e.applyProjection(*_fsproj);
-    calcThrust(fs);
   }
 
 

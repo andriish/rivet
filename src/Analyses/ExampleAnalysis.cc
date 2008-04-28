@@ -8,12 +8,12 @@ namespace Rivet {
 
   // Book histograms
   void ExampleAnalysis::init() {
-    // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
-    // Since this is just a demo analysis, there is no associated paper!
     _histTot         = bookHistogram1D("TotalMult", "Total multiplicity", 100, -0.5, 99.5);
     _histChTot       = bookHistogram1D("TotalChMult", "Total charged multiplicity", 50, -1.0, 99.0);
     _histHadrTot     = bookHistogram1D("HadrTotalMult", "Total hadronic multiplicity", 100, -0.5, 99.5);
     _histHadrChTot   = bookHistogram1D("HadrTotalChMult", "Total hadronic charged multiplicity", 50, -1.0, 99.0);
+    // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
+    // Since this is just a demo analysis, there is no associated paper!
     double edges[11] = { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 };
     _histThrust      = bookHistogram1D("Thrust", "Thrust", vector<double>(edges, edges+11));
     _histMajor       = bookHistogram1D("Major", "Thrust major", 10, 0.0, 0.6);
@@ -27,17 +27,17 @@ namespace Rivet {
     Log log = getLog();
 
     // Analyse and print some info
-    const Multiplicity& cm = event.applyProjection(_cmultproj);
-    const Multiplicity& cnm = event.applyProjection(_cnmultproj);
+    const Multiplicity& cm = applyProjection<Multiplicity>(event, "CMult");
+    const Multiplicity& cnm = applyProjection<Multiplicity>(event, "CNMult");
     log << Log::DEBUG << "Total multiplicity            = " << cnm.totalMultiplicity()  << endl;
     log << Log::DEBUG << "Total charged multiplicity    = " << cm.totalMultiplicity()   << endl;
     log << Log::DEBUG << "Hadron multiplicity           = " << cnm.hadronMultiplicity() << endl;
     log << Log::DEBUG << "Hadron charged multiplicity   = " << cm.hadronMultiplicity()  << endl;
 
-    const Thrust& t = event.applyProjection(_thrustproj);
+    const Thrust& t = applyProjection<Thrust>(event, "Thrust");
     log << Log::DEBUG << "Thrust = " << t.thrust() << endl;
 
-    const Sphericity& s = event.applyProjection(_sphericityproj);
+    const Sphericity& s = applyProjection<Sphericity>(event, "Sphericity");
     log << Log::DEBUG << "Sphericity = " << s.sphericity() << endl;
     log << Log::DEBUG << "Aplanarity = " << s.aplanarity() << endl;
 

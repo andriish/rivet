@@ -16,20 +16,11 @@ namespace Rivet {
   public:
 
     /// Constructor. The provided FinalState projection must live throughout the run.
-    Multiplicity(FinalState& fsp)
-      : _fsproj(fsp), _totalMult(0), _hadMult(0)
+    Multiplicity(const FinalState& fsp)
+      : _totalMult(0), _hadMult(0)
     { 
-      addProjection(fsp);
-    }
-
-    ~Multiplicity() {
-      getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
-    }
-
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "Multiplicity";
+      setName("Multiplicity");
+      addProjection(fsp, "FS");
     }
 
   protected:
@@ -52,9 +43,6 @@ namespace Rivet {
     //@ }
 
   private:
-
-    /// The FinalState projection used by this projection
-    FinalState& _fsproj;
 
     /// Total multiplicity.
     unsigned int _totalMult;

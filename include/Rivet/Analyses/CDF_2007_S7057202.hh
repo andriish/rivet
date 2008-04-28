@@ -9,28 +9,22 @@
 namespace Rivet {
 
 
-  /// @todo Needs full Doxygen commenting
   class CDF_2007_S7057202 : public Analysis {
 
   public:
 
     /// Constructor
-    CDF_2007_S7057202():
-      _minY(0.1), _maxY(0.7),
-      _fsproj(),
-      _ktprojD07(_fsproj, FastJets::KT, 0.7),
-      _ktprojD05(_fsproj, FastJets::KT, 0.5),
-      _ktprojD10(_fsproj, FastJets::KT, 1.0),
-      _jetMinPT(54.0*GeV)
+    CDF_2007_S7057202()
+      : _minY(0.1), _maxY(0.7), _jetMinPT(54.0*GeV)
    {
       setBeams(PROTON, ANTIPROTON);
-      addProjection(_fsproj);
-      addProjection(_ktprojD07);
-      addProjection(_ktprojD05);
-      addProjection(_ktprojD10);
+      /// @todo Understand why this doesn't work...
+      //const FinalState& fs = *new FinalState();
+      addProjection(*new FastJets(*new FinalState(), FastJets::KT, 0.5), "JetsD05");
+      addProjection(*new FastJets(*new FinalState(), FastJets::KT, 0.7), "JetsD07");
+      addProjection(*new FastJets(*new FinalState(), FastJets::KT, 1.0), "JetsD10");
       setNeedsCrossSection(true);
-    };
-
+    }
     
     /// Factory method
     static Analysis* create() { 
@@ -45,9 +39,9 @@ namespace Rivet {
       return "7057202";
     }
     /// Get a description of the analysis.
-    //string getDescription() const {
-    //  return "";
-    //}
+    string getDescription() const {
+      return "TODO";
+    }
     /// Experiment which performed and published this analysis.
     string getExpt() const {
       return "CDF";
@@ -69,39 +63,40 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    CDF_2007_S7057202& operator=(const CDF_2007_S7057202&);
-
     /// Rapidity range of histograms for R=0.05 and R=1 kt jets
     const double _minY, _maxY;
-    
-    /// Projections.
-    FinalState _fsproj;
-    /// @name Jet projections (with different R)
-    //@{
-    FastJets _ktprojD07;
-    FastJets _ktprojD05;
-    FastJets _ktprojD10;
-    //@}
-    
+        
     /// Min jet \f$ p_T \f$ cut.
     /// @todo Make static const and UPPERCASE?
     const double _jetMinPT;
     
     /// Counter for the number of events analysed (actually the sum of weights, hence double).
     double _eventsTried;
-    ///The number of events in each histogram
+
+    /// @name Histograms
+    //@{
+    /// The number of events in each histogram
     map<AIDA::IHistogram1D*, double> _eventsPassed;
-    ///The y bin width of each histogram
+
+    /// The y bin width of each histogram
     map<AIDA::IHistogram1D*, double> _yBinWidths;
-    ///The y bin edge values
+
+    /// The y bin edge values
     static const double _ybins[6];
-    ///Histograms in different eta regions
+
+    /// Histograms in different eta regions
     BinnedHistogram<double> _binnedHistosD07;
-    //@{Single histograms for the R=0.5 and R=1.0 KT jets
+
+    // Single histogram for the \f$R=0.5\f$ \f$k_\perp\f$ jets
     AIDA::IHistogram1D* _histoD05;
+
+    // Single histogram for the \f$R=1.0\f$ \f$k_\perp\f$ jets
     AIDA::IHistogram1D* _histoD10;
     //@}
+
+  private:
+    /// Hide the assignment operator
+    CDF_2007_S7057202& operator=(const CDF_2007_S7057202&);
   };
 
 }

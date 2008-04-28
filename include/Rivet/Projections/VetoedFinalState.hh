@@ -22,40 +22,46 @@ namespace Rivet {
 
     /// Typedef for a veto on a composite particle mass
     typedef multimap<int, BinaryCut>  CompositeVeto;
+
     
-    /// The default constructor. Must specify a FinalState projection 
-    /// object which is assumed to live through the run.
-    VetoedFinalState(FinalState& fsp)
-      : _fsproj(fsp)
+    /// @name Constructors
+    //@{
+    /// Default constructor.
+    VetoedFinalState() {
+      setName("VetoedFinalState");
+      addProjection(*new FinalState(), "FS");
+    }
+
+    /// Constructor with specific FinalState.
+    VetoedFinalState(const FinalState& fsp)
     {
-      addProjection(_fsproj);
+      setName("VetoedFinalState");
+      addProjection(fsp, "FS");
     }
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
     /// \f$ p_{Tmax} \f$ - these define the range of particles to be vetoed.
-    VetoedFinalState(FinalState& fsp, const VetoDetails& vetocodes)
-      : _fsproj(fsp), _vetoCodes(vetocodes)
+    VetoedFinalState(const VetoDetails& vetocodes)
+      : _vetoCodes(vetocodes)
     {
-      addProjection(_fsproj);
+      setName("VetoedFinalState");
+      addProjection(*new FinalState(), "FS");
     }
+
+    /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
+    /// \f$ p_{Tmax} \f$ - these define the range of particles to be vetoed.
+    /// This version also supplies a specifi FinalState to be used.
+    VetoedFinalState(const FinalState& fsp, const VetoDetails& vetocodes)
+      : _vetoCodes(vetocodes)
+    {
+      setName("VetoedFinalState");
+      addProjection(fsp, "FS");
+    }
+    //@}
     
 
   public:
-    /// Return the name of the projection
-    string getName() const {
-      return "VetoedFinalState";
-    }
 
-  protected:
-    
-    /// Apply the projection on the supplied event.
-    void project(const Event& e);
-    
-    /// Compare projections.
-    int compare(const Projection& p) const;
-    
-  public:
-    
     /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
     const VetoDetails& getVetoDetails() const {
       return _vetoCodes;
@@ -123,11 +129,15 @@ namespace Rivet {
       return *this;
     }
     
+
   private:
     
-    /// The projector for the full final state.
-    FinalState _fsproj;
+    /// Apply the projection on the supplied event.
+    void project(const Event& e);
     
+    /// Compare projections.
+    int compare(const Projection& p) const;
+
     /// The final-state particles.
     VetoDetails _vetoCodes;
     
@@ -137,7 +147,6 @@ namespace Rivet {
     
     /// List of decaying particle ids to veto
     vector<long> _parentVetoes;
-    
   };
 
   

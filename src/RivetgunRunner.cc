@@ -45,17 +45,13 @@ namespace Rivet {
       }
       // Seed random number generator
       gen->setSeed(cfg.rngSeed);
-
       log << Log::DEBUG << "Finished setting seed " << endl;
-
-       
-
+      
       // Param passing
       for (ParamMap::const_iterator p = cfg.params.begin(); p != cfg.params.end(); ++p) {
         log << Log::INFO << "Setting param " << p->first << ": " << p->second << endl;
         gen->setParam(p->first, p->second);
       }
-
       log << Log::DEBUG << "Finished setting parameters " << endl;
 
       // Set initial state
@@ -66,28 +62,31 @@ namespace Rivet {
             << cfg.beam2 << " is invalid" << endl;
         throw runtime_error("Invalid beam particle");
       }
-
       log << Log::DEBUG << "Finished setting initial state " << endl;
-
     } 
 
     // Initialise Rivet
     AnalysisHandler rh(cfg.histoName, cfg.histoFormat); 
     if (cfg.runRivet) {
-      for (set<string>::const_iterator ai = cfg.analyses.begin(); ai != cfg.analyses.end(); ++ai) {
-        Analysis* a = AnalysisLoader::getAnalysis(*ai);
+      vector<string> analyses;
+      for (set<string>::const_iterator aname = cfg.analyses.begin(); aname != cfg.analyses.end(); ++aname) {
+        Analysis* a = AnalysisLoader::getAnalysis(*aname);
+        const bool beamMatch = a->isCompatible(cfg.beam1, cfg.beam2);
         log << Log::DEBUG << a->getName() << ": " << a->getBeams() << " "
-            << (a->isCompatible(cfg.beam1, cfg.beam2) ? "MATCH" : "NO-MATCH") << endl;
-        if (a->isCompatible(cfg.beam1, cfg.beam2)) {
-          rh.addAnalysis(*ai);
+            << (beamMatch ? "MATCH" : "NO-MATCH") << endl;
+        if (beamMatch) {
           log << Log::INFO << "Using analysis " << a->getName() << endl;
+          // Once one analysis needs the cross-section, it can't be unset
+          if (!needsCrossSection) needsCrossSection = a->needsCrossSection();
+          analyses.push_back(*aname);
         } else {
           log << Log::WARN << "Removing inappropriate analysis " << a->getName() << endl;
         }
-        
-        if (a->needsCrossSection()) { needsCrossSection = true; }
-        
+        /// @todo Need to delete temporary analyses... just unused ones?
       }
+      /// @todo Decide who should be controlling the proj handler (do it via AnalysisHandler?)
+      ProjectionHandler::create()->clear();
+      rh.addAnalyses(analyses);
       log << Log::DEBUG << "Initialising the Rivet analysis handler" << endl;
       rh.init();
       log << Log::DEBUG << "Rivet analysis handler initialised" << endl;

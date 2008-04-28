@@ -26,17 +26,16 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor. This uses the KT algorithm with r parameter = 0.7 for the jets.
-    ExampleTree()
-      : _fsproj(-4.0, 4.0, 0.0), 
-        _chgleptonsproj(_fsproj), 
-        _jetsproj(_fsproj, FastJets::KT, 0.7), 
-        _wzandhproj(), 
-        _vfsproj(_fsproj),
-        _totvismomproj(_vfsproj)
-    {
-      /// Particle IDs for neutrinos and antineutrinos and LSP
-      _vfsproj
+    /// Constructor. This uses the \f$k_\perp\f$ jet algorithm with \f$r\f$ parameter = 0.7.
+    ExampleTree() {
+      const FinalState& fs = addProjection(*new FinalState(-4.0, 4.0, 0.0), "FS");
+      addProjection(*new ChargedLeptons(fs), "ChLeptons");
+      addProjection(*new FastJets(fs, FastJets::KT, 0.7), "Jets");
+      addProjection(*new WZandh(), "WZh");
+
+      /// Veto neutrinos, antineutrinos and LSP
+      VetoedFinalState& vfs = *new VetoedFinalState(fs);
+      vfs
         .addVetoDetail(12, 10.0, 50.0)
         .addVetoId(14)
         .addVetoId(16)
@@ -44,17 +43,9 @@ namespace Rivet {
         .addVetoId(-14)
         .addVetoId(-16)
         .addVetoId(1000022);
-      _totvismomproj = TotalVisibleMomentum(_vfsproj);
-
-      addProjection(_fsproj);
-      addProjection(_chgleptonsproj);
-      addProjection(_jetsproj);
-      addProjection(_wzandhproj);
-      addProjection(_vfsproj);
-      addProjection(_totvismomproj);
+      addProjection(vfs, "VFS");
+      addProjection(*new TotalVisibleMomentum(vfs), "TotalVisMom");
     }
-
-    ~ExampleTree() { }
 
   public:
 
@@ -94,25 +85,6 @@ namespace Rivet {
     //@}
 
   private:
-
-    /// The FinalState projector used by this analysis.
-    FinalState _fsproj;
-
-    /// The Charged Lepton projector used by this analysis.
-    ChargedLeptons _chgleptonsproj;
-
-    /// The jet projector.
-    FastJets _jetsproj;
-
-    /// The vector boson projector.
-    WZandh _wzandhproj;
-
-    /// The VetoedFinalState projector used by this analysis.
-    VetoedFinalState _vfsproj;
-
-    /// The total visible momentum projector.
-    TotalVisibleMomentum _totvismomproj;
-
 
     #ifdef HAVE_ROOT
     /// The tree

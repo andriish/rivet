@@ -13,37 +13,18 @@ namespace Rivet {
 
   /// Project out the total visible energy vector, allowing missing 
   /// \f$ E_T \f$ etc. to be calculated.
-  class TotalVisibleMomentum: public Projection {
+  class TotalVisibleMomentum : public Projection {
     
   public:
     
-    /// Constructor. The provided FinalState projection must live throughout the run.
-    TotalVisibleMomentum(FinalState& fsp)
+    /// Constructor.
+    TotalVisibleMomentum(const FinalState& fsp)
     { 
-      defaultConstructor(&fsp);
+      setName("TotalVisibleMomentum");
+      addProjection(fsp, "FS");
     }
-    
-    /// Constructor. The provided FinalState projection must live throughout the run.
-    TotalVisibleMomentum(FinalState *fsp)
-    { 
-      defaultConstructor(fsp);
-    }
-
-  private:
-    
-    void defaultConstructor(FinalState *fsp){
-      _fsproj = fsp;
-      addProjection(*_fsproj);
-      return;
-    }
-    
     
   public:
-    /// Return the name of the projection
-    string getName() const {
-      return "TotalVisibleMomentum";
-    }
-
     /// The projected four-momentum vector
     FourMomentum& getMomentum() { return _momentum; }
 
@@ -52,7 +33,6 @@ namespace Rivet {
 
     /// The projected Scalar Transverse Momentum
     const double getSET() const { return _set; }
-
     
   protected:
     
@@ -63,9 +43,6 @@ namespace Rivet {
     int compare(const Projection& p) const;
         
   private:
-    
-    /// Pointer to the FinalState projection used by this projection
-    FinalState *_fsproj;
     
     /// The total visible momentum
     FourMomentum _momentum;

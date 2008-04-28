@@ -19,20 +19,22 @@ namespace Rivet {
     //@{
     /// Default constructor. Must specify a FinalState projection which is
     //  assumed to live throughout the run.
-    KtJets(FinalState& fsp)
+    KtJets(const FinalState& fsp)
       : _pktev(0), _type(4), _angle(2), _recom(1), 
-        _rparameter(1.0),	_fsproj(&fsp) 
+        _rparameter(1.0)
     { 
-      addProjection(fsp);
+      setName("KtJets");
+      addProjection(fsp, "FS");
     }
 
     /// Argument constructor. Allows the to be run with different parameters.
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
-    KtJets(FinalState& fsp, int type, int angle, int recom, double rparameter)
+    KtJets(const FinalState& fsp, int type, int angle, int recom, double rparameter)
       : _pktev(0), _type(type), _angle(angle), _recom(recom),
-        _rparameter(rparameter), _fsproj(&fsp)
+        _rparameter(rparameter)
     { 
-      addProjection(fsp);
+      setName("KtJets");
+      addProjection(fsp, "FS");
     }
     
     /// Destructor.
@@ -41,11 +43,6 @@ namespace Rivet {
     }
     //@}
 
-  public:
-    /// Return the name of the projection
-    string getName() const {
-      return "KtJets";
-    }
     
   protected:   
 
@@ -54,6 +51,7 @@ namespace Rivet {
 
     /// Compare projections.
     int compare(const Projection& p) const;  
+
 
   public:
     

@@ -7,29 +7,25 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Jet.hh"
 
-
 namespace Rivet {
+
   
   /// Abstract base class for projections which can return a set of {@link Jet}s.
   class JetAlg : public Projection {
     
   public:
     
-    /// Destructor.
-    virtual ~JetAlg() { };
-    //@}
+    /// Destructor
+    virtual ~JetAlg() { }
 
-
-    /// Return the name of the projection
-    virtual string getName() const {
-      return "JetAlg";
-    }
-    
     /// Get the jets (unordered).
     virtual Jets getJets() const = 0;
 
     /// Get the jets, ordered by \f$ p_T \f$.
     //virtual Jets getJetsPt() const = 0;
+
+    /// Get the jets, ordered by supplied sorting function object.
+    //virtual Jets getJets(sortingFunction) const = 0;
 
 
   protected:   

@@ -19,19 +19,15 @@ namespace Rivet {
     /// Constructor. The specified FinalState projection is assumed to live
     /// throughout the run and should be used to specify the max and min \f$
     /// \eta \f$ values and the min \f$ p_T \f$ (in GeV).
-    TrackJet(FinalState& fsp, const double Rmax=0.7)
-      : _fsproj(fsp), _Rmax(Rmax)
+    TrackJet(const FinalState& fsp, const double Rmax=0.7)
+      : _Rmax(Rmax)
     { 
-      addProjection(fsp);
+      setName("TrackJet");
+      addProjection(fsp, "FS");
     }
 
     /// Typedef for the tracks (a list so that elements can be consistently removed
     typedef list<FourMomentum> Tracks;
-
-    /// Return the name of the projection
-    string getName() const {
-      return "TrackJet";
-    }
 
     /// Get the computed jets.
     Jets getJets() const {
@@ -45,14 +41,10 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;  
+    int compare(const Projection& p) const; 
 
   private:
     
-    /// The FinalState projection used by this projection.
-    /// @todo Move to new projection infrastructure.
-    FinalState& _fsproj;
-
     /// The computed jets
     Jets _jets;
 

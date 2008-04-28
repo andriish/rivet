@@ -11,7 +11,7 @@ namespace Rivet {
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
-      pcmp(*_fsproj, *(other._fsproj)) || 
+      mkNamedPCmp(other, "FS") || 
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
@@ -20,7 +20,7 @@ namespace Rivet {
 
 
   void FastJets::project(const Event& e) {
-    const FinalState& fs = e.applyProjection(*_fsproj);
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
     // Store 4 vector data about each particle into vecs
     PseudoJets vecs;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
@@ -30,6 +30,22 @@ namespace Rivet {
     }
     fastjet::ClusterSequence cs(vecs, _jdef);
     _cseq = cs;
+  }
+
+
+  Jets FastJets::getJets() const {
+    Jets rtn;
+    const PseudoJets pjets = _cseq.inclusive_jets();
+    for (PseudoJets::const_iterator pj = pjets.begin(); pj != pjets.end(); ++pj) {
+      Jet j;
+      const PseudoJets parts = getClusterSeq().constituents(*pj);
+      for (PseudoJets::const_iterator p = parts.begin(); p != parts.end(); ++p) {
+        const FourMomentum particle(p->E(), p->px(), p->py(), p->pz());
+        j.addParticle(particle);
+      }
+      rtn.push_back(j);
+    }
+    return rtn;
   }
 
 

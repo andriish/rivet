@@ -69,6 +69,18 @@ namespace Rivet {
     /// null pointer is checked and discarded.
     AnalysisHandler& addAnalysis(const string& analysisname);
 
+    /// Add analyses to the run list using their names. The actual {@link
+    /// Analysis}' to be used will be obtained via
+    /// AnalysisHandler::addAnalysis(string), which in turn uses
+    /// AnalysisHandler::getAnalysis(string). If no matching analysis is found
+    /// for a given name, no analysis is added, but also no error is thrown.
+    AnalysisHandler& addAnalyses(const vector<string>& analysisnames) {
+      for (vector<string>::const_iterator aname = analysisnames.begin();
+           aname != analysisnames.end(); ++aname) {
+        addAnalysis(*aname);
+      }
+      return *this;
+    }
 
     /// Add an analysis to the run list by supplying a "template" analysis.
     /// @todo Is there a good reason to not allow "direct" submission?

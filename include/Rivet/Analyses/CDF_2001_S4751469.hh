@@ -8,11 +8,10 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/LossyFinalState.hh"
 
-
 namespace Rivet {
 
-  class CDF_2001_S4751469 : public Analysis {
 
+  class CDF_2001_S4751469 : public Analysis {
   public:
 
     /// @name Constructors etc.
@@ -23,25 +22,25 @@ namespace Rivet {
     /// randomly discards 8% of charged particles, as a kind of hacky detector 
     /// correction.
     CDF_2001_S4751469()
-      : _cfsproj(-1.0, 1.0, 0.5*GeV), _fsproj(_cfsproj, 0.08), _trackjetproj(_fsproj),
-        _totalNumTrans(0)
+      : _totalNumTrans(0)
     { 
       setBeams(PROTON, ANTIPROTON);
-      addProjection(_cfsproj);
-      addProjection(_fsproj);
-      addProjection(_trackjetproj);
+      const ChargedFinalState& cfs = *new ChargedFinalState(-1.0, 1.0, 0.5*GeV);
+      const LossyFinalState& lfs = addProjection(*new LossyFinalState(cfs, 0.08), "FS");
+      addProjection(*new TrackJet(lfs), "TrackJet");
     }
 
     /// Factory method
-    static Analysis* create() { return new CDF_2001_S4751469(); }
-
+    static Analysis* create() {
+      return new CDF_2001_S4751469();
+    }
     //@}
 
   public:
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// Get the SPIRES ID
     string getSpiresId() const {
       return "4751469";
     }
@@ -77,16 +76,6 @@ namespace Rivet {
     //@}
 
   private:
-
-    /// @name Internal projections
-    //@{
-    /// Use only charged tracks
-    ChargedFinalState _cfsproj;
-    /// Lose 8% of charged tracks randomly.
-    LossyFinalState _fsproj;
-    /// The TrackJet projection used by this analysis.
-    TrackJet _trackjetproj;
-    //@}
 
     /// Counter used to calculate the avg number of charged particles in the trans region.
     double _totalNumTrans;

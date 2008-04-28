@@ -5,13 +5,14 @@ namespace Rivet {
 
   void Hemispheres::project(const Event& e) {
     // Get thrust axes.
-    const AxesDefinition& ax = e.applyProjection(*_axproj);
+    const AxesDefinition& ax = applyProjection<AxesDefinition>(e, "Axes");
     const Vector3 n = ax.axis1();
     getLog() << Log::DEBUG << "Thrust axis = " << n << endl;
 
     FourMomentum p4With, p4Against;
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
-    const ParticleVector particles = e.applyProjection(*_fsproj).particles();
+    const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
+    const ParticleVector particles = fs.particles();
     getLog() << Log::DEBUG << "number of particles = " << particles.size() << endl;
     for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
       const FourMomentum p4 = p->getMomentum();

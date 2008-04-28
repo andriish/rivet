@@ -1,12 +1,10 @@
-
 #include "Rivet/Tools/Logging.hh"
 #include <ctime>
 #include <unistd.h>
-
 using namespace std;
 
-
 namespace Rivet {
+
 
   Log::LogMap Log::existingLogs;
   Log::LevelMap Log::defaultLevels;

@@ -19,16 +19,13 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    ExampleAnalysis()
-      : _cmultproj(_cfsproj), _cnmultproj(_fsproj), 
-        _thrustproj(_cfsproj), _sphericityproj(_cfsproj)
-    {
-      addProjection(_fsproj);
-      addProjection(_cfsproj);
-      addProjection(_cmultproj);
-      addProjection(_cnmultproj);
-      addProjection(_thrustproj);
-      addProjection(_thrustproj);
+    ExampleAnalysis() {
+      const FinalState& cnfs = addProjection(*new FinalState(), "FS");
+      const ChargedFinalState& cfs = addProjection(*new ChargedFinalState(), "CFS");
+      addProjection(*new Multiplicity(cfs), "CMult");
+      addProjection(*new Multiplicity(cnfs), "CNMult");
+      addProjection(*new Thrust(cfs), "Thrust");
+      addProjection(*new Sphericity(cfs), "Sphericity");
     }
 
     /// Factory method
@@ -69,23 +66,6 @@ namespace Rivet {
     void analyze(const Event& event);
     void finalize();
     //@}
-
-  private:
-
-    /// The final state projectors.
-    FinalState _fsproj;
-    ChargedFinalState _cfsproj;
-
-    /// The multiplicity projectors (charged and all).
-    Multiplicity _cmultproj;
-    Multiplicity _cnmultproj;
-
-    /// The thrust projector.
-    Thrust _thrustproj;
-
-    /// The sphericity projector.
-    Sphericity _sphericityproj;
-
 
   private:
 

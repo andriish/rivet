@@ -16,15 +16,12 @@ namespace Rivet {
 
   // Do the analysis
   void ZEUS_2001_S4815815::analyze(const Event& event) {
-    Log& log = getLog();
-
-    // Analyse and print some info
-    const FastJets& jets = event.applyProjection(_jetsproj);
+    const FastJets& jets = applyProjection<FastJets>(event, "Jets");
     const size_t nj = jets.getNumJets();
-    log << Log::INFO << "Jet multiplicity = " << nj << endl;
+    getLog() << Log::INFO << "Jet multiplicity = " << nj << endl;
 
     // Fill histograms
-    PseudoJets jetList = jets.getPseudoJets(); // was getJetsEt()
+    PseudoJets jetList = jets.getPseudoJets();
     for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
       _histJetEt1->fill(j->perp(), event.weight() );
     }

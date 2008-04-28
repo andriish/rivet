@@ -14,7 +14,7 @@ namespace Rivet {
     _hEtFlowStat = vector<AIDA::IHistogram1D *>(_nbin);
     _nev = vector<double>(_nbin);
     /// @todo Automate this sort of thing so that the analysis code is more readable.
-    for (int i = 0; i < _nbin; ++i) {
+    for (size_t i = 0; i < _nbin; ++i) {
       string istr(1, char('1' + i));
       _hEtFlow[i] = bookHistogram1D(istr, "dEt/d[c] CMS bin=" + istr, _nb, _xmin, _xmax);
       _hEtFlowStat[i] = bookHistogram1D(istr, "stat dEt/d[c] CMS bin=1" + istr, _nb, _xmin, _xmax);
@@ -26,9 +26,7 @@ namespace Rivet {
   }
   
 
-  int H1_1995_S3167097::getbin(const DISKinematics& dk) {
-    const double GeV2 = GeV*GeV;
-
+  int H1_1995_S3167097::_getbin(const DISKinematics& dk) {
     if ( dk.Q2() > 5.0*GeV2 && dk.Q2() <= 10.0*GeV2 ) {
       if ( dk.x() > 0.0001 && dk.x() <= 0.0002 )
         return 0;
@@ -58,16 +56,15 @@ namespace Rivet {
 
 
   void H1_1995_S3167097::analyze(const Event& event) {
-    const FinalStateHCM& fs = event.applyProjection(_fshcmproj);
-    const DISKinematics& dk = event.applyProjection(_diskinproj);
-    const CentralEtHCM y1 = event.applyProjection(_y1hcmproj);
+    const FinalStateHCM& fs = applyProjection<FinalStateHCM>(event, "FS");
+    const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
+    const CentralEtHCM y1 = applyProjection<CentralEtHCM>(event, "Y1HCM");
 
-    int ibin = getbin(dk);
-    if (ibin < 0) return;
-
+    const int ibin = _getbin(dk);
+    if (ibin < 0) vetoEvent(event);
     const double weight = event.weight();
 
-    for ( int i = 0, N = fs.particles().size(); i < N; ++i ) {
+    for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {
       const double rap = fs.particles()[i].getMomentum().rapidity();
       const double et = fs.particles()[i].getMomentum().Et();
       _hEtFlow[ibin]->fill(rap, weight * et/GeV);
@@ -77,13 +74,13 @@ namespace Rivet {
     _nev[ibin] += weight;
     _hAvEt->fill(ibin + 1.5, weight * y1.sumEt()/GeV);
     _hAvX->fill(ibin + 1.5, weight * dk.x());
-    _hAvQ2->fill(ibin + 1.5, weight * dk.Q2()/(GeV*GeV));
+    _hAvQ2->fill(ibin + 1.5, weight * dk.Q2()/GeV2);
     _hN->fill(ibin + 1.5, weight);
   }
 
 
   void H1_1995_S3167097::finalize() {
-    for ( int ibin = 0; ibin < _nbin; ++ibin ) {
+    for (size_t ibin = 0; ibin < _nbin; ++ibin) {
       _hEtFlow[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
       _hEtFlowStat[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
     }

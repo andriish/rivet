@@ -8,9 +8,9 @@
 
 namespace Rivet {
 
-  int ChargedLeptons::compare(const Projection& p) const {
-    const ChargedLeptons& other = dynamic_cast<const ChargedLeptons &>(p);
-    return pcmp(*_fsproj, *other._fsproj);
+
+  int ChargedLeptons::compare(const Projection& other) const {
+    return mkNamedPCmp(other, "FS");
   }
 
 
@@ -21,7 +21,7 @@ namespace Rivet {
     _theChargedLeptons.clear();
 
     // Project into final state
-    const FinalState& fs = e.applyProjection(*_fsproj);
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Get hadron and charge info for each particle, and fill counters appropriately
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {

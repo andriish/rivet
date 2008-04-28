@@ -11,21 +11,21 @@ namespace Rivet {
 
 
   int SVertex::compare(const Projection& p) const {
-    const SVertex& other = dynamic_cast<const SVertex&>(p);
-    const int fscmp = pcmp(_pvtx, other._pvtx);
-    if (fscmp != 0) return fscmp;
+    const PCmp fscmp = mkNamedPCmp(p, "PV");
+    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    const SVertex& other = pcast<SVertex>(p);
     return \
-      _detEta == other._detEta &&
-      _IPres == other._IPres &&
-      _DLS == other._DLS && 
-      _DLSres == _DLSres;
+      cmp(_detEta, other._detEta) ||
+      cmp(_IPres, other._IPres) ||
+      cmp(_DLS, other._DLS) ||
+      cmp(_DLSres, _DLSres);
   }
 
 
   void SVertex::project(const Event& e) {
-    const PVertex& pvtx = e.applyProjection(_pvtx);
+    const PVertex& pvtx = applyProjection<PVertex>(e, "PV");
     const Vector3 pvpos = pvtx.getPVPosition();
-    const ChargedFinalState& chfs = e.applyProjection(_chfs);
+    const ChargedFinalState& chfs = applyProjection<ChargedFinalState>(e, "FS");
     
     // Produce vector of vertices, each containing a vector of all charged 
     // final state particles belonging to this vertex

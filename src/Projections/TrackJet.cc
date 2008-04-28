@@ -27,8 +27,7 @@ namespace Rivet {
 
 
   int TrackJet::compare(const Projection& p) const {
-    const TrackJet& other = dynamic_cast<const TrackJet&>(p);
-    return pcmp(_fsproj, other._fsproj);
+    return mkNamedPCmp(p, "FS");
   }
 
 
@@ -40,7 +39,7 @@ namespace Rivet {
     // NB to be true to the original, the final state projection should have 
     // specific cuts on eta, pT and require stable charged particles.
     log << Log::DEBUG << "About to apply the final state projection with eta and pt cuts" << endl;
-    const FinalState& fs = e.applyProjection(_fsproj);
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Put each particle into the collection of tracks and sort (decreasing in pT)
     vector<FourMomentum> tracksvector; // Need to use a vector because you can't use std::sort with lists
