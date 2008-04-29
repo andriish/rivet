@@ -138,23 +138,26 @@ def mkHistoFromDPS(dps):
     return myhist
 
 
-import sys
+import sys, os
 from optparse import OptionParser
 parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
+parser.add_option("--smart-output", action="store_true", dest="SMARTOUTPUT", default=False)
 opts, args = parser.parse_args()
 
 if len(args) < 1:
     sys.stderr.write("Must specity at least one AIDA histogram file\n")
     sys.exit(1)
 
-histos = dict()
 for aidafile in args:
+    out = sys.stdout
+    if opts.SMARTOUTPUT:
+        out = open(os.path.basename(aidafile).replace(".aida", ".dat"), "w")
     tree = ET.parse(aidafile)
+    histos = []
     for dps in tree.findall("dataPointSet"):
         dpsname = dps.get("path") + "/" + dps.get("name")
-        ## Make a histogram and add it to the return dictionary
-        histos[dpsname] = mkHistoFromDPS(dps)
-
-## Print out
-out = "\n\n".join([h.asFlat() for h in histos.values()])
-print out
+        histos.append(mkHistoFromDPS(dps))
+    out.write("\n\n".join([h.asFlat() for h in sorted(histos)]))
+    out.write("\n")
+    if opts.SMARTOUTPUT:
+        out.close()
