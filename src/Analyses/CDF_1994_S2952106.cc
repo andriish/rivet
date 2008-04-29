@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/CDF_1994_S2952106.hh"
 
-
 namespace Rivet {
 
 
@@ -70,42 +69,34 @@ namespace Rivet {
     const string hname14 = "Jet3etaCDF";
     const string htitle14 = "Jet3 eta CDF";  
     _histJet3etaCDF = bookHistogram1D(hname14, htitle14, 42, -4., 4.);
-
-    _eventsTried = 0.0;
   }
 
 
 
   // Do the analysis
   void CDF_1994_S2952106::analyze(const Event & event) {
-    Log& log = getLog();
-
-    // Increment counter for the number of events analysed
-    /// @todo Need to use weights, preferably via Rivet internal counter
-    _eventsTried++;
-
     const FastJets& jetpro = applyProjection<FastJets>(event, "ConeJets");
-    log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
+    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
 
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
     if (fabs(pv.getPVPosition().z())/mm < _pvzmax) {
       const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-      log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
+      getLog() << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
       if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) < _metsetmax) {
         PseudoJets jets = jetpro.getPseudoJets();
         PseudoJets::const_iterator jet1stPt = jets.end();
         PseudoJets::const_iterator jet2ndPt = jets.end();
         PseudoJets::const_iterator jet3rdPt = jets.end();
-        log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
+        getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
 
         int Njet = 0;
         int NjetPtCut = 0;
         for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-          log << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() 
+          getLog() << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() 
               << " pz=" << jt->pz() << endl;
           if (jt->perp() > _leadJetPt) ++NjetPtCut;
-          log << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->pseudorapidity() 
+          getLog() << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->pseudorapidity() 
               << " phi=" << jt->phi() << endl; 
           if (jet1stPt == jets.end() || jt->perp() > jet1stPt->perp()) {
             jet3rdPt = jet2ndPt;
@@ -123,14 +114,14 @@ namespace Rivet {
         }
         
         if (NjetPtCut >= 1) {
-          log << Log::DEBUG << "Jet multiplicity after pT > 100GeV cut = " << NjetPtCut << endl; 
+          getLog() << Log::DEBUG << "Jet multiplicity after pT > 100GeV cut = " << NjetPtCut << endl; 
         }
         
         if (Njet>=3 && fabs(jet1stPt->pseudorapidity())<_etamax && fabs(jet2ndPt->pseudorapidity())<_etamax) {
-          log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
+          getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
           
           if (fabs(fabs(jet1stPt->phi()-jet2ndPt->phi())-PI) < _phimin) {
-            log << Log::DEBUG << "1st & 2nd Jet phi requirement fulfilled" << endl;
+            getLog() << Log::DEBUG << "1st & 2nd Jet phi requirement fulfilled" << endl;
             
             
             _histJet1Et->fill(jet1stPt->perp(), event.weight());
@@ -144,7 +135,7 @@ namespace Rivet {
             
             // Next cut only required for alpha studies
             if (jet3rdPt->perp() > _3rdJetPt) {
-              log << Log::DEBUG << "jet3rdPt->pT()=" << jet3rdPt->perp() << " (>10.)" << endl;
+              getLog() << Log::DEBUG << "jet3rdPt->pT()=" << jet3rdPt->perp() << " (>10.)" << endl;
               
               double dPhi = fabs(jet3rdPt->phi() - jet2ndPt->phi());
               dPhi -= int(dPhi/PI); //dPhi % PI (modulo)
@@ -169,8 +160,6 @@ namespace Rivet {
   
   // Finalize
   void CDF_1994_S2952106::finalize() { 
-    Log& log = getLog();
-    
     /*
    /// @todo Apply correction
    double a, b, c, erra, errb, errc;
@@ -189,23 +178,15 @@ namespace Rivet {
    */
         
     // Normalise histograms to integrated publication luminosity of 4.2 pb^-1 
-    const double xsec = crossSection()/picobarn;
-    /// @todo Get events tried from numEvents()
-    /// @todo How do we reconcile this with event weights?
-    double fac = 4.2 * xsec / _eventsTried;
-    fac = 1.0; //temp, until it works
-    log << Log::INFO << "xsec = " << xsec
-        << " _eventsTried = " << _eventsTried 
-        << " scale factor = " << fac << endl;
-    
-    //AIDA::IHistogram2D* _histHvsDphi;
-    //AIDA::IHistogram2D* _histRvsAlpha;
+    const double fac = 4.2 / picobarn * crossSection() / sumOfWeights();
+    getLog() << Log::INFO 
+             << "Cross-section = " << crossSection()/picobarn << " pb"
+             << " -> scale factor = " << fac << endl;
     _histJet1Et->scale(fac);
     _histJet2Et->scale(fac);
     _histR23->scale(fac);
     _histJet3eta->scale(fac);
     _histAlpha->scale(fac);
-    //AIDA::IHistogram1D* _histAlphaMCvsDat;
   }
   
   

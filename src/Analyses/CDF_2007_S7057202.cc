@@ -88,13 +88,13 @@ namespace Rivet {
   // Normalise histograms to cross-section
   void CDF_2007_S7057202::finalize() {
     Log log = getLog();
-    const double xSecPerEvent = crossSection() / sumOfWeights() / nanobarn;
-    log << Log::INFO << "Cross-section = " << crossSection() << "nb" << endl;
+    const double xSecPerEvent = crossSection()/nanobarn / sumOfWeights();
+    log << Log::INFO << "Cross-section = " << crossSection()/nanobarn << " nb" << endl;
 
     for (map<IHistogram1D*,double>::iterator histIt = _eventsPassed.begin(),
            histJt = _yBinWidths.begin(); histIt != _eventsPassed.end(); ++histIt, ++histJt) {
       IHistogram1D* hist = histIt->first;
-      double xSec = xSecPerEvent * histIt->second / histJt->second;
+      const double xSec = xSecPerEvent * histIt->second / histJt->second;
       normalize(hist, xSec);
     }
   }
