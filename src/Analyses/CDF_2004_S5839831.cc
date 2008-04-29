@@ -176,4 +176,10 @@ namespace Rivet {
     normalize(_pt90Dbn1800Et120, 5395.5);
     normalize(_pt90Dbn1800Et160, 7248.75);
     normalize(_pt90Dbn1800Et200, 2442.0);
+    // and for min bias distributions:
+    normalize(_numTracksDbn1800, 309718.25);
+    normalize(_ptDbn1800, 33600.0);
   }
+
+
+}
