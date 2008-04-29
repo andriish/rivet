@@ -28,6 +28,8 @@ namespace Rivet {
       fastjet::PseudoJet psj(fv.px(),fv.py(),fv.pz(),fv.e());
       vecs.push_back(psj);
     }
+    getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
+    /// @todo Make safe when @c vecs is empty
     fastjet::ClusterSequence cs(vecs, _jdef);
     _cseq = cs;
   }

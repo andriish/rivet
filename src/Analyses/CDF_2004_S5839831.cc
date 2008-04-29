@@ -61,7 +61,8 @@ namespace Rivet {
     const Jet leadingjet = jets.front();
     const double etaLead = leadingjet.vector().pseudorapidity();
     if (fabs(etaLead) > 0.5) vetoEvent(event);
-    
+    getLog() << Log::DEBUG << "Leading jet in central eta bin. Num tracks = " << tracks.size() << endl; 
+
     // Get Et of the leading jet: used to bin histograms.
     const double ETlead = leadingjet.getEtSum();
 

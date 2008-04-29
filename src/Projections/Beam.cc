@@ -24,13 +24,15 @@ namespace Rivet {
     const double mom1 = getBeams().first.getMomentum().pz();
     const double mom2 = getBeams().second.getMomentum().pz();
     assert(sign(mom1) != sign(mom2));
-    if (fabs(mom1) == fabs(mom2)) {
-      return fabs(mom1) + fabs(mom2);
+    double sqrts = 0.0;
+    if (fuzzyEquals(fabs(mom1), fabs(mom2))) {
+      sqrts = fabs(mom1) + fabs(mom2);
     } else {
       /// @todo Implement general sqrt(s) for asymmetric beams.
       throw runtime_error("Asymmetric beams... calculation of sqrt(S) not yet implemented");
-      return 0;
     }
+    getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
+    return sqrts;
   }
 
 

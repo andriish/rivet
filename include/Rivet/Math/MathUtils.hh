@@ -27,7 +27,7 @@ static const double MAXINT = std::numeric_limits<int>::max();
 
   /// Compare a floating point number to zero with a degree 
   /// of fuzziness expressed by the absolute @a tolerance parameter.
-  inline bool isZero(double val, double tolerance=1E-10) {
+  inline bool isZero(double val, double tolerance=1E-8) {
     return (fabs(val) < tolerance);
   }
 
@@ -35,7 +35,7 @@ static const double MAXINT = std::numeric_limits<int>::max();
   /// risk of floating point error, this function just exists in
   /// case @c isZero is accidentally used on an integer type, to avoid 
   /// implicit type conversion. The @a tolerance parameter is ignored.
-  inline bool isZero(long val, double tolerance=1E-10) {
+  inline bool isZero(long val, double tolerance=1E-8) {
     return val == 0;
   }
 
@@ -55,10 +55,15 @@ static const double MAXINT = std::numeric_limits<int>::max();
 
   /// Compare two floating point numbers with a degree of fuzziness 
   /// expressed by the fractional @a tolerance parameter.
-  inline bool fuzzyEquals(double a, double b, double tolerance=1E-10) {
+  inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
     const double absavg = fabs(a + b)/2.0;
     const double absdiff = fabs(a - b);
-    return (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
+    const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
+    // if (absavg > 1700 && absavg < 1900) {
+    //   std::cerr << "*******" << absdiff << ", " << absavg << " -> " << absdiff/absavg << std::endl;
+    //   std::cerr << "*******" << a << " == " << b << "? -> " << std::boolalpha << rtn << std::endl;
+    // }
+    return rtn;
   }
 
   /// Compare two integral-type numbers with a degree of fuzziness.
@@ -67,7 +72,7 @@ static const double MAXINT = std::numeric_limits<int>::max();
   /// used on an integer type, to avoid implicit type conversion. The @a 
   /// tolerance parameter is ignored, even if it would have an
   /// absolute magnitude greater than 1.
-  inline bool fuzzyEquals(long a, long b, double tolerance=1E-10) {
+  inline bool fuzzyEquals(long a, long b, double tolerance=1E-5) {
     return a == b;
   }
 

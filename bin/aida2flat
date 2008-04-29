@@ -30,7 +30,7 @@ class Histo:
         return os.path.join(self.path, self.name)
 
     def asFlat(self):
-        out = "## Histogram '%s'\n" % self.fullPath()
+        out = "### %s\n" % self.fullPath()
         out += "## Title: %s\n" % self.title
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
@@ -159,7 +159,7 @@ def mkHistoFromDPS(dps):
             elif d == 1:
                 bin.yval = val
                 bin.yerrplus = up
-                bin.yerrplus = down
+                bin.yerrminus = down
         myhist.addBin(bin)
     return myhist
 
