@@ -6,6 +6,9 @@
 \usepackage{picinpar,fancybox}
 %\usepackage{xcolor}
 %\usepackage{palatino,mathpazo}
+%\usepackage{utopia}
+%\usepackage{euler}
+
 
 \DeclareRobustCommand{\TODO}[1]{\ensuremath{\bigstar}{#1}\xspace}
 %\DeclareRobustCommand{\TODO}[1]{\textcolor{red!20!black}{\ensuremath{\bigstar}{#1}}\xspace}
@@ -62,6 +65,9 @@
 % % \ifnum\prevgraf<2\rule{1pt}{1.2cm}\fi%
 % \end{window}\ignorespacesafterend}
 
+%% Make narrower and box (box must be able to break over pages)
+\newenvironment{philosophy}{\vspace{5mm}\hrule\vspace{3mm}\begingroup\it\begin{window}[0,l,{\bendimg},{}]}{%
+  \end{window}\endgroup\vspace{3mm}\hrule\vspace{5mm}\ignorespacesafterend}
 \newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
 
@@ -350,7 +356,7 @@ like event shapes (i.e. scalar, vector or tensor quantities), or arbitrarily
 complex things like lossy or selective views of the event final
 state.\footnote{The ability for projections to return arbitrarily complex objects
   constructed from the event record is why we chose a slightly vague term like
-  ``projection'' rather than ``observable'', which many people take to be
+  ``projection'' rather than ``observable'', which many people interpret as
   ``something I can plot.''}
 
 \subsection{Projection caching}
@@ -375,16 +381,13 @@ So far, projections have offered no benefits! However, when the second analysis
 runs, it will similarly apply its final state and thrust projections to the
 event, but the infrastructure will detect that an equivalent calculation has
 already been done and will return references to the already-run
-projections. Since projections can actually contain each other (``nesting''),
-this model allows some substantial computational savings, without the analysis
-author even needing to be particularly aware of what is going on.
-
-\begin{change}
-  The projection model is very likely to change in Rivet version 2.0, to protect
-  analysis authors further from the issues of managing projection object
-  lifecycles. This will take the form of centralising projection object
-  ownership, but won't affect the overall principle of projection caching.
-\end{change}
+projections. Since projections can also contain and use other
+projections\footnote{Although chains of projections had better not form a
+  dependency loop! Strictly, what is allowed is an acyclic graph of projection
+  chains, but there is currently no code in Rivet that will attempt to verify
+  this restriction.} each other (``nesting''), this model allows some substantial
+computational savings, without the analysis author even needing to be
+particularly aware of what is going on.
 
 Observant readers may have noticed a problem with all this projection caching
 cleverness: what if the final states aren't defined the same way? One might
@@ -396,17 +399,77 @@ with different settings. Because projections can be nested, applying a top-level
 projection to an event can spark off a cascade of comparisons, calculations and
 cache accesses, making use of existing results wherever possible.
 
+\subsection{Using projection caching}
+So far this is all theory --- how does one actually use projections in Rivet?
+First, you should understand that projections, while semantically stored within
+each other, are actually all registered with a central \code{ProjectionHandler}
+object.\footnote{As of version 1.1 onwards --- previously, they were stored as
+  class members inside other \code{Projection}s and \code{Analysis} classes.}
+The reason for this central registration is to ensure that all projections'
+lifespans are managed in a consistent way, and to protect projection and
+analysis authors from some technical subtleties in how C++ polymorphism works.
 
-% \begin{detail}
-% How projection caching \emph{really} works
-% (skippable, but useful as a reference)
-% This section is super-hardcore
-% \end{detail}
+Inside the constructor of a \code{Projection} or \code{Analysis} class, you must
+call the \code{addProjection} function. This takes two arguments, the projection
+to be registered (by \code{const} reference), and a name. The name is local to
+the parent class, so you need not worry about name clashes. A very important
+point is that the passed \code{Projection} must have a lifetime that extends
+beyond the scope of the constructor in which \code{addProjection} is called: the
+projection handler may delete projections, but it cannot construct
+them.\footnote{We wish it could\dots} typically, this mean that it will be
+\code{new}ed as it is passed, e.g. \code{addProjection(*new MyProjection(\dots),
+  "MyName");}.
+
+\begin{philosophy}
+  At this point, if you have bought into C++y ideas like super-strong
+  type-safety, this proliferation of dynamic casting may worry you: the compiler
+  can't possibly check if a projection of the requested name has been
+  registered, nor whether the downcast to the requested concrete type is
+  legal. These are very legitimate thoughts!
+
+  In truth, we'd like to have this level of extra safety, but in the past when
+  projections were held as members of \code{ProjectionApplier} classes rather
+  than in the central \code{ProjectionHandler} repository, the benefits of the
+  strong typing were outweighed by more serious and subtle bugs relating to
+  projection lifetime and class slicing. At least when this goes wrong it will
+  throw an unmissable \emph{runtime} error every time that you run it (until
+  it's fixed, of course!) rather than silently do the wrong thing.
+
+  We take some solace in the fact that very good programs have been and are
+  still written in dynamically typed, interpreted languages like Python, where
+  virtually all error checking (barring first-scan parsing errors) must be done
+  at runtime. By pushing \emph{some} checking to the domain of runtime errors,
+  Rivet's code is (we believe) in practice safer, and certainly more clear and
+  elegant. However, we believe that with runtime checking should come a culture
+  of unit testing.
+
+  As a final thought, one reasin for Rivet's internal complexity is that C++ is
+  just not a very good language for this sort of thing: we are operating on the
+  boundary between event generator codes, number crunching routines (including
+  third party libraries like FastJet) and user routines. The former set
+  unavoidably require native interfaces and benefit from static typing; the
+  latter benefit from interface flexibility, fast prototyping and syntactic
+  clarity. Maybe a future version of Rivet will break through the technical
+  barriers to a hybrid approach and allow users to run compiled projections from
+  interpreted analysis code: I certainly hope so! For now, though, you will have
+  to be content with ``slightly less safe C++''!
+\end{philosophy}
+
+
+\begin{detail}
+\TODO{How projection caching \emph{really} works}
+(skippable, but useful as a reference)
+This section is super-hardcore
+\end{detail}
 
 \subsection{Standard projection summary}
-\subsection{Example projection}
-\subsection{Cuts and constraints}
+\TODO{foo}
 
+\subsection{Example projection}
+\TODO{bar}
+
+\subsection{Cuts and constraints}
+\TODO{baz}
 
 \section{Analyses}
 
