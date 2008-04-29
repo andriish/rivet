@@ -22,19 +22,53 @@ static const double MAXINT = std::numeric_limits<int>::max();
   /// A pre-defined value of \f$ \pi/2 \f$.
   const double HALFPI = PI/2.0;
 
-  /// Compare a number to zero with a degree of fuzziness expressed by the
-  /// absolute @a tolerance parameter.
-  template <typename Real>
-  inline bool isZero(const Real a, const Real tolerance=1E-10) {
-    return (fabs(a) < tolerance);
+  /// Enum for signs of numbers.
+  enum Sign { MINUS = -1, ZERO = 0, PLUS = 1 };
+
+  /// Compare a floating point number to zero with a degree 
+  /// of fuzziness expressed by the absolute @a tolerance parameter.
+  inline bool isZero(double val, double tolerance=1E-10) {
+    return (fabs(val) < tolerance);
   }
 
-  /// Compare two numbers with a degree of fuzziness expressed by the fractional
-  /// @a tolerance parameter.
+  /// Compare an integral-type number to zero. Since there is no
+  /// risk of floating point error, this function just exists in
+  /// case @c isZero is accidentally used on an integer type, to avoid 
+  /// implicit type conversion. The @a tolerance parameter is ignored.
+  inline bool isZero(long val, double tolerance=1E-10) {
+    return val == 0;
+  }
+
+  /// Compare a number to zero with a degree of fuzziness expressed by the
+  /// absolute @a tolerance parameter.
+  inline int sign(double val) {
+    if (isZero(val)) return ZERO;
+    return (val > 0) ? PLUS : MINUS;
+  }
+
+  /// Compare a number to zero with a degree of fuzziness expressed by the
+  /// absolute @a tolerance parameter.
+  inline int sign(long val) {
+    if (val == 0) return ZERO;
+    return (val > 0) ? PLUS : MINUS;
+  }
+
+  /// Compare two floating point numbers with a degree of fuzziness 
+  /// expressed by the fractional @a tolerance parameter.
   inline bool fuzzyEquals(double a, double b, double tolerance=1E-10) {
     const double absavg = fabs(a + b)/2.0;
     const double absdiff = fabs(a - b);
     return (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
+  }
+
+  /// Compare two integral-type numbers with a degree of fuzziness.
+  /// Since there is no risk of floating point error with integral types, 
+  /// this function just exists in case @c fuzzyEquals is accidentally 
+  /// used on an integer type, to avoid implicit type conversion. The @a 
+  /// tolerance parameter is ignored, even if it would have an
+  /// absolute magnitude greater than 1.
+  inline bool fuzzyEquals(long a, long b, double tolerance=1E-10) {
+    return a == b;
   }
 
   /// Represents whether an interval is open (non-inclusive) or closed

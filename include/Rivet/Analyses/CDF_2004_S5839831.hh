@@ -4,6 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
@@ -19,10 +20,11 @@ namespace Rivet {
 
     /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2004_S5839831() 
+    CDF_2004_S5839831()
       : _totalNumTrans(0)
     {
       setBeams(PROTON, ANTIPROTON);
+      addProjection(*new Beam(), "Beam");
       const FinalState& fs = addProjection(*new ChargedFinalState(-1.0, 1.0, 0.4*GeV), "FS");
       addProjection(*new FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
       
@@ -77,6 +79,8 @@ namespace Rivet {
 
   private:
 
+    /// @todo Check profile error defn... different from Rick's?
+
     /// @name Histogram collections
     //@{
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
@@ -122,6 +126,7 @@ namespace Rivet {
   private:
 
     /// Store the sum of weighted particle multiplicities in the transverse region.
+    /// @todo Are we actually using this?
     double _totalNumTrans;
 
     /// Hide the assignment operator.

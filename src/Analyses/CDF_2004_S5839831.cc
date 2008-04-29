@@ -42,6 +42,7 @@ namespace Rivet {
 
   // Do the analysis
   void CDF_2004_S5839831::analyze(const Event& event) {
+    const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
     if (tracks.empty()) vetoEvent(event);
     /// @todo Make FastJets handle "no particles" events nicely
@@ -58,6 +59,7 @@ namespace Rivet {
     // NB. Charged track reconstruction efficiency has already been corrected.
 
     // Leading jet must be in central |eta| < 0.5 region.
+    /// @todo Sure it isn't |eta| < 1.0?
     const Jet leadingjet = jets.front();
     const double etaLead = leadingjet.vector().pseudorapidity();
     if (fabs(etaLead) > 0.5) vetoEvent(event);
@@ -70,62 +72,105 @@ namespace Rivet {
     const double phiTransPlus = mapAngleMPiToPi(phiLead + PI/2.0);
     const double phiTransMinus = mapAngleMPiToPi(phiLead - PI/2.0);
 
-    // Get the event weight.
+    // Get the event weight
     const double weight = event.weight();
 
-    // Run over all charged tracks
-    double ptMax(0), ptMin(0);
+    // Fill total track multiplicity histo
+    if (fuzzyEquals(sqrtS/GeV, 1800)) {
+      _numTracksDbn1800->fill(tracks.size(), weight);
+    }
 
+    // Run over all charged tracks
+    double numPlus(0), numMinus(0);
+    double ptPlus(0), ptMinus(0);
+    double ptSumSub2(0), ptSumSub3(0);
     for (ParticleVector::const_iterator t = tracks.begin(); t != tracks.end(); ++t) {
-      double ptPlus(0), ptMinus(0);
       FourMomentum trackMom = t->getMomentum();
       const double pt = trackMom.pT();
 
-      // Plot total pT distribution for min bias
-      _ptDbn1800->fill(pt, weight);
+      // Plot total pT distribution for min bias at sqrt(s) = 1800 GeV
+      if (fuzzyEquals(sqrtS/GeV, 1800)) {
+        _ptDbn1800->fill(pt, weight);
+      }
 
       // Find if track mom is in either transverse cone
       if (deltaR(trackMom, etaLead, phiTransPlus) < 0.7) {
-        ptPlus = pt;
+        ptPlus += pt;
+        numPlus += 1;
       } else if (deltaR(trackMom, etaLead, phiTransMinus) < 0.7) {
-        ptMinus = pt;
+        ptMinus += pt;
+        numMinus += 1;
       }
 
-      // Assign pT_{min,max} from pT_{plus,minus}
-      ptMin = min(ptPlus, ptMinus);
-      ptMax = max(ptPlus, ptMinus);
-
-      // Increment total num particles in transverse regions
-      if (ptMin || ptMax) {
-        _totalNumTrans += weight;
+      // Construct "Swiss Cheese" pT distributions, with pT contributions from
+      // tracks within R = 0.7 of the 1st, 2nd (and 3rd) jets being ignored.
+      if (ETlead/GeV > 5.0 &&
+          jets.size() > 1 && 
+          mod(jets[1].vector())/GeV > 5.0) {
+        const double eta2 = jets[1].vector().pseudorapidity();
+        const double phi2 = jets[1].vector().azimuthalAngle();
+        if (deltaR(trackMom, etaLead, phiLead) > 0.7 &&
+            deltaR(trackMom, eta2, phi2) > 0.7) {
+          ptSumSub2 += pt;
+          if (jets.size() > 2 &&
+              mod(jets[2].vector())/GeV > 5.0) {
+            const double eta3 = jets[2].vector().pseudorapidity();
+            const double phi3 = jets[2].vector().azimuthalAngle();
+            if (deltaR(trackMom, eta3, phi3) > 0.7) {
+              ptSumSub3 += pt;
+            }
+          }
+        }
       }
     }
-    // Fill track multiplicity histo
-    _numTracksDbn1800->fill(tracks.size(), weight);
+    // Assign pT_{min,max} from pT_{plus,minus}
+    const double ptMin = min(ptPlus, ptMinus);
+    const double ptMax = max(ptPlus, ptMinus);
+    const double ptDiff = fabs(ptMax - ptMin);
 
-    // AIDA::IProfile1D *_pt90Max1800,  *_pt90Min1800,  *_pt90Diff1800;
-    // AIDA::IProfile1D *_pt90Max630,   *_pt90Min630,   *_pt90Diff630;
-    // AIDA::IProfile1D *_num90Max1800,  *_num90Min1800;
-    // AIDA::IProfile1D *_pTSum1800_2Jet, *_pTSum1800_3Jet;
-    // AIDA::IProfile1D *_pTSum630_2Jet, *_pTSum630_3Jet;
+    /// @todo Filling histos from different kinematic cut regions.
 
-    const double ptTransTotal = ptMax + ptMin;
-    if (inRange(ETlead/GeV, 40, 80)) {
-      _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
-    } else if (inRange(ETlead/GeV, 80, 120)) {
-      _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
-    } else if (inRange(ETlead/GeV, 120, 160)) {
-      _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
-    } else if (inRange(ETlead/GeV, 160, 200)) {
-      _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
-    } else if (inRange(ETlead/GeV, 200, 270)) {
-      _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
+    // Multiplicity, pT and Swiss Cheese distributions for 
+    // sqrt(s) = 630 GeV, 1800 GeV
+    if (fuzzyEquals(sqrtS/GeV, 630)) {
+      _pt90Max630->fill(ETlead/GeV, ptMax/GeV, weight);
+      _pt90Min630->fill(ETlead/GeV, ptMin/GeV, weight);
+      /// @todo Reinstate when HepData contains data for this histo
+      //_pt90Diff630->fill(ETlead/GeV, ptDiff/GeV, weight);
+      // Swiss Cheese sub 2,3 jets
+      _pTSum630_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
+      _pTSum630_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
+    } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
+      const unsigned int numMax = (ptPlus >= ptMinus) ? numPlus : numMinus;
+      const unsigned int numMin = (ptPlus >= ptMinus) ? numMinus : numPlus;
+      _num90Max1800->fill(ETlead/GeV, numMax, weight);
+      _num90Min1800->fill(ETlead/GeV, numMin, weight);
+      _pt90Max1800->fill(ETlead/GeV, ptMax/GeV, weight);
+      _pt90Min1800->fill(ETlead/GeV, ptMin/GeV, weight);
+      _pt90Diff1800->fill(ETlead/GeV, ptDiff/GeV, weight);
+      // Swiss Cheese sub 2,3 jet: *_pTSum1800_2Jet, *_pTSum1800_3Jet;
+      _pTSum1800_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
+      _pTSum1800_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
+      // pT distributions
+      const double ptTransTotal = ptMax + ptMin;
+      if (inRange(ETlead/GeV, 40, 80)) {
+        _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 80, 120)) {
+        _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 120, 160)) {
+        _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 160, 200)) {
+        _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 200, 270)) {
+        _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
+      }
     }
-
+      
   }
 
-
+  
   void CDF_2004_S5839831::finalize() { 
+    /// @todo Normalize to actual number of entries in data histo... get from HepData histos
     // const double avgNumTrans = _totalNumTrans / sumOfWeights();
     // normalize(_ptTrans2, avgNumTrans);
     // normalize(_ptTrans5, avgNumTrans);
@@ -133,4 +178,4 @@ namespace Rivet {
   }
 
 
-}
+  }

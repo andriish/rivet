@@ -19,10 +19,19 @@ namespace Rivet {
       setName("Beam");
     }
 
-    /// The pair of beam particles in the current collision in GenEvent 
+    /// The pair of beam particles in the current collision.
     const ParticlePair& getBeams() const {
       return _theBeams;
     }
+
+    /// The pair of beam particle PDG codes in the current collision.
+    const pair<long,long> getBeamIDs() const {
+      return make_pair(getBeams().first.getPdgId(), 
+                       getBeams().second.getPdgId());
+    }
+
+    /// Get centre of mass energy, \f$ \sqrt{s} \f$.
+    const double getSqrtS() const;
 
   protected:
     /// Project on to the Event
