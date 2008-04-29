@@ -5,29 +5,28 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Multiplicity.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {
 
-  /// This analysis just measures the charged multiplicity.
-  class ALEPH_1991_S2435284 : public Analysis {
 
+  /// Measurement of ALEPH LEP1 charged multiplicity.
+  /// @author Andy Buckley
+  class ALEPH_1991_S2435284 : public Analysis {
   public:
 
-    /// Default constructor.
+    /// Constructor.
     ALEPH_1991_S2435284() { 
       setBeams(ELECTRON, POSITRON); 
       const ChargedFinalState& fs = addProjection(*new ChargedFinalState(), "FS");
       addProjection(*new Multiplicity(fs), "Mult");
     }
 
+    /// Factory method.
+    static Analysis* create() { 
+      return new ALEPH_1991_S2435284(); 
+    }
+
   public:
-
-
-    /// Factory method
-    static Analysis* create() { return new ALEPH_1991_S2435284(); }
-
 
     /// @name Publication metadata
     //@{

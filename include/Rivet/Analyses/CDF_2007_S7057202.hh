@@ -9,8 +9,9 @@
 namespace Rivet {
 
 
+  /// CDF Run II inclusive jet cross-section using the kT algorithm.
+  /// @author James Monk
   class CDF_2007_S7057202 : public Analysis {
-
   public:
 
     /// Constructor
@@ -18,6 +19,7 @@ namespace Rivet {
       : _minY(0.1), _maxY(0.7), _jetMinPT(54.0*GeV)
    {
       setBeams(PROTON, ANTIPROTON);
+      //setSqrtS(1960*GeV);
       /// @todo Understand why this doesn't work...
       //const FinalState& fs = *new FinalState();
       addProjection(*new FastJets(*new FinalState(), FastJets::KT, 0.5), "JetsD05");
@@ -40,7 +42,7 @@ namespace Rivet {
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "TODO";
+      return "CDF Run II inclusive jet cross-section using the kT algorithm";
     }
     /// Experiment which performed and published this analysis.
     string getExpt() const {

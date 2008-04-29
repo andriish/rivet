@@ -6,7 +6,6 @@
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {  
 

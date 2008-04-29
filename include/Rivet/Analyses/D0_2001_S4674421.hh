@@ -6,21 +6,20 @@
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/WZandh.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {  
 
 
-  /// Implementation of D0 Run I, differential W/Z boson cross 
-  /// section analysis, publication hep-ex/0107012 
-  /// _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
-  /// _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
-  /// _brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
+  /// Implementation of D0 Run I, differential W/Z boson cross-section analysis.
+  /// @author Lars Sonnenschein
   class D0_2001_S4674421 : public Analysis {
 
   public:
 
     /// Constructor.
+    ///  - @c _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
+    ///  - @c _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
+    ///  - @c _brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
     D0_2001_S4674421()
       : _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632)
     { 

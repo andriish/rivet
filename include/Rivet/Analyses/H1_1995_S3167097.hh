@@ -11,11 +11,11 @@
 namespace Rivet {
 
   /// This analysis measures energy flow in DIS?
+  /// @author Leif Lonnblad
   class H1_1995_S3167097 : public Analysis {
-
   public:
 
-    /// The default constructor.
+    /// Constructor.
     H1_1995_S3167097() { 
       setBeams(ELECTRON, PROTON);
       const DISLepton& lepton = addProjection(*new DISLepton(ELECTRON, POSITRON), "Lepton");

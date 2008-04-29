@@ -18,6 +18,7 @@ namespace Rivet {
 
 
   /// Implementation of DELPHI event shape paper.
+  /// @author Andy Buckley
   class DELPHI_1996_S3430090 : public Analysis {
 
   public:

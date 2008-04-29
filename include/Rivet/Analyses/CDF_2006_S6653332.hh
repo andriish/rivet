@@ -12,8 +12,6 @@
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/SVertex.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {
 
@@ -22,33 +20,34 @@ namespace Rivet {
   /// of jets in Z + (b) jet production, before and after tagging.
   ///
   /// Analysis cut values:
-  ///  - _pvzmax: cut on primary vertex \f$ z \f$ position (\f$ z(\text{PV}) < 60 \text{cm} \f$);
-  ///  - _met: cut on missing transverse energy (\f$ MET < 25 \text{GeV} \f$)
-  ///  - _set: cut on scalar sum of transverse energy (\f$ SET < 150 \text{GeV} \f$)
-  ///  - _lepPtmin: cut on leptons minimum transverse momentum (\f$ pT(\text{lep.}) > 10 \text{GeV} \f$)
-  ///  - _eletamax: cut on max. pseudorapidity of electrons/calorimeter (\f$ |eta(el.)| < 3.6 \f$) 
-  ///  - _muetamax: cut on max. pseudorapidity of muons/muon chambers (\f$ |eta(el.)| < 1.5 \f$) 
-  ///  - _mllmin: cut on min invariant dilepton mass (\f$ m(ll) > 66 \text{GeV} \f$)
-  ///  - _mllmax: cut on max invariant dilepton mass (\f$ m(ll) <116 \text{GeV} \f$)
-  ///  - _triglepPtmin: cut on trigger lepton min. transverse momentum (\f$ pT > 18 \text{GeV} \f$)
-  ///  - _triglepetamax: cut on trigger lepton max pseudorapidity (\f$ |eta| < 1.1 \f$)
-  ///  - _Rlepisol: cut on lepton isolation radius (\f$ R < 0.4 \f$)
+  ///  - _pvzmax: cut on primary vertex \f$ z \f$ position ( \f$ z(\text{PV}) < 60 \text{cm} \f$ );
+  ///  - _met: cut on missing transverse energy ( \f$ MET < 25 \text{GeV} \f$ )
+  ///  - _set: cut on scalar sum of transverse energy ( \f$ SET < 150 \text{GeV} \f$ )
+  ///  - _lepPtmin: cut on leptons minimum transverse momentum ( \f$ pT(\text{lep.}) > 10 \text{GeV} \f$ )
+  ///  - _eletamax: cut on max. pseudorapidity of electrons/calorimeter ( \f$ |eta(el.)| < 3.6 \f$ ) 
+  ///  - _muetamax: cut on max. pseudorapidity of muons/muon chambers ( \f$ |eta(el.)| < 1.5 \f$ ) 
+  ///  - _mllmin: cut on min invariant dilepton mass ( \f$ m(ll) > 66 \text{GeV} \f$ )
+  ///  - _mllmax: cut on max invariant dilepton mass ( \f$ m(ll) <116 \text{GeV} \f$ )
+  ///  - _triglepPtmin: cut on trigger lepton min. transverse momentum ( \f$ pT > 18 \text{GeV} \f$ )
+  ///  - _triglepetamax: cut on trigger lepton max pseudorapidity ( \f$ |eta| < 1.1 \f$ )
+  ///  - _Rlepisol: cut on lepton isolation radius ( \f$ R < 0.4 \f$ )
   ///  - hadronic calorimeter fraction of charged hadrons, needed for cuts on hadr. + el. mag. fractions
-  ///  - hadronic/el.magn. calo. fraction cut const (fhfemconst = 0.055)
-  ///  - hadronic/el.magn. calo. fraction cut slope (fhfemslope = 0.00045)
-  ///  - muon Energy cut case separation (muEsep = 100 \text{GeV})
-  ///  - muon min. E hadr.isol. threshold (muEhMin = 6 \text{GeV})
-  ///  - muon min. E el.mag. isol. threshold (muEemMin = 2 \text{GeV})
-  ///  - muon had. Energy isol. cut slope (muEhslope = 0.0280)
-  ///  - muon el.mag. Energy isol. cut slope (muEemslope = 0.0115 \f$)
-  ///  - jets transverse momentum cut (\f$ p_\text{T,jet} > 20 \text{GeV} \f$)
-  ///  - jets pseudorapidity cut (\f$ \eta_\text{jet} < 1.5 \f$)
-  ///  - _vtxjetRmax: Max. distance in \f$ (\eta, \phi) \f$ space between vertex vis. momentum and jet to be probed (\f$ R_\text{vtx-jet} < 0.7 \f$) 
-  ///  - _trketamax: Tracker geometrical acceptance (\f$ \eta < 2.0 \f$)
-  ///  - _ipres: Impact Parameter resolution (\f$ \Delta{\text{IP}} = 34e-3 \text{mm} \f$), including beam spot
-  ///  - _dlsmin: cut on Decay Length Significance (\f$ l/\Delta{l} > 7.5 \f$)
-  ///  - _dlsres: Decay Length Significance resolution (assumed to be (\f$ \Delta{l} = 34e-3 \text{mm} \f$))
-
+  ///  - hadronic/el.magn. calo. fraction cut const ( \f$ fhfemconst = 0.055 \f$ )
+  ///  - hadronic/el.magn. calo. fraction cut slope ( \f$ fhfemslope = 0.00045 \f$ )
+  ///  - muon Energy cut case separation ( \f$ muEsep = 100 \text{GeV} \f$ )
+  ///  - muon min. E hadr.isol. threshold ( \f$ muEhMin = 6 \text{GeV} \f$ )
+  ///  - muon min. E el.mag. isol. threshold ( \f$ muEemMin = 2 \text{GeV} \f$ )
+  ///  - muon had. Energy isol. cut slope ( \f$ muEhslope = 0.0280 \f$ )
+  ///  - muon el.mag. Energy isol. cut slope ( \f$ muEemslope = 0.0115 \f$ )
+  ///  - jets transverse momentum cut ( \f$ p_\text{T,jet} > 20 \text{GeV} \f$ )
+  ///  - jets pseudorapidity cut ( \f$ \eta_\text{jet} < 1.5 \f$ )
+  ///  - _vtxjetRmax: Max. distance in \f$ (\eta, \phi) \f$ space between vertex vis. momentum and jet to be probed ( \f$ R_\text{vtx-jet} < 0.7 \f$ )  
+  ///  - _trketamax: Tracker geometrical acceptance ( \f$ \eta < 2.0 \f$ )
+  ///  - _ipres: Impact Parameter resolution ( \f$ \Delta{\text{IP}} = 34e-3 \text{mm} \f$ ), including beam spot
+  ///  - _dlsmin: cut on Decay Length Significance ( \f$ l/\Delta{l} > 7.5 \f$ )
+  ///  - _dlsres: Decay Length Significance resolution (assumed to be ( \f$ \Delta{l} = 34e-3 \text{mm} \f$ ))
+  ///
+  /// @author Lars Sonnenschein
   class CDF_2006_S6653332 : public Analysis {
 
   public:

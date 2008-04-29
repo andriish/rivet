@@ -13,18 +13,18 @@ namespace Rivet {
 
   /// Analysis based on the CDF Run I color coherence analysis described in
   /// PRD50,9,5562 (1994). Events with >= 3 jets are selected and \f$ E_T \f$
-  /// distributions of the leading three \f$ p_T \f$ jets are obtained.  \f$
-  /// \Delta{R} \f$ between 2nd and 3rd leading jets in \f$ p_T \f$ and
-  /// pseudorapidity of the 3rd leading jet are plotted. \f$ \alpha =
-  /// \d{\eta}/\d{\phi} \f$ is plotted, where \f$ \d{\eta} \f$ is the
-  /// pseudorapidity difference between the 2nd and 3rd leading jet and dPhi the
-  /// azimuthal angle difference of these.  Since the data has not been
+  /// distributions of the leading three \f$ p_T \f$ jets are obtained.  
+  /// \f$ \Delta{R} \f$ between 2nd and 3rd leading jets in \f$ p_T \f$ and
+  /// pseudorapidity of the 3rd leading jet are plotted. 
+  /// \f$ \alpha = \d{\eta}/\d{\phi} \f$ is plotted, where \f$ \d{\eta} \f$ is the
+  /// pseudorapidity difference between the 2nd and 3rd leading jet and \f$ \d{\phi} \f$
+  /// the azimuthal angle difference of these.  Since the data has not been
   /// corrected to particle final state, a bin by bin correction is applied,
   /// based on the distributions with ideal and CDF simulation as given in the
   /// publication.
   ///
   /// Analysis cut values: 
-  ///  - _pvzmax: cut on primary vertex \f$ z \f$ position (\f$ z(\text{PV}) < 60 \text{cm} \f$);
+  ///  - _pvzmax: cut on primary vertex \f$ z \f$ position ( \f$ z(\text{PV}) < 60 \text{cm} \f$ );
   ///  - _leadJetPt, _3rdJetPt: Min. \f$ p_T \f$ of the leading and 3rd leading jets;
   ///  - _etamax: Max. pseudorapidity range of 2nd and 3rd leading jets;
   ///  - _phimin: \f$ \Delta{\phi} \f$ (azimuthal angle) requirement (transverse back to back'ness);

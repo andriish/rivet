@@ -11,6 +11,8 @@
 namespace Rivet {
 
 
+  /// "Field-Stuart" CDF Run I underlying event analysis.
+  /// @author Andy Buckley
   class CDF_2001_S4751469 : public Analysis {
   public:
 
@@ -46,7 +48,7 @@ namespace Rivet {
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "Field & Stuart underlying event analysis at CDF.";
+      return "Field & Stuart Run I underlying event analysis.";
     }
     /// Experiment which performed and published this analysis.
     string getExpt() const {
