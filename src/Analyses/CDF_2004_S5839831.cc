@@ -170,12 +170,10 @@ namespace Rivet {
 
   
   void CDF_2004_S5839831::finalize() { 
-    /// @todo Normalize to actual number of entries in data histo... get from HepData histos
-    // const double avgNumTrans = _totalNumTrans / sumOfWeights();
-    // normalize(_ptTrans2, avgNumTrans);
-    // normalize(_ptTrans5, avgNumTrans);
-    // normalize(_ptTrans30, avgNumTrans);
-  }
-
-
+    // Normalize to actual number of entries in data histos
+    normalize(_pt90Dbn1800Et40,  1656.75);
+    normalize(_pt90Dbn1800Et80,  4657.5);
+    normalize(_pt90Dbn1800Et120, 5395.5);
+    normalize(_pt90Dbn1800Et160, 7248.75);
+    normalize(_pt90Dbn1800Et200, 2442.0);
   }
