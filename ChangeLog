@@ -1,5 +1,7 @@
 2008-04-29  Andy Buckley  <andy@insectnation.org>
 
+	* Added aida2flat conversion script.
+
 	* Fixed ambiguity in TrackJet algorithm as to how the iteration
 	continues when tracks are merged into jets in the inner loop.
 
