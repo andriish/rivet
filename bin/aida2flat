@@ -30,8 +30,10 @@ class Histo:
         return os.path.join(self.path, self.name)
 
     def asFlat(self):
-        out = "## Histogram '%s' with %d bins\n" % (self.fullPath(), self.numBins())
+        out = "## Histogram '%s'\n" % self.fullPath()
         out += "## Title: %s\n" % self.title
+        out += "## Area: %s\n" % self.area()
+        out += "## Num bins: %d\n" % self.numBins()
         out += "## xlow    xhigh    yval  yerrminus  yerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
         return out
@@ -55,6 +57,9 @@ class Histo:
         return self.getBins()[index]
 
     bins = property(getBins, setBins)
+
+    def area(self):
+        return sum([bin.area() for bin in self.bins])
 
     def __iter__(self):
         return iter(self.getBins())
@@ -107,9 +112,12 @@ class Bin:
         else:
             return self.focus
 
+    def area(self):
+        return self.yval * (self.xhigh - self.xlow)
+
     def getYErr(self):
         """Get mean of +ve and -ve y-errors."""
-        return self._yerr
+        return (self.yerrplus + self.yerrminus)/2.0
 
     def setYErr(self, yerr):
         """Set both +ve and -ve y-errors simultaneously."""
