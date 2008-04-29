@@ -8,11 +8,10 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
-
 namespace Rivet {
 
-  class CDF_2004_S5839831 : public Analysis {
 
+  class CDF_2004_S5839831 : public Analysis {
   public:
 
     /// @name Constructors etc.
@@ -20,11 +19,10 @@ namespace Rivet {
 
     /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2004_S5839831()
-      : _totalNumTrans(0)
-    {
+    CDF_2004_S5839831() {
       setBeams(PROTON, ANTIPROTON);
       addProjection(*new Beam(), "Beam");
+      /// @todo Restrict to |eta| < 1 for the non-Swiss-Cheese part? Need two FinalStates?
       const FinalState& fs = addProjection(*new ChargedFinalState(-1.0, 1.0, 0.4*GeV), "FS");
       addProjection(*new FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
       
@@ -93,7 +91,9 @@ namespace Rivet {
     /// the \f$ p_T \f$ sum in the toward, transverse and away regions at
     /// at \f$ \sqrt{s} = 630 \text{GeV} \f$.
     /// Corresponds to figure 8, and HepData table 8.
-    AIDA::IProfile1D *_pt90Max630,   *_pt90Min630,   *_pt90Diff630;
+    AIDA::IProfile1D *_pt90Max630,   *_pt90Min630;
+    /// @todo Why doesn't this exist in HepData?
+    //   *_pt90Diff630;
 
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
     /// the cone track multiplicity at \f$ \sqrt{s} = 1800 \text{GeV} \f$.
@@ -124,10 +124,6 @@ namespace Rivet {
 
 
   private:
-
-    /// Store the sum of weighted particle multiplicities in the transverse region.
-    /// @todo Are we actually using this?
-    double _totalNumTrans;
 
     /// Hide the assignment operator.
     CDF_2004_S5839831& operator=(const CDF_2004_S5839831&);

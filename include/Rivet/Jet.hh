@@ -131,10 +131,17 @@ namespace Rivet {
     }
 
 
-    /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
+    /// Get the sum of the \f$ E_T \f$ values of the constituent tracks. (caches)
     double getEtSum() const {
-      /// @todo Correct this for the real Et definition.
-      return getPtSum();
+      if (!_okTotalEt) {
+        double Etsum(0.0);
+        for (const_iterator p = this->begin(); p != this->end(); ++p) {
+          Etsum += p->Et();
+        }
+        _totalEt = Etsum;
+        _okTotalEt = true;
+      }
+      return _totalEt;
     }
 
 
@@ -148,6 +155,7 @@ namespace Rivet {
         _okPtWeightedPhi = false;
         _okPtWeightedEta = false;
         _okTotalPt = false;
+        _okTotalEt = false;
       }
     }
 
@@ -157,27 +165,27 @@ namespace Rivet {
     void _calcPtAvgs() const {
       if (!_okPtWeightedEta || !_okPtWeightedPhi) {
         double ptwetasum(0.0), ptwphisum(0.0), ptsum(0.0);
-	double phibegin = (0.0);
+        double phibegin = (0.0);
         for (const_iterator p = this->begin(); p != this->end(); ++p) {
-
+          
           double pt = p->pT();
           ptsum += pt;
           ptwetasum += pt * p->pseudorapidity();
-
-	  if (p == this->begin())
-	    phibegin = p->azimuthalAngle();
-	  else {
-	    double dphi = p->azimuthalAngle() - phibegin;
-	    ptwphisum += pt*
-	      ( dphi > PI ? dphi-TWOPI :
-		dphi < -PI ? dphi+TWOPI : dphi);   
-	  }
+          
+          if (p == this->begin())
+            phibegin = p->azimuthalAngle();
+          else {
+            double dphi = p->azimuthalAngle() - phibegin;
+            ptwphisum += pt*
+              ( dphi > PI ? dphi-TWOPI :
+                dphi < -PI ? dphi+TWOPI : dphi);   
+          }
         }
         _totalPt = ptsum;
         _okTotalPt = true;
         _ptWeightedEta = ptwetasum / getPtSum();
         _okPtWeightedEta = true;
-	_ptWeightedPhi = phibegin + ptwphisum / getPtSum();
+        _ptWeightedPhi = phibegin + ptwphisum / getPtSum();
         _okPtWeightedPhi = true;
       }
     }
@@ -197,7 +205,7 @@ namespace Rivet {
         _phi = phisum / dnum;
         _okPhi = true;
       }
-
+      
     }
 
 
@@ -217,6 +225,10 @@ namespace Rivet {
     /// Cached value of the \f$ p_T \f$ sum.
     mutable double _totalPt;
     mutable bool _okTotalPt;
+
+    /// Cached value of the \f$ E_T \f$ sum.
+    mutable double _totalEt;
+    mutable bool _okTotalEt;
   };
 
 

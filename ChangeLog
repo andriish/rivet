@@ -1,5 +1,11 @@
 2008-04-29  Andy Buckley  <andy@insectnation.org>
 
+	* Implemented remainder of Acosta UE analysis.
+
+	* Added proper getEtSum() to Jet.
+
+	* Added Et2() member and function to FourMomentum.
+
 	* Added aida2flat conversion script.
 
 	* Fixed ambiguity in TrackJet algorithm as to how the iteration

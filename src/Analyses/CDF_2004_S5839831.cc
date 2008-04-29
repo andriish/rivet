@@ -35,8 +35,7 @@ namespace Rivet {
 
 
   bool cmpJetsByEt(const Jet& a, const Jet& b) {
-    /// @todo Use Et instead... definition?
-    return a.getPtSum() < b.getPtSum();
+    return a.getEtSum() < b.getEtSum();
   }
 
 
@@ -59,7 +58,6 @@ namespace Rivet {
     // NB. Charged track reconstruction efficiency has already been corrected.
 
     // Leading jet must be in central |eta| < 0.5 region.
-    /// @todo Sure it isn't |eta| < 1.0?
     const Jet leadingjet = jets.front();
     const double etaLead = leadingjet.vector().pseudorapidity();
     if (fabs(etaLead) > 0.5) vetoEvent(event);

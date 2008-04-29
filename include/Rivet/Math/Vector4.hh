@@ -228,6 +228,7 @@ double mass2(const FourMomentum& v);
 double mass(const FourMomentum& v);
 double pT2(const FourMomentum& lv);
 double pT(const FourMomentum& lv);
+double Et2(const FourMomentum& lv);
 double Et(const FourMomentum& lv);
 
 
@@ -299,7 +300,10 @@ public:
   /// Calculate transverse momentum \f$ p_T \f$.
   double pT() const { return ::pT(*this); }
 
-  /// Calculate transverse energy \f$ E_T = E \cos{\theta} \f$.
+  /// Calculate transverse energy \f$ E_T^2 = E^2 \sin^2{\theta} \f$.
+  double Et2() const { return ::Et2(*this); }
+
+  /// Calculate transverse energy \f$ E_T = E \sin{\theta} \f$.
   double Et() const { return ::Et(*this); }
 
   /// Calculate boost vector.
@@ -333,7 +337,13 @@ inline double pT(const FourMomentum& lv) {
   return sqrt(pT2(lv));
 }
 
-/// Calculate transverse energy \f$ E_T = E \cos{\theta} \f$ of a momentum 4-vector.
+/// Calculate transverse energy squared, \f$ E_T^2 = E^2 \sin^2{\theta} \f$ of a momentum 4-vector.
+inline double Et2(const FourMomentum& lv) {
+  const double et = Et(lv);
+  return et*et;
+}
+
+/// Calculate transverse energy \f$ E_T = E \sin{\theta} \f$ of a momentum 4-vector.
 inline double Et(const FourMomentum& lv) {
   return sin(lv.polarAngle()) * lv.E();
 }
