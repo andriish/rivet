@@ -141,7 +141,9 @@ def mkHistoFromDPS(dps):
 import sys, os
 from optparse import OptionParser
 parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
-parser.add_option("--smart-output", action="store_true", dest="SMARTOUTPUT", default=False)
+parser.add_option("-s", "--smart-output", action="store_true", default=False, 
+                  help="Write to output files with names based on the corresponding input filename", 
+                  dest="SMARTOUTPUT")
 opts, args = parser.parse_args()
 
 if len(args) < 1:
