@@ -7,8 +7,8 @@
 #include "Rivet/Cmp.hh"
 #include <algorithm>
 
-
 namespace Rivet {
+
 
   // Helper functions for sorting
   // For sorting Jet objects by pT.
@@ -83,7 +83,8 @@ namespace Rivet {
         if (sqrt(Deta*Deta + Dphi*Dphi) < _Rmax) {
           // Move this particle into the current jet (no extra sorting needed)
           thisjet.addParticle(*t2);
-          t2 = tracks.erase(t2);
+          tracks.erase(t2);
+          t2 = tracks.begin(); //< This was important!
         } else {
           ++t2;
         }
