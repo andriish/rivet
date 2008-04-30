@@ -11,8 +11,6 @@
 #include "Rivet/Projections/Hemispheres.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {
 

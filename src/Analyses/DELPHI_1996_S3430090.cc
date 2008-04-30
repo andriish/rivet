@@ -4,23 +4,20 @@
 #include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
 
-
 namespace Rivet {
 
 
   void DELPHI_1996_S3430090::analyze(const Event& e) {
-    Log& log = getLog();
-
     // First, veto on leptonic events by requiring at least 4 charged FS particles
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     const size_t numParticles = fs.particles().size();
 
     // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
     if (numParticles < 2) {
-      log << Log::DEBUG << "Failed leptonic event cut" << endl;
+      getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
       vetoEvent(e);
     }
-    log << Log::DEBUG << "Passed leptonic event cut" << endl;
+    getLog() << Log::DEBUG << "Passed leptonic event cut" << endl;
 
     // Get event weight for histo filling
     const double weight = e.weight();
@@ -30,10 +27,10 @@ namespace Rivet {
     const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
     const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
                                  beams.second.getMomentum().vector3().mod() ) / 2.0;
-    log << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
+    getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
 
     // Thrusts
-    log << Log::DEBUG << "Calculating thrust" << endl;
+    getLog() << Log::DEBUG << "Calculating thrust" << endl;
     const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
     _hist1MinusT->fill(1 - thrust.thrust(), weight); 
     _hist1MinusT->fill(1 - thrust.thrust(), weight); 
@@ -43,7 +40,7 @@ namespace Rivet {
 
     // Jets
     #ifdef HAVE_JADE
-    log << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
+    getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     _histDiffRate2Durham->fill(durjet.getClusterSeq().exclusive_dmerge(2), weight); 
     _histDiffRate3Durham->fill(durjet.getClusterSeq().exclusive_dmerge(3), weight); 
@@ -55,20 +52,20 @@ namespace Rivet {
     #endif
 
     // Sphericities
-    log << Log::DEBUG << "Calculating sphericity" << endl;
+    getLog() << Log::DEBUG << "Calculating sphericity" << endl;
     const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
     _histSphericity->fill(sphericity.sphericity(), weight); 
     _histAplanarity->fill(sphericity.aplanarity(), weight); 
     _histPlanarity->fill(sphericity.planarity(), weight); 
 
     // C & D params
-    log << Log::DEBUG << "Calculating Parisi params" << endl;
+    getLog() << Log::DEBUG << "Calculating Parisi params" << endl;
     const ParisiTensor& parisi = applyProjection<ParisiTensor>(e, "Parisi");
     _histCParam->fill(parisi.C(), weight);
     _histDParam->fill(parisi.D(), weight);
 
     // Hemispheres
-    log << Log::DEBUG << "Calculating hemisphere variables" << endl;
+    getLog() << Log::DEBUG << "Calculating hemisphere variables" << endl;
     const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
     _histHemiMassH->fill(hemi.getScaledM2high(), weight); 
     _histHemiMassL->fill(hemi.getScaledM2low(), weight); 
@@ -81,7 +78,7 @@ namespace Rivet {
     // Iterate over all the charged final state particles.
     double Evis = 0.0;
     double Evis2 = 0.0;
-    log << Log::DEBUG << "About to iterate over charged FS particles" << endl;
+    getLog() << Log::DEBUG << "About to iterate over charged FS particles" << endl;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       // Get momentum and energy of each particle.
       const Vector3 mom3 = p->getMomentum().vector3();
