@@ -43,8 +43,8 @@ namespace Rivet {
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
+    /// @todo Make FastJets handle "no particles" events nicely, then this won't be needed:
     if (tracks.empty()) vetoEvent(event);
-    /// @todo Make FastJets handle "no particles" events nicely
     const FastJets& jetproj = applyProjection<FastJets>(event, "Jets");
     vector<Jet> jets = jetproj.getJets();
     if (jets.empty()) vetoEvent(event);
@@ -54,8 +54,6 @@ namespace Rivet {
     /// Should be automatic as long as generator is run sensibly.
 
     /// @todo Need to implement track pT > 0.4 GeV/c and within 5.0/0.5cm of pp vertex (nominal?)
-
-    // NB. Charged track reconstruction efficiency has already been corrected.
 
     // Leading jet must be in central |eta| < 0.5 region.
     const Jet leadingjet = jets.front();
@@ -80,9 +78,8 @@ namespace Rivet {
     }
 
     // Run over all charged tracks
-    double numPlus(0), numMinus(0);
+    unsigned int numPlus(0), numMinus(0);
     double ptPlus(0), ptMinus(0);
-    double ptSumSub2(0), ptSumSub3(0);
     for (ParticleVector::const_iterator t = tracks.begin(); t != tracks.end(); ++t) {
       FourMomentum trackMom = t->getMomentum();
       const double pt = trackMom.pT();
@@ -100,19 +97,36 @@ namespace Rivet {
         ptMinus += pt;
         numMinus += 1;
       }
+    }
+    // Assign pT_{min,max} from pT_{plus,minus}
+    const double ptMin = min(ptPlus, ptMinus);
+    const double ptMax = max(ptPlus, ptMinus);
+    const double ptDiff = fabs(ptMax - ptMin);
 
-      // Construct "Swiss Cheese" pT distributions, with pT contributions from
-      // tracks within R = 0.7 of the 1st, 2nd (and 3rd) jets being ignored.
-      if (ETlead/GeV > 5.0 &&
-          jets.size() > 1 && 
-          mod(jets[1].vector())/GeV > 5.0) {
+
+    // Construct "Swiss Cheese" pT distributions, with pT contributions from
+    // tracks within R = 0.7 of the 1st, 2nd (and 3rd) jets being ignored. A
+    // different set of charged tracks, with |eta| < 1.0, is used here, and all
+    // the removed jets must have Et > 5 GeV.
+    /// @todo Should the jets be recomputed from the more restricted tracks, or
+    /// do we use the same jets but fewer tracks?
+    double ptSumSub2(0), ptSumSub3(0);
+    if (ETlead/GeV > 5.0 &&
+        jets.size() > 1 &&
+        jets[1].vector().Et()/GeV > 5.0) {
+
+      const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();      
+      for (ParticleVector::const_iterator t = cheesetracks.begin(); t != cheesetracks.end(); ++t) {
+        FourMomentum trackMom = t->getMomentum();
+        const double pt = trackMom.pT();
+
         const double eta2 = jets[1].vector().pseudorapidity();
         const double phi2 = jets[1].vector().azimuthalAngle();
         if (deltaR(trackMom, etaLead, phiLead) > 0.7 &&
             deltaR(trackMom, eta2, phi2) > 0.7) {
           ptSumSub2 += pt;
           if (jets.size() > 2 &&
-              mod(jets[2].vector())/GeV > 5.0) {
+              jets[2].vector().Et()/GeV > 5.0) {
             const double eta3 = jets[2].vector().pseudorapidity();
             const double phi3 = jets[2].vector().azimuthalAngle();
             if (deltaR(trackMom, eta3, phi3) > 0.7) {
@@ -121,13 +135,8 @@ namespace Rivet {
           }
         }
       }
+      
     }
-    // Assign pT_{min,max} from pT_{plus,minus}
-    const double ptMin = min(ptPlus, ptMinus);
-    const double ptMax = max(ptPlus, ptMinus);
-    const double ptDiff = fabs(ptMax - ptMin);
-
-    /// @todo Filling histos from different kinematic cut regions.
 
     // Multiplicity, pT and Swiss Cheese distributions for 
     // sqrt(s) = 630 GeV, 1800 GeV
@@ -136,7 +145,7 @@ namespace Rivet {
       _pt90Min630->fill(ETlead/GeV, ptMin/GeV, weight);
       /// @todo Reinstate when HepData contains data for this histo
       //_pt90Diff630->fill(ETlead/GeV, ptDiff/GeV, weight);
-      // Swiss Cheese sub 2,3 jets
+      // Swiss Cheese sub 2,3 jets:
       _pTSum630_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
       _pTSum630_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
     } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
@@ -147,7 +156,7 @@ namespace Rivet {
       _pt90Max1800->fill(ETlead/GeV, ptMax/GeV, weight);
       _pt90Min1800->fill(ETlead/GeV, ptMin/GeV, weight);
       _pt90Diff1800->fill(ETlead/GeV, ptDiff/GeV, weight);
-      // Swiss Cheese sub 2,3 jet: *_pTSum1800_2Jet, *_pTSum1800_3Jet;
+      // Swiss Cheese sub 2,3 jets:
       _pTSum1800_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
       _pTSum1800_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
       // pT distributions

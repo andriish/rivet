@@ -22,8 +22,10 @@ namespace Rivet {
     CDF_2004_S5839831() {
       setBeams(PROTON, ANTIPROTON);
       addProjection(*new Beam(), "Beam");
-      /// @todo Restrict to |eta| < 1 for the non-Swiss-Cheese part? Need two FinalStates?
-      const FinalState& fs = addProjection(*new ChargedFinalState(-1.0, 1.0, 0.4*GeV), "FS");
+      // NB. Charged track reconstruction efficiency has already been corrected in the data.
+      const FinalState& fs = addProjection(*new ChargedFinalState(-1.2, 1.2, 0.4*GeV), "FS");
+      // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
+      addProjection(*new ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CheeseFS");
       addProjection(*new FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
       
       /// @todo Declare that this is to be run on minimum bias data and jet 
