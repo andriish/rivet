@@ -27,6 +27,6 @@ if WITH_ROOT
 endif
 
 if ENABLE_JADE
-  libRivetAnalysisStd_la_CPPFLAGS += -D__HAVE_JADE
+  libRivetAnalysisStd_la_CPPFLAGS += -DHAVE_JADE
   libRivetAnalysisStd_la_LIBADD += -lJadePlugin
 endif
