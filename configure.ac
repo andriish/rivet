@@ -66,8 +66,8 @@ AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, [build with ROOT output @<:
 if test "x$enable_root" != "xno"; then
   AC_SEARCH_ROOT([with_root=yes
     AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long"
-    AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionalities not available])])
-  AM_CONDITIONAL(WITH_ROOT, [test x$with_root == xyes])
+    AC_TEST_ROOT], [AC_MSG_WARN([ROOT functionality not available])])
+  AM_CONDITIONAL(WITH_ROOT, [test x$enable_root == xyes])
 fi
 
 ## Set default build flags
