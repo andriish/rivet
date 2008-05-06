@@ -16,8 +16,8 @@
 #include "fastjet/JadePlugin.hh"
 #endif
 
-
 namespace Rivet {
+
   
   /// Typedef for a collection of PseudoJets.
   typedef vector<fastjet::PseudoJet> PseudoJets;

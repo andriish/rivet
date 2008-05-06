@@ -2,8 +2,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Cmp.hh"
-
+using namespace fastjet;
 
 namespace Rivet {
 
@@ -19,19 +18,23 @@ namespace Rivet {
   }
 
 
+  PseudoJet particleToPseudojet(const Particle& p) {
+    const FourMomentum& fv = p.getMomentum();
+    return PseudoJet(fv.px(), fv.py(), fv.pz(), fv.E());
+  }
+
+
   void FastJets::project(const Event& e) {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
-    // Store 4 vector data about each particle into vecs
-    PseudoJets vecs;
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      HepMC::FourVector fv = p->getMomentum();
-      fastjet::PseudoJet psj(fv.px(),fv.py(),fv.pz(),fv.e());
-      vecs.push_back(psj);
+    const ParticleVector particles = fs.particles();
+    if (!particles.empty()) {
+      // Store 4 vector data about each particle into vecs
+      vector<PseudoJet> vecs(particles.size());
+      transform(particles.begin(), particles.end(), vecs.begin(), particleToPseudojet);
+      getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
+      ClusterSequence cs(vecs, _jdef);
+      _cseq = cs;
     }
-    getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
-    /// @todo Make safe when @c vecs is empty
-    fastjet::ClusterSequence cs(vecs, _jdef);
-    _cseq = cs;
   }
 
 
@@ -54,7 +57,7 @@ namespace Rivet {
   vector<double> FastJets::getYSubJet(const fastjet::PseudoJet& jet) const {
     map<int,vector<double> >::iterator iter = _yscales.find(jet.cluster_hist_index());
     if (iter == _yscales.end()) {
-      fastjet::ClusterSequence subjet_cseq(_cseq.constituents(jet), _jdef);
+      ClusterSequence subjet_cseq(_cseq.constituents(jet), _jdef);
       vector<double> yMergeVals;
       for (int i = 1; i < 4; ++i) {
         // Multiply the dmerge value by R^2 so that it corresponds to a

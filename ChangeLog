@@ -1,5 +1,9 @@
 2008-05-06  Andy Buckley  <andy@insectnation.org>
 
+	* FastJets projection now protects against the case where no
+	particles exist in the final state (where FastJet throws an
+	exception).
+
 	* AIDA file writing is now separated from the
 	AnalysisHandler::finalize method... API users can choose what to
 	do with the histo objects, be that writing out or further
@@ -38,10 +42,10 @@
 
 2008-03-28  Andy Buckley  <buckley@pc54.hep.ucl.ac.uk>
 
-  * Started second CDF UE analysis ("Acosta"): histograms defined.
+	* Started second CDF UE analysis ("Acosta"): histograms defined.
 
-  * Fixed anomalous factor of 2 in LWH conversion from Profile1D
-    to DataPointSet.
+	* Fixed anomalous factor of 2 in LWH conversion from Profile1D
+	to DataPointSet.
 
 	* Added pT distribution histos to CDF 2001 UE analysis.
 
