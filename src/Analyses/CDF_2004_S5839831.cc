@@ -43,17 +43,14 @@ namespace Rivet {
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-    /// @todo Make FastJets handle "no particles" events nicely, then this won't be needed:
-    if (tracks.empty()) vetoEvent(event);
-    const FastJets& jetproj = applyProjection<FastJets>(event, "Jets");
-    vector<Jet> jets = jetproj.getJets();
+    vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJets();
     if (jets.empty()) vetoEvent(event);
     sort(jets.begin(), jets.end(), cmpJetsByEt);
 
     /// @todo Ensure there is only one well-defined primary vertex, i.e. no pileup. 
     /// Should be automatic as long as generator is run sensibly.
 
-    /// @todo Need to implement track pT > 0.4 GeV/c and within 5.0/0.5cm of pp vertex (nominal?)
+    /// @todo Need to implement track pT > 0.4 GeV/c and within 5.0/0.5cm of pp vertex (nominal)?
 
     // Leading jet must be in central |eta| < 0.5 region.
     const Jet leadingjet = jets.front();
