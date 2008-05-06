@@ -7,10 +7,9 @@
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/JetShape.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {
+
 
   /// Implementation of CDF RunII jet shape paper hep-ex/0505013 
   class CDF_2005_S6217184 : public Analysis {
@@ -26,7 +25,8 @@ namespace Rivet {
     { 
       setBeams(PROTON, ANTIPROTON);
 
-      const FinalState& fs  = addProjection(*new FinalState(-2.0, 2.0), "FS");
+      const FinalState& fs = addProjection(*new FinalState(-2.0, 2.0), "FS");
+      //const FinalState& fs = addProjection(FinalState::create(-2.0, 2.0), "FS");
       addProjection(*new FastJets(fs), "Jets"); 
       addProjection(*new TotalVisibleMomentum(fs), "CalMET");
       addProjection(*new PVertex(), "PV");
@@ -37,11 +37,10 @@ namespace Rivet {
         .addVetoPairId(NU_MU)
         .addVetoPairId(NU_TAU)
         .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(vfs, "VFS");
-      /// @todo Understand why this breaks the system...
-      // addProjection(*new JetShape(getProjection<FinalState>("VFS"), 
-      //                             _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
-      addProjection(*new JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
+      const VetoedFinalState& realvfs = addProjection(vfs, "VFS");
+      //addProjection(*new JetShape(getProjection<FinalState>("VFS"), 
+      //                            _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
+      addProjection(*new JetShape(realvfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
 
       // Specify pT bins and initialise weight entries
       /// @todo Can we get these numbers from HepData?

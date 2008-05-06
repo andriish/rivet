@@ -68,7 +68,7 @@ namespace Rivet {
     log << Log::INFO << "Normalising the AIDA tree" << endl;
     assert(_theTree != 0);
     normalizeTree(tree());
-    tree().commit();
+    //tree().commit();
 
     // Delete analyses
     for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {

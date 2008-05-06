@@ -6,6 +6,7 @@
 using namespace AGILe;
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -19,11 +20,9 @@ using namespace HepMC;
 namespace Rivet {
 
   void generate(Configuration& cfg, Log& log) {
-
-    log << Log::DEBUG << "In generate method " << endl;
+    log << Log::DEBUG << "Entered generate() method " << endl;
 
     bool needsCrossSection = false;
-    
     Generator* gen = 0;
 
     if (!cfg.readHepMC) { 
@@ -166,6 +165,10 @@ namespace Rivet {
       Loader::destroyGen(gen);
       Loader::finalize();
     }
+
+
+    // Write out the histogram tree into the registered file.
+    rh.tree().commit();
   }
 
 }

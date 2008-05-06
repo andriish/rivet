@@ -4,12 +4,10 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.fhh"
-#include "Rivet/RivetAIDA.fhh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Event.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/AnalysisLoader.hh"
-
 
 namespace Rivet {
 
@@ -38,7 +36,7 @@ namespace Rivet {
     AnalysisHandler(string basefilename="Rivet", HistoFormat storetype=AIDAML);
 
     /// The destructor is not virtual as this class should not be inherited from.
-    ~AnalysisHandler() {}
+    ~AnalysisHandler() { }
     //@}
 
   private:
@@ -105,9 +103,10 @@ namespace Rivet {
     void analyze(const GenEvent& event);
 
 
-    /// Finalize a run. This function first calls the
-    /// AnalysisBase::finalize() functions of all included analysis
-    /// objects and then writes out all histograms to a file.
+    /// Finalize a run. This function first calls the AnalysisBase::finalize()
+    /// functions of all included analysis objects and converts all histograms
+    /// to AIDA DataPointSet objects in the AIDA tree. Using the histogram tree
+    /// for further analysis or writing to file is left to the API user.
     void finalize();
 
 
@@ -134,7 +133,8 @@ namespace Rivet {
       return *_theDataPointSetFactory;
     }
 
-    
+
+    /// Set the cross-section for the process being generated.    
     AnalysisHandler& setCrossSection(const double & xs) {
       for (set<Analysis*>::iterator anIt = _analyses.begin(); anIt != _analyses.end(); ++anIt) {
         (*anIt)->setCrossSection(xs);
