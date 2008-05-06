@@ -22,6 +22,7 @@ libRivetProjections_la_SOURCES = \
   Thrust.cc \
   TotalVisibleMomentum.cc \
   TrackJet.cc \
+  UnstableFinalState.cc \
   VetoedFinalState.cc \
   WZandh.cc 
 

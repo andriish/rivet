@@ -22,7 +22,7 @@ namespace Rivet {
     // Get event weight for histo filling
     const double weight = e.weight();
     _weightedTotalPartNum += numParticles * weight;
-    
+
     // Get beams and average beam momentum
     const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
     const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
@@ -131,6 +131,23 @@ namespace Rivet {
     }
 
     _histMultiCharged->fill(_histMultiCharged->binMean(0), numParticles*weight);
+
+
+    // Final state of unstable particles to get particle spectra
+    const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+
+    for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
+      int id = abs(p->getPdgId());
+      switch (id) {
+         case 211:
+            _histMultiPiPlusMinus->fill(_histMultiPiPlusMinus->binMean(0), weight);
+            break;
+         case 111:
+            _histMultiPi0->fill(_histMultiPi0->binMean(0), weight);
+            break;
+      }
+    }
+
   }
 
 
@@ -183,6 +200,9 @@ namespace Rivet {
     _histEEC               = bookHistogram1D(33, 1, 1, "Energy-energy correlation, EEC (charged)"); // binned in cos(chi)
     _histAEEC              = bookHistogram1D(34, 1, 1, "Asymmetry of the energy-energy correlation, AEEC (charged)"); // binned in cos(chi)
     _histMultiCharged      = bookHistogram1D(35, 1, 1, "Mean charged multiplicity");
+
+    _histMultiPiPlusMinus  = bookHistogram1D(36, 1, 1, "Pi+/Pi- multiplicity");
+    _histMultiPi0          = bookHistogram1D(36, 1, 2, "Pi0 multiplicity");
   }
 
 
@@ -192,15 +212,15 @@ namespace Rivet {
     // Normalize inclusive single particle distributions to the average number 
     // of charged particles per event.
     const double avgNumParts = _weightedTotalPartNum / sumOfWeights();
-    
+
     normalize(_histPtTIn, avgNumParts);
     normalize(_histPtTOut, avgNumParts); 
     normalize(_histPtSIn, avgNumParts);
     normalize(_histPtSOut, avgNumParts); 
-    
+
     normalize(_histRapidityT, avgNumParts); 
     normalize(_histRapidityS, avgNumParts); 
-    
+
     normalize(_histLogScaledMom, avgNumParts);
     normalize(_histScaledMom, avgNumParts); 
 
@@ -208,27 +228,30 @@ namespace Rivet {
     scale(_histAEEC, 1.0/sumOfWeights());
     scale(_histMultiCharged, 1.0/sumOfWeights());
 
+    scale(_histMultiPiPlusMinus, 1.0/sumOfWeights());
+    scale(_histMultiPi0, 1.0/sumOfWeights());
+
     normalize(_hist1MinusT); 
     normalize(_histTMajor); 
     normalize(_histTMinor); 
     normalize(_histOblateness); 
-    
+
     normalize(_histSphericity); 
     normalize(_histAplanarity); 
     normalize(_histPlanarity); 
-    
+
     normalize(_histHemiMassD); 
     normalize(_histHemiMassH); 
     normalize(_histHemiMassL); 
-    
+
     normalize(_histHemiBroadW); 
     normalize(_histHemiBroadN); 
     normalize(_histHemiBroadT); 
     normalize(_histHemiBroadD); 
-    
+
     normalize(_histCParam); 
     normalize(_histDParam); 
-    
+
     normalize(_histDiffRate2Durham); 
     normalize(_histDiffRate2Jade); 
     normalize(_histDiffRate3Durham);
@@ -236,6 +259,5 @@ namespace Rivet {
     normalize(_histDiffRate4Durham);
     normalize(_histDiffRate4Jade); 
   }
-
 
 }

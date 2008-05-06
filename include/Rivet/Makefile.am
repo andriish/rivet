@@ -66,6 +66,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/SVertex.hh	    \
   Projections/Thrust.hh         \
   Projections/TotalVisibleMomentum.hh \
+  Projections/UnstableFinalState.hh \
   Projections/TrackJet.hh       \
   Projections/VetoedFinalState.hh \
   Projections/WZandh.hh 

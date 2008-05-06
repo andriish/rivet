@@ -11,6 +11,7 @@
 #include "Rivet/Projections/Hemispheres.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
 
@@ -27,6 +28,7 @@ namespace Rivet {
       setBeams(ELECTRON, POSITRON); 
       addProjection(*new Beam(), "Beams");
       const ChargedFinalState& cfs = addProjection(*new ChargedFinalState(), "FS");
+      const UnstableFinalState& ufs = addProjection(*new UnstableFinalState(), "UFS");
       #ifdef HAVE_JADE
       addProjection(*new FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
       addProjection(*new FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
@@ -128,6 +130,9 @@ namespace Rivet {
     AIDA::IHistogram1D *_histEEC, *_histAEEC;
 
     AIDA::IHistogram1D *_histMultiCharged;
+
+    AIDA::IHistogram1D *_histMultiPiPlusMinus;
+    AIDA::IHistogram1D *_histMultiPi0;
     //@}
   
   };
