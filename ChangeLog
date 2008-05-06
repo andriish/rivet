@@ -1,3 +1,10 @@
+2008-05-06  Andy Buckley  <andy@insectnation.org>
+
+	* AIDA file writing is now separated from the
+	AnalysisHandler::finalize method... API users can choose what to
+	do with the histo objects, be that writing out or further
+	processing.
+
 2008-04-29  Andy Buckley  <andy@insectnation.org>
 
 	* Increased default tolerances in floating point comparisons as
