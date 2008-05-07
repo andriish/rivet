@@ -131,10 +131,37 @@ namespace Rivet {
 
     AIDA::IHistogram1D *_histMultiCharged;
 
-    AIDA::IHistogram1D *_histMultiPiPlusMinus;
+    AIDA::IHistogram1D *_histMultiPiPlus;
     AIDA::IHistogram1D *_histMultiPi0;
+    AIDA::IHistogram1D *_histMultiKPlus;
+    AIDA::IHistogram1D *_histMultiK0;
+    AIDA::IHistogram1D *_histMultiEta;
+    AIDA::IHistogram1D *_histMultiEtaPrime;
+    AIDA::IHistogram1D *_histMultiDPlus;
+    AIDA::IHistogram1D *_histMultiD0;
+    AIDA::IHistogram1D *_histMultiBPlus0;
+
+    AIDA::IHistogram1D *_histMultiF0;
+
+    AIDA::IHistogram1D *_histMultiRho;
+    AIDA::IHistogram1D *_histMultiKStar892Plus;
+    AIDA::IHistogram1D *_histMultiKStar892_0;
+    AIDA::IHistogram1D *_histMultiPhi;
+    AIDA::IHistogram1D *_histMultiDStar2010Plus;
+
+    AIDA::IHistogram1D *_histMultiF2;
+    AIDA::IHistogram1D *_histMultiK2Star1430_0;
+
+    AIDA::IHistogram1D *_histMultiP;
+    AIDA::IHistogram1D *_histMultiLambda0;
+    AIDA::IHistogram1D *_histMultiXiMinus;
+    AIDA::IHistogram1D *_histMultiOmegaMinus;
+    AIDA::IHistogram1D *_histMultiDeltaPlusPlus;
+    AIDA::IHistogram1D *_histMultiSigma1385Plus;
+    AIDA::IHistogram1D *_histMultiXi1530_0;
+    AIDA::IHistogram1D *_histMultiLambdaB0;
     //@}
-  
+
   };
 
 }

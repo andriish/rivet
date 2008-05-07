@@ -140,10 +140,82 @@ namespace Rivet {
       int id = abs(p->getPdgId());
       switch (id) {
          case 211:
-            _histMultiPiPlusMinus->fill(_histMultiPiPlusMinus->binMean(0), weight);
+            _histMultiPiPlus->fill(_histMultiPiPlus->binMean(0), weight);
             break;
          case 111:
             _histMultiPi0->fill(_histMultiPi0->binMean(0), weight);
+            break;
+         case 321:
+            _histMultiKPlus->fill(_histMultiKPlus->binMean(0), weight);
+            break;
+         case 130:
+         case 310:
+            _histMultiK0->fill(_histMultiK0->binMean(0), weight);
+            break;
+         case 221:
+            _histMultiEta->fill(_histMultiEta->binMean(0), weight);
+            break;
+         case 331:
+            _histMultiEtaPrime->fill(_histMultiEtaPrime->binMean(0), weight);
+            break;
+         case 411:
+            _histMultiDPlus->fill(_histMultiDPlus->binMean(0), weight);
+            break;
+         case 421:
+            _histMultiD0->fill(_histMultiD0->binMean(0), weight);
+            break;
+         case 511:
+         case 521:
+         case 531:
+            _histMultiBPlus0->fill(_histMultiBPlus0->binMean(0), weight);
+            break;
+         case 10221:
+            _histMultiF0->fill(_histMultiF0->binMean(0), weight);
+            break;
+         case 113:
+            _histMultiRho->fill(_histMultiRho->binMean(0), weight);
+            break;
+         case 323:
+            _histMultiKStar892Plus->fill(_histMultiKStar892Plus->binMean(0), weight);
+            break;
+         case 313:
+            _histMultiKStar892_0->fill(_histMultiKStar892_0->binMean(0), weight);
+            break;
+         case 333:
+            _histMultiPhi->fill(_histMultiPhi->binMean(0), weight);
+            break;
+         case 413:
+            _histMultiDStar2010Plus->fill(_histMultiDStar2010Plus->binMean(0), weight);
+            break;
+         case 225:
+            _histMultiF2->fill(_histMultiF2->binMean(0), weight);
+            break;
+         case 315:
+            _histMultiK2Star1430_0->fill(_histMultiK2Star1430_0->binMean(0), weight);
+            break;
+         case 2212:
+            _histMultiP->fill(_histMultiP->binMean(0), weight);
+            break;
+         case 3122:
+            _histMultiLambda0->fill(_histMultiLambda0->binMean(0), weight);
+            break;
+         case 3312:
+            _histMultiXiMinus->fill(_histMultiXiMinus->binMean(0), weight);
+            break;
+         case 3334:
+            _histMultiOmegaMinus->fill(_histMultiOmegaMinus->binMean(0), weight);
+            break;
+         case 2224:
+            _histMultiDeltaPlusPlus->fill(_histMultiDeltaPlusPlus->binMean(0), weight);
+            break;
+         case 3114:
+            _histMultiSigma1385Plus->fill(_histMultiSigma1385Plus->binMean(0), weight);
+            break;
+         case 3324:
+            _histMultiXi1530_0->fill(_histMultiXi1530_0->binMean(0), weight);
+            break;
+         case 5122:
+            _histMultiLambdaB0->fill(_histMultiLambdaB0->binMean(0), weight);
             break;
       }
     }
@@ -197,12 +269,39 @@ namespace Rivet {
     _histDiffRate3Jade    = bookHistogram1D(30, 1, 1, "Differential 3-jet rate with Jade algorithm, D_3^Jade (charged)"); // binned in y_cut
     _histDiffRate4Durham  = bookHistogram1D(31, 1, 1, "Differential 4-jet rate with Durham algorithm, D_4^Durham (charged)"); // binned in y_cut
     _histDiffRate4Jade    = bookHistogram1D(32, 1, 1, "Differential 4-jet rate with Jade algorithm, D_4^Jade (charged)"); // binned in y_cut
-    _histEEC               = bookHistogram1D(33, 1, 1, "Energy-energy correlation, EEC (charged)"); // binned in cos(chi)
-    _histAEEC              = bookHistogram1D(34, 1, 1, "Asymmetry of the energy-energy correlation, AEEC (charged)"); // binned in cos(chi)
-    _histMultiCharged      = bookHistogram1D(35, 1, 1, "Mean charged multiplicity");
+    _histEEC              = bookHistogram1D(33, 1, 1, "Energy-energy correlation, EEC (charged)"); // binned in cos(chi)
+    _histAEEC             = bookHistogram1D(34, 1, 1, "Asymmetry of the energy-energy correlation, AEEC (charged)"); // binned in cos(chi)
+    _histMultiCharged     = bookHistogram1D(35, 1, 1, "Mean charged multiplicity");
 
-    _histMultiPiPlusMinus  = bookHistogram1D(36, 1, 1, "Pi+/Pi- multiplicity");
-    _histMultiPi0          = bookHistogram1D(36, 1, 2, "Pi0 multiplicity");
+    _histMultiPiPlus        = bookHistogram1D(36, 1, 1, "Mean pi+/pi- multiplicity");
+    _histMultiPi0           = bookHistogram1D(36, 1, 2, "Mean pi0 multiplicity");
+    _histMultiKPlus         = bookHistogram1D(36, 1, 3, "Mean K+/K- multiplicity");
+    _histMultiK0            = bookHistogram1D(36, 1, 4, "Mean K0 multiplicity");
+    _histMultiEta           = bookHistogram1D(36, 1, 5, "Mean eta multiplicity");
+    _histMultiEtaPrime      = bookHistogram1D(36, 1, 6, "Mean etaprime multiplicity");
+    _histMultiDPlus         = bookHistogram1D(36, 1, 7, "Mean D+ multiplicity");
+    _histMultiD0            = bookHistogram1D(36, 1, 8, "Mean D0 multiplicity");
+    _histMultiBPlus0        = bookHistogram1D(36, 1, 9, "Mean B+/B-/B0 multiplicity");
+
+    _histMultiF0            = bookHistogram1D(37, 1, 1, "Mean f0(980) multiplicity");
+
+    _histMultiRho           = bookHistogram1D(38, 1, 1, "Mean rho multiplicity");
+    _histMultiKStar892Plus  = bookHistogram1D(38, 1, 2, "Mean K*(892)+/K*(892)- multiplicity");
+    _histMultiKStar892_0    = bookHistogram1D(38, 1, 3, "Mean K*(892)0 multiplicity");
+    _histMultiPhi           = bookHistogram1D(38, 1, 4, "Mean phi multiplicity");
+    _histMultiDStar2010Plus = bookHistogram1D(38, 1, 5, "Mean D*(2010)+/D*(2010)- multiplicity");
+
+    _histMultiF2            = bookHistogram1D(39, 1, 1, "Mean f2(1270) multiplicity");
+    _histMultiK2Star1430_0  = bookHistogram1D(39, 1, 2, "Mean K2*(1430)0 multiplicity");
+
+    _histMultiP             = bookHistogram1D(40, 1, 1, "Mean p multiplicity");
+    _histMultiLambda0       = bookHistogram1D(40, 1, 2, "Mean Lambda0 multiplicity");
+    _histMultiXiMinus       = bookHistogram1D(40, 1, 3, "Mean Xi- multiplicity");
+    _histMultiOmegaMinus    = bookHistogram1D(40, 1, 4, "Mean Omega- multiplicity");
+    _histMultiDeltaPlusPlus = bookHistogram1D(40, 1, 5, "Mean Delta(1232)++ multiplicity");
+    _histMultiSigma1385Plus = bookHistogram1D(40, 1, 6, "Mean Sigma(1385)+/Sigma(1385)- multiplicity");
+    _histMultiXi1530_0      = bookHistogram1D(40, 1, 7, "Mean Xi(1530)0 multiplicity");
+    _histMultiLambdaB0      = bookHistogram1D(40, 1, 8, "Mean Lambda_b0 multiplicity");
   }
 
 
@@ -228,8 +327,35 @@ namespace Rivet {
     scale(_histAEEC, 1.0/sumOfWeights());
     scale(_histMultiCharged, 1.0/sumOfWeights());
 
-    scale(_histMultiPiPlusMinus, 1.0/sumOfWeights());
-    scale(_histMultiPi0, 1.0/sumOfWeights());
+    scale(_histMultiPiPlus       , 1.0/sumOfWeights());
+    scale(_histMultiPi0          , 1.0/sumOfWeights());
+    scale(_histMultiKPlus        , 1.0/sumOfWeights());
+    scale(_histMultiK0           , 1.0/sumOfWeights());
+    scale(_histMultiEta          , 1.0/sumOfWeights());
+    scale(_histMultiEtaPrime     , 1.0/sumOfWeights());
+    scale(_histMultiDPlus        , 1.0/sumOfWeights());
+    scale(_histMultiD0           , 1.0/sumOfWeights());
+    scale(_histMultiBPlus0       , 1.0/sumOfWeights());
+
+    scale(_histMultiF0           , 1.0/sumOfWeights());
+
+    scale(_histMultiRho          , 1.0/sumOfWeights());
+    scale(_histMultiKStar892Plus , 1.0/sumOfWeights());
+    scale(_histMultiKStar892_0   , 1.0/sumOfWeights());
+    scale(_histMultiPhi          , 1.0/sumOfWeights());
+    scale(_histMultiDStar2010Plus, 1.0/sumOfWeights());
+
+    scale(_histMultiF2           , 1.0/sumOfWeights());
+    scale(_histMultiK2Star1430_0 , 1.0/sumOfWeights());
+
+    scale(_histMultiP             , 1.0/sumOfWeights());
+    scale(_histMultiLambda0       , 1.0/sumOfWeights());
+    scale(_histMultiXiMinus       , 1.0/sumOfWeights());
+    scale(_histMultiOmegaMinus    , 1.0/sumOfWeights());
+    scale(_histMultiDeltaPlusPlus , 1.0/sumOfWeights());
+    scale(_histMultiSigma1385Plus , 1.0/sumOfWeights());
+    scale(_histMultiXi1530_0      , 1.0/sumOfWeights());
+    scale(_histMultiLambdaB0      , 1.0/sumOfWeights());
 
     normalize(_hist1MinusT); 
     normalize(_histTMajor); 
