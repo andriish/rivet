@@ -22,10 +22,6 @@ namespace Rivet {
 
     for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin();
          p != e.genEvent().particles_end(); ++p) {
-      // Only include particles which are final state (status = 1) and which
-      // pass the eta and phi cuts. The eta cut is pre-tested by checking if the
-      // x and y components of the momentum are non-zero since the vectors might
-      // throw an exception otherwise.
       const int st = (*p)->status();
       const double pT = (*p)->momentum().perp();
       const double eta = (*p)->momentum().eta();
@@ -37,14 +33,16 @@ namespace Rivet {
                     eta > _etamin &&
                     eta < _etamax &&
                     !IS_PARTON_PDGID((*p)->pdg_id());
-//      if (passed) {
-//        if (pv!=NULL) {
-//          for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
-//              pp != pv->particles_in_const_end() ; ++pp) {
-//                passed = passed && IS_PARTON_PDGID((*pp)->pdg_id());
-//          }
-//        }
-//      }
+      if (passed) {
+        if (pv!=NULL) {
+          for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
+              pp != pv->particles_in_const_end() ; ++pp) {
+            // Avoid double counting if particle == parent
+            if ( (*p)->pdg_id() == (*pp)->pdg_id() )
+              passed = false;
+          }
+        }
+      }
 
       if (log.isActive(Log::TRACE)) {
         log << Log::TRACE << std::boolalpha 
