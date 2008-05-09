@@ -26,5 +26,5 @@ nobase_dist_data_DATA += \
   RivetGun/charybdisher-default.params  \
   RivetGun/charybdispyt-default.params  \
   RivetGun/lep1.params \
-  RivetGun/tevatron1800.params \
+  RivetGun/tevatron1800.params RivetGun/tevatron630.params \
   RivetGun/lhc.params

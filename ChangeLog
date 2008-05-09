@@ -1,3 +1,9 @@
+2008-05-09  Andy Buckley  <andy@insectnation.org>
+
+	* Improvements to robustness of ROOT checks.
+
+	* Added rivetgun-config and --version flag on config scripts.
+
 2008-05-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* New UnstableFinalState projection which selects all hadrons,

@@ -1,9 +1,10 @@
 #! /usr/bin/env bash
+# @configure_input@
 
 # These variables need to exist
 prefix=@prefix@
 exec_prefix=@exec_prefix@
-
+datarootdir=@datarootdir@
 
 tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
 if test $# -eq 0 || test -n "$tmp"; then
@@ -12,7 +13,8 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo
     echo "Usage: $( basename $0 ) [--help|-h] | "
     echo "           [--{prefix,datadir,libdir,includedir}] | "
-    echo "           [--{cppflags,ldflags,ldlibs}]"
+    echo "           [--{cppflags,ldflags,ldlibs}] | "
+    echo "           [--version]"
     echo "Options:"
     echo "  --help | -h   : show this help message"
     echo 
@@ -24,6 +26,8 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo "  --cppflags    : returns a Rivet '-I' string for insertion into CPPFLAGS"
     echo "  --ldflags     : returns a Rivet '-L' string for insertion into LDFLAGS"
     echo "  --ldadd       : returns a Rivet '-l' string for insertion into LIBS or LIBADD"
+    echo
+    echo "  --version     : returns Rivet release version number"
 fi
 
 
@@ -51,3 +55,7 @@ test -n "$tmp" && echo -L@libdir@
 tmp=$( echo "$*" | egrep -- '--\<ldlibs\>')
 test -n "$tmp" && echo -lRivet
 
+
+## Version
+tmp=$( echo "$*" | egrep -- '--\<version\>')
+test -n "$tmp" && echo @PACKAGE_VERSION@
