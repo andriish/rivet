@@ -31,7 +31,7 @@ EXTRA_PROGRAMS = rivetgun
 if ENABLE_RIVETGUN
   bin_PROGRAMS      = rivetgun
   rivetgun_SOURCES  = RivetgunInterface.cc RivetgunRunner.cc RivetgunCommandline.cc
-  rivetgun_CPPFLAGS = $(AM_CPPFLAGS) -I$(AGILEINCPATH)
+  rivetgun_CPPFLAGS = $(AM_CPPFLAGS) -I$(AGILEINCPATH) -DRIVETVERSION=\"$(PACKAGE_VERSION)\"
   rivetgun_LDFLAGS  = $(AM_LDFLAGS) -export-dynamic
   rivetgun_LDADD    = $(FCLIBS) $(AGILELIB) $(HEPMCLIB) $(GSLLIB) $(GSLCBLASLIB) libRivet.la
 if WITH_ROOT

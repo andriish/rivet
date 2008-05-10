@@ -2,7 +2,7 @@
 
 	* Improvements to robustness of ROOT checks.
 
-	* Added rivetgun-config and --version flag on config scripts.
+	* Added --version flag on config scripts and rivetgun.
 
 2008-05-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 

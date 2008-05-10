@@ -17,6 +17,9 @@ namespace {
   void handleConfigStream(istream& in, map<string, string>& pmap);
 }
 
+#ifndef RIVETVERSION
+#define RIVETVERSION "UNKNOWN"
+#endif
 
 ///////////////////////////////////////////
 
@@ -30,7 +33,7 @@ namespace Rivet {
       Configuration config;
 
       try {
-        CmdLine cmd("Runs an event generator using the RivetGun and AGILe interface libraries", ' ', "1.0");
+        CmdLine cmd("Runs an event generator using the RivetGun and AGILe interface libraries", ' ', RIVETVERSION);
 
         // Add generator args
         vector<string> gens = AGILe::Loader::getAvailableGens();

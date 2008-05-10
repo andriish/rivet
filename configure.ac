@@ -67,11 +67,11 @@ AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != x])
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, 
   [build with ROOT output @<:@default=yes@:>@])], [], [])
 if test x$enable_root != xno; then
-  AC_SEARCH_ROOT([AC_TEST_ROOT], [AC_MSG_WARN([ROOT is not available])], [enable_root=no])
+  AC_SEARCH_ROOT([enable_root=yes; AC_TEST_ROOT], [AC_MSG_WARN([ROOT is not available])])
 else
   AC_MSG_NOTICE([Not using ROOT])
 fi
-AM_CONDITIONAL([WITH_ROOT], [test x$enable_root != xno])
+AM_CONDITIONAL([WITH_ROOT], [test x$enable_root == xyes])
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
@@ -95,6 +95,7 @@ fi
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
 
+AC_EMPTY_SUBST
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
@@ -103,7 +104,7 @@ AC_CONFIG_FILES(src/Analyses/Makefile)
 AC_CONFIG_FILES(src/Test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile)
 AC_CONFIG_FILES(data/Makefile)
-AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivetgun-config)
+AC_CONFIG_FILES(bin/Makefile bin/rivet-config)
 AC_CONFIG_FILES(Makefile)
 
 AC_OUTPUT

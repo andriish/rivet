@@ -1,1 +1,1 @@
-bin_SCRIPTS = rivet-config rivetgun-config aida2flat
+bin_SCRIPTS = rivet-config aida2flat

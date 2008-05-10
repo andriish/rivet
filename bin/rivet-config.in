@@ -21,7 +21,8 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo "  --prefix      : show the installation prefix (cf. autoconf)"
     echo "  --includedir  : show the path to the directory containing the Rivet headers"
     echo "  --libdir      : show the path to the directory containing the Rivet libraries"
-    echo "  --datadir     : show the path to the directory containing shared data"
+    echo "  --datadir     : show the path to the directory containing Rivet data"
+    echo "  --rgdatadir   : show the path to the directory containing RivetGun data"
     echo
     echo "  --cppflags    : returns a Rivet '-I' string for insertion into CPPFLAGS"
     echo "  --ldflags     : returns a Rivet '-L' string for insertion into LDFLAGS"
@@ -43,6 +44,9 @@ test -n "$tmp" && echo @libdir@
 
 tmp=$( echo "$*" | egrep -- '--\<datadir\>')
 test -n "$tmp" && echo @datadir@/@PACKAGE_TARNAME@
+
+tmp=$( echo "$*" | egrep -- '--\<rgdatadir\>')
+test -n "$tmp" && echo @datadir@/RivetGun
 
 
 ## "Pre-rolled" build info
