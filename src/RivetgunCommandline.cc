@@ -81,7 +81,7 @@ namespace Rivet {
         // Add logging args
         const string mesg = "Set log level in 'name=level' format. The levels are TRACE, DEBUG, INFO and WARN";
         MultiArg<string> logsArg("l", "loglevel", mesg, false, "logname=loglevel", cmd);
-        SwitchArg disableLogColorArg("", "nocolor", "Disable shell color escapes (useful for piping output to file)", cmd, false);
+        SwitchArg disableLogColorArg("", "nocolor", "Disable shell color escapes (should be automatic for non-TTY stdout destination)", cmd, false);
 
         // Add misc args
         ValueArg<size_t> numEventsArg("n", "numevents", "Number of events to generate (10 by default)", false, 10, "num", cmd);
@@ -228,17 +228,16 @@ namespace Rivet {
         for (vector<string>::const_iterator l = logsArg.getValue().begin(); 
              l != logsArg.getValue().end(); ++l) {
           size_t breakpos = l->find("=");
-          /// @todo Remove backwards compatible ":" delimiter
-          if (breakpos == string::npos) breakpos = l->find(":");
           if (breakpos != string::npos) {
             string key = l->substr(0, breakpos);
             string value = l->substr(breakpos + 1, l->size() - breakpos - 1);
-            config.logLevels[key] = Log::getLevelFromName(value);
+            const int level = Log::getLevelFromName(value);
+            config.logLevels[key] = level;
           } else {
             throw runtime_error("Invalid log setting format: " + *l);
           }
         }
-        config.useLogColors = !disableLogColorArg.getValue();
+        config.useLogColors = ! disableLogColorArg.getValue();
 
 
         // Misc. flags

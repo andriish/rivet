@@ -1,3 +1,9 @@
+2008-05-13  Andy Buckley  <andy@insectnation.org>
+
+	* Improved logging interface: log levels are now integers (for
+	cross-library compatibility and level setting also applies to
+	existing loggers.
+
 2008-05-09  Andy Buckley  <andy@insectnation.org>
 
 	* Improvements to robustness of ROOT checks.

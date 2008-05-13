@@ -28,7 +28,7 @@ namespace Rivet {
       setBeams(ELECTRON, POSITRON); 
       addProjection(*new Beam(), "Beams");
       const ChargedFinalState& cfs = addProjection(*new ChargedFinalState(), "FS");
-      const UnstableFinalState& ufs = addProjection(*new UnstableFinalState(), "UFS");
+      addProjection(*new UnstableFinalState(), "UFS");
       #ifdef HAVE_JADE
       addProjection(*new FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
       addProjection(*new FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");

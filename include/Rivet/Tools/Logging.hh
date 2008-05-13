@@ -1,10 +1,10 @@
 #ifndef RIVET_LOGGING_HH 
-#define RIVET_LOGGING_HH 1
+#define RIVET_LOGGING_HH
 
 #include "Rivet/Rivet.hh"
 
-
 namespace Rivet {
+
 
   class Log {
   public:
@@ -18,10 +18,10 @@ namespace Rivet {
     typedef map<const string, Log*> LogMap;
 
     /// Typedef for a collection of named log levels.
-    typedef map<const string, Level> LevelMap;
+    typedef map<const string, int> LevelMap;
 
     /// Typedef for a collection of shell color codes, accessed by log level.
-    typedef map<Level, string> ColorCodes;
+    typedef map<int, string> ColorCodes;
 
   private:
     /// A static map of existing logs: we don't make more loggers than necessary.
@@ -49,24 +49,23 @@ namespace Rivet {
     static bool useShellColors;
 
   public:
-    /// Set the default log levels
-    inline static void setDefaultLevels(const LevelMap& logLevels) {
-      defaultLevels = logLevels;
-    }
+    /// Set the log levels
+    static void setLevels(const string& name, int level);
+    static void setLevels(const LevelMap& logLevels);
 
-    inline static void setShowTimestamp(const bool showTime=true) {
+    static void setShowTimestamp(const bool showTime=true) {
       showTimestamp = showTime;
     }
 
-    inline static void setShowLevel(const bool showLevel=true) {
+    static void setShowLevel(const bool showLevel=true) {
       showLogLevel = showLevel;
     }
 
-    inline static void setShowLoggerName(const bool showName=true) {
+    static void setShowLoggerName(const bool showName=true) {
       showLoggerName = showName;
     }
 
-    inline static void setUseColors(const bool useColors=true) {
+    static void setUseColors(const bool useColors=true) {
       useShellColors = useColors;
     }
 
@@ -77,7 +76,7 @@ namespace Rivet {
     Log(const string& name);
 
     /// Constructor 2
-    Log(const string& name, const Level& level);
+    Log(const string& name, int level);
 
     /// Copy constructor
     //Log(const Log&);
@@ -86,24 +85,21 @@ namespace Rivet {
     //Log& operator=(const Log&);
     //@}
 
-    static string getColorCode(const Level& level);
+    static string getColorCode(int level);
 
   public:
     /// Get a logger with the given name. The level will be taken from the 
     /// "requestedLevels" static map or will be INFO by default.
     static Log& getLog(const string& name);
 
-    /// Get a logger with the given name and level.
-    static Log& getLog(const string& name, const Level& level);
-
   public:
     /// Get the priority level of this logger.
-    inline Level getLevel() const {
+    int getLevel() const {
       return _level;
     }
 
     /// Set the priority level of this logger.
-    inline Log& setLevel(const Level& level) {
+    Log& setLevel(int level) {
       _level = level;
       return *this;
     }
@@ -112,7 +108,7 @@ namespace Rivet {
     static Level getLevelFromName(const string& level);
 
     /// Get the string representation of a log level.
-    static string getLevelName(const Level& level);
+    static string getLevelName(int level);
 
     /// Get the name of this logger.
     string getName() const {
@@ -126,7 +122,7 @@ namespace Rivet {
     }
 
     /// Will this log level produce output on this logger at the moment?
-    bool isActive(const Level& level) const {
+    bool isActive(int level) const {
       return (level >= _level);
     }
 
@@ -148,14 +144,14 @@ namespace Rivet {
     string _name;
     
     /// Threshold level for this logger.
-    Level _level;
+    int _level;
     
   protected:
     /// Write a message at a particular level.
-    void log(const Level& level, const string& message);
+    void log(int level, const string& message);
 
     /// Turn a message string into the current log format.
-    string formatMessage(const Level& level, const string& message);
+    string formatMessage(int level, const string& message);
 
   public:
 
@@ -164,12 +160,12 @@ namespace Rivet {
     ostream* const _nostream;
 
     /// The streaming operator can use Log's internals.
-    friend ostream& operator<<(Log& log, const Log::Level& level);
+    friend ostream& operator<<(Log& log, int level);
 
   };
   
-  /// Streaming output to a logger must have a Log::Level as its first argument.
-  ostream& operator<<(Log& log, const Log::Level& level);
+  /// Streaming output to a logger must have a Log::Level/int as its first argument.
+  ostream& operator<<(Log& log, int level);
   
 }
 

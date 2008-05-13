@@ -20,13 +20,40 @@ namespace Rivet {
     : _name(name), _level(INFO), _nostream(new ostream(0)) { }
 
 
-  Log::Log(const string& name, const Level& level)
+  Log::Log(const string& name, int level)
     : _name(name), _level(level), _nostream(new ostream(0)) { }
+
+
+  /// @todo Add single static setLevel
+  void _updateLevels(const Log::LevelMap& defaultLevels, Log::LogMap& existingLogs) {
+    /// @todo Check ordering - "Foo" should come before "Foo.Bar"
+    for (Log::LevelMap::const_iterator lev = defaultLevels.begin(); lev != defaultLevels.end(); ++lev) {
+      for (Log::LogMap::iterator log = existingLogs.begin(); log != existingLogs.end(); ++log) {
+        if (log->first.find(lev->first) == 0) {
+          log->second->setLevel(lev->second);
+        }
+      }
+    }
+  }
+
+
+  void Log::setLevels(const string& name, int level) { 
+    defaultLevels[name] = level;
+    _updateLevels(defaultLevels, existingLogs); 
+  }
+
+
+  void Log::setLevels(const LevelMap& logLevels) {
+    for (LevelMap::const_iterator lev = logLevels.begin(); lev != logLevels.end(); ++lev) {
+      defaultLevels[lev->first] = lev->second;
+    }
+    _updateLevels(defaultLevels, existingLogs);
+  }
 
 
   Log& Log::getLog(const string& name) {
     if (existingLogs.find(name) == existingLogs.end()) {
-      Level level = INFO;
+      int level = INFO;
       // Try running through all parent classes to find an existing level
       string tmpname = name;
       bool triedAllParents = false;
@@ -36,18 +63,20 @@ namespace Rivet {
           level = defaultLevels.find(tmpname)->second;
           break;
         }
-        // Is there already such a logger?
+        // Is there already such a logger? (NB. tmpname != name)
         if (existingLogs.find(tmpname) != existingLogs.end()) {
           level = existingLogs.find(tmpname)->second->getLevel();
           break;
         }
         // Crop the string back to the next parent level
         size_t lastDot = tmpname.find_last_of(".");
-        if (lastDot == string::npos) {
-          triedAllParents = true;
-        } else {
+        if (lastDot != string::npos) {
           tmpname = tmpname.substr(0, lastDot);
+        } else {
+          triedAllParents = true;
         }
+      }
+      for (LevelMap::const_iterator l = defaultLevels.begin(); l != defaultLevels.end(); ++l) {
       }
       existingLogs[name] = new Log(name, level);
     }
@@ -55,16 +84,8 @@ namespace Rivet {
   }
 
 
-  Log& Log::getLog(const string& name, const Level& level) {
-    //cout << "Log::getLog(name, level): are we really using this? Does it make sense?" << endl;
-    if (existingLogs.find(name) == existingLogs.end()) {
-      existingLogs[name] = new Log(name, level);
-    }
-    return *existingLogs[name];
-  }
-
-
-  string Log::getLevelName(const Level& level) {
+  string Log::getLevelName(int level) {
+    /// @todo Do the map::upper_limit thing to find nearest level...
     switch(level) {
     case TRACE:
       return "TRACE";
@@ -76,12 +97,14 @@ namespace Rivet {
       return "WARN";
     case ERROR:
       return "ERROR";
+    default:
+      return "";     
     }
-    throw runtime_error("Enum value was not a valid log level. How did that happen?");
+    //throw runtime_error("Enum value was not a valid log level. How did that happen?");
   }
 
 
-  string Log::getColorCode(const Level& level) {
+  string Log::getColorCode(int level) {
     if (!Log::useShellColors) return "";
     // If the codes haven't been initialized, do so now.
     if (Log::colorCodes.empty()) {
@@ -103,6 +126,7 @@ namespace Rivet {
       }
     }
     // Return the appropriate code from the colour map.
+    /// @todo Do the map::upper_limit thing to find nearest level...
     return colorCodes[level];
   }
 
@@ -117,7 +141,7 @@ namespace Rivet {
   }
 
 
-  string Log::formatMessage(const Level& level, const string& message) {
+  string Log::formatMessage(int level, const string& message) {
     string out;
     if (Log::useShellColors) {
       out += getColorCode(level);
@@ -153,14 +177,14 @@ namespace Rivet {
   }
 
 
-  void Log::log(const Level& level, const string& message) {
+  void Log::log(int level, const string& message) {
     if (isActive(level)) {
       cout << formatMessage(level, message) << endl;
     }
   }
 
 
-  ostream& operator<<(Log& log, const Log::Level& level) {
+  ostream& operator<<(Log& log, int level) {
     if (log.isActive(level)) {
       cout << log.formatMessage(level, "");
       return cout;
