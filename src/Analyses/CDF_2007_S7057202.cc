@@ -45,6 +45,7 @@ namespace Rivet {
         if (histo != 0) {
           if (histo->coordToIndex(pt) != IAxis::OVERFLOW_BIN) {
             passed.insert(histo);
+	    _eventsPassed[histo] += weight;
           }
         }
       }
@@ -59,6 +60,7 @@ namespace Rivet {
           _histoD05->fill(pt, weight);
           if (_histoD05->coordToIndex(pt) != IAxis::OVERFLOW_BIN){
             passed.insert(_histoD05);
+	    _eventsPassed[_histoD05] += weight;
           }
         }
       }
@@ -73,14 +75,15 @@ namespace Rivet {
           _histoD10->fill(pt, weight);
           if (_histoD10->coordToIndex(pt) != IAxis::OVERFLOW_BIN){
             passed.insert(_histoD10);
+	    _eventsPassed[_histoD10] += weight;
           }
         }
       }
     }
     
-    for (set<IHistogram1D*>::iterator histIt = passed.begin(); histIt != passed.end(); ++histIt) {
-      _eventsPassed[*histIt] += weight;
-    }
+    //for (set<IHistogram1D*>::iterator histIt = passed.begin(); histIt != passed.end(); ++histIt) {
+    // _eventsPassed[*histIt] += weight;
+    //}
   }  
 
 
