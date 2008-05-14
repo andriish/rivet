@@ -35,6 +35,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2007_S7057202.hh \
   Analyses/D0_2001_S4674421.hh \
   Analyses/D0_2004_S5992206.hh \
+  Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/H1_1995_S3167097.hh \
   Analyses/OPAL_2004_S6132243.hh \

@@ -1,0 +1,63 @@
+// -*- C++ -*-
+#include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Analyses/DELPHI_1995_S3137023.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
+
+namespace Rivet {
+
+
+  void DELPHI_1995_S3137023::analyze(const Event& e) {
+    // First, veto on leptonic events by requiring at least 4 charged FS particles
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const size_t numParticles = fs.particles().size();
+
+    // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
+    if (numParticles < 2) {
+      getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
+      vetoEvent(e);
+    }
+    getLog() << Log::DEBUG << "Passed leptonic event cut" << endl;
+
+    // Get event weight for histo filling
+    const double weight = e.weight();
+
+    // Get beams and average beam momentum
+    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
+    const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
+                                 beams.second.getMomentum().vector3().mod() ) / 2.0;
+    getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
+
+    // Final state of unstable particles to get particle spectra
+    const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+
+    for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
+      int id = abs(p->getPdgId());
+      switch (id) {
+         case 3312:
+            _histXpXiMinus->fill(p->getMomentum().vector3().mod()/meanBeamMom, weight);
+            _weightedTotalNumXiMinus += weight;
+            break;
+         case 3114:
+            _histXpSigma1385Plus->fill(p->getMomentum().vector3().mod()/meanBeamMom, weight);
+            _weightedTotalNumSigma1385Plus += weight;
+            break;
+      }
+    }
+
+  }
+
+
+
+  void DELPHI_1995_S3137023::init() {
+    _histXpXiMinus       = bookHistogram1D(2, 1, 1, "Xi- scaled momentum");
+    _histXpSigma1385Plus = bookHistogram1D(3, 1, 1, "Sigma(1385)+/Sigma(1385)- scaled momentum");
+  }
+
+  // Finalize
+  void DELPHI_1995_S3137023::finalize() { 
+    normalize(_histXpXiMinus       , _weightedTotalNumXiMinus/sumOfWeights());
+    normalize(_histXpSigma1385Plus , _weightedTotalNumSigma1385Plus/sumOfWeights());
+  }
+
+}
