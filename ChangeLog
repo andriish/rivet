@@ -1,5 +1,7 @@
 2008-05-15  Andy Buckley  <andy@insectnation.org>
 
+	* Removed unused mysterious Perl scripts!
+
 	* Added RivetGun.HepMC logging of HepMC event details.
 
 2008-05-13  Andy Buckley  <andy@insectnation.org>
