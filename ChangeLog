@@ -1,3 +1,7 @@
+2008-05-15  Andy Buckley  <andy@insectnation.org>
+
+	* Added RivetGun.HepMC logging of HepMC event details.
+
 2008-05-13  Andy Buckley  <andy@insectnation.org>
 
 	* Improved logging interface: log levels are now integers (for

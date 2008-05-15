@@ -137,6 +137,12 @@ namespace Rivet {
       if (round((i+1)/100.0) == (i+1)/100.0) lev = Log::INFO;
       if (round((i+1)/1000.0) == (i+1)/1000.0) lev = Log::WARN;
       nevtlog << lev << "Event number " << i+1 << endl;
+
+      // Print out HepMC event if in DEBUG mode
+      Log& hepmclog = Log::getLog("RivetGun.HepMC");
+      if (hepmclog.isActive(Log::DEBUG)) {
+        myevent.print();
+      }
       
       // Run Rivet analyses
       if (cfg.runRivet) rh.analyze(myevent);
