@@ -169,7 +169,7 @@ namespace Rivet {
          case 531:
             _histMultiBPlus0->fill(_histMultiBPlus0->binMean(0), weight);
             break;
-         case 10221:
+         case 9010221:
             _histMultiF0->fill(_histMultiF0->binMean(0), weight);
             break;
          case 113:
