@@ -10,6 +10,7 @@
 #include "Rivet/Analyses/ALEPH_1991_S2435284.hh"
 #include "Rivet/Analyses/DELPHI_1995_S3137023.hh"
 #include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
+#include "Rivet/Analyses/PDG_Hadron_Multiplicities.hh"
 //#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
 
 // HERA
@@ -60,6 +61,9 @@ extern "C" {
     fns["CDF_2008_S7541902"] = Rivet::CDF_2008_S7541902::create;
     fns["D0_2001_S4674421"] = Rivet::D0_2001_S4674421::create;
     fns["D0_2004_S5992206"] = Rivet::D0_2004_S5992206::create;
+
+    // General
+    fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_Hadron_Multiplicities::create;
 
     return fns;
   }

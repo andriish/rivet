@@ -90,7 +90,9 @@ namespace Rivet {
     }
 
     /// Get a description of the analysis.
-    virtual string getSpiresId() const = 0;
+    virtual string getSpiresId() const {
+      return "";
+    }
 
     /// Get a description of the analysis.
     virtual string getDescription() const {
@@ -98,10 +100,14 @@ namespace Rivet {
     }
     
     /// Experiment which performed and published this analysis.
-    virtual string getExpt() const = 0;
+    virtual string getExpt() const {
+      return "";
+    }
 
     /// When published (preprint year according to SPIRES).
-    virtual string getYear() const = 0;
+    virtual string getYear() const {
+      return "";
+    }
 
     /// Journal, and preprint references.
     virtual vector<string> getReferences() const {
