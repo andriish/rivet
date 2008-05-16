@@ -31,8 +31,207 @@ namespace Rivet {
     // Final state of unstable particles to get particle spectra
     const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
-#if 1
-    if (2*meanBeamMom > 89.5 && 2*meanBeamMom < 91.8) {
+
+    if (2*meanBeamMom >= 9.5 && 2*meanBeamMom <= 10.5) {
+      for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
+        int id = abs(p->getPdgId());
+        switch (id) {
+           case 211:
+              _hist10MeanMultiPiPlus->fill(_hist10MeanMultiPiPlus->binMean(0), weight);
+              break;
+           case 111:
+              _hist10MeanMultiPi0->fill(_hist10MeanMultiPi0->binMean(0), weight);
+              break;
+           case 321:
+              _hist10MeanMultiKPlus->fill(_hist10MeanMultiKPlus->binMean(0), weight);
+              break;
+           case 130:
+           case 310:
+              _hist10MeanMultiK0->fill(_hist10MeanMultiK0->binMean(0), weight);
+              break;
+           case 221:
+              _hist10MeanMultiEta->fill(_hist10MeanMultiEta->binMean(0), weight);
+              break;
+           case 331:
+              _hist10MeanMultiEtaPrime->fill(_hist10MeanMultiEtaPrime->binMean(0), weight);
+              break;
+           case 411:
+              _hist10MeanMultiDPlus->fill(_hist10MeanMultiDPlus->binMean(0), weight);
+              break;
+           case 421:
+              _hist10MeanMultiD0->fill(_hist10MeanMultiD0->binMean(0), weight);
+              break;
+           case 431:
+              _hist10MeanMultiDPlus_s->fill(_hist10MeanMultiDPlus_s->binMean(0), weight);
+              break;
+           case 9010221:
+              _hist10MeanMultiF0_980->fill(_hist10MeanMultiF0_980->binMean(0), weight);
+              break;
+           case 113:
+              _hist10MeanMultiRho770_0->fill(_hist10MeanMultiRho770_0->binMean(0), weight);
+              break;
+           case 223:
+              _hist10MeanMultiOmega782->fill(_hist10MeanMultiOmega782->binMean(0), weight);
+              break;
+           case 323:
+              _hist10MeanMultiKStar892Plus->fill(_hist10MeanMultiKStar892Plus->binMean(0), weight);
+              break;
+           case 313:
+              _hist10MeanMultiKStar892_0->fill(_hist10MeanMultiKStar892_0->binMean(0), weight);
+              break;
+           case 333:
+              _hist10MeanMultiPhi1020->fill(_hist10MeanMultiPhi1020->binMean(0), weight);
+              break;
+           case 413:
+              _hist10MeanMultiDStar2010Plus->fill(_hist10MeanMultiDStar2010Plus->binMean(0), weight);
+              break;
+           case 423:
+              _hist10MeanMultiDStar2007_0->fill(_hist10MeanMultiDStar2007_0->binMean(0), weight);
+              break;
+           case 433:
+              _hist10MeanMultiDStar_s2112Plus->fill(_hist10MeanMultiDStar_s2112Plus->binMean(0), weight);
+              break;
+           case 443:
+              _hist10MeanMultiJPsi1S->fill(_hist10MeanMultiJPsi1S->binMean(0), weight);
+              break;
+           case 225:
+              _hist10MeanMultiF2_1270->fill(_hist10MeanMultiF2_1270->binMean(0), weight);
+              break;
+           case 2212:
+              _hist10MeanMultiP->fill(_hist10MeanMultiP->binMean(0), weight);
+              break;
+           case 3122:
+              _hist10MeanMultiLambda->fill(_hist10MeanMultiLambda->binMean(0), weight);
+              break;
+           case 3212:
+              _hist10MeanMultiSigma0->fill(_hist10MeanMultiSigma0->binMean(0), weight);
+              break;
+           case 3312:
+              _hist10MeanMultiXiMinus->fill(_hist10MeanMultiXiMinus->binMean(0), weight);
+              break;
+           case 2224:
+              _hist10MeanMultiDelta1232PlusPlus->fill(_hist10MeanMultiDelta1232PlusPlus->binMean(0), weight);
+              break;
+           case 3114:
+              _hist10MeanMultiSigma1385Minus->fill(_hist10MeanMultiSigma1385Minus->binMean(0), weight);
+              _hist10MeanMultiSigma1385PlusMinus->fill(_hist10MeanMultiSigma1385PlusMinus->binMean(0), weight);
+              break;
+           case 3224:
+              _hist10MeanMultiSigma1385Plus->fill(_hist10MeanMultiSigma1385Plus->binMean(0), weight);
+              _hist10MeanMultiSigma1385PlusMinus->fill(_hist10MeanMultiSigma1385PlusMinus->binMean(0), weight);
+              break;
+           case 3324:
+              _hist10MeanMultiXi1530_0->fill(_hist10MeanMultiXi1530_0->binMean(0), weight);
+              break;
+           case 3334:
+              _hist10MeanMultiOmegaMinus->fill(_hist10MeanMultiOmegaMinus->binMean(0), weight);
+              break;
+           case 4122:
+              _hist10MeanMultiLambda_c_Plus->fill(_hist10MeanMultiLambda_c_Plus->binMean(0), weight);
+              break;
+           case 4222:
+           case 4112:
+              _hist10MeanMultiSigma_c_PlusPlus_0->fill(_hist10MeanMultiSigma_c_PlusPlus_0->binMean(0), weight);
+              break;
+           case 3124:
+              _hist10MeanMultiLambda1520->fill(_hist10MeanMultiLambda1520->binMean(0), weight);
+              break;
+        }
+      }
+    }
+
+    if (2*meanBeamMom >= 29 && 2*meanBeamMom <= 35) {
+      for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
+        int id = abs(p->getPdgId());
+        switch (id) {
+           case 211:
+              _hist32MeanMultiPiPlus->fill(_hist32MeanMultiPiPlus->binMean(0), weight);
+              break;
+           case 111:
+              _hist32MeanMultiPi0->fill(_hist32MeanMultiPi0->binMean(0), weight);
+              break;
+           case 321:
+              _hist32MeanMultiKPlus->fill(_hist32MeanMultiKPlus->binMean(0), weight);
+              break;
+           case 130:
+           case 310:
+              _hist32MeanMultiK0->fill(_hist32MeanMultiK0->binMean(0), weight);
+              break;
+           case 221:
+              _hist32MeanMultiEta->fill(_hist32MeanMultiEta->binMean(0), weight);
+              break;
+           case 331:
+              _hist32MeanMultiEtaPrime->fill(_hist32MeanMultiEtaPrime->binMean(0), weight);
+              break;
+           case 411:
+              _hist32MeanMultiDPlus->fill(_hist32MeanMultiDPlus->binMean(0), weight);
+              break;
+           case 421:
+              _hist32MeanMultiD0->fill(_hist32MeanMultiD0->binMean(0), weight);
+              break;
+           case 431:
+              _hist32MeanMultiDPlus_s->fill(_hist32MeanMultiDPlus_s->binMean(0), weight);
+              break;
+           case 9010221:
+              _hist32MeanMultiF0_980->fill(_hist32MeanMultiF0_980->binMean(0), weight);
+              break;
+           case 113:
+              _hist32MeanMultiRho770_0->fill(_hist32MeanMultiRho770_0->binMean(0), weight);
+              break;
+           case 323:
+              _hist32MeanMultiKStar892Plus->fill(_hist32MeanMultiKStar892Plus->binMean(0), weight);
+              break;
+           case 313:
+              _hist32MeanMultiKStar892_0->fill(_hist32MeanMultiKStar892_0->binMean(0), weight);
+              break;
+           case 333:
+              _hist32MeanMultiPhi1020->fill(_hist32MeanMultiPhi1020->binMean(0), weight);
+              break;
+           case 413:
+              _hist32MeanMultiDStar2010Plus->fill(_hist32MeanMultiDStar2010Plus->binMean(0), weight);
+              break;
+           case 423:
+              _hist32MeanMultiDStar2007_0->fill(_hist32MeanMultiDStar2007_0->binMean(0), weight);
+              break;
+           case 225:
+              _hist32MeanMultiF2_1270->fill(_hist32MeanMultiF2_1270->binMean(0), weight);
+              break;
+           case 325:
+              _hist32MeanMultiK2Star1430Plus->fill(_hist32MeanMultiK2Star1430Plus->binMean(0), weight);
+              break;
+           case 315:
+              _hist32MeanMultiK2Star1430_0->fill(_hist32MeanMultiK2Star1430_0->binMean(0), weight);
+              break;
+           case 2212:
+              _hist32MeanMultiP->fill(_hist32MeanMultiP->binMean(0), weight);
+              break;
+           case 3122:
+              _hist32MeanMultiLambda->fill(_hist32MeanMultiLambda->binMean(0), weight);
+              break;
+           case 3312:
+              _hist32MeanMultiXiMinus->fill(_hist32MeanMultiXiMinus->binMean(0), weight);
+              break;
+           case 3114:
+              _hist32MeanMultiSigma1385Minus->fill(_hist32MeanMultiSigma1385Minus->binMean(0), weight);
+              _hist32MeanMultiSigma1385PlusMinus->fill(_hist32MeanMultiSigma1385PlusMinus->binMean(0), weight);
+              break;
+           case 3224:
+              _hist32MeanMultiSigma1385Plus->fill(_hist32MeanMultiSigma1385Plus->binMean(0), weight);
+              _hist32MeanMultiSigma1385PlusMinus->fill(_hist32MeanMultiSigma1385PlusMinus->binMean(0), weight);
+              break;
+           case 3334:
+              _hist32MeanMultiOmegaMinus->fill(_hist32MeanMultiOmegaMinus->binMean(0), weight);
+              break;
+           case 4122:
+              _hist32MeanMultiLambda_c_Plus->fill(_hist32MeanMultiLambda_c_Plus->binMean(0), weight);
+              break;
+        }
+      }
+    }
+
+
+
+    if (2*meanBeamMom >= 89.5 && 2*meanBeamMom <= 91.8) {
       for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
         int id = abs(p->getPdgId());
         switch (id) {
@@ -198,74 +397,100 @@ namespace Rivet {
         }
       }
     }
-#endif
+
+
+
+    if (2*meanBeamMom >= 130 && 2*meanBeamMom <= 200) {
+      for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
+        int id = abs(p->getPdgId());
+        switch (id) {
+           case 211:
+              _hist165MeanMultiPiPlus->fill(_hist165MeanMultiPiPlus->binMean(0), weight);
+              break;
+           case 321:
+              _hist165MeanMultiKPlus->fill(_hist165MeanMultiKPlus->binMean(0), weight);
+              break;
+           case 130:
+           case 310:
+              _hist165MeanMultiK0->fill(_hist165MeanMultiK0->binMean(0), weight);
+              break;
+           case 2212:
+              _hist165MeanMultiP->fill(_hist165MeanMultiP->binMean(0), weight);
+              break;
+           case 3122:
+              _hist165MeanMultiLambda->fill(_hist165MeanMultiLambda->binMean(0), weight);
+              break;
+        }
+      }
+    }
+
 
   }
 
 
 
   void PDG_Hadron_Multiplicities::init() {
-//    _hist10MeanMultiPiPlus             = bookHistogram1D( 1, 1, 1, "mean Pi+ multiplicity");
-//    _hist10MeanMultiPi0                = bookHistogram1D( 2, 1, 1, "mean Pi0 multiplicity");
-//    _hist10MeanMultiKPlus              = bookHistogram1D( 3, 1, 1, "mean K+ multiplicity");
-//    _hist10MeanMultiK0                 = bookHistogram1D( 4, 1, 1, "mean K0 multiplicity");
-//    _hist10MeanMultiEta                = bookHistogram1D( 5, 1, 1, "mean eta multiplicity");
-//    _hist10MeanMultiEtaPrime           = bookHistogram1D( 6, 1, 1, "mean eta'(958) multiplicity");
-//    _hist10MeanMultiDPlus              = bookHistogram1D( 7, 1, 1, "mean D+ multiplicity");
-//    _hist10MeanMultiD0                 = bookHistogram1D( 8, 1, 1, "mean D0 multiplicity");
-//    _hist10MeanMultiDPlus_s            = bookHistogram1D( 9, 1, 1, "mean D+s multiplicity");
-//    _hist10MeanMultiF0_980             = bookHistogram1D(13, 1, 1, "mean f0(980) multiplicity");
-//    _hist10MeanMultiRho770_0           = bookHistogram1D(15, 1, 1, "mean rho(770)0 multiplicity");
-//    _hist10MeanMultiOmega782           = bookHistogram1D(17, 1, 1, "mean omega(782) multiplicity");
-//    _hist10MeanMultiKStar892Plus       = bookHistogram1D(18, 1, 1, "mean K*(892)+ multiplicity");
-//    _hist10MeanMultiKStar892_0         = bookHistogram1D(19, 1, 1, "mean K*(892)0 multiplicity");
-//    _hist10MeanMultiPhi1020            = bookHistogram1D(20, 1, 1, "mean phi(1020) multiplicity");
-//    _hist10MeanMultiDStar2010Plus      = bookHistogram1D(21, 1, 1, "mean D*(2010)+ multiplicity");
-//    _hist10MeanMultiDStar2007_0        = bookHistogram1D(22, 1, 1, "mean D*(2007)0 multiplicity");
-//    _hist10MeanMultiDStar_s2112Plus    = bookHistogram1D(23, 1, 1, "mean D*s(2112)+ multiplicity");
-//    _hist10MeanMultiJPsi1S             = bookHistogram1D(25, 1, 1, "mean J/psi(1S) multiplicity");
-//    _hist10MeanMultiF2_1270            = bookHistogram1D(31, 1, 1, "mean f2(1270) multiplicity");
-//    _hist10MeanMultiP                  = bookHistogram1D(38, 1, 1, "mean p multiplicity");
-//    _hist10MeanMultiLambda             = bookHistogram1D(39, 1, 1, "mean Lambda multiplicity");
-//    _hist10MeanMultiSigma0             = bookHistogram1D(40, 1, 1, "mean Sigma0 multiplicity");
-//    _hist10MeanMultiXiMinus            = bookHistogram1D(44, 1, 1, "mean Xi- multiplicity");
-//    _hist10MeanMultiDelta1232PlusPlus  = bookHistogram1D(45, 1, 1, "mean Delta(1232)++ multiplicity");
-//    _hist10MeanMultiSigma1385Minus     = bookHistogram1D(46, 1, 1, "mean Sigma(1385)- multiplicity");
-//    _hist10MeanMultiSigma1385Plus      = bookHistogram1D(47, 1, 1, "mean Sigma(1385)+ multiplicity");
-//    _hist10MeanMultiSigma1385PlusMinus = bookHistogram1D(48, 1, 1, "mean Sigma(1385)+- multiplicity");
-//    _hist10MeanMultiXi1530_0           = bookHistogram1D(49, 1, 1, "mean Xi(1530)0 multiplicity");
-//    _hist10MeanMultiOmegaMinus         = bookHistogram1D(50, 1, 1, "mean Omega- multiplicity");
-//    _hist10MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 1, "mean Lambda_c+ multiplicity");
-//    _hist10MeanMultiSigma_c_PlusPlus_0 = bookHistogram1D(53, 1, 1, "mean Sigma_c++, Sigma_c0 multiplicity");
-//    _hist10MeanMultiLambda1520         = bookHistogram1D(54, 1, 1, "mean Lambda(1520) multiplicity");
+    _hist10MeanMultiPiPlus             = bookHistogram1D( 1, 1, 1, "mean Pi+ multiplicity");
+    _hist10MeanMultiPi0                = bookHistogram1D( 2, 1, 1, "mean Pi0 multiplicity");
+    _hist10MeanMultiKPlus              = bookHistogram1D( 3, 1, 1, "mean K+ multiplicity");
+    _hist10MeanMultiK0                 = bookHistogram1D( 4, 1, 1, "mean K0 multiplicity");
+    _hist10MeanMultiEta                = bookHistogram1D( 5, 1, 1, "mean eta multiplicity");
+    _hist10MeanMultiEtaPrime           = bookHistogram1D( 6, 1, 1, "mean eta'(958) multiplicity");
+    _hist10MeanMultiDPlus              = bookHistogram1D( 7, 1, 1, "mean D+ multiplicity");
+    _hist10MeanMultiD0                 = bookHistogram1D( 8, 1, 1, "mean D0 multiplicity");
+    _hist10MeanMultiDPlus_s            = bookHistogram1D( 9, 1, 1, "mean D+s multiplicity");
+    _hist10MeanMultiF0_980             = bookHistogram1D(13, 1, 1, "mean f0(980) multiplicity");
+    _hist10MeanMultiRho770_0           = bookHistogram1D(15, 1, 1, "mean rho(770)0 multiplicity");
+    _hist10MeanMultiOmega782           = bookHistogram1D(17, 1, 1, "mean omega(782) multiplicity");
+    _hist10MeanMultiKStar892Plus       = bookHistogram1D(18, 1, 1, "mean K*(892)+ multiplicity");
+    _hist10MeanMultiKStar892_0         = bookHistogram1D(19, 1, 1, "mean K*(892)0 multiplicity");
+    _hist10MeanMultiPhi1020            = bookHistogram1D(20, 1, 1, "mean phi(1020) multiplicity");
+    _hist10MeanMultiDStar2010Plus      = bookHistogram1D(21, 1, 1, "mean D*(2010)+ multiplicity");
+    _hist10MeanMultiDStar2007_0        = bookHistogram1D(22, 1, 1, "mean D*(2007)0 multiplicity");
+    _hist10MeanMultiDStar_s2112Plus    = bookHistogram1D(23, 1, 1, "mean D*s(2112)+ multiplicity");
+    _hist10MeanMultiJPsi1S             = bookHistogram1D(25, 1, 1, "mean J/psi(1S) multiplicity");
+    _hist10MeanMultiF2_1270            = bookHistogram1D(31, 1, 1, "mean f2(1270) multiplicity");
+    _hist10MeanMultiP                  = bookHistogram1D(38, 1, 1, "mean p multiplicity");
+    _hist10MeanMultiLambda             = bookHistogram1D(39, 1, 1, "mean Lambda multiplicity");
+    _hist10MeanMultiSigma0             = bookHistogram1D(40, 1, 1, "mean Sigma0 multiplicity");
+    _hist10MeanMultiXiMinus            = bookHistogram1D(44, 1, 1, "mean Xi- multiplicity");
+    _hist10MeanMultiDelta1232PlusPlus  = bookHistogram1D(45, 1, 1, "mean Delta(1232)++ multiplicity");
+    _hist10MeanMultiSigma1385Minus     = bookHistogram1D(46, 1, 1, "mean Sigma(1385)- multiplicity");
+    _hist10MeanMultiSigma1385Plus      = bookHistogram1D(47, 1, 1, "mean Sigma(1385)+ multiplicity");
+    _hist10MeanMultiSigma1385PlusMinus = bookHistogram1D(48, 1, 1, "mean Sigma(1385)+- multiplicity");
+    _hist10MeanMultiXi1530_0           = bookHistogram1D(49, 1, 1, "mean Xi(1530)0 multiplicity");
+    _hist10MeanMultiOmegaMinus         = bookHistogram1D(50, 1, 1, "mean Omega- multiplicity");
+    _hist10MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 1, "mean Lambda_c+ multiplicity");
+    _hist10MeanMultiSigma_c_PlusPlus_0 = bookHistogram1D(53, 1, 1, "mean Sigma_c++, Sigma_c0 multiplicity");
+    _hist10MeanMultiLambda1520         = bookHistogram1D(54, 1, 1, "mean Lambda(1520) multiplicity");
 
-//    _hist32MeanMultiPiPlus             = bookHistogram1D( 1, 1, 2, "mean Pi+ multiplicity");
-//    _hist32MeanMultiPi0                = bookHistogram1D( 2, 1, 2, "mean Pi0 multiplicity");
-//    _hist32MeanMultiKPlus              = bookHistogram1D( 3, 1, 2, "mean K+ multiplicity");
-//    _hist32MeanMultiK0                 = bookHistogram1D( 4, 1, 2, "mean K0 multiplicity");
-//    _hist32MeanMultiEta                = bookHistogram1D( 5, 1, 2, "mean eta multiplicity");
-//    _hist32MeanMultiEtaPrime           = bookHistogram1D( 6, 1, 2, "mean eta'(958) multiplicity");
-//    _hist32MeanMultiDPlus              = bookHistogram1D( 7, 1, 2, "mean D+ multiplicity");
-//    _hist32MeanMultiD0                 = bookHistogram1D( 8, 1, 2, "mean D0 multiplicity");
-//    _hist32MeanMultiDPlus_s            = bookHistogram1D( 9, 1, 2, "mean D+s multiplicity");
-//    _hist32MeanMultiF0_980             = bookHistogram1D(13, 1, 2, "mean f0(980) multiplicity");
-//    _hist32MeanMultiRho770_0           = bookHistogram1D(15, 1, 2, "mean rho(770)0 multiplicity");
-//    _hist32MeanMultiKStar892Plus       = bookHistogram1D(18, 1, 2, "mean K*(892)+ multiplicity");
-//    _hist32MeanMultiKStar892_0         = bookHistogram1D(19, 1, 2, "mean K*(892)0 multiplicity");
-//    _hist32MeanMultiPhi1020            = bookHistogram1D(20, 1, 2, "mean phi(1020) multiplicity");
-//    _hist32MeanMultiDStar2010Plus      = bookHistogram1D(21, 1, 2, "mean D*(2010)+ multiplicity");
-//    _hist32MeanMultiDStar2007_0        = bookHistogram1D(22, 1, 2, "mean D*(2007)0 multiplicity");
-//    _hist32MeanMultiF2_1270            = bookHistogram1D(31, 1, 2, "mean f2(1270) multiplicity");
-//    _hist32MeanMultiK2Star1430Plus     = bookHistogram1D(33, 1, 1, "mean K2*(1430)+ multiplicity");
-//    _hist32MeanMultiK2Star1430_0       = bookHistogram1D(34, 1, 1, "mean K2*(1430)0 multiplicity");
-//    _hist32MeanMultiP                  = bookHistogram1D(38, 1, 2, "mean p multiplicity");
-//    _hist32MeanMultiLambda             = bookHistogram1D(39, 1, 2, "mean Lambda multiplicity");
-//    _hist32MeanMultiXiMinus            = bookHistogram1D(44, 1, 2, "mean Xi- multiplicity");
-//    _hist32MeanMultiSigma1385Minus     = bookHistogram1D(46, 1, 2, "mean Sigma(1385)- multiplicity");
-//    _hist32MeanMultiSigma1385Plus      = bookHistogram1D(47, 1, 2, "mean Sigma(1385)+ multiplicity");
-//    _hist32MeanMultiSigma1385PlusMinus = bookHistogram1D(48, 1, 2, "mean Sigma(1385)+- multiplicity");
-//    _hist32MeanMultiOmegaMinus         = bookHistogram1D(50, 1, 2, "mean Omega- multiplicity");
-//    _hist32MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 2, "mean Lambda_c+ multiplicity");
+    _hist32MeanMultiPiPlus             = bookHistogram1D( 1, 1, 2, "mean Pi+ multiplicity");
+    _hist32MeanMultiPi0                = bookHistogram1D( 2, 1, 2, "mean Pi0 multiplicity");
+    _hist32MeanMultiKPlus              = bookHistogram1D( 3, 1, 2, "mean K+ multiplicity");
+    _hist32MeanMultiK0                 = bookHistogram1D( 4, 1, 2, "mean K0 multiplicity");
+    _hist32MeanMultiEta                = bookHistogram1D( 5, 1, 2, "mean eta multiplicity");
+    _hist32MeanMultiEtaPrime           = bookHistogram1D( 6, 1, 2, "mean eta'(958) multiplicity");
+    _hist32MeanMultiDPlus              = bookHistogram1D( 7, 1, 2, "mean D+ multiplicity");
+    _hist32MeanMultiD0                 = bookHistogram1D( 8, 1, 2, "mean D0 multiplicity");
+    _hist32MeanMultiDPlus_s            = bookHistogram1D( 9, 1, 2, "mean D+s multiplicity");
+    _hist32MeanMultiF0_980             = bookHistogram1D(13, 1, 2, "mean f0(980) multiplicity");
+    _hist32MeanMultiRho770_0           = bookHistogram1D(15, 1, 2, "mean rho(770)0 multiplicity");
+    _hist32MeanMultiKStar892Plus       = bookHistogram1D(18, 1, 2, "mean K*(892)+ multiplicity");
+    _hist32MeanMultiKStar892_0         = bookHistogram1D(19, 1, 2, "mean K*(892)0 multiplicity");
+    _hist32MeanMultiPhi1020            = bookHistogram1D(20, 1, 2, "mean phi(1020) multiplicity");
+    _hist32MeanMultiDStar2010Plus      = bookHistogram1D(21, 1, 2, "mean D*(2010)+ multiplicity");
+    _hist32MeanMultiDStar2007_0        = bookHistogram1D(22, 1, 2, "mean D*(2007)0 multiplicity");
+    _hist32MeanMultiF2_1270            = bookHistogram1D(31, 1, 2, "mean f2(1270) multiplicity");
+    _hist32MeanMultiK2Star1430Plus     = bookHistogram1D(33, 1, 1, "mean K2*(1430)+ multiplicity");
+    _hist32MeanMultiK2Star1430_0       = bookHistogram1D(34, 1, 1, "mean K2*(1430)0 multiplicity");
+    _hist32MeanMultiP                  = bookHistogram1D(38, 1, 2, "mean p multiplicity");
+    _hist32MeanMultiLambda             = bookHistogram1D(39, 1, 2, "mean Lambda multiplicity");
+    _hist32MeanMultiXiMinus            = bookHistogram1D(44, 1, 2, "mean Xi- multiplicity");
+    _hist32MeanMultiSigma1385Minus     = bookHistogram1D(46, 1, 2, "mean Sigma(1385)- multiplicity");
+    _hist32MeanMultiSigma1385Plus      = bookHistogram1D(47, 1, 2, "mean Sigma(1385)+ multiplicity");
+    _hist32MeanMultiSigma1385PlusMinus = bookHistogram1D(48, 1, 2, "mean Sigma(1385)+- multiplicity");
+    _hist32MeanMultiOmegaMinus         = bookHistogram1D(50, 1, 2, "mean Omega- multiplicity");
+    _hist32MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 2, "mean Lambda_c+ multiplicity");
 
     _hist91MeanMultiPiPlus             = bookHistogram1D( 1, 1, 3, "mean Pi+ multiplicity");
     _hist91MeanMultiPi0                = bookHistogram1D( 2, 1, 3, "mean Pi0 multiplicity");
@@ -319,76 +544,76 @@ namespace Rivet {
     _hist91MeanMultiLambda_b_0         = bookHistogram1D(52, 1, 1, "mean Lambda_b0 multiplicity");
     _hist91MeanMultiLambda1520         = bookHistogram1D(54, 1, 2, "mean Lambda(1520) multiplicity");
 
-//    _hist165MeanMultiPiPlus            = bookHistogram1D( 1, 1, 4, "mean Pi+ multiplicity");
-//    _hist165MeanMultiKPlus             = bookHistogram1D( 3, 1, 4, "mean K+ multiplicity");
-//    _hist165MeanMultiK0                = bookHistogram1D( 4, 1, 4, "mean K0 multiplicity");
-//    _hist165MeanMultiP                 = bookHistogram1D(38, 1, 4, "mean p multiplicity");
-//    _hist165MeanMultiLambda            = bookHistogram1D(39, 1, 4, "mean Lambda multiplicity");
+    _hist165MeanMultiPiPlus            = bookHistogram1D( 1, 1, 4, "mean Pi+ multiplicity");
+    _hist165MeanMultiKPlus             = bookHistogram1D( 3, 1, 4, "mean K+ multiplicity");
+    _hist165MeanMultiK0                = bookHistogram1D( 4, 1, 4, "mean K0 multiplicity");
+    _hist165MeanMultiP                 = bookHistogram1D(38, 1, 4, "mean p multiplicity");
+    _hist165MeanMultiLambda            = bookHistogram1D(39, 1, 4, "mean Lambda multiplicity");
   }
 
   // Finalize
   void PDG_Hadron_Multiplicities::finalize() {
-//    scale(_hist10MeanMultiPiPlus            , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiPi0               , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiKPlus             , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiK0                , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiEta               , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiEtaPrime          , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiDPlus             , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiD0                , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiDPlus_s           , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiF0_980            , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiRho770_0          , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiOmega782          , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiKStar892Plus      , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiKStar892_0        , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiPhi1020           , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiDStar2010Plus     , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiDStar2007_0       , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiDStar_s2112Plus   , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiJPsi1S            , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiF2_1270           , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiP                 , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiLambda            , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiSigma0            , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiXiMinus           , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiDelta1232PlusPlus , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiSigma1385Minus    , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiSigma1385Plus     , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiSigma1385PlusMinus, 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiXi1530_0          , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiOmegaMinus        , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiLambda_c_Plus     , 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiSigma_c_PlusPlus_0, 1.0/sumOfWeights());
-//    scale(_hist10MeanMultiLambda1520        , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiPiPlus            , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiPi0               , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiKPlus             , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiK0                , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiEta               , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiEtaPrime          , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiDPlus             , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiD0                , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiDPlus_s           , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiF0_980            , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiRho770_0          , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiOmega782          , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiKStar892Plus      , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiKStar892_0        , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiPhi1020           , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiDStar2010Plus     , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiDStar2007_0       , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiDStar_s2112Plus   , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiJPsi1S            , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiF2_1270           , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiP                 , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiLambda            , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiSigma0            , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiXiMinus           , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiDelta1232PlusPlus , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiSigma1385Minus    , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiSigma1385Plus     , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiSigma1385PlusMinus, 1.0/sumOfWeights());
+    scale(_hist10MeanMultiXi1530_0          , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiOmegaMinus        , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiLambda_c_Plus     , 1.0/sumOfWeights());
+    scale(_hist10MeanMultiSigma_c_PlusPlus_0, 1.0/sumOfWeights());
+    scale(_hist10MeanMultiLambda1520        , 1.0/sumOfWeights());
 
-//    scale(_hist32MeanMultiPiPlus            , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiPi0               , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiKPlus             , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiK0                , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiEta               , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiEtaPrime          , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiDPlus             , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiD0                , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiDPlus_s           , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiF0_980            , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiRho770_0          , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiKStar892Plus      , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiKStar892_0        , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiPhi1020           , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiDStar2010Plus     , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiDStar2007_0       , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiF2_1270           , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiK2Star1430Plus    , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiK2Star1430_0      , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiP                 , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiLambda            , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiXiMinus           , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiSigma1385Minus    , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiSigma1385Plus     , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiSigma1385PlusMinus, 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiOmegaMinus        , 1.0/sumOfWeights());
-//    scale(_hist32MeanMultiLambda_c_Plus     , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiPiPlus            , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiPi0               , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiKPlus             , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiK0                , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiEta               , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiEtaPrime          , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiDPlus             , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiD0                , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiDPlus_s           , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiF0_980            , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiRho770_0          , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiKStar892Plus      , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiKStar892_0        , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiPhi1020           , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiDStar2010Plus     , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiDStar2007_0       , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiF2_1270           , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiK2Star1430Plus    , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiK2Star1430_0      , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiP                 , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiLambda            , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiXiMinus           , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiSigma1385Minus    , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiSigma1385Plus     , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiSigma1385PlusMinus, 1.0/sumOfWeights());
+    scale(_hist32MeanMultiOmegaMinus        , 1.0/sumOfWeights());
+    scale(_hist32MeanMultiLambda_c_Plus     , 1.0/sumOfWeights());
 
     scale(_hist91MeanMultiPiPlus            , 1.0/sumOfWeights());
     scale(_hist91MeanMultiPi0               , 1.0/sumOfWeights());
@@ -442,11 +667,11 @@ namespace Rivet {
     scale(_hist91MeanMultiLambda_b_0        , 1.0/sumOfWeights());
     scale(_hist91MeanMultiLambda1520        , 1.0/sumOfWeights());
 
-//    scale(_hist165MeanMultiPiPlus           , 1.0/sumOfWeights());
-//    scale(_hist165MeanMultiKPlus            , 1.0/sumOfWeights());
-//    scale(_hist165MeanMultiK0               , 1.0/sumOfWeights());
-//    scale(_hist165MeanMultiP                , 1.0/sumOfWeights());
-//    scale(_hist165MeanMultiLambda           , 1.0/sumOfWeights());
+    scale(_hist165MeanMultiPiPlus           , 1.0/sumOfWeights());
+    scale(_hist165MeanMultiKPlus            , 1.0/sumOfWeights());
+    scale(_hist165MeanMultiK0               , 1.0/sumOfWeights());
+    scale(_hist165MeanMultiP                , 1.0/sumOfWeights());
+    scale(_hist165MeanMultiLambda           , 1.0/sumOfWeights());
   }
 
 }
