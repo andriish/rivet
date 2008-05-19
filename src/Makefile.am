@@ -7,6 +7,7 @@ libRivet_la_LDFLAGS = \
   -export-dynamic -version-info 2:0:1
 libRivet_la_SOURCES = \
   Cuts.cc \
+  ProjectionApplier.cc \
   Projection.cc \
   Analysis.cc \
   AnalysisLoader.cc \

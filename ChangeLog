@@ -1,5 +1,8 @@
 2008-05-19  Andy Buckley  <andy@insectnation.org>
 
+	* Moved projection-applying functions into ProjectionApplier base
+	class (from which Projection and Analysis both derive).
+
 	* Added Rivet-specific exceptions in place of std::runtime_error.
 
 	* Removed unused HepML reference files.

@@ -157,22 +157,6 @@ namespace Rivet {
       return *_analysishandler;
     }
 
-    /// Get the contained projections, including recursion.
-    set<ConstProjectionPtr> getProjections() const {
-      return getProjHandler().getChildProjections(*this, ProjectionHandler::DEEP);
-    }
-
-    /// Get the named projection, specifying return type via a template argument.
-    template <typename PROJ>
-    const PROJ& getProjection(const string& name) const {
-      const Projection& p = getProjHandler().getProjection(*this, name);
-      return pcast<PROJ>(p);
-    }
-
-    /// Get the named projection (non-templated).
-    const Projection& getProjection(const string& name) const {
-      return getProjHandler().getProjection(*this, name);
-    }
 
     /// Normalize the given histogram, @a histo. After this call the 
     /// histogram will have been transformed to a DataPointSet with the 
@@ -202,13 +186,8 @@ namespace Rivet {
       return _needsCrossSection;
     }
     
-  protected:
 
-    /// Get a reference to the ProjectionHandler for this thread.
-    ProjectionHandler& getProjHandler() const {
-      assert(_projhandler);
-      return *_projhandler;
-    }
+  protected:
 
     /// Get the process cross-section. Throws if this hasn't been set.
     const double& crossSection() const {
@@ -238,6 +217,7 @@ namespace Rivet {
     /// Is this analysis able to run on the BeamPair @a beams ?
     virtual const bool checkConsistency() const;
     
+
   protected:
     /// @name AIDA analysis infrastructure.
     //@{
@@ -366,50 +346,6 @@ namespace Rivet {
       return *this;
     }
 
-    /// Register a contained projection (via reference).
-    template <typename PROJ>
-    const PROJ& addProjection(const PROJ& proj, const string& name) {
-      getLog() << Log::TRACE << this->getName() << " inserts " 
-               << proj.getName() << " at: " << &proj << endl;
-      const Projection& p = getProjHandler().registerProjection(*this, proj, name);
-      return pcast<PROJ>(p);
-    }
-
-    /// @todo Discriminate with templated pointer type?
-    // /// Register a contained projection (via pointer).
-    // template <typename PROJ>
-    // const PROJ* addProjection(const PROJ* pproj, const string& name) {
-    //   getLog() << Log::TRACE << this->getName() << " inserts " 
-    //            << pproj->getName() << " at: " << pproj << endl;
-    //   const Projection* p = getProjHandler().registerProjection(*this, pproj, name);
-    //   return dynamic_cast<const PROJ*>(p);
-    // }
-
-    /// Register a contained projection (via pointer, untemplated).
-    const Projection* addProjection(const Projection* pproj, const string& name) {
-      getLog() << Log::TRACE << this->getName() << " inserts " 
-               << pproj->getName() << " at: " << pproj << endl;
-      return getProjHandler().registerProjection(*this, pproj, name);
-    }
-
-    /// Apply the named projection on @a event.
-    template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const string& name) {
-      return pcast<PROJ>(evt.applyProjection(getProjection(name)));
-    }
-
-    /// Apply the supplied projection on @a event.
-    template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const PROJ& proj) {
-      return pcast<PROJ>(evt.applyProjection(proj));
-    }
-
-    /// Apply the supplied projection on @a event.
-    template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const Projection& proj) {
-      return pcast<PROJ>(evt.applyProjection(proj));
-    }
-
     /// Declare whether this analysis needs to know the process cross-section from the generator.
     Analysis& setNeedsCrossSection(bool needed) {
       _needsCrossSection = needed;
@@ -433,9 +369,6 @@ namespace Rivet {
 
     /// The controlling AnalysisHandler object.
     AnalysisHandler* _analysishandler;
-
-    /// Central Projection repository.
-    ProjectionHandler* _projhandler;
 
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;

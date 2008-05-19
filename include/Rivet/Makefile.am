@@ -14,8 +14,8 @@ nobase_pkginclude_HEADERS += \
   RivetAIDA.hh        RivetAIDA.fhh       \
   Analysis.hh         Analysis.fhh        \
   AnalysisHandler.hh  AnalysisHandler.fhh \
-  ProjectionHandler.hh   \
-  ProjectionApplier.hh   \
+  ProjectionHandler.hh \
+  ProjectionApplier.hh ProjectionApplier.fhh \
   Projection.hh       Projection.fhh      \
   Cmp.hh              Cmp.fhh             \
   ParticleName.hh     HistoFormat.hh      \

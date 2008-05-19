@@ -4,12 +4,13 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.fhh"
-#include "Rivet/ProjectionApplier.hh"
+#include "Rivet/ProjectionApplier.fhh"
 #include "Rivet/Projection.fhh"
 
 
 namespace Rivet {
 
+  class ProjectionApplier;
 
   /// @brief The projection handler is a central repository for projections to be used
   /// in a Rivet analysis run.

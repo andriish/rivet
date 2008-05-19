@@ -12,8 +12,7 @@ namespace Rivet {
 
 
   Analysis::Analysis() 
-    : _analysishandler(0),  
-      _projhandler(ProjectionHandler::create()),
+    : _analysishandler(0),
       _madeHistoDir(false), _vetoedWeightSum(0)
   { 
     _gotCrossSection = false;

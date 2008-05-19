@@ -8,8 +8,7 @@ namespace Rivet {
 
 
   Projection::Projection()
-    : _name("BaseProjection"),
-      _projhandler(ProjectionHandler::create())
+    : _name("BaseProjection")
   {
     addBeamPair(ANY, ANY);
     getLog() << Log::TRACE << "Creating " << getName() << " at " << this << endl;
@@ -59,21 +58,16 @@ namespace Rivet {
   }
 
 
-  const Projection& Projection::_applyProjection(const Event& evt, 
-                                                 const string& name) const {
-    return evt.applyProjection(getProjection(name));
-  }
-
-
-  const Projection& Projection::_applyProjection(const Event& evt, 
-                                                 const Projection& proj) const {
-    return evt.applyProjection(proj);
-  }
-
-
   Cmp<Projection> Projection::mkNamedPCmp(const Projection& otherparent, 
                                           const string& pname) const {
     return pcmp(*this, otherparent, pname);
   }
+
+
+  Cmp<Projection> Projection::mkPCmp(const Projection& otherparent, 
+                                     const string& pname) const {
+    return pcmp(*this, otherparent, pname);
+  }
+
 
 }

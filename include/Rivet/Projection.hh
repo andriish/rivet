@@ -10,38 +10,10 @@
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.hh"
-//#include "Rivet/Tools/TypeTraits.hh"
 #include "Rivet/Cmp.fhh"
 
 
-namespace std {
-  
-  /// This is the function called when comparing two (const) pointers to Rivet::Projection.
-  template <>
-  struct less<const Rivet::Projection*>
-    : public binary_function<const Rivet::Projection*, const Rivet::Projection*, bool> {
-    bool operator()(const Rivet::Projection* x, const Rivet::Projection* y) const;
-  };
-
-}
-
-
 namespace Rivet {
-
-
-  /// Convenience method for casting to a const Projection reference.
-  template <typename PROJ>
-  inline const PROJ& pcast(const Projection& p) {
-    return dynamic_cast<const PROJ&>(p);
-  }
-  
-  
-  /// Convenience method for casting to a const Projection pointer.
-  template <typename PROJ>
-  inline const PROJ* pcast(const Projection* p) {
-    return dynamic_cast<const PROJ*>(p);
-  }
-
 
   /// Projection is the base class of all Projections to be used by
   /// Rivet. A Projection object can be assigned to an Event object and
@@ -136,78 +108,6 @@ namespace Rivet {
       return _name;
     }
 
-    /// Get the contained projections, including recursion.
-    set<ConstProjectionPtr> getProjections() const {
-      return getProjHandler().getChildProjections(*this, ProjectionHandler::DEEP);
-    }
-
-    /// Get the named projection, specifying return type via a template argument.
-    template <typename PROJ>
-    const PROJ& getProjection(const string& name) const {
-      const Projection& p = getProjHandler().getProjection(*this, name);
-      return pcast<PROJ>(p);
-    }
-
-    /// Get the named projection (non-templated, so returns as a reference to a
-    /// Projection base class).
-    const Projection& getProjection(const string& name) const {
-      return getProjHandler().getProjection(*this, name);
-    }
-    
-
-    /// Apply the supplied projection on @a event.
-    template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const PROJ& proj) const {
-      return pcast<PROJ>(_applyProjection(evt, proj));
-    }
-
-
-    /// Apply the supplied projection on @a event.
-    template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const Projection& proj) const {
-      return pcast<PROJ>(_applyProjection(evt, proj));
-    }
-
-
-    /// Apply the named projection on @a event.
-    template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const string& name) const {
-      return pcast<PROJ>(_applyProjection(evt, name));
-    }
-
-
-   
-    /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
-    /// object automatically passed as one of the parent projections.
-    Cmp<Projection> mkNamedPCmp(const Projection& otherparent, const string& pname) const;
-
-    /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
-    /// object automatically passed as one of the parent projections.
-    Cmp<Projection> mkPCmp(const Projection&, const string& pname) const;
-
-    
-  protected:
-
-    /// Get a reference to the ProjectionHandler for this thread.
-    ProjectionHandler& getProjHandler() const {
-      assert(_projhandler);
-      return *_projhandler;
-    }
-
-    // /// Register a contained projection.
-    // template <typename PROJ>
-    // PROJ addProjection(PROJ proj, const string& name) {
-    //   // Use traits to determine ref/ptr type of argument:
-    //   return _addProjHelper(proj, name, TypeTraits<PROJ>::ArgType());
-    // }
-
-    /// Register a contained projection (via reference).
-    template <typename PROJ>
-    const PROJ& addProjection(const PROJ& proj, const string& name) {
-      // getLog() << Log::TRACE << this->getName() << " inserts " 
-      //          << proj.getName() << " at: " << &proj << endl;
-      return dynamic_cast<const PROJ&>(getProjHandler().registerProjection(*this, proj, name));
-    }
 
     /// Add a colliding beam pair.
     Projection& addBeamPair(const ParticleName& beam1, const ParticleName& beam2) {
@@ -235,16 +135,17 @@ namespace Rivet {
       _name = name;
     }
 
-  private:
+  protected:
 
-    /// Non-templated version of string-based applyProjection, to work around
-    /// header dependency issue.
-    const Projection& _applyProjection(const Event& evt, const string& name) const;
-    
-    /// Non-templated version of proj-based applyProjection, to work around
-    /// header dependency issue.
-    const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
-    
+    /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
+    /// object automatically passed as one of the parent projections.
+    Cmp<Projection> mkNamedPCmp(const Projection& otherparent, const string& pname) const;
+
+
+    /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
+    /// object automatically passed as one of the parent projections.
+    Cmp<Projection> mkPCmp(const Projection& otherparent, const string& pname) const;
+   
 
   private:
 
@@ -258,8 +159,6 @@ namespace Rivet {
     /// Beam-type constraint.
     set<BeamPair> _beamPairs;
     
-    /// Pointer to projection handler.
-    ProjectionHandler* _projhandler;
   };
 
 
