@@ -16,10 +16,10 @@ namespace Rivet {
 
     if ( inc.second.getPdgId() == _idhad ) hadron = inc.second;
     else if ( inc.first.getPdgId() == _idhad ) hadron = inc.first;
-    else throw runtime_error("DISKinematics projector could not find the correct beam.");
+    else throw Error("DISKinematics projector could not find the correct beam.");
 
     if ( &(dislep.in().getHepMCParticle()) == &(hadron.getHepMCParticle()) ) {
-      throw runtime_error("DISKinematics projector could not find the correct beam.");
+      throw Error("DISKinematics projector could not find the correct beam.");
     }
 
     const FourMomentum pLepIn = dislep.in().getMomentum();

@@ -1,5 +1,7 @@
 2008-05-19  Andy Buckley  <andy@insectnation.org>
 
+	* Added Rivet-specific exceptions in place of std::runtime_error.
+
 	* Removed unused HepML reference files.
 
 	* Added error handling for requested analyses with wrong case

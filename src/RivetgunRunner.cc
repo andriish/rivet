@@ -31,16 +31,16 @@ namespace Rivet {
       log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;
       try {
         Loader::loadGenLibs(cfg.generatorName);
-      } catch (runtime_error& e) {
+      } catch (Error& e) {
         log << Log::ERROR << "Error when loading the generator library:"
         << endl << e.what() << endl;
-        throw runtime_error("Error when loading the generator library"); 
+        throw Error("Error when loading the generator library"); 
       }
 
       gen = Loader::createGen();
       if (!gen) {
         log << Log::ERROR << "No generator chosen... exiting" << endl;
-        throw runtime_error("No generator chosen");
+        throw Error("No generator chosen");
       }
       // Seed random number generator
       gen->setSeed(cfg.rngSeed);
@@ -56,10 +56,10 @@ namespace Rivet {
       // Set initial state
       try {
         gen->setInitialState(cfg.beam1, cfg.mom1, cfg.beam2, cfg.mom2);
-      } catch (runtime_error& e) {
+      } catch (Error& e) {
         log << Log::ERROR << "Beam particle error: " << cfg.beam1 << " or " 
             << cfg.beam2 << " is invalid" << endl;
-        throw runtime_error("Invalid beam particle");
+        throw Error("Invalid beam particle");
       }
       log << Log::DEBUG << "Finished setting initial state " << endl;
     } 
@@ -112,7 +112,7 @@ namespace Rivet {
       log << Log::DEBUG << "Testing HepMC input stream from " << cfg.hepmcInFile << endl;
       if (hepmcIn && hepmcIn->rdstate() != 0) {
         log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
-        throw runtime_error("Couldn't read HepMC event file: " + cfg.hepmcInFile);
+        throw Error("Couldn't read HepMC event file: " + cfg.hepmcInFile);
       }
     }
     
@@ -169,7 +169,7 @@ namespace Rivet {
     if (cfg.runRivet){
       if (needsCrossSection) {
         if (gen) rh.setCrossSection(gen->getCrossSection());
-        else throw runtime_error("Cross section needed but no Generator created");
+        else throw Error("Cross section needed but no Generator created");
       }
       rh.finalize();
     }

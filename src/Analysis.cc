@@ -229,7 +229,7 @@ namespace Rivet {
     // set<ConstProjectionPtr> projections = getProjections();
     // for (set<ConstProjectionPtr>::const_iterator p = projections.begin(); p != projections.end(); ++p) {
     //   if (! compatible(getBeams(), (*p)->getBeamPairs()) ) {
-    //     throw runtime_error("Analysis " + getName() + " beams are inconsistent with " 
+    //     throw Error("Analysis " + getName() + " beams are inconsistent with " 
     //                         + "allowed beams for projection " + (*p)->getName());
     //   }
     // }

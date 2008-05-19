@@ -68,7 +68,7 @@ namespace Rivet {
 
     template <typename PROJ>
     const PROJ& applyProjection(PROJ* pp) const {
-      if (!pp) throw runtime_error("Event::applyProjection(PROJ*): Projection pointer is null.");
+      if (!pp) throw Error("Event::applyProjection(PROJ*): Projection pointer is null.");
       return applyProjection(*pp);
     }
 

@@ -70,6 +70,7 @@ namespace Rivet {
 }
 
 // Now import some Rivet classes
+#include "Rivet/Exceptions.hh"
 #include "Rivet/RivetAIDA.fhh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"

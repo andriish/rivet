@@ -130,13 +130,13 @@ namespace Rivet {
     if (nps == _namedprojs.end()) {
       ostringstream msg;
       msg << "No projections registered for parent " << &parent;
-      throw runtime_error(msg.str());
+      throw Error(msg.str());
     }
     NamedProjs::const_iterator np = nps->second.find(name);
     if (np == nps->second.end()) {
       ostringstream msg;
       msg << "No projection '" << name << "' found for parent " << &parent;
-      throw runtime_error(msg.str());
+      throw Error(msg.str());
     }
     // If it's registered with the projection handler, we must be able to safely
     // dereference the Projection pointer to a reference...

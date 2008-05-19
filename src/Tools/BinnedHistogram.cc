@@ -16,7 +16,7 @@ namespace Rivet{
   const BinnedHistogram<T> &BinnedHistogram<T>::addHistogram
   (const T &binMin, const T &binMax, AIDA::IHistogram1D *histo){
     
-    if(binMin > binMax) throw runtime_error
+    if(binMin > binMax) throw Error
       ("Cannot add a binned histogram where the lower bin edge is above the upper edge");
     
     _histosByUpperBound[binMax] = histo;

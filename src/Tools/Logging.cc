@@ -100,7 +100,7 @@ namespace Rivet {
     default:
       return "";     
     }
-    //throw runtime_error("Enum value was not a valid log level. How did that happen?");
+    //throw Error("Enum value was not a valid log level. How did that happen?");
   }
 
 
@@ -137,7 +137,7 @@ namespace Rivet {
     if (level == "INFO") return INFO;
     if (level == "WARN") return WARN;
     if (level == "ERROR") return ERROR;
-    throw runtime_error("Couldn't create a log level from string '" + level + "'");
+    throw Error("Couldn't create a log level from string '" + level + "'");
   }
 
 

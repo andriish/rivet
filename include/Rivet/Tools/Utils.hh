@@ -50,7 +50,7 @@ namespace Rivet {
   inline vector<string> split(string path, const string delim = ":") {
     vector<string> dirs;
     if (delim.length() != 1) {
-      throw runtime_error("Rivet::split(string): delimiter must be a single character.");
+      throw Error("Rivet::split(string): delimiter must be a single character.");
     }
     while (true) {
       const size_t delim_pos = path.find(delim);

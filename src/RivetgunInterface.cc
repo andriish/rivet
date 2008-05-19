@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
   Configuration cfg;
   try {
     cfg = Commandline::parseArgs(argc, argv);
-  } catch (runtime_error& e) { 
+  } catch (Error& e) { 
     cerr << "Error: " << e.what() << endl; 
     return EXIT_FAILURE;
   }
@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
   } 
   
   // Main loop exception handling.
-  catch (runtime_error& e) { 
+  catch (Error& e) { 
     cerr << "Error: " << e.what() << endl; 
     return EXIT_FAILURE;
   }

@@ -37,7 +37,7 @@ namespace Rivet {
       string err = "Error in " + string(doc.Value());
       err += ": " + string(doc.ErrorDesc());
       cerr << err << endl;
-      throw runtime_error(err);
+      throw Error(err);
     }
 
     // Return value, to be populated
@@ -46,7 +46,7 @@ namespace Rivet {
     try {      
       // Walk down tree to get to the <paper> element
       const TiXmlNode* aidaN = doc.FirstChild("aida");
-      if (!aidaN) throw runtime_error("Couldn't get <aida> root element");
+      if (!aidaN) throw Error("Couldn't get <aida> root element");
       for (const TiXmlNode* dpsN = aidaN->FirstChild("dataPointSet"); dpsN; dpsN = dpsN->NextSibling()) {
         /// @todo Check AIDA path for "^/HepData" to make sure that this is a reference histogram.
         const TiXmlElement* dpsE = dpsN->ToElement();
@@ -59,9 +59,9 @@ namespace Rivet {
             const string centreStr = xMeasE->Attribute("value");
             const string errplusStr = xMeasE->Attribute("errorPlus"); 
             const string errminusStr = xMeasE->Attribute("errorMinus"); 
-            //if (!centreStr) throw runtime_error("Couldn't get a valid bin centre");
-            //if (!errplusStr) throw runtime_error("Couldn't get a valid bin err+");
-            //if (!errminusStr) throw runtime_error("Couldn't get a valid bin err-");
+            //if (!centreStr) throw Error("Couldn't get a valid bin centre");
+            //if (!errplusStr) throw Error("Couldn't get a valid bin err+");
+            //if (!errminusStr) throw Error("Couldn't get a valid bin err-");
             istringstream ssC(centreStr);
             istringstream ssP(errplusStr);
             istringstream ssM(errminusStr);

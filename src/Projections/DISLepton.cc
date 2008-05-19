@@ -25,7 +25,7 @@ namespace Rivet {
     } else if ( _idin == inc.second.getPdgId() || (allowAnti && _idin == -inc.second.getPdgId()) ) {
       _incoming = inc.second;
     } else {
-      throw	runtime_error("DISLepton projector could not find the correct beam. ");
+      throw	Error("DISLepton projector could not find the correct beam. ");
     }
 
     double emax = 0.0;
@@ -39,7 +39,7 @@ namespace Rivet {
     }
     
     if (!_outgoing.hasHepMCParticle()) {
-      throw runtime_error("DISLepton projector could not find the scattered lepton.");
+      throw Error("DISLepton projector could not find the scattered lepton.");
     }
   }
   

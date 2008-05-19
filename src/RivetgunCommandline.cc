@@ -113,7 +113,7 @@ namespace Rivet {
               in.clear();
               in.open(try2.c_str());
               if (in.fail()) {
-                throw runtime_error("Couldn't read from param file " + *pf + " or " + try2);
+                throw Rivet::Error("Couldn't read from param file " + *pf + " or " + try2);
               }
             }
             handleConfigStream(in, config.params);
@@ -131,7 +131,7 @@ namespace Rivet {
             string value = p->substr(breakpos + 1, p->size() - breakpos - 1);
             config.params[key] = value;
           } else {
-            throw runtime_error("Invalid parameter setting format: " + *p);
+            throw Rivet::Error("Invalid parameter setting format: " + *p);
           }
         }
 
@@ -168,7 +168,7 @@ namespace Rivet {
           config.generatorName = genNameArg.getValue();
         } else if (genFileArg.isSet()) {
           /// @todo Read HepML file
-          throw runtime_error("HepML file reading is not yet supported. Sorry.");
+          throw Rivet::Error("HepML file reading is not yet supported. Sorry.");
         }
         if (rngSeedArg.isSet()) config.rngSeed = rngSeedArg.getValue();
         if (eventFileArg.isSet()) {
@@ -181,7 +181,7 @@ namespace Rivet {
           if (beam1Arg.isSet()) config.beam1 = getParticleNameEnum(beam1Arg.getValue());
           if (beam2Arg.isSet()) config.beam2 = getParticleNameEnum(beam2Arg.getValue());
         } catch (exception& e) {
-          throw runtime_error("Unknown beam particle: " + beam1Arg.getValue() + 
+          throw Rivet::Error("Unknown beam particle: " + beam1Arg.getValue() + 
                               " or " + beam2Arg.getValue());
         }
         if (mom1Arg.isSet()) config.mom1 = mom1Arg.getValue();
@@ -206,7 +206,7 @@ namespace Rivet {
               config.analyses.erase(aneg);
             }
           } catch (std::exception& e) {
-            throw std::runtime_error("Invalid analysis choice: " + *ai);
+            throw Rivet::Error("Invalid analysis choice: " + *ai);
           }
         }
 
@@ -234,7 +234,7 @@ namespace Rivet {
             const int level = Log::getLevelFromName(value);
             config.logLevels[key] = level;
           } else {
-            throw runtime_error("Invalid log setting format: " + *l);
+            throw Rivet::Error("Invalid log setting format: " + *l);
           }
         }
         config.useLogColors = ! disableLogColorArg.getValue();
@@ -250,7 +250,7 @@ namespace Rivet {
       } catch (const TCLAP::ArgException& e) { 
         stringstream ss;
         ss << "Command line error: " << e.error() << " for arg " << e.argId(); 
-        throw runtime_error(ss.str());
+        throw Rivet::Error(ss.str());
       }
 
       return config;
@@ -304,14 +304,14 @@ namespace {
       const string remains = line.substr(firstgap, lastgap-firstgap+1);
       if (remains.find_first_not_of(' ') != string::npos) {
         cerr << remains << " - error at char #" << remains.find_first_not_of(' ') << endl;
-        throw runtime_error("Param setting string '" + origline + "' is not in a valid format.");
+        throw Rivet::Error("Param setting string '" + origline + "' is not in a valid format.");
       }
 
       // If all is okay, set the parameter
       if (!pname.empty() && !pval.empty()) {
         pmap[pname] = pval;
       } else {
-        throw runtime_error("Param setting key or value is empty, somehow: '" + 
+        throw Rivet::Error("Param setting key or value is empty, somehow: '" + 
                             pname + "' = '" + pval + "'");
       }
     }

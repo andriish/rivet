@@ -214,7 +214,7 @@ namespace Rivet {
     const double& crossSection() const {
       if (!_gotCrossSection) {
         string errMsg = "You did not set the cross section for the analysis " + getName();
-        throw runtime_error(errMsg);
+        throw Error(errMsg);
       }
       return _crossSection;
     }

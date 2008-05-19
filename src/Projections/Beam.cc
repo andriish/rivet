@@ -29,7 +29,7 @@ namespace Rivet {
       sqrts = fabs(mom1) + fabs(mom2);
     } else {
       /// @todo Implement general sqrt(s) for asymmetric beams.
-      throw runtime_error("Asymmetric beams... calculation of sqrt(S) not yet implemented");
+      throw Error("Asymmetric beams... calculation of sqrt(S) not yet implemented");
     }
     getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
     return sqrts;

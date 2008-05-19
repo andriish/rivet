@@ -45,7 +45,7 @@ namespace Rivet {
         msg << "Constraints on " << c->first << " are incompatible: "
             << ">=" << c->second.getHigherThan() << " AND "
             << "<=" << c->second.getLowerThan();
-        throw runtime_error(msg.str());
+        throw Error(msg.str());
       }
     }
     return true;

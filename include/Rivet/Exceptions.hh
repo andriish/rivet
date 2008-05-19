@@ -7,30 +7,28 @@
 
 namespace Rivet {
 
-  /// Basic unspecialised Rivet exception.
-  class Exception : public std::exception { 
-  public:
-    Exception() : std::exception() {}
-  };
-
-  /// @brief Generic runtime Rivet error.
-  class Error : public std::runtime_error, public Exception {
+  /// Generic runtime Rivet error.
+  class Error : public std::runtime_error {
   public:
     Error(const std::string& what) : std::runtime_error(what) {} 
   };
 
 
+  /// Also typedef Exception, so that it's there.
+  typedef Error Exception;
+
+
   /// Error for e.g. use of invalid bin ranges.
-  class RangeError : public std::out_of_range, public Exception {
+  class RangeError : public Error {
   public:
-    RangeError(const std::string& what) : std::out_of_range(what) {} 
+    RangeError(const std::string& what) : Error(what) {} 
   };
 
 
   /// @todo Clarify where this might arise!
-  class LogicError : public std::logic_error, public Exception {
+  class LogicError : public Error {
   public:
-    LogicError(const std::string& what) : std::logic_error(what) {} 
+    LogicError(const std::string& what) : Error(what) {} 
   };
 
   /// @brief Errors relating to event/bin weights

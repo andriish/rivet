@@ -27,7 +27,7 @@ namespace Rivet {
     //if ( !_thePVertex || pVertexParticleSize != 2 )
     if ( !_thePVertex )
     if (pVertexParticleSize != 2 )
-      throw runtime_error("Wrong number of Primary Vertex particles: " + pVertexParticleSize);
+      throw Error("Wrong number of Primary Vertex particles: " + pVertexParticleSize);
   }
 
 }
