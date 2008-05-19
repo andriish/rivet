@@ -77,7 +77,8 @@ Title=mean D+s multiplicity
 
 # BEGIN HISTOGRAM BPlus_B0_d
 Title=mean B+, B0d multiplicity
-91	91	0.165	0.026
+Comment=The original value is 0.165+-0.026, but this means _either_ B+ _or_ B0.
+91	91	0.33	0.052
 # END HISTOGRAM
 
 # BEGIN HISTOGRAM BPlus_u

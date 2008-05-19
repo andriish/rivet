@@ -371,7 +371,7 @@
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
-      <measurement errorPlus="0.026000" value="0.165000" errorMinus="0.026000"/>
+      <measurement errorPlus="0.052000" value="0.330000" errorMinus="0.052000"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y01" dimension="2"

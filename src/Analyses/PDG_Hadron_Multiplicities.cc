@@ -263,12 +263,11 @@ namespace Rivet {
            case 431:
               _hist91MeanMultiDPlus_s->fill(_hist91MeanMultiDPlus_s->binMean(0), weight);
               break;
-           ///// We don't know what exactly this is:
-           // case 511:
-           // case 521:
-           //    _hist91MeanMultiBPlus_B0_d->fill(_hist91MeanMultiBPlus_B0_d->binMean(0), weight);
-           //    break;
+           case 511:
+              _hist91MeanMultiBPlus_B0_d->fill(_hist91MeanMultiBPlus_B0_d->binMean(0), weight);
+              break;
            case 521:
+              _hist91MeanMultiBPlus_B0_d->fill(_hist91MeanMultiBPlus_B0_d->binMean(0), weight);
               _hist91MeanMultiBPlus_u->fill(_hist91MeanMultiBPlus_u->binMean(0), weight);
               break;
            case 531:
