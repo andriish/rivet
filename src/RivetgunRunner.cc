@@ -70,6 +70,12 @@ namespace Rivet {
       vector<string> analyses;
       for (set<string>::const_iterator aname = cfg.analyses.begin(); aname != cfg.analyses.end(); ++aname) {
         Analysis* a = AnalysisLoader::getAnalysis(*aname);
+        if (a == 0) {
+          log << Log::WARN << "Cannot find an analysis to match name `" << *aname << "'" << endl;
+          log << Log::WARN << "If `" << *aname << "' is a user analysis, is it " 
+              << "registered in the `getAnalysisBuilders' function as`" << toUpper(*aname) << "?" << endl;
+          break;
+        }
         const bool beamMatch = a->isCompatible(cfg.beam1, cfg.beam2);
         log << Log::DEBUG << a->getName() << ": " << a->getBeams() << " "
             << (beamMatch ? "MATCH" : "NO-MATCH") << endl;

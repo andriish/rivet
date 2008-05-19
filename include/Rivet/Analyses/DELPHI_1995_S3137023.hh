@@ -22,8 +22,8 @@ namespace Rivet {
     {
       setBeams(ELECTRON, POSITRON); 
       addProjection(*new Beam(), "Beams");
-      const ChargedFinalState& cfs = addProjection(*new ChargedFinalState(), "FS");
-      const UnstableFinalState& ufs = addProjection(*new UnstableFinalState(), "UFS");
+      addProjection(*new ChargedFinalState(), "FS");
+      addProjection(*new UnstableFinalState(), "UFS");
     }
 
 

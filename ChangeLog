@@ -1,3 +1,10 @@
+2008-05-19  Andy Buckley  <andy@insectnation.org>
+
+	* Removed unused HepML reference files.
+
+	* Added error handling for requested analyses with wrong case
+	convention / missing name.
+
 2008-05-15  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* New analysis PDG_Hadron_Multiplicities

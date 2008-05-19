@@ -13,7 +13,6 @@ namespace Rivet {
 
 
   set<string> AnalysisLoader::getAllAnalysisNames() {
-    
     if (!_loaded) loadAnalyses();
     set<string> names;
     for (AnalysisBuilders::const_iterator ab = _analysisbuilders.begin(); 
@@ -25,7 +24,6 @@ namespace Rivet {
 
 
   Analysis* AnalysisLoader::getAnalysis(const string& analysisname) { 
-    
     if (!_loaded) loadAnalyses();
     AnalysisBuilders::iterator ab = _analysisbuilders.find(toUpper(analysisname));
     if (ab != _analysisbuilders.end()) {
