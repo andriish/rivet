@@ -11,7 +11,7 @@ _pyrivet_la_SOURCES = SWIGTest.cc pyrivet_wrap.cc $(SWIG_SOURCES)
 _pyrivet_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(HEPMCINCPATH) $(SWIG_PYTHON_CPPFLAGS) 
 _pyrivet_la_CXXFLAGS = -Wno-long-long
 _pyrivet_la_LDFLAGS = $(AM_LDFLAGS) -L$(HEPMCLIBPATH) -module
-_pyrivet_la_LIBADD = -lHepMC -lRivet
+_pyrivet_la_LIBADD = -lHepMC $(top_builddir)/src/libRivet.la
 
 all-local:
 	@sh fixpyrivet
