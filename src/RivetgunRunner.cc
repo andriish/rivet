@@ -164,9 +164,9 @@ namespace Rivet {
 
     // Finalise Rivet and the generator
     if (gen) gen->finalize();
-    if (hepmcOut) delete hepmcOut;
-    if (hepmcIn) delete hepmcIn;
-    if (cfg.runRivet){
+    delete hepmcOut;
+    delete hepmcIn;
+    if (cfg.runRivet) {
       if (needsCrossSection) {
         if (gen) rh.setCrossSection(gen->getCrossSection());
         else throw Error("Cross section needed but no Generator created");
