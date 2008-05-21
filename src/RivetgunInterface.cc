@@ -27,11 +27,18 @@ namespace Rivet {
 
 
 // The main function of the rivetgun executable.
-int main(int argc, char* argv[]) {
+int main(size_t argc, char* argv[]) {
 
-  // Debug initial gen/analysis scan (before command line log levels are set)
-  //Rivet::Log::setLevels("Rivet", Log::TRACE);
-  //AGILe::Log::setLevels("AGILe", Log::TRACE);
+  // Debug initial gen/analysis scan (before proper command line log levels are set)
+  for (size_t argi = 0; argi < argc; ++argi) {
+    string arg(argv[argi]);
+    if (arg.find("Rivet.Loader=TRACE") != string::npos) {
+      Rivet::Log::setLevels("Rivet.Loader", Log::TRACE);
+    }
+    if (arg.find("AGILe.Loader=TRACE") != string::npos) {
+      AGILe::Log::setLevels("AGILe.Loader", Log::TRACE);
+    }
+  }
 
   // Parse command line into a configuration object.
   Configuration cfg;
