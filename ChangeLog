@@ -1,5 +1,7 @@
 2008-05-24  Andy Buckley  <andy@insectnation.org>
 
+	* Added autopackage spec files.
+
 	* Merged these changes into the trunk.
 
 	* Added a registerClonedProjection(...) method to

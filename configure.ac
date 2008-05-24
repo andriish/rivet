@@ -104,6 +104,8 @@ AC_CONFIG_FILES(src/Analyses/Makefile)
 AC_CONFIG_FILES(src/Test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile)
 AC_CONFIG_FILES(data/Makefile)
+AC_CONFIG_FILES(autopackage/default.apspec)
+AC_CONFIG_FILES(autopackage/data.apspec)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config)
 AC_CONFIG_FILES(Makefile)
 
