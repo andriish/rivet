@@ -23,6 +23,11 @@ namespace Rivet {
       addProjection(fsp, "FS");
     }
 
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new Multiplicity(*this);
+    }
+
   protected:
 
     /// Perform the projection on the Event.

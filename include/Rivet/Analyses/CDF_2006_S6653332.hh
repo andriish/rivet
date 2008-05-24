@@ -52,6 +52,9 @@ namespace Rivet {
 
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor
     CDF_2006_S6653332()
       : _pvzmax(600*mm), _metmax(25*GeV), _setmax(150*GeV), _lepPtmin(10*GeV),
@@ -67,22 +70,23 @@ namespace Rivet {
       // Veto (anti)neutrinos, and muons with \f$ p_T \f$ above 1.0 GeV
       /// @todo If we allow VFS constructor to specify eta and pT ranges, we can
       /// bypass making this FS
-      addProjection(*new FinalState(-3.6, 3.6), "FS");
-      VetoedFinalState& vfs = *new VetoedFinalState(getProjection<FinalState>("FS"));
+      FinalState fs(-3.6, 3.6);
+      addProjection(fs, "FS");
+      VetoedFinalState vfs(fs);
       vfs
         .addVetoPairId(NU_E)
         .addVetoPairId(NU_MU)
         .addVetoPairId(NU_TAU)
         .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      vfs = addProjection(vfs, "VFS");
-      addProjection(*new FastJets(vfs), "Jets");
-      addProjection(*new ChargedFinalState(vfs), "ChFS");
-      addProjection(*new TotalVisibleMomentum(vfs), "CalMET");
-      addProjection(*new ChargedLeptons(vfs), "ChLeptons");
-      addProjection(*new PVertex(), "PV");
-      addProjection(*new SVertex(getProjection<ChargedFinalState>("ChFS"),
-                                 _jetaxes, _vtxjetRmax, _trketamax, 
-                                 _ipres, _dlsmin, _dlsres), "SVtx");
+      addProjection(vfs, "VFS");
+      addProjection(FastJets(vfs), "Jets");
+      addProjection(ChargedFinalState(vfs), "ChFS");
+      addProjection(TotalVisibleMomentum(vfs), "CalMET");
+      addProjection(ChargedLeptons(vfs), "ChLeptons");
+      addProjection(PVertex(), "PV");
+      addProjection(SVertex(getProjection<ChargedFinalState>("ChFS"),
+                            _jetaxes, _vtxjetRmax, _trketamax, 
+                            _ipres, _dlsmin, _dlsres), "SVtx");
     }
 
 
@@ -90,6 +94,8 @@ namespace Rivet {
     static Analysis* create() { 
       return new CDF_2006_S6653332(); 
     }
+
+    //@}
 
 
     /// @name Publication metadata

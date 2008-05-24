@@ -27,16 +27,19 @@ namespace Rivet {
       : _totalNumTrans(0)
     { 
       setBeams(PROTON, ANTIPROTON);
-      const ChargedFinalState& cfs = *new ChargedFinalState(-1.0, 1.0, 0.5*GeV);
-      const LossyFinalState& lfs = addProjection(*new LossyFinalState(cfs, 0.08), "FS");
-      addProjection(*new TrackJet(lfs), "TrackJet");
+      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      const LossyFinalState lfs(cfs, 0.08); 
+      addProjection(lfs, "FS");
+      addProjection(TrackJet(lfs), "TrackJet");
     }
+
 
     /// Factory method
     static Analysis* create() {
       return new CDF_2001_S4751469();
     }
     //@}
+
 
   public:
 

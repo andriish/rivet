@@ -44,7 +44,30 @@ namespace Rivet {
   }
 
 
-  // Take a {@c new}'d Projection, compare it to the others on record, and
+  void ProjectionHandler::declareClone(const Projection* oldproj, const Projection* newproj) {
+    if (oldproj == newproj) return;
+    NamedProjsMap::const_iterator nps = _namedprojs.find(oldproj);
+    if (nps != _namedprojs.end()) {
+      getLog() << Log::TRACE << "Cloning registered projections list: " 
+               << oldproj << " -> " << newproj << endl;
+      _namedprojs[newproj] = nps->second;
+    }
+  }
+
+
+  // Take a {@c clone}'d Projection, compare it to the others on record, and
+  // return (by reference) an equivalent Projection which is guaranteed to be
+  // the version that will be applied to an event.
+  const Projection& ProjectionHandler::registerClonedProjection(const ProjectionApplier& parent, 
+                                                                const Projection& oldproj, 
+                                                                const Projection& newproj, 
+                                                                const string& name) {
+    declareClone(&oldproj, &newproj);
+    return registerProjection(parent, newproj, name);
+  }
+
+
+  // Take a Projection, compare it to the others on record, and
   // return (by reference) an equivalent Projection which is guaranteed to be
   // the version that will be applied to an event.
   const Projection& ProjectionHandler::registerProjection(const ProjectionApplier& parent, 
@@ -70,7 +93,6 @@ namespace Rivet {
              << " with " << _projs.size()
              << " registered projections" <<  endl;
     for (ProjHandles::const_iterator ph = _projs.begin(); ph != _projs.end(); ++ph) {
-      getLog() << Log::TRACE << "RTTI type comparison with "<< *ph << endl;
       // Make sure the concrete types match, using RTTI.
       const std::type_info& regtype = typeid(**ph);
       getLog() << Log::TRACE << "RTTI type comparison with "<< *ph << ": " 
@@ -78,12 +100,12 @@ namespace Rivet {
       if (newtype != regtype) continue;
       getLog() << Log::TRACE << "RTTI type matches with " << *ph << endl;
       
-      // If we find a match, delete the passed object, then make a copy of the
+      // If we find a match, ~~delete the passed object, then~~ make a copy of the
       // existing pointer to the store location indexed by ProjApplier* => name.
       if (pcmp(**ph, proj) == PCmp::EQUIVALENT) {
         getLog() << Log::TRACE << "Deleting equivalent projection at " 
                  << &proj << " and returning " << *ph << endl;
-        delete &proj;
+        //delete &proj;
         _namedprojs[&parent][name] = *ph;
         return **ph;
       }

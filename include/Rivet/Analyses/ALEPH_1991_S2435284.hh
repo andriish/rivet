@@ -17,8 +17,9 @@ namespace Rivet {
     /// Constructor.
     ALEPH_1991_S2435284() { 
       setBeams(ELECTRON, POSITRON); 
-      const ChargedFinalState& fs = addProjection(*new ChargedFinalState(), "FS");
-      addProjection(*new Multiplicity(fs), "Mult");
+      const ChargedFinalState cfs;
+      addProjection(cfs, "FS");
+      addProjection(Multiplicity(cfs), "Mult");
     }
 
     /// Factory method.

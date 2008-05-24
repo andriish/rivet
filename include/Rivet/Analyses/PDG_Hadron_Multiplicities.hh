@@ -17,13 +17,16 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor.
+    /// @name Constructors etc.
+    //@{
+
+    /// Constructor.
     PDG_Hadron_Multiplicities() 
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(*new Beam(), "Beams");
-      addProjection(*new ChargedFinalState(), "FS");
-      addProjection(*new UnstableFinalState(), "UFS");
+      addProjection(Beam(), "Beams");
+      addProjection(ChargedFinalState(), "FS");
+      addProjection(UnstableFinalState(), "UFS");
     }
 
 
@@ -31,6 +34,7 @@ namespace Rivet {
     static Analysis* create() { 
       return new PDG_Hadron_Multiplicities(); 
     }
+    //@}
 
 
     /// @name Publication metadata

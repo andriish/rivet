@@ -30,7 +30,12 @@ namespace Rivet {
                       double minpt  =  0.0*GeV)
     { 
       setName("ChargedFinalState");
-      addProjection(*new FinalState(mineta, maxeta, minpt), "FS");
+      addProjection(FinalState(mineta, maxeta, minpt), "FS");
+    }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new ChargedFinalState(*this);
     }
     //@}
 

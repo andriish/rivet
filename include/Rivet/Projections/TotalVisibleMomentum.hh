@@ -8,8 +8,8 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
+
 
   /// Project out the total visible energy vector, allowing missing 
   /// \f$ E_T \f$ etc. to be calculated.
@@ -22,6 +22,11 @@ namespace Rivet {
     { 
       setName("TotalVisibleMomentum");
       addProjection(fsp, "FS");
+    }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new TotalVisibleMomentum(*this);
     }
     
   public:

@@ -16,6 +16,9 @@ namespace Rivet {
 
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor.
     ///  - @c _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
     ///  - @c _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
@@ -25,7 +28,7 @@ namespace Rivet {
     { 
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      addProjection(*new WZandh(), "WZ");
+      addProjection(WZandh(), "WZ");
     }    
     
     
@@ -33,6 +36,7 @@ namespace Rivet {
     static Analysis* create() { 
       return new D0_2001_S4674421(); 
     }
+    //@}
     
     
     /// @name Publication metadata
@@ -71,13 +75,13 @@ namespace Rivet {
     
   private:
     
-    /// analysis used ratio of mW/mZ 
+    /// Analysis used ratio of mW/mZ 
     const double _mwmz;
     
-    /// brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
+    /// Ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
     const double _brwenu;
     
-    /// brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
+    /// Ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
     const double _brzee;
     
     // Event counters for cross section normalizations

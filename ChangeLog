@@ -1,3 +1,15 @@
+2008-05-24  Andy Buckley  <andy@insectnation.org>
+
+	* Merged these changes into the trunk.
+
+	* Added a registerClonedProjection(...) method to
+	ProjectionHandler: this is needed so that cloned projections will
+	have valid pointer entries in the ProjectHandler repository.
+
+	* Added clone() methods to all projections (need to use this,
+	since the templated "new PROJ(proj)" approach to cloning can't
+	handle object polymorphism.
+
 2008-05-19  Andy Buckley  <andy@insectnation.org>
 
 	* Moved projection-applying functions into ProjectionApplier base

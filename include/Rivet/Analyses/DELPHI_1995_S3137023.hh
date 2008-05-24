@@ -17,13 +17,16 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor.
+    /// @name Constructors etc.
+    //@{
+
+    /// Constructor
     DELPHI_1995_S3137023() 
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(*new Beam(), "Beams");
-      addProjection(*new ChargedFinalState(), "FS");
-      addProjection(*new UnstableFinalState(), "UFS");
+      addProjection(Beam(), "Beams");
+      addProjection(ChargedFinalState(), "FS");
+      addProjection(UnstableFinalState(), "UFS");
     }
 
 
@@ -31,6 +34,8 @@ namespace Rivet {
     static Analysis* create() { 
       return new DELPHI_1995_S3137023(); 
     }
+
+    //@}
 
 
     /// @name Publication metadata

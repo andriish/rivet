@@ -6,11 +6,11 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
 
+
   /// Project out all final-state particles in an event.
-  class UnstableFinalState: public Projection {
+  class UnstableFinalState : public Projection {
     
   public:
     
@@ -19,16 +19,22 @@ namespace Rivet {
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     UnstableFinalState(double mineta = -MaxRapidity,
-               double maxeta =  MaxRapidity,
-               double minpt  =  0.0*GeV)
-      : _etamin(mineta), _etamax(maxeta), 
-        _ptmin(minpt) 
+                       double maxeta =  MaxRapidity,
+                       double minpt  =  0.0*GeV)
+      : _etamin(mineta), _etamax(maxeta), _ptmin(minpt)
     { 
       setName("UnstableFinalState");
       addCut("eta", MORE_EQ, mineta);
       addCut("eta", LESS_EQ, maxeta);
       addCut("pT",  MORE_EQ, minpt);
     }
+
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new UnstableFinalState(*this);
+    }
+    //@}
         
     /// Access the projected final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }

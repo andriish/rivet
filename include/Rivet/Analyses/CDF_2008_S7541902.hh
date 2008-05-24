@@ -23,13 +23,16 @@ namespace Rivet {
 
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor
     CDF_2008_S7541902() {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
 
       // Veto neutrinos, W decay products, and muons with \f$ p_T \f$ above 1.0 GeV
-      VetoedFinalState& vfs = *new VetoedFinalState();
+      VetoedFinalState vfs;
       vfs
         .addVetoPairId(NU_E)
         .addVetoPairId(NU_MU)
@@ -38,8 +41,7 @@ namespace Rivet {
         .addDecayProductsVeto(WPLUSBOSON)
         .addDecayProductsVeto(WMINUSBOSON);
       addProjection(vfs, "FS");
-      addProjection(*new FastJets(getProjection<FinalState>("FS"),
-                                  FastJets::CDFJETCLU, 0.4), "Jets");
+      addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
     }
 
 
@@ -47,6 +49,8 @@ namespace Rivet {
     static Analysis* create() { 
       return new CDF_2008_S7541902(); 
     }
+
+    //@}
 
 
     /// @name Publication metadata

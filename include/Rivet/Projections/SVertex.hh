@@ -55,11 +55,19 @@ namespace Rivet {
         _DLSres(DLSres)
     { 
       setName("SVertex");
-      addProjection(*new PVertex(), "PV");
+      addProjection(PVertex(), "PV");
       addProjection(chfs, "FS");
-      if (_DLSres == 0.0) _DLSres = _IPres;
+      if (_DLSres == 0.0) {
+        _DLSres = _IPres;
+      }
+    }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new SVertex(*this);
     }
     //@}
+
 
   public:
     /// Return vector of tagged jets (FourMomentum's)

@@ -65,6 +65,11 @@ namespace Rivet {
     }
 
 
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new Sphericity(*this);
+    }
+
   protected:
 
     /// Perform the projection on the Event

@@ -19,6 +19,12 @@ namespace Rivet {
       setName("Beam");
     }
 
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new Beam(*this);
+    }
+
+  public:
     /// The pair of beam particles in the current collision.
     const ParticlePair& getBeams() const {
       return _theBeams;

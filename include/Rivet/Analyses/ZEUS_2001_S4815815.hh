@@ -20,7 +20,9 @@ namespace Rivet {
     /// Default constructor.
     ZEUS_2001_S4815815() { 
       setBeams(POSITRON, PROTON);
-      addProjection(*new FastJets(*new FinalState()), "Jets");
+      FinalState fs;
+      addProjection(fs, "FS");
+      addProjection(FastJets(fs), "Jets");
     }
 
     /// Factory method.

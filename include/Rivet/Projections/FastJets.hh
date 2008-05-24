@@ -95,11 +95,26 @@ namespace Rivet {
       _jdef = fastjet::JetDefinition(type, rparameter, recom);
     }
 
+
+    /// Explicity copy constructor.
+    /// @todo Needed... why?
+    FastJets(const FastJets& other) 
+      : //_cseq(other._cseq),
+        _jdef(other._jdef),
+        _plugin(other._plugin),
+        _yscales(other._yscales)
+    { }
+
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new FastJets(*this);
+    }
+
   
     /// Destructor.
     ~FastJets() { 
-      // Delete plugin
-      if (_plugin) delete _plugin;
+      delete _plugin;
     }
     //@}
 
@@ -146,12 +161,8 @@ namespace Rivet {
     int compare(const Projection& p) const;  
 
 
-
   private:
 
-    /// The FinalState projection used by this projection.
-    FinalState* _fsproj;
-    
     /// Jet definition
     fastjet::ClusterSequence _cseq;
     fastjet::JetDefinition _jdef;

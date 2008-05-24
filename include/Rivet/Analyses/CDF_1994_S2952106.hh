@@ -46,13 +46,14 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
 
-      const FinalState& fs = addProjection(*new FinalState(-4.2, 4.2), "FS");
-      addProjection(*new FastJets(fs, FastJets::CDFJETCLU, 0.7), "ConeJets");
-      addProjection(*new TotalVisibleMomentum(fs), "CalMET");
-      addProjection(*new PVertex(), "PV");
+      const FinalState fs(-4.2, 4.2);
+      addProjection(fs, "FS");
+      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "ConeJets");
+      addProjection(TotalVisibleMomentum(fs), "CalMET");
+      addProjection(PVertex(), "PV");
 
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState& vfs = *new VetoedFinalState(fs);
+      VetoedFinalState vfs(fs);
       vfs
         .addVetoPairId(NU_E)
         .addVetoPairId(NU_MU)

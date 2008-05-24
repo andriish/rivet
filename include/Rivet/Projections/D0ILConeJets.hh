@@ -85,6 +85,12 @@ namespace Rivet {
       setName("D0ILConeJets");
       addProjection(fsp, "FS");
     }
+
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new D0ILConeJets(*this);
+    }
     //@}
 
 

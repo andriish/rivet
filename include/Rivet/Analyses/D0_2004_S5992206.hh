@@ -19,13 +19,14 @@ namespace Rivet {
     /// Constructor.
     D0_2004_S5992206() {
       setBeams(PROTON, ANTIPROTON);
-      const FinalState& fs = addProjection(*new FinalState(-3.0, 3.0), "FS");
-      addProjection(*new D0ILConeJets(fs), "Jets");
-      addProjection(*new TotalVisibleMomentum(fs), "CalMET");
-      addProjection(*new PVertex(), "PV");
+      const FinalState fs(-3.0, 3.0);
+      addProjection(fs, "FS");
+      addProjection(D0ILConeJets(fs), "Jets");
+      addProjection(TotalVisibleMomentum(fs), "CalMET");
+      addProjection(PVertex(), "PV");
 
       // Veto neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState& vfs = *new VetoedFinalState(fs);
+      VetoedFinalState vfs(fs);
       vfs
         .addVetoPairId(NU_E)
         .addVetoPairId(NU_MU)

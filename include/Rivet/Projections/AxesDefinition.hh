@@ -21,6 +21,9 @@ namespace Rivet {
     /// Virtual destructor.
     virtual ~AxesDefinition() { }
 
+    /// Clone on the heap.
+    virtual const Projection* clone() const = 0;
+
     ///@{ Axis accessors, in decreasing order of significance.
     /// The main axis.
     virtual const Vector3& axis1() const = 0;

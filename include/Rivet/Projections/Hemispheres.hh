@@ -56,8 +56,8 @@ namespace Rivet {
      \f[ B_\mathrm{sum}  = B_+ + B_- \f]
      \f[ B_\mathrm{diff} = |B_+ - B_-| \f]
 
-     Internally, this projection uses the Thrust projection to determine the
-     hemisphere orientation.
+     Internally, this projection uses a Thrust or Sphericity projection to
+     determine the hemisphere orientation.
   */
   class Hemispheres : public Projection {
   public:
@@ -72,6 +72,10 @@ namespace Rivet {
       addProjection(ax, "Axes");
     }
 
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new Hemispheres(*this);
+    }
 
   protected:
 

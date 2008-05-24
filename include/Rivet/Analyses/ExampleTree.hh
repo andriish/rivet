@@ -7,7 +7,6 @@
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/WZandh.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 // ROOT stuff
 #ifdef HAVE_ROOT
@@ -26,15 +25,16 @@ namespace Rivet {
 
   public:
 
-    /// Constructor. This uses the \f$k_\perp\f$ jet algorithm with \f$r\f$ parameter = 0.7.
+    /// Constructor. This uses the \f$ k_\perp \f$ jet algorithm with \f$ r \f$ parameter = 0.7.
     ExampleTree() {
-      const FinalState& fs = addProjection(*new FinalState(-4.0, 4.0, 0.0), "FS");
-      addProjection(*new ChargedLeptons(fs), "ChLeptons");
-      addProjection(*new FastJets(fs, FastJets::KT, 0.7), "Jets");
-      addProjection(*new WZandh(), "WZh");
+      const FinalState fs(-4.0, 4.0, 0.0);
+      addProjection(fs, "FS");
+      addProjection(ChargedLeptons(fs), "ChLeptons");
+      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
+      addProjection(WZandh(), "WZh");
 
       /// Veto neutrinos, antineutrinos and LSP
-      VetoedFinalState& vfs = *new VetoedFinalState(fs);
+      VetoedFinalState vfs(fs);
       vfs
         .addVetoDetail(12, 10.0, 50.0)
         .addVetoId(14)
@@ -44,7 +44,7 @@ namespace Rivet {
         .addVetoId(-16)
         .addVetoId(1000022);
       addProjection(vfs, "VFS");
-      addProjection(*new TotalVisibleMomentum(vfs), "TotalVisMom");
+      addProjection(TotalVisibleMomentum(vfs), "TotalVisMom");
     }
 
   public:

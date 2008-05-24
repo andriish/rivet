@@ -7,8 +7,8 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
+
 
   /// This class projects out the incoming and outgoing leptons in a DIS
   /// event. The incoming lepton is assumed to be along the positive z-axis.
@@ -27,7 +27,7 @@ namespace Rivet {
     {
       setName("DISLepton");
       addBeamPair(inid, ANY);
-      addProjection(*new Beam(), "Beam");
+      addProjection(Beam(), "Beam");
       addProjection(fsp, "FS");
     }
     
@@ -40,8 +40,13 @@ namespace Rivet {
     {
       setName("DISLepton");
       addBeamPair(inid, ANY);
-      addProjection(*new Beam(), "Beam");
-      addProjection(*new FinalState(), "FS");
+      addProjection(Beam(), "Beam");
+      addProjection(FinalState(), "FS");
+    }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new DISLepton(*this);
     }
     //@}
     

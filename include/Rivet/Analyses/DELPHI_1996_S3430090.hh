@@ -22,21 +22,26 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor.
+    /// @name Constructors etc.
+    //@{
+
+    /// Constructor
     DELPHI_1996_S3430090() 
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(*new Beam(), "Beams");
-      const ChargedFinalState& cfs = addProjection(*new ChargedFinalState(), "FS");
-      addProjection(*new UnstableFinalState(), "UFS");
+      addProjection(Beam(), "Beams");
+      const ChargedFinalState cfs;
+      addProjection(cfs, "FS");
+      addProjection(UnstableFinalState(), "UFS");
       #ifdef HAVE_JADE
-      addProjection(*new FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
-      addProjection(*new FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+      addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
+      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
       #endif
-      addProjection(*new Sphericity(cfs), "Sphericity");
-      addProjection(*new ParisiTensor(cfs), "Parisi");
-      const Thrust& thrust = addProjection(*new Thrust(cfs), "Thrust");
-      addProjection(*new Hemispheres(thrust), "Hemispheres");
+      addProjection(Sphericity(cfs), "Sphericity");
+      addProjection(ParisiTensor(cfs), "Parisi");
+      const Thrust thrust(cfs);
+      addProjection(thrust, "Thrust");
+      addProjection(Hemispheres(thrust), "Hemispheres");
     }
 
 
@@ -44,6 +49,8 @@ namespace Rivet {
     static Analysis* create() { 
       return new DELPHI_1996_S3430090(); 
     }
+
+    //@}
 
 
     /// @name Publication metadata

@@ -10,7 +10,11 @@
 
 namespace Rivet {
 
+  // Forward declaration.
   class ProjectionApplier;
+
+  // Allow ProjectionApplier to clone projections' children.
+  //friend class ProjectionApplier;
 
   /// @brief The projection handler is a central repository for projections to be used
   /// in a Rivet analysis run.
@@ -34,14 +38,6 @@ namespace Rivet {
   /// essentially a wrapper around a map of @c Projection*, indexed by a hash of
   /// the registering object and its local name for the registered projection.
   ///
-  // To avoid the need for Projections to implement a copy-constructor,
-  // copy-assignment operator etc. (cf. the Big Three rule), any projection
-  // which must be set up after construction
-  //
-  /// TODO:
-  /// @todo Thread safety... do we need to be able to have multiple proj handlers, one per thread?
-  /// @todo Replace Projection* containers in Projection and Analysis classes with calls to this.
-  /// @todo Replace registerProjection calls in Projection and Analysis classes with calls to this.
   class ProjectionHandler {
   private:
     
@@ -55,6 +51,10 @@ namespace Rivet {
     /// @todo Threading?
     static ProjectionHandler* _instance;
 
+    /// Declare that the @a new projection is a clone of @a old by
+    /// copying the set of {@a old}'s registered projections into an
+    /// equivalent set for {@a new}.
+    void declareClone(const Projection* oldproj, const Projection* newproj);
 
   public:
     /// Singleton creation function
@@ -74,6 +74,24 @@ namespace Rivet {
       if (!proj) return 0;
       return &registerProjection(parent, *proj, name);
     }
+
+    /// Attach and retrieve a cloned projection as a reference. Calls
+    /// {@c declareClone(&oldproj, &newproj)} before registering @a newproj.
+    const Projection& registerClonedProjection(const ProjectionApplier& parent, 
+                                                                  const Projection& oldproj, 
+                                                                  const Projection& newproj, 
+                                                                  const string& name);
+    
+    /// Attach and retrieve a cloned projection as a pointer. Calls
+    /// {@c declareClone(oldproj, newproj)} before registering @a newproj.
+    const Projection* registerClonedProjection(const ProjectionApplier& parent, 
+                                                                  const Projection* oldproj, 
+                                                                  const Projection* newproj, 
+                                                                  const string& name) {
+      if (!oldproj || !newproj) return 0;
+      return &registerClonedProjection(parent, *oldproj, *newproj, name);
+    }
+
     //@}
 
 
@@ -108,6 +126,22 @@ namespace Rivet {
 
     /// Get a logger.
     Log& getLog() const;
+
+
+    /// Get map of named projections belonging to @a parent.
+    /// Throws an exception if @a parent has not got any registered projections.
+    // const NamedProjs& namedProjs(const ProjectionApplier* parent) const {
+    //   NamedProjsMap::const_iterator nps = _namedprojs.find(parent);
+    //   if (nps == _namedprojs.end()) {
+    //     stringstream ss;
+    //     ss << "No NamedProjs registered for parent " << parent;
+    //     throw Error(ss.str());
+    //   }
+    //   return *nps;
+    // }
+
+
+  private:
 
     /// Typedef for Projection pointer, to allow conversion to a smart pointer in this context.
     typedef const Projection* ProjHandle;

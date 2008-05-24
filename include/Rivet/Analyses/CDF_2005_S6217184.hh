@@ -25,25 +25,23 @@ namespace Rivet {
     { 
       setBeams(PROTON, ANTIPROTON);
 
-      const FinalState& fs = addProjection(*new FinalState(-2.0, 2.0), "FS");
-      //const FinalState& fs = addProjection(FinalState::create(-2.0, 2.0), "FS");
-      addProjection(*new FastJets(fs), "Jets"); 
-      addProjection(*new TotalVisibleMomentum(fs), "CalMET");
-      addProjection(*new PVertex(), "PV");
+      const FinalState fs(-2.0, 2.0);
+      addProjection(fs, "FS");
+      addProjection(FastJets(fs), "Jets"); 
+      addProjection(TotalVisibleMomentum(fs), "CalMET");
+      addProjection(PVertex(), "PV");
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState& vfs = *new VetoedFinalState(fs);
+      VetoedFinalState vfs(fs);
       vfs
         .addVetoPairId(NU_E)
         .addVetoPairId(NU_MU)
         .addVetoPairId(NU_TAU)
         .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      const VetoedFinalState& realvfs = addProjection(vfs, "VFS");
-      //addProjection(*new JetShape(getProjection<FinalState>("VFS"), 
-      //                            _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
-      addProjection(*new JetShape(realvfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
+      addProjection(vfs, "VFS");
+      addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
 
       // Specify pT bins and initialise weight entries
-      /// @todo Can we get these numbers from HepData?
+      /// @todo Get these numbers from bundled data files
       _pTbins.resize(19);
       double ptbins[] = { 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0, 
                           166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 };

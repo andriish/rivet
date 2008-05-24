@@ -17,7 +17,7 @@ namespace Rivet {
   /// Hence, we don't expose the HepMC GenVertex directly - if it were 
   /// available, people might try to e.g. look at the \f$ p_T \f$
   /// of the vertex children, which would be extremely unreliable.
-  class PVertex: public Projection {
+  class PVertex : public Projection {
   public:
 
     /// @name Standard constructors and destructors.
@@ -27,7 +27,11 @@ namespace Rivet {
       : _thePVertex(0) 
     { 
       setName("PVertex");
-      getLog() << Log::TRACE << "Creating..." << endl;
+    }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new PVertex(*this);
     }
     //@}
 

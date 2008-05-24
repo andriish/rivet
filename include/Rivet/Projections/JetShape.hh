@@ -68,6 +68,11 @@ namespace Rivet {
       addProjection(vfsp, "FS");
     }
 
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new JetShape(*this);
+    }
     
   public:
     
@@ -120,6 +125,7 @@ namespace Rivet {
   private:
 
     ///The jet axes of the jet algorithm projection
+    /// @todo Check that this is as intended... reference cannot be re-pointed.
     //vector<FourMomentum> _jetaxes;
     const vector<FourMomentum>& _jetaxes;
 

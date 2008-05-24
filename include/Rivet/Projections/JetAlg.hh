@@ -14,7 +14,10 @@ namespace Rivet {
   class JetAlg : public Projection {
     
   public:
-    
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const = 0;
+
     /// Destructor
     virtual ~JetAlg() { }
 

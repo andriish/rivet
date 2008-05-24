@@ -17,6 +17,7 @@ namespace Rivet {
     
     /// @name Standard constructors and destructors.
     //@{
+
     /// Default constructor. Must specify a FinalState projection which is
     //  assumed to live throughout the run.
     KtJets(const FinalState& fsp)
@@ -26,6 +27,7 @@ namespace Rivet {
       setName("KtJets");
       addProjection(fsp, "FS");
     }
+
 
     /// Argument constructor. Allows the to be run with different parameters.
     /// Must specify a FinalState projection which is assumed to live throughout the run. 
@@ -37,9 +39,16 @@ namespace Rivet {
       addProjection(fsp, "FS");
     }
     
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new KtJets(*this);
+    }
+
+
     /// Destructor.
     virtual ~KtJets() { 
-      if (_pktev) delete _pktev; 
+      delete _pktev; 
     }
     //@}
 

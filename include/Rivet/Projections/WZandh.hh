@@ -20,6 +20,12 @@ namespace Rivet {
     WZandh() {
       setName("WZandh");
     }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new WZandh(*this);
+    }
+    //@}
     
   protected:
     

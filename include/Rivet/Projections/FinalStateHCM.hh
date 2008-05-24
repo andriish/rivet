@@ -23,6 +23,10 @@ namespace Rivet {
       addProjection(kinematicsp, "Kinematics");
     }
 
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new FinalStateHCM(*this);
+    }
     
   protected:
     

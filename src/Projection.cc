@@ -20,9 +20,9 @@ namespace Rivet {
   }
 
 
-  int Projection::compare(const Projection& p) const {
-    return mkNamedPCmp(p, "FS");
-  }
+ //  int Projection::compare(const Projection& p) const {
+ //    return mkNamedPCmp(p, "FS");
+ //  }
 
 
   bool Projection::before(const Projection& p) const {

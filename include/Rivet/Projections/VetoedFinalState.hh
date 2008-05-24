@@ -29,7 +29,7 @@ namespace Rivet {
     /// Default constructor.
     VetoedFinalState() {
       setName("VetoedFinalState");
-      addProjection(*new FinalState(), "FS");
+      addProjection(FinalState(), "FS");
     }
 
     /// Constructor with specific FinalState.
@@ -45,7 +45,7 @@ namespace Rivet {
       : _vetoCodes(vetocodes)
     {
       setName("VetoedFinalState");
-      addProjection(*new FinalState(), "FS");
+      addProjection(FinalState(), "FS");
     }
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
@@ -56,6 +56,12 @@ namespace Rivet {
     {
       setName("VetoedFinalState");
       addProjection(fsp, "FS");
+    }
+
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new VetoedFinalState(*this);
     }
     //@}
     

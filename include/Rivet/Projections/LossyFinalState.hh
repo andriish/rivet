@@ -9,8 +9,8 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 
-
 namespace Rivet {
+
 
   /// Randomly lose a fraction of the particles from the supplied final state projection.
   /// @todo This needs an overhaul to make the base projections work properly. Slicing + inheritance again.
@@ -38,9 +38,16 @@ namespace Rivet {
       : _lossFraction(lossfraction)
     { 
       setName("LossyFinalState");
-      addProjection(*new FinalState(mineta, maxeta, minpt), "FS");
+      addProjection(FinalState(mineta, maxeta, minpt), "FS");
       assert(_lossFraction >= 0);
     }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new LossyFinalState(*this);
+    }
+
+    //@}
 
   protected:
     

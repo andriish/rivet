@@ -65,16 +65,18 @@ namespace Rivet {
     }
 
     // Change AIDA histos into data point sets
-    log << Log::INFO << "Normalising the AIDA tree" << endl;
+    log << Log::DEBUG << "Converting histograms to scatter plots" << endl;
     assert(_theTree != 0);
     normalizeTree(tree());
-    //tree().commit();
 
     // Delete analyses
+    log << Log::DEBUG << "Deleting analyses" << endl;
     for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
       delete *a;
     }
     _analyses.clear();
+
+    log << Log::DEBUG << "Closing analysis libraries" << endl;
     AnalysisLoader::closeAnalysisBuilders();
   }
 

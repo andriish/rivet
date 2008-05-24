@@ -14,17 +14,19 @@ namespace Rivet {
   class CDF_2007_S7057202 : public Analysis {
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor
     CDF_2007_S7057202()
       : _minY(0.1), _maxY(0.7), _jetMinPT(54.0*GeV)
    {
       setBeams(PROTON, ANTIPROTON);
       //setSqrtS(1960*GeV);
-      /// @todo Understand why this doesn't work...
-      //const FinalState& fs = *new FinalState();
-      addProjection(*new FastJets(*new FinalState(), FastJets::KT, 0.5), "JetsD05");
-      addProjection(*new FastJets(*new FinalState(), FastJets::KT, 0.7), "JetsD07");
-      addProjection(*new FastJets(*new FinalState(), FastJets::KT, 1.0), "JetsD10");
+      const FinalState fs;
+      addProjection(FastJets(fs, FastJets::KT, 0.5), "JetsD05");
+      addProjection(FastJets(fs, FastJets::KT, 0.7), "JetsD07");
+      addProjection(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
       setNeedsCrossSection(true);
     }
     
@@ -32,6 +34,7 @@ namespace Rivet {
     static Analysis* create() { 
       return new CDF_2007_S7057202(); 
     }
+    //@}
     
 
     /// @name Publication metadata

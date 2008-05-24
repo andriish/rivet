@@ -8,8 +8,8 @@
 #include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Projections/Beam.hh"
 
-
 namespace Rivet {
+
 
   /// This class projects out the DIS kinematic variables and relevant
   /// boosts for an event.
@@ -21,15 +21,24 @@ namespace Rivet {
     /// projection objects which are guaranteed to live throughout the
     /// run. Also the PDG code of the incoming hadron (\a hadid) must be
     /// specified.
-    DISKinematics(const DISLepton& leptonp, const ParticleName& hadid)
-      : _idhad(hadid), _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0) 
+    DISKinematics(const DISLepton& leptonp, ParticleName hadid)
+      : _idhad(hadid), 
+        _theQ2(-1.0), 
+        _theW2(-1.0), 
+        _theX(-1.0), 
+        _theY(-1.0), 
+        _theS(-1.0) 
     {
       setName("DISKinematics");
       addBeamPair(ANY, hadid);
-      addProjection(*new Beam(), "Beam");
+      addProjection(Beam(), "Beam");
       addProjection(leptonp, "Lepton");
     }
-    
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new DISKinematics(*this);
+    }    
     
   protected:
     

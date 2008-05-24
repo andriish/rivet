@@ -21,9 +21,14 @@ namespace Rivet {
     CentralEtHCM(const FinalStateHCM& fs)
     {
       setName("CentralEtHCM");
-      addProjection(fs, "FS"); 
+      addProjection(fs, "FS");
       addCut("eta", MORE_EQ, -0.5);
       addCut("eta", LESS_EQ,  0.5);
+    }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new CentralEtHCM(*this);
     }
 
   protected:

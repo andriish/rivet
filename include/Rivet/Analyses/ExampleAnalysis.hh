@@ -18,20 +18,28 @@ namespace Rivet {
 
   public:
 
+    /// @name Constructor etc.
+    //@{
+
     /// Default constructor
     ExampleAnalysis() {
-      const FinalState& cnfs = addProjection(*new FinalState(), "FS");
-      const ChargedFinalState& cfs = addProjection(*new ChargedFinalState(), "CFS");
-      addProjection(*new Multiplicity(cfs), "CMult");
-      addProjection(*new Multiplicity(cnfs), "CNMult");
-      addProjection(*new Thrust(cfs), "Thrust");
-      addProjection(*new Sphericity(cfs), "Sphericity");
+      const FinalState cnfs;
+      const ChargedFinalState cfs;
+      addProjection(cnfs, "FS");
+      addProjection(cfs, "CFS");
+      addProjection(Multiplicity(cfs), "CMult");
+      addProjection(Multiplicity(cnfs), "CNMult");
+      addProjection(Thrust(cfs), "Thrust");
+      addProjection(Sphericity(cfs), "Sphericity");
     }
 
     /// Factory method
     static Analysis* create() { 
       return new ExampleAnalysis(); 
     }
+
+    //@}
+
 
   public:
 

@@ -21,12 +21,13 @@ namespace Rivet {
     /// and \f$ p_T > 0.4 \f$ GeV.
     CDF_2004_S5839831() {
       setBeams(PROTON, ANTIPROTON);
-      addProjection(*new Beam(), "Beam");
+      addProjection(Beam(), "Beam");
       // NB. Charged track reconstruction efficiency has already been corrected in the data.
-      const FinalState& fs = addProjection(*new ChargedFinalState(-1.2, 1.2, 0.4*GeV), "FS");
+      const ChargedFinalState fs(-1.2, 1.2, 0.4*GeV); 
+      addProjection(fs, "FS");
+      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
       // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
-      addProjection(*new ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CheeseFS");
-      addProjection(*new FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+      addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CheeseFS");
       
       /// @todo Declare that this is to be run on minimum bias data and jet 
       /// data with several ET triggers:
@@ -35,8 +36,11 @@ namespace Rivet {
       /// Lots of runs needed to fill this paper!
     }
 
+
     /// Factory method
-    static Analysis* create() { return new CDF_2004_S5839831(); }
+    static Analysis* create() { 
+      return new CDF_2004_S5839831(); 
+    }
     //@}
 
   public:

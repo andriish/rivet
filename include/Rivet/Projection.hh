@@ -39,6 +39,9 @@ namespace Rivet {
     //@{
     /// The default constructor.
     Projection();
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const = 0;
     
     /// The destructor.
     virtual ~Projection();
@@ -80,7 +83,7 @@ namespace Rivet {
     /// By default, this function returns the result of a comparison between two
     /// requested child projections named "FS", since almost all projections
     /// should have such a child.
-    virtual int compare(const Projection& p) const;
+    virtual int compare(const Projection& p) const = 0;
     
   public:
 

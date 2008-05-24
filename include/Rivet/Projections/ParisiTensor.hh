@@ -44,9 +44,15 @@ namespace Rivet {
     /// Constructor. The provided FinalState projection must live throughout the run.
     ParisiTensor(const FinalState& fsp)
       : _C(0), _D(0)
-    { 
+    {
       setName("ParisiTensor");
-      addProjection(*new Sphericity(fsp, 1.0), "Sphericity");
+      addProjection(fsp, "FS");
+      addProjection(Sphericity(fsp, 1.0), "Sphericity");
+    }
+
+    /// Clone on the heap.
+    virtual const Projection* clone() const {
+      return new ParisiTensor(*this);
     }
 
   protected:
