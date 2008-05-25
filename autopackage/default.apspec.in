@@ -29,9 +29,19 @@ echo '*' | import
 
 [Prepare]
 require @hepforge.org/rivet-data @VERSION@
-require @hepforge.org/libfastjet @VERSION@
-require @hepforge.org/libhepmc @VERSION@
-require @hepforge.org/libgsl @VERSION@
+require @hepforge.org/libfastjet >= 2.3
+require @hepforge.org/libhepmc >= 2.3
+require @hepforge.org/libgsl XXX
+
+recommends @hepforge.org/rivet-python @VERSION@
+recommends @hepforge.org/rivet-dev @VERSION@
+
+#{
+recommends @hepforge.org/rivet-bin @VERSION@
+recommends @hepforge.org/agile >= 1.0
+recommends @hepforge.org/lhapdf ANY
+#}
+
 #removeOwningPackage $PREFIX/bin/my-program
 
 [Install]
