@@ -1,3 +1,12 @@
+2008-05-28  Andy Buckley  <andy@insectnation.org>
+
+	* Converted FastJet to use Boost smart_ptr for its plugin
+	handling, to solve double-delete errors stemming from the heap
+	cloning of projections.
+
+	* Added (a subset of) Boost headers, particularly the smart
+	pointers.
+
 2008-05-24  Andy Buckley  <andy@insectnation.org>
 
 	* Added autopackage spec files.

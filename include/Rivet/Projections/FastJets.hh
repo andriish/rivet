@@ -37,11 +37,9 @@ namespace Rivet {
 
     /// @name Constructors and destructors.
     //@{
-    /// Default constructor uses Kt algorithm and E-scheme recombination. 
-    /// The FinalState projection must live throughout the run. 
-    FastJets(const FinalState& fsp) 
-      : _plugin(0)
-    { 
+    /// Default constructor uses Kt algorithm and E-scheme recombination.
+    /// The FinalState projection must live throughout the run.
+    FastJets(const FinalState& fsp) {
       setName("FastJets");
       addProjection(fsp, "FS");
       const double RPARAM = 1.0;
@@ -53,43 +51,37 @@ namespace Rivet {
     /// jet alg choices (including some plugins). For the built-in algs,
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
-    /// The FinalState projection must live throughout the run. 
-    FastJets(const FinalState& fsp, JetAlg alg, double rparameter)
-      : _plugin(0)
-    {
+    /// The FinalState projection must live throughout the run.
+    FastJets(const FinalState& fsp, JetAlg alg, double rparameter) {
       setName("FastJets");
       addProjection(fsp, "FS");
       if (alg == KT) {
         _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
       } else if (alg == CAM) {
         _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
-      } else if (alg == SISCONE) {
-        const double overlapthreshold = 0.5;
-        _plugin = new fastjet::SISConePlugin(rparameter, overlapthreshold);
-        _jdef = fastjet::JetDefinition(_plugin);
-      } else if (alg == CDFJETCLU) {
-        _plugin = new fastjet::CDFJetCluPlugin(rparameter);
-        _jdef = fastjet::JetDefinition(_plugin);
-      } else if (alg == CDFMIDPOINT) {
-        _plugin = new fastjet::CDFMidPointPlugin(rparameter);
-        _jdef = fastjet::JetDefinition(_plugin);
-      #ifdef HAVE_JADE
-      } else if (alg == JADE) {
-        _plugin = new fastjet::JadePlugin("jade");
-        _jdef = fastjet::JetDefinition(_plugin);
-      } else if (alg == DURHAM) {
-        _plugin = new fastjet::JadePlugin("durham");
-        _jdef = fastjet::JetDefinition(_plugin);
-      #endif
+      } else {
+        if (alg == SISCONE) {
+          const double overlapthreshold = 0.5;
+          _plugin.reset(new fastjet::SISConePlugin(rparameter, overlapthreshold));
+        } else if (alg == CDFJETCLU) {
+          _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter));
+        } else if (alg == CDFMIDPOINT) {
+          _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter));
+        #ifdef HAVE_JADE
+        } else if (alg == JADE) {
+          _plugin.reset(new fastjet::JadePlugin("jade"));
+        } else if (alg == DURHAM) {
+          _plugin.reset(new fastjet::JadePlugin("durham"));
+        #endif
+        }
+        _jdef = fastjet::JetDefinition(_plugin.get());
       }
     }
     
     
     /// Native argument constructor, using FastJet alg/scheme enums.
     FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
-             fastjet::RecombinationScheme recom, double rparameter)
-      : _plugin(0)
-    {
+             fastjet::RecombinationScheme recom, double rparameter) {
       setName("FastJets");
       addProjection(fsp, "FS");
       _jdef = fastjet::JetDefinition(type, rparameter, recom);
@@ -111,11 +103,6 @@ namespace Rivet {
       return new FastJets(*this);
     }
 
-  
-    /// Destructor.
-    ~FastJets() { 
-      delete _plugin;
-    }
     //@}
 
 
@@ -168,7 +155,7 @@ namespace Rivet {
     fastjet::JetDefinition _jdef;
 
     /// FastJet external plugin
-    fastjet::JetDefinition::Plugin* _plugin; 
+    shared_ptr<fastjet::JetDefinition::Plugin> _plugin; 
 
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;

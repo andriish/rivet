@@ -4,13 +4,13 @@
 #include "Rivet/Projections/KtJets.hh"
 #include "Rivet/Cmp.hh"
 
-
 namespace Rivet {
+
 
   int KtJets::compare(const Projection& p) const {
     const KtJets& other = dynamic_cast<const KtJets&>(p);
     return \
-      pcmp(*_fsproj, *other._fsproj) || 
+      mkNamedPCmp(other "FS") || 
       cmp(_type, other._type) ||
       cmp(_angle, other._angle) || 
       cmp(_recom, other._recom) ||
@@ -20,7 +20,7 @@ namespace Rivet {
 
   void KtJets::project(const Event& e) {
     // Project into final state
-    const FinalState& fs = e.applyProjection(*_fsproj);
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Store 4 vector data about each particle into vecs
     vector<KtJet::KtLorentzVector> vecs;
@@ -37,14 +37,13 @@ namespace Rivet {
 
   vector<double> KtJets::getYSubJet(const KtJet::KtLorentzVector& jet) const {
     map<int,vector<double> >::iterator iter = _yscales.find(jet.getID());
-
     if (iter == _yscales.end()) {
       KtJet::KtEvent subj = KtJet::KtEvent(jet, _angle, _recom);
       vector<double> yMergeVals;
       for (int i=1; i<5; ++i) {
-	if (subj.getNConstituents()>i){
-	  yMergeVals.push_back(subj.getYMerge(i));
-	}
+        if (subj.getNConstituents() > i){
+          yMergeVals.push_back(subj.getYMerge(i));
+        }
       }
       _yscales.insert(make_pair( jet.getID(), yMergeVals ));
       return yMergeVals;

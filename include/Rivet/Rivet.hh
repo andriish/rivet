@@ -69,9 +69,15 @@ namespace Rivet {
 
 }
 
+
+// AIDA headers
+#include "Rivet/RivetAIDA.fhh"
+
+// Pull some Boost defns into the Rivet namespace
+#include "Rivet/RivetBoost.hh"
+
 // Now import some Rivet classes
 #include "Rivet/Exceptions.hh"
-#include "Rivet/RivetAIDA.fhh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 #include "Rivet/Math/Matrices.hh"

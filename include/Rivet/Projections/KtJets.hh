@@ -86,16 +86,14 @@ namespace Rivet {
     /// Get the subjet splitting variables for the given jet.
     vector<double> getYSubJet(const KtJet::KtLorentzVector& jet) const; 
 
+
   private:
     
     /// Internal KtEvent, rebuilt every time an event is projected, but not otherwise.
     KtJet::KtEvent* _pktev;
 
     int _type, _angle, _recom;
-    double _rparameter;  // had trouble building with Ktfloat, used double instead
-
-    /// The FinalState projection used by this projection.
-    FinalState* _fsproj;
+    double _rparameter;
 
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;

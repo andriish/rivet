@@ -7,6 +7,7 @@ nobase_pkginclude_HEADERS =
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
   Rivet.hh \
+  RivetBoost.hh \
   Constraints.hh      BeamConstraint.hh   \
   Cuts.hh             Cuts.fhh            \
   Event.hh            Event.fhh           \
