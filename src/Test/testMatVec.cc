@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Math/MathUtils.hh"
-#include "Math/Vectors.hh"
-#include "Math/Matrices.hh"
+#include "Rivet/Math/MathUtils.hh"
+#include "Rivet/Math/Vectors.hh"
+#include "Rivet/Math/Matrices.hh"
 
 using namespace std;
 

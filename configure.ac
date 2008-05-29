@@ -38,10 +38,11 @@ AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 
 ## Decide/determine whether to build the rivetgun executable
-AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable @<:@default=yes@:>@])], [], [enable_rivetgun=yes])
+AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable @<:@default=yes@:>@])], 
+  [], [enable_rivetgun=yes])
 AC_CEDAR_LIBRARYANDHEADERS([AGILe], , , [AC_MSG_WARN([AGILe not found])])
-AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes && test x$WITH_AGILE != xno])
-if test x$enable_rivetgun == xyes && test x$WITH_AGILE == xno; then
+AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes && test x$have_agile != xno])
+if test x$enable_rivetgun == xyes && test x$have_agile == xno; then
   AC_MSG_NOTICE([AGILe not found: not building rivetgun])
 fi
 
@@ -58,10 +59,11 @@ fi
 
 ## Decide/determine whether to build with FastJet JADE + Durham support
 AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade, 
-  [use JADE support from patched FastJet @<:@default=no@:>@])])
+  [use JADE support from patched FastJet @<:@default=no@:>@])], 
+  [], [enable_jade=no])
 AC_MSG_CHECKING([whether to try and use the FastJet JADE + Durham plugin patch])
-AC_MSG_RESULT([test x$enable_jade != x])
-AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != x])
+AC_MSG_RESULT($enable_jade)
+AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != xno])
 
 ## Optional ROOT analysis framework
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, 

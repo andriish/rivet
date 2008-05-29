@@ -7,7 +7,7 @@ nobase_pkginclude_HEADERS =
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
   Rivet.hh \
-  RivetBoost.hh \
+  RivetBoost.hh       Exceptions.hh       \
   Constraints.hh      BeamConstraint.hh   \
   Cuts.hh             Cuts.fhh            \
   Event.hh            Event.fhh           \
@@ -34,6 +34,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2005_S6217184.hh \
   Analyses/CDF_2006_S6653332.hh \
   Analyses/CDF_2007_S7057202.hh \
+  Analyses/CDF_2008_S7541902.hh \
   Analyses/D0_2001_S4674421.hh \
   Analyses/D0_2004_S5992206.hh \
   Analyses/DELPHI_1995_S3137023.hh \
