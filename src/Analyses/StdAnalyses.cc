@@ -10,6 +10,7 @@
 #include "Rivet/Analyses/ALEPH_1991_S2435284.hh"
 #include "Rivet/Analyses/DELPHI_1995_S3137023.hh"
 #include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
+#include "Rivet/Analyses/OPAL_1998_S3780481.hh"
 #include "Rivet/Analyses/PDG_Hadron_Multiplicities.hh"
 //#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
 
@@ -45,6 +46,7 @@ extern "C" {
     fns["ALEPH_1991_S2435284"] = Rivet::ALEPH_1991_S2435284::create;
     fns["DELPHI_1995_S3137023"] = Rivet::DELPHI_1995_S3137023::create;
     fns["DELPHI_1996_S3430090"] = Rivet::DELPHI_1996_S3430090::create;
+    fns["OPAL_1998_S3780481"] = Rivet::OPAL_1998_S3780481::create;
     //fns["OPAL_2004_S6132243"] = Rivet::OPAL_2004_S6132243::create;
 
     // HERA

@@ -12,6 +12,7 @@ libRivetProjections_la_SOURCES = \
   FinalStateHCM.cc \
   HadronicFinalState.cc \
   Hemispheres.cc \
+  InitialQuarks.cc \
   JetShape.cc \
   LossyFinalState.cc \
   Multiplicity.cc \

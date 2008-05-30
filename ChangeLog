@@ -1,3 +1,8 @@
+2008-05-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added InitialQuarks projection
+	* Added OPAL_1998_S3780481 analysis
+
 2008-05-29  Andy Buckley  <andy@insectnation.org>
 
 	* distcheck compatibility fixes and autotools tweaks.

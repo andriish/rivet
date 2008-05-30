@@ -40,6 +40,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/H1_1995_S3167097.hh \
+  Analyses/OPAL_1998_S3780481.hh \
   Analyses/OPAL_2004_S6132243.hh \
   Analyses/ZEUS_2001_S4815815.hh \
   Analyses/PDG_Hadron_Multiplicities.hh
@@ -59,6 +60,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FinalStateHCM.hh  \
   Projections/HadronicFinalState.hh \
   Projections/Hemispheres.hh    \
+  Projections/InitialQuarks.hh \
   Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
   Projections/KtJets.hh         \
