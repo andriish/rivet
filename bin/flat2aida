@@ -43,15 +43,12 @@ class Histogram:
                                           'UpEdge':  float(linearray[1]),
                                           'Content': float(linearray[2]),
                                           'Error':   [float(linearray[3]),float(linearray[4])]})
-    def write_datapointset(self, f, count):
-        for bin, bindata in enumerate(self.data):
-            xval = 0.5*(bindata['UpEdge'] + bindata['LowEdge'])
-            if bindata['UpEdge'] == bindata['LowEdge']:
-                xerr = 0.5
-            else:
-                xerr = 0.5*(bindata['UpEdge'] - bindata['LowEdge'])
-            yval = bindata['Content']
-            yerr = bindata['Error']
+    def write_datapoint(self, f, xval, xerr, yval, yerr):
+            f.write('    <dataPoint>\n')
+            f.write('      <measurement errorPlus="%f" value="%f" errorMinus="%f"/>\n' %(xerr, xval, xerr))
+            f.write('      <measurement errorPlus="%f" value="%f" errorMinus="%f"/>\n' %(yerr[1], yval, yerr[0]))
+            f.write('    </dataPoint>\n')
+    def write_datapointset_header(self, f, count, bin):
             path = '/HepData/%s/d%02d-x01-y%02d' %(filename.split('/')[-1], count, bin+1)
             f.write('  <dataPointSet name="d%02d-x01-y%02d" dimension="2"\n' %(count, bin+1))
             f.write('  path="/HepData/%s/" title="%s">\n' %(filename.split('/')[-1], self.description['Title']))
@@ -60,15 +57,32 @@ class Histogram:
             f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
             f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], path))
             f.write('    </annotation>\n')
-            f.write('    <dataPoint>\n')
-            f.write('      <measurement errorPlus="%f" value="%f" errorMinus="%f"/>\n' %(xerr, xval, xerr))
-            f.write('      <measurement errorPlus="%f" value="%f" errorMinus="%f"/>\n' %(yerr[1], yval, yerr[0]))
-            f.write('    </dataPoint>\n')
+    def write_datapointset_footer(self, f):
             f.write('  </dataPointSet>\n')
+    def write_datapointset(self, f, count):
+        if not opts.SPLITHISTOS:
+            self.write_datapointset_header(f, count, 0)
+        for bin, bindata in enumerate(self.data):
+            xval = 0.5*(bindata['UpEdge'] + bindata['LowEdge'])
+            if bindata['UpEdge'] == bindata['LowEdge']:
+                xerr = 0.5
+            else:
+                xerr = 0.5*(bindata['UpEdge'] - bindata['LowEdge'])
+            yval = bindata['Content']
+            yerr = bindata['Error']
+            if opts.SPLITHISTOS:
+                self.write_datapointset_header(f, count, bin)
+            self.write_datapoint(f, xval, xerr, yval, yerr)
+            if opts.SPLITHISTOS:
+                self.write_datapointset_footer(f)
+        if not opts.SPLITHISTOS:
+            self.write_datapointset_footer(f)
 
 
 from optparse import OptionParser
 parser = OptionParser(usage="%prog flatfile [flatfile2 ...]")
+parser.add_option("-s", "--split-histos", action="store_true", default=False,
+                  help="Split histograms into individual bins", dest="SPLITHISTOS")
 opts, args = parser.parse_args()
 
 if len(args) < 1:
