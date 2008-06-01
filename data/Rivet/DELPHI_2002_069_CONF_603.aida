@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="FreeHEP"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+  path="/HepData/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(x_B^{prim})$">
+    <annotation>
+      <item key="Title" value="b quark fragmentation function $f(x_B^{prim})$" sticky="true"/>
+      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d01-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d01-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.093500" value="0.193500" errorMinus="0.093500"/>
+      <measurement errorPlus="0.031000" value="0.051000" errorMinus="0.031000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.054000" value="0.341000" errorMinus="0.054000"/>
+      <measurement errorPlus="0.039000" value="0.481000" errorMinus="0.039000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.054000" value="0.449000" errorMinus="0.054000"/>
+      <measurement errorPlus="0.045000" value="0.536000" errorMinus="0.045000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.051500" value="0.554500" errorMinus="0.051500"/>
+      <measurement errorPlus="0.059000" value="0.887000" errorMinus="0.059000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.046500" value="0.652500" errorMinus="0.046500"/>
+      <measurement errorPlus="0.066000" value="1.294000" errorMinus="0.066000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.039000" value="0.738000" errorMinus="0.039000"/>
+      <measurement errorPlus="0.072000" value="1.849000" errorMinus="0.072000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.037000" value="0.814000" errorMinus="0.037000"/>
+      <measurement errorPlus="0.076000" value="2.728000" errorMinus="0.076000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.028000" value="0.879000" errorMinus="0.028000"/>
+      <measurement errorPlus="0.082000" value="3.478000" errorMinus="0.082000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.022000" value="0.929000" errorMinus="0.022000"/>
+      <measurement errorPlus="0.133000" value="2.324000" errorMinus="0.133000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.024500" value="0.975500" errorMinus="0.024500"/>
+      <measurement errorPlus="0.076000" value="0.442000" errorMinus="0.076000"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2"
+  path="/HepData/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(x_B^{weak})$">
+    <annotation>
+      <item key="Title" value="b quark fragmentation function $f(x_B^{weak})$" sticky="true"/>
+      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d02-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d02-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.090500" value="0.190500" errorMinus="0.090500"/>
+      <measurement errorPlus="0.036000" value="0.029000" errorMinus="0.036000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.054000" value="0.335000" errorMinus="0.054000"/>
+      <measurement errorPlus="0.044000" value="0.516000" errorMinus="0.044000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.051000" value="0.440000" errorMinus="0.051000"/>
+      <measurement errorPlus="0.046000" value="0.552000" errorMinus="0.046000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.049000" value="0.540000" errorMinus="0.049000"/>
+      <measurement errorPlus="0.056000" value="0.940000" errorMinus="0.056000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.046000" value="0.635000" errorMinus="0.046000"/>
+      <measurement errorPlus="0.064000" value="1.282000" errorMinus="0.064000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.041500" value="0.722500" errorMinus="0.041500"/>
+      <measurement errorPlus="0.075000" value="2.060000" errorMinus="0.075000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.032000" value="0.796000" errorMinus="0.032000"/>
+      <measurement errorPlus="0.088000" value="2.904000" errorMinus="0.088000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.034000" value="0.862000" errorMinus="0.034000"/>
+      <measurement errorPlus="0.103000" value="3.139000" errorMinus="0.103000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.025000" value="0.921000" errorMinus="0.025000"/>
+      <measurement errorPlus="0.094000" value="1.549000" errorMinus="0.094000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.027000" value="0.973000" errorMinus="0.027000"/>
+      <measurement errorPlus="0.048000" value="0.358000" errorMinus="0.048000"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2"
+  path="/HepData/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(z)$">
+    <annotation>
+      <item key="Title" value="b quark fragmentation function $f(z)$" sticky="true"/>
+      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d03-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.220000" value="0.220000" errorMinus="0.220000"/>
+      <measurement errorPlus="0.006000" value="0.000000" errorMinus="0.006000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.075000" value="0.515000" errorMinus="0.075000"/>
+      <measurement errorPlus="0.000000" value="0.000000" errorMinus="0.000000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.060000" value="0.650000" errorMinus="0.060000"/>
+      <measurement errorPlus="0.021000" value="0.005000" errorMinus="0.021000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.040000" value="0.750000" errorMinus="0.040000"/>
+      <measurement errorPlus="0.309000" value="0.408000" errorMinus="0.309000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.040000" value="0.830000" errorMinus="0.040000"/>
+      <measurement errorPlus="0.287000" value="3.720000" errorMinus="0.287000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.040000" value="0.910000" errorMinus="0.040000"/>
+      <measurement errorPlus="0.362000" value="6.875000" errorMinus="0.362000"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.025000" value="0.975000" errorMinus="0.025000"/>
+      <measurement errorPlus="0.459000" value="2.312000" errorMinus="0.459000"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
