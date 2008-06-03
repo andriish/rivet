@@ -42,6 +42,7 @@ namespace Rivet {
       const Thrust thrust(cfs);
       addProjection(thrust, "Thrust");
       addProjection(Hemispheres(thrust), "Hemispheres");
+      _weightedTotalPartNum = 0;
     }
 
 

@@ -27,6 +27,8 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
       addProjection(UnstableFinalState(), "UFS");
+      _weightedTotalNumXiMinus = 0;
+      _weightedTotalNumSigma1385Plus = 0;
     }
 
 
