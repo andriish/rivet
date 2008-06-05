@@ -39,6 +39,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/D0_2004_S5992206.hh \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
+  Analyses/DELPHI_2002_069_CONF_603.hh \
   Analyses/H1_1995_S3167097.hh \
   Analyses/OPAL_1998_S3780481.hh \
   Analyses/OPAL_2004_S6132243.hh \

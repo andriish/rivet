@@ -62,6 +62,10 @@ namespace Rivet {
     }
     log << Log::DEBUG << "Number of initial quarks = " 
         << _theParticles.size() << endl;
+    if (not _theParticles.empty())
+      for (size_t i=0 ; i<_theParticles.size() ; i++)
+        log << Log::DEBUG << "Initial quark[" << i << "] = " 
+            << _theParticles[i].getPdgId() << std::endl;
   }
 
 }

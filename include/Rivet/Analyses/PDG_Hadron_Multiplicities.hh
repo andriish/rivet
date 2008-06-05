@@ -43,9 +43,6 @@ namespace Rivet {
     string getName() const {
       return "PDG_Hadron_Multiplicities";
     }
-    //string getSpiresId() const {
-    //  return "1234";
-    //}
     /// Get a description of the analysis.
     string getDescription() const {
       return "Hadron multiplicities in hadronic e+e- events, taken from Particle Data Book";
