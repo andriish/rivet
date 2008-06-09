@@ -16,11 +16,37 @@ using namespace Rivet;
 #include "HepMC/IO_GenEvent.h"
 using namespace HepMC;
 
+#include <csignal>
+
+
+namespace {
+
+  volatile sig_atomic_t RECVD_KILL_SIGNAL = 0;
+
+  extern "C" {
+    void handleKillSignal(int sigid) {
+      RECVD_KILL_SIGNAL = sigid;
+      signal(sigid, SIG_DFL);
+    }
+  }
+
+  void registerKillSignalHandler() {
+    signal(SIGTERM, handleKillSignal);
+    signal(SIGHUP,  handleKillSignal);
+    signal(SIGINT,  handleKillSignal);
+  }
+
+}
+
 
 namespace Rivet {
 
+
   void generate(Configuration& cfg, Log& log) {
     log << Log::DEBUG << "Entered generate() method " << endl;
+
+    // Make sure that the event loop can exit gracefully
+    registerKillSignalHandler();
 
     bool needsCrossSection = false;
     Generator* gen = 0;
@@ -157,6 +183,13 @@ namespace Rivet {
       if (cfg.writeHepMC) {
         hepmcOut->write_event(&myevent);
         //myevent.print(cout);
+      }
+      
+      // Exit nicely if we've been signalled during this iteration
+      if (RECVD_KILL_SIGNAL != 0) {
+        log << Log::WARN << "Leaving event loop early due to signal " 
+            << RECVD_KILL_SIGNAL << endl;
+        break;
       }
     }
     log << Log::INFO << "Finished!"  << endl;
