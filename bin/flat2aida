@@ -49,9 +49,9 @@ class Histogram:
             f.write('      <measurement errorPlus="%f" value="%f" errorMinus="%f"/>\n' %(yerr[1], yval, yerr[0]))
             f.write('    </dataPoint>\n')
     def write_datapointset_header(self, f, count, bin):
-            path = '/HepData/%s/d%02d-x01-y%02d' %(filename.split('/')[-1], count, bin+1)
+            path = '/REF/%s/d%02d-x01-y%02d' %(filename.split('/')[-1], count, bin+1)
             f.write('  <dataPointSet name="d%02d-x01-y%02d" dimension="2"\n' %(count, bin+1))
-            f.write('  path="/HepData/%s/" title="%s">\n' %(filename.split('/')[-1], self.description['Title']))
+            f.write('  path="/REF/%s/" title="%s">\n' %(filename.split('/')[-1], self.description['Title']))
             f.write('    <annotation>\n')
             f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(self.description['Title']))
             f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))

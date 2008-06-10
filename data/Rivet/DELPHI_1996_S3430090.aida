@@ -3,14 +3,14 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV**-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV**-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d01-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d01-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -159,14 +159,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d01-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d01-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d01-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d01-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d01-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -315,14 +315,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV**-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV**-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d02-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d02-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -428,14 +428,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d02-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d02-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d02-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d02-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -541,14 +541,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV**-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV**-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d03-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d03-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -697,14 +697,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTIN IN GEV-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTIN IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d03-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d03-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d03-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d03-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -853,14 +853,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV**-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV**-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV**-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d04-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d04-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d04-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -966,14 +966,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV-1">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPTOUT IN GEV-1">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPTOUT IN GEV-1"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d04-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d04-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d04-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d04-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -1079,13 +1079,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d05-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d05-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d05-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.125" value="0.125"
@@ -1215,13 +1215,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d05-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d05-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d05-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d05-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.125" value="0.125"
@@ -1351,13 +1351,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d06-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d06-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d06-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.125" value="0.125"
@@ -1487,13 +1487,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DYRAP">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DYRAP" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d06-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d06-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d06-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d06-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.125" value="0.125"
@@ -1623,13 +1623,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d07-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d07-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d07-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -1771,14 +1771,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLN(1/X)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLN(1/X)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DLN(1/X)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d08-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d08-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d08-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d08-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.1" value="0.1" errorMinus="0.1"/>
@@ -1943,14 +1943,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MEAN(NAME=PTOUT) IN GEV">
+    path="/REF/DELPHI_1996_S3430090/" title="MEAN(NAME=PTOUT) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(NAME=PTOUT) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d09-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d09-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d09-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d09-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -2092,14 +2092,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MEAN(NAME=PT) IN GEV">
+    path="/REF/DELPHI_1996_S3430090/" title="MEAN(NAME=PT) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(NAME=PT) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d10-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d10-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d10-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d10-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -2241,14 +2241,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(1-THRUST)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(1-THRUST)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d11-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d11-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d11-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d11-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -2372,14 +2372,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(1-THRUST)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(1-THRUST)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d11-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d11-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d11-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d11-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -2503,13 +2503,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMAJOR">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMAJOR">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DMAJOR" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d12-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d12-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d12-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d12-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2645,13 +2645,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMAJOR">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMAJOR">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DMAJOR" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d12-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d12-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d12-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d12-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2787,13 +2787,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMINOR">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMINOR">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DMINOR" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d13-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d13-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d13-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d13-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2887,13 +2887,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMINOR">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DMINOR">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DMINOR" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d13-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d13-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d13-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d13-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2987,14 +2987,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d14-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DOBLATENESS">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DOBLATENESS">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DOBLATENESS"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d14-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d14-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d14-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d14-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -3094,14 +3094,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d14-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DOBLATENESS">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DOBLATENESS">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DOBLATENESS"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d14-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d14-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d14-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d14-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -3201,14 +3201,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d15-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DSPHERICITY">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DSPHERICITY">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DSPHERICITY"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d15-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d15-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d15-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d15-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -3326,14 +3326,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d15-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DSPHERICITY">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DSPHERICITY">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DSPHERICITY"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d15-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d15-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d15-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d15-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -3451,14 +3451,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DAPLANARITY">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DAPLANARITY">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DAPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d16-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d16-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d16-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d16-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -3552,14 +3552,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DAPLANARITY">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DAPLANARITY">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DAPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d16-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d16-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d16-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d16-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -3653,14 +3653,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d17-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPLANARITY">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPLANARITY">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d17-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d17-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d17-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d17-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -3784,14 +3784,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d17-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPLANARITY">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DPLANARITY">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DPLANARITY"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d17-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d17-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d17-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d17-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -3915,14 +3915,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d18-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DC-PARAMETER">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DC-PARAMETER">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DC-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d18-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d18-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d18-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d18-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -4064,14 +4064,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d18-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DC-PARAMETER">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DC-PARAMETER">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DC-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d18-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d18-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d18-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d18-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -4213,14 +4213,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d19-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DD-PARAMETER">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DD-PARAMETER">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DD-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d19-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d19-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d19-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d19-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0040" value="0.0040"
@@ -4356,14 +4356,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d19-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DD-PARAMETER">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DD-PARAMETER">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DD-PARAMETER"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d19-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d19-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d19-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d19-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0040" value="0.0040"
@@ -4499,14 +4499,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d20-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d20-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d20-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d20-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d20-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -4606,14 +4606,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d20-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d20-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d20-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d20-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d20-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -4713,14 +4713,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d21-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d21-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d21-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d21-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d21-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -4778,14 +4778,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d21-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d21-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d21-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d21-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d21-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -4843,14 +4843,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d22-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d22-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d22-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d22-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d22-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -4932,14 +4932,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d22-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/D(M**2/EVIS**2)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/D(M**2/EVIS**2)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d22-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d22-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d22-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d22-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -5021,13 +5021,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d23-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMAX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMAX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBMAX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d23-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d23-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d23-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d23-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.005000000000000001"
@@ -5121,13 +5121,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d23-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMAX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMAX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBMAX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d23-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d23-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d23-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d23-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.005000000000000001"
@@ -5221,13 +5221,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d24-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMIN">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMIN">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBMIN" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d24-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d24-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d24-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d24-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -5297,13 +5297,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d24-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMIN">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBMIN">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBMIN" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d24-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d24-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d24-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d24-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -5373,13 +5373,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d25-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBSUM">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBSUM">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBSUM" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d25-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d25-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d25-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d25-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0049999999999999975"
@@ -5497,13 +5497,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d25-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBSUM">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBSUM">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBSUM" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d25-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d25-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d25-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d25-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0049999999999999975"
@@ -5621,13 +5621,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d26-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBDIFF">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBDIFF">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBDIFF" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d26-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d26-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d26-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d26-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -5733,13 +5733,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d26-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBDIFF">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DBDIFF">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DBDIFF" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d26-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d26-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d26-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d26-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -5845,14 +5845,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d27-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d27-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d27-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d27-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -5946,14 +5946,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d27-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d27-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d27-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d27-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -6047,14 +6047,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d28-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d28-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d28-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d28-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d28-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -6148,14 +6148,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d28-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=2JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d28-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d28-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d28-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d28-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -6249,14 +6249,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d29-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d29-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d29-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d29-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d29-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0010" value="0.0010"
@@ -6350,14 +6350,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d29-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d29-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d29-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d29-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d29-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0010" value="0.0010"
@@ -6451,14 +6451,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d30-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d30-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d30-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d30-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d30-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0010" value="0.0010"
@@ -6552,14 +6552,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d30-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=3JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d30-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d30-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d30-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d30-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0010" value="0.0010"
@@ -6653,14 +6653,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d31-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d31-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d31-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d31-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d31-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.0E-4" value="5.0E-4"
@@ -6754,14 +6754,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d31-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d31-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d31-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d31-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d31-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.0E-4" value="5.0E-4"
@@ -6855,14 +6855,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d32-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d32-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d32-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d32-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d32-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.0E-4" value="5.0E-4"
@@ -6962,14 +6962,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d32-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
+    path="/REF/DELPHI_1996_S3430090/" title="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT">
     <annotation>
       <item key="Title"
         value="D(SIG(Q=4JET)/SIG(Q=HAD))/DYCUT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d32-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d32-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d32-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d32-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.0E-4" value="5.0E-4"
@@ -7069,13 +7069,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d33-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="EEC">
+    path="/REF/DELPHI_1996_S3430090/" title="EEC">
     <annotation>
       <item key="Title" value="EEC" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d33-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d33-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d33-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d33-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.020000000000000018"
@@ -7379,13 +7379,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d34-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="AEEC">
+    path="/REF/DELPHI_1996_S3430090/" title="AEEC">
     <annotation>
       <item key="Title" value="AEEC" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d34-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d34-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d34-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d34-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.020000000000000018"
@@ -7539,13 +7539,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d35-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d35-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d35-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d35-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d35-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7555,13 +7555,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7571,13 +7571,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7587,13 +7587,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y03" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y03" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y03" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7603,13 +7603,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y04" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y04" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y04" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7619,13 +7619,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y05" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y05" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y05" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y05" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y05" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7635,13 +7635,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y06" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y06" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y06" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y06" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y06" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7651,13 +7651,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y07" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y07" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y07" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y07" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y07" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7667,13 +7667,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y08" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y08" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y08" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y08" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y08" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7683,13 +7683,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d36-x01-y09" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d36-x01-y09" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d36-x01-y09" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d36-x01-y09" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d36-x01-y09" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7699,13 +7699,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d37-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d37-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d37-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d37-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d37-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7715,13 +7715,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d38-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d38-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d38-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d38-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7730,13 +7730,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d38-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d38-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d38-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d38-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7746,13 +7746,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d38-x01-y03" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d38-x01-y03" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d38-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y03" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d38-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7762,29 +7762,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d38-x01-y04" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d38-x01-y04" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d38-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y04" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="91.2"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.02" value="0.17"
-        errorMinus="0.02"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d38-x01-y05" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
-    <annotation>
-      <item key="Title" value="MULT(P=3)" sticky="true"/>
-      <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d38-x01-y05" sticky="true"/>
-      <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d38-x01-y05" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d38-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7793,14 +7777,30 @@
         errorMinus="0.018"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d39-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+  <dataPointSet name="d38-x01-y05" dimension="2"
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d39-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d38-x01-y05" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d39-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d38-x01-y05" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.02" value="0.17"
+        errorMinus="0.02"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y01" dimension="2"
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    <annotation>
+      <item key="Title" value="MULT(P=3)" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/DELPHI_1996_S3430090/d39-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d39-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7810,13 +7810,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d39-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d39-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d39-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d39-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d39-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7826,13 +7826,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7842,13 +7842,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y02" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y02" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y02" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7858,13 +7858,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y03" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y03" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y03" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7874,13 +7874,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y04" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y04" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y04" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7890,13 +7890,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y05" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y05" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y05" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y05" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y05" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7906,13 +7906,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y06" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y06" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y06" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y06" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y06" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7922,13 +7922,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y07" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y07" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y07" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y07" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y07" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7938,13 +7938,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d40-x01-y08" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="MULT(P=3)">
+    path="/REF/DELPHI_1996_S3430090/" title="MULT(P=3)">
     <annotation>
       <item key="Title" value="MULT(P=3)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d40-x01-y08" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d40-x01-y08" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d40-x01-y08" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d40-x01-y08" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -7954,14 +7954,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d41-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
     <annotation>
       <item key="Title"
         value="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d41-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d41-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d41-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d41-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.2" value="0.2" errorMinus="0.2"/>
@@ -8096,14 +8096,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d42-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
     <annotation>
       <item key="Title"
         value="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d42-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d42-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d42-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d42-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.06999999999999995"
@@ -8191,13 +8191,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d43-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d43-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d43-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d43-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d43-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.009999999999999995"
@@ -8255,13 +8255,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d44-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d44-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d44-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d44-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d44-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.020000000000000004"
@@ -8301,13 +8301,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d45-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d45-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d45-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d45-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d45-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.020000000000000004"
@@ -8347,13 +8347,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d46-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d46-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d46-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d46-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d46-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.015" value="0.035"
@@ -8393,13 +8393,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d47-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d47-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d47-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d47-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d47-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.024999999999999994"
@@ -8427,13 +8427,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d48-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d48-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d48-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d48-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d48-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.024999999999999994"
@@ -8467,14 +8467,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d49-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
     <annotation>
       <item key="Title"
         value="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d49-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d49-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d49-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d49-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.10000000000000009"
@@ -8526,14 +8526,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d50-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))">
     <annotation>
       <item key="Title"
         value="(1/N)*D(N)/DLOG(1/X(DEF=2*P/SQRT(S))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d50-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d50-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d50-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d50-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.09999999999999998" value="0.8"
@@ -8603,13 +8603,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d51-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d51-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d51-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d51-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d51-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025000000000000022"
@@ -8661,13 +8661,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d52-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX=)">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX=)">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX=)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d52-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d52-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d52-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d52-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.005000000000000001"
@@ -8737,13 +8737,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d53-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d53-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d53-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d53-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d53-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0175" value="0.0325"
@@ -8783,13 +8783,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d54-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d54-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d54-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d54-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d54-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.015" value="0.045"
@@ -8823,13 +8823,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d55-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d55-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d55-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d55-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d55-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.024999999999999994"
@@ -8851,13 +8851,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d56-x01-y01" dimension="2"
-    path="/HepData/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
+    path="/REF/DELPHI_1996_S3430090/" title="(1/N)*D(N)/DX">
     <annotation>
       <item key="Title" value="(1/N)*D(N)/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/DELPHI_1996_S3430090/d56-x01-y01" sticky="true"/>
+        value="/REF/DELPHI_1996_S3430090/d56-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/DELPHI_1996_S3430090.aida/HepData/DELPHI_1996_S3430090/d56-x01-y01" sticky="true"/>
+        value="/DELPHI_1996_S3430090.aida/REF/DELPHI_1996_S3430090/d56-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.024999999999999994"

@@ -183,11 +183,11 @@ namespace Rivet {
     IDataPointSet* dps = bookDataPointSet(axisCode, title);
     const BinEdges edges = _histBinEdges.find(axisCode)->second;
     if (log.isActive(Log::TRACE)) {
-        stringstream edges_ss;
-        for (BinEdges::const_iterator be = edges.begin(); be != edges.end(); ++be) {
-          edges_ss << " " << *be;
-        }
-        log << Log::TRACE << "Edges:" << edges_ss.str() << endl;
+      stringstream edges_ss;
+      for (BinEdges::const_iterator be = edges.begin(); be != edges.end(); ++be) {
+        edges_ss << " " << *be;
+      }
+      log << Log::TRACE << "Edges:" << edges_ss.str() << endl;
     }
     for (size_t pt = 0; pt < edges.size()-1; ++pt) {
       const double lower = edges[pt];

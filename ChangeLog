@@ -1,3 +1,9 @@
+2008-06-10  Andy Buckley  <andy@insectnation.org>
+
+	* Updated AIDA reference files, changing "/HepData" root path to
+	"/REF". Still missing a couple of reference files due to upstream
+	problems with the HepData records.
+
 2008-06-09  Andy Buckley  <andy@insectnation.org>
 
 	* rivetgun now handles termination signals (SIGTERM, SIGINT and

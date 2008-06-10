@@ -3,14 +3,14 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d01-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d01-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -80,14 +80,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d01-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d01-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d01-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d01-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d01-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -157,14 +157,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d01-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d01-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d01-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d01-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d01-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -234,14 +234,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d01-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(1-THRUST)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(1-THRUST)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d01-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d01-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d01-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d01-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -311,14 +311,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d02-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d02-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.007499999999999993"
@@ -388,14 +388,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d02-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d02-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d02-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d02-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.007499999999999993"
@@ -465,14 +465,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d02-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d02-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d02-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d02-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.007499999999999993"
@@ -542,14 +542,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(HEAVY-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d02-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d02-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d02-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d02-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.007499999999999993"
@@ -619,14 +619,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d03-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d03-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -702,14 +702,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d03-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d03-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d03-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d03-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -785,14 +785,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d03-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d03-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d03-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d03-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -868,14 +868,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(C-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(C-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d03-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d03-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d03-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d03-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -951,14 +951,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d04-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d04-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d04-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.015" value="0.015"
@@ -1040,14 +1040,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d04-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d04-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d04-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d04-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.015" value="0.015"
@@ -1129,14 +1129,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d04-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d04-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d04-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d04-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.015" value="0.015"
@@ -1218,14 +1218,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(TOTAL-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d04-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d04-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d04-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d04-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.015" value="0.015"
@@ -1307,14 +1307,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d05-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d05-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d05-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -1384,14 +1384,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d05-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d05-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d05-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d05-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -1461,14 +1461,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d05-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d05-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d05-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d05-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -1538,14 +1538,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(WIDE-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d05-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d05-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d05-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d05-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -1615,14 +1615,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d06-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d06-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d06-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.2500000000000005E-4"
@@ -1698,14 +1698,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d06-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d06-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d06-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d06-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.2500000000000005E-4"
@@ -1781,14 +1781,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d06-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d06-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d06-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d06-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.2500000000000005E-4"
@@ -1864,14 +1864,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(Y23)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d06-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d06-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d06-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d06-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.2500000000000005E-4"
@@ -1947,14 +1947,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d07-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d07-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d07-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -2012,14 +2012,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d07-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d07-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d07-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d07-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -2077,14 +2077,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d07-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d07-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d07-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d07-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -2142,14 +2142,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MAJOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d07-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d07-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d07-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d07-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -2207,14 +2207,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d08-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d08-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d08-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d08-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2284,14 +2284,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d08-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d08-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d08-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d08-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2361,14 +2361,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d08-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d08-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d08-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d08-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2438,14 +2438,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(THRUST(NAME=MINOR))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d08-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d08-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d08-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d08-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2515,14 +2515,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d09-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d09-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d09-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d09-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -2568,14 +2568,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d09-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d09-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d09-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d09-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -2621,14 +2621,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d09-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d09-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d09-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d09-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -2674,14 +2674,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(APLANARITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(APLANARITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d09-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d09-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d09-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d09-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0025" value="0.0025"
@@ -2727,14 +2727,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d10-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d10-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d10-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d10-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2786,14 +2786,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d10-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d10-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d10-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d10-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2845,14 +2845,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d10-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d10-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d10-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d10-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2904,14 +2904,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(SPHERICITY)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(SPHERICITY)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d10-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d10-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d10-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d10-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01" value="0.01"
@@ -2963,14 +2963,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d11-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d11-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d11-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d11-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -3022,14 +3022,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d11-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d11-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d11-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d11-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -3081,14 +3081,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d11-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d11-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d11-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d11-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -3140,14 +3140,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(OBLATENESS)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(OBLATENESS)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d11-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d11-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d11-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d11-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.025" value="0.025"
@@ -3199,14 +3199,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d12-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d12-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d12-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d12-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -3276,14 +3276,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d12-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d12-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d12-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d12-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -3353,14 +3353,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d12-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d12-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d12-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d12-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -3430,14 +3430,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(LIGHT-JET-MASS)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d12-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d12-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d12-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d12-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02" value="0.02"
@@ -3507,14 +3507,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d13-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d13-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d13-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d13-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -3590,14 +3590,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d13-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d13-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d13-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d13-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -3673,14 +3673,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d13-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d13-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d13-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d13-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -3756,14 +3756,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)">
     <annotation>
       <item key="Title"
         value="(1/SIG)*D(SIG)/D(NARROW-JET-BROADENING)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d13-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d13-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d13-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d13-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -3839,14 +3839,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d14-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d14-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d14-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d14-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d14-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0020" value="0.0030"
@@ -3922,14 +3922,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d14-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d14-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d14-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d14-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d14-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0020" value="0.0030"
@@ -4005,14 +4005,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d14-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d14-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d14-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d14-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d14-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0020" value="0.0030"
@@ -4088,14 +4088,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d14-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
+    path="/REF/OPAL_2004_S6132243/" title="(1/SIG)*D(SIG)/D(D-PARAMETER)">
     <annotation>
       <item key="Title" value="(1/SIG)*D(SIG)/D(D-PARAMETER)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d14-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d14-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d14-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d14-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0020" value="0.0030"
@@ -4171,14 +4171,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d15-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d15-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d15-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d15-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d15-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4207,14 +4207,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d15-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d15-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d15-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d15-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d15-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4243,14 +4243,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d15-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d15-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d15-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d15-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d15-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4279,14 +4279,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d15-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(1-THRUST)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(1-THRUST)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d15-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d15-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d15-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d15-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4315,14 +4315,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d16-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d16-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d16-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d16-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4351,14 +4351,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d16-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d16-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d16-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d16-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4387,14 +4387,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d16-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d16-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d16-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d16-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4423,14 +4423,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(HEAVY-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(HEAVY-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d16-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d16-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d16-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d16-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4459,14 +4459,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d17-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d17-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d17-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d17-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d17-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4495,14 +4495,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d17-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d17-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d17-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d17-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d17-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4531,14 +4531,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d17-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d17-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d17-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d17-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d17-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4567,14 +4567,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d17-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(C-PARAMETER)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(C-PARAMETER)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d17-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d17-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d17-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d17-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4603,14 +4603,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d18-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d18-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d18-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d18-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d18-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4639,14 +4639,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d18-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d18-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d18-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d18-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d18-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4675,14 +4675,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d18-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d18-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d18-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d18-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d18-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4711,14 +4711,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d18-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(TOTAL-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(TOTAL-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d18-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d18-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d18-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d18-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4747,14 +4747,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d19-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d19-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d19-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d19-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d19-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4783,14 +4783,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d19-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d19-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d19-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d19-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d19-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4819,14 +4819,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d19-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d19-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d19-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d19-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d19-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4855,14 +4855,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d19-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(WIDE-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(WIDE-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d19-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d19-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d19-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d19-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4891,14 +4891,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d20-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(Y23)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d20-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d20-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d20-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d20-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4927,14 +4927,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d20-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(Y23)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d20-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d20-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d20-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d20-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4963,14 +4963,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d20-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(Y23)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d20-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d20-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d20-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d20-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -4999,14 +4999,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d20-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(Y23)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(Y23)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d20-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d20-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d20-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d20-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5035,14 +5035,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d21-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d21-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d21-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d21-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d21-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5071,14 +5071,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d21-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d21-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d21-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d21-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d21-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5107,14 +5107,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d21-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d21-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d21-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d21-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d21-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5143,14 +5143,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d21-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MAJOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MAJOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d21-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d21-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d21-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d21-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5179,14 +5179,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d22-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d22-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d22-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d22-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d22-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5215,14 +5215,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d22-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d22-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d22-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d22-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d22-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5251,14 +5251,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d22-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d22-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d22-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d22-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d22-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5287,14 +5287,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d22-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(THRUST(NAME=MINOR))**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(THRUST(NAME=MINOR))**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d22-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d22-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d22-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d22-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5323,14 +5323,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d23-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d23-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d23-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d23-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d23-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5359,14 +5359,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d23-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d23-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d23-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d23-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d23-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5395,14 +5395,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d23-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d23-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d23-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d23-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d23-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5431,14 +5431,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d23-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(SPHERICITY)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(SPHERICITY)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d23-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d23-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d23-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d23-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5467,14 +5467,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d24-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d24-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d24-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d24-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d24-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5503,14 +5503,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d24-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d24-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d24-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d24-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d24-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5539,14 +5539,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d24-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d24-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d24-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d24-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d24-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5575,14 +5575,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d24-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(OBLATENESS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(OBLATENESS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d24-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d24-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d24-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d24-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5611,14 +5611,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d25-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d25-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d25-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d25-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d25-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5647,14 +5647,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d25-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d25-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d25-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d25-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d25-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5683,14 +5683,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d25-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d25-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d25-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d25-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d25-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5719,14 +5719,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d25-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(LIGHT-JET-MASS)**N)">
     <annotation>
       <item key="Title" value="MEAN(NAME=(LIGHT-JET-MASS)**N)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d25-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d25-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d25-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d25-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5755,14 +5755,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d26-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d26-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d26-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d26-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d26-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5791,14 +5791,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d26-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d26-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d26-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d26-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d26-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5827,14 +5827,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d26-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d26-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d26-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d26-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d26-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5863,14 +5863,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d26-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
+    path="/REF/OPAL_2004_S6132243/" title="MEAN(NAME=(NARROW-JET-BROADENING)**N)">
     <annotation>
       <item key="Title"
         value="MEAN(NAME=(NARROW-JET-BROADENING)**N)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d26-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d26-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d26-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d26-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="1.0" errorMinus="0.5"/>
@@ -5899,13 +5899,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y01" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y01" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y01" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -5933,13 +5933,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y02" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y02" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y02" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -5967,13 +5967,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y03" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y03" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y03" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6001,13 +6001,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y04" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y04" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y04" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6035,13 +6035,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y05" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y05" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y05" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y05" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y05" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6069,13 +6069,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y06" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y06" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y06" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y06" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y06" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6103,13 +6103,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y07" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y07" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y07" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y07" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y07" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6137,13 +6137,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y08" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y08" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y08" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y08" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y08" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6171,13 +6171,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y09" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y09" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y09" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y09" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y09" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6205,13 +6205,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y10" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y10" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y10" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y10" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y10" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6239,13 +6239,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y11" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y11" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y11" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y11" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y11" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"
@@ -6273,13 +6273,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d27-x01-y12" dimension="2"
-    path="/HepData/OPAL_2004_S6132243/" title="VARIANCE">
+    path="/REF/OPAL_2004_S6132243/" title="VARIANCE">
     <annotation>
       <item key="Title" value="VARIANCE" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_2004_S6132243/d27-x01-y12" sticky="true"/>
+        value="/REF/OPAL_2004_S6132243/d27-x01-y12" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_2004_S6132243.aida/HepData/OPAL_2004_S6132243/d27-x01-y12" sticky="true"/>
+        value="/OPAL_2004_S6132243.aida/REF/OPAL_2004_S6132243/d27-x01-y12" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="21.0" value="91.0"

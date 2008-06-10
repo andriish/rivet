@@ -3,13 +3,13 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="SIG IN PB">
+    path="/REF/H1_1995_S3167097/" title="SIG IN PB">
     <annotation>
       <item key="Title" value="SIG IN PB" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d01-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d01-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="3.9999999999999996E-4"
@@ -25,14 +25,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d02-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d02-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="3.9999999999999996E-5"
@@ -42,14 +42,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d03-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d03-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.0000000000000004E-4"
@@ -59,14 +59,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d04-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d04-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d04-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.3000000000000002E-4"
@@ -76,14 +76,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d05-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d05-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d05-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.7E-4" value="6.3E-4"
@@ -93,14 +93,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d06-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d06-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d06-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="3.9999999999999996E-4"
@@ -110,14 +110,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d07-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d07-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d07-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0017000000000000001"
@@ -127,14 +127,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d08-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d08-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d08-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d08-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.6999999999999993E-4"
@@ -144,14 +144,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d09-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d09-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d09-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d09-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="9.000000000000002E-4"
@@ -161,14 +161,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y01" dimension="2"
-    path="/HepData/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
+    path="/REF/H1_1995_S3167097/" title="MEAN(N=ET(P=4)) IN GEV">
     <annotation>
       <item key="Title" value="MEAN(N=ET(P=4)) IN GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/H1_1995_S3167097/d10-x01-y01" sticky="true"/>
+        value="/REF/H1_1995_S3167097/d10-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/H1_1995_S3167097.aida/HepData/H1_1995_S3167097/d10-x01-y01" sticky="true"/>
+        value="/H1_1995_S3167097.aida/REF/H1_1995_S3167097/d10-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0051" value="0.0049"

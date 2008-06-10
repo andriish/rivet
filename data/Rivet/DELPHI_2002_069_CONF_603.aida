@@ -3,11 +3,11 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(x_B^{prim})$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(x_B^{prim})$">
     <annotation>
       <item key="Title" value="b quark fragmentation function $f(x_B^{prim})$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d01-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d01-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d01-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.093500" value="0.193500" errorMinus="0.093500"/>
@@ -51,11 +51,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(x_B^{weak})$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(x_B^{weak})$">
     <annotation>
       <item key="Title" value="b quark fragmentation function $f(x_B^{weak})$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d02-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d02-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d02-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.090500" value="0.190500" errorMinus="0.090500"/>
@@ -99,11 +99,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(z)$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="b quark fragmentation function $f(z)$">
     <annotation>
       <item key="Title" value="b quark fragmentation function $f(z)$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d03-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d03-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.220000" value="0.220000" errorMinus="0.220000"/>
@@ -135,11 +135,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="Mean of the b quark fragmentation function $f(x_B^{prim})$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="Mean of the b quark fragmentation function $f(x_B^{prim})$">
     <annotation>
       <item key="Title" value="Mean of the b quark fragmentation function $f(x_B^{prim})$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d04-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d04-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d04-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
@@ -147,11 +147,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="Mean of the b quark fragmentation function $f(x_B^{weak})$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="Mean of the b quark fragmentation function $f(x_B^{weak})$">
     <annotation>
       <item key="Title" value="Mean of the b quark fragmentation function $f(x_B^{weak})$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d05-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d05-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d05-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
@@ -159,11 +159,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="Mean of the b quark fragmentation function $f(z)$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="Mean of the b quark fragmentation function $f(z)$">
     <annotation>
       <item key="Title" value="Mean of the b quark fragmentation function $f(z)$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d06-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d06-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d06-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
@@ -171,11 +171,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="Variance of the b quark fragmentation function $f(x_B^{prim})$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="Variance of the b quark fragmentation function $f(x_B^{prim})$">
     <annotation>
       <item key="Title" value="Variance of the b quark fragmentation function $f(x_B^{prim})$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d07-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d07-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d07-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
@@ -183,11 +183,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="Variance of the b quark fragmentation function $f(x_B^{weak})$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="Variance of the b quark fragmentation function $f(x_B^{weak})$">
     <annotation>
       <item key="Title" value="Variance of the b quark fragmentation function $f(x_B^{weak})$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d08-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d08-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d08-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d08-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
@@ -195,11 +195,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
-  path="/HepData/DELPHI_2002_069_CONF_603/" title="Variance of the b quark fragmentation function $f(z)$">
+  path="/REF/DELPHI_2002_069_CONF_603/" title="Variance of the b quark fragmentation function $f(z)$">
     <annotation>
       <item key="Title" value="Variance of the b quark fragmentation function $f(z)$" sticky="true"/>
-      <item key="AidaPath" value="/HepData/DELPHI_2002_069_CONF_603/d09-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/HepData/DELPHI_2002_069_CONF_603/d09-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/DELPHI_2002_069_CONF_603/d09-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/DELPHI_2002_069_CONF_603.aida/REF/DELPHI_2002_069_CONF_603/d09-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>

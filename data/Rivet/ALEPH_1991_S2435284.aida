@@ -3,13 +3,13 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/HepData/ALEPH_1991_S2435284/" title="PROB">
+    path="/REF/ALEPH_1991_S2435284/" title="PROB">
     <annotation>
       <item key="Title" value="PROB" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ALEPH_1991_S2435284/d01-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1991_S2435284/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1991_S2435284.aida/HepData/ALEPH_1991_S2435284/d01-x01-y01" sticky="true"/>
+        value="/ALEPH_1991_S2435284.aida/REF/ALEPH_1991_S2435284/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.0" value="2.0" errorMinus="1.0"/>
@@ -159,13 +159,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/HepData/ALEPH_1991_S2435284/" title="MULT">
+    path="/REF/ALEPH_1991_S2435284/" title="MULT">
     <annotation>
       <item key="Title" value="MULT" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ALEPH_1991_S2435284/d02-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1991_S2435284/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1991_S2435284.aida/HepData/ALEPH_1991_S2435284/d02-x01-y01" sticky="true"/>
+        value="/ALEPH_1991_S2435284.aida/REF/ALEPH_1991_S2435284/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.25"
@@ -175,13 +175,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y02" dimension="2"
-    path="/HepData/ALEPH_1991_S2435284/" title="DISPERSION">
+    path="/REF/ALEPH_1991_S2435284/" title="DISPERSION">
     <annotation>
       <item key="Title" value="DISPERSION" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ALEPH_1991_S2435284/d02-x01-y02" sticky="true"/>
+        value="/REF/ALEPH_1991_S2435284/d02-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1991_S2435284.aida/HepData/ALEPH_1991_S2435284/d02-x01-y02" sticky="true"/>
+        value="/ALEPH_1991_S2435284.aida/REF/ALEPH_1991_S2435284/d02-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.25"
@@ -191,13 +191,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y03" dimension="2"
-    path="/HepData/ALEPH_1991_S2435284/" title="MULT/DISPERSION">
+    path="/REF/ALEPH_1991_S2435284/" title="MULT/DISPERSION">
     <annotation>
       <item key="Title" value="MULT/DISPERSION" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ALEPH_1991_S2435284/d02-x01-y03" sticky="true"/>
+        value="/REF/ALEPH_1991_S2435284/d02-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1991_S2435284.aida/HepData/ALEPH_1991_S2435284/d02-x01-y03" sticky="true"/>
+        value="/ALEPH_1991_S2435284.aida/REF/ALEPH_1991_S2435284/d02-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.25"
@@ -207,13 +207,13 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y04" dimension="2"
-    path="/HepData/ALEPH_1991_S2435284/" title="R2">
+    path="/REF/ALEPH_1991_S2435284/" title="R2">
     <annotation>
       <item key="Title" value="R2" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ALEPH_1991_S2435284/d02-x01-y04" sticky="true"/>
+        value="/REF/ALEPH_1991_S2435284/d02-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1991_S2435284.aida/HepData/ALEPH_1991_S2435284/d02-x01-y04" sticky="true"/>
+        value="/ALEPH_1991_S2435284.aida/REF/ALEPH_1991_S2435284/d02-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.25"

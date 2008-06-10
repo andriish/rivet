@@ -3,14 +3,14 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DABS(COS(THETA*)) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DABS(COS(THETA*)) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DABS(COS(THETA*)) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d01-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d01-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -62,14 +62,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d01-x01-y02" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DABS(COS(THETA*)) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DABS(COS(THETA*)) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DABS(COS(THETA*)) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d01-x01-y02" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d01-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d01-x01-y02" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d01-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -121,14 +121,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d02-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d02-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -144,14 +144,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d03-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d03-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -179,14 +179,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d04-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d04-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d04-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -232,14 +232,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d05-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d05-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d05-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -279,14 +279,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d06-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d06-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d06-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -344,14 +344,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d07-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d07-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d07-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -415,14 +415,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d08-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d08-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d08-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d08-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -432,14 +432,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d09-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d09-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d09-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d09-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -467,14 +467,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d10-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d10-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d10-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d10-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -508,14 +508,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d11-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d11-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d11-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d11-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -549,14 +549,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d12-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d12-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d12-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d12-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -608,14 +608,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DET(P=3) IN PB/GEV">
     <annotation>
       <item key="Title" value="D(SIG)/DET(P=3) IN PB/GEV"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d13-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d13-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d13-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d13-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="1.5" value="15.5"
@@ -673,14 +673,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d14-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d14-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d14-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d14-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d14-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="-0.75"
@@ -726,14 +726,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d15-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d15-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d15-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d15-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d15-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="-0.75"
@@ -779,14 +779,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d16-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d16-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d16-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d16-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="-0.75"
@@ -832,14 +832,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d17-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d17-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d17-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d17-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d17-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="-0.25"
@@ -879,14 +879,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d18-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d18-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d18-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d18-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d18-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="-0.75"
@@ -932,14 +932,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d19-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DETRAP(P=4) IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DETRAP(P=4) IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d19-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d19-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d19-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d19-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="-0.75"
@@ -985,14 +985,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d20-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d20-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d20-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d20-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d20-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.04999999999999999"
@@ -1044,14 +1044,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d21-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d21-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d21-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d21-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d21-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.04999999999999999"
@@ -1103,14 +1103,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d22-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d22-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d22-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d22-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d22-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.15000000000000002"
@@ -1138,14 +1138,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d23-x01-y01" dimension="2"
-    path="/HepData/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
+    path="/REF/ZEUS_2001_S4815815/" title="D(SIG)/DX(C=GAMMA)IN PB">
     <annotation>
       <item key="Title" value="D(SIG)/DX(C=GAMMA)IN PB"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/ZEUS_2001_S4815815/d23-x01-y01" sticky="true"/>
+        value="/REF/ZEUS_2001_S4815815/d23-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ZEUS_2001_S4815815.aida/HepData/ZEUS_2001_S4815815/d23-x01-y01" sticky="true"/>
+        value="/ZEUS_2001_S4815815.aida/REF/ZEUS_2001_S4815815/d23-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.15000000000000002"

@@ -48,9 +48,15 @@ namespace Rivet {
       const TiXmlNode* aidaN = doc.FirstChild("aida");
       if (!aidaN) throw Error("Couldn't get <aida> root element");
       for (const TiXmlNode* dpsN = aidaN->FirstChild("dataPointSet"); dpsN; dpsN = dpsN->NextSibling()) {
-        /// @todo Check AIDA path for "^/HepData" to make sure that this is a reference histogram.
         const TiXmlElement* dpsE = dpsN->ToElement();
         const string plotname = dpsE->Attribute("name");
+        const string plotpath = dpsE->Attribute("path");
+        /// Check path to make sure that this is a reference histogram.
+        if (plotpath.find("/REF") != 0) {
+          cerr << "Skipping non-reference histogram " << plotname << endl;
+          continue;
+        }
+        /// @todo Check that "path" matches filename
         list<double> edges;
         for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling()) {
           const TiXmlNode* xMeasN = dpN->FirstChild("measurement");

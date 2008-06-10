@@ -3,14 +3,14 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d01-x01-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d01-x01-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="8.0" value="72.0"
@@ -122,14 +122,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d01-x02-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d01-x02-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d01-x02-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d01-x02-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d01-x02-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.13150000000000006"
@@ -241,14 +241,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d02-x01-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d02-x01-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="4.0" value="68.0"
@@ -390,14 +390,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x02-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d02-x02-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d02-x02-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d02-x02-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d02-x02-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.09450000000000003"
@@ -539,14 +539,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d03-x01-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d03-x01-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="8.0" value="72.0"
@@ -712,14 +712,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x02-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d03-x02-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d03-x02-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d03-x02-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d03-x02-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.11599999999999988"
@@ -885,14 +885,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d04-x01-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d04-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d04-x01-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="8.0" value="72.0"
@@ -1052,14 +1052,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x02-y01" dimension="2"
-    path="/HepData/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
+    path="/REF/D0_2004_S5992206/" title="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=DIJET))*D(SIG)/D(PHI(P=3)-PHI(P=4))" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/D0_2004_S5992206/d04-x02-y01" sticky="true"/>
+        value="/REF/D0_2004_S5992206/d04-x02-y01" sticky="true"/>
       <item key="FullPath"
-        value="/D0_2004_S5992206.aida/HepData/D0_2004_S5992206/d04-x02-y01" sticky="true"/>
+        value="/D0_2004_S5992206.aida/REF/D0_2004_S5992206/d04-x02-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.13850000000000007"

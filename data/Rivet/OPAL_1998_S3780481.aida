@@ -3,14 +3,14 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(Q=HADRON))*D(SIG(C=UDS-EVENTS))/DX">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(Q=HADRON))*D(SIG(C=UDS-EVENTS))/DX">
     <annotation>
       <item key="Title"
         value="(1/SIG(Q=HADRON))*D(SIG(C=UDS-EVENTS))/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d01-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d01-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d01-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -146,14 +146,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=C-EVENTS))/DX">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=C-EVENTS))/DX">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=HADRON))*D(SIG(C=C-EVENTS))/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d02-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d02-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d02-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -289,14 +289,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=B-EVENTS))/DX">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=B-EVENTS))/DX">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=HADRON))*D(SIG(C=B-EVENTS))/DX" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d03-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d03-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d03-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -432,14 +432,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(Q=HADRON))*D(SIG)/DX">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(Q=HADRON))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(Q=HADRON))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d04-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d04-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d04-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d04-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0050" value="0.0050"
@@ -575,14 +575,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d05-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=UDS-EVENTS))/DLN(1/X)">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=UDS-EVENTS))/DLN(1/X)">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=HADRON))*D(SIG(C=UDS-EVENTS))/DLN(1/X)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d05-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d05-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d05-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d05-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.1" value="0.1" errorMinus="0.1"/>
@@ -759,14 +759,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=C-EVENTS))/DLN(1/X)">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=C-EVENTS))/DLN(1/X)">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=HADRON))*D(SIG(C=C-EVENTS))/DLN(1/X)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d06-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d06-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d06-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d06-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.1" value="0.1" errorMinus="0.1"/>
@@ -943,14 +943,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=B-EVENTS))/DLN(1/X)">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG(C=B-EVENTS))/DLN(1/X)">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=HADRON))*D(SIG(C=B-EVENTS))/DLN(1/X)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d07-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d07-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d07-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.1" value="0.1" errorMinus="0.1"/>
@@ -1127,14 +1127,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG)/DLN(1/X)">
+    path="/REF/OPAL_1998_S3780481/" title="(1/SIG(C=HADRON))*D(SIG)/DLN(1/X)">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=HADRON))*D(SIG)/DLN(1/X)" sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d08-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d08-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d08-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d08-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.1" value="0.1" errorMinus="0.1"/>
@@ -1311,14 +1311,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="MULT(P=3,C=UDS-EVENTS)">
+    path="/REF/OPAL_1998_S3780481/" title="MULT(P=3,C=UDS-EVENTS)">
     <annotation>
       <item key="Title" value="MULT(P=3,C=UDS-EVENTS)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d09-x01-y01" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d09-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y01" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d09-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -1328,14 +1328,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y02" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="MULT(P=3,C=B-EVENTS)">
+    path="/REF/OPAL_1998_S3780481/" title="MULT(P=3,C=B-EVENTS)">
     <annotation>
       <item key="Title" value="MULT(P=3,C=B-EVENTS)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d09-x01-y02" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d09-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y02" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d09-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -1345,14 +1345,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y03" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="MULT(P=3,C=B-EVENTS)">
+    path="/REF/OPAL_1998_S3780481/" title="MULT(P=3,C=B-EVENTS)">
     <annotation>
       <item key="Title" value="MULT(P=3,C=B-EVENTS)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d09-x01-y03" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d09-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y03" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d09-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -1362,14 +1362,14 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y04" dimension="2"
-    path="/HepData/OPAL_1998_S3780481/" title="MULT(P=3,C=INCLUSIVE)">
+    path="/REF/OPAL_1998_S3780481/" title="MULT(P=3,C=INCLUSIVE)">
     <annotation>
       <item key="Title" value="MULT(P=3,C=INCLUSIVE)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/HepData/OPAL_1998_S3780481/d09-x01-y04" sticky="true"/>
+        value="/REF/OPAL_1998_S3780481/d09-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/OPAL_1998_S3780481.aida/HepData/OPAL_1998_S3780481/d09-x01-y04" sticky="true"/>
+        value="/OPAL_1998_S3780481.aida/REF/OPAL_1998_S3780481/d09-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
