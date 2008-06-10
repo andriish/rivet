@@ -13,14 +13,38 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.200000" value="6.600000" errorMinus="0.200000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Pi+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Pi+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d01-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d01-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.400000" value="10.300000" errorMinus="0.400000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Pi+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Pi+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d01-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d01-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.190000" value="17.020000" errorMinus="0.190000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Pi+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Pi+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d01-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d01-x01-y04" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
       <measurement errorPlus="0.390000" value="21.240000" errorMinus="0.390000"/>
@@ -37,10 +61,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.300000" value="3.200000" errorMinus="0.300000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Pi0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean Pi0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d02-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d02-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.280000" value="5.830000" errorMinus="0.280000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Pi0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean Pi0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d02-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d02-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.320000" value="9.420000" errorMinus="0.320000"/>
@@ -57,14 +97,38 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.040000" value="0.900000" errorMinus="0.040000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean K+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d03-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d03-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.090000" value="1.480000" errorMinus="0.090000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean K+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d03-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d03-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.059000" value="2.228000" errorMinus="0.059000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean K+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d03-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d03-x01-y04" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
       <measurement errorPlus="0.190000" value="2.820000" errorMinus="0.190000"/>
@@ -81,14 +145,38 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.050000" value="0.910000" errorMinus="0.050000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean K0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d04-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d04-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.070000" value="1.480000" errorMinus="0.070000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean K0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d04-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d04-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.026000" value="2.049000" errorMinus="0.026000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean K0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d04-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d04-x01-y04" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
       <measurement errorPlus="0.120000" value="2.100000" errorMinus="0.120000"/>
@@ -105,10 +193,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.040000" value="0.200000" errorMinus="0.040000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean eta multiplicity">
+    <annotation>
+      <item key="Title" value="mean eta multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d05-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d05-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.070000" value="0.610000" errorMinus="0.070000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean eta multiplicity">
+    <annotation>
+      <item key="Title" value="mean eta multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d05-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d05-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.080000" value="1.049000" errorMinus="0.080000"/>
@@ -125,10 +229,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.010000" value="0.030000" errorMinus="0.010000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d06-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean eta'(958) multiplicity">
+    <annotation>
+      <item key="Title" value="mean eta'(958) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d06-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d06-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.100000" value="0.260000" errorMinus="0.100000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d06-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean eta'(958) multiplicity">
+    <annotation>
+      <item key="Title" value="mean eta'(958) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d06-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d06-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.020000" value="0.152000" errorMinus="0.020000"/>
@@ -145,10 +265,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.019000" value="0.194000" errorMinus="0.019000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d07-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean D+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d07-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d07-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.030000" value="0.170000" errorMinus="0.030000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d07-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean D+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d07-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d07-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.016000" value="0.175000" errorMinus="0.016000"/>
@@ -165,10 +301,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.032000" value="0.446000" errorMinus="0.032000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d08-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean D0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d08-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d08-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.070000" value="0.450000" errorMinus="0.070000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d08-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean D0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d08-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d08-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.030000" value="0.454000" errorMinus="0.030000"/>
@@ -185,10 +337,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.014000" value="0.063000" errorMinus="0.014000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d09-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D+s multiplicity">
+    <annotation>
+      <item key="Title" value="mean D+s multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d09-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d09-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.200000" value="0.450000" errorMinus="0.200000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d09-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D+s multiplicity">
+    <annotation>
+      <item key="Title" value="mean D+s multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d09-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d09-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.021000" value="0.131000" errorMinus="0.021000"/>
@@ -241,10 +409,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.006000" value="0.024000" errorMinus="0.006000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d13-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean f0(980) multiplicity">
+    <annotation>
+      <item key="Title" value="mean f0(980) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d13-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d13-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.020000" value="0.050000" errorMinus="0.020000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d13-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean f0(980) multiplicity">
+    <annotation>
+      <item key="Title" value="mean f0(980) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d13-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d13-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.012000" value="0.146000" errorMinus="0.012000"/>
@@ -273,10 +457,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.040000" value="0.350000" errorMinus="0.040000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d15-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean rho(770)0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean rho(770)0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d15-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d15-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.080000" value="0.810000" errorMinus="0.080000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d15-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean rho(770)0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean rho(770)0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d15-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d15-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.098000" value="1.231000" errorMinus="0.098000"/>
@@ -305,6 +505,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.080000" value="0.300000" errorMinus="0.080000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d17-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean omega(782) multiplicity">
+    <annotation>
+      <item key="Title" value="mean omega(782) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d17-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d17-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.065000" value="1.016000" errorMinus="0.065000"/>
@@ -321,10 +529,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.030000" value="0.270000" errorMinus="0.030000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d18-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K*(892)+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean K*(892)+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d18-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d18-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.050000" value="0.640000" errorMinus="0.050000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d18-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K*(892)+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean K*(892)+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d18-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d18-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.059000" value="0.715000" errorMinus="0.059000"/>
@@ -341,10 +565,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.030000" value="0.290000" errorMinus="0.030000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d19-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K*(892)0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean K*(892)0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d19-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d19-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.060000" value="0.560000" errorMinus="0.060000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d19-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K*(892)0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean K*(892)0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d19-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d19-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.024000" value="0.738000" errorMinus="0.024000"/>
@@ -361,10 +601,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.003000" value="0.044000" errorMinus="0.003000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d20-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean phi(1020) multiplicity">
+    <annotation>
+      <item key="Title" value="mean phi(1020) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d20-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d20-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.011000" value="0.085000" errorMinus="0.011000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d20-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean phi(1020) multiplicity">
+    <annotation>
+      <item key="Title" value="mean phi(1020) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d20-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d20-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.003200" value="0.096300" errorMinus="0.003200"/>
@@ -381,10 +637,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.022000" value="0.177000" errorMinus="0.022000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d21-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D*(2010)+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean D*(2010)+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d21-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d21-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.070000" value="0.430000" errorMinus="0.070000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d21-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D*(2010)+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean D*(2010)+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d21-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d21-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.005700" value="0.193700" errorMinus="0.005700"/>
@@ -401,6 +673,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.019000" value="0.168000" errorMinus="0.019000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d22-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D*(2007)0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean D*(2007)0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d22-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d22-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.110000" value="0.270000" errorMinus="0.110000"/>
@@ -417,6 +697,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.014000" value="0.048000" errorMinus="0.014000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d23-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean D*s(2112)+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean D*s(2112)+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d23-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d23-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.048000" value="0.101000" errorMinus="0.048000"/>
@@ -445,6 +733,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.000050" value="0.000500" errorMinus="0.000050"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean J/psi(1S) multiplicity">
+    <annotation>
+      <item key="Title" value="mean J/psi(1S) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d25-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d25-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.000400" value="0.005200" errorMinus="0.000400"/>
@@ -521,10 +817,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.020000" value="0.090000" errorMinus="0.020000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d31-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean f2(1270) multiplicity">
+    <annotation>
+      <item key="Title" value="mean f2(1270) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d31-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d31-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.040000" value="0.140000" errorMinus="0.040000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d31-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean f2(1270) multiplicity">
+    <annotation>
+      <item key="Title" value="mean f2(1270) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d31-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d31-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.020000" value="0.166000" errorMinus="0.020000"/>
@@ -565,6 +877,14 @@
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.060000" value="0.120000" errorMinus="0.060000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d34-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean K2*(1430)0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean K2*(1430)0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d34-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d34-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.022000" value="0.084000" errorMinus="0.022000"/>
@@ -617,14 +937,38 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.016000" value="0.253000" errorMinus="0.016000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d38-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean p multiplicity">
+    <annotation>
+      <item key="Title" value="mean p multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d38-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d38-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.050000" value="0.640000" errorMinus="0.050000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d38-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean p multiplicity">
+    <annotation>
+      <item key="Title" value="mean p multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d38-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d38-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.032000" value="1.050000" errorMinus="0.032000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d38-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean p multiplicity">
+    <annotation>
+      <item key="Title" value="mean p multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d38-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d38-x01-y04" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
       <measurement errorPlus="0.180000" value="1.410000" errorMinus="0.180000"/>
@@ -641,14 +985,38 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.007000" value="0.080000" errorMinus="0.007000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Lambda multiplicity">
+    <annotation>
+      <item key="Title" value="mean Lambda multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d39-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d39-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.010000" value="0.205000" errorMinus="0.010000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Lambda multiplicity">
+    <annotation>
+      <item key="Title" value="mean Lambda multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d39-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d39-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.006500" value="0.391500" errorMinus="0.006500"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Lambda multiplicity">
+    <annotation>
+      <item key="Title" value="mean Lambda multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d39-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d39-x01-y04" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
       <measurement errorPlus="0.030000" value="0.390000" errorMinus="0.030000"/>
@@ -665,6 +1033,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.008000" value="0.023000" errorMinus="0.008000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d40-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Sigma0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean Sigma0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d40-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d40-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.011000" value="0.076000" errorMinus="0.011000"/>
@@ -717,10 +1093,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.000700" value="0.005900" errorMinus="0.000700"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d44-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Xi- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Xi- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d44-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d44-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.002700" value="0.017600" errorMinus="0.002700"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d44-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Xi- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Xi- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d44-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d44-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.001000" value="0.025800" errorMinus="0.001000"/>
@@ -737,6 +1129,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.010000" value="0.040000" errorMinus="0.010000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d45-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Delta(1232)++ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Delta(1232)++ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d45-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d45-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.014000" value="0.085000" errorMinus="0.014000"/>
@@ -753,10 +1153,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.002000" value="0.006000" errorMinus="0.002000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d46-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Sigma(1385)- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d46-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d46-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.004000" value="0.017000" errorMinus="0.004000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d46-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Sigma(1385)- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d46-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d46-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.001700" value="0.024000" errorMinus="0.001700"/>
@@ -773,10 +1189,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.001000" value="0.005000" errorMinus="0.001000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d47-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Sigma(1385)+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d47-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d47-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.004000" value="0.017000" errorMinus="0.004000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d47-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Sigma(1385)+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d47-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d47-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.001500" value="0.023900" errorMinus="0.001500"/>
@@ -793,10 +1225,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.002000" value="0.010600" errorMinus="0.002000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d48-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Sigma(1385)+- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d48-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d48-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.008000" value="0.033000" errorMinus="0.008000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d48-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Sigma(1385)+- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d48-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d48-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.002800" value="0.046200" errorMinus="0.002800"/>
@@ -813,6 +1261,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.000600" value="0.001500" errorMinus="0.000600"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d49-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Xi(1530)0 multiplicity">
+    <annotation>
+      <item key="Title" value="mean Xi(1530)0 multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d49-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d49-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.000500" value="0.005500" errorMinus="0.000500"/>
@@ -829,10 +1285,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.000400" value="0.000700" errorMinus="0.000400"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d50-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Omega- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Omega- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d50-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d50-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.007000" value="0.014000" errorMinus="0.007000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d50-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Omega- multiplicity">
+    <annotation>
+      <item key="Title" value="mean Omega- multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d50-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d50-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.000300" value="0.001600" errorMinus="0.000300"/>
@@ -849,10 +1321,26 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.031000" value="0.074000" errorMinus="0.031000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d51-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Lambda_c+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Lambda_c+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d51-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d51-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
       <measurement errorPlus="0.050000" value="0.110000" errorMinus="0.050000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d51-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Lambda_c+ multiplicity">
+    <annotation>
+      <item key="Title" value="mean Lambda_c+ multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d51-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d51-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.017000" value="0.078000" errorMinus="0.017000"/>
@@ -893,6 +1381,14 @@
       <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.002000" value="0.008000" errorMinus="0.002000"/>
     </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d54-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities/" title="mean Lambda(1520) multiplicity">
+    <annotation>
+      <item key="Title" value="mean Lambda(1520) multiplicity" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities/d54-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities.aida/REF/PDG_Hadron_Multiplicities/d54-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
       <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
       <measurement errorPlus="0.002700" value="0.022200" errorMinus="0.002700"/>
