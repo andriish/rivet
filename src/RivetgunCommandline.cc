@@ -136,29 +136,34 @@ namespace Rivet {
         }
 
         // Handle parameters which should be intercepted by RivetGun
-        for (map<string, string>::iterator p = config.params.begin();
-             p != config.params.end(); ++p) {
+        map<string, string>::iterator p = config.params.begin();
+        while (p != config.params.end()) {
           if (p->first.find("RG:") != string::npos) {
             //cout << "Found RG param: " << p->first << " = " << p->second << endl;
             stringstream pvalue(p->second);
             if (p->first == "RG:Mom1") {
               pvalue >> config.mom1;
             }
-            if (p->first == "RG:Mom2") {
+            else if (p->first == "RG:Mom2") {
               pvalue >> config.mom2;
             }
-            if (p->first == "RG:Beam1") {
+            else if (p->first == "RG:Beam1") {
               config.beam1 = Rivet::getParticleNameEnum(p->second);
             }
-            if (p->first == "RG:Beam2") {
+            else if (p->first == "RG:Beam2") {
               config.beam2 = Rivet::getParticleNameEnum(p->second);
             }
-            if (p->first == "RG:Seed") {
+            else if (p->first == "RG:Seed") {
               pvalue >> config.rngSeed;
+            }
+            else {
+              throw Rivet::Error("Unknown 'RG' parameter name: " + p->first);
             }
 
             // Remove this param so it doesn't get passed to the generator
-            config.params.erase(p);
+            config.params.erase(p++);
+          } else {
+            ++p;
           }
         }
 

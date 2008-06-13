@@ -1,3 +1,8 @@
+2008-06-13  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed processing of "RG" parameters to ensure that invalid
+	iterators are never used.
+
 2008-06-10  Andy Buckley  <andy@insectnation.org>
 
 	* Updated AIDA reference files, changing "/HepData" root path to
