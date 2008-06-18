@@ -77,7 +77,7 @@ namespace Rivet {
     // JetClu 0.4 radius, merging fraction = 0.75 
     // Remove electron (and neutrinos/muons) before clustering
     const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
-    const PseudoJets& jets = jetpro.getPseudoJetsPt();
+    const PseudoJets& jets = jetpro.getPseudoJetsByPt();
     vector<float> jetPt;  
     size_t njets = 0; 
     for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {

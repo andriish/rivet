@@ -38,8 +38,15 @@ namespace Rivet {
     typedef list<FourMomentum> Tracks;
 
     /// Get the computed jets.
-    Jets getJets() const {
-      return _jets;
+    Jets getJets(double ptmin=0.0) const {
+      if (ptmin == 0.0) return _jets;
+      Jets rtn;
+      for (Jets::const_iterator j = _jets.begin(); j != _jets.end(); ++j) {
+        if (j->getPtSum() >= ptmin) {
+          rtn.push_back(*j);
+        }
+      }
+      return rtn;
     }
 
   protected:   

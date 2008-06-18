@@ -1,5 +1,6 @@
 nobase_dist_data_DATA = \
   Rivet/ALEPH_1991_S2435284.aida       \
+  Rivet/ALEPH_1996_S3486095.aida       \
   Rivet/DELPHI_1994_S3021912.aida      \
   Rivet/DELPHI_1995_S3137023.aida      \
   Rivet/DELPHI_1996_S3430090.aida      \

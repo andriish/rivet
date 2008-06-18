@@ -38,9 +38,8 @@ namespace Rivet {
   }
 
 
-  Jets FastJets::getJets() const {
+  Jets FastJets::_pseudojetsToJets(const PseudoJets& pjets) const {
     Jets rtn;
-    const PseudoJets pjets = _cseq.inclusive_jets();
     for (PseudoJets::const_iterator pj = pjets.begin(); pj != pjets.end(); ++pj) {
       Jet j;
       const PseudoJets parts = getClusterSeq().constituents(*pj);

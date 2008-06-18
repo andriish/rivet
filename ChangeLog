@@ -1,3 +1,9 @@
+2008-06-18  Andy Buckley  <andy@insectnation.org>
+
+	* Added extra sorted Jets and Pseudojets methods to FastJets, and
+	added ptmin argument to the JetAlg getJets() method, requiring a
+	change to TrackJet.
+
 2008-06-13  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed processing of "RG" parameters to ensure that invalid

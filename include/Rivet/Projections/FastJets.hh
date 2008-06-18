@@ -108,21 +108,48 @@ namespace Rivet {
 
   public:
     /// Return the number of jets above the pt cut 
-    size_t getNumJets(double ptmin = 0.) const {
+    size_t getNumJets(double ptmin = 0.0) const {
       return _cseq.inclusive_jets(ptmin).size();
     }
 
-    /// Get the pseudo jets (unordered).
-    Jets getJets() const;
+    /// Get the jets (unordered).
+    Jets getJets(double ptmin = 0.0) const {
+      return _pseudojetsToJets(getPseudoJets(ptmin));
+    }
+    
+    /// Get the jets, ordered by \f$ p_T \f$.
+    Jets getJetsByPt(double ptmin = 0.0) const {
+      return _pseudojetsToJets(getPseudoJetsByPt(ptmin));
+    }
+
+    /// Get the jets, ordered by \f$ E \f$.
+    Jets getJetsByE(double ptmin = 0.0) const {
+      return _pseudojetsToJets(getPseudoJetsByE(ptmin));
+    }
+
+    /// Get the jets, ordered by rapidity.
+    Jets getJetsByRapidity(double ptmin = 0.0) const {
+      return _pseudojetsToJets(getPseudoJetsByRapidity(ptmin));
+    }
 
     /// Get the pseudo jets (unordered).
-    PseudoJets getPseudoJets(double ptmin = 0.) const {
+    PseudoJets getPseudoJets(double ptmin = 0.0) const {
       return _cseq.inclusive_jets(ptmin);
     }
 
-    /// Get the jets, ordered by \f$ p_T \f$.
-    PseudoJets getPseudoJetsPt(double ptmin = 0.) const {
+    /// Get the pseudo jets, ordered by \f$ p_T \f$.
+    PseudoJets getPseudoJetsByPt(double ptmin = 0.0) const {
       return sorted_by_pt(_cseq.inclusive_jets(ptmin));
+    }
+
+    /// Get the pseudo jets, ordered by \f$ E \f$.
+    PseudoJets getPseudoJetsByE(double ptmin = 0.0) const {
+      return sorted_by_E(_cseq.inclusive_jets(ptmin));
+    }
+
+    /// Get the pseudo jets, ordered by rapidity.
+    PseudoJets getPseudoJetsByRapidity(double ptmin = 0.0) const {
+      return sorted_by_rapidity(_cseq.inclusive_jets(ptmin));
     }
 
     /// Return the cluster sequence (FastJet-specific).
@@ -137,6 +164,11 @@ namespace Rivet {
 
     /// Get the subjet splitting variables for the given jet.
     vector<double> getYSubJet(const fastjet::PseudoJet& jet) const;
+
+
+  private:
+
+    Jets _pseudojetsToJets(const PseudoJets& pjets) const;
 
 
   protected:   

@@ -43,7 +43,7 @@ namespace Rivet {
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-    vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJets();
+    vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJetsByE();
     if (jets.empty()) vetoEvent(event);
     sort(jets.begin(), jets.end(), cmpJetsByEt);
 
@@ -53,6 +53,7 @@ namespace Rivet {
     /// @todo Need to implement track pT > 0.4 GeV/c and within 5.0/0.5cm of pp vertex (nominal)?
 
     // Leading jet must be in central |eta| < 0.5 region.
+    /// @todo Check that jets is ordered according to defn of leading jet
     const Jet leadingjet = jets.front();
     const double etaLead = leadingjet.vector().pseudorapidity();
     if (fabs(etaLead) > 0.5) vetoEvent(event);
@@ -100,6 +101,36 @@ namespace Rivet {
     const double ptMax = max(ptPlus, ptMinus);
     const double ptDiff = fabs(ptMax - ptMin);
 
+    // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
+    if (fuzzyEquals(sqrtS/GeV, 630)) {
+      _pt90Max630->fill(ETlead/GeV, ptMax/GeV, weight);
+      _pt90Min630->fill(ETlead/GeV, ptMin/GeV, weight);
+      /// @todo Reinstate when HepData contains data for this histo
+      //_pt90Diff630->fill(ETlead/GeV, ptDiff/GeV, weight);
+    } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
+      const unsigned int numMax = (ptPlus >= ptMinus) ? numPlus : numMinus;
+      const unsigned int numMin = (ptPlus >= ptMinus) ? numMinus : numPlus;
+      _num90Max1800->fill(ETlead/GeV, numMax, weight);
+      _num90Min1800->fill(ETlead/GeV, numMin, weight);
+      _pt90Max1800->fill(ETlead/GeV, ptMax/GeV, weight);
+      _pt90Min1800->fill(ETlead/GeV, ptMin/GeV, weight);
+      _pt90Diff1800->fill(ETlead/GeV, ptDiff/GeV, weight);
+      // pT distributions
+      const double ptTransTotal = ptMax + ptMin;
+      if (inRange(ETlead/GeV, 40, 80)) {
+        _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 80, 120)) {
+        _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 120, 160)) {
+        _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 160, 200)) {
+        _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
+      } else if (inRange(ETlead/GeV, 200, 270)) {
+        _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
+      }
+    }
+
+
 
     // Construct "Swiss Cheese" pT distributions, with pT contributions from
     // tracks within R = 0.7 of the 1st, 2nd (and 3rd) jets being ignored. A
@@ -135,40 +166,13 @@ namespace Rivet {
       
     }
 
-    // Multiplicity, pT and Swiss Cheese distributions for 
-    // sqrt(s) = 630 GeV, 1800 GeV
+    // Swiss Cheese sub 2,3 jets distributions for sqrt(s) = 630 GeV, 1800 GeV
     if (fuzzyEquals(sqrtS/GeV, 630)) {
-      _pt90Max630->fill(ETlead/GeV, ptMax/GeV, weight);
-      _pt90Min630->fill(ETlead/GeV, ptMin/GeV, weight);
-      /// @todo Reinstate when HepData contains data for this histo
-      //_pt90Diff630->fill(ETlead/GeV, ptDiff/GeV, weight);
-      // Swiss Cheese sub 2,3 jets:
       _pTSum630_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
       _pTSum630_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
     } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
-      const unsigned int numMax = (ptPlus >= ptMinus) ? numPlus : numMinus;
-      const unsigned int numMin = (ptPlus >= ptMinus) ? numMinus : numPlus;
-      _num90Max1800->fill(ETlead/GeV, numMax, weight);
-      _num90Min1800->fill(ETlead/GeV, numMin, weight);
-      _pt90Max1800->fill(ETlead/GeV, ptMax/GeV, weight);
-      _pt90Min1800->fill(ETlead/GeV, ptMin/GeV, weight);
-      _pt90Diff1800->fill(ETlead/GeV, ptDiff/GeV, weight);
-      // Swiss Cheese sub 2,3 jets:
       _pTSum1800_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
       _pTSum1800_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
-      // pT distributions
-      const double ptTransTotal = ptMax + ptMin;
-      if (inRange(ETlead/GeV, 40, 80)) {
-        _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 80, 120)) {
-        _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 120, 160)) {
-        _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 160, 200)) {
-        _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 200, 270)) {
-        _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
-      }
     }
       
   }
