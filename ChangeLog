@@ -1,3 +1,7 @@
+2008-06-18  Jon Butterworth  <J.Butterworth@ucl.ac.uk>
+
+	* Added First versions of splitJet and filterJet methods to fastjet.cc. Not yet tested, buyer beware.
+
 2008-06-18  Andy Buckley  <andy@insectnation.org>
 
 	* Added extra sorted Jets and Pseudojets methods to FastJets, and

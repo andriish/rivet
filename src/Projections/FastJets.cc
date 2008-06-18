@@ -2,6 +2,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
+
 using namespace fastjet;
 
 namespace Rivet {
@@ -73,5 +74,62 @@ namespace Rivet {
     
   }
   
+  fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R) 
+    const { 
+
+    cout << "Jet:" << jet.m() << "," << jet.e() << endl;
+    
+    fastjet::PseudoJet parent1, parent2;
+    fastjet::PseudoJet split(0.0, 0.0, 0.0, 0.0);
+
+    // Build a new cluster sequence just using the consituents of this jet.
+    ClusterSequence cs(_cseq.constituents(jet), _jdef);
+
+    // Get the jet back again
+    fastjet::PseudoJet remadeJet = cs.inclusive_jets()[0];
+    cout << "Jet2:" << remadeJet.m() << "," << remadeJet.e() << endl;
+
+    while (cs.has_parents(remadeJet, parent1, parent2)) {
+      cout << "Parents:" << parent1.m() << "," << parent2.m() << endl; 
+      if (parent1.m2() < parent2.m2()) {
+	fastjet::PseudoJet tmp;
+	tmp = parent1; parent1 = parent2; parent2 = tmp;
+      }
+      
+      double ktdist = parent1.kt_distance(parent2);
+      double rtycut2 = 0.3*0.3;
+      
+      if (parent1.m() < ((2.0*remadeJet.m())/3.0) && ktdist > rtycut2*remadeJet.m2()) {
+	break;
+      } else {
+	remadeJet = parent1;
+      }
+    }
+
+    last_R = 0.5 * sqrt(parent1.squared_distance(parent2));    
+
+    split.reset(parent1.px(), parent1.py(), parent1.pz(), parent1.E());
+
+    return split;
+  }
+
+
+  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet, double& stingy_R) const { 
+
+    stingy_R = 0.3 < stingy_R ? 0.3 : stingy_R;
+    fastjet::JetDefinition stingy_jet_def(fastjet::cambridge_algorithm,
+					  stingy_R);
+    //FlavourRecombiner recom;
+    //stingy_jet_def.set_recombiner(&recom);
+    fastjet::ClusterSequence scs(_cseq.constituents(jet), stingy_jet_def);
+    std::vector<fastjet::PseudoJet> stingy_jets = sorted_by_pt(scs.inclusive_jets());
+    
+    fastjet::PseudoJet reconst_jet(0.0, 0.0, 0.0, 0.0);
+    
+    for (unsigned isj = 0; isj < std::min(3U, (unsigned int)stingy_jets.size()); isj++) {
+      reconst_jet += stingy_jets[isj];
+    }	
+    return reconst_jet;
+  }
   
 }

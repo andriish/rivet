@@ -165,11 +165,17 @@ namespace Rivet {
     /// Get the subjet splitting variables for the given jet.
     vector<double> getYSubJet(const fastjet::PseudoJet& jet) const;
 
+    /// split a jet
+    /// Based on code from G.Salam,A.Davison,PRL100,242001(2008)
+    fastjet::PseudoJet splitJet(fastjet::PseudoJet jet, double& last_R) const;
+
+    /// filter a jet
+    /// Based on code from G.Salam,A.Davison,PRL100,242001(2008)
+    fastjet::PseudoJet filterJet(fastjet::PseudoJet jet, double& stingy_R) const;
 
   private:
 
     Jets _pseudojetsToJets(const PseudoJets& pjets) const;
-
 
   protected:   
 
