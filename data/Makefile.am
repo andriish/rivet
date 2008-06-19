@@ -33,6 +33,8 @@ nobase_dist_data_DATA += \
   RivetGun/fpythia-default.params  \
   RivetGun/fpythia-hadronic.params \
   RivetGun/fpythia-atlaspdf.params \
+  RivetGun/fpythia-cdfdrellyan.params \
+  RivetGun/fpythia-stablestrange.params \
   RivetGun/charybdisher-default.params  \
   RivetGun/charybdispyt-default.params  \
   RivetGun/lep1.params \

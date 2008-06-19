@@ -1,0 +1,40 @@
+### This parameter file makes the strange hadrons with life times in
+### the 1e-10s range stable in Pythia 6, as required by some analyses.
+
+## K0s
+MDME(613,1)  0
+MDME(614,1)  0
+
+## Lambda0
+MDME(1058,1) 0
+MDME(1059,1) 0
+MDME(1060,1) 0
+MDME(1061,1) 0
+
+## Sigma-
+MDME(1053,1) 0
+MDME(1054,1) 0
+
+## Sigma+
+MDME(1066,1) 0
+MDME(1067,1) 0
+MDME(1068,1) 0
+
+## Xi-
+MDME(1072,1) 0
+MDME(1073,1) 0
+MDME(1074,1) 0
+MDME(1075,1) 0
+MDME(1076,1) 0
+
+## Xi0
+MDME(1079,1) 0
+MDME(1080,1) 0
+MDME(1081,1) 0
+
+## Omega-
+MDME(1084,1) 0
+MDME(1085,1) 0
+MDME(1086,1) 0
+MDME(1087,1) 0
+
