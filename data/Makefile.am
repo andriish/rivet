@@ -17,6 +17,8 @@ nobase_dist_data_DATA = \
   Rivet/CDF_2006_S6653332.aida         \
   Rivet/CDF_2007_S7057202.aida         \
   Rivet/CDF_2008_S7541902.aida         \
+  Rivet/CDF_2008_MINBIAS.aida          \
+  Rivet/CDF_2008_DRELLYAN.aida         \
   Rivet/D0_2001_S4674421.aida          \
   Rivet/D0_2004_S5992206.aida          \
   Rivet/PDG_Hadron_Multiplicities.aida \
@@ -36,4 +38,5 @@ nobase_dist_data_DATA += \
   RivetGun/lep1.params \
   RivetGun/tevatron630.params  \
   RivetGun/tevatron1800.params \
+  RivetGun/tevatron1960.params \
   RivetGun/lhc.params

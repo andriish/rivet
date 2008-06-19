@@ -35,8 +35,10 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2006_S6653332.hh \
   Analyses/CDF_2007_S7057202.hh \
   Analyses/CDF_2008_S7541902.hh \
-  Analyses/D0_2001_S4674421.hh \
-  Analyses/D0_2004_S5992206.hh \
+  Analyses/CDF_2008_MINBIAS.hh  \
+  Analyses/CDF_2008_DRELLYAN.hh \
+  Analyses/D0_2001_S4674421.hh  \
+  Analyses/D0_2004_S5992206.hh  \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/DELPHI_2002_069_CONF_603.hh \

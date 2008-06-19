@@ -1,0 +1,4 @@
+RG:Beam1 = PROTON
+RG:Beam2 = ANTIPROTON
+RG:Mom1 = 980
+RG:Mom2 = 980
