@@ -9,6 +9,7 @@ nobase_dist_data_DATA = \
   Rivet/OPAL_1998_S3780481.aida        \
   Rivet/H1_1994_S2919893.aida          \
   Rivet/H1_1995_S3167097.aida          \
+  Rivet/H1_2000_S4129130.aida          \
   Rivet/ZEUS_2001_S4815815.aida        \
   Rivet/CDF_2001_S4751469.aida         \
   Rivet/CDF_2004_S5839831.aida         \
