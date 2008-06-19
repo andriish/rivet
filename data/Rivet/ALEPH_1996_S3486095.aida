@@ -2794,15 +2794,175 @@
         value="1.0466" errorMinus="0.0030083217912982648"/>
     </dataPoint>
   </dataPointSet>
+  <dataPointSet name="d20-x01-y01" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
+    <annotation>
+      <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d20-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d20-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.039458839313897716"
+        value="3.074" errorMinus="0.039458839313897716"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d20-x01-y02" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="DISPERSION">
+    <annotation>
+      <item key="Title" value="DISPERSION" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d20-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d20-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.03981205847478877"
+        value="2.582" errorMinus="0.03981205847478877"/>
+    </dataPoint>
+  </dataPointSet>
   <dataPointSet name="d21-x01-y01" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
+    <annotation>
+      <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d21-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d21-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.08149846624323676"
+        value="6.436" errorMinus="0.08149846624323676"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d21-x01-y02" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="DISPERSION">
+    <annotation>
+      <item key="Title" value="DISPERSION" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d21-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d21-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.07071067811865477"
+        value="4.54" errorMinus="0.07071067811865477"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d22-x01-y01" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
+    <annotation>
+      <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d22-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d22-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.1004987562112089" value="9.78"
+        errorMinus="0.1004987562112089"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d22-x01-y02" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="DISPERSION">
+    <annotation>
+      <item key="Title" value="DISPERSION" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d22-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d22-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.05457105459856901"
+        value="6.082" errorMinus="0.05457105459856901"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d23-x01-y01" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
+    <annotation>
+      <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d23-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d23-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.12041594578792295"
+        value="13.01" errorMinus="0.12041594578792295"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d23-x01-y02" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="DISPERSION">
+    <annotation>
+      <item key="Title" value="DISPERSION" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d23-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d23-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.049729267036625426"
+        value="7.068" errorMinus="0.049729267036625426"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x01-y01" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
+    <annotation>
+      <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d24-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d24-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.20223748416156687"
+        value="20.91" errorMinus="0.20223748416156687"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x01-y02" dimension="2"
+    path="/REF/ALEPH_1996_S3486095/" title="DISPERSION">
+    <annotation>
+      <item key="Title" value="DISPERSION" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/ALEPH_1996_S3486095/d24-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d24-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="91.2"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.07291776189653656"
+        value="6.425" errorMinus="0.07291776189653656"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d21-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d25-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d21-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d25-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.500000000000002E-4"
@@ -3039,15 +3199,15 @@
         value="0.0767" errorMinus="0.0029698484809834993"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d22-x01-y01" dimension="2"
+  <dataPointSet name="d26-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d22-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d26-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d22-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d26-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.500000000000002E-4"
@@ -3224,15 +3384,15 @@
         value="0.0596" errorMinus="0.0038013155617496425"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d23-x01-y01" dimension="2"
+  <dataPointSet name="d27-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d23-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d27-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d23-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d27-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.000000000000004E-4"
@@ -3391,15 +3551,15 @@
         value="0.0054" errorMinus="0.0024596747752497687"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d24-x01-y01" dimension="2"
+  <dataPointSet name="d28-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DLN(1/X)">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DLN(1/X)"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d24-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d28-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d24-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d28-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.05" value="0.05"
@@ -3689,15 +3849,15 @@
       <measurement errorPlus="3.5" value="8.3" errorMinus="3.5"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d25-x01-y01" dimension="2"
+  <dataPointSet name="d29-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d25-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d29-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d25-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d29-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0040000000000000036"
@@ -3838,15 +3998,15 @@
         value="0.0080" errorMinus="0.0022360679774997894"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d26-x01-y01" dimension="2"
+  <dataPointSet name="d30-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d26-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d30-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d26-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d30-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.020000000000000004"
@@ -3957,15 +4117,15 @@
         errorMinus="5.0E-4"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d27-x01-y01" dimension="2"
+  <dataPointSet name="d31-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d27-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d31-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d27-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d31-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.04999999999999999"
@@ -4022,15 +4182,15 @@
         errorMinus="5.0E-4"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d28-x01-y01" dimension="2"
+  <dataPointSet name="d32-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d28-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d32-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d28-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d32-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.000000000000004E-4"
@@ -4213,15 +4373,15 @@
         errorMinus="0.0080"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d29-x01-y01" dimension="2"
+  <dataPointSet name="d33-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d29-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d33-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d29-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d33-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.0010000000000000009"
@@ -4374,15 +4534,15 @@
         errorMinus="0.0012"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d30-x01-y01" dimension="2"
+  <dataPointSet name="d34-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d30-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d34-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d30-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d34-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.010600000000000005"
@@ -4451,15 +4611,15 @@
         errorMinus="0.0013"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d31-x01-y01" dimension="2"
+  <dataPointSet name="d35-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d31-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d35-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d31-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d35-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.022200000000000004"
@@ -4498,15 +4658,15 @@
         errorMinus="0.0040"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d32-x01-y01" dimension="2"
+  <dataPointSet name="d36-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d32-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d36-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d32-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d36-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.02800000000000001"
@@ -4533,15 +4693,15 @@
         errorMinus="0.0010"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d33-x01-y01" dimension="2"
+  <dataPointSet name="d37-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d33-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d37-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d33-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d37-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01"
@@ -4592,15 +4752,15 @@
         value="0.059" errorMinus="0.006403124237432849"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d34-x01-y01" dimension="2"
+  <dataPointSet name="d38-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d34-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d38-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d34-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d38-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.024999999999999994"
@@ -4639,15 +4799,15 @@
         value="0.025" errorMinus="0.0036055512754639895"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d35-x01-y01" dimension="2"
+  <dataPointSet name="d39-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d35-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d39-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d35-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d39-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01"
@@ -4698,15 +4858,15 @@
         value="0.046" errorMinus="0.009219544457292887"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d36-x01-y01" dimension="2"
+  <dataPointSet name="d40-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d36-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d40-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d36-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.01"
@@ -4757,15 +4917,15 @@
         value="0.00831" errorMinus="9.340770846134702E-4"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d37-x01-y01" dimension="2"
+  <dataPointSet name="d41-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DPT IN GEV**-1">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=TOT))*D(SIG)/DPT IN GEV**-1" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d37-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d41-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d37-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d41-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.125" value="0.125"
@@ -4813,15 +4973,15 @@
         value="0.0027" errorMinus="3.605551275463989E-4"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d38-x01-y01" dimension="2"
+  <dataPointSet name="d42-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DPT IN GEV**-1">
     <annotation>
       <item key="Title"
         value="(1/SIG(C=TOT))*D(SIG)/DPT IN GEV**-1" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d38-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d42-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d38-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d42-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.25" value="1.25"
@@ -4851,15 +5011,15 @@
         value="5.97E-4" errorMinus="8.275868534480234E-5"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d39-x01-y01" dimension="2"
+  <dataPointSet name="d43-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="(1/SIG(C=TOT))*D(SIG)/DX">
     <annotation>
       <item key="Title" value="(1/SIG(C=TOT))*D(SIG)/DX"
         sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d39-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d43-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d39-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d43-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.017" value="0.043"
@@ -4922,14 +5082,14 @@
         value="0.06" errorMinus="0.01414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y01" dimension="2"
+  <dataPointSet name="d44-x01-y01" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y01" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y01" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y01" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -4938,14 +5098,14 @@
         value="20.91" errorMinus="0.22203603311174516"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y02" dimension="2"
+  <dataPointSet name="d44-x01-y02" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y02" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y02" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y02" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -4954,14 +5114,14 @@
         errorMinus="0.6447480127925949"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y03" dimension="2"
+  <dataPointSet name="d44-x01-y03" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y03" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y03" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y03" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -4970,14 +5130,14 @@
         value="0.282" errorMinus="0.021931712199461308"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y04" dimension="2"
+  <dataPointSet name="d44-x01-y04" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y04" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y04" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y04" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -4986,14 +5146,14 @@
         value="0.064" errorMinus="0.01392838827718412"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y05" dimension="2"
+  <dataPointSet name="d44-x01-y05" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y05" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y05" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y05" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y05" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5002,14 +5162,14 @@
         errorMinus="0.05"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y06" dimension="2"
+  <dataPointSet name="d44-x01-y06" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y06" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y06" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y06" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y06" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5018,14 +5178,14 @@
         value="1.453" errorMinus="0.21124866863485792"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y07" dimension="2"
+  <dataPointSet name="d44-x01-y07" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y07" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y07" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y07" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y07" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5034,14 +5194,14 @@
         value="1.066" errorMinus="0.14379151574414953"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y08" dimension="2"
+  <dataPointSet name="d44-x01-y08" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y08" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y08" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y08" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y08" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5050,14 +5210,14 @@
         value="0.122" errorMinus="0.008944271909999158"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y09" dimension="2"
+  <dataPointSet name="d44-x01-y09" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y09" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y09" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y09" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y09" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5066,14 +5226,14 @@
         value="0.71" errorMinus="0.08485281374238571"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y10" dimension="2"
+  <dataPointSet name="d44-x01-y10" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y10" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y10" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y10" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y10" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5082,14 +5242,14 @@
         value="0.83" errorMinus="0.08926925562588722"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y11" dimension="2"
+  <dataPointSet name="d44-x01-y11" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y11" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y11" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y11" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y11" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5098,14 +5258,14 @@
         errorMinus="0.016"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y12" dimension="2"
+  <dataPointSet name="d44-x01-y12" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y12" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y12" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y12" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y12" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5114,14 +5274,14 @@
         value="0.082" errorMinus="0.015620499351813309"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y13" dimension="2"
+  <dataPointSet name="d44-x01-y13" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y13" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y13" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y13" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y13" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5130,14 +5290,14 @@
         value="0.0297" errorMinus="0.0020796393918177257"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y14" dimension="2"
+  <dataPointSet name="d44-x01-y14" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y14" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y14" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y14" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y14" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5146,14 +5306,14 @@
         value="0.065" errorMinus="0.008944271909999158"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y15" dimension="2"
+  <dataPointSet name="d44-x01-y15" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y15" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y15" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y15" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y15" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
@@ -5162,14 +5322,14 @@
         value="0.0072" errorMinus="7.211102550927978E-4"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d40-x01-y16" dimension="2"
+  <dataPointSet name="d44-x01-y16" dimension="2"
     path="/REF/ALEPH_1996_S3486095/" title="MEAN(NAME=MULT)">
     <annotation>
       <item key="Title" value="MEAN(NAME=MULT)" sticky="true"/>
       <item key="AidaPath"
-        value="/REF/ALEPH_1996_S3486095/d40-x01-y16" sticky="true"/>
+        value="/REF/ALEPH_1996_S3486095/d44-x01-y16" sticky="true"/>
       <item key="FullPath"
-        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d40-x01-y16" sticky="true"/>
+        value="/ALEPH_1996_S3486095.aida/REF/ALEPH_1996_S3486095/d44-x01-y16" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="0.5" value="91.2"
