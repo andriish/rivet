@@ -186,15 +186,15 @@ for aidafile in args:
     tree = ET.parse(aidafile)
     histos = []
     for dps in tree.findall("dataPointSet"):
-        useDps = True
+        useThisDps = True
         if len(opts.PATHPATTERNS) > 0:
-            useDps = False
+            useThisDps = False
             dpspath = os.path.join(dps.get("path"), dps.get("name"))
             for regex in opts.PATHPATTERNS:
                 if re.compile(regex).search(dpspath):
-                    useDps = True
+                    useThisDps = True
                     break
-        if useDps:
+        if useThisDps:
             histos.append(mkHistoFromDPS(dps))
     if len(histos) > 0:
         if opts.SMARTOUTPUT:
