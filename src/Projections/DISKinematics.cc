@@ -2,6 +2,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/DISKinematics.hh"
+#include "Rivet/Math/Constants.hh"
 #include "Rivet/Cmp.hh"
 
 
@@ -36,20 +37,21 @@ namespace Rivet {
     // Calculate boost vector for boost into HCM-system
     _hcm.setBoost(-boostVector(tothad));
     // Boost the gamma and lepton
-    const FourMomentum pGammaHCM =  _hcm.transform(pGamma);
-    const FourMomentum pLepOutHCM =  _hcm.transform(pLepOut);
-    /// @todo Does this commute?
-    // Rotate DIS lepton on to \phi = 0
-    _hcm.rotate(Vector3::Z(), -pLepOutHCM.azimuthalAngle());
-    // Rotate photon on to z-axis
-    /// @todo Is this putting the gamma on the -ve z-axis?
-    _hcm.rotate(Vector3::Y(), -pGammaHCM.polarAngle());
-    log << Log::DEBUG << "pGammaHCM = " << pGammaHCM << ", " << _hcm.transform(pGamma) << endl;
-    log << Log::DEBUG << "pLepOutHCM = " << pLepOutHCM << ", " << _hcm.transform(pLepOut) << endl;
+    FourMomentum pGammaHCM =  _hcm.transform(pGamma);
+    // rotate so photon in x-z plane
+    _hcm.preMult(Matrix3(Vector3::Z(), -pGammaHCM.azimuthalAngle()));
+    // rotate so photon along z axis
+    pGammaHCM = _hcm.transform(pGamma);
+    _hcm.preMult(Matrix3(Vector3::Y(), -pGammaHCM.polarAngle()));
+    // rotate by 180 if along -z 
+    pGammaHCM = _hcm.transform(pGamma);
+    if(pGammaHCM.z()>0.) _hcm.preMult(Matrix3(Vector3::Y(), pi));
+    // finally rotate so outgoing lepton at phi=0
+    FourMomentum pLepOutHCM =  _hcm.transform(pLepOut);
+    _hcm.preMult(Matrix3(Vector3::Z(), -pLepOutHCM.azimuthalAngle()));
     // Boost to Breit frame
-    _breit = _hcm;
     const double bz = 1 - 2*x();
-    _breit.setBoost(Vector3::Z() * -bz);
+    _breit = LorentzTransform(Vector3::Z() * bz).combine(_hcm);
   }
 
 
