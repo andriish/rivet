@@ -32,10 +32,12 @@ int main(size_t argc, char* argv[]) {
   // Debug initial gen/analysis scan (before proper command line log levels are set)
   for (size_t argi = 0; argi < argc; ++argi) {
     string arg(argv[argi]);
-    if (arg.find("Rivet.Loader=TRACE") != string::npos) {
+    if (arg.find("Rivet.Loader=TRACE") != string::npos ||
+        arg.find("Rivet=TRACE") != string::npos) {
       Rivet::Log::setLevels("Rivet.Loader", Log::TRACE);
     }
-    if (arg.find("AGILe.Loader=TRACE") != string::npos) {
+    if (arg.find("AGILe.Loader=TRACE") != string::npos ||
+        arg.find("AGILe=TRACE") != string::npos) {
       AGILe::Log::setLevels("AGILe.Loader", Log::TRACE);
     }
   }
