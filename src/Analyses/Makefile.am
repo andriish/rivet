@@ -18,7 +18,9 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     DELPHI_1995_S3137023.cc \
     DELPHI_1996_S3430090.cc \
     DELPHI_2002_069_CONF_603.cc \
+    H1_1994_S2919893.cc \
     H1_1995_S3167097.cc \
+    H1_2000_S4129130.cc \
     OPAL_1998_S3780481.cc \
     ZEUS_2001_S4815815.cc \
     PDG_Hadron_Multiplicities.cc

@@ -16,7 +16,9 @@
 //#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
 
 // HERA
+#include "Rivet/Analyses/H1_1994_S2919893.hh"
 #include "Rivet/Analyses/H1_1995_S3167097.hh"
+#include "Rivet/Analyses/H1_2000_S4129130.hh"
 #include "Rivet/Analyses/ZEUS_2001_S4815815.hh"
 
 // Tevatron
@@ -54,7 +56,9 @@ extern "C" {
     //fns["OPAL_2004_S6132243"] = Rivet::OPAL_2004_S6132243::create;
 
     // HERA
+    fns["H1_1994_S2919893"] = Rivet::H1_1994_S2919893::create;
     fns["H1_1995_S3167097"] = Rivet::H1_1995_S3167097::create;
+    fns["H1_2000_S4129130"] = Rivet::H1_2000_S4129130::create;
     fns["ZEUS_2001_S4815815"] = Rivet::ZEUS_2001_S4815815::create;
 
     // Tevatron
