@@ -109,6 +109,16 @@ public:
     return combine(lt);
   }
 
+  LorentzTransform preMult(const Matrix3 & m3) {
+    _boostMatrix = multiply(mkMatrix4(m3),_boostMatrix);
+    return *this;
+  }
+
+  LorentzTransform postMult(const Matrix3 & m3) {
+    _boostMatrix *= mkMatrix4(m3);
+    return *this;
+  }
+
 private:
   Matrix4 mkMatrix4(const Matrix3& m3) const {
     Matrix4 m4 = Matrix4::Identity();
