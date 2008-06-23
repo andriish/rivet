@@ -1,3 +1,8 @@
+2008-06-23  Jon Butterworth  <J.Butterworth@ucl.ac.uk>
+
+	* Modified FastJet to fix ysplit and split and filter.
+	* Modified ExampleTree to show how to call them.
+
 2008-06-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added first version of the CDF_2008_DRELLYAN analysis described on
