@@ -95,7 +95,7 @@ namespace Rivet {
         _jdef(other._jdef),
         _plugin(other._plugin),
         _yscales(other._yscales)
-    { }
+    {  }
 
 
     /// Clone on the heap.
@@ -165,13 +165,13 @@ namespace Rivet {
     /// Get the subjet splitting variables for the given jet.
     vector<double> getYSubJet(const fastjet::PseudoJet& jet) const;
 
-    /// split a jet
-    /// Based on code from G.Salam,A.Davison,PRL100,242001(2008)
+    /// Split a jet a la PRL100,242001(2008).
+    /// Based on code from G.Salam,A.Davison.
     fastjet::PseudoJet splitJet(fastjet::PseudoJet jet, double& last_R) const;
 
-    /// filter a jet
-    /// Based on code from G.Salam,A.Davison,PRL100,242001(2008)
-    fastjet::PseudoJet filterJet(fastjet::PseudoJet jet, double& stingy_R) const;
+    /// Filter a jet a la PRL100,242001(2008).
+    /// Based on code from G.Salam,A.Davison.
+    fastjet::PseudoJet filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const;
 
   private:
 

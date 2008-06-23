@@ -15,7 +15,7 @@ namespace Rivet {
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
-      cmp(_jdef.R(), other._jdef.R());
+      cmp(_jdef.R(), other._jdef.R());    
   }
 
 
@@ -56,41 +56,36 @@ namespace Rivet {
 
   vector<double> FastJets::getYSubJet(const fastjet::PseudoJet& jet) const {
     map<int,vector<double> >::iterator iter = _yscales.find(jet.cluster_hist_index());
-    if (iter == _yscales.end()) {
-      ClusterSequence subjet_cseq(_cseq.constituents(jet), _jdef);
-      vector<double> yMergeVals;
-      for (int i = 1; i < 4; ++i) {
-        // Multiply the dmerge value by R^2 so that it corresponds to a
-        // relative k_T (fastjet has 1/R^2 in the d_ij distance by default)
-        const double ktmerge = subjet_cseq.exclusive_dmerge(i) * _jdef.R()*_jdef.R();
-        yMergeVals.push_back(ktmerge/jet.perp2());
-      }
-      _yscales.insert(make_pair( jet.cluster_hist_index(), yMergeVals ));
-      return yMergeVals;
-    } else {
-      // This was cached.
-      return iter->second;
+    ClusterSequence subjet_cseq(_cseq.constituents(jet), _jdef);
+    vector<double> yMergeVals;
+    for (int i = 1; i < 4; ++i) {
+      // Multiply the dmerge value by R^2 so that it corresponds to a
+      // relative k_T (fastjet has 1/R^2 in the d_ij distance by default)
+      const double ktmerge = subjet_cseq.exclusive_dmerge(i) * _jdef.R()*_jdef.R();
+      yMergeVals.push_back(ktmerge/jet.perp2());
     }
-    
+    _yscales.insert(make_pair( jet.cluster_hist_index(), yMergeVals ));
+    return yMergeVals;
   }
   
-  fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R) 
+  fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R)
     const { 
 
-    cout << "Jet:" << jet.m() << "," << jet.e() << endl;
-    
+    if (jet.E()<=0 || _cseq.constituents(jet).size()<=1) { return jet; }
+
     fastjet::PseudoJet parent1, parent2;
     fastjet::PseudoJet split(0.0, 0.0, 0.0, 0.0);
 
     // Build a new cluster sequence just using the consituents of this jet.
+    
     ClusterSequence cs(_cseq.constituents(jet), _jdef);
 
     // Get the jet back again
     fastjet::PseudoJet remadeJet = cs.inclusive_jets()[0];
-    cout << "Jet2:" << remadeJet.m() << "," << remadeJet.e() << endl;
+    //cout << "Jet2:" << remadeJet.m() << "," << remadeJet.e() << endl;
 
     while (cs.has_parents(remadeJet, parent1, parent2)) {
-      cout << "Parents:" << parent1.m() << "," << parent2.m() << endl; 
+      //cout << "Parents:" << parent1.m() << "," << parent2.m() << endl; 
       if (parent1.m2() < parent2.m2()) {
 	fastjet::PseudoJet tmp;
 	tmp = parent1; parent1 = parent2; parent2 = tmp;
@@ -108,17 +103,21 @@ namespace Rivet {
 
     last_R = 0.5 * sqrt(parent1.squared_distance(parent2));    
 
-    split.reset(parent1.px(), parent1.py(), parent1.pz(), parent1.E());
+    split.reset(remadeJet.px(), remadeJet.py(), remadeJet.pz(), remadeJet.E());
 
     return split;
   }
 
 
-  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet, double& stingy_R) const { 
+  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const { 
 
-    stingy_R = 0.3 < stingy_R ? 0.3 : stingy_R;
+    if (jet.E()<=0 || _cseq.constituents(jet).size()==0) { return jet; }
+    if (stingy_R==0.) { stingy_R=def_R; }
+
+    stingy_R = def_R < stingy_R ? def_R : stingy_R;
     fastjet::JetDefinition stingy_jet_def(fastjet::cambridge_algorithm,
 					  stingy_R);
+
     //FlavourRecombiner recom;
     //stingy_jet_def.set_recombiner(&recom);
     fastjet::ClusterSequence scs(_cseq.constituents(jet), stingy_jet_def);

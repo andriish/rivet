@@ -148,7 +148,14 @@ namespace Rivet {
               _ysubsj[_nsub][i] = 0;
             }
           }
-          ++_nsub;
+	  double radius=0;
+	  fastjet::PseudoJet splitJet = jets.splitJet(*j,radius);
+	  cout << "Original, Split:" << j->m() << "," << splitJet.m();
+	  //cout << " Radius 1:" << radius << endl;
+	  fastjet::PseudoJet filterJet = jets.filterJet(*j,radius,0.3);
+	  cout << ", Filtered:" << filterJet.m() << endl;
+	  cout << " Radius 2:" << radius << endl;
+          ++_nsub;	 
         }
         ++_njet;
       }

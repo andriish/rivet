@@ -30,7 +30,7 @@ namespace Rivet {
       const FinalState fs(-4.0, 4.0, 0.0);
       addProjection(fs, "FS");
       addProjection(ChargedLeptons(fs), "ChLeptons");
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
+      addProjection(FastJets(fs, FastJets::CAM, 1.2), "Jets");
       addProjection(WZandh(), "WZh");
 
       /// Veto neutrinos, antineutrinos and LSP
