@@ -252,14 +252,14 @@ inline double azimuthalAngle(const Vector3& v, const PhiMapping mapping) {
 
 /// Calculate polar angle of a 3-vector.
 inline double polarAngle(const Vector3& v) {
-  return atan( polarRadius(v) / v.z() );
+  double polarangle = atan( polarRadius(v) / v.z() );
+  if (polarangle < 0) polarangle += PI;
+  return polarangle;
 }
 
 /// Calculate pseudorapidity of a 3-vector.
 inline double pseudorapidity(const Vector3& v) {
-  double polarangle = polarAngle(v);
-  if (polarangle < 0) polarangle += PI;
-  return -log(tan( 0.5 * polarangle ));
+  return -log(tan( 0.5 * polarAngle(v) ));
 }
 
 #endif
