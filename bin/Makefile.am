@@ -1,3 +1,3 @@
 bin_SCRIPTS = rivet-config 
-dist_bin_SCRIPTS = aida2flat
+dist_bin_SCRIPTS = aida2flat aida2root
 EXTRA_DIST = flat2aida
