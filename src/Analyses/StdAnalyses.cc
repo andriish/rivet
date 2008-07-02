@@ -8,6 +8,7 @@
 
 // LEP
 #include "Rivet/Analyses/ALEPH_1991_S2435284.hh"
+#include "Rivet/Analyses/ALEPH_1996_S3486095.hh"
 #include "Rivet/Analyses/DELPHI_1995_S3137023.hh"
 #include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
 #include "Rivet/Analyses/DELPHI_2002_069_CONF_603.hh"
@@ -49,6 +50,7 @@ extern "C" {
 
     // LEP
     fns["ALEPH_1991_S2435284"] = Rivet::ALEPH_1991_S2435284::create;
+    fns["ALEPH_1996_S3486095"] = Rivet::ALEPH_1996_S3486095::create;
     fns["DELPHI_1995_S3137023"] = Rivet::DELPHI_1995_S3137023::create;
     fns["DELPHI_1996_S3430090"] = Rivet::DELPHI_1996_S3430090::create;
     fns["DELPHI_2002_069_CONF_603"] = Rivet::DELPHI_2002_069_CONF_603::create;
