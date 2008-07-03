@@ -7,7 +7,10 @@ nobase_dist_data_DATA = \
   Rivet/DELPHI_2002_069_CONF_603.aida  \
   Rivet/OPAL_2004_S6132243.aida        \
   Rivet/OPAL_1998_S3780481.aida        \
+  Rivet/CLEO_1997_S3486664.aida        \
+  Rivet/CLEO_2001_S4557530.aida        \
   Rivet/CLEO_2004_S5809304.aida        \
+  Rivet/BABAR_2006_S6511112.aida       \
   Rivet/BELLE_2006_S6265367.aida       \
   Rivet/H1_1994_S2919893.aida          \
   Rivet/H1_1995_S3167097.aida          \
