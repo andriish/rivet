@@ -153,16 +153,11 @@ namespace Rivet {
     AIDA::IHistogram1D *_histJetRate5Durham;
    
     AIDA::IHistogram1D *_histLogScaledMom;
+    
+    
     AIDA::IHistogram1D *_histChMult;
     
-    AIDA::IHistogram1D *_histMeanChMult;
 
-    AIDA::IHistogram1D *_histMeanChMultRapt05;
-    AIDA::IHistogram1D *_histMeanChMultRapt10;
-    AIDA::IHistogram1D *_histMeanChMultRapt15;
-    AIDA::IHistogram1D *_histMeanChMultRapt20;
-
-    AIDA::IHistogram1D *_histMeanChMult2;
     AIDA::IHistogram1D *_histMultiPiPlus;
     AIDA::IHistogram1D *_histMultiKPlus;
     AIDA::IHistogram1D *_histMultiP;
@@ -180,21 +175,28 @@ namespace Rivet {
     AIDA::IHistogram1D *_histMultiKStar892_0;
     AIDA::IHistogram1D *_histMultiPhi;
     AIDA::IHistogram1D *_histMultiKStar892Plus;
+   
+    // mean multiplicities
+    AIDA::IHistogram1D *_histMeanChMult;
+    AIDA::IHistogram1D *_histMeanChMultRapt05;
+    AIDA::IHistogram1D *_histMeanChMultRapt10;
+    AIDA::IHistogram1D *_histMeanChMultRapt15;
+    AIDA::IHistogram1D *_histMeanChMultRapt20;
     
-    AIDA::IHistogram1D *_histMeanMultiKPlus; 
-    AIDA::IHistogram1D *_histMeanMultiP;             
-    AIDA::IHistogram1D *_histMeanMultiPi0;           
-    AIDA::IHistogram1D *_histMeanMultiEta;           
-    AIDA::IHistogram1D *_histMeanMultiEtaPrime;      
-    AIDA::IHistogram1D *_histMeanMultiK0;            
-    AIDA::IHistogram1D *_histMeanMultiLambda0;       
-    AIDA::IHistogram1D *_histMeanMultiXiMinus;       
-    AIDA::IHistogram1D *_histMeanMultiSigma1385Plus; 
-    AIDA::IHistogram1D *_histMeanMultiXi1530_0;      
-    AIDA::IHistogram1D *_histMeanMultiRho;           
-    AIDA::IHistogram1D *_histMeanMultiOmegaMinus;    
-    AIDA::IHistogram1D *_histMeanMultiKStar892_0;    
-    AIDA::IHistogram1D *_histMeanMultiPhi;           
+    AIDA::IHistogram1D *_histMeanMultiPi0;          
+    AIDA::IHistogram1D *_histMeanMultiEta;          
+    AIDA::IHistogram1D *_histMeanMultiEtaPrime;     
+    AIDA::IHistogram1D *_histMeanMultiK0;           
+    AIDA::IHistogram1D *_histMeanMultiRho;          
+    AIDA::IHistogram1D *_histMeanMultiOmega;        
+    AIDA::IHistogram1D *_histMeanMultiPhi;         
+    AIDA::IHistogram1D *_histMeanMultiKStar892Plus; 
+    AIDA::IHistogram1D *_histMeanMultiKStar892_0;   
+    AIDA::IHistogram1D *_histMeanMultiLambda0;      
+    AIDA::IHistogram1D *_histMeanMultiSigma0;       
+    AIDA::IHistogram1D *_histMeanMultiXiMinus;      
+    AIDA::IHistogram1D *_histMeanMultiSigma1385Plus;
+    AIDA::IHistogram1D *_histMeanMultiXi1530_0;     
     //@}
 
   };

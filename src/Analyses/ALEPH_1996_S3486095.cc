@@ -132,10 +132,7 @@ namespace Rivet {
          case -321:
          case 321:
             _weightedTotalNumKPlus += weight;
-            // this is for the inclusive particle spectrum
             _histMultiKPlus->fill(scaledMom, weight);
-            // this is for the mean multiplicity
-            _histMeanMultiKPlus->fill(_histMeanMultiKPlus->binMean(0), weight);
             break;
          case 211:
          case -211:
@@ -145,7 +142,6 @@ namespace Rivet {
          case 2212:
          case -2212:
             _histMultiP->fill(scaledMom, weight);
-            _histMeanMultiP->fill(_histMeanMultiP->binMean(0), weight);
             _weightedTotalNumP += weight;
             break;
          case 111:
@@ -163,11 +159,36 @@ namespace Rivet {
             _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->binMean(0), weight);
             _weightedTotalNumEtaPrime += weight;
             break;
-         case 130: //kshort
-         case 310: //klong
+         case 130: //klong
+         case 310: //kshort
             _histMultiK0->fill(scaledMom, weight);
             _histMeanMultiK0->fill(_histMeanMultiK0->binMean(0), weight);
             _weightedTotalNumK0 += weight;
+            break;
+         case 113:
+            _histMultiRho->fill(scaledMom, weight);
+            _histMeanMultiRho->fill(_histMeanMultiRho->binMean(0), weight);
+            _weightedTotalNumRho += weight;
+            break;
+         case 223:
+            _histMeanMultiOmega->fill(_histMeanMultiOmega->binMean(0), weight);
+            break;
+         case 333:
+            _histMultiPhi->fill(scaledMom, weight);
+            _histMeanMultiPhi->fill(_histMeanMultiPhi->binMean(0), weight);
+            _weightedTotalNumPhi += weight;
+            break;
+         case 313:
+         case -313:
+            _histMultiKStar892_0->fill(scaledMom, weight);
+            _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->binMean(0), weight);
+            _weightedTotalNumKStar892_0 += weight;
+            break;
+         case 323:
+         case -323:
+            _histMultiKStar892Plus->fill(scaledMom, weight);
+            _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->binMean(0), weight);
+            _weightedTotalNumKStar892Plus += weight;
             break;
          case 3122:
          case -3122:
@@ -175,6 +196,9 @@ namespace Rivet {
             _histMeanMultiLambda0->fill(_histMeanMultiLambda0->binMean(0), weight);
             _weightedTotalNumLambda0 += weight;
             break;
+         case 3212:
+         case -3212:
+            _histMeanMultiSigma0->fill(_histMeanMultiSigma0->binMean(0), weight);
          case 3312:
          case -3312:
             _histMeanMultiXiMinus->fill(scaledMom, weight);
@@ -191,31 +215,9 @@ namespace Rivet {
             _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->binMean(0), weight);
             _weightedTotalNumXi1530_0 += weight;
             break;
-         case 113:
-            _histMultiRho->fill(scaledMom, weight);
-            _histMeanMultiRho->fill(_histMeanMultiRho->binMean(0), weight);
-            _weightedTotalNumRho += weight;
-            break;
          case 3334: 
             _histMultiOmegaMinus->fill(scaledMom, weight);
-            _histMeanMultiOmegaMinus->fill(_histMeanMultiOmegaMinus->binMean(0), weight);
             _weightedTotalNumOmegaMinus += weight;
-            break;
-         case 313:
-         case -313:
-            _histMultiKStar892_0->fill(scaledMom, weight);
-            _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->binMean(0), weight);
-            _weightedTotalNumKStar892_0 += weight;
-            break;
-         case 333:
-            _histMultiPhi->fill(scaledMom, weight);
-            _histMeanMultiPhi->fill(_histMeanMultiPhi->binMean(0), weight);
-            _weightedTotalNumPhi += weight;
-            break;
-         case 323:
-         case -323:
-            _histMultiKStar892Plus->fill(scaledMom, weight);
-            _weightedTotalNumKStar892Plus += weight;
             break;
       }
     }
@@ -274,20 +276,20 @@ namespace Rivet {
     _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1, "K*(892)+/K*(892)- multiplicity");
     
     // mean multiplicities 
-    _histMeanMultiKPlus         = bookHistogram1D(44, 1, 2, "Mean pi^0 multiplicity");
-    _histMeanMultiP             = bookHistogram1D(44, 1, 3, "Mean eta multiplicity");
-    _histMeanMultiPi0           = bookHistogram1D(44, 1, 4, "Mean etaprime multiplicity");
-    _histMeanMultiEta           = bookHistogram1D(44, 1, 5, "Mean KS + KL multiplicity");
-    _histMeanMultiEtaPrime      = bookHistogram1D(44, 1, 6, "Mean rho^0 multiplicity");
-    _histMeanMultiK0            = bookHistogram1D(44, 1, 7, "Mean omega^0 multiplicity");
-    _histMeanMultiLambda0       = bookHistogram1D(44, 1, 8, "Mean phi multiplicity");
-    _histMeanMultiXiMinus       = bookHistogram1D(44, 1, 9, "Mean K*+ / K*- multiplicity");
-    _histMeanMultiSigma1385Plus = bookHistogram1D(44, 1, 10, "Mean K*0 / K*0bar multiplicity");
-    _histMeanMultiXi1530_0      = bookHistogram1D(44, 1, 11, "Mean Lambda / Lambdabar multiplicity");
-    _histMeanMultiRho           = bookHistogram1D(44, 1, 12, "Mean Sigma / Sigmabar multiplicity");
-    _histMeanMultiOmegaMinus    = bookHistogram1D(44, 1, 13, "Mean Xi / Xibar multiplicity");
-    _histMeanMultiKStar892_0    = bookHistogram1D(44, 1, 14, "Mean Sigma(1385) / Sigma(1385)bar multiplicity");
-    _histMeanMultiPhi           = bookHistogram1D(44, 1, 15, "Mean Xi(1530) / Xi(1530)bar multiplicity");
+    _histMeanMultiPi0           = bookHistogram1D(44, 1, 2, "Mean pi^0 multiplicity");
+    _histMeanMultiEta           = bookHistogram1D(44, 1, 3, "Mean eta multiplicity");
+    _histMeanMultiEtaPrime      = bookHistogram1D(44, 1, 4, "Mean etaprime multiplicity");
+    _histMeanMultiK0            = bookHistogram1D(44, 1, 5, "Mean KS + KL multiplicity");
+    _histMeanMultiRho           = bookHistogram1D(44, 1, 6, "Mean rho^0 multiplicity");
+    _histMeanMultiOmega         = bookHistogram1D(44, 1, 7, "Mean omega^0 multiplicity");
+    _histMeanMultiPhi           = bookHistogram1D(44, 1, 8, "Mean phi multiplicity");
+    _histMeanMultiKStar892Plus  = bookHistogram1D(44, 1, 9, "Mean K*+ / K*- multiplicity");
+    _histMeanMultiKStar892_0    = bookHistogram1D(44, 1, 10, "Mean K*0 / K*0bar multiplicity");
+    _histMeanMultiLambda0       = bookHistogram1D(44, 1, 11, "Mean Lambda / Lambdabar multiplicity");
+    _histMeanMultiSigma0        = bookHistogram1D(44, 1, 12, "Mean Sigma / Sigmabar multiplicity");
+    _histMeanMultiXiMinus       = bookHistogram1D(44, 1, 13, "Mean Xi / Xibar multiplicity");
+    _histMeanMultiSigma1385Plus = bookHistogram1D(44, 1, 14, "Mean Sigma(1385) / Sigma(1385)bar multiplicity");
+    _histMeanMultiXi1530_0      = bookHistogram1D(44, 1, 15, "Mean Xi(1530) / Xi(1530)bar multiplicity");
   }
 
 
@@ -297,7 +299,6 @@ namespace Rivet {
     // Normalize inclusive single particle distributions to the average number 
     // of charged particles per event.
     const double avgNumParts = _weightedTotalPartNum / sumOfWeights();
-    const double avgNumChParts = _numChParticles / sumOfWeights();
 
     normalize(_histPtSIn, avgNumParts);
     normalize(_histPtSOut, avgNumParts); 
@@ -359,7 +360,7 @@ namespace Rivet {
    
 
     // mean multiplicities 
-    scale(_histChMult              , 1.0/sumOfWeights()); // normalize to number of charged particles only?
+    scale(_histChMult              , 2.0/sumOfWeights()); // taking into account the binwidth of 2 
     scale(_histMeanChMult          , 1.0/sumOfWeights());
     scale(_histMeanChMultRapt05    , 1.0/sumOfWeights());
     scale(_histMeanChMultRapt10    , 1.0/sumOfWeights());
@@ -367,20 +368,20 @@ namespace Rivet {
     scale(_histMeanChMultRapt20    , 1.0/sumOfWeights());
 
 
-    scale(_histMeanMultiKPlus        , 1.0/sumOfWeights());
-    scale(_histMeanMultiP            , 1.0/sumOfWeights());
     scale(_histMeanMultiPi0          , 1.0/sumOfWeights());
     scale(_histMeanMultiEta          , 1.0/sumOfWeights());
     scale(_histMeanMultiEtaPrime     , 1.0/sumOfWeights());
     scale(_histMeanMultiK0           , 1.0/sumOfWeights());
-
+    scale(_histMeanMultiRho          , 1.0/sumOfWeights());
+    scale(_histMeanMultiOmega        , 1.0/sumOfWeights());
+    scale(_histMeanMultiPhi          , 1.0/sumOfWeights());
+    scale(_histMeanMultiKStar892Plus , 1.0/sumOfWeights());
+    scale(_histMeanMultiKStar892_0   , 1.0/sumOfWeights());
     scale(_histMeanMultiLambda0      , 1.0/sumOfWeights());
+    scale(_histMeanMultiSigma0, 1.0/sumOfWeights());
     scale(_histMeanMultiXiMinus      , 1.0/sumOfWeights());
     scale(_histMeanMultiSigma1385Plus, 1.0/sumOfWeights());
     scale(_histMeanMultiXi1530_0     , 1.0/sumOfWeights());
-    scale(_histMeanMultiRho          , 1.0/sumOfWeights());
-    scale(_histMeanMultiKStar892_0   , 1.0/sumOfWeights());
-    scale(_histMeanMultiPhi          , 1.0/sumOfWeights());
   }
 
 }
