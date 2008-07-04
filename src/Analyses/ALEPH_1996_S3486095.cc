@@ -249,10 +249,10 @@ namespace Rivet {
     _histChMult       = bookHistogram1D(18, 1, 1, "Charged Multiplicity Distribution");
     _histMeanChMult   = bookHistogram1D(19, 1, 1, "Mean Charged Multiplicity");
 
-    _histMeanChMultRapt05= bookHistogram1D(20, 1, 1, "<n> of ch. p. mult. dist. for rapidity |Y|<=0.5");
-    _histMeanChMultRapt10= bookHistogram1D(21, 1, 1, "<n> of ch. p. mult. dist. for rapidity |Y|<=1.0");
-    _histMeanChMultRapt15= bookHistogram1D(22, 1, 1, "<n> of ch. p. mult. dist. for rapidity |Y|<=1.5");
-    _histMeanChMultRapt20= bookHistogram1D(23, 1, 1, "<n> of ch. p. mult. dist. for rapidity |Y|<=2.0");
+    _histMeanChMultRapt05= bookHistogram1D(20, 1, 1, "Mean Charged Multiplicity for rapidity |Y| less than 0.5");
+    _histMeanChMultRapt10= bookHistogram1D(21, 1, 1, "Mean Charged Multiplicity for rapidity |Y| less than 1.0");
+    _histMeanChMultRapt15= bookHistogram1D(22, 1, 1, "Mean Charged Multiplicity for rapidity |Y| less than 1.5");
+    _histMeanChMultRapt20= bookHistogram1D(23, 1, 1, "Mean Charged Multiplicity for rapidity |Y| less than 2.0");
 
 
     // particle spectra
