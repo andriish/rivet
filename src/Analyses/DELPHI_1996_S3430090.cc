@@ -33,7 +33,6 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Calculating thrust" << endl;
     const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
     _hist1MinusT->fill(1 - thrust.thrust(), weight); 
-    _hist1MinusT->fill(1 - thrust.thrust(), weight); 
     _histTMajor->fill(thrust.thrustMajor(), weight); 
     _histTMinor->fill(thrust.thrustMinor(), weight); 
     _histOblateness->fill(thrust.oblateness(), weight);
