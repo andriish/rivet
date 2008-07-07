@@ -30,12 +30,14 @@ class Histo:
         return os.path.join(self.path, self.name)
 
     def asFlat(self):
-        out = "### %s\n" % self.fullPath()
-        out += "## Title: %s\n" % self.title
+        out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
+        out += "AidaPath=%s\n" % self.fullPath()
+        out += "Title=%s\n" % self.title
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
-        out += "## xlow    xhigh    yval  yerrminus  yerrplus\n"
+        out += "## xlow    xhigh    yval    yerrminus    yerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
+	out += "\n# END HISTOGRAM"
         return out
 
     def numBins(self):
@@ -86,7 +88,7 @@ class Bin:
         return out
 
     def asFlat(self):
-        out = "%f %f %f %f %f" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
+        out = "%f\t%f\t%f\t%f\t%f" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
         return out
 
     def __cmp__(self, other):
