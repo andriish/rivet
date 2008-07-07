@@ -12,6 +12,18 @@ namespace Rivet {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
     if (fscmp != PCmp::EQUIVALENT) return fscmp;
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
+    int vfssize = cmp(_vetofsnames.size(), other._vetofsnames.size());
+    if (vfssize != PCmp::EQUIVALENT) return vfssize;
+    //if the size is the same retrieve the FS projections, store them in two ordered set,
+    //compare the sets element by element
+    set<const Projection*> vfs;
+    set<const Projection*> other_vfs;
+    for (FSNames::const_iterator ivfs = _vetofsnames.begin(); ivfs != _vetofsnames.end(); ++ivfs){
+      vfs.insert(&(getProjection(*ivfs)));
+      other_vfs.insert(&(other.getProjection(*ivfs)));
+    }
+    int isetcmp = cmp(vfs, other_vfs);
+    if (isetcmp != PCmp::EQUIVALENT) return isetcmp;
     return \
       cmp(_vetoCodes, other._vetoCodes) ||
       cmp(_compositeVetoes, other._compositeVetoes) ||
@@ -108,7 +120,7 @@ namespace Rivet {
       }
     }
     
-    for (vector<long>::iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
+    for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
       for (ParticleVector::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
         GenVertex *startVtx=((*p).getHepMCParticle()).production_vertex();
         bool veto = false;
@@ -116,7 +128,7 @@ namespace Rivet {
         if (startVtx!=0) {
           for (GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
                pIt != startVtx->particles_end(HepMC::ancestors) && !veto; ++pIt) {
-
+            
             if (*vIt == (*pIt)->pdg_id()) {
               veto = true;
               p = _theParticles.erase(p);
@@ -126,7 +138,29 @@ namespace Rivet {
         }
       }
     }
-  }
 
+    // Now veto on the FS
+    for (FSNames::const_iterator ivfs = _vetofsnames.begin(); ivfs != _vetofsnames.end(); ++ivfs){
+      const FinalState& vfs = applyProjection<FinalState>(e, *ivfs);
+      const ParticleVector& vfsp = vfs.particles();
+      for (ParticleVector::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck){
+        if (!icheck->hasHepMCParticle()) continue;
+        bool found = false;
+        for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
+          if (!ipart->hasHepMCParticle()) continue;
+          log << Log::DEBUG << "comparing barcode " << icheck->getHepMCParticle().barcode() << " with veto particle " << ipart->getHepMCParticle().barcode() << endl; 
+          if (ipart->getHepMCParticle().barcode() == icheck->getHepMCParticle().barcode()){
+            found = true;
+            break;
+          }
+        }
+        if (found) {
+          _theParticles.erase(icheck);
+          --icheck;
+        }	
+      }	
+    }
+  }
+  
 
 }

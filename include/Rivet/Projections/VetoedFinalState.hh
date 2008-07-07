@@ -20,7 +20,7 @@ namespace Rivet {
     /// Typedef for a vetoing entry.
     typedef map<long, BinaryCut> VetoDetails;
 
-    /// Typedef for a veto on a composite particle mass
+    /// Typedef for a veto on a composite particle mass.
     typedef multimap<int, BinaryCut>  CompositeVeto;
 
     
@@ -119,7 +119,7 @@ namespace Rivet {
     /// @todo Need HepMC to sort themselves out and keep vector bosons from 
     /// the hard vtx in the event record before this will work reliably for all pdg ids
     VetoedFinalState& addDecayProductsVeto(const long id){
-      _parentVetoes.push_back(id);
+      _parentVetoes.insert(id);
       return *this;
     }
     
@@ -136,13 +136,27 @@ namespace Rivet {
     }
     
 
-  private:
+    /// Veto particles from a supplied final state.
+    VetoedFinalState& addVetoOnThisFinalState(FinalState& fs) {
+      stringstream st_name;
+      st_name << "FS_" << _vetofsnames.size();
+      string name = st_name.str();
+      addProjection(fs, name);
+      _vetofsnames.insert(name);
+      return *this;
+    }
+
+
+  protected:
     
     /// Apply the projection on the supplied event.
     void project(const Event& e);
     
     /// Compare projections.
     int compare(const Projection& p) const;
+
+
+  private:
 
     /// The final-state particles.
     VetoDetails _vetoCodes;
@@ -151,8 +165,16 @@ namespace Rivet {
     CompositeVeto _compositeVetoes;
     set<int> _nCompositeDecays;
     
-    /// List of decaying particle ids to veto
-    vector<long> _parentVetoes;
+    typedef set<long> ParentVetos;
+
+    /// Set of decaying particle IDs to veto
+    ParentVetos _parentVetoes;
+
+    typedef set<string> FSNames;
+
+    /// Set of finalstate to be vetoed
+    FSNames _vetofsnames;
+
   };
 
   

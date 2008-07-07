@@ -31,6 +31,15 @@ namespace Rivet {
     //virtual Jets getJets(sortingFunction) const = 0;
 
 
+  public:
+
+    typedef Jet entity_type;
+    typedef Jets collection_type; 
+
+    /// Template-usable interface common to FinalState.
+    collection_type entities() const { return getJets(); }
+
+
   protected:   
 
     /// Perform the projection on the Event.

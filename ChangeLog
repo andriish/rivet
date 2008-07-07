@@ -1,6 +1,12 @@
+2008-07-07  Andy Buckley  <andy@insectnation.org>
+
+	* Merged Giulio Lenzi's isolation/vetoing/invmass projections and
+	D0 2008 analysis.
+
 2008-06-23  Jon Butterworth  <J.Butterworth@ucl.ac.uk>
 
 	* Modified FastJet to fix ysplit and split and filter.
+
 	* Modified ExampleTree to show how to call them.
 
 2008-06-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
@@ -10,6 +16,7 @@
 	  There is a small difference between the analysis and this
 	  implementation, but it's too small to be visible.
 	  The fpythia-cdfdrellyan.params parameter file is for this analysis.
+
 	* Added first version of the CDF_2008_MINBIAS analysis described on
 	  http://www-cdf.fnal.gov/physics/new/qcd/abstracts/minbias_08.html
 	  The .aida file is read from the plots on the web and will change.
@@ -18,7 +25,8 @@
 
 2008-06-18  Jon Butterworth  <J.Butterworth@ucl.ac.uk>
 
-	* Added First versions of splitJet and filterJet methods to fastjet.cc. Not yet tested, buyer beware.
+	* Added First versions of splitJet and filterJet methods to
+	fastjet.cc. Not yet tested, buyer beware.
 
 2008-06-18  Andy Buckley  <andy@insectnation.org>
 

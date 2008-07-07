@@ -24,14 +24,11 @@ namespace Rivet {
       // pass the eta and phi cuts. The eta cut is pre-tested by checking if the
       // x and y components of the momentum are non-zero since the vectors might
       // throw an exception otherwise.
-      const int st = (*p)->status();
-      const double pT = (*p)->momentum().perp();
-      const double eta = (*p)->momentum().eta();
-      const bool passed = st == 1 && !isZero(pT) && pT >= _ptmin && eta > _etamin && eta < _etamax;
+      const bool passed = accept(**p);  //GIULIO
       if (log.isActive(Log::TRACE)) {
         log << Log::TRACE << std::boolalpha 
-            << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT 
-            << ", eta = " << eta << ": result = " << passed << endl;
+            << "ID = " << (*p)->pdg_id() << ", status = " << (*p)->status() << ", pT = " << (*p)->momentum().perp() 
+            << ", eta = " << (*p)->momentum().eta() << ": result = " << passed << endl;
       }
       if (passed) _theParticles.push_back(Particle(**p));
     }

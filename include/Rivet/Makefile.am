@@ -39,6 +39,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2008_DRELLYAN.hh \
   Analyses/D0_2001_S4674421.hh  \
   Analyses/D0_2004_S5992206.hh  \
+  Analyses/D0_2008_S6879055.hh  \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/DELPHI_2002_069_CONF_603.hh \
@@ -49,6 +50,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/OPAL_2004_S6132243.hh \
   Analyses/ZEUS_2001_S4815815.hh \
   Analyses/PDG_Hadron_Multiplicities.hh
+
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \
@@ -66,9 +68,14 @@ nobase_pkginclude_HEADERS +=   \
   Projections/HadronicFinalState.hh \
   Projections/Hemispheres.hh    \
   Projections/InitialQuarks.hh \
+  Projections/InvMassFinalState.hh \
+  Projections/IsolationEstimators.hh \
+  Projections/IsolationProjection.hh \
+  Projections/IsolationTools.hh \
   Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
   Projections/KtJets.hh         \
+  Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
   Projections/Multiplicity.hh   \
   Projections/ParisiTensor.hh   \
@@ -81,6 +88,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/TrackJet.hh       \
   Projections/VetoedFinalState.hh \
   Projections/WZandh.hh 
+
 
 ## Tools
 nobase_pkginclude_HEADERS += \

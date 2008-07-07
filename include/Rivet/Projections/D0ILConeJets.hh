@@ -32,6 +32,10 @@ namespace Rivet {
   class D0ILConeJets : public Projection {
 
   public:
+
+    typedef HepEntity entity_type;
+    typedef list<HepEntity> collection_type;
+
     
     /// @name Constructors and destructors.
     //@{
@@ -113,6 +117,10 @@ namespace Rivet {
     list<HepEntity>& getJets() { return _jets; }
     /// Get a reference to the jets collection (const version).
     const list<HepEntity>& getJets() const { return _jets; }
+
+    /// Common interface to FinalState and JetAlg
+    const list<HepEntity>& entities() const { return getJets(); }
+
 
     /// Get a reference to the lorentzvecjets collection.
     const list<FourMomentum>& getLorentzJets() const {

@@ -41,6 +41,18 @@ namespace Rivet {
     /// Is this final state empty?
     virtual const bool isEmpty() const { return _theParticles.empty(); }
 
+
+  public:
+
+    typedef Particle entity_type;
+    typedef ParticleVector collection_type; 
+
+    /// Template-usable interface common to JetAlg.
+    const collection_type& entities() const { 
+      return particles(); 
+    }
+
+
   protected:
     
     /// Apply the projection to the event.
@@ -48,6 +60,15 @@ namespace Rivet {
     
     /// Compare projections.
     virtual int compare(const Projection& p) const;
+
+    /// Decide if a particle is to be accepted or not.
+    bool accept(const GenParticle& p) const {
+      const int st = p.status();
+      const double pT = p.momentum().perp();
+      const double eta = p.momentum().eta();
+      return st == 1 && !isZero(pT) && pT >= _ptmin && eta > _etamin && eta < _etamax;
+    }
+
     
   protected:
  

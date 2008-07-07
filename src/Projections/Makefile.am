@@ -13,7 +13,9 @@ libRivetProjections_la_SOURCES = \
   HadronicFinalState.cc \
   Hemispheres.cc \
   InitialQuarks.cc \
+  InvMassFinalState.cc \
   JetShape.cc \
+  LeadingParticlesFinalState.cc \
   LossyFinalState.cc \
   Multiplicity.cc \
   ParisiTensor.cc \
@@ -28,5 +30,5 @@ libRivetProjections_la_SOURCES = \
   WZandh.cc 
 
 if ENABLE_JADE
-  libRivetProjections_la_CXXFLAGS = $(AM_CXXFLAGS) -DHAVE_JADE
+  AM_CXXFLAGS += -DHAVE_JADE
 endif

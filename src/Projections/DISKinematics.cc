@@ -9,7 +9,7 @@
 namespace Rivet {
 
   void DISKinematics::project(const Event& e) {
-    Log& log = getLog();
+    //Log& log = getLog();
 
     const DISLepton& dislep = applyProjection<DISLepton>(e, "Lepton");
     const ParticlePair& inc = applyProjection<Beam>(e, "Beam").getBeams();

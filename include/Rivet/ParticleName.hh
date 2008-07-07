@@ -30,6 +30,7 @@ namespace Rivet {
     EPLUS = -11, 
     P = 2212, 
     PBAR = -2212,
+    GLUON = 21,
     GAMMA = 22,
     WPLUSBOSON = 24,
     WMINUSBOSON = -24,
