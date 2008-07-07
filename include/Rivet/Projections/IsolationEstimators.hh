@@ -16,6 +16,8 @@ namespace Rivet {
 
     public:
 
+    virtual ~IsolationEstimator(){};
+    
       virtual double estimate(const T & t, const C & c) const = 0;
 
       virtual int compare(const IsolationEstimator < T, C > *other) const = 0;

@@ -49,6 +49,9 @@ class HepEntity {
     return sqrt(sqr(px)+sqr(py));
   }
 
+  FourMomentum getMomentum() const{
+    return FourMomentum(E, px, py, pz);
+  }
 
   inline void p4vec(float* p) const {
     p[0] = px;
