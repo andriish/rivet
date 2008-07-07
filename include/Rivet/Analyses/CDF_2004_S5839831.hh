@@ -107,8 +107,7 @@ namespace Rivet {
     /// at \f$ \sqrt{s} = 630 \text{GeV} \f$.
     /// Corresponds to figure 8, and HepData table 8.
     AIDA::IProfile1D *_pt90Max630,   *_pt90Min630;
-    /// @todo Why doesn't this exist in HepData?
-    //   *_pt90Diff630;
+    /// Why doesn't data for *_pt90Diff630 exist in HepData?
 
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
     /// the cone track multiplicity at \f$ \sqrt{s} = 1800 \text{GeV} \f$.
