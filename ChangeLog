@@ -1,5 +1,7 @@
 2008-07-07  Andy Buckley  <andy@insectnation.org>
 
+	* Added Rivet namespace to Units.hh and Constants.hh.
+
 	* Added Doxygen "@brief" flags to analyses.
 
 	* Added "RIVET_" namespacing to all header guards.

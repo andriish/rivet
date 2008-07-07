@@ -7,9 +7,9 @@
 
 namespace Rivet {
 
+
   int InitialQuarks::compare(const Projection& p) const {
-    const InitialQuarks& other = dynamic_cast<const InitialQuarks&>(p);
-    return true;
+    return PCmp::EQUIVALENT;
   }
 
 
