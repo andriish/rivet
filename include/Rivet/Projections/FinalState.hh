@@ -29,11 +29,14 @@ namespace Rivet {
       addCut("eta", LESS_EQ, maxeta);
       addCut("pT",  MORE_EQ, minpt);
     }
-        
+    
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new FinalState(*this);
     }
+
+    //@}
+
 
     /// Access the projected final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }

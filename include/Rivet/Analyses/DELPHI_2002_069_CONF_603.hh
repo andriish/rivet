@@ -11,7 +11,7 @@
 namespace Rivet {
 
 
-  /// Implementation of the DELPHI b-fragmentation measurement
+  /// @brief DELPHI b-fragmentation measurement
   /// @author Hendrik Hoeth
   class DELPHI_2002_069_CONF_603 : public Analysis {
 

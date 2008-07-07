@@ -1,5 +1,5 @@
-#ifndef MATH_CONSTANTS
-#define MATH_CONSTANTS
+#ifndef RIVET_MATH_CONSTANTS
+#define RIVET_MATH_CONSTANTS
 
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/Units.hh"

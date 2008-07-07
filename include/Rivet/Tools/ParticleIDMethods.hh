@@ -14,8 +14,8 @@
 //
 //  These are the same methods that can be found in HepPDT::ParticleID
 // ----------------------------------------------------------------------
-#ifndef PARTICLE_ID_METHODS_HH
-#define PARTICLE_ID_METHODS_HH
+#ifndef RIVET_PARTICLE_ID_METHODS_HH
+#define RIVET_PARTICLE_ID_METHODS_HH
 
 namespace Rivet {
   namespace PID {
@@ -101,4 +101,4 @@ int threeCharge( const int & pid );
 
 }}
 
-#endif // PARTICLE_ID_METHODS_HH
+#endif

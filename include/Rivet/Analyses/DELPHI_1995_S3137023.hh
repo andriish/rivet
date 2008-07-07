@@ -11,7 +11,7 @@
 namespace Rivet {
 
 
-  /// Implementation of DELPHI strange baryon paper
+  /// @brief DELPHI strange baryon paper
   /// @author Hendrik Hoeth
   class DELPHI_1995_S3137023 : public Analysis {
 

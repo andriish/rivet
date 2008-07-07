@@ -11,7 +11,8 @@
 namespace Rivet {
 
 
-  /// Implementation of CDF RunII jet shape paper hep-ex/0505013 
+  /// @brief CDF Run II jet shape paper 
+  /// e-print: arXiv:hep-ex/0505013 
   class CDF_2005_S6217184 : public Analysis {
 
   public:

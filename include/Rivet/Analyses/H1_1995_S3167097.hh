@@ -7,10 +7,11 @@
 #include "Rivet/Projections/CentralEtHCM.hh"
 #include "Rivet/RivetAIDA.fhh"
 
-
 namespace Rivet {
 
-  /// This analysis measures energy flow in DIS?
+
+  /// @brief Measures energy flow in DIS? To be checked!
+  /// @todo Check this analysis!
   /// @author Leif Lonnblad
   class H1_1995_S3167097 : public Analysis {
   public:

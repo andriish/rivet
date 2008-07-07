@@ -1,5 +1,5 @@
-#ifndef MATH_UNITS
-#define MATH_UNITS
+#ifndef RIVET_MATH_UNITS
+#define RIVET_MATH_UNITS
 
 #include "Rivet/Math/MathHeader.hh"
 

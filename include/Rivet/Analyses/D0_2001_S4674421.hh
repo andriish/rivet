@@ -10,7 +10,7 @@
 namespace Rivet {  
 
 
-  /// Implementation of D0 Run I, differential W/Z boson cross-section analysis.
+  /// @brief D0 Run I differential W/Z boson cross-section analysis
   /// @author Lars Sonnenschein
   class D0_2001_S4674421 : public Analysis {
 

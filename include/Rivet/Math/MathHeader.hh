@@ -1,5 +1,5 @@
-#ifndef MATH_MATHHEADER
-#define MATH_MATHHEADER
+#ifndef RIVET_MATH_MATHHEADER
+#define RIVET_MATH_MATHHEADER
 
 #include <stdexcept>
 #include <string>

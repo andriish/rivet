@@ -1,5 +1,5 @@
-#ifndef PARTICLENAME_HH
-#define PARTICLENAME_HH
+#ifndef RIVET_PARTICLENAME_HH
+#define RIVET_PARTICLENAME_HH
 // ----------------------------------------------------------------------
 //
 // ParticleName.hh
@@ -40,4 +40,4 @@ ParticleNameMap const &  getParticleNameMap();
 
 }}  // namespace HepPID
 
-#endif // PARTICLENAME_HH
+#endif

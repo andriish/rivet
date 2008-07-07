@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #ifndef RIVET_CONFIGURATION_HH 
-#define RIVET_CONFIGURATION_HH 1
+#define RIVET_CONFIGURATION_HH
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"

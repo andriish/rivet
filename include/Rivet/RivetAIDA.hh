@@ -1,5 +1,5 @@
-#ifndef RIVETAIDA_HH 
-#define RIVETAIDA_HH 
+#ifndef RIVET_RIVETAIDA_HH 
+#define RIVET_RIVETAIDA_HH 
 
 /// @author Andy Buckley
 /// @date   2007-11-08

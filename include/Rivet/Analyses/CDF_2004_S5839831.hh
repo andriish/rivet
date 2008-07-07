@@ -11,6 +11,15 @@
 namespace Rivet {
 
 
+  /// @brief "Acosta" CDF underlying event analysis
+  /// @author Andy Buckley
+  ///
+  /// This analysis studies the underlying event via transverse cones of 
+  /// \f$ R = 0.7 \f$ at 90 degrees in \f$ \phi \f$ relative to the leading
+  /// (highest \f$ E_\perp \f$) jet, at \f$ \sqrt{s} \f$ = 630 and 1800 GeV.
+  /// The "Swiss Cheese" study, where cones around the leading \f$ n \f$ jets
+  /// are excluded from distributions, is also included.
+  ///
   class CDF_2004_S5839831 : public Analysis {
   public:
 

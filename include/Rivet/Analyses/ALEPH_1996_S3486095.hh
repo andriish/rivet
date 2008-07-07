@@ -16,7 +16,7 @@
 namespace Rivet {
 
 
-  /// Implementation of ALEPH QCD paper.
+  /// @brief ALEPH QCD study with event shapes and identified particles
   /// @author Holger Schulz
   class ALEPH_1996_S3486095 : public Analysis {
 

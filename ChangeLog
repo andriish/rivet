@@ -1,5 +1,9 @@
 2008-07-07  Andy Buckley  <andy@insectnation.org>
 
+	* Added Doxygen "@brief" flags to analyses.
+
+	* Added "RIVET_" namespacing to all header guards.
+
 	* Merged Giulio Lenzi's isolation/vetoing/invmass projections and
 	D0 2008 analysis.
 

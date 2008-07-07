@@ -1,5 +1,5 @@
-#ifndef MATH_STD
-#define MATH_STD
+#ifndef RIVET_MATH_STD
+#define RIVET_MATH_STD
 
 #include <stdexcept>
 #include <string>

@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// CDF Run II inclusive jet cross-section using the kT algorithm.
+  /// @brief CDF Run II inclusive jet cross-section using the kT algorithm.
   /// @author James Monk
   class CDF_2007_S7057202 : public Analysis {
   public:

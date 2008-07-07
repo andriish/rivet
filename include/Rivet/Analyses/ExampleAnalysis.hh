@@ -13,7 +13,7 @@
 
 namespace Rivet {
 
-  /// This class just measures a few random things as an example.
+  /// @brief Just measures a few random things as an example.
   class ExampleAnalysis : public Analysis {
 
   public:

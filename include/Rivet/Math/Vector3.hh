@@ -1,5 +1,5 @@
-#ifndef MATH_VECTOR3
-#define MATH_VECTOR3
+#ifndef RIVET_MATH_VECTOR3
+#define RIVET_MATH_VECTOR3
 
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/VectorN.hh"

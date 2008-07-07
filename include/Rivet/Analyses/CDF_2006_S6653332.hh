@@ -15,7 +15,9 @@
 
 namespace Rivet {
 
-  
+
+  /// @brief CDF \f$ p_T \f$ and \f$ \eta \f$ distributions of jets in Z + (b) jet production
+  ///  
   /// This CDF analysis provides \f$ p_T \f$ and \f$ \eta \f$ distributions 
   /// of jets in Z + (b) jet production, before and after tagging.
   ///

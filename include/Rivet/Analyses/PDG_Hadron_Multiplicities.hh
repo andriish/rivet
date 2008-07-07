@@ -11,7 +11,7 @@
 namespace Rivet {
 
 
-  /// Implementation of PDG hadron multiplicities
+  /// @brief Implementation of PDG hadron multiplicities
   /// @author Hendrik Hoeth
   class PDG_Hadron_Multiplicities : public Analysis {
 

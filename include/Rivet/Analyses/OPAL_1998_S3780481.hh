@@ -11,7 +11,7 @@
 namespace Rivet {
 
 
-  /// Implementation of OPAL flavour dependent fragmentation paper
+  /// @brief OPAL flavour dependent fragmentation paper
   /// @author Hendrik Hoeth
   class OPAL_1998_S3780481 : public Analysis {
 

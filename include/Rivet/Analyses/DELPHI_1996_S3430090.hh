@@ -16,7 +16,11 @@
 namespace Rivet {
 
 
-  /// Implementation of DELPHI event shape paper.
+  /// @brief DELPHI event shapes and identified particle spectra
+  ///
+  /// This is the paper which was used for the original PROFESSOR
+  /// MC tuning study.
+  ///
   /// @author Andy Buckley
   class DELPHI_1996_S3430090 : public Analysis {
 

@@ -1,5 +1,5 @@
-#ifndef MATH_MATRIXN
-#define MATH_MATRIXN
+#ifndef RIVET_MATH_MATRIXN
+#define RIVET_MATH_MATRIXN
 
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/Vectors.hh"

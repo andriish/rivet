@@ -9,9 +9,9 @@
 namespace Rivet {
 
 
-  /// Implementation of H1 energy flow and charged particle spectra
+  /// @brief H1 energy flow and charged particle spectra
   /// @author Peter Richardson
-  /// based on the HZtool analysis
+  /// Based on the HZtool analysis
   class H1_2000_S4129130 : public Analysis {
 
   public:

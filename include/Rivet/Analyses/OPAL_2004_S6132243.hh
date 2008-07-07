@@ -10,7 +10,7 @@
 
 namespace Rivet {
 
-//   /// This class...
+//   /// 
 //   class OPAL_2004_S6132243 : public Analysis {
 
 //   public:

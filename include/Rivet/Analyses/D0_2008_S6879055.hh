@@ -9,7 +9,8 @@
 
 namespace Rivet {
 
-  /// Analysis described in hep-ex0608052/.
+
+  /// @brief Measurement of the ratio sigma(Z/gamma* + n jets)/sigma(Z/gamma*)
   class D0_2008_S6879055:public Analysis {
 
     typedef IsolationProjection<D0ILConeJets, FinalState> D0JetFromParticleIso;
@@ -43,6 +44,13 @@ namespace Rivet {
     string getYear() const {
       return "2008";
     }
+    /// Publication references.
+    vector<string> getReferences() const {
+      vector<string> ret;
+      ret.push_back("hep-ex/0608052");
+      return ret;
+    }
+
     //@}
     /// @name Analysis methods
     //@{ 

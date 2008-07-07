@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// Measurement of ALEPH LEP1 charged multiplicity.
+  /// @brief Measurement of ALEPH LEP1 charged multiplicity
   /// @author Andy Buckley
   class ALEPH_1991_S2435284 : public Analysis {
   public:

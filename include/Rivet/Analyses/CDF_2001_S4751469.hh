@@ -11,7 +11,7 @@
 namespace Rivet {
 
 
-  /// "Field-Stuart" CDF Run I underlying event analysis.
+  /// @brief "Field-Stuart" CDF Run I underlying event analysis
   /// @author Andy Buckley
   class CDF_2001_S4751469 : public Analysis {
   public:

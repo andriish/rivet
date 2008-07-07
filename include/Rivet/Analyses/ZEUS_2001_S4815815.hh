@@ -9,6 +9,8 @@
 
 namespace Rivet {
 
+  /// @brief ZEUS dijet photoproduction study used in the ZEUS Jets PDF fit
+  ///
   /// This class is a reproduction of the HZTool routine for the ZEUS 
   /// dijet photoproduction paper which was used in the ZEUS Jets PDF fit.  
   ///

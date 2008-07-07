@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  /// CDF Run II underlying event in Drell-Yan
+  /// @brief CDF Run II underlying event in Drell-Yan
   /// @author Hendrik Hoeth
   class CDF_2008_DRELLYAN : public Analysis {
   public:

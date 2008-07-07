@@ -9,10 +9,10 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 
-
 namespace Rivet {
 
-  /// Project all final state particles except for those listed by PDG code.
+
+  /// Specify that classes of particles are to be excluded from the final state.
   class VetoedFinalState : public FinalState {
 
   public:

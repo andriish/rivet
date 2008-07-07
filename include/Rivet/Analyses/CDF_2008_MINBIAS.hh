@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// CDF Run II min-bias cross-section
+  /// @brief CDF Run II min-bias cross-section
   /// @author Hendrik Hoeth
   class CDF_2008_MINBIAS : public Analysis {
   public:

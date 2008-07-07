@@ -10,7 +10,7 @@
 namespace Rivet {  
 
 
-  /// Analysis based on the D0 Run II jet analysis described in hep-ex/0409040.
+  /// @brief D0 Run II jet analysis
   /// @author Lars Sonnenschein
   class D0_2004_S5992206 : public Analysis {
 

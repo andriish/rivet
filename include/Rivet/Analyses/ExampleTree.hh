@@ -18,7 +18,8 @@
 
 namespace Rivet {
 
-  /// This Analysis books and fills a ROOT tree with simulated data.
+  /// @brief Book and fill a ROOT tree with simulated data.
+  ///
   /// Based initially on the ntuples used in Phys. Rev. D65; 096014 (2002)
   /// and JHEP05 (2007) 033.
   class ExampleTree : public Analysis {

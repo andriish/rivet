@@ -6,8 +6,8 @@
  *  Created by James Monk on 13/12/2007.
  *
  */
-#ifndef BINNEDHISTOGRAM_HH
-#define BINNEDHISTOGRAM_HH
+#ifndef RIVET_BINNEDHISTOGRAM_HH
+#define RIVET_BINNEDHISTOGRAM_HH
 #include "Rivet/Rivet.hh"
 
 namespace Rivet{

@@ -15,8 +15,10 @@
 
 namespace Rivet {
 
-  
-  /// This CDF analysis provides jet pT distributions for 4 jet multplicity bins
+
+  /// @brief CDF jet pT and multiplicity distributions in W + jets events
+  ///
+  /// This CDF analysis provides jet pT distributions for 4 jet multiplicity bins
   /// as well as the jet multiplicity distribution in W + jets events.
   /// e-Print: arXiv:0711.4044 [hep-ex]
   class CDF_2008_S7541902 : public Analysis {
