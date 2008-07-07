@@ -22,7 +22,7 @@ namespace Rivet {
     /// @name Standard constructors and destructors. */
     //@{
     /// The standard constructor.
-    /// @param filename the name of the file (no extension) where histograms are to be stored.
+    /// @param basefilename the name of the file (no extension) where histograms are to be stored.
     /// @param storetype a string indicating to the AIDA analysis factory
     ///   how to store the histograms. Which strings are allowed depends on
     ///   actual AIDA implementation used. To output in standard AIDA XML the
