@@ -2,19 +2,16 @@
 #define RIVET_MATH_MATRIXN
 
 #include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 
-//class Matrix3;
+namespace Rivet {
+
+
 template <size_t N>
 class Matrix;
-template <size_t N>
-Matrix<N> transpose(const Matrix<N>& m);
-template <size_t N>
-Matrix<N> inverse(const Matrix<N>& m);
-template <size_t N>
-double det(const Matrix<N>& m);
-template <size_t N>
-double trace(const Matrix<N>& m);
+typedef Matrix<4> Matrix4;
+
 template <size_t N>
 Matrix<N> multiply(const Matrix<N>& a, const Matrix<N>& b);
 template <size_t N>
@@ -22,23 +19,12 @@ Matrix<N> divide(const Matrix<N>&, const double);
 template <size_t N>
 Matrix<N> operator*(const Matrix<N>& a, const Matrix<N>& b);
 
-template <size_t N>
-string toString(const Matrix<N>& m);
-template <size_t N>
-inline ostream& operator<<(std::ostream& out, const Matrix<N>& m);
-
-template <typename Real>
-bool isZero(const Real a, const Real tolerance);
-
-typedef Matrix<4> Matrix4;
-
 
 ///////////////////////////////////
 
 
 template <size_t N>
 class Matrix {
-  //friend class Matrix3;
   template <size_t M>
   friend Matrix<M> add(const Matrix<M>&, const Matrix<M>&);
   template <size_t M>
@@ -49,14 +35,6 @@ class Matrix {
   friend Vector<M> multiply(const Matrix<M>&, const Vector<M>&);
   template <size_t M>
   friend Matrix<M> divide(const Matrix<M>&, const double);
-  template <size_t M>
-  friend Matrix<M> transpose(const Matrix<M>&);
-  template <size_t M>
-  friend Matrix<M> inverse(const Matrix<M>&);
-  template <size_t M>
-  friend double det(const Matrix<M>&);
-  template <size_t M>
-  friend double trace(const Matrix<M>&);
 
 public:
   static Matrix<N> Zero() {
@@ -137,21 +115,34 @@ public:
     return *this;
   }
 
-
   Matrix<N> transpose() const {
-    return ::transpose(*this);
+    Matrix<N> tmp = *this;
+    tmp._matrix.replaceWithAdjoint();
+    return tmp;
   }
-  
+
+  // Matrix<N>& transposeInPlace() {
+  //   _matrix.replaceWithAdjoint();
+  //   return *this;
+  // }
+
   Matrix<N> inverse() const {
-    return ::inverse(*this);
+    Matrix<N> tmp;
+    tmp._matrix = _matrix.inverse();
+    return tmp;
   }
 
   double det() const  {
-    return ::det(*this);
+    return _matrix.determinant();
   }
 
   double trace() const {
-    return ::trace(*this);
+    double tr = 0.0;
+    for (size_t i = 0; i < N; ++i) {
+      tr += _matrix(i,i);
+    }
+    return tr;
+    // return _matrix.trace();
   }
 
   Matrix<N> operator-() const {
@@ -167,7 +158,7 @@ public:
   const bool isZero() const {
     for (size_t i=0; i < N; ++i) {
       for (size_t j=0; j < N; ++j) {
-        if (! ::isZero(_matrix(i,j)) ) return false;
+        if (! Rivet::isZero(_matrix(i,j)) ) return false;
       }
     }
     return true;
@@ -176,7 +167,7 @@ public:
   const bool isEqual(Matrix<N> other) const {
     for (size_t i=0; i < N; ++i) {
       for (size_t j=i; j < N; ++j) {
-        if (! ::isZero(_matrix(i,j) - other._matrix(i,j)) ) return false;
+        if (! Rivet::isZero(_matrix(i,j) - other._matrix(i,j)) ) return false;
       }
     }
     return true;
@@ -190,7 +181,7 @@ public:
     for (size_t i=0; i < N; ++i) {
       for (size_t j=0; j < N; ++j) {
         if (i == j) continue;
-        if (! ::isZero(_matrix(i,j)) ) return false;
+        if (! Rivet::isZero(_matrix(i,j)) ) return false;
       }
     }
     return true;
@@ -330,35 +321,29 @@ inline Vector<N> operator*(const Matrix<N>& a, const Vector<N>& b) {
 
 template <size_t N>
 inline Matrix<N> transpose(const Matrix<N>& m) {
-  Matrix<N> tmp;
-  for (size_t i = 0; i < N; ++i) {
-    for (size_t j = 0; j < N; ++j) {
-      tmp.set(i, j, m.get(j, i));
-    }
-  }
-  return tmp;
+  // Matrix<N> tmp;
+  // for (size_t i = 0; i < N; ++i) {
+  //   for (size_t j = 0; j < N; ++j) {
+  //     tmp.set(i, j, m.get(j, i));
+  //   }
+  // }
+  // return tmp;
+  return m.transpose();
 }
 
 template <size_t N>
 inline Matrix<N> inverse(const Matrix<N>& m) {
-  Matrix<N> tmp;
-  tmp._matrix = m._matrix.inverse();
-  return tmp;
+  return m.inverse();
 }
 
 template <size_t N>
 inline double det(const Matrix<N>& m) {
-  return m._matrix.determinant();
+  return m.determinant();
 }
 
 template <size_t N>
 inline double trace(const Matrix<N>& m) {
-  double tr = 0;
-  for (size_t i = 0; i < N; ++i) {
-    tr += m._matrix(i,i);
-  }
-  return tr;
-  //m._matrix.trace();
+  return m.trace();
 }
 
 
@@ -373,7 +358,7 @@ inline string toString(const Matrix<N>& m) {
     ss << "( ";
     for (size_t j = 0; j < m.size(); ++j) {
       const double e = m.get(i, j);
-      ss << (isZero(e) ? 0.0 : e) << " ";
+      ss << (Rivet::isZero(e) ? 0.0 : e) << " ";
     }
     ss << ") ";
   }
@@ -388,5 +373,7 @@ inline ostream& operator<<(std::ostream& out, const Matrix<N>& m) {
   return out;
 }
 
+
+}
 
 #endif

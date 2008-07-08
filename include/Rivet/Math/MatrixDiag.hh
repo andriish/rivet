@@ -4,6 +4,8 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MatrixN.hh"
 
+namespace Rivet {
+
 
 // GSL forward declarations (avoids need for GSL header files)
 extern "C" {
@@ -165,5 +167,7 @@ inline ostream& operator<<(std::ostream& out, const typename EigenSystem<N>::Eig
   return out;
 }
 
+
+}
 
 #endif

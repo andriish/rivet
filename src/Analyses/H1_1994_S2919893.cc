@@ -82,14 +82,14 @@ namespace Rivet {
       }
       // energy-energy correlation
       if(th<=8.) continue;
-      double phi1 = p->getMomentum().azimuthalAngle(ZERO2PI);
+      double phi1 = p->getMomentum().azimuthalAngle(ZERO_2PI);
       double eta1 = p->getMomentum().pseudorapidity();
       double et1 = fabs(Et(p->getMomentum()));
       for(ParticleVector::const_iterator p2 = p+1;
 	  p2!=particles.end();++p2) {
 	double th2 = beamAngle(p2->getMomentum(),order);
 	if(th2<=8.) continue;
-	double phi2 = p2->getMomentum().azimuthalAngle(ZERO2PI);
+	double phi2 = p2->getMomentum().azimuthalAngle(ZERO_2PI);
 	double deltaphi = phi1-phi2;
 	if(fabs(deltaphi)>pi) deltaphi=fabs(fabs(deltaphi)-2.*pi);
 	double eta2 = p2->getMomentum().pseudorapidity();

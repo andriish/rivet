@@ -3,27 +3,9 @@
 #define RIVET_MathUtils_HH
 
 #include "Rivet/Math/MathHeader.hh"
-using std::min;
-using std::max;
 
-/// @todo Namespace these functions...
-//namespace Rivet {
+namespace Rivet {
 
-  /// @todo Is the "static" declaration needed?
-static const double MAXDOUBLE = std::numeric_limits<double>::max();
-static const double MAXINT = std::numeric_limits<int>::max();
-
-  /// A pre-defined value of \f$ \pi \f$.
-  const double PI = 4*atan(1);
-
-  /// A pre-defined value of \f$ 2\pi \f$.
-  const double TWOPI = 2*PI;
-
-  /// A pre-defined value of \f$ \pi/2 \f$.
-  const double HALFPI = PI/2.0;
-
-  /// Enum for signs of numbers.
-  enum Sign { MINUS = -1, ZERO = 0, PLUS = 1 };
 
   /// Compare a floating point number to zero with a degree 
   /// of fuzziness expressed by the absolute @a tolerance parameter.
@@ -96,15 +78,6 @@ static const double MAXINT = std::numeric_limits<int>::max();
       return (value >= low && value <= high);
     }
   }
-//}
-
-
-// Include vectors and matrices (can't come earlier?)
-#include "Rivet/Math/Vectors.hh"
-#include "Rivet/Math/Matrices.hh"
-
-
-//namespace Rivet {
 
   /// Named number-type squaring operation.
   template <typename Num>
@@ -143,178 +116,18 @@ static const double MAXINT = std::numeric_limits<int>::max();
     return fabs(mapAngleMPiToPi(angle));
   }
 
-  /// Calculate the difference between two angles in radians, returning in the
-  /// range [0, PI].
-  inline double delta_phi(double phi1, double phi2) {
+  /// Calculate the difference between two angles in radians, 
+  /// returning in the range [0, PI].
+  inline double deltaPhi(double phi1, double phi2) {
     return mapAngle0ToPi(fabs(phi1 - phi2));
   }
 
   /// Calculate the distance between two points in 2D rapidity-azimuthal
   /// ("eta-phi") space. The phi values are given in radians.
   inline double deltaR(double y1, double phi1, double y2, double phi2) {
-    const double dphi = delta_phi(phi1, phi2);
+    const double dphi = deltaPhi(phi1, phi2);
     return sqrt( sqr(y1-y2) + sqr(dphi) );
   }
-
-  /// Calculate the distance between two points in 2D rapidity-azimuthal
-  /// ("eta-phi") space. The phi values are given in radians.
-  inline double delta_rad(double y1, double phi1, double y2, double phi2) {
-    return deltaR(y1, phi1, y2, phi2);
-  }
-
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// spatial vectors.
-  inline double deltaR(const Vector3& a, const Vector3& b) {
-    return delta_rad(a.pseudorapidity(), a.azimuthalAngle(),
-                     b.pseudorapidity(), b.azimuthalAngle());
-  }
-
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// spatial vectors.
-  inline double deltaR(const Vector3& v, double eta2, double phi2) {
-    return delta_rad(v.pseudorapidity(), v.azimuthalAngle(),
-                     eta2, phi2);
-  }
-
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// spatial vectors.
-  inline double deltaR(double eta1, double phi1, const Vector3& v) {
-    return delta_rad(eta1, phi1,
-                     v.pseudorapidity(), v.azimuthalAngle());
-  }
-
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// four-vectors. There is a scheme ambiguity for momentum-type four vectors
-  /// as to whether the pseudorapidity (a purely geometric concept) or the
-  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
-  /// be chosen via the optional scheme parameter, which is discouraged in this
-  /// case since @c RAPIDITY is only a valid option for vectors whose type is
-  /// really the FourMomentum derived class.
-  inline double deltaR(const FourVector& a, const FourVector& b, 
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY :
-      return deltaR(a.vector3(), b.vector3());
-    case RAPIDITY:
-      {
-        const FourMomentum* ma = dynamic_cast<const FourMomentum*>(&a);
-        const FourMomentum* mb = dynamic_cast<const FourMomentum*>(&b);
-        if (!ma || !mb) {
-          string err = "deltaR with scheme RAPIDITY, can be called with FourMomenta only";
-          throw std::runtime_error(err);
-        }
-        return deltaR(*ma, *mb, scheme);
-      }
-    default: 
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
-  }
-
-
-  inline double deltaR(const FourVector& v, 
-                       double eta2, double phi2,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY :
-      return deltaR(v.vector3(), eta2, phi2);
-    case RAPIDITY:
-      {
-        const FourMomentum* mv = dynamic_cast<const FourMomentum*>(&v);
-        if (!mv) {
-          string err = "deltaR with scheme RAPIDITY, can be called with FourMomenta only";
-          throw std::runtime_error(err);
-        }
-        return deltaR(*mv, eta2, phi2, scheme);
-      }
-    default: 
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
-  }
-
-
-  inline double deltaR(double eta1, double phi1,
-                       const FourVector& v, 
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY :
-      return deltaR(eta1, phi1, v.vector3());
-    case RAPIDITY:
-      {
-        const FourMomentum* mv = dynamic_cast<const FourMomentum*>(&v);
-        if (!mv) {
-          string err = "deltaR with scheme RAPIDITY, can be called with FourMomenta only";
-          throw std::runtime_error(err);
-        }
-        return deltaR(eta1, phi1, *mv, scheme);
-      }
-    default: 
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
-  }
-
-
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// four-vectors. There is a scheme ambiguity for momentum-type four vectors
-  /// as to whether the pseudorapidity (a purely geometric concept) or the
-  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
-  /// be chosen via the optional scheme parameter.
-  inline double deltaR(const FourMomentum& a, const FourMomentum& b, 
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY:
-      return deltaR(a.vector3(), b.vector3());
-    case RAPIDITY:
-      return delta_rad(a.rapidity(), a.azimuthalAngle(),
-                       b.rapidity(), b.azimuthalAngle());
-    default:
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
-  }
-
-  inline double deltaR(const FourMomentum& v,
-                       double eta2, double phi2,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY:
-      return deltaR(v.vector3(), eta2, phi2);
-    case RAPIDITY:
-      return delta_rad(v.rapidity(), v.azimuthalAngle(),
-                       eta2, phi2);
-    default:
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
-  }
-
-
-  inline double deltaR(double eta1, double phi1,
-                       const FourMomentum& v,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY:
-      return deltaR(eta1, phi1, v.vector3());
-    case RAPIDITY:
-      return delta_rad(eta1, phi1,
-                       v.rapidity(), v.azimuthalAngle());
-    default:
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
-  }  
-
-
-  /// Returns phi in the interval (-PI, PI]
-  /// @deprecated Prefer the mapAngleMPiToPi function, whose name makes the operation explicit.
-  inline double phi(double px, double py) {
-    //return atan2(py, px);
-    double value = atan2( py, px );
-    if (value > 2*PI || value < -2*PI){
-      value = fmod(value, 2*PI);
-    }
-    if (value <= -PI) value+=2*PI;
-    if (value >   PI) value-=2*PI;
-    assert(value > -PI && value <= PI);
-    return value;
-  }
-
 
   /// Calculate a rapidity value from the supplied energy @a E and longitudinal momentum @pz.
   inline double rapidity(double E, double pz) {
@@ -329,6 +142,40 @@ static const double MAXINT = std::numeric_limits<int>::max();
     return 0.5*log((E+pz)/(E-pz));
   }
 
+
+
+  //////////////////////////////////////////////////////////////
+  /// DEPRECATED
+  //////////////////////////////////////////////////////////////
+
+  /// Calculate the difference between two angles in radians, 
+  /// returning in the range [0, PI].
+  /// @deprecated Prefer deltaPhi
+  inline double delta_phi(double phi1, double phi2) {
+    return mapAngle0ToPi(fabs(phi1 - phi2));
+  }
+
+
+  /// Calculate the distance between two points in 2D rapidity-azimuthal
+  /// ("eta-phi") space. The phi values are given in radians.
+  /// @deprecated Prefer deltaR(y1, phi1, y2, phi2)
+  inline double delta_rad(double y1, double phi1, double y2, double phi2) {
+    return deltaR(y1, phi1, y2, phi2);
+  }
+
+  /// Returns phi in the interval (-PI, PI]
+  /// @deprecated Prefer the mapAngleMPiToPi function, whose name makes the operation explicit.
+  inline double phi(double px, double py) {
+    //return atan2(py, px);
+    double value = atan2( py, px );
+    if (value > 2*PI || value < -2*PI){
+      value = fmod(value, 2*PI);
+    }
+    if (value <= -PI) value+=2*PI;
+    if (value >   PI) value-=2*PI;
+    assert(value > -PI && value <= PI);
+    return value;
+  }
 
   #include <cerrno>
   /// Calculate a rapidity value from the supplied energy @a E and longitudinal momentum @pz.
@@ -346,6 +193,7 @@ static const double MAXINT = std::numeric_limits<int>::max();
     return y;
   }
 
-//}
+
+}
 
 #endif

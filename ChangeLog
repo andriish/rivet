@@ -1,3 +1,10 @@
+2008-07-08  Andy Buckley  <andy@insectnation.org>
+
+	* Added Rivet namespacing to vector, matrix etc. classes. This
+	required some re-writing and the opportunity was taken to move
+	some canonical function definitions inside the classes and to
+	improve the header structure of the Math area.
+
 2008-07-07  Andy Buckley  <andy@insectnation.org>
 
 	* Added Rivet namespace to Units.hh and Constants.hh.

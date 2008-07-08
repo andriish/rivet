@@ -2,11 +2,11 @@
 #define RIVET_MATH_MATRIX3
 
 #include "Rivet/Math/MathHeader.hh"
+#include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/MatrixN.hh"
 #include "Rivet/Math/Vector3.hh"
 
-template <typename Real>
-bool isZero(const Real a, const Real tolerance);
+namespace Rivet {
 
 
 class Matrix3 : public Matrix<3> {
@@ -40,7 +40,7 @@ public:
 public:
   Matrix3& setAsRotation(const Vector3& from, const Vector3& to) {
     const double theta = angle(from, to);
-    if (::isZero(theta)) {
+    if (Rivet::isZero(theta)) {
       _matrix.loadIdentity();
     } else {
       const Vector3 normaxis = cross(from, to).unit();
@@ -50,5 +50,8 @@ public:
   }
 
 };
+
+
+}
 
 #endif

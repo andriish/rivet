@@ -67,10 +67,10 @@ namespace Rivet {
         stringstream debugline;
         debugline << "with PDG code = " << pdgid << " pT = " << p->getMomentum().vector3().polarRadius();
         if (pt < ptrange.getHigherThan() || pt > ptrange.getLowerThan()) { 
-          log << Log::DEBUG << "Storing " << debugline << endl;
+          log << Log::DEBUG << "Storing " << debugline.str() << endl;
           _theParticles.push_back(*p);
         } else {
-          log << Log::DEBUG << "Vetoing " << debugline << endl;
+          log << Log::DEBUG << "Vetoing " << debugline.str() << endl;
         }
       }
     }
