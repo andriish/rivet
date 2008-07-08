@@ -20,7 +20,9 @@ namespace Rivet {
     assert(_thePVertex);
     const unsigned int pVertexParticleSize = _thePVertex->particles_in_size();
     if (pVertexParticleSize != 2 ) {
-      throw Error("Wrong number of Primary Vertex particles: " + pVertexParticleSize);
+      stringstream ss;
+      ss << "Wrong number of Primary Vertex particles: " << pVertexParticleSize;
+      throw Error(ss.str());
     }
   }
 

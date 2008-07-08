@@ -79,10 +79,6 @@ namespace Rivet {
     /// function check the member variables of the sub-class to determine
     /// whether this should be ordered before or after \a p, or if it is
     /// equivalent with \a p.
-    ///
-    /// By default, this function returns the result of a comparison between two
-    /// requested child projections named "FS", since almost all projections
-    /// should have such a child.
     virtual int compare(const Projection& p) const = 0;
     
   public:

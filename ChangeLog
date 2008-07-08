@@ -1,5 +1,8 @@
 2008-07-08  Andy Buckley  <andy@insectnation.org>
 
+	* Removed accidental reference to an "FS" projection in
+	FinalStateHCM's compare method. rivetgun -A now works again.
+
 	* Added TASSO, SLD and D0_2008 reference data. The TASSO and SLD
 	papers aren't installed or included in the tarball since there are
 	currently no plans to implement these analyses.
