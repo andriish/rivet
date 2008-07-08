@@ -1,5 +1,9 @@
 2008-07-08  Andy Buckley  <andy@insectnation.org>
 
+	* Added TASSO, SLD and D0_2008 reference data. The TASSO and SLD
+	papers aren't installed or included in the tarball since there are
+	currently no plans to implement these analyses.
+
 	* Added Rivet namespacing to vector, matrix etc. classes. This
 	required some re-writing and the opportunity was taken to move
 	some canonical function definitions inside the classes and to

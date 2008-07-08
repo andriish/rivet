@@ -28,6 +28,7 @@ nobase_dist_data_DATA = \
   Rivet/CDF_2008_DRELLYAN.aida         \
   Rivet/D0_2001_S4674421.aida          \
   Rivet/D0_2004_S5992206.aida          \
+  Rivet/D0_2008_S6879055.aida          \
   Rivet/PDG_Hadron_Multiplicities.aida \
   Rivet/FPythiaLEP10.hepmc
 

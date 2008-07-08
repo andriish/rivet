@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="FreeHEP"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+    path="/REF/D0_2008_S6879055/" title="SIG(Q=.GE.1JET)/SIG(Q=INCL)">
+    <annotation>
+      <item key="Title" value="SIG(Q=.GE.1JET)/SIG(Q=INCL)"
+        sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/D0_2008_S6879055/d01-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/D0_2008_S6879055.aida/REF/D0_2008_S6879055/d01-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1960.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.015945218719101973"
+        value="0.1201" errorMinus="0.017415510328439993"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y02" dimension="2"
+    path="/REF/D0_2008_S6879055/" title="SIG(Q=.GE.2JET)/SIG(Q=INCL)">
+    <annotation>
+      <item key="Title" value="SIG(Q=.GE.2JET)/SIG(Q=INCL)"
+        sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/D0_2008_S6879055/d01-x01-y02" sticky="true"/>
+      <item key="FullPath"
+        value="/D0_2008_S6879055.aida/REF/D0_2008_S6879055/d01-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1960.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.0063560994328282815"
+        value="0.0186" errorMinus="0.005192301994298868"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y03" dimension="2"
+    path="/REF/D0_2008_S6879055/" title="SIG(Q=.GE.3JET)/SIG(Q=INCL)">
+    <annotation>
+      <item key="Title" value="SIG(Q=.GE.3JET)/SIG(Q=INCL)"
+        sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/D0_2008_S6879055/d01-x01-y03" sticky="true"/>
+      <item key="FullPath"
+        value="/D0_2008_S6879055.aida/REF/D0_2008_S6879055/d01-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1960.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.0015357408635573906"
+        value="0.0028" errorMinus="0.0011988327656516566"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y04" dimension="2"
+    path="/REF/D0_2008_S6879055/" title="SIG(Q=.GE.4JET)/SIG(Q=INCL)">
+    <annotation>
+      <item key="Title" value="SIG(Q=.GE.4JET)/SIG(Q=INCL)"
+        sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/D0_2008_S6879055/d01-x01-y04" sticky="true"/>
+      <item key="FullPath"
+        value="/D0_2008_S6879055.aida/REF/D0_2008_S6879055/d01-x01-y04" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1960.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="6.511528238439883E-4"
+        value="9.0E-4" errorMinus="5.946427498927402E-4"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
