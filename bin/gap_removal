@@ -52,7 +52,7 @@ class Histogram:
             path  = self.description['AidaPath']
             title = self.description['Title']
             f.write('  <dataPointSet name="%s" dimension="2"\n' % path.split('/')[-1])
-            f.write('  path="%s" title="%s">\n' %(path.replace(path.split('/')[-1], ''), title))
+            f.write('  path="%s" title="%s">\n' %(os.path.abspath(path.replace(path.split('/')[-1], '')), title))
             f.write('    <annotation>\n')
             f.write('      <item key="Title" value="%s" sticky="true"/>\n' %title)
             f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
