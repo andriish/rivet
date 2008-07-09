@@ -12,7 +12,7 @@ namespace Rivet {
 
   D0_2008_S6879055::D0_2008_S6879055() : _events(0) 
   {
-    //setBeams(PROTON, ANTIPROTON);
+    setBeams(PROTON, ANTIPROTON);
     //full final state
     FinalState fs(-5.0, 5.0);
     addProjection(fs, "FS");
