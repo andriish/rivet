@@ -88,16 +88,18 @@ namespace Rivet {
   /// Reduce any number to the range [-2PI, 2PI] by repeated addition or
   /// subtraction of 2PI as required. Used to normalise angular measures.
   inline double mapAngleM2PITo2Pi(double angle) {
-    return fmod(angle, TWOPI);
+    angle = fmod(angle, TWOPI);
+    assert(angle >= -TWOPI && angle <= TWOPI);
+    return angle;
   }
 
   /// Calculate the difference between two angles in radians, returning in the
-  /// range [-PI, PI].
+  /// range (-PI, PI].
   inline double mapAngleMPiToPi(double angle) {
     angle = mapAngleM2PITo2Pi(angle);
-    if (angle >  PI) angle -= TWOPI;
-    if (angle < -PI) angle += TWOPI;
-    assert(angle >= -PI && angle <= PI);
+    angle = ( angle >   PI ? angle-TWOPI :
+              angle <= -PI ? angle+TWOPI : angle);   
+    assert(angle >= -PI && angle < PI);
     return angle;
   }
 
@@ -113,7 +115,9 @@ namespace Rivet {
   /// Calculate the difference between two angles in radians, returning in the
   /// range [0, PI].
   inline double mapAngle0ToPi(double angle) {
-    return fabs(mapAngleMPiToPi(angle));
+    angle = fabs(mapAngleMPiToPi(angle));
+    assert(angle >= 0 && angle <= PI);
+    return angle;
   }
 
   /// Calculate the difference between two angles in radians, 
@@ -142,6 +146,10 @@ namespace Rivet {
     return 0.5*log((E+pz)/(E-pz));
   }
 
+
+  /// Calculate (pseudo)rapidity relative to another vector
+  /// @todo Implement in Vector{3,4}
+  //inline double rapidity(v4, relativeTo) { ... }
 
 
   //////////////////////////////////////////////////////////////

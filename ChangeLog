@@ -1,5 +1,8 @@
 2008-07-09  Andy Buckley  <andy@insectnation.org>
 
+	* Fixed definitions of mapAngleMPiToPi, etc. and used them to fix
+	the Jet::getPhi method.
+
 	* Trialling use of "foreach" loop in CDF_2004: it works! Very nice.
 
 2008-07-08  Andy Buckley  <andy@insectnation.org>

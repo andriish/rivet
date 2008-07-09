@@ -165,20 +165,17 @@ namespace Rivet {
     void _calcPtAvgs() const {
       if (!_okPtWeightedEta || !_okPtWeightedPhi) {
         double ptwetasum(0.0), ptwphisum(0.0), ptsum(0.0);
-        double phibegin = (0.0);
+        double phibegin = 0.0;
         for (const_iterator p = this->begin(); p != this->end(); ++p) {
-          
           double pt = p->pT();
           ptsum += pt;
           ptwetasum += pt * p->pseudorapidity();
-          
-          if (p == this->begin())
+
+          if (p == this->begin()) {
             phibegin = p->azimuthalAngle();
-          else {
-            double dphi = p->azimuthalAngle() - phibegin;
-            ptwphisum += pt*
-              ( dphi > PI ? dphi-TWOPI :
-                dphi < -PI ? dphi+TWOPI : dphi);   
+          } else {
+            const double dphi = p->azimuthalAngle() - phibegin;
+            ptwphisum += pt * mapAngleMPiToPi(dphi);
           }
         }
         _totalPt = ptsum;
@@ -186,6 +183,7 @@ namespace Rivet {
         _ptWeightedEta = ptwetasum / getPtSum();
         _okPtWeightedEta = true;
         _ptWeightedPhi = phibegin + ptwphisum / getPtSum();
+        _ptWeightedPhi = mapAngleMPiToPi(_ptWeightedPhi);
         _okPtWeightedPhi = true;
       }
     }
@@ -195,14 +193,21 @@ namespace Rivet {
     void _calcAvgs() const {
       if (!_okEta || !_okPhi) {
         double etasum(0.0), phisum(0.0);
+        double phibegin = 0.0;
         for (const_iterator p = this->begin(); p != this->end(); ++p) {
           etasum += p->pseudorapidity();
-          phisum += p->azimuthalAngle();
+          if (p == this->begin()) {
+            phibegin = p->azimuthalAngle();
+          } else {
+            const double dphi = p->azimuthalAngle() - phibegin;
+            phisum += mapAngleMPiToPi(dphi);
+          }
         }
-        const double dnum( getNumParticles() );
+        const double dnum = getNumParticles();
         _eta = etasum / dnum;
         _okEta = true;
-        _phi = phisum / dnum;
+        _phi = phibegin + phisum / dnum;
+        _phi = mapAngleMPiToPi(_phi);
         _okPhi = true;
       }
       
