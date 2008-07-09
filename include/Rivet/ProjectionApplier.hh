@@ -26,6 +26,12 @@ namespace Rivet {
 
   public:
 
+    /// @name Metadata functions
+    //@{
+    /// Get the name of this Projection or Analysis class
+    virtual string getName() const = 0;
+    //@}
+
     /// @name Projection "getting" functions
     //@{
     /// Get the contained projections, including recursion.

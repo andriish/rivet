@@ -73,8 +73,10 @@ namespace Rivet {
   const Projection& ProjectionHandler::registerProjection(const ProjectionApplier& parent, 
                                                           const Projection& proj, 
                                                           const string& name) {
-    getLog() << Log::TRACE << "Trying to register projection " << &proj 
-             << " for parent " << &parent << " with name '" << name << "'" << endl;
+    getLog() << Log::TRACE << "Trying to register"
+             << " projection " << &proj  << "(" << proj.getName() << ")"
+             << " for parent " << &parent << "(" << parent.getName() << ")"
+             << " with name '" << name << "'" << endl;
 
     // Try to find an exact match by pointer
     if (find(_projs.begin(), _projs.end(), &proj) != _projs.end()) {

@@ -1,3 +1,7 @@
+2008-07-09  Andy Buckley  <andy@insectnation.org>
+
+	* Trialling use of "foreach" loop in CDF_2004: it works! Very nice.
+
 2008-07-08  Andy Buckley  <andy@insectnation.org>
 
 	* Removed accidental reference to an "FS" projection in

@@ -11,7 +11,9 @@ namespace Rivet {
 
     assert(e.genEvent().particles_size() >= 2);
     std::pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent().beam_particles();
+    assert(beams.first);
     _theBeams.first = *(beams.first);
+    assert(beams.second);
     _theBeams.second = *(beams.second);
 
     log << Log::DEBUG << "Beam particle IDs = " 
