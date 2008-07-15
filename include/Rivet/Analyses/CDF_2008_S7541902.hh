@@ -32,9 +32,10 @@ namespace Rivet {
     CDF_2008_S7541902() {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-
+      FinalState fs(-3.6,3.6);
+      addProjection(fs, "FS");
       // Veto neutrinos, W decay products, and muons with \f$ p_T \f$ above 1.0 GeV
-      VetoedFinalState vfs;
+      VetoedFinalState vfs(fs);
       vfs
         .addVetoPairId(NU_E)
         .addVetoPairId(NU_MU)
@@ -42,7 +43,7 @@ namespace Rivet {
         .addVetoDetail(13, 1.0, MAXDOUBLE) //< @todo Check that this also covers antimuons
         .addDecayProductsVeto(WPLUSBOSON)
         .addDecayProductsVeto(WMINUSBOSON);
-      addProjection(vfs, "FS");
+      addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
     }
 
