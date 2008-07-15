@@ -1,5 +1,7 @@
 2008-07-15  Andy Buckley  <buckley@d18.phyip3.dur.ac.uk>
 
+	* Fixed missing namespace in vector/matrix testing.
+
 	* Removed Boost headers: now a system dependency.
 
 	* Fixed polarRadius infinite loop.
