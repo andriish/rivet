@@ -1,2 +1,2 @@
 SUBDIRS = Rivet
-EXTRA_DIST = tclap AIDA TinyXML LWH boost
+EXTRA_DIST = tclap AIDA TinyXML LWH

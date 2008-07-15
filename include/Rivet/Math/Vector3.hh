@@ -93,7 +93,7 @@ namespace Rivet {
     }
 
     double polarRadius() const {
-      return sqrt(polarRadius());
+      return sqrt(polarRadius2());
     }
 
     double azimuthalAngle(const PhiMapping mapping = ZERO_2PI) const {

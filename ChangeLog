@@ -1,3 +1,9 @@
+2008-07-15  Andy Buckley  <buckley@d18.phyip3.dur.ac.uk>
+
+	* Removed Boost headers: now a system dependency.
+
+	* Fixed polarRadius infinite loop.
+
 2008-07-09  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed definitions of mapAngleMPiToPi, etc. and used them to fix

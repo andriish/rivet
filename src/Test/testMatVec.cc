@@ -4,6 +4,7 @@
 #include "Rivet/Math/Matrices.hh"
 
 using namespace std;
+using namespace Rivet;
 
 int main() {
 

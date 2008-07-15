@@ -34,6 +34,7 @@ AC_SUBST([LIB_SUFFIX])
 ## Find required libraries
 AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
+AC_CEDAR_HEADERS([Boost], , , [AC_MSG_ERROR([Boost is required])])
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 
@@ -77,7 +78,7 @@ AM_CONDITIONAL([WITH_ROOT], [test x$enable_root == xyes])
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
-AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
+AM_CPPFLAGS="$AM_CPPFLAGS -I\$(BOOSTINCPATH) \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPIDINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPDTINCPATH)"
