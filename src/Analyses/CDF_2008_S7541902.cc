@@ -10,9 +10,14 @@ namespace Rivet {
 
   void CDF_2008_S7541902::init() {
     /// @todo Use histogram auto-booking when the paper is in HepData.
-    /// @todo get root output
+    /*  for (int i = 0 ; i < 3 ; i++) {
+      stringstream title;
+      title << "Et of jet " << i + 1;
+      _histJetEt[i]    = bookHistogram1D(i+1,1,1,title.str().c_str());
+    }
+    _histJetMult   = bookHistogram1D(4,1,1, "Inclusive Jet Multiplicity");
+    */
     _histJetMult   = bookHistogram1D("histJetMult", "Inclusive Jet Multiplicity", 5,-0.5,4.5);
-    // _histJetEt[0]    = bookHistogram1D(1,1,1,"First Jet Et");
     const int bins1 = 13;
     const double xbins1[bins1] = {20.,25.,30.,35.,40.,50.,60.,75.,90.,110.,150.,195.,350.};
     _histJetEt[0]    = bookHistogram1D("histJetEt_1jet", "First Jet Et", vector<double>(xbins1, xbins1+bins1));
@@ -25,6 +30,7 @@ namespace Rivet {
     const int bins4 = 3;
     const double xbins4[bins4] = {20.,25.,35.};
     _histJetEt[3]  = bookHistogram1D("histJetEt_4jet", "Fourth Jet Et", vector<double>(xbins4, xbins4+bins4));
+    
   }
 
 
@@ -42,6 +48,7 @@ namespace Rivet {
     for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
       // Pick out final state electrons and electron neutrinos
       const unsigned int abs_id = abs(p->getPdgId());
+
       if (abs_id == ELECTRON || abs_id == NU_E) {
         bool fromW = false;
         GenVertex *startVtx = (p->getHepMCParticle()).production_vertex();       
@@ -54,7 +61,7 @@ namespace Rivet {
           log << Log::WARN << "No vertex found for final state particles" << endl;
         }
         if (fromW && abs_id == ELECTRON) electronP = p->getMomentum();
-        if (fromW && abs_id == NU_E) neutrinoP = p->getMomentum();
+        if (fromW && abs_id == NU_E)     neutrinoP = p->getMomentum();
       }
     }
 
@@ -62,8 +69,9 @@ namespace Rivet {
     bool fail = false;
     if (electronP.pT() < 20.0 || fabs(electronP.pseudorapidity()) > 1.1) fail = true;
     if (neutrinoP.pT() < 30.0)  fail = true;
-    if (electronP.pT() == 0.)  log << Log::WARN << "No final state electron found" << endl;
-    if (neutrinoP.pT() == 0.)  log << Log::WARN << "No final state neutrino found" << endl;
+    if (electronP.pT() == 0.)  log << Log::TRACE << "No final state electron found, probably outside eta range" << endl;
+    if (neutrinoP.pT() == 0.)  log << Log::TRACE << "No final state neutrino found, probably outside eta range" << endl;
+    
     if (!fail) {
       /// @todo Should add this as a function in FourMom
       float MT = electronP.pT()*neutrinoP.pT() - 
@@ -102,9 +110,11 @@ namespace Rivet {
   // Finalize
   void CDF_2008_S7541902::finalize() { 
     float xsec = crossSection()/sumOfWeights();
-    _histJetMult->scale(xsec);
-    for (int i=0; i<4; i++) _histJetEt[i]->scale(xsec);
+    for (int i=0; i<4; i++) {
+      _histJetEt[i]->scale(xsec);
+    }
+   _histJetMult->scale(xsec);
   }
   
-  
+    
 }
