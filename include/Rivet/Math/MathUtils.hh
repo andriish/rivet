@@ -99,7 +99,7 @@ namespace Rivet {
     angle = mapAngleM2PITo2Pi(angle);
     angle = ( angle >   PI ? angle-TWOPI :
               angle <= -PI ? angle+TWOPI : angle);   
-    assert(angle >= -PI && angle < PI);
+    assert(angle > -PI && angle <= PI);
     return angle;
   }
 
