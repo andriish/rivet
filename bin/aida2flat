@@ -38,9 +38,9 @@ class Histo:
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
         if opts.GNUPLOT:
-            out += "## xval\tyval\txlow\txhigh\tylow\tyhigh\n"
+            out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
         else:
-            out += "## xlow\txhigh\tyval\tyerrminus\tyerrplus\n"
+            out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
 	out += "\n# END HISTOGRAM"
         return out
