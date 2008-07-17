@@ -206,10 +206,10 @@ namespace Rivet {
       }
       rh.finalize();
     }
-    if (gen){
-      Loader::destroyGen(gen);
-      Loader::finalize();
-    }
+    //if (gen){
+      ////Loader::destroyGen(gen);
+      //Loader::finalize();
+    //}
 
 
     // Write out the histogram tree into the registered file.

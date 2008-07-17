@@ -1,0 +1,1397 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="FreeHEP"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Pi+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Pi+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.060606" value="1.000000" errorMinus="0.060606"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Pi+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Pi+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.077670" value="1.000000" errorMinus="0.077670"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Pi+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Pi+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.022327" value="1.000000" errorMinus="0.022327"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Pi+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Pi+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d01-x01-y04" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
+      <measurement errorPlus="0.036723" value="1.000000" errorMinus="0.036723"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Pi0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Pi0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d02-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d02-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.060147" value="0.484848" errorMinus="0.060147"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Pi0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Pi0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d02-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d02-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.049166" value="0.566019" errorMinus="0.049166"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Pi0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Pi0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d02-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d02-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.024980" value="0.553467" errorMinus="0.024980"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.010193" value="0.136364" errorMinus="0.010193"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.014318" value="0.143689" errorMinus="0.014318"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.004928" value="0.130905" errorMinus="0.004928"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d03-x01-y04" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
+      <measurement errorPlus="0.011383" value="0.132768" errorMinus="0.011383"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.011754" value="0.137879" errorMinus="0.011754"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.012376" value="0.143689" errorMinus="0.012376"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.002872" value="0.120388" errorMinus="0.002872"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d04-x01-y04" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
+      <measurement errorPlus="0.007465" value="0.098870" errorMinus="0.007465"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean eta multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean eta multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d05-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d05-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.006979" value="0.030303" errorMinus="0.006979"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean eta multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean eta multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d05-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d05-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.009096" value="0.059223" errorMinus="0.009096"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean eta multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean eta multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d05-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d05-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.005388" value="0.061633" errorMinus="0.005388"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d06-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean eta'(958) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean eta'(958) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d06-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d06-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001653" value="0.004545" errorMinus="0.001653"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d06-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean eta'(958) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean eta'(958) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d06-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d06-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.010689" value="0.025243" errorMinus="0.010689"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d06-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean eta'(958) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean eta'(958) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d06-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d06-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001275" value="0.008931" errorMinus="0.001275"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d07-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d07-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d07-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.003770" value="0.029394" errorMinus="0.003770"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d07-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d07-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d07-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.003554" value="0.016505" errorMinus="0.003554"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d07-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d07-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d07-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001055" value="0.010282" errorMinus="0.001055"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d08-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d08-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d08-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.006896" value="0.067576" errorMinus="0.006896"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d08-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d08-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d08-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.008493" value="0.043689" errorMinus="0.008493"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d08-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d08-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d08-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.002060" value="0.026675" errorMinus="0.002060"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d09-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D+s multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D+s multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d09-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d09-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.002410" value="0.009545" errorMinus="0.002410"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d09-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D+s multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D+s multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d09-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d09-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.021114" value="0.043689" errorMinus="0.021114"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d09-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D+s multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D+s multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d09-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d09-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001320" value="0.007697" errorMinus="0.001320"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d10-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean B+, B0d multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean B+, B0d multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d10-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d10-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.003272" value="0.019389" errorMinus="0.003272"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d11-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean B+u multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean B+u multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d11-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d11-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000469" value="0.010458" errorMinus="0.000469"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d12-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean B0s multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean B0s multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d12-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d12-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000801" value="0.003349" errorMinus="0.000801"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d13-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f0(980) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f0(980) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d13-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d13-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001019" value="0.003636" errorMinus="0.001019"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d13-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f0(980) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f0(980) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d13-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d13-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.002130" value="0.004854" errorMinus="0.002130"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d13-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f0(980) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f0(980) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d13-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d13-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000801" value="0.008578" errorMinus="0.000801"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d14-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean a0(980)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean a0(980)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d14-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d14-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.006640" value="0.015864" errorMinus="0.006640"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d15-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean rho(770)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean rho(770)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d15-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d15-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.007668" value="0.053030" errorMinus="0.007668"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d15-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean rho(770)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean rho(770)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d15-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d15-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.010821" value="0.078641" errorMinus="0.010821"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d15-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean rho(770)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean rho(770)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d15-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d15-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.006565" value="0.072327" errorMinus="0.006565"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d16-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean rho(770)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean rho(770)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d16-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d16-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.026839" value="0.141011" errorMinus="0.026839"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d17-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean omega(782) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean omega(782) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d17-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d17-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.013499" value="0.045455" errorMinus="0.013499"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d17-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean omega(782) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean omega(782) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d17-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d17-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.004485" value="0.059694" errorMinus="0.004485"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d18-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K*(892)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K*(892)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d18-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d18-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.005785" value="0.040909" errorMinus="0.005785"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d18-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K*(892)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K*(892)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d18-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d18-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.007267" value="0.062136" errorMinus="0.007267"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d18-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K*(892)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K*(892)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d18-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d18-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.003935" value="0.042009" errorMinus="0.003935"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d19-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K*(892)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K*(892)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d19-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d19-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.005877" value="0.043939" errorMinus="0.005877"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d19-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K*(892)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K*(892)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d19-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d19-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.007937" value="0.054369" errorMinus="0.007937"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d19-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K*(892)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K*(892)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d19-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d19-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001894" value="0.043361" errorMinus="0.001894"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d20-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean phi(1020) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean phi(1020) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d20-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d20-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000657" value="0.006667" errorMinus="0.000657"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d20-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean phi(1020) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean phi(1020) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d20-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d20-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.001388" value="0.008252" errorMinus="0.001388"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d20-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean phi(1020) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean phi(1020) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d20-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d20-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000251" value="0.005658" errorMinus="0.000251"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d21-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D*(2010)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D*(2010)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d21-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d21-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.004146" value="0.026818" errorMinus="0.004146"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d21-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D*(2010)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D*(2010)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d21-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d21-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.008417" value="0.041748" errorMinus="0.008417"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d21-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D*(2010)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D*(2010)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d21-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d21-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000462" value="0.011381" errorMinus="0.000462"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d22-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D*(2007)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D*(2007)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d22-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d22-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.003650" value="0.025455" errorMinus="0.003650"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d22-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D*(2007)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D*(2007)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d22-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d22-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.011698" value="0.026214" errorMinus="0.011698"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d23-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D*s(2112)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D*s(2112)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d23-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d23-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.002342" value="0.007273" errorMinus="0.002342"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d23-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean D*s(2112)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean D*s(2112)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d23-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d23-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.002886" value="0.005934" errorMinus="0.002886"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean B* multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean B* multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d24-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d24-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001717" value="0.016921" errorMinus="0.001717"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean J/psi(1S) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean J/psi(1S) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d25-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d25-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000010" value="0.000076" errorMinus="0.000010"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean J/psi(1S) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean J/psi(1S) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d25-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d25-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000027" value="0.000306" errorMinus="0.000027"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d26-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean psi(2S) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean psi(2S) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d26-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d26-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000025" value="0.000135" errorMinus="0.000025"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d27-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Upsilon(1S) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Upsilon(1S) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d27-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d27-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000004" value="0.000008" errorMinus="0.000004"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d28-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f1(1285) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f1(1285) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d28-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d28-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.003105" value="0.009694" errorMinus="0.003105"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d29-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f1(1420) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f1(1420) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d29-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d29-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000742" value="0.003290" errorMinus="0.000742"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d30-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean chi_c1(3510) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean chi_c1(3510) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d30-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d30-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000067" value="0.000241" errorMinus="0.000067"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d31-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f2(1270) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f2(1270) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d31-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d31-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.003444" value="0.013636" errorMinus="0.003444"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d31-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f2(1270) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f2(1270) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d31-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d31-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.004411" value="0.013592" errorMinus="0.004411"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d31-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f2(1270) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f2(1270) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d31-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d31-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001284" value="0.009753" errorMinus="0.001284"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d32-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean f2'(1525) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean f2'(1525) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d32-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d32-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000360" value="0.000705" errorMinus="0.000360"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d33-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K2*(1430)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K2*(1430)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d33-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d33-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.003252" value="0.008738" errorMinus="0.003252"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d34-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K2*(1430)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K2*(1430)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d34-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d34-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.006278" value="0.011650" errorMinus="0.006278"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d34-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean K2*(1430)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean K2*(1430)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d34-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d34-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001348" value="0.004935" errorMinus="0.001348"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d35-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean B** multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean B** multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d35-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d35-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001488" value="0.006933" errorMinus="0.001488"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d36-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Ds1+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Ds1+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d36-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d36-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000068" value="0.000306" errorMinus="0.000068"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d37-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Ds2+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Ds2+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d37-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d37-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000188" value="0.000488" errorMinus="0.000188"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d38-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean p multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean p multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.003586" value="0.038333" errorMinus="0.003586"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d38-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean p multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean p multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.007267" value="0.062136" errorMinus="0.007267"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d38-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean p multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean p multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.002569" value="0.061692" errorMinus="0.002569"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d38-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean p multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean p multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d38-x01-y04" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
+      <measurement errorPlus="0.009693" value="0.066384" errorMinus="0.009693"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001428" value="0.012121" errorMinus="0.001428"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.001744" value="0.019903" errorMinus="0.001744"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000639" value="0.023002" errorMinus="0.000639"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d39-x01-y04" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d39-x01-y04" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="35.000000" value="165.000000" errorMinus="35.000000"/>
+      <measurement errorPlus="0.001750" value="0.018362" errorMinus="0.001750"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d40-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d40-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d40-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001318" value="0.003485" errorMinus="0.001318"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d40-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d40-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d40-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000696" value="0.004465" errorMinus="0.000696"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d41-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d41-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d41-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000641" value="0.004759" errorMinus="0.000641"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d42-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d42-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d42-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000716" value="0.006287" errorMinus="0.000716"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d43-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma+- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma+- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d43-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d43-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000643" value="0.010223" errorMinus="0.000643"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d44-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Xi- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Xi- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d44-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d44-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000133" value="0.000894" errorMinus="0.000133"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d44-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Xi- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Xi- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d44-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d44-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.000328" value="0.001709" errorMinus="0.000328"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d44-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Xi- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Xi- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d44-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d44-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000076" value="0.001516" errorMinus="0.000076"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d45-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Delta(1232)++ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Delta(1232)++ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d45-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d45-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001699" value="0.006061" errorMinus="0.001699"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d45-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Delta(1232)++ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Delta(1232)++ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d45-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d45-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000878" value="0.004994" errorMinus="0.000878"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d46-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d46-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d46-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000331" value="0.000909" errorMinus="0.000331"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d46-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d46-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d46-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.000452" value="0.001650" errorMinus="0.000452"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d46-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d46-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d46-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000116" value="0.001410" errorMinus="0.000116"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d47-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d47-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d47-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000174" value="0.000758" errorMinus="0.000174"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d47-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d47-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d47-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.000452" value="0.001650" errorMinus="0.000452"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d47-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d47-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d47-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000104" value="0.001404" errorMinus="0.000104"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d48-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)+- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d48-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d48-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000352" value="0.001606" errorMinus="0.000352"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d48-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)+- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d48-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d48-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.000901" value="0.003204" errorMinus="0.000901"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d48-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma(1385)+- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma(1385)+- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d48-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d48-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000195" value="0.002714" errorMinus="0.000195"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d49-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Xi(1530)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Xi(1530)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d49-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d49-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000098" value="0.000227" errorMinus="0.000098"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d49-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Xi(1530)0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Xi(1530)0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d49-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d49-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000033" value="0.000323" errorMinus="0.000033"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d50-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Omega- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Omega- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d50-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d50-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000064" value="0.000106" errorMinus="0.000064"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d50-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Omega- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Omega- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d50-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d50-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.000732" value="0.001359" errorMinus="0.000732"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d50-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Omega- multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Omega- multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d50-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d50-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000019" value="0.000094" errorMinus="0.000019"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d51-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda_c+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda_c+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d51-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d51-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.005037" value="0.011212" errorMinus="0.005037"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d51-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda_c+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda_c+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d51-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d51-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="3.000000" value="32.000000" errorMinus="3.000000"/>
+      <measurement errorPlus="0.005269" value="0.010680" errorMinus="0.005269"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d51-x01-y03" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda_c+ multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda_c+ multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d51-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d51-x01-y03" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001050" value="0.004583" errorMinus="0.001050"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d52-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda_b0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda_b0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d52-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d52-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000960" value="0.001821" errorMinus="0.000960"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d53-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Sigma_c++, Sigma_c0 multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Sigma_c++, Sigma_c0 multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d53-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d53-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.001125" value="0.002121" errorMinus="0.001125"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d54-x01-y01" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda(1520) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda(1520) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d54-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d54-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="10.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000340" value="0.001212" errorMinus="0.000340"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d54-x01-y02" dimension="2"
+  path="/REF/PDG_Hadron_Multiplicities_Ratios/" title="mean Lambda(1520) multiplicity ratio">
+    <annotation>
+      <item key="Title" value="mean Lambda(1520) multiplicity ratio" sticky="true"/>
+      <item key="AidaPath" value="/REF/PDG_Hadron_Multiplicities_Ratios/d54-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/PDG_Hadron_Multiplicities_Ratios.aida/REF/PDG_Hadron_Multiplicities_Ratios/d54-x01-y02" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.500000" value="91.000000" errorMinus="0.500000"/>
+      <measurement errorPlus="0.000173" value="0.001304" errorMinus="0.000173"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
