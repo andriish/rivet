@@ -1,4 +1,14 @@
-2008-07-15  Andy Buckley  <buckley@d18.phyip3.dur.ac.uk>
+2008-07-17  Andy Buckley  <andy@insectnation.org>
+
+	* Improvements to aida2flat: now can produce one output file per
+	histo, and there is a -g "gnuplot mode" which comments out the
+	YODA/make_plot headers to make the format readable by gnuplot.
+
+	* Import boost::assign namespace contents into the Rivet namespace
+	--- provides very useful intuitive collection initialising
+	functions.
+
+2008-07-15  Andy Buckley  <andy.buckley@dur.ac.uk>
 
 	* Fixed missing namespace in vector/matrix testing.
 

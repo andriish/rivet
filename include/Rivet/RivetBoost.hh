@@ -11,6 +11,7 @@
 namespace Rivet {
   using boost::shared_ptr;
   using boost::lexical_cast;
+  using namespace boost::assign;
 }
 
 #endif

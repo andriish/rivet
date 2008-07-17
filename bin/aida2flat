@@ -30,9 +30,10 @@ class Histo:
         return os.path.join(self.path, self.name)
 
     def asFlat(self):
+        global headerprefix
         out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
-        out += "AidaPath=%s\n" % self.fullPath()
-        out += "Title=%s\n" % self.title
+        out += headerprefix + "AidaPath=%s\n" % self.fullPath()
+        out += headerprefix + "Title=%s\n" % self.title
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
         out += "## xlow    xhigh    yval    yerrminus    yerrplus\n"
@@ -168,7 +169,13 @@ def mkHistoFromDPS(dps):
 
 from optparse import OptionParser
 parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
-parser.add_option("-s", "--smart-output", action="store_true", default=False, 
+parser.add_option("-s", "--split", action="store_true", default=False, 
+                  help="Write each histo to a separate output file, with names based on the histo path", 
+                  dest="SPLITOUTPUT")
+parser.add_option("-g", "--gnuplot", action="store_true", default=False, 
+                  help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with errors'. Implies --split",
+                  dest="GNUPLOT")
+parser.add_option("-S", "--smart-output", action="store_true", default=False, 
                   help="Write to output files with names based on the corresponding input filename", 
                   dest="SMARTOUTPUT")
 parser.add_option("-m", "--match", action="append",
@@ -177,6 +184,10 @@ parser.add_option("-m", "--match", action="append",
 opts, args = parser.parse_args()
 if opts.PATHPATTERNS is None:
     opts.PATHPATTERNS = []
+headerprefix = ""
+if opts.GNUPLOT:
+    opts.SPLITOUTPUT = True
+    headerprefix = "# "
 
 if len(args) < 1:
     sys.stderr.write("Must specity at least one AIDA histogram file\n")
@@ -199,10 +210,22 @@ for aidafile in args:
         if useThisDps:
             histos.append(mkHistoFromDPS(dps))
     if len(histos) > 0:
-        if opts.SMARTOUTPUT:
-            outfile = os.path.basename(aidafile).replace(".aida", ".dat")
-            out = open(outfile, "w")
-        out.write("\n\n".join([h.asFlat() for h in sorted(histos)]))
-        out.write("\n")
-        if opts.SMARTOUTPUT:
+        if opts.SPLITOUTPUT:
+            paper = os.path.basename(aidafile).replace(".aida", "")
+            for h in sorted(histos):
+                histo = h.fullPath()[1:].replace("/", "_")
+                outfile = "%s.dat" % histo
+                if opts.SMARTOUTPUT:
+                    outfile = "%s-%s" % (paper, outfile)
+                #print "Writing to", outfile
+                out = open(outfile, "w")
+                out.write(h.asFlat() + "\n")
+                out.close()
+        else:
+            if opts.SMARTOUTPUT:
+                outfile = os.path.basename(aidafile).replace(".aida", ".dat")
+                out = open(outfile, "w")
+            out.write("\n\n".join([h.asFlat() for h in sorted(histos)]))
+            out.write("\n")
+        if out:
             out.close()
