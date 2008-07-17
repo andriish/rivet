@@ -89,7 +89,13 @@ class Bin:
         return out
 
     def asFlat(self):
-        out = "%f\t%f\t%f\t%f\t%f" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
+        global opts
+        if opts.GNUPLOT:
+            out = "%f\t%f\t%f\t%f\t%f\t%f" % (self.getBinCenter(), self.yval,
+                                              self.xlow, self.xhigh, 
+                                              self.yval-self.yerrminus, self.yval+self.yerrplus)
+        else:
+            out = "%f\t%f\t%f\t%f\t%f" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
         return out
 
     def __cmp__(self, other):
@@ -106,7 +112,7 @@ class Bin:
 
     def getBinCenter(self):
         """Geometric middle of the bin range."""
-        return self._xlow + .5*(self._xhigh - self._xlow)
+        return self.xlow + .5*(self.xhigh - self.xlow)
 
     def getFocus(self):
         """Mean x-value of the bin."""
@@ -173,7 +179,7 @@ parser.add_option("-s", "--split", action="store_true", default=False,
                   help="Write each histo to a separate output file, with names based on the histo path", 
                   dest="SPLITOUTPUT")
 parser.add_option("-g", "--gnuplot", action="store_true", default=False, 
-                  help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with errors'. Implies --split",
+                  help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with xye'. Implies --split",
                   dest="GNUPLOT")
 parser.add_option("-S", "--smart-output", action="store_true", default=False, 
                   help="Write to output files with names based on the corresponding input filename", 
@@ -190,7 +196,7 @@ if opts.GNUPLOT:
     headerprefix = "# "
 
 if len(args) < 1:
-    sys.stderr.write("Must specity at least one AIDA histogram file\n")
+    sys.stderr.write("Must specify at least one AIDA histogram file\n")
     sys.exit(1)
 
 import re
