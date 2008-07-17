@@ -31,12 +31,16 @@ class Histo:
 
     def asFlat(self):
         global headerprefix
+        global opts
         out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
         out += headerprefix + "AidaPath=%s\n" % self.fullPath()
         out += headerprefix + "Title=%s\n" % self.title
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
-        out += "## xlow    xhigh    yval    yerrminus    yerrplus\n"
+        if opts.GNUPLOT:
+            out += "## xval\tyval\txlow\txhigh\tylow\tyhigh\n"
+        else:
+            out += "## xlow\txhigh\tyval\tyerrminus\tyerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
 	out += "\n# END HISTOGRAM"
         return out
