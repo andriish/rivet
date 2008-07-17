@@ -14,6 +14,7 @@
 #include "Rivet/Analyses/DELPHI_2002_069_CONF_603.hh"
 #include "Rivet/Analyses/OPAL_1998_S3780481.hh"
 #include "Rivet/Analyses/PDG_Hadron_Multiplicities.hh"
+#include "Rivet/Analyses/PDG_Hadron_Multiplicities_Ratios.hh"
 //#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
 
 // HERA
@@ -79,6 +80,7 @@ extern "C" {
 
     // General
     fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_Hadron_Multiplicities::create;
+    fns["PDG_HADRON_MULTIPLICITIES_RATIOS"] = Rivet::PDG_Hadron_Multiplicities_Ratios::create;
 
     return fns;
   }

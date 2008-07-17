@@ -25,6 +25,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     OPAL_1998_S3780481.cc \
     ZEUS_2001_S4815815.cc \
     PDG_Hadron_Multiplicities.cc \
+    PDG_Hadron_Multiplicities_Ratios.cc \
     D0_2008_S6879055.cc
     #OPAL_2004_S6132243.cc 
 
