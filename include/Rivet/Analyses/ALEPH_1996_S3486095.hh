@@ -57,7 +57,7 @@ namespace Rivet {
       _weightedTotalNumSigma1385Plus= 0;
       _weightedTotalNumXi1530_0     = 0;
       _weightedTotalNumRho          = 0;
-      _weightedTotalNumOmegaMinus   = 0;
+      _weightedTotalNumOmega782     = 0;
       _weightedTotalNumKStar892_0   = 0;
       _weightedTotalNumPhi          = 0;
       _weightedTotalNumKStar892Plus = 0;
@@ -122,7 +122,7 @@ namespace Rivet {
     double _weightedTotalNumSigma1385Plus;
     double _weightedTotalNumXi1530_0     ;
     double _weightedTotalNumRho          ;
-    double _weightedTotalNumOmegaMinus   ;
+    double _weightedTotalNumOmega782     ;
     double _weightedTotalNumKStar892_0   ;
     double _weightedTotalNumPhi          ;
     double _weightedTotalNumKStar892Plus ;
@@ -171,7 +171,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_histMultiSigma1385Plus;
     AIDA::IHistogram1D *_histMultiXi1530_0;
     AIDA::IHistogram1D *_histMultiRho;
-    AIDA::IHistogram1D *_histMultiOmegaMinus;
+    AIDA::IHistogram1D *_histMultiOmega782;
     AIDA::IHistogram1D *_histMultiKStar892_0;
     AIDA::IHistogram1D *_histMultiPhi;
     AIDA::IHistogram1D *_histMultiKStar892Plus;
@@ -188,7 +188,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_histMeanMultiEtaPrime;     
     AIDA::IHistogram1D *_histMeanMultiK0;           
     AIDA::IHistogram1D *_histMeanMultiRho;          
-    AIDA::IHistogram1D *_histMeanMultiOmega;        
+    AIDA::IHistogram1D *_histMeanMultiOmega782;        
     AIDA::IHistogram1D *_histMeanMultiPhi;         
     AIDA::IHistogram1D *_histMeanMultiKStar892Plus; 
     AIDA::IHistogram1D *_histMeanMultiKStar892_0;   
@@ -197,6 +197,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_histMeanMultiXiMinus;      
     AIDA::IHistogram1D *_histMeanMultiSigma1385Plus;
     AIDA::IHistogram1D *_histMeanMultiXi1530_0;     
+    AIDA::IHistogram1D *_histMeanMultiOmegaOmegaBar;        
     //@}
 
   };

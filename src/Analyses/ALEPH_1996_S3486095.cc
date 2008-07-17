@@ -171,7 +171,9 @@ namespace Rivet {
             _weightedTotalNumRho += weight;
             break;
          case 223:
-            _histMeanMultiOmega->fill(_histMeanMultiOmega->binMean(0), weight);
+            _histMultiOmega782->fill(scaledMom, weight);
+            _histMeanMultiOmega782->fill(_histMeanMultiOmega782->binMean(0), weight);
+            _weightedTotalNumOmega782 += weight;
             break;
          case 333:
             _histMultiPhi->fill(scaledMom, weight);
@@ -215,9 +217,8 @@ namespace Rivet {
             _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->binMean(0), weight);
             _weightedTotalNumXi1530_0 += weight;
             break;
-         case 3334: 
-            _histMultiOmegaMinus->fill(scaledMom, weight);
-            _weightedTotalNumOmegaMinus += weight;
+         case 3334:
+            _histMeanMultiOmegaOmegaBar->fill(_histMeanMultiOmegaOmegaBar->binMean(0), weight);
             break;
       }
     }
@@ -269,7 +270,7 @@ namespace Rivet {
     _histMultiSigma1385Plus = bookHistogram1D(35, 1, 1, "Sigma(1385)+/Sigma(1385)- multiplicity");
     _histMultiXi1530_0      = bookHistogram1D(36, 1, 1, "Xi(1530)0 multiplicity");
     _histMultiRho           = bookHistogram1D(37, 1, 1, "rho multiplicity");
-    _histMultiOmegaMinus    = bookHistogram1D(38, 1, 1, "Omega- multiplicity");
+    _histMultiOmega782      = bookHistogram1D(38, 1, 1, "omega(782) multiplicity");
     _histMultiKStar892_0    = bookHistogram1D(39, 1, 1, "K*(892)0 multiplicity");
     _histMultiPhi           = bookHistogram1D(40, 1, 1, "phi multiplicity");
     
@@ -281,7 +282,7 @@ namespace Rivet {
     _histMeanMultiEtaPrime      = bookHistogram1D(44, 1, 4, "Mean etaprime multiplicity");
     _histMeanMultiK0            = bookHistogram1D(44, 1, 5, "Mean KS + KL multiplicity");
     _histMeanMultiRho           = bookHistogram1D(44, 1, 6, "Mean rho^0 multiplicity");
-    _histMeanMultiOmega         = bookHistogram1D(44, 1, 7, "Mean omega^0 multiplicity");
+    _histMeanMultiOmega782      = bookHistogram1D(44, 1, 7, "Mean omega(782) multiplicity");
     _histMeanMultiPhi           = bookHistogram1D(44, 1, 8, "Mean phi multiplicity");
     _histMeanMultiKStar892Plus  = bookHistogram1D(44, 1, 9, "Mean K*+ / K*- multiplicity");
     _histMeanMultiKStar892_0    = bookHistogram1D(44, 1, 10, "Mean K*0 / K*0bar multiplicity");
@@ -290,6 +291,7 @@ namespace Rivet {
     _histMeanMultiXiMinus       = bookHistogram1D(44, 1, 13, "Mean Xi / Xibar multiplicity");
     _histMeanMultiSigma1385Plus = bookHistogram1D(44, 1, 14, "Mean Sigma(1385) / Sigma(1385)bar multiplicity");
     _histMeanMultiXi1530_0      = bookHistogram1D(44, 1, 15, "Mean Xi(1530) / Xi(1530)bar multiplicity");
+    _histMeanMultiOmegaOmegaBar = bookHistogram1D(44, 1, 16, "Mean OMEGA- + OMEGABAR+ multiplicity");        
   }
 
 
@@ -323,7 +325,7 @@ namespace Rivet {
     scale(_histMultiSigma1385Plus ,1./sumOfWeights());
     scale(_histMultiXi1530_0      ,1./sumOfWeights());
     scale(_histMultiRho           ,1./sumOfWeights());
-    scale(_histMultiOmegaMinus    ,1./sumOfWeights());
+    scale(_histMultiOmega782      ,1./sumOfWeights());
     scale(_histMultiKStar892_0    ,1./sumOfWeights());
     scale(_histMultiPhi           ,1./sumOfWeights());
 
@@ -373,15 +375,16 @@ namespace Rivet {
     scale(_histMeanMultiEtaPrime     , 1.0/sumOfWeights());
     scale(_histMeanMultiK0           , 1.0/sumOfWeights());
     scale(_histMeanMultiRho          , 1.0/sumOfWeights());
-    scale(_histMeanMultiOmega        , 1.0/sumOfWeights());
+    scale(_histMeanMultiOmega782     , 1.0/sumOfWeights());
     scale(_histMeanMultiPhi          , 1.0/sumOfWeights());
     scale(_histMeanMultiKStar892Plus , 1.0/sumOfWeights());
     scale(_histMeanMultiKStar892_0   , 1.0/sumOfWeights());
     scale(_histMeanMultiLambda0      , 1.0/sumOfWeights());
-    scale(_histMeanMultiSigma0, 1.0/sumOfWeights());
+    scale(_histMeanMultiSigma0       , 1.0/sumOfWeights());
     scale(_histMeanMultiXiMinus      , 1.0/sumOfWeights());
     scale(_histMeanMultiSigma1385Plus, 1.0/sumOfWeights());
     scale(_histMeanMultiXi1530_0     , 1.0/sumOfWeights());
+    scale(_histMeanMultiOmegaOmegaBar, 1.0/sumOfWeights());
   }
 
 }
