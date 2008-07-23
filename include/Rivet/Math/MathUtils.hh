@@ -41,10 +41,6 @@ namespace Rivet {
     const double absavg = fabs(a + b)/2.0;
     const double absdiff = fabs(a - b);
     const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
-    // if (absavg > 1700 && absavg < 1900) {
-    //   std::cerr << "*******" << absdiff << ", " << absavg << " -> " << absdiff/absavg << std::endl;
-    //   std::cerr << "*******" << a << " == " << b << "? -> " << std::boolalpha << rtn << std::endl;
-    // }
     return rtn;
   }
 
@@ -87,7 +83,7 @@ namespace Rivet {
 
   /// Reduce any number to the range [-2PI, 2PI] by repeated addition or
   /// subtraction of 2PI as required. Used to normalise angular measures.
-  inline double mapAngleM2PITo2Pi(double angle) {
+  inline double _mapAngleM2PITo2Pi(double angle) {
     angle = fmod(angle, TWOPI);
     assert(angle >= -TWOPI && angle <= TWOPI);
     return angle;
@@ -96,7 +92,7 @@ namespace Rivet {
   /// Calculate the difference between two angles in radians, returning in the
   /// range (-PI, PI].
   inline double mapAngleMPiToPi(double angle) {
-    angle = mapAngleM2PITo2Pi(angle);
+    angle = _mapAngleM2PITo2Pi(angle);
     angle = ( angle >   PI ? angle-TWOPI :
               angle <= -PI ? angle+TWOPI : angle);   
     assert(angle > -PI && angle <= PI);
@@ -104,11 +100,12 @@ namespace Rivet {
   }
 
   /// Calculate the difference between two angles in radians, returning in the
-  /// range [0, 2PI].
+  /// range [0, 2PI).
   inline double mapAngle0To2Pi(double angle) {
-    angle = mapAngleM2PITo2Pi(angle);
+    angle = _mapAngleM2PITo2Pi(angle);
     if (angle < 0) angle += TWOPI;
-    assert(angle >= 0 && angle <= TWOPI);
+    if (angle == TWOPI) angle = 0;
+    assert(angle >= 0 && angle < TWOPI);
     return angle;
   }
 

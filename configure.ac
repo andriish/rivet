@@ -31,10 +31,21 @@ AC_PROG_LIBTOOL
 LIB_SUFFIX=\\\"$shrext_cmds\\\"
 AC_SUBST([LIB_SUFFIX])
 
-## Find required libraries
+## GNU Scientific Library
 AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
+
+## Boost C++ header library
 AC_CEDAR_HEADERS([Boost], , , [AC_MSG_ERROR([Boost is required])])
+oldCPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS -I$BOOSTINCPATH"
+AC_CHECK_HEADER([boost/foreach.hpp], [], [AC_MSG_ERROR([Boost foreach is required])])
+AC_CHECK_HEADER([boost/smart_ptr.hpp], [], [AC_MSG_ERROR([Boost smart_ptr is required])])
+AC_CHECK_HEADER([boost/lexical_cast.hpp], [], [AC_MSG_ERROR([Boost lexical_cast is required])])
+AC_CHECK_HEADER([boost/assign.hpp], [], [AC_MSG_ERROR([Boost assign is required])])
+CPPFLAGS=$oldCPPFLAGS
+
+## HEP libraries
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 
