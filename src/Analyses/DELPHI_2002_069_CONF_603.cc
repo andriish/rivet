@@ -23,14 +23,6 @@ namespace Rivet {
     }
     getLog() << Log::DEBUG << "Passed ncharged cut" << endl;
 
-    const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
-
-    // FIXME: I'm not sure if this cut is correct. I've sent a mail
-    //        to the author and am waiting for the reply.
-    if (iqf.particles().size() != 2 || abs((iqf.particles().begin())->getPdgId()) != 5) {
-      vetoEvent(e);
-    }
-
     // Get event weight for histo filling
     const double weight = e.weight();
 
