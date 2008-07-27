@@ -1,3 +1,9 @@
+2008-07-27  Andy Buckley  <andy@insectnation.org>
+
+	* Added better tests for Boost headers.
+
+	* Added testing for -ansi, -pedantic and -Wall compiler flags.
+
 2008-07-17  Andy Buckley  <andy@insectnation.org>
 
 	* Improvements to aida2flat: now can produce one output file per

@@ -94,16 +94,19 @@ AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPIDINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPDTINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
-AM_CXXFLAGS="$AM_CXXFLAGS -ansi -pedantic -Wall -DLIB_SUFFIX=$LIB_SUFFIX "
+AM_CXXFLAGS="$AM_CXXFLAGS -DLIB_SUFFIX=$LIB_SUFFIX "
+AC_CEDAR_CHECKCXXFLAG([-pedantic], [AM_CXXFLAGS="$AM_CXXFLAGS -pedantic "])
+AC_CEDAR_CHECKCXXFLAG([-ansi], [AM_CXXFLAGS="$AM_CXXFLAGS -ansi "])
+AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall "])
 if test x$with_root == xyes; then
-  AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "
+  AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "])
 fi
 
 ## Debug flag (default=none)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug, 
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
-  [AM_CXXFLAGS="$AM_CXXFLAGS -g"]
+  AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g "])
 fi
 
 AC_SUBST(AM_CPPFLAGS)
