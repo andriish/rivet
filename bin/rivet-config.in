@@ -48,6 +48,8 @@ test -n "$tmp" && echo @datadir@/@PACKAGE_TARNAME@
 tmp=$( echo "$*" | egrep -- '--\<rgdatadir\>')
 test -n "$tmp" && echo @datadir@/RivetGun
 
+tmp=$( echo "$*" | egrep -- '--\<datarootdir\>')
+test -n "$tmp" && echo @datarootdir@
 
 ## "Pre-rolled" build info
 tmp=$( echo "$*" | egrep -- '--\<cppflagsdir\>')

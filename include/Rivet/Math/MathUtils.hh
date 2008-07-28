@@ -25,7 +25,9 @@ namespace Rivet {
   /// absolute @a tolerance parameter.
   inline int sign(double val) {
     if (isZero(val)) return ZERO;
-    return (val > 0) ? PLUS : MINUS;
+    const int valsign = (val > 0) ? PLUS : MINUS;
+    //cerr << val << " -> sign = " << valsign << endl;
+    return valsign;
   }
 
   /// Compare a number to zero with a degree of fuzziness expressed by the
