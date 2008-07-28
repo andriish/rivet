@@ -367,7 +367,7 @@ namespace Rivet {
 
   /// Calculate transverse momentum \f$ p_T \f$ of a momentum 4-vector.
   inline double pT(const FourMomentum& v) {
-    return v.pT2();
+    return v.pT();
   }
 
   /// Calculate transverse energy squared, \f$ E_T^2 = E^2 \sin^2{\theta} \f$ of a momentum 4-vector.
