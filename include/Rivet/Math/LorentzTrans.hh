@@ -20,7 +20,7 @@ namespace Rivet {
 
   public:
     LorentzTransform() {
-      _boostMatrix = Matrix<4>::Identity();
+      _boostMatrix = Matrix<4>::mkIdentity();
     }
 
     LorentzTransform(const Vector3& boost) {
@@ -35,13 +35,13 @@ namespace Rivet {
       assert(boost.mod2() < 1);
       const double beta = boost.mod();
       const double gamma = lorentzGamma(beta);
-      _boostMatrix = Matrix<4>::Identity();
+      _boostMatrix = Matrix<4>::mkIdentity();
       _boostMatrix.set(0, 0, gamma);
       _boostMatrix.set(1, 1, gamma);
       // Positive coeff since these are active boosts
       _boostMatrix.set(0, 1, +beta*gamma);
       _boostMatrix.set(1, 0, +beta*gamma);
-      _boostMatrix = rotate(Vector3::X(), boost)._boostMatrix;
+      _boostMatrix = rotate(Vector3::mkX(), boost)._boostMatrix;
       return *this;
     }
 
@@ -126,7 +126,7 @@ namespace Rivet {
 
   private:
     Matrix4 mkMatrix4(const Matrix3& m3) const {
-      Matrix4 m4 = Matrix4::Identity();
+      Matrix4 m4 = Matrix4::mkIdentity();
       for (size_t i = 0; i < 3; ++i) {
         for (size_t j = 0; j < 3; ++j) {
           m4.set(i+1, j+1, m3.get(i, j));

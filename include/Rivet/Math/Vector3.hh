@@ -36,37 +36,37 @@ namespace Rivet {
 
     template<typename V3>
     Vector3(const V3& other) {
-      this->x(other.x());
-      this->y(other.y());
-      this->z(other.z());
+      this->setX(other.x());
+      this->setY(other.y());
+      this->setZ(other.z());
     }
 
     Vector3(const Vector<3>& other) {
-      this->x(other.get(0));
-      this->y(other.get(1));
-      this->z(other.get(2));
+      this->setX(other.get(0));
+      this->setY(other.get(1));
+      this->setZ(other.get(2));
     }
 
     Vector3(double x, double y, double z) {
-      this->x(x);
-      this->y(y);
-      this->z(z);
+      this->setX(x);
+      this->setY(y);
+      this->setZ(z);
     }
 
     ~Vector3() { }
 
   public:
-    static Vector3 X() { return Vector3(1,0,0); }
-    static Vector3 Y() { return Vector3(0,1,0); }
-    static Vector3 Z() { return Vector3(0,0,1); }
+    static Vector3 mkX() { return Vector3(1,0,0); }
+    static Vector3 mkY() { return Vector3(0,1,0); }
+    static Vector3 mkZ() { return Vector3(0,0,1); }
 
   public:
     double x() const { return get(0); }
     double y() const { return get(1); }
     double z() const { return get(2); }
-    Vector3& x(const double x) { set(0, x); return *this; }
-    Vector3& y(const double y) { set(1, y); return *this; }
-    Vector3& z(const double z) { set(2, z); return *this; }
+    Vector3& setX(double x) { set(0, x); return *this; }
+    Vector3& setY(double y) { set(1, y); return *this; }
+    Vector3& setZ(double z) { set(2, z); return *this; }
 
     double dot(const Vector3& v) const { 
       return _vec.dot(v._vec);
@@ -124,9 +124,9 @@ namespace Rivet {
     }
     
     double polarAngle() const {
-      double polarangle = atan( polarRadius() / z() );
-      /// @todo Use range-mapper
-      if (polarangle < 0) polarangle += PI;
+      // Get number beween [0,PI]
+      double polarangle = atan2(polarRadius(), z());
+      assert(polarangle >= -PI && polarangle <= PI);
       return polarangle;
     }
 
@@ -256,22 +256,20 @@ namespace Rivet {
   /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
   /// spatial vectors.
   inline double deltaR(const Vector3& a, const Vector3& b) {
-    return delta_rad(a.pseudorapidity(), a.azimuthalAngle(),
-                     b.pseudorapidity(), b.azimuthalAngle());
+    return deltaR(a.pseudorapidity(), a.azimuthalAngle(),
+                  b.pseudorapidity(), b.azimuthalAngle());
   }
 
   /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
   /// spatial vectors.
   inline double deltaR(const Vector3& v, double eta2, double phi2) {
-    return delta_rad(v.pseudorapidity(), v.azimuthalAngle(),
-                     eta2, phi2);
+    return deltaR(v.pseudorapidity(), v.azimuthalAngle(), eta2, phi2);
   }
 
   /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
   /// spatial vectors.
   inline double deltaR(double eta1, double phi1, const Vector3& v) {
-    return delta_rad(eta1, phi1,
-                     v.pseudorapidity(), v.azimuthalAngle());
+    return deltaR(eta1, phi1, v.pseudorapidity(), v.azimuthalAngle());
   }
 
 

@@ -63,7 +63,7 @@ public:
   }
 
   Matrix<N> getDiagMatrix() const {
-    return Matrix<N>::Diag(getDiagVector());
+    return Matrix<N>::mkDiag(getDiagVector());
   }
 
   EigenPairs getEigenPairs() const {

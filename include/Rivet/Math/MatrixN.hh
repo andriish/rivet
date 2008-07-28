@@ -37,12 +37,12 @@ class Matrix {
   friend Matrix<M> divide(const Matrix<M>&, const double);
 
 public:
-  static Matrix<N> Zero() {
+  static Matrix<N> mkZero() {
     Matrix<N> rtn;
     return rtn;
   }
 
-  static Matrix<N> Diag(Vector<N> diag) {
+  static Matrix<N> mkDiag(Vector<N> diag) {
     Matrix<N> rtn;
     for (size_t i = 0; i < N; ++i) {
       rtn.set(i, i, diag[i]);
@@ -50,7 +50,7 @@ public:
     return rtn;    
   }
   
-  static Matrix<N> Identity() {    
+  static Matrix<N> mkIdentity() {    
     Matrix<N> rtn;
     for (size_t i = 0; i < N; ++i) {
       rtn.set(i, i, 1);
@@ -58,7 +58,9 @@ public:
     return rtn;    
   }
 
+
 public:
+
   Matrix() {
     _matrix.loadZero();
   }

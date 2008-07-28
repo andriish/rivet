@@ -39,19 +39,19 @@ namespace Rivet {
     // Boost the gamma and lepton
     FourMomentum pGammaHCM =  _hcm.transform(pGamma);
     // rotate so photon in x-z plane
-    _hcm.preMult(Matrix3(Vector3::Z(), -pGammaHCM.azimuthalAngle()));
+    _hcm.preMult(Matrix3(Vector3::mkZ(), -pGammaHCM.azimuthalAngle()));
     // rotate so photon along z axis
     pGammaHCM = _hcm.transform(pGamma);
-    _hcm.preMult(Matrix3(Vector3::Y(), -pGammaHCM.polarAngle()));
+    _hcm.preMult(Matrix3(Vector3::mkY(), -pGammaHCM.polarAngle()));
     // rotate by 180 if along -z 
     pGammaHCM = _hcm.transform(pGamma);
-    if(pGammaHCM.z()>0.) _hcm.preMult(Matrix3(Vector3::Y(), pi));
+    if(pGammaHCM.z() > 0.0) _hcm.preMult(Matrix3(Vector3::mkY(), pi));
     // finally rotate so outgoing lepton at phi=0
     FourMomentum pLepOutHCM =  _hcm.transform(pLepOut);
-    _hcm.preMult(Matrix3(Vector3::Z(), -pLepOutHCM.azimuthalAngle()));
+    _hcm.preMult(Matrix3(Vector3::mkZ(), -pLepOutHCM.azimuthalAngle()));
     // Boost to Breit frame
     const double bz = 1 - 2*x();
-    _breit = LorentzTransform(Vector3::Z() * bz).combine(_hcm);
+    _breit = LorentzTransform(Vector3::mkZ() * bz).combine(_hcm);
   }
 
 

@@ -31,7 +31,7 @@ namespace Rivet {
   const double MAXINT = std::numeric_limits<int>::max();
 
   /// A pre-defined value of \f$ \pi \f$.
-  const double PI = M_PI; //4*atan(1);
+  const double PI = M_PI;
 
   /// A pre-defined value of \f$ 2\pi \f$.
   const double TWOPI = 2*M_PI;

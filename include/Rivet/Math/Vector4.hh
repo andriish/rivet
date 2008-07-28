@@ -323,7 +323,7 @@ namespace Rivet {
     }
 
     /// Calculate transverse energy \f$ E_T = E \sin{\theta} \f$.
-    double Et() const { 
+    double Et() const {
       return E() * sin(polarAngle());
     }
 
@@ -469,8 +469,7 @@ namespace Rivet {
     case PSEUDORAPIDITY:
       return deltaR(a.vector3(), b.vector3());
     case RAPIDITY:
-      return delta_rad(a.rapidity(), a.azimuthalAngle(),
-                       b.rapidity(), b.azimuthalAngle());
+      return deltaR(a.rapidity(), a.azimuthalAngle(), b.rapidity(), b.azimuthalAngle());
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
@@ -483,8 +482,7 @@ namespace Rivet {
     case PSEUDORAPIDITY:
       return deltaR(v.vector3(), eta2, phi2);
     case RAPIDITY:
-      return delta_rad(v.rapidity(), v.azimuthalAngle(),
-                       eta2, phi2);
+      return deltaR(v.rapidity(), v.azimuthalAngle(), eta2, phi2);
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
@@ -498,8 +496,7 @@ namespace Rivet {
     case PSEUDORAPIDITY:
       return deltaR(eta1, phi1, v.vector3());
     case RAPIDITY:
-      return delta_rad(eta1, phi1,
-                       v.rapidity(), v.azimuthalAngle());
+      return deltaR(eta1, phi1, v.rapidity(), v.azimuthalAngle());
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }

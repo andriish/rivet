@@ -1,3 +1,13 @@
+2008-07-28  Andy Buckley  <andy@insectation.org>
+
+	* Fixed polar angle calcuation to use atan2.
+
+	* Added "mk" prefixes and x/setX convention to math classes.
+
+2008-07-28  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixed definition of FourMomentum::pT (it had been returning pT2)
+
 2008-07-27  Andy Buckley  <andy@insectnation.org>
 
 	* Added better tests for Boost headers.

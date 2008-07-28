@@ -84,43 +84,46 @@ namespace Rivet {
   /// Reduce any number to the range [-2PI, 2PI] by repeated addition or
   /// subtraction of 2PI as required. Used to normalise angular measures.
   inline double _mapAngleM2PITo2Pi(double angle) {
-    angle = fmod(angle, TWOPI);
-    assert(angle >= -TWOPI && angle <= TWOPI);
-    return angle;
+    double rtn = fmod(angle, TWOPI);
+    assert(rtn >= -TWOPI && rtn <= TWOPI);
+    return rtn;
   }
 
   /// Calculate the difference between two angles in radians, returning in the
   /// range (-PI, PI].
   inline double mapAngleMPiToPi(double angle) {
-    angle = _mapAngleM2PITo2Pi(angle);
-    angle = ( angle >   PI ? angle-TWOPI :
-              angle <= -PI ? angle+TWOPI : angle);   
-    assert(angle > -PI && angle <= PI);
-    return angle;
+    double rtn = _mapAngleM2PITo2Pi(angle);
+    rtn = (rtn >   PI ? rtn-TWOPI :
+           rtn <= -PI ? rtn+TWOPI : rtn);
+    assert(rtn > -PI && rtn <= PI);
+    return rtn;
   }
 
   /// Calculate the difference between two angles in radians, returning in the
   /// range [0, 2PI).
   inline double mapAngle0To2Pi(double angle) {
-    angle = _mapAngleM2PITo2Pi(angle);
-    if (angle < 0) angle += TWOPI;
-    if (angle == TWOPI) angle = 0;
-    assert(angle >= 0 && angle < TWOPI);
-    return angle;
+    double rtn = _mapAngleM2PITo2Pi(angle);
+    if (rtn < 0) rtn += TWOPI;
+    if (rtn == TWOPI) rtn = 0;
+    assert(rtn >= 0 && rtn < TWOPI);
+    return rtn;
   }
 
   /// Calculate the difference between two angles in radians, returning in the
   /// range [0, PI].
   inline double mapAngle0ToPi(double angle) {
-    angle = fabs(mapAngleMPiToPi(angle));
-    assert(angle >= 0 && angle <= PI);
-    return angle;
+    double rtn = fabs(mapAngleMPiToPi(angle));
+    assert(rtn >= 0 && rtn <= PI);
+    return rtn;
   }
 
   /// Calculate the difference between two angles in radians, 
   /// returning in the range [0, PI].
+  /// @todo Not suitable for calculating polar angles
   inline double deltaPhi(double phi1, double phi2) {
-    return mapAngle0ToPi(fabs(phi1 - phi2));
+    double angle = fabs(mapAngleMPiToPi(phi1 - phi2));
+    assert(angle >= 0 && angle <= PI);
+    return angle;
   }
 
   /// Calculate the distance between two points in 2D rapidity-azimuthal
@@ -157,7 +160,7 @@ namespace Rivet {
   /// returning in the range [0, PI].
   /// @deprecated Prefer deltaPhi
   inline double delta_phi(double phi1, double phi2) {
-    return mapAngle0ToPi(fabs(phi1 - phi2));
+    return deltaPhi(phi1, phi2);
   }
 
 
