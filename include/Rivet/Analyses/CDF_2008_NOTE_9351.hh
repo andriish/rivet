@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_CDF_2008_DRELLYAN_HH
-#define RIVET_CDF_2008_DRELLYAN_HH
+#ifndef RIVET_CDF_2008_NOTE_9351_HH
+#define RIVET_CDF_2008_NOTE_9351_HH
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
@@ -12,7 +12,7 @@ namespace Rivet {
 
   /// @brief CDF Run II underlying event in Drell-Yan
   /// @author Hendrik Hoeth
-  class CDF_2008_DRELLYAN : public Analysis {
+  class CDF_2008_NOTE_9351 : public Analysis {
   public:
 
     /// @name Constructors etc.
@@ -20,7 +20,7 @@ namespace Rivet {
 
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.5 \f$ GeV.
-    CDF_2008_DRELLYAN()
+    CDF_2008_NOTE_9351()
     { 
       setBeams(PROTON, ANTIPROTON);
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
@@ -31,7 +31,7 @@ namespace Rivet {
 
     /// Factory method
     static Analysis* create() {
-      return new CDF_2008_DRELLYAN();
+      return new CDF_2008_NOTE_9351();
     }
     //@}
 
@@ -39,7 +39,7 @@ namespace Rivet {
   public:
 
     string getName() const {
-      return "CDF_2008_DRELLYAN";
+      return "CDF_2008_NOTE_9351";
     }
     string getDescription() const {
       return "CDF Run 2 underlying event in Drell-Yan";
@@ -58,9 +58,15 @@ namespace Rivet {
 
     AIDA::IProfile1D *_hist_tnchg;
     AIDA::IProfile1D *_hist_pnchg;
+    AIDA::IProfile1D *_hist_pmaxnchg;
+    AIDA::IProfile1D *_hist_pminnchg;
+    AIDA::IProfile1D *_hist_pdifnchg;
     AIDA::IProfile1D *_hist_anchg;
     AIDA::IProfile1D *_hist_tcptsum;
     AIDA::IProfile1D *_hist_pcptsum;
+    AIDA::IProfile1D *_hist_pmaxcptsum;
+    AIDA::IProfile1D *_hist_pmincptsum;
+    AIDA::IProfile1D *_hist_pdifcptsum;
     AIDA::IProfile1D *_hist_acptsum;
     AIDA::IProfile1D *_hist_tcptave;
     AIDA::IProfile1D *_hist_pcptave;
@@ -72,7 +78,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator.
-    CDF_2008_DRELLYAN& operator=(const CDF_2008_DRELLYAN&);
+    CDF_2008_NOTE_9351& operator=(const CDF_2008_NOTE_9351&);
 
   };
 

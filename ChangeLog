@@ -1,3 +1,8 @@
+2008-07-28  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Renamed CDF_2008_DRELLYAN to CDF_2008_NOTE_9351. Updated
+	numbers and cuts to the final version of this CDF note.
+
 2008-07-28  Andy Buckley  <andy@insectation.org>
 
 	* Fixed polar angle calcuation to use atan2.
@@ -13,6 +18,11 @@
 	* Added better tests for Boost headers.
 
 	* Added testing for -ansi, -pedantic and -Wall compiler flags.
+
+2008-07-25  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* updated DELPHI_2002_069_CONF_603 according to information
+	from the author
 
 2008-07-17  Andy Buckley  <andy@insectnation.org>
 
@@ -73,16 +83,16 @@
 2008-06-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added first version of the CDF_2008_DRELLYAN analysis described on
-	  http://www-cdf.fnal.gov/physics/new/qcd/abstracts/UEinDY_08.html
-	  There is a small difference between the analysis and this
-	  implementation, but it's too small to be visible.
-	  The fpythia-cdfdrellyan.params parameter file is for this analysis.
+	http://www-cdf.fnal.gov/physics/new/qcd/abstracts/UEinDY_08.html
+	There is a small difference between the analysis and this
+	implementation, but it's too small to be visible.
+	The fpythia-cdfdrellyan.params parameter file is for this analysis.
 
 	* Added first version of the CDF_2008_MINBIAS analysis described on
-	  http://www-cdf.fnal.gov/physics/new/qcd/abstracts/minbias_08.html
-	  The .aida file is read from the plots on the web and will change.
-	  I'm still discussing some open questions about the analysis with
-	  the author.
+	http://www-cdf.fnal.gov/physics/new/qcd/abstracts/minbias_08.html
+	The .aida file is read from the plots on the web and will change.
+	I'm still discussing some open questions about the analysis with
+	the author.
 
 2008-06-18  Jon Butterworth  <J.Butterworth@ucl.ac.uk>
 
