@@ -74,6 +74,9 @@ namespace Rivet {
     AIDA::IProfile1D *_hist_tcptmax;
     AIDA::IProfile1D *_hist_pcptmax;
     AIDA::IProfile1D *_hist_acptmax;
+    AIDA::IProfile1D *_hist_zptvsnchg;
+    AIDA::IProfile1D *_hist_cptavevsnchg;
+    AIDA::IProfile1D *_hist_cptavevsnchgsmallzpt;
 
   private:
 

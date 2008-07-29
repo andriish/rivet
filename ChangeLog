@@ -1,3 +1,8 @@
+2008-07-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Included the missing numbers and three more observables
+	in the CDF_2008_NOTE_9351 analysis.
+
 2008-07-29  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed wrong flags on rivet-config

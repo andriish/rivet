@@ -33,6 +33,9 @@ namespace Rivet {
     _hist_tcptmax    = bookProfile1D(16, 1, 1, "Toward Region Charged pT Maximum");
     _hist_pcptmax    = bookProfile1D(17, 1, 1, "Transverse Region Charged pT Maximum");
     _hist_acptmax    = bookProfile1D(18, 1, 1, "Away Region Charged pT Maximum");
+    _hist_zptvsnchg  = bookProfile1D(19, 1, 1, "Average Lepton Pair pT versus Charged Multiplicity");
+    _hist_cptavevsnchg = bookProfile1D(20, 1, 1, "Average Charged pT versus Charged Multiplicity");
+    _hist_cptavevsnchgsmallzpt = bookProfile1D(21, 1, 1, "Average Charged pT versus Charged Multiplicity, pT(Z) less than 10 GeV");
   }
 
 
@@ -113,6 +116,10 @@ namespace Rivet {
         if (pT > ptMaxAway)
           ptMaxAway = pT;
       }
+      // We need to subtract the two leptons from the number of particles to get the correct multiplicity
+      _hist_cptavevsnchg->fill(numParticles-2, pT, weight);
+      if (pTZ < 10)
+        _hist_cptavevsnchgsmallzpt->fill(numParticles-2, pT, weight);
     }
 
     // Fill the histograms
@@ -142,6 +149,9 @@ namespace Rivet {
       _hist_acptave->fill(pTZ, ptSumAway/numAway, weight);
       _hist_acptmax->fill(pTZ, ptMaxAway, weight);
     }
+
+    // We need to subtract the two leptons from the number of particles to get the correct multiplicity
+    _hist_zptvsnchg->fill(numParticles-2, pTZ, weight);
   }
 
 
