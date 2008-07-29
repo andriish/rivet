@@ -24,6 +24,7 @@ nobase_dist_data_DATA = \
   Rivet/CDF_2006_S6653332.aida         \
   Rivet/CDF_2007_S7057202.aida         \
   Rivet/CDF_2008_S7541902.aida         \
+  Rivet/CDF_2008_S7782535.aida         \
   Rivet/CDF_2008_MINBIAS.aida          \
   Rivet/CDF_2008_NOTE_9351.aida        \
   Rivet/CDF_2008_LEADINGJETS.aida      \
