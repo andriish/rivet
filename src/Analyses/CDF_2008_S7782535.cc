@@ -3,8 +3,6 @@
 #include "Rivet/Analyses/CDF_2008_S7782535.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
-// @todo : use auto booking
-// @todo : set bin errors for  _OneMinusPsi_vs_pT 
 // @todo : test with Pythia
 namespace Rivet {
 
@@ -16,14 +14,16 @@ namespace Rivet {
     _pTbins.push_back(300.);
      // Book histograms
     for (int i = 0; i < _NpTbins ; i++) {
-       stringstream name;
-       name << "Psi_pT_" << i; 
+       ////  stringstream name;
+       ////  name << "Psi_pT_" << i; 
        stringstream title;
+       ////  _Psi_pT[i] = bookProfile1D(name.str(),title.str(),7,0.05/0.7,0.75/0.7);
        title << "Integral jet shape Psi," << _pTbins[i] << " < pT < "<< _pTbins[i+1]; 
-      _Psi_pT[i] = bookProfile1D(name.str(),title.str(),7,0.05/0.7,0.75/0.7);
+         _Psi_pT[i] = bookProfile1D(i+1,2,1,title.str());
     }
     // Variable bins
-    _OneMinusPsi_vs_pT = bookProfile1D("OneMinusPsi_vs_pT","1 - Psi vs Jet pT",_pTbins);
+    ////    _OneMinusPsi_vs_pT = bookProfile1D("OneMinusPsi_vs_pT","1 - Psi vs Jet pT",_pTbins);
+      _OneMinusPsi_vs_pT = bookProfile1D(5,1,1,"1 - Psi vs Jet pT");
   }  
 
   
