@@ -21,6 +21,7 @@ libRivet_la_LIBADD  = \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME)
 if WITH_ROOT
   libRivet_la_LIBADD += $(ROOTLIBS)	
+  libRivet_la_CPPFLAGS = $(AM_CPPFLAGS) -DHAVE_ROOT $(ROOTCPPFLAGS)
 endif
 if ENABLE_JADE
   libRivet_la_LIBADD += -lJadePlugin

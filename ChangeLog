@@ -1,5 +1,7 @@
 2008-07-29  Andy Buckley  <andy@insectnation.org>
 
+	* Fixed missing ROOT compile flags for libRivet.
+
 	* Added command line repetition to logging.
 
 2008-07-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>

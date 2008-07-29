@@ -23,7 +23,7 @@ namespace Rivet {
     _num90Min1800 = bookProfile1D(4, 1, 2, "Nmin vs ET at sqrt{s} = 1800 GeV");
     /// @todo Fix auto-binning of last bin
     _numTracksDbn1800 = bookHistogram1D(5, 1, 1, "Min bias track multiplicity distribution at sqrt{s} = 1800 GeV");
-    _ptDbn1800 = bookHistogram1D(6, 1, 1, "Min bias pT distribution at sqrt{s} = 1800 GeV");
+    _ptDbn1800 = bookHistogram1D(6, 1, 1, "Min bias low-pT distribution at sqrt{s} = 1800 GeV");
     /// @todo Missing 0.4-10 GeV pT histo (lots of bins...)
     _pTSum1800_2Jet = bookProfile1D(7, 1, 1, "Swiss Cheese pTsum vs ET (for removal of 2 jets) at sqrt{s} = 1800 GeV");
     _pTSum1800_3Jet = bookProfile1D(7, 1, 2, "Swiss Cheese pTsum vs ET (for removal of 3 jets) at sqrt{s} = 1800 GeV");            
