@@ -38,6 +38,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2008_MINBIAS.hh  \
   Analyses/CDF_2008_NOTE_9351.hh \
   Analyses/CDF_2008_LEADINGJETS.hh \
+  Analyses/CDF_2008_S7782535.hh \
   Analyses/D0_2001_S4674421.hh  \
   Analyses/D0_2004_S5992206.hh  \
   Analyses/D0_2008_S6879055.hh  \
