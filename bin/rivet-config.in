@@ -52,13 +52,13 @@ tmp=$( echo "$*" | egrep -- '--\<datarootdir\>')
 test -n "$tmp" && echo @datarootdir@
 
 ## "Pre-rolled" build info
-tmp=$( echo "$*" | egrep -- '--\<cppflagsdir\>')
+tmp=$( echo "$*" | egrep -- '--\<cppflags\>')
 test -n "$tmp" && echo -I@includedir@
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
 test -n "$tmp" && echo -L@libdir@
 
-tmp=$( echo "$*" | egrep -- '--\<ldlibs\>')
+tmp=$( echo "$*" | egrep -- '--\<ldadd\>')
 test -n "$tmp" && echo -lRivet
 
 

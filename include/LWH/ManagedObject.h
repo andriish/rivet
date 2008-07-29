@@ -39,9 +39,15 @@ public:
 
     for (std::vector<CharsToEntities>::const_iterator c2e = cs2es.begin();
          c2e != cs2es.end(); ++c2e) {
-      std::string::size_type pos = -1;
-      while ( ( pos = out.find(c2e->first, pos + 1) ) != std::string::npos ) {
-        out.replace(pos, 1, c2e->second);
+      size_t pos = 0;
+      while (true) {
+        if (pos != 0) ++pos;
+        pos = out.find(c2e->first, pos);
+        if (pos != std::string::npos) {
+          out.replace(pos, 1, c2e->second);
+        } else {
+          break;
+        }
       }
     }
     return out;

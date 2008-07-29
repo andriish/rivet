@@ -1,3 +1,7 @@
+2008-07-29  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed wrong flags on rivet-config
+
 2008-07-28  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Renamed CDF_2008_DRELLYAN to CDF_2008_NOTE_9351. Updated
