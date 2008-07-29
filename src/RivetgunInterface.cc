@@ -58,6 +58,11 @@ int main(size_t argc, char* argv[]) {
   Rivet::Log::setUseColors(cfg.useLogColors);
   AGILe::Log::setUseColors(cfg.useLogColors);
   Log& log = Rivet::Log::getLog("RivetGun.Main");
+  stringstream cmd;
+  cmd << "rivetgun ";
+  //foreach (char* c, argv) cmd << c << " ";
+  for (size_t i = 1; i < argc; ++i) cmd << argv[i] << " ";
+  log << Log::INFO << "Called with command line: " << cmd.str() << endl;
 
 
   try {
