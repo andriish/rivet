@@ -13,9 +13,14 @@ namespace Rivet {
     getLog() << Log::DEBUG << "PVertex ptr from HepMC = " << _thePVertex << endl;
     if (!_thePVertex) {
       // Since no signal vertices are filled in existing Fortran & C++ MC's,
-      // the decay vertex from first particle (supposed to be beam particle)
-      // is set as Primary Vertex to get right vertex positions. 
-      _thePVertex = (*(e.genEvent().particles_begin()))->end_vertex();
+      // the decay vertex from first vertex in event with 2 incoming particles
+      
+      HepMC::GenEvent::vertex_const_iterator vIt = e.genEvent().vertices_begin();
+      while((*vIt)->particles_in_size() != 2 && vIt != e.genEvent().vertices_end()){
+        ++vIt;
+      }
+      
+      if(vIt != e.genEvent().vertices_end()) _thePVertex = *vIt;
     }
     assert(_thePVertex);
     const unsigned int pVertexParticleSize = _thePVertex->particles_in_size();
