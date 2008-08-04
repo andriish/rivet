@@ -10,6 +10,7 @@
 
 #include "fastjet/ClusterSequence.hh"
 #include "fastjet/SISConePlugin.hh"
+//#include "fastjet/PxConePlugin.hh"
 #include "fastjet/CDFJetCluPlugin.hh"
 #include "fastjet/CDFMidPointPlugin.hh"
 #ifdef HAVE_JADE
@@ -29,16 +30,16 @@ namespace Rivet {
   public:
     /// Wrapper enum for selected Fastjet jet algorithms.
     #ifdef HAVE_JADE
-    enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT, JADE, DURHAM };
+    enum JetAlg { KT, CAM, SISCONE, ANTIKT, PXCONE, CDFJETCLU, CDFMIDPOINT, JADE, DURHAM };
     #else
-    enum JetAlg { KT, CAM, SISCONE, CDFJETCLU, CDFMIDPOINT };
+    enum JetAlg { KT, CAM, SISCONE, ANTIKT, PXCONE, CDFJETCLU, CDFMIDPOINT };
     #endif
 
 
     /// @name Constructors and destructors.
     //@{
-    /// Default constructor uses Kt algorithm and E-scheme recombination.
-    /// The FinalState projection must live throughout the run.
+    /// Default constructor uses \f$ k_\perp \f$ algorithm and E-scheme
+    /// recombination.
     FastJets(const FinalState& fsp) {
       setName("FastJets");
       addProjection(fsp, "FS");
@@ -51,7 +52,6 @@ namespace Rivet {
     /// jet alg choices (including some plugins). For the built-in algs,
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
-    /// The FinalState projection must live throughout the run.
     FastJets(const FinalState& fsp, JetAlg alg, double rparameter) {
       setName("FastJets");
       addProjection(fsp, "FS");
@@ -59,10 +59,15 @@ namespace Rivet {
         _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
       } else if (alg == CAM) {
         _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
+      } else if (alg == ANTIKT) {
+        _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
       } else {
         if (alg == SISCONE) {
           const double overlapthreshold = 0.5;
           _plugin.reset(new fastjet::SISConePlugin(rparameter, overlapthreshold));
+        } else if (alg == PXCONE) {
+          throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
+          //_plugin.reset(new fastjet::PxConePlugin(rparameter));
         } else if (alg == CDFJETCLU) {
           _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter));
         } else if (alg == CDFMIDPOINT) {
@@ -88,7 +93,7 @@ namespace Rivet {
     }
 
 
-    /// Explicity copy constructor.
+    /// Explicit copy constructor.
     /// @todo Needed... why?
     FastJets(const FastJets& other) 
       : //_cseq(other._cseq),
@@ -189,8 +194,10 @@ namespace Rivet {
   private:
 
     /// Jet definition
-    fastjet::ClusterSequence _cseq;
     fastjet::JetDefinition _jdef;
+
+    /// Cluster sequence
+    fastjet::ClusterSequence _cseq;
 
     /// FastJet external plugin
     shared_ptr<fastjet::JetDefinition::Plugin> _plugin; 

@@ -38,7 +38,7 @@ namespace Rivet {
 
 
   bool cmpJetsByEt(const Jet& a, const Jet& b) {
-    return a.getEtSum() < b.getEtSum();
+    return a.getEtSum() > b.getEtSum();
   }
 
 
@@ -47,11 +47,18 @@ namespace Rivet {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
     /// @todo Trying swapping the jet alg
-    //vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJetsByE();
-    vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
+    vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJetsByE();
+    //vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
     if (jets.empty()) vetoEvent(event);
     /// @todo Make sure that this sorting is working
     sort(jets.begin(), jets.end(), cmpJetsByEt);
+    if ( getLog().isActive(Log::DEBUG) ) {
+      getLog() << Log::DEBUG << "Jet Et sums = [" << endl;
+      foreach (Jet& j, jets) {
+        getLog() << Log::DEBUG << "  " << j.getEtSum() << endl;
+      }
+      getLog() << Log::DEBUG << "]" << endl;
+    }
 
     /// @todo Ensure there is only one well-defined primary vertex, i.e. no pileup. 
     /// Should be automatic as long as generator is run sensibly.

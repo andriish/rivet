@@ -1,3 +1,7 @@
+2008-08-04  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed Et sorting in Acosta analysis.
+
 2008-08-01  Andy Buckley  <andy@insectnation.org>
 
 	* Added AIDA headers to the install list, since

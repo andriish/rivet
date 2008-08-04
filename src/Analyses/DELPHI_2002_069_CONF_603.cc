@@ -4,8 +4,9 @@
 #include "Rivet/Analyses/DELPHI_2002_069_CONF_603.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
 
+/// @todo Use inline function rather than preprocessor, and use ParticleName enum values.
+/// @todo Put these in a PID utility header? (isParton(id) would be a good candidate for inclusion in HepMC)
 #define IS_PARTON_PDGID(id) ( abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18) )
-
 #define IS_BHADRON_PDGID(id) ( ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999) )
 
 namespace Rivet {

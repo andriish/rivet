@@ -4,7 +4,7 @@ SUBDIRS = Projections Analyses Tools . Test
 lib_LTLIBRARIES  = libRivet.la
 libRivet_la_LDFLAGS = \
   -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) \
-  -export-dynamic -version-info 2:0:1
+  -export-dynamic $(VERSIONINFOFLAGS)
 libRivet_la_SOURCES = \
   Cuts.cc \
   ProjectionApplier.cc \

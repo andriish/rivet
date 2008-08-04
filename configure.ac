@@ -1,10 +1,14 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.1.0],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.1.1],[rivet@projects.hepforge.org],[Rivet])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
+
+## Set library version info code
+VERSIONINFOFLAGS="-version-info 3:0:2"
+AC_SUBST(VERSIONINFOFLAGS)
 
 ## OS X
 AC_CEDAR_OSX

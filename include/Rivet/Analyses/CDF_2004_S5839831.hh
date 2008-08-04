@@ -36,8 +36,9 @@ namespace Rivet {
       const ChargedFinalState fs(-1.2, 1.2, 0.4*GeV); 
       addProjection(fs, "FS");
       /// @todo Understand what's going on with the jets!
-      //addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-      addProjection(TrackJet(fs), "Jets");
+      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+      //addProjection(FastJets(fs, FastJets::SISCONE, 0.7), "Jets");
+      //addProjection(TrackJet(fs), "Jets");
       // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
       addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CheeseFS");
       
