@@ -1,3 +1,9 @@
+2008-08-01  Andy Buckley  <andy@insectnation.org>
+
+	* Added AIDA headers to the install list, since
+	external (plugin-type) analyses need them to be present for
+	compilation to succeed.
+
 2008-07-29  Andy Buckley  <andy@insectnation.org>
 
 	* Fixed missing ROOT compile flags for libRivet.

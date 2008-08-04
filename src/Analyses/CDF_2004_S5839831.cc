@@ -46,8 +46,11 @@ namespace Rivet {
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-    vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJetsByE();
+    /// @todo Trying swapping the jet alg
+    //vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJetsByE();
+    vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
     if (jets.empty()) vetoEvent(event);
+    /// @todo Make sure that this sorting is working
     sort(jets.begin(), jets.end(), cmpJetsByEt);
 
     /// @todo Ensure there is only one well-defined primary vertex, i.e. no pileup. 
