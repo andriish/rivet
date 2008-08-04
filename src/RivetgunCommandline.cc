@@ -50,7 +50,9 @@ namespace Rivet {
         ValueArg<size_t> rngSeedArg("s", "seed", "random number generator seed", false, 271828, "seed", cmd);
 
         // Add initial state args
-        vector<string> particles = Rivet::getParticleNames();
+        //vector<string> particles = Rivet::getParticleNames();
+        vector<string> particles;
+        particles += "PROTON","ANTIPROTON","ELECTRON","POSITRON";
         ValuesConstraint<string> beamNameConstraint(particles);
         ValueArg<string> beam1Arg("", "beam1", "Particle in beam 1 (PROTON by default)", false, "PROTON", &beamNameConstraint, cmd);
         ValueArg<string> beam2Arg("", "beam2", "Particle in beam 2 (PROTON by default)", false, "PROTON", &beamNameConstraint, cmd);
@@ -66,7 +68,7 @@ namespace Rivet {
         vector<string> knownAnalyses;
         for (set<string>::const_iterator i = tmp.begin(); i != tmp.end(); ++i) {
           knownAnalyses.push_back(*i);
-          knownAnalyses.push_back("~" + *i);
+          //knownAnalyses.push_back("~" + *i);
         }
         ValuesConstraint<string> anaNameConstraint(knownAnalyses);
         MultiArg<string> analysesArg("a", "analysis", "A Rivet analysis to be run. Prefix name with a ~ to disable instead", false, &anaNameConstraint, cmd);

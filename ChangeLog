@@ -1,5 +1,10 @@
 2008-08-04  Andy Buckley  <andy@insectnation.org>
 
+	* Reduced size of available options blocks in RivetGun help text
+	by removing "~" negating variants (which are hardly ever used in
+	practice) and restricting beam particles to
+	PROTON, ANTIPROTON,ELECTRON and POSITRON.
+
 	* Fixed Et sorting in Acosta analysis.
 
 2008-08-01  Andy Buckley  <andy@insectnation.org>
