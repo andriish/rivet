@@ -106,6 +106,14 @@ namespace Rivet {
     /// Counter for the number of events analysed
     double _eventsTried;
 
+    /// Counter for the number of  3jet events passed
+    double _events3jPassed;
+
+    ///control variable to check if event passed
+    bool _fail;
+
+
+
     /// @name Analysis cuts
     //@{
     ///Cut on primary vertex z-position (z(PV) < 60 cm)
@@ -126,6 +134,8 @@ namespace Rivet {
     /// MET over sqrt(scalar \f$ E_T \f$) cut requirement.
     const double _metsetmax;
     //@}
+
+
 
   private:
     /// Hide the assignment operator

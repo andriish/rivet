@@ -69,6 +69,8 @@ namespace Rivet {
     const string hname14 = "Jet3etaCDF";
     const string htitle14 = "Jet3 eta CDF";  
     _histJet3etaCDF = bookHistogram1D(hname14, htitle14, 42, -4., 4.);
+
+    _events3jPassed = 0.;
   }
 
 
@@ -77,6 +79,8 @@ namespace Rivet {
   void CDF_1994_S2952106::analyze(const Event & event) {
     const FastJets& jetpro = applyProjection<FastJets>(event, "ConeJets");
     getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
+
+    _fail = true;
 
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
@@ -123,7 +127,8 @@ namespace Rivet {
           if (fabs(fabs(jet1stPt->phi()-jet2ndPt->phi())-PI) < _phimin) {
             getLog() << Log::DEBUG << "1st & 2nd Jet phi requirement fulfilled" << endl;
             
-            
+            _fail = false;
+
             _histJet1Et->fill(jet1stPt->perp(), event.weight());
             _histJet2Et->fill(jet2ndPt->perp(), event.weight());
             //_histR23->fill(jet2ndPt->deltaR(*jet3rdPt), event.weight());
@@ -137,6 +142,8 @@ namespace Rivet {
             if (jet3rdPt->perp() > _3rdJetPt) {
               getLog() << Log::DEBUG << "jet3rdPt->pT()=" << jet3rdPt->perp() << " (>10.)" << endl;
               
+	      _events3jPassed += event.weight();
+
               double dPhi = fabs(jet3rdPt->phi() - jet2ndPt->phi());
               dPhi -= int(dPhi/PI); //dPhi % PI (modulo)
               
@@ -155,6 +162,9 @@ namespace Rivet {
         } //1st + 2nd jet pseudoRapidity & Njet>=3
       } //MET/sqrt(SET) cut
     } //z-vertex
+
+    if (_fail) vetoEvent(event); 
+
   }
   
   
@@ -178,7 +188,8 @@ namespace Rivet {
    */
         
     // Normalise histograms to integrated publication luminosity of 4.2 pb^-1 
-    const double fac = 4.2 / picobarn * crossSection() / sumOfWeights();
+    //const double fac = 4.2 / picobarn * crossSection() / sumOfWeights();
+    const double fac = 1. / sumOfWeights();
     getLog() << Log::INFO 
              << "Cross-section = " << crossSection()/picobarn << " pb"
              << " -> scale factor = " << fac << endl;
@@ -186,7 +197,10 @@ namespace Rivet {
     _histJet2Et->scale(fac);
     _histR23->scale(fac);
     _histJet3eta->scale(fac);
-    _histAlpha->scale(fac);
+
+    const double fac3j = 1. / _events3jPassed;
+
+    _histAlpha->scale(fac3j);
   }
   
   

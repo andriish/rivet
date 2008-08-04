@@ -26,6 +26,7 @@ if ENABLE_PYRIVET
 # ## If not building Python extension
 else 
 
-EXTRA_DIST += pyrivet.i
+#ls: commented out to prevent make: permission denied error during make
+#EXTRA_DIST += pyrivet.i
 
 endif
