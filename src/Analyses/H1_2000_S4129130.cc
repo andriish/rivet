@@ -20,9 +20,9 @@ namespace Rivet {
     double y   = dk.y();
     double w2  = dk.W2();
     // whether electron in + (false) or - (true) z
-    bool order = dl.in().getMomentum().z()<0.;
+    bool order = dl.in().momentum().z()<0.;
     // momentum of the scattered lepton
-    FourMomentum leptonMom = dl.out().getMomentum();
+    FourMomentum leptonMom = dl.out().momentum();
     // pt energy and angle
     double enel = leptonMom.E();
     double thel = beamAngle(leptonMom,order);
@@ -40,8 +40,8 @@ namespace Rivet {
     double efwd = 0.;
     for (ParticleVector::const_iterator p = particles.begin(); 
 	 p != particles.end(); ++p) {
-      double th = beamAngle(p->getMomentum(),order);
-      if(th>4.4&&th<15.) efwd += p->getMomentum().E();
+      double th = beamAngle(p->momentum(),order);
+      if(th>4.4&&th<15.) efwd += p->momentum().E();
     }
     // there are four possible selections for events
     bool evcut[4];
@@ -133,7 +133,7 @@ namespace Rivet {
     for(ParticleVector::const_iterator p = particles.begin();
  	p!= particles.end(); ++p ) {
       // boost momentum to CMS
-      const FourMomentum hcmMom = hcmboost.transform(p->getMomentum());
+      const FourMomentum hcmMom = hcmboost.transform(p->momentum());
       double et = fabs(Et(hcmMom));
       double eta = -hcmMom.pseudorapidity();
       // averages in central and forward region

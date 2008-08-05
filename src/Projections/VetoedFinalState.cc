@@ -51,21 +51,21 @@ namespace Rivet {
       VetoDetails::iterator iter = _vetoCodes.find(pdgid);
       if ( (iter == _vetoCodes.end())) {
         log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " 
-            << p->getMomentum().vector3().polarRadius() << endl;
+            << p->momentum().vector3().polarRadius() << endl;
         _theParticles.push_back(*p);
       } else {
         // This particle code is listed as a possible veto... check pT.
         BinaryCut ptrange = iter->second;
         // Make sure that the pT range is sensible.
         assert(ptrange.getHigherThan() <= ptrange.getLowerThan());
-        double pt = p->getMomentum().vector3().polarRadius();
+        double pt = p->momentum().vector3().polarRadius();
         stringstream rangess;
         if (ptrange.getHigherThan() < numeric_limits<double>::max()) rangess << ptrange.getHigherThan();
         rangess << " - ";
         if (ptrange.getLowerThan() < numeric_limits<double>::max()) rangess << ptrange.getLowerThan();
         log << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
-        debugline << "with PDG code = " << pdgid << " pT = " << p->getMomentum().vector3().polarRadius();
+        debugline << "with PDG code = " << pdgid << " pT = " << p->momentum().vector3().polarRadius();
         if (pt < ptrange.getHigherThan() || pt > ptrange.getLowerThan()) { 
           log << Log::DEBUG << "Storing " << debugline.str() << endl;
           _theParticles.push_back(*p);
@@ -83,14 +83,14 @@ namespace Rivet {
       set<ParticleVector::iterator> start;
       start.insert(_theParticles.begin());
       oldMasses.insert(pair<set<ParticleVector::iterator>, FourMomentum>
-                       (start, _theParticles.begin()->getMomentum()));
+                       (start, _theParticles.begin()->momentum()));
 
       for (int nParts = 1; nParts != *nIt; ++nParts) {
         for (map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
              mIt != oldMasses.end(); ++mIt) {
           ParticleVector::iterator pStart = *(mIt->first.rbegin());
           for (ParticleVector::iterator pIt = pStart + 1; pIt != _theParticles.end(); ++pIt) { 
-            FourMomentum cMom = mIt->second + pIt->getMomentum();
+            FourMomentum cMom = mIt->second + pIt->momentum();
             set<ParticleVector::iterator> pList(mIt->first);
             pList.insert(pIt);
             newMasses[pList] = cMom;

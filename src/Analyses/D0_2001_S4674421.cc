@@ -24,7 +24,7 @@ namespace Rivet {
       // Fill W pT distributions
       const ParticleVector& Wens = WZbosons.Wens();
       for (ParticleVector::const_iterator p = Wens.begin(); p != Wens.end(); ++p) {
-        FourMomentum pmom = p->getMomentum();
+        FourMomentum pmom = p->momentum();
         _h_dsigdpt_w->fill(pmom.pT(), weight);
         _eventsFilledW += weight;
       }
@@ -33,7 +33,7 @@ namespace Rivet {
       size_t Zcount = 0;      
       const ParticleVector& Zees = WZbosons.Zees();
       for (ParticleVector::const_iterator p = Zees.begin(); p != Zees.end(); ++p) {
-        FourMomentum pmom = p->getMomentum();
+        FourMomentum pmom = p->momentum();
         Zcount += 1;
         _eventsFilledZ += weight;
         getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT() << endl;

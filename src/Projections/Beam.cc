@@ -23,8 +23,8 @@ namespace Rivet {
 
 
   const double Beam::getSqrtS() const {
-    const double mom1 = getBeams().first.getMomentum().pz();
-    const double mom2 = getBeams().second.getMomentum().pz();
+    const double mom1 = getBeams().first.momentum().pz();
+    const double mom2 = getBeams().second.momentum().pz();
     assert(sign(mom1) != sign(mom2));
     double sqrts = 0.0;
     if (fuzzyEquals(fabs(mom1), fabs(mom2))) {

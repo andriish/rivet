@@ -34,7 +34,7 @@ namespace Rivet {
     for (ParticleVector::const_iterator p = chfs.particles().begin(); p != chfs.particles().end(); ++p) {
       // Consider only charged particles in tracker geometrical acceptance
       /// @todo Use acceptance from the FinalState instead
-      if (fabs(p->getMomentum().pseudorapidity()) > _detEta) continue;
+      if (fabs(p->momentum().pseudorapidity()) > _detEta) continue;
       HepMC::GenVertex* pvtx = p->getHepMCParticle().production_vertex();
       vtxparts[pvtx].push_back(*p);
     }
@@ -78,18 +78,18 @@ namespace Rivet {
       const double IPsig = get2dClosestApproach(vp->getHepMCParticle(), pvtxpos) / _IPres;
       
       // Update "visible momentum" vector (returned by reference).
-      if (vp->getMomentum().pT() > 0.5) {
-        vtxVisMom += vp->getMomentum();
+      if (vp->momentum().pT() > 0.5) {
+        vtxVisMom += vp->momentum();
       }
       // 1st pass
       if (vtxparts.size() >= 3 && IPsig > 2.5) {
-        if (vp->getMomentum().pT() > 1.0) pass1trk1pTdcaSig25++;
-        else if (vp->getMomentum().pT() > 0.5) pass1trk05pTdcaSig25++;
+        if (vp->momentum().pT() > 1.0) pass1trk1pTdcaSig25++;
+        else if (vp->momentum().pT() > 0.5) pass1trk05pTdcaSig25++;
       }
       // 2nd pass
       if (vtxparts.size() >= 2 && IPsig > 3.) {
-        if (vp->getMomentum().pT() > 1.5) pass2trk15pTdcaSig3++;
-        else if (vp->getMomentum().pT() > 1.0) pass2trk1pTdcaSig3++;
+        if (vp->momentum().pT() > 1.5) pass2trk15pTdcaSig3++;
+        else if (vp->momentum().pT() > 1.0) pass2trk1pTdcaSig3++;
       } 
     }
 

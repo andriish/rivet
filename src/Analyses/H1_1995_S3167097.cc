@@ -65,8 +65,8 @@ namespace Rivet {
     const double weight = event.weight();
 
     for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {
-      const double rap = fs.particles()[i].getMomentum().rapidity();
-      const double et = fs.particles()[i].getMomentum().Et();
+      const double rap = fs.particles()[i].momentum().rapidity();
+      const double et = fs.particles()[i].momentum().Et();
       _hEtFlow[ibin]->fill(rap, weight * et/GeV);
       _hEtFlowStat[ibin]->fill(rap, weight * et/GeV);
     }

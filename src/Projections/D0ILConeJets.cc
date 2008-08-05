@@ -33,7 +33,7 @@ namespace Rivet {
 
     // Store 4 vector data about each particle into list
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      HepMC::FourVector fv = p->getMomentum();
+      HepMC::FourVector fv = p->momentum();
       const HepEntity listelement(fv.e(), fv.px(), fv.py(), fv.pz());
       _particlelist.push_back(listelement);
       _particlepointerlist.push_back(&_particlelist.back());

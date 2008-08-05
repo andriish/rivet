@@ -80,7 +80,7 @@ namespace Rivet {
       bool bjet = false;
       for (ParticleVector::const_iterator bquark =  bquarks.begin();
 	   bquark != bquarks.end() && !bjet; ++bquark) {
-	if (deltaR( _jetaxes[jind].rapidity(), _jetaxes[jind].azimuthalAngle(), bquark->getMomentum().rapidity(), bquark->getMomentum().azimuthalAngle()) <= _Rjet ) bjet=true;
+	if (deltaR( _jetaxes[jind].rapidity(), _jetaxes[jind].azimuthalAngle(), bquark->momentum().rapidity(), bquark->momentum().azimuthalAngle()) <= _Rjet ) bjet=true;
       } 
       if(bjet) {	
 	// put jet in correct pT bin
@@ -105,7 +105,7 @@ namespace Rivet {
 
   // Finalize
   void CDF_2008_S7782535::finalize() {  
-    for (int i = 0; i < _pTbins.size()-1; i++) {
+    for (unsigned int i = 0; i < _pTbins.size()-1; i++) {
       // get entry for  rad_Psi = 0.2 bin
        float yvalue = 1.0 - _Psi_pT[i]->binHeight(1);
        // the errors will be wrong but I don't know how to set bin errors

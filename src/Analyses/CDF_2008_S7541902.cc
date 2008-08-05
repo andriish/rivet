@@ -60,8 +60,8 @@ namespace Rivet {
         } else {
           log << Log::WARN << "No vertex found for final state particles" << endl;
         }
-        if (fromW && abs_id == ELECTRON) electronP = p->getMomentum();
-        if (fromW && abs_id == NU_E)     neutrinoP = p->getMomentum();
+        if (fromW && abs_id == ELECTRON) electronP = p->momentum();
+        if (fromW && abs_id == NU_E)     neutrinoP = p->momentum();
       }
     }
 

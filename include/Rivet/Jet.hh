@@ -9,10 +9,10 @@ namespace Rivet {
 
 
   /// A minimal class representing a jet of particles.
-  class Jet {
+  class Jet : public ParticleBase {
   public:
     /// Constructor.
-    Jet() { 
+    Jet() : ParticleBase(){ 
       clear();
     }
 
@@ -52,6 +52,16 @@ namespace Rivet {
       return _particles;
     }
 
+    /// Get the Rivet::Particles (full information) in this jet
+    vector<Particle> &getFullParticles(){
+      return _fullParticles;
+    }
+    
+    /// Get the Rivet::Particles (full information) in this jet (const version)
+    const vector<Particle> &getFullParticles() const {
+      return _fullParticles;
+    }
+    
     /// Number of particles (tracks) in this jet.
     size_t getNumParticles() const {
       return _particles.size();
@@ -71,6 +81,25 @@ namespace Rivet {
       return *this;
     }
 
+    Jet addParticle(const Particle &particle){
+      _fullParticles.push_back(particle);
+      _particles.push_back(particle.momentum());
+      _resetCaches();
+      return *this;
+    }
+    
+    bool containsParticle(const Particle &particle) const{
+      
+      int barcode = particle.getHepMCParticle().barcode();
+      
+      for(ParticleVector::const_iterator pIt = _fullParticles.begin();
+          pIt != _fullParticles.end(); ++pIt){
+        const GenParticle &part=pIt->getHepMCParticle();
+        if(part.barcode()==barcode) return true;
+      }
+      return false;
+    }
+    
     /// Reset this jet as empty.
     Jet clear() {
       _particles.clear();
@@ -116,7 +145,24 @@ namespace Rivet {
       return accumulate(begin(), end(), FourMomentum());
     }
 
-
+    const FourMomentum &momentum() const {
+      
+      if(_okMomentum) return _momentum;
+      
+      _momentum = this->vector();
+      _okMomentum = true;
+      return _momentum;
+    };
+    
+    FourMomentum &momentum(){ 
+      
+      if(_okMomentum) return _momentum;
+      
+      _momentum = this->vector();
+      _okMomentum = true;
+      return _momentum;
+    };
+    
     /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
     double getPtSum() const {
       if (!_okTotalPt) {
@@ -156,6 +202,7 @@ namespace Rivet {
         _okPtWeightedEta = false;
         _okTotalPt = false;
         _okTotalEt = false;
+        _okMomentum = false;
       }
     }
 
@@ -219,6 +266,9 @@ namespace Rivet {
     /// The particle tracks.
     std::vector<FourMomentum> _particles;
 
+    /// Full particle information including tracks, ID etc
+    ParticleVector _fullParticles;
+    
     /// Cached values of \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
     mutable double _phi, _eta;
     mutable bool _okPhi, _okEta;
@@ -234,6 +284,10 @@ namespace Rivet {
     /// Cached value of the \f$ E_T \f$ sum.
     mutable double _totalEt;
     mutable bool _okTotalEt;
+    
+    mutable FourMomentum _momentum;
+    mutable bool _okMomentum;
+    
   };
 
 

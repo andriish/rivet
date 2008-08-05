@@ -23,9 +23,9 @@ namespace Rivet {
       throw Error("DISKinematics projector could not find the correct beam.");
     }
 
-    const FourMomentum pLepIn = dislep.in().getMomentum();
-    const FourMomentum pLepOut = dislep.out().getMomentum();
-    const FourMomentum pHad = hadron.getMomentum();
+    const FourMomentum pLepIn = dislep.in().momentum();
+    const FourMomentum pLepOut = dislep.out().momentum();
+    const FourMomentum pHad = hadron.momentum();
     const FourMomentum pGamma = pLepIn - pLepOut;
     const FourMomentum tothad = pGamma + pHad;
     _theQ2 = -pGamma.mass2();

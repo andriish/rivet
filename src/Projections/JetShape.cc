@@ -38,11 +38,11 @@ namespace Rivet {
       for (ParticleVector::const_iterator p = vfs.particles().begin(); p != vfs.particles().end(); ++p) {
         for (size_t j = 0; j < _jetaxes.size(); ++j) {
           y1 = _jetaxes[j].rapidity();
-          y2 = p->getMomentum().rapidity();
+          y2 = p->momentum().rapidity();
           eta1 = _jetaxes[j].vector3().pseudorapidity();
-          eta2 = p->getMomentum().vector3().pseudorapidity();
+          eta2 = p->momentum().vector3().pseudorapidity();
           phi1 = _jetaxes[j].vector3().azimuthalAngle();
-          phi2 = p->getMomentum().vector3().azimuthalAngle();
+          phi2 = p->momentum().vector3().azimuthalAngle();
           
           if (_distscheme == SNOWMASS) {
             drad = delta_rad(eta1, phi1, eta2, phi2);
@@ -58,15 +58,15 @@ namespace Rivet {
 
         for (size_t i = 0; i < _nbins; ++i) {
           if (dradmin < _rmin+(i+1)*_interval) {
-            _intjetshapes[dradminind][i] += p->getMomentum().vector3().polarRadius();
+            _intjetshapes[dradminind][i] += p->momentum().vector3().polarRadius();
             if (dradmin > _rmin+i*_interval) {
-              _diffjetshapes[dradminind][i] += p->getMomentum().vector3().polarRadius()/_interval;
+              _diffjetshapes[dradminind][i] += p->momentum().vector3().polarRadius()/_interval;
             }
           }
         }
         
         if (dradmin < _r1minPsi) {
-          _PsiSlot[dradminind] += p->getMomentum().vector3().polarRadius();
+          _PsiSlot[dradminind] += p->momentum().vector3().polarRadius();
         }
       }
      

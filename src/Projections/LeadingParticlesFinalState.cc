@@ -41,7 +41,7 @@ namespace Rivet {
         map < long, ParticleVector::const_iterator >::const_iterator itmp = tmp.find(ifs->getPdgId());
         if (itmp != tmp.end()) {  // if a particle with this type has been already selected 
           //if the new pT is higher than the previous one substitute
-          if (ifs->getMomentum().pT() > itmp->second->getMomentum().pT())
+          if (ifs->momentum().pT() > itmp->second->momentum().pT())
             tmp[ifs->getPdgId()] = ifs;
           // else insert in the container
         } else
@@ -53,7 +53,7 @@ namespace Rivet {
     map < long, ParticleVector::const_iterator >::const_iterator i;
     for (i = tmp.begin(); i != tmp.end(); ++i) {
       log << Log::DEBUG << "LeadingParticlesFinalState is accepting particle ID " << i->second->getPdgId()
-        << " with momentum " << i->second->getMomentum() << endl;
+        << " with momentum " << i->second->momentum() << endl;
       _theParticles.push_back(*(i->second));
     }
   }

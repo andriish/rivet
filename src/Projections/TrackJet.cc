@@ -44,7 +44,7 @@ namespace Rivet {
     // Put each particle into the collection of tracks and sort (decreasing in pT)
     vector<FourMomentum> tracksvector; // Need to use a vector because you can't use std::sort with lists
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      FourMomentum lv(p->getMomentum());
+      FourMomentum lv(p->momentum());
       tracksvector.push_back(lv);
     }
     // Now sort particles in pT

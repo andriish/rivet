@@ -24,8 +24,8 @@ namespace Rivet {
 
     // Get beams and average beam momentum
     const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
-    const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
-                                 beams.second.getMomentum().vector3().mod() ) / 2.0;
+    const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+                                 beams.second.momentum().vector3().mod() ) / 2.0;
     getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
 
     // Final state of unstable particles to get particle spectra
@@ -35,11 +35,11 @@ namespace Rivet {
       int id = abs(p->getPdgId());
       switch (id) {
          case 3312:
-            _histXpXiMinus->fill(p->getMomentum().vector3().mod()/meanBeamMom, weight);
+            _histXpXiMinus->fill(p->momentum().vector3().mod()/meanBeamMom, weight);
             _weightedTotalNumXiMinus += weight;
             break;
          case 3114:
-            _histXpSigma1385Plus->fill(p->getMomentum().vector3().mod()/meanBeamMom, weight);
+            _histXpSigma1385Plus->fill(p->momentum().vector3().mod()/meanBeamMom, weight);
             _weightedTotalNumSigma1385Plus += weight;
             break;
       }

@@ -17,7 +17,7 @@ namespace Rivet {
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       /// @todo Can this extra rapidity cut be implemented so as to use the cached rapidity result?
       // Rapidity cut: |rapidity| < 0.5
-      const FourMomentum p4 = p->getMomentum();
+      const FourMomentum p4 = p->momentum();
       if (fabs(p4.rapidity()) < 0.5) _sumet += p4.Et();
     }
   }

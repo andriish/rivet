@@ -15,7 +15,7 @@ namespace Rivet {
     const ParticleVector particles = fs.particles();
     getLog() << Log::DEBUG << "number of particles = " << particles.size() << endl;
     for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
-      const FourMomentum p4 = p->getMomentum();
+      const FourMomentum p4 = p->momentum();
       const Vector3 p3 = p4.vector3();
       const double p3Mag = mod(p3);
       const double p3Para = dot(p3, n);

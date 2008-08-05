@@ -77,7 +77,7 @@ namespace Rivet {
     _nvb = 0;
     const WZandh& wzh = applyProjection<WZandh>(event, "WZh");
     for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
-      const FourMomentum p4 = p->getMomentum();
+      const FourMomentum p4 = p->momentum();
       _vbvec[_nvb][1] = p4.px();
       _vbvec[_nvb][2] = p4.py();
       _vbvec[_nvb][3] = p4.pz();
@@ -165,7 +165,7 @@ namespace Rivet {
     _nlep = 0;
     const ChargedLeptons& cl = applyProjection<ChargedLeptons>(event, "ChLeptons");
     for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
-      const FourMomentum p4 = p->getMomentum();
+      const FourMomentum p4 = p->momentum();
       if (p4.pT() > _lepton_pt_cut) {
         _vlep[_nlep][1] = p4.px();
         _vlep[_nlep][2] = p4.py();

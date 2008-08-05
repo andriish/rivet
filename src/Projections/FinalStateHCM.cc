@@ -26,7 +26,7 @@ namespace Rivet {
       const GenParticle& loopGP = p->getHepMCParticle();
       if (&loopGP != &dislepGP) { //< Ensure that we skip the DIS lepton
         Particle temp = *p;
-        const FourMomentum hcmMom = hcmboost.transform(temp.getMomentum());
+        const FourMomentum hcmMom = hcmboost.transform(temp.momentum());
         temp.setMomentum(hcmMom);
         _theParticles.push_back(temp);
       }

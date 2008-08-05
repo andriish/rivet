@@ -22,8 +22,7 @@ namespace Rivet {
   
   /// Typedef for a collection of PseudoJets.
   typedef vector<fastjet::PseudoJet> PseudoJets;
-
-
+  
   /// Project out jets found using fastJet package.
   class FastJets : public JetAlg {
 
@@ -40,7 +39,7 @@ namespace Rivet {
     //@{
     /// Default constructor uses \f$ k_\perp \f$ algorithm and E-scheme
     /// recombination.
-    FastJets(const FinalState& fsp) {
+    FastJets(const FinalState& fsp){
       setName("FastJets");
       addProjection(fsp, "FS");
       const double RPARAM = 1.0;
@@ -201,10 +200,13 @@ namespace Rivet {
 
     /// FastJet external plugin
     shared_ptr<fastjet::JetDefinition::Plugin> _plugin; 
-
+    
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;
   
+    /// set of particles sorted by their PT2
+    set<Particle, ParticleBase::byPTAscending> _particles;
+    
   };
 
 }

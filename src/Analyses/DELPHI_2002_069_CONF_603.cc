@@ -29,8 +29,8 @@ namespace Rivet {
 
     // Get beams and average beam momentum
     const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
-    const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
-                                 beams.second.getMomentum().vector3().mod() ) / 2.0;
+    const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+                                 beams.second.momentum().vector3().mod() ) / 2.0;
     getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
 
 

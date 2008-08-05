@@ -67,7 +67,7 @@ namespace Rivet {
     vector<Vector3> threeMomenta;
     double momentumSum(0.0);
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      Vector3 p3 = p->getMomentum().vector3();
+      Vector3 p3 = p->momentum().vector3();
       threeMomenta.push_back(p3);
       momentumSum += mod(threeMomenta.back());
     }
@@ -127,7 +127,7 @@ namespace Rivet {
     threeMomenta.clear();
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       // Get the part of each 3-momentum which is perpendicular to the thrust axis
-      const Vector3 v = p->getMomentum().vector3();
+      const Vector3 v = p->momentum().vector3();
       const Vector3 vpar = dot(v, axis.unit()) * axis.unit();
       threeMomenta.push_back(v - vpar);
     }
@@ -143,7 +143,7 @@ namespace Rivet {
       _thrustAxes.push_back(axis);
       val = 0.0;
       for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-        val += fabs(dot(axis, p->getMomentum().vector3()));
+        val += fabs(dot(axis, p->momentum().vector3()));
       }
       _thrusts.push_back(val / momentumSum);
     } else {

@@ -92,7 +92,7 @@ namespace Rivet {
     unsigned int numPlus(0), numMinus(0);
     double ptPlus(0), ptMinus(0);
     foreach (const Particle& t, tracks) {
-      FourMomentum trackMom = t.getMomentum();
+      FourMomentum trackMom = t.momentum();
       const double pt = trackMom.pT();
 
       // Plot total pT distribution for min bias at sqrt(s) = 1800 GeV
@@ -158,7 +158,7 @@ namespace Rivet {
 
       const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();      
       foreach (const Particle& t, cheesetracks) {
-        FourMomentum trackMom = t.getMomentum();
+        FourMomentum trackMom = t.momentum();
         const double pt = trackMom.pT();
 
         const double eta2 = jets[1].vector().pseudorapidity();

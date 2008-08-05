@@ -90,9 +90,9 @@ namespace Rivet {
     virtual double estimate(const T & t, const C & c) const {
       double npart = 0;
       for (typename C::const_iterator ic = c.begin(); ic != c.end(); ++ic) {
-        if (ic->getMomentum().pT() < _ptmin)
+        if (ic->momentum().pT() < _ptmin)
           continue;
-        if (deltaR(t.getMomentum(), ic->getMomentum()) < _radius) {
+        if (deltaR(t.getMomentum(), ic->momentum()) < _radius) {
           npart++;
         }
       } 

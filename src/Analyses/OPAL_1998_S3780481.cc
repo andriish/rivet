@@ -25,8 +25,8 @@ namespace Rivet {
 
     // Get beams and average beam momentum
     const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
-    const double meanBeamMom = ( beams.first.getMomentum().vector3().mod() + 
-                                 beams.second.getMomentum().vector3().mod() ) / 2.0;
+    const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+                                 beams.second.momentum().vector3().mod() ) / 2.0;
     getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
 
     int flavour = 0;
@@ -40,8 +40,8 @@ namespace Rivet {
     else {
       std::map<int, double> quarkmap;
       for (ParticleVector::const_iterator p = iqf.particles().begin(); p != iqf.particles().end(); ++p) {
-        if (quarkmap[p->getPdgId()] < p->getMomentum().E())
-          quarkmap[p->getPdgId()] = p->getMomentum().E();
+        if (quarkmap[p->getPdgId()] < p->momentum().E())
+          quarkmap[p->getPdgId()] = p->momentum().E();
       }
       double maxenergy = 0.;
       for (int i=1 ; i<=5 ; i++) {
@@ -65,7 +65,7 @@ namespace Rivet {
     }
 
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      const double xp = p->getMomentum().vector3().mod()/meanBeamMom;
+      const double xp = p->momentum().vector3().mod()/meanBeamMom;
       const double logxp = -std::log(xp);
       _histXpall->fill(xp, weight);
       _histLogXpall->fill(logxp, weight);

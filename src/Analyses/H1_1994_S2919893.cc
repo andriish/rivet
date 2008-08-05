@@ -18,9 +18,9 @@ namespace Rivet {
     double w2 = dk.W2();
     double w = sqrt(w2);
     // whether electron in + (false) or - (true) z
-    bool order = dl.in().getMomentum().z()<0.;
+    bool order = dl.in().momentum().z()<0.;
     // momentum of the scattered lepton
-    FourMomentum leptonMom = dl.out().getMomentum();
+    FourMomentum leptonMom = dl.out().momentum();
     double ptel = pT(leptonMom);
     double enel = leptonMom.E();
     double thel = beamAngle(leptonMom,order);
@@ -38,8 +38,8 @@ namespace Rivet {
     double efwd = 0.;
     for (ParticleVector::const_iterator p = particles.begin(); 
 	 p != particles.end(); ++p) {
-      double th = beamAngle(p->getMomentum(),order);
-      if(th>4.4&&th<15.) efwd += p->getMomentum().E();
+      double th = beamAngle(p->momentum(),order);
+      if(th>4.4&&th<15.) efwd += p->momentum().E();
     }
     // apply the cuts
     // lepton energy and angle, w2 and forward energy
@@ -58,9 +58,9 @@ namespace Rivet {
     long ncharged(0);
     for(ParticleVector::const_iterator p = particles.begin();
 	p!= particles.end(); ++p ) {
-      double th = beamAngle(p->getMomentum(),order);
+      double th = beamAngle(p->momentum(),order);
       // boost momentum to lab
-      const FourMomentum hcmMom = hcmboost.transform(p->getMomentum());
+      const FourMomentum hcmMom = hcmboost.transform(p->momentum());
       // angular cut
       if(th<=4.4) continue;
       // energy flow histogram
@@ -82,19 +82,19 @@ namespace Rivet {
       }
       // energy-energy correlation
       if(th<=8.) continue;
-      double phi1 = p->getMomentum().azimuthalAngle(ZERO_2PI);
-      double eta1 = p->getMomentum().pseudorapidity();
-      double et1 = fabs(Et(p->getMomentum()));
+      double phi1 = p->momentum().azimuthalAngle(ZERO_2PI);
+      double eta1 = p->momentum().pseudorapidity();
+      double et1 = fabs(Et(p->momentum()));
       for(ParticleVector::const_iterator p2 = p+1;
 	  p2!=particles.end();++p2) {
-	double th2 = beamAngle(p2->getMomentum(),order);
+	double th2 = beamAngle(p2->momentum(),order);
 	if(th2<=8.) continue;
-	double phi2 = p2->getMomentum().azimuthalAngle(ZERO_2PI);
+	double phi2 = p2->momentum().azimuthalAngle(ZERO_2PI);
 	double deltaphi = phi1-phi2;
 	if(fabs(deltaphi)>pi) deltaphi=fabs(fabs(deltaphi)-2.*pi);
-	double eta2 = p2->getMomentum().pseudorapidity();
+	double eta2 = p2->momentum().pseudorapidity();
 	double omega = sqrt(sqr(eta1-eta2)+sqr(deltaphi));
-	double et2 = fabs(Et(p2->getMomentum()));
+	double et2 = fabs(Et(p2->momentum()));
 	double wt = et1*et2/sqr(ptel)*weight;
 	if(x<1e-3) _histEECLowX ->fill(omega,wt);
 	else       _histEECHighX->fill(omega,wt);

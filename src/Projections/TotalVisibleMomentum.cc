@@ -21,8 +21,8 @@ namespace Rivet {
 
     // Get hadron and charge info for each particle, and fill counters appropriately
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      _momentum += p->getMomentum();
-      _set += pT(p->getMomentum());
+      _momentum += p->momentum();
+      _set += pT(p->momentum());
     }
   }
 

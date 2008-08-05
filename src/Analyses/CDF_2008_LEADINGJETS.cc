@@ -80,9 +80,9 @@ namespace Rivet {
 
     // Calculate all the charged stuff
     for (ParticleVector::const_iterator p = cfs.particles().begin(); p != cfs.particles().end(); ++p) {
-      const double deltaPhi = delta_phi(p->getMomentum().azimuthalAngle(), jetphi);
-      const double pT = p->getMomentum().pT();
-      const double phi = p->getMomentum().azimuthalAngle();
+      const double deltaPhi = delta_phi(p->momentum().azimuthalAngle(), jetphi);
+      const double pT = p->momentum().pT();
+      const double phi = p->momentum().azimuthalAngle();
 
       // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
       // Lovely, isn't it?
@@ -124,9 +124,9 @@ namespace Rivet {
 
     // And now the same business for all particles (including neutrals)
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      const double deltaPhi = delta_phi(p->getMomentum().azimuthalAngle(), jetphi);
-      const double ET = p->getMomentum().Et();
-      const double phi = p->getMomentum().azimuthalAngle();
+      const double deltaPhi = delta_phi(p->momentum().azimuthalAngle(), jetphi);
+      const double ET = p->momentum().Et();
+      const double phi = p->momentum().azimuthalAngle();
 
       // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
       // Lovely, isn't it?

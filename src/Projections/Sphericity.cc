@@ -36,7 +36,7 @@ namespace Rivet {
     for (ParticleVector::const_iterator p = prts.begin(); p != prts.end(); ++p) {
 
       // Get the momentum vector for the final state particle.
-      const FourMomentum lv = p->getMomentum();
+      const FourMomentum lv = p->momentum();
       const Vector3 p3 = lv.vector3();
 
       // Build the (regulated) normalising factor.

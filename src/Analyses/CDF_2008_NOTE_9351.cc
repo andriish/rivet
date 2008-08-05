@@ -64,10 +64,10 @@ namespace Rivet {
       vetoEvent(e);
 
     // Lepton pT > 20 GeV
-    if (leptons[0].getMomentum().pT() <= 20 || leptons[1].getMomentum().pT() <= 20)
+    if (leptons[0].momentum().pT() <= 20 || leptons[1].momentum().pT() <= 20)
       vetoEvent(e);
 
-    FourVector dilepton = leptons[0].getMomentum() + leptons[1].getMomentum();
+    FourVector dilepton = leptons[0].momentum() + leptons[1].momentum();
 
     // Lepton pair should have an invariant mass between 70 and 110 and |eta|<6
     if (mass(dilepton) < 70 || mass(dilepton) > 110 || fabs(pseudorapidity(dilepton)) >= 6)
@@ -87,9 +87,9 @@ namespace Rivet {
       if (abs(p->getPdgId()) < 20)
         continue;
 
-      const double deltaPhi = delta_phi(p->getMomentum().azimuthalAngle(), phiZ);
-      const double pT = p->getMomentum().pT();
-      double rotatedphi = p->getMomentum().azimuthalAngle() - phiZ;
+      const double deltaPhi = delta_phi(p->momentum().azimuthalAngle(), phiZ);
+      const double pT = p->momentum().pT();
+      double rotatedphi = p->momentum().azimuthalAngle() - phiZ;
       while (rotatedphi < 0) rotatedphi += 2*PI;
 
       if (deltaPhi < PI/3.0) {

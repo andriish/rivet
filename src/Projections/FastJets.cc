@@ -16,22 +16,23 @@ namespace Rivet {
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
       cmp(_jdef.R(), other._jdef.R());    
-  }
-
-
+  }  
+  
   PseudoJet particleToPseudojet(const Particle& p) {
-    const FourMomentum& fv = p.getMomentum();
+    const FourMomentum& fv = p.momentum();
     return PseudoJet(fv.px(), fv.py(), fv.pz(), fv.E());
   }
-
 
   void FastJets::project(const Event& e) {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     const ParticleVector particles = fs.particles();
+  
     if (!particles.empty()) {
       // Store 4 vector data about each particle into vecs
       vector<PseudoJet> vecs(particles.size());
       transform(particles.begin(), particles.end(), vecs.begin(), particleToPseudojet);
+      _particles.clear();
+      _particles.insert(particles.begin(), particles.end());
       getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
       ClusterSequence cs(vecs, _jdef);
       _cseq = cs;
@@ -40,13 +41,53 @@ namespace Rivet {
 
 
   Jets FastJets::_pseudojetsToJets(const PseudoJets& pjets) const {
+    
     Jets rtn;
     for (PseudoJets::const_iterator pj = pjets.begin(); pj != pjets.end(); ++pj) {
       Jet j;
       const PseudoJets parts = getClusterSeq().constituents(*pj);
+            
       for (PseudoJets::const_iterator p = parts.begin(); p != parts.end(); ++p) {
         const FourMomentum particle(p->E(), p->px(), p->py(), p->pz());
-        j.addParticle(particle);
+
+        //older way adding just the particle momentum to the jet
+        //j.addParticle(particle);
+        
+        // Look up the particle by its PT to get ID information
+
+        Particle toLookup;
+        toLookup.setMomentum(particle);
+        set<Particle>::const_iterator high = _particles.upper_bound(toLookup);
+                
+        if(high != _particles.begin()){
+          if(high==_particles.end()){
+            //check this particle has a PT within 1% of the hardest particle
+            set<Particle>::const_iterator end=_particles.end();
+            if(!_particles.empty()){
+              --end;
+              double maxPT2 = end->momentum().pT2();
+              if(fuzzyEquals(maxPT2, particle.pT2(), 0.01 * maxPT2)){
+                --high;
+              }else{
+                // this is bad
+                if(!_particles.empty()) throw Error("particle to lookup has PT above the max input to the jet finder!");
+              }
+            }
+          }else{
+            --high;
+          }
+        }else{
+          if(!_particles.empty()) throw Error("FastJets failed to lookup particle information!");
+        }
+                
+        getLog() << Log::TRACE << " Particle in jet Vs. full particle record = " 
+        <<particle.px()<<", "<<particle.py()<<", "<<particle.pz()<<", "<<particle.E()<<" Vs. "
+        <<high->momentum().px()<<", "<< high->momentum().py()<<", "<< high->momentum().pz()
+        <<", "<<high->momentum().E()<<endl;
+        
+        
+        //add the complete particle information to the jet
+        j.addParticle(*high);
       }
       rtn.push_back(j);
     }

@@ -39,7 +39,7 @@ namespace Rivet {
       // Get momentum and energy of each particle.
 //      const Vector3 mom3 = p->getMomentum().vector3();
 //      const double energy = p->getMomentum().E();
-      _hist_pt_vs_multiplicity->fill(numParticles, p->getMomentum().pT(), weight);
+      _hist_pt_vs_multiplicity->fill(numParticles, p->momentum().pT(), weight);
     }
 
   }

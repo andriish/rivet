@@ -89,7 +89,7 @@ namespace Rivet {
         end2 = type2.end();
       }
       for (i2 = begin2; i2 < end2; ++i2) {
-        FourMomentum vector = (*i1)->getMomentum() + (*i2)->getMomentum();
+        FourMomentum vector = (*i1)->momentum() + (*i2)->momentum();
         if (vector.mass() > _minmass && vector.mass() < _maxmass) {
           //avoid duplicates
           if (find(tmp.begin(), tmp.end(), *i1) == tmp.end()) {
