@@ -1,3 +1,9 @@
+2008-08-05  Andy Buckley  <andy@insectnation.org>
+
+	* More data files for CDF analyses (2 x 2008, 1 x 1994), and moved
+	the RivetGun AtlasPythia6.params file to more standard
+	fpythia-atlas.params (and added to the install list).
+
 2008-08-04  Andy Buckley  <andy@insectnation.org>
 
 	* Reduced size of available options blocks in RivetGun help text

@@ -18,12 +18,15 @@ nobase_dist_data_DATA = \
   Rivet/ZEUS_2001_S4815815.aida        \
   Rivet/PHENIX_2003_S5538505.aida      \
   Rivet/BRAHMS_2007_S7052448.aida      \
+  Rivet/CDF_1994_S2952106.aida         \
   Rivet/CDF_2001_S4751469.aida         \
   Rivet/CDF_2004_S5839831.aida         \
   Rivet/CDF_2005_S6217184.aida         \
   Rivet/CDF_2006_S6653332.aida         \
   Rivet/CDF_2007_S7057202.aida         \
   Rivet/CDF_2008_S7541902.aida         \
+  Rivet/CDF_2008_S7554427.aida         \
+  Rivet/CDF_2008_S7540469.aida         \
   Rivet/CDF_2008_S7782535.aida         \
   Rivet/CDF_2008_MINBIAS.aida          \
   Rivet/CDF_2008_NOTE_9351.aida        \
@@ -43,6 +46,7 @@ nobase_dist_data_DATA += \
   RivetGun/fherwig-qcd.params      \
   RivetGun/fpythia-default.params  \
   RivetGun/fpythia-hadronic.params \
+  RivetGun/fpythia-atlas.params \
   RivetGun/fpythia-atlaspdf.params \
   RivetGun/fpythia-cdfdrellyan.params \
   RivetGun/fpythia-stablestrange.params \
