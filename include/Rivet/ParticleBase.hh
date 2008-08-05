@@ -18,8 +18,7 @@ namespace Rivet{
     
   public:
     
-    ParticleBase():
-    _momentum(), _mass(0.0){
+    ParticleBase(){
     };
     
     virtual ~ParticleBase(){};
@@ -107,10 +106,6 @@ namespace Rivet{
     };
     
   protected:
-    
-    FourMomentum _momentum;
-    
-    double _mass;
     
   };
 }
