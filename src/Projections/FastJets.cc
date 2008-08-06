@@ -54,39 +54,37 @@ namespace Rivet {
         //j.addParticle(particle);
         
         // Look up the particle by its PT to get ID information
-
         Particle toLookup;
         toLookup.setMomentum(particle);
         set<Particle>::const_iterator high = _particles.upper_bound(toLookup);
                 
-        if(high != _particles.begin()){
-          if(high==_particles.end()){
+        if (high != _particles.begin()) {
+          if (high==_particles.end()) {
             //check this particle has a PT within 1% of the hardest particle
             set<Particle>::const_iterator end=_particles.end();
-            if(!_particles.empty()){
+            if (!_particles.empty()) {
               --end;
               double maxPT2 = end->momentum().pT2();
-              if(fuzzyEquals(maxPT2, particle.pT2(), 0.01 * maxPT2)){
+              if (fuzzyEquals(maxPT2, particle.pT2(), 0.01 * maxPT2)) {
                 --high;
-              }else{
+              } else {
                 // this is bad
-                if(!_particles.empty()) throw Error("particle to lookup has PT above the max input to the jet finder!");
+                if (!_particles.empty()) 
+                  throw Error("particle to lookup has PT above the max input to the jet finder!");
               }
             }
-          }else{
+          } else {
             --high;
           }
-        }else{
-          if(!_particles.empty()) throw Error("FastJets failed to lookup particle information!");
+        } else {
+          if (!_particles.empty()) 
+            throw Error("FastJets failed to lookup particle information!");
         }
                 
         getLog() << Log::TRACE << " Particle in jet Vs. full particle record = " 
-        <<particle.px()<<", "<<particle.py()<<", "<<particle.pz()<<", "<<particle.E()<<" Vs. "
-        <<high->momentum().px()<<", "<< high->momentum().py()<<", "<< high->momentum().pz()
-        <<", "<<high->momentum().E()<<endl;
+                 << particle << " vs. " << high->momentum() << endl;
         
-        
-        //add the complete particle information to the jet
+        // Add the complete particle information to the jet
         j.addParticle(*high);
       }
       rtn.push_back(j);
