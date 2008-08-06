@@ -1,3 +1,9 @@
+2008-08-06  Andy Buckley  <andy@insectnation.org>
+
+	* Added extra histos and filling to Acosta analysis - all HepData
+	histos should now be filled, depending on sqrt{s}. Also trialling
+	use of LaTeX math mode in titles.
+
 2008-08-05  Andy Buckley  <andy@insectnation.org>
 
 	* More data files for CDF analyses (2 x 2008, 1 x 1994), and moved
