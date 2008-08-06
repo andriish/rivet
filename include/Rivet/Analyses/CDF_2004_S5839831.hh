@@ -101,6 +101,12 @@ namespace Rivet {
     /// @name Histogram collections
     //@{
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
+    /// the average \f$ p_T \f$ in the toward, transverse and away regions at 
+    /// \f$ \sqrt{s} = 1800 \text{GeV} \f$.
+    /// Corresponds to Table 1, and HepData table 1.
+    AIDA::IProfile1D *_pt90MaxAvg1800, *_pt90MinAvg1800;
+
+    /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
     /// the \f$ p_T \f$ sum in the toward, transverse and away regions at 
     /// \f$ \sqrt{s} = 1800 \text{GeV} \f$.
     /// Corresponds to figure 2/3, and HepData table 2.
@@ -137,7 +143,9 @@ namespace Rivet {
     /// Histograms of track multiplicity and \f$ p_T \f$ distributions for 
     /// minimum bias events.
     /// Figure 6, and HepData tables 5 & 6.
+    /// Figure 10, and HepData tables 10 & 11.
     AIDA::IHistogram1D *_numTracksDbn1800, *_ptDbn1800;
+    AIDA::IHistogram1D *_numTracksDbn630, *_ptDbn630;
     //@}
 
 

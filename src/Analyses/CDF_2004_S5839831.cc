@@ -11,29 +11,36 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2004_S5839831::init() {
-    _pt90Max1800 = bookProfile1D(2, 1, 1, "pTmax vs ET at sqrt{s} = 1800 GeV");
-    _pt90Min1800 = bookProfile1D(2, 1, 2, "pTmin vs ET at sqrt{s} = 1800 GeV");
-    _pt90Diff1800 = bookProfile1D(2, 1, 3, "pTdiff vs ET at sqrt{s} = 1800 GeV");
+    /// @todo Implement
+    _pt90MaxAvg1800 = bookProfile1D(1, 1, 1, "Average pTmax vs ETlead at sqrt{s} = 1800 GeV");
+    /// @todo Implement
+    _pt90MinAvg1800 = bookProfile1D(1, 1, 2, "Average pTmin vs ETlead at sqrt{s} = 1800 GeV");
+    _pt90Max1800 = bookProfile1D(2, 1, 1, "pTmax vs ETlead at sqrt{s} = 1800 GeV");
+    _pt90Min1800 = bookProfile1D(2, 1, 2, "pTmin vs ETlead at sqrt{s} = 1800 GeV");
+    _pt90Diff1800 = bookProfile1D(2, 1, 3, "pTdiff vs ETlead at sqrt{s} = 1800 GeV");
     _pt90Dbn1800Et40 = bookHistogram1D(3, 1, 1, "pT distribution in MAX+MIN transverse cones for 40 < ET < 80 GeV at sqrt{s} = 1800 GeV");
     _pt90Dbn1800Et80 = bookHistogram1D(3, 1, 2, "pT distribution in MAX+MIN transverse cones for 80 < ET < 120 GeV at sqrt{s} = 1800 GeV");
     _pt90Dbn1800Et120 = bookHistogram1D(3, 1, 3, "pT distribution in MAX+MIN transverse cones for 120 < ET < 160 GeV at sqrt{s} = 1800 GeV");
     _pt90Dbn1800Et160 = bookHistogram1D(3, 1, 4, "pT distribution in MAX+MIN transverse cones for 160 < ET < 200 GeV at sqrt{s} = 1800 GeV");
     _pt90Dbn1800Et200 = bookHistogram1D(3, 1, 5, "pT distribution in MAX+MIN transverse cones for 200 < ET < 270 GeV at sqrt{s} = 1800 GeV");
-    _num90Max1800 = bookProfile1D(4, 1, 1, "Nmax vs ET at sqrt{s} = 1800 GeV");
-    _num90Min1800 = bookProfile1D(4, 1, 2, "Nmin vs ET at sqrt{s} = 1800 GeV");
+    _num90Max1800 = bookProfile1D(4, 1, 1, "Nmax vs ETlead at sqrt{s} = 1800 GeV");
+    _num90Min1800 = bookProfile1D(4, 1, 2, "Nmin vs ETlead at sqrt{s} = 1800 GeV");
     /// @todo Fix auto-binning of last bin
     _numTracksDbn1800 = bookHistogram1D(5, 1, 1, "Min bias track multiplicity distribution at sqrt{s} = 1800 GeV");
-    _ptDbn1800 = bookHistogram1D(6, 1, 1, "Min bias low-pT distribution at sqrt{s} = 1800 GeV");
-    /// @todo Missing 0.4-10 GeV pT histo (lots of bins...)
-    _pTSum1800_2Jet = bookProfile1D(7, 1, 1, "Swiss Cheese pTsum vs ET (for removal of 2 jets) at sqrt{s} = 1800 GeV");
-    _pTSum1800_3Jet = bookProfile1D(7, 1, 2, "Swiss Cheese pTsum vs ET (for removal of 3 jets) at sqrt{s} = 1800 GeV");            
-    _pt90Max630 = bookProfile1D(8, 1, 1, "pTmax vs ET at sqrt{s} = 630 GeV");
-    _pt90Min630 = bookProfile1D(8, 1, 2, "pTmin vs ET at sqrt{s} = 630 GeV");
+    _ptDbn1800 = bookHistogram1D(6, 1, 1, "Min bias low-pT distribution (insert) at sqrt{s} = 1800 GeV");
+    /// @todo Missing 0.4-10 GeV pT bins (lots of bins...)
+    _pTSum1800_2Jet = bookProfile1D(7, 1, 1, "Swiss Cheese pTsum vs ETlead (for removal of 2 jets) at sqrt{s} = 1800 GeV");
+    _pTSum1800_3Jet = bookProfile1D(7, 1, 2, "Swiss Cheese pTsum vs ETlead (for removal of 3 jets) at sqrt{s} = 1800 GeV");            
+    _pt90Max630 = bookProfile1D(8, 1, 1, "pTmax vs ETlead at sqrt{s} = 630 GeV");
+    _pt90Min630 = bookProfile1D(8, 1, 2, "pTmin vs ETlead at sqrt{s} = 630 GeV");
     /// @todo Need diff profile in HepData
-    //_pt90Diff630 = bookProfile1D(8, 1, 3, "pTdiff vs ET at sqrt{s} = 630 GeV");
-    _pTSum630_2Jet = bookProfile1D(9, 1, 1, "Swiss Cheese pTsum vs ET (for removal of 2 jets) at sqrt{s} = 630 GeV");
-    _pTSum630_3Jet = bookProfile1D(9, 1, 2, "Swiss Cheese pTsum vs ET (for removal of 3 jets) at sqrt{s} = 630 GeV");
-    /// @todo Num tracks and pT histos for 630 GeV
+    //_pt90Diff630 = bookProfile1D(8, 1, 3, "pTdiff vs ETlead at sqrt{s} = 630 GeV");
+    _pTSum630_2Jet = bookProfile1D(9, 1, 1, "Swiss Cheese pTsum vs ETlead (for removal of 2 jets) at sqrt{s} = 630 GeV");
+    _pTSum630_3Jet = bookProfile1D(9, 1, 2, "Swiss Cheese pTsum vs ETlead (for removal of 3 jets) at sqrt{s} = 630 GeV");
+    /// @todo Implement
+    _numTracksDbn630 = bookHistogram1D(10, 1, 1, "Min bias track multiplicity distribution at sqrt{s} = 630 GeV");
+    /// @todo Implement
+    _ptDbn630 = bookHistogram1D(11, 1, 1, "Min bias low-pT distribution (insert) at sqrt{s} = 630 GeV");
   }
 
 
