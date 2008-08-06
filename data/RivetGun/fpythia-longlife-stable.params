@@ -1,0 +1,4 @@
+### This parameter file makes particles with c*tau > 10 mm stable.
+
+MSTJ(22)     2
+PARJ(71)     10.0
