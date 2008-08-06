@@ -39,6 +39,7 @@ namespace Rivet {
   }
 
 
+  // Note that sorting is inverted, so that highest ET is at the front of the list
   bool cmpJetsByEt(const Jet& a, const Jet& b) {
     return a.getEtSum() > b.getEtSum();
   }
