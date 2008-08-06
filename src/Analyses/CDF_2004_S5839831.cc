@@ -11,36 +11,31 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2004_S5839831::init() {
-    /// @todo Implement
-    _pt90MaxAvg1800 = bookProfile1D(1, 1, 1, "Average pTmax vs ETlead at sqrt{s} = 1800 GeV");
-    /// @todo Implement
-    _pt90MinAvg1800 = bookProfile1D(1, 1, 2, "Average pTmin vs ETlead at sqrt{s} = 1800 GeV");
-    _pt90Max1800 = bookProfile1D(2, 1, 1, "pTmax vs ETlead at sqrt{s} = 1800 GeV");
-    _pt90Min1800 = bookProfile1D(2, 1, 2, "pTmin vs ETlead at sqrt{s} = 1800 GeV");
-    _pt90Diff1800 = bookProfile1D(2, 1, 3, "pTdiff vs ETlead at sqrt{s} = 1800 GeV");
-    _pt90Dbn1800Et40 = bookHistogram1D(3, 1, 1, "pT distribution in MAX+MIN transverse cones for 40 < ET < 80 GeV at sqrt{s} = 1800 GeV");
-    _pt90Dbn1800Et80 = bookHistogram1D(3, 1, 2, "pT distribution in MAX+MIN transverse cones for 80 < ET < 120 GeV at sqrt{s} = 1800 GeV");
-    _pt90Dbn1800Et120 = bookHistogram1D(3, 1, 3, "pT distribution in MAX+MIN transverse cones for 120 < ET < 160 GeV at sqrt{s} = 1800 GeV");
-    _pt90Dbn1800Et160 = bookHistogram1D(3, 1, 4, "pT distribution in MAX+MIN transverse cones for 160 < ET < 200 GeV at sqrt{s} = 1800 GeV");
-    _pt90Dbn1800Et200 = bookHistogram1D(3, 1, 5, "pT distribution in MAX+MIN transverse cones for 200 < ET < 270 GeV at sqrt{s} = 1800 GeV");
-    _num90Max1800 = bookProfile1D(4, 1, 1, "Nmax vs ETlead at sqrt{s} = 1800 GeV");
-    _num90Min1800 = bookProfile1D(4, 1, 2, "Nmin vs ETlead at sqrt{s} = 1800 GeV");
-    /// @todo Fix auto-binning of last bin
-    _numTracksDbn1800 = bookHistogram1D(5, 1, 1, "Min bias track multiplicity distribution at sqrt{s} = 1800 GeV");
-    _ptDbn1800 = bookHistogram1D(6, 1, 1, "Min bias low-pT distribution (insert) at sqrt{s} = 1800 GeV");
-    /// @todo Missing 0.4-10 GeV pT bins (lots of bins...)
-    _pTSum1800_2Jet = bookProfile1D(7, 1, 1, "Swiss Cheese pTsum vs ETlead (for removal of 2 jets) at sqrt{s} = 1800 GeV");
-    _pTSum1800_3Jet = bookProfile1D(7, 1, 2, "Swiss Cheese pTsum vs ETlead (for removal of 3 jets) at sqrt{s} = 1800 GeV");            
-    _pt90Max630 = bookProfile1D(8, 1, 1, "pTmax vs ETlead at sqrt{s} = 630 GeV");
-    _pt90Min630 = bookProfile1D(8, 1, 2, "pTmin vs ETlead at sqrt{s} = 630 GeV");
-    /// @todo Need diff profile in HepData
-    //_pt90Diff630 = bookProfile1D(8, 1, 3, "pTdiff vs ETlead at sqrt{s} = 630 GeV");
-    _pTSum630_2Jet = bookProfile1D(9, 1, 1, "Swiss Cheese pTsum vs ETlead (for removal of 2 jets) at sqrt{s} = 630 GeV");
-    _pTSum630_3Jet = bookProfile1D(9, 1, 2, "Swiss Cheese pTsum vs ETlead (for removal of 3 jets) at sqrt{s} = 630 GeV");
-    /// @todo Implement
-    _numTracksDbn630 = bookHistogram1D(10, 1, 1, "Min bias track multiplicity distribution at sqrt{s} = 630 GeV");
-    /// @todo Implement
-    _ptDbn630 = bookHistogram1D(11, 1, 1, "Min bias low-pT distribution (insert) at sqrt{s} = 630 GeV");
+    _pt90MaxAvg1800   = bookProfile1D(   1, 1, 1, "Average $p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
+    _pt90MinAvg1800   = bookProfile1D(   1, 1, 2, "Average $p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Max1800      = bookProfile1D(   2, 1, 1, "$p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Min1800      = bookProfile1D(   2, 1, 2, "$p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Diff1800     = bookProfile1D(   2, 1, 3, "$p_T^\\text{diff}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Dbn1800Et40  = bookHistogram1D( 3, 1, 1, "$p_T$ distribution in MAX+MIN transverse cones for $40 < E_T^\\text{lead} < 80$ GeV at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Dbn1800Et80  = bookHistogram1D( 3, 1, 2, "$p_T$ distribution in MAX+MIN transverse cones for $80 < E_T^\\text{lead} < 120$ GeV at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Dbn1800Et120 = bookHistogram1D( 3, 1, 3, "$p_T$ distribution in MAX+MIN transverse cones for $120 < E_T^\\text{lead} < 160$ GeV at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Dbn1800Et160 = bookHistogram1D( 3, 1, 4, "$p_T$ distribution in MAX+MIN transverse cones for $160 < E_T^\\text{lead} < 200$ GeV at $\\sqrt{s}$ = 1800 GeV");
+    _pt90Dbn1800Et200 = bookHistogram1D( 3, 1, 5, "$p_T$ distribution in MAX+MIN transverse cones for $200 < E_T^\\text{lead} < 270$ GeV at $\\sqrt{s}$ = 1800 GeV");
+    _num90Max1800     = bookProfile1D(   4, 1, 1, "$N_\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
+    _num90Min1800     = bookProfile1D(   4, 1, 2, "$N_\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
+    _numTracksDbn1800 = bookHistogram1D( 5, 1, 1, "Min bias track multiplicity distribution at $\\sqrt{s}$ = 1800 GeV");
+    _ptDbn1800        = bookHistogram1D( 6, 1, 1, "Min bias low-$p_T$ distribution at $\\sqrt{s}$ = 1800 GeV");
+    /// @todo Missing 0.4-10 GeV pT bins (lots of them...)
+    _pTSum1800_2Jet   = bookProfile1D(   7, 1, 1, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 2 jets) at $\\sqrt{s}$ = 1800 GeV");
+    _pTSum1800_3Jet   = bookProfile1D(   7, 1, 2, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 3 jets) at $\\sqrt{s}$ = 1800 GeV");            
+    _pt90Max630       = bookProfile1D(   8, 1, 1, "$p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
+    _pt90Min630       = bookProfile1D(   8, 1, 2, "$p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
+    /// @todo Need diff profile in HepData:
+    //_pt90Diff630    = bookProfile1D(   8, 1, 3, "$p_T^\\text{diff}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
+    _pTSum630_2Jet    = bookProfile1D(   9, 1, 1, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 2 jets) at $\\sqrt{s}$ = 630 GeV");
+    _pTSum630_3Jet    = bookProfile1D(   9, 1, 2, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 3 jets) at $\\sqrt{s}$ = 630 GeV");
+    _numTracksDbn630  = bookHistogram1D(10, 1, 1, "Min bias track multiplicity distribution at $\\sqrt{s}$ = 630 GeV");
+    _ptDbn630         = bookHistogram1D(11, 1, 1, "Min bias low-$p_T$ distribution (insert) at $\\sqrt{s}$ = 630 GeV");
   }
 
 
@@ -53,11 +48,8 @@ namespace Rivet {
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-    /// @todo Trying swapping the jet alg
-    vector<Jet> jets = applyProjection<FastJets>(event, "Jets").getJetsByE();
-    //vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
+    vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
     if (jets.empty()) vetoEvent(event);
-    /// @todo Make sure that this sorting is working
     sort(jets.begin(), jets.end(), cmpJetsByEt);
     if ( getLog().isActive(Log::DEBUG) ) {
       getLog() << Log::DEBUG << "Jet Et sums = [" << endl;
@@ -73,7 +65,6 @@ namespace Rivet {
     /// @todo Need to implement track pT > 0.4 GeV/c and within 5.0/0.5cm of pp vertex (nominal)?
 
     // Leading jet must be in central |eta| < 0.5 region.
-    /// @todo Check that jets is ordered according to defn of leading jet
     const Jet leadingjet = jets.front();
     const double etaLead = leadingjet.vector().pseudorapidity();
     if (fabs(etaLead) > 0.5) vetoEvent(event);
@@ -93,6 +84,8 @@ namespace Rivet {
     // Fill total track multiplicity histo
     if (fuzzyEquals(sqrtS/GeV, 1800)) {
       _numTracksDbn1800->fill(tracks.size(), weight);
+    } else if (fuzzyEquals(sqrtS/GeV, 630)) {
+      _numTracksDbn630->fill(tracks.size(), weight);
     }
 
     // Run over all charged tracks
@@ -105,6 +98,8 @@ namespace Rivet {
       // Plot total pT distribution for min bias at sqrt(s) = 1800 GeV
       if (fuzzyEquals(sqrtS/GeV, 1800)) {
         _ptDbn1800->fill(pt/GeV, weight);
+      } else if (fuzzyEquals(sqrtS/GeV, 630)) {
+        _ptDbn630->fill(pt/GeV, weight);
       }
 
       // Find if track mom is in either transverse cone
@@ -135,8 +130,9 @@ namespace Rivet {
       _pt90Max1800->fill(ETlead/GeV, ptMax/GeV, weight);
       _pt90Min1800->fill(ETlead/GeV, ptMin/GeV, weight);
       _pt90Diff1800->fill(ETlead/GeV, ptDiff/GeV, weight);
-      // pT distributions
-      const double ptTransTotal = ptMax + ptMin;
+      _pt90MaxAvg1800->fill(ETlead/GeV, ptMax/numMax/GeV, weight);
+      _pt90MinAvg1800->fill(ETlead/GeV, ptMin/numMin/GeV, weight);
+       const double ptTransTotal = ptMax + ptMin;
       if (inRange(ETlead/GeV, 40, 80)) {
         _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
       } else if (inRange(ETlead/GeV, 80, 120)) {
