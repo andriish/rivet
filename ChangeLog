@@ -1,3 +1,8 @@
+2008-08-07  Andy Buckley  <andy@insectnation.org>
+
+	* Reworking of param file and command line parsing. Tab characters
+	are now handled by the parser, in a way equivalent to spaces.
+
 2008-08-06  Andy Buckley  <andy@insectnation.org>
 
 	* Added extra histos and filling to Acosta analysis - all HepData

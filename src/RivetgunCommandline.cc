@@ -15,6 +15,7 @@ using namespace TCLAP;
 namespace {
   using namespace std;
   void handleConfigStream(istream& in, map<string, string>& pmap);
+  pair<string,string> parseParamString(const string& paramstring);
 }
 
 #ifndef RIVETVERSION
@@ -102,20 +103,18 @@ namespace Rivet {
 
         // Have to read params first in case run params are included
         // Handle params from files/cin first...
-        for (vector<string>::const_iterator pf = paramsFilesArg.getValue().begin(); 
-             pf != paramsFilesArg.getValue().end(); ++pf) {
-          if (*pf != "-") {
-            /// @todo Logging at lower-than-default level
-            // cout << "Using param file " << *pf << endl;
+        foreach (const string& pf, paramsFilesArg.getValue()) {
+          if (pf != "-") {
+            // cout << "Using param file " << pf << endl;
             std::ifstream in;
-            in.open(pf->c_str());
-            if (in.fail() && pf->find("/") == string::npos) {
+            in.open(pf.c_str());
+            if (in.fail() && pf.find("/") == string::npos) {
               // Try finding the file in the standard installed RivetGun share directory
-              const string try2 = getRivetgunDataPath() + "/" + *pf;
+              const string try2 = getRivetgunDataPath() + "/" + pf;
               in.clear();
               in.open(try2.c_str());
               if (in.fail()) {
-                throw Rivet::Error("Couldn't read from param file " + *pf + " or " + try2);
+                throw Rivet::Error("Couldn't read from param file " + pf + " or " + try2);
               }
             }
             handleConfigStream(in, config.params);
@@ -125,15 +124,13 @@ namespace Rivet {
           }
         }
         // ...then overload the file params with specific command line params
-        for (vector<string>::const_iterator p = paramsArg.getValue().begin(); 
-             p != paramsArg.getValue().end(); ++p) {
-          size_t breakpos = p->find("=");
-          if (breakpos != string::npos) {
-            string key = p->substr(0, breakpos);
-            string value = p->substr(breakpos + 1, p->size() - breakpos - 1);
-            config.params[key] = value;
+        foreach (const string& p, paramsArg.getValue()) {
+          pair<string,string> key_val = parseParamString(p);
+          if (!key_val.first.empty() && !key_val.second.empty()) {
+            config.params[key_val.first] = key_val.second;
           } else {
-            throw Rivet::Error("Invalid parameter setting format: " + *p);
+            if (key_val.first.empty() && key_val.second.empty()) continue;
+            throw Rivet::Error("Param setting key or value is empty, somehow: '" + p + "'");
           }
         }
 
@@ -201,19 +198,18 @@ namespace Rivet {
           config.analyses = AnalysisLoader::getAllAnalysisNames();
         }
         // ...then handle individuals, including negations
-        for (vector<string>::const_iterator ai = analysesArg.getValue().begin(); 
-             ai != analysesArg.getValue().end(); ++ai) {
-          string a = toUpper(*ai);
+        foreach (const string& a, analysesArg.getValue()) {
+          string A = toUpper(a);
           try {
             // Check for analysis disabling with ~ prefix
-            if (a.rfind("~", 0) == string::npos) {
-              config.analyses.insert(a);
+            if (A.rfind("~", 0) == string::npos) {
+              config.analyses.insert(A);
             } else {
-              string aneg = a.substr(1, a.size()-1);
-              config.analyses.erase(aneg);
+              string Aneg = A.substr(1, A.size()-1);
+              config.analyses.erase(Aneg);
             }
           } catch (std::exception& e) {
-            throw Rivet::Error("Invalid analysis choice: " + *ai);
+            throw Rivet::Error("Invalid analysis choice: " + a);
           }
         }
 
@@ -232,16 +228,15 @@ namespace Rivet {
 
 
         // Use logging args
-        for (vector<string>::const_iterator l = logsArg.getValue().begin(); 
-             l != logsArg.getValue().end(); ++l) {
-          size_t breakpos = l->find("=");
+        foreach (const string& l, logsArg.getValue()) {
+          size_t breakpos = l.find("=");
           if (breakpos != string::npos) {
-            string key = l->substr(0, breakpos);
-            string value = l->substr(breakpos + 1, l->size() - breakpos - 1);
+            string key = l.substr(0, breakpos);
+            string value = l.substr(breakpos + 1, l.size() - breakpos - 1);
             const int level = Log::getLevelFromName(value);
             config.logLevels[key] = level;
           } else {
-            throw Rivet::Error("Invalid log setting format: " + *l);
+            throw Rivet::Error("Invalid log setting format: " + l);
           }
         }
         config.useLogColors = ! disableLogColorArg.getValue();
@@ -259,12 +254,12 @@ namespace Rivet {
         ss << "Command line error: " << e.error() << " for arg " << e.argId(); 
         throw Rivet::Error(ss.str());
       }
-
+      
       return config;
     }
 
 
-  }  
+  }
 }
 
 
@@ -273,6 +268,53 @@ namespace Rivet {
 
 namespace {
   using namespace std;
+
+
+  pair<string,string> parseParamString(const string& paramstring) {
+    pair<string,string> rtn;
+    string line = paramstring;
+
+    // Replace = signs and tabs with spaces
+    while (line.find("=") != string::npos) {
+      size_t eqpos = line.find("=");
+      line.replace(eqpos, 1, " ");
+    }
+    while (line.find("\t") != string::npos) {
+      size_t eqpos = line.find("\t");
+      line.replace(eqpos, 1, " ");
+    }
+
+    // If effectively empty, then end
+    if (line.find_first_not_of(' ') == string::npos) {
+      return rtn;
+    }
+
+    // Get name and value and add to the param stack by finding the
+    // punctuation tokens at either end of the string.
+    const size_t first = line.find_first_not_of(' ');
+    const size_t last = line.find_last_not_of(' ');
+    line = line.substr(first, last-first+1);
+    //cout << "Stripped line :" << line << ":" << endl;
+    const size_t firstgap = line.find(' ');
+    const size_t lastgap = line.rfind(' ');
+    const string pname = line.substr(first, firstgap-first);
+    const string pval = line.substr(lastgap+1, last-lastgap);
+    //cout << ":" << pname << "=" << pval << ":" << endl;
+    
+    // Check if the remaining bit of string isn't emptiness
+    const string remains = line.substr(firstgap, lastgap-firstgap+1);
+    if (remains.find_first_not_of(' ') != string::npos) {
+      cerr << remains << " - error at char #" << remains.find_first_not_of(' ') << endl;
+      throw Rivet::Error("Param setting string '" + paramstring + "' is not in a valid format.");
+    }
+
+    // If all is okay, set the parameter pair
+    rtn.first = pname;
+    rtn.second = pval;
+    return rtn;
+  }
+  
+  
   void handleConfigStream(istream& in, map<string, string>& pmap) {
     while(in) {
       string line;
@@ -286,41 +328,15 @@ namespace {
         line = line.substr(0, commentPosn);
       }
 
-      // Replace = signs with spaces
-      while (line.find("=") != string::npos) {
-        size_t eqpos = line.find("=");
-        line.replace(eqpos, 1, " ");
-      }
-
-      // If effectively empty, then end
-      if (line.find_first_not_of(' ') == string::npos) continue;
-
-      // Get name and value and add to the param stack by finding the
-      // punctuation tokens at either end of the string.
-      const size_t first = line.find_first_not_of(' ');
-      const size_t last = line.find_last_not_of(' ');
-      line = line.substr(first, last-first+1);
-      //cout << "Stripped line :" << line << ":" << endl;
-      const size_t firstgap = line.find(' ');
-      const size_t lastgap = line.rfind(' ');
-      const string pname = line.substr(first, firstgap-first);
-      const string pval = line.substr(lastgap+1, last-lastgap);
-      //cout << ":" << pname << "=" << pval << ":" << endl;
-
-      // Check if the remaining bit of string isn't emptiness
-      const string remains = line.substr(firstgap, lastgap-firstgap+1);
-      if (remains.find_first_not_of(' ') != string::npos) {
-        cerr << remains << " - error at char #" << remains.find_first_not_of(' ') << endl;
-        throw Rivet::Error("Param setting string '" + origline + "' is not in a valid format.");
-      }
-
-      // If all is okay, set the parameter
-      if (!pname.empty() && !pval.empty()) {
-        pmap[pname] = pval;
+      // Parse param string
+      pair<string,string> key_val = parseParamString(line);
+      if (!key_val.first.empty() && !key_val.second.empty()) {
+        pmap[key_val.first] = key_val.second;
       } else {
-        throw Rivet::Error("Param setting key or value is empty, somehow: '" + 
-                            pname + "' = '" + pval + "'");
+        continue;
+        //throw Rivet::Error("Param setting key or value is empty, somehow: '" + line + "'");
       }
+
     }
 
 
