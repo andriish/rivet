@@ -24,7 +24,7 @@ namespace Rivet {
   // Finalize
   void ALEPH_1991_S2435284::finalize() { 
     // Normalize the histogram
-    normalize(_histChTot);
+    scale(_histChTot, 2.0/sumOfWeights()); // same as in ALEPH 1996
   }
 
 }
