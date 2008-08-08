@@ -1,0 +1,408 @@
+### 
+
+### The data in this file is taken from the 2006 Particle Data Book,
+
+### page 330, table 40.1 ("Average Hadron Multiplicities in Hadronic
+
+### e+e- Annihilation Events")
+
+### 
+
+### Pseudoscalar mesons:
+
+# BEGIN HISTOGRAM PiPlus
+
+Title=mean Pi+ multiplicity ratio
+10	10	1.000000	0.042855
+29	35	1.000000	0.054921
+91	91	1.000000	0.015787
+130	200	1.000000	0.025967
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Pi0
+
+Title=mean Pi0 multiplicity ratio
+10	10	0.484848	0.047770
+29	35	0.566019	0.034960
+91	91	0.553467	0.019791
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM KPlus
+
+Title=mean K+ multiplicity ratio
+10	10	0.136364	0.007335
+29	35	0.143689	0.010368
+91	91	0.130905	0.003762
+130	200	0.132768	0.009272
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM K0
+
+Title=mean K0 multiplicity ratio
+10	10	0.137879	0.008652
+29	35	0.143689	0.008793
+91	91	0.120388	0.002035
+130	200	0.098870	0.005934
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Eta
+
+Title=mean eta multiplicity ratio
+10	10	0.030303	0.006130
+29	35	0.059223	0.007175
+91	91	0.061633	0.004750
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM EtaPrime
+
+Title=mean eta'(958) multiplicity ratio
+10	10	0.004545	0.001521
+29	35	0.025243	0.009758
+91	91	0.008931	0.001179
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM DPlus
+
+Title=mean D+ multiplicity ratio
+10	10	0.029394	0.003013
+29	35	0.016505	0.002982
+91	91	0.010282	0.000947
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM D0
+
+Title=mean D0 multiplicity ratio
+10	10	0.067576	0.005263
+29	35	0.043689	0.007005
+91	91	0.026675	0.001788
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM DPlus_s
+
+Title=mean D+s multiplicity ratio
+10	10	0.009545	0.002141
+29	35	0.043689	0.019491
+91	91	0.007697	0.001237
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM BPlus_B0_d
+
+Title=mean B+, B0d multiplicity ratio
+91	91	0.019389	0.003063
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM BPlus_u
+
+Title=mean B+u multiplicity ratio
+91	91	0.010458	0.000371
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM B0_s
+
+Title=mean B0s multiplicity ratio
+91	91	0.003349	0.000765
+# END HISTOGRAM
+
+### Scalar mesons:
+
+# BEGIN HISTOGRAM F0_980
+
+Title=mean f0(980) multiplicity ratio
+10	10	0.003636	0.000916
+29	35	0.004854	0.001951
+91	91	0.008578	0.000712
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM A0_980Plus
+
+Title=mean a0(980)+ multiplicity ratio
+91	91	0.015864	0.006465
+# END HISTOGRAM
+
+### Vector mesons:
+
+# BEGIN HISTOGRAM Rho770_0
+
+Title=mean rho(770)0 multiplicity ratio
+10	10	0.053030	0.006270
+29	35	0.078641	0.008346
+91	91	0.072327	0.005814
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Rho770Plus
+
+Title=mean rho(770)+ multiplicity ratio
+91	91	0.141011	0.025313
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Omega782
+
+Title=mean omega(782) multiplicity ratio
+10	10	0.045455	0.012199
+91	91	0.059694	0.003877
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM KStar892Plus
+
+Title=mean K*(892)+ multiplicity ratio
+10	10	0.040909	0.004711
+29	35	0.062136	0.005421
+91	91	0.042009	0.003498
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM KStar892_0
+
+Title=mean K*(892)0 multiplicity ratio
+10	10	0.043939	0.004736
+29	35	0.054369	0.006196
+91	91	0.043361	0.001491
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Phi1020
+
+Title=mean phi(1020) multiplicity ratio
+10	10	0.006667	0.000497
+29	35	0.008252	0.001115
+91	91	0.005658	0.000198
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM DStar2010Plus
+
+Title=mean D*(2010)+ multiplicity ratio
+10	10	0.026818	0.003431
+29	35	0.041748	0.006987
+91	91	0.011381	0.000358
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM DStar2007_0
+
+Title=mean D*(2007)0 multiplicity ratio
+10	10	0.025455	0.002980
+29	35	0.026214	0.010728
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM DStar_s2112Plus
+
+Title=mean D*s(2112)+ multiplicity ratio
+10	10	0.007273	0.002133
+91	91	0.005934	0.002821
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM BStar
+
+Title=mean B* multiplicity ratio
+91	91	0.016921	0.001539
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM JPsi1S
+
+Title=mean J/psi(1S) multiplicity ratio
+10	10	0.000076	0.000008
+91	91	0.000306	0.000024
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Psi2S
+
+Title=mean psi(2S) multiplicity ratio
+91	91	0.000135	0.000024
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Upsilon1S
+
+Title=mean Upsilon(1S) multiplicity ratio
+91	91	0.000008	0.000004
+# END HISTOGRAM
+
+### Pseudovector mesons:
+
+# BEGIN HISTOGRAM F1_1285
+
+Title=mean f1(1285) multiplicity ratio
+91	91	0.009694	0.002998
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM F1_1420
+
+Title=mean f1(1420) multiplicity ratio
+91	91	0.003290	0.000706
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Chi_c1_3510
+
+Title=mean chi_c1(3510) multiplicity ratio
+91	91	0.000241	0.000065
+# END HISTOGRAM
+
+### Tensor mesons:
+
+# BEGIN HISTOGRAM F2_1270
+
+Title=mean f2(1270) multiplicity ratio
+10	10	0.013636	0.003058
+29	35	0.013592	0.003919
+91	91	0.009753	0.001180
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM F2Prime1525
+
+Title=mean f2'(1525) multiplicity ratio
+91	91	0.000705	0.000353
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM K2Star1430Plus
+
+Title=mean K2*(1430)+ multiplicity ratio
+29	35	0.008738	0.002932
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM K2Star1430_0
+
+Title=mean K2*(1430)0 multiplicity ratio
+29	35	0.011650	0.005843
+91	91	0.004935	0.001294
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM BStarStar
+
+Title=mean B** multiplicity ratio
+91	91	0.006933	0.001412
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Ds1Plus
+
+Title=mean Ds1+ multiplicity ratio
+91	91	0.000306	0.000065
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Ds2Plus
+
+Title=mean Ds2+ multiplicity ratio
+91	91	0.000488	0.000182
+# END HISTOGRAM
+
+### Baryons:
+
+# BEGIN HISTOGRAM P
+
+Title=mean p multiplicity ratio
+10	10	0.038333	0.002688
+29	35	0.062136	0.005421
+91	91	0.061692	0.002002
+130	200	0.066384	0.008562
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Lambda
+
+Title=mean Lambda multiplicity ratio
+10	10	0.012121	0.001122
+29	35	0.019903	0.001241
+91	91	0.023002	0.000460
+130	200	0.018362	0.001452
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Sigma0
+
+Title=mean Sigma0 multiplicity ratio
+10	10	0.003485	0.001217
+91	91	0.004465	0.000648
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM SigmaMinus
+
+Title=mean Sigma- multiplicity ratio
+91	91	0.004759	0.000590
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM SigmaPlus
+
+Title=mean Sigma+ multiplicity ratio
+91	91	0.006287	0.000650
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM SigmaPlusMinus
+
+Title=mean Sigma+- multiplicity ratio
+91	91	0.010223	0.000541
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM XiMinus
+
+Title=mean Xi- multiplicity ratio
+10	10	0.000894	0.000109
+29	35	0.001709	0.000270
+91	91	0.001516	0.000061
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Delta1232PlusPlus
+
+Title=mean Delta(1232)++ multiplicity ratio
+10	10	0.006061	0.001526
+91	91	0.004994	0.000824
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Sigma1385Minus
+
+Title=mean Sigma(1385)- multiplicity ratio
+10	10	0.000909	0.000304
+29	35	0.001650	0.000394
+91	91	0.001410	0.000101
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Sigma1385Plus
+
+Title=mean Sigma(1385)+ multiplicity ratio
+10	10	0.000758	0.000153
+29	35	0.001650	0.000394
+91	91	0.001404	0.000090
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Sigma1385PlusMinus
+
+Title=mean Sigma(1385)+- multiplicity ratio
+10	10	0.001606	0.000307
+29	35	0.003204	0.000787
+91	91	0.002714	0.000167
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Xi1530_0
+
+Title=mean Xi(1530)0 multiplicity ratio
+10	10	0.000227	0.000091
+91	91	0.000323	0.000030
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM OmegaMinus
+
+Title=mean Omega- multiplicity ratio
+10	10	0.000106	0.000061
+29	35	0.001359	0.000682
+91	91	0.000094	0.000018
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Lambda_c_Plus
+
+Title=mean Lambda_c+ multiplicity ratio
+10	10	0.011212	0.004709
+29	35	0.010680	0.004872
+91	91	0.004583	0.001000
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Lambda_b_0
+
+Title=mean Lambda_b0 multiplicity ratio
+91	91	0.001821	0.000940
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Sigma_c_PlusPlus_0
+
+Title=mean Sigma_c++, Sigma_c0 multiplicity ratio
+10	10	0.002121	0.001063
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM Lambda1520
+
+Title=mean Lambda(1520) multiplicity ratio
+10	10	0.001212	0.000305
+91	91	0.001304	0.000159
+# END HISTOGRAM
+
