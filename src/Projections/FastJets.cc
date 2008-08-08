@@ -77,8 +77,16 @@ namespace Rivet {
             --high;
           }
         } else {
-          if (!_particles.empty()) 
-            throw Error("FastJets failed to lookup particle information!");
+          
+          if(!_particles.empty()){
+           
+            double thePT2 = high->momentum().pT2();
+            
+            if(_particles.size()!=1 || 
+               fuzzyEquals(thePT2, particle.pT2(), 0.01 * thePT2)){
+              throw Error("FastJets failed to lookup particle information!");
+            }
+          }
         }
                 
         getLog() << Log::TRACE << " Particle in jet Vs. full particle record = " 
