@@ -34,8 +34,8 @@ nobase_dist_data_DATA = \
   Rivet/D0_2001_S4674421.aida          \
   Rivet/D0_2004_S5992206.aida          \
   Rivet/D0_2008_S6879055.aida          \
-  Rivet/PDG_Hadron_Multiplicities.aida \
-  Rivet/PDG_Hadron_Multiplicities_Ratios.aida \
+  Rivet/PDG_HADRON_MULTIPLICITIES.aida \
+  Rivet/PDG_HADRON_MULTIPLICITIES_RATIOS.aida \
   Rivet/FPythiaLEP10.hepmc
 
 nobase_dist_data_DATA += \
