@@ -180,7 +180,7 @@ namespace Rivet {
   private:
 
     Jets _pseudojetsToJets(const PseudoJets& pjets) const;
-
+      
   protected:   
 
     /// Perform the projection on the Event.
@@ -205,7 +205,8 @@ namespace Rivet {
     mutable map<int, vector<double> > _yscales;
   
     /// set of particles sorted by their PT2
-    set<Particle, ParticleBase::byPTAscending> _particles;
+    //set<Particle, ParticleBase::byPTAscending> _particles;
+    map<int, Particle> _particles;
     
   };
 
