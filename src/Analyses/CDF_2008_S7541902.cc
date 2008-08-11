@@ -3,7 +3,7 @@
 #include "Rivet/Analyses/CDF_2008_S7541902.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
-
+#include "Rivet/AnalysisHandler.hh"
 
 namespace Rivet {
 
@@ -109,7 +109,7 @@ namespace Rivet {
   
   // Finalize
   void CDF_2008_S7541902::finalize() { 
-    float xsec = crossSection()/sumOfWeights();
+    float xsec = crossSection()/getHandler().sumOfWeights();
     for (int i=0; i<4; i++) {
       _histJetEt[i]->scale(xsec);
     }
