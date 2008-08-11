@@ -20,13 +20,13 @@
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="6.505000000000001" value="21.99"
-        errorMinus="3.9799999999999995"/>
+        errorMinus="3.9800000000000004"/>
       <measurement errorPlus="0.19235384061671346"
         value="3.86" errorMinus="0.19235384061671346"/>
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="4.350000000000001" value="35.0"
-        errorMinus="6.505000000000001"/>
+        errorMinus="6.505000000000003"/>
       <measurement errorPlus="0.18" value="4.15"
         errorMinus="0.18"/>
     </dataPoint>
@@ -305,8 +305,8 @@
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.0020" value="0.1102"
-        errorMinus="0.0020"/>
+      <measurement errorPlus="0.002" value="0.1102"
+        errorMinus="0.002"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y03" dimension="2"
@@ -2039,8 +2039,8 @@
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.5" value="3.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.0050" value="0.0385"
-        errorMinus="0.0050"/>
+      <measurement errorPlus="0.005" value="0.0385"
+        errorMinus="0.005"/>
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="1.0" value="5.0" errorMinus="1.0"/>
@@ -2589,8 +2589,8 @@
         value="/TASSO_1990_S2148048.aida/REF/TASSO_1990_S2148048/d07-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0050" value="0.0050"
-        errorMinus="0.0050"/>
+      <measurement errorPlus="0.005" value="0.005"
+        errorMinus="0.005"/>
       <measurement errorPlus="1.5" value="5.8" errorMinus="1.5"/>
     </dataPoint>
     <dataPoint>
@@ -2659,8 +2659,8 @@
         value="/TASSO_1990_S2148048.aida/REF/TASSO_1990_S2148048/d07-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0050" value="0.0050"
-        errorMinus="0.0050"/>
+      <measurement errorPlus="0.005" value="0.005"
+        errorMinus="0.005"/>
       <measurement errorPlus="1.9" value="11.2"
         errorMinus="1.9"/>
     </dataPoint>
@@ -2729,8 +2729,8 @@
         value="/TASSO_1990_S2148048.aida/REF/TASSO_1990_S2148048/d07-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0050" value="0.0050"
-        errorMinus="0.0050"/>
+      <measurement errorPlus="0.005" value="0.005"
+        errorMinus="0.005"/>
       <measurement errorPlus="1.7" value="25.4"
         errorMinus="1.7"/>
     </dataPoint>
@@ -2800,8 +2800,8 @@
         value="/TASSO_1990_S2148048.aida/REF/TASSO_1990_S2148048/d07-x01-y04" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.0050" value="0.0050"
-        errorMinus="0.0050"/>
+      <measurement errorPlus="0.005" value="0.005"
+        errorMinus="0.005"/>
       <measurement errorPlus="1.9" value="35.3"
         errorMinus="1.9"/>
     </dataPoint>
@@ -2849,8 +2849,8 @@
     <dataPoint>
       <measurement errorPlus="0.04999999999999999"
         value="0.25" errorMinus="0.04999999999999999"/>
-      <measurement errorPlus="0.0080" value="0.0157"
-        errorMinus="0.0080"/>
+      <measurement errorPlus="0.008" value="0.0157"
+        errorMinus="0.008"/>
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.15" value="0.15"

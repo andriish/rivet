@@ -37,7 +37,7 @@
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.4499999999999993" value="30.3"
-        errorMinus="1.3499999999999996"/>
+        errorMinus="1.3499999999999979"/>
       <measurement errorPlus="0.9219544457292888" value="13.4"
         errorMinus="0.9219544457292888"/>
     </dataPoint>

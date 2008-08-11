@@ -143,156 +143,108 @@
     <dataPoint>
       <measurement errorPlus="0.1375" value="0.774"
         errorMinus="0.1375"/>
-      <measurement errorPlus="0.03" value="0.06"
-        errorMinus="0.03"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.04500000000000001"
-        value="0.499" errorMinus="0.1375"/>
-      <measurement errorPlus="0.05" value="0.28"
-        errorMinus="0.05"/>
+      <measurement errorPlus="0.0" value="0.499"
+        errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.03699999999999998"
-        value="0.409" errorMinus="0.04500000000000001"/>
-      <measurement errorPlus="0.06" value="0.4"
-        errorMinus="0.06"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0305" value="0.335"
-        errorMinus="0.03699999999999998"/>
-      <measurement errorPlus="0.08" value="0.81"
-        errorMinus="0.08"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.02500000000000001"
-        value="0.274" errorMinus="0.0305"/>
-      <measurement errorPlus="0.09" value="1.24"
-        errorMinus="0.09"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.020000000000000004"
-        value="0.224" errorMinus="0.02500000000000001"/>
-      <measurement errorPlus="0.1" value="1.97"
-        errorMinus="0.1"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.017" value="0.184"
-        errorMinus="0.020000000000000004"/>
-      <measurement errorPlus="0.13" value="2.87"
-        errorMinus="0.13"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.013499999999999998"
-        value="0.15" errorMinus="0.017"/>
-      <measurement errorPlus="0.16" value="3.72"
-        errorMinus="0.16"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.010999999999999996"
-        value="0.123" errorMinus="0.013499999999999998"/>
-      <measurement errorPlus="0.19" value="5.15"
-        errorMinus="0.19"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.009500000000000001"
-        value="0.101" errorMinus="0.010999999999999996"/>
-      <measurement errorPlus="0.24" value="6.52"
-        errorMinus="0.24"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.006999999999999999"
-        value="0.082" errorMinus="0.009500000000000001"/>
-      <measurement errorPlus="0.3" value="8.03"
-        errorMinus="0.3"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.006500000000000002"
-        value="0.068" errorMinus="0.006999999999999999"/>
-      <measurement errorPlus="0.37" value="10.09"
-        errorMinus="0.37"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.005000000000000001"
-        value="0.055" errorMinus="0.006500000000000002"/>
-      <measurement errorPlus="0.43" value="11.25"
-        errorMinus="0.43"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0040" value="0.045"
-        errorMinus="0.005000000000000001"/>
-      <measurement errorPlus="0.52" value="12.94"
-        errorMinus="0.52"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0034999999999999996"
-        value="0.037" errorMinus="0.0040"/>
-      <measurement errorPlus="0.66" value="15.79"
-        errorMinus="0.66"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0024999999999999988"
-        value="0.03" errorMinus="0.0034999999999999996"/>
-      <measurement errorPlus="0.78" value="17.56"
-        errorMinus="0.78"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0025000000000000005"
-        value="0.025" errorMinus="0.0024999999999999988"/>
-      <measurement errorPlus="0.94" value="18.91"
-        errorMinus="0.94"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0014999999999999996"
-        value="0.02" errorMinus="0.0025000000000000005"/>
-      <measurement errorPlus="1.1" value="20.2"
-        errorMinus="1.1"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0015000000000000005"
-        value="0.017" errorMinus="0.0014999999999999996"/>
-      <measurement errorPlus="1.4" value="23.7"
-        errorMinus="1.4"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0015000000000000005"
-        value="0.014" errorMinus="0.0015000000000000005"/>
-      <measurement errorPlus="1.5" value="21.9"
-        errorMinus="1.5"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.0010" value="0.011"
-        errorMinus="0.0015000000000000005"/>
-      <measurement errorPlus="1.6" value="20.8"
-        errorMinus="1.6"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="9.999999999999996E-4"
-        value="0.0090" errorMinus="0.0010"/>
-      <measurement errorPlus="1.5" value="19.3"
-        errorMinus="1.5"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="5.0E-4" value="0.0070"
-        errorMinus="9.999999999999996E-4"/>
-      <measurement errorPlus="1.4" value="15.6"
-        errorMinus="1.4"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="5.0E-4" value="0.0060"
-        errorMinus="5.0E-4"/>
-      <measurement errorPlus="1.2" value="12.7"
-        errorMinus="1.2"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="5.0E-4" value="0.0050"
-        errorMinus="5.0E-4"/>
-      <measurement errorPlus="1.2" value="8.9" errorMinus="1.2"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="5.0E-4" value="0.0040"
-        errorMinus="5.0E-4"/>
-      <measurement errorPlus="1.0" value="7.7" errorMinus="1.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="NaN" errorMinus="0.0"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
@@ -445,20 +397,20 @@
     <dataPoint>
       <measurement errorPlus="0.10000000000000053" value="5.1"
         errorMinus="0.09999999999999964"/>
-      <measurement errorPlus="0.0070" value="0.077"
-        errorMinus="0.0070"/>
+      <measurement errorPlus="0.007" value="0.077"
+        errorMinus="0.007"/>
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.05000000000000071"
         value="5.35" errorMinus="0.04999999999999982"/>
-      <measurement errorPlus="0.0060" value="0.045"
-        errorMinus="0.0060"/>
+      <measurement errorPlus="0.006" value="0.045"
+        errorMinus="0.006"/>
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.09999999999999964" value="5.5"
         errorMinus="0.09999999999999964"/>
-      <measurement errorPlus="0.0040" value="0.032"
-        errorMinus="0.0040"/>
+      <measurement errorPlus="0.004" value="0.032"
+        errorMinus="0.004"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y01" dimension="2"
@@ -593,7 +545,7 @@
       <measurement errorPlus="0.19999999999999996" value="0.8"
         errorMinus="0.20000000000000007"/>
       <measurement errorPlus="0.0031622776601683794"
-        value="0.0030" errorMinus="0.0031622776601683794"/>
+        value="0.003" errorMinus="0.0031622776601683794"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d13-x01-y01" dimension="2"

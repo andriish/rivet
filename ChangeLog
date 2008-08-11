@@ -1,3 +1,12 @@
+2008-08-11  Andy Buckley  <andy@insectnation.org>
+
+	* Tidying of FastJets and added new data files from HepData.
+
+2008-08-10  James Monk  <jmonk@hep.ucl.ac.uk>
+
+	* FastJets now uses user_index property of fastjet::PseudoJet to
+	reconstruct PID information in jet contents.
+
 2008-08-07  Andy Buckley  <andy@insectnation.org>
 
 	* Reworking of param file and command line parsing. Tab characters
