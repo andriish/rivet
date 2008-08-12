@@ -14,7 +14,7 @@ using namespace TCLAP;
 
 namespace {
   using namespace std;
-  void handleConfigStream(istream& in, map<string, string>& pmap);
+  void handleConfigStream(istream& in, Rivet::ParamMap& pmap);
   pair<string,string> parseParamString(const string& paramstring);
 }
 
@@ -127,7 +127,8 @@ namespace Rivet {
         foreach (const string& p, paramsArg.getValue()) {
           pair<string,string> key_val = parseParamString(p);
           if (!key_val.first.empty() && !key_val.second.empty()) {
-            config.params[key_val.first] = key_val.second;
+            config.params.push_back(Param(key_val.first, key_val.second));
+            //config.params[key_val.first] = key_val.second;
           } else {
             if (key_val.first.empty() && key_val.second.empty()) continue;
             throw Rivet::Error("Param setting key or value is empty, somehow: '" + p + "'");
@@ -135,7 +136,7 @@ namespace Rivet {
         }
 
         // Handle parameters which should be intercepted by RivetGun
-        map<string, string>::iterator p = config.params.begin();
+        ParamMap::iterator p = config.params.begin();
         while (p != config.params.end()) {
           if (p->first.find("RG:") != string::npos) {
             //cout << "Found RG param: " << p->first << " = " << p->second << endl;
@@ -160,7 +161,7 @@ namespace Rivet {
             }
 
             // Remove this param so it doesn't get passed to the generator
-            config.params.erase(p++);
+            config.params.erase(p);
           } else {
             ++p;
           }
@@ -315,7 +316,7 @@ namespace {
   }
   
   
-  void handleConfigStream(istream& in, map<string, string>& pmap) {
+  void handleConfigStream(istream& in, Rivet::ParamMap& pmap) {
     while(in) {
       string line;
       getline(in, line);
@@ -331,7 +332,9 @@ namespace {
       // Parse param string
       pair<string,string> key_val = parseParamString(line);
       if (!key_val.first.empty() && !key_val.second.empty()) {
-        pmap[key_val.first] = key_val.second;
+        pmap.push_back(Rivet::Param(key_val.first, key_val.second));
+        //pmap[key_val.first] = key_val.second;
+        //if(key_val.first.find("RG:") == string::npos) nmap.push_back(key_val.first);
       } else {
         continue;
         //throw Rivet::Error("Param setting key or value is empty, somehow: '" + line + "'");

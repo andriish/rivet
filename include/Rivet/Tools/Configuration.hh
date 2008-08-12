@@ -15,8 +15,10 @@ namespace Rivet {
   typedef const pair<string, string> cParam;
 
   /// Typedef for a parameter container.
-  typedef map<string, string> ParamMap;
-  typedef const map<string, string> cParamMap;
+  typedef vector<Param> ParamMap;
+  typedef const vector<Param> cParamMap;
+  //typedef map<string, string> ParamMap;
+  //typedef const map<string, string> cParamMap;
 
   /// @author Andy Buckley
   /// @date   2007-02-08
@@ -49,6 +51,7 @@ namespace Rivet {
     bool runRivet;
     bool readHepMC, writeHepMC;
     ParamMap params;
+    vector<string> paramNames;
     set<string> analyses;
     size_t rngSeed;
   };
