@@ -1,7 +1,8 @@
 \documentclass{JHEP3}
 %\JHEP{00(2007)000}
 
-\usepackage{xspace,graphicx,mparhack,amsmath,amssymb,url,underscore,fancyvrb}
+\usepackage{xspace,graphicx,mparhack,amsmath}
+\usepackage{amssymb,url,underscore,fancyvrb,cancel}
 \usepackage{hepnicenames,hepunits}
 \usepackage{picinpar,fancybox}
 \usepackage{microtype}
@@ -14,6 +15,9 @@
 \DeclareRobustCommand{\TODO}[1]{\ensuremath{\bigstar}{#1}\xspace}
 %\DeclareRobustCommand{\TODO}[1]{\textcolor{red!20!black}{\ensuremath{\bigstar}{#1}}\xspace}
 %\DeclareRobustCommand{\TOCHECK}[1]{\textcolor{blue!20!black}{\ensuremath{\bigcircle}{#1}}\xspace}
+
+%% Bold tt font
+\DeclareFontShape{OT1}{cmtt}{bx}{n}{<5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>cmttb10}{}
 
 \newenvironment{snippet}{\Verbatim}{\endVerbatim}
 
@@ -67,14 +71,19 @@
 % \end{window}\ignorespacesafterend}
 
 %% Make narrower and box (box must be able to break over pages)
-\newenvironment{philosophy}{\vspace{5mm}\hrule\vspace{3mm}\begingroup\setlength{\parindent}{2em}
-\it\begin{window}[0,l,{\bendimg},{}]}{%
-  \end{window}\endgroup\vspace{3mm}\hrule\vspace{5mm}\ignorespacesafterend}
+\newenvironment{philosophy}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
+  \it\begin{window}[0,l,{\bendimg},{}]
+  \setlength{\parindent}{0cm}\noindent}{%
+  \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
 \newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
 
+\newcommand{\pT}{\ensuremath{p_\perp}\xspace}
+\newcommand{\ET}{\ensuremath{E_\perp}\xspace}
+\newcommand{\MET}{\ensuremath{\cancel{E_\perp}}\xspace}
 
-\title{Rivet and AGILe manual}
+
+\title{Rivet \& AGILe user manual}
 
 \author{Andy Buckley\\ IPPP, Durham University, UK.\\ E-mail: \email{andy.buckley@durham.ac.uk}}
 \author{James Monk\\ HEP Group, Dept. of Physics and Astronomy, UCL, London, UK.\\ E-mail: \email{jmonk@hep.ucl.ac.uk}}
@@ -136,13 +145,13 @@ e.g. \code{Event::applyProjection(\val{proj})}.
 
 Following the example of Donald Knuth in his books on \TeX{}, in this document
 we will indicate paragraphs of particular technicality or esoteric nature with a
-``dangerous bend''\marginpar{\bendimg\\Dangerous bend} sign. These will typically be about the
-internals of Rivet which most people will be lucky enough never to need know
-about, but for detail obsessives, the inordinately curious and Rivet hackers
-they may be useful. You can almost certainly skip them on a first
-reading. Similarly, you may see double bend signs
-\marginpar{\dblbendimg\\Double bend} --- the same rules apply for
-these, but even more strongly.
+``dangerous bend''\marginpar{\bendimg\\Dangerous bend} sign. These will
+typically be about the internals of Rivet which most people will be lucky enough
+never to need know about, but for detail obsessives, the inordinately curious
+and Rivet hackers they may be useful. You can almost certainly skip them on a
+first reading. Similarly, you may see double bend signs
+\marginpar{\dblbendimg\\Double bend} --- the same rules apply for these, but
+even more strongly.
 
 
 \section{Quickstart}
@@ -204,11 +213,11 @@ change), so we've provided a script, \kbd{mkGenserArea}, in the \kbd{bin}
 directory of the AGILe source distribution (this will have been downloaded by
 the \kbd{rivet-bootstrap} script. We recommend getting the latest version from
 SVN, though:\\
-\inp{wget \url{http://svn.hepforge.org/agile/trunk/bin/mkGenserArea}}\\
+\inp{wget \url{http://svn.hepforge.org/agile/genser/agile-genser-bootstrap}}\\
 Now make yourself a Genser installation directory, e.g. \kbd{\var{HOME}/genser},
-and \kbd{cd} into it. Then run the \kbd{mkGenserArea} script, and wait for it
-all to build. Finally, set the \var{AGILE_GEN_PATH} path variable to contain the
-\kbd{\val{genserDir}/liblinks} directory: you should now have a few Fortran
+and \kbd{cd} into it. Then run the \kbd{agile-genser-bootstrap} script, and wait
+for it all to build. Finally, set the \var{AGILE_GEN_PATH} path variable to
+contain the \kbd{\val{genserDir}} directory: you should now have a few
 generators to play with.
 
 
@@ -220,12 +229,12 @@ example throughout this manual. To get started, just run the command
 something like this:
 %
 \begin{snippet}
-buckley@d65:~/proj/cedar/agile\$ rivetgun
+buckley@d18:~/proj/cedar/agile\$ rivetgun
 PARSE ERROR:  
              One or more required arguments missing!
 
 Brief USAGE: 
-   rivetgun  {-g <FHerwig:6510|FPythia:6413>|-G <genfile>} [-R] 
+   rivetgun  {-g <Herwig:6510|Pythia6:418>|-G <genfile>} [-R] 
              [-o <filename>] [-n <num>] [--nocolor] [-l <name=level>] 
              [--histotype <AIDA|FLAT|ROOT>] [-H <name>]
              [-A] [-a <ALEPH_1991_S2435284|~ALEPH_1991_S2435284
@@ -243,7 +252,7 @@ The message obtained with \kbd{rivetgun --help} is much more explicit about the
 meanings of these options, but we'll survey a few of them here with concrete examples.
 
 \begin{itemize}
-\item \paragraph{Simple run:}{\kbd{rivetgun -g~FHerwig:6510 -P~lep1.params
+\item \paragraph{Simple run:}{\kbd{rivetgun -g~Herwig:6510 -P~lep1.params
       -n~1000} will use the Fortran Herwig 6.5.10 generator (the \kbd{-g} option
     switch) to generate 1000 events (the \kbd{-n} switch) in LEP1 mode,
     i.e. $\Ppositron\Pelectron$ collisions at $\sqrt{s} = \unit{90}{\GeV}$. The
@@ -252,9 +261,9 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     \kbd{\val{installdir}/share/RivetGun} directory, if it isn't first found in
     the current directory.}
 
-\item \paragraph{Parameter changes:}{\kbd{rivetgun -g~FPythia:6413
+\item \paragraph{Parameter changes:}{\kbd{rivetgun -g~Pythia6:418
       -P~lep1.params -n~1000 \cmdbreak -p~"PARJ(82)=5.27"} will generate 1000
-    events using the Fortran Pythia 6.4.13 generator, again in LEP1 mode. The
+    events using the Fortran Pythia 6.4.18 generator, again in LEP1 mode. The
     difference this time is that we've used the \kbd{-p} (lower-case) switch to
     change a named generator parameter, here Pythia's PARJ(82), which sets the
     parton shower cutoff scale. Being able to change parameters on the command
@@ -262,7 +271,7 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     testing of parameter values without needing to write a parameters file for
     use with~\kbd{-P}.}
 
-\item \paragraph{Writing out HepMC events:}{\kbd{rivetgun -g~FPythia:6413
+\item \paragraph{Writing out HepMC events:}{\kbd{rivetgun -g~Pythia6:418
       -P~lhc.params -n~50 -o~out.hepmc -R} will generate 50 LHC events with
     Pythia. The~\kbd{-o} switch is being used here to tell \kbd{rivetgun} to
     write the generated events to the \kbd{out.hepmc} file. This file will be a
@@ -271,16 +280,16 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     instance, \kbd{rivetgun} will produce no histogram output file and is
     basically just a flexible steering program for several generators.}
 
-\item \paragraph{Choosing analyses:}{\kbd{rivetgun -g~FHerwig:6510
+\item \paragraph{Choosing analyses:}{\kbd{rivetgun -g~Herwig:6510
       -P~lep1.params \cmdbreak -a~DELPHI_1996_S3430090} will again generate LEP1
-    events using Pythia. This time, since the \kbd{-n} switch is not present,
+    events using Herwig. This time, since the \kbd{-n} switch is not present,
     \kbd{rivetgun} will fall back to its default run of 10 events. We're here
     running a Rivet analysis for the first time --- in the above runs, even
     when~\kbd{-R} wasn't specified, we weren't actually running any analyses. In
     this case, we're running the DELPHI analysis most used for Monte Carlo
     tuning.}
 
-\item \paragraph{Using all analyses:}{\kbd{rivetgun -g~FHerwig:6510
+\item \paragraph{Using all analyses:}{\kbd{rivetgun -g~Herwig:6510
       -P~tevatron1800.params \cmdbreak -n~ 50000 -A
       -a~\RGnegate{}CDF_1994_S2952106} will generate 50k Tevatron events at
     $\sqrt{s}_{\Pproton\Pproton} = \unit{1.8}{\TeV}$. The~\kbd{-A} switch says
@@ -291,7 +300,7 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     \emph{removes} that analysis. Here, all Tevatron analyses \emph{other than}
     CDF_1994_S2952106 will run.}
 
-\item \paragraph{Histogramming:}{\kbd{rivetgun -g~FPythia:6413
+\item \paragraph{Histogramming:}{\kbd{rivetgun -g~Pythia6:418
       -P~tevatron1800.params \cmdbreak -H~foo --histotype~ROOT} will make 10
     Tevatron events. The new features are the \kbd{-H} and \kbd{--histotype}
     switches, which influence the output data file. The \kbd{-H} chooses the
@@ -299,7 +308,7 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     chooses the format, here set to ROOT. So the output file, which in the above
     examples was \kbd{Rivet.aida}, will here be \kbd{foo.root}.}
 
-\item \paragraph{Log level:}{\kbd{rivetgun -g~FPythia:6413 -P~lep1.params
+\item \paragraph{Log level:}{\kbd{rivetgun -g~Pythia6:418 -P~lep1.params
       -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=TRACE -l~RivetGun=WARN}
     will again generate LEP1 events using Pythia. The~\kbd{-l} flags are being
     used to change the level of the logging coming from the various analysis
@@ -311,7 +320,7 @@ meanings of these options, but we'll survey a few of them here with concrete exa
     information like the event number. The default level is ``info'', which lies
     between ``debug'' and ``warning''.}
 
-\item \paragraph{More on logging:}{\kbd{rivetgun -g~FPythia:6413 -P~lep1.params
+\item \paragraph{More on logging:}{\kbd{rivetgun -g~Pythia6:418 -P~lep1.params
       \cmdbreak -l~Rivet.Analysis.Handler=WARN -l~Rivet.Analysis.Test=TRACE}
     is another demo of Rivet's logging capabilities. The logging system is
     hierarchical, so the examples above applied to \emph{all} analyses,
@@ -322,19 +331,19 @@ meanings of these options, but we'll survey a few of them here with concrete exa
 \end{itemize}
 
 Most people aren't familiar with the AIDA data format, which is an issue that we
-intend to address in a future release. Unfortunately, the monolithic nature of
-ROOT, and deficiencies in its histogram class designs, make it an unviable
-choice for Rivet's native histogramming. ROOT fans can use the
-\kbd{-\-histotype=ROOT} flag to produce a ROOT format histogram file. To make
-the \kbd{.aida} files more conveniently useable, Rivet also installs a program
-called \kbd{aida2flat}, which can be used to ``dump'' AIDA's XML histograms to a
-``flat'' format which can be read by \kbd{gnuplot}. Run \kbd{aida2flat -h} to
-get usage instructions.
+intend to address in a future release\footnote{An improved histogramming system
+  is scheduled for Rivet 1.2.0.}. Unfortunately, the monolithic nature of ROOT,
+and deficiencies in its histogram class designs, make it an unviable choice for
+Rivet's native histogramming. ROOT fans can use the \kbd{-\-histotype=ROOT} flag
+to produce a ROOT format histogram file. To make the \kbd{.aida} files more
+conveniently useable, Rivet also installs a program called \kbd{aida2flat},
+which can be used to ``dump'' AIDA's XML histograms to a ``flat'' format which
+can be read by \kbd{gnuplot}. Run \kbd{aida2flat -h} to get usage instructions.
 
 As with most software, the best way to learn it is to try and use it ---
 preferably starting with relatively modest aims and then progressing to more
-ambitious things as your familiarity increases. And give feedback to the authors
-if the design seems a bit screwy!
+ambitious things as your familiarity increases. And please feed back your
+thoughts to the authors if the design seems a bit screwy!
 
 
 
@@ -402,7 +411,7 @@ particularly aware of what is going on.
 Observant readers may have noticed a problem with all this projection caching
 cleverness: what if the final states aren't defined the same way? One might
 provide charged final state particles only, or the acceptances (defined in
-rapidity range and a IR $p_\perp$ cutoff) might differ. Rivet handles this by
+rapidity range and a IR \pT cutoff) might differ. Rivet handles this by
 making each projection provide a comparison operator which is used to decide
 whether the cached version is acceptable or if the calculation must be re-run
 with different settings. Because projections can be nested, applying a top-level
@@ -431,7 +440,7 @@ the overloaded \code{Projection::clone()} method. Hence it is completely safe
 and \code{Analysis} constructors.
 
 \begin{philosophy}
-  At this point, if you have bought into C++y ideas like super-strong
+  At this point, if you have rightly bought into C++ ideas like super-strong
   type-safety, this proliferation of dynamic casting may worry you: the compiler
   can't possibly check if a projection of the requested name has been
   registered, nor whether the downcast to the requested concrete type is
@@ -466,81 +475,123 @@ and \code{Analysis} constructors.
   latter benefit from interface flexibility, fast prototyping and syntactic
   clarity. Maybe a future version of Rivet will break through the technical
   barriers to a hybrid approach and allow users to run compiled projections from
-  interpreted analysis code. For now, however, you will have to be content with
-  our brand of ``slightly less safe C++''.
+  interpreted analysis code. For now, however, we hope that our brand of
+  ``slightly less safe C++'' will be a pleasant compromise.
 \end{philosophy}
 
 
-\begin{detail}
-\TODO{How projection caching \emph{really} works}
-(skippable, but useful as a reference)
-This section is super-hardcore
-\end{detail}
+% \begin{detail}
+% \TODO{How projection caching \emph{really} works}
+% (skippable, but useful as a reference)
+% \end{detail}
 
-\subsection{Standard projection summary}
-\TODO{foo}
+% \subsection{Standard projection summary}
+% \TODO{foo}
 
-\subsection{Example projection}
-\TODO{bar}
+% \subsection{Example projection}
+% \TODO{bar}
 
-\subsection{Cuts and constraints}
-\TODO{baz}
+% \subsection{Cuts and constraints}
+% \TODO{baz}
+
 
 \section{Analyses}
 
 \subsection{Writing a new analysis}
 
-This section provides a recipe that can be followed to write a new analysis using the Rivet projections.  
+This section provides a recipe that can be followed to write a new analysis
+using the Rivet projections.
 
-Every analysis must inherit from \code{Rivet::Analysis} and, in addition to the constructor, must implement a minimum of three methods.  Those methods are \code{init()},  \code{analyze(const Rivet::Event\&)} and \code{finalize()}, which are called once at the beginning of the analysis, once per event and once at the end of the analysis respectively.
+Every analysis must inherit from \code{Rivet::Analysis} and, in addition to the
+constructor, must implement a minimum of three methods.  Those methods are
+\code{init()}, \code{analyze(const Rivet::Event\&)} and \code{finalize()}, which
+are called once at the beginning of the analysis, once per event and once at the
+end of the analysis respectively.
 
-The new analysis should include the header for the base analysis class plus whichever Rivet projections are to be used and should work under the \code{Rivet} namespace.  The header for a new analysis named \code{UserAnalysis} that uses the \code{FinalState} projection might therefore start off looking like this
-
+The new analysis should include the header for the base analysis class plus
+whichever Rivet projections are to be used and should work under the
+\code{Rivet} namespace.  The header for a new analysis named \code{UserAnalysis}
+that uses the \code{FinalState} projection might therefore start off looking
+like this:
+%
 \begin{snippet}
-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 
 namespace Rivet {
 
-class UserAnalysis : public Analysis {
-
+  class UserAnalysis : public Analysis {
   public:
     UserAnalysis();
     void init();
     void analyze(const Event& event);
     void finalize();
   };
-}
 
+}
 \end{snippet}
 
 \subsubsection{Analysis constructor}
-
-The constructor for the \code{UserAnalysis} class should add to the analysis all of the projections that will be used.  Projections can be added to an analysis with a call to \code{addProjection(Projection, std::string)}, which takes as argument the projection to be added and a name by which that projection can later be referenced.  For this example the \code{FinalState} projection is to be referenced by the string \code{"FS"} to provide access to all of the final state particles inside a detector pseudorapidity coverage of $\pm5.0$.  The syntax to create and add that projection inside the constructor for \code{UserAnalysis} is as follows:
-
+The constructor for the \code{UserAnalysis} class should add to the analysis all
+of the projections that will be used.  Projections can be added to an analysis
+with a call to \code{addProjection(Projection, std::string)}, which takes as
+argument the projection to be added and a name by which that projection can
+later be referenced.  For this example the \code{FinalState} projection is to be
+referenced by the string \code{"FS"} to provide access to all of the final state
+particles inside a detector pseudorapidity coverage of $\pm 5.0$.  The syntax to
+create and add that projection inside the constructor for \code{UserAnalysis} is
+as follows:
+%
 \begin{snippet}
-Rivet::UserAnalysis(){
+Rivet::UserAnalysis() {
   const FinalState fs(-5.0, 5.0);
   addProjection(fs, "FS");
 }
 \end{snippet}
 
-In addition to adding projections, the constructor may also impose certain requirements upon the events that the analysis will work with.  A call to the \code{setBeams} method declares that the analysis may only be run on events with specific types of beam particles, for example adding the line
-
+In addition to adding projections, the constructor may also impose certain
+requirements upon the events that the analysis will work with.  A call to the
+\code{setBeams} method declares that the analysis may only be run on events with
+specific types of beam particles, for example adding the line
+%
 \begin{snippet}
   setBeams(PROTON, PROTON);
 \end{snippet}
-\noindent ensures that the analysis can only be run on events from proton-proton collisions.  Other types of beam particles that may be used include \code{ANTIPROTON}, \code{ELECTRON}, \code{POSITRON}, \code{MUON} and \code{ALL}.  The later of these declares that the analysis is suitable for use with any type of collision and is the default.
+%
+\noindent ensures that the analysis can only be run on events from proton-proton
+collisions.  Other types of beam particles that may be used include
+\code{ANTIPROTON}, \code{ELECTRON}, \code{POSITRON}, \code{MUON} and \code{ALL}.
+The later of these declares that the analysis is suitable for use with any type
+of collision and is the default.
 
-Some analyses need to know the interaction cross section that was generated by the Monte Carlo generator, typically in order to normalise histograms.  Depending on the Monte Carlo that is used and its interface to Rivet, the cross section  may or may not  be known.  An analysis can therefore declare at the beginning of a run that it will need the cross section information during the finalisation stages.  Such a declaration can be used to prevent what would otherwise be fruitless analyses from running.  An analysis sets itself as requiring the cross section by calling inside the constructor
-
+Some analyses need to know the interaction cross section that was generated by
+the Monte Carlo generator, typically in order to normalise histograms.
+Depending on the Monte Carlo that is used and its interface to Rivet, the cross
+section may or may not be known.  An analysis can therefore declare at the
+beginning of a run that it will need the cross section information during the
+finalisation stages.  Such a declaration can be used to prevent what would
+otherwise be fruitless analyses from running.  An analysis sets itself as
+requiring the cross section by calling inside the constructor
+%
 \begin{snippet}
   setNeedsCrossSection(true);
 \end{snippet}
-\noindent In the absence of  this call the default is to assume that the analysis does not need to know the cross section.  
+%
+\noindent In the absence of this call the default is to assume that the analysis
+does not need to know the cross section.
 
-It is often the case that an analysis is only appropriate for a limited range of Monte Carlo kinematic settings.  For example, an analysis may only be suitable if the minimum PT in the hard scatter is above a certain value.  A mechanism exists with the \code{Analysis} object to declare the existence of such a cut.  However, the relevant information must be made available by the Monte Carlo generator and, given the potentially large number of such generator-dependent cuts, this information is not currently checked by the AGILe generator interface.  Nevertheless, an analysis can add a cut in the constructor with a call to \code{addCut(const string\&, const Comparison\&, const double)}, which takes as its arguments the name of the cut, the comparison operator and a value to compare the cut quantity with.  For example, to add a cut stating that the hard scatter PT must be above $3$~GeV one should call
+It is often the case that an analysis is only appropriate for a limited range of
+Monte Carlo kinematic settings.  For example, an analysis may only be suitable
+if the minimum \pT in the hard scatter is above a certain value.  A mechanism
+exists with the \code{Analysis} object to declare the existence of such a cut.
+However, the relevant information must be made available by the Monte Carlo
+generator and, given the potentially large number of such generator-dependent
+cuts, this information is not currently checked by the AGILe generator
+interface.  Nevertheless, an analysis can add a cut in the constructor with a
+call to \code{addCut(const string\&, const Comparison\&, const double)}, which
+takes as its arguments the name of the cut, the comparison operator and a value
+to compare the cut quantity with.  For example, to add a cut stating that the
+hard scatter \pT must be above \unit{3}{\GeV} one should call
 
 \begin{snippet}
   addCut("PT", MORE_EQ, 3.0*GeV);
