@@ -29,12 +29,16 @@ namespace Rivet {
       _particles.clear();
       int counter = 1;
       _particles.clear();
-      foreach (const Particle& p, particles) {
-        const FourMomentum fv = p.momentum();
+//      foreach (const Particle& p, particles) {
+      
+      for(ParticleVector::const_iterator p = particles.begin(); 
+          p!=particles.end(); ++p){
+      
+        const FourMomentum fv = p->momentum();
         PseudoJet pJet(fv.px(), fv.py(), fv.pz(), fv.E());
         pJet.set_user_index(counter);
         vecs.push_back(pJet);
-        _particles[counter] = p;
+        _particles[counter] = *p;
         ++counter;
       }
       
