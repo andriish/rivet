@@ -12,8 +12,8 @@ namespace Rivet {
 
 
   /// @brief Implementation of PDG hadron multiplicities
-  /// @author Hendrik Hoeth
-  class PDG_Hadron_Multiplicities_Ratios : public Analysis {
+  /// @author Holger Schulz
+  class PDG_HADRON_MULTIPLICITIES_RATIOS : public Analysis {
 
   public:
 
@@ -21,7 +21,7 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    PDG_Hadron_Multiplicities_Ratios() 
+    PDG_HADRON_MULTIPLICITIES_RATIOS() 
     {
       setBeams(ELECTRON, POSITRON); 
       addProjection(Beam(), "Beams");
@@ -36,7 +36,7 @@ namespace Rivet {
 
     /// Factory method.
     static Analysis* create() { 
-      return new PDG_Hadron_Multiplicities_Ratios(); 
+      return new PDG_HADRON_MULTIPLICITIES_RATIOS(); 
     }
     //@}
 
@@ -45,7 +45,7 @@ namespace Rivet {
     //@{
     /// Get a description of the analysis.
     string getName() const {
-      return "PDG_Hadron_Multiplicities_Ratios";
+      return "PDG_HADRON_MULTIPLICITIES_RATIOS";
     }
     /// Get a description of the analysis.
     string getDescription() const {
@@ -73,7 +73,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    PDG_Hadron_Multiplicities_Ratios& operator=(const PDG_Hadron_Multiplicities_Ratios&);
+    PDG_HADRON_MULTIPLICITIES_RATIOS& operator=(const PDG_HADRON_MULTIPLICITIES_RATIOS&);
 
     double _weightedTotalNumPiPlus10;
     double _weightedTotalNumPiPlus32;

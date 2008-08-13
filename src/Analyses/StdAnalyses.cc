@@ -83,8 +83,8 @@ extern "C" {
     fns["D0_2008_S6879055"] = Rivet::D0_2008_S6879055::create;
 
     // General
-    fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_Hadron_Multiplicities::create;
-    fns["PDG_HADRON_MULTIPLICITIES_RATIOS"] = Rivet::PDG_Hadron_Multiplicities_Ratios::create;
+    fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_HADRON_MULTIPLICITIES::create;
+    fns["PDG_HADRON_MULTIPLICITIES_RATIOS"] = Rivet::PDG_HADRON_MULTIPLICITIES_RATIOS::create;
 
     return fns;
   }

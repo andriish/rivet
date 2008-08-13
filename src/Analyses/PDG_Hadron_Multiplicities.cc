@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  void PDG_Hadron_Multiplicities::analyze(const Event& e) {
+  void PDG_HADRON_MULTIPLICITIES::analyze(const Event& e) {
     // First, veto on leptonic events by requiring at least 4 charged FS particles
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     const size_t numParticles = fs.particles().size();
@@ -428,7 +428,7 @@ namespace Rivet {
 
 
 
-  void PDG_Hadron_Multiplicities::init() {
+  void PDG_HADRON_MULTIPLICITIES::init() {
     _hist10MeanMultiPiPlus             = bookHistogram1D( 1, 1, 1, "mean Pi+ multiplicity");
     _hist10MeanMultiPi0                = bookHistogram1D( 2, 1, 1, "mean Pi0 multiplicity");
     _hist10MeanMultiKPlus              = bookHistogram1D( 3, 1, 1, "mean K+ multiplicity");
@@ -551,7 +551,7 @@ namespace Rivet {
   }
 
   // Finalize
-  void PDG_Hadron_Multiplicities::finalize() {
+  void PDG_HADRON_MULTIPLICITIES::finalize() {
     scale(_hist10MeanMultiPiPlus            , 1.0/sumOfWeights());
     scale(_hist10MeanMultiPi0               , 1.0/sumOfWeights());
     scale(_hist10MeanMultiKPlus             , 1.0/sumOfWeights());

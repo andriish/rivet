@@ -13,7 +13,7 @@ namespace Rivet {
 
   /// @brief Implementation of PDG hadron multiplicities
   /// @author Hendrik Hoeth
-  class PDG_Hadron_Multiplicities : public Analysis {
+  class PDG_HADRON_MULTIPLICITIES : public Analysis {
 
   public:
 
@@ -21,7 +21,7 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    PDG_Hadron_Multiplicities() 
+    PDG_HADRON_MULTIPLICITIES() 
     {
       setBeams(ELECTRON, POSITRON); 
       addProjection(Beam(), "Beams");
@@ -32,7 +32,7 @@ namespace Rivet {
 
     /// Factory method.
     static Analysis* create() { 
-      return new PDG_Hadron_Multiplicities(); 
+      return new PDG_HADRON_MULTIPLICITIES(); 
     }
     //@}
 
@@ -41,7 +41,7 @@ namespace Rivet {
     //@{
     /// Get a description of the analysis.
     string getName() const {
-      return "PDG_Hadron_Multiplicities";
+      return "PDG_HADRON_MULTIPLICITIES";
     }
     /// Get a description of the analysis.
     string getDescription() const {
@@ -69,7 +69,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator
-    PDG_Hadron_Multiplicities& operator=(const PDG_Hadron_Multiplicities&);
+    PDG_HADRON_MULTIPLICITIES& operator=(const PDG_HADRON_MULTIPLICITIES&);
 
     AIDA::IHistogram1D *_hist10MeanMultiPiPlus;
     AIDA::IHistogram1D *_hist10MeanMultiPi0;
