@@ -27,10 +27,10 @@ namespace Rivet {
 
 
 // The main function of the rivetgun executable.
-int main(size_t argc, char* argv[]) {
+int main(int argc, char* argv[]) {
 
   // Debug initial gen/analysis scan (before proper command line log levels are set)
-  for (size_t argi = 0; argi < argc; ++argi) {
+  for (int argi = 0; argi < argc; ++argi) {
     string arg(argv[argi]);
     if (arg.find("Rivet.Loader=TRACE") != string::npos ||
         arg.find("Rivet=TRACE") != string::npos) {
@@ -60,8 +60,7 @@ int main(size_t argc, char* argv[]) {
   Log& log = Rivet::Log::getLog("RivetGun.Main");
   stringstream cmd;
   cmd << "rivetgun ";
-  //foreach (char* c, argv) cmd << c << " ";
-  for (size_t i = 1; i < argc; ++i) cmd << argv[i] << " ";
+  for (int i = 1; i < argc; ++i) cmd << argv[i] << " ";
   log << Log::INFO << "Called with command line: " << cmd.str() << endl;
 
 

@@ -42,28 +42,28 @@ namespace Rivet {
       return _particles.end();
     }
 
-    /// Get the particles (tracks) in this jet.
-    vector<FourMomentum>& getParticles() {
+    /// Get the track momenta in this jet.
+    vector<FourMomentum>& momenta() {
       return _particles;
     }
 
-    /// Get the particles (tracks) in this jet (const version).
-    const vector<FourMomentum>& getParticles() const {
+    /// Get the track momenta in this jet (const version).
+    const vector<FourMomentum>& momenta() const {
       return _particles;
     }
 
     /// Get the Rivet::Particles (full information) in this jet
-    vector<Particle> &getFullParticles(){
+    vector<Particle>& particles() {
       return _fullParticles;
     }
     
     /// Get the Rivet::Particles (full information) in this jet (const version)
-    const vector<Particle> &getFullParticles() const {
+    const vector<Particle>& particles() const {
       return _fullParticles;
     }
     
     /// Number of particles (tracks) in this jet.
-    size_t getNumParticles() const {
+    size_t numParticles() const {
       return _particles.size();
     }
 
@@ -81,21 +81,18 @@ namespace Rivet {
       return *this;
     }
 
-    Jet addParticle(const Particle &particle){
+    Jet addParticle(const Particle& particle) {
       _fullParticles.push_back(particle);
       _particles.push_back(particle.momentum());
       _resetCaches();
       return *this;
     }
     
-    bool containsParticle(const Particle &particle) const{
-      
+    bool containsParticle(const Particle& particle) const {
       int barcode = particle.getHepMCParticle().barcode();
-      
-      for(ParticleVector::const_iterator pIt = _fullParticles.begin();
-          pIt != _fullParticles.end(); ++pIt){
-        const GenParticle &part=pIt->getHepMCParticle();
-        if(part.barcode()==barcode) return true;
+      for (ParticleVector::const_iterator pIt = _fullParticles.begin(); pIt != _fullParticles.end(); ++pIt) {
+        const GenParticle& part = pIt->getHepMCParticle();
+        if (part.barcode() == barcode) return true;
       }
       return false;
     }
@@ -103,13 +100,14 @@ namespace Rivet {
     /// Reset this jet as empty.
     Jet clear() {
       _particles.clear();
+      _fullParticles.clear();
       _resetCaches();
       return *this;
     }
 
     /// Get the average \f$ \eta \f$ for this jet, with the average weighted
     /// by the \f$ p_T \f$ values of the constituent tracks. (caches)
-    double getPtWeightedEta() const {
+    double ptWeightedEta() const {
       _calcPtAvgs();
       assert(_okPtWeightedEta);
       return _ptWeightedEta;
@@ -117,14 +115,14 @@ namespace Rivet {
 
     /// Get the average \f$ \phi \f$ for this jet, with the average weighted
     /// by the \f$ p_T \f$ values of the constituent tracks. (caches)
-    double getPtWeightedPhi() const {
+    double ptWeightedPhi() const {
       _calcPtAvgs();
       assert(_okPtWeightedPhi);
       return _ptWeightedPhi;
     }
 
     /// Get the unweighted average \f$ \eta \f$ for this jet. (caches)
-    double getEta() const {
+    double eta() const {
       _calcAvgs();
       assert(_okEta);
       return _eta;
@@ -132,39 +130,31 @@ namespace Rivet {
 
 
     /// Get the unweighted average \f$ \phi \f$ for this jet. (caches)
-    double getPhi() const {
+    double phi() const {
       _calcAvgs();
       assert(_okPhi);
       return _phi;
     }
 
 
-    /// Get a FourMomentum vector that characterises this jet (the sum of the
-    /// constitutent momenta).
-    FourMomentum vector() const {
-      return accumulate(begin(), end(), FourMomentum());
+    /// Get equivalent single momentum four-vector. (caches)
+    const FourMomentum& momentum() const {
+      _calcMomVector();
+      return _momentum;
     }
 
-    const FourMomentum &momentum() const {
-      
-      if(_okMomentum) return _momentum;
-      
-      _momentum = this->vector();
-      _okMomentum = true;
-      return _momentum;
-    };
     
-    FourMomentum &momentum(){ 
-      
-      if(_okMomentum) return _momentum;
-      
-      _momentum = this->vector();
-      _okMomentum = true;
+    /// Get equivalent single momentum four-vector. (caches)
+    FourMomentum& momentum() { 
+      _calcMomVector();
       return _momentum;
-    };
+    }
+
+
+  public:
     
     /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
-    double getPtSum() const {
+    double ptSum() const {
       if (!_okTotalPt) {
         double ptsum(0.0);
         for (const_iterator p = this->begin(); p != this->end(); ++p) {
@@ -178,7 +168,7 @@ namespace Rivet {
 
 
     /// Get the sum of the \f$ E_T \f$ values of the constituent tracks. (caches)
-    double getEtSum() const {
+    double EtSum() const {
       if (!_okTotalEt) {
         double Etsum(0.0);
         for (const_iterator p = this->begin(); p != this->end(); ++p) {
@@ -206,6 +196,16 @@ namespace Rivet {
       }
     }
 
+
+    // Calculate cached equivalent momentum vector
+    void _calcMomVector() const {
+      if (!_okMomentum) {
+        _momentum = accumulate(begin(), end(), FourMomentum());
+        _okMomentum = true;
+      }
+    }
+
+
     /// Internal caching method to calculate the average \f$ \eta \f$ and \f$
     /// \phi \f$ for this jet, weighted by the \f$ p_T \f$ values of the
     /// constituent tracks.
@@ -227,9 +227,9 @@ namespace Rivet {
         }
         _totalPt = ptsum;
         _okTotalPt = true;
-        _ptWeightedEta = ptwetasum / getPtSum();
+        _ptWeightedEta = ptwetasum / ptSum();
         _okPtWeightedEta = true;
-        _ptWeightedPhi = phibegin + ptwphisum / getPtSum();
+        _ptWeightedPhi = phibegin + ptwphisum / ptSum();
         _ptWeightedPhi = mapAngleMPiToPi(_ptWeightedPhi);
         _okPtWeightedPhi = true;
       }
@@ -250,7 +250,7 @@ namespace Rivet {
             phisum += mapAngleMPiToPi(dphi);
           }
         }
-        const double dnum = getNumParticles();
+        const double dnum = numParticles();
         _eta = etasum / dnum;
         _okEta = true;
         _phi = phibegin + phisum / dnum;

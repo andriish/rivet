@@ -1,3 +1,14 @@
+2008-08-14  Andy Buckley  <andy@insectnation.org>
+
+	* Fixed some g++ 4.3 compilation bugs, including "vector" not
+	being a valid name for a method which returns a physics vector,
+	since it clashes with std::vector (which we globally import). Took
+	the opportunity to rationalise the Jet interface a bit, since
+	"particle" was used to mean "FourMomentum", and "Particle" types
+	required a call to "getFullParticle". I removed the "gets" at the
+	same time, as part of our gradual migration to a coherent naming
+	policy.
+
 2008-08-11  Andy Buckley  <andy@insectnation.org>
 
 	* Tidying of FastJets and added new data files from HepData.

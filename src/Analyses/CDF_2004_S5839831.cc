@@ -41,7 +41,7 @@ namespace Rivet {
 
   // Note that sorting is inverted, so that highest ET is at the front of the list
   bool cmpJetsByEt(const Jet& a, const Jet& b) {
-    return a.getEtSum() > b.getEtSum();
+    return a.EtSum() > b.EtSum();
   }
 
 
@@ -55,7 +55,7 @@ namespace Rivet {
     if ( getLog().isActive(Log::DEBUG) ) {
       getLog() << Log::DEBUG << "Jet Et sums = [" << endl;
       foreach (Jet& j, jets) {
-        getLog() << Log::DEBUG << "  " << j.getEtSum() << endl;
+        getLog() << Log::DEBUG << "  " << j.EtSum() << endl;
       }
       getLog() << Log::DEBUG << "]" << endl;
     }
@@ -67,15 +67,15 @@ namespace Rivet {
 
     // Leading jet must be in central |eta| < 0.5 region.
     const Jet leadingjet = jets.front();
-    const double etaLead = leadingjet.vector().pseudorapidity();
+    const double etaLead = leadingjet.momentum().pseudorapidity();
     if (fabs(etaLead) > 0.5) vetoEvent(event);
     getLog() << Log::DEBUG << "Leading jet in central eta bin. Num tracks = " << tracks.size() << endl; 
 
     // Get Et of the leading jet: used to bin histograms.
-    const double ETlead = leadingjet.getEtSum();
+    const double ETlead = leadingjet.EtSum();
 
     // Get azimuthal angle of leading jet, to determine transverse regions
-    const double phiLead = leadingjet.vector().azimuthalAngle();
+    const double phiLead = leadingjet.momentum().azimuthalAngle();
     const double phiTransPlus = mapAngleMPiToPi(phiLead + PI/2.0);
     const double phiTransMinus = mapAngleMPiToPi(phiLead - PI/2.0);
 
@@ -158,22 +158,22 @@ namespace Rivet {
     double ptSumSub2(0), ptSumSub3(0);
     if (ETlead/GeV > 5.0 &&
         jets.size() > 1 &&
-        jets[1].vector().Et()/GeV > 5.0) {
+        jets[1].momentum().Et()/GeV > 5.0) {
 
       const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();      
       foreach (const Particle& t, cheesetracks) {
         FourMomentum trackMom = t.momentum();
         const double pt = trackMom.pT();
 
-        const double eta2 = jets[1].vector().pseudorapidity();
-        const double phi2 = jets[1].vector().azimuthalAngle();
+        const double eta2 = jets[1].momentum().pseudorapidity();
+        const double phi2 = jets[1].momentum().azimuthalAngle();
         if (deltaR(trackMom, etaLead, phiLead) > 0.7 &&
             deltaR(trackMom, eta2, phi2) > 0.7) {
           ptSumSub2 += pt;
-          if (jets.size() > 2 &&
-              jets[2].vector().Et()/GeV > 5.0) {
-            const double eta3 = jets[2].vector().pseudorapidity();
-            const double phi3 = jets[2].vector().azimuthalAngle();
+
+          if (jets.size() > 2 && jets[2].momentum().Et()/GeV > 5.0) {
+            const double eta3 = jets[2].momentum().pseudorapidity();
+            const double phi3 = jets[2].momentum().azimuthalAngle();
             if (deltaR(trackMom, eta3, phi3) > 0.7) {
               ptSumSub3 += pt;
             }

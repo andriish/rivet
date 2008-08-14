@@ -47,8 +47,8 @@ namespace Rivet {
     if (jets.empty()) { vetoEvent(event); }
 
     Jet leadingJet = jets[0];
-    const double phiLead = leadingJet.getPtWeightedPhi();
-    const double ptLead = leadingJet.getPtSum();
+    const double phiLead = leadingJet.ptWeightedPhi();
+    const double ptLead = leadingJet.ptSum();
 
     // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
     if (ptLead/GeV < 0.5) vetoEvent(event);

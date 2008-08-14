@@ -42,7 +42,7 @@ namespace Rivet {
       if (ptmin == 0.0) return _jets;
       Jets rtn;
       for (Jets::const_iterator j = _jets.begin(); j != _jets.end(); ++j) {
-        if (j->getPtSum() >= ptmin) {
+        if (j->ptSum() >= ptmin) {
           rtn.push_back(*j);
         }
       }

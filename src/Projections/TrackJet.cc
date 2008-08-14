@@ -13,7 +13,7 @@ namespace Rivet {
   // Helper functions for sorting
   // For sorting Jet objects by pT.
   inline bool compareJetsByPt(const Rivet::Jet& first, const Rivet::Jet& second) {
-    return first.getPtSum() > second.getPtSum();
+    return first.ptSum() > second.ptSum();
   }
   
 
@@ -70,8 +70,8 @@ namespace Rivet {
         log << Log::TRACE << "Building jet from tracks" << endl;
 
         // Get eta and phi for this jet
-        const double jeteta = thisjet.getPtWeightedEta();
-        const double jetphi = thisjet.getPtWeightedPhi();
+        const double jeteta = thisjet.ptWeightedEta();
+        const double jetphi = thisjet.ptWeightedPhi();
 
         // Compute D(eta) and D(phi), mapping Dphi into [0,pi]
         const double Deta = fabs(jeteta - t2->pseudorapidity());
@@ -100,7 +100,7 @@ namespace Rivet {
       log << Log::DEBUG << "Number of jets = " << _jets.size() << endl;
       size_t njet = 1;
       for (Jets::const_iterator j = _jets.begin(); j != _jets.end(); ++j)
-        log << Log::DEBUG << "Number of tracks in jet #" << njet++ << " = " << j->getNumParticles() << endl;
+        log << Log::DEBUG << "Number of tracks in jet #" << njet++ << " = " << j->numParticles() << endl;
     }
   }
 
