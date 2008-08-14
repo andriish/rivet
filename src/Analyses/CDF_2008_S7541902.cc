@@ -4,6 +4,7 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
 #include "Rivet/AnalysisHandler.hh"
+#include <algorithm>
 
 namespace Rivet {
 
@@ -43,66 +44,87 @@ namespace Rivet {
     const FinalState& part = applyProjection<FinalState>(event, "FS");
     const ParticleVector& particles =  part.particles();
 
-    // Make kinematic cuts
-    FourMomentum electronP, neutrinoP;
-    for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
-      // Pick out final state electrons and electron neutrinos
-      const unsigned int abs_id = abs(p->getPdgId());
-
-      if (abs_id == ELECTRON || abs_id == NU_E) {
-        bool fromW = false;
-        GenVertex *startVtx = (p->getHepMCParticle()).production_vertex();       
-        if (startVtx) {
-          for (GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
-               pIt != startVtx->particles_end(HepMC::ancestors); ++pIt) {
-            if (fabs((*pIt)->pdg_id())==24) fromW = true;
-          }
-        } else {
-          log << Log::WARN << "No vertex found for final state particles" << endl;
-        }
-        if (fromW && abs_id == ELECTRON) electronP = p->momentum();
-        if (fromW && abs_id == NU_E)     neutrinoP = p->momentum();
-      }
-    }
-
-    /// @todo Declare these cuts
-    bool fail = false;
-    if (electronP.pT() < 20.0 || fabs(electronP.pseudorapidity()) > 1.1) fail = true;
-    if (neutrinoP.pT() < 30.0)  fail = true;
-    if (electronP.pT() == 0.)  log << Log::TRACE << "No final state electron found, probably outside eta range" << endl;
-    if (neutrinoP.pT() == 0.)  log << Log::TRACE << "No final state neutrino found, probably outside eta range" << endl;
+    //get the hardest electron in the event
     
-    if (!fail) {
-      /// @todo Should add this as a function in FourMom
-      float MT = electronP.pT()*neutrinoP.pT() - 
-        electronP.px()*neutrinoP.px() -
-        electronP.py()*neutrinoP.py();
-      MT = sqrt(2.0*MT);
-      if (MT < 20.) fail = true;
-    }
-    if (fail) vetoEvent(event);
-
-    // JetClu 0.4 radius, merging fraction = 0.75 
-    // Remove electron (and neutrinos/muons) before clustering
-    const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
-    const PseudoJets& jets = jetpro.getPseudoJetsByPt();
-    vector<float> jetPt;  
-    size_t njets = 0; 
-    for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      if (fabs(jt->pseudorapidity()) < 2.0 ){
-        if (jt->perp() > 20.) jetPt.push_back(jt->perp());
-        if (jt->perp() > 25.) ++njets;
-      } 
-    } 
-    for (size_t i = 0; i <= njets ; ++i) {
-      _histJetMult->fill(i,event.weight());
-    }
-    for (size_t i = 0; i < 5; ++i){
-      if (jetPt.size() > i) {
-        _histJetEt[i]->fill(jetPt[i],event.weight());
+    const ChargedLeptons &chLeptons = applyProjection<ChargedLeptons>(event, "ChLeptons");
+    ParticleVector theLeptons = chLeptons.chargedLeptons();
+    sort(theLeptons.begin(), theLeptons.end(), Particle::byETDescending());
+    
+    Particle electron;
+    bool gotLepton = false;
+    bool stop = false;
+    for(ParticleVector::const_iterator p = theLeptons.begin();
+        !stop && !gotLepton && p != theLeptons.end(); ++p){
+      if(p->momentum().Et() > _electronETCut){
+        if(abs(p->getPdgId())==11){
+          electron = *p;
+          gotLepton = true;
+        }
+      }else{
+        stop = true;
       }
     }
 
+    if(!gotLepton){
+      vetoEvent(event);
+      return;
+    }
+    
+    // get the neutrino
+    
+    FourMomentum neutrinoP;
+    bool gotNeutrino=false;
+    
+    for(ParticleVector::const_iterator p = particles.begin(); 
+        !gotNeutrino && p != particles.end(); ++p){
+      const unsigned int abs_id = abs(p->getPdgId());
+      
+      if(abs_id == NU_E){
+        neutrinoP = p->momentum();
+        if(neutrinoP.Et() > _eTmissCut) gotNeutrino = true;
+      }
+    }
+    
+    if(!gotNeutrino){
+      vetoEvent(event);
+      return;
+    }
+    
+    // get the jets
+    
+    const FastJets &jetProj = applyProjection<FastJets>(event, "Jets");
+    
+    Jets theJets = jetProj.getJetsByPt(15.0);
+    sort(theJets.begin(), theJets.end(), Particle::byETDescending());
+    
+    Jets foundJets;
+    stop = false;
+    
+    for(Jets::const_iterator jIt =theJets.begin(); 
+        !stop && foundJets.size()!=4 && jIt != theJets.end(); ++jIt){
+      
+      if(jIt->momentum().Et()>_jetEtCut){
+        if(! jIt->containsParticle(electron))
+          foundJets.push_back(*jIt);
+      }else{
+        stop = true;
+      }
+    }
+    
+    double mT2 = electron.momentum().pT() * neutrinoP.pT() - 
+    electron.momentum().px() * neutrinoP.px() -
+    electron.momentum().py() * neutrinoP.py();
+           
+    if(mT2 < _mT2Cut ){
+      vetoEvent(event);
+      return;
+    }
+    
+    for(size_t i = 0; i != foundJets.size(); ++i){
+      _histJetEt[i]->fill(foundJets[i].momentum().Et(),event.weight());
+    }
+    
+    return;
   }
   
   

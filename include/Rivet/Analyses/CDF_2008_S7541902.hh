@@ -6,6 +6,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -29,21 +30,24 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CDF_2008_S7541902() {
+    CDF_2008_S7541902():
+    _electronETCut(20.0 *GeV), _eTmissCut(30.0 *GeV),
+    _jetEtCut(20.0 *GeV), _mT2Cut(200.0 * GeV * GeV)
+    {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
       FinalState fs(-3.6,3.6);
+      FinalState leptonFs(-3.6, 3.6, 15);
       addProjection(fs, "FS");
-      // Veto neutrinos, W decay products, and muons with \f$ p_T \f$ above 1.0 GeV
+      // Veto neutrinos, and muons with \f$ p_T \f$ above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs
         .addVetoPairId(NU_E)
         .addVetoPairId(NU_MU)
-        .addVetoPairId(NU_TAU)
-        .addVetoDetail(13, 1.0, MAXDOUBLE) //< @todo Check that this also covers antimuons
-        .addDecayProductsVeto(WPLUSBOSON)
-        .addDecayProductsVeto(WMINUSBOSON);
+      .addVetoPairId(NU_TAU);
+//      .addVetoDetail(13, 1.0, MAXDOUBLE); //< @todo Check that this also covers antimuons
       addProjection(vfs, "VFS");
+      addProjection(ChargedLeptons(leptonFs), "ChLeptons");
       addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
     }
 
@@ -91,6 +95,18 @@ namespace Rivet {
     //@}
 
   private:
+    
+    /// cut on the electron ET:
+    double _electronETCut;
+    
+    /// cut on the missing ET
+    double _eTmissCut;
+    
+    /// cut on jet ET
+    double _jetEtCut;
+    
+    ///cut on the transverse mass squared
+    double _mT2Cut;
     
     //@{
     /// Histograms
