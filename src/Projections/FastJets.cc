@@ -25,7 +25,8 @@ namespace Rivet {
   
     if (!particles.empty()) {
       // Store 4 vector data about each particle into vecs
-      vector<PseudoJet> vecs(particles.size());
+      vector<PseudoJet> vecs;
+      vecs.clear();
       _particles.clear();
       int counter = 1;
       _particles.clear();
