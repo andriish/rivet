@@ -24,8 +24,9 @@ namespace Rivet {
     { 
       setBeams(PROTON, ANTIPROTON);
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      const ChargedFinalState clfs(-1.0, 1.0, 20*GeV);
       addProjection(cfs, "FS");
-      addProjection(ChargedLeptons(cfs), "CL");
+      addProjection(ChargedLeptons(clfs), "CL");
     }
 
 
