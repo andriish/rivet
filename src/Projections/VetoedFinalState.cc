@@ -75,7 +75,7 @@ namespace Rivet {
       }
     }
   
-    
+    set<ParticleVector::iterator> toErase;
     for (set<int>::iterator nIt = _nCompositeDecays.begin();
          nIt != _nCompositeDecays.end() && !_theParticles.empty(); ++nIt) {
       map<set<ParticleVector::iterator>, FourMomentum> oldMasses;
@@ -92,34 +92,38 @@ namespace Rivet {
           for (ParticleVector::iterator pIt = pStart + 1; pIt != _theParticles.end(); ++pIt) { 
             FourMomentum cMom = mIt->second + pIt->momentum();
             set<ParticleVector::iterator> pList(mIt->first);
-            pList.insert(pIt);
+            pList.insert(pIt);   
             newMasses[pList] = cMom;
           }
-        }
+	}
         oldMasses = newMasses;
         newMasses.clear();
       }
-
       for (map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
            mIt != oldMasses.end(); ++mIt) {
         double mass2 = mIt->second.mass2();
         if (mass2 >= 0.0) {
           double mass = sqrt(mass2);
-          for (CompositeVeto::iterator cIt = _compositeVetoes.lower_bound(*nIt);
-               cIt != _compositeVetoes.upper_bound(*nIt); ++cIt) {
-            BinaryCut massRange = cIt->second;
-            
+	  for (CompositeVeto::iterator cIt = _compositeVetoes.lower_bound(*nIt);
+	       cIt != _compositeVetoes.upper_bound(*nIt); ++cIt) {
+	    BinaryCut massRange = cIt->second;
             if (mass < massRange.getLowerThan() && mass > massRange.getHigherThan()) {
               for (set<ParticleVector::iterator>::iterator lIt = mIt->first.begin();
                    lIt != mIt->first.end(); ++lIt) {
-                _theParticles.erase(*lIt);
+		toErase.insert(*lIt);                
               }
-            }
-          }
+	     }
+	  }
         }
       }
     }
     
+    for(set<ParticleVector::iterator>::reverse_iterator p = toErase.rbegin();
+	p != toErase.rend(); ++p){
+      _theParticles.erase(*p);
+    }
+    
+
     for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
       for (ParticleVector::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
         GenVertex *startVtx=((*p).getHepMCParticle()).production_vertex();
