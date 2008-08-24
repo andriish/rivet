@@ -284,10 +284,16 @@ namespace {
       size_t eqpos = line.find("\t");
       line.replace(eqpos, 1, " ");
     }
+    /// @todo Strip spaces from ends with Boost string lib
 
     // If effectively empty, then end
     if (line.find_first_not_of(' ') == string::npos) {
       return rtn;
+    }
+
+    // If wrong format, say so with an Error
+    if (line.find(' ') == string::npos) {
+      throw Rivet::Error("Param setting string '" + paramstring + "' is not in a valid format.");
     }
 
     // Get name and value and add to the param stack by finding the
