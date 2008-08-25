@@ -1,0 +1,407 @@
+#! /usr/bin/env python
+
+## Script for merging parts of multiple histo files made with
+## different run params (kinematic pT cuts and energies) into one
+## histo file for plotting or further analysis.
+##
+## TODO:
+##  * rationalise all histogramming formats... remove AIDA!
+##  * use external histo classes (YODA), since I've now lost track
+##    of which changes have had to be made to which copies of Histo, Bin etc.!
+##
+## Usage example:
+##  $ uemerge hwpp/hpp-1800-{030.aida:1800:30,090.aida:1800:90} > hpp-hists.dat
+##  $ flat2aida hpp-hists.dat 
+##  $ mkdir plots && cd plots
+##  $ compare_histos.py ../ref04.aida ../hpp-hists.aida 
+##  $ make_plot.py --pdf *.dat
+
+
+import sys, os, copy, re
+from math import sqrt
+
+
+try:
+    sorted([])
+except:
+    def sorted(coll):
+        coll.sort()
+        return coll
+
+
+def mean(*args):
+    total, num = 0, 0
+    for a in args:
+        if a is not None:
+            total += a
+            num += 1
+    return total / float(num)
+
+
+class Histo:
+    def __init__(self):
+        self.clear()
+
+    def clear(self):
+        self._bins = []
+        self.path = None
+        self.name = None
+        self.title = None
+
+    def __cmp__(self, other):
+        """Sort by $path/$name string"""
+        return self.fullPath() > other.fullPath()
+
+    def __str__(self):
+        out = "Histogram '%s' with %d bins\n" % (self.fullPath(), self.numBins())
+        out += "Title: %s\n" % self.title
+        out += "\n".join([str(b) for b in self.getBins()])
+        return out
+
+    def fullPath(self):
+        return os.path.join(self.path, self.name)
+
+    def asFlat(self):
+        #global headerprefix
+        headerprefix = ""
+        global opts
+        out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
+        out += headerprefix + "AidaPath=%s\n" % self.fullPath()
+        out += headerprefix + "Title=%s\n" % self.title
+        try:
+            out += "## Area: %s\n" % self.area()
+        except:
+            out += "## Area: UNKNOWN (invalid bin details)"
+        out += "## Num bins: %d\n" % self.numBins()
+#         if opts.GNUPLOT:
+#             out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
+#         else:
+        #out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
+        out += "\n".join([b.asFlat() for b in self.getBins()])
+	out += "\n# END HISTOGRAM"
+        return out
+
+    def numBins(self):
+        return len(self._bins)
+
+    def getBins(self):
+        return sorted(self._bins)
+
+    def setBins(self, bins):
+        self._bins = bins
+        return self
+
+    def setBin(self, index, bin):
+        self._bins[index] = bin
+        return self
+
+    def addBin(self, bin):
+        self._bins.append(bin)
+        return self
+
+    def getBin(self, index):
+        self._bins.sort()
+        return self.getBins()[index]
+
+    bins = property(getBins, setBins)
+
+    def area(self):
+        return sum([bin.area() for bin in self.bins])
+
+    def __iter__(self):
+        return iter(self.getBins())
+
+    def __len__(self):
+        return len(self._bins)
+
+    def __getitem__(self, index):
+        return self.getBin(index)
+
+
+class Bin:
+    """A simple container for a binned value with an error."""
+    def __init__(self, xlow=None, xhigh=None, yval=0, yerrplus=0, yerrminus=0, focus=None):
+        self.xlow = xlow
+        self.xhigh= xhigh
+        self.yval = yval
+        self.yerrplus = yerrplus
+        self.yerrminus = yerrminus
+        self.focus= focus
+
+    def clear(self):
+        #self.xlow = None
+        #self.xhigh= None
+        self.yval = 0
+        self.yerrplus = 0
+        self.yerrminus = 0
+        self.focus= None
+
+    def __str__(self):
+        meanyerr = None
+        try:
+            meanyerr = mean(self.yerrplus, self.yerrminus)
+        except:
+            pass
+        out = "%s to %s: %s +- %s" % (str(self.xlow), str(self.xhigh), str(self.yval), str(meanyerr))
+        return out
+
+    def asFlat(self):
+        global opts
+#         if opts.GNUPLOT:
+#             out = "%f\t%f\t%f\t%f\t%f\t%f" % (self.getBinCenter(), self.yval,
+#                                               self.xlow, self.xhigh, 
+#                                               self.yval-self.yerrminus, self.yval+self.yerrplus)
+#         else:
+        out = "%f\t%f\t%f\t%f" % (self.xlow, self.xhigh, self.yval, 0.5*(self.yerrminus+self.yerrplus))
+        return out
+
+    def __cmp__(self, other):
+        """Sort by mean x value (yeah, I know...)"""
+        rtn = True
+        lhnone = (self.xlow is None or self.xhigh is None)
+        rhnone = (other.xlow is None or other.xhigh is None)
+        somenones = lhnone or rhnone
+        if somenones:
+            if lhnone == rhnone:
+                return 0
+            elif lhnone:
+                return -1
+            else:
+                return 1;
+        else:
+            return cmp(self.xlow + self.xhigh, other.xlow + other.xhigh)
+
+    def getXRange(self):
+        return (self.xlow, self.xhigh)
+
+    def setXRange(self, xlow, xhigh):
+        self.xlow = xlow
+        self.xhigh = xhigh
+        return self
+
+    def getBinCenter(self):
+        """Geometric middle of the bin range."""
+        return self.xlow + .5*(self.xhigh - self.xlow)
+
+    def getFocus(self):
+        """Mean x-value of the bin."""
+        if self.focus is not None:
+            return (self.xlow + self.xhigh)/2.0
+        else:
+            return self.focus
+
+    def area(self):
+        return self.yval * (self.xhigh - self.xlow)
+
+    def getYErr(self):
+        """Get mean of +ve and -ve y-errors."""
+        return (self.yerrplus + self.yerrminus)/2.0
+
+    def setYErr(self, yerr):
+        """Set both +ve and -ve y-errors simultaneously."""
+        self.yerrplus = yerr
+        self.yerrminus = yerr
+        return self
+
+
+
+## Try to load faster but non-standard cElementTree module
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    try:
+        import cElementTree as ET
+    except ImportError:
+        import xml.etree.ElementTree as ET
+
+
+
+def mkHistoFromDPS(dps):
+    """Make a mini histo representation from an AIDA dataPointSet tag."""
+    myhist = Histo()
+    myhist.name = dps.get("name")
+    myhist.title = dps.get("title")
+    myhist.path = dps.get("path")
+    points = dps.findall("dataPoint")
+    numbins = len(points)
+    for binnum, point in enumerate(points):
+        bin = Bin()
+        for d, m in enumerate(point.findall("measurement")):
+            val  = float(m.get("value"))
+            down = float(m.get("errorMinus"))
+            up = float(m.get("errorPlus"))
+            if d == 0:
+                low  = val - down
+                high = val + up
+                bin.setXRange(low, high)
+            elif d == 1:
+                bin.yval = val
+                bin.yerrplus = up
+                bin.yerrminus = down
+        myhist.addBin(bin)
+    return myhist
+
+
+from optparse import OptionParser, OptionGroup
+parser = OptionParser(usage="%prog aidafile:sqrts:minpt aidafile2:sqrts:minpt [...]")
+verbgroup = OptionGroup(parser, "Verbosity control")
+verbgroup.add_option("-V", "--verbose", action="store_true", dest="VERBOSE", 
+                     default=False, help="print status messages")
+verbgroup.add_option("-D", "--debug", action="store_true", dest="DEBUG", 
+                     default=False, help="print debug (very verbose) messages")
+verbgroup.add_option("-Q", "--quiet", action="store_true", dest="QUIET",
+                     default=False, help="be very quiet (overrides verbose and debug)")
+parser.add_option_group(verbgroup)
+
+opts, args = parser.parse_args()
+headerprefix = "# "
+
+if len(args) < 1:
+    sys.stderr.write("Must specify at least one AIDA histogram file\n")
+    sys.exit(1)
+
+out = sys.stdout
+
+## Get histos
+inhistos = {}
+weights = {}
+try:
+    for aidafile_ptmin in args:
+        aidafile, sqrts, ptmin = None, None, None
+        try:
+            aidafile, sqrts, ptmin = aidafile_ptmin.rsplit(":", 2)
+        except ValueError, v:
+            raise Exception("Did you supply the file arguments in the 'name:sqrts:ptmin' format?")
+        tree = ET.parse(aidafile)
+        for dps in tree.findall("dataPointSet"):
+            h = mkHistoFromDPS(dps)
+            if not inhistos.has_key(h.fullPath()):
+                inhistos[h.fullPath()] = {}
+            tmpE = inhistos[h.fullPath()]
+            if not tmpE.has_key(sqrts):
+                tmpE[sqrts] = {}
+            tmpP = tmpE[sqrts]
+            if not tmpP.has_key(ptmin):
+                tmpP[ptmin] = h
+            else:
+                raise Exception("A set with sqrt(s) = %s, and ptmin = %s already exists" % (sqrts, ptmin))
+except Exception, e:
+    sys.stderr.write("Danger, Will Robinson!\n")
+    sys.stderr.write(str(e) + "\n")
+    sys.exit(1)
+
+
+## Make empty output histos
+outhistos = {}
+for hpath, hsets in sorted(inhistos.iteritems()):
+    if opts.DEBUG:
+        print hpath, dict([(sqrts, hsets[sqrts].keys()) for sqrts in hsets.keys()])
+    workhisto = copy.deepcopy(hsets.values()[0].values()[0])
+    #print workhisto
+    outhistos[hpath] = workhisto
+    ## There's no reason to merge reference histos
+    if re.match(r'^/REF.*', hpath):
+        continue
+    ## Empty the bin set for histos which we're going to merge
+    for b in outhistos[hpath]:
+        b.clear()
+    #print outhistos[hpath]
+
+
+def fillAbove(desthisto, sourcehistosbyptmin):
+    for i, b in enumerate(desthisto.getBins()):
+        ## Fill bins with pT-ordered histos (so that 'highest always wins')
+        for ptmin, h in sorted(sourcehistosbyptmin.iteritems()):
+            newb = h.getBin(i)
+            if newb.xlow >= float(ptmin):
+                desthisto.setBin(i, newb)
+                #print "copied:", b, " / ", histosS[hpath][sqrts].getBin(i)
+    
+def mergeByPt(hpath, sqrts):
+    global inhistos
+    global outhistos
+    try:
+        fillAbove(outhistos[hpath], inhistos[hpath][sqrts])
+    except:
+        pass
+
+def useOnePt(hpath, sqrts, ptmin):
+    global inhistos
+    global outhistos
+    try:
+        outhistos[hpath] =  inhistos[hpath][sqrts][ptmin]
+    except:
+        pass
+
+
+######
+
+
+## Field analysis
+## Number, profile in pT_lead (True?)
+mergeByPt("/CDF_2001_S4751469/d03-x01-y01", "1800")
+mergeByPt("/CDF_2001_S4751469/d03-x01-y02", "1800")
+mergeByPt("/CDF_2001_S4751469/d03-x01-y03", "1800")
+mergeByPt("/CDF_2001_S4751469/d04-x01-y01", "1800")
+mergeByPt("/CDF_2001_S4751469/d04-x01-y02", "1800")
+mergeByPt("/CDF_2001_S4751469/d04-x01-y03", "1800")
+## pT sums, profile in pT_lead (True?)
+mergeByPt("/CDF_2001_S4751469/d05-x01-y01", "1800")
+mergeByPt("/CDF_2001_S4751469/d05-x01-y02", "1800")
+mergeByPt("/CDF_2001_S4751469/d05-x01-y03", "1800")
+mergeByPt("/CDF_2001_S4751469/d06-x01-y01", "1800")
+mergeByPt("/CDF_2001_S4751469/d06-x01-y02", "1800")
+mergeByPt("/CDF_2001_S4751469/d06-x01-y03", "1800")
+## pT distributions (use a specific pT cut run?)
+useOnePt("/CDF_2001_S4751469/d07-x01-y01", "1800", "30")
+useOnePt("/CDF_2001_S4751469/d07-x01-y02", "1800", "30")
+useOnePt("/CDF_2001_S4751469/d07-x01-y03", "1800", "30")
+
+## Acosta analysis
+## Mean pT, profile in ET_lead
+mergeByPt("/CDF_2004_S5839831/d01-x01-y01", "1800")
+mergeByPt("/CDF_2004_S5839831/d01-x01-y02", "1800")
+## pT_max,min, profiles in ET_lead
+mergeByPt("/CDF_2004_S5839831/d02-x01-y01", "1800")
+mergeByPt("/CDF_2004_S5839831/d02-x01-y02", "1800")
+mergeByPt("/CDF_2004_S5839831/d02-x01-y03", "1800")
+## pT distributions (want to use a specific pT cut run)
+useOnePt("/CDF_2004_S5839831/d03-x01-y01", "1800", "30")
+useOnePt("/CDF_2004_S5839831/d03-x01-y02", "1800", "30")
+useOnePt("/CDF_2004_S5839831/d03-x01-y03", "1800", "90")
+useOnePt("/CDF_2004_S5839831/d03-x01-y04", "1800", "90")
+useOnePt("/CDF_2004_S5839831/d03-x01-y05", "1800", "90")
+## N_max,min, profiles in ET_lead
+mergeByPt("/CDF_2004_S5839831/d04-x01-y01", "1800")
+mergeByPt("/CDF_2004_S5839831/d04-x01-y02", "1800")
+## Min bias dbs (want to use min bias pT cut)
+useOnePt("/CDF_2004_S5839831/d05-x01-y01", "1800", "0")
+useOnePt("/CDF_2004_S5839831/d06-x01-y01", "1800", "0")
+## Swiss Cheese, profile in ET_lead
+mergeByPt("/CDF_2004_S5839831/d07-x01-y01", "1800")
+mergeByPt("/CDF_2004_S5839831/d07-x01-y02", "1800")
+## pT_max,min, profiles in ET_lead
+mergeByPt("/CDF_2004_S5839831/d08-x01-y01", "630")
+mergeByPt("/CDF_2004_S5839831/d08-x01-y02", "630")
+## Swiss Cheese, profile in ET_lead
+mergeByPt("/CDF_2004_S5839831/d09-x01-y01", "630")
+mergeByPt("/CDF_2004_S5839831/d09-x01-y02", "630")
+## Min bias dbs (want to use min bias pT cut)
+useOnePt("/CDF_2004_S5839831/d10-x01-y01", "630", "0")
+useOnePt("/CDF_2004_S5839831/d11-x01-y01", "630", "0")
+
+
+## Write out merged histos
+##print sorted(outhistos.values())
+out.write("\n\n".join([h.asFlat() for h in sorted(outhistos.values())]))
+out.write("\n")
+
+sys.exit(0)
+for hpath, h in outhistos.iteritems():
+    safename = hpath.replace("/", "_") + ".dat"
+    if safename[0] == "_":
+        safename = safename[1:]
+    print "Writing histo to", safename
+    f = open(safename, "w")
+    f.write(h.asFlat() + "\n")
+    f.close()
