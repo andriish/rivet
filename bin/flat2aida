@@ -2,6 +2,20 @@
 
 import os, sys
 
+from htmlentitydefs import codepoint2name
+unichr2entity = dict((unichr(code), u'&%s;' % name) \
+                         for code,name in codepoint2name.iteritems() \
+                         if code != 38) # exclude "&"
+def htmlescape(text, d=unichr2entity):
+    if u"&" in text:
+        text = text.replace(u"&", u"&amp;")
+    for key, value in d.iteritems():
+        if key in text:
+            text = text.replace(key, value)
+    return text
+
+
+
 class Inputdata:
     def __init__(self, filename):
         self.histos = {}
@@ -50,10 +64,12 @@ class Histogram:
             f.write('    </dataPoint>\n')
     def write_datapointset_header(self, f, count, bin):
             path = '/REF/%s/d%02d-x01-y%02d' %(filename.split('/')[-1], count, bin+1)
-            f.write('  <dataPointSet name="d%02d-x01-y%02d" dimension="2"\n' %(count, bin+1))
-            f.write('  path="/REF/%s/" title="%s">\n' %(filename.split('/')[-1], self.description['Title']))
+            if self.description.has_key("AidaPath"):
+                path = self.description["AidaPath"]
+            f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(path)))
+            f.write('    path="%s" title="%s">\n' % (os.path.dirname(path), htmlescape(self.description['Title'])))
             f.write('    <annotation>\n')
-            f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(self.description['Title']))
+            f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(htmlescape(self.description['Title'])))
             f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
             f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], path))
             f.write('    </annotation>\n')
