@@ -31,37 +31,40 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo "  --version     : returns Rivet release version number"
 fi
 
+OUT=""
 
 ## "Atomic" build info, for "roll your own build" obsessives
 tmp=$( echo "$*" | egrep -- '--\<prefix\>')
-test -n "$tmp" && echo @prefix@
+test -n "$tmp" && OUT="$OUT @prefix@"
 
 tmp=$( echo "$*" | egrep -- '--\<includedir\>')
-test -n "$tmp" && echo @includedir@
+test -n "$tmp" && OUT="$OUT @includedir@"
 
 tmp=$( echo "$*" | egrep -- '--\<libdir\>')
-test -n "$tmp" && echo @libdir@
+test -n "$tmp" && OUT="$OUT @libdir@"
 
 tmp=$( echo "$*" | egrep -- '--\<datadir\>')
-test -n "$tmp" && echo @datadir@/@PACKAGE_TARNAME@
+test -n "$tmp" && OUT="$OUT @datadir@/@PACKAGE_TARNAME@"
 
 tmp=$( echo "$*" | egrep -- '--\<rgdatadir\>')
-test -n "$tmp" && echo @datadir@/RivetGun
+test -n "$tmp" && OUT="$OUT @datadir@/RivetGun"
 
 tmp=$( echo "$*" | egrep -- '--\<datarootdir\>')
-test -n "$tmp" && echo @datarootdir@
+test -n "$tmp" && OUT="$OUT @datarootdir@"
 
 ## "Pre-rolled" build info
 tmp=$( echo "$*" | egrep -- '--\<cppflags\>')
-test -n "$tmp" && echo -I@includedir@
+test -n "$tmp" && OUT="$OUT -I@includedir@"
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
-test -n "$tmp" && echo -L@libdir@
+test -n "$tmp" && OUT="$OUT -L@libdir@"
 
 tmp=$( echo "$*" | egrep -- '--\<ldadd\>')
-test -n "$tmp" && echo -lRivet
+test -n "$tmp" && OUT="$OUT -lRivet"
 
 
 ## Version
 tmp=$( echo "$*" | egrep -- '--\<version\>')
 test -n "$tmp" && echo @PACKAGE_VERSION@
+
+echo $OUT
