@@ -50,7 +50,10 @@ namespace Rivet {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
     vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
-    if (jets.empty()) vetoEvent(event);
+    if (jets.empty()) {
+      getLog() << Log::DEBUG << "No jets found in event" << endl;
+      vetoEvent(event);
+    }
     sort(jets.begin(), jets.end(), cmpJetsByEt);
     if ( getLog().isActive(Log::DEBUG) ) {
       getLog() << Log::DEBUG << "Jet Et sums = [" << endl;
@@ -68,7 +71,10 @@ namespace Rivet {
     // Leading jet must be in central |eta| < 0.5 region.
     const Jet leadingjet = jets.front();
     const double etaLead = leadingjet.momentum().pseudorapidity();
-    if (fabs(etaLead) > 0.5) vetoEvent(event);
+    if (fabs(etaLead) > 0.5) {
+      getLog() << Log::DEBUG << "Leading jet eta = " << etaLead << " not in |eta| < 0.5" << endl;
+      vetoEvent(event);
+    }
     getLog() << Log::DEBUG << "Leading jet in central eta bin. Num tracks = " << tracks.size() << endl; 
 
     // Get Et of the leading jet: used to bin histograms.
@@ -131,9 +137,10 @@ namespace Rivet {
       _pt90Max1800->fill(ETlead/GeV, ptMax/GeV, weight);
       _pt90Min1800->fill(ETlead/GeV, ptMin/GeV, weight);
       _pt90Diff1800->fill(ETlead/GeV, ptDiff/GeV, weight);
+      /// @todo Actually fill in loop? Need to know which is min(max) in advance!
       _pt90MaxAvg1800->fill(ETlead/GeV, ptMax/numMax/GeV, weight);
       _pt90MinAvg1800->fill(ETlead/GeV, ptMin/numMin/GeV, weight);
-       const double ptTransTotal = ptMax + ptMin;
+      const double ptTransTotal = ptMax + ptMin;
       if (inRange(ETlead/GeV, 40, 80)) {
         _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
       } else if (inRange(ETlead/GeV, 80, 120)) {
@@ -191,9 +198,9 @@ namespace Rivet {
       _pTSum1800_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
       _pTSum1800_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
     }
-      
+    
   }
-
+  
   
   void CDF_2004_S5839831::finalize() { 
     // Normalize to actual number of entries in pT dbn histos
@@ -205,6 +212,8 @@ namespace Rivet {
     // and for min bias distributions:
     normalize(_numTracksDbn1800, 309718.25);
     normalize(_ptDbn1800, 33600.0);
+    normalize(_numTracksDbn630, 1101024.0);
+    normalize(_ptDbn630, 105088.0);
   }
 
 
