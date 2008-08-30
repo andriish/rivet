@@ -37,16 +37,16 @@ int main() {
 
   cout << "Matrices:" << endl;
   cout << Matrix3() << endl;
-  cout << Matrix3::Identity() << endl;
-  const Matrix3 I3 = Matrix3::Identity();
-  cout << Matrix3::Identity() * m * I3 << endl;
+  cout << Matrix3::mkIdentity() << endl;
+  const Matrix3 I3 = Matrix3::mkIdentity();
+  cout << Matrix3::mkIdentity() * m * I3 << endl;
   cout << "tr(0) & det(0): " << Matrix3().trace() << ", " << Matrix3().det() << endl;
   cout << "tr(I3) & det(I3): " << I3.trace() << ", " << I3.det() << endl;
-  Matrix3 m1 = Matrix3::Identity();
+  Matrix3 m1 = Matrix3::mkIdentity();
   Matrix3 m2 = m1;
   m1.setRow(1, Vector3(1,2,3));
   m2.setColumn(1, Vector3(3,2,1));
-  Matrix3 m3 = Matrix3::Zero();
+  Matrix3 m3 = Matrix3::mkZero();
   cout << m1 << " + " << m2 << " = " << m1 + m2 << endl;
   m3.setRow(0, Vector3(2,3,0)).setRow(1, Vector3(1,4,3)).setRow(2, Vector3(0,1,2));
   cout << m1+m2 << " == " << m3 << ": " << (m1+m2 == m3 ? "true" : "false") << endl;
@@ -73,7 +73,7 @@ int main() {
   cout << "Boosts:" << endl;
   LorentzTransform ltX(0.5,0,0);
   cout << "LTx: " << ltX << endl;
-  cout << "I on LTx: " << ltX.rotate(Matrix3::Identity()) << endl;
+  cout << "I on LTx: " << ltX.rotate(Matrix3::mkIdentity()) << endl;
   cout << "Rot90 on LTx: " << ltX.rotate(rot90) << endl;
   cout << endl;  
 

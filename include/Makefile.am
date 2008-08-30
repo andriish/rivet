@@ -59,29 +59,31 @@ AIDA/IAnnotation.h \
 AIDA/IPlotterStyle.h \
 AIDA/IAnalysisFactory.h \
 AIDA/IFitData.h \
-AIDA/IInfoStyle.h 
-# LWH/AIHistogram1D.h \
-# LWH/AIManagedObject.h \
-# LWH/AIDataPoint.h \
-# LWH/DataPointSet.h \
-# LWH/AIProfile1D.h \
-# LWH/AIMeasurement.h \
-# LWH/AIHistogramFactory.h \
-# LWH/Tree.h \
-# LWH/AITreeFactory.h \
-# LWH/AIDataPointSetFactory.h \
-# LWH/Axis.h \
-# LWH/AITree.h \
-# LWH/AIDataPointSet.h \
-# LWH/AnalysisFactory.h \
-# LWH/AIAxis.h \
-# LWH/Histogram1D.h \
-# LWH/DataPoint.h \
-# LWH/ManagedObject.h \
-# LWH/AIAnalysisFactory.h \
-# LWH/HistogramFactory.h \
-# LWH/Measurement.h \
-# LWH/Profile1D.h \
-# LWH/VariAxis.h \
-# LWH/DataPointSetFactory.h \
-# LWH/TreeFactory.h
+AIDA/IInfoStyle.h
+
+nobase_noinst_HEADERS = \
+LWH/AIHistogram1D.h \
+LWH/AIManagedObject.h \
+LWH/AIDataPoint.h \
+LWH/DataPointSet.h \
+LWH/AIProfile1D.h \
+LWH/AIMeasurement.h \
+LWH/AIHistogramFactory.h \
+LWH/Tree.h \
+LWH/AITreeFactory.h \
+LWH/AIDataPointSetFactory.h \
+LWH/Axis.h \
+LWH/AITree.h \
+LWH/AIDataPointSet.h \
+LWH/AnalysisFactory.h \
+LWH/AIAxis.h \
+LWH/Histogram1D.h \
+LWH/DataPoint.h \
+LWH/ManagedObject.h \
+LWH/AIAnalysisFactory.h \
+LWH/HistogramFactory.h \
+LWH/Measurement.h \
+LWH/Profile1D.h \
+LWH/VariAxis.h \
+LWH/DataPointSetFactory.h \
+LWH/TreeFactory.h

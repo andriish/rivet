@@ -5,3 +5,6 @@ doc:
 	cd doc && $(MAKE) doc
 
 .PHONY : doc
+
+clean-local:
+	@rm -rf a.out

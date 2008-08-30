@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.1.1beta2],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.1.1],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)

@@ -29,6 +29,7 @@ nobase_pkginclude_HEADERS += \
   Analyses/ExampleTree.hh     
 nobase_dist_noinst_HEADERS += \
   Analyses/ALEPH_1991_S2435284.hh \
+  Analyses/ALEPH_1996_S3486095.hh \
   Analyses/CDF_1994_S2952106.hh \
   Analyses/CDF_2001_S4751469.hh \
   Analyses/CDF_2004_S5839831.hh \
@@ -36,10 +37,10 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2006_S6653332.hh \
   Analyses/CDF_2007_S7057202.hh \
   Analyses/CDF_2008_S7541902.hh \
+  Analyses/CDF_2008_S7782535.hh \
+  Analyses/CDF_2008_LEADINGJETS.hh \
   Analyses/CDF_2008_MINBIAS.hh  \
   Analyses/CDF_2008_NOTE_9351.hh \
-  Analyses/CDF_2008_LEADINGJETS.hh \
-  Analyses/CDF_2008_S7782535.hh \
   Analyses/D0_2001_S4674421.hh  \
   Analyses/D0_2004_S5992206.hh  \
   Analyses/D0_2008_S6879055.hh  \
@@ -52,7 +53,8 @@ nobase_dist_noinst_HEADERS += \
   Analyses/OPAL_1998_S3780481.hh \
   Analyses/OPAL_2004_S6132243.hh \
   Analyses/ZEUS_2001_S4815815.hh \
-  Analyses/PDG_Hadron_Multiplicities.hh
+  Analyses/PDG_Hadron_Multiplicities.hh \
+  Analyses/PDG_Hadron_Multiplicities_Ratios.hh
 
 
 ## Projections
