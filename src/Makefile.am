@@ -12,7 +12,8 @@ libRivet_la_SOURCES = \
   Analysis.cc \
   AnalysisLoader.cc \
   AnalysisHandler.cc \
-  ProjectionHandler.cc
+  ProjectionHandler.cc \
+  HistoHandler.cc 
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl -lm \

@@ -6,8 +6,10 @@
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/Analysis.fhh"
 
-
 namespace Rivet {
+
+  /// Forward declaration of Histo base class.
+  class AnalysisObject;
 
 
   /// @brief The projection handler is a central repository for histograms (and
@@ -52,28 +54,42 @@ namespace Rivet {
 
 
   public:
-    /// @name Projection registration. */
+    /// @name Histo registration. */
     //@{
-    /// Attach and retrieve a projection as a reference.
-    const AnalysisObject& registerHisto(const Analysis& parent, 
-                                        const AnalysisObject& histo, const string& name);
+    /// Copy an analysis object into a central collection and return the copy.
+    const AnalysisObject* registerAnalysisObject(const Analysis& parent,
+                                                 const AnalysisObject& histo,
+                                                 const string& name);
 
 
-    /// @name Projection retrieval. */
+    /// @name Histo retrieval. */
     //@{
-    /// Retrieve a named projection for the given parent. Returning as a
-    /// reference is partly to discourage ProjectionApplier classes from storing
-    /// pointer members to the registered projections, since that can lead to
-    /// problems and there is no need to do so.
-    const AnalysisObject& getHisto(const Analysis& parent,
-                                   const string& name) const;
 
-    /// Projection clearing method: deletes all known projections and empties
-    /// the reference collections.
+    /// Retrieve a named histo for the given Analysis parent (const version).
+    const AnalysisObject* getAnalysisObject(const Analysis& parent,
+                                            const string& name) const {
+      return _getAnalysisObject(parent, name);
+    }
+
+
+    /// Retrieve a named histo for the given Analysis parent (non-const version).
+    AnalysisObject* getAnalysisObject(const Analysis& parent,
+                                      const string& name) {
+      return _getAnalysisObject(parent, name);
+    }
+
+    //@}
+
+
+    /// Histo clearing method: deletes all known histos and empties the
+    /// reference collections.
     void clear();
 
 
   private:
+
+    AnalysisObject* _getAnalysisObject(const Analysis& parent,
+                                             const string& name) const;
 
     /// Get a logger.
     Log& getLog() const;
@@ -81,29 +97,21 @@ namespace Rivet {
 
   private:
 
-    /// Typedef for Projection pointer, to allow conversion to a smart pointer in this context.
+    /// Typedef for histo pointer, to allow conversion to a smart pointer in this context.
     typedef const AnalysisObject* HistoHandle;
 
     /// Typedef for a vector of histo pointers.
     typedef vector<HistoHandle> HistoHandles;
 
-    /// @brief Typedef for the structure used to contain named projections for a
-    /// particular containing Analysis or Projection.
-    /// @todo Use a shared_pointer class?
+    /// @brief Typedef for the structure used to contain named histos for a
+    /// particular containing Analysis.
     typedef map<const string, HistoHandle> NamedHistos;
 
-    /// Structure used to map a containing Analysis or Projection to its set of
-    /// contained projections.
+    /// Structure used to map a containing Analysis to its set of histos.
     typedef map<const Analysis*, NamedHistos> NamedHistosMap;
 
-    /// Core data member, associating a given containing class (via a
-    /// ProjectionApplier pointer) to its contained projections.
+    /// Core data member, associating a given Analysis to its histos.
     NamedHistosMap _namedhistos;
-
-    /// Cache of histos for reverse lookup, to speed up registering
-    /// new projections as @c _namedhistos gets large.
-    HistoHandles _histos;
-
   };
 
 

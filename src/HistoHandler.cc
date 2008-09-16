@@ -2,6 +2,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/HistoHandler.hh"
+#include "Rivet/Analysis.hh"
 #include <algorithm>
 
 namespace Rivet {
@@ -14,8 +15,9 @@ namespace Rivet {
   HistoHandler* HistoHandler::create() {
     if (!_instance) {
       _instance = new HistoHandler();
-      Log::getLog("Rivet.HistoHandler") << Log::TRACE << "Created new HistoHandler at " 
-                                        << _instance << endl;
+      Log::getLog("Rivet.HistoHandler") 
+        << Log::TRACE << "Created new HistoHandler at " 
+        << _instance << endl;
     }
     return _instance;
   }
@@ -28,11 +30,6 @@ namespace Rivet {
 
 
   void HistoHandler::clear() {
-    for (HistoHandles::iterator hh = _histos.begin(); hh != _histos.end(); ++hh) {
-      getLog() << Log::TRACE << "Deleting projection at " << *hh << endl;
-      delete *hh;
-    }
-    _histos.clear();
     _namedhistos.clear();
   }
 
@@ -43,33 +40,57 @@ namespace Rivet {
   }
 
 
-  // Take a Projection, compare it to the others on record, and
-  // return (by reference) an equivalent Projection which is guaranteed to be
-  // the version that will be applied to an event.
-  const Histo& HistoHandler::registerHisto(const Analysis& parent, 
-                                           const AnalysisObject& ao, 
-                                           const string& name) {
+  const AnalysisObject* HistoHandler::registerAnalysisObject(const Analysis& parent, 
+                                                             const AnalysisObject& ao, 
+                                                             const string& name) {
     getLog() << Log::TRACE << "Trying to register"
              << " analysis object " << &ao
              << " for parent " << &parent << "(" << parent.getName() << ")"
              << " with name '" << name << "'" << endl;
     
+    // If this name is already registered for this analysis, throw a complaint
+    NamedHistosMap::const_iterator nhs = _namedhistos.find(&parent);
+    if (nhs != _namedhistos.end()) {
+      NamedHistos::const_iterator nh = nhs->second.find(name);
+      if (nh != nhs->second.end()) {
+        stringstream ss;
+        ss << "Histogram \"" << name
+           << "\" already exists for parent analysis " << &parent;
+        throw Error(ss.str());
+      }
+    }
 
-    /// @todo EVERYTHING!
-
+    _namedhistos[&parent][name] = &ao;
+    //return *(_namedhistos[&parent][name]);
+    return const_cast<AnalysisObject*>(_namedhistos[&parent][name]);
   }
 
 
 
-  const AnalysisObject& HistoHandler::getProjection(const Analysis& parent,
-                                                    const string& name) const {
+  AnalysisObject* HistoHandler::_getAnalysisObject(const Analysis& parent,
+                                                         const string& name) const {
     getLog() << Log::TRACE << "Searching for child histo '" 
              << name << "' of " << &parent << endl;
 
-    /// @todo EVERYTHING!
+    NamedHistosMap::const_iterator nhs = _namedhistos.find(&parent);
+    if (nhs == _namedhistos.end()) {
+      stringstream ss;
+      ss << "Couldn't find any histograms for parent analysis " << &parent;
+      throw Error(ss.str());
+    }
 
+    NamedHistos::const_iterator nh = nhs->second.find(name);
+    if (nh == nhs->second.end()) {
+      stringstream ss;
+      ss << "Couldn't find histogram \"" << name
+         << "\" for parent analysis " << &parent;
+      throw Error(ss.str());
+    }
+
+    //return *(nh->second);
+    AnalysisObject* rtn = const_cast<AnalysisObject*>(nh->second);
+    return rtn;
   }
-
 
 
 }
