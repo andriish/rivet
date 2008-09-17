@@ -1,14 +1,14 @@
 #! /usr/bin/env bash
 
-if test -f pyrivet.py; then
-  if test -z "$( grep RTLD_GLOBAL pyrivet.py )"; then
-    cp pyrivet.py pyrivet.py.bak
-    echo "## dlopen global workaround by Andy Buckley" > pyrivet.py
-    echo "import sys, dl" >> pyrivet.py
-    echo "flags = sys.getdlopenflags()" >> pyrivet.py
-    echo "sys.setdlopenflags(flags | dl.RTLD_GLOBAL)" >> pyrivet.py
-    echo "" >> pyrivet.py
-    cat pyrivet.py.bak >> pyrivet.py
-    rm -f pyrivet.py.bak
+if test -f rivet.py; then
+  if test -z "$( grep RTLD_GLOBAL rivet.py )"; then
+    cp rivet.py rivet.py.bak
+    echo "## dlopen global workaround by Andy Buckley" > rivet.py
+    echo "import sys, dl" >> rivet.py
+    echo "flags = sys.getdlopenflags()" >> rivet.py
+    echo "sys.setdlopenflags(flags | dl.RTLD_GLOBAL)" >> rivet.py
+    echo "" >> rivet.py
+    cat rivet.py.bak >> rivet.py
+    rm -f rivet.py.bak
   fi
 fi

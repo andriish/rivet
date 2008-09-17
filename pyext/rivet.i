@@ -1,4 +1,4 @@
-%module pyrivet
+%module rivet
 
 %{
 #define SWIG_FILE_WITH_INIT
