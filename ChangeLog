@@ -1,3 +1,13 @@
+2008-09-17  Andy Buckley  <andy@insectnation.org>
+
+	* Added if-zero-return-zero checking to angle mapping functions,
+	to avoid problems where 1e-19 gets mapped on to 2 pi and then
+	fails boundary asserts.
+
+	* Added HistoHandler singleton class, which will be a central
+	repository for holding analyses' histogram objects to be accessed
+	via a user-chosen name.
+
 2008-08-26  Andy Buckley  <andy@insectnation.org>
 
 	* Allowing rivet-config to return combined flags.

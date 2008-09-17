@@ -87,6 +87,7 @@ namespace Rivet {
   /// subtraction of 2PI as required. Used to normalise angular measures.
   inline double _mapAngleM2PITo2Pi(double angle) {
     double rtn = fmod(angle, TWOPI);
+    if (isZero(rtn)) return 0;
     assert(rtn >= -TWOPI && rtn <= TWOPI);
     return rtn;
   }
@@ -95,6 +96,7 @@ namespace Rivet {
   /// range (-PI, PI].
   inline double mapAngleMPiToPi(double angle) {
     double rtn = _mapAngleM2PITo2Pi(angle);
+    if (isZero(rtn)) return 0;
     rtn = (rtn >   PI ? rtn-TWOPI :
            rtn <= -PI ? rtn+TWOPI : rtn);
     assert(rtn > -PI && rtn <= PI);
@@ -105,6 +107,7 @@ namespace Rivet {
   /// range [0, 2PI).
   inline double mapAngle0To2Pi(double angle) {
     double rtn = _mapAngleM2PITo2Pi(angle);
+    if (isZero(rtn)) return 0;
     if (rtn < 0) rtn += TWOPI;
     if (rtn == TWOPI) rtn = 0;
     assert(rtn >= 0 && rtn < TWOPI);
@@ -115,6 +118,7 @@ namespace Rivet {
   /// range [0, PI].
   inline double mapAngle0ToPi(double angle) {
     double rtn = fabs(mapAngleMPiToPi(angle));
+    if (isZero(rtn)) return 0;
     assert(rtn >= 0 && rtn <= PI);
     return rtn;
   }
