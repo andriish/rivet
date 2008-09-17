@@ -1,5 +1,8 @@
 2008-09-17  Andy Buckley  <andy@insectnation.org>
 
+	* Breaking up the mammoth "generate" function, to make Python
+	mapping easier, among other reasons.
+
 	* Added if-zero-return-zero checking to angle mapping functions,
 	to avoid problems where 1e-19 gets mapped on to 2 pi and then
 	fails boundary asserts.

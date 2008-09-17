@@ -39,59 +39,53 @@ namespace {
 }
 
 
+
 namespace Rivet {
 
 
-  void generate(Configuration& cfg, Log& log) {
-    log << Log::DEBUG << "Entered generate() method " << endl;
+  void setupGenerator(Configuration& cfg, Log& log, Generator* gen) {
+    // Load generator libraries
+    Loader::initialize();
+    log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;
+    try {
+      Loader::loadGenLibs(cfg.generatorName);
+    } catch (Error& e) {
+      log << Log::ERROR << "Error when loading the generator library:"
+          << endl << e.what() << endl;
+      throw Error("Error when loading the generator library"); 
+    }
+    
+    gen = Loader::createGen();
+    if (!gen) {
+      log << Log::ERROR << "No generator chosen... exiting" << endl;
+      throw Error("No generator chosen");
+    }
+    // Seed random number generator
+    gen->setSeed(cfg.rngSeed);
+    log << Log::DEBUG << "Finished setting seed " << endl;
+    
+    // Param passing
+    for (ParamMap::const_iterator p = cfg.params.begin(); p != cfg.params.end(); ++p) {
+      log << Log::INFO << "Setting param " << p->first << ": " << p->second << endl;
+      gen->setParam(p->first, p->second);
+    }
+    log << Log::DEBUG << "Finished setting parameters " << endl;
+    
+    // Set initial state
+    try {
+      gen->setInitialState(cfg.beam1, cfg.mom1, cfg.beam2, cfg.mom2);
+    } catch (Error& e) {
+      log << Log::ERROR << "Beam particle error: " << cfg.beam1 << " or " 
+          << cfg.beam2 << " is invalid" << endl;
+      throw Error("Invalid beam particle");
+    }
+    log << Log::DEBUG << "Finished setting initial state " << endl;
+  } 
 
-    // Make sure that the event loop can exit gracefully
-    registerKillSignalHandler();
 
-    bool needsCrossSection = false;
-    Generator* gen = 0;
-
-    if (!cfg.readHepMC) { 
-      // Load generator libraries
-      Loader::initialize();
-      log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;
-      try {
-        Loader::loadGenLibs(cfg.generatorName);
-      } catch (Error& e) {
-        log << Log::ERROR << "Error when loading the generator library:"
-        << endl << e.what() << endl;
-        throw Error("Error when loading the generator library"); 
-      }
-
-      gen = Loader::createGen();
-      if (!gen) {
-        log << Log::ERROR << "No generator chosen... exiting" << endl;
-        throw Error("No generator chosen");
-      }
-      // Seed random number generator
-      gen->setSeed(cfg.rngSeed);
-      log << Log::DEBUG << "Finished setting seed " << endl;
-      
-      // Param passing
-      for (ParamMap::const_iterator p = cfg.params.begin(); p != cfg.params.end(); ++p) {
-        log << Log::INFO << "Setting param " << p->first << ": " << p->second << endl;
-        gen->setParam(p->first, p->second);
-      }
-      log << Log::DEBUG << "Finished setting parameters " << endl;
-
-      // Set initial state
-      try {
-        gen->setInitialState(cfg.beam1, cfg.mom1, cfg.beam2, cfg.mom2);
-      } catch (Error& e) {
-        log << Log::ERROR << "Beam particle error: " << cfg.beam1 << " or " 
-            << cfg.beam2 << " is invalid" << endl;
-        throw Error("Invalid beam particle");
-      }
-      log << Log::DEBUG << "Finished setting initial state " << endl;
-    } 
-
+  void setupRivet(Configuration& cfg, Log& log, AnalysisHandler& rh) {
     // Initialise Rivet
-    AnalysisHandler rh(cfg.histoName, cfg.histoFormat); 
+    bool needsCrossSection = false;
     if (cfg.runRivet) {
       vector<string> analyses;
       foreach (const string& aname, cfg.analyses) {
@@ -122,29 +116,14 @@ namespace Rivet {
       rh.init();
       log << Log::DEBUG << "Rivet analysis handler initialised" << endl;
     }
+  }
 
-    // Make a HepMC output
-    IO_GenEvent* hepmcOut(0);
-    if (cfg.writeHepMC) {
-      log << Log::DEBUG << "Making a HepMC output stream to " << cfg.hepmcOutFile << endl;
-      hepmcOut = new IO_GenEvent(cfg.hepmcOutFile.c_str(), std::ios::out);
-    }
 
-    // Make a HepMC input
-    IO_GenEvent* hepmcIn(0);
-    if (cfg.readHepMC) {
-      log << Log::DEBUG << "Making a HepMC input stream from " << cfg.hepmcInFile << endl;
-      hepmcIn = new IO_GenEvent(cfg.hepmcInFile.c_str(), std::ios::in);
-      log << Log::DEBUG << "Testing HepMC input stream from " << cfg.hepmcInFile << endl;
-      if (hepmcIn && hepmcIn->rdstate() != 0) {
-        log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
-        throw Error("Couldn't read HepMC event file: " + cfg.hepmcInFile);
-      }
-    }
-    
+
+  void doEventLoop(Configuration& cfg, Log& log, Generator* gen, AnalysisHandler& rh, 
+                   IO_GenEvent* hepmcOut, IO_GenEvent* hepmcIn) {
     // Log the event number to a special logger
     Log& nevtlog = Log::getLog("RivetGun.NEvt");
-
     
     // Event loop
     string rgverb = "Generating";
@@ -193,24 +172,68 @@ namespace Rivet {
       }
     }
     log << Log::INFO << "Finished!"  << endl;
-    
+  }
 
-    // Finalise Rivet and the generator
+
+
+
+  void generate(Configuration& cfg, Log& log) {
+    log << Log::DEBUG << "Entered generate() function " << endl;
+
+    // Make sure that the event loop can exit gracefully
+    registerKillSignalHandler();
+
+    //bool needsCrossSection = false;
+    Generator* gen = 0;
+
+    // Configure generator and params
+    if (!cfg.readHepMC) { 
+      setupGenerator(cfg, log, gen);
+    }
+
+    // Configure analyses etc
+    AnalysisHandler rh(cfg.histoName, cfg.histoFormat);
+    setupRivet(cfg, log, rh);
+
+    // Make a HepMC output
+    IO_GenEvent* hepmcOut(0);
+    if (cfg.writeHepMC) {
+      log << Log::DEBUG << "Making a HepMC output stream to " << cfg.hepmcOutFile << endl;
+      hepmcOut = new IO_GenEvent(cfg.hepmcOutFile.c_str(), std::ios::out);
+    }
+
+    // Make a HepMC input
+    IO_GenEvent* hepmcIn(0);
+    if (cfg.readHepMC) {
+      log << Log::DEBUG << "Making a HepMC input stream from " << cfg.hepmcInFile << endl;
+      hepmcIn = new IO_GenEvent(cfg.hepmcInFile.c_str(), std::ios::in);
+      log << Log::DEBUG << "Testing HepMC input stream from " << cfg.hepmcInFile << endl;
+      if (hepmcIn && hepmcIn->rdstate() != 0) {
+        log << Log::ERROR << "Couldn't read HepMC event file: " << cfg.hepmcInFile << endl;
+        throw Error("Couldn't read HepMC event file: " + cfg.hepmcInFile);
+      }
+    }
+    
+    // Run event loop
+    doEventLoop(cfg, log, gen, rh, hepmcOut, hepmcIn);
+
+    // Finalise Rivet
     if (gen) gen->finalize();
     delete hepmcOut;
     delete hepmcIn;
     if (cfg.runRivet) {
-      if (needsCrossSection) {
-        if (gen) rh.setCrossSection(gen->getCrossSection());
-        else throw Error("Cross section needed but no Generator created");
-      }
+      //if (needsCrossSection) {
+      if (gen) rh.setCrossSection(gen->getCrossSection());
+      //  else throw Error("Cross section needed but no Generator created");
+      //}
       rh.finalize();
     }
+
+    // Finalize generator
     //if (gen){
       ////Loader::destroyGen(gen);
       //Loader::finalize();
     //}
-
 
     // Write out the histogram tree into the registered file.
     rh.tree().commit();
