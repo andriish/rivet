@@ -49,7 +49,7 @@ namespace Rivet {
 
 
   #ifdef HAVE_AGILE
-  void setupGenerator(Configuration& cfg, Log& log, Generator* gen) {
+  void setupGenerator(Configuration& cfg, Log& log, Generator*& gen) {
     // Load generator libraries
     Loader::initialize();
     log << Log::INFO << "Requested generator = " << cfg.generatorName << endl;
@@ -162,6 +162,7 @@ namespace Rivet {
     log << Log::INFO << "Generating " << cfg.numEvents << " events." << endl;
     HepMC::GenEvent myevent;
     for (size_t i = 0; i < cfg.numEvents; ++i) {    
+      assert(gen);
       gen->makeEvent(myevent);
       printEventNumber(i+1);
       useEvent(cfg, myevent, rh, hepmcOut);
@@ -215,12 +216,10 @@ namespace Rivet {
     //bool needsCrossSection = false;
     #ifdef HAVE_AGILE 
     Generator* gen = 0;
-    #endif
-
-    // Configure generator and params
     if (!cfg.readHepMC) { 
       setupGenerator(cfg, log, gen);
     }
+    #endif
 
     // Configure analyses etc
     AnalysisHandler rh(cfg.histoName, cfg.histoFormat);
