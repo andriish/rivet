@@ -5,9 +5,11 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/Configuration.hh"
 
+#ifdef HAVE_AGILE
 #include "AGILe/Particle.hh"
 #include "AGILe/Generator.hh"
 #include "AGILe/Loader.hh"
+#endif
 
 #include <tclap/CmdLine.h>
 using namespace TCLAP;
@@ -37,6 +39,7 @@ namespace Rivet {
         CmdLine cmd("Runs an event generator using the RivetGun and AGILe interface libraries", ' ', RIVETVERSION);
 
         // Add generator args
+        #ifdef HAVE_AGILE
         vector<string> gens = AGILe::Loader::getAvailableGens();
         ValuesConstraint<string> genNameConstraint(gens);
         vector<Arg*> genArgs;
@@ -44,6 +47,11 @@ namespace Rivet {
         genArgs.push_back(&genNameArg);
         ValueArg<string> genFileArg("G", "generatorfile", "HepML file defining the generator", true, "", "genfile");
         genArgs.push_back(&genFileArg);
+        #else
+        vector<string> gens;
+        vector<Arg*> genArgs;
+        #endif
+
         ValueArg<string> eventFileArg("i", "ineventfile", "File containing HepMC events", true, "-", "filename");
         genArgs.push_back(&eventFileArg);
         //cmd.xorAdd(genNameArg, genFileArg);
@@ -167,7 +175,7 @@ namespace Rivet {
           }
         }
 
-
+        #ifdef HAVE_AGILE
         // Use generator args
         if (genNameArg.isSet()) {
           config.generatorName = genNameArg.getValue();
@@ -175,6 +183,8 @@ namespace Rivet {
           /// @todo Read HepML file
           throw Rivet::Error("HepML file reading is not yet supported. Sorry.");
         }
+        #endif
+
         if (rngSeedArg.isSet()) config.rngSeed = rngSeedArg.getValue();
         if (eventFileArg.isSet()) {
           config.hepmcInFile = eventFileArg.getValue();

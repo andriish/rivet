@@ -1,0 +1,4 @@
+// Rivet build option flags
+
+/* compiling with AGILe */
+#undef HAVE_AGILE

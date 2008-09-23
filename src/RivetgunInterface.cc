@@ -1,14 +1,13 @@
 // -*- C++ -*-
-#include "AGILe/AGILe.hh"
-//#include "AGILe/Particle.hh"
-//#include "AGILe/Generator.hh"
-//using AGILe::Generator;
-//using AGILe::Loader;
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Configuration.hh"
 #include "Rivet/Tools/Logging.hh"
 using namespace Rivet;
+
+#ifdef HAVE_AGILE
+#include "AGILe/AGILe.hh"
+#endif
 
 #ifdef FC_DUMMY_MAIN
 extern "C" int F77_DUMMY_MAIN() { return 1; }
@@ -36,10 +35,12 @@ int main(int argc, char* argv[]) {
         arg.find("Rivet=TRACE") != string::npos) {
       Rivet::Log::setLevels("Rivet.Loader", Log::TRACE);
     }
+    #ifdef HAVE_AGILE
     if (arg.find("AGILe.Loader=TRACE") != string::npos ||
         arg.find("AGILe=TRACE") != string::npos) {
       AGILe::Log::setLevels("AGILe.Loader", Log::TRACE);
     }
+    #endif
   }
 
   // Parse command line into a configuration object.
@@ -54,9 +55,13 @@ int main(int argc, char* argv[]) {
 
   // Set log levels from command line and get a logger
   Rivet::Log::setLevels(cfg.logLevels);
-  AGILe::Log::setLevels(cfg.logLevels);
   Rivet::Log::setUseColors(cfg.useLogColors);
+
+  #ifdef HAVE_AGILE
+  AGILe::Log::setLevels(cfg.logLevels);
   AGILe::Log::setUseColors(cfg.useLogColors);
+  #endif
+
   Log& log = Rivet::Log::getLog("RivetGun.Main");
   stringstream cmd;
   cmd << "rivetgun ";

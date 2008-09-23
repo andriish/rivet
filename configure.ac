@@ -3,7 +3,7 @@
 AC_PREREQ(2.59)
 AC_INIT([Rivet],[1.1.1],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Analysis.cc])
-AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh])
+AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
 
 ## Set library version info code
@@ -57,9 +57,10 @@ AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable @<:@default=yes@:>@])], 
   [], [enable_rivetgun=yes])
 AC_CEDAR_LIBRARYANDHEADERS([AGILe], , , [AC_MSG_WARN([AGILe not found])])
-AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes && test x$have_agile != xno])
-if test x$enable_rivetgun == xyes && test x$have_agile == xno; then
-  AC_MSG_NOTICE([AGILe not found: not building rivetgun])
+AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes])
+if test x$have_agile == xyes; then
+  AC_MSG_NOTICE([Defining HAVE_AGILE])
+  AC_DEFINE([HAVE_AGILE], "1", [compiling with AGILe])
 fi
 
 ## Decide whether to build the Python extension

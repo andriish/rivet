@@ -1,3 +1,8 @@
+2008-09-23  Andy Buckley  <andy@insectnation.org>
+
+	* rivetgun can now be built and run without AGILe. Based on a
+	patch by Frank Siegert.
+
 2008-09-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Some preliminary numbers for the CDF_2008_LEADINGJETS analysis

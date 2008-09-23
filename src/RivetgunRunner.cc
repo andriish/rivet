@@ -1,9 +1,6 @@
 // -*- C++ -*-
-#include "AGILe/AGILe.hh"
-#include "AGILe/Particle.hh"
-#include "AGILe/Generator.hh"
-#include "AGILe/Loader.hh"
-using namespace AGILe;
+
+#include "Rivet/Config/BuildOptions.hh"
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
@@ -12,6 +9,14 @@ using namespace AGILe;
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/Configuration.hh"
 using namespace Rivet;
+
+#ifdef HAVE_AGILE
+#include "AGILe/AGILe.hh"
+#include "AGILe/Particle.hh"
+#include "AGILe/Generator.hh"
+#include "AGILe/Loader.hh"
+using namespace AGILe;
+#endif
 
 #include "HepMC/IO_GenEvent.h"
 using namespace HepMC;
@@ -43,6 +48,7 @@ namespace {
 namespace Rivet {
 
 
+  #ifdef HAVE_AGILE
   void setupGenerator(Configuration& cfg, Log& log, Generator* gen) {
     // Load generator libraries
     Loader::initialize();
@@ -81,6 +87,7 @@ namespace Rivet {
     }
     log << Log::DEBUG << "Finished setting initial state " << endl;
   } 
+  #endif
 
 
   void setupRivet(Configuration& cfg, Log& log, AnalysisHandler& rh) {
@@ -119,51 +126,73 @@ namespace Rivet {
   }
 
 
-
-  void doEventLoop(Configuration& cfg, Log& log, Generator* gen, AnalysisHandler& rh, 
-                   IO_GenEvent* hepmcOut, IO_GenEvent* hepmcIn) {
-    // Log the event number to a special logger
+  // Notify about event number
+  void printEventNumber(long num) {
     Log& nevtlog = Log::getLog("RivetGun.NEvt");
+    Log::Level lev = Log::DEBUG;
+    if (round(num/100.0) == num/100.0) lev = Log::INFO;
+    if (round(num/1000.0) == num/1000.0) lev = Log::WARN;
+    nevtlog << lev << "Event number " << num << endl;
+  }
+
+
+  void useEvent(Configuration& cfg, const HepMC::GenEvent& myevent, 
+                AnalysisHandler& rh, IO_GenEvent* hepmcOut) {
+    // Print out HepMC event if in DEBUG mode
+    Log& hepmclog = Log::getLog("RivetGun.HepMC");
+    if (hepmclog.isActive(Log::DEBUG)) {
+      myevent.print();
+    }
+      
+    // Run Rivet analyses
+    if (cfg.runRivet) rh.analyze(myevent);
     
-    // Event loop
-    string rgverb = "Generating";
-    if (cfg.readHepMC) rgverb = "Reading";
-    log << Log::INFO << rgverb << " " << cfg.numEvents << " events." << endl;
+    // Write out event to file
+    if (cfg.writeHepMC) {
+      hepmcOut->write_event(&myevent);
+      //myevent.print(cout);
+    }
+  }
+
+
+
+  #ifdef HAVE_AGILE
+  void doGenEventLoop(Configuration& cfg, Log& log, Generator* gen, 
+                      AnalysisHandler& rh, IO_GenEvent* hepmcOut) {
+    log << Log::INFO << "Generating " << cfg.numEvents << " events." << endl;
     HepMC::GenEvent myevent;
     for (size_t i = 0; i < cfg.numEvents; ++i) {    
-      // Make or load the event
-      if (cfg.readHepMC) {
-        if (hepmcIn->rdstate() != 0) {
-          log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
-          break;
-        }
-        myevent.clear();
-        hepmcIn->fill_next_event(&myevent);
-      } else {
-        gen->makeEvent(myevent);
-      }
-        
-      // Notify about event number
-      Log::Level lev = Log::DEBUG;
-      if (round((i+1)/100.0) == (i+1)/100.0) lev = Log::INFO;
-      if (round((i+1)/1000.0) == (i+1)/1000.0) lev = Log::WARN;
-      nevtlog << lev << "Event number " << i+1 << endl;
+      gen->makeEvent(myevent);
+      printEventNumber(i+1);
+      useEvent(cfg, myevent, rh, hepmcOut);
 
-      // Print out HepMC event if in DEBUG mode
-      Log& hepmclog = Log::getLog("RivetGun.HepMC");
-      if (hepmclog.isActive(Log::DEBUG)) {
-        myevent.print();
+      // Exit nicely if we've been signalled during this iteration
+      if (RECVD_KILL_SIGNAL != 0) {
+        log << Log::WARN << "Leaving event loop early due to signal " 
+            << RECVD_KILL_SIGNAL << endl;
+        break;
       }
-      
-      // Run Rivet analyses
-      if (cfg.runRivet) rh.analyze(myevent);
-      
-      // Write out event to file
-      if (cfg.writeHepMC) {
-        hepmcOut->write_event(&myevent);
-        //myevent.print(cout);
+    }
+    log << Log::INFO << "Finished!"  << endl;
+  }
+  #endif
+
+
+
+  void doReadEventLoop(Configuration& cfg, Log& log, IO_GenEvent* hepmcIn, 
+                       AnalysisHandler& rh, IO_GenEvent* hepmcOut) {
+    log << Log::INFO << "Reading " << cfg.numEvents << " events." << endl;
+    HepMC::GenEvent myevent;
+    for (size_t i = 0; i < cfg.numEvents; ++i) {    
+      if (hepmcIn->rdstate() != 0) {
+        log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
+        break;
       }
-      
+      myevent.clear();
+      hepmcIn->fill_next_event(&myevent);
+      printEventNumber(i+1);
+      useEvent(cfg, myevent, rh, hepmcOut);
+
       // Exit nicely if we've been signalled during this iteration
       if (RECVD_KILL_SIGNAL != 0) {
         log << Log::WARN << "Leaving event loop early due to signal " 
@@ -184,7 +213,9 @@ namespace Rivet {
     registerKillSignalHandler();
 
     //bool needsCrossSection = false;
+    #ifdef HAVE_AGILE 
     Generator* gen = 0;
+    #endif
 
     // Configure generator and params
     if (!cfg.readHepMC) { 
@@ -215,7 +246,15 @@ namespace Rivet {
     }
     
     // Run event loop
-    doEventLoop(cfg, log, gen, rh, hepmcOut, hepmcIn);
+    if (cfg.readHepMC) {
+      doReadEventLoop(cfg, log, hepmcIn, rh, hepmcOut);
+    } else {
+      #ifdef HAVE_AGILE
+      doGenEventLoop(cfg, log, gen, rh, hepmcOut);
+      #else
+      throw Error("RivetGun not compiled with AGILe: events can only be read from HepMC files");
+      #endif
+    }
 
     // Finalise Rivet
     if (gen) gen->finalize();

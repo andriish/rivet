@@ -1,6 +1,8 @@
 #ifndef RIVET_Rivet_HH
 #define RIVET_Rivet_HH
 
+#include "Rivet/Config/BuildOptions.hh"
+
 #include <typeinfo>
 #include <set>
 #include <list>
