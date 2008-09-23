@@ -15,22 +15,19 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2008_LEADINGJETS::init() {
-    _hist_onchg   = bookProfile1D( 1, 1, 1, "Overall Number of Charged Particles");
-    _hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall Charged pT Sum");
-    _hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall ET Sum");
+    _hist_pnchg      = bookProfile1D( 1, 1, 1, "Transverse Region Charged Particle Density");
+    _hist_pmaxnchg   = bookProfile1D( 2, 1, 1, "TransMAX Region Charged Particle Density");
+    _hist_pminnchg   = bookProfile1D( 3, 1, 1, "TransMIN Region Charged Particle Density");
+    _hist_pdifnchg   = bookProfile1D( 4, 1, 1, "TransDIF Region Charged Particle Density");
+    _hist_pcptsum    = bookProfile1D( 5, 1, 1, "Transverse Region Charged pT Sum Density");
+    _hist_pmaxcptsum = bookProfile1D( 6, 1, 1, "TransMAX Region Charged pT Sum Density");
+    _hist_pmincptsum = bookProfile1D( 7, 1, 1, "TransMIN Region Charged pT Sum Density");
+    _hist_pdifcptsum = bookProfile1D( 8, 1, 1, "TransDIF Region Charged pT Sum Density");
+    _hist_pcptave    = bookProfile1D( 9, 1, 1, "Transverse Region Charged pT Average");
 
-    //_hist_tnchg   = bookProfile1D( 1, 1, 1, "Toward Region Charged Particle Density");
-    //_hist_pnchg   = bookProfile1D( 2, 1, 1, "Transverse Region Charged Particle Density");
-    //_hist_anchg   = bookProfile1D( 3, 1, 1, "Away Region Charged Particle Density");
-    //_hist_tcptsum = bookProfile1D( 4, 1, 1, "Toward Region Charged pT Sum Density");
-    //_hist_pcptsum = bookProfile1D( 5, 1, 1, "Transverse Region Charged pT Sum Density");
-    //_hist_acptsum = bookProfile1D( 6, 1, 1, "Away Region Charged pT Sum Density");
-    //_hist_tcptave = bookProfile1D( 7, 1, 1, "Toward Region Charged pT Average");
-    //_hist_pcptave = bookProfile1D( 8, 1, 1, "Transverse Region Charged pT Average");
-    //_hist_acptave = bookProfile1D( 9, 1, 1, "Away Region Charged pT Average");
-    //_hist_tcptmax = bookProfile1D(10, 1, 1, "Toward Region Charged pT Maximum");
-    //_hist_pcptmax = bookProfile1D(11, 1, 1, "Transverse Region Charged pT Maximum");
-    //_hist_acptmax = bookProfile1D(12, 1, 1, "Away Region Charged pT Maximum");
+    //_hist_onchg   = bookProfile1D( 1, 1, 1, "Overall Number of Charged Particles");
+    //_hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall Charged pT Sum");
+    //_hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall ET Sum");
   }
 
 
@@ -122,6 +119,7 @@ namespace Rivet {
       }
     } // end charged particle loop
 
+#if 0   ///// This part is not needed until we have the numbers from Rick Field
     // And now the same business for all particles (including neutrals)
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       const double deltaPhi = delta_phi(p->momentum().azimuthalAngle(), jetphi);
@@ -150,28 +148,36 @@ namespace Rivet {
         EtSumAway += ET;
       }
     } // end all particle loop
+#endif
 
-    _hist_onchg->fill(jetpT, numOverall, weight);
-    _hist_ocptsum->fill(jetpT, ptSumOverall, weight);
-    _hist_oetsum->fill(jetpT, EtSumOverall, weight);
-////    _hist_tnchg->fill(pTZ, numToward/(4*PI/3), weight);
-////    _hist_pnchg->fill(pTZ, numTrans/(4*PI/3), weight);
-////    _hist_anchg->fill(pTZ, numAway/(4*PI/3), weight);
-////    _hist_tcptsum->fill(pTZ, ptSumToward/(4*PI/3), weight);
-////    _hist_pcptsum->fill(pTZ, ptSumTrans/(4*PI/3), weight);
-////    _hist_acptsum->fill(pTZ, ptSumAway/(4*PI/3), weight);
-////    if (numToward > 0) {
-////      _hist_tcptave->fill(pTZ, ptSumToward/numToward, weight);
-////      _hist_tcptmax->fill(pTZ, ptMaxToward, weight);
-////    }
-////    if (numTrans > 0) {
-////      _hist_pcptave->fill(pTZ, ptSumTrans/numTrans, weight);
-////      _hist_pcptmax->fill(pTZ, ptMaxTrans, weight);
-////    }
-////    if (numAway > 0) {
-////      _hist_acptave->fill(pTZ, ptSumAway/numAway, weight);
-////      _hist_acptmax->fill(pTZ, ptMaxAway, weight);
-////    }
+
+    // Fill the histograms
+    //_hist_tnchg->fill(jetpT, numToward/(4*PI/3), weight);
+    _hist_pnchg->fill(jetpT, (numTrans1+numTrans2)/(4*PI/3), weight);
+    _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+    _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+    _hist_pdifnchg->fill(jetpT, abs(numTrans1-numTrans2)/(2*PI/3), weight);
+    //_hist_anchg->fill(jetpT, numAway/(4*PI/3), weight);
+
+    //_hist_tcptsum->fill(jetpT, ptSumToward/(4*PI/3), weight);
+    _hist_pcptsum->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
+    _hist_pmaxcptsum->fill(jetpT, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
+    _hist_pmincptsum->fill(jetpT, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
+    _hist_pdifcptsum->fill(jetpT, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3), weight);
+    //_hist_acptsum->fill(jetpT, ptSumAway/(4*PI/3), weight);
+
+    //if (numToward > 0) {
+    //  _hist_tcptave->fill(jetpT, ptSumToward/numToward, weight);
+    //  _hist_tcptmax->fill(jetpT, ptMaxToward, weight);
+    //}
+    if ((numTrans1+numTrans2) > 0) {
+      _hist_pcptave->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2), weight);
+      //_hist_pcptmax->fill(jetpT, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2), weight);
+    }
+    //if (numAway > 0) {
+    //  _hist_acptave->fill(jetpT, ptSumAway/numAway, weight);
+    //  _hist_acptmax->fill(jetpT, ptMaxAway, weight);
+    //}
   }
 
 

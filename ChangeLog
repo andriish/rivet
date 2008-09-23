@@ -1,3 +1,8 @@
+2008-09-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Some preliminary numbers for the CDF_2008_LEADINGJETS analysis
+	(only transverse region and not all observables. But all we have now.)
+
 2008-09-17  Andy Buckley  <andy@insectnation.org>
 
 	* Breaking up the mammoth "generate" function, to make Python
