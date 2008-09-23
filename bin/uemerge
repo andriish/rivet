@@ -390,6 +390,20 @@ mergeByPt("/CDF_2004_S5839831/d09-x01-y02", "630")
 useOnePt("/CDF_2004_S5839831/d10-x01-y01", "630", "0")
 useOnePt("/CDF_2004_S5839831/d11-x01-y01", "630", "0")
 
+## Rick Field Run-II Leading Jets analysis
+## charged particle density
+mergeByPt("/CDF_2008_LEADINGJETS/d01-x01-y01", "1960")
+mergeByPt("/CDF_2008_LEADINGJETS/d02-x01-y01", "1960")
+mergeByPt("/CDF_2008_LEADINGJETS/d03-x01-y01", "1960")
+mergeByPt("/CDF_2008_LEADINGJETS/d04-x01-y01", "1960")
+## pT sum density
+mergeByPt("/CDF_2008_LEADINGJETS/d05-x01-y01", "1960")
+mergeByPt("/CDF_2008_LEADINGJETS/d06-x01-y01", "1960")
+mergeByPt("/CDF_2008_LEADINGJETS/d07-x01-y01", "1960")
+mergeByPt("/CDF_2008_LEADINGJETS/d08-x01-y01", "1960")
+## mean pT
+mergeByPt("/CDF_2008_LEADINGJETS/d09-x01-y01", "1960")
+
 
 ## Write out merged histos
 ##print sorted(outhistos.values())
