@@ -329,7 +329,17 @@ def useOnePt(hpath, sqrts, ptmin):
     global inhistos
     global outhistos
     try:
-        outhistos[hpath] =  inhistos[hpath][sqrts][ptmin]
+        ## Find best pT_min match
+        ptmins = inhistos[hpath][sqrts].keys()
+        closest_ptmin = None
+        for ptm in ptmins:
+            if closest_ptmin is None or \
+                    abs(float(ptm)-float(ptmin)) < abs(closest_ptmin-float(ptmin)):
+                closest_ptmin = float(ptm)
+        if closest_ptmin != float(ptmin):
+            sys.stderr.write("Inexact match for requested pTmin=%s: " % ptmin + \
+                                 "using pTmin=%f instead\n" % closest_ptmin)
+        outhistos[hpath] =  inhistos[hpath][sqrts][closest_ptmin]
     except:
         pass
 
@@ -406,12 +416,13 @@ mergeByPt("/CDF_2008_LEADINGJETS/d09-x01-y01", "1960")
 
 
 ## Write out merged histos
-##print sorted(outhistos.values())
-out.write("\n\n".join([h.asFlat() for h in sorted(outhistos.values())]))
-out.write("\n")
-
+for hpath, h in sorted(outhistos.iteritems()):
+    #print hpath
+    out.write(h.asFlat() + "\n\n")
 sys.exit(0)
-for hpath, h in outhistos.iteritems():
+
+for hpath, h in sorted(outhistos.iteritems()):
+    #print hpath
     safename = hpath.replace("/", "_") + ".dat"
     if safename[0] == "_":
         safename = safename[1:]
