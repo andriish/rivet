@@ -34,11 +34,12 @@ namespace Rivet {
       const ParticleVector& Zees = WZbosons.Zees();
       for (ParticleVector::const_iterator p = Zees.begin(); p != Zees.end(); ++p) {
         FourMomentum pmom = p->momentum();
-        Zcount += 1;
-        _eventsFilledZ += weight;
-        getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT() << endl;
-        _h_dsigdpt_z->fill(pmom.pT(), weight);
-
+        if (pmom.mass() > 75 && pmom.mass() < 105) {
+          Zcount += 1;
+          _eventsFilledZ += weight;
+          getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT() << endl;
+          _h_dsigdpt_z->fill(pmom.pT(), weight);
+        }
       }
   }
 
@@ -47,11 +48,11 @@ namespace Rivet {
     // Get cross-section per event (i.e. per unit weight) from generator
     const double xSecPerEvent = crossSection()/nanobarn / sumOfWeights();
 
-    // Correct W pT distribution to W cross-section
-    const double xSecW = xSecPerEvent * _eventsFilledW;
+    // Correct W pT distribution to W cross-section, factor 1000 for nb versus pb
+    const double xSecW = xSecPerEvent * _eventsFilledW * 1000;
 
-    // Correct Z pT distribution to Z cross-section
-    const double xSecZ = xSecPerEvent * _eventsFilledZ;
+    // Correct Z pT distribution to Z cross-section, factor 1000 for nb versus pb
+    const double xSecZ = xSecPerEvent * _eventsFilledZ * 1000;
 
     _h_dsigdpt_wz_rat = histogramFactory().divide(getName() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_z);
     _h_dsigdpt_wz_rat->scale(xSecW/xSecZ * _mwmz * _brzee / _brwenu);
