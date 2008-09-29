@@ -50,6 +50,7 @@ nobase_dist_data_DATA += \
   RivetGun/fpythia-atlas.params \
   RivetGun/fpythia-atlaspdf.params \
   RivetGun/fpythia-cdfdrellyan.params \
+  RivetGun/fpythia-cdf-zpt.params \
   RivetGun/fpythia-longlife-stable.params \
   RivetGun/charybdisher-default.params  \
   RivetGun/charybdispyt-default.params  \
