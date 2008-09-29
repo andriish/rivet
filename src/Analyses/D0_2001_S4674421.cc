@@ -25,7 +25,7 @@ namespace Rivet {
       const ParticleVector& Wens = WZbosons.Wens();
       for (ParticleVector::const_iterator p = Wens.begin(); p != Wens.end(); ++p) {
         FourMomentum pmom = p->momentum();
-        _h_dsigdpt_w->fill(pmom.pT(), weight);
+        _h_dsigdpt_w->fill(pmom.pT()/GeV, weight);
         _eventsFilledW += weight;
       }
 
@@ -34,11 +34,11 @@ namespace Rivet {
       const ParticleVector& Zees = WZbosons.Zees();
       for (ParticleVector::const_iterator p = Zees.begin(); p != Zees.end(); ++p) {
         FourMomentum pmom = p->momentum();
-        if (pmom.mass() > 75 && pmom.mass() < 105) {
+        if (pmom.mass()/GeV > 75 && pmom.mass()/GeV < 105) {
           Zcount += 1;
           _eventsFilledZ += weight;
-          getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT() << endl;
-          _h_dsigdpt_z->fill(pmom.pT(), weight);
+          getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << endl;
+          _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
         }
       }
   }
