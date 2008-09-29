@@ -5,6 +5,9 @@
 ## histo file for plotting or further analysis.
 ##
 ## TODO:
+##  * take merge specs from a conf file instead of hard-coding
+##  * generalise to more generic merge ranges (i.e. not just sqrts & pT)
+##  * improve cmd line interface
 ##  * rationalise all histogramming formats... remove AIDA!
 ##  * use external histo classes (YODA), since I've now lost track
 ##    of which changes have had to be made to which copies of Histo, Bin etc.!
@@ -346,7 +349,6 @@ def useOnePt(hpath, sqrts, ptmin):
 
 ######
 
-
 ## Field analysis
 ## Number, profile in pT_lead (True?)
 mergeByPt("/CDF_2001_S4751469/d03-x01-y01", "1800")
@@ -413,6 +415,12 @@ mergeByPt("/CDF_2008_LEADINGJETS/d07-x01-y01", "1960")
 mergeByPt("/CDF_2008_LEADINGJETS/d08-x01-y01", "1960")
 ## mean pT
 mergeByPt("/CDF_2008_LEADINGJETS/d09-x01-y01", "1960")
+
+## CDF Z pT analysis
+useOnePt("/D0_2004_S5992206/d01-x02-y01", "1800", "50")
+useOnePt("/D0_2004_S5992206/d02-x02-y01", "1800", "50")
+useOnePt("/D0_2004_S5992206/d03-x02-y01", "1800", "100")
+useOnePt("/D0_2004_S5992206/d04-x02-y01", "1800", "150")
 
 
 ## Write out merged histos
