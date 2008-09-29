@@ -1,3 +1,7 @@
+2008-09-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* New analysis: CDF_2000_S4155203
+
 2008-09-23  Andy Buckley  <andy@insectnation.org>
 
 	* rivetgun can now be built and run without AGILe. Based on a
