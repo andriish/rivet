@@ -19,6 +19,7 @@ nobase_dist_data_DATA = \
   Rivet/PHENIX_2003_S5538505.aida      \
   Rivet/BRAHMS_2007_S7052448.aida      \
   Rivet/CDF_1994_S2952106.aida         \
+  Rivet/CDF_2000_S4155203.aida         \
   Rivet/CDF_2001_S4751469.aida         \
   Rivet/CDF_2004_S5839831.aida         \
   Rivet/CDF_2005_S6217184.aida         \

@@ -410,7 +410,7 @@
     <dataPoint>
       <measurement errorPlus="1.5" value="5.5" errorMinus="1.5"/>
       <measurement errorPlus="0.005055937104039171"
-        value="0.005" errorMinus="0.005055937104039171"/>
+        value="0.0050" errorMinus="0.005055937104039171"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2"
@@ -489,8 +489,8 @@
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="2.5" value="8.5" errorMinus="2.5"/>
-      <measurement errorPlus="0.005" value="0.0"
-        errorMinus="0.005"/>
+      <measurement errorPlus="0.0050" value="0.0"
+        errorMinus="0.0050"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2"
@@ -961,8 +961,8 @@
     <dataPoint>
       <measurement errorPlus="6.0" value="34.0"
         errorMinus="6.0"/>
-      <measurement errorPlus="0.008" value="0.026"
-        errorMinus="0.008"/>
+      <measurement errorPlus="0.0080" value="0.026"
+        errorMinus="0.0080"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d16-x01-y01" dimension="2"
