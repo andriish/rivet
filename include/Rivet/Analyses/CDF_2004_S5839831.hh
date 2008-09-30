@@ -25,9 +25,11 @@ namespace Rivet {
    *
    * @par Run conditions
    *
+   * @arg Two different beam energies: \f$ \sqrt{s} = \$f 630 & 1800 GeV
    * @arg Run with generic QCD events.
    * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the profile histograms:
-   *  \f$ p_\perp^\text{min} = \f$ 0 (min bias), 30, 90, 150 GeV
+   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 30, 90, 150 GeV for \f$ \sqrt{s} = \$f 1800 GeV
+   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 20, 90, 150 GeV for \f$ \sqrt{s} = \$f 1800 GeV
    */
   class CDF_2004_S5839831 : public Analysis {
   public:
@@ -44,9 +46,10 @@ namespace Rivet {
       const ChargedFinalState fs(-1.2, 1.2, 0.4*GeV); 
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-      //addProjection(FastJets(fs, FastJets::SISCONE, 0.7), "Jets");
       // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
-      addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CheeseFS");
+      const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
+      addProjection(cheesefs, "CheeseFS");
+      addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
       
       /// @todo Declare that this is to be run on minimum bias data and jet 
       /// data with several ET triggers:
@@ -102,6 +105,19 @@ namespace Rivet {
 
   private:
 
+    struct ConesInfo {
+      ConesInfo() : numMax(0), numMin(0), ptMax(0), ptMin(0), ptDiff(0) {}
+      unsigned int numMax, numMin;
+      double ptMax, ptMin, ptDiff;
+    };
+
+    const ConesInfo calcTransCones(const double etaLead, const double phiLead, const ParticleVector& tracks);
+    const ConesInfo calcTransCones(const FourMomentum& leadvec, const ParticleVector& tracks);
+
+    vector<Jet> sortjets(vector<Jet>& jets);
+
+  private:
+
     /// @name Histogram collections
     //@{
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
@@ -148,9 +164,13 @@ namespace Rivet {
     /// minimum bias events.
     /// Figure 6, and HepData tables 5 & 6.
     /// Figure 10, and HepData tables 10 & 11.
-    AIDA::IHistogram1D *_numTracksDbn1800, *_ptDbn1800;
-    AIDA::IHistogram1D *_numTracksDbn630, *_ptDbn630;
+    AIDA::IHistogram1D *_numTracksDbn1800MB, *_ptDbn1800MB;
+    AIDA::IHistogram1D *_numTracksDbn630MB, *_ptDbn630MB;
     //@}
+
+
+    //private:
+    //UniformRealRNG _rngEtaMB, _rngPhiMB;
 
 
   private:

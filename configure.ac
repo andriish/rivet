@@ -47,6 +47,7 @@ AC_CHECK_HEADER([boost/foreach.hpp], [], [AC_MSG_ERROR([Boost foreach is require
 AC_CHECK_HEADER([boost/smart_ptr.hpp], [], [AC_MSG_ERROR([Boost smart_ptr is required])])
 AC_CHECK_HEADER([boost/lexical_cast.hpp], [], [AC_MSG_ERROR([Boost lexical_cast is required])])
 AC_CHECK_HEADER([boost/assign.hpp], [], [AC_MSG_ERROR([Boost assign is required])])
+AC_CHECK_HEADER([boost/random.hpp], [], [AC_MSG_ERROR([Boost random numbers is required])])
 CPPFLAGS=$oldCPPFLAGS
 
 ## HEP libraries

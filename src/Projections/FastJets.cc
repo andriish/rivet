@@ -19,33 +19,34 @@ namespace Rivet {
   }  
 
 
+
   void FastJets::project(const Event& e) {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     const ParticleVector particles = fs.particles();
+    _particles.clear();
+    vector<PseudoJet> vecs;
   
     if (!particles.empty()) {
       // Store 4 vector data about each particle into vecs
-      vector<PseudoJet> vecs;
-      vecs.clear();
-      _particles.clear();
+
       int counter = 1;
-      _particles.clear();
-//      foreach (const Particle& p, particles) {
-      
-      for(ParticleVector::const_iterator p = particles.begin(); 
-          p!=particles.end(); ++p){
-      
-        const FourMomentum fv = p->momentum();
+      foreach (const Particle& p, particles) {
+        const FourMomentum fv = p.momentum();
         PseudoJet pJet(fv.px(), fv.py(), fv.pz(), fv.E());
         pJet.set_user_index(counter);
         vecs.push_back(pJet);
-        _particles[counter] = *p;
+        _particles[counter] = p;
         ++counter;
       }
       
       getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
       ClusterSequence cs(vecs, _jdef);
       _cseq = cs;
+    } else {
+      //ClusterSequence emptycs();
+      //_cseq = emptycs;
+      getLog() << Log::DEBUG << "No tracks... aborting" << endl;
+      throw Error("Can't handle this situation, since FastJet's API doesn't allow us to pass null track vectors or set up a null ClusterSequence :(");
     }
   }
 

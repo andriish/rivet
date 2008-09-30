@@ -1,5 +1,19 @@
 2008-09-30  Andy Buckley  <andy@insectnation.org>
 
+	* Lots of updates to CDF_2004 (Acosta) UE analysis, including
+	sorting jets by E rather than Et, and factorising transverse cone
+	code into a function so that it can be called with a random
+	"leading jet" in min bias mode. Min bias histos are now being
+	trial-filled just with tracks in the transverse cones, since the
+	paper is very unclear on this.
+
+	* Discovered a serious caching problem in FastJets projection when
+	an empty tracks vector is passed from the
+	FinalState. Unfortunately, FastJet provides no API way to solve
+	the problem, so we'll have to report this upstream. For now, we're
+	solving this for CDF_2004 by explicitly vetoing events with no
+	tracks.
+
 	* Added Doxygen to the build with target "dox"
 
 	* Moved detection of whether cross-section information is needed

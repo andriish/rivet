@@ -93,13 +93,14 @@ namespace Rivet {
 
 
     /// Explicit copy constructor.
-    /// @todo Needed... why?
     FastJets(const FastJets& other) 
       : //_cseq(other._cseq),
         _jdef(other._jdef),
         _plugin(other._plugin),
         _yscales(other._yscales)
-    {  }
+    {  
+      setName("FastJets");
+    }
 
 
     /// Clone on the heap.
@@ -169,12 +170,12 @@ namespace Rivet {
     /// Get the subjet splitting variables for the given jet.
     vector<double> getYSubJet(const fastjet::PseudoJet& jet) const;
 
-    /// Split a jet a la PRL100,242001(2008).
-    /// Based on code from G.Salam,A.Davison.
+    /// @brief Split a jet a la PRL100,242001(2008).
+    /// Based on code from G.Salam, A.Davison.
     fastjet::PseudoJet splitJet(fastjet::PseudoJet jet, double& last_R) const;
 
-    /// Filter a jet a la PRL100,242001(2008).
-    /// Based on code from G.Salam,A.Davison.
+    /// @brief Filter a jet a la PRL100,242001(2008).
+    /// Based on code from G.Salam, A.Davison.
     fastjet::PseudoJet filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const;
 
   private:

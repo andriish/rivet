@@ -8,10 +8,26 @@
 #include "boost/foreach.hpp"
 #define foreach BOOST_FOREACH
 
+#include <boost/random.hpp>
+
 namespace Rivet {
+
+  // Smart pointers
   using boost::shared_ptr;
+
+  // Clever casts
   using boost::lexical_cast;
+
+  // Clever assignment shortcuts
   using namespace boost::assign;
+
+  // Random numbers
+  typedef boost::minstd_rand RngBase;
+  typedef boost::uniform_real<> UniformRealDist;
+  typedef boost::variate_generator<RngBase&, UniformRealDist> UniformRealRNG;
+  typedef boost::uniform_int<> UniformIntDist;
+  typedef boost::variate_generator<RngBase&, UniformIntDist> UniformIntRNG;
+
 }
 
 #endif
