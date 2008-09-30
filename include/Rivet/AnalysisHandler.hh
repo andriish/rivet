@@ -134,10 +134,21 @@ namespace Rivet {
     }
 
 
+    /// Is cross-section information required by at least one child analysis?
+    bool needCrossSection() {
+      bool rtn = false;
+      foreach (Analysis* a, _analyses) {
+        if (!rtn) rtn = a->needsCrossSection();
+        if (rtn) break;
+      }
+      return rtn;
+    }
+
+
     /// Set the cross-section for the process being generated.    
     AnalysisHandler& setCrossSection(const double & xs) {
-      for (set<Analysis*>::iterator anIt = _analyses.begin(); anIt != _analyses.end(); ++anIt) {
-        (*anIt)->setCrossSection(xs);
+      foreach (Analysis* a, _analyses) {
+        a->setCrossSection(xs);
       }
       return *this;
     }

@@ -31,6 +31,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::init(int i, int N) {
+    getLog() << Log::DEBUG << "Initialising the analysis handler" << endl;
     _nRun = N;
     _iRun = i;
     _numEvents = 0;
@@ -42,6 +43,7 @@ namespace Rivet {
       (*a)->checkConsistency();
       getLog() << Log::DEBUG << "Done initialising analysis: " << (*a)->getName() << endl;
     }
+    getLog() << Log::DEBUG << "Analysis handler initialised" << endl;
   }
   
 

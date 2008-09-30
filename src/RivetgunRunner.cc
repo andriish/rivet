@@ -92,7 +92,6 @@ namespace Rivet {
 
   void setupRivet(Configuration& cfg, Log& log, AnalysisHandler& rh) {
     // Initialise Rivet
-    bool needsCrossSection = false;
     if (cfg.runRivet) {
       vector<string> analyses;
       foreach (const string& aname, cfg.analyses) {
@@ -108,20 +107,16 @@ namespace Rivet {
             << (beamMatch ? "MATCH" : "NO-MATCH") << endl;
         if (beamMatch) {
           log << Log::INFO << "Using analysis " << a->getName() << endl;
-          // Once one analysis needs the cross-section, it can't be unset
-          if (!needsCrossSection) needsCrossSection = a->needsCrossSection();
           analyses.push_back(aname);
         } else {
           log << Log::WARN << "Removing inappropriate analysis " << a->getName() << endl;
+          delete a;
         }
-        /// @todo Need to delete temporary analyses... just unused ones?
       }
       /// @todo Decide who should be controlling the proj handler (do it via AnalysisHandler?)
       ProjectionHandler::create()->clear();
       rh.addAnalyses(analyses);
-      log << Log::DEBUG << "Initialising the Rivet analysis handler" << endl;
       rh.init();
-      log << Log::DEBUG << "Rivet analysis handler initialised" << endl;
     }
   }
 
@@ -174,7 +169,7 @@ namespace Rivet {
         break;
       }
     }
-    log << Log::INFO << "Finished!"  << endl;
+    log << Log::INFO << "Finished generator event loop!"  << endl;
   }
   #endif
 
@@ -184,15 +179,25 @@ namespace Rivet {
                        AnalysisHandler& rh, IO_GenEvent* hepmcOut) {
     log << Log::INFO << "Reading " << cfg.numEvents << " events." << endl;
     HepMC::GenEvent myevent;
-    for (size_t i = 0; i < cfg.numEvents; ++i) {    
-      if (hepmcIn->rdstate() != 0) {
+    for (size_t i = 0; i < cfg.numEvents; ++i) {
+      // Check stream state
+      const int readstate = hepmcIn->rdstate();
+      if (readstate != 0) {
+        log << Log::ERROR << "Bad HepMC input stream state: " << cfg.hepmcInFile
+            << " -> " << readstate << endl;
+        break;
+      }
+      
+      // Fill and use next event
+      myevent.clear();
+      const bool gotevent = hepmcIn->fill_next_event(&myevent);
+      if (gotevent) {
+        printEventNumber(i+1);
+        useEvent(cfg, myevent, rh, hepmcOut);
+      } else {
         log << Log::ERROR << "Couldn't read next HepMC event from file: " << cfg.hepmcInFile << endl;
         break;
       }
-      myevent.clear();
-      hepmcIn->fill_next_event(&myevent);
-      printEventNumber(i+1);
-      useEvent(cfg, myevent, rh, hepmcOut);
 
       // Exit nicely if we've been signalled during this iteration
       if (RECVD_KILL_SIGNAL != 0) {
@@ -201,9 +206,8 @@ namespace Rivet {
         break;
       }
     }
-    log << Log::INFO << "Finished!"  << endl;
+    log << Log::INFO << "Finished read-in event loop!"  << endl;
   }
-
 
 
 
@@ -213,7 +217,6 @@ namespace Rivet {
     // Make sure that the event loop can exit gracefully
     registerKillSignalHandler();
 
-    //bool needsCrossSection = false;
     #ifdef HAVE_AGILE 
     Generator* gen = 0;
     if (!cfg.readHepMC) { 
@@ -259,11 +262,12 @@ namespace Rivet {
     if (gen) gen->finalize();
     delete hepmcOut;
     delete hepmcIn;
-    if (cfg.runRivet) {
-      //if (needsCrossSection) {
-      if (gen) rh.setCrossSection(gen->getCrossSection());
-      //  else throw Error("Cross section needed but no Generator created");
-      //}
+    if (cfg.runRivet && rh.needCrossSection()) {
+      if (gen) {
+        rh.setCrossSection(gen->getCrossSection());
+      } else {
+        throw Error("Cross section needed but no Generator created");
+      }
       rh.finalize();
     }
 
