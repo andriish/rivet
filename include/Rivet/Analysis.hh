@@ -13,7 +13,7 @@
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
 
-
+/// \def vetoEvent
 /// Preprocessor define for vetoing events, including the log message and return.
 #define vetoEvent(E) { vetoEventWeight(E); getLog() << Log::DEBUG << "Vetoing event on line " << __LINE__ << " of " << __FILE__ << endl; return; }
 

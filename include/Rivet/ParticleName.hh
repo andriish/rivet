@@ -152,7 +152,8 @@ namespace Rivet {
   
 
   /// Typedef for a pair of beam particle names.
-  typedef pair<ParticleName, ParticleName> BeamPair;
+  typedef std::pair<ParticleName, ParticleName> BeamPair;
+
 
   /// Print a BeamPair as a string.
   inline string toString(const BeamPair& pair) {

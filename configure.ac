@@ -63,6 +63,15 @@ if test x$have_agile == xyes; then
   AC_DEFINE([HAVE_AGILE], "1", [compiling with AGILe])
 fi
 
+## Build Doxygen if possible
+AC_ARG_ENABLE([doxygen],
+  [AC_HELP_STRING(--disable-doxygen, [don't try to make Doxygen documentation])],
+  [], [enable_doxygen=yes])
+if test x$enable_doxygen == xyes; then
+   AC_PATH_PROG(DOXYGEN, doxygen)
+fi
+AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
+
 ## Decide whether to build the Python extension
 AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, 
   [build pyrivet Python module @<:@default=no@:>@])], [], [enable_pyrivet=no])
@@ -130,6 +139,6 @@ AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(autopackage/default.apspec)
 AC_CONFIG_FILES(autopackage/data.apspec)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config)
-AC_CONFIG_FILES(Makefile)
+AC_CONFIG_FILES(Makefile Doxyfile)
 
 AC_OUTPUT

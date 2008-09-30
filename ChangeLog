@@ -1,3 +1,14 @@
+2008-09-30  Andy Buckley  <andy@insectnation.org>
+
+	* Added Doxygen to the build with target "dox"
+
+	* Moved detection of whether cross-section information is needed
+	into the AnalysisHandler, with dynamic computation by scanning
+	contained analyses.
+
+	* Improved robustness of event reading to detect properly when the
+	input file is smaller than expected.
+
 2008-09-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* New analysis: CDF_2000_S4155203
