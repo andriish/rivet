@@ -9,10 +9,14 @@ namespace Rivet {
 
   // Book histograms
   void D0_2004_S5992206::init() {
-    _histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1, "Jet Jet azimuthal angle, pTmax=75..100");
-    _histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1, "Jet Jet azimuthal angle, pTmax=100..130");
-    _histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 2, 1, "Jet Jet azimuthal angle, pTmax=130..180");
-    _histJetAzimuth_pTmax180_    = bookHistogram1D(4, 2, 1, "Jet Jet azimuthal angle, pTmax>180");
+    _histJetAzimuth_pTmax75_100  = 
+      bookHistogram1D(1, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [75,100]\\text{ GeV}$");
+    _histJetAzimuth_pTmax100_130 = 
+      bookHistogram1D(2, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [100..130]\\text{ GeV}$");
+    _histJetAzimuth_pTmax130_180 = 
+      bookHistogram1D(3, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [130..180]\\text{ GeV}$");
+    _histJetAzimuth_pTmax180_    = 
+      bookHistogram1D(4, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} > 180\\text{ GeV}$");
   }
 
 

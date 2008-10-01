@@ -15,13 +15,23 @@
 
 namespace Rivet {
 
-
-  /// @brief DELPHI event shapes and identified particle spectra
-  ///
-  /// This is the paper which was used for the original PROFESSOR
-  /// MC tuning study.
-  ///
-  /// @author Andy Buckley
+  /**
+   * @brief DELPHI event shapes and identified particle spectra
+   * @author Andy Buckley
+   * @author Hendrik Hoeth
+   *
+   * This is the paper which was used for the original PROFESSOR MC tuning
+   * study. It studies a wide range of e+ e- event shape variables, differential
+   * jet rates in the Durham and JADE schemes, and incorporates identified
+   * particle spectra, from other LEP analyses.
+   *
+   *
+   * @par Run conditions
+   *
+   * @arg LEP1 beam energy: \f$ \sqrt{s} = \$f 91.2 GeV
+   * @arg Run with generic QCD events.
+   * @arg No \f$ p_\perp^\text{min} \f$ cutoff is required
+   */
   class DELPHI_1996_S3430090 : public Analysis {
 
   public:

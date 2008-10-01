@@ -22,16 +22,16 @@ namespace Rivet {
     _numTransJ20 = bookProfile1D(4, 1, 2, "Num (transverse) for JET20");
     _numAwayJ20 = bookProfile1D(4, 1, 3, "Num (away) for JET20");
 
-    _ptsumTowardMB = bookProfile1D(5, 1, 1, "pT sum (toward) for min-bias");
-    _ptsumTransMB = bookProfile1D(5, 1, 2, "pT sum (transverse) for min-bias");
-    _ptsumAwayMB = bookProfile1D(5, 1, 3, "pT sum (away) for min-bias");
-    _ptsumTowardJ20 = bookProfile1D(6, 1, 1, "pT sum (toward) for JET20");
-    _ptsumTransJ20 = bookProfile1D(6, 1, 2, "pT sum (transverse) for JET20");
-    _ptsumAwayJ20 = bookProfile1D(6, 1, 3, "pT sum (away) for JET20");
+    _ptsumTowardMB = bookProfile1D(5, 1, 1, "$p_\\perp^\\text{sum}$ (toward) for min-bias");
+    _ptsumTransMB = bookProfile1D(5, 1, 2, "$p_\\perp^\\text{sum}$ (transverse) for min-bias");
+    _ptsumAwayMB = bookProfile1D(5, 1, 3, "$p_\\perp^\\text{sum}$ (away) for min-bias");
+    _ptsumTowardJ20 = bookProfile1D(6, 1, 1, "$p_\\perp^\\text{sum}$ (toward) for JET20");
+    _ptsumTransJ20 = bookProfile1D(6, 1, 2, "$p_\\perp^\\text{sum}$ (transverse) for JET20");
+    _ptsumAwayJ20 = bookProfile1D(6, 1, 3, "$p_\\perp^\\text{sum}$ (away) for JET20");
 
-    _ptTrans2 = bookHistogram1D(7, 1, 1, "pT distribution (transverse, pT1 > 2 GeV)");
-    _ptTrans5 = bookHistogram1D(7, 1, 2, "pT distribution (transverse, pT1 > 5 GeV)");
-    _ptTrans30 = bookHistogram1D(7, 1, 3, "pT distribution (transverse, pT1 > 30 GeV)");
+    _ptTrans2 = bookHistogram1D(7, 1, 1, "$p_\\perp$ distribution (transverse, $p_\\perp^\\text{lead} > 2\\text{ GeV}$)");
+    _ptTrans5 = bookHistogram1D(7, 1, 2, "$p_\\perp$ distribution (transverse, $p_\\perp^\\text{lead} > 5\\text{ GeV}$)");
+    _ptTrans30 = bookHistogram1D(7, 1, 3, "$p_\\perp$ distribution (transverse, $p_\\perp^\\text{lead} > 30 \\text{GeV}$)");
   }
 
 
