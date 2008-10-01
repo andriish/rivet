@@ -284,8 +284,8 @@ try:
             if not tmpE.has_key(sqrts):
                 tmpE[sqrts] = {}
             tmpP = tmpE[sqrts]
-            if not tmpP.has_key(ptmin):
-                tmpP[ptmin] = h
+            if not tmpP.has_key(float(ptmin)):
+                tmpP[float(ptmin)] = h
             else:
                 raise Exception("A set with sqrt(s) = %s, and ptmin = %s already exists" % (sqrts, ptmin))
 except Exception, e:
