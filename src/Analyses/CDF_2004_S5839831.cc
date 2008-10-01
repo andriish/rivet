@@ -87,8 +87,8 @@ namespace Rivet {
     rtn.numMax = (ptPlus >= ptMinus) ? numPlus : numMinus;
     rtn.numMin = (ptPlus >= ptMinus) ? numMinus : numPlus;
     // Assign pT_{min,max} from pT_{plus,minus}
-    rtn.ptMin = (ptPlus >= ptMinus) ? ptPlus : ptMinus;
-    rtn.ptMax = (ptPlus >= ptMinus) ? ptMinus : ptPlus;
+    rtn.ptMax = (ptPlus >= ptMinus) ? ptPlus : ptMinus;
+    rtn.ptMin = (ptPlus >= ptMinus) ? ptMinus : ptPlus;
     rtn.ptDiff = fabs(rtn.ptMax - rtn.ptMin);
 
     getLog() << Log::DEBUG << "Min cone has " << rtn.numMin << " tracks -> " 
