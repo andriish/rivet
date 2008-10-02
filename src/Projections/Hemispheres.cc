@@ -49,9 +49,9 @@ namespace Rivet {
     // Calculate masses.
     const double mass2With = p4With.invariant();
     const double mass2Against = p4Against.invariant();
-    const bool withIsMaxMass2 = (mass2With > mass2Against);
-    _M2high = (withIsMaxMass2) ? mass2With : mass2Against;
-    _M2low = (withIsMaxMass2) ? mass2Against : mass2With;
+    const bool withIsMaxMass = (mass2With > mass2Against);
+    _M2high = (withIsMaxMass) ? mass2With : mass2Against;
+    _M2low = (withIsMaxMass) ? mass2Against : mass2With;
 
     // Calculate broadenings.
     broadWith /= broadDenom;
@@ -61,7 +61,7 @@ namespace Rivet {
     _Bmin = (withIsMaxBroad) ? broadAgainst : broadWith;
 
     // Calculate high-max correlation flag.
-    _highMassEqMaxBroad = (withIsMaxMass2 && withIsMaxBroad || !withIsMaxMass2 && !withIsMaxBroad);
+    _highMassEqMaxBroad = ((withIsMaxMass && withIsMaxBroad) || (!withIsMaxMass && !withIsMaxBroad));
   }
 
 }

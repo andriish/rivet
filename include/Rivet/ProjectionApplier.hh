@@ -29,20 +29,20 @@ namespace Rivet {
     /// @name Metadata functions
     //@{
     /// Get the name of this Projection or Analysis class
-    virtual string getName() const = 0;
+    virtual std::string getName() const = 0;
     //@}
 
     /// @name Projection "getting" functions
     //@{
     /// Get the contained projections, including recursion.
-    set<ConstProjectionPtr> getProjections() const {
+    std::set<ConstProjectionPtr> getProjections() const {
       return getProjHandler().getChildProjections(*this, ProjectionHandler::DEEP);
     }
 
 
     /// Get the named projection, specifying return type via a template argument.
     template <typename PROJ>
-    const PROJ& getProjection(const string& name) const {
+    const PROJ& getProjection(const std::string& name) const {
       const Projection& p = getProjHandler().getProjection(*this, name);
       return pcast<PROJ>(p);
     }
@@ -50,7 +50,7 @@ namespace Rivet {
 
     /// Get the named projection (non-templated, so returns as a reference to a
     /// Projection base class).
-    const Projection& getProjection(const string& name) const {
+    const Projection& getProjection(const std::string& name) const {
       return getProjHandler().getProjection(*this, name);
     }
     //@}
@@ -74,7 +74,7 @@ namespace Rivet {
 
     /// Apply the named projection on @a event.
     template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const string& name) const {
+    const PROJ& applyProjection(const Event& evt, const std::string& name) const {
       return pcast<PROJ>(_applyProjection(evt, name));
     }
     //@}
@@ -107,7 +107,7 @@ namespace Rivet {
     /// via a pointer or reference to type @c Projection) since this will screw
     /// up the internal type management.
     template <typename PROJ>
-    const PROJ& addProjection(const PROJ& proj, const string& name) {
+    const PROJ& addProjection(const PROJ& proj, const std::string& name) {
       getLog() << Log::TRACE << "Cloning projection " << proj.getName() << endl;
       const Projection* newpproj = proj.clone();
       getLog() << Log::TRACE << "Cloned projection " << proj.getName() << " at " << newpproj << endl;
@@ -124,7 +124,7 @@ namespace Rivet {
     
     /// Non-templated version of string-based applyProjection, to work around
     /// header dependency issue.
-    const Projection& _applyProjection(const Event& evt, const string& name) const;
+    const Projection& _applyProjection(const Event& evt, const std::string& name) const;
     
     /// Non-templated version of proj-based applyProjection, to work around
     /// header dependency issue.

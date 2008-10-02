@@ -11,11 +11,11 @@ namespace Rivet {
   enum HistoFormat { AIDAML, FLAT, ROOT };
 
   /// Typedef for a map of histogram format enums to strings.
-  typedef map<HistoFormat, string> HistoFormatMap;
+  typedef std::map<HistoFormat, std::string> HistoFormatMap;
 
 
   /// Typedef for a map of histogram format name strings to enums.
-  typedef map<string, HistoFormat> HistoFormatMapR;
+  typedef std::map<std::string, HistoFormat> HistoFormatMapR;
 
 
   /// Function which returns a map from histogram format enums to the corresponding name strings.
@@ -41,7 +41,7 @@ namespace Rivet {
 
 
   /// Typedef for a collection of histogram format name enums.
-  typedef vector<HistoFormat> HistoFormatList;
+  typedef std::vector<HistoFormat> HistoFormatList;
 
 
   /// Function which returns a vector of all the histogram format
@@ -57,7 +57,7 @@ namespace Rivet {
 
 
   /// Function which returns a vector of all the histogram format name strings.
-  inline vector<string> getKnownHistoFormatNames() {
+  inline std::vector<std::string> getKnownHistoFormatNames() {
     vector<string> names;
     HistoFormatMap hfmap = getKnownHistoFormats();
     for (HistoFormatMap::const_iterator hf = hfmap.begin(); hf != hfmap.end(); ++hf) {

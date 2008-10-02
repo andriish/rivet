@@ -1,8 +1,6 @@
 // -*- C++ -*-
 
-// Field & Stuart underlying event analysis at CDF.
-// Phys.Rev.D65:092002,2002 - no arXiv code.
-// FNAL-PUB 01/211-E
+// CDF Z pT analysis
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"

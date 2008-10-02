@@ -100,10 +100,10 @@ namespace Rivet {
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
     /// chaining to work.
-    virtual const set<BeamPair> getBeamPairs() const;
+    virtual const std::set<BeamPair> getBeamPairs() const;
 
     /// Get the name of the projection.
-    virtual string getName() const {
+    virtual std::string getName() const {
       return _name;
     }
 
@@ -116,7 +116,7 @@ namespace Rivet {
     
     
     /// Add a cut.
-    Projection& addCut(const string& quantity, const Comparison& comparison, const double value) {
+    Projection& addCut(const std::string& quantity, const Comparison& comparison, const double value) {
       getLog() << Log::DEBUG << getName() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
       _cuts.addCut(quantity, comparison, value);
       return *this;
@@ -130,7 +130,7 @@ namespace Rivet {
     }
 
     /// Used by derived classes to set their name.
-    void setName(const string& name) {
+    void setName(const std::string& name) {
       _name = name;
     }
 
@@ -138,12 +138,12 @@ namespace Rivet {
 
     /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
     /// object automatically passed as one of the parent projections.
-    Cmp<Projection> mkNamedPCmp(const Projection& otherparent, const string& pname) const;
+    Cmp<Projection> mkNamedPCmp(const Projection& otherparent, const std::string& pname) const;
 
 
     /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
     /// object automatically passed as one of the parent projections.
-    Cmp<Projection> mkPCmp(const Projection& otherparent, const string& pname) const;
+    Cmp<Projection> mkPCmp(const Projection& otherparent, const std::string& pname) const;
    
 
   private:

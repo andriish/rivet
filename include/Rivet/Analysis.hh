@@ -85,32 +85,32 @@ namespace Rivet {
     /// combining the results of the experiment, year and Spires ID 
     /// metadata methods and you should only override it if there's a 
     /// good reason why those won't work.
-    virtual string getName() const { 
+    virtual std::string getName() const { 
       return getExpt() + "_" + getYear() + "_S" + getSpiresId();
     }
 
     /// Get a description of the analysis.
-    virtual string getSpiresId() const {
+    virtual std::string getSpiresId() const {
       return "";
     }
 
     /// Get a description of the analysis.
-    virtual string getDescription() const {
+    virtual std::string getDescription() const {
       return "";
     }
     
     /// Experiment which performed and published this analysis.
-    virtual string getExpt() const {
+    virtual std::string getExpt() const {
       return "";
     }
 
     /// When published (preprint year according to SPIRES).
-    virtual string getYear() const {
+    virtual std::string getYear() const {
       return "";
     }
 
     /// Journal, and preprint references.
-    virtual vector<string> getReferences() const {
+    virtual std::vector<std::string> getReferences() const {
       vector<string> ret;
       return ret;
     }
@@ -129,7 +129,7 @@ namespace Rivet {
     }
 
     /// Is this analysis compatible with the named quantity set at the supplied value?
-    virtual const bool isCompatible(const string& quantity, const double value) const {
+    virtual const bool isCompatible(const std::string& quantity, const double value) const {
       Cuts::const_iterator cut = getCuts().find(quantity);
       if (cut == getCuts().end()) return true;
       if (value < cut->second.getHigherThan()) return false;
@@ -234,7 +234,7 @@ namespace Rivet {
     AIDA::IDataPointSetFactory& datapointsetFactory();
 
     /// Get the canonical AIDA histogram path for this analysis.
-    const string getHistoDir() const {
+    const std::string getHistoDir() const {
         return "/" + getName();
     }
     //@}
@@ -247,21 +247,21 @@ namespace Rivet {
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IHistogram1D* bookHistogram1D(const string& name, const string& title, 
+    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
                                         const size_t nbins, const double lower, const double upper);
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IHistogram1D* bookHistogram1D(const string& name, const string& title, 
-                                        const vector<double>& binedges);
+    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
+                                        const std::vector<double>& binedges);
 
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' getName() property.
     AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
-                                        const size_t yAxisId, const string& title);
+                                        const size_t yAxisId, const std::string& title);
     //@}
 
 
@@ -272,21 +272,21 @@ namespace Rivet {
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IProfile1D* bookProfile1D(const string& name, const string& title, 
+    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title, 
                                         const size_t nbins, const double lower, const double upper);
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IProfile1D* bookProfile1D(const string& name, const string& title, 
-				        const vector<double>& binedges);
+    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title, 
+                                    const std::vector<double>& binedges);
 
     /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' getName() property.
     AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId, 
-                                        const size_t yAxisId, const string& title);
+                                        const size_t yAxisId, const std::string& title);
     //@}
 
 
@@ -297,21 +297,21 @@ namespace Rivet {
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IDataPointSet* bookDataPointSet(const string& name, const string& title);
+    AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title);
 
 
     /// Book a 2-dimensional data point set with equally spaced points in a range.
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IDataPointSet* bookDataPointSet(const string& name, const string& title, 
+    AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title, 
                                           const size_t npts, const double lower, const double upper);
 
     /// Book a 2-dimensional data point set based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' getName() property.
     AIDA::IDataPointSet* bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
-                                          const size_t yAxisId, const string& title);
+                                          const size_t yAxisId, const std::string& title);
     //@}
 
 
@@ -341,7 +341,7 @@ namespace Rivet {
     }
 
     /// Add a cut
-    Analysis& addCut(const string& quantity, const Comparison& comparison, const double value) {
+    Analysis& addCut(const std::string& quantity, const Comparison& comparison, const double value) {
       _cuts.addCut(quantity, comparison, value);
       return *this;
     }

@@ -47,11 +47,11 @@ namespace Rivet {
 
 
   /// Typedef for a map of beam particle name enums to strings.
-  typedef map<ParticleName, string> ParticleNameMap;
+  typedef std::map<ParticleName, std::string> ParticleNameMap;
 
 
   /// Typedef for a map of beam particle name strings to enums.
-  typedef map<string, ParticleName> ParticleNameMapR;
+  typedef std::map<std::string, ParticleName> ParticleNameMapR;
 
 
   /// Function which returns a map from beam particle enums to the corresponding name strings.
@@ -102,7 +102,7 @@ namespace Rivet {
 
 
   /// Typedef for a collection of beam particle name enums.
-  typedef vector<ParticleName> ParticleNameList;
+  typedef std::vector<ParticleName> ParticleNameList;
 
 
   /// Function which returns a vector of all the beam particle values in 
@@ -119,14 +119,14 @@ namespace Rivet {
 
   /// Function which returns a vector of all the beam particle values in 
   /// the ParticleName enum.
-  inline ParticleName getParticleNameEnum(const string& pname) {
+  inline ParticleName getParticleNameEnum(const std::string& pname) {
     return Rivet::getParticleNamesRMap()[pname];
   }
 
 
 
   /// Function which returns a vector of all the beam particle name strings.
-  inline vector<string> getParticleNames() {
+  inline std::vector<std::string> getParticleNames() {
     vector<string> names;
     ParticleNameMap bpmap = getParticleNamesMap();
     for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
@@ -137,12 +137,12 @@ namespace Rivet {
 
 
   /// Print a ParticleName as a string.
-  inline string toString(const ParticleName& p) {
+  inline std::string toString(const ParticleName& p) {
     return getParticleNamesMap()[p];
   }
 
   /// Allow ParticleName to be passed to an iostream.
-  inline ostream& operator<<(ostream& os, const ParticleName& p) {
+  inline std::ostream& operator<<(std::ostream& os, const ParticleName& p) {
     os << toString(p);
     return os;
   }
@@ -156,13 +156,13 @@ namespace Rivet {
 
 
   /// Print a BeamPair as a string.
-  inline string toString(const BeamPair& pair) {
+  inline std::string toString(const BeamPair& pair) {
     string out = "[" + toString(pair.first) + ", " + toString(pair.second) + "]";
     return out;
   }
 
   /// Allow BeamPair to be passed to an iostream.
-  inline ostream& operator<<(ostream& os, const BeamPair& bp) {
+  inline std::ostream& operator<<(std::ostream& os, const BeamPair& bp) {
     os << toString(bp);
     return os;
   }

@@ -77,7 +77,7 @@ namespace Rivet {
   public:
 
     /// Define this cut by a quantity to be constrained and the comparison type of the constraint.
-    Cuts& addCut(const string& quantity, const Comparison& comparison, const double value);
+    Cuts& addCut(const std::string& quantity, const Comparison& comparison, const double value);
 
 
     /// Combine with another set of Cuts, using addCut iternally.
@@ -100,12 +100,12 @@ namespace Rivet {
     bool checkConsistency() const;
 
     /// Print the parameters to the given \a stream.
-    ostream& print(ostream& stream) const;
+    std::ostream& print(std::ostream& stream) const;
 
 
   public:
     /// Typedef for a named collection of binary cut objects.
-    typedef map<string, BinaryCut> NamedBinaryCuts;
+    typedef std::map<std::string, BinaryCut> NamedBinaryCuts;
 
 
   public:
@@ -115,7 +115,7 @@ namespace Rivet {
     typedef NamedBinaryCuts::iterator iterator;
     iterator begin() { return _cuts.begin(); }
     iterator end() { return _cuts.end(); }
-    iterator find(const string& quantity) { return _cuts.find(quantity); }
+    iterator find(const std::string& quantity) { return _cuts.find(quantity); }
     //@}
 
     /// @name Non-const iterators over the cuts
@@ -123,7 +123,7 @@ namespace Rivet {
     typedef NamedBinaryCuts::const_iterator const_iterator;
     const const_iterator begin() const { return _cuts.begin(); }
     const const_iterator end() const { return _cuts.end(); }
-    const const_iterator find(const string& quantity) const { return _cuts.find(quantity); }
+    const const_iterator find(const std::string& quantity) const { return _cuts.find(quantity); }
     //@}
 
 
@@ -134,7 +134,7 @@ namespace Rivet {
 
 
   /// Allow Cuts to be passed to an ostream.
-  inline ostream& operator<<(ostream& os, const Cuts& cuts) {
+  inline std::ostream& operator<<(std::ostream& os, const Cuts& cuts) {
     return cuts.print(os);
   }
 

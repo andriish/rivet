@@ -50,12 +50,6 @@ namespace Rivet {
       const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
       addProjection(cheesefs, "CheeseFS");
       addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
-      
-      /// @todo Declare that this is to be run on minimum bias data and jet 
-      /// data with several ET triggers:
-      /// * 1800 GeV: ET > 20, 50, 70 & 100 GeV
-      /// * 630 GeV: ET > 5, 15 GeV
-      /// Lots of runs needed to fill this paper!
     }
 
 
@@ -130,19 +124,18 @@ namespace Rivet {
     /// the \f$ p_T \f$ sum in the toward, transverse and away regions at 
     /// \f$ \sqrt{s} = 1800 \text{GeV} \f$.
     /// Corresponds to figure 2/3, and HepData table 2.
-    AIDA::IProfile1D *_pt90Max1800,  *_pt90Min1800,  *_pt90Diff1800;
+    AIDA::IProfile1D *_pt90Max1800, *_pt90Min1800, *_pt90Diff1800;
 
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
     /// the \f$ p_T \f$ sum in the toward, transverse and away regions at
     /// at \f$ \sqrt{s} = 630 \text{GeV} \f$.
     /// Corresponds to figure 8, and HepData table 8.
-    AIDA::IProfile1D *_pt90Max630,   *_pt90Min630;
-    /// Why doesn't data for *_pt90Diff630 exist in HepData?
+    AIDA::IProfile1D *_pt90Max630, *_pt90Min630, *_pt90Diff630;
 
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
     /// the cone track multiplicity at \f$ \sqrt{s} = 1800 \text{GeV} \f$.
     /// Corresponds to figure 5, and HepData table 4.
-    AIDA::IProfile1D *_num90Max1800,  *_num90Min1800;
+    AIDA::IProfile1D *_num90Max1800, *_num90Min1800;
 
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
     /// the \f$ p_T \f$ sum at \f$ \sqrt{s} = 1800 \text{GeV} \f$.

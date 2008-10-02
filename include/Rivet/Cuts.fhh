@@ -19,7 +19,7 @@ namespace Rivet {
 
   
   /// String representations of the comparison enum values.
-  inline const string toString(const Comparison& c) {
+  inline const std::string toString(const Comparison& c) {
     switch(c) {
     case LESS_EQ:
       return "<=";
@@ -32,10 +32,10 @@ namespace Rivet {
   }
 
   /// Forward declare the ability to stream a Cuts object.
-  ostream& operator<<(ostream& os, const Cuts& cuts);
+  std::ostream& operator<<(std::ostream& os, const Cuts& cuts);
 
   /// Method to write a Comparison to a stream.
-  inline ostream& operator<<(ostream& os, const Comparison& comp) {
+  inline std::ostream& operator<<(std::ostream& os, const Comparison& comp) {
     os << toString(comp);
     return os;
   }

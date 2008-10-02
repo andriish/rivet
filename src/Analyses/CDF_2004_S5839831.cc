@@ -1,5 +1,5 @@
 // -*- C++ -*-
-// Underlying event analysis at CDF.
+// "Acosta" underlying event analysis at CDF, inc. "Swiss Cheese"
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -24,19 +24,16 @@ namespace Rivet {
     _num90Max1800       = bookProfile1D(   4, 1, 1, "$N_\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
     _num90Min1800       = bookProfile1D(   4, 1, 2, "$N_\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
     _numTracksDbn1800MB = bookHistogram1D( 5, 1, 1, "Min bias track multiplicity distribution at $\\sqrt{s}$ = 1800 GeV");
-    /// @todo Missing 0.4-10 GeV pT bins (lots of them...)
-    _ptDbn1800MB        = bookHistogram1D( 6, 1, 1, "Min bias low-$p_T$ distribution at $\\sqrt{s}$ = 1800 GeV");
+    _ptDbn1800MB        = bookHistogram1D( 6, 1, 1, "Min bias $p_T$ distribution at $\\sqrt{s}$ = 1800 GeV");
     _pTSum1800_2Jet     = bookProfile1D(   7, 1, 1, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 2 jets) at $\\sqrt{s}$ = 1800 GeV");
     _pTSum1800_3Jet     = bookProfile1D(   7, 1, 2, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 3 jets) at $\\sqrt{s}$ = 1800 GeV");            
     _pt90Max630         = bookProfile1D(   8, 1, 1, "$p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
     _pt90Min630         = bookProfile1D(   8, 1, 2, "$p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
-    /// @todo Need diff profile in HepData:
-    //_pt90Diff630      = bookProfile1D(   8, 1, 3, "$p_T^\\text{diff}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
+    _pt90Diff630        = bookProfile1D(   8, 1, 3, "$p_T^\\text{diff}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
     _pTSum630_2Jet      = bookProfile1D(   9, 1, 1, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 2 jets) at $\\sqrt{s}$ = 630 GeV");
     _pTSum630_3Jet      = bookProfile1D(   9, 1, 2, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 3 jets) at $\\sqrt{s}$ = 630 GeV");
     _numTracksDbn630MB  = bookHistogram1D(10, 1, 1, "Min bias track multiplicity distribution at $\\sqrt{s}$ = 630 GeV");
-    /// @todo Missing 0.4-10 GeV pT bins (lots of them...)
-    _ptDbn630MB         = bookHistogram1D(11, 1, 1, "Min bias low-$p_T$ distribution (insert) at $\\sqrt{s}$ = 630 GeV");
+    _ptDbn630MB         = bookHistogram1D(11, 1, 1, "Min bias $p_T$ distribution at $\\sqrt{s}$ = 630 GeV");
 
     // Random number generators
     //_rngEtaMB = UniformRealRNG(RngBase(42u), UniformRealDist<>(-0.5, 0.5));
@@ -160,8 +157,7 @@ namespace Rivet {
     if (fuzzyEquals(sqrtS/GeV, 630)) {
       _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV, weight);
       _pt90Min630->fill(ETlead/GeV, cones.ptMin/GeV, weight);
-      /// @todo Reinstate when HepData contains data for this histo
-      //_pt90Diff630->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
+      _pt90Diff630->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
     } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
       _num90Max1800->fill(ETlead/GeV, cones.numMax, weight);
       _num90Min1800->fill(ETlead/GeV, cones.numMin, weight);
@@ -205,10 +201,8 @@ namespace Rivet {
     unsigned int mb_numTotal = mb_cones.numMax + mb_cones.numMin;
     if (fuzzyEquals(sqrtS/GeV, 1800)) {
       _numTracksDbn1800MB->fill(mb_numTotal, weight);
-      //_numTracksDbn1800MB->fill(tracks.size(), weight);
     } else if (fuzzyEquals(sqrtS/GeV, 630)) {
       _numTracksDbn630MB->fill(mb_numTotal, weight);
-      //_numTracksDbn630MB->fill(tracks.size(), weight);
     }
     // Run over all charged tracks
     foreach (const Particle& t, tracks) {
