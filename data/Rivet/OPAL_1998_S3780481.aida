@@ -1328,9 +1328,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d09-x01-y02" dimension="2"
-    path="/REF/OPAL_1998_S3780481/" title="MULT(P=3,C=B-EVENTS)">
+    path="/REF/OPAL_1998_S3780481/" title="MULT(P=3,C=C-EVENTS)">
     <annotation>
-      <item key="Title" value="MULT(P=3,C=B-EVENTS)"
+      <item key="Title" value="MULT(P=3,C=C-EVENTS)"
         sticky="true"/>
       <item key="AidaPath"
         value="/REF/OPAL_1998_S3780481/d09-x01-y02" sticky="true"/>
