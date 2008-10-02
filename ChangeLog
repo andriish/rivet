@@ -1,3 +1,9 @@
+2008-10-02  Andy Buckley  <andy@insectnation.org>
+
+	* The CDF_2004 (Acosta) data file now includes the full range of
+	pT for the min bias data at both 630 and 1800 GeV. Previously,
+	only the small low-pT insert plot had been entered into HepData.
+
 2008-09-30  Andy Buckley  <andy@insectnation.org>
 
 	* Lots of updates to CDF_2004 (Acosta) UE analysis, including
