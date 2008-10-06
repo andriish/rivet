@@ -125,7 +125,7 @@ namespace Rivet {
     
     // Get the jets in decreasing ET order.
     const FastJets& jets = applyProjection<FastJets>(event, "Jets");
-    PseudoJets jetList = jets.getPseudoJets();
+    PseudoJets jetList = jets.pseudoJets();
 
     _njet = 0;
     _nsub = 0;
@@ -140,7 +140,7 @@ namespace Rivet {
           _sjet3[_nsub][2] = j->py();
           _sjet3[_nsub][3] = j->pz();
           _sjet3[_nsub][0] = j->e();
-          vector<double> ys = jets.getYSubJet(*j);
+          vector<double> ys = jets.ySubJet(*j);
           for (size_t i=0; i<5; ++i){
             if (ys.size()>i) {
               _ysubsj[_nsub][i] = ys.at(i);
