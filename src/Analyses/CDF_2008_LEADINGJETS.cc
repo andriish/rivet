@@ -38,7 +38,7 @@ namespace Rivet {
     }
 
     const FastJets& jetpro = applyProjection<FastJets>(e, "MidpointJets");
-    const PseudoJets& jets = jetpro.getPseudoJetsByPt();
+    const PseudoJets& jets = jetpro.pseudoJetsByPt();
 
     getLog() << Log::DEBUG << "jet multiplicity = " << jets.size() << endl;
 
@@ -59,16 +59,16 @@ namespace Rivet {
     const double weight = e.weight();
 
     // Get the final states to work with for filling the distributions
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    //const FinalState& fs = applyProjection<FinalState>(e, "FS");
     const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
 
-//    getLog() << Log::DEBUG << fsj.particles().size() << "   "
-//                           <<  fs.particles().size() << "   "
-//                           << cfs.particles().size() << endl;
+    //    getLog() << Log::DEBUG << fsj.particles().size() << "   "
+    //                           <<  fs.particles().size() << "   "
+    //                           << cfs.particles().size() << endl;
 
     size_t   numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
     double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
-    double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
+    //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
     double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
 
     // Calculate all the charged stuff

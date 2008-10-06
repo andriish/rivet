@@ -38,7 +38,7 @@ namespace Rivet {
   void CDF_2008_S7828950::analyze(const Event& event) {
     const double weight = event.weight();    
     
-    const PseudoJets jetListM07 = applyProjection<FastJets>(event, "JetsM07").getPseudoJets();
+    const PseudoJets jetListM07 = applyProjection<FastJets>(event, "JetsM07").pseudoJets();
     set< IHistogram1D*> passed;
     for (PseudoJets::const_iterator jet = jetListM07.begin(); jet != jetListM07.end(); ++jet) {
       const double pt = jet->perp();

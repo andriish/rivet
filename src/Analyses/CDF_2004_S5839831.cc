@@ -126,10 +126,6 @@ namespace Rivet {
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
     const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-    if (tracks.empty()) {
-      getLog() << Log::DEBUG << "No tracks found in event" << endl;
-      vetoEvent(event);
-    }
     vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
     if (jets.empty()) {
       getLog() << Log::DEBUG << "No jets found in event" << endl;
@@ -225,10 +221,6 @@ namespace Rivet {
     /// do we use the same jets but fewer tracks?
     double ptSumSub2(0), ptSumSub3(0);
     const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
-    if (cheesetracks.empty()) {
-      getLog() << Log::DEBUG << "No 'cheese' tracks found in event" << endl;
-      return;
-    }
     vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").getJets();
     if (cheesejets.empty()) {
       getLog() << Log::DEBUG << "No 'cheese' jets found in event" << endl;

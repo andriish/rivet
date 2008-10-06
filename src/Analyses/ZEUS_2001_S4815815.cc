@@ -21,7 +21,7 @@ namespace Rivet {
     getLog() << Log::INFO << "Jet multiplicity = " << nj << endl;
 
     // Fill histograms
-    PseudoJets jetList = jets.getPseudoJets();
+    PseudoJets jetList = jets.pseudoJets();
     for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
       _histJetEt1->fill(j->perp(), event.weight() );
     }

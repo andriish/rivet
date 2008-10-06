@@ -88,7 +88,7 @@ namespace Rivet {
       const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
       getLog() << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
       if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) < _metsetmax) {
-        PseudoJets jets = jetpro.getPseudoJets();
+        PseudoJets jets = jetpro.pseudoJets();
         PseudoJets::const_iterator jet1stPt = jets.end();
         PseudoJets::const_iterator jet2ndPt = jets.end();
         PseudoJets::const_iterator jet3rdPt = jets.end();

@@ -52,7 +52,7 @@ namespace Rivet {
     
     /// @todo Don't expose FastJet objects in Rivet analyses: the FastJets projection
     /// should convert them to Rivet 4-momentum classes (or similar).
-    const PseudoJets& jets = jetpro.getPseudoJetsByPt();
+    const PseudoJets& jets = jetpro.pseudoJetsByPt();
     log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
     // Determine the central jet axes
     FourMomentum jetaxis;

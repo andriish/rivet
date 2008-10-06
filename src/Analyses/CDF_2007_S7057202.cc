@@ -36,7 +36,7 @@ namespace Rivet {
   void CDF_2007_S7057202::analyze(const Event& event) {
     const double weight = event.weight();    
     
-    const PseudoJets jetListD07 = applyProjection<FastJets>(event, "JetsD07").getPseudoJets();
+    const PseudoJets jetListD07 = applyProjection<FastJets>(event, "JetsD07").pseudoJets();
     set< IHistogram1D*> passed;
     for (PseudoJets::const_iterator jet = jetListD07.begin(); jet != jetListD07.end(); ++jet) {
       const double pt = jet->perp();
@@ -51,7 +51,7 @@ namespace Rivet {
       }
     }
     
-    const PseudoJets jetListD05 = applyProjection<FastJets>(event, "JetsD05").getPseudoJets();
+    const PseudoJets jetListD05 = applyProjection<FastJets>(event, "JetsD05").pseudoJets();
     for (PseudoJets::const_iterator jet = jetListD05.begin(); jet != jetListD05.end(); ++jet) {
       const double pt = jet->perp();
       if (pt > _jetMinPT) {
@@ -66,7 +66,7 @@ namespace Rivet {
       }
     }
     
-    const PseudoJets jetListD10 = applyProjection<FastJets>(event, "JetsD10").getPseudoJets();
+    const PseudoJets jetListD10 = applyProjection<FastJets>(event, "JetsD10").pseudoJets();
     for (PseudoJets::const_iterator jet = jetListD10.begin(); jet != jetListD10.end(); ++jet){
       const double pt = jet->perp();
       if (pt > _jetMinPT) {

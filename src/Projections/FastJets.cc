@@ -40,13 +40,10 @@ namespace Rivet {
       }
       
       getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
-      ClusterSequence cs(vecs, _jdef);
-      _cseq = cs;
+      _cseq.reset(new ClusterSequence(vecs, _jdef));
     } else {
-      //ClusterSequence emptycs();
-      //_cseq = emptycs;
-      getLog() << Log::DEBUG << "No tracks... aborting" << endl;
-      throw Error("Can't handle this situation, since FastJet's API doesn't allow us to pass null track vectors or set up a null ClusterSequence :(");
+      _cseq.reset();
+      getLog() << Log::DEBUG << "No tracks!" << endl;
     }
   }
 
@@ -56,7 +53,8 @@ namespace Rivet {
     Jets rtn;
     foreach (const PseudoJet& pj, pjets) {
       Jet j;
-      const PseudoJets parts = getClusterSeq().constituents(pj);
+      assert(clusterSeq());
+      const PseudoJets parts = clusterSeq()->constituents(pj);
       foreach (const PseudoJet& p, parts) {
         map<int, Particle>::const_iterator found = _particles.find(p.user_index());
         if (found != _particles.end()) {
@@ -75,9 +73,10 @@ namespace Rivet {
 
 
 
-  vector<double> FastJets::getYSubJet(const fastjet::PseudoJet& jet) const {
+  vector<double> FastJets::ySubJet(const fastjet::PseudoJet& jet) const {
+    assert(clusterSeq());
     map<int,vector<double> >::iterator iter = _yscales.find(jet.cluster_hist_index());
-    ClusterSequence subjet_cseq(_cseq.constituents(jet), _jdef);
+    ClusterSequence subjet_cseq(clusterSeq()->constituents(jet), _jdef);
     vector<double> yMergeVals;
     for (int i = 1; i < 4; ++i) {
       // Multiply the dmerge value by R^2 so that it corresponds to a
@@ -93,12 +92,13 @@ namespace Rivet {
 
   fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R) const { 
     // Sanity cuts
-    if (jet.E() <= 0 || _cseq.constituents(jet).size() <= 1) {
+    if (jet.E() <= 0 || _cseq->constituents(jet).size() <= 1) {
       return jet; 
     }
 
     // Build a new cluster sequence just using the consituents of this jet.
-    ClusterSequence cs(_cseq.constituents(jet), _jdef);
+    assert(clusterSeq());
+    ClusterSequence cs(clusterSeq()->constituents(jet), _jdef);
 
     // Get the jet back again
     fastjet::PseudoJet remadeJet = cs.inclusive_jets()[0];
@@ -130,20 +130,26 @@ namespace Rivet {
 
 
   fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const { 
-    if (jet.E()<=0 || _cseq.constituents(jet).size()==0) { return jet; }
-    if (stingy_R==0.) { stingy_R=def_R; }
+    assert(clusterSeq());
+
+    if (jet.E() <= 0.0 || clusterSeq()->constituents(jet).size() == 0) { 
+      return jet; 
+    }
+    if (stingy_R == 0.0) { 
+      stingy_R = def_R; 
+    }
 
     stingy_R = def_R < stingy_R ? def_R : stingy_R;
     fastjet::JetDefinition stingy_jet_def(fastjet::cambridge_algorithm, stingy_R);
 
     //FlavourRecombiner recom;
     //stingy_jet_def.set_recombiner(&recom);
-    fastjet::ClusterSequence scs(_cseq.constituents(jet), stingy_jet_def);
+    fastjet::ClusterSequence scs(clusterSeq()->constituents(jet), stingy_jet_def);
     std::vector<fastjet::PseudoJet> stingy_jets = sorted_by_pt(scs.inclusive_jets());
     
     fastjet::PseudoJet reconst_jet(0.0, 0.0, 0.0, 0.0);
     
-    for (unsigned isj = 0; isj < std::min(3U, (unsigned int)stingy_jets.size()); isj++) {
+    for (unsigned isj = 0; isj < std::min(3U, (unsigned int) stingy_jets.size()); ++isj) {
       reconst_jet += stingy_jets[isj];
     } 
     return reconst_jet;

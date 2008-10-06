@@ -1,3 +1,11 @@
+2008-10-06  Andy Buckley  <andy@insectnation.org>
+
+	* Converted FastJets plugin to use a Boost shared_pointer to the
+	cached ClusterSequence. The nullness of the pointer is now used to
+	indicate an empty tracks (and hence jets) set. Once FastJet
+	natively support empty CSeqs, we can rewrite this a bit more
+	neatly and ditch the shared_ptr.
+
 2008-10-02  Andy Buckley  <andy@insectnation.org>
 
 	* The CDF_2004 (Acosta) data file now includes the full range of

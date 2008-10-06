@@ -146,7 +146,7 @@ namespace Rivet {
     log << Log::DEBUG << "Both leptons are isolated" << endl;
 
     // Get list of jets and remove leptons
-    const PseudoJets& jets = applyProjection<FastJets>(event, "Jets").getPseudoJetsByPt();
+    const PseudoJets& jets = applyProjection<FastJets>(event, "Jets").pseudoJetsByPt();
     _jetaxes.clear();
     for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
       const FourMomentum j(jt->E(), jt->px(), jt->py(), jt->pz());

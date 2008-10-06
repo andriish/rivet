@@ -114,61 +114,69 @@ namespace Rivet {
   public:
     /// Return the number of jets above the pt cut 
     size_t getNumJets(double ptmin = 0.0) const {
-      return _cseq.inclusive_jets(ptmin).size();
+      if (_cseq.get() != 0) {
+        return _cseq->inclusive_jets(ptmin).size();
+      } else {
+        return 0;
+      }        
     }
 
     /// Get the jets (unordered).
     Jets getJets(double ptmin = 0.0) const {
-      return _pseudojetsToJets(getPseudoJets(ptmin));
+      return _pseudojetsToJets(pseudoJets(ptmin));
     }
     
     /// Get the jets, ordered by \f$ p_T \f$.
     Jets getJetsByPt(double ptmin = 0.0) const {
-      return _pseudojetsToJets(getPseudoJetsByPt(ptmin));
+      return _pseudojetsToJets(pseudoJetsByPt(ptmin));
     }
 
     /// Get the jets, ordered by \f$ E \f$.
     Jets getJetsByE(double ptmin = 0.0) const {
-      return _pseudojetsToJets(getPseudoJetsByE(ptmin));
+      return _pseudojetsToJets(pseudoJetsByE(ptmin));
     }
 
     /// Get the jets, ordered by rapidity.
     Jets getJetsByRapidity(double ptmin = 0.0) const {
-      return _pseudojetsToJets(getPseudoJetsByRapidity(ptmin));
+      return _pseudojetsToJets(pseudoJetsByRapidity(ptmin));
     }
 
     /// Get the pseudo jets (unordered).
-    PseudoJets getPseudoJets(double ptmin = 0.0) const {
-      return _cseq.inclusive_jets(ptmin);
+    PseudoJets pseudoJets(double ptmin = 0.0) const {
+      if (_cseq.get() != 0) {
+        return _cseq->inclusive_jets(ptmin);
+      } else {
+        return PseudoJets();
+      }
     }
 
     /// Get the pseudo jets, ordered by \f$ p_T \f$.
-    PseudoJets getPseudoJetsByPt(double ptmin = 0.0) const {
-      return sorted_by_pt(_cseq.inclusive_jets(ptmin));
+    PseudoJets pseudoJetsByPt(double ptmin = 0.0) const {
+      return sorted_by_pt(pseudoJets(ptmin));
     }
 
     /// Get the pseudo jets, ordered by \f$ E \f$.
-    PseudoJets getPseudoJetsByE(double ptmin = 0.0) const {
-      return sorted_by_E(_cseq.inclusive_jets(ptmin));
+    PseudoJets pseudoJetsByE(double ptmin = 0.0) const {
+      return sorted_by_E(pseudoJets(ptmin));
     }
 
     /// Get the pseudo jets, ordered by rapidity.
-    PseudoJets getPseudoJetsByRapidity(double ptmin = 0.0) const {
-      return sorted_by_rapidity(_cseq.inclusive_jets(ptmin));
+    PseudoJets pseudoJetsByRapidity(double ptmin = 0.0) const {
+      return sorted_by_rapidity(pseudoJets(ptmin));
     }
 
     /// Return the cluster sequence (FastJet-specific).
-    const fastjet::ClusterSequence& getClusterSeq() const {
-      return _cseq;
+    const fastjet::ClusterSequence* clusterSeq() const {
+      return _cseq.get();
     }
 
     /// Return the jet definition (FastJet-specific).
-    const fastjet::JetDefinition& getJetDef() const {
+    const fastjet::JetDefinition& jetDef() const {
       return _jdef;
     }
 
     /// Get the subjet splitting variables for the given jet.
-    vector<double> getYSubJet(const fastjet::PseudoJet& jet) const;
+    vector<double> ySubJet(const fastjet::PseudoJet& jet) const;
 
     /// @brief Split a jet a la PRL100,242001(2008).
     /// Based on code from G.Salam, A.Davison.
@@ -197,7 +205,7 @@ namespace Rivet {
     fastjet::JetDefinition _jdef;
 
     /// Cluster sequence
-    fastjet::ClusterSequence _cseq;
+    shared_ptr<fastjet::ClusterSequence> _cseq;
 
     /// FastJet external plugin
     shared_ptr<fastjet::JetDefinition::Plugin> _plugin; 

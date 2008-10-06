@@ -23,7 +23,7 @@ clean-local:
 	@rm -f $(BUILT_SOURCES) rivet.py rivet.pyc
 
 
-# ## If not building Python extension
+## If not building Python extension
 else 
 
 EXTRA_DIST += rivet.i
