@@ -41,13 +41,13 @@ namespace Rivet {
     #ifdef HAVE_JADE
     getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
-    _histDiffRate2Durham->fill(durjet.getClusterSeq().exclusive_dmerge(2), weight); 
-    _histDiffRate3Durham->fill(durjet.getClusterSeq().exclusive_dmerge(3), weight); 
-    _histDiffRate4Durham->fill(durjet.getClusterSeq().exclusive_dmerge(4), weight); 
+    _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_dmerge(2), weight); 
+    _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_dmerge(3), weight); 
+    _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_dmerge(4), weight); 
     const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
-    _histDiffRate2Jade->fill(jadejet.getClusterSeq().exclusive_dmerge(2), weight); 
-    _histDiffRate3Jade->fill(jadejet.getClusterSeq().exclusive_dmerge(3), weight); 
-    _histDiffRate4Jade->fill(jadejet.getClusterSeq().exclusive_dmerge(4), weight); 
+    _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(2), weight); 
+    _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(3), weight); 
+    _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(4), weight); 
     #endif
 
     // Sphericities

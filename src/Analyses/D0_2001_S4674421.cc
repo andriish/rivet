@@ -57,9 +57,9 @@ namespace Rivet {
     _h_dsigdpt_wz_rat = histogramFactory().divide(getName() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_z);
     _h_dsigdpt_wz_rat->scale(xSecW/xSecZ * _mwmz * _brzee / _brwenu);
 
-    normalize(_h_dsigdpt_w, xSecW);
+    //normalize(_h_dsigdpt_w, xSecW);
 
-    normalize(_h_dsigdpt_z, xSecZ);
+    //normalize(_h_dsigdpt_z, xSecZ);
   }
 
 }
