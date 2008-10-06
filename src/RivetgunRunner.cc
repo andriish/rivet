@@ -39,6 +39,7 @@ namespace {
     signal(SIGTERM, handleKillSignal);
     signal(SIGHUP,  handleKillSignal);
     signal(SIGINT,  handleKillSignal);
+    signal(SIGUSR2, handleKillSignal);
   }
 
 }
