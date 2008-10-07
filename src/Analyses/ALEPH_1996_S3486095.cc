@@ -40,8 +40,10 @@ namespace Rivet {
     #ifdef HAVE_JADE
     getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
-    double y3 = durjet.clusterSeq()->exclusive_dmerge(2);
-    _histY3->fill(-1. * std::log(y3), weight);
+    if (durjet.clusterSeq()) {
+      double y3 = durjet.clusterSeq()->exclusive_dmerge(2);
+      _histY3->fill(-1. * std::log(y3), weight);
+    }
 
     #endif
 
