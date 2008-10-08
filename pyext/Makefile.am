@@ -1,4 +1,4 @@
-EXTRA_DIST = fixpyrivet SWIGTest.cc pyrivet
+EXTRA_DIST = fixpyrivet SWIGTest.cc
 
 if ENABLE_PYRIVET
 

@@ -1,0 +1,82 @@
+#! /usr/bin/env python
+
+import sys, os, logging
+from optparse import OptionParser, OptionGroup
+
+usage="""Run Rivet analyses on inputted events from file or Unix pipe
+%prog [options] <hepmcfile> [<hepmcfile> ...]
+my_generator | %prog [options]
+
+TODO:
+  * Handle signals
+  * Read events from stdin (require HepMC/interface tweaking?)
+"""
+
+
+## Try importing non-standard HEP Python packages
+PROGPATH = sys.argv[0]
+PROGNAME = os.path.basename(PROGPATH)
+try:
+    import rivet, hepmc
+except:
+    sys.stderr.write(PROGNAME + " requires the 'hepmc' and 'rivet' Python modules\n");
+    sys.exit(1)
+
+
+## Parse command line options
+parser = OptionParser(usage=usage)
+parser.add_option("-n", "--number", dest="MAXEVTNUM", type=int,
+                  default=None, metavar="NUM", 
+                  help="max number of events to read.")
+verbgroup = OptionGroup(parser, "Verbosity control")
+verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                     default=logging.INFO, help="print debug (very verbose) messages")
+verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                     default=logging.INFO, help="be very quiet")
+parser.add_option_group(verbgroup)
+(opts, args) = parser.parse_args()
+
+
+## Set up logging
+logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+
+
+## Identify HepMC files/streams
+## TODO: check readability, deal with stdin
+if len(args) > 0:
+    HEPMCFILES = args
+#else:
+#    HEPMCFILES = ["-"]
+
+
+## Set up analysis handler
+ah = rivet.AnalysisHandler() #"foo", rivet.AIDAML)
+ah.addAnalysis("EXAMPLE")
+logging.info("Need cross-section? %s" % ah.needCrossSection())
+ah.init()
+
+
+## Read and process events
+EVTNUM = 0
+for evtfile in HEPMCFILES:
+    logging.info("Reading events from '%s'" % evtfile)
+    r = hepmc.IO_GenEvent(evtfile, "r")
+    while EVTNUM < opts.MAXEVTNUM:
+        EVTNUM += 1
+        logging.info("Event %d" % EVTNUM)
+        if r.rdstate() != 0:
+            logging.warning("Read error on file '%s'" % evtfile)
+            break
+        evt = r.get_next_event()
+        #evt.use_units(GEV, MM)
+        ah.analyze(evt);
+
+
+## Did we get enough events?
+if EVTNUM < opts.MAXEVTNUM:
+    logging.warning("Sampled fewer events (%d) than expected (%d)" % (EVTNUM, opts.MAXEVTNUM))
+
+
+## Finalize and write out data file
+ah.finalize()
+ah.commitData();
