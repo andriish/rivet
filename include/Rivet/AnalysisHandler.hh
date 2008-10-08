@@ -39,6 +39,7 @@ namespace Rivet {
     ~AnalysisHandler() { }
     //@}
 
+
   private:
 
     /// Do the initialisation of the AIDA analysis factories.
@@ -49,6 +50,7 @@ namespace Rivet {
 
     /// Get a logger object.
     Log& getLog();
+
 
   public:
 
@@ -135,9 +137,9 @@ namespace Rivet {
 
 
     /// Is cross-section information required by at least one child analysis?
-    bool needCrossSection() {
+    bool needCrossSection() const {
       bool rtn = false;
-      foreach (Analysis* a, _analyses) {
+      foreach (const Analysis* a, _analyses) {
         if (!rtn) rtn = a->needsCrossSection();
         if (rtn) break;
       }
@@ -146,7 +148,7 @@ namespace Rivet {
 
 
     /// Set the cross-section for the process being generated.    
-    AnalysisHandler& setCrossSection(const double & xs) {
+    AnalysisHandler& setCrossSection(double xs) {
       foreach (Analysis* a, _analyses) {
         a->setCrossSection(xs);
       }
@@ -183,6 +185,7 @@ namespace Rivet {
 
     /// The AIDA data point set factory.
     AIDA::IDataPointSetFactory* _theDataPointSetFactory;
+
 
   private:
 

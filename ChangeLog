@@ -1,3 +1,9 @@
+2008-10-08  Andy Buckley  <andy@insectnation.org>
+
+	* Reduced SWIG interface file to just map a subset of Analysis and
+	AnalysisHandler functionality. This will be the basis for a new
+	command line interface.
+
 2008-10-06  Andy Buckley  <andy@insectnation.org>
 
 	* Converted FastJets plugin to use a Boost shared_pointer to the
