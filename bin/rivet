@@ -4,10 +4,14 @@ import sys, os, logging
 from optparse import OptionParser, OptionGroup
 
 usage="""Run Rivet analyses on inputted events from file or Unix pipe
-%prog [options] <hepmcfile> [<hepmcfile> ...]
-my_generator | %prog [options]
+
+Examples:
+  %prog [options] <hepmcfile> [<hepmcfile> ...]
+  my_generator | %prog [options]
 
 TODO:
+  * Interface Log object and provide CLI logging control
+  * Choose analyses, histo out, histo format (not needed when YODA is used)
   * Handle signals
   * Read events from stdin (require HepMC/interface tweaking?)
 """
