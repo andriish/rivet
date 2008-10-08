@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 
 import rivet
-#import hepmc
+import hepmc
 
 ah = rivet.AnalysisHandler() #"foo", rivet.AIDAML)
 ah.addAnalysis("EXAMPLE")
 print ah.needCrossSection()
 ah.init()
-#evt = hepmc.GenEvent()
-#for i in range(10):
-#    ah.analyze(evt);
+evt = hepmc.GenEvent()
+for i in range(10):
+    ah.analyze(evt);
 ah.finalize()
