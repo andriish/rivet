@@ -52,6 +52,7 @@ namespace Rivet {
     void finalize();
     bool needCrossSection();
     AnalysisHandler& setCrossSection(double xs);
+    void commitData();
   };
 
 }

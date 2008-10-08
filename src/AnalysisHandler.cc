@@ -111,6 +111,11 @@ namespace Rivet {
   }
 
 
+  void AnalysisHandler::commitData() {
+    tree().commit();
+  }
+  
+
   void AnalysisHandler::normalizeTree(ITree& tree) {
     Log& log = getLog();
     const vector<string> paths = tree.listObjectNames("/", true); // args set recursive listing

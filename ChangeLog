@@ -1,5 +1,9 @@
 2008-10-08  Andy Buckley  <andy@insectnation.org>
 
+	* Added AnalysisHandler::commitData() method, to allow the Python
+	interface to write out a histo file without having to know
+	anything about the histogramming API.
+
 	* Reduced SWIG interface file to just map a subset of Analysis and
 	AnalysisHandler functionality. This will be the basis for a new
 	command line interface.

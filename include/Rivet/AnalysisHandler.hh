@@ -116,6 +116,10 @@ namespace Rivet {
     AIDA::IAnalysisFactory& analysisFactory() {
       return *_theAnalysisFactory;
     }
+
+
+    /// Commit the AIDA tree to file.
+    void commitData();
     
 
     /// The AIDA tree object.

@@ -1,13 +1,48 @@
 #! /usr/bin/env python
 
-import rivet
-import hepmc
+import sys, os, logging
+from optparse import OptionParser, OptionGroup
+import rivet, hepmc
 
+try:
+    HEPMCFILE = sys.argv[1]
+except:
+    logging.error("Oops")
+    sys.exit(1)
+
+
+## Read command line options
+# TODO
+LOGLEVEL = logging.INFO
+
+
+## Set up logging
+logging.basicConfig(level=LOGLEVEL, format="%(message)s")
+
+
+## Set up analysis handler
 ah = rivet.AnalysisHandler() #"foo", rivet.AIDAML)
 ah.addAnalysis("EXAMPLE")
-print ah.needCrossSection()
+logging.info("Need cross-section? %s" % ah.needCrossSection())
 ah.init()
-evt = hepmc.GenEvent()
-for i in range(10):
+
+
+## Read and process events
+r = hepmc.IO_GenEvent(HEPMCFILE, "r")
+#evt = hepmc.GenEvent()
+for i in range(100):
+    logging.info("Event %d" % (i+1))
+    if r.rdstate() != 0:
+        logging.warning("Read error")
+        break
+    evt = r.get_next_event()
+    try:
+        evt.use_units(GEV, MM)
+    except:
+        pass
     ah.analyze(evt);
+
+
+## Finalize and write out data file
 ah.finalize()
+ah.commitData();

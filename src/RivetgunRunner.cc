@@ -281,7 +281,7 @@ namespace Rivet {
     //}
 
     // Write out the histogram tree into the registered file.
-    rh.tree().commit();
+    rh.commitData();
   }
 
 }
