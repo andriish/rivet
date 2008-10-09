@@ -13,9 +13,18 @@ namespace Rivet {
     _eventsFilledZ = 0.0;
     _h_dsigdpt_w = bookHistogram1D(1, 1, 1, "dsigma/dpT(W)");
     _h_dsigdpt_z = bookHistogram1D(1, 1, 2, "dsigma/dpT(Z)");
-    _h_dsigdpt_wz_rat = bookHistogram1D(2, 1, 1, "dsigma/dpT(W) / dsigma/dpT(Z)");
-  }
+    _h_dsigdpt_wz_rat = bookHistogram1D(2, 1, 1, "dsigma/dpT(W) / dsigma/d(pT(Z)*mW/mZ)");
 
+
+    const double binning[] = {0., 2., 4., 6., 8., 10., 12., 14., 16., 18., 20., 
+			     25., 30., 35., 40., 50., 60., 70., 80., 100., 120., 160., 200.};
+    vector<double> bins(23);
+    for (int i=0; i<bins.size(); ++i)
+      bins[i] = binning[i];
+    _h_dsigdpt_scaled_z = bookHistogram1D("d01-x01-y03","dsigma/d(pT(Z)*mW/mZ)", bins);
+
+  }
+  
 
   void D0_2001_S4674421::analyze(const Event & event) {
       const double weight = event.weight();
@@ -39,6 +48,7 @@ namespace Rivet {
           _eventsFilledZ += weight;
           getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << endl;
           _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
+          _h_dsigdpt_scaled_z->fill(pmom.pT()*_mwmz/GeV, weight);
         }
       }
   }
@@ -46,20 +56,21 @@ namespace Rivet {
 
   void D0_2001_S4674421::finalize() { 
     // Get cross-section per event (i.e. per unit weight) from generator
-    const double xSecPerEvent = crossSection()/nanobarn / sumOfWeights();
+    const double xSecPerEvent = crossSection()/picobarn / sumOfWeights();
 
-    // Correct W pT distribution to W cross-section, factor 1000 for nb versus pb
-    const double xSecW = xSecPerEvent * _eventsFilledW * 1000;
+    // Correct W pT distribution to W cross-section
+    const double xSecW = xSecPerEvent * _eventsFilledW;
 
-    // Correct Z pT distribution to Z cross-section, factor 1000 for nb versus pb
-    const double xSecZ = xSecPerEvent * _eventsFilledZ * 1000;
+    // Correct Z pT distribution to Z cross-section
+    const double xSecZ = xSecPerEvent * _eventsFilledZ;
 
-    _h_dsigdpt_wz_rat = histogramFactory().divide(getName() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_z);
-    _h_dsigdpt_wz_rat->scale(xSecW/xSecZ * _mwmz * _brzee / _brwenu);
+    _h_dsigdpt_wz_rat = histogramFactory().divide(getName() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z);
+    _h_dsigdpt_wz_rat->scale(_brzee / _brwenu);
 
     normalize(_h_dsigdpt_w, xSecW);
 
     normalize(_h_dsigdpt_z, xSecZ);
+    normalize(_h_dsigdpt_scaled_z, xSecZ);
   }
 
 }

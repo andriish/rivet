@@ -92,6 +92,7 @@ namespace Rivet {
     /// Histograms
     AIDA::IHistogram1D* _h_dsigdpt_w;
     AIDA::IHistogram1D* _h_dsigdpt_z;
+    AIDA::IHistogram1D* _h_dsigdpt_scaled_z;
     AIDA::IHistogram1D* _h_dsigdpt_wz_rat;
     //@}    
 
