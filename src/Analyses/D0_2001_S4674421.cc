@@ -64,13 +64,22 @@ namespace Rivet {
     // Correct Z pT distribution to Z cross-section
     const double xSecZ = xSecPerEvent * _eventsFilledZ;
 
-    _h_dsigdpt_wz_rat = histogramFactory().divide(getName() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z);
-    _h_dsigdpt_wz_rat->scale(_brzee / _brwenu);
 
+    _h_dsigdpt_wz_rat = histogramFactory().divide(getName() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z);
+
+    const double wpt_integral = integral(_h_dsigdpt_w);
     normalize(_h_dsigdpt_w, xSecW);
 
+
     normalize(_h_dsigdpt_z, xSecZ);
+
+
+    const double zpt_scaled_integral = integral(_h_dsigdpt_scaled_z);
     normalize(_h_dsigdpt_scaled_z, xSecZ);
+
+
+    _h_dsigdpt_wz_rat->scale( (xSecW / wpt_integral) / (xSecZ / zpt_scaled_integral)  *  _brzee / _brwenu);
+
   }
 
 }

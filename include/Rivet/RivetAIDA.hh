@@ -40,6 +40,18 @@ namespace Rivet {
     }
   }
 
+
+  /// Return the integral over the histogram bins assuming it has been
+  // normalize()d.
+  inline double integral(AIDA::IHistogram1D* histo) {
+    double intg = 0.; 
+    for ( int i = 0; i < histo->axis().bins(); ++i )
+      intg += histo->binHeight(i) * histo->axis().binWidth(i);
+    return intg;
+  }
+  
+
+
   using AIDA::IHistogram1D;
   using AIDA::IDataPointSet;
   using AIDA::IDataPoint;
