@@ -237,7 +237,7 @@ namespace Rivet {
     _histRapidityS   = bookHistogram1D(6, 1, 1, "Rapidity w.r.t. sphericity axes, $y_S$ (charged)");
 
     _histScaledMom    = bookHistogram1D(7, 1, 1, "Scaled momentum, $x_p = |p|/|p_\\text{beam}|$ (charged)");
-    _histLogScaledMom = bookHistogram1D(8, 1, 1, "Log of scaled momentum, $\log(1/x_p)$ (charged)");
+    _histLogScaledMom = bookHistogram1D(8, 1, 1, "Log of scaled momentum, $\\log(1/x_p)$ (charged)");
 
     _histPtTOutVsXp   = bookProfile1D(9,  1, 1, "Mean out-of-plane $p_T$ in GeV w.r.t. thrust axes vs. $x_p$ (charged)"); // binned in Xp
     _histPtVsXp       = bookProfile1D(10, 1, 1, "Mean $p_T$ in GeV vs. $x_p$ (charged)"); // binned in Xp
