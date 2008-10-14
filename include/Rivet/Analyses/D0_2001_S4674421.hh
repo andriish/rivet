@@ -7,6 +7,9 @@
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/WZandh.hh"
 
+//#include "LWH/DataPoint.h"
+
+
 namespace Rivet {  
 
 
@@ -23,8 +26,10 @@ namespace Rivet {
     ///  - @c _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
     ///  - @c _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
     ///  - @c _brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
+    ///  - @c _mZmin = Z mass cut used in the publication analysis
+    ///  - @c _mZmax = Z mass cut used in the publication analysis
     D0_2001_S4674421()
-      : _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632)
+      : _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632), _mZmin(75.*GeV), _mZmax(105.*GeV)
     { 
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -75,6 +80,11 @@ namespace Rivet {
     
   private:
     
+    ///invariant mass cuts for Z boson candidate (75.<mZ<125.)
+    const double _mZmin, _mZmax;
+
+
+
     /// Analysis used ratio of mW/mZ 
     const double _mwmz;
     
@@ -93,7 +103,8 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_dsigdpt_w;
     AIDA::IHistogram1D* _h_dsigdpt_z;
     AIDA::IHistogram1D* _h_dsigdpt_scaled_z;
-    AIDA::IHistogram1D* _h_dsigdpt_wz_rat;
+    AIDA::IHistogram1D* _h_temp;
+    AIDA::IDataPointSet* _dset_dsigpt_wz_rat;
     //@}    
 
     /// Hide copy assignment operator.
