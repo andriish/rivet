@@ -228,50 +228,50 @@ namespace Rivet {
 
 
   void DELPHI_1996_S3430090::init() {
-    _histPtTIn       = bookHistogram1D(1, 1, 1, "In-plane p_T in GeV w.r.t. thrust axes (charged)");
-    _histPtTOut      = bookHistogram1D(2, 1, 1, "Out-of-plane p_T in GeV w.r.t. thrust axes (charged)");
-    _histPtSIn       = bookHistogram1D(3, 1, 1, "In-plane p_T in GeV w.r.t. sphericity axes (charged)");
-    _histPtSOut      = bookHistogram1D(4, 1, 1, "Out-of-plane p_T in GeV w.r.t. sphericity axes (charged)");
+    _histPtTIn       = bookHistogram1D(1, 1, 1, "In-plane $p_T$ in GeV w.r.t. thrust axes (charged)");
+    _histPtTOut      = bookHistogram1D(2, 1, 1, "Out-of-plane $p_T$ in GeV w.r.t. thrust axes (charged)");
+    _histPtSIn       = bookHistogram1D(3, 1, 1, "In-plane $p_T$ in GeV w.r.t. sphericity axes (charged)");
+    _histPtSOut      = bookHistogram1D(4, 1, 1, "Out-of-plane $p_T$ in GeV w.r.t. sphericity axes (charged)");
 
-    _histRapidityT   = bookHistogram1D(5, 1, 1, "Rapidity w.r.t. thrust axes, y_T (charged)");
-    _histRapidityS   = bookHistogram1D(6, 1, 1, "Rapidity w.r.t. sphericity axes, y_S (charged)");
+    _histRapidityT   = bookHistogram1D(5, 1, 1, "Rapidity w.r.t. thrust axes, $y_T$ (charged)");
+    _histRapidityS   = bookHistogram1D(6, 1, 1, "Rapidity w.r.t. sphericity axes, $y_S$ (charged)");
 
-    _histScaledMom    = bookHistogram1D(7, 1, 1, "Scaled momentum, x_p = |p|/|p_beam| (charged)");
-    _histLogScaledMom = bookHistogram1D(8, 1, 1, "Log of scaled momentum, log(1/x_p) (charged)");
+    _histScaledMom    = bookHistogram1D(7, 1, 1, "Scaled momentum, $x_p = |p|/|p_\\text{beam}|$ (charged)");
+    _histLogScaledMom = bookHistogram1D(8, 1, 1, "Log of scaled momentum, $\log(1/x_p)$ (charged)");
 
-    _histPtTOutVsXp   = bookProfile1D(9,  1, 1, "Mean out-of-plane p_T in GeV w.r.t. thrust axes vs. x_p (charged)"); // binned in Xp
-    _histPtVsXp       = bookProfile1D(10, 1, 1, "Mean p_T in GeV vs. x_p (charged)"); // binned in Xp
+    _histPtTOutVsXp   = bookProfile1D(9,  1, 1, "Mean out-of-plane $p_T$ in GeV w.r.t. thrust axes vs. $x_p$ (charged)"); // binned in Xp
+    _histPtVsXp       = bookProfile1D(10, 1, 1, "Mean $p_T$ in GeV vs. $x_p$ (charged)"); // binned in Xp
 
-    _hist1MinusT     = bookHistogram1D(11, 1, 1, "1-thrust, 1-T (charged)");
-    _histTMajor      = bookHistogram1D(12, 1, 1, "Thrust major, M (charged)");
-    _histTMinor      = bookHistogram1D(13, 1, 1, "Thrust minor, m (charged)");
-    _histOblateness  = bookHistogram1D(14, 1, 1, "Oblateness = M - m (charged)");
+    _hist1MinusT     = bookHistogram1D(11, 1, 1, "$1-\\text{Thrust}$ (charged)");
+    _histTMajor      = bookHistogram1D(12, 1, 1, "Thrust major, $M$ (charged)");
+    _histTMinor      = bookHistogram1D(13, 1, 1, "Thrust minor, $m$ (charged)");
+    _histOblateness  = bookHistogram1D(14, 1, 1, "Oblateness = $M - m$ (charged)");
 
-    _histSphericity  = bookHistogram1D(15, 1, 1, "Sphericity, S (charged)");
-    _histAplanarity  = bookHistogram1D(16, 1, 1, "Aplanarity, A (charged)");
-    _histPlanarity   = bookHistogram1D(17, 1, 1, "Planarity, P (charged)");
+    _histSphericity  = bookHistogram1D(15, 1, 1, "Sphericity, $S$ (charged)");
+    _histAplanarity  = bookHistogram1D(16, 1, 1, "Aplanarity, $A$ (charged)");
+    _histPlanarity   = bookHistogram1D(17, 1, 1, "Planarity, $P$ (charged)");
 
-    _histCParam      = bookHistogram1D(18, 1, 1, "C parameter (charged)");
-    _histDParam      = bookHistogram1D(19, 1, 1, "D parameter (charged)");
+    _histCParam      = bookHistogram1D(18, 1, 1, "$C$ parameter (charged)");
+    _histDParam      = bookHistogram1D(19, 1, 1, "$D$ parameter (charged)");
 
-    _histHemiMassH   = bookHistogram1D(20, 1, 1, "Heavy hemisphere masses, M_h^2/E_vis^2 (charged)");
-    _histHemiMassL   = bookHistogram1D(21, 1, 1, "Light hemisphere masses, M_l^2/E_vis^2 (charged)");
-    _histHemiMassD   = bookHistogram1D(22, 1, 1, "Difference in hemisphere masses, M_d^2/E_vis^2 (charged)");
+    _histHemiMassH   = bookHistogram1D(20, 1, 1, "Heavy hemisphere masses, $M_h^2/E_\\text{vis}^2$ (charged)");
+    _histHemiMassL   = bookHistogram1D(21, 1, 1, "Light hemisphere masses, $M_l^2/E_\\text{vis}^2$ (charged)");
+    _histHemiMassD   = bookHistogram1D(22, 1, 1, "Difference in hemisphere masses, $M_d^2/E_\\text{vis}^2$ (charged)");
 
-    _histHemiBroadW  = bookHistogram1D(23, 1, 1, "Wide hemisphere broadening, B_max (charged)");
-    _histHemiBroadN  = bookHistogram1D(24, 1, 1, "Narrow hemisphere broadening, B_min (charged)");
-    _histHemiBroadT  = bookHistogram1D(25, 1, 1, "Total hemisphere broadening, B_sum (charged)");
-    _histHemiBroadD  = bookHistogram1D(26, 1, 1, "Difference in hemisphere broadening, B_diff (charged)");
+    _histHemiBroadW  = bookHistogram1D(23, 1, 1, "Wide hemisphere broadening, $B_\\text{max}$ (charged)");
+    _histHemiBroadN  = bookHistogram1D(24, 1, 1, "Narrow hemisphere broadening, $B_\\text{min}$ (charged)");
+    _histHemiBroadT  = bookHistogram1D(25, 1, 1, "Total hemisphere broadening, $B_\\text{sum}$ (charged)");
+    _histHemiBroadD  = bookHistogram1D(26, 1, 1, "Difference in hemisphere broadening, $B_\\text{diff}$ (charged)");
 
     #ifndef HAVE_JADE
     getLog() << Log::WARN << "No FastJet JADE patch, so not making any diff jet rate plots." << endl;
     #endif
-    _histDiffRate2Durham  = bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, D_2^Durham (charged)"); // binned in y_cut
-    _histDiffRate2Jade    = bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, D_2^Jade (charged)"); // binned in y_cut
-    _histDiffRate3Durham  = bookHistogram1D(29, 1, 1, "Differential 3-jet rate with Durham algorithm, D_3^Durham (charged)"); // binned in y_cut
-    _histDiffRate3Jade    = bookHistogram1D(30, 1, 1, "Differential 3-jet rate with Jade algorithm, D_3^Jade (charged)"); // binned in y_cut
-    _histDiffRate4Durham  = bookHistogram1D(31, 1, 1, "Differential 4-jet rate with Durham algorithm, D_4^Durham (charged)"); // binned in y_cut
-    _histDiffRate4Jade    = bookHistogram1D(32, 1, 1, "Differential 4-jet rate with Jade algorithm, D_4^Jade (charged)"); // binned in y_cut
+    _histDiffRate2Durham  = bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, $D_2^\\text{Durham}$ (charged)"); // binned in y_cut
+    _histDiffRate2Jade    = bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, $D_2^\\text{Jade}$ (charged)"); // binned in y_cut
+    _histDiffRate3Durham  = bookHistogram1D(29, 1, 1, "Differential 3-jet rate with Durham algorithm, $D_3^\\text{Durham}$ (charged)"); // binned in y_cut
+    _histDiffRate3Jade    = bookHistogram1D(30, 1, 1, "Differential 3-jet rate with Jade algorithm, $D_3^\\text{Jade}$ (charged)"); // binned in y_cut
+    _histDiffRate4Durham  = bookHistogram1D(31, 1, 1, "Differential 4-jet rate with Durham algorithm, $D_4^\\text{Durham}$ (charged)"); // binned in y_cut
+    _histDiffRate4Jade    = bookHistogram1D(32, 1, 1, "Differential 4-jet rate with Jade algorithm, $D_4^\\text{Jade}$ (charged)"); // binned in y_cut
     _histEEC              = bookHistogram1D(33, 1, 1, "Energy-energy correlation, EEC (charged)"); // binned in cos(chi)
     _histAEEC             = bookHistogram1D(34, 1, 1, "Asymmetry of the energy-energy correlation, AEEC (charged)"); // binned in cos(chi)
     _histMultiCharged     = bookHistogram1D(35, 1, 1, "Mean charged multiplicity");
@@ -304,7 +304,7 @@ namespace Rivet {
     _histMultiDeltaPlusPlus = bookHistogram1D(40, 1, 5, "Mean Delta(1232)++ multiplicity");
     _histMultiSigma1385Plus = bookHistogram1D(40, 1, 6, "Mean Sigma(1385)+/Sigma(1385)- multiplicity");
     _histMultiXi1530_0      = bookHistogram1D(40, 1, 7, "Mean Xi(1530)0 multiplicity");
-    _histMultiLambdaB0      = bookHistogram1D(40, 1, 8, "Mean Lambda_b0 multiplicity");
+    _histMultiLambdaB0      = bookHistogram1D(40, 1, 8, "Mean Lambda\\_b0 multiplicity");
   }
 
 

@@ -459,8 +459,8 @@ namespace Rivet {
     _hist10MeanMultiSigma1385PlusMinus = bookHistogram1D(48, 1, 1, "mean Sigma(1385)+- multiplicity");
     _hist10MeanMultiXi1530_0           = bookHistogram1D(49, 1, 1, "mean Xi(1530)0 multiplicity");
     _hist10MeanMultiOmegaMinus         = bookHistogram1D(50, 1, 1, "mean Omega- multiplicity");
-    _hist10MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 1, "mean Lambda_c+ multiplicity");
-    _hist10MeanMultiSigma_c_PlusPlus_0 = bookHistogram1D(53, 1, 1, "mean Sigma_c++, Sigma_c0 multiplicity");
+    _hist10MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 1, "mean Lambda\\_c+ multiplicity");
+    _hist10MeanMultiSigma_c_PlusPlus_0 = bookHistogram1D(53, 1, 1, "mean Sigma\\_c++, Sigma\\_c0 multiplicity");
     _hist10MeanMultiLambda1520         = bookHistogram1D(54, 1, 1, "mean Lambda(1520) multiplicity");
 
     _hist32MeanMultiPiPlus             = bookHistogram1D( 1, 1, 2, "mean Pi+ multiplicity");
@@ -489,7 +489,7 @@ namespace Rivet {
     _hist32MeanMultiSigma1385Plus      = bookHistogram1D(47, 1, 2, "mean Sigma(1385)+ multiplicity");
     _hist32MeanMultiSigma1385PlusMinus = bookHistogram1D(48, 1, 2, "mean Sigma(1385)+- multiplicity");
     _hist32MeanMultiOmegaMinus         = bookHistogram1D(50, 1, 2, "mean Omega- multiplicity");
-    _hist32MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 2, "mean Lambda_c+ multiplicity");
+    _hist32MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 2, "mean Lambda\\_c+ multiplicity");
 
     _hist91MeanMultiPiPlus             = bookHistogram1D( 1, 1, 3, "mean Pi+ multiplicity");
     _hist91MeanMultiPi0                = bookHistogram1D( 2, 1, 3, "mean Pi0 multiplicity");
@@ -519,7 +519,7 @@ namespace Rivet {
     _hist91MeanMultiUpsilon1S          = bookHistogram1D(27, 1, 1, "mean Upsilon(1S) multiplicity");
     _hist91MeanMultiF1_1285            = bookHistogram1D(28, 1, 1, "mean f1(1285) multiplicity");
     _hist91MeanMultiF1_1420            = bookHistogram1D(29, 1, 1, "mean f1(1420) multiplicity");
-    _hist91MeanMultiChi_c1_3510        = bookHistogram1D(30, 1, 1, "mean chi_c1(3510) multiplicity");
+    _hist91MeanMultiChi_c1_3510        = bookHistogram1D(30, 1, 1, "mean chi\\_c1(3510) multiplicity");
     _hist91MeanMultiF2_1270            = bookHistogram1D(31, 1, 3, "mean f2(1270) multiplicity");
     _hist91MeanMultiF2Prime1525        = bookHistogram1D(32, 1, 1, "mean f2'(1525) multiplicity");
     _hist91MeanMultiK2Star1430_0       = bookHistogram1D(34, 1, 2, "mean K2*(1430)0 multiplicity");
@@ -539,8 +539,8 @@ namespace Rivet {
     _hist91MeanMultiSigma1385PlusMinus = bookHistogram1D(48, 1, 3, "mean Sigma(1385)+- multiplicity");
     _hist91MeanMultiXi1530_0           = bookHistogram1D(49, 1, 2, "mean Xi(1530)0 multiplicity");
     _hist91MeanMultiOmegaMinus         = bookHistogram1D(50, 1, 3, "mean Omega- multiplicity");
-    _hist91MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 3, "mean Lambda_c+ multiplicity");
-    _hist91MeanMultiLambda_b_0         = bookHistogram1D(52, 1, 1, "mean Lambda_b0 multiplicity");
+    _hist91MeanMultiLambda_c_Plus      = bookHistogram1D(51, 1, 3, "mean Lambda\\_c+ multiplicity");
+    _hist91MeanMultiLambda_b_0         = bookHistogram1D(52, 1, 1, "mean Lambda\\_b0 multiplicity");
     _hist91MeanMultiLambda1520         = bookHistogram1D(54, 1, 2, "mean Lambda(1520) multiplicity");
 
     _hist165MeanMultiPiPlus            = bookHistogram1D( 1, 1, 4, "mean Pi+ multiplicity");
