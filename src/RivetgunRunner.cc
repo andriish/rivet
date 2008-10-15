@@ -260,16 +260,22 @@ namespace Rivet {
     }
 
     // Finalise Rivet
+    #ifdef HAVE_AGILE
     if (gen) gen->finalize();
+    #endif
     delete hepmcOut;
     delete hepmcIn;
     if (cfg.runRivet) {
       if (rh.needCrossSection()) {
+        #ifdef HAVE_AGILE
         if (gen) {
           rh.setCrossSection(gen->getCrossSection());
         } else {
           throw Error("Cross section needed but no Generator created");
         }
+        #else
+        throw Error("Cross section needed but no Generator created");
+        #endif
       }
       rh.finalize();
     }
