@@ -5,6 +5,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
@@ -31,23 +32,25 @@ namespace Rivet {
 
     /// Constructor
     CDF_2008_S7541902():
-    _electronETCut(20.0 *GeV), _eTmissCut(30.0 *GeV),
-    _jetEtCut(20.0 *GeV), _mT2Cut(200.0 * GeV * GeV)
+    _electronETCut(20.0 *GeV), _electronETACut(1.1),
+    _eTmissCut(30.0 *GeV), _mT2Cut(200.0 * GeV * GeV),
+    _jetEtCutA(20.0 *GeV),  _jetEtCutB(25.0 *GeV), _jetETA(2.0),
+    _xpoint(1960.)
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
       FinalState fs(-3.6,3.6);
-      FinalState leptonFs(-3.6, 3.6, 15);
       addProjection(fs, "FS");
-      // Veto neutrinos, and muons with \f$ p_T \f$ above 1.0 GeV
+      // Create a final state with any e-nu pair with invariant mass 65 -> 95 GeV and ET > 20 (W decay products)
+      std::vector<std::pair<long,long> > vids;
+      vids.push_back(make_pair(11,-12));
+      vids.push_back(make_pair(-11,12));
+      InvMassFinalState invfs(fs,vids, 65., 95., -3.6, 3.6, 20.);
+      addProjection(invfs, "INVFS");
+      // Make a final state without the W decay products for jet clustering
       VetoedFinalState vfs(fs);
-      vfs
-        .addVetoPairId(NU_E)
-        .addVetoPairId(NU_MU)
-      .addVetoPairId(NU_TAU);
-//      .addVetoDetail(13, 1.0, MAXDOUBLE); //< @todo Check that this also covers antimuons
+      vfs.addVetoOnThisFinalState(invfs);
       addProjection(vfs, "VFS");
-      addProjection(ChargedLeptons(leptonFs), "ChLeptons");
       addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
     }
 
@@ -98,20 +101,26 @@ namespace Rivet {
     
     /// cut on the electron ET:
     double _electronETCut;
-    
+    /// cut on the electron ETA:
+    double _electronETACut;   
     /// cut on the missing ET
     double _eTmissCut;
-    
-    /// cut on jet ET
-    double _jetEtCut;
-    
     ///cut on the transverse mass squared
     double _mT2Cut;
+     /// cut on the jet ET for differential cross sections
+    double _jetEtCutA;
+    /// cut on the jet ET for jet multiplicity
+    double _jetEtCutB;
+    /// cut on the jet ETA
+    double _jetETA;
     
+    double _xpoint;
     //@{
     /// Histograms
-    AIDA::IHistogram1D* _histJetMult;
     AIDA::IHistogram1D* _histJetEt[4];
+    AIDA::IHistogram1D* _histJetMultNorm;
+    AIDA::IDataPointSet* _histJetMultRatio[4];
+    AIDA::IHistogram1D* _histJetMult[4];
     //@}
 
     /// Hide the assignment operator
