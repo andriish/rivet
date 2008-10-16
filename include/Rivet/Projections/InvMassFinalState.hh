@@ -12,8 +12,22 @@ namespace Rivet {
   public:
     
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
+    // constructor for a single pair
+  InvMassFinalState(FinalState& fsp,
+                      std::pair<long, long> ids,  //vector of pairs of decay products
+                      double minmass,     //min inv mass
+                      double maxmass,     //max inv mass
+                      double mineta = -MaxRapidity,
+                      double maxeta = MaxRapidity,
+                      double minpt = 0.0*GeV)
+    { 
+      vector<pair<long,long> > vids;
+      vids.push_back(ids);
+      InvMassFinalState(fsp,vids,minmass,maxmass,mineta,maxeta,minpt);   
+    }
+
     InvMassFinalState(FinalState& fsp,
-                      std::pair<long, long> ids,  //vector of decay products
+                      std::vector<std::pair<long, long> > ids,  //vector of pairs of decay products
                       double minmass,     //min inv mass
                       double maxmass,     //max inv mass
                       double mineta = -MaxRapidity,
@@ -41,7 +55,7 @@ namespace Rivet {
   private:
     
     /// ids of the decay products
-    std::pair<long, long> _decayids;
+    std::vector<std::pair<long, long> > _decayids;
    
     /// min inv mass
     double _minmass;
