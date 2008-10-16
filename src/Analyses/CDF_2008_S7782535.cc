@@ -14,16 +14,11 @@ namespace Rivet {
     _pTbins.push_back(300.);
      // Book histograms
     for (int i = 0; i < _NpTbins ; i++) {
-       ////  stringstream name;
-       ////  name << "Psi_pT_" << i; 
        stringstream title;
-       ////  _Psi_pT[i] = bookProfile1D(name.str(),title.str(),7,0.05/0.7,0.75/0.7);
        title << "Integral jet shape Psi," << _pTbins[i] << " < pT < "<< _pTbins[i+1]; 
          _Psi_pT[i] = bookProfile1D(i+1,2,1,title.str());
     }
-    // Variable bins
-    ////    _OneMinusPsi_vs_pT = bookProfile1D("OneMinusPsi_vs_pT","1 - Psi vs Jet pT",_pTbins);
-      _OneMinusPsi_vs_pT = bookProfile1D(5,1,1,"1 - Psi vs Jet pT");
+      _OneMinusPsi_vs_pT = bookDataPointSet(5,1,1,"1 - Psi vs Jet pT");
   }  
 
   
@@ -105,11 +100,17 @@ namespace Rivet {
 
   // Finalize
   void CDF_2008_S7782535::finalize() {  
+    std::vector<double> x, y, ex, ey;
     for (unsigned int i = 0; i < _pTbins.size()-1; i++) {
+      x.push_back((_pTbins[i]+_pTbins[i+1])/2.);
+      ex.push_back(0.);
       // get entry for  rad_Psi = 0.2 bin
-       float yvalue = 1.0 - _Psi_pT[i]->binHeight(1);
-       // the errors will be wrong but I don't know how to set bin errors
-      _OneMinusPsi_vs_pT->fill((_pTbins[i]+_pTbins[i+1])/2.,yvalue,1.0);
+      y.push_back(1.0 - _Psi_pT[i]->binHeight(1));
+      ey.push_back(_Psi_pT[i]->binError(1)); 
+      
     }
+    _OneMinusPsi_vs_pT->setCoordinate(0,x,ex);
+    _OneMinusPsi_vs_pT->setCoordinate(1,y,ey);
+
   }
 }
