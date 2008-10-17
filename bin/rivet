@@ -32,6 +32,9 @@ parser = OptionParser(usage=usage)
 parser.add_option("-n", "--number", dest="MAXEVTNUM", type=int,
                   default=None, metavar="NUM", 
                   help="max number of events to read.")
+parser.add_option("-a", "--analysis", dest="ANALYSES", action="append",
+                  default=[], metavar="ANA",
+                  help="add an analysis to the processing list.")
 verbgroup = OptionGroup(parser, "Verbosity control")
 verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                      default=logging.INFO, help="print debug (very verbose) messages")
@@ -49,13 +52,14 @@ logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 ## TODO: check readability, deal with stdin
 if len(args) > 0:
     HEPMCFILES = args
-#else:
-#    HEPMCFILES = ["-"]
+else:
+    HEPMCFILES = ["-"]
 
 
 ## Set up analysis handler
 ah = rivet.AnalysisHandler() #"foo", rivet.AIDAML)
-ah.addAnalysis("EXAMPLE")
+for a in opts.ANALYSES:
+    ah.addAnalysis(a)
 logging.info("Need cross-section? %s" % ah.needCrossSection())
 ah.init()
 
