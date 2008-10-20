@@ -32,8 +32,6 @@ namespace Rivet {
       : _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632), _mZmin(75.*GeV), _mZmax(105.*GeV)
     { 
 
-      //cout << "D0_2001_Sbla constructor entered!" << endl;
-
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
       //const FinalState fs(-3.0, 3.0); 
@@ -106,7 +104,6 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
     void init();  
-    void isol(const ParticleVector& pvec, const VetoedFinalState& vfs, vector<double>& isolfrac, double rad);
     void analyze(const Event& event);
     void finalize();
     //@}

@@ -30,29 +30,6 @@ namespace Rivet {
   }
 
 
-  void D0_2001_S4674421::isol(const ParticleVector& pvec, const VetoedFinalState& vfs, vector<double>& isolfrac, double rad) {
-
-    isolfrac.resize(pvec.size());
-    for (int i=0; i<isolfrac.size(); ++i)
-      isolfrac[i] = 0.;
-
-    int isolind = 0;
-    for (ParticleVector::const_iterator p = pvec.begin(); 
-	 p != pvec.end(); ++p, ++isolind) {  
-      for (ParticleVector::const_iterator vfsp = vfs.particles().begin(); 
-	   vfsp != vfs.particles().end(); ++vfsp) {
-	if (vfsp != p  && deltaR(p->momentum(),vfsp->momentum()) < rad)
-	  isolfrac[isolind] += vfsp->momentum().E();
-      }
-      //subtract and normalise to core/particle energy
-      isolfrac[isolind] -= p->momentum().E();
-      isolfrac[isolind] /= p->momentum().E();
-    }
-    
-    return;
-  }
-
-
   void D0_2001_S4674421::analyze(const Event & event) {
       const double weight = event.weight();
       
@@ -67,30 +44,17 @@ namespace Rivet {
 	// Fill Z pT distributions
 	const ParticleVector& Zees = eeFS.particles();
 
-	//Check for isolation
-	vector<double> isolfrac;
-	isol(Zees, vfs, isolfrac, 0.4);
-	//for (int i=0; i<isolfrac.size(); ++i) 
-	  //cout << "Zees isolfrac=" << isolfrac[i] << endl; 
-
 	ParticleVector::const_iterator p = Zees.begin();
 	FourMomentum pmom = p->momentum();
-	//cout << "Z 1 PDGid=" << p->getPdgId() << "   pT=" <<  pmom.pT() << endl;
 	p++;
 	pmom += p->momentum();
-	//cout << "Z 2 PDGid=" << p->getPdgId() << "   pT=" << p->momentum().pT() << endl;
-	//cout << "Zcand pT=" << pmom.pT() << "   m=" << sqrt(pmom.invariant()) << endl;
 	double mass = sqrt(pmom.invariant());
-	//if (isolfrac.size() == 2 && isolfrac[0]<0.15 && isolfrac[1]<0.15) {
-	if (//p->momentum().pT() > 20. &&
-	      mass > _mZmin && mass < _mZmax) {
-	    Zcount += 1;
-	    _eventsFilledZ += weight;
-	    getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT() << endl;
-	    //cout << "Z #" << Zcount << " pmom.pT() = " << pmom.pT() << endl;
-	    _h_dsigdpt_z->fill(pmom.pT(), weight);
-	    _h_dsigdpt_scaled_z->fill(pmom.pT()*_mwmz, weight);
-	    //}
+	if (mass > _mZmin && mass < _mZmax) {
+	  Zcount += 1;
+	  _eventsFilledZ += weight;
+	  getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT() << endl;
+	  _h_dsigdpt_z->fill(pmom.pT(), weight);
+	  _h_dsigdpt_scaled_z->fill(pmom.pT()*_mwmz, weight);
 	}
       }
       else { //no Z->ee candidate
@@ -108,29 +72,16 @@ namespace Rivet {
 	  
 	  ParticleVector Wel;
 	  if (abs(p->getPdgId()) == 11) Wel.push_back(*p);
-
+	  
 	  FourMomentum pmom = p->momentum();
-	  //cout << "W 1 PDGid=" << p->getPdgId() << "   pT=" << pmom.pT() << endl;
 	  p++;
 	  pmom += p->momentum();
-	  //cout << "W 2 PDGid=" << p->getPdgId() << "   pT=" << p->momentum().pT() << endl;
 	  
 	  if (abs(p->getPdgId()) == 11) Wel.push_back(*p);
-	  //Check for isolation
-	  vector<double> isolfrac;
-	  isol(Wel, vfs, isolfrac, 0.4);
-	  //cout << "Wel isolfrac.size()=" << isolfrac.size() << endl;
-	  for (int i=0; i<isolfrac.size(); ++i) 
-	    //cout << "Wel isolfrac=" << isolfrac[i] << endl; 
-	
-	  //if (isolfrac.size() == 1 && isolfrac[0] < 0.15) {
-	  //if (p->momentum().pT() > 25.) {
-	      Wcount++;
-	  //cout << "W #" << Wcount << " pmom.pT() = " << pmom.pT() << endl;
-	      _h_dsigdpt_w->fill(pmom.pT(), weight);
-	      _eventsFilledW += weight;
-	      //}
-	      //}
+    
+	  Wcount++;
+	  _h_dsigdpt_w->fill(pmom.pT(), weight);
+	  _eventsFilledW += weight;
 	}
 	else if (enuFS.isEmpty() && !enubFS.isEmpty() && enubFS.particles().size()==2) {
 	  const ParticleVector& Wenub = enubFS.particles();
@@ -142,21 +93,11 @@ namespace Rivet {
 	  FourMomentum pmom = p->momentum();
 	  p++;
 	  pmom += p->momentum();
-
+	  
 	  if (abs(p->getPdgId()) == 11) Wel.push_back(*p);
-	  //Check for isolation
-	  vector<double> isolfrac;
-	  isol(Wel, vfs, isolfrac, 0.4);
-	  //cout << "Wpos isolfrac.size()=" << isolfrac.size() << endl;
-	  for (int i=0; i<isolfrac.size(); ++i) 
-	    //cout << "Wpos isolfrac=" << isolfrac[i] << endl; 
-	
-	  //if (isolfrac.size() == 1 && isolfrac[0] < 0.15) {
-	  //if (p->momentum().pT() > 25.) {
-	      _h_dsigdpt_w->fill(pmom.pT(), weight);
-	      _eventsFilledW += weight;
-	      //}
-	    //}
+	  
+	  _h_dsigdpt_w->fill(pmom.pT(), weight);
+	  _eventsFilledW += weight;
 	}
 	
       }    
