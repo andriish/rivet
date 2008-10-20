@@ -106,7 +106,7 @@ namespace Rivet {
         const bool beamMatch = a->isCompatible(cfg.beam1, cfg.beam2);
         log << Log::DEBUG << a->getName() << ": " << a->getBeams() << " "
             << (beamMatch ? "MATCH" : "NO-MATCH") << endl;
-        if (beamMatch) {
+        if (beamMatch || cfg.readHepMC) {
           log << Log::INFO << "Using analysis " << a->getName() << endl;
           analyses.push_back(aname);
         } else {
@@ -271,10 +271,14 @@ namespace Rivet {
         if (gen) {
           rh.setCrossSection(gen->getCrossSection());
         } else {
-          throw Error("Cross section needed but no Generator created");
+          log << Log::ERROR << "Warning: Cross section needed but no Generator created." <<endl;
+          log << Log::ERROR << "Setting cross section to 1.0." <<endl;
+          rh.setCrossSection(1.0);
         }
         #else
-        throw Error("Cross section needed but no Generator created");
+        log << Log::ERROR << "Warning: Cross section needed but no Generator created." <<endl;
+        log << Log::ERROR << "Setting cross section to 1.0." <<endl;
+        rh.setCrossSection(1.0);
         #endif
       }
       rh.finalize();
