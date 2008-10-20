@@ -125,148 +125,152 @@ namespace Rivet {
   // Do the analysis
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
-    const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-    vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
-    if (jets.empty()) {
-      getLog() << Log::DEBUG << "No jets found in event" << endl;
-      vetoEvent(event);
-    }
-    sortjets(jets);
-
-    // Leading jet must be in central |eta| < 0.5 region
-    const Jet leadingjet = jets.front();
-    const double etaLead = leadingjet.momentum().pseudorapidity();
-    if (fabs(etaLead) > 0.5) {
-      getLog() << Log::DEBUG << "Leading jet eta = " << etaLead << " not in |eta| < 0.5" << endl;
-      vetoEvent(event);
-    }
-
-    // Get Et of the leading jet: used to bin histograms
-    const double ETlead = leadingjet.EtSum();
-    getLog() << Log::DEBUG << "Leading Et = " << ETlead/GeV << " GeV" << endl;
-
     // Get the event weight
     const double weight = event.weight();
 
-    // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
-    const ConesInfo cones = calcTransCones(leadingjet.momentum(), tracks);
-    if (fuzzyEquals(sqrtS/GeV, 630)) {
-      _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV, weight);
-      _pt90Min630->fill(ETlead/GeV, cones.ptMin/GeV, weight);
-      _pt90Diff630->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
-    } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
-      _num90Max1800->fill(ETlead/GeV, cones.numMax, weight);
-      _num90Min1800->fill(ETlead/GeV, cones.numMin, weight);
-      _pt90Max1800->fill(ETlead/GeV, cones.ptMax/GeV, weight);
-      _pt90Min1800->fill(ETlead/GeV, cones.ptMin/GeV, weight);
-      _pt90Diff1800->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
-      _pt90MaxAvg1800->fill(ETlead/GeV, cones.ptMax/GeV, weight); // /numMax
-      _pt90MinAvg1800->fill(ETlead/GeV, cones.ptMin/GeV, weight); // /numMin
-      //
-      const double ptTransTotal = cones.ptMax + cones.ptMin;
-      if (inRange(ETlead/GeV, 40, 80)) {
-        _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 80, 120)) {
-        _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 120, 160)) {
-        _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 160, 200)) {
-        _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
-      } else if (inRange(ETlead/GeV, 200, 270)) {
-        _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
+
+    {
+      const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
+      vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
+      if (!jets.empty()) {
+        // Leading jet must be in central |eta| < 0.5 region
+        sortjets(jets);
+        const Jet leadingjet = jets.front();
+        const double etaLead = leadingjet.momentum().pseudorapidity();
+        if (fabs(etaLead) > 0.5) {
+          getLog() << Log::DEBUG << "Leading jet eta = " << etaLead << " not in |eta| < 0.5" << endl;
+        } else {
+
+          // Get Et of the leading jet: used to bin histograms
+          const double ETlead = leadingjet.EtSum();
+          getLog() << Log::DEBUG << "Leading Et = " << ETlead/GeV << " GeV" << endl;
+
+          // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
+          const ConesInfo cones = calcTransCones(leadingjet.momentum(), tracks);
+          if (fuzzyEquals(sqrtS/GeV, 630)) {
+            _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV, weight);
+            _pt90Min630->fill(ETlead/GeV, cones.ptMin/GeV, weight);
+            _pt90Diff630->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
+          } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
+            _num90Max1800->fill(ETlead/GeV, cones.numMax, weight);
+            _num90Min1800->fill(ETlead/GeV, cones.numMin, weight);
+            _pt90Max1800->fill(ETlead/GeV, cones.ptMax/GeV, weight);
+            _pt90Min1800->fill(ETlead/GeV, cones.ptMin/GeV, weight);
+            _pt90Diff1800->fill(ETlead/GeV, cones.ptDiff/GeV, weight);
+            _pt90MaxAvg1800->fill(ETlead/GeV, cones.ptMax/GeV, weight); // /numMax
+            _pt90MinAvg1800->fill(ETlead/GeV, cones.ptMin/GeV, weight); // /numMin
+            //
+            const double ptTransTotal = cones.ptMax + cones.ptMin;
+            if (inRange(ETlead/GeV, 40, 80)) {
+              _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
+            } else if (inRange(ETlead/GeV, 80, 120)) {
+              _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
+            } else if (inRange(ETlead/GeV, 120, 160)) {
+              _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
+            } else if (inRange(ETlead/GeV, 160, 200)) {
+              _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
+            } else if (inRange(ETlead/GeV, 200, 270)) {
+              _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
+            }
+          }
+
+        }
       }
     }
 
 
-    // Min bias: randomly choose "leading jet" location in |eta| < 0.5, phi \in [0,2PI)
-    // typedef boost::minstd_rand base_generator_type;
-    // base_generator_type generator(42u);
-    // boost::uniform_real<> uni_0_2pi(0, TWOPI);
-    // boost::uniform_real<> uni_m05_05(-0.5, 0.5);
-    // typedef boost::variate_generator<base_generator_type&, boost::uniform_real<> > uni_gen;
-    // uni_gen uni_eta(generator, uni_m05_05);
-    // uni_gen uni_phi(generator, uni_m05_05);
-    // const double mb_etalead = _rngEtaMB();
-    // const double mb_philead = _rngPhiMB();
-    const double mb_etalead = rand()/static_cast<double>(RAND_MAX) - 0.5;
-    const double mb_philead = rand()/static_cast<double>(RAND_MAX) * TWOPI;
-    getLog() << Log::DEBUG << "Random 'leading jet' for min bias: (eta,phi)^1_MB = (" 
-             << mb_etalead << ", " << mb_philead << ")" << endl;
-    const ConesInfo mb_cones = calcTransCones(mb_etalead, mb_philead, tracks);
     // Fill min bias total track multiplicity histos
-    unsigned int mb_numTotal = mb_cones.numMax + mb_cones.numMin;
-    if (fuzzyEquals(sqrtS/GeV, 1800)) {
-      _numTracksDbn1800MB->fill(mb_numTotal, weight);
-    } else if (fuzzyEquals(sqrtS/GeV, 630)) {
-      _numTracksDbn630MB->fill(mb_numTotal, weight);
-    }
-    // Run over all charged tracks
-    foreach (const Particle& t, tracks) {
-      FourMomentum trackMom = t.momentum();
-      const double pt = trackMom.pT();
-      // Plot total pT distribution for min bias
+    {
+      const ParticleVector mbtracks = applyProjection<FinalState>(event, "MBFS").particles();
       if (fuzzyEquals(sqrtS/GeV, 1800)) {
-        _ptDbn1800MB->fill(pt/GeV, weight);
+        _numTracksDbn1800MB->fill(mbtracks.size(), weight);
       } else if (fuzzyEquals(sqrtS/GeV, 630)) {
-        _ptDbn630MB->fill(pt/GeV, weight);
+        _numTracksDbn630MB->fill(mbtracks.size(), weight);
+      }
+      // Run over all charged tracks
+      foreach (const Particle& t, mbtracks) {
+        FourMomentum trackMom = t.momentum();
+        const double pt = trackMom.pT();
+        // Plot total pT distribution for min bias
+        if (fuzzyEquals(sqrtS/GeV, 1800)) {
+          _ptDbn1800MB->fill(pt/GeV, weight);
+        } else if (fuzzyEquals(sqrtS/GeV, 630)) {
+          _ptDbn630MB->fill(pt/GeV, weight);
+        }
       }
     }
+
 
 
     // Construct "Swiss Cheese" pT distributions, with pT contributions from
     // tracks within R = 0.7 of the 1st, 2nd (and 3rd) jets being ignored. A
     // different set of charged tracks, with |eta| < 1.0, is used here, and all
     // the removed jets must have Et > 5 GeV.
-    /// @todo Should the jets be recomputed from the more restricted tracks, or
-    /// do we use the same jets but fewer tracks?
-    double ptSumSub2(0), ptSumSub3(0);
-    const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
-    vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").getJets();
-    if (cheesejets.empty()) {
-      getLog() << Log::DEBUG << "No 'cheese' jets found in event" << endl;
-      return;
-    }
-    sortjets(cheesejets);
-    if (cheesejets.size() > 1 &&
-        cheesejets[0].momentum().Et()/GeV > 5.0 &&
-        cheesejets[1].momentum().Et()/GeV > 5.0) {
+    {
+      const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
+      vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").getJets();
+      if (cheesejets.empty()) {
+        getLog() << Log::DEBUG << "No 'cheese' jets found in event" << endl;
+        return;
+      }
+      sortjets(cheesejets);
+      if (cheesejets.size() > 1 &&
+          fabs(cheesejets[0].momentum().pseudorapidity()) <= 0.5 &&
+          cheesejets[0].momentum().Et()/GeV > 5.0 &&
+          cheesejets[1].momentum().Et()/GeV > 5.0) {
 
-      const double eta1 = cheesejets[0].momentum().pseudorapidity();
-      const double phi1 = cheesejets[0].momentum().azimuthalAngle();
-      const double eta2 = cheesejets[1].momentum().pseudorapidity();
-      const double phi2 = cheesejets[1].momentum().azimuthalAngle();
-      
-      foreach (const Particle& t, cheesetracks) {
-        FourMomentum trackMom = t.momentum();
-        const double pt = trackMom.pT();
+        const double cheeseETlead = cheesejets[0].momentum().Et();
 
-        // Subtracting 2 leading jets
-        if (deltaR(trackMom, eta1, phi1) > 0.7 && 
-            deltaR(trackMom, eta2, phi2) > 0.7) {
-          ptSumSub2 += pt;
+        const double eta1 = cheesejets[0].momentum().pseudorapidity();
+        const double phi1 = cheesejets[0].momentum().azimuthalAngle();
+        const double eta2 = cheesejets[1].momentum().pseudorapidity();
+        const double phi2 = cheesejets[1].momentum().azimuthalAngle();
 
-          // Subtracting 3rd leading jet
-          if (cheesejets.size() > 2 && 
-              cheesejets[2].momentum().Et()/GeV > 5.0) {
-            const double eta3 = cheesejets[2].momentum().pseudorapidity();
-            const double phi3 = cheesejets[2].momentum().azimuthalAngle();
-            if (deltaR(trackMom, eta3, phi3) > 0.7) {
-              ptSumSub3 += pt;
+        double ptSumSub2(0), ptSumSub3(0);
+        foreach (const Particle& t, cheesetracks) {
+          FourMomentum trackMom = t.momentum();
+          const double pt = trackMom.pT();
+
+          // Subtracting 2 leading jets
+          const double deltaR1 = deltaR(trackMom, eta1, phi1);
+          const double deltaR2 = deltaR(trackMom, eta2, phi2);
+          getLog() << Log::TRACE << "Track vs jet(1): "
+                   << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
+                   << "|(" << eta1 << ", " << phi1 << ")| = " << deltaR1 << endl;
+          getLog() << Log::TRACE << "Track vs jet(2): "
+                   << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
+                   << "|(" << eta2 << ", " << phi2 << ")| = " << deltaR2 << endl;
+          if (deltaR1 > 0.7 && deltaR2 > 0.7) {
+            ptSumSub2 += pt;
+
+            // Subtracting 3rd leading jet
+            if (cheesejets.size() > 2 && 
+                cheesejets[2].momentum().Et()/GeV > 5.0) {
+              const double eta3 = cheesejets[2].momentum().pseudorapidity();
+              const double phi3 = cheesejets[2].momentum().azimuthalAngle();
+              const double deltaR3 = deltaR(trackMom, eta3, phi3);
+              getLog() << Log::TRACE << "Track vs jet(3): "
+                       << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
+                       << "|(" << eta3 << ", " << phi3 << ")| = " << deltaR3 << endl;
+              if (deltaR3 > 0.7) {
+                ptSumSub3 += pt;
+              }
             }
           }
         }
-      }
       
+        // Swiss Cheese sub 2,3 jets distributions for sqrt(s) = 630 GeV, 1800 GeV
+        if (fuzzyEquals(sqrtS/GeV, 630)) {
+          _pTSum630_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
+          _pTSum630_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
+        } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
+          _pTSum1800_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
+          _pTSum1800_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
+        }
+
+      }
     }
 
-    // Swiss Cheese sub 2,3 jets distributions for sqrt(s) = 630 GeV, 1800 GeV
-    if (fuzzyEquals(sqrtS/GeV, 630)) {
-      _pTSum630_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
-      _pTSum630_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
-    } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
-      _pTSum1800_2Jet->fill(ETlead/GeV, ptSumSub2/GeV, weight);
-      _pTSum1800_3Jet->fill(ETlead/GeV, ptSumSub3/GeV, weight);
-    }
     
   }
   

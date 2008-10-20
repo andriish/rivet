@@ -76,7 +76,7 @@ namespace Rivet {
     sort(theJets.begin(), theJets.end(), Particle::byETDescending());
     
     Jets foundJets;
-    int njets = 0;    
+    size_t njets = 0;    
     for(Jets::const_iterator jIt =theJets.begin(); 
 	foundJets.size()!=4 && jIt != theJets.end(); ++jIt){
       if(fabs(jIt->momentum().rapidity()) < _jetETA) {

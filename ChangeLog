@@ -1,3 +1,10 @@
+2008-10-20  Andy Buckley  <andy@insectnation.org>
+
+	* Corrections to CDF 2004 analysis based on correspondance with
+	Joey Huston. M bias dbns now use whole event within |eta| < 0.7,
+	and Cheese plots aren't filled at all if there are insufficient
+	jets (and the correct ETlead is used).
+
 2008-10-08  Andy Buckley  <andy@insectnation.org>
 
 	* Added AnalysisHandler::commitData() method, to allow the Python

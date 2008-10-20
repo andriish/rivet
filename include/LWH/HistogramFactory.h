@@ -621,15 +621,16 @@ public:
     h->setTitle(path.substr(path.rfind('/') + 1));
     for ( int i = 0; i < h->ax->bins() + 2; ++i ) {
       if ( h2.sum[i] == 0 || h2.sumw[i] == 0.0 ) {
-	h->sum[i] = 0;
-	h->sumw[i] = h->sumw2[i] = 0.0;
-	continue;
+        /// @todo Bad way of handling div by zero!
+        h->sum[i] = 0;
+        h->sumw[i] = h->sumw2[i] = 0.0;
+        continue;
       }
       h->sum[i] /= h2.sum[i];
       h->sumw[i] /= h2.sumw[i];
       h->sumw2[i] = h1.sumw2[i]/(h2.sumw[i]*h2.sumw[i]) +
-	h1.sumw[i]*h1.sumw[i]*h2.sumw2[i]/
-	(h2.sumw[i]*h2.sumw[i]*h2.sumw[i]*h2.sumw[i]);
+        h1.sumw[i]*h1.sumw[i]*h2.sumw2[i]/
+        (h2.sumw[i]*h2.sumw[i]*h2.sumw[i]*h2.sumw[i]);
     }
     if ( !tree->insert(path, h) ) return 0;
     return h;

@@ -75,7 +75,7 @@ AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 
 ## Decide whether to build the Python extension
 AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, 
-  [build pyrivet Python module @<:@default=no@:>@])], [], [enable_pyrivet=no])
+  [build Rivet Python module @<:@default=no@:>@])], [], [enable_pyrivet=no])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyrivet == xyes])
 if test x$enable_pyrivet == xyes; then
   AM_PATH_PYTHON(2.3)
