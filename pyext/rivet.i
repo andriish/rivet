@@ -4,15 +4,15 @@
   #define SWIG_FILE_WITH_INIT
   #include "Rivet/Analysis.hh"
   #include "Rivet/AnalysisHandler.hh"
-
-  int run();
+  #include "Rivet/AnalysisLoader.hh"
 %}
 
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_set.i"
 %include "std_map.i"
- //%template(StrList) std::vector<std::string>;
+%template(StrList) std::vector<std::string>;
+%template(StrSet) std::set<std::string>;
 
 %include "Rivet/ParticleName.hh"
 %include "Rivet/HistoFormat.hh"
@@ -55,16 +55,12 @@ namespace Rivet {
     void commitData();
   };
 
+
+  class AnalysisLoader {
+  public:
+    static std::set<std::string> getAllAnalysisNames();
+    static void closeAnalysisBuilders();    
+  };
+
+
 }
-
-// %include "Rivet/ParticleName.hh"
-// %include "Rivet/HistoFormat.hh"
-// %include "Rivet/Cuts.fhh"
-// %include "Rivet/Cuts.hh"
-// %include "Rivet/Projection.fhh"
-// %include "Rivet/ProjectionApplier.hh"
-// %include "Rivet/Projection.hh"
-// %include "Rivet/Analysis.hh"
-// %include "Rivet/AnalysisHandler.hh"
-
-int run();

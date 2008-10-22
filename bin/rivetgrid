@@ -1,0 +1,98 @@
+#! /usr/bin/env python
+
+import os, sys, logging
+from optparse import OptionParser
+
+
+
+TMP=rivet_tmp
+OUT=Rivet.out
+AIDA=Rivet.aida
+
+LIBBITS=32
+
+URL='http://www.hep.ucl.ac.uk/~jmonk/Rivet/'
+
+GENSER=genser
+RIVETLIBS=RivetGrid
+
+i=1
+foundVo=false
+VO=""
+ARGS=""
+
+for arg in $@ ; do
+
+    if [ "${arg:0:3}" = "-vo" ]
+    then
+        foundVo=true
+    else
+        if [ $foundVo = true ]
+	then
+            foundVo=false
+            VO=$arg
+        else
+            ARGS="$ARGS $arg"
+        fi
+    fi
+
+done
+
+echo "running rivetgun ${ARGS}"
+
+rm -f ${TMP}.jdl
+rm -f ${TMP}.sh
+
+cat > ${TMP}.jdl <<EOF
+Executable = "/bin/bash";
+Arguments = "${TMP}.sh";
+StdOutput = "Rivet.stdout";
+StdError  = "Rivet.stderr";
+InputSandbox = {"${TMP}.sh"};
+OutputSandbox = {"Rivet.stdout","Rivet.stderr", "${OUT}", "${AIDA}"};
+VirtualOrganisation = "${VO}";
+Requirements = other.GlueCEUniqueID == "ce01.dur.scotgrid.ac.uk:2119/jobmanager-lcgpbs-q3d";
+EOF
+
+cat > ${TMP}.sh <<EOF
+SANDBOXDIR=\`pwd\`
+WORKDIR=/tmp/Rivet/job\$\$
+mkdir -p \${WORKDIR}
+
+cd \${WORKDIR}
+echo Rivet running on host \`hostname\` >> ${OUT}
+echo Started at \`date\` >> ${OUT}
+uname -a >>${OUT}
+echo Working directory: \`pwd\` >> ${OUT}
+wget ${URL}${RIVETLIBS}${LIBBITS}.tar.gz
+wget ${URL}${GENSER}${LIBBITS}.tar.gz
+
+tar -zxf ${RIVETLIBS}${LIBBITS}.tar.gz
+tar -zxf ${GENSER}${LIBBITS}.tar.gz 
+echo "contents:" >>${OUT}
+ls >>${OUT}
+
+export LD_LIBRARY_PATH=\${WORKDIR}/${RIVETLIBS}/lib:\$LD_LIBRARY_PATH
+export LHAPATH=\${WORKDIR}/${RIVETLIBS}/share/lhapdf/PDFsets
+export AGILE_GEN_PATH=\${WORKDIR}/${GENSER}
+export PATH=\${WORKDIR}/${RIVETLIBS}/bin:\$PATH
+
+rivetgun ${ARGS} >>${OUT}
+
+echo Finished at \`date\` >> ${OUT}
+
+ls >> ${OUT}
+ls -lh \${WORKDIR}/${RIVETLIBS}/bin >> ${OUT}
+mv \${WORKDIR}/${OUT} \${SANDBOXDIR}/
+mv \${WORKDIR}/${AIDA} \${SANDBOXDIR}/
+cd \${SANDBOXDIR}
+rm -r \${WORKDIR}
+EOF
+
+echo "submitting Rivet job to the grid"
+glite-wms-job-submit -a -o RivetGrid.jid ${TMP}.jdl
+echo "do 'glite-wms-job-status -i RivetGrid.jid' for status"
+echo "'glite-wms-job-output -i RivetGrid.jid [--dir /path/to/jobarea]' to retrieve output when complete"
+
+rm ${TMP}.sh
+rm ${TMP}.jdl

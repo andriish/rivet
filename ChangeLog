@@ -1,3 +1,9 @@
+2008-10-22  Andy Buckley  <andy@insectnation.org>
+
+	* rivet (Python interface) now can list analyses, check when
+	adding analyses that the given names are valid, specify histo file
+	name, and provide sensibly graded event number logging.
+
 2008-10-20  Andy Buckley  <andy@insectnation.org>
 
 	* Corrections to CDF 2004 analysis based on correspondance with
