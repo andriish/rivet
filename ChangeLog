@@ -1,3 +1,13 @@
+2008-10-23  Andy Buckley  <andy@insectnation.org>
+
+	* rivet handles signals neatly, as for rivetgun, so that premature
+	killing of the analysis process will still result in an analysis
+	file.
+
+	* rivet now accepts cross-section as a command line argument and,
+	if it is missing and is required, will prompt the user for it
+	interactively.
+
 2008-10-22  Andy Buckley  <andy@insectnation.org>
 
 	* rivet (Python interface) now can list analyses, check when
