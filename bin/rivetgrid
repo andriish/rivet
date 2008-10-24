@@ -113,15 +113,14 @@ ls -lh $WORKDIR/RivetGrid/bin >> $OUT
 mv $WORKDIR/$OUT $SANDBOXDIR/
 mv $WORKDIR/$AIDA $SANDBOXDIR/
 cd $SANDBOXDIR
-rm -r $WORKDIR
-""" % { 
+rm -r $WORKDIR""" % { 
     "jname" : opts.JOB_NAME, 
     "rgurl" : RIVETGRID_URL,
     "gensurl" : GENS_URL,
     "rgargs" : RG_ARGS
     }
 sh.write(shstr)
-logging.debug("Script file:\n----------------\n" + shstr + "\n----------------")
+logging.debug("\nScript file:\n----------------\n" + shstr + "\n----------------")
 
 
 ## Make JDL file
@@ -141,7 +140,7 @@ Requirements = other.GlueCEUniqueID == "ce01.dur.scotgrid.ac.uk:2119/jobmanager-
     }
 jdl = tempfile.NamedTemporaryFile(prefix="rivetgrid_", suffix=".jdl")
 jdl.write(jdlstr)
-logging.debug("JDL file:\n----------------\n" + jdlstr + "\n----------------")
+logging.debug("\nJDL file:\n----------------\n" + jdlstr + "\n----------------")
 
 
 ## Submit job
