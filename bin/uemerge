@@ -245,25 +245,30 @@ def mkHistoFromDPS(dps):
     return myhist
 
 
+import logging
 from optparse import OptionParser, OptionGroup
 parser = OptionParser(usage="%prog aidafile:sqrts:minpt aidafile2:sqrts:minpt [...]")
+parser.add_option("-o", "--out", dest="OUTFILE", default="-")
+parser.add_option("--append", dest="APPEND_OUTPUT", action="store_true", default=False)
 verbgroup = OptionGroup(parser, "Verbosity control")
-verbgroup.add_option("-V", "--verbose", action="store_true", dest="VERBOSE", 
-                     default=False, help="print status messages")
-verbgroup.add_option("-D", "--debug", action="store_true", dest="DEBUG", 
-                     default=False, help="print debug (very verbose) messages")
-verbgroup.add_option("-Q", "--quiet", action="store_true", dest="QUIET",
-                     default=False, help="be very quiet (overrides verbose and debug)")
+verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                     default=logging.INFO, help="print debug (very verbose) messages")
+verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                     default=logging.INFO, help="be very quiet")
 parser.add_option_group(verbgroup)
+(opts, args) = parser.parse_args()
+logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
-opts, args = parser.parse_args()
+
+## Prefix used in dat file headers
 headerprefix = "# "
 
+
+## Check args
 if len(args) < 1:
-    sys.stderr.write("Must specify at least one AIDA histogram file\n")
+    logging.error("Must specify at least one AIDA histogram file")
     sys.exit(1)
 
-out = sys.stdout
 
 ## Get histos
 inhistos = {}
@@ -297,8 +302,7 @@ except Exception, e:
 ## Make empty output histos
 outhistos = {}
 for hpath, hsets in sorted(inhistos.iteritems()):
-    if opts.DEBUG:
-        print hpath, dict([(sqrts, hsets[sqrts].keys()) for sqrts in hsets.keys()])
+    logging.debug(hpath + " " + str(dict([(sqrts, hsets[sqrts].keys()) for sqrts in hsets.keys()])))
     workhisto = copy.deepcopy(hsets.values()[0].values()[0])
     #print workhisto
     outhistos[hpath] = workhisto
@@ -350,6 +354,7 @@ def useOnePt(hpath, sqrts, ptmin):
 ######
 
 ## Field analysis
+print "Processing CDF_2001_S4751469"
 ## Number, profile in pT_lead (True?)
 useOnePt("/CDF_2001_S4751469/d03-x01-y01", "1800", "0")
 useOnePt("/CDF_2001_S4751469/d03-x01-y02", "1800", "0")
@@ -370,6 +375,7 @@ useOnePt("/CDF_2001_S4751469/d07-x01-y02", "1800", "0")
 useOnePt("/CDF_2001_S4751469/d07-x01-y03", "1800", "30")
 
 ## Acosta analysis
+print "Processing CDF_2004_S5839831"
 ## Mean pT, profile in ET_lead
 mergeByPt("/CDF_2004_S5839831/d01-x01-y01", "1800")
 mergeByPt("/CDF_2004_S5839831/d01-x01-y02", "1800")
@@ -404,6 +410,7 @@ useOnePt("/CDF_2004_S5839831/d10-x01-y01", "630", "0")
 useOnePt("/CDF_2004_S5839831/d11-x01-y01", "630", "0")
 
 ## Rick Field Run-II Leading Jets analysis
+print "Processing CDF_2008_LEADINGJETS"
 ## charged particle density
 mergeByPt("/CDF_2008_LEADINGJETS/d01-x01-y01", "1960")
 mergeByPt("/CDF_2008_LEADINGJETS/d02-x01-y01", "1960")
@@ -418,18 +425,32 @@ mergeByPt("/CDF_2008_LEADINGJETS/d08-x01-y01", "1960")
 mergeByPt("/CDF_2008_LEADINGJETS/d09-x01-y01", "1960")
 
 ## D0 dijet correlation analysis
+print "Processing D0_2004_S5992206"
 useOnePt("/D0_2004_S5992206/d01-x02-y01", "1960", "50")
 useOnePt("/D0_2004_S5992206/d02-x02-y01", "1960", "75")
 useOnePt("/D0_2004_S5992206/d03-x02-y01", "1960", "100")
 useOnePt("/D0_2004_S5992206/d04-x02-y01", "1960", "150")
 
 
+## Choose output file
+out = None
+if opts.OUTFILE == "-":
+    out = sys.stdout
+else:
+    if opts.APPEND_OUTPUT:
+        out = open(opts.OUTFILE, "a")
+    else:
+        out = open(opts.OUTFILE, "w")
+
+
 ## Write out merged histos
 for hpath, h in sorted(outhistos.iteritems()):
     #print hpath
     out.write(h.asFlat() + "\n\n")
-sys.exit(0)
 
+
+sys.exit(0)
+## Write to multiple auto-named dat files
 for hpath, h in sorted(outhistos.iteritems()):
     #print hpath
     safename = hpath.replace("/", "_") + ".dat"

@@ -44,7 +44,10 @@ verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNIN
                      default=logging.INFO, help="be very quiet")
 parser.add_option_group(verbgroup)
 (opts, args) = parser.parse_args()
-logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+try:
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+except:
+    logging.getLogger().setLevel(opts.LOGLEVEL)
 
 
 ## Check VO specification
@@ -80,52 +83,65 @@ logging.info("Rivet will be run as: 'rivetgun " + RG_ARGS + "'")
 
 ## Make batch script file
 sh = tempfile.NamedTemporaryFile(prefix="rivetgrid_", suffix=".sh")
-sh.write('#! /usr/bin/env bash\n')
-sh.write('OUT=' + opts.JOB_NAME + '.out\n')
-sh.write('AIDA=' + opts.JOB_NAME + '.aida\n')
-sh.write('SANDBOXDIR=$PWD\n')
-sh.write('WORKDIR=/tmp/Rivet/job$$\n')
-sh.write('mkdir -p $WORKDIR\n')
-sh.write('cd $WORKDIR\n\n')
+shstr = """#! /usr/bin/env bash
+OUT=%(jname)s.out
+AIDA=%(jname)s.aida
+SANDBOXDIR=$PWD
+WORKDIR=/tmp/Rivet/job$$
+mkdir -p $WORKDIR
+cd $WORKDIR
 
-sh.write('echo "Rivet running on host `hostname`" >> $OUT\n')
-sh.write('echo "Started at `date`" >> $OUT\n')
-sh.write('uname -a >> $OUT\n')
-sh.write('echo "Working directory: $PWD" >> $OUT\n')
-sh.write('wget ' + RIVETGRID_URL + ' -O- | tar -zx\n')
-sh.write('wget ' + GENS_URL + ' -O- | tar -zx\n')
-sh.write('echo "Contents:" >> $OUT\n')
-sh.write('ls >> $OUT\n\n')
+echo "Rivet running on host `hostname`" >> $OUT
+echo "Started at `date`" >> $OUT
+uname -a >> $OUT
+echo "Working directory: $PWD" >> $OUT
+wget %(rgurl)s -O- | tar -zx
+wget %(gensurl)s -O- | tar -zx
+echo "Contents:" >> $OUT
+ls >> $OUT
 
-sh.write('export LD_LIBRARY_PATH="$WORKDIR/RivetGrid/lib:$LD_LIBRARY_PATH"\n')
-sh.write('export LHAPATH="$WORKDIR/RivetGrid/share/lhapdf/PDFsets"\n')
-sh.write('export AGILE_GEN_PATH="$WORKDIR/Genser"\n')
-sh.write('export PATH="$WORKDIR/RivetGrid/bin:$PATH"\n\n')
+export LD_LIBRARY_PATH="$WORKDIR/RivetGrid/lib:$LD_LIBRARY_PATH"
+export LHAPATH="$WORKDIR/RivetGrid/share/lhapdf/PDFsets"
+export AGILE_GEN_PATH="$WORKDIR/Genser"
+export PATH="$WORKDIR/RivetGrid/bin:$PATH"
 
-sh.write('rivetgun ' + RG_ARGS + ' >> $OUT\n')
-sh.write('echo Finished at `date` >> $OUT\n\n')
+rivetgun %(rgargs)s >> $OUT
+echo Finished at `date` >> $OUT
 
-sh.write('ls >> $OUT\n')
-sh.write('ls -lh $WORKDIR/RivetGrid/bin >> $OUT\n')
-sh.write('mv $WORKDIR/$OUT $SANDBOXDIR/\n')
-sh.write('mv $WORKDIR/$AIDA $SANDBOXDIR/\n')
-sh.write('cd $SANDBOXDIR\n')
-sh.write('rm -r $WORKDIR\n')
+ls >> $OUT
+ls -lh $WORKDIR/RivetGrid/bin >> $OUT
+mv $WORKDIR/$OUT $SANDBOXDIR/
+mv $WORKDIR/$AIDA $SANDBOXDIR/
+cd $SANDBOXDIR
+rm -r $WORKDIR
+""" % { 
+    "jname" : opts.JOB_NAME, 
+    "rgurl" : RIVETGRID_URL,
+    "gensurl" : GENS_URL,
+    "rgargs" : RG_ARGS
+    }
+sh.write(shstr)
+logging.debug("Script file:\n----------------\n" + shstr + "\n----------------")
 
 
 ## Make JDL file
+jdlstr = \
+"""Executable = "%(shfile)s";
+StdOutput = "%(jname)s.stdout";
+StdError  = "%(jname)s.stderr";
+InputSandbox = {"%(shpath)s"};
+OutputSandbox = {"%(jname)s.stdout","%(jname)s.stderr", "%(jname)s.out", "%(jname)s.aida"};
+VirtualOrganisation = "%(voname)s";
+Requirements = other.GlueCEUniqueID == "ce01.dur.scotgrid.ac.uk:2119/jobmanager-lcgpbs-q3d";""" % \
+    {
+    "shfile" : os.path.basename(sh.name),
+    "shpath" : sh.name,
+    "jname" : opts.JOB_NAME,
+    "voname" : opts.VO
+    }
 jdl = tempfile.NamedTemporaryFile(prefix="rivetgrid_", suffix=".jdl")
-sh.write('OUT=' + opts.JOB_NAME + '.out\n')
-sh.write('AIDA=' + opts.JOB_NAME + '.aida\n')
-jdl.write('Executable = "/bin/bash";\n')
-jdl.write('Arguments = "%s";\n' % sh.name)
-jdl.write('StdOutput = "%s.stdout";\n' % opts.JOB_NAME)
-jdl.write('StdError  = "%s.stderr";\n' % opts.JOB_NAME)
-jdl.write('InputSandbox = {"%s.sh"};\n' % sh.name)
-jdl.write('OutputSandbox = {"%(j)s.stdout","%(j)s.stderr", "%(j)s.out", "%(j)s.aida"};\n' % 
-          {'j' : opts.JOB_NAME } )
-jdl.write('VirtualOrganisation = "%s";\n' % opts.VO)
-jdl.write('Requirements = other.GlueCEUniqueID == "ce01.dur.scotgrid.ac.uk:2119/jobmanager-lcgpbs-q3d";\n')
+jdl.write(jdlstr)
+logging.debug("JDL file:\n----------------\n" + jdlstr + "\n----------------")
 
 
 ## Submit job
