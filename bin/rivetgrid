@@ -29,12 +29,14 @@ parser.add_option("--vo", dest="VO", default=None,
                   help="specify the virtual organisation to run under")
 parser.add_option("-m", "--machine", dest="MACHINE", 
                   choices=["32","64"], default="32", 
-                  help="specify the target machine architecture")
+                  help="specify the target machine architecture - either 32 (default) or 64 bit")
 parser.add_option("-u", "--url", dest="ARCHIVE_URL", 
                   default="http://www.hep.ucl.ac.uk/~jmonk/Rivet/",
                   help="specify the base URL from which to fetch the RivetGrid and Genser packages")
 parser.add_option("-j", "--jobname", dest="JOB_NAME", default="Rivet", 
                   help="specify the job name (affects the names of the output log and histo files)")
+parser.add_option("--dry-run", dest="DRY_RUN", action="store_true", default=False, 
+                  help="do everything but actually submit the job")
 verbgroup = OptionGroup(parser, "Verbosity control")
 verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                      default=logging.INFO, help="print debug (very verbose) messages")
@@ -130,13 +132,16 @@ jdl.write('Requirements = other.GlueCEUniqueID == "ce01.dur.scotgrid.ac.uk:2119/
 logging.info("Submitting Rivet job to the grid...")
 subcmd = "glite-wms-job-submit -a -o %(j)s.jid %(jf)s" % { 'j' : opts.JOB_NAME, 'jf' : jdl.name }
 logging.debug("Submitting with command '%s'" % subcmd)
-st, out = commands.getstatusoutput(subcmd)
-if st == 0:
-    logging.info("Submission successful")
-    logging.debug("Submission output:\n" + out)
+if not opts.DRY_RUN:
+    st, out = commands.getstatusoutput(subcmd)
+    if st == 0:
+        logging.info("Submission successful")
+        logging.debug("Submission output:\n" + out)
+    else:
+        logging.error("Submission failed:\n" + out)
+        sys.exit(2)
 else:
-    logging.error("Submission failed:\n" + out)
-    sys.exit(2)
+    logging.debug("This is dry-run mode: the job was not actually submitted!")
 
 
 ## Suggest how to monitor and retrieve the job
