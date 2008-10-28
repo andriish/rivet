@@ -11,27 +11,27 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2008_NOTE_9351::init() {
-    _hist_tnchg      = bookProfile1D( 1, 1, 1, "Toward Region Charged Particle Density");
-    _hist_pnchg      = bookProfile1D( 2, 1, 1, "Transverse Region Charged Particle Density");
-    _hist_pmaxnchg   = bookProfile1D( 3, 1, 1, "TransMAX Region Charged Particle Density");
-    _hist_pminnchg   = bookProfile1D( 4, 1, 1, "TransMIN Region Charged Particle Density");
-    _hist_pdifnchg   = bookProfile1D( 5, 1, 1, "TransDIF Region Charged Particle Density");
-    _hist_anchg      = bookProfile1D( 6, 1, 1, "Away Region Charged Particle Density");
-    _hist_tcptsum    = bookProfile1D( 7, 1, 1, "Toward Region Charged pT Sum Density");
-    _hist_pcptsum    = bookProfile1D( 8, 1, 1, "Transverse Region Charged pT Sum Density");
-    _hist_pmaxcptsum = bookProfile1D( 9, 1, 1, "TransMAX Region Charged pT Sum Density");
-    _hist_pmincptsum = bookProfile1D(10, 1, 1, "TransMIN Region Charged pT Sum Density");
-    _hist_pdifcptsum = bookProfile1D(11, 1, 1, "TransDIF Region Charged pT Sum Density");
-    _hist_acptsum    = bookProfile1D(12, 1, 1, "Away Region Charged pT Sum Density");
-    _hist_tcptave    = bookProfile1D(13, 1, 1, "Toward Region Charged pT Average");
-    _hist_pcptave    = bookProfile1D(14, 1, 1, "Transverse Region Charged pT Average");
-    _hist_acptave    = bookProfile1D(15, 1, 1, "Away Region Charged pT Average");
-    _hist_tcptmax    = bookProfile1D(16, 1, 1, "Toward Region Charged pT Maximum");
-    _hist_pcptmax    = bookProfile1D(17, 1, 1, "Transverse Region Charged pT Maximum");
-    _hist_acptmax    = bookProfile1D(18, 1, 1, "Away Region Charged pT Maximum");
-    _hist_zptvsnchg  = bookProfile1D(19, 1, 1, "Average Lepton Pair pT versus Charged Multiplicity");
-    _hist_cptavevsnchg = bookProfile1D(20, 1, 1, "Average Charged pT versus Charged Multiplicity");
-    _hist_cptavevsnchgsmallzpt = bookProfile1D(21, 1, 1, "Average Charged pT versus Charged Multiplicity, pT(Z) less than 10 GeV");
+    _hist_tnchg      = bookProfile1D( 1, 1, 1, "Toward region charged particle density");
+    _hist_pnchg      = bookProfile1D( 2, 1, 1, "Transverse region charged particle density");
+    _hist_pmaxnchg   = bookProfile1D( 3, 1, 1, "TransMAX region charged particle density");
+    _hist_pminnchg   = bookProfile1D( 4, 1, 1, "TransMIN region charged particle density");
+    _hist_pdifnchg   = bookProfile1D( 5, 1, 1, "TransDIF region charged particle density");
+    _hist_anchg      = bookProfile1D( 6, 1, 1, "Away region charged particle density");
+    _hist_tcptsum    = bookProfile1D( 7, 1, 1, "Toward region charged $p_\\perp^\\text{sum}$ density");
+    _hist_pcptsum    = bookProfile1D( 8, 1, 1, "Transverse region charged $p_\\perp^\\text{sum}$ density");
+    _hist_pmaxcptsum = bookProfile1D( 9, 1, 1, "TransMAX region charged $p_\\perp^\\text{sum}$ density");
+    _hist_pmincptsum = bookProfile1D(10, 1, 1, "TransMIN region charged $p_\\perp^\\text{sum}$ density");
+    _hist_pdifcptsum = bookProfile1D(11, 1, 1, "TransDIF region charged $p_\\perp^\\text{sum}$ density");
+    _hist_acptsum    = bookProfile1D(12, 1, 1, "Away region charged $p_\\perp^\\text{sum}$ density");
+    _hist_tcptave    = bookProfile1D(13, 1, 1, "Toward region charged $p_\\perp$ average");
+    _hist_pcptave    = bookProfile1D(14, 1, 1, "Transverse region charged $p_\\perp$ average");
+    _hist_acptave    = bookProfile1D(15, 1, 1, "Away region charged $p_\\perp$ average");
+    _hist_tcptmax    = bookProfile1D(16, 1, 1, "Toward region charged $p_\\perp$ maximum");
+    _hist_pcptmax    = bookProfile1D(17, 1, 1, "Transverse region charged $p_\\perp$ maximum");
+    _hist_acptmax    = bookProfile1D(18, 1, 1, "Away region charged $p_\\perp$ maximum");
+    _hist_zptvsnchg  = bookProfile1D(19, 1, 1, "Average lepton-pair $p_\\perp$ versus charged multiplicity");
+    _hist_cptavevsnchg = bookProfile1D(20, 1, 1, "Average charged $p_\\perp$ vs charged multiplicity");
+    _hist_cptavevsnchgsmallzpt = bookProfile1D(21, 1, 1, "Average charged $p_\\perp$ vs charged multiplicity, $p_\\perp(Z)$ less than 10 GeV");
   }
 
 

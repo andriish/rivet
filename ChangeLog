@@ -1,3 +1,11 @@
+2008-10-28  Andy Buckley  <andy@insectnation.org>
+
+	* Auto-booking of histograms with a name, rather than the HepData
+	ID 3-tuple is now possible.
+
+	* Fix in CDF 2001 pT spectra to get the normalisations to depend
+	on the pT_lead cutoff.
+
 2008-10-23  Andy Buckley  <andy@insectnation.org>
 
 	* rivet handles signals neatly, as for rivetgun, so that premature

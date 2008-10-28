@@ -78,10 +78,10 @@ namespace Rivet {
     const WZandh& wzh = applyProjection<WZandh>(event, "WZh");
     for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
       const FourMomentum p4 = p->momentum();
+      _vbvec[_nvb][0] = p4.E();
       _vbvec[_nvb][1] = p4.px();
       _vbvec[_nvb][2] = p4.py();
       _vbvec[_nvb][3] = p4.pz();
-      _vbvec[_nvb][0] = p4.E();
       _vbtype[_nvb]   = 1;
       ++_nvb;
     }
@@ -131,18 +131,18 @@ namespace Rivet {
     _nsub = 0;
     for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
       if (j->perp() > _jet_pt_cut) {
+        _vjet[_njet][0] = j->e();
         _vjet[_njet][1] = j->px();
         _vjet[_njet][2] = j->py();
         _vjet[_njet][3] = j->pz();
-        _vjet[_njet][0] = j->e();
         if (j->perp() > _subj_pt_cut) {
+          _sjet3[_nsub][0] = j->e();
           _sjet3[_nsub][1] = j->px();
           _sjet3[_nsub][2] = j->py();
           _sjet3[_nsub][3] = j->pz();
-          _sjet3[_nsub][0] = j->e();
           vector<double> ys = jets.ySubJet(*j);
-          for (size_t i=0; i<5; ++i){
-            if (ys.size()>i) {
+          for (size_t i = 0; i < 4; ++i){
+            if (ys.size() > i) {
               _ysubsj[_nsub][i] = ys.at(i);
             } else {
               _ysubsj[_nsub][i] = 0;

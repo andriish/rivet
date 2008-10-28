@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
     #ifdef HAVE_AGILE
     if (arg.find("AGILe.Loader=TRACE") != string::npos ||
         arg.find("AGILe=TRACE") != string::npos) {
-      AGILe::Log::setLevels("AGILe.Loader", Log::TRACE);
+      AGILe::Log::setLevel("AGILe.Loader", Log::TRACE);
     }
     #endif
   }

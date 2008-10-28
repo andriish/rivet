@@ -292,7 +292,7 @@ namespace Rivet {
 
 
   /// Typedef for a collection of Jet objects.
-  typedef vector<Jet> Jets;
+  typedef std::vector<Jet> Jets;
 
 }
 

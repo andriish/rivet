@@ -43,10 +43,13 @@ namespace Rivet {
     const TrackJet& tj = applyProjection<TrackJet>(event, "TrackJet");
 
     // Get jets, sorted by pT
+    /// @todo Make pT sorting obvious in jet alg interface & provide public sorting fns
     const Jets jets = tj.getJets();
-    if (jets.empty()) { vetoEvent(event); }
+    if (jets.empty()) { 
+      vetoEvent(event); 
+    }
 
-    Jet leadingJet = jets[0];
+    Jet leadingJet = jets.front();
     const double phiLead = leadingJet.ptWeightedPhi();
     const double ptLead = leadingJet.ptSum();
 
@@ -60,29 +63,37 @@ namespace Rivet {
     // Run over tracks
     double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
     size_t numToward(0), numTrans(0), numAway(0);
-    for (Jets::const_iterator j = jets.begin(); j != jets.end(); ++j) {
-      for (Jet::const_iterator p = j->begin(); p != j->end(); ++p) {
+    foreach (const Jet& j, jets) {
+      foreach (const FourMomentum& p, j) {
         // Calculate Delta(phi) from leading jet
-        const double deltaPhi = delta_phi(p->azimuthalAngle(), phiLead);
+        const double deltaPhi = delta_phi(p.azimuthalAngle(), phiLead);
         
         // Get pT sum and multiplicity values for each region 
         // (each is 1 number for each region per event)
         /// @todo Include event weight factor?
         if (deltaPhi < PI/3.0) {
-          ptSumToward += p->pT();
+          ptSumToward += p.pT();
           ++numToward;
+
         } else if (deltaPhi < 2*PI/3.0) {
-          ptSumTrans += p->pT();
+          ptSumTrans += p.pT();
           ++numTrans;
-          
           // Fill transverse pT distributions
-          _totalNumTrans += weight;
-          if (ptLead/GeV > 2)  _ptTrans2->fill(p->pT()/GeV, weight);
-          if (ptLead/GeV > 5)  _ptTrans5->fill(p->pT()/GeV, weight);
-          if (ptLead/GeV > 30) _ptTrans30->fill(p->pT()/GeV, weight);
+          if (ptLead/GeV > 2.0) {
+            _ptTrans2->fill(p.pT()/GeV, weight);
+            _totalNumTrans2 += weight;
+          }
+          if (ptLead/GeV > 5.0) { 
+            _ptTrans5->fill(p.pT()/GeV, weight);
+            _totalNumTrans5 += weight;
+          }
+          if (ptLead/GeV > 30.0) {
+            _ptTrans30->fill(p.pT()/GeV, weight);
+            _totalNumTrans30 += weight;
+          }
 
         } else {
-          ptSumAway += p->pT();
+          ptSumAway += p.pT();
           ++numAway;
         }
         
@@ -128,11 +139,10 @@ namespace Rivet {
   }
 
 
-  void CDF_2001_S4751469::finalize() { 
-    const double avgNumTrans = _totalNumTrans / sumOfWeights();
-    normalize(_ptTrans2, avgNumTrans);
-    normalize(_ptTrans5, avgNumTrans);
-    normalize(_ptTrans30, avgNumTrans);
+  void CDF_2001_S4751469::finalize() {
+    normalize(_ptTrans2, _totalNumTrans2 / sumOfWeights());
+    normalize(_ptTrans5, _totalNumTrans5 / sumOfWeights());
+    normalize(_ptTrans30, _totalNumTrans30 / sumOfWeights());
   }
 
 
