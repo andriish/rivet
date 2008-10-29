@@ -24,8 +24,9 @@ namespace Rivet {
     /// randomly discards 8% of charged particles, as a kind of hacky detector 
     /// correction.
     CDF_2001_S4751469()
-      : _totalNumTrans2(0), _totalNumTrans5(0), _totalNumTrans30(0)
-    { 
+      : _totalNumTrans2(0), _totalNumTrans5(0), _totalNumTrans30(0),
+        _sumWeightsPtLead2(0),_sumWeightsPtLead5(0), _sumWeightsPtLead30(0)
+    {
       setBeams(PROTON, ANTIPROTON);
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       const LossyFinalState lfs(cfs, 0.08); 
@@ -82,8 +83,11 @@ namespace Rivet {
 
   private:
 
-    /// Counters used to calculate the avg number of charged particles in the trans region.
+    /// Sum total number of charged particles in the trans region, in 3 \f$ p_\perp^\text{lead} \f$ bins.
     double _totalNumTrans2, _totalNumTrans5, _totalNumTrans30;
+
+    /// Sum the total number of events in 3 \f$ p_\perp^\text{lead} \f$ bins.
+    double _sumWeightsPtLead2,_sumWeightsPtLead5, _sumWeightsPtLead30;
 
   private:
 

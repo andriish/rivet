@@ -60,6 +60,17 @@ namespace Rivet {
     // Get the event weight
     const double weight = event.weight();
 
+    // Count sum of all event weights in three pTlead regions
+    if (ptLead/GeV > 2.0) {
+      _sumWeightsPtLead2 += weight;
+    }
+    if (ptLead/GeV > 5.0) { 
+      _sumWeightsPtLead5 += weight;
+    }
+    if (ptLead/GeV > 30.0) {
+      _sumWeightsPtLead30 += weight;
+    }
+
     // Run over tracks
     double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
     size_t numToward(0), numTrans(0), numAway(0);
@@ -140,9 +151,9 @@ namespace Rivet {
 
 
   void CDF_2001_S4751469::finalize() {
-    normalize(_ptTrans2, _totalNumTrans2 / sumOfWeights());
-    normalize(_ptTrans5, _totalNumTrans5 / sumOfWeights());
-    normalize(_ptTrans30, _totalNumTrans30 / sumOfWeights());
+    normalize(_ptTrans2, _totalNumTrans2 / _sumWeightsPtLead2);
+    normalize(_ptTrans5, _totalNumTrans5 / _sumWeightsPtLead5);
+    normalize(_ptTrans30, _totalNumTrans30 / _sumWeightsPtLead30);
   }
 
 
