@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import sys, os
+import sys, os, logging
 try:
     sorted([])
 except:
@@ -177,65 +177,92 @@ def mkHistoFromDPS(dps):
     return myhist
 
 
-from optparse import OptionParser
-parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
-parser.add_option("-s", "--split", action="store_true", default=False, 
-                  help="Write each histo to a separate output file, with names based on the histo path", 
-                  dest="SPLITOUTPUT")
-parser.add_option("-g", "--gnuplot", action="store_true", default=False, 
-                  help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with xye'. Implies --split",
-                  dest="GNUPLOT")
-parser.add_option("-S", "--smart-output", action="store_true", default=False, 
-                  help="Write to output files with names based on the corresponding input filename", 
-                  dest="SMARTOUTPUT")
-parser.add_option("-m", "--match", action="append",
-                  help="Only write out histograms whose $path/$name string matches these regexes", 
-                  dest="PATHPATTERNS")
-opts, args = parser.parse_args()
-if opts.PATHPATTERNS is None:
-    opts.PATHPATTERNS = []
-headerprefix = ""
-if opts.GNUPLOT:
-    opts.SPLITOUTPUT = True
-    headerprefix = "# "
 
-if len(args) < 1:
-    sys.stderr.write("Must specify at least one AIDA histogram file\n")
-    sys.exit(1)
+##########################################################
 
-import re
-for aidafile in args:
-    out = sys.stdout
-    tree = ET.parse(aidafile)
-    histos = []
-    for dps in tree.findall("dataPointSet"):
-        useThisDps = True
-        if len(opts.PATHPATTERNS) > 0:
-            useThisDps = False
-            dpspath = os.path.join(dps.get("path"), dps.get("name"))
-            for regex in opts.PATHPATTERNS:
-                if re.compile(regex).search(dpspath):
-                    useThisDps = True
-                    break
-        if useThisDps:
-            histos.append(mkHistoFromDPS(dps))
-    if len(histos) > 0:
-        if opts.SPLITOUTPUT:
-            paper = os.path.basename(aidafile).replace(".aida", "")
-            for h in sorted(histos):
-                histo = h.fullPath()[1:].replace("/", "_")
-                outfile = "%s.dat" % histo
+
+if __name__ == "__main__":
+
+    ## Parse command line options
+    from optparse import OptionParser, OptionGroup
+    parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
+    parser.add_option("-s", "--split", action="store_true", default=False, 
+                      help="Write each histo to a separate output file, with names based on the histo path", 
+                      dest="SPLITOUTPUT")
+    parser.add_option("-g", "--gnuplot", action="store_true", default=False, 
+                      help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with xye'. Implies --split",
+                      dest="GNUPLOT")
+    parser.add_option("-S", "--smart-output", action="store_true", default=False, 
+                      help="Write to output files with names based on the corresponding input filename", 
+                      dest="SMARTOUTPUT")
+    parser.add_option("-m", "--match", action="append",
+                      help="Only write out histograms whose $path/$name string matches these regexes", 
+                      dest="PATHPATTERNS")
+    verbgroup = OptionGroup(parser, "Verbosity control")
+    verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                         default=logging.INFO, help="print debug (very verbose) messages")
+    verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                         default=logging.INFO, help="be very quiet")
+    opts, args = parser.parse_args()
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+
+
+    ## Initialise steering variables which need a bit more care
+    if opts.PATHPATTERNS is None:
+        opts.PATHPATTERNS = []
+    headerprefix = ""
+    if opts.GNUPLOT:
+        opts.SPLITOUTPUT = True
+        headerprefix = "# "
+
+
+    ## Check that at least one file has been supplied
+    if len(args) < 1:
+        sys.stderr.write("Must specify at least one AIDA histogram file\n")
+        sys.exit(1)
+
+
+    ## Run over the files, make histos and write out those that match the patterns
+    import re
+    for aidafile in args:
+        out = sys.stdout
+        if not os.access(aidafile, os.R_OK):
+            logging.error("%s can not be read" % aidafile)
+            break
+        try:
+            tree = ET.parse(aidafile)
+        except:
+            logging.error("%s can not be parsed as XML" % aidafile)
+            break
+        histos = []
+        for dps in tree.findall("dataPointSet"):
+            useThisDps = True
+            if len(opts.PATHPATTERNS) > 0:
+                useThisDps = False
+                dpspath = os.path.join(dps.get("path"), dps.get("name"))
+                for regex in opts.PATHPATTERNS:
+                    if re.compile(regex).search(dpspath):
+                        useThisDps = True
+                        break
+            if useThisDps:
+                histos.append(mkHistoFromDPS(dps))
+        if len(histos) > 0:
+            if opts.SPLITOUTPUT:
+                paper = os.path.basename(aidafile).replace(".aida", "")
+                for h in sorted(histos):
+                    histo = h.fullPath()[1:].replace("/", "_")
+                    outfile = "%s.dat" % histo
+                    if opts.SMARTOUTPUT:
+                        outfile = "%s-%s" % (paper, outfile)
+                    #print "Writing to", outfile
+                    out = open(outfile, "w")
+                    out.write(h.asFlat() + "\n")
+                    out.close()
+            else:
                 if opts.SMARTOUTPUT:
-                    outfile = "%s-%s" % (paper, outfile)
-                #print "Writing to", outfile
-                out = open(outfile, "w")
-                out.write(h.asFlat() + "\n")
+                    outfile = os.path.basename(aidafile).replace(".aida", ".dat")
+                    out = open(outfile, "w")
+                out.write("\n\n".join([h.asFlat() for h in sorted(histos)]))
+                out.write("\n")
+            if out:
                 out.close()
-        else:
-            if opts.SMARTOUTPUT:
-                outfile = os.path.basename(aidafile).replace(".aida", ".dat")
-                out = open(outfile, "w")
-            out.write("\n\n".join([h.asFlat() for h in sorted(histos)]))
-            out.write("\n")
-        if out:
-            out.close()

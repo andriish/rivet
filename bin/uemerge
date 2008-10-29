@@ -245,74 +245,9 @@ def mkHistoFromDPS(dps):
     return myhist
 
 
-import logging
-from optparse import OptionParser, OptionGroup
-parser = OptionParser(usage="%prog aidafile:sqrts:minpt aidafile2:sqrts:minpt [...]")
-parser.add_option("-o", "--out", dest="OUTFILE", default="-")
-parser.add_option("--append", dest="APPEND_OUTPUT", action="store_true", default=False)
-verbgroup = OptionGroup(parser, "Verbosity control")
-verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
-                     default=logging.INFO, help="print debug (very verbose) messages")
-verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
-                     default=logging.INFO, help="be very quiet")
-parser.add_option_group(verbgroup)
-(opts, args) = parser.parse_args()
-logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
+#############################################
 
-## Prefix used in dat file headers
-headerprefix = "# "
-
-
-## Check args
-if len(args) < 1:
-    logging.error("Must specify at least one AIDA histogram file")
-    sys.exit(1)
-
-
-## Get histos
-inhistos = {}
-weights = {}
-try:
-    for aidafile_ptmin in args:
-        aidafile, sqrts, ptmin = None, None, None
-        try:
-            aidafile, sqrts, ptmin = aidafile_ptmin.rsplit(":", 2)
-        except ValueError, v:
-            raise Exception("Did you supply the file arguments in the 'name:sqrts:ptmin' format?")
-        tree = ET.parse(aidafile)
-        for dps in tree.findall("dataPointSet"):
-            h = mkHistoFromDPS(dps)
-            if not inhistos.has_key(h.fullPath()):
-                inhistos[h.fullPath()] = {}
-            tmpE = inhistos[h.fullPath()]
-            if not tmpE.has_key(sqrts):
-                tmpE[sqrts] = {}
-            tmpP = tmpE[sqrts]
-            if not tmpP.has_key(float(ptmin)):
-                tmpP[float(ptmin)] = h
-            else:
-                raise Exception("A set with sqrt(s) = %s, and ptmin = %s already exists" % (sqrts, ptmin))
-except Exception, e:
-    sys.stderr.write("Danger, Will Robinson!\n")
-    sys.stderr.write(str(e) + "\n")
-    sys.exit(1)
-
-
-## Make empty output histos
-outhistos = {}
-for hpath, hsets in sorted(inhistos.iteritems()):
-    logging.debug(hpath + " " + str(dict([(sqrts, hsets[sqrts].keys()) for sqrts in hsets.keys()])))
-    workhisto = copy.deepcopy(hsets.values()[0].values()[0])
-    #print workhisto
-    outhistos[hpath] = workhisto
-    ## There's no reason to merge reference histos
-    if re.match(r'^/REF.*', hpath):
-        continue
-    ## Empty the bin set for histos which we're going to merge
-    for b in outhistos[hpath]:
-        b.clear()
-    #print outhistos[hpath]
 
 
 def fillAbove(desthisto, sourcehistosbyptmin):
@@ -322,7 +257,7 @@ def fillAbove(desthisto, sourcehistosbyptmin):
             newb = h.getBin(i)
             if newb.xlow >= float(ptmin):
                 desthisto.setBin(i, newb)
-                #print "copied:", b, " / ", histosS[hpath][sqrts].getBin(i)
+                logging.debug("Copied: %s / %s" % (str(b), str(histosS[hpath][sqrts].getBin(i))) )
     
 def mergeByPt(hpath, sqrts):
     global inhistos
@@ -344,119 +279,211 @@ def useOnePt(hpath, sqrts, ptmin):
                     abs(float(ptm)-float(ptmin)) < abs(closest_ptmin-float(ptmin)):
                 closest_ptmin = float(ptm)
         if closest_ptmin != float(ptmin):
-            sys.stderr.write("Inexact match for requested pTmin=%s: " % ptmin + \
-                                 "using pTmin=%f instead\n" % closest_ptmin)
+            logging.warning("Inexact match for requested pTmin=%s: " % ptmin + \
+                                "using pTmin=%f instead\n" % closest_ptmin)
         outhistos[hpath] =  inhistos[hpath][sqrts][closest_ptmin]
     except:
         pass
 
 
-######
 
-## Field analysis
-print "Processing CDF_2001_S4751469"
-## Number, profile in pT_lead (True?)
-useOnePt("/CDF_2001_S4751469/d03-x01-y01", "1800", "0")
-useOnePt("/CDF_2001_S4751469/d03-x01-y02", "1800", "0")
-useOnePt("/CDF_2001_S4751469/d03-x01-y03", "1800", "0")
-mergeByPt("/CDF_2001_S4751469/d04-x01-y01", "1800")
-mergeByPt("/CDF_2001_S4751469/d04-x01-y02", "1800")
-mergeByPt("/CDF_2001_S4751469/d04-x01-y03", "1800")
-## pT sums, profile in pT_lead (True?)
-useOnePt("/CDF_2001_S4751469/d05-x01-y01", "1800", "0")
-useOnePt("/CDF_2001_S4751469/d05-x01-y02", "1800", "0")
-useOnePt("/CDF_2001_S4751469/d05-x01-y03", "1800", "0")
-mergeByPt("/CDF_2001_S4751469/d06-x01-y01", "1800")
-mergeByPt("/CDF_2001_S4751469/d06-x01-y02", "1800")
-mergeByPt("/CDF_2001_S4751469/d06-x01-y03", "1800")
-## pT distributions (use a specific pT cut run?)
-useOnePt("/CDF_2001_S4751469/d07-x01-y01", "1800", "0")
-useOnePt("/CDF_2001_S4751469/d07-x01-y02", "1800", "0")
-useOnePt("/CDF_2001_S4751469/d07-x01-y03", "1800", "30")
-
-## Acosta analysis
-print "Processing CDF_2004_S5839831"
-## Mean pT, profile in ET_lead
-mergeByPt("/CDF_2004_S5839831/d01-x01-y01", "1800")
-mergeByPt("/CDF_2004_S5839831/d01-x01-y02", "1800")
-## pT_max,min, profiles in ET_lead
-mergeByPt("/CDF_2004_S5839831/d02-x01-y01", "1800")
-mergeByPt("/CDF_2004_S5839831/d02-x01-y02", "1800")
-mergeByPt("/CDF_2004_S5839831/d02-x01-y03", "1800")
-## pT distributions (want to use a specific pT cut run)
-useOnePt("/CDF_2004_S5839831/d03-x01-y01", "1800", "40")
-useOnePt("/CDF_2004_S5839831/d03-x01-y02", "1800", "80")
-useOnePt("/CDF_2004_S5839831/d03-x01-y03", "1800", "120")
-useOnePt("/CDF_2004_S5839831/d03-x01-y04", "1800", "160")
-useOnePt("/CDF_2004_S5839831/d03-x01-y05", "1800", "200")
-## N_max,min, profiles in ET_lead
-mergeByPt("/CDF_2004_S5839831/d04-x01-y01", "1800")
-mergeByPt("/CDF_2004_S5839831/d04-x01-y02", "1800")
-## Min bias dbs (want to use min bias pT cut)
-useOnePt("/CDF_2004_S5839831/d05-x01-y01", "1800", "0")
-useOnePt("/CDF_2004_S5839831/d06-x01-y01", "1800", "0")
-## Swiss Cheese, profile in ET_lead
-mergeByPt("/CDF_2004_S5839831/d07-x01-y01", "1800")
-mergeByPt("/CDF_2004_S5839831/d07-x01-y02", "1800")
-## pT_max,min, profiles in ET_lead
-mergeByPt("/CDF_2004_S5839831/d08-x01-y01", "630")
-mergeByPt("/CDF_2004_S5839831/d08-x01-y02", "630")
-mergeByPt("/CDF_2004_S5839831/d08-x01-y03", "630")
-## Swiss Cheese, profile in ET_lead
-mergeByPt("/CDF_2004_S5839831/d09-x01-y01", "630")
-mergeByPt("/CDF_2004_S5839831/d09-x01-y02", "630")
-## Min bias dbs (want to use min bias pT cut)
-useOnePt("/CDF_2004_S5839831/d10-x01-y01", "630", "0")
-useOnePt("/CDF_2004_S5839831/d11-x01-y01", "630", "0")
-
-## Rick Field Run-II Leading Jets analysis
-print "Processing CDF_2008_LEADINGJETS"
-## charged particle density
-mergeByPt("/CDF_2008_LEADINGJETS/d01-x01-y01", "1960")
-mergeByPt("/CDF_2008_LEADINGJETS/d02-x01-y01", "1960")
-mergeByPt("/CDF_2008_LEADINGJETS/d03-x01-y01", "1960")
-mergeByPt("/CDF_2008_LEADINGJETS/d04-x01-y01", "1960")
-## pT sum density
-mergeByPt("/CDF_2008_LEADINGJETS/d05-x01-y01", "1960")
-mergeByPt("/CDF_2008_LEADINGJETS/d06-x01-y01", "1960")
-mergeByPt("/CDF_2008_LEADINGJETS/d07-x01-y01", "1960")
-mergeByPt("/CDF_2008_LEADINGJETS/d08-x01-y01", "1960")
-## mean pT
-mergeByPt("/CDF_2008_LEADINGJETS/d09-x01-y01", "1960")
-
-## D0 dijet correlation analysis
-print "Processing D0_2004_S5992206"
-useOnePt("/D0_2004_S5992206/d01-x02-y01", "1960", "50")
-useOnePt("/D0_2004_S5992206/d02-x02-y01", "1960", "75")
-useOnePt("/D0_2004_S5992206/d03-x02-y01", "1960", "100")
-useOnePt("/D0_2004_S5992206/d04-x02-y01", "1960", "150")
+#######################################
 
 
-## Choose output file
-out = None
-if opts.OUTFILE == "-":
-    out = sys.stdout
-else:
-    if opts.APPEND_OUTPUT:
-        out = open(opts.OUTFILE, "a")
+
+
+if __name__ == "__main__":
+    import logging
+    from optparse import OptionParser, OptionGroup
+    parser = OptionParser(usage="%prog aidafile:sqrts:minpt aidafile2:sqrts:minpt [...]")
+    parser.add_option("-o", "--out", dest="OUTFILE", default="-")
+    parser.add_option("--append", dest="APPEND_OUTPUT", action="store_true", default=False)
+    verbgroup = OptionGroup(parser, "Verbosity control")
+    verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                         default=logging.INFO, help="print debug (very verbose) messages")
+    verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                         default=logging.INFO, help="be very quiet")
+    parser.add_option_group(verbgroup)
+    (opts, args) = parser.parse_args()
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+
+
+    ## Prefix used in dat file headers
+    headerprefix = "# "
+
+
+    ## Check args
+    if len(args) < 1:
+        logging.error("Must specify at least one AIDA histogram file")
+        sys.exit(1)
+
+
+    ## Get histos
+    inhistos = {}
+    weights = {}
+    try:
+        for aidafile_ptmin in args:
+            aidafile, sqrts, ptmin = None, None, None
+            try:
+                aidafile, sqrts, ptmin = aidafile_ptmin.rsplit(":", 2)
+            except ValueError, v:
+                raise Exception("Did you supply the file arguments in the 'name:sqrts:ptmin' format?")
+
+
+            ## Parse this AIDA file as XML
+            if not os.access(aidafile, os.R_OK):
+                logging.error("%s can not be read" % aidafile)
+                break
+            try:
+                tree = ET.parse(aidafile)
+            except:
+                logging.error("%s can not be parsed as XML" % aidafile)
+                break
+            tree = ET.parse(aidafile)
+
+
+            ## Get histos from this AIDA file
+            for dps in tree.findall("dataPointSet"):
+                h = mkHistoFromDPS(dps)
+                if not inhistos.has_key(h.fullPath()):
+                    inhistos[h.fullPath()] = {}
+                tmpE = inhistos[h.fullPath()]
+                if not tmpE.has_key(sqrts):
+                    tmpE[sqrts] = {}
+                tmpP = tmpE[sqrts]
+                if not tmpP.has_key(float(ptmin)):
+                    tmpP[float(ptmin)] = h
+                else:
+                    raise Exception("A set with sqrt(s) = %s, and ptmin = %s already exists" % (sqrts, ptmin))
+    except Exception, e:
+        logging.error("Danger, Will Robinson!")
+        logging.error(str(e))
+        sys.exit(1)
+
+
+    ## Make empty output histos
+    outhistos = {}
+    for hpath, hsets in sorted(inhistos.iteritems()):
+        logging.debug(hpath + " " + str(dict([(sqrts, hsets[sqrts].keys()) for sqrts in hsets.keys()])))
+        workhisto = copy.deepcopy(hsets.values()[0].values()[0])
+        logging.debug(workhisto)
+        outhistos[hpath] = workhisto
+        ## There's no reason to merge reference histos
+        if re.match(r'^/REF.*', hpath):
+            continue
+        ## Empty the bin set for histos which we're going to merge
+        for b in outhistos[hpath]:
+            b.clear()
+        logging.debug(outhistos[hpath])
+
+
+    ######
+
+
+    ## Field analysis
+    logging.info("Processing CDF_2001_S4751469")
+    ## Number, profile in pT_lead (True?)
+    useOnePt("/CDF_2001_S4751469/d03-x01-y01", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d03-x01-y02", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d03-x01-y03", "1800", "0")
+    mergeByPt("/CDF_2001_S4751469/d04-x01-y01", "1800")
+    mergeByPt("/CDF_2001_S4751469/d04-x01-y02", "1800")
+    mergeByPt("/CDF_2001_S4751469/d04-x01-y03", "1800")
+    ## pT sums, profile in pT_lead (True?)
+    useOnePt("/CDF_2001_S4751469/d05-x01-y01", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d05-x01-y02", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d05-x01-y03", "1800", "0")
+    mergeByPt("/CDF_2001_S4751469/d06-x01-y01", "1800")
+    mergeByPt("/CDF_2001_S4751469/d06-x01-y02", "1800")
+    mergeByPt("/CDF_2001_S4751469/d06-x01-y03", "1800")
+    ## pT distributions (use a specific pT cut run?)
+    useOnePt("/CDF_2001_S4751469/d07-x01-y01", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d07-x01-y02", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d07-x01-y03", "1800", "30")
+
+    ## Acosta analysis
+    logging.info("Processing CDF_2004_S5839831")
+    ## Mean pT, profile in ET_lead
+    mergeByPt("/CDF_2004_S5839831/d01-x01-y01", "1800")
+    mergeByPt("/CDF_2004_S5839831/d01-x01-y02", "1800")
+    ## pT_max,min, profiles in ET_lead
+    mergeByPt("/CDF_2004_S5839831/d02-x01-y01", "1800")
+    mergeByPt("/CDF_2004_S5839831/d02-x01-y02", "1800")
+    mergeByPt("/CDF_2004_S5839831/d02-x01-y03", "1800")
+    ## pT distributions (want to use a specific pT cut run)
+    useOnePt("/CDF_2004_S5839831/d03-x01-y01", "1800", "40")
+    useOnePt("/CDF_2004_S5839831/d03-x01-y02", "1800", "80")
+    useOnePt("/CDF_2004_S5839831/d03-x01-y03", "1800", "120")
+    useOnePt("/CDF_2004_S5839831/d03-x01-y04", "1800", "160")
+    useOnePt("/CDF_2004_S5839831/d03-x01-y05", "1800", "200")
+    ## N_max,min, profiles in ET_lead
+    mergeByPt("/CDF_2004_S5839831/d04-x01-y01", "1800")
+    mergeByPt("/CDF_2004_S5839831/d04-x01-y02", "1800")
+    ## Min bias dbs (want to use min bias pT cut)
+    useOnePt("/CDF_2004_S5839831/d05-x01-y01", "1800", "0")
+    useOnePt("/CDF_2004_S5839831/d06-x01-y01", "1800", "0")
+    ## Swiss Cheese, profile in ET_lead
+    mergeByPt("/CDF_2004_S5839831/d07-x01-y01", "1800")
+    mergeByPt("/CDF_2004_S5839831/d07-x01-y02", "1800")
+    ## pT_max,min, profiles in ET_lead
+    mergeByPt("/CDF_2004_S5839831/d08-x01-y01", "630")
+    mergeByPt("/CDF_2004_S5839831/d08-x01-y02", "630")
+    mergeByPt("/CDF_2004_S5839831/d08-x01-y03", "630")
+    ## Swiss Cheese, profile in ET_lead
+    mergeByPt("/CDF_2004_S5839831/d09-x01-y01", "630")
+    mergeByPt("/CDF_2004_S5839831/d09-x01-y02", "630")
+    ## Min bias dbs (want to use min bias pT cut)
+    useOnePt("/CDF_2004_S5839831/d10-x01-y01", "630", "0")
+    useOnePt("/CDF_2004_S5839831/d11-x01-y01", "630", "0")
+
+    ## Rick Field Run-II Leading Jets analysis
+    logging.info("Processing CDF_2008_LEADINGJETS")
+    ## charged particle density
+    mergeByPt("/CDF_2008_LEADINGJETS/d01-x01-y01", "1960")
+    mergeByPt("/CDF_2008_LEADINGJETS/d02-x01-y01", "1960")
+    mergeByPt("/CDF_2008_LEADINGJETS/d03-x01-y01", "1960")
+    mergeByPt("/CDF_2008_LEADINGJETS/d04-x01-y01", "1960")
+    ## pT sum density
+    mergeByPt("/CDF_2008_LEADINGJETS/d05-x01-y01", "1960")
+    mergeByPt("/CDF_2008_LEADINGJETS/d06-x01-y01", "1960")
+    mergeByPt("/CDF_2008_LEADINGJETS/d07-x01-y01", "1960")
+    mergeByPt("/CDF_2008_LEADINGJETS/d08-x01-y01", "1960")
+    ## mean pT
+    mergeByPt("/CDF_2008_LEADINGJETS/d09-x01-y01", "1960")
+
+    ## D0 dijet correlation analysis
+    logging.info("Processing D0_2004_S5992206")
+    useOnePt("/D0_2004_S5992206/d01-x02-y01", "1960", "50")
+    useOnePt("/D0_2004_S5992206/d02-x02-y01", "1960", "75")
+    useOnePt("/D0_2004_S5992206/d03-x02-y01", "1960", "100")
+    useOnePt("/D0_2004_S5992206/d04-x02-y01", "1960", "150")
+
+
+    ## Choose output file
+    out = None
+    if opts.OUTFILE == "-":
+        out = sys.stdout
     else:
-        out = open(opts.OUTFILE, "w")
+        if opts.APPEND_OUTPUT:
+            out = open(opts.OUTFILE, "a")
+        else:
+            out = open(opts.OUTFILE, "w")
 
 
-## Write out merged histos
-for hpath, h in sorted(outhistos.iteritems()):
-    #print hpath
-    out.write(h.asFlat() + "\n\n")
+    ## Write out merged histos
+    for hpath, h in sorted(outhistos.iteritems()):
+        logging.debug("hpath = %s" % hpath)
+        out.write(h.asFlat() + "\n\n")
 
 
-sys.exit(0)
-## Write to multiple auto-named dat files
-for hpath, h in sorted(outhistos.iteritems()):
-    #print hpath
-    safename = hpath.replace("/", "_") + ".dat"
-    if safename[0] == "_":
-        safename = safename[1:]
-    print "Writing histo to", safename
-    f = open(safename, "w")
-    f.write(h.asFlat() + "\n")
-    f.close()
+    sys.exit(0)
+    ## Write to multiple auto-named dat files
+    for hpath, h in sorted(outhistos.iteritems()):
+        logging.debug("hpath = %s" % hpath)
+        safename = hpath.replace("/", "_") + ".dat"
+        if safename[0] == "_":
+            safename = safename[1:]
+        logging.info("Writing histo to %s" % safename)
+        f = open(safename, "w")
+        f.write(h.asFlat() + "\n")
+        f.close()
