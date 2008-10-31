@@ -1,3 +1,9 @@
+2008-10-31  Andy Buckley  <andy@insectnation.org>
+
+	* Clean-up of histo titles and analysis code review.
+
+	* Added momentum construction functions from FastJet PseudoJets.
+
 2008-10-28  Andy Buckley  <andy@insectnation.org>
 
 	* Auto-booking of histograms with a name, rather than the HepData

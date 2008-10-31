@@ -19,7 +19,17 @@
 
 namespace Rivet {
 
+  /// Make a 3-momentum vector from a FastJet pseudo-jet
+  inline Vector3 momentum3(const fastjet::PseudoJet& pj) {
+    return Vector3(pj.px(), pj.py(), pj.pz());
+  }
+
+  /// Make a 4-momentum vector from a FastJet pseudo-jet
+  inline FourMomentum momentum(const fastjet::PseudoJet& pj) {
+    return FourMomentum(pj.E(), pj.px(), pj.py(), pj.pz());
+  }
   
+
   /// Typedef for a collection of PseudoJets.
   typedef vector<fastjet::PseudoJet> PseudoJets;
   
