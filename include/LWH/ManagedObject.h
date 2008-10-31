@@ -33,6 +33,7 @@ public:
     std::string out = in;
     typedef std::pair<std::string, std::string> CharsToEntities;
     std::vector<CharsToEntities> cs2es;
+    cs2es.push_back(std::make_pair("\"", "&quot;"));
     cs2es.push_back(std::make_pair("&", "&amp;"));
     cs2es.push_back(std::make_pair("<", "&lt;"));
     cs2es.push_back(std::make_pair(">", "&gt;"));
