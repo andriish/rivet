@@ -16,13 +16,13 @@ namespace Rivet {
     /// @todo Automate this sort of thing so that the analysis code is more readable.
     for (size_t i = 0; i < _nbin; ++i) {
       string istr(1, char('1' + i));
-      _hEtFlow[i] = bookHistogram1D(istr, "dEt/d[c] CMS bin=" + istr, _nb, _xmin, _xmax);
-      _hEtFlowStat[i] = bookHistogram1D(istr, "stat dEt/d[c] CMS bin=1" + istr, _nb, _xmin, _xmax);
+      _hEtFlow[i] = bookHistogram1D(istr, "$\\mathrm{d}E_\\perp/\\mathrm{d}[c]$ CMS bin = " + istr, _nb, _xmin, _xmax);
+      _hEtFlowStat[i] = bookHistogram1D(istr, "Stat $\\mathrm{d}E_\\perp/\\mathrm{d}[c]$ CMS bin = 1" + istr, _nb, _xmin, _xmax);
     }
-    _hAvEt = bookHistogram1D("21tmp", "<Et> vs kin. bin", _nbin, 1.0, 10.0);
-    _hAvX  = bookHistogram1D("22tmp", "<x>  vs kin. bin", _nbin, 1.0, 10.0);
-    _hAvQ2 = bookHistogram1D("23tmp", "<Q2> vs kin. bin", _nbin, 1.0, 10.0);
-    _hN    = bookHistogram1D("24", "# events vs kin. bin", _nbin, 1.0, 10.0);
+    _hAvEt = bookHistogram1D("21tmp", "$\\langle E_\\perp \\rangle$ vs kin. bin", _nbin, 1.0, 10.0);
+    _hAvX  = bookHistogram1D("22tmp", "$\\langle x \\rangle$  vs kin. bin", _nbin, 1.0, 10.0);
+    _hAvQ2 = bookHistogram1D("23tmp", "$\\langle Q^2 \\rangle$ vs kin. bin", _nbin, 1.0, 10.0);
+    _hN    = bookHistogram1D("24", "Num events vs kin. bin", _nbin, 1.0, 10.0);
   }
   
 

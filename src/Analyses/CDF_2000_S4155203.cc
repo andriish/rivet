@@ -1,5 +1,4 @@
 // -*- C++ -*-
-
 // CDF Z pT analysis
 
 #include "Rivet/Rivet.hh"
@@ -7,13 +6,12 @@
 #include "Rivet/Analyses/CDF_2000_S4155203.hh"
 #include "Rivet/RivetAIDA.hh"
 
-
 namespace Rivet {
 
 
   // Book histograms
   void CDF_2000_S4155203::init() {
-    _hist_zpt        = bookHistogram1D( 1, 1, 1, "Z pT");
+    _hist_zpt = bookHistogram1D(1, 1, 1, "$Z p_\\perp$");
   }
 
 

@@ -1,14 +1,9 @@
 // -*- C++ -*-
+// CDF Run II inclusive jet cross-section using the midpoint algorithm.
+
 #include "Rivet/Analyses/CDF_2008_S7828950.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-
-
-  /// CDF Run II inclusive jet cross-section using the Midpoint algorithm.
-  /// The analysis includes 1.1fb^-1 of CDF data and is the first with a 
-  /// cone algorithm to include the forward region of the detector.
-  /// arXiv:0807.2204 to be published in PRD
-  /// @author Craig Group
 
 namespace Rivet {
 
@@ -17,14 +12,14 @@ namespace Rivet {
 
   // Book histos and set counters for number of events passed in each one
   void CDF_2008_S7828950::init() {
-    _binnedHistosR07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1, "eta < 0.1, R=0.7"));
-    _binnedHistosR07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1, "0.1 < eta < 0.7, R=0.7"));
-    _binnedHistosR07.addHistogram(0.7, 1.1, bookHistogram1D(3, 1, 1, "0.7 < eta < 1.1, R=0.7"));
-    _binnedHistosR07.addHistogram(1.1, 1.6, bookHistogram1D(4, 1, 1, "1.1 < eta < 1.6, R=0.7"));
-    _binnedHistosR07.addHistogram(1.6, 2.1, bookHistogram1D(5, 1, 1, "1.6 < eta < 2.1, R=0.7"));
+    /// @todo What actually are these histos showing?
+    _binnedHistosR07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1, "$\\eta < 0.1, R=0.7$"));
+    _binnedHistosR07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1, "$0.1 < \\eta < 0.7, R=0.7$"));
+    _binnedHistosR07.addHistogram(0.7, 1.1, bookHistogram1D(3, 1, 1, "$0.7 < \\eta < 1.1, R=0.7$"));
+    _binnedHistosR07.addHistogram(1.1, 1.6, bookHistogram1D(4, 1, 1, "$1.1 < \\eta < 1.6, R=0.7$"));
+    _binnedHistosR07.addHistogram(1.6, 2.1, bookHistogram1D(5, 1, 1, "$1.6 < \\eta < 2.1, R=0.7$"));
 
     size_t yind = 0;
-
     for (vector<AIDA::IHistogram1D*>::const_iterator histIt = _binnedHistosR07.getHistograms().begin();
         histIt != _binnedHistosR07.getHistograms().end(); ++histIt){
       _eventsPassed[*histIt] = 0.0;

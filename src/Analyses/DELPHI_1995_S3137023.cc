@@ -50,8 +50,8 @@ namespace Rivet {
 
 
   void DELPHI_1995_S3137023::init() {
-    _histXpXiMinus       = bookHistogram1D(2, 1, 1, "Xi- scaled momentum");
-    _histXpSigma1385Plus = bookHistogram1D(3, 1, 1, "Sigma(1385)+/Sigma(1385)- scaled momentum");
+    _histXpXiMinus       = bookHistogram1D(2, 1, 1, "$\\Xi^-$ scaled momentum");
+    _histXpSigma1385Plus = bookHistogram1D(3, 1, 1, "$\\Sigma^+(1385)/\\Sigma^-(1385)$ scaled momentum");
   }
 
   // Finalize

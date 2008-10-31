@@ -8,6 +8,7 @@ namespace Rivet {
 
   void CDF_1994_S2952106::init() {
     /// @todo Use histogram auto-booking
+
     //_histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1, "Jet Jet azimuthal angle, pTmax=75..100");
     //_histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1, "Jet Jet azimuthal angle, pTmax=100..130");
     //_histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 2, 1, "Jet Jet azimuthal angle, pTmax=130..180");
@@ -22,54 +23,61 @@ namespace Rivet {
     //_histRvsAlpha = bookHistogram2D(hname2, htitle2, 50, 0., 5., 32, -1.6, 1.6);
 
     const string hname3 = "Jet1Et";
-    const string htitle3 = "Et of leading jet";
+    const string htitle3 = "$E_\\perp$ of leading jet";
     _histJet1Et = bookHistogram1D(hname3, htitle3, 40, 0., 500.);
 
     const string hname4 = "Jet2Et";
-    const string htitle4 = "Et of 2nd leading jet";
+    const string htitle4 = "$E_\\perp$ of 2nd leading jet";
     _histJet2Et = bookHistogram1D(hname4, htitle4, 40, 0., 500.);
 
     const string hname5 = "R23";
-    const string htitle5 = "R distance between 2nd, 3rd jet";
+    const string htitle5 = "$R$ distance between 2nd and 3rd jet";
     _histR23 = bookHistogram1D(hname5, htitle5, 50, 0., 5.);
 
     const string hname6 = "Jet3eta";
-    const string htitle6 = "Pseudorapidity of 3rd jet";
+    const string htitle6 = "Pseudorapidity, $\\eta$, of 3rd jet";
     _histJet3eta = bookHistogram1D(hname6, htitle6, 42, -4., 4.);
 
+    /// @todo Need better title
     const string hname7 = "alpha";
-    const string htitle7 = "alpha";
+    const string htitle7 = "$\\alpha$";
     _histAlpha = bookHistogram1D(hname7, htitle7, 42, -PI/2., PI/2.);
 
     //const string hname8 = "alphaMCvsDat";
     //const string htitle8 = "alpha MC vs. Data ";
     //_histAlphaMCvsDat = bookHistogram1D(hname8, htitle8, 42, -PI/2., PI/2.);
 
-
+    /// @todo Need better title
     const string hname9 = "alphaIdeal";
-    const string htitle9 = "alpha Ideal";
+    const string htitle9 = "$\\alpha_\\text{ideal}$";
     _histAlpaIdeal = bookHistogram1D(hname9, htitle9, 42, -PI/2., PI/2.);
 
+    /// @todo Need better title
     const string hname10 = "alphaCDF";
-    const string htitle10 = "alpha CDF";  
+    const string htitle10 = "$\\alpha_\\text{CDF}$";
     _histAlpaCDF = bookHistogram1D(hname10, htitle10, 42, -PI/2., PI/2.);
 
+    /// @todo Need better title
     const string hname11 = "R23Ideal";
-    const string htitle11 = "R23 Ideal";  
+    const string htitle11 = "$R_{23}^\\text{ideal}$";  
     _histR23Ideal = bookHistogram1D(hname11, htitle11, 50, 0., 5.);
 
+    /// @todo Need better title
     const string hname12 = "R23CDF";
-    const string htitle12 = "R23 CDF";  
+    const string htitle12 = "$R_{23}^\\text{CDF}$";
     _histR23CDF = bookHistogram1D(hname12, htitle12, 50, 0., 5.);
 
+    /// @todo Need better title
     const string hname13 = "Jet3etaIdeal";
-    const string htitle13 = "Jet3 eta Ideal";  
+    const string htitle13 = "Jet #3 $\\eta_\\text{ideal}$";  
     _histJet3etaIdeal = bookHistogram1D(hname13, htitle13, 42, -4., 4.);
 
+    /// @todo Need better title
     const string hname14 = "Jet3etaCDF";
-    const string htitle14 = "Jet3 eta CDF";  
+    const string htitle14 = "Jet #3 $\\eta_\\text{CDF}$";  
     _histJet3etaCDF = bookHistogram1D(hname14, htitle14, 42, -4., 4.);
 
+    /// @todo Move to constructor
     _events3jPassed = 0.;
   }
 

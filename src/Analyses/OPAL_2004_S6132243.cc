@@ -11,9 +11,9 @@ namespace Rivet {
     // Book histograms
     // histChTot_       = bookHistogram1D("TotalChMult","Total charged multiplicity", 25, 1.0, 51.0);
     histChTot_       = bookHistogram1D(1, 1, 1, "Total charged multiplicity");
-    histSphericity_  = bookHistogram1D("Sphericity", "Event Shape: Sphericity", 8, 0.0, 0.70);
-    histAplanarity_  = bookHistogram1D("Aplanarity", "Event Shape: APlanarity", 10, 0.0, 0.09);
-    histPlanarity_   = bookHistogram1D("Planarity",  "Event Shape: Planarity", 16, 0.0, 0.70);
+    histSphericity_  = bookHistogram1D("Sphericity", "Sphericity", 8, 0.0, 0.70);
+    histAplanarity_  = bookHistogram1D("Aplanarity", "Aplanarity", 10, 0.0, 0.09);
+    histPlanarity_   = bookHistogram1D("Planarity",  "Planarity", 16, 0.0, 0.70);
   }
 
 

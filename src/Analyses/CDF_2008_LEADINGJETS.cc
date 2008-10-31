@@ -5,25 +5,23 @@
 #include "Rivet/Analyses/CDF_2008_LEADINGJETS.hh"
 #include "Rivet/RivetAIDA.hh"
 
-
 namespace Rivet {
 
 
   // Book histograms
   void CDF_2008_LEADINGJETS::init() {
-    _hist_pnchg      = bookProfile1D( 1, 1, 1, "Transverse Region Charged Particle Density");
-    _hist_pmaxnchg   = bookProfile1D( 2, 1, 1, "TransMAX Region Charged Particle Density");
-    _hist_pminnchg   = bookProfile1D( 3, 1, 1, "TransMIN Region Charged Particle Density");
-    _hist_pdifnchg   = bookProfile1D( 4, 1, 1, "TransDIF Region Charged Particle Density");
-    _hist_pcptsum    = bookProfile1D( 5, 1, 1, "Transverse Region Charged pT Sum Density");
-    _hist_pmaxcptsum = bookProfile1D( 6, 1, 1, "TransMAX Region Charged pT Sum Density");
-    _hist_pmincptsum = bookProfile1D( 7, 1, 1, "TransMIN Region Charged pT Sum Density");
-    _hist_pdifcptsum = bookProfile1D( 8, 1, 1, "TransDIF Region Charged pT Sum Density");
-    _hist_pcptave    = bookProfile1D( 9, 1, 1, "Transverse Region Charged pT Average");
-
-    //_hist_onchg   = bookProfile1D( 1, 1, 1, "Overall Number of Charged Particles");
-    //_hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall Charged pT Sum");
-    //_hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall ET Sum");
+    _hist_pnchg      = bookProfile1D( 1, 1, 1, "Transverse region charged particle density");
+    _hist_pmaxnchg   = bookProfile1D( 2, 1, 1, "TransMAX region charged particle density");
+    _hist_pminnchg   = bookProfile1D( 3, 1, 1, "TransMIN region charged particle density");
+    _hist_pdifnchg   = bookProfile1D( 4, 1, 1, "TransDIF region charged particle density");
+    _hist_pcptsum    = bookProfile1D( 5, 1, 1, "Transverse region charged pT sum density");
+    _hist_pmaxcptsum = bookProfile1D( 6, 1, 1, "TransMAX region charged pT sum density");
+    _hist_pmincptsum = bookProfile1D( 7, 1, 1, "TransMIN region charged pT sum density");
+    _hist_pdifcptsum = bookProfile1D( 8, 1, 1, "TransDIF region charged pT sum density");
+    _hist_pcptave    = bookProfile1D( 9, 1, 1, "Transverse region charged pT average");
+    //_hist_onchg   = bookProfile1D( 1, 1, 1, "Overall number of charged particles");
+    //_hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall charged $p_\\perp$ sum");
+    //_hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall $E_\\perp$ sum");
   }
 
 
@@ -39,21 +37,19 @@ namespace Rivet {
 
     const FastJets& jetpro = applyProjection<FastJets>(e, "MidpointJets");
     const PseudoJets& jets = jetpro.pseudoJetsByPt();
-
-    getLog() << Log::DEBUG << "jet multiplicity = " << jets.size() << endl;
+    getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
 
     // We require the leading jet to be within |eta|<2
     if (jets.size() < 1 || fabs(jets[0].eta()) >= 2) {
       getLog() << Log::DEBUG << "Failed jet cut" << endl;
       vetoEvent(e);
     }
-
+    
     const double jetphi = jets[0].phi();
     const double jetpT  = jets[0].perp();
-
-    getLog() << Log::DEBUG << "leading jet: pT = " << jetpT
-      << ", eta = " << jets[0].eta()
-      << ", phi = " << jetphi << endl;
+    getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
+             << ", eta = " << jets[0].eta()
+             << ", phi = " << jetphi << endl;
 
     // Get the event weight
     const double weight = e.weight();
@@ -79,6 +75,7 @@ namespace Rivet {
 
       // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
       // Lovely, isn't it?
+      /// @todo Use fastjet PseudoJet::phi_pi_pi (or whatever it's called)
       double rotatedphi = phi - jetphi;
       while (rotatedphi < 0) rotatedphi += 2*PI;
 

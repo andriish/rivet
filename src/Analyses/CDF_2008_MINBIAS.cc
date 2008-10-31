@@ -11,7 +11,7 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2008_MINBIAS::init() {
-    _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1, "Mean track pT vs multiplicity");
+    _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1, "Mean track $p_\\perp$ vs multiplicity");
   }
 
 

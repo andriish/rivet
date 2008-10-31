@@ -41,13 +41,17 @@ namespace Rivet {
     addProjection(jetiso, "JetIsolation");
   } 
 
+
+
   // Book histograms
   void D0_2008_S6879055::init() {
     // Use histogram auto-booking
-    _crossSectionRatio = bookHistogram1D("crossSectionRatio", "#sigma(Z/#gamma + >=njets)/#sigma(Z/#gamma inclusive)", 5, -0.5, 4.5);
+    _crossSectionRatio = bookHistogram1D("crossSectionRatio", "$\\sigma(Z/\\gamma + >= n \\text{ jets}) / \\sigma(Z/\\gamma \\text{ inclusive})$", 5, -0.5, 4.5);
     //_crossSectionRatio =  bookHistogram1D(1,1,2, "#sigma(Z/#gamma + >=njets)/#sigma(Z/#gamma inclusive)");
-    _crossSectionRatioNormToDataBin1 = bookHistogram1D("crossSectionRatioNormToDataBin1", "#sigma(Z/#gamma + >=njets)/#sigma(Z/#gamma inclusive)", 5, -0.5, 4.5);
+    _crossSectionRatioNormToDataBin1 = bookHistogram1D("crossSectionRatioNormToDataBin1", "\\sigma(Z/\\gamma + >= n \\text{ jets}) / \\sigma(Z/\\gamma \\text{ inclusive})$", 5, -0.5, 4.5);
   }
+
+
 
   // Do the analysis 
   void D0_2008_S6879055::analyze(const Event & event) {
@@ -107,7 +111,7 @@ namespace Rivet {
         finaljet_list.push_back(*ijet);
       //if (fabs(ijet->pseudorapidity()) < 5) finaljet_list.push_back(*ijet);
     }
-    log << Log::DEBUG << "jets above 20 GeV and with |eta| < 2.5  size = " << finaljet_list.size() << endl;
+    log << Log::DEBUG << "Jets above 20 GeV and with |eta| < 2.5  size = " << finaljet_list.size() << endl;
 
     //now count....
     _events += weight;
@@ -132,6 +136,8 @@ namespace Rivet {
     // Finished
     log << Log::DEBUG << "Finished analyzing" << endl;
   }
+
+
 
   // Finalize
   void D0_2008_S6879055::finalize() {

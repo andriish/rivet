@@ -10,10 +10,10 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2006_S6653332::init() {
-    _histJetsPt   = bookHistogram1D(4, 1, 1, "All jets Pt");
-    _histJetsEta  = bookHistogram1D(5, 1, 1, "All jets Pseudorapidity");
-    _histbJetsPt  = bookHistogram1D(6, 1, 1, "b jets Pt");
-    _histbJetsEta = bookHistogram1D(7, 1, 1, "b jets Pseudorapidity");
+    _histJetsPt   = bookHistogram1D(4, 1, 1, "All jets $p_\\perp$");
+    _histJetsEta  = bookHistogram1D(5, 1, 1, "All jets pseudorapidity, $\\eta$");
+    _histbJetsPt  = bookHistogram1D(6, 1, 1, "$b$ jets $p_\\perp$");
+    _histbJetsEta = bookHistogram1D(7, 1, 1, "$b$ jets pseudorapidity, $\\eta$");
   }
 
 

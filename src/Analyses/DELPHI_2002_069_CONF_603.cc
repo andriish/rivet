@@ -9,6 +9,7 @@
 #define IS_PARTON_PDGID(id) ( abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18) )
 #define IS_BHADRON_PDGID(id) ( ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999) )
 
+
 namespace Rivet {
 
 
@@ -77,10 +78,10 @@ namespace Rivet {
 
 
   void DELPHI_2002_069_CONF_603::init() {
-    _histXbprim     = bookHistogram1D(1, 1, 1, "b quark fragmentation function f(xBprim)");
-    _histXbweak     = bookHistogram1D(2, 1, 1, "b quark fragmentation function f(xBweak)");
-    _histMeanXbprim = bookProfile1D(4, 1, 1, "Mean of b quark fragmentation function f(xBprim)");
-    _histMeanXbweak = bookProfile1D(5, 1, 1, "Mean of b quark fragmentation function f(xBweak)");
+    _histXbprim     = bookHistogram1D(1, 1, 1, "$b$ quark fragmentation function $f(x_B^\\text{prim})$");
+    _histXbweak     = bookHistogram1D(2, 1, 1, "$b$ quark fragmentation function $f(x_B^\\text{weak})$");
+    _histMeanXbprim = bookProfile1D(4, 1, 1, "Mean of $b$ quark fragmentation function $f(x_B^\\text{prim})$");
+    _histMeanXbweak = bookProfile1D(5, 1, 1, "Mean of $b$ quark fragmentation function $f(x_B^\\text{weak})$");
   }
 
   // Finalize

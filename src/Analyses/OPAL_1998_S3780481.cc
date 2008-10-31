@@ -96,18 +96,18 @@ namespace Rivet {
 
 
   void OPAL_1998_S3780481::init() {
-    _histXpuds           = bookHistogram1D(1, 1, 1, "uds events scaled momentum");
-    _histXpc             = bookHistogram1D(2, 1, 1, "c events scaled momentum");
-    _histXpb             = bookHistogram1D(3, 1, 1, "b events scaled momentum");
-    _histXpall           = bookHistogram1D(4, 1, 1, "all events scaled momentum");
-    _histLogXpuds        = bookHistogram1D(5, 1, 1, "uds events ln(1/xp)");
-    _histLogXpc          = bookHistogram1D(6, 1, 1, "c events ln(1/xp)");
-    _histLogXpb          = bookHistogram1D(7, 1, 1, "b events ln(1/xp)");
-    _histLogXpall        = bookHistogram1D(8, 1, 1, "all events ln(1/xp)");
-    _histMultiChargeduds = bookHistogram1D(9, 1, 1, "uds events mean charged multiplicity");
-    _histMultiChargedc   = bookHistogram1D(9, 1, 2, "c events mean charged multiplicity");
-    _histMultiChargedb   = bookHistogram1D(9, 1, 3, "b events mean charged multiplicity");
-    _histMultiChargedall = bookHistogram1D(9, 1, 4, "all events mean charged multiplicity");
+    _histXpuds           = bookHistogram1D(1, 1, 1, "$uds$ events scaled momentum");
+    _histXpc             = bookHistogram1D(2, 1, 1, "$c$ events scaled momentum");
+    _histXpb             = bookHistogram1D(3, 1, 1, "$b$ events scaled momentum");
+    _histXpall           = bookHistogram1D(4, 1, 1, "All events scaled momentum");
+    _histLogXpuds        = bookHistogram1D(5, 1, 1, "$uds$ events $\\ln(1/x_p)$");
+    _histLogXpc          = bookHistogram1D(6, 1, 1, "$c$ events $\\ln(1/x_p)$");
+    _histLogXpb          = bookHistogram1D(7, 1, 1, "$b$ events $\\ln(1/x_p)$");
+    _histLogXpall        = bookHistogram1D(8, 1, 1, "All events $\\ln(1/x_p)$");
+    _histMultiChargeduds = bookHistogram1D(9, 1, 1, "$uds$ events mean charged multiplicity");
+    _histMultiChargedc   = bookHistogram1D(9, 1, 2, "$c$ events mean charged multiplicity");
+    _histMultiChargedb   = bookHistogram1D(9, 1, 3, "$b$ events mean charged multiplicity");
+    _histMultiChargedall = bookHistogram1D(9, 1, 4, "All events mean charged multiplicity");
   }
 
   // Finalize

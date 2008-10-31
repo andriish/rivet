@@ -237,9 +237,9 @@ namespace Rivet {
     _histTMinor      = bookHistogram1D(4, 1, 1, "Thrust minor, $m$ (charged)");
 
     _histY3          = bookHistogram1D(5, 1, 1, "Two-jet resolution variable, $Y_3$ (charged)");
-    _histHeavyJetMass= bookHistogram1D(6, 1, 1, "Heavy Jet Mass (charged)"); 
+    _histHeavyJetMass= bookHistogram1D(6, 1, 1, "Heavy jet mass (charged)"); 
     _histCParam      = bookHistogram1D(7, 1, 1, "$C$ parameter (charged)");
-    _histOblateness  = bookHistogram1D(8, 1, 1, "Oblateness = $M - m$ (charged)");
+    _histOblateness  = bookHistogram1D(8, 1, 1, "Oblateness, $M - m$ (charged)");
 
     _histScaledMom   = bookHistogram1D(9, 1, 1, "Scaled momentum, $x_p = |p|/|p_\\text{beam}|$ (charged)");
     _histRapidityT   = bookHistogram1D(10, 1, 1, "Rapidity w.r.t. thrust axes, $y_T$ (charged)");
@@ -249,16 +249,16 @@ namespace Rivet {
 
     _histLogScaledMom = bookHistogram1D(17, 1, 1, "Log of scaled momentum, $\\log(1/x_p)$ (charged)");
 
-    _histChMult       = bookHistogram1D(18, 1, 1, "Charged Multiplicity Distribution");
-    _histMeanChMult   = bookHistogram1D(19, 1, 1, "Mean Charged Multiplicity");
+    _histChMult       = bookHistogram1D(18, 1, 1, "Charged multiplicity distribution");
+    _histMeanChMult   = bookHistogram1D(19, 1, 1, "Mean charged multiplicity");
 
-    _histMeanChMultRapt05= bookHistogram1D(20, 1, 1, "Mean Charged Multiplicity for rapidity $|Y| < 0.5$");
-    _histMeanChMultRapt10= bookHistogram1D(21, 1, 1, "Mean Charged Multiplicity for rapidity $|Y| < 1.0$");
-    _histMeanChMultRapt15= bookHistogram1D(22, 1, 1, "Mean Charged Multiplicity for rapidity $|Y| < 1.5$");
-    _histMeanChMultRapt20= bookHistogram1D(23, 1, 1, "Mean Charged Multiplicity for rapidity $|Y| < 2.0$");
+    _histMeanChMultRapt05= bookHistogram1D(20, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 0.5$");
+    _histMeanChMultRapt10= bookHistogram1D(21, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 1.0$");
+    _histMeanChMultRapt15= bookHistogram1D(22, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 1.5$");
+    _histMeanChMultRapt20= bookHistogram1D(23, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 2.0$");
 
 
-    // particle spectra
+    // Particle spectra
     _histMultiPiPlus        = bookHistogram1D(25, 1, 1, "$\\pi^\\pm$ spectrum");
     _histMultiKPlus         = bookHistogram1D(26, 1, 1, "$K^\\pm$ spectrum");
     _histMultiP             = bookHistogram1D(27, 1, 1, "$p$ spectrum");
@@ -278,7 +278,7 @@ namespace Rivet {
     
     _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1, "$K^{*\\pm}(892)$ spectrum");
     
-    // mean multiplicities 
+    // Mean multiplicities 
     _histMeanMultiPi0           = bookHistogram1D(44, 1,  2, "Mean $\\pi^0$ multiplicity");
     _histMeanMultiEta           = bookHistogram1D(44, 1,  3, "Mean $\\eta$ multiplicity");
     _histMeanMultiEtaPrime      = bookHistogram1D(44, 1,  4, "Mean $\\eta'$ multiplicity");

@@ -10,13 +10,14 @@ namespace Rivet {
 
   // Book histos and set counters for number of events passed in each one
   void CDF_2007_S7057202::init() {
-    _histoD05 = bookHistogram1D(6, 1, 1, "0.1 < eta < 0.7, D=0.5");
-    _histoD10 = bookHistogram1D(7, 1, 1, "0.1 < eta < 0.7, D=1.0");
-    _binnedHistosD07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1, "eta < 0.1, D=0.7"));
-    _binnedHistosD07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1, "0.1 < eta < 0.7, D=0.7"));
-    _binnedHistosD07.addHistogram(0.7, 1.1, bookHistogram1D(3, 1, 1, "0.7 < eta < 1.1, D=0.7"));
-    _binnedHistosD07.addHistogram(1.1, 1.6, bookHistogram1D(4, 1, 1, "1.1 < eta < 1.6, D=0.7"));
-    _binnedHistosD07.addHistogram(1.6, 2.1, bookHistogram1D(5, 1, 1, "1.6 < eta < 2.1, D=0.7"));
+    /// @todo What is actually described by these histos? Use comprehensive titles!
+    _histoD05 = bookHistogram1D(6, 1, 1, "??? for $0.1 < \\eta < 0.7, D=0.5$");
+    _histoD10 = bookHistogram1D(7, 1, 1, "??? for $0.1 < \\eta < 0.7, D=1.0$");
+    _binnedHistosD07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1, "??? for $\\eta < 0.1, D=0.7$"));
+    _binnedHistosD07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1, "??? for $0.1 < \\eta < 0.7, D=0.7$"));
+    _binnedHistosD07.addHistogram(0.7, 1.1, bookHistogram1D(3, 1, 1, "??? for $0.7 < \\eta < 1.1, D=0.7$"));
+    _binnedHistosD07.addHistogram(1.1, 1.6, bookHistogram1D(4, 1, 1, "??? for $1.1 < \\eta < 1.6, D=0.7$"));
+    _binnedHistosD07.addHistogram(1.6, 2.1, bookHistogram1D(5, 1, 1, "??? for $1.6 < \\eta < 2.1, D=0.7$"));
 
     size_t yind = 0;
     for (vector<AIDA::IHistogram1D*>::const_iterator histIt = _binnedHistosD07.getHistograms().begin();
@@ -80,10 +81,6 @@ namespace Rivet {
         }
       }
     }
-    
-    //for (set<IHistogram1D*>::iterator histIt = passed.begin(); histIt != passed.end(); ++histIt) {
-    // _eventsPassed[*histIt] += weight;
-    //}
   }  
 
 

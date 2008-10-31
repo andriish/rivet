@@ -86,6 +86,12 @@ namespace Rivet {
     string getYear() const {
       return "1996";
     }
+    /// Journal, and preprint references.
+    vector<string> getReferences() const {
+      vector<string> ret;
+      ret.push_back("");
+      return ret;
+    }
     //@}
 
 
