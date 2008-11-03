@@ -10,6 +10,9 @@ function _rivet() {
 
     if [[ ${cur} == -* ]] ; then
         opts="--help --verbose --quiet --version --number --analysis --list-analyses --histo-file"
+        #if test -x "$(which rivet)"; then
+        #    anas=$(rivet --list-options)
+        #fi
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         if test -n "$COMPREPLY"; then
             return 0
