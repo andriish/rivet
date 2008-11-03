@@ -1,0 +1,31 @@
+## -*- sh -*-
+## Analysis name completion for rivet
+
+function _rivet() {
+	local cur prev commands options command
+	COMPREPLY=()
+	cur=`_get_cword`
+    #cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    if [[ ${cur} == -* ]] ; then
+        opts="--help --verbose --quiet --version --number --analysis --list-analyses --histo-file"
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
+    if test -x "$(which rivet)"; then
+        anas=$(rivet --list-analyses)
+        if [[ ${prev} == -a || ${prev} == --analysis ]]; then
+            COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
+        elif [[ ${cur} == "--analysis=" ]] ; then 
+            COMPREPLY=( $(compgen -W "$anas" --) )
+        fi
+    fi
+    return 0
+}
+
+default="-o default"
+complete -F _rivet $default rivet

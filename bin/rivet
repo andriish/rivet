@@ -4,6 +4,7 @@ import sys, os
 import logging, signal
 from optparse import OptionParser, OptionGroup
 
+version="1.1.2"
 usage="""Run Rivet analyses on inputted events from file or Unix pipe
 
 Examples:
@@ -20,14 +21,19 @@ TODO:
 PROGPATH = sys.argv[0]
 PROGNAME = os.path.basename(PROGPATH)
 try:
-    import rivet, hepmc
+    import rivet
 except:
-    sys.stderr.write(PROGNAME + " requires the 'hepmc' and 'rivet' Python modules\n");
+    sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
+    sys.exit(1)
+try:
+    import hepmc
+except:
+    sys.stderr.write(PROGNAME + " requires the 'hepmc' Python module\n");
     sys.exit(1)
 
 
 ## Parse command line options
-parser = OptionParser(usage=usage)
+parser = OptionParser(usage=usage, version="rivet v%s" % version)
 parser.add_option("-n", "--number", dest="MAXEVTNUM", type=int,
                   default=None, metavar="NUM", 
                   help="max number of events to read.")

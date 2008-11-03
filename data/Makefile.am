@@ -60,3 +60,5 @@ nobase_dist_data_DATA += \
   RivetGun/tevatron1800.params \
   RivetGun/tevatron1960.params \
   RivetGun/lhc.params
+
+dist_pkgdata_DATA = rivet-completion

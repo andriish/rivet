@@ -75,7 +75,7 @@ AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 
 ## Decide whether to build the Python extension
 AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, 
-  [build Rivet Python module @<:@default=no@:>@])], [], [enable_pyrivet=no])
+  [build Rivet Python module @<:@default=yes@:>@])], [], [enable_pyrivet=yes])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyrivet == xyes])
 if test x$enable_pyrivet == xyes; then
   AM_PATH_PYTHON(2.3)
@@ -143,3 +143,23 @@ AC_CONFIG_FILES(bin/Makefile bin/rivet-config)
 AC_CONFIG_FILES(Makefile Doxyfile)
 
 AC_OUTPUT
+
+if test x$enable_pyrivet == xyes; then
+   cat <<EOF
+
+************************************************************
+RIVET CONFIGURED!
+
+Now build and install (to the $prefix tree) with e.g.
+make -j2 && make -j2 install
+
+To use Rivet, we recommend reading HepMC files from a file
+or pipe (the latter may be made with mkfifo) using the 
+'rivet' executable.
+
+For a more pleasant command line experience, you can include 
+the data/rivet-completion file into your .bashrc file,
+or your bash_completion.d directory if you have one.
+************************************************************
+EOF
+fi
