@@ -61,9 +61,14 @@ nobase_dist_data_DATA += \
   RivetGun/tevatron1960.params \
   RivetGun/lhc.params
 
+
+## bash completion
 dist_pkgdata_DATA = rivet-completion
 
 bashcomp_dir = $(prefix)/etc/bash_completion.d
 install-data-local:
 	if [[ -d "$(bashcomp_dir)" && -w "$(bashcomp_dir)" ]]; then \
       install --mode 644 rivet-completion $(bashcomp_dir)/; fi
+
+uninstall-data-local:
+	rm -f $(bashcomp_dir)/rivet-completion
