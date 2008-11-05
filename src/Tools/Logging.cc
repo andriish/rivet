@@ -37,13 +37,13 @@ namespace Rivet {
   }
 
 
-  void Log::setLevels(const string& name, int level) { 
+  void Log::setLevel(const string& name, int level) { 
     defaultLevels[name] = level;
     _updateLevels(defaultLevels, existingLogs); 
   }
 
 
-  void Log::setLevels(const LevelMap& logLevels) {
+  void Log::setLevels(LevelMap& logLevels) {
     for (LevelMap::const_iterator lev = logLevels.begin(); lev != logLevels.end(); ++lev) {
       defaultLevels[lev->first] = lev->second;
     }

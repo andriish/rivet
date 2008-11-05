@@ -15,13 +15,13 @@ namespace Rivet {
     };
 
     /// Typedef for a collection of named logs.
-    typedef map<const string, Log*> LogMap;
+    typedef std::map<const std::string, Log*> LogMap;
 
     /// Typedef for a collection of named log levels.
-    typedef map<const string, int> LevelMap;
+    typedef std::map<const std::string, int> LevelMap;
 
     /// Typedef for a collection of shell color codes, accessed by log level.
-    typedef map<int, string> ColorCodes;
+    typedef std::map<int, std::string> ColorCodes;
 
   private:
     /// A static map of existing logs: we don't make more loggers than necessary.
@@ -34,7 +34,7 @@ namespace Rivet {
     static ColorCodes colorCodes;
 
     /// Shell color code for the end of the log levels.
-    static string endColorCode;
+    static std::string endColorCode;
 
     /// Show timestamp?
     static bool showTimestamp;
@@ -50,8 +50,8 @@ namespace Rivet {
 
   public:
     /// Set the log levels
-    static void setLevels(const string& name, int level);
-    static void setLevels(const LevelMap& logLevels);
+    static void setLevel(const std::string& name, int level);
+    static void setLevels(LevelMap& logLevels);
 
     static void setShowTimestamp(const bool showTime=true) {
       showTimestamp = showTime;
@@ -73,10 +73,10 @@ namespace Rivet {
     /// @name Hidden constructors etc.
     //@{
     /// Constructor 1
-    Log(const string& name);
+    Log(const std::string& name);
 
     /// Constructor 2
-    Log(const string& name, int level);
+    Log(const std::string& name, int level);
 
     /// Copy constructor
     //Log(const Log&);
@@ -85,12 +85,12 @@ namespace Rivet {
     //Log& operator=(const Log&);
     //@}
 
-    static string getColorCode(int level);
+    static std::string getColorCode(int level);
 
   public:
     /// Get a logger with the given name. The level will be taken from the 
     /// "requestedLevels" static map or will be INFO by default.
-    static Log& getLog(const string& name);
+    static Log& getLog(const std::string& name);
 
   public:
     /// Get the priority level of this logger.
@@ -105,18 +105,18 @@ namespace Rivet {
     }
 
     /// Get a log level enum from a string.
-    static Level getLevelFromName(const string& level);
+    static Level getLevelFromName(const std::string& level);
 
-    /// Get the string representation of a log level.
-    static string getLevelName(int level);
+    /// Get the std::string representation of a log level.
+    static std::string getLevelName(int level);
 
     /// Get the name of this logger.
-    string getName() const {
+    std::string getName() const {
       return _name;
     }
 
     /// Set the name of this logger.
-    Log& setName(const string& name) {
+    Log& setName(const std::string& name) {
       _name = name;
       return *this;
     }
@@ -128,44 +128,44 @@ namespace Rivet {
 
     /// @name Explicit log methods
     //@{
-    void trace(const string& message) { log(TRACE, message); }
+    void trace(const std::string& message) { log(TRACE, message); }
 
-    void debug(const string& message) { log(DEBUG, message); }
+    void debug(const std::string& message) { log(DEBUG, message); }
     
-    void info(const string& message) { log(INFO, message); }
+    void info(const std::string& message) { log(INFO, message); }
 
-    void warn(const string& message) { log(WARN, message); }
+    void warn(const std::string& message) { log(WARN, message); }
 
-    void error(const string& message) { log(ERROR, message); }
+    void error(const std::string& message) { log(ERROR, message); }
     //@}
 
   private:
     /// This logger's name
-    string _name;
+    std::string _name;
     
     /// Threshold level for this logger.
     int _level;
     
   protected:
     /// Write a message at a particular level.
-    void log(int level, const string& message);
+    void log(int level, const std::string& message);
 
     /// Turn a message string into the current log format.
-    string formatMessage(int level, const string& message);
+    std::string formatMessage(int level, const std::string& message);
 
   public:
 
     /// A null output stream, used for piping discarded output to nowhere.
     /// @todo Hide this...
-    ostream* const _nostream;
+    std::ostream* const _nostream;
 
     /// The streaming operator can use Log's internals.
-    friend ostream& operator<<(Log& log, int level);
+    friend std::ostream& operator<<(Log& log, int level);
 
   };
   
   /// Streaming output to a logger must have a Log::Level/int as its first argument.
-  ostream& operator<<(Log& log, int level);
+  std::ostream& operator<<(Log& log, int level);
   
 }
 

@@ -1,3 +1,7 @@
+2008-11-04  Andy Buckley  <andy@insectnation.org>
+
+	* Adding native logger control from Python interface.
+
 2008-11-03  Andy Buckley  <andy@insectnation.org>
 
 	* Adding bash_completion for rivet executable.

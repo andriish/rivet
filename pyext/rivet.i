@@ -5,7 +5,9 @@
   #include "Rivet/Analysis.hh"
   #include "Rivet/AnalysisHandler.hh"
   #include "Rivet/AnalysisLoader.hh"
+  #include "Rivet/Tools/Logging.hh"
 %}
+
 
 %include "std_string.i"
 %include "std_vector.i"
@@ -13,9 +15,19 @@
 %include "std_map.i"
 %template(StrList) std::vector<std::string>;
 %template(StrSet) std::set<std::string>;
+%template(LogLevelMap) std::map<std::string, int>;
+
 
 %include "Rivet/ParticleName.hh"
 %include "Rivet/HistoFormat.hh"
+
+
+%ignore operator<<;
+namespace Rivet {
+  %rename(setLogLevel) Log::setLevel(const std::string&, int);
+}
+%include "Rivet/Tools/Logging.hh"
+
 
 namespace Rivet {
 

@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
     string arg(argv[argi]);
     if (arg.find("Rivet.Loader=TRACE") != string::npos ||
         arg.find("Rivet=TRACE") != string::npos) {
-      Rivet::Log::setLevels("Rivet.Loader", Log::TRACE);
+      Rivet::Log::setLevel("Rivet.Loader", Log::TRACE);
     }
     #ifdef HAVE_AGILE
     if (arg.find("AGILe.Loader=TRACE") != string::npos ||
