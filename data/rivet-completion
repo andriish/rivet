@@ -8,8 +8,8 @@ function _rivet() {
     #cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
+    opts="--help --verbose --quiet --version --number --analysis --list-analyses --histo-file"
     if [[ ${cur} == -* ]] ; then
-        opts="--help --verbose --quiet --version --number --analysis --list-analyses --histo-file"
         #if test -x "$(which rivet)"; then
         #    anas=$(rivet --list-options)
         #fi
@@ -23,10 +23,21 @@ function _rivet() {
         anas=$(rivet --list-analyses)
         if [[ ${prev} == -a || ${prev} == --analysis ]]; then
             COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
+            return 0
         elif [[ ${cur} == "--analysis=" ]] ; then 
             COMPREPLY=( $(compgen -W "$anas" --) )
+            return 0
         fi
     fi
+
+    if test -x "$(which rivet)"; then
+        files=$(ls)
+        COMPREPLY=( $(compgen -W "$opts $files" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
     return 0
 }
 
