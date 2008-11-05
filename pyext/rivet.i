@@ -71,6 +71,7 @@ namespace Rivet {
   class AnalysisLoader {
   public:
     static std::set<std::string> getAllAnalysisNames();
+    static Analysis* getAnalysis(const std::string& analysisname);
     static void closeAnalysisBuilders();    
   };
 

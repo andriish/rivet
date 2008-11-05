@@ -13,7 +13,7 @@ Examples:
   Eventually: my_generator | %prog [options]
 
 TODO:
- * ?
+ * Improve showing analysis details
 """
 
 
@@ -34,7 +34,7 @@ except:
 
 ## Parse command line options
 parser = OptionParser(usage=usage, version="rivet v%s" % version)
-parser.add_option("-n", "--number", dest="MAXEVTNUM", type=int,
+parser.add_option("-n", "--nevts", dest="MAXEVTNUM", type=int,
                   default=None, metavar="NUM", 
                   help="max number of events to read.")
 parser.add_option("-a", "--analysis", dest="ANALYSES", action="append",
@@ -44,6 +44,8 @@ parser.add_option("--list-options", dest="LIST_OPTIONS", action="store_true",
                   default=False, help="show the available option switches for auto-parsing by 'complete'")
 parser.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
                   default=False, help="show the list of available analyses")
+parser.add_option("--show-analysis", dest="SHOW_ANALYSES", action="append",
+                  default=[], help="show the details of an analysis")
 parser.add_option("-x", "--cross-section", dest="CROSS_SECTION", type=float,
                   default=None, metavar="XS",
                   help="specify the signal process cross-section in pb")
@@ -114,6 +116,29 @@ all_analyses = rivet.AnalysisLoader.getAllAnalysisNames()
 if opts.LIST_ANALYSES:
     for a in all_analyses:
         print a
+    sys.exit(0)
+
+
+## Show analyses' details
+if len(opts.SHOW_ANALYSES) > 0:
+    for a in opts.SHOW_ANALYSES:
+        a_up = a.upper()
+        ana = rivet.AnalysisLoader.getAnalysis(a_up)
+        print ana.getName()
+        print len(ana.getName()) * "="
+        print ""
+        print "Spires ID: %s" % ana.getSpiresId()
+        print "Experiment: %s" % ana.getExpt()
+        print "Year of publication: %s" % ana.getYear()
+        #print ana.getAuthor()
+        #print ana.getInstructions()
+        #print ana.getCuts()
+        print ""
+        print "Description:\n  " + ana.getDescription()
+        print ""
+        print "References:"
+        for r in ana.getReferences():
+            print "  %s" % r
     sys.exit(0)
 
 

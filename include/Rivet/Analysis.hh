@@ -85,7 +85,7 @@ namespace Rivet {
     /// combining the results of the experiment, year and Spires ID 
     /// metadata methods and you should only override it if there's a 
     /// good reason why those won't work.
-    virtual std::string getName() const { 
+    virtual std::string getName() const {
       return getExpt() + "_" + getYear() + "_S" + getSpiresId();
     }
 

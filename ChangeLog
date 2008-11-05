@@ -1,5 +1,7 @@
 2008-11-05  Andy Buckley  <andy@insectnation.org>
 
+	* Adding ability to query analysis metadata from the command line.
+
 	* Example of a plugin analyis now in plugindemo, with a make check
 	test to make sure that the plugin analysis is recognised by the
 	command line "rivet" tool.
