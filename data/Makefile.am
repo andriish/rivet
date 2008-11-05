@@ -62,7 +62,11 @@ nobase_dist_data_DATA += \
   RivetGun/lhc.params
 
 
+EXTRA_DIST =
+
 ## bash completion
+if ENABLE_PYRIVET
+
 dist_pkgdata_DATA = rivet-completion
 
 bashcomp_dir = $(prefix)/etc/bash_completion.d
@@ -72,3 +76,9 @@ install-data-local:
 
 uninstall-local:
 	rm -f $(bashcomp_dir)/rivet-completion
+
+else
+
+EXTRA_DIST += rivet-completion
+
+endif

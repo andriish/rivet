@@ -4,4 +4,6 @@ EXTRA_DIST = flat2aida
 
 if ENABLE_PYRIVET
 dist_bin_SCRIPTS += rivet
+else
+EXTRA_DIST = rivet
 endif
