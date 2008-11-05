@@ -140,6 +140,7 @@ AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(autopackage/default.apspec)
 AC_CONFIG_FILES(autopackage/data.apspec)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config)
+AC_CONFIG_FILES(plugindemo/Makefile)
 AC_CONFIG_FILES(Makefile Doxyfile)
 
 AC_OUTPUT

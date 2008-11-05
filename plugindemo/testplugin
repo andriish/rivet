@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+## -*- sh -*-
+
+thisdir=`dirname $0`
+export RIVET_ANALYSIS_PATH=$thisdir
+echo "List of analyses includes MYANALYSIS? "
+$thisdir/../bin/rivet --list-analyses | grep --color=auto MYANALYSIS
+exit $?

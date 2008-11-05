@@ -1,4 +1,6 @@
 #include <iostream>
+#include <limits>
+
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 #include "Rivet/Math/Matrices.hh"

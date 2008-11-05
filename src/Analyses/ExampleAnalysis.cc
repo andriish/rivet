@@ -24,22 +24,20 @@ namespace Rivet {
 
   // Do the analysis
   void ExampleAnalysis::analyze(const Event& event) {
-    Log log = getLog();
-
     // Analyse and print some info
     const Multiplicity& cm = applyProjection<Multiplicity>(event, "CMult");
     const Multiplicity& cnm = applyProjection<Multiplicity>(event, "CNMult");
-    log << Log::DEBUG << "Total multiplicity            = " << cnm.totalMultiplicity()  << endl;
-    log << Log::DEBUG << "Total charged multiplicity    = " << cm.totalMultiplicity()   << endl;
-    log << Log::DEBUG << "Hadron multiplicity           = " << cnm.hadronMultiplicity() << endl;
-    log << Log::DEBUG << "Hadron charged multiplicity   = " << cm.hadronMultiplicity()  << endl;
+    getLog() << Log::DEBUG << "Total multiplicity            = " << cnm.totalMultiplicity()  << endl;
+    getLog() << Log::DEBUG << "Total charged multiplicity    = " << cm.totalMultiplicity()   << endl;
+    getLog() << Log::DEBUG << "Hadron multiplicity           = " << cnm.hadronMultiplicity() << endl;
+    getLog() << Log::DEBUG << "Hadron charged multiplicity   = " << cm.hadronMultiplicity()  << endl;
 
     const Thrust& t = applyProjection<Thrust>(event, "Thrust");
-    log << Log::DEBUG << "Thrust = " << t.thrust() << endl;
+    getLog() << Log::DEBUG << "Thrust = " << t.thrust() << endl;
 
     const Sphericity& s = applyProjection<Sphericity>(event, "Sphericity");
-    log << Log::DEBUG << "Sphericity = " << s.sphericity() << endl;
-    log << Log::DEBUG << "Aplanarity = " << s.aplanarity() << endl;
+    getLog() << Log::DEBUG << "Sphericity = " << s.sphericity() << endl;
+    getLog() << Log::DEBUG << "Aplanarity = " << s.aplanarity() << endl;
 
     // Fill histograms
     const double weight = event.weight();
