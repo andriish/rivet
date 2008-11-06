@@ -30,7 +30,7 @@ namespace Rivet {
 
     double emax = 0.0;
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      if ( ( _idout == p->getPdgId() || allowAnti && _idout == -p->getPdgId() ) && 
+      if ( ( _idout == p->getPdgId() || (allowAnti && _idout == -p->getPdgId()) ) && 
            p->momentum().E() > emax ) {
         /// @todo change this to a correct way of finding the scattered lepton.
         emax = p->momentum().E();

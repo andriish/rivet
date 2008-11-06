@@ -32,9 +32,6 @@ namespace Rivet {
   void D0_2001_S4674421::analyze(const Event & event) {
       const double weight = event.weight();
       
-      // Final state without neutrinos needed for isolation function
-      const VetoedFinalState& vfs = applyProjection<VetoedFinalState>(event, "VFS");
-
       const LeadingParticlesFinalState& eeFS = applyProjection<LeadingParticlesFinalState>(event, "eeFS");
       
       // If there is a Z candidate
