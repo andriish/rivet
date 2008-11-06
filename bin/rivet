@@ -121,7 +121,7 @@ if opts.LIST_ANALYSES:
 
 ## Show analyses' details
 if len(opts.SHOW_ANALYSES) > 0:
-    for a in opts.SHOW_ANALYSES:
+    for i, a in enumerate(opts.SHOW_ANALYSES):
         a_up = a.upper()
         ana = rivet.AnalysisLoader.getAnalysis(a_up)
         print ana.getName()
@@ -139,6 +139,8 @@ if len(opts.SHOW_ANALYSES) > 0:
         print "References:"
         for r in ana.getReferences():
             print "  %s" % r
+        if i+1 < len(opts.SHOW_ANALYSES):
+            print "\n"
     sys.exit(0)
 
 
