@@ -9,12 +9,12 @@ namespace Rivet {
 
 
   void H1_1994_S2919893::analyze(const Event& event) {
-    const FinalState & fs = applyProjection<FinalState>(event, "FS");
+    const FinalState& fs = applyProjection<FinalState>(event, "FS");
     const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
     const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
 
     // Require outgoing lepton same type as incoming
-    if(dl.in().getPdgId()!=dl.out().getPdgId()) vetoEvent(event);
+    if (dl.in().pdgId()!=dl.out().pdgId()) vetoEvent(event);
 
     // Get the DIS kinematics
     double x  = dk.x();
@@ -41,7 +41,7 @@ namespace Rivet {
     }
 
     // Cut on the forward energy
-    double efwd = 0.;
+    double efwd = 0.0;
     foreach (const Particle& p, particles) {
       double th = beamAngle(p.momentum(), order);
       if (th > 4.4 && th < 15.) {
@@ -51,7 +51,7 @@ namespace Rivet {
 
     // Apply the cuts
     // Lepton energy and angle, w2 and forward energy
-    bool cut = enel > 14. && thel > 157. && thel < 172.5 && w2 >= 3000. && efwd > 0.5;
+    bool cut = enel/GeV > 14. && thel > 157. && thel < 172.5 && w2 >= 3000. && efwd/GeV > 0.5;
     if (!cut) vetoEvent(event);
 
     // Weight of the event
@@ -84,7 +84,8 @@ namespace Rivet {
       } else {
         _histEnergyFlowHighX->fill(eta, et*weight);
       }
-      if (PID::threeCharge(p.getPdgId()) !=0 ) {
+      if (PID::threeCharge(p.pdgId()) != 0) {
+        /// @todo Use units in w comparisons... what are the units?
         if (w > 50. && w <= 200.) {
           double xf= -2 * hcmMom.z() / w;
           double pt2 = pT2(hcmMom);
@@ -96,7 +97,8 @@ namespace Rivet {
             _histSpectraW169->fill(xf, weight);
           }
           _histSpectraW117->fill(xf, weight);
-          _histPT2->fill(xf, pt2*weight, weight);
+          /// @todo Is this profile meant to be filled with 2 weight factors?
+          _histPT2->fill(xf, pt2*weight/GeV2, weight);
           ++ncharged;
         }
       }

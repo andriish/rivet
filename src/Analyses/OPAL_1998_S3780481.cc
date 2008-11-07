@@ -24,7 +24,7 @@ namespace Rivet {
     _weightedTotalPartNum += numParticles * weight;
 
     // Get beams and average beam momentum
-    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
+    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
     const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
                                  beams.second.momentum().vector3().mod() ) / 2.0;
     getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
@@ -33,20 +33,22 @@ namespace Rivet {
     const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
 
     // If we only have two quarks (qqbar), just take the flavour.
-    // If we have more than two quarks, look for the highest energetic qqbar pair.
+    // If we have more than two quarks, look for the highest energetic q-qbar pair.
     if (iqf.particles().size() == 2) {
-      flavour = abs((iqf.particles().begin())->getPdgId());
+      flavour = abs( iqf.particles().front().pdgId() );
     }
     else {
       std::map<int, double> quarkmap;
-      for (ParticleVector::const_iterator p = iqf.particles().begin(); p != iqf.particles().end(); ++p) {
-        if (quarkmap[p->getPdgId()] < p->momentum().E())
-          quarkmap[p->getPdgId()] = p->momentum().E();
+      foreach (const Particle& p, iqf.particles()) {
+        if (quarkmap[p.pdgId()] < p.momentum().E()) {
+          quarkmap[p.pdgId()] = p.momentum().E();
+        }
       }
       double maxenergy = 0.;
-      for (int i=1 ; i<=5 ; i++) {
-        if (quarkmap[i]+quarkmap[-i] > maxenergy)
+      for (int i = 1; i <= 5; ++i) {
+        if (quarkmap[i]+quarkmap[-i] > maxenergy) {
           flavour = i;
+        }
       }
     }
 
@@ -64,13 +66,14 @@ namespace Rivet {
         break;
     }
 
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      const double xp = p->momentum().vector3().mod()/meanBeamMom;
+    foreach (const Particle& p, fs.particles()) {
+      const double xp = p.momentum().vector3().mod()/meanBeamMom;
       const double logxp = -std::log(xp);
       _histXpall->fill(xp, weight);
       _histLogXpall->fill(logxp, weight);
       _histMultiChargedall->fill(_histMultiChargedall->binMean(0), weight);
       switch (flavour) {
+        /// @todo Use PDG code enums
         case 1:
         case 2:
         case 3:
@@ -94,7 +97,6 @@ namespace Rivet {
   }
 
 
-
   void OPAL_1998_S3780481::init() {
     _histXpuds           = bookHistogram1D(1, 1, 1, "$uds$ events scaled momentum");
     _histXpc             = bookHistogram1D(2, 1, 1, "$c$ events scaled momentum");
@@ -109,6 +111,7 @@ namespace Rivet {
     _histMultiChargedb   = bookHistogram1D(9, 1, 3, "$b$ events mean charged multiplicity");
     _histMultiChargedall = bookHistogram1D(9, 1, 4, "All events mean charged multiplicity");
   }
+
 
   // Finalize
   void OPAL_1998_S3780481::finalize() {
@@ -127,5 +130,6 @@ namespace Rivet {
     scale(_histMultiChargedb  , 1.0/_SumOfbWeights);
     scale(_histMultiChargedall, 1.0/sumOfWeights());
   }
+
 
 }

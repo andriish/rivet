@@ -64,12 +64,12 @@ namespace Rivet {
     // Require exactly 2 leptons, same flavour, opposite charge, pTmin > 10 GeV.
     if (dilep.size() != 2 || 
         dilep[1]->momentum().pT() < _lepPtmin ||
-        dilep[0]->getPdgId() != -dilep[1]->getPdgId() ) {
+        dilep[0]->pdgId() != -dilep[1]->pdgId() ) {
       vetoEvent(event);
     }
 
     // Muon and electron geometrical acceptance requirement
-    const long dilepId = dilep[0]->getPdgId();
+    const long dilepId = dilep[0]->pdgId();
     const double eta0 = dilep[0]->momentum().pseudorapidity();
     const double eta1 = dilep[1]->momentum().pseudorapidity();
     if (abs(dilepId) == ELECTRON) {
@@ -81,8 +81,8 @@ namespace Rivet {
     }
     // This was the buggy former version, which takes abs(bool) and hence 
     // probably misses positrons and antimuons:
-    // if (( abs(dilep[0]->getPdgId() == ELECTRON) && fabs(eta0) < _eletamax && fabs(eta1) < _eletamax ) ||
-    //     (abs(dilep[0]->getPdgId() == MUON) && fabs(eta0) < _muetamax && fabs(eta1) < _muetamax)) {
+    // if (( abs(dilep[0]->pdgId() == ELECTRON) && fabs(eta0) < _eletamax && fabs(eta1) < _eletamax ) ||
+    //     (abs(dilep[0]->pdgId() == MUON) && fabs(eta0) < _muetamax && fabs(eta1) < _muetamax)) {
         
     // Dilepton invariant mass cut
     FourMomentum ll = dilep[0]->momentum() + dilep[1]->momentum();
@@ -105,7 +105,7 @@ namespace Rivet {
     const VetoedFinalState& vfs = applyProjection<VetoedFinalState>(event, "VFS");
     vector<double> Ehad(2, 0.0), Eem(2, 0.0); // dim=2 for 2 leptons
     for (ParticleVector::const_iterator p = vfs.particles().begin(); p != vfs.particles().end(); ++p) {
-      const long pid = p->getPdgId();
+      const long pid = p->pdgId();
       const unsigned long abspid = abs(pid);
       // Determine energy depositions around lepton(s)
       for (size_t lind = 0; lind < 2; ++lind) {
@@ -127,7 +127,7 @@ namespace Rivet {
     bool l_isol = true; // Both leptons have to be isolated 
     // => one veto variable suffices
     for (size_t lind = 0; lind < 2; ++lind) {
-      if (abs(dilep[lind]->getPdgId()) == ELECTRON) { // electron
+      if (abs(dilep[lind]->pdgId()) == ELECTRON) { // electron
         if (!(Eem[lind]>0.)) l_isol = false;
         else if (Ehad[lind]/Eem[lind] > _fhfemconst + _fhfemslope*dilep[lind]->momentum().E()) l_isol = false;
       } else { // muon

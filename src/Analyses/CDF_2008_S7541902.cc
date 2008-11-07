@@ -41,12 +41,12 @@ namespace Rivet {
         p !=  WDecayProducts.end(); ++p) {
       if (p->momentum().Et() > _electronETCut && 
           fabs(p->momentum().pseudorapidity()) < _electronETACut && 
-          abs(p->getPdgId()) == ELECTRON) {
+          abs(p->pdgId()) == ELECTRON) {
         electronP = p->momentum();
         gotElectron = true;
       }
       if(p->momentum().Et() > _eTmissCut && 
-         abs(p->getPdgId()) == NU_E) {
+         abs(p->pdgId()) == NU_E) {
         neutrinoP = p->momentum();
         gotNeutrino = true;
       }

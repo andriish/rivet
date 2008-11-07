@@ -7,8 +7,6 @@ namespace Rivet {
 
 
   void Beam::project(const Event& e) {
-    Log& log = getLog();
-
     assert(e.genEvent().particles_size() >= 2);
     std::pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent().beam_particles();
     assert(beams.first);
@@ -16,15 +14,15 @@ namespace Rivet {
     assert(beams.second);
     _theBeams.second = *(beams.second);
 
-    log << Log::DEBUG << "Beam particle IDs = " 
-        << _theBeams.first.getPdgId() << ", "
-        << _theBeams.second.getPdgId() << endl;
+    getLog() << Log::DEBUG << "Beam particle IDs = " 
+             << _theBeams.first.pdgId() << ", "
+             << _theBeams.second.pdgId() << endl;
   }
 
 
-  const double Beam::getSqrtS() const {
-    const double mom1 = getBeams().first.momentum().pz();
-    const double mom2 = getBeams().second.momentum().pz();
+  const double Beam::sqrtS() const {
+    const double mom1 = beams().first.momentum().pz();
+    const double mom2 = beams().second.momentum().pz();
     assert(sign(mom1) != sign(mom2));
     double sqrts = 0.0;
     if (fuzzyEquals(fabs(mom1), fabs(mom2))) {

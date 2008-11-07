@@ -44,10 +44,10 @@ namespace Rivet {
           codes.push_back(code->first);
         }
         const string codestr = "{ " + join(codes) + " }";
-        log << Log::DEBUG << p->getPdgId() << " vs. veto codes = " 
+        log << Log::DEBUG << p->pdgId() << " vs. veto codes = " 
             << codestr << " (" << codes.size() << ")" << endl;
       }
-      const long pdgid = p->getPdgId();
+      const long pdgid = p->pdgId();
       VetoDetails::iterator iter = _vetoCodes.find(pdgid);
       if ( (iter == _vetoCodes.end())) {
         log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " 

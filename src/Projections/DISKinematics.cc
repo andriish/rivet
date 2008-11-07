@@ -5,18 +5,16 @@
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Cmp.hh"
 
-
 namespace Rivet {
 
-  void DISKinematics::project(const Event& e) {
-    //Log& log = getLog();
 
+  void DISKinematics::project(const Event& e) {
     const DISLepton& dislep = applyProjection<DISLepton>(e, "Lepton");
-    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").getBeams();
+    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
     Particle hadron;
 
-    if ( inc.second.getPdgId() == _idhad ) hadron = inc.second;
-    else if ( inc.first.getPdgId() == _idhad ) hadron = inc.first;
+    if ( inc.second.pdgId() == _idhad ) hadron = inc.second;
+    else if ( inc.first.pdgId() == _idhad ) hadron = inc.first;
     else throw Error("DISKinematics projector could not find the correct beam.");
 
     if ( &(dislep.in().getHepMCParticle()) == &(hadron.getHepMCParticle()) ) {
@@ -45,7 +43,7 @@ namespace Rivet {
     _hcm.preMult(Matrix3(Vector3::mkY(), -pGammaHCM.polarAngle()));
     // rotate by 180 if along -z 
     pGammaHCM = _hcm.transform(pGamma);
-    if(pGammaHCM.z() > 0.0) _hcm.preMult(Matrix3(Vector3::mkY(), pi));
+    if (pGammaHCM.z() > 0.0) _hcm.preMult(Matrix3(Vector3::mkY(), pi));
     // finally rotate so outgoing lepton at phi=0
     FourMomentum pLepOutHCM =  _hcm.transform(pLepOut);
     _hcm.preMult(Matrix3(Vector3::mkZ(), -pLepOutHCM.azimuthalAngle()));

@@ -5,19 +5,20 @@
 #include "Rivet/Cmp.hh"
 #include <algorithm>
 
-
 namespace Rivet {
+
 
   int HadronicFinalState::compare(const Projection& p) const {
     return FinalState::compare(p);
   }
+
   
   bool hadronFilter(const Particle& p) {
-    return ! PID::isHadron(p.getPdgId());
+    return ! PID::isHadron(p.pdgId());
   }
+
   
   void HadronicFinalState::project(const Event& e) {
-    Log log = getLog();
     FinalState fsp = static_cast<FinalState>(*this);
     const FinalState& fs = applyProjection(e, fsp);
     _theParticles.clear();

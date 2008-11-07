@@ -23,7 +23,7 @@ namespace Rivet {
     const double weight = e.weight();
 
     // Get beams and average beam momentum
-    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
+    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
     const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
                                  beams.second.momentum().vector3().mod() ) / 2.0;
     getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
@@ -34,7 +34,7 @@ namespace Rivet {
 
     if (2*meanBeamMom >= 9.5 && 2*meanBeamMom <= 10.5) {
       for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-        int id = abs(p->getPdgId());
+        int id = abs(p->pdgId());
         switch (id) {
            case 211:
               _weightedTotalNumPiPlus10 += weight;
@@ -142,7 +142,7 @@ namespace Rivet {
 
     if (2*meanBeamMom >= 29 && 2*meanBeamMom <= 35) {
       for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-        int id = abs(p->getPdgId());
+        int id = abs(p->pdgId());
         switch (id) {
            case 211:
               _weightedTotalNumPiPlus32 += weight;
@@ -233,7 +233,7 @@ namespace Rivet {
 
     if (2*meanBeamMom >= 89.5 && 2*meanBeamMom <= 91.8) {
       for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-        int id = abs(p->getPdgId());
+        int id = abs(p->pdgId());
         switch (id) {
            case 211:
               _weightedTotalNumPiPlus91 += weight;
@@ -401,7 +401,7 @@ namespace Rivet {
 
     if (2*meanBeamMom >= 130 && 2*meanBeamMom <= 200) {
       for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-        int id = abs(p->getPdgId());
+        int id = abs(p->pdgId());
         switch (id) {
            case 211:
               _weightedTotalNumPiPlus165 += weight;

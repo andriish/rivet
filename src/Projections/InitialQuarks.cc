@@ -43,16 +43,16 @@ namespace Rivet {
         log << Log::TRACE << std::boolalpha 
             << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT 
             << ", eta = " << eta << ": result = " << passed << endl;
-        if (pv!=NULL) {
+        if (pv != NULL) {
           for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
-              pp != pv->particles_in_const_end() ; ++pp) {
+               pp != pv->particles_in_const_end() ; ++pp) {
             log << Log::TRACE << std::boolalpha
                 << "     parent ID = " << (*pp)->pdg_id() << endl;
           }
         }
-        if (dv!=NULL) {
+        if (dv != NULL) {
           for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ;
-              pp != dv->particles_out_const_end() ; ++pp) {
+               pp != dv->particles_out_const_end() ; ++pp) {
             log << Log::TRACE << std::boolalpha
                 << "     child ID  = " << (*pp)->pdg_id() << endl;
           }
@@ -63,9 +63,9 @@ namespace Rivet {
     log << Log::DEBUG << "Number of initial quarks = " 
         << _theParticles.size() << endl;
     if (not _theParticles.empty())
-      for (size_t i=0 ; i<_theParticles.size() ; i++)
+      for (size_t i=0 ; i < _theParticles.size() ; i++)
         log << Log::DEBUG << "Initial quark[" << i << "] = " 
-            << _theParticles[i].getPdgId() << std::endl;
+            << _theParticles[i].pdgId() << std::endl;
   }
-
+  
 }

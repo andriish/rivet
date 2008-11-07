@@ -24,20 +24,23 @@ namespace Rivet {
       return new Beam(*this);
     }
 
+
   public:
+
     /// The pair of beam particles in the current collision.
-    const ParticlePair& getBeams() const {
+    const ParticlePair& beams() const {
       return _theBeams;
     }
 
     /// The pair of beam particle PDG codes in the current collision.
-    const pair<long,long> getBeamIDs() const {
-      return make_pair(getBeams().first.getPdgId(), 
-                       getBeams().second.getPdgId());
+    const pair<long,long> beamIDs() const {
+      return make_pair(beams().first.pdgId(), 
+                       beams().second.pdgId());
     }
 
     /// Get centre of mass energy, \f$ \sqrt{s} \f$.
-    const double getSqrtS() const;
+    const double sqrtS() const;
+
 
   protected:
     /// Project on to the Event
@@ -47,6 +50,7 @@ namespace Rivet {
     virtual int compare(const Projection& p) const {
       return PCmp::EQUIVALENT;
     }
+
 
   private:
     /// The beam particles in the current collision in GenEvent 

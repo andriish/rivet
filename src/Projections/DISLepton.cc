@@ -16,25 +16,24 @@ namespace Rivet {
 
 
   void DISLepton::project(const Event& e) {
-    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").getBeams();
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
-
-    bool allowAnti = (_idin * _idout < 0);
-    if ( _idin == inc.first.getPdgId() || (allowAnti && _idin == -inc.first.getPdgId()) ) {
+    const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
+    const bool allowAnti = (_idin * _idout < 0);
+    if ( _idin == inc.first.pdgId() || (allowAnti && _idin == -inc.first.pdgId()) ) {
       _incoming = inc.first;
-    } else if ( _idin == inc.second.getPdgId() || (allowAnti && _idin == -inc.second.getPdgId()) ) {
+    } else if ( _idin == inc.second.pdgId() || (allowAnti && _idin == -inc.second.pdgId()) ) {
       _incoming = inc.second;
     } else {
       throw	Error("DISLepton projector could not find the correct beam. ");
     }
 
     double emax = 0.0;
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      if ( ( _idout == p->getPdgId() || (allowAnti && _idout == -p->getPdgId()) ) && 
-           p->momentum().E() > emax ) {
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    foreach (const Particle& p, fs.particles()) {
+      if ( ( _idout == p.pdgId() || (allowAnti && _idout == -p.pdgId()) ) && 
+           p.momentum().E() > emax ) {
         /// @todo change this to a correct way of finding the scattered lepton.
-        emax = p->momentum().E();
-        _outgoing = *p;
+        emax = p.momentum().E();
+        _outgoing = p;
       }
     }
     
@@ -42,6 +41,6 @@ namespace Rivet {
       throw Error("DISLepton projector could not find the scattered lepton.");
     }
   }
+
   
 }
-

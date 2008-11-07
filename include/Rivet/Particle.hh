@@ -7,8 +7,8 @@
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Math/Vectors.hh"
 
-
 namespace Rivet {
+
   
   /// Representation of particles from a HepMC::GenEvent.
   class Particle : public ParticleBase {
@@ -26,7 +26,13 @@ namespace Rivet {
 
   public:
     /// Get a const reference to the original GenParticle.
+    /// @deprecated Use genParticle() instead
     const GenParticle& getHepMCParticle() const { 
+      return genParticle();
+    }
+
+    /// Get a const reference to the original GenParticle.
+    const GenParticle& genParticle() const { 
       assert(_original); 
       return *_original; 
     }
@@ -35,7 +41,7 @@ namespace Rivet {
     bool hasHepMCParticle() const { return bool(_original); }
     
     /// The PDG ID code for this Particle.
-    const long getPdgId() const { return _id; }
+    const long pdgId() const { return _id; }
 
     /// The momentum of this Particle.
     FourMomentum& momentum() { return _momentum; }
@@ -47,7 +53,7 @@ namespace Rivet {
     Particle& setMomentum(const FourMomentum& momentum) { _momentum = momentum; return *this; }
     
     /// The mass of this Particle.
-    const double getMass() const { return _mass; }
+    const double mass() const { return _mass; }
     
     bool hasAncestor(const long int &pdg_id)const {
       GenVertex *prodVtx = getHepMCParticle().production_vertex();
@@ -78,6 +84,7 @@ namespace Rivet {
     /// The mass of this Particle, stored for numerical hygiene.
     double _mass;    
   };
+
   
 }
 

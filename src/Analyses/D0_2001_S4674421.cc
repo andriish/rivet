@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
 #include "Rivet/Analyses/D0_2001_S4674421.hh" 
-
 #include "AIDA/IDataPoint.h"
 
 namespace Rivet {
@@ -65,13 +64,13 @@ namespace Rivet {
           ParticleVector::const_iterator p = Wenu.begin();
 	  
           ParticleVector Wel;
-          if (abs(p->getPdgId()) == 11) Wel.push_back(*p);
+          if (abs(p->pdgId()) == 11) Wel.push_back(*p);
 	  
           FourMomentum pmom = p->momentum();
           ++p;
           pmom += p->momentum();
 	  
-          if (abs(p->getPdgId()) == 11) Wel.push_back(*p);
+          if (abs(p->pdgId()) == 11) Wel.push_back(*p);
     
           ++Wcount;
           _h_dsigdpt_w->fill(pmom.pT(), weight);
@@ -82,13 +81,13 @@ namespace Rivet {
           ParticleVector::const_iterator p = Wenub.begin();
 	  
           ParticleVector Wel;
-          if (abs(p->getPdgId()) == 11) Wel.push_back(*p);
+          if (abs(p->pdgId()) == 11) Wel.push_back(*p);
 	  
           FourMomentum pmom = p->momentum();
           ++p;
           pmom += p->momentum();
 	  
-          if (abs(p->getPdgId()) == 11) Wel.push_back(*p);
+          if (abs(p->pdgId()) == 11) Wel.push_back(*p);
 	  
           _h_dsigdpt_w->fill(pmom.pT(), weight);
           _eventsFilledW += weight;

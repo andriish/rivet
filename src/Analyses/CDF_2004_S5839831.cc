@@ -124,7 +124,7 @@ namespace Rivet {
 
   // Do the analysis
   void CDF_2004_S5839831::analyze(const Event& event) {
-    const double sqrtS = applyProjection<Beam>(event, "Beam").getSqrtS();
+    const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
     // Get the event weight
     const double weight = event.weight();
 

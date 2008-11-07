@@ -9,7 +9,6 @@
 #define IS_PARTON_PDGID(id) ( abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18) )
 #define IS_BHADRON_PDGID(id) ( ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999) )
 
-
 namespace Rivet {
 
 
@@ -29,7 +28,7 @@ namespace Rivet {
     const double weight = e.weight();
 
     // Get beams and average beam momentum
-    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").getBeams();
+    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
     const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
                                  beams.second.momentum().vector3().mod() ) / 2.0;
     getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
