@@ -5,6 +5,7 @@ nobase_dist_data_DATA = \
   Rivet/DELPHI_1995_S3137023.aida      \
   Rivet/DELPHI_1996_S3430090.aida      \
   Rivet/DELPHI_2002_069_CONF_603.aida  \
+  Rivet/DELPHI_2003_WUD_03_11.aida     \
   Rivet/OPAL_2004_S6132243.aida        \
   Rivet/OPAL_1998_S3780481.aida        \
   Rivet/CLEO_1997_S3486664.aida        \
