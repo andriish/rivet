@@ -19,7 +19,7 @@ namespace Rivet {
   void CDF_2008_MINBIAS::analyze(const Event& e) {
     Log log = getLog();
 
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const ChargedFinalState& fs = applyProjection<ChargedFinalState>(e, "FS");
     const size_t numParticles = fs.particles().size();
 
     // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
