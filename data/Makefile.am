@@ -46,6 +46,7 @@ nobase_dist_data_DATA += \
   RivetGun/falpher-default.params  \
   RivetGun/falppyt-default.params  \
   RivetGun/fherwig-default.params  \
+  RivetGun/fherwig-atlas-default.params  \
   RivetGun/fherwig-qcd.params      \
   RivetGun/fpythia-default.params  \
   RivetGun/fpythia-hadronic.params \
