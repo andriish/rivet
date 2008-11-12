@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_CDF_2008_MINBIAS_HH
-#define RIVET_CDF_2008_MINBIAS_HH
+#ifndef RIVET_CDF_2008_NOTE_9337_HH
+#define RIVET_CDF_2008_NOTE_9337_HH
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
@@ -11,7 +11,7 @@ namespace Rivet {
 
   /// @brief CDF Run II min-bias cross-section
   /// @author Hendrik Hoeth
-  class CDF_2008_MINBIAS : public Analysis {
+  class CDF_2008_NOTE_9337 : public Analysis {
   public:
 
     /// @name Constructors etc.
@@ -19,7 +19,7 @@ namespace Rivet {
 
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2008_MINBIAS()
+    CDF_2008_NOTE_9337()
     { 
       setBeams(PROTON, ANTIPROTON);
       const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
@@ -29,7 +29,7 @@ namespace Rivet {
 
     /// Factory method
     static Analysis* create() {
-      return new CDF_2008_MINBIAS();
+      return new CDF_2008_NOTE_9337();
     }
     //@}
 
@@ -37,7 +37,7 @@ namespace Rivet {
   public:
 
     string getName() const {
-      return "CDF_2008_MINBIAS";
+      return "CDF_2008_NOTE_9337";
     }
     string getDescription() const {
       return "CDF Run 2 min bias cross-section analysis";
@@ -59,7 +59,7 @@ namespace Rivet {
   private:
 
     /// Hide the assignment operator.
-    CDF_2008_MINBIAS& operator=(const CDF_2008_MINBIAS&);
+    CDF_2008_NOTE_9337& operator=(const CDF_2008_NOTE_9337&);
 
   };
 

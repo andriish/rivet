@@ -2,7 +2,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/CDF_2008_MINBIAS.hh"
+#include "Rivet/Analyses/CDF_2008_NOTE_9337.hh"
 #include "Rivet/RivetAIDA.hh"
 
 
@@ -10,13 +10,13 @@ namespace Rivet {
 
 
   // Book histograms
-  void CDF_2008_MINBIAS::init() {
+  void CDF_2008_NOTE_9337::init() {
     _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1, "Mean track $p_\\perp$ vs multiplicity");
   }
 
 
   // Do the analysis
-  void CDF_2008_MINBIAS::analyze(const Event& e) {
+  void CDF_2008_NOTE_9337::analyze(const Event& e) {
     Log log = getLog();
 
     const ChargedFinalState& fs = applyProjection<ChargedFinalState>(e, "FS");
@@ -41,7 +41,7 @@ namespace Rivet {
   }
 
 
-  void CDF_2008_MINBIAS::finalize() { 
+  void CDF_2008_NOTE_9337::finalize() { 
   }
 
 
