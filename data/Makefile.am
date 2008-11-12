@@ -22,6 +22,7 @@ nobase_dist_data_DATA = \
   Rivet/CDF_1994_S2952106.aida         \
   Rivet/CDF_2000_S4155203.aida         \
   Rivet/CDF_2001_S4751469.aida         \
+  Rivet/CDF_2002_S4796047.aida         \
   Rivet/CDF_2004_S5839831.aida         \
   Rivet/CDF_2005_S6217184.aida         \
   Rivet/CDF_2006_S6653332.aida         \

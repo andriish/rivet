@@ -2,6 +2,8 @@
 
 	* Fix floating point number output format in aida2flat and flat2aida
 
+	* Added CDF_2002_S4796047: CDF Run-I charged multiplicity distribution
+
 2008-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added DELPHI_2003_WUD_03_11: Delphi 4-jet angular distributions.
