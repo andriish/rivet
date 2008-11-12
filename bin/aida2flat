@@ -89,17 +89,17 @@ class Bin:
         self.focus= focus
 
     def __str__(self):
-        out = "%f to %f: %f +- %f" % (self._xlow, self._xhigh, self._yval, self._yerr)
+        out = "%e to %e: %e +- %e" % (self._xlow, self._xhigh, self._yval, self._yerr)
         return out
 
     def asFlat(self):
         global opts
         if opts.GNUPLOT:
-            out = "%f\t%f\t%f\t%f\t%f\t%f" % (self.getBinCenter(), self.yval,
+            out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval,
                                               self.xlow, self.xhigh, 
                                               self.yval-self.yerrminus, self.yval+self.yerrplus)
         else:
-            out = "%f\t%f\t%f\t%f\t%f" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
+            out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
         return out
 
     def __cmp__(self, other):
