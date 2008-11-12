@@ -1,5 +1,9 @@
 2008-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
+	* Fix floating point number output format in aida2flat and flat2aida
+
+2008-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
 	* Added DELPHI_2003_WUD_03_11: Delphi 4-jet angular distributions.
 	There is still a problem with the analysis, so don't use it yet.
 	But I need to commit the code because my laptop is broken ...
