@@ -12,5 +12,5 @@ PRRAD = 0.71
 PRSOF = 1.0
 
 ## Process and error control
-MAXER = 1000
+#MAXER = 1000
 IPROC = 1500
