@@ -22,6 +22,17 @@ namespace Rivet {
   }
 
 
+  inline bool cmpMomByPt(const FourMomentum& a, const FourMomentum& b) {
+    return a.pT() > b.pT();
+  }
+  inline bool cmpMomByEt(const FourMomentum& a, const FourMomentum& b) {
+    return a.Et() > b.Et();
+  }
+  inline bool cmpMomByE(const FourMomentum& a, const FourMomentum& b) {
+    return a.E() > b.E();
+  }
+
+
   
   /// Abstract base class for projections which can return a set of {@link Jet}s.
   class JetAlg : public Projection {
