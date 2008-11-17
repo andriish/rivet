@@ -41,6 +41,9 @@ namespace Rivet {
     /// Access the projected final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }
 
+    /// Access the projected final-state particles.
+    virtual const size_t size() const { return _theParticles.size(); }
+
     /// Is this final state empty?
     virtual const bool isEmpty() const { return _theParticles.empty(); }
 

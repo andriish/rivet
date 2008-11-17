@@ -208,6 +208,10 @@ namespace Rivet {
     /// Compare projections.
     int compare(const Projection& p) const;  
 
+  public:
+    /// Do the calculation locally (no caching).
+    void calc(const ParticleVector& ps);
+
 
   private:
 

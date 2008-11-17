@@ -102,17 +102,24 @@ namespace Rivet {
 
     /// Perform the projection on the Event.
     void project(const Event& e);
-
+    
     /// This function defines a unique ordering between different 
     /// Projection objects of the same class. Should only be called from 
     /// operator<(const Projection&).
     int compare(const Projection& p) const;  
 
+
+  public:
+
+    /// Do the calculation locally (no caching).
+    void calc(const ParticleVector& ps);
+
+
   public:
     
     /// Get the number of jets.
     int getNJets() const { return _jets.size(); }
-  
+    
     /// Get a reference to the jets collection.
     list<HepEntity>& getJets() { return _jets; }
     /// Get a reference to the jets collection (const version).

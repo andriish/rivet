@@ -30,9 +30,13 @@ namespace Rivet {
   void D0ILConeJets::project(const Event& e) {
     // Project into final state
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    calc(fs.particles());
+  }
 
+
+  void D0ILConeJets::calc(const ParticleVector& ps) {
     // Store 4 vector data about each particle into list
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+    for (ParticleVector::const_iterator p = ps.begin(); p != ps.end(); ++p) {
       HepMC::FourVector fv = p->momentum();
       const HepEntity listelement(fv.e(), fv.px(), fv.py(), fv.pz());
       _particlelist.push_back(listelement);
@@ -51,7 +55,6 @@ namespace Rivet {
       FourMomentum jet(jt->E, jt->px, jt->py, jt->pz);
       _lorentzvecjets.push_back(jet);
     }
-
   }
 
 

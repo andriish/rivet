@@ -42,14 +42,14 @@ namespace Rivet {
 
 
 
-  // Note that sorting is inverted, so that highest Et is at the front of the list
-  bool cmpJetsByEt(const Jet& a, const Jet& b) {
-    return a.EtSum() > b.EtSum();
-  }
-  // Note that sorting is inverted, so that highest E is at the front of the list
-  bool cmpJetsByE(const Jet& a, const Jet& b) {
-    return a.momentum().E() > b.momentum().E();
-  }
+  // // Note that sorting is inverted, so that highest Et is at the front of the list
+  // bool cmpJetsByEt(const Jet& a, const Jet& b) {
+  //   return a.EtSum() > b.EtSum();
+  // }
+  // // Note that sorting is inverted, so that highest E is at the front of the list
+  // bool cmpJetsByE(const Jet& a, const Jet& b) {
+  //   return a.momentum().E() > b.momentum().E();
+  // }
 
 
 

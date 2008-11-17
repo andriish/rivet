@@ -1,3 +1,14 @@
+2008-11-17  Andy Buckley  <andy@insectnation.org>
+
+	* Added bash completion for rivetgun.
+
+	* Starting to provide stand-alone call methods on projections so
+	they can be used without the caching infrastructure. This could
+	also be handy for unit testing.
+
+	* Adding functionality (sorting function and built-in sorting
+	schemes) to the JetAlg interface.
+
 2008-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fix floating point number output format in aida2flat and flat2aida

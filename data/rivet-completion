@@ -33,16 +33,52 @@ function _rivet() {
         fi
     fi
 
-    if test -x "$(which rivet)"; then
-        files=$(ls)
-        COMPREPLY=( $(compgen -W "$opts $files" -- ${cur}) )
-        if test -n "$COMPREPLY"; then
-            return 0
-        fi
+    files=$(ls)
+    COMPREPLY=( $(compgen -W "$opts $files" -- ${cur}) )
+    if test -n "$COMPREPLY"; then
+        return 0
     fi
 
     return 0
 }
 
+
+function _rivetgun() {
+	local cur prev commands options command
+	COMPREPLY=()
+	cur=`_get_cword`
+    #cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    opts="--help --histotype --histoname --analysis --all_analyses --loglevel"
+    opts="$opts --nocolor --ineventfile --outeventfile --norivet"
+    opts="$opts --generator --seed --mom1 --mom2 --beam1 --beam2"
+    opts="$opts -g -i -o -R -a -A -l -h -H -p -P -s -n"
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
+    if test -x "$(which rivet)"; then
+        anas=$(rivet --list-analyses)
+        if [[ ${prev} == "-a" || ${prev} == "--analysis" ]]; then
+            COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
+            return 0
+        fi
+    fi
+
+    files=$(ls)
+    COMPREPLY=( $(compgen -W "$opts $files" -- ${cur}) )
+    if test -n "$COMPREPLY"; then
+        return 0
+    fi
+
+    return 0
+}
+
+
 default="-o default"
 complete -F _rivet $default rivet
+complete -F _rivetgun $default rivetgun

@@ -6,14 +6,14 @@
 
 namespace Rivet {
 
-  /// Project only charged final state particles.
+  /// Return all particles which can be paired to make an invariant mass within the given mass window.
   class InvMassFinalState : public FinalState {
 
   public:
     
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
     // constructor for a single pair
-  InvMassFinalState(FinalState& fsp,
+    InvMassFinalState(FinalState& fsp,
                       std::pair<long, long> ids,  //vector of pairs of decay products
                       double minmass,     //min inv mass
                       double maxmass,     //max inv mass

@@ -10,8 +10,8 @@ namespace Rivet {
 
   class Particle;
 
-  /// Project only leading final state particles.
-  class LeadingParticlesFinalState:public FinalState {
+  /// Project only the highest-pT occurrences of FS particles with the specified PDG IDs.
+  class LeadingParticlesFinalState : public FinalState {
 
   public:
 
@@ -27,7 +27,7 @@ namespace Rivet {
       return new LeadingParticlesFinalState(*this);
     }
 
-    /// add a particle id to the list of leading particles selected 
+    /// Add a particle ID to the list of leading particles selected 
     LeadingParticlesFinalState& addParticleId(long id) {
       _ids.insert(id);
       return *this;
@@ -46,7 +46,7 @@ namespace Rivet {
 
   private:
 
-    /// ids of the leading particles to be selected
+    /// IDs of the leading particles to be selected
     std::set < long >_ids;
 
   };

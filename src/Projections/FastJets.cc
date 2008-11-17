@@ -22,15 +22,18 @@ namespace Rivet {
 
   void FastJets::project(const Event& e) {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
-    const ParticleVector particles = fs.particles();
+    calc(fs.particles());
+  }
+
+
+  void FastJets::calc(const ParticleVector& ps) {
     _particles.clear();
-    vector<PseudoJet> vecs;
-  
-    if (!particles.empty()) {
+    vector<PseudoJet> vecs;  
+    if (!ps.empty()) {
       // Store 4 vector data about each particle into vecs
 
       int counter = 1;
-      foreach (const Particle& p, particles) {
+      foreach (const Particle& p, ps) {
         const FourMomentum fv = p.momentum();
         PseudoJet pJet(fv.px(), fv.py(), fv.pz(), fv.E());
         pJet.set_user_index(counter);
