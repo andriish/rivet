@@ -43,52 +43,34 @@ namespace Rivet {
 
     /// @brief Default constructor. 
     ///
-    /// The algorithm parameters are supposed to be set as used by D0 in RunII -
+    /// The algorithm parameters are supposed to be set as used by D0 in Run II.
     /// this constructor will initialise the correct parameter values.
-    /// Must specify a FinalState projection which is assumed to live throughout the run.    
-    D0ILConeJets(const FinalState& fsp)
-      : _cone_radius(0.7), _min_jet_Et(0.0), 
-        _split_ratio(0.5), _far_ratio(0.5), 
-        _et_min_ratio(0.5), _kill_duplicate(true), 
-        _duplicate_dR(0.005), _duplicate_dPT(0.01), 
-        _search_factor(1.0), 
-        _pT_min_leading_protojet(0.0), 
-        _pT_min_second_protojet(0.0), 
-        _merge_max(1000), _pT_min_nomerge(0.0), 
-        _algo(_cone_radius, _min_jet_Et, _split_ratio,
-              _far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
-              _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
-              _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
+    D0ILConeJets(const FinalState& fsp, float cone_radius=0.7, float etMin=0.0)
+      : _cone_radius(cone_radius), _min_jet_Et(etMin)
     { 
       setName("D0ILConeJets");
       addProjection(fsp, "FS");
+      _init_extra_params();
     }
 
-        
-    /// @brief Alternative constructor.
-    ///
-    /// Added so that same projection can be ran but with different parameters.
-    /// Must specify a FinalState projection which is assumed to live throughout the run. 
-    D0ILConeJets(FinalState& fsp, float r, float etMin, float split,
-			float farRatio, float etMinRatio, bool killDuplicate,
-			float duplicateDR, float duplicateDPT, float searchFactor,
-			float pTMinLeadingProtojet, float pTMinSecondProtojet,
-			int mergeMax, float pTMinNomerge)
-      : _cone_radius(r), _min_jet_Et(etMin), 
-        _split_ratio(split), _far_ratio(farRatio), 
-        _et_min_ratio(etMinRatio), _kill_duplicate(killDuplicate),
-        _duplicate_dR(duplicateDR), _duplicate_dPT(duplicateDPT), 
-        _search_factor(searchFactor),
-        _pT_min_leading_protojet(pTMinLeadingProtojet), 
-        _pT_min_second_protojet(pTMinSecondProtojet), 
-        _merge_max(mergeMax), _pT_min_nomerge(pTMinNomerge),
-        _algo(_cone_radius, _min_jet_Et, _split_ratio,
-              _far_ratio, _et_min_ratio, _kill_duplicate, _duplicate_dR, 
-              _duplicate_dPT, _search_factor, _pT_min_leading_protojet, 
-              _pT_min_second_protojet, _merge_max, _pT_min_nomerge)
-    {  
-      setName("D0ILConeJets");
-      addProjection(fsp, "FS");
+
+    void _init_extra_params() {
+      _split_ratio = 0.5; 
+      _far_ratio = 0.5;
+      _et_min_ratio = 0.5; 
+      _kill_duplicate = true; 
+      _duplicate_dR = 0.005;
+      _duplicate_dPT = 0.01; 
+      _search_factor = 1.0; 
+      _pT_min_leading_protojet = 0.0; 
+      _pT_min_second_protojet = 0.0; 
+      _merge_max = 1000;
+      _pT_min_nomerge = 0.0; 
+      _algo = ILConeAlgorithm<HepEntity>(_cone_radius, _min_jet_Et, _split_ratio,
+                                   _far_ratio, _et_min_ratio, _kill_duplicate, 
+                                   _duplicate_dR, _duplicate_dPT, _search_factor, 
+                                   _pT_min_leading_protojet, _pT_min_second_protojet, 
+                                   _merge_max, _pT_min_nomerge);
     }
 
 
@@ -145,6 +127,8 @@ namespace Rivet {
       return rtn;
     }
 
+
+    /// @deprecated Just for compatibility
     Jets getJets(double ptmin) const { 
       return jets(ptmin); 
     }
@@ -157,6 +141,7 @@ namespace Rivet {
 
 
     /// Clear the jets list.
+    /// @todo Convert to Projection::clear()
     D0ILConeJets& clearJets() { 
       _jets.clear(); 
       return *this; 
@@ -179,26 +164,26 @@ namespace Rivet {
     /// @name Cone algorithm parameters
     //@{
     /// Cone radius
-    const float _cone_radius;
+    float _cone_radius;
     /// Jet \f$ E_T \f$ threshold
-    const float _min_jet_Et;
+    float _min_jet_Et;
     /// Split/merge fraction
-    const float _split_ratio;
+    float _split_ratio;
     //@}
 
     /// @name More algorithm parameters
     //@{
     /// The original author Laurent Duflot might be able to explain these.
-    const float _far_ratio;
-    const float _et_min_ratio;
-    const bool _kill_duplicate;
-    const float _duplicate_dR; 
-    const float _duplicate_dPT; 
-    const float _search_factor; 
-    const float _pT_min_leading_protojet; 
-    const float _pT_min_second_protojet;
-    const int _merge_max; 
-    const float _pT_min_nomerge;
+    float _far_ratio;
+    float _et_min_ratio;
+    bool _kill_duplicate;
+    float _duplicate_dR; 
+    float _duplicate_dPT; 
+    float _search_factor; 
+    float _pT_min_leading_protojet; 
+    float _pT_min_second_protojet;
+    int _merge_max; 
+    float _pT_min_nomerge;
     //@}
 
     /// The jet algorithm function itself

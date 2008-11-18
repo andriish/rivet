@@ -1,5 +1,7 @@
 2008-11-18  Andy Buckley  <andy@insectnation.org>
 
+	* Added D0 Z + jet pT and photon + jet pT spectrum analyses.
+
 	* Lots of tidying up of particle, event, particle name etc.
 
 	* Now the first event is used to detect the beam type and remove

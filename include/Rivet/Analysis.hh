@@ -189,7 +189,7 @@ namespace Rivet {
 
   protected:
 
-    /// Get the process cross-section. Throws if this hasn't been set.
+    /// Get the process cross-section in pb. Throws if this hasn't been set.
     const double& crossSection() const {
       if (!_gotCrossSection) {
         string errMsg = "You did not set the cross section for the analysis " + getName();

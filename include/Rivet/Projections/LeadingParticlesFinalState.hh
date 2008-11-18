@@ -16,6 +16,7 @@ namespace Rivet {
   public:
 
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
+    /// @todo Why specify the rap & pT cuts again?
     LeadingParticlesFinalState(FinalState & fsp, double mineta = -MaxRapidity, double maxeta = MaxRapidity, double minpt = 0.0 * GeV)
   :  FinalState(mineta, maxeta, minpt) {
       setName("LeadingParticlesFinalState");

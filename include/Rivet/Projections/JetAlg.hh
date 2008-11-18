@@ -46,6 +46,7 @@ namespace Rivet {
     virtual ~JetAlg() { }
 
     /// Get the jets (unordered).
+    /// @deprecated Prefer "jets()"
     virtual Jets getJets(double ptmin=0.0) const = 0;
 
     /// Get the jets, ordered by supplied sorting function object.

@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_D0_2008_S7863608_HH
-#define RIVET_D0_2008_S7863608_HH
+#ifndef RIVET_D0_2008_S7719523_HH
+#define RIVET_D0_2008_S7719523_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
@@ -11,30 +11,29 @@ namespace Rivet {
 
 
   /// @brief Measurement differntial Z/gamma* + jet +X cross sections
+  /// @author Andy Buckley
   /// @author Gavin Hesketh
-  class D0_2008_S7863608 : public Analysis {
+  class D0_2008_S7719523 : public Analysis {
 
   public:
 
     /// Default constructor.
-    D0_2008_S7863608();
-
+     D0_2008_S7719523();
 
     /// Factory method 
     static Analysis* create() {
-      return new D0_2008_S7863608();
+      return new D0_2008_S7719523();
     }
-
 
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis. 
     string getSpiresId() const {
-      return "7863608";
+      return "7719523";
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "Measurement of differential Z/gamma* + jet + X cross sections";
+      return "Measurement of differential isolated gamma + jet cross sections";
     }    
     /// Experiment which performed and published this analysis. 
     string getExpt() const {
@@ -52,7 +51,6 @@ namespace Rivet {
     }
     //@}
 
-
     /// @name Analysis methods
     //@{ 
     void init();
@@ -64,12 +62,16 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_jet_pT_cross_section;
-    AIDA::IHistogram1D * _h_jet_y_cross_section;
-    AIDA::IHistogram1D * _h_Z_pT_cross_section;
-    AIDA::IHistogram1D * _h_Z_y_cross_section;
-    AIDA::IHistogram1D * _h_total_cross_section;
+    AIDA::IHistogram1D * _h_central_same_cross_section;
+    AIDA::IHistogram1D * _h_central_opp_cross_section;
+    AIDA::IHistogram1D * _h_forward_same_cross_section;
+    AIDA::IHistogram1D * _h_forward_opp_cross_section;
+
+    /// @todo Cross-section ratio plots
+
     //@}
+
+    double _events;
 
   };
 

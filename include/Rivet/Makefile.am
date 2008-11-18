@@ -48,6 +48,8 @@ nobase_dist_noinst_HEADERS += \
   Analyses/D0_2001_S4674421.hh  \
   Analyses/D0_2004_S5992206.hh  \
   Analyses/D0_2008_S6879055.hh  \
+  Analyses/D0_2008_S7719523.hh  \
+  Analyses/D0_2008_S7863608.hh  \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/DELPHI_2002_069_CONF_603.hh \
