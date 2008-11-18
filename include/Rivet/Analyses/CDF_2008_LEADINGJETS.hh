@@ -11,8 +11,25 @@
 namespace Rivet {
 
 
-  /// CDF Run II underlying event in leading jet events
-  /// @author Hendrik Hoeth
+  /* CDF Run II underlying event in leading jet events
+   * @author Hendrik Hoeth
+   * 
+   * Rick Field's measurement of the underlying event in "leading jet" events.
+   * The leading jet (CDF midpoint R=0.7) must be within |eta|<2 and defines
+   * the "toward" phi direction. Particles are selected in |eta|<1. For the pT
+   * related observables there is a pT>0.5 GeV cut. For sum(ET) there is no pT cut.
+   * 
+   * 
+   * @par Run conditions
+   * 
+   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
+   * @arg Run with generic QCD events.
+   * @arg Set particles with c*tau > 10 mm stable
+   * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the profile histograms:
+   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 10, 20, 50, 100, 150 GeV
+   *   @arg The corresponding merging points are at \f$ p_T = \f$ 0, 30, 50, 80, 130, 180 GeV
+   * 
+   */ 
   class CDF_2008_LEADINGJETS : public Analysis {
   public:
 

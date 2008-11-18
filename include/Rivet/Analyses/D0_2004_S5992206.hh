@@ -10,8 +10,20 @@
 namespace Rivet {  
 
 
-  /// @brief D0 Run II jet analysis
-  /// @author Lars Sonnenschein
+  /* @brief D0 Run II jet analysis
+   * @author Lars Sonnenschein
+   * 
+   * Measurement of angular correlations in di-jet events.
+   * 
+   * 
+   * @par Run conditions
+   * 
+   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
+   * @arg Run with generic QCD events.
+   * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the histograms:
+   *   @arg \f$ p_\perp^\text{min} = \f$ 50, 75, 100, 150 GeV for the four pT ranges respecively
+   * 
+   */ 
   class D0_2004_S5992206 : public Analysis {
 
   public:

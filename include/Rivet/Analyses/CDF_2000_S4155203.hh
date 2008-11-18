@@ -10,8 +10,24 @@
 namespace Rivet {
 
 
-  /// @brief CDF Run I Z pT in Drell-Yan events
-  /// @author Hendrik Hoeth
+  /*
+   * @brief CDF Run I Z pT in Drell-Yan events
+   * @author Hendrik Hoeth
+   * 
+   * Measurement of the Z pT distribution in Z -> e+e- events
+   * at a center-of-mass energy of \f$ \sqrt{s} = \f$ 1800 GeV.
+   * A Z mass window cut is applied.
+   * 
+   * 
+   * @par Run conditions
+   * 
+   * @arg \f$ \sqrt{s} = \f$ 1800 GeV
+   * @arg produce Drell-Yan events
+   * @arg Z decay mode: Z -> e+e-
+   * @arg gamma decay mode: gamma -> e+e-
+   * @arg minimum invariant mass of the fermion pair coming from the Z/gamma: 66 GeV
+   * 
+   */ 
   class CDF_2000_S4155203 : public Analysis {
   public:
 

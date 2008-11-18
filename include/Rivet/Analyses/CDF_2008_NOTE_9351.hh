@@ -10,8 +10,24 @@
 namespace Rivet {
 
 
-  /// @brief CDF Run II underlying event in Drell-Yan
-  /// @author Hendrik Hoeth
+  /* @brief CDF Run II underlying event in Drell-Yan
+   * @author Hendrik Hoeth
+   * 
+   * Measurement of the underlying event in Drell-Yan Z/gamma->e+e-
+   * and Z/gamma->mu+mu- events. The reconstructed Z defines the
+   * phi orientation. A Z mass window cut is applied.
+   * 
+   * 
+   * @par Run conditions
+   * 
+   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
+   * @arg produce Drell-Yan events
+   * @arg Set particles with c*tau > 10 mm stable
+   * @arg Z decay mode: Z -> e+e- and Z -> mu+mu-
+   * @arg gamma decay mode: gamma -> e+e- and gamma -> mu+mu-
+   * @arg minimum invariant mass of the fermion pair coming from the Z/gamma: 70 GeV
+   * 
+   */ 
   class CDF_2008_NOTE_9351 : public Analysis {
   public:
 

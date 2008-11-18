@@ -11,8 +11,18 @@
 namespace Rivet {
 
 
-  /// @brief "Field-Stuart" CDF Run I underlying event analysis
-  /// @author Andy Buckley
+  /* @brief "Field-Stuart" CDF Run I underlying event analysis
+   * @author Andy Buckley
+   * 
+   * 
+   * @par Run conditions
+   * 
+   * @arg \f$ \sqrt{s} = \f$ 1800 GeV
+   * @arg Run with generic QCD events.
+   * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the profile histograms:
+   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 10, 20 GeV
+   * 
+   */ 
   class CDF_2001_S4751469 : public Analysis {
   public:
 
