@@ -62,9 +62,11 @@ namespace Rivet {
 
     //skip if the event is empty
     const FinalState & fs = applyProjection<FinalState>(event, "FS");
-    if (fs.isEmpty())
+    if (fs.isEmpty()) {
+      log << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
+        << " because no final state pair found " << endl;
       return;
-
+    }
 
 
     //find the Z candidates
@@ -121,11 +123,11 @@ namespace Rivet {
     _events += weight;
     
     _h_jet_pT_cross_section->fill( jets_cut[0].momentum().pT(), weight);
-    _h_jet_y_cross_section->fill( jets_cut[0].momentum().rapidity(), weight);
+    _h_jet_y_cross_section->fill( fabs(jets_cut[0].momentum().rapidity()), weight);
     
     
     _h_Z_pT_cross_section->fill(Zmom.pT(), weight);
-    _h_Z_y_cross_section->fill(Zmom.rapidity(), weight);
+    _h_Z_y_cross_section->fill(fabs(Zmom.rapidity()), weight);
 
     //    _h_total_cross_section = bookHistogram1D     _crossSectionRatio->fill(1, weight);
 
