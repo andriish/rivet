@@ -139,7 +139,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         print len(ana.getName()) * "="
         print ""
         print "Spires ID: %s" % ana.getSpiresId()
-        print "Spires URL: http://www.slac.stanford.edu/spires/search?key=%s" % ana.getSpiresId()
+        print "Spires URL: http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.getSpiresId()
         print "Experiment: %s" % ana.getExpt()
         print "Year of publication: %s" % ana.getYear()
         #print ana.getAuthor()

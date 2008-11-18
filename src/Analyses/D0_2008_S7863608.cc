@@ -131,9 +131,6 @@ namespace Rivet {
 
     //    _h_total_cross_section = bookHistogram1D     _crossSectionRatio->fill(1, weight);
 
-
-    // Finished
-    log << Log::DEBUG << "Finished analyzing" << endl;
   }
 
 
@@ -144,10 +141,10 @@ namespace Rivet {
 
   // Finalize
   void D0_2008_S7863608::finalize() {
-    Log & log = getLog();
-
-    log << Log::DEBUG << "Finished!" << endl;
-
+    normalize(_h_jet_pT_cross_section, 18.7);
+    normalize(_h_jet_y_cross_section, 18.7);
+    normalize(_h_Z_pT_cross_section, 18.7);
+    normalize(_h_Z_y_cross_section, 18.7);
   }
 
 }
