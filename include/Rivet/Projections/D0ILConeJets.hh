@@ -4,6 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projection.hh"
+#include "Rivet/Projections/JetAlg.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Tools/D0RunIIcone/HepEntity.h"
@@ -29,7 +30,7 @@ namespace Rivet {
   ///
   /// The cone radius has to be specified according to the analysis
   /// D0 JCCA: _cone_radius=0.7, D0 JCCB: _cone_radius=0.5    
-  class D0ILConeJets : public Projection {
+  class D0ILConeJets : public JetAlg {
 
   public:
 
@@ -116,17 +117,37 @@ namespace Rivet {
 
 
   public:
+
+    /// @todo Un-hideous this mess!
     
     /// Get the number of jets.
     int getNJets() const { return _jets.size(); }
     
     /// Get a reference to the jets collection.
     list<HepEntity>& getJets() { return _jets; }
+
     /// Get a reference to the jets collection (const version).
     const list<HepEntity>& getJets() const { return _jets; }
 
     /// Common interface to FinalState and JetAlg
     const list<HepEntity>& entities() const { return getJets(); }
+
+    /// Get jets in the standard way offered by the JetAlg interface.
+    Jets jets(double ptmin=0.0) const {
+      Jets rtn;
+      foreach (const HepEntity& he, getJets()) {
+        Jet j;
+        FourMomentum v4(he.E, he.px, he.py, he.pz);
+        if (v4.pT() < ptmin) continue;
+        j.addParticle(v4);
+        rtn.push_back(j);
+      }
+      return rtn;
+    }
+
+    Jets getJets(double ptmin) const { 
+      return jets(ptmin); 
+    }
 
 
     /// Get a reference to the lorentzvecjets collection.

@@ -9,7 +9,7 @@ function _rivet() {
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
     opts="--help --verbose --quiet --version --nevts"
-    opts="$opts --analysis --list-analyses --show-analysis --histo-file"
+    opts="$opts --analysis --list-analyses --show-analysis --histo-file "
     if [[ ${cur} == -* ]] ; then
         #if test -x "$(which rivet)"; then
         #    anas=$(rivet --list-options)
@@ -53,7 +53,7 @@ function _rivetgun() {
     opts="--help --histotype --histoname --analysis --all_analyses --loglevel"
     opts="$opts --nocolor --ineventfile --outeventfile --norivet"
     opts="$opts --generator --seed --mom1 --mom2 --beam1 --beam2"
-    opts="$opts -g -i -o -R -a -A -l -h -H -p -P -s -n"
+    opts="$opts -g -i -o -R -a -A -l -h -H -p -P -n -s"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         if test -n "$COMPREPLY"; then

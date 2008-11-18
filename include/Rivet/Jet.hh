@@ -12,7 +12,9 @@ namespace Rivet {
   class Jet : public ParticleBase {
   public:
     /// Constructor.
-    Jet() : ParticleBase(){ 
+    Jet() 
+      : ParticleBase()
+    {
       clear();
     }
 
