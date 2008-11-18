@@ -45,13 +45,16 @@ namespace Rivet {
     PHOTOANTITAU
   };
 
+  /// Typedef for a PDG ID code.
+  typedef long PdgId;
+
 
   /// Typedef for a map of beam particle name enums to strings.
-  typedef std::map<ParticleName, std::string> ParticleNameMap;
+  typedef std::map<PdgId, std::string> ParticleNameMap;
 
 
   /// Typedef for a map of beam particle name strings to enums.
-  typedef std::map<std::string, ParticleName> ParticleNameMapR;
+  typedef std::map<std::string, PdgId> ParticleNameMapR;
 
 
   /// Function which returns a map from beam particle enums to the corresponding name strings.
@@ -102,7 +105,7 @@ namespace Rivet {
 
 
   /// Typedef for a collection of beam particle name enums.
-  typedef std::vector<ParticleName> ParticleNameList;
+  typedef std::vector<PdgId> ParticleNameList;
 
 
   /// Function which returns a vector of all the beam particle values in 
@@ -120,7 +123,7 @@ namespace Rivet {
   /// Function which returns a vector of all the beam particle values in 
   /// the ParticleName enum.
   inline ParticleName getParticleNameEnum(const std::string& pname) {
-    return Rivet::getParticleNamesRMap()[pname];
+    return (ParticleName) Rivet::getParticleNamesRMap()[pname];
   }
 
 
@@ -141,6 +144,18 @@ namespace Rivet {
     return getParticleNamesMap()[p];
   }
 
+
+  /// Print a PdgId as a named string.
+  inline std::string toParticleName(PdgId p) {
+    if (getParticleNamesMap().find(p) != getParticleNamesMap().end()) {
+      return getParticleNamesMap()[p];
+    }
+    ostringstream ss;
+    ss << p;
+    return ss.str();
+  }
+
+
   /// Allow ParticleName to be passed to an iostream.
   inline std::ostream& operator<<(std::ostream& os, const ParticleName& p) {
     os << toString(p);
@@ -148,20 +163,22 @@ namespace Rivet {
   }
 
   /////////////////////////////////////////////////
+  // Beams  
 
-  
 
   /// Typedef for a pair of beam particle names.
-  typedef std::pair<ParticleName, ParticleName> BeamPair;
+  typedef std::pair<PdgId, PdgId> BeamPair;
 
 
   /// Print a BeamPair as a string.
   inline std::string toString(const BeamPair& pair) {
-    string out = "[" + toString(pair.first) + ", " + toString(pair.second) + "]";
+    string out = "[" + 
+      toParticleName(pair.first) + ", " + 
+      toParticleName(pair.second) + "]";
     return out;
   }
 
-  /// Allow BeamPair to be passed to an iostream.
+  /// Allow BeamPair to be passed to an ostream.
   inline std::ostream& operator<<(std::ostream& os, const BeamPair& bp) {
     os << toString(bp);
     return os;

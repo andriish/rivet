@@ -86,8 +86,44 @@ namespace Rivet {
   AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) {
     Analysis* analysis = AnalysisLoader::getAnalysis(analysisname);
     if (analysis) { // < Check for null analysis.
+      getLog() << Log::DEBUG << "Adding analysis '" << analysisname << "'" << endl;
       analysis->_analysishandler = this;
       _analyses.insert(analysis);
+    }
+    return *this;
+  }
+
+
+  AnalysisHandler& AnalysisHandler::removeAnalysis(const string& analysisname) {
+    Analysis* toremove = 0;
+    foreach (Analysis* a, _analyses) {
+      if (a->getName() == analysisname) {
+        toremove = a;
+        break;
+      }
+    }
+    if (toremove) {
+      getLog() << Log::DEBUG << "Removing analysis '" << analysisname << "'" << endl;
+      _analyses.erase(toremove);
+      delete toremove;
+    }
+    return *this;
+  }
+
+
+  /// Remove beam-incompatible analyses from the run list.
+  AnalysisHandler& AnalysisHandler::removeIncompatibleAnalyses(const BeamPair& beams) {
+    vector<Analysis*> todelete;
+    foreach (Analysis* a, _analyses) {
+      if (! a->isCompatible(beams)) {
+        todelete.push_back(a);
+      }
+    }
+    foreach (Analysis* a, todelete) {
+      getLog() << Log::WARN << "Removing incompatible analysis '" 
+               << a->getName() << "'" << endl;
+      _analyses.erase(a);
+      delete a;
     }
     return *this;
   }

@@ -45,6 +45,8 @@ parser.add_option("-n", "--nevts", dest="MAXEVTNUM", type=int,
 parser.add_option("-a", "--analysis", dest="ANALYSES", action="append",
                   default=[], metavar="ANA",
                   help="add an analysis to the processing list.")
+parser.add_option("-A", "--all-analyses", dest="ALL_ANALYSES", action="store_true",
+                  default=False, help="add all analyses to the processing list.")
 #parser.add_option("--list-options", dest="LIST_OPTIONS", action="store_true",
 #                  default=False, help="show the available option switches for auto-parsing by 'complete'")
 parser.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
@@ -137,6 +139,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         print len(ana.getName()) * "="
         print ""
         print "Spires ID: %s" % ana.getSpiresId()
+        print "Spires URL: http://www.slac.stanford.edu/spires/search?key=%s" % ana.getSpiresId()
         print "Experiment: %s" % ana.getExpt()
         print "Year of publication: %s" % ana.getYear()
         #print ana.getAuthor()
@@ -163,31 +166,19 @@ else:
 
 ## Set up analysis handler
 ah = rivet.AnalysisHandler(opts.HISTOFILE)
+if opts.ALL_ANALYSES:
+    opts.ANALYSES = all_analyses
 for a in opts.ANALYSES:
     a_up = a.upper()
+    ## Print warning message and exit if not a valid analysis name
     if not a_up in all_analyses:
         print "'%s' is not a valid analysis. Available analyses are:" % a_up
         for aa in all_analyses:
             print "    %s" % aa
         sys.exit(1)
-    logging.info("Adding analysis '%s'" % a_up)
+    logging.debug("Adding analysis '%s'" % a_up)
     ah.addAnalysis(a_up)
 ah.init()
-
-
-## Cross-section
-if ah.needCrossSection():
-    xs = opts.CROSS_SECTION
-    if xs is None:
-        try:
-            xs = raw_input("Please specify the cross-section in pb: ")
-            xs = float(xs)
-            if xs <= 0:
-                raise ValueError("Cross-section %e is not a positive number")
-        except:
-            logging.error("Invalid cross-section: %s" % xs)
-            sys.exit(2)
-    ah.setCrossSection(xs)
         
 
 ## Event number logging
@@ -220,7 +211,36 @@ for evtfile in HEPMCFILES:
             logging.warning("Read error on file '%s'" % evtfile)
             break
         evt = r.get_next_event()
+        ## TODO: Use units
         #evt.use_units(GEV, MM)
+
+        ## Use the first event to check the analyses' beam compatibility
+        if EVTNUM == 1:
+            firstBeamIds = rivet.beamIds(evt)
+            logging.info("First event beam IDs = %s" % str(firstBeamIds))
+            num_anas_requested = len(ah.analysisNames())
+            ah.removeIncompatibleAnalyses(firstBeamIds)
+            if num_anas_requested > 0 and len(ah.analysisNames()) == 0:
+                logging.warning("All analyses were incompatible with the first event's beams")
+                logging.error("Exiting, since this probably isn't intentional!")
+                sys.exit(2)
+
+            ## Cross-section
+            if ah.needCrossSection():
+                xs = opts.CROSS_SECTION
+                if xs is None:
+                    try:
+                        xs = raw_input("Please specify the cross-section in pb: ")
+                        xs = float(xs)
+                        if xs <= 0:
+                            raise ValueError("Cross-section %e is not a positive number")
+                    except:
+                        logging.error("Invalid cross-section: %s" % xs)
+                        sys.exit(2)
+                ah.setCrossSection(xs)
+
+
+        ## All is well... do the analysis
         ah.analyze(evt);
         if RECVD_KILL_SIGNAL is not None:
             logging.critical("Leaving event loop early due to signal " + str(RECVD_KILL_SIGNAL))

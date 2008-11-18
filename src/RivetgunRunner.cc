@@ -8,6 +8,7 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/Configuration.hh"
+//#include "Rivet/Projections/Beam.hh"
 using namespace Rivet;
 
 #ifdef HAVE_AGILE
@@ -157,10 +158,17 @@ namespace Rivet {
                       AnalysisHandler& rh, IO_GenEvent* hepmcOut) {
     log << Log::INFO << "Generating " << cfg.numEvents << " events." << endl;
     HepMC::GenEvent myevent;
+
+    //Rivet::Beam beamproj;
+
     for (size_t i = 0; i < cfg.numEvents; ++i) {    
       assert(gen);
       gen->makeEvent(myevent);
       printEventNumber(i+1);
+      
+      //beamproj.project(myevent);
+      //log << Log::WARN << "&&&&&&&&&&&&&&&&&" << beamproj.sqrtS() << endl;
+
       useEvent(cfg, myevent, rh, hepmcOut);
 
       // Exit nicely if we've been signalled during this iteration

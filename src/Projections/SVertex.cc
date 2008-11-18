@@ -22,6 +22,7 @@ namespace Rivet {
   }
 
 
+
   void SVertex::project(const Event& e) {
     const PVertex& pvtx = applyProjection<PVertex>(e, "PV");
     const Vector3 pvpos = pvtx.getPVPosition();
@@ -31,12 +32,12 @@ namespace Rivet {
     // final state particles belonging to this vertex
     typedef map<GenVertex*,ParticleVector> VtxPartsMap;
     VtxPartsMap vtxparts;
-    for (ParticleVector::const_iterator p = chfs.particles().begin(); p != chfs.particles().end(); ++p) {
+    foreach (const Particle& p, chfs.particles()) {
       // Consider only charged particles in tracker geometrical acceptance
       /// @todo Use acceptance from the FinalState instead
-      if (fabs(p->momentum().pseudorapidity()) > _detEta) continue;
-      HepMC::GenVertex* pvtx = p->getHepMCParticle().production_vertex();
-      vtxparts[pvtx].push_back(*p);
+      if (fabs(p.momentum().pseudorapidity()) > _detEta) continue;
+      HepMC::GenVertex* pvtx = p.genParticle().production_vertex();
+      vtxparts[pvtx].push_back(p);
     }
   
     // Check if jets are tagged, by means of selected vertices fulfilling track criteria
@@ -67,29 +68,29 @@ namespace Rivet {
   /// return bool: cuts passed? 1 : 0 
   /// @todo Move this into the projection concrete class.
   bool SVertex::_applyVtxTrackCuts(const ParticleVector& vtxparts, 
-                                  const Vector3& pvtxpos, 
-                                  FourMomentum vtxVisMom) 
+                                   const Vector3& pvtxpos, 
+                                   FourMomentum vtxVisMom) 
   {
     // Check vertex final state charged particles, if fulfilling track criteria
     size_t pass1trk1pTdcaSig25(0), pass1trk05pTdcaSig25(0), 
       pass2trk15pTdcaSig3(0), pass2trk1pTdcaSig3(0);
     
-    for (ParticleVector::const_iterator vp = vtxparts.begin(); vp != vtxparts.end(); ++vp) {
-      const double IPsig = get2dClosestApproach(vp->getHepMCParticle(), pvtxpos) / _IPres;
+    foreach (const Particle& vp, vtxparts) {
+      const double IPsig = get2dClosestApproach(vp.genParticle(), pvtxpos) / _IPres;
       
       // Update "visible momentum" vector (returned by reference).
-      if (vp->momentum().pT() > 0.5) {
-        vtxVisMom += vp->momentum();
+      if (vp.momentum().pT() > 0.5) {
+        vtxVisMom += vp.momentum();
       }
       // 1st pass
       if (vtxparts.size() >= 3 && IPsig > 2.5) {
-        if (vp->momentum().pT() > 1.0) pass1trk1pTdcaSig25++;
-        else if (vp->momentum().pT() > 0.5) pass1trk05pTdcaSig25++;
+        if (vp.momentum().pT() > 1.0) pass1trk1pTdcaSig25++;
+        else if (vp.momentum().pT() > 0.5) pass1trk05pTdcaSig25++;
       }
       // 2nd pass
       if (vtxparts.size() >= 2 && IPsig > 3.) {
-        if (vp->momentum().pT() > 1.5) pass2trk15pTdcaSig3++;
-        else if (vp->momentum().pT() > 1.0) pass2trk1pTdcaSig3++;
+        if (vp.momentum().pT() > 1.5) pass2trk15pTdcaSig3++;
+        else if (vp.momentum().pT() > 1.0) pass2trk1pTdcaSig3++;
       } 
     }
 

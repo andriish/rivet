@@ -17,7 +17,7 @@ namespace Rivet {
     else if ( inc.first.pdgId() == _idhad ) hadron = inc.first;
     else throw Error("DISKinematics projector could not find the correct beam.");
 
-    if ( &(dislep.in().getHepMCParticle()) == &(hadron.getHepMCParticle()) ) {
+    if ( &(dislep.in().genParticle()) == &(hadron.genParticle()) ) {
       throw Error("DISKinematics projector could not find the correct beam.");
     }
 

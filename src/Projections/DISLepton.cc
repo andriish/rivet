@@ -37,7 +37,7 @@ namespace Rivet {
       }
     }
     
-    if (!_outgoing.hasHepMCParticle()) {
+    if (!_outgoing.hasGenParticle()) {
       throw Error("DISLepton projector could not find the scattered lepton.");
     }
   }

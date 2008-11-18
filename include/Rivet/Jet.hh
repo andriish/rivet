@@ -91,9 +91,9 @@ namespace Rivet {
     }
     
     bool containsParticle(const Particle& particle) const {
-      int barcode = particle.getHepMCParticle().barcode();
+      int barcode = particle.genParticle().barcode();
       for (ParticleVector::const_iterator pIt = _fullParticles.begin(); pIt != _fullParticles.end(); ++pIt) {
-        const GenParticle& part = pIt->getHepMCParticle();
+        const GenParticle& part = pIt->genParticle();
         if (part.barcode() == barcode) return true;
       }
       return false;

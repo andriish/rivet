@@ -84,7 +84,7 @@ namespace Rivet {
       start.insert(_theParticles.begin());
       oldMasses.insert(pair<set<ParticleVector::iterator>, FourMomentum>
                        (start, _theParticles.begin()->momentum()));
-
+      
       for (int nParts = 1; nParts != *nIt; ++nParts) {
         for (map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
              mIt != oldMasses.end(); ++mIt) {
@@ -95,7 +95,7 @@ namespace Rivet {
             pList.insert(pIt);   
             newMasses[pList] = cMom;
           }
-	}
+        }
         oldMasses = newMasses;
         newMasses.clear();
       }
@@ -104,31 +104,29 @@ namespace Rivet {
         double mass2 = mIt->second.mass2();
         if (mass2 >= 0.0) {
           double mass = sqrt(mass2);
-	  for (CompositeVeto::iterator cIt = _compositeVetoes.lower_bound(*nIt);
-	       cIt != _compositeVetoes.upper_bound(*nIt); ++cIt) {
-	    BinaryCut massRange = cIt->second;
+          for (CompositeVeto::iterator cIt = _compositeVetoes.lower_bound(*nIt);
+               cIt != _compositeVetoes.upper_bound(*nIt); ++cIt) {
+            BinaryCut massRange = cIt->second;
             if (mass < massRange.getLowerThan() && mass > massRange.getHigherThan()) {
               for (set<ParticleVector::iterator>::iterator lIt = mIt->first.begin();
                    lIt != mIt->first.end(); ++lIt) {
-		toErase.insert(*lIt);                
+                toErase.insert(*lIt);                
               }
-	     }
-	  }
+            }
+          }
         }
       }
     }
     
-    for(set<ParticleVector::iterator>::reverse_iterator p = toErase.rbegin();
-	p != toErase.rend(); ++p){
+    for (set<ParticleVector::iterator>::reverse_iterator p = toErase.rbegin(); p != toErase.rend(); ++p) {
       _theParticles.erase(*p);
-    }
+    }    
     
-
     for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
       for (ParticleVector::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
-        GenVertex *startVtx=((*p).getHepMCParticle()).production_vertex();
+        GenVertex *startVtx=((*p).genParticle()).production_vertex();
         bool veto = false;
-        GenParticle HepMCP = (*p).getHepMCParticle();
+        GenParticle HepMCP = (*p).genParticle();
         if (startVtx!=0) {
           for (GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
                pIt != startVtx->particles_end(HepMC::ancestors) && !veto; ++pIt) {
@@ -148,12 +146,12 @@ namespace Rivet {
       const FinalState& vfs = applyProjection<FinalState>(e, *ivfs);
       const ParticleVector& vfsp = vfs.particles();
       for (ParticleVector::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck){
-        if (!icheck->hasHepMCParticle()) continue;
+        if (!icheck->hasGenParticle()) continue;
         bool found = false;
         for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
-          if (!ipart->hasHepMCParticle()) continue;
-          log << Log::DEBUG << "comparing barcode " << icheck->getHepMCParticle().barcode() << " with veto particle " << ipart->getHepMCParticle().barcode() << endl; 
-          if (ipart->getHepMCParticle().barcode() == icheck->getHepMCParticle().barcode()){
+          if (!ipart->hasGenParticle()) continue;
+          log << Log::DEBUG << "comparing barcode " << icheck->genParticle().barcode() << " with veto particle " << ipart->genParticle().barcode() << endl; 
+          if (ipart->genParticle().barcode() == icheck->genParticle().barcode()){
             found = true;
             break;
           }

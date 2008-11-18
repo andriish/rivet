@@ -63,24 +63,46 @@ namespace Rivet {
     /// or analyses in the finalize phase.
     double sumOfWeights() const { return _sumOfWeights; }
 
+    /// Get a list of the currently registered analyses' names.
+    std::vector<std::string> analysisNames() {
+      std::vector<std::string> rtn;
+      foreach (Analysis* a, _analyses) {
+        rtn.push_back(a->getName());
+      }
+      return rtn;
+    }
+
     /// Add an analysis to the run list using its name. The actual Analysis 
     /// to be used will be obtained via AnalysisHandler::getAnalysis(string).
     /// If no matching analysis is found, no analysis is added (i.e. the
     /// null pointer is checked and discarded.
-    AnalysisHandler& addAnalysis(const string& analysisname);
+    AnalysisHandler& addAnalysis(const std::string& analysisname);
+
+    /// Remove an analysis from the run list using its name.
+    AnalysisHandler& removeAnalysis(const std::string& analysisname);
+
 
     /// Add analyses to the run list using their names. The actual {@link
     /// Analysis}' to be used will be obtained via
     /// AnalysisHandler::addAnalysis(string), which in turn uses
     /// AnalysisHandler::getAnalysis(string). If no matching analysis is found
     /// for a given name, no analysis is added, but also no error is thrown.
-    AnalysisHandler& addAnalyses(const vector<string>& analysisnames) {
-      for (vector<string>::const_iterator aname = analysisnames.begin();
-           aname != analysisnames.end(); ++aname) {
-        addAnalysis(*aname);
+    AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames) {
+      foreach (const string& aname, analysisnames) {
+        //getLog() << Log::DEBUG << "Adding analysis '" << aname << "'" << endl;
+        addAnalysis(aname);
       }
       return *this;
     }
+
+    /// Remove analyses from the run list using their names.
+    AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames) {
+      foreach (const string& aname, analysisnames) {
+        removeAnalysis(aname);
+      }
+      return *this;
+    }
+
 
     /// Add an analysis to the run list by supplying a "template" analysis.
     /// @todo Is there a good reason to not allow "direct" submission?
@@ -91,6 +113,10 @@ namespace Rivet {
       _analyses.insert(a);
       return *this;
     }
+
+    /// Remove beam-incompatible analyses from the run list.
+    AnalysisHandler& removeIncompatibleAnalyses(const BeamPair& beams);
+
 
     /// Initialize a run. If this run is to be joined together with other
     /// runs, \a N should be set to the total number of runs to be

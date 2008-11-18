@@ -15,7 +15,7 @@ namespace Rivet {
     const DISKinematics& diskin = applyProjection<DISKinematics>(e, "Kinematics");
     const LorentzTransform hcmboost = diskin.boostHCM();
     const DISLepton& dislep = diskin.applyProjection<DISLepton>(e, "Lepton");
-    const GenParticle& dislepGP = dislep.out().getHepMCParticle();
+    const GenParticle& dislepGP = dislep.out().genParticle();
     const FinalState& fs = dislep.applyProjection<FinalState>(e, "FS");
 
     // Fill the particle list with all particles _other_ than the DIS scattered
@@ -23,7 +23,7 @@ namespace Rivet {
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      const GenParticle& loopGP = p->getHepMCParticle();
+      const GenParticle& loopGP = p->genParticle();
       if (&loopGP != &dislepGP) { //< Ensure that we skip the DIS lepton
         Particle temp = *p;
         const FourMomentum hcmMom = hcmboost.transform(temp.momentum());

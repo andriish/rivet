@@ -1,3 +1,10 @@
+2008-11-18  Andy Buckley  <andy@insectnation.org>
+
+	* Lots of tidying up of particle, event, particle name etc.
+
+	* Now the first event is used to detect the beam type and remove
+	incompatible analyses.
+
 2008-11-17  Andy Buckley  <andy@insectnation.org>
 
 	* Added bash completion for rivetgun.

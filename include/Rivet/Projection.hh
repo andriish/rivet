@@ -47,18 +47,17 @@ namespace Rivet {
     virtual ~Projection();
     //@}
     
-  protected:
+
+  public:
     
     /// Take the information available in the Event and make the
     /// calculations necessary to obtain the projection. Note that this
     /// function must never be called except inside the
-    /// Event::applyProjection(Projection *) function. If the information
-    /// from other projections are necessary, their project(const Event&)
-    /// should not be called, rather the corresponding objects should
-    /// be added to the Event using the Event::applyProjection(Projection *)
-    /// function.
+    /// Event::applyProjection(Projection *) function.
     virtual void project(const Event& e) = 0;
-    
+
+
+  protected:    
 
     /// This function is used to define a unique ordering between
     /// different Projection objects of the same class. If this is
@@ -68,7 +67,7 @@ namespace Rivet {
     /// otherwise a positive value should be returned. This function must
     /// never be called explicitly, but should only be called from the
     /// operator<(const Projection &). When implementing the function in
-    /// concrete sub-classes, it is then guarranteed that the Projection
+    /// concrete sub-classes, it is then guaranteed that the Projection
     /// object \a p in the argument is of the same class as the sub-class
     /// and can be safely dynamically casted to that class.
     ///

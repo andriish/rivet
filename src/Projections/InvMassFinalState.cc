@@ -46,10 +46,10 @@ namespace Rivet {
       // loop around possible particle pairs
       for (vector<pair<long,long> >::const_iterator ipair = _decayids.begin(); ipair != _decayids.end() ; ++ipair) {
         if (ipart->pdgId() == ipair->first) {
-          if (accept(ipart->getHepMCParticle()))
+          if (accept(ipart->genParticle()))
             type1.push_back(ipart);
         } else if (ipart->pdgId() == ipair->second) {
-          if (accept(ipart->getHepMCParticle()))
+          if (accept(ipart->genParticle()))
             type2.push_back(ipart);
         }
       }
@@ -97,7 +97,7 @@ namespace Rivet {
       stringstream msg;
       foreach (const Particle& p, _theParticles) {
         msg << "ID " << p.pdgId() << " barcode " 
-            << p.getHepMCParticle().barcode() << ", ";
+            << p.genParticle().barcode() << ", ";
       }
       log << Log::DEBUG << "The following " << _theParticles.size() 
           << " particles have been selected by InvMassFinalState: " 

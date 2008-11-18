@@ -8,8 +8,9 @@ function _rivet() {
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    opts="--help --verbose --quiet --version --nevts"
-    opts="$opts --analysis --list-analyses --show-analysis --histo-file "
+    opts="--help --verbose --quiet --version --nevts --cross-section"
+    opts="$opts --analysis --list-analyses --show-analysis --histo-file"
+    opts="$opts -a -A -n -h -x -H -l -V -Q"
     if [[ ${cur} == -* ]] ; then
         #if test -x "$(which rivet)"; then
         #    anas=$(rivet --list-options)
@@ -65,6 +66,14 @@ function _rivetgun() {
         anas=$(rivet --list-analyses)
         if [[ ${prev} == "-a" || ${prev} == "--analysis" ]]; then
             COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
+            return 0
+        fi
+    fi
+
+    if test -x "$(which agile-runmc)"; then
+        gens=$(agile-runmc --list-gens)
+        if [[ ${prev} == "-g" || ${prev} == "--generator" ]]; then
+            COMPREPLY=( $(compgen -W "$gens" -- ${cur}) )
             return 0
         fi
     fi

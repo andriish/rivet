@@ -3,7 +3,6 @@
 #include "Rivet/Analyses/CDF_2008_S7541902.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
-#include "Rivet/AnalysisHandler.hh"
 #include <algorithm>
 
 namespace Rivet {
@@ -101,7 +100,7 @@ namespace Rivet {
   
   // Finalize
   void CDF_2008_S7541902::finalize() { 
-    float xsec = crossSection()/getHandler().sumOfWeights();
+    float xsec = crossSection()/sumOfWeights();
     // get the x-axis for the ratio plots
     std::vector<double> xval; xval.push_back(_xpoint);
     std::vector<double> xerr; xerr.push_back(0.);

@@ -12,7 +12,7 @@ namespace Rivet {
   /// Find whether ParticleName @a p is compatible with the
   /// template ParticleName @a allowed. Effectively this is
   /// asking whether @a p is a subset of @a allowed.
-  inline bool compatible(ParticleName p, ParticleName allowed) {
+  inline bool compatible(PdgId p, PdgId allowed) {
     //assert(p != ANY);
     return (allowed == ANY || p == allowed);
   }

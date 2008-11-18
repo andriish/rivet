@@ -33,7 +33,7 @@ namespace Rivet {
     }
 
     /// The pair of beam particle PDG codes in the current collision.
-    const pair<long,long> beamIDs() const {
+    const BeamPair beamIDs() const {
       return make_pair(beams().first.pdgId(), 
                        beams().second.pdgId());
     }
@@ -42,9 +42,13 @@ namespace Rivet {
     const double sqrtS() const;
 
 
-  protected:
+  public:
+
     /// Project on to the Event
     virtual void project(const Event& e);
+
+
+  protected:
 
     /// Compare with other projections.
     virtual int compare(const Projection& p) const {
@@ -57,6 +61,20 @@ namespace Rivet {
     ParticlePair _theBeams;
 
   };
+
+
+  ///////////////////////////////////////////////////////
+
+  /// @name Stand-alone functions
+  //@{
+
+  /// Function to get beam particles from an event
+  ParticlePair beams(const Event& e);
+
+  /// Function to get beam particle IDs from an event
+  BeamPair beamIds(const Event& e);
+
+  //@}
 
 }
 

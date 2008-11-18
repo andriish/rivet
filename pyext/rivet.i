@@ -6,22 +6,34 @@
   #include "Rivet/AnalysisHandler.hh"
   #include "Rivet/AnalysisLoader.hh"
   #include "Rivet/Tools/Logging.hh"
+  #include "Rivet/Event.hh"
+  #include "Rivet/Particle.hh"
+  #include "Rivet/ParticleName.hh"
+  #include "Rivet/Projections/Beam.hh"
 %}
 
 
+// STL stuff
 %include "std_string.i"
 %include "std_vector.i"
+%include "std_pair.i"
 %include "std_set.i"
 %include "std_map.i"
 %template(StrList) std::vector<std::string>;
 %template(StrSet) std::set<std::string>;
-%template(LogLevelMap) std::map<std::string, int>;
 
 
-%include "Rivet/ParticleName.hh"
+// Histo format enum
 %include "Rivet/HistoFormat.hh"
 
 
+// Particle ID stuff
+%include "Rivet/ParticleName.hh"
+%template(BeamPair) std::pair<long,long>;
+
+
+// Logging interface
+%template(LogLevelMap) std::map<std::string, int>;
 %ignore operator<<;
 namespace Rivet {
   %rename(setLogLevel) Log::setLevel(const std::string&, int);
@@ -29,7 +41,32 @@ namespace Rivet {
 %include "Rivet/Tools/Logging.hh"
 
 
+// Rivet class mappings
 namespace Rivet {
+
+  class Event {
+    Event();
+    Event(const HepMC::GenEvent&);
+    const HepMC::GenEvent& genEvent() const;
+    double weight() const;
+  };
+
+  class Particle {
+    Particle();
+    bool hasGenParticle() const;
+    const HepMC::GenParticle& genParticle() const;
+    const long pdgId() const;
+  };
+
+  typedef std::vector<Particle> ParticleVector;
+  typedef std::pair<Particle, Particle> ParticlePair;
+
+  ParticlePair beams(const Event& e);
+  BeamPair beamIds(const Event& e);
+  BeamPair beamIds(const HepMC::GenEvent& e) {
+    return beamIds(Event(e));
+  }
+
 
   class Analysis {
   public:
@@ -39,9 +76,7 @@ namespace Rivet {
     virtual std::string getExpt() const;
     virtual std::string getYear() const;
     virtual std::vector<std::string> getReferences() const;
-    //virtual const Cuts getCuts() const;
     virtual const BeamPair& getBeams() const;
-    //virtual const bool isCompatible(const std::string& quantity, const double value) const;
     virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
     virtual const bool isCompatible(const BeamPair& beams) const;
     //AnalysisHandler& getHandler() const;
@@ -53,12 +88,15 @@ namespace Rivet {
 
   class AnalysisHandler {
   public:
-    //AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet", HistoFormat storetype=AIDAML);
     AnalysisHandler(std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
     size_t numEvents() const;
     double sumOfWeights() const;
+    std::vector<std::string> analysisNames();
     AnalysisHandler& addAnalysis(const std::string& analysisname);
     AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);
+    AnalysisHandler& removeAnalysis(const std::string& analysisname);
+    AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
+    AnalysisHandler& removeIncompatibleAnalyses(const BeamPair& beams);
     void init(int i=0, int N=0);
     void analyze(const HepMC::GenEvent& event);
     void finalize();
@@ -69,11 +107,10 @@ namespace Rivet {
 
 
   class AnalysisLoader {
-  public:
+    public:
     static std::set<std::string> getAllAnalysisNames();
     static Analysis* getAnalysis(const std::string& analysisname);
     static void closeAnalysisBuilders();    
   };
-
 
 }
