@@ -11,6 +11,7 @@ namespace Rivet {
 
 
   /// @brief Measurement differntial Z/gamma* + jet +X cross sections
+  /// @author Gavin Hesketh
   class D0_2008_S7863608:public Analysis {
 
     typedef IsolationProjection<D0ILConeJets, FinalState> D0JetFromParticleIso;
