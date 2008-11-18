@@ -4,8 +4,8 @@
 function _rivet() {
 	local cur prev commands options command
 	COMPREPLY=()
-	cur=`_get_cword`
-    #cur="${COMP_WORDS[COMP_CWORD]}"
+	#cur=`_get_cword`
+    cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
     opts="--help --verbose --quiet --version --nevts"
@@ -46,8 +46,8 @@ function _rivet() {
 function _rivetgun() {
 	local cur prev commands options command
 	COMPREPLY=()
-	cur=`_get_cword`
-    #cur="${COMP_WORDS[COMP_CWORD]}"
+	#cur=`_get_cword`
+    cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
     opts="--help --histotype --histoname --analysis --all_analyses --loglevel"
