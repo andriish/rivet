@@ -21,6 +21,8 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     CDF_2008_S7828950.cc \
     D0_2001_S4674421.cc \
     D0_2004_S5992206.cc \
+    D0_2008_S6879055.cc \
+    D0_2008_S7863608.cc \
     DELPHI_1995_S3137023.cc \
     DELPHI_1996_S3430090.cc \
     DELPHI_2002_069_CONF_603.cc \
@@ -31,8 +33,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     OPAL_1998_S3780481.cc \
     ZEUS_2001_S4815815.cc \
     PDG_Hadron_Multiplicities.cc \
-    PDG_Hadron_Multiplicities_Ratios.cc \
-    D0_2008_S6879055.cc
+    PDG_Hadron_Multiplicities_Ratios.cc 
     #OPAL_2004_S6132243.cc 
 
 libRivetAnalysisStd_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)
