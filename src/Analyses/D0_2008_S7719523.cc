@@ -44,13 +44,13 @@ namespace Rivet {
   // Book histograms
   void D0_2008_S7719523::init() {
     _h_central_same_cross_section = 
-      bookHistogram1D(1, 1, 1, "Differential cross section in leading photon $p_\\perp$ (central jets, same-sign rapidity)");
+      bookHistogram1D(1, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, same-sign rapidity)");
     _h_central_opp_cross_section  = 
-      bookHistogram1D(2, 1, 1, "Differential cross section in leading photon $p_\\perp$ (central jets, opp-sign rapidity)");
+      bookHistogram1D(2, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, opp-sign rapidity)");
     _h_forward_same_cross_section = 
-      bookHistogram1D(3, 1, 1, "Differential cross section in leading photon $p_\\perp$ (forward jets, same-sign rapidity)");
+      bookHistogram1D(3, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, same-sign rapidity)");
     _h_forward_opp_cross_section  = 
-      bookHistogram1D(4, 1, 1, "Differential cross section in leading photon $p_\\perp$ (forward jets, opp-sign rapidity)"); 
+      bookHistogram1D(4, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, opp-sign rapidity)"); 
   }
 
 
@@ -70,6 +70,9 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Leading photon has pT < 30 GeV: " << photon.pT()/GeV << endl;
       vetoEvent(event);
     }
+
+    /// @todo Isolate photon by counting everything in a 0.4 cone around it and
+    ///       requiring that it has less than ???% of the photon's energy
 
     // Get all charged particles
     const FinalState& fs = applyProjection<FinalState>(event, "FS");

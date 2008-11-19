@@ -41,8 +41,8 @@ namespace Rivet {
     /// @todo Dividing through by measured Z cross-section would be nice...
     _h_jet_pT_cross_section = bookHistogram1D(1, 1, 1, "Differential cross section in leading jet $p_\\perp$");
     _h_jet_y_cross_section = bookHistogram1D(2, 1, 1, "Differential cross section in leading jet rapidity");
-    _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1, "Differential cross section in leading Z/gamma* $p_\\perp$");
-    _h_Z_y_cross_section = bookHistogram1D(4, 1, 1, "Differential cross section in leading Z/gamma* rapidity");
+    _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1, "Differential cross section in leading Z/$\\gamma*$ $p_\\perp$");
+    _h_Z_y_cross_section = bookHistogram1D(4, 1, 1, "Differential cross section in leading Z/$\\gamma*$ rapidity");
     _h_total_cross_section = bookHistogram1D(5, 1, 1, "Total Z + jet cross section");
     
   }

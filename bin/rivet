@@ -10,13 +10,10 @@ usage="""Run Rivet analyses on inputted events from file or Unix pipe
 Examples:
   %prog [options] <hepmcfile> [<hepmcfile> ...]
   my_generator -o myfifo & \ %prog [options] myfifo
-  Eventually: my_generator | %prog [options]
+  agile-runmc <genname> -n 100k | %prog [options]
 
 TODO:
- * Disable analyses based on whether the first event has inappropriate beams
- * Implement --list-used-analyses (after ana subtraction)
- * Time running and display at end
- * Improve showing analysis details
+ * Time the run and display elapsed time at end
  * Use Psyco
  * Incorporate an optional (and minimal) AGILe mode (just reading param files)
 """
@@ -51,7 +48,6 @@ parser.add_option("-A", "--all-analyses", dest="ALL_ANALYSES", action="store_tru
 #                  default=False, help="show the available option switches for auto-parsing by 'complete'")
 parser.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
                   default=False, help="show the list of available analyses")
-## TODO: Add this functionality:
 parser.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES", 
                   default=False, help="list the analyses used by this command (after subtraction of inappropriate ones)")
 parser.add_option("--show-analysis", dest="SHOW_ANALYSES", action="append",
@@ -132,9 +128,23 @@ if opts.LIST_ANALYSES:
 
 ## Show analyses' details
 if len(opts.SHOW_ANALYSES) > 0:
+    toshow = set()
     for i, a in enumerate(opts.SHOW_ANALYSES):
         a_up = a.upper()
-        ana = rivet.AnalysisLoader.getAnalysis(a_up)
+        if a_up in all_analyses:
+            toshow.add(a_up)
+        else:
+            ## Treat as a regex
+            import re
+            regex = re.compile(a)
+            for ana in all_analyses:
+                if regex.search(ana):
+                    toshow.add(ana)
+        #print toshow
+    ## TODO: Sort
+    for name in toshow:
+        ana = rivet.AnalysisLoader.getAnalysis(name)
+        print ""
         print ana.getName()
         print len(ana.getName()) * "="
         print ""
@@ -224,6 +234,11 @@ for evtfile in HEPMCFILES:
                 logging.warning("All analyses were incompatible with the first event's beams")
                 logging.error("Exiting, since this probably isn't intentional!")
                 sys.exit(2)
+
+            ## TODO: write to file? exit?
+            if opts.LIST_USED_ANALYSES:
+                for an in ah.analysisNames():
+                    print an
 
             ## Cross-section
             if ah.needCrossSection():
