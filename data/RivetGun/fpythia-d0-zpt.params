@@ -1,0 +1,56 @@
+### This parameter file is for the D0_2008-S7554427 analysis.
+### Only Z/gamma->ee events are produced.
+### The invariant mass of the lepton pair is > 40 GeV.
+
+# produce only Drell-Yan
+MSEL 0
+MSUB(1) 1
+
+# invariant mass of the fermion pair from the Z decay > 66 GeV
+CKIN(1) 40
+
+## gamma decays
+# d
+MDME(162,1) 0
+# u
+MDME(163,1) 0
+# s
+MDME(164,1) 0
+# c
+MDME(165,1) 0
+# b
+MDME(166,1) 0
+# t
+MDME(167,1) 0
+# e-
+MDME(170,1) 1
+# mu-
+MDME(171,1) 0
+# tau-
+MDME(172,1) 0
+
+## Z decays
+# d
+MDME(174,1) 0
+# u
+MDME(175,1) 0
+# s
+MDME(176,1) 0
+# c
+MDME(177,1) 0
+# b
+MDME(178,1) 0
+# t
+MDME(179,1) 0
+# e-
+MDME(182,1) 1
+# mu-
+MDME(184,1) 0
+# tau-
+MDME(186,1) 0
+# nu_e
+MDME(183,1) 0
+# nu_mu
+MDME(185,1) 0
+# nu_tau
+MDME(187,1) 0

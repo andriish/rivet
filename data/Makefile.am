@@ -58,6 +58,9 @@ nobase_dist_data_DATA += \
   RivetGun/fpythia-cdfdrellyan.params \
   RivetGun/fpythia-cdf-zpt.params \
   RivetGun/fpythia-longlife-stable.params \
+  RivetGun/fpythia-d0-zjets.params \
+  RivetGun/fpythia-d0-zpt.params \
+  RivetGun/fpythia-d0-gammajet.params \
   RivetGun/charybdisher-default.params  \
   RivetGun/charybdispyt-default.params  \
   RivetGun/lep1.params \
