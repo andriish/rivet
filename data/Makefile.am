@@ -19,6 +19,8 @@ nobase_dist_data_DATA = \
   Rivet/ZEUS_2001_S4815815.aida        \
   Rivet/PHENIX_2003_S5538505.aida      \
   Rivet/BRAHMS_2007_S7052448.aida      \
+  Rivet/UA5_1989_S1926373.aida         \
+  Rivet/UA5_1988_S1867512.aida         \
   Rivet/CDF_1994_S2952106.aida         \
   Rivet/CDF_2000_S4155203.aida         \
   Rivet/CDF_2001_S4751469.aida         \
@@ -37,8 +39,10 @@ nobase_dist_data_DATA = \
   Rivet/CDF_2008_LEADINGJETS.aida      \
   Rivet/D0_2001_S4674421.aida          \
   Rivet/D0_2004_S5992206.aida          \
+  Rivet/D0_2006_S6438750.aida          \
   Rivet/D0_2008_S6879055.aida          \
   Rivet/D0_2008_S7554427.aida          \
+  Rivet/D0_2008_S7662670.aida          \
   Rivet/D0_2008_S7719523.aida          \
   Rivet/D0_2008_S7863608.aida          \
   Rivet/PDG_HADRON_MULTIPLICITIES.aida \
