@@ -10,33 +10,38 @@
 
 namespace Rivet {
 
-  D0_2008_S6879055::D0_2008_S6879055() : _events(0) 
-  {
+
+  D0_2008_S6879055::D0_2008_S6879055() {
     setBeams(PROTON, ANTIPROTON);
-    //full final state
     FinalState fs(-5.0, 5.0);
     addProjection(fs, "FS");
-    //leading electrons in tracking acceptance
+
+    // Leading electrons in tracking acceptance
     LeadingParticlesFinalState lpfs(fs, -1.1, 1.1, 25);
-    lpfs.addParticleId(11).addParticleId(-11);
-    //addProjection(lpfs, "LeadingElectronsFS");
-    //InvMass selection
+    lpfs.addParticleId(ELECTRON).addParticleId(POSITRON);
+    addProjection(lpfs, "LeadingElectronsFS");
+
+    // InvMass selection
     InvMassFinalState electronsFromZ(lpfs, make_pair(11, -11), 75, 105, -1.1, 1.1, 25);
     addProjection(electronsFromZ,"ElectronsFromZ");
-    //Vetoed fs for jets
+
+    // Vetoed FS for jets
     VetoedFinalState vfs(fs);
-    // Add particle/antiparticle vetoing: 12=nu_e, 14=nu_mu, 16=nu_tau
-    vfs.addVetoPairId(12).addVetoPairId(14).addVetoPairId(16);
-    // veto the electrons from Z decay  
+    // Add particle/antiparticle vetoing
+    vfs.addVetoPairId(NU_E).addVetoPairId(NU_MU).addVetoPairId(NU_TAU);
+    // Veto the electrons from Z decay  
     vfs.addVetoOnThisFinalState(electronsFromZ);
-    //addProjection(vfs, "JetFS");
-    //jets
+    addProjection(vfs, "JetFS");
+
+    // Jet finder
     D0ILConeJets jets(vfs);
     addProjection(jets, "Jets");
-    //vertex
+
+    // Vertex
     PVertex vertex;
     addProjection(vertex, "PrimaryVertex");
-    //jet isolation
+
+    // Jet isolation
     D0JetFromParticleIso jetiso(jets, electronsFromZ, new D0JetIsoEstimator(0.4), 20.);
     addProjection(jetiso, "JetIsolation");
   } 
@@ -54,36 +59,33 @@ namespace Rivet {
 
 
   // Do the analysis 
-  void D0_2008_S6879055::analyze(const Event & event) {
-    getLog() << Log::DEBUG << "Starting analyzing" << endl;
-    double weight = event.weight();
-    getLog() << Log::DEBUG << "Event weight is " << weight << endl;
+  void D0_2008_S6879055::analyze(const Event& event) {
+    const double weight = event.weight();
 
-    //skip if the event is empty
-    const FinalState & fs = applyProjection<FinalState>(event, "FS");
+    // Skip if the event is empty
+    const FinalState& fs = applyProjection<FinalState>(event, "FS");
     if (fs.isEmpty()) {
-      return;
+      vetoEvent(event);
     }
 
-    //check that the primary vertex is within 60 cm in z from (0,0,0)
+    // Check that the primary vertex is within 60 cm in z from (0,0,0)
     const PVertex& vertex = applyProjection<PVertex>(event, "PrimaryVertex");
     getLog() << Log::DEBUG << "Primary vertex is at " << vertex.getPVPosition()/cm << " cm" << endl;
     // Skip event if the vertex position is not within 60 cm.
     if (fabs(vertex.getPVPosition().z())/cm > 60) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because vertex position in z is " << vertex.getPVPosition().z()/cm << endl;
-      return;
+      getLog() << Log::DEBUG << "Vertex z-position is " << vertex.getPVPosition().z()/cm << endl;
+      vetoEvent(event);
     }
     // Find the Z candidates
     const InvMassFinalState & invmassfs = applyProjection<InvMassFinalState>(event, "ElectronsFromZ");
     // If there is no Z candidate in the FinalState, skip the event
     if (invmassfs.isEmpty()) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because no Z candidate is found " << endl;
-      return;
+      getLog() << Log::DEBUG << "No Z candidate found" << endl;
+      vetoEvent(event);
     }
-    // Now build the jets on a fs without the electrons from Z
-    const D0ILConeJets & jetpro = applyProjection<D0ILConeJets>(event, "Jets");
+
+    // Now build the jets on a FS without the electrons from Z
+    const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
 
     // Take the jets with pT > 20
     /// @todo Purge the evil!
@@ -97,25 +99,24 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Num jets above 20 GeV = " << jets_aboveptmin.size() << endl;
 
     // Check they are isolated from leptons
-    const D0JetFromParticleIso & isoJet = applyProjection<D0JetFromParticleIso>(event, "JetIsolation");
+    const D0JetFromParticleIso& isoJet = applyProjection<D0JetFromParticleIso>(event, "JetIsolation");
     if (isoJet.getIsolatedParticles(1).size() != jets_aboveptmin.size()) {
       getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                << " because jet isolated from lepton size " << isoJet.getIsolatedParticles(0).size()
                << " is different from jet size " << jets_aboveptmin.size() << endl;
-      return;
+      vetoEvent(event);
     }
-    // Now take only the jets with |eta|<2.5
+
+    // Now take only the jets with |eta| < 2.5
     list<FourMomentum> finaljet_list;
     foreach (const FourMomentum& ijet, jets_aboveptmin) {
       if (fabs(ijet.pseudorapidity()) < 2.5) {
         finaljet_list.push_back(ijet);
       }
     }
-    getLog() << Log::DEBUG << "Num jets above 20 GeV and with |eta| < 2.5 = " << finaljet_list.size() << endl;
+    getLog() << Log::DEBUG << "Num jets above 20 GeV and with |eta| < 2.5 = " 
+             << finaljet_list.size() << endl;
 
-    // Now count....
-    _events += weight;
-    //_crossSectionRatio->fill(0, weight);
     if (finaljet_list.size() >= 1) {
       _crossSectionRatio->fill(1, weight);
       _crossSectionRatioNormToDataBin1->fill(1, weight);
@@ -140,12 +141,12 @@ namespace Rivet {
   void D0_2008_S6879055::finalize() {
     // Now divide by the inclusive result
     getLog() << Log::DEBUG << "Entries for bin 0 " << _crossSectionRatio->binEntries(0) << endl;
-    if (_events != 0) {
-      _crossSectionRatio->scale((double) 1 / _events);
-      _crossSectionRatioNormToDataBin1->scale((double) 1 / _events);
+    if (sumOfWeights()) {
+      _crossSectionRatio->scale(1/sumOfWeights());
+      _crossSectionRatioNormToDataBin1->scale(1.0/sumOfWeights());
       _crossSectionRatioNormToDataBin1->scale(0.1201 / _crossSectionRatio->binHeight(1));
     }
-    getLog() << Log::DEBUG << "Finished!" << endl;
   }
+
 
 }

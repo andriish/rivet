@@ -25,6 +25,7 @@ namespace Rivet {
     static Analysis* create() {
       return new D0_2008_S6879055();
     }
+
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis. 
@@ -35,7 +36,6 @@ namespace Rivet {
     string getDescription() const {
       return "Measurement of the ratio sigma(Z/gamma* + n jets)/sigma(Z/gamma*)";
     }
-    
     /// Experiment which performed and published this analysis. 
     string getExpt() const {
       return "D0";
@@ -61,17 +61,11 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    D0_2008_S6879055 & operator=(const D0_2008_S6879055 & x);
-
     /// @name Histograms
     //@{
     AIDA::IHistogram1D * _crossSectionRatio;
-
     AIDA::IHistogram1D * _crossSectionRatioNormToDataBin1;
     //@}
-
-    double _events;
 
   };
 

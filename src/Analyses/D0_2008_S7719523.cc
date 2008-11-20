@@ -22,21 +22,14 @@ namespace Rivet {
  
     // Get leading photon
     /// @todo Repeating the cuts is a bit silly...
-
     LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
     photonfs.addParticleId(PHOTON);
     addProjection(photonfs, "LeadingPhoton");
 
-    /// @todo Remove leading photon from jet tracks
-
-    // //Vetoed fs for jets
-    // VetoedFinalState vfs(fs);
-    // // veto the muons from Z decay  
-    // vfs.addVetoOnThisFinalState(lpfs);
-    // addProjection(vfs, "VFS");
-
-    /// @todo Remove extra photons or incorporate into jets?
-    /// @todo Veto neutrinos
+    // FS for jets excludes the leading photon
+    VetoedFinalState vfs(fs);
+    vfs.addVetoOnThisFinalState(photonfs);
+    addProjection(vfs, "JetFS");
   } 
 
 
@@ -71,14 +64,26 @@ namespace Rivet {
       vetoEvent(event);
     }
 
-    /// @todo Isolate photon by counting everything in a 0.4 cone around it and
-    ///       requiring that it has less than ???% of the photon's energy
-
     // Get all charged particles
-    const FinalState& fs = applyProjection<FinalState>(event, "FS");
+    const FinalState& fs = applyProjection<FinalState>(event, "JetFS");
     if (fs.isEmpty()) {
       vetoEvent(event);
     }
+
+    // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
+    const double egamma = photon.E();
+    double econe = 0.0;
+    foreach (const Particle& p, fs.particles()) {
+      if (deltaR(photon.pseudorapidity(), photon.azimuthalAngle(),
+                 p.momentum().pseudorapidity(), p.momentum().azimuthalAngle())) {
+        econe += p.momentum().E();
+        if (econe/egamma > 0.07) {
+          getLog() << Log::DEBUG << "Vetoing event because photon is insufficiently isolated" << endl;
+          vetoEvent(event);
+        }
+      }
+    }
+
     /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
     D0ILConeJets jetpro(fs); //< @todo This arg makes no sense!
     jetpro.calc(fs.particles());
@@ -92,7 +97,8 @@ namespace Rivet {
       }
     }
     
-    getLog() << Log::DEBUG << "Num jets after isolation and pT cuts = " << isolated_jets.size() << endl;
+    getLog() << Log::DEBUG << "Num jets after isolation and pT cuts = " 
+             << isolated_jets.size() << endl;
     if (isolated_jets.empty()) {
       getLog() << Log::DEBUG << "No jets pass cuts" << endl;
       vetoEvent(event);
@@ -103,9 +109,16 @@ namespace Rivet {
     const FourMomentum leadingJet = isolated_jets.front().momentum();
     int photon_jet_sign = sign( leadingJet.rapidity() * photon.rapidity() );
 
-    /// @todo What if leading jet is in [0.8, 1.5]?
+    // Veto if leading jet is outside plotted rapidity regions
+    const double abs_y1 = fabs(leadingJet.rapidity());
+    if (inRange(abs_y1, 0.8, 1.5) || abs_y1 > 2.5) {
+      getLog() << Log::DEBUG << "Leading jet falls outside aceptance range; |y1| = " 
+               << abs_y1 << endl;
+      vetoEvent(event);
+    }
 
-    if (fabs(leadingJet.rapidity()) < 0.8) {
+    // Fill histos
+    if (fabs(leadingJet.rapidity()) < 0.8) { 
       if (photon_jet_sign >= 1) {
         _h_central_same_cross_section->fill(photon.pT(), weight);
       } else {
