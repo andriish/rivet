@@ -12,6 +12,7 @@ namespace Rivet {
 
   D0_2008_S7554427::D0_2008_S7554427()
   {
+    // Run II Z pT
     setBeams(PROTON, ANTIPROTON);
     
     /// @todo Use cross-section from generator
@@ -53,16 +54,17 @@ namespace Rivet {
     
     // Add back in photons that could have radiated from the Z decay products
     const ParticleVector allparts = applyProjection<FinalState>(event, "FS").particles();
+    const double HALO_RADIUS = 0.2;
     foreach (const Particle& p, allparts) {
       if (p.pdgId() == PHOTON) {
         const double pho_eta = p.momentum().pseudorapidity();
         const double pho_phi = p.momentum().azimuthalAngle();
-        /// @todo Need to be super-careful about photons lying between the electrons? (no)
-        if (deltaR(e1.pseudorapidity(), e1.azimuthalAngle(), pho_eta, pho_phi) < 0.2) {
+        /// NB. Not bothered about double-counting photons lying between the electrons
+        if (deltaR(e1.pseudorapidity(), e1.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
           e1 += p.momentum();
           continue;
         }
-        if (deltaR(e2.pseudorapidity(), e2.azimuthalAngle(), pho_eta, pho_phi) < 0.2) {
+        if (deltaR(e2.pseudorapidity(), e2.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
           e2 += p.momentum(); 
         }
       }

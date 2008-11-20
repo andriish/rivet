@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_D0_2008_S7554427_HH
-#define RIVET_D0_2008_S7554427_HH
+#ifndef RIVET_D0_2008_S7837160_HH
+#define RIVET_D0_2008_S7837160_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
@@ -8,20 +8,20 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of D0 Run II Z pT diff cross-section shape
+  /// @brief Measurement of W charge asymmetry from D0 Run II
   /// @author Andy Buckley
   /// @author Gavin Hesketh
-  class D0_2008_S7554427 : public Analysis {
+  class D0_2008_S7837160 : public Analysis {
 
   public:
 
     /// Default constructor.
-    D0_2008_S7554427();
+    D0_2008_S7837160();
 
 
     /// Factory method 
     static Analysis* create() {
-      return new D0_2008_S7554427();
+      return new D0_2008_S7837160();
     }
 
 
@@ -29,12 +29,12 @@ namespace Rivet {
     //@{
     /// Get a description of the analysis. 
     string getSpiresId() const {
-      return "7554427";
+      return "7837160";
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "Measurement of differential Z/gamma* + X cross-section shape";
-    }
+      return "Measurement of W charge asymmetry from D0 Run II";
+    }    
     /// Experiment which performed and published this analysis. 
     string getExpt() const {
       return "D0";
@@ -46,7 +46,8 @@ namespace Rivet {
     /// Publication references.
     vector<string> getReferences() const {
       vector<string> ret;
-      ret.push_back("hep-ex/0712.0803");
+      //ret.push_back("Phys.Rev.Lett.");
+      ret.push_back("arXiv:0807.3367");
       return ret;
     }
     //@}
@@ -63,8 +64,13 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_ZpT;
-    AIDA::IHistogram1D * _h_forward_ZpT;
+    /// @todo Move into histo manager
+    AIDA::IHistogram1D *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35;
+    AIDA::IHistogram1D *_h_dsigplus_deta_35, *_h_dsigminus_deta_35;
+    AIDA::IHistogram1D *_h_dsigplus_deta_25, *_h_dsigminus_deta_25;
+
+    /// Final histos: 3rd is not independent of others
+    AIDA::IHistogram1D *_h_chg_asymm_vs_eta_25_35, *_h_chg_asymm_vs_eta_35, *_h_chg_asymm_vs_eta_25;
     //@}
 
   };

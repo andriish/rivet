@@ -1,27 +1,29 @@
 // -*- C++ -*-
-#ifndef RIVET_D0_2008_S7554427_HH
-#define RIVET_D0_2008_S7554427_HH
+#ifndef RIVET_D0_2008_S7662670_HH
+#define RIVET_D0_2008_S7662670_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
+#include "Rivet/Projections/IsolationTools.hh"
+#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {
 
 
-  /// @brief Measurement of D0 Run II Z pT diff cross-section shape
+  /// @brief Measurement of D0 differential jet cross sections
   /// @author Andy Buckley
   /// @author Gavin Hesketh
-  class D0_2008_S7554427 : public Analysis {
+  class D0_2008_S7662670 : public Analysis {
 
   public:
 
     /// Default constructor.
-    D0_2008_S7554427();
+    D0_2008_S7662670();
 
 
     /// Factory method 
     static Analysis* create() {
-      return new D0_2008_S7554427();
+      return new D0_2008_S7662670();
     }
 
 
@@ -29,12 +31,12 @@ namespace Rivet {
     //@{
     /// Get a description of the analysis. 
     string getSpiresId() const {
-      return "7554427";
+      return "7662670";
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "Measurement of differential Z/gamma* + X cross-section shape";
-    }
+      return "Measurement of D0 Run II differential jet cross sections";
+    }    
     /// Experiment which performed and published this analysis. 
     string getExpt() const {
       return "D0";
@@ -46,7 +48,8 @@ namespace Rivet {
     /// Publication references.
     vector<string> getReferences() const {
       vector<string> ret;
-      ret.push_back("hep-ex/0712.0803");
+      ret.push_back("arXiv:0802.2400");
+      ret.push_back("Phys.Rev.Lett.101:062001,2008");
       return ret;
     }
     //@}
@@ -63,12 +66,14 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_ZpT;
-    AIDA::IHistogram1D * _h_forward_ZpT;
+    AIDA::IHistogram1D * _h_jet_pT_cross_section;
+    AIDA::IHistogram1D * _h_jet_y_cross_section;
+    AIDA::IHistogram1D * _h_Z_pT_cross_section;
+    AIDA::IHistogram1D * _h_Z_y_cross_section;
+    AIDA::IHistogram1D * _h_total_cross_section;
     //@}
 
   };
-
 
 }
 

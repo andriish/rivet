@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/D0_2008_S7863608.hh"
+#include "Rivet/Analyses/D0_2008_S7662670.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  D0_2008_S7863608::D0_2008_S7863608()
+  D0_2008_S7662670::D0_2008_S7662670()
   {
     setBeams(PROTON, ANTIPROTON);
     
@@ -26,9 +26,9 @@ namespace Rivet {
     lpfs.addParticleId(MUON).addParticleId(ANTIMUON);
     addProjection(lpfs, "LeadingMuons");
 
-    // Vetoed fs for jets
+    //Vetoed fs for jets
     VetoedFinalState vfs(fs);
-    // Veto the muons from Z decay  
+    // veto the muons from Z decay  
     vfs.addVetoOnThisFinalState(lpfs);
     addProjection(vfs, "VFS");
   } 
@@ -36,7 +36,7 @@ namespace Rivet {
 
 
   // Book histograms
-  void D0_2008_S7863608::init() {
+  void D0_2008_S7662670::init() {
 
     /// @todo Dividing through by measured Z cross-section would be nice...
     _h_jet_pT_cross_section = bookHistogram1D(1, 1, 1, "Differential cross section in leading jet $p_\\perp$");
@@ -50,7 +50,7 @@ namespace Rivet {
 
 
   // Do the analysis 
-  void D0_2008_S7863608::analyze(const Event & event) {
+  void D0_2008_S7662670::analyze(const Event & event) {
     double weight = event.weight();
 
     // Skip if the event is empty
@@ -142,7 +142,7 @@ namespace Rivet {
 
 
   // Finalize
-  void D0_2008_S7863608::finalize() {
+  void D0_2008_S7662670::finalize() {
     /// @todo Use the generator cross-section
     //_h_total_cross_section->fill(crossSection());
     normalize(_h_jet_pT_cross_section, 18.7);
