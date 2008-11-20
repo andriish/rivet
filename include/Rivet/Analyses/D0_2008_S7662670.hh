@@ -66,11 +66,12 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_jet_pT_cross_section;
-    AIDA::IHistogram1D * _h_jet_y_cross_section;
-    AIDA::IHistogram1D * _h_Z_pT_cross_section;
-    AIDA::IHistogram1D * _h_Z_y_cross_section;
-    AIDA::IHistogram1D * _h_total_cross_section;
+    AIDA::IHistogram1D * _h_dsigdptdy_y00_04;
+    AIDA::IHistogram1D * _h_dsigdptdy_y04_08;
+    AIDA::IHistogram1D * _h_dsigdptdy_y08_12;
+    AIDA::IHistogram1D * _h_dsigdptdy_y12_16;
+    AIDA::IHistogram1D * _h_dsigdptdy_y16_20;
+    AIDA::IHistogram1D * _h_dsigdptdy_y20_24;
     //@}
 
   };

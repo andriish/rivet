@@ -23,6 +23,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     D0_2004_S5992206.cc \
     D0_2008_S6879055.cc \
     D0_2008_S7554427.cc \
+    D0_2008_S7662670.cc \
     D0_2008_S7719523.cc \
     D0_2008_S7837160.cc \
     D0_2008_S7863608.cc \

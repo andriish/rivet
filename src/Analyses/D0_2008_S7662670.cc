@@ -13,142 +13,91 @@ namespace Rivet {
   D0_2008_S7662670::D0_2008_S7662670()
   {
     setBeams(PROTON, ANTIPROTON);
-    
-    /// @todo Use cross-section from generator
-    //setNeedsCrossSection(true);
+    setNeedsCrossSection(true);
 
     //full final state
     FinalState fs(-5.0, 5.0);
     addProjection(fs, "FS");
- 
-    //leading muons in tracking acceptance
-    LeadingParticlesFinalState lpfs(fs, -1.7, 1.7);
-    lpfs.addParticleId(MUON).addParticleId(ANTIMUON);
-    addProjection(lpfs, "LeadingMuons");
 
-    //Vetoed fs for jets
-    VetoedFinalState vfs(fs);
-    // veto the muons from Z decay  
-    vfs.addVetoOnThisFinalState(lpfs);
-    addProjection(vfs, "VFS");
-  } 
+    D0ILConeJets jetpro(fs, 0.7);
+    addProjection(jetpro, "Jets");
+  }
 
 
 
   // Book histograms
-  void D0_2008_S7662670::init() {
-
-    /// @todo Dividing through by measured Z cross-section would be nice...
-    _h_jet_pT_cross_section = bookHistogram1D(1, 1, 1, "Differential cross section in leading jet $p_\\perp$");
-    _h_jet_y_cross_section = bookHistogram1D(2, 1, 1, "Differential cross section in leading jet rapidity");
-    _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1, "Differential cross section in leading Z/$\\gamma*$ $p_\\perp$");
-    _h_Z_y_cross_section = bookHistogram1D(4, 1, 1, "Differential cross section in leading Z/$\\gamma*$ rapidity");
-    _h_total_cross_section = bookHistogram1D(5, 1, 1, "Total Z + jet cross section");
-    
+  void D0_2008_S7662670::init() 
+  {
+    _h_dsigdptdy_y00_04 = bookHistogram1D(1, 1, 1, "Differential cross section in incl. jet $p_\\perp$, $0.0 < |y| < 0.4$");
+    _h_dsigdptdy_y04_08 = bookHistogram1D(2, 1, 1, "Differential cross section in incl. jet $p_\\perp$, $0.4 < |y| < 0.8$");
+    _h_dsigdptdy_y08_12 = bookHistogram1D(3, 1, 1, "Differential cross section in incl. jet $p_\\perp$, $0.8 < |y| < 1.2$");
+    _h_dsigdptdy_y12_16 = bookHistogram1D(4, 1, 1, "Differential cross section in incl. jet $p_\\perp$, $1.2 < |y| < 1.6$");
+    _h_dsigdptdy_y16_20 = bookHistogram1D(5, 1, 1, "Differential cross section in incl. jet $p_\\perp$, $1.6 < |y| < 2.0$");
+    _h_dsigdptdy_y20_24 = bookHistogram1D(6, 1, 1, "Differential cross section in incl. jet $p_\\perp$, $2.0 < |y| < 2.4$");
   }
 
 
 
   // Do the analysis 
   void D0_2008_S7662670::analyze(const Event & event) {
-    double weight = event.weight();
+    const double weight = event.weight();
 
     // Skip if the event is empty
     const FinalState& fs = applyProjection<FinalState>(event, "FS");
     if (fs.isEmpty()) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because no final state pair found " << endl;
+      getLog() << Log::DEBUG << "Empty event!" << endl;
       vetoEvent(event);
     }
 
-
-    // Find the Z candidates
-    const FinalState & muonfs = applyProjection<FinalState>(event, "LeadingMuons");
-    // If there are no muons in the FinalState, skip the event
-    if (muonfs.particles().size() != 2) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because no muon pair found " << endl;
+    // Find the jets
+    const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
+    // If there are no jets, skip the event
+    if (jetpro.jets().size() == 0) {
+      getLog() << Log::DEBUG << "No jets found" << endl;
       vetoEvent(event);
     }
-    
-    // Now build the jets on a FS without the muons from the Z
-    const ParticleVector vparts = applyProjection<FinalState>(event, "VFS").particles();
-    ParticleVector jetparts;
-    foreach (const Particle& p, vparts) {
-      if (p.pdgId() == PHOTON) {
-        bool copy = true;
-        foreach (const Particle& mu, muonfs.particles()) {
-          if (deltaR(mu.momentum().pseudorapidity(), mu.momentum().azimuthalAngle(),
-                     p.momentum().pseudorapidity(), p.momentum().azimuthalAngle()) < 0.2) {
-            copy = false;
-            break;
-          }
-        }
-        if (!copy) {
-          getLog() << Log::DEBUG << "Excluding photon from muon" << endl;
-          continue;
+
+    // Fill histo for each jet
+    foreach (const Jet& j, jetpro.jets()) {
+      const double pt = j.momentum().pT();
+      const double y = fabs(j.momentum().rapidity());
+      /// @todo Aaaargh!
+      getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV 
+                 << ", |y| = " << y << endl;
+      if (pt/GeV > 50) {
+        getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV 
+                 << ", |y| = " << y << endl;
+        if (y < 0.4) {
+          _h_dsigdptdy_y00_04->fill(pt/GeV, weight);
+        } else if (y < 0.8) {
+          _h_dsigdptdy_y04_08->fill(pt/GeV, weight);
+        } else if (y < 1.2) {
+          _h_dsigdptdy_y08_12->fill(pt/GeV, weight);
+        } else if (y < 1.6) {
+          _h_dsigdptdy_y12_16->fill(pt/GeV, weight);
+        } else if (y < 2.0) {
+          _h_dsigdptdy_y16_20->fill(pt/GeV, weight);
+        } else if (y < 2.4) {
+          _h_dsigdptdy_y20_24->fill(pt/GeV, weight);
         }
       }
-      jetparts.push_back(p);
     }
-
-    /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
-    D0ILConeJets jetpro(muonfs, 0.5); //< @todo The 'muonfs' arg makes no sense!
-    jetpro.calc(jetparts);
-
-    // Take the leading jet with pt > 20, |y| < 2.8:
-    /// @todo Make this neater, using the JetAlg interface and the built-in sorting
-    const Jets& jets = jetpro.jets();
-    Jets jets_cut;
-    foreach (const Jet& j, jets) {
-      if (j.momentum().pT()/GeV > 20 && fabs(j.momentum().rapidity()) < 2.8) {
-        jets_cut.push_back(j);
-      }
-    }
-    getLog() << Log::DEBUG << "Num jets above 20 GeV = " << jets_cut.size() << endl;
-
-    // Return if there are no jets:
-    if(jets_cut.size()<1) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because no jets pass cuts " << endl;
-      vetoEvent(event);
-    }
-
-    // Sort by pT:
-    sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
-
-    // Calculate the Z pT, rapidity:
-    const ParticleVector muons = muonfs.particles();
-    const FourMomentum Zmom = muons[0].momentum() + muons[1].momentum();
-
-    if (Zmom.mass()/GeV < 65 || Zmom.mass()/GeV > 115) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because failing Z mass window " << endl;
-      vetoEvent(event);
-    }
-
-    // In jet pT
-    _h_jet_pT_cross_section->fill( jets_cut[0].momentum().pT(), weight);
-    _h_jet_y_cross_section->fill( fabs(jets_cut[0].momentum().rapidity()), weight);
-
-    // In Z pT
-    _h_Z_pT_cross_section->fill(Zmom.pT(), weight);
-    _h_Z_y_cross_section->fill(fabs(Zmom.rapidity()), weight);
-
-    // _h_total_cross_section = bookHistogram1D     _crossSectionRatio->fill(1, weight);
 
   }
 
 
-
   // Finalize
   void D0_2008_S7662670::finalize() {
-    /// @todo Use the generator cross-section
-    //_h_total_cross_section->fill(crossSection());
-    normalize(_h_jet_pT_cross_section, 18.7);
-    normalize(_h_jet_y_cross_section, 18.7);
-    normalize(_h_Z_pT_cross_section, 18.7);
-    normalize(_h_Z_y_cross_section, 18.7);
+    /// Scale by L_eff = sig_MC * L_exp / num_MC
+    const double lumi_mc = sumOfWeights() / crossSection();
+    const double scalefactor =  1 / lumi_mc;
+
+    scale(_h_dsigdptdy_y00_04, scalefactor);
+    scale(_h_dsigdptdy_y04_08, scalefactor);
+    scale(_h_dsigdptdy_y08_12, scalefactor);
+    scale(_h_dsigdptdy_y12_16, scalefactor);
+    scale(_h_dsigdptdy_y16_20, scalefactor);
+    scale(_h_dsigdptdy_y20_24, scalefactor);
   }
 
 }

@@ -68,9 +68,6 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35;
     AIDA::IHistogram1D *_h_dsigplus_deta_35, *_h_dsigminus_deta_35;
     AIDA::IHistogram1D *_h_dsigplus_deta_25, *_h_dsigminus_deta_25;
-
-    /// Final histos: 3rd is not independent of others
-    AIDA::IHistogram1D *_h_chg_asymm_vs_eta_25_35, *_h_chg_asymm_vs_eta_35, *_h_chg_asymm_vs_eta_25;
     //@}
 
   };
