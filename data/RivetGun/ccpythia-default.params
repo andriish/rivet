@@ -1,7 +1,0 @@
-PhaseSpace:pTHatMin = 2.0
-HardQCD:all = on
-
-## More examples
-#WeakSingleBoson:ffbar2gmZ = on
-#PhaseSpace:mHatMin = 80.0
-#PhaseSpace:mHatMax = 120.0
