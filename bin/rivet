@@ -15,7 +15,8 @@ Examples:
 TODO:
  * Time the run and display elapsed time at end
  * Use Psyco
- * Incorporate an optional (and minimal) AGILe mode (just reading param files)
+ * Incorporate an optional AGILe mode (just reading param 
+   files - no proliferation of switches)
 """
 
 
@@ -47,7 +48,7 @@ parser.add_option("-A", "--all-analyses", dest="ALL_ANALYSES", action="store_tru
 #parser.add_option("--list-options", dest="LIST_OPTIONS", action="store_true",
 #                  default=False, help="show the available option switches for auto-parsing by 'complete'")
 parser.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
-                  default=False, help="show the list of available analyses")
+                  default=False, help="show the list of available analyses' names. With -V, it shows the descriptions, too")
 parser.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES", 
                   default=False, help="list the analyses used by this command (after subtraction of inappropriate ones)")
 parser.add_option("--show-analysis", dest="SHOW_ANALYSES", action="append",
@@ -121,8 +122,12 @@ signal.signal(signal.SIGUSR2, handleKillSignal);
 ## List of analyses
 all_analyses = rivet.AnalysisLoader.getAllAnalysisNames()
 if opts.LIST_ANALYSES:
-    for a in all_analyses:
-        print a
+    for aname in all_analyses:
+        msg = aname
+        if opts.LOGLEVEL == logging.DEBUG:
+            a = rivet.AnalysisLoader.getAnalysis(aname)
+            msg = "%-25s %s" % (aname, "  " + a.getDescription())
+        print msg
     sys.exit(0)
 
 
@@ -140,8 +145,8 @@ if len(opts.SHOW_ANALYSES) > 0:
             for ana in all_analyses:
                 if regex.search(ana):
                     toshow.add(ana)
-        #print toshow
-    ## TODO: Sort
+
+    ## Show the matching analyses' details
     for name in sorted(toshow):
         ana = rivet.AnalysisLoader.getAnalysis(name)
         print ""

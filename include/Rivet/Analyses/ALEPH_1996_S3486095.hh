@@ -79,7 +79,7 @@ namespace Rivet {
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "Studies of Quantum Chromodynamics withe the ALEPH detector.";
+      return "Studies of QCD with the ALEPH detector.";
     }
     /// Experiment which performed and published this analysis.
     string getExpt() const {

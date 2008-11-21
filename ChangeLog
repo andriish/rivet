@@ -1,5 +1,8 @@
 2008-11-21  Andy Buckley  <andy@insectnation.org>
 
+	* Verbose mode with --list-analyses now shows descriptions as well
+	as analysis names.
+
 	* Moved data/Rivet to data/refdata and moved data/RivetGun
 	contents to AGILe (since generator steering is no longer a Rivet
 	thing)
