@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import sys, os
+import sys, os, time
 import logging, signal
 from optparse import OptionParser, OptionGroup
 
@@ -13,7 +13,6 @@ Examples:
   agile-runmc <genname> -n 100k | %prog [options]
 
 TODO:
- * Time the run and display elapsed time at end
  * Use Psyco
  * Incorporate an optional AGILe mode (just reading param 
    files - no proliferation of switches)
@@ -216,6 +215,7 @@ def logNEvt(n):
 
 ## Read and process events
 EVTNUM = 0
+starttime = time.time()
 for evtfile in HEPMCFILES:
     logging.info("Reading events from '%s'" % evtfile)
     r = hepmc.IO_GenEvent(evtfile, "r")
@@ -259,6 +259,9 @@ for evtfile in HEPMCFILES:
                         sys.exit(2)
                 ah.setCrossSection(xs)
 
+            ## If it's the first event, reinitialize the start time since 
+            ## we could have been waiting for user input:
+            starttime = time.time()
 
         ## All is well... do the analysis
         ah.analyze(evt);
@@ -278,3 +281,7 @@ if EVTNUM < opts.MAXEVTNUM:
 ## Finalize and write out data file
 ah.finalize()
 ah.commitData();
+
+endtime = time.time()
+delta_t = endtime - starttime
+logging.info("Time elapsed: %0.2f seconds" % delta_t)
