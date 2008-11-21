@@ -1,5 +1,5 @@
 bin_SCRIPTS = rivet-config 
-dist_bin_SCRIPTS = aida2flat aida2root compare-plots make-histos
+dist_bin_SCRIPTS = aida2flat aida2root compare-histos make-plots
 EXTRA_DIST = flat2aida
 
 if ENABLE_PYRIVET
