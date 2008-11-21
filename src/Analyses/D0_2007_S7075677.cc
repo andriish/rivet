@@ -53,36 +53,26 @@ namespace Rivet {
     FourMomentum e2 = efs.particles()[1].momentum();
     
     // Add back in photons that could have radiated from the Z decay products
-    // const ParticleVector allparts = applyProjection<FinalState>(event, "FS").particles();
+    // const ParticleVector photons = applyProjection<FinalState>(event, "PhotonFS").particles();
     // const double HALO_RADIUS = 0.2;
-    // foreach (const Particle& p, allparts) {
-    //   if (p.pdgId() == PHOTON) {
-    //     const double pho_eta = p.momentum().pseudorapidity();
-    //     const double pho_phi = p.momentum().azimuthalAngle();
-    //     /// NB. Not bothered about double-counting photons lying between the electrons
-    //     if (deltaR(e1.pseudorapidity(), e1.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
-    //       e1 += p.momentum();
-    //       continue;
-    //     }
-    //     if (deltaR(e2.pseudorapidity(), e2.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
-    //       e2 += p.momentum(); 
-    //     }
+    // foreach (const Particle& p, photons) {
+    //   const double pho_eta = p.momentum().pseudorapidity();
+    //   const double pho_phi = p.momentum().azimuthalAngle();
+    //   /// NB. Not bothered about double-counting photons lying between the electrons
+    //   const double dr1 = deltaR(e1.pseudorapidity(), e1.azimuthalAngle(), pho_eta, pho_phi);
+    //   if (dr1 < HALO_RADIUS) {
+    //     getLog() << Log::TRACE << "Halo particle ID = " << p.pdgId() 
+    //              << " and delta(R_1) = " << dr1 << endl;
+    //     e1 += p.momentum();
+    //     continue;
+    //   }
+    //   const double dr2 = deltaR(e2.pseudorapidity(), e2.azimuthalAngle(), pho_eta, pho_phi);
+    //   if (dr2 < HALO_RADIUS) {
+    //     getLog() << Log::TRACE << "Halo particle ID = " << p.pdgId() 
+    //              << " and delta(R_2) = " << dr2 << endl;
+    //     e2 += p.momentum(); 
     //   }
     // }
-    const ParticleVector photons = applyProjection<FinalState>(event, "PhotonFS").particles();
-    const double HALO_RADIUS = 0.2;
-    foreach (const Particle& p, photons) {
-      const double pho_eta = p.momentum().pseudorapidity();
-      const double pho_phi = p.momentum().azimuthalAngle();
-      /// NB. Not bothered about double-counting photons lying between the electrons
-      if (deltaR(e1.pseudorapidity(), e1.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
-        e1 += p.momentum();
-        continue;
-      }
-      if (deltaR(e2.pseudorapidity(), e2.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
-        e2 += p.momentum(); 
-      }
-    }
 
     // Calculate the Z momentum and cut on mass window [71,111]
     const FourMomentum Zmom = e1 + e2;
@@ -90,16 +80,23 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Electrons fall outside Z mass window" << endl;
       vetoEvent(event);
     }
+    getLog() << Log::DEBUG << "e+e- rapidities: " 
+             << e1.rapidity() << ", " << e2.rapidity() << endl;
 
     // Fill Z rapidity spectrum
-    _h_yZ->fill(Zmom.rapidity(), weight);
+    const double yZ = fabs(Zmom.rapidity());
+    //const double yZ = fabs(Zmom.pseudorapidity());
+    getLog() << Log::DEBUG << "Z abs rapidity = " << yZ << endl;
+    _h_yZ->fill(yZ, weight);
   }
 
 
 
   // Finalize
   void D0_2007_S7075677::finalize() {
-    normalize(_h_yZ);
+    // Data seems to have been normalized for the avg of the two sides 
+    // (+ve & -ve rapidity) rather than the sum, hence the 0.5:
+    normalize(_h_yZ, 0.5);
   }
 
 
