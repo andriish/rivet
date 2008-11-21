@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_D0_2008_S7719523_HH
-#define RIVET_D0_2008_S7719523_HH
+#ifndef RIVET_D0_2006_S6438750_HH
+#define RIVET_D0_2006_S6438750_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
@@ -10,33 +10,30 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of isolated gamma + jet + X differential cross-sections
-  /// Inclusive isolated gamma + jet cross-sections, differential in pT(gamma), for 
-  /// various photon and jet rapidity bins.
-  ///
+  /// @brief Inclusive isolated photon cross-section, differential in \f$ p_\perp(gamma) \f$.
   /// @author Andy Buckley
   /// @author Gavin Hesketh
-  class D0_2008_S7719523 : public Analysis {
+  class D0_2006_S6438750 : public Analysis {
 
   public:
 
     /// Default constructor.
-     D0_2008_S7719523();
+     D0_2006_S6438750();
 
     /// Factory method 
     static Analysis* create() {
-      return new D0_2008_S7719523();
+      return new D0_2006_S6438750();
     }
 
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis. 
     string getSpiresId() const {
-      return "7719523";
+      return "6438750";
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "Isolated gamma + jet cross-sections, differential in pT(gamma) for various y-bins";
+      return "Inclusive isolated photon cross-section, differential in pT(gamma)";
     }    
     /// Experiment which performed and published this analysis. 
     string getExpt() const {
@@ -44,12 +41,13 @@ namespace Rivet {
     }
     /// When published (preprint year according to SPIRES). 
     string getYear() const {
-      return "2008";
+      return "2006";
     }
     /// Publication references.
     vector<string> getReferences() const {
       vector<string> ret;
-      ret.push_back("hep-ex/08081296");
+      ret.push_back("Phys.Lett.B639:151-158,2006, Erratum-ibid.B658:285-289,2008");
+      ret.push_back("hep-ex/0511054 (plus erratum)");
       return ret;
     }
     //@}
@@ -65,13 +63,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_central_same_cross_section;
-    AIDA::IHistogram1D * _h_central_opp_cross_section;
-    AIDA::IHistogram1D * _h_forward_same_cross_section;
-    AIDA::IHistogram1D * _h_forward_opp_cross_section;
-
-    /// @todo Cross-section ratio plots
-
+    AIDA::IHistogram1D* _h_pTgamma;
     //@}
 
   };

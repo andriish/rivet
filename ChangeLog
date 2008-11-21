@@ -1,5 +1,7 @@
 2008-11-21  Andy Buckley  <andy@insectnation.org>
 
+	* Added D0 inclusive photon analysis.
+
 	* Added D0 Z rapidity analysis.
 
 	* Tidied up constructor interface and projection chain

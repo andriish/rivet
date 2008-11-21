@@ -1,0 +1,9 @@
+## This is the set-up for the D0 2008 S77... gamma +jet analysis
+
+# Produce only gamma + jet (q,qbar,g) hard processes
+MSEL 10
+MSUB(14) 1
+MSUB(18) 1
+MSUB(29) 1
+MSUB(114) 1
+MSUB(115) 1

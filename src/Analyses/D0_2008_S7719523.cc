@@ -9,19 +9,18 @@
 namespace Rivet {
 
 
-  D0_2008_S7719523::D0_2008_S7719523() : _events(0) 
+  D0_2008_S7719523::D0_2008_S7719523()
   {
     setBeams(PROTON, ANTIPROTON);
     
     /// @todo Use cross-section from generator
     //setNeedsCrossSection(true);
 
-    // Forward and central particles for 
+    // General FS
     FinalState fs(-5.0, 5.0);
     addProjection(fs, "FS");
  
     // Get leading photon
-    /// @todo Repeating the cuts is a bit silly...
     LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
     photonfs.addParticleId(PHOTON);
     addProjection(photonfs, "LeadingPhoton");
@@ -74,15 +73,18 @@ namespace Rivet {
     const double egamma = photon.E();
     double econe = 0.0;
     foreach (const Particle& p, fs.particles()) {
-      if (deltaR(photon.pseudorapidity(), photon.azimuthalAngle(),
-                 p.momentum().pseudorapidity(), p.momentum().azimuthalAngle())) {
+      const double dr = deltaR(photon.pseudorapidity(), photon.azimuthalAngle(),
+                               p.momentum().pseudorapidity(), p.momentum().azimuthalAngle());
+      if (dr < 0.2) {
         econe += p.momentum().E();
+        // Veto as soon as E_cone gets larger
         if (econe/egamma > 0.07) {
           getLog() << Log::DEBUG << "Vetoing event because photon is insufficiently isolated" << endl;
           vetoEvent(event);
         }
       }
     }
+
 
     /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
     D0ILConeJets jetpro(fs); //< @todo This arg makes no sense!
@@ -112,7 +114,7 @@ namespace Rivet {
     // Veto if leading jet is outside plotted rapidity regions
     const double abs_y1 = fabs(leadingJet.rapidity());
     if (inRange(abs_y1, 0.8, 1.5) || abs_y1 > 2.5) {
-      getLog() << Log::DEBUG << "Leading jet falls outside aceptance range; |y1| = " 
+      getLog() << Log::DEBUG << "Leading jet falls outside acceptance range; |y1| = " 
                << abs_y1 << endl;
       vetoEvent(event);
     }
