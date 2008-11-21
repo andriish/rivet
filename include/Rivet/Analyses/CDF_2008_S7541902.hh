@@ -31,22 +31,27 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CDF_2008_S7541902():
-    _electronETCut(20.0 *GeV), _electronETACut(1.1),
-    _eTmissCut(30.0 *GeV), _mT2Cut(200.0 * GeV * GeV),
-    _jetEtCutA(20.0 *GeV),  _jetEtCutB(25.0 *GeV), _jetETA(2.0),
-    _xpoint(1960.)
+    CDF_2008_S7541902()
+      : _electronETCut(20.0 *GeV), _electronETACut(1.1),
+        _eTmissCut(30.0 *GeV), _mT2Cut(200.0 * GeV * GeV),
+        _jetEtCutA(20.0 *GeV),  _jetEtCutB(25.0 *GeV), _jetETA(2.0),
+        _xpoint(1960.)
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      FinalState fs(-3.6,3.6);
+
+      // Basic FS
+      FinalState fs(-3.6, 3.6);
       addProjection(fs, "FS");
+
       // Create a final state with any e-nu pair with invariant mass 65 -> 95 GeV and ET > 20 (W decay products)
       std::vector<std::pair<long,long> > vids;
-      vids.push_back(make_pair(11,-12));
-      vids.push_back(make_pair(-11,12));
-      InvMassFinalState invfs(fs,vids, 65., 95., -3.6, 3.6, 20.);
+      vids.push_back(make_pair(ELECTRON, NU_EBAR));
+      vids.push_back(make_pair(POSITRON, NU_E));
+      FinalState fs2(-3.6, 3.6, 20*GeV);
+      InvMassFinalState invfs(fs2, vids, 65*GeV, 95*GeV);
       addProjection(invfs, "INVFS");
+
       // Make a final state without the W decay products for jet clustering
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(invfs);

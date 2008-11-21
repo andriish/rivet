@@ -13,22 +13,24 @@ namespace Rivet {
 
   D0_2008_S6879055::D0_2008_S6879055() {
     setBeams(PROTON, ANTIPROTON);
+
+    // Basic final state
     FinalState fs(-5.0, 5.0);
     addProjection(fs, "FS");
 
     // Leading electrons in tracking acceptance
-    LeadingParticlesFinalState lpfs(fs, -1.1, 1.1, 25);
+    LeadingParticlesFinalState lpfs(fs, -1.1, 1.1, 25*GeV);
     lpfs.addParticleId(ELECTRON).addParticleId(POSITRON);
     addProjection(lpfs, "LeadingElectronsFS");
 
-    // InvMass selection
-    InvMassFinalState electronsFromZ(lpfs, make_pair(11, -11), 75, 105, -1.1, 1.1, 25);
+    // Invariant mass selection around Z pole
+    InvMassFinalState electronsFromZ(lpfs, make_pair(ELECTRON, POSITRON), 75*GeV, 105*GeV);
     addProjection(electronsFromZ,"ElectronsFromZ");
 
     // Vetoed FS for jets
     VetoedFinalState vfs(fs);
     // Add particle/antiparticle vetoing
-    vfs.addVetoPairId(NU_E).addVetoPairId(NU_MU).addVetoPairId(NU_TAU);
+    vfs.vetoNeutrinos();
     // Veto the electrons from Z decay  
     vfs.addVetoOnThisFinalState(electronsFromZ);
     addProjection(vfs, "JetFS");
@@ -42,6 +44,7 @@ namespace Rivet {
     addProjection(vertex, "PrimaryVertex");
 
     // Jet isolation
+    /// @todo Memory leak? Check.
     D0JetFromParticleIso jetiso(jets, electronsFromZ, new D0JetIsoEstimator(0.4), 20.);
     addProjection(jetiso, "JetIsolation");
   } 
@@ -71,13 +74,13 @@ namespace Rivet {
     // Check that the primary vertex is within 60 cm in z from (0,0,0)
     const PVertex& vertex = applyProjection<PVertex>(event, "PrimaryVertex");
     getLog() << Log::DEBUG << "Primary vertex is at " << vertex.getPVPosition()/cm << " cm" << endl;
-    // Skip event if the vertex position is not within 60 cm.
     if (fabs(vertex.getPVPosition().z())/cm > 60) {
-      getLog() << Log::DEBUG << "Vertex z-position is " << vertex.getPVPosition().z()/cm << endl;
+      getLog() << Log::DEBUG << "Vertex z-position " << vertex.getPVPosition().z()/cm << " is outside cuts" << endl;
       vetoEvent(event);
     }
+
     // Find the Z candidates
-    const InvMassFinalState & invmassfs = applyProjection<InvMassFinalState>(event, "ElectronsFromZ");
+    const InvMassFinalState& invmassfs = applyProjection<InvMassFinalState>(event, "ElectronsFromZ");
     // If there is no Z candidate in the FinalState, skip the event
     if (invmassfs.isEmpty()) {
       getLog() << Log::DEBUG << "No Z candidate found" << endl;
@@ -101,9 +104,9 @@ namespace Rivet {
     // Check they are isolated from leptons
     const D0JetFromParticleIso& isoJet = applyProjection<D0JetFromParticleIso>(event, "JetIsolation");
     if (isoJet.getIsolatedParticles(1).size() != jets_aboveptmin.size()) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because jet isolated from lepton size " << isoJet.getIsolatedParticles(0).size()
-               << " is different from jet size " << jets_aboveptmin.size() << endl;
+      getLog() << Log::DEBUG << "Jet size mismatch: isolated from lepton size = " 
+               << isoJet.getIsolatedParticles(0).size()
+               << " vs above pTmin size = " << jets_aboveptmin.size() << endl;
       vetoEvent(event);
     }
 

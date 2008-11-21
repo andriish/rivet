@@ -1,4 +1,13 @@
+2008-11-21  Andy Buckley  <andy@insectnation.org>
+
+	* Tidied up constructor interface and projection chain
+	implementation of InvMassFinalState.
+
+	* Added ~complete set of Jet and FourMomentum sorting functors.
+
 2008-11-20  Andy Buckley  <andy@insectnation.org>
+
+	* Added IdentifiedFinalState.
 
 	* Moved a lot of TrackJet and Jet code into .cc files.
 

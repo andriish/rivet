@@ -6,44 +6,42 @@
 
 namespace Rivet {
 
-  /// Return all particles which can be paired to make an invariant mass within the given mass window.
+
+  /// Identify particles which can be paired to make an invariant mass within a given mass window
   class InvMassFinalState : public FinalState {
 
   public:
     
-    /// Constructor: the supplied FinalState projection is assumed to live through the run.
-    // constructor for a single pair
+    // Constructor for a single inv-mass pair
     InvMassFinalState(FinalState& fsp,
-                      std::pair<long, long> ids,  //vector of pairs of decay products
-                      double minmass,     //min inv mass
-                      double maxmass,     //max inv mass
-                      double mineta = -MaxRapidity,
-                      double maxeta = MaxRapidity,
-                      double minpt = 0.0*GeV)
-    { 
-      vector<pair<long,long> > vids;
-      vids.push_back(ids);
-      InvMassFinalState(fsp,vids,minmass,maxmass,mineta,maxeta,minpt);   
+                      std::pair<long, long> idpair, // pair of decay products
+                      double minmass, // min inv mass
+                      double maxmass) // max inv mass
+      : _minmass(minmass), _maxmass(maxmass)
+    {
+      setName("InvMassFinalState");
+      addProjection(fsp, "FS");
+      _decayids.push_back(idpair);
     }
 
+
     InvMassFinalState(FinalState& fsp,
-                      std::vector<std::pair<long, long> > ids,  //vector of pairs of decay products
-                      double minmass,     //min inv mass
-                      double maxmass,     //max inv mass
-                      double mineta = -MaxRapidity,
-                      double maxeta = MaxRapidity,
-                      double minpt = 0.0*GeV)
-      : FinalState(mineta, maxeta, minpt), _decayids(ids), _minmass(minmass), _maxmass(maxmass)
+                      std::vector<std::pair<long, long> > idpairs,  // vector of pairs of decay products
+                      double minmass, // min inv mass
+                      double maxmass) // max inv mass
+      : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass)
     { 
       setName("InvMassFinalState");
       addProjection(fsp, "FS");
     }
+
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
     	return new InvMassFinalState(*this);
     }
 		
+
   protected:
     
     /// Apply the projection on the supplied event.
@@ -51,6 +49,7 @@ namespace Rivet {
     
     /// Compare projections.
     int compare(const Projection& p) const;
+
 
   private:
     
@@ -62,7 +61,6 @@ namespace Rivet {
 
     /// max inv mass
     double _maxmass;
-     
     
   };
 

@@ -9,29 +9,49 @@
 
 namespace Rivet {
 
-  // Jets list sorting functions
-  // Note that sorting is inverted, so that highest E is at the front of the list
-  inline bool cmpJetsByPt(const Jet& a, const Jet& b) {
-    return a.ptSum() > b.ptSum();
-  }
-  inline bool cmpJetsByEt(const Jet& a, const Jet& b) {
-    return a.EtSum() > b.EtSum();
-  }
-  inline bool cmpJetsByE(const Jet& a, const Jet& b) {
-    return a.momentum().E() > b.momentum().E();
-  }
-
 
   inline bool cmpMomByPt(const FourMomentum& a, const FourMomentum& b) {
     return a.pT() > b.pT();
   }
+  inline bool cmpMomByAscPt(const FourMomentum& a, const FourMomentum& b) {
+    return a.pT() < b.pT();
+  }
   inline bool cmpMomByEt(const FourMomentum& a, const FourMomentum& b) {
     return a.Et() > b.Et();
+  }
+  inline bool cmpMomByAscEt(const FourMomentum& a, const FourMomentum& b) {
+    return a.Et() < b.Et();
   }
   inline bool cmpMomByE(const FourMomentum& a, const FourMomentum& b) {
     return a.E() > b.E();
   }
-
+  inline bool cmpMomByAscE(const FourMomentum& a, const FourMomentum& b) {
+    return a.E() < b.E();
+  }
+  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.pseudorapidity() > b.pseudorapidity();
+  }
+  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.pseudorapidity() < b.pseudorapidity();
+  }
+  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.pseudorapidity()) > fabs(b.pseudorapidity());
+  }
+  inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.pseudorapidity()) < fabs(b.pseudorapidity());
+  }
+  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.rapidity() > b.rapidity();
+  }
+  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.rapidity() < b.rapidity();
+  }
+  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.rapidity()) > fabs(b.rapidity());
+  }
+  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.rapidity()) < fabs(b.rapidity());
+  }
 
   
   /// Abstract base class for projections which can return a set of {@link Jet}s.

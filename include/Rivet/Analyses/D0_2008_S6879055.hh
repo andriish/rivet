@@ -11,7 +11,7 @@ namespace Rivet {
 
 
   /// @brief Measurement of the ratio sigma(Z/gamma* + n jets)/sigma(Z/gamma*)
-  class D0_2008_S6879055:public Analysis {
+  class D0_2008_S6879055 : public Analysis {
 
     typedef IsolationProjection<D0ILConeJets, FinalState> D0JetFromParticleIso;
     typedef MultiplicityInConeEstimator< D0ILConeJets::entity_type, FinalState::collection_type > D0JetIsoEstimator;

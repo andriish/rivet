@@ -165,6 +165,89 @@ namespace Rivet {
   /// Typedef for a collection of Jet objects.
   typedef std::vector<Jet> Jets;
 
+
+  /// @name Jet comparison functions for STL sorting
+  //@{
+
+  // @brief Compare jets by \f$ p_\perp \f$ (descending - usual sorting for HEP)
+  /// Use this so that highest \f$ p_\perp \f$ is at the front of the list
+  inline bool cmpJetsByPt(const Jet& a, const Jet& b) {
+    return a.ptSum() > b.ptSum();
+  }
+  // @brief Compare jets by \f$ p_\perp \f$ (ascending)
+  /// Use this so that lowest \f$ p_\perp \f$ is at the front of the list
+  inline bool cmpJetsByAscPt(const Jet& a, const Jet& b) {
+    return a.ptSum() < b.ptSum();
+  }
+
+  // @brief Compare jets by \f$ E_\perp \f$ (descending - usual sorting for HEP)
+  /// Use this so that highest \f$ E_\perp \f$ is at the front of the list
+  inline bool cmpJetsByEt(const Jet& a, const Jet& b) {
+    return a.EtSum() > b.EtSum();
+  }
+  // @brief Compare jets by \f$ E_\perp \f$ (ascending)
+  /// Use this so that lowest \f$ E_\perp \f$ is at the front of the list
+  inline bool cmpJetsByEtDesc(const Jet& a, const Jet& b) {
+    return a.EtSum() < b.EtSum();
+  }
+
+  // @brief Compare jets by \f$ E \f$ (descending - usual sorting for HEP)
+  /// Use this so that highest \f$ E \f$ is at the front of the list
+  inline bool cmpJetsByE(const Jet& a, const Jet& b) {
+    return a.momentum().E() > b.momentum().E();
+  }
+  // @brief Compare jets by \f$ E \f$ (ascending)
+  /// Use this so that lowest \f$ E \f$ is at the front of the list
+  inline bool cmpJetsByAscE(const Jet& a, const Jet& b) {
+    return a.momentum().E() < b.momentum().E();
+  }
+
+  // @brief Compare jets by \f$ \eta \f$ (descending)
+  /// Use this so that highest \f$ \eta \f$ is at the front of the list
+  inline bool cmpJetsByDescPseudorapidity(const Jet& a, const Jet& b) {
+    return a.momentum().pseudorapidity() > b.momentum().pseudorapidity();
+  }
+  // @brief Compare jets by \f$ \eta \f$ (ascending)
+  /// Use this so that lowest \f$ \eta \f$ is at the front of the list
+  inline bool cmpJetsByAscPseudorapidity(const Jet& a, const Jet& b) {
+    return a.momentum().pseudorapidity() < b.momentum().pseudorapidity();
+  }
+
+  // @brief Compare jets by \f$ |\eta| \f$ (descending)
+  /// Use this so that highest \f$ |\eta| \f$ is at the front of the list
+  inline bool cmpJetsByDescAbsPseudorapidity(const Jet& a, const Jet& b) {
+    return fabs(a.momentum().pseudorapidity()) > fabs(b.momentum().pseudorapidity());
+  }
+  // @brief Compare jets by \f$ |\eta| \f$ (ascending)
+  /// Use this so that lowest \f$ |\eta| \f$ is at the front of the list
+  inline bool cmpJetsByAscAbsPseudorapidity(const Jet& a, const Jet& b) {
+    return fabs(a.momentum().pseudorapidity()) < fabs(b.momentum().pseudorapidity());
+  }
+
+  // @brief Compare jets by \f$ y \f$ (descending)
+  /// Use this so that highest \f$ y \f$ is at the front of the list
+  inline bool cmpJetsByDescRapidity(const Jet& a, const Jet& b) {
+    return a.momentum().rapidity() > b.momentum().rapidity();
+  }
+  // @brief Compare jets by \f$ y \f$ (ascending)
+  /// Use this so that lowest \f$ y \f$ is at the front of the list
+  inline bool cmpJetsByAscRapidity(const Jet& a, const Jet& b) {
+    return a.momentum().rapidity() < b.momentum().rapidity();
+  }
+
+  // @brief Compare jets by \f$ |y| \f$ (descending)
+  /// Use this so that highest \f$ |y| \f$ is at the front of the list
+  inline bool cmpJetsByDescAbsRapidity(const Jet& a, const Jet& b) {
+    return fabs(a.momentum().rapidity()) > fabs(b.momentum().rapidity());
+  }
+  // @brief Compare jets by \f$ |y| \f$ (ascending)
+  /// Use this so that lowest \f$ |y| \f$ is at the front of the list
+  inline bool cmpJetsByAscAbsRapidity(const Jet& a, const Jet& b) {
+    return fabs(a.momentum().rapidity()) < fabs(b.momentum().rapidity());
+  }
+
+  //@}
+
 }
 
 #endif

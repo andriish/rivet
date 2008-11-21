@@ -69,7 +69,7 @@ namespace Rivet {
   public:
 
     /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
-    const VetoDetails& getVetoDetails() const {
+    const VetoDetails& vetoDetails() const {
       return _vetoCodes;
     }
   
@@ -138,7 +138,7 @@ namespace Rivet {
     }
 
     /// Clear the list of particle IDs and ranges to veto.
-    VetoedFinalState& clearVetoDetails() {
+    VetoedFinalState& reset() {
       _vetoCodes.clear();
       return *this;
     }

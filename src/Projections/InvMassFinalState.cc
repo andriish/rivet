@@ -31,8 +31,8 @@ namespace Rivet {
   } 
   
 
-  void InvMassFinalState::project(const Event & e) {
-    Log & log = getLog();
+
+  void InvMassFinalState::project(const Event& e) {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
 
@@ -41,16 +41,17 @@ namespace Rivet {
     vector <ParticleVector::const_iterator> type2;
     // Get all the particles of the type specified in the pair from the particle list
     const ParticleVector& allparticles = fs.particles();
-    ParticleVector::const_iterator ipart;
-    for (ipart = allparticles.begin(); ipart != allparticles.end(); ++ipart) {
-      // loop around possible particle pairs
+    for (ParticleVector::const_iterator ipart = allparticles.begin(); ipart != allparticles.end(); ++ipart) {
+      // Loop around possible particle pairs
       for (vector<pair<long,long> >::const_iterator ipair = _decayids.begin(); ipair != _decayids.end() ; ++ipair) {
         if (ipart->pdgId() == ipair->first) {
-          if (accept(ipart->genParticle()))
+          if (accept(ipart->genParticle())) {
             type1.push_back(ipart);
+          }
         } else if (ipart->pdgId() == ipair->second) {
-          if (accept(ipart->genParticle()))
+          if (accept(ipart->genParticle())) {
             type2.push_back(ipart);
+          }
         }
       }
     }
@@ -86,22 +87,19 @@ namespace Rivet {
             tmp.push_back(*i2);
             _theParticles.push_back(**i2);
           }
-          log << Log::DEBUG << "InvMassFinalState is selecting particles with id " 
-              << (*i1)->pdgId() << " and " << (*i2)->pdgId()
-              << " with mass " << v4.mass() << endl;
+          getLog() << Log::DEBUG << "Selecting particles with IDs " 
+                   << (*i1)->pdgId() << " & " << (*i2)->pdgId()
+                   << " and mass = " << v4.mass()/GeV << " GeV" << endl;
         }
       }
     }
     
-    if (log.isActive(Log::DEBUG)) {
-      stringstream msg;
+    getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles (" << endl;
+    if (getLog().isActive(Log::TRACE)) {  
       foreach (const Particle& p, _theParticles) {
-        msg << "ID " << p.pdgId() << " barcode " 
-            << p.genParticle().barcode() << ", ";
+        getLog() << Log::TRACE << "ID: " << p.pdgId() 
+                 << ", barcode: " << p.genParticle().barcode() << endl;
       }
-      log << Log::DEBUG << "The following " << _theParticles.size() 
-          << " particles have been selected by InvMassFinalState: " 
-          << msg.str() << endl;
     }
   }
  

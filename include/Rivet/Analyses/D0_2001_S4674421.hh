@@ -50,18 +50,18 @@ namespace Rivet {
       enubFS.addParticleId(-11).addParticleId(12); //W+ -> e+ nu
       addProjection(enubFS, "enubFS");
 
-      InvMassFinalState eFromZ(eeFS, make_pair(11, -11), 0., 900., -5.0, 5.0, 0.); //20.);
+      InvMassFinalState eFromZ(eeFS, make_pair(ELECTRON, POSITRON), 0*GeV, 900*GeV); //20.);
       addProjection(eFromZ,"eFromZ");
 
-      InvMassFinalState enuFromW(enuFS, make_pair(11, -12), 0., 900., -5.0, 5.0, 0.); //25.);
+      InvMassFinalState enuFromW(enuFS, make_pair(ELECTRON, NU_EBAR), 0*GeV, 900*GeV); //25.);
       addProjection(eFromZ,"enuFromW");
 
-      InvMassFinalState enubFromW(enubFS, make_pair(-11, 12), 0., 900., -5.0, 5.0, 0.); //25.);
+      InvMassFinalState enubFromW(enubFS, make_pair(POSITRON, NU_E), 0*GeV, 900*GeV); //25.);
       addProjection(eFromZ,"enubFromW");
 
-      //remove neutrinos for isolation final state particles
+      // Remove neutrinos for isolation of final state particles
       VetoedFinalState vfs(fs);
-      vfs.addVetoPairId(12).addVetoPairId(14).addVetoPairId(16);
+      vfs.vetoNeutrinos();
       addProjection(vfs, "VFS");
 
     }    

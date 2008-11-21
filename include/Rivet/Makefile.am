@@ -82,6 +82,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FinalStateHCM.hh  \
   Projections/HadronicFinalState.hh \
   Projections/Hemispheres.hh    \
+  Projections/IdentifiedFinalState.hh \
   Projections/InitialQuarks.hh \
   Projections/InvMassFinalState.hh \
   Projections/IsolationEstimators.hh \
