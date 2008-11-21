@@ -40,6 +40,7 @@ nobase_dist_data_DATA = \
   Rivet/D0_2001_S4674421.aida          \
   Rivet/D0_2004_S5992206.aida          \
   Rivet/D0_2006_S6438750.aida          \
+  Rivet/D0_2007_S7075677.aida          \
   Rivet/D0_2008_S6879055.aida          \
   Rivet/D0_2008_S7554427.aida          \
   Rivet/D0_2008_S7662670.aida          \
