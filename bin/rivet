@@ -142,7 +142,7 @@ if len(opts.SHOW_ANALYSES) > 0:
                     toshow.add(ana)
         #print toshow
     ## TODO: Sort
-    for name in toshow:
+    for name in sorted(toshow):
         ana = rivet.AnalysisLoader.getAnalysis(name)
         print ""
         print ana.getName()
