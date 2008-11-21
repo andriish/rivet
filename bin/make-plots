@@ -1,0 +1,7 @@
+#!/usr/bin/python
+# EASY-INSTALL-DEV-SCRIPT: 'professor==0.9','make_plot.py'
+__requires__ = 'professor==0.9'
+from pkg_resources import require; require('professor==0.9')
+del require
+__file__ = '/home/andy/proj/hep/professor/make_plot.py'
+execfile(__file__)
