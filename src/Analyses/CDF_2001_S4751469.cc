@@ -37,14 +37,12 @@ namespace Rivet {
 
   // Do the analysis
   void CDF_2001_S4751469::analyze(const Event& event) {
-    Log log = getLog();
 
     // Analyse, with pT > 0.5 GeV AND |eta| < 1
     const TrackJet& tj = applyProjection<TrackJet>(event, "TrackJet");
 
     // Get jets, sorted by pT
-    /// @todo Make pT sorting obvious in jet alg interface & provide public sorting fns
-    const Jets jets = tj.getJets();
+    const Jets jets = tj.jetsByPt();
     if (jets.empty()) { 
       vetoEvent(event); 
     }
@@ -112,13 +110,13 @@ namespace Rivet {
     }
     
     // Log some event details
-    log << Log::DEBUG 
-        << "pT [lead; twd, away, trans] = ["
-        << ptLead << "; " 
-        << ptSumToward << ", " 
-        << ptSumAway << ", " 
-        << ptSumTrans << "]" 
-        << endl;
+    getLog() << Log::DEBUG 
+             << "pT [lead; twd, away, trans] = ["
+             << ptLead << "; " 
+             << ptSumToward << ", " 
+             << ptSumAway << ", " 
+             << ptSumTrans << "]" 
+             << endl;
 
     // Update the pT profile histograms
     _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
@@ -131,12 +129,12 @@ namespace Rivet {
     _ptsumAwayJ20->fill(ptLead/GeV, ptSumAway/GeV, weight);
 
     // Log some event details
-    log << Log::DEBUG 
-        << "N [twd, away, trans] = ["
-        << numToward << ", " 
-        << numTrans << ", " 
-        << numAway << "]" 
-        << endl;
+    getLog() << Log::DEBUG 
+             << "N [twd, away, trans] = ["
+             << numToward << ", " 
+             << numTrans << ", " 
+             << numAway << "]" 
+             << endl;
 
     // Update the N_jet profile histograms
     _numTowardMB->fill(ptLead/GeV, numToward, weight);

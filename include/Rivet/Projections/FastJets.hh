@@ -122,8 +122,17 @@ namespace Rivet {
 
 
   public:
-    /// Return the number of jets above the pt cut 
-    size_t getNumJets(double ptmin = 0.0) const {
+
+    /// Reset the projection. Jet def etc are unchanged.
+    void reset() { 
+      _yscales.clear();
+      _particles.clear();
+      /// @todo Also clear the CSeq
+      //_cseq.XXX;
+    }
+
+    /// Number of jets above the \f$ p_\perp \f$ cut.
+    size_t numJets(double ptmin = 0.0) const {
       if (_cseq.get() != 0) {
         return _cseq->inclusive_jets(ptmin).size();
       } else {
@@ -131,23 +140,28 @@ namespace Rivet {
       }        
     }
 
+    /// Number of jets.
+    size_t size() const {
+      return numJets();
+    }
+
     /// Get the jets (unordered).
-    Jets getJets(double ptmin = 0.0) const {
+    Jets jets(double ptmin = 0.0) const {
       return _pseudojetsToJets(pseudoJets(ptmin));
     }
     
     /// Get the jets, ordered by \f$ p_T \f$.
-    Jets getJetsByPt(double ptmin = 0.0) const {
+    Jets jetsByPt(double ptmin = 0.0) const {
       return _pseudojetsToJets(pseudoJetsByPt(ptmin));
     }
 
     /// Get the jets, ordered by \f$ E \f$.
-    Jets getJetsByE(double ptmin = 0.0) const {
+    Jets jetsByE(double ptmin = 0.0) const {
       return _pseudojetsToJets(pseudoJetsByE(ptmin));
     }
 
     /// Get the jets, ordered by rapidity.
-    Jets getJetsByRapidity(double ptmin = 0.0) const {
+    Jets jetsByRapidity(double ptmin = 0.0) const {
       return _pseudojetsToJets(pseudoJetsByRapidity(ptmin));
     }
 
@@ -209,6 +223,7 @@ namespace Rivet {
     int compare(const Projection& p) const;  
 
   public:
+
     /// Do the calculation locally (no caching).
     void calc(const ParticleVector& ps);
 

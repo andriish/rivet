@@ -104,6 +104,14 @@ namespace Rivet {
       return *this;
     }
 
+    /// Veto all neutrinos (convenience method)
+    VetoedFinalState& vetoNeutrinos() {
+      addVetoPairId(NU_E);
+      addVetoPairId(NU_MU);
+      addVetoPairId(NU_TAU);
+      return *this;
+    }
+
     /// Add a veto on composite masses within a given width.
     /// The composite mass is composed of nProducts decay products
     /// @ todo might we want to specify a range of pdg ids for the decay products?

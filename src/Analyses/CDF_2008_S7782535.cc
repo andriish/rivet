@@ -26,29 +26,28 @@ namespace Rivet {
   
   // Do the analysis
   void CDF_2008_S7782535::analyze(const Event& event) {
-    Log log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
-
     // Put all b-quarks in a vector
     ParticleVector bquarks;
+    /// @todo Provide nicer looping
     for (GenEvent::particle_const_iterator p = event.genEvent().particles_begin(); 
          p != event.genEvent().particles_end(); ++p) {
-      /// @todo Use particle ID enum
-      if ( fabs((*p)->pdg_id()) == 5 ) bquarks.push_back(Particle(**p));
+      if ( fabs((*p)->pdg_id()) == BQUARK ) {
+        bquarks.push_back(Particle(**p));
+      }
     }
     
     if (bquarks.empty()) { 
-      log << Log::DEBUG << "No b-quarks, exiting" << endl;
+      getLog() << Log::DEBUG << "No b-quarks, exiting" << endl;
       vetoEvent(event);
     }
 
     // Get jets 
     const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
-    log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
+    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
     
     /// @todo Don't expose FastJet objects in Rivet analyses
     const PseudoJets& jets = jetpro.pseudoJetsByPt();
-    log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
+    getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
     // Determine the central jet axes
     FourMomentum jetaxis;
     _jetaxes.clear();
@@ -66,7 +65,7 @@ namespace Rivet {
     }
     // Determine jet shapes
     if (_jetaxes.empty())  { 
-      log << Log::DEBUG << "No jet axes" << endl;
+      getLog() << Log::DEBUG << "No jet axes" << endl;
       vetoEvent(event);
     }
       

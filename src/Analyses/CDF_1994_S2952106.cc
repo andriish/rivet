@@ -9,11 +9,6 @@ namespace Rivet {
   void CDF_1994_S2952106::init() {
     /// @todo Use histogram auto-booking
 
-    //_histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1, "Jet Jet azimuthal angle, pTmax=75..100");
-    //_histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1, "Jet Jet azimuthal angle, pTmax=100..130");
-    //_histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 2, 1, "Jet Jet azimuthal angle, pTmax=130..180");
-    //_histJetAzimuth_pTmax180_    = bookHistogram1D(4, 2, 1, "Jet Jet azimuthal angle, pTmax>180");
-
     //const string hname = "HvsDphi";
     //const string htitle = "H vs Delta phi";
     //_histHvsDphi = bookHistogram2D(hname, htitle, 40, -4., 4., 32, 0., 3.2);
@@ -78,7 +73,7 @@ namespace Rivet {
     _histJet3etaCDF = bookHistogram1D(hname14, htitle14, 42, -4., 4.);
 
     /// @todo Move to constructor
-    _events3jPassed = 0.;
+    _events3jPassed = 0.0;
   }
 
 
@@ -86,7 +81,7 @@ namespace Rivet {
   // Do the analysis
   void CDF_1994_S2952106::analyze(const Event & event) {
     const FastJets& jetpro = applyProjection<FastJets>(event, "ConeJets");
-    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
+    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
 
     _fail = true;
 

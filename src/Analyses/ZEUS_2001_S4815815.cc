@@ -17,7 +17,7 @@ namespace Rivet {
   // Do the analysis
   void ZEUS_2001_S4815815::analyze(const Event& event) {
     const FastJets& jets = applyProjection<FastJets>(event, "Jets");
-    const size_t nj = jets.getNumJets();
+    const size_t nj = jets.size();
     getLog() << Log::INFO << "Jet multiplicity = " << nj << endl;
 
     // Fill histograms

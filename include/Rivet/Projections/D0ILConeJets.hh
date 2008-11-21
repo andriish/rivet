@@ -10,8 +10,8 @@
 #include "Rivet/Tools/D0RunIIcone/HepEntity.h"
 #include "Rivet/Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp"
 
-
 namespace Rivet {
+
   
   /// @brief Find jets according to the D0 "improved legacy" cone algorithm.
   ///
@@ -53,26 +53,9 @@ namespace Rivet {
       _init_extra_params();
     }
 
-
-    void _init_extra_params() {
-      _split_ratio = 0.5; 
-      _far_ratio = 0.5;
-      _et_min_ratio = 0.5; 
-      _kill_duplicate = true; 
-      _duplicate_dR = 0.005;
-      _duplicate_dPT = 0.01; 
-      _search_factor = 1.0; 
-      _pT_min_leading_protojet = 0.0; 
-      _pT_min_second_protojet = 0.0; 
-      _merge_max = 1000;
-      _pT_min_nomerge = 0.0; 
-      _algo = ILConeAlgorithm<HepEntity>(_cone_radius, _min_jet_Et, _split_ratio,
-                                   _far_ratio, _et_min_ratio, _kill_duplicate, 
-                                   _duplicate_dR, _duplicate_dPT, _search_factor, 
-                                   _pT_min_leading_protojet, _pT_min_second_protojet, 
-                                   _merge_max, _pT_min_nomerge);
-    }
-
+    // Internal helper
+    /// @ignore
+    void _init_extra_params();
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -100,55 +83,37 @@ namespace Rivet {
 
   public:
 
-    /// @todo Un-hideous this mess!
+    /// @todo Kill off the HepEntity crap.
     
-    /// Get the number of jets.
-    int getNJets() const { return _jets.size(); }
+    /// Number of jets.
+    size_t size() const { return _jets.size(); }
     
     /// Get a reference to the jets collection.
-    list<HepEntity>& getJets() { return _jets; }
+    /// @deprecated Analyses should not use HepEntities: prefer the JetAlg interface
+    //list<HepEntity>& getJets() { return _jets; }
 
     /// Get a reference to the jets collection (const version).
-    const list<HepEntity>& getJets() const { return _jets; }
+    /// @deprecated Analyses should not use HepEntities: prefer the JetAlg interface
+    //const list<HepEntity>& getJets() const { return _jets; }
 
     /// Common interface to FinalState and JetAlg
-    const list<HepEntity>& entities() const { return getJets(); }
+    /// @deprecated Analyses should not use HepEntities: prefer the JetAlg interface
+    const list<HepEntity>& entities() const { return _jets; }
 
     /// Get jets in the standard way offered by the JetAlg interface.
-    Jets jets(double ptmin=0.0) const {
-      Jets rtn;
-      foreach (const HepEntity& he, getJets()) {
-        Jet j;
-        FourMomentum v4(he.E, he.px, he.py, he.pz);
-        if (v4.pT() < ptmin) continue;
-        j.addParticle(v4);
-        rtn.push_back(j);
-      }
-      return rtn;
-    }
-
-
-    /// @deprecated Just for compatibility
-    Jets getJets(double ptmin) const { 
-      return jets(ptmin); 
-    }
-
+    Jets jets(double ptmin=0.0*GeV) const;
 
     /// Get a reference to the lorentzvecjets collection.
     const list<FourMomentum>& getLorentzJets() const {
       return _lorentzvecjets; 
     }
 
-
     /// Clear the jets list.
-    /// @todo Convert to Projection::clear()
-    D0ILConeJets& clearJets() { 
-      _jets.clear(); 
-      return *this; 
-    }
+    void reset();
 
 
   private:
+
     /// The collection of jets.
     list<HepEntity> _jets;
 

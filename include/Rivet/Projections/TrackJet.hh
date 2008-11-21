@@ -37,13 +37,23 @@ namespace Rivet {
     /// Typedef for the tracks (a list so that elements can be consistently removed
     typedef list<FourMomentum> Tracks;
 
+    /// Number of jets.
+    size_t size() const {
+      return _jets.size();
+    }
+
+    /// Reset the projection.
+    void reset() {
+      _jets.clear();
+    }
+
     /// Get the computed jets.
-    Jets getJets(double ptmin=0.0) const {
+    Jets jets(double ptmin=0.0*GeV) const {
       if (ptmin == 0.0) return _jets;
       Jets rtn;
-      for (Jets::const_iterator j = _jets.begin(); j != _jets.end(); ++j) {
-        if (j->ptSum() >= ptmin) {
-          rtn.push_back(*j);
+      foreach (const Jet& j, _jets) {
+        if (j.ptSum() >= ptmin) {
+          rtn.push_back(j);
         }
       }
       return rtn;

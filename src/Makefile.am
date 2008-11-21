@@ -2,29 +2,29 @@ SUBDIRS = Projections Analyses Tools . Test
 
 ## "libRivet" library
 lib_LTLIBRARIES  = libRivet.la
+
 libRivet_la_LDFLAGS = \
-  -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) \
-  -export-dynamic $(VERSIONINFOFLAGS)
+  -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) -export-dynamic $(VERSIONINFOFLAGS)
+
 libRivet_la_SOURCES = \
-  Cuts.cc \
-  ProjectionApplier.cc \
-  Projection.cc \
-  Analysis.cc \
-  AnalysisLoader.cc \
-  AnalysisHandler.cc \
-  ProjectionHandler.cc \
-  HistoHandler.cc 
+  Cuts.cc Jet.cc \
+  ProjectionApplier.cc Projection.cc Analysis.cc AnalysisLoader.cc \
+  AnalysisHandler.cc ProjectionHandler.cc HistoHandler.cc 
+
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl -lm \
   -L$(FASTJETLIBPATH) -l$(FASTJETLIBNAME) \
   -lCDFConesPlugin -lsiscone -lSISConePlugin \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME)
+
 libRivet_la_CPPFLAGS = $(CPPFLAGS) $(AM_CPPFLAGS)
+
 if WITH_ROOT
   libRivet_la_LIBADD += $(ROOTLIBS)
   libRivet_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
 endif
+
 if ENABLE_JADE
   libRivet_la_LIBADD += -lJadePlugin
 endif
@@ -32,6 +32,7 @@ endif
 
 ## "rivetgun" executable
 EXTRA_PROGRAMS = rivetgun
+
 if ENABLE_RIVETGUN
   bin_PROGRAMS      = rivetgun
   rivetgun_SOURCES  = RivetgunInterface.cc RivetgunRunner.cc RivetgunCommandline.cc

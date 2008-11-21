@@ -26,9 +26,7 @@ namespace Rivet {
 
 
   void CDF_2008_S7541902::analyze(const Event& event) {
-    Log log = getLog();
-    log << Log::DEBUG << "Starting analyzing" << endl;
-    // Get the W deday products (electron and neutrino)
+    // Get the W decay products (electron and neutrino)
     const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
     const ParticleVector&  WDecayProducts =  invMassFinalState.particles();
         
@@ -66,7 +64,7 @@ namespace Rivet {
 
     // Get the jets
     const FastJets &jetProj = applyProjection<FastJets>(event, "Jets");
-    Jets theJets = jetProj.getJetsByPt(_jetEtCutA);
+    Jets theJets = jetProj.jetsByPt(_jetEtCutA);
     sort(theJets.begin(), theJets.end(), Particle::byETDescending());
     
     Jets foundJets;

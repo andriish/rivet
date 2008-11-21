@@ -45,14 +45,12 @@ namespace Rivet {
     /// Destructor
     virtual ~JetAlg() { }
 
-    /// Get the jets (unordered).
-    /// @deprecated Prefer "jets()"
-    virtual Jets getJets(double ptmin=0.0) const = 0;
+    virtual Jets jets(double ptmin=0.0) const = 0;
 
     /// Get the jets, ordered by supplied sorting function object.
     template <typename F>
-    Jets jets(double ptmin=0.0, F sorter=0) const {
-      Jets js = getJets(ptmin);
+      Jets jets(F sorter, double ptmin=0.0) const {
+      Jets js = jets(ptmin);
       if (sorter != 0) {
         std::sort(js.begin(), js.end(), sorter);
       }
@@ -61,27 +59,33 @@ namespace Rivet {
 
     /// Get the jets, ordered by \f$ p_T \f$.
     Jets jetsByPt(double ptmin=0.0) const {
-      return jets(ptmin, cmpJetsByPt);
+      return jets(cmpJetsByPt, ptmin);
     }
 
     /// Get the jets, ordered by \f$ E \f$.
     Jets jetsByE(double ptmin=0.0) const {
-      return jets(ptmin, cmpJetsByE);
+      return jets(cmpJetsByE, ptmin);
     }
 
     /// Get the jets, ordered by \f$ E_T \f$.
     Jets jetsByEt(double ptmin=0.0) const {
-      return jets(ptmin, cmpJetsByEt);
+      return jets(cmpJetsByEt, ptmin);
     }
 
 
   public:
 
+    /// Number of jets.
+    virtual size_t size() const = 0;
+
+    /// Clear the projection
+    virtual void reset() = 0;
+
     typedef Jet entity_type;
     typedef Jets collection_type; 
 
     /// Template-usable interface common to FinalState.
-    collection_type entities() const { return getJets(); }
+    collection_type entities() const { return jets(); }
 
     /// Do the calculation locally (no caching).
     void calc(const ParticleVector& ps);

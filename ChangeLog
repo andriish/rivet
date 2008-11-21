@@ -1,3 +1,18 @@
+2008-11-20  Andy Buckley  <andy@insectnation.org>
+
+	* Moved a lot of TrackJet and Jet code into .cc files.
+
+	* Fixed a caching bug in Jet: cache flag resets should never be
+	conditional, since they are then sensitive to initialisation
+	errors.
+
+	* Added quark enum values to ParticleName.
+
+	* Rationalised JetAlg interfaces somewhat, with "size()" and
+	"jets()" methods in the interface.
+
+	* Added D0 W charge asymmetry and D0 inclusive jets analyses.
+
 2008-11-18  Andy Buckley  <andy@insectnation.org>
 
 	* Adding D0 inclusive Z pT shape analysis.

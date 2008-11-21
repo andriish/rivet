@@ -32,19 +32,18 @@ namespace Rivet {
 
 
   void TrackJet::project(const Event& e) {
-    Log& log = getLog();
     _jets.clear();
 
     // Project into final state
     // NB to be true to the original, the final state projection should have 
     // specific cuts on eta, pT and require stable charged particles.
-    log << Log::DEBUG << "About to apply the final state projection with eta and pt cuts" << endl;
+    getLog() << Log::DEBUG << "About to apply the final state projection with eta and pt cuts" << endl;
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Put each particle into the collection of tracks and sort (decreasing in pT)
     vector<FourMomentum> tracksvector; // Need to use a vector because you can't use std::sort with lists
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      FourMomentum lv(p->momentum());
+    foreach (const Particle& p, fs.particles()) {
+      const FourMomentum lv = p.momentum();
       tracksvector.push_back(lv);
     }
     // Now sort particles in pT
@@ -53,10 +52,10 @@ namespace Rivet {
     Tracks tracks(tracksvector.begin(), tracksvector.end());
 
     // Now find jets using Field & Stuart criteria
-    if (!tracks.empty()) {
-      log << Log::DEBUG << "About to assign tracks into jets" << endl;
+    if (! tracks.empty()) {
+      getLog() << Log::DEBUG << "About to assign tracks into jets" << endl;
     }
-    while (!tracks.empty()) {
+    while (! tracks.empty()) {
 
       // Make a new jet based on the highest pT independent track remaining.
       Jet thisjet;
@@ -67,7 +66,7 @@ namespace Rivet {
       // Compare with all unassociated tracks with a smaller pT measure
       Tracks::iterator t2 = tracks.begin();
       while (t2 != tracks.end()) {
-        log << Log::TRACE << "Building jet from tracks" << endl;
+        getLog() << Log::TRACE << "Building jet from tracks" << endl;
 
         // Get eta and phi for this jet
         const double jeteta = thisjet.ptWeightedEta();
@@ -96,11 +95,12 @@ namespace Rivet {
     // Sort the jets by pT.
     std::sort(_jets.begin(), _jets.end(), compareJetsByPt);
 
-    if (log.isActive(Log::DEBUG)) {
-      log << Log::DEBUG << "Number of jets = " << _jets.size() << endl;
+    if (getLog().isActive(Log::DEBUG)) {
+      getLog() << Log::DEBUG << "Number of jets = " << _jets.size() << endl;
       size_t njet = 1;
-      for (Jets::const_iterator j = _jets.begin(); j != _jets.end(); ++j)
-        log << Log::DEBUG << "Number of tracks in jet #" << njet++ << " = " << j->numParticles() << endl;
+      foreach (const Jet& j, _jets) {
+        getLog() << Log::DEBUG << "Number of tracks in jet #" << njet++ << " = " << j.size() << endl;
+      }
     }
   }
 

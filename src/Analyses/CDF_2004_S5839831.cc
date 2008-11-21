@@ -131,7 +131,7 @@ namespace Rivet {
 
     {
       const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-      vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").getJets();
+      vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").jets();
       if (!jets.empty()) {
         // Leading jet must be in central |eta| < 0.5 region
         sortjets(jets);
@@ -208,7 +208,7 @@ namespace Rivet {
     // the removed jets must have Et > 5 GeV.
     {
       const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
-      vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").getJets();
+      vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").jets();
       if (cheesejets.empty()) {
         getLog() << Log::DEBUG << "No 'cheese' jets found in event" << endl;
         return;

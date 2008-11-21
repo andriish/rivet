@@ -8,8 +8,6 @@ namespace Rivet {
   
   // Book histograms
   void CDF_2005_S6217184::init() {
-    Log log = getLog();
-
     // 18 = 6x3 pT bins, one histogram each
     for (size_t i = 0; i < 6; ++i) { 
       for (size_t j = 0; j < 3; ++j) {
@@ -31,33 +29,31 @@ namespace Rivet {
   
   // Do the analysis
   void CDF_2005_S6217184::analyze(const Event& event) {
-    Log log = getLog();
-
     // Find primary vertex and veto on its separation from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
     if (fabs(pv.getPVPosition().z())/mm > _pvzmax) vetoEvent(event);
 
     // Analyse and print some info  
     const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
-    log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNumJets() << endl;
+    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
     
     /// @todo Don't expose FastJet objects in Rivet analyses: the FastJets projection
     /// should convert them to Rivet 4-momentum classes (or similar).
     const PseudoJets& jets = jetpro.pseudoJetsByPt();
-    log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
+    getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
     size_t Njet = 0;
     bool jetcutpass = false;
     for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      log << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() << " pz=" << jt->pz() << endl;
+      getLog() << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() << " pz=" << jt->pz() << endl;
       /// @todo Declare these cuts, and use units
       if (jt->perp() > 37.0 && fabs(jt->rapidity()) > 0.1 && fabs(jt->rapidity()) < 0.7) jetcutpass = true;
       ++Njet;
-      log << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->rapidity() << " phi=" << jt->phi() << endl; 
+      getLog() << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->rapidity() << " phi=" << jt->phi() << endl; 
     }
     if (!jetcutpass) vetoEvent(event);
 
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-    log << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
+    getLog() << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
     /// @todo Declare this cut, and use units
     if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) > 3.5) {
       vetoEvent(event);

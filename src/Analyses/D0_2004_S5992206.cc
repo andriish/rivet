@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/D0_2004_S5992206.hh"
 
-
 namespace Rivet {
 
 
@@ -22,11 +21,10 @@ namespace Rivet {
 
   // Do the analysis
   void D0_2004_S5992206::analyze(const Event & event) {
-    Log& log = getLog();
 
     // Analyse and print some info  
     const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
-    log << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.getNJets() << endl;
+    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
 
     // Find vertex and check  that its z-component is < 50 cm from the nominal IP
     //const PVertex& pv = event.applyProjection(_vertexproj);
@@ -38,15 +36,15 @@ namespace Rivet {
     const list<FourMomentum>& jets = jetpro.getLorentzJets();
     list<FourMomentum>::const_iterator jetpTmax = jets.end();
     list<FourMomentum>::const_iterator jet2ndpTmax = jets.end();
-    log << Log::DEBUG << "jetlist size = " << jets.size() << endl;
+    getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
     
     size_t Njet = 0;
     for (list<FourMomentum>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      log << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E() 
-          << " pz=" << jt->pz() << endl;
+      getLog() << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E() 
+               << " pz=" << jt->pz() << endl;
       if (jt->pT() > 40.0) ++Njet;
-      log << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->rapidity() 
-          << " phi=" << jt->azimuthalAngle() << endl; 
+      getLog() << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->rapidity() 
+               << " phi=" << jt->azimuthalAngle() << endl; 
       if (jetpTmax == jets.end() || jt->pT() > jetpTmax->pT()) {
         jet2ndpTmax = jetpTmax;
         jetpTmax = jt;
@@ -55,7 +53,7 @@ namespace Rivet {
       }
     }
     if (Njet >= 2) {
-      log << Log::DEBUG << "Jet multiplicity after pT > 40GeV cut = " << Njet << endl; 
+      getLog() << Log::DEBUG << "Jet multiplicity after pT > 40GeV cut = " << Njet << endl; 
     }
 
     /// @todo Use cut constants and register these cuts
@@ -66,10 +64,10 @@ namespace Rivet {
     if (fabs(jetpTmax->rapidity()) > 0.5 || fabs(jet2ndpTmax->rapidity()) > 0.5) {
       vetoEvent(event);
     }
-    log << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
+    getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
 
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-    log << Log::DEBUG << "Missing Et = " << caloMissEt.getMomentum().pT() << endl;
+    getLog() << Log::DEBUG << "Missing Et = " << caloMissEt.getMomentum().pT()/GeV << endl;
     /// @todo Use cut constants and register these cuts
     if (caloMissEt.getMomentum().pT() > 0.7*jetpTmax->pT()) {
       vetoEvent(event);

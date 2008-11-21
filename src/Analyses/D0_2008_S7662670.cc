@@ -61,9 +61,6 @@ namespace Rivet {
     foreach (const Jet& j, jetpro.jets()) {
       const double pt = j.momentum().pT();
       const double y = fabs(j.momentum().rapidity());
-      /// @todo Aaaargh!
-      getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV 
-                 << ", |y| = " << y << endl;
       if (pt/GeV > 50) {
         getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV 
                  << ", |y| = " << y << endl;

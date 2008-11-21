@@ -85,5 +85,7 @@ namespace Rivet {
 #include "Rivet/Math/Matrices.hh"
 #include "Rivet/Math/Units.hh"
 #include "Rivet/Tools/Utils.hh"
+#include "Rivet/Particle.hh"
+#include "Rivet/ParticleName.hh"
 
 #endif
