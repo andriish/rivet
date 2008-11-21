@@ -13,7 +13,7 @@ namespace Rivet {
   {
     setBeams(PROTON, ANTIPROTON);
     
-    // Use cross-section from generator
+    /// @todo Use cross-section from generator
     setNeedsCrossSection(true);
 
     // General FS for photon isolation
@@ -96,10 +96,11 @@ namespace Rivet {
 
   // Finalize
   void D0_2006_S6438750::finalize() {
-    /// @todo Use the generator cross-section... how to implement the cuts?
-    /// Norm (all orders) should be 2988.4869
+    /// @todo Generator cross-section from Pythia gives ~7500, vs. expected 2988!
+    //normalize(_h_pTgamma, 2988.4869);
+
     const double lumi_gen = sumOfWeights()/crossSection();
-    // Divide by rapidity bin width of 1.8
+    // Divide by effective lumi, plus rapidity bin width of 1.8
     scale(_h_pTgamma, 1/lumi_gen * 1/1.8);
   }
 

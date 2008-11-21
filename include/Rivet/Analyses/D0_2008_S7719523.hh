@@ -65,13 +65,10 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_central_same_cross_section;
-    AIDA::IHistogram1D * _h_central_opp_cross_section;
-    AIDA::IHistogram1D * _h_forward_same_cross_section;
-    AIDA::IHistogram1D * _h_forward_opp_cross_section;
-
-    /// @todo Cross-section ratio plots
-
+    AIDA::IHistogram1D* _h_central_same_cross_section;
+    AIDA::IHistogram1D* _h_central_opp_cross_section;
+    AIDA::IHistogram1D* _h_forward_same_cross_section;
+    AIDA::IHistogram1D* _h_forward_opp_cross_section;
     //@}
 
   };

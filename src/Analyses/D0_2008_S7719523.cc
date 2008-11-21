@@ -134,8 +134,6 @@ namespace Rivet {
       }
     }
 
-    /// @todo Cross-section ratios (6 plots)
-
   }
 
 
@@ -148,6 +146,19 @@ namespace Rivet {
     normalize(_h_central_opp_cross_section,  281.8);
     normalize(_h_forward_same_cross_section, 164.8);
     normalize(_h_forward_opp_cross_section,   81.5);
+
+    // Cross-section ratios (6 plots)
+    // Central/central and forward/forward ratios
+    AIDA::IHistogramFactory& hf = histogramFactory();
+    const string dir = "/" + getName();
+    hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
+    hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
+    // Central/forward ratio combinations
+    hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section, *_h_forward_same_cross_section);
+    hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,  *_h_forward_same_cross_section);
+    hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section, *_h_forward_opp_cross_section);
+    hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,  *_h_forward_opp_cross_section);
+
   }
 
 }
