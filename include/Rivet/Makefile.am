@@ -47,6 +47,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2008_S7828950.hh \
   Analyses/D0_2001_S4674421.hh  \
   Analyses/D0_2004_S5992206.hh  \
+  Analyses/D0_2007_S7075677.hh  \
   Analyses/D0_2008_S6879055.hh  \
   Analyses/D0_2008_S7554427.hh  \
   Analyses/D0_2008_S7662670.hh  \

@@ -3,7 +3,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/RivetAIDA.hh"
 
@@ -15,9 +14,6 @@ namespace Rivet {
     // Run II Z pT
     setBeams(PROTON, ANTIPROTON);
     
-    /// @todo Use cross-section from generator
-    //setNeedsCrossSection(true);
-
     // All-inclusive final state
     FinalState fs;
     addProjection(fs, "FS");

@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_D0_2008_S7554427_HH
-#define RIVET_D0_2008_S7554427_HH
+#ifndef RIVET_D0_2007_S7075677_HH
+#define RIVET_D0_2007_S7075677_HH
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/D0ILConeJets.hh"
@@ -8,20 +8,20 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of D0 Run II Z pT differential cross-section shape
+  /// @brief Measurement of D0 Run II Z pT diff cross-section shape
   /// @author Andy Buckley
   /// @author Gavin Hesketh
-  class D0_2008_S7554427 : public Analysis {
+  class D0_2007_S7075677 : public Analysis {
 
   public:
 
     /// Default constructor.
-    D0_2008_S7554427();
+    D0_2007_S7075677();
 
 
     /// Factory method 
     static Analysis* create() {
-      return new D0_2008_S7554427();
+      return new D0_2007_S7075677();
     }
 
 
@@ -29,11 +29,11 @@ namespace Rivet {
     //@{
     /// Get a description of the analysis. 
     string getSpiresId() const {
-      return "7554427";
+      return "7075677";
     }
     /// Get a description of the analysis.
     string getDescription() const {
-      return "Z/gamma* + X cross-section shape, differential in pT(Z)";
+      return "Z/gamma* + X cross-section shape, differential in y(Z)";
     }
     /// Experiment which performed and published this analysis. 
     string getExpt() const {
@@ -41,12 +41,13 @@ namespace Rivet {
     }
     /// When published (preprint year according to SPIRES). 
     string getYear() const {
-      return "2008";
+      return "2007";
     }
     /// Publication references.
     vector<string> getReferences() const {
       vector<string> ret;
-      ret.push_back("hep-ex/0712.0803");
+      ret.push_back("Phys.Rev.D76:012003,2007");
+      ret.push_back("hep-ex/0702025");
       return ret;
     }
     //@}
@@ -63,8 +64,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_ZpT;
-    AIDA::IHistogram1D * _h_forward_ZpT;
+    AIDA::IHistogram1D * _h_yZ;
     //@}
 
   };
