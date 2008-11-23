@@ -10,22 +10,6 @@
 namespace Rivet {
 
 
-  // Helper functions for sorting
-  // For sorting Jet objects by pT.
-  inline bool compareJetsByPt(const Rivet::Jet& first, const Rivet::Jet& second) {
-    return first.ptSum() > second.ptSum();
-  }
-  
-
-  // For sorting Lorentz four-vectors by pT.
-  inline bool compareVecsByPt(const FourMomentum& first, const FourMomentum& second) {
-    return pT2(first) > pT2(second);
-  }
-
-
-  /////////////////////////////////
-
-
   int TrackJet::compare(const Projection& p) const {
     return mkNamedPCmp(p, "FS");
   }
@@ -46,8 +30,15 @@ namespace Rivet {
       const FourMomentum lv = p.momentum();
       tracksvector.push_back(lv);
     }
-    // Now sort particles in pT
-    sort(tracksvector.begin(), tracksvector.end(), compareVecsByPt);
+    // Now sort particles in pT (highest pT first)
+    sort(tracksvector.begin(), tracksvector.end(), cmpMomByPt);
+    if (getLog().isActive(Log::TRACE)) {
+      ostringstream ss;
+      foreach (const FourMomentum& v, tracksvector) {
+        ss << v.pT()/GeV << " ";
+      }
+      getLog() << Log::TRACE << "Sorted pTs in GeV: " << "( " << ss.str() << ")" << endl;
+    }
     // Make it into a list
     Tracks tracks(tracksvector.begin(), tracksvector.end());
 
@@ -92,8 +83,8 @@ namespace Rivet {
       _jets.push_back(thisjet);
     }
 
-    // Sort the jets by pT.
-    std::sort(_jets.begin(), _jets.end(), compareJetsByPt);
+    // Sort the jets by pT (highest pT first)
+    std::sort(_jets.begin(), _jets.end(), cmpJetsByPt);
 
     if (getLog().isActive(Log::DEBUG)) {
       getLog() << Log::DEBUG << "Number of jets = " << _jets.size() << endl;

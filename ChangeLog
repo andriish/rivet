@@ -1,5 +1,8 @@
 2008-11-21  Andy Buckley  <andy@insectnation.org>
 
+	* Using new "global" Jet and V4 sorting functors in
+	TrackJet. Looks like there was a sorting direction problem before...
+
 	* Verbose mode with --list-analyses now shows descriptions as well
 	as analysis names.
 
