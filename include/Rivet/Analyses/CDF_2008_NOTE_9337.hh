@@ -36,10 +36,10 @@ namespace Rivet {
 
   public:
 
-    string getName() const {
+    string name() const {
       return "CDF_2008_NOTE_9337";
     }
-    string getDescription() const {
+    string description() const {
       return "CDF Run 2 min bias cross-section analysis";
     }
 

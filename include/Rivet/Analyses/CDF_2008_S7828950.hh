@@ -42,23 +42,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "7828950";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "CDF Run II inclusive jet cross-section using the Midpoint algorithm";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2008";
     }
     /// Journal, and preprint references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("arXiv:0807.2204");
       //ret.push_back("PRD...");

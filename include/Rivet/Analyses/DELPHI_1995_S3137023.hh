@@ -43,19 +43,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "3137023";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Strange baryon production in Z hadronic decays at Delphi";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "DELPHI";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "1995";
     }
     //@}

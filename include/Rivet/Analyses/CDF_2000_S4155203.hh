@@ -53,16 +53,16 @@ namespace Rivet {
 
   public:
 
-    string getSpiresId() const {
+    string spiresId() const {
       return "4155203";
     }
-    string getDescription() const {
+    string description() const {
       return "CDF Run 1 Z pT measurement in Z->e+e- events";
     }
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
-    string getYear() const {
+    string year() const {
       return "2000";
     }
 

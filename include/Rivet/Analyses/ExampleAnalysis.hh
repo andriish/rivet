@@ -46,23 +46,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Return the name of this analysis
-    string getName() const {
+    string name() const {
       return "Example";
     }
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "NONE";
     }
     /// Get a description of the analysis.
-    // string getDescription() const {
+    // string description() const {
     //   return "";
     // }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "NONE";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "NONE";
     }
     //@}

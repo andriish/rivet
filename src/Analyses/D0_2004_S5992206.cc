@@ -67,9 +67,9 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
 
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-    getLog() << Log::DEBUG << "Missing Et = " << caloMissEt.getMomentum().pT()/GeV << endl;
+    getLog() << Log::DEBUG << "Missing Et = " << caloMissEt.momentum().pT()/GeV << endl;
     /// @todo Use cut constants and register these cuts
-    if (caloMissEt.getMomentum().pT() > 0.7*jetpTmax->pT()) {
+    if (caloMissEt.momentum().pT() > 0.7*jetpTmax->pT()) {
       vetoEvent(event);
     }
     

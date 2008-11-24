@@ -11,12 +11,12 @@ namespace Rivet {
     : _name("BaseProjection")
   {
     addBeamPair(ANY, ANY);
-    getLog() << Log::TRACE << "Creating " << getName() << " at " << this << endl;
+    getLog() << Log::TRACE << "Creating " << name() << " at " << this << endl;
   }
 
 
   Projection:: ~Projection() {
-    getLog() << Log::TRACE << "Destroying " << getName() << " at " << this << endl;
+    getLog() << Log::TRACE << "Destroying " << name() << " at " << this << endl;
   }
 
 
@@ -36,23 +36,23 @@ namespace Rivet {
   }
   
   
-  const Cuts Projection::getCuts() const {
+  const Cuts Projection::cuts() const {
     Cuts totalCuts = _cuts;
     set<ConstProjectionPtr> projs = getProjections();
     for (set<ConstProjectionPtr>::const_iterator p = projs.begin(); p != projs.end(); ++p) {
-      totalCuts.addCuts((*p)->getCuts());
+      totalCuts.addCuts((*p)->cuts());
     }
     return totalCuts;
   }
   
   
-  const set<BeamPair> Projection::getBeamPairs() const {
+  const set<BeamPair> Projection::beamPairs() const {
     set<BeamPair> ret = _beamPairs;
     set<ConstProjectionPtr> projs = getProjections();
     for (set<ConstProjectionPtr>::const_iterator ip = projs.begin(); ip != projs.end(); ++ip) {
       ConstProjectionPtr p = *ip;
       getLog() << Log::TRACE << "Proj addr = " << p << endl;
-      if (p) ret = intersection(ret, p->getBeamPairs());
+      if (p) ret = intersection(ret, p->beamPairs());
     }
     return ret;
   }

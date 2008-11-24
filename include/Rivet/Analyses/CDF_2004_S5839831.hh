@@ -67,23 +67,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "5839831";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Transverse cone and 'Swiss cheese' CDF Run II underlying event analysis.";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2004";
     }
     /// Journal, and preprint references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("Phys. Rev. D70, 072002 (2004)");
       ret.push_back("hep-ex/0404004");

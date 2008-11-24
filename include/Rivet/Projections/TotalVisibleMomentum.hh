@@ -28,17 +28,19 @@ namespace Rivet {
     virtual const Projection* clone() const {
       return new TotalVisibleMomentum(*this);
     }
+
     
   public:
     /// The projected four-momentum vector
-    FourMomentum& getMomentum() { return _momentum; }
+    FourMomentum& momentum() { return _momentum; }
 
     /// The projected four-momentum vector
-    const FourMomentum& getMomentum() const { return _momentum; }
+    const FourMomentum& momentum() const { return _momentum; }
 
-    /// The projected Scalar Transverse Momentum
-    const double getSET() const { return _set; }
+    /// The projected scalar transverse energy
+    const double scalarET() const { return _set; }
     
+
   protected:
     
     /// Apply the projection to the event.
@@ -52,7 +54,7 @@ namespace Rivet {
     /// The total visible momentum
     FourMomentum _momentum;
     
-    /// Scalar Transverse Energy
+    /// Scalar transverse energy
     double _set;
     
   };

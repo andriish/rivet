@@ -70,13 +70,13 @@ namespace Rivet {
 
   class Analysis {
   public:
-    virtual std::string getName() const;
-    virtual std::string getSpiresId() const;
-    virtual std::string getDescription() const;
-    virtual std::string getExpt() const;
-    virtual std::string getYear() const;
-    virtual std::vector<std::string> getReferences() const;
-    virtual const BeamPair& getBeams() const;
+    virtual std::string name() const;
+    virtual std::string spiresId() const;
+    virtual std::string description() const;
+    virtual std::string experiment() const;
+    virtual std::string year() const;
+    virtual std::vector<std::string> references() const;
+    virtual const BeamPair& requiredBeams() const;
     virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
     virtual const bool isCompatible(const BeamPair& beams) const;
     //AnalysisHandler& getHandler() const;
@@ -107,7 +107,7 @@ namespace Rivet {
 
 
   class AnalysisLoader {
-    public:
+  public:
     static std::set<std::string> getAllAnalysisNames();
     static Analysis* getAnalysis(const std::string& analysisname);
     static void closeAnalysisBuilders();    

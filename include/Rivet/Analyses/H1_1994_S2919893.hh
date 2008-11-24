@@ -40,19 +40,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "2919893";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "H1 energy flow and charged particle spectra in DIS";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "H1";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "1994";
     }
     //@}

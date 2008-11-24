@@ -8,7 +8,6 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/Configuration.hh"
-//#include "Rivet/Projections/Beam.hh"
 using namespace Rivet;
 
 #ifdef HAVE_AGILE
@@ -105,13 +104,13 @@ namespace Rivet {
           break;
         }
         const bool beamMatch = a->isCompatible(cfg.beam1, cfg.beam2);
-        log << Log::DEBUG << a->getName() << ": " << a->getBeams() << " "
+        log << Log::DEBUG << a->name() << ": " << a->requiredBeams() << " "
             << (beamMatch ? "MATCH" : "NO-MATCH") << endl;
         if (beamMatch || cfg.readHepMC) {
-          log << Log::INFO << "Using analysis " << a->getName() << endl;
+          log << Log::INFO << "Using analysis " << a->name() << endl;
           analyses.push_back(aname);
         } else {
-          log << Log::WARN << "Removing inappropriate analysis " << a->getName() << endl;
+          log << Log::WARN << "Removing inappropriate analysis " << a->name() << endl;
           delete a;
         }
       }
@@ -165,10 +164,6 @@ namespace Rivet {
       assert(gen);
       gen->makeEvent(myevent);
       printEventNumber(i+1);
-      
-      //beamproj.project(myevent);
-      //log << Log::WARN << "&&&&&&&&&&&&&&&&&" << beamproj.sqrtS() << endl;
-
       useEvent(cfg, myevent, rh, hepmcOut);
 
       // Exit nicely if we've been signalled during this iteration

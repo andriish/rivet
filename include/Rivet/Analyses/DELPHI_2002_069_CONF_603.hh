@@ -41,19 +41,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getName() const {
+    string name() const {
       return "DELPHI_2002_069_CONF_603";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "A Study of the b-Quark Fragmentation Function with the DELPHI Detector at LEP I";
     }
     ///// Experiment which performed and published this analysis.
-    //string getExpt() const {
+    //string experiment() const {
     //  return "DELPHI";
     //}
     ///// When published (preprint year according to SPIRES).
-    //string getYear() const {
+    //string year() const {
     //  return "2002";
     //}
     //@}

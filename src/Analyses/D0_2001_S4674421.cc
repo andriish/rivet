@@ -108,7 +108,7 @@ namespace Rivet {
     const double xSecZ = xSecPerEvent * _eventsFilledZ;
 
     /// @todo This should be simpler with YODA!
-    _h_temp = histogramFactory().divide(getName() + "/temp", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z);    
+    _h_temp = histogramFactory().divide(histoDir() + "/temp", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z);    
     const double wpt_integral = integral(_h_dsigdpt_w);
     normalize(_h_dsigdpt_w, xSecW);
     normalize(_h_dsigdpt_z, xSecZ);
@@ -122,7 +122,7 @@ namespace Rivet {
       _y.push_back(_h_temp->binHeight(i)); 
       _ey.push_back(_h_temp->binError(i)); 
     }
-    _dset_dsigpt_wz_rat = datapointsetFactory().createXY(getName() + "/d02-x01-y01", _h_temp->title(), _x, _y, _ex, _ey);
+    _dset_dsigpt_wz_rat = datapointsetFactory().createXY(histoDir() + "/d02-x01-y01", _h_temp->title(), _x, _y, _ex, _ey);
   }
 
 

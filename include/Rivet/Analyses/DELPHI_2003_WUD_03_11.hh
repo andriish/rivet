@@ -55,10 +55,10 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getName() const {
+    string name() const {
       return "DELPHI_2003_WUD_03_11";
     }
-    string getDescription() const {
+    string description() const {
       return "DELPHI LEP-1 4-jet angular distributions";
     }
     //@}

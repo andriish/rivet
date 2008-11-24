@@ -33,8 +33,8 @@ namespace Rivet {
 
     for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       // Get momentum and energy of each particle.
-//      const Vector3 mom3 = p->getMomentum().vector3();
-//      const double energy = p->getMomentum().E();
+//      const Vector3 mom3 = p->momentum().vector3();
+//      const double energy = p->momentum().E();
       _hist_pt_vs_multiplicity->fill(numParticles, p->momentum().pT(), weight);
     }
 

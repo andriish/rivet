@@ -103,22 +103,22 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "6653332";
     }
 
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "pT and eta distributions of jets in Z + (b)jet production, before and after tagging.";
     }
 
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
 
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2006";
     }
     //@}

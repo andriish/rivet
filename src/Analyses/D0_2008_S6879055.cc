@@ -73,9 +73,9 @@ namespace Rivet {
 
     // Check that the primary vertex is within 60 cm in z from (0,0,0)
     const PVertex& vertex = applyProjection<PVertex>(event, "PrimaryVertex");
-    getLog() << Log::DEBUG << "Primary vertex is at " << vertex.getPVPosition()/cm << " cm" << endl;
-    if (fabs(vertex.getPVPosition().z())/cm > 60) {
-      getLog() << Log::DEBUG << "Vertex z-position " << vertex.getPVPosition().z()/cm << " is outside cuts" << endl;
+    getLog() << Log::DEBUG << "Primary vertex is at " << vertex.position()/cm << " cm" << endl;
+    if (fabs(vertex.position().z())/cm > 60) {
+      getLog() << Log::DEBUG << "Vertex z-position " << vertex.position().z()/cm << " is outside cuts" << endl;
       vetoEvent(event);
     }
 

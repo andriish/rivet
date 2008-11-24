@@ -64,9 +64,6 @@ namespace Rivet {
 
   // Do the analysis
   void ExampleTree::analyze(const Event & event) {
-    Log log = getLog();
-    log << Log::DEBUG << "Filling the ntuple" << endl;
-
     const GenEvent& ev = event.genEvent();
 
     // Event number
@@ -116,7 +113,7 @@ namespace Rivet {
           }
           
           //const GenParticle mother = **(vertex->particles_in_const_begin());
-          log << Log::DEBUG << _npart << ":" << _pid[_npart] << endl;
+          getLog() << Log::DEBUG << _npart << ":" << _pid[_npart] << endl;
           ++_npart;
         }
       }
@@ -177,13 +174,10 @@ namespace Rivet {
     
     // Missing Et/total energy
     const TotalVisibleMomentum& tvm = applyProjection<TotalVisibleMomentum>(event, "TotalVisMom");
-    _esumr[1] = tvm.getMomentum().px();
-    _esumr[2] = tvm.getMomentum().py();
-    _esumr[3] = tvm.getMomentum().pz();
-    _esumr[0] = tvm.getMomentum().E();
-    
-    // Finished...
-    log << Log::DEBUG << "Finished analyzing" << endl;
+    _esumr[1] = tvm.momentum().px();
+    _esumr[2] = tvm.momentum().py();
+	_esumr[3] = tvm.momentum().pz();
+	_esumr[0] = tvm.momentum().E();
     
     _rivetTree->Fill();
   }

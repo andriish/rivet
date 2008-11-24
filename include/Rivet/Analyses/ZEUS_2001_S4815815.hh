@@ -36,19 +36,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "4815815";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Dijet photoproduction analysis";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "ZEUS";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2001";
     }
     //@}

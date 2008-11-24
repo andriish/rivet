@@ -6,10 +6,11 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
 
-
 namespace Rivet {  
+
   
   /// @brief Get the position of the primary vertex of an event.
+  ///
   /// HepMC doesn't reliably return the signal process vertex, so
   /// we have to use the "decay vertex" of the beam particles. 
   /// This gives the right position, within experimental resolution,
@@ -37,7 +38,7 @@ namespace Rivet {
 
 
     /// Get the primary vertex position.
-    const Vector3 getPVPosition() const {
+    const Vector3 position() const {
       if (_thePVertex != 0) return Vector3(_thePVertex->position());
       return Vector3(0,0,0);
     }

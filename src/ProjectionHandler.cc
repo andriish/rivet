@@ -16,7 +16,7 @@ namespace Rivet {
     if (!_instance) {
       _instance = new ProjectionHandler();
       Log::getLog("Rivet.ProjectionHandler") << Log::TRACE << "Created new ProjectionHandler at " 
-                                       << _instance << endl;
+                                             << _instance << endl;
     }
     return _instance;
   }
@@ -74,8 +74,8 @@ namespace Rivet {
                                                           const Projection& proj, 
                                                           const string& name) {
     getLog() << Log::TRACE << "Trying to register"
-             << " projection " << &proj  << "(" << proj.getName() << ")"
-             << " for parent " << &parent << "(" << parent.getName() << ")"
+             << " projection " << &proj  << "(" << proj.name() << ")"
+             << " for parent " << &parent << "(" << parent.name() << ")"
              << " with name '" << name << "'" << endl;
 
     // Try to find an exact match by pointer

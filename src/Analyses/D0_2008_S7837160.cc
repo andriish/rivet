@@ -140,15 +140,15 @@ namespace Rivet {
 
     AIDA::IHistogram1D* num25_35 = hf.subtract("num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
     AIDA::IHistogram1D* denom25_35 = hf.add("denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
-    hf.divide("/" + getName() + "/d01-x01-y01", *num25_35, *denom25_35);
+    hf.divide(histoDir() + "/d01-x01-y01", *num25_35, *denom25_35);
     //
     AIDA::IHistogram1D* num35 = hf.subtract("num35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
     AIDA::IHistogram1D* denom35 = hf.add("denom35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
-    hf.divide("/" + getName() + "/d02-x01-y01", *num35, *denom35);
+    hf.divide(histoDir() + "/d02-x01-y01", *num35, *denom35);
     //
     AIDA::IHistogram1D* num25 = hf.subtract("num25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
     AIDA::IHistogram1D* denom25 = hf.add("denom25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
-    hf.divide("/" + getName() + "/d03-x01-y01", *num25, *denom25);
+    hf.divide(histoDir() + "/d03-x01-y01", *num25, *denom25);
   }
 
 }

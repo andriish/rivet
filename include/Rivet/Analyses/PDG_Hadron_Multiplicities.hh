@@ -40,19 +40,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getName() const {
+    string name() const {
       return "PDG_HADRON_MULTIPLICITIES";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Hadron multiplicities in hadronic e+e- events, taken from Particle Data Book";
     }
     /// Experiment which performed and published this analysis.
-    //string getExpt() const {
+    //string experiment() const {
     //  return "PDG";
     //}
     ///// When published (preprint year according to SPIRES).
-    //string getYear() const {
+    //string year() const {
     //  return "2006";
     //}
     //@}

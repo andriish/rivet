@@ -1,3 +1,8 @@
+2008-11-24  Andy Buckley  <andy@insectnation.org>
+
+	* Removing "get"s and other obsfucated syntax from
+	ProjectionApplier (Projection and Analysis) interfaces.
+
 2008-11-21  Andy Buckley  <andy@insectnation.org>
 
 	* Using new "global" Jet and V4 sorting functors in

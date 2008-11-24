@@ -23,14 +23,14 @@ namespace Rivet {
     
     // Find primary vertex 
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
-    if (fabs(pv.getPVPosition().z())/mm > _pvzmax) {
+    if (fabs(pv.position().z())/mm > _pvzmax) {
       vetoEvent(event);
     }
 
     // Veto on missing Et    
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-    log << Log::DEBUG << "Missing pT = " << caloMissEt.getMomentum().pT() << endl;
-    if (caloMissEt.getMomentum().pT() > _metmax || caloMissEt.getSET() > _setmax) {
+    log << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT() << endl;
+    if (caloMissEt.momentum().pT() > _metmax || caloMissEt.scalarET() > _setmax) {
       vetoEvent(event);
     }
 

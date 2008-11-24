@@ -85,32 +85,32 @@ namespace Rivet {
     /// combining the results of the experiment, year and Spires ID 
     /// metadata methods and you should only override it if there's a 
     /// good reason why those won't work.
-    virtual std::string getName() const {
-      return getExpt() + "_" + getYear() + "_S" + getSpiresId();
+    virtual std::string name() const {
+      return experiment() + "_" + year() + "_S" + spiresId();
     }
 
     /// Get a description of the analysis.
-    virtual std::string getSpiresId() const {
+    virtual std::string spiresId() const {
       return "";
     }
 
     /// Get a description of the analysis.
-    virtual std::string getDescription() const {
+    virtual std::string description() const {
       return "";
     }
     
     /// Experiment which performed and published this analysis.
-    virtual std::string getExpt() const {
+    virtual std::string experiment() const {
       return "";
     }
 
     /// When published (preprint year according to SPIRES).
-    virtual std::string getYear() const {
+    virtual std::string year() const {
       return "";
     }
 
     /// Journal, and preprint references.
-    virtual std::vector<std::string> getReferences() const {
+    virtual std::vector<std::string> references() const {
       vector<string> ret;
       return ret;
     }
@@ -121,17 +121,17 @@ namespace Rivet {
     /// classes should re-implement this function to return the combined
     /// RivetInfo object of this object and of any Projection objects
     /// upon which this depends.
-    virtual const Cuts getCuts() const;
+    virtual const Cuts cuts() const;
 
     /// Return the pair of incoming beams required by this analysis.
-    virtual const BeamPair& getBeams() const {
+    virtual const BeamPair& requiredBeams() const {
       return _beams;
     }
 
     /// Is this analysis compatible with the named quantity set at the supplied value?
     virtual const bool isCompatible(const std::string& quantity, const double value) const {
-      Cuts::const_iterator cut = getCuts().find(quantity);
-      if (cut == getCuts().end()) return true;
+      Cuts::const_iterator cut = cuts().find(quantity);
+      if (cut == cuts().end()) return true;
       if (value < cut->second.getHigherThan()) return false;
       if (value > cut->second.getLowerThan()) return false;
       return true;
@@ -140,14 +140,14 @@ namespace Rivet {
     /// Is this analysis able to run on the supplied pair of beams?
     virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
       BeamPair beams(beam1, beam2);
-      return compatible(beams, getBeams());
+      return compatible(beams, requiredBeams());
       /// @todo Need to also check internal consistency of the analysis' 
       /// beam requirements with those of the projections it uses.
     }
 
     /// Is this analysis able to run on the BeamPair @a beams ?
     virtual const bool isCompatible(const BeamPair& beams) const {
-      return compatible(beams, getBeams());
+      return compatible(beams, requiredBeams());
       /// @todo Need to also check internal consistency of the analysis' 
       /// beam requirements with those of the projections it uses.
     }
@@ -192,7 +192,7 @@ namespace Rivet {
     /// Get the process cross-section in pb. Throws if this hasn't been set.
     const double& crossSection() const {
       if (!_gotCrossSection) {
-        string errMsg = "You did not set the cross section for the analysis " + getName();
+        string errMsg = "You did not set the cross section for the analysis " + name();
         throw Error(errMsg);
       }
       return _crossSection;
@@ -203,7 +203,7 @@ namespace Rivet {
       _vetoedWeightSum += e.weight();
     }
 
-    /// Get a Log object based on the getName() property of the calling analysis object.
+    /// Get a Log object based on the name() property of the calling analysis object.
     Log& getLog() const;
 
     /// Get the number of events seen (via the analysis handler). Use in the
@@ -234,8 +234,8 @@ namespace Rivet {
     AIDA::IDataPointSetFactory& datapointsetFactory();
 
     /// Get the canonical AIDA histogram path for this analysis.
-    const std::string getHistoDir() const {
-        return "/" + getName();
+    const std::string histoDir() const {
+        return "/" + name();
     }
     //@}
 
@@ -259,12 +259,12 @@ namespace Rivet {
 
     /// Book a 1D histogram based on the name in the corresponding AIDA
     /// file. The binnings will be obtained by reading the bundled AIDA data
-    /// record file with the same filename as the analysis' getName() property.
+    /// record file with the same filename as the analysis' name() property.
     AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title);
 
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' getName() property.
+    /// of the same filename as the analysis' name() property.
     AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
                                         const size_t yAxisId, const std::string& title);
     //@}
@@ -289,12 +289,12 @@ namespace Rivet {
 
     /// Book a 1D profile histogram based on the name in the corresponding AIDA
     /// file. The binnings will be obtained by reading the bundled AIDA data
-    /// record file with the same filename as the analysis' getName() property.
+    /// record file with the same filename as the analysis' name() property.
     AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title);
 
     /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' getName() property.
+    /// of the same filename as the analysis' name() property.
     AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId, 
                                         const size_t yAxisId, const std::string& title);
     //@}
@@ -319,13 +319,13 @@ namespace Rivet {
 
     /// Book a 2-dimensional data point set based on the corresponding AIDA data
     /// file. The binnings (x-errors) will be obtained by reading the bundled
-    /// AIDA data record file of the same filename as the analysis' getName()
+    /// AIDA data record file of the same filename as the analysis' name()
     /// property.
     //AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title);
 
     /// Book a 2-dimensional data point set based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' getName() property.
+    /// of the same filename as the analysis' name() property.
     AIDA::IDataPointSet* bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
                                           const size_t yAxisId, const std::string& title);
     //@}

@@ -28,23 +28,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis. 
-    string getSpiresId() const {
+    string spiresId() const {
       return "6438750";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Inclusive isolated photon cross-section, differential in pT(gamma)";
     }    
     /// Experiment which performed and published this analysis. 
-    string getExpt() const {
+    string experiment() const {
       return "D0";
     }
     /// When published (preprint year according to SPIRES). 
-    string getYear() const {
+    string year() const {
       return "2006";
     }
     /// Publication references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("Phys.Lett.B639:151-158,2006, Erratum-ibid.B658:285-289,2008");
       ret.push_back("hep-ex/0511054 (plus erratum)");

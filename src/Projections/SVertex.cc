@@ -25,7 +25,7 @@ namespace Rivet {
 
   void SVertex::project(const Event& e) {
     const PVertex& pvtx = applyProjection<PVertex>(e, "PV");
-    const Vector3 pvpos = pvtx.getPVPosition();
+    const Vector3 pvpos = pvtx.position();
     const ChargedFinalState& chfs = applyProjection<ChargedFinalState>(e, "FS");
     
     // Produce vector of vertices, each containing a vector of all charged 

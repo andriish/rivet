@@ -57,23 +57,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get the SPIRES ID
-    string getSpiresId() const {
+    string spiresId() const {
       return "4751469";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Field & Stuart Run I underlying event analysis.";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2001";
     }
     /// Journal, and preprint references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("Phys.Rev.D65:092002,2002");
       ret.push_back("FNAL-PUB 01/211-E");

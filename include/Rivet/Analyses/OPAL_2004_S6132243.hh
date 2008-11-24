@@ -31,7 +31,7 @@ namespace Rivet {
   //    static Analysis* create() { return new TestAnalysis(); }
 
 //     /// The name of this analysis is "OPAL_2004_S6132243"
-//     string getName() const {
+//     string name() const {
 //       return "OPAL_2004_S6132243";
 //     }
 

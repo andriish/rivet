@@ -70,23 +70,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "2952106";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "CDF Run I color coherence analysis.";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "1994";
     }
     /// Publication references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("Phys.Rev.D50,9,5562 (1994)");
       return ret;

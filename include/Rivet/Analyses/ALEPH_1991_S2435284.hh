@@ -32,19 +32,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "2435284";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "ALEPH LEP1 charged multiplicity measurement";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "ALEPH";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "1991";
     }
     //@}

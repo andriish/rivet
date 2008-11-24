@@ -29,7 +29,7 @@ namespace Rivet {
     /// @name Metadata functions
     //@{
     /// Get the name of this Projection or Analysis class
-    virtual std::string getName() const = 0;
+    virtual std::string name() const = 0;
     //@}
 
     /// @name Projection "getting" functions
@@ -108,9 +108,9 @@ namespace Rivet {
     /// up the internal type management.
     template <typename PROJ>
     const PROJ& addProjection(const PROJ& proj, const std::string& name) {
-      getLog() << Log::TRACE << "Cloning projection " << proj.getName() << endl;
+      getLog() << Log::TRACE << "Cloning projection " << proj.name() << endl;
       const Projection* newpproj = proj.clone();
-      getLog() << Log::TRACE << "Cloned projection " << proj.getName() << " at " << newpproj << endl;
+      getLog() << Log::TRACE << "Cloned projection " << proj.name() << " at " << newpproj << endl;
       const Projection* reg = getProjHandler().registerClonedProjection(*this, &proj, newpproj, name);
       assert(reg);
       if (reg != newpproj) delete newpproj;

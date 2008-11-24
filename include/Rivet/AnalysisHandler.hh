@@ -67,7 +67,7 @@ namespace Rivet {
     std::vector<std::string> analysisNames() {
       std::vector<std::string> rtn;
       foreach (Analysis* a, _analyses) {
-        rtn.push_back(a->getName());
+        rtn.push_back(a->name());
       }
       return rtn;
     }

@@ -71,23 +71,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get the SPIRES ID
-    string getSpiresId() const {
+    string spiresId() const {
       return "7541902";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Jet pT distributions for 4 jet multiplicity bins as well as the jet multiplicity distribution in W + jets events.";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2008";
     }
     /// Journal, and preprint references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("arXiv:0711.4044 [hep-ex]");
       return ret;

@@ -87,15 +87,15 @@ namespace Rivet {
 
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
-    if (fabs(pv.getPVPosition().z())/mm < _pvzmax) {
+    if (fabs(pv.position().z())/mm < _pvzmax) {
       const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-      getLog() << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
-      if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) < _metsetmax) {
+      getLog() << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT()/GeV << " GeV" << endl;
+      if (caloMissEt.momentum().pT()/sqrt(caloMissEt.scalarET()) < _metsetmax) {
         PseudoJets jets = jetpro.pseudoJets();
         PseudoJets::const_iterator jet1stPt = jets.end();
         PseudoJets::const_iterator jet2ndPt = jets.end();
         PseudoJets::const_iterator jet3rdPt = jets.end();
-        getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
+        getLog() << Log::DEBUG << "Num jets = " << jets.size() << endl;
 
         int Njet = 0;
         int NjetPtCut = 0;

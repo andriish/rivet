@@ -71,23 +71,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "3430090";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Delphi MC tuning on event shapes and identified particles.";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "DELPHI";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "1996";
     }
     /// Journal, and preprint references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("");
       return ret;

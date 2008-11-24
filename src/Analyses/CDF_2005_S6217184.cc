@@ -31,7 +31,7 @@ namespace Rivet {
   void CDF_2005_S6217184::analyze(const Event& event) {
     // Find primary vertex and veto on its separation from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
-    if (fabs(pv.getPVPosition().z())/mm > _pvzmax) vetoEvent(event);
+    if (fabs(pv.position().z())/mm > _pvzmax) vetoEvent(event);
 
     // Analyse and print some info  
     const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
@@ -53,9 +53,9 @@ namespace Rivet {
     if (!jetcutpass) vetoEvent(event);
 
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-    getLog() << Log::DEBUG << "CaloMissEt.getMomentum().pT() = " << caloMissEt.getMomentum().pT() << endl;
+    getLog() << Log::DEBUG << "CaloMissEt.momentum().pT() = " << caloMissEt.momentum().pT() << endl;
     /// @todo Declare this cut, and use units
-    if (caloMissEt.getMomentum().pT()/sqrt(caloMissEt.getSET()) > 3.5) {
+    if (caloMissEt.momentum().pT()/sqrt(caloMissEt.scalarET()) > 3.5) {
       vetoEvent(event);
     }
     

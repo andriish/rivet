@@ -45,7 +45,7 @@ namespace Rivet {
                                                              const string& name) {
     getLog() << Log::TRACE << "Trying to register"
              << " analysis object " << &ao
-             << " for parent " << &parent << "(" << parent.getName() << ")"
+             << " for parent " << &parent << "(" << parent.name() << ")"
              << " with name '" << name << "'" << endl;
     
     // If this name is already registered for this analysis, throw a complaint

@@ -74,19 +74,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "3486095";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Studies of QCD with the ALEPH detector.";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "ALEPH";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "1996";
     }
     //@}

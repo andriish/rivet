@@ -77,23 +77,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "4674421";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Run I differential W/Z boson cross-section analysis";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "D0";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2001";
     }
     /// Journal, and preprint references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("arXiv:hep-ex/0107012");
       return ret;

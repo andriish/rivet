@@ -150,7 +150,7 @@ namespace Rivet {
     // Cross-section ratios (6 plots)
     // Central/central and forward/forward ratios
     AIDA::IHistogramFactory& hf = histogramFactory();
-    const string dir = "/" + getName();
+    const string dir = histoDir();
     hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
     hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
     // Central/forward ratio combinations

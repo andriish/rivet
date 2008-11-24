@@ -64,10 +64,10 @@ namespace Rivet {
 
   public:
 
-    string getName() const {
+    string name() const {
       return "CDF_2008_LEADINGJETS";
     }
-    string getDescription() const {
+    string description() const {
       return "CDF Run 2 underlying event in leading jet events";
     }
 

@@ -56,23 +56,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get SPIRES ID code.
-    string getSpiresId() const {
+    string spiresId() const {
       return "7782535";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "CDF Run II b-jet shape paper";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "2008";
     }
     /// Journal, and preprint references.
-    virtual vector<string> getReferences() const {
+    virtual vector<string> references() const {
       vector<string> ret;
       ret.push_back("arXiv:0806.1699");
       return ret;

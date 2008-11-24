@@ -56,16 +56,16 @@ namespace Rivet {
 
   public:
 
-    string getSpiresId() const {
+    string spiresId() const {
       return "4796047";
     }
-    string getDescription() const {
+    string description() const {
       return "CDF Run 1 charged multiplicity measurement";
     }
-    string getExpt() const {
+    string experiment() const {
       return "CDF";
     }
-    string getYear() const {
+    string year() const {
       return "2002";
     }
 

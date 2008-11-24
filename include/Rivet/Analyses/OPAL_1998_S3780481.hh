@@ -45,19 +45,19 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis.
-    string getSpiresId() const {
+    string spiresId() const {
       return "3780481";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Measurements of flavor dependent fragmentation functions in Z0 --> q anti-q events.";
     }
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "OPAL";
     }
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "1998";
     }
     //@}

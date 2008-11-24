@@ -28,23 +28,23 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
     /// Get a description of the analysis. 
-    string getSpiresId() const {
+    string spiresId() const {
       return "7554427";
     }
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "Z/gamma* + X cross-section shape, differential in pT(Z)";
     }
     /// Experiment which performed and published this analysis. 
-    string getExpt() const {
+    string experiment() const {
       return "D0";
     }
     /// When published (preprint year according to SPIRES). 
-    string getYear() const {
+    string year() const {
       return "2008";
     }
     /// Publication references.
-    vector<string> getReferences() const {
+    vector<string> references() const {
       vector<string> ret;
       ret.push_back("hep-ex/0712.0803");
       return ret;

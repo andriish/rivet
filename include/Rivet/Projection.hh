@@ -93,16 +93,16 @@ namespace Rivet {
     /// classes should ensure that all contained projections are
     /// registered in the @a _projections set for the cut chaining 
     /// to work.
-    virtual const Cuts getCuts() const;
+    virtual const Cuts cuts() const;
 
     /// Return the BeamConstraints for this projection, not including
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
     /// chaining to work.
-    virtual const std::set<BeamPair> getBeamPairs() const;
+    virtual const std::set<BeamPair> beamPairs() const;
 
     /// Get the name of the projection.
-    virtual std::string getName() const {
+    virtual std::string name() const {
       return _name;
     }
 
@@ -116,7 +116,7 @@ namespace Rivet {
     
     /// Add a cut.
     Projection& addCut(const std::string& quantity, const Comparison& comparison, const double value) {
-      getLog() << Log::DEBUG << getName() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
+      getLog() << Log::DEBUG << name() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
       _cuts.addCut(quantity, comparison, value);
       return *this;
     }
@@ -124,7 +124,7 @@ namespace Rivet {
     
     /// Get a Log object based on the getName() property of the calling projection object.
     Log& getLog() const {
-      string logname = "Rivet.Projection." + getName();
+      string logname = "Rivet.Projection." + name();
       return Log::getLog(logname);
     }
 

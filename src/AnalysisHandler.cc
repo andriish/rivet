@@ -7,7 +7,6 @@
 
 using namespace AIDA;
 
-
 namespace Rivet {
 
 
@@ -36,12 +35,12 @@ namespace Rivet {
     _iRun = i;
     _numEvents = 0;
     _sumOfWeights = 0.0;
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      getLog() << Log::DEBUG << "Initialising analysis: " << (*a)->getName() << endl;
-      (*a)->init();
-      getLog() << Log::DEBUG << "Checking consistency of analysis: " << (*a)->getName() << endl;
-      (*a)->checkConsistency();
-      getLog() << Log::DEBUG << "Done initialising analysis: " << (*a)->getName() << endl;
+    foreach (Analysis* a, _analyses) {
+      getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
+      a->init();
+      getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
+      a->checkConsistency();
+      getLog() << Log::DEBUG << "Done initialising analysis: " << a->name() << endl;
     }
     getLog() << Log::DEBUG << "Analysis handler initialised" << endl;
   }
@@ -51,34 +50,33 @@ namespace Rivet {
     Event event(geneve);
     _numEvents++;
     _sumOfWeights += event.weight();
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      getLog() << Log::DEBUG << "About to run analysis " << (*a)->getName() << endl;
-      (*a)->analyze(event);
-      getLog() << Log::DEBUG << "Finished running analysis " << (*a)->getName() << endl;
+    foreach (Analysis* a, _analyses) {
+      getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
+      a->analyze(event);
+      getLog() << Log::DEBUG << "Finished running analysis " << a->name() << endl;
     }
   }
 
 
   void AnalysisHandler::finalize() {
-    Log& log = getLog();
-    log << Log::INFO << "Finalising analysis" << endl;
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      (*a)->finalize();
+    getLog() << Log::INFO << "Finalising analysis" << endl;
+    foreach (Analysis* a, _analyses) {
+      a->finalize();
     }
 
     // Change AIDA histos into data point sets
-    log << Log::DEBUG << "Converting histograms to scatter plots" << endl;
+    getLog() << Log::DEBUG << "Converting histograms to scatter plots" << endl;
     assert(_theTree != 0);
     normalizeTree(tree());
 
     // Delete analyses
-    log << Log::DEBUG << "Deleting analyses" << endl;
-    for (set<Analysis*>::iterator a = _analyses.begin(); a != _analyses.end(); ++a) {
-      delete *a;
+    getLog() << Log::DEBUG << "Deleting analyses" << endl;
+    foreach (Analysis* a, _analyses) {
+      delete a;
     }
     _analyses.clear();
 
-    log << Log::DEBUG << "Closing analysis libraries" << endl;
+    getLog() << Log::DEBUG << "Closing analysis libraries" << endl;
     AnalysisLoader::closeAnalysisBuilders();
   }
 
@@ -97,7 +95,7 @@ namespace Rivet {
   AnalysisHandler& AnalysisHandler::removeAnalysis(const string& analysisname) {
     Analysis* toremove = 0;
     foreach (Analysis* a, _analyses) {
-      if (a->getName() == analysisname) {
+      if (a->name() == analysisname) {
         toremove = a;
         break;
       }
@@ -121,7 +119,7 @@ namespace Rivet {
     }
     foreach (Analysis* a, todelete) {
       getLog() << Log::WARN << "Removing incompatible analysis '" 
-               << a->getName() << "'" << endl;
+               << a->name() << "'" << endl;
       _analyses.erase(a);
       delete a;
     }
