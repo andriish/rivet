@@ -134,7 +134,7 @@ if opts.LIST_ANALYSES:
         msg = aname
         if opts.LOGLEVEL == logging.DEBUG:
             a = rivet.AnalysisLoader.getAnalysis(aname)
-            msg = "%-25s %s" % (aname, "  " + a.getDescription())
+            msg = "%-25s %s" % (aname, "  " + a.description())
         print msg
     sys.exit(0)
 
@@ -158,21 +158,21 @@ if len(opts.SHOW_ANALYSES) > 0:
     for name in sorted(toshow):
         ana = rivet.AnalysisLoader.getAnalysis(name)
         print ""
-        print ana.getName()
-        print len(ana.getName()) * "="
+        print ana.name()
+        print len(ana.name()) * "="
         print ""
-        print "Spires ID: %s" % ana.getSpiresId()
-        print "Spires URL: http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.getSpiresId()
-        print "Experiment: %s" % ana.getExpt()
-        print "Year of publication: %s" % ana.getYear()
+        print "Spires ID: %s" % ana.spiresId()
+        print "Spires URL: http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.spiresId()
+        print "Experiment: %s" % ana.experiment()
+        print "Year of publication: %s" % ana.year()
         #print ana.getAuthor()
         #print ana.getInstructions()
         #print ana.getCuts()
         print ""
-        print "Description:\n  " + ana.getDescription()
+        print "Description:\n  " + ana.description()
         print ""
         print "References:"
-        for r in ana.getReferences():
+        for r in ana.references():
             print "  %s" % r
         if i+1 < len(opts.SHOW_ANALYSES):
             print "\n"
