@@ -116,6 +116,12 @@ AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall "])
 if test x$with_root == xyes; then
   AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "])
 fi
+if test -f "$(which fastjet-config)"; then
+  FASTJETCONFIGLIBADD="$(fastjet-config --plugins --shared --libs)";
+else
+  FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";
+fi;
+AC_SUBST(FASTJETCONFIGLIBADD)
 
 ## Debug flag (default=none)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug, 

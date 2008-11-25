@@ -14,7 +14,7 @@ libRivet_la_SOURCES = \
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl -lm \
-  -L$(FASTJETLIBPATH) -l$(FASTJETLIBNAME) \
+  $(FASTJETCONFIGLIBADD) \
   -lCDFConesPlugin -lsiscone -lSISConePlugin \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME)
 
