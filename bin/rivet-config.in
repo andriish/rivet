@@ -24,6 +24,7 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo "  --datadir     : show the path to the directory containing Rivet data"
     echo "  --rgdatadir   : show the path to the directory containing RivetGun data"
     echo
+    echo "  --pythonpath  : show the path to the directory containing Rivet python modules."
     echo "  --cppflags    : returns a Rivet '-I' string for insertion into CPPFLAGS"
     echo "  --ldflags     : returns a Rivet '-L' string for insertion into LDFLAGS"
     echo "  --ldadd       : returns a Rivet '-l' string for insertion into LIBS or LIBADD"
@@ -49,6 +50,8 @@ test -n "$tmp" && OUT="$OUT @datadir@/@PACKAGE_TARNAME@"
 tmp=$( echo "$*" | egrep -- '--\<rgdatadir\>')
 test -n "$tmp" && OUT="$OUT @datadir@/RivetGun"
 
+tmp=$( echo "$*" | egrep -- '--\<pythonpath\>')
+test -n "$tmp" && OUT="$OUT @PYTHON_PREFIX@/lib/python@PYTHON_VERSION@/site-packages"
 
 ## "Pre-rolled" build info
 tmp=$( echo "$*" | egrep -- '--\<cppflags\>')

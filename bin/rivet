@@ -22,11 +22,20 @@ TODO:
 ## Try importing non-standard HEP Python packages
 PROGPATH = sys.argv[0]
 PROGNAME = os.path.basename(PROGPATH)
+
+import commands
+try:
+    rivetpypath = commands.getoutput("rivet-config --pythonpath")
+    sys.path.append(rivetpypath)
+except:
+    pass
+
 try:
     import rivet
 except:
     sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
     sys.exit(1)
+
 try:
     import hepmc
 except:
