@@ -22,7 +22,23 @@ namespace Rivet {
 
 
   const string getDatafilePath(string papername) {
-    return getRivetDataPath() + "/" + papername + ".aida";
+    char* env = getenv("RIVET_REF_PATH");
+    vector<string> searchpaths;
+    if (env) {
+      searchpaths = split(env);
+    }
+    searchpaths.push_back(getRivetDataPath());
+    searchpaths.push_back(".");
+    foreach (const string& dir, searchpaths) {
+      std::ifstream in;
+      const string file = dir + "/" + papername + ".aida";
+      if (access(file.c_str(), R_OK) == 0) {
+        return file;
+      }
+    }
+    throw Rivet::Error("Couldn't find ref data file '" + papername + ".aida" + 
+                       " in $RIVET_REF_PATH, " + getRivetDataPath() + ", or .");
+    return "";
   }
 
 

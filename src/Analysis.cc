@@ -7,7 +7,6 @@
 #include "AIDA/IManagedObject.h"
 using namespace AIDA;
 
-
 namespace Rivet {
 
 
@@ -224,9 +223,8 @@ namespace Rivet {
 
   const Cuts Analysis::cuts() const {
     Cuts totalCuts = _cuts;
-    set<ConstProjectionPtr> projections = getProjections();
-    for (set<ConstProjectionPtr>::const_iterator p = projections.begin(); p != projections.end(); ++p) {
-      totalCuts.addCuts((*p)->cuts());
+    foreach (ConstProjectionPtr p, getProjections()) {
+      totalCuts.addCuts(p->cuts());
     }
     return totalCuts;
   }
@@ -267,7 +265,7 @@ namespace Rivet {
     getLog() << Log::TRACE << "Scaling histo " << histo->title() << endl;
     
     std::vector<double> x, y, ex, ey;
-    for ( int i = 0, N = histo->axis().bins(); i < N; ++i ) {
+    for (size_t i = 0, N = histo->axis().bins(); i < N; ++i) {
       x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
       ex.push_back(histo->axis().binWidth(i)*0.5);
 

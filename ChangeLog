@@ -1,3 +1,8 @@
+2008-11-25  Andy Buckley  <andy@insectnation.org>
+
+	* Added searching of $RIVET_REF_PATH for AIDA reference data
+	files.
+
 2008-11-24  Andy Buckley  <andy@insectnation.org>
 
 	* Removing "get"s and other obsfucated syntax from
