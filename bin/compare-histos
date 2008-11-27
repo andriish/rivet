@@ -24,7 +24,7 @@ parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default
 parser.add_option("--linear", action="store_true", dest="LINEAR",
                   default=False, help="plot with linear scale")
 parser.add_option("--refname", dest="REFNAME",
-                  default="REF", help="name of reference data set")
+                  default="data", help="name of reference data set")
 parser.add_option("-i", "--identifiers", dest="MCIDS",
                   default="", help="these are the plotlabels of the mchistos LABEL1:LABEL2...")
 parser.add_option("-r", "--refid", dest="REFID",
@@ -167,10 +167,10 @@ for name in sorted(NAMES):
 
     ## Choose reference data
     refname = None
-    if opts.REFNAME == "REF":
+    if opts.REFNAME == "data":
         if REFHISTOS.has_key(name):
-            refname = os.REFNAME
-            activefiles.insert(0, "REF")
+            refname = opts.REFNAME
+            activefiles.insert(0, "data")
         else:
             refname = activefiles[0]
             logging.warning("No ref file supplied: using '%s' as reference data" % refname)
@@ -196,11 +196,11 @@ for name in sorted(NAMES):
 
     ## Write ref histo
     refstr = ""
-    if refname == "REF":
-        refstr += "# BEGIN HISTOGRAM %s\n" % opts.REFID
+    if refname == "data":
+        refstr += "# BEGIN HISTOGRAM %s\n" % opts.REFNAME
         refstr += "ErrorBars=1\n"
         refstr += "PolyMarker=*\n"
-        refstr += "Title=data\n"
+        refstr += "Title=%s\n" % opts.REFNAME
         for bin in REFHISTOS[name].getBins():
             xmin, xmax = bin.getXRange()
             refstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.getYVal(), bin.getYErr())
@@ -209,6 +209,9 @@ for name in sorted(NAMES):
     ## Write MC histos
     mcstrs = []
     for i, hfile in enumerate(activefiles):
+        ## HACK!!!
+        if hfile == "data":
+            continue
         mcstr = '# BEGIN HISTOGRAM %s\n' % hfile
         color, style = STYLES[i % len(STYLES)]
         mcstr += 'LineColor=%s\n' % color
