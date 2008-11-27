@@ -4,9 +4,9 @@ if test -f rivet.py; then
   if test -z "$( grep RTLD_GLOBAL rivet.py )"; then
     cp rivet.py rivet.py.bak
     echo "## dlopen global workaround by Andy Buckley" > rivet.py
-    echo "import sys, dl" >> rivet.py
+    echo "import sys, ctypes" >> rivet.py
     echo "flags = sys.getdlopenflags()" >> rivet.py
-    echo "sys.setdlopenflags(flags | dl.RTLD_GLOBAL)" >> rivet.py
+    echo "sys.setdlopenflags(flags | ctypes.RTLD_GLOBAL)" >> rivet.py
     echo "" >> rivet.py
     cat rivet.py.bak >> rivet.py
     rm -f rivet.py.bak
