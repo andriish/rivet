@@ -34,25 +34,26 @@ typedef enum {
 
 
 #ifndef BINRELOC_RUNNING_DOXYGEN
-/* Mangle symbol names to avoid symbol collisions with other ELF objects. */
-	#define br_init             MmdQ81753274112731_br_init
-	#define br_init_lib         MmdQ81753274112731_br_init_lib
-	#define br_find_exe         MmdQ81753274112731_br_find_exe
-	#define br_find_exe_dir     MmdQ81753274112731_br_find_exe_dir
-	#define br_find_prefix      MmdQ81753274112731_br_find_prefix
-	#define br_find_bin_dir     MmdQ81753274112731_br_find_bin_dir
-	#define br_find_sbin_dir    MmdQ81753274112731_br_find_sbin_dir
-	#define br_find_data_dir    MmdQ81753274112731_br_find_data_dir
-	#define br_find_locale_dir  MmdQ81753274112731_br_find_locale_dir
-	#define br_find_lib_dir     MmdQ81753274112731_br_find_lib_dir
-	#define br_find_libexec_dir MmdQ81753274112731_br_find_libexec_dir
-	#define br_find_etc_dir     MmdQ81753274112731_br_find_etc_dir
-	#define br_strcat           MmdQ81753274112731_br_strcat
-	#define br_build_path       MmdQ81753274112731_br_build_path
-	#define br_dirname          MmdQ81753274112731_br_dirname
-
-
+	/* Mangle symbol names to avoid symbol
+	 * collisions with other ELF objects.
+	 */
+	#define br_init             KSRM16162742943295_br_init
+	#define br_init_lib         KSRM16162742943295_br_init_lib
+	#define br_find_exe         KSRM16162742943295_br_find_exe
+	#define br_find_exe_dir     KSRM16162742943295_br_find_exe_dir
+	#define br_find_prefix      KSRM16162742943295_br_find_prefix
+	#define br_find_bin_dir     KSRM16162742943295_br_find_bin_dir
+	#define br_find_sbin_dir    KSRM16162742943295_br_find_sbin_dir
+	#define br_find_data_dir    KSRM16162742943295_br_find_data_dir
+	#define br_find_locale_dir  KSRM16162742943295_br_find_locale_dir
+	#define br_find_lib_dir     KSRM16162742943295_br_find_lib_dir
+	#define br_find_libexec_dir KSRM16162742943295_br_find_libexec_dir
+	#define br_find_etc_dir     KSRM16162742943295_br_find_etc_dir
+	#define br_strcat           KSRM16162742943295_br_strcat
+	#define br_build_path       KSRM16162742943295_br_build_path
+	#define br_dirname          KSRM16162742943295_br_dirname
 #endif
+
 int   br_init             (BrInitError *error);
 int   br_init_lib         (BrInitError *error);
 

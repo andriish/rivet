@@ -18,8 +18,8 @@ namespace Rivet {
       _histJetMultRatio[i] = bookDataPointSet(5 , 1, i+1, title2.str());
       stringstream title3;
       title3 << "$\\sigma(" << i+1 << " \\text{ jets})$" ;
-      _histJetMult[i]   = bookHistogram1D(i+6,1,1,title3.str());
-     }     
+      _histJetMult[i]   = bookHistogram1D(i+6, 1, 1, title3.str());
+     } 
      _histJetMultNorm = bookHistogram1D("norm", "$\\sigma(0 \\text{ jets})$", 1, _xpoint, _xpoint+1.);
   }
 
@@ -113,7 +113,8 @@ namespace Rivet {
       frac_err1to0 += pow(_histJetMultNorm->binError(0)/_histJetMultNorm->binHeight(0),2.);
       frac_err1to0 = sqrt(frac_err1to0);
     }
-    
+
+    /// @todo Replace with autobooking etc. once YODA in place    
     std::vector<double> yval[4]; yval[0].push_back(ratio1to0);
     std::vector<double> yerr[4]; yerr[0].push_back(ratio1to0*frac_err1to0);
     _histJetMultRatio[0]->setCoordinate(0,xval,xerr);

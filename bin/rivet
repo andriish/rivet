@@ -12,6 +12,10 @@ Examples:
   my_generator -o myfifo & \ %prog [options] myfifo
   agile-runmc <genname> -n 100k | %prog [options]
 
+ENVIRONMENT:
+ * RIVET_ANALYSIS_PATH
+ * RIVET_REF_PATH
+
 TODO:
  * Use Psyco
  * Incorporate an optional AGILe mode (just reading param 
