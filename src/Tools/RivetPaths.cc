@@ -1,5 +1,5 @@
 #include "Rivet/Rivet.hh"
-#include "Rivet/Tools/binreloc.h"
+#include "binreloc.h"
 
 namespace Rivet {
 

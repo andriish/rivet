@@ -118,7 +118,6 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleIDMethods.hh \
   Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \
-  Tools/binreloc.h \
   Tools/osdir.hh
 
 nobase_pkginclude_HEADERS += \
