@@ -13,6 +13,7 @@ namespace Rivet {
 #include <map>
 #include <string>
 typedef Rivet::Analysis* (*anabuilder_fn)();
+//typedef anabuilder_fn AnalysisBuilder;
 typedef std::map<std::string,anabuilder_fn> AnalysisBuilders;
 typedef AnalysisBuilders (*anabuilders_fn)();
 

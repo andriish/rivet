@@ -64,6 +64,7 @@ if test x$have_agile == xyes; then
   AC_DEFINE([HAVE_AGILE], "1", [compiling with AGILe])
 fi
 
+
 ## Build Doxygen if possible
 AC_ARG_ENABLE([doxygen],
   [AC_HELP_STRING(--disable-doxygen, [don't try to make Doxygen documentation])],
@@ -73,16 +74,18 @@ if test x$enable_doxygen == xyes; then
 fi
 AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 
+
 ## Decide whether to build the Python extension
-AC_ARG_ENABLE(pyrivet, [AC_HELP_STRING(--enable-pyrivet, 
-  [build Rivet Python module @<:@default=yes@:>@])], [], [enable_pyrivet=yes])
-AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyrivet == xyes])
+AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--enable-pyext, 
+  [build Rivet Python module @<:@default=no@:>@])], [], [enable_pyext=no])
+AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyext == xyes])
 if test x$enable_pyrivet == xyes; then
   AM_PATH_PYTHON(2.3)
   AC_PROG_SWIG(1.3.21)
   SWIG_ENABLE_CXX
   SWIG_PYTHON
 fi
+
 
 ## Decide/determine whether to build with FastJet JADE + Durham support
 AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade, 
@@ -91,6 +94,7 @@ AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade,
 AC_MSG_CHECKING([whether to try and use the FastJet JADE + Durham plugin patch])
 AC_MSG_RESULT($enable_jade)
 AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != xno])
+
 
 ## Optional ROOT analysis framework
 AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, 
@@ -101,6 +105,7 @@ else
   AC_MSG_NOTICE([Not using ROOT])
 fi
 AM_CONDITIONAL([WITH_ROOT], [test x$enable_root == xyes])
+
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
@@ -123,12 +128,14 @@ else
 fi;
 AC_SUBST(FASTJETCONFIGLIBADD)
 
+
 ## Debug flag (default=none)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug, 
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
   AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g "])
 fi
+
 
 AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)

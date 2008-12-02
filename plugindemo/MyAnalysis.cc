@@ -25,27 +25,27 @@ namespace Rivet {
     
     
     /// Return the name of this analysis
-    string getName() const {
+    string name() const {
       return "MyAnalysis";
     }
     
     /// Get the SPIRES ID code
-    string getSpiresId() const {
+    string spiresId() const {
       return "NONE";
     }
     
     /// Get a description of the analysis.
-    string getDescription() const {
+    string description() const {
       return "A do-nothing analysis for demonstrating how to make a plugin";
     }
     
     /// Experiment which performed and published this analysis.
-    string getExpt() const {
+    string experiment() const {
       return "NONE";
     }
     
     /// When published (preprint year according to SPIRES).
-    string getYear() const {
+    string year() const {
       return "NONE";
     }
     
@@ -69,12 +69,6 @@ namespace Rivet {
       // No histos, so nothing to do!
     }
     //@}
-    
-    
-  private:
-    
-    /// Hide the assignment operator
-    MyAnalysis& operator=(const MyAnalysis&);
     
   };
   

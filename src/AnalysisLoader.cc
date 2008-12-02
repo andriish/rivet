@@ -4,8 +4,8 @@
 #include "Rivet/Tools/osdir.hh"
 #include <dlfcn.h>
 
-
 namespace Rivet {
+
 
   bool AnalysisLoader::_loaded = false;
   AnalysisBuilders AnalysisLoader::_analysisbuilders;
@@ -15,9 +15,8 @@ namespace Rivet {
   set<string> AnalysisLoader::getAllAnalysisNames() {
     if (!_loaded) loadAnalyses();
     set<string> names;
-    for (AnalysisBuilders::const_iterator ab = _analysisbuilders.begin(); 
-         ab != _analysisbuilders.end(); ++ab) {
-      names.insert(ab->first);
+    foreach (const AnalysisBuilders::value_type& ab, _analysisbuilders) {
+      names.insert(ab.first);
     }
     return names;
 
@@ -72,8 +71,8 @@ namespace Rivet {
     }
     
     AnalysisBuilders mybuilders = getBuilders();
-    for (AnalysisBuilders::iterator b = mybuilders.begin(); b != mybuilders.end(); ++b) {
-      builders[b->first] = b->second;
+    foreach (AnalysisBuilders::value_type& b, mybuilders) {
+      builders[b.first] = b.second;
     }
     
     return builders;
@@ -81,8 +80,8 @@ namespace Rivet {
 
 
   void AnalysisLoader::closeAnalysisBuilders() {
-    for (set<void*>::iterator h = _handles.begin(); h != _handles.end(); ++h) {
-      if (*h) dlclose(*h);
+    foreach (void* h, _handles) {
+      if (h) dlclose(h);
     }
     _handles.clear();
   }
@@ -105,10 +104,10 @@ namespace Rivet {
       libfiles.insert(filename);
     }
     
-    for (set<string>::const_iterator l = libfiles.begin(); l != libfiles.end(); ++l) {        
+    foreach (const string& l, libfiles) {        
       // Make sure this is an abs path
       /// @todo Sys-dependent path separator instead of "/"
-      const string filename  = dirname + "/" + *l;
+      const string filename  = dirname + "/" + l;
       loadAnalysisBuildersFromFile(filename, builders);        
     }
     
@@ -117,8 +116,9 @@ namespace Rivet {
   
   
   AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromDirs(const vector<string>& dirnames, AnalysisBuilders& builders) {
-    for (vector<string>::const_iterator d = dirnames.begin(); d != dirnames.end(); ++d) {
-      loadAnalysisBuildersFromDir(*d, builders);
+    foreach (const string& d, dirnames) {
+      //cout << d << endl;
+      loadAnalysisBuildersFromDir(d, builders);
     }
     return builders;
   }
@@ -140,8 +140,10 @@ namespace Rivet {
     env = getenv("LD_LIBRARY_PATH");
     if (env) dirs += split(env);
     
-    // Use the current dir, too.
-    dirs.push_back(".");      
+    // Use the current dir, and its libtool subdir, too.
+    dirs.push_back("."); 
+    dirs.push_back(".libs"); 
+
     
     // Load libs here
     loadAnalysisBuildersFromDirs(dirs, _analysisbuilders);
