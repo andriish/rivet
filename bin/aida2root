@@ -70,6 +70,7 @@ class Histo:
             ibin = ibin +1
         tg = TGraphAsymmErrors(self.numBins(), xval, yval, xerrminus, xerrplus, yerrminus, yerrplus);
         tg.SetTitle(self.title);
+        tg.SetName(self.name);
         return tg
 
     def numBins(self):
