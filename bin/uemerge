@@ -257,7 +257,8 @@ def fillAbove(desthisto, sourcehistosbyptmin):
             newb = h.getBin(i)
             if newb.xlow >= float(ptmin):
                 desthisto.setBin(i, newb)
-                logging.debug("Copied: %s / %s" % (str(b), str(histosS[hpath][sqrts].getBin(i))) )
+                ##### This logging line breaks the output!!!!!!!
+                ####logging.debug("Copied: %s / %s" % (str(b), str(histosS[hpath][sqrts].getBin(i))) )
     
 def mergeByPt(hpath, sqrts):
     global inhistos
