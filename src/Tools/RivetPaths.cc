@@ -22,7 +22,7 @@ namespace Rivet {
   }
 
   const string getRivetgunDataPath() {
-    return getDataPath() + "/RivetGun";
+    return getDataPath() + "/AGILe";
   }
 
 
