@@ -11,8 +11,8 @@
 	to exponential notation.
 
 	* Unified ref and mc histos in compare-histos. Histos with one
-	bin are plotted linear. Several fixes for labels, legends,
-	output directories, ...
+	bin are plotted linear. Option for disabling the ratio plot.
+	Several fixes for labels, legends, output directories, ...
 
 	* Changed rivetgun's fallback directory for parameter files to
 	$PREFIX/share/AGILe, since that's where the steering files now are.

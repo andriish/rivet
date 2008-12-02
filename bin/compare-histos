@@ -8,7 +8,6 @@ USAGE:
   %prog [options] reffile mcfile [ref/mcfile2 ...]
 
 TODO:
-  * option to turn off ratio plot
   * use fname:id syntax, remove -i option
 """
 
@@ -23,6 +22,8 @@ parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default
                   help="write output dat files into a directory hierarchy which matches the analysis paths")
 parser.add_option("--linear", action="store_true", dest="LINEAR",
                   default=False, help="plot with linear scale")
+parser.add_option("--no-ratio", action="store_true", dest="NORATIO",
+                  default=False, help="disable the ratio plot")
 parser.add_option("--refname", dest="REFNAME",
                   default="data", help="name of reference data set")
 parser.add_option("-i", "--identifiers", dest="MCIDS",
@@ -365,7 +366,7 @@ for name in sorted(NAMES):
     if len(HISTOS[reffile][name].getBins()) > 1:
         headstr += "LogY=%d\n" % int(not opts.LINEAR)
     headstr += "DrawOnly=%s\n" % " ".join(activefiles)
-    headstr += "RatioPlot=1\n"
+    headstr += "RatioPlot=%d\n" % int(not opts.NORATIO)
     headstr += "RatioPlotReference=%s\n" % reffile
     headstr += "RatioPlotYMin=0.5\n"
     headstr += "RatioPlotYMax=1.5\n"
