@@ -20,6 +20,7 @@ namespace Rivet {
       names.insert(ab->first);
     }
     return names;
+
   }
 
 
@@ -38,8 +39,8 @@ namespace Rivet {
     if (!_loaded) loadAnalyses();
     set<Analysis*> analyses;
     const set<string> names = getAllAnalysisNames();
-    for (set<string>::const_iterator n = names.begin(); n != names.end(); ++n) {
-      analyses.insert(getAnalysis(*n));
+    foreach (const string& n, names) {
+      analyses.insert(getAnalysis(n));
     }
     return analyses;
   }

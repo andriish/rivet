@@ -132,7 +132,7 @@ signal.signal(signal.SIGUSR2, handleKillSignal);
 
 
 ## List of analyses
-all_analyses = rivet.AnalysisLoader.getAllAnalysisNames()
+all_analyses = rivet.AnalysisLoader.allAnalysisNames()
 if opts.LIST_ANALYSES:
     for aname in all_analyses:
         msg = aname

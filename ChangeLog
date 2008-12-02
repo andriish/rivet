@@ -1,3 +1,9 @@
+2008-12-02  Andy Buckley  <andy@insectnation.org>
+
+	* Overloading use of a std::set in the interface, since the
+	version of SWIG on Sci Linux doesn't have a predefined mapping for
+	STL sets.
+
 2008-12-02  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixed uemerge. The output was seriously broken by a single line
