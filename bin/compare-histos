@@ -383,11 +383,12 @@ for name in sorted(NAMES):
         refstr += "# BEGIN HISTOGRAM %s\n" % opts.REFNAME
         refstr += "ErrorBars=1\n"
         refstr += "PolyMarker=*\n"
-        refstr += "Title=%s\n" % opts.REFNAME
+        refstr += "Title=%s\n" % opts.REFID
         for bin in REFHISTOS[name].getBins():
             xmin, xmax = bin.getXRange()
             refstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.yval, bin.yerr)
         refstr += "# END HISTOGRAM\n"
+	activefiles.pop(0)
 
     ## Write MC histos
     mcstrs = []
