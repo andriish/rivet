@@ -29,12 +29,23 @@ class Histo:
     def fullPath(self):
         return os.path.join(self.path, self.name)
 
+    def header(self):
+        global headerprefix
+        out = "# BEGIN PLOT\n"
+        out += headerprefix + "LogY=1\n"
+        out += headerprefix + "Title=%s\n" % self.title
+        out += "# END PLOT\n"
+        return out
+
     def asFlat(self):
         global headerprefix
         global opts
         out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
         out += headerprefix + "AidaPath=%s\n" % self.fullPath()
         out += headerprefix + "Title=%s\n" % self.title
+        if self.fullPath().startswith('/REF'):
+            out += headerprefix + "PolyMarker=*\n"
+            out += headerprefix + "ErrorBars=1\n"
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
         if opts.GNUPLOT:
@@ -42,7 +53,7 @@ class Histo:
         else:
             out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
-	out += "\n# END HISTOGRAM"
+        out += "\n# END HISTOGRAM"
         return out
 
     def numBins(self):
@@ -256,6 +267,7 @@ if __name__ == "__main__":
                         outfile = "%s-%s" % (paper, outfile)
                     #print "Writing to", outfile
                     out = open(outfile, "w")
+                    out.write(h.header() + "\n")
                     out.write(h.asFlat() + "\n")
                     out.close()
             else:

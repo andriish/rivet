@@ -17,6 +17,9 @@
 	* Changed rivetgun's fallback directory for parameter files to
 	$PREFIX/share/AGILe, since that's where the steering files now are.
 
+	* Running aida2flat in split mode now produces make-plots compatible
+	dat-files for direct plotting.
+
 2008-11-28  Andy Buckley  <andy@insectnation.org>
 
 	* Replaced binreloc with an upgraded and symbol-independent copy.
