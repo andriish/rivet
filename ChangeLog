@@ -3,6 +3,8 @@
 	* Fixed uemerge. The output was seriously broken by a single line
 	of debug information in fillAbove().
 
+	* Change uemerge output to exponential notation.
+
 2008-11-28  Andy Buckley  <andy@insectnation.org>
 
 	* Replaced binreloc with an upgraded and symbol-independent copy.

@@ -81,7 +81,7 @@ class Histo:
 #         else:
         #out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
-	out += "\n# END HISTOGRAM"
+        out += "\n# END HISTOGRAM"
         return out
 
     def numBins(self):
@@ -151,11 +151,11 @@ class Bin:
     def asFlat(self):
         global opts
 #         if opts.GNUPLOT:
-#             out = "%f\t%f\t%f\t%f\t%f\t%f" % (self.getBinCenter(), self.yval,
+#             out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval,
 #                                               self.xlow, self.xhigh, 
 #                                               self.yval-self.yerrminus, self.yval+self.yerrplus)
 #         else:
-        out = "%f\t%f\t%f\t%f" % (self.xlow, self.xhigh, self.yval, 0.5*(self.yerrminus+self.yerrplus))
+        out = "%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, 0.5*(self.yerrminus+self.yerrplus))
         return out
 
     def __cmp__(self, other):
