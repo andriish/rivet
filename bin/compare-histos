@@ -26,7 +26,7 @@ parser.add_option("--linear", action="store_true", dest="LINEAR",
 parser.add_option("--refname", dest="REFNAME",
                   default="data", help="name of reference data set")
 parser.add_option("-i", "--identifiers", dest="MCIDS",
-                  default="", help="these are the plotlabels of the mchistos LABEL1:LABEL2...")
+                  default=None, help="these are the plotlabels of the mchistos LABEL1:LABEL2...")
 parser.add_option("-r", "--refid", dest="REFID",
                   default="data", help="the plotlabel of the ref histo")
 parser.add_option("-Q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
@@ -79,6 +79,8 @@ class Histo:
         self.path = None
         self.name = None
         self.title = None
+        self.isdata = False
+        self.isref = False
 
     def __cmp__(self, other):
         """Sort by $path/$name string"""
@@ -106,7 +108,7 @@ class Histo:
         else:
             out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
-	out += "\n# END HISTOGRAM"
+        out += "\n# END HISTOGRAM"
         return out
 
     def numBins(self):
@@ -245,12 +247,14 @@ def mkHistoFromDPS(dps):
 
 ##############################################################
 
+if opts.REFNAME!="data":
+    opts.REFNAME = os.path.abspath(opts.REFNAME)
+    if not os.access(opts.REFNAME, os.R_OK):
+        logging.error("Error: cannot read reference file %s" % opts.REFNAME)
+        sys.exit(2)
 
 def getHistos(aidafile):
     '''Get a dictionary of histograms indexed by name.'''
-
-    filename = os.path.basename(aidafile)
-    refname = re.sub(r'(.*)\.aida$', r'\1', filename)
     if not re.match(r'.*\.aida$', aidafile):
         logging.error("Error: input file '%s' is not an AIDA file" % aidafile)
         sys.exit(2)
@@ -259,23 +263,22 @@ def getHistos(aidafile):
         logging.error("Error: cannot read from %s" % aidafile)
         sys.exit(2)
 
-    mchistos, refhistos, titles = {}, {}, {}
+    histos, titles = {}, {}
     tree = ET.parse(aidafilepath)
     for dps in tree.findall("dataPointSet"):
-        ## Get the histogram's title
-        title = dps.get("title")
         ## Get this histogram's path name
         dpsname = os.path.join(dps.get("path"), dps.get("name"))
-        ## Is it a reference histo?
-        isref = dpsname.upper().startswith("/REF")
+        ## Is it a data histo?
         h = mkHistoFromDPS(dps)
-        if isref:
+        h.isdata = dpsname.upper().startswith("/REF")
+        if h.isdata:
             dpsname = dpsname.replace("/REF", "")
-            refhistos[dpsname] = h
         else:
-            mchistos[dpsname] = mkHistoFromDPS(dps)            
-            titles[dpsname] = title
-    return refhistos, mchistos, titles
+            titles[dpsname] = dps.get("title")
+        if ((opts.REFNAME == "data") and h.isdata) or (opts.REFNAME == aidafilepath):
+            h.isref = True
+        histos[dpsname] = h
+    return histos, titles
 
 
 ## Read in ref and MC histos
@@ -283,17 +286,15 @@ FILES = args
 if (len(FILES) < 1):
     logging.error(parser.get_usage())
     sys.exit(2)
-REFHISTOS, MCHISTOS = {}, {}
+HISTOS = {}
 TITLES = {}
 NAMES = set()
 for f in FILES:
-    MCHISTOS[f] = {}
+    HISTOS[f] = {}
 for f in FILES:
-    refhs, mchs, titles = getHistos(f)
-    for n, h in refhs.iteritems():
-        REFHISTOS[n] = h        
-    for n, h in mchs.iteritems():
-        MCHISTOS[f][n] = h
+    histos, titles = getHistos(f)
+    for n, h in histos.iteritems():
+        HISTOS[f][n] = h
         NAMES.add(n)
     for n, t in titles.iteritems():
         TITLES[n] = t
@@ -331,7 +332,6 @@ def makeOutDir(outdir):
 
 
 ## Write out histos
-makeOutDir(opts.OUTDIR)
 for name in sorted(NAMES):
     logging.debug("Writing histos for plot '%s'" % name)
 
@@ -342,77 +342,64 @@ for name in sorted(NAMES):
         title = name
     title = sanitiseString(title)
 
-    ## Identify data files
+    ## Identify data files and reference
     activefiles = []
+    reffile = None
     for f in FILES:
-        if MCHISTOS[f].has_key(name):
+        if HISTOS[f].has_key(name):
             activefiles.append(f)
+            if HISTOS[f][name].isref:
+                reffile = f
+    if reffile == None:
+        #logging.warning("Reference '%s' not available for histo '%s'... skipping" % (opts.REFNAME, name))
+        continue
 
-    ## Choose reference data
-    refname = None
-    if opts.REFNAME == "data":
-        if REFHISTOS.has_key(name):
-            refname = opts.REFNAME
-            activefiles.insert(0, "data")
-        else:
-            refname = activefiles[0]
-            logging.warning("No ref file supplied: using '%s' as reference data" % refname)
-    else:
-        if opts.REFNAME in FILES and MCHISTOS[opts.REFNAME].has_key(name):
-            refname = opts.REFNAME
-        else:
-            logging.warning("Reference '%s' not available for histo '%s'... skipping" % (opts.REFNAME, name))
-            break
+    if len(activefiles) == 1:
+        #logging.warning("Histo '%s' only available in the reference file ... skipping" % (name))
+        continue
 
     ## Header
     headstr  = "# BEGIN PLOT\n"
     headstr += "Title=%s\n" % title
     headstr += "Legend=1\n"
-    headstr += "LogY=%d\n" % int(not opts.LINEAR)
+    if len(HISTOS[reffile][name].getBins()) > 1:
+        headstr += "LogY=%d\n" % int(not opts.LINEAR)
     headstr += "DrawOnly=%s\n" % " ".join(activefiles)
     headstr += "RatioPlot=1\n"
-    headstr += "RatioPlotReference=%s\n" % refname
+    headstr += "RatioPlotReference=%s\n" % reffile
     headstr += "RatioPlotYMin=0.5\n"
     headstr += "RatioPlotYMax=1.5\n"
     headstr += "RatioPlotYLabel=MC/data\n"
     headstr += "# END PLOT\n"
 
-    ## Write ref histo
-    refstr = ""
-    if refname == "data":
-        refstr += "# BEGIN HISTOGRAM %s\n" % opts.REFNAME
-        refstr += "ErrorBars=1\n"
-        refstr += "PolyMarker=*\n"
-        refstr += "Title=%s\n" % opts.REFID
-        for bin in REFHISTOS[name].getBins():
-            xmin, xmax = bin.getXRange()
-            refstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.yval, bin.yerr)
-        refstr += "# END HISTOGRAM\n"
-	activefiles.pop(0)
 
-    ## Write MC histos
-    mcstrs = []
-    for i, hfile in enumerate(activefiles):
-        ## HACK!!!
-        if hfile == "data":
-            continue
-        mcstr = '# BEGIN HISTOGRAM %s\n' % hfile
-        color, style = STYLES[i % len(STYLES)]
-        mcstr += 'LineColor=%s\n' % color
-        mcstr += 'LineStyle=%s\n' % style
-        if len(opts.MCIDS.split(":")) > 1:
-            mcstr += 'Title=%s\n' % opts.MCIDS.split(":")[i]
+    ## Write histos
+    histstrs = []
+    i = 0
+    for hfile in activefiles:
+        histstr = '# BEGIN HISTOGRAM %s\n' % hfile
+        if HISTOS[hfile][name].isdata:
+            histstr += "ErrorBars=1\n"
+            histstr += "PolyMarker=*\n"
+            histstr += "Title=%s\n" % opts.REFID
         else:
-            mcstr += 'Title=MC\n'
-        for bin in MCHISTOS[hfile][name].getBins():
+            color, style = STYLES[i % len(STYLES)]
+            histstr += 'LineColor=%s\n' % color
+            histstr += 'LineStyle=%s\n' % style
+            if (opts.MCIDS != None):
+                histstr += 'Title=%s\n' % opts.MCIDS.split(":")[i]
+            else:
+                histstr += 'Title=MC\n'
+            i += 1
+        for bin in HISTOS[hfile][name].getBins():
             xmin, xmax = bin.getXRange()
-            mcstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.yval, bin.yerr)
-        mcstr += '# END HISTOGRAM\n'
-        mcstrs.append(mcstr)
+            histstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.yval, bin.yerr)
+        histstr += "# END HISTOGRAM\n"
+        histstrs.append(histstr)
 
     ## Write file
     if opts.HIER_OUTPUT:
-        outdir = os.path.dirname(os.path.join(opts.OUTDIR, name))
+        outdir = os.path.dirname(os.path.join(opts.OUTDIR, name[1:]))
         outfilename = '%s.dat' % os.path.basename(name)
     else:
         outdir = opts.OUTDIR
@@ -420,5 +407,5 @@ for name in sorted(NAMES):
     makeOutDir(outdir)
     outfilepath = os.path.join(outdir, outfilename)
     f = open(outfilepath, 'w')
-    f.write(headstr + "\n" + refstr + "\n" + "\n".join(mcstrs))
+    f.write(headstr + "\n" + "\n".join(histstrs))
     f.close()
