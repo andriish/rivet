@@ -4,13 +4,27 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
 
-  /// @brief CDF Run II min-bias cross-section
-  /// @author Hendrik Hoeth
+  /* @brief CDF Run II min-bias cross-section
+   * @author Hendrik Hoeth
+   * 
+   * Measurement of \f$ \langle p_T \rangle \f$ vs. \f$ n_\text{ch} \f$,
+   * the track \f$ p_T \f$ distribution, and the \f$ \sum E_T \f$ distribution.
+   * Particles are selected within |eta|<1 and with pT>0.4 GeV.
+   * There is no pT cut for the \f$ \sum E_T \f$ measurement.
+   * 
+   * @par Run conditions
+   * 
+   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
+   * @arg Run with generic QCD events.
+   * @arg Set particles with c*tau > 10 mm stable
+   * 
+   */ 
   class CDF_2008_NOTE_9337 : public Analysis {
   public:
 
@@ -22,8 +36,11 @@ namespace Rivet {
     CDF_2008_NOTE_9337()
     { 
       setBeams(PROTON, ANTIPROTON);
+      const FinalState fs(-1.0, 1.0, 0.0*GeV);
       const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
-      addProjection(cfs, "FS");
+      addProjection(fs, "FS");
+      addProjection(cfs, "CFS");
+      setNeedsCrossSection(true);
     }
 
 
@@ -55,6 +72,8 @@ namespace Rivet {
   private:
 
     AIDA::IProfile1D *_hist_pt_vs_multiplicity;
+    AIDA::IHistogram1D *_hist_pt;
+    AIDA::IHistogram1D *_hist_sumEt;
 
   private:
 

@@ -11,7 +11,9 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2008_NOTE_9337::init() {
-    _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1, "Mean track $p_\\perp$ vs multiplicity");
+    _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1, "Mean track $p_T$ vs multiplicity");
+    _hist_pt                 = bookHistogram1D(2, 1, 1, "track $p_T$");
+    _hist_sumEt              = bookHistogram1D(3, 1, 1, "$\\sum E_T$");
   }
 
 
@@ -19,8 +21,9 @@ namespace Rivet {
   void CDF_2008_NOTE_9337::analyze(const Event& e) {
     Log log = getLog();
 
-    const ChargedFinalState& fs = applyProjection<ChargedFinalState>(e, "FS");
-    const size_t numParticles = fs.particles().size();
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
+    const size_t numParticles = cfs.particles().size();
 
     // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
     if (numParticles < 1) {
@@ -31,17 +34,43 @@ namespace Rivet {
     // Get the event weight
     const double weight = e.weight();
 
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      // Get momentum and energy of each particle.
-//      const Vector3 mom3 = p->momentum().vector3();
-//      const double energy = p->momentum().E();
-      _hist_pt_vs_multiplicity->fill(numParticles, p->momentum().pT(), weight);
-    }
+    foreach (const Particle& p, cfs.particles()) {
+      const double pT = p.momentum().pT() / GeV;
+      _hist_pt_vs_multiplicity->fill(numParticles, pT, weight);
 
+      // The weight for entries in the pT distribution should be weight/(pT*dPhi*dy).
+      //
+      // - dPhi = 2*PI
+      //
+      // - dy depends on the pT: They calculate y assuming the particle has the
+      //   pion mass and assuming that eta=1:
+      //   dy = 2 * 1/2 * ln [(sqrt(m^2 + (a+1)*pT^2) + a*pT) / (sqrt(m^2 + (a+1)*pT^2) - a*pT)]
+      //   with a = sinh(1).
+      //
+      // sinh(1) = 1.1752012
+      // m(charged pion)^2 = (139.57 MeV)^2 = 0.019479785 GeV^2
+
+      //// FIXME: The pT and sum(ET) distributions look slightly different from
+      ////        Niccolo's Monte Carlo plots. Still waiting for his answer.
+      const double apT  = 1.1752012 * pT;
+      const double root = sqrt(0.019479785*GeV*GeV + 2.1752012*pT*pT);
+      _hist_pt->fill(pT, weight/(pT*2*M_PI*std::log((root+apT)/(root-apT))));
+    }
+    double sumEt = 0.;
+    foreach (const Particle& p, fs.particles()) {
+      sumEt += p.momentum().Et();
+    }
+    _hist_sumEt->fill(sumEt, weight);
   }
 
 
-  void CDF_2008_NOTE_9337::finalize() { 
+  void CDF_2008_NOTE_9337::finalize() {
+    // dphi * deta = 2*PI * 2
+    //// FIXME: We are normalizing to the data instead of MC cross-section
+    //scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*sumOfWeights()));
+    //scale(_hist_pt, crossSection()/barn*1e-24/sumOfWeights());
+    normalize(_hist_sumEt, 3.530);
+    normalize(_hist_pt, 2.513e-26);
   }
 
 
