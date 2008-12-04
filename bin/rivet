@@ -4,7 +4,14 @@ import sys, os, time
 import logging, signal
 from optparse import OptionParser, OptionGroup
 
-version="1.1.2"
+## Get version from rivet-config
+version="HEAD"
+try:
+    version = commands.getoutput("rivet-config --version")
+except:
+    pass
+
+## Description / usage message
 usage="""Run Rivet analyses on inputted events from file or Unix pipe
 
 Examples:
@@ -23,10 +30,11 @@ TODO:
 """
 
 
-## Try importing non-standard HEP Python packages
 PROGPATH = sys.argv[0]
 PROGNAME = os.path.basename(PROGPATH)
 
+
+## Try to bootstrap the Python path
 import commands
 try:
     rivetpypath = commands.getoutput("rivet-config --pythonpath")
@@ -34,16 +42,12 @@ try:
 except:
     pass
 
+
+## Try importing non-standard HEP Python packages
 try:
     import rivet
 except:
     sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
-    sys.exit(1)
-
-try:
-    import hepmc
-except:
-    sys.stderr.write(PROGNAME + " requires the 'hepmc' Python module\n");
     sys.exit(1)
 
 
@@ -225,6 +229,13 @@ def logNEvt(n):
         nevtloglevel = logging.CRITICAL
     logging.log(nevtloglevel, "Event %d" % n)
 
+
+## Here is where we first need the Python HepMC interface
+try:
+    import hepmc
+except:
+    sys.stderr.write(PROGNAME + " requires the 'hepmc' Python module\n");
+    sys.exit(1)
 
 ## Read and process events
 EVTNUM = 0

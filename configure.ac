@@ -50,11 +50,31 @@ AC_CHECK_HEADER([boost/assign.hpp], [], [AC_MSG_ERROR([Boost assign is required]
 AC_CHECK_HEADER([boost/random.hpp], [], [AC_MSG_ERROR([Boost random numbers is required])])
 CPPFLAGS=$oldCPPFLAGS
 
-## HEP libraries
+
+## HepMC library
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
+
+
+## FastJet library
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
+## Decide/determine whether to build with FastJet JADE + Durham support
+AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade, 
+  [use JADE support from patched FastJet @<:@default=no@:>@])], 
+  [], [enable_jade=no])
+AC_MSG_CHECKING([whether to try and use the FastJet JADE + Durham plugin patch])
+AC_MSG_RESULT($enable_jade)
+AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != xno])
+#
+if test -f "$(which fastjet-config)"; then
+  FASTJETCONFIGLIBADD="$(fastjet-config --plugins --shared --libs)";
+else
+  FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";
+fi;
+AC_SUBST(FASTJETCONFIGLIBADD)
+
 
 ## Decide/determine whether to build the rivetgun executable
+## TODO: remove!
 AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable @<:@default=yes@:>@])], 
   [], [enable_rivetgun=yes])
 AC_CEDAR_LIBRARYANDHEADERS([AGILe], , , [AC_MSG_WARN([AGILe not found])])
@@ -79,21 +99,12 @@ AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--enable-pyext, 
   [build Rivet Python module @<:@default=no@:>@])], [], [enable_pyext=no])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyext == xyes])
-if test x$enable_pyrivet == xyes; then
+if test x$enable_pyext == xyes; then
   AM_PATH_PYTHON(2.3)
   AC_PROG_SWIG(1.3.21)
   SWIG_ENABLE_CXX
   SWIG_PYTHON
 fi
-
-
-## Decide/determine whether to build with FastJet JADE + Durham support
-AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade, 
-  [use JADE support from patched FastJet @<:@default=no@:>@])], 
-  [], [enable_jade=no])
-AC_MSG_CHECKING([whether to try and use the FastJet JADE + Durham plugin patch])
-AC_MSG_RESULT($enable_jade)
-AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != xno])
 
 
 ## Optional ROOT analysis framework
@@ -121,12 +132,6 @@ AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall "])
 if test x$with_root == xyes; then
   AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "])
 fi
-if test -f "$(which fastjet-config)"; then
-  FASTJETCONFIGLIBADD="$(fastjet-config --plugins --shared --libs)";
-else
-  FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";
-fi;
-AC_SUBST(FASTJETCONFIGLIBADD)
 
 
 ## Debug flag (default=none)
