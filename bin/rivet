@@ -37,7 +37,9 @@ PROGNAME = os.path.basename(PROGPATH)
 ## Try to bootstrap the Python path
 import commands
 try:
-    rivetpypath = commands.getoutput("rivet-config --pythonpath")
+    modname=sys.modules[__name__].__file__
+    binpath=modname[:modname.rfind("/")]
+    rivetpypath = commands.getoutput(binpath+"/rivet-config --pythonpath")
     sys.path.append(rivetpypath)
 except:
     pass
