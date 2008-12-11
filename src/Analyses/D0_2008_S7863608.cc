@@ -22,7 +22,7 @@ namespace Rivet {
     addProjection(fs, "FS");
  
     //leading muons in tracking acceptance
-    LeadingParticlesFinalState lpfs(fs, -1.7, 1.7);
+    LeadingParticlesFinalState lpfs(fs, -1.7, 1.7, 15.0*GeV);
     lpfs.addParticleId(MUON).addParticleId(ANTIMUON);
     addProjection(lpfs, "LeadingMuons");
 
@@ -41,8 +41,8 @@ namespace Rivet {
     /// @todo Dividing through by measured Z cross-section would be nice...
     _h_jet_pT_cross_section = bookHistogram1D(1, 1, 1, "Differential cross section in leading jet $p_\\perp$");
     _h_jet_y_cross_section = bookHistogram1D(2, 1, 1, "Differential cross section in leading jet rapidity");
-    _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1, "Differential cross section in leading Z/$\\gamma*$ $p_\\perp$");
-    _h_Z_y_cross_section = bookHistogram1D(4, 1, 1, "Differential cross section in leading Z/$\\gamma*$ rapidity");
+    _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1, "Differential cross section in Z/$\\gamma*$ $p_\\perp$");
+    _h_Z_y_cross_section = bookHistogram1D(4, 1, 1, "Differential cross section in Z/$\\gamma*$ rapidity");
     _h_total_cross_section = bookHistogram1D(5, 1, 1, "Total Z + jet cross section");
     
   }
@@ -125,6 +125,16 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                << " because failing Z mass window " << endl;
       vetoEvent(event);
+    }
+
+    // cut on Delta R between jet and muons
+    foreach (const Jet& j, jets_cut) {
+      foreach (const Particle& mu, muons) {
+        if (deltaR(mu.momentum().pseudorapidity(), mu.momentum().azimuthalAngle(),
+                   j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.5) {
+          vetoEvent(event);
+        }
+      }
     }
 
     // In jet pT

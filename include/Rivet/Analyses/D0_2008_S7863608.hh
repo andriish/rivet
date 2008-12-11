@@ -47,7 +47,7 @@ namespace Rivet {
     /// Publication references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("hep-ex/08081296");
+      ret.push_back("arXiv:0808.1296 [hep-ex]");
       return ret;
     }
     //@}
