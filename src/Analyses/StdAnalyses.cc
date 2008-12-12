@@ -34,6 +34,7 @@
 #include "Rivet/Analyses/CDF_2006_S6653332.hh"
 #include "Rivet/Analyses/CDF_2007_S7057202.hh"
 #include "Rivet/Analyses/CDF_2008_S7541902.hh"
+#include "Rivet/Analyses/CDF_2008_S7540469.hh"
 #include "Rivet/Analyses/CDF_2008_NOTE_9337.hh"
 #include "Rivet/Analyses/CDF_2008_NOTE_9351.hh"
 #include "Rivet/Analyses/CDF_2008_LEADINGJETS.hh"
@@ -88,6 +89,7 @@ extern "C" {
     fns["CDF_2006_S6653332"] = Rivet::CDF_2006_S6653332::create;
     fns["CDF_2007_S7057202"] = Rivet::CDF_2007_S7057202::create;
     fns["CDF_2008_S7541902"] = Rivet::CDF_2008_S7541902::create;
+    fns["CDF_2008_S7540469"] = Rivet::CDF_2008_S7540469::create;
     fns["CDF_2008_S7782535"] = Rivet::CDF_2008_S7782535::create;
     fns["CDF_2008_NOTE_9337"] = Rivet::CDF_2008_NOTE_9337::create;
     fns["CDF_2008_NOTE_9351"] = Rivet::CDF_2008_NOTE_9351::create;

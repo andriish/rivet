@@ -17,6 +17,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     CDF_2008_NOTE_9337.cc \
     CDF_2008_NOTE_9351.cc \
     CDF_2008_LEADINGJETS.cc \
+    CDF_2008_S7540469.cc \
     CDF_2008_S7782535.cc \
     CDF_2008_S7828950.cc \
     D0_2001_S4674421.cc \

@@ -20,8 +20,11 @@ namespace Rivet {
     /// @name Constructors
     //@{
     /// Default constructor.
-    IdentifiedFinalState() {
+    IdentifiedFinalState(double etamin=-MaxRapidity, double etamax=MaxRapidity, double ptMin=0.0*GeV) 
+      : FinalState(etamin, etamax, ptMin)
+    {
       setName("IdentifiedFinalState");
+      /// @todo This shouldn't be necessary. Fallback to "FS" still needed?
       addProjection(FinalState(), "FS");
     }
 
