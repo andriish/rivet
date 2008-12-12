@@ -40,7 +40,8 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     OPAL_1998_S3780481.cc \
     ZEUS_2001_S4815815.cc \
     PDG_Hadron_Multiplicities.cc \
-    PDG_Hadron_Multiplicities_Ratios.cc 
+    PDG_Hadron_Multiplicities_Ratios.cc \
+    MC_TVT1960_ZJETS.cc
     #OPAL_2004_S6132243.cc 
 
 libRivetAnalysisStd_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)

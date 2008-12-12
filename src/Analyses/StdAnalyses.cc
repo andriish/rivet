@@ -51,6 +51,8 @@
 #include "Rivet/Analyses/D0_2008_S7837160.hh"
 #include "Rivet/Analyses/D0_2008_S7863608.hh"
 
+// MC validation
+#include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
 
 extern "C" {
 
@@ -109,6 +111,9 @@ extern "C" {
     // General
     fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_HADRON_MULTIPLICITIES::create;
     fns["PDG_HADRON_MULTIPLICITIES_RATIOS"] = Rivet::PDG_HADRON_MULTIPLICITIES_RATIOS::create;
+
+    // MC validation
+    fns["MC_TVT1960_ZJETS"] = Rivet::MC_TVT1960_ZJETS::create;
 
     return fns;
   }
