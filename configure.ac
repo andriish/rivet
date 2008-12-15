@@ -43,11 +43,17 @@ AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
 AC_CEDAR_HEADERS([Boost], , , [AC_MSG_ERROR([Boost is required])])
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I$BOOSTINCPATH"
-AC_CHECK_HEADER([boost/foreach.hpp], [], [AC_MSG_ERROR([Boost foreach is required])])
-AC_CHECK_HEADER([boost/smart_ptr.hpp], [], [AC_MSG_ERROR([Boost smart_ptr is required])])
-AC_CHECK_HEADER([boost/lexical_cast.hpp], [], [AC_MSG_ERROR([Boost lexical_cast is required])])
-AC_CHECK_HEADER([boost/assign.hpp], [], [AC_MSG_ERROR([Boost assign is required])])
-AC_CHECK_HEADER([boost/random.hpp], [], [AC_MSG_ERROR([Boost random numbers is required])])
+BOOSTERRMSG="You need at least version 1.34.0 of Boost for this installation."
+BOOSTERRMSG="$BOOSTERRMSG If you want to use Boost from a non-standard location,"
+BOOSTERRMSG="$BOOSTERRMSG please specify '--with-boost-incpath=/path/to/boost_1_35/include'"
+BOOSTERRMSG="$BOOSTERRMSG as option to the configure script or run 'export"
+BOOSTERRMSG="$BOOSTERRMSG BOOSTFLAGS=--with-boost-incpath=/path/to/boost_1_35/include'"
+BOOSTERRMSG="$BOOSTERRMSG before you run the rivet-bootstrap script."
+AC_CHECK_HEADER([boost/foreach.hpp], [], [AC_MSG_ERROR([Boost foreach not found. $BOOSTERRMSG])])
+AC_CHECK_HEADER([boost/smart_ptr.hpp], [], [AC_MSG_ERROR([Boost smart_ptr not found. $BOOSTERRMSG])])
+AC_CHECK_HEADER([boost/lexical_cast.hpp], [], [AC_MSG_ERROR([Boost lexical_cast not found. $BOOSTERRMSG])])
+AC_CHECK_HEADER([boost/assign.hpp], [], [AC_MSG_ERROR([Boost assign not found. $BOOSTERRMSG])])
+AC_CHECK_HEADER([boost/random.hpp], [], [AC_MSG_ERROR([Boost random numbers not found. $BOOSTERRMSG])])
 CPPFLAGS=$oldCPPFLAGS
 
 
