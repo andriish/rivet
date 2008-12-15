@@ -77,10 +77,12 @@ namespace Rivet {
         if (deltaR(p_e0.pseudorapidity(), p_e0.azimuthalAngle(),
                    p_P.pseudorapidity(), p_P.azimuthalAngle()) < 0.2) {
             copy = false;
+            Z_candidates[0].first.momentum()+=p_P;
         }
         if (deltaR(p_e1.pseudorapidity(), p_e1.azimuthalAngle(),
                    p_P.pseudorapidity(), p_P.azimuthalAngle()) < 0.2) {
             copy = false;
+            Z_candidates[0].second.momentum()+=p_P;
         }
       }
       else {
