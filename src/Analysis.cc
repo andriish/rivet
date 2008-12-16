@@ -215,7 +215,9 @@ namespace Rivet {
 
   void Analysis::_makeHistoDir() {
     if (!_madeHistoDir) {
-      if (! name().empty()) tree().mkdir(histoDir());
+      if (! name().empty()) {
+        tree().mkdir(histoDir());
+      }
       _madeHistoDir = true;
     }
   }
@@ -246,6 +248,7 @@ namespace Rivet {
 
   
   void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
+    assert(histo);
     getLog() << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
     
     double oldintg = 0.0;
@@ -254,8 +257,12 @@ namespace Rivet {
       // Leaving out factor of binWidth because AIDA's "height" already includes a width factor.
       oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
     }
-    if (oldintg == 0.0) return;
-    
+    if (oldintg == 0.0) {
+      getLog() << Log::WARN << "Histo " << histo->title() 
+               << " has null integral during normalisation" << endl;
+      return;
+    }
+  
     // Scale by the normalisation factor.
     scale(histo, norm/oldintg);
   }

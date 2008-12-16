@@ -21,6 +21,10 @@ import getopt
 import string
 from math import *
 
+# ## Find numer of (virtual) processing units
+# numcores = os.sysconf('SC_NPROCESSORS_ONLN')
+# if numcores is None:
+#     numcores = 1
 
 class Inputdata:
     def __init__(self, filename):

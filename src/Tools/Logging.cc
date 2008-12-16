@@ -39,6 +39,7 @@ namespace Rivet {
 
   void Log::setLevel(const string& name, int level) { 
     defaultLevels[name] = level;
+    //cout << name << " -> " << level << endl;
     _updateLevels(defaultLevels, existingLogs); 
   }
 

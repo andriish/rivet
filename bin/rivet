@@ -37,9 +37,10 @@ PROGNAME = os.path.basename(PROGPATH)
 ## Try to bootstrap the Python path
 import commands
 try:
-    modname=sys.modules[__name__].__file__
-    binpath=modname[:modname.rfind("/")]
-    rivetpypath = commands.getoutput(binpath+"/rivet-config --pythonpath")
+    modname = sys.modules[__name__].__file__
+    binpath = os.path.dirname(modname)
+    rivetconfigpath = os.path.join(binpath, "rivet-config")
+    rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
     sys.path.append(rivetpypath)
 except:
     pass
@@ -110,7 +111,7 @@ for l in opts.NATIVE_LOG_STRS:
         ## Fix name
         if name != "Rivet" and not name.startswith("Rivet."):
             name = "Rivet." + name
-        #print name, level
+        logging.debug("Setting log level: %s %d" % (name, level))
         rivet.Log.setLogLevel(name, level)
     except:
         logging.warning("Couldn't process logging string '%s'" % l)

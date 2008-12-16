@@ -36,13 +36,13 @@ namespace Rivet {
   // Book histograms
   void D0_2008_S7719523::init() {
     _h_central_same_cross_section = 
-      bookHistogram1D(1, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, same-sign rapidity)");
+      bookHistogram1D("d01-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, same-sign rapidity)");
     _h_central_opp_cross_section  = 
-      bookHistogram1D(2, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, opp-sign rapidity)");
+      bookHistogram1D("d02-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, opp-sign rapidity)");
     _h_forward_same_cross_section = 
-      bookHistogram1D(3, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, same-sign rapidity)");
+      bookHistogram1D("d03-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, same-sign rapidity)");
     _h_forward_opp_cross_section  = 
-      bookHistogram1D(4, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, opp-sign rapidity)"); 
+      bookHistogram1D("d04-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, opp-sign rapidity)"); 
   }
 
 
@@ -140,25 +140,28 @@ namespace Rivet {
 
   // Finalize
   void D0_2008_S7719523::finalize() {
+    // Cross-section ratios (6 plots)
+    // Central/central and forward/forward ratios
+    AIDA::IHistogramFactory& hf = histogramFactory();
+    const string dir = histoDir();
+
+    hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
+    hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
+    // Central/forward ratio combinations
+    /// @todo Bins don't match
+    // hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section, *_h_forward_same_cross_section);
+    // hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,  *_h_forward_same_cross_section);
+    // hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section, *_h_forward_opp_cross_section);
+    // hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,  *_h_forward_opp_cross_section);
+
     /// @todo Use the generator cross-section
+    // Must happen *after* the divs, since otherwise the pointers are null!
     //_h_total_cross_section->fill(crossSection());
     normalize(_h_central_same_cross_section, 347.4);
     normalize(_h_central_opp_cross_section,  281.8);
     normalize(_h_forward_same_cross_section, 164.8);
     normalize(_h_forward_opp_cross_section,   81.5);
-
-    // Cross-section ratios (6 plots)
-    // Central/central and forward/forward ratios
-    AIDA::IHistogramFactory& hf = histogramFactory();
-    const string dir = histoDir();
-    hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
-    hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
-    // Central/forward ratio combinations
-    hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section, *_h_forward_same_cross_section);
-    hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,  *_h_forward_same_cross_section);
-    hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section, *_h_forward_opp_cross_section);
-    hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,  *_h_forward_opp_cross_section);
-
   }
+
 
 }

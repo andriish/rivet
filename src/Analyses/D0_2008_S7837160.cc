@@ -40,18 +40,12 @@ namespace Rivet {
 
   // Book histograms
   void D0_2008_S7837160::init() {
-    _h_dsigplus_deta_25_35  = bookHistogram1D("/dsigplus_deta_25_35",  "Temp", 10, 0.0, 3.2);
-    _h_dsigminus_deta_25_35 = bookHistogram1D("/dsigminus_deta_25_35", "Temp", 10, 0.0, 3.2);
-    _h_dsigplus_deta_35     = bookHistogram1D("/dsigplus_deta_35",     "Temp", 10, 0.0, 3.2);
-    _h_dsigminus_deta_35    = bookHistogram1D("/dsigminus_deta_35",    "Temp", 10, 0.0, 3.2);
-    _h_dsigplus_deta_25     = bookHistogram1D("/dsigplus_deta_25",     "Temp", 10, 0.0, 3.2);
-    _h_dsigminus_deta_25    = bookHistogram1D("/dsigminus_deta_25",    "Temp", 10, 0.0, 3.2);
-  }
-
-
-
-  inline bool cmpParticlesByEt(const Particle& a, const Particle& b) {
-    return a.momentum().Et() > b.momentum().Et();
+    _h_dsigplus_deta_25_35  = bookHistogram1D("dsigplus_deta_25_35",  "Temp1", 10, 0.0, 3.2);
+    _h_dsigminus_deta_25_35 = bookHistogram1D("dsigminus_deta_25_35", "Temp2", 10, 0.0, 3.2);
+    _h_dsigplus_deta_35     = bookHistogram1D("dsigplus_deta_35",     "Temp3", 10, 0.0, 3.2);
+    _h_dsigminus_deta_35    = bookHistogram1D("dsigminus_deta_35",    "Temp4", 10, 0.0, 3.2);
+    _h_dsigplus_deta_25     = bookHistogram1D("dsigplus_deta_25",     "Temp5", 10, 0.0, 3.2);
+    _h_dsigminus_deta_25    = bookHistogram1D("dsigminus_deta_25",    "Temp6", 10, 0.0, 3.2);
   }
 
 
@@ -71,11 +65,11 @@ namespace Rivet {
 
     // Identify leading nu and electron
     ParticleVector es = efs.particles();
-    sort(es.begin(), es.end(), cmpParticlesByEt);
+    sort(es.begin(), es.end(), cmpParticleByEt);
     Particle leading_e = es[0];
     //
     ParticleVector nus = nufs.particles();
-    sort(nus.begin(), nus.end(), cmpParticlesByEt);
+    sort(nus.begin(), nus.end(), cmpParticleByEt);
     Particle leading_nu = nus[0];
 
     // Require that the neutrino has Et > 25 GeV
@@ -135,20 +129,30 @@ namespace Rivet {
 
   // Finalize
   void D0_2008_S7837160::finalize() {
-    // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each ET region
+    // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
     AIDA::IHistogramFactory& hf = histogramFactory();
 
-    AIDA::IHistogram1D* num25_35 = hf.subtract("num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
-    AIDA::IHistogram1D* denom25_35 = hf.add("denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
+    AIDA::IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
+    AIDA::IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
+    assert(num25_35 && denom25_35);
     hf.divide(histoDir() + "/d01-x01-y01", *num25_35, *denom25_35);
+    hf.destroy(num25_35);
+    hf.destroy(denom25_35);
     //
-    AIDA::IHistogram1D* num35 = hf.subtract("num35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
-    AIDA::IHistogram1D* denom35 = hf.add("denom35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
+    AIDA::IHistogram1D* num35 = hf.subtract("/num35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
+    AIDA::IHistogram1D* denom35 = hf.add("/denom35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
+    assert(num35 && denom35);
     hf.divide(histoDir() + "/d02-x01-y01", *num35, *denom35);
+    hf.destroy(num35);
+    hf.destroy(denom35);
     //
-    AIDA::IHistogram1D* num25 = hf.subtract("num25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
-    AIDA::IHistogram1D* denom25 = hf.add("denom25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
+    AIDA::IHistogram1D* num25 = hf.subtract("/num25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
+    AIDA::IHistogram1D* denom25 = hf.add("/denom25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
+    assert(num25 && denom25);
     hf.divide(histoDir() + "/d03-x01-y01", *num25, *denom25);
+    hf.destroy(num25);
+    hf.destroy(denom25);
   }
+
 
 }
