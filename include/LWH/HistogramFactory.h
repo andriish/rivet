@@ -531,7 +531,10 @@ public:
    */
   Histogram1D * subtract(const std::string & path,
 		    const Histogram1D & h1, const Histogram1D & h2) {
-    if ( !checkBins(h1, h2) ) return 0;
+    if ( !checkBins(h1, h2) ) {
+      //std::cout << "!!!!!!!" << std::endl;
+      return 0;
+    }
     Histogram1D * h = new Histogram1D(h1);
     h->setTitle(path.substr(path.rfind('/') + 1));
     for ( int i = 0; i < h->ax->bins() + 2; ++i ) {
@@ -539,7 +542,10 @@ public:
       h->sumw[i] -= h2.sumw[i];
       h->sumw2[i] += h2.sumw2[i];
     }
-    if ( !tree->insert(path, h) ) return 0;
+    if ( !tree->insert(path, h) ) {
+      //std::cout << "&&&&&&&" << std::endl;
+      return 0;
+    }
     return h;
   }
 
@@ -615,7 +621,8 @@ public:
    * @throws      std::runtime_error if histogram could not be created.
    */
   Histogram1D * divide(const std::string & path,
-		  const Histogram1D & h1, const Histogram1D & h2) {
+                       const Histogram1D & h1, const Histogram1D & h2) {
+    //std::cout << "!!!!!!!!!!!!" << path << std::endl;
     if ( !checkBins(h1, h2) ) return 0;
     Histogram1D * h = new Histogram1D(h1);
     h->setTitle(path.substr(path.rfind('/') + 1));
@@ -632,7 +639,9 @@ public:
         h1.sumw[i]*h1.sumw[i]*h2.sumw2[i]/
         (h2.sumw[i]*h2.sumw[i]*h2.sumw[i]*h2.sumw[i]);
     }
+    //std::cout << "Inserting div histo at path: " << path << std::endl;
     if ( !tree->insert(path, h) ) return 0;
+    //std::cout << "** OK!" << std::endl;
     return h;
   }
 
@@ -649,20 +658,27 @@ public:
    */
   IHistogram1D * divide(const std::string & path, const IHistogram1D & hist1,
 			const IHistogram1D & hist2) {
+    //std::cout << "&&&&&&&&&&&&" << path << std::endl;
     return divide(path, dynamic_cast<const Histogram1D &>(hist1),
 		    dynamic_cast<const Histogram1D &>(hist2));
+  }
+
+  inline bool _neq(double a, double b, double eps = 1e-5) const {
+    if (a == 0 && b == 0) return false;
+    if (fabs(a-b) < eps*(a+b)) return false;
+    return true;
   }
 
   /**
    * Check if two histograms have the same bins.
    */
   bool checkBins(const Histogram1D & h1, const Histogram1D & h2) const {
-    if ( h1.ax->upperEdge() != h2.ax->upperEdge() ||
-	 h1.ax->lowerEdge() != h2.ax->lowerEdge() ||
-	 h1.ax->bins() != h2.ax->bins() ) return false;
+    if (_neq( h1.ax->upperEdge(), h2.ax->upperEdge()) ||
+        _neq( h1.ax->lowerEdge(), h2.ax->lowerEdge()) ||
+        h1.ax->bins() != h2.ax->bins() ) return false;
     for ( int i = 0; i < h1.ax->bins(); ++i ) {
-      if ( h1.ax->binUpperEdge(i) != h2.ax->binUpperEdge(i) ||
-	   h1.ax->binLowerEdge(i) != h2.ax->binLowerEdge(i) ) return false;
+      if ( _neq(h1.ax->binUpperEdge(i), h2.ax->binUpperEdge(i)) ||
+           _neq(h1.ax->binLowerEdge(i), h2.ax->binLowerEdge(i)) ) return false;
     }
     return true;
   }
