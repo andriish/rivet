@@ -88,6 +88,53 @@ namespace Rivet {
     double _mass;    
   };
 
+
+
+  inline bool cmpParticleByPt(const Particle& a, const Particle& b) {
+    return a.momentum().pT() > b.momentum().pT();
+  }
+  inline bool cmpParticleByAscPt(const Particle& a, const Particle& b) {
+    return a.momentum().pT() < b.momentum().pT();
+  }
+  inline bool cmpParticleByEt(const Particle& a, const Particle& b) {
+    return a.momentum().Et() > b.momentum().Et();
+  }
+  inline bool cmpParticleByAscEt(const Particle& a, const Particle& b) {
+    return a.momentum().Et() < b.momentum().Et();
+  }
+  inline bool cmpParticleByE(const Particle& a, const Particle& b) {
+    return a.momentum().E() > b.momentum().E();
+  }
+  inline bool cmpParticleByAscE(const Particle& a, const Particle& b) {
+    return a.momentum().E() < b.momentum().E();
+  }
+  inline bool cmpParticleByDescPseudorapidity(const Particle& a, const Particle& b) {
+    return a.momentum().pseudorapidity() > b.momentum().pseudorapidity();
+  }
+  inline bool cmpParticleByAscPseudorapidity(const Particle& a, const Particle& b) {
+    return a.momentum().pseudorapidity() < b.momentum().pseudorapidity();
+  }
+  inline bool cmpParticleByDescAbsPseudorapidity(const Particle& a, const Particle& b) {
+    return fabs(a.momentum().pseudorapidity()) > fabs(b.momentum().pseudorapidity());
+  }
+  inline bool cmpParticleByAscAbsPseudorapidity(const Particle& a, const Particle& b) {
+    return fabs(a.momentum().pseudorapidity()) < fabs(b.momentum().pseudorapidity());
+  }
+  inline bool cmpParticleByDescRapidity(const Particle& a, const Particle& b) {
+    return a.momentum().rapidity() > b.momentum().rapidity();
+  }
+  inline bool cmpParticleByAscRapidity(const Particle& a, const Particle& b) {
+    return a.momentum().rapidity() < b.momentum().rapidity();
+  }
+  inline bool cmpParticleByDescAbsRapidity(const Particle& a, const Particle& b) {
+    return fabs(a.momentum().rapidity()) > fabs(b.momentum().rapidity());
+  }
+  inline bool cmpParticleByAscAbsRapidity(const Particle& a, const Particle& b) {
+    return fabs(a.momentum().rapidity()) < fabs(b.momentum().rapidity());
+  }
+
+
+
   
 }
 
