@@ -6,10 +6,11 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
 
+  
   /// Project out the vector bosons and Higgs particles.
+  /// @todo Remove this projection: it's unphysical and only used in one place (the ExampleTree)
   class WZandh : public Projection {
     
   public:

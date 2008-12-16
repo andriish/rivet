@@ -20,30 +20,30 @@ namespace Rivet {
 
   /// @brief Book and fill a ROOT tree with simulated data.
   ///
-  /// Based initially on the ntuples used in Phys. Rev. D65; 096014 (2002)
-  /// and JHEP05 (2007) 033.
+  /// This does some things, e.g. access parton level information, which
+  /// are not recommended in rivet analyses, since the information is 
+  /// unphysical and so cannot be compared to data, and also may be generator dependent.
+  /// 
   class ExampleTree : public Analysis {
 
   public:
 
     /// Constructor. This uses the \f$ k_\perp \f$ jet algorithm with \f$ r \f$ parameter = 0.7.
     ExampleTree() {
-      const FinalState fs(-4.0, 4.0, 0.0);
+      const FinalState fs(-4.0, 4.0, 0.0*GeV);
       addProjection(fs, "FS");
       addProjection(ChargedLeptons(fs), "ChLeptons");
-      addProjection(FastJets(fs, FastJets::CAM, 1.2), "Jets");
+      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
+      /// @todo Remove WZandh
       addProjection(WZandh(), "WZh");
 
       /// Veto neutrinos, antineutrinos and LSP
       VetoedFinalState vfs(fs);
       vfs
-        .addVetoDetail(12, 10.0, 50.0)
-        .addVetoId(14)
-        .addVetoId(16)
-        .addVetoId(-12)
-        .addVetoId(-14)
-        .addVetoId(-16)
-        .addVetoId(1000022);
+        .addVetoDetail(NU_E, 10.0*GeV, 50.0*GeV)
+        .addVetoPairId(NU_MU)
+        .addVetoPairId(NU_TAU)
+        .addVetoId(1000022); // LSP
       addProjection(vfs, "VFS");
       addProjection(TotalVisibleMomentum(vfs), "TotalVisMom");
     }
@@ -157,6 +157,7 @@ namespace Rivet {
     /// Store the partons or not?
     bool _store_partons;
   };
+
 
 }
 

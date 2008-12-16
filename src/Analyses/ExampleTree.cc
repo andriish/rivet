@@ -11,7 +11,7 @@ namespace Rivet {
   void ExampleTree::init() {
     getLog() << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
   }
-  void ExampleTree::analyze(const Event & event) { }
+  void ExampleTree::analyze(const Event& event) { }
   void ExampleTree::finalize() { }
 
 
@@ -19,10 +19,10 @@ namespace Rivet {
 
 
   void ExampleTree::init() {
-    // Book histograms
-    _jet_pt_cut = 20;
-    _subj_pt_cut = 20;
-    _lepton_pt_cut = 20;
+    // Choose cuts
+    _jet_pt_cut = 20*GeV;
+    _subj_pt_cut = 20*GeV;
+    _lepton_pt_cut = 20*GeV;
     _store_partons = true;
 
     _treeFileName = "rivetTree.root";
@@ -34,6 +34,7 @@ namespace Rivet {
     _rivetTree = new TTree("Rivet Tree", "Rivet Example Tree");
 
     // Event number 
+    const int _nevt = ev.event_number()
     _rivetTree->Branch("nevt", &_nevt, "nevt/I");
 
     // Vector bosons
@@ -66,19 +67,16 @@ namespace Rivet {
   void ExampleTree::analyze(const Event & event) {
     const GenEvent& ev = event.genEvent();
 
-    // Event number
-    /// @todo Is this robust? Use Rivet's counter instead.
-    _nevt = ev.event_number();
-
     // Get the vector bosons
+    /// @todo Replace with a more final state driven approach, rm WZandh proj
     _nvb = 0;
     const WZandh& wzh = applyProjection<WZandh>(event, "WZh");
-    for (ParticleVector::const_iterator p = wzh.Zees().begin(); p != wzh.Zees().end(); ++p) {
-      const FourMomentum p4 = p->momentum();
-      _vbvec[_nvb][0] = p4.E();
-      _vbvec[_nvb][1] = p4.px();
-      _vbvec[_nvb][2] = p4.py();
-      _vbvec[_nvb][3] = p4.pz();
+    foreach (const Particle p, wzh.Zees()) {
+      const FourMomentum p4 = p.momentum();
+      _vbvec[_nvb][0] = p4.E()/GeV;
+      _vbvec[_nvb][1] = p4.px()/GeV;
+      _vbvec[_nvb][2] = p4.py()/GeV;
+      _vbvec[_nvb][3] = p4.pz()/GeV;
       _vbtype[_nvb]   = 1;
       ++_nvb;
     }
@@ -87,10 +85,9 @@ namespace Rivet {
     // used in normal analyses.
     _npart = 0;
     if (_store_partons) {
-
       for (GenEvent::particle_const_iterator pi = event.genEvent().particles_begin(); 
            pi != event.genEvent().particles_end(); ++pi ) {
-        // Only include particles which are documentation line (status = 3) 
+        // Only include particles which are documentation line (status >1) 
         // The result/meaning will be generator dependent.
         if ( (*pi)->status() >= 2 ) {
           const FourMomentum p4 = (*pi)->momentum();
@@ -100,7 +97,7 @@ namespace Rivet {
           _ppart[_npart][0] = p4.E();
           _pid[_npart] = (*pi)->pdg_id();
           const GenVertex* vertex = (*pi)->production_vertex();
-          // get the first mother
+          // Get the first mother
           if (vertex) {
             if (vertex->particles_in_size()>0) {
               GenVertex::particles_in_const_iterator p1 = vertex->particles_in_const_begin();
@@ -111,8 +108,6 @@ namespace Rivet {
           } else {
             _mo[_npart] = 0;
           }
-          
-          //const GenParticle mother = **(vertex->particles_in_const_begin());
           getLog() << Log::DEBUG << _npart << ":" << _pid[_npart] << endl;
           ++_npart;
         }
@@ -120,24 +115,23 @@ namespace Rivet {
     }
     
     
-    // Get the jets in decreasing ET order.
+    // Get the jets in decreasing pT order.
     const FastJets& jets = applyProjection<FastJets>(event, "Jets");
-    PseudoJets jetList = jets.pseudoJets();
-
+    PseudoJets jetList = jets.pseudoJetsByPt();
     _njet = 0;
     _nsub = 0;
-    for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
-      if (j->perp() > _jet_pt_cut) {
-        _vjet[_njet][0] = j->e();
-        _vjet[_njet][1] = j->px();
-        _vjet[_njet][2] = j->py();
-        _vjet[_njet][3] = j->pz();
-        if (j->perp() > _subj_pt_cut) {
-          _sjet3[_nsub][0] = j->e();
-          _sjet3[_nsub][1] = j->px();
-          _sjet3[_nsub][2] = j->py();
-          _sjet3[_nsub][3] = j->pz();
-          vector<double> ys = jets.ySubJet(*j);
+    foreach (const PseudoJet& j, jetList) {
+      if (j.perp() > _jet_pt_cut) {
+        _vjet[_njet][0] = j.e()/GeV;
+        _vjet[_njet][1] = j.px()/GeV;
+        _vjet[_njet][2] = j.py()/GeV;
+        _vjet[_njet][3] = j.pz()/GeV;
+        if (j.perp() > _subj_pt_cut) {
+          _sjet3[_nsub][0] = j.e()/GeV;
+          _sjet3[_nsub][1] = j.px()/GeV;
+          _sjet3[_nsub][2] = j.py()/GeV;
+          _sjet3[_nsub][3] = j.pz()/GeV;
+          const vector<double> ys = jets.ySubJet(j);
           for (size_t i = 0; i < 4; ++i){
             if (ys.size() > i) {
               _ysubsj[_nsub][i] = ys.at(i);
@@ -145,13 +139,6 @@ namespace Rivet {
               _ysubsj[_nsub][i] = 0;
             }
           }
-	  double radius=0;
-	  fastjet::PseudoJet splitJet = jets.splitJet(*j,radius);
-	  cout << "Original, Split:" << j->m() << "," << splitJet.m();
-	  //cout << " Radius 1:" << radius << endl;
-	  fastjet::PseudoJet filterJet = jets.filterJet(*j,radius,0.3);
-	  cout << ", Filtered:" << filterJet.m() << endl;
-	  cout << " Radius 2:" << radius << endl;
           ++_nsub;	 
         }
         ++_njet;
@@ -161,24 +148,25 @@ namespace Rivet {
     // Loop over leptons
     _nlep = 0;
     const ChargedLeptons& cl = applyProjection<ChargedLeptons>(event, "ChLeptons");
-    for (ParticleVector::const_iterator p = cl.chargedLeptons().begin(); p != cl.chargedLeptons().end(); ++p) {
-      const FourMomentum p4 = p->momentum();
+    foreach (const Particle& p, cl.chargedLeptons()) {
+      const FourMomentum p4 = p.momentum();
       if (p4.pT() > _lepton_pt_cut) {
-        _vlep[_nlep][1] = p4.px();
-        _vlep[_nlep][2] = p4.py();
-		_vlep[_nlep][3] = p4.pz();
-		_vlep[_nlep][0] = p4.E();
+		_vlep[_nlep][0] = p4.E()/GeV;
+        _vlep[_nlep][1] = p4.px()/GeV;
+        _vlep[_nlep][2] = p4.py()/GeV;
+		_vlep[_nlep][3] = p4.pz()/GeV;
         ++_nlep;
       }
     }
     
     // Missing Et/total energy
     const TotalVisibleMomentum& tvm = applyProjection<TotalVisibleMomentum>(event, "TotalVisMom");
-    _esumr[1] = tvm.momentum().px();
-    _esumr[2] = tvm.momentum().py();
-	_esumr[3] = tvm.momentum().pz();
-	_esumr[0] = tvm.momentum().E();
-    
+	_esumr[0] = tvm.momentum().E()/GeV;
+    _esumr[1] = tvm.momentum().px()/GeV;
+    _esumr[2] = tvm.momentum().py()/GeV;
+	_esumr[3] = tvm.momentum().pz()/GeV;
+
+    // Finally fill the tree
     _rivetTree->Fill();
   }
   
@@ -188,6 +176,7 @@ namespace Rivet {
     // Write the tree to file.
     _rivetTree->Write();
   }
+
   
   #endif
   
