@@ -60,9 +60,9 @@ namespace Rivet {
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       const FinalState& cnfs = applyProjection<FinalState>(event, "CNFS");
       getLog() << Log::DEBUG << "Total multiplicity            = " 
-               << cnfs.particles().size() << endl;
+               << cnfs.size() << endl;
       getLog() << Log::DEBUG << "Total charged multiplicity    = " 
-               << cfs.particles().size()  << endl;
+               << cfs.size()  << endl;
     }
     
     void finalize() {

@@ -1,13 +1,13 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.1.1],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.1.2],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
 
 ## Set library version info code
-VERSIONINFOFLAGS="-version-info 3:0:2"
+VERSIONINFOFLAGS="-version-info 4:0:0"
 AC_SUBST(VERSIONINFOFLAGS)
 
 ## OS X
@@ -32,7 +32,9 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 ## Work out library suffix for the build
+RAW_LIB_EXTN=$shrext_cmds
 LIB_SUFFIX=\\\"$shrext_cmds\\\"
+AC_SUBST(RAW_LIB_EXTN)
 AC_SUBST([LIB_SUFFIX])
 
 ## GNU Scientific Library

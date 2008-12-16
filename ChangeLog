@@ -1,5 +1,9 @@
 2008-12-16  Andy Buckley  <andy@insectnation.org>
 
+	* Made LWH bin edge comparisons safe against numerical errors.
+
+	* Added Particle comparison functions for sorting.
+
 	* Removing most bad things from ExampleTree and tidying up. Marked
 	WZandh projection for removal.
 
