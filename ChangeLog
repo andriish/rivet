@@ -1,3 +1,8 @@
+2008-12-16  Andy Buckley  <andy@insectnation.org>
+
+	* Removing most bad things from ExampleTree and tidying up. Marked
+	WZandh projection for removal.
+
 2008-12-03  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added the two missing observables to the CDF_2008_NOTE_9337 analysis,
