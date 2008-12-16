@@ -62,7 +62,7 @@ namespace Rivet {
     }
     /// Get a description of the analysis.
     string description() const {
-      return "Run II jet analysis";
+      return "Run II jet azimuthal decorrelation analysis";
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
