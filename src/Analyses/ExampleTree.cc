@@ -34,7 +34,6 @@ namespace Rivet {
     _rivetTree = new TTree("Rivet Tree", "Rivet Example Tree");
 
     // Event number 
-    const int _nevt = ev.event_number()
     _rivetTree->Branch("nevt", &_nevt, "nevt/I");
 
     // Vector bosons
@@ -66,12 +65,13 @@ namespace Rivet {
   // Do the analysis
   void ExampleTree::analyze(const Event & event) {
     const GenEvent& ev = event.genEvent();
+    _nevt = ev.event_number();
 
     // Get the vector bosons
     /// @todo Replace with a more final state driven approach, rm WZandh proj
     _nvb = 0;
     const WZandh& wzh = applyProjection<WZandh>(event, "WZh");
-    foreach (const Particle p, wzh.Zees()) {
+    foreach (const Particle& p, wzh.Zees()) {
       const FourMomentum p4 = p.momentum();
       _vbvec[_nvb][0] = p4.E()/GeV;
       _vbvec[_nvb][1] = p4.px()/GeV;
@@ -120,7 +120,7 @@ namespace Rivet {
     PseudoJets jetList = jets.pseudoJetsByPt();
     _njet = 0;
     _nsub = 0;
-    foreach (const PseudoJet& j, jetList) {
+    foreach (const fastjet::PseudoJet& j, jetList) {
       if (j.perp() > _jet_pt_cut) {
         _vjet[_njet][0] = j.e()/GeV;
         _vjet[_njet][1] = j.px()/GeV;
