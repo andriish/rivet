@@ -148,7 +148,11 @@ class Plot:
                     ymin = 0
                 else:
                     ymin = 1.1*min(foo)
-                if logy: ymin = max(min(foo)/1.7, 2e-4*ymax)
+                if logy:
+                    if opts.FULL_RANGE:
+                        ymin = min(foo)/1.7
+                    else:
+                        ymin = max(min(foo)/1.7, 2e-4*ymax)
                 if ymin==ymax:
                     ymin-=1
                     ymax+=1
@@ -1104,6 +1108,8 @@ def main():
                       help="Create PDF output instead of PostScript. This usually results in a smaller file size.")
     parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False, 
                       help="Keep temporary directory and print its filename.")
+    parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False, 
+                      help="Plot full y range in LogY plots.")
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                          default=logging.INFO, help="print debug (very verbose) messages")
