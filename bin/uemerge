@@ -459,6 +459,14 @@ if __name__ == "__main__":
     useOnePt("/D0_2004_S5992206/d03-x02-y01", "1960", "100")
     useOnePt("/D0_2004_S5992206/d04-x02-y01", "1960", "150")
 
+    ## D0 incl jet cross-section analysis
+    logging.info("Processing D0_2008_S7662670")
+    mergeByPt("/D0_2008_S7662670/d01-x01-y01", "1960")
+    mergeByPt("/D0_2008_S7662670/d02-x01-y01", "1960")
+    mergeByPt("/D0_2008_S7662670/d03-x01-y01", "1960")
+    mergeByPt("/D0_2008_S7662670/d04-x01-y01", "1960")
+    mergeByPt("/D0_2008_S7662670/d05-x01-y01", "1960")
+    mergeByPt("/D0_2008_S7662670/d06-x01-y01", "1960")
 
     ## Choose output file
     out = None
