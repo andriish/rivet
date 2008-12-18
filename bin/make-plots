@@ -1097,7 +1097,12 @@ class Coordinates:
 opts = None
 def main():
     global opts
-    msg = """Usage: %prog [options] file.dat [file2.dat ...]
+    msg = """\
+Usage: %prog [options] file.dat [file2.dat ...]
+
+TODO
+ * multi-thread
+ * PNG output
 """
 
     from optparse import OptionParser, OptionGroup
@@ -1151,8 +1156,8 @@ def main():
         RatioPlot(inputdata)
         texfile.close()
 
-        # Run LaTeX
-        lcmd = "latex %s" % filename
+        # Run LaTeX (in no-stop mode)
+        lcmd = 'latex "\scrollmode\input" %s' % filename
         dvipsargs = ""
         if not logging.getLogger().isEnabledFor(logging.DEBUG):
             lcmd += " > /dev/null"

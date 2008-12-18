@@ -1,57 +1,5 @@
 #! /usr/bin/env python
 
-import os, sys, re, logging
-
-usage = """%prog - generate comparison plots
-
-USAGE: 
-  %prog [options] reffile mcfile [ref/mcfile2 ...]
-
-TODO:
-  * use fname:id syntax, remove -i option
-"""
-
-## Parse command line options
-from optparse import OptionParser
-parser = OptionParser(usage=usage)
-parser.add_option("-o", "--outdir", dest="OUTDIR",
-                  default=".", help="write data files into this directory")
-parser.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
-                  default=None, help="this file contains a list of histograms to plot")
-parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False, 
-                  help="write output dat files into a directory hierarchy which matches the analysis paths")
-parser.add_option("--linear", action="store_true", dest="LINEAR",
-                  default=False, help="plot with linear scale")
-parser.add_option("--no-ratio", action="store_true", dest="NORATIO",
-                  default=False, help="disable the ratio plot")
-parser.add_option("--refname", dest="REFNAME",
-                  default="data", help="name of reference data set")
-parser.add_option("-i", "--identifiers", dest="MCIDS",
-                  default=None, help="these are the plotlabels of the mchistos LABEL1:LABEL2...")
-parser.add_option("-r", "--refid", dest="REFID",
-                  default="data", help="the plotlabel of the ref histo")
-parser.add_option("-Q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
-                  action="store_const", default=logging.INFO, const=logging.WARNING)
-parser.add_option("-V", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
-                  action="store_const", default=logging.INFO, const=logging.DEBUG)
-opts, args = parser.parse_args()
-logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-
-
-## Line styles
-STYLES=[
-        ('red',   'solid'),
-        ('blue',  'solid'),
-        ('green', 'solid'),
-        ('red',   'dashed'),
-        ('blue',  'dashed'),
-        ('green', 'dashed'),
-        ('red',   'dotted'),
-        ('blue',  'dotted'),
-        ('green', 'dotted'),
-       ]
-
-
 def sanitiseString(s):
     #s = s.replace('_','\\_')
     #s = s.replace('^','\\^{}')
@@ -81,7 +29,7 @@ class Histo:
         self.name = None
         self.title = None
         self.isdata = False
-        self.isref = False
+        #self.isref = False
 
     def __cmp__(self, other):
         """Sort by $path/$name string"""
@@ -248,11 +196,80 @@ def mkHistoFromDPS(dps):
 
 ##############################################################
 
-if opts.REFNAME!="data":
-    opts.REFNAME = os.path.abspath(opts.REFNAME)
-    if not os.access(opts.REFNAME, os.R_OK):
+
+
+import os, sys, re, logging
+
+usage = """%prog - generate comparison plots
+
+USAGE: 
+  %prog [options] [REF:'Expt data'] aidafile1:'label 1' [path/to/aidafile2:label2 ...]
+
+TODO:
+  * regex selector
+  * ask/force overwrite modes
+"""
+
+## Parse command line options
+from optparse import OptionParser
+parser = OptionParser(usage=usage)
+parser.add_option("-o", "--outdir", dest="OUTDIR",
+                  default=".", help="write data files into this directory")
+parser.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
+                  default=None, help="this file contains a list of histograms to plot")
+parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False, 
+                  help="write output dat files into a directory hierarchy which matches the analysis paths")
+parser.add_option("--linear", action="store_true", dest="LINEAR",
+                  default=False, help="plot with linear scale")
+parser.add_option("--no-ratio", action="store_true", dest="NORATIO",
+                  default=False, help="disable the ratio plot")
+parser.add_option("--refid", dest="REF_ID",
+                  default="REF", help="ID of reference data set (file path for non-REF data)")
+parser.add_option("-Q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
+                  action="store_const", default=logging.INFO, const=logging.WARNING)
+parser.add_option("-V", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
+                  action="store_const", default=logging.INFO, const=logging.DEBUG)
+opts, args = parser.parse_args()
+logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+
+
+## Line styles
+COLORS = ('red', 'blue', 'green', 'purple', 'orange')
+LINESTYLES = ('solid', 'dashed', 'dotted')
+STYLES=[]
+for ls in LINESTYLES:
+    for c in COLORS:
+        STYLES.append( (c, ls) )
+
+
+## Get file names and labels
+FILES = []
+LABELS = { "REF" : "data" }
+for a in args:
+    path = a
+    tmp = os.path.basename(a)
+    tmp = re.sub(r'(.*)\.aida$', r'\1', tmp)
+    label = "MC (%s)" % tmp
+    if ":" in a:
+        path, label = a.split(":", 1)
+    if path != "REF":
+        FILES.append(path)
+    LABELS[path] = label
+
+
+## Check that the requested files are sensible
+if (len(FILES) < 1):
+    logging.error(parser.get_usage())
+    exit(2)
+
+
+## Handle a request for a reference dataset other than REF
+if opts.REF_ID != "REF":
+    opts.REF_ID = os.path.abspath(opts.REF_ID)
+    if not os.access(opts.REF_ID, os.R_OK):
         logging.error("Error: cannot read reference file %s" % opts.REFNAME)
-        sys.exit(2)
+        exit(2)
+
 
 def getHistos(aidafile):
     '''Get a dictionary of histograms indexed by name.'''
@@ -274,19 +291,15 @@ def getHistos(aidafile):
         h.isdata = dpsname.upper().startswith("/REF")
         if h.isdata:
             dpsname = dpsname.replace("/REF", "")
+            if not titles.has_key(dpsname):
+                titles[dpsname] = h.title
         else:
-            titles[dpsname] = dps.get("title")
-        if ((opts.REFNAME == "data") and h.isdata) or (opts.REFNAME == aidafilepath):
-            h.isref = True
+            titles[dpsname] = h.title
         histos[dpsname] = h
     return histos, titles
 
 
-## Read in ref and MC histos
-FILES = args
-if (len(FILES) < 1):
-    logging.error(parser.get_usage())
-    sys.exit(2)
+## Read histo data from files into data structures
 HISTOS = {}
 TITLES = {}
 NAMES = set()
@@ -295,7 +308,10 @@ for f in FILES:
 for f in FILES:
     histos, titles = getHistos(f)
     for n, h in histos.iteritems():
-        HISTOS[f][n] = h
+        vfile = f
+        if h.isdata:
+            vfile = "REF"
+        HISTOS[vfile][n] = h
         NAMES.add(n)
     for n, t in titles.iteritems():
         TITLES[n] = t
@@ -308,7 +324,7 @@ if opts.HISTOGRAMLIST is not None:
         f = open(opts.HISTOGRAMLIST, 'r')
     except:
         logging.error("Cannot open histo list file %s" % opts.HISTOGRAMLIST)
-        sys.exit(2)
+        exit(2)
     hnames = set()
     for line in f:
         stripped = line.strip()
@@ -319,23 +335,25 @@ if opts.HISTOGRAMLIST is not None:
     NAMES = NAMES.intersection(hnames)
 
 
-## Make output dir fn
-def makeOutDir(outdir):
-    if not os.access(outdir, os.R_OK):
+## Function to make output dirs
+def mkoutdir(outdir):
+    if not os.path.exists(outdir):
         try:
             os.makedirs(outdir)
         except:
-            logging.error("Can't make output directory '%s'" % outdir)
-            sys.exit(2)
+            msg = "Can't make output directory '%s'" % outdir
+            logging.error(msg)
+            raise Exception(msg)
     if not os.access(outdir, os.W_OK):
-        logging.error("Can't write to output directory '%s'" % outdir)
-        sys.exit(2)
+        msg = "Can't write to output directory '%s'" % outdir
+        logging.error(msg)
+        raise Exception(msg)
 
 
 ## Write out histos
 for name in sorted(NAMES):
     logging.debug("Writing histos for plot '%s'" % name)
-
+    
     ## Determine the title
     try:
         title = TITLES[name]
@@ -343,36 +361,32 @@ for name in sorted(NAMES):
         title = name
     title = sanitiseString(title)
 
-    ## Identify data files and reference
+    ## Identify contributing data files for this histo
     activefiles = []
-    reffile = None
-    for f in FILES:
-        if HISTOS[f].has_key(name):
+    for f, d in HISTOS.iteritems():
+        if d.has_key(name):
             activefiles.append(f)
-            if HISTOS[f][name].isref:
-                reffile = f
-    if reffile == None:
-        #logging.warning("Reference '%s' not available for histo '%s'... skipping" % (opts.REFNAME, name))
-        continue
+    if len(activefiles) == 0:
+        logging.warning("Something's wrong... somehow there's no data for histogram %s!" % name)
 
-    if len(activefiles) == 1:
-        #logging.warning("Histo '%s' only available in the reference file ... skipping" % (name))
-        continue
+    ## Identify reference file for this histo
+    ref = opts.REF_ID
+    if not ref in activefiles:
+        ref = activefiles[0]
 
     ## Header
     headstr  = "# BEGIN PLOT\n"
     headstr += "Title=%s\n" % title
     headstr += "Legend=1\n"
-    if len(HISTOS[reffile][name].getBins()) > 1:
+    if len(HISTOS[ref][name].getBins()) > 1:
         headstr += "LogY=%d\n" % int(not opts.LINEAR)
     headstr += "DrawOnly=%s\n" % " ".join(activefiles)
     headstr += "RatioPlot=%d\n" % int(not opts.NORATIO)
-    headstr += "RatioPlotReference=%s\n" % reffile
+    headstr += "RatioPlotReference=%s\n" % ref
     headstr += "RatioPlotYMin=0.5\n"
     headstr += "RatioPlotYMax=1.5\n"
     headstr += "RatioPlotYLabel=MC/data\n"
     headstr += "# END PLOT\n"
-
 
     ## Write histos
     histstrs = []
@@ -382,15 +396,12 @@ for name in sorted(NAMES):
         if HISTOS[hfile][name].isdata:
             histstr += "ErrorBars=1\n"
             histstr += "PolyMarker=*\n"
-            histstr += "Title=%s\n" % opts.REFID
+            histstr += "Title=%s\n" % LABELS["REF"]
         else:
             color, style = STYLES[i % len(STYLES)]
             histstr += 'LineColor=%s\n' % color
             histstr += 'LineStyle=%s\n' % style
-            if (opts.MCIDS != None):
-                histstr += 'Title=%s\n' % opts.MCIDS.split(":")[i]
-            else:
-                histstr += 'Title=MC\n'
+            histstr += 'Title=%s\n' % LABELS[hfile]
             i += 1
         for bin in HISTOS[hfile][name].getBins():
             xmin, xmax = bin.getXRange()
@@ -398,14 +409,16 @@ for name in sorted(NAMES):
         histstr += "# END HISTOGRAM\n"
         histstrs.append(histstr)
 
-    ## Write file
+    ## Choose output file name and dir
     if opts.HIER_OUTPUT:
         outdir = os.path.dirname(os.path.join(opts.OUTDIR, name[1:]))
         outfilename = '%s.dat' % os.path.basename(name)
     else:
         outdir = opts.OUTDIR
         outfilename = '%s.dat' % name.replace('/', "-")[1:]
-    makeOutDir(outdir)
+
+    ## Write file
+    mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfilename)
     f = open(outfilepath, 'w')
     f.write(headstr + "\n" + "\n".join(histstrs))

@@ -1,3 +1,10 @@
+2008-12-18  Andy Buckley  <andy@insectnation.org>
+
+	* make-plots: Made LaTeX run in no-stop mode.
+
+	* compare-histos: Updated to use a nicer labelling syntax on the
+	command line and to successfully build MC-MC plots.
+
 2008-12-16  Andy Buckley  <andy@insectnation.org>
 
 	* Made LWH bin edge comparisons safe against numerical errors.
