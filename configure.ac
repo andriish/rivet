@@ -32,7 +32,7 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 ## Work out library suffix for the build
-RAW_LIB_EXTN=$shrext_cmds
+RAW_LIB_EXTN=$(echo "$shrext_cmds" | sed -e 's/^\.//')
 LIB_SUFFIX=\\\"$shrext_cmds\\\"
 AC_SUBST(RAW_LIB_EXTN)
 AC_SUBST([LIB_SUFFIX])
