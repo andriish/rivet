@@ -105,9 +105,12 @@ class Inputdata:
                     linearray = line.split('=', 1)
                     self.description[linearray[0]] = linearray[1]
 
+
+
 class Plot:
     def __init__(self, inputdata):
         pass
+
     def set_borders(self, inputdata):
         self.set_xmax(inputdata)
         self.set_xmin(inputdata)
@@ -115,6 +118,7 @@ class Plot:
         self.set_ymin(inputdata)
         self.set_zmax(inputdata)
         self.set_zmin(inputdata)
+
     def set_xmin(self,inputdata):
         global xmin
         if inputdata.description.has_key('XMin'):
@@ -124,6 +128,7 @@ class Plot:
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getXMin())
             xmin=min(foo)
+
     def set_xmax(self,inputdata):
         global xmax
         if inputdata.description.has_key('XMax'):
@@ -133,6 +138,7 @@ class Plot:
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getXMax())
             xmax=max(foo)
+
     def set_ymin(self,inputdata):
         global ymin, ymax
         if inputdata.description.has_key('YMin'):
@@ -156,6 +162,7 @@ class Plot:
                 if ymin==ymax:
                     ymin-=1
                     ymax+=1
+
     def set_ymax(self,inputdata):
         global ymax
         if inputdata.description.has_key('YMax'):
@@ -171,6 +178,7 @@ class Plot:
                     ymax=1.7*max(foo)
                 else:
                     ymax=1.1*max(foo)
+
     def set_zmin(self,inputdata):
         global zmin
         if inputdata.description.has_key('ZMin'):
@@ -180,6 +188,7 @@ class Plot:
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getZMin())
             zmin=min(foo)
+
     def set_zmax(self,inputdata):
         global zmax
         if inputdata.description.has_key('ZMax'):
@@ -189,96 +198,112 @@ class Plot:
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getZMax())
             zmax=min(foo)
+
     def draw(self):
         pass
+
     def write_header(self,inputdata):
         if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
-            leftmargin=float(inputdata.description['LeftMargin'])
+            leftmargin = float(inputdata.description['LeftMargin'])
         else:
-            leftmargin=1.25
+            leftmargin = 1.25
         if inputdata.description.has_key('RightMargin') and inputdata.description['RightMargin']!='':
-            rightmargin=float(inputdata.description['RightMargin'])
+            rightmargin = float(inputdata.description['RightMargin'])
         else:
-            rightmargin=0.35
+            rightmargin = 0.35
         if inputdata.description.has_key('TopMargin') and inputdata.description['TopMargin']!='':
-            topmargin=float(inputdata.description['TopMargin'])
+            topmargin = float(inputdata.description['TopMargin'])
         else:
-            topmargin=0.65
+            topmargin = 0.65
         if inputdata.description.has_key('BottomMargin') and inputdata.description['BottomMargin']!='':
-            bottommargin=float(inputdata.description['BottomMargin'])
+            bottommargin = float(inputdata.description['BottomMargin'])
         else:
-            bottommargin=0.95
-        papersizex=plotsizex+0.1+leftmargin+rightmargin
-        papersizey=plotsizey+ratioplotsizey+0.1+topmargin+bottommargin
-        texfile.write('\\documentclass{article}\n')
+            bottommargin = 0.95
+        papersizex = plotsizex + 0.1 + leftmargin + rightmargin
+        papersizey = plotsizey + ratioplotsizey + 0.1 + topmargin + bottommargin
+        #
+        out = ""
+        out += '\\documentclass{article}\n'
         if opts.MINION:
-            texfile.write('\\usepackage{minion}\n')
-        elif opts.MATHPAZOOSF:
-            texfile.write('\\usepackage[osf,sc]{mathpazo}\n')
+            out += ('\\usepackage{minion}\n')
+        elif opts.MATHPAZO_SF:
+            out += ('\\usepackage[osf,sc]{mathpazo}\n')
         else:
-            texfile.write('\\usepackage{mathpazo}\n')
-        texfile.write('\\usepackage{pst-all}\n')
-        texfile.write('\\selectcolormodel{rgb}\n')
-        texfile.write('\\usepackage{amsmath}\n')
-        texfile.write('\\usepackage{amssymb}\n')
-        texfile.write('\\usepackage{underscore}\n')
-        texfile.write('\\usepackage{relsize}\n')
-        texfile.write('\\usepackage[dvips,\n')
-        texfile.write('  left=%4.3fcm, right=0cm,\n' %(leftmargin-0.55,))
-        texfile.write('  top=%4.3fcm,  bottom=0cm,\n' %(topmargin+0.05,))
-        texfile.write('  paperwidth=%scm,paperheight=%scm\n' %(papersizex,papersizey))
-        texfile.write(']{geometry}\n')
-        texfile.write('\\begin{document}\n')
-        texfile.write('\\pagestyle{empty}\n')
-        texfile.write('\\SpecialCoor\n')
-        texfile.write('\\psset{xunit=%scm,yunit=%scm}\n' %(plotsizex,plotsizey))
-        texfile.write('\\begin{pspicture}(0,0)(1,1)\n')
+            out += ('\\usepackage{mathpazo}\n')
+        out += ('\\usepackage{pst-all}\n')
+        out += ('\\selectcolormodel{rgb}\n')
+        out += ('\\usepackage{amsmath}\n')
+        out += ('\\usepackage{amssymb}\n')
+        out += ('\\usepackage{underscore}\n')
+        out += ('\\usepackage{relsize}\n')
+        out += ('\\usepackage[dvips,\n')
+        out += ('  left=%4.3fcm, right=0cm,\n' %(leftmargin-0.55,))
+        out += ('  top=%4.3fcm,  bottom=0cm,\n' %(topmargin+0.05,))
+        out += ('  paperwidth=%scm,paperheight=%scm\n' %(papersizex,papersizey))
+        out += (']{geometry}\n')
+        out += ('\\begin{document}\n')
+        out += ('\\pagestyle{empty}\n')
+        out += ('\\SpecialCoor\n')
+        out += ('\\psset{xunit=%scm,yunit=%scm}\n' %(plotsizex,plotsizey))
+        out += ('\\begin{pspicture}(0,0)(1,1)\n')
         if is2dim:
-            texfile.write('\\definecolorseries{gradientcolors}{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}\n')
-            texfile.write('\\resetcolorseries[130]{gradientcolors}\n')
+            out += ('\\definecolorseries{gradientcolors}{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}\n')
+            out += ('\\resetcolorseries[130]{gradientcolors}\n')
+        return out
+
     def write_footer(self):
-        texfile.write('\\end{pspicture}\n')
-        texfile.write('\\end{document}\n')
+        out = ""
+        out += ('\\end{pspicture}\n')
+        out += ('\\end{document}\n')
+        return out
+
+
 
 class MainPlot(Plot):
     def __init__(self, inputdata):
         self.set_borders(inputdata)
         global coors
         coors = Coordinates()
-        self.write_header(inputdata)
-        self.draw(inputdata)
-    def draw(self,inputdata):
+
+    def draw(self, inputdata):
+        out = ""
+        out += self.write_header(inputdata)
+        out += self._draw(inputdata)
+        return out
+
+    def _draw(self, inputdata):
+        out = ""
         if inputdata.description.has_key('DrawSpecialFirst') and inputdata.description['DrawSpecialFirst']=='1':
             for i in inputdata.special.keys():
-                inputdata.special[i].draw()
+                out += inputdata.special[i].draw()
             if inputdata.description.has_key('DrawFunctionFirst') and inputdata.description['DrawFunctionFirst']=='1':
                 for i in inputdata.functions.keys():
-                    inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw()
                 for i in inputdata.description['DrawOnly']:
-                    inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw()
             else:
                 for i in inputdata.description['DrawOnly']:
-                    inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw()
                 for i in inputdata.functions.keys():
-                    inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw()
         else:
             if inputdata.description.has_key('DrawFunctionFirst') and inputdata.description['DrawFunctionFirst']=='1':
                 for i in inputdata.functions.keys():
-                    inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw()
                 for i in inputdata.description['DrawOnly']:
-                    inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw()
             else:
                 for i in inputdata.description['DrawOnly']:
-                    inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw()
                 for i in inputdata.functions.keys():
-                    inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw()
             for i in inputdata.special.keys():
-                inputdata.special[i].draw()
+                out += inputdata.special[i].draw()
         if inputdata.description.has_key('Legend') and inputdata.description['Legend']=='1':
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
-            legend.draw()
+            out += legend.draw()
         frame = Frame()
-        frame.draw()
+        out += frame.draw()
 
         if inputdata.description.has_key('XMajorTickMarks') and inputdata.description['XMajorTickMarks']!='':
             xcustommajortickmarks=int(inputdata.description['XMajorTickMarks'])
@@ -299,9 +324,9 @@ class MainPlot(Plot):
             drawlabels=False
         else:
             drawlabels=True
-        xticks.draw(custommajortickmarks=xcustommajortickmarks,\
-                    customminortickmarks=xcustomminortickmarks,\
-                    customticks=xcustomticks,drawlabels=drawlabels)
+        out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
+                               customminortickmarks=xcustomminortickmarks,\
+                               customticks=xcustomticks,drawlabels=drawlabels)
 
         if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks']!='':
             ycustommajortickmarks=int(inputdata.description['YMajorTickMarks'])
@@ -318,15 +343,18 @@ class MainPlot(Plot):
                 for i in range(0,len(FOO),2):
                     ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         yticks = YTicks()
-        yticks.draw(custommajortickmarks=ycustommajortickmarks,\
-                    customminortickmarks=ycustomminortickmarks,\
-                    customticks=ycustomticks)
+        out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
+                               customminortickmarks=ycustomminortickmarks,\
+                               customticks=ycustomticks)
 
         labels = Labels(inputdata.description)
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
-            labels.draw(['Title','YLabel'])
+            out += labels.draw(['Title','YLabel'])
         else:
-            labels.draw(['Title','XLabel','YLabel'])
+            out += labels.draw(['Title','XLabel','YLabel'])
+        return out
+
+
 
 class RatioPlot(Plot):
     def __init__(self, inputdata):
@@ -353,12 +381,16 @@ class RatioPlot(Plot):
             self.set_borders(inputdata)
             global coors
             coors = Coordinates()
-            texfile.write('\n%\n% RatioPlot\n%\n')
-            texfile.write('\\psset{yunit=%scm}\n' %(plotsizey))
-            texfile.write('\\rput(0,-1){%\n')
-            self.draw(inputdata)
-            texfile.write('}\n')
-        self.write_footer()
+
+    def draw(self, inputdata):
+        out = ""
+        out += ('\n%\n% RatioPlot\n%\n')
+        out += ('\\psset{yunit=%scm}\n' %(plotsizey))
+        out += ('\\rput(0,-1){%\n')
+        out += self._draw(inputdata)
+        out += ('}\n') 
+        out += self.write_footer()
+        return out
 
     def calculate_ratios(self,inputdata):
         foo=inputdata.description['DrawOnly'].pop(inputdata.description['DrawOnly'].index(self.refdata))
@@ -368,12 +400,13 @@ class RatioPlot(Plot):
                 inputdata.histos[i].divide(inputdata.histos[self.refdata])
         inputdata.histos[self.refdata].divide(inputdata.histos[self.refdata])
 
-    def draw(self,inputdata):
+    def _draw(self, inputdata):
+        out = ""
         for i in inputdata.description['DrawOnly']:
-            inputdata.histos[i].draw()
+            out += inputdata.histos[i].draw()
 
         frame = Frame()
-        frame.draw()
+        out += frame.draw()
 
         if inputdata.description.has_key('XMajorTickMarks') and inputdata.description['XMajorTickMarks']!='':
             xcustommajortickmarks=int(inputdata.description['XMajorTickMarks'])
@@ -390,9 +423,9 @@ class RatioPlot(Plot):
                 for i in range(0,len(FOO),2):
                     xcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         xticks = XTicks()
-        xticks.draw(custommajortickmarks=xcustommajortickmarks,\
-                    customminortickmarks=xcustomminortickmarks,\
-                    customticks=xcustomticks)
+        out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
+                               customminortickmarks=xcustomminortickmarks,\
+                               customticks=xcustomticks)
 
         if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks']!='':
             ycustommajortickmarks=int(inputdata.description['YMajorTickMarks'])
@@ -409,21 +442,26 @@ class RatioPlot(Plot):
                 for i in range(0,len(FOO),2):
                     ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         yticks = YTicks()
-        yticks.draw(custommajortickmarks=ycustommajortickmarks,\
-                    customminortickmarks=ycustomminortickmarks,\
-                    customticks=ycustomticks)
+        out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
+                               customminortickmarks=ycustomminortickmarks,\
+                               customticks=ycustomticks)
 
         labels = Labels(inputdata.description)
-        labels.draw(['XLabel','RatioPlotYLabel'])
+        out += labels.draw(['XLabel','RatioPlotYLabel'])
+
+        return out
+
 
 class Legend:
     def __init__(self, description, histos, functions):
         self.histos = histos
         self.functions = functions
         self.description = description
+
     def draw(self):
-        texfile.write('\n%\n% Legend\n%\n')
-        texfile.write('\\rput[tr]('+self.getLegendXPos()+','+self.getLegendYPos()+'){%\n')
+        out = ""
+        out += '\n%\n% Legend\n%\n'
+        out += '\\rput[tr](%s,%s){%%\n' % (self.getLegendXPos(), self.getLegendYPos())
         ypos = -0.05*6/plotsizey
         foo=[]
         if self.description.has_key('LegendOnly'):
@@ -444,49 +482,52 @@ class Legend:
             if title == '':
                 continue
             else:
-                texfile.write('\\rput[Bl](-0.35,' + str(ypos) + '){' + title + '}\n')
-                texfile.write('\\rput[Bl](-0.35,%s){%s\n' %(ypos,'%'))
+                out += ('\\rput[Bl](-0.35,' + str(ypos) + '){' + title + '}\n')
+                out += ('\\rput[Bl](-0.35,%s){%s\n' %(ypos,'%'))
                 if drawobject.getErrorBands():
-                    texfile.write('\\psframe[linecolor=%s,fillstyle=solid,fillcolor=%s]' %(drawobject.getErrorBandColor(),drawobject.getErrorBandColor()))
-                    texfile.write('(-0.10, 0.033)(-0.02, 0.001)\n')
-                texfile.write('\\psline[linestyle=' + drawobject.getLineStyle() \
+                    out += ('\\psframe[linecolor=%s,fillstyle=solid,fillcolor=%s]' %(drawobject.getErrorBandColor(),drawobject.getErrorBandColor()))
+                    out += ('(-0.10, 0.033)(-0.02, 0.001)\n')
+                out += ('\\psline[linestyle=' + drawobject.getLineStyle() \
                             + ', linecolor=' + drawobject.getLineColor() \
                             + ', linewidth=' + drawobject.getLineWidth())
                 if drawobject.getLineDash()!='':
-                    texfile.write(', dash=' + drawobject.getLineDash())
+                    out += (', dash=' + drawobject.getLineDash())
                 if drawobject.getFillStyle()!='none':
-                    texfile.write(', fillstyle=' + drawobject.getFillStyle() \
-                            + ', fillcolor='  + drawobject.getFillColor() \
-                            + ', hatchcolor=' + drawobject.getHatchColor() \
-                            + '](-0.10, 0.030)(-0.02, 0.030)(-0.02, 0.004)(-0.10, 0.004)(-0.10, 0.030)\n')
+                    out += (', fillstyle=' + drawobject.getFillStyle() \
+                                + ', fillcolor='  + drawobject.getFillColor() \
+                                + ', hatchcolor=' + drawobject.getHatchColor() \
+                                + '](-0.10, 0.030)(-0.02, 0.030)(-0.02, 0.004)(-0.10, 0.004)(-0.10, 0.030)\n')
                 else:
-                    texfile.write('](-0.10, 0.016)(-0.02, 0.016)\n')
+                    out += ('](-0.10, 0.016)(-0.02, 0.016)\n')
                 if drawobject.getPolyMarker() != '':
-                    texfile.write('  \\psdot[dotstyle=' + drawobject.getPolyMarker() \
-                            + ', dotsize='    + drawobject.getDotSize()   \
-                            + ', dotscale='   + drawobject.getDotScale()  \
-                            + ', linecolor='  + drawobject.getLineColor() \
-                            + ', linewidth='  + drawobject.getLineWidth() \
-                            + ', linestyle='  + drawobject.getLineStyle() \
-                            + ', fillstyle='  + drawobject.getFillStyle() \
-                            + ', fillcolor='  + drawobject.getFillColor() \
-                            + ', hatchcolor=' + drawobject.getHatchColor())
+                    out += ('  \\psdot[dotstyle=' + drawobject.getPolyMarker() \
+                                + ', dotsize='    + drawobject.getDotSize()   \
+                                + ', dotscale='   + drawobject.getDotScale()  \
+                                + ', linecolor='  + drawobject.getLineColor() \
+                                + ', linewidth='  + drawobject.getLineWidth() \
+                                + ', linestyle='  + drawobject.getLineStyle() \
+                                + ', fillstyle='  + drawobject.getFillStyle() \
+                                + ', fillcolor='  + drawobject.getFillColor() \
+                                + ', hatchcolor=' + drawobject.getHatchColor())
                     if drawobject.getFillStyle()!='none':
-                        texfile.write('](-0.06, 0.028)\n')
+                        out += ('](-0.06, 0.028)\n')
                     else:
-                        texfile.write('](-0.06, 0.016)\n')
-                texfile.write('}\n')
+                        out += ('](-0.06, 0.016)\n')
+                out += ('}\n')
                 ypos -= 0.075*6/plotsizey
         if self.description.has_key('CustomLegend'):
             for i in self.description['CustomLegend'].strip().split('\\\\'):
-                texfile.write('\\rput[Bl](-0.35,' + str(ypos) + '){' + i + '}\n')
+                out += ('\\rput[Bl](-0.35,' + str(ypos) + '){' + i + '}\n')
                 ypos -= 0.075*6/plotsizey
-        texfile.write('}\n')
+        out += ('}\n')
+        return out
+
     def getLegendXPos(self):
         if self.description.has_key('LegendXPos'):
             return self.description['LegendXPos']
         else:
             return '0.98'
+
     def getLegendYPos(self):
         if self.description.has_key('LegendYPos'):
             return self.description['LegendYPos']
@@ -498,29 +539,35 @@ class Legend:
 class Labels:
     def __init__(self, description):
         self.description = description
+
     def draw(self, axis=[]):
-        texfile.write('\n%\n% Labels\n%\n')
+        out = ""
+        out += ('\n%\n% Labels\n%\n')
         if self.description.has_key('Title') and (axis.count('Title') or axis==[]):
-            texfile.write('\\rput(0,1){\\rput[lB](0, 1.7\\labelsep){\\normalsize '+self.description['Title']+'}}\n')
+            out += ('\\rput(0,1){\\rput[lB](0, 1.7\\labelsep){\\normalsize '+self.description['Title']+'}}\n')
         if self.description.has_key('XLabel') and (axis.count('XLabel') or axis==[]):
             xlabelsep=4.7
             if self.description.has_key('XLabelSep'):
                 xlabelsep=float(self.description['XLabelSep'])
-            texfile.write('\\rput(1,0){\\rput[rB](0,-%4.3f\\labelsep){\\normalsize '%(xlabelsep) +self.description['XLabel']+'}}\n')
+            out += ('\\rput(1,0){\\rput[rB](0,-%4.3f\\labelsep){\\normalsize '%(xlabelsep) +self.description['XLabel']+'}}\n')
         if self.description.has_key('YLabel') and (axis.count('YLabel') or axis==[]):
             ylabelsep=5.3
             if self.description.has_key('YLabelSep'):
                 ylabelsep=float(self.description['YLabelSep'])
-            texfile.write('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['YLabel']+'}}\n')
+            out += ('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['YLabel']+'}}\n')
         if self.description.has_key('RatioPlotYLabel') and (axis.count('RatioPlotYLabel') or axis==[]):
             ylabelsep=5.3
             if self.description.has_key('YLabelSep'):
                 ylabelsep=float(self.description['YLabelSep'])
-            texfile.write('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['RatioPlotYLabel']+'}}\n')
+            out += ('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['RatioPlotYLabel']+'}}\n')
+        return out
+
+
 
 class Special:
     def __init__(self, f):
         self.read_input(f)
+
     def read_input(self, f):
         self.description = {}
         self.data = []
@@ -530,8 +577,10 @@ class Special:
                     break
             else:
                 self.data.append(line)
+
     def draw(self):
-        texfile.write('\n%\n% Special\n%\n')
+        out = ""
+        out += ('\n%\n% Special\n%\n')
         for i in range(len(self.data)):
             if self.data[i].count('\\physicscoor'):
                 line = self.data[i].split('\\physicscoor')
@@ -541,105 +590,133 @@ class Special:
                     self.data[i] +=   '(' + coors.strphys2frameX(float(coor[0])) \
                                     + ',' + coors.strphys2frameY(float(coor[1])) \
                                     + ')' + line[j].split(')',1)[1]
-            texfile.write(self.data[i]+'\n')
+            out += self.data[i]+'\n'
+        return out
+
+
 
 class DrawableObject:
     def __init__(self, f):
         pass
+
     def getTitle(self):
         if self.description.has_key('Title'):
             return self.description['Title']
         else:
             return ''
+
     def getLineStyle(self):
         if self.description.has_key('LineStyle'):
             return self.description['LineStyle']
         else:
             return 'solid'
+
     def getLineDash(self):
         if self.description.has_key('LineDash'):
             return self.description['LineDash']
         else:
             return ''
+
     def getLineWidth(self):
         if self.description.has_key('LineWidth'):
             return self.description['LineWidth']
         else:
             return '0.8pt'
+
     def getLineColor(self):
         if self.description.has_key('LineColor'):
             return self.description['LineColor']
         else:
             return 'black'
+
     def getFillColor(self):
         if self.description.has_key('FillColor'):
             return self.description['FillColor']
         else:
             return 'white'
+
     def getHatchColor(self):
         if self.description.has_key('HatchColor'):
             return self.description['HatchColor']
         else:
             return 'black'
+
     def getFillStyle(self):
         if self.description.has_key('FillStyle'):
             return self.description['FillStyle']
         else:
             return 'none'
+
     def getPolyMarker(self):
         if self.description.has_key('PolyMarker'):
             return self.description['PolyMarker']
         else:
             return ''
+
     def getDotSize(self):
         if self.description.has_key('DotSize'):
             return self.description['DotSize']
         else:
             return '2pt 2'
+
     def getDotScale(self):
         if self.description.has_key('DotScale'):
             return self.description['DotScale']
         else:
             return '1'
+
     def getErrorBars(self):
         if self.description.has_key('ErrorBars'):
             return bool(int(self.description['ErrorBars']))
         else:
             return False
+
     def getErrorBands(self):
         if self.description.has_key('ErrorBands'):
             return bool(int(self.description['ErrorBands']))
         else:
             return False
+
     def getErrorBandColor(self):
         if self.description.has_key('ErrorBandColor'):
             return self.description['ErrorBandColor']
         else:
             return 'yellow'
+
     def startclip(self):
-        texfile.write('\\psclip{\\psframe[linewidth=0, linestyle=none](0,0)(1,1)}\n')
+        return '\\psclip{\\psframe[linewidth=0, linestyle=none](0,0)(1,1)}\n'
+
     def stopclip(self):
-        texfile.write('\\endpsclip\n')
+        return '\\endpsclip\n'
+
     def startpsset(self):
-        texfile.write('\\psset{linecolor='+self.getLineColor()+'}\n')
-        texfile.write('\\psset{linewidth='+self.getLineWidth()+'}\n')
-        texfile.write('\\psset{linestyle='+self.getLineStyle()+'}\n')
-        texfile.write('\\psset{fillstyle='+self.getFillStyle()+'}\n')
-        texfile.write('\\psset{fillcolor='+self.getFillColor()+'}\n')
-        texfile.write('\\psset{hatchcolor='+self.getHatchColor()+'}\n')
+        out = ""
+        out += ('\\psset{linecolor='+self.getLineColor()+'}\n')
+        out += ('\\psset{linewidth='+self.getLineWidth()+'}\n')
+        out += ('\\psset{linestyle='+self.getLineStyle()+'}\n')
+        out += ('\\psset{fillstyle='+self.getFillStyle()+'}\n')
+        out += ('\\psset{fillcolor='+self.getFillColor()+'}\n')
+        out += ('\\psset{hatchcolor='+self.getHatchColor()+'}\n')
         if self.getLineDash()!='':
-            texfile.write('\\psset{dash='+self.getLineDash()+'}\n')
+            out += ('\\psset{dash='+self.getLineDash()+'}\n')
+        return out
+
     def stoppsset(self):
-        texfile.write('\\psset{linecolor=black}\n')
-        texfile.write('\\psset{linewidth=0.8pt}\n')
-        texfile.write('\\psset{linestyle=solid}\n')
-        texfile.write('\\psset{fillstyle=none}\n')
-        texfile.write('\\psset{fillcolor=white}\n')
-        texfile.write('\\psset{hatchcolor=black}\n')
+        out = ""
+        out += ('\\psset{linecolor=black}\n')
+        out += ('\\psset{linewidth=0.8pt}\n')
+        out += ('\\psset{linestyle=solid}\n')
+        out += ('\\psset{fillstyle=none}\n')
+        out += ('\\psset{fillcolor=white}\n')
+        out += ('\\psset{hatchcolor=black}\n')
+        return out
+
+
 
 class Function(DrawableObject):
     def __init__(self, f):
         self.read_input(f)
+
     def read_input(self, f):
         self.description = {}
         self.code='def plotfunction(x):\n'
@@ -660,9 +737,11 @@ class Function(DrawableObject):
                         self.description[linearray[0]] = linearray[1]
         if not iscode:
             print '++++++++++ ERROR: No code in function'
+
     def draw(self):
-        self.startclip()
-        self.startpsset()
+        out = ""
+        out += self.startclip()
+        out += self.startpsset()
         if self.description.has_key('XMin') and self.description['XMin']!='':
             min=float(self.description['XMin'])
         else:
@@ -673,19 +752,23 @@ class Function(DrawableObject):
             max=xmax
         dx=(max-min)/500.
         x=min-dx
-        texfile.write('\\pscurve')
+        out += ('\\pscurve')
         while x<(max+2*dx):
             foo=compile(self.code, '<string>', 'exec')
             exec(foo)
             y=plotfunction(x)
-            texfile.write('(%s,%s)\n' % (coors.strphys2frameX(x), coors.strphys2frameY(y)))
+            out += ('(%s,%s)\n' % (coors.strphys2frameX(x), coors.strphys2frameY(y)))
             x+=dx
-        self.stoppsset()
-        self.stopclip()
+        out += self.stoppsset()
+        out += self.stopclip()
+        return out
+
+
 
 class Histogram(DrawableObject):
     def __init__(self, f):
         self.read_input(f)
+
     def read_input(self, f):
         self.description = {}
         self.data = []
@@ -754,17 +837,19 @@ class Histogram(DrawableObject):
                                     'Content': foo/float(rebin),
                                     'Error':   [sqrt(barl)/float(rebin),sqrt(baru)/float(rebin)]})
                 self.data=newdata
+
     def add(self,name):
         if len(self.data)!=len(name.data):
             print '+++ Error in Histogram.add(): Binning of histograms differs'
         for i in range(len(self.data)):
             if self.data[i]['LowEdge']==name.data[i]['LowEdge'] and \
-               self.data[i]['UpEdge']==name.data[i]['UpEdge']:
+                    self.data[i]['UpEdge']==name.data[i]['UpEdge']:
                 self.data[i]['Content'] += name.data[i]['Content']
                 self.data[i]['Error'][0] = sqrt(self.data[i]['Error'][0]**2 + name.data[i]['Error'][0]**2)
                 self.data[i]['Error'][1] = sqrt(self.data[i]['Error'][1]**2 + name.data[i]['Error'][1]**2)
             else:
                 print '+++ Error in Histogram.add(): Binning of histograms differs'
+
     def divide(self,name):
         if len(self.data)!=len(name.data):
             print '+++ Error in Histogram.divide(): Binning of histograms differs'
@@ -788,72 +873,78 @@ class Histogram(DrawableObject):
 #                self.data[i]['Error'][1] = sqrt(self.data[i]['Error'][1]**2 + name.data[i]['Error'][1]**2)
             else:
                 print '+++ Error in Histogram.divide(): Binning of histograms differs'
+
     def draw(self):
-        self.startclip()
-        self.startpsset()
+        out = ""
+        out += self.startclip()
+        out += self.startpsset()
         #
         if is2dim:
             for i in range(len(self.data)):
-                texfile.write('\\psframe')
+                out += ('\\psframe')
                 color=int(129*(self.data[i]['Content']-zmin)/(zmax-zmin))
                 if self.data[i]['Content']>zmax:
                     color=129
                 if self.data[i]['Content']<zmin:
                     color=0
-                texfile.write('[linewidth=0pt, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
-                texfile.write('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
-                                  + coors.strphys2frameY(self.data[i]['LowEdge'][1]) + ')(' \
-                                  + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
-                                  + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
+                out += ('[linewidth=0pt, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
+                out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
+                            + coors.strphys2frameY(self.data[i]['LowEdge'][1]) + ')(' \
+                            + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
+                            + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
         else:
             if self.getErrorBars():
                 for i in range(len(self.data)):
                     if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]: continue
-                    texfile.write('\psline')
-                    texfile.write('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                      + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
-                                      + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                      + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                    texfile.write('\psline')
+                    out += ('\psline')
+                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
+                                + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                    out += ('\psline')
                     bincenter = coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge']))
-                    texfile.write('(' + bincenter + ', ' \
-                                      + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
-                                      + bincenter + ', ' \
-                                      + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
+                    out += ('(' + bincenter + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
+                                + bincenter + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
             else:
                 if self.getErrorBands():
                     for i in range(len(self.data)):
-                        texfile.write('\\psframe[dimen=outer,linecolor=%s,fillstyle=solid,fillcolor=%s]' %(self.getErrorBandColor(),self.getErrorBandColor()))
-                        texfile.write('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                          + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
-                                          + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                          + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
-                texfile.write('\psline(-0.1,-0.1)\n')
+                        out += ('\\psframe[dimen=outer,linecolor=%s,fillstyle=solid,fillcolor=%s]' %(self.getErrorBandColor(),self.getErrorBandColor()))
+                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
+                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
+                out += ('\psline(-0.1,-0.1)\n')
                 for i in range(len(self.data)):
-                    texfile.write('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                      + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
-                                      + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                      + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                texfile.write('(1.1,-0.1)')
+                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
+                                + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                out += ('(1.1,-0.1)')
         #
         if self.getPolyMarker() != '':
             for i in range(len(self.data)):
                 if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]: continue
-                texfile.write('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
-                              + coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
-                              + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-        self.stoppsset()
-        self.stopclip()
+                out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
+                            + coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
+                            + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+        out += self.stoppsset()
+        out += self.stopclip()
+        return out
+
     def getXMin(self):
         if is2dim:
             return self.data[0]['LowEdge'][0]
         else:
             return min([self.data[i]['LowEdge'] for i in range(len(self.data))])
+
     def getXMax(self):
         if is2dim:
             return self.data[-1]['UpEdge'][0]
         else:
             return max([self.data[i]['UpEdge'] for i in range(len(self.data))])
+
     def getYMin(self, xmin, xmax):
         if is2dim:
             return self.data[0]['LowEdge'][1]
@@ -875,6 +966,7 @@ class Histogram(DrawableObject):
                 return min(yvalues)
             else:
                 return self.data[0]['Content']
+
     def getYMax(self, xmin, xmax):
         if is2dim:
             return self.data[-1]['UpEdge'][1]
@@ -891,6 +983,7 @@ class Histogram(DrawableObject):
                 return max(yvalues)
             else:
                 return self.data[0]['Content']
+
     def getZMin(self):
         if not is2dim:
             return 0
@@ -900,6 +993,7 @@ class Histogram(DrawableObject):
                (self.data[i]['UpEdge'][1] > ymin and self.data[i]['LowEdge'][1] < ymax):
                 zvalues.append(self.data[i]['Content'])
         return min(zvalues)
+
     def getZMax(self):
         if not is2dim:
             return 0
@@ -910,12 +1004,19 @@ class Histogram(DrawableObject):
                 zvalues.append(self.data[i]['Content'])
         return max(zvalues)
 
+
+
 class Frame:
     def __init__(self):
         self.framelinewidth     = '0.3pt'
+
     def draw(self):
-        texfile.write('\n%\n% Frame\n%\n')
-        texfile.write('\\psframe[linewidth='+self.framelinewidth+',dimen=middle](0,0)(1,1)\n')
+        out = ""
+        out += ('\n%\n% Frame\n%\n')
+        out += ('\\psframe[linewidth='+self.framelinewidth+',dimen=middle](0,0)(1,1)\n')
+        return out
+
+
 
 class Ticks:
     def __init__(self):
@@ -923,29 +1024,31 @@ class Ticks:
         self.minorticklinewidth = '0.3pt'
         self.majorticklength    = '9pt'
         self.minorticklength    = '4pt'
+
     def draw_ticks(self, min, max, plotlog=False, customticks=[], customminortickmarks=-1, custommajortickmarks=-1,drawlabels=True):
+        out = ""
         if plotlog:
             x=int(log10(min))
             while (x<log10(max)+1):
                 if 10**x>=min:
                     ticklabel=10**x
                     if ticklabel>min and ticklabel<max:
-                        self.draw_majorticklabel(ticklabel)
-                        self.draw_majortick(ticklabel)
+                        out += self.draw_majorticklabel(ticklabel)
+                        out += self.draw_majortick(ticklabel)
                     if ticklabel==min or ticklabel==max:
-                        self.draw_majorticklabel(ticklabel)
+                        out += self.draw_majorticklabel(ticklabel)
                     for i in range(2,10):
                         ticklabel=i*10**(x-1)
                         if ticklabel>min and ticklabel<max:
-                            self.draw_minortick(ticklabel)
+                            out += self.draw_minortick(ticklabel)
                 x+=1
         elif customticks!=[]:
             for i in range(len(customticks)):
                 value=customticks[i]['Value']
                 label=customticks[i]['Label']
                 if value>=min and value<=max:
-                    self.draw_majortick(value)
-                    self.draw_majorticklabel(value, label=label)
+                    out += self.draw_majortick(value)
+                    out += self.draw_majorticklabel(value, label=label)
         else:
             xrange = max-min
             digits = int(log10(xrange))+1
@@ -983,9 +1086,9 @@ class Ticks:
                         ticklabel = int(ticklabel)
                     if (float(ticklabel-min)/xrange >= -1e-5):
                         if (fabs(ticklabel-min)/xrange > 1e-5 and fabs(ticklabel-max)/xrange > 1e-5):
-                            self.draw_majortick(ticklabel)
+                            out += self.draw_majortick(ticklabel)
                         if drawlabels:
-                            self.draw_majorticklabel(ticklabel)
+                            out += self.draw_majorticklabel(ticklabel)
 
                     xminor = x
                     for i in range(minortickmarks):
@@ -993,16 +1096,22 @@ class Ticks:
                         ticklabel = 1.*xminor/10**digits
                         if (ticklabel > min and ticklabel < max):
                             if (fabs(ticklabel-min)/xrange > 1e-5 and fabs(ticklabel-max)/xrange > 1e-5):
-                                self.draw_minortick(ticklabel)
+                                out += self.draw_minortick(ticklabel)
                 x += tickmarks*100**(digits-1)
+        return out
+
     def draw(self):
         pass
+
     def draw_minortick(self, ticklabel):
         pass
+
     def draw_majortick(self, ticklabel):
         pass
+
     def draw_majorticklabel(self, ticklabel):
         pass
+
     def get_ticklabel(self, value, plotlog=False):
         label=''
         if plotlog:
@@ -1020,47 +1129,64 @@ class Ticks:
             label=str(value)
         return label
 
+
+
 class XTicks(Ticks):
     def draw(self, customticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
-        texfile.write('\n%\n% X-Ticks\n%\n')
-        texfile.write('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
-        texfile.write('\\def\\minortickmarkx{\\psline[linewidth='+self.minorticklinewidth+'](0,0)(0,'+self.minorticklength+')}%\n')
-        self.draw_ticks(xmin, xmax,\
-                        plotlog=logx,\
-                        customticks=customticks,\
-                        custommajortickmarks=custommajortickmarks,\
-                        customminortickmarks=customminortickmarks,drawlabels=drawlabels)
+        out = ""
+        out += ('\n%\n% X-Ticks\n%\n')
+        out += ('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
+        out += ('\\def\\minortickmarkx{\\psline[linewidth='+self.minorticklinewidth+'](0,0)(0,'+self.minorticklength+')}%\n')
+        out += self.draw_ticks(xmin, xmax,\
+                                   plotlog=logx,\
+                                   customticks=customticks,\
+                                   custommajortickmarks=custommajortickmarks,\
+                                   customminortickmarks=customminortickmarks,drawlabels=drawlabels)
+        return out
+
     def draw_minortick(self, ticklabel):
-        texfile.write('\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\minortickmarkx}\n')
+        return ('\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\minortickmarkx}\n')
+
     def draw_majortick(self, ticklabel):
-        texfile.write('\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\majortickmarkx}\n')
+        return ('\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\majortickmarkx}\n')
+
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,logx)
-        texfile.write('\\rput('+coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){'+label+'}}\n')
+        return('\\rput('+coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){'+label+'}}\n')
+
+
 
 class YTicks(Ticks):
     def draw(self, customticks=[], custommajortickmarks=-1, customminortickmarks=-1):
-        texfile.write('\n%\n% Y-Ticks\n%\n')
-        texfile.write('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
-        texfile.write('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
-        self.draw_ticks(ymin, ymax,\
-                        plotlog=logy,\
-                        customticks=customticks,\
-                        custommajortickmarks=custommajortickmarks,\
-                        customminortickmarks=customminortickmarks)
+        out = ""
+        out += ('\n%\n% Y-Ticks\n%\n')
+        out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
+        out += ('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
+        out += self.draw_ticks(ymin, ymax,\
+                                   plotlog=logy,\
+                                   customticks=customticks,\
+                                   custommajortickmarks=custommajortickmarks,\
+                                   customminortickmarks=customminortickmarks)
+        return out
+
     def draw_minortick(self, ticklabel):
-        texfile.write('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n')
+        return ('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n')
+
     def draw_majortick(self, ticklabel):
-        texfile.write('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n')
+        return('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n')
+
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,logy)
-        texfile.write('\\uput[180]{0}(0, '+coors.strphys2frameY(value)+'){'+label+'}\n')
+        return('\\uput[180]{0}(0, '+coors.strphys2frameY(value)+'){'+label+'}\n')
+
+
 
 class Coordinates:
     def __init__(self):
         pass
+
     def phys2frameX(self, x):
         if logx:
             if x>0:
@@ -1073,6 +1199,7 @@ class Coordinates:
             return 0
         else:
             return min(max(result,-10),10)
+
     def phys2frameY(self, y):
         if logy:
             if y>0:
@@ -1085,8 +1212,10 @@ class Coordinates:
             return 0
         else:
             return min(max(result,-10),10)
+
     def strphys2frameX(self, x):
         return str(self.phys2frameX(x))
+
     def strphys2frameY(self, y):
         return str(self.phys2frameY(y))
 
@@ -1094,23 +1223,145 @@ class Coordinates:
 ####################
 
 
-opts = None
-def main():
+import shutil
+def process_datfile(datfile):
     global opts
+    filename = datfile.replace('.dat','')
+
+    ## Create a temporary directory
+    cwd = os.getcwd()
+    datpath = os.path.join(cwd, datfile)
+    tempdir = tempfile.mkdtemp('.make_plot')
+    tempdatpath = os.path.join(tempdir, datfile)
+    shutil.copy(datpath, tempdir)
+
+    ## Make TeX file
+    inputdata = Inputdata(filename)
+    texpath = os.path.join(tempdir, '%s.tex' % filename)
+    texfile = open(texpath, 'w')
+    mp = MainPlot(inputdata).draw(inputdata)
+    texfile.write(mp)
+    rp = RatioPlot(inputdata).draw(inputdata)
+    texfile.write(rp)
+    texfile.close()
+
+    if opts.OUTPUT_FORMAT != "TEX":
+        ## Run LaTeX (in no-stop mode)
+        logging.debug(os.listdir(tempdir))
+        chdir = 'cd %s && ' % tempdir
+        lcmd = 'latex "\scrollmode\input" %s' % texpath
+        if not logging.getLogger().isEnabledFor(logging.DEBUG):
+            lcmd += " > /dev/null"
+        cmd = "(" + chdir + lcmd + ")"
+        logging.debug(cmd)
+        os.system(cmd)
+        logging.debug(os.listdir(tempdir))
+
+        ## Run dvips
+        dvipsargs = ""
+        if not logging.getLogger().isEnabledFor(logging.DEBUG):
+            dvipsargs += "-q"
+        if opts.MINION:
+            dvipsargs += ' -Pminion'
+        if opts.OUTPUT_FORMAT == "PDF":
+            dvipsargs += ' -f | ps2pdf - > %s.pdf' % filename
+        else:
+            dvipsargs += ' -o %s.ps' % filename
+        dvcmd = 'dvips %s %s' % (filename, dvipsargs)
+        cmd = "(" + chdir + dvcmd + ")"
+        logging.debug(cmd)
+        os.system(cmd)
+        logging.debug(os.listdir(tempdir))
+
+    ## Copy results back to main dir
+    outbasename = filename
+    outname = outbasename + "." + opts.OUTPUT_FORMAT.lower()
+    outpath = os.path.join(tempdir, outname)
+    if os.path.exists(outpath):
+        shutil.copy(outpath, cwd)
+    else:
+        logging.error("No output file '%s' from processing %s" % (outname, datfile))
+
+    # ## Make PNG
+    # if opts.PNG_OUTPUT:
+    #     ## TODO
+    #     pass
+
+    ## Clean up
+    if opts.NO_CLEANUP:
+        logging.info('Keeping temp-files in %s' % tempdir)
+    else:
+        shutil.rmtree(tempdir, ignore_errors=True)
+
+
+# ## Set up signal handling
+# import signal
+# RECVD_KILL_SIGNAL = None
+# def handleKillSignal(signum, frame):
+#     "Declare us as having been signalled, and return to default handling behaviour"
+#     logging.critical("Signal handler called with signal " + str(signum))
+#     RECVD_KILL_SIGNAL = signum
+#     signal.signal(signum, signal.SIG_DFL)
+# ## Signals to handle
+# signal.signal(signal.SIGTERM, handleKillSignal);
+# signal.signal(signal.SIGHUP,  handleKillSignal);
+
+
+## Wrapper for a process thread which attempts to process datfiles until empty
+import threading, Queue
+class MkPlotThread( threading.Thread ):
+    def run(self):
+        global opts
+        global datfiles
+        while True:
+            #if RECVD_KILL_SIGNAL is not None:
+            #    exit(1)
+            try:
+                datfile = datfiles.get_nowait()
+                logging.info("Plotting %s" % datfile)
+                process_datfile(datfile)
+            except Queue.Empty, e:
+                #print "%s ending." % self.getName()
+                break
+
+
+####################
+
+
+if __name__ == '__main__':
     msg = """\
 Usage: %prog [options] file.dat [file2.dat ...]
 
 TODO
- * multi-thread
+ * use std method (from compphys marking) to kill the subprocess
  * PNG output
+ * EPS output
+ * Tidy LaTeX-writing code
+ * Handle boolean values flexibly (yes, no, true, false, etc. as well as 1, 0)
 """
 
+    ## Find number of (virtual) processing units
+    numcores = os.sysconf('SC_NPROCESSORS_ONLN')
+    if numcores is None:
+        numcores = 1
+
+    ## Parse command line options
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=msg)
+    parser.add_option("-n", "--num-threads", dest="NUM_THREADS", type=int,
+                      default=numcores, help="max number of threads to be used [%s]" % numcores)
     parser.add_option("--minion", dest="MINION", default=False,
-                      help="Use Adobe Minion Pro. Note: You need to set TEXMFHOME before.")
-    parser.add_option("--pdf", dest="PDF_OUTPUT", action="store_true", default=False, 
-                      help="Create PDF output instead of PostScript. This usually results in a smaller file size.")
+                      help="Use Adobe Minion Pro. Note: You need to set TEXMFHOME first.")
+    parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PS", 
+                      help="Create PostScript output.")
+    parser.add_option("--pdf", dest="OUTPUT_FORMAT", action="store_const", const="PDF", default="PS", 
+                      help="Create PDF output.")
+#     parser.add_option("--eps", dest="OUTPUT_FORMAT", action="store_const", const="EPS", default="EPS", 
+#                       help="Create Encapsulated PostScript output.")
+#     parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS", 
+#                       help="Create PNG output.")
+    parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PS", 
+                      help="Create TeX/LaTeX output.")
     parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False, 
                       help="Keep temporary directory and print its filename.")
     parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False, 
@@ -1124,13 +1375,19 @@ TODO
     opts, args = parser.parse_args()
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
+
     ## Check for no args
-    if len(args)==0:
+    if len(args) == 0:
         logging.error(parser.get_usage())
         sys.exit(2)
 
+    ## Test for pstoepsi
+    ## Test for convert
+    ## Or use PIL
+    # TODO!
+
     ## Check for sf mathpazo font
-    opts.MATHPAZOOSF = not(os.system('kpsewhich ot1pplx.fd > /dev/null'))
+    opts.MATHPAZO_SF = not(os.system('kpsewhich ot1pplx.fd > /dev/null'))
 
     ## Check minion font
     if opts.MINION:
@@ -1138,52 +1395,13 @@ TODO
             logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
             opts.MINION = False
 
-    for datfile in args:
-        filename = datfile.replace('.dat','')
+    ## Fill queue
+    datfiles = Queue.Queue(maxsize=-1)
+    for d in args:
+        datfiles.put(d)
+    
+    ## Run threads
+    for threadnum in range(opts.NUM_THREADS):
+        procthread = MkPlotThread()
+        procthread.start()
 
-        ## Create a temporary directory
-        oldwdir = os.getcwd()
-        tempdir = tempfile.mkdtemp('.make_plot')
-        os.chdir(tempdir)
-        logging.debug("%s %s %s" % (oldwdir, datfile, tempdir))
-        os.symlink('%s/%s' %(oldwdir, datfile), datfile)
-
-        ## Make TeX file
-        inputdata = Inputdata(filename)
-        global texfile
-        texfile = open('%s.tex' % filename, 'w')
-        MainPlot(inputdata)
-        RatioPlot(inputdata)
-        texfile.close()
-
-        # Run LaTeX (in no-stop mode)
-        lcmd = 'latex "\scrollmode\input" %s' % filename
-        dvipsargs = ""
-        if not logging.getLogger().isEnabledFor(logging.DEBUG):
-            lcmd += " > /dev/null"
-            dvipsargs += "-q"
-        os.system(lcmd)
-        if opts.MINION:
-            dvipsargs += ' -Pminion'
-        if opts.PDF_OUTPUT:
-            dvipsargs += ' -f | ps2pdf - > %s.pdf' % filename
-        else:
-            dvipsargs += ' -o %s.ps' % filename
-        os.system('dvips %s %s' % (filename,dvipsargs))
-
-        # Clean up
-        if opts.PDF_OUTPUT:
-            os.system('cp %s.pdf %s/' % (filename, oldwdir))
-        else:
-            os.system('cp %s.ps %s/' % (filename, oldwdir))
-        os.chdir(oldwdir)
-        if opts.NO_CLEANUP:
-            print 'Keeping temp-files in %s' % tempdir
-        else:
-            for i in os.listdir(tempdir):
-                os.unlink('%s/%s' % (tempdir, i))
-            os.rmdir(tempdir)
-
-
-if __name__ == '__main__':
-    main()
