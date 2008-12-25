@@ -20,8 +20,12 @@ install-dox:
 #install-data-local:
 #	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
 mostlyclean-local:
-	rm -rf $(top_builddir)/doxy
+	@rm -rf $(top_builddir)/doxy
 uninstall-local:
-	rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
+	@rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
 	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir --ignore-fail-on-non-empty $(DESTDIR)$(pkgdatadir)
 endif
+
+## Remove SVN dirs
+dist-hook:
+	@rm -rf `find $(distdir) -name ".svn"`
