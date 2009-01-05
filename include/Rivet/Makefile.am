@@ -39,6 +39,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2005_S6217184.hh \
   Analyses/CDF_2006_S6653332.hh \
   Analyses/CDF_2007_S7057202.hh \
+  Analyses/CDF_2008_S7540469.hh \
   Analyses/CDF_2008_S7541902.hh \
   Analyses/CDF_2008_S7782535.hh \
   Analyses/CDF_2008_LEADINGJETS.hh \
@@ -66,8 +67,8 @@ nobase_dist_noinst_HEADERS += \
   Analyses/OPAL_2004_S6132243.hh \
   Analyses/ZEUS_2001_S4815815.hh \
   Analyses/PDG_Hadron_Multiplicities.hh \
-  Analyses/PDG_Hadron_Multiplicities_Ratios.hh
-
+  Analyses/PDG_Hadron_Multiplicities_Ratios.hh \
+  Analyses/MC_TVT1960_ZJETS.hh
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \

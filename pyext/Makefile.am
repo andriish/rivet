@@ -1,3 +1,5 @@
+EXTRA_DIST = rivet.i
+
 #if PYTHON_USE
 if ENABLE_PYRIVET
 
@@ -18,9 +20,5 @@ distclean-local:
 	@rm -rf *.egg-info
 	@rm -rf dist
 	@rm -f rivet_wrap.* rivet.py*
-
-else 
-
-EXTRA_DIST = rivet.i
 
 endif

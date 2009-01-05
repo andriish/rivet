@@ -4,7 +4,7 @@ $(pluginlib): MyAnalysis.cc
 	$(CXX) -o $(pluginlib) -shared -I$(top_srcdir)/include -I$(HEPMCINCPATH) MyAnalysis.cc
 
 ## Hook in the build rule for the plugin library demo
-all-local: $(pluginlib)
+plugin: $(pluginlib)
 	@true
 
 ## Use rivet to test for the new plugin being loaded
