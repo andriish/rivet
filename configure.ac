@@ -104,14 +104,21 @@ AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 
 
 ## Decide whether to build the Python extension
+AZ_PYTHON_DEFAULT
 AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--enable-pyext, 
   [build Rivet Python module @<:@default=no@:>@])], [], [enable_pyext=no])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyext == xyes])
 if test x$enable_pyext == xyes; then
-  AM_PATH_PYTHON(2.3)
+  #AZ_PYTHON_ENABLE
+  AZ_PYTHON_PATH
+  AZ_PYTHON_VERSION_ENSURE([2.3])
+  #AZ_PYTHON_CSPEC
+  #AZ_PYTHON_LSPEC
   AC_PROG_SWIG(1.3.21)
   SWIG_ENABLE_CXX
-  SWIG_PYTHON
+  dnl AC_SUBST([SWIG_PYTHON_OPT],[-python])
+  dnl AC_SUBST([SWIG_PYTHON_CPPFLAGS],[$PYTHON_CPPFLAGS])
+  #SWIG_PYTHON
 fi
 
 
@@ -161,6 +168,7 @@ AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/Analyses/Makefile)
 AC_CONFIG_FILES(src/Test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile)
+AC_CONFIG_FILES(pyext/setup.py)
 AC_CONFIG_FILES(data/Makefile)
 AC_CONFIG_FILES(data/refdata/Makefile)
 AC_CONFIG_FILES(doc/Makefile)

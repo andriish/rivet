@@ -1,3 +1,10 @@
+2009-01-05  Andy Buckley  <andy@insectnation.org>
+
+	* Python: reworking Python extension build to use distutils and
+	newer m4 Python macros. Probably breaks distcheck but is otherwise
+	more robust and platform independent (i.e. it should now work on
+	Macs).
+
 2008-12-19  Andy Buckley  <andy@insectnation.org>
 
 	* make-plots: Multi-threaded make-plots and cleaned up the LaTeX

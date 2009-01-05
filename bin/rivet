@@ -4,6 +4,10 @@ import sys, os, time
 import logging, signal
 from optparse import OptionParser, OptionGroup
 
+## Change dlopen status to GLOBAL for Rivet lib
+import ctypes
+sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
+
 ## Get version from rivet-config
 version="HEAD"
 try:
