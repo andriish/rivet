@@ -1,3 +1,11 @@
+2009-01-06  Andy Buckley  <andy@insectnation.org>
+
+	* bin/make-plots: Added --png option for making PNG output files,
+	using 'convert' (after making a PDF --- it's a bit messy)
+
+	* bin/make-plots: Added --eps option for output filtering through
+	ps2eps.
+
 2009-01-05  Andy Buckley  <andy@insectnation.org>
 
 	* Python: reworking Python extension build to use distutils and

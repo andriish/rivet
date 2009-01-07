@@ -1226,7 +1226,10 @@ class Coordinates:
 import shutil
 def process_datfile(datfile):
     global opts
+
     filename = datfile.replace('.dat','')
+    if not os.access(datfile, os.R_OK):
+        raise Exception("Could not read data file '%s'" % datfile)
 
     ## Create a temporary directory
     cwd = os.getcwd()
@@ -1261,10 +1264,17 @@ def process_datfile(datfile):
         dvipsargs = ""
         if not logging.getLogger().isEnabledFor(logging.DEBUG):
             dvipsargs += "-q"
+        ## Handle Minion Font
         if opts.MINION:
             dvipsargs += ' -Pminion'
+        ## Choose format
         if opts.OUTPUT_FORMAT == "PDF":
             dvipsargs += ' -f | ps2pdf - > %s.pdf' % filename
+        elif opts.OUTPUT_FORMAT == "EPS":
+            dvipsargs += ' -f | ps2eps > %s.eps 2> /dev/null' % filename
+        elif opts.OUTPUT_FORMAT == "PNG":
+            ## Messy, but I can only get a background to appear if I make a PDF first...
+            dvipsargs += ' -f | ps2pdf - | convert -density 250 - %s.png' % filename
         else:
             dvipsargs += ' -o %s.ps' % filename
         dvcmd = 'dvips %s %s' % (filename, dvipsargs)
@@ -1281,11 +1291,6 @@ def process_datfile(datfile):
         shutil.copy(outpath, cwd)
     else:
         logging.error("No output file '%s' from processing %s" % (outname, datfile))
-
-    # ## Make PNG
-    # if opts.PNG_OUTPUT:
-    #     ## TODO
-    #     pass
 
     ## Clean up
     if opts.NO_CLEANUP:
@@ -1323,7 +1328,9 @@ class MkPlotThread( threading.Thread ):
             except Queue.Empty, e:
                 #print "%s ending." % self.getName()
                 break
-
+            except Exception, e:
+                print "Error: %s" % str(e)
+                #exit(1)
 
 ####################
 
@@ -1334,8 +1341,6 @@ Usage: %prog [options] file.dat [file2.dat ...]
 
 TODO
  * use std method (from compphys marking) to kill the subprocess
- * PNG output
- * EPS output
  * Tidy LaTeX-writing code
  * Handle boolean values flexibly (yes, no, true, false, etc. as well as 1, 0)
 """
@@ -1356,10 +1361,10 @@ TODO
                       help="Create PostScript output.")
     parser.add_option("--pdf", dest="OUTPUT_FORMAT", action="store_const", const="PDF", default="PS", 
                       help="Create PDF output.")
-#     parser.add_option("--eps", dest="OUTPUT_FORMAT", action="store_const", const="EPS", default="EPS", 
-#                       help="Create Encapsulated PostScript output.")
-#     parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS", 
-#                       help="Create PNG output.")
+    parser.add_option("--eps", dest="OUTPUT_FORMAT", action="store_const", const="EPS", default="PS", 
+                      help="Create Encapsulated PostScript output.")
+    parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS", 
+                     help="Create PNG output.")
     parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PS", 
                       help="Create TeX/LaTeX output.")
     parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False, 
@@ -1379,12 +1384,16 @@ TODO
     ## Check for no args
     if len(args) == 0:
         logging.error(parser.get_usage())
-        sys.exit(2)
+        exit(2)
 
-    ## Test for pstoepsi
-    ## Test for convert
-    ## Or use PIL
-    # TODO!
+#     ## Test for latex and dvips
+#     latex/dvips
+#     ## Test for ps2pdf
+#     if opts.OUTPUT_FORMAT == "PDF":
+#         ps2pdf
+#     ## Test for ps2eps        
+#     if opts.OUTPUT_FORMAT == "EPS":
+#         ps2eps
 
     ## Check for sf mathpazo font
     opts.MATHPAZO_SF = not(os.system('kpsewhich ot1pplx.fd > /dev/null'))
