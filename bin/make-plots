@@ -1273,8 +1273,7 @@ def process_datfile(datfile):
         elif opts.OUTPUT_FORMAT == "EPS":
             dvipsargs += ' -f | ps2eps > %s.eps 2> /dev/null' % filename
         elif opts.OUTPUT_FORMAT == "PNG":
-            ## Messy, but I can only get a background to appear if I make a PDF first...
-            dvipsargs += ' -f | ps2pdf - | convert -density 250 - %s.png' % filename
+            dvipsargs += ' -f | convert -density 250 -flatten - %s.png' % filename
         else:
             dvipsargs += ' -o %s.ps' % filename
         dvcmd = 'dvips %s %s' % (filename, dvipsargs)
