@@ -224,11 +224,11 @@ class Plot:
         #
         out = ""
         out += '\\documentclass{article}\n'
-        if opts.MINION:
+        if opts.OUTPUT_FONT == "MINION":
             out += ('\\usepackage{minion}\n')
-        elif opts.MATHPAZO_SF:
+        elif opts.OUTPUT_FONT == "PALATINO_OSF":
             out += ('\\usepackage[osf,sc]{mathpazo}\n')
-        else:
+        elif opts.OUTPUT_FONT == "PALATINO":
             out += ('\\usepackage{mathpazo}\n')
         out += ('\\usepackage{pst-all}\n')
         out += ('\\selectcolormodel{rgb}\n')
@@ -1153,7 +1153,7 @@ class XTicks(Ticks):
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,logx)
-        return('\\rput('+coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){'+label+'}}\n')
+        return ('\\rput('+coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){'+label+'}}\n')
 
 
 
@@ -1174,12 +1174,12 @@ class YTicks(Ticks):
         return ('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n')
 
     def draw_majortick(self, ticklabel):
-        return('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n')
+        return ('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n')
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,logy)
-        return('\\uput[180]{0}(0, '+coors.strphys2frameY(value)+'){'+label+'}\n')
+        return ('\\uput[180]{0}(0, '+coors.strphys2frameY(value)+'){'+label+'}\n')
 
 
 
@@ -1265,7 +1265,7 @@ def process_datfile(datfile):
         if not logging.getLogger().isEnabledFor(logging.DEBUG):
             dvipsargs += "-q"
         ## Handle Minion Font
-        if opts.MINION:
+        if opts.OUTPUT_FONT == "MINION":
             dvipsargs += ' -Pminion'
         ## Choose format
         if opts.OUTPUT_FORMAT == "PDF":
@@ -1354,10 +1354,14 @@ TODO
     parser = OptionParser(usage=msg)
     parser.add_option("-n", "--num-threads", dest="NUM_THREADS", type=int,
                       default=numcores, help="max number of threads to be used [%s]" % numcores)
-    parser.add_option("--minion", dest="MINION", default=False,
-                      help="Use Adobe Minion Pro. Note: You need to set TEXMFHOME first.")
+    parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
+                      help="Use Palatino as font (default).")
+    parser.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
+                      help="Use Computer Modern as font.")
+    parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
+                      help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
     parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PS", 
-                      help="Create PostScript output.")
+                      help="Create PostScript output (default).")
     parser.add_option("--pdf", dest="OUTPUT_FORMAT", action="store_const", const="PDF", default="PS", 
                       help="Create PDF output.")
     parser.add_option("--eps", dest="OUTPUT_FORMAT", action="store_const", const="EPS", default="PS", 
@@ -1394,14 +1398,15 @@ TODO
 #     if opts.OUTPUT_FORMAT == "EPS":
 #         ps2eps
 
-    ## Check for sf mathpazo font
-    opts.MATHPAZO_SF = not(os.system('kpsewhich ot1pplx.fd > /dev/null'))
-
     ## Check minion font
-    if opts.MINION:
+    if opts.OUTPUT_FONT == "MINION":
         if os.system('kpsewhich minion.sty > /dev/null') != 0:
             logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
-            opts.MINION = False
+            opts.OUTPUT_FONT = "PALATINO"
+
+    ## Check for Palatino old style figures and small caps
+    if (opts.OUTPUT_FONT == "PALATINO") and not(os.system('kpsewhich ot1pplx.fd > /dev/null')):
+        opts.OUTPUT_FONT = "PALATINO_OSF"
 
     ## Fill queue
     datfiles = Queue.Queue(maxsize=-1)
