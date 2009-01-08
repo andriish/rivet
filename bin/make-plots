@@ -5,8 +5,8 @@
 ## for scientific and private purposes. Patches are welcome, but please don't
 ## redistribute changed versions yourself.
 ## 
-## $Date: 2008-11-27 15:54:35 +0100 (Thu, 27 Nov 2008) $
-## $Revision: 402 $
+## $Date$
+## $Revision$
 ## 
 
 
@@ -21,10 +21,6 @@ import getopt
 import string
 from math import *
 
-# ## Find numer of (virtual) processing units
-# numcores = os.sysconf('SC_NPROCESSORS_ONLN')
-# if numcores is None:
-#     numcores = 1
 
 class Inputdata:
     def __init__(self, filename):
@@ -1348,6 +1344,11 @@ TODO
     numcores = os.sysconf('SC_NPROCESSORS_ONLN')
     if numcores is None:
         numcores = 1
+
+    ## Work-around for global variable locking bug.
+    ## We set the numcores default to 1 until we get
+    ## rid of the global variables.
+    numcores = 1
 
     ## Parse command line options
     from optparse import OptionParser, OptionGroup
