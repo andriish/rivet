@@ -303,7 +303,7 @@ def getHistos(aidafile):
 HISTOS = {}
 TITLES = {}
 NAMES = set()
-for f in FILES:
+for f in FILES + ["REF"]:
     HISTOS[f] = {}
 for f in FILES:
     histos, titles = getHistos(f)
