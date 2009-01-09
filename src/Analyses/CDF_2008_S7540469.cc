@@ -174,7 +174,9 @@ namespace Rivet {
     /// @todo Use the generator cross-section
     
     // normalize jet multi to first bin
-    double factor=7003.0/_h_jet_multiplicity->binHeight(0);
+    double factor=0.;
+    if (_h_jet_multiplicity->binHeight(0) != 0)
+      factor=7003.0/_h_jet_multiplicity->binHeight(0);
     scale(_h_jet_multiplicity, factor);
     normalize(_h_jet_pT_cross_section_incl_1jet, 7839.5);
     normalize(_h_jet_pT_cross_section_incl_2jet, 1471.35);
