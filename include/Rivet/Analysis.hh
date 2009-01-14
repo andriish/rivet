@@ -116,6 +116,7 @@ namespace Rivet {
     }
     //@}
 
+
   public:
     /// Return the Cuts object of this analysis object. Derived
     /// classes should re-implement this function to return the combined
@@ -153,7 +154,7 @@ namespace Rivet {
     }
 
     /// Access the controlling AnalysisHandler object.
-    AnalysisHandler& getHandler() const {
+    AnalysisHandler& handler() const {
       return *_analysishandler;
     }
 

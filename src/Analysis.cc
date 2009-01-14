@@ -21,22 +21,22 @@ namespace Rivet {
   
 
   IAnalysisFactory& Analysis::analysisFactory() {
-    return getHandler().analysisFactory();
+    return handler().analysisFactory();
   }
 
 
   ITree& Analysis::tree() {
-    return getHandler().tree();
+    return handler().tree();
   }
 
 
   IHistogramFactory& Analysis::histogramFactory() {
-    return getHandler().histogramFactory();
+    return handler().histogramFactory();
   }
 
 
   IDataPointSetFactory& Analysis::datapointsetFactory() {
-    return getHandler().datapointsetFactory();
+    return handler().datapointsetFactory();
   }
 
 
@@ -46,10 +46,10 @@ namespace Rivet {
   }
 
 
-  size_t Analysis::numEvents() const { return getHandler().numEvents(); }
+  size_t Analysis::numEvents() const { return handler().numEvents(); }
 
 
-  double Analysis::sumOfWeights() const { return getHandler().sumOfWeights() - _vetoedWeightSum; }
+  double Analysis::sumOfWeights() const { return handler().sumOfWeights() - _vetoedWeightSum; }
 
 
   void Analysis::_cacheBinEdges() {
@@ -258,8 +258,9 @@ namespace Rivet {
       oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
     }
     if (oldintg == 0.0) {
-      getLog() << Log::WARN << "Histo " << histo->title() 
-               << " has null integral during normalisation" << endl;
+      /// @todo Writing the path would be much better than the title! But AIDA doesn't allow this.
+      getLog() << Log::WARN << "Histo '" << histo->title() 
+               << "' has null integral during normalisation" << endl;
       return;
     }
   
