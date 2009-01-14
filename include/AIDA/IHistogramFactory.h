@@ -651,7 +651,7 @@ public:
      *              if a directory in the path does not exist, or the path is illegal.
      *
      */
-    virtual IHistogram1D * divide(const std::string & path, const IHistogram1D & hist1, const IHistogram1D & hist2) = 0;
+    virtual IDataPointSet * divide(const std::string & path, const IHistogram1D & hist1, const IHistogram1D & hist2) = 0;
 
     /**
      * Create an IHistogram2D by adding two IHistogram2D.

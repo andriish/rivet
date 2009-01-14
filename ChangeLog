@@ -1,3 +1,10 @@
+2009-01-14  Andy Buckley  <andy@insectnation.org>
+
+	* Converting AIDA/LWH divide function to return a DPS so that bin
+	width factors don't get all screwed up. Analyses adapted to use
+	the new division operation (a DPS/DPS divide would also be
+	nice... but can wait for YODA).
+
 2009-01-06  Andy Buckley  <andy@insectnation.org>
 
 	* bin/make-plots: Added --png option for making PNG output files,

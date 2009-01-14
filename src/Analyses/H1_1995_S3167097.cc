@@ -5,8 +5,10 @@
 
 namespace Rivet {
 
+
   const double H1_1995_S3167097::_xmin = -6.0;
   const double H1_1995_S3167097::_xmax = 6.0;
+
 
 
   void H1_1995_S3167097::init() {
@@ -24,6 +26,7 @@ namespace Rivet {
     _hAvQ2 = bookHistogram1D("23tmp", "$\\langle Q^2 \\rangle$ vs kin. bin", _nbin, 1.0, 10.0);
     _hN    = bookHistogram1D("24", "Num events vs kin. bin", _nbin, 1.0, 10.0);
   }
+
   
 
   int H1_1995_S3167097::_getbin(const DISKinematics& dk) {
@@ -84,18 +87,21 @@ namespace Rivet {
       _hEtFlow[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
       _hEtFlowStat[ibin]->scale(1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
     }
+
     /// @todo Automate this sort of thing so that the analysis code is more readable.
-    /// @todo Eliminate AIDA in favour of a histo interface that is "more C++", less factory-obsessive.
-    AIDA::IHistogram1D* h = 0;
+    AIDA::IDataPointSet* h = 0;
     h = histogramFactory().divide("/H1_1995_S3167097/21", *_hAvEt, *_hN);
     h->setTitle(_hAvEt->title());
     histogramFactory().destroy(_hAvEt);
+
     h = histogramFactory().divide("/H1_1995_S3167097/22", *_hAvX, *_hN);
     h->setTitle(_hAvX->title());
     histogramFactory().destroy(_hAvX);
+
     h = histogramFactory().divide("/H1_1995_S3167097/23", *_hAvQ2, *_hN);
     h->setTitle(_hAvQ2->title());
     histogramFactory().destroy(_hAvQ2);
   }
+
 
 }

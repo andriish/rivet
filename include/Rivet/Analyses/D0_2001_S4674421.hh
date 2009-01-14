@@ -132,7 +132,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_dsigdpt_w;
     AIDA::IHistogram1D* _h_dsigdpt_z;
     AIDA::IHistogram1D* _h_dsigdpt_scaled_z;
-    AIDA::IHistogram1D* _h_temp;
     AIDA::IDataPointSet* _dset_dsigpt_wz_rat;
    //@}    
 

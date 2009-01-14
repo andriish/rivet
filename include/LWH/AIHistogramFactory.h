@@ -41,7 +41,7 @@ public:
 				  const IHistogram1D &) = 0;
   virtual IHistogram1D * multiply(const std::string &, const IHistogram1D &,
 			  const IHistogram1D &) = 0;
-  virtual IHistogram1D * divide(const std::string &, const IHistogram1D &,
+  virtual IDataPointSet * divide(const std::string &, const IHistogram1D &,
 			const IHistogram1D &) = 0;
 
 };

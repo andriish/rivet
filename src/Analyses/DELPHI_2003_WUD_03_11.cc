@@ -49,13 +49,13 @@ namespace Rivet {
     }
     getLog() << Log::DEBUG << "Passed multiplicity cut" << endl;
 
+    // Jets
+    #ifdef HAVE_JADE
+
     // Get event weight for histo filling
     const double weight = e.weight();
 
-    // Jets
-    #ifdef HAVE_JADE
     getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
-
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     std::vector<fastjet::PseudoJet> jets_durham;
     if (durjet.clusterSeq()) {

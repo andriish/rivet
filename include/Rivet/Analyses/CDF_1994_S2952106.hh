@@ -64,7 +64,9 @@ namespace Rivet {
 
 
     /// Factory method
-    static Analysis* create() { return new CDF_1994_S2952106(); }
+    static Analysis* create() { 
+      return new CDF_1994_S2952106(); 
+    }
 
 
     /// @name Publication metadata
