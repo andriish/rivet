@@ -221,8 +221,14 @@ parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default
                   help="write output dat files into a directory hierarchy which matches the analysis paths")
 parser.add_option("--linear", action="store_true", dest="LINEAR",
                   default=False, help="plot with linear scale")
+parser.add_option("--logarithmic", action="store_false", dest="LINEAR",
+                  default=False, help="plot with logarithmic scale (default behaviour)")
 parser.add_option("--no-ratio", action="store_true", dest="NORATIO",
                   default=False, help="disable the ratio plot")
+parser.add_option("--no-ref-only", action="store_true", dest="NO_REF_ONLY",
+                  default=True, help="don't make plot file if there is only one dataset to be plotted")
+parser.add_option("--show-ref-only", action="store_false", dest="NO_REF_ONLY",
+                  default=True, help="make plot file even if there is only one dataset to be plotted")
 parser.add_option("--refid", dest="REF_ID",
                   default="REF", help="ID of reference data set (file path for non-REF data)")
 parser.add_option("-Q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
@@ -363,16 +369,26 @@ for name in sorted(NAMES):
 
     ## Identify contributing data files for this histo
     activefiles = []
-    for f, d in HISTOS.iteritems():
-        if d.has_key(name):
-            activefiles.append(f)
+    for f in FILES + ["REF"]:
+        if HISTOS.has_key(f):
+            d = HISTOS[f]
+            if d.has_key(name):
+                activefiles.append(f)
+    #print activefiles
     if len(activefiles) == 0:
-        logging.warning("Something's wrong... somehow there's no data for histogram %s!" % name)
+        logging.warning("Something's wrong... somehow there's no data for histogram '%s'!" % name)
+        continue
+
+    if len(activefiles) == 1 and opts.NO_REF_ONLY:
+        logging.warning("Skipping histo '%s' since only one plot is present" % name)
+        continue        
 
     ## Identify reference file for this histo
     ref = opts.REF_ID
     if not ref in activefiles:
         ref = activefiles[0]
+
+    
 
     ## Header
     headstr  = "# BEGIN PLOT\n"
