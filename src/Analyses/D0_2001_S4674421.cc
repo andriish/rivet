@@ -23,81 +23,46 @@ namespace Rivet {
 
 
   void D0_2001_S4674421::analyze(const Event& event) {
-      const double weight = event.weight();
-      
-      const LeadingParticlesFinalState& eeFS = applyProjection<LeadingParticlesFinalState>(event, "eeFS");
-      
-      // If there is a Z candidate
-      if (eeFS.particles().size() == 2) {
-        static size_t Zcount = 0;
-        // Fill Z pT distributions
-        const ParticleVector& Zees = eeFS.particles();
-
-        ParticleVector::const_iterator p = Zees.begin();
-        FourMomentum pmom = p->momentum();
-        p++;
-        pmom += p->momentum();
-        double mass = sqrt(pmom.invariant());
-        if (mass/GeV > _mZmin && mass/GeV < _mZmax) {
-          Zcount += 1;
-          _eventsFilledZ += weight;
-          getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV" << endl;
-          _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
-          _h_dsigdpt_scaled_z->fill(pmom.pT()/GeV * _mwmz, weight);
-        }
-      } else { 
-        // There is no Z->ee candidate...
-	
-        const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
-        const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS"); 
-        static size_t Wcount = 0;
-	
-        // Fill W pT distributions
-        /// @todo MERGE THESE TWO BRANCHES BETTER! (including a do-nothing else branch)
-        if (enuFS.particles().size() == 2 && enubFS.isEmpty()) {
-          const ParticleVector& Wenu = enuFS.particles();
-          ParticleVector::const_iterator p = Wenu.begin();
-	  
-          ParticleVector Wel;
-          if (abs(p->pdgId()) == ELECTRON) {
-            Wel.push_back(*p);
-          }
-	  
-          FourMomentum pmom = p->momentum();
-          ++p;
-          pmom += p->momentum();
-	  
-          if (abs(p->pdgId()) == ELECTRON) {
-            Wel.push_back(*p);
-          }
-    
-          ++Wcount;
-          _h_dsigdpt_w->fill(pmom.pT()/GeV, weight);
-          _eventsFilledW += weight;
-        }
-        else if (enuFS.isEmpty() && enubFS.particles().size() == 2) {
-          const ParticleVector& Wenub = enubFS.particles();
-          ParticleVector::const_iterator p = Wenub.begin();
-	  
-          ParticleVector Wel;
-          if (abs(p->pdgId()) == ELECTRON) {
-            Wel.push_back(*p); 
-          }
-	  
-          FourMomentum pmom = p->momentum();
-          ++p;
-          pmom += p->momentum();
-	  
-          if (abs(p->pdgId()) == ELECTRON) {
-            Wel.push_back(*p);
-          }
-	  
-          _h_dsigdpt_w->fill(pmom.pT()/GeV, weight);
-          _eventsFilledW += weight;
-        }
+    const double weight = event.weight();
+     
+    const LeadingParticlesFinalState& eeFS = applyProjection<LeadingParticlesFinalState>(event, "eeFS");
+    if (eeFS.particles().size() == 2) {
+      // If there is a Z candidate:
+      static size_t Zcount = 0;
+      // Fill Z pT distributions
+      const ParticleVector& Zdaughters = eeFS.particles();
+      const FourMomentum pmom = Zdaughters[0].momentum() + Zdaughters[1].momentum();
+      double mass = sqrt(pmom.invariant());
+      if (mass/GeV > _mZmin && mass/GeV < _mZmax) {
+        ++Zcount;
+        _eventsFilledZ += weight;
+        getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV" << endl;
+        _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
+        _h_dsigdpt_scaled_z->fill(pmom.pT()/GeV * _mwmz, weight);
       }
+    } else { 
+      // There is no Z -> ee candidate... so this must be a W event, right?
+      const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
+      const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS"); 
+      static size_t Wcount = 0;
+      
+      // Fill W pT distributions
+      ParticleVector Wdaughters;
+      if (enuFS.particles().size() == 2 && enubFS.isEmpty()) {
+        Wdaughters = enuFS.particles();
+      } else if (enuFS.isEmpty() && enubFS.particles().size() == 2) {
+        Wdaughters = enubFS.particles();
+      }
+      if (! Wdaughters.empty()) {
+        assert(Wdaughters.size() == 2);
+        const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
+        ++Wcount;
+        _eventsFilledW += weight;
+        _h_dsigdpt_w->fill(pmom.pT()/GeV, weight);
+      }
+    }
   }
-
+  
 
 
 

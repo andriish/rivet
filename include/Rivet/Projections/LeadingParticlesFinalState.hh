@@ -33,6 +33,13 @@ namespace Rivet {
       _ids.insert(id);
       return *this;
     } 
+
+    /// Add a particle ID to the list of leading particles selected 
+    LeadingParticlesFinalState& addParticleIdPair(long id) {
+      _ids.insert(id);
+      _ids.insert(-id);
+      return *this;
+    } 
     
   protected:
 

@@ -109,15 +109,12 @@ AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--enable-pyext,
   [build Rivet Python module @<:@default=no@:>@])], [], [enable_pyext=no])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyext == xyes])
 if test x$enable_pyext == xyes; then
-  #AZ_PYTHON_ENABLE
   AZ_PYTHON_PATH
   AZ_PYTHON_VERSION_ENSURE([2.3])
   #AZ_PYTHON_CSPEC
   #AZ_PYTHON_LSPEC
-  AC_PROG_SWIG(1.3.21)
-  SWIG_ENABLE_CXX
-  dnl AC_SUBST([SWIG_PYTHON_OPT],[-python])
-  dnl AC_SUBST([SWIG_PYTHON_CPPFLAGS],[$PYTHON_CPPFLAGS])
+  #AC_PROG_SWIG(1.3.21)
+  #SWIG_ENABLE_CXX
   #SWIG_PYTHON
 fi
 

@@ -11,17 +11,18 @@ use the Rivet C++ analysis classes from a Python program, of which the prime
 example is Rivet's own command line interface.
 """
 
+## Extension definition
+ext = Extension('_rivet',
+                ['rivet_wrap.cc'],
+                include_dirs=['@HEPMCINCPATH@', '@top_srcdir@/include'],
+                library_dirs=['@HEPMCLIBPATH@', '@top_srcdir@/src'],
+                libraries=['HepMC', 'Rivet'])
+
 ## Setup definition
 setup(name = 'rivet',
       version = '@PACKAGE_VERSION@',
-      #include_package_data = True,
-      ext_modules=[Extension('_rivet', ['rivet.i'],
-                            ## SWIG support currently blocks use of -outdir. Aargh: breaks distcheck!
-                            #swig_opts=['-c++', '-I@HEPMCINCPATH@ -I@top_srcdir@/include', '-outdir .'],
-                            swig_opts=['-c++', '-I@HEPMCINCPATH@', '-I@top_srcdir@/include'],
-                            include_dirs=['@HEPMCINCPATH@', '@top_srcdir@/include'],
-                            library_dirs=['@HEPMCLIBPATH@', '@top_srcdir@/src'],
-                            libraries=['HepMC', 'Rivet'])],
+      include_package_data = True,
+      ext_modules=[ext],
       py_modules = ['rivet'],
       
       author = ['Andy Buckley'],

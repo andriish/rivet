@@ -1,3 +1,7 @@
+2009-01-15  Andy Buckley  <andy@insectnation.org>
+
+	* Converting Python build system to bundle SWIG output in tarball.
+
 2009-01-14  Andy Buckley  <andy@insectnation.org>
 
 	* Converting AIDA/LWH divide function to return a DPS so that bin

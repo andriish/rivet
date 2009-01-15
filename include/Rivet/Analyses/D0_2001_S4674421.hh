@@ -38,16 +38,19 @@ namespace Rivet {
       FinalState fs(-5.0, 5.0); //corrected for detector acceptance
       addProjection(fs, "FS");
 
+      // Z -> e- e+
       LeadingParticlesFinalState eeFS(fs, -2.5, 2.5, 0.); //20.);
-      eeFS.addParticleId(11).addParticleId(-11); //Z -> e- e+
+      eeFS.addParticleIdPair(ELECTRON);
       addProjection(eeFS, "eeFS");
       
+      // W- -> e- nu_e~
       LeadingParticlesFinalState enuFS(fs, -2.5, 2.5, 0.); //25.);
-      enuFS.addParticleId(11).addParticleId(-12); //W- -> e- nub
+      enuFS.addParticleId(ELECTRON).addParticleId(NU_EBAR);
       addProjection(enuFS, "enuFS");
       
+      // W+ -> e+ nu_e
       LeadingParticlesFinalState enubFS(fs, -2.5, 2.5, 0.); //25.);
-      enubFS.addParticleId(-11).addParticleId(12); //W+ -> e+ nu
+      enubFS.addParticleId(POSITRON).addParticleId(NU_E);
       addProjection(enubFS, "enubFS");
 
       InvMassFinalState eFromZ(eeFS, make_pair(ELECTRON, POSITRON), 0*GeV, 900*GeV); //20.);
