@@ -45,12 +45,12 @@ class Histogram:
                                           'Error':   [float(linearray[3]),float(linearray[4])]})
     def write_datapoint(self, f, xval, xerr, yval, yerr):
             f.write('    <dataPoint>\n')
-            f.write('      <measurement errorPlus="%f" value="%f" errorMinus="%f"/>\n' %(xerr, xval, xerr))
-            f.write('      <measurement errorPlus="%f" value="%f" errorMinus="%f"/>\n' %(yerr[1], yval, yerr[0]))
+            f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(xerr, xval, xerr))
+            f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(yerr[1], yval, yerr[0]))
             f.write('    </dataPoint>\n')
     def write_datapointset_header(self, f):
             path  = self.description['AidaPath']
-            title = self.description['Title']
+            title = self.description['Title'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
             f.write('  <dataPointSet name="%s" dimension="2"\n' % path.split('/')[-1])
             f.write('  path="%s" title="%s">\n' %(os.path.abspath(path.replace(path.split('/')[-1], '')), title))
             f.write('    <annotation>\n')
