@@ -627,7 +627,7 @@ public:
     if ( !checkBins(h1, h2) ) return 0;
     DataPointSet * h = new DataPointSet(2);
     h->setTitle(path.substr(path.rfind('/') + 1));
-    for (int i = 0; i < h1.ax->bins()+2; ++i) {
+    for (int i = 0; i < h1.ax->bins(); ++i) {
       //std::cout << "!!! " << 1 << i << std::endl;
       const double binwidth = h1.ax->binWidth(i);
       const double bincentre = ( h1.ax->binLowerEdge(i) + h1.ax->binUpperEdge(i) ) / 2.0;
