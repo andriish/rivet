@@ -8,6 +8,14 @@ from optparse import OptionParser, OptionGroup
 import ctypes
 sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
 
+## Try to use Psyco optimiser
+try:
+    import psyco
+    psyco.full()
+except ImportError:
+    pass
+
+
 ## Get version from rivet-config
 version="HEAD"
 try:
@@ -28,7 +36,6 @@ ENVIRONMENT:
  * RIVET_REF_PATH
 
 TODO:
- * Use Psyco
  * Incorporate an optional AGILe mode (just reading param 
    files - no proliferation of switches)
 """
@@ -36,7 +43,6 @@ TODO:
 
 PROGPATH = sys.argv[0]
 PROGNAME = os.path.basename(PROGPATH)
-
 
 ## Try to bootstrap the Python path
 import commands

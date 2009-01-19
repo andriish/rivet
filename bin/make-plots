@@ -1340,6 +1340,14 @@ TODO
  * Handle boolean values flexibly (yes, no, true, false, etc. as well as 1, 0)
 """
 
+    ## Try to use Psyco optimiser
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
+
+
     ## Find number of (virtual) processing units
     numcores = os.sysconf('SC_NPROCESSORS_ONLN')
     if numcores is None:
