@@ -384,6 +384,10 @@ namespace LWH {
 
       if (fform==xml) of << "</aida>" << std::endl;
      
+#ifdef HAVE_ROOT
+      if(fform==root) file->Close();
+#endif
+      
       return of.good();
     }
     

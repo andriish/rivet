@@ -359,53 +359,52 @@ public:
 
     if (dimension()!=2) {
       cout << "DataPointSet.h: writeROOT: dimension!=2, can't write TGraph, "
-	   << "choose different file format!" << endl;
+      << "choose different file format!" << endl;
       return false;
     }
-    else {
-      cout << "Writing out TGraph " << name.c_str() << " in ROOT file format" << endl;
-      
-      int N = size();
-
-      Double_t *x, *y, *exl, *exh, *eyl, *eyh;
-      x = new Double_t[N];
-      y = new Double_t[N];
-      exl = new Double_t[N];
-      exh = new Double_t[N];
-      eyl = new Double_t[N];
-      eyh = new Double_t[N];
-
-      for ( int i = 0, N = size(); i < N; ++i ) {
-	x[i] = point(i)->coordinate(0)->value();
-	exl[i] = point(i)->coordinate(0)->errorMinus();
-	exh[i] = point(i)->coordinate(0)->errorPlus();
-	y[i] = point(i)->coordinate(1)->value();
-	eyl[i] = point(i)->coordinate(1)->errorMinus();
-	eyh[i] = point(i)->coordinate(1)->errorPlus();
+    
+    //Replace "-" by "_" because cint interprets - as a minus.
+    
+    for(std::string::iterator c = name.begin();
+        c != name.end(); ++c){
+      if(*c == *"-"){
+        std::string::iterator cEnd=c;
+        ++cEnd;
+        name.replace(c, cEnd, "_");
       }
-      
-      TGraphAsymmErrors* graph = new TGraphAsymmErrors(N, x, y, exl, exh, eyl, eyh); 
-
-      graph->SetTitle(title().c_str());
-      graph->SetName(name.c_str());
-      
-      std::string DirName; //remove preceding slash from directory name, else ROOT error
-      for (unsigned int i=1; i<path.size(); ++i) DirName += path[i];
-      if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
-      file->cd(DirName.c_str());
-
-      graph->Write();
-
-      delete graph;
-      delete x;
-      delete y;
-      delete exl;
-      delete exh;
-      delete eyl;
-      delete eyh;
-   
-      return true;
     }
+    
+    cout << "Writing out TGraph " << name.c_str() << " in ROOT file format" << endl;
+      
+    int N = size();
+    
+    vector<double> x, y, exl, exh, eyl, eyh;
+
+    for ( int i = 0; i < N; ++i ) {
+      x.push_back(point(i)->coordinate(0)->value());
+      exl.push_back(point(i)->coordinate(0)->errorMinus());
+      exh.push_back(point(i)->coordinate(0)->errorPlus());
+      y.push_back(point(i)->coordinate(1)->value());
+      eyl.push_back(point(i)->coordinate(1)->errorMinus());
+      eyh.push_back(point(i)->coordinate(1)->errorPlus());
+    }
+        
+    TGraphAsymmErrors* graph = new TGraphAsymmErrors(N, &(x[0]), &(y[0]), 
+                                                     &(exl[0]), &(exh[0]), 
+                                                     &(eyl[0]), &(eyh[0]) ); 
+        
+    graph->SetTitle(title().c_str());
+    graph->SetName(name.c_str());
+        
+    std::string DirName; //remove preceding slash from directory name, else ROOT error
+    for (unsigned int i=1; i<path.size(); ++i) DirName += path[i];
+    if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
+    file->cd(DirName.c_str());
+        
+    graph->Write();
+    delete graph;
+    
+    return true;
   }
 
  #endif
