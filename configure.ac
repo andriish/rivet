@@ -1,13 +1,14 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.1.2],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.1.3a0],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
 
 ## Set library version info code
-VERSIONINFOFLAGS="-version-info 4:0:0"
+## Set for version 1.1.3
+VERSIONINFOFLAGS="-version-info 5:0:0"
 AC_SUBST(VERSIONINFOFLAGS)
 
 ## OS X
@@ -81,18 +82,6 @@ fi;
 AC_SUBST(FASTJETCONFIGLIBADD)
 
 
-## Decide/determine whether to build the rivetgun executable
-## TODO: remove!
-AC_ARG_ENABLE(rivetgun, [AC_HELP_STRING(--enable-rivetgun, [build RivetGun executable @<:@default=yes@:>@])], 
-  [], [enable_rivetgun=yes])
-AC_CEDAR_LIBRARYANDHEADERS([AGILe], , , [AC_MSG_WARN([AGILe not found])])
-AM_CONDITIONAL(ENABLE_RIVETGUN, [test x$enable_rivetgun == xyes])
-if test x$have_agile == xyes; then
-  AC_MSG_NOTICE([Defining HAVE_AGILE])
-  AC_DEFINE([HAVE_AGILE], "1", [compiling with AGILe])
-fi
-
-
 ## Build Doxygen if possible
 AC_ARG_ENABLE([doxygen],
   [AC_HELP_STRING(--disable-doxygen, [don't try to make Doxygen documentation])],
@@ -111,11 +100,6 @@ AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyext == xyes])
 if test x$enable_pyext == xyes; then
   AZ_PYTHON_PATH
   AZ_PYTHON_VERSION_ENSURE([2.3])
-  #AZ_PYTHON_CSPEC
-  #AZ_PYTHON_LSPEC
-  #AC_PROG_SWIG(1.3.21)
-  #SWIG_ENABLE_CXX
-  #SWIG_PYTHON
 fi
 
 

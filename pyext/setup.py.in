@@ -12,10 +12,13 @@ example is Rivet's own command line interface.
 """
 
 ## Extension definition
+import os
+incdir = os.path.abspath('@top_srcdir@/include')
+srcdir = os.path.abspath('@top_srcdir@/src')
 ext = Extension('_rivet',
                 ['rivet_wrap.cc'],
-                include_dirs=['@HEPMCINCPATH@', '@top_srcdir@/include'],
-                library_dirs=['@HEPMCLIBPATH@', '@top_srcdir@/src'],
+                include_dirs=['@HEPMCINCPATH@', '@BOOSTINCPATH@', incdir],
+                library_dirs=['@HEPMCLIBPATH@', srcdir, os.path.join(srcdir,'.libs')],
                 libraries=['HepMC', 'Rivet'])
 
 ## Setup definition

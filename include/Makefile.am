@@ -1,5 +1,5 @@
 SUBDIRS = Rivet
-EXTRA_DIST = tclap TinyXML
+EXTRA_DIST = TinyXML
 
 ## Remove these when YODA is available... they are
 ## being installed since external analysis builds need them

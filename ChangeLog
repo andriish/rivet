@@ -1,3 +1,7 @@
+2009-01-20  Andy Buckley  <andy@insectnation.org>
+
+	* Removing RivetGun and TCLAP source files!
+
 2009-01-19  Andy Buckley  <andy@insectnation.org>
 
 	* Added psyco Python optimiser to rivet, make-plots and compare-histos.

@@ -84,10 +84,10 @@ namespace Rivet {
     bpmap[PIPLUS] = "PIPLUS"; 
     bpmap[PIMINUS] = "PIMINUS";
     bpmap[TAU] = "TAU"; 
-    //bpmap[WPLUSBOSON] = "WPLUSBOSON";
-    //bpmap[WMINUSBOSON] = "WMINUSBOSON";
-    //bpmap[ZBOSON] = "ZBOSON";
-    //bpmap[HIGGS] = "HIGGS";
+    bpmap[WPLUSBOSON] = "WPLUSBOSON";
+    bpmap[WMINUSBOSON] = "WMINUSBOSON";
+    bpmap[ZBOSON] = "ZBOSON";
+    bpmap[HIGGS] = "HIGGS";
     bpmap[ANTITAU] = "ANTITAU";
     bpmap[PHOTOELECTRON] = "PHOTOELECTRON";
     bpmap[PHOTOPOSITRON] = "PHOTOPOSITRON";
