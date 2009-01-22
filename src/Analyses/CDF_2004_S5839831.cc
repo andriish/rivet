@@ -11,6 +11,14 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2004_S5839831::init() {
+    getLog() << Log::WARNING 
+             << "***************************************************"
+             << "This analysis is not considered reliable enough for"
+             << "inclusion in MC tuning studies: be careful! Expert"
+             << "help with ensuring that this analysis matches the"
+             << "experiment's implementation would be very welcome!"
+             << "***************************************************" << endl;      
+
     _pt90MaxAvg1800     = bookProfile1D(   1, 1, 1, "Average $p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
     _pt90MinAvg1800     = bookProfile1D(   1, 1, 2, "Average $p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
     _pt90Max1800        = bookProfile1D(   2, 1, 1, "$p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
