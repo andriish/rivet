@@ -40,6 +40,12 @@ namespace Rivet {
       title<<"$\\log_{10}$($k_\\perp$ jet resolution $"<<i<<" \\to "<<i+1<<"$ [GeV])";
       _h_log10_d[i] = bookHistogram1D(name.str(), title.str(), 100, 0.2, 2.6);
     }
+    for (size_t i=0; i<5; ++i) {
+      stringstream name, title;
+      name<<"log10_R_"<<i;
+      title<<"$\\log_{10}$(Integrated $"<<i<<"$ jet rate in $k_\\perp$ [GeV])";
+      _h_log10_R[i] = bookHistogram1D(name.str(), title.str(), 100, 0.2, 2.6);
+    }
   }
 
 
@@ -164,9 +170,44 @@ namespace Rivet {
   }
 
 
-
   // Finalize
   void MC_TVT1960_ZJETS::finalize() {
+    // integrated jet rates
+    /// @todo: can probably be done much smarter using DPS or yoda?
+    const AIDA::IAxis& axis(_h_log10_d[0]->axis());
+    const int N=axis.bins();
+    // R_0 (d) = 1 - int_d^dmax d_{01}
+    double fullint0=integral(_h_log10_d[0]);
+    for (int ibin=0; ibin<N; ++ibin) {
+      double integral=0.0;
+      for (int jbin=ibin; jbin<N; ++jbin) {
+        integral+=_h_log10_d[0]->binHeight(jbin)*_h_log10_d[0]->axis().binWidth(jbin);
+      }
+      double binmean=axis.binLowerEdge(ibin)+0.5*axis.binWidth(ibin);
+      _h_log10_R[0]->fill(binmean, fullint0-integral);
+    }
+    // R_n (d) = int_d^dmax d_{n-1,n} - d_{n,n+1}
+    for (int n=1; n<4; ++n) {
+      for (int ibin=0; ibin<N; ++ibin) {
+        double integral=0.0;
+        for (int jbin=ibin; jbin<N; ++jbin) {
+          integral+=_h_log10_d[n-1]->binHeight(jbin)*_h_log10_d[n-1]->axis().binWidth(jbin)-
+            _h_log10_d[n]->binHeight(jbin)*_h_log10_d[n]->axis().binWidth(jbin);
+        }
+        double binmean=axis.binLowerEdge(ibin)+0.5*axis.binWidth(ibin);
+        _h_log10_R[n]->fill(binmean, integral);
+      }
+    }
+    // R_4 (d) = int_d^dmax d_{3,4}
+    for (int ibin=0; ibin<N; ++ibin) {
+      double integral=0.0;
+      for (int jbin=ibin; jbin<N; ++jbin) {
+        integral+=_h_log10_d[3]->binHeight(jbin)*_h_log10_d[3]->axis().binWidth(jbin);
+      }
+      double binmean=axis.binLowerEdge(ibin)+0.5*axis.binWidth(ibin);
+      _h_log10_R[4]->fill(binmean, integral);
+    }
+
     normalize(_h_Z_mass,1.0);
     normalize(_h_jet1_pT,1.0);
     normalize(_h_jet2_pT,1.0);
