@@ -11,7 +11,7 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2004_S5839831::init() {
-    getLog() << Log::WARNING 
+    getLog() << Log::WARN 
              << "***************************************************"
              << "This analysis is not considered reliable enough for"
              << "inclusion in MC tuning studies: be careful! Expert"
