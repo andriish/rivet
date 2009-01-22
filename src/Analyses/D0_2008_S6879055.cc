@@ -53,10 +53,14 @@ namespace Rivet {
 
   // Book histograms
   void D0_2008_S6879055::init() {
-    // Use histogram auto-booking
-    _crossSectionRatio = bookHistogram1D("crossSectionRatio", "$\\sigma(Z/\\gamma + >= n \\text{ jets}) / \\sigma(Z/\\gamma \\text{ inclusive})$", 5, -0.5, 4.5);
-    //_crossSectionRatio =  bookHistogram1D(1,1,2, "#sigma(Z/#gamma + >=njets)/#sigma(Z/#gamma inclusive)");
-    _crossSectionRatioNormToDataBin1 = bookHistogram1D("crossSectionRatioNormToDataBin1", "\\sigma(Z/\\gamma + >= n \\text{ jets}) / \\sigma(Z/\\gamma \\text{ inclusive})$", 5, -0.5, 4.5);
+    _crossSectionRatio = bookHistogram1D
+      (1, 1, 1, "$\\sigma(Z/\\gamma + >= n \\text{ jets}) / \\sigma(Z/\\gamma \\text{ inclusive})$");
+    _pTjet1 = bookHistogram1D
+      (2, 1, 1, "$p_\\perp$ of 1st jet for $N_{\\mathrm{jet}} \\geq 1$ sample");
+    _pTjet2 = bookHistogram1D
+      (3, 1, 1, "$p_\\perp$ of 2nd jet for $N_{\\mathrm{jet}} \\geq 2$ sample");
+    _pTjet3 = bookHistogram1D
+      (4, 1, 1, "$p_\\perp$ of 3rd jet for $N_{\\mathrm{jet}} \\geq 3$ sample");
   }
 
 
@@ -111,7 +115,7 @@ namespace Rivet {
     }
 
     // Now take only the jets with |eta| < 2.5
-    list<FourMomentum> finaljet_list;
+    vector<FourMomentum> finaljet_list;
     foreach (const FourMomentum& ijet, jets_aboveptmin) {
       if (fabs(ijet.pseudorapidity()) < 2.5) {
         finaljet_list.push_back(ijet);
@@ -120,21 +124,24 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Num jets above 20 GeV and with |eta| < 2.5 = " 
              << finaljet_list.size() << endl;
 
+    // for normalisation of crossSection data
+    _crossSectionRatio->fill(0, weight);
+
+    // fill jet pT and multiplicities
     if (finaljet_list.size() >= 1) {
       _crossSectionRatio->fill(1, weight);
-      _crossSectionRatioNormToDataBin1->fill(1, weight);
+      _pTjet1->fill(finaljet_list[0].pT(), weight);
     }
     if (finaljet_list.size() >= 2) {
       _crossSectionRatio->fill(2, weight);
-      _crossSectionRatioNormToDataBin1->fill(2, weight);
+      _pTjet2->fill(finaljet_list[1].pT(), weight);
     }
     if (finaljet_list.size() >= 3) {
       _crossSectionRatio->fill(3, weight);
-      _crossSectionRatioNormToDataBin1->fill(3, weight);
+      _pTjet3->fill(finaljet_list[2].pT(), weight);
     }
     if (finaljet_list.size() >= 4) {
       _crossSectionRatio->fill(4, weight);
-      _crossSectionRatioNormToDataBin1->fill(4, weight);
     }
   }
 
@@ -143,12 +150,12 @@ namespace Rivet {
   // Finalize
   void D0_2008_S6879055::finalize() {
     // Now divide by the inclusive result
-    getLog() << Log::DEBUG << "Entries for bin 0 " << _crossSectionRatio->binEntries(0) << endl;
-    if (sumOfWeights()) {
-      _crossSectionRatio->scale(1/sumOfWeights());
-      _crossSectionRatioNormToDataBin1->scale(1.0/sumOfWeights());
-      _crossSectionRatioNormToDataBin1->scale(0.1201 / _crossSectionRatio->binHeight(1));
-    }
+    _crossSectionRatio->scale(1.0/_crossSectionRatio->binHeight(0));
+
+    // Normalise jet pT's to integral of data
+    normalize(_pTjet1, 10439.0);
+    normalize(_pTjet2, 1461.5);
+    normalize(_pTjet3, 217.0);
   }
 
 

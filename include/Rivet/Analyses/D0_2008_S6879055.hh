@@ -64,7 +64,9 @@ namespace Rivet {
     /// @name Histograms
     //@{
     AIDA::IHistogram1D * _crossSectionRatio;
-    AIDA::IHistogram1D * _crossSectionRatioNormToDataBin1;
+    AIDA::IHistogram1D * _pTjet1;
+    AIDA::IHistogram1D * _pTjet2;
+    AIDA::IHistogram1D * _pTjet3;
     //@}
 
   };

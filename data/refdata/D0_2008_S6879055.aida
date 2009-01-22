@@ -2,6 +2,46 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+    path="/REF/D0_2008_S6879055/" title="SIG(Q=NJET)/SIG(Q=INCL)">
+    <annotation>
+      <item key="Title" value="SIG(Q=NJET)/SIG(Q=INCL)" sticky="true"/>
+      <item key="AidaPath"
+        value="/REF/D0_2008_S6879055/d01-x01-y01" sticky="true"/>
+      <item key="FullPath"
+        value="/D0_2008_S6879055.aida/REF/D0_2008_S6879055/d01-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="0.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.0"
+        value="1.0" errorMinus="0.0"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="1.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.0033"
+        value="0.1201" errorMinus="0.0033"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="2.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="0.0014" value="0.0186"
+        errorMinus="0.0014"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="3.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="5.6e-4" value="0.0028"
+        errorMinus="5.6e-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="0.5" value="4.0"
+        errorMinus="0.5"/>
+      <measurement errorPlus="4.4E-4" value="9.0e-4"
+        errorMinus="4.4E-4"/>
+    </dataPoint>
+  </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
     path="/REF/D0_2008_S6879055/" title="EVENTS/5GEV">
     <annotation>
