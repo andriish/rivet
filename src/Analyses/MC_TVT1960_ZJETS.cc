@@ -34,6 +34,12 @@ namespace Rivet {
     _h_jet4_pT = bookHistogram1D("jet4_pT", "$p_{\\perp}^{\\mathrm{4th jet}}$", 10, 0.0, 100.0);
     _h_deta_Z_jet1 = bookHistogram1D("deta_Z_jet2", "$|\\Delta{\\eta}(\\mathrm{Z, 1st jet})|$", 20, 0.0, 5.0);
     _h_dR_jet2_jet3 = bookHistogram1D("dR_jet2_jet3", "$|\\Delta{R}(\\mathrm{2nd jet, 3rd jet})|$", 20, 0.0, 5.0);
+    for (size_t i=0; i<4; ++i) {
+      stringstream name, title;
+      name<<"log10_d_"<<i<<i+1;
+      title<<"$\\log_{10}$($k_\\perp$ jet resolution $"<<i<<" \\to "<<i+1<<"$ [GeV])";
+      _h_log10_d[i] = bookHistogram1D(name.str(), title.str(), 100, 0.2, 2.6);
+    }
   }
 
 
@@ -146,6 +152,15 @@ namespace Rivet {
     if (jets_cut.size()>3) {
       _h_jet4_pT->fill(jets_cut[3].momentum().pT(), weight);
     }
+
+    // jet resolutions
+    const fastjet::ClusterSequence* seq = jetpro.clusterSeq();
+    if (seq!=NULL) {
+      for (size_t i=0; i<4; ++i) {
+        double d_min=seq->exclusive_dmerge_max(i);
+        if (d_min>0.0) _h_log10_d[i]->fill(log10(sqrt(d_min)), weight);
+      }
+    }
   }
 
 
@@ -159,6 +174,9 @@ namespace Rivet {
     normalize(_h_jet4_pT,1.0);
     normalize(_h_deta_Z_jet1,1.0);
     normalize(_h_dR_jet2_jet3,1.0);
+    for (size_t i=0; i<4; ++i) {
+      normalize(_h_log10_d[i],1.0);
+    }
   }
 
 }
