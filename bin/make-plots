@@ -41,24 +41,20 @@ class Inputdata:
                 if (line.count('BEGIN FUNCTION')):
                     self.functions[line.split('BEGIN FUNCTION', 1)[1].strip()] = Function(f)
 
-        global plotsizex
-        global plotsizey
+        self.description['PlotSizeX'] = 10.
+        self.description['PlotSizeY'] = 6.
         if self.description.has_key('PlotSize') and self.description['PlotSize']!='':
-            plotsizex,plotsizey=self.description['PlotSize'].split(',')
-            plotsizex=float(plotsizex)
-            plotsizey=float(plotsizey)
-        else:
-            plotsizex=10.
-            plotsizey=6.
+            plotsizex,plotsizey = self.description['PlotSize'].split(',')
+            self.description['PlotSizeX'] = float(plotsizex)
+            self.description['PlotSizeY'] = float(plotsizey)
+            del self.description['PlotSize']
 
-        global ratioplotsizey
+        self.description['RatioPlotSizeY'] = 0.
         if self.description.has_key('RatioPlot') and self.description['RatioPlot']=='1':
             if self.description.has_key('RatioPlotYSize') and self.description['RatioPlotYSize']!='':
-                ratioplotsizey=float(self.description['RatioPlotYSize'])
+                self.description['RatioPlotSizeY'] = float(self.description['RatioPlotYSize'])
             else:
-                ratioplotsizey=3.
-        else:
-            ratioplotsizey=0.
+                self.description['RatioPlotSizeY'] = 3.
 
         global logx
         if self.description.has_key('LogX') and self.description['LogX']=='1':
@@ -215,8 +211,8 @@ class Plot:
             bottommargin = float(inputdata.description['BottomMargin'])
         else:
             bottommargin = 0.95
-        papersizex = plotsizex + 0.1 + leftmargin + rightmargin
-        papersizey = plotsizey + ratioplotsizey + 0.1 + topmargin + bottommargin
+        papersizex = inputdata.description['PlotSizeX'] + 0.1 + leftmargin + rightmargin
+        papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + topmargin + bottommargin
         #
         out = ""
         out += '\\documentclass{article}\n'
@@ -240,7 +236,7 @@ class Plot:
         out += ('\\begin{document}\n')
         out += ('\\pagestyle{empty}\n')
         out += ('\\SpecialCoor\n')
-        out += ('\\psset{xunit=%scm,yunit=%scm}\n' %(plotsizex,plotsizey))
+        out += ('\\psset{xunit=%scm,yunit=%scm}\n' %(inputdata.description['PlotSizeX'], inputdata.description['PlotSizeY']))
         out += ('\\begin{pspicture}(0,0)(1,1)\n')
         if is2dim:
             out += ('\\definecolorseries{gradientcolors}{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}\n')
@@ -356,8 +352,7 @@ class RatioPlot(Plot):
     def __init__(self, inputdata):
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
             self.refdata=inputdata.description['RatioPlotReference']
-            global plotsizey
-            plotsizey=ratioplotsizey
+            inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
             global logy
             logy=False
             if inputdata.description.has_key('RatioPlotYMin'):
@@ -381,7 +376,7 @@ class RatioPlot(Plot):
     def draw(self, inputdata):
         out = ""
         out += ('\n%\n% RatioPlot\n%\n')
-        out += ('\\psset{yunit=%scm}\n' %(plotsizey))
+        out += ('\\psset{yunit=%scm}\n' %(inputdata.description['PlotSizeY']))
         out += ('\\rput(0,-1){%\n')
         out += self._draw(inputdata)
         out += ('}\n') 
@@ -458,7 +453,7 @@ class Legend:
         out = ""
         out += '\n%\n% Legend\n%\n'
         out += '\\rput[tr](%s,%s){%%\n' % (self.getLegendXPos(), self.getLegendYPos())
-        ypos = -0.05*6/plotsizey
+        ypos = -0.05*6/self.description['PlotSizeY']
         foo=[]
         if self.description.has_key('LegendOnly'):
             for i in self.description['LegendOnly'].strip().split():
@@ -510,11 +505,11 @@ class Legend:
                     else:
                         out += ('](-0.06, 0.016)\n')
                 out += ('}\n')
-                ypos -= 0.075*6/plotsizey
+                ypos -= 0.075*6/self.description['PlotSizeY']
         if self.description.has_key('CustomLegend'):
             for i in self.description['CustomLegend'].strip().split('\\\\'):
                 out += ('\\rput[Bl](-0.35,' + str(ypos) + '){' + i + '}\n')
-                ypos -= 0.075*6/plotsizey
+                ypos -= 0.075*6/self.description['PlotSizeY']
         out += ('}\n')
         return out
 
