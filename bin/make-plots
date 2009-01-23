@@ -380,7 +380,6 @@ class RatioPlot(Plot):
         out += ('\\rput(0,-1){%\n')
         out += self._draw(inputdata)
         out += ('}\n') 
-        out += self.write_footer()
         return out
 
     def calculate_ratios(self,inputdata):
@@ -1233,10 +1232,12 @@ def process_datfile(datfile):
     inputdata = Inputdata(filename)
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
-    mp = MainPlot(inputdata).draw(inputdata)
-    texfile.write(mp)
-    rp = RatioPlot(inputdata).draw(inputdata)
-    texfile.write(rp)
+    mp = MainPlot(inputdata)
+    texfile.write(mp.draw(inputdata))
+    if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
+        rp = RatioPlot(inputdata)
+        texfile.write(rp.draw(inputdata))
+    texfile.write(mp.write_footer())
     texfile.close()
 
     if opts.OUTPUT_FORMAT != "TEX":
