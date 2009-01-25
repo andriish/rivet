@@ -1,4 +1,4 @@
-dist_pkgdata_DATA = \
+1;1704;0cdist_pkgdata_DATA = \
   ALEPH_1991_S2435284.aida       \
   ALEPH_1996_S3486095.aida       \
   DELPHI_1994_S3021912.aida      \
@@ -19,8 +19,12 @@ dist_pkgdata_DATA = \
   ZEUS_2001_S4815815.aida        \
   PHENIX_2003_S5538505.aida      \
   BRAHMS_2007_S7052448.aida      \
+  UA1_1990_2044935.aida          \
+  UA5_1982_S875503.aida          \
+  UA5_1986_S1583476.aida         \
   UA5_1989_S1926373.aida         \
   UA5_1988_S1867512.aida         \
+  CDF_1988_S1865951.aida         \
   CDF_1994_S2952106.aida         \
   CDF_2000_S4155203.aida         \
   CDF_2001_S4751469.aida         \
@@ -46,5 +50,7 @@ dist_pkgdata_DATA = \
   D0_2008_S7662670.aida          \
   D0_2008_S7719523.aida          \
   D0_2008_S7863608.aida          \
+  E735_1992_S2485869.aida        \
+  E735_1993_S2896508.aida        \
   PDG_HADRON_MULTIPLICITIES.aida \
   PDG_HADRON_MULTIPLICITIES_RATIOS.aida
