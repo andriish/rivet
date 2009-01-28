@@ -1,5 +1,5 @@
 dist_pkgdata_DATA = \
-  JADE_OPAL_2007_S4300807.aida   \
+  JADE_OPAL_2000_S4300807.aida   \
   ALEPH_1991_S2435284.aida       \
   ALEPH_1996_S3486095.aida       \
   DELPHI_1994_S3021912.aida      \
