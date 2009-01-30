@@ -6,8 +6,9 @@
 namespace Rivet {
 
   #ifndef HAVE_ROOT
+  
 
-
+  ExampleTree::ExampleTree() { }
   void ExampleTree::init() {
     getLog() << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
   }
@@ -16,6 +17,26 @@ namespace Rivet {
 
 
   #else
+
+
+  ExampleTree::ExampleTree() {
+    const FinalState fs(-4.0, 4.0, 0.0*GeV);
+    addProjection(fs, "FS");
+    addProjection(ChargedLeptons(fs), "ChLeptons");
+    addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
+    /// @todo Remove WZandh
+    addProjection(WZandh(), "WZh");
+    
+    /// Veto neutrinos, antineutrinos and LSP
+    VetoedFinalState vfs(fs);
+    vfs
+      .addVetoDetail(NU_E, 10.0*GeV, 50.0*GeV)
+      .addVetoPairId(NU_MU)
+      .addVetoPairId(NU_TAU)
+      .addVetoId(1000022); // LSP
+    addProjection(vfs, "VFS");
+    addProjection(TotalVisibleMomentum(vfs), "TotalVisMom");
+  }
 
 
   void ExampleTree::init() {

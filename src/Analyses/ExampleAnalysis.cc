@@ -3,8 +3,21 @@
 #include "Rivet/Analyses/ExampleAnalysis.hh"
 #include "Rivet/RivetAIDA.hh"
 
-
 namespace Rivet {
+
+
+  // Constructor
+  ExampleAnalysis::ExampleAnalysis() {
+    const FinalState cnfs;
+    const ChargedFinalState cfs;
+    addProjection(cnfs, "FS");
+    addProjection(cfs, "CFS");
+    addProjection(Multiplicity(cfs), "CMult");
+    addProjection(Multiplicity(cnfs), "CNMult");
+    addProjection(Thrust(cfs), "Thrust");
+    addProjection(Sphericity(cfs), "Sphericity");
+  }
+
 
   // Book histograms
   void ExampleAnalysis::init() {
