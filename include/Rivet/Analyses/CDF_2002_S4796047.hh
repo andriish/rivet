@@ -83,12 +83,8 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_multiplicity_630;
     AIDA::IHistogram1D *_hist_multiplicity_1800;
 
-  private:
-
-    /// Hide the assignment operator.
-    CDF_2002_S4796047& operator=(const CDF_2002_S4796047&);
-
   };
+
 
 }
 

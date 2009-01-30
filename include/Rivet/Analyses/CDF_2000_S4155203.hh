@@ -67,7 +67,6 @@ namespace Rivet {
     }
 
 
-
   public:
 
     /// @name Analysis methods
@@ -77,16 +76,13 @@ namespace Rivet {
     void finalize();
     //@}
 
+
   private:
 
     AIDA::IHistogram1D *_hist_zpt;
 
-  private:
-
-    /// Hide the assignment operator.
-    CDF_2000_S4155203& operator=(const CDF_2000_S4155203&);
-
   };
+
 
 }
 

@@ -82,9 +82,6 @@ namespace Rivet {
     /// Helper vector;
     vector<double> _nev;
 
-    /// Hidden assignment operator.
-    H1_1995_S3167097& operator=(const H1_1995_S3167097&);
-
   };
 
 }

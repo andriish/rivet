@@ -124,12 +124,8 @@ namespace Rivet {
     AIDA::IProfile1D* _profhistPsi;
     //@}
 
-
-  private:
-    /// Hide the assignment operator
-    CDF_2005_S6217184& operator=(const CDF_2005_S6217184&);
-
   };
+
 
 }
 

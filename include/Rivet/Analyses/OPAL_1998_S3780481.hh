@@ -73,9 +73,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    OPAL_1998_S3780481& operator=(const OPAL_1998_S3780481&);
-
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the 
     /// inclusive single particle distributions' normalisations.

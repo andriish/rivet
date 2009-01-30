@@ -28,30 +28,17 @@ namespace Rivet {
 
   public:
 
-    /// Constructor. This uses the \f$ k_\perp \f$ jet algorithm with \f$ r \f$ parameter = 0.7.
-    ExampleTree() {
-      const FinalState fs(-4.0, 4.0, 0.0*GeV);
-      addProjection(fs, "FS");
-      addProjection(ChargedLeptons(fs), "ChLeptons");
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
-      /// @todo Remove WZandh
-      addProjection(WZandh(), "WZh");
+    /// @name Constructor etc.
+    //@{
 
-      /// Veto neutrinos, antineutrinos and LSP
-      VetoedFinalState vfs(fs);
-      vfs
-        .addVetoDetail(NU_E, 10.0*GeV, 50.0*GeV)
-        .addVetoPairId(NU_MU)
-        .addVetoPairId(NU_TAU)
-        .addVetoId(1000022); // LSP
-      addProjection(vfs, "VFS");
-      addProjection(TotalVisibleMomentum(vfs), "TotalVisMom");
-    }
-
-  public:
+    /// Constructor
+    ExampleTree();
 
     /// Factory method
     static Analysis* create() { return new ExampleTree(); }
+
+    //@}
+
 
     /// @name Publication metadata
     //@{
@@ -59,14 +46,17 @@ namespace Rivet {
     string name() const {
       return "ExampleTree";
     }
+
     /// Get a description of the analysis.
     string spiresId() const {
       return "NONE";
     }
+
     /// Get a description of the analysis.
-    // string description() const {
-    //   return "";
-    // }
+    string description() const {
+      return "Demonstrate filling a ROOT tree from a kT jets analysis";
+    }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "NONE";
@@ -84,6 +74,7 @@ namespace Rivet {
     void analyze(const Event& event);
     void finalize();
     //@}
+
 
   private:
 
@@ -142,9 +133,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    ExampleTree& operator=(const ExampleTree&);
-
     /// Minimum pt of jets which will go into the tree.
     int _jet_pt_cut;
 
@@ -156,6 +144,7 @@ namespace Rivet {
 
     /// Store the partons or not?
     bool _store_partons;
+
   };
 
 

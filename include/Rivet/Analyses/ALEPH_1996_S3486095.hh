@@ -102,9 +102,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    ALEPH_1996_S3486095& operator=(const ALEPH_1996_S3486095&);
-
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the 
     /// inclusive single particle distributions' normalisations.

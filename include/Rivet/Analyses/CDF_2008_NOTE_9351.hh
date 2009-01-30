@@ -95,12 +95,8 @@ namespace Rivet {
     AIDA::IProfile1D *_hist_cptavevsnchg;
     AIDA::IProfile1D *_hist_cptavevsnchgsmallzpt;
 
-  private:
-
-    /// Hide the assignment operator.
-    CDF_2008_NOTE_9351& operator=(const CDF_2008_NOTE_9351&);
-
   };
+
 
 }
 

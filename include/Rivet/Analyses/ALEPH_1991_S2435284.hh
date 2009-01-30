@@ -57,10 +57,8 @@ namespace Rivet {
     virtual void finalize();
     //@}
 
-  private:
 
-    /// Hide the assignment operator
-    ALEPH_1991_S2435284& operator=(const ALEPH_1991_S2435284&);
+  private:
 
     /// @name Histograms
     //@{

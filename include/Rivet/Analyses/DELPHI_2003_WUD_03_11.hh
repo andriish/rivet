@@ -78,9 +78,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    DELPHI_2003_WUD_03_11& operator=(const DELPHI_2003_WUD_03_11&);
-
     int _numdurjets;
     int _numjadejets;
 

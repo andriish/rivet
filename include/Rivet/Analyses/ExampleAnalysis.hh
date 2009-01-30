@@ -22,16 +22,7 @@ namespace Rivet {
     //@{
 
     /// Default constructor
-    ExampleAnalysis() {
-      const FinalState cnfs;
-      const ChargedFinalState cfs;
-      addProjection(cnfs, "FS");
-      addProjection(cfs, "CFS");
-      addProjection(Multiplicity(cfs), "CMult");
-      addProjection(Multiplicity(cnfs), "CNMult");
-      addProjection(Thrust(cfs), "Thrust");
-      addProjection(Sphericity(cfs), "Sphericity");
-    }
+    ExampleAnalysis();
 
     /// Factory method
     static Analysis* create() { 
@@ -75,11 +66,9 @@ namespace Rivet {
     void finalize();
     //@}
 
+
   private:
-
-    /// Hide the assignment operator
-    ExampleAnalysis& operator=(const ExampleAnalysis&);
-
+    
     //@{
     /// Histograms
     AIDA::IHistogram1D* _histTot;

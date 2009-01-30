@@ -98,11 +98,8 @@ namespace Rivet {
     /// Histograms in different eta regions
     BinnedHistogram<double> _binnedHistosR07;
 
-
-  private:
-    /// Hide the assignment operator
-    CDF_2008_S7828950& operator=(const CDF_2008_S7828950&);
   };
+
 
 }
 

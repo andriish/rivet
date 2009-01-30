@@ -10,20 +10,22 @@
 namespace Rivet {
 
 
-  /// @brief Measurement differntial Z/gamma* + jet +X cross sections
+  /// @brief Measurement differential Z/gamma* + jet +X cross sections
   /// @author Gavin Hesketh
   class D0_2008_S7863608 : public Analysis {
 
   public:
 
-    /// Default constructor.
+    /// @name Construction
+    //@{
+    /// Constructor
     D0_2008_S7863608();
-
 
     /// Factory method 
     static Analysis* create() {
       return new D0_2008_S7863608();
     }
+    //@}
 
 
     /// @name Publication metadata
@@ -60,6 +62,7 @@ namespace Rivet {
     void finalize();
     //@}
 
+
   private:
 
     /// @name Histograms
@@ -72,6 +75,7 @@ namespace Rivet {
     //@}
 
   };
+
 
 }
 

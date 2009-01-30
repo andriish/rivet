@@ -118,13 +118,8 @@ namespace Rivet {
     AIDA::IHistogram1D *_ptTrans2, *_ptTrans5, *_ptTrans30;
     //@}
 
-
-  private:
-
-    /// Hide the assignment operator.
-    CDF_2001_S4751469& operator=(const CDF_2001_S4751469&);
-
   };
+
 
 }
 

@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement differential Z/gamma* + jet +X cross sections
+  /// @brief Measurement differential Z/gamma* + jet + X cross sections
   /// @author Frank Siegert
   class CDF_2008_S7540469 : public Analysis {
 

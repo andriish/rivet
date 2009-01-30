@@ -90,9 +90,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    D0_2004_S5992206& operator=(const D0_2004_S5992206& x);
-
     /// @name Histograms
     //@{
     AIDA::IHistogram1D* _histJetAzimuth_pTmax75_100;

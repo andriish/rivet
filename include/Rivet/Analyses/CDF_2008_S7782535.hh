@@ -105,11 +105,6 @@ namespace Rivet {
     AIDA::IDataPointSet* _OneMinusPsi_vs_pT;
     //@}
 
-
-  private:
-    /// Hide the assignment operator
-    CDF_2008_S7782535& operator=(const CDF_2008_S7782535&);
-
   };
 
 }

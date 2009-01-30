@@ -99,10 +99,8 @@ namespace Rivet {
     AIDA::IHistogram1D* _histoD10;
     //@}
 
-  private:
-    /// Hide the assignment operator
-    CDF_2007_S7057202& operator=(const CDF_2007_S7057202&);
   };
+
 
 }
 

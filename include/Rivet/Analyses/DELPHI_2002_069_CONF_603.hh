@@ -69,9 +69,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    DELPHI_2002_069_CONF_603& operator=(const DELPHI_2002_069_CONF_603&);
-
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the 
     /// inclusive single particle distributions' normalisations.

@@ -138,10 +138,7 @@ namespace Rivet {
     //@}
 
 
-
   private:
-    /// Hide the assignment operator
-    CDF_1994_S2952106& operator=(const CDF_1994_S2952106& x);
 
     /// @name Histograms
     //@{
@@ -162,6 +159,7 @@ namespace Rivet {
     //@}
 
   };
+
 
 }
 

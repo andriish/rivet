@@ -68,9 +68,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    PDG_HADRON_MULTIPLICITIES& operator=(const PDG_HADRON_MULTIPLICITIES&);
-
     AIDA::IHistogram1D *_hist10MeanMultiPiPlus;
     AIDA::IHistogram1D *_hist10MeanMultiPi0;
     AIDA::IHistogram1D *_hist10MeanMultiKPlus;

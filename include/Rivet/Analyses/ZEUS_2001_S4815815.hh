@@ -67,9 +67,8 @@ namespace Rivet {
     AIDA::IHistogram1D* _histJetEt1;
     //@}
 
-    /// Hide the assignment operator
-    ZEUS_2001_S4815815& operator=(const ZEUS_2001_S4815815&);
   };
+
 
 }
 

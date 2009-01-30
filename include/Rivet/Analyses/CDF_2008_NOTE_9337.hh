@@ -75,12 +75,8 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_pt;
     AIDA::IHistogram1D *_hist_sumEt;
 
-  private:
-
-    /// Hide the assignment operator.
-    CDF_2008_NOTE_9337& operator=(const CDF_2008_NOTE_9337&);
-
   };
+
 
 }
 

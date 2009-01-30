@@ -137,8 +137,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_dsigdpt_scaled_z;
    //@}    
 
-    /// Hide copy assignment operator.
-    D0_2001_S4674421& operator=(const D0_2001_S4674421&);
   };
 
 }

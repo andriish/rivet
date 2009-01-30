@@ -231,11 +231,8 @@ namespace Rivet {
     AIDA::IHistogram1D* _histbJetsEta;
     //@}
 
-
-    /// Hide the assignment operator
-    CDF_2006_S6653332& operator=(const CDF_2006_S6653332&);
-
   };
+
 
 }
 

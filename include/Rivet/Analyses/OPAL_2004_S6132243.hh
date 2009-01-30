@@ -55,9 +55,6 @@ namespace Rivet {
 
 //   private:
 
-//     /// Hide the assignment operator
-//     OPAL_2004_S6132243 & operator=(const OPAL_2004_S6132243&);
-
 //     /// @name Histograms
 //     //@{
 //     AIDA::IHistogram1D* histChTot_;

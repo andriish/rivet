@@ -9,8 +9,8 @@
 namespace Rivet {
 
 
-  /// @brief Measurement differntial Z/gamma* + jet +X cross sections
-  /// @author Gavin Hesketh
+  /// @brief Monte Carlo validation observables for Z[e+ e-] + jets production at Tevatron Run II
+  /// @author Frank Siegert
   class MC_TVT1960_ZJETS : public Analysis {
 
   public:
@@ -33,7 +33,7 @@ namespace Rivet {
     }
     /// Get a description of the analysis.
     string description() const {
-      return "MonteCarlo validation observables for Z[e+ e-] + jets production at Tevatron Run II";
+      return "Monte Carlo validation observables for Z[e+ e-] + jets production at Tevatron Run II";
     }    
     /// Experiment which performed and published this analysis. 
     string experiment() const {

@@ -168,13 +168,8 @@ namespace Rivet {
     //private:
     //UniformRealRNG _rngEtaMB, _rngPhiMB;
 
-
-  private:
-
-    /// Hide the assignment operator.
-    CDF_2004_S5839831& operator=(const CDF_2004_S5839831&);
-
   };
+
 
 }
 

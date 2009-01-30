@@ -65,9 +65,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    H1_2000_S4129130& operator=(const H1_2000_S4129130&);
-
     /**
      *  Polar angle with right direction of the beam
      */

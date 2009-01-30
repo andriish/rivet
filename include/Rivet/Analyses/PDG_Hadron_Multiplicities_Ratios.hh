@@ -72,9 +72,6 @@ namespace Rivet {
 
   private:
 
-    /// Hide the assignment operator
-    PDG_HADRON_MULTIPLICITIES_RATIOS& operator=(const PDG_HADRON_MULTIPLICITIES_RATIOS&);
-
     double _weightedTotalNumPiPlus10;
     double _weightedTotalNumPiPlus32;
     double _weightedTotalNumPiPlus91;

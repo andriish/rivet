@@ -92,12 +92,8 @@ namespace Rivet {
     AIDA::IProfile1D *_hist_pdifcptsum;
     AIDA::IProfile1D *_hist_pcptave;
 
-  private:
-
-    /// Hide the assignment operator.
-    CDF_2008_LEADINGJETS& operator=(const CDF_2008_LEADINGJETS&);
-
   };
+
 
 }
 

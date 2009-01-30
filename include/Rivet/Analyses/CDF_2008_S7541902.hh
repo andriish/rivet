@@ -102,35 +102,39 @@ namespace Rivet {
     void finalize();
     //@}
 
+
   private:
-    
-    /// cut on the electron ET:
-    double _electronETCut;
-    /// cut on the electron ETA:
-    double _electronETACut;   
-    /// cut on the missing ET
-    double _eTmissCut;
-    ///cut on the transverse mass squared
-    double _mT2Cut;
-     /// cut on the jet ET for differential cross sections
-    double _jetEtCutA;
-    /// cut on the jet ET for jet multiplicity
-    double _jetEtCutB;
-    /// cut on the jet ETA
-    double _jetETA;
-    
-    double _xpoint;
+
+    /// @name Cuts 
     //@{
-    /// Histograms
+    /// Cut on the electron ET:
+    double _electronETCut;
+    /// Cut on the electron ETA:
+    double _electronETACut;   
+    /// Cut on the missing ET
+    double _eTmissCut;
+    /// Cut on the transverse mass squared
+    double _mT2Cut;
+    /// Cut on the jet ET for differential cross sections
+    double _jetEtCutA;
+    /// Cut on the jet ET for jet multiplicity
+    double _jetEtCutB;
+    /// Cut on the jet ETA
+    double _jetETA;
+    //@}    
+
+    double _xpoint;
+
+    /// @name Histograms
+    //@{
     AIDA::IHistogram1D* _histJetEt[4];
     AIDA::IHistogram1D* _histJetMultNorm;
     AIDA::IDataPointSet* _histJetMultRatio[4];
     AIDA::IHistogram1D* _histJetMult[4];
     //@}
 
-    /// Hide the assignment operator
-    CDF_2008_S7541902& operator=(const CDF_2008_S7541902&);
   };
+
 
 }
 
