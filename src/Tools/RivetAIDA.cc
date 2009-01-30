@@ -1,5 +1,5 @@
-#include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "LWH/AnalysisFactory.h"
 #include "TinyXML/tinyxml.h"
@@ -40,12 +40,13 @@ namespace Rivet {
                        " in $RIVET_REF_PATH, " + getRivetDataPath() + ", or .");
     return "";
   }
+  
+  
 
-
-  const map<string, BinEdges> getBinEdges(string papername) {
+  const map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername) {
     // Get filename
     const string xmlfile = getDatafilePath(papername);
-
+    
     // Open AIDA XML file
     TiXmlDocument doc(xmlfile);
     doc.LoadFile();
@@ -55,10 +56,10 @@ namespace Rivet {
       cerr << err << endl;
       throw Error(err);
     }
-
+    
     // Return value, to be populated
-    map<string, BinEdges> plotbinedges;
-
+    map<string, vector<DPSXPoint> > rtn;
+    
     try {      
       // Walk down tree to get to the <paper> element
       const TiXmlNode* aidaN = doc.FirstChild("aida");
@@ -72,8 +73,9 @@ namespace Rivet {
           cerr << "Skipping non-reference histogram " << plotname << endl;
           continue;
         }
+        
         /// @todo Check that "path" matches filename
-        list<double> edges;
+        vector<DPSXPoint> points;
         for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling()) {
           const TiXmlNode* xMeasN = dpN->FirstChild("measurement");
           if (xMeasN) {
@@ -90,38 +92,18 @@ namespace Rivet {
             double centre, errplus, errminus;
             ssC >> centre; ssP >> errplus; ssM >> errminus;
             //cout << "  " << centre << " + " << errplus << " - " << errminus << endl;
-            const double lowedge = centre - errminus;
-            const double highedge = centre + errplus;
-            edges.push_back(lowedge);
-            edges.push_back(highedge);
+            DPSXPoint pt(centre, errminus, errplus);
+            points.push_back(pt);
           } else {
             cerr << "Couldn't get <measurement> tag" << endl;
             /// @todo Throw an exception here?
           }
         }
-
-        //cout << edges.size() << " edges -> " << edges.size()/2 << " bins" << endl;
-
-        // Remove duplicates (the careful testing is why we haven't used a set)
-        for (list<double>::iterator e = edges.begin(); e != edges.end(); ++e) {
-          list<double>::iterator e2 = e;
-          while (e2 != edges.end()) {
-            if (e != e2) {
-              if (fuzzyEquals(*e, *e2)) {
-                edges.erase(e2++);
-              }
-            }
-            ++e2;
-          }
-        }
-
-        //cout << edges.size() << " edges after dups removal (should be #bins+1)" << endl;
-
+        
         // Add to the map
-        //BinEdges edgesvec = 
-        plotbinedges[plotname] = BinEdges(edges.begin(), edges.end()); 
+        rtn[plotname] = points;
       }
-
+      
     }
     // Write out the error
     /// @todo Rethrow as a general XML failure. 
@@ -129,9 +111,59 @@ namespace Rivet {
       cerr << e.what() << endl;
       throw;
     }
+    
+    // Return
+    return rtn;
+  }
+    
+
+
+  const map<string, BinEdges> 
+  getBinEdges(string papername) {
+    const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
+    return getBinEdges(xpoints);
+  }
+
+
+
+  const map<string, BinEdges> 
+  getBinEdges(const map<string, vector<DPSXPoint> >& xpoints) {
+
+    map<string, BinEdges> rtn;
+    for (map<string, vector<DPSXPoint> >::const_iterator dsit = xpoints.begin(); 
+         dsit != xpoints.end(); ++dsit) {
+      const string plotname = dsit->first;
+      list<double> edges;
+      for (vector<DPSXPoint>::const_iterator xpt = dsit->second.begin();
+           xpt != dsit->second.end(); ++xpt) {
+        const double lowedge = xpt->val - xpt->errminus;
+        const double highedge = xpt->val + xpt->errminus;
+        edges.push_back(lowedge);
+        edges.push_back(highedge);
+      }
+
+      // Remove duplicates (the careful testing is why we haven't used a set)
+      //cout << edges.size() << " edges -> " << edges.size()/2 << " bins" << endl;
+      for (list<double>::iterator e = edges.begin(); e != edges.end(); ++e) {
+        list<double>::iterator e2 = e;
+        while (e2 != edges.end()) {
+          if (e != e2) {
+            if (fuzzyEquals(*e, *e2)) {
+              edges.erase(e2++);
+            }
+          }
+          ++e2;
+        }
+      }
+      //cout << edges.size() << " edges after dups removal (should be #bins+1)" << endl;
+
+      // Add to the map
+      rtn[plotname] = BinEdges(edges.begin(), edges.end()); 
+    }
 
     // Return
-    return plotbinedges;
+    return rtn;
   }
+
 
 }

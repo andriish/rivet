@@ -53,9 +53,18 @@ namespace Rivet {
 
 
   void Analysis::_cacheBinEdges() {
+    _cacheXAxisData();
     if (_histBinEdges.empty()) {
       getLog() << Log::TRACE << "Getting histo bin edges from AIDA for paper " << name() << endl;
-      _histBinEdges = getBinEdges(name());
+      _histBinEdges = getBinEdges(_dpsData);
+    }
+  }
+
+
+  void Analysis::_cacheXAxisData() {
+    if (_dpsData.empty()) {
+      getLog() << Log::TRACE << "Getting DPS x-axis data from AIDA for paper " << name() << endl;
+      _dpsData = getDPSXValsErrs(name());
     }
   }
 
@@ -120,22 +129,21 @@ namespace Rivet {
 
 
   IProfile1D* Analysis::bookProfile1D(const std::string& hname, const std::string& title) {
-    Log& log = getLog();
     // Get the bin edges (only read the AIDA file once)
     _cacheBinEdges();
-    log << Log::TRACE << "Using profile histo bin edges for " << name() << ":" << hname << endl;
+    getLog() << Log::TRACE << "Using profile histo bin edges for " << name() << ":" << hname << endl;
     const BinEdges edges = _histBinEdges.find(hname)->second;
-    if (log.isActive(Log::TRACE)) {
+    if (getLog().isActive(Log::TRACE)) {
         stringstream edges_ss;
         foreach (const double be, edges) {
           edges_ss << " " << be;
         }
-        log << Log::TRACE << "Edges:" << edges_ss.str() << endl;
+        getLog() << Log::TRACE << "Edges:" << edges_ss.str() << endl;
     }
     _makeHistoDir();
     const string path = histoDir() + "/" + hname;
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
-    log << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
+    getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
     return prof;
   }
 
@@ -182,33 +190,22 @@ namespace Rivet {
 
   IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
                                             const size_t yAxisId, const string& title) {
-    Log& log = getLog();
     // Get the bin edges (only read the AIDA file once)
-    _cacheBinEdges();
+    _cacheXAxisData();
     // Build the axis code
     const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
-    log << Log::TRACE << "Using DPS x-positions for " << name() << ":" << axisCode << endl;
+    //const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
+    getLog() << Log::TRACE << "Using DPS x-positions for " << name() << ":" << axisCode << endl;
     IDataPointSet* dps = bookDataPointSet(axisCode, title);
-    const BinEdges edges = _histBinEdges.find(axisCode)->second;
-    if (log.isActive(Log::TRACE)) {
-      stringstream edges_ss;
-      for (BinEdges::const_iterator be = edges.begin(); be != edges.end(); ++be) {
-        edges_ss << " " << *be;
-      }
-      log << Log::TRACE << "Edges:" << edges_ss.str() << endl;
-    }
-    for (size_t pt = 0; pt < edges.size()-1; ++pt) {
-      const double lower = edges[pt];
-      const double upper = edges[pt+1];
-      const double err = (upper-lower)/2.0;
-      const double centre = (lower + upper)/2.0;
+    const vector<DPSXPoint> xpts = _dpsData.find(axisCode)->second;
+    for (size_t pt = 0; pt < xpts.size(); ++pt) {
       dps->addPoint();
       IMeasurement* meas = dps->point(pt)->coordinate(0);
-      meas->setValue(centre);
-      meas->setErrorPlus(err);
-      meas->setErrorMinus(err);
+      meas->setValue(xpts[pt].val);
+      meas->setErrorPlus(xpts[pt].errplus);
+      meas->setErrorMinus(xpts[pt].errminus);
     }
-    log << Log::TRACE << "Made DPS " << axisCode <<  " for " << name() << endl;
+    getLog() << Log::TRACE << "Made DPS " << axisCode <<  " for " << name() << endl;
     return dps;
   }
 

@@ -343,6 +343,9 @@ namespace Rivet {
     /// Get the bin edges for this paper from the reference AIDA file, and cache them.
     void _cacheBinEdges();
 
+    /// Get the x-axis points for this paper from the reference AIDA file, and cache them.
+    void _cacheXAxisData();
+
     /// Make the axis code string (dsDD-xXX-yYY)
     string _makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) const;
     //@}
@@ -391,6 +394,10 @@ namespace Rivet {
     bool _madeHistoDir;
 
     double _vetoedWeightSum;
+
+    /// Collection of x-axis point data to speed up many autobookings: the 
+    /// AIDA reference file should only be read once.
+    map<string, vector<DPSXPoint> > _dpsData;
 
     /// Collection of cached bin edges to speed up many autobookings: the 
     /// AIDA reference file should only be read once.
