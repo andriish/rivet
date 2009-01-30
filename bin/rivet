@@ -300,6 +300,8 @@ for evtfile in HEPMCFILES:
             ## we could have been waiting for user input:
             starttime = time.time()
 
+        if evt.vertices_empty():
+            break
         ## All is well... do the analysis
         ah.analyze(evt);
         if RECVD_KILL_SIGNAL is not None:
