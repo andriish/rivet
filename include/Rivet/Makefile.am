@@ -65,6 +65,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/H1_2000_S4129130.hh \
   Analyses/OPAL_1998_S3780481.hh \
   Analyses/OPAL_2004_S6132243.hh \
+  Analyses/JADE_OPAL_2000_S4300807.hh \
   Analyses/ZEUS_2001_S4815815.hh \
   Analyses/PDG_Hadron_Multiplicities.hh \
   Analyses/PDG_Hadron_Multiplicities_Ratios.hh \

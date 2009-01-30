@@ -179,8 +179,8 @@ if len(opts.SHOW_ANALYSES) > 0:
     for name in sorted(toshow):
         ana = rivet.AnalysisLoader.getAnalysis(name)
         print ""
-        print ana.name()
-        print len(ana.name()) * "="
+        print name
+        print len(name) * "="
         print ""
         print "Spires ID: %s" % ana.spiresId()
         print "Spires URL: http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.spiresId()

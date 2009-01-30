@@ -17,6 +17,7 @@
 #include "Rivet/Analyses/PDG_Hadron_Multiplicities.hh"
 #include "Rivet/Analyses/PDG_Hadron_Multiplicities_Ratios.hh"
 //#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
+#include "Rivet/Analyses/JADE_OPAL_2000_S4300807.hh"
 
 // HERA
 #include "Rivet/Analyses/H1_1994_S2919893.hh"
@@ -74,6 +75,14 @@ extern "C" {
     fns["DELPHI_2003_WUD_03_11"] = Rivet::DELPHI_2003_WUD_03_11::create;
     fns["OPAL_1998_S3780481"] = Rivet::OPAL_1998_S3780481::create;
     //fns["OPAL_2004_S6132243"] = Rivet::OPAL_2004_S6132243::create;
+    fns["JADE_OPAL_2000_S4300807_35GEV"] = Rivet::JADE_OPAL_2000_S4300807_35GEV::create;
+    fns["JADE_OPAL_2000_S4300807_44GEV"] = Rivet::JADE_OPAL_2000_S4300807_44GEV::create;
+    fns["JADE_OPAL_2000_S4300807_91GEV"] = Rivet::JADE_OPAL_2000_S4300807_91GEV::create;
+    fns["JADE_OPAL_2000_S4300807_133GEV"] = Rivet::JADE_OPAL_2000_S4300807_133GEV::create;
+    fns["JADE_OPAL_2000_S4300807_161GEV"] = Rivet::JADE_OPAL_2000_S4300807_161GEV::create;
+    fns["JADE_OPAL_2000_S4300807_172GEV"] = Rivet::JADE_OPAL_2000_S4300807_172GEV::create;
+    fns["JADE_OPAL_2000_S4300807_183GEV"] = Rivet::JADE_OPAL_2000_S4300807_183GEV::create;
+    fns["JADE_OPAL_2000_S4300807_189GEV"] = Rivet::JADE_OPAL_2000_S4300807_189GEV::create;
 
     // HERA
     fns["H1_1994_S2919893"] = Rivet::H1_1994_S2919893::create;
