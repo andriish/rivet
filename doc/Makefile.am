@@ -1,13 +1,34 @@
-## TODO: make the doc rule run until a successful build (or > 3 runs)
-doc: rivet-manual.pdf
+DOCNAME = rivet-manual
+
+## TODO: make variable names POSIX-compliant
+
+LATEX	= pdflatex
+BIBTEX	= bibtex
+MAKEINDEX = makeindex
+RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
+RERUNBIB = "No file.*\.bbl|Citation.*undefined"
+MAKEIDX = "^[^%]*\\makeindex"
+
+COPY = if test -r $(<:%.tex=%.toc); then cp $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); fi
+RM = rm -f
+
+.PHONY = doc
+
+doc: $(DOCNAME).pdf
 	@true
 
-rivet-manual.pdf: rivet-manual.tex
-	while true; do pdflatex rivet-manual.tex; \
-    if grep -i rerun rivet-manual.log; then true; else break; fi; done 
+$(DOCNAME).pdf: $(DOCNAME).tex
+	$(COPY);$(LATEX) $<
+	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%); $(COPY); $(LATEX) $<) > /dev/null; true
+	egrep -c $(RERUNBIB) $(<:%.tex=%.log) && ($(BIBTEX) $(<:%.tex=%); $(COPY); $(LATEX) $<); true
+	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) > /dev/null; true
+	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) > /dev/null; true
+	if cmp -s $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); then true; else $(LATEX) $< ; fi
+	$(RM) $(<:%.tex=%.toc.bak)
+	egrep -i "(Reference|Citation).*undefined" $(<:%.tex=%.log) ; true
 
 mostlyclean-local:
 	rm -rf *.aux *.log *.toc
 
 clean-local:
-	rm -rf rivet-manual.pdf
+	rm -rf $(DOCNAME).pdf
