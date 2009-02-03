@@ -4,6 +4,19 @@ import sys, os, time
 import logging, signal
 from optparse import OptionParser, OptionGroup
 
+
+## Make "set" a builtin type on Python < 2.4
+if not 'set' in dir(__builtins__):
+    from sets import Set as set
+
+## Make "sorted" a builtin function on Python < 2.4
+if not 'sorted' in dir(__builtins__):
+    def sorted(iterable, cmp=None, key=None, reverse=None):
+        rtn = iterable
+        rtn.sort(cmp, key, reverse)
+        return rtn
+        
+
 ## Change dlopen status to GLOBAL for Rivet lib
 try:
     import ctypes
@@ -101,6 +114,8 @@ verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNIN
                      default=logging.INFO, help="be very quiet")
 parser.add_option_group(verbgroup)
 opts, args = parser.parse_args()
+
+## Configure logging
 try:
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 except:
