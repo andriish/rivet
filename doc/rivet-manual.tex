@@ -5,7 +5,8 @@
 \usepackage{amssymb,url,underscore,fancyvrb,cancel}
 \usepackage{hepnicenames,hepunits}
 \usepackage{picinpar,fancybox}
-\usepackage{microtype}
+\usepackage{microtype,relsize}
+\usepackage{rivetversion}
 %\usepackage{xcolor}
 %\usepackage{palatino,mathpazo}
 %\usepackage{utopia}
@@ -85,7 +86,7 @@
 \newcommand{\MET}{\ensuremath{\cancel{E_\perp}}\xspace}
 
 
-\title{Rivet user manual}
+\title{Rivet user manual\\ {\smaller \textsc{version \RivetVersion}}}
 
 \author{Andy Buckley\\ IPPP, Durham University, UK.\\ E-mail: \email{andy.buckley@durham.ac.uk}}
 \author{Jonathan Butterworth\\ HEP Group, Dept. of Physics and Astronomy, UCL, London, UK.\\ E-mail: \email{J.Butterworth@ucl.ac.uk}}
@@ -450,6 +451,18 @@ The \kbd{--pdf} flag makes the output plots in PDF format: by default the output
 is in PostScript (\kbd{.ps}), and flags for conversion to EPS and PNG are also
 available.
 
+
+\clearpage
+\part{Standard Rivet analyses}
+\label{part:analyses}
+
+In this section we describe the standard experimental analyses included with the
+Rivet library. To maintain synchronisation with the code, these descriptions are
+generated automatically from the metadata in the analysis objects
+themselves. This is currently rather sparse, hence the briefness of the
+descriptions shown here. Richer metadata will be added to the code soon!
+
+\input{analyses}
 
 
 \clearpage

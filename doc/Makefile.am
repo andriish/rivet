@@ -1,6 +1,6 @@
 DOCNAME = rivet-manual
 
-## TODO: make variable names POSIX-compliant
+## TODO: make variable names POSIX-compliant!
 
 LATEX	= pdflatex
 BIBTEX	= bibtex
@@ -17,7 +17,10 @@ RM = rm -f
 doc: $(DOCNAME).pdf
 	@true
 
-$(DOCNAME).pdf: $(DOCNAME).tex
+analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
+	./mk-analysis-latex analyses.tex
+
+$(DOCNAME).pdf : $(DOCNAME).tex analyses.tex
 	$(COPY);$(LATEX) $<
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%); $(COPY); $(LATEX) $<) > /dev/null; true
 	egrep -c $(RERUNBIB) $(<:%.tex=%.log) && ($(BIBTEX) $(<:%.tex=%); $(COPY); $(LATEX) $<); true

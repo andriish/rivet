@@ -1,0 +1,72 @@
+#! /usr/bin/env python
+
+
+## Get output filename
+import sys
+if len(sys.argv) < 2:
+    print "You must supply the output file as an argument"
+    exit(1)
+OUTFILE = sys.argv[1]
+
+
+## Make "set" a builtin type on Python < 2.4
+if not 'set' in dir(__builtins__):
+    from sets import Set as set
+
+## Make "sorted" a builtin function on Python < 2.4
+if not 'sorted' in dir(__builtins__):
+    def sorted(iterable, cmp=None, key=None, reverse=None):
+        rtn = iterable
+        rtn.sort(cmp, key, reverse)
+        return rtn
+
+        
+## Change dlopen status to GLOBAL for Rivet lib
+try:
+    import ctypes
+    sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
+except:
+    import dl
+    sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
+import rivet
+
+
+def texify(s):
+    t = s \
+        .replace("&", "\\&") \
+        .replace("->", "$\\to$") \
+        .replace("_", "\\_")
+    return t
+
+
+## Build analysis pages
+all_analyses = rivet.AnalysisLoader.allAnalysisNames()
+pages = []
+for aname in sorted(all_analyses):
+    page = ""
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    page += "\\section*{%s}\n" % aname
+    page += "\\href{http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s}{\\textbf{Spires ID:} %s}\\newline\n" % \
+        (ana.spiresId(), ana.spiresId())
+    page += "\\textbf{Experiment:} %s \\newline\n" % ana.experiment()
+    if ana.references():
+        page += "\\textbf{References:}\n"
+        page += "\\begin{itemize}\n"
+        for r in ana.references():
+             page += "  \item %s\n" % r
+        page += "\\end{itemize}\n"
+    #print ana.getAuthor()
+    #print ana.getInstructions()
+    #print ana.getCuts()
+    #page += "\\textbf{Description:} \\newline\n"
+    page += "\n" + ana.description() + "\n"
+    page = texify(page)
+    pages.append(page)
+
+
+## Write out LaTeX
+#outstr = "\n\n\\clearpage\n\n".join(pages)
+outstr = "\n\n".join(pages)
+f = open(OUTFILE, "w")
+f.write(outstr)
+f.close()

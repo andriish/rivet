@@ -1,3 +1,8 @@
+2009-02-04  Andy Buckley  <andy@insectnation.org>
+
+	* Adding automatic generation of LaTeX manual entries for the
+	standard analyses.
+
 2009-01-20  Andy Buckley  <andy@insectnation.org>
 
 	* Removing RivetGun and TCLAP source files!
