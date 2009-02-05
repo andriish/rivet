@@ -1,3 +1,11 @@
+2009-02-05  Andy Buckley  <andy@insectnation.org>
+
+	* Removing ROOT dependency and linking. Woo! There's no need for
+	this now, because the front-end accepts no histo format switch and
+	we'll just use aida2root for output conversions. Simpler this way,
+	and it avoids about half of our compilation bug reports from 32/64
+	bit ROOT build confusions.
+
 2009-02-04  Andy Buckley  <andy@insectnation.org>
 
 	* Adding automatic generation of LaTeX manual entries for the

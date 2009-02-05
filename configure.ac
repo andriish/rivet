@@ -103,31 +103,29 @@ if test x$enable_pyext == xyes; then
 fi
 
 
-## Optional ROOT analysis framework
-AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, 
-  [build with ROOT output @<:@default=yes@:>@])], [], [])
-if test x$enable_root != xno; then
-  AC_SEARCH_ROOT([enable_root=yes; AC_TEST_ROOT], [AC_MSG_WARN([ROOT is not available])])
-else
-  AC_MSG_NOTICE([Not using ROOT])
-fi
-AM_CONDITIONAL([WITH_ROOT], [test x$enable_root == xyes])
+dnl ## Optional ROOT analysis framework
+dnl AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, 
+dnl   [build with ROOT output @<:@default=yes@:>@])], [], [])
+dnl if test x$enable_root != xno; then
+dnl   AC_SEARCH_ROOT([enable_root=yes; AC_TEST_ROOT], [AC_MSG_WARN([ROOT is not available])])
+dnl else
+dnl   AC_MSG_NOTICE([Not using ROOT])
+dnl fi
+dnl AM_CONDITIONAL([WITH_ROOT], [test x$enable_root == xyes])
 
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(BOOSTINCPATH) \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
-AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPIDINCPATH)"
-AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPPDTINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
 AM_CXXFLAGS="$AM_CXXFLAGS -DLIB_SUFFIX=$LIB_SUFFIX "
 AC_CEDAR_CHECKCXXFLAG([-pedantic], [AM_CXXFLAGS="$AM_CXXFLAGS -pedantic "])
 AC_CEDAR_CHECKCXXFLAG([-ansi], [AM_CXXFLAGS="$AM_CXXFLAGS -ansi "])
 AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall "])
-if test x$with_root == xyes; then
-  AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "])
-fi
+dnl if test x$with_root == xyes; then
+dnl   AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "])
+dnl fi
 
 
 ## Debug flag (default=none)

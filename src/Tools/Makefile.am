@@ -12,6 +12,6 @@ libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) \
   -DDEFAULTDATADIR=\"$(datadir)\" \
   -DDEFAULTLIBDIR=\"$(libdir)\"
 
-if WITH_ROOT
-  libRivetTools_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS) -fpermissive
-endif
+# if WITH_ROOT
+#   libRivetTools_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS) -fpermissive
+# endif
