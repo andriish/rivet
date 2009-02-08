@@ -84,10 +84,9 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_h_R_Jade[5];
-    AIDA::IHistogram1D *_h_R_Durham[5];
+    AIDA::IDataPointSet *_h_R_Jade[5];
+    AIDA::IDataPointSet *_h_R_Durham[5];
 
-    AIDA::IHistogram1D *_h_y_Jade[4];
     AIDA::IHistogram1D *_h_y_Durham[4];
     //@}
 
