@@ -44,7 +44,7 @@ namespace Rivet {
       stringstream name, title;
       name<<"log10_R_"<<i;
       title<<"$\\log_{10}$(Integrated $"<<i<<"$ jet rate in $k_\\perp$ [GeV])";
-      _h_log10_R[i] = bookHistogram1D(name.str(), title.str(), 100, 0.2, 2.6);
+      _h_log10_R[i] = bookDataPointSet(name.str(), title.str(), 100, 0.2, 2.6);
     }
   }
 
@@ -111,6 +111,56 @@ namespace Rivet {
     FastJets jetpro(fs); // fs only as dummy here
     jetpro.calc(jetparts);
 
+    // jet resolutions and integrated jet rates
+    const fastjet::ClusterSequence* seq = jetpro.clusterSeq();
+    if (seq!=NULL) {
+      double d_01=log10(sqrt(seq->exclusive_dmerge_max(0)));
+      double d_12=log10(sqrt(seq->exclusive_dmerge_max(1)));
+      double d_23=log10(sqrt(seq->exclusive_dmerge_max(2)));
+      double d_34=log10(sqrt(seq->exclusive_dmerge_max(3)));
+
+      _h_log10_d[0]->fill(d_01, weight);
+      _h_log10_d[1]->fill(d_12, weight);
+      _h_log10_d[2]->fill(d_23, weight);
+      _h_log10_d[3]->fill(d_34, weight);
+
+      for (int i=0; i<_h_log10_R[0]->size(); ++i) {
+        IDataPoint* dp=_h_log10_R[0]->point(i);
+        if (d_01 < dp->coordinate(0)->value()) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+        }
+      }
+      for (int i=0; i<_h_log10_R[1]->size(); ++i) {
+        IDataPoint* dp=_h_log10_R[1]->point(i);
+        double dcut=dp->coordinate(0)->value();
+        if (d_12<dcut && d_01>dcut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+        }
+      }
+      for (int i=0; i<_h_log10_R[2]->size(); ++i) {
+        IDataPoint* dp=_h_log10_R[2]->point(i);
+        double dcut=dp->coordinate(0)->value();
+        if (d_23<dcut && d_12>dcut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+        }
+      }
+      for (int i=0; i<_h_log10_R[3]->size(); ++i) {
+        IDataPoint* dp=_h_log10_R[3]->point(i);
+        double dcut=dp->coordinate(0)->value();
+        if (d_34<dcut && d_23>dcut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+        }
+      }
+      for (int i=0; i<_h_log10_R[4]->size(); ++i) {
+        IDataPoint* dp=_h_log10_R[4]->point(i);
+        double dcut=dp->coordinate(0)->value();
+        if (d_34>dcut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+        }
+      }
+    }
+
+
     // Take jets with pt > 20
     /// @todo Make this neater, using the JetAlg interface and the built-in sorting
     const Jets& jets = jetpro.jets();
@@ -159,55 +209,11 @@ namespace Rivet {
       _h_jet4_pT->fill(jets_cut[3].momentum().pT(), weight);
     }
 
-    // jet resolutions
-    const fastjet::ClusterSequence* seq = jetpro.clusterSeq();
-    if (seq!=NULL) {
-      for (size_t i=0; i<4; ++i) {
-        double d_min=seq->exclusive_dmerge_max(i);
-        if (d_min>0.0) _h_log10_d[i]->fill(log10(sqrt(d_min)), weight);
-      }
-    }
   }
 
 
   // Finalize
   void MC_TVT1960_ZJETS::finalize() {
-    // integrated jet rates
-    /// @todo: can probably be done much smarter using DPS or yoda?
-    const AIDA::IAxis& axis(_h_log10_d[0]->axis());
-    const int N=axis.bins();
-    // R_0 (d) = 1 - int_d^dmax d_{01}
-    double fullint0=integral(_h_log10_d[0]);
-    for (int ibin=0; ibin<N; ++ibin) {
-      double integral=0.0;
-      for (int jbin=ibin; jbin<N; ++jbin) {
-        integral+=_h_log10_d[0]->binHeight(jbin)*_h_log10_d[0]->axis().binWidth(jbin);
-      }
-      double binmean=axis.binLowerEdge(ibin)+0.5*axis.binWidth(ibin);
-      _h_log10_R[0]->fill(binmean, fullint0-integral);
-    }
-    // R_n (d) = int_d^dmax d_{n-1,n} - d_{n,n+1}
-    for (int n=1; n<4; ++n) {
-      for (int ibin=0; ibin<N; ++ibin) {
-        double integral=0.0;
-        for (int jbin=ibin; jbin<N; ++jbin) {
-          integral+=_h_log10_d[n-1]->binHeight(jbin)*_h_log10_d[n-1]->axis().binWidth(jbin)-
-            _h_log10_d[n]->binHeight(jbin)*_h_log10_d[n]->axis().binWidth(jbin);
-        }
-        double binmean=axis.binLowerEdge(ibin)+0.5*axis.binWidth(ibin);
-        _h_log10_R[n]->fill(binmean, integral);
-      }
-    }
-    // R_4 (d) = int_d^dmax d_{3,4}
-    for (int ibin=0; ibin<N; ++ibin) {
-      double integral=0.0;
-      for (int jbin=ibin; jbin<N; ++jbin) {
-        integral+=_h_log10_d[3]->binHeight(jbin)*_h_log10_d[3]->axis().binWidth(jbin);
-      }
-      double binmean=axis.binLowerEdge(ibin)+0.5*axis.binWidth(ibin);
-      _h_log10_R[4]->fill(binmean, integral);
-    }
-
     normalize(_h_Z_mass,1.0);
     normalize(_h_jet1_pT,1.0);
     normalize(_h_jet2_pT,1.0);
@@ -216,7 +222,14 @@ namespace Rivet {
     normalize(_h_deta_Z_jet1,1.0);
     normalize(_h_dR_jet2_jet3,1.0);
     for (size_t i=0; i<4; ++i) {
-      normalize(_h_log10_d[i],1.0);
+      scale(_h_log10_d[i],1.0/sumOfWeights());
+    }
+    for (size_t n=0; n<5; ++n) {
+      /// scale integrated jet rates to 1
+      for (int i=0; i<_h_log10_R[n]->size(); ++i) {
+        IDataPoint* dp=_h_log10_R[n]->point(i);
+        dp->coordinate(1)->setValue(dp->coordinate(1)->value()*1.0/sumOfWeights());
+      }
     }
   }
 
