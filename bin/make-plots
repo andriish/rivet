@@ -49,24 +49,20 @@ class Inputdata:
             self.description['PlotSizeY'] = float(plotsizey)
             del self.description['PlotSize']
 
-        self.description['RatioPlotSizeY'] = 0.
+        self.description['RatioPlotSizeY'] = 3.
         if self.description.has_key('RatioPlot') and self.description['RatioPlot']=='1':
             if self.description.has_key('RatioPlotYSize') and self.description['RatioPlotYSize']!='':
                 self.description['RatioPlotSizeY'] = float(self.description['RatioPlotYSize'])
-            else:
-                self.description['RatioPlotSizeY'] = 3.
 
-        global logx
         if self.description.has_key('LogX') and self.description['LogX']=='1':
-            logx=True
+            self.description['LogX']=True
         else:
-            logx=False
+            self.description['LogX']=False
 
-        global logy
         if self.description.has_key('LogY') and self.description['LogY']=='1':
-            logy=True
+            self.description['LogY']=True
         else:
-            logy=False
+            self.description['LogY']=False
 
         if self.description.has_key('Stack'):
             foo=[]
@@ -100,10 +96,10 @@ class Inputdata:
 
 
 class Plot:
-    def __init__(self, inputdata):
+    def __init__(self,inputdata):
         pass
 
-    def set_borders(self, inputdata):
+    def set_borders(self,inputdata):
         self.set_xmax(inputdata)
         self.set_xmin(inputdata)
         self.set_ymax(inputdata)
@@ -138,7 +134,7 @@ class Plot:
         else:
             foo=[]
             for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getYMin(xmin, xmax))
+                foo.append(inputdata.histos[i].getYMin(xmin, xmax, inputdata.description['LogY']))
             if is2dim:
                 ymin=min(foo)
             else:
@@ -146,7 +142,7 @@ class Plot:
                     ymin = 0
                 else:
                     ymin = 1.1*min(foo)
-                if logy:
+                if inputdata.description['LogY']:
                     if opts.FULL_RANGE:
                         ymin = min(foo)/1.7
                     else:
@@ -166,7 +162,7 @@ class Plot:
             if is2dim:
                 ymax=max(foo)
             else:
-                if logy:
+                if inputdata.description['LogY']:
                     ymax=1.7*max(foo)
                 else:
                     ymax=1.1*max(foo)
@@ -255,7 +251,7 @@ class MainPlot(Plot):
     def __init__(self, inputdata):
         self.set_borders(inputdata)
         global coors
-        coors = Coordinates()
+        coors = Coordinates(inputdata)
 
     def draw(self, inputdata):
         out = ""
@@ -311,7 +307,7 @@ class MainPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     xcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        xticks = XTicks()
+        xticks = XTicks(inputdata.description)
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
             drawlabels=False
         else:
@@ -334,7 +330,7 @@ class MainPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        yticks = YTicks()
+        yticks = YTicks(inputdata.description)
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
                                customminortickmarks=ycustomminortickmarks,\
                                customticks=ycustomticks)
@@ -353,8 +349,7 @@ class RatioPlot(Plot):
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
             self.refdata=inputdata.description['RatioPlotReference']
             inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
-            global logy
-            logy=False
+            inputdata.description['LogY'] = False
             if inputdata.description.has_key('RatioPlotYMin'):
                 inputdata.description['YMin']=inputdata.description['RatioPlotYMin']
             if inputdata.description.has_key('RatioPlotYMax'):
@@ -371,7 +366,7 @@ class RatioPlot(Plot):
             self.calculate_ratios(inputdata)
             self.set_borders(inputdata)
             global coors
-            coors = Coordinates()
+            coors = Coordinates(inputdata)
 
     def draw(self, inputdata):
         out = ""
@@ -412,7 +407,7 @@ class RatioPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     xcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        xticks = XTicks()
+        xticks = XTicks(inputdata.description)
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
                                customminortickmarks=xcustomminortickmarks,\
                                customticks=xcustomticks)
@@ -431,7 +426,7 @@ class RatioPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        yticks = YTicks()
+        yticks = YTicks(inputdata.description)
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
                                customminortickmarks=ycustomminortickmarks,\
                                customticks=ycustomticks)
@@ -935,7 +930,7 @@ class Histogram(DrawableObject):
         else:
             return max([self.data[i]['UpEdge'] for i in range(len(self.data))])
 
-    def getYMin(self, xmin, xmax):
+    def getYMin(self, xmin, xmax, logy):
         if is2dim:
             return self.data[0]['LowEdge'][1]
         else:
@@ -1009,11 +1004,12 @@ class Frame:
 
 
 class Ticks:
-    def __init__(self):
+    def __init__(self, description):
         self.majorticklinewidth = '0.3pt'
         self.minorticklinewidth = '0.3pt'
         self.majorticklength    = '9pt'
         self.minorticklength    = '4pt'
+        self.description = description
 
     def draw_ticks(self, min, max, plotlog=False, customticks=[], customminortickmarks=-1, custommajortickmarks=-1,drawlabels=True):
         out = ""
@@ -1023,10 +1019,12 @@ class Ticks:
                 if 10**x>=min:
                     ticklabel=10**x
                     if ticklabel>min and ticklabel<max:
-                        out += self.draw_majorticklabel(ticklabel)
                         out += self.draw_majortick(ticklabel)
+                        if drawlabels:
+                            out += self.draw_majorticklabel(ticklabel)
                     if ticklabel==min or ticklabel==max:
-                        out += self.draw_majorticklabel(ticklabel)
+                        if drawlabels:
+                            out += self.draw_majorticklabel(ticklabel)
                     for i in range(2,10):
                         ticklabel=i*10**(x-1)
                         if ticklabel>min and ticklabel<max:
@@ -1038,6 +1036,7 @@ class Ticks:
                 label=customticks[i]['Label']
                 if value>=min and value<=max:
                     out += self.draw_majortick(value)
+                if drawlabels:
                     out += self.draw_majorticklabel(value, label=label)
         else:
             xrange = max-min
@@ -1128,7 +1127,7 @@ class XTicks(Ticks):
         out += ('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
         out += ('\\def\\minortickmarkx{\\psline[linewidth='+self.minorticklinewidth+'](0,0)(0,'+self.minorticklength+')}%\n')
         out += self.draw_ticks(xmin, xmax,\
-                                   plotlog=logx,\
+                                   plotlog=self.description['LogX'],\
                                    customticks=customticks,\
                                    custommajortickmarks=custommajortickmarks,\
                                    customminortickmarks=customminortickmarks,drawlabels=drawlabels)
@@ -1142,7 +1141,7 @@ class XTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value,logx)
+            label=self.get_ticklabel(value,self.description['LogX'])
         return ('\\rput('+coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){'+label+'}}\n')
 
 
@@ -1154,7 +1153,7 @@ class YTicks(Ticks):
         out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
         out += ('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
         out += self.draw_ticks(ymin, ymax,\
-                                   plotlog=logy,\
+                                   plotlog=self.description['LogY'],\
                                    customticks=customticks,\
                                    custommajortickmarks=custommajortickmarks,\
                                    customminortickmarks=customminortickmarks)
@@ -1168,17 +1167,17 @@ class YTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value,logy)
+            label=self.get_ticklabel(value,self.description['LogY'])
         return ('\\uput[180]{0}(0, '+coors.strphys2frameY(value)+'){'+label+'}\n')
 
 
 
 class Coordinates:
-    def __init__(self):
-        pass
+    def __init__(self, inputdata):
+        self.description = inputdata.description
 
     def phys2frameX(self, x):
-        if logx:
+        if self.description['LogX']:
             if x>0:
                 result = 1.*(log10(x)-log10(xmin))/(log10(xmax)-log10(xmin))
             else:
@@ -1191,7 +1190,7 @@ class Coordinates:
             return min(max(result,-10),10)
 
     def phys2frameY(self, y):
-        if logy:
+        if self.description['LogY']:
             if y>0:
                 result = 1.*(log10(y)-log10(ymin))/(log10(ymax)-log10(ymin))
             else:
