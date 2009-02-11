@@ -8,6 +8,11 @@ from optparse import OptionParser, OptionGroup
 ## Make "set" a builtin type on Python < 2.4
 if not 'set' in dir(__builtins__):
     from sets import Set as set
+    def _sort(self, cmp=None, key=None, reverse=None):
+        l = list(self)
+        l.sort(cmp)
+        return set(l)
+    set.sort = _sort
 
 ## Make "sorted" a builtin function on Python < 2.4
 if not 'sorted' in dir(__builtins__):
@@ -15,6 +20,14 @@ if not 'sorted' in dir(__builtins__):
         rtn = iterable
         rtn.sort(cmp, key, reverse)
         return rtn
+
+## Add logging.log if needed
+if not 'log' in dir(logging):
+    def _logit(level, msg):
+        l = logging.getLogger()
+        l.addHandler(logging.StreamHandler())
+        l.log(level, msg)
+    logging.log = _logit
         
 
 ## Change dlopen status to GLOBAL for Rivet lib
@@ -120,7 +133,6 @@ try:
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 except:
     logging.getLogger().setLevel(opts.LOGLEVEL)
-
 
 ## Control native Rivet library logger
 for l in opts.NATIVE_LOG_STRS:
