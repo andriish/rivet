@@ -32,6 +32,7 @@ namespace Rivet {
     _h_jet2_pT = bookHistogram1D("jet2_pT", "$p_{\\perp}^{\\mathrm{2nd jet}}$", 30, 0.0, 300.0);
     _h_jet3_pT = bookHistogram1D("jet3_pT", "$p_{\\perp}^{\\mathrm{3rd jet}}$", 20, 0.0, 200.0);
     _h_jet4_pT = bookHistogram1D("jet4_pT", "$p_{\\perp}^{\\mathrm{4th jet}}$", 10, 0.0, 100.0);
+    _h_jet_multi = bookHistogram1D("jet_multi", "$N_{\\mathrm{jet}}$", 10, -0.5, 9.5);
     _h_deta_Z_jet1 = bookHistogram1D("deta_Z_jet2", "$|\\Delta{\\eta}(\\mathrm{Z, 1st jet})|$", 20, 0.0, 5.0);
     _h_dR_jet2_jet3 = bookHistogram1D("dR_jet2_jet3", "$|\\Delta{R}(\\mathrm{2nd jet, 3rd jet})|$", 20, 0.0, 5.0);
     for (size_t i=0; i<4; ++i) {
@@ -189,6 +190,9 @@ namespace Rivet {
       }
     }
 
+    // fill jet multi
+    _h_jet_multi->fill(jets_cut.size());
+
     FourMomentum zmom(Z_candidates[0].first.momentum()+Z_candidates[0].second.momentum());
     _h_Z_mass->fill(zmom.mass());
     if (jets_cut.size()>0) {
@@ -219,6 +223,7 @@ namespace Rivet {
     normalize(_h_jet2_pT,1.0);
     normalize(_h_jet3_pT,1.0);
     normalize(_h_jet4_pT,1.0);
+    normalize(_h_jet_multi,1.0);
     normalize(_h_deta_Z_jet1,1.0);
     normalize(_h_dR_jet2_jet3,1.0);
     for (size_t i=0; i<4; ++i) {
