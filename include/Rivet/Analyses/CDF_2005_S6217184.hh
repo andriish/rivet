@@ -11,14 +11,27 @@
 namespace Rivet {
 
 
-  /// @brief CDF Run II jet shape paper 
-  /// e-print: arXiv:hep-ex/0505013 
+  /* @brief CDF Run II jet shape analysis
+   * @author Lars Sonnenschein
+   *
+   *
+   * @par Run conditions
+   *
+   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
+   * @arg Run with generic QCD events.
+   * @arg \f$ \eta \in [-2,2] \f$ cut used on final state.
+   * @arg Jet shape \f$ r_\text{min} = 0.0 \f$, \f$ r_\text{max} = 0.7 \f$,
+   * @arg radial interval = 0.1, r1minPsi = 0.3.
+   *
+   */	
   class CDF_2005_S6217184 : public Analysis {
 
   public:
 
+    /// @name Constructors etc.
+    //@{
     /// Constructor.
-    /// \f$ \eta \in [-2,2] \f$ cut used on final state.
+    /// Cuts on final state are \f$ \eta \in [-2,2] \f$.
     /// Jet shape \f$ r_\text{min} = 0.0 \f$, \f$ r_\text{max} = 0.7 \f$, 
     /// interval = 0.1, r1minPsi = 0.3.
     CDF_2005_S6217184()
@@ -51,7 +64,7 @@ namespace Rivet {
         _ShapeWeights[i%18] = 0.0;
       }
     }
-      
+    //@}  
 
   public:
 
@@ -60,6 +73,7 @@ namespace Rivet {
       return new CDF_2005_S6217184(); 
     }
 
+    //@}
 
     /// @name Publication metadata
     //@{
@@ -117,8 +131,8 @@ namespace Rivet {
     //@}
 
 
+    /// @name Histogram collections
     //@{
-    /// Histograms
     AIDA::IProfile1D* _profhistRho_pT[18];
     AIDA::IProfile1D* _profhistPsi_pT[18];
     AIDA::IProfile1D* _profhistPsi;

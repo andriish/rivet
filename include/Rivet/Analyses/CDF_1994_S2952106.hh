@@ -11,37 +11,42 @@
 
 namespace Rivet {  
 
-  /// Analysis based on the CDF Run I color coherence analysis described in
-  /// PRD50,9,5562 (1994). Events with >= 3 jets are selected and \f$ E_T \f$
-  /// distributions of the leading three \f$ p_T \f$ jets are obtained.  
-  /// \f$ \Delta{R} \f$ between 2nd and 3rd leading jets in \f$ p_T \f$ and
-  /// pseudorapidity of the 3rd leading jet are plotted. 
-  /// \f$ \alpha = \d{\eta}/\d{\phi} \f$ is plotted, where \f$ \d{\eta} \f$ is the
-  /// pseudorapidity difference between the 2nd and 3rd leading jet and \f$ \d{\phi} \f$
-  /// the azimuthal angle difference of these.  Since the data has not been
-  /// corrected to particle final state, a bin by bin correction is applied,
-  /// based on the distributions with ideal and CDF simulation as given in the
-  /// publication.
-  ///
-  /// Analysis cut values: 
-  ///  - _pvzmax: cut on primary vertex \f$ z \f$ position ( \f$ z(\text{PV}) < 60 \text{cm} \f$ );
-  ///  - _leadJetPt, _3rdJetPt: Min. \f$ p_T \f$ of the leading and 3rd leading jets;
-  ///  - _etamax: Max. pseudorapidity range of 2nd and 3rd leading jets;
-  ///  - _phimin: \f$ \Delta{\phi} \f$ (azimuthal angle) requirement (transverse back to back'ness);
-  ///  - _metsetmax: MET over \f$ \sqrt{\text{Scalar }E_T} \f$ cut requirement.
-  ///
-  /// @author Lars Sonnenschein
-  ///
+  /* @brief CDF Run I color coherence analysis
+   * @author Lars Sonnenschein
+   *
+   *
+   * @par Run conditions
+   *
+   * @arg \f$ \sqrt{s} = \f$ 1800 GeV
+   * @arg Run with generic QCD events.
+   * @arg Cut on primary vertex \f$ z \f$ position ( \f$ z(\text{PV}) < 60 \text{cm} \f$ );
+   * @arg \f$ p_\perp^\text{min} \f$ of the leading (100GeV) and 3rd leading jets (10GeV);
+   * @arg Max. pseudorapidity range \f$ eta < 0.7 \f$ of 2nd and 3rd leading jets;
+   * @arg \f$ \Delta{\phi} < PI/18.\f$ (azimuthal angle) requirement (transverse back to back'ness); 
+   * @arg MET over \f$ \sqrt{\text{Scalar }E_T} < 6.0GeV \f$ cut requirement.
+   *
+   */
   class CDF_1994_S2952106 : public Analysis {
 
   public:
 
-    /// Constructor.
+    /// @name Constructors etc.
+    //@{
     /// NB. eta in [-4.2, 4.2] cut specified via FinalState constructor, CDF CAL acceptance.
-	/// @todo Set units on _metsetmax
+    /// Analysis based on the CDF Run I color coherence analysis described in
+    /// PRD50,9,5562 (1994). Events with >= 3 jets are selected and \f$ E_T \f$
+    /// distributions of the leading three \f$ p_T \f$ jets are obtained.  
+    /// \f$ \Delta{R} \f$ between 2nd and 3rd leading jets in \f$ p_T \f$ and
+    /// pseudorapidity of the 3rd leading jet are plotted. 
+    /// \f$ \alpha = \d{\eta}/\d{\phi} \f$ is plotted, where \f$ \d{\eta} \f$ is the
+    /// pseudorapidity difference between the 2nd and 3rd leading jet and \f$ \d{\phi} \f$
+    /// the azimuthal angle difference of these.  Since the data has not been
+    /// corrected to particle final state, a bin by bin correction is applied,
+    /// based on the distributions with ideal and CDF simulation as given in the
+    /// publication.
     CDF_1994_S2952106()
       : _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
-        _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0)
+        _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0*GeV)
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -61,12 +66,12 @@ namespace Rivet {
         .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
     }
-
+    //@}
 
     /// Factory method
     static Analysis* create() { 
       return new CDF_1994_S2952106(); 
-    }
+    }//@}
 
 
     /// @name Publication metadata
@@ -140,7 +145,7 @@ namespace Rivet {
 
   private:
 
-    /// @name Histograms
+    /// @name Histogram collections
     //@{
     // AIDA::IHistogram2D* _histHvsDphi;
     // AIDA::IHistogram2D* _histRvsAlpha;
