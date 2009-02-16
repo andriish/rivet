@@ -56,7 +56,7 @@ namespace Rivet {
     string spiresId() const {
       return "4155203";
     }
-    string description() const {
+    string summary() const {
       return "CDF Run 1 Z pT measurement in Z->e+e- events";
     }
     string experiment() const {

@@ -70,12 +70,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string spiresId() const {
       return "3430090";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Delphi MC tuning on event shapes and identified particles.";
     }
     /// Experiment which performed and published this analysis.

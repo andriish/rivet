@@ -80,6 +80,8 @@ namespace Rivet {
   public:
 
     /// @name Metadata
+    /// Metadata is used for querying from the command line and also for
+    /// building web pages and the analysis pages in the Rivet manual.
     //@{
     /// Get the name of the analysis. By default this is computed by
     /// combining the results of the experiment, year and Spires ID 
@@ -90,52 +92,63 @@ namespace Rivet {
     }
 
     /// Get a description of the analysis.
-    virtual std::string spiresId() const {
-      return "";
-    }
+    virtual std::string spiresId() const = 0;
 
-    /// Get a description of the analysis.
-    virtual std::string description() const {
-      return "";
-    }
+    /// @brief Names & emails of paper/analysis authors.
+    /// Names and email of authors in 'NAME <EMAIL>' format. The first
+    /// name in the list should be the primary contact person.
+    //virtual std::vector<std::string> authors() const = 0;
+
+    /// @brief Get a short description of the analysis.
+    /// Short (one sentence) description used as an index entry.
+    /// Use @a description() to provide full descriptive paragraphs
+    /// of analysis details.
+    virtual std::string summary() const = 0;
+
+    /// @brief Get a full description of the analysis.
+    /// Full textual description of this analysis, what it is useful for,
+    /// what experimental techniques are applied, etc. Should be treated
+    /// as a chunk of LaTeX text, including equations built with amsmath
+    /// operators, and splitting paragraphs with newlines as usual. The
+    /// TeX will be down-rendered to text or HTML as necessary.
+    //virtual std::string description() const = 0;
+
+    /// @brief Information about the events needed as input for this analysis.
+    /// Event types, energies, kinematic cuts, particles to be considered 
+    /// stable, etc. etc.
+    //virtual std::string runInfo() const = 0;
     
     /// Experiment which performed and published this analysis.
-    virtual std::string experiment() const {
-      return "";
+    virtual std::string experiment() const = 0;
+
+    /// Collider on which the experiment ran.
+    //virtual string collider() const = 0;
+
+    /// Incoming beams required by this analysis.
+    virtual const BeamPair& beams() const {
+      return _beams;
     }
 
-    /// When published (preprint year according to SPIRES).
-    virtual std::string year() const {
-      return "";
-    }
+    /// @brief When the original experimental analysis was published.
+    /// When the refereed paper on which this is based was published, 
+    /// according to SPIRES.
+    virtual std::string year() const = 0;
 
     /// Journal, and preprint references.
-    virtual std::vector<std::string> references() const {
-      vector<string> ret;
-      return ret;
+    //virtual std::vector<std::string> references() const = 0;
+
+    /// Whether this analysis is trusted (in any way!)
+    virtual std::string status() const {
+      return "UNVALIDATED";
     }
     //@}
 
 
   public:
-    /// Return the Cuts object of this analysis object. Derived
-    /// classes should re-implement this function to return the combined
-    /// RivetInfo object of this object and of any Projection objects
-    /// upon which this depends.
-    virtual const Cuts cuts() const;
 
     /// Return the pair of incoming beams required by this analysis.
     virtual const BeamPair& requiredBeams() const {
       return _beams;
-    }
-
-    /// Is this analysis compatible with the named quantity set at the supplied value?
-    virtual const bool isCompatible(const std::string& quantity, const double value) const {
-      Cuts::const_iterator cut = cuts().find(quantity);
-      if (cut == cuts().end()) return true;
-      if (value < cut->second.getHigherThan()) return false;
-      if (value > cut->second.getLowerThan()) return false;
-      return true;
     }
 
     /// Is this analysis able to run on the supplied pair of beams?
@@ -157,7 +170,6 @@ namespace Rivet {
     AnalysisHandler& handler() const {
       return *_analysishandler;
     }
-
 
     /// Normalize the given histogram, @a histo. After this call the 
     /// histogram will have been transformed to a DataPointSet with the 
@@ -214,9 +226,6 @@ namespace Rivet {
     /// Get the sum of event weights seen (via the analysis handler). Use in the
     /// finalize phase only.
     double sumOfWeights() const;
-
-    /// Is this analysis able to run on the BeamPair @a beams ?
-    virtual const bool checkConsistency() const;
     
 
   protected:
@@ -360,12 +369,6 @@ namespace Rivet {
       return *this;
     }
 
-    /// Add a cut
-    Analysis& addCut(const std::string& quantity, const Comparison& comparison, const double value) {
-      _cuts.addCut(quantity, comparison, value);
-      return *this;
-    }
-
     /// Declare whether this analysis needs to know the process cross-section from the generator.
     Analysis& setNeedsCrossSection(bool needed) {
       _needsCrossSection = needed;
@@ -381,9 +384,6 @@ namespace Rivet {
     bool _needsCrossSection;
     //@}
     
-    /// Parameter constraints.
-    Cuts _cuts;
-
     /// Allowed beam-type pair.
     BeamPair _beams;
 

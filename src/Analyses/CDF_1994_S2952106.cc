@@ -6,6 +6,30 @@
 namespace Rivet {
 
 
+  CDF_1994_S2952106::CDF_1994_S2952106()
+    : _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
+      _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0*GeV)
+  {
+    setBeams(PROTON, ANTIPROTON);
+    setNeedsCrossSection(true);
+
+    const FinalState fs(-4.2, 4.2);
+    addProjection(fs, "FS");
+    addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "ConeJets");
+    addProjection(TotalVisibleMomentum(fs), "CalMET");
+    addProjection(PVertex(), "PV");
+
+    // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
+    VetoedFinalState vfs(fs);
+    vfs
+      .addVetoPairId(NU_E)
+      .addVetoPairId(NU_MU)
+      .addVetoPairId(NU_TAU)
+      .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+    addProjection(vfs, "VFS");
+  }
+
+
   void CDF_1994_S2952106::init() {
     /// @todo Use histogram auto-booking
 

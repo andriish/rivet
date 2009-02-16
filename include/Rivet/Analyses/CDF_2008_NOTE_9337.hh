@@ -53,12 +53,46 @@ namespace Rivet {
 
   public:
 
+    /// @name Publication metadata
+    //@{
+
+    /// Analysis name
     string name() const {
       return "CDF_2008_NOTE_9337";
     }
-    string description() const {
+    /// SPIRES key (IRN)
+    string spiresId() const {
+      return "NONE";
+    }
+    string summary() const {
       return "CDF Run 2 min bias cross-section analysis";
     }
+    string description() const {
+      ostringstream os;
+      os << "CDF Run 2 min bias cross-section analysis. "
+         << "TODO: MORE!";
+      return os.str();
+    }
+    /// Experiment which performed and published this analysis.
+    string experiment() const {
+     return "CDF Run 2";
+    }
+    /// Collider on which the experiment was based
+    string collider() const {
+     return "Tevatron";
+    }
+    /// When published according to SPIRES
+    string year() const {
+     return "2008";
+    }
+    /// No journal or preprint references: this is a demo.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "CDF/PUB/MIN_BIAS//9337";
+      return ret;
+    }
+    //@}
+
 
   public:
 

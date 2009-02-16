@@ -24,9 +24,9 @@ namespace Rivet {
       : _etamin(mineta), _etamax(maxeta), _ptmin(minpt)
     { 
       setName("UnstableFinalState");
-      addCut("eta", MORE_EQ, mineta);
-      addCut("eta", LESS_EQ, maxeta);
-      addCut("pT",  MORE_EQ, minpt);
+      // addCut("eta", MORE_EQ, mineta);
+      // addCut("eta", LESS_EQ, maxeta);
+      // addCut("pT",  MORE_EQ, minpt);
     }
 
 

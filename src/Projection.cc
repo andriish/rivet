@@ -36,16 +36,6 @@ namespace Rivet {
   }
   
   
-  const Cuts Projection::cuts() const {
-    Cuts totalCuts = _cuts;
-    set<ConstProjectionPtr> projs = getProjections();
-    for (set<ConstProjectionPtr>::const_iterator p = projs.begin(); p != projs.end(); ++p) {
-      totalCuts.addCuts((*p)->cuts());
-    }
-    return totalCuts;
-  }
-  
-  
   const set<BeamPair> Projection::beamPairs() const {
     set<BeamPair> ret = _beamPairs;
     set<ConstProjectionPtr> projs = getProjections();

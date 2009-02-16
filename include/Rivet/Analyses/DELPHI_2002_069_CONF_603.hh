@@ -40,22 +40,35 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string name() const {
       return "DELPHI_2002_069_CONF_603";
     }
-    /// Get a description of the analysis.
-    string description() const {
-      return "A Study of the b-Quark Fragmentation Function with the DELPHI Detector at LEP I";
+    string spiresId() const {
+      return "NONE";
     }
-    ///// Experiment which performed and published this analysis.
-    //string experiment() const {
-    //  return "DELPHI";
-    //}
-    ///// When published (preprint year according to SPIRES).
-    //string year() const {
-    //  return "2002";
-    //}
+    /// A short description of the analysis.
+    string summary() const {
+      return "Study of the b-quark fragmentation function at LEP I";
+    }
+    // Experiment which performed and published this analysis.
+    string experiment() const {
+     return "DELPHI";
+    }
+    // Collider on which the experiment was based.
+    string collider() const {
+     return "LEP1";
+    }
+    /// When published.
+    string year() const {
+     return "2002 (note)";
+    }
+    /// No journal or preprint references: this is a demo.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "DELPHI note 2002-069-CONF-603 (ICHEP 2002)";
+      return ret;
+    }
     //@}
 
 

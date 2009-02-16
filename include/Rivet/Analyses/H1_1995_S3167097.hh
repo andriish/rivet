@@ -23,8 +23,8 @@ namespace Rivet {
       const DISKinematics& diskin = addProjection(DISKinematics(lepton, PROTON), "Kinematics");
       const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");
       addProjection(CentralEtHCM(fshcm), "Y1HCM");
-      addCut("x", MORE_EQ, _xmin);
-      addCut("x", LESS_EQ, _xmax);
+      //addCut("x", MORE_EQ, _xmin);
+      //addCut("x", LESS_EQ, _xmax);
     }
 
   public:
@@ -34,12 +34,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string spiresId() const {
       return "3167097";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "TODO";
     }
     /// Experiment which performed and published this analysis.

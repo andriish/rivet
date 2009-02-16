@@ -46,12 +46,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string spiresId() const {
       return "4300807";
     }
-    /// Get a description of the analysis.
-    virtual string description() const {
+    /// A short description of the analysis.
+    virtual string summary() const {
       return "Jet rates in e+e- at JADE [35-43 GeV] and OPAL [91.2-189 GeV].";
     }
     /// Experiment which performed and published this analysis.
@@ -105,7 +105,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_35GEV(); }
 
-    string description() const { return "Jet rates in e+e- at JADE [35 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at JADE [35 GeV]."; }
   };
 
 
@@ -118,7 +118,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_44GEV(); }
 
-    string description() const { return "Jet rates in e+e- at JADE [44 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at JADE [44 GeV]."; }
   };
 
 
@@ -131,7 +131,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_91GEV(); }
 
-    string description() const { return "Jet rates in e+e- at OPAL [91 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at OPAL [91 GeV]."; }
   };
 
 
@@ -144,7 +144,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_133GEV(); }
 
-    string description() const { return "Jet rates in e+e- at OPAL [133 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at OPAL [133 GeV]."; }
   };
 
 
@@ -157,7 +157,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_161GEV(); }
 
-    string description() const { return "Jet rates in e+e- at OPAL [161 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at OPAL [161 GeV]."; }
   };
 
 
@@ -170,7 +170,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_172GEV(); }
 
-    string description() const { return "Jet rates in e+e- at OPAL [172 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at OPAL [172 GeV]."; }
   };
 
 
@@ -183,7 +183,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_183GEV(); }
 
-    string description() const { return "Jet rates in e+e- at OPAL [183 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at OPAL [183 GeV]."; }
   };
 
 
@@ -196,7 +196,7 @@ namespace Rivet {
 
     static Analysis* create() { return new JADE_OPAL_2000_S4300807_189GEV(); }
 
-    string description() const { return "Jet rates in e+e- at OPAL [189 GeV]."; }
+    string summary() const { return "Jet rates in e+e- at OPAL [189 GeV]."; }
   };
 
 }

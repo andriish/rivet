@@ -54,13 +54,38 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    
+    /// Analysis name
     string name() const {
       return "DELPHI_2003_WUD_03_11";
     }
-    string description() const {
-      return "DELPHI LEP-1 4-jet angular distributions";
+    /// SPIRES key (IRN)
+    string spiresId() const {
+      return "NONE";
     }
+    /// A short description of the analysis.
+    string summary() const {
+      return "4-jet angular distributions";
+    }
+    // Experiment which performed and published this analysis.
+    string experiment() const {
+     return "DELPHI";
+    }
+    // Collider on which the experiment was based.
+    string collider() const {
+     return "LEP1";
+    }
+    /// When published.
+    string year() const {
+     return "2003 (note)";
+    }
+    /// No journal or preprint references: this is a demo.
+    vector<string> references() const {
+      vector<string> ret;
+      //ret += "";
+      return ret;
+    }
+
     //@}
 
 

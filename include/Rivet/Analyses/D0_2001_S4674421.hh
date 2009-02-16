@@ -79,12 +79,12 @@ namespace Rivet {
     
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string spiresId() const {
       return "4674421";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Run I differential W/Z boson cross-section analysis";
     }
     /// Experiment which performed and published this analysis.

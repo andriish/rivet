@@ -40,7 +40,7 @@ namespace Rivet {
       return "4815815";
     }
     /// Get a description of the analysis.
-    string description() const {
+    string summary() const {
       return "Dijet photoproduction analysis";
     }
     /// Experiment which performed and published this analysis.

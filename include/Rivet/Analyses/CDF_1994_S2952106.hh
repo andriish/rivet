@@ -32,58 +32,44 @@ namespace Rivet {
 
     /// @name Constructors etc.
     //@{
-    /// NB. eta in [-4.2, 4.2] cut specified via FinalState constructor, CDF CAL acceptance.
-    /// Analysis based on the CDF Run I color coherence analysis described in
-    /// PRD50,9,5562 (1994). Events with >= 3 jets are selected and \f$ E_T \f$
-    /// distributions of the leading three \f$ p_T \f$ jets are obtained.  
-    /// \f$ \Delta{R} \f$ between 2nd and 3rd leading jets in \f$ p_T \f$ and
-    /// pseudorapidity of the 3rd leading jet are plotted. 
-    /// \f$ \alpha = \d{\eta}/\d{\phi} \f$ is plotted, where \f$ \d{\eta} \f$ is the
-    /// pseudorapidity difference between the 2nd and 3rd leading jet and \f$ \d{\phi} \f$
-    /// the azimuthal angle difference of these.  Since the data has not been
-    /// corrected to particle final state, a bin by bin correction is applied,
-    /// based on the distributions with ideal and CDF simulation as given in the
-    /// publication.
-    CDF_1994_S2952106()
-      : _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
-        _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0*GeV)
-    {
-      setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(true);
 
-      const FinalState fs(-4.2, 4.2);
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "ConeJets");
-      addProjection(TotalVisibleMomentum(fs), "CalMET");
-      addProjection(PVertex(), "PV");
-
-      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState vfs(fs);
-      vfs
-        .addVetoPairId(NU_E)
-        .addVetoPairId(NU_MU)
-        .addVetoPairId(NU_TAU)
-        .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(vfs, "VFS");
-    }
-    //@}
+    /// Constructor
+    CDF_1994_S2952106();
 
     /// Factory method
     static Analysis* create() { 
       return new CDF_1994_S2952106(); 
-    }//@}
+    }
+    //@}
 
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string spiresId() const {
       return "2952106";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "CDF Run I color coherence analysis.";
     }
+
+    /// Full description of the analysis, to appear in the manual.
+    string description() const {
+      ostringstream os;
+      os << "Analysis based on the CDF Run I color coherence analysis described in "
+         << "PRD50,9,5562 (1994). Events with >= 3 jets are selected and Et "
+         << "distributions of the three highest-pT jets are obtained. "
+         << "$\\Delta{R}$ between 2nd and 3rd leading jets in pT and pseudorapidity "
+         << "of the 3rd jet are plotted. $\alpha = \\d{\\eta}/\\d{\\phi}$ is plotted, where "
+         << "$\\d{\\eta}$ is the pseudorapidity difference between the 2nd and 3rd jets "
+         << "and $\\d{\\phi}$ their azimuthal angle difference. Since the data has not been "
+         << "detector-corrected, a bin by bin correction is applied, based on the "
+         << "distributions with ideal and CDF simulation as given in the publication."
+         << "NB. eta in [-4.2, 4.2] to match CDF CAL acceptance.";
+      return os.str();
+    }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";

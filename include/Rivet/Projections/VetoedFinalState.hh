@@ -8,6 +8,8 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Cuts.hh"
+
 
 namespace Rivet {
 
@@ -16,7 +18,10 @@ namespace Rivet {
   class VetoedFinalState : public FinalState {
 
   public:
-    
+
+    /// Typedef for a pair of back-to-back cuts.    
+    typedef pair<double, double> BinaryCut;
+
     /// Typedef for a vetoing entry.
     typedef map<long, BinaryCut> VetoDetails;
 

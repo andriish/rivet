@@ -89,12 +89,6 @@ namespace Rivet {
     /// the virtual compare(const Projection &) will be returned.
     bool before(const Projection& p) const;
     
-    /// Return the Cuts objects for this projection. Derived
-    /// classes should ensure that all contained projections are
-    /// registered in the @a _projections set for the cut chaining 
-    /// to work.
-    virtual const Cuts cuts() const;
-
     /// Return the BeamConstraints for this projection, not including
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
@@ -113,14 +107,6 @@ namespace Rivet {
       return *this;
     }
     
-    
-    /// Add a cut.
-    Projection& addCut(const std::string& quantity, const Comparison& comparison, const double value) {
-      getLog() << Log::DEBUG << name() << "::addCut(): " << quantity << " " << comparison << " " << value << endl;
-      _cuts.addCut(quantity, comparison, value);
-      return *this;
-    }
-
     
     /// Get a Log object based on the getName() property of the calling projection object.
     Log& getLog() const {
@@ -151,9 +137,6 @@ namespace Rivet {
     /// which derived class is being handled.
     string _name;
 
-    /// Parameter constraints.
-    Cuts _cuts;
-    
     /// Beam-type constraint.
     set<BeamPair> _beamPairs;
     

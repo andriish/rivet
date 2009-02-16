@@ -59,7 +59,7 @@ namespace Rivet {
     string spiresId() const {
       return "4796047";
     }
-    string description() const {
+    string summary() const {
       return "CDF Run 1 charged multiplicity measurement";
     }
     string experiment() const {

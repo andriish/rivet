@@ -74,8 +74,8 @@ namespace Rivet {
     string spiresId() const {
       return "7541902";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Jet pT distributions for 4 jet multiplicity bins as well as the jet multiplicity distribution in W + jets events.";
     }
     /// Experiment which performed and published this analysis.

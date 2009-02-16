@@ -60,23 +60,58 @@ namespace Rivet {
     string spiresId() const {
       return "4751469";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Field & Stuart Run I underlying event analysis.";
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "Tevatron Run I";
+    }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "2001";
     }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      return rtn;
+    }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "The original CDF underlying event analysis, based on decomposing each "
+         << "event into a transverse structure with ``toward'', ``away'' and "
+         << "``transverse'' regions defined relative to the azimuthal direction of "
+         << "the leading jet in the event. Since the toward region is by definition "
+         << "dominated by the hard process, as is the away region by momentum balance "
+         << "in the matrix element, the transverse region is most sensitive to "
+         << "multi-parton interactions. The transverse regions occupy "
+         << "$|\\phi| \\in [60\\degree, 120\\degree]$ for $|\\eta| < 1$. The pT "
+         << "ranges for the leading jet are divided experimentally into the `min-bias' "
+         << "sample from 0--20 GeV, and the `JET20' sample from 18-49 GeV.";
+      return os.str();
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "CDF Run I conditions: ppbar QCD interactions at 1800 GeV. "
+         << "Leading jet bins from 0--49 GeV: usually can be filled with a single "
+         << "generator run without kinematic sub-samples, with \\sim 1M events.";
+      return os.str();
+    }
+    string status() const {
+      return "VALIDATED";
+    }
     /// Journal, and preprint references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("Phys.Rev.D65:092002,2002");
-      ret.push_back("FNAL-PUB 01/211-E");
+      ret += "Phys.Rev.D65:092002,2002", "FNAL-PUB 01/211-E";
       // No arXiv code
       return ret;
     }

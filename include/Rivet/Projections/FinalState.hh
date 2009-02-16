@@ -25,9 +25,9 @@ namespace Rivet {
         _ptmin(minpt) 
     { 
       setName("FinalState");
-      addCut("eta", MORE_EQ, mineta);
-      addCut("eta", LESS_EQ, maxeta);
-      addCut("pT",  MORE_EQ, minpt);
+      // addCut("eta", MORE_EQ, mineta);
+      // addCut("eta", LESS_EQ, maxeta);
+      // addCut("pT",  MORE_EQ, minpt);
     }
     
     /// Clone on the heap.

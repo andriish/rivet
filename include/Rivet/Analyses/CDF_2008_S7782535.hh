@@ -59,8 +59,8 @@ namespace Rivet {
     string spiresId() const {
       return "7782535";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "CDF Run II b-jet shape paper";
     }
     /// Experiment which performed and published this analysis.

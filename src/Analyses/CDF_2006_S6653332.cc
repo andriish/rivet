@@ -7,6 +7,68 @@
 
 namespace Rivet {
 
+  // Constructor
+  // Analysis cut values:
+  //  - _pvzmax: cut on primary vertex \f$ z \f$ position ( \f$ z(\text{PV}) < 60 \text{cm} \f$ );
+  //  - _met: cut on missing transverse energy ( \f$ MET < 25 \text{GeV} \f$ )
+  //  - _set: cut on scalar sum of transverse energy ( \f$ SET < 150 \text{GeV} \f$ )
+  //  - _lepPtmin: cut on leptons minimum transverse momentum ( \f$ pT(\text{lep.}) > 10 \text{GeV} \f$ )
+  //  - _eletamax: cut on max. pseudorapidity of electrons/calorimeter ( \f$ |eta(el.)| < 3.6 \f$ ) 
+  //  - _muetamax: cut on max. pseudorapidity of muons/muon chambers ( \f$ |eta(el.)| < 1.5 \f$ ) 
+  //  - _mllmin: cut on min invariant dilepton mass ( \f$ m(ll) > 66 \text{GeV} \f$ )
+  //  - _mllmax: cut on max invariant dilepton mass ( \f$ m(ll) <116 \text{GeV} \f$ )
+  //  - _triglepPtmin: cut on trigger lepton min. transverse momentum ( \f$ pT > 18 \text{GeV} \f$ )
+  //  - _triglepetamax: cut on trigger lepton max pseudorapidity ( \f$ |eta| < 1.1 \f$ )
+  //  - _Rlepisol: cut on lepton isolation radius ( \f$ R < 0.4 \f$ )
+  //  - hadronic calorimeter fraction of charged hadrons, needed for cuts on hadr. + el. mag. fractions
+  //  - hadronic/el.magn. calo. fraction cut const ( \f$ fhfemconst = 0.055 \f$ )
+  //  - hadronic/el.magn. calo. fraction cut slope ( \f$ fhfemslope = 0.00045 \f$ )
+  //  - muon Energy cut case separation ( \f$ muEsep = 100 \text{GeV} \f$ )
+  //  - muon min. E hadr.isol. threshold ( \f$ muEhMin = 6 \text{GeV} \f$ )
+  //  - muon min. E el.mag. isol. threshold ( \f$ muEemMin = 2 \text{GeV} \f$ )
+  //  - muon had. Energy isol. cut slope ( \f$ muEhslope = 0.0280 \f$ )
+  //  - muon el.mag. Energy isol. cut slope ( \f$ muEemslope = 0.0115 \f$ )
+  //  - jets transverse momentum cut ( \f$ p_\text{T,jet} > 20 \text{GeV} \f$ )
+  //  - jets pseudorapidity cut ( \f$ \eta_\text{jet} < 1.5 \f$ )
+  //  - _vtxjetRmax: Max. distance in \f$ (\eta, \phi) \f$ space between vertex vis. momentum and jet to be probed ( \f$ R_\text{vtx-jet} < 0.7 \f$ )  
+  //  - _trketamax: Tracker geometrical acceptance ( \f$ \eta < 2.0 \f$ )
+  //  - _ipres: Impact Parameter resolution ( \f$ \Delta{\text{IP}} = 34e-3 \text{mm} \f$ ), including beam spot
+  //  - _dlsmin: cut on Decay Length Significance ( \f$ l/\Delta{l} > 7.5 \f$ )
+  //  - _dlsres: Decay Length Significance resolution (assumed to be ( \f$ \Delta{l} = 34e-3 \text{mm} \f$ ))
+  CDF_2006_S6653332::CDF_2006_S6653332()
+    : _pvzmax(600*mm), _metmax(25*GeV), _setmax(150*GeV), _lepPtmin(10*GeV),
+      _eletamax(3.5), _muetamax(1.5), _mllmin(66*GeV), _mllmax(116*GeV),
+      _triglepPtmin(18*GeV), _trigeletamax(1.1), _trigmuetamax(1.0),
+      _Rlepisol(0.4), _fh(0.8), _fhfemconst(0.055), _fhfemslope(0.00045),
+      _muEsep(100*GeV), _muEhMin(6*GeV), _muEemMin(2*GeV), _muEhslope(0.0280),
+      _muEemslope(0.0115), _jetPtmin(20*GeV), _jetetamax(1.5),
+      _vtxjetRmax(0.7), _trketamax(2.0), _ipres(34e-3*mm), _dlsmin(7.5), _dlsres(34e-3*mm)
+  {
+    setBeams(PROTON, ANTIPROTON);
+
+    // Veto (anti)neutrinos, and muons with \f$ p_T \f$ above 1.0 GeV
+    /// @todo If we allow VFS constructor to specify eta and pT ranges, we can
+    /// bypass making this FS
+    FinalState fs(-3.6, 3.6);
+    addProjection(fs, "FS");
+    VetoedFinalState vfs(fs);
+    vfs
+      .addVetoPairId(NU_E)
+      .addVetoPairId(NU_MU)
+      .addVetoPairId(NU_TAU)
+      .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+    addProjection(vfs, "VFS");
+    addProjection(FastJets(vfs), "Jets");
+    addProjection(ChargedFinalState(vfs), "ChFS");
+    addProjection(TotalVisibleMomentum(vfs), "CalMET");
+    addProjection(ChargedLeptons(vfs), "ChLeptons");
+    addProjection(PVertex(), "PV");
+    addProjection(SVertex(getProjection<ChargedFinalState>("ChFS"),
+                          _jetaxes, _vtxjetRmax, _trketamax, 
+                          _ipres, _dlsmin, _dlsres), "SVtx");
+  }
+
+
 
   // Book histograms
   void CDF_2006_S6653332::init() {

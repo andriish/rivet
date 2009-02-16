@@ -27,12 +27,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis. 
+    /// A short description of the analysis. 
     string spiresId() const {
       return "NONE";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Monte Carlo validation observables for Z[e+ e-] + jets production at Tevatron Run II";
     }    
     /// Experiment which performed and published this analysis. 

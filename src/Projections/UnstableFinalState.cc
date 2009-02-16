@@ -7,6 +7,7 @@
 
 namespace Rivet {
 
+
   int UnstableFinalState::compare(const Projection& p) const {
     const UnstableFinalState& other = dynamic_cast<const UnstableFinalState&>(p);
     return \

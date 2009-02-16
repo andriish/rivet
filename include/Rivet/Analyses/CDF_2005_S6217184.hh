@@ -30,43 +30,12 @@ namespace Rivet {
 
     /// @name Constructors etc.
     //@{
-    /// Constructor.
+
+    // Constructor
     /// Cuts on final state are \f$ \eta \in [-2,2] \f$.
     /// Jet shape \f$ r_\text{min} = 0.0 \f$, \f$ r_\text{max} = 0.7 \f$, 
     /// interval = 0.1, r1minPsi = 0.3.
-    CDF_2005_S6217184()
-      : _pvzmax(600*mm), _Rjet(0.7)
-    { 
-      setBeams(PROTON, ANTIPROTON);
-
-      const FinalState fs(-2.0, 2.0);
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs), "Jets"); 
-      addProjection(TotalVisibleMomentum(fs), "CalMET");
-      addProjection(PVertex(), "PV");
-      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState vfs(fs);
-      vfs
-        .addVetoPairId(NU_E)
-        .addVetoPairId(NU_MU)
-        .addVetoPairId(NU_TAU)
-        .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(vfs, "VFS");
-      addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
-
-      // Specify pT bins and initialise weight entries
-      /// @todo Get these numbers from bundled data files
-      _pTbins.resize(19);
-      double ptbins[] = { 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0, 
-                          166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 };
-      for (size_t i = 0; i <= 18; ++i) {
-        _pTbins[i]  =  ptbins[i];
-        _ShapeWeights[i%18] = 0.0;
-      }
-    }
-    //@}  
-
-  public:
+    CDF_2005_S6217184();
 
     /// Factory method
     static Analysis* create() { 
@@ -81,9 +50,9 @@ namespace Rivet {
     string spiresId() const {
       return "6217184";
     }
-    /// Get a description of the analysis.
-    string description() const {
-      return "CDF Run II jet shape paper";
+    /// A short description of the analysis.
+    string summary() const {
+      return "CDF Run II jet shape analysis";
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {

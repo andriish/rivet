@@ -57,16 +57,16 @@ namespace Rivet {
         // This particle code is listed as a possible veto... check pT.
         BinaryCut ptrange = iter->second;
         // Make sure that the pT range is sensible.
-        assert(ptrange.getHigherThan() <= ptrange.getLowerThan());
+        assert(ptrange.first <= ptrange.second);
         double pt = p->momentum().vector3().polarRadius();
         stringstream rangess;
-        if (ptrange.getHigherThan() < numeric_limits<double>::max()) rangess << ptrange.getHigherThan();
+        if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
         rangess << " - ";
-        if (ptrange.getLowerThan() < numeric_limits<double>::max()) rangess << ptrange.getLowerThan();
+        if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
         log << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
         debugline << "with PDG code = " << pdgid << " pT = " << p->momentum().vector3().polarRadius();
-        if (pt < ptrange.getHigherThan() || pt > ptrange.getLowerThan()) { 
+        if (pt < ptrange.first || pt > ptrange.second) { 
           log << Log::DEBUG << "Storing " << debugline.str() << endl;
           _theParticles.push_back(*p);
         } else {
@@ -107,7 +107,7 @@ namespace Rivet {
           for (CompositeVeto::iterator cIt = _compositeVetoes.lower_bound(*nIt);
                cIt != _compositeVetoes.upper_bound(*nIt); ++cIt) {
             BinaryCut massRange = cIt->second;
-            if (mass < massRange.getLowerThan() && mass > massRange.getHigherThan()) {
+            if (mass < massRange.second && mass > massRange.first) {
               for (set<ParticleVector::iterator>::iterator lIt = mIt->first.begin();
                    lIt != mIt->first.end(); ++lIt) {
                 toErase.insert(*lIt);                

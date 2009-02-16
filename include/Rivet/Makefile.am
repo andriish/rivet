@@ -9,7 +9,6 @@ nobase_pkginclude_HEADERS += \
   Rivet.hh \
   RivetBoost.hh       Exceptions.hh       \
   Constraints.hh      BeamConstraint.hh   \
-  Cuts.hh             Cuts.fhh            \
   Event.hh            Event.fhh           \
   ParticleBase.hh \
   Particle.hh         Particle.fhh        \

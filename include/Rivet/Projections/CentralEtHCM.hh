@@ -22,8 +22,6 @@ namespace Rivet {
     {
       setName("CentralEtHCM");
       addProjection(fs, "FS");
-      addCut("eta", MORE_EQ, -0.5);
-      addCut("eta", LESS_EQ,  0.5);
     }
 
     /// Clone on the heap.

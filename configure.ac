@@ -5,6 +5,7 @@ AC_INIT([Rivet],[1.1.3a0],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
+AC_CONFIG_MACRO_DIR([m4])
 
 ## Set library version info code
 ## Set for version 1.1.3

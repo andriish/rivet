@@ -27,12 +27,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis. 
+    /// A short description of the analysis. 
     string spiresId() const {
       return "7837160";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Measurement of W charge asymmetry from D0 Run II";
     }    
     /// Experiment which performed and published this analysis. 

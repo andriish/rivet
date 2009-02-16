@@ -39,22 +39,40 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+
+    /// Analysis name
     string name() const {
       return "PDG_HADRON_MULTIPLICITIES";
     }
-    /// Get a description of the analysis.
+    /// SPIRES key (IRN)
+    string spiresId() const {
+      return "7857373";
+    }
+    /// A short description of the analysis.
+    string summary() const {
+      return "Hadron multiplicities in hadronic e+e- events";
+    }
     string description() const {
-      return "Hadron multiplicities in hadronic e+e- events, taken from Particle Data Book";
+      ostringstream os;
+      os << "Hadron multiplicities in hadronic e+e- events, taken from Review of "
+         << "Particle Properties. "
+         << "TODO: MORE!";
+      return os.str();
     }
     /// Experiment which performed and published this analysis.
-    //string experiment() const {
-    //  return "PDG";
-    //}
-    ///// When published (preprint year according to SPIRES).
-    //string year() const {
-    //  return "2006";
-    //}
+    string experiment() const {
+     return "PDG";
+    }
+    /// When published according to SPIRES
+    string year() const {
+     return "2006";
+    }
+    /// No journal or preprint references: this is a demo.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "J. Phys. G33, 2006, 1-1232";
+      return ret;
+    }
     //@}
 
 

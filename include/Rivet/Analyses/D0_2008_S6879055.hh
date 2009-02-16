@@ -28,12 +28,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis. 
+    /// A short description of the analysis. 
     string spiresId() const {
       return "6879055";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Measurement of the ratio sigma(Z/gamma* + n jets)/sigma(Z/gamma*)";
     }
     /// Experiment which performed and published this analysis. 

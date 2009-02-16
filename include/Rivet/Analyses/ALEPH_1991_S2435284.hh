@@ -14,38 +14,79 @@ namespace Rivet {
   class ALEPH_1991_S2435284 : public Analysis {
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor.
-    ALEPH_1991_S2435284() { 
-      setBeams(ELECTRON, POSITRON); 
-      const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(Multiplicity(cfs), "Mult");
-    }
+    ALEPH_1991_S2435284();
 
     /// Factory method.
     static Analysis* create() { 
       return new ALEPH_1991_S2435284(); 
     }
+    //@}
+
 
   public:
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string spiresId() const {
       return "2435284";
     }
-    /// Get a description of the analysis.
-    string description() const {
-      return "ALEPH LEP1 charged multiplicity measurement";
+    /// A short description of the analysis.
+    string summary() const {
+      return "Hadronic Z decay charged multiplicity measurement";
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "ALEPH";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "LEP1";
+    }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "1991";
+    }
+
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      return rtn;
+    }
+
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "The charged particle multiplicity distribution of hadronic Z decays, as measured "
+         << "on the peak of the Z resonance using the ALEPH detector at LEP. The unfolding procedure "
+         << "was model independent, and the distribution was found to have a mean of 20.85+-0.24, "
+         << "Comparison with lower energy data supports the KNO scaling hypothesis. " 
+         << "The shape of the multiplicity distribution is well described by a log-normal "
+         << "distribution, as predicted from a cascading model for multi-particle production. ";
+      return os.str();
+    }
+
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
+      return os.str();
+    }
+
+    string status() const {
+      return "VALIDATED";
+    }
+
+    /// No journal or preprint references: this is a demo.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Phys. Lett. B, 273, 1, 181";
+      return ret;
     }
     //@}
 

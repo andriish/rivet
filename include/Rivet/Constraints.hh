@@ -3,6 +3,5 @@
 #define RIVET_CONSTRAINTS_HH 1
 
 #include "Rivet/BeamConstraint.hh"
-#include "Rivet/Cuts.hh"
 
 #endif

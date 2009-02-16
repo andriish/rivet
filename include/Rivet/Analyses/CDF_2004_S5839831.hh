@@ -66,12 +66,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string spiresId() const {
       return "5839831";
     }
-    /// Get a description of the analysis.
-    string description() const {
+    /// A short description of the analysis.
+    string summary() const {
       return "Transverse cone and 'Swiss cheese' CDF Run II underlying event analysis.";
     }
     /// Experiment which performed and published this analysis.

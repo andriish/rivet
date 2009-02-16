@@ -38,8 +38,8 @@ namespace Rivet {
     foreach (Analysis* a, _analyses) {
       getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
       a->init();
-      getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
-      a->checkConsistency();
+      //getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
+      //a->checkConsistency();
       getLog() << Log::DEBUG << "Done initialising analysis: " << a->name() << endl;
     }
     getLog() << Log::DEBUG << "Analysis handler initialised" << endl;

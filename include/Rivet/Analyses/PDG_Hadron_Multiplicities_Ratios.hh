@@ -43,22 +43,32 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// Get a description of the analysis.
+    /// A short description of the analysis.
     string name() const {
       return "PDG_HADRON_MULTIPLICITIES_RATIOS";
     }
-    /// Get a description of the analysis.
+    /// SPIRES key (IRN)
+    string spiresId() const {
+      return "7857373";
+    }
+    /// A short description of the analysis.
+    string summary() const {
+      return "Ratios (w.r.t. pi^+/pi^-) of hadron multiplicities in hadronic e+e- events";
+    }
     string description() const {
-      return "Ratios (w.r.t. piplus/piminus) of hadron multiplicities in hadronic e+e- events, taken from Particle Data Book";
+      ostringstream os;
+      os << "Ratios (w.r.t. pi^+/pi^-) of hadron multiplicities in hadronic e+e- "
+         << "events, taken from Review of Particle Properties";
+      return os.str();
     }
     /// Experiment which performed and published this analysis.
-    //string experiment() const {
-    //  return "PDG";
-    //}
+    string experiment() const {
+      return "PDG";
+    }
     ///// When published (preprint year according to SPIRES).
-    //string year() const {
-    //  return "2006";
-    //}
+    string year() const {
+      return "2006";
+    }
     //@}
 
 

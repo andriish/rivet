@@ -220,30 +220,6 @@ namespace Rivet {
   }
 
 
-  const Cuts Analysis::cuts() const {
-    Cuts totalCuts = _cuts;
-    foreach (ConstProjectionPtr p, getProjections()) {
-      totalCuts.addCuts(p->cuts());
-    }
-    return totalCuts;
-  }
-  
-
-  const bool Analysis::checkConsistency() const {
-    // Check consistency of analysis beams with allowed beams of each contained projection.
-    // set<ConstProjectionPtr> projections = getProjections();
-    // for (set<ConstProjectionPtr>::const_iterator p = projections.begin(); p != projections.end(); ++p) {
-    //   if (! compatible(getBeams(), (*p)->getBeamPairs()) ) {
-    //     throw Error("Analysis " + name() + " beams are inconsistent with " 
-    //                         + "allowed beams for projection " + (*p)->name());
-    //   }
-    // }
-    // // Check the consistency of the accumulated cuts (throws if wrong).
-    // getCuts().checkConsistency();
-    return true;
-  }
-
-  
   void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
     assert(histo);
     getLog() << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
