@@ -1,9 +1,6 @@
 #! /usr/bin/env python
 
-## Get setuptools
-import ez_setup
-ez_setup.use_setuptools()
-from setuptools import setup, Extension
+from distutils.core import setup, Extension
 
 longdesc = """This is a simple SWIG wrapper on the main steering interface of 
 the Rivet event simulation analysis library. It is used to create, query and 
@@ -16,7 +13,7 @@ import os
 incdir = os.path.abspath('@top_srcdir@/include')
 srcdir = os.path.abspath('@top_srcdir@/src')
 ext = Extension('_rivet',
-                ['rivet_wrap.cc'],
+                ['@srcdir@/rivet_wrap.cc'],
                 include_dirs=['@HEPMCINCPATH@', '@BOOSTINCPATH@', incdir],
                 library_dirs=['@HEPMCLIBPATH@', srcdir, os.path.join(srcdir,'.libs')],
                 libraries=['HepMC', 'Rivet'])
@@ -24,22 +21,13 @@ ext = Extension('_rivet',
 ## Setup definition
 setup(name = 'rivet',
       version = '@PACKAGE_VERSION@',
-      include_package_data = True,
       ext_modules=[ext],
       py_modules = ['rivet'],
-      
       author = ['Andy Buckley'],
       author_email = 'andy@insectnation.org',
       url = 'http://projects.hepforge.org/rivet/',
       description = 'Rivet: a Python interface to the Rivet high-energy physics analysis library.',
       long_description = longdesc,
       keywords = 'generator montecarlo simulation data hep physics particle validation analysis tuning',
-      license = 'GPL',
-      classifiers = ['Development Status :: 4 - Beta',
-                   'Environment :: Console',
-                   'Intended Audience :: Science/Research',
-                   'License :: OSI Approved :: GNU General Public License (GPL)',
-                   'Operating System :: OS Independent',
-                   'Programming Language :: Python',
-                   'Topic :: Scientific/Engineering :: Physics']
+      license = 'GPL'
       )

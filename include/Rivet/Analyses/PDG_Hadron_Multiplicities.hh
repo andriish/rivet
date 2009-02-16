@@ -52,6 +52,7 @@ namespace Rivet {
     string summary() const {
       return "Hadron multiplicities in hadronic e+e- events";
     }
+    /// Full description of the analysis, for the manual
     string description() const {
       ostringstream os;
       os << "Hadron multiplicities in hadronic e+e- events, taken from Review of "
