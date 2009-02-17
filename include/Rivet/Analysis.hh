@@ -116,7 +116,7 @@ namespace Rivet {
     /// @brief Information about the events needed as input for this analysis.
     /// Event types, energies, kinematic cuts, particles to be considered 
     /// stable, etc. etc.
-    //MD virtual std::string runInfo() const = 0;
+    //MD virtual std::vector<std::string> runInfo() const = 0;
     
     /// Experiment which performed and published this analysis.
     virtual std::string experiment() const = 0;
