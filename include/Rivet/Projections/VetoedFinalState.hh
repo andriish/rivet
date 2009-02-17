@@ -8,7 +8,6 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Cuts.hh"
 
 
 namespace Rivet {

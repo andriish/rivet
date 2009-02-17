@@ -4,7 +4,7 @@ SUBDIRS = Projections Analyses Tools . Test
 lib_LTLIBRARIES  = libRivet.la
 
 libRivet_la_SOURCES = \
-  Cuts.cc Jet.cc \
+  Jet.cc \
   ProjectionApplier.cc Projection.cc Analysis.cc AnalysisLoader.cc \
   AnalysisHandler.cc ProjectionHandler.cc HistoHandler.cc 
 
