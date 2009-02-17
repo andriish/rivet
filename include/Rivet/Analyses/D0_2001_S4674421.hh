@@ -22,53 +22,7 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    ///  - @c _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
-    ///  - @c _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
-    ///  - @c _brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
-    ///  - @c _mZmin = lower Z mass cut used in the publication analysis
-    ///  - @c _mZmax = upper Z mass cut used in the publication analysis
-
-    D0_2001_S4674421()
-      : _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632), _mZmin(75.*GeV), _mZmax(105.*GeV)
-    { 
-
-      setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(true);
-      //const FinalState fs(-3.0, 3.0); 
-      FinalState fs(-5.0, 5.0); //corrected for detector acceptance
-      addProjection(fs, "FS");
-
-      // Z -> e- e+
-      LeadingParticlesFinalState eeFS(fs, -2.5, 2.5, 0.); //20.);
-      eeFS.addParticleIdPair(ELECTRON);
-      addProjection(eeFS, "eeFS");
-      
-      // W- -> e- nu_e~
-      LeadingParticlesFinalState enuFS(fs, -2.5, 2.5, 0.); //25.);
-      enuFS.addParticleId(ELECTRON).addParticleId(NU_EBAR);
-      addProjection(enuFS, "enuFS");
-      
-      // W+ -> e+ nu_e
-      LeadingParticlesFinalState enubFS(fs, -2.5, 2.5, 0.); //25.);
-      enubFS.addParticleId(POSITRON).addParticleId(NU_E);
-      addProjection(enubFS, "enubFS");
-
-      InvMassFinalState eFromZ(eeFS, make_pair(ELECTRON, POSITRON), 0*GeV, 900*GeV); //20.);
-      addProjection(eFromZ,"eFromZ");
-
-      InvMassFinalState enuFromW(enuFS, make_pair(ELECTRON, NU_EBAR), 0*GeV, 900*GeV); //25.);
-      addProjection(eFromZ,"enuFromW");
-
-      InvMassFinalState enubFromW(enubFS, make_pair(POSITRON, NU_E), 0*GeV, 900*GeV); //25.);
-      addProjection(eFromZ,"enubFromW");
-
-      // Remove neutrinos for isolation of final state particles
-      VetoedFinalState vfs(fs);
-      vfs.vetoNeutrinos();
-      addProjection(vfs, "VFS");
-
-    }    
-    
+    D0_2001_S4674421();    
     
     /// Factory method
     static Analysis* create() { 
@@ -98,7 +52,7 @@ namespace Rivet {
     /// Journal, and preprint references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("arXiv:hep-ex/0107012");
+      ret += "arXiv:hep-ex/0107012";
       return ret;
     }
     //@}
@@ -119,10 +73,10 @@ namespace Rivet {
     /// Ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
     const double _brwenu;
     
-    /// Ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
+    /// Ratio of \f$ \text{BR}( Z \to e^+ e^-) \f$ used in the publication analysis
     const double _brzee;
     
-    ///invariant mass cuts for Z boson candidate (75.<mZ<105.)
+    /// Invariant mass cuts for Z boson candidate (75 GeV < mZ < 105 GeV)
     const double _mZmin, _mZmax;
 
 

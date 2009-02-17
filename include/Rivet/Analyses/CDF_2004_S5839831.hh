@@ -14,22 +14,6 @@ namespace Rivet {
   /**
    * @brief "Acosta" CDF underlying event analysis
    * @author Andy Buckley
-   *
-   * This analysis studies the underlying event via transverse cones of \f$ R =
-   * 0.7 \f$ at 90 degrees in \f$ \phi \f$ relative to the leading (highest \f$
-   * E \f$) jet, at \f$ \sqrt{s} \f$ = 630 and 1800 GeV.
-   *
-   * "Swiss Cheese" distributions, where cones around the leading \f$ n \f$
-   *  jets are excluded from distributions, are also included.
-   *
-   *
-   * @par Run conditions
-   *
-   * @arg Two different beam energies: \f$ \sqrt{s} = \$f 630 & 1800 GeV
-   * @arg Run with generic QCD events.
-   * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the profile histograms:
-   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 30, 90, 150 GeV for \f$ \sqrt{s} = \$f 1800 GeV
-   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 20, 90, 150 GeV for \f$ \sqrt{s} = \$f 1800 GeV
    */
   class CDF_2004_S5839831 : public Analysis {
   public:
@@ -39,22 +23,7 @@ namespace Rivet {
 
     /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2004_S5839831() {
-      setBeams(PROTON, ANTIPROTON);
-      addProjection(Beam(), "Beam");
-      // NB. Charged track reconstruction efficiency has already been corrected in the data.
-      const ChargedFinalState fs(-1.2, 1.2, 0.4*GeV);
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-      // Restrict tracks to |eta| < 0.7 for the min bias part.
-      const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
-      addProjection(mbfs, "MBFS");
-      // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
-      const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
-      addProjection(cheesefs, "CheeseFS");
-      addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
-    }
-
+    CDF_2004_S5839831();
 
     /// Factory method
     static Analysis* create() { 
@@ -72,11 +41,55 @@ namespace Rivet {
     }
     /// A short description of the analysis.
     string summary() const {
-      return "Transverse cone and 'Swiss cheese' CDF Run II underlying event analysis.";
+      return "Transverse cone and 'Swiss cheese' underlying event studies";
+    }
+    string description() const {
+      ostringstream os;
+      os << "This analysis studies the underlying event via transverse cones of "
+         << " $R = 0.7$ at 90 degrees in \\phi relative to the leading (highest "
+         << "E) jet, at sqrt(s) = 630 and 1800 GeV. This is similar to the 2001 "
+         << "CDF UE analysis, except that cones, rather than the whole central "
+         << "\\eta range are used. The transverse cones are categorised as TransMIN "
+         << "and TransMAX on an event-by-event basis, to give greater sensitivity "
+         << "to the UE component."
+         << "\n\n"
+         << "'Swiss Cheese' distributions, where cones around the leading $n$ "
+         << "jets are excluded from the distributions, are also included for "
+         << "$n = 2, 3$."
+         << "\n\n"
+         << "This analysis is useful for constraining the energy evolution of "
+         << "the underlying event, since it performs the same analyses at two "
+         << "distinct CoM energies."
+         << "\n\n"
+         << "WARNING: this analysis is not currently considered valid for MC "
+         << "tuning and validation studies due to ambiguities in the paper and "
+         << "non-reproducability of the MC plots shown in the paper. The fit to "
+         << "data is sufficiently poor that this analysis skews the overall "
+         << "goodness of fit in tuning studies, and has to be excluded. If you "
+         << "can help to improve this analysis and make it usable for validation "
+         << "studies, please get in touch!";
+      return os.str();
+    }
+    /// Type of events required by this analysis
+    vector<string> runInfo() const {
+      vector<string> ret;
+      ret += "Two different beam energies: sqrt(s) = 630 & 1800 GeV";
+      ret += "Run with generic QCD events.";
+      ostringstream os;
+      os << "Several pT_min cutoffs are probably required to fill the profile "
+         << "histograms, e.g.\n"
+         << " * { 0 (min bias), 30, 90, 150 GeV } at 1800 GeV; and\n"
+         << " * { 0 (min bias), 20, 90, 150 GeV } at 630 GeV";
+      ret += os.str();
+      return ret;
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";
+    }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "Tevatron Run 2";
     }
     /// When published (preprint year according to SPIRES).
     string year() const {
@@ -85,9 +98,19 @@ namespace Rivet {
     /// Journal, and preprint references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("Phys. Rev. D70, 072002 (2004)");
-      ret.push_back("hep-ex/0404004");
+      ret += "Phys. Rev. D70, 072002 (2004)";
+      ret += "arXiv:hep-ex/0404004";
       return ret;
+    }
+    /// Routine authors
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      return ret;
+    }
+    /// Validation status
+    string status() const {
+      return "UNVALIDATED";
     }
     //@}
 

@@ -9,6 +9,25 @@
 namespace Rivet {
 
 
+
+  CDF_2004_S5839831::CDF_2004_S5839831() {
+    setBeams(PROTON, ANTIPROTON);
+    addProjection(Beam(), "Beam");
+    // NB. Charged track reconstruction efficiency has already been corrected in the data.
+    const ChargedFinalState fs(-1.2, 1.2, 0.4*GeV);
+    addProjection(fs, "FS");
+    addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+    // Restrict tracks to |eta| < 0.7 for the min bias part.
+    const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
+    addProjection(mbfs, "MBFS");
+    // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
+    const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
+    addProjection(cheesefs, "CheeseFS");
+    addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
+  }
+
+
+
   // Book histograms
   void CDF_2004_S5839831::init() {
     getLog() << Log::WARN 
