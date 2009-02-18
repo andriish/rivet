@@ -130,17 +130,17 @@ namespace Rivet {
   getBinEdges(const map<string, vector<DPSXPoint> >& xpoints) {
 
     map<string, BinEdges> rtn;
-    for (map<string, vector<DPSXPoint> >::const_iterator dsit = xpoints.begin(); 
-         dsit != xpoints.end(); ++dsit) {
+    for (map<string, vector<DPSXPoint> >::const_iterator dsit = xpoints.begin(); dsit != xpoints.end(); ++dsit) {
       const string plotname = dsit->first;
       list<double> edges;
-      for (vector<DPSXPoint>::const_iterator xpt = dsit->second.begin();
-           xpt != dsit->second.end(); ++xpt) {
-        const double lowedge = xpt->val - xpt->errminus;
-        const double highedge = xpt->val + xpt->errminus;
+      foreach (const DPSXPoint& xpt, dsit->second) {
+        const double lowedge = xpt.val - xpt.errminus;
+        const double highedge = xpt.val + xpt.errplus;
         edges.push_back(lowedge);
         edges.push_back(highedge);
       }
+
+      cout << "*** " << edges << endl;
 
       // Remove duplicates (the careful testing is why we haven't used a set)
       //cout << edges.size() << " edges -> " << edges.size()/2 << " bins" << endl;
@@ -156,6 +156,7 @@ namespace Rivet {
         }
       }
       //cout << edges.size() << " edges after dups removal (should be #bins+1)" << endl;
+      cout << "@@@ " << edges << endl;
 
       // Add to the map
       rtn[plotname] = BinEdges(edges.begin(), edges.end()); 

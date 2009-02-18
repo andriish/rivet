@@ -58,16 +58,6 @@ namespace Rivet {
   /// A sensible default maximum value of rapidity for Rivet analyses to use.
   static const double MaxRapidity = 100000.0;
 
-  /// Convenient function for streaming out vectors of any streamable object.
-  template<typename T>
-  inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
-    os << "[ ";
-    for (typename std::vector<T>::const_iterator i = vec.begin(); i != vec.end(); ++i) {
-      os << *i << " ";
-    }
-    os << "]";
-    return os;
-  }
 
 }
 
@@ -87,5 +77,35 @@ namespace Rivet {
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/ParticleName.hh"
+
+
+namespace Rivet {
+
+
+  /// Convenient function for streaming out vectors of any streamable object.
+  template<typename T>
+  inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+    os << "[ ";
+    foreach (const T& i, vec) {
+      os << i << " ";
+    }
+    os << "]";
+    return os;
+  }
+
+
+  /// Convenient function for streaming out lists of any streamable object.
+  template<typename T>
+  inline std::ostream& operator<<(std::ostream& os, const std::list<T>& vec) {
+    os << "[ ";
+    foreach (const T& i, vec) {
+      os << i << " ";
+    }
+    os << "]";
+    return os;
+  }
+
+
+}
 
 #endif
