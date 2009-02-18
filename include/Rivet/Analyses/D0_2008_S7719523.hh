@@ -20,13 +20,18 @@ namespace Rivet {
 
   public:
 
-    /// Default constructor.
+    /// @name Constructors etc.
+    //@{
+
+    /// Constructor
      D0_2008_S7719523();
 
     /// Factory method 
     static Analysis* create() {
       return new D0_2008_S7719523();
     }
+    //@}
+
 
     /// @name Publication metadata
     //@{
@@ -37,19 +42,60 @@ namespace Rivet {
     /// A short description of the analysis.
     string summary() const {
       return "Isolated gamma + jet cross-sections, differential in pT(gamma) for various y-bins";
-    }    
+    }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "The process p pbar -> photon + jet + X as studied by the D0 detector at "
+         << "the Fermilab Tevatron collider at center-of-mass energy sqrt(s) = 1.96 TeV. "
+         << "Photons are reconstructed in the central rapidity region $|y_gamma| < 1.0$ "
+         << "with transverse momenta in the range 30--400 GeV, while jets are reconstructed "
+         << "in either the central $|y_jet| < 0.8$ or forward $1.5 < |y_jet| < 2.5$ "
+         << "rapidity intervals with pT_jet > 15 GeV. The differential cross section "
+         << "$\\d^3 \\sigma / d{pT_gamma} d{y_gamma} d{y_jet}$ is measured as a function "
+         << "of pT_gamma in four regions, differing by the relative orientations of the "
+         << "photon and the jet. "
+        //<< "Ratios between the differential cross sections in each region are also presented."
+         << "\n\n"
+         << "MC predictions have trouble with simultaneously describing the measured "
+         << "normalization and pT_gamma dependence of the cross section in any of the "
+         << "four measured regions.";
+      return os.str();
+    }
+    /// Details of the type of events expected by this analysis
+    string runInfo() const {
+      ostringstream os;
+      os << "* Produce only gamma + jet (q,qbar,g) hard processes\n\n"
+         << "  * for Pythia 6: MSEL=10, and MSUB indices 14, 29 & 115 enabled\n\n"
+         << "* Lowest bin edge at 30 GeV: kinematic pTmin cut may be required for "
+         << "  good statistics.";
+      return os.str();
+    }
     /// Experiment which performed and published this analysis. 
     string experiment() const {
       return "D0";
+    }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "Tevatron Run 2";
     }
     /// When published (preprint year according to SPIRES). 
     string year() const {
       return "2008";
     }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      rtn += "Gavin Hesketh <gavin.hesketh@cern.ch>";
+      return rtn;
+    }
     /// Publication references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("hep-ex/08081296");
+      ret += "Phys.Lett.B666:435-445,2008";
+      ret += "doi:10.1016/j.physletb.2008.06.076";
+      ret += "arXiv:0804.1107v2 [hep-ex]";
       return ret;
     }
     //@}
