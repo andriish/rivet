@@ -70,19 +70,19 @@ namespace Rivet {
          << "studies, please get in touch!";
       return os.str();
     }
+
     /// Type of events required by this analysis
-    vector<string> runInfo() const {
-      vector<string> ret;
-      ret += "Two different beam energies: sqrt(s) = 630 & 1800 GeV";
-      ret += "Run with generic QCD events.";
+    string runInfo() const {
       ostringstream os;
-      os << "Several pT_min cutoffs are probably required to fill the profile "
-         << "histograms, e.g.\n"
-         << " * { 0 (min bias), 30, 90, 150 GeV } at 1800 GeV; and\n"
-         << " * { 0 (min bias), 20, 90, 150 GeV } at 630 GeV";
-      ret += os.str();
-      return ret;
+      os << "* Two different beam energies: sqrt(s) = 630 & 1800 GeV\n"
+         << "* Event type: generic QCD events\n"
+         << "* Several pT_min cutoffs are probably required to fill the profile"
+         << "  histograms, e.g.\n\n"
+         << "  * { 0 (min bias), 30, 90, 150 GeV } at 1800 GeV; and\n"
+         << "  * { 0 (min bias), 20, 90, 150 GeV } at 630 GeV";
+      return os.str();
     }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";

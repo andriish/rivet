@@ -75,10 +75,10 @@ namespace Rivet {
       return os.str();
     }
 
-    vector<string> runInfo() const {
-      vector<string> rtn;
-      rtn += "Event type: Z Drell-Yan with e+ e- decay mode only.";
-      return rtn;
+    string runInfo() const {
+      ostringstream os;
+      os << "* Event type: Z Drell-Yan with e+ e- decay mode only.";
+      return os.str();
     }
 
     string experiment() const {
