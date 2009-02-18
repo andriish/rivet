@@ -39,17 +39,37 @@ namespace Rivet {
     }
     /// A short description of the analysis.
     string summary() const {
-      return "Run I differential W/Z boson cross-section analysis";
+      return "Tevatron Run I differential W/Z boson cross-section analysis";
     }
-    /// Experiment which performed and published this analysis.
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Measurement of differential W/Z boson cross section and ratio in p pbar "
+	 << "collisions at center-of-mass energy sqrt(s) = 1.8 TeV. The data cover "
+	 << "electrons and neutrinos in a pseudo-rapidity range of -2.5 to 2.5. "
+	//   << "\n\n"
+         << "";
+      return os.str();
+    }
+    /// Experiment which performed and published this analysis. 
     string experiment() const {
       return "D0";
     }
-    /// When published (preprint year according to SPIRES).
+    /// Collider on which the experiment ran
+    string collider() const {
+      return "Tevatron Run 1";
+    }
+    /// When published (preprint year according to SPIRES). 
     string year() const {
       return "2001";
     }
-    /// Journal, and preprint references.
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Lars Sonnenschein <Lars.Sonnenschein@cern.ch>";
+      return rtn;
+    }
+    /// Publication references.
     vector<string> references() const {
       vector<string> ret;
       ret += "arXiv:hep-ex/0107012";
