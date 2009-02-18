@@ -140,7 +140,7 @@ namespace Rivet {
         edges.push_back(highedge);
       }
 
-      cout << "*** " << edges << endl;
+      //cout << "*** " << edges << endl;
 
       // Remove duplicates (the careful testing is why we haven't used a set)
       //cout << edges.size() << " edges -> " << edges.size()/2 << " bins" << endl;
@@ -156,7 +156,7 @@ namespace Rivet {
         }
       }
       //cout << edges.size() << " edges after dups removal (should be #bins+1)" << endl;
-      cout << "@@@ " << edges << endl;
+      //cout << "@@@ " << edges << endl;
 
       // Add to the map
       rtn[plotname] = BinEdges(edges.begin(), edges.end()); 
