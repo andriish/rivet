@@ -108,15 +108,16 @@ namespace Rivet {
     /// @brief Get a full description of the analysis.
     /// Full textual description of this analysis, what it is useful for,
     /// what experimental techniques are applied, etc. Should be treated
-    /// as a chunk of LaTeX text, including equations built with amsmath
-    /// operators, and splitting paragraphs with newlines as usual. The
-    /// TeX will be down-rendered to text or HTML as necessary.
+    /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
+    /// with equations to be rendered as LaTeX with amsmath
+    /// operators.
     //MD virtual std::string description() const = 0;
 
     /// @brief Information about the events needed as input for this analysis.
     /// Event types, energies, kinematic cuts, particles to be considered 
-    /// stable, etc. etc.
-    //MD virtual std::vector<std::string> runInfo() const = 0;
+    /// stable, etc. etc. Should be treated as a restructuredText bullet list
+    /// (http://docutils.sourceforge.net/rst.html)
+    //MD virtual std::string runInfo() const = 0;
     
     /// Experiment which performed and published this analysis.
     virtual std::string experiment() const = 0;
