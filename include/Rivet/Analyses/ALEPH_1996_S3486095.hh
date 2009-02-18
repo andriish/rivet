@@ -81,16 +81,52 @@ namespace Rivet {
     string summary() const {
       return "Studies of QCD with the ALEPH detector.";
     }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Summary paper of QCD results as measured by ALEPH at LEP 1. "
+         << "The publication includes various event shape variables, "
+         << "multiplicities (identified particles and inclusive), and "
+         << "particle spectra.";
+      return os.str();
+    }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "ALEPH";
+    }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "LEP1";
     }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "1996";
     }
-    //@}
 
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      rtn += "Holger Schulz <holger.schulz@physik.hu-berlin.de>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
+      return os.str();
+    }
+
+    string status() const {
+      return "VALIDATED";
+    }
+
+    /// Journal, and preprint references
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Phys. Rept., 294, 1--165 (1998)";
+      return ret;
+    }
+    //@}
 
     /// @name Analysis methods
     //@{
@@ -107,22 +143,22 @@ namespace Rivet {
     /// inclusive single particle distributions' normalisations.
     double _weightedTotalPartNum;
     double _weightedTotalNumPiPlus;       
-    double _weightedTotalNumKPlus  ;      
-    double _weightedTotalNumP       ;     
-    double _weightedTotalNumPhoton   ;    
-    double _weightedTotalNumPi0       ;   
-    double _weightedTotalNumEta        ;  
-    double _weightedTotalNumEtaPrime    ; 
-    double _weightedTotalNumK0           ;
-    double _weightedTotalNumLambda0      ;
-    double _weightedTotalNumXiMinus      ;
+    double _weightedTotalNumKPlus;      
+    double _weightedTotalNumP;     
+    double _weightedTotalNumPhoton;    
+    double _weightedTotalNumPi0;   
+    double _weightedTotalNumEta;  
+    double _weightedTotalNumEtaPrime; 
+    double _weightedTotalNumK0;
+    double _weightedTotalNumLambda0;
+    double _weightedTotalNumXiMinus;
     double _weightedTotalNumSigma1385Plus;
-    double _weightedTotalNumXi1530_0     ;
-    double _weightedTotalNumRho          ;
-    double _weightedTotalNumOmega782     ;
-    double _weightedTotalNumKStar892_0   ;
-    double _weightedTotalNumPhi          ;
-    double _weightedTotalNumKStar892Plus ;
+    double _weightedTotalNumXi1530_0;
+    double _weightedTotalNumRho;
+    double _weightedTotalNumOmega782;
+    double _weightedTotalNumKStar892_0;
+    double _weightedTotalNumPhi;
+    double _weightedTotalNumKStar892Plus;
     double _numChParticles;
 
     /// @name Histograms

@@ -54,9 +54,9 @@ namespace Rivet {
 
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
-      vector<string> rtn;
+      vector<string> ret;
       rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
-      return rtn;
+      return ret;
     }
 
     /// A full description of the analysis.
@@ -82,10 +82,10 @@ namespace Rivet {
       return "VALIDATED";
     }
 
-    /// No journal or preprint references: this is a demo.
+    /// Journal, and preprint references
     vector<string> references() const {
       vector<string> ret;
-      ret += "Phys. Lett. B, 273, 1, 181";
+      ret += "Phys. Lett. B, 273, 181 (1991)";
       return ret;
     }
     //@}
