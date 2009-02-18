@@ -106,7 +106,7 @@ namespace Rivet {
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
       vector<string> ret;
-      rtn += "Holger Schulz <holger.schulz@physik.hu-berlin.de>";
+      ret += "Holger Schulz <holger.schulz@physik.hu-berlin.de>";
       return ret;
     }
     /// Information about the events needed as input for this analysis.

@@ -65,7 +65,16 @@ namespace Rivet {
     }
     /// A short description of the analysis.
     string summary() const {
-      return "4-jet angular distributions";
+      return "4-jet angular distributions at LEP";
+    }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "The 4-jet angular distributions (Bengtsson-Zerwas,
+         << "K\"orner-Schierholz-Willrodt, Nachtmann-Reiter, and "
+         << "$\\alpha_{34}$) have been measured with DELPHI at
+	 << "LEP 1 using Jade and Durham cluster algorithms. ";
+      return os.str();
     }
     // Experiment which performed and published this analysis.
     string experiment() const {
@@ -79,10 +88,25 @@ namespace Rivet {
     string year() const {
      return "2003 (note)";
     }
-    /// No journal or preprint references: this is a demo.
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
+      return os.str();
+    }
+    string status() const {
+      return "UNVALIDATED";
+    }
+    /// Publication reference
     vector<string> references() const {
       vector<string> ret;
-      //ret += "";
+      ret += "Diploma thesis WUD-03-11, University of Wuppertal";
       return ret;
     }
 

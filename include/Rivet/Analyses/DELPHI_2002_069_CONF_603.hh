@@ -49,7 +49,16 @@ namespace Rivet {
     }
     /// A short description of the analysis.
     string summary() const {
-      return "Study of the b-quark fragmentation function at LEP I";
+      return "Study of the b-quark fragmentation function at LEP 1";
+    }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Measurement of the b-quark fragmentation function by DELPHI using "
+         << "1994 LEP 1 data. The fragmentation function for both weakly decaying "
+	 << "and primary b-quarks has been determined in a model independent way. "
+	 << "Nevertheless the authors trust $f(x_B^{weak})$ more than $f(x_B^{prim})$.";
+      return os.str();
     }
     // Experiment which performed and published this analysis.
     string experiment() const {
@@ -63,7 +72,25 @@ namespace Rivet {
     string year() const {
      return "2002 (note)";
     }
-    /// No journal or preprint references: this is a demo.
+
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
+      return os.str();
+    }
+
+    string status() const {
+      return "VALIDATED";
+    }
+
+    /// Publication reference
     vector<string> references() const {
       vector<string> ret;
       ret += "DELPHI note 2002-069-CONF-603 (ICHEP 2002)";

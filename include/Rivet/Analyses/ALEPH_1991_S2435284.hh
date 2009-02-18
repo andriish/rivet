@@ -55,7 +55,7 @@ namespace Rivet {
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
       vector<string> ret;
-      rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      ret += "Andy Buckley <andy.buckley@durham.ac.uk>";
       return ret;
     }
 

@@ -50,13 +50,48 @@ namespace Rivet {
     string summary() const {
       return "Strange baryon production in Z hadronic decays at Delphi";
     }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Measurement of the $\\Xi^-$ and $\\Sigma^+(1385)/\\Sigma^-(1385)$ scaled momentum "
+         << "distributions by DELPHI at LEP 1. The paper also has the production "
+	 << "cross-sections of these particles, but that's not implemented in Rivet.";
+      return os.str();
+    }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "DELPHI";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "LEP1";
+    }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "1995";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
+      return os.str();
+    }
+
+    string status() const {
+      return "VALIDATED";
+    }
+
+    /// Journal, and preprint references
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Z. Phys. C, 67, 543--554 (1995)";
+      return ret;
     }
     //@}
 
