@@ -70,9 +70,9 @@ namespace Rivet {
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os << "The 4-jet angular distributions (Bengtsson-Zerwas,
+      os << "The 4-jet angular distributions (Bengtsson-Zerwas,"
          << "K\"orner-Schierholz-Willrodt, Nachtmann-Reiter, and "
-         << "$\\alpha_{34}$) have been measured with DELPHI at
+         << "$\\alpha_{34}$) have been measured with DELPHI at "
 	 << "LEP 1 using Jade and Durham cluster algorithms. ";
       return os.str();
     }
