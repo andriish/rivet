@@ -40,25 +40,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    DELPHI_1996_S3430090() 
-    {
-      setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(UnstableFinalState(), "UFS");
-      #ifdef HAVE_JADE
-      addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-      #endif
-      addProjection(Sphericity(cfs), "Sphericity");
-      addProjection(ParisiTensor(cfs), "Parisi");
-      const Thrust thrust(cfs);
-      addProjection(thrust, "Thrust");
-      addProjection(Hemispheres(thrust), "Hemispheres");
-      _weightedTotalPartNum = 0;
-    }
-
+    DELPHI_1996_S3430090(); 
 
     /// Factory method.
     static Analysis* create() { 
@@ -78,18 +60,48 @@ namespace Rivet {
     string summary() const {
       return "Delphi MC tuning on event shapes and identified particles.";
     }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Event shape and charged particle inclusive distributions measured using "
+         << "750000 decays of Z bosons to hadrons from the DELPHI detector at LEP. "
+         << "This data, combined with identified particle distributions from all LEP "
+         << "experiments, was used for tuning of shower-hadronisation event generators "
+         << "by the original PROFESSOR method."
+         << "\n\n"
+         << "This is a critical analysis for MC event generator tuning of final state "
+         << "radiation and both flavour and kinematic aspects of hadronisation models.";
+      return os.str();
+    }
+    /// A short description of the analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "* Energy: 91.2 GeV\n"
+         << "* Event type is e+ e- Z production with hadronic decays only";
+      return os.str();
+    }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "DELPHI";
+    }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "LEP 1";
     }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "1996";
     }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      return rtn;
+    }
     /// Journal, and preprint references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("");
+      ret += "Z.Phys.C73:11-60,1996";
       return ret;
     }
     //@}

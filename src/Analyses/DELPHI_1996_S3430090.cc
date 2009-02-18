@@ -7,6 +7,28 @@
 namespace Rivet {
 
 
+
+  DELPHI_1996_S3430090::DELPHI_1996_S3430090() 
+  {
+    setBeams(ELECTRON, POSITRON); 
+    addProjection(Beam(), "Beams");
+    const ChargedFinalState cfs;
+    addProjection(cfs, "FS");
+    addProjection(UnstableFinalState(), "UFS");
+    #ifdef HAVE_JADE
+    addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
+    addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+    #endif
+    addProjection(Sphericity(cfs), "Sphericity");
+    addProjection(ParisiTensor(cfs), "Parisi");
+    const Thrust thrust(cfs);
+    addProjection(thrust, "Thrust");
+    addProjection(Hemispheres(thrust), "Hemispheres");
+    _weightedTotalPartNum = 0;
+  }
+
+
+
   void DELPHI_1996_S3430090::analyze(const Event& e) {
     // First, veto on leptonic events by requiring at least 4 charged FS particles
     const FinalState& fs = applyProjection<FinalState>(e, "FS");

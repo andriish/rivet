@@ -48,6 +48,14 @@ namespace Rivet {
          << "radiation should also affect the pT distribution.";
       return os.str();
     }
+    /// Type of events required by this analysis
+    string runInfo() const {
+      ostringstream os;
+      os << "* Event type: W production with decay to e nu_e only\n\n"
+         << "  * for Pythia 6: MSEL = 12, MDME(206,1) = 1\n\n"
+         << "* Energy: 1.96 TeV";
+      return os.str();
+    }
     /// Experiment which performed and published this analysis. 
     string experiment() const {
       return "D0";
