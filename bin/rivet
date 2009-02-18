@@ -179,7 +179,12 @@ def handleKillSignal(signum, frame):
 signal.signal(signal.SIGTERM, handleKillSignal);
 signal.signal(signal.SIGHUP,  handleKillSignal);
 signal.signal(signal.SIGINT,  handleKillSignal);
+signal.signal(signal.SIGUSR1, handleKillSignal);
 signal.signal(signal.SIGUSR2, handleKillSignal);
+try:
+    signal.signal(signal.SIGXCPU, handleKillSignal);
+except:
+    pass
 
 
 ## List of analyses
