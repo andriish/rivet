@@ -74,9 +74,19 @@ namespace Rivet {
     string experiment() const {
       return "CDF";
     }
-    /// When published (preprint year according to SPIRES).
+    /// Collider on which the experiment ran
+    string collider() const {
+      return "Tevatron Run 1";
+    }
+    /// When published (preprint year according to SPIRES). 
     string year() const {
       return "1994";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Lars Sonnenschein <Lars.Sonnenschein@cern.ch>";
+      return rtn;
     }
     /// Publication references.
     vector<string> references() const {

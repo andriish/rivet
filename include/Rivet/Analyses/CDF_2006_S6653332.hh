@@ -58,23 +58,43 @@ namespace Rivet {
     string summary() const {
       return "pT and eta distributions of jets in Z + jet production";
     }
-
-    /// A short description of the analysis.
+    /// A full description of the analysis.
     string description() const {
-      return "pT and eta distributions of jets in Z + (b)jet production, before and after tagging.";
+      ostringstream os;
+      os << "Measurement of the b jet cross section in events with Z boson in p pbar "
+	 << "collisions at center-of-mass energy sqrt(s) = 1.96 TeV. The data cover jet "
+	 << "transverse momenta above 20 GeV and jet pseudo-rapidities in the range "
+	 << "-1.5 to 1.5. Z bosons are identified in their electron and muon decay modes "
+	 << "in an invariant dilepton mass range between 66 and 116 GeV."
+      //   << "\n\n"
+         << "";
+      return os.str();
     }
-
-    /// Experiment which performed and published this analysis.
+    /// Experiment which performed and published this analysis. 
     string experiment() const {
       return "CDF";
     }
-
-    /// When published (preprint year according to SPIRES).
+    /// Collider on which the experiment ran
+    string collider() const {
+      return "Tevatron Run 2";
+    }
+    /// When published (preprint year according to SPIRES). 
     string year() const {
       return "2006";
     }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Lars Sonnenschein <Lars.Sonnenschein@cern.ch>";
+      return rtn;
+    }
+    /// Publication references.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Phys.Rev.D.74:032008,2006";
+      return ret;
+    }
     //@}
-
 
     /// @name Analysis methods
     //@{

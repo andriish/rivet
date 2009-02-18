@@ -54,13 +54,32 @@ namespace Rivet {
     string summary() const {
       return "CDF Run II jet shape analysis";
     }
+    /// Full description of the analysis, to appear in the manual.
+    string description() const {
+      ostringstream os;
+      os << "Measurement of jet shapes in inclusive jet production in p pbar collisions at"
+	 << "center-of-mass energy sqrt(s) = 1.96 TeV. The data cover jet transverse "
+	 << "momenta from 37--380 GeV and absolute jet rapidities in the range 0.1 to 0.7. ";
+      return os.str();
+    }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";
     }
-    /// When published (preprint year according to SPIRES).
+    /// Collider on which the experiment ran
+    string collider() const {
+      return "Tevatron Run 2";
+    }
+    /// When published (preprint year according to SPIRES). 
     string year() const {
       return "2005";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Lars Sonnenschein <Lars.Sonnenschein@cern.ch>";
+      return rtn;
     }
     /// Journal, and preprint references.
     virtual vector<string> references() const {
