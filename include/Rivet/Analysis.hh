@@ -109,8 +109,7 @@ namespace Rivet {
     /// Full textual description of this analysis, what it is useful for,
     /// what experimental techniques are applied, etc. Should be treated
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
-    /// with equations to be rendered as LaTeX with amsmath
-    /// operators.
+    /// with equations to be rendered as LaTeX with amsmath operators.
     //MD virtual std::string description() const = 0;
 
     /// @brief Information about the events needed as input for this analysis.
