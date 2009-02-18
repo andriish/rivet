@@ -229,11 +229,11 @@ if len(opts.SHOW_ANALYSES) > 0:
         #print ana.getInstructions()
         #print ana.getCuts()
         print ""
-        print "Description:\n  " + ana.description()
+        #print "Description:\n  " + ana.description()
         print ""
-        print "References:"
-        for r in ana.references():
-            print "  %s" % r
+        #print "References:"
+        #for r in ana.references():
+        #    print "  %s" % r
         if i+1 < len(opts.SHOW_ANALYSES):
             print "\n"
     sys.exit(0)
