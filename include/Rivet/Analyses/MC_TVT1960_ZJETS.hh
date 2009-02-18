@@ -39,6 +39,10 @@ namespace Rivet {
     string experiment() const {
       return "MC";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "Tevatron Run 2";
+    }
     /// When published (preprint year according to SPIRES). 
     string year() const {
       return "NONE";
@@ -46,6 +50,38 @@ namespace Rivet {
     /// Overwrite virtual name method for special analysis scheme
     string name() const {
       return "MC_TVT1960_ZJETS";
+    }
+    /// Names & emails of analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Frank Siegert <frank.siegert@durham.ac.uk>";
+      return ret;
+    }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Analysis without data for boson and jet observables at Tevatron Run 2" << endl
+         << "=====================================================================" << endl
+         << "Available observables" << endl << endl
+         << "* Z mass " << endl
+         << "* pT of jet 1-4 " << endl
+         << "* jet multiplicity " << endl
+         << "* Delta eta (Z, jet1) " << endl
+         << "* Delta R (jet2, jet3) " << endl
+         << "* Differential jet rates 0->1, 1->2, 2->3, 3->4 " << endl
+         << "* Integrated 0-4 jet rates " << endl;
+      return os.str();
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Tevatron Run 2 conditions: " << endl << endl
+         << "* ppbar -> e+ e- + jets at 1960 GeV. "
+         << "* Needs mass cut on lepton pair to avoid photon singularity: min. range 66 < m_ee < 116" << endl;
+      return os.str();
+    }
+    string status() const {
+      return "NOT TO BE VALIDATED";
     }
     /// Publication references.
     vector<string> references() const {

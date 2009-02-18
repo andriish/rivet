@@ -58,9 +58,47 @@ namespace Rivet {
     string experiment() const {
       return "JADE_OPAL";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      if (_sqrts<90.0) {
+        return "DESY PETRA";
+      }
+      else if (_sqrts>90.0 && _sqrts<92.0) {
+        return "LEP Run I";
+      }
+      else {
+        return "LEP Run 2";
+      }
+    }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "2000";
+    }
+    /// Names & emails of analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Frank Siegert <frank.siegert@durham.ac.uk>";
+      return ret;
+    }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Jet rates in e+e- at sqrt(s)=" << _sqrts << endl
+         << "=================================" << endl
+         << "Differential and integrated jet rates for Durham and JADE " 
+         << "jet algorithms." << endl;
+      return os.str();
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "e+ e- collisions: " << endl << endl
+         << "* e+ e- -> jet jet (+ jets) at " << _sqrts << " GeV. "
+         << "* no cuts needed" << endl;
+      return os.str();
+    }
+    string status() const {
+      return "VALIDATED";
     }
     /// Journal, and preprint references.
     vector<string> references() const {

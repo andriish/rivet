@@ -42,9 +42,43 @@ namespace Rivet {
     string experiment() const {
       return "D0";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "Tevatron Run 2";
+    }
     /// When published (preprint year according to SPIRES). 
     string year() const {
       return "2008";
+    }
+    /// Names & emails of analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      ret += "Gavin Hesketh <gavin.hesketh@fnal.gov>";
+      ret += "Frank Siegert <frank.siegert@durham.ac.uk>";
+      return ret;
+    }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Boson and jet observables in Z/gamma* [mu+ mu-] + X  events " << endl
+         << "=========================================================== " << endl
+         << "Cross sections as a function of pT and rapidity of the boson "
+         << "and pT and rapidity of the leading jet "
+         << "in ppbar collisions at sqrt{s} = 1.96 TeV, based on "
+         << "an integrated luminosity of 1.0 fb^-1." << endl;
+      return os.str();
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Tevatron Run 2 conditions: " << endl << endl
+         << "* ppbar -> mu+ mu- + jets at 1960 GeV. "
+         << "* Needs mass cut on lepton pair to avoid photon singularity: min. range 65 < m_Z < 115" << endl;
+      return os.str();
+    }
+    string status() const {
+      return "VALIDATED";
     }
     /// Publication references.
     vector<string> references() const {
