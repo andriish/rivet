@@ -57,12 +57,12 @@ namespace Rivet {
       ostringstream os;
       os << "Hadron multiplicities in hadronic e+e- events, taken from Review of "
          << "Particle Properties 2008, table 40.1, page 355. "
-         << "\n\n";
+         << "\n\n"
          << "Average hadron multiplicities per hadronic $e^+e^-$ annihilation "
-	 << "event at $\\sqrt{s} \\approx {}$ 10, 29--35, 91, and 130--200 GeV. "
-	 << "The numbers are averages from various experiments. Correlations "
-	 << "of the systematic uncertainties were considered for the calculation "
-	 << "of the averages.";
+         << "event at $\\sqrt{s} \\approx {}$ 10, 29--35, 91, and 130--200 GeV. "
+         << "The numbers are averages from various experiments. Correlations "
+         << "of the systematic uncertainties were considered for the calculation "
+         << "of the averages.";
       return os.str();
     }
     /// Experiment which performed and published this analysis.
