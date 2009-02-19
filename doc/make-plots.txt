@@ -1,42 +1,32 @@
-make_plot.py
+make-plots
 ============
 
 About
 -----
 
-`make_plot.py` reads histogram files in a simple text format and converts
+`make-plots` reads histogram files in a simple text format and converts
 them into PostScript or PDF files. This is done by creating a LaTeX file
 and running `latex`, `dvips`, and maybe `ps2pdf`.
 
 Usage
 -----
 
-To run `make_plot.py` call
+To run `make-plots` call
 
 --------------------
- make_plot.py [options] file1 [file2 ...]
+ make-plots [options] file.dat [file2.dat ...]
 --------------------
 
-where `file` is an ascii histogram file. The following options are supported:
+All available options can be listed by running
 
-`\--verbose, -v`::
-    Be verbose.
-
-`\--minion`::
-    Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME before.
-
-`\--pdf`::
-    Create PDF output instead of PostScript. This usually
-    results in a smaller file size.
-
-`\--nocleanup`::
-    Keep temporary directory and print its filename.
-
+--------------------
+ make-plots --help
+--------------------
 
 Input Format
 ------------
 
-The ascii files which can be read by `make_plot.py` are divided into sections.
+The ascii files which can be read by `make-plots` are divided into sections.
 There are four types of sections which are called `PLOT`, `HISTOGRAM`,
 `FUNCTION`, and `SPECIAL`. Every file must contain exactly one `PLOT` section
 and at least one section of the other three types. There may be multiple
@@ -92,7 +82,7 @@ YMajorTickMarks=<last_digit>
 XMinorTickMarks=<nticks>
 YMinorTickMarks=<nticks>
 --------------------
-`make_plot.py` tries to guess the distance between tickmarks automatically.
+`make-plots` tries to guess the distance between tickmarks automatically.
 If you are not satisfied with its result, you can override this by setting
 `<last_digit>` to 1, 2, 5, or 10, and `<nticks>` to the number of minor ticks
 you like.
@@ -371,8 +361,8 @@ histogram shows three bins combining the bins 1--9 of the original histogram).
 FUNCTION
 ~~~~~~~~
 
-`make_plot.py` can draw arbitrary functions. These functions are defined as
-python code sniplets which are evaluated by `make_plot.py`. The code sniplet
+`make-plots` can draw arbitrary functions. These functions are defined as
+python code sniplets which are evaluated by `make-plots`. The code sniplet
 must come after all other options in a `FUNCTION` section and are preceded by
 `Code=` on a single line. An example `FUNCTION` section might look like this:
 

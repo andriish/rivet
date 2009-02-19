@@ -1,10 +1,10 @@
-compare_histos.py
+compare-histos
 =================
 
 About
 -----
 
-`compare_histos.py` is a small script which reads two or more AIDA XML files
+`compare-histos` is a small script which reads two or more AIDA XML files
 and creates comparison plots of the histograms in the AIDA files. The plots are
 saved in `.dat` files in the input format of
 link:make_plot.html[`make_plot.py`]. To create PostScript or PDF file from the
@@ -13,22 +13,15 @@ link:make_plot.html[`make_plot.py`]. To create PostScript or PDF file from the
 Usage
 -----
 
-To run `compare_histos.py` call
+To run `compare-histos` call
 
 --------------------
- compare_histos.py [options] reffile mcfile1 [mcfile2 ...]
+ compare-histos [options] [REF:'Expt data'] aidafile1:'label 1' [path/to/aidafile2:label2 ...]
 --------------------
 
-where `reffile` is the AIDA reference data file and the mcfiles are the AIDA
-files to be compared with the reference. Possible options are:
+All available options can be listed by running
 
-`-o <OUTDIR>, \--outdir=<OUTDIR>`::
-    Specify a directory in which the `.dat` plot files will be stored. If the
-    directory does not exist, it is created.
-
-`-l <HISTOGRAMLIST>, \--histogram-list=<HISTOGRAMLIST>`::
-    Specify a file with a list of histogram names (one name per file). Only
-    those histograms are plotted. Lines starting with `#` and invalid names
-    are ignored. Without this option, all histograms in the AIDA files are
-    used.
+--------------------
+ compare-histos --help
+--------------------
 
