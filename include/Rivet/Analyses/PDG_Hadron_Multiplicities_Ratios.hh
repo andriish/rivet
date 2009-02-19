@@ -43,7 +43,8 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// A short description of the analysis.
+
+    /// Analysis name
     string name() const {
       return "PDG_HADRON_MULTIPLICITIES_RATIOS";
     }
@@ -58,16 +59,48 @@ namespace Rivet {
     string description() const {
       ostringstream os;
       os << "Ratios (w.r.t. pi^+/pi^-) of hadron multiplicities in hadronic e+e- "
-         << "events, taken from Review of Particle Properties";
+         << "events, taken from Review of Particle Properties 2008, table 40.1, page 355. "
+         << "\n\n";
+         << "Average hadron multiplicities per hadronic $e^+e^-$ annihilation "
+	 << "event at $\\sqrt{s} \\approx {}$ 10, 29--35, 91, and 130--200 GeV,
+	 << "normalised to the pion multiplicity. "
+	 << "The numbers are averages from various experiments. Correlations "
+	 << "of the systematic uncertainties were considered for the calculation "
+	 << "of the averages.";
       return os.str();
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "PDG";
     }
-    ///// When published (preprint year according to SPIRES).
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "various";
+    }
+    /// When published according to SPIRES
     string year() const {
-      return "2006";
+     return "2008";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Holger Schulz <holger.schulz@physik.hu-berlin.de>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Hadronic events in $e+e-$ collisions";
+      return os.str();
+    }
+    string status() const {
+      return "VALIDATED";
+    }
+    /// No journal or preprint references: this is a demo.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Phys. Lett. B, 667, 1 (2008)";
+      return ret;
     }
     //@}
 

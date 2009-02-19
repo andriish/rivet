@@ -56,22 +56,46 @@ namespace Rivet {
     string description() const {
       ostringstream os;
       os << "Hadron multiplicities in hadronic e+e- events, taken from Review of "
-         << "Particle Properties. "
-         << "TODO: MORE!";
+         << "Particle Properties 2008, table 40.1, page 355. "
+         << "\n\n";
+         << "Average hadron multiplicities per hadronic $e^+e^-$ annihilation "
+	 << "event at $\\sqrt{s} \\approx {}$ 10, 29--35, 91, and 130--200 GeV. "
+	 << "The numbers are averages from various experiments. Correlations "
+	 << "of the systematic uncertainties were considered for the calculation "
+	 << "of the averages.";
       return os.str();
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
-     return "PDG";
+      return "PDG";
+    }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "various";
     }
     /// When published according to SPIRES
     string year() const {
-     return "2006";
+     return "2008";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Hadronic events in $e+e-$ collisions";
+      return os.str();
+    }
+    string status() const {
+      return "VALIDATED";
     }
     /// No journal or preprint references: this is a demo.
     vector<string> references() const {
       vector<string> ret;
-      ret += "J. Phys. G33, 2006, 1-1232";
+      ret += "Phys. Lett. B, 667, 1 (2008)";
       return ret;
     }
     //@}

@@ -94,7 +94,7 @@ namespace Rivet {
          << "multi-parton interactions. The transverse regions occupy "
          << "$|\\phi| \\in [60\\degree, 120\\degree]$ for $|\\eta| < 1$. The pT "
          << "ranges for the leading jet are divided experimentally into the `min-bias' "
-         << "sample from 0--20 GeV, and the `JET20' sample from 18-49 GeV.";
+         << "sample from 0--20 GeV, and the `JET20' sample from 18--49 GeV.";
       return os.str();
     }
     /// Information about the events needed as input for this analysis.
