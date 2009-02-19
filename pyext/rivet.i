@@ -48,6 +48,8 @@ namespace Rivet {
 // Rivet class mappings
 namespace Rivet {
 
+  std::string version();
+
   class Event {
     Event();
     Event(const HepMC::GenEvent&);
@@ -77,13 +79,17 @@ namespace Rivet {
     virtual std::string name() const;
     virtual std::string spiresId() const;
     //virtual std::string description() const;
+    //virtual std::string runInfo() const;
     virtual std::string experiment() const;
+    //virtual std::string collider() const;
     virtual std::string year() const;
+    //virtual std::vector<std::string> authors() const;
     //virtual std::vector<std::string> references() const;
+    virtual const BeamPair& beams() const;
     virtual const BeamPair& requiredBeams() const;
     virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
     virtual const bool isCompatible(const BeamPair& beams) const;
-    //AnalysisHandler& getHandler() const;
+    //AnalysisHandler& handler() const;
     bool needsCrossSection() const;
   private:
     Analysis();

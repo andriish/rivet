@@ -4,6 +4,16 @@
 
 namespace Rivet {
 
+
+  /// A function to get the Rivet version string
+  string version() {
+    return RIVET_VERSION;
+  }
+
+
+  ////////////////////////////////////////////////////////////////
+
+
   // Return distance of closest approach from track to given (primary) vertex position.
   double get2dClosestApproach(const HepMC::GenParticle& track, const Vector3& vtx3pos) {
     /// @todo Whoa! - implicit constructors from hell! 

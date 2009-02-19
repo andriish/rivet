@@ -1,3 +1,10 @@
+2009-02-19  Andy Buckley  <andy@insectnation.org>
+
+	* Adding usefully-scoped config headers, a Rivet::version()
+	function which uses them, and installing the generated headers to
+	fix "external" builds against an installed copy of Rivet. The
+	version() function has been added to the Python wrapper.
+
 2009-02-05  Andy Buckley  <andy@insectnation.org>
 
 	* Removing ROOT dependency and linking. Woo! There's no need for

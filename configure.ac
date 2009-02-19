@@ -7,6 +7,13 @@ AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh include/Rivet/Config/Buil
 AM_INIT_AUTOMAKE(dist-bzip2)
 AC_CONFIG_MACRO_DIR([m4])
 
+## Package-specific #defines
+AC_DEFINE_UNQUOTED(RIVET_VERSION, "$PACKAGE_VERSION", "Rivet version string")
+AC_DEFINE_UNQUOTED(RIVET_NAME, "$PACKAGE_NAME", "Rivet name string")
+AC_DEFINE_UNQUOTED(RIVET_STRING, "$PACKAGE_STRING", "Rivet name and version string")
+AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
+AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
+
 ## Set library version info code
 ## Set for version 1.1.3
 VERSIONINFOFLAGS="-version-info 5:0:0"
@@ -96,7 +103,7 @@ AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 ## Decide whether to build the Python extension
 AZ_PYTHON_DEFAULT
 AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--enable-pyext, 
-  [build Rivet Python module @<:@default=no@:>@])], [], [enable_pyext=no])
+  [build Rivet Python module @<:@default=yes@:>@])], [], [enable_pyext=yes])
 AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyext == xyes])
 if test x$enable_pyext == xyes; then
   AZ_PYTHON_PATH

@@ -23,6 +23,11 @@ nobase_pkginclude_HEADERS += \
   Jet.hh              AnalysisLoader.hh   \
   HistoHandler.hh
 
+
+nobase_pkginclude_HEADERS += \
+  Config/RivetConfig.hh \
+  Config/BuildOptions.hh
+
 ## Standard analyses
 nobase_pkginclude_HEADERS += \
   Analyses/ExampleAnalysis.hh \
