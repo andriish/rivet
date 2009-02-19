@@ -44,13 +44,56 @@ namespace Rivet {
     string summary() const {
       return "H1 energy flow in DIS";
     }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Measurements of transverse energy flow for neutral current deep-inelastic "
+         << "scattering events produced in positron-proton collisions at HERA. The kinematic "
+         << "range covers squared momentum transfers $Q^2$ from 3.2 to 2200 GeV^2; the Bjorken "
+         << "scaling variable $x$ from 8x10^-5 to 0.11 and the hadronic mass $W$ from "
+         << "66 to 233 GeV. The transverse energy flow is measured in the hadronic centre of "
+         << "mass frame and is studied as a function of $Q^2$, $x$, $W$ and pseudorapidity. "
+         << "The behaviour of the mean transverse energy in the central pseudorapidity region "
+         << "and an interval corresponding to the photon fragmentation region are analysed as "
+         << "a function of Q^2 and W."
+         << "\n\n"
+         << "This analysis is useful for exploring the effect of photon PDFs and for tuning "
+         << "models of parton evolution and treatment of fragmentation and the proton remnant " 
+         << "in DIS.";
+      return os.str();
+    }
+    /// Event type required by this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "* Event type: e+ p deep inelastic scattering\n"
+         << "* Energy: p @ 820 GeV, e+ @ 27.5 GeV -> sqrt(s) = 300 GeV";
+      return os.str();
+    }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "H1";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "HERA";
+    }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "2000";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Peter Richardson <peter.richardson@durham.ac.uk>";
+      return rtn;
+    }
+    /// Journal, and preprint references.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Eur.Phys.J.C12:595-607,2000";
+      ret += "doi:10.1007/s100520000287";
+      ret += "arXiv:hep-ex/9907027v1";
+      return ret;
     }
     //@}
 

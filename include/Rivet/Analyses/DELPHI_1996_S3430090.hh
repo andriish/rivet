@@ -96,12 +96,14 @@ namespace Rivet {
     vector<string> authors() const {
       vector<string> rtn;
       rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
+      rtn += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
       return rtn;
     }
     /// Journal, and preprint references.
     vector<string> references() const {
       vector<string> ret;
       ret += "Z.Phys.C73:11-60,1996";
+      ret += "doi:10.1007/s002880050295";
       return ret;
     }
     //@}

@@ -28,14 +28,13 @@ namespace Rivet {
       addProjection(FinalState(), "FS");
     }
 
-
     /// Factory method.
     static Analysis* create() { 
       return new H1_1994_S2919893(); 
     }
 
     //@}
-
+    
 
     /// @name Publication metadata
     //@{
@@ -47,13 +46,49 @@ namespace Rivet {
     string summary() const {
       return "H1 energy flow and charged particle spectra in DIS";
     }
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "Global properties of the hadronic final state in deep inelastic scattering events "
+         << "at HERA are investigated. The data are corrected for detector effects. Energy flows "
+         << "in both the laboratory frame and the hadronic centre of mass system, and "
+         << "energy-energy correlations in the laboratory frame are presented."
+         << "\n\n"
+         << "Historically, the Ariadne colour dipole model provided the only satisfactory description "
+         << "of this data, hence making it a useful 'target' analysis for MC shower models.";
+      return os.str();
+    }
+    /// Event type required by this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "* Event type: e- p / e+ p (TODO: which?) deep inelastic scattering\n"
+         << "* Energy: ???";
+      return os.str();
+    }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "H1";
     }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "HERA";
+    }
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "1994";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Peter Richardson <peter.richardson@durham.ac.uk>";
+      return rtn;
+    }
+    /// Journal, and preprint references.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Z.Phys.C63:377-390,1994";
+      ret += "doi:10.1007/BF01580319";
+      return ret;
     }
     //@}
 
