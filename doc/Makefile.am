@@ -14,7 +14,7 @@ RM = rm -f
 
 .PHONY = doc
 
-doc: $(DOCNAME).pdf
+doc: $(DOCNAME).pdf compare-histos.html make-plots.html
 	@true
 
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
@@ -35,3 +35,9 @@ mostlyclean-local:
 
 clean-local:
 	rm -rf $(DOCNAME).pdf
+
+compare-histos.html: compare-histos.txt
+	asciidoc -a toc compare-histos.txt
+
+make-plots.html: make-plots.txt
+	asciidoc -a toc make-plots.txt
