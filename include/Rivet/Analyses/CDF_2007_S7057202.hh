@@ -51,21 +51,67 @@ namespace Rivet {
     string experiment() const {
       return "CDF";
     }
+    
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "Tevatron Run II";
+    }
+    
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "2007";
     }
     //@}
 
-
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn.push_back( "David Voong" );
+      rtn.push_back( "James Monk <jmonk@hep.ucl.ac.uk>" );
+      return rtn;
+    }
+    
+    /// A full description of the analysis.
+    string description() const {
+      ostringstream os;
+      os << "CDF Run II measurement of inclusive jet cross sections at a p-pbar collision energy of 1.96~TeV"
+         << "Jets are reconstructed in the central part of the detector ($|y|<2.1$) using the kT algorithm with an R parameter of 0.7."
+         << "The minimum jet pT considered is 54~GeV, with a maximum around 700~GeV."
+         << "The inclusive jet pT is plotted in bins of rapidity $|y|<0.1$, $0.1<|y|<0.7$, $0.7<|y|<1.1$, $1.1<|y|<1.6$ and $1.6<|y|<2.1$.";
+      return os.str();
+    }
+    
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const{
+      ostringstream os;
+      os << "Standard Tevatron Run II: p-pbar collisions at 1960~GeV."
+         << " Jet pT bins from 54~GeV to 700~GeV."  
+         << " Jet rapidity $< |2.1|$.";
+      return os.str();
+    }
+    
+    /// Status of this routine (VALIDATED or UNVALIDATED)
+    string status() const{
+      return "UNVALIDATED";
+    }
+    
+    /// Journal, and preprint references.
+    vector<string> references() const{
+      vector<string> refs;
+      refs.push_back( "Phys.Rev.D75:092006,2007");
+      refs.push_back( "Erratum-ibid.D75:119901,2007");
+      refs.push_back( "FNAL-PUB 07/026-E" );
+      refs.push_back( "hep-ex/0701051" );
+      return refs;
+    }
+    
     /// @name Analysis methods
     //@{
     void init();
     void analyze(const Event & event);
     void finalize();
     //@}
-
-
+    
   private:
 
     /// Rapidity range of histograms for R=0.05 and R=1 kt jets
