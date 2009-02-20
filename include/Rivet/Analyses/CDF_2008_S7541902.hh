@@ -88,7 +88,7 @@ namespace Rivet {
 	 <<  "W bosons are identified in their $e\\nu$ decay channel and "
 	 <<  "jets are reconstructed using an $R < 0.4$ cone algorithm. "
 	 <<  "For each $W + \\geq$ n-jet sample (where n = 1--4) a measurement of "
-	 <<  "d$\\sigma({p}\bar{p} \\rightarrow W + \\geq$ n jet)/d$E_T(n^{th}$-jet) $\\times$ BR($W \\rightarrow{e}\\nu$) "
+	 <<  "d$\\sigma({p}\\bar{p} \\rightarrow W + \\geq$ n jet)/d$E_T(n^{th}$-jet) $\\times$ BR($W \\rightarrow{e}\\nu$) "
 	 <<  "is made, where d$E_T(n^{th}$-jet) is the Et of the n$^{th}$-highest Et jet above 20 GeV. "
 	 <<  "A measurement of the total cross section, " 
 	 <<  "$\\sigma(p\\bar{p} \\rightarrow W + \\geq$ n-jet) $\\times$ BR($W \\rightarrow{e}\\nu)$ with "

@@ -34,8 +34,9 @@ import rivet
 def texify(s):
     t = s \
         .replace("&", "\\&") \
-        .replace("->", "$\\to$") \
-        .replace("_", "\\_")
+        .replace("->", "\\ensuremath{\\to}") \
+        .replace("_", "\\_") \
+        .replace("^", "")
     return t
 
 
@@ -46,27 +47,67 @@ for aname in sorted(all_analyses):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     page += "\\section*{%s}\n" % aname
-    page += "\\href{http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s}{\\textbf{Spires ID:} %s}\\newline\n" % \
-        (ana.spiresId(), ana.spiresId())
-    page += "\\textbf{Experiment:} %s \\newline\n" % ana.experiment()
+    page += "\\textbf{%s}\\newline\n" %  ana.summary()
+    page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
+    spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
+    page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
+        (spiresbase, ana.spiresId(), ana.spiresId())
+    page += "\\textbf{Status:} %s\\newline\n" % ana.status()
+
+    if ana.authors():
+        page += "\\textbf{Authors:}\n"
+        page += "\\begin{itemize}\n"
+        for a in ana.authors():
+            s = a
+            import re
+            if re.search(".* <.*@.*>", a):
+                name = " ".join(a.split()[:-1])
+                email = a.split()[-1].replace("<", "").replace(">", "")
+                s = "\\href{mailto:%s}{%s}" % (email, name)
+            page += "  \\item %s\n" % s
+        page += "\\end{itemize}\n"
+    else:
+        page += "\\textbf{No authors listed}\n"
+
     if ana.references():
         page += "\\textbf{References:}\n"
         page += "\\begin{itemize}\n"
         for r in ana.references():
-             page += "  \item %s\n" % r
+            if r.startswith("arXiv:"):
+                code = r.split()[0].replace("arXiv:", "")
+                url = "http://arxiv.org/abs/" + code
+                page += "  \\item %s \\href{%s}{%s}\n" % ("arXiv:", url, code)
+            elif r.startswith("doi:"):
+                code = r.replace("doi:", "")
+                url = "http://dx.doi.org/" + code
+                page += "  \\item %s \\href{%s}{%s}\n" % ("DOI:", url, code)
+            else:
+                page += "  \\item %s\n" % r
         page += "\\end{itemize}\n"
-    #print ana.getAuthor()
-    #print ana.getInstructions()
-    #print ana.getCuts()
-    #page += "\\textbf{Description:} \\newline\n"
-    page += "\n" + ana.description() + "\n"
+    else:
+        page += "\\textbf{No references listed}\n"
+
+    page += "\n\\noindent " + ana.description() + "\n"
+
     page = texify(page)
     pages.append(page)
 
 
+
 ## Write out LaTeX
-#outstr = "\n\n\\clearpage\n\n".join(pages)
-outstr = "\n\n".join(pages)
+prefix = """\
+\\makeatletter
+\\renewcommand{\\d}[1]{\\ensuremath{\\mathrm{#1}}}
+\\let\\old@eta\\eta
+\\renewcommand{\\eta}{\\ensuremath{\\old@eta}}
+\\let\\old@phi\\phi
+\\renewcommand{\\phi}{\\ensuremath{\\old@phi}}
+\\makeatother
+
+"""
+#body = "\n\n\\clearpage\n\n".join(pages)
+body = "\n\n\\vspace{1cm}\n\n".join(pages)
+outstr = prefix + body
 f = open(OUTFILE, "w")
 f.write(outstr)
 f.close()

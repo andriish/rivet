@@ -51,7 +51,7 @@ namespace Rivet {
          << "PRD50,9,5562 (1994). Events with >= 3 jets are selected and Et "
          << "distributions of the three highest-pT jets are obtained. "
          << "$\\Delta{R}$ between 2nd and 3rd leading jets in pT and pseudorapidity "
-         << "of the 3rd jet are plotted. $\alpha = \\d{\\eta}/\\d{\\phi}$ is plotted, where "
+         << "of the 3rd jet are plotted. $\\alpha = \\d{\\eta}/\\d{\\phi}$ is plotted, where "
          << "$\\d{\\eta}$ is the pseudorapidity difference between the 2nd and 3rd jets "
          << "and $\\d{\\phi}$ their azimuthal angle difference. Since the data has not been "
          << "detector-corrected, a bin by bin correction is applied, based on the "

@@ -56,20 +56,18 @@ namespace Rivet {
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os << "Boson pT in Z/gamma* [e+ e-] + X  events " << endl
-         << "======================================== " << endl
-         << "Cross sections as a function of pT of the vector boson "
-         << "inclusive and in forward region (|y|>2, pT<30GeV)"
+      os << "Cross sections as a function of pT of the vector boson "
+         << "inclusive and in forward region (|y| > 2, pT < 30 GeV)"
          << "in ppbar collisions at sqrt{s} = 1.96 TeV, based on "
-         << "an integrated luminosity of 0.98 fb^-1." << endl;
+         << "an integrated luminosity of 0.98 fb^-1.";
       return os.str();
     }
     /// Information about the events needed as input for this analysis.
     string runInfo() const {
       ostringstream os;
-      os << "Tevatron Run 2 conditions: " << endl << endl
-         << "* ppbar -> e+ e- + jets at 1960 GeV. "
-         << "* Needs mass cut on lepton pair to avoid photon singularity: min. range 40 < m_ee < 200" << endl;
+      os << "Tevatron Run 2 conditions:\n"
+         << "* ppbar -> e+ e- + jets at 1960 GeV.\n"
+         << "* Needs mass cut on lepton pair to avoid photon singularity: min. range $40 < m_ee < 200$";
       return os.str();
     }
     string status() const {

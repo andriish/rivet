@@ -83,10 +83,8 @@ namespace Rivet {
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os << "Jet rates in e+e- at sqrt(s)=" << _sqrts << endl
-         << "=================================" << endl
-         << "Differential and integrated jet rates for Durham and JADE " 
-         << "jet algorithms." << endl;
+      os << "Differential and integrated jet rates for Durham and JADE " 
+         << "jet algorithms at sqrt(s) = " << _sqrts << ".";
       return os.str();
     }
     /// Information about the events needed as input for this analysis.
@@ -103,8 +101,8 @@ namespace Rivet {
     /// Journal, and preprint references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("arXiv:hep-ex/0001055");
       ret.push_back("Eur.Phys.J.C17:19-51,2000");
+      ret.push_back("arXiv:hep-ex/0001055");
       return ret;
     }
     //@}

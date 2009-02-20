@@ -1,3 +1,12 @@
+2009-02-20  Andy Buckley  <andy@insectnation.org>
+
+	* Adding use of new metadata in command line analysis querying
+	with the rivet command, and in building the PDF Rivet manual.
+
+	* Adding extended metadata methods to the Analysis interface and
+	the Python wrapper. All standard analyses comply with this new
+	interface.
+
 2009-02-19  Andy Buckley  <andy@insectnation.org>
 
 	* Adding usefully-scoped config headers, a Rivet::version()

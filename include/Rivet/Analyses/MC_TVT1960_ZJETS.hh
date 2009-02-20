@@ -60,16 +60,14 @@ namespace Rivet {
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os << "Analysis without data for boson and jet observables at Tevatron Run 2" << endl
-         << "=====================================================================" << endl
-         << "Available observables" << endl << endl
-         << "* Z mass " << endl
-         << "* pT of jet 1-4 " << endl
-         << "* jet multiplicity " << endl
-         << "* Delta eta (Z, jet1) " << endl
-         << "* Delta R (jet2, jet3) " << endl
-         << "* Differential jet rates 0->1, 1->2, 2->3, 3->4 " << endl
-         << "* Integrated 0-4 jet rates " << endl;
+      os << "Available observables\n" << endl << endl
+         << "* Z mass\n" << endl
+         << "* pT of jet 1-4\n" << endl
+         << "* jet multiplicity\n" << endl
+         << "* Delta eta (Z, jet1)\n" << endl
+         << "* Delta R (jet2, jet3)\n" << endl
+         << "* Differential jet rates 0->1, 1->2, 2->3, 3->4\n" << endl
+         << "* Integrated 0-4 jet rates\n" << endl;
       return os.str();
     }
     /// Information about the events needed as input for this analysis.
