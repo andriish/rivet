@@ -54,7 +54,7 @@ namespace Rivet {
     
     /// Collider on which the experiment ran.
     string collider() const {
-      return "Tevatron Run II";
+      return "Tevatron Run 2";
     }
     
     /// When published (preprint year according to SPIRES).

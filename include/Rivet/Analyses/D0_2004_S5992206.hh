@@ -80,7 +80,7 @@ namespace Rivet {
     }
     /// Collider on which the experiment was based
     string collider() const {
-     return "Tevatron Run 2";
+      return "Tevatron Run 2";
     }
     /// When published (preprint year according to SPIRES).
     string year() const {

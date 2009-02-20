@@ -96,7 +96,7 @@ namespace Rivet {
     }
     /// Collider on which the experiment ran.
     string collider() const {
-      return "LEP1";
+      return "LEP 1";
     }
     /// When published (preprint year according to SPIRES).
     string year() const {

@@ -82,7 +82,7 @@ namespace Rivet {
     }
     // Collider on which the experiment was based.
     string collider() const {
-     return "LEP1";
+     return "LEP 1";
     }
     /// When published.
     string year() const {
