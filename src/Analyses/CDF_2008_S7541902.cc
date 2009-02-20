@@ -55,9 +55,9 @@ namespace Rivet {
     }
     // Veto event if the MTR cut fails
     double mT2 = 
-      electronP.pT() * neutrinoP.pT() - 
-      electronP.px() * neutrinoP.px() -
-      electronP.py() * neutrinoP.py();
+      2.0* (electronP.pT() * neutrinoP.pT() - 
+	    electronP.px() * neutrinoP.px() -
+	    electronP.py() * neutrinoP.py() );
     if (sqrt(mT2) < _mTCut ) {
       vetoEvent(event);
     }
@@ -140,6 +140,4 @@ namespace Rivet {
     }
     _histJetMultNorm->scale(xsec);
   }
-
-  
 }
