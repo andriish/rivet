@@ -58,7 +58,7 @@ namespace Rivet {
       electronP.pT() * neutrinoP.pT() - 
       electronP.px() * neutrinoP.px() -
       electronP.py() * neutrinoP.py();
-    if (mT2 < _mT2Cut ) {
+    if (sqrt(mT2) < _mTCut ) {
       vetoEvent(event);
     }
 
