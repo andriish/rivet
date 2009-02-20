@@ -95,7 +95,6 @@ namespace Rivet {
          << "may be required for good statistics.";
       return os.str();
     }
-*/
 
     /// Experiment which performed and published this analysis.
     string experiment() const {
