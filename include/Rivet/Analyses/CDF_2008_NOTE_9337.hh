@@ -100,7 +100,7 @@ namespace Rivet {
     string runInfo() const {
       ostringstream os;
       os << "Tevatron Run 2: ppbar QCD interactions at 1960 GeV. "
-         << "Particles with $c \\tau > {}$10 mm should be set stable. "
+         << "Particles with $c \\tau > {}$10 mm should be set stable. ";
       return os.str();
     }
 

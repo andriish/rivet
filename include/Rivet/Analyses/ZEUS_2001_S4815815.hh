@@ -88,6 +88,11 @@ namespace Rivet {
       return os.str();
     }
     
+    /// Status of this routine (VALIDATED or UNVALIDATED)
+    string status() const{
+      return "UNVALIDATED";
+    }
+    
     /// Journal, and preprint references.
     vector<string> references() const {
       vector<string> refs;

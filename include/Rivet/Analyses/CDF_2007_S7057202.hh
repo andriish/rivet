@@ -61,7 +61,6 @@ namespace Rivet {
     string year() const {
       return "2007";
     }
-    //@}
 
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
@@ -104,6 +103,8 @@ namespace Rivet {
       refs.push_back( "hep-ex/0701051" );
       return refs;
     }
+    
+    //@}
     
     /// @name Analysis methods
     //@{
