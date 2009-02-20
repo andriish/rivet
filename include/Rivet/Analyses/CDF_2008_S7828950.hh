@@ -53,8 +53,8 @@ namespace Rivet {
  /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os << "Measurement of the inclusive jet cross section in $p\bar{p}$ "
-         << "collisions at $\sqrt{s}=1.96$ TeV as a function of jet Et, "
+      os << "Measurement of the inclusive jet cross section in $p\\bar{p}$ "
+         << "collisions at $\\sqrt{s}=1.96$ TeV as a function of jet Et, "
          <<  "for Et $>$ 62 GeV. "
          << "The data is collected by "
 	 << "the CDF II detector and has an integrated luminosity of "
@@ -67,7 +67,7 @@ namespace Rivet {
   /// Characteristics of events to be processed by this analysis
     string runInfo() const {
       ostringstream os;
-      os << "Requires 2->2 QCD scattering processes. "
+      os << "Requires $2\\rightarrow{2}$ QCD scattering processes. "
          << "The minimum jet Et is 62 GeV, so a cut on kinematic pTmin "
          << "may be required for good statistics.";
       return os.str();
