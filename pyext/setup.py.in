@@ -15,7 +15,8 @@ srcdir = os.path.abspath('@top_srcdir@/src')
 ext = Extension('_rivet',
                 ['@srcdir@/rivet_wrap.cc'],
                 include_dirs=[incdir, '@HEPMCINCPATH@', '@BOOSTINCPATH@'],
-                library_dirs=[srcdir, os.path.join(srcdir,'@LT_OBJDIR@'), '@HEPMCLIBPATH@'],
+                #should replace '.libs' -> os.path.join(srcdir,'@LT_OBJDIR@'), but doesn't work
+                library_dirs=[srcdir, os.path.join(srcdir,'.libs'), '@HEPMCLIBPATH@'],
                 libraries=['HepMC', 'Rivet'])
 
 ## Setup definition
