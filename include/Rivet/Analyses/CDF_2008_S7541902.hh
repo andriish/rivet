@@ -82,31 +82,32 @@ namespace Rivet {
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os <<  "Measurement of the cross section for W boson production in association with jets in $p\bar{p}$" 
-	 <<  "collisions at $\sqrt{s}=1.96$ TeV. The analysis uses 320 pb$^{-1}$ of data collected with the"
-	 <<  "CDF II detector."
-	 <<  "W bosons are identified in their $e\nu$ decay channel and"
-	 <<  "jets are reconstructed using an $R < 0.4$ cone algorithm."
-	 <<  "For each $W + \geq$ n-jet sample (where n = 1--4) a measurement of"
-	 <<  "d$\sigma({p}\bar{p} \rightarrow W + \geq$ n jet)/d$E_T(n^{th}$-jet) $\times$ BR($W \rightarrow{e}\nu$)"
-	 <<  "is made, where d$E_T(n^{th}$-jet) is the Et of the n$^{th}$-highest Et jet above 20 GeV."
-	 <<  "A measurement of the total cross section," 
-	 <<  "$\sigma(p\bar{p} \rightarrow W + \geq$ n-jet) $\times$ BR($W \rightarrow{e}\nu)$ with"
-	 <<  "$E_T(n^{th}-jet) > 25$ GeV is also made." 
-	 <<  "Both measurements are made for jets with $|\eta| < 2$ and for a limited reigon of"
-	 <<  "the $W \rightarrow{e}\nu$ decay phase space: $|\eta^{e}| < 1.1$, $p_{T}^{e} > 20$ GeV,"
-	 <<  "$p_{T}^{\nu} > 30$ GeV and $M_{T} > 20$ GeV."
-	 <<  "The cross sections are corrected for all detector effects and can be directly compared"
-	 <<  "to particle level $W$ + jet(s) predictions."
-	 <<  "These measurements can be used to test and tune QCD predictions for the number of jets"                             <<   "in and kinematics of $W$ + jets events.";
+      os <<  "Measurement of the cross section for W boson production in association with jets in $p\bar{p}$ " 
+	 <<  "collisions at $\sqrt{s}=1.96$ TeV. The analysis uses 320 pb$^{-1}$ of data collected with the "
+	 <<  "CDF II detector. "
+	 <<  "W bosons are identified in their $e\nu$ decay channel and "
+	 <<  "jets are reconstructed using an $R < 0.4$ cone algorithm. "
+	 <<  "For each $W + \geq$ n-jet sample (where n = 1--4) a measurement of "
+	 <<  "d$\sigma({p}\bar{p} \rightarrow W + \geq$ n jet)/d$E_T(n^{th}$-jet) $\times$ BR($W \rightarrow{e}\nu$) "
+	 <<  "is made, where d$E_T(n^{th}$-jet) is the Et of the n$^{th}$-highest Et jet above 20 GeV. "
+	 <<  "A measurement of the total cross section, " 
+	 <<  "$\sigma(p\bar{p} \rightarrow W + \geq$ n-jet) $\times$ BR($W \rightarrow{e}\nu)$ with "
+	 <<  "$E_T(n^{th}-jet) > 25$ GeV is also made. " 
+	 <<  "Both measurements are made for jets with $|\eta| < 2$ and for a limited reigon of "
+	 <<  "the $W \rightarrow{e}\nu$ decay phase space: $|\eta^{e}| < 1.1$, $p_{T}^{e} > 20$ GeV, "
+	 <<  "$p_{T}^{\nu} > 30$ GeV and $M_{T} > 20$ GeV. "
+	 <<  "The cross sections are corrected for all detector effects and can be directly compared "
+	 <<  "to particle level $W$ + jet(s) predictions. "
+	 <<  "These measurements can be used to test and tune QCD predictions for the number of jets "
+	 <<   "in and kinematics of $W$ + jets events.";
       return os.str();
     }
   /// Characteristics of events to be processed by this analysis
     string runInfo() const {
       ostringstream os;
-      os << "Requires the process ppbar->W->enu,"
-         << "additional hard jets will also have to be included to get a good description." 
-	 << "The LO process in Herwig is set with IPROC=1451";
+      os << "Requires the process ppbar->W->enu, "
+         << "additional hard jets will also have to be included to get a good description. " 
+	 << "The LO process in Herwig is set with IPROC=1451.";
       return os.str();
     }
    
@@ -126,6 +127,7 @@ namespace Rivet {
    /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
       vector<string> rtn;
+      rtn += "Ben Cooper <b.d.cooper@qmul.ac.uk>";
       rtn += "Emily Nurse <nurse@hep.ucl.ac.uk>";
       return rtn;
     }
