@@ -73,26 +73,51 @@ namespace Rivet {
     /// Full description of the analysis, for the manual
     string description() const {
       ostringstream os;
-      os << "CDF Run 2 underlying event in Drell-Yan. "
-         << "TODO: MORE!";
+      os << "Deepak Kar's and Rick Field's measurement of the underlying event "
+         << "in Drell-Yan events. $Z \\to ee$ and $Z \\to \\mu\\mu$ events are selected "
+	 << "using a $Z$ mass window cut between 70 and 110 GeV. ``Toward'', "
+	 << "``away'' and ``transverse'' regions are defined in the same way as "
+	 << "in the original (2001) CDF underlying event analysis. The reconstructed "
+	 << "$Z$ defines the $\\phi$ direction of the toward region. The leptons are "
+	 << "ignored after the $Z$ has been reconstructed. Thus the region most "
+	 << "sensitive to the underlying event is the toward region (the recoil jet "
+	 << "is boosted into the away region).";
       return os.str();
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
-     return "CDF Run 2";
+     return "CDF";
     }
     /// Collider on which the experiment was based
     string collider() const {
-     return "Tevatron";
+     return "Tevatron Run 2";
     }
     /// When published according to SPIRES
     string year() const {
      return "2008";
     }
-    /// No journal or preprint references: this is a demo.
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Tevatron Run 2: ppbar collisions at 1960 GeV. "
+         << "Drell-Yan events with $Z/\\gamma \\to ee$ and $Z/\\gamma \\to \\mu\\mu$. "
+	 << "A mass cut $m_{ll} > 70 GeV$ can be applied on generator level. "
+         << "Particles with $c \\tau > {}$10 mm should be set stable. ";
+      return os.str();
+    }
+    string status() const {
+      return "VALIDATED";
+    }
+    /// Journal or preprint references
     vector<string> references() const {
       vector<string> ret;
-      ret += "CDF/PUB/CDF/PUBLIC/9351";
+      ret += "CDF public note 9351";
       return ret;
     }
     //@}

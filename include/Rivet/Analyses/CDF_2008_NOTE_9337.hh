@@ -64,31 +64,53 @@ namespace Rivet {
     string spiresId() const {
       return "NONE";
     }
+    /// A short description of the analysis.
     string summary() const {
       return "CDF Run 2 min bias cross-section analysis";
     }
+    /// Full description of the analysis, for the manual
     string description() const {
       ostringstream os;
-      os << "CDF Run 2 min bias cross-section analysis. "
-         << "TODO: MORE!";
+      os << "Niccolo' Moggi's minbias analysis. Minimum bias events are used to "
+         << "measure the average track $p_T$ vs charged multiplicity, a track $p_T$ "
+	 << "distribution and an inclusive $\\sum E_T$ distribution. "
+	 << "\n\n "
+	 << "WARNING: Only average track $p_T$ vs charged multiplicity is validated!";
       return os.str();
     }
     /// Experiment which performed and published this analysis.
     string experiment() const {
-     return "CDF Run 2";
+     return "CDF";
     }
     /// Collider on which the experiment was based
     string collider() const {
-     return "Tevatron";
+     return "Tevatron Run 2";
     }
     /// When published according to SPIRES
     string year() const {
      return "2008";
     }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> ret;
+      ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
+      return ret;
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "Tevatron Run 2: ppbar QCD interactions at 1960 GeV. "
+         << "Particles with $c \\tau > {}$10 mm should be set stable. "
+      return os.str();
+    }
+
+    string status() const {
+      return "PARTIALLY VALIDATED";
+    }
     /// No journal or preprint references: this is a demo.
     vector<string> references() const {
       vector<string> ret;
-      ret += "CDF/PUB/MIN_BIAS//9337";
+      ret += "CDF public note 9337";
       return ret;
     }
     //@}

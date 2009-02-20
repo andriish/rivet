@@ -102,7 +102,6 @@ namespace Rivet {
     string year() const {
       return "1996";
     }
-
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
       vector<string> ret;
