@@ -6,6 +6,7 @@ AC_CONFIG_SRCDIR([src/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
 AC_CONFIG_MACRO_DIR([m4])
+AC_SUBST(LT_OBJDIR)
 
 ## Package-specific #defines
 AC_DEFINE_UNQUOTED(RIVET_VERSION, "$PACKAGE_VERSION", "Rivet version string")

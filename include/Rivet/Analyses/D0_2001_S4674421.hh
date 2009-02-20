@@ -33,46 +33,65 @@ namespace Rivet {
     
     /// @name Publication metadata
     //@{
+
     /// A short description of the analysis.
     string spiresId() const {
       return "4674421";
     }
+
     /// A short description of the analysis.
     string summary() const {
       return "Tevatron Run I differential W/Z boson cross-section analysis";
     }
+
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
       os << "Measurement of differential W/Z boson cross section and ratio in p pbar "
-	 << "collisions at center-of-mass energy sqrt(s) = 1.8 TeV. The data cover "
-	 << "electrons and neutrinos in a pseudo-rapidity range of -2.5 to 2.5. "
-	//   << "\n\n"
+         << "collisions at center-of-mass energy sqrt(s) = 1.8 TeV. The data cover "
+         << "electrons and neutrinos in a pseudo-rapidity range of -2.5 to 2.5. "
+        //   << "\n\n"
          << "";
       return os.str();
     }
+
+    /// Event type required by this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "* Energy: sqrt(s) = 1800 GeV\n"
+         << "* Event type: W/Z events with decays to first generation leptons"
+         << "";
+      return os.str();
+    }
+
     /// Experiment which performed and published this analysis. 
     string experiment() const {
       return "D0";
     }
+
     /// Collider on which the experiment ran
     string collider() const {
       return "Tevatron Run 1";
     }
+
     /// When published (preprint year according to SPIRES). 
     string year() const {
       return "2001";
     }
+
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
       vector<string> rtn;
       rtn += "Lars Sonnenschein <Lars.Sonnenschein@cern.ch>";
       return rtn;
     }
+
     /// Publication references.
     vector<string> references() const {
       vector<string> ret;
-      ret += "arXiv:hep-ex/0107012";
+      ret += "Phys.Lett.B517:299-308,2001";
+      ret += "doi:10.1016/S0370-2693(01)01020-6";
+      ret += "arXiv:hep-ex/0107012v2";
       return ret;
     }
     //@}

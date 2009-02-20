@@ -32,36 +32,52 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
+
     /// A short description of the analysis. 
     string spiresId() const {
       return "7662670";
     }
+
     /// A short description of the analysis.
     string summary() const {
       return "Measurement of D0 Run II differential jet cross sections";
     }
+
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
       os << "Measurement of the inclusive jet cross section in p pbar collisions at "
          << "center-of-mass energy sqrt(s) = 1.96 TeV. The data cover jet transverse "
          << "momenta from 50--600 GeV and jet rapidities in the range -2.4 to 2.4. "
-      //   << "\n\n"
+        //   << "\n\n"
          << "";
       return os.str();
     }
+
+    /// Event type required by this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "* Energy: sqrt(s) = 1960 GeV\n"
+         << "* Event type: QCD events\n"
+         << "* pTmin cut may be necessary: lowest jet pT bin is at 50 GeV";
+      return os.str();
+    }
+
     /// Experiment which performed and published this analysis. 
     string experiment() const {
       return "D0";
     }
+
     /// Collider on which the experiment ran
     string collider() const {
       return "Tevatron Run 2";
     }
+
     /// When published (preprint year according to SPIRES). 
     string year() const {
       return "2008";
     }
+
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
       vector<string> rtn;
@@ -69,6 +85,7 @@ namespace Rivet {
       rtn += "Gavin Hesketh <gavin.hesketh@cern.ch>";
       return rtn;
     }
+
     /// Publication references.
     vector<string> references() const {
       vector<string> ret;

@@ -73,9 +73,9 @@ namespace Rivet {
       ostringstream os;
       os << "Niccolo' Moggi's minbias analysis. Minimum bias events are used to "
          << "measure the average track $p_T$ vs charged multiplicity, a track $p_T$ "
-	 << "distribution and an inclusive $\\sum E_T$ distribution. "
-	 << "\n\n "
-	 << "WARNING: Only average track $p_T$ vs charged multiplicity is validated!";
+         << "distribution and an inclusive $\\sum E_T$ distribution. "
+         << "\n\n "
+         << "WARNING: Only average track $p_T$ vs charged multiplicity is validated!";
       return os.str();
     }
     /// Experiment which performed and published this analysis.
@@ -99,8 +99,8 @@ namespace Rivet {
     /// Information about the events needed as input for this analysis.
     string runInfo() const {
       ostringstream os;
-      os << "Tevatron Run 2: ppbar QCD interactions at 1960 GeV. "
-         << "Particles with $c \\tau > {}$10 mm should be set stable. ";
+      os << "* Tevatron Run 2: ppbar QCD interactions at 1960 GeV.\n"
+         << "* Particles with $c \\tau > {}$10 mm should be set stable.";
       return os.str();
     }
 

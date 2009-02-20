@@ -13,18 +13,6 @@ namespace Rivet {
 
   /* @brief CDF Run I color coherence analysis
    * @author Lars Sonnenschein
-   *
-   *
-   * @par Run conditions
-   *
-   * @arg \f$ \sqrt{s} = \f$ 1800 GeV
-   * @arg Run with generic QCD events.
-   * @arg Cut on primary vertex \f$ z \f$ position ( \f$ z(\text{PV}) < 60 \text{cm} \f$ );
-   * @arg \f$ p_\perp^\text{min} \f$ of the leading (100GeV) and 3rd leading jets (10GeV);
-   * @arg Max. pseudorapidity range \f$ eta < 0.7 \f$ of 2nd and 3rd leading jets;
-   * @arg \f$ \Delta{\phi} < PI/18.\f$ (azimuthal angle) requirement (transverse back to back'ness); 
-   * @arg MET over \f$ \sqrt{\text{Scalar }E_T} < 6.0GeV \f$ cut requirement.
-   *
    */
   class CDF_1994_S2952106 : public Analysis {
 
@@ -45,10 +33,12 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// A short description of the analysis.
+
+    /// SPIRES ID code.
     string spiresId() const {
       return "2952106";
     }
+
     /// A short description of the analysis.
     string summary() const {
       return "CDF Run I color coherence analysis.";
@@ -70,28 +60,46 @@ namespace Rivet {
       return os.str();
     }
 
+    /// Event type required by this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "* Energy: sqrt(s) = 1800 GeV\n"
+         << "* Event type: generic QCD events\n"
+         << "* Cut on primary vertex $z$ position: z(PV) < 60 cm\n"
+         << "* pTmin: leading jet = 100 GeV; and 3rd jet = 10 GeV\n"
+         << "* Max. pseudorapidity range of 2nd and 3rd jets: $|eta| < 0.7$\n"
+         << "* Azimuthal angle requirement: $\\Delta{\\phi} < \\pi/18$ (transverse back-to-backness)\n"
+         << "* MET cut requirement: $mET/\\sqrt{\\text{Scalar }E_T} < 6.0 GeV$";
+      return os.str();
+    }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";
     }
+
     /// Collider on which the experiment ran
     string collider() const {
       return "Tevatron Run 1";
     }
-    /// When published (preprint year according to SPIRES). 
+
+    /// When published (preprint year according to SPIRES).
     string year() const {
       return "1994";
     }
+
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
       vector<string> rtn;
       rtn += "Lars Sonnenschein <Lars.Sonnenschein@cern.ch>";
       return rtn;
     }
+
     /// Publication references.
     vector<string> references() const {
       vector<string> ret;
-      ret.push_back("Phys.Rev.D50,9,5562 (1994)");
+      ret += "Phys.Rev.D50,9,5562,1994";
+      ret += "doi:10.1103/PhysRevD.50.5562";
       return ret;
     }
     //@}

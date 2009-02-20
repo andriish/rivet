@@ -194,7 +194,7 @@ if opts.LIST_ANALYSES:
         msg = aname
         if opts.LOGLEVEL == logging.DEBUG:
             a = rivet.AnalysisLoader.getAnalysis(aname)
-            msg = "%-25s %s" % (aname, "  " + a.description())
+            msg = "%-25s %s" % (aname, "  " + a.summary())
         print msg
     sys.exit(0)
 
@@ -215,28 +215,48 @@ if len(opts.SHOW_ANALYSES) > 0:
                     toshow.add(ana)
 
     ## Show the matching analyses' details
-    for name in sorted(toshow):
+    import textwrap
+    for i, name in enumerate(sorted(toshow)):
         ana = rivet.AnalysisLoader.getAnalysis(name)
         print ""
         print name
         print len(name) * "="
         print ""
+        print ana.summary()
+        print ""
         print "Spires ID: %s" % ana.spiresId()
         print "Spires URL: http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.spiresId()
         print "Experiment: %s" % ana.experiment()
         print "Year of publication: %s" % ana.year()
-        #print ana.getAuthor()
-        #print ana.getInstructions()
-        #print ana.getCuts()
+        print "Authors:"
+        for a in ana.authors():
+            print "  " + a
         print ""
-        #print "Description:\n  " + ana.description()
+        print "Description:" 
+        twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
+        print twrap.fill(ana.description())
         print ""
-        #print "References:"
-        #for r in ana.references():
-        #    print "  %s" % r
-        if i+1 < len(opts.SHOW_ANALYSES):
+        print "Run details:"
+        twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
+        for l in ana.runInfo().split("\n"):
+            print twrap.fill(l)
+        print ""
+        print "References:"
+        for r in ana.references():
+            url = None
+            if r.startswith("arXiv:"):
+                code = r.split()[0].replace("arXiv:", "")
+                url = "http://arxiv.org/abs/" + code
+            elif r.startswith("doi:"):
+                code = r.replace("doi:", "")
+                url = "http://dx.doi.org/" + code
+            if url is not None:
+                r += " - " + url
+            print "  %s" % r
+
+        if i+1 < len(toshow):
             print "\n"
-    sys.exit(0)
+    exit(0)
 
 
 ## Identify HepMC files/streams

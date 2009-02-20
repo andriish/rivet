@@ -97,7 +97,7 @@ namespace Rivet {
     /// @brief Names & emails of paper/analysis authors.
     /// Names and email of authors in 'NAME <EMAIL>' format. The first
     /// name in the list should be the primary contact person.
-    //MD virtual std::vector<std::string> authors() const = 0;
+    virtual std::vector<std::string> authors() const = 0;
 
     /// @brief Get a short description of the analysis.
     /// Short (one sentence) description used as an index entry.
@@ -110,19 +110,19 @@ namespace Rivet {
     /// what experimental techniques are applied, etc. Should be treated
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
     /// with equations to be rendered as LaTeX with amsmath operators.
-    //MD virtual std::string description() const = 0;
+    virtual std::string description() const = 0;
 
     /// @brief Information about the events needed as input for this analysis.
     /// Event types, energies, kinematic cuts, particles to be considered 
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
-    //MD virtual std::string runInfo() const = 0;
+    virtual std::string runInfo() const = 0;
     
     /// Experiment which performed and published this analysis.
     virtual std::string experiment() const = 0;
 
     /// Collider on which the experiment ran.
-    //MD virtual string collider() const = 0;
+    virtual string collider() const = 0;
 
     /// Incoming beams required by this analysis.
     virtual const BeamPair& beams() const {
@@ -135,7 +135,7 @@ namespace Rivet {
     virtual std::string year() const = 0;
 
     /// Journal, and preprint references.
-    //MD virtual std::vector<std::string> references() const = 0;
+    virtual std::vector<std::string> references() const = 0;
 
     /// Whether this analysis is trusted (in any way!)
     virtual std::string status() const {

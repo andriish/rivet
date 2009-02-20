@@ -56,18 +56,69 @@ namespace Rivet {
 
   public:
 
+
+    /// SPIRES ID code.
     string spiresId() const {
       return "4796047";
     }
+
+    /// A short description of the analysis.
     string summary() const {
       return "CDF Run 1 charged multiplicity measurement";
     }
+
+    /// Full description of the analysis, to appear in the manual.
+    string description() const {
+      ostringstream os;
+      os << "A study of pp̅ collisions at sqrt(s) = 1800 and 630 GeV collected using a minimum bias "
+         << "trigger in which the data set is divided into two classes corresponding to `soft' and " 
+         << "`hard' interactions. For each subsample, the analysis includes measurements of the "
+         << "multiplicity, transverse momentum (pT) spectra, and the average pT and event-by-event "
+         << "pT dispersion as a function of multiplicity. A comparison of results shows distinct "
+         << "differences in the behavior of the two samples as a function of the center of mass "
+         << "energy. The properties of the soft sample are invariant as a function of c.m. energy.";
+      return os.str();
+    }
+
+    /// Event type required by this analysis.
+    string runInfo() const {
+      ostringstream os;
+      os << "* Energy: sqrt(s) = 630 and 1800 GeV\n"
+         << "* Event type: generic QCD events\n"
+         << "* TODO: MORE?";
+      return os.str();
+    }
+
+    /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";
     }
+
+    /// Collider on which the experiment ran
+    string collider() const {
+      return "Tevatron Run 1";
+    }
+
+    /// When published (according to SPIRES). 
     string year() const {
       return "2002";
     }
+
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
+      return rtn;
+    }
+
+    /// Publication references.
+    vector<string> references() const {
+      vector<string> ret;
+      ret += "Phys.Rev.D65:072005,2002";
+      ret += "doi:10.1103/PhysRevD.65.072005 ";
+      return ret;
+    }
+
 
   public:
 
