@@ -301,14 +301,15 @@ def logNEvt(n, starttime, maxevtnum):
         nevtloglevel = logging.WARNING + 5
     if n % 10000 == 0:
         nevtloglevel = logging.CRITICAL
-    timeelapsed=time.time()-starttime;
+    timecurrent=time.time()
+    timeelapsed=timecurrent-starttime;
     if maxevtnum is None:
         logging.log(nevtloglevel, "Event %d ( %d s elapsed )" % (n, timeelapsed))
     else:
         timeleft=(maxevtnum-n)/n*timeelapsed
-        timetotal=maxevtnum/n*timeelapsed
-        logging.log(nevtloglevel, "Event %d ( %d s elapsed / %d s left / %d s total )"
-                    % (n, timeelapsed, timeleft, timetotal))
+        eta=time.strftime("%a %b %d %H:%M", time.localtime(timecurrent+timeleft))
+        logging.log(nevtloglevel, "Event %d ( %d s elapsed / %d s left ) -> ETA: %s"
+                    % (n, timeelapsed, timeleft, eta))
 
 
 ## Here is where we first need the Python HepMC interface
