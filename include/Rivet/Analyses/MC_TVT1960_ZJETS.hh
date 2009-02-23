@@ -105,7 +105,12 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_jet2_pT;
     AIDA::IHistogram1D * _h_jet3_pT;
     AIDA::IHistogram1D * _h_jet4_pT;
-    AIDA::IHistogram1D * _h_jet_multi;
+    AIDA::IHistogram1D * _h_jet20_multi_exclusive;
+    AIDA::IHistogram1D * _h_jet20_multi_inclusive;
+    AIDA::IDataPointSet * _h_jet20_multi_ratio;
+    AIDA::IHistogram1D * _h_jet10_multi_exclusive;
+    AIDA::IHistogram1D * _h_jet10_multi_inclusive;
+    AIDA::IDataPointSet * _h_jet10_multi_ratio;
     AIDA::IHistogram1D * _h_deta_Z_jet1;
     AIDA::IHistogram1D * _h_dR_jet2_jet3;
     AIDA::IHistogram1D * _h_log10_d[4];

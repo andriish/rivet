@@ -14,11 +14,11 @@ namespace Rivet {
     setBeams(PROTON, ANTIPROTON);
     
     //full final state
-    FinalState fs(-5.0, 5.0);
+    FinalState fs(-2.5, 2.5);
     addProjection(fs, "FS");
 
     // leading leptons (for Z candidates)
-    IdentifiedFinalState lfs(-5.0, 5.0, 25.0*GeV);
+    IdentifiedFinalState lfs(-2.5, 2.5, 25.0*GeV);
     lfs.acceptIdPair(ELECTRON);
     addProjection(lfs, "Leptons");
   } 
@@ -27,25 +27,30 @@ namespace Rivet {
 
   // Book histograms
   void MC_TVT1960_ZJETS::init() {
-    _h_Z_mass = bookHistogram1D("Z_mass", "$m_{\\mathrm{Z}}$", 50, 66.0, 116.0);
-    _h_jet1_pT = bookHistogram1D("jet1_pT", "$p_{\\perp}^{\\mathrm{1st jet}}$", 50, 0.0, 500.0);
-    _h_jet2_pT = bookHistogram1D("jet2_pT", "$p_{\\perp}^{\\mathrm{2nd jet}}$", 30, 0.0, 300.0);
-    _h_jet3_pT = bookHistogram1D("jet3_pT", "$p_{\\perp}^{\\mathrm{3rd jet}}$", 20, 0.0, 200.0);
-    _h_jet4_pT = bookHistogram1D("jet4_pT", "$p_{\\perp}^{\\mathrm{4th jet}}$", 10, 0.0, 100.0);
-    _h_jet_multi = bookHistogram1D("jet_multi", "$N_{\\mathrm{jet}}$", 10, -0.5, 9.5);
-    _h_deta_Z_jet1 = bookHistogram1D("deta_Z_jet2", "$|\\Delta{\\eta}(\\mathrm{Z, 1st jet})|$", 20, 0.0, 5.0);
-    _h_dR_jet2_jet3 = bookHistogram1D("dR_jet2_jet3", "$|\\Delta{R}(\\mathrm{2nd jet, 3rd jet})|$", 20, 0.0, 5.0);
+    _h_Z_mass = bookHistogram1D("Z_mass", "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}m_{\\mathrm{Z}}$", 50, 66.0, 116.0);
+    _h_jet1_pT = bookHistogram1D("jet1_pT", "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}p_{\\perp}^{\\mathrm{1st jet}}$", 50, 0.0, 500.0);
+    _h_jet2_pT = bookHistogram1D("jet2_pT", "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}p_{\\perp}^{\\mathrm{2nd jet}}$", 30, 0.0, 300.0);
+    _h_jet3_pT = bookHistogram1D("jet3_pT", "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}p_{\\perp}^{\\mathrm{3rd jet}}$", 20, 0.0, 200.0);
+    _h_jet4_pT = bookHistogram1D("jet4_pT", "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}p_{\\perp}^{\\mathrm{4th jet}}$", 10, 0.0, 100.0);
+    _h_jet20_multi_exclusive = bookHistogram1D("jet20_multi_exclusive", "$\\sigma(N_{\\mathrm{jet20}})/\\sigma(N_{\\mathrm{jet20}}=0)$", 10, -0.5, 9.5);
+    _h_jet20_multi_inclusive = bookHistogram1D("jet20_multi_inclusive", "$\\sigma(\\geq N_{\\mathrm{jet20}})/\\sigma(\\mathrm{inclusive})$", 10, -0.5, 9.5);
+    _h_jet20_multi_ratio = bookDataPointSet("jet20_multi_ratio", "$\\sigma(\\geq N_{\\mathrm{jet20}})/\\sigma(\\geq N_{\\mathrm{jet20}}-1)$", 9, 0.5, 9.5);
+    _h_jet10_multi_exclusive = bookHistogram1D("jet10_multi_exclusive", "$\\sigma(N_{\\mathrm{jet10}})/\\sigma(N_{\\mathrm{jet10}}=0)$", 10, -0.5, 9.5);
+    _h_jet10_multi_inclusive = bookHistogram1D("jet10_multi_inclusive", "$\\sigma(\\geq N_{\\mathrm{jet10}})/\\sigma(\\mathrm{inclusive})$", 10, -0.5, 9.5);
+    _h_jet10_multi_ratio = bookDataPointSet("jet10_multi_ratio", "$\\sigma(\\geq N_{\\mathrm{jet10}})/\\sigma(\\geq N_{\\mathrm{jet10}}-1)$", 9, 0.5, 9.5);
+    _h_deta_Z_jet1 = bookHistogram1D("deta_Z_jet2", "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}|\\Delta{\\eta}(\\mathrm{Z, 1st jet})|$", 20, 0.0, 5.0);
+    _h_dR_jet2_jet3 = bookHistogram1D("dR_jet2_jet3", "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}|\\Delta{R}(\\mathrm{2nd jet, 3rd jet})|$", 20, 0.0, 5.0);
     for (size_t i=0; i<4; ++i) {
       stringstream name, title;
       name<<"log10_d_"<<i<<i+1;
       title<<"$\\log_{10}$($k_\\perp$ jet resolution $"<<i<<" \\to "<<i+1<<"$ [GeV])";
-      _h_log10_d[i] = bookHistogram1D(name.str(), title.str(), 100, 0.2, 2.6);
+      _h_log10_d[i] = bookHistogram1D(name.str(), title.str(), 50, 0.2, 2.6);
     }
     for (size_t i=0; i<5; ++i) {
       stringstream name, title;
       name<<"log10_R_"<<i;
       title<<"$\\log_{10}$(Integrated $"<<i<<"$ jet rate in $k_\\perp$ [GeV])";
-      _h_log10_R[i] = bookDataPointSet(name.str(), title.str(), 100, 0.2, 2.6);
+      _h_log10_R[i] = bookDataPointSet(name.str(), title.str(), 50, 0.2, 2.6);
     }
   }
 
@@ -108,8 +113,7 @@ namespace Rivet {
       }
       if (copy) jetparts.push_back(p);
     }
-
-    FastJets jetpro(fs); // fs only as dummy here
+    FastJets jetpro(fs, FastJets::KT, 0.7); // fs only as dummy here
     jetpro.calc(jetparts);
 
     // jet resolutions and integrated jet rates
@@ -125,6 +129,7 @@ namespace Rivet {
       _h_log10_d[2]->fill(d_23, weight);
       _h_log10_d[3]->fill(d_34, weight);
 
+      /// @todo: can't this be calculated in the finalize method?
       for (int i=0; i<_h_log10_R[0]->size(); ++i) {
         IDataPoint* dp=_h_log10_R[0]->point(i);
         if (d_01 < dp->coordinate(0)->value()) {
@@ -167,52 +172,109 @@ namespace Rivet {
     const Jets& jets = jetpro.jets();
     Jets jets_cut;
     foreach (const Jet& j, jets) {
-      if (j.momentum().pT()/GeV > 20.0) {
+      if (j.momentum().pT()/GeV > 20.0 && fabs(j.momentum().pseudorapidity()) < 2.0) {
         jets_cut.push_back(j);
       }
     }
-    getLog() << Log::DEBUG << "Num jets above 20 GeV = " << jets_cut.size() << endl;
+    getLog() << Log::DEBUG << "Num jets passing cuts = " << jets_cut.size() << endl;
 
     // Sort by pT:
     sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
 
-    // cut on Delta R between jet and electrons
-    foreach (const Jet& j, jets_cut) {
-      Particle el=Z_candidates[0].first;
-      if (deltaR(el.momentum().pseudorapidity(), el.momentum().azimuthalAngle(),
-                 j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.5) {
-        vetoEvent(event);
-      }
-      el=Z_candidates[0].second;
-      if (deltaR(el.momentum().pseudorapidity(), el.momentum().azimuthalAngle(),
-                 j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.5) {
-        vetoEvent(event);
-      }
-    }
-
     // fill jet multi
-    _h_jet_multi->fill(jets_cut.size());
+    _h_jet20_multi_exclusive->fill(jets_cut.size(), weight);
+    _h_jet20_multi_inclusive->fill(0, weight);
 
     FourMomentum zmom(Z_candidates[0].first.momentum()+Z_candidates[0].second.momentum());
-    _h_Z_mass->fill(zmom.mass());
+    _h_Z_mass->fill(zmom.mass(),weight);
     if (jets_cut.size()>0) {
       _h_jet1_pT->fill(jets_cut[0].momentum().pT(), weight);
       double deta=fabs(zmom.pseudorapidity()-jets_cut[0].momentum().pseudorapidity());
       _h_deta_Z_jet1->fill(deta, weight);
+      _h_jet20_multi_inclusive->fill(1, weight);
     }
     if (jets_cut.size()>1) {
       _h_jet2_pT->fill(jets_cut[1].momentum().pT(), weight);
+      _h_jet20_multi_inclusive->fill(2, weight);
     }
     if (jets_cut.size()>2) {
       _h_jet3_pT->fill(jets_cut[2].momentum().pT(), weight);
       double dR23=deltaR(jets_cut[1].momentum().pseudorapidity(), jets_cut[1].momentum().azimuthalAngle(),
                          jets_cut[2].momentum().pseudorapidity(), jets_cut[2].momentum().azimuthalAngle());
       _h_dR_jet2_jet3->fill(dR23, weight);
+      _h_jet20_multi_inclusive->fill(3, weight);
     }
     if (jets_cut.size()>3) {
       _h_jet4_pT->fill(jets_cut[3].momentum().pT(), weight);
+      _h_jet20_multi_inclusive->fill(4, weight);
+    }
+    if (jets_cut.size()>4) {
+      _h_jet20_multi_inclusive->fill(5, weight);
+    }
+    if (jets_cut.size()>5) {
+      _h_jet20_multi_inclusive->fill(6, weight);
+    }
+    if (jets_cut.size()>6) {
+      _h_jet20_multi_inclusive->fill(7, weight);
+    }
+    if (jets_cut.size()>7) {
+      _h_jet20_multi_inclusive->fill(8, weight);
+    }
+    if (jets_cut.size()>8) {
+      _h_jet20_multi_inclusive->fill(9, weight);
+    }
+    if (jets_cut.size()>9) {
+      _h_jet20_multi_inclusive->fill(10, weight); // for overflow
     }
 
+    // do the multis also for jets > 10 GeV
+    // Take jets with pt > 20
+    /// @todo Make this neater, using the JetAlg interface and the built-in sorting
+    Jets jets10_cut;
+    foreach (const Jet& j, jets) {
+      if (j.momentum().pT()/GeV > 10.0 && fabs(j.momentum().pseudorapidity()) < 2.0) {
+        jets10_cut.push_back(j);
+      }
+    }
+    getLog() << Log::DEBUG << "Num jets passing 10GeV cut = " << jets10_cut.size() << endl;
+
+    // Sort by pT:
+    sort(jets10_cut.begin(), jets10_cut.end(), cmpJetsByPt);
+
+    // fill jet multi
+    _h_jet10_multi_exclusive->fill(jets10_cut.size(), weight);
+    _h_jet10_multi_inclusive->fill(0, weight);
+
+    if (jets10_cut.size()>0) {
+      _h_jet10_multi_inclusive->fill(1, weight);
+    }
+    if (jets10_cut.size()>1) {
+      _h_jet10_multi_inclusive->fill(2, weight);
+    }
+    if (jets10_cut.size()>2) {
+      _h_jet10_multi_inclusive->fill(3, weight);
+    }
+    if (jets10_cut.size()>3) {
+      _h_jet10_multi_inclusive->fill(4, weight);
+    }
+    if (jets10_cut.size()>4) {
+      _h_jet10_multi_inclusive->fill(5, weight);
+    }
+    if (jets10_cut.size()>5) {
+      _h_jet10_multi_inclusive->fill(6, weight);
+    }
+    if (jets10_cut.size()>6) {
+      _h_jet10_multi_inclusive->fill(7, weight);
+    }
+    if (jets10_cut.size()>7) {
+      _h_jet10_multi_inclusive->fill(8, weight);
+    }
+    if (jets10_cut.size()>8) {
+      _h_jet10_multi_inclusive->fill(9, weight);
+    }
+    if (jets10_cut.size()>9) {
+      _h_jet10_multi_inclusive->fill(10, weight);
+    }
   }
 
 
@@ -223,7 +285,7 @@ namespace Rivet {
     normalize(_h_jet2_pT,1.0);
     normalize(_h_jet3_pT,1.0);
     normalize(_h_jet4_pT,1.0);
-    normalize(_h_jet_multi,1.0);
+
     normalize(_h_deta_Z_jet1,1.0);
     normalize(_h_dR_jet2_jet3,1.0);
     for (size_t i=0; i<4; ++i) {
@@ -236,6 +298,37 @@ namespace Rivet {
         dp->coordinate(1)->setValue(dp->coordinate(1)->value()*1.0/sumOfWeights());
       }
     }
+
+    // fill inclusive jet multi ratio
+    int Nbins=_h_jet20_multi_inclusive->axis().bins();
+    std::vector<double> ratio(Nbins-1, 0.0);
+    std::vector<double> err(Nbins-1, 0.0);
+    for (int i=0; i<Nbins-1; ++i) {
+      if (_h_jet20_multi_inclusive->binHeight(i)>0.0 && _h_jet20_multi_inclusive->binHeight(i+1)>0.0) {
+        ratio[i]=_h_jet20_multi_inclusive->binHeight(i+1)/_h_jet20_multi_inclusive->binHeight(i);
+        double relerr_i=_h_jet20_multi_inclusive->binError(i)/_h_jet20_multi_inclusive->binHeight(i);
+        double relerr_j=_h_jet20_multi_inclusive->binError(i+1)/_h_jet20_multi_inclusive->binHeight(i+1);
+        err[i]=ratio[i]*(relerr_i+relerr_j);
+      }
+    }
+    _h_jet20_multi_ratio->setCoordinate(1, ratio, err);
+
+    // fill inclusive jet10 multi ratio
+    for (int i=0; i<Nbins-1; ++i) {
+      if (_h_jet10_multi_inclusive->binHeight(i)>0.0 && _h_jet10_multi_inclusive->binHeight(i+1)>0.0) {
+        ratio[i]=_h_jet10_multi_inclusive->binHeight(i+1)/_h_jet10_multi_inclusive->binHeight(i);
+        double relerr_i=_h_jet10_multi_inclusive->binError(i)/_h_jet10_multi_inclusive->binHeight(i);
+        double relerr_j=_h_jet10_multi_inclusive->binError(i+1)/_h_jet10_multi_inclusive->binHeight(i+1);
+        err[i]=ratio[i]*(relerr_i+relerr_j);
+      }
+    }
+    _h_jet10_multi_ratio->setCoordinate(1, ratio, err);
+
+    // scale exclusive and inclusive jet_multi to first bin = 1.0
+    scale(_h_jet20_multi_exclusive, 1.0/_h_jet20_multi_exclusive->binHeight(0));
+    scale(_h_jet20_multi_inclusive, 1.0/_h_jet20_multi_inclusive->binHeight(0));
+    scale(_h_jet10_multi_exclusive, 1.0/_h_jet10_multi_exclusive->binHeight(0));
+    scale(_h_jet10_multi_inclusive, 1.0/_h_jet10_multi_inclusive->binHeight(0));
   }
 
 }
