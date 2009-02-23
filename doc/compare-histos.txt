@@ -1,5 +1,5 @@
 compare-histos
-=================
+==============
 
 About
 -----
@@ -8,7 +8,7 @@ About
 and creates comparison plots of the histograms in the AIDA files. The plots are
 saved in `.dat` files in the input format of
 link:make_plot.html[`make_plot.py`]. To create PostScript or PDF file from the
-`.dat` files, you need to run link:make_plot.html[`make_plot.py`].
+`.dat` files, you need to run link:make-plots.html[`make-plots`].
 
 Usage
 -----

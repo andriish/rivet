@@ -204,7 +204,7 @@ RatioPlotReference=<histogram_ID>
 --------------------
 options you can create ratio plots for two or more histograms. Note that you
 must specify your reference data ID. This option is used by the
-link:compare_histos.html[`compare_histos.py`] script.
+link:compare-histos.html[`compare-histos`] script.
 
 In ratio plots the following additional options are available and work in
 a similar way as their regular counterparts:

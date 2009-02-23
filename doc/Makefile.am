@@ -34,7 +34,7 @@ mostlyclean-local:
 	rm -rf *.aux *.log *.toc
 
 clean-local:
-	rm -rf $(DOCNAME).pdf
+	rm -rf $(DOCNAME).pdf compare-histos.html make-plots.html
 
 compare-histos.html: compare-histos.txt
 	asciidoc -a toc compare-histos.txt
