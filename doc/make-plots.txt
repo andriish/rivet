@@ -321,6 +321,12 @@ ErrorBars=<0|1>
 Turn on error bars.
 
 --------------------
+ErrorBands=<0|1>
+ErrorBandColor=<color>
+--------------------
+Turn on error bands and set their color.
+
+--------------------
 PolyMarker=<dotstyle>
 --------------------
 The marker style of the points. Any dot style which is understood by pstricks
