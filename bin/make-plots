@@ -49,10 +49,12 @@ class Inputdata:
             self.description['PlotSizeY'] = float(plotsizey)
             del self.description['PlotSize']
 
-        self.description['RatioPlotSizeY'] = 3.
+        self.description['RatioPlotSizeY'] = 0.
         if self.description.has_key('RatioPlot') and self.description['RatioPlot']=='1':
             if self.description.has_key('RatioPlotYSize') and self.description['RatioPlotYSize']!='':
                 self.description['RatioPlotSizeY'] = float(self.description['RatioPlotYSize'])
+            else:
+                self.description['RatioPlotSizeY'] = 3.
 
         if self.description.has_key('LogX') and self.description['LogX']=='1':
             self.description['LogX']=True
