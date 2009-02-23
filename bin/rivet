@@ -287,7 +287,7 @@ ah.init()
         
 
 ## Event number logging
-def logNEvt(n):
+def logNEvt(n, starttime, maxevtnum):
     nevtloglevel = logging.DEBUG
     if n % 10 == 0:
         nevtloglevel = logging.DEBUG + 5
@@ -301,7 +301,14 @@ def logNEvt(n):
         nevtloglevel = logging.WARNING + 5
     if n % 10000 == 0:
         nevtloglevel = logging.CRITICAL
-    logging.log(nevtloglevel, "Event %d" % n)
+    timeelapsed=time.time()-starttime;
+    if maxevtnum is None:
+        logging.log(nevtloglevel, "Event %d ( %d s elapsed )" % (n, timeelapsed))
+    else:
+        timeleft=(maxevtnum-n)/n*timeelapsed
+        timetotal=maxevtnum/n*timeelapsed
+        logging.log(nevtloglevel, "Event %d ( %d s elapsed / %d s left / %d s total )"
+                    % (n, timeelapsed, timeleft, timetotal))
 
 
 ## Here is where we first need the Python HepMC interface
@@ -319,7 +326,7 @@ for evtfile in HEPMCFILES:
     r = hepmc.IO_GenEvent(evtfile, "r")
     while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
         EVTNUM += 1
-        logNEvt(EVTNUM)
+        logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
         if r.rdstate() != 0:
             logging.warning("Read error on file '%s'" % evtfile)
             break
