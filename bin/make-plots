@@ -902,13 +902,12 @@ class Histogram(DrawableObject):
                                     + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
                                     + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                     + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
-                out += ('\psline(-0.1,-0.1)\n')
+                out += ('\psline')
                 for i in range(len(self.data)):
                     out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
                                 + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                out += ('(1.1,-0.1)')
         #
         if self.getPolyMarker() != '':
             for i in range(len(self.data)):
