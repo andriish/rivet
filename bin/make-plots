@@ -15,31 +15,55 @@
 #   Im Moment ist die Syntax noch eine mit tab getrennte Liste von Wert und Beschriftung
 
 
-import os, sys, logging
+import os, sys, logging, re
 import tempfile
 import getopt
 import string
 from math import *
 
+## regex patterns ##
+pat_begin_block = re.compile('^# BEGIN ([A-Z0-9]*) ?(/.*)?')
+# temporarily allow several hashes before END for YODA
+pat_end_block =   re.compile('^#+ END ([A-Z0-9]*)')
+pat_comment = re.compile('^#')
+pat_property = re.compile('^(.*?)=(.*)$')
+# pat_path_property  = re.compile('^(/.*)::(.*?)=(.*)$')
+
+def is_end_marker(line, blockname):
+    m = pat_end_block.match(line)
+    return (m and m.group(1) == blockname)
+
+def is_comment(line):
+    return pat_comment.match(line) is not None
 
 class Inputdata:
-    def __init__(self, filename):
+    def __init__(self, filename, conffiles):
         self.histos = {}
         self.special = {}
         self.functions = {}
-        f = open(filename+'.dat')
+
+        self.description = {}
+
         global is2dim
         is2dim=False
+        f = open(filename+'.dat')
         for line in f:
-            if (line.count('#',0,1)):
-                if (line.count('BEGIN PLOT')):
+            m = pat_begin_block.match(line)
+            if m:
+                name, path = m.group(1,2)
+                if name == 'PLOT':
                     self.read_input(f);
-                if (line.count('BEGIN SPECIAL')):
-                    self.special[line.split('BEGIN SPECIAL', 1)[1].strip()] = Special(f)
-                if (line.count('BEGIN HISTOGRAM')):
-                    self.histos[line.split('BEGIN HISTOGRAM', 1)[1].strip()] = Histogram(f)
-                if (line.count('BEGIN FUNCTION')):
-                    self.functions[line.split('BEGIN FUNCTION', 1)[1].strip()] = Function(f)
+                elif name == 'SPECIAL':
+                    self.special[path] = Special(f)
+                elif name == 'HISTOGRAM':
+                    self.histos[path] = Histogram(f)
+                elif name == 'HISTO1D':
+                    self.histos[path] = Histo1D(f)
+                elif name == 'FUNCTION':
+                    self.functions[path] = Function(f)
+        f.close()
+
+        self.read_config_files(conffiles)
 
         self.description['PlotSizeX'] = 10.
         self.description['PlotSizeY'] = 6.
@@ -56,15 +80,8 @@ class Inputdata:
             else:
                 self.description['RatioPlotSizeY'] = 3.
 
-        if self.description.has_key('LogX') and self.description['LogX']=='1':
-            self.description['LogX']=True
-        else:
-            self.description['LogX']=False
-
-        if self.description.has_key('LogY') and self.description['LogY']=='1':
-            self.description['LogY']=True
-        else:
-            self.description['LogY']=False
+        self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
+        self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
 
         if self.description.has_key('Stack'):
             foo=[]
@@ -83,18 +100,29 @@ class Inputdata:
         else:
             foo=self.histos.keys()
         self.description['DrawOnly']=foo
-    def read_input(self, f):
-        self.description = {}
-        for line in f:
-            if (line.count('#',0,1)):
-                if (line.count('END PLOT')):
-                    break
-            else:
-                line = line.rstrip()
-                if (line.count('=')):
-                    linearray = line.split('=', 1)
-                    self.description[linearray[0]] = linearray[1]
 
+
+    def read_config_files(self, conffiles):
+        if conffiles is not None:
+            for filename in conffiles:
+                cf = open(filename,'r')
+                for line in cf:
+                    m = pat_begin_block.match(line)
+                    if m and m.group(1) == 'PLOT':
+                        self.read_input(cf)
+                cf.close()
+
+
+    def read_input(self, f):
+        for line in f:
+            if is_end_marker(line, 'PLOT'):
+                break
+            elif is_comment(line):
+                continue
+            m = pat_property.match(line)
+            if m:
+                prop, value = m.group(1,2)
+                self.description[prop] = value
 
 
 class Plot:
@@ -559,9 +587,10 @@ class Special:
         self.description = {}
         self.data = []
         for line in f:
-            if (line.count('#',0,1)):
-                if (line.count('END SPECIAL')):
-                    break
+            if is_end_marker(line, 'SPECIAL'):
+                break
+            elif is_comment(line):
+                continue
             else:
                 self.data.append(line)
 
@@ -709,19 +738,20 @@ class Function(DrawableObject):
         self.code='def plotfunction(x):\n'
         iscode=False
         for line in f:
-            if (line.count('#',0,1)):
-                if (line.count('END FUNCTION')):
-                    break
+            if is_end_marker(line, 'FUNCTION'):
+                break
+            elif is_comment(line):
+                continue
             else:
+                m = pat_property.match(line)
                 if iscode:
                     self.code+='    '+line
-                elif (line.count('=')):
-                    line = line.rstrip()
-                    linearray = line.split('=', 1)
-                    if linearray[0]=='Code':
+                elif m:
+                    prop, value = m.group(1,2)
+                    if prop=='Code':
                         iscode=True
                     else:
-                        self.description[linearray[0]] = linearray[1]
+                        self.description[prop] = value
         if not iscode:
             print '++++++++++ ERROR: No code in function'
 
@@ -754,20 +784,23 @@ class Function(DrawableObject):
 
 class Histogram(DrawableObject):
     def __init__(self, f):
-        self.read_input(f)
-
-    def read_input(self, f):
         self.description = {}
         self.data = []
+        self.read_input_data(f)
+        self.read_input(f)
+
+    def read_input_data(self, f):
         for line in f:
-            if (line.count('#',0,1)):
-                if (line.count('END HISTOGRAM')):
-                    break
+            if is_end_marker(line, 'HISTOGRAM'):
+                break
+            elif is_comment(line):
+                continue
             else:
                 line = line.rstrip()
-                if (line.count('=')):
-                    linearray = line.split('=', 1)
-                    self.description[linearray[0]] = linearray[1]
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
                 else:
                     linearray = line.split('\t')
                     if len(linearray)==4:
@@ -787,6 +820,8 @@ class Histogram(DrawableObject):
                                           'UpEdge':  [float(linearray[1]), float(linearray[3])],
                                           'Content': float(linearray[4]),
                                           'Error':   float(linearray[5])})
+     
+    def read_input(self, f):
         if (self.description.has_key('NormalizeToIntegral') and self.description['NormalizeToIntegral']=='1') or \
            (self.description.has_key('NormalizeToSum') and self.description['NormalizeToSum']=='1'):
             if (self.description.has_key('NormalizeToIntegral') and self.description['NormalizeToIntegral']=='1') and \
@@ -803,10 +838,11 @@ class Histogram(DrawableObject):
                 self.data[i]['Error'][0] /= foo
                 self.data[i]['Error'][1] /= foo
         if self.description.has_key('Scale') and self.description['Scale']!='':
+            scale = float(self.description['Scale'])
             for i in range(len(self.data)):
-                self.data[i]['Content']  *= float(self.description['Scale'])
-                self.data[i]['Error'][0] *= float(self.description['Scale'])
-                self.data[i]['Error'][1] *= float(self.description['Scale'])
+                self.data[i]['Content']  *= scale
+                self.data[i]['Error'][0] *= scale
+                self.data[i]['Error'][1] *= scale
         if self.description.has_key('Rebin') and self.description['Rebin']!='':
             rebin=int(self.description['Rebin'])
             newdata=[]
@@ -990,6 +1026,31 @@ class Histogram(DrawableObject):
                 zvalues.append(self.data[i]['Content'])
         return max(zvalues)
 
+
+
+class Histo1D(Histogram):
+    def read_input_data(self, f):
+        for line in f:
+            if is_end_marker(line, 'HISTO1D'):
+                break
+            elif is_comment(line):
+                continue
+            else:
+                line = line.rstrip()
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
+                else:
+                    linearray = line.split('\t')
+                    if len(linearray)==8:
+                        self.data.append({'LowEdge': float(linearray[0]),
+                                          'UpEdge':  float(linearray[1]),
+                                          'Content': float(linearray[2]),
+                                          'Error':   [float(linearray[3]),float(linearray[3])]})
+                    else:
+                        raise Exception('Histo1D does not have 8 columns.'+line)
+  
 
 
 class Frame:
@@ -1229,7 +1290,7 @@ def process_datfile(datfile):
     shutil.copy(datpath, tempdir)
 
     ## Make TeX file
-    inputdata = Inputdata(filename)
+    inputdata = Inputdata(filename, opts.CONFIGFILES)
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
     mp = MainPlot(inputdata)
@@ -1379,6 +1440,8 @@ TODO
                       help="Keep temporary directory and print its filename.")
     parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False, 
                       help="Plot full y range in LogY plots.")
+    parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=None, 
+                      help="Plot config file to be used. Overrides internal config blocks.")
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                          default=logging.INFO, help="print debug (very verbose) messages")
