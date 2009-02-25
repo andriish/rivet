@@ -27,6 +27,7 @@ dist_pkgdata_DATA = \
   UA5_1989_S1926373.aida         \
   UA5_1988_S1867512.aida         \
   CDF_1988_S1865951.aida         \
+  CDF_1990_S2089246.aida         \
   CDF_1994_S2952106.aida         \
   CDF_2000_S4155203.aida         \
   CDF_2001_S4751469.aida         \
@@ -51,6 +52,7 @@ dist_pkgdata_DATA = \
   D0_2008_S7554427.aida          \
   D0_2008_S7662670.aida          \
   D0_2008_S7719523.aida          \
+  D0_2008_S7837160.aida          \
   D0_2008_S7863608.aida          \
   E735_1992_S2485869.aida        \
   E735_1993_S2896508.aida        \
