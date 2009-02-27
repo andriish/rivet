@@ -22,16 +22,16 @@ import string
 from math import *
 
 ## regex patterns ##
-pat_begin_block = re.compile('^# BEGIN ([A-Z0-9]*) ?(/.*)?')
+pat_begin_block = re.compile('^# BEGIN ([A-Z0-9_]+) ?(/[\w/]*)?')
 # temporarily allow several hashes before END for YODA
-pat_end_block =   re.compile('^#+ END ([A-Z0-9]*)')
-pat_comment = re.compile('^#')
-pat_property = re.compile('^(.*?)=(.*)$')
-# pat_path_property  = re.compile('^(/.*)::(.*?)=(.*)$')
+pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
+pat_comment = re.compile('^#|^\s*$')
+pat_property = re.compile('^(\w+?)=(.*)$')
+pat_path_property  = re.compile('^(/.*?)::(\w*?)=(.*)$')
 
 def is_end_marker(line, blockname):
     m = pat_end_block.match(line)
-    return (m and m.group(1) == blockname)
+    return m and m.group(1) == blockname
 
 def is_comment(line):
     return pat_comment.match(line) is not None
@@ -43,6 +43,7 @@ class Inputdata:
         self.functions = {}
 
         self.description = {}
+        self.pathdescriptions = []
 
         global is2dim
         is2dim=False
@@ -61,9 +62,15 @@ class Inputdata:
                     self.histos[path] = Histo1D(f)
                 elif name == 'FUNCTION':
                     self.functions[path] = Function(f)
+            elif is_comment(line):
+                continue
+            else:
+                self.read_path_based_input(line)
         f.close()
 
         self.read_config_files(conffiles)
+
+        self.set_path_based_properties()
 
         self.description['PlotSizeX'] = 10.
         self.description['PlotSizeY'] = 6.
@@ -110,6 +117,10 @@ class Inputdata:
                     m = pat_begin_block.match(line)
                     if m and m.group(1) == 'PLOT':
                         self.read_input(cf)
+                    elif is_comment(line):
+                        continue
+                    else:
+                        self.read_path_based_input(line)
                 cf.close()
 
 
@@ -124,6 +135,20 @@ class Inputdata:
                 prop, value = m.group(1,2)
                 self.description[prop] = value
 
+
+    def read_path_based_input(self, line):
+        m = pat_path_property.match(line)
+        if m:
+            # append (regex, property, value)
+            self.pathdescriptions.append(m.group(1,2,3))
+
+
+    def set_path_based_properties(self):
+        for obj_dict in [self.special, self.histos, self.functions]:
+            for path, obj in obj_dict.iteritems():
+                for regex, prop, value in self.pathdescriptions:
+                    if re.match(regex,path):
+                        obj.description.update({prop : value})
 
 class Plot:
     def __init__(self,inputdata):
