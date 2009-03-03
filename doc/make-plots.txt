@@ -89,6 +89,12 @@ you like.
 _Note_: These options are not available for logarithmic axes.
 
 --------------------
+XTwosidedTicks=<0|1>
+YTwosidedTicks=<0|1>
+--------------------
+Draw tickmarks also on the upper and/or right side of the plot.
+
+--------------------
 XCustomTicks=<list>
 YCustomTicks=<list>
 --------------------

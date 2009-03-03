@@ -1100,7 +1100,7 @@ class Ticks:
         self.minorticklength    = '4pt'
         self.description = description
 
-    def draw_ticks(self, min, max, plotlog=False, customticks=[], customminortickmarks=-1, custommajortickmarks=-1,drawlabels=True):
+    def draw_ticks(self, min, max, plotlog=False, customticks=[], customminortickmarks=-1, custommajortickmarks=-1,drawlabels=True,twosided=False):
         out = ""
         if plotlog:
             x=int(log10(min))
@@ -1108,7 +1108,7 @@ class Ticks:
                 if 10**x>=min:
                     ticklabel=10**x
                     if ticklabel>min and ticklabel<max:
-                        out += self.draw_majortick(ticklabel)
+                        out += self.draw_majortick(ticklabel,twosided)
                         if drawlabels:
                             out += self.draw_majorticklabel(ticklabel)
                     if ticklabel==min or ticklabel==max:
@@ -1117,14 +1117,14 @@ class Ticks:
                     for i in range(2,10):
                         ticklabel=i*10**(x-1)
                         if ticklabel>min and ticklabel<max:
-                            out += self.draw_minortick(ticklabel)
+                            out += self.draw_minortick(ticklabel,twosided)
                 x+=1
         elif customticks!=[]:
             for i in range(len(customticks)):
                 value=customticks[i]['Value']
                 label=customticks[i]['Label']
                 if value>=min and value<=max:
-                    out += self.draw_majortick(value)
+                    out += self.draw_majortick(value,twosided)
                 if drawlabels:
                     out += self.draw_majorticklabel(value, label=label)
         else:
@@ -1164,7 +1164,7 @@ class Ticks:
                         ticklabel = int(ticklabel)
                     if (float(ticklabel-min)/xrange >= -1e-5):
                         if (fabs(ticklabel-min)/xrange > 1e-5 and fabs(ticklabel-max)/xrange > 1e-5):
-                            out += self.draw_majortick(ticklabel)
+                            out += self.draw_majortick(ticklabel,twosided)
                         if drawlabels:
                             out += self.draw_majorticklabel(ticklabel)
 
@@ -1174,17 +1174,17 @@ class Ticks:
                         ticklabel = 1.*xminor/10**digits
                         if (ticklabel > min and ticklabel < max):
                             if (fabs(ticklabel-min)/xrange > 1e-5 and fabs(ticklabel-max)/xrange > 1e-5):
-                                out += self.draw_minortick(ticklabel)
+                                out += self.draw_minortick(ticklabel,twosided)
                 x += tickmarks*100**(digits-1)
         return out
 
     def draw(self):
         pass
 
-    def draw_minortick(self, ticklabel):
+    def draw_minortick(self, ticklabel, twosided):
         pass
 
-    def draw_majortick(self, ticklabel):
+    def draw_majortick(self, ticklabel, twosided):
         pass
 
     def draw_majorticklabel(self, ticklabel):
@@ -1211,6 +1211,9 @@ class Ticks:
 
 class XTicks(Ticks):
     def draw(self, customticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
+        twosided = False
+        if self.description.has_key('XTwosidedTicks') and self.description['XTwosidedTicks']=='1':
+            twosided = True
         out = ""
         out += ('\n%\n% X-Ticks\n%\n')
         out += ('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
@@ -1219,14 +1222,24 @@ class XTicks(Ticks):
                                    plotlog=self.description['LogX'],\
                                    customticks=customticks,\
                                    custommajortickmarks=custommajortickmarks,\
-                                   customminortickmarks=customminortickmarks,drawlabels=drawlabels)
+                                   customminortickmarks=customminortickmarks,\
+                                   drawlabels=drawlabels,\
+                                   twosided=twosided)
         return out
 
-    def draw_minortick(self, ticklabel):
-        return ('\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\minortickmarkx}\n')
+    def draw_minortick(self, ticklabel, twosided):
+        out = ''
+        out += '\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\minortickmarkx}\n'
+        if twosided:
+            out += '\\rput{180}('+coors.strphys2frameX(ticklabel)+', 1){\\minortickmarkx}\n'
+        return out
 
-    def draw_majortick(self, ticklabel):
-        return ('\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\majortickmarkx}\n')
+    def draw_majortick(self, ticklabel, twosided):
+        out = ''
+        out += '\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\majortickmarkx}\n'
+        if twosided:
+            out += '\\rput{180}('+coors.strphys2frameX(ticklabel)+', 1){\\majortickmarkx}\n'
+        return out
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
@@ -1237,6 +1250,9 @@ class XTicks(Ticks):
 
 class YTicks(Ticks):
     def draw(self, customticks=[], custommajortickmarks=-1, customminortickmarks=-1):
+        twosided = False
+        if self.description.has_key('YTwosidedTicks') and self.description['YTwosidedTicks']=='1':
+            twosided = True
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
         out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
@@ -1245,14 +1261,23 @@ class YTicks(Ticks):
                                    plotlog=self.description['LogY'],\
                                    customticks=customticks,\
                                    custommajortickmarks=custommajortickmarks,\
-                                   customminortickmarks=customminortickmarks)
+                                   customminortickmarks=customminortickmarks,\
+                                   twosided=twosided)
         return out
 
-    def draw_minortick(self, ticklabel):
-        return ('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n')
+    def draw_minortick(self, ticklabel, twosided):
+        out = ''
+        out += '\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n'
+        if twosided:
+            out += '\\rput{180}(1, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n'
+        return out
 
-    def draw_majortick(self, ticklabel):
-        return ('\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n')
+    def draw_majortick(self, ticklabel, twosided):
+        out = ''
+        out += '\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n'
+        if twosided:
+            out += '\\rput{180}(1, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n'
+        return out
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
