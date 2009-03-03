@@ -37,7 +37,7 @@ def is_comment(line):
     return pat_comment.match(line) is not None
 
 class Inputdata:
-    def __init__(self, filename, conffiles):
+    def __init__(self, filename):
         self.histos = {}
         self.special = {}
         self.functions = {}
@@ -70,7 +70,7 @@ class Inputdata:
                 self.read_path_based_input(line)
         f.close()
 
-        self.read_config_files(conffiles)
+        self.read_config_files(opts.CONFIGFILES)
 
         self.set_path_based_properties()
 
@@ -1317,7 +1317,7 @@ def process_datfile(datfile):
     shutil.copy(datpath, tempdir)
 
     ## Make TeX file
-    inputdata = Inputdata(filename, opts.CONFIGFILES)
+    inputdata = Inputdata(filename)
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
     mp = MainPlot(inputdata)
