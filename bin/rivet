@@ -5,20 +5,11 @@ import logging, signal
 from optparse import OptionParser, OptionGroup
 
 
-## Make "set" a builtin type on Python < 2.4
-if not 'set' in dir(__builtins__):
-    from sets import Set as set
-    def _sort(self, cmp=None, key=None, reverse=None):
-        l = list(self)
-        l.sort(cmp)
-        return set(l)
-    set.sort = _sort
-
 ## Make "sorted" a builtin function on Python < 2.4
 if not 'sorted' in dir(__builtins__):
     def sorted(iterable, cmp=None, key=None, reverse=None):
         rtn = iterable
-        rtn.sort(cmp, key, reverse)
+        rtn.sort(cmp)
         return rtn
 
 ## Add logging.log if needed
@@ -201,18 +192,18 @@ if opts.LIST_ANALYSES:
 
 ## Show analyses' details
 if len(opts.SHOW_ANALYSES) > 0:
-    toshow = set()
+    toshow = []
     for i, a in enumerate(opts.SHOW_ANALYSES):
         a_up = a.upper()
-        if a_up in all_analyses:
-            toshow.add(a_up)
+        if a_up in all_analyses and a_up not in toshow:
+            toshow.append(a_up)
         else:
             ## Treat as a regex
             import re
             regex = re.compile(a)
             for ana in all_analyses:
-                if regex.search(ana):
-                    toshow.add(ana)
+                if regex.search(ana) and a_up not in toshow:
+                    toshow.append(ana)
 
     ## Show the matching analyses' details
     import textwrap
@@ -258,7 +249,7 @@ if len(opts.SHOW_ANALYSES) > 0:
 
         if i+1 < len(toshow):
             print "\n"
-    exit(0)
+    sys.exit(0)
 
 
 ## Identify HepMC files/streams
