@@ -10,7 +10,7 @@ namespace Rivet {
   void CDF_2008_S8095620::init() {
      // Book histograms
     _dSdET    = bookHistogram1D(1, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dE_{T}^{jet}");
-    _dSdETA   = bookHistogram1D(2, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/d\eta^{jet}");
+    _dSdETA   = bookHistogram1D(2, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/d\\eta^{jet}");
     _dSdNJet  = bookHistogram1D(3, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{jet}");
     _dSdNbJet = bookHistogram1D(4, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{b jet} ");
     _dSdZpT   = bookHistogram1D(5, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dp_T{}^{Z}");
