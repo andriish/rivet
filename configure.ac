@@ -83,8 +83,9 @@ AC_MSG_CHECKING([whether to try and use the FastJet JADE + Durham plugin patch])
 AC_MSG_RESULT($enable_jade)
 AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != xno])
 #
-if test -f "$(which fastjet-config)"; then
-  FASTJETCONFIGLIBADD="$(fastjet-config --plugins --shared --libs)";
+AC_PATH_PROG(FJCONFIG, fastjet-config, [], $FASTJETPATH/bin)
+if test -f "$FJCONFIG"; then
+  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs)";
 else
   FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";
 fi;

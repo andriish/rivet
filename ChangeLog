@@ -1,3 +1,9 @@
+2009-03-04  Andy Buckley  <andy@insectnation.org>
+
+	* Fixing use of fastjet-config to not use the user's PATH variable.
+
+	* Fixing SWIG type table for HepMC object interchange.
+
 2009-02-20  Andy Buckley  <andy@insectnation.org>
 
 	* Adding use of new metadata in command line analysis querying
