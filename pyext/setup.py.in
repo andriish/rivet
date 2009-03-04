@@ -14,6 +14,7 @@ incdir = os.path.abspath('@top_srcdir@/include')
 srcdir = os.path.abspath('@top_srcdir@/src')
 ext = Extension('_rivet',
                 ['@srcdir@/rivet_wrap.cc'],
+                define_macros = [("SWIG_TYPE_TABLE", "hepmccompat")],
                 include_dirs=[incdir, '@HEPMCINCPATH@', '@BOOSTINCPATH@'],
                 #should replace '.libs' -> os.path.join(srcdir,'@LT_OBJDIR@'), but doesn't work
                 library_dirs=[srcdir, os.path.join(srcdir,'.libs'), '@HEPMCLIBPATH@'],
