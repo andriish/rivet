@@ -1,3 +1,8 @@
+2009-03-06  Andy Buckley  <andy@insectnation.org>
+
+	* Adding R=0.2 photon clustering to the electrons in the CDF 2000
+	Z pT analysis.
+
 2009-03-04  Andy Buckley  <andy@insectnation.org>
 
 	* Fixing use of fastjet-config to not use the user's PATH variable.
