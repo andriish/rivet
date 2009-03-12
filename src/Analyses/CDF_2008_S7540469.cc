@@ -3,7 +3,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/RivetAIDA.hh"

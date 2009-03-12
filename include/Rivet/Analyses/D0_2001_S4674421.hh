@@ -6,7 +6,6 @@
 #include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {  
