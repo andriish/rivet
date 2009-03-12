@@ -16,10 +16,6 @@ namespace Rivet {
     /// @todo Use cross-section from generator
     //setNeedsCrossSection(true);
 
-    FinalState fs;
-    addProjection(fs, "FS");
-
-
     //leptons in tracking acceptance
     /// @todo: eta range should have a gap
     ZFinder zfinder(-2.5, 2.5, 25.0*GeV, ELECTRON,
@@ -60,7 +56,6 @@ namespace Rivet {
 
     // Sort by pT:
     sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
-    if (jets_cut.size()>0) std::cout<<jets_cut.size()<<std::endl;
 
 //     if (jets_cut.size()>0) {
 //       _h_jet1_pT->fill(jets_cut[0].momentum().pT()/GeV, weight);
