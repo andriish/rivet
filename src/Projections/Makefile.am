@@ -4,6 +4,7 @@ libRivetProjections_la_SOURCES = \
   ChargedFinalState.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc \
+  ClusteredPhotons.cc \
   DISKinematics.cc \
   DISLepton.cc \
   D0ILConeJets.cc \
@@ -28,7 +29,8 @@ libRivetProjections_la_SOURCES = \
   TrackJet.cc \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
-  WZandh.cc 
+  WZandh.cc \
+  ZFinder.cc
 
 if ENABLE_JADE
   AM_CXXFLAGS += -DHAVE_JADE

@@ -61,6 +61,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/D0_2008_S7719523.hh  \
   Analyses/D0_2008_S7837160.hh  \
   Analyses/D0_2008_S7863608.hh  \
+  Analyses/D0_2009_S8202443.hh  \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/DELPHI_2002_069_CONF_603.hh \
@@ -83,6 +84,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/CentralEtHCM.hh   \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
+  Projections/ClusteredPhotons.hh \
   Projections/DISKinematics.hh  \
   Projections/DISLepton.hh      \
   Projections/D0ILConeJets.hh   \
@@ -112,7 +114,8 @@ nobase_pkginclude_HEADERS +=   \
   Projections/UnstableFinalState.hh \
   Projections/TrackJet.hh       \
   Projections/VetoedFinalState.hh \
-  Projections/WZandh.hh 
+  Projections/WZandh.hh \
+  Projections/ZFinder.hh
 
 
 ## Tools

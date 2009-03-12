@@ -52,6 +52,7 @@
 #include "Rivet/Analyses/D0_2008_S7719523.hh"
 #include "Rivet/Analyses/D0_2008_S7837160.hh"
 #include "Rivet/Analyses/D0_2008_S7863608.hh"
+#include "Rivet/Analyses/D0_2009_S8202443.hh"
 
 // MC validation
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
@@ -118,6 +119,7 @@ extern "C" {
     fns["D0_2008_S7719523"] = Rivet::D0_2008_S7719523::create;
     fns["D0_2008_S7837160"] = Rivet::D0_2008_S7837160::create;
     fns["D0_2008_S7863608"] = Rivet::D0_2008_S7863608::create;
+    fns["D0_2009_S8202443"] = Rivet::D0_2009_S8202443::create;
 
     // General
     fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_HADRON_MULTIPLICITIES::create;
