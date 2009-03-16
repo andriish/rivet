@@ -22,7 +22,9 @@ namespace Rivet {
     /// @name Standard constructors and destructors. */
     //@{
     /// The standard constructor.
-    /// @param basefilename the name of the file (no extension) where histograms are to be stored.
+    /// @param basefilename the name of the file (no extension) where histograms 
+    ///   are to be stored.
+    /// @param runname optional name of this run, prepended to AIDA data paths.
     /// @param storetype a string indicating to the AIDA analysis factory
     ///   how to store the histograms. Which strings are allowed depends on
     ///   actual AIDA implementation used. To output in standard AIDA XML the
@@ -30,10 +32,12 @@ namespace Rivet {
     /// @param afac an AIDA analysis factory object. The caller must make
     ///   sure that the lifetime of the factory object exceeds the AnalysisHandler
     ///   object.
-    AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet", HistoFormat storetype=AIDAML);
+    AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet", 
+                    string runname="", HistoFormat storetype=AIDAML);
 
     /// Make a Rivet handler with a set base filename and store type.
-    AnalysisHandler(string basefilename="Rivet", HistoFormat storetype=AIDAML);
+    AnalysisHandler(string basefilename="Rivet", 
+                    string runname="", HistoFormat storetype=AIDAML);
 
     /// The destructor is not virtual as this class should not be inherited from.
     ~AnalysisHandler() { }
@@ -43,16 +47,19 @@ namespace Rivet {
   private:
 
     /// Do the initialisation of the AIDA analysis factories.
-    void setupFactories(string basefilename, HistoFormat storetype);
+    void _setupFactories(string basefilename, HistoFormat storetype);
 
     /// Convert any IHistogram1D objects in the AIDA tree to IDataPointSet objects.
-    void normalizeTree(AIDA::ITree& tree);
+    void _normalizeTree(AIDA::ITree& tree);
 
     /// Get a logger object.
     Log& getLog();
 
 
   public:
+
+    /// Get the name of this run.
+    string runName() const { return _runname; }
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
@@ -190,6 +197,9 @@ namespace Rivet {
 
     /// The collection of Analysis objects to be used.
     set<Analysis*> _analyses;
+
+    /// Run name
+    std::string _runname;
     
     /// If non-zero the number of runs to be combined into one analysis.
     int _nRun;

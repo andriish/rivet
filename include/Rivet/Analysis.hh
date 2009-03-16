@@ -13,7 +13,7 @@
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
 
-/// \def vetoEvent
+/// @def vetoEvent
 /// Preprocessor define for vetoing events, including the log message and return.
 #define vetoEvent(E) { vetoEventWeight(E); getLog() << Log::DEBUG << "Vetoing event on line " << __LINE__ << " of " << __FILE__ << endl; return; }
 
@@ -243,10 +243,8 @@ namespace Rivet {
     /// Access the AIDA histogram factory of the controlling AnalysisHandler object.
     AIDA::IDataPointSetFactory& datapointsetFactory();
 
-    /// Get the canonical AIDA histogram path for this analysis.
-    const std::string histoDir() const {
-        return "/" + name();
-    }
+    /// Get the canonical histogram path for this analysis.
+    const std::string histoDir() const;
     //@}
 
 

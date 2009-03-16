@@ -38,11 +38,12 @@ except ImportError:
 
 
 ## Get version from rivet-config
-version="HEAD"
+version = "HEAD"
 try:
     version = commands.getoutput("rivet-config --version")
 except:
     pass
+
 
 ## Description / usage message
 usage="""Run Rivet analyses on inputted events from file or Unix pipe
@@ -77,14 +78,6 @@ except:
     pass
 
 
-## Try importing non-standard HEP Python packages
-try:
-    import rivet
-except:
-    sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
-    sys.exit(1)
-
-
 ## Parse command line options
 parser = OptionParser(usage=usage, version="rivet v%s" % version)
 parser.add_option("-n", "--nevts", dest="MAXEVTNUM", type="int",
@@ -95,20 +88,20 @@ parser.add_option("-a", "--analysis", dest="ANALYSES", action="append",
                   help="add an analysis to the processing list.")
 parser.add_option("-A", "--all-analyses", dest="ALL_ANALYSES", action="store_true",
                   default=False, help="add all analyses to the processing list.")
-#parser.add_option("--list-options", dest="LIST_OPTIONS", action="store_true",
-#                  default=False, help="show the available option switches for auto-parsing by 'complete'")
 parser.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
                   default=False, help="show the list of available analyses' names. With -V, it shows the descriptions, too")
 parser.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES", 
                   default=False, help="list the analyses used by this command (after subtraction of inappropriate ones)")
 parser.add_option("--show-analysis", dest="SHOW_ANALYSES", action="append",
                   default=[], help="show the details of an analysis")
+parser.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
+                  help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
+parser.add_option("-H", "--histo-file", dest="HISTOFILE", 
+                  default="Rivet", help="specify the output histo file path")
 parser.add_option("-x", "--cross-section", dest="CROSS_SECTION", type="float",
                   default=None, metavar="XS",
                   help="specify the signal process cross-section in pb")
-## TODO: allow user to specify histo file extension
-parser.add_option("-H", "--histo-file", dest="HISTOFILE", 
-                  default="Rivet", help="specify the output histo file path")
+
 verbgroup = OptionGroup(parser, "Verbosity control")
 parser.add_option("-l", dest="NATIVE_LOG_STRS", action="append",
                   default=[], help="set a log level in the Rivet library")
@@ -124,6 +117,16 @@ try:
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 except:
     logging.getLogger().setLevel(opts.LOGLEVEL)
+
+
+## Try importing rivet
+try:
+    import rivet
+except Exception, e:
+    sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
+    logging.debug(str(e))
+    sys.exit(1)
+
 
 ## Control native Rivet library logger
 for l in opts.NATIVE_LOG_STRS:
@@ -261,7 +264,8 @@ else:
 
 
 ## Set up analysis handler
-ah = rivet.AnalysisHandler(opts.HISTOFILE)
+RUNNAME = opts.RUN_NAME or ""
+ah = rivet.AnalysisHandler(opts.HISTOFILE, RUNNAME)
 if opts.ALL_ANALYSES:
     opts.ANALYSES = all_analyses
 for a in opts.ANALYSES:

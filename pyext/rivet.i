@@ -89,7 +89,8 @@ namespace Rivet {
     virtual std::vector<std::string> references() const;
     virtual const BeamPair& beams() const;
     virtual const BeamPair& requiredBeams() const;
-    virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
+    virtual const bool isCompatible(const ParticleName& beam1, 
+                                    const ParticleName& beam2) const;
     virtual const bool isCompatible(const BeamPair& beams) const;
     //AnalysisHandler& handler() const;
     bool needsCrossSection() const;
@@ -100,7 +101,9 @@ namespace Rivet {
 
   class AnalysisHandler {
   public:
-    AnalysisHandler(std::string basefilename="Rivet", HistoFormat storetype=AIDAML);
+    AnalysisHandler(std::string basefilename="Rivet", std::string runname="", 
+                    HistoFormat storetype=AIDAML);
+    std::string runName() const;
     size_t numEvents() const;
     double sumOfWeights() const;
     std::vector<std::string> analysisNames();

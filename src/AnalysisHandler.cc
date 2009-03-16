@@ -10,17 +10,19 @@ using namespace AIDA;
 namespace Rivet {
 
 
-  AnalysisHandler::AnalysisHandler(string basefilename, HistoFormat storetype)
-    : _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0) {
+  AnalysisHandler::AnalysisHandler(string basefilename, 
+                                   string runname, HistoFormat storetype)
+    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0) {
     _theAnalysisFactory = AIDA_createAnalysisFactory();
-    setupFactories(basefilename, storetype);
+    _setupFactories(basefilename, storetype);
   }
 
 
-  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename, HistoFormat storetype)
-    : _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0), 
+  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename, 
+                                   string runname, HistoFormat storetype)
+    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0), 
       _theAnalysisFactory(&afac) {
-    setupFactories(basefilename, storetype);
+    _setupFactories(basefilename, storetype);
   }
 
 
@@ -67,7 +69,7 @@ namespace Rivet {
     // Change AIDA histos into data point sets
     getLog() << Log::DEBUG << "Converting histograms to scatter plots" << endl;
     assert(_theTree != 0);
-    normalizeTree(tree());
+    _normalizeTree(tree());
 
     // Delete analyses
     getLog() << Log::DEBUG << "Deleting analyses" << endl;
@@ -127,7 +129,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::setupFactories(string basefilename, HistoFormat storetype) {
+  void AnalysisHandler::_setupFactories(string basefilename, HistoFormat storetype) {
     string filename(basefilename), storetypestr("");
     if (storetype == AIDAML) {
       filename += ".aida";
@@ -150,49 +152,48 @@ namespace Rivet {
   }
   
 
-  void AnalysisHandler::normalizeTree(ITree& tree) {
+  void AnalysisHandler::_normalizeTree(ITree& tree) {
     Log& log = getLog();
     const vector<string> paths = tree.listObjectNames("/", true); // args set recursive listing
     log << Log::TRACE << "Number of objects in AIDA tree = " << paths.size() << endl;
     const string tmpdir = "/RivetNormalizeTmp";
     tree.mkdir(tmpdir);
-    for (vector<string>::const_iterator path = paths.begin(); path != paths.end(); ++path) {
+    foreach (const string& path, paths) {
       
-      IManagedObject* hobj = tree.find(*path);
+      IManagedObject* hobj = tree.find(path);
       if (hobj) {
         IHistogram1D* histo = dynamic_cast<IHistogram1D*>(hobj);
         IProfile1D* prof = dynamic_cast<IProfile1D*>(hobj);
         // If it's a normal histo:
         if (histo) {
-          log << Log::TRACE << "Converting histo " << *path << " to DPS" << endl;
-          tree.mv(*path, tmpdir);
-          const size_t lastslash = path->find_last_of("/");
-          const string basename = path->substr(lastslash+1, path->length() - (lastslash+1));
+          log << Log::TRACE << "Converting histo " << path << " to DPS" << endl;
+          tree.mv(path, tmpdir);
+          const size_t lastslash = path.find_last_of("/");
+          const string basename = path.substr(lastslash+1, path.length() - (lastslash+1));
           const string tmppath = tmpdir + "/" + basename;
           IHistogram1D* tmphisto = dynamic_cast<IHistogram1D*>(tree.find(tmppath));
           if (tmphisto) {
             //getLog() << Log::TRACE << "Temp histo " << tmppath << " exists" << endl;
-            datapointsetFactory().create(*path, *tmphisto);
+            datapointsetFactory().create(path, *tmphisto);
           }
           tree.rm(tmppath);
         }
         // If it's a profile histo:
         else if (prof) {
-          log << Log::TRACE << "Converting profile histo " << *path << " to DPS" << endl;
-          tree.mv(*path, tmpdir);
-          const size_t lastslash = path->find_last_of("/");
-          const string basename = path->substr(lastslash+1, path->length() - (lastslash+1));
+          log << Log::TRACE << "Converting profile histo " << path << " to DPS" << endl;
+          tree.mv(path, tmpdir);
+          const size_t lastslash = path.find_last_of("/");
+          const string basename = path.substr(lastslash+1, path.length() - (lastslash+1));
           const string tmppath = tmpdir + "/" + basename;
           IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
           if (tmpprof) {
             //getLog() << Log::TRACE << "Temp profile histo " << tmppath << " exists" << endl;
-            datapointsetFactory().create(*path, *tmpprof);
+            datapointsetFactory().create(path, *tmpprof);
           }
           tree.rm(tmppath);
         }
 
       }
-      
       
     }
     tree.rmdir(tmpdir);

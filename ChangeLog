@@ -1,3 +1,9 @@
+2009-03-16  Andy Buckley  <andy@insectnation.org>
+
+	* Adding --runname option (and API elements) to choose a run name
+	to be prepended as a "top level directory" in histo paths. An
+	empty value results in no extra TLD.
+
 2009-03-06  Andy Buckley  <andy@insectnation.org>
 
 	* Adding R=0.2 photon clustering to the electrons in the CDF 2000

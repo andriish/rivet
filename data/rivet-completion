@@ -9,7 +9,8 @@ function _rivet() {
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
     opts="--help --verbose --quiet --version --nevts --cross-section"
-    opts="$opts --analysis --list-analyses --show-analysis --histo-file"
+    opts="$opts --analysis --runname --list-analyses --show-analysis"
+    opts="$opts --histo-file"
     opts="$opts -a -A -n -h -x -H -l -V -Q"
     if [[ ${cur} == -* ]] ; then
         #if test -x "$(which rivet)"; then

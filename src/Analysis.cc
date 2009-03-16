@@ -40,16 +40,35 @@ namespace Rivet {
   }
 
 
+  const string Analysis::histoDir() const {
+    string path = "/" + name();
+    if (handler().runName().length() > 0) {
+      path = "/" + handler().runName() + path;
+    }
+    //typedef find_iterator<string::iterator> string_find_iterator;
+    while (find_first(path, "//")) {
+      replace_all(path, "//", "/");
+    }
+    //cout << "***************" << path << endl;
+    return path;
+  }
+
+
   Log& Analysis::getLog() const {
     string logname = "Rivet.Analysis." + name();
     return Log::getLog(logname);
   }
 
 
-  size_t Analysis::numEvents() const { return handler().numEvents(); }
+  size_t Analysis::numEvents() const { 
+    return handler().numEvents(); 
+  }
 
 
-  double Analysis::sumOfWeights() const { return handler().sumOfWeights() - _vetoedWeightSum; }
+  /// @deprecated Remove analysis-global weight vetoing
+  double Analysis::sumOfWeights() const { 
+    return handler().sumOfWeights() - _vetoedWeightSum; 
+  }
 
 
   void Analysis::_cacheBinEdges() {
@@ -213,7 +232,13 @@ namespace Rivet {
   void Analysis::_makeHistoDir() {
     if (!_madeHistoDir) {
       if (! name().empty()) {
-        tree().mkdir(histoDir());
+        // vector<string> dirs;
+        // split(dirs, histoDir(), "/");
+        // string pathpart;
+        // foreach (const string& d, dirs) {
+        //tree().mkdir();
+        //}
+        tree().mkdirs(histoDir());
       }
       _madeHistoDir = true;
     }

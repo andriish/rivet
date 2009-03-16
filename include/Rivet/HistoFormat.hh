@@ -4,8 +4,8 @@
 
 #include "Rivet/Rivet.hh"
 
-
 namespace Rivet {
+
 
   /// Enumeration of available histogram output formats.
   enum HistoFormat { AIDAML, FLAT, ROOT };
