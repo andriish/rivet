@@ -24,8 +24,7 @@ namespace Rivet {
       : FinalState(etamin, etamax, ptMin)
     {
       setName("IdentifiedFinalState");
-      /// @todo This shouldn't be necessary. Fallback to "FS" still needed?
-      addProjection(FinalState(), "FS");
+      addProjection(FinalState(etamin, etamax, ptMin), "FS");
     }
 
     /// Constructor with specific FinalState.
