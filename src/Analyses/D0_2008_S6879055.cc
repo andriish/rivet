@@ -36,7 +36,7 @@ namespace Rivet {
     addProjection(vfs, "JetFS");
 
     // Jet finder
-    D0ILConeJets jets(vfs);
+    D0ILConeJets jets(vfs, 0.5);
     addProjection(jets, "Jets");
 
     // Vertex
@@ -92,10 +92,10 @@ namespace Rivet {
     }
 
     // Now build the jets on a FS without the electrons from Z
+    /// @todo Purge the evil!
     const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
 
     // Take the jets with pT > 20
-    /// @todo Purge the evil!
     const list<FourMomentum>& jets = jetpro.getLorentzJets();
     list<FourMomentum> jets_aboveptmin;
     foreach (const FourMomentum& ijet, jets) {
@@ -105,11 +105,12 @@ namespace Rivet {
     }
     getLog() << Log::DEBUG << "Num jets above 20 GeV = " << jets_aboveptmin.size() << endl;
 
-    // Check they are isolated from leptons
+    // Check that jets are isolated from leptons
+    /// @todo Just remove jets which fail the isolation criterion?
     const D0JetFromParticleIso& isoJet = applyProjection<D0JetFromParticleIso>(event, "JetIsolation");
-    if (isoJet.getIsolatedParticles(1).size() != jets_aboveptmin.size()) {
+    if (isoJet.isolatedParticles(1.0).size() != jets_aboveptmin.size()) {
       getLog() << Log::DEBUG << "Jet size mismatch: isolated from lepton size = " 
-               << isoJet.getIsolatedParticles(0).size()
+               << isoJet.isolatedParticles(1.0).size()
                << " vs above pTmin size = " << jets_aboveptmin.size() << endl;
       vetoEvent(event);
     }
@@ -124,10 +125,10 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Num jets above 20 GeV and with |eta| < 2.5 = " 
              << finaljet_list.size() << endl;
 
-    // for normalisation of crossSection data
+    // For normalisation of crossSection data
     _crossSectionRatio->fill(0, weight);
 
-    // fill jet pT and multiplicities
+    // Fill jet pT and multiplicities
     if (finaljet_list.size() >= 1) {
       _crossSectionRatio->fill(1, weight);
       _pTjet1->fill(finaljet_list[0].pT(), weight);

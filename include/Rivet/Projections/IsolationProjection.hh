@@ -8,22 +8,16 @@
 #include "Rivet/Projections/IsolationEstimators.hh"
 #include <boost/shared_ptr.hpp>
 
-
 namespace Rivet{
 
-//  template <typename PROJ1::entity_type, typename PROJ2::entity_type> struct isohelper {
-//            typedef IsolationEstimator<PROJ1::entity_type, std::vector<PROJ2::entity_type> > estimatorhelper;
-//  };
 
   /// PROJ1 can be either FinalState projections or JetAlg projections 
   /// PROJ1::entity_type and PROJ2::entity_type can be either Particle of Jet
   template <typename PROJ1, typename PROJ2, 
-	    typename EST = typename isohelper<typename PROJ1::entity_type, typename PROJ2::collection_type>::estimatorhelper >
-            //typename EST = typename isohelper<PROJ1::entity_type,PROJ2::entity_type>::estimatorhelper >
-											
+            typename EST = typename isohelper<typename PROJ1::entity_type, typename PROJ2::collection_type>::estimatorhelper>
   class IsolationProjection : public Projection {
     public:
-    /// constructor
+    /// Constructor
     IsolationProjection(PROJ1& iso, 
                         PROJ2& ctrl, 
                         EST* estimator,
@@ -36,8 +30,9 @@ namespace Rivet{
       addProjection(ctrl, "Control"); 
     }	
 
-    /// get the isolation values for the isofinalstate
-    const vector<pair<const typename PROJ1::entity_type*, double> > getIsolatedParticles(double maxiso = numeric_limits<double>::max()) const;
+    /// Get the isolation values for the isofinalstate
+    const vector<pair<const typename PROJ1::entity_type*, double> > 
+    isolatedParticles(double maxiso = numeric_limits<double>::max()) const;
 
     virtual const Projection* clone() const {
       return new IsolationProjection(*this);
@@ -66,20 +61,19 @@ namespace Rivet{
     /// the isolation parameter value for each particle in _isofsp
     /// the _isofsp MUST live, these particle pointers are potentially dangerous, let's try....
     vector<pair<const typename PROJ1::entity_type*, double> > _isovalues;
-    
-    			
   };
 
 
   template<typename PROJ1, typename PROJ2, typename EST>
   inline const vector<pair<const typename PROJ1::entity_type*, double> > IsolationProjection<PROJ1, PROJ2, EST>
-  ::getIsolatedParticles(double maxiso) const {
+  ::isolatedParticles(double maxiso) const {
     vector<pair<const typename PROJ1::entity_type*, double> > out;
     for (typename vector<pair<const typename PROJ1::entity_type*, double> >::const_iterator i = _isovalues.begin(); i != _isovalues.end(); ++i){ 
       if (i->second < maxiso) out.push_back(*i);
     }
     return out;  
   }
+
 
   template<typename PROJ1, typename PROJ2, typename EST>
   inline void IsolationProjection<PROJ1, PROJ2, EST>::project(const Event& e){
