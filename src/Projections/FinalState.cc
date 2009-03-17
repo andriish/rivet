@@ -7,10 +7,16 @@ namespace Rivet {
 
   int FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
-    return \
-      cmp(_etamin, other._etamin) || 
-      cmp(_etamax, other._etamax) || 
-      cmp(_ptmin, other._ptmin);
+
+    std::vector<std::pair<double, double> > eta1(_etaRanges);
+    std::vector<std::pair<double, double> > eta2(other._etaRanges);
+    std::sort(eta1.begin(), eta1.end());
+    std::sort(eta2.begin(), eta2.end());
+
+    if (eta1 < eta2) return PCmp::ORDERED;
+    else if (eta2 < eta1) return PCmp::UNORDERED;
+
+    return cmp(_ptmin, other._ptmin);
   }
 
 
@@ -34,6 +40,31 @@ namespace Rivet {
     }
     log << Log::DEBUG << "Number of final-state particles = " 
         << _theParticles.size() << endl;
+  }
+
+  /// Decide if a particle is to be accepted or not.
+  bool FinalState::accept(const GenParticle& p) const {
+    const int st = p.status();
+    if (st!=1) return false;
+    
+    if (_ptmin>0.0) {
+      const double pT = p.momentum().perp();
+      if (pT<_ptmin) return false;
+    }
+    
+    if (_etaRanges.size()>0) {
+      bool eta_pass=false;
+      const double eta = p.momentum().eta();
+      for (size_t i=0; i<_etaRanges.size(); ++i) {
+        if (eta>_etaRanges[i].first && eta<_etaRanges[i].second) {
+          eta_pass=true;
+          break;
+        }
+      }
+      if (!eta_pass) return false;
+    }
+    
+    return true;
   }
 
 }

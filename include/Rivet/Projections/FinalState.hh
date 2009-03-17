@@ -21,15 +21,23 @@ namespace Rivet {
     FinalState(double mineta = -MaxRapidity,
                double maxeta =  MaxRapidity,
                double minpt  =  0.0*GeV)
-      : _etamin(mineta), _etamax(maxeta), 
-        _ptmin(minpt) 
+      : _ptmin(minpt)
     { 
       setName("FinalState");
-      // addCut("eta", MORE_EQ, mineta);
-      // addCut("eta", LESS_EQ, maxeta);
-      // addCut("pT",  MORE_EQ, minpt);
+      if (mineta!=-MaxRapidity || maxeta!=MaxRapidity) {
+        _etaRanges.push_back(make_pair(mineta, maxeta));
+      }
     }
     
+    /// A constructor which allows to specify multiple eta ranges
+    /// and the min \f$ p_T \f$ (in GeV).
+    FinalState(const std::vector<std::pair<double, double> >& etaRanges,
+               double minpt  =  0.0*GeV)
+      : _etaRanges(etaRanges), _ptmin(minpt)
+    { 
+      setName("FinalState");
+    }
+
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new FinalState(*this);
@@ -68,21 +76,13 @@ namespace Rivet {
     virtual int compare(const Projection& p) const;
 
     /// Decide if a particle is to be accepted or not.
-    bool accept(const GenParticle& p) const {
-      const int st = p.status();
-      const double pT = p.momentum().perp();
-      const double eta = p.momentum().eta();
-      return st == 1 && !isZero(pT) && pT >= _ptmin && eta > _etamin && eta < _etamax;
-    }
+    bool accept(const GenParticle& p) const;
 
     
   protected:
  
-    /// The minimum allowed pseudorapidity.
-    double _etamin;
-    
-    /// The maximum allowed pseudorapidity.
-    double _etamax;
+    /// The ranges allowed for pseudorapidity.
+    std::vector<std::pair<double,double> > _etaRanges;
     
     /// The minimum allowed transverse momentum.
     double _ptmin;
