@@ -36,17 +36,12 @@ namespace Rivet {
     addProjection(vfs, "JetFS");
 
     // Jet finder
-    D0ILConeJets jets(vfs, 0.5);
+    D0ILConeJets jets(vfs, 0.5, 20.0*GeV);
     addProjection(jets, "Jets");
 
     // Vertex
     PVertex vertex;
     addProjection(vertex, "PrimaryVertex");
-
-    // Jet isolation
-    /// @todo Memory leak? Check.
-    D0JetFromParticleIso jetiso(jets, electronsFromZ, new D0JetIsoEstimator(0.4), 20.);
-    addProjection(jetiso, "JetIsolation");
   } 
 
 
@@ -86,7 +81,7 @@ namespace Rivet {
     // Find the Z candidates
     const InvMassFinalState& invmassfs = applyProjection<InvMassFinalState>(event, "ElectronsFromZ");
     // If there is no Z candidate in the FinalState, skip the event
-    if (invmassfs.isEmpty()) {
+    if (invmassfs.particles().size()!=2) {
       getLog() << Log::DEBUG << "No Z candidate found" << endl;
       vetoEvent(event);
     }
@@ -95,35 +90,21 @@ namespace Rivet {
     /// @todo Purge the evil!
     const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
 
-    // Take the jets with pT > 20
+    // additional cuts on jets: |eta| < 2.5 and dR(j,leading electron) > 0.4
     const list<FourMomentum>& jets = jetpro.getLorentzJets();
-    list<FourMomentum> jets_aboveptmin;
-    foreach (const FourMomentum& ijet, jets) {
-      if (ijet.pT()/GeV > 20) {
-        jets_aboveptmin.push_back(ijet);
-      }
-    }
-    getLog() << Log::DEBUG << "Num jets above 20 GeV = " << jets_aboveptmin.size() << endl;
-
-    // Check that jets are isolated from leptons
-    /// @todo Just remove jets which fail the isolation criterion?
-    const D0JetFromParticleIso& isoJet = applyProjection<D0JetFromParticleIso>(event, "JetIsolation");
-    if (isoJet.isolatedParticles(1.0).size() != jets_aboveptmin.size()) {
-      getLog() << Log::DEBUG << "Jet size mismatch: isolated from lepton size = " 
-               << isoJet.isolatedParticles(1.0).size()
-               << " vs above pTmin size = " << jets_aboveptmin.size() << endl;
-      vetoEvent(event);
-    }
-
-    // Now take only the jets with |eta| < 2.5
     vector<FourMomentum> finaljet_list;
-    foreach (const FourMomentum& ijet, jets_aboveptmin) {
-      if (fabs(ijet.pseudorapidity()) < 2.5) {
+    foreach (const FourMomentum& ijet, jets) {
+      FourMomentum e0=invmassfs.particles()[0].momentum();
+      FourMomentum e1=invmassfs.particles()[0].momentum();
+      if (fabs(ijet.pseudorapidity()) < 2.5 &&
+          deltaR(e0.pseudorapidity(), e0.azimuthalAngle(),
+                 ijet.pseudorapidity(), ijet.azimuthalAngle()) > 0.4 &&
+          deltaR(e1.pseudorapidity(), e1.azimuthalAngle(),
+                 ijet.pseudorapidity(), ijet.azimuthalAngle()) > 0.4) {
         finaljet_list.push_back(ijet);
       }
     }
-    getLog() << Log::DEBUG << "Num jets above 20 GeV and with |eta| < 2.5 = " 
-             << finaljet_list.size() << endl;
+    getLog() << Log::DEBUG << "Num jets passing = " << finaljet_list.size() << endl;
 
     // For normalisation of crossSection data
     _crossSectionRatio->fill(0, weight);
