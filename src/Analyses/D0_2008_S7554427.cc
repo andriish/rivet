@@ -19,7 +19,7 @@ namespace Rivet {
     addProjection(fs, "FS");
 
     // Leading electrons
-    LeadingParticlesFinalState lpfs(fs);
+    LeadingParticlesFinalState lpfs(fs, 25.0*GeV);
     lpfs.addParticleId(ELECTRON).addParticleId(POSITRON);
     addProjection(lpfs, "LeadingElectrons");
   } 
@@ -68,7 +68,7 @@ namespace Rivet {
 
     // Calculate the Z momentum and cut on mass window [40,200]
     const FourMomentum Zmom = e1 + e2;
-    if (Zmom.mass()/GeV < 40 || Zmom.mass()/GeV > 200) {
+    if (Zmom.mass()/GeV < 70.0 || Zmom.mass()/GeV > 110.0) {
       getLog() << Log::DEBUG << "Electrons fall outside Z mass window" << endl;
       vetoEvent(event);
     }
