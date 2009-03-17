@@ -51,6 +51,12 @@ namespace Rivet {
     }
     FourMomentum e1 = efs.particles()[0].momentum();
     FourMomentum e2 = efs.particles()[1].momentum();
+    if (e1.pT()>e2.pT()) {
+      if (e1.pT()<25.0*GeV || e2.pT()<15.0*GeV) vetoEvent(event);
+    }
+    else {
+      if (e2.pT()<25.0*GeV || e1.pT()<15.0*GeV) vetoEvent(event);
+    }
     
     // Add back in photons that could have radiated from the Z decay products
     // const ParticleVector photons = applyProjection<FinalState>(event, "PhotonFS").particles();
