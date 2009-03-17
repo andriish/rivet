@@ -9,14 +9,14 @@
 namespace Rivet {
 
 
-  ZFinder::ZFinder(const double& etamin, const double& etamax,
+  ZFinder::ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
                    const double& pTmin,  const PdgId& pid,
                    const double& m2_min, const double& m2_max,
                    double dRmax)
   {
     setName("ZFinder");
 
-    FinalState fs(etamin, etamax, pTmin);
+    FinalState fs(etaRanges, pTmin);
     InvMassFinalState imfs(fs, make_pair(pid, -pid), m2_min, m2_max);
     addProjection(imfs, "IMFS");
     

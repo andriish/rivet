@@ -23,7 +23,8 @@ namespace Rivet {
     /// Constructor taking eta/pT bounds and type of the leptons, mass window,
     /// and maximum dR of photons around leptons to take into account for 
     /// Z reconstruction
-    ZFinder(const double& etamin, const double& etamax, const double& pTmin,
+    ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
+            const double& pTmin,
             const PdgId& pid,
             const double& m2_min, const double& m2_max,
             double dRmax);

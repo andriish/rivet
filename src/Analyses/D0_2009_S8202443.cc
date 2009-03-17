@@ -17,8 +17,11 @@ namespace Rivet {
     //setNeedsCrossSection(true);
 
     //leptons in tracking acceptance
-    /// @todo: eta range should have a gap
-    ZFinder zfinder(-2.5, 2.5, 25.0*GeV, ELECTRON,
+    std::vector<std::pair<double, double> > etaRanges;
+    etaRanges.push_back(make_pair(-2.5, -1.5));
+    etaRanges.push_back(make_pair(-1.1, 1.1));
+    etaRanges.push_back(make_pair(1.5, 2.5));
+    ZFinder zfinder(etaRanges, 25.0*GeV, ELECTRON,
                     65.0*GeV, 115.0*GeV, 0.2);
     addProjection(zfinder, "ZFinder");
     
