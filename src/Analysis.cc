@@ -45,11 +45,9 @@ namespace Rivet {
     if (handler().runName().length() > 0) {
       path = "/" + handler().runName() + path;
     }
-    //typedef find_iterator<string::iterator> string_find_iterator;
     while (find_first(path, "//")) {
       replace_all(path, "//", "/");
     }
-    //cout << "***************" << path << endl;
     return path;
   }
 

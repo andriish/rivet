@@ -9,15 +9,56 @@
 namespace Rivet {
 
 
+  ZFinder::ZFinder(const FinalState& fs,
+                   PdgId pid,
+                   double m2_min, double m2_max,
+                   double dRmax) {
+    _init(fs, pid, m2_min, m2_max, dRmax);
+  }
+
+
+  ZFinder::ZFinder(double etaMin, double etaMax,
+                   double pTmin,
+                   PdgId pid,
+                   double m2_min, double m2_max,
+                   double dRmax) {
+    vector<pair<double, double> > etaRanges;
+    etaRanges += std::make_pair(etaMin, etaMax);
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax);
+  }
+
+
   ZFinder::ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
-                   const double& pTmin,  const PdgId& pid,
-                   const double& m2_min, const double& m2_max,
-                   double dRmax)
+                   double pTmin,
+                   PdgId pid,
+                   double m2_min, const double m2_max,
+                   double dRmax) {
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax);
+  }
+
+
+  void ZFinder::_init(const std::vector<std::pair<double, double> >& etaRanges,
+                      double pTmin,  PdgId pid,
+                      double m2_min, double m2_max,
+                      double dRmax) {
+    FinalState fs(etaRanges, pTmin);
+    _init(fs, pid, m2_min, m2_max, dRmax);
+  }
+
+
+  void ZFinder::_init(const FinalState& fs,
+                      PdgId pid,
+                      double m2_min, double m2_max,
+                      double dRmax)
   {
     setName("ZFinder");
 
-    FinalState fs(etaRanges, pTmin);
-    InvMassFinalState imfs(fs, make_pair(pid, -pid), m2_min, m2_max);
+    addProjection(fs, "FS");
+
+    /// @todo This shouldn't be necessary, but g++ type system seems to get
+    /// confused if fs is passed directly...
+    FinalState nfs(fs);
+    InvMassFinalState imfs(nfs, std::make_pair(pid, -pid), m2_min, m2_max);
     addProjection(imfs, "IMFS");
     
     ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
@@ -29,11 +70,14 @@ namespace Rivet {
     addProjection(remainingFS, "RFS");
   }
 
+
+  /////////////////////////////////////////////////////
+
+
   const FinalState& ZFinder::remainingFinalState() const
   {
     return getProjection<FinalState>("RFS");
   }
-
 
 
   int ZFinder::compare(const Projection& p) const {
@@ -47,25 +91,24 @@ namespace Rivet {
   } 
   
 
-
   void ZFinder::project(const Event& e) {
     _theParticles.clear();
 
     const FinalState& imfs=applyProjection<FinalState>(e, "IMFS");
-    if (imfs.particles().size()!=2) return;
+    if (imfs.particles().size() != 2) return;
 
     const FinalState& photons=applyProjection<FinalState>(e, "CPhotons");
 
     Particle Z;
-    FourMomentum pZ=imfs.particles()[0].momentum()+imfs.particles()[1].momentum();
+    FourMomentum pZ = imfs.particles()[0].momentum() + imfs.particles()[1].momentum();
     foreach (const Particle& photon, photons.particles()) {
-      pZ+=photon.momentum();
+      pZ += photon.momentum();
     }
     Z.setMomentum(pZ);
 
     _theParticles.push_back(Z);
-    getLog() << Log::DEBUG << name() <<" found " << _theParticles.size()
-             <<" particles." << endl;
+    getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
+             << " particles." << endl;
   }
  
  

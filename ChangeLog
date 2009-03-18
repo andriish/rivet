@@ -1,4 +1,13 @@
+2009-03-18  Andy Buckley  <andy@insectnation.org>
+
+	* Improvements to constructors of ZFinder and InvMassFS.
+
+	* Changing ExampleTree to use real FS-based Z finding.
+
 2009-03-16  Andy Buckley  <andy@insectnation.org>
+
+	* Allow the -H histo file spec to give a full name if wanted. If
+	it doesn't end in the desired extension, it will be added.
 
 	* Adding --runname option (and API elements) to choose a run name
 	to be prepended as a "top level directory" in histo paths. An

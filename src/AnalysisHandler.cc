@@ -132,13 +132,13 @@ namespace Rivet {
   void AnalysisHandler::_setupFactories(string basefilename, HistoFormat storetype) {
     string filename(basefilename), storetypestr("");
     if (storetype == AIDAML) {
-      filename += ".aida";
+      if (!endsWith(filename, ".aida")) filename += ".aida";
       storetypestr = "xml";
     } else if (storetype == FLAT) {
-      filename += ".data";
+      if (!endsWith(filename, ".data")) filename += ".data";
       storetypestr = "flat";
     } else if (storetype == ROOT) {
-      filename += ".root";
+      if (!endsWith(filename, ".root")) filename += ".root";
       storetypestr = "root";
     }
     _theTree = _theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);

@@ -24,8 +24,6 @@ namespace Rivet {
     addProjection(fs, "FS");
     addProjection(ChargedLeptons(fs), "ChLeptons");
     addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
-    /// @todo Remove WZandh
-    addProjection(WZandh(), "WZh");
     
     /// Veto neutrinos, antineutrinos and LSP
     VetoedFinalState vfs(fs);
@@ -36,6 +34,9 @@ namespace Rivet {
       .addVetoId(1000022); // LSP
     addProjection(vfs, "VFS");
     addProjection(TotalVisibleMomentum(vfs), "TotalVisMom");
+
+    ZFinder zs(fs, ELECTRON, 80*GeV, 100*GeV, 0.2);
+    addProjection(zs, "Zs");
   }
 
 
@@ -89,10 +90,9 @@ namespace Rivet {
     _nevt = ev.event_number();
 
     // Get the vector bosons
-    /// @todo Replace with a more final state driven approach, rm WZandh proj
     _nvb = 0;
-    const WZandh& wzh = applyProjection<WZandh>(event, "WZh");
-    foreach (const Particle& p, wzh.Zees()) {
+    const FinalState& zs = applyProjection<FinalState>(event, "Zs");
+    foreach (const Particle& p, zs.particles()) {
       const FourMomentum p4 = p.momentum();
       _vbvec[_nvb][0] = p4.E()/GeV;
       _vbvec[_nvb][1] = p4.px()/GeV;

@@ -13,9 +13,6 @@ namespace Rivet {
   // Forward declaration.
   class ProjectionApplier;
 
-  // Allow ProjectionApplier to clone projections' children.
-  //friend class ProjectionApplier;
-
   /// @brief The projection handler is a central repository for projections to be used
   /// in a Rivet analysis run.
   ///

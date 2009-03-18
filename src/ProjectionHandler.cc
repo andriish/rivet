@@ -15,8 +15,8 @@ namespace Rivet {
   ProjectionHandler* ProjectionHandler::create() {
     if (!_instance) {
       _instance = new ProjectionHandler();
-      Log::getLog("Rivet.ProjectionHandler") << Log::TRACE << "Created new ProjectionHandler at " 
-                                             << _instance << endl;
+      Log::getLog("Rivet.ProjectionHandler") 
+        << Log::TRACE << "Created new ProjectionHandler at " << _instance << endl;
     }
     return _instance;
   }

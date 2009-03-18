@@ -45,6 +45,17 @@ namespace Rivet {
   }
 
 
+  inline bool startsWith(const string& s, const string& start) {
+    if (s.length() < start.length()) return false;
+    return s.substr(0, start.length()) == start;
+  }
+
+
+  inline bool endsWith(const string& s, const string& end) {
+    if (s.length() < end.length()) return false;
+    return s.substr(s.length() - end.length()) == end;
+  }
+
   /// Split a string with single-character delimiters, ignoring zero-length 
   /// substrings. Designed for getting elements of filesystem paths, naturally.
   inline vector<string> split(string path, const string delim = ":") {
