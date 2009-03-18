@@ -19,7 +19,7 @@ namespace Rivet {
     addProjection(fs, "FS");
 
     // Leading electrons
-    LeadingParticlesFinalState lpfs(fs, 25.0*GeV);
+    LeadingParticlesFinalState lpfs(fs, -MaxRapidity, MaxRapidity, 25.0*GeV);
     lpfs.addParticleId(ELECTRON).addParticleId(POSITRON);
     addProjection(lpfs, "LeadingElectrons");
   } 
