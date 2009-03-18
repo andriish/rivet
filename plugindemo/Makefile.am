@@ -1,7 +1,15 @@
 ## Build rule for the demo plugin analysis, MyAnalysis
-pluginlib = libRivetMyAnalysis.$(RAW_LIB_EXTN)
+
+if WITH_OSX
+  pluginlib = libRivetMyAnalysis.dylib
+  shared_flags =-undefined dynamic_lookup
+else
+  pluginlib = libRivetMyAnalysis.so
+  shared_flags = -shared
+endif
+
 $(pluginlib): MyAnalysis.cc
-	$(CXX) -o $(pluginlib) -shared -I$(top_srcdir)/include -I$(HEPMCINCPATH) MyAnalysis.cc
+	$(CXX) -o $(pluginlib) $(shared_flags) -I$(top_srcdir)/include -I$(HEPMCINCPATH) MyAnalysis.cc
 
 ## Hook in the build rule for the plugin library demo
 plugin: $(pluginlib)

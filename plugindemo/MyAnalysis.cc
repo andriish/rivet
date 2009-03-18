@@ -49,6 +49,27 @@ namespace Rivet {
       return "NONE";
     }
     
+    /// Summary of analysis
+    string summary() const{
+      return "An example plugin analysis. Prints the total and charged multiplicities to the screen for each event.";
+    }
+    
+    /// Beam conditions for this analysis
+    string runInfo() const{
+      return "Anything!";
+    }
+    
+    string collider() const{
+      return "Any";
+    }
+    
+    vector<string> authors() const{
+      return vector<string>();
+    }
+    
+    vector<string> references() const{
+      return vector<string>();
+    }
     
     /// @name Analysis methods
     //@{
