@@ -8,6 +8,9 @@ else
   shared_flags = -shared
 endif
 
+all:
+	@echo "Default make rule does nothing: use 'make plugin'"
+
 $(pluginlib): MyAnalysis.cc
 	$(CXX) -o $(pluginlib) $(shared_flags) -I$(top_srcdir)/include -I$(HEPMCINCPATH) MyAnalysis.cc
 
