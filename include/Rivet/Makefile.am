@@ -114,7 +114,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/UnstableFinalState.hh \
   Projections/TrackJet.hh       \
   Projections/VetoedFinalState.hh \
-  Projections/WZandh.hh \
   Projections/ZFinder.hh
 
 

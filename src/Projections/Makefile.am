@@ -29,7 +29,6 @@ libRivetProjections_la_SOURCES = \
   TrackJet.cc \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
-  WZandh.cc \
   ZFinder.cc
 
 if ENABLE_JADE

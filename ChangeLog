@@ -1,5 +1,8 @@
 2009-03-18  Andy Buckley  <andy@insectnation.org>
 
+	* Removing WZandh projection, which wasn't generator independent
+	and whose sole usage was already replaced by ZFinder.
+
 	* Improvements to constructors of ZFinder and InvMassFS.
 
 	* Changing ExampleTree to use real FS-based Z finding.
