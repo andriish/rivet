@@ -36,7 +36,9 @@ def texify(s):
         .replace("&", "\\&") \
         .replace("->", "\\ensuremath{\\to}") \
         .replace("_", "\\_") \
-        .replace("^", "")
+        .replace("^", "") \
+        .replace("pT", "\\pT") \
+        .replace("sqrt{s}", "\\ensuremath{\\sqrt{s}}")
     return t
 
 
@@ -54,8 +56,9 @@ for aname in sorted(all_analyses):
         (spiresbase, ana.spiresId(), ana.spiresId())
     page += "\\textbf{Status:} %s\\newline\n" % ana.status()
 
+
     if ana.authors():
-        page += "\\textbf{Authors:}\n"
+        page += "\\textbf{Authors:}\n \\penalty 100"
         page += "\\begin{itemize}\n"
         for a in ana.authors():
             s = a
@@ -69,8 +72,9 @@ for aname in sorted(all_analyses):
     else:
         page += "\\textbf{No authors listed}\n"
 
+
     if ana.references():
-        page += "\\textbf{References:}\n"
+        page += "\\textbf{References:}\n \\penalty 100"
         page += "\\begin{itemize}\n"
         for r in ana.references():
             if r.startswith("arXiv:"):
@@ -87,7 +91,24 @@ for aname in sorted(all_analyses):
     else:
         page += "\\textbf{No references listed}\n"
 
+
+    if ana.runInfo():
+        page += "\\textbf{Run details:}\n \\penalty 100"
+        page += "\\begin{itemize}\n"
+        #print ana.runInfo()
+        for l in ana.runInfo().split("\n*"):
+            l = l.strip()
+            if l.startswith("*"):
+                l = l[1:].strip()
+            page += "  \\item %s\n" % l
+        page += "\\end{itemize}\n"
+    else:
+        page += "\\textbf{No run details listed}\n"
+
+
     page += "\n\\noindent " + ana.description() + "\n"
+
+    page += "\n\\clearpage\n"
 
     page = texify(page)
     pages.append(page)
@@ -99,9 +120,11 @@ prefix = """\
 \\makeatletter
 \\renewcommand{\\d}[1]{\\ensuremath{\\mathrm{#1}}}
 \\let\\old@eta\\eta
-\\renewcommand{\\eta}{\\ensuremath{\\old@eta}}
+\\renewcommand{\\eta}{\\ensuremath{\\old@eta}\\xspace}
 \\let\\old@phi\\phi
-\\renewcommand{\\phi}{\\ensuremath{\\old@phi}}
+\\renewcommand{\\phi}{\\ensuremath{\\old@phi}\\xspace}
+\\providecommand{\\pT}{\\ensuremath{p_\\perp}\\xspace}
+\\providecommand{\\pTmin}{\\ensuremath{p_\\perp^\\text{min}}\\xspace}
 \\makeatother
 
 """

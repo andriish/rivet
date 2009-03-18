@@ -14,11 +14,17 @@ RM = rm -f
 
 .PHONY = doc
 
-doc: $(DOCNAME).pdf compare-histos.html make-plots.html
+all:
+	@echo "Default make rule does nothing: use 'make doc'"
+
+doc: $(DOCNAME).pdf compare-histos.html make-plots.html analyses.html
 	@true
 
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
 	./mk-analysis-latex analyses.tex
+
+analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
+	./mk-analysis-html analyses.html
 
 $(DOCNAME).pdf : $(DOCNAME).tex analyses.tex
 	$(COPY);$(LATEX) $<

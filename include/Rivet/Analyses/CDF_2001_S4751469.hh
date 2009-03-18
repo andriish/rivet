@@ -102,7 +102,7 @@ namespace Rivet {
       ostringstream os;
       os << "CDF Run I conditions: ppbar QCD interactions at 1800 GeV. "
          << "Leading jet bins from 0--49 GeV: usually can be filled with a single "
-         << "generator run without kinematic sub-samples, with \\sim 1M events.";
+         << "generator run without kinematic sub-samples, with $\\sim 1M$ events.";
       return os.str();
     }
     string status() const {

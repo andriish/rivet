@@ -1,5 +1,8 @@
 2009-03-18  Andy Buckley  <andy@insectnation.org>
 
+	* Adding doc script to include run info in LaTeX docs, and to make
+	HTML docs.
+
 	* Removing WZandh projection, which wasn't generator independent
 	and whose sole usage was already replaced by ZFinder.
 

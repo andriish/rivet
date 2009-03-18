@@ -1,0 +1,143 @@
+#! /usr/bin/env python
+
+
+## Get output filename
+import sys
+if len(sys.argv) < 2:
+    print "You must supply the output file as an argument"
+    exit(1)
+OUTFILE = sys.argv[1]
+
+
+## Make "set" a builtin type on Python < 2.4
+if not 'set' in dir(__builtins__):
+    from sets import Set as set
+
+## Make "sorted" a builtin function on Python < 2.4
+if not 'sorted' in dir(__builtins__):
+    def sorted(iterable, cmp=None, key=None, reverse=None):
+        rtn = iterable
+        rtn.sort(cmp, key, reverse)
+        return rtn
+
+        
+## Change dlopen status to GLOBAL for Rivet lib
+try:
+    import ctypes
+    sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
+except:
+    import dl
+    sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
+import rivet
+
+
+def htmlify(s):
+    t = s \
+        .replace("&", "&amp;") \
+        #.replace("->", "\\ensuremath{\\to}") \
+    return t
+
+
+## Build analysis pages
+all_analyses = rivet.AnalysisLoader.allAnalysisNames()
+pages = []
+for aname in sorted(all_analyses):
+    page = ""
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    page += "<h2 id='%s'>%s</h2>\n" % (aname, aname)
+    page += "<b>%s</b><br/>\n" %  ana.summary()
+    page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
+    spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
+    page += "<b>Spires ID:</b> <a href='%s+%s'>%s</a><br/>\n" % \
+        (spiresbase, ana.spiresId(), ana.spiresId())
+    page += "<b>Status:</b> %s<br/>\n" % ana.status()
+
+
+    if ana.authors():
+        page += "<b>Authors:</b>\n"
+        page += "<ul>\n"
+        for a in ana.authors():
+            s = a
+            import re
+            if re.search(".* <.*@.*>", a):
+                name = " ".join(a.split()[:-1])
+                email = a.split()[-1].replace("<", "").replace(">", "")
+                #s = "<a href='mailto:%s'>%s</a>" % (email, name)
+                s = name
+            page += "  <li>%s</li>\n" % s
+        page += "</ul>\n"
+    else:
+        page += "<b>No authors listed</b>\n"
+
+
+    if ana.references():
+        page += "<b>References:</b>\n"
+        page += "<ul>\n"
+        for r in ana.references():
+            if r.startswith("arXiv:"):
+                code = r.split()[0].replace("arXiv:", "")
+                url = "http://arxiv.org/abs/" + code
+                page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("arXiv:", url, code)
+            elif r.startswith("doi:"):
+                code = r.replace("doi:", "")
+                url = "http://dx.doi.org/" + code
+                page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("DOI:", url, code)
+            else:
+                page += "  <li>%s</li>\n" % r
+        page += "</ul>\n"
+    else:
+        page += "<b>No references listed</b>\n"
+
+
+    if ana.runInfo():
+        page += "<b>Run details:</b>\n"
+        page += "<ul>\n"
+        for l in ana.runInfo().split("\n*"):
+            l = l.strip()
+            if l.startswith("*"):
+                l = l[1:].strip()
+            page += "  <li>%s</li>\n" % l
+        page += "</ul>\n"
+    else:
+        page += "<ul>No run details listed</ul>\n"
+
+
+    page += "\n<p>" + ana.description().replace("\n\n", "</p><p>") + "</p>\n"
+
+    page = htmlify(page)
+    pages.append(page)
+
+
+
+## Write out HTML
+head = """\
+<html>
+<head>
+  <title>Rivet analyses reference</title>
+  <style>
+    body { font-family:sans-serif; max-width:50em; padding: 1em 1em 2em 2em; }
+    h1 { margin-left:-1em; margin-bottom:1.5em; }
+    h2 { color:#349; margin-top:2em; }
+  </style>
+</head>
+<body>
+  <h1>Rivet analyses reference</h1>
+
+"""
+
+toc = "<h2>Contents</h2>\n"
+toc += "<ul>\n"
+for a in all_analyses:
+    toc += "<li><a href='#%s'>%s</a></li>\n" % (a,a)
+toc += "</ul>\n"
+
+foot = """\
+</body>
+</html>
+"""
+
+body = "\n\n".join(pages)
+outstr = head + toc + body + foot
+f = open(OUTFILE, "w")
+f.write(outstr)
+f.close()

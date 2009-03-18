@@ -75,7 +75,8 @@ namespace Rivet {
       ostringstream os;
       os << "Tevatron Run 2 conditions: " << endl << endl
          << "* ppbar -> e+ e- + jets at 1960 GeV. "
-         << "* Needs mass cut on lepton pair to avoid photon singularity: min. range 66 < m_ee < 116" << endl;
+         << "* Needs mass cut on lepton pair to avoid photon singularity: "
+         << "min. range $66 < m_ee < 116$ GeV" << endl;
       return os.str();
     }
     string status() const {
