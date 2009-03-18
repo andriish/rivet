@@ -44,11 +44,11 @@ def texify(s):
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.allAnalysisNames()
-pages = []
+pages = { "LEP":[], "Tevatron":[], "HERA":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 for aname in sorted(all_analyses):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
-    page += "\\section*{%s}\n" % aname
+    page += "\\subsection{%s}\n" % aname
     page += "\\textbf{%s}\\newline\n" %  ana.summary()
     page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
     spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
@@ -66,7 +66,8 @@ for aname in sorted(all_analyses):
             if re.search(".* <.*@.*>", a):
                 name = " ".join(a.split()[:-1])
                 email = a.split()[-1].replace("<", "").replace(">", "")
-                s = "\\href{mailto:%s}{%s}" % (email, name)
+                #s = "\\href{mailto:%s}{%s}" % (email, name)
+                s = "%s $\\langle\,$\\href{mailto:%s}{%s}$\,\\rangle$;" % (name, email, email)
             page += "  \\item %s\n" % s
         page += "\\end{itemize}\n"
     else:
@@ -111,8 +112,20 @@ for aname in sorted(all_analyses):
     page += "\n\\clearpage\n"
 
     page = texify(page)
-    pages.append(page)
 
+
+    if "MC_" in ana.name().upper():
+        pages["Monte Carlo"].append(page)
+    elif "LEP" in ana.collider():
+        pages["LEP"].append(page)
+    elif "Tevatron" in ana.collider():
+        pages["Tevatron"].append(page)
+    elif "HERA" in ana.collider():
+        pages["HERA"].append(page)
+    elif "EXAMPLE" in ana.name().upper():
+        pages["Example"].append(page)
+    else:
+        pages["Misc."].append(page)
 
 
 ## Write out LaTeX
@@ -128,8 +141,23 @@ prefix = """\
 \\makeatother
 
 """
-#body = "\n\n\\clearpage\n\n".join(pages)
-body = "\n\n\\vspace{1cm}\n\n".join(pages)
+
+
+groups = {}
+for group, ps in pages.iteritems():
+    s = ""
+    if len(ps):
+        s = "\\section{%s analyses}" % group + "\n\n\\clearpage\n\n".join(ps)
+        groups[group] = s
+
+body = \
+    groups["LEP"] + "\n\n" + \
+    groups["Tevatron"] + "\n\n" + \
+    groups["HERA"] + "\n\n" + \
+    groups["Monte Carlo"] + "\n\n" + \
+    groups["Example"] + "\n\n" + \
+    groups["Misc."] + "\n\n"
+
 outstr = prefix + body
 f = open(OUTFILE, "w")
 f.write(outstr)

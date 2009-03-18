@@ -1,5 +1,8 @@
 2009-03-18  Andy Buckley  <andy@insectnation.org>
 
+	* Improving LaTex docs to show email addresses in printable form
+	and to group analyses by collider or other metadata.
+
 	* Adding doc script to include run info in LaTeX docs, and to make
 	HTML docs.
 
