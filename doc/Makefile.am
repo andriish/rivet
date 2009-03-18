@@ -12,13 +12,18 @@ MAKEIDX = "^[^%]*\\makeindex"
 COPY = if test -r $(<:%.tex=%.toc); then cp $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); fi
 RM = rm -f
 
-.PHONY = doc
+.PHONY = all doc upload
 
 all:
 	@echo "Default make rule does nothing: use 'make doc'"
 
 doc: $(DOCNAME).pdf compare-histos.html make-plots.html analyses.html
 	@true
+
+RSH=rsync
+DEST=login.hepforge.org:rivet/public_html/
+upload: $(DOCNAME).pdf analyses.html
+	$(RSH) $? $(DEST)
 
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
 	./mk-analysis-latex analyses.tex

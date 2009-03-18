@@ -44,7 +44,7 @@ pages = []
 for aname in sorted(all_analyses):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
-    page += "<h2 id='%s'>%s</h2>\n" % (aname, aname)
+    page += "<h3 id='%s'>%s</h3>\n" % (aname, aname)
     page += "<b>%s</b><br/>\n" %  ana.summary()
     page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
     spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
@@ -115,17 +115,18 @@ head = """\
 <head>
   <title>Rivet analyses reference</title>
   <style>
-    body { font-family:sans-serif; max-width:50em; padding: 1em 1em 2em 2em; }
-    h1 { margin-left:-1em; margin-bottom:1.5em; }
-    h2 { color:#349; margin-top:2em; }
+    body { font-family:sans-serif; padding: 1em 1em 2em 2em; }
+    p, li { max-width:50em; }
+    h2 { margin-left:-1em; margin-bottom:1.5em; }
+    h3 { color:#349; margin-top:2em; }
   </style>
 </head>
 <body>
-  <h1>Rivet analyses reference</h1>
+  <h2>Rivet analyses reference</h2>
 
 """
 
-toc = "<h2>Contents</h2>\n"
+toc = "<h3>Contents</h3>\n"
 toc += "<ul>\n"
 for a in all_analyses:
     toc += "<li><a href='#%s'>%s</a></li>\n" % (a,a)
