@@ -6,7 +6,6 @@
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/WZandh.hh"
 
 // ROOT stuff
 #ifdef HAVE_ROOT
