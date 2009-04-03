@@ -1,5 +1,8 @@
 2009-04-03  Andy Buckley  <andy@insectnation.org>
 
+	* Adding MC analysis for LHC UE: higher-pT replica of Tevatron
+	2008 leading jets study.
+
 	* Adding CDF_1990 pseudorapidity analysis.
 
 	* Moving CDF_2001 constructor into implementation file.

@@ -27,7 +27,6 @@ namespace Rivet {
 
   // Do the analysis
   void CDF_2008_LEADINGJETS::analyze(const Event& e) {
-    Log& log = getLog();
 
     const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
     if (fsj.particles().size() < 1) {
@@ -55,12 +54,7 @@ namespace Rivet {
     const double weight = e.weight();
 
     // Get the final states to work with for filling the distributions
-    //const FinalState& fs = applyProjection<FinalState>(e, "FS");
     const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
-
-    //    getLog() << Log::DEBUG << fsj.particles().size() << "   "
-    //                           <<  fs.particles().size() << "   "
-    //                           << cfs.particles().size() << endl;
 
     size_t   numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
     double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
@@ -178,8 +172,7 @@ namespace Rivet {
   }
 
 
-  void CDF_2008_LEADINGJETS::finalize() { 
-  }
+  void CDF_2008_LEADINGJETS::finalize() {  }
 
 
 }

@@ -52,6 +52,12 @@ namespace Rivet {
   }
 
 
+  const string Analysis::histoPath(const string& hname) const {
+    const string path = histoDir() + "/" + hname;
+    return path;
+  }
+
+
   Log& Analysis::getLog() const {
     string logname = "Rivet.Analysis." + name();
     return Log::getLog(logname);
@@ -112,7 +118,7 @@ namespace Rivet {
 
   IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
                                           const size_t yAxisId, const string& title) {
-    const string hname = histoDir() + "/" + _makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string hname = histoPath(_makeAxisCode(datasetId, xAxisId, yAxisId));
     getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
     return bookHistogram1D(datasetId, xAxisId, yAxisId, title, "", "");
   }
@@ -126,7 +132,7 @@ namespace Rivet {
     getLog() << Log::TRACE << "Using histo bin edges for " << name() << ":" << hname << endl;
     const BinEdges edges = _histBinEdges.find(hname)->second;
     _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
+    const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
     getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
     //hist->setXAxisTitle(xtitle);
@@ -145,7 +151,7 @@ namespace Rivet {
                                           const string& xtitle, const string& ytitle,
                                           const size_t nbins, const double lower, const double upper) {
     _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
+    const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
     getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
     //hist->setXAxisTitle(xtitle);
@@ -165,7 +171,7 @@ namespace Rivet {
                                           const string& xtitle, const string& ytitle,
                                           const vector<double>& binedges) {
     _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
+    const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, binedges);
     getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
     //hist->setXAxisTitle(xtitle);
@@ -194,7 +200,7 @@ namespace Rivet {
 
   IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
                                       const size_t yAxisId, const string& title) {
-    const string hname = histoDir() + "/" + _makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string hname = histoPath(_makeAxisCode(datasetId, xAxisId, yAxisId));
     getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
     return bookProfile1D(datasetId, xAxisId, yAxisId, title, "", "");
   }
@@ -215,7 +221,7 @@ namespace Rivet {
         getLog() << Log::TRACE << "Edges:" << edges_ss.str() << endl;
     }
     _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
+    const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
     //prof->setXAxisTitle(xtitle);
@@ -234,7 +240,7 @@ namespace Rivet {
                                       const string& xtitle, const string& ytitle,
                                       const size_t nbins, const double lower, const double upper) {
     _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
+    const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, nbins, lower, upper);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
     //prof->setXAxisTitle(xtitle);
@@ -254,7 +260,7 @@ namespace Rivet {
                                       const string& xtitle, const string& ytitle,
                                       const vector<double>& binedges) {
     _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
+    const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, binedges);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
     //prof->setXAxisTitle(xtitle);
@@ -279,7 +285,7 @@ namespace Rivet {
   IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title,
                                             const string& xtitle, const string& ytitle) {
     _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
+    const string path = histoPath(hname);
     IDataPointSet* dps = datapointsetFactory().create(path, title, 2);
     getLog() << Log::TRACE << "Made data point set " << hname <<  " for " << name() << endl;
     //dps->setXAxisTitle(xtitle);
@@ -343,7 +349,7 @@ namespace Rivet {
 
   IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
                                             const size_t yAxisId, const string& title) {
-    const string hname = histoDir() + "/" + _makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string hname = histoPath(_makeAxisCode(datasetId, xAxisId, yAxisId));
     getLog() << Log::DEBUG << "Please add axis labels for data point set " << hname << "!" << endl;
     return bookDataPointSet(datasetId, xAxisId, yAxisId, title, "", "");
   }

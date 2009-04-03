@@ -57,6 +57,7 @@
 
 // MC validation
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
+#include "Rivet/Analyses/MC_LHC_LEADINGJETS.hh"
 
 extern "C" {
 
@@ -129,6 +130,7 @@ extern "C" {
 
     // MC validation
     fns["MC_TVT1960_ZJETS"] = Rivet::MC_TVT1960_ZJETS::create;
+    fns["MC_LHC_LEADINGJETS"] = Rivet::MC_LHC_LEADINGJETS::create;
 
     return fns;
   }

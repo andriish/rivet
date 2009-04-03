@@ -243,8 +243,11 @@ namespace Rivet {
     /// Access the AIDA histogram factory of the controlling AnalysisHandler object.
     AIDA::IDataPointSetFactory& datapointsetFactory();
 
-    /// Get the canonical histogram path for this analysis.
+    /// Get the canonical histogram "directory" path for this analysis.
     const std::string histoDir() const;
+
+    /// Get the canonical histogram path for the named histogram in this analysis.
+    const std::string histoPath(const std::string& hname) const;
     //@}
 
 
