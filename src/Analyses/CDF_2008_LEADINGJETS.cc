@@ -27,7 +27,7 @@ namespace Rivet {
 
   // Do the analysis
   void CDF_2008_LEADINGJETS::analyze(const Event& e) {
-    Log log = getLog();
+    Log& log = getLog();
 
     const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
     if (fsj.particles().size() < 1) {
@@ -56,7 +56,7 @@ namespace Rivet {
 
     // Get the final states to work with for filling the distributions
     //const FinalState& fs = applyProjection<FinalState>(e, "FS");
-    const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
+    const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
 
     //    getLog() << Log::DEBUG << fsj.particles().size() << "   "
     //                           <<  fs.particles().size() << "   "
@@ -68,10 +68,10 @@ namespace Rivet {
     double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
 
     // Calculate all the charged stuff
-    for (ParticleVector::const_iterator p = cfs.particles().begin(); p != cfs.particles().end(); ++p) {
-      const double deltaPhi = delta_phi(p->momentum().azimuthalAngle(), jetphi);
-      const double pT = p->momentum().pT();
-      const double phi = p->momentum().azimuthalAngle();
+    foreach (const Particle& p, cfs.particles()) {
+      const double deltaPhi = delta_phi(p.momentum().azimuthalAngle(), jetphi);
+      const double pT = p.momentum().pT();
+      const double phi = p.momentum().azimuthalAngle();
 
       // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
       // Lovely, isn't it?
@@ -112,15 +112,19 @@ namespace Rivet {
       }
     } // end charged particle loop
 
-#if 0   ///// This part is not needed until we have the numbers from Rick Field
+
+#if 0   
+    /// @todo Enable this part when we have the numbers from Rick Field
+
     // And now the same business for all particles (including neutrals)
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
-      const double deltaPhi = delta_phi(p->momentum().azimuthalAngle(), jetphi);
-      const double ET = p->momentum().Et();
-      const double phi = p->momentum().azimuthalAngle();
+    foreach (const Particle& p, fs.particles()) {
+      const double deltaPhi = delta_phi(p.momentum().azimuthalAngle(), jetphi);
+      const double ET = p.momentum().Et();
+      const double phi = p.momentum().azimuthalAngle();
 
       // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
       // Lovely, isn't it?
+      /// @todo Use FastJet methos to get the appropriate phi mapping
       double rotatedphi = phi - jetphi;
       while (rotatedphi < 0) rotatedphi += 2*PI;
 

@@ -13,6 +13,20 @@
 namespace Rivet {
 
 
+  // Constructor
+  CDF_2001_S4751469::CDF_2001_S4751469()
+    : _totalNumTrans2(0), _totalNumTrans5(0), _totalNumTrans30(0),
+      _sumWeightsPtLead2(0),_sumWeightsPtLead5(0), _sumWeightsPtLead30(0)
+  {
+    setBeams(PROTON, ANTIPROTON);
+    const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+    const LossyFinalState lfs(cfs, 0.08); 
+    addProjection(lfs, "FS");
+    addProjection(TrackJet(lfs), "TrackJet");
+  }
+
+
+
   // Book histograms
   void CDF_2001_S4751469::init() {
     _numTowardMB = bookProfile1D(3, 1, 1, "Num (toward) for min-bias");
