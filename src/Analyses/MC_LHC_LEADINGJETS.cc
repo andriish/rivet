@@ -31,7 +31,7 @@ namespace Rivet {
   void MC_LHC_LEADINGJETS::init() {
     const string xlabel = "Leading jet $p_\\perp$ / GeV";
     const string pdensityTeX = "$\\d{N_\\text{ch}}/\\d{\\phi}$";
-    const string ptsumdensityTeX = "$\\d{p_\\perp^\\text{sum}}/\\d{\\phi}$";
+    const string ptsumdensityTeX = "$\\d{\\sum p_\\perp^\\text{sum}}/\\d{\\phi}$";
     const string ptavgTeX = "$\\langle p_\\perp \\rangle$";
     const double maxpt1 = 500.0/GeV;
     _hist_pnchg      = bookProfile1D(histoPath("trans-nchg"),
