@@ -102,13 +102,25 @@ namespace Rivet {
 
 
   IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
-                                          const size_t yAxisId, const string& title) {
+                                          const size_t yAxisId, const string& title,
+                                          const string& xtitle, const string& ytitle) 
+  {
     const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookHistogram1D(axisCode, title);
+    return bookHistogram1D(axisCode, title, xtitle, ytitle);
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title) {
+  IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
+                                          const size_t yAxisId, const string& title) {
+    const string hname = histoDir() + "/" + _makeAxisCode(datasetId, xAxisId, yAxisId);
+    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    return bookHistogram1D(datasetId, xAxisId, yAxisId, title, "", "");
+  }
+
+
+  IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title,
+                                          const string& xtitle, const string& ytitle)
+  {
     // Get the bin edges (only read the AIDA file once)
     _cacheBinEdges();
     getLog() << Log::TRACE << "Using histo bin edges for " << name() << ":" << hname << endl;
@@ -117,35 +129,80 @@ namespace Rivet {
     const string path = histoDir() + "/" + hname;
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
     getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
+    //hist->setXAxisTitle(xtitle);
+    //hist->setYAxisTitle(ytitle);
     return hist;
   }
 
 
+  IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title) {
+    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    return bookHistogram1D(hname, title, "", "");
+  }
+
+
   IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title, 
+                                          const string& xtitle, const string& ytitle,
                                           const size_t nbins, const double lower, const double upper) {
     _makeHistoDir();
     const string path = histoDir() + "/" + hname;
-    return histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
+    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
+    getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
+    //hist->setXAxisTitle(xtitle);
+    //hist->setYAxisTitle(ytitle);
+    return hist;
+  }
+
+
+  IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title,
+                                          const size_t nbins, const double lower, const double upper) {
+    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    return bookHistogram1D(hname, title, "", "", nbins, lower, upper);
   }
 
 
   IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title, 
+                                          const string& xtitle, const string& ytitle,
                                           const vector<double>& binedges) {
     _makeHistoDir();
     const string path = histoDir() + "/" + hname;
-    return histogramFactory().createHistogram1D(path, title, binedges);
+    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, binedges);
+    getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
+    //hist->setXAxisTitle(xtitle);
+    //hist->setYAxisTitle(ytitle);
+    return hist;
   }
 
+
+  IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title,
+                                          const vector<double>& binedges) {
+    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    return bookHistogram1D(hname, title, "", "", binedges);
+  }
+
+
+  /////////////////
+
+
+  IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
+                                      const size_t yAxisId, const string& title,
+                                      const string& xtitle, const string& ytitle) {
+    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
+    return bookProfile1D(axisCode, title, xtitle, ytitle);
+  }
 
 
   IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
                                       const size_t yAxisId, const string& title) {
-    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookProfile1D(axisCode, title);
+    const string hname = histoDir() + "/" + _makeAxisCode(datasetId, xAxisId, yAxisId);
+    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    return bookProfile1D(datasetId, xAxisId, yAxisId, title, "", "");
   }
 
 
-  IProfile1D* Analysis::bookProfile1D(const std::string& hname, const std::string& title) {
+  IProfile1D* Analysis::bookProfile1D(const std::string& hname, const std::string& title,
+                                      const string& xtitle, const string& ytitle) 
+  {
     // Get the bin edges (only read the AIDA file once)
     _cacheBinEdges();
     getLog() << Log::TRACE << "Using profile histo bin edges for " << name() << ":" << hname << endl;
@@ -161,37 +218,86 @@ namespace Rivet {
     const string path = histoDir() + "/" + hname;
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
+    //prof->setXAxisTitle(xtitle);
+    //prof->setYAxisTitle(ytitle);    
+    return prof;
+  }
+
+
+  IProfile1D* Analysis::bookProfile1D(const std::string& hname, const std::string& title) {
+    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    return bookProfile1D(hname, title, "", "");
+  }
+
+
+  IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title, 
+                                      const string& xtitle, const string& ytitle,
+                                      const size_t nbins, const double lower, const double upper) {
+    _makeHistoDir();
+    const string path = histoDir() + "/" + hname;
+    IProfile1D* prof = histogramFactory().createProfile1D(path, title, nbins, lower, upper);
+    getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
+    //prof->setXAxisTitle(xtitle);
+    //prof->setYAxisTitle(ytitle);    
+    return prof;
+  }
+
+
+  IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title,
+                                      const size_t nbins, const double lower, const double upper) {
+    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    return bookProfile1D(hname, title, "", "", nbins, lower, upper);
+  }
+
+
+  IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title, 
+                                      const string& xtitle, const string& ytitle,
+                                      const vector<double>& binedges) {
+    _makeHistoDir();
+    const string path = histoDir() + "/" + hname;
+    IProfile1D* prof = histogramFactory().createProfile1D(path, title, binedges);
+    getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
+    //prof->setXAxisTitle(xtitle);
+    //prof->setYAxisTitle(ytitle);    
     return prof;
   }
 
 
   IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title, 
-                                      const size_t nbins, const double lower, const double upper) {
-    _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
-    return histogramFactory().createProfile1D(path, title, nbins, lower, upper);
-  }
-
-
-  IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title, 
                                       const vector<double>& binedges) {
-    _makeHistoDir();
-    const string path = histoDir() + "/" + hname;
-    return histogramFactory().createProfile1D(path, title, binedges);
+    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    return bookProfile1D(hname, title, "", "", binedges);
   }
+
+
+
+  ///////////////////
+
 
 
   /// @todo Convert to auto-book?
-  IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title) {
+  IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title,
+                                            const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoDir() + "/" + hname;
-    return datapointsetFactory().create(path, title, 2);
+    IDataPointSet* dps = datapointsetFactory().create(path, title, 2);
+    getLog() << Log::TRACE << "Made data point set " << hname <<  " for " << name() << endl;
+    //dps->setXAxisTitle(xtitle);
+    //dps->setYAxisTitle(ytitle); 
+    return dps;
   }
 
 
-  IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title, 
+  IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title) {
+    getLog() << Log::DEBUG << "Please add axis labels for data point set " << hname << "!" << endl;
+    return bookDataPointSet(hname, title, "", "");
+  }
+
+
+  IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title,
+                                            const string& xtitle, const string& ytitle,
                                             const size_t npts, const double lower, const double upper) {
-    IDataPointSet* dps = bookDataPointSet(hname, title);
+    IDataPointSet* dps = bookDataPointSet(hname, title, xtitle, ytitle);
     for (size_t pt = 0; pt < npts; ++pt) {
       const double binwidth = (upper-lower)/npts;
       const double bincentre = lower + (pt + 0.5) * binwidth;
@@ -205,15 +311,23 @@ namespace Rivet {
   }
 
 
+  IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title,
+                                            const size_t npts, const double lower, const double upper) {
+    getLog() << Log::DEBUG << "Please add axis labels for data point set " << hname << "!" << endl;
+    return bookDataPointSet(hname, title, "", "", npts, lower, upper);
+  }
+
+
   IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
-                                            const size_t yAxisId, const string& title) {
+                                            const size_t yAxisId, const string& title,
+                                            const string& xtitle, const string& ytitle) {
     // Get the bin edges (only read the AIDA file once)
     _cacheXAxisData();
     // Build the axis code
     const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
     //const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
     getLog() << Log::TRACE << "Using DPS x-positions for " << name() << ":" << axisCode << endl;
-    IDataPointSet* dps = bookDataPointSet(axisCode, title);
+    IDataPointSet* dps = bookDataPointSet(axisCode, title, xtitle, ytitle);
     const vector<DPSXPoint> xpts = _dpsData.find(axisCode)->second;
     for (size_t pt = 0; pt < xpts.size(); ++pt) {
       dps->addPoint();
@@ -225,6 +339,18 @@ namespace Rivet {
     getLog() << Log::TRACE << "Made DPS " << axisCode <<  " for " << name() << endl;
     return dps;
   }
+
+
+  IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
+                                            const size_t yAxisId, const string& title) {
+    const string hname = histoDir() + "/" + _makeAxisCode(datasetId, xAxisId, yAxisId);
+    getLog() << Log::DEBUG << "Please add axis labels for data point set " << hname << "!" << endl;
+    return bookDataPointSet(datasetId, xAxisId, yAxisId, title, "", "");
+  }
+  
+
+
+  ////////////////////
 
 
   void Analysis::_makeHistoDir() {

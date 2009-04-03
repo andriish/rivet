@@ -1,4 +1,15 @@
+2009-04-03  Andy Buckley  <andy@insectnation.org>
+
+	* Cleaning up CDF_2008_LEADINGJETS a bit, e.g. using foreach loops.
+
+	* Adding function interface for specifying axis labels in histo
+	bookings. Currently has no effect, since AIDA doesn't seem to have
+	a mechanism for axis labels. It really is a piece of crap.
+
 2009-03-18  Andy Buckley  <andy@insectnation.org>
+
+	* Adding docs "make upload" and other tweaks to make the doc files
+	fit in with the Rivet website.
 
 	* Improving LaTex docs to show email addresses in printable form
 	and to group analyses by collider or other metadata.
