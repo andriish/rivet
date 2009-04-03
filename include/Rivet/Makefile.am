@@ -35,6 +35,7 @@ nobase_pkginclude_HEADERS += \
 nobase_dist_noinst_HEADERS += \
   Analyses/ALEPH_1991_S2435284.hh \
   Analyses/ALEPH_1996_S3486095.hh \
+  Analyses/CDF_1990_S2089246.hh \
   Analyses/CDF_1994_S2952106.hh \
   Analyses/CDF_2000_S4155203.hh \
   Analyses/CDF_2001_S4751469.hh \

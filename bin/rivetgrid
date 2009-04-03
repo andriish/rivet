@@ -6,7 +6,7 @@ import glob, tempfile, commands
 from optparse import OptionParser, OptionGroup
 
 version = "0.2.0"
-usage = """Submit a rivetgun job to the Grid, using the gLite tools.
+usage = """Submit a rivet job to the Grid, using the gLite tools.
 %prog --vo=<VO> [options] <rgargs>
 
 EXAMPLES:
@@ -52,7 +52,7 @@ except:
 
 ## Check VO specification
 if opts.VO is None:
-    logging.error("VO must be specified")
+    logging.error("VO must be specified with --vo")
     sys.exit(1)
 
 
@@ -66,7 +66,7 @@ logging.info("Using generator libs archive from " + GENS_URL)
 ## Compress rg args
 RG_ARGS = " ".join(args)
 if len(RG_ARGS) == 0:
-    logging.error("No rivetgun argument string supplied. This job won't do anything.")
+    logging.error("No rivet argument string supplied. This job won't do anything.")
     while 1:
         cont = raw_input("Are you sure you want to continue? [yN] ")
         if cont == "" or cont.upper() == "N":

@@ -26,6 +26,7 @@
 #include "Rivet/Analyses/ZEUS_2001_S4815815.hh"
 
 // Tevatron
+#include "Rivet/Analyses/CDF_1990_S2089246.hh"
 #include "Rivet/Analyses/CDF_1994_S2952106.hh"
 #include "Rivet/Analyses/CDF_2000_S4155203.hh"
 #include "Rivet/Analyses/CDF_2001_S4751469.hh"
@@ -93,6 +94,7 @@ extern "C" {
     fns["ZEUS_2001_S4815815"] = Rivet::ZEUS_2001_S4815815::create;
 
     // Tevatron
+    fns["CDF_1990_S2089246"] = Rivet::CDF_1990_S2089246::create;
     fns["CDF_1994_S2952106"] = Rivet::CDF_1994_S2952106::create;
     fns["CDF_2000_S4155203"] = Rivet::CDF_2000_S4155203::create;
     fns["CDF_2001_S4751469"] = Rivet::CDF_2001_S4751469::create;
