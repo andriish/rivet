@@ -27,6 +27,7 @@ namespace Rivet {
 
     // make sure we have 2 Z decay products (mumu or ee) 
     if (ZDecayProducts.size() < 2) vetoEvent(event);
+    _sumWeightSelected += event.weight(); 
     // @todo: write out a warning if there are more than two decay products
     FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
 
@@ -83,11 +84,11 @@ namespace Rivet {
   // Finalize
   void CDF_2008_S8095620::finalize() {  
     // normalise histograms
-    // scale by 1 / the sum of weights pass the Z cuts
+    // scale by 1 / the sum-of-weights of events that pass the Z cuts
     // since the cross sections are normalized to the inclusive
     // Z cross sections. 
     double Scale = 1.0;
-    if (sumOfWeights() != 0.0) Scale = 1/sumOfWeights();
+    if (_sumWeightSelected != 0.0) Scale = 1.0/_sumWeightSelected;
     _dSdET->scale(Scale);
     _dSdETA->scale(Scale);
     _dSdNJet->scale(Scale);
