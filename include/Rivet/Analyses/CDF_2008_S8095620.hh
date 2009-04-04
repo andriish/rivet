@@ -22,7 +22,7 @@ namespace Rivet {
 
 
     CDF_2008_S8095620()
-      : _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5)
+      : _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5),  _sumWeightSelected(0.0)
     { 
       setBeams(PROTON, ANTIPROTON);
 
@@ -34,7 +34,7 @@ namespace Rivet {
       std::vector<std::pair<long,long> > vids;
       vids.push_back(make_pair(ELECTRON, POSITRON));
       vids.push_back(make_pair(MUON, ANTIMUON));
-      FinalState fs2(-3.6, 3.6, 20*GeV);
+      FinalState fs2(-3.6, 3.6);
       InvMassFinalState invfs(fs2, vids, 76*GeV, 106*GeV);
       addProjection(invfs, "INVFS");
       // Make a final state without the Z decay products for jet clustering
@@ -133,6 +133,8 @@ namespace Rivet {
     double _Rjet;
     double _JetPtCut;
     double _JetEtaCut;
+    double _sumWeightSelected;
+ 
     //@{
     /// Histograms
     AIDA::IHistogram1D* _dSdET;
