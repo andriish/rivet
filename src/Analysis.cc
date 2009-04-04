@@ -12,7 +12,7 @@ namespace Rivet {
 
   Analysis::Analysis() 
     : _analysishandler(0),
-      _madeHistoDir(false), _vetoedWeightSum(0)
+      _madeHistoDir(false)
   { 
     _gotCrossSection = false;
     setBeams(ANY, ANY);
@@ -69,11 +69,7 @@ namespace Rivet {
   }
 
 
-  /// @deprecated Remove analysis-global weight vetoing
-  double Analysis::sumOfWeights() const { 
-    return handler().sumOfWeights() - _vetoedWeightSum; 
-  }
-
+  double Analysis::sumOfWeights() const { return handler().sumOfWeights(); }
 
   void Analysis::_cacheBinEdges() {
     _cacheXAxisData();
