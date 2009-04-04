@@ -15,8 +15,7 @@
 
 /// @def vetoEvent
 /// Preprocessor define for vetoing events, including the log message and return.
-#define vetoEvent(E) { vetoEventWeight(E); getLog() << Log::DEBUG << "Vetoing event on line " << __LINE__ << " of " << __FILE__ << endl; return; }
-
+#define vetoEvent(E) { getLog() << Log::DEBUG << "Vetoing event on line " << __LINE__ << " of " << __FILE__ << endl; return; }
 
 namespace Rivet {
 
@@ -211,10 +210,6 @@ namespace Rivet {
       return _crossSection;
     }
     
-    // Veto the current event by subtracting its weight from the tally.
-    void vetoEventWeight(const Event& e) {
-      _vetoedWeightSum += e.weight();
-    }
 
     /// Get a Log object based on the name() property of the calling analysis object.
     Log& getLog() const;
@@ -425,7 +420,6 @@ namespace Rivet {
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
 
-    double _vetoedWeightSum;
 
     /// Collection of x-axis point data to speed up many autobookings: the 
     /// AIDA reference file should only be read once.
