@@ -98,7 +98,7 @@ namespace Rivet {
     /// Publication references.
     vector<string> references() const {
       vector<string> ret;
-      ret += "Phys.Rev.D50,9,5562,1994";
+      ret += "Phys.Rev.D50,5562,1994";
       ret += "doi:10.1103/PhysRevD.50.5562";
       return ret;
     }
