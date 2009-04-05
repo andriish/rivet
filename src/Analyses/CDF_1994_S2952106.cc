@@ -107,8 +107,6 @@ namespace Rivet {
     const FastJets& jetpro = applyProjection<FastJets>(event, "ConeJets");
     getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
 
-    _fail = true;
-
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
     if (fabs(pv.position().z())/mm < _pvzmax) {
@@ -153,8 +151,7 @@ namespace Rivet {
           
           if (fabs(fabs(jet1stPt->phi()-jet2ndPt->phi())-PI) < _phimin) {
             getLog() << Log::DEBUG << "1st & 2nd Jet phi requirement fulfilled" << endl;
-            
-            _fail = false;
+         
 
             _histJet1Et->fill(jet1stPt->perp(), event.weight());
             _histJet2Et->fill(jet2ndPt->perp(), event.weight());
@@ -190,7 +187,6 @@ namespace Rivet {
       } //MET/sqrt(SET) cut
     } //z-vertex
 
-    if (_fail) vetoEvent(event); 
 
   }
   
@@ -214,20 +210,14 @@ namespace Rivet {
    /// @todo Same correction to be applied for _hisR23 and _histJet3eta histograms
    */
         
-    // Normalise histograms to integrated publication luminosity of 4.2 pb^-1 
-    //const double fac = 4.2 / picobarn * crossSection() / sumOfWeights();
-    const double fac = 1. / sumOfWeights();
     getLog() << Log::INFO 
-             << "Cross-section = " << crossSection()/picobarn << " pb"
-             << " -> scale factor = " << fac << endl;
-    _histJet1Et->scale(fac);
-    _histJet2Et->scale(fac);
-    _histR23->scale(fac);
-    _histJet3eta->scale(fac);
-
-    const double fac3j = 1. / _events3jPassed;
-
-    _histAlpha->scale(fac3j);
+             << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
+    // normalise to 1
+    normalize( _histJet1Et,1.0);
+    normalize( _histJet2Et,1.0);
+    normalize( _histR23,1.0);
+    normalize( _histJet3eta,1.0);
+    normalize( _histAlpha,1.0);
   }
   
   
