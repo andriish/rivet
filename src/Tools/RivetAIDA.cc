@@ -107,7 +107,7 @@ namespace Rivet {
     }
     // Write out the error
     /// @todo Rethrow as a general XML failure. 
-    catch (exception& e) {
+    catch (Exception& e) {
       cerr << e.what() << endl;
       throw;
     }
