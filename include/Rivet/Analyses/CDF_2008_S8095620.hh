@@ -56,7 +56,7 @@ namespace Rivet {
     //@{
     /// Get SPIRES ID code.
     string spiresId() const {
-      return "7782535";
+      return "8095620";
     }
     /// A short description of the analysis.
     string summary() const {
