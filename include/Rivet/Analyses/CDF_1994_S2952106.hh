@@ -120,10 +120,6 @@ namespace Rivet {
     /// Counter for the number of  3jet events passed
     double _events3jPassed;
 
-    ///control variable to check if event passed
-    bool _fail;
-
-
 
     /// @name Analysis cuts
     //@{
