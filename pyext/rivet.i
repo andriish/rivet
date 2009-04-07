@@ -12,15 +12,15 @@
   #include "Rivet/Projections/Beam.hh"
 %}
 
+// HepMC
+%include "hepmc.i"
 
 // STL stuff
 %include "std_string.i"
 %include "std_vector.i"
 %include "std_pair.i"
-// @RESTORE: %include "std_set.i"
 %include "std_map.i"
 %template(StrList) std::vector<std::string>;
-// @RESTORE: %template(StrSet) std::set<std::string>;
 
 
 // Histo format enum
@@ -39,10 +39,6 @@ namespace Rivet {
   %rename(setLogLevel) Log::setLevel(const std::string&, int);
 }
 %include "Rivet/Tools/Logging.hh"
-
-
- // Ignore set-returning method for now, until SL SWIG is compatible
- // %ignore Rivet::AnalysisLoader::getAllAnalysisNames;
 
 
 // Rivet class mappings
@@ -123,8 +119,6 @@ namespace Rivet {
 
   class AnalysisLoader {
   public:
-    //static std::vector<std::string> getAllAnalysisNames();
-    // @RESTORE: static std::set<std::string> getAllAnalysisNames();
     static Analysis* getAnalysis(const std::string& analysisname);
     static void closeAnalysisBuilders();    
   };

@@ -1,12 +1,21 @@
 #! /usr/bin/env python
 
 import sys, os, logging
-try:
-    sorted([])
-except:
-    def sorted(coll):
-        coll.sort()
-        return coll
+
+
+## Make "sorted" a builtin function on Python < 2.4
+if not 'sorted' in dir(__builtins__):
+    def sorted(iterable, cmp=None, key=None, reverse=None):
+        rtn = iterable
+        rtn.sort(cmp)
+        return rtn
+
+## Add logging.log if needed
+if not 'log' in dir(logging):
+    def _logit(level, msg):
+        l = logging.getLogger()
+        l.log(level, msg)
+    logging.log = _logit
 
 
 class Histo:
@@ -215,7 +224,12 @@ if __name__ == "__main__":
     verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
                          default=logging.INFO, help="be very quiet")
     opts, args = parser.parse_args()
-    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+
+    ## Configure logging
+    try:
+        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+    except:
+        logging.getLogger().setLevel(opts.LOGLEVEL)
 
 
     ## Initialise steering variables which need a bit more care

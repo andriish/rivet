@@ -16,7 +16,6 @@ if not 'sorted' in dir(__builtins__):
 if not 'log' in dir(logging):
     def _logit(level, msg):
         l = logging.getLogger()
-        l.addHandler(logging.StreamHandler())
         l.log(level, msg)
     logging.log = _logit
         
@@ -296,23 +295,26 @@ def logNEvt(n, starttime, maxevtnum):
         nevtloglevel = logging.WARNING + 5
     if n % 10000 == 0:
         nevtloglevel = logging.CRITICAL
-    timecurrent=time.time()
-    timeelapsed=timecurrent-starttime;
+    timecurrent = time.time()
+    timeelapsed = timecurrent - starttime;
     if maxevtnum is None:
-        logging.log(nevtloglevel, "Event %d ( %d s elapsed )" % (n, timeelapsed))
+        logging.log(nevtloglevel, "Event %d (%d s elapsed)" % (n, timeelapsed))
     else:
-        timeleft=(maxevtnum-n)/n*timeelapsed
-        eta=time.strftime("%a %b %d %H:%M", time.localtime(timecurrent+timeleft))
-        logging.log(nevtloglevel, "Event %d ( %d s elapsed / %d s left ) -> ETA: %s"
+        timeleft = (maxevtnum-n)/n*timeelapsed
+        eta = time.strftime("%a %b %d %H:%M", time.localtime(timecurrent + timeleft))
+        logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s"
                     % (n, timeelapsed, timeleft, eta))
 
 
 ## Here is where we first need the Python HepMC interface
-try:
-    import hepmc
-except:
-    sys.stderr.write(PROGNAME + " requires the 'hepmc' Python module\n");
-    sys.exit(1)
+# try:
+#     import hepmc
+# except:
+#     sys.stderr.write(PROGNAME + " requires the 'hepmc' Python module\n");
+#     sys.exit(1)
+## Working around for now by putting the Python HepMC mapping in Rivet
+hepmc = rivet
+
 
 ## Read and process events
 EVTNUM = 0

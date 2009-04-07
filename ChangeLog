@@ -1,3 +1,8 @@
+2009-04-07  Andy Buckley  <andy@insectnation.org>
+
+	* Moving HepMC SWIG mappings into Python Rivet module for now:
+	seems to work-around the SL type-mapping bug.
+
 2009-04-03  Andy Buckley  <andy@insectnation.org>
 
 	* Adding MC analysis for LHC UE: higher-pT replica of Tevatron
