@@ -1,5 +1,8 @@
 2009-04-07  Andy Buckley  <andy@insectnation.org>
 
+	* Adding $(DESTDIR) prefix to call to Python module "setup.py
+	install"
+
 	* Moving HepMC SWIG mappings into Python Rivet module for now:
 	seems to work-around the SL type-mapping bug.
 
