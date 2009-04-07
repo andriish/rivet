@@ -4,6 +4,7 @@
 #include "LWH/AnalysisFactory.h"
 #include "TinyXML/tinyxml.h"
 #include <sstream>
+#include <stdexcept>
 using namespace std;
 
 
@@ -107,7 +108,7 @@ namespace Rivet {
     }
     // Write out the error
     /// @todo Rethrow as a general XML failure. 
-    catch (Exception& e) {
+    catch (exception& e) {
       cerr << e.what() << endl;
       throw;
     }
