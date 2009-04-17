@@ -28,7 +28,7 @@ namespace Rivet {
     // Get beams and average beam momentum
     const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
     const double sumBeamMom = ( beams.first.momentum().vector3().mod() + 
-                                beams.second.momentum().vector3().mod() ) / 2.0;
+                                beams.second.momentum().vector3().mod() );
 
     if (inRange(sumBeamMom/GeV, 625, 635)) {
       _hist_multiplicity_630->fill(numParticles, weight);
