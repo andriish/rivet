@@ -24,8 +24,3 @@ libRivet_la_LIBADD  = \
   Tools/libRivetTools.la -ldl -lm \
   -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME) \
   $(FASTJETLIBADD)
-
-# if WITH_ROOT
-#   libRivet_la_LIBADD += $(ROOTLIBS)
-#   libRivet_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS)
-# endif

@@ -6,111 +6,109 @@
 namespace Rivet {
 
   void JADE_OPAL_2000_S4300807::analyze(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
-    const double weight = e.weight();
 
-    // are we running with a compatible CMS energy?
-    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-    double sbeams = beams.first.momentum().vector3().mod() + beams.second.momentum().vector3().mod();
-
-    if (sbeams<_sqrts-0.5 || sbeams>_sqrts+0.5) {
+    // Are we running with a compatible CMS energy?
+    const double sbeams = applyProjection<Beam>(e, "Beams").sqrtS();
+    if (fabs(sbeams - _sqrts)/GeV > 0.5) {
       getLog() << Log::ERROR 
-               << "CMS energy of events sqrt(s)=" << sbeams
-               <<" doesn't match analysis energy sqrt(s)=" << _sqrts << endl;
+               << "CMS energy of events sqrt(s) = " << sbeams
+               <<" doesn't match analysis energy sqrt(s) = " << _sqrts << endl;
+      /// @todo Really call exit()? I don't like the break of "command chain" that this implies
       exit(1);
     }
 
     // Jets
     #ifdef HAVE_JADE
     getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
+    const double weight = e.weight();
 
     const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
     if (jadejet.clusterSeq()) {
-      double y_23=jadejet.clusterSeq()->exclusive_dmerge_max(2);
-      double y_34=jadejet.clusterSeq()->exclusive_dmerge_max(3);
-      double y_45=jadejet.clusterSeq()->exclusive_dmerge_max(4);
-      double y_56=jadejet.clusterSeq()->exclusive_dmerge_max(5);
+      double y_23 = jadejet.clusterSeq()->exclusive_dmerge_max(2);
+      double y_34 = jadejet.clusterSeq()->exclusive_dmerge_max(3);
+      double y_45 = jadejet.clusterSeq()->exclusive_dmerge_max(4);
+      double y_56 = jadejet.clusterSeq()->exclusive_dmerge_max(5);
 
-      for (int i=0; i<_h_R_Jade[0]->size(); ++i) {
-        IDataPoint* dp=_h_R_Jade[0]->point(i);
+      for (int i = 0; i < _h_R_Jade[0]->size(); ++i) {
+        IDataPoint* dp = _h_R_Jade[0]->point(i);
         if (y_23 < dp->coordinate(0)->value()) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Jade[1]->size(); ++i) {
-        IDataPoint* dp=_h_R_Jade[1]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_34<ycut && y_23>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Jade[1]->size(); ++i) {
+        IDataPoint* dp = _h_R_Jade[1]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_34 < ycut && y_23 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Jade[2]->size(); ++i) {
-        IDataPoint* dp=_h_R_Jade[2]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_45<ycut && y_34>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Jade[2]->size(); ++i) {
+        IDataPoint* dp = _h_R_Jade[2]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_45 < ycut && y_34 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Jade[3]->size(); ++i) {
-        IDataPoint* dp=_h_R_Jade[3]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_56<ycut && y_45>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Jade[3]->size(); ++i) {
+        IDataPoint* dp = _h_R_Jade[3]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_56 < ycut && y_45 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Jade[4]->size(); ++i) {
-        IDataPoint* dp=_h_R_Jade[4]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_56>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Jade[4]->size(); ++i) {
+        IDataPoint* dp = _h_R_Jade[4]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_56 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
     }
 
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     if (durjet.clusterSeq()) {
-      double y_23=durjet.clusterSeq()->exclusive_dmerge_max(2);
-      double y_34=durjet.clusterSeq()->exclusive_dmerge_max(3);
-      double y_45=durjet.clusterSeq()->exclusive_dmerge_max(4);
-      double y_56=durjet.clusterSeq()->exclusive_dmerge_max(5);
+      double y_23 = durjet.clusterSeq()->exclusive_dmerge_max(2);
+      double y_34 = durjet.clusterSeq()->exclusive_dmerge_max(3);
+      double y_45 = durjet.clusterSeq()->exclusive_dmerge_max(4);
+      double y_56 = durjet.clusterSeq()->exclusive_dmerge_max(5);
 
       _h_y_Durham[0]->fill(y_23, weight);
       _h_y_Durham[1]->fill(y_34, weight);
       _h_y_Durham[2]->fill(y_45, weight);
       _h_y_Durham[3]->fill(y_56, weight);
 
-      for (int i=0; i<_h_R_Durham[0]->size(); ++i) {
-        IDataPoint* dp=_h_R_Durham[0]->point(i);
+      for (int i = 0; i < _h_R_Durham[0]->size(); ++i) {
+        IDataPoint* dp = _h_R_Durham[0]->point(i);
         if (y_23 < dp->coordinate(0)->value()) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Durham[1]->size(); ++i) {
-        IDataPoint* dp=_h_R_Durham[1]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_34<ycut && y_23>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Durham[1]->size(); ++i) {
+        IDataPoint* dp = _h_R_Durham[1]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_34 < ycut && y_23 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Durham[2]->size(); ++i) {
-        IDataPoint* dp=_h_R_Durham[2]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_45<ycut && y_34>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Durham[2]->size(); ++i) {
+        IDataPoint* dp = _h_R_Durham[2]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_45 < ycut && y_34 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Durham[3]->size(); ++i) {
-        IDataPoint* dp=_h_R_Durham[3]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_56<ycut && y_45>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Durham[3]->size(); ++i) {
+        IDataPoint* dp = _h_R_Durham[3]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_56 < ycut && y_45 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
-      for (int i=0; i<_h_R_Durham[4]->size(); ++i) {
-        IDataPoint* dp=_h_R_Durham[4]->point(i);
-        double ycut=dp->coordinate(0)->value();
-        if (y_56>ycut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()+weight);
+      for (int i = 0; i < _h_R_Durham[4]->size(); ++i) {
+        IDataPoint* dp = _h_R_Durham[4]->point(i);
+        double ycut = dp->coordinate(0)->value();
+        if (y_56 > ycut) {
+          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
         }
       }
     }

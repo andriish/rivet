@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
 #include "Rivet/Analyses/D0_2001_S4674421.hh" 
-#include "AIDA/IDataPoint.h"
 
 namespace Rivet {
 
@@ -63,7 +62,7 @@ namespace Rivet {
 
   void D0_2001_S4674421::analyze(const Event& event) {
     const double weight = event.weight();
-     
+    
     const LeadingParticlesFinalState& eeFS = applyProjection<LeadingParticlesFinalState>(event, "eeFS");
     if (eeFS.particles().size() == 2) {
       // If there is a Z candidate:

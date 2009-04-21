@@ -7,30 +7,14 @@
 
 /** @cond DONT_DOCUMENT_STRIPPED_DOWN_AIDA_INTERFACES */
 
+#include "AIBaseHistogram.h"
+
 namespace AIDA {
 
 class IAnnotation;
 
 
-class IBaseHistogram {
-
-public:
-
-  virtual ~IBaseHistogram() {}
-
-  virtual std::string title() const = 0;
-  virtual bool setTitle(const std::string & title) = 0;
-  virtual int dimension() const = 0;
-  virtual bool reset() = 0;
-  virtual int entries() const = 0;
-
-};
-
 class IProfile : virtual public IBaseHistogram {
-
-public:
-
-    virtual ~IProfile() {}
 
     virtual int allEntries() const = 0;
     virtual int extraEntries() const = 0;
@@ -41,6 +25,7 @@ public:
     virtual double maxBinHeight() const = 0;
 
 };
+
 
 class IAxis;
 
@@ -73,4 +58,3 @@ public:
 #endif
 
 #endif /* LWH_AIProfile1D_H */
-

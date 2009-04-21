@@ -40,7 +40,7 @@ namespace Rivet {
 
   // Do the analysis 
   void D0_2009_S8202443::analyze(const Event & e) {
-    double weight = e.weight();
+    // double weight = e.weight();
 
     const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
     if (zfinder.particles().size()!=1) {

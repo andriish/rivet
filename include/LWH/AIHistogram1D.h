@@ -1,28 +1,17 @@
 // -*- C++ -*-
-#ifndef LWH_AIHistorgram1D_H
-#define LWH_AIHistorgram1D_H
+#ifndef LWH_AIHistogram1D_H
+#define LWH_AIHistogram1D_H
 
 #ifndef LWH_USING_AIDA
 
 /** @cond DONT_DOCUMENT_STRIPPED_DOWN_AIDA_INTERFACES */
 
+#include "AIBaseHistogram.h"
+
 namespace AIDA {
 
 class IAnnotation;
 
-class IBaseHistogram {
-
-public: 
-
-  virtual ~IBaseHistogram() {}
-
-  virtual std::string title() const = 0;
-  virtual bool setTitle(const std::string & title) = 0;
-  virtual int dimension() const = 0;
-  virtual bool reset() = 0;
-  virtual int entries() const = 0;
-
-};
 
 class IHistogram : virtual public IBaseHistogram {
 
@@ -71,4 +60,4 @@ public:
 #include "AIDA/IHistogram1D.h"
 #endif
 
-#endif /* LWH_AIHistorgram1D_H */
+#endif /* LWH_AIHistogram1D_H */

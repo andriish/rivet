@@ -9,8 +9,8 @@ using namespace std;
 
 
 
-/// "Plugin" function to return an AIDA system (LWH impl.)
-extern "C" AIDA::IAnalysisFactory* AIDA_createAnalysisFactory() {
+/// Get an AIDA system (LWH impl.)
+AIDA::IAnalysisFactory* createAnalysisFactory() {
   return new LWH::AnalysisFactory();
 }
 

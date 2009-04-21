@@ -19,14 +19,14 @@ class IDataPoint;
  *
  */
 
-class IDataPointSet {
+  class IDataPointSet {
 
-public: 
+  public: 
     virtual ~IDataPointSet() { /* nop */; }
     virtual IAnnotation & annotation() = 0;
     virtual const IAnnotation & annotation() const = 0;
-    virtual std::string title() const = 0;
-    virtual bool setTitle(const std::string & title) = 0;
+    //virtual std::string title() const = 0;
+    // virtual bool setTitle(const std::string & title) = 0;
     virtual int dimension() const = 0;
     virtual void clear() = 0;
     virtual int size() const = 0;
@@ -43,7 +43,83 @@ public:
     virtual bool scaleValues(double scaleFactor) = 0;
     virtual bool scaleErrors(double scaleFactor) = 0;
     virtual void * cast(const std::string & className) const = 0;
-};
+
+
+    ///////////////////////////////////
+
+
+    /**
+     * Get the main title.
+     * @return The title.
+     *
+     */
+    std::string title() const {
+      return theTitle;
+    }
+
+    /**
+     * Set the main title.
+     * @param title The new title.
+     * @return false If the title cannot be set.
+     *
+     */
+    bool setTitle(const std::string & title) {
+      theTitle = title;
+      return true;
+    }
+
+
+
+    /**
+     * Get the x-axis title.
+     * @return The title.
+     *
+     */
+    std::string xtitle() const {
+      return theXTitle;
+    }
+
+    /**
+     * Set the x-axis title.
+     * @param title The new title.
+     * @return false If the title cannot be set.
+     *
+     */
+    bool setXTitle(const std::string & xtitle) {
+      theXTitle = xtitle;
+      return true;
+    }
+
+
+
+    /**
+     * Get the y-axis title.
+     * @return The title.
+     *
+     */
+    std::string ytitle() const {
+      return theYTitle;
+    }
+
+    /**
+     * Set the y-axis title.
+     * @param title The new title.
+     * @return false If the title cannot be set.
+     *
+     */
+    bool setYTitle(const std::string & ytitle) {
+      theYTitle = ytitle;
+      return true;
+    }
+
+
+  protected:
+    std::string theTitle;
+    std::string theXTitle;
+    std::string theYTitle;
+
+  };
+
 
 }
 

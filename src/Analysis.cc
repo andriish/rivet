@@ -112,10 +112,11 @@ namespace Rivet {
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
                                           const size_t yAxisId, const string& title) {
     const string hname = histoPath(_makeAxisCode(datasetId, xAxisId, yAxisId));
-    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for histo " << hname << "!" << endl;
     return bookHistogram1D(datasetId, xAxisId, yAxisId, title, "", "");
   }
 
@@ -131,14 +132,15 @@ namespace Rivet {
     const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
     getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
-    //hist->setXAxisTitle(xtitle);
-    //hist->setYAxisTitle(ytitle);
+    hist->setXTitle(xtitle);
+    hist->setYTitle(ytitle);
     return hist;
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title) {
-    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for histo " << hname << "!" << endl;
     return bookHistogram1D(hname, title, "", "");
   }
 
@@ -150,15 +152,16 @@ namespace Rivet {
     const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
     getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
-    //hist->setXAxisTitle(xtitle);
-    //hist->setYAxisTitle(ytitle);
+    hist->setXTitle(xtitle);
+    hist->setYTitle(ytitle);
     return hist;
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title,
                                           const size_t nbins, const double lower, const double upper) {
-    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for histo " << hname << "!" << endl;
     return bookHistogram1D(hname, title, "", "", nbins, lower, upper);
   }
 
@@ -170,15 +173,16 @@ namespace Rivet {
     const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, binedges);
     getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
-    //hist->setXAxisTitle(xtitle);
-    //hist->setYAxisTitle(ytitle);
+    hist->setXTitle(xtitle);
+    hist->setYTitle(ytitle);
     return hist;
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title,
                                           const vector<double>& binedges) {
-    getLog() << Log::DEBUG << "Please add axis labels for histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for histo " << hname << "!" << endl;
     return bookHistogram1D(hname, title, "", "", binedges);
   }
 
@@ -194,10 +198,11 @@ namespace Rivet {
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
                                       const size_t yAxisId, const string& title) {
     const string hname = histoPath(_makeAxisCode(datasetId, xAxisId, yAxisId));
-    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for profile histo " << hname << "!" << endl;
     return bookProfile1D(datasetId, xAxisId, yAxisId, title, "", "");
   }
 
@@ -220,14 +225,15 @@ namespace Rivet {
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
-    //prof->setXAxisTitle(xtitle);
-    //prof->setYAxisTitle(ytitle);    
+    prof->setXTitle(xtitle);
+    prof->setYTitle(ytitle);    
     return prof;
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IProfile1D* Analysis::bookProfile1D(const std::string& hname, const std::string& title) {
-    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for profile histo " << hname << "!" << endl;
     return bookProfile1D(hname, title, "", "");
   }
 
@@ -239,15 +245,16 @@ namespace Rivet {
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, nbins, lower, upper);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
-    //prof->setXAxisTitle(xtitle);
-    //prof->setYAxisTitle(ytitle);    
+    prof->setXTitle(xtitle);
+    prof->setYTitle(ytitle);    
     return prof;
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title,
                                       const size_t nbins, const double lower, const double upper) {
-    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for profile histo " << hname << "!" << endl;
     return bookProfile1D(hname, title, "", "", nbins, lower, upper);
   }
 
@@ -259,15 +266,16 @@ namespace Rivet {
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, binedges);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
-    //prof->setXAxisTitle(xtitle);
-    //prof->setYAxisTitle(ytitle);    
+    prof->setXTitle(xtitle);
+    prof->setYTitle(ytitle);    
     return prof;
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title, 
                                       const vector<double>& binedges) {
-    getLog() << Log::DEBUG << "Please add axis labels for profile histo " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for profile histo " << hname << "!" << endl;
     return bookProfile1D(hname, title, "", "", binedges);
   }
 
@@ -284,14 +292,15 @@ namespace Rivet {
     const string path = histoPath(hname);
     IDataPointSet* dps = datapointsetFactory().create(path, title, 2);
     getLog() << Log::TRACE << "Made data point set " << hname <<  " for " << name() << endl;
-    //dps->setXAxisTitle(xtitle);
-    //dps->setYAxisTitle(ytitle); 
+    dps->setXTitle(xtitle);
+    dps->setYTitle(ytitle); 
     return dps;
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title) {
-    getLog() << Log::DEBUG << "Please add axis labels for data point set " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for data point set " << hname << "!" << endl;
     return bookDataPointSet(hname, title, "", "");
   }
 
@@ -313,9 +322,10 @@ namespace Rivet {
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title,
                                             const size_t npts, const double lower, const double upper) {
-    getLog() << Log::DEBUG << "Please add axis labels for data point set " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for data point set " << hname << "!" << endl;
     return bookDataPointSet(hname, title, "", "", npts, lower, upper);
   }
 
@@ -343,10 +353,11 @@ namespace Rivet {
   }
 
 
+  /// @deprecated Use the version with axis labels; this version will complain verbosely at runtime!
   IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
                                             const size_t yAxisId, const string& title) {
     const string hname = histoPath(_makeAxisCode(datasetId, xAxisId, yAxisId));
-    getLog() << Log::DEBUG << "Please add axis labels for data point set " << hname << "!" << endl;
+    getLog() << Log::INFO << "Please add axis labels for data point set " << hname << "!" << endl;
     return bookDataPointSet(datasetId, xAxisId, yAxisId, title, "", "");
   }
   

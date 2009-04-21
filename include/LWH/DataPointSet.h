@@ -29,7 +29,7 @@ using namespace std;
  * one DataPointSet representing the X axis, while a 2D Histogram would have two
  * axes representing the X and Y DataPointSet.
  */
-class DataPointSet: public IDataPointSet, public ManagedObject {
+  class DataPointSet: public IDataPointSet, public ManagedObject {
 
 public:
 
@@ -64,9 +64,9 @@ public:
    * Get the data set's title.
    * @return The data set's title.
    */
-  std::string title() const {
-    return theTitle;
-  }
+  // std::string title() const {
+  //   return theTitle;
+  // }
 
   /**
    * Get the data set's title.
@@ -81,10 +81,10 @@ public:
    * @param title The title.
    * @return false If title cannot be changed.
    */
-  bool setTitle(const std::string & title) {
-    theTitle = title;
-    return true;
-  }
+  // bool setTitle(const std::string & title) {
+  //   theTitle = title;
+  //   return true;
+  // }
 
   /**
    * Get the dimension of the IDataPoints that can be stored in the set.
@@ -415,7 +415,7 @@ public:
 private:
 
   /** The title */
-  std::string theTitle;
+  // std::string theTitle;
 
   /**
    * The included data points.

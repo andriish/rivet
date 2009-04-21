@@ -8,10 +8,6 @@ dist_noinst_HEADERS = binreloc.h
 
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) \
   -I$(top_srcdir)/include/TinyXML \
-  -DLWH_USING_AIDA -DENABLE_BINRELOC \
+  -DENABLE_BINRELOC \
   -DDEFAULTDATADIR=\"$(datadir)\" \
   -DDEFAULTLIBDIR=\"$(libdir)\"
-
-# if WITH_ROOT
-#   libRivetTools_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS) -fpermissive
-# endif

@@ -7,20 +7,22 @@
 // Include files
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.fhh"
-#include "AIDA/IAnalysisFactory.h"
-#include "AIDA/IHistogramFactory.h"
-#include "AIDA/IHistogram1D.h"
-#include "AIDA/IProfile1D.h"
-#include "AIDA/ITreeFactory.h"
-#include "AIDA/IDataPointSetFactory.h"
-#include "AIDA/IDataPointSet.h"
-#include "AIDA/IDataPoint.h"
-#include "AIDA/IMeasurement.h"
-#include "AIDA/ITree.h"
-#include "AIDA/IAxis.h"
+#include "LWH/AIAnalysisFactory.h"
+#include "LWH/AIHistogramFactory.h"
+#include "LWH/AIHistogram1D.h"
+#include "LWH/AIProfile1D.h"
+#include "LWH/AITreeFactory.h"
+#include "LWH/AIDataPointSetFactory.h"
+#include "LWH/AIDataPointSet.h"
+#include "LWH/AIDataPoint.h"
+#include "LWH/AIMeasurement.h"
+#include "LWH/AITree.h"
+#include "LWH/AIAxis.h"
 
 
 namespace Rivet {
+
+  AIDA::IAnalysisFactory* createAnalysisFactory();
 
   /// Function to get a map of all the bin edge vectors in a paper with the
   /// given @a papername.
