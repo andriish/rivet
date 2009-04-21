@@ -3,7 +3,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "AIDA/IManagedObject.h"
+#include "LWH/AIManagedObject.h"
 
 using namespace AIDA;
 
