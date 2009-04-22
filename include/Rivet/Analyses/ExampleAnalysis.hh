@@ -3,15 +3,9 @@
 #define RIVET_ExampleAnalysis_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/Multiplicity.hh"
-#include "Rivet/Projections/Thrust.hh"
-#include "Rivet/Projections/Sphericity.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {
+
 
   /// @brief Just measures a few random things as an example.
   class ExampleAnalysis : public Analysis {

@@ -75,16 +75,16 @@ AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 
 ## FastJet library
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
-## Decide/determine whether to build with FastJet JADE + Durham support
-AC_ARG_ENABLE(jade, [AC_HELP_STRING(--enable-jade, 
-  [use JADE support from patched FastJet @<:@default=no@:>@])], 
-  [], [enable_jade=no])
-AC_MSG_CHECKING([whether to try and use the FastJet JADE + Durham plugin patch])
-AC_MSG_RESULT($enable_jade)
-AM_CONDITIONAL(ENABLE_JADE, [test x$enable_jade != xno])
-#
 AC_PATH_PROG(FJCONFIG, fastjet-config, [], $FASTJETPATH/bin)
 if test -f "$FJCONFIG"; then
+  AC_MSG_CHECKING([FastJet version using fastjet-config])
+  fjversion=$($FJCONFIG --version)
+  AC_MSG_RESULT([$fjversion])
+  fjmajor=$(echo $fjversion | cut -f1 -d.)
+  fjminor=$(echo $fjversion | cut -f2 -d.)
+  if test "$fjmajor" -gt 2 -o "$fjmajor" -eq 2 -a "$fjminor" -ge 4; then
+    AC_MSG_ERROR([FastJet version 2.4.0 or later is required])
+  fi
   FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs)";
 else
   FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";

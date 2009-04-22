@@ -39,9 +39,10 @@ namespace Rivet {
     Vector3 diff(vtx3pos.x()-trk3pos.x(), vtx3pos.y()-trk3pos.y(), vtx3pos.z()-trk3pos.z());
     
     // Impact parameter in 3 dimensions
+    const double mag = sqrt( sqr(trk3vec.x()) + sqr(trk3vec.y()) + sqr(trk3vec.z()) );
     const double d = sqrt( sqr(trk3vec.y()*diff.z()-trk3vec.z()*diff.y()) - 
                            sqr(trk3vec.x()*diff.z()-trk3vec.z()*diff.x()) +
-                           sqr(trk3vec.x()*diff.y()-trk3vec.y()*diff.x()) ) / trk3vec.mag();
+                           sqr(trk3vec.x()*diff.y()-trk3vec.y()*diff.x()) ) / mag;
     return d;
   }
 

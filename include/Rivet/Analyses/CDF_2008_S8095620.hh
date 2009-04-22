@@ -3,57 +3,34 @@
 #define RIVET_CDF_2008_S8095620_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/InvMassFinalState.hh"
+
 namespace Rivet {
 
 
   /// Implementation of CDF Run II Z+b-jet cross section paper
-
   class CDF_2008_S8095620 : public Analysis {
 
   public:
 
+
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor.
-
     /// jet cuts: |eta| <= 1.5
-
-
-    CDF_2008_S8095620()
-      : _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5),  _sumWeightSelected(0.0)
-    { 
-      setBeams(PROTON, ANTIPROTON);
-
-      const FinalState fs(-3.6, 3.6);
-      addProjection(fs, "FS");
-
-      // Create a final state with any e+e- or mu+mu- pair with 
-      // invariant mass 76 -> 106 GeV and ET > 20 (Z decay products)
-      std::vector<std::pair<long,long> > vids;
-      vids.push_back(make_pair(ELECTRON, POSITRON));
-      vids.push_back(make_pair(MUON, ANTIMUON));
-      FinalState fs2(-3.6, 3.6);
-      InvMassFinalState invfs(fs2, vids, 76*GeV, 106*GeV);
-      addProjection(invfs, "INVFS");
-      // Make a final state without the Z decay products for jet clustering
-      VetoedFinalState vfs(fs);
-      vfs.addVetoOnThisFinalState(invfs);
-      addProjection(vfs, "VFS");
-      addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-
-    }
-
+    CDF_2008_S8095620();
 
     /// Factory method
     static Analysis* create() { 
       return new CDF_2008_S8095620(); 
     }
 
+    //@}
+
 
     /// @name Publication metadata
     //@{
+
     /// Get SPIRES ID code.
     string spiresId() const {
       return "8095620";

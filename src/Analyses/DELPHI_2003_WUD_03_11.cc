@@ -3,8 +3,26 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/DELPHI_2003_WUD_03_11.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  DELPHI_2003_WUD_03_11::DELPHI_2003_WUD_03_11() 
+  {
+    const ChargedFinalState cfs;
+    addProjection(cfs, "FS");
+    #ifdef HAVE_JADE
+    addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
+    addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+    #endif
+    _numdurjets = 0;
+    _numjadejets = 0;
+  }
+
 
   double DELPHI_2003_WUD_03_11::calc_BZ(std::vector<fastjet::PseudoJet> jets) {
     assert(jets.size()==4);

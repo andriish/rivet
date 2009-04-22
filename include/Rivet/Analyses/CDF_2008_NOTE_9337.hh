@@ -2,10 +2,7 @@
 #ifndef RIVET_CDF_2008_NOTE_9337_HH
 #define RIVET_CDF_2008_NOTE_9337_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
@@ -33,16 +30,7 @@ namespace Rivet {
 
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2008_NOTE_9337()
-    { 
-      setBeams(PROTON, ANTIPROTON);
-      const FinalState fs(-1.0, 1.0, 0.0*GeV);
-      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
-      addProjection(fs, "FS");
-      addProjection(cfs, "CFS");
-      setNeedsCrossSection(true);
-    }
-
+    CDF_2008_NOTE_9337();
 
     /// Factory method
     static Analysis* create() {

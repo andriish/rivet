@@ -4,8 +4,6 @@
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
@@ -31,18 +29,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    DELPHI_2003_WUD_03_11() 
-    {
-      const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      #ifdef HAVE_JADE
-      addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-      #endif
-      _numdurjets = 0;
-      _numjadejets = 0;
-    }
-
+    DELPHI_2003_WUD_03_11();
 
     /// Factory method.
     static Analysis* create() { 
@@ -118,6 +105,7 @@ namespace Rivet {
     virtual void init();
     virtual void analyze(const Event& event);
     virtual void finalize();
+
     double calc_BZ(std::vector<fastjet::PseudoJet> jets);
     double calc_KSW(std::vector<fastjet::PseudoJet> jets);
     double calc_NR(std::vector<fastjet::PseudoJet> jets);

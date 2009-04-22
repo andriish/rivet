@@ -3,8 +3,6 @@
 #define RIVET_D0_2008_S6879055_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {
 

@@ -3,9 +3,6 @@
 #define RIVET_D0_2006_S6438750_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
-#include "Rivet/Projections/IsolationTools.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {
 
@@ -17,6 +14,9 @@ namespace Rivet {
 
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Default constructor.
      D0_2006_S6438750();
 
@@ -24,6 +24,9 @@ namespace Rivet {
     static Analysis* create() {
       return new D0_2006_S6438750();
     }
+
+    //@}
+
 
     /// @name Publication metadata
     //@{

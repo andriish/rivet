@@ -2,8 +2,29 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/JADE_OPAL_2000_S4300807.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  JADE_OPAL_2000_S4300807::JADE_OPAL_2000_S4300807(double sqrts, int nr_R_Jade,
+						   int nr_R_Durham, int nr_y_Durham) :
+    _sqrts(sqrts), _nr_R_Jade(nr_R_Jade),
+    _nr_R_Durham(nr_R_Durham), _nr_y_Durham(nr_y_Durham)
+  {
+    setBeams(ELECTRON, POSITRON); 
+    addProjection(Beam(), "Beams");
+    const FinalState fs;
+    addProjection(fs, "FS");
+    #ifdef HAVE_JADE
+    addProjection(FastJets(fs, FastJets::JADE, 0.7), "JadeJets");
+    addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+    #endif
+  }
+
 
   void JADE_OPAL_2000_S4300807::analyze(const Event& e) {
 

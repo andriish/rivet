@@ -1,7 +1,11 @@
 // -*- C++ -*-
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/CDF_2005_S6217184.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/PVertex.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/JetShape.hh"
 
 namespace Rivet {
 

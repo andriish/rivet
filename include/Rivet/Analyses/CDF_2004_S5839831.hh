@@ -2,12 +2,8 @@
 #ifndef RIVET_CDF_2004_S5839831_HH
 #define RIVET_CDF_2004_S5839831_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/TrackJet.hh"
+#include "Rivet/Jet.hh"
 
 namespace Rivet {
 

@@ -1,12 +1,22 @@
 // -*- C++ -*-
-
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/CDF_2008_NOTE_9351.hh"
-#include "Rivet/RivetAIDA.hh"
-
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/ChargedLeptons.hh"
 
 namespace Rivet {
+
+
+  CDF_2008_NOTE_9351::CDF_2008_NOTE_9351()
+  { 
+    setBeams(PROTON, ANTIPROTON);
+    const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+    const ChargedFinalState clfs(-1.0, 1.0, 20*GeV);
+    addProjection(cfs, "FS");
+    addProjection(ChargedLeptons(clfs), "CL");
+  }
 
 
   // Book histograms

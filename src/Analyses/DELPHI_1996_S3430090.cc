@@ -3,9 +3,17 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/DELPHI_1996_S3430090.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/Sphericity.hh"
+#include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/ParisiTensor.hh"
+#include "Rivet/Projections/Hemispheres.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
-
 
 
   DELPHI_1996_S3430090::DELPHI_1996_S3430090() 

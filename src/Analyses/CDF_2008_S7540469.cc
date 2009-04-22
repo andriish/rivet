@@ -5,6 +5,8 @@
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/D0ILConeJets.hh"
+#include "Rivet/Projections/IsolationTools.hh"
 #include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {

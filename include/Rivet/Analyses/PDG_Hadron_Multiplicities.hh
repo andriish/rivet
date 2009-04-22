@@ -3,10 +3,6 @@
 #define RIVET_PDG_Hadron_Multiplicities_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
 
@@ -21,14 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    PDG_HADRON_MULTIPLICITIES() 
-    {
-      setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
-    }
-
+    PDG_HADRON_MULTIPLICITIES();
 
     /// Factory method.
     static Analysis* create() { 

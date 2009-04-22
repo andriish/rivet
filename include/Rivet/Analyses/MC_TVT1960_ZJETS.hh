@@ -3,8 +3,6 @@
 #define RIVET_MC_TVT1960_ZJETS_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/IsolationTools.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {
 

@@ -3,6 +3,10 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/DELPHI_2002_069_CONF_603.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/InitialQuarks.hh"
 
 /// @todo Use inline function rather than preprocessor, and use ParticleName enum values.
 /// @todo Put these in a PID utility header? (isParton(id) would be a good candidate for inclusion in HepMC)
@@ -10,6 +14,16 @@
 #define IS_BHADRON_PDGID(id) ( ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999) )
 
 namespace Rivet {
+
+
+  // Constructor
+  DELPHI_2002_069_CONF_603::DELPHI_2002_069_CONF_603() 
+  {
+    setBeams(ELECTRON, POSITRON); 
+    addProjection(Beam(), "Beams");
+    addProjection(ChargedFinalState(), "FS");
+    addProjection(InitialQuarks(), "IQF");
+  }
 
 
   void DELPHI_2002_069_CONF_603::analyze(const Event& e) {

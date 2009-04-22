@@ -2,12 +2,15 @@
 // "Acosta" underlying event analysis at CDF, inc. "Swiss Cheese"
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/CDF_2004_S5839831.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/TrackJet.hh"
 
 namespace Rivet {
-
 
 
   CDF_2004_S5839831::CDF_2004_S5839831() {

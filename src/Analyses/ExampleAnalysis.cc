@@ -1,7 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/ExampleAnalysis.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Analyses/ExampleAnalysis.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/Multiplicity.hh"
+#include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/Sphericity.hh"
 
 namespace Rivet {
 

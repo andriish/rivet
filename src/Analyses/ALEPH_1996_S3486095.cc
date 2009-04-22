@@ -3,8 +3,56 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/ALEPH_1996_S3486095.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/Sphericity.hh"
+#include "Rivet/Projections/Thrust.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/ParisiTensor.hh"
+#include "Rivet/Projections/Hemispheres.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  ALEPH_1996_S3486095::ALEPH_1996_S3486095() 
+  {
+    setBeams(ELECTRON, POSITRON); 
+    addProjection(Beam(), "Beams");
+    const ChargedFinalState cfs;
+    addProjection(cfs, "FS");
+    addProjection(UnstableFinalState(), "UFS");
+    #ifdef HAVE_JADE
+    //addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
+    addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+    #endif
+    addProjection(Sphericity(cfs), "Sphericity");
+    addProjection(ParisiTensor(cfs), "Parisi");
+    const Thrust thrust(cfs);
+    addProjection(thrust, "Thrust");
+    addProjection(Hemispheres(thrust), "Hemispheres");
+    _numChParticles               = 0;
+    _weightedTotalPartNum         = 0;
+    _weightedTotalNumPiPlus       = 0;       
+    _weightedTotalNumKPlus        = 0;      
+    _weightedTotalNumP            = 0;     
+    _weightedTotalNumPhoton       = 0;    
+    _weightedTotalNumPi0          = 0;   
+    _weightedTotalNumEta          = 0;  
+    _weightedTotalNumEtaPrime     = 0; 
+    _weightedTotalNumK0           = 0;
+    _weightedTotalNumLambda0      = 0;
+    _weightedTotalNumXiMinus      = 0;
+    _weightedTotalNumSigma1385Plus= 0;
+    _weightedTotalNumXi1530_0     = 0;
+    _weightedTotalNumRho          = 0;
+    _weightedTotalNumOmega782     = 0;
+    _weightedTotalNumKStar892_0   = 0;
+    _weightedTotalNumPhi          = 0;
+    _weightedTotalNumKStar892Plus = 0;
+  }
 
 
   void ALEPH_1996_S3486095::analyze(const Event& e) {

@@ -3,10 +3,6 @@
 #define RIVET_DELPHI_1995_S3137023_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
 
@@ -21,16 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    DELPHI_1995_S3137023() 
-    {
-      setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
-      _weightedTotalNumXiMinus = 0;
-      _weightedTotalNumSigma1385Plus = 0;
-    }
-
+    DELPHI_1995_S3137023();
 
     /// Factory method.
     static Analysis* create() { 

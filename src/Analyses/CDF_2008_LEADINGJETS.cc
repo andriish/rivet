@@ -1,11 +1,32 @@
 // -*- C++ -*-
-
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/CDF_2008_LEADINGJETS.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
+
+
+  CDF_2008_LEADINGJETS::CDF_2008_LEADINGJETS()
+  { 
+    setBeams(PROTON, ANTIPROTON);
+    
+    // Final state for the jet finding
+    const FinalState fsj(-4.0, 4.0, 0.0*GeV);
+    addProjection(fsj, "FSJ");
+    addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
+    
+    // Final state for the sum(ET) distributions
+    const FinalState fs(-1.0, 1.0, 0.0*GeV);
+    addProjection(fs, "FS");
+    
+    // Charged final state for the distributions
+    const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+    addProjection(cfs, "CFS");
+  }
 
 
   // Book histograms

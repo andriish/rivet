@@ -3,10 +3,6 @@
 #define RIVET_OPAL_1998_S3780481_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
 
@@ -21,18 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    OPAL_1998_S3780481() 
-    {
-      setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(InitialQuarks(), "IQF");
-      _weightedTotalPartNum = 0;
-      _SumOfudsWeights = 0;
-      _SumOfcWeights = 0;
-      _SumOfbWeights = 0;
-    }
-
+    OPAL_1998_S3780481();
 
     /// Factory method.
     static Analysis* create() { 

@@ -4,6 +4,9 @@
 #include "Rivet/Analyses/CDF_1990_S2089246.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/PVertex.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
 
 namespace Rivet {
 

@@ -2,6 +2,8 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/ALEPH_1991_S2435284.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/Multiplicity.hh"
 
 namespace Rivet {
 

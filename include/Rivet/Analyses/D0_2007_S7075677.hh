@@ -3,7 +3,6 @@
 #define RIVET_D0_2007_S7075677_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
 
 namespace Rivet {
 

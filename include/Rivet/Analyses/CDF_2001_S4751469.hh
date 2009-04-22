@@ -2,11 +2,7 @@
 #ifndef RIVET_CDF_2001_S4751469_HH
 #define RIVET_CDF_2001_S4751469_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/TrackJet.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/LossyFinalState.hh"
 
 namespace Rivet {
 

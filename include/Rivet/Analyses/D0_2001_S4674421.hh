@@ -3,10 +3,6 @@
 #define RIVET_D0_2001_S4674421_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
-#include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {  
 

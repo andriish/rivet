@@ -31,6 +31,5 @@ libRivetProjections_la_SOURCES = \
   VetoedFinalState.cc \
   ZFinder.cc
 
-if ENABLE_JADE
-  AM_CXXFLAGS += -DHAVE_JADE
-endif
+## TODO: remove, or -> HAVE_FJDURHAM
+AM_CXXFLAGS += -DHAVE_JADE

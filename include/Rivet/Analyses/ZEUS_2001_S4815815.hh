@@ -3,9 +3,6 @@
 #define RIVET_ZEUS_2001_S4815815_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FastJets.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {
 
@@ -20,12 +17,7 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    ZEUS_2001_S4815815() { 
-      setBeams(POSITRON, PROTON);
-      FinalState fs;
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs), "Jets");
-    }
+    ZEUS_2001_S4815815();
 
     /// Factory method.
     static Analysis* create() { 

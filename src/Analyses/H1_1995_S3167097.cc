@@ -1,7 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
-#include "Rivet/Analyses/H1_1995_S3167097.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Analyses/H1_1995_S3167097.hh"
+#include "Rivet/Projections/FinalStateHCM.hh"
+#include "Rivet/Projections/CentralEtHCM.hh"
 
 namespace Rivet {
 
@@ -9,6 +11,16 @@ namespace Rivet {
   const double H1_1995_S3167097::_xmin = -6.0;
   const double H1_1995_S3167097::_xmax = 6.0;
 
+
+  H1_1995_S3167097::H1_1995_S3167097() { 
+    setBeams(ELECTRON, PROTON);
+    const DISLepton& lepton = addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
+    const DISKinematics& diskin = addProjection(DISKinematics(lepton, PROTON), "Kinematics");
+    const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");
+    addProjection(CentralEtHCM(fshcm), "Y1HCM");
+    //addCut("x", MORE_EQ, _xmin);
+    //addCut("x", LESS_EQ, _xmax);
+  }
 
 
   void H1_1995_S3167097::init() {
@@ -27,9 +39,9 @@ namespace Rivet {
     _hN    = bookHistogram1D("24", "Num events vs kin. bin", _nbin, 1.0, 10.0);
   }
 
-  
 
-  int H1_1995_S3167097::_getbin(const DISKinematics& dk) {
+  /// Calculate the bin number from the DISKinematics projection  
+  int _getbin(const DISKinematics& dk) {
     if ( dk.Q2() > 5.0*GeV2 && dk.Q2() <= 10.0*GeV2 ) {
       if ( dk.x() > 0.0001 && dk.x() <= 0.0002 )
         return 0;

@@ -3,8 +3,6 @@
 #define RIVET_H1_1994_S2919893_HH
 
 #include "Rivet/Analysis.hh" 
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/DISKinematics.hh"
 
 namespace Rivet {
 
@@ -13,20 +11,13 @@ namespace Rivet {
   /// @author Peter Richardson
   /// Based on the equivalent HZTool analysis
   class H1_1994_S2919893 : public Analysis {
-
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    H1_1994_S2919893() {
-      setBeams(ELECTRON, PROTON);
-      const DISLepton& lepton = 
-	addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
-      addProjection(DISKinematics(lepton, PROTON), "Kinematics");
-      addProjection(FinalState(), "FS");
-    }
+    H1_1994_S2919893();
 
     /// Factory method.
     static Analysis* create() { 

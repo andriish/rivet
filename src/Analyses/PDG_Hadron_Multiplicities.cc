@@ -3,8 +3,22 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/PDG_Hadron_Multiplicities.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  PDG_HADRON_MULTIPLICITIES::PDG_HADRON_MULTIPLICITIES() 
+  {
+    setBeams(ELECTRON, POSITRON); 
+    addProjection(Beam(), "Beams");
+    addProjection(ChargedFinalState(), "FS");
+    addProjection(UnstableFinalState(), "UFS");
+  }
 
 
   void PDG_HADRON_MULTIPLICITIES::analyze(const Event& e) {

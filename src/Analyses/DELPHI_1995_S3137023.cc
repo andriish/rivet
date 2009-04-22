@@ -3,8 +3,24 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/DELPHI_1995_S3137023.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  DELPHI_1995_S3137023::DELPHI_1995_S3137023() 
+  {
+    setBeams(ELECTRON, POSITRON); 
+    addProjection(Beam(), "Beams");
+    addProjection(ChargedFinalState(), "FS");
+    addProjection(UnstableFinalState(), "UFS");
+    _weightedTotalNumXiMinus = 0;
+    _weightedTotalNumSigma1385Plus = 0;
+  }
 
 
   void DELPHI_1995_S3137023::analyze(const Event& e) {

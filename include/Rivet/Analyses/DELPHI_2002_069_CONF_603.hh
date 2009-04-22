@@ -3,10 +3,6 @@
 #define RIVET_DELPHI_2002_069_CONF_603_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
 
@@ -21,14 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    DELPHI_2002_069_CONF_603() 
-    {
-      setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(InitialQuarks(), "IQF");
-    }
-
+    DELPHI_2002_069_CONF_603();
 
     /// Factory method.
     static Analysis* create() { 

@@ -2,8 +2,31 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/D0_2004_S5992206.hh"
+#include "Rivet/Projections/D0ILConeJets.hh"
+#include "Rivet/Projections/PVertex.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  D0_2004_S5992206::D0_2004_S5992206() {
+    setBeams(PROTON, ANTIPROTON);
+    const FinalState fs(-3.0, 3.0);
+    addProjection(fs, "FS");
+    addProjection(D0ILConeJets(fs), "Jets");
+    addProjection(TotalVisibleMomentum(fs), "CalMET");
+    addProjection(PVertex(), "PV");
+    
+    // Veto neutrinos, and muons with pT above 1.0 GeV
+    VetoedFinalState vfs(fs);
+    vfs
+      .addVetoPairId(NU_E)
+      .addVetoPairId(NU_MU)
+      .addVetoPairId(NU_TAU)
+      .addVetoDetail(MUON, 1.0, MAXDOUBLE);
+    addProjection(vfs, "VFS");
+  }
 
 
   // Book histograms

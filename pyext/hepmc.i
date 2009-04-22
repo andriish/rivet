@@ -68,9 +68,12 @@ namespace HepMC {
 
   // Stream ops
   %ignore IO_BaseClass::operator<<;
+  %ignore operator<<;
 }
 // Mysteriously, this doesn't work within the HepMC namespace above
 %ignore operator<<;
+//%ignore operator<<(std::ostream &, HepMC::GenEvent&);
+
 
 // Declare STL mappings
 %include "std_string.i"

@@ -3,9 +3,6 @@
 #define RIVET_ExampleTree_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/ChargedLeptons.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
-#include "Rivet/Projections/FastJets.hh"
 
 // ROOT stuff
 #ifdef HAVE_ROOT

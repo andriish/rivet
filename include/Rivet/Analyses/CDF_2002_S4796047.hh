@@ -2,10 +2,7 @@
 #ifndef RIVET_CDF_2002_S4796047_HH
 #define RIVET_CDF_2002_S4796047_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
@@ -38,24 +35,17 @@ namespace Rivet {
 
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2002_S4796047()
-    { 
-      setBeams(PROTON, ANTIPROTON);
-      addProjection(Beam(), "Beams");
-      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
-      addProjection(cfs, "FS");
-    }
-
+    CDF_2002_S4796047();
 
     /// Factory method
     static Analysis* create() {
       return new CDF_2002_S4796047();
     }
+
     //@}
 
 
   public:
-
 
     /// SPIRES ID code.
     string spiresId() const {

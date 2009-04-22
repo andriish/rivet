@@ -3,8 +3,6 @@
 #define RIVET_H1_2000_S4129130_HH
 
 #include "Rivet/Analysis.hh" 
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/DISKinematics.hh"
 
 namespace Rivet {
 
@@ -20,12 +18,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    H1_2000_S4129130() {
-      setBeams(ELECTRON, PROTON);
-      const DISLepton& lepton = addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
-      addProjection(DISKinematics(lepton, PROTON), "Kinematics");
-      addProjection(FinalState(), "FS");
-    }
+    H1_2000_S4129130();
 
     /// Factory method.
     static Analysis* create() { 

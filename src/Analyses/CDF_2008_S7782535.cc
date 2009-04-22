@@ -3,8 +3,38 @@
 #include "Rivet/Analyses/CDF_2008_S7782535.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/PVertex.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/JetShape.hh"
 
 namespace Rivet {
+
+
+  // Constructor.
+  // jet cuts: |eta| <= 0.7
+  // Don't attempt to model the following cuts :
+  //   Missing ET significance
+  //   veto on additional vertices
+  //   Zvtx < 50
+  CDF_2008_S7782535::CDF_2008_S7782535()
+    : _Rjet(0.7) , _NpTbins(4)
+  { 
+    setBeams(PROTON, ANTIPROTON);
+    
+    const FinalState fs(-3.6, 3.6);
+    addProjection(fs, "FS");
+    // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
+    VetoedFinalState vfs(fs);
+    vfs
+      .addVetoPairId(NU_E)
+      .addVetoPairId(NU_MU)
+      .addVetoPairId(NU_TAU)
+      .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+    addProjection(vfs, "VFS");
+    addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
+    addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), "JetShape");
+  }
 
 
   void CDF_2008_S7782535::init() {

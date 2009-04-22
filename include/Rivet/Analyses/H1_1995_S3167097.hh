@@ -3,9 +3,6 @@
 #define RIVET_H1_1995_S3167097_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalStateHCM.hh"
-#include "Rivet/Projections/CentralEtHCM.hh"
-#include "Rivet/RivetAIDA.fhh"
 
 namespace Rivet {
 
@@ -16,21 +13,19 @@ namespace Rivet {
   class H1_1995_S3167097 : public Analysis {
   public:
 
-    /// Constructor.
-    H1_1995_S3167097() { 
-      setBeams(ELECTRON, PROTON);
-      const DISLepton& lepton = addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
-      const DISKinematics& diskin = addProjection(DISKinematics(lepton, PROTON), "Kinematics");
-      const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");
-      addProjection(CentralEtHCM(fshcm), "Y1HCM");
-      //addCut("x", MORE_EQ, _xmin);
-      //addCut("x", LESS_EQ, _xmax);
-    }
+    /// @name Constructors etc.
+    //@{
 
-  public:
+    /// Constructor.
+    H1_1995_S3167097();
 
     /// Factory method
-    static Analysis* create() { return new H1_1995_S3167097(); }
+    static Analysis* create() { 
+      return new H1_1995_S3167097(); 
+    }
+
+    //@}
+
 
     /// @name Publication metadata
     //@{
@@ -109,10 +104,6 @@ namespace Rivet {
 
     
   private:
-
-    /// Calculate the bin number from the DISKinematics projection.
-    int _getbin(const DISKinematics& dk);
-
 
     /// Some integer constants used.
     static const size_t _nb = 24, _nbin = 9;

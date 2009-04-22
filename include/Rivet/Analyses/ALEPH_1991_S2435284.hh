@@ -3,8 +3,6 @@
 #define RIVET_ALEPH_1991_S2435284_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/Multiplicity.hh"
 
 namespace Rivet {
 

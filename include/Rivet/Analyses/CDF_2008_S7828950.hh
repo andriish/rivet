@@ -3,9 +3,7 @@
 #define RIVET_CDF_2008_S7828950_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-
 
 namespace Rivet {
 
@@ -22,25 +20,19 @@ namespace Rivet {
     //@{
     
     /// Constructor
-    CDF_2008_S7828950()
-      : _jetMinPT(62.0*GeV)
-    {
-      setBeams(PROTON, ANTIPROTON);
-      //setSqrtS(1960*GeV);
-      const FinalState fs;
-      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "JetsM07"); //??
-      setNeedsCrossSection(true);
-    }
+    CDF_2008_S7828950();
     
     /// Factory method
     static Analysis* create() { 
       return new CDF_2008_S7828950(); 
     }
+
     //@}
     
 
     /// @name Publication metadata
     //@{
+
     /// A short description of the analysis.
     string spiresId() const {
       return "7828950";
@@ -50,7 +42,7 @@ namespace Rivet {
       return "CDF Run II inclusive jet cross-section using the Midpoint algorithm";
     }
 
- /// A full description of the analysis.
+    /// A full description of the analysis.
     string description() const {
       ostringstream os;
       os << "Measurement of the inclusive jet cross section in $p\\bar{p}$ "
@@ -64,7 +56,8 @@ namespace Rivet {
          << "precision in PDFs at high parton momentum fraction $x$."; 
       return os.str();
     }
-  /// Characteristics of events to be processed by this analysis
+
+    /// Characteristics of events to be processed by this analysis
     string runInfo() const {
       ostringstream os;
       os << "Requires $2\\rightarrow{2}$ QCD scattering processes. "
@@ -81,6 +74,7 @@ namespace Rivet {
     string collider() const {
       return "Tevatron Run 2";
     }
+
     /// When published (preprint year according to SPIRES).
     string year() const {
       return "2008";
@@ -100,6 +94,7 @@ namespace Rivet {
       ret.push_back("Phys.Rev.D78:052006,2008");
       return ret;
     }
+
     //@}
 
 

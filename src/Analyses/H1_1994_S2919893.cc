@@ -1,11 +1,23 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Analyses/H1_1994_S2919893.hh"
 #include "Rivet/Math/Constants.hh"
+#include "Rivet/Analyses/H1_1994_S2919893.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/DISKinematics.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  H1_1994_S2919893::H1_1994_S2919893() {
+    setBeams(ELECTRON, PROTON);
+    const DISLepton& lepton = 
+      addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
+    addProjection(DISKinematics(lepton, PROTON), "Kinematics");
+    addProjection(FinalState(), "FS");
+  }
 
 
   void H1_1994_S2919893::analyze(const Event& event) {

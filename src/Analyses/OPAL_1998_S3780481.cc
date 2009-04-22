@@ -3,8 +3,26 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/OPAL_1998_S3780481.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  OPAL_1998_S3780481::OPAL_1998_S3780481() 
+  {
+    setBeams(ELECTRON, POSITRON); 
+    addProjection(Beam(), "Beams");
+    addProjection(ChargedFinalState(), "FS");
+    addProjection(InitialQuarks(), "IQF");
+    _weightedTotalPartNum = 0;
+    _SumOfudsWeights = 0;
+    _SumOfcWeights = 0;
+    _SumOfbWeights = 0;
+  }
 
 
   void OPAL_1998_S3780481::analyze(const Event& e) {

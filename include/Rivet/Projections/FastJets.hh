@@ -78,9 +78,13 @@ namespace Rivet {
           throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
           //_plugin.reset(new fastjet::PxConePlugin(rparameter));
         } else if (alg == CDFJETCLU) {
-          _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter));
+	  /// @todo This overlap threshold is as the default value in FastJet 2.3.x: check!
+	  const double overlap_threshold = 0.5;
+          _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, overlap_threshold));
         } else if (alg == CDFMIDPOINT) {
-          _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter));
+	  /// @todo This overlap threshold is as the default value in FastJet 2.3.x: check!
+	  const double overlap_threshold = 0.5;
+          _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, overlap_threshold));
         #ifdef HAVE_JADE
         } else if (alg == JADE) {
           _plugin.reset(new fastjet::JadePlugin("jade"));

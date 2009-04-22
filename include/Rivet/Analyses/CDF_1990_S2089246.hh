@@ -3,8 +3,6 @@
 #define RIVET_CDF_1990_S2089246_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {  
 

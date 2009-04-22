@@ -1,9 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/ExampleTree.hh"
-
+#include "Rivet/Projections/ChargedLeptons.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
+
 
   #ifndef HAVE_ROOT
   

@@ -3,9 +3,6 @@
 #define RIVET_D0_2004_S5992206_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
-#include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
 
 namespace Rivet {  
 
@@ -28,30 +25,18 @@ namespace Rivet {
 
   public:
 
+    /// @name Constructors etc.
+    //@{
+
     /// Constructor.
-    D0_2004_S5992206() {
-      setBeams(PROTON, ANTIPROTON);
-      const FinalState fs(-3.0, 3.0);
-      addProjection(fs, "FS");
-      addProjection(D0ILConeJets(fs), "Jets");
-      addProjection(TotalVisibleMomentum(fs), "CalMET");
-      addProjection(PVertex(), "PV");
-
-      // Veto neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState vfs(fs);
-      vfs
-        .addVetoPairId(NU_E)
-        .addVetoPairId(NU_MU)
-        .addVetoPairId(NU_TAU)
-        .addVetoDetail(MUON, 1.0, MAXDOUBLE);
-      addProjection(vfs, "VFS");
-    }
-
+    D0_2004_S5992206();
 
     /// Factory method
     static Analysis* create() { 
       return new D0_2004_S5992206(); 
     }
+
+    //@}
 
 
     /// @name Publication metadata

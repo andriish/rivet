@@ -5,10 +5,13 @@
 // FNAL-PUB 01/211-E
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/CDF_2001_S4751469.hh"
-#include "Rivet/RivetAIDA.hh"
-
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/LossyFinalState.hh"
+#include "Rivet/Projections/TrackJet.hh" //< remove in favour of FastJets
+#include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
 

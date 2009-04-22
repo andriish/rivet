@@ -3,10 +3,6 @@
 #define RIVET_PDG_Hadron_Multiplicities_Ratios_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
 
 namespace Rivet {
 
@@ -21,18 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    PDG_HADRON_MULTIPLICITIES_RATIOS() 
-    {
-      setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
-      _weightedTotalNumPiPlus10       = 0.;
-      _weightedTotalNumPiPlus32       = 0.;
-      _weightedTotalNumPiPlus91       = 0.;
-      _weightedTotalNumPiPlus165      = 0.;
-    }
-
+    PDG_HADRON_MULTIPLICITIES_RATIOS();
 
     /// Factory method.
     static Analysis* create() { 

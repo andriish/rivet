@@ -3,7 +3,6 @@
 #define RIVET_CDF_2007_S7057202_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 
 namespace Rivet {
@@ -18,17 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CDF_2007_S7057202()
-      : _minY(0.1), _maxY(0.7), _jetMinPT(54.0*GeV)
-   {
-      setBeams(PROTON, ANTIPROTON);
-      //setSqrtS(1960*GeV);
-      const FinalState fs;
-      addProjection(FastJets(fs, FastJets::KT, 0.5), "JetsD05");
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "JetsD07");
-      addProjection(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
-      setNeedsCrossSection(true);
-    }
+    CDF_2007_S7057202();
     
     /// Factory method
     static Analysis* create() { 

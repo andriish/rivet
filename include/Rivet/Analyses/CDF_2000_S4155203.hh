@@ -2,7 +2,6 @@
 #ifndef RIVET_CDF_2000_S4155203_HH
 #define RIVET_CDF_2000_S4155203_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
 
 namespace Rivet {

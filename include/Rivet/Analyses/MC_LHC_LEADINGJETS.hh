@@ -2,7 +2,6 @@
 #ifndef RIVET_MC_LHC_LEADINGJETS_HH
 #define RIVET_MC_LHC_LEADINGJETS_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
 
 namespace Rivet {

@@ -2,6 +2,10 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/CDF_1994_S2952106.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/PVertex.hh"
 
 namespace Rivet {
 

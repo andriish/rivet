@@ -50,14 +50,6 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     #OPAL_2004_S6132243.cc 
 
 libRivetAnalysisStd_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)
-libRivetAnalysisStd_la_LIBADD = -lCDFConesPlugin -lSISConePlugin -lsiscone
-libRivetAnalysisStd_la_CPPFLAGS = $(AM_CPPFLAGS)
-
-# if WITH_ROOT
-#   libRivetAnalysisStd_la_CPPFLAGS += -DHAVE_ROOT $(ROOTCPPFLAGS) -fpermissive
-# endif
-
-if ENABLE_JADE
-  libRivetAnalysisStd_la_CPPFLAGS += -DHAVE_JADE
-  libRivetAnalysisStd_la_LIBADD += -lJadePlugin
-endif
+libRivetAnalysisStd_la_LIBADD = -lCDFConesPlugin -lSISConePlugin -lsiscone -lJadePlugin
+## TODO: remove, or -> HAVE_FJDURHAM
+libRivetAnalysisStd_la_CPPFLAGS = $(AM_CPPFLAGS) -DHAVE_JADE

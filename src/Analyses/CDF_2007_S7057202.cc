@@ -1,12 +1,27 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/CDF_2007_S7057202.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Analyses/CDF_2007_S7057202.hh"
 
 namespace Rivet {
 
   
   const double CDF_2007_S7057202::_ybins[] = { 0.0, 0.1, 0.7, 1.1, 1.6, 2.1 };
+
+
+  CDF_2007_S7057202::CDF_2007_S7057202()
+    : _minY(0.1), _maxY(0.7), _jetMinPT(54.0*GeV)
+  {
+    setBeams(PROTON, ANTIPROTON);
+    //setSqrtS(1960*GeV);
+    const FinalState fs;
+    addProjection(FastJets(fs, FastJets::KT, 0.5), "JetsD05");
+    addProjection(FastJets(fs, FastJets::KT, 0.7), "JetsD07");
+    addProjection(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
+    setNeedsCrossSection(true);
+  }
+
 
   // Book histos and set counters for number of events passed in each one
   void CDF_2007_S7057202::init() {

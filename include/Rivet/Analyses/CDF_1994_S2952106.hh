@@ -3,11 +3,6 @@
 #define RIVET_CDF_1994_S2952106_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
-#include "Rivet/RivetAIDA.fhh"
-
 
 namespace Rivet {  
 

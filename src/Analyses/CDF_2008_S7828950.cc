@@ -1,11 +1,23 @@
 // -*- C++ -*-
 // CDF Run II inclusive jet cross-section using the midpoint algorithm.
 
-#include "Rivet/Analyses/CDF_2008_S7828950.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Analyses/CDF_2008_S7828950.hh"
+#include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
+
+
+  CDF_2008_S7828950::CDF_2008_S7828950()
+    : _jetMinPT(62.0*GeV)
+  {
+    setBeams(PROTON, ANTIPROTON);
+    //setSqrtS(1960*GeV);
+    const FinalState fs;
+    addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "JetsM07"); //??
+    setNeedsCrossSection(true);
+  }
 
   
   const double CDF_2008_S7828950::_ybins[] = { 0.0, 0.1, 0.7, 1.1, 1.6, 2.1 };

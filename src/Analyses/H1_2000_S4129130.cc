@@ -4,8 +4,20 @@
 #include "Rivet/Analyses/H1_2000_S4129130.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/DISKinematics.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  H1_2000_S4129130::H1_2000_S4129130() {
+    setBeams(ELECTRON, PROTON);
+    const DISLepton& lepton = addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
+    addProjection(DISKinematics(lepton, PROTON), "Kinematics");
+    addProjection(FinalState(), "FS");
+  }
+
 
   void H1_2000_S4129130::analyze(const Event& event) {
     // Get the projections

@@ -2,9 +2,18 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/ZEUS_2001_S4815815.hh"
-
+#include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
+
+
+  // Constructor
+  ZEUS_2001_S4815815::ZEUS_2001_S4815815() { 
+      setBeams(POSITRON, PROTON);
+      FinalState fs;
+      addProjection(fs, "FS");
+      addProjection(FastJets(fs), "Jets");
+    }
 
 
   // Book histograms

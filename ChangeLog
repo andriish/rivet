@@ -1,7 +1,26 @@
+2009-04-22  Andy Buckley  <andy@insectnation.org>
+
+	* Adding explicit FastJet CDF jet alg overlap_threshold
+	constructor param values, since the default value from 2.3.x is
+	now removed in version 2.4.0.
+
+	* Removing use of HepMC ThreeVector::mag method (in one place
+	only) since this has been removed in version 2.5.0b.
+
+	* Fix to hepmc.i (included by rivet.i) to ignore new HepMC 2.5.0b
+	GenEvent stream operator.
+
 2009-04-21  Andy Buckley  <andy@insectnation.org>
 
+	* Dependency on FastJet now requires version 2.4.0 or later. Jade
+	algorithm is now native.
+
+	* Moving all analysis constructors and Projection headers from the
+	analysis header files into their .cc implementation files, cutting
+	header dependencies.
+
 	* Removing AIDA headers: now using LWH headers only, with
-	enhancement to use axis labels. This facility iss now used by the
+	enhancement to use axis labels. This facility is now used by the
 	histo booking routines, and calling the booking function versions
 	which don't specify axis labels will result in a runtime warning.
 

@@ -3,10 +3,6 @@
 #define RIVET_CDF_2005_S6217184_HH
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
-#include "Rivet/Projections/JetShape.hh"
 
 namespace Rivet {
 

@@ -2,11 +2,7 @@
 #ifndef RIVET_CDF_2008_LEADINGJETS_HH
 #define RIVET_CDF_2008_LEADINGJETS_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
 
@@ -36,24 +32,7 @@ namespace Rivet {
     /// @name Constructors etc.
     //@{
 
-    CDF_2008_LEADINGJETS()
-    { 
-      setBeams(PROTON, ANTIPROTON);
-
-      // Final state for the jet finding
-      const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-      addProjection(fsj, "FSJ");
-      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
-
-      // Final state for the sum(ET) distributions
-      const FinalState fs(-1.0, 1.0, 0.0*GeV);
-      addProjection(fs, "FS");
-
-      // Charged final state for the distributions
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      addProjection(cfs, "CFS");
-    }
-
+    CDF_2008_LEADINGJETS();
 
     /// Factory method
     static Analysis* create() {
