@@ -311,6 +311,8 @@ public:
        << "\"\n    title=\"" << encodeForXML(title())
        << "\" path=\"" << path
        << "\" dimension=\"" << dimension() << "\">\n";
+    os << "    <dimension dim=\"0\" title=\"" << encodeForXML(xtitle()) << "\" />\n";
+    os << "    <dimension dim=\"1\" title=\"" << encodeForXML(ytitle()) << "\" />\n";
     for ( int i = 0, N = size(); i < N; ++i ) {
       os << "    <dataPoint>\n";
       for ( int j = 0, M = dimension(); j < M; ++j )

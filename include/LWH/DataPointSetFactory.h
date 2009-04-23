@@ -536,6 +536,8 @@ public:
   create(const std::string & path, const IHistogram1D & hist,
          const std::string & = "") {
     IDataPointSet * dset = create(path, hist.title(), 2);
+    dset->setXTitle(hist.xtitle());
+    dset->setYTitle(hist.ytitle());
     std::vector<double> x, y, ex, ey;
     for ( int i = 2, N = hist.axis().bins() + 2; i < N; ++i ) {
       dset->addPoint(DataPoint(2));
@@ -574,6 +576,8 @@ public:
   create(const std::string & path, const IProfile1D & prof,
 	 const std::string & = "") {
     IDataPointSet * dset = create(path, prof.title(), 2);
+    dset->setXTitle(prof.xtitle());
+    dset->setYTitle(prof.ytitle());
     std::vector<double> x, y, ex, ey;
     for ( int i = 2, N = prof.axis().bins() + 2; i < N; ++i ) {
       dset->addPoint(DataPoint(2));
