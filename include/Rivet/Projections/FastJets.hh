@@ -9,15 +9,15 @@
 #include "Rivet/Jet.hh"
 
 #include "fastjet/ClusterSequence.hh"
-#include "fastjet/SISConePlugin.hh"
+/// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
+//#include "fastjet/SISConePlugin.hh"
 //#include "fastjet/PxConePlugin.hh"
 #include "fastjet/CDFJetCluPlugin.hh"
 #include "fastjet/CDFMidPointPlugin.hh"
-#ifdef HAVE_JADE
 #include "fastjet/JadePlugin.hh"
-#endif
 
 namespace Rivet {
+
 
   /// Make a 3-momentum vector from a FastJet pseudo-jet
   inline Vector3 momentum3(const fastjet::PseudoJet& pj) {
@@ -38,17 +38,17 @@ namespace Rivet {
 
   public:
     /// Wrapper enum for selected Fastjet jet algorithms.
-    #ifdef HAVE_JADE
-    enum JetAlg { KT, CAM, SISCONE, ANTIKT, PXCONE, CDFJETCLU, CDFMIDPOINT, JADE, DURHAM };
-    #else
-    enum JetAlg { KT, CAM, SISCONE, ANTIKT, PXCONE, CDFJETCLU, CDFMIDPOINT };
-    #endif
+    enum JetAlg { KT, CAM, SISCONE, ANTIKT, PXCONE, 
+                  CDFJETCLU, CDFMIDPOINT, D0ILC, 
+                  JADE, DURHAM, TRACKJET };
 
 
-    /// @name Constructors and destructors.
+    /// @name Constructors etc.
     //@{
-    /// Default constructor uses \f$ k_\perp \f$ algorithm and E-scheme
+
+    /// Default constructor uses \f$ k_\perp \f$ algorithm, R=1, and E-scheme
     /// recombination.
+    /// @todo Remove!
     FastJets(const FinalState& fsp){
       setName("FastJets");
       addProjection(fsp, "FS");
@@ -70,10 +70,13 @@ namespace Rivet {
         _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
       } else if (alg == ANTIKT) {
         _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
+      } else if (alg == DURHAM) {
+        _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, rparameter, fastjet::E_scheme);
       } else {
         if (alg == SISCONE) {
           const double overlap_threshold = 0.5;
-          _plugin.reset(new fastjet::SISConePlugin(rparameter, overlap_threshold));
+          /// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
+          //_plugin.reset(new fastjet::SISConePlugin(rparameter, overlap_threshold));
         } else if (alg == PXCONE) {
           throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
           //_plugin.reset(new fastjet::PxConePlugin(rparameter));
@@ -83,12 +86,8 @@ namespace Rivet {
         } else if (alg == CDFMIDPOINT) {
           const double overlap_threshold = 0.75;
           _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, overlap_threshold));
-        #ifdef HAVE_JADE
         } else if (alg == JADE) {
-          _plugin.reset(new fastjet::JadePlugin("jade"));
-        } else if (alg == DURHAM) {
-          _plugin.reset(new fastjet::JadePlugin("durham"));
-        #endif
+          _plugin.reset(new fastjet::JadePlugin());
         }
         _jdef = fastjet::JetDefinition(_plugin.get());
       }

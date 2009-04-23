@@ -7,16 +7,14 @@
 #include <stdexcept>
 using namespace std;
 
-
-
-/// Get an AIDA system (LWH impl.)
-AIDA::IAnalysisFactory* createAnalysisFactory() {
-  return new LWH::AnalysisFactory();
-}
-
-
-
 namespace Rivet {
+
+
+  /// Get an AIDA system (LWH impl.)
+  AIDA::IAnalysisFactory* createAnalysisFactory() {
+    return new LWH::AnalysisFactory();
+  }
+
 
   // Forward declaration of generated function.
   const string getRivetDataPath();

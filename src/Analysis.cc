@@ -424,10 +424,15 @@ namespace Rivet {
     std::string path =
       tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo));
     std::string title = histo->title();
+    std::string xtitle = histo->xtitle();
+    std::string ytitle = histo->ytitle();
+
     tree().mkdir("/tmpnormalize");
     tree().mv(path, "/tmpnormalize");
     
-    datapointsetFactory().createXY(path, title, x, y, ex, ey);
+    AIDA::IDataPointSet* dps = datapointsetFactory().createXY(path, title, x, y, ex, ey);
+    dps->setXTitle(xtitle);
+    dps->setYTitle(ytitle);
     
     tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
     tree().rmdir("/tmpnormalize");

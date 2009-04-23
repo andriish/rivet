@@ -26,17 +26,25 @@ namespace Rivet {
 
   // Book histograms
   void ExampleAnalysis::init() {
-    _histTot         = bookHistogram1D("TotalMult", "Total multiplicity", 100, -0.5, 99.5);
-    _histChTot       = bookHistogram1D("TotalChMult", "Total charged multiplicity", 50, -1.0, 99.0);
-    _histHadrTot     = bookHistogram1D("HadrTotalMult", "Total hadronic multiplicity", 100, -0.5, 99.5);
-    _histHadrChTot   = bookHistogram1D("HadrTotalChMult", "Total hadronic charged multiplicity", 50, -1.0, 99.0);
+    _histTot         = bookHistogram1D("TotalMult", "Total multiplicity", 
+                                       "$N_\\text{tot}$", "$\\d{P}/\\d{N_\\text{tot}}$", 100, -0.5, 99.5);
+    _histChTot       = bookHistogram1D("TotalChMult", "Total charged multiplicity", 
+                                       "$N_\\text{ch}$", "$\\d{P}/\\d{N_\\text{ch}}$", 50, -1.0, 99.0);
+    _histHadrTot     = bookHistogram1D("HadrTotalMult", "Total hadronic multiplicity", 
+                                       "$N_\\text{H}$", "$\\d{P}/\\d{N_\\text{H}}$", 100, -0.5, 99.5);
+    _histHadrChTot   = bookHistogram1D("HadrTotalChMult", "Total hadronic charged multiplicity", 
+                                       "$N_\\text{Hch}$", "$\\d{P}/\\d{N_\\text{Hch}}$", 50, -1.0, 99.0);
     // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
     // Since this is just a demo analysis, there is no associated paper!
     double edges[11] = { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 };
-    _histThrust      = bookHistogram1D("Thrust", "Thrust", vector<double>(edges, edges+11));
-    _histMajor       = bookHistogram1D("Major", "Thrust major", 10, 0.0, 0.6);
-    _histSphericity  = bookHistogram1D("Sphericity", "Sphericity", 10, 0.0, 0.8);
-    _histAplanarity  = bookHistogram1D("Aplanarity", "Aplanarity", 10, 0.0, 0.3);
+    _histThrust      = bookHistogram1D("Thrust", "Thrust", 
+                                       "$T$", "$\\d{P}/\\d{T}$", vector<double>(edges, edges+11));
+    _histMajor       = bookHistogram1D("Major", "Thrust major", 
+                                       "$M$", "$\\d{P}/\\d{M}$", 10, 0.0, 0.6);
+    _histSphericity  = bookHistogram1D("Sphericity", "Sphericity", 
+                                       "$S$", "$\\d{P}/\\d{S}$", 10, 0.0, 0.8);
+    _histAplanarity  = bookHistogram1D("Aplanarity", "Aplanarity", 
+                                       "$A$", "$\\d{P}/\\d{A}$", 10, 0.0, 0.3);
   }
 
 

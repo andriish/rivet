@@ -536,6 +536,8 @@ public:
   create(const std::string & path, const IHistogram1D & hist,
          const std::string & = "") {
     IDataPointSet * dset = create(path, hist.title(), 2);
+    std::cout << hist.xtitle() << " & " << hist.ytitle() << std::endl;
+
     dset->setXTitle(hist.xtitle());
     dset->setYTitle(hist.ytitle());
     std::vector<double> x, y, ex, ey;
