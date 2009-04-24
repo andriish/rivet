@@ -4,8 +4,8 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/IsolationTools.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
@@ -94,7 +94,7 @@ namespace Rivet {
     }
 
     /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
-    D0ILConeJets jetpro(muonfs, 0.5); //< @todo The 'muonfs' arg makes no sense!
+    FastJets jetpro(muonfs, FastJets::D0ILCONE, 0.5); //< @todo The 'muonfs' arg makes no sense!
     jetpro.calc(jetparts);
 
     // Take the leading jet with pt > 20, |y| < 2.8:

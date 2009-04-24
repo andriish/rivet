@@ -6,7 +6,7 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
@@ -37,7 +37,7 @@ namespace Rivet {
     addProjection(vfs, "JetFS");
 
     // Jet finder
-    D0ILConeJets jets(vfs, 0.5, 20.0*GeV);
+    FastJets jets(vfs, FastJets::D0ILCONE, 0.5, 20.0*GeV);
     addProjection(jets, "Jets");
 
     // Vertex
@@ -50,13 +50,16 @@ namespace Rivet {
   // Book histograms
   void D0_2008_S6879055::init() {
     _crossSectionRatio = bookHistogram1D
-      (1, 1, 1, "$\\sigma(Z/\\gamma + >= n \\text{ jets}) / \\sigma(Z/\\gamma \\text{ inclusive})$");
+      (1, 1, 1, "$\\sigma(Z/\\gamma + >= n \\text{ jets}) / \\sigma(Z/\\gamma \\text{ inclusive})$",
+       "Num jets, $n$", "$\\sigma(n \\text{jets})/\\sigma(\\text{incl})$");
+    const string xlabel = "$p_\\perp$";
+    const string ylabel = "$1/\\sigma \\, \\d{\\sigma}/\\d{p_\\perp}$";
     _pTjet1 = bookHistogram1D
-      (2, 1, 1, "$p_\\perp$ of 1st jet for $N_{\\mathrm{jet}} \\geq 1$ sample");
+      (2, 1, 1, "$p_\\perp$ of 1st jet for $N_{\\mathrm{jet}} \\geq 1$", xlabel, ylabel);
     _pTjet2 = bookHistogram1D
-      (3, 1, 1, "$p_\\perp$ of 2nd jet for $N_{\\mathrm{jet}} \\geq 2$ sample");
+      (3, 1, 1, "$p_\\perp$ of 2nd jet for $N_{\\mathrm{jet}} \\geq 2$", xlabel, ylabel);
     _pTjet3 = bookHistogram1D
-      (4, 1, 1, "$p_\\perp$ of 3rd jet for $N_{\\mathrm{jet}} \\geq 3$ sample");
+      (4, 1, 1, "$p_\\perp$ of 3rd jet for $N_{\\mathrm{jet}} \\geq 3$", xlabel, ylabel);
   }
 
 
@@ -82,32 +85,37 @@ namespace Rivet {
     // Find the Z candidates
     const InvMassFinalState& invmassfs = applyProjection<InvMassFinalState>(event, "ElectronsFromZ");
     // If there is no Z candidate in the FinalState, skip the event
-    if (invmassfs.particles().size()!=2) {
+    if (invmassfs.particles().size() != 2) {
       getLog() << Log::DEBUG << "No Z candidate found" << endl;
       vetoEvent(event);
     }
 
-    // Now build the jets on a FS without the electrons from Z
-    /// @todo Purge the evil!
-    const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
-
-    // additional cuts on jets: |eta| < 2.5 and dR(j,leading electron) > 0.4
-    const list<FourMomentum>& jets = jetpro.getLorentzJets();
+    // Now build the list of jets on a FS without the electrons from Z
+    // Additional cuts on jets: |eta| < 2.5 and dR(j,leading electron) > 0.4
+    const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
+    const Jets jets = jetpro.jetsByPt();
     vector<FourMomentum> finaljet_list;
-    foreach (const FourMomentum& ijet, jets) {
-      FourMomentum e0=invmassfs.particles()[0].momentum();
-      FourMomentum e1=invmassfs.particles()[0].momentum();
-      if (fabs(ijet.pseudorapidity()) < 2.5 &&
-          deltaR(e0.pseudorapidity(), e0.azimuthalAngle(),
-                 ijet.pseudorapidity(), ijet.azimuthalAngle()) > 0.4 &&
-          deltaR(e1.pseudorapidity(), e1.azimuthalAngle(),
-                 ijet.pseudorapidity(), ijet.azimuthalAngle()) > 0.4) {
-        finaljet_list.push_back(ijet);
-      }
+    foreach (const Jet& j, jets) {
+      const double jeta = j.momentum().pseudorapidity();
+      const double jphi = j.momentum().azimuthalAngle();
+      if (fabs(jeta) < 2.5) continue;
+
+      FourMomentum e0 = invmassfs.particles()[0].momentum();
+      FourMomentum e1 = invmassfs.particles()[1].momentum();
+      const double e0eta = e0.pseudorapidity();
+      const double e0phi = e0.azimuthalAngle();
+      if (deltaR(e0eta, e0phi, jeta, jphi) < 0.4) continue;
+
+      const double e1eta = e1.pseudorapidity();
+      const double e1phi = e1.azimuthalAngle();
+      if (deltaR(e1eta, e1phi, jeta, jphi) < 0.4) continue;
+
+      // If we pass all cuts...
+      finaljet_list.push_back(j.momentum());
     }
     getLog() << Log::DEBUG << "Num jets passing = " << finaljet_list.size() << endl;
 
-    // For normalisation of crossSection data
+    // For normalisation of crossSection data (includes events with no jets passing cuts)
     _crossSectionRatio->fill(0, weight);
 
     // Fill jet pT and multiplicities

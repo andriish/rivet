@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
 #include "Rivet/Analyses/D0_2001_S4674421.hh" 
-#include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"

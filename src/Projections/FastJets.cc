@@ -17,7 +17,7 @@
 namespace Rivet {
 
 
-  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter) {
+  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double pTmin) {
     setName("FastJets");
     addProjection(fsp, "FS");
     if (alg == KT) {
@@ -44,14 +44,11 @@ namespace Rivet {
         const double OVERLAP_THRESHOLD = 0.75;
         _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD));
       } else if (alg == D0ILCONE) {
-        // JCCA: radius = 0.7
-        // JCCB: radius = 0.5
-        const double MIN_ET = 0.0;
+        const double MIN_ET = pTmin;
         _plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, MIN_ET));
       } else if (alg == JADE) {
         _plugin.reset(new fastjet::JadePlugin());
       } else if (alg == TRACKJET) {
-        // radius = 0.7;
         _plugin.reset(new fastjet::TrackJetPlugin(rparameter));
       }
       _jdef = fastjet::JetDefinition(_plugin.get());

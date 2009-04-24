@@ -2,7 +2,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analyses/D0_2004_S5992206.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 
@@ -14,7 +14,7 @@ namespace Rivet {
     setBeams(PROTON, ANTIPROTON);
     const FinalState fs(-3.0, 3.0);
     addProjection(fs, "FS");
-    addProjection(D0ILConeJets(fs), "Jets");
+    addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7), "Jets");
     addProjection(TotalVisibleMomentum(fs), "CalMET");
     addProjection(PVertex(), "PV");
     
@@ -45,8 +45,8 @@ namespace Rivet {
   // Do the analysis
   void D0_2004_S5992206::analyze(const Event & event) {
 
-    // Analyse and print some info  
-    const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
+    // Analyse and print some info
+    const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
     getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
 
     // Find vertex and check  that its z-component is < 50 cm from the nominal IP
@@ -56,55 +56,39 @@ namespace Rivet {
     //   vetoEvent(event);
     // }
 
-    const list<FourMomentum>& jets = jetpro.getLorentzJets();
-    list<FourMomentum>::const_iterator jetpTmax = jets.end();
-    list<FourMomentum>::const_iterator jet2ndpTmax = jets.end();
-    getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
-    
-    size_t Njet = 0;
-    for (list<FourMomentum>::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      getLog() << Log::DEBUG << "List item pT = " << jt->pT() << " E=" << jt->E() 
-               << " pz=" << jt->pz() << endl;
-      if (jt->pT() > 40.0) ++Njet;
-      getLog() << Log::DEBUG << "Jet pT =" << jt->pT() << " y=" << jt->rapidity() 
-               << " phi=" << jt->azimuthalAngle() << endl; 
-      if (jetpTmax == jets.end() || jt->pT() > jetpTmax->pT()) {
-        jet2ndpTmax = jetpTmax;
-        jetpTmax = jt;
-      } else if (jet2ndpTmax == jets.end() || jt->pT() > jet2ndpTmax->pT()) {
-        jet2ndpTmax = jt;
-      }
-    }
-    if (Njet >= 2) {
-      getLog() << Log::DEBUG << "Jet multiplicity after pT > 40GeV cut = " << Njet << endl; 
-    }
-
-    /// @todo Use cut constants and register these cuts
-    if (jets.size() < 2 || jet2ndpTmax->pT()/GeV < 40.0) {
+    const Jets jets  = jetpro.jetsByPt(40.0*GeV);
+    if (jets.size() >= 2) {
+      getLog() << Log::DEBUG << "Jet multiplicity after pT > 40 GeV cut = " << jets.size() << endl; 
+    } else {
       vetoEvent(event);
     }
-    /// @todo Use cut constants and register these cuts
-    if (fabs(jetpTmax->rapidity()) > 0.5 || fabs(jet2ndpTmax->rapidity()) > 0.5) {
+    const double rap1 = jets[0].momentum().rapidity();
+    const double rap2 = jets[1].momentum().rapidity();
+    if (fabs(rap1) > 0.5 || fabs(rap2) > 0.5) {
       vetoEvent(event);
     }
     getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
+    const double pT1 = jets[0].momentum().pT();
 
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
     getLog() << Log::DEBUG << "Missing Et = " << caloMissEt.momentum().pT()/GeV << endl;
-    /// @todo Use cut constants and register these cuts
-    if (caloMissEt.momentum().pT() > 0.7*jetpTmax->pT()) {
+    if (caloMissEt.momentum().pT() > 0.7*pT1) {
       vetoEvent(event);
     }
     
-    const double dphi = delta_phi(jetpTmax->azimuthalAngle(), jet2ndpTmax->azimuthalAngle());
-    if (jetpTmax->pT()/GeV > 75.0 && jetpTmax->pT()/GeV <= 100.0)
-      _histJetAzimuth_pTmax75_100->fill(dphi, event.weight());
-    else if (jetpTmax->pT()/GeV > 100.0 && jetpTmax->pT()/GeV <= 130.0)
-      _histJetAzimuth_pTmax100_130->fill(dphi, event.weight());
-    else if (jetpTmax->pT()/GeV > 130.0 && jetpTmax->pT()/GeV <= 180.0)
-      _histJetAzimuth_pTmax130_180->fill(dphi, event.weight());
-    else if (jetpTmax->pT()/GeV > 180.0)
-      _histJetAzimuth_pTmax180_->fill(dphi, event.weight());
+    if (pT1/GeV >= 75.0) {
+      const double dphi = delta_phi(jets[0].momentum().azimuthalAngle(), jets[1].momentum().azimuthalAngle());
+      if (inRange(pT1/GeV, 75.0, 100.0)) {
+        _histJetAzimuth_pTmax75_100->fill(dphi, event.weight());
+      } else if (inRange(pT1/GeV, 100.0, 130.0)) {
+        _histJetAzimuth_pTmax100_130->fill(dphi, event.weight());
+      } else if (inRange(pT1/GeV, 130.0, 180.0)) {
+        _histJetAzimuth_pTmax130_180->fill(dphi, event.weight());
+      } else if (pT1/GeV > 180.0) {
+        _histJetAzimuth_pTmax180_->fill(dphi, event.weight());
+      }
+    }
+
   }
 
 

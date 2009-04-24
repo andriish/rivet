@@ -3,7 +3,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ZFinder.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
@@ -16,7 +16,7 @@ namespace Rivet {
     /// @todo Use cross-section from generator
     //setNeedsCrossSection(true);
 
-    //leptons in tracking acceptance
+    // Leptons in tracking acceptance
     std::vector<std::pair<double, double> > etaRanges;
     etaRanges.push_back(make_pair(-2.5, -1.5));
     etaRanges.push_back(make_pair(-1.1, 1.1));
@@ -25,10 +25,9 @@ namespace Rivet {
                     65.0*GeV, 115.0*GeV, 0.2);
     addProjection(zfinder, "ZFinder");
     
-    D0ILConeJets conefinder(zfinder.remainingFinalState(), 0.5, 20.0*GeV);
+    FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5, 20.0*GeV);
     addProjection(conefinder, "ConeFinder");
   } 
-
 
 
   // Book histograms
@@ -48,7 +47,7 @@ namespace Rivet {
                << " because no unique lepton pair found." << endl;
       vetoEvent(e);
     }
-    const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(e, "ConeFinder");
+    const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
     const Jets& jets = jetpro.jets();
     Jets jets_cut;
     foreach (const Jet& j, jets) {

@@ -4,7 +4,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/IsolationTools.hh"
 #include "Rivet/RivetAIDA.hh"
 
@@ -20,7 +20,7 @@ namespace Rivet {
     FinalState fs(-5.0, 5.0);
     addProjection(fs, "FS");
 
-    D0ILConeJets jetpro(fs, 0.7);
+    FastJets jetpro(fs, FastJets::D0ILCONE, 0.7);
     addProjection(jetpro, "Jets");
   }
 
@@ -51,7 +51,7 @@ namespace Rivet {
     }
 
     // Find the jets
-    const D0ILConeJets& jetpro = applyProjection<D0ILConeJets>(event, "Jets");
+    const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
     // If there are no jets, skip the event
     if (jetpro.jets().size() == 0) {
       getLog() << Log::DEBUG << "No jets found" << endl;

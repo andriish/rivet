@@ -4,7 +4,6 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/D0ILConeJets.hh"
 #include "Rivet/Projections/IsolationTools.hh"
 #include "Rivet/RivetAIDA.hh"
 

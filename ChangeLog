@@ -1,5 +1,16 @@
 2009-04-24  Andy Buckley  <andy@insectnation.org>
 
+	* Bug fix to D0_2008_S6879055 to ensure that cuts compare to both
+	electron and positron momenta (was just comparing against
+	electrons, twice, probably thanks to the miracle of cut and
+	paste).
+
+	* Converting all D0 IL Cone jets to use FastJets. Involved tidying
+	D0_2004 jet azimuthal decorrelation analysis and D0_2008_S6879055
+	as part of migration away from using the getLorentzJets method,
+	and removing the D0ILConeJets header from quite a few analyses
+	that weren't using it at all.
+
 	* Updating CDF 2001 to use FastJets in place of TrackJet, and
 	adding axis labels to its plots.
 
