@@ -3,9 +3,87 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
 
-using namespace fastjet;
+#include "fastjet/JetDefinition.hh"
+#include "fastjet/ClusterSequence.hh"
+/// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
+//#include "fastjet/SISConePlugin.hh"
+#include "fastjet/CDFJetCluPlugin.hh"
+#include "fastjet/CDFMidPointPlugin.hh"
+#include "fastjet/D0RunIIConePlugin.hh"
+#include "fastjet/TrackJetPlugin.hh"
+#include "fastjet/JadePlugin.hh"
+//#include "fastjet/PxConePlugin.hh"
 
 namespace Rivet {
+
+
+  FastJets::FastJets(const FinalState& fsp, JetAlg alg, double rparameter) {
+    setName("FastJets");
+    addProjection(fsp, "FS");
+    if (alg == KT) {
+      _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
+    } else if (alg == CAM) {
+      _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
+    } else if (alg == ANTIKT) {
+      _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
+    } else if (alg == DURHAM) {
+      _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, rparameter, fastjet::E_scheme);
+    } else {
+      // Plugins:
+      if (alg == SISCONE) {
+        /// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
+        //const double OVERLAP_THRESHOLD = 0.5;
+        //_plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
+      } else if (alg == PXCONE) {
+        throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
+        //_plugin.reset(new fastjet::PxConePlugin(rparameter));
+      } else if (alg == CDFJETCLU) {
+        const double OVERLAP_THRESHOLD = 0.75;
+        _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, OVERLAP_THRESHOLD));
+      } else if (alg == CDFMIDPOINT) {
+        const double OVERLAP_THRESHOLD = 0.75;
+        _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD));
+      } else if (alg == D0ILCONE) {
+        // JCCA: radius = 0.7
+        // JCCB: radius = 0.5
+        const double MIN_ET = 0.0;
+        _plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, MIN_ET));
+      } else if (alg == JADE) {
+        _plugin.reset(new fastjet::JadePlugin());
+      } else if (alg == TRACKJET) {
+        // radius = 0.7;
+        _plugin.reset(new fastjet::TrackJetPlugin(rparameter));
+      }
+      _jdef = fastjet::JetDefinition(_plugin.get());
+    }
+  }
+
+
+  FastJets::FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
+                     fastjet::RecombinationScheme recom, double rparameter) {
+    setName("FastJets");
+    addProjection(fsp, "FS");
+    _jdef = fastjet::JetDefinition(type, rparameter, recom);
+  }
+
+
+  FastJets::FastJets(const FinalState& fsp, const fastjet::JetDefinition::Plugin& plugin) {
+    setName("FastJets");
+    addProjection(fsp, "FS");
+    /// @todo Need to copy the plugin to make a shared_ptr?
+    //_plugin = &plugin;
+    _jdef = fastjet::JetDefinition(_plugin.get());
+  }
+
+
+  FastJets::FastJets(const FastJets& other) 
+    : //_cseq(other._cseq),
+    _jdef(other._jdef),
+    _plugin(other._plugin),
+    _yscales(other._yscales)
+  {  
+    setName("FastJets");
+  }
 
 
   int FastJets::compare(const Projection& p) const {
@@ -28,14 +106,14 @@ namespace Rivet {
 
   void FastJets::calc(const ParticleVector& ps) {
     _particles.clear();
-    vector<PseudoJet> vecs;  
+    vector<fastjet::PseudoJet> vecs;  
     if (!ps.empty()) {
       // Store 4 vector data about each particle into vecs
 
       int counter = 1;
       foreach (const Particle& p, ps) {
         const FourMomentum fv = p.momentum();
-        PseudoJet pJet(fv.px(), fv.py(), fv.pz(), fv.E());
+        fastjet::PseudoJet pJet(fv.px(), fv.py(), fv.pz(), fv.E());
         pJet.set_user_index(counter);
         vecs.push_back(pJet);
         _particles[counter] = p;
@@ -43,7 +121,7 @@ namespace Rivet {
       }
       
       getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
-      _cseq.reset(new ClusterSequence(vecs, _jdef));
+      _cseq.reset(new fastjet::ClusterSequence(vecs, _jdef));
     } else {
       _cseq.reset();
       getLog() << Log::DEBUG << "No tracks!" << endl;
@@ -54,11 +132,11 @@ namespace Rivet {
 
   Jets FastJets::_pseudojetsToJets(const PseudoJets& pjets) const {
     Jets rtn;
-    foreach (const PseudoJet& pj, pjets) {
+    foreach (const fastjet::PseudoJet& pj, pjets) {
       Jet j;
       assert(clusterSeq());
       const PseudoJets parts = clusterSeq()->constituents(pj);
-      foreach (const PseudoJet& p, parts) {
+      foreach (const fastjet::PseudoJet& p, parts) {
         map<int, Particle>::const_iterator found = _particles.find(p.user_index());
         if (found != _particles.end()) {
           // New way keeping full particle info
@@ -79,7 +157,7 @@ namespace Rivet {
   vector<double> FastJets::ySubJet(const fastjet::PseudoJet& jet) const {
     assert(clusterSeq());
     map<int,vector<double> >::iterator iter = _yscales.find(jet.cluster_hist_index());
-    ClusterSequence subjet_cseq(clusterSeq()->constituents(jet), _jdef);
+    fastjet::ClusterSequence subjet_cseq(clusterSeq()->constituents(jet), _jdef);
     vector<double> yMergeVals;
     for (int i = 1; i < 4; ++i) {
       // Multiply the dmerge value by R^2 so that it corresponds to a
@@ -101,7 +179,7 @@ namespace Rivet {
 
     // Build a new cluster sequence just using the consituents of this jet.
     assert(clusterSeq());
-    ClusterSequence cs(clusterSeq()->constituents(jet), _jdef);
+    fastjet::ClusterSequence cs(clusterSeq()->constituents(jet), _jdef);
 
     // Get the jet back again
     fastjet::PseudoJet remadeJet = cs.inclusive_jets()[0];
@@ -132,7 +210,8 @@ namespace Rivet {
 
 
 
-  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const { 
+  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet, 
+                                         double& stingy_R, const double def_R) const { 
     assert(clusterSeq());
 
     if (jet.E() <= 0.0 || clusterSeq()->constituents(jet).size() == 0) { 

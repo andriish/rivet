@@ -1,3 +1,24 @@
+2009-04-24  Andy Buckley  <andy@insectnation.org>
+
+	* Note that ZEUS_2001_S4815815 uses the wrong jet definition: it
+	should be a cone but curently uses kT.
+
+	* Fixing CDF_2005_S6217184 to use correct (midpoint, R=0.7) jet
+	definition. That this was using a kT definition with R=1.0 was
+	only made obvious when the default FastJets constructor was
+	removed.
+
+	* Removing FastJets default constructor: since there are now
+	several good (IRC safe) jet definitions available, there is no
+	obvious safe default and analyses should have to specify which
+	they use.
+
+	* Moving FastJets constructors into implementation file to reduce
+	recompilation dependencies, and adding new plugins.
+
+	* Ensuring that axis labels actually get written to the output
+	data file.
+
 2009-04-22  Andy Buckley  <andy@insectnation.org>
 
 	* Adding explicit FastJet CDF jet alg overlap_threshold

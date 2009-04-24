@@ -12,7 +12,11 @@ namespace Rivet {
       setBeams(POSITRON, PROTON);
       FinalState fs;
       addProjection(fs, "FS");
-      addProjection(FastJets(fs), "Jets");
+      /// @todo This is the *wrong* jet def: correct it!
+      getLog() << Log::WARN << "This analysis uses the wrong jet definition: the " 
+               << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
+               << "were reconstructed using the energies and positions of these cells'" << endl;
+      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
     }
 
 

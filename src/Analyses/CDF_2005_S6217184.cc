@@ -18,7 +18,7 @@ namespace Rivet {
 
     const FinalState fs(-2.0, 2.0);
     addProjection(fs, "FS");
-    addProjection(FastJets(fs), "Jets"); 
+    addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "Jets"); 
     addProjection(TotalVisibleMomentum(fs), "CalMET");
     addProjection(PVertex(), "PV");
     // Veto (anti)neutrinos, and muons with pT above 1.0 GeV

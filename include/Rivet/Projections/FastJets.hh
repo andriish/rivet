@@ -9,12 +9,7 @@
 #include "Rivet/Jet.hh"
 
 #include "fastjet/ClusterSequence.hh"
-/// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
-//#include "fastjet/SISConePlugin.hh"
-//#include "fastjet/PxConePlugin.hh"
-#include "fastjet/CDFJetCluPlugin.hh"
-#include "fastjet/CDFMidPointPlugin.hh"
-#include "fastjet/JadePlugin.hh"
+#include "fastjet/PseudoJet.hh"
 
 namespace Rivet {
 
@@ -33,86 +28,35 @@ namespace Rivet {
   /// Typedef for a collection of PseudoJets.
   typedef vector<fastjet::PseudoJet> PseudoJets;
   
+
   /// Project out jets found using fastJet package.
   class FastJets : public JetAlg {
 
   public:
     /// Wrapper enum for selected Fastjet jet algorithms.
     enum JetAlg { KT, CAM, SISCONE, ANTIKT, PXCONE, 
-                  CDFJETCLU, CDFMIDPOINT, D0ILC, 
+                  CDFJETCLU, CDFMIDPOINT, D0ILCONE,
                   JADE, DURHAM, TRACKJET };
 
 
     /// @name Constructors etc.
     //@{
 
-    /// Default constructor uses \f$ k_\perp \f$ algorithm, R=1, and E-scheme
-    /// recombination.
-    /// @todo Remove!
-    FastJets(const FinalState& fsp){
-      setName("FastJets");
-      addProjection(fsp, "FS");
-      const double RPARAM = 1.0;
-      _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, RPARAM, fastjet::E_scheme);
-    }
-
-
     /// "Wrapped" argument constructor using Rivet enums for most common
     /// jet alg choices (including some plugins). For the built-in algs,
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
-    FastJets(const FinalState& fsp, JetAlg alg, double rparameter) {
-      setName("FastJets");
-      addProjection(fsp, "FS");
-      if (alg == KT) {
-        _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
-      } else if (alg == CAM) {
-        _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
-      } else if (alg == ANTIKT) {
-        _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
-      } else if (alg == DURHAM) {
-        _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, rparameter, fastjet::E_scheme);
-      } else {
-        if (alg == SISCONE) {
-          const double overlap_threshold = 0.5;
-          /// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
-          //_plugin.reset(new fastjet::SISConePlugin(rparameter, overlap_threshold));
-        } else if (alg == PXCONE) {
-          throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
-          //_plugin.reset(new fastjet::PxConePlugin(rparameter));
-        } else if (alg == CDFJETCLU) {
-          const double overlap_threshold = 0.75;
-          _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, overlap_threshold));
-        } else if (alg == CDFMIDPOINT) {
-          const double overlap_threshold = 0.75;
-          _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, overlap_threshold));
-        } else if (alg == JADE) {
-          _plugin.reset(new fastjet::JadePlugin());
-        }
-        _jdef = fastjet::JetDefinition(_plugin.get());
-      }
-    }
-    
+    FastJets(const FinalState& fsp, JetAlg alg, double rparameter);
     
     /// Native argument constructor, using FastJet alg/scheme enums.
     FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
-             fastjet::RecombinationScheme recom, double rparameter) {
-      setName("FastJets");
-      addProjection(fsp, "FS");
-      _jdef = fastjet::JetDefinition(type, rparameter, recom);
-    }
+             fastjet::RecombinationScheme recom, double rparameter);
 
+    /// Explicitly pass in an externally-constructed plugin
+    FastJets(const FinalState& fsp, const fastjet::JetDefinition::Plugin& plugin);
 
     /// Explicit copy constructor.
-    FastJets(const FastJets& other) 
-      : //_cseq(other._cseq),
-        _jdef(other._jdef),
-        _plugin(other._plugin),
-        _yscales(other._yscales)
-    {  
-      setName("FastJets");
-    }
-
+    FastJets(const FastJets& other);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -128,8 +72,8 @@ namespace Rivet {
     void reset() { 
       _yscales.clear();
       _particles.clear();
-      /// @todo Also clear the CSeq
-      //_cseq.XXX;
+      /// @todo Clear _cseq
+      //_cseq = fastjet::ClusterSequence();
     }
 
     /// Number of jets above the \f$ p_\perp \f$ cut.
