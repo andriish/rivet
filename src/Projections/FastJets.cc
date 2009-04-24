@@ -5,8 +5,7 @@
 
 #include "fastjet/JetDefinition.hh"
 #include "fastjet/ClusterSequence.hh"
-/// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
-//#include "fastjet/SISConePlugin.hh"
+#include "fastjet/SISConePlugin.hh"
 #include "fastjet/CDFJetCluPlugin.hh"
 #include "fastjet/CDFMidPointPlugin.hh"
 #include "fastjet/D0RunIIConePlugin.hh"
@@ -31,9 +30,8 @@ namespace Rivet {
     } else {
       // Plugins:
       if (alg == SISCONE) {
-        /// @todo Reinstate when no undefined dtor symbol in libSISConePlugin
-        //const double OVERLAP_THRESHOLD = 0.5;
-        //_plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
+        const double OVERLAP_THRESHOLD = 0.5;
+        _plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
       } else if (alg == PXCONE) {
         throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
         //_plugin.reset(new fastjet::PxConePlugin(rparameter));
