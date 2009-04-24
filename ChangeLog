@@ -1,5 +1,8 @@
 2009-04-24  Andy Buckley  <andy@insectnation.org>
 
+	* Deleting Rivet implementations of TrackJet and D0ILConeJets: the
+	code from these has now been incorporated into FastJet 2.4.0.
+
 	* Removed all mentions of the FastJet JADE patch and the HAVE_JADE
 	preprocessor macro.
 
