@@ -1,5 +1,8 @@
 2009-04-24  Andy Buckley  <andy@insectnation.org>
 
+	* Removed all mentions of the FastJet JADE patch and the HAVE_JADE
+	preprocessor macro.
+
 	* Bug fix to D0_2008_S6879055 to ensure that cuts compare to both
 	electron and positron momenta (was just comparing against
 	electrons, twice, probably thanks to the miracle of cut and

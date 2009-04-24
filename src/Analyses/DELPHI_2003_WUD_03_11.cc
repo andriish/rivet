@@ -15,10 +15,8 @@ namespace Rivet {
   {
     const ChargedFinalState cfs;
     addProjection(cfs, "FS");
-    #ifdef HAVE_JADE
     addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
     addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-    #endif
     _numdurjets = 0;
     _numjadejets = 0;
   }
@@ -67,12 +65,10 @@ namespace Rivet {
     }
     getLog() << Log::DEBUG << "Passed multiplicity cut" << endl;
 
-    // Jets
-    #ifdef HAVE_JADE
-
     // Get event weight for histo filling
     const double weight = e.weight();
 
+    // Jets
     getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     std::vector<fastjet::PseudoJet> jets_durham;
@@ -102,9 +98,6 @@ namespace Rivet {
         _numjadejets++;
     }
 
-
-    #endif
-
   }
 
 
@@ -118,10 +111,6 @@ namespace Rivet {
     _histJadeKSW       = bookHistogram1D(2, 2, 1, "K\\\"orner-Schierholz-Willrodt $\\cos(\\phi_\\text{KSW})$, Jade $y_\\text{cut}=0.015$");
     _histJadeNR        = bookHistogram1D(3, 2, 1, "Nachtmann-Reiter (mod.) $|\\cos(\\theta^*_\\text{NR})|$, Jade $y_\\text{cut}=0.015$");
     _histJadeALPHA34   = bookHistogram1D(4, 2, 1, "$\\cos(\\alpha_{34})$, Jade $y_\\text{cut}=0.015$");
-
-    #ifndef HAVE_JADE
-    getLog() << Log::WARN << "No FastJet JADE patch, so we cannot run this analysis." << endl;
-    #endif
   }
 
 

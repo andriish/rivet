@@ -24,10 +24,8 @@ namespace Rivet {
     const ChargedFinalState cfs;
     addProjection(cfs, "FS");
     addProjection(UnstableFinalState(), "UFS");
-    #ifdef HAVE_JADE
     //addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
     addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-    #endif
     addProjection(Sphericity(cfs), "Sphericity");
     addProjection(ParisiTensor(cfs), "Parisi");
     const Thrust thrust(cfs);
@@ -85,16 +83,13 @@ namespace Rivet {
     _histOblateness->fill(thrust.oblateness(), weight);
 
     // Jets
-    #ifdef HAVE_JADE
     getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     if (durjet.clusterSeq()) {
       double y3 = durjet.clusterSeq()->exclusive_dmerge(2);
       _histY3->fill(-1. * std::log(y3), weight);
     }
-
-    #endif
-
+    
     // Sphericities
     getLog() << Log::DEBUG << "Calculating sphericity" << endl;
     const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");

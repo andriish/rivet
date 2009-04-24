@@ -23,10 +23,8 @@ namespace Rivet {
     const ChargedFinalState cfs;
     addProjection(cfs, "FS");
     addProjection(UnstableFinalState(), "UFS");
-    #ifdef HAVE_JADE
     addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
     addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-    #endif
     addProjection(Sphericity(cfs), "Sphericity");
     addProjection(ParisiTensor(cfs), "Parisi");
     const Thrust thrust(cfs);
@@ -68,8 +66,6 @@ namespace Rivet {
     _histOblateness->fill(thrust.oblateness(), weight);
 
     // Jets
-    #ifdef HAVE_JADE
-    getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     if (durjet.clusterSeq()) {
       _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_dmerge(2), weight); 
@@ -82,7 +78,6 @@ namespace Rivet {
       _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(3), weight); 
       _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(4), weight); 
     }
-    #endif
 
     // Sphericities
     getLog() << Log::DEBUG << "Calculating sphericity" << endl;
@@ -293,9 +288,6 @@ namespace Rivet {
     _histHemiBroadT  = bookHistogram1D(25, 1, 1, "Total hemisphere broadening, $B_\\text{sum}$ (charged)");
     _histHemiBroadD  = bookHistogram1D(26, 1, 1, "Difference in hemisphere broadening, $B_\\text{diff}$ (charged)");
 
-    #ifndef HAVE_JADE
-    getLog() << Log::WARN << "No FastJet JADE patch, so not making any diff jet rate plots." << endl;
-    #endif
     _histDiffRate2Durham  = bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, $D_2^\\text{Durham}$ (charged)"); // binned in y_cut
     _histDiffRate2Jade    = bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, $D_2^\\text{Jade}$ (charged)"); // binned in y_cut
     _histDiffRate3Durham  = bookHistogram1D(29, 1, 1, "Differential 3-jet rate with Durham algorithm, $D_3^\\text{Durham}$ (charged)"); // binned in y_cut

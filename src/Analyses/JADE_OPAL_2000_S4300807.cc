@@ -19,10 +19,8 @@ namespace Rivet {
     addProjection(Beam(), "Beams");
     const FinalState fs;
     addProjection(fs, "FS");
-    #ifdef HAVE_JADE
     addProjection(FastJets(fs, FastJets::JADE, 0.7), "JadeJets");
     addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
-    #endif
   }
 
 
@@ -39,7 +37,6 @@ namespace Rivet {
     }
 
     // Jets
-    #ifdef HAVE_JADE
     getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
     const double weight = e.weight();
 
@@ -133,17 +130,13 @@ namespace Rivet {
         }
       }
     }
-    #endif
   }
 
 
 
   void JADE_OPAL_2000_S4300807::init() {
-    #ifndef HAVE_JADE
-    getLog() << Log::WARN << "No FastJet JADE patch, so not making any diff jet rate plots." << endl;
-    #endif
     stringstream ss;
-    ss<<_sqrts;
+    ss << _sqrts;
     _h_R_Jade[0]=bookDataPointSet(_nr_R_Jade, 1, 1, "Integrated 2-jet rate with Jade algorithm, $R_2^\\text{Jade}$ ("+ss.str()+" GeV)");
     _h_R_Jade[1]=bookDataPointSet(_nr_R_Jade, 1, 2, "Integrated 3-jet rate with Jade algorithm, $R_3^\\text{Jade}$ ("+ss.str()+" GeV)");
     _h_R_Jade[2]=bookDataPointSet(_nr_R_Jade, 1, 3, "Integrated 4-jet rate with Jade algorithm, $R_4^\\text{Jade}$ ("+ss.str()+" GeV)");
@@ -166,18 +159,18 @@ namespace Rivet {
 
   // Finalize
   void JADE_OPAL_2000_S4300807::finalize() {
-    for (size_t n=0; n<4; ++n) {
+    for (size_t n = 0; n < 4; ++n) {
       scale(_h_y_Durham[n], 1.0/sumOfWeights());
     }
     
-    for (size_t n=0; n<5; ++n) {
+    for (size_t n = 0; n < 5; ++n) {
       /// scale integrated jet rates to 100%
-      for (int i=0; i<_h_R_Jade[n]->size(); ++i) {
-        IDataPoint* dp=_h_R_Jade[n]->point(i);
+      for (int i = 0; i < _h_R_Jade[n]->size(); ++i) {
+        IDataPoint* dp = _h_R_Jade[n]->point(i);
         dp->coordinate(1)->setValue(dp->coordinate(1)->value()*100.0/sumOfWeights());
       }
-      for (int i=0; i<_h_R_Durham[n]->size(); ++i) {
-        IDataPoint* dp=_h_R_Durham[n]->point(i);
+      for (int i = 0; i < _h_R_Durham[n]->size(); ++i) {
+        IDataPoint* dp = _h_R_Durham[n]->point(i);
         dp->coordinate(1)->setValue(dp->coordinate(1)->value()*100.0/sumOfWeights());
       }
     }

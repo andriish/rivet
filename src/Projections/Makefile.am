@@ -30,6 +30,3 @@ libRivetProjections_la_SOURCES = \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
   ZFinder.cc
-
-## TODO: remove, or -> HAVE_FJDURHAM
-AM_CXXFLAGS += -DHAVE_JADE

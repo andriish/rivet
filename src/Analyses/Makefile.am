@@ -51,5 +51,3 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
 
 libRivetAnalysisStd_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)
 libRivetAnalysisStd_la_LIBADD = -lCDFConesPlugin -lSISConePlugin -lsiscone -lJadePlugin
-## TODO: remove, or -> HAVE_FJDURHAM
-libRivetAnalysisStd_la_CPPFLAGS = $(AM_CPPFLAGS) -DHAVE_JADE
