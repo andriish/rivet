@@ -10,7 +10,6 @@
 #include "Rivet/Analyses/CDF_2001_S4751469.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/LossyFinalState.hh"
-#include "Rivet/Projections/TrackJet.hh" //< remove in favour of FastJets
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -25,30 +24,45 @@ namespace Rivet {
     const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
     const LossyFinalState lfs(cfs, 0.08); 
     addProjection(lfs, "FS");
-    addProjection(TrackJet(lfs), "TrackJet");
+    addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
   }
 
 
 
   // Book histograms
   void CDF_2001_S4751469::init() {
-    _numTowardMB = bookProfile1D(3, 1, 1, "Num (toward) for min-bias");
-    _numTransMB = bookProfile1D(3, 1, 2, "Num (transverse) for min-bias");
-    _numAwayMB = bookProfile1D(3, 1, 3, "Num (away) for min-bias");
-    _numTowardJ20 = bookProfile1D(4, 1, 1, "Num (toward) for JET20");
-    _numTransJ20 = bookProfile1D(4, 1, 2, "Num (transverse) for JET20");
-    _numAwayJ20 = bookProfile1D(4, 1, 3, "Num (away) for JET20");
+    const string pT1 = "$p_\\perp^\\text{lead}$";
+    const string Nch = "$N_\\text{ch}$";
+    string xlabel = pT1 + " / GeV";
+    string ylabel = Nch;
+    _numTowardMB = bookProfile1D(3, 1, 1, Nch + " (toward) for min-bias", xlabel, ylabel);
+    _numTransMB = bookProfile1D(3, 1, 2, Nch + " (transverse) for min-bias", xlabel, ylabel);
+    _numAwayMB = bookProfile1D(3, 1, 3, Nch + " (away) for min-bias", xlabel, ylabel);
+    _numTowardJ20 = bookProfile1D(4, 1, 1, Nch + " (toward) for JET20", xlabel, ylabel);
+    _numTransJ20 = bookProfile1D(4, 1, 2, Nch + " (transverse) for JET20", xlabel, ylabel);
+    _numAwayJ20 = bookProfile1D(4, 1, 3, Nch + " (away) for JET20", xlabel, ylabel);
 
-    _ptsumTowardMB = bookProfile1D(5, 1, 1, "$p_\\perp^\\text{sum}$ (toward) for min-bias");
-    _ptsumTransMB = bookProfile1D(5, 1, 2, "$p_\\perp^\\text{sum}$ (transverse) for min-bias");
-    _ptsumAwayMB = bookProfile1D(5, 1, 3, "$p_\\perp^\\text{sum}$ (away) for min-bias");
-    _ptsumTowardJ20 = bookProfile1D(6, 1, 1, "$p_\\perp^\\text{sum}$ (toward) for JET20");
-    _ptsumTransJ20 = bookProfile1D(6, 1, 2, "$p_\\perp^\\text{sum}$ (transverse) for JET20");
-    _ptsumAwayJ20 = bookProfile1D(6, 1, 3, "$p_\\perp^\\text{sum}$ (away) for JET20");
+    const string pTsum = "$p_\\perp^\\text{sum}$";
+    ylabel = pTsum + " / GeV";
+    _ptsumTowardMB = bookProfile1D(5, 1, 1, pTsum + " (toward) for min-bias", xlabel, ylabel);
+    _ptsumTransMB = bookProfile1D(5, 1, 2, pTsum + " (transverse) for min-bias", xlabel, ylabel);
+    _ptsumAwayMB = bookProfile1D(5, 1, 3, pTsum + " (away) for min-bias", xlabel, ylabel);
+    _ptsumTowardJ20 = bookProfile1D(6, 1, 1, pTsum + " (toward) for JET20", xlabel, ylabel);
+    _ptsumTransJ20 = bookProfile1D(6, 1, 2, pTsum + " (transverse) for JET20", xlabel, ylabel);
+    _ptsumAwayJ20 = bookProfile1D(6, 1, 3, pTsum + " (away) for JET20", xlabel, ylabel);
 
-    _ptTrans2 = bookHistogram1D(7, 1, 1, "$p_\\perp$ distribution (transverse, $p_\\perp^\\text{lead} > 2\\text{ GeV}$)");
-    _ptTrans5 = bookHistogram1D(7, 1, 2, "$p_\\perp$ distribution (transverse, $p_\\perp^\\text{lead} > 5\\text{ GeV}$)");
-    _ptTrans30 = bookHistogram1D(7, 1, 3, "$p_\\perp$ distribution (transverse, $p_\\perp^\\text{lead} > 30 \\text{GeV}$)");
+    const string pT = "$p_\\perp$";
+    xlabel = pT + " / GeV";
+    ylabel = "$1/\\sigma \\, \\d{\\sigma}/\\d{p_\\perp}$";
+    _ptTrans2 = bookHistogram1D(7, 1, 1, "$p_\\perp$ distribution " 
+                                "(transverse, $p_\\perp^\\text{lead} > 2\\text{ GeV}$)",
+                                xlabel, ylabel);
+    _ptTrans5 = bookHistogram1D(7, 1, 2, "$p_\\perp$ distribution "
+                                "(transverse, $p_\\perp^\\text{lead} > 5\\text{ GeV}$)",
+                                xlabel, ylabel);
+    _ptTrans30 = bookHistogram1D(7, 1, 3, "$p_\\perp$ distribution "
+                                 "(transverse, $p_\\perp^\\text{lead} > 30 \\text{GeV}$)",
+                                 xlabel, ylabel);
   }
 
 
@@ -56,7 +70,7 @@ namespace Rivet {
   void CDF_2001_S4751469::analyze(const Event& event) {
 
     // Analyse, with pT > 0.5 GeV AND |eta| < 1
-    const TrackJet& tj = applyProjection<TrackJet>(event, "TrackJet");
+    const JetAlg& tj = applyProjection<JetAlg>(event, "TrackJet");
 
     // Get jets, sorted by pT
     const Jets jets = tj.jetsByPt();

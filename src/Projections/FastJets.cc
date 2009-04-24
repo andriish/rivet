@@ -17,7 +17,7 @@
 namespace Rivet {
 
 
-  FastJets::FastJets(const FinalState& fsp, JetAlg alg, double rparameter) {
+  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter) {
     setName("FastJets");
     addProjection(fsp, "FS");
     if (alg == KT) {

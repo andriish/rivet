@@ -1,5 +1,8 @@
 2009-04-24  Andy Buckley  <andy@insectnation.org>
 
+	* Updating CDF 2001 to use FastJets in place of TrackJet, and
+	adding axis labels to its plots.
+
 	* Note that ZEUS_2001_S4815815 uses the wrong jet definition: it
 	should be a cone but curently uses kT.
 

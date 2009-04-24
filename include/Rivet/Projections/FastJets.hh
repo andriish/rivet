@@ -34,7 +34,7 @@ namespace Rivet {
 
   public:
     /// Wrapper enum for selected Fastjet jet algorithms.
-    enum JetAlg { KT, CAM, SISCONE, ANTIKT, PXCONE, 
+    enum JetAlgName { KT, CAM, SISCONE, ANTIKT, PXCONE, 
                   CDFJETCLU, CDFMIDPOINT, D0ILCONE,
                   JADE, DURHAM, TRACKJET };
 
@@ -46,7 +46,7 @@ namespace Rivet {
     /// jet alg choices (including some plugins). For the built-in algs,
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
-    FastJets(const FinalState& fsp, JetAlg alg, double rparameter);
+    FastJets(const FinalState& fsp, JetAlgName alg, double rparameter);
     
     /// Native argument constructor, using FastJet alg/scheme enums.
     FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
