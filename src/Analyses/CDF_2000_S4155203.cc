@@ -4,7 +4,6 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Analyses/CDF_2000_S4155203.hh"
-#include "Rivet/Projections/TrackJet.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/LossyFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"

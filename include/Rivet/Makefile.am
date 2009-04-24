@@ -89,7 +89,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/ClusteredPhotons.hh \
   Projections/DISKinematics.hh  \
   Projections/DISLepton.hh      \
-  Projections/D0ILConeJets.hh   \
   Projections/FastJets.hh       \
   Projections/FinalState.hh     \
   Projections/FinalStateHCM.hh  \
@@ -114,7 +113,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/Thrust.hh         \
   Projections/TotalVisibleMomentum.hh \
   Projections/UnstableFinalState.hh \
-  Projections/TrackJet.hh       \
   Projections/VetoedFinalState.hh \
   Projections/ZFinder.hh
 
@@ -158,11 +156,3 @@ nobase_pkginclude_HEADERS += \
   Math/eigen/vectorbase.h \
   Math/eigen/projective.h \
   Math/eigen/matrixbase.h 
-
-## D0 internals
-nobase_dist_noinst_HEADERS += \
-  Tools/D0RunIIcone/HepEntity.h \
-  Tools/D0RunIIcone/energycluster/ConeJetInfo.hpp \
-  Tools/D0RunIIcone/energycluster/ConeSplitMerge.hpp \
-  Tools/D0RunIIcone/energycluster/ProtoJet.hpp \
-  Tools/D0RunIIcone/energycluster/ILConeAlgorithm.hpp

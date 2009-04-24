@@ -8,7 +8,6 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/TrackJet.hh"
 
 namespace Rivet {
 

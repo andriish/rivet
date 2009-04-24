@@ -7,7 +7,6 @@ libRivetProjections_la_SOURCES = \
   ClusteredPhotons.cc \
   DISKinematics.cc \
   DISLepton.cc \
-  D0ILConeJets.cc \
   FastJets.cc \
   FinalState.cc \
   FinalStateHCM.cc \
@@ -26,7 +25,6 @@ libRivetProjections_la_SOURCES = \
   SVertex.cc \
   Thrust.cc \
   TotalVisibleMomentum.cc \
-  TrackJet.cc \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
   ZFinder.cc
