@@ -75,7 +75,7 @@ AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 
 ## FastJet library
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
-AC_PATH_PROG(FJCONFIG, fastjet-config, [], $FASTJETPATH/bin)
+AC_PATH_PROG(FJCONFIG, fastjet-config, [], $FASTJETPATH/bin:$PATH)
 if test -f "$FJCONFIG"; then
   AC_MSG_CHECKING([FastJet version using fastjet-config])
   fjversion=$($FJCONFIG --version)
