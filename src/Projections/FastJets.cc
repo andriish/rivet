@@ -102,9 +102,7 @@ namespace Rivet {
   void FastJets::calc(const ParticleVector& ps) {
     _particles.clear();
     vector<fastjet::PseudoJet> vecs;  
-    if (!ps.empty()) {
       // Store 4 vector data about each particle into vecs
-
       int counter = 1;
       foreach (const Particle& p, ps) {
         const FourMomentum fv = p.momentum();
@@ -114,13 +112,8 @@ namespace Rivet {
         _particles[counter] = p;
         ++counter;
       }
-      
       getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
       _cseq.reset(new fastjet::ClusterSequence(vecs, _jdef));
-    } else {
-      _cseq.reset();
-      getLog() << Log::DEBUG << "No tracks!" << endl;
-    }
   }
 
 
