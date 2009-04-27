@@ -33,7 +33,8 @@ namespace Rivet {
 
   // Book histograms
   void D0_2007_S7075677::init() {
-    _h_yZ = bookHistogram1D(1, 1, 1, "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}y(Z)$");
+    _h_yZ = bookHistogram1D(1, 1, 1, "$1/\\sigma \\text{d}\\sigma/\\text{d}y(Z)$",
+                            "$|y|$(Z)", "$1/\\sigma \\text{d}\\sigma/\\text{d}|y|(Z)$");
   }
 
 

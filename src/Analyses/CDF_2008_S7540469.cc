@@ -30,11 +30,14 @@ namespace Rivet {
   // Book histograms
   void CDF_2008_S7540469::init() {
     _h_jet_multiplicity = bookHistogram1D
-      (1, 1, 1, "Total cross section as function of $N_{\\mathrm{jet}}$");
+      (1, 1, 1, "Jet multiplicity",
+       "$N_{\\text{jet}}$", "$\\sigma(N_{\\text{jet}})$");
     _h_jet_pT_cross_section_incl_1jet = bookHistogram1D
-      (2, 1, 1,"Differential cross section in jet $p_\\perp$ for inclusive $N_{\\mathrm{jet}} \\geq 1$");
+      (2, 1, 1,"Jet $p_\\perp$ for inclusive $N_{\\text{jet}} \\geq 1$",
+       "$p_\\perp$(jet) [GeV]", "$\\text{d}\\sigma/\\text{d}p_\\perp(\\text{jet})$");
     _h_jet_pT_cross_section_incl_2jet = bookHistogram1D
-      (3, 1, 1,"Differential cross section in jet $p_\\perp$ for inclusive $N_{\\mathrm{jet}} \\geq 2$");
+      (3, 1, 1,"Jet $p_\\perp$ for inclusive $N_{\\text{jet}} \\geq 2$",
+       "$p_\\perp$(jet) [GeV]", "$\\text{d}\\sigma/\\text{d}p_\\perp(\\text{jet})$");
   }
 
 

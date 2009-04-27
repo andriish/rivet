@@ -137,22 +137,36 @@ namespace Rivet {
   void JADE_OPAL_2000_S4300807::init() {
     stringstream ss;
     ss << _sqrts;
-    _h_R_Jade[0]=bookDataPointSet(_nr_R_Jade, 1, 1, "Integrated 2-jet rate with Jade algorithm, $R_2^\\text{Jade}$ ("+ss.str()+" GeV)");
-    _h_R_Jade[1]=bookDataPointSet(_nr_R_Jade, 1, 2, "Integrated 3-jet rate with Jade algorithm, $R_3^\\text{Jade}$ ("+ss.str()+" GeV)");
-    _h_R_Jade[2]=bookDataPointSet(_nr_R_Jade, 1, 3, "Integrated 4-jet rate with Jade algorithm, $R_4^\\text{Jade}$ ("+ss.str()+" GeV)");
-    _h_R_Jade[3]=bookDataPointSet(_nr_R_Jade, 1, 4, "Integrated 5-jet rate with Jade algorithm, $R_5^\\text{Jade}$ ("+ss.str()+" GeV)");
-    _h_R_Jade[4]=bookDataPointSet(_nr_R_Jade, 1, 5, "Integrated $>$6-jet rate with Jade algorithm, $R_6^\\text{Jade}$ ("+ss.str()+" GeV)");
+    _h_R_Jade[0]=bookDataPointSet(_nr_R_Jade, 1, 1, "Integrated 2-jet rate with Jade algorithm ("+ss.str()+" GeV)",
+                                  "$y_{\\text{cut}}^\\text{Jade}$", "$R_2$");
+    _h_R_Jade[1]=bookDataPointSet(_nr_R_Jade, 1, 2, "Integrated 3-jet rate with Jade algorithm ("+ss.str()+" GeV)",
+                                  "$y_{\\text{cut}}^\\text{Jade}$", "$R_3$");
+    _h_R_Jade[2]=bookDataPointSet(_nr_R_Jade, 1, 3, "Integrated 4-jet rate with Jade algorithm ("+ss.str()+" GeV)",
+                                  "$y_{\\text{cut}}^\\text{Jade}$", "$R_4$");
+    _h_R_Jade[3]=bookDataPointSet(_nr_R_Jade, 1, 4, "Integrated 5-jet rate with Jade algorithm ("+ss.str()+" GeV)",
+                                  "$y_{\\text{cut}}^\\text{Jade}$", "$R_5$");
+    _h_R_Jade[4]=bookDataPointSet(_nr_R_Jade, 1, 5, "Integrated $\\geq$6-jet rate with Jade algorithm ("+ss.str()+" GeV)",
+                                  "$y_{\\text{cut}}^\\text{Jade}$", "$R_{\\geq 6}$");
 
-    _h_R_Durham[0]=bookDataPointSet(_nr_R_Durham, 1, 1, "Integrated 2-jet rate with Durham algorithm, $R_2^\\text{Durham}$ ("+ss.str()+" GeV)");
-    _h_R_Durham[1]=bookDataPointSet(_nr_R_Durham, 1, 2, "Integrated 3-jet rate with Durham algorithm, $R_3^\\text{Durham}$ ("+ss.str()+" GeV)");
-    _h_R_Durham[2]=bookDataPointSet(_nr_R_Durham, 1, 3, "Integrated 4-jet rate with Durham algorithm, $R_4^\\text{Durham}$ ("+ss.str()+" GeV)");
-    _h_R_Durham[3]=bookDataPointSet(_nr_R_Durham, 1, 4, "Integrated 5-jet rate with Durham algorithm, $R_5^\\text{Durham}$ ("+ss.str()+" GeV)");
-    _h_R_Durham[4]=bookDataPointSet(_nr_R_Durham, 1, 5, "Integrated $>$6-jet rate with Durham algorithm, $R_6^\\text{Durham}$ ("+ss.str()+" GeV)");
+    _h_R_Durham[0]=bookDataPointSet(_nr_R_Durham, 1, 1, "Integrated 2-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                    "$y_{\\text{cut}}^\\text{Durham}$", "$R_2$");
+    _h_R_Durham[1]=bookDataPointSet(_nr_R_Durham, 1, 2, "Integrated 3-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                    "$y_{\\text{cut}}^\\text{Durham}$", "$R_3$");
+    _h_R_Durham[2]=bookDataPointSet(_nr_R_Durham, 1, 3, "Integrated 4-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                    "$y_{\\text{cut}}^\\text{Durham}$", "$R_4$");
+    _h_R_Durham[3]=bookDataPointSet(_nr_R_Durham, 1, 4, "Integrated 5-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                    "$y_{\\text{cut}}^\\text{Durham}$", "$R_5$");
+    _h_R_Durham[4]=bookDataPointSet(_nr_R_Durham, 1, 5, "Integrated $\\geq$6-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                    "$y_{\\text{cut}}^\\text{Durham}$", "$R_{\\geq 6}$");
 
-    _h_y_Durham[0]=bookHistogram1D(_nr_y_Durham, 1, 1, "Differential 2-jet rate with Durham algorithm, $y_{23}^\\text{Durham}$ ("+ss.str()+" GeV)");
-    _h_y_Durham[1]=bookHistogram1D(_nr_y_Durham, 1, 2, "Differential 3-jet rate with Durham algorithm, $y_{34}^\\text{Durham}$ ("+ss.str()+" GeV)");
-    _h_y_Durham[2]=bookHistogram1D(_nr_y_Durham, 1, 3, "Differential 4-jet rate with Durham algorithm, $y_{45}^\\text{Durham}$ ("+ss.str()+" GeV)");
-    _h_y_Durham[3]=bookHistogram1D(_nr_y_Durham, 1, 4, "Differential 5-jet rate with Durham algorithm, $y_{56}^\\text{Durham}$ ("+ss.str()+" GeV)");
+    _h_y_Durham[0]=bookHistogram1D(_nr_y_Durham, 1, 1, "Differential 2-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                   "$y_{23}^\\text{Durham}$", "$\\text{d}\\sigma/\\text{d}y_{23}$");
+    _h_y_Durham[1]=bookHistogram1D(_nr_y_Durham, 1, 2, "Differential 3-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                   "$y_{34}^\\text{Durham}$", "$\\text{d}\\sigma/\\text{d}y_{34}$");
+    _h_y_Durham[2]=bookHistogram1D(_nr_y_Durham, 1, 3, "Differential 4-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                   "$y_{45}^\\text{Durham}$", "$\\text{d}\\sigma/\\text{d}y_{45}$");
+    _h_y_Durham[3]=bookHistogram1D(_nr_y_Durham, 1, 4, "Differential 5-jet rate with Durham algorithm ("+ss.str()+" GeV)",
+                                   "$y_{56}^\\text{Durham}$", "$\\text{d}\\sigma/\\text{d}y_{56}$");
   }
 
 

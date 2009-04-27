@@ -28,8 +28,12 @@ namespace Rivet {
 
   // Book histograms
   void D0_2008_S7554427::init() {
-    _h_ZpT         = bookHistogram1D(1, 1, 1, "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(Z)$");
-    _h_forward_ZpT = bookHistogram1D(3, 1, 1, "$1/\\sigma \\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(Z)$ (forward region only)");
+    _h_ZpT         = bookHistogram1D(1, 1, 1, "Z pT",
+                                     "$p_{\\perp}$(Z) [GeV]",
+                                     "$1/\\sigma \\text{d}\\sigma/\\text{d}p_\\perp(Z)$");
+    _h_forward_ZpT = bookHistogram1D(3, 1, 1, "Z pT (forward region only)",
+                                     "$p_{\\perp}$(Z) [GeV]",
+                                     "$1/\\sigma \\text{d}\\sigma/\\text{d}p_\\perp(Z)$");
   }
 
 
