@@ -1,3 +1,11 @@
+2009-04-28  Andy Buckley  <andy@insectnation.org>
+
+	* Removing inclusion of IsolationTools header by analyses that
+	aren't actually using the isolation tools... which is all of
+	them. Leaving the isolation tools in place for now, as there might
+	still be use cases for them and there's quite a lot of code there
+	that deserves a second chance to be used!
+
 2009-04-24  Andy Buckley  <andy@insectnation.org>
 
 	* Deleting Rivet implementations of TrackJet and D0ILConeJets: the
