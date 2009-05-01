@@ -11,39 +11,20 @@ namespace Rivet {
 
 
   /// This class projects out the incoming and outgoing leptons in a DIS
-  /// event. The incoming lepton is assumed to be along the positive z-axis.
+  /// event. 
   class DISLepton : public Projection {
     
   public:
     
     /// @name Constructors.
     //@{
-    /// Specify the incoming and outgoing PDG codes of the leptons to project.
-    /// If \a inid is an anti-particle and \a outid a particle, or vice versa,
-    /// either a scattered lepton or anti-lepton is searched for. This version
-    /// also specifies a FinalState projection.
-    DISLepton(const FinalState& fsp, const ParticleName& inid, const ParticleName& outid)
-      : _idin(inid), _idout(outid)
-    {
-      setName("DISLepton");
-      addBeamPair(inid, ANY);
-      addProjection(Beam(), "Beam");
-      addProjection(fsp, "FS");
-    }
     
-    /// Specify the incoming and outgoing PDG codes of the leptons to project.
-    /// If \a inid is an anti-particle and \a outid a particle, or vice versa,
-    /// either a scattered lepton or anti-lepton is searched for. This version
-    /// uses a default-constructed basic FinalState projection.
-    DISLepton(const ParticleName& inid, const ParticleName& outid)
-      : _idin(inid), _idout(outid)
-    {
+    DISLepton(){
       setName("DISLepton");
-      addBeamPair(inid, ANY);
       addProjection(Beam(), "Beam");
       addProjection(FinalState(), "FS");
     }
-
+    
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new DISLepton(*this);
@@ -67,20 +48,19 @@ namespace Rivet {
     /// The outgoing lepton.
     const Particle& out() const { return _outgoing; }
     
+    const double &pzSign() const { return _sign; }
+    
   private:
-    
-    /// The PDG id of the incoming lepton.
-    long _idin;
-    
-    /// The PDG id of the outcoming lepton.
-    long _idout;
     
     /// The incoming lepton.
     Particle _incoming;
     
-    /// The incoming lepton.
+    /// The outgoing lepton.
     Particle _outgoing;
         
+    /// The sign of the PZ of the incoming lepton
+    double _sign;
+    
   };
   
 }

@@ -13,35 +13,29 @@ namespace Rivet {
   // Constructor
   H1_1994_S2919893::H1_1994_S2919893() {
     setBeams(ELECTRON, PROTON);
-    const DISLepton& lepton = 
-      addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
-    addProjection(DISKinematics(lepton, PROTON), "Kinematics");
+    addProjection(DISLepton(), "Lepton");
+    addProjection(DISKinematics(), "Kinematics");
     addProjection(FinalState(), "FS");
   }
 
 
   void H1_1994_S2919893::analyze(const Event& event) {
+        
     const FinalState& fs = applyProjection<FinalState>(event, "FS");
     const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
     const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
-
-    // Require outgoing lepton same type as incoming
-    if (dl.in().pdgId()!=dl.out().pdgId()) vetoEvent(event);
-
+    
     // Get the DIS kinematics
     double x  = dk.x();
     double w2 = dk.W2();
     double w = sqrt(w2);
 
-    // Whether electron in + (false) or - (true) z
-    bool order = dl.in().momentum().z() < 0.;
-
     // Momentum of the scattered lepton
     FourMomentum leptonMom = dl.out().momentum();
     double ptel = pT(leptonMom);
     double enel = leptonMom.E();
-    double thel = beamAngle(leptonMom,order);
-
+    double thel = leptonMom.angle(dk.beamHadron().momentum())/degree;
+    
     // Extract the particles other than the lepton
     ParticleVector particles;
     particles.reserve(fs.particles().size());
@@ -51,11 +45,11 @@ namespace Rivet {
       if (&loopGP == &dislepGP) continue;
       particles.push_back(p);
     }
-
+    
     // Cut on the forward energy
     double efwd = 0.0;
     foreach (const Particle& p, particles) {
-      double th = beamAngle(p.momentum(), order);
+      double th = p.momentum().angle(dk.beamHadron().momentum())/degree;
       if (th > 4.4 && th < 15.) {
         efwd += p.momentum().E();
       }
@@ -63,6 +57,7 @@ namespace Rivet {
 
     // Apply the cuts
     // Lepton energy and angle, w2 and forward energy
+    getLog()<<Log::DEBUG<<"enel/GeV = "<<enel/GeV<<", thel = "<<thel<<", w2 = "<<w2<<", efwd/GeV = "<<efwd/GeV<<std::endl;
     bool cut = enel/GeV > 14. && thel > 157. && thel < 172.5 && w2 >= 3000. && efwd/GeV > 0.5;
     if (!cut) vetoEvent(event);
 
@@ -82,7 +77,7 @@ namespace Rivet {
     for (size_t ip1 = 0; ip1 < particles.size(); ++ip1) {
       const Particle& p = particles[ip1];
 
-      double th = beamAngle(p.momentum(), order);
+      double th = p.momentum().angle(dk.beamHadron().momentum()) / degree;
       // Boost momentum to lab
       const FourMomentum hcmMom = hcmboost.transform(p.momentum());
       // Angular cut
@@ -124,7 +119,8 @@ namespace Rivet {
       for (size_t ip2 = ip1+1; ip2 < particles.size(); ++ip2) {
         const Particle& p2 = particles[ip2];
         
-        double th2 = beamAngle(p2.momentum(), order);
+        //double th2 = beamAngle(p2.momentum(), order);
+        double th2 = p2.momentum().angle(dk.beamHadron().momentum()) / degree;
         if (th2 <= 8.) continue;
         double phi2 = p2.momentum().azimuthalAngle(ZERO_2PI);
 
@@ -132,7 +128,6 @@ namespace Rivet {
         double deltaphi = phi1 - phi2;
         if (fabs(deltaphi) > PI) 
           deltaphi = fabs(fabs(deltaphi) - TWOPI);
-
         double eta2 = p2.momentum().pseudorapidity();
         double omega = sqrt(sqr(eta1-eta2) + sqr(deltaphi));
         double et2 = fabs(Et(p2.momentum()));

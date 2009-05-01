@@ -2,6 +2,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/DISLepton.hh"
 #include "Rivet/Cmp.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 
 namespace Rivet {
 
@@ -9,31 +10,38 @@ namespace Rivet {
     const DISLepton& other = pcast<DISLepton>(p);
     return
       mkNamedPCmp(other, "Beam") || 
-      mkNamedPCmp(other, "FS") || 
-      cmp(_idin, other._idin) || 
-      cmp(_idout, other._idout);
+      mkNamedPCmp(other, "FS");
   }
 
 
   void DISLepton::project(const Event& e) {
     const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
-    const bool allowAnti = (_idin * _idout < 0);
-    if ( _idin == inc.first.pdgId() || (allowAnti && _idin == -inc.first.pdgId()) ) {
+    
+    Particle inLepton;
+    
+    bool firstIsLepton = PID::isLepton(inc.first.pdgId());
+    bool secondIsLepton = PID::isLepton(inc.second.pdgId());
+    
+    if(firstIsLepton && !secondIsLepton){
       _incoming = inc.first;
-    } else if ( _idin == inc.second.pdgId() || (allowAnti && _idin == -inc.second.pdgId()) ) {
+    }else if(!firstIsLepton && secondIsLepton){
       _incoming = inc.second;
-    } else {
+    }else{
+      //eek!
       throw	Error("DISLepton projector could not find the correct beam. ");
     }
-
-    double emax = 0.0;
+    
+    _sign = (_incoming.momentum().pz() > 0.0)? 1.0: -1.0;
+    long id = _incoming.pdgId();
+    
+    double pzMax = -1000000000.0;
+    
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     foreach (const Particle& p, fs.particles()) {
-      if ( ( _idout == p.pdgId() || (allowAnti && _idout == -p.pdgId()) ) && 
-           p.momentum().E() > emax ) {
-        /// @todo change this to a correct way of finding the scattered lepton.
-        emax = p.momentum().E();
+      double pz = _sign * p.momentum().pz();
+      if(p.pdgId() == id && pz > pzMax){
         _outgoing = p;
+        pzMax = pz;
       }
     }
     
@@ -41,6 +49,4 @@ namespace Rivet {
       throw Error("DISLepton projector could not find the scattered lepton.");
     }
   }
-
-  
 }

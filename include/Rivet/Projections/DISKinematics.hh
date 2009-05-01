@@ -17,22 +17,18 @@ namespace Rivet {
 
   public:
         
-    /// The default constructor. Must specify Beam and DISLepton
-    /// projection objects which are guaranteed to live throughout the
-    /// run. Also the PDG code of the incoming hadron (\a hadid) must be
-    /// specified.
-    DISKinematics(const DISLepton& leptonp, ParticleName hadid)
-      : _idhad(hadid), 
-        _theQ2(-1.0), 
+    /// The default constructor.
+    DISKinematics() 
+    :  _theQ2(-1.0), 
         _theW2(-1.0), 
         _theX(-1.0), 
         _theY(-1.0), 
         _theS(-1.0) 
     {
       setName("DISKinematics");
-      addBeamPair(ANY, hadid);
+//      addBeamPair(ANY, hadid);
       addProjection(Beam(), "Beam");
-      addProjection(leptonp, "Lepton");
+      addProjection(DISLepton(), "Lepton");
     }
 
     /// Clone on the heap.
@@ -77,10 +73,12 @@ namespace Rivet {
       return _breit;
     }
 
+    /// The incoming Hadron beam particle
+    const Particle &beamHadron() const {
+      return _inHadron;
+    }
+    
   private:
-
-    /// The PDG id of the incoming hadron.
-    long _idhad;
 
     /// The \f$Q^2\f$.
     double _theQ2;
@@ -97,6 +95,8 @@ namespace Rivet {
     /// The centre of mass energy \f$s\f$
     double _theS;
 
+    Particle _inHadron;
+    
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
     LorentzTransform _hcm;
 

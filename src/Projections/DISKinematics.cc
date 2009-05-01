@@ -4,6 +4,7 @@
 #include "Rivet/Projections/DISKinematics.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Cmp.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 
 namespace Rivet {
 
@@ -11,19 +12,22 @@ namespace Rivet {
   void DISKinematics::project(const Event& e) {
     const DISLepton& dislep = applyProjection<DISLepton>(e, "Lepton");
     const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
-    Particle hadron;
 
-    if ( inc.second.pdgId() == _idhad ) hadron = inc.second;
-    else if ( inc.first.pdgId() == _idhad ) hadron = inc.first;
-    else throw Error("DISKinematics projector could not find the correct beam.");
-
-    if ( &(dislep.in().genParticle()) == &(hadron.genParticle()) ) {
-      throw Error("DISKinematics projector could not find the correct beam.");
+    bool firstIsHadron  = PID::isHadron(inc.first.pdgId());
+    bool secondIsHadron = PID::isHadron(inc.second.pdgId());
+    
+    if(firstIsHadron && !secondIsHadron){
+      _inHadron = inc.first;
+    }else if(!firstIsHadron && secondIsHadron){
+      _inHadron = inc.second;
+    }else{
+      //help!
+      throw Error("DISKinematics projector could not find the correct beam hadron");
     }
 
     const FourMomentum pLepIn = dislep.in().momentum();
     const FourMomentum pLepOut = dislep.out().momentum();
-    const FourMomentum pHad = hadron.momentum();
+    const FourMomentum pHad = _inHadron.momentum();
     const FourMomentum pGamma = pLepIn - pLepOut;
     const FourMomentum tothad = pGamma + pHad;
     _theQ2 = -pGamma.mass2();
@@ -48,6 +52,7 @@ namespace Rivet {
     FourMomentum pLepOutHCM =  _hcm.transform(pLepOut);
     _hcm.preMult(Matrix3(Vector3::mkZ(), -pLepOutHCM.azimuthalAngle()));
     // Boost to Breit frame
+    
     const double bz = 1 - 2*x();
     _breit = LorentzTransform(Vector3::mkZ() * bz).combine(_hcm);
   }
@@ -55,9 +60,7 @@ namespace Rivet {
 
   int DISKinematics::compare(const Projection & p) const {
     const DISKinematics& other = pcast<DISKinematics>(p);
-    return \
-      mkNamedPCmp(other, "Lepton") || 
-      cmp(_idhad, other._idhad);
+    return mkNamedPCmp(other, "Lepton"); 
   }
 
 

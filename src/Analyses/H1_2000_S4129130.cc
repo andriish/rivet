@@ -13,8 +13,8 @@ namespace Rivet {
   // Constructor
   H1_2000_S4129130::H1_2000_S4129130() {
     setBeams(ELECTRON, PROTON);
-    const DISLepton& lepton = addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
-    addProjection(DISKinematics(lepton, PROTON), "Kinematics");
+    addProjection(DISLepton(), "Lepton");
+    addProjection(DISKinematics(), "Kinematics");
     addProjection(FinalState(), "FS");
   }
 
@@ -24,8 +24,6 @@ namespace Rivet {
     const FinalState & fs = applyProjection<FinalState>(event, "FS");
     const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
     const DISLepton    & dl = applyProjection<DISLepton>(event,"Lepton");
-    // Require outgoing lepton same type as incoming
-    if (dl.in().pdgId() != dl.out().pdgId()) vetoEvent(event);
 
     // Get the DIS kinematics
     double q2  = dk.Q2();
@@ -33,20 +31,18 @@ namespace Rivet {
     double y   = dk.y();
     double w2  = dk.W2();
 
-    // Whether electron in + (false) or - (true) z
-    bool order = dl.in().momentum().z()<0.;
     // Momentum of the scattered lepton
     FourMomentum leptonMom = dl.out().momentum();
     // pT energy and angle
     double enel = leptonMom.E();
-    double thel = beamAngle(leptonMom,order);
+    double thel = leptonMom.angle(dl.in().momentum());
 
     // Extract the particles other than the lepton
     ParticleVector particles;
     particles.reserve(fs.particles().size());
     const GenParticle& dislepGP = dl.out().genParticle();
     for (ParticleVector::const_iterator p = fs.particles().begin();
- 	 p != fs.particles().end(); ++p) {
+         p != fs.particles().end(); ++p) {
       const GenParticle& loopGP = p->genParticle(); 
       if (&loopGP == &dislepGP) continue;
       particles.push_back(*p);
@@ -55,7 +51,8 @@ namespace Rivet {
     // Cut on the forward energy
     double efwd = 0.;
     foreach (const Particle& p, particles) {
-      double th = beamAngle(p.momentum(),order);
+      double th = p.momentum().angle(dl.in().momentum());
+//      double th = beamAngle(p.momentum(),order);
       if(th > 4.4 && th < 15.0) efwd += p.momentum().E();
     }
     // There are four possible selections for events

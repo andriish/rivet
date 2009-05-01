@@ -14,8 +14,7 @@ namespace Rivet {
 
   H1_1995_S3167097::H1_1995_S3167097() { 
     setBeams(ELECTRON, PROTON);
-    const DISLepton& lepton = addProjection(DISLepton(ELECTRON, POSITRON), "Lepton");
-    const DISKinematics& diskin = addProjection(DISKinematics(lepton, PROTON), "Kinematics");
+    const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
     const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");
     addProjection(CentralEtHCM(fshcm), "Y1HCM");
     //addCut("x", MORE_EQ, _xmin);

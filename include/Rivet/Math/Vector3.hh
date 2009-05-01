@@ -112,8 +112,11 @@ namespace Rivet {
         if (value >= 0) {
           assert(value >= 0 && value < 2*PI);
           return value;
-        }
-        else {
+          
+        } else if(Rivet::isZero(value)){
+          value = 0.0;
+          return value;
+        } else {
           value = 2*PI + value;
           assert(value >= 0 && value < 2*PI);
           return value;
