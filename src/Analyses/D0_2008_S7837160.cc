@@ -131,24 +131,39 @@ namespace Rivet {
     // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
     AIDA::IHistogramFactory& hf = histogramFactory();
 
-    AIDA::IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
-    AIDA::IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
+    const string basetitle = "W charge asymmetry for ";
+    const string xlabel = "$|\\eta|$ of leading electron";
+    const string ylabel = "A = "
+      "$(\\frac{\\d{\\sigma^+}}{\\d{|\\eta|}} - \\frac{\\d{\\sigma^-}}{\\d{|\\eta|}}) / "
+      "(\\frac{\\d{\\sigma^+}}{\\d{|\\eta|}} + \\frac{\\d{\\sigma^-}}{\\d{|\\eta|}})$";
+
+    IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
+    IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
     assert(num25_35 && denom25_35);
-    hf.divide(histoDir() + "/d01-x01-y01", *num25_35, *denom25_35);
+    IDataPointSet* tot25_35 = hf.divide(histoDir() + "/d01-x01-y01", *num25_35, *denom25_35);
+    tot25_35->setTitle(basetitle + "$25 < E_\\perp < 35$ GeV");
+    tot25_35->setXTitle(xlabel);
+    tot25_35->setYTitle(ylabel);
     hf.destroy(num25_35);
     hf.destroy(denom25_35);
     //
-    AIDA::IHistogram1D* num35 = hf.subtract("/num35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
-    AIDA::IHistogram1D* denom35 = hf.add("/denom35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
+    IHistogram1D* num35 = hf.subtract("/num35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
+    IHistogram1D* denom35 = hf.add("/denom35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
     assert(num35 && denom35);
-    hf.divide(histoDir() + "/d02-x01-y01", *num35, *denom35);
+    IDataPointSet* tot35 = hf.divide(histoDir() + "/d02-x01-y01", *num35, *denom35);
+    tot35->setTitle(basetitle + "$E_\\perp > 35$ GeV");
+    tot35->setXTitle(xlabel);
+    tot35->setYTitle(ylabel);
     hf.destroy(num35);
     hf.destroy(denom35);
     //
-    AIDA::IHistogram1D* num25 = hf.subtract("/num25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
-    AIDA::IHistogram1D* denom25 = hf.add("/denom25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
+    IHistogram1D* num25 = hf.subtract("/num25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
+    IHistogram1D* denom25 = hf.add("/denom25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
     assert(num25 && denom25);
-    hf.divide(histoDir() + "/d03-x01-y01", *num25, *denom25);
+    IDataPointSet* tot25 = hf.divide(histoDir() + "/d03-x01-y01", *num25, *denom25);
+    tot25->setTitle(basetitle + "$E_\\perp > 35$ GeV");
+    tot25->setXTitle(xlabel);
+    tot25->setYTitle(ylabel);
     hf.destroy(num25);
     hf.destroy(denom25);
   }
