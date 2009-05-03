@@ -32,53 +32,140 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2004_S5839831::init() {
-    getLog() << Log::WARN 
-             << "***************************************************"
-             << "This analysis is not considered reliable enough for"
-             << "inclusion in MC tuning studies: be careful! Expert"
-             << "help with ensuring that this analysis matches the"
-             << "experiment's implementation would be very welcome!"
-             << "***************************************************" << endl;      
+    getLog() << Log::WARN << "\n"
+             << "***************************************************\n"
+             << "This analysis is not considered reliable enough for\n"
+             << "inclusion in MC tuning studies: be careful! Expert\n"
+             << "help with ensuring that this analysis matches the\n"
+             << "experiment's implementation would be very welcome!\n"
+             << "***************************************************" 
+             << endl;      
 
-    _pt90MaxAvg1800     = bookProfile1D(   1, 1, 1, "Average $p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
-    _pt90MinAvg1800     = bookProfile1D(   1, 1, 2, "Average $p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Max1800        = bookProfile1D(   2, 1, 1, "$p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Min1800        = bookProfile1D(   2, 1, 2, "$p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Diff1800       = bookProfile1D(   2, 1, 3, "$p_T^\\text{diff}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Dbn1800Et40    = bookHistogram1D( 3, 1, 1, "$p_T$ distribution in MAX+MIN transverse cones for $40 < E_T^\\text{lead} < 80$ GeV at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Dbn1800Et80    = bookHistogram1D( 3, 1, 2, "$p_T$ distribution in MAX+MIN transverse cones for $80 < E_T^\\text{lead} < 120$ GeV at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Dbn1800Et120   = bookHistogram1D( 3, 1, 3, "$p_T$ distribution in MAX+MIN transverse cones for $120 < E_T^\\text{lead} < 160$ GeV at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Dbn1800Et160   = bookHistogram1D( 3, 1, 4, "$p_T$ distribution in MAX+MIN transverse cones for $160 < E_T^\\text{lead} < 200$ GeV at $\\sqrt{s}$ = 1800 GeV");
-    _pt90Dbn1800Et200   = bookHistogram1D( 3, 1, 5, "$p_T$ distribution in MAX+MIN transverse cones for $200 < E_T^\\text{lead} < 270$ GeV at $\\sqrt{s}$ = 1800 GeV");
-    _num90Max1800       = bookProfile1D(   4, 1, 1, "$N_\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
-    _num90Min1800       = bookProfile1D(   4, 1, 2, "$N_\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 1800 GeV");
-    _numTracksDbn1800MB = bookHistogram1D( 5, 1, 1, "Min bias track multiplicity distribution at $\\sqrt{s}$ = 1800 GeV");
-    _ptDbn1800MB        = bookHistogram1D( 6, 1, 1, "Min bias $p_T$ distribution at $\\sqrt{s}$ = 1800 GeV");
-    _pTSum1800_2Jet     = bookProfile1D(   7, 1, 1, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 2 jets) at $\\sqrt{s}$ = 1800 GeV");
-    _pTSum1800_3Jet     = bookProfile1D(   7, 1, 2, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 3 jets) at $\\sqrt{s}$ = 1800 GeV");            
-    _pt90Max630         = bookProfile1D(   8, 1, 1, "$p_T^\\text{max}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
-    _pt90Min630         = bookProfile1D(   8, 1, 2, "$p_T^\\text{min}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
-    _pt90Diff630        = bookProfile1D(   8, 1, 3, "$p_T^\\text{diff}$ vs $E_T^\\text{lead}$ at $\\sqrt{s}$ = 630 GeV");
-    _pTSum630_2Jet      = bookProfile1D(   9, 1, 1, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 2 jets) at $\\sqrt{s}$ = 630 GeV");
-    _pTSum630_3Jet      = bookProfile1D(   9, 1, 2, "Swiss Cheese $p_T^\\text{sum}$ vs $E_T^\\text{lead}$ (for removal of 3 jets) at $\\sqrt{s}$ = 630 GeV");
-    _numTracksDbn630MB  = bookHistogram1D(10, 1, 1, "Min bias track multiplicity distribution at $\\sqrt{s}$ = 630 GeV");
-    _ptDbn630MB         = bookHistogram1D(11, 1, 1, "Min bias $p_T$ distribution at $\\sqrt{s}$ = 630 GeV");
+    const string ptmax = "$p_\\perp^\\text{max} \\rangle$";
+    const string ptmin = "$p_\\perp^\\text{min}$";
+    const string ptdiff = "$p_\\perp^\\text{diff}$";
+    const string ptsum = "$p_\\perp^\\text{sum}$";
+    const string ptmaxmean = "$\\langle p_\\perp^\\text{max} \\rangle$";
+    const string ptminmean = "$\\langle p_\\perp^\\text{min} \\rangle$";
+    const string et1 = "$E_\\perp^\\text{lead}$";
+    string xlabel = et1 + " / GeV";
+    string ylabel = "";
 
-    // Random number generators
-    //_rngEtaMB = UniformRealRNG(RngBase(42u), UniformRealDist<>(-0.5, 0.5));
-    //_rngPhiMB = UniformRealRNG(RngBase(47u), UniformRealDist<>(0, TWOPI));
+    _pt90MaxAvg1800 = 
+      bookProfile1D(1, 1, 1, 
+                    ptmaxmean + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, ptmaxmean + " / GeV");
+    _pt90MinAvg1800 = 
+      bookProfile1D(1, 1, 2, 
+                    ptminmean + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, ptminmean + " / GeV"); 
+    _pt90Max1800 = 
+      bookProfile1D(2, 1, 1, 
+                    ptmax + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, ptmax + " / GeV");
+    _pt90Min1800 = 
+      bookProfile1D(2, 1, 2, 
+                    ptmin + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, ptmin + " / GeV");
+    _pt90Diff1800 =
+      bookProfile1D(2, 1, 3, 
+                    ptdiff + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, ptdiff + " / GeV");
+    _num90Max1800 = 
+      bookProfile1D(4, 1, 1, 
+                    "$N_\\text{max}$ vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, "$N_\\text{max}$");
+    _num90Min1800 = 
+      bookProfile1D(4, 1, 2, 
+                    "$N_\\text{min}$ vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, "$N_\\text{min}$");
+    _pTSum1800_2Jet = 
+      bookProfile1D(7, 1, 1, 
+                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
+                    " (for removal of 2 jets) at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, ptsum + " / GeV (2 jets removed)");
+    _pTSum1800_3Jet = 
+      bookProfile1D(7, 1, 2, 
+                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
+                    " (for removal of 3 jets) at $\\sqrt{s}$ = 1800 GeV",
+                    xlabel, ptsum + " / GeV (3 jets removed)");
+    _pt90Max630 = 
+      bookProfile1D(8, 1, 1,
+                    ptmax + " vs. " + et1 + " at $\\sqrt{s}$ = 630 GeV",
+                    xlabel, ptmax + " / GeV"); 
+    _pt90Min630 = 
+      bookProfile1D(8, 1, 2,
+                    ptmin + " vs. " + et1 + " at $\\sqrt{s}$ = 630 GeV",
+                    xlabel, ptmin + " / GeV"); 
+    _pt90Diff630 =
+      bookProfile1D(8, 1, 3,
+                    ptdiff + " vs. " + et1 + " at $\\sqrt{s}$ = 630 GeV",
+                    xlabel, ptdiff + " / GeV"); 
+    _pTSum630_2Jet =
+      bookProfile1D(9, 1, 1,
+                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
+                    " (for removal of 2 jets) at $\\sqrt{s}$ = 630 GeV",
+                    xlabel, ptsum + " / GeV (2 jets removed)");
+    _pTSum630_3Jet =
+      bookProfile1D(9, 1, 2,
+                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
+                    " (for removal of 3 jets) at $\\sqrt{s}$ = 630 GeV",
+                    xlabel, ptsum + " / GeV (3 jets removed)"); 
+    
+
+    string basetitle = "$p_\\perp$ distribution in MAX+MIN transverse cones for ";
+    xlabel = "$p_\\perp / GeV";
+    ylabel = "$\\d{\\sigma}/\\d{p_\\perp}$";
+    /// @todo Check this normalisation defn (num-tracks x xsec?.)
+    _pt90Dbn1800Et40 = 
+      bookHistogram1D(3, 1, 1,
+                      basetitle + "$40 < E_\\perp^\\text{lead} < 80$ GeV at $\\sqrt{s}$ = 1800 GeV",
+                      xlabel, ylabel);
+    /// @todo Check this normalisation defn (num-tracks x xsec?.)
+    _pt90Dbn1800Et80 = 
+      bookHistogram1D(3, 1, 2, 
+                      basetitle + "$80 < E_\\perp^\\text{lead} < 120$ GeV at $\\sqrt{s}$ = 1800 GeV",
+                      xlabel, ylabel);
+    /// @todo Check this normalisation defn (num-tracks x xsec?.)
+    _pt90Dbn1800Et120 = 
+      bookHistogram1D(3, 1, 3, 
+                      basetitle + "$120 < E_\\perp^\\text{lead} < 160$ GeV at $\\sqrt{s}$ = 1800 GeV",
+                      xlabel, ylabel);
+    /// @todo Check this normalisation defn (num-tracks x xsec?.)
+    _pt90Dbn1800Et160 =
+      bookHistogram1D(3, 1, 4, 
+                      basetitle + "$160 < E_\\perp^\\text{lead} < 200$ GeV at $\\sqrt{s}$ = 1800 GeV",
+                      xlabel, ylabel);
+    /// @todo Check this normalisation defn (num-tracks x xsec?.)
+    _pt90Dbn1800Et200 =
+      bookHistogram1D(3, 1, 5, 
+                      basetitle + "$200 < E_\\perp^\\text{lead} < 270$ GeV at $\\sqrt{s}$ = 1800 GeV",
+                      xlabel, ylabel);
+    /// @todo Check this normalisation defn (num-tracks x xsec?.)
+    _ptDbn1800MB = 
+      bookHistogram1D(6, 1, 1, 
+                      "Min bias $p_\\perp$ distribution at $\\sqrt{s}$ = 1800 GeV",
+                      xlabel, ylabel);
+
+
+    xlabel = "$N_\\text{ch}$";
+    ylabel = "$\\d{\\sigma}/\\d{N_\\text{ch}}$";
+    /// @todo Check this normalisation defn.
+    _numTracksDbn1800MB = 
+      bookHistogram1D(5, 1, 1,
+                      "Min bias track multiplicity distribution at $\\sqrt{s}$ = 1800 GeV",
+                      xlabel, ylabel);
+    /// @todo Check this normalisation defn.
+    _numTracksDbn630MB = 
+      bookHistogram1D(10, 1, 1, 
+                      "Min bias track multiplicity distribution at $\\sqrt{s}$ = 630 GeV",
+                      xlabel, ylabel);
+    /// @todo Check this normalisation defn.
+    _ptDbn630MB = 
+      bookHistogram1D(11, 1, 1, 
+                      "Min bias $p_\\perp$ distribution at $\\sqrt{s}$ = 630 GeV",
+                      xlabel, ylabel);
   }
-
-
-
-  // // Note that sorting is inverted, so that highest Et is at the front of the list
-  // bool cmpJetsByEt(const Jet& a, const Jet& b) {
-  //   return a.EtSum() > b.EtSum();
-  // }
-  // // Note that sorting is inverted, so that highest E is at the front of the list
-  // bool cmpJetsByE(const Jet& a, const Jet& b) {
-  //   return a.momentum().E() > b.momentum().E();
-  // }
 
 
 
@@ -306,15 +393,25 @@ namespace Rivet {
   
   void CDF_2004_S5839831::finalize() { 
     // Normalize to actual number of entries in pT dbn histos
+    /// @todo Check this normalisation defn.
     normalize(_pt90Dbn1800Et40,  1656.75);
+    /// @todo Check this normalisation defn.
     normalize(_pt90Dbn1800Et80,  4657.5);
+    /// @todo Check this normalisation defn.
     normalize(_pt90Dbn1800Et120, 5395.5);
+    /// @todo Check this normalisation defn.
     normalize(_pt90Dbn1800Et160, 7248.75);
+    /// @todo Check this normalisation defn.
     normalize(_pt90Dbn1800Et200, 2442.0);
+
     // and for min bias distributions:
+    /// @todo Check this normalisation defn.
     normalize(_numTracksDbn1800MB, 309718.25);
+    /// @todo Check this normalisation defn.
     normalize(_numTracksDbn630MB, 1101024.0);
+    /// @todo Check this normalisation defn.
     normalize(_ptDbn1800MB, 33600.0);
+    /// @todo Check this normalisation defn.
     normalize(_ptDbn630MB, 105088.0);
   }
 

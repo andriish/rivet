@@ -18,15 +18,15 @@ namespace Rivet {
   
   void ALEPH_1991_S2435284::init() {
     // Book histogram
-    _histChTot = bookHistogram1D(1, 1, 1, "Total charged multiplicity");
+    _histChTot = bookHistogram1D(1, 1, 1, "Total charged multiplicity", "$n_\\text{ch}$", 
+                                 "$2/\\sigma \\, \\d{\\sigma}/\\d{n_\\text{ch}}$");
   }
 
 
   // Do the analysis
   void ALEPH_1991_S2435284::analyze(const Event& event) {
-    Log& log = getLog();
     const Multiplicity& m = applyProjection<Multiplicity>(event, "Mult");
-    log << Log::DEBUG << "Total charged multiplicity = " << m.totalMultiplicity() << endl;
+    getLog() << Log::DEBUG << "Total charged multiplicity = " << m.totalMultiplicity() << endl;
     _histChTot->fill(m.totalMultiplicity(), event.weight());
   }
 
@@ -36,5 +36,6 @@ namespace Rivet {
     // Normalize the histogram
     scale(_histChTot, 2.0/sumOfWeights()); // same as in ALEPH 1996
   }
+
 
 }

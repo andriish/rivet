@@ -31,7 +31,9 @@ namespace Rivet {
   // Book histograms
   void D0_2006_S6438750::init() {
     _h_pTgamma = 
-      bookHistogram1D(1, 1, 1, "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$");
+      bookHistogram1D(1, 1, 1, "$p_\\perp$ spectrum for leading photon",
+                      "$p_\\perp(\\gamma_\\text{lead})$ / GeV", 
+                      "$\\d{\\sigma}/\\d{p_\\perp(\\gamma_\\text{lead})}$");
   }
 
 

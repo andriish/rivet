@@ -33,7 +33,9 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2000_S4155203::init() {
-    _hist_zpt = bookHistogram1D(1, 1, 1, "$Z p_\\perp$");
+    _hist_zpt = bookHistogram1D(1, 1, 1, "$p_\\perp$ of Z boson in $\\Pelectron \\Ppositron$ decays",
+                                "$p_\\perp(\\PZ)$ / GeV",
+                                "$\\d{\\sigma}/\\d{p_\\perp(\\PZ)}$"); //< @todo Cross-section units
   }
 
 
@@ -70,7 +72,7 @@ namespace Rivet {
     }
 
     // We want exactly two electrons with opposite charge
-    getLog() << Log::DEBUG << "electron multiplicity = " << electrons.size() << endl;
+    getLog() << Log::DEBUG << "Electron multiplicity = " << electrons.size() << endl;
     if (electrons.size() != 2 || electrons[0].pdgId() != -electrons[1].pdgId() ) {
       vetoEvent(e);
     }
@@ -104,8 +106,8 @@ namespace Rivet {
       vetoEvent(e);
     }
 
-    getLog() << Log::DEBUG << "Dilepton mass = " << mZ/GeV  << endl;
-    getLog() << Log::DEBUG << "Dilepton pT   = " << pTZ/GeV << endl;
+    getLog() << Log::DEBUG << "Dilepton mass = " << mZ/GeV << " GeV"  << endl;
+    getLog() << Log::DEBUG << "Dilepton pT   = " << pTZ/GeV << " GeV" << endl;
 
     // Fill the histograms
     _hist_zpt->fill(pTZ/GeV, weight);
@@ -114,6 +116,7 @@ namespace Rivet {
 
   void CDF_2000_S4155203::finalize() {
     // Normalize to the experimental cross-section
+    /// @todo Get norm from generator cross-section
     normalize(_hist_zpt, 247.4);
   }
 

@@ -20,8 +20,14 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2002_S4796047::init() {
-    _hist_multiplicity_630 = bookHistogram1D(1, 1, 1, "Charged multiplicity at $\\sqrt{s} = 630~\\text{GeV}$, $|\\eta| < 1$, $p_T > 0.4~\\text{GeV}$");
-    _hist_multiplicity_1800 = bookHistogram1D(2, 1, 1, "Charged multiplicity at $\\sqrt{s} = 1800~\\text{GeV}$, $|\\eta| < 1$, $p_T > 0.4~\\text{GeV}$");
+    /// @todo Cross-section units
+    _hist_multiplicity_630 = bookHistogram1D(1, 1, 1, 
+                                             "Charged multiplicity at $\\sqrt{s} = 630~\\text{GeV}$, $|\\eta| < 1$, $p_T > 0.4~\\text{GeV}$",
+                                             "$n_\\text{ch}$", "\\d{\\sigma}/\\d{n_\\text{ch}}$");
+    /// @todo Cross-section units
+    _hist_multiplicity_1800 = bookHistogram1D(2, 1, 1, 
+                                              "Charged multiplicity at $\\sqrt{s} = 1800~\\text{GeV}$, $|\\eta| < 1$, $p_T > 0.4~\\text{GeV}$",
+                                              "$n_\\text{ch}$", "\\d{\\sigma}/\\d{n_\\text{ch}}$");
   }
 
 
@@ -49,7 +55,7 @@ namespace Rivet {
 
 
   void CDF_2002_S4796047::finalize() {
-    /// @todo Can we get these norms from the generator?
+    /// @todo Get cross-section from the generator
     normalize(_hist_multiplicity_630, 3.21167);
     normalize(_hist_multiplicity_1800, 4.19121);
   }
