@@ -159,23 +159,48 @@ namespace Rivet {
 
 
   void H1_1994_S2919893::init() {
-    _w77  = make_pair(0.,0.);
-    _w122 = make_pair(0.,0.);
-    _w169 = make_pair(0.,0.);
-    _w117 = make_pair(0.,0.);
-    _wEnergy = make_pair(0.,0.);
-    _histEnergyFlowLowX =  bookHistogram1D(1, 1, 1, "Transverse energy flow as a function of rapidity, $x < 10^{-3}$");
-    _histEnergyFlowHighX = bookHistogram1D(1, 1, 2, "Transverse energy flow as a function of rapidity $x > 10^{-3}$");
-    _histEECLowX         = bookHistogram1D(2, 1, 1, "EEC for $x < 10^{-3}$");
-    _histEECHighX        = bookHistogram1D(2, 1, 2, "EEC for $x > 10^{-3}$");
-    _histSpectraW77      = bookHistogram1D(3, 1, 1, "Charged particle spectra for  $50 < W < 100$");
-    _histSpectraW122     = bookHistogram1D(3, 1, 2, "Charged particle spectra for $100 < W < 150$");
-    _histSpectraW169     = bookHistogram1D(3, 1, 3, "Charged particle spectra for $150 < W < 200$");
-    _histSpectraW117     = bookHistogram1D(3, 1, 4, "Charged particle spectra for all $W$");
-    _histPT2             = bookProfile1D  (4, 1, 1, "Average $p_\\perp^2$ as function of $x_F$");
+    _w77  = make_pair(0.0, 0.0);
+    _w122 = make_pair(0.0, 0.0);
+    _w169 = make_pair(0.0, 0.0);
+    _w117 = make_pair(0.0, 0.0);
+    _wEnergy = make_pair(0.0, 0.0);
+
+    string xlabel = "$\\eta$";
+    /// @todo What is "N"?
+    string ylabel = "$1/N \\, \\d{E_\\perp}/\\d{\\eta}$ / GeV";
+    string basetitle = "Transverse energy flow as a function of rapidity, ";
+    _histEnergyFlowLowX =  
+      bookHistogram1D(1, 1, 1, basetitle + "$x < 10^{-3}$", xlabel, ylabel);
+    _histEnergyFlowHighX = 
+      bookHistogram1D(1, 1, 2, basetitle + "$x > 10^{-3}$", xlabel, ylabel);
+
+    xlabel = "$\\omega$";
+    ylabel = "$\\d{\\text{EEC}_\\perp}/\\d{\\omega}$";
+    basetitle = "Transverse energy--energy correlation for ";
+    _histEECLowX = 
+      bookHistogram1D(2, 1, 1, basetitle + "$x < 10^{-3}$", xlabel, ylabel);
+    _histEECHighX = 
+      bookHistogram1D(2, 1, 2, basetitle + "$x > 10^{-3}$", xlabel, ylabel);
+
+    xlabel = "$x_L$";
+    /// @todo Add cross-section units to label
+    ylabel = "$1/\\sigma \\, \\d{\\sigma}/\\d{x_L}$";
+    basetitle = "Charged particle spectra for ";
+    _histSpectraW77 = 
+      bookHistogram1D(3, 1, 1, "$50 < W < 100$", xlabel, ylabel);
+    _histSpectraW122 = 
+      bookHistogram1D(3, 1, 2, "$100 < W < 150$", xlabel, ylabel);
+    _histSpectraW169 = 
+      bookHistogram1D(3, 1, 3, "$150 < W < 200$", xlabel, ylabel);
+    _histSpectraW117 = 
+      bookHistogram1D(3, 1, 4, "all $W$", xlabel, ylabel);
+
+    _histPT2 = 
+      bookProfile1D  (4, 1, 1, "$\\langle p_\\perp^2 \\rangle$ as a function of $x_L$",
+                      "$x_L$", "$\\langle p_\\perp^2 \\rangle$");
   }
-
-
+  
+  
   // Finalize
   void H1_1994_S2919893::finalize() { 
     // Normalize inclusive single particle distributions to the average number 
