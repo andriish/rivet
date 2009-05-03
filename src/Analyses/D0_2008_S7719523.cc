@@ -36,14 +36,19 @@ namespace Rivet {
 
   // Book histograms
   void D0_2008_S7719523::init() {
+    const string xlabel = "$p_\\perp(\\gamma_\\text{lead})$ / GeV";
+    /// @todo Cross-section units in label
+    const string ylabel = "$\\d{\\sigma}/\\d{p_\\perp(\\gamma_\\text{lead})}$";
+    const string basetitle = "Leading photon $p_\\perp$ ";
+
     _h_central_same_cross_section = 
-      bookHistogram1D("d01-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, same-sign rapidity)");
+      bookHistogram1D("d01-x01-y01", basetitle + "(central jets, same-sign rapidity)", xlabel, ylabel);
     _h_central_opp_cross_section  = 
-      bookHistogram1D("d02-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (central jets, opp-sign rapidity)");
+      bookHistogram1D("d02-x01-y01", basetitle + "(central jets, opp-sign rapidity)", xlabel, ylabel);
     _h_forward_same_cross_section = 
-      bookHistogram1D("d03-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, same-sign rapidity)");
+      bookHistogram1D("d03-x01-y01", basetitle + "(forward jets, same-sign rapidity)", xlabel, ylabel);
     _h_forward_opp_cross_section  = 
-      bookHistogram1D("d04-x01-y01", "$\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(\\gamma_\\text{lead})$ (forward jets, opp-sign rapidity)"); 
+      bookHistogram1D("d04-x01-y01", basetitle + "(forward jets, opp-sign rapidity)", xlabel, ylabel); 
   }
 
 
