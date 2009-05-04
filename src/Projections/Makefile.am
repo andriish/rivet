@@ -10,6 +10,7 @@ libRivetProjections_la_SOURCES = \
   FastJets.cc \
   FinalState.cc \
   FinalStateHCM.cc \
+  FoxWolframMoments.cc \
   HadronicFinalState.cc \
   Hemispheres.cc \
   IdentifiedFinalState.cc \

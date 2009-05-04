@@ -92,6 +92,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FastJets.hh       \
   Projections/FinalState.hh     \
   Projections/FinalStateHCM.hh  \
+  Projections/FoxWolframMoments.hh \
   Projections/HadronicFinalState.hh \
   Projections/Hemispheres.hh    \
   Projections/IdentifiedFinalState.hh \
