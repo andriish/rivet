@@ -116,6 +116,8 @@ namespace Rivet {
     /// inclusive single particle distributions' normalisations.
     double _weightedTotalPartNum;
 
+    double _passedCutWeightSum;
+
     /// @name Histograms
     //@{
     AIDA::IHistogram1D *_histPtTIn;
