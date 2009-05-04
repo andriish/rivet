@@ -48,13 +48,21 @@ namespace Rivet {
   }
   
 
-  void AnalysisHandler::analyze(const GenEvent& geneve) {
-    Event event(geneve);
+  void AnalysisHandler::analyze(const GenEvent& ge) {
+    Event event(ge);
     _numEvents++;
     _sumOfWeights += event.weight();
     foreach (Analysis* a, _analyses) {
       getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
       a->analyze(event);
+      #ifdef HEPMC_HAS_CROSS_SECTION
+      const double xs = HepMC::GenRun::instance().cross_section();
+      if (xs > 0) {
+        getLog() << Log::DEBUG << "Setting cross-section for " << a->name() 
+                 << "=" << xs << " pb" << endl;
+        a->setCrossSection(xs);
+      }
+      #endif
       getLog() << Log::DEBUG << "Finished running analysis " << a->name() << endl;
     }
   }

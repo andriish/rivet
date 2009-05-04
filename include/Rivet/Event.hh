@@ -30,6 +30,9 @@ namespace Rivet {
     /// The copy constructor.
     Event(const Event& e);
 
+    /// Copy assignment operator
+    Event& operator=(const Event& e);
+
     //@}
 
 
@@ -37,7 +40,7 @@ namespace Rivet {
 
     /// Return the generated event obtained from an external event generator.
     const GenEvent& genEvent() const { 
-      return *_genEvent; 
+      return _genEvent; 
     }
 
     /// The weight associated with the event.
@@ -80,19 +83,16 @@ namespace Rivet {
 
   private:
 
-    /// A pointer to the generated event obtained from an external generator.
-    const GenEvent* _genEvent;
+    /// @brief The generated event, obtained from an external generator.
+    /// Note that it is only externally accessible via a const reference.
+    GenEvent _genEvent;
 
     /// The set of Projection objects applied so far.
     mutable std::set<ConstProjectionPtr> _projections;
 
-    /// The weight associated with the event.
+    /// @brief The generation weight associated with the event.
+    /// Usually 1.0. Only copied from the HepMC event once, at construction time.
     double _weight;
-
-
-  private:
-    /// Copy assignment operator (private & unimplemented)
-    Event& operator=(const Event&);
 
   };
 
