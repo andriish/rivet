@@ -1,13 +1,10 @@
 // -*- C++ -*-
-//
-// This is the forward declaration of the Event class.
-//
-#ifndef RIVET_Event_FH
-#define RIVET_Event_FH
+#ifndef RIVET_Event_FHH
+#define RIVET_Event_FHH
 
 namespace Rivet {
 
-class Event;
+  class Event;
 
 }
 

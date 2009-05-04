@@ -3,11 +3,10 @@
 #define RIVET_Event_HH
 
 #include "Rivet/Rivet.hh"
-#include "Event.fhh"
 #include "Rivet/Projection.hh"
 
-
 namespace Rivet {
+
 
   /// Event is a concrete class representing an generated event in
   /// Rivet. It is constructed given a HepMC::GenEvent, a pointer to
@@ -24,25 +23,30 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
+
     /// The default constructor.
-    Event(const GenEvent& geneve)
-      : _genEvent(&geneve), _weight(1.0) {
-      if ( !geneve.weights().empty() ) _weight = geneve.weights()[0];
-    }
+    Event(const GenEvent& ge);
 
     /// The copy constructor.
-    Event(const Event& e)  
-      : _genEvent(e._genEvent), _weight(e._weight) 
-    { }
+    Event(const Event& e);
 
-    /// The destructor.
-    ~Event() { }
     //@}
+
 
   public:
 
     /// Return the generated event obtained from an external event generator.
-    const GenEvent& genEvent() const { return *_genEvent; }
+    const GenEvent& genEvent() const { 
+      return *_genEvent; 
+    }
+
+    /// The weight associated with the event.
+    double weight() const { 
+      return _weight; 
+    }
+
+
+  public:
 
     /// Add a projection \a p to this Event. If an equivalent Projection
     /// has been applied before, the Projection::project(const Event &)
@@ -66,14 +70,13 @@ namespace Rivet {
       return p;
     }
 
+
     template <typename PROJ>
     const PROJ& applyProjection(PROJ* pp) const {
       if (!pp) throw Error("Event::applyProjection(PROJ*): Projection pointer is null.");
       return applyProjection(*pp);
     }
 
-    /// The weight associated with the event.
-    double weight() const { return _weight; }
 
   private:
 
@@ -86,13 +89,13 @@ namespace Rivet {
     /// The weight associated with the event.
     double _weight;
 
-  private:
 
-    /// The assignment operator is private and must never be called.
-    /// In fact, it should not even be implemented.
+  private:
+    /// Copy assignment operator (private & unimplemented)
     Event& operator=(const Event&);
 
   };
+
   
 }
 
