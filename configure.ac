@@ -91,6 +91,13 @@ else
   FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";
 fi;
 AC_SUBST(FASTJETCONFIGLIBADD)
+# Check for FastJet headers that require the --enable-all(cxx)plugins option
+FASTJET_ERRMSG="Required FastJet plugin headers were not found: did you build FastJet with the --enable-allcxxplugins option?"
+oldCPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
+AC_CHECK_HEADER([fastjet/D0RunIIConePlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
+AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
+CPPFLAGS=$oldCPPFLAGS
 
 
 ## Build Doxygen if possible
