@@ -24,6 +24,8 @@ class Histo:
         self.path = None
         self.name = None
         self.title = None
+        self.xlabel = None
+        self.ylabel = None
 
     def __cmp__(self, other):
         """Sort by $path/$name string"""
@@ -32,6 +34,8 @@ class Histo:
     def __str__(self):
         out = "Histogram '%s' with %d bins\n" % (self.fullPath(), self.numBins())
         out += "Title: %s\n" % self.title
+        out += "XLabel: %s\n" % self.xlabel
+        out += "YLabel: %s\n" % self.ylabel
         out += "\n".join([str(b) for b in self.getBins()])
         return out
 
@@ -43,6 +47,8 @@ class Histo:
         out = "# BEGIN PLOT\n"
         out += headerprefix + "LogY=1\n"
         out += headerprefix + "Title=%s\n" % self.title
+        out += headerprefix + "XLabel=%s\n" % self.xlabel
+        out += headerprefix + "YLabel=%s\n" % self.ylabel
         out += "# END PLOT\n"
         return out
 
@@ -52,6 +58,8 @@ class Histo:
         out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
         out += headerprefix + "AidaPath=%s\n" % self.fullPath()
         out += headerprefix + "Title=%s\n" % self.title
+        out += headerprefix + "XLabel=%s\n" % self.xlabel
+        out += headerprefix + "YLabel=%s\n" % self.ylabel
         if self.fullPath().startswith('/REF'):
             out += headerprefix + "PolyMarker=*\n"
             out += headerprefix + "ErrorBars=1\n"
@@ -177,6 +185,13 @@ def mkHistoFromDPS(dps):
     myhist.name = dps.get("name")
     myhist.title = dps.get("title")
     myhist.path = dps.get("path")
+    axes = dps.findall("dimension")
+    if (len(axes)==2):
+        for a in axes:
+            if (a.get("dim")=="0"):
+                myhist.xlabel = a.get("title")
+            elif (a.get("dim")=="1"):
+                myhist.ylabel = a.get("title")
     points = dps.findall("dataPoint")
     numbins = len(points)
     for binnum, point in enumerate(points):
