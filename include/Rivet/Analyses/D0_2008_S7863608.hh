@@ -8,7 +8,7 @@ namespace Rivet {
 
 
   /// @brief Measurement differential Z/gamma* + jet +X cross sections
-  /// @author Gavin Hesketh
+  /// @author Gavin Hesketh, Andy Buckley, Frank Siegert
   class D0_2008_S7863608 : public Analysis {
 
   public:

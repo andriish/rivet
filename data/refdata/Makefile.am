@@ -56,6 +56,7 @@ dist_pkgdata_DATA = \
   D0_2008_S7719523.aida          \
   D0_2008_S7837160.aida          \
   D0_2008_S7863608.aida          \
+  D0_2009_S8202443.aida          \
   E735_1992_S2485869.aida        \
   E735_1993_S2896508.aida        \
   PDG_HADRON_MULTIPLICITIES.aida \

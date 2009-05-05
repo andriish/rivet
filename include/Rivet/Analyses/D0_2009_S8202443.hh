@@ -95,7 +95,12 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_jet1_pT;
     AIDA::IHistogram1D * _h_jet2_pT;
     AIDA::IHistogram1D * _h_jet3_pT;
+    AIDA::IHistogram1D * _h_jet1_pT_constrained;
+    AIDA::IHistogram1D * _h_jet2_pT_constrained;
+    AIDA::IHistogram1D * _h_jet3_pT_constrained;
     //@}
+    
+    double _sum_of_weights, _sum_of_weights_constrained;
 
   };
 

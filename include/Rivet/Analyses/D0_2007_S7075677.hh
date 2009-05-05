@@ -10,6 +10,7 @@ namespace Rivet {
   /// @brief Measurement of D0 Run II Z pT diff cross-section shape
   /// @author Andy Buckley
   /// @author Gavin Hesketh
+  /// @author Frank Siegert
   class D0_2007_S7075677 : public Analysis {
 
   public:
@@ -51,6 +52,7 @@ namespace Rivet {
       vector<string> ret;
       ret += "Andy Buckley <andy.buckley@durham.ac.uk>";
       ret += "Gavin Hesketh <ghesketh@fnal.gov>";
+      ret += "Frank Siegert <frank.siegert@durham.ac.uk>";
       return ret;
     }
     /// A full description of the analysis.
@@ -76,7 +78,7 @@ namespace Rivet {
     vector<string> references() const {
       vector<string> ret;
       ret.push_back("Phys.Rev.D76:012003,2007");
-      ret.push_back("hep-ex/0702025");
+      ret.push_back("arXiv:hep-ex/0702025");
       return ret;
     }
     //@}

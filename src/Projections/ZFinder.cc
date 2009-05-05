@@ -80,6 +80,11 @@ namespace Rivet {
   }
 
 
+  const FinalState& ZFinder::constituentsFinalState() const
+  {
+    return getProjection<FinalState>("IMFS");
+  }
+
   int ZFinder::compare(const Projection& p) const {
     PCmp cmp = mkNamedPCmp(p, "IMFS");
     if (cmp != PCmp::EQUIVALENT) return cmp;
@@ -98,12 +103,18 @@ namespace Rivet {
     if (imfs.particles().size() != 2) return;
 
     const FinalState& photons=applyProjection<FinalState>(e, "CPhotons");
+    
+    getLog() << Log::DEBUG << "Z reconstructed out of: " << endl
+        << "  " << imfs.particles()[0].momentum() << " " << imfs.particles()[0].pdgId() << endl
+        << " +" << imfs.particles()[1].momentum() << " " << imfs.particles()[1].pdgId() << endl;
 
     Particle Z;
     FourMomentum pZ = imfs.particles()[0].momentum() + imfs.particles()[1].momentum();
     foreach (const Particle& photon, photons.particles()) {
+      getLog() << Log::DEBUG << " +" << photon.momentum() << " " << photon.pdgId() << endl;
       pZ += photon.momentum();
     }
+    getLog() << Log::DEBUG << " =" << Z.momentum() << endl;
     Z.setMomentum(pZ);
 
     _theParticles.push_back(Z);

@@ -62,6 +62,9 @@ namespace Rivet {
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
 
+    /// Access to the Z constituent leptons final state 
+    /// (e.g. for more fine-grained cuts on the leptons)
+    const FinalState& constituentsFinalState() const;
 
   protected:
     
