@@ -20,6 +20,8 @@ dist_pkgdata_DATA = \
   H1_2007_S7223935.aida          \
   ZEUS_2001_S4815815.aida        \
   PHENIX_2003_S5538505.aida      \
+  STAR_2006_S6870392.aida        \
+  STAR_2008_S7993412.aida        \
   BRAHMS_2007_S7052448.aida      \
   UA1_1990_S2044935.aida         \
   UA5_1982_S875503.aida          \

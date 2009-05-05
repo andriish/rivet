@@ -77,7 +77,9 @@ nobase_dist_noinst_HEADERS += \
   Analyses/PDG_Hadron_Multiplicities.hh \
   Analyses/PDG_Hadron_Multiplicities_Ratios.hh \
   Analyses/MC_TVT1960_ZJETS.hh \
-  Analyses/MC_LHC_LEADINGJETS.hh
+  Analyses/MC_LHC_LEADINGJETS.hh \
+  Analyses/STAR_2006_S6870392.hh \
+  Analyses/STAR_2008_S7993412.hh
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \

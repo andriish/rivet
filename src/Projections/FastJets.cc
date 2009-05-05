@@ -16,7 +16,10 @@
 namespace Rivet {
 
 
-  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double pTmin) {
+  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double pTmin, double seed_threshold) {
+    getLog() << Log::DEBUG << "rparameter = " << rparameter << endl;
+    getLog() << Log::DEBUG << "pTmin = " << pTmin << endl;
+    getLog() << Log::DEBUG << "seed_threshold = " << seed_threshold << endl;
     setName("FastJets");
     addProjection(fsp, "FS");
     if (alg == KT) {
@@ -37,10 +40,10 @@ namespace Rivet {
         //_plugin.reset(new fastjet::PxConePlugin(rparameter));
       } else if (alg == CDFJETCLU) {
         const double OVERLAP_THRESHOLD = 0.75;
-        _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, OVERLAP_THRESHOLD));
+        _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
       } else if (alg == CDFMIDPOINT) {
         const double OVERLAP_THRESHOLD = 0.75;
-        _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD));
+        _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
       } else if (alg == D0ILCONE) {
         const double MIN_ET = pTmin;
         _plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, MIN_ET));

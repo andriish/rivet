@@ -55,6 +55,10 @@
 #include "Rivet/Analyses/D0_2008_S7863608.hh"
 #include "Rivet/Analyses/D0_2009_S8202443.hh"
 
+// RHIC
+#include "Rivet/Analyses/STAR_2006_S6870392.hh"
+#include "Rivet/Analyses/STAR_2008_S7993412.hh"
+
 // MC validation
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
 #include "Rivet/Analyses/MC_LHC_LEADINGJETS.hh"
@@ -123,6 +127,10 @@ extern "C" {
     fns["D0_2008_S7837160"] = Rivet::D0_2008_S7837160::create;
     fns["D0_2008_S7863608"] = Rivet::D0_2008_S7863608::create;
     fns["D0_2009_S8202443"] = Rivet::D0_2009_S8202443::create;
+
+    // RHIC
+    fns["STAR_2006_S6870392"] = Rivet::STAR_2006_S6870392::create;
+    fns["STAR_2008_S7993412"] = Rivet::STAR_2008_S7993412::create;
 
     // General
     fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_HADRON_MULTIPLICITIES::create;

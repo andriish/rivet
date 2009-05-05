@@ -1,3 +1,13 @@
+2009-05-05  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Support non-default seed_threshold in CDF cone jet algorithms.
+
+	* New analyses STAR_2006_S6870392 and STAR_2008_S7993412. In
+	STAR_2008_S7993412 only the first distribution is filled at the
+	moment. STAR_2006_S6870392 is normalised to data instead of the
+	Monte Carlo cross-section, since we don't have that available
+	in the HepMC stream yet.
+
 2009-05-05  Andy Buckley  <andy@insectnation.org>
 
 	* Changing Event wrapper to copy whole GenEvents rather than
