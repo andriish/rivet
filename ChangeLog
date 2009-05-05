@@ -1,3 +1,9 @@
+2009-05-05  Andy Buckley  <andy@insectnation.org>
+
+	* Removing eta and Et cuts from CDF 2000 Z pT analysis, based on
+	our reading of the paper, and converting most of the analysis to a
+	call of the ZFinder projection.
+
 2009-05-05  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Support non-default seed_threshold in CDF cone jet algorithms.
