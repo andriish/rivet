@@ -1,4 +1,5 @@
 #include "Rivet/Event.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "HepMC/GenEvent.h"
 
 namespace Rivet {
@@ -13,12 +14,28 @@ namespace Rivet {
   }
 
 
+  void _geRot180x(GenEvent& ge) {
+    for (HepMC::GenEvent::particle_iterator ip = ge.particles_begin(); ip != ge.particles_end(); ++ip) {
+      const HepMC::FourVector& mom = (*ip)->momentum();
+      (*ip)->set_momentum(HepMC::FourVector(mom.px(), -mom.py(), -mom.pz(), mom.e()));
+    }
+    for (HepMC::GenEvent::vertex_iterator iv = ge.vertices_begin(); iv != ge.vertices_end(); ++iv) {
+      const HepMC::FourVector& pos = (*iv)->position();
+      (*iv)->set_position(HepMC::FourVector(pos.x(), -pos.y(), -pos.z(), pos.t()));
+    }
+  }
+
+
   // Convert the GenEvent to use conventional alignment 
   // (proton or electron on +ve z-axis?)
   // For example, FHerwig only produces DIS events in the 
   // unconventional orientation and has to be corrected
   void _geNormAlignment(GenEvent& ge) {
-    /// @todo In-place rotation of GE
+    /// @todo Choose when to do in-place rotation of GE
+    if (false) {
+      Log::getLog("Event") << Log::TRACE << "Rotating event" << endl;
+      _geRot180x(ge);
+    }
   }
 
 
