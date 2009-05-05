@@ -64,9 +64,9 @@ namespace Rivet {
   typedef std::pair<Particle, Particle> ParticlePair;
 
   ParticlePair beams(const Event& e);
-  //BeamPair beamIds(const Event& e);
+
   BeamPair beamIds(const HepMC::GenEvent& e) {
-    return $self->beamIds(Event(e));
+    return beamIds(Event(e));
   }
 
 

@@ -1,3 +1,9 @@
+2009-05-05  Andy Buckley  <andy@insectnation.org>
+
+	* Changing Event wrapper to copy whole GenEvents rather than
+	pointers, use std units if supported in HepMC, and run a
+	placeholder function for event auto-orientation.
+
 2009-04-28  Andy Buckley  <andy@insectnation.org>
 
 	* Removing inclusion of IsolationTools header by analyses that

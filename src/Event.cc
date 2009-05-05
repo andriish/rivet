@@ -26,7 +26,7 @@ namespace Rivet {
     : _genEvent(ge), _weight(1.0) 
   {
     // Set the weight if there is one, otherwise default to 1.0
-    if (!ge.weights().empty()) {
+    if (!_genEvent.weights().empty()) {
       _weight = ge.weights()[0];
     }
 
@@ -35,6 +35,9 @@ namespace Rivet {
     
     // Use the conventional alignment
     _geNormAlignment(_genEvent);
+
+    // Debug printout to check that copying/magling has worked
+    //_genEvent.print();
   }
 
 
@@ -49,6 +52,7 @@ namespace Rivet {
   Event& Event::operator=(const Event& e) {
     _genEvent = e._genEvent;
     _weight = e._weight;
+    return *this;
   }
 
 

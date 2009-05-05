@@ -333,8 +333,6 @@ for evtfile in HEPMCFILES:
             logging.warning("Read error on file '%s'" % evtfile)
             break
         evt = r.get_next_event()
-        ## TODO: Use units
-        #evt.use_units(GEV, MM)
 
         ## Use the first event to check the analyses' beam compatibility
         if EVTNUM == 1:
