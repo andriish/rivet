@@ -41,9 +41,9 @@ namespace Rivet {
 
  void CDF_2006_S6653332::init() {
    // Book histograms
-   _sigmaBJet      = bookHistogram1D(1, 1, 1, "\\sigma(Z + b jet)");
-   _ratioBJetToZ   = bookHistogram1D(2, 1, 1, "\\sigma(Z + b jet) / \\sigma(Z)");
-   _ratioBJetToJet = bookHistogram1D(3, 1, 1, "\\sigma(Z + b jet) / \\sigma(Z + jet)");
+   _sigmaBJet      = bookHistogram1D(1, 1, 1, "\\sigma(Z + b jet)", "$E$ [GeV]", "$\\sigma(Z+b)$ [pb]");
+   _ratioBJetToZ   = bookHistogram1D(2, 1, 1, "\\sigma(Z + b jet) / \\sigma(Z)", "$E$ [GeV]", "$\\sigma(Z+b) / \\sigma(Z)$ [pb]");
+   _ratioBJetToJet = bookHistogram1D(3, 1, 1, "\\sigma(Z + b jet) / \\sigma(Z + jet)", "$E$ [GeV]", "$\\sigma(Z+b) / \\sigma(Z+j)$ [pb]");
 
   }  
 

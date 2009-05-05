@@ -51,15 +51,15 @@ namespace Rivet {
         size_t k = i*3 + j;
         stringstream ss;
         ss << "Differential jet shape $\\rho$, $p_\\perp$ bin " << k+1;
-        _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1, ss.str());
+        _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1, ss.str(), "$r/R$", "$\\rho(r/R)$");
         ss.str("");
         /// @todo Check: really *capital* Psi?
-        ss << "Integral jet shape $\\Psi$, $p_\\perp$ bin " << k+1;
-        _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1, ss.str());
+        ss << "Integral jet shape $\\psi$, $p_\\perp$ bin " << k+1;
+        _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1, ss.str(), "$r/R$", "$\\psi(r/R)$");
       }
     }    
     /// @todo Improve title... "0.3 over R" means what?)
-    _profhistPsi = bookProfile1D(13, 1, 1, "$\\Psi$(0.3 over $R$)");
+    _profhistPsi = bookProfile1D(13, 1, 1, "$\\Psi$(0.3 over $R$)", "$\\psi(0.3/R)$", "p_\\perp^\\text{jet} [GeV/c]");
   }
   
 

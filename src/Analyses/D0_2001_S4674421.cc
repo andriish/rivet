@@ -53,12 +53,12 @@ namespace Rivet {
   void D0_2001_S4674421::init() {
     _eventsFilledW = 0.0;
     _eventsFilledZ = 0.0;
-    _h_dsigdpt_w = bookHistogram1D(1, 1, 1, "$\\mathrm{d}\\sigma / \\mathrm{d}p_\\perp(W)$");
-    _h_dsigdpt_z = bookHistogram1D(1, 1, 2, "$\\mathrm{d}\\sigma / \\mathrm{d}p_\\perp(Z)$");
+    _h_dsigdpt_w = bookHistogram1D(1, 1, 1, "$\\mathrm{d}\\sigma / \\mathrm{d}p_\\perp(W)$", "$p_\\perp$ [GeV/c]", "$d\\sigma/dp_\\perp (W)$");
+    _h_dsigdpt_z = bookHistogram1D(1, 1, 2, "$\\mathrm{d}\\sigma / \\mathrm{d}p_\\perp(Z)$", "$p_\\perp$ [GeV/c]", "$d\\sigma/dp_\\perp (Z)$");
 
     vector<double> bins(23);
     bins += 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120, 160, 200;
-    _h_dsigdpt_scaled_z = bookHistogram1D("d01-x01-y03", "$\\mathrm{d}\\sigma / \\mathrm{d}(p_\\perp(Z) \\cdot M_W/M_Z)$", bins);
+    _h_dsigdpt_scaled_z = bookHistogram1D("d01-x01-y03", "$\\mathrm{d}\\sigma / \\mathrm{d}(p_\\perp(Z) \\cdot M_W/M_Z)$", "p_\\perp(W)/M_W", "R_p_\\perp", bins);
   }
 
 
