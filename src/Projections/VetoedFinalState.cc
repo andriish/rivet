@@ -18,9 +18,9 @@ namespace Rivet {
     //compare the sets element by element
     set<const Projection*> vfs;
     set<const Projection*> other_vfs;
-    for (FSNames::const_iterator ivfs = _vetofsnames.begin(); ivfs != _vetofsnames.end(); ++ivfs){
-      vfs.insert(&(getProjection(*ivfs)));
-      other_vfs.insert(&(other.getProjection(*ivfs)));
+    foreach (const string& ifs, _vetofsnames) {
+      vfs.insert(&(getProjection(ifs)));
+      other_vfs.insert(&(other.getProjection(ifs)));
     }
     int isetcmp = cmp(vfs, other_vfs);
     if (isetcmp != PCmp::EQUIVALENT) return isetcmp;
@@ -32,45 +32,42 @@ namespace Rivet {
 
 
   void VetoedFinalState::project(const Event& e) {
-    Log log = getLog();
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
-    const ParticleVector& fsps = fs.particles();
-    for (ParticleVector::const_iterator p = fsps.begin(); p != fsps.end(); ++p) {
-      if (log.isActive(Log::DEBUG)) {
+    foreach (const Particle& p, fs.particles()) {
+      if (getLog().isActive(Log::DEBUG)) {
         vector<long> codes; 
         for (VetoDetails::const_iterator code = _vetoCodes.begin(); code != _vetoCodes.end(); ++code) {
           codes.push_back(code->first);
         }
         const string codestr = "{ " + join(codes) + " }";
-        log << Log::DEBUG << p->pdgId() << " vs. veto codes = " 
-            << codestr << " (" << codes.size() << ")" << endl;
+        getLog() << Log::DEBUG << p.pdgId() << " vs. veto codes = " 
+                 << codestr << " (" << codes.size() << ")" << endl;
       }
-      const long pdgid = p->pdgId();
+      const long pdgid = p.pdgId();
+      const double pt = p.momentum().pT();
       VetoDetails::iterator iter = _vetoCodes.find(pdgid);
-      if ( (iter == _vetoCodes.end())) {
-        log << Log::DEBUG << "Storing with PDG code " << pdgid << " pt " 
-            << p->momentum().vector3().polarRadius() << endl;
-        _theParticles.push_back(*p);
+      if (iter == _vetoCodes.end()) {
+        getLog() << Log::DEBUG << "Storing with PDG code = " << pdgid << ", pT = " << pt << endl;
+        _theParticles.push_back(p);
       } else {
         // This particle code is listed as a possible veto... check pT.
+        // Make sure that the pT range is sensible:
         BinaryCut ptrange = iter->second;
-        // Make sure that the pT range is sensible.
         assert(ptrange.first <= ptrange.second);
-        double pt = p->momentum().vector3().polarRadius();
         stringstream rangess;
         if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
         rangess << " - ";
         if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
-        log << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
+        getLog() << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
-        debugline << "with PDG code = " << pdgid << " pT = " << p->momentum().vector3().polarRadius();
+        debugline << "with PDG code = " << pdgid << " pT = " << p.momentum().pT();
         if (pt < ptrange.first || pt > ptrange.second) { 
-          log << Log::DEBUG << "Storing " << debugline.str() << endl;
-          _theParticles.push_back(*p);
+          getLog() << Log::DEBUG << "Storing " << debugline.str() << endl;
+          _theParticles.push_back(p);
         } else {
-          log << Log::DEBUG << "Vetoing " << debugline.str() << endl;
+          getLog() << Log::DEBUG << "Vetoing " << debugline.str() << endl;
         }
       }
     }
@@ -142,15 +139,15 @@ namespace Rivet {
     }
 
     // Now veto on the FS
-    for (FSNames::const_iterator ivfs = _vetofsnames.begin(); ivfs != _vetofsnames.end(); ++ivfs){
-      const FinalState& vfs = applyProjection<FinalState>(e, *ivfs);
+    foreach (const string& ifs, _vetofsnames) {
+      const FinalState& vfs = applyProjection<FinalState>(e, ifs);
       const ParticleVector& vfsp = vfs.particles();
       for (ParticleVector::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck){
         if (!icheck->hasGenParticle()) continue;
         bool found = false;
         for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
           if (!ipart->hasGenParticle()) continue;
-          log << Log::DEBUG << "comparing barcode " << icheck->genParticle().barcode() << " with veto particle " << ipart->genParticle().barcode() << endl; 
+          getLog() << Log::DEBUG << "Comparing barcode " << icheck->genParticle().barcode() << " with veto particle " << ipart->genParticle().barcode() << endl; 
           if (ipart->genParticle().barcode() == icheck->genParticle().barcode()){
             found = true;
             break;

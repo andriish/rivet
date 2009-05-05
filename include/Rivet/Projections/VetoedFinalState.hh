@@ -9,7 +9,6 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 
-
 namespace Rivet {
 
 
@@ -182,10 +181,8 @@ namespace Rivet {
     /// Set of decaying particle IDs to veto
     ParentVetos _parentVetoes;
 
-    typedef set<string> FSNames;
-
     /// Set of finalstate to be vetoed
-    FSNames _vetofsnames;
+    set<string> _vetofsnames;
 
   };
 
