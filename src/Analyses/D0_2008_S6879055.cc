@@ -98,7 +98,7 @@ namespace Rivet {
     foreach (const Jet& j, jets) {
       const double jeta = j.momentum().pseudorapidity();
       const double jphi = j.momentum().azimuthalAngle();
-      if (fabs(jeta) < 2.5) continue;
+      if (fabs(jeta) > 2.5) continue;
 
       FourMomentum e0 = invmassfs.particles()[0].momentum();
       FourMomentum e1 = invmassfs.particles()[1].momentum();
