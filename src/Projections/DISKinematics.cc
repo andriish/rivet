@@ -16,11 +16,11 @@ namespace Rivet {
     bool firstIsHadron  = PID::isHadron(inc.first.pdgId());
     bool secondIsHadron = PID::isHadron(inc.second.pdgId());
     
-    if(firstIsHadron && !secondIsHadron){
+    if (firstIsHadron && !secondIsHadron) {
       _inHadron = inc.first;
-    }else if(!firstIsHadron && secondIsHadron){
+    } else if (!firstIsHadron && secondIsHadron) {
       _inHadron = inc.second;
-    }else{
+    } else {
       //help!
       throw Error("DISKinematics projector could not find the correct beam hadron");
     }
@@ -37,22 +37,33 @@ namespace Rivet {
     _theS = invariant(pLepIn + pHad);
 
     // Calculate boost vector for boost into HCM-system
-    _hcm.setBoost(-boostVector(tothad));
+    _hcm.setBoost(-tothad.boostVector());
+
     // Boost the gamma and lepton
-    FourMomentum pGammaHCM =  _hcm.transform(pGamma);
-    // rotate so photon in x-z plane
+    FourMomentum pGammaHCM = _hcm.transform(pGamma);
+
+    // Rotate so photon in x-z plane
     _hcm.preMult(Matrix3(Vector3::mkZ(), -pGammaHCM.azimuthalAngle()));
-    // rotate so photon along z axis
     pGammaHCM = _hcm.transform(pGamma);
+    assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkY())));
+
+    // Rotate so photon along z axis
     _hcm.preMult(Matrix3(Vector3::mkY(), -pGammaHCM.polarAngle()));
-    // rotate by 180 if along -z 
     pGammaHCM = _hcm.transform(pGamma);
+    assert(isZero(cross(pGammaHCM.vector3(), Vector3::mkZ()).mod2()));
+
+    // Rotate by 180 if along -z 
     if (pGammaHCM.z() > 0.0) _hcm.preMult(Matrix3(Vector3::mkY(), pi));
-    // finally rotate so outgoing lepton at phi=0
-    FourMomentum pLepOutHCM =  _hcm.transform(pLepOut);
+    pGammaHCM = _hcm.transform(pGamma);
+    assert(isZero(angle(pGammaHCM.vector3(), Vector3::mkZ())));
+
+    // Finally rotate so outgoing lepton at phi = 0
+    FourMomentum pLepOutHCM = _hcm.transform(pLepOut);
     _hcm.preMult(Matrix3(Vector3::mkZ(), -pLepOutHCM.azimuthalAngle()));
-    // Boost to Breit frame
-    
+    pLepOutHCM = _hcm.transform(pLepOut);
+    assert(isZero(pLepOutHCM.azimuthalAngle()));
+
+    // Boost to Breit frame    
     const double bz = 1 - 2*x();
     _breit = LorentzTransform(Vector3::mkZ() * bz).combine(_hcm);
   }

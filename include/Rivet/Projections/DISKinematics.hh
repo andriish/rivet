@@ -20,13 +20,13 @@ namespace Rivet {
     /// The default constructor.
     DISKinematics() 
     :  _theQ2(-1.0), 
-        _theW2(-1.0), 
-        _theX(-1.0), 
-        _theY(-1.0), 
-        _theS(-1.0) 
+       _theW2(-1.0), 
+       _theX(-1.0), 
+       _theY(-1.0), 
+       _theS(-1.0) 
     {
       setName("DISKinematics");
-//      addBeamPair(ANY, hadid);
+      //addBeamPair(ANY, hadid);
       addProjection(Beam(), "Beam");
       addProjection(DISLepton(), "Lepton");
     }
@@ -35,6 +35,7 @@ namespace Rivet {
     virtual const Projection* clone() const {
       return new DISKinematics(*this);
     }    
+
     
   protected:
     
@@ -43,6 +44,7 @@ namespace Rivet {
 
     /// Compare with other projections.
     virtual int compare(const Projection& p) const;
+
 
   public:
 
@@ -74,7 +76,7 @@ namespace Rivet {
     }
 
     /// The incoming Hadron beam particle
-    const Particle &beamHadron() const {
+    const Particle& beamHadron() const {
       return _inHadron;
     }
     
@@ -103,6 +105,7 @@ namespace Rivet {
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
     LorentzTransform _breit;
   };
+
 
 }
 
