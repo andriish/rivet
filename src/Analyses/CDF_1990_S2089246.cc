@@ -24,10 +24,17 @@ namespace Rivet {
     const string dNdEtaTeX = "$\\d{N_\\text{ch}}/\\d{\\eta}$";
     const string etaTeX = "$\\eta$";
 
-    _hist_eta630 = bookHistogram1D(3, 1, 0, 
-      "Pseudorapidity distribution at $\\sqrt{s} = \\unit{630}{\\GeV}$", dNdEtaTeX, etaTeX);
-    _hist_eta1800 = bookHistogram1D(3, 1, 1, 
-      "Pseudorapidity distribution at $\\sqrt{s} = \\unit{1800}{\\GeV}$", dNdEtaTeX, etaTeX);
+    /// @todo Get 630 GeV data in HepData
+    // _hist_eta630 = bookHistogram1D(3, 1, 0,
+    //   "Pseudorapidity distribution at $\\sqrt{s} = \\unit{630}{\\GeV}$", dNdEtaTeX, etaTeX);
+    _hist_eta630 = 
+      bookHistogram1D("d03-x01-y00",
+                      "Pseudorapidity distribution at $\\sqrt{s} = \\unit{630}{\\GeV}$", 
+                      dNdEtaTeX, etaTeX, 10, 0, 3.5);
+    _hist_eta1800 = 
+      bookHistogram1D(3, 1, 1,
+                      "Pseudorapidity distribution at $\\sqrt{s} = \\unit{1800}{\\GeV}$", 
+                      dNdEtaTeX, etaTeX);
   }
 
 
