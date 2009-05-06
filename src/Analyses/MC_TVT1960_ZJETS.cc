@@ -1,8 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/IdentifiedFinalState.hh"
+#include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/RivetAIDA.hh"
 
@@ -13,14 +12,10 @@ namespace Rivet {
   {
     setBeams(PROTON, ANTIPROTON);
     
-    //full final state
-    FinalState fs(-2.5, 2.5);
-    addProjection(fs, "FS");
-
-    // leading leptons (for Z candidates)
-    IdentifiedFinalState lfs(-2.5, 2.5, 25.0*GeV);
-    lfs.acceptIdPair(ELECTRON);
-    addProjection(lfs, "Leptons");
+    ZFinder zfinder(-2.5, 2.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2);
+    addProjection(zfinder, "ZFinder");
+    FastJets jetpro(zfinder.remainingFinalState(), FastJets::KT, 0.7);
+    addProjection(jetpro, "Jets");
   } 
 
 
@@ -88,64 +83,14 @@ namespace Rivet {
 
 
   // Do the analysis 
-  void MC_TVT1960_ZJETS::analyze(const Event & event) {
-    double weight = event.weight();
-
-    // Skip if the event is empty
-    const FinalState& fs = applyProjection<FinalState>(event, "FS");
-    if (fs.isEmpty()) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because no final state pair found " << endl;
-      vetoEvent(event);
-    }
+  void MC_TVT1960_ZJETS::analyze(const Event & e) {
+    double weight = e.weight();
     
-    // Find the Z candidates
-    const FinalState & lfs = applyProjection<FinalState>(event, "Leptons");
-    std::vector<std::pair<Particle, Particle> > Z_candidates;
-    ParticleVector all_leptons=lfs.particles();
-    for (size_t i=0; i<all_leptons.size(); ++i) {
-      for (size_t j=i+1; j<all_leptons.size(); ++j) {
-        double mZ=FourMomentum(all_leptons[i].momentum()+all_leptons[j].momentum()).mass()/GeV;
-        if (mZ>66.0 && mZ<116.0) Z_candidates.push_back(make_pair(all_leptons[i], all_leptons[j]));
-      }
+    const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
+    if (zfinder.particles().size()!=1) {
+      vetoEvent(e);
     }
-    if (Z_candidates.size() != 1) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because no unique lepton pair found " << endl;
-      vetoEvent(event);
-    }
-
-    // Now build the jets on a FS without the electrons from the Z and their QED radiation
-    ParticleVector jetparts;
-    foreach (const Particle& p, fs.particles()) {
-      bool copy = true;
-      if (p.pdgId() == PHOTON) {
-        FourMomentum p_e0=Z_candidates[0].first.momentum();
-        FourMomentum p_e1=Z_candidates[0].second.momentum();
-        FourMomentum p_P=p.momentum();
-        if (deltaR(p_e0.pseudorapidity(), p_e0.azimuthalAngle(),
-                   p_P.pseudorapidity(), p_P.azimuthalAngle()) < 0.2) {
-            copy = false;
-            Z_candidates[0].first.momentum()+=p_P;
-        }
-        if (deltaR(p_e1.pseudorapidity(), p_e1.azimuthalAngle(),
-                   p_P.pseudorapidity(), p_P.azimuthalAngle()) < 0.2) {
-            copy = false;
-            Z_candidates[0].second.momentum()+=p_P;
-        }
-      }
-      else {
-        if (p.genParticle().barcode()==Z_candidates[0].first.genParticle().barcode()) {
-          copy = false;
-        }
-        if (p.genParticle().barcode()==Z_candidates[0].second.genParticle().barcode()) {
-          copy = false;
-        }
-      }
-      if (copy) jetparts.push_back(p);
-    }
-    FastJets jetpro(fs, FastJets::KT, 0.7); // fs only as dummy here
-    jetpro.calc(jetparts);
+    const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
 
     // jet resolutions and integrated jet rates
     const fastjet::ClusterSequence* seq = jetpro.clusterSeq();
@@ -197,26 +142,19 @@ namespace Rivet {
       }
     }
 
-
-    // Take jets with pt > 20
-    /// @todo Make this neater, using the JetAlg interface and the built-in sorting
-    const Jets& jets = jetpro.jets();
+    const Jets& jets = jetpro.jetsByPt(20.0*GeV);
     Jets jets_cut;
     foreach (const Jet& j, jets) {
-      if (j.momentum().pT()/GeV > 20.0 && fabs(j.momentum().pseudorapidity()) < 2.0) {
+      if (fabs(j.momentum().pseudorapidity()) < 2.0) {
         jets_cut.push_back(j);
       }
     }
-    getLog() << Log::DEBUG << "Num jets passing cuts = " << jets_cut.size() << endl;
-
-    // Sort by pT:
-    sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
-
+    
     // fill jet multi
     _h_jet20_multi_exclusive->fill(jets_cut.size(), weight);
     _h_jet20_multi_inclusive->fill(0, weight);
 
-    FourMomentum zmom(Z_candidates[0].first.momentum()+Z_candidates[0].second.momentum());
+    FourMomentum zmom(zfinder.particles()[0].momentum());
     _h_Z_mass->fill(zmom.mass(),weight);
     if (jets_cut.size()>0) {
       _h_jet1_pT->fill(jets_cut[0].momentum().pT(), weight);
@@ -259,18 +197,13 @@ namespace Rivet {
     }
 
     // do the multis also for jets > 10 GeV
-    // Take jets with pt > 20
-    /// @todo Make this neater, using the JetAlg interface and the built-in sorting
+    const Jets& jets10 = jetpro.jetsByPt(10.0*GeV);
     Jets jets10_cut;
-    foreach (const Jet& j, jets) {
-      if (j.momentum().pT()/GeV > 10.0 && fabs(j.momentum().pseudorapidity()) < 2.0) {
+    foreach (const Jet& j, jets10) {
+      if (fabs(j.momentum().pseudorapidity()) < 2.0) {
         jets10_cut.push_back(j);
       }
     }
-    getLog() << Log::DEBUG << "Num jets passing 10GeV cut = " << jets10_cut.size() << endl;
-
-    // Sort by pT:
-    sort(jets10_cut.begin(), jets10_cut.end(), cmpJetsByPt);
 
     // fill jet multi
     _h_jet10_multi_exclusive->fill(jets10_cut.size(), weight);
