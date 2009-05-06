@@ -13,13 +13,13 @@ namespace Rivet {
   public:
     
     // Constructor for a single inv-mass pair
-    InvMassFinalState(FinalState& fsp,
+    InvMassFinalState(const FinalState& fsp,
                       const std::pair<long, long>& idpair, // pair of decay products
                       double minmass, // min inv mass
                       double maxmass); // max inv mass
 
 
-    InvMassFinalState(FinalState& fsp,
+    InvMassFinalState(const FinalState& fsp,
                       const std::vector<std::pair<long, long> >& idpairs,  // vector of pairs of decay products
                       double minmass, // min inv mass
                       double maxmass); // max inv mass

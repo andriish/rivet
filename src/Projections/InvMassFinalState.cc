@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  InvMassFinalState::InvMassFinalState(FinalState& fsp,
+  InvMassFinalState::InvMassFinalState(const FinalState& fsp,
                                        const std::pair<long, long>& idpair, // pair of decay products
                                        double minmass, // min inv mass
                                        double maxmass) // max inv mass
@@ -18,7 +18,7 @@ namespace Rivet {
   }
 
 
-  InvMassFinalState::InvMassFinalState(FinalState& fsp,
+  InvMassFinalState::InvMassFinalState(const FinalState& fsp,
                                        const std::vector<std::pair<long, long> >& idpairs,  // vector of pairs of decay products
                                        double minmass, // min inv mass
                                        double maxmass) // max inv mass

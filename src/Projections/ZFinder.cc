@@ -55,10 +55,7 @@ namespace Rivet {
 
     addProjection(fs, "FS");
 
-    /// @todo This shouldn't be necessary, but g++ type system seems to get
-    /// confused if fs is passed directly...
-    FinalState nfs(fs);
-    InvMassFinalState imfs(nfs, std::make_pair(pid, -pid), m2_min, m2_max);
+    InvMassFinalState imfs(fs, std::make_pair(pid, -pid), m2_min, m2_max);
     addProjection(imfs, "IMFS");
     
     ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
