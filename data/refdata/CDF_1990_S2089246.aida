@@ -1,91 +1,59 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
-  <implementation version="1.1" package="FreeHEP"/>
-  <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/REF/CDF_1990_S2089246/" title="D(N)/DETARAP">
-    <annotation>
-      <item key="Title" value="D(N)/DETARAP" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/CDF_1990_S2089246/d01-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/CDF_1990_S2089246.aida/REF/CDF_1990_S2089246/d01-x01-y01" sticky="true"/>
-    </annotation>
+  <implementation version="1.0" package="HepData"/>
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/CDF_1990_S2089246" title="D(N)/DETARAP" >
     <dataPoint>
-      <measurement errorPlus="585.0" value="630.0"
-        errorMinus="585.0"/>
-      <measurement errorPlus="0.11661903789690602"
-        value="3.18" errorMinus="0.11661903789690602"/>
+      <measurement value="630.0" errorPlus="0.0" errorMinus="0.0"/>
+      <measurement value="3.18" errorPlus="0.11661903789690602" errorMinus="0.11661903789690602"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="585.0" value="1800.0"
-        errorMinus="585.0"/>
-      <measurement errorPlus="0.13341664064126335"
-        value="3.95" errorMinus="0.13341664064126335"/>
+      <measurement value="1800.0" errorPlus="0.0" errorMinus="0.0"/>
+      <measurement value="3.95" errorPlus="0.13341664064126335" errorMinus="0.13341664064126335"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/REF/CDF_1990_S2089246/" title="D(N)/DETARAP">
-    <annotation>
-      <item key="Title" value="D(N)/DETARAP" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/CDF_1990_S2089246/d03-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/CDF_1990_S2089246.aida/REF/CDF_1990_S2089246/d03-x01-y01" sticky="true"/>
-    </annotation>
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/CDF_1990_S2089246" title="D(N)/DETARAP(Q=1800)/D(N)/DETARAP(Q=630)" >
     <dataPoint>
-      <measurement errorPlus="0.125" value="0.125"
-        errorMinus="0.125"/>
-      <measurement errorPlus="0.11" value="3.95"
-        errorMinus="0.11"/>
+      <measurement value="0.0" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.26" errorPlus="0.04123105625617661" errorMinus="0.04123105625617661"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/CDF_1990_S2089246" title="D(N)/DETARAP" >
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="3.95" errorPlus="0.11" errorMinus="0.11"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.125" value="0.375"
-        errorMinus="0.125"/>
-      <measurement errorPlus="0.12" value="4.0"
-        errorMinus="0.12"/>
+      <measurement value="0.375" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="4.0" errorPlus="0.12" errorMinus="0.12"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.125" value="0.625"
-        errorMinus="0.125"/>
-      <measurement errorPlus="0.43" value="4.05"
-        errorMinus="0.43"/>
+      <measurement value="0.625" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="4.05" errorPlus="0.43" errorMinus="0.43"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.125" value="0.875"
-        errorMinus="0.125"/>
-      <measurement errorPlus="0.5" value="4.21"
-        errorMinus="0.5"/>
+      <measurement value="0.875" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="4.21" errorPlus="0.5" errorMinus="0.5"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.25" value="1.25"
-        errorMinus="0.25"/>
-      <measurement errorPlus="0.53" value="4.38"
-        errorMinus="0.53"/>
+      <measurement value="1.25" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="4.38" errorPlus="0.53" errorMinus="0.53"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.25" value="1.75"
-        errorMinus="0.25"/>
-      <measurement errorPlus="0.53" value="4.74"
-        errorMinus="0.53"/>
+      <measurement value="1.75" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="4.74" errorPlus="0.53" errorMinus="0.53"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.25" value="2.25"
-        errorMinus="0.25"/>
-      <measurement errorPlus="0.53" value="4.7"
-        errorMinus="0.53"/>
+      <measurement value="2.25" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="4.7" errorPlus="0.53" errorMinus="0.53"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.25" value="2.75"
-        errorMinus="0.25"/>
-      <measurement errorPlus="0.5" value="4.47"
-        errorMinus="0.5"/>
+      <measurement value="2.75" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="4.47" errorPlus="0.5" errorMinus="0.5"/>
     </dataPoint>
     <dataPoint>
-      <measurement errorPlus="0.25" value="3.25"
-        errorMinus="0.25"/>
-      <measurement errorPlus="0.64" value="4.19"
-        errorMinus="0.64"/>
+      <measurement value="3.25" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="4.19" errorPlus="0.64" errorMinus="0.64"/>
     </dataPoint>
   </dataPointSet>
 </aida>
