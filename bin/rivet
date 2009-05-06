@@ -304,7 +304,7 @@ def logNEvt(n, starttime, maxevtnum):
     if maxevtnum is None:
         logging.log(nevtloglevel, "Event %d (%d s elapsed)" % (n, timeelapsed))
     else:
-        timeleft = (maxevtnum-n)/n*timeelapsed
+        timeleft = (maxevtnum-n)*timeelapsed/n
         eta = time.strftime("%a %b %d %H:%M", time.localtime(timecurrent + timeleft))
         logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s"
                     % (n, timeelapsed, timeleft, eta))
