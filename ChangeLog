@@ -1,3 +1,11 @@
+2009-05-07  Andy Buckley  <andy@insectnation.org>
+
+	* Adding null vector check to Vector3::azimuthalAngle().
+
+	* Fixing definition of HCM/Breit frames in DISKinematics, and
+	adding asserts to check that the transformation is doing what it
+	should.
+
 2009-05-05  Andy Buckley  <andy@insectnation.org>
 
 	* Removing eta and Et cuts from CDF 2000 Z pT analysis, based on

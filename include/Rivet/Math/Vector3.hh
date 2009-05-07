@@ -97,23 +97,27 @@ namespace Rivet {
     }
 
     double azimuthalAngle(const PhiMapping mapping = ZERO_2PI) const {
+      // If this is a null vector, return zero rather than let atan2 set an error state
+      if (Rivet::isZero(mod2())) return 0.0;
+
+      // Calculate the arctan and correct for numerical boundary cases
       double value = atan2( y(), x() );
       if (value > 2*PI || value < -2*PI){
         value = fmod(value, 2*PI);
       }
       if (value <= -PI) value += 2*PI;
       if (value >   PI) value -= 2*PI;
-      
-      switch (mapping){
+
+      // Return in the requested range
+      switch (mapping) {
       case MINUSPI_PLUSPI:
         assert(value > -PI && value <= PI);
         return value;
       case ZERO_2PI:
         if (value >= 0) {
           assert(value >= 0 && value < 2*PI);
-          return value;
-          
-        } else if(Rivet::isZero(value)){
+          return value; 
+        } else if (Rivet::isZero(value)) {
           value = 0.0;
           return value;
         } else {

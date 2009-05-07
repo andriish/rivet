@@ -42,20 +42,22 @@ namespace Rivet {
     // Boost the gamma and lepton
     FourMomentum pGammaHCM = _hcm.transform(pGamma);
 
-    // Rotate so photon in x-z plane
+    // Rotate so the photon is in x-z plane
     _hcm.preMult(Matrix3(Vector3::mkZ(), -pGammaHCM.azimuthalAngle()));
     pGammaHCM = _hcm.transform(pGamma);
     assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkY())));
 
-    // Rotate so photon along z axis
-    _hcm.preMult(Matrix3(Vector3::mkY(), -pGammaHCM.polarAngle()));
+    // Rotate so the photon is along the negative z-axis
+    _hcm.preMult(Matrix3(Vector3::mkY(), pi - pGammaHCM.polarAngle()));
+    // Rotate by 180 if accidentally along +z
+    /// @todo Really necessary? The prev rotation should get this right...
     pGammaHCM = _hcm.transform(pGamma);
-    assert(isZero(cross(pGammaHCM.vector3(), Vector3::mkZ()).mod2()));
-
-    // Rotate by 180 if along -z 
     if (pGammaHCM.z() > 0.0) _hcm.preMult(Matrix3(Vector3::mkY(), pi));
+    // Check that final HCM photon lies along -ve z as expected
     pGammaHCM = _hcm.transform(pGamma);
-    assert(isZero(angle(pGammaHCM.vector3(), Vector3::mkZ())));
+    assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkX())) &&
+           isZero(dot(pGammaHCM.vector3(), Vector3::mkY())));
+    assert(isZero(angle(pGammaHCM.vector3(), -Vector3::mkZ())));
 
     // Finally rotate so outgoing lepton at phi = 0
     FourMomentum pLepOutHCM = _hcm.transform(pLepOut);
