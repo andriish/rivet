@@ -85,7 +85,7 @@ namespace Rivet {
     /// Sphericity
     const double sphericity() const { return 3.0 / 2.0 * (lambda2() + lambda3()); }
     /// Transverse Sphericity
-    const double sphericity_T() const { return 2.0 * lambda2() / ( lambda1() + lambda2() ); }
+    const double transSphericity() const { return 2.0 * lambda2() / ( lambda1() + lambda2() ); }
     /// Planarity
     const double planarity() const { return 2 * (sphericity() - 2 * aplanarity()) / 3.0; }
     /// Aplanarity
