@@ -13,7 +13,7 @@
 
 #include <gsl/gsl_sf_legendre.h>
 
-#define MAXMOMENT 7
+#define MAXMOMENT 5
 
 namespace Rivet {
 
@@ -39,7 +39,7 @@ namespace Rivet {
         .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
         addProjection(vfs, "VFS");
         
-        addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "JetsC4");
+        //addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "JetsC4");
 
         // initialize moments vector
         for ( int i = 0; i < MAXMOMENT ; ++i) {

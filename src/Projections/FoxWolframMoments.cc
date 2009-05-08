@@ -14,8 +14,9 @@ namespace Rivet {
         Log log = getLog();
         
         // Project into final state and get total visible momentum
-        //const FinalState& fs             = applyProjection<FinalState>(e, "FS");
-        const FastJets &jetProjC4   = applyProjection<FastJets>(e, "JetsC4");
+        const FinalState& fs             = applyProjection<FinalState>(e, "VFS");
+
+/*        const FastJets &jetProjC4   = applyProjection<FastJets>(e, "JetsC4");
 		Jets theJetsC4  = jetProjC4.jetsByPt(20.0);
         
         Jets goodJetsC4;
@@ -30,22 +31,22 @@ namespace Rivet {
                 goodJetsC4.push_back(jet);    
             }
 		}
-        
+  */      
         // remember: # pairs = N! / ( r! * (N-r)! )
         
         // N.B.: Autocorrelations are included! Treat them separately as diagonal elements.
         // see: http://cepa.fnal.gov/psm/simulation/mcgen/lund/pythia_manual/pythia6.3/pythia6301/node215.html
         
         double sumEnergy = 0.0;
-        //for (ParticleVector::const_iterator pi = fs.particles().begin(); pi != fs.particles().end(); ++pi) {
-        for ( Jets::const_iterator pi = goodJetsC4.begin() ; pi != goodJetsC4.end() ; ++pi )
+        for (ParticleVector::const_iterator pi = fs.particles().begin(); pi != fs.particles().end(); ++pi) 
+        //for ( Jets::const_iterator pi = goodJetsC4.begin() ; pi != goodJetsC4.end() ; ++pi )
         {
             sumEnergy += pi->momentum().E();
 
             const FourMomentum pi_4 = pi->momentum();
 
-            //for (ParticleVector::const_iterator pj = pi+1; pj != fs.particles().end(); ++pj) 
-            for ( Jets::const_iterator pj = pi + 1 ; pj != goodJetsC4.end() ; ++pj )
+            for (ParticleVector::const_iterator pj = pi+1; pj != fs.particles().end(); ++pj) 
+            //for ( Jets::const_iterator pj = pi + 1 ; pj != goodJetsC4.end() ; ++pj )
             {
                 if ( pi == pj ) continue;
                 
