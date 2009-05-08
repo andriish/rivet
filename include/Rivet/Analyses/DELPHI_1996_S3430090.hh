@@ -110,6 +110,11 @@ namespace Rivet {
 
 
   private:
+    /// Little helper functions for the axis labels
+    string dsigbyd(const string&);
+    string Ndsigbyd(const string&);
+    string unitdsigbyd(const string&);
+    string texmath(const string&);
 
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the 

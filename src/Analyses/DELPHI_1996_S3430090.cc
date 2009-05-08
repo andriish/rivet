@@ -251,16 +251,16 @@ namespace Rivet {
   }
 
 
-  string dsigbyd(const string& x) {
-    return "\\d{\\sigma}/\\d{" + x + "}";
+  string DELPHI_1996_S3430090::dsigbyd(const string& x) {
+    return "\\text{d}{\\sigma}/\\text{d}{" + x + "}";
   }
-  string Ndsigbyd(const string& x) {
+  string DELPHI_1996_S3430090::Ndsigbyd(const string& x) {
     return "N \\, " + dsigbyd(x);
   }
-  string unitdsigbyd(const string& x) {
+  string DELPHI_1996_S3430090::unitdsigbyd(const string& x) {
     return "N \\, " + dsigbyd(x);
   }
-  string texmath(const string& foo) {
+  string DELPHI_1996_S3430090::texmath(const string& foo) {
     return "$" + foo + "$";
   }
 
@@ -268,16 +268,16 @@ namespace Rivet {
   void DELPHI_1996_S3430090::init() {
     _histPtTIn = 
       bookHistogram1D(1, 1, 1, "In-plane $p_\\perp$ in GeV w.r.t. thrust axes", 
-                      "$p_\\perp_\\text{in}$ / GeV", texmath(Ndsigbyd("p_\\perp_\\text{in}")));
+                      "$p_\\perp^\\text{in}$ / GeV", texmath(Ndsigbyd("p_\\perp^\\text{in}")));
     _histPtTOut =
       bookHistogram1D(2, 1, 1, "Out-of-plane $p_\\perp$ in GeV w.r.t. thrust axes",
-                      "$p_\\perp_\\text{out}$ / GeV", texmath(Ndsigbyd("p_\\perp_\\text{out}")));
+                      "$p_\\perp^\\text{out}$ / GeV", texmath(Ndsigbyd("p_\\perp^\\text{out}")));
     _histPtSIn =
       bookHistogram1D(3, 1, 1, "In-plane $p_\\perp$ in GeV w.r.t. sphericity axes",
-                      "$p_\\perp_\\text{in}$ / GeV", texmath(Ndsigbyd("p_\\perp_\\text{in}")));
+                      "$p_\\perp^\\text{in}$ / GeV", texmath(Ndsigbyd("p_\\perp^\\text{in}")));
     _histPtSOut =
       bookHistogram1D(4, 1, 1, "Out-of-plane $p_\\perp$ in GeV w.r.t. sphericity axes",
-                      "$p_\\perp_\\text{out}$ / GeV", texmath(Ndsigbyd("p_\\perp_\\text{out}")));
+                      "$p_\\perp^\\text{out}$ / GeV", texmath(Ndsigbyd("p_\\perp^\\text{out}")));
     
     _histRapidityT =
       bookHistogram1D(5, 1, 1, "Rapidity w.r.t. thrust axes, $y_T$",

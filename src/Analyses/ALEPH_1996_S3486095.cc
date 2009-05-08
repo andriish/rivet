@@ -24,7 +24,6 @@ namespace Rivet {
     const ChargedFinalState cfs;
     addProjection(cfs, "FS");
     addProjection(UnstableFinalState(), "UFS");
-    //addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
     addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
     addProjection(Sphericity(cfs), "Sphericity");
     addProjection(ParisiTensor(cfs), "Parisi");
@@ -83,7 +82,7 @@ namespace Rivet {
     _histOblateness->fill(thrust.oblateness(), weight);
 
     // Jets
-    getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
+    getLog() << Log::DEBUG << "Calculating differential jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     if (durjet.clusterSeq()) {
       double y3 = durjet.clusterSeq()->exclusive_dmerge(2);
@@ -168,7 +167,9 @@ namespace Rivet {
       const Vector3 mom3 = p->momentum().vector3();
       int id = abs(p->pdgId());
       const double mom = mom3.mod();
+      const double energy = p->momentum().E();
       const double scaledMom = mom/meanBeamMom;
+      const double scaledEnergy = energy/meanBeamMom;  // meanBeamMom is approximately beam energy
       switch (id) {
          case 22: 
             _histMultiPhoton->fill(-1.*std::log(scaledMom), weight);
@@ -195,12 +196,12 @@ namespace Rivet {
             _weightedTotalNumPi0 += weight;
             break;
          case 221:
-            _histMultiEta->fill(scaledMom, weight);
+            _histMultiEta->fill(scaledEnergy, weight);
             _histMeanMultiEta->fill(_histMeanMultiEta->binMean(0), weight);
             _weightedTotalNumEta += weight;
             break;
          case 331:
-            _histMultiEtaPrime->fill(scaledMom, weight);
+            _histMultiEtaPrime->fill(scaledEnergy, weight);
             _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->binMean(0), weight);
             _weightedTotalNumEtaPrime += weight;
             break;
@@ -233,7 +234,7 @@ namespace Rivet {
             break;
          case 323:
          case -323:
-            _histMultiKStar892Plus->fill(scaledMom, weight);
+            _histMultiKStar892Plus->fill(scaledEnergy, weight);
             _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->binMean(0), weight);
             _weightedTotalNumKStar892Plus += weight;
             break;
@@ -248,17 +249,19 @@ namespace Rivet {
             _histMeanMultiSigma0->fill(_histMeanMultiSigma0->binMean(0), weight);
          case 3312:
          case -3312:
-            _histMeanMultiXiMinus->fill(scaledMom, weight);
+            _histMultiXiMinus->fill(scaledEnergy, weight);
             _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->binMean(0), weight);
             _weightedTotalNumXiMinus += weight;
             break;
          case 3114:
          case -3114: //maybe missing sigma(1385p13)
+            _histMultiSigma1385Plus->fill(scaledEnergy, weight);
             _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->binMean(0), weight);
             _weightedTotalNumSigma1385Plus += weight;
             break;
          case 3324:
          case -3324:
+            _histMultiXi1530_0->fill(scaledEnergy, weight);
             _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->binMean(0), weight);
             _weightedTotalNumXi1530_0 += weight;
             break;
@@ -271,72 +274,112 @@ namespace Rivet {
   }
 
 
+  string ALEPH_1996_S3486095::unitdsigbyd(const string& x) {
+    return "1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}{" + x + "}";
+  }
+  string ALEPH_1996_S3486095::unitdNbyd(const string& x) {
+    return "1/N \\, \\text{d}{N}/\\text{d}{" + x + "}";
+  }
+  string ALEPH_1996_S3486095::texmath(const string& foo) {
+    return "$" + foo + "$";
+  }
 
   void ALEPH_1996_S3486095::init() {
-    _histSphericity  = bookHistogram1D(1, 1, 1, "Sphericity, $S$ (charged)");
-    _histAplanarity  = bookHistogram1D(2, 1, 1, "Aplanarity, $A$ (charged)");
+    _histSphericity   = bookHistogram1D(1, 1, 1, "Sphericity, $S$ (charged)",
+                                                 "$S$", texmath(unitdNbyd("S")));
+    _histAplanarity   = bookHistogram1D(2, 1, 1, "Aplanarity, $A$ (charged)",
+                                                 "$A$", texmath(unitdNbyd("A")));
     
-    _hist1MinusT     = bookHistogram1D(3, 1, 1, "1-thrust, $1-T$ (charged)");
-    _histTMinor      = bookHistogram1D(4, 1, 1, "Thrust minor, $m$ (charged)");
+    _hist1MinusT      = bookHistogram1D(3, 1, 1, "1-Thrust, $1-T$ (charged)",
+                                                 "$1-T$", texmath(unitdNbyd("(1-T)")));
+    _histTMinor       = bookHistogram1D(4, 1, 1, "Thrust minor, $m$ (charged)",
+                                                 "$m$", texmath(unitdNbyd("m")));
 
-    _histY3          = bookHistogram1D(5, 1, 1, "Two-jet resolution variable, $Y_3$ (charged)");
-    _histHeavyJetMass= bookHistogram1D(6, 1, 1, "Heavy jet mass (charged)"); 
-    _histCParam      = bookHistogram1D(7, 1, 1, "$C$ parameter (charged)");
-    _histOblateness  = bookHistogram1D(8, 1, 1, "Oblateness, $M - m$ (charged)");
+    _histY3           = bookHistogram1D(5, 1, 1, "Two-jet resolution variable, $Y_3$ (charged)",
+                                                 "$Y_3$", texmath(unitdNbyd("Y_3")));
+    _histHeavyJetMass = bookHistogram1D(6, 1, 1, "Heavy jet mass (charged)",
+                                                 "$M_h^2/s$", texmath(unitdNbyd("(M_h^2/s)"))); 
+    _histCParam       = bookHistogram1D(7, 1, 1, "$C$ parameter (charged)",
+                                                 "$C$", texmath(unitdNbyd("C"))); 
+    _histOblateness   = bookHistogram1D(8, 1, 1, "Oblateness, $M - m$ (charged)",
+                                                 "$O$", texmath(unitdNbyd("O"))); 
 
-    _histScaledMom   = bookHistogram1D(9, 1, 1, "Scaled momentum, $x_p = |p|/|p_\\text{beam}|$ (charged)");
-    _histRapidityT   = bookHistogram1D(10, 1, 1, "Rapidity w.r.t. thrust axes, $y_T$ (charged)");
+    _histScaledMom    = bookHistogram1D(9, 1, 1, "Scaled momentum, $x_p = |p|/|p_\\text{beam}|$ (charged)",
+                                                 "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histRapidityT    = bookHistogram1D(10, 1, 1, "Rapidity w.r.t. thrust axes, $y_T$ (charged)",
+                                                  "$y_T$", texmath(unitdsigbyd("y_T"))); 
 
-    _histPtSIn       = bookHistogram1D(11, 1, 1, "In-plane $p_T$ in GeV w.r.t. sphericity axes (charged)");
-    _histPtSOut      = bookHistogram1D(12, 1, 1, "Out-of-plane $p_T$ in GeV w.r.t. sphericity axes (charged)");
+    _histPtSIn        = bookHistogram1D(11, 1, 1, "In-plane $p_T$ in GeV w.r.t. sphericity axes (charged)",
+                                                  "$p_\\perp^\\text{in}$ / GeV", texmath(unitdsigbyd("p_\\perp^\\text{in}"))); 
+    _histPtSOut       = bookHistogram1D(12, 1, 1, "Out-of-plane $p_T$ in GeV w.r.t. sphericity axes (charged)",
+                                                  "$p_\\perp^\\text{out}$ / GeV", texmath(unitdsigbyd("p_\\perp^\\text{out}"))); 
 
-    _histLogScaledMom = bookHistogram1D(17, 1, 1, "Log of scaled momentum, $\\log(1/x_p)$ (charged)");
+    _histLogScaledMom = bookHistogram1D(17, 1, 1, "Log of scaled momentum, $\\log(1/x_p)$ (charged)",
+                                                  "$\\xi_p$", texmath(unitdsigbyd("\\xi_p"))); 
 
-    _histChMult       = bookHistogram1D(18, 1, 1, "Charged multiplicity distribution");
-    _histMeanChMult   = bookHistogram1D(19, 1, 1, "Mean charged multiplicity");
+    _histChMult       = bookHistogram1D(18, 1, 1, "Charged multiplicity distribution",
+                                                  "$N_\\text{ch}$", texmath(unitdNbyd("N_\\text{ch}"))); 
+    _histMeanChMult   = bookHistogram1D(19, 1, 1, "Mean charged multiplicity", "", "Multiplicity"); 
 
-    _histMeanChMultRapt05= bookHistogram1D(20, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 0.5$");
-    _histMeanChMultRapt10= bookHistogram1D(21, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 1.0$");
-    _histMeanChMultRapt15= bookHistogram1D(22, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 1.5$");
-    _histMeanChMultRapt20= bookHistogram1D(23, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 2.0$");
+    _histMeanChMultRapt05= bookHistogram1D(20, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 0.5$", "", "Multiplicity"); 
+    _histMeanChMultRapt10= bookHistogram1D(21, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 1.0$", "", "Multiplicity"); 
+    _histMeanChMultRapt15= bookHistogram1D(22, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 1.5$", "", "Multiplicity"); 
+    _histMeanChMultRapt20= bookHistogram1D(23, 1, 1, "Mean charged multiplicity for rapidity $|Y| < 2.0$", "", "Multiplicity"); 
 
 
     // Particle spectra
-    _histMultiPiPlus        = bookHistogram1D(25, 1, 1, "$\\pi^\\pm$ spectrum");
-    _histMultiKPlus         = bookHistogram1D(26, 1, 1, "$K^\\pm$ spectrum");
-    _histMultiP             = bookHistogram1D(27, 1, 1, "$p$ spectrum");
-    _histMultiPhoton        = bookHistogram1D(28, 1, 1, "$\\gamma$ spectrum");
-    _histMultiPi0           = bookHistogram1D(29, 1, 1, "$\\pi^0$ spectrum");
-    _histMultiEta           = bookHistogram1D(30, 1, 1, "$\\eta$ spectrum");
-    _histMultiEtaPrime      = bookHistogram1D(31, 1, 1, "$\\eta'$ spectrum");
-    _histMultiK0            = bookHistogram1D(32, 1, 1, "$K^0$ spectrum");
-    _histMultiLambda0       = bookHistogram1D(33, 1, 1, "$\\Lambda^0$ spectrum");
-    _histMultiXiMinus       = bookHistogram1D(34, 1, 1, "$\\Xi^-$ spectrum");
-    _histMultiSigma1385Plus = bookHistogram1D(35, 1, 1, "$\\Sigma^\\pm(1385)$ spectrum");
-    _histMultiXi1530_0      = bookHistogram1D(36, 1, 1, "$\\Xi^0(1530)$ spectrum");
-    _histMultiRho           = bookHistogram1D(37, 1, 1, "$\\rho$ spectrum");
-    _histMultiOmega782      = bookHistogram1D(38, 1, 1, "$\\omega(782)$ spectrum");
-    _histMultiKStar892_0    = bookHistogram1D(39, 1, 1, "$\\K^{*0}(892)$ spectrum");
-    _histMultiPhi           = bookHistogram1D(40, 1, 1, "$\\phi$ spectrum");
+    _histMultiPiPlus        = bookHistogram1D(25, 1, 1, "$\\pi^\\pm$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiKPlus         = bookHistogram1D(26, 1, 1, "$K^\\pm$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiP             = bookHistogram1D(27, 1, 1, "$p$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiPhoton        = bookHistogram1D(28, 1, 1, "$\\gamma$ spectrum",
+                                                        "$\\xi_p$", texmath(unitdsigbyd("\\xi_p"))); 
+    _histMultiPi0           = bookHistogram1D(29, 1, 1, "$\\pi^0$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiEta           = bookHistogram1D(30, 1, 1, "$\\eta$ spectrum",
+                                                        "$x_E$", texmath(unitdsigbyd("x_E"))); 
+    _histMultiEtaPrime      = bookHistogram1D(31, 1, 1, "$\\eta'$ spectrum",
+                                                        "$x_E$", texmath(unitdsigbyd("x_E"))); 
+    _histMultiK0            = bookHistogram1D(32, 1, 1, "$K^0$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiLambda0       = bookHistogram1D(33, 1, 1, "$\\Lambda^0$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiXiMinus       = bookHistogram1D(34, 1, 1, "$\\Xi^-$ spectrum",
+                                                        "$x_E$", texmath(unitdsigbyd("x_E"))); 
+    _histMultiSigma1385Plus = bookHistogram1D(35, 1, 1, "$\\Sigma^\\pm(1385)$ spectrum",
+                                                        "$x_E$", texmath(unitdsigbyd("x_E"))); 
+    _histMultiXi1530_0      = bookHistogram1D(36, 1, 1, "$\\Xi^0(1530)$ spectrum",
+                                                        "$x_E$", texmath(unitdsigbyd("x_E"))); 
+    _histMultiRho           = bookHistogram1D(37, 1, 1, "$\\rho$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiOmega782      = bookHistogram1D(38, 1, 1, "$\\omega(782)$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiKStar892_0    = bookHistogram1D(39, 1, 1, "$K^{*0}(892)$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
+    _histMultiPhi           = bookHistogram1D(40, 1, 1, "$\\phi$ spectrum",
+                                                        "$x_p$", texmath(unitdsigbyd("x_p"))); 
     
-    _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1, "$K^{*\\pm}(892)$ spectrum");
+    _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1, "$K^{*\\pm}(892)$ spectrum",
+                                                        "$x_E$", texmath(unitdsigbyd("x_E"))); 
     
     // Mean multiplicities 
-    _histMeanMultiPi0           = bookHistogram1D(44, 1,  2, "Mean $\\pi^0$ multiplicity");
-    _histMeanMultiEta           = bookHistogram1D(44, 1,  3, "Mean $\\eta$ multiplicity");
-    _histMeanMultiEtaPrime      = bookHistogram1D(44, 1,  4, "Mean $\\eta'$ multiplicity");
-    _histMeanMultiK0            = bookHistogram1D(44, 1,  5, "Mean $K_S + K_L$ multiplicity");
-    _histMeanMultiRho           = bookHistogram1D(44, 1,  6, "Mean $\\rho^0$ multiplicity");
-    _histMeanMultiOmega782      = bookHistogram1D(44, 1,  7, "Mean $\\omega(782)$ multiplicity");
-    _histMeanMultiPhi           = bookHistogram1D(44, 1,  8, "Mean $\\phi$ multiplicity");
-    _histMeanMultiKStar892Plus  = bookHistogram1D(44, 1,  9, "Mean $K^{*\\pm}$ multiplicity");
-    _histMeanMultiKStar892_0    = bookHistogram1D(44, 1, 10, "Mean $K^{*0}$ multiplicity");
-    _histMeanMultiLambda0       = bookHistogram1D(44, 1, 11, "Mean $\\Lambda$ multiplicity");
-    _histMeanMultiSigma0        = bookHistogram1D(44, 1, 12, "Mean $\\Sigma$ multiplicity");
-    _histMeanMultiXiMinus       = bookHistogram1D(44, 1, 13, "Mean $\\Xi$ multiplicity");
-    _histMeanMultiSigma1385Plus = bookHistogram1D(44, 1, 14, "Mean $\\Sigma(1385)$ multiplicity");
-    _histMeanMultiXi1530_0      = bookHistogram1D(44, 1, 15, "Mean $\\Xi(1530)$ multiplicity");
-    _histMeanMultiOmegaOmegaBar = bookHistogram1D(44, 1, 16, "Mean $\\Omega^\\mp$ multiplicity");        
+    _histMeanMultiPi0           = bookHistogram1D(44, 1,  2, "Mean $\\pi^0$ multiplicity", "", "Multiplicity");
+    _histMeanMultiEta           = bookHistogram1D(44, 1,  3, "Mean $\\eta$ multiplicity", "", "Multiplicity");
+    _histMeanMultiEtaPrime      = bookHistogram1D(44, 1,  4, "Mean $\\eta'$ multiplicity", "", "Multiplicity");
+    _histMeanMultiK0            = bookHistogram1D(44, 1,  5, "Mean $K_S + K_L$ multiplicity", "", "Multiplicity");
+    _histMeanMultiRho           = bookHistogram1D(44, 1,  6, "Mean $\\rho^0$ multiplicity", "", "Multiplicity");
+    _histMeanMultiOmega782      = bookHistogram1D(44, 1,  7, "Mean $\\omega(782)$ multiplicity", "", "Multiplicity");
+    _histMeanMultiPhi           = bookHistogram1D(44, 1,  8, "Mean $\\phi$ multiplicity", "", "Multiplicity");
+    _histMeanMultiKStar892Plus  = bookHistogram1D(44, 1,  9, "Mean $K^{*\\pm}$ multiplicity", "", "Multiplicity");
+    _histMeanMultiKStar892_0    = bookHistogram1D(44, 1, 10, "Mean $K^{*0}$ multiplicity", "", "Multiplicity");
+    _histMeanMultiLambda0       = bookHistogram1D(44, 1, 11, "Mean $\\Lambda$ multiplicity", "", "Multiplicity");
+    _histMeanMultiSigma0        = bookHistogram1D(44, 1, 12, "Mean $\\Sigma$ multiplicity", "", "Multiplicity");
+    _histMeanMultiXiMinus       = bookHistogram1D(44, 1, 13, "Mean $\\Xi$ multiplicity", "", "Multiplicity");
+    _histMeanMultiSigma1385Plus = bookHistogram1D(44, 1, 14, "Mean $\\Sigma(1385)$ multiplicity", "", "Multiplicity");
+    _histMeanMultiXi1530_0      = bookHistogram1D(44, 1, 15, "Mean $\\Xi(1530)$ multiplicity", "", "Multiplicity");
+    _histMeanMultiOmegaOmegaBar = bookHistogram1D(44, 1, 16, "Mean $\\Omega^\\mp$ multiplicity", "", "Multiplicity");
   }
 
 
