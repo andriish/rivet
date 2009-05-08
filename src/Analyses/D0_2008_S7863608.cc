@@ -49,7 +49,7 @@ namespace Rivet {
     const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
     if (zfinder.particles().size()==1) {
       const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
-      const Jets& jets = jetpro.jets();
+      const Jets& jets = jetpro.jetsByPt(20.0*GeV);
       Jets jets_cut;
       foreach (const Jet& j, jets) {
         if (fabs(j.momentum().pseudorapidity()) < 2.8) {
@@ -74,7 +74,6 @@ namespace Rivet {
         }
       }
       
-      sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
       const FourMomentum Zmom = zfinder.particles()[0].momentum();
 
       // In jet pT

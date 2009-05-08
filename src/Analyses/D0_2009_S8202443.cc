@@ -70,15 +70,13 @@ namespace Rivet {
     if (zfinder.particles().size()==1) {
       _sum_of_weights += weight;
       const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
-      const Jets& jets = jetpro.jets();
+      const Jets& jets = jetpro.jetsByPt(20.0*GeV);
       Jets jets_cut;
       foreach (const Jet& j, jets) {
         if (fabs(j.momentum().pseudorapidity()) < 2.5) {
           jets_cut.push_back(j);
         }
       }
-      
-      sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
       
       if (jets_cut.size()>0) {
         _h_jet1_pT->fill(jets_cut[0].momentum().pT()/GeV, weight);
@@ -100,16 +98,13 @@ namespace Rivet {
     if (zfinder_constrained.particles().size()==1) {
       _sum_of_weights_constrained += weight;
       const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinderConstrained");
-      const Jets& jets = jetpro.jets();
+      const Jets& jets = jetpro.jetsByPt(20.0*GeV);
       Jets jets_cut;
       foreach (const Jet& j, jets) {
         if (fabs(j.momentum().pseudorapidity()) < 2.5) {
           jets_cut.push_back(j);
         }
       }
-      
-      // Sort by pT:
-      sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
       
       if (jets_cut.size()>0) {
         _h_jet1_pT_constrained->fill(jets_cut[0].momentum().pT()/GeV, weight);

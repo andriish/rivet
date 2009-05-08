@@ -93,7 +93,7 @@ namespace Rivet {
     // Now build the list of jets on a FS without the electrons from Z
     // Additional cuts on jets: |eta| < 2.5 and dR(j,leading electron) > 0.4
     const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
-    const Jets jets = jetpro.jetsByPt();
+    const Jets jets = jetpro.jetsByPt(20.0*GeV);
     vector<FourMomentum> finaljet_list;
     foreach (const Jet& j, jets) {
       const double jeta = j.momentum().pseudorapidity();
