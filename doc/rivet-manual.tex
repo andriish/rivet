@@ -452,7 +452,6 @@ descriptions shown here. Richer metadata will be added to the code soon!
 \cleardoublepage
 \part{How Rivet works}
 \label{part:writinganalyses}
-%\label{part:internals}
 
 Hopefully by now you've run Rivet a few times and got the hang of the command
 line interface and viewing the resulting analysis data files. Maybe you've got
@@ -725,11 +724,23 @@ does not need to know the cross section.
 
 \subsection{Analysis histo autobinning}
 \subsection{Pluggable analyses}
-\subsection{Example analysis}
 
-\section{Viewing output data files}
+% \section{Comparing with reference data}
 
-\section{Comparing with reference data}
+
+\cleardoublepage
+\part{How Rivet \emph{really} works}
+\label{part:internals}
+
+In time this will be the place to look for all the nitty gritty on what Rivet is
+doing internally. Not very many people need to know that, and the few that do
+currently don't need a manual for it!
+
+\section{Projection caching}
+
+\subsection{Writing a Projection comparison operator}
+
+\section{Projection }
 
 
 \cleardoublepage
