@@ -86,6 +86,7 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 2 -o "$fjmajor" -eq 2 -a "$fjminor" -lt 4 ; then
     AC_MSG_ERROR([FastJet version 2.4.0 or later is required])
   fi
+  ## TODO: sed out the -rpath
   FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs)";
 else
   FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";
@@ -110,6 +111,16 @@ fi
 AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 
 
+## Build LaTeX docs if possible
+AC_PATH_PROG(PDFLATEX, pdflatex)
+AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
+
+
+## Build asciidoc docs if possible
+AC_PATH_PROG(ASCIIDOC, asciidoc)
+AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
+
+
 ## Decide whether to build the Python extension
 AZ_PYTHON_DEFAULT
 AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--enable-pyext, 
@@ -119,17 +130,6 @@ if test x$enable_pyext == xyes; then
   AZ_PYTHON_PATH
   AZ_PYTHON_VERSION_ENSURE([2.3])
 fi
-
-
-dnl ## Optional ROOT analysis framework
-dnl AC_ARG_ENABLE([ROOT], [AC_HELP_STRING(--enable-root, 
-dnl   [build with ROOT output @<:@default=yes@:>@])], [], [])
-dnl if test x$enable_root != xno; then
-dnl   AC_SEARCH_ROOT([enable_root=yes; AC_TEST_ROOT], [AC_MSG_WARN([ROOT is not available])])
-dnl else
-dnl   AC_MSG_NOTICE([Not using ROOT])
-dnl fi
-dnl AM_CONDITIONAL([WITH_ROOT], [test x$enable_root == xyes])
 
 
 ## Set default build flags

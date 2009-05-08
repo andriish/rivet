@@ -1,90 +1,7 @@
 \documentclass{JHEP3}
 %\JHEP{00(2007)000}
 
-\usepackage{xspace,graphicx,mparhack,amsmath}
-\usepackage{amssymb,url,underscore,fancyvrb,cancel}
-\usepackage{hepnicenames,hepunits}
-\usepackage{picinpar,fancybox}
-\usepackage{microtype,relsize}
-\usepackage{rivetversion}
-%\usepackage{xcolor}
-%\usepackage{palatino,mathpazo}
-%\usepackage{utopia}
-%\usepackage{euler}
-
-
-\DeclareRobustCommand{\TODO}[1]{\ensuremath{\bigstar}{#1}\xspace}
-%\DeclareRobustCommand{\TODO}[1]{\textcolor{red!20!black}{\ensuremath{\bigstar}{#1}}\xspace}
-%\DeclareRobustCommand{\TOCHECK}[1]{\textcolor{blue!20!black}{\ensuremath{\bigcircle}{#1}}\xspace}
-
-%% Bold tt font
-\DeclareFontShape{OT1}{cmtt}{bx}{n}{<5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>cmttb10}{}
-
-\newenvironment{snippet}{\Verbatim}{\endVerbatim}
-
-\newcommand{\kbd}[1]{\texttt{#1}\xspace}
-\newcommand{\inp}[1]{\textsf{\textdollar}\hspace{1mm}\texttt{#1}\xspace}
-\newcommand{\outp}[1]{\textsf{#1}\xspace}
-\newcommand{\code}[1]{\texttt{#1}\xspace}
-\newcommand{\var}[1]{\texttt{\textdollar{}#1}\xspace}
-\newcommand{\val}[1]{\textit{\ensuremath{\langle\text{\textrm{#1}\/}\rangle}}\xspace}
-\newcommand{\home}{\texttt{\ensuremath{\sim}}\xspace}
-
-%\newcommand{\RGnegate}{\texttt{\ensuremath{\sim}}}
-\newcommand{\Delphi}{\textsc{Delphi}\xspace}
-
-\newcommand{\cmdbreak}{\textbackslash\newline}
-
-\newcommand{\AppendixRef}[1]{appendix~\ref{#1}}
-\newcommand{\SectionRef}[1]{section~\ref{#1}}
-\newcommand{\SubsectionRef}[1]{sub-section~\ref{#1}}
-
-\let\oldmarginpar\marginpar
-\renewcommand\marginpar[1]{\-\oldmarginpar{\footnotesize \textit{#1}}}
-%\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize \textit{#1}]%
-%{\raggedright\footnotesize \textit{#1}}}
-
-\newcommand{\coneimg}{\includegraphics[height=11mm]{cone}}
-\newcommand{\bendimg}{\includegraphics[height=11mm]{bend}}
-\newcommand{\dblbendimg}{\bendimg\hspace{0.5mm}\bendimg}
-
-\setlength{\fboxsep}{5mm}
-\setlength{\linewidth}{5pt}
-
-\newenvironment{change}%
-{\begin{Sbox}%
-      \begin{minipage}{0.9\textwidth}%
-        \begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}%
-        {\par\end{window}%
-      \end{minipage}%
-  \end{Sbox}%
-  \vspace{5mm}%
-  \noindent%
-  \begin{center}%
-    \fbox{\TheSbox}%
-  \end{center}%
-  \vspace{5mm}%
-  \ignorespacesafterend}
-
-% \newenvironment{change}{%
-% \begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}{\par%
-% % \showthe\prevgraf%
-% % \showthe\prevdepth%
-% % \ifnum\prevgraf<2\rule{1pt}{1.2cm}\fi%
-% \end{window}\ignorespacesafterend}
-
-%% Make narrower and box (box must be able to break over pages)
-\newenvironment{philosophy}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
-  \it\begin{window}[0,l,{\bendimg},{}]
-  \setlength{\parindent}{0cm}\noindent}{%
-  \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
-\newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
-\newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
-
-\newcommand{\pT}{\ensuremath{p_\perp}\xspace}
-\newcommand{\ET}{\ensuremath{E_\perp}\xspace}
-\newcommand{\MET}{\ensuremath{\cancel{E_\perp}}\xspace}
-
+\include{preamble}
 
 \title{Rivet user manual\\ {\smaller \textsc{version \RivetVersion}}}
 
@@ -101,11 +18,11 @@
 
 \abstract{This is the manual and user guide for the Rivet system for the
   validation and tuning of Monte Carlo event generators. As well as the core
-  Rivet library, this manual describes the usage of the \kbd{rivet} program
-  and the AGILe generator interface library. The level of description is
-  generally intended for users of the system, starting with the basics of using
-  validation code written by others, and then covering all the details you need
-  to know to write your own Rivet components.}
+  Rivet library, this manual describes the usage of the \kbd{rivet} program and
+  the AGILe generator interface library. The depth and level of description is
+  chosen for users of the system, starting with the basics of using validation
+  code written by others, and then covering sufficient details to write new
+  Rivet analyses and calculational components.}
 
 \keywords{Event generator, simulation, validation, tuning, QCD}
 
@@ -114,19 +31,32 @@
 
 
 \section{Introduction}
+
 This manual is a users' guide to using the Rivet generator validation
-system. Rivet itself is a C++ class library, with classes to represent
-observable calculations, analyses and their data objects, and a collection of
-infrastructure/management objects which you hopefully won't have to worry about
-very much. The simplest way to use Rivet is via the \kbd{rivet} command line
-tool, which analyses the HepMC event records as they are generated and produces
-output distributions in a format of choice. The input events are generated using
-the generator's own steering program, if one is provided; for generators which
-provide no default way to produce HepMC output, the \kbd{agile-runmc} command
-provided by the AGILe generator interface library may be useful. For those who
-wish to embed their analyses in some larger framework, Rivet can also be run
-programmatically on HepMC event objects with no special executable being
-required.
+system. Rivet is a C++ class library, which provides the infrastructure and
+calculational tools for simulation-level analyses, enabling physicists to
+validate event generator models and tunings with minimal effort and maximum
+portability. Rivet is designed to scale effectively to large numbers of analyses
+for truly global validation, by transparent use of an automated result caching
+system.
+
+The Rivet ethos, if it may be expressed succinctly, is that user analysis code
+should be extremely clean and easy to write --- ideally it should be
+sufficiently self-explanatory to in itself be a reference to the experimental
+analysis algorithm --- without sacrificing power or extensibility. The machinery
+to make this possible is intentionally hidden from the view of all but the most
+prying users. Generator independence is explicitly required by virtue of all
+analyses operating on the generic ``HepMC'' event record.
+
+The simplest way to use Rivet is via the \kbd{rivet} command line tool, which
+analyses textual HepMC event records as they are generated and produces output
+distributions in a structured textual format. The input events are generated
+using the generator's own steering program, if one is provided; for generators
+which provide no default way to produce HepMC output, the AGILe generator
+interface library, and in particular the \kbd{agile-runmc} command which it
+provides, may be useful. For those who wish to embed their analyses in some
+larger framework, Rivet can also be run programmatically on HepMC event objects
+with no special executable being required.
 
 Before we get started, a declaration of intent: this manual is intended to be a
 guide to using Rivet, rather than a comprehensive and painstakingly maintained
@@ -156,37 +86,49 @@ e.g. \code{Event::applyProjection(\val{proj})}.
 Following the example of Donald Knuth in his books on \TeX{}, in this document
 we will indicate paragraphs of particular technicality or esoteric nature with a
 ``dangerous bend''\marginpar{\bendimg\\Dangerous bend} sign. These will
-typically be about the internals of Rivet which most people will be lucky enough
-never to need know about, but for detail obsessives, the inordinately curious
-and Rivet hackers they may be useful. You can almost certainly skip them on a
-first reading. Similarly, you may see double bend signs
-\marginpar{\dblbendimg\\Double bend} --- the same rules apply for these, but
-even more strongly.
+typically describe internals of Rivet of which most people will be fortunate
+enough to remain happily ignorant without adverse effects. However they may be
+of interest to detail obsessives, the inordinately curious and Rivet
+hackers. You can certainly skip them on a first reading. Similarly, you may see
+double bend signs \marginpar{\dblbendimg\\Double bend} --- the same rules apply
+for these, but even more strongly.
 
 
 \cleardoublepage
 \part{Getting started with Rivet}
 \label{part:gettingstarted}
 
-As with many things, there are different levels at which one can use Rivet. The
-simplest is just to use the analyses which are already in the library to check
-the events made by a variety of generators and tunes: this is enormously
-valuable in itself. A more involved level of usage is to write your own Rivet
-analyses and either use them as plugins or send them to the authors to become
-part of the base system: this requires some understanding of programming within
-Rivet but you don't \emph{need} to know about exactly what the system is doing
-with your code objects. Finally, Rivet developers and people who want to do
-non-standard things with their analyses will need to know something about the
-messy details of what Rivet's infrastructure is doing behind the scenes.
+As with many things, Rivet may be meaningfully approached at several distinct
+levels of detail:
 
-This part of the manual is for the first sort of user, who wants to get on with
-making some plots with their new generator. Since everyone will fall into this
-category at some point, our interest is to get you to that all-important physics
-plots stage as quickly as possible. Analysis authors and Rivet service mechanics
-will find more detailed information in part~\ref{part:writinganalyses}. % and \ref{}
+\begin{itemize}
+\item The simplest, and we hope the most common, is to use the analyses which
+  are already in the library to study events from a variety of generators and
+  tunes: this is enormously valuable in itself and we encourage all manner of
+  experimentalists and phenomenologists alike to use Rivet in this mode.
+\item A more involved level of usage is to write your own Rivet analyses ---
+  this may be done without affecting the installed standard analyses by use of a
+  ``plugin'' system (although we encourage users who develop analyses to submit
+  them to the Rivet developers for inclusion into a future release of the main
+  package). This approach requires some understanding of programming within
+  Rivet but you don't \emph{need} to know about exactly what the system is doing
+  with the objects that you have defined.
+\item Finally, Rivet developers and people who want to do non-standard things
+  with their analyses will need to know something about the messy details of
+  what Rivet's infrastructure is doing behind the scenes. But you'd probably
+  rather be doing some physics!
+\end{itemize}
+
+The current part of this manual is for the first sort of user, who wants to get
+on with studying some observables with a generator or tune, or comparing several
+such models. Since everyone will fall into this category at some point, our
+preent interest is to get you to that all-important ``physics plots'' stage as
+quickly as possible. Analysis authors and Rivet service-mechanics will find the
+more detailed information that they crave in Part~\ref{part:writinganalyses}.
 
 
 \section{Quickstart}
+
 The point of this section is to get you up and running with Rivet as soon as
 possible. Doing this by hand may be rather frustrating, as Rivet depends on
 several external libraries --- you'll get bored downloading and building them by
@@ -205,8 +147,8 @@ appear.
 
 The PPA packages have been built as binaries for a variety of architectures, and
 the package interdependencies are automatically known and used: all you need to
-do on a Debian Linux system (Ubuntu included) is to add the Launchpad archive
-address to your APT sources list and then request installation of the
+do on a Debian-type Linux system (Ubuntu included) is to add the Launchpad
+archive address to your APT sources list and then request installation of the
 \kbd{rivet} package in the usual way. See the Launchpad and system documentation
 for all the details.
 
@@ -237,7 +179,7 @@ Now, change directory to your build area (you may also want to make this,
 e.g. \kbd{\home/build}), and download the script:\\
 \inp{wget \url{http://svn.hepforge.org/rivet/bootstrap/rivet-bootstrap}}\\
 Now run it, specifying the install area as the argument:\\
-\inp{chmod a+x rivet-bootstrap}\\
+\inp{chmod +x rivet-bootstrap}\\
 \inp{./rivet-bootstrap \val{localdir}}
 
 If you are running on a system where the CERN AFS area is mounted as
@@ -253,6 +195,7 @@ command for generators which do not provide their own main program with HepMC
 output. To test that they work as expected, set the environment variables as
 instructed, if you've not already done so, run this:\\
 \inp{rivet --help}\\
+%
 This should print a quick-reference user guide for the \kbd{rivet} command to
 the terminal. Similarly, for \kbd{agile-runmc},\\
 \inp{agile-runmc --help}\\
@@ -267,9 +210,8 @@ In this manual, because of its convenience, we will use \kbd{agile-runmc} as our
 canonical way of producing a stream of HepMC event data; if your interest is in
 running a generator like Sherpa or Herwig++ which provides its own native way to
 make HepMC output, or a generator like Cascade or PHOJET which is not currently
-supported by AGILe, then substitute the appropriate command in what
-follows. We'll discuss using these commands in detail
-in \SectionRef{sec:rivetgun}.
+supported by AGILe, then substitute the appropriate command in what follows.
+We'll discuss using these commands in detail in \SectionRef{sec:rivetgun}.
 
 
 \subsection{Getting generators for AGILe}
@@ -291,20 +233,34 @@ for it all to build. Finally, set the \var{AGILE_GEN_PATH} path variable to
 contain the \kbd{\val{genserDir}} directory: you should now have a few
 generators to play with.
 
+If you are interested in using a generator not currently supported by AGILe,
+which does not output HepMC events in its native state, then please contact the
+authors and hopefully we can help.
+
 
 \subsection{Command completion}
 
 A final installation point worth considering is using the supplied bash-shell
 programmable completion setup for the \kbd{rivet} and \kbd{agile-runmc}
 commands. Despite being cosmetic and semi-trivial, programmable completion makes
-these commands much more pleasant to use, especially in the case of \kbd{rivet},
-since you no longer need to remember the somewhat cryptic analysis names! To use
-programmable completion, source the appropriate files from the install location:\\
+using \kbd{rivet} positively pleasant, especially since you no longer need to
+remember the somewhat cryptic analysis names\footnote{Standard Rivet analyses
+  have names which, as well as the publication date and experiment name,
+  incorporate the 8-digit Spires ID code.}!
+
+To use programmable completion, source the appropriate files from the install
+location:\\
 \inp{. \val{localdir}/share/Rivet/rivet-completion}\\
 \inp{. \val{localdir}/share/AGILe/agile-completion}\\
-Apologies to C-shell users, but this feature is only available for bash
-users. Anyone who feels like supplying fixes or additions for their favourite
-shell is very welcome to get in touch with the developers.
+If there is already a \kbd{\val{localdir}/etc/bash_completion.d} directory in
+your install path, Rivet and AGILe's installation scripts will install extra
+copies into that location, since automatically sourcing all completion files in
+such a path is quite standard.
+
+Apologies to \{C,k,z,\dots\}-shell users, but this feature is currently only
+available for the \kbd{bash} shell. Anyone who feels like supplying fixes or
+additions for their favourite shell is very welcome to get in touch with the
+developers.
 
 
 
@@ -318,24 +274,27 @@ ASCII format, either from file or from a text stream.
 \subsection{The FIFO idiom}
 
 Since you rarely want to store simulated HepMC events and they are
-computationally cheap to produce (at least when compared to experiment
-simulation chains), we recommend using a Unix \emph{named pipe} (or ``FIFO'' ---
-first-in, first-out) to stream the events. While this may seem unusual at first,
-it is just a nice way of ``pretending'' that we are writing to and reading from
-a file, without actually involving any slow disk access or building of huge
-files: a 1M event LHC run would occupy $\sim 60 GB$ on disk, and typically it
-takes twice as long to make
-and analyse the events when the filesystem is involved! Here's the commands:\\
+computationally cheap to produce (at least when compared to the remainder of
+experiment simulation chains), we recommend using a Unix \emph{named pipe} (or
+``FIFO'' --- first-in, first-out) to stream the events. While this may seem
+unusual at first, it is just a nice way of ``pretending'' that we are writing to
+and reading from a file, without actually involving any slow disk access or
+building of huge files: a 1M event LHC run would occupy $\sim 60 GB$ on disk,
+and typically it takes twice as long to make and analyse the events when the 
+filesystem is involved! Here is an example:\\
 \inp{mkfifo fifo.hepmc}\\
 \inp{agile-runmc Pythia:6418 -o fifo.hepmc \&}\\
 \inp{rivet -a EXAMPLE fifo.hepmc}\\
+%
 Note that the generator process (\kbd{agile-runmc} in this case) is
 \emph{backgrounded} before \kbd{rivet} is run. This is absolutely necessary,
-because the buffer size of a pipe in Linux is only 64K: about one LHC event. The
-generator process will have to wait until the buffer is cleared, e.g. by being
-read by \kbd{rivet}, before computing or writing any more events.
+since the buffer size of a pipe in Linux is only 64K --- about the space
+required to store one LHC event in HepMC's textual event format. The generator
+process will have to wait until the buffer is cleared, e.g. by being read by
+\kbd{rivet}, before computing or writing any more events. By running the
+generator and \kbd{rivet} at the same time, this flow control through the buffer
+is invisible to the user.
 %http://home.gna.org/pysfst/tests/pipe-limit.html
-
 
 In the following command examples, we will assume that a generator has been set
 up to write to the \kbd{fifo.hepmc} FIFO, and just list the \kbd{rivet} command
@@ -347,7 +306,22 @@ listed in \AppendixRef{app:agilerunmc}.
 
 \begin{itemize}
 
-\item \paragraph{Choosing analyses:}{\kbd{rivet -a~DELPHI_1996_S3430090
+\item \paragraph{Getting help:}{\kbd{rivet --help} will print a (hopefully)
+    helpful list of options which may be used with the \kbd{rivet} command, as
+    well as other information such as environment variables which may affect the
+    run.}
+
+\item \paragraph{Choosing analyses:}{\kbd{rivet --list-analyses} will list the
+    available analyses, including both those in the Rivet distribution and any
+    plugins which are found at runtime. \kbd{rivet --show-analysis \val{patt}}
+    will show a lot of details about any analyses whose name match the
+    \val{patt} regular expression pattern --- simple bits of analysis name are a
+    perfectly valid subset of this. For example, \kbd{rivet --show-analysis
+      CDF_200} exploits the standard Rivet analysis naming scheme to show
+    details of all available CDF experiment analyses published in the
+    ``noughties.''}
+
+\item \paragraph{Running particular analyses:}{\kbd{rivet -a~DELPHI_1996_S3430090
       in.hepmc} will run the Rivet \kbd{DELPHI_1996_S3430090}\cite{Abreu:1996na}
     analysis on the events in the \kbd{in.hepmc} data file. This analysis is the
     one originally used for the \Delphi automated ``\textsc{Professor}''
@@ -366,7 +340,7 @@ listed in \AppendixRef{app:agilerunmc}.
     that the output histogram file will be named \kbd{foo.aida}. By default the
     output file is called \kbd{Rivet.aida}.}
 
-\item \paragraph{Log level:}{\kbd{rivet in.hepmc -A
+\item \paragraph{Fine-grained logging:}{\kbd{rivet in.hepmc -A
       -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=DEBUG
       -l~Rivet.Projection.FinalState=TRACE~\cmdbreak -l~RivetGun=WARN
       -l~NEvt=WARN} analyse events as before, but will print different status
@@ -387,7 +361,6 @@ listed in \AppendixRef{app:agilerunmc}.
 In this section, we summarise how to use the data files which Rivet produces for
 plotting, validation and tuning.
 
-
 \subsection{Histogram formats}
 
 Rivet currently produces output histogram data in the AIDA XML format. Most
@@ -397,17 +370,19 @@ wish to cast the AIDA files to a different format for plotting, and for this we
 supply several scripts.
 
 \paragraph{Conversion to ROOT}
+
 Your knee-jerk reaction is probably to want to know how to plot your Rivet
-histograms in ROOT. (Don't worry; you can recover from this unfortunate
-behaviour after only a few months of therapy.) For such ROOT junkies, we install
-an \kbd{aida2root} script, which converts the AIDA \kbd{DataPointSet} records to
-ROOT \kbd{TGraphs}. One word of warning: a bug in ROOT means that \kbd{TGraph}s
-do not render properly from file because the axis is not drawn by default. To
-display the plots correctly in ROOT you will need to pass the \kbd{"AP"} drawing
-option string to either the \kbd{TGraph::Draw()} method, or in the options box
-in the \kbd{TBrowser} GUI interface.
+histograms in ROOT. Don't worry; you can recover from this unfortunate behaviour
+after only a few months of therapy. For unrepentant ROOT junkies, Rivet installs
+an \kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
+full of ROOT \kbd{TGraph}s. One word of warning: a bug in ROOT means that
+\kbd{TGraph}s do not render properly from file because the axis is not drawn by
+default. To display the plots correctly in ROOT you will need to pass the
+\kbd{"AP"} drawing option string to either the \kbd{TGraph::Draw()} method, or
+in the options box in the \kbd{TBrowser} GUI interface.
 
 \paragraph{Conversion to ``flat format''}
+
 Most of our histogramming is based around the YODA ``flat'' plain text format,
 which can easily be read (and written) by hand. We provide a script called
 \kbd{aida2flat} to do this conversion. Run \kbd{aida2flat -h} to get usage
@@ -415,15 +390,19 @@ instructions; in particular the Gnuplot and ``split output'' options are useful
 for further visualisation. Aside from anything else, this is useful for simply
 checking the contents of an AIDA file, with \kbd{aida2flat Rivet.aida | less}.
 
-We get asked a lot about why we don't use ROOT internally: aside from a general
-unhappiness about the design and quality of the data objects in ROOT, the
-monolithic nature of the system makes it a big dependency for a system as small
-as Rivet. While not an issue for experimentalists, most theorists and generator
-developers do not use ROOT and we preferred to embed the AIDA system, which in
-its LWH implementation requires no external package. The replacement for AIDA
-will be another lightweight system rather than ROOT, with an emphasis on
-friendly, intuitive data object design, and correct handling of sample merging
-statistics for all data objects.
+\vspace{1.8em}
+
+\begin{detail}
+  We get asked a lot about why we don't use ROOT internally: aside from a
+  general unhappiness about the design and quality of the data objects in ROOT,
+  the monolithic nature of the system makes it a big dependency for a system as
+  small as Rivet. While not an issue for experimentalists, most theorists and
+  generator developers do not use ROOT and we preferred to embed the AIDA
+  system, which in its LWH implementation requires no external package. The
+  replacement for AIDA will be another lightweight system rather than ROOT, with
+  an emphasis on friendly, intuitive data object design, and correct handling of
+  sample merging statistics for all data objects.
+\end{detail}
 
 
 \subsection{Plotting and comparing data}
@@ -485,55 +464,69 @@ particularly intimidating.
 The core objects in Rivet are ``projections'' and ``analyses''. Hopefully
 ``analyses'' isn't a surprise --- that's just the collection of routines that
 will make histograms to compare with reference data, and the only things that
-might differ there from experieces with HzTool are the new histogramming system
-and the fact that we've used some OO features to make life a bit easier. The
-meaning of ``projections'', as applied to event analysis, will probably be less
-obvious. We'll discuss them now.
+might differ there from experieces with HZTool are the new histogramming system
+and the fact that we've used some object orientation concepts to make life a bit
+easier. The meaning of ``projections'', as applied to event analysis, will
+probably be less obvious. We'll discuss them now.
 
 
 \section{Projections}
-The name ``projection'' is meant to evoke thoughts of
-projection operators, low-dimensional slices/views of high-dimensional spaces,
-and other things that might appeal to physicists who view the world through
-quantum-tinted lenses. A more mundane, but equally applicable, name would be
-``observables'', but since they all inherit from the \kbd{Projection} base
-class, we'll stick to that name. Projections can be relatively simple things
-like event shapes (i.e. scalar, vector or tensor quantities), or arbitrarily
-complex things like lossy or selective views of the event final
-state.\footnote{The ability for projections to return arbitrarily complex objects
-  constructed from the event record is why we chose a slightly vague term like
-  ``projection'' rather than ``observable'', which many people interpret as
-  ``something I can plot.''}
+
+The name ``projection'' is meant to evoke thoughts of projection operators,
+low-dimensional slices/views of high-dimensional spaces, and other things that
+might appeal to physicists who view the world through quantum-tinted lenses. A
+more mundane, but equally applicable, name would be ``observable calculators'',
+but since that's a long name, the things they return aren't \emph{necessarily}
+observable, and they all inherit from the \kbd{Projection} base class, we'll
+stick to that name. It doesn't take long to get used to using the name as a
+synonym for ``calculator'', without being intimidated by ideas that they might
+be some sort of high-powered deep magic. 90\% of them is simple and
+self-explanatory, as a peek under the bonnet of e.g. the all-important
+\kbd{FinalState} projection will reveal.
+
+Projections can be relatively simple things like event shapes (i.e. scalar,
+vector or tensor quantities), or arbitrarily complex things like lossy or
+selective views of the event final state. Most users will see them attached to
+analyses by declarations in each analysis' constructor, but they can also be
+recursively ``nested'' inside other projections\footnote{Provided there are no
+  dependency loops in the projection chains! Strictly, only acyclic graphs of
+  projection dependencies are valid, but there is currently no code in Rivet
+  that will attempt to verify this restriction.} (provided there are no infinite
+loops in the nesting chain.) Calling a complex projection in an analysis may
+actually transparently execute many projections on each event.
+
 
 \subsection{Projection caching}
-Aside from semantic issues of how we're dividing the computational work of
-analysing events, projections are important computationally because they live
-within a framework which automatically stores (``caches'') their results between
-events.
 
-A concrete example may help here: let's say we have two analyses which
-have the same run conditions, i.e. incoming beam types, beam energies, etc. Each
-also uses the thrust event shape measure to define a set of basis vectors for
-their analysis. For each event that gets passed to Rivet, whichever analysis
-gets called first will first call a final state projection to get a list of
-stable, physical particles (filtering out the intermediate and book-keeping
-entries in the HepMC event record). That final state projection is then
-``attached'' to the event. The analysis will then call a thrust projection which
-has been told to use the same final state projection to define the momentum
-vectors used in the thrust calculation, and similarly the thrust projection will
-be registered with the event.
+Aside from semantic issues of how the class design assigns the process of
+analysing events, projections are important computationally because they live in
+a framework which automatically stores (``caches'') their results between
+events. This is a crucial feature for the long-term scalability of Rivet, as the
+previous experience with HZTool was that HERA validation code ran very slowly
+due to repeated calculation of the same $k_\perp$ clustering algorithm (at that
+time notorious for scaling as the 3rd power of the number of particles.)
 
-So far, projections have offered no benefits! However, when the second analysis
-runs, it will similarly apply its final state and thrust projections to the
-event, but the infrastructure will detect that an equivalent calculation has
-already been done and will return references to the already-run
-projections. Since projections can also contain and use other
-projections\footnote{Although chains of projections had better not form a
-  dependency loop! Strictly, what is allowed is an acyclic graph of projection
-  chains, but there is currently no code in Rivet that will attempt to verify
-  this restriction.} each other (``nesting''), this model allows some substantial
-computational savings, without the analysis author even needing to be
-particularly aware of what is going on.
+A concrete example may help in understanding how this works. Let's say we have
+two analyses which have the same run conditions, i.e. incoming beam types, beam
+energies, etc. Each also uses the thrust event shape measure to define a set of
+basis vectors for their analysis. For each event that gets passed to Rivet,
+whichever analysis gets called first will immediately (although maybe
+indirectly) call a \kbd{FinalState} projection to get a list of stable, physical
+particles (filtering out the intermediate and book-keeping entries in the HepMC
+event record). That FS projection is then ``attached'' to the event. Next, the
+first analysis will call a \kbd{Thrust} projection which internally uses the
+same final state projection to define the momentum vectors used in calculating
+the thrust. Once finished, the thrust projection will also be attached to the
+event.
+
+So far, projections have offered no benefits. However, when the second analysis
+runs it will similarly try to apply its final state and thrust projections to
+the event. Rather than repeat the calculations, Rivet's infrastructure will
+detect that an equivalent calculation has already been run and will just return
+references to the already-run projections. Since projections can also contain
+and use other projections, this model allows some substantial computational
+savings, without the analysis author even needing to be particularly aware of
+what is going on.
 
 Observant readers may have noticed a problem with all this projection caching
 cleverness: what if the final states aren't defined the same way? One might
@@ -544,6 +537,7 @@ whether the cached version is acceptable or if the calculation must be re-run
 with different settings. Because projections can be nested, applying a top-level
 projection to an event can spark off a cascade of comparisons, calculations and
 cache accesses, making use of existing results wherever possible.
+
 
 \subsection{Using projection caching}
 So far this is all theory --- how does one actually use projections in Rivet?
@@ -565,6 +559,7 @@ heap object which is created within the \code{addProjection} method by means of
 the overloaded \code{Projection::clone()} method. Hence it is completely safe
 --- and recommended --- to use only local (stack) objects in \code{Projection}
 and \code{Analysis} constructors.
+
 
 \begin{philosophy}
   At this point, if you have rightly bought into C++ ideas like super-strong
@@ -643,7 +638,6 @@ like this:
 %
 \begin{snippet}
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
 
 namespace Rivet {
 
@@ -707,22 +701,22 @@ requiring the cross section by calling inside the constructor
 \noindent In the absence of this call the default is to assume that the analysis
 does not need to know the cross section.
 
-It is often the case that an analysis is only appropriate for a limited range of
-Monte Carlo kinematic settings.  For example, an analysis may only be suitable
-if the minimum \pT in the hard scatter is above a certain value.  A mechanism
-exists with the \code{Analysis} object to declare the existence of such a cut.
-However, the relevant information must be made available by the Monte Carlo
-generator and, given the potentially large number of such generator-dependent
-cuts, this information is not currently checked by the AGILe generator
-interface.  Nevertheless, an analysis can add a cut in the constructor with a
-call to \code{addCut(const string\&, const Comparison\&, const double)}, which
-takes as its arguments the name of the cut, the comparison operator and a value
-to compare the cut quantity with.  For example, to add a cut stating that the
-hard scatter \pT must be above \unit{3}{\GeV} one should call
+% It is often the case that an analysis is only appropriate for a limited range of
+% Monte Carlo kinematic settings.  For example, an analysis may only be suitable
+% if the minimum \pT in the hard scatter is above a certain value.  A mechanism
+% exists with the \code{Analysis} object to declare the existence of such a cut.
+% However, the relevant information must be made available by the Monte Carlo
+% generator and, given the potentially large number of such generator-dependent
+% cuts, this information is not currently checked by the AGILe generator
+% interface.  Nevertheless, an analysis can add a cut in the constructor with a
+% call to \code{addCut(const string\&, const Comparison\&, const double)}, which
+% takes as its arguments the name of the cut, the comparison operator and a value
+% to compare the cut quantity with.  For example, to add a cut stating that the
+% hard scatter \pT must be above \unit{3}{\GeV} one should call
 
-\begin{snippet}
-  addCut("PT", MORE_EQ, 3.0*GeV);
-\end{snippet}
+% \begin{snippet}
+%   addCut("PT", MORE_EQ, 3.0*GeV);
+% \end{snippet}
 
 
 
