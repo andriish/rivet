@@ -32,13 +32,21 @@ namespace Rivet {
   // Book histograms
   void D0_2004_S5992206::init() {
     _histJetAzimuth_pTmax75_100  = 
-      bookHistogram1D(1, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [75,100]\\text{ GeV}$");
+      bookHistogram1D(1, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [75,100]\\text{ GeV}$",
+          "$\\Delta \\phi_\\text{dijet}$ / rad",
+          "$1/\\sigma_\\text{dijet} \\, \\text{d}\\sigma_\\text{dijet}/\\text{d}\\Delta\\phi_\\text{dijet}$");
     _histJetAzimuth_pTmax100_130 = 
-      bookHistogram1D(2, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [100..130]\\text{ GeV}$");
+      bookHistogram1D(2, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [100..130]\\text{ GeV}$",
+          "$\\Delta \\phi_\\text{dijet}$ / rad",
+          "$1/\\sigma_\\text{dijet} \\, \\text{d}\\sigma_\\text{dijet}/\\text{d}\\Delta\\phi_\\text{dijet}$");
     _histJetAzimuth_pTmax130_180 = 
-      bookHistogram1D(3, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [130..180]\\text{ GeV}$");
+      bookHistogram1D(3, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} \\in [130..180]\\text{ GeV}$",
+          "$\\Delta \\phi_\\text{dijet}$ / rad",
+          "$1/\\sigma_\\text{dijet} \\, \\text{d}\\sigma_\\text{dijet}/\\text{d}\\Delta\\phi_\\text{dijet}$");
     _histJetAzimuth_pTmax180_    = 
-      bookHistogram1D(4, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} > 180\\text{ GeV}$");
+      bookHistogram1D(4, 2, 1, "Jet--jet azimuthal angle, $p_\\perp^\\text{max} > 180\\text{ GeV}$",
+          "$\\Delta \\phi_\\text{dijet}$ / rad",
+          "$1/\\sigma_\\text{dijet} \\, \\text{d}\\sigma_\\text{dijet}/\\text{d}\\Delta\\phi_\\text{dijet}$");
   }
 
 
