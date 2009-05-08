@@ -29,7 +29,7 @@ namespace Rivet {
     } else if (alg == ANTIKT) {
       _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
     } else if (alg == DURHAM) {
-      _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, rparameter, fastjet::E_scheme);
+      _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
     } else {
       // Plugins:
       if (alg == SISCONE) {
