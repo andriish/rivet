@@ -41,6 +41,8 @@ class Histo:
         self.path = None
         self.name = None
         self.title = None
+        self.xlabel = ''
+        self.ylabel = ''
         self.isdata = False
         #self.isref = False
 
@@ -51,6 +53,8 @@ class Histo:
     def __str__(self):
         out = "Histogram '%s' with %d bins\n" % (self.fullPath(), self.numBins())
         out += "Title: %s\n" % self.title
+        out += "XLabel: %s\n" % self.xlabel
+        out += "YLabel: %s\n" % self.ylabel
         out += "\n".join([str(b) for b in self.getBins()])
         return out
 
@@ -63,6 +67,8 @@ class Histo:
         out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
         out += headerprefix + "AidaPath=%s\n" % self.fullPath()
         out += headerprefix + "Title=%s\n" % self.title
+        out += headerprefix + "XLabel=%s\n" % self.xlabel
+        out += headerprefix + "YLabel=%s\n" % self.ylabel
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
         if opts.GNUPLOT:
@@ -186,6 +192,13 @@ def mkHistoFromDPS(dps):
     myhist.name = dps.get("name")
     myhist.title = dps.get("title")
     myhist.path = dps.get("path")
+    axes = dps.findall("dimension")
+    if (len(axes)==2):
+        for a in axes:
+            if (a.get("dim")=="0"):
+                myhist.xlabel = a.get("title")
+            elif (a.get("dim")=="1"):
+                myhist.ylabel = a.get("title")
     points = dps.findall("dataPoint")
     numbins = len(points)
     for binnum, point in enumerate(points):
@@ -266,7 +279,7 @@ if __name__ == "__main__":
 
 
     ## Line styles
-    COLORS = ('red', 'blue', 'purple', 'orange', 'green')
+    COLORS = ('red', 'blue', 'blue!8!red!8!green', 'orange', 'magenta')
     LINESTYLES = ('solid', 'dashed', 'dotted')
     STYLES=[]
     for ls in LINESTYLES:
@@ -313,7 +326,7 @@ if __name__ == "__main__":
             logging.error("Error: cannot read from %s" % aidafile)
             sys.exit(2)
 
-        histos, titles = {}, {}
+        histos, titles, xlabels, ylabels = {}, {}, {}, {}
         tree = ET.parse(aidafilepath)
         for dps in tree.findall("dataPointSet"):
             ## Get this histogram's path name
@@ -325,20 +338,26 @@ if __name__ == "__main__":
                 dpsname = dpsname.replace("/REF", "")
                 if not titles.has_key(dpsname):
                     titles[dpsname] = h.title
+                    xlabels[dpsname] = h.xlabel
+                    ylabels[dpsname] = h.ylabel
             else:
                 titles[dpsname] = h.title
+                xlabels[dpsname] = h.xlabel
+                ylabels[dpsname] = h.ylabel
             histos[dpsname] = h
-        return histos, titles
+        return histos, titles, xlabels, ylabels
 
 
     ## Read histo data from files into data structures
     HISTOS = {}
     TITLES = {}
+    XLABELS = {}
+    YLABELS = {}
     NAMES = set()
     for f in FILES + ["REF"]:
         HISTOS[f] = {}
     for f in FILES:
-        histos, titles = getHistos(f)
+        histos, titles, xlabels, ylabels = getHistos(f)
         for n, h in histos.iteritems():
             vfile = f
             if h.isdata:
@@ -347,6 +366,10 @@ if __name__ == "__main__":
             NAMES.add(n)
         for n, t in titles.iteritems():
             TITLES[n] = t
+        for n, t in xlabels.iteritems():
+            XLABELS[n] = t
+        for n, t in ylabels.iteritems():
+            YLABELS[n] = t
 
 
     ## Choose histos - use all histos with MC data, or restrict with a list read from file
@@ -392,6 +415,8 @@ if __name__ == "__main__":
         except:
             title = name
         title = sanitiseString(title)
+        xlabel = XLABELS[name]
+        ylabel = YLABELS[name]
 
         ## Identify contributing data files for this histo
         activefiles = []
@@ -419,6 +444,8 @@ if __name__ == "__main__":
         ## Header
         headstr  = "# BEGIN PLOT\n"
         headstr += "Title=%s\n" % title
+        headstr += "XLabel=%s\n" % xlabel
+        headstr += "YLabel=%s\n" % ylabel
         headstr += "Legend=1\n"
         if len(HISTOS[ref][name].getBins()) > 1:
             headstr += "LogY=%d\n" % int(not opts.LINEAR)
