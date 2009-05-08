@@ -1,0 +1,234 @@
+#! /usr/bin/env bash
+
+prog=$(basename $0)
+
+tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
+if [[ $# -eq 0 || -n "$tmp" ]]; then
+    echo "$prog: make a template pair of analysis source files for Rivet"
+    echo
+    echo "Usage: $prog [--help|-h] [--srcroot=<srcrootdir>] <analysisname>"
+    echo "Options:"
+    echo "  --help | -h   : show this help message"
+    echo "  --srcroot     : install the templates into the Rivet source tree"
+    echo "                  (rooted at the given directory) rather than just"
+    echo "                  creating both in the current dir"
+fi
+
+
+ANANAMES=""
+for i in $*; do
+    tmp=$(echo $i | egrep "^--")
+    if [[ -z "$tmp" ]]; then
+        ANANAMES="$ANANAMES $i"
+    fi
+done
+
+
+ANASRCDIR="."
+ANAINCDIR="."
+tmp=$(echo $* | egrep -- '--\<srcroot')
+if [[ "$tmp" ]]; then
+    tmp=$(echo $* | egrep -- '--\<srcroot\>=[^[:space:][:cntrl:]]+')
+    echo $tmp
+    if [[ "$tmp" ]]; then
+        srcroot=$(echo $tmp | sed -e 's:^.*--srcroot=\([^\ ]\+\).*$:\1:')
+        if [[ ! -e "$srcroot" ]]; then
+            echo "Rivet source root dir $srcroot does not exist" 1>&2
+            exit 1
+        fi
+    else
+        srcroot="."
+    fi
+    ANASRCDIR="$srcroot/src/Analyses"
+    ANAINCDIR="$srcroot/include/Rivet/Analyses"
+    if [[ ! -e "$ANASRCDIR" || ! -e "$ANAINCDIR" ]]; then
+        echo "Rivet analysis include and/or source dirs do not exist under $srcroot" 1>&2
+        exit 1
+    fi
+fi
+
+
+if [[ ! -w "$ANASRCDIR" || ! -w "$ANAINCDIR" ]]; then
+    echo "Can't write to Rivet analysis include and/or source dirs under $srcroot" 1>&2
+    exit 1
+fi
+
+
+for ANANAME in $ANANAMES; do
+    tmp=$(echo "$ANANAME" | egrep "[^[:alnum:]_]")
+    if [[ -n "$tmp" ]]; then
+        echo "$ANANAME contains bad characters --- skipping!" 1>&2
+        continue
+    fi
+
+    tmp=$(echo "$ANANAME" | egrep "[[:alnum:]]+_[[:digit:]]+_S[[:digit:]]+")
+    if [[ -n "$tmp" ]]; then
+        ANAEXPT=$(echo "$ANANAME" | sed -e 's:^\([^_]\+\)_\([^_]\+\)_S\([^_]\+\)$:\1:')
+        ANAYEAR=$(echo "$ANANAME" | sed -e 's:^\([^_]\+\)_\([^_]\+\)_S\([^_]\+\)$:\2:')
+        ANASPIRESID=$(echo "$ANANAME" | sed -e 's:^\([^_]\+\)_\([^_]\+\)_S\([^_]\+\)$:\3:')
+    fi
+
+    ANAINCFILE="$ANAINCDIR/$ANANAME.hh"
+    echo "Writing header template to $ANAINCFILE"
+    cat <<EOF > "$ANAINCFILE"
+// -*- C++ -*-
+#ifndef RIVET_${ANANAME}_HH
+#define RIVET_${ANANAME}_HH
+
+#include "Rivet/Analysis.hh"
+
+namespace Rivet {
+
+
+  /// [Insert short $ANANAME description] 
+  class $ANANAME : public Analysis {
+  public:
+
+    /// @name Constructors etc.
+    //@{
+
+    /// Constructor
+    $ANANAME();
+
+    /// Factory method
+    static Analysis* create() {
+      return new $ANANAME();
+    }
+    //@}
+
+
+  public:
+
+    /// @name Publication metadata
+    //@{
+    /// Get the SPIRES ID
+    string spiresId() const {
+      return "$ANASPIRESID";
+    }
+    /// A short description of the analysis.
+    string summary() const {
+      return "[Insert short $ANANAME description]";
+    }
+    /// Experiment which performed and published this analysis.
+    string experiment() const {
+      return "$ANAEXPT";
+    }
+    /// Collider on which the experiment ran.
+    string collider() const {
+      return "[Insert $ANANAME collider]";
+    }
+    /// When published (preprint year according to SPIRES).
+    string year() const {
+      return "$ANAYEAR";
+    }
+    /// Names & emails of paper/analysis authors.
+    vector<string> authors() const {
+      vector<string> rtn;
+      rtn += "Your Name <your@email.address>";
+      return rtn;
+    }
+    /// A full description of the analysis.
+    string description() const {
+      return "[Insert a fairly long description, including what is measured "
+             "and if possible what's it's useful for in terms of MC validation "
+             "and tuning. Use \\LaTeX for maths like $\\pT > \\unit{50}{\\GeV}$.]";
+    }
+    /// Information about the events needed as input for this analysis.
+    string runInfo() const {
+      return "[Insert event types (not gen-specific), energy, any kinematic "
+             "efficiency cut(s) that may be needed, typical num events needed... "
+             "essentially any details needed to set up a generator to reproduce "
+             "the data.]"
+    }
+    string status() const {
+      return "UNVALIDATED";
+    }
+    /// Journal, and preprint references.
+    vector<string> references() const {
+      vector<string> ret;
+      // Journal, preprint and expt pub codes
+      //ret += "Phys.Rev.D...", "arXiv:0000.0000";
+      // Always include a DoI number (from arXiv or Spires)
+      ret += "doi:xxxxxxx";
+      return ret;
+    }
+    //@}
+
+  public:
+
+    /// @name Analysis methods
+    //@{
+    void init();
+    void analyze(const Event& event);
+    void finalize();
+    //@}
+
+  private:
+
+    // Data members like post-cuts event weight counters go here
+
+  private:
+
+    /// @name Histograms
+    //@{
+
+    AIDA::IProfile1D *_histXXXX;
+    AIDA::IHistogram1D *_histYYYY;
+    //@}
+
+  };
+
+
+}
+
+#endif
+
+EOF
+
+    ANASRCFILE="$ANASRCDIR/$ANANAME.cc"
+    echo "Writing implementation template to $ANASRCFILE"
+    cat <<EOF > "$ANASRCFILE"
+// -*- C++ -*-
+#include "Rivet/Rivet.hh"
+#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Analyses/$ANANAME.hh"
+#include "Rivet/Projections/FinalState.hh"
+/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
+
+namespace Rivet {
+
+
+  $ANANAME::$ANANAME() {
+    /// @todo Set approriate for your analysis
+    setBeams(PROTON, ANTIPROTON);
+
+    /// @todo Initialise and register projections here
+  }
+
+
+  void $ANANAME::init() {
+
+    /// @todo Book histograms here
+
+  }
+
+
+  void $ANANAME::analyze(const Event& event) {
+
+    /// @todo Do the event by event analysis here
+
+  }
+
+
+  void $ANANAME::finalize() {
+
+    /// @todo Normalise, scale and otherwise manipulate histograms here
+
+  }
+
+
+}
+EOF
+
+done
