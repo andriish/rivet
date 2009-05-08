@@ -51,13 +51,19 @@ class Histogram:
     def write_datapointset_header(self, f):
             path  = self.description['AidaPath']
             title = self.description['Title'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
+            xlabel = self.description['XLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
+            ylabel = self.description['YLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
             f.write('  <dataPointSet name="%s" dimension="2"\n' % path.split('/')[-1])
             f.write('  path="%s" title="%s">\n' %(os.path.abspath(path.replace(path.split('/')[-1], '')), title))
             f.write('    <annotation>\n')
             f.write('      <item key="Title" value="%s" sticky="true"/>\n' %title)
+            f.write('      <item key="XLabel" value="%s" sticky="true"/>\n' %xlabel)
+            f.write('      <item key="YLabel" value="%s" sticky="true"/>\n' %ylabel)
             f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
             f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], path))
             f.write('    </annotation>\n')
+            f.write('    <dimension dim="0" title="%s" />\n' %xlabel)
+            f.write('    <dimension dim="1" title="%s" />\n' %ylabel)
     def write_datapointset_footer(self, f):
             f.write('  </dataPointSet>\n')
     def write_datapointset(self, f):
