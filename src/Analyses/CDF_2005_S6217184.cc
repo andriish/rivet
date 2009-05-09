@@ -60,10 +60,9 @@ namespace Rivet {
           bookProfile1D(6+i+1, 1, j+1, ss.str(), "$r/R$", "$\\psi(r/R)$");
       }
     }    
-    /// @todo Improve title... "0.3 over R" means what?)
     _profhistPsi = 
       bookProfile1D(13, 1, 1, "$\\Psi$(0.3 over $R$)",
-                    "$\\psi(0.3/R)$", "$p_\\perp^\\text{jet}$ / GeV/$c$");
+                    "$p_\\perp^\\text{jet}$ / GeV/$c$", "$\\psi(0.3/R)$");
   }
   
 
