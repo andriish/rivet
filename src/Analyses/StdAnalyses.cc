@@ -37,12 +37,12 @@
 #include "Rivet/Analyses/CDF_2007_S7057202.hh"
 #include "Rivet/Analyses/CDF_2008_S7541902.hh"
 #include "Rivet/Analyses/CDF_2008_S7540469.hh"
-#include "Rivet/Analyses/CDF_2008_NOTE_9337.hh"
 #include "Rivet/Analyses/CDF_2008_NOTE_9351.hh"
 #include "Rivet/Analyses/CDF_2008_LEADINGJETS.hh"
 #include "Rivet/Analyses/CDF_2008_S7782535.hh"
 #include "Rivet/Analyses/CDF_2008_S7828950.hh"
 #include "Rivet/Analyses/CDF_2008_S8095620.hh"
+#include "Rivet/Analyses/CDF_2009_S8233977.hh"
 #include "Rivet/Analyses/D0_2001_S4674421.hh"
 #include "Rivet/Analyses/D0_2004_S5992206.hh"
 #include "Rivet/Analyses/D0_2006_S6438750.hh"
@@ -112,11 +112,11 @@ extern "C" {
     fns["CDF_2008_S7541902"] = Rivet::CDF_2008_S7541902::create;
     fns["CDF_2008_S7540469"] = Rivet::CDF_2008_S7540469::create;
     fns["CDF_2008_S7782535"] = Rivet::CDF_2008_S7782535::create;
-    fns["CDF_2008_NOTE_9337"] = Rivet::CDF_2008_NOTE_9337::create;
     fns["CDF_2008_NOTE_9351"] = Rivet::CDF_2008_NOTE_9351::create;
     fns["CDF_2008_LEADINGJETS"] = Rivet::CDF_2008_LEADINGJETS::create;
     fns["CDF_2008_S7828950"] = Rivet::CDF_2008_S7828950::create;
     fns["CDF_2008_S8095620"] = Rivet::CDF_2008_S8095620::create;
+    fns["CDF_2009_S8233977"] = Rivet::CDF_2009_S8233977::create;
     fns["D0_2001_S4674421"] = Rivet::D0_2001_S4674421::create;
     fns["D0_2004_S5992206"] = Rivet::D0_2004_S5992206::create;
     fns["D0_2006_S6438750"] = Rivet::D0_2006_S6438750::create;

@@ -2,14 +2,14 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/CDF_2008_NOTE_9337.hh"
+#include "Rivet/Analyses/CDF_2009_S8233977.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
 
-  CDF_2008_NOTE_9337::CDF_2008_NOTE_9337()
+  CDF_2009_S8233977::CDF_2009_S8233977()
   { 
     setBeams(PROTON, ANTIPROTON);
     const FinalState fs(-1.0, 1.0, 0.0*GeV);
@@ -21,7 +21,7 @@ namespace Rivet {
 
 
   // Book histograms
-  void CDF_2008_NOTE_9337::init() {
+  void CDF_2009_S8233977::init() {
     _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1, "Mean track $p_T$ vs multiplicity");
     _hist_pt                 = bookHistogram1D(2, 1, 1, "track $p_T$");
     _hist_sumEt              = bookHistogram1D(3, 1, 1, "$\\sum E_T$");
@@ -29,7 +29,7 @@ namespace Rivet {
 
 
   // Do the analysis
-  void CDF_2008_NOTE_9337::analyze(const Event& e) {
+  void CDF_2009_S8233977::analyze(const Event& e) {
     Log log = getLog();
 
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
@@ -75,7 +75,7 @@ namespace Rivet {
   }
 
 
-  void CDF_2008_NOTE_9337::finalize() {
+  void CDF_2009_S8233977::finalize() {
     // dphi * deta = 2*PI * 2
     //// FIXME: We are normalizing to the data instead of MC cross-section
     //scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*sumOfWeights()));

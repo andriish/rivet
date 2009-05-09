@@ -15,13 +15,13 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     CDF_2006_S6653332.cc \
     CDF_2007_S7057202.cc \
     CDF_2008_S7541902.cc \
-    CDF_2008_NOTE_9337.cc \
     CDF_2008_NOTE_9351.cc \
     CDF_2008_LEADINGJETS.cc \
     CDF_2008_S7540469.cc \
     CDF_2008_S7782535.cc \
     CDF_2008_S7828950.cc \
     CDF_2008_S8095620.cc \
+    CDF_2009_S8233977.cc \
     D0_2001_S4674421.cc \
     D0_2004_S5992206.cc \
     D0_2006_S6438750.cc \

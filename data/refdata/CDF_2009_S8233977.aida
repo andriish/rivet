@@ -3,11 +3,11 @@
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
   <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/REF/CDF_2008_NOTE_9337" title="Mean track $p_T$ vs charged multiplicity">
+    path="/REF/CDF_2009_S8233977" title="Mean track $p_T$ vs charged multiplicity">
     <annotation>
       <item key="Title" value="Mean track $p_T$ vs charged multiplicity" sticky="true"/>
-      <item key="AidaPath" value="/REF/CDF_2008_NOTE_9337/d01-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/CDF_2008_NOTE_9337.aida/REF/CDF_2008_NOTE_9337/d01-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/CDF_2009_S8233977/d01-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/CDF_2009_S8233977.aida/REF/CDF_2009_S8233977/d01-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.000000e-01" value="1.000000e+00" errorMinus="5.000000e-01"/>
@@ -175,11 +175,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/REF/CDF_2008_NOTE_9337" title="track $p_T$">
+    path="/REF/CDF_2009_S8233977" title="track $p_T$">
     <annotation>
       <item key="Title" value="track $p_T$" sticky="true"/>
-      <item key="AidaPath" value="/REF/CDF_2008_NOTE_9337/d02-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/CDF_2008_NOTE_9337.aida/REF/CDF_2008_NOTE_9337/d02-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/CDF_2009_S8233977/d02-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/CDF_2009_S8233977.aida/REF/CDF_2009_S8233977/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="5.000000e-03" value="4.050000e-01" errorMinus="5.000000e-03"/>
@@ -1135,11 +1135,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/REF/CDF_2008_NOTE_9337" title="$\sum E_T$">
+    path="/REF/CDF_2009_S8233977" title="$\sum E_T$">
     <annotation>
       <item key="Title" value="$\sum E_T$" sticky="true"/>
-      <item key="AidaPath" value="/REF/CDF_2008_NOTE_9337/d03-x01-y01" sticky="true"/>
-      <item key="FullPath" value="/CDF_2008_NOTE_9337.aida/REF/CDF_2008_NOTE_9337/d03-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/CDF_2009_S8233977/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/CDF_2009_S8233977.aida/REF/CDF_2009_S8233977/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
       <measurement errorPlus="2.500000e-01" value="1.250000e+00" errorMinus="2.500000e-01"/>

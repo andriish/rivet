@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_CDF_2008_NOTE_9337_HH
-#define RIVET_CDF_2008_NOTE_9337_HH
+#ifndef RIVET_CDF_2009_S8233977_HH
+#define RIVET_CDF_2009_S8233977_HH
 
 #include "Rivet/Analysis.hh"
 
@@ -22,7 +22,7 @@ namespace Rivet {
    * @arg Set particles with c*tau > 10 mm stable
    * 
    */ 
-  class CDF_2008_NOTE_9337 : public Analysis {
+  class CDF_2009_S8233977 : public Analysis {
   public:
 
     /// @name Constructors etc.
@@ -30,11 +30,11 @@ namespace Rivet {
 
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2008_NOTE_9337();
+    CDF_2009_S8233977();
 
     /// Factory method
     static Analysis* create() {
-      return new CDF_2008_NOTE_9337();
+      return new CDF_2009_S8233977();
     }
     //@}
 
@@ -44,13 +44,9 @@ namespace Rivet {
     /// @name Publication metadata
     //@{
 
-    /// Analysis name
-    string name() const {
-      return "CDF_2008_NOTE_9337";
-    }
     /// SPIRES key (IRN)
     string spiresId() const {
-      return "NONE";
+      return "8233977";
     }
     /// A short description of the analysis.
     string summary() const {
@@ -76,7 +72,7 @@ namespace Rivet {
     }
     /// When published according to SPIRES
     string year() const {
-     return "2008";
+     return "2009";
     }
     /// Names & emails of paper/analysis authors.
     vector<string> authors() const {
@@ -99,6 +95,7 @@ namespace Rivet {
     vector<string> references() const {
       vector<string> ret;
       ret += "CDF public note 9337";
+      ret += "hep-ex/0904.1098";
       return ret;
     }
     //@}
