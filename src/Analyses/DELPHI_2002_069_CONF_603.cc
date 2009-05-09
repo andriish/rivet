@@ -91,10 +91,10 @@ namespace Rivet {
 
 
   void DELPHI_2002_069_CONF_603::init() {
-    _histXbprim     = bookHistogram1D(1, 1, 1, "$b$ quark fragmentation function $f(x_B^\\text{prim})$");
-    _histXbweak     = bookHistogram1D(2, 1, 1, "$b$ quark fragmentation function $f(x_B^\\text{weak})$");
-    _histMeanXbprim = bookProfile1D(4, 1, 1, "Mean of $b$ quark fragmentation function $f(x_B^\\text{prim})$");
-    _histMeanXbweak = bookProfile1D(5, 1, 1, "Mean of $b$ quark fragmentation function $f(x_B^\\text{weak})$");
+    _histXbprim     = bookHistogram1D(1, 1, 1, "$b$ quark fragmentation function $f(x_B^\\text{prim})$", "$x_B$", "$1/N \\, \\text{d}{N}/\\text{d}x_B$");
+    _histXbweak     = bookHistogram1D(2, 1, 1, "$b$ quark fragmentation function $f(x_B^\\text{weak})$", "$x_B$", "$1/N \\, \\text{d}{N}/\\text{d}x_B$");
+    _histMeanXbprim = bookProfile1D(4, 1, 1, "Mean of $b$ quark fragmentation function $f(x_B^\\text{prim})$", "", "$\\langle x_B \\rangle$");
+    _histMeanXbweak = bookProfile1D(5, 1, 1, "Mean of $b$ quark fragmentation function $f(x_B^\\text{weak})$", "", "$\\langle x_B \\rangle$");
   }
 
   // Finalize

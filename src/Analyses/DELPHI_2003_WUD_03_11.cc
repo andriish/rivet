@@ -103,14 +103,22 @@ namespace Rivet {
 
 
   void DELPHI_2003_WUD_03_11::init() {
-    _histDurhamBZ      = bookHistogram1D(1, 1, 1, "Bengtsson-Zerwas $|\\cos(\\chi_\\text{BZ})|$, Durham $y_\\text{cut}=0.008$");
-    _histDurhamKSW     = bookHistogram1D(2, 1, 1, "K\\\"orner-Schierholz-Willrodt $\\cos(\\phi_\\text{KSW})$, Durham $y_\\text{cut}=0.008$");
-    _histDurhamNR      = bookHistogram1D(3, 1, 1, "Nachtmann-Reiter (mod.) $|\\cos(\\theta^*_\\text{NR})|$, Durham $y_\\text{cut}=0.008$");
-    _histDurhamALPHA34 = bookHistogram1D(4, 1, 1, "$\\cos(\\alpha_{34})$, Durham $y_\\text{cut}=0.008$");
-    _histJadeBZ        = bookHistogram1D(1, 2, 1, "Bengtsson-Zerwas $|\\cos(\\chi_\\text{BZ})|$, Jade $y_\\text{cut}=0.015$");
-    _histJadeKSW       = bookHistogram1D(2, 2, 1, "K\\\"orner-Schierholz-Willrodt $\\cos(\\phi_\\text{KSW})$, Jade $y_\\text{cut}=0.015$");
-    _histJadeNR        = bookHistogram1D(3, 2, 1, "Nachtmann-Reiter (mod.) $|\\cos(\\theta^*_\\text{NR})|$, Jade $y_\\text{cut}=0.015$");
-    _histJadeALPHA34   = bookHistogram1D(4, 2, 1, "$\\cos(\\alpha_{34})$, Jade $y_\\text{cut}=0.015$");
+    _histDurhamBZ      = bookHistogram1D(1, 1, 1, "Bengtsson-Zerwas $|\\cos(\\chi_\\text{BZ})|$, Durham $y_\\text{cut}=0.008$",
+                                                  "$|\\cos(\\chi_\\text{BZ})|$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}|\\cos(\\chi_\\text{BZ})|$");
+    _histDurhamKSW     = bookHistogram1D(2, 1, 1, "K\\\"orner-Schierholz-Willrodt $\\cos(\\phi_\\text{KSW})$, Durham $y_\\text{cut}=0.008$",
+                                                  "$\\cos(\\phi_\\text{KSW})$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}\\,\\cos(\\phi_\\text{KSW})$");
+    _histDurhamNR      = bookHistogram1D(3, 1, 1, "Nachtmann-Reiter (mod.) $|\\cos(\\theta^*_\\text{NR})|$, Durham $y_\\text{cut}=0.008$",
+                                                  "$|\\cos(\\theta^*_\\text{NR})|$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}|\\cos(\\theta^*_\\text{NR})|$");
+    _histDurhamALPHA34 = bookHistogram1D(4, 1, 1, "$\\cos(\\alpha_{34})$, Durham $y_\\text{cut}=0.008$",
+                                                  "$\\cos(\\alpha_{34})$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}\\,\\cos(\\alpha_{34})$");
+    _histJadeBZ        = bookHistogram1D(1, 2, 1, "Bengtsson-Zerwas $|\\cos(\\chi_\\text{BZ})|$, Jade $y_\\text{cut}=0.015$",
+                                                  "$|\\cos(\\chi_\\text{BZ})|$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}|\\cos(\\chi_\\text{BZ})|$");
+    _histJadeKSW       = bookHistogram1D(2, 2, 1, "K\\\"orner-Schierholz-Willrodt $\\cos(\\phi_\\text{KSW})$, Jade $y_\\text{cut}=0.015$",
+                                                  "$\\cos(\\phi_\\text{KSW})$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}\\,\\cos(\\phi_\\text{KSW})$");
+    _histJadeNR        = bookHistogram1D(3, 2, 1, "Nachtmann-Reiter (mod.) $|\\cos(\\theta^*_\\text{NR})|$, Jade $y_\\text{cut}=0.015$",
+                                                  "$|\\cos(\\theta^*_\\text{NR})|$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}|\\cos(\\theta^*_\\text{NR})|$");
+    _histJadeALPHA34   = bookHistogram1D(4, 2, 1, "$\\cos(\\alpha_{34})$, Jade $y_\\text{cut}=0.015$",
+                                                  "$\\cos(\\alpha_{34})$", "$1/\\sigma \\, \\text{d}{\\sigma}/\\text{d}\\,\\cos(\\alpha_{34})$");
   }
 
 
