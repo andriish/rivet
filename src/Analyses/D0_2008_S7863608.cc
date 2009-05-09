@@ -36,7 +36,7 @@ namespace Rivet {
                                             "$p_{\\perp}$(Z) [GeV]", "$\\text{d}\\sigma/\\text{d}p_{\\perp}$(Z)");
     _h_Z_y_cross_section = bookHistogram1D(4, 1, 1, "Differential cross section in Z/$\\gamma*$ rapidity",
                                            "$|y|$(Z)", "$\\text{d}\\sigma/\\text{d}|y|$(Z)");
-    _h_total_cross_section = bookHistogram1D(5, 1, 1, "Total Z + jet cross section", "\\sqrt{s}", "$\\sigma$");
+    _h_total_cross_section = bookHistogram1D(5, 1, 1, "Total Z + jet cross section", "$\\sqrt{s}$", "$\\sigma$");
     
   }
 

@@ -51,9 +51,9 @@ namespace Rivet {
   void D0_2008_S6879055::init() {
     _crossSectionRatio = bookHistogram1D
       (1, 1, 1, "Inclusive jet multiplicity",
-       "$N_{\\text{jet}}$", "$\\sigma(Z/\\gamma \\, + \\geq N_{\\text{jet}}\\;\\text{jets}) / \\sigma(Z/\\gamma \\; \\text{inclusive})$");
+       "$N_{\\text{jet}}$", "$\\sigma(Z \\, + \\geq N_{\\text{jet}}\\;\\text{jets}) / \\sigma(Z \\; \\text{inclusive})$");
     const string xlabel = "$p_\\perp$";
-    const string ylabel = "$1/\\sigma \\, \\d{\\sigma}/\\d{p_\\perp}$";
+    const string ylabel = "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_\\perp$";
     _pTjet1 = bookHistogram1D
       (2, 1, 1, "$p_\\perp$ of 1st jet for $N_{\\text{jet}} \\geq 1$", xlabel+"(1st jet) [GeV]", ylabel);
     _pTjet2 = bookHistogram1D

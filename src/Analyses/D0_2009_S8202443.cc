@@ -41,22 +41,22 @@ namespace Rivet {
   void D0_2009_S8202443::init() {
     _h_jet1_pT_constrained = bookHistogram1D(
         1, 1, 1, "pT of 1st jet (constrained electrons)", "$p_{\\perp}^{\\text{1st jet}}$ [GeV]",
-        "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{1st jet}}$");
+        "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{1st jet}}$");
     _h_jet2_pT_constrained = bookHistogram1D(
         3, 1, 1, "pT of 2nd jet (constrained electrons)", "$p_{\\perp}^{\\text{2nd jet}}$ [GeV]",
-        "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{2nd jet}}$");
+        "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{2nd jet}}$");
     _h_jet3_pT_constrained = bookHistogram1D(
         5, 1, 1, "pT of 3rd jet (constrained electrons)", "$p_{\\perp}^{\\text{3rd jet}}$ [GeV]",
-        "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{3rd jet}}$");
+        "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{3rd jet}}$");
     _h_jet1_pT = bookHistogram1D(
         2, 1, 1, "pT of 1st jet", "$p_{\\perp}^{\\text{1st jet}}$ [GeV]",
-        "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{1st jet}}$");
+        "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{1st jet}}$");
     _h_jet2_pT = bookHistogram1D(
         4, 1, 1, "pT of 2nd jet", "$p_{\\perp}^{\\text{2nd jet}}$ [GeV]",
-        "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{2nd jet}}$");
+        "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{2nd jet}}$");
     _h_jet3_pT = bookHistogram1D(
         6, 1, 1, "pT of 3rd jet", "$p_{\\perp}^{\\text{3rd jet}}$ [GeV]",
-        "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{3rd jet}}$");
+        "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{3rd jet}}$");
   }
 
 

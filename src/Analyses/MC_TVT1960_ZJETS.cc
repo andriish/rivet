@@ -38,22 +38,22 @@ namespace Rivet {
       ("jet4_pT", "pT of 4th jet", "$p_{\\perp}^{\\text{4th jet}}$ [GeV]",
        "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{4th jet}}$", 10, 0.0, 100.0);
     _h_jet20_multi_exclusive = bookHistogram1D
-      ("jet20_multi_exclusive", "Exclusive jet multiplicity", "$N_{\\text{jet(\\geq 20 GeV)}}$",
+      ("jet20_multi_exclusive", "Exclusive jet multiplicity", "$N_{\\text{jet(}\\geq 20 \\text{GeV)}}$",
        "$\\sigma(N_{\\text{jet}})/\\sigma(N_{\\text{jet}}=0)$", 10, -0.5, 9.5);
     _h_jet20_multi_inclusive = bookHistogram1D
-      ("jet20_multi_inclusive", "Inclusive jet multiplicity", "$N_{\\text{jet(\\geq 20 GeV)}}$",
+      ("jet20_multi_inclusive", "Inclusive jet multiplicity", "$N_{\\text{jet(}\\geq 20 \\text{GeV)}}$",
        "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\text{inclusive})$", 10, -0.5, 9.5);
     _h_jet20_multi_ratio = bookDataPointSet
-      ("jet20_multi_ratio", "Ratio of jet multiplicity", "$N_{\\text{jet(\\geq 20 GeV)}}$",
+      ("jet20_multi_ratio", "Ratio of jet multiplicity", "$N_{\\text{jet(}\\geq 20 \\text{GeV)}}$",
        "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\geq N_{\\text{jet}}-1)$", 9, 0.5, 9.5);
     _h_jet10_multi_exclusive = bookHistogram1D
-      ("jet10_multi_exclusive", "Exclusive jet multiplicity", "$N_{\\text{jet(\\geq 10 GeV)}}$",
+      ("jet10_multi_exclusive", "Exclusive jet multiplicity", "$N_{\\text{jet(}\\geq 10 \\text{GeV)}}$",
        "$\\sigma(N_{\\text{jet}})/\\sigma(N_{\\text{jet}}=0)$", 10, -0.5, 9.5);
     _h_jet10_multi_inclusive = bookHistogram1D
-      ("jet10_multi_inclusive", "Inclusive jet multiplicity", "$N_{\\text{jet(\\geq 10 GeV)}}$",
+      ("jet10_multi_inclusive", "Inclusive jet multiplicity", "$N_{\\text{jet(}\\geq 10 \\text{GeV)}}$",
        "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\text{inclusive})$", 10, -0.5, 9.5);
     _h_jet10_multi_ratio = bookDataPointSet
-      ("jet10_multi_ratio", "Ratio of jet multiplicity", "$N_{\\text{jet(\\geq 10 GeV)}}$",
+      ("jet10_multi_ratio", "Ratio of jet multiplicity", "$N_{\\text{jet(}\\geq 10 \\text{GeV)}}$",
        "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\geq N_{\\text{jet}}-1)$", 9, 0.5, 9.5);
     _h_deta_Z_jet1 = bookHistogram1D
       ("deta_Z_jet2", "", "$|\\Delta{\\eta}(\\text{Z, 1st jet})|$",
