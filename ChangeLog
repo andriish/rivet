@@ -1,3 +1,11 @@
+2009-05-09  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Renaming CDF_2008_NOTE_9337 to CDF_2009_S8233977.
+
+	* Numerous small bug fixes in ALEPH_1996_S3486095.
+
+	* Adding data for one of the Rick-Field-style STAR UE analyses.
+
 2009-05-08  Andy Buckley  <andy@insectnation.org>
 
 	* Adding rivet-mkanalysis script, to make generating new analysis
