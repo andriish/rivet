@@ -37,11 +37,16 @@ namespace Rivet {
 
   void CDF_2008_S8095620::init() {
      // Book histograms
-    _dSdET    = bookHistogram1D(1, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dE_{T}^{jet}");
-    _dSdETA   = bookHistogram1D(2, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/d\\eta^{jet}");
-    _dSdNJet  = bookHistogram1D(3, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{jet}");
-    _dSdNbJet = bookHistogram1D(4, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{b jet} ");
-    _dSdZpT   = bookHistogram1D(5, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dp_T{}^{Z}");
+    _dSdET    = bookHistogram1D(1, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dE_{T}^{jet}",
+				"$E_{T}^{jet}$ [GeV]","1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dE_{T}^{jet}");
+    _dSdETA   = bookHistogram1D(2, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/d\\eta^{jet}",
+				"$\\eta^{jet}$","1/\\sigma(Z) \\times d\\sigma(Z + b jet)/\\eta^{jet}");
+    _dSdNJet  = bookHistogram1D(3, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{jet}",
+				"Number of jets","1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{jet}");
+    _dSdNbJet = bookHistogram1D(4, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{b jet} ",
+				"Number of b jets","1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dN^{b jet}");
+    _dSdZpT   = bookHistogram1D(5, 1, 1, "1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dp_T{}^{Z}",
+				"Z $p_{T}$ [GeV]","1/\\sigma(Z) \\times d\\sigma(Z + b jet)/dp_{T}^{Z}");
   }  
 
 
