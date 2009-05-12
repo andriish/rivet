@@ -35,7 +35,7 @@ namespace Rivet {
     FourMomentum leptonMom = dl.out().momentum();
     // pT energy and angle
     double enel = leptonMom.E();
-    double thel = leptonMom.angle(dl.in().momentum());
+    double thel = 180.-leptonMom.angle(dl.in().momentum())/degree;
 
     // Extract the particles other than the lepton
     ParticleVector particles;
@@ -51,7 +51,7 @@ namespace Rivet {
     // Cut on the forward energy
     double efwd = 0.;
     foreach (const Particle& p, particles) {
-      double th = p.momentum().angle(dl.in().momentum());
+      double th = 180.-p.momentum().angle(dl.in().momentum())/degree;
 //      double th = beamAngle(p.momentum(),order);
       if(th > 4.4 && th < 15.0) efwd += p.momentum().E();
     }
@@ -231,12 +231,12 @@ namespace Rivet {
     for (size_t ix = 0; ix < 7; ++ix) {
       string title = t + "$" + xt;
       if      (ix == 0) title += " = 0.0043, " + Q2t +	" = 175";
-	  else if (ix == 1) title += " = 0.01, "   + Q2t +	" = 253";
-	  else if (ix == 2) title += " = 0.026, "  + Q2t +	" = 283";
-	  else if (ix == 3) title += " = 0.012, "  + Q2t +	" = 511";
-	  else if (ix == 4) title += " = 0.026, "  + Q2t +	" = 617";
-	  else if (ix == 5) title += " = 0.076, "  + Q2t +	" = 682";
-	  else if (ix == 6) title += " = 0.11, "   + Q2t + " = 2200";
+      else if (ix == 1) title += " = 0.01, "   + Q2t +	" = 253";
+      else if (ix == 2) title += " = 0.026, "  + Q2t +	" = 283";
+      else if (ix == 3) title += " = 0.012, "  + Q2t +	" = 511";
+      else if (ix == 4) title += " = 0.026, "  + Q2t +	" = 617";
+      else if (ix == 5) title += " = 0.076, "  + Q2t +	" = 682";
+      else if (ix == 6) title += " = 0.11, "   + Q2t + " = 2200";
       title += " \\text{ GeV}^2$";
       h = bookHistogram1D(ix+18, 1, 1, title, xlabel, ylabel);
       _histETHighQa.push_back(h);
@@ -249,10 +249,10 @@ namespace Rivet {
     for (size_t ix = 0; ix < 5; ++ix) {
       string title = t + "$" + Q2t;
       if      (ix == 0) title +=  " = 2.5-5";
-	  else if (ix == 1) title +=   " = 5-10";
-	  else if (ix == 2) title +=  " = 10-20";
-	  else if (ix == 3) title +=  " = 20-50";
-	  else if (ix == 4) title += " = 50-100";
+      else if (ix == 1) title +=   " = 5-10";
+      else if (ix == 2) title +=  " = 10-20";
+      else if (ix == 3) title +=  " = 20-50";
+      else if (ix == 4) title += " = 50-100";
       title += " \\text{ GeV}^2$";
       h = bookHistogram1D(ix+25, 1, 1, title, xlabel, ylabel);
       _histETLowQb.push_back(h);
