@@ -1,5 +1,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Projections/Beam.hh"
+#include "Rivet/BeamConstraint.hh"
 #include "HepMC/GenEvent.h"
 
 namespace Rivet {
@@ -31,9 +33,38 @@ namespace Rivet {
   // For example, FHerwig only produces DIS events in the 
   // unconventional orientation and has to be corrected
   void _geNormAlignment(GenEvent& ge) {
-    /// @todo Choose when to do in-place rotation of GE
-    if (false) {
-      Log::getLog("Event") << Log::TRACE << "Rotating event" << endl;
+    typedef pair<HepMC::GenParticle*, HepMC::GenParticle*> GPPair;
+    GPPair bps = ge.beam_particles();
+    const BeamPair beamids = make_pdgid_pair(bps.first->pdg_id(), bps.second->pdg_id());
+    Log::getLog("Rivet.Event") << Log::TRACE << "Beam IDs: " << beamids << endl;
+    const HepMC::GenParticle* plusgp = 0;
+    bool rot = false;
+
+    // Rotate e+- p and ppbar to put p along +z
+    /// @todo e+ e- convention? B-factories different from LEP?
+    // if (compatible(beamids, make_pdgid_pair(ELECTRON, PROTON)) ||
+    //     compatible(beamids, make_pdgid_pair(POSITRON, PROTON)) ||
+    //     compatible(beamids, make_pdgid_pair(ANTIPROTON, PROTON)) ) {
+    //   Log::getLog("Rivet.Event") << Log::TRACE << "May need to rotate event..." << endl;
+    if (bps.first->pdg_id() != PROTON || bps.second->pdg_id() != PROTON) {
+      if (bps.first->pdg_id() == PROTON) {
+        plusgp = bps.first;
+      } else if (bps.second->pdg_id() == PROTON) { 
+        plusgp = bps.second;
+      }
+      if (plusgp && plusgp->momentum().pz() < 0) {
+        rot = true;
+      }
+    }
+
+    // Do the rotation
+    if (rot) {
+      if (Log::getLog("Rivet.Event").isActive(Log::TRACE)) {
+        Log::getLog("Rivet.Event") << Log::TRACE << "Rotating event" << endl;
+        Log::getLog("Rivet.Event") << Log::TRACE << "Before rotation: "
+                                   << bps.first->pdg_id() << "@pz=" << bps.first->momentum().pz()/GeV << ", "
+                                   << bps.second->pdg_id() << "@pz=" << bps.second->momentum().pz()/GeV << endl;
+      }
       _geRot180x(ge);
     }
   }

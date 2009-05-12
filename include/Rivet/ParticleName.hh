@@ -54,6 +54,15 @@ namespace Rivet {
   /// Typedef for a PDG ID code.
   typedef long PdgId;
 
+  /// Convenience maker of particle ID pairs.
+  inline std::pair<PdgId,PdgId> make_pdgid_pair(PdgId a, PdgId b) {
+    return make_pair<PdgId,PdgId>(a, b);
+  }
+
+  /// Convenience maker of particle ID pairs.
+  inline std::pair<PdgId,PdgId> make_pdgid_pair(ParticleName aname, ParticleName bname) {
+    return make_pdgid_pair(aname, bname);
+  }
 
   /// Typedef for a map of beam particle name enums to strings.
   typedef std::map<PdgId, std::string> ParticleNameMap;
