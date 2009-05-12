@@ -47,9 +47,9 @@ namespace Rivet {
     for (int i = 0; i < _NpTbins; ++i) {
        stringstream title;
        title << "Integral jet shape $\\Psi$ for $" << _pTbins[i] << " < p_\\perp < " << _pTbins[i+1] << "$"; 
-       _Psi_pT[i] = bookProfile1D(i+1, 2, 1, title.str());
+       _Psi_pT[i] = bookProfile1D(i+1, 2, 1, title.str(),"r/R","$\\Psi$(r/R)");
     }
-    _OneMinusPsi_vs_pT = bookDataPointSet(5, 1, 1, "$1 - \\Psi$ vs jet $p_\\perp$");
+    _OneMinusPsi_vs_pT = bookDataPointSet(5, 1, 1, "$1 - \\Psi$ vs jet $p_\\perp$","$p_\\perp$ [GeV]","1-$\\Psi$(0.2/R)");
   }  
 
 
