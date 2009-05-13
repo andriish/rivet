@@ -720,12 +720,75 @@ does not need to know the cross section.
 
 
 \subsection{Histogramming}
-\TODO{Histo interfaces, AIDA and YODA. Formats.}
 
-\subsection{Analysis histo autobinning}
+Rivet's histogramming uses the AIDA interfaces, composed of abstract classes
+\code{IHistogram1D}, \code{IProfile1D}, \code{IDataPointSet} etc. which are
+built by a factories system. Since it's our feeling that much of the factory
+infrastructure constitutes an abstraction overload, we provide histogram booking
+functions as part of the \code{Analysis} class, so that in the \code{init}
+method of your analysis you should book histograms with function calls like:
+%
+\begin{snippet}
+  void MyAnalysis::init() {
+    _h_one = bookHistogram1D(2,1,1, "Title 2", "x label", "y label");
+    _h_two = bookProfile1D(3,1,2, "Title 2", "x label", "y label");
+    _h_three = bookHistogram1D("d00-x00-y00", "Title", 
+                               "x label", "y label", 50, 0.0, 1.0);
+  }
+\end{snippet}
+%
+Here the first two bookings have a rather cryptic 3-integer sequence as the
+first arguments. This is the recommended scheme, as it makes use of the exported
+data files from HepData, in which 1D histograms are constructed from a
+combination of $x$ and $y$ axes in a dataset $d$, corresponding to names of the
+form \kbd{d\val{d}-x\val{x}-y\val{y}}. This auto-booking of histograms saves you
+from having to copy out reams of bin edges and values into your code, and makes
+sure that any data fixes in HepData are easily propagated to Rivet. The third
+booking is for a histogram for which there is no such HepData entry: it uses the
+usual scheme of specifying the name, number of bins and the min/max $x$-axis
+limits manually.
+
+Filling the histograms is done in the \code{MyAnalysis::analyse()}
+function. Remember to specify the event weight as you fill:
+%
+\begin{snippet}
+  void MyAnalysis::analyze(const Event& e) {
+    [projections, cuts, etc.]
+    ...
+    _h_one->fill(pT, event.weight());
+    _h_two->fill(pT, Nch, event.weight());
+    _h_three->fill(fabs(eta), event.weight());
+  }
+\end{snippet}
+
+Finally, histogram normalisations, scalings, divisions etc. are done in the
+\code{MyAnalysis::finalize()} method. For normalisations and scalings you will
+find appropriate convenience methods \code{Analysis::normalize(histo, norm)} and
+\code{Analysis::scale(histo, scalefactor)}. Many analyses need to be scaled to
+the generator cross-section, with the number of event weights to pass cuts being
+included in the normalisation factor: for this you will have to track the
+passed-cuts weight sum yourself via a member variable, but the analysis class
+provides \code{Analysis::crossSection()} and \code{Analysis::sumOfWeights()}
+methods to access the pre-cuts cross-section and weight sum respectively.
+
+
 \subsection{Pluggable analyses}
 
-% \section{Comparing with reference data}
+Rivet's standard analyses are not actually built into the main \kbd{libRivet}
+library: they are loaded dynamically at runtime as an analysis \emph{plugin
+  library}. While you don't need to worry too much about the technicalities of
+this, it does mean that you can similarly write analyses of your own, compile
+them into a similar plugin library and run them from \kbd{rivet} without ever
+having to modify any of the main Rivet sources or build system. This means that
+you can write and run your own analyses with a system-installed copy of Rivet,
+and not have to re-patch the main library when a newer version comes out
+(although chances are you will have to recompile, since the binary interface usually
+change between releases.)
+
+You will find an example plugin analysis in the \kbd{plugindemo} directory in
+the Rivet source directory, with a corresponding \kbd{Makefile}. To understand
+the plugin system better, you should check out the documentation in the wiki on
+the Rivet website: \url{http://projects.hepforge.org/rivet/trac/wiki/}
 
 
 \cleardoublepage
@@ -737,10 +800,11 @@ doing internally. Not very many people need to know that, and the few that do
 currently don't need a manual for it!
 
 \section{Projection caching}
+\TODO{TODO}
 
 \subsection{Writing a Projection comparison operator}
+\TODO{TODO}
 
-\section{Projection }
 
 
 \cleardoublepage
