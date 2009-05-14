@@ -1,5 +1,8 @@
 2009-05-14  Andy Buckley  <andy@insectnation.org>
 
+	* Removing redundant rotation in DISKinematics... this was a
+	legacy of Peter using theta rather than pi-theta in his rotation.
+
 	* Adding convenience phi, rho, eta, theta, and perp,perp2 methods
 	to the 3 and 4 vector classes.
 

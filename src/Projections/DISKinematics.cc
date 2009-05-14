@@ -49,10 +49,7 @@ namespace Rivet {
 
     // Rotate so the photon is along the negative z-axis
     _hcm.preMult(Matrix3(Vector3::mkY(), pi - pGammaHCM.polarAngle()));
-    // Rotate by 180 if accidentally along +z
-    /// @todo Really necessary? The prev rotation should get this right...
-    pGammaHCM = _hcm.transform(pGamma);
-    if (pGammaHCM.z() > 0.0) _hcm.preMult(Matrix3(Vector3::mkY(), pi));
+
     // Check that final HCM photon lies along -ve z as expected
     pGammaHCM = _hcm.transform(pGamma);
     assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkX())) &&
