@@ -1,11 +1,10 @@
-## TODO: make variable names POSIX-compliant!
+## TODO: make variable names POSIX-compliant in rivet-manual.pdf target!
 
 
 DOCS = analyses.html
 
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
 	./mk-analysis-html analyses.html
-
 
 
 if WITH_PDFLATEX
@@ -56,7 +55,7 @@ endif
 
 .PHONY = all doc upload
 
-all:
+all: doc
 	@echo "Default make rule does nothing: use 'make doc'"
 
 doc: $(DOCS)
@@ -72,3 +71,7 @@ mostlyclean-local:
 
 clean-local:
 	rm -rf $(DOCS)
+
+
+## Install!
+pkgdata_DATA = $(DOCS)
