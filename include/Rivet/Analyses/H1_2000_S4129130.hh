@@ -88,6 +88,10 @@ namespace Rivet {
       ret += "arXiv:hep-ex/9907027v1";
       return ret;
     }
+    /// Validation status
+    string status() const {
+      return "VALIDATED";
+    }
     //@}
 
 

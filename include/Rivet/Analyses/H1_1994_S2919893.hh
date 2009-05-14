@@ -81,6 +81,10 @@ namespace Rivet {
       ret += "doi:10.1007/BF01580319";
       return ret;
     }
+    /// Validation status
+    string status() const {
+      return "VALIDATED";
+    }
     //@}
 
 
