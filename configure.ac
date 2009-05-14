@@ -86,11 +86,15 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 2 -o "$fjmajor" -eq 2 -a "$fjminor" -lt 4 ; then
     AC_MSG_ERROR([FastJet version 2.4.0 or later is required])
   fi
-  ## TODO: sed out the -rpath
-  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs)";
+  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\-\-rpath/-rpath/g')"
 else
-  FASTJETCONFIGLIBADD="-L\$(FASTJETLIBPATH) -l\$(FASTJETLIBNAME)";
+  FASTJETCONFIGLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
+  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
+  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lCDFConesPlugin -lD0RunIIConePlugin -lNestedDefsPlugin"
+  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lTrackJetPlugin -lATLASConePlugin -lCMSIterativeConePlugin"
+  FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lEECambridgePlugin -lJadePlugin"
 fi;
+AC_MSG_NOTICE([FastJet LIBADD = $FASTJETCONFIGLIBADD])
 AC_SUBST(FASTJETCONFIGLIBADD)
 # Check for FastJet headers that require the --enable-all(cxx)plugins option
 FASTJET_ERRMSG="Required FastJet plugin headers were not found: did you build FastJet with the --enable-allcxxplugins option?"

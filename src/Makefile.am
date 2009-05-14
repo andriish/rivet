@@ -13,9 +13,7 @@ libRivet_la_CPPFLAGS = $(CPPFLAGS) $(AM_CPPFLAGS)
 libRivet_la_LDFLAGS = \
   -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) -export-dynamic $(VERSIONINFOFLAGS)
 
-FASTJETLIBADD = $(FASTJETCONFIGLIBADD) \
-  -lCDFConesPlugin -lJadePlugin -lD0RunIIConePlugin -lTrackJetPlugin \
-  -lsiscone -lsiscone_spherical -lSISConePlugin
+FASTJETLIBADD = $(FASTJETCONFIGLIBADD)
 
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
