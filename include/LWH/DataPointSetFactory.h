@@ -577,6 +577,7 @@ public:
   virtual IDataPointSet *
   create(const std::string & path, const IProfile1D & prof,
 	 const std::string & = "") {
+    //std::cout << "########## " << prof.title() << std::endl;
     IDataPointSet * dset = create(path, prof.title(), 2);
     dset->setXTitle(prof.xtitle());
     dset->setYTitle(prof.ytitle());

@@ -80,9 +80,9 @@ public:
    * Get the Profile's title.
    * @return The Profile's title.
    */
-  std::string title() const {
-    return theTitle;
-  }
+  // std::string title() const {
+  //   return theTitle;
+  // }
 
   /**
    * Get the Profile's name.
@@ -97,10 +97,10 @@ public:
    * @param title The title.
    * @return false If title cannot be changed.
    */
-  bool setTitle(const std::string & title) {
-    theTitle = title;
-    return true;
-  }
+  // bool setTitle(const std::string & title) {
+  //   theTitle = title;
+  //   return true;
+  // }
 
   /**
    * Not implemented in LWH. will throw an exception.
@@ -589,7 +589,7 @@ public:
 private:
 
   /** The title */
-  std::string theTitle;
+  // std::string theTitle;
 
   /** The axis. */
   IAxis * ax;
