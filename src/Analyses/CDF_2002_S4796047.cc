@@ -23,11 +23,11 @@ namespace Rivet {
     /// @todo Cross-section units
     _hist_multiplicity_630 = bookHistogram1D(1, 1, 1, 
                                              "Charged multiplicity at $\\sqrt{s} = 630~\\text{GeV}$, $|\\eta| < 1$, $p_T > 0.4~\\text{GeV}$",
-                                             "$n_\\text{ch}$", "\\d{\\sigma}/\\d{n_\\text{ch}}$");
+                                             "$n_\\text{ch}$", "\\mathrm{d}{\\sigma}/\\mathrm{d}{n_\\text{ch}}$");
     /// @todo Cross-section units
     _hist_multiplicity_1800 = bookHistogram1D(2, 1, 1, 
                                               "Charged multiplicity at $\\sqrt{s} = 1800~\\text{GeV}$, $|\\eta| < 1$, $p_T > 0.4~\\text{GeV}$",
-                                              "$n_\\text{ch}$", "\\d{\\sigma}/\\d{n_\\text{ch}}$");
+                                              "$n_\\text{ch}$", "\\mathrm{d}{\\sigma}/\\mathrm{d}{n_\\text{ch}}$");
   }
 
 

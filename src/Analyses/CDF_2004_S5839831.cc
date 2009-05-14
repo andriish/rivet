@@ -115,7 +115,7 @@ namespace Rivet {
 
     string basetitle = "$p_\\perp$ distribution in MAX+MIN transverse cones for ";
     xlabel = "$p_\\perp / GeV";
-    ylabel = "$\\d{\\sigma}/\\d{p_\\perp}$";
+    ylabel = "$\\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp}$";
     /// @todo Check this normalisation defn (num-tracks x xsec?.)
     _pt90Dbn1800Et40 = 
       bookHistogram1D(3, 1, 1,
@@ -149,7 +149,7 @@ namespace Rivet {
 
 
     xlabel = "$N_\\text{ch}$";
-    ylabel = "$\\d{\\sigma}/\\d{N_\\text{ch}}$";
+    ylabel = "$\\mathrm{d}{\\sigma}/\\mathrm{d}{N_\\text{ch}}$";
     /// @todo Check this normalisation defn.
     _numTracksDbn1800MB = 
       bookHistogram1D(5, 1, 1,

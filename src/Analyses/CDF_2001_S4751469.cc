@@ -53,7 +53,7 @@ namespace Rivet {
 
     const string pT = "$p_\\perp$";
     xlabel = pT + " / GeV";
-    ylabel = "$1/\\sigma \\, \\d{\\sigma}/\\d{p_\\perp}$";
+    ylabel = "$1/\\sigma \\, \\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp}$";
     _ptTrans2 = bookHistogram1D(7, 1, 1, "$p_\\perp$ distribution " 
                                 "(transverse, $p_\\perp^\\text{lead} > 2\\text{ GeV}$)",
                                 xlabel, ylabel);

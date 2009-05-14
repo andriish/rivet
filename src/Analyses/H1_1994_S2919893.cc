@@ -167,7 +167,7 @@ namespace Rivet {
 
     string xlabel = "$\\eta$";
     /// @todo What is "N"?
-    string ylabel = "$1/N \\, \\d{E_\\perp}/\\d{\\eta}$ / GeV";
+    string ylabel = "$1/N \\, \\mathrm{d}{E_\\perp}/\\mathrm{d}{\\eta}$ / GeV";
     string basetitle = "Transverse energy flow as a function of rapidity, ";
     _histEnergyFlowLowX =  
       bookHistogram1D(1, 1, 1, basetitle + "$x < 10^{-3}$", xlabel, ylabel);
@@ -175,7 +175,7 @@ namespace Rivet {
       bookHistogram1D(1, 1, 2, basetitle + "$x > 10^{-3}$", xlabel, ylabel);
 
     xlabel = "$\\omega$";
-    ylabel = "$\\d{\\text{EEC}_\\perp}/\\d{\\omega}$";
+    ylabel = "$\\mathrm{d}{\\text{EEC}_\\perp}/\\mathrm{d}{\\omega}$";
     basetitle = "Transverse energy--energy correlation for ";
     _histEECLowX = 
       bookHistogram1D(2, 1, 1, basetitle + "$x < 10^{-3}$", xlabel, ylabel);
@@ -184,7 +184,7 @@ namespace Rivet {
 
     xlabel = "$x_L$";
     /// @todo Add cross-section units to label
-    ylabel = "$1/\\sigma \\, \\d{\\sigma}/\\d{x_L}$";
+    ylabel = "$1/\\sigma \\, \\mathrm{d}{\\sigma}/\\mathrm{d}{x_L}$";
     basetitle = "Charged particle spectra for ";
     _histSpectraW77 = 
       bookHistogram1D(3, 1, 1, "$50 < W < 100$", xlabel, ylabel);

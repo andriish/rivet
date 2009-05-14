@@ -30,7 +30,7 @@ namespace Rivet {
   {
     const string basetitle = "Inclusive jet $p_\\perp$, ";
     const string xlabel = "Jet $p_\\perp$ / GeV";
-    const string ylabel = "$1/\\sigma \\, \\d{\\sigma}/\\d{p_\\perp}$";
+    const string ylabel = "$1/\\sigma \\, \\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp}$";
 
     _h_dsigdptdy_y00_04 = 
       bookHistogram1D(1, 1, 1, basetitle + "$0.0 < |y| < 0.4$", xlabel, ylabel);

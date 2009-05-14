@@ -21,7 +21,7 @@ namespace Rivet {
 
 
   void CDF_1990_S2089246::init() {
-    const string dNdEtaTeX = "$\\d{N_\\text{ch}}/\\d{\\eta}$";
+    const string dNdEtaTeX = "$\\mathrm{d}{N_\\text{ch}}/\\mathrm{d}{\\eta}$";
     const string etaTeX = "$\\eta$";
 
     /// @todo Get 630 GeV data in HepData

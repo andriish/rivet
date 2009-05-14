@@ -192,7 +192,7 @@ namespace Rivet {
 
     string xlabel = "$\\eta$";
     /// @todo What is "N"?
-    string ylabel = "$1/N \\, \\d{E_\\perp}/\\d{\\eta}$ / GeV";
+    string ylabel = "$1/N \\, \\mathrm{d}{E_\\perp}/\\mathrm{d}{\\eta}$ / GeV";
 
     const string xt = "\\langle x \\rangle";
     const string Q2t = "\\langle Q^2 \\rangle";

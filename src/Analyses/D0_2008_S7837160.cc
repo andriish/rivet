@@ -134,8 +134,8 @@ namespace Rivet {
     const string basetitle = "W charge asymmetry for ";
     const string xlabel = "$|\\eta|$ of leading electron";
     const string ylabel = "A = "
-      "$(\\frac{\\d{\\sigma^+}}{\\d{|\\eta|}} - \\frac{\\d{\\sigma^-}}{\\d{|\\eta|}}) / "
-      "(\\frac{\\d{\\sigma^+}}{\\d{|\\eta|}} + \\frac{\\d{\\sigma^-}}{\\d{|\\eta|}})$";
+      "$(\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} - \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}}) / "
+      "(\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} + \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}})$";
 
     IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
     IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);

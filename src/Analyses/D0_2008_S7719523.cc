@@ -38,7 +38,7 @@ namespace Rivet {
   void D0_2008_S7719523::init() {
     const string xlabel = "$p_\\perp(\\gamma_\\text{lead})$ / GeV";
     /// @todo Cross-section units in label
-    const string ylabel = "$\\d{\\sigma}/\\d{p_\\perp(\\gamma_\\text{lead})}$";
+    const string ylabel = "$\\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp(\\gamma_\\text{lead})}$";
     const string basetitle = "Leading photon $p_\\perp$ ";
 
     _h_central_same_cross_section = 
