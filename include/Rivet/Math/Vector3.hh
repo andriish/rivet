@@ -97,10 +97,31 @@ namespace Rivet {
       return x()*x() + y()*y();
     }
 
+    /// Synonym for polarRadius2
+    double perp2() const {
+      return polarRadius2();
+    }
+
+    /// Synonym for polarRadius2
+    double rho2() const {
+      return polarRadius2();
+    }
+
     double polarRadius() const {
       return sqrt(polarRadius2());
     }
 
+    /// Synonym for polarRadius
+    double perp() const {
+      return polarRadius();
+    }
+
+    /// Synonym for polarRadius
+    double rho() const {
+      return polarRadius();
+    }
+
+    /// Angle subtended by the vector's projection in x-y and the x-axis.
     double azimuthalAngle(const PhiMapping mapping = ZERO_2PI) const {
       // If this is a null vector, return zero rather than let atan2 set an error state
       if (Rivet::isZero(mod2())) return 0.0;
@@ -135,6 +156,12 @@ namespace Rivet {
       }
     }
     
+    /// Synonym for azimuthalAngle.
+    double phi(const PhiMapping mapping = ZERO_2PI) const {
+      return azimuthalAngle(mapping);
+    }
+
+    /// Angle subtended by the vector and the z-axis.
     double polarAngle() const {
       // Get number beween [0,PI]
       double polarangle = atan2(polarRadius(), z());
@@ -142,10 +169,21 @@ namespace Rivet {
       return polarangle;
     }
 
+    /// Synonym for polarAngle
+    double theta() const {
+      return polarAngle();
+    }
+
+    /// Purely geometric approximation to rapidity; exact for massless particles
+    /// and in the central region.
     double pseudorapidity() const {
       return -std::log(tan( 0.5 * polarAngle() ));
     }
 
+    /// Synonym for pseudorapidity.
+    double eta() const {
+      return pseudorapidity();
+    }
 
   public:
     Vector3& operator*=(const double a) {
@@ -239,26 +277,55 @@ namespace Rivet {
   inline double polarRadius2(const Vector3& v) {
     return v.polarRadius2();
   }
+  /// Synonym for polarRadius2.
+  inline double perp2(const Vector3& v) {
+    return v.perp2();
+  }
+  /// Synonym for polarRadius2.
+  inline double rho2(const Vector3& v) {
+    return v.rho2();
+  }
 
   /// Calculate transverse length \f$ \rho \f$ of a 3-vector.
   inline double polarRadius(const Vector3& v) {
     return v.polarRadius();
   }
+  /// Synonym for polarRadius.
+  inline double perp(const Vector3& v) {
+    return v.perp();
+  }
+  /// Synonym for polarRadius.
+  inline double rho(const Vector3& v) {
+    return v.rho();
+  }
+
 
   /// @brief Calculate azimuthal angle of a 3-vector.
   /// Returns a number in (-pi, pi] or in [0, 2pi) according to the mapping scheme selected
-  inline double azimuthalAngle(const Vector3& v, const PhiMapping mapping) {
+  inline double azimuthalAngle(const Vector3& v, const PhiMapping mapping = ZERO_2PI) {
     return v.azimuthalAngle(mapping);
+  }
+  /// Synonym for azimuthalAngle.
+  inline double phi(const Vector3& v, const PhiMapping mapping = ZERO_2PI) {
+    return v.phi(mapping);
   }
 
   /// Calculate polar angle of a 3-vector.
   inline double polarAngle(const Vector3& v) {
     return v.polarAngle();
   }
+  /// Synonym for polarAngle.
+  inline double theta(const Vector3& v) {
+    return v.theta();
+  }
 
   /// Calculate pseudorapidity of a 3-vector.
   inline double pseudorapidity(const Vector3& v) {
     return v.pseudorapidity();
+  }
+  /// Synonym for pseudorapidity.
+  inline double eta(const Vector3& v) {
+    return v.eta();
   }
 
 

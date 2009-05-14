@@ -1,3 +1,8 @@
+2009-05-14  Andy Buckley  <andy@insectnation.org>
+
+	* Adding convenience phi, rho, eta, theta, and perp,perp2 methods
+	to the 3 and 4 vector classes.
+
 2009-05-12  Andy Buckley  <andy@insectnation.org>
 
 	* Adding event auto-rotation for events with one proton... more

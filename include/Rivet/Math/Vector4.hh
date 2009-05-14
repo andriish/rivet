@@ -71,20 +71,57 @@ namespace Rivet {
       return vector3().polarRadius2();
     }
 
+    /// Synonym for polarRadius2
+    double perp2() const {
+      return vector3().perp2();
+    }
+
+    /// Synonym for polarRadius2
+    double rho2() const {
+      return vector3().rho2();
+    }
+
     double polarRadius() const {
       return vector3().polarRadius();
     }
 
+    /// Synonym for polarRadius
+    double perp() const {
+      return vector3().perp();
+    }
+
+    /// Synonym for polarRadius
+    double rho() const {
+      return vector3().rho();
+    }
+
+    /// Angle subtended by the 3-vector's projection in x-y and the x-axis.
     double azimuthalAngle(const PhiMapping mapping = ZERO_2PI) const {
       return vector3().azimuthalAngle(mapping);
     }
 
+    /// Synonym for azimuthalAngle.
+    double phi(const PhiMapping mapping = ZERO_2PI) const {
+      return vector3().phi(mapping);
+    }
+
+    /// Angle subtended by the 3-vector and the z-axis.
     double polarAngle() const {
       return vector3().polarAngle();
     }
 
+    /// Synonym for polarAngle.
+    double theta() const {
+      return vector3().theta();
+    }
+
     double pseudorapidity() const {
       return vector3().pseudorapidity();
+    }
+
+    /// Synonym for pseudorapidity.
+    double eta() const {
+      return vector3().eta();
     }
 
     /// Get the spatial part of the 4-vector as a 3-vector.
@@ -211,25 +248,54 @@ namespace Rivet {
   inline double polarRadius2(const FourVector& v) {
     return v.polarRadius2();
   }
+  /// Synonym for polarRadius2.
+  inline double perp2(const FourVector& v) {
+    return v.perp2();
+  }
+  /// Synonym for polarRadius2.
+  inline double rho2(const FourVector& v) {
+    return v.rho2();
+  }
 
   /// Calculate transverse length \f$ \rho \f$ of a Lorentz vector.
   inline double polarRadius(const FourVector& v) {
     return v.polarRadius();
+  }
+  /// Synonym for polarRadius.
+  inline double perp(const FourVector& v) {
+    return v.perp();
+  }
+  /// Synonym for polarRadius.
+  inline double rho(const FourVector& v) {
+    return v.rho();
   }
 
   /// Calculate azimuthal angle of a Lorentz vector.
   inline double azimuthalAngle(const FourVector& v, const PhiMapping mapping = ZERO_2PI) {
     return v.azimuthalAngle(mapping);
   }
+  /// Synonym for azimuthalAngle.
+  inline double phi(const FourVector& v, const PhiMapping mapping = ZERO_2PI) {
+    return v.phi(mapping);
+  }
+
 
   /// Calculate polar angle of a Lorentz vector.
   inline double polarAngle(const FourVector& v) {
     return v.polarAngle();
   }
+  /// Synonym for polarAngle.
+  inline double theta(const FourVector& v) {
+    return v.theta();
+  }
 
   /// Calculate pseudorapidity of a Lorentz vector.
   inline double pseudorapidity(const FourVector& v) {
     return v.pseudorapidity();
+  }
+  /// Synonym for pseudorapidity.
+  inline double eta(const FourVector& v) {
+    return v.eta();
   }
 
 
