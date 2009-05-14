@@ -966,11 +966,21 @@ class Histogram(DrawableObject):
                                     + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                     + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
                 out += ('\psline')
+                if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
+                    if (coors.phys2frameX(self.data[0]['LowEdge']) > 1e-4):
+                        out += '(' + coors.strphys2frameX(self.data[0]['LowEdge']) + ', -0.1)\n'
+                    else:
+                        out += '(-0.1, -0.1)\n'
                 for i in range(len(self.data)):
                     out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
                                 + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
+                    if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
+                        out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
+                    else:
+                        out += '(1.1, -0.1)\n'
         #
         if self.getPolyMarker() != '':
             for i in range(len(self.data)):
