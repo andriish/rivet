@@ -538,7 +538,7 @@ class Legend:
                     out += (', fillstyle=' + drawobject.getFillStyle() \
                                 + ', fillcolor='  + drawobject.getFillColor() \
                                 + ', hatchcolor=' + drawobject.getHatchColor() \
-                                + '](-0.10, 0.030)(-0.02, 0.030)(-0.02, 0.004)(-0.10, 0.004)(-0.10, 0.030)\n')
+                                + ']{C-C}(-0.10, 0.030)(-0.02, 0.030)(-0.02, 0.004)(-0.10, 0.004)(-0.10, 0.030)\n')
                 else:
                     out += ('](-0.10, 0.016)(-0.02, 0.016)\n')
                 if drawobject.getPolyMarker() != '':
