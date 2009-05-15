@@ -108,26 +108,19 @@ namespace Rivet {
 
   private:
 
-    /// @name Analysis cuts
-    //@{
-    /// Cut on primary vertex z-position (\f$ z(\text{PV}) < 60 \text{cm} \f$)
-    const double _pvzmax;
-    //@}
-
     /// @name Analysis data
     //@{
     vector<FourMomentum> _jetaxes;
 
-    double _Rjet;
-
-    double _ShapeWeights[18];
+    /// @todo Description?
+    double _shapeWeights[18];
 
     /// \f$p_\perp\f$ bins to be distinguished during analysis
     vector<double> _pTbins;
     //@}
 
 
-    /// @name Histogram collections
+    /// @name Histograms
     //@{
     AIDA::IProfile1D* _profhistRho_pT[18];
     AIDA::IProfile1D* _profhistPsi_pT[18];

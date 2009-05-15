@@ -120,120 +120,76 @@ namespace Rivet {
 
   // Do the analysis
   void CDF_1994_S2952106::analyze(const Event & event) {
-    const FastJets& jetpro = applyProjection<FastJets>(event, "ConeJets");
-    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
+    const Jets jets = applyProjection<FastJets>(event, "ConeJets").jetsByPt();
+    getLog() << Log::DEBUG << "Jet multiplicity before any cuts = " << jets.size() << endl;
 
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
-    if (fabs(pv.position().z())/mm < _pvzmax) {
-      const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-      getLog() << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT()/GeV << " GeV" << endl;
-      if (caloMissEt.momentum().pT()/sqrt(caloMissEt.scalarET()) < _metsetmax) {
-        PseudoJets jets = jetpro.pseudoJets();
-        PseudoJets::const_iterator jet1stPt = jets.end();
-        PseudoJets::const_iterator jet2ndPt = jets.end();
-        PseudoJets::const_iterator jet3rdPt = jets.end();
-        getLog() << Log::DEBUG << "Num jets = " << jets.size() << endl;
+    if (fabs(pv.position().z())/mm > _pvzmax) {
+      vetoEvent(event);
+    }
 
-        int Njet = 0;
-        int NjetPtCut = 0;
-        for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-          getLog() << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() 
-              << " pz=" << jt->pz() << endl;
-          if (jt->perp() > _leadJetPt) ++NjetPtCut;
-          getLog() << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->pseudorapidity() 
-              << " phi=" << jt->phi() << endl; 
-          if (jet1stPt == jets.end() || jt->perp() > jet1stPt->perp()) {
-            jet3rdPt = jet2ndPt;
-            jet2ndPt = jet1stPt;
-            jet1stPt = jt;
-            Njet++;
-          } else if (jet2ndPt == jets.end() || jt->perp() > jet2ndPt->perp()) {
-            jet3rdPt = jet2ndPt;
-            jet2ndPt = jt;
-            Njet++;
-          } else if (jet3rdPt == jets.end() || jt->perp() > jet3rdPt->perp()) {
-            jet3rdPt = jt;
-            Njet++;
-          }
-        }
-        
-        if (NjetPtCut >= 1) {
-          getLog() << Log::DEBUG << "Jet multiplicity after pT > 100GeV cut = " << NjetPtCut << endl; 
-        }
-        
-        if (Njet>=3 && fabs(jet1stPt->pseudorapidity())<_etamax && fabs(jet2ndPt->pseudorapidity())<_etamax) {
-          getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
-          
-          if (fabs(fabs(jet1stPt->phi()-jet2ndPt->phi())-PI) < _phimin) {
-            getLog() << Log::DEBUG << "1st & 2nd Jet phi requirement fulfilled" << endl;
-         
+    // Check there isn't too much missing Et
+    const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
+    getLog() << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT()/GeV << " GeV" << endl;      
+    if ((caloMissEt.momentum().pT()/GeV) / sqrt(caloMissEt.scalarET()/GeV) > _metsetmax) {
+      vetoEvent(event);
+    }
 
-            _histJet1Et->fill(jet1stPt->perp(), event.weight());
-            _histJet2Et->fill(jet2ndPt->perp(), event.weight());
-            //_histR23->fill(jet2ndPt->deltaR(*jet3rdPt), event.weight());
-            _histR23->fill(delta_rad(jet2ndPt->pseudorapidity(),jet2ndPt->phi(), 
-                                     jet3rdPt->pseudorapidity(),jet3rdPt->phi() ), 
-                           event.weight());
-            _histJet3eta->fill(jet3rdPt->pseudorapidity(), event.weight());
-            
-            
-            // Next cut only required for alpha studies
-            if (jet3rdPt->perp() > _3rdJetPt) {
-              getLog() << Log::DEBUG << "jet3rdPt->pT()=" << jet3rdPt->perp() << " (>10.)" << endl;
-              
-	      _events3jPassed += event.weight();
+    // Check jet requirements
+    if (jets.size() < 3) vetoEvent(event);
+    if (jets[0].momentum().pT()/GeV < 100) vetoEvent(event);
 
-              double dPhi = fabs(jet3rdPt->phi() - jet2ndPt->phi());
-              dPhi -= int(dPhi/PI); //dPhi % PI (modulo)
-              
-              double dH = jet3rdPt->pseudorapidity() - jet2ndPt->pseudorapidity();
-              if (jet2ndPt->pseudorapidity() < 0.) dH *= -1;
-              
-              double alpha = atan(dH/dPhi);
-              //cout << "alpha=" << alpha << "  dH=" << dH 
-              // << "  dPhi=" << dPhi << endl;
-              
-              _histAlpha->fill(alpha, event.weight());
-              //_histAlphaMCvsDat->fill(alpha, event.weight());
-              
-            } //3rd jet Pt cut
-          } //delta phi 1st, 2nd jet
-        } //1st + 2nd jet pseudoRapidity & Njet>=3
-      } //MET/sqrt(SET) cut
-    } //z-vertex
+    // More jet 1,2,3 checks
+    FourMomentum pj1(jets[0].momentum()), pj2(jets[1].momentum()), pj3(jets[2].momentum());
+    if (fabs(pj1.eta()) > _etamax || fabs(pj2.eta()) > _etamax) vetoEvent(event);
+    getLog() << Log::DEBUG << "Jet 1 & 2 eta, pT requirements fulfilled" << endl;          
 
+    if (deltaPhi(pj1.phi(), pj2.phi()) > _phimin) vetoEvent(event);
+    getLog() << Log::DEBUG << "Jet 1 & 2 phi requirement fulfilled" << endl;
 
+    const double weight = event.weight();
+    _histJet1Et->fill(pj1.pT(), weight);
+    _histJet2Et->fill(pj2.pT(), weight);
+    _histR23->fill(deltaR(pj2, pj3), weight);
+    _histJet3eta->fill(pj3.eta(), weight);
+                        
+    // Next cut only required for alpha studies
+    if (pj3.pT() < _3rdJetPt) vetoEvent(event);
+    getLog() << Log::DEBUG << "3rd jet passes alpha histo pT cut" << endl;      
+    _events3jPassed += weight;
+
+    // Calc and plot alpha
+    const double dPhi = deltaPhi(pj3.phi(), pj2.phi());    
+    const double dH = sign(pj2.eta()) * (pj3.eta() - pj2.eta());
+    const double alpha = atan(dH/dPhi);
+    _histAlpha->fill(alpha, weight);
   }
   
   
   // Finalize
   void CDF_1994_S2952106::finalize() { 
-    /*
    /// @todo Apply correction
-   double a, b, c, erra, errb, errc;
-   for (int ibin = 0;  ibin < _histAlpha->getNbins(); ++ibin) {
-   a = _histAlpha->GetBinContent(ibin);
-   erra = _histAlpha->GetBinError(ibin);
-   b = _histAlpaIdeal->GetBinContent(ibin);
-   errb = _histAlpaIdeal->GetBinError(ibin);
-   c = _histAlpaCDF->GetBinContent(ibin);
-   errc = _histAlpaCDF->GetBinError(ibin);
-   _histAlpha->SetBinContent(ibin, b/c);
-   _histAlpha->SetBinError(ibin, sqrt(sqr(b)/sqr(c)*sqr(erra) + sqr(a)/sqr(c)*sqr(errb) + 
-   sqr(a*b/(sqr(c)))*sqr(errc) ) );
-   }
+   // double a, b, c, erra, errb, errc;
+   // for (int ibin = 0;  ibin < _histAlpha->getNbins(); ++ibin) {
+   // a = _histAlpha->GetBinContent(ibin);
+   // erra = _histAlpha->GetBinError(ibin);
+   // b = _histAlpaIdeal->GetBinContent(ibin);
+   // errb = _histAlpaIdeal->GetBinError(ibin);
+   // c = _histAlpaCDF->GetBinContent(ibin);
+   // errc = _histAlpaCDF->GetBinError(ibin);
+   // _histAlpha->SetBinContent(ibin, b/c);
+   // _histAlpha->SetBinError(ibin, sqrt(sqr(b)/sqr(c)*sqr(erra) + sqr(a)/sqr(c)*sqr(errb) + 
+   // sqr(a*b/(sqr(c)))*sqr(errc) ) );
+   // }
    /// @todo Same correction to be applied for _hisR23 and _histJet3eta histograms
-   */
         
-    getLog() << Log::INFO 
-             << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
-    // normalise to 1
-    normalize( _histJet1Et,1.0);
-    normalize( _histJet2Et,1.0);
-    normalize( _histR23,1.0);
-    normalize( _histJet3eta,1.0);
-    normalize( _histAlpha,1.0);
+    getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
+    normalize(_histJet1Et);
+    normalize(_histJet2Et);
+    normalize(_histR23);
+    normalize(_histJet3eta);
+    normalize(_histAlpha);
   }
   
   

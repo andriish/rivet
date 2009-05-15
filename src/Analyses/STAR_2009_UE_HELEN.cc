@@ -17,7 +17,8 @@ namespace Rivet {
     // Final state for the jet finding
     const FinalState fsj(-4.0, 4.0, 0.0*GeV);
     addProjection(fsj, "FSJ");
-    addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
+    /// @todo Does STAR really use a CDF midpoint?!?
+    addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "Jets");
     
     // Final state for the sum(ET) distributions
     const FinalState fs(-1.0, 1.0, 0.0*GeV);
@@ -55,21 +56,17 @@ namespace Rivet {
       vetoEvent(e);
     }
 
-    const FastJets& jetpro = applyProjection<FastJets>(e, "MidpointJets");
-    const PseudoJets& jets = jetpro.pseudoJetsByPt();
+    const Jets jets = applyProjection<FastJets>(e, "Jets").jetsByPt();
     getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
 
     // We require the leading jet to be within |eta|<2
-    if (jets.size() < 1 || fabs(jets[0].eta()) >= 2) {
+    if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 2) {
       getLog() << Log::DEBUG << "Failed jet cut" << endl;
       vetoEvent(e);
     }
     
-    const double jetphi = jets[0].phi();
-    const double jetpT  = jets[0].perp();
-    getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
-             << ", eta = " << jets[0].eta()
-             << ", phi = " << jetphi << endl;
+    const double jetphi = jets[0].momentum().phi();
+    const double jetpT  = jets[0].momentum().pT();
 
     // Get the event weight
     const double weight = e.weight();
@@ -84,28 +81,24 @@ namespace Rivet {
 
     // Calculate all the charged stuff
     foreach (const Particle& p, cfs.particles()) {
-      const double deltaPhi = delta_phi(p.momentum().azimuthalAngle(), jetphi);
+      const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
       const double pT = p.momentum().pT();
-      const double phi = p.momentum().azimuthalAngle();
-
-      // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
-      // Lovely, isn't it?
-      /// @todo Use fastjet PseudoJet::phi_pi_pi (or whatever it's called)
-      double rotatedphi = phi - jetphi;
-      while (rotatedphi < 0) rotatedphi += 2*PI;
+      const double phi = p.momentum().phi();
+      /// @todo Jet and particle phi should have same ranges this way: check
+      const double rotatedphi = phi - jetphi;
 
       ptSumOverall += pT;
       ++numOverall;
       if (pT > ptMaxOverall)
         ptMaxOverall = pT;
 
-      if (deltaPhi < PI/3.0) {
+      if (dPhi < PI/3.0) {
         ptSumToward += pT;
         ++numToward;
         if (pT > ptMaxToward)
           ptMaxToward = pT;
       }
-      else if (deltaPhi < 2*PI/3.0) {
+      else if (dPhi < 2*PI/3.0) {
         if (rotatedphi <= PI) {
           ptSumTrans1 += pT;
           ++numTrans1;
@@ -128,27 +121,22 @@ namespace Rivet {
     } // end charged particle loop
 
 
-#if 0   
+    #if 0   
     /// @todo Enable this part when we have the numbers from Rick Field
 
     // And now the same business for all particles (including neutrals)
     foreach (const Particle& p, fs.particles()) {
-      const double deltaPhi = delta_phi(p.momentum().azimuthalAngle(), jetphi);
+      const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
       const double ET = p.momentum().Et();
-      const double phi = p.momentum().azimuthalAngle();
-
-      // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
-      // Lovely, isn't it?
-      /// @todo Use FastJet methos to get the appropriate phi mapping
-      double rotatedphi = phi - jetphi;
-      while (rotatedphi < 0) rotatedphi += 2*PI;
+      const double phi = p.momentum().phi();
+      const double rotatedphi = phi - jetphi;
 
       EtSumOverall += ET;
 
-      if (deltaPhi < PI/3.0) {
+      if (dPhi < PI/3.0) {
         EtSumToward += ET;
       }
-      else if (deltaPhi < 2*PI/3.0) {
+      else if (dPhi < 2*PI/3.0) {
         if (rotatedphi <= PI) {
           EtSumTrans1 += ET;
         }
@@ -160,7 +148,7 @@ namespace Rivet {
         EtSumAway += ET;
       }
     } // end all particle loop
-#endif
+    #endif
 
 
     // Fill the histograms
@@ -193,7 +181,9 @@ namespace Rivet {
   }
 
 
-  void STAR_2009_UE_HELEN::finalize() {  }
+  void STAR_2009_UE_HELEN::finalize() {  
+    //
+  }
 
 
 }

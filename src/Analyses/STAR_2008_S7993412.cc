@@ -44,7 +44,7 @@ namespace Rivet {
         foreach (const Particle& ap, fs.particles()) {
           if (ap.momentum().pT() > 1.5 &&
               ap.momentum().pT() < triggerpT &&
-              delta_phi(tp.momentum().azimuthalAngle(), ap.momentum().azimuthalAngle()) < 1 &&
+              deltaPhi(tp.momentum().phi(), ap.momentum().phi()) < 1 &&
               fabs(tp.momentum().pseudorapidity() - ap.momentum().pseudorapidity()) < 1.75) {
             N_associated += 1;
           }

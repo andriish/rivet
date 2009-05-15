@@ -8,7 +8,6 @@ namespace Rivet {
 
 
   /// Implementation of CDF RunII b-jet shape paper
-  /// @todo Test with Pythia
   class CDF_2008_S7782535 : public Analysis {
   public:
 

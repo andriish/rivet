@@ -64,21 +64,20 @@ namespace Rivet {
       vetoEvent(e);
     }
 
-    const FastJets& jetpro = applyProjection<FastJets>(e, "MidpointJets");
-    const PseudoJets& jets = jetpro.pseudoJetsByPt();
+    const Jets jets = applyProjection<FastJets>(e, "MidpointJets").jetsByPt();
     getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
 
     // We require the leading jet to be within |eta|<2
-    if (jets.size() < 1 || fabs(jets[0].eta()) >= 2) {
-      getLog() << Log::DEBUG << "Failed jet cut" << endl;
+    if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 2) {
+      getLog() << Log::DEBUG << "Failed leading jet cut" << endl;
       vetoEvent(e);
     }
     
-    const double jetphi = jets[0].phi();
-    const double jetpT  = jets[0].perp();
+    const double jetphi = jets[0].momentum().phi();
+    const double jeteta  = jets[0].momentum().eta();
+    const double jetpT  = jets[0].momentum().perp();
     getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
-             << ", eta = " << jets[0].eta()
-             << ", phi = " << jetphi << endl;
+             << ", eta = " << jeteta << ", phi = " << jetphi << endl;
 
     // Get the event weight
     const double weight = e.weight();
@@ -86,35 +85,33 @@ namespace Rivet {
     // Get the final states to work with for filling the distributions
     const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
 
-    size_t   numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
+    size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
     double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
     //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
     double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
 
     // Calculate all the charged stuff
     foreach (const Particle& p, cfs.particles()) {
-      const double deltaPhi = delta_phi(p.momentum().azimuthalAngle(), jetphi);
+      const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
       const double pT = p.momentum().pT();
-      const double phi = p.momentum().azimuthalAngle();
+      const double phi = p.momentum().phi();
 
-      // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
-      // Lovely, isn't it?
-      /// @todo Use fastjet PseudoJet::phi_pi_pi (or whatever it's called)
-      double rotatedphi = phi - jetphi;
-      while (rotatedphi < 0) rotatedphi += 2*PI;
+      /// @todo The jet and particle phis should now be the same: check
+      const double rotatedphi = phi - jetphi;
 
       ptSumOverall += pT;
       ++numOverall;
-      if (pT > ptMaxOverall)
+      if (pT > ptMaxOverall) {
         ptMaxOverall = pT;
+      }
 
-      if (deltaPhi < PI/3.0) {
+      if (dPhi < PI/3.0) {
         ptSumToward += pT;
         ++numToward;
         if (pT > ptMaxToward)
           ptMaxToward = pT;
       }
-      else if (deltaPhi < 2*PI/3.0) {
+      else if (dPhi < 2*PI/3.0) {
         if (rotatedphi <= PI) {
           ptSumTrans1 += pT;
           ++numTrans1;
@@ -137,20 +134,16 @@ namespace Rivet {
     } // end charged particle loop
 
 
-#if 0   
+    #if 0   
     /// @todo Enable this part when we have the numbers from Rick Field
 
     // And now the same business for all particles (including neutrals)
     foreach (const Particle& p, fs.particles()) {
-      const double deltaPhi = delta_phi(p.momentum().azimuthalAngle(), jetphi);
+      const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
       const double ET = p.momentum().Et();
       const double phi = p.momentum().azimuthalAngle();
-
-      // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
-      // Lovely, isn't it?
-      /// @todo Use FastJet methos to get the appropriate phi mapping
-      double rotatedphi = phi - jetphi;
-      while (rotatedphi < 0) rotatedphi += 2*PI;
+      /// @todo Check that phi mappings really match (they should now)
+      const double rotatedphi = phi - jetphi;
 
       EtSumOverall += ET;
 
@@ -169,7 +162,7 @@ namespace Rivet {
         EtSumAway += ET;
       }
     } // end all particle loop
-#endif
+    #endif
 
 
     // Fill the histograms
@@ -202,7 +195,9 @@ namespace Rivet {
   }
 
 
-  void CDF_2008_LEADINGJETS::finalize() {  }
+  void CDF_2008_LEADINGJETS::finalize() {  
+    //
+  }
 
 
 }

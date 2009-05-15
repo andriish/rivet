@@ -118,17 +118,17 @@ namespace Rivet {
       if (abs(p->pdgId()) < 20)
         continue;
 
-      const double deltaPhi = delta_phi(p->momentum().azimuthalAngle(), phiZ);
+      const double dPhi = deltaPhi(p->momentum().phi(), phiZ);
       const double pT = p->momentum().pT();
-      double rotatedphi = p->momentum().azimuthalAngle() - phiZ;
+      double rotatedphi = p->momentum().phi() - phiZ;
       while (rotatedphi < 0) rotatedphi += 2*PI;
 
-      if (deltaPhi < PI/3.0) {
+      if (dPhi < PI/3.0) {
         ptSumToward += pT;
         ++numToward;
         if (pT > ptMaxToward)
           ptMaxToward = pT;
-      } else if (deltaPhi < 2*PI/3.0) {
+      } else if (dPhi < 2*PI/3.0) {
         if (rotatedphi <= PI) {
           ptSumTrans1 += pT;
           ++numTrans1;

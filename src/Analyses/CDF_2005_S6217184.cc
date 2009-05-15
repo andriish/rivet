@@ -12,7 +12,6 @@ namespace Rivet {
 
   /// Constructor
   CDF_2005_S6217184::CDF_2005_S6217184()
-    : _pvzmax(600*mm), _Rjet(0.7)
   { 
     setBeams(PROTON, ANTIPROTON);
 
@@ -29,8 +28,7 @@ namespace Rivet {
       .addVetoPairId(NU_TAU)
       .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
     addProjection(vfs, "VFS");
-    addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3, ENERGY), 
-                  "JetShape");
+    addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
 
     // Specify pT bins and initialise weight entries
     /// @todo Get these numbers from bundled data files
@@ -39,7 +37,7 @@ namespace Rivet {
                         166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 };
     for (size_t i = 0; i <= 18; ++i) {
       _pTbins[i]  =  ptbins[i];
-      _ShapeWeights[i%18] = 0.0;
+      _shapeWeights[i%18] = 0.0;
     }
   }
 
@@ -71,72 +69,69 @@ namespace Rivet {
   void CDF_2005_S6217184::analyze(const Event& event) {
     // Find primary vertex and veto on its separation from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
-    if (fabs(pv.position().z())/mm > _pvzmax) vetoEvent(event);
+    if (fabs(pv.position().z())/mm > 600) {
+      vetoEvent(event);
+    }
 
-    // Analyse and print some info  
-    const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
-    getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
-    
-    /// @todo Don't expose FastJet objects in Rivet analyses: the FastJets projection
-    /// should convert them to Rivet 4-momentum classes (or similar).
-    const PseudoJets& jets = jetpro.pseudoJetsByPt();
-    getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
-    size_t Njet = 0;
+    // Get jets and require at least one to pass pT and y cuts
+    const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
+    getLog() << Log::DEBUG << "Jet multiplicity before cuts = " << jets.size() << endl;
     bool jetcutpass = false;
-    for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      getLog() << Log::DEBUG << "List item pT = " << jt->perp() << " E=" << jt->E() << " pz=" << jt->pz() << endl;
-      /// @todo Declare these cuts, and use units
-      if (jt->perp() > 37.0 && fabs(jt->rapidity()) > 0.1 && fabs(jt->rapidity()) < 0.7) jetcutpass = true;
-      ++Njet;
-      getLog() << Log::DEBUG << "Jet pT =" << jt->perp() << " y=" << jt->rapidity() << " phi=" << jt->phi() << endl; 
+    foreach (const Jet& jt, jets) {
+      const FourMomentum pj = jt.momentum();
+      if (pj.pT()/GeV > 37.0 && inRange(fabs(pj.rapidity()), 0.1, 0.7)) {
+        jetcutpass = true;
+      }
     }
     if (!jetcutpass) vetoEvent(event);
 
+    // Check there's not too much missing Et
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
     getLog() << Log::DEBUG << "CaloMissEt.momentum().pT() = " << caloMissEt.momentum().pT() << endl;
-    /// @todo Declare this cut, and use units
-    if (caloMissEt.momentum().pT()/sqrt(caloMissEt.scalarET()) > 3.5) {
+    if ((caloMissEt.momentum().pT()/GeV) / sqrt(caloMissEt.scalarET()/GeV) > 3.5) {
       vetoEvent(event);
     }
     
     // Determine the central jet axes
-    FourMomentum jetaxis;
     _jetaxes.clear();
-    for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
-      // Only Central Calorimeter jets
-      /// @todo Declare this cut
-      if (fabs(jt->rapidity()) < 1.1) {
-        jetaxis.px(jt->px());
-        jetaxis.py(jt->py());
-        jetaxis.pz(jt->pz());
-        jetaxis.E(jt->E());
-        _jetaxes.push_back(jetaxis);
+    foreach (const Jet& jt, jets) {
+      const FourMomentum pj = jt.momentum();
+      if (fabs(pj.rapidity()) < 1.1) {
+        _jetaxes.push_back(pj);
       }
     }
     
-    // Determine jet shapes
-    if (!_jetaxes.empty()) { 
-      const JetShape& jetShape = applyProjection<JetShape>(event, "JetShape");
+    // Calculate and histogram jet shapes
+    if (!_jetaxes.empty()) {
+      const double weight = event.weight();
+      const JetShape& js = applyProjection<JetShape>(event, "JetShape");
+      const double R_JET = 0.7;
+
       for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
         for (size_t ipT = 0; ipT < 18; ++ipT) {
           if (_jetaxes[jind].pT() > _pTbins[ipT] && _jetaxes[jind].pT() <= _pTbins[ipT+1]) {
-            _ShapeWeights[ipT] += event.weight(); 
-            for (size_t rbin = 0; rbin < jetShape.getNbins(); ++rbin) {
-              const double rad_Rho = jetShape.getRmin() + (rbin+0.5)*jetShape.getInterval();
-              _profhistRho_pT[ipT]->fill(rad_Rho/_Rjet, jetShape.getDiffJetShape(jind, rbin), event.weight() );
-              const double rad_Psi = jetShape.getRmin() +(rbin+1.0)*jetShape.getInterval();
-              _profhistPsi_pT[ipT]->fill(rad_Psi/_Rjet, jetShape.getIntJetShape(jind, rbin), event.weight() );
+            /// @todo Is this not being used?
+            _shapeWeights[ipT] += weight;
+            for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
+              const double rad_Rho = js.rMin() + (rbin+0.5)*js.interval();
+              _profhistRho_pT[ipT]->fill(rad_Rho/R_JET, js.diffJetShape(jind, rbin), weight);
+              const double rad_Psi = js.rMin() +(rbin+1.0)*js.interval();
+              _profhistPsi_pT[ipT]->fill(rad_Psi/R_JET, js.intJetShape(jind, rbin), weight);
             }
-            _profhistPsi->fill((_pTbins[ipT]+_pTbins[ipT+1])/2., jetShape.getPsi(jind), event.weight());
+            _profhistPsi->fill((_pTbins[ipT] + _pTbins[ipT+1])/2.0, js.psi(jind), weight);
           }
         }
       }
+
     }
+
   }
   
 
   // Finalize
-  void CDF_2005_S6217184::finalize() {  }
+  void CDF_2005_S6217184::finalize() {  
+    /// @todo Do the shape weighting?
+  }
   
   
 }

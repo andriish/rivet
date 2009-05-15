@@ -77,7 +77,7 @@ namespace Rivet {
       vetoEvent(e);
     }
     
-    const double jetphi = jets[0].momentum().azimuthalAngle();
+    const double jetphi = jets[0].momentum().phi();
     const double jetpT  = jets[0].momentum().pT();
     getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
              << ", eta = " << jets[0].momentum().pseudorapidity()
@@ -95,27 +95,21 @@ namespace Rivet {
 
     // Calculate all the charged stuff
     foreach (const Particle& p, cfs.particles()) {
-      const double deltaPhi = delta_phi(p.momentum().azimuthalAngle(), jetphi);
+      const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
       const double pT = p.momentum().pT();
       const double phi = p.momentum().azimuthalAngle();
-
-      // TODO: FIX!
-      // Jets come with phi in [0 .. 2*Pi]. Particles come in [-Pi .. Pi].
-      // Lovely, isn't it?
-      /// @todo Use fastjet PseudoJet::phi_pi_pi (or whatever it's called)
-      double rotatedphi = phi - jetphi;
-      while (rotatedphi < 0) rotatedphi += 2*PI;
+      const double rotatedphi = phi - jetphi;
 
       ptSumOverall += pT;
       ++numOverall;
       if (pT > ptMaxOverall) ptMaxOverall = pT;
 
-      if (deltaPhi < PI/3.0) {
+      if (dPhi < PI/3.0) {
         ptSumToward += pT;
         ++numToward;
         if (pT > ptMaxToward) ptMaxToward = pT;
       }
-      else if (deltaPhi < 2*PI/3.0) {
+      else if (dPhi < 2*PI/3.0) {
         if (rotatedphi <= PI) {
           ptSumTrans1 += pT;
           ++numTrans1;
@@ -166,7 +160,9 @@ namespace Rivet {
   }
 
 
-  void MC_LHC_LEADINGJETS::finalize() {  }
+  void MC_LHC_LEADINGJETS::finalize() {  
+    //
+  }
 
 
 }

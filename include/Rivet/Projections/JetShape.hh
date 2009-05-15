@@ -12,103 +12,105 @@
 namespace Rivet {
 
 
-  /// Enums to distinguish between different recombination schemes
-  enum Scheme { ENERGY, SNOWMASS };
-
-
   /**
      @brief Calculate the jet shape.
 
      Calculate the differential and integral jet shapes in \f$P_{\perp}\f$ for a given 
      set of jet axes each event.
      
-     The recombination scheme (ENERGY or SNOWMASS) has to be specified when invoking the 
-     constructor.
+     The rapidity scheme (\f$ \eta \f$ or \f$ y \f$) has to be specified when
+     invoking the constructor.
 
-     The differential jet shape around a given jet axes at distance interval 
-     \f$ r/pm\delta r/2 \f$ is defined as
+     The differential jet shape around a given jet axis at distance interval 
+     \f$ r \pm \delta{r}/2 \f$ is defined as
      \f[
      \rho(r) = 
-     \frac{1}{\delta r} \frac{1}{N_\mathrm{jets}}
-     \sum_\mathrm{jets} \frac{P_{\perp}(r - \delta r/2, r+\delta r/2)}{P_{\perp}(0,R)}
+       \frac{1}{\delta r} \frac{1}{N_\mathrm{jets}}
+       \sum_\mathrm{jets} \frac{P_\perp(r - \delta r/2, r+\delta r/2)}{p_\perp(0, R)}
      \f]
-     with \f$ 0 \le r \le R \f$
+     with \f$ 0 \le r \le R \f$ and \f$ P_\perp(r_1, r_2) = \sum_{\in [r_1, r_2)} p_\perp \f$.
 
-     The integral jet shape around a given jet axes until distance r is defined as
+     The integral jet shape around a given jet axes until distance \f$ r \f$ is defined as
      \f[
      \Psi(r) = 
-       \frac{1}{N_\mathrm{jets}} \sum_\mathrm{jets} 
-       \frac{P_{\perp}(0, r)}{P_{\perp}(0,R)} 
+       \frac{1}{N_\mathrm{jets}}
+       \sum_\mathrm{jets} \frac{P_\perp(0, r)}{p_\perp(0, R)} 
      \f]
-     with \f$ 0 \le r \le R \f$
+     with \f$ 0 \le r \le R \f$ and \f$ P_\perp(r_1, r_2) = \sum_{\in [r_1, r_2)} p_\perp \f$.
      
-     The constructor expects also the equidistant binning in radius r to produce the
+     The constructor expects also the equidistant binning in radius \f$ r \f$ to produce the
      jet shape of all bins in a vector and this separately for each jet to allow
-     post selection.
+     post-selection.
 
      Internally, this projection uses the VetoedFinalState projection to determine the
      jet shapes around the jet axes.
 
      The jet axes are passed for each event.
   */
-  class JetShape: public Projection {
-    
+  class JetShape : public Projection {
+
+    /// @todo Review: remove external jet axes, binning, etc.
+
   public:
+
+    /// @name Constructors etc.
+    //@{
 
     /// Constructor.
     JetShape(const VetoedFinalState& vfsp, const vector<FourMomentum>& jetaxes, 
              double rmin=0.0, double rmax=0.7, double interval=0.1, 
-             double r1minPsi=0.3, Scheme distscheme=ENERGY)
-      : _jetaxes(jetaxes), 
-        _rmin(rmin), _rmax(rmax), 
-        _interval(interval), _r1minPsi(r1minPsi), _distscheme(distscheme)
-    { 
-      setName("JetShape");
-      _nbins = int(round((rmax-rmin)/interval));
-      addProjection(vfsp, "FS");
-    }
-
+             double r1minPsi=0.3, DeltaRScheme distscheme=RAPIDITY);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new JetShape(*this);
     }
+
+    //@}
+
+
+    /// Reset projection between events
+    void clear();
+
     
   public:
+
     
-    /// Return number of equidistant radius bins.
-    double getNbins() const {
+    /// Number of equidistant radius bins.
+    double numBins() const {
       return _nbins;
     }
     
-    /// Return \f$ r_\text{min} \f$ value.
-    double getRmin() const {
+    /// \f$ r_\text{min} \f$ value.
+    double rMin() const {
       return _rmin;
     }
     
-    /// Return \f$ r_\text{max} \f$ value.
-    double getRmax() const {
+    /// \f$ r_\text{max} \f$ value.
+    double rMax() const {
       return _rmax;
     }
     
-    /// Return Rad interval size.
-    double getInterval() const {
+    /// Radius interval size.
+    double interval() const {
       return _interval;
     }
 
-
     /// Return value of differential jet shape profile histo bin.
-    double getDiffJetShape(size_t pTbin, size_t rbin) const {
+    /// @todo Remove this external indexing thing
+    double diffJetShape(size_t pTbin, size_t rbin) const {
       return _diffjetshapes[pTbin][rbin];
     }
     
     /// Return value of integrated jet shape profile histo bin.
-    double getIntJetShape(size_t pTbin, size_t rbin) const {
+    /// @todo Remove this external indexing thing
+    double intJetShape(size_t pTbin, size_t rbin) const {
       return _intjetshapes[pTbin][rbin];
     }
     
     /// Return value of \f$ \Psi \f$ (integrated jet shape) at given radius for a \f$ p_T \f$ bin.
-    double getPsi(size_t pTbin) const {
+    /// @todo Remove this external indexing thing
+    double psi(size_t pTbin) const {
       return _PsiSlot[pTbin];
     }
     
@@ -124,31 +126,43 @@ namespace Rivet {
        
   private:
 
-    ///The jet axes of the jet algorithm projection
-    /// @todo Check that this is as intended... reference cannot be re-pointed.
-    //vector<FourMomentum> _jetaxes;
+    /// The jet axes of the jet algorithm projection
     const vector<FourMomentum>& _jetaxes;
 
-    /// @name The projected jet shapes
-    /// @{
-    ///Output jets vector containg jet shape vectors
-    vector<vector<double> >  _diffjetshapes;
-    vector<vector<double> >  _intjetshapes;
-    vector<double> _PsiSlot;
-    /// @}
 
-    ///Jet shape parameters
-    ///min radius (typycally r=0)
+    /// @name The projected jet shapes
+    //@{
+
+    /// Jet shape histo
+    vector<vector<double> > _diffjetshapes;
+    vector<vector<double> > _intjetshapes;
+    vector<double> _PsiSlot;
+
+    //@}
+
+
+    /// @name Jet shape parameters
+    //@{
+
+    /// Min radius (typically r=0)
     double _rmin;
-    ///max radius
+
+    /// Max radius
     double _rmax;
-    ///length of radius interval
+
+    /// Length of radius interval
     double _interval;
-    ///One minus Psi radius
+
+    /// One minus Psi radius
     double _r1minPsi;
-    ///ENERGY or SNOWMASS recombination scheme
-    Scheme _distscheme;
+
+    /// Rapidity scheme
+    DeltaRScheme _distscheme;
+
+    /// Number of bins
     size_t _nbins;
+
+    //@}
   };
 
   

@@ -58,11 +58,8 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
 
     // Find vertex and check  that its z-component is < 50 cm from the nominal IP
-    //const PVertex& pv = event.applyProjection(_vertexproj);
-    /// @todo SEGV: either the HepMC event record is not filled properly or the F77-Wrapper functions are faulty
-    // if (fabs(pv.getPrimaryVertex().position().z())/mm > 500.0) {
-    //   vetoEvent(event);
-    // }
+    const PVertex& pv = applyProjection<PVertex>(event, "PV");
+    if (fabs(pv.position().z())/cm > 50.0) vetoEvent(event);
 
     const Jets jets  = jetpro.jetsByPt(40.0*GeV);
     if (jets.size() >= 2) {
@@ -85,15 +82,16 @@ namespace Rivet {
     }
     
     if (pT1/GeV >= 75.0) {
-      const double dphi = delta_phi(jets[0].momentum().azimuthalAngle(), jets[1].momentum().azimuthalAngle());
+      const double weight = event.weight();
+      const double dphi = deltaPhi(jets[0].momentum().phi(), jets[1].momentum().phi());
       if (inRange(pT1/GeV, 75.0, 100.0)) {
-        _histJetAzimuth_pTmax75_100->fill(dphi, event.weight());
+        _histJetAzimuth_pTmax75_100->fill(dphi, weight);
       } else if (inRange(pT1/GeV, 100.0, 130.0)) {
-        _histJetAzimuth_pTmax100_130->fill(dphi, event.weight());
+        _histJetAzimuth_pTmax100_130->fill(dphi, weight);
       } else if (inRange(pT1/GeV, 130.0, 180.0)) {
-        _histJetAzimuth_pTmax130_180->fill(dphi, event.weight());
+        _histJetAzimuth_pTmax130_180->fill(dphi, weight);
       } else if (pT1/GeV > 180.0) {
-        _histJetAzimuth_pTmax180_->fill(dphi, event.weight());
+        _histJetAzimuth_pTmax180_->fill(dphi, weight);
       }
     }
 

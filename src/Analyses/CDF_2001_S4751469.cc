@@ -106,16 +106,16 @@ namespace Rivet {
     foreach (const Jet& j, jets) {
       foreach (const FourMomentum& p, j) {
         // Calculate Delta(phi) from leading jet
-        const double deltaPhi = delta_phi(p.azimuthalAngle(), phiLead);
+        const double dPhi = deltaPhi(p.azimuthalAngle(), phiLead);
         
         // Get pT sum and multiplicity values for each region 
         // (each is 1 number for each region per event)
         /// @todo Include event weight factor?
-        if (deltaPhi < PI/3.0) {
+        if (dPhi < PI/3.0) {
           ptSumToward += p.pT();
           ++numToward;
 
-        } else if (deltaPhi < 2*PI/3.0) {
+        } else if (dPhi < 2*PI/3.0) {
           ptSumTrans += p.pT();
           ++numTrans;
           // Fill transverse pT distributions

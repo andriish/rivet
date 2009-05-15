@@ -1,3 +1,18 @@
+2009-05-15  Andy Buckley  <andy@insectnation.org>
+
+	* Using Jet rather than FastJet::PseudoJet where possible, as it
+	means that the phi ranges match up nicely between Particle and the
+	Jet object. The FastJet objects are only really needed if you want
+	to do detailed things like look at split/merge scales for
+	e.g. diff jet rates or "y-split" analyses.
+
+	* Tidying and debugging CDF jet shape analyses and jet shape
+	plugin... ongoing, but I think I've found at least one real bug,
+	plus a lot of stuff that can be done a lot more nicely.
+
+	* Fully removing deprecated math functions and updating affected
+	analyses.
+
 2009-05-14  Andy Buckley  <andy@insectnation.org>
 
 	* Removing redundant rotation in DISKinematics... this was a

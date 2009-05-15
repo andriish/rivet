@@ -5,82 +5,105 @@
 namespace Rivet {
 
 
+  /// Constructor.
+  JetShape::JetShape(const VetoedFinalState& vfsp, 
+                     const vector<FourMomentum>& jetaxes, 
+                     double rmin, double rmax, double interval, 
+                     double r1minPsi, DeltaRScheme distscheme)
+    : _jetaxes(jetaxes), 
+      _rmin(rmin), _rmax(rmax), _interval(interval), 
+      _r1minPsi(r1minPsi), _distscheme(distscheme)
+  {
+    setName("JetShape");
+    _nbins = int(round((rmax-rmin)/interval));
+    addProjection(vfsp, "FS");
+  }
+
+
   int JetShape::compare(const Projection& p) const {
     PCmp fscmp = mkNamedPCmp(p, "FS");
     if (fscmp == PCmp::EQUIVALENT) return PCmp::EQUIVALENT;
     const JetShape& other = dynamic_cast<const JetShape&>(p);
-    return cmp(_jetaxes.size(), other._jetaxes.size());
-    /// @todo Add proper comparison of vecs
-    // for (size_t i = 0; i < _jetaxes.size(); ++i) {
-    //   if (_jetaxes[i] != other._jetaxes[i]) return 1;
-    // }
+    PCmp sizecmp = cmp(_jetaxes.size(), other._jetaxes.size());
+    if (sizecmp == PCmp::EQUIVALENT) return PCmp::EQUIVALENT;
+    // Check that each axis vector has an equivalent in the other set
+    foreach (const FourMomentum& j1, _jetaxes) {
+      bool match = false;
+      foreach (const FourMomentum& j2, other._jetaxes) {
+        if (isZero(angle(j1, j2)) && fuzzyEquals(j1.mod2(), j1.mod2())) {
+          match = true;
+          break;
+        }
+        if (!match) return PCmp::UNDEFINED;
+      }
+    }
+    return PCmp::EQUIVALENT;
   }
 
 
-  void JetShape::project(const Event& e) {
-    // Clear for each event and resize with zero vectors
+  void JetShape::clear() {
+    // Reset vectors for each event
     _diffjetshapes.clear();
     _intjetshapes.clear();
     for (size_t i = 0; i < _jetaxes.size(); ++i) {
-      vector<double> tmp(_nbins, 0.0);
+      const vector<double> tmp(_nbins, 0.0);
       _diffjetshapes.push_back(tmp);
       _intjetshapes.push_back(tmp);
     }
     _PsiSlot.clear();
     _PsiSlot.resize(_jetaxes.size(), 0.0);
+  }
 
-    // Determine jet shapes
-    double y1, y2, eta1, eta2, phi1, phi2, drad;
-    double dradmin = TWOPI;
-    int dradminind = 0;
+
+  void JetShape::project(const Event& e) {
+    // Reset for new event
+    clear();
+
     if (_jetaxes.size() > 0) {
       const VetoedFinalState& vfs = applyProjection<VetoedFinalState>(e, "FS");
-      for (ParticleVector::const_iterator p = vfs.particles().begin(); p != vfs.particles().end(); ++p) {
+      foreach (const Particle& p, vfs.particles()) {
+        double drad_min = TWOPI;
+        size_t i_drad_min = 0;
+        
+        // Identify "best match" jet axis for this particle
         for (size_t j = 0; j < _jetaxes.size(); ++j) {
-          y1 = _jetaxes[j].rapidity();
-          y2 = p->momentum().rapidity();
-          eta1 = _jetaxes[j].vector3().pseudorapidity();
-          eta2 = p->momentum().vector3().pseudorapidity();
-          phi1 = _jetaxes[j].vector3().azimuthalAngle();
-          phi2 = p->momentum().vector3().azimuthalAngle();
-          
-          if (_distscheme == SNOWMASS) {
-            drad = delta_rad(eta1, phi1, eta2, phi2);
-          } else { // _distscheme = ENERGY
-            drad = delta_rad(y1, phi1, y2, phi2);
-          }
-          
-          if (j == 0 || drad < dradmin) {
-            dradminind = j;
-            dradmin = drad;
+          const double drad = deltaR(_jetaxes[j], p.momentum(), _distscheme);
+          if (drad < drad_min) {
+            i_drad_min = j;
+            drad_min = drad;
           }
         }
 
+        // Fill diff & int jet shape histos for closest jet axis
         for (size_t i = 0; i < _nbins; ++i) {
-          if (dradmin < _rmin+(i+1)*_interval) {
-            _intjetshapes[dradminind][i] += p->momentum().vector3().polarRadius();
-            if (dradmin > _rmin+i*_interval) {
-              _diffjetshapes[dradminind][i] += p->momentum().vector3().polarRadius()/_interval;
+          if (drad_min < _rmin+(i+1)*_interval) {
+            _intjetshapes[i_drad_min][i] += p.momentum().pT();
+            if (drad_min > _rmin+i*_interval) {
+              _diffjetshapes[i_drad_min][i] += p.momentum().pT()/_interval;
             }
           }
         }
-        
-        if (dradmin < _r1minPsi) {
-          _PsiSlot[dradminind] += p->momentum().vector3().polarRadius();
+
+        // Sum pT of closest match jet axes for dr < _r1minPsi
+        if (drad_min < _r1minPsi) {
+          _PsiSlot[i_drad_min] += p.momentum().pT();
         }
+
       }
      
       
       // Normalize to total pT
       for (size_t j = 0; j < _jetaxes.size(); j++) {
-        if (_intjetshapes[j][_nbins-1] > 0.) {
-          _PsiSlot[j] /= _intjetshapes[j][_nbins-1];
+        const double psimax = _intjetshapes[j][_nbins-1];
+        if (psimax > 0.0) {
+          _PsiSlot[j] /= psimax;
           for (size_t i = 0; i < _nbins; ++i) {
-            _diffjetshapes[j][i] /= _intjetshapes[j][_nbins-1];
-            _intjetshapes[j][i] /= _intjetshapes[j][_nbins-1];
+            _diffjetshapes[j][i] /= psimax;
+            _intjetshapes[j][i] /= psimax;
           }
         }
       }
+
       
     }
   }

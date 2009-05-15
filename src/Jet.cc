@@ -137,9 +137,7 @@ namespace Rivet {
   
   void Jet::_calcMomVector() const {
     if (!_okMomentum) {
-      //cout << "Before: " << _momentum << endl;
       _momentum = accumulate(begin(), end(), FourMomentum());
-      //cout << "After: " << _momentum << endl;
       _okMomentum = true;
     }
   }
