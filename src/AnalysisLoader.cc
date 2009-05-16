@@ -51,8 +51,7 @@ namespace Rivet {
   }
 
 
-  AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromFile(const string& filename, AnalysisBuilders& builders) {      
-    //cout << "Trying " << filename << endl;
+  AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromFile(const string& filename, AnalysisBuilders& builders) {
     void* handle = dlopen((filename).c_str(), RTLD_LAZY); 
     if (!handle) {
       cerr << "Cannot open " << filename << ": " << dlerror() << endl;
@@ -117,7 +116,6 @@ namespace Rivet {
   
   AnalysisBuilders& AnalysisLoader::loadAnalysisBuildersFromDirs(const vector<string>& dirnames, AnalysisBuilders& builders) {
     foreach (const string& d, dirnames) {
-      //cout << d << endl;
       loadAnalysisBuildersFromDir(d, builders);
     }
     return builders;
@@ -129,7 +127,6 @@ namespace Rivet {
     char* env = 0;
     
     // Always (try to) use the Rivet library install path
-    //cout << "** LIBS = " << getLibPath() << endl;
     dirs.push_back(getLibPath());
     
     // Then use the Rivet analysis path variable

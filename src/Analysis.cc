@@ -285,7 +285,6 @@ namespace Rivet {
 
 
 
-  /// @todo Convert to auto-book?
   IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title,
                                             const string& xtitle, const string& ytitle) {
     _makeHistoDir();

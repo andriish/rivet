@@ -1,4 +1,13 @@
+2009-05-16  Andy Buckley  <andy@insectnation.org>
+
+	* Adding an "open" FinalState, which is only calculated once per
+	even, then used by all other FSes, avoiding the loop over
+	non-status 1 particles.
+
 2009-05-15  Andy Buckley  <andy@insectnation.org>
+
+	* Removing incorrect setting of DPS x-errs in CDF_2008 jet shape
+	analysis: the DPS autobooking already gets this bit right.
 
 	* Using Jet rather than FastJet::PseudoJet where possible, as it
 	means that the phi ranges match up nicely between Particle and the

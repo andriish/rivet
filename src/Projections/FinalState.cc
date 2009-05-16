@@ -5,6 +5,41 @@
 
 namespace Rivet {
 
+
+  FinalState::FinalState(double mineta, double maxeta, double minpt)
+    : _ptmin(minpt)
+  {
+    setName("FinalState");
+    const bool openpt = isZero(minpt);
+    const bool openeta = (mineta <= -MaxRapidity && maxeta >= MaxRapidity);
+    getLog() << Log::TRACE << "Check for open FS conditions:" << std::boolalpha
+             << " eta="  << openeta 
+             << ", pt=" << openpt << endl;
+    if (!openeta || !openpt) {
+      addProjection(FinalState(), "OpenFS");    
+      if (!openeta) {
+        _etaRanges.push_back(make_pair(mineta, maxeta));
+      }
+    }
+  }
+  
+  
+  FinalState::FinalState(const std::vector<std::pair<double, double> >& etaRanges, double minpt)
+    : _etaRanges(etaRanges), _ptmin(minpt)
+  { 
+    setName("FinalState");
+    const bool openpt = isZero(minpt);
+    /// @todo Properly check whether any of these eta ranges (or their combination) are actually open
+    const bool openeta = etaRanges.empty();
+    getLog() << Log::TRACE << "Check for open FS conditions:" << std::boolalpha
+             << " eta="  << openeta 
+             << ", pt=" << openpt << endl;
+    if (!openeta || !openpt) {
+      addProjection(FinalState(), "OpenFS");
+    }
+  }
+
+
   int FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
 
@@ -21,43 +56,57 @@ namespace Rivet {
 
 
   void FinalState::project(const Event& e) {
-    Log& log = getLog();
     _theParticles.clear();
 
-    for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin();
-         p != e.genEvent().particles_end(); ++p) {
-      // Only include particles which are final state (status = 1) and which
-      // pass the eta and phi cuts. The eta cut is pre-tested by checking if the
-      // x and y components of the momentum are non-zero since the vectors might
-      // throw an exception otherwise.
-      const bool passed = accept(**p);  //GIULIO
-      if (log.isActive(Log::TRACE)) {
-        log << Log::TRACE << std::boolalpha 
-            << "ID = " << (*p)->pdg_id() << ", status = " << (*p)->status() << ", pT = " << (*p)->momentum().perp() 
-            << ", eta = " << (*p)->momentum().eta() << ": result = " << passed << endl;
+    // Handle "open FS" special case
+    if (_etaRanges.empty() && _ptmin == 0) {
+      getLog() << Log::TRACE << "Open FS processing: should only see this once per event (" 
+               << e.genEvent().event_number() << ")" << endl;
+      for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin(); 
+           p != e.genEvent().particles_end(); ++p) {
+        if ((*p)->status() != 1) _theParticles.push_back(Particle(**p));
       }
-      if (passed) _theParticles.push_back(Particle(**p));
+      return;
     }
-    log << Log::DEBUG << "Number of final-state particles = " 
-        << _theParticles.size() << endl;
+
+    // If this is not itself the "open" FS, base the calculations on the open FS' results
+    /// @todo In general, we'd like to calculate a restrictive FS based on the most restricted superset FS.
+    const ParticleVector allstable = applyProjection<FinalState>(e, "OpenFS").particles();
+    foreach (const Particle& p, allstable) {
+      const bool passed = accept(p);
+      if (getLog().isActive(Log::TRACE)) {
+        getLog() << Log::TRACE
+                 << "ID = " << p.pdgId() 
+                 << ", pT = " << p.momentum().pT() 
+                 << ", eta = " << p.momentum().eta() 
+                 << ": result = " << std::boolalpha << passed << endl;
+      }
+      if (passed) _theParticles.push_back(p);
+    }
+    getLog() << Log::DEBUG << "Number of final-state particles = " 
+             << _theParticles.size() << endl;
   }
 
+
   /// Decide if a particle is to be accepted or not.
-  bool FinalState::accept(const GenParticle& p) const {
-    const int st = p.status();
-    if (st!=1) return false;
-    
-    if (_ptmin>0.0) {
-      const double pT = p.momentum().perp();
-      if (pT<_ptmin) return false;
+  bool FinalState::accept(const Particle& p) const {
+    // Not having s.c. == 1 should never happen!
+    assert(p.genParticle().status() != 1);
+
+    // Check pT cut
+    if (_ptmin > 0.0) {
+      const double pT = p.momentum().pT();
+      if (pT < _ptmin) return false;
     }
-    
-    if (_etaRanges.size()>0) {
-      bool eta_pass=false;
+
+    // Check eta cuts 
+    if (!_etaRanges.empty()) {
+      bool eta_pass = false;
       const double eta = p.momentum().eta();
-      for (size_t i=0; i<_etaRanges.size(); ++i) {
-        if (eta>_etaRanges[i].first && eta<_etaRanges[i].second) {
-          eta_pass=true;
+      typedef pair<double,double> EtaPair;
+      foreach (const EtaPair& etacuts, _etaRanges) {
+        if (eta > etacuts.first && eta < etacuts.second) {
+          eta_pass = true;
           break;
         }
       }
@@ -66,5 +115,6 @@ namespace Rivet {
     
     return true;
   }
+
 
 }

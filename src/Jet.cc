@@ -35,7 +35,6 @@ namespace Rivet {
     const int barcode = particle.genParticle().barcode();
     foreach (const Particle& p, _fullParticles) {
       const GenParticle& part = p.genParticle();
-      /// @todo Prefer to compare GenEvent pointers?
       if (part.barcode() == barcode) return true;
     }
     return false;

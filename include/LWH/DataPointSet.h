@@ -360,8 +360,8 @@ public:
   bool writeROOT(TFile* file, std::string path, std::string name) {
 
     if (dimension()!=2) {
-      cout << "DataPointSet.h: writeROOT: dimension!=2, can't write TGraph, "
-      << "choose different file format!" << endl;
+      cerr << "DataPointSet.h: writeROOT: dimension != 2, can't write TGraph, "
+           << "choose different file format!" << endl;
       return false;
     }
     
@@ -376,7 +376,7 @@ public:
       }
     }
     
-    cout << "Writing out TGraph " << name.c_str() << " in ROOT file format" << endl;
+    //cout << "Writing out TGraph " << name.c_str() << " in ROOT file format" << endl;
       
     int N = size();
     

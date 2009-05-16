@@ -498,7 +498,7 @@ namespace LWH {
     //bool writeROOT(std::ostream & os, std::string path, std::string name) {
     bool writeROOT(TFile* file, std::string path, std::string name) {
 
-      std::cout << "Writing out histogram " << name.c_str() << " in ROOT file format" << std::endl;
+      //std::cout << "Writing out histogram " << name.c_str() << " in ROOT file format" << std::endl;
 
       TH1D* hist1d;
       int nbins;

@@ -20,23 +20,12 @@ namespace Rivet {
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     FinalState(double mineta = -MaxRapidity,
                double maxeta =  MaxRapidity,
-               double minpt  =  0.0*GeV)
-      : _ptmin(minpt)
-    { 
-      setName("FinalState");
-      if (mineta!=-MaxRapidity || maxeta!=MaxRapidity) {
-        _etaRanges.push_back(make_pair(mineta, maxeta));
-      }
-    }
+               double minpt  =  0.0*GeV);
     
     /// A constructor which allows to specify multiple eta ranges
     /// and the min \f$ p_T \f$ (in GeV).
     FinalState(const std::vector<std::pair<double, double> >& etaRanges,
-               double minpt  =  0.0*GeV)
-      : _etaRanges(etaRanges), _ptmin(minpt)
-    { 
-      setName("FinalState");
-    }
+               double minpt  =  0.0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -76,7 +65,7 @@ namespace Rivet {
     virtual int compare(const Projection& p) const;
 
     /// Decide if a particle is to be accepted or not.
-    bool accept(const GenParticle& p) const;
+    bool accept(const Particle& p) const;
 
     
   protected:
