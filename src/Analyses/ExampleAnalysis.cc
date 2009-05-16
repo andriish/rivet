@@ -13,8 +13,8 @@ namespace Rivet {
 
   // Constructor
   ExampleAnalysis::ExampleAnalysis() {
-    const FinalState cnfs;
-    const ChargedFinalState cfs;
+    const FinalState cnfs(-4, 4, 2*GeV);
+    const ChargedFinalState cfs(-4, 4, 2*GeV);
     addProjection(cnfs, "FS");
     addProjection(cfs, "CFS");
     addProjection(Multiplicity(cfs), "CMult");

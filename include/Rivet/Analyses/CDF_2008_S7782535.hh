@@ -126,8 +126,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IProfile1D* _Psi_pT[4];
-    AIDA::IDataPointSet* _OneMinusPsi_vs_pT;
+    AIDA::IProfile1D* _h_Psi_pT[4];
+    AIDA::IDataPointSet* _h_OneMinusPsi_vs_pT;
     //@}
 
   };

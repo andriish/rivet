@@ -120,10 +120,9 @@ namespace Rivet {
     FastJets jetpro(fs, FastJets::CDFMIDPOINT, 0.7);
     jetpro.calc(jetparts);
 
-    // Take jets with pt > 30, |y| < 2.1:
+    // Take jets with pt > 30, |eta| < 2.1:
     /// @todo Make this neater, using the JetAlg interface and the built-in sorting
     const Jets& jets = jetpro.jets();
-    //std::cout<<"jets.size()="<<jets.size()<<std::endl;
     Jets jets_cut;
     foreach (const Jet& j, jets) {
       if (j.momentum().pT()/GeV > 30.0 && fabs(j.momentum().pseudorapidity()) < 2.1) {
@@ -133,9 +132,8 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Num jets above 30 GeV = " << jets_cut.size() << endl;
 
     // Return if there are no jets:
-    if(jets_cut.size()<1) {
-      getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-               << " because no jets pass cuts " << endl;
+    if (jets_cut.empty()) {
+      getLog() << Log::DEBUG << "No jets pass cuts " << endl;
       vetoEvent(event);
     }
 
