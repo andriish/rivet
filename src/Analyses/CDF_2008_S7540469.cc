@@ -50,7 +50,7 @@ namespace Rivet {
     if (fs.isEmpty()) {
       getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                << " because no final state pair found " << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
     
     // Find the Z candidates
@@ -85,7 +85,7 @@ namespace Rivet {
     if (Z_candidates.size() != 1) {
       getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                << " because no unique electron pair found " << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Now build the jets on a FS without the electrons from the Z
@@ -134,7 +134,7 @@ namespace Rivet {
     // Return if there are no jets:
     if (jets_cut.empty()) {
       getLog() << Log::DEBUG << "No jets pass cuts " << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Sort by pT:
@@ -145,12 +145,12 @@ namespace Rivet {
       Particle el=Z_candidates[0].first;
       if (deltaR(el.momentum().pseudorapidity(), el.momentum().azimuthalAngle(),
                  j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.7) {
-        vetoEvent(event);
+        vetoEvent;
       }
       el=Z_candidates[0].second;
       if (deltaR(el.momentum().pseudorapidity(), el.momentum().azimuthalAngle(),
                  j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.7) {
-        vetoEvent(event);
+        vetoEvent;
       }
     }
 

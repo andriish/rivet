@@ -91,7 +91,7 @@ namespace Rivet {
     
     // Veto event if the electron or MET cuts fail
     if (!gotElectron || !gotNeutrino) {
-      vetoEvent(event);
+      vetoEvent;
     }
     // Veto event if the MTR cut fails
     double mT2 = 
@@ -99,7 +99,7 @@ namespace Rivet {
 	    electronP.px() * neutrinoP.px() -
 	    electronP.py() * neutrinoP.py() );
     if (sqrt(mT2) < _mTCut ) {
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Get the jets

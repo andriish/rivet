@@ -71,7 +71,7 @@ namespace Rivet {
     // Skip if the event is empty
     const FinalState& fs = applyProjection<FinalState>(event, "FS");
     if (fs.isEmpty()) {
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Check that the primary vertex is within 60 cm in z from (0,0,0)
@@ -79,7 +79,7 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Primary vertex is at " << vertex.position()/cm << " cm" << endl;
     if (fabs(vertex.position().z())/cm > 60) {
       getLog() << Log::DEBUG << "Vertex z-position " << vertex.position().z()/cm << " is outside cuts" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Find the Z candidates
@@ -87,7 +87,7 @@ namespace Rivet {
     // If there is no Z candidate in the FinalState, skip the event
     if (invmassfs.particles().size() != 2) {
       getLog() << Log::DEBUG << "No Z candidate found" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Now build the list of jets on a FS without the electrons from Z

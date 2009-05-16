@@ -88,7 +88,7 @@ namespace Rivet {
     
     const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
     if (zfinder.particles().size()!=1) {
-      vetoEvent(e);
+      vetoEvent;
     }
     const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
 

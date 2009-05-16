@@ -64,7 +64,7 @@ namespace Rivet {
     const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
     if (fsj.particles().empty()) {
       getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
 
     const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
@@ -74,7 +74,7 @@ namespace Rivet {
     // We require the leading jet to be within |eta| < 2
     if (jets.size() < 1 || fabs(jets[0].momentum().pseudorapidity()) > 2) {
       getLog() << Log::DEBUG << "Failed jet cut" << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
     
     const double jetphi = jets[0].momentum().phi();

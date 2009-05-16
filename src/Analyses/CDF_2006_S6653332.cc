@@ -63,7 +63,7 @@ namespace Rivet {
     const ParticleVector&  ZDecayProducts =  invMassFinalState.particles();
 
     // make sure we have 2 Z decay products (mumu or ee) 
-    if (ZDecayProducts.size() < 2) vetoEvent(event);
+    if (ZDecayProducts.size() < 2) vetoEvent;
 
     _sumWeightsWithZ += event.weight();
 

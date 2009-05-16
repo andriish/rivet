@@ -56,7 +56,7 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(event, "FS");
     if (fs.isEmpty()) {
       getLog() << Log::DEBUG << "Empty event!" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Find the jets
@@ -64,7 +64,7 @@ namespace Rivet {
     // If there are no jets, skip the event
     if (jetpro.jets().size() == 0) {
       getLog() << Log::DEBUG << "No jets found" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Fill histo for each jet

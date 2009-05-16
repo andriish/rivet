@@ -31,7 +31,7 @@ namespace Rivet {
     const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
     if (zfinder.particles().size() != 1) {
       getLog() << Log::DEBUG << "No unique e+e- pair found" << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
 
     FourMomentum pZ = zfinder.particles()[0].momentum();    

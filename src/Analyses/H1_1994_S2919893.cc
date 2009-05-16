@@ -59,7 +59,7 @@ namespace Rivet {
     // Lepton energy and angle, w2 and forward energy
     getLog()<<Log::DEBUG<<"enel/GeV = "<<enel/GeV<<", thel = "<<thel<<", w2 = "<<w2<<", efwd/GeV = "<<efwd/GeV<<std::endl;
     bool cut = enel/GeV > 14. && thel > 157. && thel < 172.5 && w2 >= 3000. && efwd/GeV > 0.5;
-    if (!cut) vetoEvent(event);
+    if (!cut) vetoEvent;
 
     // Weight of the event
     const double weight = event.weight();

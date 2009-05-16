@@ -31,7 +31,7 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
     if (jets.size() < 1) {
       getLog() << Log::DEBUG << "Failed jet multiplicity cut" << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
 
     // Email sent to authors:

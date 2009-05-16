@@ -61,7 +61,7 @@ namespace Rivet {
       if(jets_cut.size()<1) {
         getLog() << Log::DEBUG << "Skipping event " << e.genEvent().event_number()
             << " because no jets pass cuts " << endl;
-        vetoEvent(e);
+        vetoEvent;
       }
       
       // cut on Delta R between jet and muons
@@ -69,7 +69,7 @@ namespace Rivet {
         foreach (const Particle& mu, zfinder.constituentsFinalState().particles()) {
           if (deltaR(mu.momentum().pseudorapidity(), mu.momentum().azimuthalAngle(),
                      j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.5) {
-            vetoEvent(e);
+            vetoEvent;
           }
         }
       }

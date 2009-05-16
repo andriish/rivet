@@ -118,7 +118,7 @@ namespace Rivet {
     }
     else {
       getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
   }
 

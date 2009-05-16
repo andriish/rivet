@@ -80,7 +80,7 @@ namespace Rivet {
     // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
     if (numParticles < 1) {
       getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
 
     // Get the event weight
@@ -92,17 +92,17 @@ namespace Rivet {
     // We want exactly two leptons of the same flavour.
     getLog() << Log::DEBUG << "lepton multiplicity = " << leptons.size() << endl;
     if (leptons.size() != 2 || leptons[0].pdgId() != -leptons[1].pdgId() )
-      vetoEvent(e);
+      vetoEvent;
 
     // Lepton pT > 20 GeV
     if (leptons[0].momentum().pT() <= 20 || leptons[1].momentum().pT() <= 20)
-      vetoEvent(e);
+      vetoEvent;
 
     FourVector dilepton = leptons[0].momentum() + leptons[1].momentum();
 
     // Lepton pair should have an invariant mass between 70 and 110 and |eta|<6
     if (mass(dilepton) < 70 || mass(dilepton) > 110 || fabs(pseudorapidity(dilepton)) >= 6)
-      vetoEvent(e);
+      vetoEvent;
     getLog() << Log::DEBUG << "dilepton mass = " << mass(dilepton) << endl;
     getLog() << Log::DEBUG << "dilepton pT   = " << pT(dilepton) << endl;
 

@@ -75,7 +75,7 @@ namespace Rivet {
     // Get jets, sorted by pT
     const Jets jets = tj.jetsByPt();
     if (jets.empty()) { 
-      vetoEvent(event); 
+      vetoEvent; 
     }
 
     Jet leadingJet = jets.front();
@@ -83,8 +83,8 @@ namespace Rivet {
     const double ptLead = leadingJet.ptSum();
 
     // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
-    if (ptLead/GeV < 0.5) vetoEvent(event);
-    if (ptLead/GeV > 50.0) vetoEvent(event);
+    if (ptLead/GeV < 0.5) vetoEvent;
+    if (ptLead/GeV > 50.0) vetoEvent;
 
     // Get the event weight
     const double weight = event.weight();

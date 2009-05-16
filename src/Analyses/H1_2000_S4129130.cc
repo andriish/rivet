@@ -75,7 +75,7 @@ namespace Rivet {
 
     // Veto if fails all cuts
     if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3]) ) {
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Find the bins

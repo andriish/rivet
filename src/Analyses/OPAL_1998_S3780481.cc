@@ -33,7 +33,7 @@ namespace Rivet {
     // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
     if (numParticles < 2) {
       getLog() << Log::DEBUG << "Failed ncharged cut" << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
     getLog() << Log::DEBUG << "Passed ncharged cut" << endl;
 

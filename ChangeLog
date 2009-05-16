@@ -1,5 +1,9 @@
 2009-05-16  Andy Buckley  <andy@insectnation.org>
 
+	* Removing argument to vetoEvent macro, since no weight
+	subtraction is now needed. It's now just an annotated return, with
+	built-in debug log message.
+
 	* Adding an "open" FinalState, which is only calculated once per
 	even, then used by all other FSes, avoiding the loop over
 	non-status 1 particles.

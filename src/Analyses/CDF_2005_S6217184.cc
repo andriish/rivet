@@ -70,7 +70,7 @@ namespace Rivet {
     // Find primary vertex and veto on its separation from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
     if (fabs(pv.position().z())/mm > 600) {
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Get jets and require at least one to pass pT and y cuts
@@ -83,13 +83,13 @@ namespace Rivet {
         jetcutpass = true;
       }
     }
-    if (!jetcutpass) vetoEvent(event);
+    if (!jetcutpass) vetoEvent;
 
     // Check there's not too much missing Et
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
     getLog() << Log::DEBUG << "CaloMissEt.momentum().pT() = " << caloMissEt.momentum().pT() << endl;
     if ((caloMissEt.momentum().pT()/GeV) / sqrt(caloMissEt.scalarET()/GeV) > 3.5) {
-      vetoEvent(event);
+      vetoEvent;
     }
     
     // Determine the central jet axes

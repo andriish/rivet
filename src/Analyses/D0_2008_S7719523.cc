@@ -61,18 +61,18 @@ namespace Rivet {
     const FinalState& photonfs = applyProjection<FinalState>(event, "LeadingPhoton");
     if (photonfs.particles().size() != 1) {
       getLog() << Log::DEBUG << "No photon found" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
     const FourMomentum photon = photonfs.particles().front().momentum();
     if (photon.pT()/GeV < 30) {
       getLog() << Log::DEBUG << "Leading photon has pT < 30 GeV: " << photon.pT()/GeV << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Get all charged particles
     const FinalState& fs = applyProjection<FinalState>(event, "JetFS");
     if (fs.isEmpty()) {
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
@@ -86,7 +86,7 @@ namespace Rivet {
         // Veto as soon as E_cone gets larger
         if (econe/egamma > 0.07) {
           getLog() << Log::DEBUG << "Vetoing event because photon is insufficiently isolated" << endl;
-          vetoEvent(event);
+          vetoEvent;
         }
       }
     }
@@ -109,7 +109,7 @@ namespace Rivet {
              << isolated_jets.size() << endl;
     if (isolated_jets.empty()) {
       getLog() << Log::DEBUG << "No jets pass cuts" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Sort by pT and get leading jet
@@ -122,7 +122,7 @@ namespace Rivet {
     if (inRange(abs_y1, 0.8, 1.5) || abs_y1 > 2.5) {
       getLog() << Log::DEBUG << "Leading jet falls outside acceptance range; |y1| = " 
                << abs_y1 << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Fill histos

@@ -13,7 +13,7 @@ namespace Rivet {
   Analysis::Analysis() 
     : _analysishandler(0),
       _madeHistoDir(false)
-  { 
+  {
     _gotCrossSection = false;
     setBeams(ANY, ANY);
     setNeedsCrossSection(false);

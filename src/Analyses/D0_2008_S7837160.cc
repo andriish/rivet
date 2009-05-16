@@ -59,7 +59,7 @@ namespace Rivet {
     // If there is no e/nu_e pair in the FinalState, skip the event
     if (efs.particles().size() < 1 || nufs.particles().size() < 1) {
       getLog() << Log::DEBUG << "No e/nu_e pair found " << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Identify leading nu and electron
@@ -75,7 +75,7 @@ namespace Rivet {
     const FourMomentum nu = leading_nu.momentum();
     if (nu.Et()/GeV < 25) {
       getLog() << Log::DEBUG << "Neutrino fails Et cut" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Get "raw" electron 4-momentum and add back in photons that could have radiated from the electron
@@ -95,7 +95,7 @@ namespace Rivet {
     // Require that the electron has Et > 25 GeV
     if (e.Et()/GeV < 25) {
       getLog() << Log::DEBUG << "Electron fails Et cut" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
 

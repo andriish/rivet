@@ -87,7 +87,7 @@ namespace Rivet {
     const CentralEtHCM y1 = applyProjection<CentralEtHCM>(event, "Y1HCM");
 
     const int ibin = _getbin(dk);
-    if (ibin < 0) vetoEvent(event);
+    if (ibin < 0) vetoEvent;
     const double weight = event.weight();
 
     for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {

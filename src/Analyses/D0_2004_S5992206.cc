@@ -59,18 +59,18 @@ namespace Rivet {
 
     // Find vertex and check  that its z-component is < 50 cm from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
-    if (fabs(pv.position().z())/cm > 50.0) vetoEvent(event);
+    if (fabs(pv.position().z())/cm > 50.0) vetoEvent;
 
     const Jets jets  = jetpro.jetsByPt(40.0*GeV);
     if (jets.size() >= 2) {
       getLog() << Log::DEBUG << "Jet multiplicity after pT > 40 GeV cut = " << jets.size() << endl; 
     } else {
-      vetoEvent(event);
+      vetoEvent;
     }
     const double rap1 = jets[0].momentum().rapidity();
     const double rap2 = jets[1].momentum().rapidity();
     if (fabs(rap1) > 0.5 || fabs(rap2) > 0.5) {
-      vetoEvent(event);
+      vetoEvent;
     }
     getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
     const double pT1 = jets[0].momentum().pT();
@@ -78,7 +78,7 @@ namespace Rivet {
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
     getLog() << Log::DEBUG << "Missing Et = " << caloMissEt.momentum().pT()/GeV << endl;
     if (caloMissEt.momentum().pT() > 0.7*pT1) {
-      vetoEvent(event);
+      vetoEvent;
     }
     
     if (pT1/GeV >= 75.0) {

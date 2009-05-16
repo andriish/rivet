@@ -34,7 +34,7 @@ namespace Rivet {
     if (fs.isEmpty()) {
       getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                << " because no final state found " << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     foreach (const Particle& tp, fs.particles()) {

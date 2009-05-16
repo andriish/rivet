@@ -126,26 +126,26 @@ namespace Rivet {
     // Find vertex and check  that its z-component is < 60 cm from the nominal IP
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
     if (fabs(pv.position().z())/mm > _pvzmax) {
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Check there isn't too much missing Et
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
     getLog() << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT()/GeV << " GeV" << endl;      
     if ((caloMissEt.momentum().pT()/GeV) / sqrt(caloMissEt.scalarET()/GeV) > _metsetmax) {
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Check jet requirements
-    if (jets.size() < 3) vetoEvent(event);
-    if (jets[0].momentum().pT()/GeV < 100) vetoEvent(event);
+    if (jets.size() < 3) vetoEvent;
+    if (jets[0].momentum().pT()/GeV < 100) vetoEvent;
 
     // More jet 1,2,3 checks
     FourMomentum pj1(jets[0].momentum()), pj2(jets[1].momentum()), pj3(jets[2].momentum());
-    if (fabs(pj1.eta()) > _etamax || fabs(pj2.eta()) > _etamax) vetoEvent(event);
+    if (fabs(pj1.eta()) > _etamax || fabs(pj2.eta()) > _etamax) vetoEvent;
     getLog() << Log::DEBUG << "Jet 1 & 2 eta, pT requirements fulfilled" << endl;          
 
-    if (deltaPhi(pj1.phi(), pj2.phi()) > _phimin) vetoEvent(event);
+    if (deltaPhi(pj1.phi(), pj2.phi()) > _phimin) vetoEvent;
     getLog() << Log::DEBUG << "Jet 1 & 2 phi requirement fulfilled" << endl;
 
     const double weight = event.weight();
@@ -155,7 +155,7 @@ namespace Rivet {
     _histJet3eta->fill(pj3.eta(), weight);
                         
     // Next cut only required for alpha studies
-    if (pj3.pT() < _3rdJetPt) vetoEvent(event);
+    if (pj3.pT() < _3rdJetPt) vetoEvent;
     getLog() << Log::DEBUG << "3rd jet passes alpha histo pT cut" << endl;      
     _events3jPassed += weight;
 

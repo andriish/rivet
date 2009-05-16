@@ -42,7 +42,7 @@ namespace Rivet {
     // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
     if (numParticles < 1) {
       getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
-      vetoEvent(e);
+      vetoEvent;
     }
 
     // Get the event weight

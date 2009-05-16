@@ -65,7 +65,7 @@ namespace Rivet {
     }
     if (bquarks.empty()) { 
       getLog() << Log::DEBUG << "No b-quarks, exiting" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Get jets     
@@ -85,7 +85,7 @@ namespace Rivet {
     }
     if (_jetaxes.empty())  {
       getLog() << Log::DEBUG << "No jet axes in acceptance" << endl;
-      vetoEvent(event);
+      vetoEvent;
     }
 
     // Determine jet shapes
