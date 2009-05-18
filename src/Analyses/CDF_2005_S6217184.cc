@@ -67,12 +67,6 @@ namespace Rivet {
   
   // Do the analysis
   void CDF_2005_S6217184::analyze(const Event& event) {
-    // Find primary vertex and veto on its separation from the nominal IP
-    /// @todo Not required for MC: remove
-    const PVertex& pv = applyProjection<PVertex>(event, "PV");
-    if (fabs(pv.position().z())/mm > 600) {
-      vetoEvent;
-    }
 
     // Get jets and require at least one to pass pT and y cuts
     const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
@@ -86,14 +80,6 @@ namespace Rivet {
     }
     if (!jetcutpass) vetoEvent;
 
-    // Check there's not too much missing Et
-    /// @todo Not required for MC: remove
-    const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-    getLog() << Log::DEBUG << "CaloMissEt.momentum().pT() = " << caloMissEt.momentum().pT() << endl;
-    if ((caloMissEt.momentum().pT()/GeV) / sqrt(caloMissEt.scalarET()/GeV) > 3.5) {
-      vetoEvent;
-    }
-    
     // Determine the central jet axes
     _jetaxes.clear();
     foreach (const Jet& jt, jets) {
