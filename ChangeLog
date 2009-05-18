@@ -1,3 +1,7 @@
+2009-05-18  Andy Buckley  <andy@insectnation.org>
+
+	* Adding use of gsl-config in configure script.
+
 2009-05-16  Andy Buckley  <andy@insectnation.org>
 
 	* Removing argument to vetoEvent macro, since no weight

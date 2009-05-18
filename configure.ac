@@ -50,6 +50,15 @@ AC_SUBST([LIB_SUFFIX])
 ## GNU Scientific Library
 AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
+GSL_LDFLAGS="-l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME)"
+GSL_CXXFLAGS=
+AC_PATH_PROG(GSLCONFIG, gsl-config, [], [$PATH:$GSLPATH/bin])
+if test -f "$GSLCONFIG"; then
+  GSL_LDFLAGS=`$GSLCONFIG --libs`
+  GSL_CXXFLAGS=`$GSLCONFIG --cflags`
+fi
+AC_SUBST(GSL_CXXFLAGS)
+AC_SUBST(GSL_LDFLAGS)
 
 ## Boost C++ header library
 AC_CEDAR_HEADERS([Boost], , , [AC_MSG_ERROR([Boost is required])])

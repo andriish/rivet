@@ -18,5 +18,4 @@ FASTJETLIBADD = $(FASTJETCONFIGLIBADD)
 libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la -ldl -lm \
-  -l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME) \
-  $(FASTJETLIBADD)
+  $(GSL_LDFLAGS) $(FASTJETLIBADD)
