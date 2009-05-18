@@ -112,9 +112,6 @@ namespace Rivet {
     //@{
     vector<FourMomentum> _jetaxes;
 
-    /// @todo Description?
-    double _shapeWeights[18];
-
     /// \f$p_\perp\f$ bins to be distinguished during analysis
     vector<double> _pTbins;
     //@}

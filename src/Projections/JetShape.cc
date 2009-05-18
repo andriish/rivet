@@ -75,6 +75,8 @@ namespace Rivet {
         }
 
         // Fill diff & int jet shape histos for closest jet axis
+        /// @todo Actually use histograms here, rather than doing the binning by hand
+        /// @todo Calculate int jet shape from diff jet shape histo (YODA)
         for (size_t i = 0; i < _nbins; ++i) {
           if (drad_min < _rmin + (i+1)*_interval) {
             _intjetshapes[i_drad_min][i] += p.momentum().pT();
@@ -85,6 +87,7 @@ namespace Rivet {
         }
 
         // Sum pT of closest match jet axes for dr < _r1minPsi
+        /// @todo Calculate int [0.0, 0.3] jet shape from diff jet shape histo (YODA)
         if (drad_min < _r1minPsi) {
           _PsiSlot[i_drad_min] += p.momentum().pT();
         }
