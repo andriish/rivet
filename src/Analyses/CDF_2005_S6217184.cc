@@ -63,11 +63,12 @@ namespace Rivet {
                     "$p_\\perp^\\text{jet}$ / GeV/$c$", "$\\psi(0.3/R)$");
   }
   
-
+  
   
   // Do the analysis
   void CDF_2005_S6217184::analyze(const Event& event) {
     // Find primary vertex and veto on its separation from the nominal IP
+    /// @todo Not required for MC: remove
     const PVertex& pv = applyProjection<PVertex>(event, "PV");
     if (fabs(pv.position().z())/mm > 600) {
       vetoEvent;
@@ -86,6 +87,7 @@ namespace Rivet {
     if (!jetcutpass) vetoEvent;
 
     // Check there's not too much missing Et
+    /// @todo Not required for MC: remove
     const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
     getLog() << Log::DEBUG << "CaloMissEt.momentum().pT() = " << caloMissEt.momentum().pT() << endl;
     if ((caloMissEt.momentum().pT()/GeV) / sqrt(caloMissEt.scalarET()/GeV) > 3.5) {
@@ -95,10 +97,7 @@ namespace Rivet {
     // Determine the central jet axes
     _jetaxes.clear();
     foreach (const Jet& jt, jets) {
-      const FourMomentum pj = jt.momentum();
-      if (fabs(pj.rapidity()) < 1.1) {
-        _jetaxes.push_back(pj);
-      }
+      _jetaxes.push_back(jt.momentum());
     }
     
     // Calculate and histogram jet shapes
@@ -110,8 +109,6 @@ namespace Rivet {
       for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
         for (size_t ipT = 0; ipT < 18; ++ipT) {
           if (_jetaxes[jind].pT() > _pTbins[ipT] && _jetaxes[jind].pT() <= _pTbins[ipT+1]) {
-            /// @todo Is this not being used?
-            _shapeWeights[ipT] += weight;
             for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
               const double rad_Rho = js.rMin() + (rbin+0.5)*js.interval();
               _profhistRho_pT[ipT]->fill(rad_Rho/R_JET, js.diffJetShape(jind, rbin), weight);
@@ -130,7 +127,7 @@ namespace Rivet {
 
   // Finalize
   void CDF_2005_S6217184::finalize() {  
-    /// @todo Do the shape weighting?
+    //
   }
   
   

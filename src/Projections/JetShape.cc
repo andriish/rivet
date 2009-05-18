@@ -59,7 +59,7 @@ namespace Rivet {
     // Reset for new event
     clear();
 
-    if (_jetaxes.size() > 0) {
+    if (!_jetaxes.empty()) {
       const VetoedFinalState& vfs = applyProjection<VetoedFinalState>(e, "FS");
       foreach (const Particle& p, vfs.particles()) {
         double drad_min = TWOPI;
@@ -76,9 +76,9 @@ namespace Rivet {
 
         // Fill diff & int jet shape histos for closest jet axis
         for (size_t i = 0; i < _nbins; ++i) {
-          if (drad_min < _rmin+(i+1)*_interval) {
+          if (drad_min < _rmin + (i+1)*_interval) {
             _intjetshapes[i_drad_min][i] += p.momentum().pT();
-            if (drad_min > _rmin+i*_interval) {
+            if (drad_min > _rmin + i*_interval) {
               _diffjetshapes[i_drad_min][i] += p.momentum().pT()/_interval;
             }
           }
