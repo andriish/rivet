@@ -32,8 +32,8 @@ namespace Rivet {
     addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
 
     // Specify pT bins
-    /// @todo Get these numbers from bundled data files
-    _pTbins += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 ;
+    _pTbins += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 
+      148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
   }
 
 
@@ -44,19 +44,25 @@ namespace Rivet {
     for (size_t i = 0; i < 6; ++i) { 
       for (size_t j = 0; j < 3; ++j) {
         size_t k = i*3 + j;
-        stringstream ss;
-        ss << "Differential jet shape $\\rho$, $p_\\perp$ bin " << k+1;
+        stringstream ptrange;
+        ptrange << "$" << _pTbins[k] << "\\,\\text{GeV}/c < p_\\perp^\\text{jet} < " 
+                << _pTbins[k+1] << "\\,\\text{GeV}/c$";
+
+        stringstream difftitle;
+        difftitle << "Differential jet shape $\\rho$, " << ptrange.str();
         _profhistRho_pT[k] = 
-          bookProfile1D(i+1, 1, j+1, ss.str(), "$r/R$", "$\\rho(r/R)$");
-        ss.str("");
-        ss << "Integral jet shape $\\psi$, $p_\\perp$ bin " << k+1;
+          bookProfile1D(i+1, 1, j+1, difftitle.str(), "$r/R$", "$\\rho(r/R)$");
+
+        stringstream inttitle;
+        inttitle << "Integral jet shape $\\Psi$, " << ptrange.str();
         _profhistPsi_pT[k] = 
-          bookProfile1D(6+i+1, 1, j+1, ss.str(), "$r/R$", "$\\psi(r/R)$");
+          bookProfile1D(6+i+1, 1, j+1, inttitle.str(), "$r/R$", "$\\Psi(r/R)$");
       }
     }    
+
     _profhistPsi = 
-      bookProfile1D(13, 1, 1, "$\\Psi$(0.3 over $R$)",
-                    "$p_\\perp^\\text{jet}$ / GeV/$c$", "$\\psi(0.3/R)$");
+      bookProfile1D(13, 1, 1, "Integral jet shape, $\\Psi$(0.3/$R$), vs. $p_\\perp^\\text{jet}$",
+                    "$p_\\perp^\\text{jet}$ / GeV/$c$", "$\\Psi(0.3/R)$");
   }
   
   
