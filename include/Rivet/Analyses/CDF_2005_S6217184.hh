@@ -9,6 +9,7 @@ namespace Rivet {
 
   /* @brief CDF Run II jet shape analysis
    * @author Lars Sonnenschein
+   * @author Andy Buckley
    */	
   class CDF_2005_S6217184 : public Analysis {
 
@@ -84,6 +85,7 @@ namespace Rivet {
     vector<string> authors() const {
       vector<string> rtn;
       rtn += "Lars Sonnenschein <Lars.Sonnenschein@cern.ch>";
+      rtn += "Andy Buckley <andy.buckley@cern.ch>";
       return rtn;
     }
 
@@ -110,6 +112,8 @@ namespace Rivet {
 
     /// @name Analysis data
     //@{
+
+    /// Vector of jet axes
     vector<FourMomentum> _jetaxes;
 
     /// \f$p_\perp\f$ bins to be distinguished during analysis

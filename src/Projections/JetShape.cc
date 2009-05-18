@@ -24,20 +24,7 @@ namespace Rivet {
     PCmp fscmp = mkNamedPCmp(p, "FS");
     if (fscmp == PCmp::EQUIVALENT) return PCmp::EQUIVALENT;
     const JetShape& other = dynamic_cast<const JetShape&>(p);
-    PCmp sizecmp = cmp(_jetaxes.size(), other._jetaxes.size());
-    if (sizecmp == PCmp::EQUIVALENT) return PCmp::EQUIVALENT;
-    // Check that each axis vector has an equivalent in the other set
-    foreach (const FourMomentum& j1, _jetaxes) {
-      bool match = false;
-      foreach (const FourMomentum& j2, other._jetaxes) {
-        if (isZero(angle(j1, j2)) && fuzzyEquals(j1.mod2(), j1.mod2())) {
-          match = true;
-          break;
-        }
-        if (!match) return PCmp::UNDEFINED;
-      }
-    }
-    return PCmp::EQUIVALENT;
+    return cmp(&_jetaxes, &other._jetaxes);
   }
 
 
