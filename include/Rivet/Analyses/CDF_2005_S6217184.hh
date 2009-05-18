@@ -57,11 +57,11 @@ namespace Rivet {
     string runInfo() const {
       ostringstream os;
       os << "* Energy: sqrt(s) = 1960 GeV\n"
-         << "* Event type: generic QCD events\n"
+         << "* Event type: generic QCD events.\n"
          << "* $\\eta \\in [-2,2]$ cut used on final state.\n"
+         << "* Jet axes must have $|y| \\in [0.1, 0.7]$.\n"
          << "* Jet shape $r \\in [0.0, 0.7]$\n"
-         << "* Radial interval = 0.1, r1minPsi = 0.3\n"
-         << "* TODO: pTmin?";
+         << "* Jet pTmin in plots is 37 GeV/c: choose generator min pT somewhere well below this.";
       return os.str();
     }
 
