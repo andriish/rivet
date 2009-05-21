@@ -275,6 +275,8 @@ class Plot:
             out += ('\\usepackage[osf,sc]{mathpazo}\n')
         elif opts.OUTPUT_FONT == "PALATINO":
             out += ('\\usepackage{mathpazo}\n')
+        elif opts.OUTPUT_FONT == "TIMES":
+            out += ('\\usepackage{mathptmx}\n')
         out += ('\\usepackage{pst-all}\n')
         out += ('\\selectcolormodel{rgb}\n')
         out += ('\\usepackage{amsmath}\n')
@@ -1486,6 +1488,8 @@ TODO
                       help="Use Palatino as font (default).")
     parser.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
                       help="Use Computer Modern as font.")
+    parser.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
+                      help="Use Times as font.")
     parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
                       help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
     parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PS", 
