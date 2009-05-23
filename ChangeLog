@@ -1,3 +1,12 @@
+2009-05-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Using gsl-config to locate libgsl
+
+	* Fix the paths for linking such that our own libraries are found
+	before any system libraries, e.g. for the case that there is an
+	outdated FastJet version installed on the system while we want to
+	use our own up-to-date version.
+
 2009-05-18  Andy Buckley  <andy@insectnation.org>
 
 	* Adding use of gsl-config in configure script.
