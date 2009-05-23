@@ -10,7 +10,7 @@ libRivet_la_SOURCES = \
 
 libRivet_la_CPPFLAGS = $(CPPFLAGS) $(AM_CPPFLAGS)
 
-libRivet_la_LDFLAGS = \
+libRivet_la_LDFLAGS = -L$(prefix)/lib \
   -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) -export-dynamic $(VERSIONINFOFLAGS)
 
 FASTJETLIBADD = $(FASTJETCONFIGLIBADD)
