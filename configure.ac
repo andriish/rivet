@@ -48,15 +48,15 @@ AC_SUBST(RAW_LIB_EXTN)
 AC_SUBST([LIB_SUFFIX])
 
 ## GNU Scientific Library
-AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
-AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
-GSL_LDFLAGS="-l$(GSLLIBNAME) -l$(GSLCBLASLIBNAME)"
-GSL_CXXFLAGS=
 AC_PATH_PROG(GSLCONFIG, gsl-config, [], [$PATH:$GSLPATH/bin])
 if test -f "$GSLCONFIG"; then
-  GSL_LDFLAGS=`$GSLCONFIG --libs`
-  GSL_CXXFLAGS=`$GSLCONFIG --cflags`
+  GSLPATH=`$GSLCONFIG --prefix`
+  GSLCBLASPATH=$GSLPATH
 fi
+AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
+AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
+GSL_LDFLAGS="-l$GSLLIBNAME -l$GSLCBLASLIBNAME"
+GSL_CXXFLAGS=
 AC_SUBST(GSL_CXXFLAGS)
 AC_SUBST(GSL_LDFLAGS)
 
