@@ -1,5 +1,5 @@
 ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = src pyext data include bin doc plugindemo
+SUBDIRS = src pyext data include bin plugindemo
 
 doc:
 	cd doc && $(MAKE) doc
