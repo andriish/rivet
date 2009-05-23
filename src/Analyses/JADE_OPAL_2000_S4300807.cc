@@ -42,10 +42,10 @@ namespace Rivet {
 
     const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
     if (jadejet.clusterSeq()) {
-      double y_23 = jadejet.clusterSeq()->exclusive_dmerge_max(2);
-      double y_34 = jadejet.clusterSeq()->exclusive_dmerge_max(3);
-      double y_45 = jadejet.clusterSeq()->exclusive_dmerge_max(4);
-      double y_56 = jadejet.clusterSeq()->exclusive_dmerge_max(5);
+      double y_23 = jadejet.clusterSeq()->exclusive_ymerge_max(2);
+      double y_34 = jadejet.clusterSeq()->exclusive_ymerge_max(3);
+      double y_45 = jadejet.clusterSeq()->exclusive_ymerge_max(4);
+      double y_56 = jadejet.clusterSeq()->exclusive_ymerge_max(5);
 
       for (int i = 0; i < _h_R_Jade[0]->size(); ++i) {
         IDataPoint* dp = _h_R_Jade[0]->point(i);
@@ -85,10 +85,10 @@ namespace Rivet {
 
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     if (durjet.clusterSeq()) {
-      double y_23 = durjet.clusterSeq()->exclusive_dmerge_max(2);
-      double y_34 = durjet.clusterSeq()->exclusive_dmerge_max(3);
-      double y_45 = durjet.clusterSeq()->exclusive_dmerge_max(4);
-      double y_56 = durjet.clusterSeq()->exclusive_dmerge_max(5);
+      double y_23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
+      double y_34 = durjet.clusterSeq()->exclusive_ymerge_max(3);
+      double y_45 = durjet.clusterSeq()->exclusive_ymerge_max(4);
+      double y_56 = durjet.clusterSeq()->exclusive_ymerge_max(5);
 
       _h_y_Durham[0]->fill(y_23, weight);
       _h_y_Durham[1]->fill(y_34, weight);

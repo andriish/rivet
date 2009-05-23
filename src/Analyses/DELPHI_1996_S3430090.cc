@@ -68,15 +68,15 @@ namespace Rivet {
     // Jets
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     if (durjet.clusterSeq()) {
-      _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_dmerge(2), weight); 
-      _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_dmerge(3), weight); 
-      _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_dmerge(4), weight); 
+      _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge(2), weight); 
+      _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge(3), weight); 
+      _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight); 
     }
     const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
     if (jadejet.clusterSeq()) {
-      _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(2), weight); 
-      _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(3), weight); 
-      _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_dmerge(4), weight); 
+      _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(2), weight); 
+      _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(3), weight); 
+      _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight); 
     }
 
     // Sphericities
@@ -362,27 +362,27 @@ namespace Rivet {
     // Binned in y_cut
     y = "D_2^\\text{Durham}";
     _histDiffRate2Durham =
-      bookHistogram1D(27, 1, 1, "Differential 2-jet rate with Durham algorithm, $" + y + "$",
+      bookHistogram1D(27, 1, 1, "Differential 3-jet rate with Durham algorithm, $" + y + "$",
                       texmath(y), texmath(unitdsigbyd(y)));                      
     y = "D_2^\\text{Jade}";
     _histDiffRate2Jade =
-      bookHistogram1D(28, 1, 1, "Differential 2-jet rate with Jade algorithm, $D_2^\\text{Jade}$",
+      bookHistogram1D(28, 1, 1, "Differential 3-jet rate with Jade algorithm, $D_2^\\text{Jade}$",
                       texmath(y), texmath(unitdsigbyd(y)));
     y = "D_3^\\text{Durham}";
     _histDiffRate3Durham =
-      bookHistogram1D(29, 1, 1, "Differential 3-jet rate with Durham algorithm, $D_3^\\text{Durham}$",
+      bookHistogram1D(29, 1, 1, "Differential 4-jet rate with Durham algorithm, $D_3^\\text{Durham}$",
                       texmath(y), texmath(unitdsigbyd(y)));
     y = "D_3^\\text{Jade}";
     _histDiffRate3Jade =
-      bookHistogram1D(30, 1, 1, "Differential 3-jet rate with Jade algorithm, $D_3^\\text{Jade}$",
+      bookHistogram1D(30, 1, 1, "Differential 4-jet rate with Jade algorithm, $D_3^\\text{Jade}$",
                       texmath(y), texmath(unitdsigbyd(y)));
     y = "D_4^\\text{Durham}";
     _histDiffRate4Durham =
-      bookHistogram1D(31, 1, 1, "Differential 4-jet rate with Durham algorithm, $D_4^\\text{Durham}$",
+      bookHistogram1D(31, 1, 1, "Differential 5-jet rate with Durham algorithm, $D_4^\\text{Durham}$",
                       texmath(y), texmath(unitdsigbyd(y)));
     y = "D_4^\\text{Jade}";
     _histDiffRate4Jade =
-      bookHistogram1D(32, 1, 1, "Differential 4-jet rate with Jade algorithm, $D_4^\\text{Jade}$",
+      bookHistogram1D(32, 1, 1, "Differential 5-jet rate with Jade algorithm, $D_4^\\text{Jade}$",
                       texmath(y), texmath(unitdsigbyd(y)));
 
     // Binned in cos(chi)

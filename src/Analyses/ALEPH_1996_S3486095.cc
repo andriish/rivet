@@ -85,7 +85,7 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Calculating differential jet rate plots:" << endl;
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     if (durjet.clusterSeq()) {
-      double y3 = durjet.clusterSeq()->exclusive_dmerge(2);
+      double y3 = durjet.clusterSeq()->exclusive_ymerge(2);
       _histY3->fill(-1. * std::log(y3), weight);
     }
     

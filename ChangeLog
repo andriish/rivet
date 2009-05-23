@@ -4,8 +4,11 @@
 
 	* Fix the paths for linking such that our own libraries are found
 	before any system libraries, e.g. for the case that there is an
-	outdated FastJet version installed on the system while we want to
+	outdated fastjet version installed on the system while we want to
 	use our own up-to-date version.
+
+	* Change dmerge to ymerge in the e+e- analyses using JADE or
+	DURHAM from fastjet. That's what it is called in fastjet-2.4 now.
 
 2009-05-18  Andy Buckley  <andy@insectnation.org>
 
