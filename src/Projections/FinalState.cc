@@ -62,9 +62,13 @@ namespace Rivet {
     if (_etaRanges.empty() && _ptmin == 0) {
       getLog() << Log::TRACE << "Open FS processing: should only see this once per event (" 
                << e.genEvent().event_number() << ")" << endl;
-      for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin(); 
-           p != e.genEvent().particles_end(); ++p) {
-        if ((*p)->status() != 1) _theParticles.push_back(Particle(**p));
+      for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin(); p != e.genEvent().particles_end(); ++p) {
+        if ((*p)->status() == 1) {
+          // pair<GenParticle*,GenParticle*> bps = e.genEvent().beam_particles();
+          // const bool isbeam = (*p == bps.first || *p == bps.second);
+          // getLog() << Log::TRACE << *p << std::boolalpha << (isbeam ? " (beam)" : "") << endl;
+          _theParticles.push_back(Particle(**p));
+        }
       }
       return;
     }
@@ -76,7 +80,7 @@ namespace Rivet {
       const bool passed = accept(p);
       if (getLog().isActive(Log::TRACE)) {
         getLog() << Log::TRACE
-                 << "ID = " << p.pdgId() 
+                 << "Choosing: ID = " << p.pdgId() 
                  << ", pT = " << p.momentum().pT() 
                  << ", eta = " << p.momentum().eta() 
                  << ": result = " << std::boolalpha << passed << endl;
@@ -91,7 +95,7 @@ namespace Rivet {
   /// Decide if a particle is to be accepted or not.
   bool FinalState::accept(const Particle& p) const {
     // Not having s.c. == 1 should never happen!
-    assert(p.genParticle().status() != 1);
+    assert(p.genParticle().status() == 1);
 
     // Check pT cut
     if (_ptmin > 0.0) {
