@@ -54,37 +54,23 @@ namespace Rivet {
   
   // Do the analysis
   void CDF_2008_S7782535::analyze(const Event& event) {
-    // Put all b-quarks in a vector
-    ParticleVector bquarks;
-    /// @todo Provide nicer looping over HepMC event contents
-    for (GenEvent::particle_const_iterator p = event.genEvent().particles_begin(); 
-         p != event.genEvent().particles_end(); ++p) {
-      if (abs((*p)->pdg_id()) == BQUARK) {
-        bquarks.push_back(Particle(**p));
-      }
-    }
-    if (bquarks.empty()) { 
-      getLog() << Log::DEBUG << "No b-quarks, exiting" << endl;
-      vetoEvent;
-    }
-
     // Get jets     
     const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
     getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jets.size() << endl;
 
     // Determine the central jet axes
     _jetaxes.clear();
-    foreach (const Jet& jt, jets) {
-      // Only use central calorimeter jets
-      FourMomentum pjet = jt.momentum();
-      /// @todo Really y rather than eta?
-      if (pjet.pT()/GeV > _pTbins[0] && fabs(pjet.rapidity()) < 0.7) {
-        /// @todo Only push_back jets which contain particles with a b quark parent?
-        _jetaxes.push_back(pjet);
+    foreach (const Jet& j, jets) {
+      if (j.containsBottom()) {
+        // Only use central calorimeter jets
+        FourMomentum pjet = j.momentum();
+        if (pjet.pT()/GeV > _pTbins[0] && fabs(pjet.rapidity()) < 0.7) {
+          _jetaxes.push_back(pjet);
+        }
       }
     }
     if (_jetaxes.empty())  {
-      getLog() << Log::DEBUG << "No jet axes in acceptance" << endl;
+      getLog() << Log::DEBUG << "No b-jet axes in acceptance" << endl;
       vetoEvent;
     }
 
@@ -93,30 +79,20 @@ namespace Rivet {
 
     /// @todo Replace with foreach
     for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
-
-      /// @todo Replace with only running over jets containing b quark descendants
-      bool bjet = false;
-      foreach (const Particle& bquark,  bquarks) {
-        if (deltaR(_jetaxes[jind], bquark.momentum()) < _Rjet) {
-          bjet = true;
+      // Put jet in correct pT bin
+      int jet_pt_bin = -1;
+      for (size_t i = 0; i < 4; ++i) {
+        if (inRange(_jetaxes[jind].pT(), _pTbins[i], _pTbins[i+1])) {
+          jet_pt_bin = i;
           break;
         }
       }
-
-      if (bjet) {	
-        // Put jet in correct pT bin
-        int jet_pt_bin = -1;
-        for (size_t i = 0; i < 4; ++i) {
-          if (_jetaxes[jind].pT() > _pTbins[i] && 
-              _jetaxes[jind].pT() <= _pTbins[i+1]) jet_pt_bin = i;
-        }
-        if (jet_pt_bin > -1) {
-          // Fill each entry in profile
-          for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
-            const double rad_Psi = js.rMin() +(rbin+1.0) * js.interval();
-            /// @todo Yuck... JetShape's interface sucks
-            _h_Psi_pT[jet_pt_bin]->fill(rad_Psi/_Rjet, js.intJetShape(jind, rbin), event.weight() );
-          }
+      if (jet_pt_bin > -1) {
+        // Fill each entry in profile
+        for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
+          const double rad_Psi = js.rMin() + (rbin+1.0)*js.interval();
+          /// @todo Yuck... JetShape's interface sucks
+          _h_Psi_pT[jet_pt_bin]->fill(rad_Psi/_Rjet, js.intJetShape(jind, rbin), event.weight() );
         }
       }
     }

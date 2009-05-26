@@ -80,6 +80,12 @@ namespace Rivet {
 
     /// Check whether this jet contains a certain particle type.
     bool containsParticleId(PdgId pid) const;
+
+    /// Check whether this jet contains a charm-flavoured hadron.
+    bool containsCharm() const;
+
+    /// Check whether this jet contains a bottom-flavoured hadron.
+    bool containsBottom() const;
  
     /// Reset this jet as empty.
     Jet& clear();
@@ -125,10 +131,12 @@ namespace Rivet {
     /// Internal caching method to calculate the average \f$ \eta \f$ and \f$
     /// \phi \f$ for this jet, weighted by the \f$ p_T \f$ values of the
     /// constituent tracks.
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     void _calcPtAvgs() const;
 
     /// Internal caching method to calculate the unweighted average \f$ \eta
     /// \f$ and \f$ \phi \f$ for this jet.
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     void _calcAvgs() const;
 
 
@@ -141,19 +149,27 @@ namespace Rivet {
     ParticleVector _fullParticles;
     
     /// Cached values of \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable double _phi, _eta;
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable bool _okPhi, _okEta;
 
     /// Cached values of the \f$ p_T \f$-weighted \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable double _ptWeightedPhi, _ptWeightedEta;
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable bool _okPtWeightedPhi, _okPtWeightedEta;
 
     /// Cached value of the \f$ p_T \f$ sum.
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable double _totalPt;
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable bool _okTotalPt;
 
     /// Cached value of the \f$ E_T \f$ sum.
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable double _totalEt;
+    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable bool _okTotalEt;
     
     mutable FourMomentum _momentum;

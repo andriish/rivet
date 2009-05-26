@@ -1,6 +1,8 @@
 #include "Rivet/Jet.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 
 namespace Rivet {
+
 
   Jet::Jet() 
     : ParticleBase()
@@ -44,6 +46,22 @@ namespace Rivet {
   bool Jet::containsParticleId(PdgId pid) const {
     foreach (const Particle& p, _fullParticles) {
       if (p.pdgId() == pid) return true;
+    }
+    return false;
+  }
+
+
+  bool Jet::containsCharm() const {
+    foreach (const Particle& p, _fullParticles) {
+      if (PID::hasCharm(p.pdgId())) return true;
+    }
+    return false;
+  }
+
+
+  bool Jet::containsBottom() const {
+    foreach (const Particle& p, _fullParticles) {
+      if (PID::hasBottom(p.pdgId())) return true;
     }
     return false;
   }
@@ -123,6 +141,7 @@ namespace Rivet {
   }
 
 
+  /// @todo Review if these caches are needed/consistent: just the vector, maybe?
   void Jet::_resetCaches() const {
     _okPhi = false;
     _okEta = false;
@@ -142,6 +161,7 @@ namespace Rivet {
   }
 
 
+  /// @todo Review if these caches are needed/consistent
   void Jet::_calcPtAvgs() const {
     if (!_okPtWeightedEta || !_okPtWeightedPhi) {
       double ptwetasum(0.0), ptwphisum(0.0), ptsum(0.0);
@@ -169,6 +189,7 @@ namespace Rivet {
   }
   
 
+  /// @todo Review if these caches are needed/consistent
   void Jet::_calcAvgs() const {
     if (!_okEta || !_okPhi) {
       double etasum(0.0), phisum(0.0);
@@ -190,5 +211,6 @@ namespace Rivet {
       _okPhi = true;
     }  
   }
+
   
 }

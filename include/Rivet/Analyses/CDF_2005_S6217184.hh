@@ -103,7 +103,7 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
     void init();
-    void analyze(const Event & event);
+    void analyze(const Event& event);
     void finalize();
     //@}
 
