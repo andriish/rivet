@@ -73,10 +73,10 @@ namespace Rivet {
     /// Information about the events needed as input for this analysis.
     string runInfo() const {
       ostringstream os;
-      os << "HERA beam conditions: 820~GeV protons colliding with 27.5~GeV positrons."
-         << "Direct and resolved photoproduction of di-jets."
-         << "Leading jet pT > 14~GeV, second jet pT > 11~GeV."
-         << "Jet pseudorapidity $-1 < \\eta < 2.4$.";
+      os << "* HERA beam conditions: 820~GeV protons colliding with 27.5~GeV positrons\n"
+         << "* Direct and resolved photoproduction of di-jets\n"
+         << "* Leading jet pT > 14~GeV, second jet pT > 11~GeV\n"
+         << "* Jet pseudorapidity $-1 < \\eta < 2.4$";
       return os.str();
     }
     

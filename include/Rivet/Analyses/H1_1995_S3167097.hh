@@ -73,9 +73,9 @@ namespace Rivet {
     /// Information about the events needed as input for this analysis.
     string runInfo() const {
       ostringstream os;
-      os << "HERA beam conditions: 820~GeV protons colliding with 26.7~GeV electrons."
-         << "DIS events with an outgoing electron energy > 12~GeV."
-         << "5~GeV$^2 < Q^2 <$100~GeV$^2$, $10^{-4} < x < 10^{-2}$.";
+      os << "* HERA beam conditions: 820~GeV protons colliding with 26.7~GeV electrons\n"
+         << "* DIS events with an outgoing electron energy $> 12~\\text{GeV}$\n"
+         << "* $5~\\text{GeV}^2 < Q^2 < 100~\\text{GeV}^2$, $10^{-4} < x < 10^{-2}$.";
       return os.str();
     }
     

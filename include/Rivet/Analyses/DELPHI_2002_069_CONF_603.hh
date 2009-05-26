@@ -45,8 +45,9 @@ namespace Rivet {
       ostringstream os;
       os << "Measurement of the b-quark fragmentation function by DELPHI using "
          << "1994 LEP 1 data. The fragmentation function for both weakly decaying "
-	 << "and primary b-quarks has been determined in a model independent way. "
-	 << "Nevertheless the authors trust $f(x_B^{weak})$ more than $f(x_B^{prim})$.";
+         << "and primary b-quarks has been determined in a model independent way. "
+         << "Nevertheless the authors trust $f(x_B^\\text{weak})$ more than "
+         << "$f(x_B^\\text{prim})$.";
       return os.str();
     }
     // Experiment which performed and published this analysis.

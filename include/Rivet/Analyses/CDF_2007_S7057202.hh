@@ -62,10 +62,14 @@ namespace Rivet {
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os << "CDF Run II measurement of inclusive jet cross sections at a p-pbar collision energy of 1.96~TeV"
-         << "Jets are reconstructed in the central part of the detector ($|y|<2.1$) using the kT algorithm with an R parameter of 0.7."
-         << "The minimum jet pT considered is 54~GeV, with a maximum around 700~GeV."
-         << "The inclusive jet pT is plotted in bins of rapidity $|y|<0.1$, $0.1<|y|<0.7$, $0.7<|y|<1.1$, $1.1<|y|<1.6$ and $1.6<|y|<2.1$.";
+      os << "CDF Run II measurement of inclusive jet cross sections at a p-pbar "
+         << "collision energy of 1.96~TeV. Jets are reconstructed in the central "
+         << "part of the detector ($|y|<2.1$) using the kT algorithm with an $R$ "
+         << "parameter of 0.7. The minimum jet pT considered is 54~GeV, with a "
+         << "maximum around 700~GeV."
+         << "\n\n"
+         << "The inclusive jet pT is plotted in bins of rapidity $|y|<0.1$, "
+         << "$0.1<|y|<0.7$, $0.7<|y|<1.1$, $1.1<|y|<1.6$ and $1.6<|y|<2.1$.";
       return os.str();
     }
     

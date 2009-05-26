@@ -57,17 +57,16 @@ namespace Rivet {
       os << "Cross sections as a function of jet transverse momentum in 1 and "
          << "2 jet events, and jet multiplicity in ppbar collisions at sqrt(s) "
          << "= 1.96 TeV, based on an integrated luminosity of 1.7 fb^-1. The "
-         << "measurements cover the rapidity region |yjet| < 2.1 and the transverse "
-         << "momentum range pT_jet > 30 GeV/c."  << endl;
+         << "measurements cover the rapidity region $|y_\\text{jet}| < 2.1$ "
+         << "and the transverse momentum range $pT_\\text{jet} > 30~\\text{GeV}/c$." << endl;
       return os.str();
     }
 
     /// Information about the events needed as input for this analysis.
     string runInfo() const {
       ostringstream os;
-      os << "Tevatron Run 2 conditions:\n"
-         << "* ppbar -> e+ e- + jets at 1960 GeV.\n"
-         << "* Needs mass cut on lepton pair to avoid photon singularity: min. range 66 < m_ee < 116" << endl;
+      os << "* Tevatron Run 2 conditions: ppbar -> e+ e- + jets at 1960 GeV.\n"
+         << "* Needs mass cut on lepton pair to avoid photon singularity: min. range $66 < m_ee < 116$" << endl;
       return os.str();
     }
 

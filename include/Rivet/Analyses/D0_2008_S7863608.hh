@@ -60,8 +60,8 @@ namespace Rivet {
       ostringstream os;
       os << "Cross sections as a function of pT and rapidity of the boson "
          << "and pT and rapidity of the leading jet "
-         << "in ppbar collisions at sqrt{s} = 1.96 TeV, based on "
-         << "an integrated luminosity of 1.0 fb^-1.";
+         << "in ppbar collisions at sqrt(s) = 1.96 TeV, based on "
+         << "an integrated luminosity of $1.0~\\text{fb}^-1$.";
       return os.str();
     }
     /// Information about the events needed as input for this analysis.

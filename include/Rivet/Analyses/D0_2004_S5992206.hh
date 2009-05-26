@@ -52,11 +52,11 @@ namespace Rivet {
     /// Full description of the analysis, for the manual
     string description() const {
       ostringstream os;
-      os << "Correlations in the azimuthal angle between the two largest $p_T$ jets "
+      os << "Correlations in the azimuthal angle between the two largest pT jets "
          << "have been measured using the D0 detector in ppbar collisions at 1960 GeV. "
-	 << "The analysis is based on an inclusive dijet event sample in the central "
-	 << "rapidity region. The correlations are determined for four different $p_T$ "
-	 << "intervals.";
+         << "The analysis is based on an inclusive dijet event sample in the central "
+         << "rapidity region. The correlations are determined for four different pT "
+         << "intervals.";
       return os.str();
     }
     /// Experiment which performed and published this analysis.

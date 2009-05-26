@@ -1,5 +1,5 @@
 ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = src pyext data include bin plugindemo
+SUBDIRS = src pyext data include bin plugindemo doc
 
 doc:
 	cd doc && $(MAKE) doc
@@ -15,10 +15,6 @@ dox:
 	$(DOXYGEN) $(top_srcdir)/Doxyfile || true
 install-dox:
 	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
-#all-local: dox
-#	@true
-#install-data-local:
-#	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
 mostlyclean-local:
 	@rm -rf $(top_builddir)/doxy
 uninstall-local:

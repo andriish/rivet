@@ -58,8 +58,8 @@ namespace Rivet {
     string description() const {
       ostringstream os;
       os << "Cross sections as a function of pT of the vector boson "
-         << "inclusive and in forward region ($|y| > 2, pT < 30 GeV$)"
-         << "in ppbar collisions at sqrt{s} = 1.96 TeV, based on "
+         << "inclusive and in forward region ($|y| > 2, pT < 30~\\text{GeV}$)"
+         << "in ppbar collisions at sqrt(s) = 1.96 TeV, based on "
          << "an integrated luminosity of 0.98 fb$^{-1}$.";
       return os.str();
     }

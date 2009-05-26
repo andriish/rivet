@@ -59,7 +59,7 @@ namespace Rivet {
     string runInfo() const {
       ostringstream os;
       os << "* Event type: e+ p deep inelastic scattering\n"
-         << "* Energy: p @ 820 GeV, e+ @ 27.5 GeV -> sqrt(s) = 300 GeV";
+         << "* Energy: p at 820 GeV, e+ at 27.5 GeV -> sqrt(s) = 300 GeV";
       return os.str();
     }
     /// Experiment which performed and published this analysis.

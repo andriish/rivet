@@ -63,14 +63,14 @@ namespace Rivet {
     string description() const {
       ostringstream os;
       os << "Deepak Kar's and Rick Field's measurement of the underlying event "
-         << "in Drell-Yan events. $Z \\to ee$ and $Z \\to \\mu\\mu$ events are selected "
-	 << "using a $Z$ mass window cut between 70 and 110 GeV. ``Toward'', "
-	 << "``away'' and ``transverse'' regions are defined in the same way as "
-	 << "in the original (2001) CDF underlying event analysis. The reconstructed "
-	 << "$Z$ defines the $\\phi$ direction of the toward region. The leptons are "
-	 << "ignored after the $Z$ has been reconstructed. Thus the region most "
-	 << "sensitive to the underlying event is the toward region (the recoil jet "
-	 << "is boosted into the away region).";
+         << "in Drell-Yan events. Z -> ee and Z -> $\\mu\\mu$ events are selected "
+         << "using a Z mass window cut between 70 and 110 GeV. ``Toward'', "
+         << "``away'' and ``transverse'' regions are defined in the same way as "
+         << "in the original (2001) CDF underlying event analysis. The reconstructed "
+         << "Z defines the $\\phi$ direction of the toward region. The leptons are "
+         << "ignored after the Z has been reconstructed. Thus the region most "
+         << "sensitive to the underlying event is the toward region (the recoil jet "
+         << "is boosted into the away region).";
       return os.str();
     }
     /// Experiment which performed and published this analysis.
@@ -94,10 +94,10 @@ namespace Rivet {
     /// Information about the events needed as input for this analysis.
     string runInfo() const {
       ostringstream os;
-      os << "Tevatron Run 2: ppbar collisions at 1960 GeV. "
-         << "Drell-Yan events with $Z/\\gamma \\to ee$ and $Z/\\gamma \\to \\mu\\mu$. "
-	 << "A mass cut $m_{ll} > 70 GeV$ can be applied on generator level. "
-         << "Particles with $c \\tau > {}$10 mm should be set stable. ";
+      os << "* Tevatron Run 2: ppbar collisions at 1960 GeV.\n"
+         << "* Drell-Yan events with $Z/\\gamma* -> e e$ and $Z/\\gamma* -> \\mu\\mu$.\n"
+         << "* A mass cut $m_{ll} > 70~\\text{GeV}$ can be applied on generator level.\n"
+         << "* Particles with $c \\tau > 10~\\text{mm}$ should be set stable.";
       return os.str();
     }
     string status() const {

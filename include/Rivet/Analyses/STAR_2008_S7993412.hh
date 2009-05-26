@@ -57,9 +57,9 @@ namespace Rivet {
     string description() const {
       ostringstream os;
       os << "Correlation in $\\eta$ and $\\phi$ between the "
-         << "charged hadron with the highest $p_T$ (\"trigger "
-         << "particle\") and the other charged hadrons in the "
-         << "event (\"associated particles\"). The data was "
+         << "charged hadron with the highest pT (``trigger "
+         << "particle'') and the other charged hadrons in the "
+         << "event (``associated particles''). The data was "
          << "collected in d-Au collisions at 200 GeV. "
          << "Nevertheless, it is very proton-proton like and "
          << "can therefore be compared to pp Monte Carlo "

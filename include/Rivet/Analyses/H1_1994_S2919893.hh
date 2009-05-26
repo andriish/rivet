@@ -52,8 +52,8 @@ namespace Rivet {
     /// Event type required by this analysis.
     string runInfo() const {
       ostringstream os;
-      os << "* Event type: e- p / e+ p (TODO: which?) deep inelastic scattering\n"
-         << "* Energy: ???";
+      os << "* Event type: e- p / e+ p deep inelastic scattering\n"
+         << "* HERA beam conditions: 820~GeV protons colliding with 26.7~GeV electrons";
       return os.str();
     }
     /// Experiment which performed and published this analysis.

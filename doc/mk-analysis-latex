@@ -38,7 +38,7 @@ def texify(s):
         .replace("_", "\\_") \
         .replace("^", "") \
         .replace("pT", "\\pT") \
-        .replace("sqrt{s}", "\\ensuremath{\\sqrt{s}}")
+        .replace("sqrt(s)", "\\ensuremath{\\sqrt{s}}")
     return t
 
 
@@ -107,7 +107,8 @@ for aname in sorted(all_analyses):
         page += "\\textbf{No run details listed}\n"
 
 
-    page += "\n\\noindent " + ana.description() + "\n"
+    for para in ana.description().split("\n\n"):
+        page += "\n\\noindent " + para + "\n"
 
     page += "\n\\clearpage\n"
 

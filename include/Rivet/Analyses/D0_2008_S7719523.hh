@@ -45,17 +45,17 @@ namespace Rivet {
       ostringstream os;
       os << "The process p pbar -> photon + jet + X as studied by the D0 detector at "
          << "the Fermilab Tevatron collider at center-of-mass energy sqrt(s) = 1.96 TeV. "
-         << "Photons are reconstructed in the central rapidity region $|y_gamma| < 1.0$ "
+         << "Photons are reconstructed in the central rapidity region $|y_\\gamma| < 1.0$ "
          << "with transverse momenta in the range 30--400 GeV, while jets are reconstructed "
-         << "in either the central $|y_jet| < 0.8$ or forward $1.5 < |y_jet| < 2.5$ "
-         << "rapidity intervals with pT_jet > 15 GeV. The differential cross section "
-         << "$\\d^3 \\sigma / d{pT_gamma} d{y_gamma} d{y_jet}$ is measured as a function "
-         << "of pT_gamma in four regions, differing by the relative orientations of the "
-         << "photon and the jet. "
+         << "in either the central $|y_jet| < 0.8$ or forward $1.5 < |y_\\text{jet}| < 2.5$ "
+         << "rapidity intervals with $pT_\\text{jet} > 15~\\text{GeV}$. The differential cross section "
+         << "$\\mathrm{d}^3 \\sigma / \\mathrm{d}{pT_\\gamma} \\mathrm{d}{y_\\gamma} "
+         << "\\mathrm{d}{y_jet}$ is measured as a function of $pT_\\gamma$ in four regions, "
+         << "differing by the relative orientations of the photon and the jet."
         //<< "Ratios between the differential cross sections in each region are also presented."
          << "\n\n"
          << "MC predictions have trouble with simultaneously describing the measured "
-         << "normalization and pT_gamma dependence of the cross section in any of the "
+         << "normalization and $pT_\\gamma$ dependence of the cross section in any of the "
          << "four measured regions.";
       return os.str();
     }

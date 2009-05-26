@@ -55,8 +55,8 @@ namespace Rivet {
     /// A full description of the analysis.
     string description() const {
       ostringstream os;
-      os << "Inclusive jet cross section as a function of $p_T$ "
-         << "in $pp$ collisions at $\\sqrt{s} = 200$ GeV, measured "
+      os << "Inclusive jet cross section as a function of pT "
+         << "in pp collisions at $\\sqrt{s} = 200$ GeV, measured "
          << "by the STAR experiment at RHIC.";
       return os.str();
     }

@@ -44,7 +44,7 @@ namespace Rivet {
       os << "Measurement of differential cross section for inclusive production of isolated photons "
          << "in p pbar collisions at sqrt(s) = 1.96 TeV with the D0 detector at the Fermilab Tevatron "
          << "collider. The photons span transverse momenta 23--300 GeV and have pseudorapidity "
-         << "$|eta| < 0.9$."
+         << "$|\\eta| < 0.9$."
          << "\n\n"
          << "Isolated direct photons are probes of pQCD via the annihilation (q qbar -> gamma g) "
          << "and quark-gluon Compton scattering (q g -> gamma q) processes, the latter of which is "
@@ -56,7 +56,7 @@ namespace Rivet {
     string runInfo() const {
       ostringstream os;
       os << "* Requires gamma + jet (q,qbar,g) hard processes\n\n"
-         << "  * for Pythia 6, MSEL=10 for with MSUB indices 14, 18, 29, 114, 115 enabled\n\n"
+         << "  * for Pythia 6, MSEL=10 for with MSUB indices 14, 18, 29, 114, 115 enabled\n"
          << "* Lowest pT bin is at 23 GeV: a pT_min cut at ~10--15 GeV may be "
          << "  required to get good statistics.";
       return os.str();

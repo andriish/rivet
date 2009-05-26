@@ -55,11 +55,11 @@ namespace Rivet {
     /// Full description of the analysis, for the manual
     string description() const {
       ostringstream os;
-      os << "Niccolo' Moggi's minbias analysis. Minimum bias events are used to "
-         << "measure the average track $p_T$ vs charged multiplicity, a track $p_T$ "
+      os << "Niccolo Moggi's minbias analysis. Minimum bias events are used to "
+         << "measure the average track pT vs charged multiplicity, a track pT "
          << "distribution and an inclusive $\\sum E_T$ distribution. "
-         << "\n\n "
-         << "WARNING: Only average track $p_T$ vs charged multiplicity is validated!";
+         << "\n"
+         << "WARNING: Only average track pT vs charged multiplicity is validated!";
       return os.str();
     }
     /// Experiment which performed and published this analysis.

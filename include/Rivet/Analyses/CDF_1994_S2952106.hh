@@ -42,16 +42,17 @@ namespace Rivet {
     /// Full description of the analysis, to appear in the manual.
     string description() const {
       ostringstream os;
-      os << "Analysis based on the CDF Run I color coherence analysis described in "
-         << "PRD50,9,5562 (1994). Events with >= 3 jets are selected and Et "
-         << "distributions of the three highest-pT jets are obtained. "
-         << "$\\Delta{R}$ between 2nd and 3rd leading jets in pT and pseudorapidity "
-         << "of the 3rd jet are plotted. $\\alpha = \\d{\\eta}/\\d{\\phi}$ is plotted, where "
-         << "$\\d{\\eta}$ is the pseudorapidity difference between the 2nd and 3rd jets "
-         << "and $\\d{\\phi}$ their azimuthal angle difference. Since the data has not been "
-         << "detector-corrected, a bin by bin correction is applied, based on the "
-         << "distributions with ideal and CDF simulation as given in the publication."
-         << "NB. eta in [-4.2, 4.2] to match CDF CAL acceptance.";
+      os << "CDF Run I color coherence analysis. Events with $\\ge 3$ jets are "
+         << "selected and Et distributions of the three highest-pT jets are obtained. "
+         << "The plotted quantities are the $\\Delta{R}$ between the 2nd and 3rd "
+         << "leading jets in the pT and pseudorapidity of the 3rd jet, and $\\alpha = "
+         << "\\mathrm{d}{\\eta}/\\mathrm{d}{\\phi}$, where $\\mathrm{d}{\\eta}$ is "
+         << "the pseudorapidity difference between the 2nd and 3rd jets and "
+         << "$\\mathrm{d}{\\phi}$ is their azimuthal angle difference."
+         << "\n\n"
+         << "Since the data has not been detector-corrected, a bin by bin correction "
+         << "is applied, based on the distributions with ideal and CDF simulation "
+         << "as given in the publication.";
       return os.str();
     }
 
