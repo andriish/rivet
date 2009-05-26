@@ -94,10 +94,12 @@ namespace Rivet {
         if (_jetaxes[jind].pT() > _pTbins[ipT] && _jetaxes[jind].pT() <= _pTbins[ipT+1]) {
           for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
             const double rad_Rho = js.rMin() + (rbin+0.5)*js.interval();
-            _profhistRho_pT[ipT]->fill(rad_Rho/0.7, js.diffJetShape(jind, rbin), weight);
+            _profhistRho_pT[ipT]->fill(rad_Rho/0.7, (0.7/1.0)*js.diffJetShape(jind, rbin), weight);
+            /// @todo Calc int histos from diff histos
             const double rad_Psi = js.rMin() +(rbin+1.0)*js.interval();
             _profhistPsi_pT[ipT]->fill(rad_Psi/0.7, js.intJetShape(jind, rbin), weight);
           }
+          /// @todo Calc int histos from diff histos
           _profhistPsi->fill((_pTbins[ipT] + _pTbins[ipT+1])/2.0, js.psi(jind), weight);
         }
       }

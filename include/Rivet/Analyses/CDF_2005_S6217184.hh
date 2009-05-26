@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /* @brief CDF Run II jet shape analysis
+  /* CDF Run II jet shape analysis
    * @author Lars Sonnenschein
    * @author Andy Buckley
    */	
@@ -19,9 +19,6 @@ namespace Rivet {
     //@{
 
     // Constructor
-    /// Cuts on final state are \f$ \eta \in [-2,2] \f$.
-    /// Jet shape \f$ r_\text{min} = 0.0 \f$, \f$ r_\text{max} = 0.7 \f$, 
-    /// interval = 0.1, r1minPsi = 0.3.
     CDF_2005_S6217184();
 
     /// Factory method
@@ -48,9 +45,9 @@ namespace Rivet {
     /// Full description of the analysis, to appear in the manual.
     string description() const {
       ostringstream os;
-      os << "Measurement of jet shapes in inclusive jet production in p pbar collisions at"
+      os << "Measurement of jet shapes in inclusive jet production in p pbar collisions at "
          << "center-of-mass energy sqrt(s) = 1.96 TeV. The data cover jet transverse "
-         << "momenta from 37--380 GeV and absolute jet rapidities in the range 0.1 to 0.7. ";
+         << "momenta from 37--380 GeV and absolute jet rapidities in the range 0.1--0.7. ";
       return os.str();
     }
 
