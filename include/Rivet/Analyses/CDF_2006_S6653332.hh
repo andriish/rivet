@@ -62,8 +62,8 @@ namespace Rivet {
       ostringstream os;
       os << "* Energy: sqrt(s) = 1960 GeV\n"
          << "* Event type: Z + jets events\n"
-         << "* Jets min pT cut: pT_{jet} > 20 GeV\n"
-         << "* Leptons min pT cut: pT_{jet} > 10 GeV";
+         << "* Jets min pT cut: pT_{jet} $>$ 20~GeV\n"
+         << "* Leptons min pT cut: pT_{jet} $>$ 10~GeV";
       return os.str();
     }
 
