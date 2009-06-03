@@ -1,3 +1,8 @@
+2009-06-03  Andy Buckley  <andy@insectnation.org>
+
+	* Enabling HepMC cross-section reading, now that HepMC 2.5.0 has
+	been released.
+
 2009-05-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Using gsl-config to locate libgsl
