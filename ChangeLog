@@ -1,5 +1,12 @@
 2009-06-03  Andy Buckley  <andy@insectnation.org>
 
+	* Putting SWIG-generated source files under SVN control to make
+	life easier for people who we advise to check out the SVN head
+	version, but who don't have a sufficiently modern copy of SWIG to
+
+	* Adding the --disable-analyses option, for people who just want
+	to use Rivet as a framework for their own analyses.
+
 	* Enabling HepMC cross-section reading, now that HepMC 2.5.0 has
 	been released.
 

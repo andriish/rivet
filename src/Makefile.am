@@ -1,5 +1,8 @@
-SUBDIRS = Projections Analyses Tools . Test
-
+SUBDIRS = Projections 
+if ENABLE_ANALYSES
+SUBDIRS += Analyses
+endif
+SUBDIRS += Tools . Test
 
 lib_LTLIBRARIES  = libRivet.la
 

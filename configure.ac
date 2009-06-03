@@ -118,10 +118,20 @@ CPPFLAGS=$oldCPPFLAGS
 AC_ARG_ENABLE([doxygen],
   [AC_HELP_STRING(--disable-doxygen, [don't try to make Doxygen documentation])],
   [], [enable_doxygen=yes])
-if test x$enable_doxygen == xyes; then
+if test x$enable_doxygen = xyes; then
    AC_PATH_PROG(DOXYGEN, doxygen)
 fi
 AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
+
+
+## Disable build/install of standard analyses
+AC_ARG_ENABLE([analyses],
+  [AC_HELP_STRING(--disable-analyses, [don't try to build or install standard analyses])],
+  [], [enable_analyses=yes])
+if test x$enable_analyses != xyes; then
+   AC_MSG_WARN([Not building standard Rivet analyses, by request])
+fi
+AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 
 ## Build LaTeX docs if possible

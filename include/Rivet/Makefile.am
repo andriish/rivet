@@ -28,11 +28,14 @@ nobase_pkginclude_HEADERS += \
   Config/RivetConfig.hh \
   Config/BuildOptions.hh
 
+
 ## Standard analyses
-nobase_pkginclude_HEADERS += \
-  Analyses/ExampleAnalysis.hh \
-  Analyses/ExampleTree.hh     
+# nobase_pkginclude_HEADERS += \
+#   Analyses/ExampleAnalysis.hh \
+#   Analyses/ExampleTree.hh     
 nobase_dist_noinst_HEADERS += \
+  Analyses/ExampleAnalysis.hh \
+  Analyses/ExampleTree.hh \
   Analyses/ALEPH_1991_S2435284.hh \
   Analyses/ALEPH_1996_S3486095.hh \
   Analyses/CDF_1990_S2089246.hh \
@@ -81,6 +84,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/STAR_2006_S6870392.hh \
   Analyses/STAR_2008_S7993412.hh \
   Analyses/STAR_2009_UE_HELEN.hh
+
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \
