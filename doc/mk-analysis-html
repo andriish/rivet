@@ -20,6 +20,20 @@ if not 'sorted' in dir(__builtins__):
         rtn.sort(cmp, key, reverse)
         return rtn
 
+
+## Get input paths to allow rivet module to be imported from the src dir
+import os, re
+pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
+dirs = []
+for d in os.listdir(pybuild):
+    if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d):
+        dirs.append(os.path.join(pybuild, d))
+sys.path = dirs + sys.path
+os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + \
+    os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
+os.environ["RIVET_ANALYSIS_PATH"] = \
+    os.path.abspath(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
+
         
 ## Change dlopen status to GLOBAL for Rivet lib
 try:

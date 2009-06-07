@@ -55,7 +55,7 @@ endif
 
 .PHONY = all doc upload
 
-all: doc
+all:
 	@echo "Default make rule does nothing: use 'make doc'"
 
 doc: $(DOCS)
@@ -74,4 +74,4 @@ clean-local:
 
 
 ## Install!
-pkgdata_DATA = $(DOCS)
+#pkgdata_DATA = $(DOCS)
