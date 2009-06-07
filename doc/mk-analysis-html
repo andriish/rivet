@@ -55,7 +55,8 @@ def htmlify(s):
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.allAnalysisNames()
 pages = []
-for aname in sorted(all_analyses):
+## Use list(...) ctor for 2.3 compatibility
+for aname in sorted(list(all_analyses)):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     page += "<h3 id='%s'>%s</h3>\n" % (aname, aname)

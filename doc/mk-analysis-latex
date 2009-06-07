@@ -58,7 +58,8 @@ def texify(s):
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.allAnalysisNames()
 pages = { "LEP":[], "Tevatron":[], "HERA":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
-for aname in sorted(all_analyses):
+## Use list(...) ctor for 2.3 compatibility
+for aname in sorted(list(all_analyses)):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     page += "\\subsection{%s}\n" % aname
