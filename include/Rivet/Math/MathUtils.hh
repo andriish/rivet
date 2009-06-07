@@ -89,8 +89,7 @@ namespace Rivet {
     return rtn;
   }
 
-  /// Calculate the difference between two angles in radians, returning in the
-  /// range (-PI, PI].
+  /// Map an angle into the range (-PI, PI].
   inline double mapAngleMPiToPi(double angle) {
     double rtn = _mapAngleM2PITo2Pi(angle);
     if (isZero(rtn)) return 0;
@@ -100,8 +99,7 @@ namespace Rivet {
     return rtn;
   }
 
-  /// Calculate the difference between two angles in radians, returning in the
-  /// range [0, 2PI).
+  /// Map an angle into the range [0, 2PI).
   inline double mapAngle0To2Pi(double angle) {
     double rtn = _mapAngleM2PITo2Pi(angle);
     if (isZero(rtn)) return 0;
@@ -111,8 +109,7 @@ namespace Rivet {
     return rtn;
   }
 
-  /// Calculate the difference between two angles in radians, returning in the
-  /// range [0, PI].
+  /// Map an angle into the range [0, PI].
   inline double mapAngle0ToPi(double angle) {
     double rtn = fabs(mapAngleMPiToPi(angle));
     if (isZero(rtn)) return 0;
