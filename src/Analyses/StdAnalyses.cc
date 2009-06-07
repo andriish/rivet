@@ -58,7 +58,7 @@
 // RHIC
 #include "Rivet/Analyses/STAR_2006_S6870392.hh"
 #include "Rivet/Analyses/STAR_2008_S7993412.hh"
-#include "Rivet/Analyses/STAR_2009_UE_HELEN.hh"
+//#include "Rivet/Analyses/STAR_2009_UE_HELEN.hh"
 
 // MC validation
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
@@ -132,7 +132,7 @@ extern "C" {
     // RHIC
     fns["STAR_2006_S6870392"] = Rivet::STAR_2006_S6870392::create;
     fns["STAR_2008_S7993412"] = Rivet::STAR_2008_S7993412::create;
-    fns["STAR_2009_UE_HELEN"] = Rivet::STAR_2009_UE_HELEN::create;
+    //fns["STAR_2009_UE_HELEN"] = Rivet::STAR_2009_UE_HELEN::create;
 
     // General
     fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_HADRON_MULTIPLICITIES::create;

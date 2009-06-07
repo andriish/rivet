@@ -48,8 +48,8 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     MC_TVT1960_ZJETS.cc \
     MC_LHC_LEADINGJETS.cc \
     STAR_2006_S6870392.cc \
-    STAR_2008_S7993412.cc \
-    STAR_2009_UE_HELEN.cc
+    STAR_2008_S7993412.cc
+    #STAR_2009_UE_HELEN.cc
     #OPAL_2004_S6132243.cc 
 
 libRivetAnalysisStd_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)
