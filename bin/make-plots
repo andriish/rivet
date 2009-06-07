@@ -277,6 +277,8 @@ class Plot:
             out += ('\\usepackage{mathpazo}\n')
         elif opts.OUTPUT_FONT == "TIMES":
             out += ('\\usepackage{mathptmx}\n')
+        for pkg in opts.LATEXPKGS:
+            out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage{pst-all}\n')
         out += ('\\selectcolormodel{rgb}\n')
         out += ('\\usepackage{amsmath}\n')
@@ -1541,6 +1543,12 @@ TODO
         if os.system('kpsewhich minion.sty > /dev/null') != 0:
             logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
             opts.OUTPUT_FONT = "PALATINO"
+
+    ## Check for HEP LaTeX packages
+    opts.LATEXPKGS = []
+    for pkg in ["hepnicenames", "hepunits", "SIunits", "siunitx"]:
+        if os.system('kpsewhich %s.sty > /dev/null' % pkg) == 0:
+            opts.LATEXPKGS.append(pkg)
 
     ## Check for Palatino old style figures and small caps
     if (opts.OUTPUT_FONT == "PALATINO") and not(os.system('kpsewhich ot1pplx.fd > /dev/null')):
