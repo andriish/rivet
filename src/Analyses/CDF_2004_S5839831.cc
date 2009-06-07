@@ -246,6 +246,7 @@ namespace Rivet {
 
 
     {
+      getLog() << Log::DEBUG << "Running max/min analysis" << endl;
       const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
       vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").jets();
       if (!jets.empty()) {
@@ -297,6 +298,7 @@ namespace Rivet {
 
     // Fill min bias total track multiplicity histos
     {
+      getLog() << Log::DEBUG << "Running min bias multiplicity analysis" << endl;
       const ParticleVector mbtracks = applyProjection<FinalState>(event, "MBFS").particles();
       if (fuzzyEquals(sqrtS/GeV, 1800)) {
         _numTracksDbn1800MB->fill(mbtracks.size(), weight);
@@ -323,6 +325,7 @@ namespace Rivet {
     // different set of charged tracks, with |eta| < 1.0, is used here, and all
     // the removed jets must have Et > 5 GeV.
     {
+      getLog() << Log::DEBUG << "Running Swiss Cheese analysis" << endl;
       const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
       vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").jets();
       if (cheesejets.empty()) {
