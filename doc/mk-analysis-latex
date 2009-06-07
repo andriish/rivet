@@ -160,9 +160,9 @@ prefix = """\
 groups = {}
 for group, ps in pages.iteritems():
     s = ""
-    if len(ps):
-        s = "\\section{%s analyses}" % group + "\n\n\\clearpage\n\n".join(ps)
-        groups[group] = s
+    #if len(ps):
+    s = "\\section{%s analyses}" % group + "\n\n\\clearpage\n\n".join(ps)
+    groups[group] = s
 
 body = \
     groups["LEP"] + "\n\n" + \
