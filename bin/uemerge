@@ -50,6 +50,8 @@ class Histo:
         self.path = None
         self.name = None
         self.title = None
+        self.xtitle = None
+        self.ytitle = None
 
     def __cmp__(self, other):
         """Sort by $path/$name string"""
@@ -57,7 +59,12 @@ class Histo:
 
     def __str__(self):
         out = "Histogram '%s' with %d bins\n" % (self.fullPath(), self.numBins())
-        out += "Title: %s\n" % self.title
+        if self.title:
+            out += "Title: %s\n" % self.title
+        if self.xtitle:
+            out += "XLabel: %s\n" % self.xtitle
+        if self.ytitle:
+            out += "YLabel: %s\n" % self.ytitle
         out += "\n".join([str(b) for b in self.getBins()])
         return out
 
@@ -70,7 +77,12 @@ class Histo:
         global opts
         out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
         out += headerprefix + "AidaPath=%s\n" % self.fullPath()
-        out += headerprefix + "Title=%s\n" % self.title
+        if self.title:
+            out += headerprefix + "Title=%s\n" % self.title
+        if self.xtitle:
+            out += headerprefix + "XLabel=%s\n" % self.xtitle
+        if self.ytitle:
+            out += headerprefix + "YLabel=%s\n" % self.ytitle
         try:
             out += "## Area: %s\n" % self.area()
         except:
@@ -225,6 +237,12 @@ def mkHistoFromDPS(dps):
     myhist.name = dps.get("name")
     myhist.title = dps.get("title")
     myhist.path = dps.get("path")
+    dims = dps.findall("dimension")
+    for d in dims:
+        if d.get("dim") == "0":
+            myhist.xtitle = d.get("title")
+        elif d.get("dim") == "1":
+            myhist.ytitle = d.get("title")
     points = dps.findall("dataPoint")
     numbins = len(points)
     for binnum, point in enumerate(points):
@@ -281,7 +299,7 @@ def useOnePt(hpath, sqrts, ptmin):
                 closest_ptmin = float(ptm)
         if closest_ptmin != float(ptmin):
             logging.warning("Inexact match for requested pTmin=%s: " % ptmin + \
-                                "using pTmin=%f instead\n" % closest_ptmin)
+                                "using pTmin=%f instead" % closest_ptmin)
         outhistos[hpath] =  inhistos[hpath][sqrts][closest_ptmin]
     except:
         pass
