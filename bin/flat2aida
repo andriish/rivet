@@ -44,7 +44,10 @@ class Histogram:
                 line = line.rstrip()
                 if (line.count('=')):
                     linearray = line.split('=', 1)
-                    self.description[linearray[0]] = linearray[1]
+                    key = linearray[0].strip()
+                    val = linearray[1].strip()
+                    #print "@", key, val
+                    self.description[key] = val
                 else:
                     linearray = line.split('\t')
                     if len(linearray)==4:
@@ -68,6 +71,10 @@ class Histogram:
                 path = self.description["AidaPath"]
             f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(path)))
             f.write('    path="%s" title="%s">\n' % (os.path.dirname(path), htmlescape(self.description['Title'])))
+            if self.description.has_key("XLabel"):
+                f.write('    <dimension dim="0" title="%s" />\n' % htmlescape(self.description['XLabel']))
+            if self.description.has_key("YLabel"):
+                f.write('    <dimension dim="1" title="%s" />\n' % htmlescape(self.description['YLabel']))
             f.write('    <annotation>\n')
             f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(htmlescape(self.description['Title'])))
             f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
@@ -116,10 +123,8 @@ for flatfile in args:
     f.write('<aida version="3.3">\n')
     f.write('  <implementation version="1.1" package="FreeHEP"/>\n')
     
-    count = 1
-    for i in inputdata.description['DrawOnly']:
-        inputdata.histos[i].write_datapointset(f, count)
-        count += 1
+    for i, d in enumerate(inputdata.description['DrawOnly']):
+        inputdata.histos[d].write_datapointset(f, i)
     
     f.write('</aida>\n')
     f.close
