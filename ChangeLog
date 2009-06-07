@@ -1,3 +1,10 @@
+2009-06-07  Andy Buckley  <andy@insectnation.org>
+
+	* Disabling D0 IL modpoint cone (using CDF modpoint instead),
+	since there seems to be a crashing bug in FastJet's
+	implementation: we can't release that way, since ~no D0 analyses
+	will run.
+
 2009-06-03  Andy Buckley  <andy@insectnation.org>
 
 	* Putting SWIG-generated source files under SVN control to make

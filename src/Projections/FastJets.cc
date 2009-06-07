@@ -45,8 +45,12 @@ namespace Rivet {
         const double OVERLAP_THRESHOLD = 0.75;
         _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
       } else if (alg == D0ILCONE) {
-        const double MIN_ET = pTmin;
-        _plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, MIN_ET));
+        getLog() << Log::WARN << "D0 iterative midpoint cone is currently disabled, due to segfaulting in the FastJet implemenation. CDF midpoint will be used instead." << endl;
+        /// @todo Reinstate real D0IL cone, once FastJet segfault is solved.
+        //const double MIN_ET = pTmin;
+        //_plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, MIN_ET));
+        const double OVERLAP_THRESHOLD = 0.75;
+        _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
       } else if (alg == JADE) {
         _plugin.reset(new fastjet::JadePlugin());
       } else if (alg == TRACKJET) {
