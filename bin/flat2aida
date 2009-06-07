@@ -71,9 +71,9 @@ class Histogram:
                 path = self.description["AidaPath"]
             f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(path)))
             f.write('    path="%s" title="%s">\n' % (os.path.dirname(path), htmlescape(self.description['Title'])))
-            if self.description.has_key("XLabel"):
+            if self.description.has_key("XLabel") and self.description.["XLabel"] is not None:
                 f.write('    <dimension dim="0" title="%s" />\n' % htmlescape(self.description['XLabel']))
-            if self.description.has_key("YLabel"):
+            if self.description.has_key("YLabel") and self.description.["YLabel"] is not None:
                 f.write('    <dimension dim="1" title="%s" />\n' % htmlescape(self.description['YLabel']))
             f.write('    <annotation>\n')
             f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(htmlescape(self.description['Title'])))
