@@ -1,3 +1,7 @@
+2009-06-07  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fix phi rotation in CDF_2008_LEADINGJETS.
+
 2009-06-07  Andy Buckley  <andy@insectnation.org>
 
 	* Disabling D0 IL modpoint cone (using CDF modpoint instead),

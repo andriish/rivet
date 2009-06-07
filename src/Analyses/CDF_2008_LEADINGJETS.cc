@@ -74,7 +74,7 @@ namespace Rivet {
     }
     
     const double jetphi = jets[0].momentum().phi();
-    const double jeteta  = jets[0].momentum().eta();
+    const double jeteta = jets[0].momentum().eta();
     const double jetpT  = jets[0].momentum().perp();
     getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
              << ", eta = " << jeteta << ", phi = " << jetphi << endl;
@@ -97,7 +97,9 @@ namespace Rivet {
       const double phi = p.momentum().phi();
 
       /// @todo The jet and particle phis should now be the same: check
-      const double rotatedphi = phi - jetphi;
+      double rotatedphi = phi - jetphi;
+      while (rotatedphi < 0) rotatedphi += 2*PI;
+
 
       ptSumOverall += pT;
       ++numOverall;
@@ -143,7 +145,8 @@ namespace Rivet {
       const double ET = p.momentum().Et();
       const double phi = p.momentum().azimuthalAngle();
       /// @todo Check that phi mappings really match (they should now)
-      const double rotatedphi = phi - jetphi;
+      double rotatedphi = phi - jetphi;
+      while (rotatedphi < 0) rotatedphi += 2*PI;
 
       EtSumOverall += ET;
 
