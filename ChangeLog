@@ -1,3 +1,8 @@
+2009-06-07  Andy Buckley  <andy@insectnation.org>
+
+	* Make doc build from metadata work even before the library is
+	installed.
+
 2009-06-07  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fix phi rotation in CDF_2008_LEADINGJETS.

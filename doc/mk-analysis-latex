@@ -23,6 +23,7 @@ if not 'sorted' in dir(__builtins__):
 ## Get input paths to allow rivet module to be imported from the src dir
 import os, re
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
+dirs = []
 for d in os.listdir(pybuild):
     if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d):
         dirs.append(os.path.join(pybuild, d))

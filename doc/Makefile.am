@@ -4,7 +4,7 @@
 DOCS = analyses.html
 
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
-	./mk-analysis-html analyses.html
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(top_srcdir)/src/.libs ./mk-analysis-html analyses.html
 
 
 if WITH_PDFLATEX
@@ -12,7 +12,7 @@ if WITH_PDFLATEX
 DOCS += rivet-manual.pdf
 
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
-	./mk-analysis-latex analyses.tex
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(top_srcdir)/src/.libs ./mk-analysis-latex analyses.tex
 
 LATEX	= pdflatex
 BIBTEX	= bibtex
@@ -74,4 +74,4 @@ clean-local:
 
 
 ## Install!
-#pkgdata_DATA = $(DOCS)
+pkgdata_DATA = $(DOCS)
