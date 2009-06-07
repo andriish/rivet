@@ -8,7 +8,7 @@ EXTRA_DIST = compare-histos.txt heppennames.sty cone.png h-physrev3.bst hepnames
 DOCS = analyses.html
 
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(top_srcdir)/src/.libs ./mk-analysis-html analyses.html
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(top_srcdir)/src/.libs:$(prefix)/lib ./mk-analysis-html analyses.html
 
 
 if WITH_PDFLATEX
@@ -16,7 +16,7 @@ if WITH_PDFLATEX
 DOCS += rivet-manual.pdf
 
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(top_srcdir)/src/.libs ./mk-analysis-latex analyses.tex
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(top_srcdir)/src/.libs:$(prefix)/lib ./mk-analysis-latex analyses.tex
 
 LATEX	= pdflatex
 BIBTEX	= bibtex
