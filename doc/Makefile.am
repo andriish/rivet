@@ -3,7 +3,8 @@
 dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex
 EXTRA_DIST = compare-histos.txt heppennames.sty cone.png h-physrev3.bst hepnames.sty JHEP3.cls \
   make-plots.html bend.png hepnicenames.sty JHEP.bst make-plots.txt rivet-manual.tex preamble.tex \
-  compare-histos.html hepparticles.sty maybemath.sty refs.bib rivet-manual.pdf thinker.png
+  compare-histos.html hepparticles.sty maybemath.sty refs.bib rivet-manual.pdf thinker.png \
+  hepunits.sty underscore.sty
 
 DOCS = analyses.html
 

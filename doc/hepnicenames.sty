@@ -13,8 +13,8 @@
 %%
 %% -------------------------------------------------------------
 
-\def\fileversion{1.4}
-\def\filedate{2007/03/07}
+\def\fileversion{1.5}
+\def\filedate{2009/03/11}
 \ProvidesPackage{hepnicenames}[\filedate\space Friendly alternatives to the PEN particle codes (version \fileversion)]
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{heppennames}
@@ -44,6 +44,7 @@
 %% The particles...
 %% -------------------------------------------------------------
 
+
 %% B mesons
 %\DeclareRobustCommand{\PB}{\PB} %% in pennames
 %\DeclareRobustCommand{\PBpm}{\PBpm} %% in pennames
@@ -51,6 +52,7 @@
 \DeclareRobustCommand{\PBplus}{\PBp}
 \DeclareRobustCommand{\PBminus}{\PBm}
 \DeclareRobustCommand{\PBzero}{\PBz}
+\DeclareRobustCommand{\PBstar}{\PBst}
 \DeclareRobustCommand{\PBd}{\PdB}
 \DeclareRobustCommand{\PBu}{\PuB}
 \DeclareRobustCommand{\PBc}{\PcB}
@@ -90,6 +92,14 @@
 \DeclareRobustCommand{\PZzero}{\PZz} % Z with a zero
 \DeclareRobustCommand{\PZprime}{\PZpr} % Z-prime
 \DeclareRobustCommand{\Paxion}{\PAz} % axion
+
+%% Generic fermions
+\DeclareRobustCommand{\Pfermion}{\Pf}
+\DeclareRobustCommand{\Pfermionpm}{\Pfpm}
+\DeclareRobustCommand{\Pfermionmp}{\Pfmp}
+\DeclareRobustCommand{\Pfermionplus}{\Pfp}
+\DeclareRobustCommand{\Pfermionminus}{\Pfm}
+\DeclareRobustCommand{\APfermion}{\Paf}
 
 %% Leptons
 \DeclareRobustCommand{\Plepton}{\Pl} % lepton
@@ -159,6 +169,12 @@
 \DeclareRobustCommand{\Pneutron}{\Pn}
 \DeclareRobustCommand{\APproton}{\Pap}
 \DeclareRobustCommand{\APneutron}{\Pan}
+
+%% Chi_c mesons
+\DeclareRobustCommand{\Pchic}{\Pcgc}
+
+%% Delta baryons
+\DeclareRobustCommand{\PDelta}{\PgD}
 
 %% Lambda baryons
 \DeclareRobustCommand{\PLambda}{\PgL}

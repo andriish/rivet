@@ -14,8 +14,8 @@
 %%
 %% -------------------------------------------------------------
 
-\def\fileversion{1.4}
-\def\filedate{2007/03/07}
+\def\fileversion{1.5}
+\def\filedate{2009/03/11}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{heppennames}[\filedate\space Elementary Particle Naming Scheme (version \fileversion)]
 
@@ -60,6 +60,7 @@
 \DeclareRobustCommand{\PBp}{\HepParticle{B}{}{+}\xspace}
 \DeclareRobustCommand{\PBm}{\HepParticle{B}{}{-}\xspace}
 \DeclareRobustCommand{\PBz}{\HepParticle{B}{}{0}\xspace}
+\DeclareRobustCommand{\PBst}{\HepParticle{B}{}{\ast}\xspace}
 \DeclareRobustCommand{\PdB}{\HepParticle{B}{\Pqd}{0}\xspace}
 \DeclareRobustCommand{\PuB}{\HepParticle{B}{}{+}\xspace}
 \DeclareRobustCommand{\PcB}{\HepParticle{B}{\Pqc}{+}\xspace}
@@ -146,6 +147,12 @@
 \DeclareRobustCommand{\PHp}{\HepParticle{H}{}{+}\xspace} % positive-charged Higgs
 \DeclareRobustCommand{\PHm}{\HepParticle{H}{}{-}\xspace} % negative-charged Higgs
 
+\DeclareRobustCommand{\Pf}{\HepGenParticle{f}{}{}\xspace} % fermion
+\DeclareRobustCommand{\Pfpm}{\HepGenParticle{f}{}{\pm}\xspace} % charged fermion
+\DeclareRobustCommand{\Pfmp}{\HepGenParticle{f}{}{\mp}\xspace} % charged fermion
+\DeclareRobustCommand{\Pfp}{\HepGenParticle{f}{}{+}\xspace} % positive fermion
+\DeclareRobustCommand{\Pfm}{\HepGenParticle{f}{}{-}\xspace} % negative fermion
+\DeclareRobustCommand{\Paf}{\HepGenAntiParticle{f}{}{}\xspace} % anti-fermion
 
 %% Leptons
 \DeclareRobustCommand{\Pl}{\HepGenParticle{\ell}{}{}\xspace} % lepton
@@ -406,6 +413,9 @@
 \DeclareRobustCommand{\PDstpm}{\HepParticleResonanceFull{D}{}{\ast}{2010}{}{\pm}\xspace}
 \DeclareRobustCommand{\PDstmp}{\HepParticleResonanceFull{D}{}{\ast}{2010}{}{\mp}\xspace}
 \DeclareRobustCommand{\PDstz}{\HepParticleResonanceFull{D}{}{\ast}{2010}{}{0}\xspace}
+
+%% Deltas
+\DeclareRobustCommand{\PgD}{\HepParticle{E}{}{0}\xspace}
 
 %% Random things
 \DeclareRobustCommand{\PEz}{\HepParticle{E}{}{0}\xspace}
