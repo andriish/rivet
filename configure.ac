@@ -67,9 +67,8 @@ CPPFLAGS="$CPPFLAGS -I$BOOSTINCPATH"
 BOOSTERRMSG="You need at least version 1.34.0 of Boost for this installation."
 BOOSTERRMSG="$BOOSTERRMSG If you want to use Boost from a non-standard location,"
 BOOSTERRMSG="$BOOSTERRMSG please specify '--with-boost-incpath=/path/to/boost_1_35/include'"
-BOOSTERRMSG="$BOOSTERRMSG as option to the configure script or run 'export"
-BOOSTERRMSG="$BOOSTERRMSG BOOSTFLAGS=--with-boost-incpath=/path/to/boost_1_35/include'"
-BOOSTERRMSG="$BOOSTERRMSG before you run the rivet-bootstrap script."
+BOOSTERRMSG="$BOOSTERRMSG as option to the configure script or run the rivet-bootstrap script "
+BOOSTERRMSG="$BOOSTERRMSG with the --install-boost option, or --boost=/path/to/boost"
 AC_CHECK_HEADER([boost/foreach.hpp], [], [AC_MSG_ERROR([Boost foreach not found. $BOOSTERRMSG])])
 AC_CHECK_HEADER([boost/smart_ptr.hpp], [], [AC_MSG_ERROR([Boost smart_ptr not found. $BOOSTERRMSG])])
 AC_CHECK_HEADER([boost/lexical_cast.hpp], [], [AC_MSG_ERROR([Boost lexical_cast not found. $BOOSTERRMSG])])
