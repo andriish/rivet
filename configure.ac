@@ -95,6 +95,7 @@ if test -f "$FJCONFIG"; then
     AC_MSG_ERROR([FastJet version 2.4.0 or later is required])
   fi
   FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\-\-rpath/-rpath/g')"
+  #FASTJETLIBPATH="$($FJCONFIG --libs | sed 's/.*\-L\([^\ ]\+\).*/\1/')"
 else
   FASTJETCONFIGLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
@@ -141,6 +142,21 @@ AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
 ## Build asciidoc docs if possible
 AC_PATH_PROG(ASCIIDOC, asciidoc)
 AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
+
+
+## Checking for SWIG
+AC_PATH_PROG(SWIG, swig)
+AM_CONDITIONAL(WITH_SWIG, [test x$SWIG != x])
+if test x$SWIG != x; then
+  SWIG_VERSION=`$SWIG -version | grep "SWIG Version" | cut -d" " -f3`
+  SWIG_MAJOR_VERSION=`echo $SWIG_VERSION | cut -d. -f1`
+  SWIG_MINOR_VERSION=`echo $SWIG_VERSION | cut -d. -f2`
+  SWIG_MICRO_VERSION=`echo $SWIG_VERSION | cut -d. -f3`
+fi
+AC_SUBST(SWIG_VERSION)
+AC_SUBST(SWIG_MAJOR_VERSION)
+AC_SUBST(SWIG_MINOR_VERSION)
+AC_SUBST(SWIG_MICRO_VERSION)
 
 
 ## Decide whether to build the Python extension

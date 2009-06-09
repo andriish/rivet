@@ -6,10 +6,10 @@ rivet_wrap.cc rivet.py: rivet.i
 	swig -c++ -python -I$(HEPMCINCPATH) -I$(top_srcdir)/include -o rivet_wrap.cc $<
 
 
-#if PYTHON_USE
 if ENABLE_PYRIVET
 
 all-local: rivet_wrap.cc
+	if test "$(SWIG_MICRO_VERSION)" -gt "33"; then echo "Rebuilding rivet.i" && touch rivet.i; fi
 	$(PYTHON) setup.py build
 
 install-exec-local:

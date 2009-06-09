@@ -9,8 +9,8 @@ EXTRA_DIST = compare-histos.txt heppennames.sty cone.png h-physrev3.bst hepnames
 DOCS = analyses.html
 
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(top_srcdir)/src/.libs:$(prefix)/lib \
-DYLD_LIBRARY_PATH=$(DYLD_LIBRARY_PATH):$(top_srcdir)/src/.libs:$(prefix)/lib \
+	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
+DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 ./mk-analysis-html analyses.html
 
 
@@ -19,8 +19,8 @@ if WITH_PDFLATEX
 DOCS += rivet-manual.pdf
 
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
-	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(top_srcdir)/src/.libs:$(prefix)/lib \
-DYLD_LIBRARY_PATH=$(DYLD_LIBRARY_PATH):$(top_srcdir)/src/.libs:$(prefix)/lib \
+	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
+DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 ./mk-analysis-latex analyses.tex
 
 LATEX	= pdflatex
