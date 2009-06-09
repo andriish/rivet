@@ -64,16 +64,22 @@ namespace Rivet {
 	 <<   "in and kinematics of $W$ + jets events.";
       return os.str();
     }
-  /// Characteristics of events to be processed by this analysis
+
+    /// Characteristics of events to be processed by this analysis
     string runInfo() const {
       ostringstream os;
       os << "Requires the process $p\\bar{p} \\rightarrow {W} "
          <<  "\\rightarrow{e}\\nu$, "
          << "additional hard jets will also have to be included to get a good description. " 
-	 << "The LO process in Herwig is set with IPROC=1451.";
+         << "The LO process in Herwig is set with IPROC=1451.";
       return os.str();
     }
    
+    /// Validation status
+    string status() const {
+      return "UNVALIDATED";
+    }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";

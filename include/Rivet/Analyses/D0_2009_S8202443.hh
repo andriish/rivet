@@ -69,7 +69,7 @@ namespace Rivet {
       return os.str();
     }
     string status() const {
-      return "NOT VALIDATED";
+      return "UNVALIDATED";
     }
     /// Publication references.
     vector<string> references() const {

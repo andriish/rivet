@@ -99,7 +99,7 @@ namespace Rivet {
          << " * The corresponding merging points are at $p_T = $ 0, 30, 50, 80, 130, 180 GeV";
       return os.str();
     }
-
+    /// Validation status
     string status() const {
       return "VALIDATED";
     }

@@ -86,7 +86,7 @@ namespace Rivet {
     }
 
     string status() const {
-      return "UNVALIDATED";
+      return "NOT TO BE VALIDATED";
     }
 
     /// No journal or preprint references.

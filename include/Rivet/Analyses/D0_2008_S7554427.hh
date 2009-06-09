@@ -71,6 +71,7 @@ namespace Rivet {
          << "* Needs mass cut on lepton pair to avoid photon singularity: m in range $40 < m_ee < 200$ GeV";
       return os.str();
     }
+    /// Validation status
     string status() const {
       return "VALIDATED";
     }

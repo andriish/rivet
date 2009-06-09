@@ -69,7 +69,7 @@ namespace Rivet {
       os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
       return os.str();
     }
-
+    /// Validation status
     string status() const {
       return "VALIDATED";
     }

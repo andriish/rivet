@@ -69,6 +69,11 @@ namespace Rivet {
       return os.str();
     }
 
+    /// Validation status
+    string status() const {
+      return "UNVALIDATED";
+    }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";

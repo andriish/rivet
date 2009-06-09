@@ -48,7 +48,12 @@ namespace Rivet {
          << "against initial state radiation (ISR) and the primordial/intrinsic pT of the "
          << "Z's parent partons in the incoming hadrons. The Z pT is important in generator "
          << "tuning to fix the interplay of ISR and multi-parton interactions (MPI) in"
-         << "generating `underlying event' activity.";
+         << "generating `underlying event' activity."
+         << "\n\n"
+         << "This analysis is subject to ambiguities in the experimental Z pT definition,"
+         << "since the Rivet implementation reconstructs the Z momentum from the dilepton"
+         << "pair with finite cones for photon brem summation, rather than YFS unfolding"
+         << "or a non-portable direct access to the Z in the event record.";
       return os.str();
     }
 
@@ -57,6 +62,11 @@ namespace Rivet {
       os << "* Tevatron Run I: p pbar collisions at 1800 GeV\n"
          << "* Z Drell-Yan with e+ e- decay mode (for Z \\emph{and} $\\gamma*$) only.";
       return os.str();
+    }
+
+    /// Validation status
+    string status() const {
+      return "VALIDATED";
     }
 
     string experiment() const {

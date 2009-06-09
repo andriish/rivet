@@ -68,6 +68,10 @@ namespace Rivet {
          << "  good statistics.";
       return os.str();
     }
+    /// Validation status
+    string status() const {
+      return "VALIDATED";
+    }
     /// Experiment which performed and published this analysis. 
     string experiment() const {
       return "D0";

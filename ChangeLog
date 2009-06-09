@@ -1,3 +1,7 @@
+2009-06-09  Andy Buckley  <andy@insectnation.org>
+
+	* More doc building and SWIG robustness tweaks.
+
 2009-06-07  Andy Buckley  <andy@insectnation.org>
 
 	* Make doc build from metadata work even before the library is

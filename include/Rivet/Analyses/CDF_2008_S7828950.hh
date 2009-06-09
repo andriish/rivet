@@ -12,7 +12,6 @@ namespace Rivet {
   /// The analysis includes 1.1fb^-1 of CDF data and is the first with a 
   /// cone algorithm to include the forward region of the detector.
   /// arXiv:0807.2204 to be published in PRD
-  /// @author Craig Group
   class CDF_2008_S7828950 : public Analysis {
   public:
     
@@ -49,7 +48,7 @@ namespace Rivet {
          << "collisions at $\\sqrt{s}=1.96$ TeV as a function of jet Et, "
          <<  "for Et $>$ 62 GeV. "
          << "The data is collected by "
-	 << "the CDF II detector and has an integrated luminosity of "
+         << "the CDF II detector and has an integrated luminosity of "
          << "1.13 fb$^{-1}$. The measurement was made using the cone-based "
          << "Midpoint jet clustering algorithm in rapidity bins within "
          <<  "$|y|<2.1$. This measurement can be used to provide increased "
@@ -66,10 +65,16 @@ namespace Rivet {
       return os.str();
     }
 
+    /// Validation status
+    string status() const {
+      return "UNVALIDATED";
+    }
+
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "CDF";
     }
+
     /// Collider on which the experiment ran.
     string collider() const {
       return "Tevatron Run 2";

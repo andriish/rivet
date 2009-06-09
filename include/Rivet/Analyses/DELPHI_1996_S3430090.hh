@@ -72,6 +72,10 @@ namespace Rivet {
          << "* Event type is e+ e- Z production with hadronic decays only";
       return os.str();
     }
+    /// Validation status
+    string status() const {
+      return "VALIDATED";
+    }
     /// Experiment which performed and published this analysis.
     string experiment() const {
       return "DELPHI";

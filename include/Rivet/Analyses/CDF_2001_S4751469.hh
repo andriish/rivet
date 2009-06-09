@@ -91,6 +91,7 @@ namespace Rivet {
          << "generator run without kinematic sub-samples, with $\\sim 1M$ events.";
       return os.str();
     }
+    /// Validation status
     string status() const {
       return "VALIDATED";
     }
