@@ -11,6 +11,7 @@ endif
 all:
 	@echo "Default make rule does nothing: use 'make plugin'"
 
+EXTRA_DIST = MyAnalysis.cc
 $(pluginlib): MyAnalysis.cc
 	$(CXX) -o $(pluginlib) $(shared_flags) -I$(top_srcdir)/include -I$(HEPMCINCPATH) MyAnalysis.cc
 
@@ -20,7 +21,7 @@ plugin: $(pluginlib)
 
 ## Use rivet to test for the new plugin being loaded
 if ENABLE_PYRIVET
-EXTRA_DIST = testplugin
+EXTRA_DIST += testplugin
 TESTS_ENVIRONMENT = RIVET_ANALYSIS_PATH=$(top_srcdir)/plugindemo
 TESTS = testplugin
 endif
