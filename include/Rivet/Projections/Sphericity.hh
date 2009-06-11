@@ -52,23 +52,19 @@ namespace Rivet {
 
   public:
 
-    /// Constructor. Supplied FinalState projection must live throughout the run.
-    Sphericity(const FinalState& fsp, double rparam=2.0)
-      : _regparam(rparam)
-    { 
-      setName("Sphericity");
-      addProjection(fsp, "FS");
-      for (size_t i = 0; i < 3; ++i) {
-        _lambdas.push_back(0);
-        _sphAxes.push_back(Vector3());
-      }
-    }
+    /// @name Constructors etc.
+    //@{
 
+    /// Constructor
+    Sphericity(const FinalState& fsp, double rparam=2.0);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new Sphericity(*this);
     }
+
+    //@}
+
 
   protected:
 
@@ -79,6 +75,9 @@ namespace Rivet {
     int compare(const Projection& p) const;
 
   public:
+
+    /// Reset the projection
+    void clear();
 
     /// @name Access the event shapes by name
     /// @{
@@ -117,6 +116,26 @@ namespace Rivet {
     /// @}
 
 
+    /// @name Direct methods
+    /// Ways to do the calculation directly, without engaging the caching system
+    //@{
+    
+    /// Manually calculate the sphericity, without engaging the caching system
+    void calc(const FinalState& fs);
+
+    /// Manually calculate the sphericity, without engaging the caching system
+    void calc(const vector<Particle>& fsparticles);
+
+    /// Manually calculate the sphericity, without engaging the caching system
+    void calc(const vector<FourMomentum>& fsmomenta);
+
+    /// Manually calculate the sphericity, without engaging the caching system
+    void calc(const vector<Vector3>& fsmomenta);
+
+    //@}
+
+
+
   private:
     /// Eigenvalues.
     vector<double> _lambdas;
@@ -126,6 +145,11 @@ namespace Rivet {
 
     /// Regularizing parameter, used to force infra-red safety.
     const double _regparam;
+
+  private:
+
+    /// Actually do the calculation
+    void _calcSphericity(const vector<Vector3>& fsmomenta);
 
   };
 

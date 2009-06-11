@@ -63,8 +63,9 @@ namespace Rivet {
 
     /// Perform the projection on the Event
     void project(const Event& e) {
-      const FinalState& fs = applyProjection<FinalState>(e, "FS");
-      calcThrust(fs);
+      const vector<Particle> ps 
+        = applyProjection<FinalState>(e, "FS").particles();
+      calc(ps);
     }
 
     /// Compare projections
@@ -102,6 +103,27 @@ namespace Rivet {
     ///@}
 
 
+  public:
+
+    /// @name Direct methods
+    /// Ways to do the calculation directly, without engaging the caching system
+    //@{
+
+    /// Manually calculate the thrust, without engaging the caching system
+    void calc(const FinalState& fs);
+
+    /// Manually calculate the thrust, without engaging the caching system
+    void calc(const vector<Particle>& fsparticles);
+
+    /// Manually calculate the thrust, without engaging the caching system
+    void calc(const vector<FourMomentum>& fsmomenta);
+      
+    /// Manually calculate the thrust, without engaging the caching system
+    void calc(const vector<Vector3>& threeMomenta);
+
+    //@}
+
+
   private:
 
     /// The thrust scalars.
@@ -113,17 +135,10 @@ namespace Rivet {
     /// Caching flag to avoid costly recalculations.
     bool _calculatedThrust;
 
-
   private:
 
-    /// Calculate the thrust axes and scalars, using special cases where possible.
-    void calcThrust(const FinalState& fs);
-
-    /// Explicitly calculate the thrust minor value and axis.
-    void calcM(const vector<Vector3>& p, double& m, Vector3& maxis) const;
-
-    /// Explicitly calculate the thrust value and axis.
-    void calcT(vector<Vector3>& p, double& t, Vector3& taxis) const;
+    /// Explicitly calculate the thrust values.
+    void _calcThrust(const vector<Vector3>& fsmomenta);
 
   };
   
