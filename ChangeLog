@@ -1,5 +1,8 @@
 2009-06-11  Andy Buckley  <andy@insectnation.org>
 
+	* Re-enabling D0IL in FastJets: adding 10^-10 to the pTmin removes
+	the numerical instability!
+
 	* Fixing CDF_2004 min/max cone analysis to use calo jets for the
 	leading jet Et binning. Thanks to Markus Warsinsky
 	for (re)discovering this bug: I was sure it had been fixed. I'm
