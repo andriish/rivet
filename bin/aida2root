@@ -13,8 +13,20 @@
 
 
 import sys, os
-from ROOT import TGraphAsymmErrors, TFile 
 from array import array
+try:
+    from ROOT import TGraphAsymmErrors, TFile 
+except:
+    sys.stderr.write("Couldn't find ROOT module. If ROOT is installed, you probably have PyROOT installed as well.\n")
+    if os.has_key("ROOTSYS"):
+        ROOTSYS = os.environ["ROOTSYS"]
+        ROOTLIBDIR = os.path.join("ROOTSYS", "lib")
+        if os.path.exists(ROOTLIBDIR):
+            from glob import glob
+            if glob(os.path.join(ROOTLIBDIR, "libPyROOT.*")) and glob(os.path.join(ROOTLIBDIR, "ROOT.py")):
+                sys.stderr.write("It looks like maybe you want to put %s in your LD_LIBRARY_PATH and PYTHONPATH shell variables.\n" % ROOTLIBDIR)
+    sys.exit(1)
+
 
 try:
     sorted([])
@@ -182,8 +194,11 @@ except ImportError:
     try:
         import cElementTree as ET
     except ImportError:
-        import xml.etree.ElementTree as ET
-
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
+            sys.exit(1)
 
 
 def mkHistoFromDPS(dps):

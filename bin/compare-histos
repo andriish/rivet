@@ -27,14 +27,6 @@ def sanitiseString(s):
 #from professor.rivetreader import *
 
 
-try:
-    sorted([])
-except:
-    def sorted(coll):
-        coll.sort()
-        return coll
-
-
 class Histo:
     def __init__(self):
         self._bins = []
@@ -182,8 +174,11 @@ except ImportError:
     try:
         import cElementTree as ET
     except ImportError:
-        import xml.etree.ElementTree as ET
-
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
+            sys.exit(1)
 
 
 def mkHistoFromDPS(dps):
@@ -408,6 +403,8 @@ if __name__ == "__main__":
 
 
     ## Write out histos
+    ## For < 2.4 compatibility, since Set has no 'sort' method
+    NAMES = [i for i in NAMES]
     for name in sorted(NAMES):
         logging.debug("Writing histos for plot '%s'" % name)
 

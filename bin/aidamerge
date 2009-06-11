@@ -148,7 +148,11 @@ except ImportError:
     try:
         import cElementTree as ET
     except ImportError:
-        import xml.etree.ElementTree as ET
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
+            sys.exit(1)
 
 
 
