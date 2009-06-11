@@ -15,10 +15,11 @@ namespace Rivet {
   CDF_2004_S5839831::CDF_2004_S5839831() {
     setBeams(PROTON, ANTIPROTON);
     addProjection(Beam(), "Beam");
-    // NB. Charged track reconstruction efficiency has already been corrected in the data.
-    const ChargedFinalState fs(-1.2, 1.2, 0.4*GeV);
-    addProjection(fs, "FS");
-    addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+    const FinalState calofs(-1.2, 1.2);
+    addProjection(calofs, "CaloFS");
+    addProjection(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
+    const ChargedFinalState trackfs(-1.2, 1.2, 0.4*GeV);
+    addProjection(trackfs, "TrackFS");
     // Restrict tracks to |eta| < 0.7 for the min bias part.
     const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
     addProjection(mbfs, "MBFS");
@@ -224,20 +225,6 @@ namespace Rivet {
 
 
 
-  vector<Jet> CDF_2004_S5839831::sortjets(vector<Jet>& jets) {
-    sort(jets.begin(), jets.end(), cmpJetsByE); // was ...ByEt
-    if ( getLog().isActive(Log::DEBUG) ) {
-      getLog() << Log::DEBUG << "Jet Et sums = [" << endl;
-      foreach (Jet& j, jets) {
-        getLog() << Log::DEBUG << "  " << j.EtSum() << endl;
-      }
-      getLog() << Log::DEBUG << "]" << endl;
-    }
-    return jets;
-  }
-
-
-
   // Do the analysis
   void CDF_2004_S5839831::analyze(const Event& event) {
     const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
@@ -247,22 +234,20 @@ namespace Rivet {
 
     {
       getLog() << Log::DEBUG << "Running max/min analysis" << endl;
-      const ParticleVector tracks = applyProjection<FinalState>(event, "FS").particles();
-      vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").jets();
+      vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").jetsByE();
       if (!jets.empty()) {
         // Leading jet must be in central |eta| < 0.5 region
-        sortjets(jets);
         const Jet leadingjet = jets.front();
-        const double etaLead = leadingjet.momentum().pseudorapidity();
-        if (fabs(etaLead) > 0.5) {
-          getLog() << Log::DEBUG << "Leading jet eta = " << etaLead << " not in |eta| < 0.5" << endl;
+        const double etaLead = leadingjet.momentum().eta();
+        // Get Et of the leading jet: used to bin histograms
+        const double ETlead = leadingjet.EtSum();
+        getLog() << Log::DEBUG << "Leading Et = " << ETlead/GeV << " GeV" << endl;
+        if (fabs(etaLead) > 0.5 && ETlead < 15*GeV) {
+          getLog() << Log::DEBUG << "Leading jet eta = " << etaLead 
+                   << " not in |eta| < 0.5 & pT > 15 GeV" << endl;
         } else {
-
-          // Get Et of the leading jet: used to bin histograms
-          const double ETlead = leadingjet.EtSum();
-          getLog() << Log::DEBUG << "Leading Et = " << ETlead/GeV << " GeV" << endl;
-
           // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
+          const ParticleVector tracks = applyProjection<FinalState>(event, "TrackFS").particles();
           const ConesInfo cones = calcTransCones(leadingjet.momentum(), tracks);
           if (fuzzyEquals(sqrtS/GeV, 630)) {
             _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV, weight);
@@ -327,17 +312,16 @@ namespace Rivet {
     {
       getLog() << Log::DEBUG << "Running Swiss Cheese analysis" << endl;
       const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
-      vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").jets();
+      vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").jetsByE();
       if (cheesejets.empty()) {
         getLog() << Log::DEBUG << "No 'cheese' jets found in event" << endl;
         return;
       }
-      sortjets(cheesejets);
       if (cheesejets.size() > 1 &&
           fabs(cheesejets[0].momentum().pseudorapidity()) <= 0.5 &&
           cheesejets[0].momentum().Et()/GeV > 5.0 &&
           cheesejets[1].momentum().Et()/GeV > 5.0) {
-
+        
         const double cheeseETlead = cheesejets[0].momentum().Et();
 
         const double eta1 = cheesejets[0].momentum().pseudorapidity();

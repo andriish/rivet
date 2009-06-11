@@ -1,3 +1,13 @@
+2009-06-11  Andy Buckley  <andy@insectnation.org>
+
+	* Fixing CDF_2004 min/max cone analysis to use calo jets for the
+	leading jet Et binning. Thanks to Markus Warsinsky
+	for (re)discovering this bug: I was sure it had been fixed. I'm
+	optimistic that this will fix the main distributions, although
+	Swiss Cheese "minus 3" is still likely to be broken. Early tests
+	look okay, but it'll take more stats before we can remove the "do
+	not trust" sign.
+
 2009-06-10  Andy Buckley  <andy@insectnation.org>
 
 	* Providing "calc" methods so that Thrust and Sphericity

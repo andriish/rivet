@@ -130,8 +130,6 @@ namespace Rivet {
     const ConesInfo calcTransCones(const double etaLead, const double phiLead, const ParticleVector& tracks);
     const ConesInfo calcTransCones(const FourMomentum& leadvec, const ParticleVector& tracks);
 
-    vector<Jet> sortjets(vector<Jet>& jets);
-
   private:
 
     /// @name Histogram collections
