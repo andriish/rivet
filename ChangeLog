@@ -1,5 +1,8 @@
 2009-06-11  Andy Buckley  <andy@insectnation.org>
 
+	* Adding --disable-pdfmanual option, to make the bootstrap a bit
+	more robust.
+
 	* Re-enabling D0IL in FastJets: adding 10^-10 to the pTmin removes
 	the numerical instability!
 

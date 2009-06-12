@@ -134,9 +134,17 @@ fi
 AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 
-## Build LaTeX docs if possible
+## Build LaTeX docs if possible...
 AC_PATH_PROG(PDFLATEX, pdflatex)
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
+## ... unless told otherwise!
+AC_ARG_ENABLE([pdfmanual],
+  [AC_HELP_STRING(--disable-pdfmanual, [don't try to build or install the PDF manual])],
+  [], [enable_pdfmanual=yes])
+if test x$enable_pdfmanual != xyes; then
+   AC_MSG_WARN([Not building Rivet PDF manual, by request])
+fi
+AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
 
 
 ## Build asciidoc docs if possible

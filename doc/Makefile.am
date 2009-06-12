@@ -14,6 +14,7 @@ DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DY
 ./mk-analysis-html analyses.html
 
 
+if ENABLE_PDFMANUAL
 if WITH_PDFLATEX
 
 DOCS += rivet-manual.pdf
@@ -33,7 +34,7 @@ COPY = if test -r $(<:%.tex=%.toc); then cp $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak
 RM = rm -f
 
 rivet-manual.pdf : rivet-manual.tex preamble.tex analyses.tex
-	$(COPY);$(LATEX) $<
+	$(COPY);$(LATEX) $< 
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%); $(COPY); $(LATEX) $<) > /dev/null; true
 	egrep -c $(RERUNBIB) $(<:%.tex=%.log) && ($(BIBTEX) $(<:%.tex=%); $(COPY); $(LATEX) $<); true
 	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) > /dev/null; true
@@ -43,7 +44,7 @@ rivet-manual.pdf : rivet-manual.tex preamble.tex analyses.tex
 	egrep -i "(Reference|Citation).*undefined" $(<:%.tex=%.log) ; true
 
 endif
-
+endif
 
 
 if WITH_ASCIIDOC
@@ -70,6 +71,7 @@ all:
 doc: $(DOCS)
 	@true
 
+## TODO: Put Rivet version string in PDF filename for upload?
 RSH=rsync
 DEST=login.hepforge.org:rivet/public_html/
 upload: $(DOCS)
