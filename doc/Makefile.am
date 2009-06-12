@@ -24,7 +24,8 @@ analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 ./mk-analysis-latex analyses.tex
 
-LATEX	= pdflatex
+#LATEX	= pdflatex
+LATEX	= pdflatex --interaction=nonstopmode
 BIBTEX	= bibtex
 MAKEINDEX = makeindex
 RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
