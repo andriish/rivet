@@ -140,8 +140,9 @@ namespace Rivet {
   void CDF_2008_S7541902::finalize() { 
     float xsec = crossSection()/sumOfWeights();
     // get the x-axis for the ratio plots
+    /// @todo Replace with autobooking etc. once YODA in place    
     std::vector<double> xval; xval.push_back(_xpoint);
-    std::vector<double> xerr; xerr.push_back(0.);
+    std::vector<double> xerr; xerr.push_back(.5);
     // fill the first ratio histogram using the special normalisation histogram for the total cross section
     double ratio1to0 = 0.;
     if (_histJetMultNorm->binHeight(0) > 0.) ratio1to0 = _histJetMult[0]->binHeight(0)/_histJetMultNorm->binHeight(0);
