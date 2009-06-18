@@ -443,8 +443,8 @@ namespace Rivet {
 
 
   void PDG_HADRON_MULTIPLICITIES::init() {
-    _hist10MeanMultiPiPlus             = bookHistogram1D( 1, 1, 1, "Mean $\\pi+$ multiplicity", "", "Multiplicity");
-    _hist10MeanMultiPi0                = bookHistogram1D( 2, 1, 1, "Mean $\\pi0$ multiplicity", "", "Multiplicity");
+    _hist10MeanMultiPiPlus             = bookHistogram1D( 1, 1, 1, "Mean $\\pi^+$ multiplicity", "", "Multiplicity");
+    _hist10MeanMultiPi0                = bookHistogram1D( 2, 1, 1, "Mean $\\pi^0$ multiplicity", "", "Multiplicity");
     _hist10MeanMultiKPlus              = bookHistogram1D( 3, 1, 1, "Mean $K^+$ multiplicity", "", "Multiplicity");
     _hist10MeanMultiK0                 = bookHistogram1D( 4, 1, 1, "Mean $K^0$ multiplicity", "", "Multiplicity");
     _hist10MeanMultiEta                = bookHistogram1D( 5, 1, 1, "Mean $\\eta$ multiplicity", "", "Multiplicity");
