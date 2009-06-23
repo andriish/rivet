@@ -116,7 +116,7 @@ namespace Rivet {
     template <typename A>
     AnalysisHandler& addAnalysis(const A& analysis) {
       A* a = new A(analysis);
-      a->_theHandler = this;
+      a->_analysishandler = this;
       _analyses.insert(a);
       return *this;
     }

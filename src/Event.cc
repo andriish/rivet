@@ -33,6 +33,7 @@ namespace Rivet {
   // For example, FHerwig only produces DIS events in the 
   // unconventional orientation and has to be corrected
   void _geNormAlignment(GenEvent& ge) {
+    if (!ge.valid_beam_particles()) return;
     typedef pair<HepMC::GenParticle*, HepMC::GenParticle*> GPPair;
     GPPair bps = ge.beam_particles();
     const BeamPair beamids = make_pdgid_pair(bps.first->pdg_id(), bps.second->pdg_id());
