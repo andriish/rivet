@@ -20,12 +20,6 @@
 #include <cassert>
 #include <fstream>
 
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/GenParticle.h"
-
-
-/// This is the main namespace in which all Rivet classes are defined.
 namespace Rivet {
 
   // Convenient imports of common STL classes and functions.
@@ -52,10 +46,6 @@ namespace Rivet {
   using std::setw;
   using std::endl;
 
-  using HepMC::GenEvent;
-  using HepMC::GenParticle;
-  using HepMC::GenVertex;
-
   /// A sensible default maximum value of rapidity for Rivet analyses to use.
   static const double MaxRapidity = 100000.0;
 
@@ -70,6 +60,9 @@ namespace Rivet {
 
 // Pull some Boost defns into the Rivet namespace
 #include "Rivet/RivetBoost.hh"
+
+// HepMC headers and helper functions
+#include "Rivet/RivetHepMC.hh"
 
 // Now import some Rivet classes
 #include "Rivet/Exceptions.hh"

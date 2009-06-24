@@ -4,6 +4,7 @@
 #include "Rivet/Analyses/ExampleAnalysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/Sphericity.hh"
@@ -17,6 +18,7 @@ namespace Rivet {
     const ChargedFinalState cfs(-4, 4, 2*GeV);
     addProjection(cnfs, "FS");
     addProjection(cfs, "CFS");
+    addProjection(FastJets(cnfs, FastJets::KT, 0.7), "Jets");
     addProjection(Multiplicity(cfs), "CMult");
     addProjection(Multiplicity(cnfs), "CNMult");
     addProjection(Thrust(cfs), "Thrust");
@@ -60,10 +62,10 @@ namespace Rivet {
     // Analyse and print some info
     const Multiplicity& cm = applyProjection<Multiplicity>(event, "CMult");
     const Multiplicity& cnm = applyProjection<Multiplicity>(event, "CNMult");
-    getLog() << Log::DEBUG << "Total multiplicity            = " << cnm.totalMultiplicity()  << endl;
-    getLog() << Log::DEBUG << "Total charged multiplicity    = " << cm.totalMultiplicity()   << endl;
-    getLog() << Log::DEBUG << "Hadron multiplicity           = " << cnm.hadronMultiplicity() << endl;
-    getLog() << Log::DEBUG << "Hadron charged multiplicity   = " << cm.hadronMultiplicity()  << endl;
+    getLog() << Log::DEBUG << "Total multiplicity = " << cnm.totalMultiplicity()  << endl;
+    getLog() << Log::DEBUG << "Total charged multiplicity = " << cm.totalMultiplicity()   << endl;
+    getLog() << Log::DEBUG << "Hadron multiplicity = " << cnm.hadronMultiplicity() << endl;
+    getLog() << Log::DEBUG << "Hadron charged multiplicity = " << cm.hadronMultiplicity()  << endl;
 
     const Thrust& t = applyProjection<Thrust>(event, "Thrust");
     getLog() << Log::DEBUG << "Thrust = " << t.thrust() << endl;
@@ -71,6 +73,13 @@ namespace Rivet {
     const Sphericity& s = applyProjection<Sphericity>(event, "Sphericity");
     getLog() << Log::DEBUG << "Sphericity = " << s.sphericity() << endl;
     getLog() << Log::DEBUG << "Aplanarity = " << s.aplanarity() << endl;
+
+    size_t num_b_jets = 0;
+    const Jets jets = applyProjection<FastJets>(event, "Jets").jets();
+    foreach (const Jet& j, jets) {
+      if (j.containsBottom()) ++num_b_jets;
+    }
+    getLog() << Log::DEBUG << "#B-jets = " << num_b_jets << endl;
 
     // Fill histograms
     const double weight = event.weight();

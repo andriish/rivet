@@ -1,5 +1,11 @@
 2009-06-24  Andy Buckley  <andy@insectnation.org>
 
+	* Fixing Jet's containsBottom and containsCharm methods, since B
+	hadrons are not necessarily to be found in the final
+	state. Discovered at the same time that HepMC::GenParticle defines
+	a massively unhelpful copy constructor that actually loses the
+	tree information; it would be better to hide it entirely!
+
 	* Adding RivetHepMC.hh, which defines container-type accessors to
 	HepMC particles and vertices, making it possible to use Boost
 	foreach and hence avoiding the usual huge boilerplate for-loops.

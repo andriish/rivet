@@ -62,12 +62,10 @@ namespace Rivet {
     if (_etaRanges.empty() && _ptmin == 0) {
       getLog() << Log::TRACE << "Open FS processing: should only see this once per event (" 
                << e.genEvent().event_number() << ")" << endl;
-      for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin(); p != e.genEvent().particles_end(); ++p) {
-        if ((*p)->status() == 1) {
-          // pair<GenParticle*,GenParticle*> bps = e.genEvent().beam_particles();
-          // const bool isbeam = (*p == bps.first || *p == bps.second);
-          // getLog() << Log::TRACE << *p << std::boolalpha << (isbeam ? " (beam)" : "") << endl;
-          _theParticles.push_back(Particle(**p));
+      foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+        if (p->status() == 1) {
+          //cout << "FS GV = " << p->production_vertex() << endl;
+          _theParticles.push_back(Particle(*p));
         }
       }
       return;

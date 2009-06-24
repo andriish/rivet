@@ -81,6 +81,9 @@ namespace Rivet {
     /// Check whether this jet contains a certain particle type.
     bool containsParticleId(PdgId pid) const;
 
+    /// Check whether this jet contains at least one of certain particle types.
+    bool containsParticleId(vector<PdgId> pids) const;
+
     /// Check whether this jet contains a charm-flavoured hadron.
     bool containsCharm() const;
 

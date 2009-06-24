@@ -70,21 +70,10 @@ namespace Rivet {
   public:
 
     /// Reset the projection. Jet def etc are unchanged.
-    void reset() { 
-      _yscales.clear();
-      _particles.clear();
-      /// @todo Clear _cseq
-      //_cseq = fastjet::ClusterSequence();
-    }
+    void reset();
 
     /// Number of jets above the \f$ p_\perp \f$ cut.
-    size_t numJets(double ptmin = 0.0) const {
-      if (_cseq.get() != 0) {
-        return _cseq->inclusive_jets(ptmin).size();
-      } else {
-        return 0;
-      }        
-    }
+    size_t numJets(double ptmin = 0.0) const;
 
     /// Number of jets.
     size_t size() const {
@@ -92,33 +81,19 @@ namespace Rivet {
     }
 
     /// Get the jets (unordered).
-    Jets jets(double ptmin = 0.0) const {
-      return _pseudojetsToJets(pseudoJets(ptmin));
-    }
+    Jets jets(double ptmin = 0.0) const;
     
     /// Get the jets, ordered by \f$ p_T \f$.
-    Jets jetsByPt(double ptmin = 0.0) const {
-      return _pseudojetsToJets(pseudoJetsByPt(ptmin));
-    }
+    Jets jetsByPt(double ptmin = 0.0) const;
 
     /// Get the jets, ordered by \f$ E \f$.
-    Jets jetsByE(double ptmin = 0.0) const {
-      return _pseudojetsToJets(pseudoJetsByE(ptmin));
-    }
+    Jets jetsByE(double ptmin = 0.0) const;
 
     /// Get the jets, ordered by rapidity.
-    Jets jetsByRapidity(double ptmin = 0.0) const {
-      return _pseudojetsToJets(pseudoJetsByRapidity(ptmin));
-    }
+    Jets jetsByRapidity(double ptmin = 0.0) const;
 
     /// Get the pseudo jets (unordered).
-    PseudoJets pseudoJets(double ptmin = 0.0) const {
-      if (_cseq.get() != 0) {
-        return _cseq->inclusive_jets(ptmin);
-      } else {
-        return PseudoJets();
-      }
-    }
+    PseudoJets pseudoJets(double ptmin = 0.0) const;
 
     /// Get the pseudo jets, ordered by \f$ p_T \f$.
     PseudoJets pseudoJetsByPt(double ptmin = 0.0) const {

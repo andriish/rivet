@@ -46,7 +46,8 @@ namespace Rivet {
         _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
       } else if (alg == D0ILCONE) {
         // There's a numerical instability in the D0 IL cone which makes it really hate a pTmin of zero!
-        const double MIN_ET = pTmin + 1E-10;
+        const double MIN_ET = pTmin + (isZero(pTmin) ? 1E-10 : 0.0);
+        assert(MIN_ET > 1E-11);
         _plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, MIN_ET));
       } else if (alg == JADE) {
         _plugin.reset(new fastjet::JadePlugin());
@@ -121,7 +122,6 @@ namespace Rivet {
   }
 
 
-
   Jets FastJets::_pseudojetsToJets(const PseudoJets& pjets) const {
     Jets rtn;
     foreach (const fastjet::PseudoJet& pj, pjets) {
@@ -130,20 +130,59 @@ namespace Rivet {
       const PseudoJets parts = clusterSeq()->constituents(pj);
       foreach (const fastjet::PseudoJet& p, parts) {
         map<int, Particle>::const_iterator found = _particles.find(p.user_index());
-        if (found != _particles.end()) {
-          // New way keeping full particle info
-          j.addParticle(found->second);
-        } else {
-          // Old way storing just the momentum
-          const FourMomentum particle(p.E(), p.px(), p.py(), p.pz());
-          j.addParticle(particle);
-        }
+        assert(found != _particles.end());
+        j.addParticle(found->second);
       }
       rtn.push_back(j);
     }
     return rtn;
   }
 
+
+  void FastJets::reset() { 
+    _yscales.clear();
+    _particles.clear();
+    /// @todo _cseq = fastjet::ClusterSequence();
+  }
+
+
+  size_t FastJets::numJets(double ptmin) const {
+    if (_cseq.get() != 0) {
+      return _cseq->inclusive_jets(ptmin).size();
+    } else {
+      return 0;
+    }        
+  }
+
+
+  Jets FastJets::jets(double ptmin) const {
+    Jets rtn = _pseudojetsToJets(pseudoJets(ptmin));
+    return rtn;
+  }
+
+
+  Jets FastJets::jetsByPt(double ptmin) const {
+    return _pseudojetsToJets(pseudoJetsByPt(ptmin));
+  }
+
+
+  Jets FastJets::jetsByE(double ptmin) const {
+    return _pseudojetsToJets(pseudoJetsByE(ptmin));
+  }
+
+
+  Jets FastJets::jetsByRapidity(double ptmin) const {
+    return _pseudojetsToJets(pseudoJetsByRapidity(ptmin));
+  }
+
+
+  PseudoJets FastJets::pseudoJets(double ptmin) const {
+    if (_cseq.get() != 0) {
+      return _cseq->inclusive_jets(ptmin);
+    } else {
+      return PseudoJets();
+    }
+  }
 
 
   vector<double> FastJets::ySubJet(const fastjet::PseudoJet& jet) const {

@@ -1,4 +1,5 @@
 #include "Rivet/Jet.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
 
 namespace Rivet {
@@ -35,33 +36,57 @@ namespace Rivet {
 
   bool Jet::containsParticle(const Particle& particle) const {
     const int barcode = particle.genParticle().barcode();
-    foreach (const Particle& p, _fullParticles) {
-      const GenParticle& part = p.genParticle();
-      if (part.barcode() == barcode) return true;
+    foreach (const Particle& p, particles()) {
+      if (p.genParticle().barcode() == barcode) return true;
     }
     return false;
   }
 
 
   bool Jet::containsParticleId(PdgId pid) const {
-    foreach (const Particle& p, _fullParticles) {
+    foreach (const Particle& p, particles()) {
       if (p.pdgId() == pid) return true;
     }
     return false;
   }
 
 
+  bool Jet::containsParticleId(vector<PdgId> pids) const {
+    foreach (const Particle& p, particles()) {
+      foreach (PdgId pid, pids) {
+        if (p.pdgId() == pid) return true;
+      }
+    }
+    return false;
+  }
+
+
+  /// @todo Jet::containsMatch(Matcher m) { ... if m(pid) return true; ... }
+
+
   bool Jet::containsCharm() const {
-    foreach (const Particle& p, _fullParticles) {
-      if (PID::hasCharm(p.pdgId())) return true;
+    foreach (const Particle& p, particles()) {
+      HepMC::GenVertex* gv = p.genParticle().production_vertex();
+      if (gv) {
+        foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
+          if (PID::hasCharm(pi->pdg_id())) return true;
+        }
+      }
     }
     return false;
   }
 
 
   bool Jet::containsBottom() const {
-    foreach (const Particle& p, _fullParticles) {
-      if (PID::hasBottom(p.pdgId())) return true;
+    foreach (const Particle& p, particles()) {
+      HepMC::GenVertex* gv = p.genParticle().production_vertex();
+      if (gv) {
+        foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
+          const PdgId pid = pi->pdg_id();
+          //Log::getLog("Rivet") << Log::INFO << "PID = " << pid << endl;
+          if (PID::hasBottom(pid)) return true;
+        }
+      }
     }
     return false;
   }

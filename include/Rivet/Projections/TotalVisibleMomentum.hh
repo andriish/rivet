@@ -17,7 +17,7 @@ namespace Rivet {
     
   public:
     
-    /// Constructor.
+    /// Constructor. Make sure you supply an appropriately vetoed FS!
     TotalVisibleMomentum(const FinalState& fsp)
     { 
       setName("TotalVisibleMomentum");
