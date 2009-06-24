@@ -17,9 +17,9 @@ namespace Rivet {
     // corrected for.
     // todo: ask gavin hesketh about it, he first implemented this
     // analysis without eta cuts.
-//    etaRanges.push_back(make_pair(-3.2, -1.5));
-//    etaRanges.push_back(make_pair(-0.9, 0.9));
-//    etaRanges.push_back(make_pair(1.5, 3.2));
+    //    etaRanges.push_back(make_pair(-3.2, -1.5));
+    //    etaRanges.push_back(make_pair(-0.9, 0.9));
+    //    etaRanges.push_back(make_pair(1.5, 3.2));
     ZFinder zfinder(etaRanges, 15.0*GeV, ELECTRON, 71.0*GeV, 111.0*GeV, 0.2);
     addProjection(zfinder, "ZFinder");
   } 

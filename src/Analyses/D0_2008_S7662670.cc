@@ -19,7 +19,7 @@ namespace Rivet {
     FinalState fs(-5.0, 5.0);
     addProjection(fs, "FS");
 
-    FastJets jetpro(fs, FastJets::D0ILCONE, 0.7);
+    FastJets jetpro(fs, FastJets::D0ILCONE, 0.7, 6*GeV);
     addProjection(jetpro, "Jets");
   }
 

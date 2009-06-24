@@ -14,7 +14,7 @@ namespace Rivet {
     setBeams(PROTON, ANTIPROTON);
     const FinalState fs(-3.0, 3.0);
     addProjection(fs, "FS");
-    addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7), "Jets");
+    addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 6*GeV), "Jets");
     addProjection(TotalVisibleMomentum(fs), "CalMET");
     addProjection(PVertex(), "PV");
     
