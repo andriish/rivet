@@ -6,16 +6,16 @@ nobase_pkginclude_HEADERS =
 
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
-  Rivet.hh \
-  RivetBoost.hh       Exceptions.hh       \
+  Rivet.hh            Exceptions.hh       \
+  RivetBoost.hh       RivetHepMC.hh       \
   Constraints.hh      BeamConstraint.hh   \
   Event.hh            Event.fhh           \
-  ParticleBase.hh \
+  ParticleBase.hh                         \
   Particle.hh         Particle.fhh        \
   RivetAIDA.hh        RivetAIDA.fhh       \
   Analysis.hh         Analysis.fhh        \
   AnalysisHandler.hh  AnalysisHandler.fhh \
-  ProjectionHandler.hh \
+  ProjectionHandler.hh                    \
   ProjectionApplier.hh ProjectionApplier.fhh \
   Projection.hh       Projection.fhh      \
   Cmp.hh              Cmp.fhh             \

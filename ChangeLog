@@ -1,3 +1,9 @@
+2009-06-24  Andy Buckley  <andy@insectnation.org>
+
+	* Adding RivetHepMC.hh, which defines container-type accessors to
+	HepMC particles and vertices, making it possible to use Boost
+	foreach and hence avoiding the usual huge boilerplate for-loops.
+
 2009-06-11  Andy Buckley  <andy@insectnation.org>
 
 	* Adding --disable-pdfmanual option, to make the bootstrap a bit
