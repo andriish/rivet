@@ -20,9 +20,9 @@ namespace Rivet {
 
   // Constructor
   CDF_2008_S7541902::CDF_2008_S7541902()
-    : _electronETCut(20.0 *GeV), _electronETACut(1.1),
-      _eTmissCut(30.0 *GeV), _mTCut(20.0 *GeV),
-      _jetEtCutA(20.0 *GeV),  _jetEtCutB(25.0 *GeV), _jetETA(2.0),
+    : _electronETCut(20.0*GeV), _electronETACut(1.1),
+      _eTmissCut(30.0*GeV), _mTCut(20.0*GeV),
+      _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0),
       _xpoint(1960.)
   {
     setBeams(PROTON, ANTIPROTON);
@@ -68,68 +68,49 @@ namespace Rivet {
   void CDF_2008_S7541902::analyze(const Event& event) {
     // Get the W decay products (electron and neutrino)
     const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
-    const ParticleVector&  WDecayProducts =  invMassFinalState.particles();
+    const ParticleVector&  wDecayProducts = invMassFinalState.particles();
         
-    FourMomentum electronP;
-    bool gotElectron = false;
-    FourMomentum neutrinoP;
-    bool gotNeutrino = false;
-    for(ParticleVector::const_iterator p =  WDecayProducts.begin();
-        p !=  WDecayProducts.end(); ++p) {
-      if (p->momentum().Et() > _electronETCut && 
-          fabs(p->momentum().pseudorapidity()) < _electronETACut && 
-          abs(p->pdgId()) == ELECTRON) {
-        electronP = p->momentum();
+    FourMomentum electronP, neutrinoP;
+    bool gotElectron(false), gotNeutrino(false);
+    foreach (const Particle& p, wDecayProducts) {
+      FourMomentum p4 = p.momentum();
+      if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && abs(p.pdgId()) == ELECTRON) {
+        electronP = p4;
         gotElectron = true;
       }
-      if(p->momentum().Et() > _eTmissCut && 
-         abs(p->pdgId()) == NU_E) {
-        neutrinoP = p->momentum();
+      else if (p4.Et() > _eTmissCut && abs(p.pdgId()) == NU_E) {
+        neutrinoP = p4;
         gotNeutrino = true;
       }
     }
     
     // Veto event if the electron or MET cuts fail
-    if (!gotElectron || !gotNeutrino) {
-      vetoEvent;
-    }
+    if (!gotElectron || !gotNeutrino) vetoEvent;
+
     // Veto event if the MTR cut fails
-    double mT2 = 
-      2.0* (electronP.pT() * neutrinoP.pT() - 
-	    electronP.px() * neutrinoP.px() -
-	    electronP.py() * neutrinoP.py() );
-    if (sqrt(mT2) < _mTCut ) {
-      vetoEvent;
-    }
+    double mT2 = 2.0 * ( electronP.pT()*neutrinoP.pT() - electronP.px()*neutrinoP.px() - electronP.py()*neutrinoP.py() );
+    if (sqrt(mT2) < _mTCut ) vetoEvent;
 
     // Get the jets
-    const FastJets &jetProj = applyProjection<FastJets>(event, "Jets");
-    Jets theJets = jetProj.jetsByPt(_jetEtCutA);
-    sort(theJets.begin(), theJets.end(), Particle::byETDescending());
-    
-    Jets foundJets;
-    size_t njets = 0; 
-    for (Jets::const_iterator jIt =theJets.begin(); 
-         foundJets.size() != 4 && jIt != theJets.end(); ++jIt){
-      if (fabs(jIt->momentum().rapidity()) < _jetETA) {
-        // Store all jets with ET > 20. for differential histograms 
-        if (jIt->momentum().Et() > _jetEtCutA) {
-          foundJets.push_back(*jIt);
+    const JetAlg& jetProj = applyProjection<FastJets>(event, "Jets");
+    Jets theJets = jetProj.jetsByEt(_jetEtCutA);
+    size_t njetsA(0), njetsB(0);
+    foreach (const Jet& j, theJets) {
+      const FourMomentum pj = j.momentum();
+      if (fabs(pj.rapidity()) < _jetETA) {
+        // Fill differential histograms for top 4 jets with Et > 20
+        if (njetsA < 4 && pj.Et() > _jetEtCutA) {
+          ++njetsA;
+          _histJetEt[njetsA-1]->fill(pj.Et(), event.weight());
         }
-        // Count number of jets with ET > 25. for multiplicity histograms
-        if (jIt->momentum().Et() > _jetEtCutB) {
-          njets++; 
-        }
+        // Count number of jets with Et > 25 (for multiplicity histograms)
+        if (pj.Et() > _jetEtCutB) ++njetsB;
       }
-     }
-    // Fill jet ET distributions for first four jets
-    for (size_t i = 0; i != foundJets.size(); ++i) {
-      _histJetEt[i]->fill(foundJets[i].momentum().Et(), event.weight());
     }
  
-    // Jet multiplicity :
+    // Jet multiplicity
     _histJetMultNorm->fill(_xpoint, event.weight());
-    for (size_t i = 1; i <= njets ; ++i) { 
+    for (size_t i = 1; i <= njetsB ; ++i) {
       _histJetMult[i-1]->fill(_xpoint, event.weight());
     }
   }
@@ -139,14 +120,14 @@ namespace Rivet {
   // Finalize
   void CDF_2008_S7541902::finalize() { 
     float xsec = crossSection()/sumOfWeights();
-    // get the x-axis for the ratio plots
+    // Get the x-axis for the ratio plots
     /// @todo Replace with autobooking etc. once YODA in place    
     std::vector<double> xval; xval.push_back(_xpoint);
     std::vector<double> xerr; xerr.push_back(.5);
-    // fill the first ratio histogram using the special normalisation histogram for the total cross section
+    // Fill the first ratio histogram using the special normalisation histogram for the total cross section
     double ratio1to0 = 0.;
     if (_histJetMultNorm->binHeight(0) > 0.) ratio1to0 = _histJetMult[0]->binHeight(0)/_histJetMultNorm->binHeight(0);
-    // get the fractional error on the ratio histogram
+    // Get the fractional error on the ratio histogram
     double frac_err1to0 = 0.;
     if (_histJetMult[0]->binHeight(0) > 0.)  frac_err1to0 = _histJetMult[0]->binError(0)/_histJetMult[0]->binHeight(0);
     if (_histJetMultNorm->binHeight(0) > 0.) {

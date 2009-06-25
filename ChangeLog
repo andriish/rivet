@@ -1,3 +1,9 @@
+2009-06-25  Andy Buckley  <andy@insectnation.org>
+
+	* Tidying and small efficiency improvements in CDF_2008_S7541902
+	W+jets analysis (remove unneeded second stage of jet storing,
+	sorting the jets twice, using foreach, etc.).
+
 2009-06-24  Andy Buckley  <andy@insectnation.org>
 
 	* Fixing Jet's containsBottom and containsCharm methods, since B

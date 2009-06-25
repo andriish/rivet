@@ -10,7 +10,6 @@ if ENABLE_PYRIVET
 
 all-local: rivet_wrap.cc
 	$(PYTHON) setup.py build
-#if test "$(SWIG_MICRO_VERSION)" -gt "33"; then echo "Rebuilding rivet.i" && touch rivet.i; fi
 
 install-exec-local:
 	$(PYTHON) setup.py install --prefix=$(DESTDIR)$(prefix)
