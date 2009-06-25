@@ -405,6 +405,7 @@ if __name__ == "__main__":
     ## Write out histos
     ## For < 2.4 compatibility, since Set has no 'sort' method
     NAMES = [i for i in NAMES]
+    num_written = 0
     for name in sorted(NAMES):
         logging.debug("Writing histos for plot '%s'" % name)
 
@@ -431,7 +432,7 @@ if __name__ == "__main__":
 
         if len(activefiles) == 1 and opts.NO_REF_ONLY:
             logging.warning("Skipping histo '%s' since only one plot is present" % name)
-            continue        
+            continue 
 
         ## Identify reference file for this histo
         ref = opts.REF_ID
@@ -490,6 +491,9 @@ if __name__ == "__main__":
         ## Write file
         mkoutdir(outdir)
         outfilepath = os.path.join(outdir, outfilename)
+        logging.debug("Writing histo '%s' to %s" % (name, outfilepath))
         f = open(outfilepath, 'w')
         f.write(headstr + "\n" + "\n".join(histstrs))
         f.close()
+        num_written += 1
+    logging.info("Wrote %d histo files to %s" % (num_written, outdir))
