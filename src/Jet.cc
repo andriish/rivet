@@ -69,7 +69,8 @@ namespace Rivet {
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
-          if (PID::hasCharm(pi->pdg_id())) return true;
+          const PdgId pid = pi->pdg_id();
+          if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
         }
       }
     }
@@ -83,8 +84,7 @@ namespace Rivet {
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
           const PdgId pid = pi->pdg_id();
-          //Log::getLog("Rivet") << Log::INFO << "PID = " << pid << endl;
-          if (PID::hasBottom(pid)) return true;
+          if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
         }
       }
     }
