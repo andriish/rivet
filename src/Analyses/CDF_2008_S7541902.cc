@@ -110,8 +110,9 @@ namespace Rivet {
  
     // Jet multiplicity
     _histJetMultNorm->fill(_xpoint, event.weight());
-    for (size_t i = 1; i <= njetsB ; ++i) {
+    for (size_t i = 1; i <= njetsB; ++i) {
       _histJetMult[i-1]->fill(_xpoint, event.weight());
+      if (i == 4) break;
     }
   }
   
