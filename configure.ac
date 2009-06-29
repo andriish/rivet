@@ -153,18 +153,18 @@ AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
 
 
 ## Checking for SWIG
-AC_PATH_PROG(SWIG, swig)
-AM_CONDITIONAL(WITH_SWIG, [test x$SWIG != x])
-if test x$SWIG != x; then
-  SWIG_VERSION=`$SWIG -version | grep "SWIG Version" | cut -d" " -f3`
-  SWIG_MAJOR_VERSION=`echo $SWIG_VERSION | cut -d. -f1`
-  SWIG_MINOR_VERSION=`echo $SWIG_VERSION | cut -d. -f2`
-  SWIG_MICRO_VERSION=`echo $SWIG_VERSION | cut -d. -f3`
-fi
-AC_SUBST(SWIG_VERSION)
-AC_SUBST(SWIG_MAJOR_VERSION)
-AC_SUBST(SWIG_MINOR_VERSION)
-AC_SUBST(SWIG_MICRO_VERSION)
+dnl AC_PATH_PROG(SWIG, swig)
+dnl AM_CONDITIONAL(WITH_SWIG, [test x$SWIG != x])
+dnl if test x$SWIG != x; then
+dnl   SWIG_VERSION=`$SWIG -version | grep "SWIG Version" | cut -d" " -f3`
+dnl   SWIG_MAJOR_VERSION=`echo $SWIG_VERSION | cut -d. -f1`
+dnl   SWIG_MINOR_VERSION=`echo $SWIG_VERSION | cut -d. -f2`
+dnl   SWIG_MICRO_VERSION=`echo $SWIG_VERSION | cut -d. -f3`
+dnl fi
+dnl AC_SUBST(SWIG_VERSION)
+dnl AC_SUBST(SWIG_MAJOR_VERSION)
+dnl AC_SUBST(SWIG_MINOR_VERSION)
+dnl AC_SUBST(SWIG_MICRO_VERSION)
 
 
 ## Decide whether to build the Python extension
