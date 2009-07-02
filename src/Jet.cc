@@ -64,6 +64,23 @@ namespace Rivet {
   /// @todo Jet::containsMatch(Matcher m) { ... if m(pid) return true; ... }
 
 
+  double Jet::totalEnergy() const {
+    return momentum().E();
+  }
+
+
+  double Jet::neutralEnergy() const {
+    double e_neutral = 0.0;
+    foreach (const Particle& p, particles()) {
+      const PdgId pid = p.pdgId();
+      if (PID::threeCharge(pid) == 0) {
+        e_neutral += p.momentum().E();
+      }
+    }
+    return e_neutral;
+  }
+
+
   bool Jet::containsCharm() const {
     foreach (const Particle& p, particles()) {
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
