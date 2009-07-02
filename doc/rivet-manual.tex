@@ -178,9 +178,12 @@ installation area you can do so without difficulties. You'll need to add
 Now, change directory to your build area (you may also want to make this,
 e.g. \kbd{\home/build}), and download the script:\\
 \inp{wget \url{http://svn.hepforge.org/rivet/bootstrap/rivet-bootstrap}}\\
-Now run it, specifying the install area as the argument:\\
 \inp{chmod +x rivet-bootstrap}\\
-\inp{./rivet-bootstrap \val{localdir}}
+Now run it to get some help:
+\inp{./rivet-bootstrap --help}\\
+Now to actually do the install: for example, to bootstrap Rivet and AGILe 
+to the install area specified as the prefix argument, run this:\\
+\inp{./rivet-bootstrap --install-agile --prefix=\val{localdir}}
 
 If you are running on a system where the CERN AFS area is mounted as
 \path{/afs/cern.ch}, then the bootstrap script will attempt to use the pre-built
@@ -723,6 +726,75 @@ does not need to know the cross section.
 %   addCut("PT", MORE_EQ, 3.0*GeV);
 % \end{snippet}
 
+
+\subsection{Utility classes}
+
+Rivet provides quite a few object types for physics purposes, such as three- and
+four-vectors, matrices and Lorentz boosts, and convenience proxy objects for
+e.g. particles and jets. We now briefly summarise the most important features of
+some of these objects; more complete interface descriptions can be found in the
+generated Doxygen web pages on the Rivet web site, or simply by browsing the
+relevant header files.
+
+\subsubsection{\code{FourMomentum}}
+
+The \code{FourMomentum} class is the main physics vector that you will encounter
+when writing Rivet analyses. Its functionality and interface are similar to the
+CLHEP \code{HepLorentzVector} with which many users will be familiar, but
+without some of the historical baggage.
+
+\paragraph{Vector components}%
+The \code{FourMomentum} \code{E()}, \code{px()}, \code{py()}, \code{pz()} \&
+\code{mass()} methods are (unsurprisingly) accessors for the vector's energy,
+momentum components and mass.
+
+\paragraph{Useful properties}%
+The \code{pT()} and \code{Et()} methods are used to calculate the transverse
+momentum and transverse energy. Angular variables are accessed via the
+\code{eta()}, \code{phi()} and \code{theta()} for the pseudorapidity, azimuthal
+angle and polar angle respectively. More explicitly named versions of these also
+exist, named \code{pseudorapidity()}, \code{azimuthalAngle()} and
+\code{polarAngle()}. Finally, the true rapidity is accessed via the
+\code{rapidity()} method. Many of these functions are also available as external
+functions, as are algebraic functions such as \code{cross(vec1, vec2)}, which is
+perhaps more palatable than \code{vec1.cross(vec2)}.
+
+\paragraph{Distances}%
+The $\eta$--$\phi$ distance between any two four-vectors (and/or three-vectors)
+can be computed using a range of overloaded external functions of the type
+\code{deltaR(vec1, vec2)}. Angles between such vectors can be calculated via the
+similar \code{angle(vec1, vec2)} functions.
+
+\subsubsection{\code{Particle}}
+This class is a wrapper around the HepMC \code{GenParticle}
+class. \code{Particle} objects are usually obtained as a vector from the
+\code{particles()} method of a \code{FinalState} projection.  Rather than having
+to directly use the HepMC objects, and e.g. translate HepMC four-vectors into
+the Rivet equivalent, several key properties are accessed directly via the
+\code{Particle} interface (and more may be added). The main methods of interest
+are \code{momentum()}, which returns a \code{FourMomentum}, and \code{pdgId()},
+which returns the PDG particle ID code. The PDG code can be used to access
+particle properties by using functions such as \code{PID::isHadron()},
+\code{PID::threeCharge()}, etc. (these are defined in
+\kbd{Rivet/Tools/ParticleIDMethods.hh}.)
+
+\subsubsection{\code{Jet}}
+Jets are obtained from one of the jet accessor methods of a projection that
+implements the \code{JetAlg} interface, e.g. \code{FastJets::jetsByPt()} (this
+returns the jets sorted by \pT, such that the first element in the vector is the
+hardest jet --- usually what you want.) The most useful methods are
+\code{particles()}, \code{momenta()}, \code{momentum()} (a representative
+\code{FourMomentum}), and some checks on the jet contents such as
+\code{containsParticleId(pid)}, \code{containsCharm()} and
+\code{containsBottom()}.
+
+
+\subsubsection{Mathematical utilities}
+The \kbd{Rivet/Math/MathUtils.hh} header defines a variety of mathematical
+utility functions. These include testing functions such as \code{isZero(a)},
+\code{fuzzyEquals(a, b)} and \code{inRange(a, low, high)}, whose purpose is
+hopefully self-evident, and angular range-mapping functions such as
+\code{mapAngle0To2Pi(a)}, \code{mapAngleMPiToPi(a)}, etc.
 
 
 \subsection{Histogramming}

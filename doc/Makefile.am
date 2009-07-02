@@ -66,8 +66,8 @@ endif
 
 .PHONY = all doc upload
 
-all:
-	@echo "Default make rule does nothing: use 'make doc'"
+#all:
+#	@echo "Default make rule does nothing: use 'make doc'"
 
 doc: $(DOCS)
 	@true
