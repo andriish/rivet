@@ -1,3 +1,5 @@
+SUBDIRS = YAML
+
 noinst_LTLIBRARIES = libRivetTools.la
 
 libRivetTools_la_SOURCES = \
@@ -20,3 +22,5 @@ libRivetTools_la_CPPFLAGS = \
   -DENABLE_BINRELOC \
   -DDEFAULTDATADIR=\"$(datadir)\" \
   -DDEFAULTLIBDIR=\"$(libdir)\"
+
+libRivetTools_la_LIBADD = $(builddir)/YAML/libRivetYAML.la
