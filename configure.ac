@@ -207,6 +207,7 @@ AC_EMPTY_SUBST
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
+AC_CONFIG_FILES(src/Tools/YAML/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/Analyses/Makefile)
 AC_CONFIG_FILES(src/Test/Makefile)
