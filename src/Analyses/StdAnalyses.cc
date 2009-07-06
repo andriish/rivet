@@ -54,6 +54,7 @@
 #include "Rivet/Analyses/D0_2008_S7837160.hh"
 #include "Rivet/Analyses/D0_2008_S7863608.hh"
 #include "Rivet/Analyses/D0_2009_S8202443.hh"
+#include "Rivet/Analyses/D0_2009_S8320160.hh"
 
 // RHIC
 #include "Rivet/Analyses/STAR_2006_S6870392.hh"
@@ -128,6 +129,7 @@ extern "C" {
     fns["D0_2008_S7837160"] = Rivet::D0_2008_S7837160::create;
     fns["D0_2008_S7863608"] = Rivet::D0_2008_S7863608::create;
     fns["D0_2009_S8202443"] = Rivet::D0_2009_S8202443::create;
+    fns["D0_2009_S8320160"] = Rivet::D0_2009_S8320160::create;
 
     // RHIC
     fns["STAR_2006_S6870392"] = Rivet::STAR_2006_S6870392::create;

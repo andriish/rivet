@@ -49,7 +49,8 @@ namespace Rivet{
                                 const T &val,
                                 const double &weight);
     
-    const vector<AIDA::IHistogram1D*> &getHistograms()const{return _histos;};
+    const vector<AIDA::IHistogram1D*> &getHistograms() const { return _histos; }
+    vector<AIDA::IHistogram1D*> &getHistograms() { return _histos; }
     
   private:
     
