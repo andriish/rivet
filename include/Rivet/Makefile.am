@@ -53,6 +53,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/CDF_2008_LEADINGJETS.hh \
   Analyses/CDF_2008_NOTE_9351.hh \
   Analyses/CDF_2008_S7828950.hh \
+  Analyses/CDF_2008_S8093652.hh \
   Analyses/CDF_2008_S8095620.hh \
   Analyses/CDF_2009_S8233977.hh \
   Analyses/D0_2001_S4674421.hh  \
