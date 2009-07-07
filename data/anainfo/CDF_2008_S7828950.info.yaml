@@ -1,0 +1,21 @@
+Name: CDF_2008_S7828950
+Summary: CDF Run II inclusive jet cross-section using the Midpoint algorithm
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 7828950
+Status: UNVALIDATED
+Authors:
+ - Craig Group <group@fnal.gov>
+References:
+ - arXiv:0807.2204
+ - Phys.Rev.D78:052006,2008
+RunInfo:
+  Requires $2\rightarrow{2}$ QCD scattering processes. The minimum jet Et is 62 GeV, so a cut on kinematic pTmin may be required for good statistics.
+Description:
+  Measurement of the inclusive jet cross section in $p\bar{p}$
+  collisions at $\sqrt{s}=1.96$ TeV as a function of jet Et, for Et $>$
+  62 GeV. The data is collected by the CDF II detector and has an
+  integrated luminosity of 1.13 fb$^{-1}$. The measurement was made
+  using the cone-based Midpoint jet clustering algorithm in rapidity
+  bins within $|y|<2.1$. This measurement can be used to provide
+  increased precision in PDFs at high parton momentum fraction $x$.

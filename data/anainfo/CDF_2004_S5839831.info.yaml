@@ -1,0 +1,36 @@
+Name: CDF_2004_S5839831
+Summary: Transverse cone and 'Swiss cheese' underlying event studies
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 5839831
+Status: UNVALIDATED
+Authors:
+ - Andy Buckley <andy.buckley@durham.ac.uk>
+References:
+ - Phys. Rev. D70, 072002 (2004)
+ - arXiv:hep-ex/0404004
+RunInfo:
+  * Two different beam energies: sqrt(s) = 630 & 1800 GeV
+  * Event type: generic QCD events
+  * Several pTmin cutoffs are probably required to fill the profile  histograms, e.g.
+  
+    * { 0 (min bias), 30, 90, 150 GeV } at 1800 GeV; and
+    * { 0 (min bias), 20, 90, 150 GeV } at 630 GeV
+Description:
+  This analysis studies the underlying event via transverse cones of  $R
+  = 0.7$ at 90 degrees in \phi relative to the leading (highest E) jet,
+  at sqrt(s) = 630 and 1800 GeV. This is similar to the 2001 CDF UE
+  analysis, except that cones, rather than the whole central \eta range
+  are used. The transverse cones are categorised as TransMIN and
+  TransMAX on an event-by-event basis, to give greater sensitivity to
+  the UE component.  'Swiss Cheese' distributions, where cones around
+  the leading $n$ jets are excluded from the distributions, are also
+  included for $n = 2, 3$.  This analysis is useful for constraining the
+  energy evolution of the underlying event, since it performs the same
+  analyses at two distinct CoM energies.  WARNING: this analysis is not
+  currently considered valid for MC tuning and validation studies due to
+  ambiguities in the paper and non-reproducability of the MC plots shown
+  in the paper. The fit to data is sufficiently poor that this analysis
+  skews the overall goodness of fit in tuning studies, and has to be
+  excluded. If you can help to improve this analysis and make it usable
+  for validation studies, please get in touch!

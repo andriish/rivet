@@ -1,0 +1,21 @@
+Name: ALEPH_1991_S2435284
+Summary: Hadronic Z decay charged multiplicity measurement
+Experiment: ALEPH
+Collider: LEP 1
+SpiresID: 2435284
+Status: VALIDATED
+Authors:
+ - Andy Buckley <andy.buckley@durham.ac.uk>
+References:
+ - Phys. Lett. B, 273, 181 (1991)
+RunInfo:
+  Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
+Description:
+  The charged particle multiplicity distribution of hadronic Z decays,
+  as measured on the peak of the Z resonance using the ALEPH detector at
+  LEP. The unfolding procedure was model independent, and the
+  distribution was found to have a mean of 20.85+-0.24, Comparison with
+  lower energy data supports the KNO scaling hypothesis. The shape of
+  the multiplicity distribution is well described by a log-normal
+  distribution, as predicted from a cascading model for multi-particle
+  production.

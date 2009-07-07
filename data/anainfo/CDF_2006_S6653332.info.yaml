@@ -1,0 +1,24 @@
+Name: CDF_2006_S6653332
+Summary: pT and eta distributions of jets in Z + jet production
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 6653332
+Status: VALIDATED
+Authors:
+ - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>
+References:
+ - Phys.Rev.D.74:032008,2006
+ - doi:10.1103/PhysRevD.74.032008
+ - arXiv:hep-ex/0605099v2
+RunInfo:
+  * Energy: sqrt(s) = 1960 GeV
+  * Event type: Z + jets events
+  * Jets min pT cut: pT_{jet} $>$ 20~GeV
+  * Leptons min pT cut: pT_{jet} $>$ 10~GeV
+Description:
+  Measurement of the b jet cross section in events with Z boson in p
+  pbar collisions at center-of-mass energy sqrt(s) = 1.96 TeV. The data
+  cover jet transverse momenta above 20 GeV and jet pseudo-rapidities in
+  the range -1.5 to 1.5. Z bosons are identified in their electron and
+  muon decay modes in an invariant dilepton mass range between 66 and
+  116 GeV.

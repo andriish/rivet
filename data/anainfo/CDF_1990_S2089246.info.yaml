@@ -1,0 +1,22 @@
+Name: CDF_1990_S2089246
+Summary: CDF pseudorapidity distributions at 630 and 1800 GeV
+Experiment: CDF
+Collider: Tevatron Run 0
+SpiresID: 2089246
+Status: UNVALIDATED
+Authors:
+ - Andy Buckley <andy.buckley@cern.ch>
+References:
+ - Phys.Rev.D41:2330,1990
+ - doi:10.1103/PhysRevD.41.2330
+RunInfo:
+  * Energy: sqrt(s) = 630 and 1800 GeV
+  * Event type: generic QCD events
+  * $|\eta| < 3.5$
+Description:
+  Pseudorapidity distributions based on the CDF 630 and 1800 GeV runs
+  from 1987. All data is detector corrected. The data confirms the UA5
+  measurement of a $\d{N}/\d{\eta}$ rise with energy faster than
+  $\ln{\sqrt{s}}$, and as such this analysis is important for
+  constraining the energy evolution of minimum bias and underlying event
+  characteristics in MC simulations.

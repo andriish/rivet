@@ -1,0 +1,23 @@
+Name: DELPHI_1996_S3430090
+Summary: Delphi MC tuning on event shapes and identified particles.
+Experiment: DELPHI
+Collider: LEP 1
+SpiresID: 3430090
+Status: VALIDATED
+Authors:
+ - Andy Buckley <andy.buckley@durham.ac.uk>
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - Z.Phys.C73:11-60,1996
+ - doi:10.1007/s002880050295
+RunInfo:
+  * Energy: 91.2 GeV
+  * Event type is e+ e- Z production with hadronic decays only
+Description:
+  Event shape and charged particle inclusive distributions measured
+  using 750000 decays of Z bosons to hadrons from the DELPHI detector at
+  LEP. This data, combined with identified particle distributions from
+  all LEP experiments, was used for tuning of shower-hadronisation event
+  generators by the original PROFESSOR method.  This is a critical
+  analysis for MC event generator tuning of final state radiation and
+  both flavour and kinematic aspects of hadronisation models.

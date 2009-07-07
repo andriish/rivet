@@ -1,0 +1,16 @@
+Name: ALEPH_1996_S3486095
+Summary: Studies of QCD with the ALEPH detector.
+Experiment: ALEPH
+Collider: LEP 1
+SpiresID: 3486095
+Status: VALIDATED
+Authors:
+ - Holger Schulz <holger.schulz@physik.hu-berlin.de>
+References:
+ - Phys. Rept., 294, 1--165 (1998)
+RunInfo:
+  Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
+Description:
+  Summary paper of QCD results as measured by ALEPH at LEP 1. The
+  publication includes various event shape variables, multiplicities
+  (identified particles and inclusive), and particle spectra.

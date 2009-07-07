@@ -1,0 +1,28 @@
+Name: CDF_2008_S7782535
+Summary: CDF Run II b-jet shape paper
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 7782535
+Status: UNVALIDATED
+Authors:
+ - Alison Lister <alister@fnal.gov>
+ - Emily Nurse <nurse@hep.ucl.ac.uk>
+References:
+ - arXiv:0806.1699
+ - Phys.Rev.D78:072005,2008
+RunInfo:
+  Requires  $2\rightarrow{2}$ QCD scattering processes. The minimum jet Et is 52 GeV, so a cut on kinematic pTmin may be required for good statistics.
+Description:
+  A measurement of the shapes of b-jets using 300 pb$^{-1}$ of data
+  obtained with CDF II in $p\bar{p}$ collisions at $\sqrt{s}=1.96$ TeV.
+  The measured quantity is the average integrated jet shape, which is
+  computed over an ensemble of jets. This quantity is expressed as
+  $\Psi(r/R) = \langle\frac{p_T(0 \rightarrow r)}{p_T(0 \rightarrow
+  R)}\rangle$, where pT (0$\rightarrow$r) is the scalar sum of the
+  transverse momenta of all objects inside a sub-cone of radius r around
+  the jet axis. The integrated shapes are by definition normalized such
+  that  $\Psi(r/R =1) = 1$.   The measurement is done in bins of jet pT
+  in the range 52 to 300 GeV/c. The jets have $|\eta| < 0.7$. The b-jets
+  are expected to be broader than inclusive jets.Moreover, b-jets
+  containing a single b-quark are expected to be narrower than those
+  containing a b bbar pair from gluon splitting.

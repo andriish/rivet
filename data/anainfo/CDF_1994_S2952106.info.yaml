@@ -1,0 +1,30 @@
+Name: CDF_1994_S2952106
+Summary: CDF Run I color coherence analysis.
+Experiment: CDF
+Collider: Tevatron Run 1
+SpiresID: 2952106
+Status: UNVALIDATED
+Authors:
+ - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>
+References:
+ - Phys.Rev.D50,5562,1994
+ - doi:10.1103/PhysRevD.50.5562
+RunInfo:
+  * Energy: sqrt(s) = 1800 GeV
+  * Event type: generic QCD events
+  * Cut on primary vertex $z$ position: z(PV) < 60 cm
+  * pTmin: leading jet = 100 GeV; and 3rd jet = 10 GeV
+  * Max. pseudorapidity range of 2nd and 3rd jets: $|eta| < 0.7$
+  * Azimuthal angle requirement: $\Delta{\phi} < \pi/18$ (transverse back-to-backness)
+  * MET cut requirement: $mET/\sqrt{\text{Scalar }E_T} < 6.0 GeV$
+Description:
+  CDF Run I color coherence analysis. Events with $\ge 3$ jets are
+  selected and Et distributions of the three highest-pT jets are
+  obtained. The plotted quantities are the $\Delta{R}$ between the 2nd
+  and 3rd leading jets in the pT and pseudorapidity of the 3rd jet, and
+  $\alpha = \mathrm{d}{\eta}/\mathrm{d}{\phi}$, where $\mathrm{d}{\eta}$
+  is the pseudorapidity difference between the 2nd and 3rd jets and
+  $\mathrm{d}{\phi}$ is their azimuthal angle difference.  Since the
+  data has not been detector-corrected, a bin by bin correction is
+  applied, based on the distributions with ideal and CDF simulation as
+  given in the publication.

@@ -1,0 +1,19 @@
+Name: CDF_2009_S8233977
+Summary: CDF Run 2 min bias cross-section analysis
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 8233977
+Status: PARTIALLY VALIDATED
+Authors:
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - CDF public note 9337
+ - hep-ex/0904.1098
+RunInfo:
+  * Tevatron Run 2: ppbar QCD interactions at 1960 GeV.
+  * Particles with $c \tau > {}$10 mm should be set stable.
+Description:
+  Niccolo Moggi's minbias analysis. Minimum bias events are used to
+  measure the average track pT vs charged multiplicity, a track pT
+  distribution and an inclusive $\sum E_T$ distribution.  WARNING: Only
+  average track pT vs charged multiplicity is validated!

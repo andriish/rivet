@@ -1,0 +1,25 @@
+Name: CDF_2002_S4796047
+Summary: CDF Run 1 charged multiplicity measurement
+Experiment: CDF
+Collider: Tevatron Run 1
+SpiresID: 4796047
+Status: VALIDATED
+Authors:
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - Phys.Rev.D65:072005,2002
+ - doi:10.1103/PhysRevD.65.072005 
+RunInfo:
+  * Energy: sqrt(s) = 630 and 1800 GeV
+  * Event type: generic QCD events
+  * TODO: MORE?
+Description:
+  A study of pp̅ collisions at sqrt(s) = 1800 and 630 GeV collected
+  using a minimum bias trigger in which the data set is divided into two
+  classes corresponding to `soft' and `hard' interactions. For each
+  subsample, the analysis includes measurements of the multiplicity,
+  transverse momentum (pT) spectra, and the average pT and event-by-
+  event pT dispersion as a function of multiplicity. A comparison of
+  results shows distinct differences in the behavior of the two samples
+  as a function of the center of mass energy. The properties of the soft
+  sample are invariant as a function of c.m. energy.

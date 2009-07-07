@@ -1,0 +1,22 @@
+Name: D0_2008_S7863608
+Summary: Measurement of differential Z/gamma* + jet + X cross sections
+Experiment: D0
+Collider: Tevatron Run 2
+SpiresID: 7863608
+Status: VALIDATED
+Authors:
+ - Andy Buckley <andy.buckley@durham.ac.uk>
+ - Gavin Hesketh <gavin.hesketh@fnal.gov>
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - arXiv:0808.1296 [hep-ex]
+RunInfo:
+  Tevatron Run 2 conditions:
+  
+  
+  * ppbar -> mu+ mu- + jets at 1960 GeV
+  * Needs mass cut on lepton pair to avoid photon singularity: min. range $65 < m_Z < 115$
+Description:
+  Cross sections as a function of pT and rapidity of the boson and pT
+  and rapidity of the leading jet in ppbar collisions at sqrt(s) = 1.96
+  TeV, based on an integrated luminosity of $1.0~\text{fb}^-1$.

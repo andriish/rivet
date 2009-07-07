@@ -1,0 +1,24 @@
+Name: CDF_2007_S7057202
+Summary: CDF Run II inclusive jet cross-section using the kT algorithm
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 7057202
+Status: UNVALIDATED
+Authors:
+ - David Voong
+ - James Monk <jmonk@hep.ucl.ac.uk>
+References:
+ - Phys.Rev.D75:092006,2007
+ - Erratum-ibid.D75:119901,2007
+ - FNAL-PUB 07/026-E
+ - hep-ex/0701051
+RunInfo:
+  Standard Tevatron Run II: p-pbar collisions at 1960~GeV. Jet pT bins from 54~GeV to 700~GeV. Jet rapidity $< |2.1|$.
+Description:
+  CDF Run II measurement of inclusive jet cross sections at a p-pbar
+  collision energy of 1.96~TeV. Jets are reconstructed in the central
+  part of the detector ($|y|<2.1$) using the kT algorithm with an $R$
+  parameter of 0.7. The minimum jet pT considered is 54~GeV, with a
+  maximum around 700~GeV.  The inclusive jet pT is plotted in bins of
+  rapidity $|y|<0.1$, $0.1<|y|<0.7$, $0.7<|y|<1.1$, $1.1<|y|<1.6$ and
+  $1.6<|y|<2.1$.

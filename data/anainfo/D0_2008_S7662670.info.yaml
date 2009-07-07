@@ -1,0 +1,22 @@
+Name: D0_2008_S7662670
+Summary: Measurement of D0 Run II differential jet cross sections
+Experiment: D0
+Collider: Tevatron Run 2
+SpiresID: 7662670
+Status: VALIDATED
+Authors:
+ - Andy Buckley <andy.buckley@durham.ac.uk>
+ - Gavin Hesketh <gavin.hesketh@cern.ch>
+References:
+ - Phys.Rev.Lett.101:062001,2008
+ - doi:10.1103/PhysRevLett.101.062001
+ - arXiv:0802.2400v3 [hep-ex]
+RunInfo:
+  * Energy: sqrt(s) = 1960 GeV
+  * Event type: QCD events
+  * pTmin cut may be necessary: lowest jet pT bin is at 50 GeV
+Description:
+  Measurement of the inclusive jet cross section in p pbar collisions at
+  center-of-mass energy sqrt(s) = 1.96 TeV. The data cover jet
+  transverse momenta from 50--600 GeV and jet rapidities in the range
+  -2.4 to 2.4.

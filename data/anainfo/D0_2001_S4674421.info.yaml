@@ -1,0 +1,20 @@
+Name: D0_2001_S4674421
+Summary: Tevatron Run I differential W/Z boson cross-section analysis
+Experiment: D0
+Collider: Tevatron Run 1
+SpiresID: 4674421
+Status: VALIDATED
+Authors:
+ - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>
+References:
+ - Phys.Lett.B517:299-308,2001
+ - doi:10.1016/S0370-2693(01)01020-6
+ - arXiv:hep-ex/0107012v2
+RunInfo:
+  * Energy: sqrt(s) = 1800 GeV
+  * Event type: W/Z events with decays to first generation leptons
+Description:
+  Measurement of differential W/Z boson cross section and ratio in p
+  pbar collisions at center-of-mass energy sqrt(s) = 1.8 TeV. The data
+  cover electrons and neutrinos in a pseudo-rapidity range of -2.5 to
+  2.5.

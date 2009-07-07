@@ -1,0 +1,18 @@
+Name: JADE_OPAL_2000_S4300807
+Summary: Jet rates in e+e- at JADE [35 GeV].
+Experiment: JADE_OPAL
+Collider: DESY PETRA
+SpiresID: 4300807
+Status: VALIDATED
+Authors:
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - Eur.Phys.J.C17:19-51,2000
+ - arXiv:hep-ex/0001055
+RunInfo:
+  e+ e- collisions: 
+  
+  * e+ e- -> jet jet (+ jets) at 35 GeV. * no cuts needed
+Description:
+  Differential and integrated jet rates for Durham and JADE jet
+  algorithms at sqrt(s) = 35.

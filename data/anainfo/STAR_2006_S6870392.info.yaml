@@ -1,0 +1,19 @@
+Name: STAR_2006_S6870392
+Summary: Inclusive jet cross-section in pp at 200 GeV
+Experiment: STAR
+Collider: RHIC pp 200 GeV
+SpiresID: 6870392
+Status: VALIDATED
+Authors:
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - Phys. Rev. Lett. 97, 252001
+ - hep-ex/0608030
+RunInfo:
+  RHIC pp 200 GeV run conditions:
+  
+  
+  * pp at 200 GeV
+Description:
+  Inclusive jet cross section as a function of pT in pp collisions at
+  $\sqrt{s} = 200$ GeV, measured by the STAR experiment at RHIC.

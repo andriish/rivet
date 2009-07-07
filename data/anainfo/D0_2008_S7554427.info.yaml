@@ -1,0 +1,20 @@
+Name: D0_2008_S7554427
+Summary: Z/gamma* + X cross-section shape, differential in pT(Z)
+Experiment: D0
+Collider: Tevatron Run 2
+SpiresID: 7554427
+Status: VALIDATED
+Authors:
+ - Andy Buckley <andy.buckley@durham.ac.uk>
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - arXiv:0712.0803
+RunInfo:
+  Tevatron Run 2 conditions:
+  * ppbar -> e+ e- + jets at 1960 GeV.
+  * Needs mass cut on lepton pair to avoid photon singularity: m in range $40 < m_ee < 200$ GeV
+Description:
+  Cross sections as a function of pT of the vector boson inclusive and
+  in forward region ($|y| > 2, pT < 30~\text{GeV}$)in ppbar collisions
+  at sqrt(s) = 1.96 TeV, based on an integrated luminosity of 0.98
+  fb$^{-1}$.
