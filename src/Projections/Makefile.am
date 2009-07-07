@@ -16,6 +16,7 @@ libRivetProjections_la_SOURCES = \
   IdentifiedFinalState.cc \
   InitialQuarks.cc \
   InvMassFinalState.cc \
+  JetAlg.cc \
   JetShape.cc \
   LeadingParticlesFinalState.cc \
   LossyFinalState.cc \
@@ -28,4 +29,5 @@ libRivetProjections_la_SOURCES = \
   TotalVisibleMomentum.cc \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
+  VisibleFinalState.cc \
   ZFinder.cc

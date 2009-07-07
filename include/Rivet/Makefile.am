@@ -124,6 +124,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/TotalVisibleMomentum.hh \
   Projections/UnstableFinalState.hh \
   Projections/VetoedFinalState.hh \
+  Projections/VisibleFinalState.hh \
   Projections/ZFinder.hh
 
 

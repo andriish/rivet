@@ -4,6 +4,7 @@
 
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Jet.hh"
 
@@ -58,6 +59,9 @@ namespace Rivet {
   class JetAlg : public Projection {
     
   public:
+
+    /// Constructor
+    JetAlg(const FinalState& fs);
 
     /// Clone on the heap.
     virtual const Projection* clone() const = 0;
@@ -120,6 +124,7 @@ namespace Rivet {
     virtual int compare(const Projection& p) const = 0;
 
   };
+
 
 }
 

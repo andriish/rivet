@@ -9,7 +9,6 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
-#include "Rivet/Projections/FastJets.hh"
 
 #include <gsl/gsl_sf_legendre.h>
 
@@ -38,8 +37,6 @@ namespace Rivet {
         .addVetoPairId(NU_TAU)
         .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
         addProjection(vfs, "VFS");
-        
-        //addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "JetsC4");
 
         // initialize moments vector
         for ( int i = 0; i < MAXMOMENT ; ++i) {

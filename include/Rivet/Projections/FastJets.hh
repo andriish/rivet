@@ -46,7 +46,7 @@ namespace Rivet {
     /// jet alg choices (including some plugins). For the built-in algs,
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
-    FastJets(const FinalState& fsp, JetAlgName alg, 
+    FastJets(const FinalState& fsp, JetAlgName alg,
              double rparameter, double pTmin=0.0, double seed_threshold=1.0);
 
     /// Native argument constructor, using FastJet alg/scheme enums.
@@ -56,8 +56,8 @@ namespace Rivet {
     /// Explicitly pass in an externally-constructed plugin
     FastJets(const FinalState& fsp, const fastjet::JetDefinition::Plugin& plugin);
 
-    /// Explicit copy constructor.
-    FastJets(const FastJets& other);
+    // /// Explicit copy constructor.
+    // FastJets(const FastJets& other);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

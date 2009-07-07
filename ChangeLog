@@ -1,3 +1,11 @@
+2009-07-07  Andy Buckley  <andy@insectnation.org>
+
+	* Adding VisibleFinalState and automatically using it in JetAlg
+	projections.
+
+	* Adding YAML parser for new metadata (and eventually ref data)
+	files.
+
 2009-07-02  Andy Buckley  <andy@insectnation.org>
 
 	* Adding Jet::neutralEnergy() (and Jet::totalEnergy() for

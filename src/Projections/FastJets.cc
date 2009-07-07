@@ -16,12 +16,14 @@
 namespace Rivet {
 
 
-  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double pTmin, double seed_threshold) {
-    getLog() << Log::DEBUG << "rparameter = " << rparameter << endl;
-    getLog() << Log::DEBUG << "pTmin = " << pTmin << endl;
-    getLog() << Log::DEBUG << "seed_threshold = " << seed_threshold << endl;
+  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double pTmin, double seed_threshold) 
+    : JetAlg(fsp)
+  {
     setName("FastJets");
-    addProjection(fsp, "FS");
+    getLog() << Log::DEBUG << "R parameter = " << rparameter << endl;
+    getLog() << Log::DEBUG << "pT_min = " << pTmin << endl;
+    getLog() << Log::DEBUG << "Seed threshold = " << seed_threshold << endl;
+    //addProjection(fsp, "FS");
     if (alg == KT) {
       _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
     } else if (alg == CAM) {
@@ -60,32 +62,37 @@ namespace Rivet {
 
 
   FastJets::FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
-                     fastjet::RecombinationScheme recom, double rparameter) {
+                     fastjet::RecombinationScheme recom, double rparameter)
+    : JetAlg(fsp)
+  {
     setName("FastJets");
-    addProjection(fsp, "FS");
+    //addProjection(fsp, "FS");
     _jdef = fastjet::JetDefinition(type, rparameter, recom);
   }
 
 
-  FastJets::FastJets(const FinalState& fsp, const fastjet::JetDefinition::Plugin& plugin) {
+  FastJets::FastJets(const FinalState& fsp, const fastjet::JetDefinition::Plugin& plugin)
+    : JetAlg(fsp)
+  {
     setName("FastJets");
-    addProjection(fsp, "FS");
+    //addProjection(fsp, "FS");
     /// @todo Need to copy the plugin to make a shared_ptr?
     //_plugin = &plugin;
     _jdef = fastjet::JetDefinition(_plugin.get());
   }
 
 
-  FastJets::FastJets(const FastJets& other) 
-    : //_cseq(other._cseq),
-    _jdef(other._jdef),
-    _plugin(other._plugin),
-    _yscales(other._yscales)
-  {  
-    setName("FastJets");
-  }
-
-
+//   FastJets::FastJets(const FastJets& other) 
+//     : JetAlg
+// //_cseq(other._cseq),
+//     _jdef(other._jdef),
+//     _plugin(other._plugin),
+//     _yscales(other._yscales)
+//   {  
+//     setName("FastJets");
+//   }
+  
+  
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
