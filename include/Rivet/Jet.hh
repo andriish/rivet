@@ -123,6 +123,9 @@ namespace Rivet {
     /// Get the energy carried in this jet by neutral particles.
     double neutralEnergy() const;
     
+    /// Get the energy carried in this jet by hadrons.
+    double hadronicEnergy() const;
+
     /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
     double ptSum() const;
 

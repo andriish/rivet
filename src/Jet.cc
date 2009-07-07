@@ -81,6 +81,18 @@ namespace Rivet {
   }
 
 
+  double Jet::hadronicEnergy() const {
+    double e_hadr = 0.0;
+    foreach (const Particle& p, particles()) {
+      const PdgId pid = p.pdgId();
+      if (PID::isHadron(pid)) {
+        e_hadr += p.momentum().E();
+      }
+    }
+    return e_hadr;
+  }
+
+
   bool Jet::containsCharm() const {
     foreach (const Particle& p, particles()) {
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
