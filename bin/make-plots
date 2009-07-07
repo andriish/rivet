@@ -54,10 +54,12 @@ class Inputdata:
             m = pat_begin_block.match(line)
             if m:
                 name, path = m.group(1,2)
+
                 if path is None and name != 'PLOT':
                     raise Exception('BEGIN sections need a path name.')
 
-                settings = self.get_path_settings(path)
+                if path is not None:
+                    settings = self.get_path_settings(path)
 
                 if name == 'PLOT':
                     self.read_input(f);
