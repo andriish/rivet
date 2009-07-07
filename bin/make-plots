@@ -45,6 +45,8 @@ class Inputdata:
         self.description = {}
         self.pathdescriptions = []
 
+        self.read_config_files(opts.CONFIGFILES)
+
         global is2dim
         is2dim=False
         f = open(filename+'.dat')
@@ -54,23 +56,24 @@ class Inputdata:
                 name, path = m.group(1,2)
                 if path is None and name != 'PLOT':
                     raise Exception('BEGIN sections need a path name.')
+
+                settings = self.get_path_settings(path)
+
                 if name == 'PLOT':
                     self.read_input(f);
                 elif name == 'SPECIAL':
-                    self.special[path] = Special(f)
+                    self.special[path] = Special(f, settings)
                 elif name == 'HISTOGRAM':
-                    self.histos[path] = Histogram(f)
+                    self.histos[path] = Histogram(f, settings)
                 elif name == 'HISTO1D':
-                    self.histos[path] = Histo1D(f)
+                    self.histos[path] = Histo1D(f, settings)
                 elif name == 'FUNCTION':
-                    self.functions[path] = Function(f)
-            elif is_comment(line):
-                continue
-            else:
-                self.read_path_based_input(line)
+                    self.functions[path] = Function(f, settings)
+#            elif is_comment(line):
+#                continue
+#            else:
+#                self.read_path_based_input(line)
         f.close()
-
-        self.read_config_files(opts.CONFIGFILES)
 
         self.set_path_based_properties()
 
@@ -115,6 +118,7 @@ class Inputdata:
         if conffiles is not None:
             for filename in conffiles:
                 cf = open(filename,'r')
+
                 for line in cf:
                     m = pat_begin_block.match(line)
                     if m and m.group(1) == 'PLOT':
@@ -152,6 +156,13 @@ class Inputdata:
                     if re.match(regex,path):
                         obj.description.update({prop : value})
 
+    def get_path_settings(self, path):
+        dictionary = {}
+        for regex, prop, value in self.pathdescriptions:
+            if re.match(regex,path):
+                dictionary.update({prop : value})
+        return dictionary
+                
 class Plot:
     def __init__(self,inputdata):
         pass
@@ -611,12 +622,12 @@ class Labels:
 
 
 class Special:
-    def __init__(self, f):
+    def __init__(self, f, settings):
+        self.description = settings
+        self.data = []
         self.read_input(f)
 
     def read_input(self, f):
-        self.description = {}
-        self.data = []
         for line in f:
             if is_end_marker(line, 'SPECIAL'):
                 break
@@ -761,11 +772,11 @@ class DrawableObject:
 
 
 class Function(DrawableObject):
-    def __init__(self, f):
+    def __init__(self, f, settings):
+        self.description = settings
         self.read_input(f)
 
     def read_input(self, f):
-        self.description = {}
         self.code='def plotfunction(x):\n'
         iscode=False
         for line in f:
@@ -814,8 +825,8 @@ class Function(DrawableObject):
 
 
 class Histogram(DrawableObject):
-    def __init__(self, f):
-        self.description = {}
+    def __init__(self, f, settings):
+        self.description = settings
         self.data = []
         self.read_input_data(f)
         self.read_input(f)
