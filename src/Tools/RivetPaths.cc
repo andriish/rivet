@@ -3,6 +3,7 @@
 
 namespace Rivet {
 
+
   const string getLibPath() {
     BrInitError error;
     br_init_lib(&error);
