@@ -17,14 +17,20 @@ from array import array
 try:
     from ROOT import TGraphAsymmErrors, TFile 
 except:
-    sys.stderr.write("Couldn't find ROOT module. If ROOT is installed, you probably have PyROOT installed as well.\n")
-    if os.has_key("ROOTSYS"):
+    sys.stderr.write("Couldn't find PyROOT module. If ROOT is installed, PyROOT probably is too, but it's not currently accessible\n")
+    foundpyroot = False
+    if os.environ.has_key("ROOTSYS"):
         ROOTSYS = os.environ["ROOTSYS"]
         ROOTLIBDIR = os.path.join("ROOTSYS", "lib")
         if os.path.exists(ROOTLIBDIR):
             from glob import glob
             if glob(os.path.join(ROOTLIBDIR, "libPyROOT.*")) and glob(os.path.join(ROOTLIBDIR, "ROOT.py")):
-                sys.stderr.write("It looks like maybe you want to put %s in your LD_LIBRARY_PATH and PYTHONPATH shell variables.\n" % ROOTLIBDIR)
+                foundpyroot = True
+    if foundpyroot:
+        sys.stderr.write("It looks like you want to put %s in your LD_LIBRARY_PATH and PYTHONPATH shell variables.\n" % ROOTLIBDIR)
+    else:
+        sys.stderr.write("You should make sure that the directory containing libPyROOT and ROOT.py is in your LD_LIBRARY_PATH and PYTHONPATH shell variables.\n")
+    sys.stderr.write("You can test if PyROOT is properly set up by calling 'import ROOT' at the interactive Python shell\n")
     sys.exit(1)
 
 
