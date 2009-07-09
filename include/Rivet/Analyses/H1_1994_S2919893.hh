@@ -27,67 +27,6 @@ namespace Rivet {
     //@}
     
 
-    /// @name Publication metadata
-    //@{
-    /// A short description of the analysis.
-    string spiresId() const {
-      return "2919893";
-    }
-    /// A short description of the analysis.
-    string summary() const {
-      return "H1 energy flow and charged particle spectra in DIS";
-    }
-    /// A full description of the analysis.
-    string description() const {
-      ostringstream os;
-      os << "Global properties of the hadronic final state in deep inelastic scattering events "
-         << "at HERA are investigated. The data are corrected for detector effects. Energy flows "
-         << "in both the laboratory frame and the hadronic centre of mass system, and "
-         << "energy-energy correlations in the laboratory frame are presented."
-         << "\n\n"
-         << "Historically, the Ariadne colour dipole model provided the only satisfactory description "
-         << "of this data, hence making it a useful 'target' analysis for MC shower models.";
-      return os.str();
-    }
-    /// Event type required by this analysis.
-    string runInfo() const {
-      ostringstream os;
-      os << "* Event type: e- p / e+ p deep inelastic scattering\n"
-         << "* HERA beam conditions: 820~GeV protons colliding with 26.7~GeV electrons";
-      return os.str();
-    }
-    /// Experiment which performed and published this analysis.
-    string experiment() const {
-      return "H1";
-    }
-    /// Collider on which the experiment ran.
-    string collider() const {
-      return "HERA";
-    }
-    /// When published (preprint year according to SPIRES).
-    string year() const {
-      return "1994";
-    }
-    /// Names & emails of paper/analysis authors.
-    vector<string> authors() const {
-      vector<string> rtn;
-      rtn += "Peter Richardson <peter.richardson@durham.ac.uk>";
-      return rtn;
-    }
-    /// Journal, and preprint references.
-    vector<string> references() const {
-      vector<string> ret;
-      ret += "Z.Phys.C63:377-390,1994";
-      ret += "doi:10.1007/BF01580319";
-      return ret;
-    }
-    /// Validation status
-    string status() const {
-      return "VALIDATED";
-    }
-    //@}
-
-
     /// @name Analysis methods
     //@{
     virtual void init();

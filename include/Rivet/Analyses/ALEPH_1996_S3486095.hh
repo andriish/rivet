@@ -27,62 +27,6 @@ namespace Rivet {
     //@}
 
 
-    /// @name Publication metadata
-    //@{
-    /// A short description of the analysis.
-    string spiresId() const {
-      return "3486095";
-    }
-    /// A short description of the analysis.
-    string summary() const {
-      return "Studies of QCD with the ALEPH detector.";
-    }
-    /// A full description of the analysis.
-    string description() const {
-      ostringstream os;
-      os << "Summary paper of QCD results as measured by ALEPH at LEP 1. "
-         << "The publication includes various event shape variables, "
-         << "multiplicities (identified particles and inclusive), and "
-         << "particle spectra.";
-      return os.str();
-    }
-    /// Experiment which performed and published this analysis.
-    string experiment() const {
-      return "ALEPH";
-    }
-    /// Collider on which the experiment ran.
-    string collider() const {
-      return "LEP 1";
-    }
-    /// When published (preprint year according to SPIRES).
-    string year() const {
-      return "1996";
-    }
-    /// Names & emails of paper/analysis authors.
-    vector<string> authors() const {
-      vector<string> ret;
-      ret += "Holger Schulz <holger.schulz@physik.hu-berlin.de>";
-      return ret;
-    }
-    /// Information about the events needed as input for this analysis.
-    string runInfo() const {
-      ostringstream os;
-      os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
-      return os.str();
-    }
-
-    string status() const {
-      return "VALIDATED";
-    }
-
-    /// Journal, and preprint references
-    vector<string> references() const {
-      vector<string> ret;
-      ret += "Phys. Rept., 294, 1--165 (1998)";
-      return ret;
-    }
-    //@}
-
     /// @name Analysis methods
     //@{
     virtual void init();

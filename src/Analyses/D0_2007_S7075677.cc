@@ -8,6 +8,7 @@ namespace Rivet {
 
 
   D0_2007_S7075677::D0_2007_S7075677()
+    : Analysis("D0_2007_S7075677")  
   {
     // Run II Z rapidity
     setBeams(PROTON, ANTIPROTON);

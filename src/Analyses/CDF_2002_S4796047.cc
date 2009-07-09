@@ -10,6 +10,7 @@ namespace Rivet {
 
 
   CDF_2002_S4796047::CDF_2002_S4796047()
+    : Analysis("CDF_2002_S4796047")
   { 
     setBeams(PROTON, ANTIPROTON);
     addProjection(Beam(), "Beams");

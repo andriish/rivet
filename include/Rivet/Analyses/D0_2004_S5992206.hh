@@ -39,63 +39,6 @@ namespace Rivet {
     //@}
 
 
-    /// @name Publication metadata
-    //@{
-    /// A short description of the analysis.
-    string spiresId() const {
-      return "5992206";
-    }
-    /// A short description of the analysis.
-    string summary() const {
-      return "Run II jet azimuthal decorrelation analysis";
-    }
-    /// Full description of the analysis, for the manual
-    string description() const {
-      ostringstream os;
-      os << "Correlations in the azimuthal angle between the two largest pT jets "
-         << "have been measured using the D0 detector in ppbar collisions at 1960 GeV. "
-         << "The analysis is based on an inclusive dijet event sample in the central "
-         << "rapidity region. The correlations are determined for four different pT "
-         << "intervals.";
-      return os.str();
-    }
-    /// Experiment which performed and published this analysis.
-    string experiment() const {
-      return "D0";
-    }
-    /// Collider on which the experiment was based
-    string collider() const {
-      return "Tevatron Run 2";
-    }
-    /// When published (preprint year according to SPIRES).
-    string year() const {
-      return "2004";
-    }
-    /// Names & emails of paper/analysis authors.
-    vector<string> authors() const {
-      vector<string> ret;
-      ret += "Lars Sonnenschein <lars.sonnenschein@cern.ch>";
-      return ret;
-    }
-    /// Information about the events needed as input for this analysis.
-    string runInfo() const {
-      ostringstream os;
-      os << "Tevatron Run 2: ppbar QCD interactions at 1960 GeV.";
-      return os.str();
-    }
-    string status() const {
-      return "VALIDATED";
-    }
-    /// Journal, and preprint references.
-    vector<string> references() const {
-      vector<string> ret;
-      ret += "Phys. Rev. Lett., 94, 221801 (2005)";
-      ret += "arXiv:hep-ex/0409040";
-      return ret;
-    }
-    //@}
-
-
     /// @name Analysis methods
     //@{
     void init();

@@ -12,7 +12,9 @@ namespace Rivet {
   const double H1_1995_S3167097::_xmax = 6.0;
 
 
-  H1_1995_S3167097::H1_1995_S3167097() { 
+  H1_1995_S3167097::H1_1995_S3167097() 
+    : Analysis("H1_1995_S3167097")
+  { 
     setBeams(ELECTRON, PROTON);
     const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
     const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");

@@ -12,6 +12,7 @@ namespace Rivet {
 
 
   CDF_1990_S2089246::CDF_1990_S2089246()
+    : Analysis("CDF_1990_S2089246")
   {
     setBeams(PROTON, ANTIPROTON);
     addProjection(ChargedFinalState(-3.5, 3.5), "FS");

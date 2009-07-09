@@ -8,7 +8,9 @@
 namespace Rivet {
 
 
-  CDF_2009_S8057893::CDF_2009_S8057893() {
+  CDF_2009_S8057893::CDF_2009_S8057893() 
+    : Analysis("CDF_2009_S8057893")
+  {
     setBeams(PROTON, ANTIPROTON);
 
     const FinalState fsj(-4.0, 4.0, 0.0*GeV);

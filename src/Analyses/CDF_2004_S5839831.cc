@@ -12,7 +12,9 @@
 namespace Rivet {
 
 
-  CDF_2004_S5839831::CDF_2004_S5839831() {
+  CDF_2004_S5839831::CDF_2004_S5839831() 
+    : Analysis("CDF_2004_S5839831") 
+  {
     setBeams(PROTON, ANTIPROTON);
     addProjection(Beam(), "Beam");
     const FinalState calofs(-1.2, 1.2);

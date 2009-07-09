@@ -221,7 +221,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         print ""
         print ana.summary()
         print ""
-        print "Analysis status: %s" % ana.status()
+        print "Status: %s" % ana.status()
         print ""
         print "Spires ID: %s" % ana.spiresId()
         print "Spires URL: http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.spiresId()
@@ -239,19 +239,20 @@ if len(opts.SHOW_ANALYSES) > 0:
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
         for l in ana.runInfo().split("\n"):
             print twrap.fill(l)
-        print ""
-        print "References:"
-        for r in ana.references():
-            url = None
-            if r.startswith("arXiv:"):
-                code = r.split()[0].replace("arXiv:", "")
-                url = "http://arxiv.org/abs/" + code
-            elif r.startswith("doi:"):
-                code = r.replace("doi:", "")
-                url = "http://dx.doi.org/" + code
-            if url is not None:
-                r += " - " + url
-            print "  %s" % r
+        if ana.references():
+            print ""
+            print "References:"
+            for r in ana.references():
+                url = None
+                if r.startswith("arXiv:"):
+                    code = r.split()[0].replace("arXiv:", "")
+                    url = "http://arxiv.org/abs/" + code
+                elif r.startswith("doi:"):
+                    code = r.replace("doi:", "")
+                    url = "http://dx.doi.org/" + code
+                if url is not None:
+                    r += " - " + url
+                print "  %s" % r
 
         if i+1 < len(toshow):
             print "\n"

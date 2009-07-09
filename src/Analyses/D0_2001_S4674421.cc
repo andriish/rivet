@@ -16,7 +16,9 @@ namespace Rivet {
     //  - @c _mZmin = lower Z mass cut used in the publication analysis
     //  - @c _mZmax = upper Z mass cut used in the publication analysis
     D0_2001_S4674421::D0_2001_S4674421()
-      : _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632), _mZmin(75.*GeV), _mZmax(105.*GeV)
+      : Analysis("D0_2001_S4674421"),
+        _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632), 
+        _mZmin(75.*GeV), _mZmax(105.*GeV)
     { 
 
       setBeams(PROTON, ANTIPROTON);

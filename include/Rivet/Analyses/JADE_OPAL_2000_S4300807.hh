@@ -6,6 +6,7 @@
 
 namespace Rivet {
 
+
   /**
    * @brief Jet rates in e+e- at OPAL and JADE
    * @author Frank Siegert
@@ -31,64 +32,15 @@ namespace Rivet {
 
     /// @name Publication metadata
     //@{
-    /// A short description of the analysis.
-    string spiresId() const {
-      return "4300807";
-    }
-    /// A short description of the analysis.
-    virtual string summary() const {
-      return "Jet rates in e+e- at JADE [35-43 GeV] and OPAL [91.2-189 GeV].";
-    }
-    /// Experiment which performed and published this analysis.
-    string experiment() const {
-      return "JADE_OPAL";
-    }
     /// Collider on which the experiment ran.
     string collider() const {
-      if (_sqrts<90.0) {
+      if (_sqrts < 90.0) {
         return "DESY PETRA";
-      }
-      else if (_sqrts>90.0 && _sqrts<92.0) {
+      } else if (inRange(_sqrts, 90.0, 92.0)) {
         return "LEP Run I";
-      }
-      else {
+      } else {
         return "LEP Run 2";
       }
-    }
-    /// When published (preprint year according to SPIRES).
-    string year() const {
-      return "2000";
-    }
-    /// Names & emails of analysis authors.
-    vector<string> authors() const {
-      vector<string> ret;
-      ret += "Frank Siegert <frank.siegert@durham.ac.uk>";
-      return ret;
-    }
-    /// A full description of the analysis.
-    string description() const {
-      ostringstream os;
-      os << "Differential and integrated jet rates for Durham and JADE " 
-         << "jet algorithms at sqrt(s) = " << _sqrts << ".";
-      return os.str();
-    }
-    /// Information about the events needed as input for this analysis.
-    string runInfo() const {
-      ostringstream os;
-      os << "e+ e- collisions: " << endl << endl
-         << "* e+ e- -> jet jet (+ jets) at " << _sqrts << " GeV. "
-         << "* no cuts needed" << endl;
-      return os.str();
-    }
-    string status() const {
-      return "VALIDATED";
-    }
-    /// Journal, and preprint references.
-    vector<string> references() const {
-      vector<string> ret;
-      ret.push_back("Eur.Phys.J.C17:19-51,2000");
-      ret.push_back("arXiv:hep-ex/0001055");
-      return ret;
     }
     //@}
 
@@ -107,7 +59,6 @@ namespace Rivet {
     //@{
     AIDA::IDataPointSet *_h_R_Jade[5];
     AIDA::IDataPointSet *_h_R_Durham[5];
-
     AIDA::IHistogram1D *_h_y_Durham[4];
     //@}
 

@@ -12,6 +12,7 @@ namespace Rivet {
 
   // Constructor
   DELPHI_2003_WUD_03_11::DELPHI_2003_WUD_03_11() 
+    : Analysis("DELPHI_2003_WUD_03_11")
   {
     const ChargedFinalState cfs;
     addProjection(cfs, "FS");

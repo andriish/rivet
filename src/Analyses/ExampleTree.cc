@@ -11,7 +11,9 @@ namespace Rivet {
   #ifndef HAVE_ROOT
   
 
-  ExampleTree::ExampleTree() { }
+  ExampleTree::ExampleTree() 
+    : Analysis("EXAMPLETREE") { }
+
   void ExampleTree::init() {
     getLog() << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
   }
@@ -22,7 +24,9 @@ namespace Rivet {
   #else
 
 
-  ExampleTree::ExampleTree() {
+  ExampleTree::ExampleTree() 
+    : Analysis("EXAMPLETREE")
+  {
     const FinalState fs(-4.0, 4.0, 0.0*GeV);
     addProjection(fs, "FS");
     addProjection(ChargedLeptons(fs), "ChLeptons");

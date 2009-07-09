@@ -11,6 +11,7 @@ namespace Rivet {
 
 
   STAR_2009_UE_HELEN::STAR_2009_UE_HELEN()
+    : Analysis("STAR_2009_UE_HELEN")  
   { 
     setBeams(PROTON, ANTIPROTON);
     

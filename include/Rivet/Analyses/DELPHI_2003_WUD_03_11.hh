@@ -39,67 +39,6 @@ namespace Rivet {
     //@}
 
 
-    /// @name Publication metadata
-    //@{
-    
-    /// Analysis name
-    string name() const {
-      return "DELPHI_2003_WUD_03_11";
-    }
-    /// SPIRES key (IRN)
-    string spiresId() const {
-      return "NONE";
-    }
-    /// A short description of the analysis.
-    string summary() const {
-      return "4-jet angular distributions at LEP";
-    }
-    /// A full description of the analysis.
-    string description() const {
-      ostringstream os;
-      os << "The 4-jet angular distributions (Bengtsson-Zerwas,"
-         << "K\"orner-Schierholz-Willrodt, Nachtmann-Reiter, and "
-         << "$\\alpha_{34}$) have been measured with DELPHI at "
-	 << "LEP 1 using Jade and Durham cluster algorithms. ";
-      return os.str();
-    }
-    // Experiment which performed and published this analysis.
-    string experiment() const {
-     return "DELPHI";
-    }
-    // Collider on which the experiment was based.
-    string collider() const {
-     return "LEP 1";
-    }
-    /// When published.
-    string year() const {
-     return "2003 (note)";
-    }
-    /// Names & emails of paper/analysis authors.
-    vector<string> authors() const {
-      vector<string> ret;
-      ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
-      return ret;
-    }
-    /// Information about the events needed as input for this analysis.
-    string runInfo() const {
-      ostringstream os;
-      os << "Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)";
-      return os.str();
-    }
-    string status() const {
-      return "UNVALIDATED";
-    }
-    /// Publication reference
-    vector<string> references() const {
-      vector<string> ret;
-      ret += "Diploma thesis WUD-03-11, University of Wuppertal";
-      return ret;
-    }
-
-    //@}
-
-
     /// @name Analysis methods
     //@{
     virtual void init();

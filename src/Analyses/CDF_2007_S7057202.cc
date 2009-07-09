@@ -11,7 +11,8 @@ namespace Rivet {
 
 
   CDF_2007_S7057202::CDF_2007_S7057202()
-    : _minY(0.1), _maxY(0.7), _jetMinPT(54.0*GeV)
+    : Analysis("CDF_2007_S7057202"),
+      _minY(0.1), _maxY(0.7), _jetMinPT(54.0*GeV)
   {
     setBeams(PROTON, ANTIPROTON);
     //setSqrtS(1960*GeV);

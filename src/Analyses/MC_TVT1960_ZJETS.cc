@@ -9,6 +9,7 @@ namespace Rivet {
 
 
   MC_TVT1960_ZJETS::MC_TVT1960_ZJETS()
+    : Analysis("MC_TVT1960_ZJETS")
   {
     setBeams(PROTON, ANTIPROTON);
     

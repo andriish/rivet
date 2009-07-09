@@ -13,6 +13,7 @@ namespace Rivet {
 
   // Constructor
   OPAL_1998_S3780481::OPAL_1998_S3780481() 
+    : Analysis("OPAL_1998_S3780481")
   {
     setBeams(ELECTRON, POSITRON); 
     addProjection(Beam(), "Beams");

@@ -13,7 +13,7 @@ namespace Rivet {
   public:
 
     /// Static factory method: returns null pointer if no metadata found
-    static const AnalysisInfo* make(const std::string& name);
+    static AnalysisInfo* make(const std::string& name);
 
 
     /// @name Standard constructors and destructors.
@@ -36,7 +36,11 @@ namespace Rivet {
     /// metadata methods and you should only override it if there's a 
     /// good reason why those won't work.
     std::string name() const {
-      return experiment() + "_" + year() + "_S" + spiresId();
+      if (!_name.empty()) return _name;
+      if (!experiment().empty() && !year().empty() && !spiresId().empty()) {
+        return experiment() + "_" + year() + "_S" + spiresId();
+      }
+      return "";
     }
 
     /// Get a description of the analysis.
@@ -110,10 +114,10 @@ namespace Rivet {
 
 
   /// String representation
-  std::string toString(const AnalysisInfo& ai);
+  inline std::string toString(const AnalysisInfo& ai);
 
   /// Stream an AnalysisInfo as a text description
-  std::ostream& operator<<(std::ostream& os, const AnalysisInfo& ai) {
+  inline std::ostream& operator<<(std::ostream& os, const AnalysisInfo& ai) {
     os << toString(ai);
     return os;
   }

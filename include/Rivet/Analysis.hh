@@ -4,6 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.fhh"
+#include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/ProjectionApplier.hh"
@@ -49,7 +50,10 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
-    Analysis();
+    //Analysis();
+
+    /// Constructor
+    Analysis(const std::string& name);
 
     /// The destructor.
     virtual ~Analysis() { }
@@ -89,41 +93,63 @@ namespace Rivet {
     /// metadata methods and you should only override it if there's a 
     /// good reason why those won't work.
     virtual std::string name() const {
-      return experiment() + "_" + year() + "_S" + spiresId();
+      if (_info && !_info->name().empty()) return _info->name();
+      return "";
     }
 
     /// Get a description of the analysis.
-    virtual std::string spiresId() const = 0;
+    virtual std::string spiresId() const {
+      if (!_info) return "NONE";
+      return _info->spiresId();
+    }
 
     /// @brief Names & emails of paper/analysis authors.
     /// Names and email of authors in 'NAME <EMAIL>' format. The first
     /// name in the list should be the primary contact person.
-    virtual std::vector<std::string> authors() const = 0;
+    virtual std::vector<std::string> authors() const {
+      if (!_info) return std::vector<std::string>();
+      return _info->authors();
+    }
 
     /// @brief Get a short description of the analysis.
     /// Short (one sentence) description used as an index entry.
     /// Use @a description() to provide full descriptive paragraphs
     /// of analysis details.
-    virtual std::string summary() const = 0;
+    virtual std::string summary() const {
+      if (!_info) return "NONE";
+      return _info->summary();
+    }
 
     /// @brief Get a full description of the analysis.
     /// Full textual description of this analysis, what it is useful for,
     /// what experimental techniques are applied, etc. Should be treated
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
     /// with equations to be rendered as LaTeX with amsmath operators.
-    virtual std::string description() const = 0;
+    virtual std::string description() const {
+      if (!_info) return "NONE";
+      return _info->description();
+    }
 
     /// @brief Information about the events needed as input for this analysis.
     /// Event types, energies, kinematic cuts, particles to be considered 
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
-    virtual std::string runInfo() const = 0;
+    virtual std::string runInfo() const {
+      if (!_info) return "NONE";
+      return _info->runInfo();
+    }
     
     /// Experiment which performed and published this analysis.
-    virtual std::string experiment() const = 0;
+    virtual std::string experiment() const {
+      if (!_info) return "NONE";
+      return _info->experiment();
+    }
 
     /// Collider on which the experiment ran.
-    virtual string collider() const = 0;
+    virtual string collider() const {
+      if (!_info) return "NONE";
+      return _info->collider();
+    }
 
     /// Incoming beams required by this analysis.
     virtual const BeamPair& beams() const {
@@ -133,14 +159,21 @@ namespace Rivet {
     /// @brief When the original experimental analysis was published.
     /// When the refereed paper on which this is based was published, 
     /// according to SPIRES.
-    virtual std::string year() const = 0;
+    virtual std::string year() const {
+      if (!_info) return "NONE";
+      return _info->year();
+    }
 
     /// Journal, and preprint references.
-    virtual std::vector<std::string> references() const = 0;
+    virtual std::vector<std::string> references() const {
+      if (!_info) return std::vector<std::string>();
+      return _info->references();
+    }
 
     /// Whether this analysis is trusted (in any way!)
     virtual std::string status() const {
-      return "UNVALIDATED";
+      if (!_info) return "UNVALIDATED";
+      return _info->status();
     }
     //@}
 
@@ -403,6 +436,13 @@ namespace Rivet {
       _needsCrossSection = needed;
       return *this;
     }
+
+
+  protected:
+
+    /// Pointer to analysis metadata object
+    shared_ptr<AnalysisInfo> _info;
+
     
   private:
 
@@ -422,13 +462,14 @@ namespace Rivet {
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
 
-
     /// Collection of x-axis point data to speed up many autobookings: the 
-    /// AIDA reference file should only be read once.
+    /// reference data file should only be read once.
+    /// @todo Reduce memory occupancy, or clear after initialisation?
     map<string, vector<DPSXPoint> > _dpsData;
 
     /// Collection of cached bin edges to speed up many autobookings: the 
-    /// AIDA reference file should only be read once.
+    /// reference data file should only be read once.
+    /// @todo Reduce memory occupancy, or clear after initialisation?
     map<string, BinEdges> _histBinEdges;
 
   private:

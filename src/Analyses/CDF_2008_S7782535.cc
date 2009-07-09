@@ -12,7 +12,8 @@ namespace Rivet {
 
 
   CDF_2008_S7782535::CDF_2008_S7782535()
-    : _Rjet(0.7) , _NpTbins(4)
+    : Analysis("CDF_2008_S7782535"),
+      _Rjet(0.7) , _NpTbins(4)
   {
     setBeams(PROTON, ANTIPROTON);
     

@@ -17,6 +17,7 @@ namespace Rivet {
 
 
   DELPHI_1996_S3430090::DELPHI_1996_S3430090() 
+    : Analysis("DELPHI_1996_S3430090")
   {
     setBeams(ELECTRON, POSITRON); 
     addProjection(Beam(), "Beams");

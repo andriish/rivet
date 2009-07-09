@@ -20,7 +20,8 @@ namespace Rivet {
 
   // Constructor
   CDF_2008_S7541902::CDF_2008_S7541902()
-    : _electronETCut(20.0*GeV), _electronETACut(1.1),
+    : Analysis("CDF_2008_S7541902"),    
+      _electronETCut(20.0*GeV), _electronETACut(1.1),
       _eTmissCut(30.0*GeV), _mTCut(20.0*GeV),
       _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0),
       _xpoint(1960.)

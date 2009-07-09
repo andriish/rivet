@@ -11,7 +11,8 @@ namespace Rivet {
 
 
   CDF_1994_S2952106::CDF_1994_S2952106()
-    : _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
+    : Analysis("CDF_1994_S2952106"), 
+      _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
       _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0*GeV)
   {
     setBeams(PROTON, ANTIPROTON);

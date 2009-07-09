@@ -11,6 +11,7 @@ namespace Rivet {
 
 
   D0_2008_S7719523::D0_2008_S7719523()
+    : Analysis("D0_2008_S7719523")
   {
     setBeams(PROTON, ANTIPROTON);
     

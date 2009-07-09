@@ -12,6 +12,7 @@ namespace Rivet {
 
 
   MC_LHC_LEADINGJETS::MC_LHC_LEADINGJETS()
+    : Analysis("MC_LHC_LEADINGJETS")
   { 
     setBeams(PROTON, PROTON);
     

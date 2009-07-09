@@ -8,16 +8,18 @@ namespace Rivet {
 
 
   // Constructor
-  ZEUS_2001_S4815815::ZEUS_2001_S4815815() { 
-      setBeams(POSITRON, PROTON);
-      FinalState fs;
-      addProjection(fs, "FS");
-      /// @todo This is the *wrong* jet def: correct it!
-      getLog() << Log::WARN << "This analysis uses the wrong jet definition: the " 
-               << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
-               << "were reconstructed using the energies and positions of these cells'" << endl;
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
-    }
+  ZEUS_2001_S4815815::ZEUS_2001_S4815815()
+    : Analysis("ZEUS_2001_S4815815") 
+  { 
+    setBeams(POSITRON, PROTON);
+    FinalState fs;
+    addProjection(fs, "FS");
+    /// @todo This is the *wrong* jet def: correct it!
+    getLog() << Log::WARN << "This analysis uses the wrong jet definition: the " 
+             << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
+             << "were reconstructed using the energies and positions of these cells'" << endl;
+    addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
+  }
 
 
   // Book histograms

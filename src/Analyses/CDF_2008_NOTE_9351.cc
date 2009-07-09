@@ -10,6 +10,7 @@ namespace Rivet {
 
 
   CDF_2008_NOTE_9351::CDF_2008_NOTE_9351()
+    : Analysis("CDF_2008_NOTE_9351")
   { 
     setBeams(PROTON, ANTIPROTON);
     const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);

@@ -42,69 +42,6 @@ namespace Rivet {
     //@}
 
 
-    /// @name Publication metadata
-    //@{
-    /// A short description of the analysis.
-    string spiresId() const {
-      return "3430090";
-    }
-    /// A short description of the analysis.
-    string summary() const {
-      return "Delphi MC tuning on event shapes and identified particles.";
-    }
-    /// A full description of the analysis.
-    string description() const {
-      ostringstream os;
-      os << "Event shape and charged particle inclusive distributions measured using "
-         << "750000 decays of Z bosons to hadrons from the DELPHI detector at LEP. "
-         << "This data, combined with identified particle distributions from all LEP "
-         << "experiments, was used for tuning of shower-hadronisation event generators "
-         << "by the original PROFESSOR method."
-         << "\n\n"
-         << "This is a critical analysis for MC event generator tuning of final state "
-         << "radiation and both flavour and kinematic aspects of hadronisation models.";
-      return os.str();
-    }
-    /// A short description of the analysis.
-    string runInfo() const {
-      ostringstream os;
-      os << "* Energy: 91.2 GeV\n"
-         << "* Event type is e+ e- Z production with hadronic decays only";
-      return os.str();
-    }
-    /// Validation status
-    string status() const {
-      return "VALIDATED";
-    }
-    /// Experiment which performed and published this analysis.
-    string experiment() const {
-      return "DELPHI";
-    }
-    /// Collider on which the experiment ran.
-    string collider() const {
-      return "LEP 1";
-    }
-    /// When published (preprint year according to SPIRES).
-    string year() const {
-      return "1996";
-    }
-    /// Names & emails of paper/analysis authors.
-    vector<string> authors() const {
-      vector<string> rtn;
-      rtn += "Andy Buckley <andy.buckley@durham.ac.uk>";
-      rtn += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
-      return rtn;
-    }
-    /// Journal, and preprint references.
-    vector<string> references() const {
-      vector<string> ret;
-      ret += "Z.Phys.C73:11-60,1996";
-      ret += "doi:10.1007/s002880050295";
-      return ret;
-    }
-    //@}
-
-
     /// @name Analysis methods
     //@{
     virtual void init();
@@ -114,6 +51,7 @@ namespace Rivet {
 
 
   private:
+
     /// Little helper functions for the axis labels
     string dsigbyd(const string&);
     string Ndsigbyd(const string&);

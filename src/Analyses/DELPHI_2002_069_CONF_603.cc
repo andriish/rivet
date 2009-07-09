@@ -18,6 +18,7 @@ namespace Rivet {
 
   // Constructor
   DELPHI_2002_069_CONF_603::DELPHI_2002_069_CONF_603() 
+    : Analysis("DELPHI_2002_069_CONF_603")
   {
     setBeams(ELECTRON, POSITRON); 
     addProjection(Beam(), "Beams");

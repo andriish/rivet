@@ -10,7 +10,9 @@ namespace Rivet {
 
 
   // Constructor
-  D0_2004_S5992206::D0_2004_S5992206() {
+  D0_2004_S5992206::D0_2004_S5992206() 
+    : Analysis("D0_2004_S5992206")
+  {
     setBeams(PROTON, ANTIPROTON);
     const FinalState fs(-3.0, 3.0);
     addProjection(fs, "FS");

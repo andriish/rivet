@@ -10,13 +10,14 @@ using namespace AIDA;
 namespace Rivet {
 
 
-  Analysis::Analysis() 
-    : _analysishandler(0),
+  Analysis::Analysis(const string& name) 
+    : _gotCrossSection(false),
+      _needsCrossSection(false),
+      _analysishandler(0),
       _madeHistoDir(false)
   {
-    _gotCrossSection = false;
+    _info.reset( AnalysisInfo::make(name) );
     setBeams(ANY, ANY);
-    setNeedsCrossSection(false);
   }
   
 

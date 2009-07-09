@@ -18,6 +18,7 @@ namespace Rivet {
 
   // Constructor
   ALEPH_1996_S3486095::ALEPH_1996_S3486095() 
+    : Analysis("ALEPH_1996_S3486095")
   {
     setBeams(ELECTRON, POSITRON); 
     addProjection(Beam(), "Beams");

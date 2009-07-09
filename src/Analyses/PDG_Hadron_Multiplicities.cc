@@ -13,6 +13,7 @@ namespace Rivet {
 
   // Constructor
   PDG_HADRON_MULTIPLICITIES::PDG_HADRON_MULTIPLICITIES() 
+    : Analysis("PDG_HADRON_MULTIPLICITIES")
   {
     setBeams(ELECTRON, POSITRON); 
     addProjection(Beam(), "Beams");

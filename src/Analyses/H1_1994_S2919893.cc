@@ -11,7 +11,9 @@ namespace Rivet {
 
 
   // Constructor
-  H1_1994_S2919893::H1_1994_S2919893() {
+  H1_1994_S2919893::H1_1994_S2919893() 
+    : Analysis("H1_1994_S2919893")
+  {
     setBeams(ELECTRON, PROTON);
     addProjection(DISLepton(), "Lepton");
     addProjection(DISKinematics(), "Kinematics");

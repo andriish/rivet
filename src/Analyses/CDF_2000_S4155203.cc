@@ -10,7 +10,9 @@
 namespace Rivet {
 
 
-  CDF_2000_S4155203::CDF_2000_S4155203() { 
+  CDF_2000_S4155203::CDF_2000_S4155203() 
+    : Analysis("CDF_2000_S4155203")
+  {
     setBeams(PROTON, ANTIPROTON);
     ZFinder zfinder(FinalState(), ELECTRON, 66.0*GeV, 116.0*GeV, 0.2);
     addProjection(zfinder, "ZFinder");

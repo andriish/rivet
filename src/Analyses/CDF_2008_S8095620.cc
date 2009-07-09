@@ -12,7 +12,9 @@ namespace Rivet {
 
 
   CDF_2008_S8095620::CDF_2008_S8095620()
-    : _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5),  _sumWeightSelected(0.0)
+    : Analysis("CDF_2008_S8095620"), 
+      _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5),  
+      _sumWeightSelected(0.0)
   { 
     setBeams(PROTON, ANTIPROTON);
     

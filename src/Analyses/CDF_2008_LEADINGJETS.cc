@@ -11,6 +11,7 @@ namespace Rivet {
 
 
   CDF_2008_LEADINGJETS::CDF_2008_LEADINGJETS()
+    : Analysis("CDF_2008_LEADINGJETS")
   { 
     setBeams(PROTON, ANTIPROTON);
     

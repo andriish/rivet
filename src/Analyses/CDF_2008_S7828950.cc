@@ -10,7 +10,8 @@ namespace Rivet {
 
 
   CDF_2008_S7828950::CDF_2008_S7828950()
-    : _jetMinPT(62.0*GeV)
+    : Analysis("CDF_2008_S7828950"),
+      _jetMinPT(62.0*GeV)
   {
     setBeams(PROTON, ANTIPROTON);
     //setSqrtS(1960*GeV);

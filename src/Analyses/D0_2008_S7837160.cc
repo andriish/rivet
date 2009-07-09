@@ -11,6 +11,7 @@ namespace Rivet {
 
 
   D0_2008_S7837160::D0_2008_S7837160()
+    : Analysis("D0_2008_S7837160")
   {
     // Run II W charge asymmetry
     setBeams(PROTON, ANTIPROTON);

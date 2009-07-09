@@ -13,7 +13,9 @@ namespace Rivet {
 
 
   // Constructor
-  ExampleAnalysis::ExampleAnalysis() {
+  ExampleAnalysis::ExampleAnalysis()
+    : Analysis("EXAMPLE")
+  {
     const FinalState cnfs(-4, 4, 2*GeV);
     const ChargedFinalState cfs(-4, 4, 2*GeV);
     addProjection(cnfs, "FS");
