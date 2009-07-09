@@ -1,4 +1,5 @@
 Name: CDF_2002_S4796047
+Year: 2002
 Summary: CDF Run 1 charged multiplicity measurement
 Experiment: CDF
 Collider: Tevatron Run 1
@@ -10,11 +11,11 @@ References:
  - Phys.Rev.D65:072005,2002
  - doi:10.1103/PhysRevD.65.072005 
 RunInfo:
-  * Energy: sqrt(s) = 630 and 1800 GeV
-  * Event type: generic QCD events
-  * TODO: MORE?
+  QCD events at sqrt(s) = 630 and 1800 GeV.
+NumEvents: 1000000
+PtCuts: [0]
 Description:
-  A study of pp̅ collisions at sqrt(s) = 1800 and 630 GeV collected
+  A study of ppbar collisions at sqrt(s) = 1800 and 630 GeV collected
   using a minimum bias trigger in which the data set is divided into two
   classes corresponding to `soft' and `hard' interactions. For each
   subsample, the analysis includes measurements of the multiplicity,

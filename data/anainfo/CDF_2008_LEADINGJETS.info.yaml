@@ -1,4 +1,5 @@
 Name: CDF_2008_LEADINGJETS
+Year: 2008
 Summary: CDF Run 2 underlying event in leading jet events
 Experiment: CDF
 Collider: Tevatron Run 2
@@ -6,10 +7,15 @@ SpiresID: NONE
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
-References:
- - 
 RunInfo:
-  Tevatron Run 2: ppbar QCD interactions at 1960 GeV. Particles with $c \tau > {}$10 mm should be set stable. Several $p_\perp^\text{min}$ cutoffs are probably required to fill the profile histograms:  * $p_\perp^\text{min} = {}$ 0 (min bias), 10, 20, 50, 100, 150 GeV  * The corresponding merging points are at $p_T = $ 0, 30, 50, 80, 130, 180 GeV
+  ppbar QCD interactions at 1960 GeV. Particles with 
+  $c \tau > {}$10 mm should be set stable. Several $p_\perp^\text{min}$ 
+  cutoffs are probably required to fill the profile histograms.
+  $p_\perp^\text{min} = {}$ 0 (min bias), 10, 20, 50, 100, 150 GeV.
+  The corresponding merging points are at $p_T = $ 0, 30, 50, 80, 
+  130, 180 GeV
+NumEvents: 1000000
+PtCuts: [0, 10, 20, 50, 100, 150]
 Description:
   Rick Field's measurement of the underlying event in leading jet
   events. If the leading jet of the event is within $|\eta| < 2$, the

@@ -1,4 +1,5 @@
 Name: CDF_1994_S2952106
+Year: 1994
 Summary: CDF Run I color coherence analysis.
 Experiment: CDF
 Collider: Tevatron Run 1
@@ -10,13 +11,9 @@ References:
  - Phys.Rev.D50,5562,1994
  - doi:10.1103/PhysRevD.50.5562
 RunInfo:
-  * Energy: sqrt(s) = 1800 GeV
-  * Event type: generic QCD events
-  * Cut on primary vertex $z$ position: z(PV) < 60 cm
-  * pTmin: leading jet = 100 GeV; and 3rd jet = 10 GeV
-  * Max. pseudorapidity range of 2nd and 3rd jets: $|eta| < 0.7$
-  * Azimuthal angle requirement: $\Delta{\phi} < \pi/18$ (transverse back-to-backness)
-  * MET cut requirement: $mET/\sqrt{\text{Scalar }E_T} < 6.0 GeV$
+  QCD events at sqrt(s) = 1800 GeV. Leading jet pTmin = 100 GeV.
+NumEvents: 1000000
+PtCuts: [80]
 Description:
   CDF Run I color coherence analysis. Events with $\ge 3$ jets are
   selected and Et distributions of the three highest-pT jets are

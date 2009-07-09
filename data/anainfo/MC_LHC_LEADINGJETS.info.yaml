@@ -1,4 +1,5 @@
 Name: MC_LHC_LEADINGJETS
+Year: NONE
 Summary: Underlying event in leading jet events, extended to LHC
 Experiment: NONE
 Collider: LHC
@@ -6,10 +7,13 @@ SpiresID: NONE
 Status: NOT TO BE VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
-References:
- - 
 RunInfo:
-  LHC: pp QCD interactions at 0.9, 10 or 14 TeV.Particles with $c \tau > {}$10 mm should be set stable.Several $p_\perp^\text{min}$ cutoffs are probably required to fill the profile histograms. 
+  LHC pp QCD interactions at 0.9, 10 or 14 TeV.
+  Particles with $c \tau > {}$10 mm should be set stable.
+  Several $p_\perp^\text{min}$ cutoffs are probably required to 
+  fill the profile histograms. 
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Rick Field's measurement of the underlying event in leading jet
   events, extended to the LHC. As usual, the leading jet of the defines

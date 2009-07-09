@@ -1,4 +1,5 @@
 Name: CDF_2008_S7782535
+Year: 2008
 Summary: CDF Run II b-jet shape paper
 Experiment: CDF
 Collider: Tevatron Run 2
@@ -12,6 +13,8 @@ References:
  - Phys.Rev.D78:072005,2008
 RunInfo:
   Requires  $2\rightarrow{2}$ QCD scattering processes. The minimum jet Et is 52 GeV, so a cut on kinematic pTmin may be required for good statistics.
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   A measurement of the shapes of b-jets using 300 pb$^{-1}$ of data
   obtained with CDF II in $p\bar{p}$ collisions at $\sqrt{s}=1.96$ TeV.

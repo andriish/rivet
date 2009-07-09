@@ -1,4 +1,5 @@
 Name: CDF_2005_S6217184
+Year: 2005
 Summary: CDF Run II jet shape analysis
 Experiment: CDF
 Collider: Tevatron Run 2
@@ -12,12 +13,11 @@ References:
  - doi:10.1103/PhysRevD.71.112002
  - arXiv:hep-ex/0505013
 RunInfo:
-  * Energy: sqrt(s) = 1960 GeV
-  * Event type: generic QCD events.
-  * $\eta \in [-2,2]$ cut used on final state.
-  * Jet axes must have $|y| \in [0.1, 0.7]$.
-  * Jet shape $r \in [0.0, 0.7]$
-  * Jet pTmin in plots is 37 GeV/c: choose generator min pT somewhere well below this.
+  QCD events at sqrt(s) = 1960 GeV.
+  Jet pTmin in plots is 37 GeV/c --- choose generator min pT somewhere 
+  well below this.
+NumEvents: 1000000
+PtCuts: [30]
 Description:
   Measurement of jet shapes in inclusive jet production in p pbar
   collisions at center-of-mass energy sqrt(s) = 1.96 TeV. The data cover

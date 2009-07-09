@@ -1,4 +1,5 @@
 Name: D0_2008_S7719523
+Year: 2008
 Summary: Isolated gamma + jet cross-sections, differential in pT(gamma) for various y-bins
 Experiment: D0
 Collider: Tevatron Run 2
@@ -12,11 +13,11 @@ References:
  - doi:10.1016/j.physletb.2008.06.076
  - arXiv:0804.1107v2 [hep-ex]
 RunInfo:
-  * Produce only gamma + jet (q,qbar,g) hard processes
-  
-    * for Pythia 6: MSEL=10, and MSUB indices 14, 29 & 115 enabled
-  
-  * Lowest bin edge at 30 GeV: kinematic pTmin cut may be required for   good statistics.
+  "Produce only gamma + jet (q,qbar,g) hard processes (for Pythia 6, this means MSEL=10 
+  and MSUB indices 14, 29 & 115 enabled). The lowest bin edge is at 30 GeV, so a kinematic 
+  pTmin cut is probably required to fill the histograms."
+NumEvents: 1000000
+PtCuts: [20]
 Description:
   The process p pbar -> photon + jet + X as studied by the D0 detector
   at the Fermilab Tevatron collider at center-of-mass energy sqrt(s) =

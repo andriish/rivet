@@ -1,4 +1,5 @@
-Name: JADE_OPAL_2000_S4300807
+Name: 
+Year: 2000
 Summary: Jet rates in e+e- at JADE [35 GeV].
 Experiment: JADE_OPAL
 Collider: DESY PETRA
@@ -13,6 +14,8 @@ RunInfo:
   e+ e- collisions: 
   
   * e+ e- -> jet jet (+ jets) at 35 GeV. * no cuts needed
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Differential and integrated jet rates for Durham and JADE jet
   algorithms at sqrt(s) = 35.

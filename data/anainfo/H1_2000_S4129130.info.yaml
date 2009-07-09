@@ -1,4 +1,5 @@
 Name: H1_2000_S4129130
+Year: 2000
 Summary: H1 energy flow in DIS
 Experiment: H1
 Collider: HERA
@@ -11,8 +12,10 @@ References:
  - doi:10.1007/s100520000287
  - arXiv:hep-ex/9907027v1
 RunInfo:
-  * Event type: e+ p deep inelastic scattering
-  * Energy: p at 820 GeV, e+ at 27.5 GeV -> sqrt(s) = 300 GeV
+  e+ p deep inelastic scattering with
+  p at 820 GeV, e+ at 27.5 GeV -> sqrt(s) = 300 GeV
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Measurements of transverse energy flow for neutral current deep-
   inelastic scattering events produced in positron-proton collisions at

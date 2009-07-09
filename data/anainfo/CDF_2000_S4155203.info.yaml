@@ -1,4 +1,5 @@
 Name: CDF_2000_S4155203
+Year: 2000
 Summary: Z pT measurement in CDF Z -> e+ e- events
 Experiment: CDF
 Collider: Tevatron Run 1
@@ -11,8 +12,10 @@ References:
  - arXiv:hep-ex/0001021
  - doi:10.1103/PhysRevLett.84.845
 RunInfo:
-  * Tevatron Run I: p pbar collisions at 1800 GeV
-  * Z Drell-Yan with e+ e- decay mode (for Z \emph{and} $\gamma*$) only.
+  ppbar collisions at 1800 GeV. $Z/\gamma*$ Drell-Yan events with
+  e+ e- decay mode only.
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Measurement of transverse momentum and total cross section of e^+e^-
   pairs in the Z-boson region of $66~\text{GeV}/c^2 < m_{ee} <

@@ -1,4 +1,5 @@
 Name: ALEPH_1991_S2435284
+Year: 1991
 Summary: Hadronic Z decay charged multiplicity measurement
 Experiment: ALEPH
 Collider: LEP 1
@@ -10,6 +11,8 @@ References:
  - Phys. Lett. B, 273, 181 (1991)
 RunInfo:
   Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   The charged particle multiplicity distribution of hadronic Z decays,
   as measured on the peak of the Z resonance using the ALEPH detector at

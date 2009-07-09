@@ -1,4 +1,5 @@
 Name: H1_1994_S2919893
+Year: 1994
 Summary: H1 energy flow and charged particle spectra in DIS
 Experiment: H1
 Collider: HERA
@@ -10,8 +11,10 @@ References:
  - Z.Phys.C63:377-390,1994
  - doi:10.1007/BF01580319
 RunInfo:
-  * Event type: e- p / e+ p deep inelastic scattering
-  * HERA beam conditions: 820~GeV protons colliding with 26.7~GeV electrons
+  e- p / e+ p deep inelastic scattering,
+  820~GeV protons colliding with 26.7~GeV electrons
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Global properties of the hadronic final state in deep inelastic
   scattering events at HERA are investigated. The data are corrected for

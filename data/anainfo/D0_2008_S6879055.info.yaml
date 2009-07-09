@@ -1,4 +1,5 @@
 Name: D0_2008_S6879055
+Year: 2008
 Summary: Measurement of the ratio sigma(Z/gamma* + n jets)/sigma(Z/gamma*)
 Experiment: D0
 Collider: Tevatron Run 2
@@ -10,9 +11,10 @@ Authors:
 References:
  - hep-ex/0608052
 RunInfo:
-  Tevatron Run 2 conditions:
-  * ppbar -> e+ e- + jets at 1960 GeV
-  * Needs mass cut on lepton pair to avoid photon singularity: min. range $75 < m_ee < 105$
+  "* ppbar -> e+ e- + jets at 1960 GeV
+  * Needs mass cut on lepton pair to avoid photon singularity: min. range $75 < m_ee < 105$"
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Cross sections as a function of pT of the three leading jets and n-jet
   cross section ratios in ppbar collisions at sqrt{s} = 1.96 TeV, based

@@ -1,0 +1,19 @@
+Name: D0_2009_S8320160
+Year: 2009
+Summary: Dijet angular distributions
+Experiment: D0
+Collider: Tevatron Run 2
+SpiresID: 8320160
+Status: UNVALIDATED
+Authors:
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - arXiv:0906.4819 [hep-ex]
+RunInfo:
+  ppbar -> jets at 1960 GeV
+NumEvents: 1000000
+PtCuts: [0]
+Description:
+  Dijet angular distributions in different bins of dijet mass from 0.25
+  TeV to above 1.1 TeV in ppbar collisions at $\sqrt{s} = 1.96$ TeV,
+  based on an integrated luminosity of $0.7 \text{fb}^{-1}$.

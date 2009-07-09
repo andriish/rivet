@@ -1,4 +1,5 @@
 Name: D0_2004_S5992206
+Year: 2004
 Summary: Run II jet azimuthal decorrelation analysis
 Experiment: D0
 Collider: Tevatron Run 2
@@ -10,7 +11,9 @@ References:
  - Phys. Rev. Lett., 94, 221801 (2005)
  - arXiv:hep-ex/0409040
 RunInfo:
-  Tevatron Run 2: ppbar QCD interactions at 1960 GeV.
+  QCD events in ppbar interactions at sqrt(s) = 1960 GeV.
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Correlations in the azimuthal angle between the two largest pT jets
   have been measured using the D0 detector in ppbar collisions at 1960

@@ -1,4 +1,5 @@
 Name: CDF_2008_S7541902
+Year: 2008
 Summary: Jet pT distributions for 4 jet multiplicity bins as well as the jet multiplicity distribution in W + jets events.
 Experiment: CDF
 Collider: Tevatron Run 2
@@ -11,7 +12,11 @@ References:
  - arXiv:0711.4044 [hep-ex]
  - Phys.Rev.D77:011108,2008
 RunInfo:
-  Requires the process $p\bar{p} \rightarrow {W} \rightarrow{e}\nu$, additional hard jets will also have to be included to get a good description. The LO process in Herwig is set with IPROC=1451.
+  Requires the process $p\bar{p} \rightarrow {W} \rightarrow{e}\nu$, 
+  additional hard jets will also have to be included to get a good 
+  description. The LO process in Herwig is set with IPROC=1451.
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Measurement of the cross section for W boson production in association
   with jets in $p\bar{p}$ collisions at $\sqrt{s}=1.96$ TeV. The
@@ -25,8 +30,8 @@ Description:
   of the total cross section, $\sigma(p\bar{p} \rightarrow W + \geq$
   n-jet) $\times$ BR($W \rightarrow{e}\nu)$ with $E_T(n^{th}-jet) > 25$
   GeV is also made. Both measurements are made for jets with $|\eta| <
-  2$ and for a limited reigon of the $W \rightarrow{e}\nu$ decay phase
-  space: $|\eta^{e}| < 1.1$, $p_{T}^{e} > 20$ GeV, $p_{T}^{\nu} > 30$
+  2$ and for a limited region of the $W \rightarrow{e}\nu$ decay phase
+  space; $|\eta^{e}| < 1.1$, $p_{T}^{e} > 20$ GeV, $p_{T}^{\nu} > 30$
   GeV and $M_{T} > 20$ GeV. The cross sections are corrected for all
   detector effects and can be directly compared to particle level $W$ +
   jet(s) predictions. These measurements can be used to test and tune

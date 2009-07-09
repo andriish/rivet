@@ -1,4 +1,5 @@
 Name: MC_TVT1960_ZJETS
+Year: NONE
 Summary: Monte Carlo validation observables for Z[e+ e-] + jets production at Tevatron Run II
 Experiment: MC
 Collider: Tevatron Run 2
@@ -8,10 +9,12 @@ Authors:
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:
 RunInfo:
-  Tevatron Run 2 conditions: 
-  
-  * ppbar -> e+ e- + jets at 1960 GeV. * Needs mass cut on lepton pair to avoid photon singularity: min. range $66 < m_ee < 116$ GeV
+  Tevatron Run II ppbar -> e+ e- + jets at 1960 GeV. Needs
+  mass cut on lepton pair to avoid photon singularity, e.g.
+  a min range of $66 < m_ee < 116$ GeV
+NumEvents: 1000000
+PtCuts: [0]
 Description:
-  Available observables   * Z mass  * pT of jet 1-4  * jet multiplicity
-  * Delta eta (Z, jet1)  * Delta R (jet2, jet3)  * Differential jet
-  rates 0->1, 1->2, 2->3, 3->4  * Integrated 0-4 jet rates
+  Available observables are Z mass, pT of jets 1-4, jet multiplicity,
+  Delta eta (Z, jet1), Delta R (jet2, jet3), Differential jet
+  rates 0->1, 1->2, 2->3, 3->4, Integrated 0-4 jet rates

@@ -1,4 +1,5 @@
 Name: DELPHI_1995_S3137023
+Year: 1995
 Summary: Strange baryon production in Z hadronic decays at Delphi
 Experiment: DELPHI
 Collider: LEP 1
@@ -10,6 +11,8 @@ References:
  - Z. Phys. C, 67, 543--554 (1995)
 RunInfo:
   Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Measurement of the $\Xi^-$ and $\Sigma^+(1385)/\Sigma^-(1385)$ scaled
   momentum distributions by DELPHI at LEP 1. The paper also has the

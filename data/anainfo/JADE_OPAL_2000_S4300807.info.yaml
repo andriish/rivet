@@ -1,8 +1,8 @@
-Name: 
+Name: JADE_OPAL_2000_S4300807
 Year: 2000
-Summary: Jet rates in e+e- at JADE [44 GeV].
+Summary: Jet rates in e+e- at OPAL [133 GeV].
 Experiment: JADE_OPAL
-Collider: DESY PETRA
+Collider: LEP Run 2
 SpiresID: 4300807
 Status: VALIDATED
 Authors:
@@ -11,11 +11,9 @@ References:
  - Eur.Phys.J.C17:19-51,2000
  - arXiv:hep-ex/0001055
 RunInfo:
-  e+ e- collisions: 
-  
-  * e+ e- -> jet jet (+ jets) at 44 GeV. * no cuts needed
+  e+ e- -> jet jet (+ jets) at various energies.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   Differential and integrated jet rates for Durham and JADE jet
-  algorithms at sqrt(s) = 44.
+  algorithms at sqrt(s) = 133.

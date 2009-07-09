@@ -1,4 +1,5 @@
 Name: D0_2009_S8202443
+Year: 2009
 Summary: Z/gamma* + jet + X cross sections differential in pT(jet 1,2,3)
 Experiment: D0
 Collider: Tevatron Run 2
@@ -9,11 +10,11 @@ Authors:
 References:
  - arXiv:0903.1748 [hep-ex]
 RunInfo:
-  Tevatron Run 2 conditions:
-  
-  
-  * ppbar -> e+ e- + jets at 1960 GeV
-  * Needs mass cut on lepton pair to avoid photon singularity: min. range $65 < m_Z < 115$
+  ppbar -> e+ e- + jets at 1960 GeV.
+  Needs mass cut on lepton pair to avoid photon singularity,
+  min. range $65 < m_Z < 115$
+NumEvents: 1000000
+PtCuts: [0]
 Description:
   Cross sections as a function of pT of the three leading jets in
   $Z/\gamma^{*} (\to e^{+} e^{-})$ + jet + X production in ppbar

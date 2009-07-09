@@ -1,14 +1,12 @@
-Name: ExampleTree
+Name: EXAMPLETREE
 Summary: Demonstrate filling a ROOT tree from a kT jets analysis
-Experiment: NONE
-Collider: NONE
-SpiresID: NONE
 Status: EXAMPLE
 Authors:
  - Jon Butterworth <jmb@hep.ucl.ac.uk>
-References:
 RunInfo:
   All event types will be accepted.
+NumEvents: 10000
+PtCuts: [0]
 Description:
   This analysis is a demonstration of how Rivet can be used to produce
   ROOT data trees rather than Rivet's own histograms. We don't recommend
