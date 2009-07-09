@@ -1497,7 +1497,7 @@ TODO
     ## Parse command line options
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=msg)
-    parser.add_option("-n", "--num-threads", dest="NUM_THREADS", type=int,
+    parser.add_option("-n", "--num-threads", dest="NUM_THREADS", type="int",
                       default=numcores, help="max number of threads to be used [%s]" % numcores)
     parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
                       help="Use Palatino as font (default).")
