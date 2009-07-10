@@ -114,7 +114,7 @@ namespace Rivet {
 
 
   /// String representation
-  inline std::string toString(const AnalysisInfo& ai);
+  std::string toString(const AnalysisInfo& ai);
 
   /// Stream an AnalysisInfo as a text description
   inline std::ostream& operator<<(std::ostream& os, const AnalysisInfo& ai) {
