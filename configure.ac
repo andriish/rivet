@@ -79,6 +79,20 @@ CPPFLAGS=$oldCPPFLAGS
 
 ## HepMC library
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
+oldCPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS -I$HEPMCINCPATH"
+AC_LANG_CONFTEST([AC_LANG_PROGRAM([#include <iostream>
+#include "HepMC/HepMCDefs.h"],[std::cout << HEPMC_VERSION << std::endl; return 0;])])
+$CXX $CPPFLAGS conftest.cpp -o conftest 2>&1 1>&5
+hepmc_version=`./conftest`
+if test x$hepmc_version != x; then
+  let hepmc_major=`echo "$hepmc_version" | cut -d. -f1`
+  let hepmc_minor=`echo "$hepmc_version" | cut -d. -f2`
+fi
+HEPMC_VERSION=$hepmc_major$hepmc_minor
+AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
+AC_SUBST(HEPMC_VERSION)
+CPPFLAGS=$oldCPPFLAGS
 
 
 ## FastJet library
