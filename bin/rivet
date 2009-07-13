@@ -53,12 +53,10 @@ Examples:
   agile-runmc <genname> -n 100k | %prog [options]
 
 ENVIRONMENT:
- * RIVET_ANALYSIS_PATH
- * RIVET_REF_PATH
-
-TODO:
- * Incorporate an optional AGILe mode (just reading param 
-   files - no proliferation of switches)
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin 
+     analysis libraries at runtime
+ * RIVET_REF_PATH: list of paths to be searched for reference data
+     files (may be replaced with RIVET_DATA_PATH in a future release)
 """
 
 
@@ -169,6 +167,7 @@ for l in opts.NATIVE_LOG_STRS:
 RECVD_KILL_SIGNAL = None
 def handleKillSignal(signum, frame):
     "Declare us as having been signalled, and return to default handling behaviour"
+    global RECVD_KILL_SIGNAL
     logging.critical("Signal handler called with signal " + str(signum))
     RECVD_KILL_SIGNAL = signum
     signal.signal(signum, signal.SIG_DFL)
