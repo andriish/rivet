@@ -49,7 +49,7 @@ namespace Rivet {
      bookHistogram1D(2, 1, 1, "$\\sigma(\\text{Z + b jet}) / \\sigma(\\text{Z})$",
                      "$E$ / GeV", "$\\sigma(Z+b) / \\sigma(Z)$ / pb");
    _ratioBJetToJet = 
-     bookHistogram1D(3, 1, 1, "$\\sigma(Z + b jet) / \\sigma(Z + jet)", 
+     bookHistogram1D(3, 1, 1, "$\\sigma(Z + b jet) / \\sigma(Z + jet)$", 
                      "$E$ / GeV", "$\\sigma(\\text{Z+b}) / \\sigma(\\text{Z+j})$ /pb");
 
   }  
