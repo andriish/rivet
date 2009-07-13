@@ -67,9 +67,13 @@ namespace Rivet {
 
       //// FIXME: The pT and sum(ET) distributions look slightly different from
       ////        Niccolo's Monte Carlo plots. Still waiting for his answer.
-      const double apT  = 1.1752012 * pT;
-      const double root = sqrt(0.019479785*GeV*GeV + 2.1752012*pT*pT);
-      _hist_pt->fill(pT, weight/(pT*2*M_PI*std::log((root+apT)/(root-apT))));
+      const double sinh1 = 1.1752012;
+      const double apT  = sinh1 * pT;
+      const double mPi = 139.57*MeV;
+      const double root = sqrt(mPi*mPi + (1+sinh1)*pT*pT);
+      const double dy = std::log((root+apT)/(root-apT));
+      const double dphi = 2*M_PI;
+      _hist_pt->fill(pT, weight/(pT*dphi*dy));
     }
     double sumEt = 0.;
     foreach (const Particle& p, fs.particles()) {
