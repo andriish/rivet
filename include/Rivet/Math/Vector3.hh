@@ -79,11 +79,8 @@ namespace Rivet {
     }
 
     double angle(const Vector3& v) const {
-      
-      double localDotOther = unit().dot(v.unit());
-      
+      double localDotOther = unit().dot(v.unit());      
       if(Rivet::isZero(localDotOther - 1.0)) return 0.0;
-      
       return acos( localDotOther );
     }
 

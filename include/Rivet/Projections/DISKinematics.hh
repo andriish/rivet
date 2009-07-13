@@ -19,11 +19,7 @@ namespace Rivet {
         
     /// The default constructor.
     DISKinematics() 
-    :  _theQ2(-1.0), 
-       _theW2(-1.0), 
-       _theX(-1.0), 
-       _theY(-1.0), 
-       _theS(-1.0) 
+      : _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0) 
     {
       setName("DISKinematics");
       //addBeamPair(ANY, hadid);

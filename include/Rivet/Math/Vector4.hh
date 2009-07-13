@@ -27,20 +27,20 @@ namespace Rivet {
 
     template<typename V4>
     FourVector(const V4& other) {
-      this->t(other.t());
-      this->x(other.x());
-      this->y(other.y());
-      this->z(other.z());
+      this->setT(other.t());
+      this->setX(other.x());
+      this->setY(other.y());
+      this->setZ(other.z());
     }
 
     FourVector(const Vector<4>& other) 
     : Vector<4>(other) { }
 
     FourVector(const double t, const double x, const double y, const double z) {
-      this->t(t);
-      this->x(x);
-      this->y(y);
-      this->z(z);
+      this->setT(t);
+      this->setX(x);
+      this->setY(y);
+      this->setZ(z);
     }
 
     virtual ~FourVector() { }
@@ -50,10 +50,10 @@ namespace Rivet {
     const double x() const { return get(1); }
     const double y() const { return get(2); }
     const double z() const { return get(3); }
-    FourVector& t(const double t) { set(0, t); return *this; }
-    FourVector& x(const double x) { set(1, x); return *this; }
-    FourVector& y(const double y) { set(2, y); return *this; }
-    FourVector& z(const double z) { set(3, z); return *this; }
+    FourVector& setT(const double t) { set(0, t); return *this; }
+    FourVector& setX(const double x) { set(1, x); return *this; }
+    FourVector& setY(const double y) { set(2, y); return *this; }
+    FourVector& setZ(const double z) { set(3, z); return *this; }
 
     double invariant() const {
       return t()*t() - x()*x() - y()*y() - z()*z();
@@ -311,20 +311,20 @@ namespace Rivet {
 
     template<typename V4>
     FourMomentum(const V4& other) {
-      this->E(other.t());
-      this->px(other.x());
-      this->py(other.y());
-      this->pz(other.z());
+      this->setE(other.t());
+      this->setPx(other.x());
+      this->setPy(other.y());
+      this->setPz(other.z());
     }
 
     FourMomentum(const Vector<4>& other) 
       : FourVector(other) { }
 
     FourMomentum(const double E, const double px, const double py, const double pz) {
-      this->E(E);
-      this->px(px);
-      this->py(py);
-      this->pz(pz);
+      this->setE(E);
+      this->setPx(px);
+      this->setPy(py);
+      this->setPz(pz);
     }
 
     ~FourMomentum() {}
@@ -346,16 +346,16 @@ namespace Rivet {
     double pz() const { return z(); }
 
     /// Set energy \f$ E \f$ (time component of momentum).
-    FourMomentum& E(double E)   { t(E); return *this; }
+    FourMomentum& setE(double E)   { setT(E); return *this; }
 
     /// Set x-component of momentum \f$ p_x \f$.
-    FourMomentum& px(double px) { x(px); return *this; }
+    FourMomentum& setPx(double px) { setX(px); return *this; }
 
     /// Set y-component of momentum \f$ p_y \f$.
-    FourMomentum& py(double py) { y(py); return *this; }
+    FourMomentum& setPy(double py) { setY(py); return *this; }
 
     /// Set z-component of momentum \f$ p_z \f$.
-    FourMomentum& pz(double pz) { z(pz); return *this; }
+    FourMomentum& setPz(double pz) { setZ(pz); return *this; }
 
     /// Get squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant).
     double mass2() const { 

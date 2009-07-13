@@ -5,9 +5,9 @@
 
 namespace Rivet {
 
+
   int FinalStateHCM::compare(const Projection& p) const {
-    return \
-      mkNamedPCmp(p, "Kinematics");
+    return mkNamedPCmp(p, "Kinematics");
   }
 
 
@@ -32,5 +32,6 @@ namespace Rivet {
       }
     }
   }
+
 
 }
