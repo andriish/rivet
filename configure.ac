@@ -81,14 +81,22 @@ CPPFLAGS=$oldCPPFLAGS
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I$HEPMCINCPATH"
-AC_LANG_CONFTEST([AC_LANG_PROGRAM([#include <iostream>
-#include "HepMC/HepMCDefs.h"],[std::cout << HEPMC_VERSION << std::endl; return 0;])])
+if test -e "$HEPMCINCPATH/HepMC/HepMCDefs.h"; then
+  AC_LANG_CONFTEST([#include <iostream>
+#include "HepMC/HepMCDefs.h"
+int main() { std::cout << HEPMC_VERSION << std::endl; return 0; }])
+else
+  AC_LANG_CONFTEST([#include <iostream>
+#include "HepMC/defs.h"
+int main() { std::cout << VERSION << std::endl; return 0; }])
+fi
 $CXX $CPPFLAGS conftest.cpp -o conftest 2>&1 1>&5
 hepmc_version=`./conftest`
 if test x$hepmc_version != x; then
   let hepmc_major=`echo "$hepmc_version" | cut -d. -f1`
   let hepmc_minor=`echo "$hepmc_version" | cut -d. -f2`
 fi
+rm -f conftest conftest.cpp
 HEPMC_VERSION=$hepmc_major$hepmc_minor
 AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
 AC_SUBST(HEPMC_VERSION)
