@@ -1,3 +1,16 @@
+2009-07-14  Frank Siegert  <frank.siegert@durham.ac.uk>
+
+	* Replacing in-source histo-booking metadata with .plot files.
+
+2009-07-14  Andy Buckley  <andy@insectnation.org>
+
+	* Making Python wrapper files copy into place based on bundled
+	versions for each active HepMC interface (2.3, 2.4 & 2.5), using a
+	new HepMC version detector test in configure.
+
+	* Adding YAML metadata files and parser, removing same metadata
+	from the analysis classes' source headers.
+
 2009-07-07  Andy Buckley  <andy@insectnation.org>
 
 	* Adding Jet::hadronicEnergy()
