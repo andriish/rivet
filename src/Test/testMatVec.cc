@@ -12,17 +12,17 @@ int main() {
 
   FourVector a(1,0,0,0);
   cout << a << ": interval = " << a.invariant() << endl;
-  a.z(1);
+  a.setZ(1);
   cout << a << ": interval = " << a.invariant() << endl;
-  a.y(2).z(3);
+  a.setY(2).setZ(3);
   cout << a << ": interval = " << a.invariant() << endl;
   cout << a << ": vector = " << a.vector3() << endl << endl;
 
   FourMomentum b(1,0,0,1);
   cout << b << ": mass = " << b.mass() << endl;
-  b.pz(1);
+  b.setPz(1);
   cout << b << ": mass = " << b.mass() << endl;
-  b.py(2).pz(3).E(6);
+  b.setPy(2).setPz(3).setE(6);
   cout << b << ": mass = " << b.mass2() << endl;
   cout << b << ": vector = " << b.vector3() << endl << endl;
 
