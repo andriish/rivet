@@ -2482,86 +2482,87 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 
 #define SWIGTYPE_p_ColorCodes swig_types[0]
 #define SWIGTYPE_p_Flow swig_types[1]
-#define SWIGTYPE_p_GenParticle swig_types[2]
-#define SWIGTYPE_p_GenVertex swig_types[3]
-#define SWIGTYPE_p_HeavyIon swig_types[4]
-#define SWIGTYPE_p_HepMC__FourVector swig_types[5]
-#define SWIGTYPE_p_HepMC__GenEvent swig_types[6]
-#define SWIGTYPE_p_HepMC__GenParticle swig_types[7]
-#define SWIGTYPE_p_HepMC__GenVertex swig_types[8]
-#define SWIGTYPE_p_HepMC__IO_BaseClass swig_types[9]
-#define SWIGTYPE_p_HepMC__IO_GenEvent swig_types[10]
-#define SWIGTYPE_p_HepMC__ThreeVector swig_types[11]
-#define SWIGTYPE_p_LevelMap swig_types[12]
-#define SWIGTYPE_p_LogMap swig_types[13]
-#define SWIGTYPE_p_ParticleDataTable swig_types[14]
-#define SWIGTYPE_p_PdfInfo swig_types[15]
-#define SWIGTYPE_p_Polarization swig_types[16]
-#define SWIGTYPE_p_Rivet__Analysis swig_types[17]
-#define SWIGTYPE_p_Rivet__AnalysisHandler swig_types[18]
-#define SWIGTYPE_p_Rivet__AnalysisLoader swig_types[19]
-#define SWIGTYPE_p_Rivet__Event swig_types[20]
-#define SWIGTYPE_p_Rivet__Log swig_types[21]
-#define SWIGTYPE_p_Rivet__Particle swig_types[22]
-#define SWIGTYPE_p_Units__LengthUnit swig_types[23]
-#define SWIGTYPE_p_Units__MomentumUnit swig_types[24]
-#define SWIGTYPE_p_WeightContainer swig_types[25]
-#define SWIGTYPE_p_allocator_type swig_types[26]
-#define SWIGTYPE_p_char swig_types[27]
-#define SWIGTYPE_p_const_reference swig_types[28]
-#define SWIGTYPE_p_difference_type swig_types[29]
-#define SWIGTYPE_p_first_type swig_types[30]
-#define SWIGTYPE_p_key_type swig_types[31]
-#define SWIGTYPE_p_long swig_types[32]
-#define SWIGTYPE_p_mapped_type swig_types[33]
-#define SWIGTYPE_p_p_HepMC__GenEvent swig_types[34]
-#define SWIGTYPE_p_p_ParticleDataTable swig_types[35]
-#define SWIGTYPE_p_p_PyObject swig_types[36]
-#define SWIGTYPE_p_particles_in_const_iterator swig_types[37]
-#define SWIGTYPE_p_particles_out_const_iterator swig_types[38]
-#define SWIGTYPE_p_reference swig_types[39]
-#define SWIGTYPE_p_second_type swig_types[40]
-#define SWIGTYPE_p_size_type swig_types[41]
-#define SWIGTYPE_p_std__invalid_argument swig_types[42]
-#define SWIGTYPE_p_std__ios__openmode swig_types[43]
-#define SWIGTYPE_p_std__istream swig_types[44]
-#define SWIGTYPE_p_std__lessTstd__string_t swig_types[45]
-#define SWIGTYPE_p_std__mapTRivet__HistoFormat_std__string_std__lessTRivet__HistoFormat_t_std__allocatorTstd__pairTRivet__HistoFormat_const_std__string_t_t_t swig_types[46]
-#define SWIGTYPE_p_std__mapTlong_std__string_std__lessTlong_t_std__allocatorTstd__pairTlong_const_std__string_t_t_t swig_types[47]
-#define SWIGTYPE_p_std__mapTstd__string_Rivet__HistoFormat_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_Rivet__HistoFormat_t_t_t swig_types[48]
-#define SWIGTYPE_p_std__mapTstd__string_const_int_std__lessTstd__string_const_t_std__allocatorTstd__pairTstd__string_const_const_int_t_t_t swig_types[49]
-#define SWIGTYPE_p_std__mapTstd__string_int_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_int_t_t_t swig_types[50]
-#define SWIGTYPE_p_std__mapTstd__string_int_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_int_t_t_t__allocator_type swig_types[51]
-#define SWIGTYPE_p_std__mapTstd__string_long_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_long_t_t_t swig_types[52]
-#define SWIGTYPE_p_std__ostream swig_types[53]
-#define SWIGTYPE_p_std__pairTHepMC__GenParticle_const_p_HepMC__GenParticle_const_p_t swig_types[54]
-#define SWIGTYPE_p_std__pairTHepMC__GenParticle_p_HepMC__GenParticle_p_t swig_types[55]
-#define SWIGTYPE_p_std__pairTRivet__Particle_Rivet__Particle_t swig_types[56]
-#define SWIGTYPE_p_std__pairTlong_long_t swig_types[57]
-#define SWIGTYPE_p_std__string swig_types[58]
-#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t swig_types[59]
-#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t__allocator_type swig_types[60]
-#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t__value_type swig_types[61]
-#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_p_std__allocatorTHepMC__GenParticle_p_t_t swig_types[62]
-#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_p_std__allocatorTHepMC__GenParticle_p_t_t__allocator_type swig_types[63]
-#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t swig_types[64]
-#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t__allocator_type swig_types[65]
-#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t__value_type swig_types[66]
-#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_p_std__allocatorTHepMC__GenVertex_p_t_t swig_types[67]
-#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_p_std__allocatorTHepMC__GenVertex_p_t_t__allocator_type swig_types[68]
-#define SWIGTYPE_p_std__vectorTRivet__HistoFormat_std__allocatorTRivet__HistoFormat_t_t swig_types[69]
-#define SWIGTYPE_p_std__vectorTRivet__Particle_std__allocatorTRivet__Particle_t_t swig_types[70]
-#define SWIGTYPE_p_std__vectorTlong_std__allocatorTlong_t_t swig_types[71]
-#define SWIGTYPE_p_std__vectorTstd__string_std__allocatorTstd__string_t_t swig_types[72]
-#define SWIGTYPE_p_std__vectorTstd__string_std__allocatorTstd__string_t_t__allocator_type swig_types[73]
-#define SWIGTYPE_p_swig__PySwigIterator swig_types[74]
-#define SWIGTYPE_p_value_type swig_types[75]
-#define SWIGTYPE_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t__value_type swig_types[76]
-#define SWIGTYPE_std__vectorTHepMC__GenParticle_p_std__allocatorTHepMC__GenParticle_p_t_t__value_type swig_types[77]
-#define SWIGTYPE_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t__value_type swig_types[78]
-#define SWIGTYPE_std__vectorTHepMC__GenVertex_p_std__allocatorTHepMC__GenVertex_p_t_t__value_type swig_types[79]
-static swig_type_info *swig_types[81];
-static swig_module_info swig_module = {swig_types, 80, 0, 0, 0, 0};
+#define SWIGTYPE_p_GenCrossSection swig_types[2]
+#define SWIGTYPE_p_GenParticle swig_types[3]
+#define SWIGTYPE_p_GenVertex swig_types[4]
+#define SWIGTYPE_p_HeavyIon swig_types[5]
+#define SWIGTYPE_p_HepMC__FourVector swig_types[6]
+#define SWIGTYPE_p_HepMC__GenEvent swig_types[7]
+#define SWIGTYPE_p_HepMC__GenParticle swig_types[8]
+#define SWIGTYPE_p_HepMC__GenVertex swig_types[9]
+#define SWIGTYPE_p_HepMC__IO_BaseClass swig_types[10]
+#define SWIGTYPE_p_HepMC__IO_GenEvent swig_types[11]
+#define SWIGTYPE_p_HepMC__ThreeVector swig_types[12]
+#define SWIGTYPE_p_LevelMap swig_types[13]
+#define SWIGTYPE_p_LogMap swig_types[14]
+#define SWIGTYPE_p_ParticleDataTable swig_types[15]
+#define SWIGTYPE_p_PdfInfo swig_types[16]
+#define SWIGTYPE_p_Polarization swig_types[17]
+#define SWIGTYPE_p_Rivet__Analysis swig_types[18]
+#define SWIGTYPE_p_Rivet__AnalysisHandler swig_types[19]
+#define SWIGTYPE_p_Rivet__AnalysisLoader swig_types[20]
+#define SWIGTYPE_p_Rivet__Event swig_types[21]
+#define SWIGTYPE_p_Rivet__Log swig_types[22]
+#define SWIGTYPE_p_Rivet__Particle swig_types[23]
+#define SWIGTYPE_p_Units__LengthUnit swig_types[24]
+#define SWIGTYPE_p_Units__MomentumUnit swig_types[25]
+#define SWIGTYPE_p_WeightContainer swig_types[26]
+#define SWIGTYPE_p_allocator_type swig_types[27]
+#define SWIGTYPE_p_char swig_types[28]
+#define SWIGTYPE_p_const_reference swig_types[29]
+#define SWIGTYPE_p_difference_type swig_types[30]
+#define SWIGTYPE_p_first_type swig_types[31]
+#define SWIGTYPE_p_key_type swig_types[32]
+#define SWIGTYPE_p_long swig_types[33]
+#define SWIGTYPE_p_mapped_type swig_types[34]
+#define SWIGTYPE_p_p_HepMC__GenEvent swig_types[35]
+#define SWIGTYPE_p_p_ParticleDataTable swig_types[36]
+#define SWIGTYPE_p_p_PyObject swig_types[37]
+#define SWIGTYPE_p_particles_in_const_iterator swig_types[38]
+#define SWIGTYPE_p_particles_out_const_iterator swig_types[39]
+#define SWIGTYPE_p_reference swig_types[40]
+#define SWIGTYPE_p_second_type swig_types[41]
+#define SWIGTYPE_p_size_type swig_types[42]
+#define SWIGTYPE_p_std__invalid_argument swig_types[43]
+#define SWIGTYPE_p_std__ios__openmode swig_types[44]
+#define SWIGTYPE_p_std__istream swig_types[45]
+#define SWIGTYPE_p_std__lessTstd__string_t swig_types[46]
+#define SWIGTYPE_p_std__mapTRivet__HistoFormat_std__string_std__lessTRivet__HistoFormat_t_std__allocatorTstd__pairTRivet__HistoFormat_const_std__string_t_t_t swig_types[47]
+#define SWIGTYPE_p_std__mapTlong_std__string_std__lessTlong_t_std__allocatorTstd__pairTlong_const_std__string_t_t_t swig_types[48]
+#define SWIGTYPE_p_std__mapTstd__string_Rivet__HistoFormat_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_Rivet__HistoFormat_t_t_t swig_types[49]
+#define SWIGTYPE_p_std__mapTstd__string_const_int_std__lessTstd__string_const_t_std__allocatorTstd__pairTstd__string_const_const_int_t_t_t swig_types[50]
+#define SWIGTYPE_p_std__mapTstd__string_int_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_int_t_t_t swig_types[51]
+#define SWIGTYPE_p_std__mapTstd__string_int_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_int_t_t_t__allocator_type swig_types[52]
+#define SWIGTYPE_p_std__mapTstd__string_long_std__lessTstd__string_t_std__allocatorTstd__pairTstd__string_const_long_t_t_t swig_types[53]
+#define SWIGTYPE_p_std__ostream swig_types[54]
+#define SWIGTYPE_p_std__pairTHepMC__GenParticle_const_p_HepMC__GenParticle_const_p_t swig_types[55]
+#define SWIGTYPE_p_std__pairTHepMC__GenParticle_p_HepMC__GenParticle_p_t swig_types[56]
+#define SWIGTYPE_p_std__pairTRivet__Particle_Rivet__Particle_t swig_types[57]
+#define SWIGTYPE_p_std__pairTlong_long_t swig_types[58]
+#define SWIGTYPE_p_std__string swig_types[59]
+#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t swig_types[60]
+#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t__allocator_type swig_types[61]
+#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t__value_type swig_types[62]
+#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_p_std__allocatorTHepMC__GenParticle_p_t_t swig_types[63]
+#define SWIGTYPE_p_std__vectorTHepMC__GenParticle_p_std__allocatorTHepMC__GenParticle_p_t_t__allocator_type swig_types[64]
+#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t swig_types[65]
+#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t__allocator_type swig_types[66]
+#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t__value_type swig_types[67]
+#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_p_std__allocatorTHepMC__GenVertex_p_t_t swig_types[68]
+#define SWIGTYPE_p_std__vectorTHepMC__GenVertex_p_std__allocatorTHepMC__GenVertex_p_t_t__allocator_type swig_types[69]
+#define SWIGTYPE_p_std__vectorTRivet__HistoFormat_std__allocatorTRivet__HistoFormat_t_t swig_types[70]
+#define SWIGTYPE_p_std__vectorTRivet__Particle_std__allocatorTRivet__Particle_t_t swig_types[71]
+#define SWIGTYPE_p_std__vectorTlong_std__allocatorTlong_t_t swig_types[72]
+#define SWIGTYPE_p_std__vectorTstd__string_std__allocatorTstd__string_t_t swig_types[73]
+#define SWIGTYPE_p_std__vectorTstd__string_std__allocatorTstd__string_t_t__allocator_type swig_types[74]
+#define SWIGTYPE_p_swig__PySwigIterator swig_types[75]
+#define SWIGTYPE_p_value_type swig_types[76]
+#define SWIGTYPE_std__vectorTHepMC__GenParticle_const_p_std__allocatorTHepMC__GenParticle_const_p_t_t__value_type swig_types[77]
+#define SWIGTYPE_std__vectorTHepMC__GenParticle_p_std__allocatorTHepMC__GenParticle_p_t_t__value_type swig_types[78]
+#define SWIGTYPE_std__vectorTHepMC__GenVertex_const_p_std__allocatorTHepMC__GenVertex_const_p_t_t__value_type swig_types[79]
+#define SWIGTYPE_std__vectorTHepMC__GenVertex_p_std__allocatorTHepMC__GenVertex_p_t_t__value_type swig_types[80]
+static swig_type_info *swig_types[82];
+static swig_module_info swig_module = {swig_types, 81, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6366,28 +6367,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FourVector_mag(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  HepMC::FourVector *arg1 = (HepMC::FourVector *) 0 ;
-  double result;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:FourVector_mag",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__FourVector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FourVector_mag" "', argument " "1"" of type '" "HepMC::FourVector const *""'"); 
-  }
-  arg1 = reinterpret_cast< HepMC::FourVector * >(argp1);
-  result = (double)((HepMC::FourVector const *)arg1)->mag();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_FourVector_theta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   HepMC::FourVector *arg1 = (HepMC::FourVector *) 0 ;
@@ -7417,28 +7396,6 @@ SWIGINTERN PyObject *_wrap_ThreeVector_r(PyObject *SWIGUNUSEDPARM(self), PyObjec
   }
   arg1 = reinterpret_cast< HepMC::ThreeVector * >(argp1);
   result = (double)((HepMC::ThreeVector const *)arg1)->r();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ThreeVector_mag(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  HepMC::ThreeVector *arg1 = (HepMC::ThreeVector *) 0 ;
-  double result;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:ThreeVector_mag",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__ThreeVector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ThreeVector_mag" "', argument " "1"" of type '" "HepMC::ThreeVector const *""'"); 
-  }
-  arg1 = reinterpret_cast< HepMC::ThreeVector * >(argp1);
-  result = (double)((HepMC::ThreeVector const *)arg1)->mag();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -9886,6 +9843,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_GenEvent_is_valid(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:GenEvent_is_valid",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenEvent_is_valid" "', argument " "1"" of type '" "HepMC::GenEvent const *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenEvent * >(argp1);
+  result = (bool)((HepMC::GenEvent const *)arg1)->is_valid();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_GenEvent_weights__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
@@ -9967,6 +9946,85 @@ SWIGINTERN PyObject *_wrap_GenEvent_weights(PyObject *self, PyObject *args) {
   
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number of arguments for overloaded function 'GenEvent_weights'.\n  Possible C/C++ prototypes are:\n""    weights(HepMC::GenEvent *)\n""    weights(HepMC::GenEvent const *)\n");
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenEvent_cross_section__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
+  GenCrossSection *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:GenEvent_cross_section",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenEvent_cross_section" "', argument " "1"" of type '" "HepMC::GenEvent const *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenEvent * >(argp1);
+  result = (GenCrossSection *)((HepMC::GenEvent const *)arg1)->cross_section();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_GenCrossSection, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenEvent_cross_section__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
+  GenCrossSection *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:GenEvent_cross_section",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenEvent_cross_section" "', argument " "1"" of type '" "HepMC::GenEvent *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenEvent * >(argp1);
+  result = (GenCrossSection *)(arg1)->cross_section();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_GenCrossSection, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenEvent_cross_section(PyObject *self, PyObject *args) {
+  int argc;
+  PyObject *argv[2];
+  int ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = (int)PyObject_Length(args);
+  for (ii = 0; (ii < argc) && (ii < 1); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_HepMC__GenEvent, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_GenEvent_cross_section__SWIG_1(self, args);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_HepMC__GenEvent, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_GenEvent_cross_section__SWIG_0(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number of arguments for overloaded function 'GenEvent_cross_section'.\n  Possible C/C++ prototypes are:\n""    cross_section(HepMC::GenEvent const *)\n""    cross_section(HepMC::GenEvent *)\n");
   return NULL;
 }
 
@@ -10374,6 +10432,80 @@ SWIGINTERN PyObject *_wrap_GenEvent_length_unit(PyObject *SWIGUNUSEDPARM(self), 
   arg1 = reinterpret_cast< HepMC::GenEvent * >(argp1);
   result = ((HepMC::GenEvent const *)arg1)->length_unit();
   resultobj = SWIG_NewPointerObj((new Units::LengthUnit(static_cast< const Units::LengthUnit& >(result))), SWIGTYPE_p_Units__LengthUnit, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenEvent_write(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
+  std::ostream *arg2 = 0 ;
+  std::ostream *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:GenEvent_write",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenEvent_write" "', argument " "1"" of type '" "HepMC::GenEvent *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenEvent * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GenEvent_write" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GenEvent_write" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  {
+    std::ostream &_result_ref = (arg1)->write(*arg2);
+    result = (std::ostream *) &_result_ref;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenEvent_read(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
+  std::istream *arg2 = 0 ;
+  std::istream *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:GenEvent_read",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenEvent_read" "', argument " "1"" of type '" "HepMC::GenEvent *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenEvent * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__istream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GenEvent_read" "', argument " "2"" of type '" "std::istream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GenEvent_read" "', argument " "2"" of type '" "std::istream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::istream * >(argp2);
+  {
+    std::istream &_result_ref = (arg1)->read(*arg2);
+    result = (std::istream *) &_result_ref;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__istream, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -10829,6 +10961,39 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_GenEvent_set_cross_section(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
+  GenCrossSection *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:GenEvent_set_cross_section",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenEvent_set_cross_section" "', argument " "1"" of type '" "HepMC::GenEvent *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenEvent * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_GenCrossSection,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GenEvent_set_cross_section" "', argument " "2"" of type '" "GenCrossSection const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GenEvent_set_cross_section" "', argument " "2"" of type '" "GenCrossSection const &""'"); 
+  }
+  arg2 = reinterpret_cast< GenCrossSection * >(argp2);
+  (arg1)->set_cross_section((GenCrossSection const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_GenEvent_set_heavy_ion(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   HepMC::GenEvent *arg1 = (HepMC::GenEvent *) 0 ;
@@ -11164,6 +11329,164 @@ SWIGINTERN PyObject *GenEvent_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObj
   SWIG_TypeNewClientData(SWIGTYPE_p_HepMC__GenEvent, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap___rshift__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::istream *arg1 = 0 ;
+  HepMC::GenEvent *arg2 = 0 ;
+  std::istream *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:__rshift__",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_std__istream,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "__rshift__" "', argument " "1"" of type '" "std::istream &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__rshift__" "', argument " "1"" of type '" "std::istream &""'"); 
+  }
+  arg1 = reinterpret_cast< std::istream * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_HepMC__GenEvent,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "__rshift__" "', argument " "2"" of type '" "HepMC::GenEvent &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "__rshift__" "', argument " "2"" of type '" "HepMC::GenEvent &""'"); 
+  }
+  arg2 = reinterpret_cast< HepMC::GenEvent * >(argp2);
+  {
+    std::istream &_result_ref = HepMC::operator >>(*arg1,*arg2);
+    result = (std::istream *) &_result_ref;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__istream, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_set_input_units(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::istream *arg1 = 0 ;
+  Units::MomentumUnit arg2 ;
+  Units::LengthUnit arg3 ;
+  std::istream *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  void *argp3 ;
+  int res3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:set_input_units",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_std__istream,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "set_input_units" "', argument " "1"" of type '" "std::istream &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "set_input_units" "', argument " "1"" of type '" "std::istream &""'"); 
+  }
+  arg1 = reinterpret_cast< std::istream * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Units__MomentumUnit,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "set_input_units" "', argument " "2"" of type '" "Units::MomentumUnit""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "set_input_units" "', argument " "2"" of type '" "Units::MomentumUnit""'");
+    } else {
+      Units::MomentumUnit * temp = reinterpret_cast< Units::MomentumUnit * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  {
+    res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Units__LengthUnit,  0  | 0);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "set_input_units" "', argument " "3"" of type '" "Units::LengthUnit""'"); 
+    }  
+    if (!argp3) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "set_input_units" "', argument " "3"" of type '" "Units::LengthUnit""'");
+    } else {
+      Units::LengthUnit * temp = reinterpret_cast< Units::LengthUnit * >(argp3);
+      arg3 = *temp;
+      if (SWIG_IsNewObj(res3)) delete temp;
+    }
+  }
+  {
+    std::istream &_result_ref = HepMC::set_input_units(*arg1,arg2,arg3);
+    result = (std::istream *) &_result_ref;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__istream, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_write_HepMC_IO_block_begin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::ostream *arg1 = 0 ;
+  std::ostream *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:write_HepMC_IO_block_begin",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "write_HepMC_IO_block_begin" "', argument " "1"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "write_HepMC_IO_block_begin" "', argument " "1"" of type '" "std::ostream &""'"); 
+  }
+  arg1 = reinterpret_cast< std::ostream * >(argp1);
+  {
+    std::ostream &_result_ref = HepMC::write_HepMC_IO_block_begin(*arg1);
+    result = (std::ostream *) &_result_ref;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_write_HepMC_IO_block_end(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::ostream *arg1 = 0 ;
+  std::ostream *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:write_HepMC_IO_block_end",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "write_HepMC_IO_block_end" "', argument " "1"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "write_HepMC_IO_block_end" "', argument " "1"" of type '" "std::ostream &""'"); 
+  }
+  arg1 = reinterpret_cast< std::ostream * >(argp1);
+  {
+    std::ostream &_result_ref = HepMC::write_HepMC_IO_block_end(*arg1);
+    result = (std::ostream *) &_result_ref;
+  }
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__ostream, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_convert_units(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -12040,6 +12363,72 @@ SWIGINTERN PyObject *_wrap_GenParticle_barcode(PyObject *SWIGUNUSEDPARM(self), P
   arg1 = reinterpret_cast< HepMC::GenParticle * >(argp1);
   result = (int)((HepMC::GenParticle const *)arg1)->barcode();
   resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenParticle_is_undecayed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenParticle *arg1 = (HepMC::GenParticle *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:GenParticle_is_undecayed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenParticle, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenParticle_is_undecayed" "', argument " "1"" of type '" "HepMC::GenParticle const *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenParticle * >(argp1);
+  result = (bool)((HepMC::GenParticle const *)arg1)->is_undecayed();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenParticle_has_decayed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenParticle *arg1 = (HepMC::GenParticle *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:GenParticle_has_decayed",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenParticle, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenParticle_has_decayed" "', argument " "1"" of type '" "HepMC::GenParticle const *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenParticle * >(argp1);
+  result = (bool)((HepMC::GenParticle const *)arg1)->has_decayed();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GenParticle_is_beam(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::GenParticle *arg1 = (HepMC::GenParticle *) 0 ;
+  bool result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:GenParticle_is_beam",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__GenParticle, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GenParticle_is_beam" "', argument " "1"" of type '" "HepMC::GenParticle const *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::GenParticle * >(argp1);
+  result = (bool)((HepMC::GenParticle const *)arg1)->is_beam();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
   return NULL;
@@ -14454,6 +14843,83 @@ SWIGINTERN PyObject *_wrap_IO_GenEvent_use_input_units(PyObject *SWIGUNUSEDPARM(
   }
   (arg1)->use_input_units(arg2,arg3);
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IO_GenEvent_precision(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::IO_GenEvent *arg1 = (HepMC::IO_GenEvent *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:IO_GenEvent_precision",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__IO_GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IO_GenEvent_precision" "', argument " "1"" of type '" "HepMC::IO_GenEvent *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::IO_GenEvent * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IO_GenEvent_precision" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  (arg1)->precision(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IO_GenEvent_error_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::IO_GenEvent *arg1 = (HepMC::IO_GenEvent *) 0 ;
+  int result;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IO_GenEvent_error_type",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__IO_GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IO_GenEvent_error_type" "', argument " "1"" of type '" "HepMC::IO_GenEvent const *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::IO_GenEvent * >(argp1);
+  result = (int)((HepMC::IO_GenEvent const *)arg1)->error_type();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IO_GenEvent_error_message(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HepMC::IO_GenEvent *arg1 = (HepMC::IO_GenEvent *) 0 ;
+  std::string *result = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:IO_GenEvent_error_message",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HepMC__IO_GenEvent, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IO_GenEvent_error_message" "', argument " "1"" of type '" "HepMC::IO_GenEvent const *""'"); 
+  }
+  arg1 = reinterpret_cast< HepMC::IO_GenEvent * >(argp1);
+  {
+    std::string const &_result_ref = ((HepMC::IO_GenEvent const *)arg1)->error_message();
+    result = (std::string *) &_result_ref;
+  }
+  resultobj = SWIG_From_std_string(static_cast< std::string >(*result));
   return resultobj;
 fail:
   return NULL;
@@ -27683,7 +28149,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"FourVector_m", _wrap_FourVector_m, METH_VARARGS, NULL},
 	 { (char *)"FourVector_perp2", _wrap_FourVector_perp2, METH_VARARGS, NULL},
 	 { (char *)"FourVector_perp", _wrap_FourVector_perp, METH_VARARGS, NULL},
-	 { (char *)"FourVector_mag", _wrap_FourVector_mag, METH_VARARGS, NULL},
 	 { (char *)"FourVector_theta", _wrap_FourVector_theta, METH_VARARGS, NULL},
 	 { (char *)"FourVector_phi", _wrap_FourVector_phi, METH_VARARGS, NULL},
 	 { (char *)"FourVector_rho", _wrap_FourVector_rho, METH_VARARGS, NULL},
@@ -27715,7 +28180,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"ThreeVector_phi", _wrap_ThreeVector_phi, METH_VARARGS, NULL},
 	 { (char *)"ThreeVector_theta", _wrap_ThreeVector_theta, METH_VARARGS, NULL},
 	 { (char *)"ThreeVector_r", _wrap_ThreeVector_r, METH_VARARGS, NULL},
-	 { (char *)"ThreeVector_mag", _wrap_ThreeVector_mag, METH_VARARGS, NULL},
 	 { (char *)"ThreeVector_setPhi", _wrap_ThreeVector_setPhi, METH_VARARGS, NULL},
 	 { (char *)"ThreeVector_setTheta", _wrap_ThreeVector_setTheta, METH_VARARGS, NULL},
 	 { (char *)"ThreeVector_perp2", _wrap_ThreeVector_perp2, METH_VARARGS, NULL},
@@ -27740,7 +28204,9 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GenEvent_signal_process_vertex", _wrap_GenEvent_signal_process_vertex, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_valid_beam_particles", _wrap_GenEvent_valid_beam_particles, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_beam_particles", _wrap_GenEvent_beam_particles, METH_VARARGS, NULL},
+	 { (char *)"GenEvent_is_valid", _wrap_GenEvent_is_valid, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_weights", _wrap_GenEvent_weights, METH_VARARGS, NULL},
+	 { (char *)"GenEvent_cross_section", _wrap_GenEvent_cross_section, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_heavy_ion", _wrap_GenEvent_heavy_ion, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_pdf_info", _wrap_GenEvent_pdf_info, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_random_states", _wrap_GenEvent_random_states, METH_VARARGS, NULL},
@@ -27751,6 +28217,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GenEvent_write_units", _wrap_GenEvent_write_units, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_momentum_unit", _wrap_GenEvent_momentum_unit, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_length_unit", _wrap_GenEvent_length_unit, METH_VARARGS, NULL},
+	 { (char *)"GenEvent_write", _wrap_GenEvent_write, METH_VARARGS, NULL},
+	 { (char *)"GenEvent_read", _wrap_GenEvent_read, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_add_vertex", _wrap_GenEvent_add_vertex, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_remove_vertex", _wrap_GenEvent_remove_vertex, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_clear", _wrap_GenEvent_clear, METH_VARARGS, NULL},
@@ -27763,6 +28231,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GenEvent_set_signal_process_vertex", _wrap_GenEvent_set_signal_process_vertex, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_set_beam_particles", _wrap_GenEvent_set_beam_particles, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_set_random_states", _wrap_GenEvent_set_random_states, METH_VARARGS, NULL},
+	 { (char *)"GenEvent_set_cross_section", _wrap_GenEvent_set_cross_section, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_set_heavy_ion", _wrap_GenEvent_set_heavy_ion, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_set_pdf_info", _wrap_GenEvent_set_pdf_info, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_use_units", _wrap_GenEvent_use_units, METH_VARARGS, NULL},
@@ -27772,6 +28241,10 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GenEvent_vertices", _wrap_GenEvent_vertices, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_fsParticles", _wrap_GenEvent_fsParticles, METH_VARARGS, NULL},
 	 { (char *)"GenEvent_swigregister", GenEvent_swigregister, METH_VARARGS, NULL},
+	 { (char *)"__rshift__", _wrap___rshift__, METH_VARARGS, NULL},
+	 { (char *)"set_input_units", _wrap_set_input_units, METH_VARARGS, NULL},
+	 { (char *)"write_HepMC_IO_block_begin", _wrap_write_HepMC_IO_block_begin, METH_VARARGS, NULL},
+	 { (char *)"write_HepMC_IO_block_end", _wrap_write_HepMC_IO_block_end, METH_VARARGS, NULL},
 	 { (char *)"convert_units", _wrap_convert_units, METH_VARARGS, NULL},
 	 { (char *)"new_GenParticle", _wrap_new_GenParticle, METH_VARARGS, NULL},
 	 { (char *)"delete_GenParticle", _wrap_delete_GenParticle, METH_VARARGS, NULL},
@@ -27790,6 +28263,9 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"GenParticle_generated_mass", _wrap_GenParticle_generated_mass, METH_VARARGS, NULL},
 	 { (char *)"GenParticle_generatedMass", _wrap_GenParticle_generatedMass, METH_VARARGS, NULL},
 	 { (char *)"GenParticle_barcode", _wrap_GenParticle_barcode, METH_VARARGS, NULL},
+	 { (char *)"GenParticle_is_undecayed", _wrap_GenParticle_is_undecayed, METH_VARARGS, NULL},
+	 { (char *)"GenParticle_has_decayed", _wrap_GenParticle_has_decayed, METH_VARARGS, NULL},
+	 { (char *)"GenParticle_is_beam", _wrap_GenParticle_is_beam, METH_VARARGS, NULL},
 	 { (char *)"GenParticle_suggest_barcode", _wrap_GenParticle_suggest_barcode, METH_VARARGS, NULL},
 	 { (char *)"GenParticle_set_momentum", _wrap_GenParticle_set_momentum, METH_VARARGS, NULL},
 	 { (char *)"GenParticle_set_pdg_id", _wrap_GenParticle_set_pdg_id, METH_VARARGS, NULL},
@@ -27846,6 +28322,9 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"IO_GenEvent_rdstate", _wrap_IO_GenEvent_rdstate, METH_VARARGS, NULL},
 	 { (char *)"IO_GenEvent_clear", _wrap_IO_GenEvent_clear, METH_VARARGS, NULL},
 	 { (char *)"IO_GenEvent_use_input_units", _wrap_IO_GenEvent_use_input_units, METH_VARARGS, NULL},
+	 { (char *)"IO_GenEvent_precision", _wrap_IO_GenEvent_precision, METH_VARARGS, NULL},
+	 { (char *)"IO_GenEvent_error_type", _wrap_IO_GenEvent_error_type, METH_VARARGS, NULL},
+	 { (char *)"IO_GenEvent_error_message", _wrap_IO_GenEvent_error_message, METH_VARARGS, NULL},
 	 { (char *)"new_IO_GenEvent", _wrap_new_IO_GenEvent, METH_VARARGS, NULL},
 	 { (char *)"IO_GenEvent_get_next_event", _wrap_IO_GenEvent_get_next_event, METH_VARARGS, NULL},
 	 { (char *)"IO_GenEvent_swigregister", IO_GenEvent_swigregister, METH_VARARGS, NULL},
@@ -28159,6 +28638,7 @@ static void *_p_HepMC__IO_GenEventTo_p_HepMC__IO_BaseClass(void *x) {
 }
 static swig_type_info _swigt__p_ColorCodes = {"_p_ColorCodes", "ColorCodes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Flow = {"_p_Flow", "Flow *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_GenCrossSection = {"_p_GenCrossSection", "GenCrossSection *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_GenParticle = {"_p_GenParticle", "GenParticle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_GenVertex = {"_p_GenVertex", "GenVertex *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_HeavyIon = {"_p_HeavyIon", "HeavyIon *", 0, 0, (void*)0, 0};
@@ -28241,6 +28721,7 @@ static swig_type_info _swigt__std__vectorTHepMC__GenVertex_p_std__allocatorTHepM
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ColorCodes,
   &_swigt__p_Flow,
+  &_swigt__p_GenCrossSection,
   &_swigt__p_GenParticle,
   &_swigt__p_GenVertex,
   &_swigt__p_HeavyIon,
@@ -28323,6 +28804,7 @@ static swig_type_info *swig_type_initial[] = {
 
 static swig_cast_info _swigc__p_ColorCodes[] = {  {&_swigt__p_ColorCodes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Flow[] = {  {&_swigt__p_Flow, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_GenCrossSection[] = {  {&_swigt__p_GenCrossSection, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_GenParticle[] = {  {&_swigt__p_GenParticle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_GenVertex[] = {  {&_swigt__p_GenVertex, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_HeavyIon[] = {  {&_swigt__p_HeavyIon, 0, 0, 0},{0, 0, 0, 0}};
@@ -28405,6 +28887,7 @@ static swig_cast_info _swigc__std__vectorTHepMC__GenVertex_p_std__allocatorTHepM
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ColorCodes,
   _swigc__p_Flow,
+  _swigc__p_GenCrossSection,
   _swigc__p_GenParticle,
   _swigc__p_GenVertex,
   _swigc__p_HeavyIon,

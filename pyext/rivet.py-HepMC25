@@ -99,7 +99,6 @@ class FourVector(_object):
     def m(*args): return _rivet.FourVector_m(*args)
     def perp2(*args): return _rivet.FourVector_perp2(*args)
     def perp(*args): return _rivet.FourVector_perp(*args)
-    def mag(*args): return _rivet.FourVector_mag(*args)
     def theta(*args): return _rivet.FourVector_theta(*args)
     def phi(*args): return _rivet.FourVector_phi(*args)
     def rho(*args): return _rivet.FourVector_rho(*args)
@@ -143,7 +142,6 @@ class ThreeVector(_object):
     def phi(*args): return _rivet.ThreeVector_phi(*args)
     def theta(*args): return _rivet.ThreeVector_theta(*args)
     def r(*args): return _rivet.ThreeVector_r(*args)
-    def mag(*args): return _rivet.ThreeVector_mag(*args)
     def setPhi(*args): return _rivet.ThreeVector_setPhi(*args)
     def setTheta(*args): return _rivet.ThreeVector_setTheta(*args)
     def perp2(*args): return _rivet.ThreeVector_perp2(*args)
@@ -181,7 +179,9 @@ class GenEvent(_object):
     def signal_process_vertex(*args): return _rivet.GenEvent_signal_process_vertex(*args)
     def valid_beam_particles(*args): return _rivet.GenEvent_valid_beam_particles(*args)
     def beam_particles(*args): return _rivet.GenEvent_beam_particles(*args)
+    def is_valid(*args): return _rivet.GenEvent_is_valid(*args)
     def weights(*args): return _rivet.GenEvent_weights(*args)
+    def cross_section(*args): return _rivet.GenEvent_cross_section(*args)
     def heavy_ion(*args): return _rivet.GenEvent_heavy_ion(*args)
     def pdf_info(*args): return _rivet.GenEvent_pdf_info(*args)
     def random_states(*args): return _rivet.GenEvent_random_states(*args)
@@ -192,6 +192,8 @@ class GenEvent(_object):
     def write_units(*args): return _rivet.GenEvent_write_units(*args)
     def momentum_unit(*args): return _rivet.GenEvent_momentum_unit(*args)
     def length_unit(*args): return _rivet.GenEvent_length_unit(*args)
+    def write(*args): return _rivet.GenEvent_write(*args)
+    def read(*args): return _rivet.GenEvent_read(*args)
     def add_vertex(*args): return _rivet.GenEvent_add_vertex(*args)
     def remove_vertex(*args): return _rivet.GenEvent_remove_vertex(*args)
     def clear(*args): return _rivet.GenEvent_clear(*args)
@@ -204,6 +206,7 @@ class GenEvent(_object):
     def set_signal_process_vertex(*args): return _rivet.GenEvent_set_signal_process_vertex(*args)
     def set_beam_particles(*args): return _rivet.GenEvent_set_beam_particles(*args)
     def set_random_states(*args): return _rivet.GenEvent_set_random_states(*args)
+    def set_cross_section(*args): return _rivet.GenEvent_set_cross_section(*args)
     def set_heavy_ion(*args): return _rivet.GenEvent_set_heavy_ion(*args)
     def set_pdf_info(*args): return _rivet.GenEvent_set_pdf_info(*args)
     def use_units(*args): return _rivet.GenEvent_use_units(*args)
@@ -215,6 +218,10 @@ class GenEvent(_object):
 GenEvent_swigregister = _rivet.GenEvent_swigregister
 GenEvent_swigregister(GenEvent)
 
+__rshift__ = _rivet.__rshift__
+set_input_units = _rivet.set_input_units
+write_HepMC_IO_block_begin = _rivet.write_HepMC_IO_block_begin
+write_HepMC_IO_block_end = _rivet.write_HepMC_IO_block_end
 convert_units = _rivet.convert_units
 class GenParticle(_object):
     __swig_setmethods__ = {}
@@ -243,6 +250,9 @@ class GenParticle(_object):
     def generated_mass(*args): return _rivet.GenParticle_generated_mass(*args)
     def generatedMass(*args): return _rivet.GenParticle_generatedMass(*args)
     def barcode(*args): return _rivet.GenParticle_barcode(*args)
+    def is_undecayed(*args): return _rivet.GenParticle_is_undecayed(*args)
+    def has_decayed(*args): return _rivet.GenParticle_has_decayed(*args)
+    def is_beam(*args): return _rivet.GenParticle_is_beam(*args)
     def suggest_barcode(*args): return _rivet.GenParticle_suggest_barcode(*args)
     def set_momentum(*args): return _rivet.GenParticle_set_momentum(*args)
     def set_pdg_id(*args): return _rivet.GenParticle_set_pdg_id(*args)
@@ -338,6 +348,9 @@ class IO_GenEvent(IO_BaseClass):
     def rdstate(*args): return _rivet.IO_GenEvent_rdstate(*args)
     def clear(*args): return _rivet.IO_GenEvent_clear(*args)
     def use_input_units(*args): return _rivet.IO_GenEvent_use_input_units(*args)
+    def precision(*args): return _rivet.IO_GenEvent_precision(*args)
+    def error_type(*args): return _rivet.IO_GenEvent_error_type(*args)
+    def error_message(*args): return _rivet.IO_GenEvent_error_message(*args)
     def __init__(self, *args): 
         this = _rivet.new_IO_GenEvent(*args)
         try: self.this.append(this)
