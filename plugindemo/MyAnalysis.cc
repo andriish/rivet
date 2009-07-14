@@ -10,7 +10,7 @@ namespace Rivet {
   public:
     
     /// Default constructor
-    MyAnalysis() {
+    MyAnalysis() : Analysis("MYANALYSIS") {
       const FinalState cnfs;
       addProjection(cnfs, "CNFS");
       const ChargedFinalState cfs;
