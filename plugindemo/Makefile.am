@@ -19,9 +19,7 @@ $(pluginlib): MyAnalysis.cc
 plugin: $(pluginlib)
 	@true
 
-## Use rivet to test for the new plugin being loaded
-if ENABLE_PYRIVET
+## Test the plugin
 EXTRA_DIST += testplugin
-TESTS_ENVIRONMENT = RIVET_ANALYSIS_PATH=$(top_srcdir)/plugindemo
-TESTS = testplugin
-endif
+checkplugin: plugin
+	RIVET_ANALYSIS_PATH=$(srcdir) $(srcdir)/testplugin
