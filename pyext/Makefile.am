@@ -26,7 +26,7 @@ uninstall-local:
 clean-local:
 	$(PYTHON) setup.py clean --all
 	@rm -f $(top_builddir)/*.pyc
-	@rm -f $(builddir)/build
+	@rm -rf $(builddir)/build
 	@rm -rf dist
 
 distclean-local:
