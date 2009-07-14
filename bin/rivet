@@ -205,7 +205,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         else:
             ## Treat as a regex
             import re
-            regex = re.compile(a)
+            regex = re.compile(a, re.I)
             for ana in all_analyses:
                 if regex.search(ana) and a_up not in toshow:
                     toshow.append(ana)
