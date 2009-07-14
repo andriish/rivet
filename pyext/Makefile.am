@@ -28,10 +28,10 @@ clean-local:
 	@rm -f $(top_builddir)/*.pyc
 	@rm -rf $(builddir)/build
 	@rm -rf dist
+	@rm -f rivet.py
+	@rm -f rivet_wrap.cc
 
 distclean-local:
 	@rm -rf rivet.egg-info
-	@rm -f rivet.py
-	@rm -f rivet_wrap.cc
 
 endif
