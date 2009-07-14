@@ -62,6 +62,8 @@ YLabel=$p_\perp$
 Title=$1-\text{Thrust}$
 XLabel=$1-T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{(1-T)}$
+LegendXPos=1.1
+LegendYPos=0.95
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d12-x01-y01
@@ -86,6 +88,8 @@ YLabel=$N \, \text{d}{\sigma}/\text{d}{O}$
 Title=Sphericity, $S$
 XLabel=$S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{S}$
+LegendXPos=1.1
+LegendYPos=0.95
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d16-x01-y01
@@ -194,6 +198,8 @@ YLabel=$N \, \text{d}{\sigma}/\text{d}{D_4^\text{Jade}}$
 Title=Energy-energy correlation, EEC
 XLabel=$\cos{\chi}$
 YLabel=EEC
+LegendXPos=0.9
+LegendYPos=0.9
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d34-x01-y01
