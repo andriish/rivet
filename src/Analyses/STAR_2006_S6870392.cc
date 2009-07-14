@@ -26,12 +26,8 @@ namespace Rivet {
 
   // Book histograms
   void STAR_2006_S6870392::init() {
-    _h_jet_pT_MB = 
-      bookHistogram1D(1, 1, 1, "Inclusive jet cross-section, minbias trigger",
-                      "jet $p_\\perp$/GeV","$1/(2\\pi) \\, d^2\\sigma/(d\\eta dp_\\perp)$ [pb/GeV]");
-    _h_jet_pT_HT = 
-      bookHistogram1D(2, 1, 1, "Inclusive jet cross-section, high tower trigger",
-                      "jet $p_\\perp$/GeV","$1/(2\\pi) \\, d^2\\sigma/(d\\eta dp_\\perp)$ [pb/GeV]");
+    _h_jet_pT_MB = bookHistogram1D(1, 1, 1);
+    _h_jet_pT_HT = bookHistogram1D(2, 1, 1);
   }
 
 

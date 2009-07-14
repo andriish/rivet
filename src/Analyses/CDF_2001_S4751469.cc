@@ -32,38 +32,23 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2001_S4751469::init() {
-    const string pT1 = "$p_\\perp^\\text{lead}$";
-    const string Nch = "$N_\\text{ch}$";
-    string xlabel = pT1 + " / GeV";
-    string ylabel = Nch;
-    _numTowardMB = bookProfile1D(3, 1, 1, Nch + " (toward) for min-bias", xlabel, ylabel);
-    _numTransMB = bookProfile1D(3, 1, 2, Nch + " (transverse) for min-bias", xlabel, ylabel);
-    _numAwayMB = bookProfile1D(3, 1, 3, Nch + " (away) for min-bias", xlabel, ylabel);
-    _numTowardJ20 = bookProfile1D(4, 1, 1, Nch + " (toward) for JET20", xlabel, ylabel);
-    _numTransJ20 = bookProfile1D(4, 1, 2, Nch + " (transverse) for JET20", xlabel, ylabel);
-    _numAwayJ20 = bookProfile1D(4, 1, 3, Nch + " (away) for JET20", xlabel, ylabel);
+    _numTowardMB = bookProfile1D(3, 1, 1);
+    _numTransMB = bookProfile1D(3, 1, 2);
+    _numAwayMB = bookProfile1D(3, 1, 3);
+    _numTowardJ20 = bookProfile1D(4, 1, 1);
+    _numTransJ20 = bookProfile1D(4, 1, 2);
+    _numAwayJ20 = bookProfile1D(4, 1, 3);
 
-    const string pTsum = "$p_\\perp^\\text{sum}$";
-    ylabel = pTsum + " / GeV";
-    _ptsumTowardMB = bookProfile1D(5, 1, 1, pTsum + " (toward) for min-bias", xlabel, ylabel);
-    _ptsumTransMB = bookProfile1D(5, 1, 2, pTsum + " (transverse) for min-bias", xlabel, ylabel);
-    _ptsumAwayMB = bookProfile1D(5, 1, 3, pTsum + " (away) for min-bias", xlabel, ylabel);
-    _ptsumTowardJ20 = bookProfile1D(6, 1, 1, pTsum + " (toward) for JET20", xlabel, ylabel);
-    _ptsumTransJ20 = bookProfile1D(6, 1, 2, pTsum + " (transverse) for JET20", xlabel, ylabel);
-    _ptsumAwayJ20 = bookProfile1D(6, 1, 3, pTsum + " (away) for JET20", xlabel, ylabel);
+    _ptsumTowardMB = bookProfile1D(5, 1, 1);
+    _ptsumTransMB = bookProfile1D(5, 1, 2);
+    _ptsumAwayMB = bookProfile1D(5, 1, 3);
+    _ptsumTowardJ20 = bookProfile1D(6, 1, 1);
+    _ptsumTransJ20 = bookProfile1D(6, 1, 2);
+    _ptsumAwayJ20 = bookProfile1D(6, 1, 3);
 
-    const string pT = "$p_\\perp$";
-    xlabel = pT + " / GeV";
-    ylabel = "$1/\\sigma \\, \\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp}$";
-    _ptTrans2 = bookHistogram1D(7, 1, 1, "$p_\\perp$ distribution " 
-                                "(transverse, $p_\\perp^\\text{lead} > 2\\text{ GeV}$)",
-                                xlabel, ylabel);
-    _ptTrans5 = bookHistogram1D(7, 1, 2, "$p_\\perp$ distribution "
-                                "(transverse, $p_\\perp^\\text{lead} > 5\\text{ GeV}$)",
-                                xlabel, ylabel);
-    _ptTrans30 = bookHistogram1D(7, 1, 3, "$p_\\perp$ distribution "
-                                 "(transverse, $p_\\perp^\\text{lead} > 30 \\text{GeV}$)",
-                                 xlabel, ylabel);
+    _ptTrans2 = bookHistogram1D(7, 1, 1);
+    _ptTrans5 = bookHistogram1D(7, 1, 2);
+    _ptTrans30 = bookHistogram1D(7, 1, 3);
   }
 
 

@@ -51,17 +51,11 @@ namespace Rivet {
 
   void CDF_2008_S7541902::init() {
      for (int i = 0 ; i < 4 ; ++i) {
-      stringstream title;
-      title << "$E_\\perp$ of jet #" << i+1;
-      _histJetEt[i] = bookHistogram1D(i+1, 1, 1, title.str(),"$E_\\perp$ [GeV]","$d\\sigma/dE_{T} [pb/GeV]$");
-      stringstream title2;
-      title2 << "$\\sigma(" << i+1 << " \\text{ jets})/\\sigma(" << i <<" \\text{ jets})$" ;
-      _histJetMultRatio[i] = bookDataPointSet(5 , 1, i+1, title2.str(),"$\\sqrt(s)$ [GeV]",title2.str());
-      stringstream title3;
-      title3 << "$\\sigma(" << i+1 << " \\text{ jets})$" ;
-      _histJetMult[i]   = bookHistogram1D(i+6, 1, 1, title3.str(),"$\\sqrt(s)$ [GeV]",title3.str());
+      _histJetEt[i] = bookHistogram1D(i+1, 1, 1);
+      _histJetMultRatio[i] = bookDataPointSet(5 , 1, i+1);
+      _histJetMult[i]   = bookHistogram1D(i+6, 1, 1);
      } 
-     _histJetMultNorm = bookHistogram1D("norm", "$\\sigma(0 \\text{ jets})$", "$\\sqrt(s)$ [GeV]", "No. of events", 1, _xpoint, _xpoint+1.);
+     _histJetMultNorm = bookHistogram1D("norm", 1, _xpoint, _xpoint+1.);
   }
 
 

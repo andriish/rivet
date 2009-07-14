@@ -214,12 +214,29 @@ def mkHistoFromDPS(dps):
     return myhist
 
 
+## regex patterns ##
+import re
+pat_begin_block = re.compile('^# BEGIN ([A-Z0-9_]+) ?(\S+)?')
+# temporarily allow several hashes before END for YODA
+pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
+pat_comment = re.compile('^#|^\s*$')
+pat_property = re.compile('^(\w+?)=(.*)$')
+pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
+
+def is_end_marker(line, blockname):
+    m = pat_end_block.match(line)
+    return m and m.group(1) == blockname
+
+def is_comment(line):
+    return pat_comment.match(line) is not None
+
 ## END HISTO HACKS
 ##############################################################
 
 
 if __name__ == "__main__":
     import os, sys, re, logging
+    from subprocess import Popen, PIPE
 
     usage = """%prog - generate comparison plots
 
@@ -238,6 +255,10 @@ if __name__ == "__main__":
     except ImportError:
         pass
 
+    try:
+        rivet_data_dir=Popen(["rivet-config", "--datadir"], stdout=PIPE).communicate()[0].split()[0]
+    except:
+        rivet_data_dir=""
 
     ## Parse command line options
     from optparse import OptionParser
@@ -262,6 +283,8 @@ if __name__ == "__main__":
                       default=True, help="make plot file even if there is only one dataset to be plotted")
     parser.add_option("--refid", dest="REF_ID",
                       default="REF", help="ID of reference data set (file path for non-REF data)")
+    parser.add_option("--plot-info-dir", dest="PLOTINFODIR",
+                      default=rivet_data_dir, help="directory which may contain plot header information")
     parser.add_option("-Q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
                       action="store_const", default=logging.INFO, const=logging.WARNING)
     parser.add_option("-V", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
@@ -442,26 +465,57 @@ if __name__ == "__main__":
 
 
         ## Header
+        plotfile = os.path.join(opts.PLOTINFODIR, name.split("/")[1]+".plot") 
+        headers = {}
+        if os.access(plotfile, os.R_OK):
+            f = open(plotfile)
+            startreading=False
+            for line in f:
+                m = pat_begin_block.match(line)
+                if m:
+                    tag, pathpat = m.group(1,2)
+                    if tag == 'PLOT' and (re.match(pathpat, name) is not None):
+                        startreading=True
+                        continue
+                if not startreading:
+                    continue
+                if is_end_marker(line, 'PLOT'):
+                    break
+                elif is_comment(line):
+                    continue
+                vm = pat_property.match(line)
+                if vm:
+                    prop, value = vm.group(1,2)
+                    headers[prop] = value
+
+        drawonlystr = ""
+        for hfile in activefiles:
+            drawonlystr += hfile + HISTOS[hfile][name].fullPath()+" "
+        paramdefaults = {"Title" : title,
+                         "XLabel" : xlabel,
+                         "YLabel" : ylabel,
+                         "Legend" : "1",
+                         "LogY" : "%d" % int((len(HISTOS[ref][name].getBins()) > 1) and not opts.LINEAR),
+                         "DrawOnly" : drawonlystr,
+                         "RatioPlot" : "%d" % int(not opts.NORATIO),
+                         "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath()),
+                         "RatioPlotYMin" : "0.5",
+                         "RatioPlotYMax" : "1.5",
+                         "RatioPlotYLabel" : "MC/data"}
+
         headstr  = "# BEGIN PLOT\n"
-        headstr += "Title=%s\n" % title
-        headstr += "XLabel=%s\n" % xlabel
-        headstr += "YLabel=%s\n" % ylabel
-        headstr += "Legend=1\n"
-        if len(HISTOS[ref][name].getBins()) > 1:
-            headstr += "LogY=%d\n" % int(not opts.LINEAR)
-        headstr += "DrawOnly=%s\n" % " ".join(activefiles)
-        headstr += "RatioPlot=%d\n" % int(not opts.NORATIO)
-        headstr += "RatioPlotReference=%s\n" % ref
-        headstr += "RatioPlotYMin=0.5\n"
-        headstr += "RatioPlotYMax=1.5\n"
-        headstr += "RatioPlotYLabel=MC/data\n"
+        for param, default in paramdefaults.iteritems():
+            if param not in headers:
+                headers[param] = default
+        for key, val in headers.iteritems():
+            headstr += "%s=%s\n" % (key, val)
         headstr += "# END PLOT\n"
 
         ## Write histos
         histstrs = []
         i = 0
         for hfile in activefiles:
-            histstr = '# BEGIN HISTOGRAM %s\n' % hfile
+            histstr = '# BEGIN HISTOGRAM %s%s\n' % (hfile, HISTOS[hfile][name].fullPath())
             if HISTOS[hfile][name].isdata:
                 histstr += "ErrorBars=1\n"
                 histstr += "PolyMarker=*\n"

@@ -29,8 +29,7 @@ namespace Rivet {
 
   // Book histograms
   void D0_2007_S7075677::init() {
-    _h_yZ = bookHistogram1D(1, 1, 1, "Inclusive Z boson rapidity",
-                            "$|y|$(Z)", "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}|y|(Z)$");
+    _h_yZ = bookHistogram1D(1, 1, 1);
   }
 
 

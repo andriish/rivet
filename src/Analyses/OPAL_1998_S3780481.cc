@@ -117,18 +117,18 @@ namespace Rivet {
 
 
   void OPAL_1998_S3780481::init() {
-    _histXpuds           = bookHistogram1D(1, 1, 1, "$uds$ events scaled momentum", "$x_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}x_p$");
-    _histXpc             = bookHistogram1D(2, 1, 1, "$c$ events scaled momentum",   "$x_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}x_p$");
-    _histXpb             = bookHistogram1D(3, 1, 1, "$b$ events scaled momentum",   "$x_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}x_p$");
-    _histXpall           = bookHistogram1D(4, 1, 1, "All events scaled momentum",   "$x_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}x_p$");
-    _histLogXpuds        = bookHistogram1D(5, 1, 1, "$uds$ events $\\ln(1/x_p)$", "$\\xi_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}\\xi_p$");
-    _histLogXpc          = bookHistogram1D(6, 1, 1, "$c$ events $\\ln(1/x_p)$",   "$\\xi_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}\\xi_p$");
-    _histLogXpb          = bookHistogram1D(7, 1, 1, "$b$ events $\\ln(1/x_p)$",   "$\\xi_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}\\xi_p$");
-    _histLogXpall        = bookHistogram1D(8, 1, 1, "All events $\\ln(1/x_p)$",   "$\\xi_p$", "$1/\\sigma \\, \\text{d}\\sigma/\\text{d}\\xi_p$");
-    _histMultiChargeduds = bookHistogram1D(9, 1, 1, "$uds$ events mean charged multiplicity", "", "Multiplicity");
-    _histMultiChargedc   = bookHistogram1D(9, 1, 2, "$c$ events mean charged multiplicity",   "", "Multiplicity");
-    _histMultiChargedb   = bookHistogram1D(9, 1, 3, "$b$ events mean charged multiplicity",   "", "Multiplicity");
-    _histMultiChargedall = bookHistogram1D(9, 1, 4, "All events mean charged multiplicity",   "", "Multiplicity");
+    _histXpuds           = bookHistogram1D(1, 1, 1);
+    _histXpc             = bookHistogram1D(2, 1, 1);
+    _histXpb             = bookHistogram1D(3, 1, 1);
+    _histXpall           = bookHistogram1D(4, 1, 1);
+    _histLogXpuds        = bookHistogram1D(5, 1, 1);
+    _histLogXpc          = bookHistogram1D(6, 1, 1);
+    _histLogXpb          = bookHistogram1D(7, 1, 1);
+    _histLogXpall        = bookHistogram1D(8, 1, 1);
+    _histMultiChargeduds = bookHistogram1D(9, 1, 1);
+    _histMultiChargedc   = bookHistogram1D(9, 1, 2);
+    _histMultiChargedb   = bookHistogram1D(9, 1, 3);
+    _histMultiChargedall = bookHistogram1D(9, 1, 4);
   }
 
 

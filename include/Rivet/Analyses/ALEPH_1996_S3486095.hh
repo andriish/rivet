@@ -36,11 +36,6 @@ namespace Rivet {
 
 
   private:
-    /// Little helper functions for the axis labels
-    string unitdsigbyd(const string&);
-    string unitdNbyd(const string&);
-    string texmath(const string&);
-
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the 
     /// inclusive single particle distributions' normalisations.

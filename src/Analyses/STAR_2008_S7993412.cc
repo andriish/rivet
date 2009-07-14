@@ -20,8 +20,8 @@ namespace Rivet {
 
   // Book histograms
   void STAR_2008_S7993412::init() {
-    _h_Y_jet_trigger = bookProfile1D(1, 1, 1, "Jet yield vs $p_T^\\text{trigger}$","$p_T^\\text{trigger}$/GeV","$Y_\\text{jet}$");
-    _h_Y_jet_associated = bookProfile1D(2, 1, 1, "Jet yield vs $p_T^\\text{associated}$","$p_T^\\text{associated}$/GeV","$1/p_T \\, dY_\\text{jet}/dp_T$");
+    _h_Y_jet_trigger = bookProfile1D(1, 1, 1);
+    _h_Y_jet_associated = bookProfile1D(2, 1, 1);
   }
 
 

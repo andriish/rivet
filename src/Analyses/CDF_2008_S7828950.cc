@@ -26,16 +26,11 @@ namespace Rivet {
   // Book histos and set counters for number of events passed in each one
   void CDF_2008_S7828950::init() {
     /// @todo What actually are these histos showing?
-    _binnedHistosR07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1, "$\\eta < 0.1, R=0.7$",
-							    "$E_{T}$ [GeV]","$d^{2}\\sigma/dYdp_{T}$ [nb/GeV]"));
-    _binnedHistosR07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1, "$0.1 < \\eta < 0.7, R=0.7$",
-							    "$E_{T}$ [GeV]","$d^{2}\\sigma/dYdp_{T}$ [nb/GeV]"));
-    _binnedHistosR07.addHistogram(0.7, 1.1, bookHistogram1D(3, 1, 1, "$0.7 < \\eta < 1.1, R=0.7$",
-							    "$E_{T}$ [GeV]","$d^{2}\\sigma/dYdp_{T}$ [nb/GeV]"));
-    _binnedHistosR07.addHistogram(1.1, 1.6, bookHistogram1D(4, 1, 1, "$1.1 < \\eta < 1.6, R=0.7$",
-							    "$E_{T}$ [GeV]","$d^{2}\\sigma/dYdp_{T}$ [nb/GeV]"));
-    _binnedHistosR07.addHistogram(1.6, 2.1, bookHistogram1D(5, 1, 1, "$1.6 < \\eta < 2.1, R=0.7$",
-							    "$E_{T}$ [GeV]","$d^{2}\\sigma/dYdp_{T}$ [nb/GeV]"));
+    _binnedHistosR07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1));
+    _binnedHistosR07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1));
+    _binnedHistosR07.addHistogram(0.7, 1.1, bookHistogram1D(3, 1, 1));
+    _binnedHistosR07.addHistogram(1.1, 1.6, bookHistogram1D(4, 1, 1));
+    _binnedHistosR07.addHistogram(1.6, 2.1, bookHistogram1D(5, 1, 1));
 
     size_t yind = 0;
     for (vector<AIDA::IHistogram1D*>::const_iterator histIt = _binnedHistosR07.getHistograms().begin();

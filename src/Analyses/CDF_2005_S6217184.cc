@@ -45,25 +45,12 @@ namespace Rivet {
     for (size_t i = 0; i < 6; ++i) { 
       for (size_t j = 0; j < 3; ++j) {
         size_t k = i*3 + j;
-        stringstream ptrange;
-        ptrange << "$" << _pTbins[k] << "\\,\\text{GeV}/c < p_\\perp^\\text{jet} < " 
-                << _pTbins[k+1] << "\\,\\text{GeV}/c$";
-
-        stringstream difftitle;
-        difftitle << "Differential jet shape $\\rho$, " << ptrange.str();
-        _profhistRho_pT[k] = 
-          bookProfile1D(i+1, 1, j+1, difftitle.str(), "$r/R$", "$\\rho(r/R)$");
-
-        stringstream inttitle;
-        inttitle << "Integral jet shape $\\Psi$, " << ptrange.str();
-        _profhistPsi_pT[k] = 
-          bookProfile1D(6+i+1, 1, j+1, inttitle.str(), "$r/R$", "$\\Psi(r/R)$");
+        _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1);
+        _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1);
       }
     }    
 
-    _profhistPsi = 
-      bookProfile1D(13, 1, 1, "Integral jet shape, $\\Psi$(0.3/$R$), vs. $p_\\perp^\\text{jet}$",
-                    "$p_\\perp^\\text{jet}$ / GeV/$c$", "$\\Psi(0.3/R)$");
+    _profhistPsi = bookProfile1D(13, 1, 1);
   }
   
   

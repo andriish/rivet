@@ -44,130 +44,42 @@ namespace Rivet {
              << "***************************************************" 
              << endl;      
 
-    const string ptmax = "$p_\\perp^\\text{max} \\rangle$";
-    const string ptmin = "$p_\\perp^\\text{min}$";
-    const string ptdiff = "$p_\\perp^\\text{diff}$";
-    const string ptsum = "$p_\\perp^\\text{sum}$";
-    const string ptmaxmean = "$\\langle p_\\perp^\\text{max} \\rangle$";
-    const string ptminmean = "$\\langle p_\\perp^\\text{min} \\rangle$";
-    const string et1 = "$E_\\perp^\\text{lead}$";
-    string xlabel = et1 + " / GeV";
-    string ylabel = "";
-
-    _pt90MaxAvg1800 = 
-      bookProfile1D(1, 1, 1, 
-                    ptmaxmean + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, ptmaxmean + " / GeV");
-    _pt90MinAvg1800 = 
-      bookProfile1D(1, 1, 2, 
-                    ptminmean + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, ptminmean + " / GeV"); 
-    _pt90Max1800 = 
-      bookProfile1D(2, 1, 1, 
-                    ptmax + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, ptmax + " / GeV");
-    _pt90Min1800 = 
-      bookProfile1D(2, 1, 2, 
-                    ptmin + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, ptmin + " / GeV");
-    _pt90Diff1800 =
-      bookProfile1D(2, 1, 3, 
-                    ptdiff + " vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, ptdiff + " / GeV");
-    _num90Max1800 = 
-      bookProfile1D(4, 1, 1, 
-                    "$N_\\text{max}$ vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, "$N_\\text{max}$");
-    _num90Min1800 = 
-      bookProfile1D(4, 1, 2, 
-                    "$N_\\text{min}$ vs. " + et1 + " at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, "$N_\\text{min}$");
-    _pTSum1800_2Jet = 
-      bookProfile1D(7, 1, 1, 
-                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
-                    " (for removal of 2 jets) at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, ptsum + " / GeV (2 jets removed)");
-    _pTSum1800_3Jet = 
-      bookProfile1D(7, 1, 2, 
-                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
-                    " (for removal of 3 jets) at $\\sqrt{s}$ = 1800 GeV",
-                    xlabel, ptsum + " / GeV (3 jets removed)");
-    _pt90Max630 = 
-      bookProfile1D(8, 1, 1,
-                    ptmax + " vs. " + et1 + " at $\\sqrt{s}$ = 630 GeV",
-                    xlabel, ptmax + " / GeV"); 
-    _pt90Min630 = 
-      bookProfile1D(8, 1, 2,
-                    ptmin + " vs. " + et1 + " at $\\sqrt{s}$ = 630 GeV",
-                    xlabel, ptmin + " / GeV"); 
-    _pt90Diff630 =
-      bookProfile1D(8, 1, 3,
-                    ptdiff + " vs. " + et1 + " at $\\sqrt{s}$ = 630 GeV",
-                    xlabel, ptdiff + " / GeV"); 
-    _pTSum630_2Jet =
-      bookProfile1D(9, 1, 1,
-                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
-                    " (for removal of 2 jets) at $\\sqrt{s}$ = 630 GeV",
-                    xlabel, ptsum + " / GeV (2 jets removed)");
-    _pTSum630_3Jet =
-      bookProfile1D(9, 1, 2,
-                    "Swiss Cheese " + ptsum + " vs. " + et1 + 
-                    " (for removal of 3 jets) at $\\sqrt{s}$ = 630 GeV",
-                    xlabel, ptsum + " / GeV (3 jets removed)"); 
+    _pt90MaxAvg1800 = bookProfile1D(1, 1, 1);
+    _pt90MinAvg1800 = bookProfile1D(1, 1, 2); 
+    _pt90Max1800 = bookProfile1D(2, 1, 1);
+    _pt90Min1800 = bookProfile1D(2, 1, 2);
+    _pt90Diff1800 = bookProfile1D(2, 1, 3);
+    _num90Max1800 = bookProfile1D(4, 1, 1);
+    _num90Min1800 = bookProfile1D(4, 1, 2);
+    _pTSum1800_2Jet = bookProfile1D(7, 1, 1);
+    _pTSum1800_3Jet = bookProfile1D(7, 1, 2);
+    _pt90Max630 = bookProfile1D(8, 1, 1); 
+    _pt90Min630 = bookProfile1D(8, 1, 2); 
+    _pt90Diff630 = bookProfile1D(8, 1, 3); 
+    _pTSum630_2Jet = bookProfile1D(9, 1, 1);
+    _pTSum630_3Jet = bookProfile1D(9, 1, 2); 
     
 
-    string basetitle = "$p_\\perp$ distribution in MAX+MIN transverse cones for ";
-    xlabel = "$p_\\perp / GeV";
-    ylabel = "$\\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp}$";
     /// @todo Check this normalisation defn (num-tracks x xsec?.)
-    _pt90Dbn1800Et40 = 
-      bookHistogram1D(3, 1, 1,
-                      basetitle + "$40 < E_\\perp^\\text{lead} < 80$ GeV at $\\sqrt{s}$ = 1800 GeV",
-                      xlabel, ylabel);
+    _pt90Dbn1800Et40 = bookHistogram1D(3, 1, 1);
     /// @todo Check this normalisation defn (num-tracks x xsec?.)
-    _pt90Dbn1800Et80 = 
-      bookHistogram1D(3, 1, 2, 
-                      basetitle + "$80 < E_\\perp^\\text{lead} < 120$ GeV at $\\sqrt{s}$ = 1800 GeV",
-                      xlabel, ylabel);
+    _pt90Dbn1800Et80 = bookHistogram1D(3, 1, 2);
     /// @todo Check this normalisation defn (num-tracks x xsec?.)
-    _pt90Dbn1800Et120 = 
-      bookHistogram1D(3, 1, 3, 
-                      basetitle + "$120 < E_\\perp^\\text{lead} < 160$ GeV at $\\sqrt{s}$ = 1800 GeV",
-                      xlabel, ylabel);
+    _pt90Dbn1800Et120 = bookHistogram1D(3, 1, 3);
     /// @todo Check this normalisation defn (num-tracks x xsec?.)
-    _pt90Dbn1800Et160 =
-      bookHistogram1D(3, 1, 4, 
-                      basetitle + "$160 < E_\\perp^\\text{lead} < 200$ GeV at $\\sqrt{s}$ = 1800 GeV",
-                      xlabel, ylabel);
+    _pt90Dbn1800Et160 = bookHistogram1D(3, 1, 4);
     /// @todo Check this normalisation defn (num-tracks x xsec?.)
-    _pt90Dbn1800Et200 =
-      bookHistogram1D(3, 1, 5, 
-                      basetitle + "$200 < E_\\perp^\\text{lead} < 270$ GeV at $\\sqrt{s}$ = 1800 GeV",
-                      xlabel, ylabel);
+    _pt90Dbn1800Et200 = bookHistogram1D(3, 1, 5);
     /// @todo Check this normalisation defn (num-tracks x xsec?.)
-    _ptDbn1800MB = 
-      bookHistogram1D(6, 1, 1, 
-                      "Min bias $p_\\perp$ distribution at $\\sqrt{s}$ = 1800 GeV",
-                      xlabel, ylabel);
+    _ptDbn1800MB = bookHistogram1D(6, 1, 1);
 
 
-    xlabel = "$N_\\text{ch}$";
-    ylabel = "$\\mathrm{d}{\\sigma}/\\mathrm{d}{N_\\text{ch}}$";
     /// @todo Check this normalisation defn.
-    _numTracksDbn1800MB = 
-      bookHistogram1D(5, 1, 1,
-                      "Min bias track multiplicity distribution at $\\sqrt{s}$ = 1800 GeV",
-                      xlabel, ylabel);
+    _numTracksDbn1800MB = bookHistogram1D(5, 1, 1);
     /// @todo Check this normalisation defn.
-    _numTracksDbn630MB = 
-      bookHistogram1D(10, 1, 1, 
-                      "Min bias track multiplicity distribution at $\\sqrt{s}$ = 630 GeV",
-                      xlabel, ylabel);
+    _numTracksDbn630MB = bookHistogram1D(10, 1, 1);
     /// @todo Check this normalisation defn.
-    _ptDbn630MB = 
-      bookHistogram1D(11, 1, 1, 
-                      "Min bias $p_\\perp$ distribution at $\\sqrt{s}$ = 630 GeV",
-                      xlabel, ylabel);
+    _ptDbn630MB = bookHistogram1D(11, 1, 1);
   }
 
 

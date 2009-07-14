@@ -167,39 +167,20 @@ namespace Rivet {
     _w117 = make_pair(0.0, 0.0);
     _wEnergy = make_pair(0.0, 0.0);
 
-    string xlabel = "$\\eta$";
     /// @todo What is "N"?
-    string ylabel = "$1/N \\, \\mathrm{d}{E_\\perp}/\\mathrm{d}{\\eta}$ / GeV";
-    string basetitle = "Transverse energy flow as a function of rapidity, ";
-    _histEnergyFlowLowX =  
-      bookHistogram1D(1, 1, 1, basetitle + "$x < 10^{-3}$", xlabel, ylabel);
-    _histEnergyFlowHighX = 
-      bookHistogram1D(1, 1, 2, basetitle + "$x > 10^{-3}$", xlabel, ylabel);
+    _histEnergyFlowLowX =  bookHistogram1D(1, 1, 1);
+    _histEnergyFlowHighX = bookHistogram1D(1, 1, 2);
 
-    xlabel = "$\\omega$";
-    ylabel = "$\\mathrm{d}{\\text{EEC}_\\perp}/\\mathrm{d}{\\omega}$";
-    basetitle = "Transverse energy--energy correlation for ";
-    _histEECLowX = 
-      bookHistogram1D(2, 1, 1, basetitle + "$x < 10^{-3}$", xlabel, ylabel);
-    _histEECHighX = 
-      bookHistogram1D(2, 1, 2, basetitle + "$x > 10^{-3}$", xlabel, ylabel);
+    _histEECLowX = bookHistogram1D(2, 1, 1);
+    _histEECHighX = bookHistogram1D(2, 1, 2);
 
-    xlabel = "$x_L$";
     /// @todo Add cross-section units to label
-    ylabel = "$1/\\sigma \\, \\mathrm{d}{\\sigma}/\\mathrm{d}{x_L}$";
-    basetitle = "Charged particle spectra for ";
-    _histSpectraW77 = 
-      bookHistogram1D(3, 1, 1, "$50 < W < 100$", xlabel, ylabel);
-    _histSpectraW122 = 
-      bookHistogram1D(3, 1, 2, "$100 < W < 150$", xlabel, ylabel);
-    _histSpectraW169 = 
-      bookHistogram1D(3, 1, 3, "$150 < W < 200$", xlabel, ylabel);
-    _histSpectraW117 = 
-      bookHistogram1D(3, 1, 4, "all $W$", xlabel, ylabel);
+    _histSpectraW77 = bookHistogram1D(3, 1, 1);
+    _histSpectraW122 = bookHistogram1D(3, 1, 2);
+    _histSpectraW169 = bookHistogram1D(3, 1, 3);
+    _histSpectraW117 = bookHistogram1D(3, 1, 4);
 
-    _histPT2 = 
-      bookProfile1D  (4, 1, 1, "$\\langle p_\\perp^2 \\rangle$ as a function of $x_L$",
-                      "$x_L$", "$\\langle p_\\perp^2 \\rangle$");
+    _histPT2 = bookProfile1D(4, 1, 1);
   }
   
   

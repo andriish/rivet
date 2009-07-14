@@ -22,20 +22,10 @@ namespace Rivet {
 
 
   void CDF_1990_S2089246::init() {
-    const string dNdEtaTeX = "$\\mathrm{d}{N_\\text{ch}}/\\mathrm{d}{\\eta}$";
-    const string etaTeX = "$\\eta$";
-
     /// @todo Get 630 GeV data in HepData
-    // _hist_eta630 = bookHistogram1D(3, 1, 0,
-    //   "Pseudorapidity distribution at $\\sqrt{s} = \\unit{630}{\\GeV}$", dNdEtaTeX, etaTeX);
-    _hist_eta630 = 
-      bookHistogram1D("d03-x01-y00",
-                      "Pseudorapidity distribution at $\\sqrt{s} = \\unit{630}{\\GeV}$", 
-                      dNdEtaTeX, etaTeX, 10, 0, 3.5);
-    _hist_eta1800 = 
-      bookHistogram1D(3, 1, 1,
-                      "Pseudorapidity distribution at $\\sqrt{s} = \\unit{1800}{\\GeV}$", 
-                      dNdEtaTeX, etaTeX);
+    // _hist_eta630 = bookHistogram1D(3, 1, 0);
+    _hist_eta630 = bookHistogram1D("d03-x01-y00", 10, 0, 3.5);
+    _hist_eta1800 = bookHistogram1D(3, 1, 1);
   }
 
 

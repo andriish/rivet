@@ -288,37 +288,31 @@ namespace Rivet {
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
-                                        const std::string& xtitle, const std::string& ytitle, 
-                                        const size_t nbins, const double lower, const double upper);
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
-                                        const size_t nbins, const double lower, const double upper);
+    AIDA::IHistogram1D* bookHistogram1D(const std::string& name,
+                                        const size_t nbins, const double lower, const double upper,
+                                        const std::string& title="", 
+                                        const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
-                                        const std::string& xtitle, const std::string& ytitle, 
-                                        const std::vector<double>& binedges);
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title, 
-                                        const std::vector<double>& binedges);
+    AIDA::IHistogram1D* bookHistogram1D(const std::string& name,
+                                        const std::vector<double>& binedges, const std::string& title="", 
+                                        const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D histogram based on the name in the corresponding AIDA
     /// file. The binnings will be obtained by reading the bundled AIDA data
     /// record file with the same filename as the analysis' name() property.
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title,
-                                        const std::string& xtitle, const std::string& ytitle);
-    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title);
+    AIDA::IHistogram1D* bookHistogram1D(const std::string& name, const std::string& title="",
+                                        const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
     AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
-                                        const size_t yAxisId, const std::string& title,
-                                        const std::string& xtitle, const std::string& ytitle);
-    AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
-                                        const size_t yAxisId, const std::string& title);
+                                        const size_t yAxisId, const std::string& title="",
+                                        const std::string& xtitle="", const std::string& ytitle="");
 
     //@}
 
@@ -330,37 +324,32 @@ namespace Rivet {
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title, 
-                                    const std::string& xtitle, const std::string& ytitle,
-                                    const size_t nbins, const double lower, const double upper);
-    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title, 
-                                    const size_t nbins, const double lower, const double upper);
+    AIDA::IProfile1D* bookProfile1D(const std::string& name,
+                                    const size_t nbins, const double lower, const double upper,
+                                    const std::string& title="", 
+                                    const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title, 
-                                    const std::string& xtitle, const std::string& ytitle,
-                                    const std::vector<double>& binedges);
-    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title, 
-                                    const std::vector<double>& binedges);
+    AIDA::IProfile1D* bookProfile1D(const std::string& name,
+                                    const std::vector<double>& binedges,
+                                    const std::string& title="", 
+                                    const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D profile histogram based on the name in the corresponding AIDA
     /// file. The binnings will be obtained by reading the bundled AIDA data
     /// record file with the same filename as the analysis' name() property.
-    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title,
-                                    const std::string& xtitle, const std::string& ytitle);
-    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title);
+    AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title="",
+                                    const std::string& xtitle="", const std::string& ytitle="");
     
     /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
     AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId, 
-                                    const size_t yAxisId, const std::string& title,
-                                    const std::string& xtitle, const std::string& ytitle);
-    AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId, 
-                                    const size_t yAxisId, const std::string& title);
+                                    const size_t yAxisId, const std::string& title="",
+                                    const std::string& xtitle="", const std::string& ytitle="");
     //@}
 
 
@@ -371,20 +360,18 @@ namespace Rivet {
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title,
-                                          const std::string& xtitle, const std::string& ytitle);
-    AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title);
+    AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title="",
+                                          const std::string& xtitle="", const std::string& ytitle="");
 
 
     /// Book a 2-dimensional data point set with equally spaced points in a range.
     /// (NB. this returns a pointer rather than a reference since it will 
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
     /// get the pointer from a reference before they can use it!)
-    AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title, 
-                                          const std::string& xtitle, const std::string& ytitle,
-                                          const size_t npts, const double lower, const double upper);
-    AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title, 
-                                          const size_t npts, const double lower, const double upper);
+    AIDA::IDataPointSet* bookDataPointSet(const std::string& name,
+                                          const size_t npts, const double lower, const double upper,
+                                          const std::string& title="",
+                                          const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 2-dimensional data point set based on the corresponding AIDA data
     /// file. The binnings (x-errors) will be obtained by reading the bundled
@@ -396,10 +383,8 @@ namespace Rivet {
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
     AIDA::IDataPointSet* bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
-                                          const size_t yAxisId, const std::string& title,
-                                          const std::string& xtitle, const std::string& ytitle);
-    AIDA::IDataPointSet* bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
-                                          const size_t yAxisId, const std::string& title);
+                                          const size_t yAxisId, const std::string& title="",
+                                          const std::string& xtitle="", const std::string& ytitle="");
     //@}
 
 

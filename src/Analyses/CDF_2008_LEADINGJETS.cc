@@ -32,24 +32,15 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2008_LEADINGJETS::init() {
-    _hist_pnchg      = bookProfile1D( 1, 1, 1, "Transverse region charged particle density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle N_\\text{ch} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$");
-    _hist_pmaxnchg   = bookProfile1D( 2, 1, 1, "TransMAX region charged particle density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle N_\\text{ch} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$");
-    _hist_pminnchg   = bookProfile1D( 3, 1, 1, "TransMIN region charged particle density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle N_\\text{ch} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$");
-    _hist_pdifnchg   = bookProfile1D( 4, 1, 1, "TransDIF region charged particle density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle N_\\text{ch} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$");
-    _hist_pcptsum    = bookProfile1D( 5, 1, 1, "Transverse region charged pT sum density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle \\sum p_T^\\text{track} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$ / GeV");
-    _hist_pmaxcptsum = bookProfile1D( 6, 1, 1, "TransMAX region charged pT sum density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle \\sum p_T^\\text{track} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$ / GeV");
-    _hist_pmincptsum = bookProfile1D( 7, 1, 1, "TransMIN region charged pT sum density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle \\sum p_T^\\text{track} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$ / GeV");
-    _hist_pdifcptsum = bookProfile1D( 8, 1, 1, "TransDIF region charged pT sum density",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle \\sum p_T^\\text{track} \\rangle / \\text{d}\\eta\\,\\text{d}\\phi$ / GeV");
-    _hist_pcptave    = bookProfile1D( 9, 1, 1, "Transverse region charged pT average",
-        "$p_T(\\text{leading jet})$ / GeV", "$\\langle p_T^\\text{track} \\rangle$ / GeV");
+    _hist_pnchg      = bookProfile1D( 1, 1, 1);
+    _hist_pmaxnchg   = bookProfile1D( 2, 1, 1);
+    _hist_pminnchg   = bookProfile1D( 3, 1, 1);
+    _hist_pdifnchg   = bookProfile1D( 4, 1, 1);
+    _hist_pcptsum    = bookProfile1D( 5, 1, 1);
+    _hist_pmaxcptsum = bookProfile1D( 6, 1, 1);
+    _hist_pmincptsum = bookProfile1D( 7, 1, 1);
+    _hist_pdifcptsum = bookProfile1D( 8, 1, 1);
+    _hist_pcptave    = bookProfile1D( 9, 1, 1);
     //_hist_onchg   = bookProfile1D( 1, 1, 1, "Overall number of charged particles");
     //_hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall charged $p_\\perp$ sum");
     //_hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall $E_\\perp$ sum");

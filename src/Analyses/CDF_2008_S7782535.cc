@@ -41,15 +41,9 @@ namespace Rivet {
     _pTbins += 52, 80, 104, 142, 300;
     // Book histograms
     for (int i = 0; i < _NpTbins; ++i) {
-      stringstream title;
-      title << "Integral jet shape $\\Psi$ for $" << _pTbins[i] 
-            << " < p_\\perp < " << _pTbins[i+1] << "$"; 
-      _h_Psi_pT[i] = bookProfile1D(i+1, 2, 1, title.str(), 
-                                   "r/R", "$\\Psi$(r/R)");
+      _h_Psi_pT[i] = bookProfile1D(i+1, 2, 1);
     }
-    _h_OneMinusPsi_vs_pT = 
-      bookDataPointSet(5, 1, 1, "$1 - \\Psi$ vs jet $p_\\perp$", 
-                       "$p_\\perp$ [GeV]", "1-$\\Psi$(0.2/R)");
+    _h_OneMinusPsi_vs_pT = bookDataPointSet(5, 1, 1);
   }  
 
   

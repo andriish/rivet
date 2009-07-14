@@ -23,12 +23,8 @@ namespace Rivet {
 
   // Book histograms
   void D0_2008_S7554427::init() {
-    _h_ZpT         = bookHistogram1D(1, 1, 1, "Z boson pT",
-                                     "$p_{\\perp}$(Z) [GeV]",
-                                     "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_\\perp(Z)$");
-    _h_forward_ZpT = bookHistogram1D(3, 1, 1, "Z boson pT (forward region only)",
-                                     "$p_{\\perp}$(Z) [GeV]",
-                                     "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_\\perp(Z)$");
+    _h_ZpT         = bookHistogram1D(1, 1, 1);
+    _h_forward_ZpT = bookHistogram1D(3, 1, 1);
   }
 
 

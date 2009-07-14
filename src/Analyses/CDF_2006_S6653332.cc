@@ -42,15 +42,9 @@ namespace Rivet {
 
  void CDF_2006_S6653332::init() {
    // Book histograms
-   _sigmaBJet = 
-     bookHistogram1D(1, 1, 1, "$\\sigma(\\text{Z + b jet})$", 
-                     "$E$ / GeV", "$\\sigma(Z+b)$ / pb");
-   _ratioBJetToZ = 
-     bookHistogram1D(2, 1, 1, "$\\sigma(\\text{Z + b jet}) / \\sigma(\\text{Z})$",
-                     "$E$ / GeV", "$\\sigma(Z+b) / \\sigma(Z)$ / pb");
-   _ratioBJetToJet = 
-     bookHistogram1D(3, 1, 1, "$\\sigma(Z + b jet) / \\sigma(Z + jet)$", 
-                     "$E$ / GeV", "$\\sigma(\\text{Z+b}) / \\sigma(\\text{Z+j})$ /pb");
+   _sigmaBJet = bookHistogram1D(1, 1, 1);
+   _ratioBJetToZ = bookHistogram1D(2, 1, 1);
+   _ratioBJetToJet = bookHistogram1D(3, 1, 1);
 
   }  
 

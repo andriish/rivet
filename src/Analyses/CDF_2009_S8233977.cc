@@ -23,12 +23,9 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2009_S8233977::init() {
-    _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1, "Mean track $p_T$ vs multiplicity",
-        "$N_\\text{ch}$", "$\\langle p_T \\rangle$ / GeV");
-    _hist_pt                 = bookHistogram1D(2, 1, 1, "track $p_T$",
-        "$p_T$ / GeV", "$\\text{d}^3 \\sigma / p_T \\text{d}p_T \\text{d}y \\text{d}\\phi$");
-    _hist_sumEt              = bookHistogram1D(3, 1, 1, "$\\sum E_T$",
-        "$\\sum E_T$ / GeV", "$\\text{d}^3 \\sigma / \\text{d}E_T \\text{d}\\eta \\text{d}\\phi$");
+    _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1);
+    _hist_pt                 = bookHistogram1D(2, 1, 1);
+    _hist_sumEt              = bookHistogram1D(3, 1, 1);
   }
 
 

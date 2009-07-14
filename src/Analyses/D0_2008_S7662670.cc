@@ -29,22 +29,12 @@ namespace Rivet {
   // Book histograms
   void D0_2008_S7662670::init() 
   {
-    const string basetitle = "Inclusive jet $p_\\perp$, ";
-    const string xlabel = "Jet $p_\\perp$ / GeV";
-    const string ylabel = "$\\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp}$";
-
-    _h_dsigdptdy_y00_04 = 
-      bookHistogram1D(1, 1, 1, basetitle + "$0.0 < |y| < 0.4$", xlabel, ylabel);
-    _h_dsigdptdy_y04_08 =
-      bookHistogram1D(2, 1, 1, basetitle + "$0.4 < |y| < 0.8$", xlabel, ylabel);
-    _h_dsigdptdy_y08_12 =
-      bookHistogram1D(3, 1, 1, basetitle + "$0.8 < |y| < 1.2$", xlabel, ylabel);
-    _h_dsigdptdy_y12_16 =
-      bookHistogram1D(4, 1, 1, basetitle + "$1.2 < |y| < 1.6$", xlabel, ylabel);
-    _h_dsigdptdy_y16_20 =
-      bookHistogram1D(5, 1, 1, basetitle + "$1.6 < |y| < 2.0$", xlabel, ylabel);
-    _h_dsigdptdy_y20_24 =
-      bookHistogram1D(6, 1, 1, basetitle + "$2.0 < |y| < 2.4$", xlabel, ylabel);
+    _h_dsigdptdy_y00_04 = bookHistogram1D(1, 1, 1);
+    _h_dsigdptdy_y04_08 = bookHistogram1D(2, 1, 1);
+    _h_dsigdptdy_y08_12 = bookHistogram1D(3, 1, 1);
+    _h_dsigdptdy_y12_16 = bookHistogram1D(4, 1, 1);
+    _h_dsigdptdy_y16_20 = bookHistogram1D(5, 1, 1);
+    _h_dsigdptdy_y20_24 = bookHistogram1D(6, 1, 1);
   }
 
 

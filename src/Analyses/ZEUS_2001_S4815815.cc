@@ -25,8 +25,7 @@ namespace Rivet {
   // Book histograms
   void ZEUS_2001_S4815815::init() {
     /// @todo This doesn't seem to correspond to the plots in the paper (SPIRES 4730372)
-    _histJetEt1 = bookHistogram1D("JetET1", "Jet transverse energy",
-                                  "$E_{\\perp}$", "Events", 11, 14.0, 75.0);
+    _histJetEt1 = bookHistogram1D("JetET1", 11, 14.0, 75.0);
   }
 
 

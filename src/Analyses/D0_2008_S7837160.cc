@@ -40,12 +40,12 @@ namespace Rivet {
 
   // Book histograms
   void D0_2008_S7837160::init() {
-    _h_dsigplus_deta_25_35  = bookHistogram1D("dsigplus_deta_25_35",  "Temp1", 10, 0.0, 3.2);
-    _h_dsigminus_deta_25_35 = bookHistogram1D("dsigminus_deta_25_35", "Temp2", 10, 0.0, 3.2);
-    _h_dsigplus_deta_35     = bookHistogram1D("dsigplus_deta_35",     "Temp3", 10, 0.0, 3.2);
-    _h_dsigminus_deta_35    = bookHistogram1D("dsigminus_deta_35",    "Temp4", 10, 0.0, 3.2);
-    _h_dsigplus_deta_25     = bookHistogram1D("dsigplus_deta_25",     "Temp5", 10, 0.0, 3.2);
-    _h_dsigminus_deta_25    = bookHistogram1D("dsigminus_deta_25",    "Temp6", 10, 0.0, 3.2);
+    _h_dsigplus_deta_25_35  = bookHistogram1D("dsigplus_deta_25_35", 10, 0.0, 3.2);
+    _h_dsigminus_deta_25_35 = bookHistogram1D("dsigminus_deta_25_35", 10, 0.0, 3.2);
+    _h_dsigplus_deta_35     = bookHistogram1D("dsigplus_deta_35", 10, 0.0, 3.2);
+    _h_dsigminus_deta_35    = bookHistogram1D("dsigminus_deta_35", 10, 0.0, 3.2);
+    _h_dsigplus_deta_25     = bookHistogram1D("dsigplus_deta_25", 10, 0.0, 3.2);
+    _h_dsigminus_deta_25    = bookHistogram1D("dsigminus_deta_25", 10, 0.0, 3.2);
   }
 
 

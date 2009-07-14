@@ -22,9 +22,7 @@ namespace Rivet {
   // Book histograms
   void CDF_2000_S4155203::init() {
     /// @todo Cross-section units in label
-    _hist_zpt =
-      bookHistogram1D(1, 1, 1, "$p_\\perp$ of Z boson in $\\Pelectron \\Ppositron$ decays",
-                      "$p_\\perp(\\PZ)$ / GeV", "$\\mathrm{d}{\\sigma}/\\mathrm{d}{p_\\perp(\\PZ)}$");
+    _hist_zpt = bookHistogram1D(1, 1, 1);
   }
 
 

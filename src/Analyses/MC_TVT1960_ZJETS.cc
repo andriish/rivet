@@ -23,61 +23,28 @@ namespace Rivet {
 
   // Book histograms
   void MC_TVT1960_ZJETS::init() {
-    _h_Z_mass = bookHistogram1D
-      ("Z_mass", "Z mass", "$m_{\\text{Z}}$ [GeV]",
-       "$1/\\sigma \\text{d}\\sigma/\\text{d}m_{\\text{Z}}$", 50, 66.0, 116.0);
-    _h_jet1_pT = bookHistogram1D
-      ("jet1_pT", "pT of 1st jet", "$p_{\\perp}^{\\text{1st jet}}$ [GeV]",
-       "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{1st jet}}$", 50, 0.0, 500.0);
-    _h_jet2_pT = bookHistogram1D
-      ("jet2_pT", "pT of 2nd jet", "$p_{\\perp}^{\\text{2nd jet}}$ [GeV]",
-       "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{2nd jet}}$", 30, 0.0, 300.0);
-    _h_jet3_pT = bookHistogram1D
-      ("jet3_pT", "pT of 3rd jet", "$p_{\\perp}^{\\text{3rd jet}}$ [GeV]",
-       "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{3rd jet}}$", 20, 0.0, 200.0);
-    _h_jet4_pT = bookHistogram1D
-      ("jet4_pT", "pT of 4th jet", "$p_{\\perp}^{\\text{4th jet}}$ [GeV]",
-       "$1/\\sigma \\text{d}\\sigma/\\text{d}p_{\\perp}^{\\text{4th jet}}$", 10, 0.0, 100.0);
-    _h_jet20_multi_exclusive = bookHistogram1D
-      ("jet20_multi_exclusive", "Exclusive jet multiplicity", "$N_{\\text{jet(}\\geq 20 \\text{GeV)}}$",
-       "$\\sigma(N_{\\text{jet}})/\\sigma(N_{\\text{jet}}=0)$", 10, -0.5, 9.5);
-    _h_jet20_multi_inclusive = bookHistogram1D
-      ("jet20_multi_inclusive", "Inclusive jet multiplicity", "$N_{\\text{jet(}\\geq 20 \\text{GeV)}}$",
-       "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\text{inclusive})$", 10, -0.5, 9.5);
-    _h_jet20_multi_ratio = bookDataPointSet
-      ("jet20_multi_ratio", "Ratio of jet multiplicity", "$N_{\\text{jet(}\\geq 20 \\text{GeV)}}$",
-       "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\geq N_{\\text{jet}}-1)$", 9, 0.5, 9.5);
-    _h_jet10_multi_exclusive = bookHistogram1D
-      ("jet10_multi_exclusive", "Exclusive jet multiplicity", "$N_{\\text{jet(}\\geq 10 \\text{GeV)}}$",
-       "$\\sigma(N_{\\text{jet}})/\\sigma(N_{\\text{jet}}=0)$", 10, -0.5, 9.5);
-    _h_jet10_multi_inclusive = bookHistogram1D
-      ("jet10_multi_inclusive", "Inclusive jet multiplicity", "$N_{\\text{jet(}\\geq 10 \\text{GeV)}}$",
-       "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\text{inclusive})$", 10, -0.5, 9.5);
-    _h_jet10_multi_ratio = bookDataPointSet
-      ("jet10_multi_ratio", "Ratio of jet multiplicity", "$N_{\\text{jet(}\\geq 10 \\text{GeV)}}$",
-       "$\\sigma(\\geq N_{\\text{jet}})/\\sigma(\\geq N_{\\text{jet}}-1)$", 9, 0.5, 9.5);
-    _h_deta_Z_jet1 = bookHistogram1D
-      ("deta_Z_jet2", "", "$|\\Delta{\\eta}(\\text{Z, 1st jet})|$",
-       "$1/\\sigma \\text{d}\\sigma/\\text{d}|\\Delta{\\eta}(\\text{Z, 1st jet})|$", 20, 0.0, 5.0);
-    _h_dR_jet2_jet3 = bookHistogram1D
-      ("dR_jet2_jet3", "", "$|\\Delta{R}(\\text{2nd jet, 3rd jet})|$",
-       "$1/\\sigma \\text{d}\\sigma/\\text{d}|\\Delta{R}(\\text{2nd jet, 3rd jet})|$", 20, 0.0, 5.0);
+    _h_Z_mass = bookHistogram1D("Z_mass", 50, 66.0, 116.0);
+    _h_jet1_pT = bookHistogram1D("jet1_pT", 50, 0.0, 500.0);
+    _h_jet2_pT = bookHistogram1D("jet2_pT", 30, 0.0, 300.0);
+    _h_jet3_pT = bookHistogram1D("jet3_pT", 20, 0.0, 200.0);
+    _h_jet4_pT = bookHistogram1D("jet4_pT", 10, 0.0, 100.0);
+    _h_jet20_multi_exclusive = bookHistogram1D("jet20_multi_exclusive", 10, -0.5, 9.5);
+    _h_jet20_multi_inclusive = bookHistogram1D("jet20_multi_inclusive", 10, -0.5, 9.5);
+    _h_jet20_multi_ratio = bookDataPointSet("jet20_multi_ratio", 9, 0.5, 9.5);
+    _h_jet10_multi_exclusive = bookHistogram1D("jet10_multi_exclusive", 10, -0.5, 9.5);
+    _h_jet10_multi_inclusive = bookHistogram1D("jet10_multi_inclusive", 10, -0.5, 9.5);
+    _h_jet10_multi_ratio = bookDataPointSet("jet10_multi_ratio", 9, 0.5, 9.5);
+    _h_deta_Z_jet1 = bookHistogram1D("deta_Z_jet2", 20, 0.0, 5.0);
+    _h_dR_jet2_jet3 = bookHistogram1D("dR_jet2_jet3", 20, 0.0, 5.0);
     for (size_t i=0; i<4; ++i) {
-      stringstream name, title, xtitle, ytitle;
+      stringstream name;
       name<<"log10_d_"<<i<<i+1;
-      title<<"$\\log_{10}$($k_\\perp$ jet resolution $"<<i<<" \\to "<<i+1<<"$ [GeV])";
-      xtitle<<"$\\log_{10}(d_{"<<i<<i+1<<"}/\\text{GeV})$";
-      ytitle<<"$\\text{d}\\sigma/\\text{d}\\log_{10}(d_{"<<i<<i+1<<"})$";
-      _h_log10_d[i] = bookHistogram1D(name.str(), title.str(), xtitle.str(), ytitle.str(), 50, 0.2, 2.6);
+      _h_log10_d[i] = bookHistogram1D(name.str(), 50, 0.2, 2.6);
     }
     for (size_t i=0; i<5; ++i) {
-      stringstream name, title, xtitle, ytitle;
+      stringstream name;
       name<<"log10_R_"<<i;
-      title<<"$\\log_{10}$(Integrated $"<<i<<"$ jet rate in $k_\\perp$ [GeV])";
-      xtitle<<"$\\log_{10}(d_{\\text{cut}}/\\text{GeV})$";
-      if (i==4) ytitle<<"$R_{\\geq"<<i<<"}$";
-      else ytitle<<"$R_{"<<i<<"}$";
-      _h_log10_R[i] = bookDataPointSet(name.str(), title.str(), xtitle.str(), ytitle.str(), 50, 0.2, 2.6);
+      _h_log10_R[i] = bookDataPointSet(name.str(), 50, 0.2, 2.6);
     }
   }
 

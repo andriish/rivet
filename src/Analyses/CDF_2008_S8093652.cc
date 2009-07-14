@@ -23,10 +23,7 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2008_S8093652::init() {
-    _h_m_dijet = bookHistogram1D(
-        1, 1, 1, "Dijet mass spectrum",
-        "$m_{\\text{jj}} [GeV/c^2]$",
-        "$d\\sigma/dm_{\\text{jj}} [pb/(GeV/c^2)]$");
+    _h_m_dijet = bookHistogram1D(1, 1, 1);
   }
 
 

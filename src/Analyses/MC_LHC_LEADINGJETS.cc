@@ -30,32 +30,14 @@ namespace Rivet {
   
   // Book histograms
   void MC_LHC_LEADINGJETS::init() {
-    const string xlabel = "Leading jet $p_\\perp$ / GeV";
-    const string pdensityTeX = "$\\mathrm{d}{N_\\text{ch}}/\\mathrm{d}{\\phi}$";
-    const string ptsumdensityTeX = "$\\mathrm{d}{\\sum p_\\perp^\\text{sum}}/\\mathrm{d}{\\phi}$";
-    const string ptavgTeX = "$\\langle p_\\perp \\rangle$";
     const double maxpt1 = 500.0/GeV;
-    _hist_pnchg      = bookProfile1D(histoPath("trans-nchg"),
-                                     "Transverse region charged particle density", 
-                                     xlabel, pdensityTeX, 50, 0.0, maxpt1);
-    _hist_pmaxnchg   = bookProfile1D(histoPath("trans-maxnchg"),
-                                     "TransMAX region charged particle density",
-                                     xlabel, pdensityTeX, 50, 0.0, maxpt1);
-    _hist_pminnchg   = bookProfile1D(histoPath("trans-minnchg"),
-                                     "TransMIN region charged particle density",
-                                     xlabel, pdensityTeX, 50, 0.0, maxpt1);
-    _hist_pcptsum    = bookProfile1D(histoPath("trans-ptsum"),
-                                     "Transverse region charged pT sum density",
-                                     xlabel, ptsumdensityTeX, 50, 0.0, maxpt1);
-    _hist_pmaxcptsum = bookProfile1D(histoPath("trans-maxptsum"),
-                                     "TransMAX region charged pT sum density",
-                                     xlabel, ptsumdensityTeX, 50, 0.0, maxpt1);
-    _hist_pmincptsum = bookProfile1D(histoPath("trans-minptsum"),
-                                     "TransMIN region charged pT sum density",
-                                     xlabel, ptsumdensityTeX, 50, 0.0, maxpt1);
-    _hist_pcptave    = bookProfile1D(histoPath("trans-ptavg"),
-                                     "Transverse region charged pT average",
-                                     xlabel, ptavgTeX, 50, 0.0, maxpt1);
+    _hist_pnchg      = bookProfile1D("trans-nchg", 50, 0.0, maxpt1);
+    _hist_pmaxnchg   = bookProfile1D("trans-maxnchg", 50, 0.0, maxpt1);
+    _hist_pminnchg   = bookProfile1D("trans-minnchg", 50, 0.0, maxpt1);
+    _hist_pcptsum    = bookProfile1D("trans-ptsum", 50, 0.0, maxpt1);
+    _hist_pmaxcptsum = bookProfile1D("trans-maxptsum", 50, 0.0, maxpt1);
+    _hist_pmincptsum = bookProfile1D("trans-minptsum", 50, 0.0, maxpt1);
+    _hist_pcptave    = bookProfile1D("trans-ptavg", 50, 0.0, maxpt1);
   }
 
 
