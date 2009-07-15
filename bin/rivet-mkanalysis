@@ -4,14 +4,14 @@ prog=$(basename $0)
 
 tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
 if [[ $# -eq 0 || -n "$tmp" ]]; then
-    echo "$prog: make a template pair of analysis source files for Rivet"
+    echo "$prog: make templates of analysis source files for Rivet"
     echo
     echo "Usage: $prog [--help|-h] [--srcroot=<srcrootdir>] <analysisname>"
     echo "Options:"
     echo "  --help | -h   : show this help message"
     echo "  --srcroot     : install the templates into the Rivet source tree"
     echo "                  (rooted at the given directory) rather than just"
-    echo "                  creating both in the current dir"
+    echo "                  creating all in the current dir"
 fi
 
 
@@ -26,6 +26,8 @@ done
 
 ANASRCDIR="."
 ANAINCDIR="."
+ANAINFODIR="."
+ANAPLOTDIR="."
 tmp=$(echo $* | egrep -- '--\<srcroot')
 if [[ "$tmp" ]]; then
     tmp=$(echo $* | egrep -- '--\<srcroot\>=[^[:space:][:cntrl:]]+')
@@ -41,15 +43,17 @@ if [[ "$tmp" ]]; then
     fi
     ANASRCDIR="$srcroot/src/Analyses"
     ANAINCDIR="$srcroot/include/Rivet/Analyses"
-    if [[ ! -e "$ANASRCDIR" || ! -e "$ANAINCDIR" ]]; then
-        echo "Rivet analysis include and/or source dirs do not exist under $srcroot" 1>&2
+    ANAINFODIR="$srcroot/data/anainfo"
+    ANAPLOTDIR="$srcroot/data/plotinfo"
+    if [[ ! -e "$ANASRCDIR" || ! -e "$ANAINCDIR" || ! -e "$ANAINFODIR" || ! -e "$ANAPLOTDIR" ]]; then
+        echo "Rivet analysis dirs do not exist under $srcroot" 1>&2
         exit 1
     fi
 fi
 
 
-if [[ ! -w "$ANASRCDIR" || ! -w "$ANAINCDIR" ]]; then
-    echo "Can't write to Rivet analysis include and/or source dirs under $srcroot" 1>&2
+if [[ ! -w "$ANASRCDIR" || ! -w "$ANAINCDIR" || ! -w "$ANAINFODIR" || ! -w "$ANAPLOTDIR" ]]; then
+    echo "Can't write to Rivet analysis dirs under $srcroot" 1>&2
     exit 1
 fi
 
@@ -80,7 +84,6 @@ for ANANAME in $ANANAMES; do
 namespace Rivet {
 
 
-  /// [Insert short $ANANAME description] 
   class $ANANAME : public Analysis {
   public:
 
@@ -96,63 +99,6 @@ namespace Rivet {
     }
     //@}
 
-
-  public:
-
-    /// @name Publication metadata
-    //@{
-    /// Get the SPIRES ID
-    string spiresId() const {
-      return "$ANASPIRESID";
-    }
-    /// A short description of the analysis.
-    string summary() const {
-      return "[Insert short $ANANAME description]";
-    }
-    /// Experiment which performed and published this analysis.
-    string experiment() const {
-      return "$ANAEXPT";
-    }
-    /// Collider on which the experiment ran.
-    string collider() const {
-      return "[Insert $ANANAME collider]";
-    }
-    /// When published (preprint year according to SPIRES).
-    string year() const {
-      return "$ANAYEAR";
-    }
-    /// Names & emails of paper/analysis authors.
-    vector<string> authors() const {
-      vector<string> rtn;
-      rtn += "Your Name <your@email.address>";
-      return rtn;
-    }
-    /// A full description of the analysis.
-    string description() const {
-      return "[Insert a fairly long description, including what is measured "
-             "and if possible what's it's useful for in terms of MC validation "
-             "and tuning. Use \\LaTeX for maths like $\\pT > \\unit{50}{\\GeV}$.]";
-    }
-    /// Information about the events needed as input for this analysis.
-    string runInfo() const {
-      return "[Insert event types (not gen-specific), energy, any kinematic "
-             "efficiency cut(s) that may be needed, typical num events needed... "
-             "essentially any details needed to set up a generator to reproduce "
-             "the data.]"
-    }
-    string status() const {
-      return "UNVALIDATED";
-    }
-    /// Journal, and preprint references.
-    vector<string> references() const {
-      vector<string> ret;
-      // Journal, preprint and expt pub codes
-      //ret += "Phys.Rev.D...", "arXiv:0000.0000";
-      // Always include a DoI number (from arXiv or Spires)
-      ret += "doi:xxxxxxx";
-      return ret;
-    }
-    //@}
 
   public:
 
@@ -202,6 +148,9 @@ namespace Rivet {
   $ANANAME::$ANANAME() {
     /// @todo Set approriate for your analysis
     setBeams(PROTON, ANTIPROTON);
+    
+    /// @todo Set whether your finalize method needs the generator cross section
+    setNeedsCrossSection(true);
 
     /// @todo Initialise and register projections here
   }
@@ -210,6 +159,9 @@ namespace Rivet {
   void $ANANAME::init() {
 
     /// @todo Book histograms here
+
+    // _histXXXX = bookProfile1D(1, 1, 1);
+    // _histYYYY = bookHistogram1D(2, 1, 1);
 
   }
 
@@ -225,10 +177,54 @@ namespace Rivet {
 
     /// @todo Normalise, scale and otherwise manipulate histograms here
 
+    // scale(_histYYYY, crossSection()/sumOfWeights()); # norm to cross section
+    // normalize(_histYYYY); # normalize to unity
+
   }
 
 
 }
+EOF
+
+    ANAINFOFILE="$ANAINFODIR/$ANANAME.info.yaml"
+    echo "Writing info template to $ANAINFOFILE"
+    cat <<EOF > "$ANAINFOFILE"
+Name: $ANANAME
+Year: $ANAYEAR
+Summary: [Insert short $ANANAME description]
+Experiment: $ANAEXPT
+Collider: [Insert $ANANAME collider]
+SpiresID: $ANASPIRESID
+Status: UNVALIDATED
+Authors:
+ - Your Name <your@email.address>
+References:
+ - [Example: Phys.Lett.B639:151-158,2006, Erratum-ibid.B658:285-289,2008]
+ - [Example: doi:10.1016/j.physletb.2006.04.048]
+ - [Example: arXiv:hep-ex/0511054 (plus erratum)]
+RunInfo:
+  [Insert event types (not gen-specific), energy, any kinematic
+  efficiency cut(s) that may be needed, essentially any details needed to set
+  up a generator to reproduce the data.]
+NumEvents: [Insert typical number of events needed for good statistics.]
+PtCuts: [Insert list of ptcuts, e.g. [15]]
+Description:
+  [Insert a fairly long description, including what is measured
+  and if possible what it's useful for in terms of MC validation
+  and tuning. Use \LaTeX for maths like $\pT > \unit{50}{\GeV}$.]
+EOF
+
+    ANAPLOTFILE="$ANAPLOTDIR/$ANANAME.plot"
+    echo "Writing plot template to $ANAPLOTFILE"
+    cat <<EOF > "$ANAPLOTFILE"
+# BEGIN PLOT /$ANANAME/d01-x01-y01
+Title=[Insert title for histogram d01-x01-y01 here]
+XLabel=[Insert x-axis label for histogram d01-x01-y01 here]
+YLabel=[Insert y-axis label for histogram d01-x01-y01 here]
+# + any additional plot settings you might like, see make-plots documentation
+# END PLOT
+
+# ... add more histograms as you need them ...
 EOF
 
 done
