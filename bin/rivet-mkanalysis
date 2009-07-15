@@ -145,7 +145,7 @@ EOF
 namespace Rivet {
 
 
-  $ANANAME::$ANANAME() {
+  $ANANAME::$ANANAME() : Analysis("$ANANAME") {
     /// @todo Set approriate for your analysis
     setBeams(PROTON, ANTIPROTON);
     
