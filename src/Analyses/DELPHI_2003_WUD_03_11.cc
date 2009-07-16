@@ -73,7 +73,7 @@ namespace Rivet {
     const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
     std::vector<fastjet::PseudoJet> jets_durham;
     if (durjet.clusterSeq()) {
-      jets_durham = fastjet::sorted_by_E(durjet.clusterSeq()->exclusive_jets(0.008));
+      jets_durham = fastjet::sorted_by_E(durjet.clusterSeq()->exclusive_jets_ycut(0.008));
       if (jets_durham.size()==4) {
         _histDurhamBZ->fill(fabs(calc_BZ(jets_durham)), weight);
         _histDurhamKSW->fill(calc_KSW(jets_durham), weight);
@@ -87,7 +87,7 @@ namespace Rivet {
     const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
     std::vector<fastjet::PseudoJet> jets_jade;
     if (jadejet.clusterSeq()) {
-      jets_jade = fastjet::sorted_by_E(jadejet.clusterSeq()->exclusive_jets(0.015));
+      jets_jade = fastjet::sorted_by_E(jadejet.clusterSeq()->exclusive_jets_ycut(0.015));
       if (jets_jade.size()==4) {
         _histJadeBZ->fill(fabs(calc_BZ(jets_jade)), weight);
         _histJadeKSW->fill(calc_KSW(jets_jade), weight);
