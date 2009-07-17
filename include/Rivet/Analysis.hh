@@ -4,7 +4,6 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.fhh"
-#include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/ProjectionApplier.hh"
@@ -21,6 +20,10 @@
 
 
 namespace Rivet {
+
+  // Forward declaration
+  class AnalysisInfo;
+
 
   /// @brief This is the base class of all analysis classes in Rivet.
   ///
@@ -88,93 +91,65 @@ namespace Rivet {
     /// Metadata is used for querying from the command line and also for
     /// building web pages and the analysis pages in the Rivet manual.
     //@{
-    /// Get the name of the analysis. By default this is computed by
-    /// combining the results of the experiment, year and Spires ID 
-    /// metadata methods and you should only override it if there's a 
-    /// good reason why those won't work.
-    virtual std::string name() const {
-      if (_info && !_info->name().empty()) return _info->name();
-      return "";
-    }
 
-    /// Get a description of the analysis.
-    virtual std::string spiresId() const {
-      if (!_info) return "NONE";
-      return _info->spiresId();
-    }
+    /// @brief Get the name of the analysis.
+    ///
+    /// By default this is computed by combining the results of the experiment,
+    /// year and Spires ID metadata methods and you should only override it if
+    /// there's a good reason why those won't work.
+    virtual std::string name() const;
+
+    /// Get a the SPIRES/Inspire ID code for this analysis.
+    virtual std::string spiresId() const;
 
     /// @brief Names & emails of paper/analysis authors.
+    ///
     /// Names and email of authors in 'NAME <EMAIL>' format. The first
     /// name in the list should be the primary contact person.
-    virtual std::vector<std::string> authors() const {
-      if (!_info) return std::vector<std::string>();
-      return _info->authors();
-    }
+    virtual std::vector<std::string> authors() const;
 
     /// @brief Get a short description of the analysis.
+    ///
     /// Short (one sentence) description used as an index entry.
     /// Use @a description() to provide full descriptive paragraphs
     /// of analysis details.
-    virtual std::string summary() const {
-      if (!_info) return "NONE";
-      return _info->summary();
-    }
+    virtual std::string summary() const;
 
     /// @brief Get a full description of the analysis.
+    ///
     /// Full textual description of this analysis, what it is useful for,
     /// what experimental techniques are applied, etc. Should be treated
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
     /// with equations to be rendered as LaTeX with amsmath operators.
-    virtual std::string description() const {
-      if (!_info) return "NONE";
-      return _info->description();
-    }
+    virtual std::string description() const;
 
     /// @brief Information about the events needed as input for this analysis.
+    ///
     /// Event types, energies, kinematic cuts, particles to be considered 
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
-    virtual std::string runInfo() const {
-      if (!_info) return "NONE";
-      return _info->runInfo();
-    }
+    virtual std::string runInfo() const;
     
     /// Experiment which performed and published this analysis.
-    virtual std::string experiment() const {
-      if (!_info) return "NONE";
-      return _info->experiment();
-    }
+    virtual std::string experiment() const;
 
     /// Collider on which the experiment ran.
-    virtual string collider() const {
-      if (!_info) return "NONE";
-      return _info->collider();
-    }
+    virtual std::string collider() const;
 
     /// Incoming beams required by this analysis.
-    virtual const BeamPair& beams() const {
-      return _beams;
-    }
+    virtual const BeamPair& beams() const;
 
     /// @brief When the original experimental analysis was published.
+    ///
     /// When the refereed paper on which this is based was published, 
     /// according to SPIRES.
-    virtual std::string year() const {
-      if (!_info) return "NONE";
-      return _info->year();
-    }
+    virtual std::string year() const;
 
     /// Journal, and preprint references.
-    virtual std::vector<std::string> references() const {
-      if (!_info) return std::vector<std::string>();
-      return _info->references();
-    }
+    virtual std::vector<std::string> references() const;
 
     /// Whether this analysis is trusted (in any way!)
-    virtual std::string status() const {
-      if (!_info) return "UNVALIDATED";
-      return _info->status();
-    }
+    virtual std::string status() const;
     //@}
 
 

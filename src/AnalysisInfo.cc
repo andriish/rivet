@@ -21,7 +21,7 @@ namespace Rivet {
   /// Static factory method
   AnalysisInfo* AnalysisInfo::make(const std::string& name) {
     // Search metadata path and read first matching file
-    string datapath = getRivetDataPath() + "/" + name + ".info.yaml";
+    string datapath = getRivetDataPath() + "/" + name + ".info";
     Log::getLog("Rivet.Analysis") 
       << Log::DEBUG << "Reading analysis data from " << datapath << endl;
     if (access(datapath.c_str(), R_OK) != 0) return 0;

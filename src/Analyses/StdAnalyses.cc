@@ -4,6 +4,7 @@
 
 // Example analyses
 #include "Rivet/Analyses/ExampleAnalysis.hh"
+Rivet::Analysis* create_ExampleAnalysis();
 #include "Rivet/Analyses/ExampleTree.hh"
 
 // LEP
@@ -72,9 +73,11 @@ extern "C" {
   /// by upper-case versions of the analyses' names. (Upper-case 
   /// keys are used since they can be uniquely obtained from any 
   /// mixed-case key, which allows a bit of UI flexibility.)
+
   AnalysisBuilders getAnalysisBuilders() {
     AnalysisBuilders fns;
-    fns["EXAMPLE"] = Rivet::ExampleAnalysis::create;
+    //fns["EXAMPLE"] = Rivet::ExampleAnalysis::create;
+    fns["EXAMPLE"] = create_ExampleAnalysis;
     fns["EXAMPLETREE"] = Rivet::ExampleTree::create;
 
     // LEP

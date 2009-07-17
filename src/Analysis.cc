@@ -2,6 +2,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/AnalysisHandler.hh"
+#include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "LWH/AIManagedObject.h"
@@ -70,7 +71,78 @@ namespace Rivet {
   }
 
 
-  double Analysis::sumOfWeights() const { return handler().sumOfWeights(); }
+  double Analysis::sumOfWeights() const { 
+    return handler().sumOfWeights(); 
+  }
+
+
+  ////////////////////////////////////////////////////////////
+  // Metadata
+
+  std::string Analysis::name() const {
+    if (_info && !_info->name().empty()) return _info->name();
+    return "";
+  }
+  
+  std::string Analysis::spiresId() const {
+    if (!_info) return "NONE";
+    return _info->spiresId();
+  }
+
+  std::vector<std::string> Analysis::authors() const {
+    if (!_info) return std::vector<std::string>();
+    return _info->authors();
+  }
+  
+  std::string Analysis::summary() const {
+    if (!_info) return "NONE";
+    return _info->summary();
+  }
+
+  std::string Analysis::description() const {
+    if (!_info) return "NONE";
+    return _info->description();
+  }
+
+  std::string Analysis::runInfo() const {
+    if (!_info) return "NONE";
+    return _info->runInfo();
+  }
+  
+  std::string Analysis::experiment() const {
+    if (!_info) return "NONE";
+    return _info->experiment();
+  }
+  
+  std::string Analysis::collider() const {
+    if (!_info) return "NONE";
+    return _info->collider();
+  }
+  
+  const BeamPair& Analysis::beams() const {
+    return _beams;
+  }
+
+  std::string Analysis::year() const {
+    if (!_info) return "NONE";
+    return _info->year();
+  }
+  
+  std::vector<std::string> Analysis::references() const {
+    if (!_info) return std::vector<std::string>();
+    return _info->references();
+  }
+
+  std::string Analysis::status() const {
+    if (!_info) return "UNVALIDATED";
+    return _info->status();
+  }
+
+
+
+  ////////////////////////////////////////////////////////////
+  // Histogramming
+
 
   void Analysis::_cacheBinEdges() {
     _cacheXAxisData();
