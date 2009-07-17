@@ -22,10 +22,8 @@ namespace Rivet {
 
 
   void CDF_1990_S2089246::init() {
-    /// @todo Get 630 GeV data in HepData
-    // _hist_eta630 = bookHistogram1D(3, 1, 0);
-    _hist_eta630 = bookHistogram1D("d03-x01-y00", 10, 0, 3.5);
     _hist_eta1800 = bookHistogram1D(3, 1, 1);
+    _hist_eta630 = bookHistogram1D(4, 1, 1);
   }
 
 

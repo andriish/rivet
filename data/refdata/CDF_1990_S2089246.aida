@@ -56,4 +56,42 @@
       <measurement value="4.19" errorPlus="0.64" errorMinus="0.64"/>
     </dataPoint>
   </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/CDF_1990_S2089246" title="D(N)/DETARAP" >
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="3.16" errorPlus="0.11" errorMinus="0.11"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.375" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="3.09" errorPlus="0.12" errorMinus="0.12"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.625" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="3.29" errorPlus="0.43" errorMinus="0.43"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.875" errorPlus="0.125" errorMinus="0.125"/>
+      <measurement value="3.48" errorPlus="0.5" errorMinus="0.5"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.25" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="3.49" errorPlus="0.53" errorMinus="0.53"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.75" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="3.84" errorPlus="0.53" errorMinus="0.53"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.25" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="3.73" errorPlus="0.53" errorMinus="0.53"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.75" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="3.51" errorPlus="0.5" errorMinus="0.5"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.25" errorPlus="0.25" errorMinus="0.25"/>
+      <measurement value="3.41" errorPlus="0.64" errorMinus="0.64"/>
+    </dataPoint>
+  </dataPointSet>
 </aida>
