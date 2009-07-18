@@ -96,9 +96,4 @@ namespace Rivet {
     normalize(_histAplanarity);
   }
 
-
-  // Factory function  
-  Analysis* create_ExampleAnalysis() { return new ExampleAnalysis(); }
-
-
 }
