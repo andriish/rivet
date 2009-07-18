@@ -186,7 +186,7 @@ namespace Rivet {
 }
 EOF
 
-    ANAINFOFILE="$ANAINFODIR/$ANANAME.info.yaml"
+    ANAINFOFILE="$ANAINFODIR/$ANANAME.info"
     echo "Writing info template to $ANAINFOFILE"
     cat <<EOF > "$ANAINFOFILE"
 Name: $ANANAME
