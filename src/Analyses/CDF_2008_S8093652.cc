@@ -2,7 +2,6 @@
 #include "Rivet/Analyses/CDF_2008_S8093652.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/RivetAIDA.hh"
 
@@ -15,8 +14,8 @@ namespace Rivet {
     setBeams(PROTON, ANTIPROTON);
     setNeedsCrossSection(true);
     
-    ChargedFinalState cfs;
-    FastJets conefinder(cfs, FastJets::CDFMIDPOINT, 0.7);
+    FinalState fs;
+    FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
     addProjection(conefinder, "ConeFinder");
   } 
 
@@ -55,10 +54,7 @@ namespace Rivet {
 
   // Finalize
   void CDF_2008_S8093652::finalize() {
-    /// Scale by L_eff = sig_MC * L_exp / num_MC
-    const double lumi_mc = sumOfWeights() / crossSection();
-    const double scalefactor =  1 / lumi_mc;
-    scale(_h_m_dijet, scalefactor);
+    scale(_h_m_dijet, crossSection()/sumOfWeights());
   }
 
 }
