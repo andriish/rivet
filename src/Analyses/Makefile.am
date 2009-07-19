@@ -12,6 +12,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     CDF_2002_S4796047.cc \
     CDF_2004_S5839831.cc \
     CDF_2005_S6217184.cc \
+    CDF_2006_S6450792.cc \
     CDF_2006_S6653332.cc \
     CDF_2007_S7057202.cc \
     CDF_2008_S7541902.cc \
