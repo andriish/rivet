@@ -1,6 +1,7 @@
 #include "Rivet/Jet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/ParticleName.hh"
 
 namespace Rivet {
 
@@ -95,6 +96,7 @@ namespace Rivet {
 
   bool Jet::containsCharm() const {
     foreach (const Particle& p, particles()) {
+      if (abs(p.pdgId())==CQUARK) return true;
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
@@ -109,6 +111,7 @@ namespace Rivet {
 
   bool Jet::containsBottom() const {
     foreach (const Particle& p, particles()) {
+      if (abs(p.pdgId())==BQUARK) return true;
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
