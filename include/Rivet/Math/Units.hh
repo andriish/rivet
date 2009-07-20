@@ -61,8 +61,8 @@ namespace Rivet {
   static const double millibarn = 1.0e-3 * barn;
   static const double microbarn = 1.0e-6 * barn;
   static const double  nanobarn = 1.0e-9 * barn;
-  static const double femtobarn = 1.0e-3 * barn;
-  static const double attobarn  = 1.0e-3 * barn;
+  static const double femtobarn = 1.0e-15 * barn;
+  static const double attobarn  = 1.0e-18 * barn;
 
   //
   // Angle
