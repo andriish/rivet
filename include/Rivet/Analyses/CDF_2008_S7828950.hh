@@ -38,18 +38,9 @@ namespace Rivet {
 
 
   private:
-
-    /// Min jet \f$ p_T \f$ cut.
-    /// @todo Make static const and UPPERCASE?
-    const double _jetMinPT;
     
-    /// Counter for the number of events analysed (actually the sum of weights, hence double).
-    double _eventsTried;
-
     /// @name Histograms
     //@{
-    /// The number of events in each histogram
-    map<AIDA::IHistogram1D*, double> _eventsPassed;
 
     /// The y bin width of each histogram
     map<AIDA::IHistogram1D*, double> _yBinWidths;
