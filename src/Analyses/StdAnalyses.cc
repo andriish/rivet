@@ -63,6 +63,9 @@
 #include "Rivet/Analyses/STAR_2008_S7993412.hh"
 //#include "Rivet/Analyses/STAR_2009_UE_HELEN.hh"
 
+// UA5
+#include "Rivet/Analyses/UA5_1989_S1926373.hh"
+
 // MC validation
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
 #include "Rivet/Analyses/MC_LHC_LEADINGJETS.hh"
@@ -139,6 +142,9 @@ extern "C" {
     fns["STAR_2006_S6870392"] = Rivet::STAR_2006_S6870392::create;
     fns["STAR_2008_S7993412"] = Rivet::STAR_2008_S7993412::create;
     //fns["STAR_2009_UE_HELEN"] = Rivet::STAR_2009_UE_HELEN::create;
+
+    // UA5
+    fns["UA5_1989_S1926373"] = Rivet::UA5_1989_S1926373::create;
 
     // General
     fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_HADRON_MULTIPLICITIES::create;

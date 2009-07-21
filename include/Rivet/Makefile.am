@@ -84,7 +84,8 @@ nobase_dist_noinst_HEADERS += \
   Analyses/MC_LHC_LEADINGJETS.hh \
   Analyses/STAR_2006_S6870392.hh \
   Analyses/STAR_2008_S7993412.hh \
-  Analyses/STAR_2009_UE_HELEN.hh
+  Analyses/STAR_2009_UE_HELEN.hh \
+  Analyses/UA5_1989_S1926373.hh 
 
 
 ## Projections

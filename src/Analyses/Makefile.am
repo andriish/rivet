@@ -51,7 +51,8 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     MC_TVT1960_ZJETS.cc \
     MC_LHC_LEADINGJETS.cc \
     STAR_2006_S6870392.cc \
-    STAR_2008_S7993412.cc
+    STAR_2008_S7993412.cc \
+    UA5_1989_S1926373.cc
     #STAR_2009_UE_HELEN.cc
     #OPAL_2004_S6132243.cc 
 
