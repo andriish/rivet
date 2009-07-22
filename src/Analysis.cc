@@ -370,7 +370,11 @@ namespace Rivet {
 
 
   void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
-    assert(histo);
+    if (!histo) {
+      getLog() << Log::ERROR << "Failed to normalise histo=NULL in analysis "
+          << name() << "(norm=" << norm << ")" << endl;
+      return;
+    }
     getLog() << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
     
     double oldintg = 0.0;
@@ -392,6 +396,11 @@ namespace Rivet {
 
 
   void Analysis::scale(AIDA::IHistogram1D*& histo, const double scale) {
+    if (!histo) {
+      getLog() << Log::ERROR << "Failed to scale histo=NULL in analysis "
+          << name() << "(scale=" << scale << ")" << endl;
+      return;
+    }
     getLog() << Log::TRACE << "Scaling histo " << histo->title() << endl;
     
     std::vector<double> x, y, ex, ey;
