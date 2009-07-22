@@ -90,13 +90,19 @@ else
 #include "HepMC/defs.h"
 int main() { std::cout << VERSION << std::endl; return 0; }])
 fi
-$CXX $CPPFLAGS conftest.cpp -o conftest 2>&1 1>&5
+if test -f conftest.cc; then
+  $CXX $CPPFLAGS conftest.cc -o conftest 2>&1 1>&5
+elif test -f conftest.C; then
+  $CXX $CPPFLAGS conftest.C -o conftest 2>&1 1>&5
+else
+  $CXX $CPPFLAGS conftest.cpp -o conftest 2>&1 1>&5
+fi
 hepmc_version=`./conftest`
 if test x$hepmc_version != x; then
   let hepmc_major=`echo "$hepmc_version" | cut -d. -f1`
   let hepmc_minor=`echo "$hepmc_version" | cut -d. -f2`
 fi
-rm -f conftest conftest.cpp
+rm -f conftest conftest.cpp conftest.cc conftest.C
 HEPMC_VERSION=$hepmc_major$hepmc_minor
 AC_MSG_NOTICE([HepMC version is $hepmc_version -> $HEPMC_VERSION])
 AC_SUBST(HEPMC_VERSION)
