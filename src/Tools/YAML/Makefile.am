@@ -15,5 +15,5 @@ yamlinclude_HEADERS = \
 
 check_PROGRAMS = testYAML
 testYAML_SOURCES = test.cc
-testYAML_LDADD = -L$(builddir) -lyaml-cpp
+testYAML_LDADD = -L$(top_builddir)/src/Tools/YAML -lyaml-cpp
 TESTS = testYAML
