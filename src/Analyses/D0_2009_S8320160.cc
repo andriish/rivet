@@ -14,8 +14,8 @@ namespace Rivet {
   {
     setBeams(PROTON, ANTIPROTON);
     
-    ChargedFinalState cfs;
-    FastJets conefinder(cfs, FastJets::D0ILCONE, 0.7);
+    FinalState fs;
+    FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
     addProjection(conefinder, "ConeFinder");
   } 
 
@@ -40,17 +40,19 @@ namespace Rivet {
   void D0_2009_S8320160::analyze(const Event & e) {
     double weight = e.weight();
 
-    const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
-    const Jets& jets = jetpro.jetsByPt();
+    const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt();
     
-    if(jets.size()<2) {
-      vetoEvent;
-    }
+    if(jets.size()<2) vetoEvent;
     
     FourMomentum j0(jets[0].momentum());
     FourMomentum j1(jets[1].momentum());
+    double y0 = j0.rapidity();
+    double y1 = j1.rapidity();
+    
+    if (fabs(y0+y1)>2) vetoEvent;
+    
     double mjj = FourMomentum(j0+j1).mass();
-    double chi = exp(fabs(j0.rapidity()-j1.rapidity()));
+    double chi = exp(fabs(y0-y1));
     _h_chi_dijet.fill(mjj, chi, weight);
   }
 
@@ -59,7 +61,7 @@ namespace Rivet {
   // Finalize
   void D0_2009_S8320160::finalize() {
     foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
-      scale(hist, 1.0/sumOfWeights());
+      normalize(hist);
     }
   }
 
