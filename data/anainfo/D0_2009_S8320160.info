@@ -4,7 +4,7 @@ Summary: Dijet angular distributions
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 8320160
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:

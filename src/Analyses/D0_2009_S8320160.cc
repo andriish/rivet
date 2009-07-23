@@ -22,16 +22,16 @@ namespace Rivet {
 
   // Book histograms
   void D0_2009_S8320160::init() {
-    _h_chi_dijet.addHistogram(0.25, 0.3, bookHistogram1D(1, 1, 1));
-    _h_chi_dijet.addHistogram(0.3, 0.4, bookHistogram1D(2, 1, 1));
-    _h_chi_dijet.addHistogram(0.4, 0.5, bookHistogram1D(3, 1, 1));
-    _h_chi_dijet.addHistogram(0.5, 0.6, bookHistogram1D(4, 1, 1));
-    _h_chi_dijet.addHistogram(0.6, 0.7, bookHistogram1D(5, 1, 1));
-    _h_chi_dijet.addHistogram(0.7, 0.8, bookHistogram1D(6, 1, 1));
-    _h_chi_dijet.addHistogram(0.8, 0.9, bookHistogram1D(7, 1, 1));
-    _h_chi_dijet.addHistogram(0.9, 1.0, bookHistogram1D(8, 1, 1));
-    _h_chi_dijet.addHistogram(1.0, 1.1, bookHistogram1D(9, 1, 1));
-    _h_chi_dijet.addHistogram(1.1, 1.960, bookHistogram1D(10, 1, 1));
+    _h_chi_dijet.addHistogram(250., 300., bookHistogram1D(1, 1, 1));
+    _h_chi_dijet.addHistogram(300., 400., bookHistogram1D(2, 1, 1));
+    _h_chi_dijet.addHistogram(400., 500., bookHistogram1D(3, 1, 1));
+    _h_chi_dijet.addHistogram(500., 600., bookHistogram1D(4, 1, 1));
+    _h_chi_dijet.addHistogram(600., 700., bookHistogram1D(5, 1, 1));
+    _h_chi_dijet.addHistogram(700., 800., bookHistogram1D(6, 1, 1));
+    _h_chi_dijet.addHistogram(800., 900., bookHistogram1D(7, 1, 1));
+    _h_chi_dijet.addHistogram(900., 1000., bookHistogram1D(8, 1, 1));
+    _h_chi_dijet.addHistogram(1000., 1100., bookHistogram1D(9, 1, 1));
+    _h_chi_dijet.addHistogram(1100., 1960, bookHistogram1D(10, 1, 1));
   }
 
 
