@@ -59,7 +59,7 @@ namespace Rivet {
   // Finalize
   void D0_2009_S8320160::finalize() {
     foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
-      normalize(hist);
+      scale(hist, 1.0/sumOfWeights());
     }
   }
 
