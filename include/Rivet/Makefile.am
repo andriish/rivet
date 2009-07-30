@@ -37,6 +37,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/ExampleTree.hh \
   Analyses/ALEPH_1991_S2435284.hh \
   Analyses/ALEPH_1996_S3486095.hh \
+  Analyses/CDF_1988_S1865951.hh \
   Analyses/CDF_1990_S2089246.hh \
   Analyses/CDF_1994_S2952106.hh \
   Analyses/CDF_2000_S4155203.hh \
@@ -82,10 +83,15 @@ nobase_dist_noinst_HEADERS += \
   Analyses/PDG_Hadron_Multiplicities_Ratios.hh \
   Analyses/MC_TVT1960_ZJETS.hh \
   Analyses/MC_LHC_LEADINGJETS.hh \
+  Analyses/MC_LHC_ZANALYSIS.hh \
+  Analyses/MC_LHC_DIJET.hh \
   Analyses/STAR_2006_S6870392.hh \
   Analyses/STAR_2008_S7993412.hh \
   Analyses/STAR_2009_UE_HELEN.hh \
-  Analyses/UA5_1989_S1926373.hh 
+  Analyses/UA5_1989_S1926373.hh \
+  Analyses/UA5_1982_S875503.hh \
+  Analyses/UA5_1986_S1583476.hh \
+  Analyses/UA1_1990_S2044935.hh 
 
 
 ## Projections
@@ -125,7 +131,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/UnstableFinalState.hh \
   Projections/VetoedFinalState.hh \
   Projections/VisibleFinalState.hh \
-  Projections/ZFinder.hh
+  Projections/ZFinder.hh 
 
 
 ## Tools

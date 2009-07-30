@@ -5,6 +5,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     ExampleTree.cc  \
     ALEPH_1991_S2435284.cc \
     ALEPH_1996_S3486095.cc \
+    CDF_1988_S1865951.cc \
     CDF_1990_S2089246.cc \
     CDF_1994_S2952106.cc \
     CDF_2000_S4155203.cc \
@@ -50,8 +51,13 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     PDG_Hadron_Multiplicities_Ratios.cc \
     MC_TVT1960_ZJETS.cc \
     MC_LHC_LEADINGJETS.cc \
+    MC_LHC_DIJET.cc \
+    MC_LHC_ZANALYSIS.cc \
     STAR_2006_S6870392.cc \
     STAR_2008_S7993412.cc \
+    UA1_1990_S2044935.cc \
+    UA5_1982_S875503.cc \
+    UA5_1986_S1583476.cc \
     UA5_1988_S1867512.cc \
     UA5_1989_S1926373.cc
     #STAR_2009_UE_HELEN.cc

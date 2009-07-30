@@ -26,6 +26,7 @@
 #include "Rivet/Analyses/ZEUS_2001_S4815815.hh"
 
 // Tevatron
+#include "Rivet/Analyses/CDF_1988_S1865951.hh"
 #include "Rivet/Analyses/CDF_1990_S2089246.hh"
 #include "Rivet/Analyses/CDF_1994_S2952106.hh"
 #include "Rivet/Analyses/CDF_2000_S4155203.hh"
@@ -66,10 +67,17 @@
 // UA5
 #include "Rivet/Analyses/UA5_1988_S1867512.hh"
 #include "Rivet/Analyses/UA5_1989_S1926373.hh"
+#include "Rivet/Analyses/UA5_1982_S875503.hh"
+#include "Rivet/Analyses/UA5_1986_S1583476.hh"
+
+//UA1
+#include "Rivet/Analyses/UA1_1990_S2044935.hh"
 
 // MC validation
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
 #include "Rivet/Analyses/MC_LHC_LEADINGJETS.hh"
+#include "Rivet/Analyses/MC_LHC_ZANALYSIS.hh"
+#include "Rivet/Analyses/MC_LHC_DIJET.hh"
 
 extern "C" {
 
@@ -107,6 +115,7 @@ extern "C" {
     fns["ZEUS_2001_S4815815"] = Rivet::ZEUS_2001_S4815815::create;
 
     // Tevatron
+    fns["CDF_1988_S1865951"] = Rivet::CDF_1988_S1865951::create;
     fns["CDF_1990_S2089246"] = Rivet::CDF_1990_S2089246::create;
     fns["CDF_1994_S2952106"] = Rivet::CDF_1994_S2952106::create;
     fns["CDF_2000_S4155203"] = Rivet::CDF_2000_S4155203::create;
@@ -147,6 +156,11 @@ extern "C" {
     // UA5
     fns["UA5_1988_S1867512"] = Rivet::UA5_1988_S1867512::create;
     fns["UA5_1989_S1926373"] = Rivet::UA5_1989_S1926373::create;
+    fns["UA5_1982_S875503"] = Rivet::UA5_1982_S875503::create;
+    fns["UA5_1986_S1583476"] = Rivet::UA5_1986_S1583476::create;
+
+   // UA1
+    fns["UA1_1990_S2044935"] = Rivet::UA1_1990_S2044935::create;
 
     // General
     fns["PDG_HADRON_MULTIPLICITIES"] = Rivet::PDG_HADRON_MULTIPLICITIES::create;
@@ -155,6 +169,8 @@ extern "C" {
     // MC validation
     fns["MC_TVT1960_ZJETS"] = Rivet::MC_TVT1960_ZJETS::create;
     fns["MC_LHC_LEADINGJETS"] = Rivet::MC_LHC_LEADINGJETS::create;
+    fns["MC_LHC_ZANALYSIS"] = Rivet::MC_LHC_ZANALYSIS::create;
+    fns["MC_LHC_DIJET"] = Rivet::MC_LHC_DIJET::create;
 
     return fns;
   }
