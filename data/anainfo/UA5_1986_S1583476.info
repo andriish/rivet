@@ -1,0 +1,12 @@
+Name: UA5_1986_S1583476
+SpiresID: 1583476
+Summary: UA5 pseudorapidity distributions for 200 and 900 GeV.
+Description: UA5 pseudorapidity distributions for 200 and 900 GeV
+	     from the 1986 runs.
+RunInfo: Energy - sqrtS = 200 and 900 GeV. Event type - generic QCD events.
+Status:
+Experiment: UA5
+Collider: SPS
+Year: 1986
+Author: Christophe Vaillant
+References: Eur. Phys. J. C33: 1, 1986
