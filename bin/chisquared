@@ -1,0 +1,316 @@
+#! /usr/bin/env python
+
+import sys, os, logging
+
+
+## Make "sorted" a builtin function on Python < 2.4
+if not 'sorted' in dir(__builtins__):
+    def sorted(iterable, cmp=None, key=None, reverse=None):
+        rtn = iterable
+        rtn.sort(cmp)
+        return rtn
+
+## Add logging.log if needed
+if not 'log' in dir(logging):
+    def _logit(level, msg):
+        l = logging.getLogger()
+        l.log(level, msg)
+    logging.log = _logit
+
+
+class Histo:
+    def __init__(self):
+        self._bins = []
+        self.path = None
+        self.name = None
+        self.title = None
+        self.xlabel = None
+        self.ylabel = None
+
+    def __cmp__(self, other):
+        """Sort by $path/$name string"""
+        return self.fullPath() > other.fullPath()
+
+    def __str__(self):
+        out = "Histogram '%s' with %d bins\n" % (self.fullPath(), self.numBins())
+        out += "Title: %s\n" % self.title
+        out += "XLabel: %s\n" % self.xlabel
+        out += "YLabel: %s\n" % self.ylabel
+        out += "\n".join([str(b) for b in self.getBins()])
+        return out
+
+    def fullPath(self):
+        return os.path.join(self.path, self.name)
+
+    def header(self):
+        global headerprefix
+        out = "# BEGIN PLOT\n"
+        out += headerprefix + "LogY=1\n"
+        out += headerprefix + "Title=%s\n" % self.title
+        out += headerprefix + "XLabel=%s\n" % self.xlabel
+        out += headerprefix + "YLabel=%s\n" % self.ylabel
+        out += "# END PLOT\n"
+        return out
+
+    def asFlat(self):
+        global headerprefix
+        global opts
+        out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
+        out += headerprefix + "AidaPath=%s\n" % self.fullPath()
+        out += headerprefix + "Title=%s\n" % self.title
+        out += headerprefix + "XLabel=%s\n" % self.xlabel
+        out += headerprefix + "YLabel=%s\n" % self.ylabel
+        if self.fullPath().startswith('/REF'):
+            out += headerprefix + "PolyMarker=*\n"
+            out += headerprefix + "ErrorBars=1\n"
+        out += "## Area: %s\n" % self.area()
+        out += "## Num bins: %d\n" % self.numBins()
+        if opts.GNUPLOT:
+            out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
+        else:
+            out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
+        out += "\n".join([b.asFlat() for b in self.getBins()])
+        out += "\n# END HISTOGRAM"
+        return out
+
+    def numBins(self):
+        return len(self._bins)
+
+    def getBins(self):
+        return sorted(self._bins)
+
+    def setBins(self, bins):
+        self._bins = bins
+        return self
+
+    def addBin(self, bin):
+        self._bins.append(bin)
+        return self
+
+    def getBin(self, index):
+        self._bins.sort()
+        return self.getBins()[index]
+
+    bins = property(getBins, setBins)
+
+    def area(self):
+        return sum([bin.area() for bin in self.bins])
+
+    def __iter__(self):
+        return iter(self.getBins())
+
+    def __len__(self):
+        return len(self._bins)
+
+    def __getitem__(self, index):
+        return self.getBin(index)
+
+
+class Bin:
+    """A simple container for a binned value with an error."""
+    def __init__(self, xlow=None, xhigh=None, yval=0, yerrplus=0, yerrminus=0, focus=None):
+        self.xlow = xlow
+        self.xhigh= xhigh
+        self.yval = yval
+        self.yerrplus = yerrplus
+        self.yerrminus = yerrminus
+        self.focus= focus
+
+    def __str__(self):
+        out = "%e to %e: %e +- %e" % (self._xlow, self._xhigh, self._yval, self._yerr)
+        return out
+
+    def asFlat(self):
+        global opts
+        if opts.GNUPLOT:
+            out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval,
+                                              self.xlow, self.xhigh, 
+                                              self.yval-self.yerrminus, self.yval+self.yerrplus)
+        else:
+            out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
+        return out
+
+    def __cmp__(self, other):
+        """Sort by mean x value (yeah, I know...)"""
+        return (self.xlow + self.xhigh) > (other.xlow + other.xhigh)
+
+    def getXRange(self):
+        return (self.xlow, self.xhigh)
+
+    def setXRange(self, xlow, xhigh):
+        self.xlow = xlow
+        self.xhigh = xhigh
+        return self
+
+    def getBinCenter(self):
+        """Geometric middle of the bin range."""
+        return self.xlow + .5*(self.xhigh - self.xlow)
+
+    def getFocus(self):
+        """Mean x-value of the bin."""
+        if self.focus is not None:
+            return (self.xlow + self.xhigh)/2.0
+        else:
+            return self.focus
+
+    def area(self):
+        return self.yval * (self.xhigh - self.xlow)
+
+    def getYErr(self):
+        """Get mean of +ve and -ve y-errors."""
+        return (self.yerrplus + self.yerrminus)/2.0
+
+    def setYErr(self, yerr):
+        """Set both +ve and -ve y-errors simultaneously."""
+        self.yerrplus = yerr
+        self.yerrminus = yerr
+        return self
+
+
+
+## Try to load faster but non-standard cElementTree module
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    try:
+        import cElementTree as ET
+    except ImportError:
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
+            sys.exit(1)
+
+
+def mkHistoFromDPS(dps):
+    """Make a mini histo representation from an AIDA dataPointSet tag."""
+    myhist = Histo()
+    myhist.name = dps.get("name")
+    myhist.title = dps.get("title")
+    myhist.path = dps.get("path")
+    axes = dps.findall("dimension")
+    if (len(axes)==2):
+        for a in axes:
+            if (a.get("dim")=="0"):
+                myhist.xlabel = a.get("title")
+            elif (a.get("dim")=="1"):
+                myhist.ylabel = a.get("title")
+    points = dps.findall("dataPoint")
+    numbins = len(points)
+    for binnum, point in enumerate(points):
+        bin = Bin()
+        for d, m in enumerate(point.findall("measurement")):
+            val  = float(m.get("value"))
+            down = float(m.get("errorMinus"))
+            up = float(m.get("errorPlus"))
+            if d == 0:
+                low  = val - down
+                high = val + up
+                bin.setXRange(low, high)
+            elif d == 1:
+                bin.yval = val
+                bin.yerrplus = up
+                bin.yerrminus = down
+        myhist.addBin(bin)
+    return myhist
+
+
+
+##########################################################
+
+
+if __name__ == "__main__":
+
+    ## Parse command line options
+    from optparse import OptionParser, OptionGroup
+    parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
+    parser.add_option("-s", "--split", action="store_true", default=False, 
+                      help="Write each histo to a separate output file, with names based on the histo path", 
+                      dest="SPLITOUTPUT")
+    parser.add_option("-g", "--gnuplot", action="store_true", default=False, 
+                      help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with xye'. Implies --split",
+                      dest="GNUPLOT")
+    parser.add_option("-S", "--smart-output", action="store_true", default=False, 
+                      help="Write to output files with names based on the corresponding input filename", 
+                      dest="SMARTOUTPUT")
+    parser.add_option("-m", "--match", action="append",
+                      help="Only write out histograms whose $path/$name string matches these regexes", 
+                      dest="PATHPATTERNS")
+    verbgroup = OptionGroup(parser, "Verbosity control")
+    verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                         default=logging.INFO, help="print debug (very verbose) messages")
+    verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                         default=logging.INFO, help="be very quiet")
+    opts, args = parser.parse_args()
+
+
+    ## Configure logging
+    try:
+        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+    except:
+        logging.getLogger().setLevel(opts.LOGLEVEL)
+        h = logging.StreamHandler()
+        h.setFormatter(logging.Formatter("%(message)s"))
+        logging.getLogger().addHandler(h)
+
+
+    ## Initialise steering variables which need a bit more care
+    if opts.PATHPATTERNS is None:
+        opts.PATHPATTERNS = []
+    headerprefix = ""
+    if opts.GNUPLOT:
+        opts.SPLITOUTPUT = True
+        headerprefix = "# "
+
+
+    ## Check that at least one file has been supplied
+    if len(args) < 1:
+        sys.stderr.write("Must specify at least one AIDA histogram file\n")
+        sys.exit(1)
+
+
+    ## Run over the files, make histos and write out those that match the patterns
+    import re
+    for aidafile in args:
+        out = sys.stdout
+        if not os.access(aidafile, os.R_OK):
+            logging.error("%s can not be read" % aidafile)
+            break
+        try:
+            tree = ET.parse(aidafile)
+        except:
+            logging.error("%s can not be parsed as XML" % aidafile)
+            break
+        histos = []
+        for dps in tree.findall("dataPointSet"):
+            useThisDps = True
+            if len(opts.PATHPATTERNS) > 0:
+                useThisDps = False
+                dpspath = os.path.join(dps.get("path"), dps.get("name"))
+                for regex in opts.PATHPATTERNS:
+                    if re.compile(regex).search(dpspath):
+                        useThisDps = True
+                        break
+            if useThisDps:
+                histos.append(mkHistoFromDPS(dps))
+        if len(histos) > 0:
+            if opts.SPLITOUTPUT:
+                paper = os.path.basename(aidafile).replace(".aida", "")
+                for h in sorted(histos):
+                    histo = h.fullPath()[1:].replace("/", "_")
+                    outfile = "%s.dat" % histo
+                    if opts.SMARTOUTPUT:
+                        outfile = "%s-%s" % (paper, outfile)
+                    #print "Writing to", outfile
+                    out = open(outfile, "a")
+                    #out.write(h.header() + "\n")
+                    #out.write(h.asFlat() + "\n")
+                    out.close()
+            else:
+                if opts.SMARTOUTPUT:
+                    outfile = os.path.basename(aidafile).replace(".aida", ".dat")
+                    out = open(outfile, "a")
+              #  out.write("\n\n".join([h.asFlat() for h in sorted(histos)]))
+                out.write("\n")
+            if out:
+                out.close()
