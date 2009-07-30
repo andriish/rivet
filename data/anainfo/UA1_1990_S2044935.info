@@ -1,0 +1,15 @@
+Name: UA1_1990_S2044935
+Year: 1990
+Summary: UA1 multiplicities, transverse momenta and transverse energy distributions.
+Experiment: UA1
+Collider: SPS
+SpiresID: 2044935
+Status: UNVALIDATED
+Authors:
+ - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
+References:
+ - "Nucl. Phys. B353: 261, 1990"
+RunInfo: Generic QCD events at sqrtS = 63, 200, 500 and 900 GeV.
+Description: Particle multiplicities, transverse momenta and transverse energy
+     distributions at the UA1 experiment, at energies of 200, 500 and 900 GeV
+     (with one plot at 63 GeV for comparison).
