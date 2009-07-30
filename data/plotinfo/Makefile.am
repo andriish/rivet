@@ -1,6 +1,7 @@
 dist_pkgdata_DATA = \
   ALEPH_1991_S2435284.plot \
   ALEPH_1996_S3486095.plot \
+  CDF_1988_S1865951.plot \
   CDF_1990_S2089246.plot \
   CDF_1994_S2952106.plot \
   CDF_2000_S4155203.plot \
@@ -42,6 +43,8 @@ dist_pkgdata_DATA = \
   H1_2000_S4129130.plot \
   JADE_OPAL_2000_S4300807.plot \
   MC_LHC_LEADINGJETS.plot \
+  MC_LHC_DIJET.plot \
+  MC_LHC_ZANALYSIS.plot \
   MC_TVT1960_ZJETS.plot \
   OPAL_1998_S3780481.plot \
   PDG_HADRON_MULTIPLICITIES.plot \
@@ -49,5 +52,9 @@ dist_pkgdata_DATA = \
   STAR_2006_S6870392.plot \
   STAR_2008_S7993412.plot \
   ZEUS_2001_S4815815.plot \
-  UA5_1988_S1867512.plot \
-  UA5_1989_S1926373.plot
+  UA5_1989_S1926373.plot \
+  UA5_1982_S875503.plot \
+  UA5_1986_S1583476.plot \
+  UA1_1990_S2044935.plot \
+  UA5_1988_S1867512.plot 
+
