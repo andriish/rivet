@@ -65,6 +65,7 @@
 //#include "Rivet/Analyses/STAR_2009_UE_HELEN.hh"
 
 // UA5
+#include "Rivet/Analyses/UA5_1986_S1583476.hh" 
 #include "Rivet/Analyses/UA5_1988_S1867512.hh"
 #include "Rivet/Analyses/UA5_1989_S1926373.hh"
 #include "Rivet/Analyses/UA5_1982_S875503.hh"
@@ -154,6 +155,7 @@ extern "C" {
     //fns["STAR_2009_UE_HELEN"] = Rivet::STAR_2009_UE_HELEN::create;
 
     // UA5
+    fns["UA5_1986_S1583476"] = Rivet::UA5_1986_S1583476::create;
     fns["UA5_1988_S1867512"] = Rivet::UA5_1988_S1867512::create;
     fns["UA5_1989_S1926373"] = Rivet::UA5_1989_S1926373::create;
     fns["UA5_1982_S875503"] = Rivet::UA5_1982_S875503::create;

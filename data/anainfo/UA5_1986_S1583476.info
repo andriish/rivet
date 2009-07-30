@@ -1,12 +1,24 @@
 Name: UA5_1986_S1583476
-SpiresID: 1583476
-Summary: UA5 pseudorapidity distributions for 200 and 900 GeV.
-Description: UA5 pseudorapidity distributions for 200 and 900 GeV
-	     from the 1986 runs.
-RunInfo: Energy - sqrtS = 200 and 900 GeV. Event type - generic QCD events.
-Status:
-Experiment: UA5
-Collider: SPS
 Year: 1986
-Author: Christophe Vaillant
-References: Eur. Phys. J. C33: 1, 1986
+Summary: Pseudorapidity distributions in ppbar (NSD, NSD+SD) events at c.m. energies of 200 and 900 GeV
+Experiment: UA5
+Collider: CERN SPS
+SpiresID: 1583476
+Status: UNVALIDATED
+Authors:
+ - Holger Schulz <holger.schulz@physik.hu-berlin.de>
+ - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
+References:
+ - Eur. Phys. J. C33, 1, 1986
+RunInfo:
+  Elastic scattering, single and double diffractive events. ppbar collider, c.m energy 200 or 900 GeV.
+  The trigger implementations for NSD events is the same as in, e.g., the UA5_1989 analysis. No
+  further cuts are needed.
+NumEvents: 1000000
+PtCuts: [0]
+Description:
+  This study comprises measurements of pseudorapidity distributions measured with the UA5
+  detector at 200 and 900 GeV center of momentum energy. There are distributions for
+  non-single diffractive (NSD) events and als for the combination of single- and double-diffractive
+  events. The NSD distributions are further studied for certain ranges of the events charged
+  multiplicity.
