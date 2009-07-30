@@ -49,4 +49,5 @@ dist_pkgdata_DATA = \
   STAR_2006_S6870392.plot \
   STAR_2008_S7993412.plot \
   ZEUS_2001_S4815815.plot \
+  UA5_1988_S1867512.plot \
   UA5_1989_S1926373.plot
