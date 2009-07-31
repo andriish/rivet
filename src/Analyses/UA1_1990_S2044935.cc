@@ -56,11 +56,11 @@ namespace Rivet {
       _hist_Et900 =
         bookHistogram1D(11,1,1);
       _hist_Pt63 =
-        bookProfile1D(6,1,1);
-      _hist_Pt200 =
-        bookProfile1D(7,1,1);
-      _hist_Pt900 =
         bookProfile1D(8,1,1);
+      _hist_Pt200 =
+        bookProfile1D(6,1,1);
+      _hist_Pt900 =
+        bookProfile1D(7,1,1);
       _hist_Etavg200 =
         bookProfile1D(12,1,1); 
       _hist_Etavg500 =
