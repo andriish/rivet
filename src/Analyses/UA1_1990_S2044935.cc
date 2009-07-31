@@ -89,7 +89,6 @@ namespace Rivet {
 	{
 	  _hist_sigma900->fill(multi, weight);
 	}
-      
       foreach (const Particle& p, fs.particles())
       {
 ///@todo figure out where the extra factor of 0.5 comes from in the weight factor (eta range?).
@@ -105,17 +104,18 @@ namespace Rivet {
         if (fuzzyEquals(sqrtS/GeV, 900))
         {
           _hist_Esigma900->fill(pt, weight/(2.*10.*M_PI*pt));
-          if (multi >= 0.8 && multi <= 4)
+          const double dnch_deta = multi/5.0;
+          if (dnch_deta >= 0.8 && dnch_deta <= 4)
           {
-            _hist_Esigmapoint8->fill(pt, weight/(2.*10.*M_PI*pt));
+            _hist_Esigmapoint8->fill(pt, weight/(10.*M_PI*pt));
           }
-          else if (multi > 4 && multi <= 8)
+          else if (dnch_deta > 4 && dnch_deta <= 8)
           {
-            _hist_Esigma4->fill(pt, weight/(2.*10.*M_PI*pt));
+            _hist_Esigma4->fill(pt, weight/(10.*M_PI*pt));
           }
-          else if(multi > 8)
+          else if(dnch_deta > 8)
           {
-            _hist_Esigma8->fill(pt, weight/(2.*10.*M_PI*pt));
+            _hist_Esigma8->fill(pt, weight/(10.*M_PI*pt));
           }
         }                
       }
@@ -163,16 +163,17 @@ namespace Rivet {
 
     
     void UA1_1990_S2044935::finalize() {
-    ///@todo: get the total cross-sections from the generator.
+    ///@todo: get the total cross-sections from the generator
+    ///@todo: check if the scaling for Esigmpoint8, Esigma4 and Esigma8 are correct.
        normalize(_hist_sigma200, 27.9);
       normalize(_hist_sigma500, 31.5);
       normalize(_hist_sigma900, 34.4);
        scale(_hist_Esigma200, 27.9/sumOfWeights());
      scale(_hist_Esigma500, 31.5/sumOfWeights());
       scale(_hist_Esigma900, 34.4/sumOfWeights());
-      scale(_hist_Esigmapoint8, 34.4/sumOfWeights());
-      scale(_hist_Esigma4, 34.4/sumOfWeights());
-      scale(_hist_Esigma8, 34.4/sumOfWeights());
+      scale(_hist_Esigmapoint8, 34400./sumOfWeights());
+      scale(_hist_Esigma4, 3440./sumOfWeights());
+      scale(_hist_Esigma8, 344./sumOfWeights());
             normalize(_hist_Et200, 27.9);
       normalize(_hist_Et500, 31.5);
       normalize(_hist_Et900, 34.4);
