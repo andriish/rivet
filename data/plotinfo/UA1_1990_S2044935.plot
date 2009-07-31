@@ -52,37 +52,37 @@ XLabel=$p_{T}$
 YLabel=$\\mathrm{E} \\frac{d^{3}\\sigma}{dp^{3}}
 # END PLOT
 
-# BEGIN PLOT /UA1_1990_S2044935/d06-x01-y01
+# BEGIN PLOT /UA1_1990_S2044935/d09-x01-y01
 Title=Cross-section distribution at $\\sqrt{s} = \\unit{200}{\\GeV}$
 XLabel=$\\Sigma E_{t}$
 YLabel=$\\mathrm{d}{\\sigma}/\\mathrm{d}{\\Sigma E_{t}}$
 # END PLOT
 
-# BEGIN PLOT /UA1_1990_S2044935/d07-x01-y01
+# BEGIN PLOT /UA1_1990_S2044935/d10-x01-y01
 Title=Cross-section distribution at $\\sqrt{s} = \\unit{500}{\\GeV}$
 XLabel=$\\Sigma E_{t}$
 YLabel=$\\mathrm{d}{\\sigma}/\\mathrm{d}{\\Sigma E_{t}}$
 # END PLOT
 
-# BEGIN PLOT /UA1_1990_S2044935/d08-x01-y01
+# BEGIN PLOT /UA1_1990_S2044935/d11-x01-y01
 Title=Cross-section distribution at $\\sqrt{s} = \\unit{900}{\\GeV}$
 XLabel=$\\Sigma E_{t}$
 YLabel=$\\mathrm{d}{\\sigma}/\\mathrm{d}{\\Sigma E_{t}}$
 # END PLOT
 
-# BEGIN PLOT /UA1_1990_S2044935/d09-x01-y01
+# BEGIN PLOT /UA1_1990_S2044935/d08-x01-y01
 Title=Distribution at $\\sqrt{s} = \\unit{63}{\\GeV}$
 XLabel=$n_{ch}$
 YLabel=$\\left< p_{T} \\right>$
 # END PLOT
 
-# BEGIN PLOT /UA1_1990_S2044935/d10-x01-y01
+# BEGIN PLOT /UA1_1990_S2044935/d06-x01-y01
 Title=Distribution at $\\sqrt{s} = \\unit{200}{\\GeV}$
 XLabel=$n_{ch}$
 YLabel=$\\left< p_{T} \\right>$
 # END PLOT
 
-# BEGIN PLOT /UA1_1990_S2044935/d11-x01-y01
+# BEGIN PLOT /UA1_1990_S2044935/d07-x01-y01
 Title=Distribution at $\\sqrt{s} = \\unit{900}{\\GeV}$
 XLabel=$n_{ch}$
 YLabel=$\\left< p_{T} \\right>$
