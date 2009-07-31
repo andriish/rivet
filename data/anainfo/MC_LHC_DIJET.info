@@ -1,13 +1,16 @@
-spiresID: none
-summary: analysis of dijet events at the LHC.
-description: analysis of dijet events, specifically studying azimuthal
-	     angle, transverse momentum distributions (including for leading jet
-	     and secondary jet), as well as charged particle multiplicities
-	     and transverse momenta.
-runInfo: Energy - Any. Event type - generic QCD events.
-status:
-experiment: none
-collider: none
-year: none
-author: Christophe Vaillant
-references: none
+Name: MC_LHC_DIJET
+SpiresID: none
+Summary: "Analysis of dijet events at the LHC."
+Description: "Analysis of dijet events for the upcoming runs at the LHC,
+             specifically studying azimuthal angle, transverse momentum
+             distributions (including for leading jet and secondary jet),
+             as well as charged particle multiplicities and transverse momenta."
+RunInfo: "Generic QCD events at any energy."
+Status: UNVALIDATED
+Experiment: none
+Collider: none
+Year: none
+Author:
+ - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
+References:
+ - "none"

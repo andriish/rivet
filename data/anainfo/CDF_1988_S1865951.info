@@ -1,13 +1,14 @@
 Name: CDF_1988_S1865951
 SpiresID: 1865951
-Summary: CDF transverse momentum distributions at 630 GeV and 1800 GeV.
-Description: transverse momentum distributions at 630 GeV and 1800 GeV
-	     based on data from the CDF experiment at the Tevatron collider.
-RunInfo: Energy - sqrtS = 630 GeV and 1800 GeV. Event type - generic QCD events.
-         |eta| < 1.0.
-Status:
+Summary: "CDF transverse momentum distributions at 630 GeV and 1800 GeV."
+Description: "Transverse momentum distributions at 630 GeV and 1800 GeV
+	     based on data from the CDF experiment at the Tevatron collider."
+RunInfo: Generic QCD events at sqrtS = 630 GeV and 1800 GeV, |eta| < 1.0.
+Status: UNVALIDATED
 Experiment: CDF
 Collider: Tevatron
 Year: 1988
-Author: Christophe Vaillant
-References: Phys. Rev. Lett.61:1819, 1988. doi: 10.1103/PhysRevLett.61.1819
+Authors:
+ - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
+References:
+ - "Phys. Rev. Lett.61:1819, 1988. doi: 10.1103/PhysRevLett.61.1819"

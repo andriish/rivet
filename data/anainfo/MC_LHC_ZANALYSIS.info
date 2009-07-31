@@ -1,16 +1,18 @@
 Name: MC_LHC_ZANALYSIS
 SpiresID: none
-Summary: finding Zs at the LHC, and analysis of the residual jets.
-Description: analysis of jets and Z bosons at the LHC. Output gives
+Summary: "Finding Zs at the LHC, and analysis of the residual jets."
+Description: "Analysis of jets and Z bosons at the LHC. Output gives
              charged multiplicity, transverse momentum, mean 
              transverse momentum, Z counts, transverse momentum of
              Zs, pseudorapidity distributions of Zs, azimuthal angle
              distributions of Zs, Z mass, jet counts and jet transverse
-             momenta.
-RunInfo: Energy - Any. Event type - generic QCD events, with CKIN(3)=20.
-Status:
+             momenta."
+RunInfo: "Generic QCD events, with CKIN(3)=20 at any energy"
+Status: UNVALIDATED
 Experiment: none
 Collider: none
 Year: none
-Author: Christophe Vaillant
-References: none
+Authors:
+ - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
+References:
+ - "none"
