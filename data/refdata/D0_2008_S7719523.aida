@@ -802,12 +802,6 @@
       <measurement errorPlus="2.2094936578320383"
         value="14.31" errorMinus="2.2094936578320383"/>
     </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="25.0" value="175.0"
-        errorMinus="25.0"/>
-      <measurement errorPlus="9.29154011068671" value="38.29"
-        errorMinus="9.29154011068671"/>
-    </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y01" dimension="2"
     path="/REF/D0_2008_S7719523/" title="D3(SIG(Q=1))/D3(SIG(Q=2))">
@@ -884,12 +878,6 @@
         errorMinus="10.0"/>
       <measurement errorPlus="1.797723272642372" value="11.55"
         errorMinus="1.797723272642372"/>
-    </dataPoint>
-    <dataPoint>
-      <measurement errorPlus="25.0" value="175.0"
-        errorMinus="25.0"/>
-      <measurement errorPlus="8.615870744620068" value="35.48"
-        errorMinus="8.615870744620068"/>
     </dataPoint>
   </dataPointSet>
 </aida>

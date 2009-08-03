@@ -148,19 +148,28 @@ namespace Rivet {
     hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
     hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
     // Central/forward ratio combinations
-    /// @todo Bins don't match
-    // hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section, *_h_forward_same_cross_section);
-    // hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,  *_h_forward_same_cross_section);
-    // hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section, *_h_forward_opp_cross_section);
-    // hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,  *_h_forward_opp_cross_section);
+    hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section, *_h_forward_same_cross_section);
+    hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,  *_h_forward_same_cross_section);
+    hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section, *_h_forward_opp_cross_section);
+    hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,  *_h_forward_opp_cross_section);
 
-    /// @todo Use the generator cross-section
     // Must happen *after* the divs, since otherwise the pointers are null!
-    //_h_total_cross_section->fill(crossSection());
     normalize(_h_central_same_cross_section, 347.4);
     normalize(_h_central_opp_cross_section,  281.8);
     normalize(_h_forward_same_cross_section, 164.8);
     normalize(_h_forward_opp_cross_section,   81.5);
+    // @todo test using gen cross section
+    /*
+    const double lumi_gen = sumOfWeights()/crossSection();
+    const double dy_photon = 2.0;
+    const double dy_jet_central = 1.6;
+    const double dy_jet_forward = 2.0;
+
+    scale(_h_central_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
+    scale(_h_central_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
+    scale(_h_forward_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
+    scale(_h_forward_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
+    */
   }
 
 

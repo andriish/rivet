@@ -624,15 +624,20 @@ public:
   IDataPointSet * divide(const std::string & path,
                         const Histogram1D & h1, const Histogram1D & h2) {
     //std::cout << "!!!!!!!!!!!!" << path << std::endl;
-    if ( !checkBins(h1, h2) ) return 0;
     DataPointSet * h = new DataPointSet(2);
     h->setTitle(path.substr(path.rfind('/') + 1));
     for (int i = 0; i < h1.ax->bins(); ++i) {
-      //std::cout << "!!! " << 1 << i << std::endl;
+      for (int j = 0; j < h2.ax->bins(); ++j) {
+        if (h1.ax->binWidth(i) != h2.ax->binWidth(j) ||
+            h1.ax->binLowerEdge(i) != h2.ax->binLowerEdge(j) ||
+            h1.ax->binUpperEdge(i) != h2.ax->binUpperEdge(j)) {
+          continue;
+        }
+          
       const double binwidth = h1.ax->binWidth(i);
       const double bincentre = ( h1.ax->binLowerEdge(i) + h1.ax->binUpperEdge(i) ) / 2.0;
-      h->addPoint();
-      IMeasurement* x = h->point(i)->coordinate(0);
+      IDataPoint* point = h->addPoint();
+      IMeasurement* x = point->coordinate(0);
       x->setValue(bincentre);
       x->setErrorPlus(binwidth/2.0);
       x->setErrorMinus(binwidth/2.0);
@@ -644,33 +649,26 @@ public:
         yerrup = 0.0;
         yerrdown = 0.0;
       } else {
-        //std::cout << h1.binHeight(i) << " / " << h2.binHeight(i) << std::endl;;
-        yval = h1.binHeight(i) / h2.binHeight(i);
+        yval = h1.binHeight(i) / h2.binHeight(j);
         double h1val = h1.binHeight(i);
         double h1min = h1val - h1.binRms(i);
         double h1max = h1val + h1.binRms(i);
-        double h2val = h2.binHeight(i);
-        double h2min = h2.binHeight(i) - h2.binRms(i);
-        double h2max = h2.binHeight(i) + h2.binRms(i);
+        double h2val = h2.binHeight(j);
+        double h2min = h2.binHeight(j) - h2.binRms(j);
+        double h2max = h2.binHeight(j) + h2.binRms(j);
         double h2invval = 1 / h2val;
         double h2invmin = 1 / h2max;
         double h2invmax = 1 / h2min;
         yerrup = (h1val/h2val) * sqrt(pow((h1max-h1val)/h1val, 2) + pow((h2invmax-h2invval)/h2invval, 2));
         yerrdown = (h1val/h2val) * sqrt(pow((h1val-h1min)/h1val, 2) + pow((h2invval-h2invmin)/h2invval, 2));
       }
-      IMeasurement* y = h->point(i)->coordinate(1);
+      IMeasurement* y = point->coordinate(1);
       y->setValue(yval);
       y->setErrorPlus(yerrup);
       y->setErrorMinus(yerrdown);
-      // h->sum[i] /= h2.sum[i];
-      // h->sumw[i] /= h2.sumw[i];
-      // h->sumw2[i] = h1.sumw2[i]/(h2.sumw[i]*h2.sumw[i]) +
-      //   h1.sumw[i]*h1.sumw[i]*h2.sumw2[i]/
-      //   (h2.sumw[i]*h2.sumw[i]*h2.sumw[i]*h2.sumw[i]);
+      }
     }
-    //std::cout << "Inserting div histo at path: " << path << std::endl;
     if ( !tree->insert(path, h) ) return 0;
-    //std::cout << "** OK!" << std::endl;
     return h;
   }
 
