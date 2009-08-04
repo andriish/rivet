@@ -33,6 +33,7 @@ dist_pkgdata_DATA = \
   D0_2008_S7863608.info \
   D0_2009_S8202443.info \
   D0_2009_S8320160.info \
+  D0_2009_S8349509.info \
   DELPHI_1995_S3137023.info \
   DELPHI_1996_S3430090.info \
   DELPHI_2002_069_CONF_603.info \

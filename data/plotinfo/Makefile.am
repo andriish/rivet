@@ -33,6 +33,7 @@ dist_pkgdata_DATA = \
   D0_2008_S7863608.plot \
   D0_2009_S8202443.plot \
   D0_2009_S8320160.plot \
+  D0_2009_S8349509.plot \
   DELPHI_1995_S3137023.plot \
   DELPHI_1996_S3430090.plot \
   DELPHI_2002_069_CONF_603.plot \
