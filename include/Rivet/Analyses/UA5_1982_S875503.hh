@@ -36,8 +36,10 @@ namespace Rivet {
     
     /// @name Histogram collections
     //@{
-    AIDA::IHistogram1D* _hist_etapp;
-    AIDA::IHistogram1D* _hist_etappbar;
+    AIDA::IHistogram1D* _hist_nch_pp;
+    AIDA::IHistogram1D* _hist_nch_ppbar;
+    AIDA::IHistogram1D* _hist_eta_pp;
+    AIDA::IHistogram1D* _hist_eta_ppbar;
     //@}
 
   };
