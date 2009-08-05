@@ -12,9 +12,7 @@ namespace Rivet {
     : Analysis("D0_2008_S7863608")
   {
     setBeams(PROTON, ANTIPROTON);
-    
-    /// @todo Use cross-section from generator
-    //setNeedsCrossSection(true);
+    setNeedsCrossSection(true);
 
     ZFinder zfinder(-1.7, 1.7, 15.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2);
     addProjection(zfinder, "ZFinder");
@@ -28,7 +26,6 @@ namespace Rivet {
   // Book histograms
   void D0_2008_S7863608::init() {
 
-    /// @todo Dividing through by measured Z cross-section would be nice...
     _h_jet_pT_cross_section = bookHistogram1D(1, 1, 1);
     _h_jet_y_cross_section = bookHistogram1D(2, 1, 1);
     _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1);
@@ -80,6 +77,8 @@ namespace Rivet {
       // In Z pT
       _h_Z_pT_cross_section->fill(Zmom.pT(), weight);
       _h_Z_y_cross_section->fill(fabs(Zmom.rapidity()), weight);
+
+      _h_total_cross_section->fill(1960.0, weight);
     }
   }
 
@@ -87,12 +86,12 @@ namespace Rivet {
 
   // Finalize
   void D0_2008_S7863608::finalize() {
-    /// @todo Use the generator cross-section
-    //_h_total_cross_section->fill(crossSection());
-    normalize(_h_jet_pT_cross_section, 18.7);
-    normalize(_h_jet_y_cross_section, 18.7);
-    normalize(_h_Z_pT_cross_section, 18.7);
-    normalize(_h_Z_y_cross_section, 18.7);
+    const double invlumi = crossSection()/sumOfWeights();
+    scale(_h_total_cross_section, invlumi);
+    scale(_h_jet_pT_cross_section, invlumi);
+    scale(_h_jet_y_cross_section, invlumi);
+    scale(_h_Z_pT_cross_section, invlumi);
+    scale(_h_Z_y_cross_section, invlumi);
   }
 
 }

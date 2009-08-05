@@ -15,9 +15,6 @@ namespace Rivet {
   {
     setBeams(PROTON, ANTIPROTON);
     
-    /// @todo Use cross-section from generator
-    //setNeedsCrossSection(true);
-
     // Leptons in constrained tracking acceptance
     std::vector<std::pair<double, double> > etaRanges;
     etaRanges.push_back(make_pair(-2.5, -1.5));

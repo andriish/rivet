@@ -20,8 +20,7 @@ namespace Rivet {
   
   void ALEPH_1991_S2435284::init() {
     // Book histogram
-    _histChTot = bookHistogram1D(1, 1, 1, "Total charged multiplicity", "$n_\\text{ch}$", 
-                                 "$2/\\sigma \\, \\mathrm{d}{\\sigma}/\\mathrm{d}{n_\\text{ch}}$");
+    _histChTot = bookHistogram1D(1, 1, 1);
   }
 
 

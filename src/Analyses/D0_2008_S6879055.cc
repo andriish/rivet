@@ -51,17 +51,10 @@ namespace Rivet {
 
   // Book histograms
   void D0_2008_S6879055::init() {
-    _crossSectionRatio = bookHistogram1D
-      (1, 1, 1, "Inclusive jet multiplicity",
-       "$N_{\\text{jet}}$", "$\\sigma(Z \\, + \\geq N_{\\text{jet}}\\;\\text{jets}) / \\sigma(Z \\; \\text{inclusive})$");
-    const string xlabel = "$p_\\perp$";
-    const string ylabel = "$1/\\sigma \\; \\text{d}\\sigma/\\text{d}p_\\perp$";
-    _pTjet1 = bookHistogram1D
-      (2, 1, 1, "$p_\\perp$ of 1st jet for $N_{\\text{jet}} \\geq 1$", xlabel+"(1st jet) [GeV]", ylabel);
-    _pTjet2 = bookHistogram1D
-      (3, 1, 1, "$p_\\perp$ of 2nd jet for $N_{\\text{jet}} \\geq 2$", xlabel+"(2nd jet) [GeV]", ylabel);
-    _pTjet3 = bookHistogram1D
-      (4, 1, 1, "$p_\\perp$ of 3rd jet for $N_{\\text{jet}} \\geq 3$", xlabel+"(3rd jet) [GeV]", ylabel);
+    _crossSectionRatio = bookHistogram1D(1, 1, 1);
+    _pTjet1 = bookHistogram1D(2, 1, 1);
+    _pTjet2 = bookHistogram1D(3, 1, 1);
+    _pTjet3 = bookHistogram1D(4, 1, 1);
   }
 
 
@@ -146,6 +139,8 @@ namespace Rivet {
     _crossSectionRatio->scale(1.0/_crossSectionRatio->binHeight(0));
 
     // Normalise jet pT's to integral of data
+    // there is no other way to do this, because these quantities are not
+    // detector corrected
     normalize(_pTjet1, 10439.0);
     normalize(_pTjet2, 1461.5);
     normalize(_pTjet3, 217.0);

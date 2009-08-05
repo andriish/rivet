@@ -14,6 +14,7 @@ namespace Rivet {
     : Analysis("CDF_2008_S7540469")
   {
     setBeams(PROTON, ANTIPROTON);
+    setNeedsCrossSection(true);
     
     //full final state
     FinalState fs(-5.0, 5.0);
@@ -29,15 +30,9 @@ namespace Rivet {
 
   // Book histograms
   void CDF_2008_S7540469::init() {
-    _h_jet_multiplicity = bookHistogram1D
-      (1, 1, 1, "Jet multiplicity",
-       "$N_{\\text{jet}}$", "$\\sigma(N_{\\text{jet}})$");
-    _h_jet_pT_cross_section_incl_1jet = bookHistogram1D
-      (2, 1, 1,"Jet $p_\\perp$ for inclusive $N_{\\text{jet}} \\geq 1$",
-       "$p_\\perp$(jet) [GeV]", "$\\text{d}\\sigma/\\text{d}p_\\perp(\\text{jet})$");
-    _h_jet_pT_cross_section_incl_2jet = bookHistogram1D
-      (3, 1, 1,"Jet $p_\\perp$ for inclusive $N_{\\text{jet}} \\geq 2$",
-       "$p_\\perp$(jet) [GeV]", "$\\text{d}\\sigma/\\text{d}p_\\perp(\\text{jet})$");
+    _h_jet_multiplicity = bookHistogram1D(1, 1, 1);
+    _h_jet_pT_cross_section_incl_1jet = bookHistogram1D(2, 1, 1);
+    _h_jet_pT_cross_section_incl_2jet = bookHistogram1D(3, 1, 1);
   }
 
 
@@ -172,15 +167,10 @@ namespace Rivet {
 
   // Finalize
   void CDF_2008_S7540469::finalize() {
-    /// @todo Use the generator cross-section
-    
-    // normalize jet multi to first bin
-    double factor=0.;
-    if (_h_jet_multiplicity->binHeight(0) != 0)
-      factor=7003.0/_h_jet_multiplicity->binHeight(0);
-    scale(_h_jet_multiplicity, factor);
-    normalize(_h_jet_pT_cross_section_incl_1jet, 7839.5);
-    normalize(_h_jet_pT_cross_section_incl_2jet, 1471.35);
+    const double invlumi = crossSection()/femtobarn/sumOfWeights();
+    scale(_h_jet_multiplicity, invlumi);
+    scale(_h_jet_pT_cross_section_incl_1jet, invlumi);
+    scale(_h_jet_pT_cross_section_incl_2jet, invlumi);
   }
 
 }
