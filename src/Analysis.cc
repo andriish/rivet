@@ -17,10 +17,14 @@ namespace Rivet {
       _analysishandler(0),
       _madeHistoDir(false)
   {
-    _info.reset( AnalysisInfo::make(name) );
+    _info = AnalysisInfo::make(name);
     setBeams(ANY, ANY);
   }
-  
+
+  Analysis::~Analysis()
+  {
+    if (_info) delete _info;
+  }
 
   IAnalysisFactory& Analysis::analysisFactory() {
     return handler().analysisFactory();

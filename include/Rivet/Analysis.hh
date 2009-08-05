@@ -59,7 +59,7 @@ namespace Rivet {
     Analysis(const std::string& name);
 
     /// The destructor.
-    virtual ~Analysis() { }
+    virtual ~Analysis();
     //@}
 
   public:
@@ -401,7 +401,7 @@ namespace Rivet {
   protected:
 
     /// Pointer to analysis metadata object
-    shared_ptr<AnalysisInfo> _info;
+    AnalysisInfo * _info;
 
     
   private:
