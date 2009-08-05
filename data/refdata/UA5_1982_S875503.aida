@@ -1,187 +1,291 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
-  <implementation version="1.0" package="HepData"/>
-  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/UA5_1982_S875503" title="D(SIG(Q=AP))/DETARAP/D(SIG(Q=P))/DETARAP">
+  <implementation version="1.1" package="FreeHEP"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+    path="/REF/UA5_1982_S875503" title="D(SIG(Q=AP))/DETARAP/D(SIG(Q=P))/DETARAP">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="D(SIG(Q=AP))/DETARAP/D(SIG(Q=P))/DETARAP" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d01-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d01-x01-y01" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="0.0" errorPlus="0.5" errorMinus="0.5"/>
-      <measurement value="1.015" errorPlus="0.012" errorMinus="0.012"/>
+      <measurement errorPlus="5.000000e-01" value="0.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="1.015000e+00" errorMinus="1.200000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)">
+  <dataPointSet name="d02-x01-y01" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=N1)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y01" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="11.55" errorPlus="0.17" errorMinus="0.17"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.700000e-01" value="1.155000e+01" errorMinus="1.700000e-01"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y02" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)">
+  <dataPointSet name="d02-x01-y02" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=D2)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y02" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="5.7" errorPlus="0.12" errorMinus="0.12"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.200000e-01" value="5.700000e+00" errorMinus="1.200000e-01"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y03" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)/MULT(NAME=D2)">
+  <dataPointSet name="d02-x01-y03" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)/MULT(NAME=D2)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=N1)/MULT(NAME=D2)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y03" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="2.03" errorPlus="0.05" errorMinus="0.05"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="5.000000e-02" value="2.030000e+00" errorMinus="5.000000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y04" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)**2/MULT(NAME=N2)">
+  <dataPointSet name="d02-x01-y04" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)**2/MULT(NAME=N2)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=D2)**2/MULT(NAME=N2)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y04" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y04" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="0.291" errorPlus="0.015" errorMinus="0.015"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.500000e-02" value="2.910000e-01" errorMinus="1.500000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y05" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=D3)**3/MULT(NAME=N3)">
+  <dataPointSet name="d02-x01-y05" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=D3)**3/MULT(NAME=N3)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=D3)**3/MULT(NAME=N3)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y05" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y05" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="0.11" errorPlus="0.016" errorMinus="0.016"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="1.100000e-01" errorMinus="1.600000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y06" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)">
+  <dataPointSet name="d02-x01-y06" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=N1)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y06" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y06" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="11.47" errorPlus="0.16" errorMinus="0.16"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-01" value="1.147000e+01" errorMinus="1.600000e-01"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y07" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)">
+  <dataPointSet name="d02-x01-y07" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=D2)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y07" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y07" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="5.77" errorPlus="0.11" errorMinus="0.11"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.100000e-01" value="5.770000e+00" errorMinus="1.100000e-01"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y08" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)/MULT(NAME=D2)">
+  <dataPointSet name="d02-x01-y08" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=N1)/MULT(NAME=D2)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=N1)/MULT(NAME=D2)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y08" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y08" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="1.99" errorPlus="0.04" errorMinus="0.04"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="4.000000e-02" value="1.990000e+00" errorMinus="4.000000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y09" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)**2/MULT(NAME=N2)">
+  <dataPointSet name="d02-x01-y09" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=D2)**2/MULT(NAME=N2)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=D2)**2/MULT(NAME=N2)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y09" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y09" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="0.304" errorPlus="0.014" errorMinus="0.014"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.400000e-02" value="3.040000e-01" errorMinus="1.400000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y10" dimension="2" path="/REF/UA5_1982_S875503" title="MULT(NAME=D3)**3/MULT(NAME=N3)">
+  <dataPointSet name="d02-x01-y10" dimension="2"
+    path="/REF/UA5_1982_S875503" title="MULT(NAME=D3)**3/MULT(NAME=N3)">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="MULT(NAME=D3)**3/MULT(NAME=N3)" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d02-x01-y10" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d02-x01-y10" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="53.0" errorPlus="0.0" errorMinus="0.0"/>
-      <measurement value="0.127" errorPlus="0.017" errorMinus="0.017"/>
+      <measurement errorPlus="5.000000e-01" value="5.300000e+01" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.700000e-02" value="1.270000e-01" errorMinus="1.700000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/UA5_1982_S875503" title="(1/SIG)*D(SIG)/DETARAP">
+  <dataPointSet name="d03-x01-y01" dimension="2"
+    path="/REF/UA5_1982_S875503" title="(1/SIG)*D(SIG)/DETARAP">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="(1/SIG)*D(SIG)/DETARAP" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d03-x01-y01" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="0.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.72" errorPlus="0.07" errorMinus="0.07"/>
+      <measurement errorPlus="1.250000e-01" value="1.250000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="7.000000e-02" value="1.720000e+00" errorMinus="7.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="0.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.95" errorPlus="0.08" errorMinus="0.08"/>
+      <measurement errorPlus="1.250000e-01" value="3.750000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="8.000000e-02" value="1.950000e+00" errorMinus="8.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="0.625" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.74" errorPlus="0.07" errorMinus="0.07"/>
+      <measurement errorPlus="1.250000e-01" value="6.250000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="7.000000e-02" value="1.740000e+00" errorMinus="7.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="0.875" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.76" errorPlus="0.07" errorMinus="0.07"/>
+      <measurement errorPlus="1.250000e-01" value="8.750000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="7.000000e-02" value="1.760000e+00" errorMinus="7.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.73" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="1.125000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.730000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.79" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="1.375000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.790000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.625" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.72" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="1.625000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.720000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.875" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.72" errorPlus="0.07" errorMinus="0.07"/>
+      <measurement errorPlus="1.250000e-01" value="1.875000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="7.000000e-02" value="1.720000e+00" errorMinus="7.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.44" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="2.125000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.440000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.38" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="2.375000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.380000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.625" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.24" errorPlus="0.05" errorMinus="0.05"/>
+      <measurement errorPlus="1.250000e-01" value="2.625000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="5.000000e-02" value="1.240000e+00" errorMinus="5.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.875" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.01" errorPlus="0.05" errorMinus="0.05"/>
+      <measurement errorPlus="1.250000e-01" value="2.875000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="5.000000e-02" value="1.010000e+00" errorMinus="5.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="3.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.04" errorPlus="0.05" errorMinus="0.05"/>
+      <measurement errorPlus="1.250000e-01" value="3.125000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="5.000000e-02" value="1.040000e+00" errorMinus="5.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="3.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="0.88" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="3.375000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="8.800000e-01" errorMinus="6.000000e-02"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/UA5_1982_S875503" title="(1/SIG)*D(SIG)/DETARAP">
+  <dataPointSet name="d04-x01-y01" dimension="2"
+    path="/REF/UA5_1982_S875503" title="(1/SIG)*D(SIG)/DETARAP">
+    <dimension dim="0" title="None" />
+    <dimension dim="1" title="None" />
+    <annotation>
+      <item key="Title" value="(1/SIG)*D(SIG)/DETARAP" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1982_S875503/d04-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ua5_1982.aida/REF/UA5_1982_S875503/d04-x01-y01" sticky="true"/>
+    </annotation>
     <dataPoint>
-      <measurement value="0.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.76" errorPlus="0.08" errorMinus="0.08"/>
+      <measurement errorPlus="1.250000e-01" value="1.250000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="8.000000e-02" value="1.760000e+00" errorMinus="8.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="0.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.91" errorPlus="0.09" errorMinus="0.09"/>
+      <measurement errorPlus="1.250000e-01" value="3.750000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="9.000000e-02" value="1.910000e+00" errorMinus="9.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="0.625" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.86" errorPlus="0.08" errorMinus="0.08"/>
+      <measurement errorPlus="1.250000e-01" value="6.250000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="8.000000e-02" value="1.860000e+00" errorMinus="8.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="0.875" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.81" errorPlus="0.08" errorMinus="0.08"/>
+      <measurement errorPlus="1.250000e-01" value="8.750000e-01" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="8.000000e-02" value="1.810000e+00" errorMinus="8.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.76" errorPlus="0.08" errorMinus="0.08"/>
+      <measurement errorPlus="1.250000e-01" value="1.125000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="8.000000e-02" value="1.760000e+00" errorMinus="8.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.8" errorPlus="0.08" errorMinus="0.08"/>
+      <measurement errorPlus="1.250000e-01" value="1.375000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="8.000000e-02" value="1.800000e+00" errorMinus="8.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.625" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.8" errorPlus="0.07" errorMinus="0.07"/>
+      <measurement errorPlus="1.250000e-01" value="1.625000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="7.000000e-02" value="1.800000e+00" errorMinus="7.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="1.875" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.69" errorPlus="0.07" errorMinus="0.07"/>
+      <measurement errorPlus="1.250000e-01" value="1.875000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="7.000000e-02" value="1.690000e+00" errorMinus="7.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.49" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="2.125000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.490000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.37" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="2.375000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.370000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.625" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.11" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="2.625000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.110000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.875" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="1.02" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="2.875000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="1.020000e+00" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="3.125" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="0.96" errorPlus="0.06" errorMinus="0.06"/>
+      <measurement errorPlus="1.250000e-01" value="3.125000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="6.000000e-02" value="9.600000e-01" errorMinus="6.000000e-02"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="3.375" errorPlus="0.125" errorMinus="0.125"/>
-      <measurement value="0.82" errorPlus="0.07" errorMinus="0.07"/>
+      <measurement errorPlus="1.250000e-01" value="3.375000e+00" errorMinus="1.250000e-01"/>
+      <measurement errorPlus="7.000000e-02" value="8.200000e-01" errorMinus="7.000000e-02"/>
     </dataPoint>
   </dataPointSet>
 </aida>
