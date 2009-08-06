@@ -40,7 +40,7 @@ namespace Rivet {
                     string runname="", HistoFormat storetype=AIDAML);
 
     /// The destructor is not virtual as this class should not be inherited from.
-    ~AnalysisHandler() { }
+    ~AnalysisHandler();
     //@}
 
 
@@ -59,25 +59,19 @@ namespace Rivet {
   public:
 
     /// Get the name of this run.
-    string runName() const { return _runname; }
+    string runName() const;
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
-    size_t numEvents() const { return _numEvents; }
+    size_t numEvents() const;
 
     /// Get the sum of the event weights seen - the weighted equivalent of the
     /// number of events. Should only really be used by external steering code
     /// or analyses in the finalize phase.
-    double sumOfWeights() const { return _sumOfWeights; }
+    double sumOfWeights() const;
 
     /// Get a list of the currently registered analyses' names.
-    std::vector<std::string> analysisNames() {
-      std::vector<std::string> rtn;
-      foreach (Analysis* a, _analyses) {
-        rtn.push_back(a->name());
-      }
-      return rtn;
-    }
+    std::vector<std::string> analysisNames();
 
     /// Add an analysis to the run list using its name. The actual Analysis 
     /// to be used will be obtained via AnalysisHandler::getAnalysis(string).
@@ -94,21 +88,10 @@ namespace Rivet {
     /// AnalysisHandler::addAnalysis(string), which in turn uses
     /// AnalysisHandler::getAnalysis(string). If no matching analysis is found
     /// for a given name, no analysis is added, but also no error is thrown.
-    AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames) {
-      foreach (const string& aname, analysisnames) {
-        //getLog() << Log::DEBUG << "Adding analysis '" << aname << "'" << endl;
-        addAnalysis(aname);
-      }
-      return *this;
-    }
+    AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);
 
     /// Remove analyses from the run list using their names.
-    AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames) {
-      foreach (const string& aname, analysisnames) {
-        removeAnalysis(aname);
-      }
-      return *this;
-    }
+    AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
 
 
     /// Add an analysis to the run list by supplying a "template" analysis.
@@ -146,9 +129,7 @@ namespace Rivet {
 
 
     /// The AIDA analysis factory.
-    AIDA::IAnalysisFactory& analysisFactory() {
-      return *_theAnalysisFactory;
-    }
+    AIDA::IAnalysisFactory& analysisFactory();
 
 
     /// Commit the AIDA tree to file.
@@ -156,41 +137,23 @@ namespace Rivet {
     
 
     /// The AIDA tree object.
-    AIDA::ITree& tree() {
-      return *_theTree;
-    }
+    AIDA::ITree& tree();
 
     
     /// The AIDA histogram factory.
-    AIDA::IHistogramFactory& histogramFactory() {
-      return *_theHistogramFactory;
-    }
+    AIDA::IHistogramFactory& histogramFactory();
 
 
     /// The AIDA histogram factory.
-    AIDA::IDataPointSetFactory& datapointsetFactory() {
-      return *_theDataPointSetFactory;
-    }
+    AIDA::IDataPointSetFactory& datapointsetFactory();
 
 
     /// Is cross-section information required by at least one child analysis?
-    bool needCrossSection() const {
-      bool rtn = false;
-      foreach (const Analysis* a, _analyses) {
-        if (!rtn) rtn = a->needsCrossSection();
-        if (rtn) break;
-      }
-      return rtn;
-    }
+    bool needCrossSection() const;
 
 
     /// Set the cross-section for the process being generated.    
-    AnalysisHandler& setCrossSection(double xs) {
-      foreach (Analysis* a, _analyses) {
-        a->setCrossSection(xs);
-      }
-      return *this;
-    }
+    AnalysisHandler& setCrossSection(double xs);
 
 
   private:

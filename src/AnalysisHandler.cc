@@ -24,6 +24,11 @@ namespace Rivet {
       _theAnalysisFactory(&afac) {
     _setupFactories(basefilename, storetype);
   }
+  
+  
+  AnalysisHandler::~AnalysisHandler()
+  {
+  }
 
 
   Log& AnalysisHandler::getLog() { 
@@ -207,6 +212,75 @@ namespace Rivet {
     }
     tree.rmdir(tmpdir);
   }
-
+  
+  
+  string AnalysisHandler::runName() const { return _runname; }
+  size_t AnalysisHandler::numEvents() const { return _numEvents; }
+  double AnalysisHandler::sumOfWeights() const { return _sumOfWeights; }
+  
+  
+  std::vector<std::string> AnalysisHandler::analysisNames() {
+    std::vector<std::string> rtn;
+    foreach (Analysis* a, _analyses) {
+      rtn.push_back(a->name());
+    }
+    return rtn;
+  }
+  
+  
+  AnalysisHandler& AnalysisHandler::addAnalyses(const std::vector<std::string>& analysisnames) {
+    foreach (const string& aname, analysisnames) {
+      //getLog() << Log::DEBUG << "Adding analysis '" << aname << "'" << endl;
+      addAnalysis(aname);
+    }
+    return *this;
+  }
+  
+  
+  AnalysisHandler& AnalysisHandler::removeAnalyses(const std::vector<std::string>& analysisnames) {
+    foreach (const string& aname, analysisnames) {
+      removeAnalysis(aname);
+    }
+    return *this;
+  }
+  
+  
+  
+  AIDA::IAnalysisFactory& AnalysisHandler::analysisFactory() {
+    return *_theAnalysisFactory;
+  }
+  
+  
+  AIDA::ITree& AnalysisHandler::tree() {
+    return *_theTree;
+  }
+  
+  
+  AIDA::IHistogramFactory& AnalysisHandler::histogramFactory() {
+    return *_theHistogramFactory;
+  }
+  
+  
+  AIDA::IDataPointSetFactory& AnalysisHandler::datapointsetFactory() {
+    return *_theDataPointSetFactory;
+  }
+  
+  
+  bool AnalysisHandler::needCrossSection() const {
+    bool rtn = false;
+    foreach (const Analysis* a, _analyses) {
+      if (!rtn) rtn = a->needsCrossSection();
+      if (rtn) break;
+    }
+    return rtn;
+  }
+  
+  
+  AnalysisHandler& AnalysisHandler::setCrossSection(double xs) {
+    foreach (Analysis* a, _analyses) {
+      a->setCrossSection(xs);
+    }
+    return *this;
+  }
 
 }

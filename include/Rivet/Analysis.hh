@@ -59,7 +59,7 @@ namespace Rivet {
     Analysis(const std::string& name);
 
     /// The destructor.
-    virtual ~Analysis() { }
+    virtual ~Analysis();
     //@}
 
   public:
@@ -156,29 +156,16 @@ namespace Rivet {
   public:
 
     /// Return the pair of incoming beams required by this analysis.
-    virtual const BeamPair& requiredBeams() const {
-      return _beams;
-    }
+    virtual const BeamPair& requiredBeams() const;
 
     /// Is this analysis able to run on the supplied pair of beams?
-    virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
-      BeamPair beams(beam1, beam2);
-      return compatible(beams, requiredBeams());
-      /// @todo Need to also check internal consistency of the analysis' 
-      /// beam requirements with those of the projections it uses.
-    }
+    virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
 
     /// Is this analysis able to run on the BeamPair @a beams ?
-    virtual const bool isCompatible(const BeamPair& beams) const {
-      return compatible(beams, requiredBeams());
-      /// @todo Need to also check internal consistency of the analysis' 
-      /// beam requirements with those of the projections it uses.
-    }
+    virtual const bool isCompatible(const BeamPair& beams) const;
 
     /// Access the controlling AnalysisHandler object.
-    AnalysisHandler& handler() const {
-      return *_analysishandler;
-    }
+    AnalysisHandler& handler() const;
 
     /// Normalize the given histogram, @a histo. After this call the 
     /// histogram will have been transformed to a DataPointSet with the 
@@ -197,28 +184,15 @@ namespace Rivet {
     void scale(AIDA::IHistogram1D*& histo, const double scale);
 
     /// Set the cross section from the generator
-    Analysis& setCrossSection(const double& xs) {
-      _crossSection = xs;
-      _gotCrossSection = true;
-      return *this;
-    }
+    Analysis& setCrossSection(const double& xs);
 
     /// Return true if this analysis needs to know the process cross-section.
-    bool needsCrossSection() const {
-      return _needsCrossSection;
-    }
-    
+    bool needsCrossSection() const;    
 
   protected:
 
     /// Get the process cross-section in pb. Throws if this hasn't been set.
-    const double& crossSection() const {
-      if (!_gotCrossSection) {
-        string errMsg = "You did not set the cross section for the analysis " + name();
-        throw Error(errMsg);
-      }
-      return _crossSection;
-    }
+    const double& crossSection() const;
     
 
     /// Get a Log object based on the name() property of the calling analysis object.
@@ -385,17 +359,10 @@ namespace Rivet {
   protected:
 
     /// Set the colliding beam pair.
-    Analysis& setBeams(const ParticleName& beam1, const ParticleName& beam2) {
-      _beams.first = beam1;
-      _beams.second = beam2;
-      return *this;
-    }
+    Analysis& setBeams(const ParticleName& beam1, const ParticleName& beam2);
 
     /// Declare whether this analysis needs to know the process cross-section from the generator.
-    Analysis& setNeedsCrossSection(bool needed) {
-      _needsCrossSection = needed;
-      return *this;
-    }
+    Analysis& setNeedsCrossSection(bool needed);
 
 
   protected:

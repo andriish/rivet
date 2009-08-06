@@ -21,6 +21,10 @@ namespace Rivet {
     setBeams(ANY, ANY);
   }
   
+  Analysis::~Analysis()
+  {
+  }
+  
 
   IAnalysisFactory& Analysis::analysisFactory() {
     return handler().analysisFactory();
@@ -136,6 +140,56 @@ namespace Rivet {
   std::string Analysis::status() const {
     if (!_info) return "UNVALIDATED";
     return _info->status();
+  }
+  
+  const BeamPair& Analysis::requiredBeams() const {
+    return _beams;
+  }
+  
+  Analysis& Analysis::setBeams(const ParticleName& beam1, const ParticleName& beam2) {
+    _beams.first = beam1;
+    _beams.second = beam2;
+    return *this;
+  }
+
+  const bool Analysis::isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
+    BeamPair beams(beam1, beam2);
+    return compatible(beams, requiredBeams());
+    /// @todo Need to also check internal consistency of the analysis' 
+    /// beam requirements with those of the projections it uses.
+  }
+  
+  const bool Analysis::isCompatible(const BeamPair& beams) const {
+    return compatible(beams, requiredBeams());
+    /// @todo Need to also check internal consistency of the analysis' 
+    /// beam requirements with those of the projections it uses.
+  }
+  
+  Analysis& Analysis::setCrossSection(const double& xs) {
+    _crossSection = xs;
+    _gotCrossSection = true;
+    return *this;
+  }
+  
+  bool Analysis::needsCrossSection() const {
+    return _needsCrossSection;
+  }
+  
+  Analysis& Analysis::setNeedsCrossSection(bool needed) {
+    _needsCrossSection = needed;
+    return *this;
+  }
+  
+  const double& Analysis::crossSection() const {
+    if (!_gotCrossSection) {
+      string errMsg = "You did not set the cross section for the analysis " + name();
+      throw Error(errMsg);
+    }
+    return _crossSection;
+  }
+  
+  AnalysisHandler& Analysis::handler() const {
+    return *_analysishandler;
   }
 
 
