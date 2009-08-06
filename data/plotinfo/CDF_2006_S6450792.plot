@@ -4,8 +4,7 @@ XLabel=$p_{\perp,\text{jet}}$ (GeV/c)
 YLabel=$\mathrm{d}^2\sigma/\mathrm{d}y\mathrm{d}p_{\perp}$ [nb/(Gev/c)]
 YLabelSep=6.0
 LogY=1
-XMin=0.0
-XMax=700.0
+LogX=1
 YMin=1e-8
 YMax=99.0
 # END PLOT
