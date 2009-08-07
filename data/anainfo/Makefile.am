@@ -8,6 +8,7 @@ dist_pkgdata_DATA = \
   CDF_2001_S4751469.info \
   CDF_2002_S4796047.info \
   CDF_2004_S5839831.info \
+  CDF_2005_S6080774.info \
   CDF_2005_S6217184.info \
   CDF_2006_S6450792.info \
   CDF_2006_S6653332.info \

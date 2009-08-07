@@ -8,6 +8,7 @@ dist_pkgdata_DATA = \
   CDF_2001_S4751469.plot \
   CDF_2002_S4796047.plot \
   CDF_2004_S5839831.plot \
+  CDF_2005_S6080774.plot \
   CDF_2005_S6217184.plot \
   CDF_2006_S6450792.plot \
   CDF_2006_S6653332.plot \
