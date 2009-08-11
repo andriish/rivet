@@ -262,6 +262,26 @@ public:
       }
     return true;
   }
+
+  /**
+   * Scales the values and the errors of the measurements in a given
+   * coordinate of each point by a given factor.
+   * @param scale The scale factor.
+   * @param coord The coordinate
+   * @return false If an illegal scaleFactor is provided.
+   */
+  bool scale(double scale, int coord) {
+    for ( int i = 0, N = dset.size(); i < N; ++i ) {
+      if ( coord >= dset[i].dimension() ) {
+        throw std::runtime_error("Trying to scale non-existent dimension.");
+      }
+      IMeasurement * m = dset[i].coordinate(coord);
+      m->setValue(m->value()*scale);
+      m->setErrorPlus(m->errorPlus()*scale);
+      m->setErrorMinus(m->errorPlus()*scale);
+    }
+    return true;
+  }
 	
   /**
    * Scales the values of all the measurements

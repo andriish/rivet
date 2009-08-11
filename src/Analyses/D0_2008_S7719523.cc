@@ -140,6 +140,11 @@ namespace Rivet {
 
   // Finalize
   void D0_2008_S7719523::finalize() {
+    const double lumi_gen = sumOfWeights()/crossSection();
+    const double dy_photon = 2.0;
+    const double dy_jet_central = 1.6;
+    const double dy_jet_forward = 2.0;
+
     // Cross-section ratios (6 plots)
     // Central/central and forward/forward ratios
     AIDA::IHistogramFactory& hf = histogramFactory();
@@ -147,29 +152,22 @@ namespace Rivet {
 
     hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
     hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
+
     // Central/forward ratio combinations
-    hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section, *_h_forward_same_cross_section);
-    hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,  *_h_forward_same_cross_section);
-    hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section, *_h_forward_opp_cross_section);
-    hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,  *_h_forward_opp_cross_section);
+    hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section,
+              *_h_forward_same_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
+    hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,
+              *_h_forward_same_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
+    hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section,
+              *_h_forward_opp_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
+    hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,
+              *_h_forward_opp_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
 
-    // Must happen *after* the divs, since otherwise the pointers are null!
-    normalize(_h_central_same_cross_section, 347.4);
-    normalize(_h_central_opp_cross_section,  281.8);
-    normalize(_h_forward_same_cross_section, 164.8);
-    normalize(_h_forward_opp_cross_section,   81.5);
-    // @todo test using gen cross section
-    /*
-    const double lumi_gen = sumOfWeights()/crossSection();
-    const double dy_photon = 2.0;
-    const double dy_jet_central = 1.6;
-    const double dy_jet_forward = 2.0;
-
+    // Use generator cross section for remaining histograms
     scale(_h_central_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
     scale(_h_central_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
     scale(_h_forward_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
     scale(_h_forward_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
-    */
   }
 
 

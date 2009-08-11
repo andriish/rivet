@@ -40,6 +40,7 @@ class IDataPoint;
     virtual double lowerExtent(int coord) const = 0;
     virtual double upperExtent(int coord) const = 0;
     virtual bool scale(double scaleFactor) = 0;
+    virtual bool scale(double scaleFactor, int coord) = 0;
     virtual bool scaleValues(double scaleFactor) = 0;
     virtual bool scaleErrors(double scaleFactor) = 0;
     virtual void * cast(const std::string & className) const = 0;
