@@ -408,6 +408,33 @@ namespace Rivet {
       /// @todo Be careful about c=1 convention...
       return Vector3(px()/E(), py()/E(), pz()/E()); 
     }
+
+    /// struct for sorting by increasing energy
+    
+    struct byEAscending{
+      bool operator()(const FourMomentum &left, const FourMomentum &right) const{
+        double pt2left = left.E();
+        double pt2right = right.E();
+        return pt2left < pt2right;
+      }
+      
+      bool operator()(const FourMomentum *left, const FourMomentum *right) const{
+        return (*this)(left, right);
+      }
+    };
+    
+    /// struct for sorting by decreasing energy
+    
+    struct byEDescending{
+      bool operator()(const FourMomentum &left, const FourMomentum &right) const{
+        return byEAscending()(right, left);
+      }
+      
+      bool operator()(const FourMomentum *left, const FourVector *right) const{
+        return (*this)(left, right);
+      }
+    };
+    
   };
 
 
