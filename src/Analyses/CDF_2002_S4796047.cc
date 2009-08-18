@@ -13,7 +13,7 @@ namespace Rivet {
     : Analysis("CDF_2002_S4796047")
   { 
     setBeams(PROTON, ANTIPROTON);
-    addProjection(Beam(), "Beams");
+    addProjection(Beam(), "Beam");
     const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
     addProjection(cfs, "FS");
   }
@@ -22,32 +22,44 @@ namespace Rivet {
   // Book histograms
   void CDF_2002_S4796047::init() {
     /// @todo Cross-section units
-    _hist_multiplicity_630 = bookHistogram1D(1, 1, 1);
+    _hist_multiplicity_630  = bookHistogram1D(1, 1, 1);
     /// @todo Cross-section units
     _hist_multiplicity_1800 = bookHistogram1D(2, 1, 1);
+    _hist_pt_vs_multiplicity_630  = bookProfile1D(3, 1, 1);
+    _hist_pt_vs_multiplicity_1800 = bookProfile1D(4, 1, 1);
   }
 
 
   // Do the analysis
   void CDF_2002_S4796047::analyze(const Event& e) {
     Log log = getLog();
-
+    const double sqrtS = applyProjection<Beam>(e, "Beam").sqrtS();
     const ChargedFinalState& fs = applyProjection<ChargedFinalState>(e, "FS");
     const size_t numParticles = fs.particles().size();
 
     // Get the event weight
     const double weight = e.weight();
 
-    // Get beams and average beam momentum
-    const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-    const double sumBeamMom = ( beams.first.momentum().vector3().mod() + 
-                                beams.second.momentum().vector3().mod() );
-
-    if (inRange(sumBeamMom/GeV, 625, 635)) {
+    // Fill histos of charged multiplicity distributions
+    if (fuzzyEquals(sqrtS, 630/GeV)) {
       _hist_multiplicity_630->fill(numParticles, weight);
-    } else if (inRange(sumBeamMom/GeV, 1795, 1805)) {
+    } 
+    else if (fuzzyEquals(sqrtS, 1800/GeV)) {
       _hist_multiplicity_1800->fill(numParticles, weight);
     }
+
+    // Fill histos for <pT> vs. charged multiplicity
+    foreach (const Particle& p, fs.particles()) {
+      const double pT = p.momentum().pT() / GeV;
+
+      if (fuzzyEquals(sqrtS, 630/GeV)) {
+        _hist_pt_vs_multiplicity_630->fill(numParticles, pT, weight);
+      }
+      else if (fuzzyEquals(sqrtS, 1800/GeV)) {
+        _hist_pt_vs_multiplicity_1800->fill(numParticles, pT, weight);
+      }
+    }
+
   }
 
 

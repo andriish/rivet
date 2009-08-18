@@ -56,6 +56,8 @@ namespace Rivet {
 
     AIDA::IHistogram1D *_hist_multiplicity_630;
     AIDA::IHistogram1D *_hist_multiplicity_1800;
+    AIDA::IProfile1D   *_hist_pt_vs_multiplicity_630 ;
+    AIDA::IProfile1D   *_hist_pt_vs_multiplicity_1800;
 
   };
 
