@@ -12,6 +12,7 @@ References:
  - doi:10.1103/PhysRevD.41.2330
 RunInfo:
   QCD events at sqrt(s) = 630 and 1800 GeV.
+  Particles with ctau>10cm should be set stable.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
