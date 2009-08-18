@@ -71,9 +71,7 @@ namespace Rivet {
     const double egamma = photon.E();
     double econe = 0.0;
     foreach (const Particle& p, fs.particles()) {
-      const double dr = deltaR(photon.pseudorapidity(), photon.azimuthalAngle(),
-                               p.momentum().pseudorapidity(), p.momentum().azimuthalAngle());
-      if (dr < 0.2) {
+      if (deltaR(photon, p.momentum()) < 0.4) {
         econe += p.momentum().E();
         // Veto as soon as E_cone gets larger
         if (econe/egamma > 0.07) {
