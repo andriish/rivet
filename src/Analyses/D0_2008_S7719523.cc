@@ -14,9 +14,7 @@ namespace Rivet {
     : Analysis("D0_2008_S7719523")
   {
     setBeams(PROTON, ANTIPROTON);
-    
-    /// @todo Use cross-section from generator
-    //setNeedsCrossSection(true);
+    setNeedsCrossSection(true);
 
     // General FS
     FinalState fs(-5.0, 5.0);
