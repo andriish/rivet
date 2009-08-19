@@ -70,6 +70,12 @@ namespace Rivet {
     /// or analyses in the finalize phase.
     double sumOfWeights() const;
 
+    /// Set sum of weights. This is useful if Rivet is steered externally and
+    /// the analyses are run for a sub-contribution of the events
+    /// (but of course have to be normalised to the total sum of weights)
+    void setSumOfWeights(const double& sum);
+      
+
     /// Get a list of the currently registered analyses' names.
     std::vector<std::string> analysisNames();
 

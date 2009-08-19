@@ -218,6 +218,10 @@ namespace Rivet {
   size_t AnalysisHandler::numEvents() const { return _numEvents; }
   double AnalysisHandler::sumOfWeights() const { return _sumOfWeights; }
   
+  void AnalysisHandler::setSumOfWeights(const double& sum) {
+    _sumOfWeights=sum;
+  }
+  
   
   std::vector<std::string> AnalysisHandler::analysisNames() {
     std::vector<std::string> rtn;
