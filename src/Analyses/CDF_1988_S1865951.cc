@@ -65,11 +65,12 @@ namespace Rivet {
         double pt = p.momentum().pT();
         if (fuzzyEquals(sqrtS, 630/GeV))
         {
-          _hist_pt630->fill(pt, weight/(10.*M_PI*pt));
+          // weight / ( Delta eta * 2pi * pt ) with Delta eta = 2
+          _hist_pt630->fill(pt, weight/(2.*2.*M_PI*pt));
         }
         else if (fuzzyEquals(sqrtS, 1800/GeV))
         {
-          _hist_pt1800->fill(pt, weight/(10.*M_PI*pt));
+          _hist_pt1800->fill(pt, weight/(2.*2.*M_PI*pt));
         }
       
       }
