@@ -79,6 +79,7 @@
 #include "Rivet/Analyses/UA1_1990_S2044935.hh"
 
 // MC validation
+#include "Rivet/Analyses/MC_TVT1960_PHOTONJETS.hh"
 #include "Rivet/Analyses/MC_TVT1960_ZJETS.hh"
 #include "Rivet/Analyses/MC_LHC_LEADINGJETS.hh"
 #include "Rivet/Analyses/MC_LHC_ZANALYSIS.hh"
@@ -177,6 +178,7 @@ extern "C" {
     fns["PDG_HADRON_MULTIPLICITIES_RATIOS"] = Rivet::PDG_HADRON_MULTIPLICITIES_RATIOS::create;
 
     // MC validation
+    fns["MC_TVT1960_PHOTONJETS"] = Rivet::MC_TVT1960_PHOTONJETS::create;
     fns["MC_TVT1960_ZJETS"] = Rivet::MC_TVT1960_ZJETS::create;
     fns["MC_LHC_LEADINGJETS"] = Rivet::MC_LHC_LEADINGJETS::create;
     fns["MC_LHC_ZANALYSIS"] = Rivet::MC_LHC_ZANALYSIS::create;

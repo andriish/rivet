@@ -54,6 +54,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     PDG_Hadron_Multiplicities.cc \
     PDG_Hadron_Multiplicities_Ratios.cc \
     MC_JetAnalysis.cc \
+    MC_TVT1960_PHOTONJETS.cc \
     MC_TVT1960_ZJETS.cc \
     MC_LHC_LEADINGJETS.cc \
     MC_LHC_DIJET.cc \

@@ -84,6 +84,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/ZEUS_2001_S4815815.hh \
   Analyses/PDG_Hadron_Multiplicities.hh \
   Analyses/PDG_Hadron_Multiplicities_Ratios.hh \
+  Analyses/MC_TVT1960_PHOTONJETS.hh \
   Analyses/MC_TVT1960_ZJETS.hh \
   Analyses/MC_JetAnalysis.hh \
   Analyses/MC_LHC_LEADINGJETS.hh \
