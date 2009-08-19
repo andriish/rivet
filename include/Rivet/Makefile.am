@@ -85,6 +85,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/PDG_Hadron_Multiplicities.hh \
   Analyses/PDG_Hadron_Multiplicities_Ratios.hh \
   Analyses/MC_TVT1960_ZJETS.hh \
+  Analyses/MC_JetAnalysis.hh \
   Analyses/MC_LHC_LEADINGJETS.hh \
   Analyses/MC_LHC_ZANALYSIS.hh \
   Analyses/MC_LHC_DIJET.hh \
