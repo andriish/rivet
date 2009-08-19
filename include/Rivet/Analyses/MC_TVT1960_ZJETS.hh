@@ -2,14 +2,14 @@
 #ifndef RIVET_MC_TVT1960_ZJETS_HH
 #define RIVET_MC_TVT1960_ZJETS_HH
 
-#include "Rivet/Analysis.hh"
+#include "Rivet/Analyses/MC_JetAnalysis.hh"
 
 namespace Rivet {
 
 
   /// @brief Monte Carlo validation observables for Z[e+ e-] + jets production at Tevatron Run II
   /// @author Frank Siegert
-  class MC_TVT1960_ZJETS : public Analysis {
+  class MC_TVT1960_ZJETS : public MC_JetAnalysis {
 
   public:
 
@@ -35,20 +35,12 @@ namespace Rivet {
     /// @name Histograms
     //@{
     AIDA::IHistogram1D * _h_Z_mass;
-    AIDA::IHistogram1D * _h_jet1_pT;
-    AIDA::IHistogram1D * _h_jet2_pT;
-    AIDA::IHistogram1D * _h_jet3_pT;
-    AIDA::IHistogram1D * _h_jet4_pT;
-    AIDA::IHistogram1D * _h_jet20_multi_exclusive;
-    AIDA::IHistogram1D * _h_jet20_multi_inclusive;
-    AIDA::IDataPointSet * _h_jet20_multi_ratio;
-    AIDA::IHistogram1D * _h_jet10_multi_exclusive;
-    AIDA::IHistogram1D * _h_jet10_multi_inclusive;
-    AIDA::IDataPointSet * _h_jet10_multi_ratio;
-    AIDA::IHistogram1D * _h_deta_Z_jet1;
-    AIDA::IHistogram1D * _h_dR_jet2_jet3;
-    AIDA::IHistogram1D * _h_log10_d[4];
-    AIDA::IDataPointSet * _h_log10_R[5];
+    AIDA::IHistogram1D * _h_Z_pT;
+    AIDA::IHistogram1D * _h_Z_y;
+    AIDA::IHistogram1D * _h_Z_jet1_deta;
+    AIDA::IHistogram1D * _h_Z_jet1_dR;
+    AIDA::IHistogram1D * _h_lepton_pT;
+    AIDA::IHistogram1D * _h_lepton_eta;
     //@}
 
   };

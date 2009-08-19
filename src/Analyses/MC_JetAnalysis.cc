@@ -31,24 +31,24 @@ namespace Rivet {
       _h_log10_R[i] = bookDataPointSet(Rname.str(), 50, 0.2, 2.6);
       
       stringstream pTname;
-      pTname<<"pT_jet_"<<i;
+      pTname<<"jet_pT_"<<i+1;
       double pTmax = 1.0/(double(i)+2.0)*m_sqrts/2.0;
       int nbins = 100/(i+1);
       _h_pT_jet[i] = bookHistogram1D(pTname.str(), nbins, 0.0, pTmax);
       
       stringstream etaname;
-      etaname<<"eta_jet_"<<i;
+      etaname<<"jet_eta_"<<i+1;
       _h_eta_jet[i] = bookHistogram1D(etaname.str(), 50, -5.0, 5.0);
       
       for (size_t j=i+1; j<m_njet; ++j) {
         std::pair<size_t, size_t> ij(std::make_pair(i, j));
         
         stringstream detaname;
-        detaname<<"deta_jets_"<<i<<j;
+        detaname<<"jets_deta_"<<i+1<<j+1;
         _h_deta_jets.insert(make_pair(ij, bookHistogram1D(detaname.str(), 50, -5.0, 5.0)));
         
         stringstream dRname;
-        dRname<<"dR_jets_"<<i<<j;
+        dRname<<"jets_dR_"<<i+1<<j+1;
         _h_dR_jets.insert(make_pair(ij, bookHistogram1D(dRname.str(), 25, 0.0, 5.0)));
       }
     }
@@ -151,16 +151,12 @@ namespace Rivet {
     int Nbins=_h_jet_multi_inclusive->axis().bins();
     std::vector<double> ratio(Nbins-1, 0.0);
     std::vector<double> err(Nbins-1, 0.0);
-    std::cout<<"Nbins="<<Nbins<<std::endl;
-    std::cout<<"m_njet+2="<<m_njet+2<<std::endl;
     for (int i=0; i<Nbins-1; ++i) {
-      std::cout<<"i="<<i<<std::endl;
       if (_h_jet_multi_inclusive->binHeight(i)>0.0 && _h_jet_multi_inclusive->binHeight(i+1)>0.0) {
         ratio[i]=_h_jet_multi_inclusive->binHeight(i+1)/_h_jet_multi_inclusive->binHeight(i);
         double relerr_i=_h_jet_multi_inclusive->binError(i)/_h_jet_multi_inclusive->binHeight(i);
         double relerr_j=_h_jet_multi_inclusive->binError(i+1)/_h_jet_multi_inclusive->binHeight(i+1);
         err[i]=ratio[i]*(relerr_i+relerr_j);
-        std::cout<<"ratio[i]="<<ratio[i]<<std::endl;
       }
     }
     _h_jet_multi_ratio->setCoordinate(1, ratio, err);
