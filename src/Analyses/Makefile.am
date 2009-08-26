@@ -41,6 +41,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     D0_2009_S8202443.cc \
     D0_2009_S8320160.cc \
     D0_2009_S8349509.cc \
+    E735_1998_S3905616.cc \
     DELPHI_1995_S3137023.cc \
     DELPHI_1996_S3430090.cc \
     DELPHI_2002_069_CONF_603.cc \

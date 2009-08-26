@@ -62,6 +62,7 @@
 #include "Rivet/Analyses/D0_2009_S8202443.hh"
 #include "Rivet/Analyses/D0_2009_S8320160.hh"
 #include "Rivet/Analyses/D0_2009_S8349509.hh"
+#include "Rivet/Analyses/E735_1998_S3905616.hh"
 
 // RHIC
 #include "Rivet/Analyses/STAR_2006_S6870392.hh"
@@ -114,6 +115,7 @@ extern "C" {
     fns["JADE_OPAL_2000_S4300807_183GEV"] = Rivet::JADE_OPAL_2000_S4300807_183GEV::create;
     fns["JADE_OPAL_2000_S4300807_189GEV"] = Rivet::JADE_OPAL_2000_S4300807_189GEV::create;
 
+    
     // HERA
     fns["H1_1994_S2919893"] = Rivet::H1_1994_S2919893::create;
     fns["H1_1995_S3167097"] = Rivet::H1_1995_S3167097::create;
@@ -157,6 +159,7 @@ extern "C" {
     fns["D0_2009_S8202443"] = Rivet::D0_2009_S8202443::create;
     fns["D0_2009_S8320160"] = Rivet::D0_2009_S8320160::create;
     fns["D0_2009_S8349509"] = Rivet::D0_2009_S8349509::create;
+    fns["E735_1998_S3905616"] = Rivet::E735_1998_S3905616::create;
 
     // RHIC
     fns["STAR_2006_S6870392"] = Rivet::STAR_2006_S6870392::create;
