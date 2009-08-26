@@ -38,14 +38,14 @@ namespace Rivet {
     /// Histograms
     AIDA::IHistogram1D* _hist_nch200;
     AIDA::IHistogram1D* _hist_nch900;
-    AIDA::IHistogram1D* _hist_nch200eta0point5;
-    AIDA::IHistogram1D* _hist_nch200eta1point5;
-    AIDA::IHistogram1D* _hist_nch200eta3;
-    AIDA::IHistogram1D* _hist_nch200eta5;
-    AIDA::IHistogram1D* _hist_nch900eta0point5;
-    AIDA::IHistogram1D* _hist_nch900eta1point5;
-    AIDA::IHistogram1D* _hist_nch900eta3;
-    AIDA::IHistogram1D* _hist_nch900eta5;
+    AIDA::IHistogram1D* _hist_nch200eta05;
+    AIDA::IHistogram1D* _hist_nch200eta15;
+    AIDA::IHistogram1D* _hist_nch200eta30;
+    AIDA::IHistogram1D* _hist_nch200eta50;
+    AIDA::IHistogram1D* _hist_nch900eta05;
+    AIDA::IHistogram1D* _hist_nch900eta15;
+    AIDA::IHistogram1D* _hist_nch900eta30;
+    AIDA::IHistogram1D* _hist_nch900eta50;
     AIDA::IHistogram1D* _hist_mean_nch_200;
     AIDA::IHistogram1D* _hist_mean_nch_900;
     //@}
