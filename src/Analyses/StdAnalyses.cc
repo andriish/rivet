@@ -19,6 +19,9 @@
 //#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
 #include "Rivet/Analyses/JADE_OPAL_2000_S4300807.hh"
 
+// CERN ISR
+#include "Rivet/Analyses/SFM_1984_S1178091.hh"
+
 // HERA
 #include "Rivet/Analyses/H1_1994_S2919893.hh"
 #include "Rivet/Analyses/H1_1995_S3167097.hh"
@@ -114,6 +117,9 @@ extern "C" {
     fns["JADE_OPAL_2000_S4300807_172GEV"] = Rivet::JADE_OPAL_2000_S4300807_172GEV::create;
     fns["JADE_OPAL_2000_S4300807_183GEV"] = Rivet::JADE_OPAL_2000_S4300807_183GEV::create;
     fns["JADE_OPAL_2000_S4300807_189GEV"] = Rivet::JADE_OPAL_2000_S4300807_189GEV::create;
+
+    // CERN ISR
+    fns["SFM_1984_S1178091"] = Rivet::SFM_1984_S1178091::create;
 
     
     // HERA

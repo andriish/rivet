@@ -1,0 +1,20 @@
+Name: SFM_1984_S1178091
+Year: 1984
+Summary: Charged multiplicity distribution in pp interactions at CERN ISR energies 
+Experiment: SFM
+Collider: CERN ISR
+SpiresID: 1178091
+Status: UNVALIDATED
+Authors:
+ - Holger Schulz <holger.schulz@physik.hu-berlin.de>
+References:
+ - Phys.Rev.D30:528,1984  
+RunInfo:
+  QCD events, double-diffractive events should be turned on as well.
+NumEvents: 1000000
+PtCuts: 
+Description:
+  Charged multiplicities are measured at sqrt(s) = 30.4, 44.5, 52.2 ad 62.2 GeV
+  using a minimum-bias trigger. The data is sub-divided into inleastic as well
+  as non-single-diffractive events. However, the implementation of the 
+  diffractive events will require some work.

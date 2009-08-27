@@ -54,6 +54,7 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     ZEUS_2001_S4815815.cc \
     PDG_Hadron_Multiplicities.cc \
     PDG_Hadron_Multiplicities_Ratios.cc \
+    SFM_1984_S1178091.cc \
     MC_JetAnalysis.cc \
     MC_TVT1960_PHOTONJETS.cc \
     MC_TVT1960_ZJETS.cc \
