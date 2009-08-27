@@ -283,8 +283,8 @@ if __name__ == "__main__":
                       default=True, help="make plot file even if there is only one dataset to be plotted")
     parser.add_option("--refid", dest="REF_ID",
                       default="REF", help="ID of reference data set (file path for non-REF data)")
-    parser.add_option("--plot-info-dir", dest="PLOTINFODIR",
-                      default=rivet_data_dir, help="directory which may contain plot header information")
+    parser.add_option("--plot-info-dir", dest="PLOTINFODIR", action="append",
+                      default=["./", rivet_data_dir], help="directory which may contain plot header information")
     parser.add_option("-Q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
                       action="store_const", default=logging.INFO, const=logging.WARNING)
     parser.add_option("-V", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
@@ -465,7 +465,12 @@ if __name__ == "__main__":
 
 
         ## Header
-        plotfile = os.path.join(opts.PLOTINFODIR, name.split("/")[1]+".plot") 
+        plotfilebase = name.split("/")[1]+".plot"
+        plotfile = plotfilebase
+        for pidir in opts.PLOTINFODIR:
+            if os.access(os.path.join(pidir, plotfilebase), os.R_OK):
+                plotfile = os.path.join(pidir, plotfilebase)
+                break
         headers = {}
         if os.access(plotfile, os.R_OK):
             f = open(plotfile)
