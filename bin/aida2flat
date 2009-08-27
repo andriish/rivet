@@ -312,5 +312,3 @@ if __name__ == "__main__":
                     out = open(outfile, "w")
                 out.write("\n\n".join([h.asFlat() for h in sorted(histos)]))
                 out.write("\n")
-            if out:
-                out.close()
