@@ -35,27 +35,6 @@ nobase_pkginclude_HEADERS += \
 nobase_dist_noinst_HEADERS += \
   Analyses/ExampleAnalysis.hh \
   Analyses/ExampleTree.hh \
-  Analyses/ALEPH_1996_S3486095.hh \
-  Analyses/CDF_1988_S1865951.hh \
-  Analyses/CDF_1990_S2089246.hh \
-  Analyses/CDF_1994_S2952106.hh \
-  Analyses/CDF_2000_S4155203.hh \
-  Analyses/CDF_2001_S4751469.hh \
-  Analyses/CDF_2002_S4796047.hh  \
-  Analyses/CDF_2004_S5839831.hh \
-  Analyses/CDF_2005_S6080774.hh \
-  Analyses/CDF_2005_S6217184.hh \
-  Analyses/CDF_2006_S6653332.hh \
-  Analyses/CDF_2007_S7057202.hh \
-  Analyses/CDF_2008_S7540469.hh \
-  Analyses/CDF_2008_S7541902.hh \
-  Analyses/CDF_2008_S7782535.hh \
-  Analyses/CDF_2008_LEADINGJETS.hh \
-  Analyses/CDF_2008_NOTE_9351.hh \
-  Analyses/CDF_2008_S7828950.hh \
-  Analyses/CDF_2008_S8093652.hh \
-  Analyses/CDF_2008_S8095620.hh \
-  Analyses/CDF_2009_S8233977.hh \
   Analyses/D0_1996_S3214044.hh  \
   Analyses/D0_1996_S3324664.hh  \
   Analyses/D0_2001_S4674421.hh  \
@@ -79,7 +58,6 @@ nobase_dist_noinst_HEADERS += \
   Analyses/H1_2000_S4129130.hh \
   Analyses/OPAL_1998_S3780481.hh \
   Analyses/OPAL_2004_S6132243.hh \
-  Analyses/JADE_OPAL_2000_S4300807.hh \
   Analyses/ZEUS_2001_S4815815.hh \
   Analyses/PDG_Hadron_Multiplicities.hh \
   Analyses/PDG_Hadron_Multiplicities_Ratios.hh \
