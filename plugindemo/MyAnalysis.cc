@@ -5,6 +5,7 @@
 
 namespace Rivet {
   
+
   class MyAnalysis : public Analysis {
     
   public:
@@ -16,13 +17,7 @@ namespace Rivet {
       const ChargedFinalState cfs;
       addProjection(cfs, "CFS");
     }
-    
-    
-    /// Factory method
-    static Analysis* create() { 
-      return new MyAnalysis(); 
-    }
-    
+        
     
     /// Return the name of this analysis
     string name() const {
@@ -80,10 +75,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       const FinalState& cnfs = applyProjection<FinalState>(event, "CNFS");
-      getLog() << Log::DEBUG << "Total multiplicity            = " 
-               << cnfs.size() << endl;
-      getLog() << Log::DEBUG << "Total charged multiplicity    = " 
-               << cfs.size()  << endl;
+      getLog() << Log::DEBUG << "Total multiplicity = " << cnfs.size() << endl;
+      getLog() << Log::DEBUG << "Total charged multiplicity = " << cfs.size()  << endl;
     }
     
     void finalize() {
@@ -94,13 +87,8 @@ namespace Rivet {
   };
   
   
-  extern "C" {
-    AnalysisBuilders getAnalysisBuilders() {
-      AnalysisBuilders fns;
-      fns["MYANALYSIS"] = Rivet::MyAnalysis::create;
-      return fns;
-    }
-  }
 
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<MyAnalysis> plugin_MyAnalysis;
   
 }

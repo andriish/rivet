@@ -1,10 +1,9 @@
 ## Build rule for the demo plugin analysis, MyAnalysis
 
+pluginlib = RivetMyAnalysis.so
 if WITH_OSX
-  pluginlib = libRivetMyAnalysis.dylib
-  shared_flags =-undefined dynamic_lookup
+  shared_flags = -undefined dynamic_lookup
 else
-  pluginlib = libRivetMyAnalysis.so
   shared_flags = -shared
 endif
 
