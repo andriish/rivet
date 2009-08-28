@@ -5034,11 +5034,6 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
   return SWIG_OK;
 }
 
-SWIGINTERN std::vector< std::string,std::allocator< std::string > > Rivet_AnalysisLoader_allAnalysisNames(){
-    std::set<std::string> names = Rivet::AnalysisLoader::getAllAnalysisNames();
-    std::vector<std::string> vnames(names.begin(), names.end());
-    return vnames;
-  }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -26898,6 +26893,19 @@ SWIGINTERN PyObject *AnalysisHandler_swigregister(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_AnalysisLoader_analysisNames(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< std::string,std::allocator< std::string > > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)":AnalysisLoader_analysisNames")) SWIG_fail;
+  result = Rivet::AnalysisLoader::analysisNames();
+  resultobj = swig::from(static_cast< std::vector<std::string,std::allocator< std::string > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_AnalysisLoader_getAnalysis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -26923,31 +26931,6 @@ SWIGINTERN PyObject *_wrap_AnalysisLoader_getAnalysis(PyObject *SWIGUNUSEDPARM(s
   return resultobj;
 fail:
   if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_AnalysisLoader_closeAnalysisBuilders(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  
-  if (!PyArg_ParseTuple(args,(char *)":AnalysisLoader_closeAnalysisBuilders")) SWIG_fail;
-  Rivet::AnalysisLoader::closeAnalysisBuilders();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_AnalysisLoader_allAnalysisNames(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::vector< std::string,std::allocator< std::string > > result;
-  
-  if (!PyArg_ParseTuple(args,(char *)":AnalysisLoader_allAnalysisNames")) SWIG_fail;
-  result = Rivet_AnalysisLoader_allAnalysisNames();
-  resultobj = swig::from(static_cast< std::vector<std::string,std::allocator< std::string > > >(result));
-  return resultobj;
-fail:
   return NULL;
 }
 
@@ -27497,9 +27480,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"AnalysisHandler_commitData", _wrap_AnalysisHandler_commitData, METH_VARARGS, NULL},
 	 { (char *)"delete_AnalysisHandler", _wrap_delete_AnalysisHandler, METH_VARARGS, NULL},
 	 { (char *)"AnalysisHandler_swigregister", AnalysisHandler_swigregister, METH_VARARGS, NULL},
+	 { (char *)"AnalysisLoader_analysisNames", _wrap_AnalysisLoader_analysisNames, METH_VARARGS, NULL},
 	 { (char *)"AnalysisLoader_getAnalysis", _wrap_AnalysisLoader_getAnalysis, METH_VARARGS, NULL},
-	 { (char *)"AnalysisLoader_closeAnalysisBuilders", _wrap_AnalysisLoader_closeAnalysisBuilders, METH_VARARGS, NULL},
-	 { (char *)"AnalysisLoader_allAnalysisNames", _wrap_AnalysisLoader_allAnalysisNames, METH_VARARGS, NULL},
 	 { (char *)"new_AnalysisLoader", _wrap_new_AnalysisLoader, METH_VARARGS, NULL},
 	 { (char *)"delete_AnalysisLoader", _wrap_delete_AnalysisLoader, METH_VARARGS, NULL},
 	 { (char *)"AnalysisLoader_swigregister", AnalysisLoader_swigregister, METH_VARARGS, NULL},

@@ -939,12 +939,10 @@ class AnalysisLoader(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, AnalysisLoader, name)
     __repr__ = _swig_repr
+    __swig_getmethods__["analysisNames"] = lambda x: _rivet.AnalysisLoader_analysisNames
+    if _newclass:analysisNames = staticmethod(_rivet.AnalysisLoader_analysisNames)
     __swig_getmethods__["getAnalysis"] = lambda x: _rivet.AnalysisLoader_getAnalysis
     if _newclass:getAnalysis = staticmethod(_rivet.AnalysisLoader_getAnalysis)
-    __swig_getmethods__["closeAnalysisBuilders"] = lambda x: _rivet.AnalysisLoader_closeAnalysisBuilders
-    if _newclass:closeAnalysisBuilders = staticmethod(_rivet.AnalysisLoader_closeAnalysisBuilders)
-    __swig_getmethods__["allAnalysisNames"] = lambda x: _rivet.AnalysisLoader_allAnalysisNames
-    if _newclass:allAnalysisNames = staticmethod(_rivet.AnalysisLoader_allAnalysisNames)
     def __init__(self, *args): 
         this = _rivet.new_AnalysisLoader(*args)
         try: self.this.append(this)
@@ -953,9 +951,8 @@ class AnalysisLoader(_object):
     __del__ = lambda self : None;
 AnalysisLoader_swigregister = _rivet.AnalysisLoader_swigregister
 AnalysisLoader_swigregister(AnalysisLoader)
+AnalysisLoader_analysisNames = _rivet.AnalysisLoader_analysisNames
 AnalysisLoader_getAnalysis = _rivet.AnalysisLoader_getAnalysis
-AnalysisLoader_closeAnalysisBuilders = _rivet.AnalysisLoader_closeAnalysisBuilders
-AnalysisLoader_allAnalysisNames = _rivet.AnalysisLoader_allAnalysisNames
 
 
 
