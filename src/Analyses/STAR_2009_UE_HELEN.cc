@@ -187,4 +187,8 @@ namespace Rivet {
   }
 
 
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<STAR_2009_UE_HELEN> plugin_STAR_2009_UE_HELEN;
+
 }

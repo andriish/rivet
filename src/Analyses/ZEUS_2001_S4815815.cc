@@ -46,4 +46,8 @@ namespace Rivet {
   // Finalize
   void ZEUS_2001_S4815815::finalize() { }
 
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<ZEUS_2001_S4815815> plugin_ZEUS_2001_S4815815;
+
 }

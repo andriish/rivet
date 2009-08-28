@@ -96,4 +96,9 @@ namespace Rivet {
     normalize(_histAplanarity);
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<ExampleAnalysis> plugin_ExampleAnalysis;
+
 }

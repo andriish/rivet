@@ -688,4 +688,8 @@ namespace Rivet {
     scale(_hist165MeanMultiLambda           , 1.0/sumOfWeights());
   }
 
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<PDG_HADRON_MULTIPLICITIES> plugin_PDG_HADRON_MULTIPLICITIES;
+
 }

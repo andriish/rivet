@@ -25,7 +25,6 @@ done
 
 
 ANASRCDIR="."
-ANAINCDIR="."
 ANAINFODIR="."
 ANAPLOTDIR="."
 tmp=$(echo $* | egrep -- '--\<srcroot')
@@ -42,17 +41,16 @@ if [[ "$tmp" ]]; then
         srcroot="."
     fi
     ANASRCDIR="$srcroot/src/Analyses"
-    ANAINCDIR="$srcroot/include/Rivet/Analyses"
     ANAINFODIR="$srcroot/data/anainfo"
     ANAPLOTDIR="$srcroot/data/plotinfo"
-    if [[ ! -e "$ANASRCDIR" || ! -e "$ANAINCDIR" || ! -e "$ANAINFODIR" || ! -e "$ANAPLOTDIR" ]]; then
+    if [[ ! -e "$ANASRCDIR" || ! -e "$ANAINFODIR" || ! -e "$ANAPLOTDIR" ]]; then
         echo "Rivet analysis dirs do not exist under $srcroot" 1>&2
         exit 1
     fi
 fi
 
 
-if [[ ! -w "$ANASRCDIR" || ! -w "$ANAINCDIR" || ! -w "$ANAINFODIR" || ! -w "$ANAPLOTDIR" ]]; then
+if [[ ! -w "$ANASRCDIR" || ! -w "$ANAINFODIR" || ! -w "$ANAPLOTDIR" ]]; then
     echo "Can't write to Rivet analysis dirs under $srcroot" 1>&2
     exit 1
 fi
@@ -72,14 +70,15 @@ for ANANAME in $ANANAMES; do
         ANASPIRESID=$(echo "$ANANAME" | sed -e 's:^\([^_]\+\)_\([^_]\+\)_S\([^_]\+\)$:\3:')
     fi
 
-    ANAINCFILE="$ANAINCDIR/$ANANAME.hh"
-    echo "Writing header template to $ANAINCFILE"
-    cat <<EOF > "$ANAINCFILE"
+    ANASRCFILE="$ANASRCDIR/$ANANAME.cc"
+    echo "Writing implementation template to $ANASRCFILE"
+    cat <<EOF > "$ANASRCFILE"
 // -*- C++ -*-
-#ifndef RIVET_${ANANAME}_HH
-#define RIVET_${ANANAME}_HH
-
 #include "Rivet/Analysis.hh"
+#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Projections/FinalState.hh"
+/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 
@@ -91,12 +90,18 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    $ANANAME();
-
-    /// Factory method
-    static Analysis* create() {
-      return new $ANANAME();
+    $ANANAME()
+      : Analysis("$ANANAME") 
+    {
+      /// @todo Set approriate for your analysis
+      setBeams(PROTON, ANTIPROTON);
+      
+      /// @todo Set whether your finalize method needs the generator cross section
+      setNeedsCrossSection(true);
+      
+      /// @todo Initialise and register projections here
     }
+
     //@}
 
 
@@ -104,14 +109,42 @@ namespace Rivet {
 
     /// @name Analysis methods
     //@{
-    void init();
-    void analyze(const Event& event);
-    void finalize();
+
+    /// Book histograms before the run
+    void init() {
+
+      /// @todo Book histograms here, e.g.:
+      // _histXXXX = bookProfile1D(1, 1, 1);
+      // _histYYYY = bookHistogram1D(2, 1, 1);
+
+    }
+
+
+    /// Perform the per-event analysis
+    void analyze(const Event& event) {
+
+      /// @todo Do the event by event analysis here
+
+    }
+
+
+    /// Normalise histograms etc., after the run
+    void finalize() {
+      
+      /// @todo Normalise, scale and otherwise manipulate histograms here
+      
+      // scale(_histYYYY, crossSection()/sumOfWeights()); # norm to cross section
+      // normalize(_histYYYY); # normalize to unity
+      
+    }
+
     //@}
+
 
   private:
 
     // Data members like post-cuts event weight counters go here
+
 
   private:
 
@@ -125,66 +158,14 @@ namespace Rivet {
   };
 
 
-}
 
-#endif
-
-EOF
-
-    ANASRCFILE="$ANASRCDIR/$ANANAME.cc"
-    echo "Writing implementation template to $ANASRCFILE"
-    cat <<EOF > "$ANASRCFILE"
-// -*- C++ -*-
-#include "Rivet/Rivet.hh"
-#include "Rivet/RivetAIDA.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/$ANANAME.hh"
-#include "Rivet/Projections/FinalState.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
-
-namespace Rivet {
-
-
-  $ANANAME::$ANANAME() : Analysis("$ANANAME") {
-    /// @todo Set approriate for your analysis
-    setBeams(PROTON, ANTIPROTON);
-    
-    /// @todo Set whether your finalize method needs the generator cross section
-    setNeedsCrossSection(true);
-
-    /// @todo Initialise and register projections here
-  }
-
-
-  void $ANANAME::init() {
-
-    /// @todo Book histograms here
-
-    // _histXXXX = bookProfile1D(1, 1, 1);
-    // _histYYYY = bookHistogram1D(2, 1, 1);
-
-  }
-
-
-  void $ANANAME::analyze(const Event& event) {
-
-    /// @todo Do the event by event analysis here
-
-  }
-
-
-  void $ANANAME::finalize() {
-
-    /// @todo Normalise, scale and otherwise manipulate histograms here
-
-    // scale(_histYYYY, crossSection()/sumOfWeights()); # norm to cross section
-    // normalize(_histYYYY); # normalize to unity
-
-  }
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<$ANANAME> plugin_$ANANAME;
 
 
 }
 EOF
+
 
     ANAINFOFILE="$ANAINFODIR/$ANANAME.info"
     echo "Writing info template to $ANAINFOFILE"

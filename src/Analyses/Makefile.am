@@ -1,10 +1,16 @@
-lib_LTLIBRARIES = libRivetAnalysisStd.la
+lib_LTLIBRARIES = \
+    RivetCDFAnalyses.la \
+    RivetD0Analyses.la \
+    RivetSPSAnalyses.la \
+    RivetLEPAnalyses.la \
+    RivetHERAAnalyses.la \
+    RivetRHICAnalyses.la \
+    RivetExampleAnalyses.la \
+    RivetMCAnalyses.la \
+    RivetMiscAnalyses.la
 
-libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
-    ExampleAnalysis.cc \
-    ExampleTree.cc  \
-    ALEPH_1991_S2435284.cc \
-    ALEPH_1996_S3486095.cc \
+
+RivetCDFAnalyses_la_SOURCES = \
     CDF_1988_S1865951.cc \
     CDF_1990_S2089246.cc \
     CDF_1994_S2952106.cc \
@@ -25,7 +31,10 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     CDF_2008_S7828950.cc \
     CDF_2008_S8093652.cc \
     CDF_2008_S8095620.cc \
-    CDF_2009_S8233977.cc \
+    CDF_2009_S8233977.cc
+
+
+RivetD0Analyses_la_SOURCES = \
     D0_1996_S3214044.cc \
     D0_1996_S3324664.cc \
     D0_2001_S4674421.cc \
@@ -40,36 +49,63 @@ libRivetAnalysisStd_la_SOURCES = StdAnalyses.cc \
     D0_2008_S7863608.cc \
     D0_2009_S8202443.cc \
     D0_2009_S8320160.cc \
-    D0_2009_S8349509.cc \
-    E735_1998_S3905616.cc \
-    DELPHI_1995_S3137023.cc \
-    DELPHI_1996_S3430090.cc \
-    DELPHI_2002_069_CONF_603.cc \
-    DELPHI_2003_WUD_03_11.cc \
-    H1_1994_S2919893.cc \
-    H1_1995_S3167097.cc \
-    H1_2000_S4129130.cc \
-    OPAL_1998_S3780481.cc \
-    JADE_OPAL_2000_S4300807.cc \
-    ZEUS_2001_S4815815.cc \
-    PDG_Hadron_Multiplicities.cc \
-    PDG_Hadron_Multiplicities_Ratios.cc \
-    SFM_1984_S1178091.cc \
-    MC_JetAnalysis.cc \
-    MC_TVT1960_PHOTONJETS.cc \
-    MC_TVT1960_ZJETS.cc \
-    MC_LHC_LEADINGJETS.cc \
-    MC_LHC_DIJET.cc \
-    MC_LHC_ZANALYSIS.cc \
-    STAR_2006_S6870392.cc \
-    STAR_2008_S7993412.cc \
+    D0_2009_S8349509.cc
+
+
+RivetSPSAnalyses_la_SOURCES = \
     UA1_1990_S2044935.cc \
     UA5_1982_S875503.cc \
     UA5_1986_S1583476.cc \
     UA5_1988_S1867512.cc \
     UA5_1989_S1926373.cc
-    #STAR_2009_UE_HELEN.cc
+
+
+RivetLEPAnalyses_la_SOURCES = \
+    ALEPH_1991_S2435284.cc \
+    ALEPH_1996_S3486095.cc \
+    DELPHI_1995_S3137023.cc \
+    DELPHI_1996_S3430090.cc \
+    DELPHI_2002_069_CONF_603.cc \
+    DELPHI_2003_WUD_03_11.cc \
+    OPAL_1998_S3780481.cc
     #OPAL_2004_S6132243.cc 
 
-libRivetAnalysisStd_la_LDFLAGS = $(AM_LDFLAGS) -L$(FASTJETLIBPATH)
-libRivetAnalysisStd_la_LIBADD = -lCDFConesPlugin -lSISConePlugin -lsiscone -lJadePlugin
+
+RivetHERAAnalyses_la_SOURCES = \
+    H1_1994_S2919893.cc \
+    H1_1995_S3167097.cc \
+    H1_2000_S4129130.cc \
+    ZEUS_2001_S4815815.cc
+
+
+RivetRHICAnalyses_la_SOURCES = \
+    STAR_2006_S6870392.cc \
+    STAR_2008_S7993412.cc
+    #STAR_2009_UE_HELEN.cc
+
+
+RivetExampleAnalyses_la_SOURCES = \
+    ExampleAnalysis.cc \
+    ExampleTree.cc
+
+
+RivetMCAnalyses_la_SOURCES = \
+    MC_JetAnalysis.cc \
+    MC_TVT1960_PHOTONJETS.cc \
+    MC_TVT1960_ZJETS.cc \
+    MC_LHC_LEADINGJETS.cc \
+    MC_LHC_DIJET.cc \
+    MC_LHC_ZANALYSIS.cc
+
+
+RivetMiscAnalyses_la_SOURCES = \
+    PDG_Hadron_Multiplicities.cc \
+    PDG_Hadron_Multiplicities_Ratios.cc \
+    SFM_1984_S1178091.cc
+    #E735_1998_S3905616.cc
+    #JADE_OPAL_2000_S4300807.cc (problem with names of derived analyses)
+
+
+## Flags for building all plugins
+AM_LDFLAGS = $(LDFLAGS) -module -L$(FASTJETLIBPATH)
+LIBS = -lCDFConesPlugin -lSISConePlugin -lsiscone -lJadePlugin

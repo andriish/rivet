@@ -133,4 +133,9 @@ namespace Rivet {
     normalize(_histJadeALPHA34   , 0.0277);
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<DELPHI_2003_WUD_03_11> plugin_DELPHI_2003_WUD_03_11;
+
 }

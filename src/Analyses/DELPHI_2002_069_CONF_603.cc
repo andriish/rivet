@@ -104,4 +104,9 @@ namespace Rivet {
     normalize(_histXbweak);
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<DELPHI_2002_069_CONF_603> plugin_DELPHI_2002_069_CONF_603;
+
 }

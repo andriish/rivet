@@ -120,4 +120,8 @@ namespace Rivet {
     scale(_h_jet3_pT_constrained, 1.0/_sum_of_weights_constrained);
   }
 
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<D0_2009_S8202443> plugin_D0_2009_S8202443;
+
 }

@@ -196,4 +196,8 @@ extern "C" {
     return fns;
   }
 
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<StdAnalyses> plugin_StdAnalyses;
+
 }

@@ -66,4 +66,9 @@ namespace Rivet {
     normalize(_h_jet_pT_HT, 1808234);
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<STAR_2006_S6870392> plugin_STAR_2006_S6870392;
+
 }

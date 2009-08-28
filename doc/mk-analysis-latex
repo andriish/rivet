@@ -56,7 +56,7 @@ def texify(s):
 
 
 ## Build analysis pages
-all_analyses = rivet.AnalysisLoader.allAnalysisNames()
+all_analyses = rivet.AnalysisLoader.analysisNames()
 pages = { "LEP":[], "Tevatron":[], "HERA":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
 for aname in sorted(list(all_analyses)):

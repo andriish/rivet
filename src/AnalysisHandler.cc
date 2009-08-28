@@ -91,9 +91,6 @@ namespace Rivet {
       delete a;
     }
     _analyses.clear();
-
-    getLog() << Log::DEBUG << "Closing analysis libraries" << endl;
-    AnalysisLoader::closeAnalysisBuilders();
   }
 
 

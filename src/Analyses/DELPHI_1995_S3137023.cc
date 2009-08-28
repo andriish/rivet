@@ -77,4 +77,9 @@ namespace Rivet {
     normalize(_histXpSigma1385Plus , _weightedTotalNumSigma1385Plus/sumOfWeights());
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<DELPHI_1995_S3137023> plugin_DELPHI_1995_S3137023;
+
 }

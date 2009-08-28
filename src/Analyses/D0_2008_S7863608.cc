@@ -94,4 +94,9 @@ namespace Rivet {
     scale(_h_Z_y_cross_section, invlumi);
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<D0_2008_S7863608> plugin_D0_2008_S7863608;
+
 }

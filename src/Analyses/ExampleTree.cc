@@ -208,4 +208,8 @@ namespace Rivet {
   
   #endif
   
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<ExampleTree> plugin_ExampleTree;
+
 }

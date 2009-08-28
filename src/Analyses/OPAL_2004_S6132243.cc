@@ -11,4 +11,7 @@ namespace Rivet {
   void OPAL_2004_S6132243::finalize() { }
 
 
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<OPAL_2004_S6132243> plugin_OPAL_2004_S6132243;
+
 }

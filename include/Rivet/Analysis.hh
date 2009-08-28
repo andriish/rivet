@@ -10,6 +10,7 @@
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisHandler.fhh"
+#include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/RivetAIDA.fhh"
 
@@ -404,6 +405,45 @@ namespace Rivet {
     /// In fact, it should not even be implemented.
     Analysis& operator=(const Analysis&);
   };
+
+
+
+  /////////////////////////////////////////////////////////////////////
+
+
+
+  // Interface for analysis builders
+  class AnalysisBuilderBase {
+  public:
+    virtual Analysis* mkAnalysis() const = 0;
+
+    const string name() const {
+      Analysis* a = mkAnalysis();
+      string rtn = a->name();
+      delete a;
+      return rtn;
+    }
+
+  protected:
+    void _register() {
+      AnalysisLoader::_registerBuilder(this);
+    }
+  };
+
+
+  // Self-registering analysis plugin builder
+  template <typename T>
+  class AnalysisBuilder : public AnalysisBuilderBase {
+  public:
+    AnalysisBuilder() {
+      _register();
+    }
+
+    Analysis* mkAnalysis() const {
+      return new T();
+    }
+  };
+
 
 }
 

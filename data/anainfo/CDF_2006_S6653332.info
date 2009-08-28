@@ -4,7 +4,7 @@ Summary: pT and eta distributions of jets in Z + jet production
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 6653332
-Status: VALIDATED
+Status: UNVALIDATED - uses unphysical b quarks
 Authors:
  - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>
 References:

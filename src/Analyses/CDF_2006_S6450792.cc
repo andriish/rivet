@@ -1,50 +1,71 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/CDF_2006_S6450792.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
 
+  class CDF_2006_S6450792 : public Analysis {
+  public:
 
-  CDF_2006_S6450792::CDF_2006_S6450792() : Analysis("CDF_2006_S6450792") {
-    setBeams(PROTON, ANTIPROTON);
-    setNeedsCrossSection(true);
+    /// @name Constructors etc.
+    //@{
 
-    FinalState fs;
-    addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 61.0*GeV), "ConeFinder");
-  }
+    /// Constructor
+    CDF_2006_S6450792() 
+      : Analysis("CDF_2006_S6450792") {
+      setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
+      
+      FinalState fs;
+      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 61.0*GeV), "ConeFinder");
+    }
+    //@}
+    
+    
+  public:
+    
+    /// @name Analysis methods
+    //@{
+    
+    void init() {
+      _h_jet_pt = bookHistogram1D(1, 1, 1);
+    }
 
 
-  void CDF_2006_S6450792::init() {
-
-    _h_jet_pt = bookHistogram1D(1, 1, 1);
-
-  }
-
-
-  void CDF_2006_S6450792::analyze(const Event& event) {
-
-    const Jets& jets = applyProjection<JetAlg>(event, "ConeFinder").jets();
-
-    foreach (const Jet& jet, jets) {
-      double y = fabs(jet.momentum().rapidity());
-      if (y>0.1 && y<0.7) {
-        _h_jet_pt->fill(jet.momentum().pT(), event.weight());
+    void analyze(const Event& event) {
+      const Jets& jets = applyProjection<JetAlg>(event, "ConeFinder").jets();
+      foreach (const Jet& jet, jets) {
+        double y = fabs(jet.momentum().rapidity());
+        if (inRange(y, 0.1, 0.7)) {
+          _h_jet_pt->fill(jet.momentum().pT()/GeV, event.weight());
+        }
       }
     }
-  
-  }
+    
+    
+    void finalize() {
+      const double delta_y = 1.2;
+      scale(_h_jet_pt, crossSection()/nanobarn/sumOfWeights()/delta_y);
+    }
+
+    //@}
 
 
-  void CDF_2006_S6450792::finalize() {
+  private:
 
-    double delta_y = 1.2;
-    scale(_h_jet_pt, crossSection()/nanobarn/sumOfWeights()/delta_y);
+    /// @name Histograms
+    //@{
 
-  }
+    AIDA::IHistogram1D *_h_jet_pt;
+    //@}
 
+  };
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<CDF_2006_S6450792> plugin_CDF_2006_S6450792;
 
 }

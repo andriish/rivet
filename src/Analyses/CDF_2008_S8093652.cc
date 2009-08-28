@@ -1,60 +1,82 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/CDF_2008_S8093652.hh"
+#include "Rivet/Analysis.hh"
+#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
 
+  class CDF_2008_S8093652 : public Analysis {
 
-  CDF_2008_S8093652::CDF_2008_S8093652()
-    : Analysis("CDF_2008_S8093652")
-  {
-    setBeams(PROTON, ANTIPROTON);
-    setNeedsCrossSection(true);
+  public:
+
+    /// @name Construction
+    //@{
+
+    /// Constructor
+    CDF_2008_S8093652()
+      : Analysis("CDF_2008_S8093652")
+    {
+      setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
+      
+      FinalState fs;
+      FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
+      addProjection(conefinder, "ConeFinder");
+    } 
     
-    FinalState fs;
-    FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
-    addProjection(conefinder, "ConeFinder");
-  } 
+    //@}
 
 
-  // Book histograms
-  void CDF_2008_S8093652::init() {
-    _h_m_dijet = bookHistogram1D(1, 1, 1);
-  }
-
-
-
-  // Do the analysis 
-  void CDF_2008_S8093652::analyze(const Event & e) {
-    double weight = e.weight();
-
-    const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
-    const Jets& jets = jetpro.jetsByPt();
+    /// @name Analysis methods
+    //@{ 
     
-    if(jets.size()<2) {
-      vetoEvent;
+    /// Book histograms
+    void init() {
+      _h_m_dijet = bookHistogram1D(1, 1, 1);
     }
     
-    FourMomentum j0(jets[0].momentum());
-    FourMomentum j1(jets[1].momentum());
+
+    /// Do the analysis 
+    void analyze(const Event & e) {
+      const double weight = e.weight();
+      
+      const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
+      const Jets& jets = jetpro.jetsByPt();
+      
+      if (jets.size() < 2) vetoEvent;
+      
+      const FourMomentum j0(jets[0].momentum());
+      const FourMomentum j1(jets[1].momentum());
+      if (fabs(j1.rapidity()) > 1.0 || fabs(j0.rapidity()) > 1.0) {
+        vetoEvent;
+      }
     
-    if (fabs(j1.rapidity())>1.0 || fabs(j0.rapidity())>1.0) {
-      vetoEvent;
+      double mjj = FourMomentum(j0+j1).mass();
+      _h_m_dijet->fill(mjj, weight);
     }
     
-    double mjj = FourMomentum(j0+j1).mass();
     
-    _h_m_dijet->fill(mjj, weight);
-  }
+    /// Finalize
+    void finalize() {
+      scale(_h_m_dijet, crossSection()/sumOfWeights());
+    }
+    //@}
 
 
+  private:
 
-  // Finalize
-  void CDF_2008_S8093652::finalize() {
-    scale(_h_m_dijet, crossSection()/sumOfWeights());
-  }
+    /// @name Histograms
+    //@{
+    AIDA::IHistogram1D* _h_m_dijet;
+    //@}
+    
+  };
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<CDF_2008_S8093652> plugin_CDF_2008_S8093652;
 
 }

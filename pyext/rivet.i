@@ -119,16 +119,8 @@ namespace Rivet {
 
   class AnalysisLoader {
   public:
+    static std::vector<std::string> analysisNames();
     static Analysis* getAnalysis(const std::string& analysisname);
-    static void closeAnalysisBuilders();    
   };
 
-}
-
-%extend Rivet::AnalysisLoader {
-  static std::vector<std::string> allAnalysisNames() {
-    std::set<std::string> names = Rivet::AnalysisLoader::getAllAnalysisNames();
-    std::vector<std::string> vnames(names.begin(), names.end());
-    return vnames;
-  }
 }

@@ -53,7 +53,7 @@ def htmlify(s):
 
 
 ## Build analysis pages
-all_analyses = rivet.AnalysisLoader.allAnalysisNames()
+all_analyses = rivet.AnalysisLoader.analysisNames()
 pages = []
 ## Use list(...) ctor for 2.3 compatibility
 for aname in sorted(list(all_analyses)):

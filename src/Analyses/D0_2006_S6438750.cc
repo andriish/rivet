@@ -104,4 +104,9 @@ namespace Rivet {
     scale(_h_pTgamma, 1/lumi_gen * 1/1.8);
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<D0_2006_S6438750> plugin_D0_2006_S6438750;
+
 }

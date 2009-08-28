@@ -11,6 +11,7 @@
 
 namespace Rivet {
 
+
     /// Default constructor
     UA1_1990_S2044935::UA1_1990_S2044935() 
     : Analysis("UA1_1990_S2044935")
@@ -179,6 +180,9 @@ namespace Rivet {
       normalize(_hist_Et900, 34.4);
     }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<UA1_1990_S2044935> plugin_UA1_1990_S2044935;
+
 }
-
-

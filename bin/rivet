@@ -184,7 +184,7 @@ except:
 
 
 ## List of analyses
-all_analyses = rivet.AnalysisLoader.allAnalysisNames()
+all_analyses = rivet.AnalysisLoader.analysisNames()
 if opts.LIST_ANALYSES:
     for aname in all_analyses:
         msg = aname

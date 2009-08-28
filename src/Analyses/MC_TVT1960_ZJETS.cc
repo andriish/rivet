@@ -79,4 +79,9 @@ namespace Rivet {
     MC_JetAnalysis::finalize();
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<MC_TVT1960_ZJETS> plugin_MC_TVT1960_ZJETS;
+
 }

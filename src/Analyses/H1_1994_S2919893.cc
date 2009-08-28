@@ -208,4 +208,8 @@ namespace Rivet {
   }
 
 
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<H1_1994_S2919893> plugin_H1_1994_S2919893;
+
 }

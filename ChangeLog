@@ -1,3 +1,21 @@
+2009-08-28  Andy Buckley  <andy@insectnation.org>
+
+	* Changed naming convention for analysis plugin libraries, since
+	the loader has changed so much: they must now *start* with the
+	word "Rivet" (i.e. no lib prefix).
+
+	* Split standard plugin analyses into several plugin libraries:
+	these will eventually move into separate subdirs for extra build
+	convenience.
+
+	* Started merging analysis headers into the source files, now that
+	we can (the plugin hooks previously forbade this).
+
+	* Replacement of analysis loader system with a new one based on
+	ideas from ThePEG, which uses dlopen-time instantiation of
+	templated global variables to reduce boilerplate plugin hooks to
+	one line in analyses.
+
 2009-07-14  Frank Siegert  <frank.siegert@durham.ac.uk>
 
 	* Replacing in-source histo-booking metadata with .plot files.

@@ -1,8 +1,7 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/CDF_2008_LEADINGJETS.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -10,189 +9,236 @@
 namespace Rivet {
 
 
-  CDF_2008_LEADINGJETS::CDF_2008_LEADINGJETS()
-    : Analysis("CDF_2008_LEADINGJETS")
-  { 
-    setBeams(PROTON, ANTIPROTON);
+  /* CDF Run II underlying event in leading jet events
+   * @author Hendrik Hoeth
+   * 
+   * Rick Field's measurement of the underlying event in "leading jet" events.
+   * The leading jet (CDF midpoint R=0.7) must be within |eta|<2 and defines
+   * the "toward" phi direction. Particles are selected in |eta|<1. For the pT
+   * related observables there is a pT>0.5 GeV cut. For sum(ET) there is no pT cut.
+   * 
+   * 
+   * @par Run conditions
+   * 
+   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
+   * @arg Run with generic QCD events.
+   * @arg Set particles with c*tau > 10 mm stable
+   * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the profile histograms:
+   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 10, 20, 50, 100, 150 GeV
+   *   @arg The corresponding merging points are at \f$ p_T = \f$ 0, 30, 50, 80, 130, 180 GeV
+   * 
+   */ 
+  class CDF_2008_LEADINGJETS : public Analysis {
+  public:
     
-    // Final state for the jet finding
-    const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-    addProjection(fsj, "FSJ");
-    addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
+    /// @name Constructors etc.
+    //@{
     
-    // Final state for the sum(ET) distributions
-    const FinalState fs(-1.0, 1.0, 0.0*GeV);
-    addProjection(fs, "FS");
-    
-    // Charged final state for the distributions
-    const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-    addProjection(cfs, "CFS");
-  }
-
-
-  // Book histograms
-  void CDF_2008_LEADINGJETS::init() {
-    _hist_pnchg      = bookProfile1D( 1, 1, 1);
-    _hist_pmaxnchg   = bookProfile1D( 2, 1, 1);
-    _hist_pminnchg   = bookProfile1D( 3, 1, 1);
-    _hist_pdifnchg   = bookProfile1D( 4, 1, 1);
-    _hist_pcptsum    = bookProfile1D( 5, 1, 1);
-    _hist_pmaxcptsum = bookProfile1D( 6, 1, 1);
-    _hist_pmincptsum = bookProfile1D( 7, 1, 1);
-    _hist_pdifcptsum = bookProfile1D( 8, 1, 1);
-    _hist_pcptave    = bookProfile1D( 9, 1, 1);
-    //_hist_onchg   = bookProfile1D( 1, 1, 1, "Overall number of charged particles");
-    //_hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall charged $p_\\perp$ sum");
-    //_hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall $E_\\perp$ sum");
-  }
-
-
-  // Do the analysis
-  void CDF_2008_LEADINGJETS::analyze(const Event& e) {
-
-    const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
-    if (fsj.particles().size() < 1) {
-      getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
-      vetoEvent;
+    CDF_2008_LEADINGJETS()
+      : Analysis("CDF_2008_LEADINGJETS")
+    { 
+      setBeams(PROTON, ANTIPROTON);
+      
+      // Final state for the jet finding
+      const FinalState fsj(-4.0, 4.0, 0.0*GeV);
+      addProjection(fsj, "FSJ");
+      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
+      
+      // Final state for the sum(ET) distributions
+      const FinalState fs(-1.0, 1.0, 0.0*GeV);
+      addProjection(fs, "FS");
+      
+      // Charged final state for the distributions
+      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      addProjection(cfs, "CFS");
     }
 
-    const Jets jets = applyProjection<FastJets>(e, "MidpointJets").jetsByPt();
-    getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
 
-    // We require the leading jet to be within |eta|<2
-    if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 2) {
-      getLog() << Log::DEBUG << "Failed leading jet cut" << endl;
-      vetoEvent;
+    /// @name Analysis methods
+    //@{
+
+    /// Book histograms
+    void init() {
+      _hist_pnchg      = bookProfile1D( 1, 1, 1);
+      _hist_pmaxnchg   = bookProfile1D( 2, 1, 1);
+      _hist_pminnchg   = bookProfile1D( 3, 1, 1);
+      _hist_pdifnchg   = bookProfile1D( 4, 1, 1);
+      _hist_pcptsum    = bookProfile1D( 5, 1, 1);
+      _hist_pmaxcptsum = bookProfile1D( 6, 1, 1);
+      _hist_pmincptsum = bookProfile1D( 7, 1, 1);
+      _hist_pdifcptsum = bookProfile1D( 8, 1, 1);
+      _hist_pcptave    = bookProfile1D( 9, 1, 1);
+      //_hist_onchg   = bookProfile1D( 1, 1, 1, "Overall number of charged particles");
+      //_hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall charged $p_\\perp$ sum");
+      //_hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall $E_\\perp$ sum");
     }
     
-    const double jetphi = jets[0].momentum().phi();
-    const double jeteta = jets[0].momentum().eta();
-    const double jetpT  = jets[0].momentum().perp();
-    getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
-             << ", eta = " << jeteta << ", phi = " << jetphi << endl;
-
-    // Get the event weight
-    const double weight = e.weight();
-
-    // Get the final states to work with for filling the distributions
-    const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
-
-    size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
-    double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
-    //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
-    double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
-
-    // Calculate all the charged stuff
-    foreach (const Particle& p, cfs.particles()) {
-      const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
-      const double pT = p.momentum().pT();
-      const double phi = p.momentum().phi();
-
-      /// @todo The jet and particle phis should now be the same: check
-      double rotatedphi = phi - jetphi;
-      while (rotatedphi < 0) rotatedphi += 2*PI;
-
-
-      ptSumOverall += pT;
-      ++numOverall;
-      if (pT > ptMaxOverall) {
-        ptMaxOverall = pT;
+    
+    // Do the analysis
+    void analyze(const Event& e) {
+      const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
+      if (fsj.particles().size() < 1) {
+        getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
+        vetoEvent;
       }
-
-      if (dPhi < PI/3.0) {
-        ptSumToward += pT;
-        ++numToward;
-        if (pT > ptMaxToward)
-          ptMaxToward = pT;
+      
+      const Jets& jets = applyProjection<FastJets>(e, "MidpointJets").jetsByPt();
+      getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
+      
+      // We require the leading jet to be within |eta|<2
+      if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 2) {
+        getLog() << Log::DEBUG << "Failed leading jet cut" << endl;
+        vetoEvent;
       }
-      else if (dPhi < 2*PI/3.0) {
-        if (rotatedphi <= PI) {
-          ptSumTrans1 += pT;
-          ++numTrans1;
-          if (pT > ptMaxTrans1)
-            ptMaxTrans1 = pT;
+      
+      const double jetphi = jets[0].momentum().phi();
+      const double jeteta = jets[0].momentum().eta();
+      const double jetpT  = jets[0].momentum().perp();
+      getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
+               << ", eta = " << jeteta << ", phi = " << jetphi << endl;
+      
+      // Get the event weight
+      const double weight = e.weight();
+      
+      // Get the final states to work with for filling the distributions
+      const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
+      
+      size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
+      double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
+      //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
+      double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
+      
+      // Calculate all the charged stuff
+      foreach (const Particle& p, cfs.particles()) {
+        const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
+        const double pT = p.momentum().pT();
+        const double phi = p.momentum().phi();
+        
+        /// @todo The jet and particle phis should now be the same: check
+        double rotatedphi = phi - jetphi;
+        while (rotatedphi < 0) rotatedphi += 2*PI;
+        
+        ptSumOverall += pT;
+        ++numOverall;
+        if (pT > ptMaxOverall) {
+          ptMaxOverall = pT;
+        }
+        
+        if (dPhi < PI/3.0) {
+          ptSumToward += pT;
+          ++numToward;
+          if (pT > ptMaxToward)
+            ptMaxToward = pT;
+        }
+        else if (dPhi < 2*PI/3.0) {
+          if (rotatedphi <= PI) {
+            ptSumTrans1 += pT;
+            ++numTrans1;
+            if (pT > ptMaxTrans1)
+              ptMaxTrans1 = pT;
+          }
+          else {
+            ptSumTrans2 += pT;
+            ++numTrans2;
+            if (pT > ptMaxTrans2)
+              ptMaxTrans2 = pT;
+          }
         }
         else {
-          ptSumTrans2 += pT;
-          ++numTrans2;
-          if (pT > ptMaxTrans2)
-            ptMaxTrans2 = pT;
+          ptSumAway += pT;
+          ++numAway;
+          if (pT > ptMaxAway)
+            ptMaxAway = pT;
         }
-      }
-      else {
-        ptSumAway += pT;
-        ++numAway;
-        if (pT > ptMaxAway)
-          ptMaxAway = pT;
-      }
-    } // end charged particle loop
-
-
-    #if 0   
-    /// @todo Enable this part when we have the numbers from Rick Field
-
-    // And now the same business for all particles (including neutrals)
-    foreach (const Particle& p, fs.particles()) {
-      const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
-      const double ET = p.momentum().Et();
-      const double phi = p.momentum().azimuthalAngle();
-      /// @todo Check that phi mappings really match (they should now)
-      double rotatedphi = phi - jetphi;
-      while (rotatedphi < 0) rotatedphi += 2*PI;
-
-      EtSumOverall += ET;
-
-      if (deltaPhi < PI/3.0) {
-        EtSumToward += ET;
-      }
-      else if (deltaPhi < 2*PI/3.0) {
-        if (rotatedphi <= PI) {
-          EtSumTrans1 += ET;
+      } // end charged particle loop
+      
+      
+      #if 0   
+      /// @todo Enable this part when we have the numbers from Rick Field
+      
+      // And now the same business for all particles (including neutrals)
+      foreach (const Particle& p, fs.particles()) {
+        const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
+        const double ET = p.momentum().Et();
+        const double phi = p.momentum().azimuthalAngle();
+        /// @todo Check that phi mappings really match (they should now)
+        double rotatedphi = phi - jetphi;
+        while (rotatedphi < 0) rotatedphi += 2*PI;
+        
+        EtSumOverall += ET;
+        
+        if (deltaPhi < PI/3.0) {
+          EtSumToward += ET;
+        }
+        else if (deltaPhi < 2*PI/3.0) {
+          if (rotatedphi <= PI) {
+            EtSumTrans1 += ET;
+          }
+          else {
+            EtSumTrans2 += ET;
+          }
         }
         else {
-          EtSumTrans2 += ET;
+          EtSumAway += ET;
         }
+      } // end all particle loop
+      #endif
+      
+      
+      // Fill the histograms
+      //_hist_tnchg->fill(jetpT, numToward/(4*PI/3), weight);
+      _hist_pnchg->fill(jetpT, (numTrans1+numTrans2)/(4*PI/3), weight);
+      _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      _hist_pdifnchg->fill(jetpT, abs(numTrans1-numTrans2)/(2*PI/3), weight);
+      //_hist_anchg->fill(jetpT, numAway/(4*PI/3), weight);
+      
+      //_hist_tcptsum->fill(jetpT, ptSumToward/(4*PI/3), weight);
+      _hist_pcptsum->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
+      _hist_pmaxcptsum->fill(jetpT, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
+      _hist_pmincptsum->fill(jetpT, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
+      _hist_pdifcptsum->fill(jetpT, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3), weight);
+      //_hist_acptsum->fill(jetpT, ptSumAway/(4*PI/3), weight);
+      
+      //if (numToward > 0) {
+      //  _hist_tcptave->fill(jetpT, ptSumToward/numToward, weight);
+      //  _hist_tcptmax->fill(jetpT, ptMaxToward, weight);
+      //}
+      if ((numTrans1+numTrans2) > 0) {
+        _hist_pcptave->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2), weight);
+        //_hist_pcptmax->fill(jetpT, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2), weight);
       }
-      else {
-        EtSumAway += ET;
-      }
-    } // end all particle loop
-    #endif
-
-
-    // Fill the histograms
-    //_hist_tnchg->fill(jetpT, numToward/(4*PI/3), weight);
-    _hist_pnchg->fill(jetpT, (numTrans1+numTrans2)/(4*PI/3), weight);
-    _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-    _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-    _hist_pdifnchg->fill(jetpT, abs(numTrans1-numTrans2)/(2*PI/3), weight);
-    //_hist_anchg->fill(jetpT, numAway/(4*PI/3), weight);
-
-    //_hist_tcptsum->fill(jetpT, ptSumToward/(4*PI/3), weight);
-    _hist_pcptsum->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
-    _hist_pmaxcptsum->fill(jetpT, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-    _hist_pmincptsum->fill(jetpT, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-    _hist_pdifcptsum->fill(jetpT, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3), weight);
-    //_hist_acptsum->fill(jetpT, ptSumAway/(4*PI/3), weight);
-
-    //if (numToward > 0) {
-    //  _hist_tcptave->fill(jetpT, ptSumToward/numToward, weight);
-    //  _hist_tcptmax->fill(jetpT, ptMaxToward, weight);
-    //}
-    if ((numTrans1+numTrans2) > 0) {
-      _hist_pcptave->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2), weight);
-      //_hist_pcptmax->fill(jetpT, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2), weight);
+      //if (numAway > 0) {
+      //  _hist_acptave->fill(jetpT, ptSumAway/numAway, weight);
+      //  _hist_acptmax->fill(jetpT, ptMaxAway, weight);
+      //}
     }
-    //if (numAway > 0) {
-    //  _hist_acptave->fill(jetpT, ptSumAway/numAway, weight);
-    //  _hist_acptmax->fill(jetpT, ptMaxAway, weight);
-    //}
-  }
+    
+    
+    void finalize() {  
+      //
+    }
+    
+    //@}
 
 
-  void CDF_2008_LEADINGJETS::finalize() {  
-    //
-  }
+  private:
 
+    AIDA::IProfile1D *_hist_pnchg;
+    AIDA::IProfile1D *_hist_pmaxnchg;
+    AIDA::IProfile1D *_hist_pminnchg;
+    AIDA::IProfile1D *_hist_pdifnchg;
+    AIDA::IProfile1D *_hist_pcptsum;
+    AIDA::IProfile1D *_hist_pmaxcptsum;
+    AIDA::IProfile1D *_hist_pmincptsum;
+    AIDA::IProfile1D *_hist_pdifcptsum;
+    AIDA::IProfile1D *_hist_pcptave;
+
+  };
+
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<CDF_2008_LEADINGJETS> plugin_CDF_2008_LEADINGJETS;
 
 }

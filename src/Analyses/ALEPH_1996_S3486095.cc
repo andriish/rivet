@@ -435,4 +435,9 @@ namespace Rivet {
     scale(_histMeanMultiOmegaOmegaBar, 1.0/sumOfWeights());
   }
 
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<ALEPH_1996_S3486095> plugin_ALEPH_1996_S3486095;
+
 }
