@@ -20,6 +20,7 @@ namespace Rivet {
     addProjection(ChargedFinalState(-1.5, 1.5), "CFS15");
     addProjection(ChargedFinalState(-3.0, 3.0), "CFS30");
     addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
+    n_vetoed = 0;
   }
 
 
@@ -60,12 +61,16 @@ namespace Rivet {
     
     // Require at least one coincidence hit in trigger hodoscopes
     getLog() << Log::DEBUG << "Trigger -: " << n_trig_1 << ", Trigger +: " << n_trig_2 << endl;
-    if (!n_trig_1 || !n_trig_2) vetoEvent;
+    //if (!n_trig_1 || !n_trig_2) { //FIXME: This line doesn't work
+    if (n_trig_1 == 0 || n_trig_2 == 0) {
+        n_vetoed +=1;
+        vetoEvent;
+    }
 
     // Count  final state particles in several eta regions
     const int numP05 = applyProjection<ChargedFinalState>(event, "CFS05").size();
     const int numP15 = applyProjection<ChargedFinalState>(event, "CFS15").size();
-    const int numP30 = applyProjection<ChargedFinalState>(event, "CFS35").size();
+    const int numP30 = applyProjection<ChargedFinalState>(event, "CFS30").size();
     const int numP50 = applyProjection<ChargedFinalState>(event, "CFS50").size();
         
     // Fill histograms
@@ -102,9 +107,15 @@ namespace Rivet {
     normalize(_hist_nch900eta15, 1.01405);
     normalize(_hist_nch900eta30, 1.03055);
     normalize(_hist_nch900eta50, 1.02791);
-    // Scale to total number of weights, possible only if binwidth == 1
+    // Scale to total number of weights
     scale(_hist_mean_nch_200, 1.0/sumOfWeights());
     scale(_hist_mean_nch_900, 1.0/sumOfWeights());
+
+    getLog() << Log::INFO << "=== Trigger statistics ===" << endl;
+    getLog() << Log::INFO << "No. events vetoed: " << n_vetoed << endl;
+    getLog() << Log::INFO << "No. events accepted: " << sumOfWeights() - n_vetoed << endl;
+    getLog() << Log::INFO << "Relative trigger rate: " << 100.0*(sumOfWeights() - n_vetoed)/sumOfWeights() << " pct." << endl;
+
   }
 
 
