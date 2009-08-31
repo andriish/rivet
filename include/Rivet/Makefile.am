@@ -53,10 +53,6 @@ nobase_dist_noinst_HEADERS += \
   Analyses/STAR_2006_S6870392.hh \
   Analyses/STAR_2008_S7993412.hh \
   Analyses/STAR_2009_UE_HELEN.hh \
-  Analyses/UA5_1989_S1926373.hh \
-  Analyses/UA5_1982_S875503.hh \
-  Analyses/UA5_1986_S1583476.hh \
-  Analyses/UA1_1990_S2044935.hh 
 
 
 ## Projections
