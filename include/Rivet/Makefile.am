@@ -30,8 +30,6 @@ nobase_pkginclude_HEADERS += \
 
 ## Standard analyses
 nobase_dist_noinst_HEADERS += \
-  Analyses/ExampleAnalysis.hh \
-  Analyses/ExampleTree.hh \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/DELPHI_2002_069_CONF_603.hh \
@@ -49,11 +47,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/MC_JetAnalysis.hh \
   Analyses/MC_LHC_LEADINGJETS.hh \
   Analyses/MC_LHC_ZANALYSIS.hh \
-  Analyses/MC_LHC_DIJET.hh \
-  Analyses/STAR_2006_S6870392.hh \
-  Analyses/STAR_2008_S7993412.hh \
-  Analyses/STAR_2009_UE_HELEN.hh \
-
+  Analyses/MC_LHC_DIJET.hh
 
 ## Projections
 nobase_pkginclude_HEADERS +=   \

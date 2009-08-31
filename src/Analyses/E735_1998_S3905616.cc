@@ -1,46 +1,63 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Analyses/E735_1998_S3905616.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
 
-  E735_1998_S3905616::E735_1998_S3905616()
+  class E735_1998_S3905616 : public Analysis {
+  public:
+    
+    /// Constructor
+    E735_1998_S3905616()
       : Analysis("E735_1998_S3905616") {
-    setBeams(PROTON, ANTIPROTON);
-    const ChargedFinalState cfs;
-    addProjection(cfs, "FS");
-  }
+      setBeams(PROTON, ANTIPROTON);
+      const ChargedFinalState cfs;
+      addProjection(cfs, "FS");
+    }
+    
+
+    /// @name Analysis methods
+    //@{
+    
+    void init() {
+      _hist_multiplicity = bookHistogram1D(1, 1, 1);
+    }
 
 
-  void E735_1998_S3905616::init() {
-    _hist_multiplicity = bookHistogram1D(1, 1, 1);
-  }
+    void analyze(const Event& event) {
+      const ChargedFinalState& fs = applyProjection<ChargedFinalState>(event, "FS");
+      const size_t numParticles = fs.particles().size();
+      
+      // Get the event weight
+      const double weight = event.weight();
+      
+      // Fill histo of charged multiplicity distribution
+      _hist_multiplicity->fill(numParticles, weight);
+    }
+    
+    
+    void finalize() {
+      normalize(_hist_multiplicity);
+    }
+    
+    //@}
 
 
-  void E735_1998_S3905616::analyze(const Event& event) {
-    Log log = getLog();
-    const ChargedFinalState& fs = applyProjection<ChargedFinalState>(event, "FS");
-    const size_t numParticles = fs.particles().size();
+  private:
 
-    // Get the event weight
-    const double weight = event.weight();
-
-    // Fill histo of charged multiplicity distribution
-    _hist_multiplicity->fill(numParticles, weight);
-  }
-
-
-  void E735_1998_S3905616::finalize() {
-    normalize(_hist_multiplicity);
-  }
-
-
-
+    /// @name Histograms
+    //@{
+    AIDA::IHistogram1D *_hist_multiplicity;
+    //@}
+    
+  };
+  
+  
+  
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<E735_1998_S3905616> plugin_E735_1998_S3905616;
-
+  
 }
