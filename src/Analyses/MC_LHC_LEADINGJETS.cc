@@ -1,5 +1,4 @@
 // -*- C++ -*-
-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
@@ -10,16 +9,12 @@
 namespace Rivet {
 
 
-
   /* Underlying event in leading jet, extended to the LHC
    * @author Andy Buckley
    */ 
   class MC_LHC_LEADINGJETS : public Analysis {
   public:
     
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     MC_LHC_LEADINGJETS()
       : Analysis("MC_LHC_LEADINGJETS")
@@ -35,7 +30,6 @@ namespace Rivet {
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       addProjection(cfs, "CFS");
     }
-    //@}
     
     
     /// @name Analysis methods
@@ -124,8 +118,8 @@ namespace Rivet {
           if (pT > ptMaxAway) ptMaxAway = pT;
         }
       }
-
-
+      
+      
       // Fill the histograms
       //_hist_tnchg->fill(jetpT, numToward/(4*PI/3), weight);
       _hist_pnchg->fill(jetpT, (numTrans1+numTrans2)/(4*PI/3), weight);
@@ -133,14 +127,14 @@ namespace Rivet {
       _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
       //_hist_pdifnchg->fill(jetpT, abs(numTrans1-numTrans2)/(2*PI/3), weight);
       //_hist_anchg->fill(jetpT, numAway/(4*PI/3), weight);
-
+      
       //_hist_tcptsum->fill(jetpT, ptSumToward/(4*PI/3), weight);
       _hist_pcptsum->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
       _hist_pmaxcptsum->fill(jetpT, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
       _hist_pmincptsum->fill(jetpT, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
       //_hist_pdifcptsum->fill(jetpT, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3), weight);
       //_hist_acptsum->fill(jetpT, ptSumAway/(4*PI/3), weight);
-
+      
       //if (numToward > 0) {
       //  _hist_tcptave->fill(jetpT, ptSumToward/numToward, weight);
       //  _hist_tcptmax->fill(jetpT, ptMaxToward, weight);
@@ -154,13 +148,13 @@ namespace Rivet {
       //  _hist_acptmax->fill(jetpT, ptMaxAway, weight);
       //}
     }
-
-
+    
+    
     void finalize() {  
       //
     }
-  
-  
+    
+    
   private:
     
     AIDA::IProfile1D *_hist_pnchg;
@@ -172,10 +166,10 @@ namespace Rivet {
     AIDA::IProfile1D *_hist_pcptave;  
     
   };
-
   
-
+  
+  
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<MC_LHC_LEADINGJETS> plugin_MC_LHC_LEADINGJETS;
-
+  
 }

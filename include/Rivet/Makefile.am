@@ -40,12 +40,7 @@ nobase_dist_noinst_HEADERS += \
   Analyses/OPAL_1998_S3780481.hh \
   Analyses/OPAL_2004_S6132243.hh \
   Analyses/ZEUS_2001_S4815815.hh \
-  Analyses/MC_TVT1960_PHOTONJETS.hh \
-  Analyses/MC_TVT1960_ZJETS.hh \
-  Analyses/MC_JetAnalysis.hh \
-  Analyses/MC_LHC_LEADINGJETS.hh \
-  Analyses/MC_LHC_ZANALYSIS.hh \
-  Analyses/MC_LHC_DIJET.hh
+  Analyses/MC_JetAnalysis.hh
 
 
 ## Projections
