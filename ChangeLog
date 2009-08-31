@@ -1,5 +1,7 @@
 2009-08-31  Andy Buckley  <andy@insectnation.org>
 
+	* Removing headers for PDG analyses.
+
 	* Removing headers for STAR analyses.
 
 	* Cleaning and removing headers from UA1 and UA5 analyses.
