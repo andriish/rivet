@@ -1,6 +1,7 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/D0_2009_S8320160.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -9,65 +10,89 @@
 namespace Rivet {
 
 
-  D0_2009_S8320160::D0_2009_S8320160()
-    : Analysis("D0_2009_S8320160")
-  {
-    setBeams(PROTON, ANTIPROTON);
+  class D0_2009_S8320160 : public Analysis {
+
+  public:
+
+    /// @name Construction
+    //@{
+
+    /// Constructor
+    D0_2009_S8320160()
+      : Analysis("D0_2009_S8320160")
+    {
+      setBeams(PROTON, ANTIPROTON);
+      
+      FinalState fs;
+      FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
+      addProjection(conefinder, "ConeFinder");
+    } 
     
-    FinalState fs;
-    FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
-    addProjection(conefinder, "ConeFinder");
-  } 
+    //@}
 
 
-  // Book histograms
-  void D0_2009_S8320160::init() {
-    _h_chi_dijet.addHistogram(250., 300., bookHistogram1D(1, 1, 1));
-    _h_chi_dijet.addHistogram(300., 400., bookHistogram1D(2, 1, 1));
-    _h_chi_dijet.addHistogram(400., 500., bookHistogram1D(3, 1, 1));
-    _h_chi_dijet.addHistogram(500., 600., bookHistogram1D(4, 1, 1));
-    _h_chi_dijet.addHistogram(600., 700., bookHistogram1D(5, 1, 1));
-    _h_chi_dijet.addHistogram(700., 800., bookHistogram1D(6, 1, 1));
-    _h_chi_dijet.addHistogram(800., 900., bookHistogram1D(7, 1, 1));
-    _h_chi_dijet.addHistogram(900., 1000., bookHistogram1D(8, 1, 1));
-    _h_chi_dijet.addHistogram(1000., 1100., bookHistogram1D(9, 1, 1));
-    _h_chi_dijet.addHistogram(1100., 1960, bookHistogram1D(10, 1, 1));
-  }
-
-
-
-  // Do the analysis 
-  void D0_2009_S8320160::analyze(const Event & e) {
-    double weight = e.weight();
-
-    const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt();
+    /// @name Analysis methods
+    //@{ 
     
-    if(jets.size()<2) vetoEvent;
-    
-    FourMomentum j0(jets[0].momentum());
-    FourMomentum j1(jets[1].momentum());
-    double y0 = j0.rapidity();
-    double y1 = j1.rapidity();
-    
-    if (fabs(y0+y1)>2) vetoEvent;
-    
-    double mjj = FourMomentum(j0+j1).mass();
-    double chi = exp(fabs(y0-y1));
-    _h_chi_dijet.fill(mjj, chi, weight);
-  }
-
-
-
-  // Finalize
-  void D0_2009_S8320160::finalize() {
-    foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
-      normalize(hist);
+    // Book histograms
+    void init() {
+      _h_chi_dijet.addHistogram(250., 300., bookHistogram1D(1, 1, 1));
+      _h_chi_dijet.addHistogram(300., 400., bookHistogram1D(2, 1, 1));
+      _h_chi_dijet.addHistogram(400., 500., bookHistogram1D(3, 1, 1));
+      _h_chi_dijet.addHistogram(500., 600., bookHistogram1D(4, 1, 1));
+      _h_chi_dijet.addHistogram(600., 700., bookHistogram1D(5, 1, 1));
+      _h_chi_dijet.addHistogram(700., 800., bookHistogram1D(6, 1, 1));
+      _h_chi_dijet.addHistogram(800., 900., bookHistogram1D(7, 1, 1));
+      _h_chi_dijet.addHistogram(900., 1000., bookHistogram1D(8, 1, 1));
+      _h_chi_dijet.addHistogram(1000., 1100., bookHistogram1D(9, 1, 1));
+      _h_chi_dijet.addHistogram(1100., 1960, bookHistogram1D(10, 1, 1));
     }
-  }
+    
+    
+    
+    /// Do the analysis 
+    void analyze(const Event & e) {
+      const double weight = e.weight();
+      
+      const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt();      
+      if (jets.size() < 2) vetoEvent;
+    
+      FourMomentum j0(jets[0].momentum());
+      FourMomentum j1(jets[1].momentum());
+      double y0 = j0.rapidity();
+      double y1 = j1.rapidity();
+      
+      if (fabs(y0+y1)>2) vetoEvent;
+      
+      double mjj = FourMomentum(j0+j1).mass();
+      double chi = exp(fabs(y0-y1));
+      _h_chi_dijet.fill(mjj, chi, weight);
+    }
+    
+    
+    
+    /// Finalize
+    void finalize() {
+      foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
+        normalize(hist);
+      }
+    }
+
+    //@}
+    
+    
+  private:
+    
+    /// @name Histograms
+    //@{
+    BinnedHistogram<double> _h_chi_dijet;
+    //@}
+    
+  };
 
 
-
+  
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2009_S8320160> plugin_D0_2009_S8320160;
-
+  
 }

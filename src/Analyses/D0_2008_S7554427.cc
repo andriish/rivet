@@ -1,63 +1,87 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/D0_2008_S7554427.hh"
+#include "Rivet/Analysis.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ZFinder.hh"
-#include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
 
 
-  D0_2008_S7554427::D0_2008_S7554427()
-    : Analysis("D0_2008_S7554427")
-  {
-    // Run II Z pT
-    setBeams(PROTON, ANTIPROTON);
+  /// @brief Measurement of D0 Run II Z pT differential cross-section shape
+  /// @author Andy Buckley
+  /// @author Gavin Hesketh
+  /// @author Frank Siegert
+  class D0_2008_S7554427 : public Analysis {
+
+  public:
+
+    /// Default constructor.
+    D0_2008_S7554427()
+      : Analysis("D0_2008_S7554427")
+    {
+      // Run II Z pT
+      setBeams(PROTON, ANTIPROTON);
+      
+      ZFinder zfinder(-MaxRapidity, MaxRapidity, 0.0*GeV, ELECTRON,
+                      40.0*GeV, 200.0*GeV, 0.2);
+      addProjection(zfinder, "ZFinder");
+    } 
     
-    ZFinder zfinder(-MaxRapidity, MaxRapidity, 0.0*GeV, ELECTRON,
-                    40.0*GeV, 200.0*GeV, 0.2);
-    addProjection(zfinder, "ZFinder");
-  } 
+    
+    /// @name Analysis methods
+    //@{ 
+
+    /// Book histograms
+    void init() {
+      _h_ZpT         = bookHistogram1D(1, 1, 1);
+      _h_forward_ZpT = bookHistogram1D(3, 1, 1);
+    }
 
 
 
-  // Book histograms
-  void D0_2008_S7554427::init() {
-    _h_ZpT         = bookHistogram1D(1, 1, 1);
-    _h_forward_ZpT = bookHistogram1D(3, 1, 1);
-  }
+    /// Do the analysis 
+    void analyze(const Event & e) {
+      const double weight = e.weight();
 
-
-
-  // Do the analysis 
-  void D0_2008_S7554427::analyze(const Event & e) {
-    double weight = e.weight();
-
-    const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-    if (zfinder.particles().size() == 1) {
-      double yZ = fabs(zfinder.particles()[0].momentum().rapidity());
-      double pTZ = zfinder.particles()[0].momentum().pT();
-      _h_ZpT->fill(pTZ, weight);
-      if (yZ > 2.0) {
-        _h_forward_ZpT->fill(pTZ, weight);
+      const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
+      if (zfinder.particles().size() == 1) {
+        double yZ = fabs(zfinder.particles()[0].momentum().rapidity());
+        double pTZ = zfinder.particles()[0].momentum().pT();
+        _h_ZpT->fill(pTZ, weight);
+        if (yZ > 2.0) {
+          _h_forward_ZpT->fill(pTZ, weight);
+        }
       }
+      else {
+        getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
+      }
+      
     }
-    else {
-      getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
+    
+    
+    
+    // Finalize
+    void finalize() {
+      normalize(_h_ZpT);
+      normalize(_h_forward_ZpT);
     }
-
-  }
-
-
-
-  // Finalize
-  void D0_2008_S7554427::finalize() {
-    normalize(_h_ZpT);
-    normalize(_h_forward_ZpT);
-  }
+    
+    //@}
 
 
+  private:
 
+    /// @name Histograms
+    //@{
+    AIDA::IHistogram1D * _h_ZpT;
+    AIDA::IHistogram1D * _h_forward_ZpT;
+    //@}
+
+  };
+
+    
+    
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2008_S7554427> plugin_D0_2008_S7554427;
 

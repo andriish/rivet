@@ -122,6 +122,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
+      const double weight = event.weight();
 
       /// @todo Do the event by event analysis here
 

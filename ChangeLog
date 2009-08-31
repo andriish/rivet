@@ -1,5 +1,7 @@
 2009-08-31  Andy Buckley  <andy@insectnation.org>
 
+	* Removing headers for D0 analyses.
+
 	* Exit with an error message if addProjection is used twice from
 	the same parent with distinct projections.
 

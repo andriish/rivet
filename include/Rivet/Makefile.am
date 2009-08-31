@@ -29,26 +29,9 @@ nobase_pkginclude_HEADERS += \
 
 
 ## Standard analyses
-# nobase_pkginclude_HEADERS += \
-#   Analyses/ExampleAnalysis.hh \
-#   Analyses/ExampleTree.hh     
 nobase_dist_noinst_HEADERS += \
   Analyses/ExampleAnalysis.hh \
   Analyses/ExampleTree.hh \
-  Analyses/D0_1996_S3214044.hh  \
-  Analyses/D0_1996_S3324664.hh  \
-  Analyses/D0_2001_S4674421.hh  \
-  Analyses/D0_2004_S5992206.hh  \
-  Analyses/D0_2006_S6438750.hh  \
-  Analyses/D0_2007_S7075677.hh  \
-  Analyses/D0_2008_S6879055.hh  \
-  Analyses/D0_2008_S7554427.hh  \
-  Analyses/D0_2008_S7662670.hh  \
-  Analyses/D0_2008_S7719523.hh  \
-  Analyses/D0_2008_S7837160.hh  \
-  Analyses/D0_2008_S7863608.hh  \
-  Analyses/D0_2009_S8202443.hh  \
-  Analyses/D0_2009_S8320160.hh  \
   Analyses/DELPHI_1995_S3137023.hh \
   Analyses/DELPHI_1996_S3430090.hh \
   Analyses/DELPHI_2002_069_CONF_603.hh \
