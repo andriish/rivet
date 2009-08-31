@@ -71,7 +71,7 @@ namespace Rivet {
       
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      if (fs.isEmpty()) {
+      if (fs.empty()) {
         vetoEvent;
       }
       

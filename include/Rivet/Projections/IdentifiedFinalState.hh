@@ -20,7 +20,7 @@ namespace Rivet {
     /// @name Constructors
     //@{
     /// Default constructor.
-    IdentifiedFinalState(double etamin=-MaxRapidity, double etamax=MaxRapidity, double ptMin=0.0*GeV) 
+    IdentifiedFinalState(double etamin=-MAXRAPIDITY, double etamax=MAXRAPIDITY, double ptMin=0.0*GeV) 
       : FinalState(etamin, etamax, ptMin)
     {
       setName("IdentifiedFinalState");

@@ -23,7 +23,7 @@ namespace Rivet {
       // Run II Z pT
       setBeams(PROTON, ANTIPROTON);
       
-      ZFinder zfinder(-MaxRapidity, MaxRapidity, 0.0*GeV, ELECTRON,
+      ZFinder zfinder(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
                       40.0*GeV, 200.0*GeV, 0.2);
       addProjection(zfinder, "ZFinder");
     } 

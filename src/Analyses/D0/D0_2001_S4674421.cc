@@ -101,9 +101,9 @@ namespace Rivet {
 
         // Fill W pT distributions
         ParticleVector Wdaughters;
-        if (enuFS.particles().size() == 2 && enubFS.isEmpty()) {
+        if (enuFS.particles().size() == 2 && enubFS.empty()) {
           Wdaughters = enuFS.particles();
-        } else if (enuFS.isEmpty() && enubFS.particles().size() == 2) {
+        } else if (enuFS.empty() && enubFS.particles().size() == 2) {
           Wdaughters = enubFS.particles();
         }
         if (! Wdaughters.empty()) {

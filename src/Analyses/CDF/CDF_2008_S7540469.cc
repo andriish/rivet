@@ -50,7 +50,7 @@ namespace Rivet {
       
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      if (fs.isEmpty()) {
+      if (fs.empty()) {
         getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                  << " because no final state pair found " << endl;
         vetoEvent;

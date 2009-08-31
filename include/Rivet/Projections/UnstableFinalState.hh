@@ -18,8 +18,8 @@ namespace Rivet {
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    UnstableFinalState(double mineta = -MaxRapidity,
-                       double maxeta =  MaxRapidity,
+    UnstableFinalState(double mineta = -MAXRAPIDITY,
+                       double maxeta =  MAXRAPIDITY,
                        double minpt  =  0.0*GeV)
       : _etamin(mineta), _etamax(maxeta), _ptmin(minpt)
     { 
@@ -40,7 +40,7 @@ namespace Rivet {
     virtual const ParticleVector& particles() const { return _theParticles; }
 
     /// Is this final state empty?
-    virtual const bool isEmpty() const { return _theParticles.empty(); }
+    virtual const bool empty() const { return _theParticles.empty(); }
 
   protected:
     

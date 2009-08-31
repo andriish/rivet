@@ -45,10 +45,10 @@ namespace Rivet {
     if (_ptrs.find(name) != _ptrs.end()) {
       // Protect against overwriting analyses by throwing an error
       /// @todo Tidy this up!
-      Log::getLog("Rivet.Loader") << Log::ERROR << "Tried to register a second plugin analysis called '" << name << "'" << endl;
+      Log::getLog("Rivet.AnalysisLoader") << Log::ERROR << "Tried to register a second plugin analysis called '" << name << "'" << endl;
       exit(1);
     }
-    Log::getLog("Rivet.Loader") << Log::TRACE << "Registering a plugin analysis called '" << name << "'" << endl;
+    Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Registering a plugin analysis called '" << name << "'" << endl;
     _ptrs[name] = ab;
   }
   
@@ -84,36 +84,32 @@ namespace Rivet {
       oslink::directory dir(d);
       while (dir) {
         string filename = dir.next();
-        /// Require that name *starts* with 'Rivet' with new loader
+        // Require that name *starts* with 'Rivet' with new loader
         if (filename.find("Rivet") != 0) continue;
         size_t posn = filename.find(libsuffix);
         if (posn == string::npos || posn != filename.length()-libsuffix.length()) continue;
         /// @todo Make sure this is an abs path
         /// @todo Sys-dependent path separator instead of "/"
-        pluginfiles += d + "/" + filename;
+        const string path = d + "/" + filename;
+        // Ensure no duplicate paths
+        if (find(pluginfiles.begin(), pluginfiles.end(), path) == pluginfiles.end()) {
+          pluginfiles += path;
+        }
       }
     }
 
     // Load the plugin files
+    Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Candidate analysis plugin libs: " << pluginfiles << endl;
     foreach (const string& pf, pluginfiles) {
-      Log::getLog("Rivet.Loader") << Log::TRACE << "Trying to load plugin analyses from file " << pf << endl;
+      Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Trying to load plugin analyses from file " << pf << endl;
+      /// @todo Still needs lazy loading with new plugin design?
       void* handle = dlopen(pf.c_str(), RTLD_LAZY);
       if (!handle) {
-        Log::getLog("Rivet.Loader") << Log::WARN << "Cannot open " << pf << ": " << dlerror() << endl;
+        Log::getLog("Rivet.AnalysisLoader") << Log::WARN << "Cannot open " << pf << ": " << dlerror() << endl;
         continue;
       }
-      // Store a list of libs to be neatly closed later
-      //_handles.insert(handle);
     }
   }
 
-
-  // void AnalysisLoader::closeAnalysisBuilders() {
-  //   foreach (void* h, _handles) {
-  //     if (h) dlclose(h);
-  //   }
-  //   _handles.clear();
-  // }
-     
 
 }

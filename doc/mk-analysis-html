@@ -32,7 +32,7 @@ sys.path = dirs + sys.path
 os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + \
     os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
 anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", "*", ".libs"))
-print anadirs
+#print anadirs
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
 
         

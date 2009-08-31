@@ -32,8 +32,8 @@ namespace Rivet {
     
     /// Stand-alone constructor. Initialises the base FinalState projection.
     LossyFinalState(double lossfraction,
-                    double mineta = -MaxRapidity,
-                    double maxeta = MaxRapidity,
+                    double mineta = -MAXRAPIDITY,
+                    double maxeta = MAXRAPIDITY,
                     double minpt = 0.0)
       : _lossFraction(lossfraction)
     { 

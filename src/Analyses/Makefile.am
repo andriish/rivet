@@ -1,4 +1,5 @@
-SUBDIRS = CDF D0 SPS LEP HERA RHIC Example MC Misc
+SUBDIRS = Example RHIC
+# CDF D0 SPS LEP HERA RHIC MC Misc
 
 ## Flags for building all plugins
 AM_LDFLAGS = $(LDFLAGS) -module -L$(FASTJETLIBPATH)

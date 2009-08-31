@@ -25,8 +25,8 @@ namespace Rivet {
       addProjection(fsp, "FS");
     }
     
-    HadronicFinalState(double mineta = -MaxRapidity,
-                       double maxeta = MaxRapidity,
+    HadronicFinalState(double mineta = -MAXRAPIDITY,
+                       double maxeta = MAXRAPIDITY,
                        double minpt = 0.0*GeV)
       : FinalState(mineta, maxeta, minpt)
     {

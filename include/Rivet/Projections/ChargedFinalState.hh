@@ -25,8 +25,8 @@ namespace Rivet {
       addProjection(fsp, "FS");
     }
     
-    ChargedFinalState(double mineta = -MaxRapidity,
-                      double maxeta =  MaxRapidity,
+    ChargedFinalState(double mineta = -MAXRAPIDITY,
+                      double maxeta =  MAXRAPIDITY,
                       double minpt  =  0.0*GeV)
     { 
       setName("ChargedFinalState");

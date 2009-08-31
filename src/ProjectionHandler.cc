@@ -117,17 +117,19 @@ namespace Rivet {
     }
 
 
-    /// @todo Reinstate this check, since it suggests something is wrong
+    /// @todo Reinstate this check, since something is going wrong with undead projections!
     // // If there is no match, check that the same parent hasn't already used this name for something else
     // if (_namedprojs[&parent].find(name) != _namedprojs[&parent].end()) {
-    //   getLog() << Log::ERROR << parent.name() << " (" << &parent 
-    //            << ") has already tried to register a different projection "
-    //            << "(" << _namedprojs[&parent][name] << ") "
-    //            << "with name '" << name << "'" << endl;
+    //   getLog() << Log::ERROR << "Projection clash! "
+    //            << parent.name() << " (" << &parent << ") "
+    //            << "is trying to overwrite its registered '" << name << "' " 
+    //            << "projection (" << _namedprojs[&parent][name] << "=" 
+    //            << _namedprojs[&parent][name]->name() << ") with a non-equivalent projection "
+    //            << "(" << &proj << "=" << proj.name() << ")" << endl;
     //   ostringstream msg;
     //   msg << "Current projection hierarchy:" << endl;
     //   foreach (const NamedProjsMap::value_type& nps, _namedprojs) {
-    //     //const string parentname = (nps.first) ? nps.first->name() : "";
+    //     //const string parentname = nps.first->name();
     //     msg << nps.first << endl; //"(" << parentname << ")" << endl;
     //     foreach (const NamedProjs::value_type& np, nps.second) {
     //       msg << "  " << np.second << " (" << np.second->name() 

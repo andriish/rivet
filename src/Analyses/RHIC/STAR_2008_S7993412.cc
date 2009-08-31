@@ -16,7 +16,7 @@ namespace Rivet {
       setBeams(PROTON, PROTON);
       ChargedFinalState fs(-1.0, 1.0, 1.0*GeV);
       addProjection(fs, "FS");
-    } 
+    }
     
     
     /// @name Analysis methods
@@ -35,7 +35,7 @@ namespace Rivet {
 
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      if (fs.isEmpty()) {
+      if (fs.empty()) {
         getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                  << " because no final state found " << endl;
         vetoEvent;

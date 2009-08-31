@@ -34,7 +34,7 @@ namespace Rivet {
     virtual const ParticleVector& particles() const { return _theParticles; }
 
     /// Is this final state empty?
-    virtual const bool isEmpty() const { return _theParticles.empty(); }
+    virtual const bool empty() const { return _theParticles.empty(); }
 
   protected:
     

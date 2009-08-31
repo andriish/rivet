@@ -11,9 +11,9 @@ namespace Rivet {
   {
     setName("FinalState");
     const bool openpt = isZero(minpt);
-    const bool openeta = (mineta <= -MaxRapidity && maxeta >= MaxRapidity);
+    const bool openeta = (mineta <= -MAXRAPIDITY && maxeta >= MAXRAPIDITY);
     getLog() << Log::TRACE << "Check for open FS conditions:" << std::boolalpha
-             << " eta="  << openeta 
+             << " eta=" << openeta 
              << ", pt=" << openpt << endl;
     if (!openeta || !openpt) {
       addProjection(FinalState(), "OpenFS");    
@@ -24,7 +24,7 @@ namespace Rivet {
   }
   
   
-  FinalState::FinalState(const std::vector<std::pair<double, double> >& etaRanges, double minpt)
+  FinalState::FinalState(const vector<pair<double, double> >& etaRanges, double minpt)
     : _etaRanges(etaRanges), _ptmin(minpt)
   { 
     setName("FinalState");
@@ -32,7 +32,7 @@ namespace Rivet {
     /// @todo Properly check whether any of these eta ranges (or their combination) are actually open
     const bool openeta = etaRanges.empty();
     getLog() << Log::TRACE << "Check for open FS conditions:" << std::boolalpha
-             << " eta="  << openeta 
+             << " eta=" << openeta 
              << ", pt=" << openpt << endl;
     if (!openeta || !openpt) {
       addProjection(FinalState(), "OpenFS");

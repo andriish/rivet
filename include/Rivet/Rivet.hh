@@ -47,7 +47,7 @@ namespace Rivet {
   using std::endl;
 
   /// A sensible default maximum value of rapidity for Rivet analyses to use.
-  static const double MaxRapidity = 100000.0;
+  static const double MAXRAPIDITY = 100000.0;
 
   /// A function to get the Rivet version string
   string version();

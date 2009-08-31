@@ -17,7 +17,7 @@ namespace Rivet {
       : Analysis("MC_LHC_ZANALYSIS") {
       const ChargedFinalState cfs;
       addProjection(cfs, "CFS");
-      const ZFinder zf(-MaxRapidity, MaxRapidity, 0.0*GeV, ELECTRON, 30.0*GeV, 115.0*GeV, 0.2);
+      const ZFinder zf(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON, 30.0*GeV, 115.0*GeV, 0.2);
       addProjection(zf, "ZF");
       FastJets fastjets(zf.remainingFinalState(), FastJets::KT, 0.7);
       addProjection(fastjets, "Jets");

@@ -66,7 +66,7 @@ namespace Rivet {
       
       // Get all other particles
       const FinalState& fs = applyProjection<FinalState>(event, "AllFS");
-      if (fs.isEmpty()) {
+      if (fs.empty()) {
         vetoEvent;
       }
       

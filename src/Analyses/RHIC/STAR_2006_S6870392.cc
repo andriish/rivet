@@ -19,6 +19,7 @@ namespace Rivet {
       FinalState fs(-2.0, 2.0);
       addProjection(fs, "FS");
       // R=0.4, pTmin=0, seed_threshold=0.5:
+      /// @todo Presumably this jet alg is wrong...
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.4, 0.0, 0.5), "MidpointJets");
     } 
 
@@ -38,7 +39,7 @@ namespace Rivet {
       
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      if (fs.isEmpty()) {
+      if (fs.empty()) {
         getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
                  << " because no final state found " << endl;
         vetoEvent;

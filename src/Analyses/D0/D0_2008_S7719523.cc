@@ -79,7 +79,7 @@ namespace Rivet {
       
       // Get all charged particles
       const FinalState& fs = applyProjection<FinalState>(event, "JetFS");
-      if (fs.isEmpty()) {
+      if (fs.empty()) {
         vetoEvent;
       }
       
