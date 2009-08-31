@@ -94,31 +94,51 @@ namespace Rivet {
     getLog() << Log::TRACE << "Comparing " << &proj 
              << " with " << _projs.size()
              << " registered projections" <<  endl;
-    for (ProjHandles::const_iterator ph = _projs.begin(); ph != _projs.end(); ++ph) {
+    foreach (const ProjHandle& ph, _projs) {
       // Make sure the concrete types match, using RTTI.
-      const std::type_info& regtype = typeid(**ph);
-      getLog() << Log::TRACE << "RTTI type comparison with "<< *ph << ": " 
+      const std::type_info& regtype = typeid(*ph);
+      getLog() << Log::TRACE << "RTTI type comparison with "<< ph << ": " 
                << newtype.name() << " vs. " << regtype.name() << endl; 
       if (newtype != regtype) continue;
-      getLog() << Log::TRACE << "RTTI type matches with " << *ph << endl;
+      getLog() << Log::TRACE << "RTTI type matches with " << ph << endl;
       
       // If we find a match, ~~delete the passed object, then~~ make a copy of the
       // existing pointer to the store location indexed by ProjApplier* => name.
-      if (pcmp(**ph, proj) == PCmp::EQUIVALENT) {
+      if (pcmp(*ph, proj) != PCmp::EQUIVALENT) {
+        getLog() << Log::TRACE << "Type-matched projections at " 
+                 << &proj << " and " << ph << " are not equivalent" << endl;
+      } else {
         getLog() << Log::TRACE << "Deleting equivalent projection at " 
-                 << &proj << " and returning " << *ph << endl;
+                 << &proj << " and returning " << ph << endl;
         //delete &proj;
-        _namedprojs[&parent][name] = *ph;
-        return **ph;
+        _namedprojs[&parent][name] = ph;
+        return *ph;
       }
     }
 
-    // If there is no match, check that the same parent hasn't already used this name for something else
-    if (_namedprojs[&parent].find(name) != _namedprojs[&parent].end()) {
-      getLog() << Log::ERROR << parent.name() << " has already tried to register a different projection "
-               << "with name " << name << endl;
-      exit(1);
-    }
+
+    /// @todo Reinstate this check, since it suggests something is wrong
+    // // If there is no match, check that the same parent hasn't already used this name for something else
+    // if (_namedprojs[&parent].find(name) != _namedprojs[&parent].end()) {
+    //   getLog() << Log::ERROR << parent.name() << " (" << &parent 
+    //            << ") has already tried to register a different projection "
+    //            << "(" << _namedprojs[&parent][name] << ") "
+    //            << "with name '" << name << "'" << endl;
+    //   ostringstream msg;
+    //   msg << "Current projection hierarchy:" << endl;
+    //   foreach (const NamedProjsMap::value_type& nps, _namedprojs) {
+    //     //const string parentname = (nps.first) ? nps.first->name() : "";
+    //     msg << nps.first << endl; //"(" << parentname << ")" << endl;
+    //     foreach (const NamedProjs::value_type& np, nps.second) {
+    //       msg << "  " << np.second << " (" << np.second->name() 
+    //            << ", locally called '" << np.first << "')" << endl;
+    //     }
+    //     msg << endl;
+    //   }
+    //   getLog() << Log::ERROR << msg.str();
+    //   exit(1);
+    // }
+
 
     // If we found no match, and the name is free, add the passed Projection to _projs, and
     // add the ProjApplier* => name location to the associative container.

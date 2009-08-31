@@ -1,5 +1,8 @@
 2009-08-31  Andy Buckley  <andy@insectnation.org>
 
+	* Splitting analyses by directory, to make it easier to disable
+	building of particular analysis group plugin libs.
+
 	* Removing/merging headers for all analyses except for the special
 	MC_JetAnalysis base class.
 
