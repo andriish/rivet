@@ -67,12 +67,12 @@ namespace Rivet {
       }
       
       // Require at least one coincidence hit in both BBC counters
-      if (!n_trig_1 || !n_trig_2) vetoEvent; 
+      if (n_trig_1 == 0 || n_trig_2 == 0) vetoEvent; 
       getLog() << Log::DEBUG << "Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2 << endl;
       
       // Further event selection cut
-      if ( (n_backward+n_forward < 4) || (n_backward*n_forward < 1) ) vetoEvent;
-      getLog() << Log::DEBUG << " Num. forward: " << n_forward  << " Num. backward: " << n_backward << endl;
+      if (n_backward + n_forward < 4 || n_backward == 0 || n_forward == 0) vetoEvent;
+      getLog() << Log::DEBUG << " Num. forward: " << n_forward  << ", Num. backward: " << n_backward << endl;
       
       foreach (Particle p, fs.particles()) {
         const double pt = p.momentum().pT();
