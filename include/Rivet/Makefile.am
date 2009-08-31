@@ -30,13 +30,6 @@ nobase_pkginclude_HEADERS += \
 
 ## Standard analyses
 nobase_dist_noinst_HEADERS += \
-  Analyses/DELPHI_1995_S3137023.hh \
-  Analyses/DELPHI_1996_S3430090.hh \
-  Analyses/DELPHI_2002_069_CONF_603.hh \
-  Analyses/DELPHI_2003_WUD_03_11.hh \
-  Analyses/H1_1994_S2919893.hh \
-  Analyses/H1_1995_S3167097.hh \
-  Analyses/H1_2000_S4129130.hh \
   Analyses/OPAL_1998_S3780481.hh \
   Analyses/OPAL_2004_S6132243.hh \
   Analyses/ZEUS_2001_S4815815.hh \
