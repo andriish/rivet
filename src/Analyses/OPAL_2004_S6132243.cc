@@ -1,14 +1,19 @@
 // -*- C++ -*-
-#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Analyses/OPAL_2004_S6132243.hh"
+#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
 
 
-  void OPAL_2004_S6132243::init() { }
-  void OPAL_2004_S6132243::analyze(const Event & event) { }
-  void OPAL_2004_S6132243::finalize() { }
+  class OPAL_2004_S6132243 : public Analysis { 
+
+    OPAL_2004_S6132243() : Analysis("OPAL_2004_S6132243") { }
+    void init() { }
+    void analyze(const Event & event) { }
+    void finalize() { }
+
+  };
 
 
   // This global object acts as a hook for the plugin system

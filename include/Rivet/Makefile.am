@@ -30,9 +30,6 @@ nobase_pkginclude_HEADERS += \
 
 ## Standard analyses
 nobase_dist_noinst_HEADERS += \
-  Analyses/OPAL_1998_S3780481.hh \
-  Analyses/OPAL_2004_S6132243.hh \
-  Analyses/ZEUS_2001_S4815815.hh \
   Analyses/MC_JetAnalysis.hh
 
 
