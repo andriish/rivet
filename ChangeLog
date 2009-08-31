@@ -1,3 +1,8 @@
+2009-08-31  Andy Buckley  <andy@insectnation.org>
+
+	* Exit with an error message if addProjection is used twice from
+	the same parent with distinct projections.
+
 2009-08-28  Andy Buckley  <andy@insectnation.org>
 
 	* Changed naming convention for analysis plugin libraries, since

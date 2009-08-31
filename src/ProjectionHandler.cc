@@ -29,9 +29,9 @@ namespace Rivet {
 
 
   void ProjectionHandler::clear() {
-    for (ProjHandles::iterator ph = _projs.begin(); ph != _projs.end(); ++ph) {
-      getLog() << Log::TRACE << "Deleting projection at " << *ph << endl;
-      delete *ph;
+    foreach (ProjHandles::value_type& ph, _projs) {
+      getLog() << Log::TRACE << "Deleting projection at " << ph << endl;
+      delete ph;
     }
     _projs.clear();
     _namedprojs.clear();
@@ -113,8 +113,15 @@ namespace Rivet {
       }
     }
 
-    // If we found no match, add passed Projection to _projs and the
-    // ProjApplier* => name location in the associative container.
+    // If there is no match, check that the same parent hasn't already used this name for something else
+    if (_namedprojs[&parent].find(name) != _namedprojs[&parent].end()) {
+      getLog() << Log::ERROR << parent.name() << " has already tried to register a different projection "
+               << "with name " << name << endl;
+      exit(1);
+    }
+
+    // If we found no match, and the name is free, add the passed Projection to _projs, and
+    // add the ProjApplier* => name location to the associative container.
     getLog() << Log::TRACE << "Registered new projection at " << &proj << endl;
     _projs.push_back(&proj);
     _namedprojs[&parent][name] = &proj;
