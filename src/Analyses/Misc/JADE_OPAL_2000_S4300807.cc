@@ -27,7 +27,6 @@ namespace Rivet {
     /// Constructor
     JADE_OPAL_2000_S4300807(const string& sqrtsstr, double sqrts, 
                             int nr_R_Jade, int nr_R_Durham, int nr_y_Durham)
-      /// @todo This string passing doesn't work...
       : Analysis("JADE_OPAL_2000_S4300807" + ("_" + sqrtsstr + "GEV")),
         _sqrts(sqrts), 
         _nr_R_Jade(nr_R_Jade),
