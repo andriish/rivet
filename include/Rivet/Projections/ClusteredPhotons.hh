@@ -8,6 +8,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/IdentifiedFinalState.hh"
 
 namespace Rivet {
 
@@ -22,13 +23,16 @@ namespace Rivet {
     //@{
     /// Constructor with the two final states, and the maximum separation in dR
     /// for clustered photons
-    ClusteredPhotons(const FinalState& fs, const FinalState& signal,
-                     double dRmax) : _dRmax(dRmax)
+    ClusteredPhotons(const FinalState& fs, const FinalState& signal, double dRmax) 
+      : _dRmax(dRmax)
     {
       setName("ClusteredPhotons");
-      addProjection(fs, "FS");
+      IdentifiedFinalState photonfs(fs);
+      photonfs.acceptId(PHOTON);
+      addProjection(photonfs, "Photons");
       addProjection(signal, "Signal");
     }
+
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

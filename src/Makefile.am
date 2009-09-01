@@ -12,7 +12,7 @@ libRivet_la_SOURCES = \
   Analysis.cc AnalysisLoader.cc AnalysisInfo.cc \
   AnalysisHandler.cc ProjectionHandler.cc HistoHandler.cc 
 
-libRivet_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/Tools/YAML $(CPPFLAGS)
+libRivet_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/Tools/yaml-cpp $(CPPFLAGS)
 
 libRivet_la_LDFLAGS = -L$(prefix)/lib \
   -L$(GSLLIBPATH) -L$(GSLCBLASLIBPATH) -export-dynamic $(VERSIONINFOFLAGS)

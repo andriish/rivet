@@ -30,4 +30,5 @@ libRivetProjections_la_SOURCES = \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
   VisibleFinalState.cc \
+  WFinder.cc \
   ZFinder.cc

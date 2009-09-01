@@ -1,3 +1,12 @@
+2009-09-01  Andy Buckley  <andy@insectnation.org>
+
+	* Adding WFinder and WAnalysis, based on Z proj and analysis, with
+	some tidying of the Z code.
+
+	* ClusteredPhotons now uses an IdentifiedFS to pick the photons to
+	be looped over, and only clusters photons around *charged* signal
+	particles.
+
 2009-08-31  Andy Buckley  <andy@insectnation.org>
 
 	* Splitting analyses by directory, to make it easier to disable

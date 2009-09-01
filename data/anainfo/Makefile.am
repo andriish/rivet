@@ -57,6 +57,7 @@ dist_pkgdata_DATA = \
   JADE_OPAL_2000_S4300807_91GEV.info \
   MC_LHC_LEADINGJETS.info \
   MC_LHC_DIJET.info \
+  MC_LHC_WANALYSIS.info \
   MC_LHC_ZANALYSIS.info \
   MC_TVT1960_PHOTONJETS.info \
   MC_TVT1960_ZJETS.info \

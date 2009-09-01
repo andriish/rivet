@@ -234,7 +234,7 @@ AC_SUBST(AM_CXXFLAGS)
 AC_EMPTY_SUBST
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
-AC_CONFIG_FILES(src/Tools/Makefile src/Tools/YAML/Makefile)
+AC_CONFIG_FILES(src/Tools/Makefile src/Tools/yaml-cpp/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/Analyses/Makefile)
 AC_CONFIG_FILES(src/Analyses/Example/Makefile)

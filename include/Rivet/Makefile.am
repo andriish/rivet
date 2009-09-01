@@ -70,6 +70,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/UnstableFinalState.hh \
   Projections/VetoedFinalState.hh \
   Projections/VisibleFinalState.hh \
+  Projections/WFinder.hh \
   Projections/ZFinder.hh 
 
 

@@ -1,12 +1,14 @@
 // -*- C++ -*-
 #include "Rivet/Projections/ClusteredPhotons.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 #include "Rivet/Cmp.hh"
 
 namespace Rivet {
 
+
   int ClusteredPhotons::compare(const Projection& p) const {
-    const PCmp fscmp = mkNamedPCmp(p, "FS");
+    const PCmp fscmp = mkNamedPCmp(p, "Photons");
     if (fscmp != PCmp::EQUIVALENT) return fscmp;
 
     const PCmp sigcmp = mkNamedPCmp(p, "Signal");
@@ -20,27 +22,28 @@ namespace Rivet {
 
   void ClusteredPhotons::project(const Event& e) {
     _theParticles.clear();
-    if (!_dRmax>0.0) return;
+    if (!_dRmax > 0.0) return;
 
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    const FinalState& photons = applyProjection<FinalState>(e, "Photons");
     const FinalState& signal = applyProjection<FinalState>(e, "Signal");
 
-    foreach (const Particle& p, fs.particles()) {
+    foreach (const Particle& p, photons.particles()) {
       bool clustered = false;
-      if (p.pdgId() == PHOTON) {
-        foreach (const Particle& l, signal.particles()) {
-          FourMomentum p_l=l.momentum();
-          FourMomentum p_P=p.momentum();
-          if (deltaR(p_l.pseudorapidity(), p_l.azimuthalAngle(),
-                     p_P.pseudorapidity(), p_P.azimuthalAngle()) < _dRmax) {
-            clustered = true;
-          }
+      foreach (const Particle& l, signal.particles()) {
+        // Only cluster photons around *charged* signal particles
+        if (PID::threeCharge(l.pdgId()) == 0) continue;
+        // Geometrically match momentum vectors
+        const FourMomentum p_l = l.momentum();
+        const FourMomentum p_P = p.momentum();
+        if (deltaR(p_l.pseudorapidity(), p_l.azimuthalAngle(),
+                   p_P.pseudorapidity(), p_P.azimuthalAngle()) < _dRmax) {
+          clustered = true;
         }
-        if (clustered) _theParticles.push_back(p);
       }
+      if (clustered) _theParticles.push_back(p);
     }
-    getLog() << Log::DEBUG << name() <<" found " << _theParticles.size()
-             <<" particles." << endl;
+    getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
+             << " matching photons." << endl;
   }
 
 }
