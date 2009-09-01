@@ -12,10 +12,10 @@ References:
  - DESY 01/220
  - hep-ex/0112029
 RunInfo:
-  - 820 GeV protons colliding with 27.5 GeV positrons
-  - Direct and resolved photoproduction of dijets
-  - Leading jet pT > 14 GeV, second jet pT > 11 GeV
-  - Jet pseudorapidity $-1 < \eta < 2.4$
+  820 GeV protons colliding with 27.5 GeV positrons;
+  Direct and resolved photoproduction of dijets;
+  Leading jet pT > 14 GeV, second jet pT > 11 GeV;
+  Jet pseudorapidity $-1 < \eta < 2.4$
 NumEvents: 1000000
 PtCuts: [0]
 Description:
