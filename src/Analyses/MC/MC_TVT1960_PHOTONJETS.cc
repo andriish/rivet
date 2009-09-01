@@ -40,8 +40,8 @@ namespace Rivet {
     
     /// Book histograms
     void init() {
-      _h_photon_pT = bookHistogram1D("photon_pT", 100, 0.0, 500.0);
-      _h_photon_y = bookHistogram1D("photon_y", 40, -4.0, 4.0);
+      _h_photon_pT = bookHistogram1D("photon_pT", 50, 0.0, 500.0);
+      _h_photon_y = bookHistogram1D("photon_y", 20, -1.0, 1.0);
       _h_photon_jet1_deta = bookHistogram1D("photon_jet1_deta", 50, -5.0, 5.0);
       _h_photon_jet1_dR = bookHistogram1D("photon_jet1_dR", 25, 0.5, 7.0);
 
@@ -59,11 +59,7 @@ namespace Rivet {
         vetoEvent;
       }
       const FourMomentum photon = photons.front().momentum();
-      if (photon.pT()/GeV < 30) {
-        getLog() << Log::DEBUG << "Leading photon has pT < 30 GeV: " << photon.pT()/GeV << endl;
-        vetoEvent;
-      }
-
+      
       // Get all charged particles
       const FinalState& fs = applyProjection<FinalState>(e, "JetFS");
       if (fs.empty()) {
