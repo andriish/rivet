@@ -3,7 +3,7 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/ClusteredPhotons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Cmp.hh"
 

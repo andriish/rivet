@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Cmp.hh"
 

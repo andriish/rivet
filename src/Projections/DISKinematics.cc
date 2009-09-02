@@ -4,7 +4,7 @@
 #include "Rivet/Projections/DISKinematics.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Cmp.hh"
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 

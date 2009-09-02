@@ -1,6 +1,6 @@
 #include "Rivet/Jet.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/ParticleName.hh"
 
 namespace Rivet {

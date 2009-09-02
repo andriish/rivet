@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/HadronicFinalState.hh"
 #include "Rivet/Cmp.hh"
 #include <algorithm>

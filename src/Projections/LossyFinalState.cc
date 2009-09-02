@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projections/LossyFinalState.hh"
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include <algorithm>
 
 namespace Rivet {

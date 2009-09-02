@@ -8,7 +8,7 @@ libRivetTools_la_SOURCES = \
   RivetPaths.cc \
   binreloc.c \
   Utils.cc \
-  ParticleIDMethods.cc \
+  ParticleIdUtils.cc \
   TinyXML/tinyxml.cpp \
   TinyXML/tinyxmlerror.cpp \
   TinyXML/tinyxmlparser.cpp \

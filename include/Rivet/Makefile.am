@@ -81,11 +81,13 @@ nobase_pkginclude_HEADERS += \
   Tools/Configuration.hh \
   Tools/Utils.hh \
   Tools/BinnedHistogram.hh \
-  Tools/ParticleIDMethods.hh \
+  Tools/ParticleIdUtils.hh \
   Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
 
+
+## Maths
 nobase_pkginclude_HEADERS += \
   Math/Matrices.hh \
   Math/Vector3.hh \

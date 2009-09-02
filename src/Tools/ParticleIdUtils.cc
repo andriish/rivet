@@ -1,13 +1,13 @@
 // ----------------------------------------------------------------------
 //
-// ParticleIDMethods.cc
+// ParticleIdUtils.cc
 // Stolen from HepPID
 //
 // ----------------------------------------------------------------------
 
 #include <cmath>	// for pow()
 
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 //#include "Rivet/Tools/ParticleName.hh"
 
 namespace Rivet {
