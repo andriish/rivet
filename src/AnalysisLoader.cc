@@ -57,12 +57,6 @@ namespace Rivet {
     // Only run once
     if (!_ptrs.empty()) return;
 
-    #ifdef LIB_SUFFIX
-    const string libsuffix(LIB_SUFFIX);
-    #else
-    const string libsuffix(".so");
-    #endif
-
     // Build the list of directories to search
     vector<string> dirs;
     char* env = 0;
@@ -79,6 +73,7 @@ namespace Rivet {
     dirs += ".libs";
 
     // Find plugin module library files
+    const string libsuffix = ".so";
     vector<string> pluginfiles;
     foreach (const string& d, dirs) {
       if (d.empty()) continue;
