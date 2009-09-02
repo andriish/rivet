@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleIDMethods.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
