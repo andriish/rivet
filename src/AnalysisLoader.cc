@@ -66,11 +66,11 @@ namespace Rivet {
     // Build the list of directories to search
     vector<string> dirs;
     char* env = 0;
-    // Always (try to) use the Rivet library install path
-    dirs += getLibPath();    
-    // Then use the Rivet analysis path variable
+    // First use the Rivet analysis path variable
     env = getenv("RIVET_ANALYSIS_PATH");
     if (env) dirs += split(env);
+    // Then the Rivet library install path
+    dirs += getLibPath();    
     // And then the user's (non-system) library path
     env = getenv("LD_LIBRARY_PATH");
     if (env) dirs += split(env);
@@ -81,6 +81,7 @@ namespace Rivet {
     // Find plugin module library files
     vector<string> pluginfiles;
     foreach (const string& d, dirs) {
+      if (d.empty()) continue;
       oslink::directory dir(d);
       while (dir) {
         string filename = dir.next();

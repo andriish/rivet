@@ -19,14 +19,37 @@ namespace Rivet {
 
 
   /// Static factory method
-  AnalysisInfo* AnalysisInfo::make(const std::string& name) {
-    // Search metadata path and read first matching file
-    string datapath = getRivetDataPath() + "/" + name + ".info";
-    Log::getLog("Rivet.Analysis") 
-      << Log::DEBUG << "Reading analysis data from " << datapath << endl;
-    if (access(datapath.c_str(), R_OK) != 0) return 0;
+  AnalysisInfo* AnalysisInfo::make(const std::string& ananame) {
+    // Build the list of directories to search
+    vector<string> dirs;
+    char* env = 0;
+    // First try to use the Rivet data path variable
+    env = getenv("RIVET_DATA_PATH");
+    if (env) dirs += split(env);
+    // Then try to use the Rivet data install path
+    dirs += getRivetDataPath();
+    // And the current dir
+    dirs += ".";
+
+    bool found = false;
+    string datapath = "";
+    foreach (const string& d, dirs) {
+      if (d.empty()) continue;
+      /// @todo Use system-independent separator (e.g. Boost.File)
+      datapath = d + "/" + ananame + ".info";
+      Log::getLog("Rivet.AnalysisInfo") 
+        << Log::TRACE << "Looking for analysis data file '" << datapath << "'" << endl;
+      if (access(datapath.c_str(), R_OK) == 0) {
+        found = true;
+        break;
+      }
+    }
+    /// If no ana data file found, return null pointer
+    if (!found) return 0;
 
     // Read data from YAML document
+    Log::getLog("Rivet.AnalysisInfo")
+      << Log::DEBUG << "Reading analysis data from " << datapath << endl;
     std::ifstream io(datapath.c_str());
     YAML::Parser parser(io);
     YAML::Node doc;
@@ -34,7 +57,7 @@ namespace Rivet {
       parser.GetNextDocument(doc);
       //cout << doc << endl;
     } catch (const YAML::ParserException& ex) {
-      Log::getLog("Rivet.Analysis") 
+      Log::getLog("Rivet.AnalysisInfo") 
         << Log::ERROR << "Parse error when reading analysis data from " 
         << datapath << endl;
       return 0;
@@ -44,8 +67,11 @@ namespace Rivet {
     for (YAML::Iterator it = doc.begin(); it != doc.end(); ++it) {
       string key;
       it.first() >> key;
-      Log::getLog("Rivet.Analysis") 
-        << Log::TRACE << key << ": " << it.second() << endl;
+      stringstream sec;
+      sec << it.second();
+      const string secstr = sec.str().substr(0, sec.str().length()-1);
+      Log::getLog("Rivet.AnalysisInfo") 
+        << Log::TRACE << key << ": " << secstr << endl;
       try {
         if (key == "Name") {
           it.second() >> ai->_name;

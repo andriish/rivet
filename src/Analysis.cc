@@ -17,6 +17,7 @@ namespace Rivet {
       _analysishandler(0),
       _madeHistoDir(false)
   {
+    _defaultname = name;
     _info.reset( AnalysisInfo::make(name) );
     setBeams(ANY, ANY);
   }
@@ -85,7 +86,7 @@ namespace Rivet {
 
   std::string Analysis::name() const {
     if (_info && !_info->name().empty()) return _info->name();
-    return "";
+    return _defaultname;
   }
   
   std::string Analysis::spiresId() const {
