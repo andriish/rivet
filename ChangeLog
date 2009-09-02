@@ -1,5 +1,10 @@
 2009-09-02  Andy Buckley  <andy@insectnation.org>
 
+	* Adding analysis info file path search with RIVET_DATA_PATH
+	variable (and using this to fix doc build.)
+
+	* Improvements to AnalysisLoader path search.
+
 	* Moving analysis sources back into single directory, after a
 	proletarian uprising ;)
 

@@ -368,6 +368,9 @@ namespace Rivet {
 
   protected:
 
+    /// Name passed to constructor (used to find .info analysis data file, and as a fallback)
+    string _defaultname;
+
     /// Pointer to analysis metadata object
     shared_ptr<AnalysisInfo> _info;
 
