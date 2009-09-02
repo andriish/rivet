@@ -25,9 +25,6 @@ namespace Rivet {
       FinalState fs;
       addProjection(fs, "FS");
       /// @todo This is the *wrong* jet def: correct it!
-      getLog() << Log::WARN << "This analysis uses the wrong jet definition: the " 
-               << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
-               << "were reconstructed using the energies and positions of these cells'" << endl;
       addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
     }
 
@@ -37,6 +34,10 @@ namespace Rivet {
 
     // Book histograms
     void init() {
+      getLog() << Log::WARN << "This analysis uses the wrong jet definition: the " 
+               << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
+               << "were reconstructed using the energies and positions of these cells'" << endl;
+
       /// @todo This doesn't seem to correspond to the plots in the paper (SPIRES 4730372)
       _histJetEt1 = bookHistogram1D("JetET1", 11, 14.0, 75.0);
     }
