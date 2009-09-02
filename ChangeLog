@@ -1,3 +1,8 @@
+2009-09-02  Andy Buckley  <andy@insectnation.org>
+
+	* Moving analysis sources back into single directory, after a
+	proletarian uprising ;)
+
 2009-09-01  Andy Buckley  <andy@insectnation.org>
 
 	* Adding WFinder and WAnalysis, based on Z proj and analysis, with
