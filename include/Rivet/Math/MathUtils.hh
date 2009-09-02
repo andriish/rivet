@@ -29,6 +29,12 @@ namespace Rivet {
   }
 
   /// Find the sign of a number
+  inline int sign(int val) {
+    if (val == 0) return ZERO;
+    return (val > 0) ? PLUS : MINUS;
+  }
+
+  /// Find the sign of a number
   inline int sign(long val) {
     if (val == 0) return ZERO;
     return (val > 0) ? PLUS : MINUS;

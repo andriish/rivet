@@ -3,6 +3,7 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/ClusteredPhotons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Tools/ParticleIDMethods.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Cmp.hh"
 
@@ -98,22 +99,26 @@ namespace Rivet {
 
     const FinalState& imfs=applyProjection<FinalState>(e, "IMFS");
     if (imfs.particles().size() != 2) return;
-
-    const FinalState& photons=applyProjection<FinalState>(e, "CPhotons");
-    
-    getLog() << Log::DEBUG << "Z reconstructed out of: " << endl
-        << "  " << imfs.particles()[0].momentum() << " " << imfs.particles()[0].pdgId() << endl
-        << " +" << imfs.particles()[1].momentum() << " " << imfs.particles()[1].pdgId() << endl;
-
-    Particle Z;
     FourMomentum pZ = imfs.particles()[0].momentum() + imfs.particles()[1].momentum();
+    const int z3charge = PID::threeCharge(imfs.particles()[0].pdgId()) + PID::threeCharge(imfs.particles()[1].pdgId());
+    assert(z3charge == 0);
+
+    stringstream msg;
+    msg << "Z reconstructed from: " << endl
+        << "   " << imfs.particles()[0].momentum() << " " << imfs.particles()[0].pdgId() << endl
+        << " + " << imfs.particles()[1].momentum() << " " << imfs.particles()[1].pdgId() << endl;
+
+    // Add in clustered photons
+    const FinalState& photons = applyProjection<FinalState>(e, "CPhotons");
     foreach (const Particle& photon, photons.particles()) {
-      getLog() << Log::DEBUG << " +" << photon.momentum() << " " << photon.pdgId() << endl;
+      msg << " + " << photon.momentum() << " " << photon.pdgId() << endl;
       pZ += photon.momentum();
     }
-    getLog() << Log::DEBUG << " =" << Z.momentum() << endl;
-    Z.setMomentum(pZ);
+    msg << " = " << pZ;
+    getLog() << Log::DEBUG << msg.str() << endl;
 
+    Particle Z;
+    Z.setMomentum(pZ);
     _theParticles.push_back(Z);
     getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
              << " particles." << endl;

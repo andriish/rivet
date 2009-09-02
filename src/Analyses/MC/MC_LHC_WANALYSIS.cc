@@ -18,6 +18,7 @@ namespace Rivet {
     {
       const ChargedFinalState cfs;
       addProjection(cfs, "CFS");
+      /// @todo Handle muon-decay Ws as well
       const WFinder wf(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON, 30.0*GeV, 110.0*GeV, 0.2);
       addProjection(wf, "WF");
       FastJets fastjets(wf.remainingFinalState(), FastJets::KT, 0.7);
