@@ -13,7 +13,6 @@ namespace Rivet {
 
 
   /// Project only charged final state particles.
-  /// @todo Can we make this work nicely with inheritance rather than composition?
   class ChargedFinalState : public FinalState {
 
   public:
@@ -38,6 +37,7 @@ namespace Rivet {
       return new ChargedFinalState(*this);
     }
     //@}
+
 
   protected:
     
