@@ -8,11 +8,15 @@ EXTRA_DIST = compare-histos.txt heppennames.sty cone.png h-physrev3.bst hepnames
 
 DOCS = analyses.html
 
+if ENABLE_PYRIVET
+
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 RIVET_DATA_PATH=$(top_srcdir)/data/anainfo \
 ./mk-analysis-html analyses.html
+
+endif
 
 
 if ENABLE_PDFMANUAL
@@ -20,11 +24,22 @@ if WITH_PDFLATEX
 
 DOCS += rivet-manual.pdf
 
+
+if ENABLE_PYRIVET
+
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses mk-analysis-latex
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 RIVET_DATA_PATH=$(top_srcdir)/data/anainfo \
 ./mk-analysis-latex analyses.tex
+
+else
+
+analyses.tex:
+	> analyses.tex
+
+endif
+
 
 #LATEX	= pdflatex
 LATEX	= pdflatex --interaction=nonstopmode
