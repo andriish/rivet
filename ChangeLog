@@ -1,3 +1,13 @@
+2009-09-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Passing GLS include path to compiler, since its absence was
+	breaking builds on systems with no GSL installation in a standard
+	location (such as SLC5, for some mysterious reason!)
+
+	* Removing lib extension passing to compiler from the configure
+	script, because Macs and Linux now both use .so extensions for the
+	plugin analysis modules.
+
 2009-09-02  Andy Buckley  <andy@insectnation.org>
 
 	* Adding analysis info file path search with RIVET_DATA_PATH
