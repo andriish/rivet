@@ -28,6 +28,7 @@ except:
     import dl
     sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
 
+
 ## Try to use Psyco optimiser
 try:
     import psyco

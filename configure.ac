@@ -51,7 +51,7 @@ if test -f "$GSLCONFIG"; then
   GSLCBLASPATH=$GSLPATH
   GSL_CXXFLAGS=`$GSLCONFIG --cflags`
 fi
-AC_CEDAR_LIBRARY([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
+AC_CEDAR_LIBRARYANDHEADERS([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
 AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
 GSL_LDFLAGS="-l$GSLLIBNAME -l$GSLCBLASLIBNAME"
 AC_SUBST(GSL_CXXFLAGS)
