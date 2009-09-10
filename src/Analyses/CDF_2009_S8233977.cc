@@ -39,7 +39,7 @@ namespace Rivet {
       const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
       addProjection(fs, "FS");
       addProjection(cfs, "CFS");
-      setNeedsCrossSection(true);
+      //setNeedsCrossSection(true);
     }
     
     
