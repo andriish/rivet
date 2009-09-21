@@ -325,6 +325,8 @@ hepmc = rivet
 EVTNUM = 0
 starttime = time.time()
 for evtfile in HEPMCFILES:
+    import platform
+    logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
     logging.info("Reading events from '%s'" % evtfile)
     r = hepmc.IO_GenEvent(evtfile, "r")
     while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
