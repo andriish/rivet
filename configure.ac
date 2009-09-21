@@ -177,29 +177,50 @@ AC_PATH_PROG(ASCIIDOC, asciidoc)
 AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
 
 
-## Checking for SWIG
-dnl AC_PATH_PROG(SWIG, swig)
-dnl AM_CONDITIONAL(WITH_SWIG, [test x$SWIG != x])
-dnl if test x$SWIG != x; then
-dnl   SWIG_VERSION=`$SWIG -version | grep "SWIG Version" | cut -d" " -f3`
-dnl   SWIG_MAJOR_VERSION=`echo $SWIG_VERSION | cut -d. -f1`
-dnl   SWIG_MINOR_VERSION=`echo $SWIG_VERSION | cut -d. -f2`
-dnl   SWIG_MICRO_VERSION=`echo $SWIG_VERSION | cut -d. -f3`
-dnl fi
-dnl AC_SUBST(SWIG_VERSION)
-dnl AC_SUBST(SWIG_MAJOR_VERSION)
-dnl AC_SUBST(SWIG_MINOR_VERSION)
-dnl AC_SUBST(SWIG_MICRO_VERSION)
-
-
-## Decide whether to build the Python extension
+## Python extension
+AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext, 
+  [don't build Python module (default=build)])], 
+  [], [enable_pyext=yes])
 AZ_PYTHON_DEFAULT
-AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--enable-pyext, 
-  [build Rivet Python module @<:@default=yes@:>@])], [], [enable_pyext=yes])
-AM_CONDITIONAL(ENABLE_PYRIVET, [test x$enable_pyext == xyes])
+## Basic Python checks
 if test x$enable_pyext == xyes; then
   AZ_PYTHON_PATH
   AZ_PYTHON_VERSION_ENSURE([2.3])
+  ## Test for Python header
+  if test -x "$PYTHON"; then
+    AC_MSG_CHECKING([for Python include path])
+    python_incpath=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_inc();"`
+    AC_MSG_RESULT([$python_incpath])
+    python_header="$python_incpath/Python.h"
+    if test -z "$python_incpath"; then
+      AC_MSG_WARN([Can't build Python extension since include directory cannot be determined from distutils])
+      enable_pyext=no
+    elif test ! -e "$python_header"; then
+      AC_MSG_WARN([Can't build Python extension since header file $python_header cannot be found])
+      enable_pyext=no
+    fi
+  fi
+fi
+## SWIG version checks
+#if test x$enable_pyext == xyes -a ! -e pyext/lhapdf_wrap.cc; then
+#  AC_PATH_PROG(SWIG, swig)
+#  if test -x "$SWIG"; then
+#    swig_version=`$SWIG -version 2>&1 | grep Version | cut -f3 -d" "`
+#    swig_major=`echo $swig_version | cut -f1 -d.`
+#    swig_minor=`echo $swig_version | cut -f2 -d.`
+#    swig_micro=`echo $swig_version | cut -f3 -d.`
+#    let swig_version_num="1000*$swig_major+100*$swig_minor+$swig_micro"
+#    if test "$swig_version_num" -lt 1333; then
+#    #if test "$swig_major" -eq 1 -a "$swig_minor" -eq 3 -a "$swig_micro" -lt 33; then
+#      AC_MSG_WARN([Can't build Python extension since SWIG version is too old to build wrapper files: please use a tarball release])
+#      enable_pyext=no
+#    fi
+#  fi
+#fi
+## Finish
+AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
+if test x$enable_pyext == xyes; then
+  AC_MSG_NOTICE([All Python build checks successful: 'rivet' Python extension will be built])
 fi
 
 

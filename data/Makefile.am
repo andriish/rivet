@@ -1,5 +1,5 @@
 ## bash completion
-if ENABLE_PYRIVET
+if ENABLE_PYEXT
 
 dist_pkgdata_DATA = rivet-completion
 bashcomp_dir = $(prefix)/etc/bash_completion.d

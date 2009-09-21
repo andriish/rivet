@@ -12,7 +12,7 @@ rivet_wrap.cc rivet.py: rivet.i
       swig -c++ -python -I$(HEPMCINCPATH) -I$(top_srcdir)/include -o rivet_wrap.cc $<; \
       fi
 
-if ENABLE_PYRIVET
+if ENABLE_PYEXT
 
 all-local: rivet_wrap.cc
 	$(PYTHON) setup.py build
