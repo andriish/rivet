@@ -177,6 +177,10 @@ AC_PATH_PROG(ASCIIDOC, asciidoc)
 AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
 
 
+## Test to see if we have to install libyaml-cpp
+AC_CEDAR_LIBRARYANDHEADERS([yaml-cpp], , , [AC_MSG_NOTICE([Rivet will install the yaml-cpp library])])
+
+
 ## Python extension
 AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext, 
   [don't build Python module (default=build)])], 

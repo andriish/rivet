@@ -1,4 +1,6 @@
+if WITHOUT_YAML_CPP
 SUBDIRS = yaml-cpp
+endif
 
 noinst_LTLIBRARIES = libRivetTools.la
 
