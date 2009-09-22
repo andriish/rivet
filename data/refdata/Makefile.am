@@ -72,3 +72,8 @@ dist_pkgdata_DATA = \
   SFM_1984_S1178091.aida         \
   PDG_HADRON_MULTIPLICITIES.aida \
   PDG_HADRON_MULTIPLICITIES_RATIOS.aida
+
+install-data-hook:
+	cd $(DESTDIR)$(pkgdatadir); \
+        for i in 35GEV 44GEV 91GEV 133GEV 161GEV 172GEV 183GEV 189GEV; do if ! test -f JADE_OPAL_2000_S4300807_$$i.aida; then $(LN_S) JADE_OPAL_2000_S4300807.aida JADE_OPAL_2000_S4300807_$$i.aida; fi; done; \
+        cd -;
