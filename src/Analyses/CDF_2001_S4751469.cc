@@ -54,6 +54,21 @@ namespace Rivet {
     
     // Book histograms
     void init() {
+      // These histos bin N, pt in dphi
+      _hist_num_dphi_2  = bookProfile1D("dummy_num_2", 50, 0, 180);
+      _hist_num_dphi_5  = bookProfile1D("dummy_num_5", 50, 0, 180);
+      _hist_num_dphi_30 = bookProfile1D("dummy_num_30", 50, 0, 180);
+      _hist_pt_dphi_2   = bookProfile1D("dummy_pt_2", 50, 0, 180);
+      _hist_pt_dphi_5   = bookProfile1D("dummy_pt_5", 50, 0, 180);
+      _hist_pt_dphi_30  = bookProfile1D("dummy_pt_30", 50, 0, 180);
+      
+      _numvsDeltaPhi2 =  bookProfile1D(1, 1, 1);  
+      _numvsDeltaPhi5 =  bookProfile1D(1, 1, 2);  
+      _numvsDeltaPhi30 = bookProfile1D(1, 1, 3);  
+      _pTvsDeltaPhi2 =   bookProfile1D(2, 1, 1);  
+      _pTvsDeltaPhi5 =   bookProfile1D(2, 1, 2);  
+      _pTvsDeltaPhi30 =  bookProfile1D(2, 1, 3);
+      
       _numTowardMB = bookProfile1D(3, 1, 1);
       _numTransMB = bookProfile1D(3, 1, 2);
       _numAwayMB = bookProfile1D(3, 1, 3);
@@ -111,6 +126,14 @@ namespace Rivet {
       // Run over tracks
       double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
       size_t numToward(0), numTrans(0), numAway(0);
+      // Reset the histos that bin N, pt in dphi
+      _hist_num_dphi_2->reset();
+      _hist_num_dphi_5->reset();
+      _hist_num_dphi_30->reset();
+      _hist_pt_dphi_2->reset();
+      _hist_pt_dphi_5->reset();
+      _hist_pt_dphi_30->reset();
+
       foreach (const Jet& j, jets) {
         foreach (const FourMomentum& p, j) {
           // Calculate Delta(phi) from leading jet
@@ -145,6 +168,29 @@ namespace Rivet {
             ++numAway;
           }
           
+          // Fill histos to bin pt, N in dphi
+          // dphi in degrees
+          const double dPhideg = 360*dPhi/TWOPI;
+          //
+          if (ptLead/GeV > 2.0) {
+            _hist_num_dphi_2->fill(dPhideg, 1, weight         );
+            _hist_pt_dphi_2->fill (dPhideg, p.pT()/GeV, weight);
+
+          }
+          if (ptLead/GeV > 5.0) { 
+            _hist_num_dphi_5->fill(dPhideg, 1, weight         );
+            _hist_pt_dphi_5->fill (dPhideg, p.pT()/GeV, weight);
+
+          }
+          if (ptLead/GeV > 30.0) {
+            _hist_num_dphi_30->fill(dPhideg, 1, weight         );
+            _hist_pt_dphi_30->fill (dPhideg, p.pT()/GeV, weight);
+          }
+
+
+
+
+
         }
       }
       
@@ -158,6 +204,23 @@ namespace Rivet {
                << endl;
       
       // Update the pT profile histograms
+      //
+      // N, sumpt vs. dphi first
+      // TODO: normalisation
+      for (int i= 0; i < 50; i++) {
+        // pT > 2 GeV  
+        _numvsDeltaPhi2->fill(_hist_num_dphi_2->binMean(i), _hist_num_dphi_2->binHeight(i));///_sumWeightsPtLead2);
+        _pTvsDeltaPhi2->fill(_hist_pt_dphi_2->binMean(i), _hist_pt_dphi_2->binHeight(i));///_sumWeightsPtLead2);
+        
+        // pT > 5 GeV  
+        _numvsDeltaPhi5->fill(_hist_num_dphi_5->binMean(i),_hist_num_dphi_5->binHeight(i));///_sumWeightsPtLead5);
+        _pTvsDeltaPhi5->fill(_hist_pt_dphi_5->binMean(i), _hist_pt_dphi_5->binHeight(i));///_sumWeightsPtLead5);
+        
+        // pT > 30 GeV  
+        _numvsDeltaPhi30->fill(_hist_num_dphi_30->binMean(i),_hist_num_dphi_30->binHeight(i));///_sumWeightsPtLead30);
+        _pTvsDeltaPhi30->fill(_hist_pt_dphi_30->binMean(i), _hist_pt_dphi_30->binHeight(i));///_sumWeightsPtLead30);
+      }
+      
       _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
       _ptsumTowardJ20->fill(ptLead/GeV, ptSumToward/GeV, weight);
       
@@ -208,6 +271,16 @@ namespace Rivet {
 
     /// @name Histogram collections
     //@{
+    // These histos (binned in dphi) are filled per event and then reset
+    // TODO: use LWH
+    AIDA::IProfile1D *_hist_num_dphi_2, *_hist_num_dphi_5, *_hist_num_dphi_30;
+    AIDA::IProfile1D *_hist_pt_dphi_2, *_hist_pt_dphi_5, *_hist_pt_dphi_30;
+
+    // The sumpt vs. dphi and Nch vs. dphi histos
+    AIDA::IProfile1D *_numvsDeltaPhi2, *_numvsDeltaPhi5, *_numvsDeltaPhi30;
+    AIDA::IProfile1D *_pTvsDeltaPhi2, *_pTvsDeltaPhi5, *_pTvsDeltaPhi30;
+
+
     /// Profile histograms, binned in the \f$ p_T \f$ of the leading jet, for
     /// the \f$ p_T \f$ sum in the toward, transverse and away regions.
     AIDA::IProfile1D *_ptsumTowardMB,  *_ptsumTransMB,  *_ptsumAwayMB;
