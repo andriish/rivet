@@ -209,16 +209,16 @@ namespace Rivet {
       // TODO: normalisation
       for (int i= 0; i < 50; i++) {
         // pT > 2 GeV  
-        _numvsDeltaPhi2->fill(_hist_num_dphi_2->binMean(i), _hist_num_dphi_2->binHeight(i));///_sumWeightsPtLead2);
-        _pTvsDeltaPhi2->fill(_hist_pt_dphi_2->binMean(i), _hist_pt_dphi_2->binHeight(i));///_sumWeightsPtLead2);
+        _numvsDeltaPhi2->fill(_hist_num_dphi_2->binMean(i), _hist_num_dphi_2->binHeight(i) * _hist_num_dphi_2->axis().binWidth(i));
+        _pTvsDeltaPhi2->fill(_hist_pt_dphi_2->binMean(i), _hist_pt_dphi_2->binHeight(i)*_hist_pt_dphi_2->axis().binWidth(i));
         
         // pT > 5 GeV  
-        _numvsDeltaPhi5->fill(_hist_num_dphi_5->binMean(i),_hist_num_dphi_5->binHeight(i));///_sumWeightsPtLead5);
-        _pTvsDeltaPhi5->fill(_hist_pt_dphi_5->binMean(i), _hist_pt_dphi_5->binHeight(i));///_sumWeightsPtLead5);
+        _numvsDeltaPhi5->fill(_hist_num_dphi_5->binMean(i),_hist_num_dphi_5->binHeight(i)*_hist_num_dphi_5->axis().binWidth(i));
+        _pTvsDeltaPhi5->fill(_hist_pt_dphi_5->binMean(i), _hist_pt_dphi_5->binHeight(i)*_hist_pt_dphi_5->axis().binWidth(i));
         
         // pT > 30 GeV  
-        _numvsDeltaPhi30->fill(_hist_num_dphi_30->binMean(i),_hist_num_dphi_30->binHeight(i));///_sumWeightsPtLead30);
-        _pTvsDeltaPhi30->fill(_hist_pt_dphi_30->binMean(i), _hist_pt_dphi_30->binHeight(i));///_sumWeightsPtLead30);
+        _numvsDeltaPhi30->fill(_hist_num_dphi_30->binMean(i),_hist_num_dphi_30->binHeight(i)*_hist_num_dphi_30->axis().binWidth(i));
+        _pTvsDeltaPhi30->fill(_hist_pt_dphi_30->binMean(i), _hist_pt_dphi_30->binHeight(i)*_hist_pt_dphi_30->axis().binWidth(i));
       }
       
       _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
