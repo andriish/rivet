@@ -98,8 +98,6 @@ namespace Rivet {
       
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(true);
-      
-      /// @todo Initialise and register projections here
     }
 
     //@}
@@ -110,8 +108,10 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
-    /// Book histograms before the run
+    /// Book histograms and initialise projections before the run
     void init() {
+
+      /// @todo Initialise and register projections here
 
       /// @todo Book histograms here, e.g.:
       // _histXXXX = bookProfile1D(1, 1, 1);
