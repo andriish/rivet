@@ -21,13 +21,9 @@ namespace Rivet {
     //@{
     
     /// Constructor
-    CDF_2008_S7828950()
-      : Analysis("CDF_2008_S7828950")
+    CDF_2008_S7828950() : Analysis("CDF_2008_S7828950")
     {
       setBeams(PROTON, ANTIPROTON);
-      //setSqrtS(1960*GeV);
-      const FinalState fs;
-      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 62.0*GeV), "JetsM07");
       setNeedsCrossSection(true);
     }
     
@@ -39,6 +35,9 @@ namespace Rivet {
 
     // Book histos and set counters for number of events passed in each one
     void init() {
+      const FinalState fs;
+      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 62.0*GeV), "JetsM07");
+
       /// @todo What actually are these histos showing?
       _binnedHistosR07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1));
       _binnedHistosR07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1));

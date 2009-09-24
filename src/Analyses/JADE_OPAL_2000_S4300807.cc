@@ -29,11 +29,6 @@ namespace Rivet {
         _initialised(false)
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      const FinalState fs;
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::JADE, 0.7), "JadeJets");
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
     }
     
     //@}
@@ -43,6 +38,11 @@ namespace Rivet {
     //@{
 
     void init() {
+      addProjection(Beam(), "Beams");
+      const FinalState fs;
+      addProjection(fs, "FS");
+      addProjection(FastJets(fs, FastJets::JADE, 0.7), "JadeJets");
+      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
     }
 
 

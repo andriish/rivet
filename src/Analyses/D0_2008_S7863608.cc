@@ -17,17 +17,10 @@ namespace Rivet {
     /// @name Construction
     //@{
     /// Constructor
-    D0_2008_S7863608()
-      : Analysis("D0_2008_S7863608")
+    D0_2008_S7863608() : Analysis("D0_2008_S7863608")
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
-      ZFinder zfinder(-1.7, 1.7, 15.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2);
-      addProjection(zfinder, "ZFinder");
-      
-      FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5, 20.0*GeV);
-      addProjection(conefinder, "ConeFinder");
     }
     
     //@}
@@ -38,6 +31,12 @@ namespace Rivet {
     
     /// Book histograms
     void init() {
+      ZFinder zfinder(-1.7, 1.7, 15.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2);
+      addProjection(zfinder, "ZFinder");
+      
+      FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5, 20.0*GeV);
+      addProjection(conefinder, "ConeFinder");
+
       _h_jet_pT_cross_section = bookHistogram1D(1, 1, 1);
       _h_jet_y_cross_section = bookHistogram1D(2, 1, 1);
       _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1);

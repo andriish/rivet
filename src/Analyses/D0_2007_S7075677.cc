@@ -20,8 +20,14 @@ namespace Rivet {
     {
       // Run II Z rapidity
       setBeams(PROTON, ANTIPROTON);
-      
+    }
+    
 
+    /// @name Analysis methods
+    //@{ 
+
+    /// Book histograms
+    void init() {
       /// @todo Ask Gavin Hesketh about his first implemention without eta cuts.
       vector<pair<double, double> > etaRanges;
       // Remove eta cuts for the moment, because it seems like they have been
@@ -31,14 +37,7 @@ namespace Rivet {
       // etaRanges.push_back(make_pair(1.5, 3.2));
       ZFinder zfinder(etaRanges, 15.0*GeV, ELECTRON, 71.0*GeV, 111.0*GeV, 0.2);
       addProjection(zfinder, "ZFinder");
-    }
-    
 
-    /// @name Analysis methods
-    //@{ 
-
-    /// Book histograms
-    void init() {
       _h_yZ = bookHistogram1D(1, 1, 1);
     }
 

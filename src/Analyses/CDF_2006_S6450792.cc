@@ -14,13 +14,9 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CDF_2006_S6450792() 
-      : Analysis("CDF_2006_S6450792") {
+    CDF_2006_S6450792() : Analysis("CDF_2006_S6450792") {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
-      FinalState fs;
-      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 61.0*GeV), "ConeFinder");
     }
     //@}
     
@@ -31,6 +27,9 @@ namespace Rivet {
     //@{
     
     void init() {
+      FinalState fs;
+      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 61.0*GeV), "ConeFinder");
+
       _h_jet_pt = bookHistogram1D(1, 1, 1);
     }
 

@@ -18,14 +18,9 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    D0_2009_S8320160()
-      : Analysis("D0_2009_S8320160")
+    D0_2009_S8320160() : Analysis("D0_2009_S8320160")
     {
       setBeams(PROTON, ANTIPROTON);
-      
-      FinalState fs;
-      FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
-      addProjection(conefinder, "ConeFinder");
     } 
     
     //@}
@@ -36,6 +31,10 @@ namespace Rivet {
     
     // Book histograms
     void init() {
+      FinalState fs;
+      FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
+      addProjection(conefinder, "ConeFinder");
+
       _h_chi_dijet.addHistogram(250., 300., bookHistogram1D(1, 1, 1));
       _h_chi_dijet.addHistogram(300., 400., bookHistogram1D(2, 1, 1));
       _h_chi_dijet.addHistogram(400., 500., bookHistogram1D(3, 1, 1));

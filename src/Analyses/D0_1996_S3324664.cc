@@ -19,11 +19,6 @@ namespace Rivet {
     D0_1996_S3324664() : Analysis("D0_1996_S3324664") {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(false);
-      
-      const FinalState fs(-3.2, 3.2);
-      addProjection(fs, "FS");
-      /// @todo Use correct jet algorithm
-      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 20.0*GeV), "ConeJets");
     }
     
     
@@ -31,6 +26,11 @@ namespace Rivet {
     //@{
 
     void init() {
+      const FinalState fs(-3.2, 3.2);
+      addProjection(fs, "FS");
+      /// @todo Use correct jet algorithm
+      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 20.0*GeV), "ConeJets");
+
       _h_deta = bookHistogram1D(1, 1, 1);
       _h_dphi.addHistogram(0.0, 2.0, bookHistogram1D(2, 1, 1));
       _h_dphi.addHistogram(2.0, 4.0, bookHistogram1D(2, 1, 2));

@@ -22,7 +22,13 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
+    } 
+    
+    /// @name Analysis methods
+    //@{ 
+
+    /// Book histograms
+    void init() {
       // Full final state
       FinalState fs(-5.0, 5.0);
       addProjection(fs, "FS");
@@ -31,13 +37,7 @@ namespace Rivet {
       IdentifiedFinalState elfs(-5.0, 5.0, 25.0*GeV);
       elfs.acceptIdPair(ELECTRON);
       addProjection(elfs, "LeadingElectrons");
-    } 
-    
-    /// @name Analysis methods
-    //@{ 
 
-    /// Book histograms
-    void init() {
       _h_jet_multiplicity = bookHistogram1D(1, 1, 1);
       _h_jet_pT_cross_section_incl_1jet = bookHistogram1D(2, 1, 1);
       _h_jet_pT_cross_section_incl_2jet = bookHistogram1D(3, 1, 1);

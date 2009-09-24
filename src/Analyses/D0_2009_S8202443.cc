@@ -16,12 +16,20 @@ namespace Rivet {
     /// @name Construction
     //@{
     /// Constructor
-    D0_2009_S8202443()
-      : Analysis("D0_2009_S8202443"),
+    D0_2009_S8202443() : Analysis("D0_2009_S8202443"),
         _sum_of_weights(0.0), _sum_of_weights_constrained(0.0)
     {
       setBeams(PROTON, ANTIPROTON);
-      
+    } 
+
+    //@}
+
+
+    /// @name Analysis methods
+    //@{ 
+
+    /// Book histograms
+    void init() {
       // Leptons in constrained tracking acceptance
       vector<pair<double, double> > etaRanges;
       etaRanges.push_back(make_pair(-2.5, -1.5));
@@ -39,16 +47,7 @@ namespace Rivet {
       addProjection(zfinder, "ZFinder");
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5, 20.0*GeV);
       addProjection(conefinder, "ConeFinder");
-    } 
 
-    //@}
-
-
-    /// @name Analysis methods
-    //@{ 
-
-    /// Book histograms
-    void init() {
       _h_jet1_pT_constrained = bookHistogram1D(1, 1, 1);
       _h_jet2_pT_constrained = bookHistogram1D(3, 1, 1);
       _h_jet3_pT_constrained = bookHistogram1D(5, 1, 1);

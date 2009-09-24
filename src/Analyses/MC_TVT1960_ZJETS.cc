@@ -19,11 +19,6 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
-      ZFinder zfinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2);
-      addProjection(zfinder, "ZFinder");
-      FastJets jetpro(zfinder.remainingFinalState(), FastJets::KT, 0.7, 20.0*GeV);
-      addProjection(jetpro, "Jets");
     }
     
     
@@ -32,6 +27,11 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
+      ZFinder zfinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2);
+      addProjection(zfinder, "ZFinder");
+      FastJets jetpro(zfinder.remainingFinalState(), FastJets::KT, 0.7, 20.0*GeV);
+      addProjection(jetpro, "Jets");
+
       _h_Z_mass = bookHistogram1D("Z_mass", 50, 66.0, 116.0);
       _h_Z_pT = bookHistogram1D("Z_pT", 100, 0.0, 500.0);
       _h_Z_y = bookHistogram1D("Z_y", 40, -4.0, 4.0);

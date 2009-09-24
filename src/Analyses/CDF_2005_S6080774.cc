@@ -18,13 +18,6 @@ namespace Rivet {
     CDF_2005_S6080774() : Analysis("CDF_2005_S6080774") {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
-      FinalState fs;
-      addProjection(fs, "FS");
-      
-      IdentifiedFinalState ifs(-0.9, 0.9, 13.0*GeV);
-      ifs.acceptId(PHOTON);
-      addProjection(ifs, "IFS");
     }
 
     //@}
@@ -34,6 +27,13 @@ namespace Rivet {
     //@{
 
     void init() {
+      FinalState fs;
+      addProjection(fs, "FS");
+      
+      IdentifiedFinalState ifs(-0.9, 0.9, 13.0*GeV);
+      ifs.acceptId(PHOTON);
+      addProjection(ifs, "IFS");
+
       for (size_t yAxisId=1; yAxisId<5; ++yAxisId) {
         _h_m_PP.push_back(bookHistogram1D(1, 1, yAxisId));
         _h_pT_PP.push_back(bookHistogram1D(2, 1, yAxisId));

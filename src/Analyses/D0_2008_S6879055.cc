@@ -20,7 +20,14 @@ namespace Rivet {
     D0_2008_S6879055() : Analysis("D0_2008_S6879055")
     {
       setBeams(PROTON, ANTIPROTON);
-      
+    } 
+
+
+    /// @name Analysis methods
+    //@{ 
+    
+    // Book histograms
+    void init() {
       // Basic final state
       FinalState fs(-5.0, 5.0);
       addProjection(fs, "FS");
@@ -49,14 +56,7 @@ namespace Rivet {
       // Vertex
       PVertex vertex;
       addProjection(vertex, "PrimaryVertex");
-    } 
 
-
-    /// @name Analysis methods
-    //@{ 
-    
-    // Book histograms
-    void init() {
       _crossSectionRatio = bookHistogram1D(1, 1, 1);
       _pTjet1 = bookHistogram1D(2, 1, 1);
       _pTjet2 = bookHistogram1D(3, 1, 1);

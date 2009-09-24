@@ -21,10 +21,6 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
-      FinalState fs;
-      FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
-      addProjection(conefinder, "ConeFinder");
     } 
     
     //@}
@@ -35,6 +31,10 @@ namespace Rivet {
     
     /// Book histograms
     void init() {
+      FinalState fs;
+      FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
+      addProjection(conefinder, "ConeFinder");
+
       _h_m_dijet = bookHistogram1D(1, 1, 1);
     }
     

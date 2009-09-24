@@ -18,16 +18,10 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    D0_1996_S3214044() 
-      : Analysis("D0_1996_S3214044") 
+    D0_1996_S3214044() : Analysis("D0_1996_S3214044") 
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(false);
-      
-      const FinalState fs(-4.5, 4.5);
-      addProjection(fs, "FS");
-      /// @todo Use correct jet algorithm
-      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 20.0*GeV), "ConeJets");
     }
     
     
@@ -36,6 +30,10 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
+      const FinalState fs(-4.5, 4.5);
+      addProjection(fs, "FS");
+      /// @todo Use correct jet algorithm
+      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 20.0*GeV), "ConeJets");
       
       _h_3j_x3 = bookHistogram1D(1, 1, 1);
       _h_3j_x5 = bookHistogram1D(2, 1, 1);
