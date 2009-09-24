@@ -1,3 +1,39 @@
+# BEGIN PLOT /CDF_2001_S4751469/d01-x01-y01
+Title=$\left<N_\text{ch}\right>$ vs. $\Delta\Phi$ from leading jet ($p_\perp^\text{lead} > 2\text{ GeV}$) 
+XLabel=$\Delta\Phi$ / degrees
+YLabel=$\left<N_\text{ch}\right>$
+# END PLOT
+
+# BEGIN PLOT /CDF_2001_S4751469/d01-x01-y02
+Title=$\left<N_\text{ch}\right>$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
+XLabel=$\Delta\Phi$ / degrees
+YLabel=$\left<N_\text{ch}\right>$
+# END PLOT
+
+# BEGIN PLOT /CDF_2001_S4751469/d01-x01-y03
+Title=$\left<N_\text{ch}\right>$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
+XLabel=$\Delta\Phi$ / degrees
+YLabel=$\left<N_\text{ch}\right>$
+# END PLOT
+
+# BEGIN PLOT /CDF_2001_S4751469/d02-x01-y01
+Title=$\left<p_{\perp, sum}\right>$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 2\text{ GeV}$) 
+XLabel=$\Delta\Phi$ / degrees
+YLabel=$\left<p_{\perp, sum}\right>$
+# END PLOT
+
+# BEGIN PLOT /CDF_2001_S4751469/d02-x01-y02
+Title=$\left<p_{\perp, sum}\right>$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
+XLabel=$\Delta\Phi$ / degrees
+YLabel=$\left<p_{\perp, sum}\right>$
+# END PLOT
+
+# BEGIN PLOT /CDF_2001_S4751469/d02-x01-y03
+Title=$\left<p_{\perp, sum}\right>$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
+XLabel=$\Delta\Phi$ / degrees
+YLabel=$\left<p_{\perp, sum}\right>$
+# END PLOT
+
 # BEGIN PLOT /CDF_2001_S4751469/d03-x01-y01
 Title=$N_\text{ch}$ (toward) for min-bias
 XLabel=$p_\perp^\text{lead}$ / GeV
