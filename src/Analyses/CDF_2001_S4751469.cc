@@ -181,19 +181,20 @@ namespace Rivet {
 
       // Update the "proper" dphi profile histograms
       for (int i= 0; i < 50; i++) {
-        // pT > 2 GeV
-        _numvsDeltaPhi2->fill(hist_num_dphi_2.binMean(i), hist_num_dphi_2.binHeight(i)*hist_num_dphi_2.axis().binWidth(i));
-        _pTvsDeltaPhi2->fill(hist_pt_dphi_2.binMean(i), hist_pt_dphi_2.binHeight(i)*hist_pt_dphi_2.axis().binWidth(i)); 
-        // pT > 5 GeV
-        /// @todo Normalisation?
-        _numvsDeltaPhi5->fill(hist_num_dphi_5.binMean(i), hist_num_dphi_5.binHeight(i)*hist_num_dphi_5.axis().binWidth(i));
-        _pTvsDeltaPhi5->fill(hist_pt_dphi_5.binMean(i), hist_pt_dphi_5.binHeight(i)*hist_pt_dphi_5.axis().binWidth(i));
-        // pT > 30 GeV
-        /// @todo Normalisation?
-        _numvsDeltaPhi30->fill(hist_num_dphi_30.binMean(i), hist_num_dphi_30.binHeight(i)*hist_num_dphi_30.axis().binWidth(i));
-        _pTvsDeltaPhi30->fill(hist_pt_dphi_30.binMean(i), hist_pt_dphi_30.binHeight(i)*hist_pt_dphi_30.axis().binWidth(i));
+        if (ptLead/GeV > 2.0) {
+          _numvsDeltaPhi2->fill(hist_num_dphi_2.binMean(i), hist_num_dphi_2.binHeight(i));
+          _pTvsDeltaPhi2->fill(hist_pt_dphi_2.binMean(i), hist_pt_dphi_2.binHeight(i)); 
+        }
+        if (ptLead/GeV > 5.0) {
+          _numvsDeltaPhi5->fill(hist_num_dphi_5.binMean(i), hist_num_dphi_5.binHeight(i));
+          _pTvsDeltaPhi5->fill(hist_pt_dphi_5.binMean(i), hist_pt_dphi_5.binHeight(i));
+        }
+        if (ptLead/GeV > 30.0) {
+          _numvsDeltaPhi30->fill(hist_num_dphi_30.binMean(i), hist_num_dphi_30.binHeight(i));
+          _pTvsDeltaPhi30->fill(hist_pt_dphi_30.binMean(i), hist_pt_dphi_30.binHeight(i));
+        }
       }
-
+      
       // Log some event details about pT
       getLog() << Log::DEBUG 
                << "pT [lead; twd, away, trans] = ["
