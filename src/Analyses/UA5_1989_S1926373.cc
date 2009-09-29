@@ -16,12 +16,6 @@ namespace Rivet {
       : Analysis("UA5_1989_S1926373")
     { 
       setBeams(PROTON, ANTIPROTON);
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "CFSAll");
-      addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
-      addProjection(ChargedFinalState(-1.5, 1.5), "CFS15");
-      addProjection(ChargedFinalState(-3.0, 3.0), "CFS30");
-      addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
       _numVetoed = 0;
     }
 
@@ -29,8 +23,15 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
-    /// Book histograms
+    /// Book histograms and projections
     void init() {
+      addProjection(Beam(), "Beams");
+      addProjection(ChargedFinalState(), "CFSAll");
+      addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
+      addProjection(ChargedFinalState(-1.5, 1.5), "CFS15");
+      addProjection(ChargedFinalState(-3.0, 3.0), "CFS30");
+      addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
+
       // NB. _hist_nch{200,900} and _hist_nch{200,900}eta50 use the same data but different binning
       _hist_nch200       = bookHistogram1D(1,1,1); 
       _hist_nch900       = bookHistogram1D(2,1,1);
