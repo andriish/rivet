@@ -1,6 +1,11 @@
+2009-09-29  Andy Buckley  <andy@insectnation.org>
+
+	* Adding optional use of args as regex match expressions with
+	-l/--list-analyses.
+
 2009-09-03  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Passing GLS include path to compiler, since its absence was
+	* Passing GSL include path to compiler, since its absence was
 	breaking builds on systems with no GSL installation in a standard
 	location (such as SLC5, for some mysterious reason!)
 

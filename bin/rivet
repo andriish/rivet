@@ -187,12 +187,26 @@ except:
 ## List of analyses
 all_analyses = rivet.AnalysisLoader.analysisNames()
 if opts.LIST_ANALYSES:
+    ## Treat args as case-insensitive regexes if present
+    regexes = None
+    if args:
+        import re
+        regexes = [re.compile(arg, re.I) for arg in args]
     for aname in all_analyses:
-        msg = aname
-        if opts.LOGLEVEL == logging.DEBUG:
-            a = rivet.AnalysisLoader.getAnalysis(aname)
-            msg = "%-25s %s" % (aname, "  " + a.summary())
-        print msg
+        if not regexes:
+            toshow = True
+        else:
+            toshow = False
+            for regex in regexes:
+                if regex.search(aname):
+                    toshow = True
+                    break
+        if toshow:
+            msg = aname
+            if opts.LOGLEVEL == logging.DEBUG:
+                a = rivet.AnalysisLoader.getAnalysis(aname)
+                msg = "%-25s %s" % (aname, "  " + a.summary())
+            print msg
     sys.exit(0)
 
 
@@ -204,7 +218,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         if a_up in all_analyses and a_up not in toshow:
             toshow.append(a_up)
         else:
-            ## Treat as a regex
+            ## Treat as a case-insensitive regex
             import re
             regex = re.compile(a, re.I)
             for ana in all_analyses:
