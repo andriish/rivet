@@ -11,6 +11,8 @@
 #include "Rivet/Projections/LossyFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
+#include "LWH/Profile1D.h"
+
 namespace Rivet {
 
 
@@ -33,19 +35,13 @@ namespace Rivet {
     //@{
 
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
-    /// and \f$ p_T > 0.5 \f$ GeV. Use a lossy charged FS projection, which
-    /// randomly discards 8% of charged particles, as a kind of hacky detector 
-    /// correction.
+    /// and \f$ p_T > 0.5 \f$ GeV.
     CDF_2001_S4751469()
       : Analysis("CDF_2001_S4751469"),
         _totalNumTrans2(0), _totalNumTrans5(0), _totalNumTrans30(0),
         _sumWeightsPtLead2(0),_sumWeightsPtLead5(0), _sumWeightsPtLead30(0)
     {
       setBeams(PROTON, ANTIPROTON);
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      const LossyFinalState lfs(cfs, 0.08);
-      addProjection(lfs, "FS");
-      addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
     }
     
     
@@ -54,13 +50,11 @@ namespace Rivet {
     
     // Book histograms
     void init() {
-      // These histos bin N, pt in dphi
-      _hist_num_dphi_2  = bookProfile1D("dummy_num_2", 50, 0, 180);
-      _hist_num_dphi_5  = bookProfile1D("dummy_num_5", 50, 0, 180);
-      _hist_num_dphi_30 = bookProfile1D("dummy_num_30", 50, 0, 180);
-      _hist_pt_dphi_2   = bookProfile1D("dummy_pt_2", 50, 0, 180);
-      _hist_pt_dphi_5   = bookProfile1D("dummy_pt_5", 50, 0, 180);
-      _hist_pt_dphi_30  = bookProfile1D("dummy_pt_30", 50, 0, 180);
+      // Randomly discard 8% of charged particles as a kind of hacky detector correction.
+      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      const LossyFinalState lfs(cfs, 0.08);
+      addProjection(lfs, "FS");
+      addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
       
       _numvsDeltaPhi2 =  bookProfile1D(1, 1, 1);  
       _numvsDeltaPhi5 =  bookProfile1D(1, 1, 2);  
@@ -112,7 +106,7 @@ namespace Rivet {
       // Get the event weight
       const double weight = event.weight();
 
-      // Count sum of all event weights in three pTlead regions
+      // Count sum of all event weights in three pT_lead regions
       if (ptLead/GeV > 2.0) {
         _sumWeightsPtLead2 += weight;
       }
@@ -126,27 +120,26 @@ namespace Rivet {
       // Run over tracks
       double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
       size_t numToward(0), numTrans(0), numAway(0);
-      // Reset the histos that bin N, pt in dphi
-      _hist_num_dphi_2->reset();
-      _hist_num_dphi_5->reset();
-      _hist_num_dphi_30->reset();
-      _hist_pt_dphi_2->reset();
-      _hist_pt_dphi_5->reset();
-      _hist_pt_dphi_30->reset();
 
+      // Temporary histos that bin N, pt in dphi
+      /// @todo Copy the permanent histos to get the binnings more robustly
+      LWH::Profile1D hist_num_dphi_2(50, 0, 180), hist_num_dphi_5(50, 0, 180), hist_num_dphi_30(50, 0, 180);
+      LWH::Profile1D hist_pt_dphi_2(50, 0, 180), hist_pt_dphi_5(50, 0, 180), hist_pt_dphi_30(50, 0, 180);
+
+      /// @todo Why not just run over charged particles directly?
       foreach (const Jet& j, jets) {
         foreach (const FourMomentum& p, j) {
           // Calculate Delta(phi) from leading jet
           const double dPhi = deltaPhi(p.azimuthalAngle(), phiLead);
           
-          // Get pT sum and multiplicity values for each region 
+          // Get pT sum and multiplicity values for each region
           // (each is 1 number for each region per event)
           /// @todo Include event weight factor?
           if (dPhi < PI/3.0) {
             ptSumToward += p.pT();
-            ++numToward;
-            
-          } else if (dPhi < 2*PI/3.0) {
+            ++numToward;            
+          } 
+          else if (dPhi < 2*PI/3.0) {
             ptSumTrans += p.pT();
             ++numTrans;
             // Fill transverse pT distributions
@@ -162,39 +155,46 @@ namespace Rivet {
               _ptTrans30->fill(p.pT()/GeV, weight);
               _totalNumTrans30 += weight;
             }
-            
-          } else {
+          }
+          else {
             ptSumAway += p.pT();
             ++numAway;
           }
           
-          // Fill histos to bin pt, N in dphi
-          // dphi in degrees
-          const double dPhideg = 360*dPhi/TWOPI;
-          //
+          // Fill tmp histos to bin event's track Nch & pT in dphi
+          const double dPhideg = 180*dPhi/PI;
           if (ptLead/GeV > 2.0) {
-            _hist_num_dphi_2->fill(dPhideg, 1, weight         );
-            _hist_pt_dphi_2->fill (dPhideg, p.pT()/GeV, weight);
-
+            hist_num_dphi_2.fill(dPhideg, 1);
+            hist_pt_dphi_2.fill (dPhideg, p.pT()/GeV);
           }
           if (ptLead/GeV > 5.0) { 
-            _hist_num_dphi_5->fill(dPhideg, 1, weight         );
-            _hist_pt_dphi_5->fill (dPhideg, p.pT()/GeV, weight);
-
+            hist_num_dphi_5.fill(dPhideg, 1);
+            hist_pt_dphi_5.fill (dPhideg, p.pT()/GeV);
           }
           if (ptLead/GeV > 30.0) {
-            _hist_num_dphi_30->fill(dPhideg, 1, weight         );
-            _hist_pt_dphi_30->fill (dPhideg, p.pT()/GeV, weight);
+            hist_num_dphi_30.fill(dPhideg, 1);
+            hist_pt_dphi_30.fill (dPhideg, p.pT()/GeV);
           }
-
-
-
-
 
         }
       }
-      
-      // Log some event details
+
+      // Update the "proper" dphi profile histograms
+      for (int i= 0; i < 50; i++) {
+        // pT > 2 GeV
+        _numvsDeltaPhi2->fill(hist_num_dphi_2.binMean(i), hist_num_dphi_2.binHeight(i)*hist_num_dphi_2.axis().binWidth(i));
+        _pTvsDeltaPhi2->fill(hist_pt_dphi_2.binMean(i), hist_pt_dphi_2.binHeight(i)*hist_pt_dphi_2.axis().binWidth(i)); 
+        // pT > 5 GeV
+        /// @todo Normalisation?
+        _numvsDeltaPhi5->fill(hist_num_dphi_5.binMean(i), hist_num_dphi_5.binHeight(i)*hist_num_dphi_5.axis().binWidth(i));
+        _pTvsDeltaPhi5->fill(hist_pt_dphi_5.binMean(i), hist_pt_dphi_5.binHeight(i)*hist_pt_dphi_5.axis().binWidth(i));
+        // pT > 30 GeV
+        /// @todo Normalisation?
+        _numvsDeltaPhi30->fill(hist_num_dphi_30.binMean(i), hist_num_dphi_30.binHeight(i)*hist_num_dphi_30.axis().binWidth(i));
+        _pTvsDeltaPhi30->fill(hist_pt_dphi_30.binMean(i), hist_pt_dphi_30.binHeight(i)*hist_pt_dphi_30.axis().binWidth(i));
+      }
+
+      // Log some event details about pT
       getLog() << Log::DEBUG 
                << "pT [lead; twd, away, trans] = ["
                << ptLead << "; " 
@@ -202,25 +202,8 @@ namespace Rivet {
                << ptSumAway << ", " 
                << ptSumTrans << "]" 
                << endl;
-      
-      // Update the pT profile histograms
-      //
-      // N, sumpt vs. dphi first
-      // TODO: normalisation
-      for (int i= 0; i < 50; i++) {
-        // pT > 2 GeV  
-        _numvsDeltaPhi2->fill(_hist_num_dphi_2->binMean(i), _hist_num_dphi_2->binHeight(i) * _hist_num_dphi_2->axis().binWidth(i));
-        _pTvsDeltaPhi2->fill(_hist_pt_dphi_2->binMean(i), _hist_pt_dphi_2->binHeight(i)*_hist_pt_dphi_2->axis().binWidth(i));
-        
-        // pT > 5 GeV  
-        _numvsDeltaPhi5->fill(_hist_num_dphi_5->binMean(i),_hist_num_dphi_5->binHeight(i)*_hist_num_dphi_5->axis().binWidth(i));
-        _pTvsDeltaPhi5->fill(_hist_pt_dphi_5->binMean(i), _hist_pt_dphi_5->binHeight(i)*_hist_pt_dphi_5->axis().binWidth(i));
-        
-        // pT > 30 GeV  
-        _numvsDeltaPhi30->fill(_hist_num_dphi_30->binMean(i),_hist_num_dphi_30->binHeight(i)*_hist_num_dphi_30->axis().binWidth(i));
-        _pTvsDeltaPhi30->fill(_hist_pt_dphi_30->binMean(i), _hist_pt_dphi_30->binHeight(i)*_hist_pt_dphi_30->axis().binWidth(i));
-      }
-      
+
+      // Update the pT profile histograms      
       _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
       _ptsumTowardJ20->fill(ptLead/GeV, ptSumToward/GeV, weight);
       
@@ -230,7 +213,7 @@ namespace Rivet {
       _ptsumAwayMB->fill(ptLead/GeV, ptSumAway/GeV, weight);
       _ptsumAwayJ20->fill(ptLead/GeV, ptSumAway/GeV, weight);
       
-      // Log some event details
+      // Log some event details about Nch
       getLog() << Log::DEBUG 
                << "N [twd, away, trans] = ["
                << numToward << ", " 
