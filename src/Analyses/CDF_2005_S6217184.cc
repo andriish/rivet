@@ -17,15 +17,18 @@ namespace Rivet {
   class CDF_2005_S6217184 : public Analysis {    
   public:
     
-    /// @name Constructors etc.
-    //@{
-    
     /// Constructor
     CDF_2005_S6217184()
       : Analysis("CDF_2005_S6217184")
-    { 
+    {
       setBeams(PROTON, ANTIPROTON);
-      
+    }
+        
+    /// @name Analysis methods
+    //@{
+    
+    void init() {
+      // Set up projections
       const FinalState fs(-2.0, 2.0);
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "Jets"); 
@@ -42,16 +45,8 @@ namespace Rivet {
       // Specify pT bins
       _pTbins += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 
         148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
-    }
-    
-    //@}
-    
-    
-    /// @name Analysis methods
-    //@{
-    
-    /// Book histograms
-    void init() {
+
+      /// Book histograms
       // 18 = 6x3 pT bins, one histogram each
       for (size_t i = 0; i < 6; ++i) { 
         for (size_t j = 0; j < 3; ++j) {

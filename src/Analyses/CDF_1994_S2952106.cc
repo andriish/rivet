@@ -14,11 +14,7 @@ namespace Rivet {
    * @author Lars Sonnenschein
    */
   class CDF_1994_S2952106 : public Analysis {
-
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     CDF_1994_S2952106()
@@ -28,7 +24,15 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
+            
+      _events3jPassed = 0.0;
+    }
+
+
+    /// @name Analysis methods
+    //@{
+
+    void init() {
       const FinalState fs(-4.2, 4.2);
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "ConeJets");
@@ -40,17 +44,7 @@ namespace Rivet {
       vfs.vetoNeutrinos();
       vfs.addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
-      
-      _events3jPassed = 0.0;
-    }
 
-    //@}
-
-
-    /// @name Analysis methods
-    //@{
-
-    void init() {
       /// @todo Use histogram auto-booking
       
       //const string hname = "HvsDphi";

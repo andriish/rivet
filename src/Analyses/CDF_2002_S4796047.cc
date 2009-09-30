@@ -30,27 +30,23 @@ namespace Rivet {
   class CDF_2002_S4796047 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
-    /// and \f$ p_T > 0.4 \f$ GeV.
+    /// Constructor
     CDF_2002_S4796047()
       : Analysis("CDF_2002_S4796047")
     { 
       setBeams(PROTON, ANTIPROTON);
-      addProjection(Beam(), "Beam");
-      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
-      addProjection(cfs, "FS");
     }
-    //@}
 
 
     /// @name Analysis methods
     //@{
     
-    /// Book histograms
+    /// Book projections and histograms
     void init() {
+      addProjection(Beam(), "Beam");
+      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
+      addProjection(cfs, "FS");
+
       _hist_multiplicity_630  = bookHistogram1D(1, 1, 1);
       _hist_multiplicity_1800 = bookHistogram1D(2, 1, 1);
       _hist_pt_vs_multiplicity_630  = bookProfile1D(3, 1, 1);

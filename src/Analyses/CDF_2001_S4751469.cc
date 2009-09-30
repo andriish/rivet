@@ -31,9 +31,6 @@ namespace Rivet {
   class CDF_2001_S4751469 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.5 \f$ GeV.
     CDF_2001_S4751469()

@@ -31,14 +31,18 @@ namespace Rivet {
   class CDF_2008_LEADINGJETS : public Analysis {
   public:
     
-    /// @name Constructors etc.
-    //@{
-    
+    /// Constructor
     CDF_2008_LEADINGJETS()
       : Analysis("CDF_2008_LEADINGJETS")
     { 
       setBeams(PROTON, ANTIPROTON);
-      
+    }
+
+
+    /// @name Analysis methods
+    //@{
+
+    void init() {
       // Final state for the jet finding
       const FinalState fsj(-4.0, 4.0, 0.0*GeV);
       addProjection(fsj, "FSJ");
@@ -51,14 +55,8 @@ namespace Rivet {
       // Charged final state for the distributions
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       addProjection(cfs, "CFS");
-    }
 
-
-    /// @name Analysis methods
-    //@{
-
-    /// Book histograms
-    void init() {
+      // Book histograms
       _hist_pnchg      = bookProfile1D( 1, 1, 1);
       _hist_pmaxnchg   = bookProfile1D( 2, 1, 1);
       _hist_pminnchg   = bookProfile1D( 3, 1, 1);

@@ -16,27 +16,23 @@ namespace Rivet {
   class CDF_2000_S4155203 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
-    /// and \f$ p_T > 0.5 \f$ GeV.
+    /// Constructor
     CDF_2000_S4155203() 
       : Analysis("CDF_2000_S4155203")
     {
       setBeams(PROTON, ANTIPROTON);
-      ZFinder zfinder(FinalState(), ELECTRON, 66.0*GeV, 116.0*GeV, 0.2);
-      addProjection(zfinder, "ZFinder");
     }
-    
-    //@}
 
 
     /// @name Analysis methods
     //@{
     
-    /// Book histograms
     void init() {
+      // Set up projections
+      ZFinder zfinder(FinalState(), ELECTRON, 66.0*GeV, 116.0*GeV, 0.2);
+      addProjection(zfinder, "ZFinder");
+
+      // Book histogram
       _hist_zpt = bookHistogram1D(1, 1, 1);
     }
     

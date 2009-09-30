@@ -29,30 +29,25 @@ namespace Rivet {
   class CDF_2008_NOTE_9351 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
-    /// and \f$ p_T > 0.5 \f$ GeV.
+    /// Constructor
     CDF_2008_NOTE_9351()
       : Analysis("CDF_2008_NOTE_9351")
     { 
       setBeams(PROTON, ANTIPROTON);
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      const ChargedFinalState clfs(-1.0, 1.0, 20*GeV);
-      addProjection(cfs, "FS");
-      addProjection(ChargedLeptons(clfs), "CL");
     }
-    
-    
-    //@}
 
 
     /// @name Analysis methods
     //@{
 
-    // Book histograms
     void init() {
+      // Set up projections
+      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      const ChargedFinalState clfs(-1.0, 1.0, 20*GeV);
+      addProjection(cfs, "FS");
+      addProjection(ChargedLeptons(clfs), "CL");
+      
+      // Book histograms
       _hist_tnchg      = bookProfile1D( 1, 1, 1);
       _hist_pnchg      = bookProfile1D( 2, 1, 1);
       _hist_pmaxnchg   = bookProfile1D( 3, 1, 1);

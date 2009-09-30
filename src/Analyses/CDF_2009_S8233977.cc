@@ -26,19 +26,11 @@ namespace Rivet {
   class CDF_2009_S8233977 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
-    /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$ 
-    /// and \f$ p_T > 0.4 \f$ GeV.
+    /// Constructor
     CDF_2009_S8233977()
       : Analysis("CDF_2009_S8233977")
     { 
       setBeams(PROTON, ANTIPROTON);
-      const FinalState fs(-1.0, 1.0, 0.0*GeV);
-      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
-      addProjection(fs, "FS");
-      addProjection(cfs, "CFS");
       //setNeedsCrossSection(true);
     }
     
@@ -46,8 +38,13 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
-    /// Book histograms
+    /// Book histograms and projections
     void init() {
+      const FinalState fs(-1.0, 1.0, 0.0*GeV);
+      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
+      addProjection(fs, "FS");
+      addProjection(cfs, "CFS");
+
       _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1);
       _hist_pt                 = bookHistogram1D(2, 1, 1);
       _hist_sumEt              = bookHistogram1D(3, 1, 1);

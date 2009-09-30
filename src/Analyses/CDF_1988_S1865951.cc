@@ -10,31 +10,27 @@ namespace Rivet {
 
 
   class CDF_1988_S1865951 : public Analysis {
-
   public:
-
-    /// @name Constructor etc.
-    //@{
 
     /// Constructor
     CDF_1988_S1865951() 
       : Analysis("CDF_1988_S1865951") 
     {
-      const ChargedFinalState cfs(-1.,1., 0.4*GeV);
-      addProjection(cfs, "CFS");
-      addProjection(ChargedFinalState(-5.9, 5.9), "CFSAll");
-      addProjection(TotalVisibleMomentum(cfs), "Mom");
-      addProjection(Beam(), "Beam");
+      setBeams(PROTON, ANTIPROTON);
     }
-    
-    //@}
 
 
     /// @name Analysis methods
     //@{
     
     /// Book histograms
-    void init() { 
+    void init() {
+      const ChargedFinalState cfs(-1.,1., 0.4*GeV);
+      addProjection(cfs, "CFS");
+      addProjection(ChargedFinalState(-5.9, 5.9), "CFSAll");
+      addProjection(TotalVisibleMomentum(cfs), "Mom");
+      addProjection(Beam(), "Beam");
+
       _hist_pt1800 = bookHistogram1D(1, 1, 1);
       _hist_pt630 = bookHistogram1D(2, 1, 1);
     }

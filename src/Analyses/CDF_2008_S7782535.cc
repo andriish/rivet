@@ -15,45 +15,32 @@ namespace Rivet {
   class CDF_2008_S7782535 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     CDF_2008_S7782535()
       : Analysis("CDF_2008_S7782535"),
         _Rjet(0.7) , _NpTbins(4)
     {
       setBeams(PROTON, ANTIPROTON);
-      
-      const FinalState fs(-3.6, 3.6);
-      addProjection(fs, "FS");
-      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState vfs(fs);
-      vfs
-        .addVetoPairId(NU_E)
-        .addVetoPairId(NU_MU)
-        .addVetoPairId(NU_TAU)
-        .addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(vfs, "VFS");
-      addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-      addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
-      
-      // We don't attempt to model the following cuts:
-      //  * missing ET significance
-      //  * veto on additional vertices
-      //  * Z_vtx < 50 cm
     }
     
-    
-    //@}
-
 
     /// @name Analysis methods
     //@{
 
     void init() {
-      _pTbins += 52, 80, 104, 142, 300;
+      // Set up projections
+      const FinalState fs(-3.6, 3.6);
+      addProjection(fs, "FS");
+      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
+      VetoedFinalState vfs(fs);
+      vfs.vetoNeutrinos();
+      vfs.addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+      addProjection(vfs, "VFS");
+      addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
+      addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
+
       // Book histograms
+      _pTbins += 52, 80, 104, 142, 300;
       for (int i = 0; i < _NpTbins; ++i) {
         _h_Psi_pT[i] = bookProfile1D(i+1, 2, 1);
       }

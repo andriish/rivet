@@ -27,9 +27,6 @@ namespace Rivet {
 
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     CDF_2008_S7541902()
       : Analysis("CDF_2008_S7541902"),    
@@ -40,7 +37,14 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
+    }
+
+
+    /// @name Analysis methods
+    //@{
+    
+    void init() {
+      // Set up projections
       // Basic FS
       FinalState fs(-3.6, 3.6);
       addProjection(fs, "FS");
@@ -58,15 +62,9 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(invfs);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
-    }
-    
-    //@}
 
 
-    /// @name Analysis methods
-    //@{
-    
-    void init() {
+      // Book histograms
       for (int i = 0 ; i < 4 ; ++i) {
         _histJetEt[i] = bookHistogram1D(i+1, 1, 1);
         _histJetMultRatio[i] = bookDataPointSet(5 , 1, i+1);

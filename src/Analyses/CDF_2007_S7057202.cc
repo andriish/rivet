@@ -13,9 +13,6 @@ namespace Rivet {
   class CDF_2007_S7057202 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     CDF_2007_S7057202()
       : Analysis("CDF_2007_S7057202"),
@@ -23,15 +20,8 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       //setSqrtS(1960*GeV);
-      const FinalState fs;
-      addProjection(FastJets(fs, FastJets::KT, 0.5), "JetsD05");
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "JetsD07");
-      addProjection(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
       setNeedsCrossSection(true);
     }
-    
-    
-    //@}
 
     
     /// @name Analysis methods
@@ -39,6 +29,13 @@ namespace Rivet {
 
     /// Book histos and set counters for number of events passed in each one
     void init() {
+      // Set up projections
+      const FinalState fs;
+      addProjection(FastJets(fs, FastJets::KT, 0.5), "JetsD05");
+      addProjection(FastJets(fs, FastJets::KT, 0.7), "JetsD07");
+      addProjection(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
+
+      // Book histos
       _histoD05 = bookHistogram1D(6, 1, 1);
       _histoD10 = bookHistogram1D(7, 1, 1);
       _binnedHistosD07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1));

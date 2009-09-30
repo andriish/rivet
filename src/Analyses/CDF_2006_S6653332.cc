@@ -21,11 +21,7 @@ namespace Rivet {
    * jets in Z + (b) jet production, before and after tagging.
    */
   class CDF_2006_S6653332 : public Analysis {
-
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     CDF_2006_S6653332()  
@@ -35,12 +31,19 @@ namespace Rivet {
     { 
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
+    }
+
+
+    /// @name Analysis methods
+    //@{
+
+    void init() {
       const FinalState fs(-3.6, 3.6);
       addProjection(fs, "FS");
       
       // Create a final state with any e+e- or mu+mu- pair with 
       // invariant mass 76 -> 106 GeV and ET > 20 (Z decay products)
-      std::vector<std::pair<long,long> > vids;
+      vector<pair<long,long> > vids;
       vids.push_back(make_pair(ELECTRON, POSITRON));
       vids.push_back(make_pair(MUON, ANTIMUON));
       FinalState fs2(-3.6, 3.6);
@@ -52,15 +55,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(invfs);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-    }
-    
-    //@}
 
-
-    /// @name Analysis methods
-    //@{
-
-    void init() {
       // Book histograms
       _sigmaBJet = bookHistogram1D(1, 1, 1);
       _ratioBJetToZ = bookHistogram1D(2, 1, 1);

@@ -10,18 +10,12 @@ namespace Rivet {
   class CDF_2006_S6450792 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     CDF_2006_S6450792() : Analysis("CDF_2006_S6450792") {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
-    //@}
     
-    
-  public:
     
     /// @name Analysis methods
     //@{

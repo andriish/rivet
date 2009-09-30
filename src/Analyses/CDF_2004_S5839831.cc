@@ -19,31 +19,13 @@ namespace Rivet {
   class CDF_2004_S5839831 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$ 
     /// and \f$ p_T > 0.4 \f$ GeV.
     CDF_2004_S5839831() 
       : Analysis("CDF_2004_S5839831") 
     {
       setBeams(PROTON, ANTIPROTON);
-      addProjection(Beam(), "Beam");
-      const FinalState calofs(-1.2, 1.2);
-      addProjection(calofs, "CaloFS");
-      addProjection(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
-      const ChargedFinalState trackfs(-1.2, 1.2, 0.4*GeV);
-      addProjection(trackfs, "TrackFS");
-      // Restrict tracks to |eta| < 0.7 for the min bias part.
-      const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
-      addProjection(mbfs, "MBFS");
-      // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
-      const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
-      addProjection(cheesefs, "CheeseFS");
-      addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
     }
-    
-    //@}
 
 
   private:
@@ -109,8 +91,23 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
     
-    /// Book histograms
     void init() {
+      // Set up projections
+      addProjection(Beam(), "Beam");
+      const FinalState calofs(-1.2, 1.2);
+      addProjection(calofs, "CaloFS");
+      addProjection(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
+      const ChargedFinalState trackfs(-1.2, 1.2, 0.4*GeV);
+      addProjection(trackfs, "TrackFS");
+      // Restrict tracks to |eta| < 0.7 for the min bias part.
+      const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
+      addProjection(mbfs, "MBFS");
+      // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
+      const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
+      addProjection(cheesefs, "CheeseFS");
+      addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
+
+      // Book histograms
       _pt90MaxAvg1800 = bookProfile1D(1, 1, 1);
       _pt90MinAvg1800 = bookProfile1D(1, 1, 2); 
       _pt90Max1800 = bookProfile1D(2, 1, 1);

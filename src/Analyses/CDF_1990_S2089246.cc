@@ -15,29 +15,24 @@ namespace Rivet {
    * @author Andy Buckley
    */
   class CDF_1990_S2089246 : public Analysis {
-
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     CDF_1990_S2089246()
       : Analysis("CDF_1990_S2089246")
     {
       setBeams(PROTON, ANTIPROTON);
-      addProjection(ChargedFinalState(-3.5, 3.5), "FS");
-      addProjection(ChargedFinalState(-5.9, 5.9), "CFSAll");
-      addProjection(Beam(), "Beam");
     }
-    
-    //@}
 
 
     /// @name Analysis methods
     //@{
 
     void init() {
+      addProjection(ChargedFinalState(-3.5, 3.5), "FS");
+      addProjection(ChargedFinalState(-5.9, 5.9), "CFSAll");
+      addProjection(Beam(), "Beam");
+
       _hist_eta1800 = bookHistogram1D(3, 1, 1);
       _hist_eta630 = bookHistogram1D(4, 1, 1);
     }

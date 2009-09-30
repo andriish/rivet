@@ -11,14 +11,10 @@
 namespace Rivet {
 
 
-
-  /// Implementation of CDF Run II Z+b-jet cross section paper
+  /// Implementation of CDF Run II Z + b-jet cross section paper
   class CDF_2008_S8095620 : public Analysis {
   public:
-    
-    /// @name Constructors etc.
-    //@{
-    
+        
     /// Constructor.
     /// jet cuts: |eta| <= 1.5
     CDF_2008_S8095620()
@@ -27,10 +23,16 @@ namespace Rivet {
         _sumWeightSelected(0.0)
     { 
       setBeams(PROTON, ANTIPROTON);
-      
+    }
+    
+
+    /// @name Analysis methods
+    //@{
+    
+    void init() {
+      // Set up projections
       const FinalState fs(-3.6, 3.6);
       addProjection(fs, "FS");
-      
       // Create a final state with any e+e- or mu+mu- pair with 
       // invariant mass 76 -> 106 GeV and ET > 20 (Z decay products)
       vector<pair<long,long> > vids;
@@ -44,15 +46,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(invfs);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-    }
-    
-    //@}
 
-
-    /// @name Analysis methods
-    //@{
-    
-    void init() {
       // Book histograms
       _dSdET    = bookHistogram1D(1, 1, 1);
       _dSdETA   = bookHistogram1D(2, 1, 1);
