@@ -12,44 +12,33 @@ namespace Rivet {
   class ALEPH_1996_S3196992 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     ALEPH_1996_S3196992() : Analysis("ALEPH_1996_S3196992") 
     {
       setBeams(ELECTRON, POSITRON);
     }
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
 
-    /// Book histograms before the run
     void init() {
+      // Set up projections
+      FinalState fs;      
+      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+      IdentifiedFinalState ifs(-MAXRAPIDITY, +MAXRAPIDITY, 5.0*GeV);
+      ifs.acceptId(PHOTON);
+      addProjection(ifs, "Photons");
 
+      // Book histograms
       _h_z_2jet_001 = bookHistogram1D(1, 1, 1);
       _h_z_2jet_006 = bookHistogram1D(2, 1, 1);
       _h_z_2jet_01  = bookHistogram1D(3, 1, 1);
       _h_z_2jet_033 = bookHistogram1D(4, 1, 1);
-      
       _h_z_3jet_001 = bookHistogram1D(5, 1, 1);
       _h_z_3jet_006 = bookHistogram1D(6, 1, 1);
-      _h_z_3jet_01 = bookHistogram1D(7, 1, 1);
-      
+      _h_z_3jet_01  = bookHistogram1D(7, 1, 1); 
       _h_z_4jet_001 = bookHistogram1D(8, 1, 1);
-      
-
-      FinalState fs;      
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
-
-      IdentifiedFinalState ifs(-MAXRAPIDITY, +MAXRAPIDITY, 5.0*GeV);
-      ifs.acceptId(PHOTON);
-      addProjection(ifs, "Photons");
     }
 
 
@@ -70,9 +59,9 @@ namespace Rivet {
         foreach (const fastjet::PseudoJet& jet, jets_001) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
             double zgamma = photon.momentum().E()/jet.E();
-            if (jets_001.size()==2) _h_z_2jet_001->fill(zgamma, weight);
-            else if (jets_001.size()==3) _h_z_3jet_001->fill(zgamma, weight);
-            else if (jets_001.size()==4) _h_z_4jet_001->fill(zgamma, weight);
+            if (jets_001.size() == 2) _h_z_2jet_001->fill(zgamma, weight);
+            else if (jets_001.size() == 3) _h_z_3jet_001->fill(zgamma, weight);
+            else if (jets_001.size() == 4) _h_z_4jet_001->fill(zgamma, weight);
             break;
           }
         }
@@ -81,8 +70,8 @@ namespace Rivet {
         foreach (const fastjet::PseudoJet& jet, jets_006) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
             double zgamma = photon.momentum().E()/jet.E();
-            if (jets_006.size()==2) _h_z_2jet_006->fill(zgamma, weight);
-            else if (jets_006.size()==3) _h_z_3jet_006->fill(zgamma, weight);
+            if (jets_006.size() == 2) _h_z_2jet_006->fill(zgamma, weight);
+            else if (jets_006.size() == 3) _h_z_3jet_006->fill(zgamma, weight);
             break;
           }
         }
@@ -91,8 +80,8 @@ namespace Rivet {
         foreach (const fastjet::PseudoJet& jet, jets_01) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
             double zgamma = photon.momentum().E()/jet.E();
-            if (jets_01.size()==2) _h_z_2jet_01->fill(zgamma, weight);
-            else if (jets_01.size()==3) _h_z_3jet_01->fill(zgamma, weight);
+            if (jets_01.size() == 2) _h_z_2jet_01->fill(zgamma, weight);
+            else if (jets_01.size() == 3) _h_z_3jet_01->fill(zgamma, weight);
             break;
           }
         }
@@ -101,7 +90,7 @@ namespace Rivet {
         foreach (const fastjet::PseudoJet& jet, jets_033) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
             double zgamma = photon.momentum().E()/jet.E();
-            if (jets_033.size()==2) _h_z_2jet_033->fill(zgamma, weight);
+            if (jets_033.size() == 2) _h_z_2jet_033->fill(zgamma, weight);
             break;
           }
         }

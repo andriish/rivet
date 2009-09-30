@@ -13,27 +13,23 @@ namespace Rivet {
   class ALEPH_1991_S2435284 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-    
     /// Constructor.
     ALEPH_1991_S2435284() 
       : Analysis("ALEPH_1991_S2435284")
     {
       setBeams(ELECTRON, POSITRON); 
-      const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(Multiplicity(cfs), "Mult");
     }
-
-    //@}  
 
   
     /// @name Analysis methods
     //@{
     
-    /// Book histogram
+    /// Book projections and histogram
     void init() { 
+      const ChargedFinalState cfs;
+      addProjection(cfs, "FS");
+      addProjection(Multiplicity(cfs), "Mult");
+
       _histChTot = bookHistogram1D(1, 1, 1);
     }
 

@@ -21,24 +21,11 @@ namespace Rivet {
 
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     ALEPH_1996_S3486095() 
       : Analysis("ALEPH_1996_S3486095")
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(UnstableFinalState(), "UFS");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-      addProjection(Sphericity(cfs), "Sphericity");
-      addProjection(ParisiTensor(cfs), "Parisi");
-      const Thrust thrust(cfs);
-      addProjection(thrust, "Thrust");
-      addProjection(Hemispheres(thrust), "Hemispheres");
       _numChParticles               = 0;
       _weightedTotalPartNum         = 0;
       _weightedTotalNumPiPlus       = 0;       
@@ -60,11 +47,90 @@ namespace Rivet {
       _weightedTotalNumKStar892Plus = 0;
     }
 
-    //@}
-
 
     /// @name Analysis methods
     //@{
+
+    void init() {
+      // Set up projections
+      addProjection(Beam(), "Beams");
+      const ChargedFinalState cfs;
+      addProjection(cfs, "FS");
+      addProjection(UnstableFinalState(), "UFS");
+      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+      addProjection(Sphericity(cfs), "Sphericity");
+      addProjection(ParisiTensor(cfs), "Parisi");
+      const Thrust thrust(cfs);
+      addProjection(thrust, "Thrust");
+      addProjection(Hemispheres(thrust), "Hemispheres");
+
+      // Book histograms
+      _histSphericity   = bookHistogram1D(1, 1, 1);
+      _histAplanarity   = bookHistogram1D(2, 1, 1);
+
+      _hist1MinusT      = bookHistogram1D(3, 1, 1);
+      _histTMinor       = bookHistogram1D(4, 1, 1);
+
+      _histY3           = bookHistogram1D(5, 1, 1);
+      _histHeavyJetMass = bookHistogram1D(6, 1, 1); 
+      _histCParam       = bookHistogram1D(7, 1, 1); 
+      _histOblateness   = bookHistogram1D(8, 1, 1); 
+
+      _histScaledMom    = bookHistogram1D(9, 1, 1); 
+      _histRapidityT    = bookHistogram1D(10, 1, 1); 
+
+      _histPtSIn        = bookHistogram1D(11, 1, 1); 
+      _histPtSOut       = bookHistogram1D(12, 1, 1); 
+
+      _histLogScaledMom = bookHistogram1D(17, 1, 1); 
+
+      _histChMult       = bookHistogram1D(18, 1, 1); 
+      _histMeanChMult   = bookHistogram1D(19, 1, 1); 
+
+      _histMeanChMultRapt05= bookHistogram1D(20, 1, 1); 
+      _histMeanChMultRapt10= bookHistogram1D(21, 1, 1); 
+      _histMeanChMultRapt15= bookHistogram1D(22, 1, 1); 
+      _histMeanChMultRapt20= bookHistogram1D(23, 1, 1); 
+
+
+      // Particle spectra
+      _histMultiPiPlus        = bookHistogram1D(25, 1, 1); 
+      _histMultiKPlus         = bookHistogram1D(26, 1, 1); 
+      _histMultiP             = bookHistogram1D(27, 1, 1); 
+      _histMultiPhoton        = bookHistogram1D(28, 1, 1); 
+      _histMultiPi0           = bookHistogram1D(29, 1, 1); 
+      _histMultiEta           = bookHistogram1D(30, 1, 1); 
+      _histMultiEtaPrime      = bookHistogram1D(31, 1, 1); 
+      _histMultiK0            = bookHistogram1D(32, 1, 1); 
+      _histMultiLambda0       = bookHistogram1D(33, 1, 1); 
+      _histMultiXiMinus       = bookHistogram1D(34, 1, 1); 
+      _histMultiSigma1385Plus = bookHistogram1D(35, 1, 1); 
+      _histMultiXi1530_0      = bookHistogram1D(36, 1, 1); 
+      _histMultiRho           = bookHistogram1D(37, 1, 1); 
+      _histMultiOmega782      = bookHistogram1D(38, 1, 1); 
+      _histMultiKStar892_0    = bookHistogram1D(39, 1, 1); 
+      _histMultiPhi           = bookHistogram1D(40, 1, 1); 
+
+      _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1); 
+
+      // Mean multiplicities 
+      _histMeanMultiPi0           = bookHistogram1D(44, 1,  2);
+      _histMeanMultiEta           = bookHistogram1D(44, 1,  3);
+      _histMeanMultiEtaPrime      = bookHistogram1D(44, 1,  4);
+      _histMeanMultiK0            = bookHistogram1D(44, 1,  5);
+      _histMeanMultiRho           = bookHistogram1D(44, 1,  6);
+      _histMeanMultiOmega782      = bookHistogram1D(44, 1,  7);
+      _histMeanMultiPhi           = bookHistogram1D(44, 1,  8);
+      _histMeanMultiKStar892Plus  = bookHistogram1D(44, 1,  9);
+      _histMeanMultiKStar892_0    = bookHistogram1D(44, 1, 10);
+      _histMeanMultiLambda0       = bookHistogram1D(44, 1, 11);
+      _histMeanMultiSigma0        = bookHistogram1D(44, 1, 12);
+      _histMeanMultiXiMinus       = bookHistogram1D(44, 1, 13);
+      _histMeanMultiSigma1385Plus = bookHistogram1D(44, 1, 14);
+      _histMeanMultiXi1530_0      = bookHistogram1D(44, 1, 15);
+      _histMeanMultiOmegaOmegaBar = bookHistogram1D(44, 1, 16);
+    }
+
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
@@ -285,74 +351,6 @@ namespace Rivet {
         }
       }
 
-    }
-
-
-    void init() {
-      _histSphericity   = bookHistogram1D(1, 1, 1);
-      _histAplanarity   = bookHistogram1D(2, 1, 1);
-
-      _hist1MinusT      = bookHistogram1D(3, 1, 1);
-      _histTMinor       = bookHistogram1D(4, 1, 1);
-
-      _histY3           = bookHistogram1D(5, 1, 1);
-      _histHeavyJetMass = bookHistogram1D(6, 1, 1); 
-      _histCParam       = bookHistogram1D(7, 1, 1); 
-      _histOblateness   = bookHistogram1D(8, 1, 1); 
-
-      _histScaledMom    = bookHistogram1D(9, 1, 1); 
-      _histRapidityT    = bookHistogram1D(10, 1, 1); 
-
-      _histPtSIn        = bookHistogram1D(11, 1, 1); 
-      _histPtSOut       = bookHistogram1D(12, 1, 1); 
-
-      _histLogScaledMom = bookHistogram1D(17, 1, 1); 
-
-      _histChMult       = bookHistogram1D(18, 1, 1); 
-      _histMeanChMult   = bookHistogram1D(19, 1, 1); 
-
-      _histMeanChMultRapt05= bookHistogram1D(20, 1, 1); 
-      _histMeanChMultRapt10= bookHistogram1D(21, 1, 1); 
-      _histMeanChMultRapt15= bookHistogram1D(22, 1, 1); 
-      _histMeanChMultRapt20= bookHistogram1D(23, 1, 1); 
-
-
-      // Particle spectra
-      _histMultiPiPlus        = bookHistogram1D(25, 1, 1); 
-      _histMultiKPlus         = bookHistogram1D(26, 1, 1); 
-      _histMultiP             = bookHistogram1D(27, 1, 1); 
-      _histMultiPhoton        = bookHistogram1D(28, 1, 1); 
-      _histMultiPi0           = bookHistogram1D(29, 1, 1); 
-      _histMultiEta           = bookHistogram1D(30, 1, 1); 
-      _histMultiEtaPrime      = bookHistogram1D(31, 1, 1); 
-      _histMultiK0            = bookHistogram1D(32, 1, 1); 
-      _histMultiLambda0       = bookHistogram1D(33, 1, 1); 
-      _histMultiXiMinus       = bookHistogram1D(34, 1, 1); 
-      _histMultiSigma1385Plus = bookHistogram1D(35, 1, 1); 
-      _histMultiXi1530_0      = bookHistogram1D(36, 1, 1); 
-      _histMultiRho           = bookHistogram1D(37, 1, 1); 
-      _histMultiOmega782      = bookHistogram1D(38, 1, 1); 
-      _histMultiKStar892_0    = bookHistogram1D(39, 1, 1); 
-      _histMultiPhi           = bookHistogram1D(40, 1, 1); 
-
-      _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1); 
-
-      // Mean multiplicities 
-      _histMeanMultiPi0           = bookHistogram1D(44, 1,  2);
-      _histMeanMultiEta           = bookHistogram1D(44, 1,  3);
-      _histMeanMultiEtaPrime      = bookHistogram1D(44, 1,  4);
-      _histMeanMultiK0            = bookHistogram1D(44, 1,  5);
-      _histMeanMultiRho           = bookHistogram1D(44, 1,  6);
-      _histMeanMultiOmega782      = bookHistogram1D(44, 1,  7);
-      _histMeanMultiPhi           = bookHistogram1D(44, 1,  8);
-      _histMeanMultiKStar892Plus  = bookHistogram1D(44, 1,  9);
-      _histMeanMultiKStar892_0    = bookHistogram1D(44, 1, 10);
-      _histMeanMultiLambda0       = bookHistogram1D(44, 1, 11);
-      _histMeanMultiSigma0        = bookHistogram1D(44, 1, 12);
-      _histMeanMultiXiMinus       = bookHistogram1D(44, 1, 13);
-      _histMeanMultiSigma1385Plus = bookHistogram1D(44, 1, 14);
-      _histMeanMultiXi1530_0      = bookHistogram1D(44, 1, 15);
-      _histMeanMultiOmegaOmegaBar = bookHistogram1D(44, 1, 16);
     }
 
 
