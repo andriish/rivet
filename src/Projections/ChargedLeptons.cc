@@ -8,25 +8,21 @@ namespace Rivet {
 
 
   int ChargedLeptons::compare(const Projection& other) const {
-    return mkNamedPCmp(other, "FS");
+    return mkNamedPCmp(other, "ChFS");
   }
 
 
-  void ChargedLeptons::project(const Event& e) {
+  void ChargedLeptons::project(const Event& evt) {
     // Reset result
     _theChargedLeptons.clear();
 
-    // Get hadron and charge info for each particle, and fill counters appropriately
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    // Loop over charged particles and fill vector with leptons
+    const FinalState& fs = applyProjection<FinalState>(evt, "ChFS");
     foreach (const Particle& p, fs.particles()) {
       if (PID::isLepton(p.pdgId())) {
-        if (PID::threeCharge(p.pdgId()) != 0) {
-          // Put it into the C.L. vector
-          _theChargedLeptons.push_back(Particle(p));
-        }
+        _theChargedLeptons += Particle(p);
       }
     }
-    getLog() << Log::DEBUG << "Done" << endl;
   }
 
 

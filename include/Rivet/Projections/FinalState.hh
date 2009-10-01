@@ -35,8 +35,31 @@ namespace Rivet {
     //@}
 
 
-    /// Access the projected final-state particles.
+    /// Get the final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }
+
+    /// Get the final-state particles, ordered by supplied sorting function object.
+    template <typename F>
+    const ParticleVector& particles(F sorter) const {
+      std::sort(_theParticles.begin(), _theParticles.end(), sorter);
+      return _theParticles;
+    }
+
+    /// Get the final-state particles, ordered by \f$ p_T \f$.
+    const ParticleVector& particlesByPt() const {
+      return particles(cmpParticleByPt);
+    }
+
+    /// Get the final-state particles, ordered by \f$ E \f$.
+    const ParticleVector& particlesByE() const {
+      return particles(cmpParticleByE);
+    }
+
+    /// Get the final-state particles, ordered by \f$ E_T \f$.
+    const ParticleVector& particlesByEt() const {
+      return particles(cmpParticleByEt);
+    }
+
 
     /// Access the projected final-state particles.
     virtual const size_t size() const { return _theParticles.size(); }
@@ -77,7 +100,7 @@ namespace Rivet {
     double _ptmin;
     
     /// The final-state particles.
-    ParticleVector _theParticles;
+    mutable ParticleVector _theParticles;
     
   };
 

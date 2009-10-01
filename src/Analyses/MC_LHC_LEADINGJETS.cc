@@ -20,15 +20,6 @@ namespace Rivet {
       : Analysis("MC_LHC_LEADINGJETS")
     { 
       setBeams(PROTON, PROTON);
-      
-      // Final state for the jet finding
-      const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-      addProjection(fsj, "FSJ");
-      addProjection(FastJets(fsj, FastJets::KT, 0.7), "Jets");
-      
-      // Charged final state for the distributions
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      addProjection(cfs, "CFS");
     }
     
     
@@ -37,6 +28,15 @@ namespace Rivet {
     
     // Book histograms
     void init() {
+      // Final state for the jet finding
+      const FinalState fsj(-4.0, 4.0, 0.0*GeV);
+      addProjection(fsj, "FSJ");
+      addProjection(FastJets(fsj, FastJets::KT, 0.7), "Jets");
+      
+      // Charged final state for the distributions
+      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      addProjection(cfs, "CFS");
+
       const double maxpt1 = 500.0/GeV;
       _hist_pnchg      = bookProfile1D("trans-nchg", 50, 0.0, maxpt1);
       _hist_pmaxnchg   = bookProfile1D("trans-maxnchg", 50, 0.0, maxpt1);
@@ -61,7 +61,7 @@ namespace Rivet {
       const Jets jets = jetpro.jetsByPt();
       getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
 
-      // We require the leading jet to be within |eta| < 2
+      // Require the leading jet to be within |eta| < 2
       if (jets.size() < 1 || fabs(jets[0].momentum().pseudorapidity()) > 2) {
         getLog() << Log::DEBUG << "Failed jet cut" << endl;
         vetoEvent;

@@ -3,7 +3,7 @@
 #define RIVET_ChargedLeptons_HH
 
 #include "Rivet/Projection.hh"
-#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -20,7 +20,7 @@ namespace Rivet {
     ChargedLeptons(const FinalState& fsp)
     { 
       setName("ChargedLeptons");
-      addProjection(fsp, "FS");
+      addProjection(ChargedFinalState(fsp), "ChFS");
     }
     
     /// Clone on the heap.
@@ -31,7 +31,7 @@ namespace Rivet {
   protected:
     
     /// Apply the projection to the event.
-    void project(const Event& e);
+    void project(const Event& evt);
     
     /// Compare projections.
     int compare(const Projection& other) const;

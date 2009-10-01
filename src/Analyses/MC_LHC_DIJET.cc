@@ -14,12 +14,6 @@ namespace Rivet {
     /// Default constructor
     MC_LHC_DIJET() 
       : Analysis("MC_LHC_DIJET") {
-      FinalState fs;
-      ChargedFinalState cfs;
-      addProjection(fs, "FS");
-      addProjection(cfs, "CFS");
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
-      addProjection(FastJets(cfs, FastJets::KT, 0.7), "ChargedJets");
     }
     
     
@@ -27,6 +21,13 @@ namespace Rivet {
     //@{
 
     void init() { 
+      FinalState fs(-4, 4, 0.5*GeV);
+      ChargedFinalState cfs(fs);
+      addProjection(fs, "FS");
+      addProjection(cfs, "CFS");
+      addProjection(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
+      addProjection(FastJets(cfs, FastJets::ANTIKT, 0.7), "ChargedJets");
+
       _hist_jetcount = bookHistogram1D("d01-x01-y01", 5, 0., 10.);
       _hist_jetpt = bookHistogram1D("d02-x01-y01", 30, 30.,100.);
       _hist_jetptlog = bookHistogram1D("d03-x01-y01", 20, 0.,8.);

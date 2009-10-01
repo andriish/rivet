@@ -1,3 +1,13 @@
+2009-10-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Moving projection setup and registration into init() method for
+	analyses from ALEPH, CDF and the MC_ group.
+
+	* Adding generic SUSY validation analysis, based on plots used in
+	ATLAS Herwig++ validation.
+
+	* Adding sorted particle accessors to FinalState (cf. JetAlg).
+
 2009-09-29  Andy Buckley  <andy@insectnation.org>
 
 	* Adding optional use of args as regex match expressions with

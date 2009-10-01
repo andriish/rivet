@@ -16,13 +16,6 @@ namespace Rivet {
     MC_LHC_WANALYSIS()
       : Analysis("MC_LHC_WANALYSIS") 
     {
-      const ChargedFinalState cfs;
-      addProjection(cfs, "CFS");
-      /// @todo Handle muon-decay Ws as well
-      const WFinder wf(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON, 30.0*GeV, 110.0*GeV, 0.2);
-      addProjection(wf, "WF");
-      FastJets fastjets(wf.remainingFinalState(), FastJets::KT, 0.7);
-      addProjection(fastjets, "Jets");
     }
     
 
@@ -31,6 +24,14 @@ namespace Rivet {
     //@{
 
     void init() { 
+      const ChargedFinalState cfs;
+      addProjection(cfs, "CFS");
+      /// @todo Handle muon-decay Ws as well
+      const WFinder wf(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON, 30.0*GeV, 110.0*GeV, 0.2);
+      addProjection(wf, "WF");
+      FastJets fastjets(wf.remainingFinalState(), FastJets::KT, 0.7);
+      addProjection(fastjets, "Jets");
+
       _hist_chargemulti = bookHistogram1D("d01-x01-y01", 30, 0.5, 250.5);
       _hist_chargept = bookHistogram1D("d02-x01-y01", 32, 0., 25.);
       _hist_chargemeanpt = bookHistogram1D("d03-x01-y01", 25, 0., 10.);

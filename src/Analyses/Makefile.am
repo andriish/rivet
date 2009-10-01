@@ -109,4 +109,5 @@ RivetMCAnalyses_la_SOURCES = \
     MC_LHC_LEADINGJETS.cc \
     MC_LHC_DIJET.cc \
     MC_LHC_WANALYSIS.cc \
-    MC_LHC_ZANALYSIS.cc
+    MC_LHC_ZANALYSIS.cc \
+    MC_LHC_SUSY.cc

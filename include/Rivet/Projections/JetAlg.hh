@@ -73,7 +73,7 @@ namespace Rivet {
 
     /// Get the jets, ordered by supplied sorting function object.
     template <typename F>
-      Jets jets(F sorter, double ptmin=0.0) const {
+    Jets jets(F sorter, double ptmin=0.0) const {
       Jets js = jets(ptmin);
       if (sorter != 0) {
         std::sort(js.begin(), js.end(), sorter);
