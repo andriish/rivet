@@ -5,15 +5,13 @@
   #include "Rivet/Analysis.hh"
   #include "Rivet/AnalysisHandler.hh"
   #include "Rivet/AnalysisLoader.hh"
+  #include "Rivet/Run.hh"
   #include "Rivet/Tools/Logging.hh"
   #include "Rivet/Event.hh"
   #include "Rivet/Particle.hh"
   #include "Rivet/ParticleName.hh"
   #include "Rivet/Projections/Beam.hh"
 %}
-
-// HepMC
-%include "hepmc.i"
 
 // STL stuff
 %include "std_string.i"
@@ -124,3 +122,5 @@ namespace Rivet {
   };
 
 }
+
+%include "Rivet/Run.hh"

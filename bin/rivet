@@ -299,113 +299,29 @@ for a in opts.ANALYSES:
 ah.init()
         
 
-## Event number logging
-def logNEvt(n, starttime, maxevtnum):
-    nevtloglevel = logging.DEBUG
-    if n % 10 == 0:
-        nevtloglevel = logging.DEBUG + 5
-    if n % 100 == 0:
-        nevtloglevel = logging.INFO
-    if n % 200 == 0:
-        nevtloglevel = logging.INFO + 5
-    if n % 500 == 0:
-        nevtloglevel = logging.WARNING
-    if n % 1000 == 0:
-        nevtloglevel = logging.WARNING + 5
-    if n % 10000 == 0:
-        nevtloglevel = logging.CRITICAL
-    timecurrent = time.time()
-    timeelapsed = timecurrent - starttime;
-    if maxevtnum is None:
-        logging.log(nevtloglevel, "Event %d (%d s elapsed)" % (n, timeelapsed))
-    else:
-        timeleft = (maxevtnum-n)*timeelapsed/n
-        eta = time.strftime("%a %b %d %H:%M", time.localtime(timecurrent + timeleft))
-        logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s"
-                    % (n, timeelapsed, timeleft, eta))
-
-
-## Here is where we first need the Python HepMC interface
-# try:
-#     import hepmc
-# except:
-#     sys.stderr.write(PROGNAME + " requires the 'hepmc' Python module\n");
-#     sys.exit(1)
-## Working around for now by putting the Python HepMC mapping in Rivet
-hepmc = rivet
-
-
 ## Read and process events
-EVTNUM = 0
-starttime = time.time()
+run = rivet.Run(ah)
+if opts.CROSS_SECTION is not None:
+    run.setCrossSection(opts.CROSS_SECTION)
+if opts.MAXEVTNUM is not None:
+    run.setMaxEvtNum(opts.MAXEVTNUM)
+if opts.LIST_USED_ANALYSES is not None:
+    run.setListAnalyses(opts.LIST_USED_ANALYSES)
+
+
 for evtfile in HEPMCFILES:
     import platform
     logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
     logging.info("Reading events from '%s'" % evtfile)
-    r = hepmc.IO_GenEvent(evtfile, "r")
-    while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
-        EVTNUM += 1
-        logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
-        if r.rdstate() != 0:
-            logging.warning("Read error on file '%s'" % evtfile)
-            break
-        evt = r.get_next_event()
-
-        ## Use the first event to check the analyses' beam compatibility
-        if EVTNUM == 1:
-            firstBeamIds = rivet.beamIds(evt)
-            logging.info("First event beam IDs = %s" % str(firstBeamIds))
-            num_anas_requested = len(ah.analysisNames())
-            ah.removeIncompatibleAnalyses(firstBeamIds)
-            if num_anas_requested > 0 and len(ah.analysisNames()) == 0:
-                logging.warning("All analyses were incompatible with the first event's beams")
-                logging.error("Exiting, since this probably isn't intentional!")
-                sys.exit(2)
-
-            ## TODO: write to file? exit?
-            if opts.LIST_USED_ANALYSES:
-                for an in ah.analysisNames():
-                    print an
-
-            ## Cross-section
-            if ah.needCrossSection():
-                xs = opts.CROSS_SECTION
-                if xs is None:
-                    try:
-                        xs = raw_input("Please specify the cross-section in pb: ")
-                        xs = float(xs)
-                        if xs <= 0:
-                            raise ValueError("Cross-section %e is not a positive number")
-                    except:
-                        logging.error("Invalid cross-section: %s" % xs)
-                        sys.exit(2)
-                ah.setCrossSection(xs)
-
-            ## If it's the first event, reinitialize the start time since 
-            ## we could have been waiting for user input:
-            starttime = time.time()
-
-        if evt.vertices_empty():
-            break
-        ## All is well... do the analysis
-        ah.analyze(evt);
-        if RECVD_KILL_SIGNAL is not None:
-            logging.critical("Leaving event loop early due to signal " + str(RECVD_KILL_SIGNAL))
-            break
+    if not run.processFile(evtfile):
+        break
+    
     if RECVD_KILL_SIGNAL is not None:
         break
 logging.info("Finished event loop")
-
-
-## Did we get enough events?
-if EVTNUM < opts.MAXEVTNUM:
-    logging.warning("Sampled fewer events (%d) than expected (%d)" % (EVTNUM, opts.MAXEVTNUM))
 
 
 ## Finalize and write out data file
 ah.finalize()
 ah.commitData();
 
-endtime = time.time()
-delta_t = endtime - starttime
-logging.info("Time elapsed: %0.2f seconds" % delta_t)

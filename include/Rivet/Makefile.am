@@ -20,7 +20,8 @@ nobase_pkginclude_HEADERS += \
   Projection.hh        Projection.fhh \
   Cmp.hh               Cmp.fhh \
   ParticleName.hh      AnalysisLoader.hh \
-  HistoHandler.hh      HistoFormat.hh
+  HistoHandler.hh      HistoFormat.hh \
+  Run.hh
 
 
 nobase_pkginclude_HEADERS += \
