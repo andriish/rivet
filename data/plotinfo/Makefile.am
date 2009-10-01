@@ -23,6 +23,7 @@ dist_pkgdata_DATA = \
   CDF_2008_S8093652.plot \
   CDF_2008_S8095620.plot \
   CDF_2009_S8233977.plot \
+  CDF_2009_S8383952.plot \
   D0_1996_S3214044.plot \
   D0_1996_S3324664.plot \
   D0_2001_S4674421.plot \
