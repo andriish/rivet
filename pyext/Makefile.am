@@ -1,7 +1,5 @@
 EXTRA_DIST = rivet.i ez_setup.py
 
-## Bundling SWIG-built sources with the tarball for SL4 compat
-EXTRA_DIST += rivet_wrap.cc rivet.py
 rivet_wrap.cc rivet.py: rivet.i
 	if test ! -e rivet_wrap.cc -o ! -e rivet.py; then \
       rm -f rivet_wrap.cc rivet.py; \
