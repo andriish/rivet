@@ -195,6 +195,25 @@ namespace Rivet {
 
     void finalize() { 
       /// @todo Normalisations / scalings, etc.    
+      for (int isqrts = 0; isqrts < 4; ++isqrts) {
+        normalize(_hist1MinusT[isqrts]); 
+        normalize(_histTMajor[isqrts]); 
+        normalize(_histTMinor[isqrts]); 
+        normalize(_histOblateness[isqrts]); 
+        normalize(_histSphericity[isqrts]); 
+        normalize(_histAplanarity[isqrts]); 
+        normalize(_histHemiMassH[isqrts]); 
+        normalize(_histHemiMassL[isqrts]); 
+        normalize(_histHemiBroadW[isqrts]); 
+        normalize(_histHemiBroadN[isqrts]); 
+        normalize(_histHemiBroadT[isqrts]); 
+        normalize(_histCParam[isqrts]);
+        normalize(_histDParam[isqrts]);
+        normalize(_histY23Durham[isqrts]); 
+      }
+      // for (int n = 1; n <= 5; ++n) {
+      //   scale(_histOneMinusTVar, 1.0/_passedCutWeightSum);
+      // }
     }
 
     //@}
