@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
@@ -30,8 +31,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2008_NOTE_9351()
-      : Analysis("CDF_2008_NOTE_9351")
+    CDF_2008_NOTE_9351() : Analysis("CDF_2008_NOTE_9351")
     { 
       setBeams(PROTON, ANTIPROTON);
     }
@@ -96,21 +96,16 @@ namespace Rivet {
       
       // We want exactly two leptons of the same flavour.
       getLog() << Log::DEBUG << "lepton multiplicity = " << leptons.size() << endl;
-      if (leptons.size() != 2 || leptons[0].pdgId() != -leptons[1].pdgId() )
-        vetoEvent;
+      if (leptons.size() != 2 || leptons[0].pdgId() != -leptons[1].pdgId() ) vetoEvent;
       
       // Lepton pT > 20 GeV
-      if (leptons[0].momentum().pT() <= 20 || leptons[1].momentum().pT() <= 20)
-        vetoEvent;
-      
-      FourVector dilepton = leptons[0].momentum() + leptons[1].momentum();
-      
-      // Lepton pair should have an invariant mass between 70 and 110 and |eta|<6
-      if (mass(dilepton) < 70 || mass(dilepton) > 110 || fabs(pseudorapidity(dilepton)) >= 6)
-        vetoEvent;
-      getLog() << Log::DEBUG << "dilepton mass = " << mass(dilepton) << endl;
-      getLog() << Log::DEBUG << "dilepton pT   = " << pT(dilepton) << endl;
-      
+      if (leptons[0].momentum().pT()/GeV <= 20 || leptons[1].momentum().pT()/GeV <= 20) vetoEvent;
+
+      // Lepton pair should have an invariant mass between 70 and 110 and |eta| < 6
+      const FourMomentum dilepton = leptons[0].momentum() + leptons[1].momentum();
+      if (!inRange(dilepton.mass()/GeV, 70, 110) || fabs(dilepton.eta()) >= 6) vetoEvent;
+      getLog() << Log::DEBUG << "Dilepton mass = " << mass(dilepton)/GeV << " GeV" << endl;
+      getLog() << Log::DEBUG << "Dilepton pT   = " << pT(dilepton)/GeV << " GeV" << endl; 
       
       // Calculate the observables
       size_t   numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0);
