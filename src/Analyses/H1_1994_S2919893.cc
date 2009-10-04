@@ -19,9 +19,13 @@ namespace Rivet {
       : Analysis("H1_1994_S2919893")
     {
       setBeams(ELECTRON, PROTON);
-      addProjection(DISLepton(), "Lepton");
-      addProjection(DISKinematics(), "Kinematics");
-      addProjection(FinalState(), "FS");
+
+      // Initialise member variables
+      _w77  = make_pair(0.0, 0.0);
+      _w122 = make_pair(0.0, 0.0);
+      _w169 = make_pair(0.0, 0.0);
+      _w117 = make_pair(0.0, 0.0);
+      _wEnergy = make_pair(0.0, 0.0);
     }
     
 
@@ -169,20 +173,18 @@ namespace Rivet {
 
 
     void init() {
-      _w77  = make_pair(0.0, 0.0);
-      _w122 = make_pair(0.0, 0.0);
-      _w169 = make_pair(0.0, 0.0);
-      _w117 = make_pair(0.0, 0.0);
-      _wEnergy = make_pair(0.0, 0.0);
+      // Projections
+      addProjection(DISLepton(), "Lepton");
+      addProjection(DISKinematics(), "Kinematics");
+      addProjection(FinalState(), "FS");
 
-      /// @todo What is "N"?
+      // Histos
       _histEnergyFlowLowX =  bookHistogram1D(1, 1, 1);
       _histEnergyFlowHighX = bookHistogram1D(1, 1, 2);
 
       _histEECLowX = bookHistogram1D(2, 1, 1);
       _histEECHighX = bookHistogram1D(2, 1, 2);
 
-      /// @todo Add cross-section units to label
       _histSpectraW77 = bookHistogram1D(3, 1, 1);
       _histSpectraW122 = bookHistogram1D(3, 1, 2);
       _histSpectraW169 = bookHistogram1D(3, 1, 3);

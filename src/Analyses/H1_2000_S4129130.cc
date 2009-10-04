@@ -16,13 +16,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    H1_2000_S4129130()
-      : Analysis("H1_2000_S4129130")
+    H1_2000_S4129130() : Analysis("H1_2000_S4129130")
     {
       setBeams(ELECTRON, PROTON);
-      addProjection(DISLepton(), "Lepton");
-      addProjection(DISKinematics(), "Kinematics");
-      addProjection(FinalState(), "FS");
     }
     
     
@@ -196,14 +192,13 @@ namespace Rivet {
     
     
     void init() {
+      // Projections
+      addProjection(DISLepton(), "Lepton");
+      addProjection(DISKinematics(), "Kinematics");
+      addProjection(FinalState(), "FS");
       
-      string t = "Transverse energy flow for ";
+      // Histos
       IHistogram1D* h = 0;
-      
-      /// @todo What is "N"?
-      
-      const string xt = "\\langle x \\rangle";
-      const string Q2t = "\\langle Q^2 \\rangle";
       
       // Histograms and weight vectors for low Q^2 a
       _histETLowQa.reserve(17);

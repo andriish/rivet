@@ -14,26 +14,24 @@ namespace Rivet {
   ///
   /// @author Jon Butterworth
   class ZEUS_2001_S4815815 : public Analysis {
-
   public:
 
-    /// Default constructor.
-    ZEUS_2001_S4815815()
-      : Analysis("ZEUS_2001_S4815815") 
+    /// Constructor
+    ZEUS_2001_S4815815() : Analysis("ZEUS_2001_S4815815") 
     { 
       setBeams(POSITRON, PROTON);
-      FinalState fs;
-      addProjection(fs, "FS");
-      /// @todo This is the *wrong* jet def: correct it!
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
     }
 
 
     /// @name Analysis methods
     //@{
 
-    // Book histograms
+    // Book projections and histograms
     void init() {
+      FinalState fs;
+      addProjection(fs, "FS");
+      /// @todo This is the *wrong* jet def: correct it!
+      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
       getLog() << Log::WARN << "This analysis uses the wrong jet definition: the " 
                << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
                << "were reconstructed using the energies and positions of these cells'" << endl;
@@ -45,14 +43,11 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& event) {
-      const FastJets& jets = applyProjection<FastJets>(event, "Jets");
-      const size_t nj = jets.size();
-      getLog() << Log::INFO << "Jet multiplicity = " << nj << endl;
-      
-      // Fill histograms
-      PseudoJets jetList = jets.pseudoJets();
-      for (PseudoJets::const_iterator j = jetList.begin(); j != jetList.end(); ++j) {
-        _histJetEt1->fill(j->perp(), event.weight() );
+      const double weight = event.weight();
+      const JetAlg& jets = applyProjection<FastJets>(event, "Jets");
+      getLog() << Log::INFO << "Jet multiplicity = " << jets.size() << endl;
+      foreach (const Jet& j, jets.jets()) {
+        _histJetEt1->fill(j.momentum().pT(), weight);
       }
     }
     

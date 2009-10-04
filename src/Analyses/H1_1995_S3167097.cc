@@ -14,15 +14,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    H1_1995_S3167097() 
-      : Analysis("H1_1995_S3167097")
+    H1_1995_S3167097() : Analysis("H1_1995_S3167097")
     { 
       setBeams(ELECTRON, PROTON);
-      const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
-      const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");
-      addProjection(CentralEtHCM(fshcm), "Y1HCM");
-      //addCut("x", MORE_EQ, _xmin);
-      //addCut("x", LESS_EQ, _xmax);
     }
     
     
@@ -30,6 +24,10 @@ namespace Rivet {
     //@{
 
     void init() {
+      const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
+      const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");
+      addProjection(CentralEtHCM(fshcm), "Y1HCM");
+
       _hEtFlow = vector<AIDA::IHistogram1D *>(_nbin);
       _hEtFlowStat = vector<AIDA::IHistogram1D *>(_nbin);
       _nev = vector<double>(_nbin);
