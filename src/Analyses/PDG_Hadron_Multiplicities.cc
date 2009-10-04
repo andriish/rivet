@@ -16,13 +16,9 @@ namespace Rivet {
   public:
     
     /// Constructor
-    PDG_HADRON_MULTIPLICITIES() 
-      : Analysis("PDG_HADRON_MULTIPLICITIES")
+    PDG_HADRON_MULTIPLICITIES() : Analysis("PDG_HADRON_MULTIPLICITIES")
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
     }
 
 
@@ -48,15 +44,15 @@ namespace Rivet {
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
                                    beams.second.momentum().vector3().mod() ) / 2.0;
-      getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
+      getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom/GeV << " GeV" << endl;
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
 
-      if (2*meanBeamMom >= 9.5 && 2*meanBeamMom <= 10.5) {
-        for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-          int id = abs(p->pdgId());
+      if (2*meanBeamMom/GeV >= 9.5 && 2*meanBeamMom/GeV <= 10.5) {
+        foreach (const Particle& p, ufs.particles()) {
+          const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
                 _hist10MeanMultiPiPlus->fill(_hist10MeanMultiPiPlus->binMean(0), weight);
@@ -162,9 +158,9 @@ namespace Rivet {
         }
       }
 
-      if (2*meanBeamMom >= 29 && 2*meanBeamMom <= 35) {
-        for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-          int id = abs(p->pdgId());
+      if (2*meanBeamMom/GeV >= 29 && 2*meanBeamMom/GeV <= 35) {
+        foreach (const Particle& p, ufs.particles()) {
+          const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
                 _hist32MeanMultiPiPlus->fill(_hist32MeanMultiPiPlus->binMean(0), weight);
@@ -253,9 +249,9 @@ namespace Rivet {
 
 
 
-      if (2*meanBeamMom >= 89.5 && 2*meanBeamMom <= 91.8) {
-        for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-          int id = abs(p->pdgId());
+      if (2*meanBeamMom/GeV >= 89.5 && 2*meanBeamMom/GeV <= 91.8) {
+        foreach (const Particle& p, ufs.particles()) {
+          const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
                 _hist91MeanMultiPiPlus->fill(_hist91MeanMultiPiPlus->binMean(0), weight);
@@ -421,9 +417,9 @@ namespace Rivet {
 
 
 
-      if (2*meanBeamMom >= 130 && 2*meanBeamMom <= 200) {
-        for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-          int id = abs(p->pdgId());
+      if (2*meanBeamMom/GeV >= 130 && 2*meanBeamMom/GeV <= 200) {
+        foreach (const Particle& p, ufs.particles()) {
+          const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
                 _hist165MeanMultiPiPlus->fill(_hist165MeanMultiPiPlus->binMean(0), weight);
@@ -451,6 +447,10 @@ namespace Rivet {
 
 
     void init() {
+      addProjection(Beam(), "Beams");
+      addProjection(ChargedFinalState(), "FS");
+      addProjection(UnstableFinalState(), "UFS");
+
       _hist10MeanMultiPiPlus             = bookHistogram1D( 1, 1, 1);
       _hist10MeanMultiPi0                = bookHistogram1D( 2, 1, 1);
       _hist10MeanMultiKPlus              = bookHistogram1D( 3, 1, 1);
