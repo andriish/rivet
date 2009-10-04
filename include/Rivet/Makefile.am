@@ -68,6 +68,8 @@ nobase_pkginclude_HEADERS +=   \
   Projections/SVertex.hh	    \
   Projections/Thrust.hh         \
   Projections/TotalVisibleMomentum.hh \
+  Projections/TriggerCDFRun0Run1.hh \
+  Projections/TriggerUA5.hh \
   Projections/UnstableFinalState.hh \
   Projections/VetoedFinalState.hh \
   Projections/VisibleFinalState.hh \

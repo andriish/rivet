@@ -40,34 +40,38 @@ namespace Rivet {
 
     /// Book histograms and projections
     void init() {
-      const FinalState fs(-1.0, 1.0, 0.0*GeV);
-      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
-      addProjection(fs, "FS");
-      addProjection(cfs, "CFS");
+      addProjection(ChargedFinalState(-4.7, 4.7, 0.0*GeV), "TriggerFS");
+      addProjection(FinalState(-1.0, 1.0, 0.0*GeV), "EtFS");
+      addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
 
       _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1);
-      _hist_pt                 = bookHistogram1D(2, 1, 1);
-      _hist_sumEt              = bookHistogram1D(3, 1, 1);
+      _hist_pt = bookHistogram1D(2, 1, 1);
+      _hist_sumEt = bookHistogram1D(3, 1, 1);
     }
 
 
     
     /// Do the analysis
-    void analyze(const Event& e) {
-      const FinalState& fs = applyProjection<FinalState>(e, "FS");
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
-      const size_t numParticles = cfs.particles().size();
-
-      // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
-      if (numParticles < 1) {
-        getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
-        vetoEvent;
+    void analyze(const Event& evt) {
+      // Trigger: need at least one charged particle in both -4.7 < eta < -3.7 and 3.7 < eta < 4.7
+      const FinalState& trigfs = applyProjection<FinalState>(evt, "TriggerFS");
+      unsigned int n_plus(0), n_minus(0);
+      foreach (const Particle& p, trigfs.particles()) {
+        const double eta = p.momentum().eta();
+        if (inRange(eta, -4.7, -3.7)) n_minus++;
+        else if (inRange(eta, 4.7, 3.7)) n_plus++;
       }
+      if (n_plus == 0 || n_minus == 0) vetoEvent;
 
       // Get the event weight
-      const double weight = e.weight();
-      
-      foreach (const Particle& p, cfs.particles()) {
+      const double weight = evt.weight();
+
+      /// @todo The pT and sum(ET) distributions look slightly different from
+      ///       Niccolo's Monte Carlo plots. Still waiting for his answer.
+
+      const ChargedFinalState& trackfs = applyProjection<ChargedFinalState>(evt, "CFS");
+      const size_t numParticles = trackfs.size();
+      foreach (const Particle& p, trackfs.particles()) {
         const double pT = p.momentum().pT() / GeV;
         _hist_pt_vs_multiplicity->fill(numParticles, pT, weight);
         
@@ -82,9 +86,6 @@ namespace Rivet {
         //
         // sinh(1) = 1.1752012
         // m(charged pion)^2 = (139.57 MeV)^2 = 0.019479785 GeV^2
-        
-        //// FIXME: The pT and sum(ET) distributions look slightly different from
-        ////        Niccolo's Monte Carlo plots. Still waiting for his answer.
         const double sinh1 = 1.1752012;
         const double apT  = sinh1 * pT;
         const double mPi = 139.57*MeV;
@@ -93,8 +94,11 @@ namespace Rivet {
         const double dphi = 2*M_PI;
         _hist_pt->fill(pT, weight/(pT*dphi*dy));
       }
-      double sumEt = 0.;
-      foreach (const Particle& p, fs.particles()) {
+
+      // Calc sum(Et) from calo particles
+      const FinalState& etfs = applyProjection<FinalState>(evt, "EtFS");
+      double sumEt = 0.0;
+      foreach (const Particle& p, etfs.particles()) {
         sumEt += p.momentum().Et();
       }
       _hist_sumEt->fill(sumEt, weight);

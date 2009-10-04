@@ -8,6 +8,7 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/TriggerCDFRun0Run1.hh"
 
 namespace Rivet {
 
@@ -93,6 +94,7 @@ namespace Rivet {
     
     void init() {
       // Set up projections
+      addProjection(TriggerCDFRun0Run1(), "Trigger");
       addProjection(Beam(), "Beam");
       const FinalState calofs(-1.2, 1.2);
       addProjection(calofs, "CaloFS");
@@ -138,6 +140,11 @@ namespace Rivet {
     
     /// Do the analysis
     void analyze(const Event& event) {
+      // Trigger
+      const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      if (!trigger) vetoEvent;
+
+      // Get sqrt(s) and event weight
       const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
       const double weight = event.weight();
       

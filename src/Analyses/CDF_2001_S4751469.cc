@@ -10,7 +10,7 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/LossyFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-
+#include "Rivet/Projections/TriggerCDFRun0Run1.hh"
 #include "LWH/Profile1D.h"
 
 namespace Rivet {
@@ -47,6 +47,7 @@ namespace Rivet {
     
     // Book histograms
     void init() {
+      addProjection(TriggerCDFRun0Run1(), "Trigger");
       // Randomly discard 8% of charged particles as a kind of hacky detector correction.
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       const LossyFinalState lfs(cfs, 0.08);
@@ -82,6 +83,9 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
+      // Trigger
+      const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      if (!trigger) vetoEvent;
       
       // Analyse, with pT > 0.5 GeV AND |eta| < 1
       const JetAlg& tj = applyProjection<JetAlg>(event, "TrackJet");

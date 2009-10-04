@@ -74,6 +74,8 @@ namespace Rivet {
     
     // Do the analysis
     void analyze(const Event& e) {
+      /// @todo Implement Run II min bias trigger cf. CDF_2009?
+
       const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
       if (fsj.particles().size() < 1) {
         getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;

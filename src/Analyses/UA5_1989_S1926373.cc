@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/TriggerUA5.hh"
 
 namespace Rivet {
 
@@ -23,8 +24,8 @@ namespace Rivet {
 
     /// Book histograms and projections
     void init() {
+      addProjection(TriggerUA5(), "Trigger");
       addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "CFSAll");
       addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
       addProjection(ChargedFinalState(-1.5, 1.5), "CFS15");
       addProjection(ChargedFinalState(-3.0, 3.0), "CFS30");
@@ -50,25 +51,12 @@ namespace Rivet {
     
     /// Do the analysis
     void analyze(const Event& event) {
+      // Trigger
+      const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
+      if (!trigger.nsdDecision()) vetoEvent;
+
       const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
       const double weight = event.weight();
-      
-      // Minimum Bias trigger requirements from the hodoscopes
-      int n_trig_1(0), n_trig_2(0);
-      /// @todo Use CFS in +,- eta ranges as below, to cache this loop between UA5 analyses
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFSAll");
-      foreach (const Particle& p, cfs.particles()) {
-        const double eta = p.momentum().pseudorapidity();
-        if (inRange(eta, -5.6, -2.0)) n_trig_1 += 1;
-        else if (inRange(eta, 2.0, 5.6)) n_trig_2 += 1;
-      }
-      
-      // Require at least one coincidence hit in trigger hodoscopes
-      getLog() << Log::DEBUG << "Trigger -: " << n_trig_1 << ", Trigger +: " << n_trig_2 << endl;
-      if (n_trig_1 == 0 || n_trig_2 == 0) {
-        _numVetoed +=1;
-        vetoEvent;
-      }
       
       // Count final state particles in several eta regions
       const int numP05 = applyProjection<ChargedFinalState>(event, "CFS05").size();
@@ -77,7 +65,7 @@ namespace Rivet {
       const int numP50 = applyProjection<ChargedFinalState>(event, "CFS50").size();
       
       // Fill histograms
-      if (fuzzyEquals(sqrtS, 200.0, 1E-4)) {
+      if (fuzzyEquals(sqrtS/GeV, 200.0, 1E-4)) {
         _hist_nch200->fill(numP50, weight);
         _hist_nch200eta05->fill(numP05, weight);
         _hist_nch200eta15->fill(numP15, weight);
@@ -85,7 +73,7 @@ namespace Rivet {
         _hist_nch200eta50->fill(numP50, weight);
         _hist_mean_nch_200->fill(_hist_mean_nch_200->binMean(0), numP50);
       }
-      else if (fuzzyEquals(sqrtS, 900.0, 1E-4)) {
+      else if (fuzzyEquals(sqrtS/GeV, 900.0, 1E-4)) {
         _hist_nch900->fill(numP50, weight);
         _hist_nch900eta05->fill(numP05, weight);
         _hist_nch900eta15->fill(numP15, weight);

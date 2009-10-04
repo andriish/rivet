@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/TriggerUA5.hh"
 
 namespace Rivet {
 
@@ -21,14 +22,9 @@ namespace Rivet {
     //@{
     
     void init() {
-      addProjection(Beam(), "Beams");
-      
-      // All charged final state particles, needed for triggers
-      const ChargedFinalState cfs;
-      addProjection(cfs, "CFSAll");
-      // Charged particles in |eta| < 5.0 
-      const ChargedFinalState cfs50(-5.0, 5.0);
-      addProjection(cfs50, "CFS50");
+      addProjection(TriggerUA5(), "Trigger");
+      addProjection(Beam(), "Beams"); 
+      addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
 
       // Histograms
       _hist_eta_nsd_200       = bookHistogram1D(1,1,1);
@@ -56,39 +52,25 @@ namespace Rivet {
     
     
     void analyze(const Event& event) {
-      const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
-      const double weight = event.weight();
-      
-      // Trigger requirements from the hodoscopes (1 arm (elastic) and 2 arms (NSD))
-      int n_trig_1(0), n_trig_2(0);
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFSAll");
-      foreach (const Particle& p, cfs.particles()) {
-        double eta = p.momentum().pseudorapidity();
-        if (inRange(eta, -5.6, -2.0)) n_trig_1 += 1;
-        else if (inRange(eta, 2.0, 5.6)) n_trig_2 += 1;
-      }
-      getLog() << Log::DEBUG << "Trigger -: " << n_trig_1 << ", Trigger +: " << n_trig_2 << endl;
-      
-      // Check if we have a coincidence hit in hodoscopes == NSD
-      if (n_trig_1 == 0 && n_trig_2 == 0) vetoEvent
-      // Require at least one hit in trigger hodoscopes
-      bool isNSD = true;
-      if (n_trig_1 == 0 || n_trig_2 == 0) isNSD = false;
-      
-      // Declare final state for |eta| < 5.0
-      const ChargedFinalState& cfs50 = applyProjection<ChargedFinalState>(event, "CFS50");
-      int numP = cfs50.particles().size();
+      // Trigger
+      const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
+      if (!trigger.sdDecision()) vetoEvent;
+      const bool isNSD = trigger.nsdDecision();
 
+      const double weight = event.weight();
+      const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
 
       // Iterate over particles in |eta| < 5.0 and fill histos with |eta| 
-      foreach (const Particle& p, cfs.particles()) {
+      const ChargedFinalState& cfs50 = applyProjection<ChargedFinalState>(event, "CFS50");
+      const unsigned int numP = cfs50.size();
+      foreach (const Particle& p, cfs50.particles()) {
         double eta = fabs(p.momentum().pseudorapidity());
         
         // Fill 200 GeV histos
-        if (fuzzyEquals(sqrtS, 200.0, 1E-4)) {
+        if (fuzzyEquals(sqrtS/GeV, 200.0, 1E-4)) {
           // Fill histos that don't require a certain multiplicity
           _hist_eta_inelastic_200->fill(eta, weight);
-          if ( isNSD ) {
+          if (isNSD) {
             // Fill histos that require a certain multiplicity
             _hist_eta_nsd_200->fill(eta, weight);
             if ( ( 2 <= numP ) && ( numP <= 10 ) ) _hist_eta_nsd_n_2_200->fill(eta, weight);
@@ -101,7 +83,7 @@ namespace Rivet {
         }
         
         // Fill 900 GeV histos
-        else if (fuzzyEquals(sqrtS, 900.0, 1E-4)) {
+        else if (fuzzyEquals(sqrtS/GeV, 900.0, 1E-4)) {
           // Fill histos that don't require a certain multiplicity
           _hist_eta_inelastic_900->fill(eta, weight);
           if ( isNSD ) {

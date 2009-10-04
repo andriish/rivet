@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/TriggerCDFRun0Run1.hh"
 
 namespace Rivet {
 
@@ -43,6 +44,7 @@ namespace Rivet {
     
     /// Book projections and histograms
     void init() {
+      addProjection(TriggerCDFRun0Run1(), "Trigger");
       addProjection(Beam(), "Beam");
       const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
       addProjection(cfs, "FS");
@@ -55,13 +57,16 @@ namespace Rivet {
     
     
     /// Do the analysis
-    void analyze(const Event& e) {
-      const double sqrtS = applyProjection<Beam>(e, "Beam").sqrtS();
-      const ChargedFinalState& fs = applyProjection<ChargedFinalState>(e, "FS");
-      const size_t numParticles = fs.particles().size();
+    void analyze(const Event& evt) {
+      // Trigger
+      const bool trigger = applyProjection<TriggerCDFRun0Run1>(evt, "Trigger").minBiasDecision();
+      if (!trigger) vetoEvent;
+      const double weight = evt.weight();
 
-      // Get the event weight
-      const double weight = e.weight();
+      // Get beam energy and tracks
+      const double sqrtS = applyProjection<Beam>(evt, "Beam").sqrtS();
+      const ChargedFinalState& fs = applyProjection<ChargedFinalState>(evt, "FS");
+      const size_t numParticles = fs.particles().size();
 
       // Fill histos of charged multiplicity distributions
       if (fuzzyEquals(sqrtS, 630/GeV)) {

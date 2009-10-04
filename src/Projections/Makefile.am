@@ -27,6 +27,8 @@ libRivetProjections_la_SOURCES = \
   SVertex.cc \
   Thrust.cc \
   TotalVisibleMomentum.cc \
+  TriggerCDFRun0Run1.cc \
+  TriggerUA5.cc \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
   VisibleFinalState.cc \

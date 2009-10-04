@@ -7,6 +7,7 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/TriggerCDFRun0Run1.hh"
 
 namespace Rivet {
 
@@ -29,8 +30,8 @@ namespace Rivet {
     //@{
 
     void init() {
-      addProjection(ChargedFinalState(-3.5, 3.5), "FS");
-      addProjection(ChargedFinalState(-5.9, 5.9), "CFSAll");
+      addProjection(TriggerCDFRun0Run1(), "Trigger");
+      addProjection(ChargedFinalState(-3.5, 3.5), "CFS");
       addProjection(Beam(), "Beam");
 
       _hist_eta1800 = bookHistogram1D(3, 1, 1);
@@ -40,39 +41,16 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
+      // Trigger
+      const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      if (!trigger) vetoEvent;
+
+      // Get final state and energy
+      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS(); 
+      const FinalState& fs = applyProjection<FinalState>(event, "CFS");
+
+      // Loop over final state charged particles to fill eta histos
       const double weight = event.weight();
-      
-      // Minimum Bias trigger requirements from the BBC counters
-      int n_trig_1 = 0;
-      int n_trig_2 = 0;
-      
-      // Event selection based on tracks in VTPC (time projection chambers)
-      // Require at least 4 tracks with at least one in each of the forward
-      // and backward hemispheres
-      int n_backward = 0;
-      int n_forward = 0;
-      
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFSAll");
-      foreach (const Particle& p, cfs.particles()) {
-        double eta = p.momentum().pseudorapidity();
-        if (inRange(eta, -5.9, -3.2)) n_trig_1++;
-        else if (inRange(eta, 3.2, 5.9)) n_trig_2++;
-        
-        if (inRange(eta, -3.0, 0.0)) n_backward++;
-        else if (inRange(eta, 0.0, 3.0)) n_forward++;
-      }
-      
-      // Require at least one coincidence hit in both BBC counters
-      if (n_trig_1 == 0 || n_trig_2 == 0) vetoEvent; 
-      getLog() << Log::DEBUG << "Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2 << endl;
-      
-      // Further event selection cut
-      if (n_backward + n_forward < 4 || n_backward == 0 || n_forward == 0) vetoEvent;
-      getLog() << Log::DEBUG << " Num. forward: " << n_forward  << ", Num. backward: " << n_backward << endl;
-      
-      // Loop over final state charged particles 
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
       foreach (const Particle& p, fs.particles()) {
         const double eta = p.momentum().pseudorapidity();
         if (fuzzyEquals(sqrtS/GeV, 630)) {

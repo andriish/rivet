@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/TriggerUA5.hh"
 
 namespace Rivet {
 
@@ -64,11 +65,8 @@ namespace Rivet {
     //@{
 
     void init() {
+      addProjection(TriggerUA5(), "Trigger");
       addProjection(Beam(), "Beams");
-      
-      // All charged final state particles, needed for trigger implementation only
-      const ChargedFinalState cfs;
-      addProjection(cfs, "CFSAll");
       
       // Symmetric eta interval
       addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
@@ -142,24 +140,13 @@ namespace Rivet {
     
 
     void analyze(const Event& event) {
+      // Trigger
+      const bool trigger = applyProjection<TriggerUA5>(event, "Trigger").nsdDecision();
+      if (!trigger) vetoEvent;
+
       const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
       const double weight = event.weight();
-      
-      // Minimum Bias trigger requirements from the hodoscopes
-      int n_trig_1 = 0;
-      int n_trig_2 = 0;
-      
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFSAll");
-      foreach (const Particle& p, cfs.particles()) {
-        double eta = p.momentum().pseudorapidity();
-        if (inRange(eta, -5.6, -2.0)) n_trig_1++;
-        else if (inRange(eta, 2.0, 5.6)) n_trig_2++;
-      }
-      
-      // Require at least one coincidence hit in trigger hodoscopes
-      if (n_trig_1 == 0 || n_trig_2 == 0) vetoEvent;
-      getLog() << Log::DEBUG << "Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2 << endl;
-      
+            
       // Count forward/backward rates
       n_10f += applyProjection<ChargedFinalState>(event, "CFS10F").size();
       n_15f += applyProjection<ChargedFinalState>(event, "CFS15F").size();

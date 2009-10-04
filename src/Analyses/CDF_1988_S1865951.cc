@@ -5,6 +5,7 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/TriggerCDFRun0Run1.hh"
 
 namespace Rivet {
 
@@ -25,9 +26,9 @@ namespace Rivet {
     
     /// Book histograms
     void init() {
-      const ChargedFinalState cfs(-1.,1., 0.4*GeV);
+      addProjection(TriggerCDFRun0Run1(), "Trigger");
+      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
       addProjection(cfs, "CFS");
-      addProjection(ChargedFinalState(-5.9, 5.9), "CFSAll");
       addProjection(TotalVisibleMomentum(cfs), "Mom");
       addProjection(Beam(), "Beam");
 
@@ -38,39 +39,15 @@ namespace Rivet {
     
     /// Do the analysis
     void analyze(const Event& event) {
-      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
-      const FinalState& fs = applyProjection<ChargedFinalState>(event, "CFS");
+      // Trigger
+      const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      if (!trigger) vetoEvent;
       const double weight = event.weight();
+
+      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
+      const FinalState& trackfs = applyProjection<ChargedFinalState>(event, "CFS");
       
-      // Minimum Bias trigger requirements from the BBC counters
-      int n_trig_1 = 0;
-      int n_trig_2 = 0;
-      
-      // Event selection based on tracks in VTPC (time projection chambers)
-      // Require at least 4 tracks with at least one in each of the forward
-      // and backward hemispheres
-      int n_backward = 0;
-      int n_forward = 0;
-      
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFSAll");
-      foreach (const Particle& p, cfs.particles()) {
-        double eta = p.momentum().pseudorapidity();
-        if (inRange(eta, -5.9, -3.2)) n_trig_1 += 1;
-        else if (inRange(eta, 3.2, 5.9)) n_trig_2 += 1;
-        
-        if (inRange(eta, -3.0, 0.0)) n_backward += 1;
-        else if (inRange(eta, 0.0, 3.0)) n_forward += 1;
-      }
-      
-      // Require at least one coincidence hit in both BBC counters
-      if (n_trig_1 == 0 || n_trig_2 == 0) vetoEvent; 
-      getLog() << Log::DEBUG << "Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2 << endl;
-      
-      // Further event selection cut
-      if (n_backward + n_forward < 4 || n_backward == 0 || n_forward == 0) vetoEvent;
-      getLog() << Log::DEBUG << " Num. forward: " << n_forward  << ", Num. backward: " << n_backward << endl;
-      
-      foreach (Particle p, fs.particles()) {
+      foreach (Particle p, trackfs.particles()) {
         const double pt = p.momentum().pT();
         // Effective weight for d3sig/dp3 = weight / ( Delta eta * 2pi * pt ), with Delta(eta) = 2
         const double eff_weight = weight/(2*TWOPI*pt);
