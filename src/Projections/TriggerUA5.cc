@@ -11,9 +11,14 @@ namespace Rivet {
   void TriggerUA5::project(const Event& evt) {
     // Start with the assumption that the trigger fails
     _decision_sd = false;
-    _decision_nsd = false;
+    _decision_nsd_1 = false;
+    _decision_nsd_2 = false;
 
-    // Different trigger implementations for ppbar and pp!
+    // Triggers can be different for pp and ppbar running
+    const Beam& b = applyProjection<Beam>(evt, "Beam");
+    _samebeams = (b.beams().first.pdgId() == b.beams().second.pdgId());
+
+    // Count hodoscope hits
     const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(evt, "CFS");
     foreach (const Particle& p, cfs.particles()) {
       const double eta = p.momentum().pseudorapidity();
@@ -27,19 +32,10 @@ namespace Rivet {
     _decision_sd = true;
 
     // Extra NSD trigger requirements
-    const Beam& b = applyProjection<Beam>(evt, "Beam");
-    _samebeams = (b.beams().first.pdgId() == b.beams().second.pdgId());
-    if (_samebeams) {
-      // PP
-      if (_n_minus == 0 || _n_plus == 0) return;
-    } else {
-      // PPbar
-      /// @todo Is this actually the exact trigger requirement?
-      if (_n_minus * _n_plus < 4) return;
-    }
-
-    // Trigger success:
-    _decision_nsd = true;
+    if (_n_minus == 0 || _n_plus == 0) return;
+    _decision_nsd_1 = true;    
+    if (_n_minus < 2 || _n_plus < 2) return;
+    _decision_nsd_2 = true;
   }
 
 

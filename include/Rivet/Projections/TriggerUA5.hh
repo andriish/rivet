@@ -40,7 +40,13 @@ namespace Rivet {
 
     /// The trigger result for non-single diffractive (2 arm) trigger
     const bool nsdDecision() const {
-      return _decision_nsd;
+      return _decision_nsd_1;
+    }
+
+    /// The trigger result for non-single diffractive (2 arm) trigger 
+    /// with special ">= 2" trigger for ppbar bg rejection
+    const bool nsd2Decision() const {
+      return _decision_nsd_2;
     }
 
     /// The trigger result
@@ -68,7 +74,7 @@ namespace Rivet {
   private:
 
     /// The min bias trigger decisions
-    bool _decision_sd, _decision_nsd;
+    bool _decision_sd, _decision_nsd_1, _decision_nsd_2;
 
     /// Is it a pp collision?
     bool _samebeams;

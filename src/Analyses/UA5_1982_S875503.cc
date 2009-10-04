@@ -35,29 +35,27 @@ namespace Rivet {
       // Trigger
       const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
+
+      // Get tracks
       const double weight = event.weight(); 
-      
-      // Iterate over all tracks and fill histograms
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-      foreach (const Particle& p, cfs.particles()) {
-        if (trigger.samebeams()) {
-          // PP collision
-          _hist_eta_pp->fill(fabs(p.momentum().pseudorapidity()), weight);
-        } else {
-          // PPbar collision
-          _hist_eta_ppbar->fill(fabs(p.momentum().pseudorapidity()), weight);
-        }
-      }
       
       // Fill mean charged multiplicity histos
-      if (trigger.samebeams()) {
-        // PP
-        _hist_nch_pp->fill(_hist_nch_pp->binMean(0), cfs.particles().size());
-      } else {
-        // PPbar 
-        _hist_nch_ppbar->fill(_hist_nch_ppbar->binMean(0), cfs.particles().size());
+      if (trigger.samebeams()) { // PP
+        _hist_nch_pp->fill(_hist_nch_pp->binMean(0), cfs.size());
+      } else { // PPbar 
+        _hist_nch_ppbar->fill(_hist_nch_ppbar->binMean(0), cfs.size());
       }
-      
+
+      // Iterate over all tracks and fill eta histograms
+      foreach (const Particle& p, cfs.particles()) {
+        if (trigger.samebeams()) { // PP
+          _hist_eta_pp->fill(fabs(p.momentum().eta()), weight);
+        } else { // PPbar
+          _hist_eta_ppbar->fill(fabs(p.momentum().eta()), weight);
+        }
+      }
+            
     }
     
     
