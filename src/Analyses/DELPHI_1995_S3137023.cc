@@ -20,9 +20,6 @@ namespace Rivet {
       : Analysis("DELPHI_1995_S3137023")
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
       _weightedTotalNumXiMinus = 0;
       _weightedTotalNumSigma1385Plus = 0;
     }
@@ -32,6 +29,10 @@ namespace Rivet {
     //@{
 
     void init() {
+      addProjection(Beam(), "Beams");
+      addProjection(ChargedFinalState(), "FS");
+      addProjection(UnstableFinalState(), "UFS");
+
       _histXpXiMinus       = bookHistogram1D(2, 1, 1);
       _histXpSigma1385Plus = bookHistogram1D(3, 1, 1);
     }

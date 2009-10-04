@@ -40,6 +40,15 @@ namespace Rivet {
       : Analysis("DELPHI_1996_S3430090")
     {
       setBeams(ELECTRON, POSITRON); 
+      _weightedTotalPartNum = 0;
+      _passedCutWeightSum = 0;
+    }
+    
+    
+    /// @name Analysis methods
+    //@{
+
+    void init() {
       addProjection(Beam(), "Beams");
       const ChargedFinalState cfs;
       addProjection(cfs, "FS");
@@ -51,13 +60,87 @@ namespace Rivet {
       const Thrust thrust(cfs);
       addProjection(thrust, "Thrust");
       addProjection(Hemispheres(thrust), "Hemispheres");
-      _weightedTotalPartNum = 0;
-      _passedCutWeightSum = 0;
+
+      _histPtTIn = bookHistogram1D(1, 1, 1);
+      _histPtTOut = bookHistogram1D(2, 1, 1);
+      _histPtSIn = bookHistogram1D(3, 1, 1);
+      _histPtSOut = bookHistogram1D(4, 1, 1);
+      
+      _histRapidityT = bookHistogram1D(5, 1, 1);
+      _histRapidityS = bookHistogram1D(6, 1, 1);
+      _histScaledMom = bookHistogram1D(7, 1, 1);
+      _histLogScaledMom = bookHistogram1D(8, 1, 1);
+      
+      _histPtTOutVsXp = bookProfile1D(9,  1, 1);
+      _histPtVsXp = bookProfile1D(10, 1, 1);    
+      
+      _hist1MinusT = bookHistogram1D(11, 1, 1);
+      _histTMajor = bookHistogram1D(12, 1, 1);
+      _histTMinor = bookHistogram1D(13, 1, 1);
+      _histOblateness = bookHistogram1D(14, 1, 1);
+      
+      _histSphericity = bookHistogram1D(15, 1, 1);
+      _histAplanarity = bookHistogram1D(16, 1, 1);
+      _histPlanarity = bookHistogram1D(17, 1, 1);
+      
+      _histCParam = bookHistogram1D(18, 1, 1);
+      _histDParam = bookHistogram1D(19, 1, 1);
+      
+      _histHemiMassH = bookHistogram1D(20, 1, 1);
+      _histHemiMassL = bookHistogram1D(21, 1, 1);
+      _histHemiMassD = bookHistogram1D(22, 1, 1);
+      
+      _histHemiBroadW = bookHistogram1D(23, 1, 1);
+      _histHemiBroadN = bookHistogram1D(24, 1, 1);
+      _histHemiBroadT = bookHistogram1D(25, 1, 1);
+      _histHemiBroadD = bookHistogram1D(26, 1, 1);
+
+      // Binned in y_cut
+      _histDiffRate2Durham = bookHistogram1D(27, 1, 1);
+      _histDiffRate2Jade = bookHistogram1D(28, 1, 1);
+      _histDiffRate3Durham = bookHistogram1D(29, 1, 1);
+      _histDiffRate3Jade = bookHistogram1D(30, 1, 1);
+      _histDiffRate4Durham = bookHistogram1D(31, 1, 1);
+      _histDiffRate4Jade = bookHistogram1D(32, 1, 1);
+
+      // Binned in cos(chi)
+      _histEEC = bookHistogram1D(33, 1, 1);
+      _histAEEC = bookHistogram1D(34, 1, 1);
+
+      _histMultiCharged = bookHistogram1D(35, 1, 1);
+
+      _histMultiPiPlus = bookHistogram1D(36, 1, 1);
+      _histMultiPi0 = bookHistogram1D(36, 1, 2);
+      _histMultiKPlus = bookHistogram1D(36, 1, 3);
+      _histMultiK0 = bookHistogram1D(36, 1, 4);
+      _histMultiEta = bookHistogram1D(36, 1, 5);
+      _histMultiEtaPrime = bookHistogram1D(36, 1, 6);
+      _histMultiDPlus = bookHistogram1D(36, 1, 7);
+      _histMultiD0 = bookHistogram1D(36, 1, 8);
+      _histMultiBPlus0 = bookHistogram1D(36, 1, 9);
+
+      _histMultiF0 = bookHistogram1D(37, 1, 1);
+
+      _histMultiRho = bookHistogram1D(38, 1, 1);
+      _histMultiKStar892Plus = bookHistogram1D(38, 1, 2);
+      _histMultiKStar892_0 = bookHistogram1D(38, 1, 3);
+      _histMultiPhi = bookHistogram1D(38, 1, 4);
+      _histMultiDStar2010Plus = bookHistogram1D(38, 1, 5);
+
+      _histMultiF2 = bookHistogram1D(39, 1, 1);
+      _histMultiK2Star1430_0 = bookHistogram1D(39, 1, 2);
+
+      _histMultiP = bookHistogram1D(40, 1, 1);
+      _histMultiLambda0 = bookHistogram1D(40, 1, 2);
+      _histMultiXiMinus = bookHistogram1D(40, 1, 3);
+      _histMultiOmegaMinus = bookHistogram1D(40, 1, 4);
+      _histMultiDeltaPlusPlus = bookHistogram1D(40, 1, 5);
+      _histMultiSigma1385Plus = bookHistogram1D(40, 1, 6);
+      _histMultiXi1530_0 = bookHistogram1D(40, 1, 7);
+      _histMultiLambdaB0 = bookHistogram1D(40, 1, 8);
     }
-    
-    
-    /// @name Analysis methods
-    //@{
+
+
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
@@ -270,87 +353,6 @@ namespace Rivet {
           break;
         }
       }
-    }
-
-
-    void init() {
-      _histPtTIn = bookHistogram1D(1, 1, 1);
-      _histPtTOut = bookHistogram1D(2, 1, 1);
-      _histPtSIn = bookHistogram1D(3, 1, 1);
-      _histPtSOut = bookHistogram1D(4, 1, 1);
-      
-      _histRapidityT = bookHistogram1D(5, 1, 1);
-      _histRapidityS = bookHistogram1D(6, 1, 1);
-      _histScaledMom = bookHistogram1D(7, 1, 1);
-      _histLogScaledMom = bookHistogram1D(8, 1, 1);
-      
-      _histPtTOutVsXp = bookProfile1D(9,  1, 1);
-      _histPtVsXp = bookProfile1D(10, 1, 1);    
-      
-      _hist1MinusT = bookHistogram1D(11, 1, 1);
-      _histTMajor = bookHistogram1D(12, 1, 1);
-      _histTMinor = bookHistogram1D(13, 1, 1);
-      _histOblateness = bookHistogram1D(14, 1, 1);
-      
-      _histSphericity = bookHistogram1D(15, 1, 1);
-      _histAplanarity = bookHistogram1D(16, 1, 1);
-      _histPlanarity = bookHistogram1D(17, 1, 1);
-      
-      _histCParam = bookHistogram1D(18, 1, 1);
-      _histDParam = bookHistogram1D(19, 1, 1);
-      
-      _histHemiMassH = bookHistogram1D(20, 1, 1);
-      _histHemiMassL = bookHistogram1D(21, 1, 1);
-      _histHemiMassD = bookHistogram1D(22, 1, 1);
-      
-      _histHemiBroadW = bookHistogram1D(23, 1, 1);
-      _histHemiBroadN = bookHistogram1D(24, 1, 1);
-      _histHemiBroadT = bookHistogram1D(25, 1, 1);
-      _histHemiBroadD = bookHistogram1D(26, 1, 1);
-
-      // Binned in y_cut
-      _histDiffRate2Durham = bookHistogram1D(27, 1, 1);
-      _histDiffRate2Jade = bookHistogram1D(28, 1, 1);
-      _histDiffRate3Durham = bookHistogram1D(29, 1, 1);
-      _histDiffRate3Jade = bookHistogram1D(30, 1, 1);
-      _histDiffRate4Durham = bookHistogram1D(31, 1, 1);
-      _histDiffRate4Jade = bookHistogram1D(32, 1, 1);
-
-      // Binned in cos(chi)
-      _histEEC = bookHistogram1D(33, 1, 1);
-      _histAEEC = bookHistogram1D(34, 1, 1);
-
-      _histMultiCharged = bookHistogram1D(35, 1, 1);
-
-      _histMultiPiPlus = bookHistogram1D(36, 1, 1);
-      _histMultiPi0 = bookHistogram1D(36, 1, 2);
-      _histMultiKPlus = bookHistogram1D(36, 1, 3);
-      _histMultiK0 = bookHistogram1D(36, 1, 4);
-      _histMultiEta = bookHistogram1D(36, 1, 5);
-      _histMultiEtaPrime = bookHistogram1D(36, 1, 6);
-      _histMultiDPlus = bookHistogram1D(36, 1, 7);
-      _histMultiD0 = bookHistogram1D(36, 1, 8);
-      _histMultiBPlus0 = bookHistogram1D(36, 1, 9);
-
-      _histMultiF0 = bookHistogram1D(37, 1, 1);
-
-      _histMultiRho = bookHistogram1D(38, 1, 1);
-      _histMultiKStar892Plus = bookHistogram1D(38, 1, 2);
-      _histMultiKStar892_0 = bookHistogram1D(38, 1, 3);
-      _histMultiPhi = bookHistogram1D(38, 1, 4);
-      _histMultiDStar2010Plus = bookHistogram1D(38, 1, 5);
-
-      _histMultiF2 = bookHistogram1D(39, 1, 1);
-      _histMultiK2Star1430_0 = bookHistogram1D(39, 1, 2);
-
-      _histMultiP = bookHistogram1D(40, 1, 1);
-      _histMultiLambda0 = bookHistogram1D(40, 1, 2);
-      _histMultiXiMinus = bookHistogram1D(40, 1, 3);
-      _histMultiOmegaMinus = bookHistogram1D(40, 1, 4);
-      _histMultiDeltaPlusPlus = bookHistogram1D(40, 1, 5);
-      _histMultiSigma1385Plus = bookHistogram1D(40, 1, 6);
-      _histMultiXi1530_0 = bookHistogram1D(40, 1, 7);
-      _histMultiLambdaB0 = bookHistogram1D(40, 1, 8);
     }
 
 

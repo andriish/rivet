@@ -25,14 +25,24 @@ namespace Rivet {
       : Analysis("DELPHI_2002_069_CONF_603")
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(InitialQuarks(), "IQF");
     }
 
 
     /// @name Analysis methods
     //@{
+
+    /// Book projections and histograms      
+    void init() {
+      addProjection(Beam(), "Beams");
+      addProjection(ChargedFinalState(), "FS");
+      addProjection(InitialQuarks(), "IQF");
+
+      _histXbprim     = bookHistogram1D(1, 1, 1);
+      _histXbweak     = bookHistogram1D(2, 1, 1);
+      _histMeanXbprim = bookProfile1D(4, 1, 1);
+      _histMeanXbweak = bookProfile1D(5, 1, 1);
+    }
+
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
@@ -91,15 +101,6 @@ namespace Rivet {
           
         }
       }
-    }
-      
-    
-    /// Book histograms      
-    void init() {
-      _histXbprim     = bookHistogram1D(1, 1, 1);
-      _histXbweak     = bookHistogram1D(2, 1, 1);
-      _histMeanXbprim = bookProfile1D(4, 1, 1);
-      _histMeanXbweak = bookProfile1D(5, 1, 1);
     }
     
 

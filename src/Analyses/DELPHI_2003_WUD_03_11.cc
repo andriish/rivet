@@ -30,10 +30,6 @@ namespace Rivet {
     DELPHI_2003_WUD_03_11()
       : Analysis("DELPHI_2003_WUD_03_11")
     {
-      const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
       _numdurjets = 0;
       _numjadejets = 0;
     }
@@ -92,6 +88,23 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
+    void init() {
+      const ChargedFinalState cfs;
+      addProjection(cfs, "FS");
+      addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
+      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+
+      _histDurhamBZ      = bookHistogram1D(1, 1, 1);
+      _histDurhamKSW     = bookHistogram1D(2, 1, 1);
+      _histDurhamNR      = bookHistogram1D(3, 1, 1);
+      _histDurhamALPHA34 = bookHistogram1D(4, 1, 1);
+      _histJadeBZ        = bookHistogram1D(1, 2, 1);
+      _histJadeKSW       = bookHistogram1D(2, 2, 1);
+      _histJadeNR        = bookHistogram1D(3, 2, 1);
+      _histJadeALPHA34   = bookHistogram1D(4, 2, 1);
+    }
+
+
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
@@ -140,21 +153,7 @@ namespace Rivet {
         }
       }
       
-    }
-    
-    
-    
-    void init() {
-      _histDurhamBZ      = bookHistogram1D(1, 1, 1);
-      _histDurhamKSW     = bookHistogram1D(2, 1, 1);
-      _histDurhamNR      = bookHistogram1D(3, 1, 1);
-      _histDurhamALPHA34 = bookHistogram1D(4, 1, 1);
-      _histJadeBZ        = bookHistogram1D(1, 2, 1);
-      _histJadeKSW       = bookHistogram1D(2, 2, 1);
-      _histJadeNR        = bookHistogram1D(3, 2, 1);
-      _histJadeALPHA34   = bookHistogram1D(4, 2, 1);
-    }
-    
+    }    
     
     
     // Finalize
