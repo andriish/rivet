@@ -25,14 +25,11 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() { 
-      const ChargedFinalState cfs(-2.5, 2.5);
-      const FinalState fs2(-6., 6.);
-      const FinalState fs(-2.5,2.5);
-      addProjection(fs, "FS");
-      addProjection(fs2, "FS2");
-      addProjection(ChargedFinalState(-2.5, 2.5), "CFS");
+      addProjection(ChargedFinalState(-5.5, 5.5), "TriggerFS");
+      addProjection(ChargedFinalState(-2.5, 2.5), "TrackFS");
       addProjection(Beam(), "Beam");
-      addProjection(TotalVisibleMomentum(fs), "Mom");
+      const FinalState calofs(-6.0, 6.0);
+      addProjection(TotalVisibleMomentum(calofs), "Mom");
 
       _hist_sigma200 = bookHistogram1D(1,1,1);
       _hist_sigma500 = bookHistogram1D(1,1,2);
@@ -56,61 +53,73 @@ namespace Rivet {
     
 
     void analyze(const Event& event) {
-      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
-      const double weight = event.weight();
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      double multi = cfs.particles().size();
-
-      if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
-        _hist_sigma200->fill(multi, weight);
-      } else if (fuzzyEquals(sqrtS/GeV, 500)) {
-        _hist_sigma500->fill(multi, weight);
-      }	else if (fuzzyEquals(sqrtS/GeV, 900)) {
-	  _hist_sigma900->fill(multi, weight);
+      // Trigger
+      const FinalState& trigfs = applyProjection<FinalState>(event, "TriggerFS");
+      unsigned int n_minus(0), n_plus(0);
+      foreach (const Particle& p, trigfs.particles()) {
+        const double eta = p.momentum().eta();
+        if (inRange(eta, -5.5, -1.5)) n_minus++;
+        else if (inRange(eta, 1.5, 5.5)) n_plus++;
       }
-      foreach (const Particle& p, fs.particles()) {
-        /// @todo Figure out where the extra factor of 0.5 comes from in the weight factor: eta range?
-        double pt = p.momentum().pT();
+      getLog() << Log::DEBUG << "Trigger -: " << n_minus << ", Trigger +: " << n_plus << endl;
+      if (n_plus == 0 || n_minus == 0) vetoEvent;      
+      const double weight = event.weight();
+
+      // Use good central detector tracks
+      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
+      const FinalState& cfs = applyProjection<FinalState>(event, "TrackFS");
+      const double nch = cfs.size();
+      if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
+        _hist_sigma200->fill(nch, weight);
+      } else if (fuzzyEquals(sqrtS/GeV, 500)) {
+        _hist_sigma500->fill(nch, weight);
+      }	else if (fuzzyEquals(sqrtS/GeV, 900)) {
+        _hist_sigma900->fill(nch, weight);
+      }
+      foreach (const Particle& p, cfs.particles()) {
+        /// @todo Check d3p weight factors
+        const double pt = p.momentum().pT();
+        const double scaled_weight = weight/(2*5*PI*pt);
         if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
-          _hist_Esigma200->fill(pt, weight/(2.*10.*M_PI*pt));
+          _hist_Esigma200->fill(pt/GeV, scaled_weight);
         }
         if (fuzzyEquals(sqrtS/GeV, 500)) {
-          _hist_Esigma500->fill(pt, weight/(2.*10.*M_PI*pt));
+          _hist_Esigma500->fill(pt/GeV, scaled_weight);
         }
         if (fuzzyEquals(sqrtS/GeV, 900)) {
-          _hist_Esigma900->fill(pt, weight/(2.*10.*M_PI*pt));
-          const double dnch_deta = multi/5.0;
+          _hist_Esigma900->fill(pt/GeV, scaled_weight);
+          // Also fill dNc/deta for 900 GeV
+          const double dnch_deta = nch/5.0;
           if (inRange(dnch_deta, 0.8, 4)) {
-            _hist_Esigmapoint8->fill(pt, weight/(10.*M_PI*pt));
+            _hist_Esigmapoint8->fill(pt/GeV, scaled_weight);
           } else if (dnch_deta > 4 && dnch_deta <= 8) {
-            _hist_Esigma4->fill(pt, weight/(10.*M_PI*pt));
+            _hist_Esigma4->fill(pt/GeV, scaled_weight);
           } else if(dnch_deta > 8) {
-            _hist_Esigma8->fill(pt, weight/(10.*M_PI*pt));
+            _hist_Esigma8->fill(pt/GeV, scaled_weight);
           }
         }                
       }
       
       const double Et = applyProjection<TotalVisibleMomentum>(event, "Mom").scalarET();
-      if (fuzzyEquals(sqrtS, 200, 1E-4)) {
-        _hist_Et200->fill(Et, weight);
-      } else if (fuzzyEquals(sqrtS, 500)) {
-        _hist_Et500->fill(Et, weight);
-      } else if (fuzzyEquals(sqrtS, 900)) {
-        _hist_Et900->fill(Et, weight);
+      if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
+        _hist_Et200->fill(Et/GeV, weight);
+      } else if (fuzzyEquals(sqrtS/GeV, 500)) {
+        _hist_Et500->fill(Et/GeV, weight);
+      } else if (fuzzyEquals(sqrtS/GeV, 900)) {
+        _hist_Et900->fill(Et/GeV, weight);
       }
 
       foreach (const Particle& p, cfs.particles()) {
-        if (fuzzyEquals(sqrtS, 63, 1E-3)) {
-          _hist_Pt63->fill(multi, p.momentum().pT(), weight);
-        } else if (fuzzyEquals(sqrtS, 200, 1E-4)) {
-          _hist_Pt200->fill(multi, p.momentum().pT(), weight);
-          _hist_Etavg200->fill(multi, Et, weight);
-        } else if (fuzzyEquals(sqrtS, 500)) {
-          _hist_Etavg500->fill(multi, Et, weight);
-        } else if (fuzzyEquals(sqrtS, 900)) {
-          _hist_Pt900->fill(multi, p.momentum().pT(), weight);
-          _hist_Etavg900->fill(multi, Et, weight);
+        if (fuzzyEquals(sqrtS/GeV, 63, 1E-3)) {
+          _hist_Pt63->fill(nch, p.momentum().pT()/GeV, weight);
+        } else if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
+          _hist_Pt200->fill(nch, p.momentum().pT()/GeV, weight);
+          _hist_Etavg200->fill(nch, Et/GeV, weight);
+        } else if (fuzzyEquals(sqrtS/GeV, 500)) {
+          _hist_Etavg500->fill(nch, Et/GeV, weight);
+        } else if (fuzzyEquals(sqrtS/GeV, 900)) {
+          _hist_Pt900->fill(nch, p.momentum().pT()/GeV, weight);
+          _hist_Etavg900->fill(nch, Et/GeV, weight);
         }
       }
     }

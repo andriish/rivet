@@ -59,8 +59,9 @@ namespace Rivet {
       foreach (const Particle& p, trigfs.particles()) {
         const double eta = p.momentum().eta();
         if (inRange(eta, -4.7, -3.7)) n_minus++;
-        else if (inRange(eta, 4.7, 3.7)) n_plus++;
+        else if (inRange(eta, 3.7, 4.7)) n_plus++;
       }
+      getLog() << Log::DEBUG << "Trigger -: " << n_minus << ", Trigger +: " << n_plus << endl;
       if (n_plus == 0 || n_minus == 0) vetoEvent;
 
       // Get the event weight

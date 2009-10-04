@@ -1,5 +1,8 @@
 2009-10-04  Andy Buckley  <andy@insectnation.org>
 
+	* Adding triggers and other tidying to (still unvalidated)
+	UA1_1990 analysis.
+
 	* Fixing definition of UA5 trigger to not be intrinscally
 	different for pp and ppbar: this is corrected for (although it
 	takes some readng to work this out) in the 1982 paper, which I
