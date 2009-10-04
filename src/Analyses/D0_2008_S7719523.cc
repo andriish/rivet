@@ -29,7 +29,16 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
+    } 
+    
+    //@}
+
+
+    /// @name Analysis methods
+    //@{ 
+    
+    /// Set up projections and book histograms
+    void init() {
       // General FS
       FinalState fs(-5.0, 5.0);
       addProjection(fs, "FS");
@@ -43,16 +52,8 @@ namespace Rivet {
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
       addProjection(vfs, "JetFS");
-    } 
-    
-    //@}
 
-
-    /// @name Analysis methods
-    //@{ 
-    
-    /// Book histograms
-    void init() {
+      // Histograms
       _h_central_same_cross_section = bookHistogram1D(1, 1, 1);
       _h_central_opp_cross_section  = bookHistogram1D(2, 1, 1);
       _h_forward_same_cross_section = bookHistogram1D(3, 1, 1);

@@ -29,11 +29,17 @@ namespace Rivet {
         _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632), 
         _mZmin(75.*GeV), _mZmax(105.*GeV)
     { 
-
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      //const FinalState fs(-3.0, 3.0); 
-      FinalState fs(-5.0, 5.0); //corrected for detector acceptance
+    }    
+    
+    
+    /// @name Analysis methods
+    //@{
+    
+    void init() {
+      // Final state projection
+      FinalState fs(-5.0, 5.0); // corrected for detector acceptance
       addProjection(fs, "FS");
 
       // Z -> e- e+
@@ -55,19 +61,14 @@ namespace Rivet {
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
       addProjection(vfs, "VFS");
-      
-    }    
-    
-    
-    /// @name Analysis methods
-    //@{
-    
-    void init() {
+
+      // Counters
       _eventsFilledW = 0.0;
       _eventsFilledZ = 0.0;
+
+      // Histograms
       _h_dsigdpt_w = bookHistogram1D(1, 1, 1);
       _h_dsigdpt_z = bookHistogram1D(1, 1, 2);
-
       vector<double> bins(23);
       bins += 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120, 160, 200;
       _h_dsigdpt_scaled_z = bookHistogram1D("d01-x01-y03", bins);

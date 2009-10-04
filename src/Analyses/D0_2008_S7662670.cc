@@ -26,13 +26,6 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-      
-      // Full final state
-      FinalState fs(-5.0, 5.0);
-      addProjection(fs, "FS");
-      
-      FastJets jetpro(fs, FastJets::D0ILCONE, 0.7, 6*GeV);
-      addProjection(jetpro, "Jets");
     }
     
     //@}
@@ -41,9 +34,18 @@ namespace Rivet {
     /// @name Analysis methods
     //@{ 
 
-    /// Book histograms
     void init() 
     {
+      
+      // Full final state
+      FinalState fs(-5.0, 5.0);
+      addProjection(fs, "FS");
+
+      // Jets      
+      FastJets jetpro(fs, FastJets::D0ILCONE, 0.7, 6*GeV);
+      addProjection(jetpro, "Jets");
+
+      // Book histograms
       _h_dsigdptdy_y00_04 = bookHistogram1D(1, 1, 1);
       _h_dsigdptdy_y04_08 = bookHistogram1D(2, 1, 1);
       _h_dsigdptdy_y08_12 = bookHistogram1D(3, 1, 1);

@@ -23,18 +23,7 @@ namespace Rivet {
     D0_2006_S6438750() : Analysis("D0_2006_S6438750")
     {
       setBeams(PROTON, ANTIPROTON);
-      
-      /// @todo Use cross-section from generator
       setNeedsCrossSection(true);
-      
-      // General FS for photon isolation
-      FinalState fs(-1.5, 1.5);
-      addProjection(fs, "AllFS");
-      
-      // Get leading photon
-      LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
-      photonfs.addParticleId(PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
     } 
     
     //@}
@@ -43,8 +32,17 @@ namespace Rivet {
     /// @name Analysis methods
     //@{ 
 
-    /// Book histograms
     void init() {
+      // General FS for photon isolation
+      FinalState fs(-1.5, 1.5);
+      addProjection(fs, "AllFS");
+      
+      // Get leading photon
+      LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
+      photonfs.addParticleId(PHOTON);
+      addProjection(photonfs, "LeadingPhoton");
+
+      // Book histograms
       _h_pTgamma = bookHistogram1D(1, 1, 1);
     }
     

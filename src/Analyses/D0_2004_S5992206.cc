@@ -34,6 +34,16 @@ namespace Rivet {
     D0_2004_S5992206() : Analysis("D0_2004_S5992206")
     {
       setBeams(PROTON, ANTIPROTON);
+    }
+
+    //@}
+
+
+    /// @name Analysis methods
+    //@{
+
+    void init() {
+      // Final state for jets, mET etc.
       const FinalState fs(-3.0, 3.0);
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 6*GeV), "Jets");
@@ -45,16 +55,8 @@ namespace Rivet {
       vfs.vetoNeutrinos();
       vfs.addVetoDetail(MUON, 1.0, MAXDOUBLE);
       addProjection(vfs, "VFS");
-    }
 
-    //@}
-
-
-    /// @name Analysis methods
-    //@{
-
-    /// Book histograms
-    void init() {
+      // Book histograms
       _histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1);
       _histJetAzimuth_pTmax100_130 = bookHistogram1D(2, 2, 1);
       _histJetAzimuth_pTmax130_180 = bookHistogram1D(3, 2, 1);
