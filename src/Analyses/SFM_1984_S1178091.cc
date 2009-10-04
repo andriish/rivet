@@ -13,8 +13,6 @@ namespace Rivet {
     /// Constructor
     SFM_1984_S1178091() : Analysis("SFM_1984_S1178091") {
       setBeams(PROTON, PROTON);
-      addProjection(Beam(), "Beam");
-      addProjection(ChargedFinalState(), "FS");
     }
 
 
@@ -22,6 +20,11 @@ namespace Rivet {
     //@{
 
     void init() {
+      // Projections
+      addProjection(Beam(), "Beam");
+      addProjection(ChargedFinalState(), "FS");
+
+      // Histograms
       _hist_multiplicity_inel_30 = bookHistogram1D(1, 1, 1); 
       _hist_multiplicity_inel_45 = bookHistogram1D(1, 1, 2);
       _hist_multiplicity_inel_53 = bookHistogram1D(1, 1, 3);

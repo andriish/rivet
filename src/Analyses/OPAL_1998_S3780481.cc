@@ -20,9 +20,8 @@ namespace Rivet {
       : Analysis("OPAL_1998_S3780481")
     {
       setBeams(ELECTRON, POSITRON); 
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(InitialQuarks(), "IQF");
+
+      // Counters
       _weightedTotalPartNum = 0;
       _SumOfudsWeights = 0;
       _SumOfcWeights = 0;
@@ -100,19 +99,19 @@ namespace Rivet {
         _histMultiChargedall->fill(_histMultiChargedall->binMean(0), weight);
         switch (flavour) {
           /// @todo Use PDG code enums
-        case 1:
-        case 2:
-        case 3:
+        case DQUARK:
+        case UQUARK:
+        case SQUARK:
           _histXpuds->fill(xp, weight);
           _histLogXpuds->fill(logxp, weight);
           _histMultiChargeduds->fill(_histMultiChargeduds->binMean(0), weight);
           break;
-        case 4:
+        case CQUARK:
           _histXpc->fill(xp, weight);
           _histLogXpc->fill(logxp, weight);
           _histMultiChargedc->fill(_histMultiChargedc->binMean(0), weight);
           break;
-        case 5:
+        case BQUARK:
           _histXpb->fill(xp, weight);
           _histLogXpb->fill(logxp, weight);
           _histMultiChargedb->fill(_histMultiChargedb->binMean(0), weight);
@@ -124,6 +123,12 @@ namespace Rivet {
     
     
     void init() {
+      // Projections
+      addProjection(Beam(), "Beams");
+      addProjection(ChargedFinalState(), "FS");
+      addProjection(InitialQuarks(), "IQF");
+
+      // Book histos
       _histXpuds           = bookHistogram1D(1, 1, 1);
       _histXpc             = bookHistogram1D(2, 1, 1);
       _histXpb             = bookHistogram1D(3, 1, 1);

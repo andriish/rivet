@@ -11,11 +11,8 @@ namespace Rivet {
   public:
     
     /// Constructor
-    E735_1998_S3905616()
-      : Analysis("E735_1998_S3905616") {
+    E735_1998_S3905616() : Analysis("E735_1998_S3905616") {
       setBeams(PROTON, ANTIPROTON);
-      const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
     }
     
 
@@ -23,6 +20,9 @@ namespace Rivet {
     //@{
     
     void init() {
+      const ChargedFinalState cfs;
+      addProjection(cfs, "FS");
+
       _hist_multiplicity = bookHistogram1D(1, 1, 1);
     }
 
