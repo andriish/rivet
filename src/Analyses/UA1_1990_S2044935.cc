@@ -14,11 +14,17 @@ namespace Rivet {
   class UA1_1990_S2044935 : public Analysis {
   public:
 
-    /// Default constructor
-    UA1_1990_S2044935() 
-      : Analysis("UA1_1990_S2044935")
-    {
+    /// Constructor
+    UA1_1990_S2044935() : Analysis("UA1_1990_S2044935") {
       setBeams(PROTON, ANTIPROTON);
+    }
+    
+
+    /// @name Analysis methods
+    //@{
+
+    /// Book projections and histograms
+    void init() { 
       const ChargedFinalState cfs(-2.5, 2.5);
       const FinalState fs2(-6., 6.);
       const FinalState fs(-2.5,2.5);
@@ -27,14 +33,7 @@ namespace Rivet {
       addProjection(ChargedFinalState(-2.5, 2.5), "CFS");
       addProjection(Beam(), "Beam");
       addProjection(TotalVisibleMomentum(fs), "Mom");
-    }
-    
 
-    /// @name Analysis methods
-    //@{
-
-    /// Book histograms
-    void init() { 
       _hist_sigma200 = bookHistogram1D(1,1,1);
       _hist_sigma500 = bookHistogram1D(1,1,2);
       _hist_sigma900 = bookHistogram1D(1,1,3);

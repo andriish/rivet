@@ -12,9 +12,7 @@ namespace Rivet {
   public:
     
     /// Constructor
-    UA5_1989_S1926373()
-      : Analysis("UA5_1989_S1926373")
-    { 
+    UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") { 
       setBeams(PROTON, ANTIPROTON);
       _numVetoed = 0;
     }
@@ -33,18 +31,20 @@ namespace Rivet {
       addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
 
       // NB. _hist_nch{200,900} and _hist_nch{200,900}eta50 use the same data but different binning
-      _hist_nch200       = bookHistogram1D(1,1,1); 
-      _hist_nch900       = bookHistogram1D(2,1,1);
-      _hist_nch200eta05  = bookHistogram1D(3,1,1);
-      _hist_nch200eta15  = bookHistogram1D(4,1,1);
-      _hist_nch200eta30  = bookHistogram1D(5,1,1);
-      _hist_nch200eta50  = bookHistogram1D(6,1,1);
-      _hist_nch900eta05  = bookHistogram1D(7,1,1);
-      _hist_nch900eta15  = bookHistogram1D(8,1,1);
-      _hist_nch900eta30  = bookHistogram1D(9,1,1);
-      _hist_nch900eta50  = bookHistogram1D(10,1,1);
-      _hist_mean_nch_200 = bookHistogram1D(11,1,1); 
-      _hist_mean_nch_900 = bookHistogram1D(12,1,1);
+      _hist_nch200       = bookHistogram1D(1, 1, 1); 
+      _hist_nch900       = bookHistogram1D(2, 1, 1);
+      _hist_nch200eta05  = bookHistogram1D(3, 1, 1);
+      _hist_nch200eta15  = bookHistogram1D(4, 1, 1);
+      _hist_nch200eta30  = bookHistogram1D(5, 1, 1);
+      _hist_nch200eta50  = bookHistogram1D(6, 1, 1);
+      _hist_nch900eta05  = bookHistogram1D(7, 1, 1);
+      _hist_nch900eta15  = bookHistogram1D(8, 1, 1);
+      _hist_nch900eta30  = bookHistogram1D(9, 1, 1);
+      _hist_nch900eta50  = bookHistogram1D(10, 1, 1);
+      _hist_mean_nch_200 = bookHistogram1D(11, 1, 1); 
+      _hist_mean_nch_900 = bookHistogram1D(12, 1, 1);
+
+      /// @todo Moments of distributions
     } 
     
     

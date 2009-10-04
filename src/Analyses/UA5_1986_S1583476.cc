@@ -11,18 +11,8 @@ namespace Rivet {
   public:
 
     /// Constructor
-    UA5_1986_S1583476() 
-      : Analysis("UA5_1986_S1583476") 
-    {
+    UA5_1986_S1583476() : Analysis("UA5_1986_S1583476") {
       setBeams(PROTON, ANTIPROTON);
-      addProjection(Beam(), "Beams");
-      
-      // All charged final state particles, needed for triggers
-      const ChargedFinalState cfs;
-      addProjection(cfs, "CFSAll");
-      // Charged particles in |eta| < 5.0 
-      const ChargedFinalState cfs50(-5.0, 5.0);
-      addProjection(cfs50, "CFS50");
     }
     
 
@@ -31,10 +21,20 @@ namespace Rivet {
     //@{
     
     void init() {
-      _hist_eta_nsd_200      = bookHistogram1D(1,1,1);
-      _hist_eta_inelastic_200  = bookHistogram1D(1,1,2);
-      _hist_eta_nsd_900      = bookHistogram1D(1,1,3);
-      _hist_eta_inelastic_900  = bookHistogram1D(1,1,4);
+      addProjection(Beam(), "Beams");
+      
+      // All charged final state particles, needed for triggers
+      const ChargedFinalState cfs;
+      addProjection(cfs, "CFSAll");
+      // Charged particles in |eta| < 5.0 
+      const ChargedFinalState cfs50(-5.0, 5.0);
+      addProjection(cfs50, "CFS50");
+
+      // Histograms
+      _hist_eta_nsd_200       = bookHistogram1D(1,1,1);
+      _hist_eta_inelastic_200 = bookHistogram1D(1,1,2);
+      _hist_eta_nsd_900       = bookHistogram1D(1,1,3);
+      _hist_eta_inelastic_900 = bookHistogram1D(1,1,4);
       
       _hist_eta_nsd_n_2_200  = bookHistogram1D(2,1,1);
       _hist_eta_nsd_n_12_200 = bookHistogram1D(2,1,2);

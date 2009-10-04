@@ -47,63 +47,16 @@ namespace Rivet {
 }
 
 
+
 namespace Rivet {
   
 
   class UA5_1988_S1867512 : public Analysis {
   public:
 
-    UA5_1988_S1867512()
-      : Analysis("UA5_1988_S1867512")
+    UA5_1988_S1867512() : Analysis("UA5_1988_S1867512")
     {
-      /// @todo Set approriate for your analysis
       setBeams(PROTON, ANTIPROTON);
-      addProjection(Beam(), "Beams");
-      
-      // All charged final state particles, needed for trigger implementation only
-      const ChargedFinalState cfs;
-      addProjection(cfs,   "CFSAll");
-      
-      // Symmetric intervals first
-      // Maybe its possible to define symmetric eta intervals with gaps
-      // Forward eta intervals
-      const ChargedFinalState cfs10f(0.0, 1.0);
-      const ChargedFinalState cfs15f(0.5, 1.5);
-      const ChargedFinalState cfs20f(1.0, 2.0);
-      const ChargedFinalState cfs25f(1.5, 2.5);
-      const ChargedFinalState cfs30f(2.0, 3.0);
-      const ChargedFinalState cfs35f(2.5, 3.5);
-      const ChargedFinalState cfs40f(3.0, 4.0);
-      
-      // Backward eta intervals
-      const ChargedFinalState cfs10b(-1.0,  0.0);
-      const ChargedFinalState cfs15b(-1.5, -0.5);
-      const ChargedFinalState cfs20b(-2.0, -1.0);
-      const ChargedFinalState cfs25b(-2.5, -1.5);
-      const ChargedFinalState cfs30b(-3.0, -2.0);
-      const ChargedFinalState cfs35b(-3.5, -2.5);
-      const ChargedFinalState cfs40b(-4.0, -3.0);
-      
-      // Symmetric eta interval
-      const ChargedFinalState cfs05(-0.5,  0.5);
-      
-      addProjection(cfs10f, "CFS10F");
-      addProjection(cfs15f, "CFS15F");
-      addProjection(cfs20f, "CFS20F");
-      addProjection(cfs25f, "CFS25F");
-      addProjection(cfs30f, "CFS30F");
-      addProjection(cfs35f, "CFS35F");
-      addProjection(cfs40f, "CFS40F");
-      
-      addProjection(cfs10b, "CFS10B");
-      addProjection(cfs15b, "CFS15B");
-      addProjection(cfs20b, "CFS20B");
-      addProjection(cfs25b, "CFS25B");
-      addProjection(cfs30b, "CFS30B");
-      addProjection(cfs35b, "CFS35B");
-      addProjection(cfs40b, "CFS40B");
-      
-      addProjection(cfs05, "CFS05");
     }
     
     
@@ -111,6 +64,35 @@ namespace Rivet {
     //@{
 
     void init() {
+      addProjection(Beam(), "Beams");
+      
+      // All charged final state particles, needed for trigger implementation only
+      const ChargedFinalState cfs;
+      addProjection(cfs, "CFSAll");
+      
+      // Symmetric eta interval
+      addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
+
+      // Asymmetric intervals first
+      // Forward eta intervals
+      addProjection(ChargedFinalState(0.0, 1.0), "CFS10F");
+      addProjection(ChargedFinalState(0.5, 1.5), "CFS15F");
+      addProjection(ChargedFinalState(1.0, 2.0), "CFS20F");
+      addProjection(ChargedFinalState(1.5, 2.5), "CFS25F");
+      addProjection(ChargedFinalState(2.0, 3.0), "CFS30F");
+      addProjection(ChargedFinalState(2.5, 3.5), "CFS45F");
+      addProjection(ChargedFinalState(3.0, 4.0), "CFS40F");
+      
+      // Backward eta intervals
+      addProjection(ChargedFinalState(-1.0,  0.0), "CFS10B");
+      addProjection(ChargedFinalState(-1.5, -0.5), "CFS15B");
+      addProjection(ChargedFinalState(-2.0, -1.0), "CFS20B");
+      addProjection(ChargedFinalState(-2.5, -1.5), "CFS25B");
+      addProjection(ChargedFinalState(-3.0, -2.0), "CFS30B");
+      addProjection(ChargedFinalState(-3.5, -2.5), "CFS45B");
+      addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
+            
+
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
       _hist_correl_10_200 = bookHistogram1D(1, 1, 1);
       _hist_correl_10_546 = bookHistogram1D(1, 1, 2);

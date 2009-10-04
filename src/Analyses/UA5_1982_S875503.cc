@@ -11,20 +11,19 @@ namespace Rivet {
   public:
     
     /// Default constructor
-    UA5_1982_S875503()
-      : Analysis("UA5_1982_S875503") 
-    {
-      const ChargedFinalState cfs(-3.5, 3.5);
-      addProjection(Beam(), "Beam");
-      addProjection(cfs, "CFS");
+    UA5_1982_S875503() : Analysis("UA5_1982_S875503") {
+      //
     }
   
 
     /// @name Analysis methods
     //@{
 
-    void init() 
-    { 
+    void init() { 
+      const ChargedFinalState cfs(-3.5, 3.5);
+      addProjection(Beam(), "Beam");
+      addProjection(cfs, "CFS");
+
       _hist_nch_pp    = bookHistogram1D(2,1,1);
       _hist_nch_ppbar = bookHistogram1D(2,1,2);
       _hist_eta_pp    = bookHistogram1D(3,1,1);
