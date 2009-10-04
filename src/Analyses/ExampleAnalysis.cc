@@ -19,7 +19,17 @@ namespace Rivet {
     /// Constructor
     ExampleAnalysis()
       : Analysis("EXAMPLE")
-    {
+    { 
+      // No counters etc. to initialise, hence nothing to do here!
+    }
+    
+
+    /// @name Analysis methods
+    //@{
+    
+    /// Set up projections and book histograms
+    void init() {
+      // Projections
       const FinalState cnfs(-4, 4, 2*GeV);
       const ChargedFinalState cfs(-4, 4, 2*GeV);
       addProjection(cnfs, "FS");
@@ -29,28 +39,20 @@ namespace Rivet {
       addProjection(Multiplicity(cnfs), "CNMult");
       addProjection(Thrust(cfs), "Thrust");
       addProjection(Sphericity(cfs), "Sphericity");
-    }
-    
 
-    /// @name Analysis methods
-    //@{
-    
-    /// Book histograms
-    void init() {
-      // Using histogram auto-booking is preferable if there are comparison datasets in HepData.
-      // Since this is just a demo analysis, there is no associated paper!
-
+      // Histograms
       _histTot         = bookHistogram1D("TotalMult", 100, -0.5, 99.5);
       _histChTot       = bookHistogram1D("TotalChMult", 50, -1.0, 99.0);
       _histHadrTot     = bookHistogram1D("HadrTotalMult", 100, -0.5, 99.5);
       _histHadrChTot   = bookHistogram1D("HadrTotalChMult", 50, -1.0, 99.0);
-
-      double edges[11] = { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 };
-      vector<double> vedges(edges, edges+11);
-      _histThrust      = bookHistogram1D("Thrust", vedges);
       _histMajor       = bookHistogram1D("Major", 10, 0.0, 0.6);
       _histSphericity  = bookHistogram1D("Sphericity", 10, 0.0, 0.8);
       _histAplanarity  = bookHistogram1D("Aplanarity", 10, 0.0, 0.3);
+
+      // Non-uniform binning example:
+      double edges[11] = { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 };
+      vector<double> vedges(edges, edges+11);
+      _histThrust      = bookHistogram1D("Thrust", vedges);
     }
 
 
@@ -102,6 +104,7 @@ namespace Rivet {
       normalize(_histSphericity);
       normalize(_histAplanarity);
     }
+
     //@}
 
 

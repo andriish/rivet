@@ -39,7 +39,17 @@ namespace Rivet {
 
     ExampleTree() 
       : Analysis("EXAMPLETREE")
-    {
+    { 
+      // Choose cuts
+      _jet_pt_cut = 20*GeV;
+      _subj_pt_cut = 20*GeV;
+      _lepton_pt_cut = 20*GeV;
+      _store_partons = true;
+      _treeFileName = "rivetTree.root";
+    }
+    
+    
+    void init() {
       const FinalState fs(-4.0, 4.0, 0.0*GeV);
       addProjection(fs, "FS");
       addProjection(ChargedLeptons(fs), "ChLeptons");
@@ -57,48 +67,33 @@ namespace Rivet {
       
       ZFinder zs(fs, ELECTRON, 80*GeV, 100*GeV, 0.2);
       addProjection(zs, "Zs");
-    }
-    
-    
-    void init() {
-      // Choose cuts
-      _jet_pt_cut = 20*GeV;
-      _subj_pt_cut = 20*GeV;
-      _lepton_pt_cut = 20*GeV;
-      _store_partons = true;
-      
-      _treeFileName = "rivetTree.root";
-      
-      // Create a file for the Tree
+
+      // Set up ROOT file structure
       _treeFile = new TFile(_treeFileName, "recreate");
-      
-      // Book the ntuple.
       _rivetTree = new TTree("Rivet Tree", "Rivet Example Tree");
-      
-      // Event number 
       _rivetTree->Branch("nevt", &_nevt, "nevt/I");
       
       // Vector bosons
       _rivetTree->Branch("nvb", &_nvb, "nvb/I");
       _rivetTree->Branch("vbtype", &_vbtype, "vbtype[nvb]/I");
       _rivetTree->Branch("vbvec", &_vbvec, "vbvec[nvb][4]/F");
-      
+      // Jets      
       _rivetTree->Branch("njet", &_njet, "njet/I");
       _rivetTree->Branch("vjet", &_vjet, "vjet[njet][4]/F");
-      
+      // Subjets
       _rivetTree->Branch("nsub", &_nsub, "nsub/I");
       _rivetTree->Branch("sjet3", &_sjet3, "sjet3[nsub][4]/F");
       _rivetTree->Branch("ysubsj", &_ysubsj, "ysubsj[nsub][4]/F");
-      
+      // Leptons
       _rivetTree->Branch("nlep", &_nlep, "nlep/I");
       _rivetTree->Branch("vlep", &_vlep, "vlep[nlep][4]/F");
       _rivetTree->Branch("leptype", &_leptype, "leptype[nlep][3]/F");
-      
+      // All particles
       _rivetTree->Branch("npart", &_npart, "npart/I");
       _rivetTree->Branch("ppart", &_ppart, "ppart[npart][4]/F");
       _rivetTree->Branch("pid", &_pid, "pid[npart]/I");
       _rivetTree->Branch("mo", &_mo, "mo[npart]/I");  // first mother.
-      
+      // Missing Et
       _rivetTree->Branch("esumr", &_esumr, "esumr[4]/F");
     }
     
@@ -125,21 +120,20 @@ namespace Rivet {
       // used in normal analyses.
       _npart = 0;
       if (_store_partons) {
-        for (GenEvent::particle_const_iterator pi = event.genEvent().particles_begin(); 
-             pi != event.genEvent().particles_end(); ++pi ) {
+        foreach (const HepMC::GenParticle* p, particles(event.genEvent())) {
           // Only include particles which are documentation line (status >1) 
           // The result/meaning will be generator dependent.
-          if ( (*pi)->status() >= 2 ) {
-            const FourMomentum p4 = (*pi)->momentum();
+          if (p->status() >= 2) {
+            const FourMomentum p4 = p->momentum();
             _ppart[_npart][1] = p4.px();
             _ppart[_npart][2] = p4.py();
             _ppart[_npart][3] = p4.pz();
             _ppart[_npart][0] = p4.E();
-            _pid[_npart] = (*pi)->pdg_id();
-            const GenVertex* vertex = (*pi)->production_vertex();
+            _pid[_npart] = p->pdg_id();
+            const GenVertex* vertex = p->production_vertex();
             // Get the first mother
             if (vertex) {
-              if (vertex->particles_in_size()>0) {
+              if (vertex->particles_in_size() > 0) {
                 GenVertex::particles_in_const_iterator p1 = vertex->particles_in_const_begin();
                 _mo[_npart] = (*p1)->pdg_id();
               } else {
@@ -211,7 +205,6 @@ namespace Rivet {
     }
     
     
-    // Finalize
     void finalize() { 
       // Write the tree to file.
       _rivetTree->Write();
