@@ -16,22 +16,24 @@ namespace Rivet {
       : Analysis("STAR_2006_S6870392")
     {
       setBeams(PROTON, PROTON);
-      FinalState fs(-2.0, 2.0);
-      addProjection(fs, "FS");
-      // R=0.4, pTmin=0, seed_threshold=0.5:
-      /// @todo Presumably this jet alg is wrong...
-      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.4, 0.0, 0.5), "MidpointJets");
     } 
 
 
     /// @name Analysis methods
     //@{ 
 
-    /// Book histograms
+    /// Book projections and histograms
     void init() {
+      FinalState fs(-2.0, 2.0);
+      addProjection(fs, "FS");
+      // R=0.4, pTmin=0, seed_threshold=0.5:
+      /// @todo Presumably this jet alg is wrong...
+      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.4, 0.0, 0.5), "MidpointJets");
+
       _h_jet_pT_MB = bookHistogram1D(1, 1, 1);
       _h_jet_pT_HT = bookHistogram1D(2, 1, 1);
     }
+
 
     /// Do the analysis 
     void analyze(const Event& event) {
@@ -47,12 +49,15 @@ namespace Rivet {
       
       // Find jets
       const FastJets& jetpro = applyProjection<FastJets>(event, "MidpointJets");
-      const PseudoJets& jets = jetpro.pseudoJetsByPt();
-      
-      foreach (fastjet::PseudoJet jet, jets) {
-        if (fabs(jets[0].eta()) < 0.8 && fabs(jets[0].eta()) > 0.2) {
-          _h_jet_pT_MB->fill(jet.perp(), weight);
-          _h_jet_pT_HT->fill(jet.perp(), weight);
+      const Jets& jets = jetpro.jetsByPt();
+      if (!jets.empty()) {
+        const Jet& j1 = jets.front();
+        if (inRange(fabs(j1.eta()), 0.2, 0.8)) {
+          foreach (const Jet& j, jets) {
+            const FourMomentum pj = j.momentum();
+            _h_jet_pT_MB->fill(pj.pT(), weight);
+            _h_jet_pT_HT->fill(pj.pT(), weight);
+          }
         }
       }
     }

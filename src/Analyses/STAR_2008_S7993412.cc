@@ -10,29 +10,27 @@ namespace Rivet {
   class STAR_2008_S7993412 : public Analysis {
   public:
 
-    STAR_2008_S7993412()
-      : Analysis("STAR_2008_S7993412")
+    STAR_2008_S7993412() : Analysis("STAR_2008_S7993412")
     {
       setBeams(PROTON, PROTON);
-      ChargedFinalState fs(-1.0, 1.0, 1.0*GeV);
-      addProjection(fs, "FS");
     }
     
     
     /// @name Analysis methods
     //@{ 
 
-    /// Book histograms
+    /// Book projections and histograms
     void init() {
+      ChargedFinalState fs(-1.0, 1.0, 1.0*GeV);
+      addProjection(fs, "FS");
+
       _h_Y_jet_trigger = bookProfile1D(1, 1, 1);
       _h_Y_jet_associated = bookProfile1D(2, 1, 1);
     }
 
 
     /// Do the analysis 
-    void analyze(const Event & event) {
-      const double weight = event.weight();
-
+    void analyze(const Event& event) {
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -41,21 +39,21 @@ namespace Rivet {
         vetoEvent;
       }
       
+      const double weight = event.weight();
+
       foreach (const Particle& tp, fs.particles()) {
         const double triggerpT = tp.momentum().pT();
         if (triggerpT >= 2.0 && triggerpT < 5.0) {
-          int N_associated = 0;
+          int n_associated = 0;
           foreach (const Particle& ap, fs.particles()) {
-            if (ap.momentum().pT() > 1.5 &&
-                ap.momentum().pT() < triggerpT &&
-                deltaPhi(tp.momentum().phi(), ap.momentum().phi()) < 1 &&
-                fabs(tp.momentum().pseudorapidity() - ap.momentum().pseudorapidity()) < 1.75) {
-              N_associated += 1;
-            }
+            if (!inRange(ap.momentum().pT()/GeV, 1.5, triggerpT)) continue;
+            if (deltaPhi(tp.momentum().phi(), ap.momentum().phi()) > 1) continue;
+            if (fabs(tp.momentum().eta() - ap.momentum().eta()) > 1.75) continue;
+            n_associated += 1;
           }
           //const double dPhidEta = 2 * 2*1.75;
-          //_h_Y_jet_trigger->fill(triggerpT, N_associated/dPhidEta, weight);
-          _h_Y_jet_trigger->fill(triggerpT, N_associated, weight);
+          //_h_Y_jet_trigger->fill(triggerpT, n_associated/dPhidEta, weight);
+          _h_Y_jet_trigger->fill(triggerpT, n_associated, weight);
         }
       }
     }

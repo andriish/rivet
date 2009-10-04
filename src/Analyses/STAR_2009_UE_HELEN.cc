@@ -20,22 +20,10 @@ namespace Rivet {
       : Analysis("STAR_2009_UE_HELEN")  
     {
       setBeams(PROTON, ANTIPROTON);
-      
-      // Final state for the jet finding
-      const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-      addProjection(fsj, "FSJ");
-      /// @todo STAR doesn't really use a CDF midpoint algorithm!
-      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "Jets");
-      
-      // Final state for the sum(ET) distributions
-      const FinalState fs(-1.0, 1.0, 0.0*GeV);
-      addProjection(fs, "FS");
-      
-      // Charged final state for the distributions
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      addProjection(cfs, "CFS");
     }
 
+
+    /// TODO: make sure this goes into the .info file:
 
     // /// @name Publication metadata
     // //@{
@@ -99,8 +87,23 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
     
-    /// Book histograms
+    /// Book projections and histograms
     void init() {
+      // Final state for the jet finding
+      const FinalState fsj(-4.0, 4.0, 0.0*GeV);
+      addProjection(fsj, "FSJ");
+      /// @todo STAR doesn't really use a CDF midpoint algorithm!
+      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "Jets");
+      
+      // Final state for the sum(ET) distributions
+      const FinalState fs(-1.0, 1.0, 0.0*GeV);
+      addProjection(fs, "FS");
+      
+      // Charged final state for the distributions
+      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      addProjection(cfs, "CFS");
+
+      // Histograms
       _hist_pnchg      = bookProfile1D( 1, 1, 1);
       _hist_pmaxnchg   = bookProfile1D( 2, 1, 1);
       _hist_pminnchg   = bookProfile1D( 3, 1, 1);
