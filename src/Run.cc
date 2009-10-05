@@ -116,20 +116,14 @@ namespace Rivet {
   void Run::logNEvt() {
     std::stringstream ss;
     ss << "Event " << _numEvents;
-    if (_numEvents % 10 == 0)
-      Log::getLog("Rivet.Run") << Log::DEBUG + 5 << ss.str() << endl;
-    if (_numEvents % 100 == 0)
-      Log::getLog("Rivet.Run") << Log::INFO << ss.str() << endl;
-    if (_numEvents % 200 == 0)
-      Log::getLog("Rivet.Run") << Log::INFO + 5 << ss.str() << endl;
-    if (_numEvents % 500 == 0)
-      Log::getLog("Rivet.Run") << Log::WARN << ss.str() << endl;
-    if (_numEvents % 1000 == 0)
-      Log::getLog("Rivet.Run") << Log::WARN + 5 << ss.str() << endl;
-    if (_numEvents % 10000 == 0)
-      Log::getLog("Rivet.Run") << Log::ERROR << ss.str() << endl;
-    else
-      Log::getLog("Rivet.Run") << Log::DEBUG << ss.str() << endl;
+    const string msg = ss.str();
+    int lvl = Log::TRACE;
+    if (_numEvents % 10000 == 0) lvl = Log::ERROR;
+    else if (_numEvents % 1000 == 0) lvl = Log::WARN;
+    else if (_numEvents % 100 == 0) lvl = Log::INFO;
+    else if (_numEvents % 10 == 0) lvl = Log::DEBUG;
+    Log::getLog("Rivet.Run") << lvl << msg << endl;
   }
+
   
 }
