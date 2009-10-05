@@ -57,6 +57,13 @@ namespace Rivet {
     Event event(ge);
     _numEvents++;
     _sumOfWeights += event.weight();
+    #ifdef HEPMC_HAS_CROSS_SECTION
+    if (ge.cross_section()) {
+      /// @todo Use xs error?
+      const double xs = ge.cross_section()->cross_section();
+      setCrossSection(xs);
+    }
+    #endif
     foreach (Analysis* a, _analyses) {
       getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
       a->analyze(event);
