@@ -107,10 +107,10 @@ namespace Rivet {
       _histTMinor[ih]->fill(thrust.thrustMinor(), weight); 
       _histOblateness[ih]->fill(thrust.oblateness(), weight);
       for (int n = 1; n <= 5; ++n) {
-        _hist1MinusTMom[ih]->fill(n, pow(n, 1-thrust.thrust())*weight);
-        _histTMajorMom[ih]->fill(n, pow(n, thrust.thrustMajor())*weight);
-        _histTMinorMom[ih]->fill(n, pow(n, thrust.thrustMinor())*weight);
-        _histOblatenessMom[ih]->fill(n, pow(n, thrust.oblateness())*weight);
+        _hist1MinusTMom[ih]->fill(n, pow(1-thrust.thrust(), n)*weight);
+        _histTMajorMom[ih]->fill(n, pow(thrust.thrustMajor(), n)*weight);
+        _histTMinorMom[ih]->fill(n, pow(thrust.thrustMinor(), n)*weight);
+        _histOblatenessMom[ih]->fill(n, pow(thrust.oblateness(), n)*weight);
       }
 
       // Jets
@@ -120,7 +120,7 @@ namespace Rivet {
         const double y23 = durjet.clusterSeq()->exclusive_ymerge(3);
         _histY23Durham[ih]->fill(y23, weight);
         for (int n = 1; n <= 5; ++n) {
-          _histY23DurhamMom[ih]->fill(n, pow(n, y23)*weight);
+          _histY23DurhamMom[ih]->fill(n, pow(y23, n)*weight);
         }
       }
 
@@ -131,7 +131,7 @@ namespace Rivet {
       _histSphericity[ih]->fill(sph, weight);
       _histAplanarity[ih]->fill(apl, weight);
       for (int n = 1; n <= 5; ++n) {
-        _histSphericityMom[ih]->fill(n, pow(n, sph)*weight);
+        _histSphericityMom[ih]->fill(n, pow(sph, n)*weight);
       }
 
       // C & D params
@@ -141,7 +141,7 @@ namespace Rivet {
       _histCParam[ih]->fill(cparam, weight);
       _histDParam[ih]->fill(dparam, weight);
       for (int n = 1; n <= 5; ++n) {
-        _histCParamMom[ih]->fill(n, pow(n, cparam)*weight);
+        _histCParamMom[ih]->fill(n, pow(cparam, n)*weight);
       }
       
       // Hemispheres
@@ -157,11 +157,11 @@ namespace Rivet {
       _histHemiBroadN[ih]->fill(hemi_bmin, weight);
       _histHemiBroadT[ih]->fill(hemi_bsum, weight);
       for (int n = 1; n <= 5; ++n) {
-        _histHemiMassHMom[ih]->fill(n, pow(n, hemi_mh)*weight);
-        _histHemiMassLMom[ih]->fill(n, pow(n, hemi_ml)*weight);
-        _histHemiBroadWMom[ih]->fill(n, pow(n, hemi_bmax)*weight);
-        _histHemiBroadNMom[ih]->fill(n, pow(n, hemi_bmin)*weight);
-        _histHemiBroadTMom[ih]->fill(n, pow(n, hemi_bsum)*weight);
+        _histHemiMassHMom[ih]->fill(n, pow(hemi_mh, n)*weight);
+        _histHemiMassLMom[ih]->fill(n, pow(hemi_ml, n)*weight);
+        _histHemiBroadWMom[ih]->fill(n, pow(hemi_bmax, n)*weight);
+        _histHemiBroadNMom[ih]->fill(n, pow(hemi_bmin, n)*weight);
+        _histHemiBroadTMom[ih]->fill(n, pow(hemi_bsum, n)*weight);
       }
     }
 
