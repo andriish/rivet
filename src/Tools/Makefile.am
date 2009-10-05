@@ -25,5 +25,9 @@ libRivetTools_la_CPPFLAGS = \
   -DDEFAULTDATADIR=\"$(datadir)\" \
   -DDEFAULTLIBDIR=\"$(libdir)\"
 
+if WITH_YAML_CPP
 libRivetTools_la_LDFLAGS = $(AM_LDFLAGS) -L$(builddir)/yaml-cpp
 libRivetTools_la_LIBADD = -lyaml-cpp
+else
+libRivetTools_la_LIBADD = $(builddir)/yaml-cpp/libyaml-cpp.la
+endif

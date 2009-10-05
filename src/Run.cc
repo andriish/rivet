@@ -5,8 +5,8 @@
 #include "Rivet/Projections/Beam.hh"
 #include <limits>
 
-
 namespace Rivet {
+
 
   Run::Run(AnalysisHandler& ah) : _ah(ah), _xs(-1.0),
     _maxEvtNum(std::numeric_limits<long>::max()), _numEvents(0) {
@@ -89,23 +89,25 @@ namespace Rivet {
         if (_ah.needCrossSection()) {
           Log::getLog("Rivet.Run") << Log::ERROR
               << "Total cross-section needed for at least one of the analyses. "
-              << "Please set it on the command line." << endl;
+              << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
           return false;
         }
       }
-      
+
+      // Analyze event and delete HepMC event object      
       _ah.analyze(*evt);
       delete evt;
-      
+
+      // Increment, log, and check event number 
       ++_numEvents;
       logNEvt();
+      if (_numEvents == _maxEvtNum) return false;
       
-      if (_numEvents==_maxEvtNum) {
-        return false;
-      }
-      
+      /// @todo Can we just clear the event, to save on all this mallocing?
       evt = new GenEvent();
     }
+
+    // Final HepMC object clean-up
     delete evt;
     delete io;
     
