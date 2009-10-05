@@ -183,7 +183,7 @@ namespace Rivet {
       // Hemispheres
       getLog() << Log::DEBUG << "Calculating hemisphere variables" << endl;
       const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
-      _histHeavyJetMass->fill(hemi.getScaledM2high(), weight);
+      _histHeavyJetMass->fill(hemi.scaledM2high(), weight);
 
       // Iterate over all the charged final state particles.
       double Evis = 0.0;
@@ -193,10 +193,10 @@ namespace Rivet {
       double rapt20 = 0.;
       //int numChParticles = 0;
       getLog() << Log::DEBUG << "About to iterate over charged FS particles" << endl;
-      for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      foreach (const Particle& p, fs.particles()) {
         // Get momentum and energy of each particle.
-        const Vector3 mom3 = p->momentum().vector3();
-        const double energy = p->momentum().E();
+        const Vector3 mom3 = p.momentum().vector3();
+        const double energy = p.momentum().E();
         Evis += energy;
         _numChParticles += weight;
 
@@ -217,17 +217,17 @@ namespace Rivet {
         // Calculate rapidities w.r.t. thrust.
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
         _histRapidityT->fill(rapidityT, weight);
-        if (std::fabs(rapidityT) <= .5)  {
-            rapt05 += 1.;
+        if (std::fabs(rapidityT) <= 0.5)  {
+            rapt05 += 1.0;
         }
-        if (std::fabs(rapidityT) <= 1.)  {
-            rapt10 += 1.;
+        if (std::fabs(rapidityT) <= 1.0)  {
+            rapt10 += 1.0;
         }
         if (std::fabs(rapidityT) <= 1.5) {
-            rapt15 += 1.;
+            rapt15 += 1.0;
         }
-        if (std::fabs(rapidityT) <= 2.)  {
-            rapt20 += 1.;
+        if (std::fabs(rapidityT) <= 2.0)  {
+            rapt20 += 1.0;
         } 
 
       }

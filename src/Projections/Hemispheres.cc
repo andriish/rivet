@@ -3,6 +3,7 @@
 
 namespace Rivet {
 
+
   void Hemispheres::project(const Event& e) {
     // Get thrust axes.
     const AxesDefinition& ax = applyProjection<AxesDefinition>(e, "Axes");
@@ -14,8 +15,8 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
     const ParticleVector particles = fs.particles();
     getLog() << Log::DEBUG << "number of particles = " << particles.size() << endl;
-    for (ParticleVector::const_iterator p = particles.begin(); p != particles.end(); ++p) {
-      const FourMomentum p4 = p->momentum();
+    foreach (const Particle& p, particles) {
+      const FourMomentum p4 = p.momentum();
       const Vector3 p3 = p4.vector3();
       const double p3Mag = mod(p3);
       const double p3Para = dot(p3, n);
@@ -63,5 +64,6 @@ namespace Rivet {
     // Calculate high-max correlation flag.
     _highMassEqMaxBroad = ((withIsMaxMass && withIsMaxBroad) || (!withIsMaxMass && !withIsMaxBroad));
   }
+
 
 }

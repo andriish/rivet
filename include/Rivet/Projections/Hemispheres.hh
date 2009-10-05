@@ -92,23 +92,23 @@ namespace Rivet {
 
     /// @name Hemisphere masses (scaled by \f$ 1 / E^2_\mathrm{vis} \f$).
     ///@{
-    const double getE2vis() const { return _E2vis; }
-    const double getM2high() const { return _M2high; }
-    const double getM2low() const { return _M2low; }
-    const double getM2diff() const { return _M2high -_M2low; }
-    const double getScaledM2high() const { 
+    const double E2vis() const { return _E2vis; }
+    const double M2high() const { return _M2high; }
+    const double M2low() const { return _M2low; }
+    const double M2diff() const { return _M2high -_M2low; }
+    const double scaledM2high() const { 
       if (_M2high == 0.0) return 0.0;
       if (_E2vis != 0.0) return _M2high/_E2vis; 
       else return std::numeric_limits<double>::max(); 
     }
-    const double getScaledM2low() const {
+    const double scaledM2low() const {
       if (_M2low == 0.0) return 0.0;
       if (_E2vis != 0.0) return _M2low/_E2vis;
       else return std::numeric_limits<double>::max(); 
     }
-    const double getScaledM2diff() const { 
-      if (getM2diff() == 0.0) return 0.0;
-      if (_E2vis != 0.0) return getM2diff()/_E2vis; 
+    const double scaledM2diff() const { 
+      if (M2diff() == 0.0) return 0.0;
+      if (_E2vis != 0.0) return M2diff()/_E2vis; 
       else return std::numeric_limits<double>::max(); 
     }
     ///@}
@@ -116,10 +116,10 @@ namespace Rivet {
 
     /// @name Hemisphere broadenings.
     ///@{
-    const double getBmax() const { return _Bmax; }
-    const double getBmin() const { return _Bmin; }
-    const double getBsum() const { return _Bmax + _Bmin; }
-    const double getBdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
+    const double Bmax() const { return _Bmax; }
+    const double Bmin() const { return _Bmin; }
+    const double Bsum() const { return _Bmax + _Bmin; }
+    const double Bdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
     ///@}
 
 

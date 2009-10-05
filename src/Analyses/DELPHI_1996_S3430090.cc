@@ -146,7 +146,6 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
@@ -201,13 +200,13 @@ namespace Rivet {
       // Hemispheres
       getLog() << Log::DEBUG << "Calculating hemisphere variables" << endl;
       const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
-      _histHemiMassH->fill(hemi.getScaledM2high(), weight); 
-      _histHemiMassL->fill(hemi.getScaledM2low(), weight); 
-      _histHemiMassD->fill(hemi.getScaledM2diff(), weight); 
-      _histHemiBroadW->fill(hemi.getBmax(), weight); 
-      _histHemiBroadN->fill(hemi.getBmin(), weight); 
-      _histHemiBroadT->fill(hemi.getBsum(), weight); 
-      _histHemiBroadD->fill(hemi.getBdiff(), weight); 
+      _histHemiMassH->fill(hemi.scaledM2high(), weight);
+      _histHemiMassL->fill(hemi.scaledM2low(), weight);
+      _histHemiMassD->fill(hemi.scaledM2diff(), weight);
+      _histHemiBroadW->fill(hemi.Bmax(), weight);
+      _histHemiBroadN->fill(hemi.Bmin(), weight);
+      _histHemiBroadT->fill(hemi.Bsum(), weight);
+      _histHemiBroadD->fill(hemi.Bdiff(), weight);
       
       // Iterate over all the charged final state particles.
       double Evis = 0.0;
@@ -248,7 +247,9 @@ namespace Rivet {
         _histRapidityS->fill(rapidityS, weight); 
       }
       Evis2 = Evis*Evis;
-      
+
+      // (A)EEC
+      // Need iterators since second loop starts at current outer loop iterator, i.e. no "foreach" here!
       for (ParticleVector::const_iterator p_i = fs.particles().begin(); p_i != fs.particles().end(); ++p_i) {
         for (ParticleVector::const_iterator p_j = p_i; p_j != fs.particles().end(); ++p_j) {
           if (p_i == p_j) continue;
