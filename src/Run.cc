@@ -41,16 +41,21 @@ namespace Rivet {
   
   
   bool Run::processFile(const std::string& evtfile) {
-    HepMC::IO_GenEvent io(evtfile, std::ios::in);
-    if (io.rdstate()!=0) {
+    HepMC::IO_GenEvent* io = 0;
+    if (evtfile == "-") {
+      io = new HepMC::IO_GenEvent(std::cin);
+    } else {
+      io = new HepMC::IO_GenEvent(evtfile, std::ios::in);
+    }
+    if (io->rdstate() != 0) {
       Log::getLog("Rivet.Run") << Log::ERROR
           << "Read error on file " << evtfile << endl;
       return false;
     }
     
     GenEvent* evt = new GenEvent();
-    while (io.fill_next_event(evt)) {
-      if (_numEvents==0) {
+    while (io->fill_next_event(evt)) {
+      if (_numEvents == 0) {
         int num_anas_requested = _ah.analysisNames().size();
         _ah.removeIncompatibleAnalyses(beamIds(*evt));
         if (num_anas_requested > 0 && _ah.analysisNames().size() == 0) {
@@ -102,6 +107,7 @@ namespace Rivet {
       evt = new GenEvent();
     }
     delete evt;
+    delete io;
     
     return true;
   }
