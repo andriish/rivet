@@ -95,7 +95,7 @@ namespace Rivet {
       const double dnch_deta = nch/5.0; //< @todo No factor of 2 for both sides?
       foreach (const Particle& p, cfs.particles()) {
         const double pt = p.momentum().pT();
-        const double scaled_weight = weight/(deta*dphi*pt);
+        const double scaled_weight = weight/(deta*dphi*pt/GeV);
         if (fuzzyEquals(sqrtS/GeV, 63, 1E-3)) {
           _hist_Pt63->fill(nch, pt/GeV, weight);
         } else if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
@@ -110,6 +110,7 @@ namespace Rivet {
           _hist_Etavg900->fill(nch, Et/GeV, weight);
           _hist_Esigd3p900->fill(pt/GeV, scaled_weight);
           // Also fill for specific dNch/deta ranges for 900 GeV
+          /// @todo Check normalisation factor: currently low by factor of ~10-20
           if (inRange(dnch_deta, 0.8, 4)) {
             _sumwTrig08 += weight;
             _hist_Esigd3p08->fill(pt/GeV, scaled_weight);
@@ -129,7 +130,7 @@ namespace Rivet {
     void finalize() {
       const double xsec = crossSection();
       if (_sumwTrig > 0) {
-        /// @todo Normalisation seems low by factor of ~2:
+        /// @todo Norm is low by factor of ~2:
         normalize(_hist_Nch200, xsec/millibarn * _sumwTrig/sumOfWeights());
         normalize(_hist_Nch500, xsec/millibarn * _sumwTrig/sumOfWeights());
         normalize(_hist_Nch900, xsec/millibarn * _sumwTrig/sumOfWeights());
@@ -138,10 +139,12 @@ namespace Rivet {
         scale(_hist_Esigd3p500, xsec/millibarn * 1/_sumwTrig);
         scale(_hist_Esigd3p900, xsec/millibarn * 1/_sumwTrig);
         //
+        /// @todo Norm is low by factor of ~20!
         if (_sumwTrig08 > 0) scale(_hist_Esigd3p08, xsec/microbarn * 1/_sumwTrig08);
         if (_sumwTrig40 > 0) scale(_hist_Esigd3p40, xsec/microbarn * 1/_sumwTrig40);
         if (_sumwTrig80 > 0) scale(_hist_Esigd3p80, xsec/microbarn * 1/_sumwTrig80);
         //
+        /// @todo Norm is too *high*!
         normalize(_hist_Et200, xsec/millibarn * _sumwTrig/sumOfWeights());
         normalize(_hist_Et500, xsec/millibarn * _sumwTrig/sumOfWeights());
         normalize(_hist_Et900, xsec/millibarn * _sumwTrig/sumOfWeights());
