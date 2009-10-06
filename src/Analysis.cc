@@ -427,10 +427,11 @@ namespace Rivet {
   void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
     if (!histo) {
       getLog() << Log::ERROR << "Failed to normalise histo=NULL in analysis "
-          << name() << "(norm=" << norm << ")" << endl;
+               << name() << "(norm=" << norm << ")" << endl;
       return;
     }
-    getLog() << Log::TRACE << "Normalizing histo " << histo->title() << " to " << norm << endl;
+    const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
+    getLog() << Log::TRACE << "Normalizing histo " << hpath << " to " << norm << endl;
     
     double oldintg = 0.0;
     int nBins = histo->axis().bins();
@@ -439,9 +440,7 @@ namespace Rivet {
       oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
     }
     if (oldintg == 0.0) {
-      /// @todo Writing the path would be much better than the title! But AIDA doesn't allow this.
-      getLog() << Log::WARN << "Histo '" << histo->title() 
-               << "' has null integral during normalisation" << endl;
+      getLog() << Log::WARN << "Histo " << hpath << " has null integral during normalisation" << endl;
       return;
     }
   
@@ -456,7 +455,8 @@ namespace Rivet {
           << name() << "(scale=" << scale << ")" << endl;
       return;
     }
-    getLog() << Log::TRACE << "Scaling histo " << histo->title() << endl;
+    const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
+    getLog() << Log::TRACE << "Scaling histo " << hpath << endl;
     
     std::vector<double> x, y, ex, ey;
     for (size_t i = 0, N = histo->axis().bins(); i < N; ++i) {
@@ -472,16 +472,14 @@ namespace Rivet {
       ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
     }
     
-    std::string path =
-      tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo));
     std::string title = histo->title();
     std::string xtitle = histo->xtitle();
     std::string ytitle = histo->ytitle();
 
     tree().mkdir("/tmpnormalize");
-    tree().mv(path, "/tmpnormalize");
+    tree().mv(hpath, "/tmpnormalize");
     
-    AIDA::IDataPointSet* dps = datapointsetFactory().createXY(path, title, x, y, ex, ey);
+    AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
     dps->setXTitle(xtitle);
     dps->setYTitle(ytitle);
     
