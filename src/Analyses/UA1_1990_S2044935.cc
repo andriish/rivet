@@ -90,9 +90,9 @@ namespace Rivet {
       }
 
       // Particle/track level histos
-      const double deta = 2 * 5.0;
+      const double deta = 5.0; //< @todo No factor of 2 for both sides?
       const double dphi = TWOPI;
-      const double dnch_deta = nch/5.0; //< @todo d(eta) definitely not _2_ * 5.0?
+      const double dnch_deta = nch/5.0;
       foreach (const Particle& p, cfs.particles()) {
         const double pt = p.momentum().pT();
         const double scaled_weight = weight/(deta*dphi*pt);
