@@ -82,7 +82,10 @@ namespace Rivet {
       _hist_eta_gamma = bookHistogram1D("eta-gamma", 50, -4, 4);
       _hist_pt_gamma  = bookHistogram1D("pt-gamma", 100, 0.0, 500);
 
-      /// @todo Isolated photons
+      _hist_n_gammaiso   = bookHistogram1D("n-gamma-iso", 11, -0.5, 10.5);
+      _hist_phi_gammaiso = bookHistogram1D("phi-gamma-iso", 50, -PI, PI);
+      _hist_eta_gammaiso = bookHistogram1D("eta-gamma-iso", 50, -4, 4);
+      _hist_pt_gammaiso  = bookHistogram1D("pt-gamma-iso", 100, 0.0, 500);
 
       _hist_met = bookHistogram1D("Etmiss", 100, 0.0, 1500);
 
@@ -109,7 +112,7 @@ namespace Rivet {
       _hist_n_trk->fill(tracks.size(), weight);
       foreach (const Particle& t, tracks.particles()) {
         const FourMomentum& p = t.momentum();
-        _hist_phi_trk->fill(p.phi(), weight);
+        _hist_phi_trk->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_trk->fill(p.eta(), weight);
         _hist_pt_trk->fill(p.pT()/GeV, weight);
       }
@@ -121,7 +124,7 @@ namespace Rivet {
       _hist_n_jet->fill(jets.size(), weight);
       foreach (const Jet& j, jets) {
         const FourMomentum& pj = j.momentum();
-        _hist_phi_jet->fill(pj.phi(), weight);
+        _hist_phi_jet->fill(mapAngleMPiToPi(pj.phi()), weight);
         _hist_eta_jet->fill(pj.eta(), weight);
         _hist_pt_jet->fill(pj.pT()/GeV, weight);
       }
@@ -133,7 +136,7 @@ namespace Rivet {
       _hist_n_e->fill(efs.size(), weight);
       foreach (const Particle& e, efs.particles()) {
         const FourMomentum& p = e.momentum();
-        _hist_phi_e->fill(p.phi(), weight);
+        _hist_phi_e->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_e->fill(p.eta(), weight);
         _hist_pt_e->fill(p.pT()/GeV, weight);
       }
@@ -142,25 +145,43 @@ namespace Rivet {
 
       // Fill final state muon/antimuon histos
       const FinalState& mufs = applyProjection<FinalState>(evt, "Muons");
-      _hist_n_e->fill(mufs.size(), weight);
+      _hist_n_mu->fill(mufs.size(), weight);
       foreach (const Particle& mu, efs.particles()) {
         const FourMomentum& p = mu.momentum();
-        _hist_phi_mu->fill(p.phi(), weight);
+        _hist_phi_mu->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_mu->fill(p.eta(), weight);
         _hist_pt_mu->fill(p.pT()/GeV, weight);
       }
 
       // Fill final state non-isolated photon histos
       const FinalState& allphotonfs = applyProjection<FinalState>(evt, "AllPhotons");
-      _hist_n_e->fill(allphotonfs.size(), weight);
+      _hist_n_gamma->fill(allphotonfs.size(), weight);
+      ParticleVector isolatedphotons;
       foreach (const Particle& ph, allphotonfs.particles()) {
         const FourMomentum& p = ph.momentum();
-        _hist_phi_mu->fill(p.phi(), weight);
-        _hist_eta_mu->fill(p.eta(), weight);
-        _hist_pt_mu->fill(p.pT()/GeV, weight);
+        _hist_phi_gamma->fill(mapAngleMPiToPi(p.phi()), weight);
+        _hist_eta_gamma->fill(p.eta(), weight);
+        _hist_pt_gamma->fill(p.pT()/GeV, weight);
+        // Select isolated photons
+        bool isolated = true;
+        foreach (const Jet& j, jets) {
+          if (deltaR(j.momentum(), p) < 0.2) {
+            isolated = false;
+            break;
+          }
+        }
+        if (isolated) isolatedphotons += ph;
       }
 
-      /// @todo Isolated photons
+
+      // Fill final state isolated photon histos
+      _hist_n_gammaiso->fill(isolatedphotons.size(), weight);
+      foreach (const Particle& ph_iso, isolatedphotons) {
+        const FourMomentum& p = ph_iso.momentum();
+        _hist_phi_gammaiso->fill(mapAngleMPiToPi(p.phi()), weight);
+        _hist_eta_gammaiso->fill(p.eta(), weight);
+        _hist_pt_gammaiso->fill(p.pT()/GeV, weight);
+      }
 
       // Calculate and fill missing Et histos
       const TotalVisibleMomentum& met = applyProjection<TotalVisibleMomentum>(evt, "MET");
@@ -225,7 +246,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_n_e, *_hist_phi_e, *_hist_eta_e, *_hist_pt_e;
     AIDA::IHistogram1D *_hist_n_mu, *_hist_phi_mu, *_hist_eta_mu, *_hist_pt_mu;
     AIDA::IHistogram1D *_hist_n_gamma, *_hist_phi_gamma, *_hist_eta_gamma, *_hist_pt_gamma;
-    /// @todo Isolated photons
+    AIDA::IHistogram1D *_hist_n_gammaiso, *_hist_phi_gammaiso, *_hist_eta_gammaiso, *_hist_pt_gammaiso;
     AIDA::IHistogram1D *_hist_met;
     AIDA::IHistogram1D *_hist_mll_ossf_ee, *_hist_mll_ossf_mumu, *_hist_mll_osof_emu;
     

@@ -142,8 +142,8 @@ for l in opts.NATIVE_LOG_STRS:
             level = rivet.Log.DEBUG
         elif LEVEL == "INFO":
             level = rivet.Log.INFO
-        elif LEVEL == "WARNING":
-            level = rivet.Log.WARNING
+        elif LEVEL == "WARNING" or LEVEL == "WARN":
+            level = rivet.Log.WARN
         elif LEVEL == "ERROR":
             level = rivet.Log.ERROR
         else:

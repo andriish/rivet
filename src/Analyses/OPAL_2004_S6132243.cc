@@ -75,7 +75,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) { 
-      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
+      const FinalState& cfs = applyProjection<FinalState>(event, "FS");
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (cfs.size() < 2) vetoEvent;
 
@@ -184,7 +184,7 @@ namespace Rivet {
         normalize(_histDParam[isqrts]);
         normalize(_histY23Durham[isqrts]);
         //
-        scale(_hist1MinusTMom[isqrts], 1.0/_sumPassedWeights); 
+        scale(_hist1MinusTMom[isqrts], 1.0/_sumPassedWeights);
         scale(_histTMajorMom[isqrts], 1.0/_sumPassedWeights); 
         scale(_histTMinorMom[isqrts], 1.0/_sumPassedWeights); 
         scale(_histOblatenessMom[isqrts], 1.0/_sumPassedWeights); 
