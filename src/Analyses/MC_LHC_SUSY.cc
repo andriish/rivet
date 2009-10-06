@@ -154,7 +154,7 @@ namespace Rivet {
         _hist_phi_mu->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_mu->fill(p.eta(), weight);
         _hist_pt_mu->fill(p.pT()/GeV, weight);
-        if (PID::threeCharge(e.pdgId()) > 0) mupluses += p; else muminuses += p;
+        if (PID::threeCharge(mu.pdgId()) > 0) mupluses += p; else muminuses += p;
       }
 
       // Fill final state non-isolated photon histos
