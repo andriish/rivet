@@ -17,57 +17,57 @@ YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{ n_{ch}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y01
-Title=Invariant cross section $\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$ at $\eta =0$ and $\sqrt{s} = \unit{200}{\GeV}$
+Title=Invariant cross section $\mathrm{E} \mathrm{d}^{3}\sigma/\mathrm{d}p^{3}$ at $\eta =0$ and $\sqrt{s} = \unit{200}{\GeV}$
 XLabel=$p_{T}$
 YLabel=$\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y02
-Title=Invariant cross section $\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$ at $\eta =0$ and $\sqrt{s} = \unit{500}{\GeV}$
+Title=Invariant cross section $\mathrm{E} \mathrm{d}^{3}\sigma/\mathrm{d}p^{3}$ at $\eta =0$ and $\sqrt{s} = \unit{500}{\GeV}$
 XLabel=$p_{T}$
 YLabel=$\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y03
-Title=Invariant cross section $\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$
+Title=Invariant cross section $\mathrm{E} \mathrm{d}^{3}\sigma/\mathrm{d}p^{3}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$
 XLabel=$p_{T}$
 YLabel=$\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d03-x01-y01
-Title=Cross section $\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$ ($\frac{dn_{ch}}{d\eta} = 0.8 \dots 4 $)
+Title=Cross section $\mathrm{E} \mathrm{d}^{3}\sigma/\mathrm{d}p^{3}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$ ($\frac{dn_{ch}}{d\eta} = 0.8 \dots 4 $)
 XLabel=$p_{T}$
 YLabel=$\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d04-x01-y01
-Title=Cross section $\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$ ($\frac{dn_{ch}}{d\eta} = 4 \dots 8 $)
+Title=Cross section $\mathrm{E} \mathrm{d}^{3}\sigma/\mathrm{d}p^{3}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$ ($\frac{dn_{ch}}{d\eta} = 4 \dots 8 $)
 XLabel=$p_{T}$
 YLabel=$\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d05-x01-y01
-Title=Cross section $\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$ ($\frac{dn_{ch}}{d\eta} > 8 $)
+Title=Cross section $\mathrm{E} \mathrm{d}^{3}\sigma/\mathrm{d}p^{3}$ at $\eta =0$ and $\sqrt{s} = \unit{900}{\GeV}$ ($\frac{dn_{ch}}{d\eta} > 8 $)
 XLabel=$p_{T}$
 YLabel=$\mathrm{E} \frac{d^{3}\sigma}{dp^{3}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d06-x01-y01
-Title=$\left< p_{T} \right>$ vs. $n_{ch}$ at $\sqrt{s} = \unit{200}{\GeV}$
+Title=$\langle p_{T} \rangle$ vs. $n_{ch}$ at $\sqrt{s} = \unit{200}{\GeV}$
 XLabel=$n_{ch}$
-YLabel=$\left< p_{T} \right>$
+YLabel=$\langle p_{T} \rangle$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d07-x01-y01
-Title=$\left< p_{T} \right>$ vs. $n_{ch}$ at $\sqrt{s} = \unit{900}{\GeV}$
+Title=$\langle p_{T} \rangle$ vs. $n_{ch}$ at $\sqrt{s} = \unit{900}{\GeV}$
 XLabel=$n_{ch}$
-YLabel=$\left< p_{T} \right>$
+YLabel=$\langle p_{T} \rangle$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d08-x01-y01
-Title=$\left< p_{T} \right>$ vs. $n_{ch}$ at $\sqrt{s} = \unit{63}{\GeV}$
+Title=$\langle p_{T} \rangle$ vs. $n_{ch}$ at $\sqrt{s} = \unit{63}{\GeV}$
 XLabel=$n_{ch}$
-YLabel=$\left< p_{T} \right>$
+YLabel=$\langle p_{T} \rangle$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d09-x01-y01
@@ -89,19 +89,19 @@ YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\Sigma E_{t}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d12-x01-y01
-Title=$\left< \Sigma E_T \right>$ vs. $n_{ch}$ at $\sqrt{s} = \unit{200}{\GeV}$ and $|\eta|<2.5$
+Title=$\langle \Sigma E_T \rangle$ vs. $n_{ch}$ at $\sqrt{s} = \unit{200}{\GeV}$ and $|\eta|<2.5$
 XLabel=$n_{ch}$
-YLabel=$\frac{d \sigma}{d P_{t}}$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}P_{t}}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d12-x01-y02
-Title=$\left< \Sigma E_T \right>$ vs. $n_{ch}$ at $\sqrt{s} = \unit{500}{\GeV}$ and $|\eta|<2.5$
+Title=$\langle \Sigma E_T \rangle$ vs. $n_{ch}$ at $\sqrt{s} = \unit{500}{\GeV}$ and $|\eta|<2.5$
 XLabel=$n_{ch}$
-YLabel=$\frac{d \sigma}{d \phi}$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\phi}$
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d12-x01-y03
-Title=$\left< \Sigma E_T \right>$ vs. $n_{ch}$ at $\sqrt{s} = \unit{900}{\GeV}$ and $|\eta|<2.5$
+Title=$\langle \Sigma E_T \rangle$ vs. $n_{ch}$ at $\sqrt{s} = \unit{900}{\GeV}$ and $|\eta|<2.5$
 XLabel=$n_{ch}$
-YLabel=$\frac{d \sigma}{d \eta}$
+YLabel=$\mathrm{d}\sigma/\mathrm{d}\eta}$
 # END PLOT
