@@ -92,7 +92,7 @@ namespace Rivet {
         const double mPi = 139.57*MeV;
         const double root = sqrt(mPi*mPi + (1+sinh1)*pT*pT);
         const double dy = std::log((root+apT)/(root-apT));
-        const double dphi = 2*M_PI;
+        const double dphi = TWOPI;
         _hist_pt->fill(pT, weight/(pT*dphi*dy));
       }
 
