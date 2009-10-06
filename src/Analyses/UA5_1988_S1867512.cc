@@ -7,49 +7,6 @@
 #include "Rivet/Projections/TriggerUA5.hh"
 
 namespace Rivet {
-
-  /// @todo Move these into the MathUtils header.
-
-  // A simple function to calculate the mean of a sample
-  double mean(const vector<int>& sample) {
-    double mean = 0.0;
-    foreach (const int& i, sample) {
-      mean += i;
-    }
-    return mean/sample.size();
-  }
-  
-  
-  // Calculate the covariance (variance) between two samples  
-  double covariance(const vector<int>& sample1, const vector<int>& sample2) {
-    double mean1 = mean(sample1);
-    double mean2 = mean(sample2);
-    int N = sample1.size();
-    double cov = 0.0;
-    for (int i = 0; i < N; i++) {
-      double cov_i = (sample1[i] - mean1)*(sample2[i] - mean2);
-      cov += cov_i;
-    }
-    if (N > 1) return cov/(N-1);
-    else return 0.0;
-  }
-  
-  
-  // Calculate the correlation strength between two samples
-  double correlation(const vector<int>& sample1, const vector<int>& sample2) {
-    const double cov = covariance(sample1, sample2);
-    const double var1 = covariance(sample1, sample1);
-    const double var2 = covariance(sample2, sample2);
-    const double correlation = cov/sqrt(var1*var2);
-    const double corr_strength = correlation*sqrt(var2/var1);
-    return corr_strength;
-  }
-
-}
-
-
-
-namespace Rivet {
   
 
   class UA5_1988_S1867512 : public Analysis {

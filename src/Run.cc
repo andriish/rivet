@@ -55,6 +55,8 @@ namespace Rivet {
     
     GenEvent* evt = new GenEvent();
     while (io->fill_next_event(evt)) {
+
+      // Set up system based on properties of first event
       if (_numEvents == 0) {
         int num_anas_requested = _ah.analysisNames().size();
         _ah.removeIncompatibleAnalyses(beamIds(*evt));
@@ -93,7 +95,8 @@ namespace Rivet {
           return false;
         }
       }
-
+      /// @todo If NOT first event, check that beams aren't changed
+      
       // Analyze event and delete HepMC event object      
       _ah.analyze(*evt);
       delete evt;

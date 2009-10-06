@@ -364,7 +364,7 @@ namespace Rivet {
 
     /// Get mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant).
     double mass() const { 
-      assert(mass2() >= 0);
+      assert(Rivet::isZero(mass2()) || mass2() > 0);
       return sqrt(mass2()); 
     }
 
@@ -374,7 +374,7 @@ namespace Rivet {
     }
 
     /// Calculate squared transverse momentum \f$ p_T^2 \f$.
-    double pT2() const { 
+    double pT2() const {
       return vector3().polarRadius2();
     }
 

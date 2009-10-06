@@ -7,6 +7,9 @@
 namespace Rivet {
 
 
+  /// @name Number comparisons etc.
+  //@{
+
   /// Compare a floating point number to zero with a degree 
   /// of fuzziness expressed by the absolute @a tolerance parameter.
   inline bool isZero(double val, double tolerance=1E-8) {
@@ -86,6 +89,54 @@ namespace Rivet {
     return a*a;
   }
 
+  //@}
+
+
+
+  /// @name Statistics functions
+  //@{
+
+  /// Calculate the mean of a sample
+  inline double mean(const vector<int>& sample) {
+    double mean = 0.0;
+    foreach (const int& i, sample) {
+      mean += i;
+    }
+    return mean/sample.size();
+  }
+  
+  
+  /// Calculate the covariance (variance) between two samples  
+  inline double covariance(const vector<int>& sample1, const vector<int>& sample2) {
+    double mean1 = mean(sample1);
+    double mean2 = mean(sample2);
+    int N = sample1.size();
+    double cov = 0.0;
+    for (int i = 0; i < N; i++) {
+      double cov_i = (sample1[i] - mean1)*(sample2[i] - mean2);
+      cov += cov_i;
+    }
+    if (N > 1) return cov/(N-1);
+    else return 0.0;
+  }
+  
+  
+  /// Calculate the correlation strength between two samples
+  inline double correlation(const vector<int>& sample1, const vector<int>& sample2) {
+    const double cov = covariance(sample1, sample2);
+    const double var1 = covariance(sample1, sample1);
+    const double var2 = covariance(sample2, sample2);
+    const double correlation = cov/sqrt(var1*var2);
+    const double corr_strength = correlation*sqrt(var2/var1);
+    return corr_strength;
+  }
+
+  //@}
+
+
+  /// @name Angle range mappings
+  //@{
+
   /// Reduce any number to the range [-2PI, 2PI] by repeated addition or
   /// subtraction of 2PI as required. Used to normalise angular measures.
   inline double _mapAngleM2PITo2Pi(double angle) {
@@ -123,6 +174,12 @@ namespace Rivet {
     return rtn;
   }
 
+  //@}
+
+
+  /// @name Phase space measure helpers
+  //@{
+
   /// Calculate the difference between two angles in radians, 
   /// returning in the range [0, PI].
   inline double deltaPhi(double phi1, double phi2) {
@@ -151,5 +208,7 @@ namespace Rivet {
 
 
 }
+
+//@}
 
 #endif
