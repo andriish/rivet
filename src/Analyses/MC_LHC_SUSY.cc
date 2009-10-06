@@ -32,7 +32,7 @@ namespace Rivet {
     // Book histograms
     void init() {
       // Basic final state
-      const FinalState fs(-4.0, 4.0, 0.5*GeV);
+      const FinalState fs(-4.0, 4.0, 10*GeV);
 
       // Tracks and jets
       addProjection(ChargedFinalState(fs), "Tracks");
@@ -41,7 +41,6 @@ namespace Rivet {
       IdentifiedFinalState photonfs(fs);
       photonfs.acceptId(PHOTON);
       addProjection(photonfs, "AllPhotons");
-      /// @todo Isolated photons
 
       IdentifiedFinalState efs(fs);
       efs.acceptIdPair(ELECTRON);
@@ -134,11 +133,13 @@ namespace Rivet {
       // Fill final state electron/positron histos
       const FinalState& efs = applyProjection<FinalState>(evt, "Electrons");
       _hist_n_e->fill(efs.size(), weight);
+      vector<FourMomentum> epluses, eminuses;
       foreach (const Particle& e, efs.particles()) {
         const FourMomentum& p = e.momentum();
         _hist_phi_e->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_e->fill(p.eta(), weight);
         _hist_pt_e->fill(p.pT()/GeV, weight);
+        if (PID::threeCharge(e.pdgId()) > 0) epluses += p; else eminuses += p;
       }
 
       /// @todo Resum photons around muons
@@ -146,11 +147,13 @@ namespace Rivet {
       // Fill final state muon/antimuon histos
       const FinalState& mufs = applyProjection<FinalState>(evt, "Muons");
       _hist_n_mu->fill(mufs.size(), weight);
+      vector<FourMomentum> mupluses, muminuses;
       foreach (const Particle& mu, efs.particles()) {
         const FourMomentum& p = mu.momentum();
         _hist_phi_mu->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_mu->fill(p.eta(), weight);
         _hist_pt_mu->fill(p.pT()/GeV, weight);
+        if (PID::threeCharge(e.pdgId()) > 0) mupluses += p; else muminuses += p;
       }
 
       // Fill final state non-isolated photon histos
@@ -187,46 +190,75 @@ namespace Rivet {
       const TotalVisibleMomentum& met = applyProjection<TotalVisibleMomentum>(evt, "MET");
       _hist_met->fill(met.scalarET()/GeV);
 
-      // Choose highest-pT leptons of each sign and flavour for dilepton mass edges
-      const FinalState& lpfs = applyProjection<FinalState>(evt, "LeadingParticles");
-      bool eplus_ok, eminus_ok, muplus_ok, muminus_ok;
-      FourMomentum peplus, peminus, pmuplus, pmuminus;
-      foreach (const Particle& p, lpfs.particles()) {
-        const PdgId pid = p.pdgId();
-        if (pid == ELECTRON) {
-          eminus_ok = true;
-          peminus = p.momentum();
-        } else if (pid == POSITRON) {
-          eplus_ok = true;
-          peplus = p.momentum();
-        } else if (pid == MUON) {
-          muminus_ok = true;
-          pmuminus = p.momentum();
-        } else if (pid == ANTIMUON) {
-          muplus_ok = true;
-          pmuplus = p.momentum();
-        } else {
-          throw Error("Unexpected particle type in leading particles FS!");
+      // // Choose highest-pT leptons of each sign and flavour for dilepton mass edges
+      // const FinalState& lpfs = applyProjection<FinalState>(evt, "LeadingParticles");
+      // bool eplus_ok, eminus_ok, muplus_ok, muminus_ok;
+      // FourMomentum peplus, peminus, pmuplus, pmuminus;
+      // foreach (const Particle& p, lpfs.particles()) {
+      //   const PdgId pid = p.pdgId();
+      //   if (pid == ELECTRON) {
+      //     eminus_ok = true;
+      //     peminus = p.momentum();
+      //   } else if (pid == POSITRON) {
+      //     eplus_ok = true;
+      //     peplus = p.momentum();
+      //   } else if (pid == MUON) {
+      //     muminus_ok = true;
+      //     pmuminus = p.momentum();
+      //   } else if (pid == ANTIMUON) {
+      //     muplus_ok = true;
+      //     pmuplus = p.momentum();
+      //   } else {
+      //     throw Error("Unexpected particle type in leading particles FS!");
+      //   }
+      // }
+      // // m_ee
+      // if (eminus_ok && eplus_ok) {
+      //   const double m_ee = FourMomentum(peplus + peminus).mass();
+      //   _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
+      // }
+      // // m_mumu
+      // if (muminus_ok && muplus_ok) {
+      //   const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
+      //   _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
+      // }
+      // // m_emu (both configurations)
+      // if (eminus_ok && muplus_ok) {
+      //   const double m_emu = FourMomentum(pmuplus + peminus).mass();
+      //   _hist_mll_osof_emu->fill(m_emu/GeV, weight);
+      // }
+      // if (muminus_ok && eplus_ok) {
+      //   const double m_mue = FourMomentum(peplus + pmuminus).mass();
+      //   _hist_mll_osof_emu->fill(m_mue/GeV, weight);
+      // }
+
+      // Use all electrons, positrons, muons and antimuons for m_ll plots
+      // m_ee
+      foreach (const FourMomentum& peplus, epluses) {
+        foreach (const FourMomentum& peminus, eminuses) {
+          const double m_ee = FourMomentum(peplus + peminus).mass();
+          _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
         }
       }
-      // m_ee
-      if (eminus_ok && eplus_ok) {
-        const double m_ee = FourMomentum(peplus + peminus).mass();
-        _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
-      }
       // m_mumu
-      if (muminus_ok && muplus_ok) {
-        const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
-        _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
+      foreach (const FourMomentum& pmuplus, epluses) {
+        foreach (const FourMomentum& pmuminus, eminuses) {
+          const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
+          _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
+        }
       }
       // m_emu (both configurations)
-      if (eminus_ok && muplus_ok) {
-        const double m_emu = FourMomentum(pmuplus + peminus).mass();
-        _hist_mll_osof_emu->fill(m_emu/GeV, weight);
+      foreach (const FourMomentum& pmuplus, epluses) {
+        foreach (const FourMomentum& peminus, eminuses) {
+          const double m_emu = FourMomentum(pmuplus + peminus).mass();
+          _hist_mll_osof_emu->fill(m_emu/GeV, weight);
+        }
       }
-      if (muminus_ok && eplus_ok) {
-        const double m_mue = FourMomentum(peplus + pmuminus).mass();
-        _hist_mll_osof_emu->fill(m_mue/GeV, weight);
+      foreach (const FourMomentum& peplus, epluses) {
+        foreach (const FourMomentum& pmuminus, eminuses) {
+          const double m_mue = FourMomentum(peplus + pmuminus).mass();
+          _hist_mll_osof_emu->fill(m_mue/GeV, weight);
+        }
       }
 
     }
