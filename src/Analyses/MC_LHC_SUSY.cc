@@ -93,7 +93,13 @@ namespace Rivet {
       _hist_mll_ossf_mumu = bookHistogram1D("mll-ossf-mumu", 50, 0.0, 500);
       _hist_mll_osof_emu  = bookHistogram1D("mll-osof-mumu", 50, 0.0, 500);
 
-      // LSP eta, pT, phi, mass
+      _hist_mll_all_ossf_ee   = bookHistogram1D("mll-all-ossf-ee", 50, 0.0, 500);
+      _hist_mll_all_ossf_mumu = bookHistogram1D("mll-all-ossf-mumu", 50, 0.0, 500);
+      _hist_mll_all_osof_emu  = bookHistogram1D("mll-all-osof-mumu", 50, 0.0, 500);
+
+      /// @todo LSP eta, pT, phi, mass: no reliable cross-scenario LSP PID but
+      /// maybe plot for all of chi^0_1, gravitino, sneutrino, gluino, ... or
+      /// identify the LSP as any PID::isSUSY (?) particle with status = 1?
     }
 
 
@@ -191,74 +197,78 @@ namespace Rivet {
       const TotalVisibleMomentum& met = applyProjection<TotalVisibleMomentum>(evt, "MET");
       _hist_met->fill(met.scalarET()/GeV);
 
-      // // Choose highest-pT leptons of each sign and flavour for dilepton mass edges
-      // const FinalState& lpfs = applyProjection<FinalState>(evt, "LeadingParticles");
-      // bool eplus_ok, eminus_ok, muplus_ok, muminus_ok;
-      // FourMomentum peplus, peminus, pmuplus, pmuminus;
-      // foreach (const Particle& p, lpfs.particles()) {
-      //   const PdgId pid = p.pdgId();
-      //   if (pid == ELECTRON) {
-      //     eminus_ok = true;
-      //     peminus = p.momentum();
-      //   } else if (pid == POSITRON) {
-      //     eplus_ok = true;
-      //     peplus = p.momentum();
-      //   } else if (pid == MUON) {
-      //     muminus_ok = true;
-      //     pmuminus = p.momentum();
-      //   } else if (pid == ANTIMUON) {
-      //     muplus_ok = true;
-      //     pmuplus = p.momentum();
-      //   } else {
-      //     throw Error("Unexpected particle type in leading particles FS!");
-      //   }
-      // }
-      // // m_ee
-      // if (eminus_ok && eplus_ok) {
-      //   const double m_ee = FourMomentum(peplus + peminus).mass();
-      //   _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
-      // }
-      // // m_mumu
-      // if (muminus_ok && muplus_ok) {
-      //   const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
-      //   _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
-      // }
-      // // m_emu (both configurations)
-      // if (eminus_ok && muplus_ok) {
-      //   const double m_emu = FourMomentum(pmuplus + peminus).mass();
-      //   _hist_mll_osof_emu->fill(m_emu/GeV, weight);
-      // }
-      // if (muminus_ok && eplus_ok) {
-      //   const double m_mue = FourMomentum(peplus + pmuminus).mass();
-      //   _hist_mll_osof_emu->fill(m_mue/GeV, weight);
-      // }
+      // Choose highest-pT leptons of each sign and flavour for dilepton mass edges
+      const FinalState& lpfs = applyProjection<FinalState>(evt, "LeadingParticles");
+      bool eplus_ok(false), eminus_ok(false), muplus_ok(false), muminus_ok(false);
+      FourMomentum peplus, peminus, pmuplus, pmuminus;
+      foreach (const Particle& p, lpfs.particles()) {
+        // Only use leptons above 20 GeV
+        if (p.momentum().pT()/GeV < 20) continue;
+        // Identify the PID
+        const PdgId pid = p.pdgId();
+        if (pid == ELECTRON) {
+          eminus_ok = true;
+          peminus = p.momentum();
+        } else if (pid == POSITRON) {
+          eplus_ok = true;
+          peplus = p.momentum();
+        } else if (pid == MUON) {
+          muminus_ok = true;
+          pmuminus = p.momentum();
+        } else if (pid == ANTIMUON) {
+          muplus_ok = true;
+          pmuplus = p.momentum();
+        } else {
+          throw Error("Unexpected particle type in leading particles FS!");
+        }
+      }
+      // m_ee
+      if (eminus_ok && eplus_ok) {
+        const double m_ee = FourMomentum(peplus + peminus).mass();
+        _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
+      }
+      // m_mumu
+      if (muminus_ok && muplus_ok) {
+        const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
+        _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
+      }
+      // m_emu (both configurations)
+      if (eminus_ok && muplus_ok) {
+        const double m_emu = FourMomentum(pmuplus + peminus).mass();
+        _hist_mll_osof_emu->fill(m_emu/GeV, weight);
+      }
+      if (muminus_ok && eplus_ok) {
+        const double m_mue = FourMomentum(peplus + pmuminus).mass();
+        _hist_mll_osof_emu->fill(m_mue/GeV, weight);
+      }
 
-      // Use all electrons, positrons, muons and antimuons for m_ll plots
+
+      // m_ll plots using *all* electrons, positrons, muons and antimuons
       // m_ee
       foreach (const FourMomentum& peplus, epluses) {
         foreach (const FourMomentum& peminus, eminuses) {
           const double m_ee = FourMomentum(peplus + peminus).mass();
-          _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
+          _hist_mll_all_ossf_ee->fill(m_ee/GeV, weight);
         }
       }
       // m_mumu
       foreach (const FourMomentum& pmuplus, epluses) {
         foreach (const FourMomentum& pmuminus, eminuses) {
           const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
-          _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
+          _hist_mll_all_ossf_mumu->fill(m_mumu/GeV, weight);
         }
       }
       // m_emu (both configurations)
       foreach (const FourMomentum& pmuplus, epluses) {
         foreach (const FourMomentum& peminus, eminuses) {
           const double m_emu = FourMomentum(pmuplus + peminus).mass();
-          _hist_mll_osof_emu->fill(m_emu/GeV, weight);
+          _hist_mll_all_osof_emu->fill(m_emu/GeV, weight);
         }
       }
       foreach (const FourMomentum& peplus, epluses) {
         foreach (const FourMomentum& pmuminus, eminuses) {
           const double m_mue = FourMomentum(peplus + pmuminus).mass();
-          _hist_mll_osof_emu->fill(m_mue/GeV, weight);
+          _hist_mll_all_osof_emu->fill(m_mue/GeV, weight);
         }
       }
 
@@ -281,8 +291,8 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_n_gamma, *_hist_phi_gamma, *_hist_eta_gamma, *_hist_pt_gamma;
     AIDA::IHistogram1D *_hist_n_gammaiso, *_hist_phi_gammaiso, *_hist_eta_gammaiso, *_hist_pt_gammaiso;
     AIDA::IHistogram1D *_hist_met;
-    AIDA::IHistogram1D *_hist_mll_ossf_ee, *_hist_mll_ossf_mumu, *_hist_mll_osof_emu;
-    
+    AIDA::IHistogram1D *_hist_mll_ossf_ee, *_hist_mll_ossf_mumu, *_hist_mll_osof_emu;    
+    AIDA::IHistogram1D *_hist_mll_all_ossf_ee, *_hist_mll_all_ossf_mumu, *_hist_mll_all_osof_emu;
   };
   
   

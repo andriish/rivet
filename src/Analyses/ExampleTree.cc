@@ -61,7 +61,7 @@ namespace Rivet {
         .addVetoDetail(NU_E, 10.0*GeV, 50.0*GeV)
         .addVetoPairId(NU_MU)
         .addVetoPairId(NU_TAU)
-        .addVetoId(1000022); // LSP
+        .addVetoId(1000022); // Assumes that neutralino_1 is the LSP
       addProjection(vfs, "VFS");
       addProjection(TotalVisibleMomentum(vfs), "TotalVisMom");
       
