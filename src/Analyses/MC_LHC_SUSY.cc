@@ -149,7 +149,7 @@ namespace Rivet {
       const FinalState& mufs = applyProjection<FinalState>(evt, "Muons");
       _hist_n_mu->fill(mufs.size(), weight);
       vector<FourMomentum> mupluses, muminuses;
-      foreach (const Particle& mu, efs.particles()) {
+      foreach (const Particle& mu, mufs.particles()) {
         const FourMomentum& p = mu.momentum();
         _hist_phi_mu->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_mu->fill(p.eta(), weight);
