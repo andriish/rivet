@@ -146,7 +146,10 @@ namespace Rivet {
         _hist_phi_e->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_e->fill(p.eta(), weight);
         _hist_pt_e->fill(p.pT()/GeV, weight);
-        if (PID::threeCharge(e.pdgId()) > 0) epluses += p; else eminuses += p;
+        // Add sufficiently hard leptons to collections for m_ll histo
+        if (p.pT()/GeV > 20) {
+          if (PID::threeCharge(e.pdgId()) > 0) epluses += p; else eminuses += p;
+        }
       }
 
       /// @todo Resum photons around muons
@@ -160,7 +163,10 @@ namespace Rivet {
         _hist_phi_mu->fill(mapAngleMPiToPi(p.phi()), weight);
         _hist_eta_mu->fill(p.eta(), weight);
         _hist_pt_mu->fill(p.pT()/GeV, weight);
-        if (PID::threeCharge(mu.pdgId()) > 0) mupluses += p; else muminuses += p;
+        // Add sufficiently hard leptons to collections for m_ll histo
+        if (p.pT()/GeV > 20) {
+          if (PID::threeCharge(mu.pdgId()) > 0) mupluses += p; else muminuses += p;
+        }
       }
 
       // Fill final state non-isolated photon histos
