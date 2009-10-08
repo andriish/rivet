@@ -3,6 +3,7 @@
 Title=$\eta$ distribution for $e^+$, $e^-$
 XLabel=$\eta$
 YLabel=$\mathrm{d}N_e/\mathrm{d}\eta$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -10,6 +11,7 @@ YLabel=$\mathrm{d}N_e/\mathrm{d}\eta$
 Title=$\eta$ distribution for photons
 XLabel=$\eta$
 YLabel=$\mathrm{d}N_\gamma/\mathrm{d}\eta$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -17,6 +19,7 @@ YLabel=$\mathrm{d}N_\gamma/\mathrm{d}\eta$
 Title=$\eta$ distribution for $\Delta{R}=0.2$ jet-isolated photons
 XLabel=$\eta$
 YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}\eta$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -24,6 +27,7 @@ YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}\eta$
 Title=$\eta$ distribution for $R=0.7$ anti-$k_\perp$ jets
 XLabel=$\eta$
 YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}\eta$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -31,6 +35,7 @@ YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}\eta$
 Title=$\eta$ distribution for $\mu^+$, $\mu^-$
 XLabel=$\eta$
 YLabel=$\mathrm{d}N_\mu/\mathrm{d}\eta$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -38,6 +43,7 @@ YLabel=$\mathrm{d}N_\mu/\mathrm{d}\eta$
 Title=$\eta$ distribution for charged tracks
 XLabel=$\eta$
 YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\eta$
+LogY=0
 # END PLOT
 
 
@@ -46,6 +52,7 @@ YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\eta$
 Title=$E_\perp^\text{miss}$ distribution
 XLabel=$E_\perp^\text{miss}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}E_\perp^\text{miss}$
+LogY=1
 # END PLOT
 
 
@@ -54,6 +61,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}E_\perp^\text{miss}$
 Title=$m_{\mu\mu}$ distribution for leading $\mu^+ \mu^-$
 XLabel=$m_{\mu\mu}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{\mu\mu}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -61,6 +69,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{\mu\mu}$
 Title=$m_{\mu\mu}$ distribution for combinatoric $\mu^+ \mu^-$
 XLabel=$m_{\mu\mu}$
 YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{\mu\mu}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -68,6 +77,7 @@ YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{\mu\mu}$
 Title=$m_{ee}$ distribution for leading $e^+ e^-$
 XLabel=$m_{ee}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{ee}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -75,6 +85,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{ee}$
 Title=$m_{ee}$ distribution for combinatoric $e^+ e^-$
 XLabel=$m_{ee}$
 YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{ee}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -82,6 +93,7 @@ YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{ee}$
 Title=$m_{e\mu}$ distribution for leading $e^\pm \mu^\mp$
 XLabel=$m_{e\mu}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{e\mu}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -89,6 +101,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{e\mu}$
 Title=$m_{e\mu}$ distribution for combinatoric $e^\pm \mu^\mp$
 XLabel=$m_{e\mu}$
 YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{e\mu}$
+LogY=0
 # END PLOT
 
 
@@ -97,6 +110,7 @@ YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{e\mu}$
 Title=Multiplicity distribution for $e^+$, $e^-$
 XLabel=$N$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_e$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -104,6 +118,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_e$
 Title=Multiplicity distribution for photons
 XLabel=$N_\gamma$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\gamma$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -111,6 +126,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\gamma$
 Title=Multiplicity distribution for $\Delta{R}=0.2$ jet-isolated photons
 XLabel=$N_\gamma\text{iso}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\gamma\text{iso}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -118,6 +134,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\gamma\text{iso}$
 Title=Multiplicity distribution for $R=0.7$ anti-$k_\perp$ jets
 XLabel=$N_\text{jet}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\text{jet}$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -125,6 +142,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\text{jet}$
 Title=Multiplicity distribution for $\mu^+$, $\mu^-$
 XLabel=$N_\mu$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\mu$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -132,6 +150,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\mu$
 Title=Multiplicity distribution for charged tracks
 XLabel=$N_\text{ch}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\text{ch}$
+LogY=0
 # END PLOT
 
 
@@ -140,6 +159,7 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\text{ch}$
 Title=$\phi$ distribution for $e^+$, $e^-$
 XLabel=$\phi$
 YLabel=$\mathrm{d}N_e/\mathrm{d}\phi$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -147,6 +167,7 @@ YLabel=$\mathrm{d}N_e/\mathrm{d}\phi$
 Title=$\phi$ distribution for photons
 XLabel=$\phi$
 YLabel=$\mathrm{d}N_\gamma/\mathrm{d}\phi$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -154,6 +175,7 @@ YLabel=$\mathrm{d}N_\gamma/\mathrm{d}\phi$
 Title=$\phi$ distribution for $\Delta{R}=0.2$ jet-isolated photons
 XLabel=$\phi$
 YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}\phi$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -161,6 +183,7 @@ YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}\phi$
 Title=$\phi$ distribution for $R=0.7$ anti-$k_\perp$ jets
 XLabel=$\phi$
 YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}\phi$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -168,6 +191,7 @@ YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}\phi$
 Title=$\phi$ distribution for $\mu^+$, $\mu^-$
 XLabel=$\phi$
 YLabel=$\mathrm{d}N_\mu/\mathrm{d}\phi$
+LogY=0
 # END PLOT
 
 # BEGIN PLOT 
@@ -175,6 +199,7 @@ YLabel=$\mathrm{d}N_\mu/\mathrm{d}\phi$
 Title=$\phi$ distribution for charged tracks
 XLabel=$\phi$
 YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\phi$
+LogY=0
 # END PLOT
 
 
@@ -183,6 +208,7 @@ YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\phi$
 Title=$p_\perp$ distribution for $e^+$, $e^-$
 XLabel=$p_\perp$
 YLabel=$\mathrm{d}N_e/\mathrm{d}p_\perp$
+LogY=1
 # END PLOT
 
 # BEGIN PLOT 
@@ -190,6 +216,7 @@ YLabel=$\mathrm{d}N_e/\mathrm{d}p_\perp$
 Title=$p_\perp$ distribution for photons
 XLabel=$p_\perp$
 YLabel=$\mathrm{d}N_\gamma/\mathrm{d}p_\perp$
+LogY=1
 # END PLOT
 
 # BEGIN PLOT 
@@ -197,6 +224,7 @@ YLabel=$\mathrm{d}N_\gamma/\mathrm{d}p_\perp$
 Title=$p_\perp$ distribution for $\Delta{R}=0.2$ jet-isolated photons
 XLabel=$p_\perp$
 YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}p_\perp$
+LogY=1
 # END PLOT
 
 # BEGIN PLOT 
@@ -204,6 +232,7 @@ YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}p_\perp$
 Title=$p_\perp$ distribution for $R=0.7$ anti-$k_\perp$ jets
 XLabel=$p_\perp$
 YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp$
+LogY=1
 # END PLOT
 
 # BEGIN PLOT 
@@ -211,6 +240,7 @@ YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp$
 Title=$p_\perp$ distribution for $\mu^+$, $\mu^-$
 XLabel=$p_\perp$
 YLabel=$\mathrm{d}N_\mu/\mathrm{d}p_\perp$
+LogY=1
 # END PLOT
 
 # BEGIN PLOT 
@@ -218,4 +248,5 @@ YLabel=$\mathrm{d}N_\mu/\mathrm{d}p_\perp$
 Title=$p_\perp$ distribution for charged tracks
 XLabel=$p_\perp$
 YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}p_\perp$
+LogY=1
 # END PLOT
