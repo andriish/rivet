@@ -91,11 +91,11 @@ namespace Rivet {
 
       _hist_mll_ossf_ee   = bookHistogram1D("mll-ossf-ee", 50, 0.0, 500);
       _hist_mll_ossf_mumu = bookHistogram1D("mll-ossf-mumu", 50, 0.0, 500);
-      _hist_mll_osof_emu  = bookHistogram1D("mll-osof-mumu", 50, 0.0, 500);
+      _hist_mll_osof_emu  = bookHistogram1D("mll-osof-emu", 50, 0.0, 500);
 
       _hist_mll_all_ossf_ee   = bookHistogram1D("mll-all-ossf-ee", 50, 0.0, 500);
       _hist_mll_all_ossf_mumu = bookHistogram1D("mll-all-ossf-mumu", 50, 0.0, 500);
-      _hist_mll_all_osof_emu  = bookHistogram1D("mll-all-osof-mumu", 50, 0.0, 500);
+      _hist_mll_all_osof_emu  = bookHistogram1D("mll-all-osof-emu", 50, 0.0, 500);
 
       /// @todo LSP eta, pT, phi, mass: no reliable cross-scenario LSP PID but
       /// maybe plot for all of chi^0_1, gravitino, sneutrino, gluino, ... or
