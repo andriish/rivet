@@ -13,9 +13,9 @@ namespace Rivet {
   public:
   
     /// Default constructor
-    MC_LHC_ZANALYSIS()
-      : Analysis("MC_LHC_ZANALYSIS") 
+    MC_LHC_ZANALYSIS() : Analysis("MC_LHC_ZANALYSIS") 
     {
+      //
     }
     
 
@@ -32,20 +32,22 @@ namespace Rivet {
       FastJets fastjets(zf.remainingFinalState(), FastJets::KT, 0.7);
       addProjection(fastjets, "Jets");
 
-      _hist_chargemulti = bookHistogram1D("d01-x01-y01", 30, 0.5, 250.5);
-      _hist_chargept = bookHistogram1D("d02-x01-y01", 32, 0., 25.);
-      _hist_chargemeanpt = bookHistogram1D("d03-x01-y01", 25, 0., 10.);
-      _hist_chargermspt = bookHistogram1D("d04-x01-y01", 32, 0., 10.);
-      _hist_zcount = bookHistogram1D("d05-x01-y01", 30, 0., 15.);
-      _hist_zpt = bookHistogram1D("d06-x01-y01", 32, 0., 25.);
-      _hist_zlogpt = bookHistogram1D("d07-x01-y01", 32, 0., 6.);
-      _hist_zeta = bookHistogram1D("d08-x01-y01", 32, -6., 6.);
-      _hist_zphi = bookHistogram1D("d09-x01-y01", 32, 0., 6.4);
-      _hist_zmass = bookHistogram1D("d10-x01-y01", 40, 60., 100.);
-      _hist_zlogmass = bookHistogram1D("d11-x01-y01", 32, 0., 10.);
-      _hist_jetcount = bookHistogram1D("d12-x01-y01", 32, 0, 100);
-      _hist_jetpt = bookHistogram1D("d13-x01-y01", 32, 20., 100.);
-      _hist_jetlogpt = bookHistogram1D("d14-x01-y01", 32, 0., 20.);
+      _hist_chargemulti = bookHistogram1D("n-ch", 50, -0.5, 199.5);
+      _hist_chargept = bookHistogram1D("pt-ch", 25, 0, 25);
+      /// @todo Use profile plots instead:
+      _hist_chargemeanpt = bookHistogram1D("ptavg-ch", 25, 0, 10);
+      /// @todo Use profile plots instead (and this isn't really an "RMS")
+      _hist_chargermspt = bookHistogram1D("ptrms-ch", 25, 0, 10);
+      _hist_zcount = bookHistogram1D("n-z", 16, -0.5, 15.5);
+      _hist_zpt = bookHistogram1D("pt-z", 25, 0, 25);
+      _hist_zlogpt = bookHistogram1D("logpt-z", 30, 0, 6);
+      _hist_zeta = bookHistogram1D("eta-z", 36, -6, 6);
+      _hist_zphi = bookHistogram1D("phi-z", 25, 0, TWOPI);
+      _hist_zmass = bookHistogram1D("m-z", 40, 60, 100);
+      _hist_zlogmass = bookHistogram1D("logm-z", 20, 0, 10);
+      _hist_jetcount = bookHistogram1D("n-jet", 16, -0.5, 15.5);
+      _hist_jetpt = bookHistogram1D("pt-jet", 50, 20, 100);
+      _hist_jetlogpt = bookHistogram1D("logpt-jet", 20, 0, 20);
     }
     
     
