@@ -1,0 +1,221 @@
+# BEGIN PLOT 
+/MC_LHC_SUSY/eta-e
+Title=$\eta$ distribution for $e^+$, $e^-$
+XLabel=$\eta$
+YLabel=$\mathrm{d}N_e/\mathrm{d}\eta$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/eta-gamma
+Title=$\eta$ distribution for photons
+XLabel=$\eta$
+YLabel=$\mathrm{d}N_\gamma/\mathrm{d}\eta$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/eta-gamma-iso
+Title=$\eta$ distribution for $\Delta{R}=0.2$ jet-isolated photons
+XLabel=$\eta$
+YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}\eta$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/eta-jet
+Title=$\eta$ distribution for $R=0.7$ anti-$k_\perp$ jets
+XLabel=$\eta$
+YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}\eta$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/eta-mu
+Title=$\eta$ distribution for $\mu^+$, $\mu^-$
+XLabel=$\eta$
+YLabel=$\mathrm{d}N_\mu/\mathrm{d}\eta$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/eta-trk
+Title=$\eta$ distribution for charged tracks
+XLabel=$\eta$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\eta$
+# END PLOT
+
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/Etmiss
+Title=$E_\perp^\text{miss}$ distribution
+XLabel=$E_\perp^\text{miss}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}E_\perp^\text{miss}$
+# END PLOT
+
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/mll-ossf-mumu
+Title=$m_{\mu\mu}$ distribution for leading $\mu^+ \mu^-$
+XLabel=$m_{\mu\mu}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{\mu\mu}$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/mll-all-ossf-mumu
+Title=$m_{\mu\mu}$ distribution for combinatoric $\mu^+ \mu^-$
+XLabel=$m_{\mu\mu}$
+YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{\mu\mu}$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/mll-ossf-ee
+Title=$m_{ee}$ distribution for leading $e^+ e^-$
+XLabel=$m_{ee}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{ee}$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/mll-all-ossf-ee
+Title=$m_{ee}$ distribution for combinatoric $e^+ e^-$
+XLabel=$m_{ee}$
+YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{ee}$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/mll-osof-emu
+Title=$m_{e\mu}$ distribution for leading $e^\pm \mu^\mp$
+XLabel=$m_{e\mu}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{e\mu}$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/mll-all-osof-emu
+Title=$m_{e\mu}$ distribution for combinatoric $e^\pm \mu^\mp$
+XLabel=$m_{e\mu}$
+YLabel=$\mathrm{d}N_\text{cand}/\mathrm{d}m_{e\mu}$
+# END PLOT
+
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/n-e
+Title=Multiplicity distribution for $e^+$, $e^-$
+XLabel=$N$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_e$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/n-gamma
+Title=Multiplicity distribution for photons
+XLabel=$N_\gamma$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\gamma$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/n-gamma-iso
+Title=Multiplicity distribution for $\Delta{R}=0.2$ jet-isolated photons
+XLabel=$N_\gamma\text{iso}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\gamma\text{iso}$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/n-jet
+Title=Multiplicity distribution for $R=0.7$ anti-$k_\perp$ jets
+XLabel=$N_\text{jet}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\text{jet}$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/n-mu
+Title=Multiplicity distribution for $\mu^+$, $\mu^-$
+XLabel=$N_\mu$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\mu$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/n-trk
+Title=Multiplicity distribution for charged tracks
+XLabel=$N_\text{ch}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}N_\text{ch}$
+# END PLOT
+
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/phi-e
+Title=$\phi$ distribution for $e^+$, $e^-$
+XLabel=$\phi$
+YLabel=$\mathrm{d}N_e/\mathrm{d}\phi$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/phi-gamma
+Title=$\phi$ distribution for photons
+XLabel=$\phi$
+YLabel=$\mathrm{d}N_\gamma/\mathrm{d}\phi$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/phi-gamma-iso
+Title=$\phi$ distribution for $\Delta{R}=0.2$ jet-isolated photons
+XLabel=$\phi$
+YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}\phi$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/phi-jet
+Title=$\phi$ distribution for $R=0.7$ anti-$k_\perp$ jets
+XLabel=$\phi$
+YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}\phi$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/phi-mu
+Title=$\phi$ distribution for $\mu^+$, $\mu^-$
+XLabel=$\phi$
+YLabel=$\mathrm{d}N_\mu/\mathrm{d}\phi$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/phi-trk
+Title=$\phi$ distribution for charged tracks
+XLabel=$\phi$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\phi$
+# END PLOT
+
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/pt-e
+Title=$p_\perp$ distribution for $e^+$, $e^-$
+XLabel=$p_\perp$
+YLabel=$\mathrm{d}N_e/\mathrm{d}p_\perp$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/pt-gamma
+Title=$p_\perp$ distribution for photons
+XLabel=$p_\perp$
+YLabel=$\mathrm{d}N_\gamma/\mathrm{d}p_\perp$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/pt-gamma-iso
+Title=$p_\perp$ distribution for $\Delta{R}=0.2$ jet-isolated photons
+XLabel=$p_\perp$
+YLabel=$\mathrm{d}N_{\gamma\text{iso}}/\mathrm{d}p_\perp$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/pt-jet
+Title=$p_\perp$ distribution for $R=0.7$ anti-$k_\perp$ jets
+XLabel=$p_\perp$
+YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/pt-mu
+Title=$p_\perp$ distribution for $\mu^+$, $\mu^-$
+XLabel=$p_\perp$
+YLabel=$\mathrm{d}N_\mu/\mathrm{d}p_\perp$
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/pt-trk
+Title=$p_\perp$ distribution for charged tracks
+XLabel=$p_\perp$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}p_\perp$
+# END PLOT
