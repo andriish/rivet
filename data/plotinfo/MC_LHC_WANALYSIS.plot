@@ -19,25 +19,25 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{jet}$
 # BEGIN PLOT /MC_LHC_WANALYSIS/pt-ch
 Title=Charged track $p_\perp$
 XLabel=$p_\perp$ / GeV
-YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}p_\perp^\text{ch}$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}p_\perp^\text{ch}$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_WANALYSIS/ptavg-ch
 Title=Average charged track $p_\perp$
 XLabel=$\langle p_\perp^\text{ch} \rangle$ / GeV
-YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\langle p_\perp^\text{ch} \langle$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\langle p_\perp^\text{ch} \langle$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_WANALYSIS/ptrms-ch
 Title=Width of charged track $p_\perp$
 XLabel=$\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV
-YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_WANALYSIS/pt-w
 Title=W candidate $p_\perp$
 XLabel=$p_\perp(\text{W})$ / GeV
-YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}p_\perp(\text{W})$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}p_\perp(\text{W})$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_WANALYSIS/logpt-w
@@ -49,7 +49,7 @@ YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\log(p_\perp(\text{W})/\text{GeV})$
 # BEGIN PLOT /MC_LHC_WANALYSIS/pt-jet
 Title=Jet $p_\perp$
 XLabel=$p_\perp(\text{jet})$ / GeV
-YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp(\text{jet})$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp(\text{jet})$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_WANALYSIS/logpt-jet
@@ -73,7 +73,7 @@ YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\phi(\text{W})$
 # BEGIN PLOT /MC_LHC_WANALYSIS/m-w
 Title=W candidate mass
 XLabel=$m(\text{W})$ / GeV
-YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}m(\text{W})$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}m(\text{W})$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_WANALYSIS/m-w

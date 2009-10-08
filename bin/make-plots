@@ -94,6 +94,7 @@ class Inputdata:
             else:
                 self.description['RatioPlotSizeY'] = 3.
 
+        ## TODO: Also accept "true", "True", "TRUE", "yes", etc.
         self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
         self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
 

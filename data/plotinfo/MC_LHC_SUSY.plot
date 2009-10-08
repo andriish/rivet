@@ -65,6 +65,14 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT 
+/MC_LHC_SUSY/mll-ossf-mumu
+Title=$m_{\mu\mu}$ distribution for clean $\mu^+ \mu^-$
+XLabel=$m_{\mu\mu}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{\mu\mu}$
+LogY=0
+# END PLOT
+
+# BEGIN PLOT 
 /MC_LHC_SUSY/mll-all-ossf-mumu
 Title=$m_{\mu\mu}$ distribution for combinatoric $\mu^+ \mu^-$
 XLabel=$m_{\mu\mu}$
@@ -81,6 +89,14 @@ LogY=0
 # END PLOT
 
 # BEGIN PLOT 
+/MC_LHC_SUSY/mll-ossf-ee
+Title=$m_{ee}$ distribution for clean $e^+ e^-$
+XLabel=$m_{ee}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{ee}$
+LogY=0
+# END PLOT
+
+# BEGIN PLOT 
 /MC_LHC_SUSY/mll-all-ossf-ee
 Title=$m_{ee}$ distribution for combinatoric $e^+ e^-$
 XLabel=$m_{ee}$
@@ -91,6 +107,14 @@ LogY=0
 # BEGIN PLOT 
 /MC_LHC_SUSY/mll-osof-emu
 Title=$m_{e\mu}$ distribution for leading $e^\pm \mu^\mp$
+XLabel=$m_{e\mu}$
+YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{e\mu}$
+LogY=0
+# END PLOT
+
+# BEGIN PLOT 
+/MC_LHC_SUSY/mll-osof-emu
+Title=$m_{e\mu}$ distribution for clean $e^\pm \mu^\mp$
 XLabel=$m_{e\mu}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}m_{e\mu}$
 LogY=0

@@ -97,6 +97,10 @@ namespace Rivet {
       _hist_mll_all_ossf_mumu = bookHistogram1D("mll-all-ossf-mumu", 50, 0.0, 500);
       _hist_mll_all_osof_emu  = bookHistogram1D("mll-all-osof-emu", 50, 0.0, 500);
 
+      _hist_mll_2_ossf_ee   = bookHistogram1D("mll-2-ossf-ee", 50, 0.0, 500);
+      _hist_mll_2_ossf_mumu = bookHistogram1D("mll-2-ossf-mumu", 50, 0.0, 500);
+      _hist_mll_2_osof_emu  = bookHistogram1D("mll-2-osof-emu", 50, 0.0, 500);
+
       /// @todo LSP eta, pT, phi, mass: no reliable cross-scenario LSP PID but
       /// maybe plot for all of chi^0_1, gravitino, sneutrino, gluino, ... or
       /// identify the LSP as any PID::isSUSY (?) particle with status = 1?
@@ -232,20 +236,29 @@ namespace Rivet {
       if (eminus_ok && eplus_ok) {
         const double m_ee = FourMomentum(peplus + peminus).mass();
         _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
+        if (epluses.size() == 1 && eminuses.size() == 1) 
+          _hist_mll_2_ossf_ee->fill(m_ee/GeV, weight);
       }
       // m_mumu
       if (muminus_ok && muplus_ok) {
         const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
         _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
+        if (mupluses.size() == 1 && muminuses.size() == 1) 
+          _hist_mll_2_ossf_mumu->fill(m_mumu/GeV, weight);
       }
       // m_emu (both configurations)
       if (eminus_ok && muplus_ok) {
         const double m_emu = FourMomentum(pmuplus + peminus).mass();
         _hist_mll_osof_emu->fill(m_emu/GeV, weight);
+        if (mupluses.size() == 1 && eminuses.size() == 1) 
+          _hist_mll_2_ossf_emu->fill(m_emu/GeV, weight);
+
       }
       if (muminus_ok && eplus_ok) {
         const double m_mue = FourMomentum(peplus + pmuminus).mass();
         _hist_mll_osof_emu->fill(m_mue/GeV, weight);
+        if (epluses.size() == 1 && muminuses.size() == 1) 
+          _hist_mll_2_ossf_emu->fill(m_mue/GeV, weight);
       }
 
 
@@ -297,6 +310,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_n_gamma, *_hist_phi_gamma, *_hist_eta_gamma, *_hist_pt_gamma;
     AIDA::IHistogram1D *_hist_n_gammaiso, *_hist_phi_gammaiso, *_hist_eta_gammaiso, *_hist_pt_gammaiso;
     AIDA::IHistogram1D *_hist_met;
+    AIDA::IHistogram1D *_hist_mll_2_ossf_ee, *_hist_mll_2_ossf_mumu, *_hist_mll_2_osof_emu;
     AIDA::IHistogram1D *_hist_mll_ossf_ee, *_hist_mll_ossf_mumu, *_hist_mll_osof_emu;    
     AIDA::IHistogram1D *_hist_mll_all_ossf_ee, *_hist_mll_all_ossf_mumu, *_hist_mll_all_osof_emu;
   };

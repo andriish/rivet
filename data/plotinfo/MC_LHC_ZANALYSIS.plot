@@ -19,25 +19,25 @@ YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{jet}$
 # BEGIN PLOT /MC_LHC_ZANALYSIS/pt-ch
 Title=Charged track $p_\perp$
 XLabel=$p_\perp$ / GeV
-YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}p_\perp^\text{ch}$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}p_\perp^\text{ch}$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_ZANALYSIS/ptavg-ch
 Title=Average charged track $p_\perp$
 XLabel=$\langle p_\perp^\text{ch} \rangle$ / GeV
-YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\langle p_\perp^\text{ch} \langle$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\langle p_\perp^\text{ch} \langle$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_ZANALYSIS/ptrms-ch
 Title=Width of charged track $p_\perp$
 XLabel=$\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV
-YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_ZANALYSIS/pt-z
 Title=Z candidate $p_\perp$
 XLabel=$p_\perp(\text{Z})$ / GeV
-YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}p_\perp(\text{Z})$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}p_\perp(\text{Z})$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_ZANALYSIS/logpt-z
@@ -49,7 +49,7 @@ YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}\log(p_\perp(\text{Z})/\text{GeV})$
 # BEGIN PLOT /MC_LHC_ZANALYSIS/pt-jet
 Title=Jet $p_\perp$
 XLabel=$p_\perp(\text{jet})$ / GeV
-YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp(\text{jet})$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp(\text{jet})$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_ZANALYSIS/logpt-jet
@@ -73,7 +73,7 @@ YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}\phi(\text{Z})$
 # BEGIN PLOT /MC_LHC_ZANALYSIS/m-z
 Title=Z candidate mass
 XLabel=$m(\text{Z})$ / GeV
-YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}m(\text{Z})$ / GeV$^-1$
+YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}m(\text{Z})$ / GeV$^{-1}$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_ZANALYSIS/m-z
