@@ -251,14 +251,14 @@ namespace Rivet {
         const double m_emu = FourMomentum(pmuplus + peminus).mass();
         _hist_mll_osof_emu->fill(m_emu/GeV, weight);
         if (mupluses.size() == 1 && eminuses.size() == 1) 
-          _hist_mll_2_ossf_emu->fill(m_emu/GeV, weight);
+          _hist_mll_2_osof_emu->fill(m_emu/GeV, weight);
 
       }
       if (muminus_ok && eplus_ok) {
         const double m_mue = FourMomentum(peplus + pmuminus).mass();
         _hist_mll_osof_emu->fill(m_mue/GeV, weight);
         if (epluses.size() == 1 && muminuses.size() == 1) 
-          _hist_mll_2_ossf_emu->fill(m_mue/GeV, weight);
+          _hist_mll_2_osof_emu->fill(m_mue/GeV, weight);
       }
 
 
