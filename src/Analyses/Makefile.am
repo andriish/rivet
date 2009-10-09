@@ -6,8 +6,7 @@ lib_LTLIBRARIES =
 
 lib_LTLIBRARIES += RivetExampleAnalyses.la
 RivetExampleAnalyses_la_SOURCES = \
-    ExampleAnalysis.cc \
-    ExampleTree.cc
+    ExampleAnalysis.cc
 
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la

@@ -14,6 +14,9 @@ EXTRA_DIST = MyAnalysis.cc
 $(pluginlib): MyAnalysis.cc
 	$(CXX) -o $(pluginlib) $(shared_flags) -I$(top_srcdir)/include -I$(HEPMCINCPATH) MyAnalysis.cc
 
+## Bundle the ROOT-based analysis in the Rivet tarball
+EXTRA_DIST += RootAnalysis.cc
+
 ## Hook in the build rule for the plugin library demo
 plugin: $(pluginlib)
 	@true
