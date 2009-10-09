@@ -34,13 +34,16 @@ namespace Rivet {
     void init() {
 
       /// Initialise and register projections here
-      ZFinder zfinder(-2.8, 2.8, 20.0*GeV, ELECTRON,
+      // this seems to have been corrected completely for all selection cuts,
+      // i.e. eta cuts and pT cuts on leptons.
+      ZFinder zfinder(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
                       66.0*GeV, 116.0*GeV, 0.2);
       addProjection(zfinder, "ZFinder");
 
 
-      /// Book histograms here, e.g.:
-      _h_yZ = bookHistogram1D(1, 1, 1);
+      /// Book histograms here
+      _h_xs = bookHistogram1D(1, 1, 1);
+      _h_yZ = bookHistogram1D(2, 1, 1);
 
     }
 
@@ -53,6 +56,7 @@ namespace Rivet {
       if (zfinder.particles().size() == 1) {
         double yZ = fabs(zfinder.particles()[0].momentum().rapidity());
         _h_yZ->fill(yZ, weight);
+        _h_xs->fill(1960.0, weight);
       }
       else {
         getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
@@ -63,7 +67,10 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_yZ, crossSection()/sumOfWeights());
+      scale(_h_xs, crossSection()/sumOfWeights());
+      // Data seems to have been normalized for the avg of the two sides 
+      // (+ve & -ve rapidity) rather than the sum, hence the 0.5:
+      scale(_h_yZ, 0.5*crossSection()/sumOfWeights());
     }
 
     //@}
@@ -73,8 +80,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
     AIDA::IHistogram1D *_h_yZ;
+    AIDA::IHistogram1D *_h_xs;
     //@}
 
   };
