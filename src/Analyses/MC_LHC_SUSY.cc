@@ -48,7 +48,7 @@ namespace Rivet {
       addProjection(efs, "Electrons");
 
       IdentifiedFinalState mufs(fs);
-      efs.acceptIdPair(MUON);
+      mufs.acceptIdPair(MUON);
       addProjection(mufs, "Muons");
 
       addProjection(TotalVisibleMomentum(fs), "MET");
