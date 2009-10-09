@@ -6,11 +6,9 @@
 #include "Rivet/Projections/FastJets.hh"
 
 // ROOT stuff
-#ifdef HAVE_ROOT
 #include "TTree.h"
 #include "TFile.h"
 #include "TString.h"
-#endif
 
 namespace Rivet {
 
@@ -21,25 +19,10 @@ namespace Rivet {
   /// are not recommended in Rivet analyses, since the information is 
   /// unphysical and so cannot be compared to data, and also may be generator dependent.
   /// 
-  class ExampleTree : public Analysis {
+  class RootAnalysis : public Analysis {
   public:
 
-    #ifndef HAVE_ROOT
-    
-    ExampleTree() : Analysis("EXAMPLETREE") { }
-    void init() {
-      getLog() << Log::WARN << "Rivet was not compiled against ROOT. ExampleTree will do nothing." << endl;
-    }
-    void analyze(const Event& event) { }
-    void finalize() { }
-
-
-    #else
-
-
-    ExampleTree() 
-      : Analysis("EXAMPLETREE")
-    { 
+    RootAnalysis() : Analysis("ROOTANALYSIS") { 
       // Choose cuts
       _jet_pt_cut = 20*GeV;
       _subj_pt_cut = 20*GeV;
@@ -277,13 +260,11 @@ namespace Rivet {
     /// Store the partons or not?
     bool _store_partons;
 
-    #endif
-
   };
 
   
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ExampleTree> plugin_ExampleTree;
+  AnalysisBuilder<RootAnalysis> plugin_RootAnalysis;
 
 }
