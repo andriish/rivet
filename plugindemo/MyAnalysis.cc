@@ -19,11 +19,6 @@ namespace Rivet {
     }
         
     
-    /// Return the name of this analysis
-    string name() const {
-      return "MyAnalysis";
-    }
-    
     /// Get the SPIRES ID code
     string spiresId() const {
       return "NONE";
