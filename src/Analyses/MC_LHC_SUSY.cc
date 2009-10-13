@@ -271,21 +271,21 @@ namespace Rivet {
         }
       }
       // m_mumu
-      foreach (const FourMomentum& pmuplus, epluses) {
-        foreach (const FourMomentum& pmuminus, eminuses) {
+      foreach (const FourMomentum& pmuplus, mupluses) {
+        foreach (const FourMomentum& pmuminus, muminuses) {
           const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
           _hist_mll_all_ossf_mumu->fill(m_mumu/GeV, weight);
         }
       }
       // m_emu (both configurations)
-      foreach (const FourMomentum& pmuplus, epluses) {
+      foreach (const FourMomentum& pmuplus, mupluses) {
         foreach (const FourMomentum& peminus, eminuses) {
           const double m_emu = FourMomentum(pmuplus + peminus).mass();
           _hist_mll_all_osof_emu->fill(m_emu/GeV, weight);
         }
       }
       foreach (const FourMomentum& peplus, epluses) {
-        foreach (const FourMomentum& pmuminus, eminuses) {
+        foreach (const FourMomentum& pmuminus, muminuses) {
           const double m_mue = FourMomentum(peplus + pmuminus).mass();
           _hist_mll_all_osof_emu->fill(m_mue/GeV, weight);
         }

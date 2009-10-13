@@ -44,7 +44,7 @@ namespace Rivet {
       _hist_weta = bookHistogram1D("eta-w", 36, -6, 6);
       _hist_wphi = bookHistogram1D("phi-w", 25, 0, TWOPI);
       _hist_wmass = bookHistogram1D("m-w", 40, 60, 100);
-      _hist_logmass = bookHistogram1D("logm-w", 20, 0, 10);
+      _hist_wlogmass = bookHistogram1D("logm-w", 20, 0, 10);
       _hist_jetcount = bookHistogram1D("n-jet", 16, -0.5, 15.5);
       _hist_jetpt = bookHistogram1D("pt-jet", 50, 20, 100);
       _hist_jetlogpt = bookHistogram1D("logpt-jet", 20, 0, 20);
