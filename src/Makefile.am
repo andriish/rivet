@@ -1,4 +1,4 @@
-SUBDIRS = . Projections 
+SUBDIRS = Projections 
 if ENABLE_ANALYSES
 SUBDIRS += Analyses
 endif
