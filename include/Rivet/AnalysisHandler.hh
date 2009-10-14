@@ -100,13 +100,10 @@ namespace Rivet {
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
 
 
-    /// Add an analysis to the run list by supplying a "template" analysis.
-    /// @todo Is there a good reason to not allow "direct" submission?
-    template <typename A>
-    AnalysisHandler& addAnalysis(const A& analysis) {
-      A* a = new A(analysis);
-      a->_analysishandler = this;
-      _analyses.insert(a);
+    /// Add an analysis to the run list explicitely
+    AnalysisHandler& addAnalysis(Analysis* analysis) {
+      analysis->_analysishandler = this;
+      _analyses.insert(analysis);
       return *this;
     }
 
