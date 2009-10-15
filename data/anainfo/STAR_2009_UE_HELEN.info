@@ -1,0 +1,27 @@
+Name: STAR_2009_UE_HELEN
+Year: 2009
+Summary: UE measurement in pp at 200 GeV
+Experiment: STAR
+Collider: RHIC pp 200 GeV
+SpiresID: None
+Status: UNVALIDATED
+Authors:
+ - Helen Caines <helen.caines@yale.edu>
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - presented at Quark-Matter 2009
+RunInfo:
+  pp at 200 GeV
+NumEvents: 1000000
+PtCuts: [2, 10]
+Description:
+  UE analysis similar to Rick Field's leading jet analysis. SIScone with
+  radius/resolution paramter R=0.7 is used. Particles with pT > 0.2 GeV
+  and |eta| < 1 are included in the analysis. All particles are assumed
+  to have zero mass. Only jets with neutral energy < 0.7 are included.
+  For the transMIN and transMAX delta(Phi) is between pi/3 and 2pi/3 and
+  delta(eta)<2.0. For the jet region the area of the jet is used for the
+  normalization, i.e. the scaling factor is pi*R^2 and not dphi*deta (this
+  is different from what Rick Field does!). The tracking efficiency is ~0.8,
+  but that is an approximation, as below pT~0.6GeV it is falling quite
+  steeply.

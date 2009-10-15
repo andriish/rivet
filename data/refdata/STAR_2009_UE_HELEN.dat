@@ -70,20 +70,6 @@ LegendXPos=0.5
 XLabel=leading jet $p_T$
 # END PLOT
 
-# BEGIN HISTOGRAM minueTrackSis
-Title=transMIN charged particle density
-XLabel=leading jet $p_T$
-LineColor=red
-ErrorBars=1
-5	10	0.15	0.030
-10	15	0.13	0.026
-15	20	0.12	0.024
-20	25	0.11	0.022
-25	30	0.10	0.021
-30	35	0.08	0.017
-35	40	0.09	0.023
-# END HISTOGRAM
-
 # BEGIN HISTOGRAM maxueTrackSis
 Title=transMAX charged particle density
 XLabel=leading jet $p_T$
@@ -96,6 +82,20 @@ ErrorBars=1
 25	30	0.56	0.112
 30	35	0.51	0.104
 35	40	0.50	0.108
+# END HISTOGRAM
+
+# BEGIN HISTOGRAM minueTrackSis
+Title=transMIN charged particle density
+XLabel=leading jet $p_T$
+LineColor=red
+ErrorBars=1
+5	10	0.15	0.030
+10	15	0.13	0.026
+15	20	0.12	0.024
+20	25	0.11	0.022
+25	30	0.10	0.021
+30	35	0.08	0.017
+35	40	0.09	0.023
 # END HISTOGRAM
 
 # BEGIN HISTOGRAM awayTrackSis

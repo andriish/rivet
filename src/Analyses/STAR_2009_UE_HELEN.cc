@@ -11,158 +11,90 @@ namespace Rivet {
 
   /* STAR underlying event
    * @author Hendrik Hoeth
-   */ 
+   */
   class STAR_2009_UE_HELEN : public Analysis {
   public:
 
     /// Constructor
     STAR_2009_UE_HELEN()
-      : Analysis("STAR_2009_UE_HELEN")  
+      : Analysis("STAR_2009_UE_HELEN")
     {
-      setBeams(PROTON, ANTIPROTON);
+      setBeams(PROTON, PROTON);
     }
 
 
-    /// TODO: make sure this goes into the .info file:
-
-    // /// @name Publication metadata
-    // //@{
-
-    // /// Analysis name
-    // string name() const {
-    //   return "STAR_2009_UE_HELEN";
-    // }
-    // /// SPIRES key (IRN)
-    // string spiresId() const {
-    //   return "NONE";
-    // }
-    // /// A short description of the analysis.
-    // string summary() const {
-    //   return "CDF Run 2 underlying event in leading jet events";
-    // }
-    // /// Full description of the analysis, for the manual
-    // string description() const {
-    //   ostringstream os;
-    //   os << "";
-    //   return os.str();
-    // }
-    // /// Experiment which performed and published this analysis.
-    // string experiment() const {
-    //  return "STAR";
-    // }
-    // /// Collider on which the experiment was based
-    // string collider() const {
-    //  return "(RHIC pp 200 GeV)";
-    // }
-    // /// When published according to SPIRES
-    // string year() const {
-    //  return "2008";
-    // }
-    // /// Names & emails of paper/analysis authors.
-    // vector<string> authors() const {
-    //   vector<string> ret;
-    //   ret += "Hendrik Hoeth <hendrik.hoeth@cern.ch>";
-    //   return ret;
-    // }
-    // /// Information about the events needed as input for this analysis.
-    // string runInfo() const {
-    //   ostringstream os;
-    //   os << "* pp interactions at 200 GeV";
-    //   return os.str();
-    // }
-
-    // string status() const {
-    //   return "UNVALIDATED";
-    // }
-    // /// No journal or preprint references.
-    // vector<string> references() const {
-    //   vector<string> ret;
-    //   ret += "";
-    //   return ret;
-    // }
-
-    // //@}
-    
-
     /// @name Analysis methods
     //@{
-    
-    /// Book projections and histograms
+
     void init() {
       // Final state for the jet finding
       const FinalState fsj(-4.0, 4.0, 0.0*GeV);
       addProjection(fsj, "FSJ");
-      /// @todo STAR doesn't really use a CDF midpoint algorithm!
-      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "Jets");
-      
-      // Final state for the sum(ET) distributions
-      const FinalState fs(-1.0, 1.0, 0.0*GeV);
-      addProjection(fs, "FS");
-      
+      /// @todo Check which merging parameter they've been using
+      addProjection(FastJets(fsj, FastJets::SISCONE, 0.7), "AllJets");
+
       // Charged final state for the distributions
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      const ChargedFinalState cfs(-1.0, 1.0, 0.2*GeV);
       addProjection(cfs, "CFS");
 
-      // Histograms
-      _hist_pnchg      = bookProfile1D( 1, 1, 1);
-      _hist_pmaxnchg   = bookProfile1D( 2, 1, 1);
-      _hist_pminnchg   = bookProfile1D( 3, 1, 1);
-      _hist_pdifnchg   = bookProfile1D( 4, 1, 1);
-      _hist_pcptsum    = bookProfile1D( 5, 1, 1);
-      _hist_pmaxcptsum = bookProfile1D( 6, 1, 1);
-      _hist_pmincptsum = bookProfile1D( 7, 1, 1);
-      _hist_pdifcptsum = bookProfile1D( 8, 1, 1);
-      _hist_pcptave    = bookProfile1D( 9, 1, 1);
-      //_hist_onchg   = bookProfile1D( 1, 1, 1, "Overall number of charged particles");
-      //_hist_ocptsum = bookProfile1D( 2, 1, 1, "Overall charged $p_\\perp$ sum");
-      //_hist_oetsum  = bookProfile1D( 3, 1, 1, "Overall $E_\\perp$ sum");
+      // Book histograms
+      _hist_pmaxnchg   = bookProfile1D( 1, 1, 1);
+      _hist_pminnchg   = bookProfile1D( 2, 1, 1);
+      _hist_anchg      = bookProfile1D( 3, 1, 1);
     }
-    
-    
-    /// Do the analysis
+
+
+    // Do the analysis
     void analyze(const Event& e) {
       const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
       if (fsj.particles().size() < 1) {
         getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
         vetoEvent;
       }
-      
-      const Jets jets = applyProjection<FastJets>(e, "Jets").jetsByPt();
-      getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
-      
+
+      const Jets& alljets = applyProjection<FastJets>(e, "AllJets").jetsByPt();
+      getLog() << Log::DEBUG << "Total jet multiplicity = " << alljets.size() << endl;
+
+      Jets jets;
+      foreach (const Jet jet, alljets) {
+        if (jet.neutralEnergy() < 0.7)
+          jets.push_back(jet);
+      }
+
       // We require the leading jet to be within |eta|<2
       if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 2) {
         getLog() << Log::DEBUG << "Failed jet cut" << endl;
         vetoEvent;
       }
-      
+
       const double jetphi = jets[0].momentum().phi();
       const double jetpT  = jets[0].momentum().pT();
-      
+
       // Get the event weight
       const double weight = e.weight();
-      
+
       // Get the final states to work with for filling the distributions
       const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
-      
-      size_t   numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
+
+      size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
       double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
       //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
       double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
-      
+
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
         const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
         const double pT = p.momentum().pT();
         const double phi = p.momentum().phi();
-        /// @todo Jet and particle phi should have same ranges this way: check
-        const double rotatedphi = phi - jetphi;
-        
+        double rotatedphi = phi - jetphi;
+        while (rotatedphi < 0) rotatedphi += 2*PI;
+
         ptSumOverall += pT;
         ++numOverall;
-        if (pT > ptMaxOverall)
+        if (pT > ptMaxOverall) {
           ptMaxOverall = pT;
-        
+        }
+
         if (dPhi < PI/3.0) {
           ptSumToward += pT;
           ++numToward;
@@ -190,91 +122,37 @@ namespace Rivet {
             ptMaxAway = pT;
         }
       } // end charged particle loop
-      
-      
-      #if 0   
-      /// @todo Enable this part when we have the numbers from Rick Field
-      
-      // And now the same business for all particles (including neutrals)
-      foreach (const Particle& p, fs.particles()) {
-        const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
-        const double ET = p.momentum().Et();
-        const double phi = p.momentum().phi();
-        const double rotatedphi = phi - jetphi;
-        
-        EtSumOverall += ET;
-        
-        if (dPhi < PI/3.0) {
-          EtSumToward += ET;
-        }
-        else if (dPhi < 2*PI/3.0) {
-          if (rotatedphi <= PI) {
-            EtSumTrans1 += ET;
-          }
-          else {
-            EtSumTrans2 += ET;
-          }
-        }
-        else {
-          EtSumAway += ET;
-        }
-      } // end all particle loop
-      #endif
-      
-      
+
+
+
       // Fill the histograms
-      //_hist_tnchg->fill(jetpT, numToward/(4*PI/3), weight);
-      _hist_pnchg->fill(jetpT, (numTrans1+numTrans2)/(4*PI/3), weight);
-      _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pdifnchg->fill(jetpT, abs(numTrans1-numTrans2)/(2*PI/3), weight);
-      //_hist_anchg->fill(jetpT, numAway/(4*PI/3), weight);
-      
-      //_hist_tcptsum->fill(jetpT, ptSumToward/(4*PI/3), weight);
-      _hist_pcptsum->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
-      _hist_pmaxcptsum->fill(jetpT, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      _hist_pmincptsum->fill(jetpT, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      _hist_pdifcptsum->fill(jetpT, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3), weight);
-      //_hist_acptsum->fill(jetpT, ptSumAway/(4*PI/3), weight);
-      
-      //if (numToward > 0) {
-      //  _hist_tcptave->fill(jetpT, ptSumToward/numToward, weight);
-      //  _hist_tcptmax->fill(jetpT, ptMaxToward, weight);
-      //}
-      if ((numTrans1+numTrans2) > 0) {
-        _hist_pcptave->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2), weight);
-        //_hist_pcptmax->fill(jetpT, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2), weight);
-      }
-      //if (numAway > 0) {
-      //  _hist_acptave->fill(jetpT, ptSumAway/numAway, weight);
-      //  _hist_acptmax->fill(jetpT, ptMaxAway, weight);
-      //}
+      // @TODO: TAKE OUT THE 0.8 SCALE FACTOR WHEN WE GET THE FINAL DATA!!!!!!
+      const double efficiency = 0.8;
+      _hist_pmaxnchg->fill(jetpT, efficiency*(numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      _hist_pminnchg->fill(jetpT, efficiency*(numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      _hist_anchg->fill(jetpT, efficiency*numAway/(PI*0.7*0.7), weight); // jet area = pi*R^2
+
     }
-    
-    
-    void finalize() {  
+
+
+    void finalize() {
       //
     }
 
     //@}
 
+
   private:
 
-    AIDA::IProfile1D *_hist_pnchg;
     AIDA::IProfile1D *_hist_pmaxnchg;
     AIDA::IProfile1D *_hist_pminnchg;
-    AIDA::IProfile1D *_hist_pdifnchg;
-    AIDA::IProfile1D *_hist_pcptsum;
-    AIDA::IProfile1D *_hist_pmaxcptsum;
-    AIDA::IProfile1D *_hist_pmincptsum;
-    AIDA::IProfile1D *_hist_pdifcptsum;
-    AIDA::IProfile1D *_hist_pcptave;
+    AIDA::IProfile1D *_hist_anchg;
 
   };
 
-  
-  
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<STAR_2009_UE_HELEN> plugin_STAR_2009_UE_HELEN;
-  
+
 }

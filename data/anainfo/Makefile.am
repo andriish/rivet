@@ -62,6 +62,7 @@ dist_pkgdata_DATA = \
   SFM_1984_S1178091.info \
   STAR_2006_S6870392.info \
   STAR_2008_S7993412.info \
+  STAR_2009_UE_HELEN.info \
   ZEUS_2001_S4815815.info \
   UA1_1990_S2044935.info \
   UA5_1982_S875503.info \

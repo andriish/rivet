@@ -63,6 +63,7 @@ dist_pkgdata_DATA = \
   SFM_1984_S1178091.plot \
   STAR_2006_S6870392.plot \
   STAR_2008_S7993412.plot \
+  STAR_2009_UE_HELEN.plot \
   ZEUS_2001_S4815815.plot \
   UA1_1990_S2044935.plot \
   UA5_1982_S875503.plot \

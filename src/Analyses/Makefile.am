@@ -78,8 +78,8 @@ RivetLEPAnalyses_la_SOURCES = \
 lib_LTLIBRARIES += RivetRHICAnalyses.la
 RivetRHICAnalyses_la_SOURCES = \
     STAR_2006_S6870392.cc \
-    STAR_2008_S7993412.cc
-    #STAR_2009_UE_HELEN.cc
+    STAR_2008_S7993412.cc \
+    STAR_2009_UE_HELEN.cc
 
 
 lib_LTLIBRARIES += RivetSPSAnalyses.la
