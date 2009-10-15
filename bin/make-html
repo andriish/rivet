@@ -52,10 +52,11 @@ except:
 ## get set of analyses/reffiles involved in the runs
 analyses = set()
 reffiles = list()
+labels = []
 for aidafile in aidafiles:
-    aidafilepath = os.path.abspath(aidafile)
+    aidafilepath = os.path.abspath(aidafile.split(":")[0])
     if not os.access(aidafilepath, os.R_OK):
-        print "Error: cannot read from %s" % aidafile
+        print "Error: cannot read from %s" % aidafile.split(":")[0]
         exit(2)
     tree = ET.parse(aidafilepath)
     for dps in tree.findall("dataPointSet"):
@@ -67,7 +68,7 @@ for aidafile in aidafiles:
 
 ## run compare-histos to get plain .dat files from .aida
 ch_cmd = ["compare-histos"]
-ch_cmd.append("--mc-errs")
+#ch_cmd.append("--mc-errs")
 ch_cmd.append("--plot-info-dir=../")
 if len(aidafiles)+len(reffiles)<2:
     ch_cmd.append("--show-ref-only")
