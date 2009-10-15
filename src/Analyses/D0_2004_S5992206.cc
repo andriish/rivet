@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 
 namespace Rivet {
@@ -48,7 +47,6 @@ namespace Rivet {
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 6*GeV), "Jets");
       addProjection(TotalVisibleMomentum(fs), "CalMET");
-      addProjection(PVertex(), "PV");
       
       // Veto neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
@@ -70,10 +68,6 @@ namespace Rivet {
       // Analyse and print some info
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
-      
-      // Find vertex and check  that its z-component is < 50 cm from the nominal IP
-      const PVertex& pv = applyProjection<PVertex>(event, "PV");
-      if (fabs(pv.position().z())/cm > 50.0) vetoEvent;
       
       const Jets jets  = jetpro.jetsByPt(40.0*GeV);
       if (jets.size() >= 2) {
