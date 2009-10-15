@@ -89,6 +89,11 @@ namespace Rivet {
       delete a;
     }
     _analyses.clear();
+
+    // Print out MCnet boilerplate
+    cout << endl;
+    cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
+    cout << "Please cite arXiv:0809.4638" << endl;
   }
 
 
