@@ -42,23 +42,36 @@ namespace Rivet {
   
   bool Run::processFile(const std::string& evtfile) {
     HepMC::IO_GenEvent* io = 0;
+    std::istream* istr = 0;
     if (evtfile == "-") {
       io = new HepMC::IO_GenEvent(std::cin);
     } else {
-      io = new HepMC::IO_GenEvent(evtfile, std::ios::in);
+      // Ignore the HepMC::IO_GenEvent(filename, ios) constructor, since only available from HepMC 2.4
+      istr = new std::fstream(evtfile.c_str(), std::ios::in);
+      io = new HepMC::IO_GenEvent(*istr);
     }
     if (io->rdstate() != 0) {
-      Log::getLog("Rivet.Run") << Log::ERROR
-          << "Read error on file " << evtfile << endl;
+      Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
       return false;
     }
     
     GenEvent* evt = new GenEvent();
     while (io->fill_next_event(evt)) {
 
+      // Check for a bad read
+      if (io->rdstate() != 0) {
+        Log::getLog("Rivet.Run") << Log::DEBUG << "End of file?" << endl;
+        break;
+      }
+
       // Set up system based on properties of first event
       if (_numEvents == 0) {
-        int num_anas_requested = _ah.analysisNames().size();
+        // If empty
+        if (evt->particles_size() == 0) {
+          Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event from " << evtfile << endl;
+          return false;
+        }
+        size_t num_anas_requested = _ah.analysisNames().size();
         _ah.removeIncompatibleAnalyses(beamIds(*evt));
         if (num_anas_requested > 0 && _ah.analysisNames().size() == 0) {
           Log::getLog("Rivet.Run") << Log::ERROR
@@ -83,7 +96,7 @@ namespace Rivet {
         /// @todo Use xs error?
         const double xs = evt->cross_section()->cross_section(); //< in pb
         Log::getLog("Rivet.Run") << Log::DEBUG
-            << "Setting cross-section = " << xs << " pb" << endl;
+                                 << "Setting cross-section = " << xs << " pb" << endl;
         _ah.setCrossSection(xs);
       }
       #endif
@@ -113,6 +126,7 @@ namespace Rivet {
     // Final HepMC object clean-up
     delete evt;
     delete io;
+    delete istr;
     
     return true;
   }
