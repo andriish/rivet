@@ -25,9 +25,10 @@ libRivetTools_la_CPPFLAGS = \
   -DDEFAULTDATADIR=\"$(datadir)\" \
   -DDEFAULTLIBDIR=\"$(libdir)\"
 
+## NB. Using $(top_builddir)/src/Tools rather than $(builddir) because of SL4 automake bug
 if WITH_YAML_CPP
-libRivetTools_la_LDFLAGS = $(AM_LDFLAGS) -L$(builddir)/yaml-cpp
+libRivetTools_la_LDFLAGS = $(AM_LDFLAGS) -L$(YAML_CPPLIBPATH)
 libRivetTools_la_LIBADD = -lyaml-cpp
 else
-libRivetTools_la_LIBADD = $(builddir)/yaml-cpp/libyaml-cpp.la
+libRivetTools_la_LIBADD = $(top_builddir)/src/Tools/yaml-cpp/libyaml-cpp.la
 endif
