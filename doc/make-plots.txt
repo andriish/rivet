@@ -119,11 +119,13 @@ YMin=<value>
 YMax=<value>
 ZMin=<value>
 ZMax=<value>
+FullRange=<0|1>
 --------------------
 Specify the plot range. By default the range is chosen such that all data
 is visible in linear plots. In logarithmic plots the automatic choice of `YMin`
 is limited to be not smaller than 2e-4*`YMax`, but manually you can specify
-any value.
+any value. `FullRange=1` also overrides the 2e-4*`YMax` limit and plots the
+full range in y.
 
 
 Sizes and Margins
