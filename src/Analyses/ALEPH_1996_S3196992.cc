@@ -46,7 +46,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       
-      const ParticleVector photons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
+      const ParticleVector allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
+      ParticleVector photons;
+      foreach (const Particle& photon, allphotons) {
+        if (fabs(cos(photon.momentum().theta()))<0.95) {
+          photons.push_back(photon);
+        }
+      }
       if (photons.size()<1) {
         vetoEvent;
       }
