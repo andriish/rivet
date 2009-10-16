@@ -35,7 +35,7 @@ namespace Rivet {
       addProjection(ChargedFinalState(1.0, 2.0), "CFS20F");
       addProjection(ChargedFinalState(1.5, 2.5), "CFS25F");
       addProjection(ChargedFinalState(2.0, 3.0), "CFS30F");
-      addProjection(ChargedFinalState(2.5, 3.5), "CFS45F");
+      addProjection(ChargedFinalState(2.5, 3.5), "CFS35F");
       addProjection(ChargedFinalState(3.0, 4.0), "CFS40F");
       
       // Backward eta intervals
@@ -44,7 +44,7 @@ namespace Rivet {
       addProjection(ChargedFinalState(-2.0, -1.0), "CFS20B");
       addProjection(ChargedFinalState(-2.5, -1.5), "CFS25B");
       addProjection(ChargedFinalState(-3.0, -2.0), "CFS30B");
-      addProjection(ChargedFinalState(-3.5, -2.5), "CFS45B");
+      addProjection(ChargedFinalState(-3.5, -2.5), "CFS35B");
       addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
             
 
