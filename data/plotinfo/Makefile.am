@@ -43,7 +43,6 @@ dist_pkgdata_DATA = \
   DELPHI_1995_S3137023.plot \
   DELPHI_1996_S3430090.plot \
   DELPHI_2002_069_CONF_603.plot \
-  DELPHI_2003_WUD_03_11.plot \
   EXAMPLE.plot \
   H1_1994_S2919893.plot \
   H1_1995_S3167097.plot \

@@ -43,7 +43,6 @@ dist_pkgdata_DATA = \
   DELPHI_1995_S3137023.info \
   DELPHI_1996_S3430090.info \
   DELPHI_2002_069_CONF_603.info \
-  DELPHI_2003_WUD_03_11.info \
   EXAMPLE.info \
   EXAMPLETREE.info \
   H1_1994_S2919893.info \
