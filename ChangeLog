@@ -1,3 +1,8 @@
+2009-10-17  Andy Buckley  <andy@insectnation.org>
+
+	* Adding parsing of units in cross-sections passed to the "-x"
+	flag, i.e. "-x 101 mb" is parsed internally into 1.01e11 pb.
+
 2009-10-16  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Disabling DELPHI_2003_WUD_03_11 in the Makefiles, since I don't

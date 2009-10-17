@@ -96,7 +96,7 @@ parser.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                   help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 parser.add_option("-H", "--histo-file", dest="HISTOFILE", 
                   default="Rivet", help="specify the output histo file path")
-parser.add_option("-x", "--cross-section", dest="CROSS_SECTION", type="float",
+parser.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                   default=None, metavar="XS",
                   help="specify the signal process cross-section in pb")
 
@@ -155,6 +155,39 @@ for l in opts.NATIVE_LOG_STRS:
         rivet.Log.setLogLevel(name, level)
     except:
         logging.warning("Couldn't process logging string '%s'" % l)
+
+
+## Parse supplied cross-section
+if opts.CROSS_SECTION is not None:
+    xsstr = opts.CROSS_SECTION
+    try:
+        opts.CROSS_SECTION = float(xsstr)
+    except:
+        import re
+        suffmatch = re.search(r"[^\d.]", xsstr)
+        if not suffmatch:
+            raise ValueError("Bad cross-section string: %s" % xsstr)
+        factor = base = None
+        suffstart = suffmatch.start()
+        if suffstart != -1:
+            base = xsstr[:suffstart]
+            suffix = xsstr[suffstart:].lower()
+            if suffix == "mb":
+                factor = 1e+9
+            elif suffix == "mub":
+                factor = 1e+6
+            elif suffix == "nb":
+                factor = 1e+3
+            elif suffix == "pb":
+                factor = 1
+            elif suffix == "fb":
+                factor = 1e-3
+            elif suffix == "ab":
+                factor = 1e-6
+        if factor is None or base is None:
+            raise ValueError("Bad cross-section string: %s" % xsstr)
+        xs = float(base) * factor
+        opts.CROSS_SECTION = xs
 
 
 ## Print the available CLI options!
@@ -312,6 +345,8 @@ if opts.LIST_USED_ANALYSES is not None:
 for evtfile in HEPMCFILES:
     import platform
     logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
+    if opts.CROSS_SECTION is not None:
+        logging.info("User-supplied cross-section = %e pb" % opts.CROSS_SECTION)
     logging.info("Reading events from '%s'" % evtfile)
     if not run.processFile(evtfile):
         break
@@ -320,8 +355,10 @@ for evtfile in HEPMCFILES:
         break
 logging.info("Finished event loop")
 
+## Override any generator cross-section to that supplied on the command line, if there was one
+if opts.CROSS_SECTION is not None:
+    run.setCrossSection(opts.CROSS_SECTION)
 
 ## Finalize and write out data file
 ah.finalize()
 ah.commitData();
-
