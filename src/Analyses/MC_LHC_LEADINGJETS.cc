@@ -37,7 +37,7 @@ namespace Rivet {
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       addProjection(cfs, "CFS");
 
-      const double maxpt1 = 500.0/GeV;
+      const double maxpt1 = 500.0;
       _hist_pnchg      = bookProfile1D("trans-nchg", 50, 0.0, maxpt1);
       _hist_pmaxnchg   = bookProfile1D("trans-maxnchg", 50, 0.0, maxpt1);
       _hist_pminnchg   = bookProfile1D("trans-minnchg", 50, 0.0, maxpt1);
@@ -69,7 +69,7 @@ namespace Rivet {
 
       const double jetphi = jets[0].momentum().phi();
       const double jetpT  = jets[0].momentum().pT();
-      getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
+      getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT/GeV << " GeV"
                << ", eta = " << jets[0].momentum().pseudorapidity()
                << ", phi = " << jetphi << endl;
 
