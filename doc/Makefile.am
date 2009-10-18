@@ -48,18 +48,17 @@ MAKEINDEX = makeindex
 RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
 RERUNBIB = "No file.*\.bbl|Citation.*undefined"
 MAKEIDX = "^[^%]*\\makeindex"
-COPY = if test -r $(<:%.tex=%.toc); then cp $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); fi
 RM = rm -f
 
-rivet-manual.pdf : rivet-manual.tex preamble.tex analyses.tex
-	$(COPY);$(LATEX) $< 
-	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%); $(COPY); $(LATEX) $<) > /dev/null; true
-	egrep -c $(RERUNBIB) $(<:%.tex=%.log) && ($(BIBTEX) $(<:%.tex=%); $(COPY); $(LATEX) $<); true
-	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) > /dev/null; true
-	egrep $(RERUN) $(<:%.tex=%.log) && ($(COPY);$(LATEX) $<) > /dev/null; true
-	if cmp -s $(<:%.tex=%.toc) $(<:%.tex=%.toc.bak); then true; else $(LATEX) $< ; fi
-	$(RM) $(<:%.tex=%.toc.bak)
-	egrep -i "(Reference|Citation).*undefined" $(<:%.tex=%.log) ; true
+DOCNAME = rivet-manual
+$(DOCNAME).pdf : $(DOCNAME).tex preamble.tex analyses.tex
+	$(LATEX) $<; true
+	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<) > /dev/null; true
+	egrep -c $(RERUNBIB) $(DOCNAME).log && ($(BIBTEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<); true
+	egrep $(RERUN) $(DOCNAME).log && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<; true
+	egrep $(RERUN) $(DOCNAME).log && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<; true
+	if cmp -s $(DOCNAME).toc $(DOCNAME).toc.bak; then true; else $(LATEX) $<; true; fi
+	$(RM) $(DOCNAME).toc.bak; true
 
 endif
 endif
