@@ -1198,7 +1198,7 @@ int TiXmlAttribute::QueryIntValue( int* ival ) const
 
 int TiXmlAttribute::QueryDoubleValue( double* dval ) const
 {
-	if ( sscanf( value.c_str(), "%f", dval ) == 1 )
+	if ( sscanf( value.c_str(), "%lf", dval ) == 1 )
 		return TIXML_SUCCESS;
 	return TIXML_WRONG_TYPE;
 }
