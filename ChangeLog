@@ -1,3 +1,9 @@
+2009-10-19  Andy Buckley  <andy@insectnation.org>
+
+	* Adding analysis info files for MC SUSY and PHOTONJETUE analyses.
+
+	* Adding MC UE analysis in photon+jet events.
+
 2009-10-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Adding new NeutralFinalState projection. Note that this final
