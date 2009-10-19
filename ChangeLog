@@ -10,6 +10,10 @@
 	state takes E_T instead of p_T as argument (makes more sense for
 	neutral particles). The compare() method does not yet work as
 	expected (E_T comparison still missing).
+	* Adding new MergedFinalState projection. This merges two final
+	states, removing duplicate particles. Duplicates are identified
+	by looking at the genParticle(), so users need to take care of
+	any manually added particles themselves.
 
 2009-10-17  Andy Buckley  <andy@insectnation.org>
 

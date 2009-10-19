@@ -5,6 +5,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "fastjet/SISConePlugin.hh"
 
 namespace Rivet {
 
@@ -28,10 +29,11 @@ namespace Rivet {
 
     void init() {
       // Final state for the jet finding
-      const FinalState fsj(-4.0, 4.0, 0.0*GeV);
+      const FinalState fsj(-1, 1, 0.2*GeV);
       addProjection(fsj, "FSJ");
-      /// @todo Check which merging parameter they've been using
-      addProjection(FastJets(fsj, FastJets::SISCONE, 0.7), "AllJets");
+      // Split-merge is 0.75, so we need to initialize the plugin manually:
+      // R = 0.7, overlap_threshold = 0.75
+      addProjection(FastJets(fsj, fastjet::SISConePlugin(0.7, 0.75)), "AllJets");
 
       // Charged final state for the distributions
       const ChargedFinalState cfs(-1.0, 1.0, 0.2*GeV);
@@ -61,8 +63,8 @@ namespace Rivet {
           jets.push_back(jet);
       }
 
-      // We require the leading jet to be within |eta|<2
-      if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 2) {
+      // We require the leading jet to be within |eta|<(1-R)=0.3
+      if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 0.3) {
         getLog() << Log::DEBUG << "Failed jet cut" << endl;
         vetoEvent;
       }

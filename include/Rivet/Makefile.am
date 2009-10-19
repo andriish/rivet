@@ -61,6 +61,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/KtJets.hh         \
   Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
+  Projections/MergedFinalState.hh \
   Projections/Multiplicity.hh   \
   Projections/NeutralFinalState.hh \
   Projections/ParisiTensor.hh   \

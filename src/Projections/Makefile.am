@@ -20,6 +20,7 @@ libRivetProjections_la_SOURCES = \
   JetShape.cc \
   LeadingParticlesFinalState.cc \
   LossyFinalState.cc \
+  MergedFinalState.cc \
   Multiplicity.cc \
   NeutralFinalState.cc \
   ParisiTensor.cc \

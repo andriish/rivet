@@ -22,14 +22,14 @@ namespace Rivet {
         _theParticles.push_back(p);
         if (getLog().isActive(Log::TRACE)) {
           getLog() << Log::TRACE
-                   << "Selected: ID = " << p.pdgId() 
-                   << ", Et = " << p.momentum().Et() 
-                   << ", eta = " << p.momentum().eta() 
+                   << "Selected: ID = " << p.pdgId()
+                   << ", Et = " << p.momentum().Et()
+                   << ", eta = " << p.momentum().eta()
                    << ", charge = " << PID::threeCharge(p.pdgId())/3.0 << endl;
         }
       }
     }
-    getLog() << Log::DEBUG << "Number of neutral final-state particles = " 
+    getLog() << Log::DEBUG << "Number of neutral final-state particles = "
              << _theParticles.size() << endl;
   }
 

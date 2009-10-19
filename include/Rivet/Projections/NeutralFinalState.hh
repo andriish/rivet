@@ -16,18 +16,18 @@ namespace Rivet {
   class NeutralFinalState : public FinalState {
 
   public:
-    
+
     /// @name Constructors
     //@{
     NeutralFinalState(const FinalState& fsp)  : _Etmin(0.0*GeV) {
       setName("NeutralFinalState");
       addProjection(fsp, "FS");
     }
-    
+
     NeutralFinalState(double mineta = -MAXRAPIDITY,
                       double maxeta =  MAXRAPIDITY,
                       double minEt  =  0.0*GeV) : _Etmin(minEt)
-    { 
+    {
       setName("NeutralFinalState");
       addProjection(FinalState(mineta, maxeta, 0.0*GeV), "FS");
     }
@@ -39,10 +39,10 @@ namespace Rivet {
     //@}
 
   protected:
-    
+
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+
     /// The minimum allowed transverse energy.
     double _Etmin;
 
@@ -50,7 +50,7 @@ namespace Rivet {
     int compare(const Projection& p) const;
   };
 
-  
+
 }
 
 

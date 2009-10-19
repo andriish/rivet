@@ -9,17 +9,17 @@
 
 namespace Rivet {
 
-  
+
   /// Representation of particles from a HepMC::GenEvent.
   class Particle : public ParticleBase {
-  public:    
+  public:
 
     /// Default constructor.
     Particle() : ParticleBase(),
       _original(0), _id(0), _momentum(), _mass(0.0)
     { }
 
-    
+
     /// Constructor from a HepMC GenParticle.
     Particle(const GenParticle& gp) : ParticleBase(),
     _original(&gp), _id(gp.pdg_id()),
@@ -29,16 +29,16 @@ namespace Rivet {
   public:
 
     /// Get a const reference to the original GenParticle.
-    const GenParticle& genParticle() const { 
-      assert(_original); 
-      return *_original; 
+    const GenParticle& genParticle() const {
+      assert(_original);
+      return *_original;
     }
 
-    
+
     /// Check if the particle corresponds to a GenParticle.
     bool hasGenParticle() const { return bool(_original); }
 
-    
+
     /// The PDG ID code for this Particle.
     const long pdgId() const { return _id; }
 
@@ -54,11 +54,11 @@ namespace Rivet {
     /// Set the momentum of this Particle.
     Particle& setMomentum(const FourMomentum& momentum) { _momentum = momentum; return *this; }
 
-    
+
     /// The mass of this Particle.
     const double mass() const { return _mass; }
 
-    
+
     bool hasAncestor(long pdg_id) const {
       GenVertex* prodVtx = genParticle().production_vertex();
       if (prodVtx == 0) return false;
@@ -68,24 +68,24 @@ namespace Rivet {
         if ((*ancestor)->pdg_id() == pdg_id) {
           return true;
         }
-      }      
+      }
       return false;
     }
-    
+
 
   private:
 
     /// A pointer to the original GenParticle from which this Particle is projected.
     const GenParticle* _original;
-    
+
     /// The PDG ID code for this Particle.
     long _id;
-    
+
     /// The momentum of this projection of the Particle.
     FourMomentum _momentum;
-    
+
     /// The mass of this Particle, stored for numerical hygiene.
-    double _mass;    
+    double _mass;
   };
 
 
@@ -135,7 +135,7 @@ namespace Rivet {
 
 
 
-  
+
 }
 
 #endif
