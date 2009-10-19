@@ -23,18 +23,18 @@ namespace Rivet {
   inline FourMomentum momentum(const fastjet::PseudoJet& pj) {
     return FourMomentum(pj.E(), pj.px(), pj.py(), pj.pz());
   }
-  
+
 
   /// Typedef for a collection of PseudoJets.
   typedef vector<fastjet::PseudoJet> PseudoJets;
-  
+
 
   /// Project out jets found using fastJet package.
   class FastJets : public JetAlg {
 
   public:
     /// Wrapper enum for selected Fastjet jet algorithms.
-    enum JetAlgName { KT, CAM, SISCONE, ANTIKT, PXCONE, 
+    enum JetAlgName { KT, CAM, SISCONE, ANTIKT, PXCONE,
                   CDFJETCLU, CDFMIDPOINT, D0ILCONE,
                   JADE, DURHAM, TRACKJET };
 
@@ -82,7 +82,7 @@ namespace Rivet {
 
     /// Get the jets (unordered).
     Jets jets(double ptmin = 0.0) const;
-    
+
     /// Get the jets, ordered by \f$ p_T \f$.
     Jets jetsByPt(double ptmin = 0.0) const;
 
@@ -134,14 +134,14 @@ namespace Rivet {
   private:
 
     Jets _pseudojetsToJets(const PseudoJets& pjets) const;
-      
-  protected:   
+
+  protected:
 
     /// Perform the projection on the Event.
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;  
+    int compare(const Projection& p) const;
 
   public:
 
@@ -158,15 +158,15 @@ namespace Rivet {
     shared_ptr<fastjet::ClusterSequence> _cseq;
 
     /// FastJet external plugin
-    shared_ptr<fastjet::JetDefinition::Plugin> _plugin; 
-    
+    shared_ptr<fastjet::JetDefinition::Plugin> _plugin;
+
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;
-  
+
     /// set of particles sorted by their PT2
     //set<Particle, ParticleBase::byPTAscending> _particles;
     map<int, Particle> _particles;
-    
+
   };
 
 }

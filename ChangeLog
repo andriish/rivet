@@ -19,6 +19,10 @@
 	* Fixing most open issues with the STAR_2009_UE_HELEN analysis.
 	There is only one question left, regarding the away region.
 
+	* Set the default split-merge value for SISCone in our FastJets
+	projection to the recommended (but not Fastjet-default!) value
+	of 0.75.
+
 2009-10-17  Andy Buckley  <andy@insectnation.org>
 
 	* Adding parsing of units in cross-sections passed to the "-x"

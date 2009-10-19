@@ -50,9 +50,8 @@ namespace Rivet {
       const MergedFinalState jfs(cfs, vfs);
       addProjection(jfs, "JFS");
 
-      // Split-merge is 0.75, so we need to initialize the plugin manually:
-      // R = 0.7, overlap_threshold = 0.75
-      addProjection(FastJets(jfs, fastjet::SISConePlugin(0.7, 0.75)), "AllJets");
+      // SISCone, R = 0.7, overlap_threshold = 0.75
+      addProjection(FastJets(jfs, FastJets::SISCONE, 0.7), "AllJets");
 
       // Book histograms
       _hist_pmaxnchg   = bookProfile1D( 1, 1, 1);

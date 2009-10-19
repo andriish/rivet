@@ -16,7 +16,7 @@
 namespace Rivet {
 
 
-  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double pTmin, double seed_threshold) 
+  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double pTmin, double seed_threshold)
     : JetAlg(fsp)
   {
     setName("FastJets");
@@ -35,7 +35,7 @@ namespace Rivet {
     } else {
       // Plugins:
       if (alg == SISCONE) {
-        const double OVERLAP_THRESHOLD = 0.5;
+        const double OVERLAP_THRESHOLD = 0.75;
         _plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
       } else if (alg == PXCONE) {
         throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
@@ -82,26 +82,26 @@ namespace Rivet {
   }
 
 
-//   FastJets::FastJets(const FastJets& other) 
+//   FastJets::FastJets(const FastJets& other)
 //     : JetAlg
 // //_cseq(other._cseq),
 //     _jdef(other._jdef),
 //     _plugin(other._plugin),
 //     _yscales(other._yscales)
-//   {  
+//   {
 //     setName("FastJets");
 //   }
-  
-  
+
+
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
-      mkNamedPCmp(other, "FS") || 
+      mkNamedPCmp(other, "FS") ||
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
-      cmp(_jdef.R(), other._jdef.R());    
-  }  
+      cmp(_jdef.R(), other._jdef.R());
+  }
 
 
 
@@ -113,7 +113,7 @@ namespace Rivet {
 
   void FastJets::calc(const ParticleVector& ps) {
     _particles.clear();
-    vector<fastjet::PseudoJet> vecs;  
+    vector<fastjet::PseudoJet> vecs;
     // Store 4 vector data about each particle into vecs
     int counter = 1;
     foreach (const Particle& p, ps) {
@@ -146,7 +146,7 @@ namespace Rivet {
   }
 
 
-  void FastJets::reset() { 
+  void FastJets::reset() {
     _yscales.clear();
     _particles.clear();
     /// @todo _cseq = fastjet::ClusterSequence();
@@ -158,7 +158,7 @@ namespace Rivet {
       return _cseq->inclusive_jets(ptmin).size();
     } else {
       return 0;
-    }        
+    }
   }
 
 
@@ -206,13 +206,13 @@ namespace Rivet {
     _yscales.insert(make_pair( jet.cluster_hist_index(), yMergeVals ));
     return yMergeVals;
   }
-  
 
 
-  fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R) const { 
+
+  fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R) const {
     // Sanity cuts
     if (jet.E() <= 0 || _cseq->constituents(jet).size() <= 1) {
-      return jet; 
+      return jet;
     }
 
     // Build a new cluster sequence just using the consituents of this jet.
@@ -226,12 +226,12 @@ namespace Rivet {
     fastjet::PseudoJet parent1, parent2;
     fastjet::PseudoJet split(0.0, 0.0, 0.0, 0.0);
     while (cs.has_parents(remadeJet, parent1, parent2)) {
-      getLog() << Log::DEBUG << "Parents:" << parent1.m() << "," << parent2.m() << endl; 
+      getLog() << Log::DEBUG << "Parents:" << parent1.m() << "," << parent2.m() << endl;
       if (parent1.m2() < parent2.m2()) {
         fastjet::PseudoJet tmp;
         tmp = parent1; parent1 = parent2; parent2 = tmp;
       }
-      
+
       double ktdist = parent1.kt_distance(parent2);
       double rtycut2 = 0.3*0.3;
       if (parent1.m() < ((2.0*remadeJet.m())/3.0) && ktdist > rtycut2*remadeJet.m2()) {
@@ -241,22 +241,22 @@ namespace Rivet {
       }
     }
 
-    last_R = 0.5 * sqrt(parent1.squared_distance(parent2));    
+    last_R = 0.5 * sqrt(parent1.squared_distance(parent2));
     split.reset(remadeJet.px(), remadeJet.py(), remadeJet.pz(), remadeJet.E());
     return split;
   }
 
 
 
-  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet, 
-                                         double& stingy_R, const double def_R) const { 
+  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet,
+                                         double& stingy_R, const double def_R) const {
     assert(clusterSeq());
 
-    if (jet.E() <= 0.0 || clusterSeq()->constituents(jet).size() == 0) { 
-      return jet; 
+    if (jet.E() <= 0.0 || clusterSeq()->constituents(jet).size() == 0) {
+      return jet;
     }
-    if (stingy_R == 0.0) { 
-      stingy_R = def_R; 
+    if (stingy_R == 0.0) {
+      stingy_R = def_R;
     }
 
     stingy_R = def_R < stingy_R ? def_R : stingy_R;
@@ -266,13 +266,13 @@ namespace Rivet {
     //stingy_jet_def.set_recombiner(&recom);
     fastjet::ClusterSequence scs(clusterSeq()->constituents(jet), stingy_jet_def);
     std::vector<fastjet::PseudoJet> stingy_jets = sorted_by_pt(scs.inclusive_jets());
-    
+
     fastjet::PseudoJet reconst_jet(0.0, 0.0, 0.0, 0.0);
-    
+
     for (unsigned isj = 0; isj < std::min(3U, (unsigned int) stingy_jets.size()); ++isj) {
       reconst_jet += stingy_jets[isj];
-    } 
+    }
     return reconst_jet;
   }
-  
+
 }
