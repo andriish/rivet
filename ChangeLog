@@ -1,3 +1,10 @@
+2009-10-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Adding new NeutralFinalState projection. Note that this final
+	state takes E_T instead of p_T as argument (makes more sense for
+	neutral particles). The compare() method does not yet work as
+	expected (E_T comparison still missing).
+
 2009-10-17  Andy Buckley  <andy@insectnation.org>
 
 	* Adding parsing of units in cross-sections passed to the "-x"

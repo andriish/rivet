@@ -21,6 +21,7 @@ libRivetProjections_la_SOURCES = \
   LeadingParticlesFinalState.cc \
   LossyFinalState.cc \
   Multiplicity.cc \
+  NeutralFinalState.cc \
   ParisiTensor.cc \
   PVertex.cc \
   Sphericity.cc \
