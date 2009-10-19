@@ -1,0 +1,19 @@
+Name: CDF_1996_S3108457
+Year: 1996
+Summary: Properties of High-Mass Multijet Events
+Experiment: CDF
+Collider: Tevatron Run 1
+SpiresID: 3108457
+Status: UNVALIDATED
+Authors:
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - Phys.Rev.Lett.75:608-612,1995
+ - doi:10.1103/PhysRevLett.75.608
+RunInfo:
+  Pure QCD events without underlying event.
+NumEvents: 1000000
+PtCuts: [20]
+Description:
+  Properties of two-, three-, four-, five-, and six-jet events...
+  Multijet-mass, leading jet angle, jet pT.

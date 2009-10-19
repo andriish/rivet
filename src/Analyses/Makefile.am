@@ -14,6 +14,7 @@ RivetCDFAnalyses_la_SOURCES = \
     CDF_1988_S1865951.cc \
     CDF_1990_S2089246.cc \
     CDF_1994_S2952106.cc \
+    CDF_1996_S3108457.cc \
     CDF_2000_S4155203.cc \
     CDF_2001_S4751469.cc \
     CDF_2002_S4796047.cc \
