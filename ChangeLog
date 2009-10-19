@@ -16,6 +16,9 @@
 	by looking at the genParticle(), so users need to take care of
 	any manually added particles themselves.
 
+	* Fixing most open issues with the STAR_2009_UE_HELEN analysis.
+	There is only one question left, regarding the away region.
+
 2009-10-17  Andy Buckley  <andy@insectnation.org>
 
 	* Adding parsing of units in cross-sections passed to the "-x"

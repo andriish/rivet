@@ -2,8 +2,10 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/NeutralFinalState.hh"
+#include "Rivet/Projections/MergedFinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "fastjet/SISConePlugin.hh"
 
@@ -28,16 +30,29 @@ namespace Rivet {
     //@{
 
     void init() {
-      // Final state for the jet finding
-      const FinalState fsj(-1, 1, 0.2*GeV);
-      addProjection(fsj, "FSJ");
-      // Split-merge is 0.75, so we need to initialize the plugin manually:
-      // R = 0.7, overlap_threshold = 0.75
-      addProjection(FastJets(fsj, fastjet::SISConePlugin(0.7, 0.75)), "AllJets");
-
-      // Charged final state for the distributions
+      // Charged final state, |eta|<1, pT>0.2GeV
       const ChargedFinalState cfs(-1.0, 1.0, 0.2*GeV);
       addProjection(cfs, "CFS");
+
+      // Neutral final state, |eta|<1, ET>0.2GeV (needed for the jets)
+      const NeutralFinalState nfs(-1.0, 1.0, 0.2*GeV);
+      addProjection(nfs, "NFS");
+
+      // STAR can't see neutrons and K^0_L
+      VetoedFinalState vfs(nfs);
+      vfs.vetoNeutrinos();
+      vfs.addVetoPairId(K0L);
+      vfs.addVetoPairId(NEUTRON);
+      addProjection(vfs, "VFS");
+
+      // Jets are reconstructed from charged and neutral particles,
+      // and the cuts are different (pT vs. ET), so we need to merge them.
+      const MergedFinalState jfs(cfs, vfs);
+      addProjection(jfs, "JFS");
+
+      // Split-merge is 0.75, so we need to initialize the plugin manually:
+      // R = 0.7, overlap_threshold = 0.75
+      addProjection(FastJets(jfs, fastjet::SISConePlugin(0.7, 0.75)), "AllJets");
 
       // Book histograms
       _hist_pmaxnchg   = bookProfile1D( 1, 1, 1);
@@ -48,8 +63,8 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& e) {
-      const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
-      if (fsj.particles().size() < 1) {
+      const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
+      if (cfs.particles().size() < 1) {
         getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
         vetoEvent;
       }
@@ -74,9 +89,6 @@ namespace Rivet {
 
       // Get the event weight
       const double weight = e.weight();
-
-      // Get the final states to work with for filling the distributions
-      const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
 
       size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
       double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
