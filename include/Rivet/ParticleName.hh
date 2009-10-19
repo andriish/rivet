@@ -1,4 +1,4 @@
-#ifndef RIVET_PARTICLENAME_HH 
+#ifndef RIVET_PARTICLENAME_HH
 #define RIVET_PARTICLENAME_HH
 
 #include "Rivet/Rivet.hh"
@@ -6,29 +6,33 @@
 namespace Rivet {
 
   /// Enumeration of available beam particles (using PDG IDs where available)
-  enum ParticleName { 
-    ELECTRON = 11, 
-    POSITRON = -11, 
-    PROTON = 2212, 
-    ANTIPROTON = -2212, 
-    PHOTON = 22, 
-    NEUTRON = 2112, 
-    ANTINEUTRON = 2112, 
-    MUON = 13, 
+  enum ParticleName {
+    ELECTRON = 11,
+    POSITRON = -11,
+    PROTON = 2212,
+    ANTIPROTON = -2212,
+    PHOTON = 22,
+    NEUTRON = 2112,
+    ANTINEUTRON = 2112,
+    MUON = 13,
     ANTIMUON = -13,
-    NU_E = 12, 
+    NU_E = 12,
     NU_EBAR = -12,
-    NU_MU = 14, 
+    NU_MU = 14,
     NU_MUBAR = -14,
-    NU_TAU = 16, 
-    NU_TAUBAR = -16, 
-    PIPLUS = 211, 
+    NU_TAU = 16,
+    NU_TAUBAR = -16,
+    PIPLUS = 211,
     PIMINUS = -211,
-    TAU = 15, 
+    K0L = 130,
+    K0LBAR = -130,
+    K0S = 310,
+    K0SBAR = -310,
+    TAU = 15,
     ANTITAU = -15,
-    EMINUS = 11, 
-    EPLUS = -11, 
-    P = 2212, 
+    EMINUS = 11,
+    EPLUS = -11,
+    P = 2212,
     PBAR = -2212,
     GLUON = 21,
     GAMMA = 22,
@@ -45,9 +49,9 @@ namespace Rivet {
     ANY = 10000,
     PHOTOELECTRON,
     PHOTOPOSITRON,
-    PHOTOMUON,     
+    PHOTOMUON,
     PHOTOANTIMUON,
-    PHOTOTAU,      
+    PHOTOTAU,
     PHOTOANTITAU
   };
 
@@ -90,9 +94,9 @@ namespace Rivet {
     bpmap[NU_MUBAR] = "NU_MUBAR";
     bpmap[NU_TAU] = "NU_TAU";
     bpmap[NU_TAUBAR] = "NU_TAUBAR";
-    bpmap[PIPLUS] = "PIPLUS"; 
+    bpmap[PIPLUS] = "PIPLUS";
     bpmap[PIMINUS] = "PIMINUS";
-    bpmap[TAU] = "TAU"; 
+    bpmap[TAU] = "TAU";
     bpmap[WPLUSBOSON] = "WPLUSBOSON";
     bpmap[WMINUSBOSON] = "WMINUSBOSON";
     bpmap[ZBOSON] = "ZBOSON";
@@ -102,7 +106,7 @@ namespace Rivet {
     bpmap[PHOTOPOSITRON] = "PHOTOPOSITRON";
     bpmap[PHOTOMUON] = "PHOTOMUON";
     bpmap[PHOTOANTIMUON] = "PHOTOANTIMUON";
-    bpmap[PHOTOTAU] = "PHOTOTAU"; 
+    bpmap[PHOTOTAU] = "PHOTOTAU";
     bpmap[PHOTOANTITAU] = "PHOTOANTITAU";
     bpmap[ANY] = "*";
     return bpmap;
@@ -123,7 +127,7 @@ namespace Rivet {
   typedef std::vector<PdgId> ParticleNameList;
 
 
-  /// Function which returns a vector of all the beam particle values in 
+  /// Function which returns a vector of all the beam particle values in
   /// the ParticleName enum.
   inline ParticleNameList getParticleNameEnums() {
     ParticleNameList names;
@@ -135,7 +139,7 @@ namespace Rivet {
   }
 
 
-  /// Function which returns a vector of all the beam particle values in 
+  /// Function which returns a vector of all the beam particle values in
   /// the ParticleName enum.
   inline ParticleName getParticleNameEnum(const std::string& pname) {
     return (ParticleName) Rivet::getParticleNamesRMap()[pname];
@@ -178,7 +182,7 @@ namespace Rivet {
   }
 
   /////////////////////////////////////////////////
-  // Beams  
+  // Beams
 
 
   /// Typedef for a pair of beam particle names.
@@ -187,8 +191,8 @@ namespace Rivet {
 
   /// Print a BeamPair as a string.
   inline std::string toString(const BeamPair& pair) {
-    string out = "[" + 
-      toParticleName(pair.first) + ", " + 
+    string out = "[" +
+      toParticleName(pair.first) + ", " +
       toParticleName(pair.second) + "]";
     return out;
   }
@@ -199,7 +203,7 @@ namespace Rivet {
     return os;
   }
 
-  
+
 }
 
 
