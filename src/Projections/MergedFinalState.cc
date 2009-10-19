@@ -28,7 +28,7 @@ namespace Rivet {
       bool notfound = true;
       foreach (const Particle& pa, fsa.particles()){
         const GenParticle* originala = &(pa.genParticle());
-        if (originala = originalb) {
+        if (originala == originalb) {
           notfound = false;
           break;
         }
