@@ -66,7 +66,7 @@ namespace Rivet {
       }
       /// @todo include gaussian jet energy resolution smearing?
       
-      if (jets.size() < 2) {
+      if (jets.size() < 2 || jets.size() > 6) {
         vetoEvent;
       }
       
