@@ -170,6 +170,22 @@ class Plot:
     def __init__(self,inputdata):
         pass
 
+    def set_normalization(self,inputdata):
+        for method in ['NormalizeToIntegral', 'NormalizeToSum']:
+            if inputdata.description.has_key(method):
+                for i in inputdata.description['DrawOnly']:
+                    if not inputdata.histos[i].description.has_key(method):
+                        print 'method', method, 'histo', i
+                        inputdata.histos[i].description[method] = inputdata.description[method]
+        if inputdata.description.has_key('Scale'):
+            for i in inputdata.description['DrawOnly']:
+                if inputdata.histos[i].description.has_key('Scale'):
+                    inputdata.histos[i].description['Scale'] = float(inputdata.description['Scale'])*float(inputdata.histos[i].description['Scale'])
+                else:
+                    inputdata.histos[i].description['Scale'] = float(inputdata.description['Scale'])
+        for i in inputdata.description['DrawOnly']:
+            inputdata.histos[i].mangle_input()
+
     def set_borders(self,inputdata):
         self.set_xmax(inputdata)
         self.set_xmin(inputdata)
@@ -333,6 +349,7 @@ class Plot:
 
 class MainPlot(Plot):
     def __init__(self, inputdata):
+        self.set_normalization(inputdata)
         self.set_borders(inputdata)
         global coors
         coors = Coordinates(inputdata)
@@ -841,7 +858,6 @@ class Histogram(DrawableObject):
         self.description = settings
         self.data = []
         self.read_input_data(f)
-        self.read_input(f)
 
     def read_input_data(self, f):
         for line in f:
@@ -875,7 +891,7 @@ class Histogram(DrawableObject):
                                           'Content': float(linearray[4]),
                                           'Error':   float(linearray[5])})
      
-    def read_input(self, f):
+    def mangle_input(self):
         if (self.description.has_key('NormalizeToIntegral') and self.description['NormalizeToIntegral']=='1') or \
            (self.description.has_key('NormalizeToSum') and self.description['NormalizeToSum']=='1'):
             if (self.description.has_key('NormalizeToIntegral') and self.description['NormalizeToIntegral']=='1') and \
