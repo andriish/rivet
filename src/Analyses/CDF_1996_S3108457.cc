@@ -80,7 +80,7 @@ namespace Rivet {
       double mass = jetsystem.mass();
       double costheta0 = fabs(cos(jet0boosted.theta()));
       
-      if (costheta0 > 2.0/3.0) {
+      if (costheta0 < 2.0/3.0) {
         _h_m[jets.size()-2]->fill(mass, weight);
       }
       
@@ -88,7 +88,7 @@ namespace Rivet {
         _h_costheta[jets.size()-2]->fill(costheta0, weight);
       }
       
-      if (costheta0 > 2.0/3.0 && mass < 600.0*GeV) {
+      if (costheta0 < 2.0/3.0 && mass < 600.0*GeV) {
         foreach (const Jet jet, jets) {
           _h_pT[jets.size()-2]->fill(jet.momentum().pT(), weight);
         }
