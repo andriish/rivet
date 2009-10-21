@@ -175,7 +175,6 @@ class Plot:
             if inputdata.description.has_key(method):
                 for i in inputdata.description['DrawOnly']:
                     if not inputdata.histos[i].description.has_key(method):
-                        print 'method', method, 'histo', i
                         inputdata.histos[i].description[method] = inputdata.description[method]
         if inputdata.description.has_key('Scale'):
             for i in inputdata.description['DrawOnly']:
