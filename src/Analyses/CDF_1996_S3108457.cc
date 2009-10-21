@@ -19,7 +19,7 @@ namespace Rivet {
       : Analysis("CDF_1996_S3108457") 
     {
       setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(false);
+      setNeedsCrossSection(true);
     }
 
     //@}
@@ -101,9 +101,9 @@ namespace Rivet {
       
       /// Normalise, scale and otherwise manipulate histograms here
       for (size_t i=0; i<5; ++i) {
-        normalize(_h_m[i], 40.0);
-        normalize(_h_costheta[i], 2.0);
-        normalize(_h_pT[i], 20.0);
+        scale(_h_m[i], crossSection()/sumOfWeights());
+        scale(_h_costheta[i], crossSection()/sumOfWeights());
+        scale(_h_pT[i], crossSection()/sumOfWeights());
       }
       
     }
