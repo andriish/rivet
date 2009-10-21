@@ -71,28 +71,41 @@ namespace Rivet {
       const Jets& alljets = applyProjection<FastJets>(e, "AllJets").jetsByPt();
       getLog() << Log::DEBUG << "Total jet multiplicity = " << alljets.size() << endl;
 
+      // The jet acceptance region is |eta|<(1-R)=0.3  (with R = jet radius)
+      // Jets also must have a neutral energy fraction of < 0.7
       Jets jets;
       foreach (const Jet jet, alljets) {
-        if (jet.neutralEnergy() < 0.7)
+        if (jet.neutralEnergy() < 0.7 && fabs(jet.momentum().eta()) < 0.3)
           jets.push_back(jet);
       }
 
-      // We require the leading jet to be within |eta|<(1-R)=0.3
-      if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 0.3) {
-        getLog() << Log::DEBUG << "Failed jet cut" << endl;
+      // This analysis requires a di-jet like event.
+      // WARNING: There is more data in preparation, some of which
+      //          does _not_ have this constraint!
+      if (jets.size() != 2) {
+        getLog() << Log::DEBUG << "Failed jet multiplicity cut" << endl;
         vetoEvent;
       }
 
+      // The di-jet constraints in this analysis are:
+      // - 2 and only 2 jets in the acceptance region
+      // - delta(Phi) between the jets is > 150 degrees
+      // - Pt_awayjet/Pt_towards_jet > 0.7
+      if (deltaPhi(jets[0].momentum().phi(), jets[1].momentum().phi()) <= 5*PI/6 ||
+          jets[1].momentum().pT()/jets[0].momentum().pT() <= 0.7)
+      {
+        getLog() << Log::DEBUG << "Failed di-jet criteria" << endl;
+        vetoEvent;
+      }
+
+      // Now lets start ...
       const double jetphi = jets[0].momentum().phi();
       const double jetpT  = jets[0].momentum().pT();
 
       // Get the event weight
       const double weight = e.weight();
 
-      size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
-      double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
-      //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
-      double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
+      size_t numTrans1(0), numTrans2(0), numAway(0);
 
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
@@ -102,48 +115,35 @@ namespace Rivet {
         double rotatedphi = phi - jetphi;
         while (rotatedphi < 0) rotatedphi += 2*PI;
 
-        ptSumOverall += pT;
-        ++numOverall;
-        if (pT > ptMaxOverall) {
-          ptMaxOverall = pT;
+        // @TODO: WARNING: The following lines are a hack to correct
+        //        for the STAR tracking efficiency. Once we have the
+        //        final numbers (corrected to hadron level), we need
+        //        to remove this!!!!
+        if (1.0*rand()/RAND_MAX > 0.87834-exp(-1.48994-0.788432*pT)) {
+          continue;
         }
+        // -------- end of efficiency hack -------
 
         if (dPhi < PI/3.0) {
-          ptSumToward += pT;
-          ++numToward;
-          if (pT > ptMaxToward)
-            ptMaxToward = pT;
+          // toward
         }
         else if (dPhi < 2*PI/3.0) {
           if (rotatedphi <= PI) {
-            ptSumTrans1 += pT;
             ++numTrans1;
-            if (pT > ptMaxTrans1)
-              ptMaxTrans1 = pT;
           }
           else {
-            ptSumTrans2 += pT;
             ++numTrans2;
-            if (pT > ptMaxTrans2)
-              ptMaxTrans2 = pT;
           }
         }
         else {
-          ptSumAway += pT;
           ++numAway;
-          if (pT > ptMaxAway)
-            ptMaxAway = pT;
         }
       } // end charged particle loop
 
-
-
       // Fill the histograms
-      // @TODO: TAKE OUT THE 0.8 SCALE FACTOR WHEN WE GET THE FINAL DATA!!!!!!
-      const double efficiency = 0.8;
-      _hist_pmaxnchg->fill(jetpT, efficiency*(numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pminnchg->fill(jetpT, efficiency*(numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_anchg->fill(jetpT, efficiency*numAway/(PI*0.7*0.7), weight); // jet area = pi*R^2
+      _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      _hist_anchg->fill(jetpT, numAway/(PI*0.7*0.7), weight); // jet area = pi*R^2
 
     }
 
@@ -162,7 +162,6 @@ namespace Rivet {
     AIDA::IProfile1D *_hist_anchg;
 
   };
-
 
 
   // This global object acts as a hook for the plugin system
