@@ -332,15 +332,41 @@ for a in opts.ANALYSES:
 ah.init()
         
 
+## Event number logging
+def logNEvt(n, starttime, maxevtnum):
+    nevtloglevel = logging.DEBUG
+    if n % 10 == 0:
+        nevtloglevel = logging.DEBUG + 5
+    if n % 100 == 0:
+        nevtloglevel = logging.INFO
+    if n % 200 == 0:
+        nevtloglevel = logging.INFO + 5
+    if n % 500 == 0:
+        nevtloglevel = logging.WARNING
+    if n % 1000 == 0:
+        nevtloglevel = logging.WARNING + 5
+    if n % 10000 == 0:
+        nevtloglevel = logging.CRITICAL
+    timecurrent = time.time()
+    timeelapsed = timecurrent - starttime;
+    if maxevtnum is None:
+        logging.log(nevtloglevel, "Event %d (%d s elapsed)" % (n, timeelapsed))
+    else:
+        timeleft = (maxevtnum-n)*timeelapsed/n
+        eta = time.strftime("%a %b %d %H:%M", time.localtime(timecurrent + timeleft))
+        logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s"
+                    % (n, timeelapsed, timeleft, eta))
+
+
 ## Read and process events
 run = rivet.Run(ah)
 if opts.CROSS_SECTION is not None:
     run.setCrossSection(opts.CROSS_SECTION)
-if opts.MAXEVTNUM is not None:
-    run.setMaxEvtNum(opts.MAXEVTNUM)
 if opts.LIST_USED_ANALYSES is not None:
     run.setListAnalyses(opts.LIST_USED_ANALYSES)
 
+EVTNUM = 0
+starttime = time.time()
 
 for evtfile in HEPMCFILES:
     import platform
@@ -348,11 +374,23 @@ for evtfile in HEPMCFILES:
     if opts.CROSS_SECTION is not None:
         logging.info("User-supplied cross-section = %e pb" % opts.CROSS_SECTION)
     logging.info("Reading events from '%s'" % evtfile)
-    if not run.processFile(evtfile):
+    if not run.prepareFile(evtfile):
         break
     
+    while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
+        EVTNUM += 1
+        logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
+        if not run.processEvent(EVTNUM==1):
+            break
+        if RECVD_KILL_SIGNAL is not None:
+            break
+        
+    if not run.finalizeFile():
+        break
+        
     if RECVD_KILL_SIGNAL is not None:
         break
+    
 logging.info("Finished event loop")
 
 ## Override any generator cross-section to that supplied on the command line, if there was one

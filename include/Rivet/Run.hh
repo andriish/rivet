@@ -4,6 +4,10 @@
 
 #include "Rivet/AnalysisHandler.fhh"
 
+namespace HepMC {
+  class IO_GenEvent;
+}
+
 namespace Rivet {
 
 
@@ -25,24 +29,22 @@ namespace Rivet {
 
     /// Get the name of this run.
     Run& setCrossSection(const double& xs);
-    Run& setMaxEvtNum(const int& n);
     Run& setListAnalyses(const bool& );
     
-    bool processFile(const std::string& evtfile);
+    bool prepareFile(const std::string& evtfile);
+    bool processEvent(bool firstEvent);
+    bool finalizeFile();
     
-  private:
-    
-    void logNEvt();
-
-
   private:
 
     /// AnalysisHandler object
     AnalysisHandler& _ah;
     
     double _xs;
-    long _maxEvtNum, _numEvents;
     bool _listAnalyses;
+    
+    HepMC::IO_GenEvent* m_io;
+    std::istream* m_istr;
 
   };
 
