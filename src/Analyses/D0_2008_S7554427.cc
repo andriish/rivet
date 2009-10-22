@@ -21,6 +21,7 @@ namespace Rivet {
     {
       // Run II Z pT
       setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
     } 
     
     
@@ -62,8 +63,8 @@ namespace Rivet {
     
     // Finalize
     void finalize() {
-      normalize(_h_ZpT);
-      normalize(_h_forward_ZpT);
+      scale(_h_ZpT, crossSection()/sumOfWeights());
+      scale(_h_forward_ZpT, crossSection()/sumOfWeights());
     }
     
     //@}

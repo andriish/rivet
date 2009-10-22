@@ -21,7 +21,7 @@ namespace Rivet {
     D0_1996_S3214044() : Analysis("D0_1996_S3214044") 
     {
       setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(false);
+      setNeedsCrossSection(true);
     }
     
     
@@ -103,35 +103,36 @@ namespace Rivet {
 
 
     void finalize() {
-      normalize(_h_3j_x3, 1.0);
-      normalize(_h_3j_x5, 1.0);
-      normalize(_h_3j_costheta3, 1.0);
-      normalize(_h_3j_psi, 1.0);
-      normalize(_h_3j_mu34, 1.0);
-      normalize(_h_3j_mu35, 1.0);
-      normalize(_h_3j_mu45, 1.0);
-      normalize(_h_4j_x3, 1.0);
-      normalize(_h_4j_x4, 1.0);
-      normalize(_h_4j_x5, 1.0);
-      normalize(_h_4j_x6, 1.0);
-      normalize(_h_4j_costheta3, 1.0);
-      normalize(_h_4j_costheta4, 1.0);
-      normalize(_h_4j_costheta5, 1.0);
-      normalize(_h_4j_costheta6, 1.0);
-      normalize(_h_4j_cosomega34, 1.0);
-      normalize(_h_4j_cosomega35, 1.0);
-      normalize(_h_4j_cosomega36, 1.0);
-      normalize(_h_4j_cosomega45, 1.0);
-      normalize(_h_4j_cosomega46, 1.0);
-      normalize(_h_4j_cosomega56, 1.0);
-      normalize(_h_4j_mu34, 1.0);
-      normalize(_h_4j_mu35, 1.0);
-      normalize(_h_4j_mu36, 1.0);
-      normalize(_h_4j_mu45, 1.0);
-      normalize(_h_4j_mu46, 1.0);
-      normalize(_h_4j_mu56, 1.0);
-      normalize(_h_4j_theta_BZ, 1.0);
-      normalize(_h_4j_costheta_NR, 1.0);
+      const double factor = crossSection()/sumOfWeights();
+      scale(_h_3j_x3, factor);
+      scale(_h_3j_x5, factor);
+      scale(_h_3j_costheta3, factor);
+      scale(_h_3j_psi, factor);
+      scale(_h_3j_mu34, factor);
+      scale(_h_3j_mu35, factor);
+      scale(_h_3j_mu45, factor);
+      scale(_h_4j_x3, factor);
+      scale(_h_4j_x4, factor);
+      scale(_h_4j_x5, factor);
+      scale(_h_4j_x6, factor);
+      scale(_h_4j_costheta3, factor);
+      scale(_h_4j_costheta4, factor);
+      scale(_h_4j_costheta5, factor);
+      scale(_h_4j_costheta6, factor);
+      scale(_h_4j_cosomega34, factor);
+      scale(_h_4j_cosomega35, factor);
+      scale(_h_4j_cosomega36, factor);
+      scale(_h_4j_cosomega45, factor);
+      scale(_h_4j_cosomega46, factor);
+      scale(_h_4j_cosomega56, factor);
+      scale(_h_4j_mu34, factor);
+      scale(_h_4j_mu35, factor);
+      scale(_h_4j_mu36, factor);
+      scale(_h_4j_mu45, factor);
+      scale(_h_4j_mu46, factor);
+      scale(_h_4j_mu56, factor);
+      scale(_h_4j_theta_BZ, factor);
+      scale(_h_4j_costheta_NR, factor);
     }
     
     //@}

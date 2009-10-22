@@ -20,6 +20,7 @@ namespace Rivet {
     D0_2008_S6879055() : Analysis("D0_2008_S6879055")
     {
       setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
     } 
 
 
@@ -144,12 +145,9 @@ namespace Rivet {
       // Now divide by the inclusive result
       _crossSectionRatio->scale(1.0/_crossSectionRatio->binHeight(0));
       
-      // Normalise jet pT's to integral of data
-      // there is no other way to do this, because these quantities are not
-      // detector corrected
-      normalize(_pTjet1, 10439.0);
-      normalize(_pTjet2, 1461.5);
-      normalize(_pTjet3, 217.0);
+      scale(_pTjet1, crossSection()/sumOfWeights());
+      scale(_pTjet2, crossSection()/sumOfWeights());
+      scale(_pTjet3, crossSection()/sumOfWeights());
     }
     
     //@}

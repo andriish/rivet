@@ -20,6 +20,7 @@ namespace Rivet {
     {
       // Run II Z rapidity
       setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
     }
     
 
@@ -62,9 +63,7 @@ namespace Rivet {
     
     // Finalize
     void finalize() {
-      // Data seems to have been normalized for the avg of the two sides 
-      // (+ve & -ve rapidity) rather than the sum, hence the 0.5:
-      normalize(_h_yZ, 0.5);
+      scale(_h_yZ, crossSection()/sumOfWeights());
     }
 
     //@}

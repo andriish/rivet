@@ -108,11 +108,10 @@ namespace Rivet {
     
     // Finalize
     void finalize() { 
-      // Normalize histograms to unit area
-      normalize(_histJetAzimuth_pTmax75_100);
-      normalize(_histJetAzimuth_pTmax100_130);
-      normalize(_histJetAzimuth_pTmax130_180);
-      normalize(_histJetAzimuth_pTmax180_);
+      scale(_histJetAzimuth_pTmax75_100, crossSection()/sumOfWeights());
+      scale(_histJetAzimuth_pTmax100_130, crossSection()/sumOfWeights());
+      scale(_histJetAzimuth_pTmax130_180, crossSection()/sumOfWeights());
+      scale(_histJetAzimuth_pTmax180_, crossSection()/sumOfWeights());
     }
     
     //@}

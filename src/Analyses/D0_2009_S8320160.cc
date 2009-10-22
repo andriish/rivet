@@ -21,6 +21,7 @@ namespace Rivet {
     D0_2009_S8320160() : Analysis("D0_2009_S8320160")
     {
       setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
     } 
     
     //@}
@@ -73,7 +74,7 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
-        normalize(hist);
+        scale(hist, crossSection()/sumOfWeights());
       }
     }
 
