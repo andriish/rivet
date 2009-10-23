@@ -1,18 +1,24 @@
 #!/usr/bin/env python
-"""%prog [OPTIONS] <AIDAFILE> [...]
+"""%prog -b <HISTO/PATH:min:max> [ -b ... ] <AIDAFILE> [...]
 
-Strip specified bins from data sets. Histgrams not specified will be passed
+Strip specified bins from data sets. Histograms not specified will be passed
 through without any chopping. Bins to be kept can be specified on command
 line via `-b' options. The format is
     -b AIDAPATH:start:stop
 where start and stop are x values contained in the first and last bins,
-respectively, that should be kept. They need not to be the center but must
-only lie somewhere in the bin's x-range.
+respectively, that should be kept. They need not to be the bin-center but
+must only lie somewhere in the bin's x-range.
+
+To chop bins from different observables can be achieved by using the `-b'
+option multiple times.
 
 Example:
     %prog -b /ALEPH_1996_S3486095/d03-x01-y01:0.095:0.27 out.aida
 This will give you the all bins of the ALEPH 1-T distribution that are
 between the bins that contain the x-values 0.095 and 0.27 .
+
+TODO:
+    * what if the same observable is mentioned multiple times?
 """
 
 import os
@@ -84,7 +90,10 @@ if __name__ == "__main__":
         logging.getLogger().addHandler(h)
 
     if len(args) == 0:
-        sys.stderr.write("Must specify at least one AIDA histogram file\n")
+        sys.stderr.write("Must specify at least one AIDA histogram file!\n")
+        sys.exit(1)
+    if len(opts.bins) == 0:
+        sys.stderr.write("No bins specified, so I'm doing nothing!\n")
         sys.exit(1)
 
     bindefs = {}

@@ -210,6 +210,9 @@ class Histo:
         new.name = dps.get("name")
         new.title = dps.get("title")
         new.path = dps.get("path")
+        # strip /REF from path
+        if new.path.startswith("/REF"):
+            new.path = new.path[4:]
         axes = dps.findall("dimension")
         if (len(axes)==2):
             for a in axes:
