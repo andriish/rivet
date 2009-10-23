@@ -34,7 +34,7 @@ namespace Rivet {
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
-      vfs.addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+      vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
       addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");

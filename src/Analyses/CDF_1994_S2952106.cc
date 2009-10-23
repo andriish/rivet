@@ -42,7 +42,7 @@ namespace Rivet {
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
-      vfs.addVetoDetail(MUON, 1.0*GeV, MAXDOUBLE);
+      vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
 
       /// @todo Use histogram auto-booking

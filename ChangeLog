@@ -1,3 +1,8 @@
+2009-10-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fix muon veto in CDF_1994_S2952106, CDF_2005_S6217184,
+	CDF_2008_S7782535, and D0_2004_S5992206
+
 2009-10-19  Andy Buckley  <andy@insectnation.org>
 
 	* Adding analysis info files for MC SUSY and PHOTONJETUE analyses.
