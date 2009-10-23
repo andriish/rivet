@@ -125,8 +125,8 @@ if __name__ == "__main__":
         tree = ET.parse(aidafile)
         for dps in tree.findall("dataPointSet"):
             thishist = lighthisto.Histo.fromDPS(dps)
-            if thishist.fullPath() in bindefs.keys():
-                outhistos.append(thishist.chop(bindefs[thishist.fullPath()]))
+            if thishist.histopath in bindefs.keys():
+                outhistos.append(thishist.chop(bindefs[thishist.histopath]))
             else:
                 outhistos.append(thishist)
         out = open(chopfile, "w")

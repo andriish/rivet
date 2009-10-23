@@ -29,8 +29,11 @@ class Histo:
     aidaindent = "  "
     def __init__(self):
         self._bins = []
+        # the leading AIDA path (including /REF) but not the observable name
         self.path = None
+        # the observable name, e.g. d01-x02-y01
         self.name = None
+        # the histogram title
         self.title = None
         self.xlabel = None
         self.ylabel = None
@@ -50,7 +53,16 @@ class Histo:
 
     def fullPath(self):
         return os.path.join(self.path, self.name)
-    fullpath = property(fullPath)
+    fullpath = property(fullPath,
+            doc="Full AIDA path including leading '/REF' and histogram name")
+
+    def histoPath(self):
+        if self.path.startswith("/REF"):
+            return self.fullpath[4:]
+        else:
+            return self.fullpath
+    histopath = property(histoPath,
+            doc="AIDA path but without a leading '/REF'")
 
     def header(self):
         out = "# BEGIN PLOT\n"
@@ -210,9 +222,9 @@ class Histo:
         new.name = dps.get("name")
         new.title = dps.get("title")
         new.path = dps.get("path")
-        # strip /REF from path
-        if new.path.startswith("/REF"):
-            new.path = new.path[4:]
+        # # strip /REF from path
+        # if new.path.startswith("/REF"):
+            # new.path = new.path[4:]
         axes = dps.findall("dimension")
         if (len(axes)==2):
             for a in axes:
