@@ -4,7 +4,7 @@ Summary: Transverse cone and 'Swiss cheese' underlying event studies
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 5839831
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@durham.ac.uk>
 References:
@@ -31,6 +31,3 @@ Description:
   included for $n = 2, 3$.  This analysis is useful for constraining the
   energy evolution of the underlying event, since it performs the same
   analyses at two distinct CoM energies.
-
-  WARNING, the Swiss Cheese plots are not considered validated, as we have not
-  yet been able to reproduce the MC curves shown in the paper.

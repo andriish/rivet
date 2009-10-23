@@ -280,11 +280,11 @@ namespace Rivet {
           
           // Swiss Cheese sub 2,3 jets distributions for sqrt(s) = 630 GeV, 1800 GeV
           if (fuzzyEquals(sqrtS/GeV, 630)) {
-            _pTSum630_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
-            _pTSum630_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
+            if (!isZero(ptSumSub2)) _pTSum630_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
+            if (!isZero(ptSumSub3))_pTSum630_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
           } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
-            _pTSum1800_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
-            _pTSum1800_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
+            if (!isZero(ptSumSub2))_pTSum1800_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
+            if (!isZero(ptSumSub3))_pTSum1800_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
           }
           
         }
@@ -295,29 +295,21 @@ namespace Rivet {
     
     void finalize() { 
       // Normalize to actual number of entries in pT dbn histos
-      /// @todo Check this normalisation defn.
       normalize(_pt90Dbn1800Et40,  1656.75);
-      /// @todo Check this normalisation defn.
       normalize(_pt90Dbn1800Et80,  4657.5);
-      /// @todo Check this normalisation defn.
       normalize(_pt90Dbn1800Et120, 5395.5);
-      /// @todo Check this normalisation defn.
       normalize(_pt90Dbn1800Et160, 7248.75);
-      /// @todo Check this normalisation defn.
       normalize(_pt90Dbn1800Et200, 2442.0);
       
       // and for min bias distributions:
-      /// @todo Check this normalisation defn.
       normalize(_numTracksDbn1800MB, 309718.25);
-      /// @todo Check this normalisation defn.
       normalize(_numTracksDbn630MB, 1101024.0);
-      /// @todo Check this normalisation defn.
       normalize(_ptDbn1800MB, 33600.0);
-      /// @todo Check this normalisation defn.
       normalize(_ptDbn630MB, 105088.0);
     }
 
     //@}
+
 
   private:
 
