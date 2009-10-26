@@ -4,7 +4,7 @@ Summary: Z/gamma* + X cross-section shape, differential in y(Z)
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 7075677
-Status: UNCLEAR. Photons in Z reconstruction?
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@durham.ac.uk>
  - Gavin Hesketh <ghesketh@fnal.gov>
