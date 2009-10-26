@@ -1,0 +1,22 @@
+Name: CDF_2009_S8436959
+Year: 2009
+Summary: Measurement of the Inclusive Isolated Prompt Photon Cross Section
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 8436959
+Status: UNVALIDATED
+Authors:
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - arXiv:0910.3623 [hep-ex]
+RunInfo:
+  $\gamma$ + jet processes in ppbar collisions at $\sqrt{s} = 1960$ GeV.
+  Minimum pT cut on the photon in the analysis is 30 GeV.
+NumEvents: 1000000
+PtCuts: [30]
+Description:
+  A measurement of the cross section for the inclusive production of isolated
+  photons. The measurement covers the pseudorapidity region $|\eta^\gamma|<1.0$
+  and the transverse energy range $E_T^\gamma>30$ GeV and is based on 2.5/fb of
+  integrated luminosity. The cross section is measured differential in
+  $E_\perp(\gamma)$.

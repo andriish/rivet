@@ -34,7 +34,8 @@ RivetCDFAnalyses_la_SOURCES = \
     CDF_2008_S8093652.cc \
     CDF_2008_S8095620.cc \
     CDF_2009_S8233977.cc \
-    CDF_2009_S8383952.cc
+    CDF_2009_S8383952.cc \
+    CDF_2009_S8436959.cc
 
 
 lib_LTLIBRARIES += RivetD0Analyses.la
