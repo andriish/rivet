@@ -56,6 +56,7 @@ dist_pkgdata_DATA = \
   MC_LHC_ZANALYSIS.plot \
   MC_LHC_WANALYSIS.plot \
   MC_LHC_SUSY.plot \
+  MC_LHC_TTBAR.plot \
   MC_TVT1960_PHOTONJETS.plot \
   MC_TVT1960_ZJETS.plot \
   OPAL_1998_S3780481.plot \

@@ -112,4 +112,5 @@ RivetMCAnalyses_la_SOURCES = \
     MC_LHC_PHOTONJETUE.cc \
     MC_LHC_WANALYSIS.cc \
     MC_LHC_ZANALYSIS.cc \
-    MC_LHC_SUSY.cc
+    MC_LHC_SUSY.cc \
+    MC_LHC_TTBAR.cc

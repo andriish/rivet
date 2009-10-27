@@ -56,6 +56,7 @@ dist_pkgdata_DATA = \
   MC_LHC_DIJET.info \
   MC_LHC_PHOTONJETUE.info \
   MC_LHC_SUSY.info \
+  MC_LHC_TTBAR.info \
   MC_LHC_WANALYSIS.info \
   MC_LHC_ZANALYSIS.info \
   MC_TVT1960_PHOTONJETS.info \
