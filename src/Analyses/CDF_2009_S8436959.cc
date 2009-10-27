@@ -49,7 +49,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       ParticleVector photons;
-      ParticleVector fs = applyProjection<IdentifiedFinalState>(event, "FS").particles();
+      ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
       foreach (const Particle& photon, applyProjection<IdentifiedFinalState>(event, "IFS").particles()) {
         FourMomentum mom_in_cone;
         foreach (const Particle& p, fs) {
