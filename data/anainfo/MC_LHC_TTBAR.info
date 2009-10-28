@@ -1,9 +1,9 @@
 Name: MC_LHC_TTBAR
-Year: 
+Year: none
 Summary: MC analysis for ttbar studies at the LHC
-Experiment: 
+Experiment: none
 Collider: LHC
-SpiresID: 
+SpiresID: none
 Status: UNVALIDATED
 Authors:
  - Holger Schulz <hschulz@physik.hu-berlin.de>
