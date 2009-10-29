@@ -4,7 +4,7 @@ Summary: Monte Carlo validation observables for Z[e+ e-] + jets production at Te
 Experiment: MC
 Collider: Tevatron Run 2
 SpiresID: NONE
-Status: NOT TO BE VALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:

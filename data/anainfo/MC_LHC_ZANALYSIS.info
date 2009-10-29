@@ -8,7 +8,7 @@ Description: "Analysis of jets and Z bosons at the LHC. Output gives
              distributions of Zs, Z mass, jet counts and jet transverse
              momenta."
 RunInfo: "Z production events, with CKIN(3)=20 at any energy"
-Status: UNVALIDATED
+Status: VALIDATED
 Experiment: none
 Collider: none
 Year: none

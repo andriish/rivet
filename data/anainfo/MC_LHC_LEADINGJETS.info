@@ -4,7 +4,7 @@ Summary: Underlying event in leading jet events, extended to LHC
 Experiment: NONE
 Collider: LHC
 SpiresID: NONE
-Status: NOT TO BE VALIDATED
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 RunInfo:

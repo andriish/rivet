@@ -7,7 +7,7 @@ Description: "Analysis of generic SUSY events at the LHC, based on Atlas
              electrons, muons, and jets, as well as various dilepton mass 'edge'
              plots for different event selection criteria."
 RunInfo: "SUSY events at any energy. pT cutoff at 10 GeV may be advised "
-Status: UNVALIDATED
+Status: VALIDATED
 Experiment: None
 Collider: None
 Year: None

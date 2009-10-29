@@ -8,7 +8,7 @@ Description: "Analysis of jets and W+- bosons at the LHC. Output gives
              distributions of Ws, W mass, jet counts and jet transverse
              momenta."
 RunInfo: "W production events with CKIN(3)=20 at any energy"
-Status: UNVALIDATED
+Status: VALIDATED
 Experiment: None
 Collider: None
 Year: None

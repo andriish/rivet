@@ -1,5 +1,5 @@
 Name: MC_LHC_DIJET
-SpiresID: none
+SpiresID: NONE
 Summary: "Analysis of dijet events at the LHC."
 Description: "Analysis of dijet events for the upcoming runs at the LHC,
              specifically studying azimuthal angle, transverse momentum
@@ -7,10 +7,8 @@ Description: "Analysis of dijet events for the upcoming runs at the LHC,
              as well as charged particle multiplicities and transverse momenta."
 RunInfo: "Generic QCD events at any energy."
 Status: UNVALIDATED
-Experiment: none
-Collider: none
-Year: none
+Experiment: NONE
+Collider: NONE
+Year: NONE
 Author:
  - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
-References:
- - "none"
