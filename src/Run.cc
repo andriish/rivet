@@ -44,6 +44,7 @@ namespace Rivet {
   
     return true;
   }
+
   
   bool Run::processEvent(bool firstEvent) {
     GenEvent* evt = new GenEvent();
@@ -83,19 +84,21 @@ namespace Rivet {
         }
       }
     }
-    
+
+    // Set cross-section if specified from command line
     if (_xs > 0.0) {
       _ah.setCrossSection(_xs);
     }
-#ifdef HEPMC_HAS_CROSS_SECTION
+    // Set cross-section if found in event
+    #ifdef HEPMC_HAS_CROSS_SECTION
     else if (evt->cross_section()) {
-      /// @todo Use xs error?
       const double xs = evt->cross_section()->cross_section(); //< in pb
       Log::getLog("Rivet.Run") << Log::DEBUG
           << "Setting cross-section = " << xs << " pb" << endl;
       _ah.setCrossSection(xs);
     }
-#endif
+    #endif
+    // Complain about absence of cross-section if required!
     else {
       if (_ah.needCrossSection()) {
         Log::getLog("Rivet.Run") << Log::ERROR
@@ -105,6 +108,7 @@ namespace Rivet {
         return false;
       }
     }
+
     /// @todo If NOT first event, check that beams aren't changed
     
     // Analyze event and delete HepMC event object      
