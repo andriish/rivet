@@ -79,15 +79,20 @@ if __name__ == "__main__":
             LOGLEVEL=logging.INFO)
     opts, args = parser.parse_args()
 
+
     ## Configure logging
     try:
-        logging.basicConfig(level=opts.LOGLEVEL,
-                format="%(levelname)s: %(message)s")
+        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
     except:
-        logging.getLogger().setLevel(opts.LOGLEVEL)
-        h = logging.StreamHandler()
-        h.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
+        pass
+    h = logging.StreamHandler()
+    h.setFormatter(logging.Formatter("%(message)s"))
+    logging.getLogger().setLevel(opts.LOGLEVEL)
+    if logging.getLogger().handlers:
+        logging.getLogger().handlers[0] = h
+    else:
         logging.getLogger().addHandler(h)
+
 
     if len(args) == 0:
         sys.stderr.write("Must specify at least one AIDA histogram file!\n")
