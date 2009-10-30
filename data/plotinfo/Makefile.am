@@ -53,6 +53,7 @@ dist_pkgdata_DATA = \
   JADE_OPAL_2000_S4300807.plot \
   MC_LHC_LEADINGJETS.plot \
   MC_LHC_DIJET.plot \
+  MC_LHC_PHOTONJETUE.plot \
   MC_LHC_ZANALYSIS.plot \
   MC_LHC_WANALYSIS.plot \
   MC_LHC_SUSY.plot \

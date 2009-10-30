@@ -1,36 +1,36 @@
 # BEGIN PLOT /CDF_2001_S4751469/d01-x01-y01
-Title=$\langle N_\text{ch}\rangle$ vs. $\Delta\Phi$ from leading jet ($p_\perp^\text{lead} > 2\text{ GeV}$) 
-XLabel=$\Delta\Phi$ / degrees
+Title=$\langle N_\text{ch}\rangle$ vs. $\Delta\phi$ from leading jet ($p_\perp^\text{lead} > 2\text{ GeV}$) 
+XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle N_\text{ch}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d01-x01-y02
-Title=$\langle N_\text{ch}\rangle$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
-XLabel=$\Delta\Phi$ / degrees
+Title=$\langle N_\text{ch}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
+XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle N_\text{ch}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d01-x01-y03
-Title=$\langle N_\text{ch}\rangle$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
-XLabel=$\Delta\Phi$ / degrees
+Title=$\langle N_\text{ch}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
+XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle N_\text{ch}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y01
-Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 2\text{ GeV}$) 
-XLabel=$\Delta\Phi$ / degrees
+Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 2\text{ GeV}$) 
+XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle p_{\perp, sum}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y02
-Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
-XLabel=$\Delta\Phi$ / degrees
+Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
+XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle p_{\perp, sum}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y03
-Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\Phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
-XLabel=$\Delta\Phi$ / degrees
+Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
+XLabel=$\Delta\phi$ / degrees
 YLabel=$\langle p_{\perp, sum}\rangle$
 # END PLOT
 
