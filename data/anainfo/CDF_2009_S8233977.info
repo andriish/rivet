@@ -6,17 +6,20 @@ Collider: Tevatron Run 2
 SpiresID: 8233977
 Status: PARTIALLY VALIDATED
 Authors:
+ - Niccolo' Moggi <niccolo.moggi@bo.infn.it>
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:
  - CDF public note 9337
  - hep-ex/0904.1098
 RunInfo:
   "* ppbar QCD interactions at 1960 GeV.
-  * Particles with $c \tau > {}$10 mm should be set stable."
+  * Particles with $c \\tau > {}$10 mm should be set stable."
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   Niccolo Moggi's min bias analysis. Minimum bias events are used to
   measure the average track pT vs. charged multiplicity, a track pT
   distribution and an inclusive $\sum E_T$ distribution. 
-  WARNING, only average track pT vs. charged multiplicity is validated!
+  WARNING, only average track pT vs. charged multiplicity is validated,
+  the other two distributions look good but don't exactly match the
+  Monte Carlo curves in the paper!

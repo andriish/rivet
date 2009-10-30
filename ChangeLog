@@ -1,3 +1,8 @@
+2009-10-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* CDF_2009_S8233977: Updating data and axes labels to match
+	final paper. Normalise to cross-section instead of data.
+
 2009-10-23  Andy Buckley  <andy@insectnation.org>
 
 	* Fixing Cheese-3 plot in CDF 2004... at last!

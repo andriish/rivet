@@ -31,7 +31,7 @@ namespace Rivet {
       : Analysis("CDF_2009_S8233977")
     { 
       setBeams(PROTON, ANTIPROTON);
-      //setNeedsCrossSection(true);
+      setNeedsCrossSection(true);
     }
     
     
@@ -44,8 +44,8 @@ namespace Rivet {
       addProjection(FinalState(-1.0, 1.0, 0.0*GeV), "EtFS");
       addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
 
-      _hist_pt_vs_multiplicity = bookProfile1D(1, 1, 1);
-      _hist_pt = bookHistogram1D(2, 1, 1);
+      _hist_pt = bookHistogram1D(1, 1, 1);
+      _hist_pt_vs_multiplicity = bookProfile1D(2, 1, 1);
       _hist_sumEt = bookHistogram1D(3, 1, 1);
     }
 
@@ -109,12 +109,8 @@ namespace Rivet {
     
     /// Normalize histos
     void finalize() {
-      // dphi * deta = 2*PI * 2
-      //// FIXME: We are normalizing to the data instead of MC cross-section
-      //scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*sumOfWeights()));
-      //scale(_hist_pt, crossSection()/barn*1e-24/sumOfWeights());
-      normalize(_hist_sumEt, 3.530);
-      normalize(_hist_pt, 2.513e-26);
+      scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*sumOfWeights()));
+      scale(_hist_pt, crossSection()/millibarn/sumOfWeights());
     }
     
     //@}
