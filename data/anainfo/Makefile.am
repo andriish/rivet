@@ -54,6 +54,7 @@ dist_pkgdata_DATA = \
   JADE_OPAL_2000_S4300807.info \
   MC_LHC_LEADINGJETS.info \
   MC_LHC_DIJET.info \
+  MC_LHC_DIPHOTON.info \
   MC_LHC_PHOTONJETUE.info \
   MC_LHC_SUSY.info \
   MC_LHC_TTBAR.info \

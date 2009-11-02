@@ -109,6 +109,7 @@ RivetMCAnalyses_la_SOURCES = \
     MC_TVT1960_ZJETS.cc \
     MC_LHC_LEADINGJETS.cc \
     MC_LHC_DIJET.cc \
+    MC_LHC_DIPHOTON.cc \
     MC_LHC_PHOTONJETUE.cc \
     MC_LHC_WANALYSIS.cc \
     MC_LHC_ZANALYSIS.cc \
