@@ -10,6 +10,12 @@ XLabel=$\Delta{\eta}(\gamma\text{, 1st jet})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{\eta}(\gamma\text{, 1st jet})$
 # END PLOT
 
+# BEGIN PLOT /MC_TVT1960_PHOTONJETS/photon_jet1_dphi
+Title=
+XLabel=$\Delta{\phi}(\gamma\text{, 1st jet})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{\phi}(\gamma\text{, 1st jet})$
+# END PLOT
+
 # BEGIN PLOT /MC_TVT1960_PHOTONJETS/photon_pT
 Title=Photon $p_\perp$
 XLabel=$p_\perp^{\gamma}$ [GeV]
