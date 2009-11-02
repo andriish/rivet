@@ -43,6 +43,7 @@ namespace Rivet {
       _h_photon_pT = bookHistogram1D("photon_pT", 50, 0.0, 500.0);
       _h_photon_y = bookHistogram1D("photon_y", 20, -1.0, 1.0);
       _h_photon_jet1_deta = bookHistogram1D("photon_jet1_deta", 50, -5.0, 5.0);
+      _h_photon_jet1_dphi = bookHistogram1D("photon_jet1_dphi", 20, 0.0, M_PI);
       _h_photon_jet1_dR = bookHistogram1D("photon_jet1_dR", 25, 0.5, 7.0);
       
       MC_JetAnalysis::init();
@@ -86,6 +87,7 @@ namespace Rivet {
       const Jets& jets = jetpro.jetsByPt(20.0*GeV);
       if (jets.size()>0) {
         _h_photon_jet1_deta->fill(photon.eta()-jets[0].momentum().eta(), weight);
+        _h_photon_jet1_dphi->fill(mapAngle0ToPi(photon.phi()-jets[0].momentum().phi()), weight);
         _h_photon_jet1_dR->fill(deltaR(photon, jets[0].momentum()), weight);
       }
       
@@ -98,6 +100,7 @@ namespace Rivet {
       scale(_h_photon_pT, crossSection()/sumOfWeights());
       scale(_h_photon_y, crossSection()/sumOfWeights());
       scale(_h_photon_jet1_deta, crossSection()/sumOfWeights());
+      scale(_h_photon_jet1_dphi, crossSection()/sumOfWeights());
       scale(_h_photon_jet1_dR, crossSection()/sumOfWeights());
       
       MC_JetAnalysis::finalize();
@@ -113,6 +116,7 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_photon_pT;
     AIDA::IHistogram1D * _h_photon_y;
     AIDA::IHistogram1D * _h_photon_jet1_deta;
+    AIDA::IHistogram1D * _h_photon_jet1_dphi;
     AIDA::IHistogram1D * _h_photon_jet1_dR;
     //@}
 
