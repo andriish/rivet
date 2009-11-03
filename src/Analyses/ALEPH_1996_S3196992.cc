@@ -25,9 +25,9 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      FinalState fs;      
+      FinalState fs;
       addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
-      IdentifiedFinalState ifs(-MAXRAPIDITY, +MAXRAPIDITY, 5.0*GeV);
+      IdentifiedFinalState ifs(-MAXRAPIDITY, +MAXRAPIDITY, 0.0);
       ifs.acceptId(PHOTON);
       addProjection(ifs, "Photons");
       addProjection(Thrust(fs), "Thrust");
@@ -51,7 +51,7 @@ namespace Rivet {
       const ParticleVector allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
       ParticleVector photons;
       foreach (const Particle& photon, allphotons) {
-        if (fabs(cos(photon.momentum().theta()))<0.95) {
+        if (fabs(cos(photon.momentum().theta()))<0.95 && photon.momentum().E()>5.0*GeV) {
           photons.push_back(photon);
         }
       }
@@ -74,7 +74,7 @@ namespace Rivet {
             double zgamma = photon.momentum().E()/jet.E();
             if (jets_001.size() == 2) _h_z_2jet_001->fill(zgamma, weight);
             else if (jets_001.size() == 3) _h_z_3jet_001->fill(zgamma, weight);
-            else if (jets_001.size() == 4) _h_z_4jet_001->fill(zgamma, weight);
+            else if (jets_001.size() > 3) _h_z_4jet_001->fill(zgamma, weight);
             break;
           }
         }

@@ -4,15 +4,14 @@ Summary: Measurement of the quark to photon fragmentation function
 Experiment: ALEPH
 Collider: LEP Run 1
 SpiresID: 3196992
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:
  - Z.Phys.C69:365-378,1996
  - doi:10.1007/s002880050037
 RunInfo:
-  e+ e- -> jets at shower level. The experimental results have been corrected
-  for hadronisation
+  e+ e- -> jets with hadron decays turned off.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
