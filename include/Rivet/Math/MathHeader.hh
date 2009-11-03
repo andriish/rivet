@@ -1,5 +1,5 @@
-#ifndef RIVET_Math_MathHeader
-#define RIVET_Math_MathHeader
+#ifndef RIVET_MATH_MATHHEADER
+#define RIVET_MATH_MATHHEADER
 
 #include <stdexcept>
 #include <string>
@@ -10,9 +10,10 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <cassert>
 
-#include "Rivet/Math/eigen/vector.h"
-#include "Rivet/Math/eigen/matrix.h"
+// #include "Rivet/Math/eigen/vector.h"
+// #include "Rivet/Math/eigen/matrix.h"
 
 namespace Rivet {
   

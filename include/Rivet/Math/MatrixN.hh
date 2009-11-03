@@ -5,6 +5,9 @@
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 
+#include <Eigen/Core>
+#include <Eigen/LU>
+
 namespace Rivet {
 
 
@@ -62,7 +65,7 @@ public:
 public:
 
   Matrix() {
-    _matrix.loadZero();
+    _matrix.setZero();
   }
 
   Matrix(const Matrix<N>& other) {
@@ -102,7 +105,7 @@ public:
   }
 
   Vector<N> getColumn(const size_t col) const {
-    const Eigen::Vector<double,N> eVec = _matrix.column(col);
+    const EVector eVec = _matrix.col(col);
     Vector<N> rtn;
     for (size_t i = 0; i < N; ++i) {
       rtn.set(i, _matrix(i,col));
@@ -119,12 +122,12 @@ public:
 
   Matrix<N> transpose() const {
     Matrix<N> tmp = *this;
-    tmp._matrix.replaceWithAdjoint();
+    tmp._matrix.transposeInPlace();
     return tmp;
   }
 
   // Matrix<N>& transposeInPlace() {
-  //   _matrix.replaceWithAdjoint();
+  //   _matrix.transposeInPlace();
   //   return *this;
   // }
 
@@ -239,7 +242,8 @@ public:
   }
 
 protected:
-  typedef Eigen::Matrix<double,N> EMatrix;
+  typedef Eigen::Matrix<double,N,1> EVector;
+  typedef Eigen::Matrix<double,N,N> EMatrix;
   EMatrix _matrix;
 };
 
@@ -376,6 +380,20 @@ inline ostream& operator<<(std::ostream& out, const Matrix<N>& m) {
 }
 
 
+template <size_t N>
+inline bool fuzzyEquals(const Matrix<N>& ma, const Matrix<N>& mb, double tolerance=1E-5) {
+  for (size_t i = 0; i < N; ++i) {
+    for (size_t j = 0; j < N; ++j) {
+      const double a = ma.get(i, j);
+      const double b = mb.get(i, j);
+      if (!Rivet::fuzzyEquals(a, b, tolerance)) return false;
+    }
+  }
+  return true;
 }
+
+
+}
+
 
 #endif

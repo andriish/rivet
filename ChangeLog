@@ -1,3 +1,11 @@
+2009-11-03  Andy Buckley  <andy@insectnation.org>
+
+	* Adding more assertion checks to linear algebra testing.
+
+	* Replacing eigen linear algebra library with eigen2, which is
+	based on expression templates and may give some performance
+	benefits.
+
 2009-11-02  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing normalisation issue with stacked histograms in make-plots.

@@ -4,6 +4,8 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MathUtils.hh"
 
+#include <Eigen/Core>
+
 namespace Rivet {
 
 
@@ -23,21 +25,22 @@ namespace Rivet {
     friend Vector<M> multiply(const Matrix<M>& a, const Vector<M>& b);
 
   public:
-    Vector() { _vec.loadZero(); }
+    Vector() { _vec.setZero(); }
 
     Vector(const Vector<N>& other) 
       : _vec(other._vec) { }
 
-    const double& get(const size_t index) const {
+    /// Get vector elements
+    const double get(const size_t index) const {
       if (index >= N) {
         throw std::runtime_error("Tried to access an invalid vector index.");
       } else {
-        return _vec(index);
+        return _vec[index];
       }
     }
 
     /// Direct access to vector elements by index.
-    const double& operator[](const size_t index) const {
+    const double operator[](const size_t index) const {
       return get(index);
     }
 
@@ -122,12 +125,13 @@ namespace Rivet {
       if (index >= N) {
         throw std::runtime_error("Tried to access an invalid vector index.");
       } else {
-        return _vec(index);
+        return _vec[index];
       }
     }
 
     /// Vector
-    Eigen::Vector<double,N> _vec;
+    typedef Eigen::Matrix<double,N,1> EVector;
+    EVector _vec;
   };
 
 
@@ -149,6 +153,7 @@ namespace Rivet {
 
   /////////////////////////////////////////////////
 
+
   template <size_t N>
   inline const string toString(const Vector<N>& v) {
     ostringstream out;
@@ -165,6 +170,20 @@ namespace Rivet {
   inline std::ostream& operator<<(std::ostream& out, const Vector<N>& v) {
     out << toString(v);
     return out;
+  }
+
+
+  /////////////////////////////////////////////////
+
+
+  template <size_t N>
+  inline bool fuzzyEquals(const Vector<N>& va, const Vector<N>& vb, double tolerance=1E-5) {
+    for (size_t i = 0; i < N; ++i) {
+      const double a = va.get(i);
+      const double b = vb.get(i);
+      if (!Rivet::fuzzyEquals(a, b, tolerance)) return false;
+    }
+    return true;
   }
 
 

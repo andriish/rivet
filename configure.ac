@@ -230,6 +230,7 @@ fi
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
+AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen2"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(BOOSTINCPATH) \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(GSLINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
@@ -237,9 +238,7 @@ AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
 AC_CEDAR_CHECKCXXFLAG([-pedantic], [AM_CXXFLAGS="$AM_CXXFLAGS -pedantic "])
 AC_CEDAR_CHECKCXXFLAG([-ansi], [AM_CXXFLAGS="$AM_CXXFLAGS -ansi "])
 AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall "])
-dnl if test x$with_root == xyes; then
-dnl   AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "])
-dnl fi
+AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long "])
 
 
 ## Debug flag (default=none)

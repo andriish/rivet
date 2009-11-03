@@ -6,24 +6,30 @@
 #include "Rivet/Math/Matrices.hh"
 
 using namespace std;
-using namespace Rivet;
 
 int main() {
-
+  using namespace Rivet;
+  
   FourVector a(1,0,0,0);
   cout << a << ": interval = " << a.invariant() << endl;
+  assert(fuzzyEquals(a.invariant(), 1));
   a.setZ(1);
+  assert(isZero(a.invariant()));
   cout << a << ": interval = " << a.invariant() << endl;
   a.setY(2).setZ(3);
   cout << a << ": interval = " << a.invariant() << endl;
+  assert(fuzzyEquals(a.invariant(), -12));
   cout << a << ": vector = " << a.vector3() << endl << endl;
 
-  FourMomentum b(1,0,0,1);
+  FourMomentum b(1,0,0,0);
   cout << b << ": mass = " << b.mass() << endl;
+  assert(fuzzyEquals(b.mass2(), 1));
   b.setPz(1);
   cout << b << ": mass = " << b.mass() << endl;
+  assert(isZero(b.mass2()));
   b.setPy(2).setPz(3).setE(6);
   cout << b << ": mass = " << b.mass2() << endl;
+  assert(fuzzyEquals(b.mass2(), 23));
   cout << b << ": vector = " << b.vector3() << endl << endl;
 
   Matrix3 m;
@@ -53,14 +59,51 @@ int main() {
   m3.setRow(0, Vector3(2,3,0)).setRow(1, Vector3(1,4,3)).setRow(2, Vector3(0,1,2));
   cout << m1+m2 << " == " << m3 << ": " << (m1+m2 == m3 ? "true" : "false") << endl;
   cout << endl;
+
   
   Vector3 v3(1,2,3);
   cout << "Vector: " << v3 << endl;
   cout << "Invert: " << v3 << " --> " << -v3 << endl;
   const Matrix3 rot90(Vector3(0,0,1), PI/2.0);
-  cout << "Rot 90: " << v3 << " --90deg--> " << rot90*v3 << endl;
-  cout << "Rot 2 x 90: " << v3 << " --90deg--> " << rot90*rot90*v3 << endl;
-  cout << "Rot 90*-90: "<< v3 << " --90deg--> " << rot90*rot90.inverse()*v3 << endl;
+  const Matrix3 rot90m(Vector3(0,0,1), -PI/2.0);
+  const Matrix3 rot180(Vector3(0,0,1), PI);
+  const Matrix3 rot180m(Vector3(0,0,1), -PI);
+  const Vector3 v3_90 = rot90*v3;
+  cout << "Rot 90: " << v3 << " ---> " << v3_90 << endl;
+  const Vector3 v3_90m = rot90m*v3;
+  cout << "Rot -90: " << v3 << " ---> " << v3_90m << endl;
+  const Vector3 v3_180 = rot180*v3;
+  cout << "Rot 180: " << v3 << " ---> " << v3_180 << endl;
+  const Vector3 v3_180m = rot180m*v3;
+  cout << "Rot -180: " << v3 << " ---> " << v3_180m << endl;
+  assert(fuzzyEquals(v3_180, v3_180m));
+
+  const Vector3 v3_9090 = rot90*rot90*v3;
+  cout << "Rot 2 x 90: " << v3 << " ---> " << v3_9090 << endl;
+  assert(fuzzyEquals(v3_180, v3_9090));
+
+  const Vector3 v3_90m90m = rot90m*rot90m*v3;
+  cout << "Rot 2 x -90: " << v3 << " ---> " << v3_90m90m << endl;
+  assert(fuzzyEquals(v3_180, v3_90m90m));
+
+  const Vector3 v3_9090m = rot90*rot90m*v3;
+  const Vector3 v3_90m90 = rot90m*rot90*v3;
+  cout << "Rot 90*-90: "<< v3 << " ---> " << v3_9090m << endl;
+  cout << "Rot -90*90: "<< v3 << " ---> " << v3_90m90 << endl;
+  assert(fuzzyEquals(v3, v3_9090m));
+  assert(fuzzyEquals(v3, v3_90m90));
+
+  const Vector3 v3_90i = rot90.inverse()*v3;
+  cout << "Rot (90)^-1: "<< v3 << " ---> " << v3_90i << endl;
+  assert(fuzzyEquals(v3_90i, v3_90m));
+
+  const Vector3 v3_9090i = rot90*rot90.inverse()*v3;
+  const Vector3 v3_90i90 = rot90.inverse()*rot90*v3;
+  cout << "Rot 90*(90)^-1: "<< v3 << " ---> " << v3_9090i << endl;
+  cout << "Rot (90)^-1*90: "<< v3 << " ---> " << v3_90i90 << endl;
+  assert(fuzzyEquals(v3, v3_9090i));
+  assert(fuzzyEquals(v3, v3_90i90));
+
   const Matrix3 rot1(Vector3(0,1,0), PI/180.0);
   cout << "Rot 0 x 45 x 1: " << v3 << endl;
   for (size_t i = 0; i < 8; ++i) {
@@ -69,7 +112,7 @@ int main() {
     }
     cout << "Rot " << i+1 << " x 45 x 1: " << v3 << endl;
   }
-  assert(v3 == Vector3(1,2,3));
+  assert(fuzzyEquals(v3, Vector3(1,2,3)));
   cout << endl;
 
   cout << "Boosts:" << endl;

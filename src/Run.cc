@@ -72,7 +72,7 @@ namespace Rivet {
       _ah.removeIncompatibleAnalyses(beamIds(*evt));
       if (num_anas_requested > 0 && _ah.analysisNames().size() == 0) {
         Log::getLog("Rivet.Run") << Log::ERROR
-            << "All analyses were incompatible with the first event's beams"
+            << "All analyses were incompatible with the first event's beams\n"
             << "Exiting, since this probably isn't intentional!" << endl;
         delete evt;
         return false;
