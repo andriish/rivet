@@ -6,10 +6,11 @@ EXTRA_DIST = compare-histos.txt heppennames.sty cone.png h-physrev3.bst hepnames
   compare-histos.html hepparticles.sty maybemath.sty refs.bib rivet-manual.pdf thinker.png \
   hepunits.sty underscore.sty microtype.sty
 
-DOCS = analyses.html
+DOCS = 
 
 if ENABLE_PYEXT
 
+DOCS += analyses.html
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
