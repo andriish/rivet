@@ -1586,7 +1586,7 @@ TODO
 
     ## Check for HEP LaTeX packages
     opts.LATEXPKGS = []
-    for pkg in ["hepnicenames", "hepunits", "siunitx"]:
+    for pkg in ["hepnicenames", "hepunits"]:
         if os.system('kpsewhich %s.sty > /dev/null' % pkg) == 0:
             opts.LATEXPKGS.append(pkg)
 
