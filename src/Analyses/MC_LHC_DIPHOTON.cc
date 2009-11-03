@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/RivetAIDA.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Tools/Logging.hh"
