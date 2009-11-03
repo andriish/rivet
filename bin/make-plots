@@ -94,20 +94,9 @@ class Inputdata:
             else:
                 self.description['RatioPlotSizeY'] = 3.
 
-        ## TODO: Also accept "true", "True", "TRUE", "yes", etc.
         self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
         self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
 
-        if self.description.has_key('Stack'):
-            foo=[]
-            for i in self.description['Stack'].strip().split():
-                if i in self.histos.keys():
-                    foo.append(i)
-            previous=''
-            for i in foo:
-                if previous!='':
-                    self.histos[i].add(self.histos[previous])
-                previous=i
         foo=[]
         if self.description.has_key('DrawOnly'):
             for i in self.description['DrawOnly'].strip().split():
@@ -184,6 +173,18 @@ class Plot:
                     inputdata.histos[i].description['Scale'] = float(inputdata.description['Scale'])
         for i in inputdata.description['DrawOnly']:
             inputdata.histos[i].mangle_input()
+
+    def stack_histograms(self,inputdata):
+        if inputdata.description.has_key('Stack'):
+            foo=[]
+            for i in inputdata.description['Stack'].strip().split():
+                if i in inputdata.histos.keys():
+                    foo.append(i)
+            previous=''
+            for i in foo:
+                if previous!='':
+                    inputdata.histos[i].add(inputdata.histos[previous])
+                previous=i
 
     def set_borders(self,inputdata):
         self.set_xmax(inputdata)
@@ -349,6 +350,7 @@ class Plot:
 class MainPlot(Plot):
     def __init__(self, inputdata):
         self.set_normalization(inputdata)
+        self.stack_histograms(inputdata)
         self.set_borders(inputdata)
         global coors
         coors = Coordinates(inputdata)

@@ -1,3 +1,7 @@
+2009-11-02  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing normalisation issue with stacked histograms in make-plots.
+
 2009-10-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* CDF_2009_S8233977: Updating data and axes labels to match
