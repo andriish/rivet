@@ -5,6 +5,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/Thrust.hh"
 
 namespace Rivet {
 
@@ -29,6 +30,7 @@ namespace Rivet {
       IdentifiedFinalState ifs(-MAXRAPIDITY, +MAXRAPIDITY, 5.0*GeV);
       ifs.acceptId(PHOTON);
       addProjection(ifs, "Photons");
+      addProjection(Thrust(fs), "Thrust");
 
       // Book histograms
       _h_z_2jet_001 = bookHistogram1D(1, 1, 1);
@@ -54,6 +56,11 @@ namespace Rivet {
         }
       }
       if (photons.size()<1) {
+        vetoEvent;
+      }
+      
+      const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
+      if (fabs(cos(thrust.thrustAxis().theta()))>0.95) {
         vetoEvent;
       }
 
