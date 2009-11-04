@@ -49,6 +49,7 @@ namespace Rivet {
       return get(index);
     }
 
+    /// Set indexed value
     Vector<N>& set(const size_t index, const double value) {
       if (index >= N) {
         throw std::runtime_error("Tried to access an invalid vector index.");
@@ -58,13 +59,15 @@ namespace Rivet {
       return *this;
     }
 
+    /// Vector dimensionality
     const size_t size() const {
       return N;
     }
 
-    const bool isZero() const {
+    /// Check for nullness, allowing for numerical precision
+    const bool isZero(double tolerance=1E-5) const {
       for (size_t i=0; i < N; ++i) {
-        if (! Rivet::isZero(_vec[i]) ) return false;
+        if (! Rivet::isZero(_vec[i], tolerance) ) return false;
       }
       return true;
     }
@@ -154,6 +157,7 @@ namespace Rivet {
   /////////////////////////////////////////////////
 
 
+  /// Make string representation
   template <size_t N>
   inline const string toString(const Vector<N>& v) {
     ostringstream out;
@@ -166,6 +170,7 @@ namespace Rivet {
     return out.str();
   }
 
+  /// Stream out string representation
   template <size_t N>
   inline std::ostream& operator<<(std::ostream& out, const Vector<N>& v) {
     out << toString(v);
@@ -176,6 +181,7 @@ namespace Rivet {
   /////////////////////////////////////////////////
 
 
+  /// Compare two vectors by index, allowing for numerical precision
   template <size_t N>
   inline bool fuzzyEquals(const Vector<N>& va, const Vector<N>& vb, double tolerance=1E-5) {
     for (size_t i = 0; i < N; ++i) {
@@ -184,6 +190,13 @@ namespace Rivet {
       if (!Rivet::fuzzyEquals(a, b, tolerance)) return false;
     }
     return true;
+  }
+
+
+  /// External form of numerically safe nullness check
+  template <size_t N>
+  inline bool isZero(const Vector<N>& v, double tolerance=1E-5) {
+    return v.isZero(tolerance);
   }
 
 

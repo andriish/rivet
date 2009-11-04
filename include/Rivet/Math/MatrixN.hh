@@ -131,57 +131,61 @@ public:
   //   return *this;
   // }
 
+  /// Calculate inverse
   Matrix<N> inverse() const {
     Matrix<N> tmp;
     tmp._matrix = _matrix.inverse();
     return tmp;
   }
 
+  /// Calculate determinant
   double det() const  {
     return _matrix.determinant();
   }
 
+  /// Calculate trace
   double trace() const {
-    double tr = 0.0;
-    for (size_t i = 0; i < N; ++i) {
-      tr += _matrix(i,i);
-    }
-    return tr;
-    // return _matrix.trace();
+    return _matrix.trace();
   }
 
+  /// Negate
   Matrix<N> operator-() const {
     Matrix<N> rtn;
     rtn._matrix = -_matrix;
     return rtn;
   }
 
+  /// Get dimensionality
   const size_t size() const {
     return N;
   }
 
-  const bool isZero() const {
+  /// Index-wise check for nullness, allowing for numerical precision
+  const bool isZero(double tolerance=1E-5) const {
     for (size_t i=0; i < N; ++i) {
       for (size_t j=0; j < N; ++j) {
-        if (! Rivet::isZero(_matrix(i,j)) ) return false;
+        if (! Rivet::isZero(_matrix(i,j), tolerance) ) return false;
       }
     }
     return true;
   }
 
+  /// Check for index-wise equality, allowing for numerical precision
   const bool isEqual(Matrix<N> other) const {
     for (size_t i=0; i < N; ++i) {
       for (size_t j=i; j < N; ++j) {
-        if (! Rivet::isZero(_matrix(i,j) - other._matrix(i,j)) ) return false;
+        if (! Rivet::fuzzyEquals(_matrix(i,j), other._matrix(i,j)) ) return false;
       }
     }
     return true;
   }
 
+  /// Check for symmetry under transposition
   const bool isSymm() const {
     return isEqual(this->transpose());
   }
 
+  /// Check that all off-diagonal elements are zero, allowing for numerical precision
   const bool isDiag() const {
     for (size_t i=0; i < N; ++i) {
       for (size_t j=0; j < N; ++j) {
@@ -356,6 +360,7 @@ inline double trace(const Matrix<N>& m) {
 /////////////////////////////////
 
 
+/// Make string representation
 template <size_t N>
 inline string toString(const Matrix<N>& m) {
   ostringstream ss;
@@ -373,6 +378,7 @@ inline string toString(const Matrix<N>& m) {
 }
 
 
+/// Stream out string representation
 template <size_t N>
 inline ostream& operator<<(std::ostream& out, const Matrix<N>& m) {
   out << toString(m);
@@ -380,6 +386,10 @@ inline ostream& operator<<(std::ostream& out, const Matrix<N>& m) {
 }
 
 
+/////////////////////////////////////////////////
+
+
+/// Compare two matrices by index, allowing for numerical precision
 template <size_t N>
 inline bool fuzzyEquals(const Matrix<N>& ma, const Matrix<N>& mb, double tolerance=1E-5) {
   for (size_t i = 0; i < N; ++i) {
@@ -390,6 +400,13 @@ inline bool fuzzyEquals(const Matrix<N>& ma, const Matrix<N>& mb, double toleran
     }
   }
   return true;
+}
+
+
+/// External form of numerically safe nullness check
+template <size_t N>
+inline bool isZero(const Matrix<N>& m, double tolerance=1E-5) {
+  return m.isZero(tolerance);
 }
 
 
