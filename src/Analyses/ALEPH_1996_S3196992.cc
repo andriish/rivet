@@ -3,6 +3,7 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/Thrust.hh"
@@ -31,6 +32,7 @@ namespace Rivet {
       ifs.acceptId(PHOTON);
       addProjection(ifs, "Photons");
       addProjection(Thrust(fs), "Thrust");
+      addProjection(ChargedFinalState(), "CFS");
 
       // Book histograms
       _h_z_2jet_001 = bookHistogram1D(1, 1, 1);
@@ -47,6 +49,10 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
+
+      if (applyProjection<FinalState>(event, "CFS").particles().size()<2) {
+        vetoEvent;
+      }
       
       const ParticleVector allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
       ParticleVector photons;
