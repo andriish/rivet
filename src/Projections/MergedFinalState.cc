@@ -9,10 +9,8 @@ namespace Rivet {
 
 
   int MergedFinalState::compare(const Projection& p) const {
-    /// @todo: This needs to be fixed!! We need to
-    //    - check if the size matches (if it doesn't, they are not equal)
-    //    - for equal sizes compare the elements (yuck!)
-    return mkNamedPCmp(p, "FSA");
+    /// @todo: Currently A+B is not recognised to be the same as B+A.
+    return mkNamedPCmp(p, "FSA") || mkNamedPCmp(p, "FSB");
   }
 
 

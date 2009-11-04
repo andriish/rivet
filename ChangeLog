@@ -4,7 +4,7 @@
 	in pp collisions at 200 GeV). It is still unclear if they used
 	a cut in rapidity or pseudorapidity, thus the analysis is declared
 	"UNDER DEVELOPMENT" and "DO NOT USE".
-	* Fixing compare() in NeutralFinalState projection
+	* Fixing compare() in NeutralFinalState and MergedFinalState
 
 2009-11-04  Andy Buckley  <andy@insectnation.org>
 
