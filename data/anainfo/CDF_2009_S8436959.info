@@ -4,7 +4,7 @@ Summary: Measurement of the Inclusive Isolated Prompt Photon Cross Section
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 8436959
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:
