@@ -52,5 +52,11 @@ namespace Rivet {
     return beamproj.beamIDs();
   }
 
+  double sqrtS(const Event& e) {
+    Beam beamproj;
+    beamproj.project(e);
+    return beamproj.sqrtS();
+  }
+
 
 }

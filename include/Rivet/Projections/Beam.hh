@@ -65,6 +65,7 @@ namespace Rivet {
 
   ///////////////////////////////////////////////////////
 
+
   /// @name Stand-alone functions
   //@{
 
@@ -73,6 +74,9 @@ namespace Rivet {
 
   /// Function to get beam particle IDs from an event
   BeamPair beamIds(const Event& e);
+
+  /// Function to get beam centre of mass energy from an event
+  double sqrtS(const Event& e);
 
   //@}
 

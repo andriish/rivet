@@ -17,14 +17,14 @@ namespace Rivet {
   }
   
   
-  Run& Run::setCrossSection(const double& xs) {
+  Run& Run::setCrossSection(const double xs) {
     _xs = xs;
     return *this;
   }
   
   
-  Run& Run::setListAnalyses(const bool& l) {
-    _listAnalyses = l;
+  Run& Run::setListAnalyses(const bool dolist) {
+    _listAnalyses = dolist;
     return *this;
   }
   
@@ -60,6 +60,28 @@ namespace Rivet {
       return false;
     }
     
+    // Get beam details from first event, and ensure they match for all following events
+    if (evt->particles_size() != 0) {
+      const BeamPair beams = beamIds(*evt);
+      const double sqrts = Rivet::sqrtS(*evt);
+      Log::getLog("Rivet.Run") << Log::DEBUG << "Beams: "
+                               << beams << " @ " << sqrts/GeV << " GeV" << endl;
+      if (firstEvent) {
+        _beams = beams;
+        _sqrts = sqrts;
+        Log::getLog("Rivet.Run") << Log::INFO << "First event beams: "
+                                 << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+      } else {
+        if (_beams != _beams || !fuzzyEquals(sqrts, sqrtS())) {
+          Log::getLog("Rivet.Run") << Log::ERROR << "Event beams mismatch: "
+                                   << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+                                   << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+          delete evt;
+          return false;
+        }
+      }
+    }
+
     // Set up system based on properties of first event
     if (firstEvent) {
       // If empty
@@ -68,8 +90,9 @@ namespace Rivet {
         delete evt;
         return false;
       }
-      size_t num_anas_requested = _ah.analysisNames().size();
-      _ah.removeIncompatibleAnalyses(beamIds(*evt));
+
+      const size_t num_anas_requested = _ah.analysisNames().size();
+      _ah.removeIncompatibleAnalyses(beams());
       if (num_anas_requested > 0 && _ah.analysisNames().size() == 0) {
         Log::getLog("Rivet.Run") << Log::ERROR
             << "All analyses were incompatible with the first event's beams\n"
@@ -80,7 +103,7 @@ namespace Rivet {
       
       if (_listAnalyses) {
         foreach (const std::string& ana, _ah.analysisNames()) {
-          cout<<ana<<endl;
+          cout << ana << endl;
         }
       }
     }
@@ -118,12 +141,23 @@ namespace Rivet {
     return true;
   }
 
+
   bool Run::finalizeFile() {
     // Final HepMC object clean-up
     delete m_io;
     if (m_istr) delete m_istr;
     
     return true;
+  }
+
+
+  const BeamPair& Run::beams() const {
+    return _beams;
+  }
+
+
+  double Run::sqrtS() const {
+    return _sqrts;
   }
 
   

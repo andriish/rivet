@@ -67,6 +67,8 @@ namespace Rivet {
     return beamIds(Event(e));
   }
 
+  double sqrtS(const Event& e);
+
 
   class Analysis {
   public:

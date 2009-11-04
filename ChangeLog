@@ -1,3 +1,8 @@
+2009-11-04  Andy Buckley  <andy@insectnation.org>
+
+	* Adding consistence checking on beam ID and sqrt(s) vs. those
+	from first event.
+
 2009-11-03  Andy Buckley  <andy@insectnation.org>
 
 	* Adding more assertion checks to linear algebra testing.
