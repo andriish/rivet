@@ -9,8 +9,8 @@ namespace Rivet {
 
 
   int NeutralFinalState::compare(const Projection& p) const {
-    /// @todo: This needs to be fixed!! We can't just compare the FinalStates, we also have to check the Etmin!!
-    return mkNamedPCmp(p, "FS");
+    const NeutralFinalState& other = dynamic_cast<const NeutralFinalState&>(p);
+    return mkNamedPCmp(other, "FS") || cmp(_Etmin, other._Etmin);
   }
 
 
