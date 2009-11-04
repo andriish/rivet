@@ -2,4 +2,5 @@
 Title=Dijet mass spectrum
 XLabel=$m_{\mathrm{jj}}$ [GeV/$c^2$]
 YLabel=$\mathrm{d}\sigma/\mathrm{d}m_{\mathrm{jj}}$ [pb/(GeV/$c^2$)]
+LogX=1
 # END PLOT
