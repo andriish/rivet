@@ -1,0 +1,20 @@
+Name: STAR_2006_S6500200
+Year: 2006
+Summary: Identified hadron spectra in pp at 200 GeV
+Experiment: STAR
+Collider: RHIC pp 200 GeV
+SpiresID: 6500200
+Status: UNDER DEVELOPMENT, UNVALIDATED, DO NOT USE.
+Authors:
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - Phys. Lett. B637, 161
+ - nucl-ex/0601033
+RunInfo:
+  pp at 200 GeV
+NumEvents: 2500000
+PtCuts: [0]
+Description:
+  pT distributions of charged pions and (anti)protons in pp collisions 
+  at $\sqrt{s} = 200$ GeV, measured by the STAR experiment at RHIC in
+  non-single-diffractive minbias events.

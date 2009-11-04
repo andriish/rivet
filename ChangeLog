@@ -1,3 +1,10 @@
+2009-11-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* New analysis STAR_2006_S6500200 (pion and proton pT spectra
+	in pp collisions at 200 GeV). It is still unclear if they used
+	a cut in rapidity or pseudorapidity, thus the analysis is declared
+	"UNDER DEVELOPMENT" and "DO NOT USE".
+
 2009-11-04  Andy Buckley  <andy@insectnation.org>
 
 	* Adding consistence checking on beam ID and sqrt(s) vs. those
