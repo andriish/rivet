@@ -4,7 +4,7 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MathUtils.hh"
 
-#include <Eigen/Core>
+#include "Rivet/Math/eigen/vector.h"
 
 namespace Rivet {
 
@@ -25,22 +25,21 @@ namespace Rivet {
     friend Vector<M> multiply(const Matrix<M>& a, const Vector<M>& b);
 
   public:
-    Vector() { _vec.setZero(); }
+    Vector() { _vec.loadZero(); }
 
     Vector(const Vector<N>& other) 
       : _vec(other._vec) { }
 
-    /// Get vector elements
-    const double get(const size_t index) const {
+    const double& get(const size_t index) const {
       if (index >= N) {
         throw std::runtime_error("Tried to access an invalid vector index.");
       } else {
-        return _vec[index];
+        return _vec(index);
       }
     }
 
     /// Direct access to vector elements by index.
-    const double operator[](const size_t index) const {
+    const double& operator[](const size_t index) const {
       return get(index);
     }
 
@@ -128,13 +127,12 @@ namespace Rivet {
       if (index >= N) {
         throw std::runtime_error("Tried to access an invalid vector index.");
       } else {
-        return _vec[index];
+        return _vec(index);
       }
     }
 
     /// Vector
-    typedef Eigen::Matrix<double,N,1> EVector;
-    EVector _vec;
+    Eigen::Vector<double,N> _vec;
   };
 
 

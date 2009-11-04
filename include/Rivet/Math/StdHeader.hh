@@ -10,8 +10,8 @@
 #include <map>
 #include <vector>
 
-// #include "eigen/vector.h"
-// #include "eigen/matrix.h"
+#include "eigen/vector.h"
+#include "eigen/matrix.h"
 
 using std::string;
 using std::ostream;

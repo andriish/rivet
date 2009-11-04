@@ -6,8 +6,6 @@
 #include "Rivet/Math/MatrixN.hh"
 #include "Rivet/Math/Vector3.hh"
 
-#include <Eigen/Geometry>
-
 namespace Rivet {
 
 
@@ -18,13 +16,8 @@ public:
   Matrix3(const Matrix<3>& m3) :  Matrix<3>::Matrix<3>(m3) { }
 
   Matrix3(const Vector3& axis, const double angle) {
-    if (Rivet::isZero(angle)) {
-      _matrix.setIdentity();
-    } else {
-      const Vector3 normaxis = axis.unit();
-      Eigen::AngleAxis<double> eaxis(angle, normaxis._vec);
-      _matrix = Eigen::Transform<double,3>(eaxis).linear();
-    }
+    const Vector3 normaxis = axis.unit();
+    _matrix.loadRotation3(angle, normaxis._vec);
   }
 
   Matrix3(const Vector3& from, const Vector3& to) {
@@ -48,11 +41,10 @@ public:
   Matrix3& setAsRotation(const Vector3& from, const Vector3& to) {
     const double theta = angle(from, to);
     if (Rivet::isZero(theta)) {
-      _matrix.setIdentity();
+      _matrix.loadIdentity();
     } else {
       const Vector3 normaxis = cross(from, to).unit();
-      Eigen::AngleAxis<double> eaxis(theta, normaxis._vec);
-      _matrix = Eigen::Transform<double,3>(eaxis).linear();
+      _matrix.loadRotation3(theta, normaxis._vec);
     }
     return *this;
   }

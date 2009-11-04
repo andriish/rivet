@@ -1,9 +1,7 @@
 SUBDIRS = Rivet
 
-EXTRA_DIST = eigen2
-
 ## Remove these when YODA is available...
-EXTRA_DIST += TinyXML
+EXTRA_DIST = TinyXML
 nobase_include_HEADERS = \
   LWH/AIAnalysisFactory.h \
   LWH/AITreeFactory.h \
@@ -31,3 +29,5 @@ nobase_include_HEADERS = \
   LWH/Tree.h \
   LWH/Axis.h \
   LWH/VariAxis.h
+
+#EXTRA_DIST += eigen2
