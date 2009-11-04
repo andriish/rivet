@@ -18,7 +18,7 @@ namespace Rivet {
     /// Constructor
     D0_1996_S3324664() : Analysis("D0_1996_S3324664") {
       setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(true);
+      setNeedsCrossSection(false);
     }
     
     
@@ -85,10 +85,13 @@ namespace Rivet {
     
     
     void finalize() {
-      scale(_h_deta, crossSection()/sumOfWeights()); 
+      // Normalised to #events
+      normalize(_h_deta, 8830.0); 
       
+      // I have no idea what this is normalised to... in the paper it says unity!
+      /// @todo Understand this!
       foreach (IHistogram1D* histo, _h_dphi.getHistograms()) {
-        scale(histo, crossSection()/sumOfWeights());
+        normalize(histo, 0.0798);
       }
       
     }

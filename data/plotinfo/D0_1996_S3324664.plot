@@ -2,39 +2,24 @@
 Title=Pseudorapidity difference of the two opposite jets
 XLabel=$\Delta \eta = |\eta_1 - \eta_2|$
 YLabel=$\mathrm{d}N/\mathrm{d}\Delta\eta$
-NormalizeToIntegral=1
-# Normalised to #events
-Scale=8830.0
 # END PLOT
 
 # BEGIN PLOT /D0_1996_S3324664/d02-x01-y01
 Title=Azimuthal angle difference for $0 < \Delta \eta < 2$
 XLabel=$1 - \Delta \phi/\pi$
 YLabel=$1/N \mathrm{d}N/\mathrm{d}\Delta\phi$
-# I have no idea what this is normalised to... in the paper it says unity!
-# @todo Understand this!
-NormalizeToIntegral=1
-Scale=0.0798
 # END PLOT
 
 # BEGIN PLOT /D0_1996_S3324664/d02-x01-y02
 Title=Azimuthal angle difference for $2 < \Delta \eta < 4$
 XLabel=$1 - \Delta \phi/\pi$
 YLabel=$1/N \mathrm{d}N/\mathrm{d}\Delta\phi$
-# I have no idea what this is normalised to... in the paper it says unity!
-# @todo Understand this!
-NormalizeToIntegral=1
-Scale=0.0798
 # END PLOT
 
 # BEGIN PLOT /D0_1996_S3324664/d02-x01-y03
 Title=Azimuthal angle difference for $4 < \Delta \eta < 6$
 XLabel=$1 - \Delta \phi/\pi$
 YLabel=$1/N \mathrm{d}N/\mathrm{d}\Delta\phi$
-# I have no idea what this is normalised to... in the paper it says unity!
-# @todo Understand this!
-NormalizeToIntegral=1
-Scale=0.0798
 # END PLOT
 
 # BEGIN PLOT /D0_1996_S3324664/d03-x01-y01

@@ -33,7 +33,6 @@ namespace Rivet {
     D0_2004_S5992206() : Analysis("D0_2004_S5992206")
     {
       setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(true);
     }
 
     //@}
@@ -109,10 +108,11 @@ namespace Rivet {
     
     // Finalize
     void finalize() { 
-      scale(_histJetAzimuth_pTmax75_100, crossSection()/sumOfWeights());
-      scale(_histJetAzimuth_pTmax100_130, crossSection()/sumOfWeights());
-      scale(_histJetAzimuth_pTmax130_180, crossSection()/sumOfWeights());
-      scale(_histJetAzimuth_pTmax180_, crossSection()/sumOfWeights());
+      // Normalize histograms to unit area
+      normalize(_histJetAzimuth_pTmax75_100);
+      normalize(_histJetAzimuth_pTmax100_130);
+      normalize(_histJetAzimuth_pTmax130_180);
+      normalize(_histJetAzimuth_pTmax180_);
     }
     
     //@}
