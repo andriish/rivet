@@ -10,17 +10,17 @@ namespace Rivet {
   /// @brief inclusive jet cross-section in pp at 200 GeV
   class STAR_2006_S6870392 : public Analysis {
   public:
-    
+
     /// Constructor
     STAR_2006_S6870392()
       : Analysis("STAR_2006_S6870392")
     {
       setBeams(PROTON, PROTON);
-    } 
+    }
 
 
     /// @name Analysis methods
-    //@{ 
+    //@{
 
     /// Book projections and histograms
     void init() {
@@ -35,10 +35,10 @@ namespace Rivet {
     }
 
 
-    /// Do the analysis 
+    /// Do the analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      
+
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -46,7 +46,7 @@ namespace Rivet {
                  << " because no final state found " << endl;
         vetoEvent;
       }
-      
+
       // Find jets
       const FastJets& jetpro = applyProjection<FastJets>(event, "MidpointJets");
       const Jets& jets = jetpro.jetsByPt();
@@ -61,9 +61,9 @@ namespace Rivet {
         }
       }
     }
-    
-    
-    
+
+
+
     /// Finalize
     void finalize() {
       /// @todo Use the generator cross-section
@@ -71,23 +71,23 @@ namespace Rivet {
       normalize(_h_jet_pT_MB, 16603100);
       normalize(_h_jet_pT_HT, 1808234);
     }
-    
+
     //@}
-    
-    
+
+
   private:
-    
+
     /// @name Histograms
     //@{
     AIDA::IHistogram1D * _h_jet_pT_MB;
     AIDA::IHistogram1D * _h_jet_pT_HT;
     //@}
-    
+
   };
-  
-  
-  
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<STAR_2006_S6870392> plugin_STAR_2006_S6870392;
-  
+
 }
