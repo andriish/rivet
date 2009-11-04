@@ -101,9 +101,9 @@ namespace Rivet {
       
       /// Normalise, scale and otherwise manipulate histograms here
       for (size_t i=0; i<5; ++i) {
-        scale(_h_m[i], crossSection()/sumOfWeights());
-        scale(_h_costheta[i], crossSection()/sumOfWeights());
-        scale(_h_pT[i], crossSection()/sumOfWeights());
+        normalize(_h_m[i], 40.0);
+        normalize(_h_costheta[i], 2.0);
+        normalize(_h_pT[i], 20.0);
       }
       
     }
