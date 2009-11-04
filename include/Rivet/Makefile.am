@@ -107,4 +107,16 @@ nobase_pkginclude_HEADERS += \
   Math/Vector4.hh \
   Math/Math.hh \
   Math/Units.hh \
-  Math/Constants.hh
+  Math/Constants.hh \
+  Math/eigen/util.h \
+  Math/eigen/regressioninternal.h \
+  Math/eigen/regression.h \
+  Math/eigen/vector.h \
+  Math/eigen/ludecompositionbase.h \
+  Math/eigen/ludecomposition.h \
+  Math/eigen/linearsolver.h \
+  Math/eigen/linearsolverbase.h \
+  Math/eigen/matrix.h \
+  Math/eigen/vectorbase.h \
+  Math/eigen/projective.h \
+  Math/eigen/matrixbase.h 
