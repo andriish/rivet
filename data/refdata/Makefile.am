@@ -36,6 +36,7 @@ dist_pkgdata_DATA = \
   CDF_1996_S3108457.aida         \
   CDF_1996_S3349578.aida         \
   CDF_2000_S4155203.aida         \
+  CDF_2001_S4517016.aida         \
   CDF_2001_S4751469.aida         \
   CDF_2002_S4796047.aida         \
   CDF_2004_S5839831.aida         \
