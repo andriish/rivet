@@ -10,6 +10,7 @@
 #include "DataPointSet.h"
 #include "Profile1D.h"
 #include "Tree.h"
+#include "Rivet/Math/MathUtils.hh"
 #include <string>
 #include <stdexcept>
 
@@ -628,9 +629,9 @@ public:
     h->setTitle(path.substr(path.rfind('/') + 1));
     for (int i = 0; i < h1.ax->bins(); ++i) {
       for (int j = 0; j < h2.ax->bins(); ++j) {
-        if (h1.ax->binWidth(i) != h2.ax->binWidth(j) ||
-            h1.ax->binLowerEdge(i) != h2.ax->binLowerEdge(j) ||
-            h1.ax->binUpperEdge(i) != h2.ax->binUpperEdge(j)) {
+        if (!Rivet::fuzzyEquals(h1.ax->binWidth(i), h2.ax->binWidth(j)) ||
+            !Rivet::fuzzyEquals(h1.ax->binLowerEdge(i), h2.ax->binLowerEdge(j)) ||
+            !Rivet::fuzzyEquals(h1.ax->binUpperEdge(i), h2.ax->binUpperEdge(j))) {
           continue;
         }
         const double binwidth = h1.ax->binWidth(i);
