@@ -30,6 +30,10 @@ namespace Rivet {
       _h_pT_piminus    = bookHistogram1D(1, 2, 1);
       _h_pT_proton     = bookHistogram1D(1, 3, 1);
       _h_pT_antiproton = bookHistogram1D(1, 4, 1);
+//      _h_ratio_piminus_piplus = bookDataPointSet(2, 1, 1);
+//      _h_ratio_pbar_proton    = bookDataPointSet(2, 2, 1);
+//      _h_ratio_proton_piplus  = bookDataPointSet(2, 3, 1);
+//      _h_ratio_pbar_piminus   = bookDataPointSet(2, 4, 1);
     }
 
 
@@ -70,6 +74,12 @@ namespace Rivet {
       scale(_h_pT_piminus,    1./(2*M_PI*sumOfWeights()));
       scale(_h_pT_proton,     1./(2*M_PI*sumOfWeights()));
       scale(_h_pT_antiproton, 1./(2*M_PI*sumOfWeights()));
+
+//      getLog() << Log::DEBUG << _h_pT_piplus->axis().bins();
+//        << "  " << _h_pT_piplus->axis().binLowerEdge(1)
+//        << "  " << _h_pT_piplus->axis().binWidth(1)
+//        << std::endl;
+
     }
 
   private:
@@ -78,6 +88,11 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_pT_piminus;
     AIDA::IHistogram1D * _h_pT_proton;
     AIDA::IHistogram1D * _h_pT_antiproton;
+
+//    AIDA::IDataPointSet* _h_ratio_piminus_piplus;
+//    AIDA::IDataPointSet* _h_ratio_pbar_proton;
+//    AIDA::IDataPointSet* _h_ratio_proton_piplus;
+//    AIDA::IDataPointSet* _h_ratio_pbar_piminus;
 
   };
 
