@@ -643,7 +643,7 @@ public:
         x->setErrorMinus(binwidth/2.0);
 
         double yval(0), yerrup(0), yerrdown(0);
-        if ( h1.binHeight(j) == 0 || h2.binHeight(j) == 0 ) {
+        if ( h1.binHeight(i) == 0 || h2.binHeight(j) == 0 ) {
           /// @todo Bad way of handling div by zero!
           yval = 0.0;
           yerrup = 0.0;
