@@ -70,8 +70,12 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
+      double deta1 = 1.2;
+      double deta2[4] = {1.2, 1.4, 1.4, 1.8};
+      int i=0;
       foreach (AIDA::IHistogram1D* hist, _h_ET.getHistograms()) {
-        scale(hist, crossSection()/nanobarn/sumOfWeights());
+        scale(hist, crossSection()/nanobarn/sumOfWeights()/deta2[i]/deta1);
+        ++i;
       }
     }
 
