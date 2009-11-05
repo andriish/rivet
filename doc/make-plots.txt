@@ -128,6 +128,21 @@ any value. `FullRange=1` also overrides the 2e-4*`YMax` limit and plots the
 full range in y.
 
 
+Normalization
+^^^^^^^^^^^^^
+
+--------------------
+NormalizeToIntegral=<1|0>
+NormalizeToSum=<1|0>
+Scale=<factor>
+--------------------
+Normalize all histograms to their integral, to their sum of entries, or scale
+them by some arbitrary factor. Normalization options in the `PLOT` section
+override the corresponding option in the `HISTOGRAM` section. If a `Scale`
+factor is provided here and in the histogram, then both factors are applied
+after normalization.
+
+
 Sizes and Margins
 ^^^^^^^^^^^^^^^^^
 
