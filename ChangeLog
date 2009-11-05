@@ -1,3 +1,7 @@
+2009-11-05  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing histogram division code.
+
 2009-11-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* New analysis STAR_2006_S6500200 (pion and proton pT spectra

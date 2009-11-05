@@ -642,30 +642,21 @@ public:
         x->setErrorPlus(binwidth/2.0);
         x->setErrorMinus(binwidth/2.0);
 
-        double yval(0), yerrup(0), yerrdown(0);
+        double yval(0), yerr(0);
         if ( h1.binHeight(i) == 0 || h2.binHeight(j) == 0 ) {
           /// @todo Bad way of handling div by zero!
           yval = 0.0;
-          yerrup = 0.0;
-          yerrdown = 0.0;
+          yerr = 0.0;
         } else {
           yval = h1.binHeight(i) / h2.binHeight(j);
-          double h1val = h1.binHeight(i);
-          double h1min = h1val - h1.binRms(i);
-          double h1max = h1val + h1.binRms(i);
-          double h2val = h2.binHeight(j);
-          double h2min = h2.binHeight(j) - h2.binRms(j);
-          double h2max = h2.binHeight(j) + h2.binRms(j);
-          double h2invval = 1 / h2val;
-          double h2invmin = 1 / h2max;
-          double h2invmax = 1 / h2min;
-          yerrup = (h1val/h2val) * sqrt(pow((h1max-h1val)/h1val, 2) + pow((h2invmax-h2invval)/h2invval, 2));
-          yerrdown = (h1val/h2val) * sqrt(pow((h1val-h1min)/h1val, 2) + pow((h2invval-h2invmin)/h2invval, 2));
+          double y1relerr = h1.binError(i)/h1.binHeight(i);
+          double y2relerr = h2.binError(j)/h2.binHeight(j);
+          yerr = yval * sqrt(pow(y1relerr, 2) + pow(y2relerr, 2));
         }
         IMeasurement* y = point->coordinate(1);
         y->setValue(yval);
-        y->setErrorPlus(yerrup);
-        y->setErrorMinus(yerrdown);
+        y->setErrorPlus(yerr);
+        y->setErrorMinus(yerr);
       }
     }
     if ( !tree->insert(path, h) ) return 0;
