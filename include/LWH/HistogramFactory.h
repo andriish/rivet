@@ -53,7 +53,7 @@ public:
    * LWH cannot create a ICloud1D, an unbinned 1-dimensional histogram.
    */
   ICloud1D * createCloud1D(const std::string &, const std::string &,
-			   int = -1, const std::string & = "") {
+                           int = -1, const std::string & = "") {
     return error<ICloud1D>("ICloud1D");
   }
 
@@ -75,7 +75,7 @@ public:
    * LWH cannot create a ICloud2D, an unbinned 2-dimensional histogram.
    */
   ICloud2D * createCloud2D(const std::string &, const std::string &, int = -1,
-			   const std::string & = "") {
+                           const std::string & = "") {
     return error<ICloud2D>("ICloud2D");
   }
 
@@ -98,7 +98,7 @@ public:
    * LWH cannot create a ICloud3D, an unbinned 3-dimensional histogram.
    */
   ICloud3D * createCloud3D(const std::string &, const std::string &, int = -1,
-			   const std::string & = "") {
+                           const std::string & = "") {
     return error<ICloud3D>("ICloud3D");
   }
 
@@ -134,15 +134,15 @@ public:
    */
   IHistogram1D *
   createHistogram1D(const std::string & path, const std::string & title,
-		    int nBins, double lowerEdge, double upperEdge,
-		    const std::string & = "") {
+                    int nBins, double lowerEdge, double upperEdge,
+                    const std::string & = "") {
     Histogram1D * hist = new Histogram1D(nBins, lowerEdge, upperEdge);
     hist->setTitle(title);
     if ( !tree->insert(path, hist) ) {
       delete hist;
       hist = 0;
       throw std::runtime_error("LWH could not create histogram '"
-			       + title + "'." );
+                               + title + "'." );
     }
     return hist;
   }
@@ -161,7 +161,7 @@ public:
    */
   IHistogram1D *
   createHistogram1D(const std::string & pathAndTitle,
-		    int nBins, double lowerEdge, double upperEdge) {
+                    int nBins, double lowerEdge, double upperEdge) {
     std::string title = pathAndTitle.substr(pathAndTitle.rfind('/') + 1);
     return createHistogram1D(pathAndTitle, title, nBins, lowerEdge, upperEdge);
   }
@@ -181,15 +181,15 @@ public:
      */
   IHistogram1D *
   createHistogram1D(const std::string & path, const std::string & title,
-		    const std::vector<double> & binEdges,
-		    const std::string & = "") {
+                    const std::vector<double> & binEdges,
+                    const std::string & = "") {
     Histogram1D * hist = new Histogram1D(binEdges);
     hist->setTitle(title);
     if ( !tree->insert(path, hist) ) {
       delete hist;
       hist = 0;
       throw std::runtime_error("LWH could not create histogram '"
-			       + title + "'." );
+                               + title + "'." );
     }
     return hist;
   }
@@ -212,7 +212,7 @@ public:
       delete h;
       h = 0;
       throw std::runtime_error("LWH could not create a copy of histogram '"
-			       + hist.title() + "'." );
+                               + hist.title() + "'." );
     }
     return h;
   }
@@ -221,8 +221,8 @@ public:
    * LWH cannot create a IHistogram2D.
    */
   IHistogram2D * createHistogram2D(const std::string &, const std::string &,
-				   int, double, double, int, double, double,
-				   const std::string & = "") {
+                                   int, double, double, int, double, double,
+                                   const std::string & = "") {
     return error<IHistogram2D>("IHistogram2D");
   }
 
@@ -230,7 +230,7 @@ public:
    * LWH cannot create a IHistogram2D.
    */
   IHistogram2D * createHistogram2D(const std::string &,
-				   int, double, double, int, double, double) {
+                                   int, double, double, int, double, double) {
     return error<IHistogram2D>("IHistogram2D");
   }
 
@@ -238,9 +238,9 @@ public:
    * LWH cannot create a IHistogram2D.
    */
   IHistogram2D * createHistogram2D(const std::string &, const std::string &,
-				   const std::vector<double> &,
-				   const std::vector<double> &,
-				   const std::string & = "") {
+                                   const std::vector<double> &,
+                                   const std::vector<double> &,
+                                   const std::string & = "") {
     return error<IHistogram2D>("IHistogram2D");
   }
 
@@ -255,9 +255,9 @@ public:
    * LWH cannot create a IHistogram3D.
    */
   IHistogram3D * createHistogram3D(const std::string &, const std::string &,
-				   int, double, double, int, double, double,
-				   int, double, double,
-				   const std::string & = "") {
+                                   int, double, double, int, double, double,
+                                   int, double, double,
+                                   const std::string & = "") {
     return error<IHistogram3D>("IHistogram3D");
   }
 
@@ -265,7 +265,7 @@ public:
    * LWH cannot create a IHistogram3D.
    */
   IHistogram3D * createHistogram3D(const std::string &, int, double, double,
-				   int, double, double, int, double, double) {
+                                   int, double, double, int, double, double) {
     return error<IHistogram3D>("IHistogram3D");
   }
 
@@ -273,10 +273,10 @@ public:
    * LWH cannot create a IHistogram3D.
    */
   IHistogram3D * createHistogram3D(const std::string &, const std::string &,
-				   const std::vector<double> &,
-				   const std::vector<double> &,
-				   const std::vector<double> &,
-				   const std::string & = "") {
+                                   const std::vector<double> &,
+                                   const std::vector<double> &,
+                                   const std::vector<double> &,
+                                   const std::string & = "") {
     return error<IHistogram3D>("IHistogram3D");
   }
 
@@ -307,15 +307,15 @@ public:
    */
   IProfile1D *
   createProfile1D(const std::string & path, const std::string & title,
-		    int nBins, double lowerEdge, double upperEdge,
-		    const std::string & = "") {
+                    int nBins, double lowerEdge, double upperEdge,
+                    const std::string & = "") {
     Profile1D * prof = new Profile1D(nBins, lowerEdge, upperEdge);
     prof->setTitle(title);
     if ( !tree->insert(path, prof) ) {
       delete prof;
       prof = 0;
       throw std::runtime_error("LWH could not create profile histogram '"
-			       + title + "'." );
+                               + title + "'." );
     }
     return prof;
   }
@@ -334,7 +334,7 @@ public:
    */
   IProfile1D *
   createProfile1D(const std::string & pathAndTitle,
-		    int nBins, double lowerEdge, double upperEdge) {
+                    int nBins, double lowerEdge, double upperEdge) {
     std::string title = pathAndTitle.substr(pathAndTitle.rfind('/') + 1);
     return createProfile1D(pathAndTitle, title, nBins, lowerEdge, upperEdge);
   }
@@ -354,15 +354,15 @@ public:
      */
   IProfile1D *
   createProfile1D(const std::string & path, const std::string & title,
-		    const std::vector<double> & binEdges,
-		    const std::string & = "") {
+                    const std::vector<double> & binEdges,
+                    const std::string & = "") {
     Profile1D * prof = new Profile1D(binEdges);
     prof->setTitle(title);
     if ( !tree->insert(path, prof) ) {
       delete prof;
       prof = 0;
       throw std::runtime_error("LWH could not create profile histogram '"
-			       + title + "'." );
+                               + title + "'." );
     }
     return prof;
   }
@@ -385,7 +385,7 @@ public:
       delete p;
       p = 0;
       throw std::runtime_error("LWH could not create a copy of profile histogram '"
-			       + p->title() + "'." );
+                               + p->title() + "'." );
     }
     return p;
   }
@@ -395,8 +395,8 @@ public:
    * LWH cannot create a IProfile1D.
    */
   IProfile1D * createProfile1D(const std::string &, const std::string &,
-			       int, double, double, double, double,
-			       const std::string & = "") {
+                               int, double, double, double, double,
+                               const std::string & = "") {
     return error<IProfile1D>("IProfile1D");
   }
 
@@ -405,8 +405,8 @@ public:
    * LWH cannot create a IProfile1D.
    */
   IProfile1D * createProfile1D(const std::string &, const std::string &,
-			       const std::vector<double> &, double, double,
-			       const std::string & = "") {
+                               const std::vector<double> &, double, double,
+                               const std::string & = "") {
     return error<IProfile1D>("IProfile1D");
   }
 
@@ -414,7 +414,7 @@ public:
    * LWH cannot create a IProfile1D.
    */
   IProfile1D * createProfile1D(const std::string &,
-			       int, double, double, double, double) {
+                               int, double, double, double, double) {
     return error<IProfile1D>("IProfile1D");
   }
 
@@ -423,8 +423,8 @@ public:
    * LWH cannot create a IProfile2D.
    */
   IProfile2D * createProfile2D(const std::string &, const std::string &,
-			       int, double, double, int, double, double,
-			       const std::string & = "") {
+                               int, double, double, int, double, double,
+                               const std::string & = "") {
     return error<IProfile2D>("IProfile2D");
   }
 
@@ -432,9 +432,9 @@ public:
    * LWH cannot create a IProfile2D.
    */
   IProfile2D * createProfile2D(const std::string &, const std::string &,
-			       int, double, double, int,
-			       double, double, double, double,
-			       const std::string & = "") {
+                               int, double, double, int,
+                               double, double, double, double,
+                               const std::string & = "") {
     return error<IProfile2D>("IProfile2D");
   }
 
@@ -442,9 +442,9 @@ public:
    * LWH cannot create a IProfile2D.
    */
   IProfile2D * createProfile2D(const std::string &, const std::string &,
-			       const std::vector<double> &,
-			       const std::vector<double> &,
-			       const std::string & = "") {
+                               const std::vector<double> &,
+                               const std::vector<double> &,
+                               const std::string & = "") {
     return error<IProfile2D>("IProfile2D");
   }
 
@@ -452,9 +452,9 @@ public:
    * LWH cannot create a IProfile2D.
    */
   IProfile2D * createProfile2D(const std::string &, const std::string &,
-			       const std::vector<double> &,
-			       const std::vector<double> &,
-			       double, double, const std::string & = "") {
+                               const std::vector<double> &,
+                               const std::vector<double> &,
+                               double, double, const std::string & = "") {
     return error<IProfile2D>("IProfile2D");
   }
 
@@ -462,7 +462,7 @@ public:
    * LWH cannot create a IProfile2D.
    */
   IProfile2D * createProfile2D(const std::string &, int, double, double,
-			       int, double, double) {
+                               int, double, double) {
     return error<IProfile2D>("IProfile2D");
   }
 
@@ -470,7 +470,7 @@ public:
    * LWH cannot create a IProfile2D.
    */
   IProfile2D * createProfile2D(const std::string &, int, double, double,
-			       int, double, double, double, double) {
+                               int, double, double, double, double) {
     return error<IProfile2D>("IProfile2D");
   }
 
@@ -493,7 +493,7 @@ public:
    * @throws      std::runtime_error if histogram could not be created.
    */
   Histogram1D * add(const std::string & path,
-		     const Histogram1D & hist1, const Histogram1D & hist2) {
+                     const Histogram1D & hist1, const Histogram1D & hist2) {
     if ( !checkBins(hist1, hist2) ) return 0;
     Histogram1D * h = new Histogram1D(hist1);
     h->setTitle(path.substr(path.rfind('/') + 1));
@@ -501,7 +501,7 @@ public:
     if ( !tree->insert(path, h) ) return 0;
     return h;
   }
-    
+
   /**
    * Create an IHistogram1D by adding two IHistogram1D.
    * @param path  The path of the created IHistogram. The path must be a
@@ -514,11 +514,11 @@ public:
    * @throws      std::runtime_error if histogram could not be created.
    */
   IHistogram1D * add(const std::string & path,
-		     const IHistogram1D & hist1, const IHistogram1D & hist2) {
+                     const IHistogram1D & hist1, const IHistogram1D & hist2) {
     return add(path, dynamic_cast<const Histogram1D &>(hist1),
-	       dynamic_cast<const Histogram1D &>(hist2));
+               dynamic_cast<const Histogram1D &>(hist2));
   }
-    
+
   /**
    * Create a Histogram1D by subtracting two Histogram1D.
    * @param path  The path of the created IHistogram. The path must be a
@@ -531,7 +531,7 @@ public:
    * @throws      std::runtime_error if histogram could not be created.
    */
   Histogram1D * subtract(const std::string & path,
-		    const Histogram1D & h1, const Histogram1D & h2) {
+                    const Histogram1D & h1, const Histogram1D & h2) {
     if ( !checkBins(h1, h2) ) {
       //std::cout << "!!!!!!!" << std::endl;
       return 0;
@@ -562,9 +562,9 @@ public:
    * @throws      std::runtime_error if histogram could not be created.
    */
   IHistogram1D * subtract(const std::string & path, const IHistogram1D & hist1,
-			  const IHistogram1D & hist2) {
+                          const IHistogram1D & hist2) {
     return subtract(path, dynamic_cast<const Histogram1D &>(hist1),
-		    dynamic_cast<const Histogram1D &>(hist2));
+                    dynamic_cast<const Histogram1D &>(hist2));
   }
 
   /**
@@ -579,7 +579,7 @@ public:
    * @throws      std::runtime_error if histogram could not be created.
    */
   Histogram1D * multiply(const std::string & path,
-		    const Histogram1D & h1, const Histogram1D & h2) {
+                    const Histogram1D & h1, const Histogram1D & h2) {
     if ( !checkBins(h1, h2) ) return 0;
     Histogram1D * h = new Histogram1D(h1);
     h->setTitle(path.substr(path.rfind('/') + 1));
@@ -587,7 +587,7 @@ public:
       h->sum[i] *= h2.sum[i];
       h->sumw[i] *= h2.sumw[i];
       h->sumw2[i] += h1.sumw[i]*h1.sumw[i]*h2.sumw2[i] +
-	h2.sumw[i]*h2.sumw[i]*h1.sumw2[i];
+        h2.sumw[i]*h2.sumw[i]*h1.sumw2[i];
     }
     if ( !tree->insert(path, h) ) return 0;
     return h;
@@ -609,7 +609,7 @@ public:
     return multiply(path, dynamic_cast<const Histogram1D &>(hist1),
                     dynamic_cast<const Histogram1D &>(hist2));
   }
-  
+
   /**
    * Create n DataPointSet by dividing two Histogram1D.
    * @param path  The path of the created IHistogram. The path must be a
@@ -622,8 +622,8 @@ public:
    * @throws      std::runtime_error if histogram could not be created.
    */
   IDataPointSet * divide(const std::string & path,
-                        const Histogram1D & h1, const Histogram1D & h2) {
-    //std::cout << "!!!!!!!!!!!!" << path << std::endl;
+                         const Histogram1D & h1, const Histogram1D & h2) {
+    // std::cout << "!!!!!!!!!!!!" << path << std::endl;
     DataPointSet * h = new DataPointSet(2);
     h->setTitle(path.substr(path.rfind('/') + 1));
     for (int i = 0; i < h1.ax->bins(); ++i) {
@@ -633,39 +633,38 @@ public:
             h1.ax->binUpperEdge(i) != h2.ax->binUpperEdge(j)) {
           continue;
         }
-          
-      const double binwidth = h1.ax->binWidth(i);
-      const double bincentre = ( h1.ax->binLowerEdge(i) + h1.ax->binUpperEdge(i) ) / 2.0;
-      IDataPoint* point = h->addPoint();
-      IMeasurement* x = point->coordinate(0);
-      x->setValue(bincentre);
-      x->setErrorPlus(binwidth/2.0);
-      x->setErrorMinus(binwidth/2.0);
-        
-      double yval(0), yerrup(0), yerrdown(0);
-      if ( h1.binHeight(j) == 0 || h2.binHeight(j) == 0 ) {
-        /// @todo Bad way of handling div by zero!
-        yval = 0.0;
-        yerrup = 0.0;
-        yerrdown = 0.0;
-      } else {
-        yval = h1.binHeight(i) / h2.binHeight(j);
-        double h1val = h1.binHeight(i);
-        double h1min = h1val - h1.binRms(i);
-        double h1max = h1val + h1.binRms(i);
-        double h2val = h2.binHeight(j);
-        double h2min = h2.binHeight(j) - h2.binRms(j);
-        double h2max = h2.binHeight(j) + h2.binRms(j);
-        double h2invval = 1 / h2val;
-        double h2invmin = 1 / h2max;
-        double h2invmax = 1 / h2min;
-        yerrup = (h1val/h2val) * sqrt(pow((h1max-h1val)/h1val, 2) + pow((h2invmax-h2invval)/h2invval, 2));
-        yerrdown = (h1val/h2val) * sqrt(pow((h1val-h1min)/h1val, 2) + pow((h2invval-h2invmin)/h2invval, 2));
-      }
-      IMeasurement* y = point->coordinate(1);
-      y->setValue(yval);
-      y->setErrorPlus(yerrup);
-      y->setErrorMinus(yerrdown);
+        const double binwidth = h1.ax->binWidth(i);
+        const double bincentre = ( h1.ax->binLowerEdge(i) + h1.ax->binUpperEdge(i) ) / 2.0;
+        IDataPoint* point = h->addPoint();
+        IMeasurement* x = point->coordinate(0);
+        x->setValue(bincentre);
+        x->setErrorPlus(binwidth/2.0);
+        x->setErrorMinus(binwidth/2.0);
+
+        double yval(0), yerrup(0), yerrdown(0);
+        if ( h1.binHeight(j) == 0 || h2.binHeight(j) == 0 ) {
+          /// @todo Bad way of handling div by zero!
+          yval = 0.0;
+          yerrup = 0.0;
+          yerrdown = 0.0;
+        } else {
+          yval = h1.binHeight(i) / h2.binHeight(j);
+          double h1val = h1.binHeight(i);
+          double h1min = h1val - h1.binRms(i);
+          double h1max = h1val + h1.binRms(i);
+          double h2val = h2.binHeight(j);
+          double h2min = h2.binHeight(j) - h2.binRms(j);
+          double h2max = h2.binHeight(j) + h2.binRms(j);
+          double h2invval = 1 / h2val;
+          double h2invmin = 1 / h2max;
+          double h2invmax = 1 / h2min;
+          yerrup = (h1val/h2val) * sqrt(pow((h1max-h1val)/h1val, 2) + pow((h2invmax-h2invval)/h2invval, 2));
+          yerrdown = (h1val/h2val) * sqrt(pow((h1val-h1min)/h1val, 2) + pow((h2invval-h2invmin)/h2invval, 2));
+        }
+        IMeasurement* y = point->coordinate(1);
+        y->setValue(yval);
+        y->setErrorPlus(yerrup);
+        y->setErrorMinus(yerrdown);
       }
     }
     if ( !tree->insert(path, h) ) return 0;
@@ -674,7 +673,7 @@ public:
 
   #include <typeinfo>
 
-    
+
   /**
    * Create an IHistogram1D by dividing two IHistogram1D.
    * @param path  The path of the created IHistogram. The path must be a
@@ -686,7 +685,7 @@ public:
    * @return      The ration of the two IHistogram1D.
    * @throws      std::runtime_error if histogram could not be created.
    */
-  IDataPointSet * divide(const std::string & path, 
+  IDataPointSet * divide(const std::string & path,
                          const IHistogram1D & hist1,
                          const IHistogram1D & hist2) {
     //std::cout << "&&&& " << path << std::endl;
@@ -750,10 +749,10 @@ public:
   //  * @throws      std::runtime_error if histogram could not be created.
   //  */
   // IHistogram1D * divide(const std::string & path, const IHistogram1D & hist1,
-  //   		const IHistogram1D & hist2) {
+  //            const IHistogram1D & hist2) {
   //   //std::cout << "&&&&&&&&&&&&" << path << std::endl;
   //   return divide(path, dynamic_cast<const Histogram1D &>(hist1),
-  //   	    dynamic_cast<const Histogram1D &>(hist2));
+  //        dynamic_cast<const Histogram1D &>(hist2));
   // }
 
 
@@ -784,7 +783,7 @@ public:
    * LWH cannot create an IHistogram2D by adding two IHistogram2D.
    */
   IHistogram2D * add(const std::string &,
-		     const IHistogram2D &, const IHistogram2D &) {
+                     const IHistogram2D &, const IHistogram2D &) {
     return error<IHistogram2D>("2D histograms");
   }
 
@@ -792,7 +791,7 @@ public:
    * LWH cannot create an IHistogram2D by subtracting two IHistogram2D.
    */
   IHistogram2D * subtract(const std::string &,
-			  const IHistogram2D &, const IHistogram2D &) {
+                          const IHistogram2D &, const IHistogram2D &) {
     return error<IHistogram2D>("2D histograms");
   }
 
@@ -800,7 +799,7 @@ public:
    * LWH cannot create an IHistogram2D by multiplying two IHistogram2D.
    */
   IHistogram2D * multiply(const std::string &,
-			  const IHistogram2D &, const IHistogram2D &) {
+                          const IHistogram2D &, const IHistogram2D &) {
     return error<IHistogram2D>("2D histograms");
   }
 
@@ -808,7 +807,7 @@ public:
    * LWH cannot create an IHistogram2D by dividing two IHistogram2D.
    */
   IHistogram2D * divide(const std::string &,
-			const IHistogram2D &, const IHistogram2D &) {
+                        const IHistogram2D &, const IHistogram2D &) {
     return error<IHistogram2D>("2D histograms");
   }
 
@@ -816,7 +815,7 @@ public:
    * LWH cannot create an IHistogram3D by adding two IHistogram3D.
    */
   IHistogram3D * add(const std::string &,
-		     const IHistogram3D &, const IHistogram3D &) {
+                     const IHistogram3D &, const IHistogram3D &) {
     return error<IHistogram3D>("3D histograms");
   }
 
@@ -824,7 +823,7 @@ public:
    * LWH cannot create an IHistogram3D by subtracting two IHistogram3D.
    */
   IHistogram3D * subtract(const std::string &,
-			  const IHistogram3D &, const IHistogram3D &) {
+                          const IHistogram3D &, const IHistogram3D &) {
     return error<IHistogram3D>("3D histograms");
   }
 
@@ -832,7 +831,7 @@ public:
    *  LWH cannot create an IHistogram3D by multiplying two IHistogram3D.
    */
   IHistogram3D * multiply(const std::string &,
-			  const IHistogram3D &, const IHistogram3D &) {
+                          const IHistogram3D &, const IHistogram3D &) {
     return error<IHistogram3D>("3D histograms");
   }
 
@@ -840,7 +839,7 @@ public:
    * LWH cannot create an IHistogram3D by dividing two IHistogram3D.
    */
   IHistogram3D * divide(const std::string &,
-			const IHistogram3D &, const IHistogram3D &) {
+                        const IHistogram3D &, const IHistogram3D &) {
     return error<IHistogram3D>("3D histograms");
   }
 
