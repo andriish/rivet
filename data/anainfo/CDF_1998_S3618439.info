@@ -1,0 +1,20 @@
+Name: CDF_1998_S3618439
+Year: 1998
+Summary: Differential cross-section for events with large total transverse energy
+Experiment: CDF
+Collider: Tevatron Run 1
+SpiresID: 3618439
+Status: UNVALIDATED
+Authors:
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - Phys.Rev.Lett.80:3461-3466,1998
+ - 10.1103/PhysRevLett.80.3461
+RunInfo:
+  QCD events at Tevatron with $\sqrt{s}=1.8 TeV$ without MPI.
+NumEvents: 1000000
+PtCuts: [0]
+Description:
+  Measurement of the differential cross section $d\sigma/dE_\perp^j$ for the
+  production of multijet events in ppbar collisions where the sum is over all
+  jets with transverse energy $E_\perp^j > E_\perp^{min}$. 
