@@ -19,8 +19,8 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      IdentifiedFinalState pionfs(-3.0, 3.0, 0.3*GeV);
-      IdentifiedFinalState protonfs(-3.0, 3.0, 0.4*GeV);
+      IdentifiedFinalState pionfs(-0.5, 0.5, 0.3*GeV);
+      IdentifiedFinalState protonfs(-0.5, 0.5, 0.4*GeV);
       pionfs.acceptIdPair(PIPLUS);
       protonfs.acceptIdPair(PROTON);
       addProjection(pionfs, "PIONFS");
@@ -40,7 +40,7 @@ namespace Rivet {
       const IdentifiedFinalState& pionfs = applyProjection<IdentifiedFinalState>(event, "PIONFS");
       const IdentifiedFinalState& protonfs = applyProjection<IdentifiedFinalState>(event, "PROTONFS");
       foreach (const Particle& p, pionfs.particles()) {
-        if (fabs(p.momentum().rapidity()) < 0.5) {
+        if (fabs(p.momentum().eta()) < 0.5) {
           const double pT = p.momentum().pT() / GeV;
           if (p.pdgId()>0) {
             _h_pT_piplus->fill(pT, weight/pT);
@@ -51,7 +51,7 @@ namespace Rivet {
         }
       }
       foreach (const Particle& p, protonfs.particles()) {
-        if (fabs(p.momentum().rapidity()) < 0.5) {
+        if (fabs(p.momentum().eta()) < 0.5) {
           const double pT = p.momentum().pT() / GeV;
           if (p.pdgId()>0) {
             _h_pT_proton->fill(pT, weight/pT);
