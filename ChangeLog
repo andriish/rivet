@@ -1,3 +1,7 @@
+2009-11-06  Andy Buckley  <andy@insectnation.org>
+
+	* Adding Cmp<double> specialisation, using fuzzyEquals().
+
 2009-11-05  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing histogram division code.

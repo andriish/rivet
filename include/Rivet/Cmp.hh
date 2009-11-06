@@ -39,12 +39,12 @@ namespace Rivet {
     //@{
     /// The default constructor.
     Cmp(const T& t1, const T& t2)
-      : value(UNDEFINED), objects(&t1, &t2) { }
+      : _value(UNDEFINED), _objects(&t1, &t2) { }
     
     /// The copy constructor.
     template <typename U>
     Cmp(const Cmp<U>& x)
-      : value(x.operator int()), objects(0, 0) { }
+      : _value(x.operator int()), _objects(0, 0) { }
     
     /// The destructor is not virtual since this is not intended to be a base class.
     ~Cmp() { };
@@ -52,7 +52,7 @@ namespace Rivet {
     /// The assignment operator.
     template <typename U>
     const Cmp<T>& operator=(const Cmp<U>& x) {
-      value = x.operator int();
+      _value = x.operator int();
       return *this;
     }
     //@}
@@ -61,15 +61,15 @@ namespace Rivet {
     
     /// Automatically convert to an integer. 
     operator int() const {
-      compare();
-      return value;
+      _compare();
+      return _value;
     }
     
     /// If this state is equivalent, set this state to the state of \a c.
     template <typename U>
     const Cmp<T>& operator||(const Cmp<U>& c) const {
-      compare();
-      if ( value == EQUIVALENT ) value = c.operator int();
+      _compare();
+      if (_value == EQUIVALENT) _value = c.operator int();
       return *this;
     }
     
@@ -77,20 +77,20 @@ namespace Rivet {
   private:
     
     /// Perform the actual comparison if necessary.
-    void compare() const {
-      if ( value == UNDEFINED ) {
+    void _compare() const {
+      if (_value == UNDEFINED) {
         less<T> l;
-        if ( l(*objects.first, *objects.second) ) value = ORDERED;
-        else if ( l(*objects.second, *objects.first) ) value = UNORDERED;
-        else value = EQUIVALENT;
+        if ( l(*_objects.first, *_objects.second) ) _value = ORDERED;
+        else if ( l(*_objects.second, *_objects.first) ) _value = UNORDERED;
+        else _value = EQUIVALENT;
       }
     }
     
     /// The state of this object.
-    mutable int value;
+    mutable int _value;
     
     /// The objects to be compared.
-    pair<const T*, const T*> objects;
+    pair<const T*, const T*> _objects;
     
   };
 
@@ -126,12 +126,14 @@ namespace Rivet {
     //@{
     /// The default constructor.
     Cmp(const Projection& p1, const Projection& p2)
-      : value(UNDEFINED), objects(&p1, &p2) { }
+      : _value(UNDEFINED), _objects(&p1, &p2) 
+    { }
     
     /// The copy constructor.
     template <typename U>
     Cmp(const Cmp<U>& x)
-      : value(x.operator int()), objects(0, 0) { }
+      : _value(x.operator int()), _objects(0, 0) 
+    { }
     
     /// The destructor is not virtual since this is not intended to be a base class.
     ~Cmp() { };
@@ -139,7 +141,7 @@ namespace Rivet {
     /// The assignment operator.
     template <typename U>
     const Cmp<Projection>& operator=(const Cmp<U>& x) {
-      value = x.operator int();
+      _value = x.operator int();
       return *this;
     }
     //@}
@@ -148,32 +150,32 @@ namespace Rivet {
     
     /// Automatically convert to an integer. 
     operator int() const {
-      compare();
-      return value;
+      _compare();
+      return _value;
     }
     
-    /// If this state is equaivalent, set this state to the state of \a c.
+    /// If this state is equivalent, set this state to the state of \a c.
     template <typename U>
     const Cmp<Projection>& operator||(const Cmp<U>& c) const {
-      compare();
-      if ( value == EQUIVALENT ) value = c.operator int();
+      _compare();
+      if (_value == EQUIVALENT) _value = c.operator int();
       return *this;
     }
     
   private:
     
     /// Perform the actual comparison if necessary.
-    void compare() const {
-      if ( value == UNDEFINED ) {
-        const std::type_info & id1 = typeid(*objects.first);
-        const std::type_info & id2 = typeid(*objects.second);
-        if ( id1.before(id2) ) value = ORDERED;
-        else if ( id2.before(id1) ) value = UNORDERED;
+    void _compare() const {
+      if (_value == UNDEFINED) {
+        const std::type_info& id1 = typeid(*_objects.first);
+        const std::type_info& id2 = typeid(*_objects.second);
+        if (id1.before(id2)) _value = ORDERED;
+        else if (id2.before(id1)) _value = UNORDERED;
         else {
-          int c = objects.first->compare(*objects.second);
-          if ( c < 0 ) value = ORDERED;
-          else if ( c > 0 ) value = UNORDERED;
-          else value = EQUIVALENT;
+          int c = _objects.first->compare(*_objects.second);
+          if (c < 0) _value = ORDERED;
+          else if (c > 0) _value = UNORDERED;
+          else _value = EQUIVALENT;
         }
       }
     }
@@ -181,13 +183,107 @@ namespace Rivet {
   private:
     
     /// The state of this object.
-    mutable int value;
+    mutable int _value;
     
     /// The objects to be compared.
-    pair<const Projection*, const Projection*> objects;
+    pair<const Projection*, const Projection*> _objects;
+    
+  };
+
+
+
+
+   /// Specialization of the Cmp helper class to be used when checking the
+   /// ordering of two floating point numbers. When implicitly converted to an
+   /// integer the value will be negative if the two objects used in the
+   /// constructor are ordered and positive if they are not. Zero will be
+   /// returned if they are equal. This specialization uses the Rivet
+   /// fuzzyEquals function to indicate equivalence protected from numerical
+   /// precision effects.
+   ///
+   /// The main usage of the Cmp class is if several variables should be
+   /// checked for ordering in which case several Cmp objects can be
+   /// combined as follows: <code>cmp(a1, a2) || cmp(b1, b2) || cmp(c1,
+   /// c2)</code> where cmp is a global function for easy creation of Cmp
+   /// objects.
+  template <>
+  class Cmp<double> {
+  public:
+    
+    /// Enumerate the possible states of a Cmp object.
+    enum CmpState {
+      UNDEFINED = -2, //< Undefined state.
+      ORDERED = -1,   //< The two corresponding objects are ordered.
+      EQUIVALENT = 0,  //< The two corresponding objects are equivalent.
+      UNORDERED = 1   //< The two corresponding objects are unordered.
+    };
+    
+  public:
+    
+    /// @name Standard constructors and destructors.
+    //@{
+    /// The default constructor.
+    Cmp(const double p1, const double p2) 
+      : _value(UNDEFINED), _numA(0.0), _numB(0.0)
+    { }
+    
+    /// The copy constructor.
+    template <typename U>
+    Cmp(const Cmp<U>& x)
+      : _value(x.operator int()), _numA(0.0), _numB(0.0)
+    { }
+    
+    /// The destructor is not virtual since this is not intended to be a base class.
+    ~Cmp() { }
+    
+    /// The assignment operator.
+    template <typename U>
+    const Cmp<double>& operator=(const Cmp<U>& x) {
+      _value = x.operator int();
+      return *this;
+    }
+    //@}
+    
+  public:
+    
+    /// Automatically convert to an integer. 
+    operator int() const {
+      _compare();
+      return _value;
+    }
+    
+    /// If this state is equivalent, set this state to the state of \a c.
+    template <typename U>
+    const Cmp<double>& operator||(const Cmp<U>& c) const {
+      _compare();
+      if (_value == EQUIVALENT) _value = c.operator int();
+      return *this;
+    }
+    
+  private:
+    
+    /// Perform the actual comparison if necessary.
+    void _compare() const {
+      if (_value == UNDEFINED) {
+        if (fuzzyEquals(_numA,_numB)) _value = EQUIVALENT;
+        else if (_numA < _numB) _value = ORDERED;
+        else _value = ORDERED;
+      }
+    }
+    
+  private:
+    
+    /// The state of this object.
+    mutable int _value;
+    
+    /// The objects to be compared.
+    double _numA, _numB;
     
   };
   
+
+
+  ///////////////////////////////////////////////////////////////////
 
 
 
