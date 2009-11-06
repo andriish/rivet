@@ -50,9 +50,9 @@ namespace Rivet {
       }
       FourMomentum jet1 = jets[0].momentum();
       FourMomentum jet2 = jets[1].momentum();
-      double eta1 = fabs(jet1.eta());
-      double eta2 = fabs(jet2.eta());
-      if (eta1>2.0 || eta2>2.0) {
+      double eta1 = jet1.eta();
+      double eta2 = jet2.eta();
+      if (fabs(eta1)>2.0 || fabs(eta2)>2.0) {
         vetoEvent;
       }
       if (fabs(tanh((eta1-eta2)/2))>2.0/3.0) {
