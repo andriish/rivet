@@ -230,7 +230,7 @@ fi
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
-AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen2"
+#AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen2"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(BOOSTINCPATH) \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(GSLINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
