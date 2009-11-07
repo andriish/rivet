@@ -8,6 +8,18 @@
 namespace Rivet {
 
 
+  ChargedFinalState::ChargedFinalState(const FinalState& fsp) { 
+    setName("ChargedFinalState");
+    addProjection(fsp, "FS");
+  }
+   
+ 
+  ChargedFinalState::ChargedFinalState(double mineta, double maxeta, double minpt) { 
+    setName("ChargedFinalState");
+    addProjection(FinalState(mineta, maxeta, minpt), "FS");
+  }
+  
+
   int ChargedFinalState::compare(const Projection& p) const {
     return mkNamedPCmp(p, "FS");
   }

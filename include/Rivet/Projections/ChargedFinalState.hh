@@ -19,18 +19,11 @@ namespace Rivet {
     
     /// @name Constructors
     //@{
-    ChargedFinalState(const FinalState& fsp) { 
-      setName("ChargedFinalState");
-      addProjection(fsp, "FS");
-    }
+    ChargedFinalState(const FinalState& fsp);
     
     ChargedFinalState(double mineta = -MAXRAPIDITY,
                       double maxeta =  MAXRAPIDITY,
-                      double minpt  =  0.0*GeV)
-    { 
-      setName("ChargedFinalState");
-      addProjection(FinalState(mineta, maxeta, minpt), "FS");
-    }
+                      double minpt  =  0.0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
