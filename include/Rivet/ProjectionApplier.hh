@@ -18,9 +18,14 @@ namespace Rivet {
   /// same container (used by the ProjectionHandler)
   class ProjectionApplier {
   public:
+
+    // The proj handler needs access to reset the _allowProjReg flag before calling a.init()
+    friend class Projectionhandler;
+
+    /// Constructor
     ProjectionApplier();
 
-    // Ensure that inheritance is possible.
+    // Virtual destructor: ensure that inheritance is possible.
     virtual ~ProjectionApplier();
 
 
@@ -128,6 +133,12 @@ namespace Rivet {
     /// Non-templated version of proj-based applyProjection, to work around
     /// header dependency issue.
     const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
+
+
+  protected:
+
+    /// Flag to forbid projection registration in analyses until the init phase
+    bool _allowProjReg;
     
     
   private:

@@ -1,5 +1,8 @@
 2009-11-07  Andy Buckley  <andy@insectnation.org>
 
+	* Adding checking system to ensure that Projections aren't
+	registered before the init phase of analyses.
+
 	* Now that the ProjHandler isn't full of defunct pointers (which
 	tend to coincidentally point to *new* Projection pointers rather
 	than undefined memory, hence it wasn't noticed until recently!),

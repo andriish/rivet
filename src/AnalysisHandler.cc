@@ -44,6 +44,8 @@ namespace Rivet {
     _sumOfWeights = 0.0;
     foreach (Analysis* a, _analyses) {
       getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
+      // Allow projection registration in the init phase onwards
+      a->_allowProjReg = true;
       a->init();
       //getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
       //a->checkConsistency();

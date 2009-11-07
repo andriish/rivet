@@ -17,14 +17,15 @@ namespace Rivet {
       _analysishandler(0),
       _madeHistoDir(false)
   {
+    ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
     _info.reset( AnalysisInfo::make(name) );
     setBeams(ANY, ANY);
   }
+
   
   Analysis::~Analysis()
-  {
-  }
+  {  }
   
 
   IAnalysisFactory& Analysis::analysisFactory() {
