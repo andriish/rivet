@@ -4,7 +4,7 @@
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
@@ -23,7 +23,14 @@ namespace Rivet {
     {
       // Run II W charge asymmetry
       setBeams(PROTON, ANTIPROTON);
-      
+    } 
+    
+    
+    /// @name Analysis methods
+    //@{ 
+    
+    // Book histograms and set up projections
+    void init() {
       // Leading electrons
       FinalState fs(-5.0, 5.0);
       
@@ -36,19 +43,11 @@ namespace Rivet {
       addProjection(nufs, "WDecayNu");
       
       // Final state w/o electron
-      VetoedFinalState vfs(fs);
-      /// @todo A better way would be to have a "only photons FS". Add this projection.
-      vfs.addVetoOnThisFinalState(efs);
-      vfs.vetoNeutrinos();
-      addProjection(vfs, "NoElectronFS");
-    } 
-    
-    
-    /// @name Analysis methods
-    //@{ 
-    
-    // Book histograms
-    void init() {
+      IdentifiedFinalState ifs(fs);
+      ifs.acceptId(PHOTON);
+      addProjection(ifs, "PhotonFS");
+
+      // Histograms
       _h_dsigplus_deta_25_35  = bookHistogram1D("dsigplus_deta_25_35", 10, 0.0, 3.2);
       _h_dsigminus_deta_25_35 = bookHistogram1D("dsigminus_deta_25_35", 10, 0.0, 3.2);
       _h_dsigplus_deta_35     = bookHistogram1D("dsigplus_deta_35", 10, 0.0, 3.2);
@@ -62,6 +61,8 @@ namespace Rivet {
     void analyze(const Event & event) {
       const double weight = event.weight();
       
+      /// @todo Use WFinder projection (includes photon summing)
+
       // Find the W decay products
       const FinalState& efs = applyProjection<FinalState>(event, "WDecayE");
       const FinalState& nufs = applyProjection<FinalState>(event, "WDecayNu");
@@ -90,16 +91,13 @@ namespace Rivet {
       
       // Get "raw" electron 4-momentum and add back in photons that could have radiated from the electron
       FourMomentum e = leading_e.momentum();
-      /// @todo Use ClusteredPhotons photon summing projection
-      const ParticleVector allparts = applyProjection<FinalState>(event, "NoElectronFS").particles();
+      const ParticleVector photons = applyProjection<FinalState>(event, "PhotonFS").particles();
       const double HALO_RADIUS = 0.2;
-      foreach (const Particle& p, allparts) {
-        if (p.pdgId() == PHOTON) {
-          const double pho_eta = p.momentum().pseudorapidity();
-          const double pho_phi = p.momentum().azimuthalAngle();
-          if (deltaR(e.pseudorapidity(), e.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
-            e += p.momentum();
-          }
+      foreach (const Particle& p, photons) {
+        const double pho_eta = p.momentum().pseudorapidity();
+        const double pho_phi = p.momentum().azimuthalAngle();
+        if (deltaR(e.pseudorapidity(), e.azimuthalAngle(), pho_eta, pho_phi) < HALO_RADIUS) {
+          e += p.momentum();
         }
       }
       
@@ -107,8 +105,7 @@ namespace Rivet {
       if (e.Et() < 25*GeV) {
         getLog() << Log::DEBUG << "Electron fails Et cut" << endl;
         vetoEvent;
-      }
-      
+      }      
       
       const double eta_e = fabs(e.pseudorapidity());
       const double et_e = e.Et();
@@ -142,6 +139,8 @@ namespace Rivet {
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
       AIDA::IHistogramFactory& hf = histogramFactory();
       
+      /// @todo Move titles etc. to .plot file
+
       const string basetitle = "W charge asymmetry for ";
       const string xlabel = "$|\\eta|$ of leading electron";
       const string ylabel = "A = "
