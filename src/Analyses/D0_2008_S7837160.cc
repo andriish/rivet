@@ -47,13 +47,14 @@ namespace Rivet {
       ifs.acceptId(PHOTON);
       addProjection(ifs, "PhotonFS");
 
-      // Histograms
-      _h_dsigplus_deta_25_35  = bookHistogram1D("dsigplus_deta_25_35", 10, 0.0, 3.2);
-      _h_dsigminus_deta_25_35 = bookHistogram1D("dsigminus_deta_25_35", 10, 0.0, 3.2);
-      _h_dsigplus_deta_35     = bookHistogram1D("dsigplus_deta_35", 10, 0.0, 3.2);
-      _h_dsigminus_deta_35    = bookHistogram1D("dsigminus_deta_35", 10, 0.0, 3.2);
-      _h_dsigplus_deta_25     = bookHistogram1D("dsigplus_deta_25", 10, 0.0, 3.2);
-      _h_dsigminus_deta_25    = bookHistogram1D("dsigminus_deta_25", 10, 0.0, 3.2);
+      // Cross-section histograms
+      /// @todo Take binnings from data (since division, subtraction etc. must have compatible binnings)
+      _h_dsigplus_deta_25_35  = bookHistogram1D("/dsigplus_deta_25_35", 10, 0.0, 3.2);
+      _h_dsigminus_deta_25_35 = bookHistogram1D("/dsigminus_deta_25_35", 10, 0.0, 3.2);
+      _h_dsigplus_deta_35     = bookHistogram1D("/dsigplus_deta_35", 10, 0.0, 3.2);
+      _h_dsigminus_deta_35    = bookHistogram1D("/dsigminus_deta_35", 10, 0.0, 3.2);
+      _h_dsigplus_deta_25     = bookHistogram1D("/dsigplus_deta_25", 10, 0.0, 3.2);
+      _h_dsigminus_deta_25    = bookHistogram1D("/dsigminus_deta_25", 10, 0.0, 3.2);
     }
     
     
@@ -139,43 +140,34 @@ namespace Rivet {
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
       AIDA::IHistogramFactory& hf = histogramFactory();
       
-      /// @todo Move titles etc. to .plot file
-
-      const string basetitle = "W charge asymmetry for ";
-      const string xlabel = "$|\\eta|$ of leading electron";
-      const string ylabel = "A = "
-        "$(\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} - \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}}) / "
-        "(\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} + \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}})$";
-      
       IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
       IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
       assert(num25_35 && denom25_35);
-      IDataPointSet* tot25_35 = hf.divide(histoDir() + "/d01-x01-y01", *num25_35, *denom25_35);
-      tot25_35->setTitle(basetitle + "$25 < E_\\perp < 35$ GeV");
-      tot25_35->setXTitle(xlabel);
-      tot25_35->setYTitle(ylabel);
+      hf.divide(histoDir() + "/d01-x01-y01", *num25_35, *denom25_35);
       hf.destroy(num25_35);
       hf.destroy(denom25_35);
       //
       IHistogram1D* num35 = hf.subtract("/num35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
       IHistogram1D* denom35 = hf.add("/denom35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
       assert(num35 && denom35);
-      IDataPointSet* tot35 = hf.divide(histoDir() + "/d02-x01-y01", *num35, *denom35);
-      tot35->setTitle(basetitle + "$E_\\perp > 35$ GeV");
-      tot35->setXTitle(xlabel);
-      tot35->setYTitle(ylabel);
+      hf.divide(histoDir() + "/d02-x01-y01", *num35, *denom35);
       hf.destroy(num35);
       hf.destroy(denom35);
       //
       IHistogram1D* num25 = hf.subtract("/num25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
       IHistogram1D* denom25 = hf.add("/denom25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
       assert(num25 && denom25);
-      IDataPointSet* tot25 = hf.divide(histoDir() + "/d03-x01-y01", *num25, *denom25);
-      tot25->setTitle(basetitle + "$E_\\perp > 35$ GeV");
-      tot25->setXTitle(xlabel);
-      tot25->setYTitle(ylabel);
+      hf.divide(histoDir() + "/d03-x01-y01", *num25, *denom25);
       hf.destroy(num25);
       hf.destroy(denom25);
+
+      // Delete raw histos
+      hf.destroy(_h_dsigplus_deta_25_35);
+      hf.destroy(_h_dsigminus_deta_25_35);
+      hf.destroy(_h_dsigplus_deta_35);
+      hf.destroy(_h_dsigminus_deta_35);
+      hf.destroy(_h_dsigplus_deta_25);
+      hf.destroy(_h_dsigminus_deta_25);
     }
     
     //@}
@@ -185,7 +177,6 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    /// @todo Move into histo manager
     AIDA::IHistogram1D *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35;
     AIDA::IHistogram1D *_h_dsigplus_deta_35, *_h_dsigminus_deta_35;
     AIDA::IHistogram1D *_h_dsigplus_deta_25, *_h_dsigminus_deta_25;
