@@ -21,7 +21,7 @@ namespace Rivet {
     ProjectionApplier();
 
     // Ensure that inheritance is possible.
-    virtual ~ProjectionApplier() { }
+    virtual ~ProjectionApplier();
 
 
   public:
@@ -108,14 +108,13 @@ namespace Rivet {
     /// up the internal type management.
     template <typename PROJ>
     const PROJ& addProjection(const PROJ& proj, const std::string& name) {
-      getLog() << Log::TRACE << "Cloning projection " << proj.name() << endl;
-      const Projection* newpproj = proj.clone();
-      getLog() << Log::TRACE << "Cloned projection " << proj.name() << " at " << newpproj << endl;
-      const Projection* reg = getProjHandler().registerClonedProjection(*this, &proj, newpproj, name);
-      assert(reg);
-      if (reg != newpproj) delete newpproj;
-      return dynamic_cast<const PROJ&>(*reg);
+      const Projection& reg = _addProjection(proj, name);
+      return dynamic_cast<const PROJ&>(reg);
     }
+
+
+    /// Untemplated function to do the work...
+    const Projection& _addProjection(const Projection& proj, const std::string& name);
 
     //@}
     

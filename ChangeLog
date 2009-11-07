@@ -1,3 +1,16 @@
+2009-11-07  Andy Buckley  <andy@insectnation.org>
+
+	* Now that the ProjHandler isn't full of defunct pointers (which
+	tend to coincidentally point to *new* Projection pointers rather
+	than undefined memory, hence it wasn't noticed until recently!),
+	use of a duplicate projection name is now banned with a helpful
+	message at runtime.
+
+	* (Huge) overhaul of ProjectionHandler system to use shared_ptr:
+	projections are now deleted much more efficiently, naturally
+	cleaning themselves out of the central repository as they go out
+	of scope.
+
 2009-11-06  Andy Buckley  <andy@insectnation.org>
 
 	* Adding Cmp<double> specialisation, using fuzzyEquals().

@@ -98,7 +98,6 @@ namespace Rivet {
     Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Candidate analysis plugin libs: " << pluginfiles << endl;
     foreach (const string& pf, pluginfiles) {
       Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Trying to load plugin analyses from file " << pf << endl;
-      /// @todo Still needs lazy loading with new plugin design?
       void* handle = dlopen(pf.c_str(), RTLD_LAZY);
       if (!handle) {
         Log::getLog("Rivet.AnalysisLoader") << Log::WARN << "Cannot open " << pf << ": " << dlerror() << endl;

@@ -33,7 +33,7 @@ namespace Rivet {
     if (evtfile == "-") {
       m_io = new HepMC::IO_GenEvent(std::cin);
     } else {
-      // Ignore the HepMC::IO_GenEvent(filename, ios) constructor, since only available from HepMC 2.4
+      // Ignore the HepMC::IO_GenEvent(filename, ios) constructor, since it's only available from HepMC 2.4
       m_istr = new std::fstream(evtfile.c_str(), std::ios::in);
       m_io = new HepMC::IO_GenEvent(*m_istr);
     }
@@ -117,7 +117,7 @@ namespace Rivet {
     else if (evt->cross_section()) {
       const double xs = evt->cross_section()->cross_section(); //< in pb
       Log::getLog("Rivet.Run") << Log::DEBUG
-          << "Setting cross-section = " << xs << " pb" << endl;
+                               << "Setting cross-section = " << xs << " pb" << endl;
       _ah.setCrossSection(xs);
     }
     #endif

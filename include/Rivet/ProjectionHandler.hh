@@ -7,8 +7,11 @@
 #include "Rivet/ProjectionApplier.fhh"
 #include "Rivet/Projection.fhh"
 
-
 namespace Rivet {
+
+
+  /// Typedef for Projection (smart) pointer
+  typedef shared_ptr<const Projection> ProjHandle;
 
   // Forward declaration.
   class ProjectionApplier;
@@ -36,6 +39,49 @@ namespace Rivet {
   /// the registering object and its local name for the registered projection.
   ///
   class ProjectionHandler {
+  public:
+
+    /// ProjectionApplier's destructor needs to trigger cleaning up the proj handler repo
+    friend class ProjectionApplier;
+
+    /// Typedef for a vector of Projection pointers.
+    typedef set<ProjHandle> ProjHandles;
+
+    /// @brief Typedef for the structure used to contain named projections for a
+    /// particular containing Analysis or Projection.
+    typedef map<const string, ProjHandle> NamedProjs;
+
+    /// Enum to specify depth of projection search.
+    enum ProjDepth { SHALLOW, DEEP };
+
+
+  private:
+
+    /// Structure used to map a containing Analysis or Projection to its set of
+    /// contained projections.
+    typedef map<const ProjectionApplier*, NamedProjs> NamedProjsMap;
+
+    /// Core data member, associating a given containing class (via a
+    /// ProjectionApplier pointer) to its contained projections.
+    NamedProjsMap _namedprojs;
+
+    /// Cache of {@link Projection}s for reverse lookup, to speed up registering
+    /// new projections as @c _namedprojs gets large.
+    ProjHandles _projs;
+
+
+  private:
+
+    /// Private destructor means no inheritance from this class.
+    ~ProjectionHandler();
+
+    /// The assignment operator is hidden.
+    ProjectionHandler& operator=(const ProjectionHandler&);
+
+    /// The copy constructor is hidden.
+    ProjectionHandler(const ProjectionHandler&);
+
+
   private:
     
     /// @name Construction. */
@@ -48,56 +94,63 @@ namespace Rivet {
     /// @todo Threading?
     static ProjectionHandler* _instance;
 
-    /// Declare that the @a new projection is a clone of @a old by
-    /// copying the set of {@a old}'s registered projections into an
-    /// equivalent set for {@a new}.
-    void declareClone(const Projection* oldproj, const Projection* newproj);
 
   public:
+
     /// Singleton creation function
     static ProjectionHandler* create();
 
 
   public:
-    /// @name Projection registration. */
+
+    /// @name Projection registration
     //@{
     /// Attach and retrieve a projection as a reference.
     const Projection& registerProjection(const ProjectionApplier& parent, 
-                                         const Projection& proj, const string& name);
+                                         const Projection& proj, 
+                                         const string& name);
 
     /// Attach and retrieve a projection as a pointer.
     const Projection* registerProjection(const ProjectionApplier& parent, 
-                                         const Projection* proj, const string& name) {
-      if (!proj) return 0;
-      return &registerProjection(parent, *proj, name);
-    }
+                                         const Projection* proj, 
+                                         const string& name);
+    //@}
 
-    /// Attach and retrieve a cloned projection as a reference. Calls
-    /// {@c declareClone(&oldproj, &newproj)} before registering @a newproj.
-    const Projection& registerClonedProjection(const ProjectionApplier& parent, 
-                                                                  const Projection& oldproj, 
-                                                                  const Projection& newproj, 
-                                                                  const string& name);
+
+  private:
+
+    /// @name Projection registration internal helpers
+    //@{
+
+    /// Try to get an equivalent projection from the system
+    /// @returns 0 if no equivalent projection found
+    const Projection* _getEquiv(const Projection& proj) const;
+
+    /// Make a clone of proj, copying across child references from the original 
+    const Projection* _clone(const ProjectionApplier& parent, 
+                             const Projection& proj);
+
+    /// Internal function to do the registering
+    const Projection* _register(const ProjectionApplier& parent, 
+                                const Projection& proj,
+                                const string& name);
+
+    /// Get a string dump of the current ProjHandler structure
+    string _getStatus() const;
     
-    /// Attach and retrieve a cloned projection as a pointer. Calls
-    /// {@c declareClone(oldproj, newproj)} before registering @a newproj.
-    const Projection* registerClonedProjection(const ProjectionApplier& parent, 
-                                                                  const Projection* oldproj, 
-                                                                  const Projection* newproj, 
-                                                                  const string& name) {
-      if (!oldproj || !newproj) return 0;
-      return &registerClonedProjection(parent, *oldproj, *newproj, name);
-    }
+    /// Check that this parent projection doesn't already use this name
+    bool _checkDuplicate(const ProjectionApplier& parent, 
+                         const Projection& proj,
+                         const string& name) const;
 
     //@}
 
 
-    /// Enum to specify depth of projection search.
-    enum ProjDepth { SHALLOW, DEEP };
-
+  public:
 
     /// @name Projection retrieval. */
     //@{
+
     /// Retrieve a named projection for the given parent. Returning as a
     /// reference is partly to discourage ProjectionApplier classes from storing
     /// pointer members to the registered projections, since that can lead to
@@ -114,9 +167,16 @@ namespace Rivet {
                                                ProjDepth depth=SHALLOW) const;
     //@}
 
+
     /// Projection clearing method: deletes all known projections and empties
     /// the reference collections.
     void clear();
+
+
+  private:
+
+    /// Remove a ProjectionApplier: designed to only be called by ~ProjectionApplier (as a friend)
+    void removeProjectionApplier(ProjectionApplier& parent);
 
 
   private:
@@ -125,8 +185,8 @@ namespace Rivet {
     Log& getLog() const;
 
 
-    /// Get map of named projections belonging to @a parent.
-    /// Throws an exception if @a parent has not got any registered projections.
+    // /// Get map of named projections belonging to @a parent.
+    // /// Throws an exception if @a parent has not got any registered projections.
     // const NamedProjs& namedProjs(const ProjectionApplier* parent) const {
     //   NamedProjsMap::const_iterator nps = _namedprojs.find(parent);
     //   if (nps == _namedprojs.end()) {
@@ -138,41 +198,6 @@ namespace Rivet {
     // }
 
 
-  private:
-
-    /// Typedef for Projection pointer, to allow conversion to a smart pointer in this context.
-    typedef const Projection* ProjHandle;
-
-    /// Typedef for a vector of Projection pointers.
-    typedef vector<ProjHandle> ProjHandles;
-
-    /// @brief Typedef for the structure used to contain named projections for a
-    /// particular containing Analysis or Projection.
-    /// @todo Use a shared_pointer class?
-    typedef map<const string, ProjHandle> NamedProjs;
-
-    /// Structure used to map a containing Analysis or Projection to its set of
-    /// contained projections.
-    typedef map<const ProjectionApplier*, NamedProjs> NamedProjsMap;
-
-    /// Core data member, associating a given containing class (via a
-    /// ProjectionApplier pointer) to its contained projections.
-    NamedProjsMap _namedprojs;
-
-    /// Cache of {@link Projection}s for reverse lookup, to speed up registering
-    /// new projections as @c _namedprojs gets large.
-    ProjHandles _projs;
-
-  private:
-
-    /// Private destructor means no inheritance from this class.
-    ~ProjectionHandler();
-
-    /// The assignment operator is hidden.
-    ProjectionHandler& operator=(const ProjectionHandler&);
-
-    /// The copy constructor is hidden.
-    ProjectionHandler(const ProjectionHandler&);
   };
 
 
