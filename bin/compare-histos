@@ -97,9 +97,11 @@ if __name__ == "__main__":
                       default=False, help="show vertical error bars on the MC lines")
     parser.add_option("--no-ratio", action="store_true", dest="NORATIO",
                       default=False, help="disable the ratio plot")
-    parser.add_option("--no-ref-only", action="store_true", dest="NO_REF_ONLY",
+    parser.add_option("--all", action="store_false", dest="NO_SHOW_IF_ONLY_ONE",
+                      default=True, help="make plot file even if there is only one dataset to be plotted")
+    parser.add_option("--no-ref-only", action="store_true", dest="NO_SHOW_IF_ONLY_ONE",
                       default=True, help="don't make plot file if there is only one dataset to be plotted")
-    parser.add_option("--show-ref-only", action="store_false", dest="NO_REF_ONLY",
+    parser.add_option("--show-ref-only", action="store_false", dest="NO_SHOW_IF_ONLY_ONE",
                       default=True, help="make plot file even if there is only one dataset to be plotted")
     parser.add_option("--refid", dest="REF_ID",
                       default="REF", help="ID of reference data set (file path for non-REF data)")
@@ -281,7 +283,7 @@ if __name__ == "__main__":
             logging.warning("Something's wrong... somehow there's no data for histogram '%s'!" % name)
             continue
 
-        if len(activefiles) == 1 and opts.NO_REF_ONLY:
+        if len(activefiles) == 1 and opts.NO_SHOW_IF_ONLY_ONE:
             logging.warning("Skipping histo '%s' since only one plot is present" % name)
             continue 
 
