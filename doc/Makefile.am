@@ -58,6 +58,7 @@ $(DOCNAME).pdf : $(DOCNAME).tex preamble.tex analyses.tex
 	egrep -c $(RERUNBIB) $(DOCNAME).log && ($(BIBTEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<); true
 	egrep $(RERUN) $(DOCNAME).log && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<; true
 	egrep $(RERUN) $(DOCNAME).log && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<; true
+	egrep $(RERUN) $(DOCNAME).log && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<; true
 	if cmp -s $(DOCNAME).toc $(DOCNAME).toc.bak; then true; else $(LATEX) $<; true; fi
 	$(RM) $(DOCNAME).toc.bak; true
 
