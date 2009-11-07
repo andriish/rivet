@@ -1,36 +1,17 @@
-# BEGIN PLOT /D0_2008_S7837160/dsigminus_deta_25
-Title=Temp6
-XLabel=
-YLabel=
+# BEGIN PLOT /D0_2008_S7837160/d01-x01-y01
+Title=W charge asymmetry for $25 > E_\perp > 35$ GeV
+XLabel=$|\\eta|$ of leading electron
+YLabel=A = $(\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} - \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}}) / (\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} + \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}})$
 # END PLOT
 
-# BEGIN PLOT /D0_2008_S7837160/dsigminus_deta_25_35
-Title=Temp2
-XLabel=
-YLabel=
+# BEGIN PLOT /D0_2008_S7837160/d02-x01-y01
+Title=W charge asymmetry for $E_\perp > 35$ GeV
+XLabel=$|\\eta|$ of leading electron
+YLabel=A = $(\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} - \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}}) / (\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} + \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}})$
 # END PLOT
 
-# BEGIN PLOT /D0_2008_S7837160/dsigminus_deta_35
-Title=Temp4
-XLabel=
-YLabel=
+# BEGIN PLOT /D0_2008_S7837160/d03-x01-y01
+Title=W charge asymmetry for $E_\perp > 35$ GeV
+XLabel=$|\\eta|$ of leading electron
+YLabel=A = $(\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} - \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}}) / (\\frac{\\mathrm{d}{\\sigma^+}}{\\mathrm{d}{|\\eta|}} + \\frac{\\mathrm{d}{\\sigma^-}}{\\mathrm{d}{|\\eta|}})$
 # END PLOT
-
-# BEGIN PLOT /D0_2008_S7837160/dsigplus_deta_25
-Title=Temp5
-XLabel=
-YLabel=
-# END PLOT
-
-# BEGIN PLOT /D0_2008_S7837160/dsigplus_deta_25_35
-Title=Temp1
-XLabel=
-YLabel=
-# END PLOT
-
-# BEGIN PLOT /D0_2008_S7837160/dsigplus_deta_35
-Title=Temp3
-XLabel=
-YLabel=
-# END PLOT
-
