@@ -73,7 +73,7 @@ for aname in sorted(list(all_analyses)):
 
 
     if ana.authors():
-        page += "\\textbf{Authors:}\n \\penalty 100"
+        page += "\\textbf{Authors:}\n \\penalty 100\n"
         page += "\\begin{itemize}\n"
         for a in ana.authors():
             s = a
@@ -90,7 +90,7 @@ for aname in sorted(list(all_analyses)):
 
 
     if ana.references():
-        page += "\\textbf{References:}\n \\penalty 100"
+        page += "\\textbf{References:}\n \\penalty 100\n"
         page += "\\begin{itemize}\n"
         for r in ana.references():
             if r.startswith("arXiv:"):
@@ -109,7 +109,7 @@ for aname in sorted(list(all_analyses)):
 
 
     if ana.runInfo():
-        page += "\\textbf{Run details:}\n \\penalty 100"
+        page += "\\textbf{Run details:}\n \\penalty 100\n"
         page += "\\begin{itemize}\n"
         #print ana.runInfo()
         for l in ana.runInfo().split("\n*"):
@@ -124,6 +124,21 @@ for aname in sorted(list(all_analyses)):
 
     for para in ana.description().split("\n\n"):
         page += "\n\\noindent " + para + "\n"
+
+
+    try:
+        import readplot
+        info = readplot.plotinfo(ana.name())
+        if info:
+            page += "\n\\vspace{1em}\\noindent"
+            page += "\\textbf{Histograms:}\n \\penalty 100\n"
+            page += "\\begin{itemize}\n"
+            for hpath in info.keys():
+                htitle = info[hpath]["TITLE"]
+                page += "  \\item %s (\kbd{%s})\n" % (htitle, hpath)
+            page += "\\end{itemize}\n"
+    except:
+        pass 
 
     page += "\n\\clearpage\n"
 
