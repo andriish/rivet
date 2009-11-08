@@ -487,10 +487,10 @@ pdf output, turning to dvi output}\pdffalse\pdfoutput=0\@preprintfalse
 %header for preprints
 \if@preprint					%%% PREPRINT HEADER: 
 \vskip-7em					%
-\underline{\tiny Preprint typeset 		%
-                 in JHEP style -		%
-  		\if@hyper{HYPER VERSION}	%
-		\else{PAPER VERSION}\fi } 	%
+% \underline{\tiny Preprint typeset 		%
+%                  in JHEP style -		%
+%   		\if@hyper{HYPER VERSION}	%
+% 		\else{PAPER VERSION}\fi } 	%
 \normalsize\hfill%				% *** MAYBE PUT IN A ZERO BOX
 \begin{tabular}[t]{r}\@preprint\end{tabular}% % PREPRINT NUMBERS
 \else						%
