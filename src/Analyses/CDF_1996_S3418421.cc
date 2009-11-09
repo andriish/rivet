@@ -90,7 +90,8 @@ namespace Rivet {
       // now mimic filling of the ratio histogram
       std::vector<double> ratios(_h_ratio->axis().bins());
       for (size_t i=0; i<ratios.size(); ++i) {
-        ratios[i] = _chi_below_25[i]/_chi_above_25[i]/double(_nevt);
+        double binwidth = _h_ratio->axis().binWidth(i);
+        ratios[i] = _chi_below_25[i]/_chi_above_25[i]/double(_nevt)*binwidth;
       }
       for (size_t bin=0; bin<ratios.size(); ++bin) {
         double coord = _h_ratio->binMean(bin);
@@ -98,7 +99,6 @@ namespace Rivet {
           _h_ratio->fill(coord, ratios[bin]);
         }
       }
-      
     }
 
     //@}
