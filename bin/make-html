@@ -79,11 +79,12 @@ Popen(ch_cmd, cwd=opts.OUTPUTDIR).wait()
 
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
+index.write('<html><head><title>%s</title></head><body>' % opts.OUTPUTDIR)
 for analysis in sorted(analyses):
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     os.mkdir(anapath)
     anaindex = open(os.path.join(anapath, "index.html"), 'w')
-    anaindex.write("<html>\n")
+    anaindex.write("<html><head><title>%s - %s</title></head><body>\n" % (opts.OUTPUTDIR, analysis))
     
     datfiles = glob.glob("%s/%s_*.dat" % (opts.OUTPUTDIR, analysis))
     for fulldatfile in sorted(datfiles):
@@ -109,7 +110,8 @@ for analysis in sorted(analyses):
             anaindex.write('<a href="%s" style="font-size:small;text-decoration:none;font-weight:bold;">' % psfile)
             anaindex.write('%s:<br><img border="0" src="%s"></a></div>\n' % (psfile, pngfile))
 
-    anaindex.write("</html>\n")
+    anaindex.write("</body></html>\n")
     index.write('<h1><a href="%s/index.html" style="text-decoration:none;">%s</a></h1>\n' %(analysis, analysis))
     description = Popen(["rivet", "--show-analysis", analysis], stdout=PIPE).communicate()[0]
     index.write('<pre>%s</pre>\n' % description)
+index.write('</body></html>')
