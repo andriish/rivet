@@ -1,3 +1,10 @@
+2009-11-09  Andy Buckley  <andy@insectnation.org>
+
+	* Overhaul of jet caching and ParticleBase interface.
+
+	* Adding lists of analyses' histograms (obtained by scanning the
+	plot info files) to the LaTeX documentation.
+
 2009-11-07  Andy Buckley  <andy@insectnation.org>
 
 	* Adding checking system to ensure that Projections aren't

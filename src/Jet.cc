@@ -13,14 +13,14 @@ namespace Rivet {
   }
 
 
-  Jet& Jet::setParticles(vector<FourMomentum> particles) {
+  Jet& Jet::setParticles(const vector<FourMomentum>& particles) {
     _particles = particles;
     _resetCaches();
     return *this;
   }
 
 
-  Jet& Jet::addParticle(FourMomentum particle) {
+  Jet& Jet::addParticle(const FourMomentum& particle) {
     _particles.push_back(particle);
     _resetCaches();
     return *this;
@@ -52,7 +52,7 @@ namespace Rivet {
   }
 
 
-  bool Jet::containsParticleId(vector<PdgId> pids) const {
+  bool Jet::containsParticleId(const vector<PdgId>& pids) const {
     foreach (const Particle& p, particles()) {
       foreach (PdgId pid, pids) {
         if (p.pdgId() == pid) return true;
@@ -96,7 +96,7 @@ namespace Rivet {
 
   bool Jet::containsCharm() const {
     foreach (const Particle& p, particles()) {
-      if (abs(p.pdgId())==CQUARK) return true;
+      if (abs(p.pdgId()) == CQUARK) return true;
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
@@ -111,7 +111,7 @@ namespace Rivet {
 
   bool Jet::containsBottom() const {
     foreach (const Particle& p, particles()) {
-      if (abs(p.pdgId())==BQUARK) return true;
+      if (abs(p.pdgId()) == BQUARK) return true;
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
@@ -147,16 +147,13 @@ namespace Rivet {
 
 
   double Jet::eta() const {
-    _calcAvgs();
-    assert(_okEta);
-    return _eta;
+    return momentum().eta();
+
   }
   
 
   double Jet::phi() const {
-    _calcAvgs();
-    assert(_okPhi);
-    return _phi;
+    return momentum().phi();
   }
 
 
@@ -166,46 +163,25 @@ namespace Rivet {
   }
 
     
-  FourMomentum& Jet::momentum() { 
-    _calcMomVector();
-    return _momentum;
-  }
+  // FourMomentum& Jet::momentum() { 
+  //   _calcMomVector();
+  //   return _momentum;
+  // }
 
     
   double Jet::ptSum() const {
-    if (!_okTotalPt) {
-      double ptsum(0.0);
-      for (const_iterator p = this->begin(); p != this->end(); ++p) {
-        ptsum += p->pT();
-      }
-      _totalPt = ptsum;
-      _okTotalPt = true;
-    }
-    return _totalPt;
+    return momentum().pT();
   }
 
 
   double Jet::EtSum() const {
-    if (!_okTotalEt) {
-      double Etsum(0.0);
-      for (const_iterator p = this->begin(); p != this->end(); ++p) {
-        Etsum += p->Et();
-      }
-      _totalEt = Etsum;
-      _okTotalEt = true;
-    }
-    return _totalEt;
+    return momentum().Et();
   }
 
 
-  /// @todo Review if these caches are needed/consistent: just the vector, maybe?
   void Jet::_resetCaches() const {
-    _okPhi = false;
-    _okEta = false;
     _okPtWeightedPhi = false;
     _okPtWeightedEta = false;
-    _okTotalPt = false;
-    _okTotalEt = false;
     _okMomentum = false;
   }
   
@@ -218,56 +194,22 @@ namespace Rivet {
   }
 
 
-  /// @todo Review if these caches are needed/consistent
   void Jet::_calcPtAvgs() const {
     if (!_okPtWeightedEta || !_okPtWeightedPhi) {
-      double ptwetasum(0.0), ptwphisum(0.0), ptsum(0.0);
-      double phibegin = 0.0;
-      for (const_iterator p = this->begin(); p != this->end(); ++p) {
-        double pt = p->pT();
+      double ptwetasum(0.0), ptwdphisum(0.0), ptsum(0.0);
+      double phi0 = phi();
+      foreach (const FourMomentum& p, momenta()) {
+        double pt = p.pT();
         ptsum += pt;
-        ptwetasum += pt * p->pseudorapidity();
-        
-        if (p == this->begin()) {
-          phibegin = p->azimuthalAngle();
-        } else {
-          const double dphi = p->azimuthalAngle() - phibegin;
-          ptwphisum += pt * mapAngleMPiToPi(dphi);
-        }
+        ptwetasum += pt * p.pseudorapidity();
+        ptwdphisum += pt * mapAngleMPiToPi(phi0 - p.azimuthalAngle());
       }
-      _totalPt = ptsum;
-      _okTotalPt = true;
-      _ptWeightedEta = ptwetasum / ptSum();
+      _ptWeightedEta = ptwetasum/ptsum;
       _okPtWeightedEta = true;
-      _ptWeightedPhi = phibegin + ptwphisum / ptSum();
-      _ptWeightedPhi = mapAngleMPiToPi(_ptWeightedPhi);
+      _ptWeightedPhi = mapAngleMPiToPi(phi0 + ptwdphisum/ptsum);
       _okPtWeightedPhi = true;
     }
   }
   
-
-  /// @todo Review if these caches are needed/consistent
-  void Jet::_calcAvgs() const {
-    if (!_okEta || !_okPhi) {
-      double etasum(0.0), phisum(0.0);
-      double phibegin = 0.0;
-      for (const_iterator p = this->begin(); p != this->end(); ++p) {
-        etasum += p->pseudorapidity();
-        if (p == this->begin()) {
-          phibegin = p->azimuthalAngle();
-        } else {
-          const double dphi = p->azimuthalAngle() - phibegin;
-          phisum += mapAngleMPiToPi(dphi);
-        }
-      }
-      const double dnum = _particles.size();
-      _eta = etasum / dnum;
-      _okEta = true;
-      _phi = phibegin + phisum / dnum;
-      _phi = mapAngleMPiToPi(_phi);
-      _okPhi = true;
-    }  
-  }
-
   
 }

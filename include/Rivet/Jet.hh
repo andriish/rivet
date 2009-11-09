@@ -67,10 +67,10 @@ namespace Rivet {
     }
 
     /// Set the particles/tracks collection.
-    Jet& setParticles(vector<FourMomentum> particles);
+    Jet& setParticles(const vector<FourMomentum>& particles);
 
     /// Add a particle/track to this jet.
-    Jet& addParticle(FourMomentum particle);
+    Jet& addParticle(const FourMomentum& particle);
 
     /// Add a particle/track to this jet.
     Jet& addParticle(const Particle& particle);
@@ -82,7 +82,7 @@ namespace Rivet {
     bool containsParticleId(PdgId pid) const;
 
     /// Check whether this jet contains at least one of certain particle types.
-    bool containsParticleId(vector<PdgId> pids) const;
+    bool containsParticleId(const vector<PdgId>& pids) const;
 
     /// Check whether this jet contains a charm-flavoured hadron.
     bool containsCharm() const;
@@ -110,8 +110,8 @@ namespace Rivet {
     /// Get equivalent single momentum four-vector. (caches)
     const FourMomentum& momentum() const;
     
-    /// Get equivalent single momentum four-vector. (caches)
-    FourMomentum& momentum();
+    // /// Get equivalent single momentum four-vector. (caches)
+    // FourMomentum& momentum();
 
 
 
@@ -135,22 +135,19 @@ namespace Rivet {
 
   private:
 
-    /// Clear the internal cached values.
+    /// @brief Clear the internal cached values.
+    /// Const because cache variables are mutable.
     void _resetCaches() const;
 
-    // Calculate cached equivalent momentum vector
+    /// @brief Calculate cached equivalent momentum vector.
+    /// Const because cache variables are mutable.
     void _calcMomVector() const;
 
     /// Internal caching method to calculate the average \f$ \eta \f$ and \f$
     /// \phi \f$ for this jet, weighted by the \f$ p_T \f$ values of the
     /// constituent tracks.
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
+    /// Const because cache variables are mutable.
     void _calcPtAvgs() const;
-
-    /// Internal caching method to calculate the unweighted average \f$ \eta
-    /// \f$ and \f$ \phi \f$ for this jet.
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
-    void _calcAvgs() const;
 
 
   private:
@@ -160,31 +157,12 @@ namespace Rivet {
 
     /// Full particle information including tracks, ID etc
     ParticleVector _fullParticles;
-    
-    /// Cached values of \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
-    mutable double _phi, _eta;
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
-    mutable bool _okPhi, _okEta;
 
     /// Cached values of the \f$ p_T \f$-weighted \f$ \bar{\phi} \f$ and \f$ \bar{\eta} \f$.
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable double _ptWeightedPhi, _ptWeightedEta;
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
     mutable bool _okPtWeightedPhi, _okPtWeightedEta;
 
-    /// Cached value of the \f$ p_T \f$ sum.
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
-    mutable double _totalPt;
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
-    mutable bool _okTotalPt;
-
-    /// Cached value of the \f$ E_T \f$ sum.
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
-    mutable double _totalEt;
-    /// @todo Review if these caches are needed/consistent: just the vector, maybe?
-    mutable bool _okTotalEt;
-    
+    /// Cached effective jet 4-vector 
     mutable FourMomentum _momentum;
     mutable bool _okMomentum;
     
@@ -276,6 +254,7 @@ namespace Rivet {
   }
 
   //@}
+
 
 }
 
