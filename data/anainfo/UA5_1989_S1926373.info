@@ -4,18 +4,35 @@ Summary: UA5 charged multiplicity measurements
 Experiment: UA5
 Collider: CERN SPS
 SpiresID: 1926373
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
  - Christophe L. J. Vaillant <c.l.j.j.vaillant@durham.ac.uk>
+ - Andy Buckley <andy.buckley@cern.ch>
 References:
- - Z. Phys. C - Particles and Fiels 43, 357-374 (1989)
+ - Z. Phys. C - Particles and Fields 43, 357-374 (1989)
  - doi:10.1007/BF01506531
 RunInfo:
   MinBias events at sqrt(s) = 200 and 900 GeV.
   Enable single and double diffractive events in addition
-  to Minimum Bias and non-diffractive processes.
+  to minimum bias and non-diffractive processes.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Multiplicity distributions of charged particles produced in non single-diffractive collisions between protons and antiprotons at centre of mass energies of 200 and 900 GeV are presented. The data were recorded in the UA5 streamer chambers at the CERN Collider, which was operated in a pulsed mode between the two energies. A new method to correct for acceptance limitations and inefficiencies based on the principle of maximum entropy has been used. Multiplicity distributions in full phase space and in intervals of pseudorapidity are presented in tabular form. The violation of KNO scaling in full phase space found by the UA5 group at an energy of 546 GeV is confirmed also at 200 and 900 GeV. The shape of the 900 GeV distribution in full phase space is narrower in the peak region than at 200 GeV but exhibits a pronounced high multiplicity tail. The negative binomial distribution fits data at 200 GeV in all pseudorapidity intervals and in small intervals at 900 GeV. In large intervals at 900 GeV, however, the negative binomial distribution. Fits to the partially coherent laser distribution are also presented as well as comparisons with predictions of the Dual Parton, the Fritiof and the Pythia models.
+  Multiplicity distributions of charged particles produced in non
+  single-diffractive collisions between protons and antiprotons at centre of
+  mass energies of 200 and 900 GeV are presented. The data were recorded in the
+  UA5 streamer chambers at the CERN Collider, which was operated in a pulsed
+  mode between the two energies. A new method to correct for acceptance
+  limitations and inefficiencies based on the principle of maximum entropy has
+  been used. Multiplicity distributions in full phase space and in intervals of
+  pseudorapidity are presented in tabular form. The violation of KNO scaling in
+  full phase space found by the UA5 group at an energy of 546 GeV is confirmed
+  also at 200 and 900 GeV. The shape of the 900 GeV distribution in full phase
+  space is narrower in the peak region than at 200 GeV but exhibits a pronounced
+  high multiplicity tail. The negative binomial distribution fits data at 200
+  GeV in all pseudorapidity intervals and in small intervals at 900 GeV. In
+  large intervals at 900 GeV, however, the negative binomial distribution. Fits
+  to the partially coherent laser distribution are also presented as well as
+  comparisons with predictions of the Dual Parton, the Fritiof and the Pythia
+  models.
