@@ -2,6 +2,7 @@
 Title=TransMAX region charged particle density
 XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle N_\text{ch} \rangle / \text{d}\eta\,\text{d}\phi$
+CustomLegend={\large STAR preliminary}
 LogY=0
 # END PLOT
 
@@ -9,6 +10,7 @@ LogY=0
 Title=TransMIN region charged particle density
 XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle N_\text{ch} \rangle / \text{d}\eta\,\text{d}\phi$
+CustomLegend={\large STAR preliminary}
 LogY=0
 # END PLOT
 
@@ -16,6 +18,7 @@ LogY=0
 Title=Away region charged particle density
 XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle N_\text{ch} \rangle / \text{jet area}$
+CustomLegend={\large STAR preliminary}
 LogY=0
 # END PLOT
 
