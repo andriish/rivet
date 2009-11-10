@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/RivetAIDA.hh"
 
@@ -19,6 +20,10 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
+      ChargedFinalState bbc1(-5.0,-3.3, 0.0*GeV); // beam-beam-counter trigger
+      ChargedFinalState bbc2( 3.3, 5.0, 0.0*GeV); // beam-beam-counter trigger
+      addProjection(bbc1, "BBC1");
+      addProjection(bbc2, "BBC2");
       IdentifiedFinalState pionfs(-2.5, 2.5, 0.3*GeV);
       IdentifiedFinalState protonfs(-2.5, 2.5, 0.4*GeV);
       pionfs.acceptIdPair(PIPLUS);
@@ -36,6 +41,13 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
+
+      const ChargedFinalState& bbc1 = applyProjection<ChargedFinalState>(event, "BBC1");
+      const ChargedFinalState& bbc2 = applyProjection<ChargedFinalState>(event, "BBC2");
+      if (bbc1.size()<1 || bbc2.size()<1) {
+        getLog() << Log::DEBUG << "Failed beam-beam-counter trigger" << std::endl;
+        vetoEvent;
+      }
 
       const IdentifiedFinalState& pionfs = applyProjection<IdentifiedFinalState>(event, "PIONFS");
       const IdentifiedFinalState& protonfs = applyProjection<IdentifiedFinalState>(event, "PROTONFS");
