@@ -1,3 +1,8 @@
+2009-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing last issues in STAR_2006_S6500200 and setting it to
+	VALIDATED.
+
 2009-11-09  Andy Buckley  <andy@insectnation.org>
 
 	* Overhaul of jet caching and ParticleBase interface.

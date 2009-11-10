@@ -13,7 +13,8 @@ namespace Rivet {
 
     /// Constructor
     STAR_2006_S6500200()
-      : Analysis("STAR_2006_S6500200")
+      : Analysis("STAR_2006_S6500200"),
+        _sumWeightSelected(0.0)
     {
       setBeams(PROTON, PROTON);
     }
@@ -73,6 +74,7 @@ namespace Rivet {
           }
         }
       }
+      _sumWeightSelected += event.weight();
     }
 
 
@@ -86,13 +88,17 @@ namespace Rivet {
       hf.divide(dir + "/d02-x03-y01", *_h_pT_proton, *_h_pT_piplus);
       hf.divide(dir + "/d02-x04-y01", *_h_pT_antiproton, *_h_pT_piminus);
 
-      scale(_h_pT_piplus,     1./(2*M_PI*sumOfWeights()));
-      scale(_h_pT_piminus,    1./(2*M_PI*sumOfWeights()));
-      scale(_h_pT_proton,     1./(2*M_PI*sumOfWeights()));
-      scale(_h_pT_antiproton, 1./(2*M_PI*sumOfWeights()));
+      scale(_h_pT_piplus,     1./(2*M_PI*_sumWeightSelected));
+      scale(_h_pT_piminus,    1./(2*M_PI*_sumWeightSelected));
+      scale(_h_pT_proton,     1./(2*M_PI*_sumWeightSelected));
+      scale(_h_pT_antiproton, 1./(2*M_PI*_sumWeightSelected));
+      getLog() << Log::DEBUG << "sumOfWeights()     = " << sumOfWeights() << std::endl;
+      getLog() << Log::DEBUG << "_sumWeightSelected = " << _sumWeightSelected << std::endl;
     }
 
   private:
+
+    double _sumWeightSelected;
 
     AIDA::IHistogram1D * _h_pT_piplus;
     AIDA::IHistogram1D * _h_pT_piminus;
