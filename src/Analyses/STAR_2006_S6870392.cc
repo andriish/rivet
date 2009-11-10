@@ -16,6 +16,7 @@ namespace Rivet {
       : Analysis("STAR_2006_S6870392")
     {
       setBeams(PROTON, PROTON);
+      setNeedsCrossSection(true);
     }
 
 
@@ -66,10 +67,9 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      /// @todo Use the generator cross-section
-      //_h_total_cross_section->fill(crossSection());
-      normalize(_h_jet_pT_MB, 16603100);
-      normalize(_h_jet_pT_HT, 1808234);
+      double normalisation = crossSection()/picobarn/sumOfWeights()/(2*0.6*2*M_PI);
+      scale(_h_jet_pT_MB, normalisation);
+      scale(_h_jet_pT_HT, normalisation);
     }
 
     //@}
