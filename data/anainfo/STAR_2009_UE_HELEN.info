@@ -11,7 +11,7 @@ Authors:
 References:
  - arXiv:0910.5203
  - arXiv:0907.3460
- - WARNING: Mark as "STAR preliminary" and contact authors when using it!
+ - 'WARNING: Mark as "STAR preliminary" and contact authors when using it!'
 RunInfo:
   pp at 200 GeV
 NumEvents: 1000000
