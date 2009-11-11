@@ -1,3 +1,12 @@
+2009-11-11  Andy Buckley  <andy@insectnation.org>
+
+	* Adding separate jet-oriented and photon-oriented observables to
+	MC PHOTONJETUE analysis.
+
+	* Bug fix in MC leading jets analysis, and general tidying of
+	leading jet analyses to insert units, etc. (should not affect any
+	current results)
+
 2009-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing last issues in STAR_2006_S6500200 and setting it to

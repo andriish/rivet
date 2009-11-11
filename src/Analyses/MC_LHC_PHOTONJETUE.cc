@@ -46,14 +46,23 @@ namespace Rivet {
       // Histograms
       _hist_jetgamma_dR   = bookHistogram1D("gammajet-dR", 52, 0.0, 5.2);
       _hist_jetgamma_dphi = bookHistogram1D("gammajet-dphi", 50, 0.0, PI);
+      //
       const double MAXPT1 = 50.0;
-      _hist_pnchg      = bookProfile1D("trans-nchg",     50, 0.0, MAXPT1);
-      _hist_pmaxnchg   = bookProfile1D("trans-maxnchg",  50, 0.0, MAXPT1);
-      _hist_pminnchg   = bookProfile1D("trans-minnchg",  50, 0.0, MAXPT1);
-      _hist_pcptsum    = bookProfile1D("trans-ptsum",    50, 0.0, MAXPT1);
-      _hist_pmaxcptsum = bookProfile1D("trans-maxptsum", 50, 0.0, MAXPT1);
-      _hist_pmincptsum = bookProfile1D("trans-minptsum", 50, 0.0, MAXPT1);
-      _hist_pcptave    = bookProfile1D("trans-ptavg",    50, 0.0, MAXPT1);
+      _hist_pnchg_jet      = bookProfile1D("trans-nchg-jet",     50, 0.0, MAXPT1);
+      _hist_pmaxnchg_jet   = bookProfile1D("trans-maxnchg-jet",  50, 0.0, MAXPT1);
+      _hist_pminnchg_jet   = bookProfile1D("trans-minnchg-jet",  50, 0.0, MAXPT1);
+      _hist_pcptsum_jet    = bookProfile1D("trans-ptsum-jet",    50, 0.0, MAXPT1);
+      _hist_pmaxcptsum_jet = bookProfile1D("trans-maxptsum-jet", 50, 0.0, MAXPT1);
+      _hist_pmincptsum_jet = bookProfile1D("trans-minptsum-jet", 50, 0.0, MAXPT1);
+      _hist_pcptave_jet    = bookProfile1D("trans-ptavg-jet",    50, 0.0, MAXPT1);
+      //
+      _hist_pnchg_gamma      = bookProfile1D("trans-nchg-gamma",     50, 0.0, MAXPT1);
+      _hist_pmaxnchg_gamma   = bookProfile1D("trans-maxnchg-gamma",  50, 0.0, MAXPT1);
+      _hist_pminnchg_gamma   = bookProfile1D("trans-minnchg-gamma",  50, 0.0, MAXPT1);
+      _hist_pcptsum_gamma    = bookProfile1D("trans-ptsum-gamma",    50, 0.0, MAXPT1);
+      _hist_pmaxcptsum_gamma = bookProfile1D("trans-maxptsum-gamma", 50, 0.0, MAXPT1);
+      _hist_pmincptsum_gamma = bookProfile1D("trans-minptsum-gamma", 50, 0.0, MAXPT1);
+      _hist_pcptave_gamma    = bookProfile1D("trans-ptavg-gamma",    50, 0.0, MAXPT1);
     }
 
 
@@ -116,10 +125,13 @@ namespace Rivet {
       const double weight = evt.weight();
 
       // Fill jet1-photon separation histos
-      _hist_jetgamma_dR->fill(deltaR(pgamma, pjet), weight);
-      _hist_jetgamma_dphi->fill(deltaPhi(gammaphi, jetphi), weight);
+      const double dR_jetgamma = deltaR(pgamma, pjet);
+      _hist_jetgamma_dR->fill(dR_jetgamma, weight);
+      const double dPhi_jetgamma = deltaPhi(gammaphi, jetphi);
+      _hist_jetgamma_dphi->fill(dPhi_jetgamma, weight);
 
-      /// @todo Cut on back-to-backness of jet-photon?
+      /// Cut on back-to-backness of jet-photon
+      if (dPhi_jetgamma < 0.5) vetoEvent;
 
       /// @todo Plot evolution of UE as a function of jet-photon angle
       /// @todo Plot evolution of UE as a function of photon pT
@@ -127,57 +139,99 @@ namespace Rivet {
       // Get the final states to work with for filling the distributions
       const FinalState& cfs = applyProjection<ChargedFinalState>(evt, "Tracks");
 
-      size_t   numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0);
-      double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
-      double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
+      // Whole-event counters
+      uint   numOverall(0);
+      double ptSumOverall(0.0), ptMaxOverall(0.0);
+      // Jet-oriented counters
+      uint   numToward_jet(0),     numTrans1_jet(0),     numTrans2_jet(0),     numAway_jet(0);
+      double ptSumToward_jet(0.0), ptSumTrans1_jet(0.0), ptSumTrans2_jet(0.0), ptSumAway_jet(0.0);
+      double ptMaxToward_jet(0.0), ptMaxTrans1_jet(0.0), ptMaxTrans2_jet(0.0), ptMaxAway_jet(0.0);
+      // Photon-oriented counters
+      uint   numToward_gamma(0),     numTrans1_gamma(0),     numTrans2_gamma(0),     numAway_gamma(0);
+      double ptSumToward_gamma(0.0), ptSumTrans1_gamma(0.0), ptSumTrans2_gamma(0.0), ptSumAway_gamma(0.0);
+      double ptMaxToward_gamma(0.0), ptMaxTrans1_gamma(0.0), ptMaxTrans2_gamma(0.0), ptMaxAway_gamma(0.0);
 
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
-        const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
-        const double pT = p.momentum().pT();
-        const double phi = p.momentum().azimuthalAngle();
-        const double rotatedphi = phi - jetphi;
-
-        ptSumOverall += pT;
         ++numOverall;
+        const double pT = p.momentum().pT();
+        ptSumOverall += pT;
         if (pT > ptMaxOverall) ptMaxOverall = pT;
 
-        if (dPhi < PI/3.0) {
-          ptSumToward += pT;
-          ++numToward;
-          if (pT > ptMaxToward) ptMaxToward = pT;
+        // Increment jet-oriented variables
+        const double dPhi_jet = jetphi - p.momentum().phi();
+        if (fabs(dPhi_jet) < PI/3.0) {
+          ptSumToward_jet += pT;
+          ++numToward_jet;
+          if (pT > ptMaxToward_jet) ptMaxToward_jet = pT;
         }
-        else if (dPhi < 2*PI/3.0) {
-          if (rotatedphi <= PI) {
-            ptSumTrans1 += pT;
-            ++numTrans1;
-            if (pT > ptMaxTrans1) {
-              ptMaxTrans1 = pT;
-            } else {
-              ptSumTrans2 += pT;
-              ++numTrans2;
-              if (pT > ptMaxTrans2) ptMaxTrans2 = pT;
-            }
+        else if (fabs(dPhi_jet) < 2*PI/3.0) {
+          if (sign(dPhi_jet) == MINUS) {
+            ptSumTrans1_jet += pT;
+            ++numTrans1_jet;
+            if (pT > ptMaxTrans1_jet) ptMaxTrans1_jet = pT;
+          } else {
+            ptSumTrans2_jet += pT;
+            ++numTrans2_jet;
+            if (pT > ptMaxTrans2_jet) ptMaxTrans2_jet = pT;
           }
         }
         else {
-          ptSumAway += pT;
-          ++numAway;
-          if (pT > ptMaxAway) ptMaxAway = pT;
+          ptSumAway_jet += pT;
+          ++numAway_jet;
+          if (pT > ptMaxAway_jet) ptMaxAway_jet = pT;
         }
+
+
+        // Increment photon-oriented variables
+        const double dPhi_gamma = gammaphi - p.momentum().phi();
+        if (fabs(dPhi_gamma) < PI/3.0) {
+          ptSumToward_gamma += pT;
+          ++numToward_gamma;
+          if (pT > ptMaxToward_gamma) ptMaxToward_gamma = pT;
+        }
+        else if (fabs(dPhi_gamma) < 2*PI/3.0) {
+          if (sign(dPhi_gamma) == MINUS) {
+            ptSumTrans1_gamma += pT;
+            ++numTrans1_gamma;
+            if (pT > ptMaxTrans1_gamma) ptMaxTrans1_gamma = pT;
+          } else {
+            ptSumTrans2_gamma += pT;
+            ++numTrans2_gamma;
+            if (pT > ptMaxTrans2_gamma) ptMaxTrans2_gamma = pT;
+          }
+        }
+        else {
+          ptSumAway_gamma += pT;
+          ++numAway_gamma;
+          if (pT > ptMaxAway_gamma) ptMaxAway_gamma = pT;
+        }
+
+
       }
       
       
       // Fill the histograms
-      _hist_pnchg->fill(jetpT, (numTrans1+numTrans2)/(4*PI/3), weight);
-      _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);      
-      _hist_pcptsum->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
-      _hist_pmaxcptsum->fill(jetpT, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      _hist_pmincptsum->fill(jetpT, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      if ((numTrans1+numTrans2) > 0) {
-        _hist_pcptave->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2), weight);
+      _hist_pnchg_jet->fill(jetpT/GeV, (numTrans1_jet+numTrans2_jet)/(4*PI/3), weight);
+      _hist_pmaxnchg_jet->fill(jetpT/GeV, (numTrans1_jet>numTrans2_jet ? numTrans1_jet : numTrans2_jet)/(2*PI/3), weight);
+      _hist_pminnchg_jet->fill(jetpT/GeV, (numTrans1_jet<numTrans2_jet ? numTrans1_jet : numTrans2_jet)/(2*PI/3), weight);      
+      _hist_pcptsum_jet->fill(jetpT/GeV, (ptSumTrans1_jet+ptSumTrans2_jet)/GeV/(4*PI/3), weight);
+      _hist_pmaxcptsum_jet->fill(jetpT/GeV, (ptSumTrans1_jet>ptSumTrans2_jet ? ptSumTrans1_jet : ptSumTrans2_jet)/GeV/(2*PI/3), weight);
+      _hist_pmincptsum_jet->fill(jetpT/GeV, (ptSumTrans1_jet<ptSumTrans2_jet ? ptSumTrans1_jet : ptSumTrans2_jet)/GeV/(2*PI/3), weight);
+      if ((numTrans1_jet+numTrans2_jet) > 0) {
+        _hist_pcptave_jet->fill(jetpT/GeV, (ptSumTrans1_jet+ptSumTrans2_jet)/GeV/(numTrans1_jet+numTrans2_jet), weight);
       }
+      //
+      _hist_pnchg_gamma->fill(gammapT/GeV, (numTrans1_gamma+numTrans2_gamma)/(4*PI/3), weight);
+      _hist_pmaxnchg_gamma->fill(gammapT/GeV, (numTrans1_gamma>numTrans2_gamma ? numTrans1_gamma : numTrans2_gamma)/(2*PI/3), weight);
+      _hist_pminnchg_gamma->fill(gammapT/GeV, (numTrans1_gamma<numTrans2_gamma ? numTrans1_gamma : numTrans2_gamma)/(2*PI/3), weight);      
+      _hist_pcptsum_gamma->fill(gammapT/GeV, (ptSumTrans1_gamma+ptSumTrans2_gamma)/GeV/(4*PI/3), weight);
+      _hist_pmaxcptsum_gamma->fill(gammapT/GeV, (ptSumTrans1_gamma>ptSumTrans2_gamma ? ptSumTrans1_gamma : ptSumTrans2_gamma)/GeV/(2*PI/3), weight);
+      _hist_pmincptsum_gamma->fill(gammapT/GeV, (ptSumTrans1_gamma<ptSumTrans2_gamma ? ptSumTrans1_gamma : ptSumTrans2_gamma)/GeV/(2*PI/3), weight);
+      if ((numTrans1_gamma+numTrans2_gamma) > 0) {
+        _hist_pcptave_gamma->fill(gammapT/GeV, (ptSumTrans1_gamma+ptSumTrans2_gamma)/GeV/(numTrans1_gamma+numTrans2_gamma), weight);
+      }
+
     }
     
     
@@ -191,14 +245,14 @@ namespace Rivet {
     AIDA::IHistogram1D* _hist_jetgamma_dR;
     AIDA::IHistogram1D* _hist_jetgamma_dphi;
     
-    AIDA::IProfile1D *_hist_pnchg;
-    AIDA::IProfile1D *_hist_pmaxnchg;
-    AIDA::IProfile1D *_hist_pminnchg;
-    AIDA::IProfile1D *_hist_pcptsum;
-    AIDA::IProfile1D *_hist_pmaxcptsum;
-    AIDA::IProfile1D *_hist_pmincptsum;
-    AIDA::IProfile1D *_hist_pcptave;  
-    
+    AIDA::IProfile1D *_hist_pnchg_jet, *_hist_pnchg_gamma;
+    AIDA::IProfile1D *_hist_pmaxnchg_jet, *_hist_pmaxnchg_gamma;
+    AIDA::IProfile1D *_hist_pminnchg_jet, *_hist_pminnchg_gamma;
+    AIDA::IProfile1D *_hist_pcptsum_jet, *_hist_pcptsum_gamma;
+    AIDA::IProfile1D *_hist_pmaxcptsum_jet, *_hist_pmaxcptsum_gamma;
+    AIDA::IProfile1D *_hist_pmincptsum_jet, *_hist_pmincptsum_gamma;
+    AIDA::IProfile1D *_hist_pcptave_jet, *_hist_pcptave_gamma;
+
   };
   
   

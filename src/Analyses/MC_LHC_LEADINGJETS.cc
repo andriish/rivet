@@ -103,13 +103,11 @@ namespace Rivet {
           if (rotatedphi <= PI) {
             ptSumTrans1 += pT;
             ++numTrans1;
-            if (pT > ptMaxTrans1) {
-              ptMaxTrans1 = pT;
-            } else {
-              ptSumTrans2 += pT;
-              ++numTrans2;
-              if (pT > ptMaxTrans2) ptMaxTrans2 = pT;
-            }
+            if (pT > ptMaxTrans1) ptMaxTrans1 = pT;
+          } else {
+            ptSumTrans2 += pT;
+            ++numTrans2;
+            if (pT > ptMaxTrans2) ptMaxTrans2 = pT;
           }
         }
         else {
@@ -121,31 +119,31 @@ namespace Rivet {
       
       
       // Fill the histograms
-      //_hist_tnchg->fill(jetpT, numToward/(4*PI/3), weight);
-      _hist_pnchg->fill(jetpT, (numTrans1+numTrans2)/(4*PI/3), weight);
-      _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      //_hist_pdifnchg->fill(jetpT, abs(numTrans1-numTrans2)/(2*PI/3), weight);
-      //_hist_anchg->fill(jetpT, numAway/(4*PI/3), weight);
+      //_hist_tnchg->fill(jetpT/GeV, numToward/(4*PI/3), weight);
+      _hist_pnchg->fill(jetpT/GeV, (numTrans1+numTrans2)/(4*PI/3), weight);
+      _hist_pmaxnchg->fill(jetpT/GeV, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      _hist_pminnchg->fill(jetpT/GeV, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
+      //_hist_pdifnchg->fill(jetpT/GeV, abs(numTrans1-numTrans2)/(2*PI/3), weight);
+      //_hist_anchg->fill(jetpT/GeV, numAway/(4*PI/3), weight);
       
-      //_hist_tcptsum->fill(jetpT, ptSumToward/(4*PI/3), weight);
-      _hist_pcptsum->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
-      _hist_pmaxcptsum->fill(jetpT, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      _hist_pmincptsum->fill(jetpT, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      //_hist_pdifcptsum->fill(jetpT, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3), weight);
-      //_hist_acptsum->fill(jetpT, ptSumAway/(4*PI/3), weight);
+      //_hist_tcptsum->fill(jetpT/GeV, ptSumToward/GeV/(4*PI/3), weight);
+      _hist_pcptsum->fill(jetpT/GeV, (ptSumTrans1+ptSumTrans2)/GeV/(4*PI/3), weight);
+      _hist_pmaxcptsum->fill(jetpT/GeV, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3), weight);
+      _hist_pmincptsum->fill(jetpT/GeV, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3), weight);
+      //_hist_pdifcptsum->fill(jetpT/GeV, fabs(ptSumTrans1-ptSumTrans2)/GeV/(2*PI/3), weight);
+      //_hist_acptsum->fill(jetpT/GeV, ptSumAway/GeV/(4*PI/3), weight);
       
       //if (numToward > 0) {
-      //  _hist_tcptave->fill(jetpT, ptSumToward/numToward, weight);
-      //  _hist_tcptmax->fill(jetpT, ptMaxToward, weight);
+      //  _hist_tcptave->fill(jetpT/GeV, ptSumToward/GeV/numToward, weight);
+      //  _hist_tcptmax->fill(jetpT/GeV, ptMaxToward/GeV, weight);
       //}
       if ((numTrans1+numTrans2) > 0) {
-        _hist_pcptave->fill(jetpT, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2), weight);
-        //_hist_pcptmax->fill(jetpT, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2), weight);
+        _hist_pcptave->fill(jetpT/GeV, (ptSumTrans1+ptSumTrans2)/GeV/(numTrans1+numTrans2), weight);
+        //_hist_pcptmax->fill(jetpT/GeV, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2)/GeV, weight);
       }
       //if (numAway > 0) {
-      //  _hist_acptave->fill(jetpT, ptSumAway/numAway, weight);
-      //  _hist_acptmax->fill(jetpT, ptMaxAway, weight);
+      //  _hist_acptave->fill(jetpT/GeV, ptSumAway/GeV/numAway, weight);
+      //  _hist_acptmax->fill(jetpT/GeV, ptMaxAway/GeV, weight);
       //}
     }
     

@@ -13,8 +13,9 @@ References:
 RunInfo:
   Hadronic e+ e- events at 4 representative energies (91, 133, 177, 197)
 NumEvents: 200000
+Energies: [91,133,177,197]
 PtCuts: [0]
 Description:
-  Measurement of e+ e- event shape variable distrobutions and their 1st 
-  to 5th moments in LEP running from the Z pole to the higest LEP 2 energy
+  Measurement of e+ e- event shape variable distributions and their 1st 
+  to 5th moments in LEP running from the Z pole to the highest LEP 2 energy
   of 209 GeV.
