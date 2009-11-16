@@ -33,7 +33,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       const Beam beamproj = applyProjection<Beam>(e, "Beams");
-      const ParticlePair& beams = beamproj.beams();
+      //const ParticlePair& beams = beamproj.beams();
       const double s = beamproj.sqrtS()*beamproj.sqrtS();
 
       // TODO: implement sqrtS() for asymm. beams in beam projection
