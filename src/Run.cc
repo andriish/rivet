@@ -72,7 +72,7 @@ namespace Rivet {
         Log::getLog("Rivet.Run") << Log::INFO << "First event beams: "
                                  << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
       } else {
-        if (_beams != _beams || !fuzzyEquals(sqrts, sqrtS())) {
+        if (beams != _beams || !fuzzyEquals(sqrts, sqrtS())) {
           Log::getLog("Rivet.Run") << Log::ERROR << "Event beams mismatch: "
                                    << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
                                    << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;

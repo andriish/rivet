@@ -30,7 +30,11 @@ namespace Rivet {
       sqrts = fabs(mom1) + fabs(mom2);
     } else {
       /// @todo Implement general sqrt(s) for asymmetric beams... requires particle masses.
-      throw Error("Asymmetric beams... calculation of sqrt(S) not yet implemented");
+      getLog() << Log::WARN << "Asymmetric beams: mass treatment still to be implemented!" << endl;
+      const double E1 = beams().first.momentum().E();
+      const double E2 = beams().second.momentum().E();
+      sqrts = (E1+E2)*(E1+E2) - (mom1+mom2)*(mom1+mom2);
+      sqrts = sqrt(sqrts);
     }
     getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
     return sqrts;

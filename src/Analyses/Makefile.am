@@ -105,7 +105,8 @@ RivetMiscAnalyses_la_SOURCES = \
     PDG_Hadron_Multiplicities_Ratios.cc \
     SFM_1984_S1178091.cc \
     E735_1998_S3905616.cc \
-    JADE_OPAL_2000_S4300807.cc
+    JADE_OPAL_2000_S4300807.cc \
+    BELLE_2006_S6265367.cc
 
 
 lib_LTLIBRARIES += RivetMCAnalyses.la
