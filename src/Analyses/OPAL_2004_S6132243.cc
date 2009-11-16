@@ -88,7 +88,7 @@ namespace Rivet {
 
       // Translate sqrt(s) into a histo index for the majority of histos
       size_t ih = 5;
-      if (fuzzyEquals(sqrts/GeV, 91)) {
+      if (inRange(sqrts/GeV, 89.9, 91.5)) {
         ih = 0;
       } else if (fuzzyEquals(sqrts/GeV, 133)) {
         ih = 1;
