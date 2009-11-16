@@ -154,14 +154,14 @@ namespace Rivet {
     return *this;
   }
 
-  const bool Analysis::isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
+  bool Analysis::isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
     BeamPair beams(beam1, beam2);
     return compatible(beams, requiredBeams());
     /// @todo Need to also check internal consistency of the analysis' 
     /// beam requirements with those of the projections it uses.
   }
   
-  const bool Analysis::isCompatible(const BeamPair& beams) const {
+  bool Analysis::isCompatible(const BeamPair& beams) const {
     return compatible(beams, requiredBeams());
     /// @todo Need to also check internal consistency of the analysis' 
     /// beam requirements with those of the projections it uses.
