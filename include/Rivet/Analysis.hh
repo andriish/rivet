@@ -160,10 +160,10 @@ namespace Rivet {
     virtual const BeamPair& requiredBeams() const;
 
     /// Is this analysis able to run on the supplied pair of beams?
-    virtual const bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
+    virtual bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
 
     /// Is this analysis able to run on the BeamPair @a beams ?
-    virtual const bool isCompatible(const BeamPair& beams) const;
+    virtual bool isCompatible(const BeamPair& beams) const;
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const;

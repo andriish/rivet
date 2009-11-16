@@ -59,12 +59,12 @@ namespace Rivet {
     }
 
     /// Vector dimensionality
-    const size_t size() const {
+    size_t size() const {
       return N;
     }
 
     /// Check for nullness, allowing for numerical precision
-    const bool isZero(double tolerance=1E-5) const {
+    bool isZero(double tolerance=1E-5) const {
       for (size_t i=0; i < N; ++i) {
         if (! Rivet::isZero(_vec[i], tolerance) ) return false;
       }

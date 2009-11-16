@@ -160,12 +160,12 @@ namespace Rivet {
     }
 
     /// Get dimensionality
-    const size_t size() const {
+    size_t size() const {
       return N;
     }
 
     /// Index-wise check for nullness, allowing for numerical precision
-    const bool isZero(double tolerance=1E-5) const {
+    bool isZero(double tolerance=1E-5) const {
       for (size_t i=0; i < N; ++i) {
         for (size_t j=0; j < N; ++j) {
           if (! Rivet::isZero(_matrix(i,j), tolerance) ) return false;
@@ -175,7 +175,7 @@ namespace Rivet {
     }
 
     /// Check for index-wise equality, allowing for numerical precision
-    const bool isEqual(Matrix<N> other) const {
+    bool isEqual(Matrix<N> other) const {
       for (size_t i=0; i < N; ++i) {
         for (size_t j=i; j < N; ++j) {
           if (! Rivet::isZero(_matrix(i,j) - other._matrix(i,j)) ) return false;
@@ -185,12 +185,12 @@ namespace Rivet {
     }
 
     /// Check for symmetry under transposition
-    const bool isSymm() const {
+    bool isSymm() const {
       return isEqual(this->transpose());
     }
 
     /// Check that all off-diagonal elements are zero, allowing for numerical precision
-    const bool isDiag() const {
+    bool isDiag() const {
       for (size_t i=0; i < N; ++i) {
         for (size_t j=0; j < N; ++j) {
           if (i == j) continue;

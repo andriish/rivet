@@ -40,7 +40,7 @@ namespace Rivet {
 
 
     /// The PDG ID code for this Particle.
-    const long pdgId() const { return _id; }
+    long pdgId() const { return _id; }
 
 
     /// The momentum of this Particle.
@@ -56,7 +56,7 @@ namespace Rivet {
 
 
     /// The mass of this Particle.
-    const double mass() const { return _mass; }
+    double mass() const { return _mass; }
 
 
     bool hasAncestor(long pdg_id) const {

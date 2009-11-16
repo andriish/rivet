@@ -46,10 +46,10 @@ namespace Rivet {
     virtual ~FourVector() { }
 
   public:
-    const double t() const { return get(0); }
-    const double x() const { return get(1); }
-    const double y() const { return get(2); }
-    const double z() const { return get(3); }
+    double t() const { return get(0); }
+    double x() const { return get(1); }
+    double y() const { return get(2); }
+    double z() const { return get(3); }
     FourVector& setT(const double t) { set(0, t); return *this; }
     FourVector& setX(const double x) { set(1, x); return *this; }
     FourVector& setY(const double y) { set(2, y); return *this; }
@@ -225,7 +225,7 @@ namespace Rivet {
 
   /// Calculate the Lorentz self-invariant of a 4-vector.
   /// \f$ v_\mu v^\mu = g_{\mu\nu} x^\mu x^\nu \f$.
-  inline const double invariant(const FourVector& lv) {
+  inline double invariant(const FourVector& lv) {
     return lv.invariant();
   }
 
