@@ -418,6 +418,9 @@ namespace Rivet {
   // Interface for analysis builders
   class AnalysisBuilderBase {
   public:
+    AnalysisBuilderBase() { }
+    virtual ~AnalysisBuilderBase() { }
+    
     virtual Analysis* mkAnalysis() const = 0;
 
     const string name() const {
