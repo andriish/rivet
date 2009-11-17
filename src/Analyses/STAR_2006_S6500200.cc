@@ -25,6 +25,7 @@ namespace Rivet {
       ChargedFinalState bbc2( 3.3, 5.0, 0.0*GeV); // beam-beam-counter trigger
       addProjection(bbc1, "BBC1");
       addProjection(bbc2, "BBC2");
+
       IdentifiedFinalState pionfs(-2.5, 2.5, 0.3*GeV);
       IdentifiedFinalState protonfs(-2.5, 2.5, 0.4*GeV);
       pionfs.acceptIdPair(PIPLUS);
@@ -41,8 +42,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       const ChargedFinalState& bbc1 = applyProjection<ChargedFinalState>(event, "BBC1");
       const ChargedFinalState& bbc2 = applyProjection<ChargedFinalState>(event, "BBC2");
       if (bbc1.size()<1 || bbc2.size()<1) {
@@ -50,8 +49,9 @@ namespace Rivet {
         vetoEvent;
       }
 
+      const double weight = event.weight();
+
       const IdentifiedFinalState& pionfs = applyProjection<IdentifiedFinalState>(event, "PIONFS");
-      const IdentifiedFinalState& protonfs = applyProjection<IdentifiedFinalState>(event, "PROTONFS");
       foreach (const Particle& p, pionfs.particles()) {
         if (fabs(p.momentum().rapidity()) < 0.5) {
           const double pT = p.momentum().pT() / GeV;
@@ -63,6 +63,8 @@ namespace Rivet {
           }
         }
       }
+
+      const IdentifiedFinalState& protonfs = applyProjection<IdentifiedFinalState>(event, "PROTONFS");
       foreach (const Particle& p, protonfs.particles()) {
         if (fabs(p.momentum().rapidity()) < 0.5) {
           const double pT = p.momentum().pT() / GeV;
