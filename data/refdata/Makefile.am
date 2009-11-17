@@ -21,6 +21,7 @@ dist_pkgdata_DATA = \
   ZEUS_2001_S4815815.aida        \
   PHENIX_2003_S5538505.aida      \
   STAR_2006_S6500200.aida        \
+  STAR_2006_S6860818.aida        \
   STAR_2006_S6870392.aida        \
   STAR_2008_S7993412.aida        \
   STAR_2009_UE_HELEN.aida        \

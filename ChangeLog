@@ -1,3 +1,8 @@
+2009-11-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Zeroth version of STAR_2006_S6860818 analysis (identified strange
+	particles). Not working yet for unstable particles.
+
 2009-11-11  Andy Buckley  <andy@insectnation.org>
 
 	* Adding separate jet-oriented and photon-oriented observables to
