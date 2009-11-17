@@ -489,6 +489,15 @@ if __name__ == "__main__":
     mergeByPt("/D0_2008_S7662670/d05-x01-y01", "1960")
     mergeByPt("/D0_2008_S7662670/d06-x01-y01", "1960")
 
+    ## STAR inclusive jet cross-section
+    useOnePt("/STAR_2006_S6870392/d01-x01-y01", "200", "0")
+    useOnePt("/STAR_2006_S6870392/d02-x01-y01", "200", "3")
+
+    ## STAR underlying event (Helen Caines)
+    mergeByPt("/STAR_2009_UE_HELEN/d01-x01-y01", "200")
+    mergeByPt("/STAR_2009_UE_HELEN/d02-x01-y01", "200")
+    mergeByPt("/STAR_2009_UE_HELEN/d03-x01-y01", "200")
+
     ## Choose output file
     out = None
     if opts.OUTFILE == "-":
