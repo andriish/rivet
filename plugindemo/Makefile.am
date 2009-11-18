@@ -4,7 +4,7 @@ pluginlib = RivetMyAnalysis.so
 if WITH_OSX
   shared_flags = -undefined dynamic_lookup -bundle 
 else
-  shared_flags = -shared
+  shared_flags = -shared -fPIC
 endif
 
 all:
