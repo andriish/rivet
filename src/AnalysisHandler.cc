@@ -77,10 +77,13 @@ namespace Rivet {
 
 
   void AnalysisHandler::finalize() {
-    getLog() << Log::INFO << "Finalising analysis" << endl;
+    getLog() << Log::INFO << "Finalising analyses" << endl;
     foreach (Analysis* a, _analyses) {
       a->finalize();
     }
+
+    // Print out number of events processed
+    getLog() << Log::INFO << "Processed " << _numEvents << " event" << (_numEvents == 1 ? "" : "s") << endl;
 
     // Change AIDA histos into data point sets
     getLog() << Log::DEBUG << "Converting histograms to scatter plots" << endl;
