@@ -136,8 +136,16 @@ except Exception, e:
 
 ## Control native Rivet library logger
 for l in opts.NATIVE_LOG_STRS:
+    name, level = None, None
     try:
         name, level = l.split("=")
+    except:
+        name = "Rivet"
+        level = l
+    ## Fix name
+    if name != "Rivet" and not name.startswith("Rivet."):
+        name = "Rivet." + name
+    try:
         ## Get right error type
         LEVEL = level.upper()
         if LEVEL == "TRACE":
@@ -152,9 +160,6 @@ for l in opts.NATIVE_LOG_STRS:
             level = rivet.Log.ERROR
         else:
             level = int(level)
-        ## Fix name
-        if name != "Rivet" and not name.startswith("Rivet."):
-            name = "Rivet." + name
         logging.debug("Setting log level: %s %d" % (name, level))
         rivet.Log.setLogLevel(name, level)
     except:
