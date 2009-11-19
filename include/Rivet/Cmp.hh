@@ -224,7 +224,7 @@ namespace Rivet {
     //@{
     /// The default constructor.
     Cmp(const double p1, const double p2) 
-      : _value(UNDEFINED), _numA(0.0), _numB(0.0)
+      : _value(UNDEFINED), _numA(p1), _numB(p2)
     { }
     
     /// The copy constructor.
@@ -267,7 +267,7 @@ namespace Rivet {
       if (_value == UNDEFINED) {
         if (fuzzyEquals(_numA,_numB)) _value = EQUIVALENT;
         else if (_numA < _numB) _value = ORDERED;
-        else _value = ORDERED;
+        else _value = UNORDERED;
       }
     }
     

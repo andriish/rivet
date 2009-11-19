@@ -1,3 +1,7 @@
+2009-11-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing our compare() for doubles.
+
 2009-11-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Zeroth version of STAR_2006_S6860818 analysis (identified strange
