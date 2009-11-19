@@ -126,7 +126,7 @@ namespace Rivet {
 
       // Fill histos
       if (fuzzyEquals(sqrtS, 200.0, 1E-4)) {
-        for (int i = 0; i < n_10f.size(); i++) {
+        for (size_t i = 0; i < n_10f.size(); i++) {
           // Fill gap size histo (Fig 14), iterate over central gap size
           _hist_correl_200->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
           _hist_correl_200->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
@@ -156,7 +156,7 @@ namespace Rivet {
       }
       
       else if (fuzzyEquals(sqrtS, 546.0, 1E-4)) {
-        for (int i = 0; i < n_10f.size(); i++) {
+        for (size_t i = 0; i < n_10f.size(); i++) {
           _hist_correl_546->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
           _hist_correl_546->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
           _hist_correl_546->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
@@ -181,7 +181,7 @@ namespace Rivet {
       }
       
       else if (fuzzyEquals(sqrtS, 900.0, 1E-4)) {
-        for (int i = 0; i < n_10f.size(); i++) {
+        for (size_t i = 0; i < n_10f.size(); i++) {
           _hist_correl_900->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
           _hist_correl_900->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
           _hist_correl_900->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
