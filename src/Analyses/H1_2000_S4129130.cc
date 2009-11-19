@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Analysis.hh" 
+#include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -20,8 +20,8 @@ namespace Rivet {
     {
       setBeams(ELECTRON, PROTON);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
 
@@ -36,7 +36,7 @@ namespace Rivet {
       double x   = dk.x();
       double y   = dk.y();
       double w2  = dk.W2();
-      
+   
       // Momentum of the scattered lepton
       FourMomentum leptonMom = dl.out().momentum();
       // pT energy and angle
@@ -49,11 +49,11 @@ namespace Rivet {
       const GenParticle& dislepGP = dl.out().genParticle();
       for (ParticleVector::const_iterator p = fs.particles().begin();
            p != fs.particles().end(); ++p) {
-        const GenParticle& loopGP = p->genParticle(); 
+        const GenParticle& loopGP = p->genParticle();
         if (&loopGP == &dislepGP) continue;
         particles.push_back(*p);
       }
-      
+   
       // Cut on the forward energy
       double efwd = 0.;
       foreach (const Particle& p, particles) {
@@ -65,25 +65,25 @@ namespace Rivet {
       bool evcut[4];
       // Low  Q2 selection a
       /// @todo Units and inRange
-      evcut[0] = enel/GeV > 12. && w2 >= 4400. && efwd/GeV > 0.5 && 
+      evcut[0] = enel/GeV > 12. && w2 >= 4400. && efwd/GeV > 0.5 &&
         thel > 157. && thel < 176.0;
       // Low  Q2 selection b
       /// @todo Units and inRange
       evcut[1] = enel/GeV > 12. && y > 0.3 && y < 0.5;
       // High Q2 selection a
       /// @todo Units and inRange
-      evcut[2] = thel > 12. && thel < 150.0 && y > 0.05 && y < 0.6 && 
+      evcut[2] = thel > 12. && thel < 150.0 && y > 0.05 && y < 0.6 &&
         w2 >= 4400. && efwd > 0.5;
       // High Q2 selection b
       /// @todo Units and inRange
       evcut[3] = thel > 12. && thel < 150.0 && y > 0.05 && y < 0.6 &&
         w2 > 27110. && w2 < 45182.;
-      
+   
       // Veto if fails all cuts
       if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3]) ) {
         vetoEvent;
       }
-      
+   
       // Find the bins
       int bin[4] = {-1,-1,-1,-1};
       // For the low Q2 selection a)
@@ -152,20 +152,20 @@ namespace Rivet {
       else if (q2 > 220. && q2 <= 400.) bin[3] = 1;
       else if (q2 > 400.              ) bin[3] = 2;
       evcut[3] &= bin[3] >= 0;
-      
+   
       // Veto if fails all cuts after bin selection
       if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3]));
-      
+   
       // Increment the count for normalisation
       const double weight = event.weight();
       if (evcut[0]) _weightETLowQa [bin[0]] += weight;
       if (evcut[1]) _weightETLowQb [bin[1]] += weight;
       if (evcut[2]) _weightETHighQa[bin[2]] += weight;
       if (evcut[3]) _weightETHighQb[bin[3]] += weight;
-      
+   
       // Boost to hadronicCM
       const LorentzTransform hcmboost = dk.boostHCM();
-      
+   
       // Loop over the particles
       double etcent = 0;
       double etfrag = 0;
@@ -189,17 +189,17 @@ namespace Rivet {
         _histAverETFrag   ->fill(q2, etfrag*weight,weight);
       }
     }
-    
-    
+ 
+ 
     void init() {
       // Projections
       addProjection(DISLepton(), "Lepton");
       addProjection(DISKinematics(), "Kinematics");
       addProjection(FinalState(), "FS");
-      
+   
       // Histos
       IHistogram1D* h = 0;
-      
+   
       // Histograms and weight vectors for low Q^2 a
       _histETLowQa.reserve(17);
       _weightETLowQa.reserve(17);
@@ -208,7 +208,7 @@ namespace Rivet {
         _histETLowQa.push_back(h);
         _weightETLowQa.push_back(0.);
       }
-      
+   
       // Histograms and weight vectors for high Q^2 a
       _histETHighQa.reserve(7);
       _weightETHighQa.reserve(7);
@@ -217,7 +217,7 @@ namespace Rivet {
         _histETHighQa.push_back(h);
         _weightETHighQa.push_back(0.);
       }
-      
+   
       // Histograms and weight vectors for low Q^2 b
       _histETLowQb.reserve(5);
       _weightETLowQb.reserve(5);
@@ -226,7 +226,7 @@ namespace Rivet {
         _histETLowQb.push_back(h);
         _weightETLowQb.push_back(0.);
       }
-      
+   
       // Histograms and weight vectors for high Q^2 b
       _histETHighQb.reserve(3);
       _weightETHighQb.reserve(3);
@@ -235,15 +235,15 @@ namespace Rivet {
         _histETHighQb.push_back(h);
         _weightETHighQb.push_back(0.0);
       }
-      
+   
       // Histograms for the averages
       _histAverETCentral = bookProfile1D(33,  1, 1);
       _histAverETFrag = bookProfile1D(34,  1, 1);
     }
-    
-    
+ 
+ 
     // Finalize
-    void finalize() { 
+    void finalize() {
       // Normalization of the Et distributions
       for (size_t ix=0; ix<17; ++ix) {
         scale(_histETLowQa[ix], 1./_weightETLowQa[ix]);
@@ -258,13 +258,13 @@ namespace Rivet {
         scale(_histETHighQb[ix], 1./_weightETHighQb[ix]);
       }
     }
-    
+ 
 
     //@}
 
 
   private:
-    
+ 
     /// Polar angle with right direction of the beam
     inline double beamAngle(const FourVector& v, const bool & order) {
       double thel = v.polarAngle()/degree;

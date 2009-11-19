@@ -13,11 +13,11 @@
 namespace Rivet {
 
 
-  class OPAL_2004_S6132243 : public Analysis { 
+  class OPAL_2004_S6132243 : public Analysis {
   public:
 
     /// Constructor
-    OPAL_2004_S6132243() : Analysis("OPAL_2004_S6132243") { 
+    OPAL_2004_S6132243() : Analysis("OPAL_2004_S6132243") {
       //
     }
 
@@ -25,7 +25,7 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
-    void init() { 
+    void init() {
       // Projections
       addProjection(Beam(), "Beams");
       const ChargedFinalState cfs;
@@ -74,7 +74,7 @@ namespace Rivet {
     }
 
 
-    void analyze(const Event& event) { 
+    void analyze(const Event& event) {
       const FinalState& cfs = applyProjection<FinalState>(event, "FS");
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (cfs.size() < 2) vetoEvent;
@@ -103,8 +103,8 @@ namespace Rivet {
       // Thrusts
       const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
       _hist1MinusT[ih]->fill(1-thrust.thrust(), weight);
-      _histTMajor[ih]->fill(thrust.thrustMajor(), weight); 
-      _histTMinor[ih]->fill(thrust.thrustMinor(), weight); 
+      _histTMajor[ih]->fill(thrust.thrustMajor(), weight);
+      _histTMinor[ih]->fill(thrust.thrustMinor(), weight);
       _histOblateness[ih]->fill(thrust.oblateness(), weight);
       for (int n = 1; n <= 5; ++n) {
         _hist1MinusTMom[ih]->fill(n, pow(1-thrust.thrust(), n)*weight);
@@ -143,7 +143,7 @@ namespace Rivet {
       for (int n = 1; n <= 5; ++n) {
         _histCParamMom[ih]->fill(n, pow(cparam, n)*weight);
       }
-      
+   
       // Hemispheres
       const Hemispheres& hemi = applyProjection<Hemispheres>(event, "Hemispheres");
       const double hemi_mh = hemi.scaledM2high();
@@ -166,36 +166,36 @@ namespace Rivet {
     }
 
 
-    void finalize() { 
-      /// @todo Normalisations / scalings, etc.    
+    void finalize() {
+      /// @todo Normalisations / scalings, etc.
       for (int isqrts = 0; isqrts < 4; ++isqrts) {
-        normalize(_hist1MinusT[isqrts]); 
-        normalize(_histTMajor[isqrts]); 
-        normalize(_histTMinor[isqrts]); 
-        normalize(_histOblateness[isqrts]); 
-        normalize(_histSphericity[isqrts]); 
-        normalize(_histAplanarity[isqrts]); 
-        normalize(_histHemiMassH[isqrts]); 
-        normalize(_histHemiMassL[isqrts]); 
-        normalize(_histHemiBroadW[isqrts]); 
-        normalize(_histHemiBroadN[isqrts]); 
-        normalize(_histHemiBroadT[isqrts]); 
+        normalize(_hist1MinusT[isqrts]);
+        normalize(_histTMajor[isqrts]);
+        normalize(_histTMinor[isqrts]);
+        normalize(_histOblateness[isqrts]);
+        normalize(_histSphericity[isqrts]);
+        normalize(_histAplanarity[isqrts]);
+        normalize(_histHemiMassH[isqrts]);
+        normalize(_histHemiMassL[isqrts]);
+        normalize(_histHemiBroadW[isqrts]);
+        normalize(_histHemiBroadN[isqrts]);
+        normalize(_histHemiBroadT[isqrts]);
         normalize(_histCParam[isqrts]);
         normalize(_histDParam[isqrts]);
         normalize(_histY23Durham[isqrts]);
         //
         scale(_hist1MinusTMom[isqrts], 1.0/_sumPassedWeights);
-        scale(_histTMajorMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histTMinorMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histOblatenessMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histSphericityMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histHemiMassHMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histHemiMassLMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histHemiBroadWMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histHemiBroadNMom[isqrts], 1.0/_sumPassedWeights); 
-        scale(_histHemiBroadTMom[isqrts], 1.0/_sumPassedWeights); 
+        scale(_histTMajorMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histTMinorMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histOblatenessMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histSphericityMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histHemiMassHMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histHemiMassLMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histHemiBroadWMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histHemiBroadNMom[isqrts], 1.0/_sumPassedWeights);
+        scale(_histHemiBroadTMom[isqrts], 1.0/_sumPassedWeights);
         scale(_histCParamMom[isqrts], 1.0/_sumPassedWeights);
-        scale(_histY23DurhamMom[isqrts], 1.0/_sumPassedWeights); 
+        scale(_histY23DurhamMom[isqrts], 1.0/_sumPassedWeights);
       }
     }
 

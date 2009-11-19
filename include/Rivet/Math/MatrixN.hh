@@ -49,15 +49,15 @@ namespace Rivet {
       for (size_t i = 0; i < N; ++i) {
         rtn.set(i, i, diag[i]);
       }
-      return rtn;    
+      return rtn;
     }
 
-    static Matrix<N> mkIdentity() {    
+    static Matrix<N> mkIdentity() {
       Matrix<N> rtn;
       for (size_t i = 0; i < N; ++i) {
         rtn.set(i, i, 1);
       }
-      return rtn;    
+      return rtn;
     }
 
 

@@ -12,6 +12,6 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Making visible final state from provided FS" << endl;
     addProjection(vfs, "FS");
   }
-  
-  
+
+
 }

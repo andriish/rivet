@@ -9,16 +9,16 @@ namespace Rivet {
 
   class E735_1998_S3905616 : public Analysis {
   public:
-    
+ 
     /// Constructor
     E735_1998_S3905616() : Analysis("E735_1998_S3905616") {
       setBeams(PROTON, ANTIPROTON);
     }
-    
+ 
 
     /// @name Analysis methods
     //@{
-    
+ 
     void init() {
       const ChargedFinalState cfs;
       addProjection(cfs, "FS");
@@ -30,19 +30,19 @@ namespace Rivet {
     void analyze(const Event& event) {
       const ChargedFinalState& fs = applyProjection<ChargedFinalState>(event, "FS");
       const size_t numParticles = fs.particles().size();
-      
+   
       // Get the event weight
       const double weight = event.weight();
-      
+   
       // Fill histo of charged multiplicity distribution
       _hist_multiplicity->fill(numParticles, weight);
     }
-    
-    
+ 
+ 
     void finalize() {
       normalize(_hist_multiplicity);
     }
-    
+ 
     //@}
 
 
@@ -52,12 +52,12 @@ namespace Rivet {
     //@{
     AIDA::IHistogram1D *_hist_multiplicity;
     //@}
-    
+ 
   };
-  
-  
-  
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<E735_1998_S3905616> plugin_E735_1998_S3905616;
-  
+
 }

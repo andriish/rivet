@@ -17,15 +17,15 @@
 namespace Rivet {
 
 
-  /// Project out the total visible energy vector, allowing missing 
+  /// Project out the total visible energy vector, allowing missing
   /// \f$ E_T \f$ etc. to be calculated.
   class FoxWolframMoments : public Projection {
-    
+ 
   public:
-    
+ 
     /// Constructor.
     FoxWolframMoments(const FinalState& fsp)
-    { 
+    {
         setName("FoxWolframMoments");
         addProjection(fsp, "FS");
         //addProjection(TotalVisibleMomentum(fsp), "SumET");
@@ -48,29 +48,29 @@ namespace Rivet {
     virtual const Projection* clone() const {
       return new FoxWolframMoments(*this);
     }
-    
+ 
   public:
 
     /// The projected Fox-Wolfram Moment of order l
-      const double getFoxWolframMoment(unsigned int l) const { 
+      const double getFoxWolframMoment(unsigned int l) const {
         if ( l < MAXMOMENT )
-            return _fwmoments[l]; 
+            return _fwmoments[l];
         else return -666.0;
       }
-      
+   
   protected:
-    
+ 
     /// Apply the projection to the event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
-        
+     
   private:
       vector<double> _fwmoments;
 
   };
-  
+
 }
 
 

@@ -18,29 +18,29 @@ namespace Rivet {
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
     /// @todo Why specify the rap & pT cuts again?
     LeadingParticlesFinalState(const FinalState& fsp, double mineta=-MAXRAPIDITY, double maxeta=MAXRAPIDITY, double minpt=0.0*GeV)
-      :  FinalState(mineta, maxeta, minpt) 
+      :  FinalState(mineta, maxeta, minpt)
     {
       setName("LeadingParticlesFinalState");
       addProjection(fsp, "FS");
     }
 
-    /// Clone on the heap. 
+    /// Clone on the heap.
     virtual const Projection *clone() const {
       return new LeadingParticlesFinalState(*this);
     }
 
-    /// Add a particle ID to the list of leading particles selected 
+    /// Add a particle ID to the list of leading particles selected
     LeadingParticlesFinalState& addParticleId(long id) {
       _ids.insert(id);
       return *this;
-    } 
+    }
 
-    /// Add a particle ID to the list of leading particles selected 
+    /// Add a particle ID to the list of leading particles selected
     LeadingParticlesFinalState& addParticleIdPair(long id) {
       _ids.insert(id);
       _ids.insert(-id);
       return *this;
-    } 
+    }
 
     // /// Check if a particle of a particular ID was found in the current event
     // bool hasParticleId(const PdgId pid) const;
@@ -48,7 +48,7 @@ namespace Rivet {
     // /// Get a particle of a particular ID (check it exists first)
     // bool get(const PdgId pid) const;
 
-    
+ 
   protected:
 
     /// Apply the projection on the supplied event.

@@ -96,10 +96,10 @@ private:
 
 /// Comparison functor for "eigen-pairs".
 template <size_t N>
-struct EigenPairCmp : 
-  public std::binary_function<const typename EigenSystem<N>::EigenPair&, 
+struct EigenPairCmp :
+  public std::binary_function<const typename EigenSystem<N>::EigenPair&,
                               const typename EigenSystem<N>::EigenPair&, bool> {
-  bool operator()(const typename EigenSystem<N>::EigenPair& a, 
+  bool operator()(const typename EigenSystem<N>::EigenPair& a,
                   const typename EigenSystem<N>::EigenPair& b) {
     return a.first < b.first;
   }
@@ -120,13 +120,13 @@ EigenSystem<N> diagonalize(const Matrix<N>& m) {
     }
   }
 
-  // Use GSL diagonalization.  
+  // Use GSL diagonalization.
   gsl_matrix* vecs = gsl_matrix_alloc(N, N);
   gsl_vector* vals = gsl_vector_alloc(N);
   gsl_eigen_symmv_workspace* workspace = gsl_eigen_symmv_alloc(N);
   gsl_eigen_symmv(A, vals, vecs, workspace);
   gsl_eigen_symmv_sort(vals, vecs, GSL_EIGEN_SORT_VAL_DESC);
-  
+
   // Build the vector of "eigen-pairs".
   typename EigenSystem<N>::EigenPairs eigensolns;
   for (size_t i = 0; i < N; ++i) {

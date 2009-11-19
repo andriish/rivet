@@ -11,7 +11,7 @@ namespace Rivet {
   /// @name Number comparisons etc.
   //@{
 
-  /// Compare a floating point number to zero with a degree 
+  /// Compare a floating point number to zero with a degree
   /// of fuzziness expressed by the absolute @a tolerance parameter.
   inline bool isZero(double val, double tolerance=1E-8) {
     return (fabs(val) < tolerance);
@@ -19,7 +19,7 @@ namespace Rivet {
 
   /// Compare an integral-type number to zero. Since there is no
   /// risk of floating point error, this function just exists in
-  /// case @c isZero is accidentally used on an integer type, to avoid 
+  /// case @c isZero is accidentally used on an integer type, to avoid
   /// implicit type conversion. The @a tolerance parameter is ignored.
   inline bool isZero(long val, double tolerance=1E-8) {
     return val == 0;
@@ -44,7 +44,7 @@ namespace Rivet {
     return (val > 0) ? PLUS : MINUS;
   }
 
-  /// Compare two floating point numbers with a degree of fuzziness 
+  /// Compare two floating point numbers with a degree of fuzziness
   /// expressed by the fractional @a tolerance parameter.
   inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
     const double absavg = fabs(a + b)/2.0;
@@ -54,9 +54,9 @@ namespace Rivet {
   }
 
   /// Compare two integral-type numbers with a degree of fuzziness.
-  /// Since there is no risk of floating point error with integral types, 
-  /// this function just exists in case @c fuzzyEquals is accidentally 
-  /// used on an integer type, to avoid implicit type conversion. The @a 
+  /// Since there is no risk of floating point error with integral types,
+  /// this function just exists in case @c fuzzyEquals is accidentally
+  /// used on an integer type, to avoid implicit type conversion. The @a
   /// tolerance parameter is ignored, even if it would have an
   /// absolute magnitude greater than 1.
   inline bool fuzzyEquals(long a, long b, double tolerance=1E-5) {
@@ -71,7 +71,7 @@ namespace Rivet {
   /// Determine if @a value is in the range @a low to @a high, with boundary
   /// types defined by @a lowbound and @a highbound.
   /// @todo Optimise to one-line at compile time?
-  inline bool inRange(double value, double low, double high, 
+  inline bool inRange(double value, double low, double high,
                       RangeBoundary lowbound=OPEN, RangeBoundary highbound=OPEN) {
     if (lowbound == OPEN && highbound == OPEN) {
       return (value > low && value < high);
@@ -105,9 +105,9 @@ namespace Rivet {
     }
     return mean/sample.size();
   }
-  
-  
-  /// Calculate the covariance (variance) between two samples  
+
+
+  /// Calculate the covariance (variance) between two samples
   inline double covariance(const vector<int>& sample1, const vector<int>& sample2) {
     double mean1 = mean(sample1);
     double mean2 = mean(sample2);
@@ -120,8 +120,8 @@ namespace Rivet {
     if (N > 1) return cov/(N-1);
     else return 0.0;
   }
-  
-  
+
+
   /// Calculate the correlation strength between two samples
   inline double correlation(const vector<int>& sample1, const vector<int>& sample2) {
     const double cov = covariance(sample1, sample2);
@@ -181,7 +181,7 @@ namespace Rivet {
   /// @name Phase space measure helpers
   //@{
 
-  /// Calculate the difference between two angles in radians, 
+  /// Calculate the difference between two angles in radians,
   /// returning in the range [0, PI].
   inline double deltaPhi(double phi1, double phi2) {
     return mapAngle0ToPi(phi1 - phi2);

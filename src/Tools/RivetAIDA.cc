@@ -35,17 +35,17 @@ namespace Rivet {
         return file;
       }
     }
-    throw Rivet::Error("Couldn't find ref data file '" + papername + ".aida" + 
+    throw Rivet::Error("Couldn't find ref data file '" + papername + ".aida" +
                        " in $RIVET_REF_PATH, " + getRivetDataPath() + ", or .");
     return "";
   }
-  
-  
+
+
 
   const map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername) {
     // Get filename
     const string xmlfile = getDatafilePath(papername);
-    
+ 
     // Open AIDA XML file
     TiXmlDocument doc(xmlfile);
     doc.LoadFile();
@@ -55,11 +55,11 @@ namespace Rivet {
       cerr << err << endl;
       throw Error(err);
     }
-    
+ 
     // Return value, to be populated
     map<string, vector<DPSXPoint> > rtn;
-    
-    try {      
+ 
+    try {
       // Walk down tree to get to the <paper> element
       const TiXmlNode* aidaN = doc.FirstChild("aida");
       if (!aidaN) throw Error("Couldn't get <aida> root element");
@@ -72,7 +72,7 @@ namespace Rivet {
           cerr << "Skipping non-reference histogram " << plotname << endl;
           continue;
         }
-        
+     
         /// @todo Check that "path" matches filename
         vector<DPSXPoint> points;
         for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling()) {
@@ -80,8 +80,8 @@ namespace Rivet {
           if (xMeasN) {
             const TiXmlElement* xMeasE = xMeasN->ToElement();
             const string centreStr = xMeasE->Attribute("value");
-            const string errplusStr = xMeasE->Attribute("errorPlus"); 
-            const string errminusStr = xMeasE->Attribute("errorMinus"); 
+            const string errplusStr = xMeasE->Attribute("errorPlus");
+            const string errminusStr = xMeasE->Attribute("errorMinus");
             //if (!centreStr) throw Error("Couldn't get a valid bin centre");
             //if (!errplusStr) throw Error("Couldn't get a valid bin err+");
             //if (!errminusStr) throw Error("Couldn't get a valid bin err-");
@@ -98,26 +98,26 @@ namespace Rivet {
             /// @todo Throw an exception here?
           }
         }
-        
+     
         // Add to the map
         rtn[plotname] = points;
       }
-      
+   
     }
     // Write out the error
-    /// @todo Rethrow as a general XML failure. 
+    /// @todo Rethrow as a general XML failure.
     catch (std::exception& e) {
       cerr << e.what() << endl;
       throw;
     }
-    
+ 
     // Return
     return rtn;
   }
-    
+ 
 
 
-  const map<string, BinEdges> 
+  const map<string, BinEdges>
   getBinEdges(string papername) {
     const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
     return getBinEdges(xpoints);
@@ -125,7 +125,7 @@ namespace Rivet {
 
 
 
-  const map<string, BinEdges> 
+  const map<string, BinEdges>
   getBinEdges(const map<string, vector<DPSXPoint> >& xpoints) {
 
     map<string, BinEdges> rtn;
@@ -158,7 +158,7 @@ namespace Rivet {
       //cout << "@@@ " << edges << endl;
 
       // Add to the map
-      rtn[plotname] = BinEdges(edges.begin(), edges.end()); 
+      rtn[plotname] = BinEdges(edges.begin(), edges.end());
     }
 
     // Return

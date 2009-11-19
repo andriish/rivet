@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2009_S8057893::CDF_2009_S8057893() 
+    CDF_2009_S8057893::CDF_2009_S8057893()
       : Analysis("CDF_2009_S8057893")
     {
       setBeams(PROTON, ANTIPROTON);
@@ -42,13 +42,13 @@ namespace Rivet {
       // Okay, so here are the questions:
 
       //  * What |eta| and pT_min acceptance cuts were used?
-      //  * Is the "cone algorithm" JETCLU or MIDPOINT? You refer to the old 1992 paper that defines 
+      //  * Is the "cone algorithm" JETCLU or MIDPOINT? You refer to the old 1992 paper that defines
       //    JETCLU, but I thought Run II analyses were using the more IRC-safe midpoint algorithm.
       //  * Effective min j1, j2 Et values?
       //  * Definition of "require the two leading jets to be well-balanced in Et"?
-      //  * Definition of the complementary cones: per-jet for j1, j2? Otherwise, what is defn of 
-      //    "dijet axis" (since the two jet axes will not exactly match due to ISR and extra jets.) 
-      //    Complementary cones are same eta as jet, but phi +- 90 degrees? Radius of compl. cones 
+      //  * Definition of the complementary cones: per-jet for j1, j2? Otherwise, what is defn of
+      //    "dijet axis" (since the two jet axes will not exactly match due to ISR and extra jets.)
+      //    Complementary cones are same eta as jet, but phi +- 90 degrees? Radius of compl. cones
       //    = 1.0? Or defined in theta_c (not Lorentz invariant)?
       //  * kT of tracks rel to jet axis for all jets, j1 & j2, or just j1?
 

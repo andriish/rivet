@@ -11,7 +11,7 @@ namespace Rivet {
   class InvMassFinalState : public FinalState {
 
   public:
-    
+ 
     // Constructor for a single inv-mass pair
     InvMassFinalState(const FinalState& fsp,
                       const std::pair<long, long>& idpair, // pair of decay products
@@ -23,8 +23,8 @@ namespace Rivet {
                       const std::vector<std::pair<long, long> >& idpairs,  // vector of pairs of decay products
                       double minmass, // min inv mass
                       double maxmass); // max inv mass
-    
-    
+ 
+ 
     /// Clone on the heap.
     virtual const Projection* clone() const {
     	return new InvMassFinalState(*this);
@@ -32,28 +32,28 @@ namespace Rivet {
 		
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
 
 
   private:
-    
+ 
     /// ids of the decay products
     std::vector<std::pair<long, long> > _decayids;
-   
+
     /// min inv mass
     double _minmass;
 
     /// max inv mass
     double _maxmass;
-    
+ 
   };
 
-  
+
 }
 
 

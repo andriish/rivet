@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Analysis.hh" 
+#include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -27,17 +27,17 @@ namespace Rivet {
       _w117 = make_pair(0.0, 0.0);
       _wEnergy = make_pair(0.0, 0.0);
     }
-    
+ 
 
 
     /// @name Analysis methods
     //@{
-    
+ 
     void analyze(const Event& event) {
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
       const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
-      
+   
       // Get the DIS kinematics
       double x  = dk.x();
       double w2 = dk.W2();
@@ -48,17 +48,17 @@ namespace Rivet {
       double ptel = pT(leptonMom);
       double enel = leptonMom.E();
       double thel = leptonMom.angle(dk.beamHadron().momentum())/degree;
-      
+   
       // Extract the particles other than the lepton
       ParticleVector particles;
       particles.reserve(fs.particles().size());
       const GenParticle& dislepGP = dl.out().genParticle();
       foreach (const Particle& p, fs.particles()) {
-        const GenParticle& loopGP = p.genParticle(); 
+        const GenParticle& loopGP = p.genParticle();
         if (&loopGP == &dislepGP) continue;
         particles.push_back(p);
       }
-      
+   
       // Cut on the forward energy
       double efwd = 0.0;
       foreach (const Particle& p, particles) {
@@ -67,13 +67,13 @@ namespace Rivet {
           efwd += p.momentum().E();
         }
       }
-      
+   
       // Apply the cuts
       // Lepton energy and angle, w2 and forward energy
       getLog()<<Log::DEBUG<<"enel/GeV = "<<enel/GeV<<", thel = "<<thel<<", w2 = "<<w2<<", efwd/GeV = "<<efwd/GeV<<std::endl;
       bool cut = enel/GeV > 14. && thel > 157. && thel < 172.5 && w2 >= 3000. && efwd/GeV > 0.5;
       if (!cut) vetoEvent;
-      
+   
       // Weight of the event
       const double weight = event.weight();
       // weights for x<1e-3 and x>1e-3
@@ -82,23 +82,23 @@ namespace Rivet {
       } else {
         _wEnergy.second += weight;
       }
-      
+   
       // Boost to hadronic CM
       const LorentzTransform hcmboost = dk.boostHCM();
       // Loop over the particles
       long ncharged(0);
       for (size_t ip1 = 0; ip1 < particles.size(); ++ip1) {
         const Particle& p = particles[ip1];
-        
+     
         double th = p.momentum().angle(dk.beamHadron().momentum()) / degree;
         // Boost momentum to lab
         const FourMomentum hcmMom = hcmboost.transform(p.momentum());
         // Angular cut
         if (th <= 4.4) continue;
-        
+     
         // Energy flow histogram
         double et = fabs(Et(hcmMom));
-        double eta = -hcmMom.pseudorapidity(); 
+        double eta = -hcmMom.pseudorapidity();
         if (x < 1e-3) {
           _histEnergyFlowLowX ->fill(eta, et*weight);
         } else {
@@ -110,7 +110,7 @@ namespace Rivet {
             double xf= -2 * hcmMom.z() / w;
             double pt2 = pT2(hcmMom);
             if (w > 50. && w <= 100.) {
-              _histSpectraW77 ->fill(xf, weight); 
+              _histSpectraW77 ->fill(xf, weight);
             } else if (w > 100. && w <= 150.) {
               _histSpectraW122->fill(xf, weight);
             } else if (w > 150. && w <= 200.) {
@@ -139,7 +139,7 @@ namespace Rivet {
 
           /// @todo Use angle function
           double deltaphi = phi1 - phi2;
-          if (fabs(deltaphi) > PI) 
+          if (fabs(deltaphi) > PI)
             deltaphi = fabs(fabs(deltaphi) - TWOPI);
           double eta2 = p2.momentum().pseudorapidity();
           double omega = sqrt(sqr(eta1-eta2) + sqr(deltaphi));
@@ -195,8 +195,8 @@ namespace Rivet {
 
 
     /// Finalize
-    void finalize() { 
-      // Normalize inclusive single particle distributions to the average number 
+    void finalize() {
+      // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
       double avgNumParts = _w77.first/_w77.second;
       normalize(_histSpectraW77, avgNumParts);
@@ -214,7 +214,7 @@ namespace Rivet {
       scale(_histEnergyFlowHighX, 1./_wEnergy.second);
 
       scale(_histEECLowX , 1./_wEnergy.first );
-      scale(_histEECHighX, 1./_wEnergy.second); 
+      scale(_histEECHighX, 1./_wEnergy.second);
     }
 
 

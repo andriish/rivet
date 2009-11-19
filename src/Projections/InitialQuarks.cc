@@ -40,8 +40,8 @@ namespace Rivet {
         const int st = (*p)->status();
         const double pT = (*p)->momentum().perp();
         const double eta = (*p)->momentum().eta();
-        log << Log::TRACE << std::boolalpha 
-            << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT 
+        log << Log::TRACE << std::boolalpha
+            << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT
             << ", eta = " << eta << ": result = " << passed << endl;
         if (pv != NULL) {
           for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
@@ -60,12 +60,12 @@ namespace Rivet {
       }
       if (passed) _theParticles.push_back(Particle(**p));
     }
-    log << Log::DEBUG << "Number of initial quarks = " 
+    log << Log::DEBUG << "Number of initial quarks = "
         << _theParticles.size() << endl;
     if (not _theParticles.empty())
       for (size_t i=0 ; i < _theParticles.size() ; i++)
-        log << Log::DEBUG << "Initial quark[" << i << "] = " 
+        log << Log::DEBUG << "Initial quark[" << i << "] = "
             << _theParticles[i].pdgId() << std::endl;
   }
-  
+
 }

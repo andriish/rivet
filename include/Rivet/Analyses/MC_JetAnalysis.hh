@@ -18,19 +18,19 @@ namespace Rivet {
 
 
     /// @name Analysis methods
-    //@{ 
+    //@{
     virtual void init();
     virtual void analyze(const Event& event);
     virtual void finalize();
     //@}
-  
+
   protected:
-    
+ 
     /// The energy scale and number of jets for which histograms are to be
     /// initialised
     double m_sqrts;
     size_t m_njet;
-    
+ 
     /// The name of the jet projection to be used for this analysis
     /// (this projection has to be registered by the derived analysis!)
     const std::string m_jetpro_name;

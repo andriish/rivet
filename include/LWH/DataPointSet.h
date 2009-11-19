@@ -317,7 +317,7 @@ public:
   /**
    * Not implemented in LWH.
    * @return null pointer always.
-   */ 
+   */
   void * cast(const std::string &) const {
     return 0;
   }
@@ -411,9 +411,9 @@ public:
       eyh.push_back(point(i)->coordinate(1)->errorPlus());
     }
         
-    TGraphAsymmErrors* graph = new TGraphAsymmErrors(N, &(x[0]), &(y[0]), 
-                                                     &(exl[0]), &(exh[0]), 
-                                                     &(eyl[0]), &(eyh[0]) ); 
+    TGraphAsymmErrors* graph = new TGraphAsymmErrors(N, &(x[0]), &(y[0]),
+                                                     &(exl[0]), &(exh[0]),
+                                                     &(eyl[0]), &(eyh[0]) );
         
     graph->SetTitle(title().c_str());
     graph->SetName(name.c_str());

@@ -10,9 +10,9 @@ namespace Rivet {
   int KtJets::compare(const Projection& p) const {
     const KtJets& other = dynamic_cast<const KtJets&>(p);
     return \
-      mkNamedPCmp(other "FS") || 
+      mkNamedPCmp(other "FS") ||
       cmp(_type, other._type) ||
-      cmp(_angle, other._angle) || 
+      cmp(_angle, other._angle) ||
       cmp(_recom, other._recom) ||
       cmp(_rparameter, other._rparameter);
   }

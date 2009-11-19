@@ -15,10 +15,10 @@ namespace Rivet {
   inline int nocase_cmp(const string& s1, const string& s2) {
     string::const_iterator it1 = s1.begin();
     string::const_iterator it2 = s2.begin();
-    while ( (it1 != s1.end()) && (it2 != s2.end()) ) { 
+    while ( (it1 != s1.end()) && (it2 != s2.end()) ) {
       if(::toupper(*it1) != ::toupper(*it2)) { // < Letters differ?
         // Return -1 to indicate smaller than, 1 otherwise
-        return (::toupper(*it1) < ::toupper(*it2)) ? -1 : 1; 
+        return (::toupper(*it1) < ::toupper(*it2)) ? -1 : 1;
       }
       // Proceed to the next character in each string
       ++it1;
@@ -33,14 +33,14 @@ namespace Rivet {
 
   inline string toLower(const string& s) {
     string out = s;
-    transform(out.begin(), out.end(), out.begin(), (int(*)(int)) tolower); 
+    transform(out.begin(), out.end(), out.begin(), (int(*)(int)) tolower);
     return out;
   }
 
 
   inline string toUpper(const string& s) {
     string out = s;
-    std::transform(out.begin(), out.end(), out.begin(), (int(*)(int)) toupper); 
+    std::transform(out.begin(), out.end(), out.begin(), (int(*)(int)) toupper);
     return out;
   }
 
@@ -56,7 +56,7 @@ namespace Rivet {
     return s.substr(s.length() - end.length()) == end;
   }
 
-  /// Split a string with single-character delimiters, ignoring zero-length 
+  /// Split a string with single-character delimiters, ignoring zero-length
   /// substrings. Designed for getting elements of filesystem paths, naturally.
   inline vector<string> split(string path, const string delim = ":") {
     vector<string> dirs;
@@ -123,7 +123,7 @@ namespace std {
 
   template <typename T>
   inline string join(const vector<T>& v, const string& sep = " ") {
-    stringstream out; 
+    stringstream out;
     for (size_t i = 0; i < v.size(); ++i) {
       if (i != 0) out << sep;
       out << v[i];

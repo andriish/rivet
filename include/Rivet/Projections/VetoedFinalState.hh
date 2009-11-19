@@ -17,7 +17,7 @@ namespace Rivet {
 
   public:
 
-    /// Typedef for a pair of back-to-back cuts.    
+    /// Typedef for a pair of back-to-back cuts.
     typedef pair<double, double> BinaryCut;
 
     /// Typedef for a vetoing entry.
@@ -26,7 +26,7 @@ namespace Rivet {
     /// Typedef for a veto on a composite particle mass.
     typedef multimap<int, BinaryCut>  CompositeVeto;
 
-    
+ 
     /// @name Constructors
     //@{
     /// Default constructor.
@@ -67,7 +67,7 @@ namespace Rivet {
       return new VetoedFinalState(*this);
     }
     //@}
-    
+ 
 
   public:
 
@@ -75,8 +75,8 @@ namespace Rivet {
     const VetoDetails& vetoDetails() const {
       return _vetoCodes;
     }
-  
-    /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_T \f$ 
+
+    /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_T \f$
     /// IN the given range will be rejected.
     VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
       BinaryCut ptrange(ptmin, ptmax);
@@ -92,7 +92,7 @@ namespace Rivet {
       return *this;
     }
 
-    /// Add a particle/antiparticle pair to veto. Given a single ID, both the particle and its corresponding 
+    /// Add a particle/antiparticle pair to veto. Given a single ID, both the particle and its corresponding
     /// antiparticle (for all \f$ p_T \f$ values) will be vetoed.
     VetoedFinalState& addVetoPairId(const long id) {
       addVetoId(id);
@@ -125,15 +125,15 @@ namespace Rivet {
       _nCompositeDecays.insert(nProducts);
       return *this;
     }
-    
+ 
     /// Veto the decay products of particle with pdg id
-    /// @todo Need HepMC to sort themselves out and keep vector bosons from 
+    /// @todo Need HepMC to sort themselves out and keep vector bosons from
     /// the hard vtx in the event record before this will work reliably for all pdg ids
     VetoedFinalState& addDecayProductsVeto(const long id){
       _parentVetoes.insert(id);
       return *this;
     }
-    
+ 
     /// Set the list of particle IDs and \f$ p_T \f$ ranges to veto.
     VetoedFinalState& setVetoDetails(const VetoDetails& ids) {
       _vetoCodes = ids;
@@ -145,7 +145,7 @@ namespace Rivet {
       _vetoCodes.clear();
       return *this;
     }
-    
+ 
 
     /// Veto particles from a supplied final state.
     VetoedFinalState& addVetoOnThisFinalState(FinalState& fs) {
@@ -159,10 +159,10 @@ namespace Rivet {
 
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
 
@@ -171,11 +171,11 @@ namespace Rivet {
 
     /// The final-state particles.
     VetoDetails _vetoCodes;
-    
+ 
     /// Composite particle masses to veto
     CompositeVeto _compositeVetoes;
     set<int> _nCompositeDecays;
-    
+ 
     typedef set<long> ParentVetos;
 
     /// Set of decaying particle IDs to veto
@@ -186,7 +186,7 @@ namespace Rivet {
 
   };
 
-  
+
 }
 
 

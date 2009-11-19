@@ -45,7 +45,7 @@ namespace Rivet {
   /// histograms. Writing the histograms to a file is, however, done by
   /// the Rivet class.
   class Analysis : public ProjectionApplier {
-    
+ 
     /// The AnalysisHandler is a friend.
     friend class AnalysisHandler;
 
@@ -126,11 +126,11 @@ namespace Rivet {
 
     /// @brief Information about the events needed as input for this analysis.
     ///
-    /// Event types, energies, kinematic cuts, particles to be considered 
+    /// Event types, energies, kinematic cuts, particles to be considered
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
     virtual std::string runInfo() const;
-    
+ 
     /// Experiment which performed and published this analysis.
     virtual std::string experiment() const;
 
@@ -142,7 +142,7 @@ namespace Rivet {
 
     /// @brief When the original experimental analysis was published.
     ///
-    /// When the refereed paper on which this is based was published, 
+    /// When the refereed paper on which this is based was published,
     /// according to SPIRES.
     virtual std::string year() const;
 
@@ -168,17 +168,17 @@ namespace Rivet {
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const;
 
-    /// Normalize the given histogram, @a histo. After this call the 
-    /// histogram will have been transformed to a DataPointSet with the 
-    /// same name and path. It has the same effect as 
+    /// Normalize the given histogram, @a histo. After this call the
+    /// histogram will have been transformed to a DataPointSet with the
+    /// same name and path. It has the same effect as
     /// @c scale(histo, norm/sumOfWeights).
     /// @param histo The histogram to be normalised.
     /// @param norm The new area of the histogram.
     /// @warning The old histogram will be deleted, and its pointer set to zero.
     void normalize(AIDA::IHistogram1D*& histo, const double norm=1.0);
 
-    /// Multiplicatively scale the given histogram, @a histo. After this call the 
-    /// histogram will have been transformed to a DataPointSet with the same name and path.  
+    /// Multiplicatively scale the given histogram, @a histo. After this call the
+    /// histogram will have been transformed to a DataPointSet with the same name and path.
     /// @param histo The histogram to be scaled.
     /// @param scale The factor used to multiply the histogram bin heights.
     /// @warning The old histogram will be deleted, and its pointer set to zero.
@@ -188,13 +188,13 @@ namespace Rivet {
     Analysis& setCrossSection(const double& xs);
 
     /// Return true if this analysis needs to know the process cross-section.
-    bool needsCrossSection() const;    
+    bool needsCrossSection() const;
 
   protected:
 
     /// Get the process cross-section in pb. Throws if this hasn't been set.
     const double& crossSection() const;
-    
+ 
 
     /// Get a Log object based on the name() property of the calling analysis object.
     Log& getLog() const;
@@ -206,7 +206,7 @@ namespace Rivet {
     /// Get the sum of event weights seen (via the analysis handler). Use in the
     /// finalize phase only.
     double sumOfWeights() const;
-    
+ 
 
   protected:
     /// @name AIDA analysis infrastructure.
@@ -235,20 +235,20 @@ namespace Rivet {
     //@{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    /// (NB. this returns a pointer rather than a reference since it will 
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// (NB. this returns a pointer rather than a reference since it will
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     AIDA::IHistogram1D* bookHistogram1D(const std::string& name,
                                         const size_t nbins, const double lower, const double upper,
-                                        const std::string& title="", 
+                                        const std::string& title="",
                                         const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    /// (NB. this returns a pointer rather than a reference since it will 
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// (NB. this returns a pointer rather than a reference since it will
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     AIDA::IHistogram1D* bookHistogram1D(const std::string& name,
-                                        const std::vector<double>& binedges, const std::string& title="", 
+                                        const std::vector<double>& binedges, const std::string& title="",
                                         const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D histogram based on the name in the corresponding AIDA
@@ -260,7 +260,7 @@ namespace Rivet {
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
-    AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
+    AIDA::IHistogram1D* bookHistogram1D(const size_t datasetId, const size_t xAxisId,
                                         const size_t yAxisId, const std::string& title="",
                                         const std::string& xtitle="", const std::string& ytitle="");
 
@@ -271,21 +271,21 @@ namespace Rivet {
     //@{
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    /// (NB. this returns a pointer rather than a reference since it will 
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// (NB. this returns a pointer rather than a reference since it will
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     AIDA::IProfile1D* bookProfile1D(const std::string& name,
                                     const size_t nbins, const double lower, const double upper,
-                                    const std::string& title="", 
+                                    const std::string& title="",
                                     const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    /// (NB. this returns a pointer rather than a reference since it will 
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// (NB. this returns a pointer rather than a reference since it will
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     AIDA::IProfile1D* bookProfile1D(const std::string& name,
                                     const std::vector<double>& binedges,
-                                    const std::string& title="", 
+                                    const std::string& title="",
                                     const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D profile histogram based on the name in the corresponding AIDA
@@ -293,11 +293,11 @@ namespace Rivet {
     /// record file with the same filename as the analysis' name() property.
     AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title="",
                                     const std::string& xtitle="", const std::string& ytitle="");
-    
+ 
     /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
-    AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId, 
+    AIDA::IProfile1D* bookProfile1D(const size_t datasetId, const size_t xAxisId,
                                     const size_t yAxisId, const std::string& title="",
                                     const std::string& xtitle="", const std::string& ytitle="");
     //@}
@@ -307,16 +307,16 @@ namespace Rivet {
     //@{
 
     /// Book a 2-dimensional data point set.
-    /// (NB. this returns a pointer rather than a reference since it will 
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// (NB. this returns a pointer rather than a reference since it will
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     AIDA::IDataPointSet* bookDataPointSet(const std::string& name, const std::string& title="",
                                           const std::string& xtitle="", const std::string& ytitle="");
 
 
     /// Book a 2-dimensional data point set with equally spaced points in a range.
-    /// (NB. this returns a pointer rather than a reference since it will 
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly 
+    /// (NB. this returns a pointer rather than a reference since it will
+    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     AIDA::IDataPointSet* bookDataPointSet(const std::string& name,
                                           const size_t npts, const double lower, const double upper,
@@ -332,7 +332,7 @@ namespace Rivet {
     /// Book a 2-dimensional data point set based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
-    AIDA::IDataPointSet* bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
+    AIDA::IDataPointSet* bookDataPointSet(const size_t datasetId, const size_t xAxisId,
                                           const size_t yAxisId, const std::string& title="",
                                           const std::string& xtitle="", const std::string& ytitle="");
     //@}
@@ -374,7 +374,7 @@ namespace Rivet {
     /// Pointer to analysis metadata object
     shared_ptr<AnalysisInfo> _info;
 
-    
+ 
   private:
 
     /// @name Cross-section variables
@@ -383,7 +383,7 @@ namespace Rivet {
     bool _gotCrossSection;
     bool _needsCrossSection;
     //@}
-    
+ 
     /// Allowed beam-type pair.
     BeamPair _beams;
 
@@ -393,12 +393,12 @@ namespace Rivet {
     /// Flag to indicate whether the histogram directory is present
     bool _madeHistoDir;
 
-    /// Collection of x-axis point data to speed up many autobookings: the 
+    /// Collection of x-axis point data to speed up many autobookings: the
     /// reference data file should only be read once.
     /// @todo Reduce memory occupancy, or clear after initialisation?
     map<string, vector<DPSXPoint> > _dpsData;
 
-    /// Collection of cached bin edges to speed up many autobookings: the 
+    /// Collection of cached bin edges to speed up many autobookings: the
     /// reference data file should only be read once.
     /// @todo Reduce memory occupancy, or clear after initialisation?
     map<string, BinEdges> _histBinEdges;
@@ -420,7 +420,7 @@ namespace Rivet {
   public:
     AnalysisBuilderBase() { }
     virtual ~AnalysisBuilderBase() { }
-    
+ 
     virtual Analysis* mkAnalysis() const = 0;
 
     const string name() const {

@@ -11,12 +11,12 @@ namespace Rivet {
 
 
   /// CDF Run II inclusive jet cross-section using the Midpoint algorithm.
-  /// The analysis includes 1.1fb^-1 of CDF data and is the first with a 
+  /// The analysis includes 1.1fb^-1 of CDF data and is the first with a
   /// cone algorithm to include the forward region of the detector.
   /// arXiv:0807.2204 to be published in PRD
   class CDF_2008_S7828950 : public Analysis {
   public:
-    
+ 
     /// Constructor
     CDF_2008_S7828950() : Analysis("CDF_2008_S7828950")
     {
@@ -50,11 +50,11 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();    
+      const double weight = event.weight();
       foreach (const Jet& jet, applyProjection<FastJets>(event, "JetsM07").jets()) {
         _binnedHistosR07.fill(fabs(jet.momentum().rapidity()), jet.momentum().pT(), weight);
       }
-    }  
+    }
 
 
     // Normalise histograms to cross-section
@@ -68,7 +68,7 @@ namespace Rivet {
 
 
   private:
-    
+ 
     /// @name Histograms
     //@{
 
@@ -88,7 +88,7 @@ namespace Rivet {
   // Initialise static
   const double CDF_2008_S7828950::_ybins[] = { 0.0, 0.1, 0.7, 1.1, 1.6, 2.1 };
 
-  
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_2008_S7828950> plugin_CDF_2008_S7828950;
 

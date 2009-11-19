@@ -9,16 +9,16 @@ namespace Rivet {
 
   /// @brief ZEUS dijet photoproduction study used in the ZEUS Jets PDF fit
   ///
-  /// This class is a reproduction of the HZTool routine for the ZEUS 
-  /// dijet photoproduction paper which was used in the ZEUS Jets PDF fit.  
+  /// This class is a reproduction of the HZTool routine for the ZEUS
+  /// dijet photoproduction paper which was used in the ZEUS Jets PDF fit.
   ///
   /// @author Jon Butterworth
   class ZEUS_2001_S4815815 : public Analysis {
   public:
 
     /// Constructor
-    ZEUS_2001_S4815815() : Analysis("ZEUS_2001_S4815815") 
-    { 
+    ZEUS_2001_S4815815() : Analysis("ZEUS_2001_S4815815")
+    {
       setBeams(POSITRON, PROTON);
     }
 
@@ -32,7 +32,7 @@ namespace Rivet {
       addProjection(fs, "FS");
       /// @todo This is the *wrong* jet def: correct it!
       addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
-      getLog() << Log::WARN << "This analysis uses the wrong jet definition: the " 
+      getLog() << Log::WARN << "This analysis uses the wrong jet definition: the "
                << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
                << "were reconstructed using the energies and positions of these cells'" << endl;
 
@@ -50,10 +50,10 @@ namespace Rivet {
         _histJetEt1->fill(j.momentum().pT(), weight);
       }
     }
-    
-    
+ 
+ 
     // Finalize
-    void finalize() { 
+    void finalize() {
       //
     }
 
@@ -69,8 +69,8 @@ namespace Rivet {
 
   };
 
-    
-    
+ 
+ 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<ZEUS_2001_S4815815> plugin_ZEUS_2001_S4815815;
 

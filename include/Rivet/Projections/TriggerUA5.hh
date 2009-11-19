@@ -13,9 +13,9 @@ namespace Rivet {
   /// Project out the incoming beams
   class TriggerUA5 : public Projection {
   public:
-    
+ 
     /// Default constructor.
-    TriggerUA5() { 
+    TriggerUA5() {
       setName("TriggerUA5");
 
       addProjection(Beam(), "Beam");
@@ -43,7 +43,7 @@ namespace Rivet {
       return _decision_nsd_1;
     }
 
-    /// The trigger result for non-single diffractive (2 arm) trigger 
+    /// The trigger result for non-single diffractive (2 arm) trigger
     /// with special ">= 2" trigger for ppbar bg rejection
     const bool nsd2Decision() const {
       return _decision_nsd_2;

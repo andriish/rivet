@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #ifndef LWH_AIProfile1D_H
-#define LWH_AIProfile1D_H 
+#define LWH_AIProfile1D_H
 //
 
 #ifndef LWH_USING_AIDA
@@ -31,7 +31,7 @@ class IAxis;
 
 class IProfile1D : virtual public IProfile {
 
-public: 
+public:
 
     virtual ~IProfile1D() {}
 

@@ -54,10 +54,10 @@ namespace Rivet {
     return fabs(a.rapidity()) < fabs(b.rapidity());
   }
 
-  
+
   /// Abstract base class for projections which can return a set of {@link Jet}s.
   class JetAlg : public Projection {
-    
+ 
   public:
 
     /// Constructor
@@ -106,7 +106,7 @@ namespace Rivet {
     virtual void reset() = 0;
 
     typedef Jet entity_type;
-    typedef Jets collection_type; 
+    typedef Jets collection_type;
 
     /// Template-usable interface common to FinalState.
     collection_type entities() const { return jets(); }

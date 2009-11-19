@@ -61,7 +61,7 @@ namespace Rivet {
     //@}
 
 
-    /// @name Projection applying functions 
+    /// @name Projection applying functions
     //@{
     /// Apply the supplied projection on @a event.
     template <typename PROJ>
@@ -83,7 +83,7 @@ namespace Rivet {
       return pcast<PROJ>(_applyProjection(evt, name));
     }
     //@}
-   
+
 
   protected:
 
@@ -101,12 +101,12 @@ namespace Rivet {
   protected:
 
 
-    /// @name Projection registration functions 
+    /// @name Projection registration functions
     //@{
 
     /// Register a contained projection. The type of the argument is used to
-    /// instantiate a new projection internally: this new object is applied to 
-    /// events rather than the argument object. Hence you are advised to only use 
+    /// instantiate a new projection internally: this new object is applied to
+    /// events rather than the argument object. Hence you are advised to only use
     /// locally-scoped Projection objects in your Projection and Analysis
     /// constructors, and to avoid polymorphism (e.g. handling @c ConcreteProjection
     /// via a pointer or reference to type @c Projection) since this will screw
@@ -122,14 +122,14 @@ namespace Rivet {
     const Projection& _addProjection(const Projection& proj, const std::string& name);
 
     //@}
-    
-    
+ 
+ 
   private:
-    
+ 
     /// Non-templated version of string-based applyProjection, to work around
     /// header dependency issue.
     const Projection& _applyProjection(const Event& evt, const std::string& name) const;
-    
+ 
     /// Non-templated version of proj-based applyProjection, to work around
     /// header dependency issue.
     const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
@@ -139,13 +139,13 @@ namespace Rivet {
 
     /// Flag to forbid projection registration in analyses until the init phase
     bool _allowProjReg;
-    
-    
+ 
+ 
   private:
-    
+ 
     /// Pointer to projection handler.
     ProjectionHandler* _projhandler;
-    
+ 
   };
 
 }

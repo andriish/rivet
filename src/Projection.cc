@@ -34,8 +34,8 @@ namespace Rivet {
       return thisid.before(otherid);
     }
   }
-  
-  
+
+
   const set<BeamPair> Projection::beamPairs() const {
     set<BeamPair> ret = _beamPairs;
     set<ConstProjectionPtr> projs = getProjections();
@@ -48,13 +48,13 @@ namespace Rivet {
   }
 
 
-  Cmp<Projection> Projection::mkNamedPCmp(const Projection& otherparent, 
+  Cmp<Projection> Projection::mkNamedPCmp(const Projection& otherparent,
                                           const string& pname) const {
     return pcmp(*this, otherparent, pname);
   }
 
 
-  Cmp<Projection> Projection::mkPCmp(const Projection& otherparent, 
+  Cmp<Projection> Projection::mkPCmp(const Projection& otherparent,
                                      const string& pname) const {
     return pcmp(*this, otherparent, pname);
   }

@@ -15,13 +15,13 @@ namespace Rivet {
   static const double     pi2 = pi*pi;
 
   //
-  // 
+  //
   //
   static const double Avogadro = 6.0221367e+23/mole;
 
   //
   // c   = 299.792458 mm/ns
-  // c^2 = 898.7404 (mm/ns)^2 
+  // c^2 = 898.7404 (mm/ns)^2
   //
   static const double c_light   = 2.99792458e+8 * m/s;
   static const double c_squared = c_light * c_light;

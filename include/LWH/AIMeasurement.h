@@ -10,7 +10,7 @@ namespace AIDA {
 
 class IMeasurement {
 
-public: 
+public:
     virtual ~IMeasurement() {}
     virtual double value() const = 0;
     virtual double errorPlus() const = 0;

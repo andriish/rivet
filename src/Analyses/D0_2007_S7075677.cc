@@ -16,15 +16,15 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    D0_2007_S7075677() : Analysis("D0_2007_S7075677")  
+    D0_2007_S7075677() : Analysis("D0_2007_S7075677")
     {
       // Run II Z rapidity
       setBeams(PROTON, ANTIPROTON);
     }
-    
+ 
 
     /// @name Analysis methods
-    //@{ 
+    //@{
 
     /// Book histograms
     void init() {
@@ -42,10 +42,10 @@ namespace Rivet {
     }
 
 
-    /// Do the analysis 
+    /// Do the analysis
     void analyze(const Event & e) {
       const double weight = e.weight();
-      
+   
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size() == 1) {
         const ParticleVector& el(zfinder.constituentsFinalState().particles());
@@ -58,11 +58,11 @@ namespace Rivet {
         getLog() << Log::DEBUG << "No unique lepton pair found." << endl;
       }
     }
-    
-    
+ 
+ 
     // Finalize
     void finalize() {
-      // Data seems to have been normalized for the avg of the two sides 
+      // Data seems to have been normalized for the avg of the two sides
       // (+ve & -ve rapidity) rather than the sum, hence the 0.5:
       normalize(_h_yZ, 0.5);
     }

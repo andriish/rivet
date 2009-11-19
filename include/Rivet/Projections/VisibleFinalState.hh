@@ -17,7 +17,7 @@ namespace Rivet {
   class VisibleFinalState : public FinalState {
 
   public:
-    
+ 
     /// @name Constructors
     //@{
     /// Default constructor.
@@ -54,19 +54,19 @@ namespace Rivet {
       return new VisibleFinalState(*this);
     }
     //@}
-    
+ 
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
 
   };
 
-  
+
 }
 
 

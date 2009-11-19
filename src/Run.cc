@@ -11,24 +11,24 @@ namespace Rivet {
   Run::Run(AnalysisHandler& ah) : _ah(ah), _xs(-1.0),
     m_io(NULL), m_istr(NULL) {
   }
-  
-  
+
+
   Run::~Run() {
   }
-  
-  
+
+
   Run& Run::setCrossSection(const double xs) {
     _xs = xs;
     return *this;
   }
-  
-  
+
+
   Run& Run::setListAnalyses(const bool dolist) {
     _listAnalyses = dolist;
     return *this;
   }
-  
-  
+
+
   bool Run::prepareFile(const std::string& evtfile) {
     if (evtfile == "-") {
       m_io = new HepMC::IO_GenEvent(std::cin);
@@ -41,11 +41,11 @@ namespace Rivet {
       Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
       return false;
     }
-  
+
     return true;
   }
 
-  
+
   bool Run::processEvent(bool firstEvent) {
     GenEvent* evt = new GenEvent();
     if (!m_io->fill_next_event(evt)) {
@@ -59,7 +59,7 @@ namespace Rivet {
       delete evt;
       return false;
     }
-    
+ 
     // Get beam details from first event, and ensure they match for all following events
     if (evt->particles_size() != 0) {
       const BeamPair beams = beamIds(*evt);
@@ -100,7 +100,7 @@ namespace Rivet {
         delete evt;
         return false;
       }
-      
+   
       if (_listAnalyses) {
         foreach (const std::string& ana, _ah.analysisNames()) {
           cout << ana << endl;
@@ -133,11 +133,11 @@ namespace Rivet {
     }
 
     /// @todo If NOT first event, check that beams aren't changed
-    
-    // Analyze event and delete HepMC event object      
+ 
+    // Analyze event and delete HepMC event object
     _ah.analyze(*evt);
     delete evt;
-    
+ 
     return true;
   }
 
@@ -146,7 +146,7 @@ namespace Rivet {
     // Final HepMC object clean-up
     delete m_io;
     if (m_istr) delete m_istr;
-    
+ 
     return true;
   }
 
@@ -160,5 +160,5 @@ namespace Rivet {
     return _sqrts;
   }
 
-  
+
 }

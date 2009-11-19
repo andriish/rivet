@@ -17,6 +17,6 @@ namespace Rivet {
     const FinalState& vfs = applyProjection<FinalState>(e, "VFS");
     _theParticles = vfs.particles();
   }
-  
+
 
 }

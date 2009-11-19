@@ -1,4 +1,4 @@
-#ifndef RIVET_LOGGING_HH 
+#ifndef RIVET_LOGGING_HH
 #define RIVET_LOGGING_HH
 
 #include "Rivet/Rivet.hh"
@@ -88,7 +88,7 @@ namespace Rivet {
     static std::string getColorCode(int level);
 
   public:
-    /// Get a logger with the given name. The level will be taken from the 
+    /// Get a logger with the given name. The level will be taken from the
     /// "requestedLevels" static map or will be INFO by default.
     static Log& getLog(const std::string& name);
 
@@ -131,7 +131,7 @@ namespace Rivet {
     void trace(const std::string& message) { log(TRACE, message); }
 
     void debug(const std::string& message) { log(DEBUG, message); }
-    
+ 
     void info(const std::string& message) { log(INFO, message); }
 
     void warn(const std::string& message) { log(WARN, message); }
@@ -142,10 +142,10 @@ namespace Rivet {
   private:
     /// This logger's name
     std::string _name;
-    
+ 
     /// Threshold level for this logger.
     int _level;
-    
+ 
   protected:
     /// Write a message at a particular level.
     void log(int level, const std::string& message);
@@ -163,10 +163,10 @@ namespace Rivet {
     friend std::ostream& operator<<(Log& log, int level);
 
   };
-  
+
   /// Streaming output to a logger must have a Log::Level/int as its first argument.
   std::ostream& operator<<(Log& log, int level);
-  
+
 }
 
 

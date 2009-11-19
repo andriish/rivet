@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
   using namespace Rivet;
-  
+
   FourVector a(1,0,0,0);
   cout << a << ": interval = " << a.invariant() << endl;
   assert(fuzzyEquals(a.invariant(), 1));
@@ -60,7 +60,7 @@ int main() {
   cout << m1+m2 << " == " << m3 << ": " << (m1+m2 == m3 ? "true" : "false") << endl;
   cout << endl;
 
-  
+
   Vector3 v3(1,2,3);
   cout << "Vector: " << v3 << endl;
   cout << "Invert: " << v3 << " --> " << -v3 << endl;
@@ -120,7 +120,7 @@ int main() {
   cout << "LTx: " << ltX << endl;
   cout << "I on LTx: " << ltX.rotate(Matrix3::mkIdentity()) << endl;
   cout << "Rot90 on LTx: " << ltX.rotate(rot90) << endl;
-  cout << endl;  
+  cout << endl;
 
   cout << "X-boosts:" << endl;
   const FourMomentum p1 = FourMomentum(10,0,0,1);
@@ -133,9 +133,9 @@ int main() {
   cout << endl;
 
   LorentzTransform ltY(0,0.4,0);
-  cout << FourMomentum(1,0,0,1) << " -> " //<< "\n  " 
+  cout << FourMomentum(1,0,0,1) << " -> " //<< "\n  "
        << (ltX * ltY).transform(FourMomentum(1,0,0,1)) << endl;
-  cout << FourMomentum(1,0,0,1) << " -> " //<< "\n  " 
+  cout << FourMomentum(1,0,0,1) << " -> " //<< "\n  "
        << (ltY * ltX).transform(FourMomentum(1,0,0,1)) << endl;
   cout << (ltX * ltY).boost() << endl;
   cout << (ltY * ltX).boost() << endl;

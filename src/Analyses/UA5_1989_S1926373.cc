@@ -11,9 +11,9 @@ namespace Rivet {
 
   class UA5_1989_S1926373 : public Analysis {
   public:
-    
+ 
     /// Constructor
-    UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") { 
+    UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") {
       setBeams(PROTON, ANTIPROTON);
       _numVetoed = 0;
     }
@@ -32,7 +32,7 @@ namespace Rivet {
       addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
 
       // NB. _hist_nch{200,900} and _hist_nch{200,900}eta50 use the same data but different binning
-      _hist_nch200       = bookHistogram1D(1, 1, 1); 
+      _hist_nch200       = bookHistogram1D(1, 1, 1);
       _hist_nch900       = bookHistogram1D(2, 1, 1);
       _hist_nch200eta05  = bookHistogram1D(3, 1, 1);
       _hist_nch200eta15  = bookHistogram1D(4, 1, 1);
@@ -42,13 +42,13 @@ namespace Rivet {
       _hist_nch900eta15  = bookHistogram1D(8, 1, 1);
       _hist_nch900eta30  = bookHistogram1D(9, 1, 1);
       _hist_nch900eta50  = bookHistogram1D(10, 1, 1);
-      _hist_mean_nch_200 = bookHistogram1D(11, 1, 1); 
+      _hist_mean_nch_200 = bookHistogram1D(11, 1, 1);
       _hist_mean_nch_900 = bookHistogram1D(12, 1, 1);
 
       /// @todo Moments of distributions
-    } 
-    
-    
+    }
+ 
+ 
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
@@ -57,13 +57,13 @@ namespace Rivet {
 
       const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
       const double weight = event.weight();
-      
+   
       // Count final state particles in several eta regions
       const int numP05 = applyProjection<ChargedFinalState>(event, "CFS05").size();
       const int numP15 = applyProjection<ChargedFinalState>(event, "CFS15").size();
       const int numP30 = applyProjection<ChargedFinalState>(event, "CFS30").size();
       const int numP50 = applyProjection<ChargedFinalState>(event, "CFS50").size();
-      
+   
       // Fill histograms
       if (fuzzyEquals(sqrtS/GeV, 200.0, 1E-4)) {
         _hist_nch200->fill(numP50, weight);
@@ -82,9 +82,9 @@ namespace Rivet {
         _hist_mean_nch_900->fill(_hist_mean_nch_900->binMean(0), numP50);
       }
     }
-    
-    
-    
+ 
+ 
+ 
     void finalize() {
       // Normalise to area of refhistos
       /// @todo Use generator cross-sections
@@ -101,7 +101,7 @@ namespace Rivet {
       // Scale to total number of weights
       scale(_hist_mean_nch_200, 1.0/sumOfWeights());
       scale(_hist_mean_nch_900, 1.0/sumOfWeights());
-      
+   
       // Print trigger statistics
       getLog() << Log::INFO << "No. events vetoed: " << _numVetoed << endl;
       getLog() << Log::INFO << "No. events accepted: " << sumOfWeights() - _numVetoed << endl;
@@ -112,7 +112,7 @@ namespace Rivet {
 
 
   private:
-    
+ 
     //@{
     /// Histograms
     AIDA::IHistogram1D* _hist_nch200;
@@ -132,7 +132,7 @@ namespace Rivet {
     unsigned int _numVetoed;
   };
 
-  
+
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<UA5_1989_S1926373> plugin_UA5_1989_S1926373;

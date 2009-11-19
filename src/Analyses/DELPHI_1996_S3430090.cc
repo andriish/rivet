@@ -34,17 +34,17 @@ namespace Rivet {
    */
   class DELPHI_1996_S3430090 : public Analysis {
   public:
-  
+
     /// Constructor
-    DELPHI_1996_S3430090() 
+    DELPHI_1996_S3430090()
       : Analysis("DELPHI_1996_S3430090")
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
       _weightedTotalPartNum = 0;
       _passedCutWeightSum = 0;
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
 
@@ -65,31 +65,31 @@ namespace Rivet {
       _histPtTOut = bookHistogram1D(2, 1, 1);
       _histPtSIn = bookHistogram1D(3, 1, 1);
       _histPtSOut = bookHistogram1D(4, 1, 1);
-      
+   
       _histRapidityT = bookHistogram1D(5, 1, 1);
       _histRapidityS = bookHistogram1D(6, 1, 1);
       _histScaledMom = bookHistogram1D(7, 1, 1);
       _histLogScaledMom = bookHistogram1D(8, 1, 1);
-      
+   
       _histPtTOutVsXp = bookProfile1D(9,  1, 1);
-      _histPtVsXp = bookProfile1D(10, 1, 1);    
-      
+      _histPtVsXp = bookProfile1D(10, 1, 1);
+   
       _hist1MinusT = bookHistogram1D(11, 1, 1);
       _histTMajor = bookHistogram1D(12, 1, 1);
       _histTMinor = bookHistogram1D(13, 1, 1);
       _histOblateness = bookHistogram1D(14, 1, 1);
-      
+   
       _histSphericity = bookHistogram1D(15, 1, 1);
       _histAplanarity = bookHistogram1D(16, 1, 1);
       _histPlanarity = bookHistogram1D(17, 1, 1);
-      
+   
       _histCParam = bookHistogram1D(18, 1, 1);
       _histDParam = bookHistogram1D(19, 1, 1);
-      
+   
       _histHemiMassH = bookHistogram1D(20, 1, 1);
       _histHemiMassL = bookHistogram1D(21, 1, 1);
       _histHemiMassD = bookHistogram1D(22, 1, 1);
-      
+   
       _histHemiBroadW = bookHistogram1D(23, 1, 1);
       _histHemiBroadN = bookHistogram1D(24, 1, 1);
       _histHemiBroadT = bookHistogram1D(25, 1, 1);
@@ -155,48 +155,48 @@ namespace Rivet {
       const double weight = e.weight();
       _passedCutWeightSum += weight;
       _weightedTotalPartNum += numParticles * weight;
-      
+   
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
-      
+   
       // Thrusts
       getLog() << Log::DEBUG << "Calculating thrust" << endl;
       const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
-      _hist1MinusT->fill(1 - thrust.thrust(), weight); 
-      _histTMajor->fill(thrust.thrustMajor(), weight); 
-      _histTMinor->fill(thrust.thrustMinor(), weight); 
+      _hist1MinusT->fill(1 - thrust.thrust(), weight);
+      _histTMajor->fill(thrust.thrustMajor(), weight);
+      _histTMinor->fill(thrust.thrustMinor(), weight);
       _histOblateness->fill(thrust.oblateness(), weight);
-      
+   
       // Jets
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
-        _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge(2), weight); 
-        _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge(3), weight); 
-        _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight); 
+        _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge(2), weight);
+        _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge(3), weight);
+        _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight);
       }
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
       if (jadejet.clusterSeq()) {
-        _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(2), weight); 
-        _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(3), weight); 
-        _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight); 
+        _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(2), weight);
+        _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(3), weight);
+        _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight);
       }
-      
+   
       // Sphericities
       getLog() << Log::DEBUG << "Calculating sphericity" << endl;
       const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
-      _histSphericity->fill(sphericity.sphericity(), weight); 
-      _histAplanarity->fill(sphericity.aplanarity(), weight); 
-      _histPlanarity->fill(sphericity.planarity(), weight); 
-      
+      _histSphericity->fill(sphericity.sphericity(), weight);
+      _histAplanarity->fill(sphericity.aplanarity(), weight);
+      _histPlanarity->fill(sphericity.planarity(), weight);
+   
       // C & D params
       getLog() << Log::DEBUG << "Calculating Parisi params" << endl;
       const ParisiTensor& parisi = applyProjection<ParisiTensor>(e, "Parisi");
       _histCParam->fill(parisi.C(), weight);
       _histDParam->fill(parisi.D(), weight);
-      
+   
       // Hemispheres
       getLog() << Log::DEBUG << "Calculating hemisphere variables" << endl;
       const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
@@ -207,7 +207,7 @@ namespace Rivet {
       _histHemiBroadN->fill(hemi.Bmin(), weight);
       _histHemiBroadT->fill(hemi.Bsum(), weight);
       _histHemiBroadD->fill(hemi.Bdiff(), weight);
-      
+   
       // Iterate over all the charged final state particles.
       double Evis = 0.0;
       double Evis2 = 0.0;
@@ -217,14 +217,14 @@ namespace Rivet {
         const Vector3 mom3 = p->momentum().vector3();
         const double energy = p->momentum().E();
         Evis += energy;
-        
+     
         // Scaled momenta.
         const double mom = mom3.mod();
         const double scaledMom = mom/meanBeamMom;
         const double logInvScaledMom = -std::log(scaledMom);
-        _histLogScaledMom->fill(logInvScaledMom, weight); 
-        _histScaledMom->fill(scaledMom, weight); 
-        
+        _histLogScaledMom->fill(logInvScaledMom, weight);
+        _histScaledMom->fill(scaledMom, weight);
+     
         // Get momenta components w.r.t. thrust and sphericity.
         const double momT = dot(thrust.thrustAxis(), mom3);
         const double momS = dot(sphericity.sphericityAxis(), mom3);
@@ -239,12 +239,12 @@ namespace Rivet {
         _histPtSOut->fill(fabs(pToutS/GeV), weight);
         _histPtVsXp->fill(scaledMom, fabs(pT/GeV), weight);
         _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV), weight);
-        
+     
         // Calculate rapidities w.r.t. thrust and sphericity.
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
-        _histRapidityT->fill(rapidityT, weight); 
-        _histRapidityS->fill(rapidityS, weight); 
+        _histRapidityT->fill(rapidityT, weight);
+        _histRapidityS->fill(rapidityS, weight);
       }
       Evis2 = Evis*Evis;
 
@@ -264,13 +264,13 @@ namespace Rivet {
           _histAEEC->fill(-cosij, -eec*weight);
         }
       }
-      
+   
       _histMultiCharged->fill(_histMultiCharged->binMean(0), numParticles*weight);
-      
-      
+   
+   
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      
+   
       foreach (const Particle& p, ufs.particles()) {
         int id = abs(p.pdgId());
         switch (id) {
@@ -359,21 +359,21 @@ namespace Rivet {
 
 
     // Finalize
-    void finalize() { 
-      // Normalize inclusive single particle distributions to the average number 
+    void finalize() {
+      // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
       const double avgNumParts = _weightedTotalPartNum / _passedCutWeightSum;
 
       normalize(_histPtTIn, avgNumParts);
-      normalize(_histPtTOut, avgNumParts); 
+      normalize(_histPtTOut, avgNumParts);
       normalize(_histPtSIn, avgNumParts);
-      normalize(_histPtSOut, avgNumParts); 
+      normalize(_histPtSOut, avgNumParts);
 
-      normalize(_histRapidityT, avgNumParts); 
-      normalize(_histRapidityS, avgNumParts); 
+      normalize(_histRapidityT, avgNumParts);
+      normalize(_histRapidityS, avgNumParts);
 
       normalize(_histLogScaledMom, avgNumParts);
-      normalize(_histScaledMom, avgNumParts); 
+      normalize(_histScaledMom, avgNumParts);
 
       scale(_histEEC, 1.0/_passedCutWeightSum);
       scale(_histAEEC, 1.0/_passedCutWeightSum);
@@ -409,33 +409,33 @@ namespace Rivet {
       scale(_histMultiXi1530_0, 1.0/_passedCutWeightSum);
       scale(_histMultiLambdaB0, 1.0/_passedCutWeightSum);
 
-      normalize(_hist1MinusT); 
-      normalize(_histTMajor); 
-      normalize(_histTMinor); 
-      normalize(_histOblateness); 
+      normalize(_hist1MinusT);
+      normalize(_histTMajor);
+      normalize(_histTMinor);
+      normalize(_histOblateness);
 
-      normalize(_histSphericity); 
-      normalize(_histAplanarity); 
-      normalize(_histPlanarity); 
+      normalize(_histSphericity);
+      normalize(_histAplanarity);
+      normalize(_histPlanarity);
 
-      normalize(_histHemiMassD); 
-      normalize(_histHemiMassH); 
-      normalize(_histHemiMassL); 
+      normalize(_histHemiMassD);
+      normalize(_histHemiMassH);
+      normalize(_histHemiMassL);
 
-      normalize(_histHemiBroadW); 
-      normalize(_histHemiBroadN); 
-      normalize(_histHemiBroadT); 
-      normalize(_histHemiBroadD); 
+      normalize(_histHemiBroadW);
+      normalize(_histHemiBroadN);
+      normalize(_histHemiBroadT);
+      normalize(_histHemiBroadD);
 
-      normalize(_histCParam); 
-      normalize(_histDParam); 
+      normalize(_histCParam);
+      normalize(_histDParam);
 
-      normalize(_histDiffRate2Durham); 
-      normalize(_histDiffRate2Jade); 
+      normalize(_histDiffRate2Durham);
+      normalize(_histDiffRate2Jade);
       normalize(_histDiffRate3Durham);
-      normalize(_histDiffRate3Jade); 
+      normalize(_histDiffRate3Jade);
       normalize(_histDiffRate4Durham);
-      normalize(_histDiffRate4Jade); 
+      normalize(_histDiffRate4Jade);
     }
 
     //@}
@@ -444,7 +444,7 @@ namespace Rivet {
   private:
 
     /// Store the weighted sums of numbers of charged / charged+neutral
-    /// particles - used to calculate average number of particles for the 
+    /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
     double _weightedTotalPartNum;
 
@@ -464,10 +464,10 @@ namespace Rivet {
 
     AIDA::IProfile1D   *_histPtTOutVsXp, *_histPtVsXp;
 
-    AIDA::IHistogram1D *_hist1MinusT; 
-    AIDA::IHistogram1D *_histTMajor; 
-    AIDA::IHistogram1D *_histTMinor; 
-    AIDA::IHistogram1D *_histOblateness; 
+    AIDA::IHistogram1D *_hist1MinusT;
+    AIDA::IHistogram1D *_histTMajor;
+    AIDA::IHistogram1D *_histTMinor;
+    AIDA::IHistogram1D *_histOblateness;
 
     AIDA::IHistogram1D *_histSphericity;
     AIDA::IHistogram1D *_histAplanarity;
@@ -479,14 +479,14 @@ namespace Rivet {
     AIDA::IHistogram1D *_histHemiMassD;
     AIDA::IHistogram1D *_histHemiMassH;
     AIDA::IHistogram1D *_histHemiMassL;
-               
+            
     AIDA::IHistogram1D *_histHemiBroadW;
     AIDA::IHistogram1D *_histHemiBroadN;
     AIDA::IHistogram1D *_histHemiBroadT;
     AIDA::IHistogram1D *_histHemiBroadD;
 
     AIDA::IHistogram1D *_histDiffRate2Durham;
-    AIDA::IHistogram1D *_histDiffRate2Jade; 
+    AIDA::IHistogram1D *_histDiffRate2Jade;
     AIDA::IHistogram1D *_histDiffRate3Durham;
     AIDA::IHistogram1D *_histDiffRate3Jade;
     AIDA::IHistogram1D *_histDiffRate4Durham;

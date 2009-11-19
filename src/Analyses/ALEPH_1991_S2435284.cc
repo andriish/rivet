@@ -14,18 +14,18 @@ namespace Rivet {
   public:
 
     /// Constructor.
-    ALEPH_1991_S2435284() 
+    ALEPH_1991_S2435284()
       : Analysis("ALEPH_1991_S2435284")
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
     }
 
-  
+
     /// @name Analysis methods
     //@{
-    
+ 
     /// Book projections and histogram
-    void init() { 
+    void init() {
       const ChargedFinalState cfs;
       addProjection(cfs, "FS");
       addProjection(Multiplicity(cfs), "Mult");
@@ -47,7 +47,7 @@ namespace Rivet {
       scale(_histChTot, 2.0/sumOfWeights()); // same as in ALEPH 1996
     }
 
-    //@}  
+    //@}
 
 
   private:
@@ -57,10 +57,10 @@ namespace Rivet {
     AIDA::IHistogram1D* _histChTot;
     //@}
 
-  };    
+  };
 
-    
+ 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<ALEPH_1991_S2435284> plugin_ALEPH_1991_S2435284;
-  
+
 }

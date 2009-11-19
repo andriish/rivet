@@ -9,7 +9,7 @@ namespace Rivet {
 
   class MC_TVT1960_PHOTONJETS : public MC_JetAnalysis {
   public:
-    
+ 
     /// Default constructor
     MC_TVT1960_PHOTONJETS()
       : MC_JetAnalysis("MC_TVT1960_PHOTONJETS", 1960.0, 4, "Jets")
@@ -17,22 +17,22 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
-    //@{ 
-    
+    //@{
+ 
     /// Book histograms
     void init() {
       // General FS
       FinalState fs(-5.0, 5.0);
       addProjection(fs, "FS");
-      
+   
       // Get leading photon
       LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
       photonfs.addParticleId(PHOTON);
       addProjection(photonfs, "LeadingPhoton");
-      
+   
       // FS for jets excludes the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
@@ -45,28 +45,28 @@ namespace Rivet {
       _h_photon_jet1_deta = bookHistogram1D("photon_jet1_deta", 50, -5.0, 5.0);
       _h_photon_jet1_dphi = bookHistogram1D("photon_jet1_dphi", 20, 0.0, M_PI);
       _h_photon_jet1_dR = bookHistogram1D("photon_jet1_dR", 25, 0.5, 7.0);
-      
+   
       MC_JetAnalysis::init();
     }
-    
+ 
 
-    /// Do the analysis 
+    /// Do the analysis
     void analyze(const Event& e) {
       const double weight = e.weight();
-    
+ 
       // Get the photon
       const ParticleVector photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
       if (photons.size() != 1) {
         vetoEvent;
       }
       const FourMomentum photon = photons.front().momentum();
-      
+   
       // Get all charged particles
       const FinalState& fs = applyProjection<FinalState>(e, "JetFS");
       if (fs.empty()) {
         vetoEvent;
       }
-      
+   
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       const double egamma = photon.E();
       double econe = 0.0;
@@ -79,10 +79,10 @@ namespace Rivet {
           }
         }
       }
-      
+   
       _h_photon_pT->fill(photon.pT(),weight);
       _h_photon_y->fill(photon.rapidity(),weight);
-      
+   
       const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
       const Jets& jets = jetpro.jetsByPt(20.0*GeV);
       if (jets.size()>0) {
@@ -90,11 +90,11 @@ namespace Rivet {
         _h_photon_jet1_dphi->fill(mapAngle0ToPi(photon.phi()-jets[0].momentum().phi()), weight);
         _h_photon_jet1_dR->fill(deltaR(photon, jets[0].momentum()), weight);
       }
-      
+   
       MC_JetAnalysis::analyze(e);
     }
-    
-    
+ 
+ 
     // Finalize
     void finalize() {
       scale(_h_photon_pT, crossSection()/sumOfWeights());
@@ -102,7 +102,7 @@ namespace Rivet {
       scale(_h_photon_jet1_deta, crossSection()/sumOfWeights());
       scale(_h_photon_jet1_dphi, crossSection()/sumOfWeights());
       scale(_h_photon_jet1_dR, crossSection()/sumOfWeights());
-      
+   
       MC_JetAnalysis::finalize();
     }
 
@@ -121,8 +121,8 @@ namespace Rivet {
     //@}
 
   };
-    
-    
+ 
+ 
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<MC_TVT1960_PHOTONJETS> plugin_MC_TVT1960_PHOTONJETS;

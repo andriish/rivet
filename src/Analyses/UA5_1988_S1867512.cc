@@ -213,7 +213,7 @@ namespace Rivet {
     
   private:
    
-    // 
+    // CoM energy
     double sqrtS;
 
     /// @name Vectors for storing the number of particles in the different eta intervals per event.

@@ -16,10 +16,10 @@ namespace Rivet {
   class DISKinematics : public Projection {
 
   public:
-        
+     
     /// The default constructor.
-    DISKinematics() 
-      : _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0) 
+    DISKinematics()
+      : _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0)
     {
       setName("DISKinematics");
       //addBeamPair(ANY, hadid);
@@ -30,11 +30,11 @@ namespace Rivet {
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new DISKinematics(*this);
-    }    
+    }
 
-    
+ 
   protected:
-    
+ 
     /// Perform the projection operation on the supplied event.
     virtual void project(const Event& e);
 
@@ -63,7 +63,7 @@ namespace Rivet {
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
     const LorentzTransform& boostHCM() const {
-      return _hcm; 
+      return _hcm;
     }
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
@@ -75,7 +75,7 @@ namespace Rivet {
     const Particle& beamHadron() const {
       return _inHadron;
     }
-    
+ 
   private:
 
     /// The \f$Q^2\f$.
@@ -94,7 +94,7 @@ namespace Rivet {
     double _theS;
 
     Particle _inHadron;
-    
+ 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
     LorentzTransform _hcm;
 

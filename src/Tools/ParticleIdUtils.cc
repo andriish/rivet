@@ -48,7 +48,7 @@ int fundamentalID( const int & pid )
     }
 }
 
-// Ion numbers are +/- 10LZZZAAAI. 
+// Ion numbers are +/- 10LZZZAAAI.
 int Z( const int & pid )
 {
     // a proton can also be a Hydrogen nucleus
@@ -57,7 +57,7 @@ int Z( const int & pid )
     return 0;
 }
 
-// Ion numbers are +/- 10LZZZAAAI. 
+// Ion numbers are +/- 10LZZZAAAI.
 int A( const int & pid )
 {
     // a proton can also be a Hydrogen nucleus
@@ -67,7 +67,7 @@ int A( const int & pid )
 }
 
 // if this is a nucleus (ion), get nLambda
-// Ion numbers are +/- 10LZZZAAAI. 
+// Ion numbers are +/- 10LZZZAAAI.
 int lambda( const int & pid )
 {
     // a proton can also be a Hydrogen nucleus
@@ -85,7 +85,7 @@ bool isValid( const int & pid )
 {
     if( extraBits(pid) > 0 ) {
         if( isNucleus(pid) )   { return true; }
-        return false; 
+        return false;
     }
     if( isSUSY(pid) ) { return true; }
     if( isRhadron(pid) ) { return true; }
@@ -96,9 +96,9 @@ bool isValid( const int & pid )
     // DiQuark signature
     if( isDiQuark(pid) ) { return true; }
     // fundamental particle
-    if( fundamentalID(pid) > 0 ) { 
-      if(pid > 0 ) { 
-        return true; 
+    if( fundamentalID(pid) > 0 ) {
+      if(pid > 0 ) {
+        return true;
       } else {
         // AB - disabled this to remove need for PID -> name lookup.
         //if( hasFundamentalAnti(pid) ) { return true; }
@@ -117,7 +117,7 @@ bool isValid( const int & pid )
 //     // these are defined by the generator and therefore are always valid
 //     if( fundamentalID(pid) <= 100 && fundamentalID(pid) >= 80 ) { return true; }
 //     // check id's from 1 to 79
-//     if( fundamentalID(pid) > 0 && fundamentalID(pid) < 80 ) { 
+//     if( fundamentalID(pid) > 0 && fundamentalID(pid) < 80 ) {
 //        if( validParticleName(-pid) ) { return true; }
 //     }
 //     return false;
@@ -135,7 +135,7 @@ bool isMeson( const int & pid )
     if( aid == 150 || aid == 350 || aid == 510 || aid == 530 ) { return true; }
     // pomeron, etc.
     if( pid == 110 || pid == 990 || pid == 9990 ) { return true; }
-    if(    digit(nj,pid) > 0 && digit(nq3,pid) > 0 
+    if(    digit(nj,pid) > 0 && digit(nq3,pid) > 0
         && digit(nq2,pid) > 0 && digit(nq1,pid) == 0 ) {
         // check for illegal antiparticles
         if( digit(nq3,pid) == digit(nq2,pid) && pid < 0 ) {
@@ -154,7 +154,7 @@ bool isBaryon( const int & pid )
     if( abspid(pid) <= 100 ) { return false; }
     if( fundamentalID(pid) <= 100 && fundamentalID(pid) > 0 ) { return false; }
     if( abspid(pid) == 2110 || abspid(pid) == 2210 ) { return true; }
-    if(    digit(nj,pid) > 0  && digit(nq3,pid) > 0 
+    if(    digit(nj,pid) > 0  && digit(nq3,pid) > 0
         && digit(nq2,pid) > 0 && digit(nq1,pid) > 0 ) { return true; }
     return false;
 }
@@ -165,12 +165,12 @@ bool isDiQuark( const int & pid )
     if( extraBits(pid) > 0 ) { return false; }
     if( abspid(pid) <= 100 ) { return false; }
     if( fundamentalID(pid) <= 100 && fundamentalID(pid) > 0 ) { return false; }
-    if(    digit(nj,pid) > 0  && digit(nq3,pid) == 0 
+    if(    digit(nj,pid) > 0  && digit(nq3,pid) == 0
         && digit(nq2,pid) > 0 && digit(nq1,pid) > 0 ) {  // diquark signature
-       // EvtGen uses the diquarks for quark pairs, so, for instance, 
+       // EvtGen uses the diquarks for quark pairs, so, for instance,
        //   5501 is a valid "diquark" for EvtGen
        //if( digit(nj) == 1 && digit(nq2) == digit(nq1) ) { 	// illegal
-       //   return false; 
+       //   return false;
        //} else {
           return true;
        //}
@@ -197,7 +197,7 @@ bool isLepton( const int & pid )
 
 //
 // This implements the 2006 Monte Carlo nuclear code scheme.
-// Ion numbers are +/- 10LZZZAAAI. 
+// Ion numbers are +/- 10LZZZAAAI.
 // AAA is A - total baryon number
 // ZZZ is Z - total charge
 // L is the total number of strange quarks.
@@ -318,16 +318,16 @@ bool hasTop( const int & pid )
 // jSpin returns 2J+1, where J is the total spin
 int  jSpin( const int & pid )
 {
-    if( fundamentalID(pid) > 0 ) { 
+    if( fundamentalID(pid) > 0 ) {
 	// some of these are known
 	int fund = fundamentalID(pid);
 	if( fund > 0 && fund < 7 ) return 2;
-	if( fund == 9 ) return 3; 
+	if( fund == 9 ) return 3;
 	if( fund > 10 && fund < 17 ) return 2;
 	if( fund > 20 && fund < 25 ) return 3;
-        return 0; 
-    } else if( extraBits(pid) > 0 ) { 
-        return 0; 
+        return 0;
+    } else if( extraBits(pid) > 0 ) {
+        return 0;
     }
     return abspid(pid)%10;
 }
@@ -340,7 +340,7 @@ int  sSpin( const int & pid )
     int js = digit(nj,pid);
     if( digit(n,pid) == 9 ) { return 0; }	// tentative ID
     //if( tent == 9 ) { return 0; }	// tentative assignment
-    if( inl == 0 && js >= 3 ) { 
+    if( inl == 0 && js >= 3 ) {
         return 1;
     } else if( inl == 0  && js == 1 ) {
         return 0;
@@ -364,7 +364,7 @@ int  lSpin( const int & pid )
     //int tent = digit(n,pid);
     int js = digit(nj,pid);
     if( digit(n,pid) == 9 ) { return 0; }	// tentative ID
-    if( inl == 0 && js == 3 ) { 
+    if( inl == 0 && js == 3 ) {
         return 0;
     } else if( inl == 0 && js == 5 ) {
         return 1;
@@ -452,7 +452,7 @@ int threeCharge( const int & pid )
     if( charge == 0 ) {
         return 0;
     } else if( pid < 0 ) {
-        charge = -charge; 
+        charge = -charge;
     }
     return charge;
 }

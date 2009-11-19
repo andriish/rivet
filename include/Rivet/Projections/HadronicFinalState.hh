@@ -16,15 +16,15 @@ namespace Rivet {
   class HadronicFinalState : public FinalState {
 
   public:
-    
+ 
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
-    HadronicFinalState(FinalState& fsp) 
+    HadronicFinalState(FinalState& fsp)
       : FinalState(fsp)
-    { 
+    {
       setName("HadronicFinalState");
       addProjection(fsp, "FS");
     }
-    
+ 
     HadronicFinalState(double mineta = -MAXRAPIDITY,
                        double maxeta = MAXRAPIDITY,
                        double minpt = 0.0*GeV)
@@ -40,16 +40,16 @@ namespace Rivet {
     }
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
-    
+ 
   };
 
-  
+
 }
 
 

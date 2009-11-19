@@ -15,10 +15,10 @@ namespace Rivet {
   class FinalStateHCM: public FinalState {
 
   public:
-    
+ 
     /// Constructor
     FinalStateHCM(const DISKinematics& kinematicsp)
-    { 
+    {
       setName("FinalStateHCM");
       addProjection(kinematicsp, "Kinematics");
     }
@@ -27,16 +27,16 @@ namespace Rivet {
     virtual const Projection* clone() const {
       return new FinalStateHCM(*this);
     }
-    
+ 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
-    int compare(const Projection& p) const;    
+    int compare(const Projection& p) const;
   };
-  
+
 }
 
 

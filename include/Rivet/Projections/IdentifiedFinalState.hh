@@ -16,11 +16,11 @@ namespace Rivet {
   class IdentifiedFinalState : public FinalState {
 
   public:
-    
+ 
     /// @name Constructors
     //@{
     /// Default constructor.
-    IdentifiedFinalState(double etamin=-MAXRAPIDITY, double etamax=MAXRAPIDITY, double ptMin=0.0*GeV) 
+    IdentifiedFinalState(double etamin=-MAXRAPIDITY, double etamax=MAXRAPIDITY, double ptMin=0.0*GeV)
       : FinalState(etamin, etamax, ptMin)
     {
       setName("IdentifiedFinalState");
@@ -39,7 +39,7 @@ namespace Rivet {
       return new IdentifiedFinalState(*this);
     }
     //@}
-    
+ 
 
   public:
 
@@ -47,7 +47,7 @@ namespace Rivet {
     const set<PdgId>& acceptedIds() const {
       return _pids;
     }
-  
+
     /// Add an accepted particle ID.
     IdentifiedFinalState& acceptId(PdgId pid) {
       _pids.insert(pid);
@@ -98,13 +98,13 @@ namespace Rivet {
     void reset() {
       _pids.clear();
     }
-    
+ 
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
 
@@ -113,10 +113,10 @@ namespace Rivet {
 
     /// The final-state particles.
     set<PdgId> _pids;
-    
+ 
   };
 
-  
+
 }
 
 

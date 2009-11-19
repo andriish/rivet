@@ -14,10 +14,10 @@ namespace Rivet {
     {
       setBeams(PROTON, PROTON);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
-    //@{ 
+    //@{
 
     /// Book projections and histograms
     void init() {
@@ -29,7 +29,7 @@ namespace Rivet {
     }
 
 
-    /// Do the analysis 
+    /// Do the analysis
     void analyze(const Event& event) {
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
@@ -38,7 +38,7 @@ namespace Rivet {
                  << " because no final state found " << endl;
         vetoEvent;
       }
-      
+   
       const double weight = event.weight();
 
       foreach (const Particle& tp, fs.particles()) {
@@ -57,8 +57,8 @@ namespace Rivet {
         }
       }
     }
-    
-    
+ 
+ 
     /// Finalize
     void finalize() {
       /// @todo Use the generator cross-section
@@ -66,7 +66,7 @@ namespace Rivet {
       //normalize(_h_jet_pT_MB, 16603100);
       //normalize(_h_jet_pT_HT, 1808234);
     }
-    
+ 
     //@}
 
 
@@ -80,9 +80,9 @@ namespace Rivet {
 
   };
 
-    
-    
+ 
+ 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<STAR_2008_S7993412> plugin_STAR_2008_S7993412;
-  
+
 }

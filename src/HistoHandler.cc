@@ -15,8 +15,8 @@ namespace Rivet {
   HistoHandler* HistoHandler::create() {
     if (!_instance) {
       _instance = new HistoHandler();
-      Log::getLog("Rivet.HistoHandler") 
-        << Log::TRACE << "Created new HistoHandler at " 
+      Log::getLog("Rivet.HistoHandler")
+        << Log::TRACE << "Created new HistoHandler at "
         << _instance << endl;
     }
     return _instance;
@@ -33,21 +33,21 @@ namespace Rivet {
     _namedhistos.clear();
   }
 
-  
+
   // Delete contained pointers.
   HistoHandler::~HistoHandler() {
     clear();
   }
 
 
-  const AnalysisObject* HistoHandler::registerAnalysisObject(const Analysis& parent, 
-                                                             const AnalysisObject& ao, 
+  const AnalysisObject* HistoHandler::registerAnalysisObject(const Analysis& parent,
+                                                             const AnalysisObject& ao,
                                                              const string& name) {
     getLog() << Log::TRACE << "Trying to register"
              << " analysis object " << &ao
              << " for parent " << &parent << "(" << parent.name() << ")"
              << " with name '" << name << "'" << endl;
-    
+ 
     // If this name is already registered for this analysis, throw a complaint
     NamedHistosMap::const_iterator nhs = _namedhistos.find(&parent);
     if (nhs != _namedhistos.end()) {
@@ -69,7 +69,7 @@ namespace Rivet {
 
   AnalysisObject* HistoHandler::_getAnalysisObject(const Analysis& parent,
                                                          const string& name) const {
-    getLog() << Log::TRACE << "Searching for child histo '" 
+    getLog() << Log::TRACE << "Searching for child histo '"
              << name << "' of " << &parent << endl;
 
     NamedHistosMap::const_iterator nhs = _namedhistos.find(&parent);

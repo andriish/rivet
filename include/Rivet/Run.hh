@@ -65,12 +65,12 @@ namespace Rivet {
 
     //@}
 
-    
+ 
   private:
 
     /// AnalysisHandler object
     AnalysisHandler& _ah;
-    
+ 
     /// @name Run variables obtained from events or command line
     //@{
 
@@ -93,7 +93,7 @@ namespace Rivet {
     /// @name HepMC I/O members
     //@{
 
-    /// HepMC's own reader from streams   
+    /// HepMC's own reader from streams
     HepMC::IO_GenEvent* m_io;
 
     /// STL istream, used by IO_GenEvent if input is not a file

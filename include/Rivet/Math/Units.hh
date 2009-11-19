@@ -5,28 +5,28 @@
 
 namespace Rivet {
 
-  // 
+  //
   // Length [L]
   //
-  static const double millimeter  = 1.;                        
+  static const double millimeter  = 1.;
   static const double millimeter2 = millimeter*millimeter;
   static const double millimeter3 = millimeter*millimeter*millimeter;
 
-  static const double centimeter  = 10.*millimeter;   
+  static const double centimeter  = 10.*millimeter;
   static const double centimeter2 = centimeter*centimeter;
   static const double centimeter3 = centimeter*centimeter*centimeter;
 
-  static const double meter  = 1000.*millimeter;                  
+  static const double meter  = 1000.*millimeter;
   static const double meter2 = meter*meter;
   static const double meter3 = meter*meter*meter;
 
-  static const double kilometer = 1000.*meter;                   
+  static const double kilometer = 1000.*meter;
   static const double kilometer2 = kilometer*kilometer;
   static const double kilometer3 = kilometer*kilometer*kilometer;
 
   static const double parsec = 3.0856775807e+16*meter;
 
-  static const double micrometer = 1.e-6 *meter;             
+  static const double micrometer = 1.e-6 *meter;
   static const double nanometer  = 1.e-9 *meter;
   static const double angstrom   = 1.e-10*meter;
   static const double picometer  = 1.e-12*meter;
@@ -35,19 +35,19 @@ namespace Rivet {
   static const double fermi      = femtometer;
 
   // symbols
-  static const double mm  = millimeter;                        
+  static const double mm  = millimeter;
   static const double mm2 = millimeter2;
   static const double mm3 = millimeter3;
 
-  static const double cm  = centimeter;   
+  static const double cm  = centimeter;
   static const double cm2 = centimeter2;
   static const double cm3 = centimeter3;
 
-  static const double m  = meter;                  
+  static const double m  = meter;
   static const double m2 = meter2;
   static const double m3 = meter3;
 
-  static const double km  = kilometer;                   
+  static const double km  = kilometer;
   static const double km2 = kilometer2;
   static const double km3 = kilometer3;
 
@@ -67,7 +67,7 @@ namespace Rivet {
   //
   // Angle
   //
-  static const double radian      = 1.;                  
+  static const double radian      = 1.;
   static const double milliradian = 1.e-3*radian;
   static const double degree = (3.14159265358979323846/180.0)*radian;
   static const double steradian = 1.;
@@ -132,7 +132,7 @@ namespace Rivet {
   //
   // Mass [E][T^2][L^-2]
   //
-  static const double  kilogram = joule*second*second/(meter*meter);   
+  static const double  kilogram = joule*second*second/(meter*meter);
   static const double      gram = 1.e-3*kilogram;
   static const double milligram = 1.e-3*gram;
 
@@ -154,7 +154,7 @@ namespace Rivet {
   //
   // Pressure [E][L^-3]
   //
-  #define pascal hep_pascal                          // a trick to avoid warnings 
+  #define pascal hep_pascal                          // a trick to avoid warnings
   static const double hep_pascal = newton/m2;	   // pascal = 6.24150 e+3 * MeV/mm3
   static const double bar        = 100000*pascal; // bar    = 6.24150 e+8 * MeV/mm3
   static const double atmosphere = 101325*pascal; // atm    = 6.32420 e+8 * MeV/mm3

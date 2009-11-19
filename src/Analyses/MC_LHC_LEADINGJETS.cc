@@ -11,28 +11,28 @@ namespace Rivet {
 
   /* Underlying event in leading jet, extended to the LHC
    * @author Andy Buckley
-   */ 
+   */
   class MC_LHC_LEADINGJETS : public Analysis {
   public:
-    
+ 
     /// Constructor
     MC_LHC_LEADINGJETS()
       : Analysis("MC_LHC_LEADINGJETS")
-    { 
+    {
       setBeams(PROTON, PROTON);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
-    
+ 
     // Book histograms
     void init() {
       // Final state for the jet finding
       const FinalState fsj(-4.0, 4.0, 0.0*GeV);
       addProjection(fsj, "FSJ");
       addProjection(FastJets(fsj, FastJets::KT, 0.7), "Jets");
-      
+   
       // Charged final state for the distributions
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       addProjection(cfs, "CFS");
@@ -116,8 +116,8 @@ namespace Rivet {
           if (pT > ptMaxAway) ptMaxAway = pT;
         }
       }
-      
-      
+   
+   
       // Fill the histograms
       //_hist_tnchg->fill(jetpT/GeV, numToward/(4*PI/3), weight);
       _hist_pnchg->fill(jetpT/GeV, (numTrans1+numTrans2)/(4*PI/3), weight);
@@ -125,14 +125,14 @@ namespace Rivet {
       _hist_pminnchg->fill(jetpT/GeV, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
       //_hist_pdifnchg->fill(jetpT/GeV, abs(numTrans1-numTrans2)/(2*PI/3), weight);
       //_hist_anchg->fill(jetpT/GeV, numAway/(4*PI/3), weight);
-      
+   
       //_hist_tcptsum->fill(jetpT/GeV, ptSumToward/GeV/(4*PI/3), weight);
       _hist_pcptsum->fill(jetpT/GeV, (ptSumTrans1+ptSumTrans2)/GeV/(4*PI/3), weight);
       _hist_pmaxcptsum->fill(jetpT/GeV, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3), weight);
       _hist_pmincptsum->fill(jetpT/GeV, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3), weight);
       //_hist_pdifcptsum->fill(jetpT/GeV, fabs(ptSumTrans1-ptSumTrans2)/GeV/(2*PI/3), weight);
       //_hist_acptsum->fill(jetpT/GeV, ptSumAway/GeV/(4*PI/3), weight);
-      
+   
       //if (numToward > 0) {
       //  _hist_tcptave->fill(jetpT/GeV, ptSumToward/GeV/numToward, weight);
       //  _hist_tcptmax->fill(jetpT/GeV, ptMaxToward/GeV, weight);
@@ -146,28 +146,28 @@ namespace Rivet {
       //  _hist_acptmax->fill(jetpT/GeV, ptMaxAway/GeV, weight);
       //}
     }
-    
-    
-    void finalize() {  
+ 
+ 
+    void finalize() {
       //
     }
-    
-    
+ 
+ 
   private:
-    
+ 
     AIDA::IProfile1D *_hist_pnchg;
     AIDA::IProfile1D *_hist_pmaxnchg;
     AIDA::IProfile1D *_hist_pminnchg;
     AIDA::IProfile1D *_hist_pcptsum;
     AIDA::IProfile1D *_hist_pmaxcptsum;
     AIDA::IProfile1D *_hist_pmincptsum;
-    AIDA::IProfile1D *_hist_pcptave;  
-    
+    AIDA::IProfile1D *_hist_pcptave;
+ 
   };
-  
-  
-  
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<MC_LHC_LEADINGJETS> plugin_MC_LHC_LEADINGJETS;
-  
+
 }

@@ -61,7 +61,7 @@ public:
    */
   double upperEdge() const { return upper; }
 
-  /** 
+  /**
    * The number of bins (excluding underflow and overflow) on the IAxis.
    * @return The IAxis's number of bins.
    *
@@ -88,7 +88,7 @@ public:
    * @return The upper edge of the corresponding bin; for the overflow
    * bin this is <tt>Double.POSITIVE_INFINITY</tt>.
    *
-   */ 
+   */
   double binUpperEdge(int index) const {
     return index >= nbins? std::numeric_limits<double>::max():
       lower + double(std::max(index, -1) + 1)*binWidth(0);
@@ -100,7 +100,7 @@ public:
    * or OVERFLOW or UNDERFLOW.
    * @return      The width of the corresponding bin.
    *
-   */ 
+   */
   double binWidth(int) const {
     return (upper - lower)/double(nbins);
   }

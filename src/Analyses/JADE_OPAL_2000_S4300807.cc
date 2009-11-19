@@ -28,12 +28,12 @@ namespace Rivet {
     JADE_OPAL_2000_S4300807() : Analysis("JADE_OPAL_2000_S4300807"),
         _initialised(false)
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
     }
-    
+ 
     //@}
 
-    
+ 
     /// @name Analysis methods
     //@{
 
@@ -48,7 +48,7 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      
+   
       // Which CMS energy are we running at?
       if (!_initialised) {
         const double sqrts = applyProjection<Beam>(e, "Beams").sqrtS()/GeV;
@@ -63,7 +63,7 @@ namespace Rivet {
         case 183: offset = 13; break;
         case 189: offset = 14; break;
         default:
-          getLog() << Log::ERROR 
+          getLog() << Log::ERROR
               << "CMS energy of events sqrt(s) = " << sqrts
               <<" doesn't match any available analysis energy." << endl;
           /// @todo Really call exit()? I don't like the break of "command chain" that this implies
@@ -76,19 +76,19 @@ namespace Rivet {
         }
         _initialised = true;
       }
-        
-      
+     
+   
       // Jets
       getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
       const double weight = e.weight();
-      
+   
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
       if (jadejet.clusterSeq()) {
         double y_23 = jadejet.clusterSeq()->exclusive_ymerge(2);
         double y_34 = jadejet.clusterSeq()->exclusive_ymerge(3);
         double y_45 = jadejet.clusterSeq()->exclusive_ymerge(4);
         double y_56 = jadejet.clusterSeq()->exclusive_ymerge(5);
-        
+     
         for (int i = 0; i < _h_R_Jade[0]->size(); ++i) {
           IDataPoint* dp = _h_R_Jade[0]->point(i);
           if (y_23 < dp->coordinate(0)->value()) {
@@ -124,19 +124,19 @@ namespace Rivet {
           }
         }
       }
-      
+   
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
         double y_23 = durjet.clusterSeq()->exclusive_ymerge(2);
         double y_34 = durjet.clusterSeq()->exclusive_ymerge(3);
         double y_45 = durjet.clusterSeq()->exclusive_ymerge(4);
         double y_56 = durjet.clusterSeq()->exclusive_ymerge(5);
-        
+     
         _h_y_Durham[0]->fill(y_23, weight);
         _h_y_Durham[1]->fill(y_34, weight);
         _h_y_Durham[2]->fill(y_45, weight);
         _h_y_Durham[3]->fill(y_56, weight);
-        
+     
         for (int i = 0; i < _h_R_Durham[0]->size(); ++i) {
           IDataPoint* dp = _h_R_Durham[0]->point(i);
           if (y_23 < dp->coordinate(0)->value()) {
@@ -181,7 +181,7 @@ namespace Rivet {
       for (size_t n = 0; n < 4; ++n) {
         scale(_h_y_Durham[n], 1.0/sumOfWeights());
       }
-      
+   
       for (size_t n = 0; n < 5; ++n) {
         /// scale integrated jet rates to 100%
         for (int i = 0; i < _h_R_Jade[n]->size(); ++i) {
@@ -194,10 +194,10 @@ namespace Rivet {
         }
       }
     }
-    
+ 
     //@}
-    
-    
+ 
+ 
   private:
 
     /// @name Histograms

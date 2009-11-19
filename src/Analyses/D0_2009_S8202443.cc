@@ -20,13 +20,13 @@ namespace Rivet {
         _sum_of_weights(0.0), _sum_of_weights_constrained(0.0)
     {
       setBeams(PROTON, ANTIPROTON);
-    } 
+    }
 
     //@}
 
 
     /// @name Analysis methods
-    //@{ 
+    //@{
 
     /// Book histograms
     void init() {
@@ -41,7 +41,7 @@ namespace Rivet {
       FastJets conefinder_constrained(zfinder_constrained.remainingFinalState(),
                                       FastJets::D0ILCONE, 0.5, 20.0*GeV);
       addProjection(conefinder_constrained, "ConeFinderConstrained");
-      
+   
       // Unconstrained leptons
       ZFinder zfinder(FinalState(), ELECTRON, 65.0*GeV, 115.0*GeV, 0.2);
       addProjection(zfinder, "ZFinder");
@@ -55,13 +55,13 @@ namespace Rivet {
       _h_jet2_pT = bookHistogram1D(4, 1, 1);
       _h_jet3_pT = bookHistogram1D(6, 1, 1);
     }
-    
-    
-    
-    // Do the analysis 
+ 
+ 
+ 
+    // Do the analysis
     void analyze(const Event& e) {
       double weight = e.weight();
-      
+   
       // unconstrained electrons first
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size()==1) {
@@ -74,7 +74,7 @@ namespace Rivet {
             jets_cut.push_back(j);
           }
         }
-        
+     
         if (jets_cut.size()>0) {
           _h_jet1_pT->fill(jets_cut[0].momentum().pT()/GeV, weight);
         }
@@ -88,8 +88,8 @@ namespace Rivet {
       else {
         getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
       }
-      
-      
+   
+   
       // constrained electrons
       const ZFinder& zfinder_constrained = applyProjection<ZFinder>(e, "ZFinderConstrained");
       if (zfinder_constrained.particles().size()==1) {
@@ -102,7 +102,7 @@ namespace Rivet {
             jets_cut.push_back(j);
           }
         }
-        
+     
         if (jets_cut.size()>0) {
           _h_jet1_pT_constrained->fill(jets_cut[0].momentum().pT()/GeV, weight);
         }
@@ -118,9 +118,9 @@ namespace Rivet {
         vetoEvent;
       }
     }
-    
-    
-    
+ 
+ 
+ 
     // Finalize
     void finalize() {
       scale(_h_jet1_pT, 1.0/_sum_of_weights);
@@ -130,7 +130,7 @@ namespace Rivet {
       scale(_h_jet2_pT_constrained, 1.0/_sum_of_weights_constrained);
       scale(_h_jet3_pT_constrained, 1.0/_sum_of_weights_constrained);
     }
-    
+ 
     //@}
 
 
@@ -145,14 +145,14 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_jet2_pT_constrained;
     AIDA::IHistogram1D * _h_jet3_pT_constrained;
     //@}
-    
+ 
     double _sum_of_weights, _sum_of_weights_constrained;
 
   };
 
-  
-  
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2009_S8202443> plugin_D0_2009_S8202443;
-  
+
 }

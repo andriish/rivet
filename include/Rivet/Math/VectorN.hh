@@ -27,7 +27,7 @@ namespace Rivet {
   public:
     Vector() { _vec.loadZero(); }
 
-    Vector(const Vector<N>& other) 
+    Vector(const Vector<N>& other)
       : _vec(other._vec) { }
 
     const double& get(const size_t index) const {

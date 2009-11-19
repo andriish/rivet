@@ -14,11 +14,11 @@ namespace Rivet {
   /// @author Hendrik Hoeth
   class PDG_HADRON_MULTIPLICITIES : public Analysis {
   public:
-    
+ 
     /// Constructor
     PDG_HADRON_MULTIPLICITIES() : Analysis("PDG_HADRON_MULTIPLICITIES")
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
     }
 
 
@@ -29,7 +29,7 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-      
+   
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
@@ -42,7 +42,7 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom/GeV << " GeV" << endl;
 

@@ -64,7 +64,7 @@ namespace Rivet {
     l_nu_ids += std::make_pair(-abs(pid), abs(nu_pid));
     InvMassFinalState imfs(fs, l_nu_ids, m2_min, m2_max);
     addProjection(imfs, "IMFS");
-    
+ 
     ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
     addProjection(cphotons, "CPhotons");
 
@@ -98,8 +98,8 @@ namespace Rivet {
     if (cmp != EQUIVALENT) return cmp;
 
     return EQUIVALENT;
-  } 
-  
+  }
+
 
   void WFinder::project(const Event& e) {
     _theParticles.clear();
@@ -110,7 +110,7 @@ namespace Rivet {
     const int w3charge = PID::threeCharge(imfs.particles()[0].pdgId()) + PID::threeCharge(imfs.particles()[1].pdgId());
     assert(abs(w3charge) == 3);
     const int wcharge = sign(w3charge);
-    /// @todo Provide W charge method 
+    /// @todo Provide W charge method
 
     stringstream msg;
     string wsign = (wcharge == 1) ? "+" : "-";
@@ -135,6 +135,6 @@ namespace Rivet {
     getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
              << " W candidates." << endl;
   }
- 
- 
+
+
 }

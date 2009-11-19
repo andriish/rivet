@@ -16,11 +16,11 @@ namespace Rivet {
 
     /// Constructor
     MC_LHC_TTBAR()
-      : Analysis("MC_LHC_TTBAR") 
+      : Analysis("MC_LHC_TTBAR")
     {
       /// @todo Set approriate for your analysis
       setBeams(PROTON, PROTON);
-      
+   
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
 
@@ -50,7 +50,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-      
+   
       foreach (const Particle& p, cfs.particles()) {
         double eta = p.momentum().pseudorapidity();
         _histPseudorapidity->fill(eta, weight);
@@ -62,7 +62,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
     scale(_histPseudorapidity, 1.0/sumOfWeights());
-      
+   
     }
 
 

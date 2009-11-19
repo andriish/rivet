@@ -26,17 +26,17 @@ namespace Rivet {
     //  - @c _mZmax = upper Z mass cut used in the publication analysis
     D0_2001_S4674421()
       : Analysis("D0_2001_S4674421"),
-        _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632), 
+        _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632),
         _mZmin(75.*GeV), _mZmax(105.*GeV)
-    { 
+    {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-    }    
-    
-    
+    }
+ 
+ 
     /// @name Analysis methods
     //@{
-    
+ 
     void init() {
       // Final state projection
       FinalState fs(-5.0, 5.0); // corrected for detector acceptance
@@ -46,12 +46,12 @@ namespace Rivet {
       LeadingParticlesFinalState eeFS(fs, -2.5, 2.5, 0.); //20.);
       eeFS.addParticleIdPair(ELECTRON);
       addProjection(eeFS, "eeFS");
-      
+   
       // W- -> e- nu_e~
       LeadingParticlesFinalState enuFS(fs, -2.5, 2.5, 0.); //25.);
       enuFS.addParticleId(ELECTRON).addParticleId(NU_EBAR);
       addProjection(enuFS, "enuFS");
-      
+   
       // W+ -> e+ nu_e
       LeadingParticlesFinalState enubFS(fs, -2.5, 2.5, 0.); //25.);
       enubFS.addParticleId(POSITRON).addParticleId(NU_E);
@@ -94,10 +94,10 @@ namespace Rivet {
           _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
           _h_dsigdpt_scaled_z->fill(pmom.pT()/GeV * _mwmz, weight);
         }
-      } else { 
+      } else {
         // There is no Z -> ee candidate... so this must be a W event, right?
         const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
-        const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS"); 
+        const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS");
         static size_t Wcount = 0;
 
         // Fill W pT distributions
@@ -119,7 +119,7 @@ namespace Rivet {
 
 
 
-    void finalize() { 
+    void finalize() {
       // Get cross-section per event (i.e. per unit weight) from generator
       const double xSecPerEvent = crossSection()/picobarn / sumOfWeights();
 
@@ -134,7 +134,7 @@ namespace Rivet {
       const double zpt_scaled_integral = integral(_h_dsigdpt_scaled_z);
 
       // Divide and scale ratio histos
-      AIDA::IDataPointSet* div = histogramFactory().divide(histoDir() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z); 
+      AIDA::IDataPointSet* div = histogramFactory().divide(histoDir() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z);
       div->setTitle("$[\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(W)] / [\\mathrm{d}\\sigma/\\mathrm{d}(p_\\perp(Z) \\cdot M_W/M_Z)]$");
       if (xSecW == 0 || wpt_integral == 0 || xSecZ == 0 || zpt_scaled_integral == 0) {
         getLog() << Log::WARN << "Not filling ratio plot because input histos are empty" << endl;
@@ -160,18 +160,18 @@ namespace Rivet {
 
 
     //@}
-    
+ 
   private:
-    
-    /// Analysis used ratio of mW/mZ 
+ 
+    /// Analysis used ratio of mW/mZ
     const double _mwmz;
-    
+ 
     /// Ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
     const double _brwenu;
-    
+ 
     /// Ratio of \f$ \text{BR}( Z \to e^+ e^-) \f$ used in the publication analysis
     const double _brzee;
-    
+ 
     /// Invariant mass cuts for Z boson candidate (75 GeV < mZ < 105 GeV)
     const double _mZmin, _mZmax;
 
@@ -179,13 +179,13 @@ namespace Rivet {
     // Event counters for cross section normalizations
     double _eventsFilledW;
     double _eventsFilledZ;
-    
+ 
     //@{
     /// Histograms
     AIDA::IHistogram1D* _h_dsigdpt_w;
     AIDA::IHistogram1D* _h_dsigdpt_z;
     AIDA::IHistogram1D* _h_dsigdpt_scaled_z;
-   //@}    
+   //@}
 
   };
 

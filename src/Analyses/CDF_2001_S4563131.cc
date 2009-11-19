@@ -16,7 +16,7 @@ namespace Rivet {
 
     /// Constructor
     CDF_2001_S4563131()
-      : Analysis("CDF_2001_S4563131") 
+      : Analysis("CDF_2001_S4563131")
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -51,7 +51,7 @@ namespace Rivet {
           _h_ET->fill(jet.momentum().Et(), weight);
         }
       }
-      
+   
     }
 
 

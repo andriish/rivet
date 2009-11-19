@@ -15,11 +15,11 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
-    
+ 
     void init() {
       FinalState fs;
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 61.0*GeV), "ConeFinder");
@@ -37,8 +37,8 @@ namespace Rivet {
         }
       }
     }
-    
-    
+ 
+ 
     void finalize() {
       const double delta_y = 1.2;
       scale(_h_jet_pt, crossSection()/nanobarn/sumOfWeights()/delta_y);

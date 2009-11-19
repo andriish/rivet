@@ -36,7 +36,7 @@ using namespace AIDA;
  */
 class AnalysisFactory: public IAnalysisFactory {
 
-public: 
+public:
   /// Destructor.
   virtual ~AnalysisFactory() {
     clear();

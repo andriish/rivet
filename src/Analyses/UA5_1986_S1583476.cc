@@ -15,15 +15,15 @@ namespace Rivet {
     UA5_1986_S1583476() : Analysis("UA5_1986_S1583476") {
       setBeams(PROTON, ANTIPROTON);
     }
-    
+ 
 
 
     /// @name Analysis methods
     //@{
-    
+ 
     void init() {
       addProjection(TriggerUA5(), "Trigger");
-      addProjection(Beam(), "Beams"); 
+      addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
 
       // Histograms
@@ -31,14 +31,14 @@ namespace Rivet {
       _hist_eta_inelastic_200 = bookHistogram1D(1,1,2);
       _hist_eta_nsd_900       = bookHistogram1D(1,1,3);
       _hist_eta_inelastic_900 = bookHistogram1D(1,1,4);
-      
+   
       _hist_eta_nsd_n_2_200  = bookHistogram1D(2,1,1);
       _hist_eta_nsd_n_12_200 = bookHistogram1D(2,1,2);
       _hist_eta_nsd_n_22_200 = bookHistogram1D(2,1,3);
       _hist_eta_nsd_n_32_200 = bookHistogram1D(2,1,4);
       _hist_eta_nsd_n_42_200 = bookHistogram1D(2,1,5);
       _hist_eta_nsd_n_52_200 = bookHistogram1D(2,1,6);
-      
+   
       _hist_eta_nsd_n_2_900  = bookHistogram1D(3,1,1);
       _hist_eta_nsd_n_12_900 = bookHistogram1D(3,1,2);
       _hist_eta_nsd_n_22_900 = bookHistogram1D(3,1,3);
@@ -49,8 +49,8 @@ namespace Rivet {
       _hist_eta_nsd_n_72_900 = bookHistogram1D(3,1,8);
       _hist_eta_nsd_n_82_900 = bookHistogram1D(3,1,9);
     }
-    
-    
+ 
+ 
     void analyze(const Event& event) {
       // Trigger
       const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
@@ -60,12 +60,12 @@ namespace Rivet {
       const double weight = event.weight();
       const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
 
-      // Iterate over particles in |eta| < 5.0 and fill histos with |eta| 
+      // Iterate over particles in |eta| < 5.0 and fill histos with |eta|
       const ChargedFinalState& cfs50 = applyProjection<ChargedFinalState>(event, "CFS50");
       const unsigned int numP = cfs50.size();
       foreach (const Particle& p, cfs50.particles()) {
         double eta = fabs(p.momentum().pseudorapidity());
-        
+     
         // Fill 200 GeV histos
         if (fuzzyEquals(sqrtS/GeV, 200.0, 1E-4)) {
           // Fill histos that don't require a certain multiplicity
@@ -81,7 +81,7 @@ namespace Rivet {
             else if ( numP >= 52 ) _hist_eta_nsd_n_52_200->fill(eta, weight);
           }
         }
-        
+     
         // Fill 900 GeV histos
         else if (fuzzyEquals(sqrtS/GeV, 900.0, 1E-4)) {
           // Fill histos that don't require a certain multiplicity
@@ -99,25 +99,25 @@ namespace Rivet {
             else if ( ( 72 <= numP ) && ( numP <= 80 ) ) _hist_eta_nsd_n_72_900->fill(eta, weight);
             else if ( numP >= 82 ) _hist_eta_nsd_n_82_900->fill(eta, weight);
           }
-        } 
-      }        
+        }
+      }
   }
-  
-  
+
+
     void finalize() {
       // Scale histos to the area of the corresponding reference histos
-      normalize(_hist_eta_nsd_200, 10.2225);    
+      normalize(_hist_eta_nsd_200, 10.2225);
       normalize(_hist_eta_inelastic_200, 9.255);
       normalize(_hist_eta_nsd_900, 15.285);
       normalize(_hist_eta_inelastic_900, 13.9725);
-      
+   
       normalize(_hist_eta_nsd_n_2_200, 3.285);
       normalize(_hist_eta_nsd_n_12_200, 7.34);
       normalize(_hist_eta_nsd_n_22_200, 12.02);
       normalize(_hist_eta_nsd_n_32_200, 17.2);
       normalize(_hist_eta_nsd_n_42_200, 21.99);
       normalize(_hist_eta_nsd_n_52_200, 27.8);
-      
+   
       normalize(_hist_eta_nsd_n_2_900, 2.7);
       normalize(_hist_eta_nsd_n_12_900, 6.425);
       normalize(_hist_eta_nsd_n_22_900, 10.54);
@@ -126,9 +126,9 @@ namespace Rivet {
       normalize(_hist_eta_nsd_n_52_900, 25.13);
       normalize(_hist_eta_nsd_n_62_900, 29.235);
       normalize(_hist_eta_nsd_n_72_900, 33.81);
-      normalize(_hist_eta_nsd_n_82_900, 41.75);      
+      normalize(_hist_eta_nsd_n_82_900, 41.75);
     }
-    
+ 
 
   private:
 
@@ -161,10 +161,10 @@ namespace Rivet {
     //@}
 
   };
- 
 
-  
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<UA5_1986_S1583476> plugin_UA5_1986_S1583476;
-  
+
 }

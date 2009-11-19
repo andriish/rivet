@@ -21,17 +21,17 @@ namespace Rivet {
   public:
 
     /// Constructor
-    DELPHI_2002_069_CONF_603() 
+    DELPHI_2002_069_CONF_603()
       : Analysis("DELPHI_2002_069_CONF_603")
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
     }
 
 
     /// @name Analysis methods
     //@{
 
-    /// Book projections and histograms      
+    /// Book projections and histograms
     void init() {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
@@ -48,30 +48,30 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-      
+   
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed ncharged cut" << endl;
         vetoEvent;
       }
       getLog() << Log::DEBUG << "Passed ncharged cut" << endl;
-      
+   
       // Get event weight for histo filling
       const double weight = e.weight();
-      
+   
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
-      
-      
+   
+   
       foreach (const GenParticle* p, particles(e.genEvent())) {
         const GenVertex* pv = p->production_vertex();
         const GenVertex* dv = p->end_vertex();
         if (IS_BHADRON_PDGID(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
-          
+       
           // If the B-hadron has a parton as parent, call it primary B-hadron:
           if (pv) {
             bool is_primary = false;
@@ -83,7 +83,7 @@ namespace Rivet {
               _histMeanXbprim->fill(_histMeanXbprim->binMean(0), xp, weight);
             }
           }
-          
+       
           // If the B-hadron has no B-hadron as a child, it decayed weakly:
           if (dv) {
             bool is_weak = true;
@@ -98,11 +98,11 @@ namespace Rivet {
               _histMeanXbweak->fill(_histMeanXbweak->binMean(0), xp, weight);
             }
           }
-          
+       
         }
       }
     }
-    
+ 
 
     // Finalize
     void finalize() {
@@ -114,7 +114,7 @@ namespace Rivet {
   private:
 
     /// Store the weighted sums of numbers of charged / charged+neutral
-    /// particles - used to calculate average number of particles for the 
+    /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
 
     AIDA::IHistogram1D *_histXbprim;

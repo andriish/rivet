@@ -79,7 +79,7 @@ RivetLEPAnalyses_la_SOURCES = \
     DELPHI_1996_S3430090.cc \
     DELPHI_2002_069_CONF_603.cc \
     OPAL_1998_S3780481.cc \
-    OPAL_2004_S6132243.cc 
+    OPAL_2004_S6132243.cc
 
 
 lib_LTLIBRARIES += RivetRHICAnalyses.la

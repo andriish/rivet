@@ -12,7 +12,7 @@
 namespace Rivet {
 
 
-  /// A class which handles a number of analysis objects to be applied to 
+  /// A class which handles a number of analysis objects to be applied to
   /// generated events. An {@link Analysis}' AnalysisHandler is also responsible
   /// for handling the final writing-out of histograms.
   class AnalysisHandler {
@@ -22,7 +22,7 @@ namespace Rivet {
     /// @name Standard constructors and destructors. */
     //@{
     /// The standard constructor.
-    /// @param basefilename the name of the file (no extension) where histograms 
+    /// @param basefilename the name of the file (no extension) where histograms
     ///   are to be stored.
     /// @param runname optional name of this run, prepended to AIDA data paths.
     /// @param storetype a string indicating to the AIDA analysis factory
@@ -32,11 +32,11 @@ namespace Rivet {
     /// @param afac an AIDA analysis factory object. The caller must make
     ///   sure that the lifetime of the factory object exceeds the AnalysisHandler
     ///   object.
-    AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet", 
+    AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet",
                     string runname="", HistoFormat storetype=AIDAML);
 
     /// Make a Rivet handler with a set base filename and store type.
-    AnalysisHandler(string basefilename="Rivet", 
+    AnalysisHandler(string basefilename="Rivet",
                     string runname="", HistoFormat storetype=AIDAML);
 
     /// The destructor is not virtual as this class should not be inherited from.
@@ -74,12 +74,12 @@ namespace Rivet {
     /// the analyses are run for a sub-contribution of the events
     /// (but of course have to be normalised to the total sum of weights)
     void setSumOfWeights(const double& sum);
-      
+   
 
     /// Get a list of the currently registered analyses' names.
     std::vector<std::string> analysisNames();
 
-    /// Add an analysis to the run list using its name. The actual Analysis 
+    /// Add an analysis to the run list using its name. The actual Analysis
     /// to be used will be obtained via AnalysisHandler::getAnalysis(string).
     /// If no matching analysis is found, no analysis is added (i.e. the
     /// null pointer is checked and discarded.
@@ -137,12 +137,12 @@ namespace Rivet {
 
     /// Commit the AIDA tree to file.
     void commitData();
-    
+ 
 
     /// The AIDA tree object.
     AIDA::ITree& tree();
 
-    
+ 
     /// The AIDA histogram factory.
     AIDA::IHistogramFactory& histogramFactory();
 
@@ -155,7 +155,7 @@ namespace Rivet {
     bool needCrossSection() const;
 
 
-    /// Set the cross-section for the process being generated.    
+    /// Set the cross-section for the process being generated.
     AnalysisHandler& setCrossSection(double xs);
 
 
@@ -166,7 +166,7 @@ namespace Rivet {
 
     /// Run name
     std::string _runname;
-    
+ 
     /// If non-zero the number of runs to be combined into one analysis.
     int _nRun;
 

@@ -111,7 +111,7 @@ namespace Rivet {
 
     // Clear the caches
     _thrusts.clear();
-    _thrustAxes.clear(); 
+    _thrustAxes.clear();
 
 
     // If there are fewer than 2 visible particles, we can't do much
@@ -146,7 +146,7 @@ namespace Rivet {
 
 
     // Temporary variables for calcs
-    Vector3 axis(0,0,0); 
+    Vector3 axis(0,0,0);
     double val = 0.;
 
     // Get thrust
@@ -159,7 +159,7 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Axis = " << axis << endl;
     _thrustAxes.push_back(axis);
 
-    // Get thrust major 
+    // Get thrust major
     vector<Vector3> threeMomenta;
     foreach (const Vector3& v, fsmomenta) {
       // Get the part of each 3-momentum which is perpendicular to the thrust axis
@@ -170,7 +170,7 @@ namespace Rivet {
     _thrusts.push_back(val / momentumSum);
     if (axis.x() < 0) axis = -axis;
     axis = axis.unit();
-    _thrustAxes.push_back(axis); 
+    _thrustAxes.push_back(axis);
 
     // Get thrust minor
     if (_thrustAxes[0].dot(_thrustAxes[1]) < 1e-10) {

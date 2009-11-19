@@ -13,7 +13,7 @@ namespace Rivet {
     // Identify beam hadron
     const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
     bool firstIsHadron  = PID::isHadron(inc.first.pdgId());
-    bool secondIsHadron = PID::isHadron(inc.second.pdgId());    
+    bool secondIsHadron = PID::isHadron(inc.second.pdgId());
     if (firstIsHadron && !secondIsHadron) {
       _inHadron = inc.first;
     } else if (!firstIsHadron && secondIsHadron) {
@@ -72,7 +72,7 @@ namespace Rivet {
 
   int DISKinematics::compare(const Projection & p) const {
     const DISKinematics& other = pcast<DISKinematics>(p);
-    return mkNamedPCmp(other, "Lepton"); 
+    return mkNamedPCmp(other, "Lepton");
   }
 
 

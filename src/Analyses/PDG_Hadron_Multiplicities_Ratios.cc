@@ -14,19 +14,19 @@ namespace Rivet {
   /// @author Holger Schulz
   class PDG_HADRON_MULTIPLICITIES_RATIOS : public Analysis {
   public:
-    
+ 
     /// Constructor
     PDG_HADRON_MULTIPLICITIES_RATIOS() : Analysis("PDG_HADRON_MULTIPLICITIES_RATIOS")
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
 
       _weightedTotalNumPiPlus10 = 0;
       _weightedTotalNumPiPlus32 = 0;
       _weightedTotalNumPiPlus91 = 0;
       _weightedTotalNumPiPlus165 = 0;
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
 
@@ -34,20 +34,20 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-      
+   
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
         vetoEvent;
       }
       getLog() << Log::DEBUG << "Passed leptonic event cut" << endl;
-      
+   
       // Get event weight for histo filling
       const double weight = e.weight();
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom/GeV << " GeV" << endl;
 

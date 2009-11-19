@@ -16,7 +16,7 @@ namespace Rivet {
   bool Log::useShellColors = true;
 
 
-  Log::Log(const string& name) 
+  Log::Log(const string& name)
     : _name(name), _level(INFO), _nostream(new ostream(0)) { }
 
 
@@ -37,10 +37,10 @@ namespace Rivet {
   }
 
 
-  void Log::setLevel(const string& name, int level) { 
+  void Log::setLevel(const string& name, int level) {
     defaultLevels[name] = level;
     //cout << name << " -> " << level << endl;
-    _updateLevels(defaultLevels, existingLogs); 
+    _updateLevels(defaultLevels, existingLogs);
   }
 
 
@@ -99,7 +99,7 @@ namespace Rivet {
     case ERROR:
       return "ERROR";
     default:
-      return "";     
+      return "";
     }
     //throw Error("Enum value was not a valid log level. How did that happen?");
   }
@@ -173,7 +173,7 @@ namespace Rivet {
 
     out += " ";
     out += message;
-    
+ 
     return out;
   }
 

@@ -1,7 +1,7 @@
 ## Internal headers - not to be installed
-nobase_dist_noinst_HEADERS = 
+nobase_dist_noinst_HEADERS =
 ## Public headers - to be installed
-nobase_pkginclude_HEADERS = 
+nobase_pkginclude_HEADERS =
 
 
 ## Rivet interface
@@ -76,7 +76,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/VetoedFinalState.hh \
   Projections/VisibleFinalState.hh \
   Projections/WFinder.hh \
-  Projections/ZFinder.hh 
+  Projections/ZFinder.hh
 
 
 ## Tools
@@ -119,4 +119,4 @@ nobase_pkginclude_HEADERS += \
   Math/eigen/matrix.h \
   Math/eigen/vectorbase.h \
   Math/eigen/projective.h \
-  Math/eigen/matrixbase.h 
+  Math/eigen/matrixbase.h

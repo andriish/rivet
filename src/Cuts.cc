@@ -38,7 +38,7 @@ namespace Rivet {
 
 
 
-  bool Cuts::checkConsistency() const { 
+  bool Cuts::checkConsistency() const {
     for (Cuts::const_iterator c = begin(); c != end(); ++c) {
       if (c->second.getLowerThan() < c->second.getLowerThan()) {
         ostringstream msg;

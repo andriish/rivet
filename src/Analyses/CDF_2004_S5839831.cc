@@ -20,10 +20,10 @@ namespace Rivet {
   class CDF_2004_S5839831 : public Analysis {
   public:
 
-    /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$ 
+    /// Constructor: cuts on charged final state are \f$ -1 < \eta < 1 \f$
     /// and \f$ p_T > 0.4 \f$ GeV.
-    CDF_2004_S5839831() 
-      : Analysis("CDF_2004_S5839831") 
+    CDF_2004_S5839831()
+      : Analysis("CDF_2004_S5839831")
     {
       setBeams(PROTON, ANTIPROTON);
     }
@@ -36,23 +36,23 @@ namespace Rivet {
       unsigned int numMax, numMin;
       double ptMax, ptMin, ptDiff;
     };
-    
-    
-    ConesInfo _calcTransCones(const double etaLead, const double phiLead, 
+ 
+ 
+    ConesInfo _calcTransCones(const double etaLead, const double phiLead,
                               const ParticleVector& tracks) {
       const double phiTransPlus = mapAngle0To2Pi(phiLead + PI/2.0);
       const double phiTransMinus = mapAngle0To2Pi(phiLead - PI/2.0);
-      getLog() << Log::DEBUG << "phi_lead = " << phiLead 
-               << " -> trans = (" << phiTransPlus 
+      getLog() << Log::DEBUG << "phi_lead = " << phiLead
+               << " -> trans = (" << phiTransPlus
                << ", " << phiTransMinus << ")" << endl;
-      
+   
       unsigned int numPlus(0), numMinus(0);
       double ptPlus(0), ptMinus(0);
       // Run over all charged tracks
       foreach (const Particle& t, tracks) {
         FourMomentum trackMom = t.momentum();
         const double pt = trackMom.pT();
-        
+     
         // Find if track mom is in either transverse cone
         if (deltaR(trackMom, etaLead, phiTransPlus) < 0.7) {
           ptPlus += pt;
@@ -62,7 +62,7 @@ namespace Rivet {
           numMinus += 1;
         }
       }
-      
+   
       ConesInfo rtn;
       // Assign N_{min,max} from N_{plus,minus}
       rtn.numMax = (ptPlus >= ptMinus) ? numPlus : numMinus;
@@ -71,17 +71,17 @@ namespace Rivet {
       rtn.ptMax = (ptPlus >= ptMinus) ? ptPlus : ptMinus;
       rtn.ptMin = (ptPlus >= ptMinus) ? ptMinus : ptPlus;
       rtn.ptDiff = fabs(rtn.ptMax - rtn.ptMin);
-      
-      getLog() << Log::DEBUG << "Min cone has " << rtn.numMin << " tracks -> " 
+   
+      getLog() << Log::DEBUG << "Min cone has " << rtn.numMin << " tracks -> "
                << "pT_min = " << rtn.ptMin/GeV << " GeV" << endl;
-      getLog() << Log::DEBUG << "Max cone has " << rtn.numMax << " tracks -> " 
+      getLog() << Log::DEBUG << "Max cone has " << rtn.numMax << " tracks -> "
                << "pT_max = " << rtn.ptMax/GeV << " GeV" << endl;
-      
+   
       return rtn;
     }
-    
-    
-    ConesInfo _calcTransCones(const FourMomentum& leadvec, 
+ 
+ 
+    ConesInfo _calcTransCones(const FourMomentum& leadvec,
                               const ParticleVector& tracks) {
       const double etaLead = leadvec.pseudorapidity();
       const double phiLead = leadvec.azimuthalAngle();
@@ -91,7 +91,7 @@ namespace Rivet {
 
     /// @name Analysis methods
     //@{
-    
+ 
     void init() {
       // Set up projections
       addProjection(TriggerCDFRun0Run1(), "Trigger");
@@ -111,7 +111,7 @@ namespace Rivet {
 
       // Book histograms
       _pt90MaxAvg1800 = bookProfile1D(1, 1, 1);
-      _pt90MinAvg1800 = bookProfile1D(1, 1, 2); 
+      _pt90MinAvg1800 = bookProfile1D(1, 1, 2);
       _pt90Max1800 = bookProfile1D(2, 1, 1);
       _pt90Min1800 = bookProfile1D(2, 1, 2);
       _pt90Diff1800 = bookProfile1D(2, 1, 3);
@@ -119,25 +119,25 @@ namespace Rivet {
       _num90Min1800 = bookProfile1D(4, 1, 2);
       _pTSum1800_2Jet = bookProfile1D(7, 1, 1);
       _pTSum1800_3Jet = bookProfile1D(7, 1, 2);
-      _pt90Max630 = bookProfile1D(8, 1, 1); 
-      _pt90Min630 = bookProfile1D(8, 1, 2); 
-      _pt90Diff630 = bookProfile1D(8, 1, 3); 
+      _pt90Max630 = bookProfile1D(8, 1, 1);
+      _pt90Min630 = bookProfile1D(8, 1, 2);
+      _pt90Diff630 = bookProfile1D(8, 1, 3);
       _pTSum630_2Jet = bookProfile1D(9, 1, 1);
-      _pTSum630_3Jet = bookProfile1D(9, 1, 2);       
-      
+      _pTSum630_3Jet = bookProfile1D(9, 1, 2);
+   
       _pt90Dbn1800Et40 = bookHistogram1D(3, 1, 1);
       _pt90Dbn1800Et80 = bookHistogram1D(3, 1, 2);
       _pt90Dbn1800Et120 = bookHistogram1D(3, 1, 3);
       _pt90Dbn1800Et160 = bookHistogram1D(3, 1, 4);
       _pt90Dbn1800Et200 = bookHistogram1D(3, 1, 5);
       _ptDbn1800MB = bookHistogram1D(6, 1, 1);
-      
+   
       _numTracksDbn1800MB = bookHistogram1D(5, 1, 1);
       _numTracksDbn630MB = bookHistogram1D(10, 1, 1);
       _ptDbn630MB = bookHistogram1D(11, 1, 1);
     }
-    
-    
+ 
+ 
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
@@ -147,7 +147,7 @@ namespace Rivet {
       // Get sqrt(s) and event weight
       const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
       const double weight = event.weight();
-      
+   
       {
         getLog() << Log::DEBUG << "Running max/min analysis" << endl;
         vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").jetsByE();
@@ -159,7 +159,7 @@ namespace Rivet {
           const double ETlead = leadingjet.EtSum();
           getLog() << Log::DEBUG << "Leading Et = " << ETlead/GeV << " GeV" << endl;
           if (fabs(etaLead) > 0.5 && ETlead < 15*GeV) {
-            getLog() << Log::DEBUG << "Leading jet eta = " << etaLead 
+            getLog() << Log::DEBUG << "Leading jet eta = " << etaLead
                      << " not in |eta| < 0.5 & pT > 15 GeV" << endl;
           } else {
             // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
@@ -191,12 +191,12 @@ namespace Rivet {
                 _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
               }
             }
-            
+         
           }
         }
       }
-      
-      
+   
+   
       // Fill min bias total track multiplicity histos
       {
         getLog() << Log::DEBUG << "Running min bias multiplicity analysis" << endl;
@@ -218,9 +218,9 @@ namespace Rivet {
           }
         }
       }
-      
-      
-      
+   
+   
+   
       // Construct "Swiss Cheese" pT distributions, with pT contributions from
       // tracks within R = 0.7 of the 1st, 2nd (and 3rd) jets being ignored. A
       // different set of charged tracks, with |eta| < 1.0, is used here, and all
@@ -237,19 +237,19 @@ namespace Rivet {
             fabs(cheesejets[0].momentum().pseudorapidity()) <= 0.5 &&
             cheesejets[0].momentum().Et()/GeV > 5.0 &&
             cheesejets[1].momentum().Et()/GeV > 5.0) {
-          
+       
           const double cheeseETlead = cheesejets[0].momentum().Et();
-          
+       
           const double eta1 = cheesejets[0].momentum().pseudorapidity();
           const double phi1 = cheesejets[0].momentum().azimuthalAngle();
           const double eta2 = cheesejets[1].momentum().pseudorapidity();
           const double phi2 = cheesejets[1].momentum().azimuthalAngle();
-          
+       
           double ptSumSub2(0), ptSumSub3(0);
           foreach (const Particle& t, cheesetracks) {
             FourMomentum trackMom = t.momentum();
             const double pt = trackMom.pT();
-            
+         
             // Subtracting 2 leading jets
             const double deltaR1 = deltaR(trackMom, eta1, phi1);
             const double deltaR2 = deltaR(trackMom, eta2, phi2);
@@ -261,9 +261,9 @@ namespace Rivet {
                      << "|(" << eta2 << ", " << phi2 << ")| = " << deltaR2 << endl;
             if (deltaR1 > 0.7 && deltaR2 > 0.7) {
               ptSumSub2 += pt;
-              
+           
               // Subtracting 3rd leading jet
-              if (cheesejets.size() > 2 && 
+              if (cheesejets.size() > 2 &&
                   cheesejets[2].momentum().Et()/GeV > 5.0) {
                 const double eta3 = cheesejets[2].momentum().pseudorapidity();
                 const double phi3 = cheesejets[2].momentum().azimuthalAngle();
@@ -277,7 +277,7 @@ namespace Rivet {
               }
             }
           }
-          
+       
           // Swiss Cheese sub 2,3 jets distributions for sqrt(s) = 630 GeV, 1800 GeV
           if (fuzzyEquals(sqrtS/GeV, 630)) {
             if (!isZero(ptSumSub2)) _pTSum630_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
@@ -286,21 +286,21 @@ namespace Rivet {
             if (!isZero(ptSumSub2))_pTSum1800_2Jet->fill(cheeseETlead/GeV, ptSumSub2/GeV, weight);
             if (!isZero(ptSumSub3))_pTSum1800_3Jet->fill(cheeseETlead/GeV, ptSumSub3/GeV, weight);
           }
-          
+       
         }
-      }      
-      
+      }
+   
     }
-    
-    
-    void finalize() { 
+ 
+ 
+    void finalize() {
       // Normalize to actual number of entries in pT dbn histos
       normalize(_pt90Dbn1800Et40,  1656.75);
       normalize(_pt90Dbn1800Et80,  4657.5);
       normalize(_pt90Dbn1800Et120, 5395.5);
       normalize(_pt90Dbn1800Et160, 7248.75);
       normalize(_pt90Dbn1800Et200, 2442.0);
-      
+   
       // and for min bias distributions:
       normalize(_numTracksDbn1800MB, 309718.25);
       normalize(_numTracksDbn630MB, 1101024.0);
@@ -316,13 +316,13 @@ namespace Rivet {
     /// @name Histogram collections
     //@{
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
-    /// the average \f$ p_T \f$ in the toward, transverse and away regions at 
+    /// the average \f$ p_T \f$ in the toward, transverse and away regions at
     /// \f$ \sqrt{s} = 1800 \text{GeV} \f$.
     /// Corresponds to Table 1, and HepData table 1.
     AIDA::IProfile1D *_pt90MaxAvg1800, *_pt90MinAvg1800;
 
     /// Profile histograms, binned in the \f$ E_T \f$ of the leading jet, for
-    /// the \f$ p_T \f$ sum in the toward, transverse and away regions at 
+    /// the \f$ p_T \f$ sum in the toward, transverse and away regions at
     /// \f$ \sqrt{s} = 1800 \text{GeV} \f$.
     /// Corresponds to figure 2/3, and HepData table 2.
     AIDA::IProfile1D *_pt90Max1800, *_pt90Min1800, *_pt90Diff1800;
@@ -348,23 +348,23 @@ namespace Rivet {
     /// Corresponds to figure 9, and HepData table 9.
     AIDA::IProfile1D *_pTSum630_2Jet, *_pTSum630_3Jet;
 
-    /// Histogram of \f$ p_{T\text{sum}} \f$ distribution for 5 different 
+    /// Histogram of \f$ p_{T\text{sum}} \f$ distribution for 5 different
     /// \f$ E_{T1} \f$ bins.
     /// Corresponds to figure 4, and HepData table 3.
-    AIDA::IHistogram1D *_pt90Dbn1800Et40, *_pt90Dbn1800Et80, *_pt90Dbn1800Et120, 
+    AIDA::IHistogram1D *_pt90Dbn1800Et40, *_pt90Dbn1800Et80, *_pt90Dbn1800Et120,
       *_pt90Dbn1800Et160, *_pt90Dbn1800Et200;
 
-    /// Histograms of track multiplicity and \f$ p_T \f$ distributions for 
+    /// Histograms of track multiplicity and \f$ p_T \f$ distributions for
     /// minimum bias events.
     /// Figure 6, and HepData tables 5 & 6.
     /// Figure 10, and HepData tables 10 & 11.
     AIDA::IHistogram1D *_numTracksDbn1800MB, *_ptDbn1800MB;
     AIDA::IHistogram1D *_numTracksDbn630MB, *_ptDbn630MB;
     //@}
-    
+ 
   };
-    
-    
+ 
+ 
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_2004_S5839831> plugin_CDF_2004_S5839831;

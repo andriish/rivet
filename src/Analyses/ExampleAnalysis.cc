@@ -10,23 +10,23 @@
 #include "Rivet/Projections/Sphericity.hh"
 
 namespace Rivet {
-  
-  
+
+
   /// @brief Just measures a few random things as an example.
   class ExampleAnalysis : public Analysis {
   public:
-    
+ 
     /// Constructor
     ExampleAnalysis()
       : Analysis("EXAMPLE")
-    { 
+    {
       // No counters etc. to initialise, hence nothing to do here!
     }
-    
+ 
 
     /// @name Analysis methods
     //@{
-    
+ 
     /// Set up projections and book histograms
     void init() {
       // Projections
@@ -65,21 +65,21 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Total charged multiplicity = " << cm.totalMultiplicity()   << endl;
       getLog() << Log::DEBUG << "Hadron multiplicity = " << cnm.hadronMultiplicity() << endl;
       getLog() << Log::DEBUG << "Hadron charged multiplicity = " << cm.hadronMultiplicity()  << endl;
-      
+   
       const Thrust& t = applyProjection<Thrust>(event, "Thrust");
       getLog() << Log::DEBUG << "Thrust = " << t.thrust() << endl;
-      
+   
       const Sphericity& s = applyProjection<Sphericity>(event, "Sphericity");
       getLog() << Log::DEBUG << "Sphericity = " << s.sphericity() << endl;
       getLog() << Log::DEBUG << "Aplanarity = " << s.aplanarity() << endl;
-      
+   
       size_t num_b_jets = 0;
       const Jets jets = applyProjection<FastJets>(event, "Jets").jets();
       foreach (const Jet& j, jets) {
         if (j.containsBottom()) ++num_b_jets;
       }
       getLog() << Log::DEBUG << "#B-jets = " << num_b_jets << endl;
-      
+   
       // Fill histograms
       const double weight = event.weight();
       _histTot->fill(cnm.totalMultiplicity(), weight);
@@ -91,10 +91,10 @@ namespace Rivet {
       _histSphericity->fill(s.sphericity(), weight);
       _histAplanarity->fill(s.aplanarity(), weight);
     }
-    
-    
+ 
+ 
     /// Finalize
-    void finalize() { 
+    void finalize() {
       normalize(_histTot);
       normalize(_histChTot);
       normalize(_histHadrTot);
@@ -109,7 +109,7 @@ namespace Rivet {
 
 
   private:
-    
+ 
     //@{
     /// Histograms
     AIDA::IHistogram1D* _histTot;
@@ -123,7 +123,7 @@ namespace Rivet {
     //@}
 
   };
-    
+ 
 
 
   // This global object acts as a hook for the plugin system

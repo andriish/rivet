@@ -23,7 +23,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       addProjection(fs, "FS");
-      
+   
       IdentifiedFinalState ifs(-2.0, 2.0, 20.0*GeV);
       ifs.acceptId(PHOTON);
       addProjection(ifs, "IFS");
@@ -36,13 +36,13 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       const double weight = event.weight();
-      
+   
       ParticleVector photons = applyProjection<IdentifiedFinalState>(event, "IFS").particles();
-      
+   
       if (photons.size() < 2) {
         vetoEvent;
       }
-      
+   
       // Isolate photons with ET_sum in cone
       ParticleVector isolated_photons;
       ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
@@ -59,19 +59,19 @@ namespace Rivet {
           isolated_photons.push_back(photon);
         }
       }
-      
+   
       if (isolated_photons.size() != 2) {
         vetoEvent;
       }
-      
+   
       FourMomentum mom_PP = isolated_photons[0].momentum() + isolated_photons[1].momentum();
       _h_m_PP->fill(mom_PP.mass(), weight);
       _h_pT_PP->fill(mom_PP.pT(), weight);
       _h_dphi_PP->fill(mapAngle0ToPi(isolated_photons[0].momentum().phi()-
                                      isolated_photons[1].momentum().phi())/M_PI, weight);
     }
-    
-    
+ 
+ 
     void finalize() {
       scale(_h_m_PP, crossSection()/sumOfWeights());
       scale(_h_pT_PP, crossSection()/sumOfWeights());
@@ -89,8 +89,8 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_pT_PP;
     AIDA::IHistogram1D* _h_dphi_PP;
     //@}
-    
-    
+ 
+ 
   };
 
 

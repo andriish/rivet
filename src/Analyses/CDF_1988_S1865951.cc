@@ -14,8 +14,8 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_1988_S1865951() 
-      : Analysis("CDF_1988_S1865951") 
+    CDF_1988_S1865951()
+      : Analysis("CDF_1988_S1865951")
     {
       setBeams(PROTON, ANTIPROTON);
     }
@@ -23,7 +23,7 @@ namespace Rivet {
 
     /// @name Analysis methods
     //@{
-    
+ 
     /// Book histograms
     void init() {
       addProjection(TriggerCDFRun0Run1(), "Trigger");
@@ -35,8 +35,8 @@ namespace Rivet {
       _hist_pt1800 = bookHistogram1D(1, 1, 1);
       _hist_pt630 = bookHistogram1D(2, 1, 1);
     }
-    
-    
+ 
+ 
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
@@ -46,7 +46,7 @@ namespace Rivet {
 
       const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
       const FinalState& trackfs = applyProjection<ChargedFinalState>(event, "CFS");
-      
+   
       foreach (Particle p, trackfs.particles()) {
         const double pt = p.momentum().pT();
         // Effective weight for d3sig/dp3 = weight / ( Delta eta * 2pi * pt ), with Delta(eta) = 2
@@ -56,22 +56,22 @@ namespace Rivet {
         } else if (fuzzyEquals(sqrtS, 1800/GeV)) {
           _hist_pt1800->fill(pt, eff_weight);
         }
-        
+     
       }
     }
-    
-    
+ 
+ 
     /// Scale histos
     void finalize() {
       /// @todo Total cross section hard-coded, needs a way to pass variable from generator
       scale(_hist_pt630, 32.6/sumOfWeights());
       scale(_hist_pt1800, 38.5/sumOfWeights());
     }
-   
+
     //@}
 
   private:
-    
+ 
     /// @name Histos
     //@{
     AIDA::IHistogram1D* _hist_pt630;
@@ -79,8 +79,8 @@ namespace Rivet {
     //@}
 
   };
- 
-  
+
+
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_1988_S1865951> plugin_CDF_1988_S1865951;

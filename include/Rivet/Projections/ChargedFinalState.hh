@@ -16,11 +16,11 @@ namespace Rivet {
   class ChargedFinalState : public FinalState {
 
   public:
-    
+ 
     /// @name Constructors
     //@{
     ChargedFinalState(const FinalState& fsp);
-    
+ 
     ChargedFinalState(double mineta = -MAXRAPIDITY,
                       double maxeta =  MAXRAPIDITY,
                       double minpt  =  0.0*GeV);
@@ -33,15 +33,15 @@ namespace Rivet {
 
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
   };
 
-  
+
 }
 
 

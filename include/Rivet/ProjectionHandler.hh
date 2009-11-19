@@ -33,7 +33,7 @@ namespace Rivet {
   /// as allowing analysis classes to contain fewer data members (since
   /// projections are now better accessed by name than by storing a data member
   /// reference or pointer).
-  /// 
+  ///
   /// The core of the ProjectionHandler design is that it is a singleton class,
   /// essentially a wrapper around a map of @c Projection*, indexed by a hash of
   /// the registering object and its local name for the registered projection.
@@ -83,7 +83,7 @@ namespace Rivet {
 
 
   private:
-    
+ 
     /// @name Construction. */
     //@{
     /// The standard constructor.
@@ -106,13 +106,13 @@ namespace Rivet {
     /// @name Projection registration
     //@{
     /// Attach and retrieve a projection as a reference.
-    const Projection& registerProjection(const ProjectionApplier& parent, 
-                                         const Projection& proj, 
+    const Projection& registerProjection(const ProjectionApplier& parent,
+                                         const Projection& proj,
                                          const string& name);
 
     /// Attach and retrieve a projection as a pointer.
-    const Projection* registerProjection(const ProjectionApplier& parent, 
-                                         const Projection* proj, 
+    const Projection* registerProjection(const ProjectionApplier& parent,
+                                         const Projection* proj,
                                          const string& name);
     //@}
 
@@ -126,20 +126,20 @@ namespace Rivet {
     /// @returns 0 if no equivalent projection found
     const Projection* _getEquiv(const Projection& proj) const;
 
-    /// Make a clone of proj, copying across child references from the original 
-    const Projection* _clone(const ProjectionApplier& parent, 
+    /// Make a clone of proj, copying across child references from the original
+    const Projection* _clone(const ProjectionApplier& parent,
                              const Projection& proj);
 
     /// Internal function to do the registering
-    const Projection* _register(const ProjectionApplier& parent, 
+    const Projection* _register(const ProjectionApplier& parent,
                                 const Projection& proj,
                                 const string& name);
 
     /// Get a string dump of the current ProjHandler structure
     string _getStatus() const;
-    
+ 
     /// Check that this parent projection doesn't already use this name
-    bool _checkDuplicate(const ProjectionApplier& parent, 
+    bool _checkDuplicate(const ProjectionApplier& parent,
                          const Projection& proj,
                          const string& name) const;
 
@@ -157,7 +157,7 @@ namespace Rivet {
     /// problems and there is no need to do so.
     const Projection& getProjection(const ProjectionApplier& parent,
                                     const string& name) const;
-    
+ 
     /// Get child projections for the given parent. By default this will just
     /// return the projections directly contained by the @a parent, but the @a
     /// depth argument can be changed to do a deep retrieval, which will recurse

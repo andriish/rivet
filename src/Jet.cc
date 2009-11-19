@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  Jet::Jet() 
+  Jet::Jet()
     : ParticleBase()
   {
     clear();
@@ -33,7 +33,7 @@ namespace Rivet {
     _resetCaches();
     return *this;
   }
-    
+ 
 
   bool Jet::containsParticle(const Particle& particle) const {
     const int barcode = particle.genParticle().barcode();
@@ -150,7 +150,7 @@ namespace Rivet {
     return momentum().eta();
 
   }
-  
+
 
   double Jet::phi() const {
     return momentum().phi();
@@ -162,13 +162,13 @@ namespace Rivet {
     return _momentum;
   }
 
-    
-  // FourMomentum& Jet::momentum() { 
+ 
+  // FourMomentum& Jet::momentum() {
   //   _calcMomVector();
   //   return _momentum;
   // }
 
-    
+ 
   double Jet::ptSum() const {
     return momentum().pT();
   }
@@ -184,8 +184,8 @@ namespace Rivet {
     _okPtWeightedEta = false;
     _okMomentum = false;
   }
-  
-  
+
+
   void Jet::_calcMomVector() const {
     if (!_okMomentum) {
       _momentum = accumulate(begin(), end(), FourMomentum());
@@ -210,6 +210,6 @@ namespace Rivet {
       _okPtWeightedPhi = true;
     }
   }
-  
-  
+
+
 }

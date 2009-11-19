@@ -10,7 +10,7 @@ using namespace AIDA;
 namespace Rivet {
 
 
-  AnalysisHandler::AnalysisHandler(string basefilename, 
+  AnalysisHandler::AnalysisHandler(string basefilename,
                                    string runname, HistoFormat storetype)
     : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0) {
     _theAnalysisFactory = createAnalysisFactory();
@@ -18,20 +18,20 @@ namespace Rivet {
   }
 
 
-  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename, 
+  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename,
                                    string runname, HistoFormat storetype)
-    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0), 
+    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0),
       _theAnalysisFactory(&afac) {
     _setupFactories(basefilename, storetype);
   }
-  
-  
+
+
   AnalysisHandler::~AnalysisHandler()
   {
   }
 
 
-  Log& AnalysisHandler::getLog() { 
+  Log& AnalysisHandler::getLog() {
     return Log::getLog("Rivet.Analysis.Handler");
   }
 
@@ -53,7 +53,7 @@ namespace Rivet {
     }
     getLog() << Log::DEBUG << "Analysis handler initialised" << endl;
   }
-  
+
 
   void AnalysisHandler::analyze(const GenEvent& ge) {
     Event event(ge);
@@ -141,7 +141,7 @@ namespace Rivet {
       }
     }
     foreach (Analysis* a, todelete) {
-      getLog() << Log::WARN << "Removing incompatible analysis '" 
+      getLog() << Log::WARN << "Removing incompatible analysis '"
                << a->name() << "'" << endl;
       _analyses.erase(a);
       delete a;
@@ -171,7 +171,7 @@ namespace Rivet {
   void AnalysisHandler::commitData() {
     tree().commit();
   }
-  
+
 
   void AnalysisHandler::_normalizeTree(ITree& tree) {
     Log& log = getLog();
@@ -180,7 +180,7 @@ namespace Rivet {
     const string tmpdir = "/RivetNormalizeTmp";
     tree.mkdir(tmpdir);
     foreach (const string& path, paths) {
-      
+   
       IManagedObject* hobj = tree.find(path);
       if (hobj) {
         IHistogram1D* histo = dynamic_cast<IHistogram1D*>(hobj);
@@ -215,21 +215,21 @@ namespace Rivet {
         }
 
       }
-      
+   
     }
     tree.rmdir(tmpdir);
   }
-  
-  
+
+
   string AnalysisHandler::runName() const { return _runname; }
   size_t AnalysisHandler::numEvents() const { return _numEvents; }
   double AnalysisHandler::sumOfWeights() const { return _sumOfWeights; }
-  
+
   void AnalysisHandler::setSumOfWeights(const double& sum) {
     _sumOfWeights=sum;
   }
-  
-  
+
+
   std::vector<std::string> AnalysisHandler::analysisNames() {
     std::vector<std::string> rtn;
     foreach (Analysis* a, _analyses) {
@@ -237,8 +237,8 @@ namespace Rivet {
     }
     return rtn;
   }
-  
-  
+
+
   AnalysisHandler& AnalysisHandler::addAnalyses(const std::vector<std::string>& analysisnames) {
     foreach (const string& aname, analysisnames) {
       //getLog() << Log::DEBUG << "Adding analysis '" << aname << "'" << endl;
@@ -246,37 +246,37 @@ namespace Rivet {
     }
     return *this;
   }
-  
-  
+
+
   AnalysisHandler& AnalysisHandler::removeAnalyses(const std::vector<std::string>& analysisnames) {
     foreach (const string& aname, analysisnames) {
       removeAnalysis(aname);
     }
     return *this;
   }
-  
-  
-  
+
+
+
   AIDA::IAnalysisFactory& AnalysisHandler::analysisFactory() {
     return *_theAnalysisFactory;
   }
-  
-  
+
+
   AIDA::ITree& AnalysisHandler::tree() {
     return *_theTree;
   }
-  
-  
+
+
   AIDA::IHistogramFactory& AnalysisHandler::histogramFactory() {
     return *_theHistogramFactory;
   }
-  
-  
+
+
   AIDA::IDataPointSetFactory& AnalysisHandler::datapointsetFactory() {
     return *_theDataPointSetFactory;
   }
-  
-  
+
+
   bool AnalysisHandler::needCrossSection() const {
     bool rtn = false;
     foreach (const Analysis* a, _analyses) {
@@ -285,8 +285,8 @@ namespace Rivet {
     }
     return rtn;
   }
-  
-  
+
+
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs) {
     foreach (Analysis* a, _analyses) {
       a->setCrossSection(xs);

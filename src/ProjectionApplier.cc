@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  // NB. Allow proj registration in constructor by default -- explicitly disable for Analysis 
+  // NB. Allow proj registration in constructor by default -- explicitly disable for Analysis
   ProjectionApplier::ProjectionApplier()
     : _allowProjReg(true),
       _projhandler(ProjectionHandler::create())
@@ -18,22 +18,22 @@ namespace Rivet {
   }
 
 
-  const Projection& ProjectionApplier::_applyProjection(const Event& evt, 
+  const Projection& ProjectionApplier::_applyProjection(const Event& evt,
                                                         const string& name) const {
     return evt.applyProjection(getProjection(name));
   }
-  
 
-  const Projection& ProjectionApplier::_applyProjection(const Event& evt, 
+
+  const Projection& ProjectionApplier::_applyProjection(const Event& evt,
                                                         const Projection& proj) const {
     return evt.applyProjection(proj);
   }
 
 
-  const Projection& ProjectionApplier::_addProjection(const Projection& proj, 
+  const Projection& ProjectionApplier::_addProjection(const Projection& proj,
                                                       const std::string& name) {
     if (!_allowProjReg) {
-      getLog() << Log::ERROR << "Trying to register projection '" 
+      getLog() << Log::ERROR << "Trying to register projection '"
                << proj.name() << "' before init phase in '" << this->name() << "'." << endl;
       exit(2);
     }

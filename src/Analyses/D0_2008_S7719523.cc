@@ -11,7 +11,7 @@ namespace Rivet {
 
 
   /// @brief Measurement of isolated gamma + jet + X differential cross-sections
-  /// Inclusive isolated gamma + jet cross-sections, differential in pT(gamma), for 
+  /// Inclusive isolated gamma + jet cross-sections, differential in pT(gamma), for
   /// various photon and jet rapidity bins.
   ///
   /// @author Andy Buckley
@@ -29,25 +29,25 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-    } 
-    
+    }
+ 
     //@}
 
 
     /// @name Analysis methods
-    //@{ 
-    
+    //@{
+ 
     /// Set up projections and book histograms
     void init() {
       // General FS
       FinalState fs(-5.0, 5.0);
       addProjection(fs, "FS");
-      
+   
       // Get leading photon
       LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
       photonfs.addParticleId(PHOTON);
       addProjection(photonfs, "LeadingPhoton");
-      
+   
       // FS for jets excludes the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
@@ -57,12 +57,12 @@ namespace Rivet {
       _h_central_same_cross_section = bookHistogram1D(1, 1, 1);
       _h_central_opp_cross_section  = bookHistogram1D(2, 1, 1);
       _h_forward_same_cross_section = bookHistogram1D(3, 1, 1);
-      _h_forward_opp_cross_section  = bookHistogram1D(4, 1, 1); 
+      _h_forward_opp_cross_section  = bookHistogram1D(4, 1, 1);
     }
-    
-    
+ 
+ 
 
-    /// Do the analysis 
+    /// Do the analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
 
@@ -77,13 +77,13 @@ namespace Rivet {
         getLog() << Log::DEBUG << "Leading photon has pT < 30 GeV: " << photon.pT()/GeV << endl;
         vetoEvent;
       }
-      
+   
       // Get all charged particles
       const FinalState& fs = applyProjection<FinalState>(event, "JetFS");
       if (fs.empty()) {
         vetoEvent;
       }
-      
+   
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       const double egamma = photon.E();
       double econe = 0.0;
@@ -97,8 +97,8 @@ namespace Rivet {
           }
         }
       }
-      
-      
+   
+   
       /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
       FastJets jetpro(fs, FastJets::D0ILCONE, 0.7); //< @todo This fs arg makes no sense!
       jetpro.calc(fs.particles());
@@ -111,29 +111,29 @@ namespace Rivet {
           isolated_jets.push_back(j);
         }
       }
-      
-      getLog() << Log::DEBUG << "Num jets after isolation and pT cuts = " 
+   
+      getLog() << Log::DEBUG << "Num jets after isolation and pT cuts = "
                << isolated_jets.size() << endl;
       if (isolated_jets.empty()) {
         getLog() << Log::DEBUG << "No jets pass cuts" << endl;
         vetoEvent;
       }
-      
+   
       // Sort by pT and get leading jet
       sort(isolated_jets.begin(), isolated_jets.end(), cmpJetsByPt);
       const FourMomentum leadingJet = isolated_jets.front().momentum();
       int photon_jet_sign = sign( leadingJet.rapidity() * photon.rapidity() );
-      
+   
       // Veto if leading jet is outside plotted rapidity regions
       const double abs_y1 = fabs(leadingJet.rapidity());
       if (inRange(abs_y1, 0.8, 1.5) || abs_y1 > 2.5) {
-        getLog() << Log::DEBUG << "Leading jet falls outside acceptance range; |y1| = " 
+        getLog() << Log::DEBUG << "Leading jet falls outside acceptance range; |y1| = "
                  << abs_y1 << endl;
         vetoEvent;
       }
-      
+   
       // Fill histos
-      if (fabs(leadingJet.rapidity()) < 0.8) { 
+      if (fabs(leadingJet.rapidity()) < 0.8) {
         if (photon_jet_sign >= 1) {
           _h_central_same_cross_section->fill(photon.pT(), weight);
         } else {
@@ -143,29 +143,29 @@ namespace Rivet {
         if (photon_jet_sign >= 1) {
           _h_forward_same_cross_section->fill(photon.pT(), weight);
         } else {
-          _h_forward_opp_cross_section->fill(photon.pT(), weight); 
+          _h_forward_opp_cross_section->fill(photon.pT(), weight);
         }
       }
-      
+   
     }
-    
-    
-    
+ 
+ 
+ 
     /// Finalize
     void finalize() {
       const double lumi_gen = sumOfWeights()/crossSection();
       const double dy_photon = 2.0;
       const double dy_jet_central = 1.6;
       const double dy_jet_forward = 2.0;
-      
+   
       // Cross-section ratios (6 plots)
       // Central/central and forward/forward ratios
       AIDA::IHistogramFactory& hf = histogramFactory();
       const string dir = histoDir();
-      
+   
       hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
       hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
-      
+   
       // Central/forward ratio combinations
       hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section,
                 *_h_forward_same_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
@@ -175,14 +175,14 @@ namespace Rivet {
                 *_h_forward_opp_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
       hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,
                 *_h_forward_opp_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
-      
+   
       // Use generator cross section for remaining histograms
       scale(_h_central_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
       scale(_h_central_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
       scale(_h_forward_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
       scale(_h_forward_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
     }
-    
+ 
     //@}
 
   private:
@@ -197,9 +197,9 @@ namespace Rivet {
 
   };
 
-    
-    
+ 
+ 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2008_S7719523> plugin_D0_2008_S7719523;
-  
+
 }

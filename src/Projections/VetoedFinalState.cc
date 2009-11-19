@@ -37,12 +37,12 @@ namespace Rivet {
     _theParticles.reserve(fs.particles().size());
     foreach (const Particle& p, fs.particles()) {
       if (getLog().isActive(Log::DEBUG)) {
-        vector<long> codes; 
+        vector<long> codes;
         for (VetoDetails::const_iterator code = _vetoCodes.begin(); code != _vetoCodes.end(); ++code) {
           codes.push_back(code->first);
         }
         const string codestr = "{ " + join(codes) + " }";
-        getLog() << Log::DEBUG << p.pdgId() << " vs. veto codes = " 
+        getLog() << Log::DEBUG << p.pdgId() << " vs. veto codes = "
                  << codestr << " (" << codes.size() << ")" << endl;
       }
       const long pdgid = p.pdgId();
@@ -63,7 +63,7 @@ namespace Rivet {
         getLog() << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
         debugline << "with PDG code = " << pdgid << " pT = " << p.momentum().pT();
-        if (pt < ptrange.first || pt > ptrange.second) { 
+        if (pt < ptrange.first || pt > ptrange.second) {
           getLog() << Log::DEBUG << "Storing " << debugline.str() << endl;
           _theParticles.push_back(p);
         } else {
@@ -71,7 +71,7 @@ namespace Rivet {
         }
       }
     }
-  
+
     set<ParticleVector::iterator> toErase;
     for (set<int>::iterator nIt = _nCompositeDecays.begin();
          nIt != _nCompositeDecays.end() && !_theParticles.empty(); ++nIt) {
@@ -81,15 +81,15 @@ namespace Rivet {
       start.insert(_theParticles.begin());
       oldMasses.insert(pair<set<ParticleVector::iterator>, FourMomentum>
                        (start, _theParticles.begin()->momentum()));
-      
+   
       for (int nParts = 1; nParts != *nIt; ++nParts) {
         for (map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
              mIt != oldMasses.end(); ++mIt) {
           ParticleVector::iterator pStart = *(mIt->first.rbegin());
-          for (ParticleVector::iterator pIt = pStart + 1; pIt != _theParticles.end(); ++pIt) { 
+          for (ParticleVector::iterator pIt = pStart + 1; pIt != _theParticles.end(); ++pIt) {
             FourMomentum cMom = mIt->second + pIt->momentum();
             set<ParticleVector::iterator> pList(mIt->first);
-            pList.insert(pIt);   
+            pList.insert(pIt);
             newMasses[pList] = cMom;
           }
         }
@@ -107,18 +107,18 @@ namespace Rivet {
             if (mass < massRange.second && mass > massRange.first) {
               for (set<ParticleVector::iterator>::iterator lIt = mIt->first.begin();
                    lIt != mIt->first.end(); ++lIt) {
-                toErase.insert(*lIt);                
+                toErase.insert(*lIt);
               }
             }
           }
         }
       }
     }
-    
+ 
     for (set<ParticleVector::iterator>::reverse_iterator p = toErase.rbegin(); p != toErase.rend(); ++p) {
       _theParticles.erase(*p);
-    }    
-    
+    }
+ 
     for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
       for (ParticleVector::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
         GenVertex *startVtx=((*p).genParticle()).production_vertex();
@@ -127,7 +127,7 @@ namespace Rivet {
         if (startVtx!=0) {
           for (GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
                pIt != startVtx->particles_end(HepMC::ancestors) && !veto; ++pIt) {
-            
+         
             if (*vIt == (*pIt)->pdg_id()) {
               veto = true;
               p = _theParticles.erase(p);
@@ -147,7 +147,7 @@ namespace Rivet {
         bool found = false;
         for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
           if (!ipart->hasGenParticle()) continue;
-          getLog() << Log::DEBUG << "Comparing barcode " << icheck->genParticle().barcode() << " with veto particle " << ipart->genParticle().barcode() << endl; 
+          getLog() << Log::DEBUG << "Comparing barcode " << icheck->genParticle().barcode() << " with veto particle " << ipart->genParticle().barcode() << endl;
           if (ipart->genParticle().barcode() == icheck->genParticle().barcode()){
             found = true;
             break;
@@ -160,6 +160,6 @@ namespace Rivet {
       }	
     }
   }
-  
+
 
 }

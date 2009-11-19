@@ -9,7 +9,7 @@ namespace Rivet {
 
   Sphericity::Sphericity(const FinalState& fsp, double rparam)
     : _regparam(rparam)
-  { 
+  {
     setName("Sphericity");
     addProjection(fsp, "FS");
     clear();
@@ -71,7 +71,7 @@ namespace Rivet {
 
     // Return (with "safe nonsense" sphericity params) if there are no final state particles.
     if (fsmomenta.empty()) {
-      getLog() << Log::DEBUG << "No particles in final state..." << endl; 
+      getLog() << Log::DEBUG << "No particles in final state..." << endl;
       clear();
       return;
     }
@@ -95,7 +95,7 @@ namespace Rivet {
         for (size_t j = 0; j < 3; ++j) {
           mMomPart.set(i,j, p3[i]*p3[j]);
         }
-      } 
+      }
       mMom += regfactor * mMomPart;
     }
 
@@ -112,12 +112,12 @@ namespace Rivet {
       getLog() << Log::ERROR << "[1,2] vs. [2,1]: " << mMom.get(1,2) << ", " << mMom.get(2,1) << endl;
     }
     // If not symmetric, something's wrong (we made sure the error msg appeared first).
-    assert(isSymm); 
+    assert(isSymm);
 
     // Diagonalize momentum matrix.
     const EigenSystem<3> eigen3 = diagonalize(mMom);
     getLog() << Log::DEBUG << "Diag momentum tensor = " << endl << eigen3.getDiagMatrix() << endl;
-    
+ 
     // Reset and set eigenvalue/vector parameters.
     _lambdas.clear();
     _sphAxes.clear();
@@ -129,12 +129,12 @@ namespace Rivet {
     }
 
     // Debug output.
-    getLog() << Log::DEBUG << "Lambdas = (" 
+    getLog() << Log::DEBUG << "Lambdas = ("
              << lambda1() << ", " << lambda2() << ", " << lambda3() << ")" << endl;
     getLog() << Log::DEBUG << "Sum of lambdas = " << lambda1() + lambda2() + lambda3() << endl;
-    getLog() << Log::DEBUG << "Vectors = " 
+    getLog() << Log::DEBUG << "Vectors = "
              << sphericityAxis() << ", "
-             << sphericityMajorAxis() << ", " 
+             << sphericityMajorAxis() << ", "
              << sphericityMinorAxis() << ")" << endl;
   }
 

@@ -117,7 +117,7 @@ namespace LWH {
     /**
      * Get the Histogram's dimension.
      * @return The Histogram's dimension.
-     */ 
+     */
     int dimension() const {
       return 1;
     }
@@ -139,7 +139,7 @@ namespace LWH {
      * Get the number of in-range entries in the Histogram.
      * @return The number of in-range entries.
      *
-     */ 
+     */
     int entries() const {
       int si = 0;
       for ( int i = 2; i < ax->bins() + 2; ++i ) si += sum[i];
@@ -249,7 +249,7 @@ namespace LWH {
     }
 
     /**
-     * The weighted mean of a bin. 
+     * The weighted mean of a bin.
      * @param index The bin number (0...N-1) or OVERFLOW or UNDERFLOW.
      * @return      The mean of the corresponding bin.
      */
@@ -260,7 +260,7 @@ namespace LWH {
     };
 
     /**
-     * The weighted RMS of a bin. 
+     * The weighted RMS of a bin.
      * @param index The bin number (0...N-1) or OVERFLOW or UNDERFLOW.
      * @return      The RMS of the corresponding bin.
      */
@@ -274,7 +274,7 @@ namespace LWH {
      * Number of entries in the corresponding bin (ie the number of
      * times fill was called for this bin).
      * @param index The bin number (0...N-1) or OVERFLOW or UNDERFLOW.
-     * @return      The number of entries in the corresponding bin. 
+     * @return      The number of entries in the corresponding bin.
      */
     int binEntries(int index) const {
       return sum[index + 2];
@@ -427,7 +427,7 @@ namespace LWH {
     /**
      * Not implemented in LWH.
      * @return null pointer always.
-     */ 
+     */
     void * cast(const std::string &) const {
       return 0;
     }
@@ -511,15 +511,15 @@ namespace LWH {
         double* bins = new double[nbins+1];
         for (int i=0; i<nbins; ++i) {
       bins[i] = vax->binEdges(i).first;
-        } 
-        bins[nbins] = vax->binEdges(nbins-1).second; //take last bin right border 
+        }
+        bins[nbins] = vax->binEdges(nbins-1).second; //take last bin right border
         hist1d = new TH1D(name.c_str(), title().c_str(), nbins, bins);
         delete bins;
       }
 
 
       double entries = 0;
-      for ( int i = 0; i < nbins + 2; ++i ) { 
+      for ( int i = 0; i < nbins + 2; ++i ) {
         if ( sum[i] ) {
           //i==0: underflow->RootBin(0), i==1: overflow->RootBin(NBins+1)
           entries = entries + sum[i];

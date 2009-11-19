@@ -14,12 +14,12 @@ namespace Rivet {
     if (!_thePVertex) {
       // Since no signal vertices are filled in existing Fortran & C++ MC's,
       // the decay vertex from first vertex in event with 2 incoming particles
-      
+   
       HepMC::GenEvent::vertex_const_iterator vIt = e.genEvent().vertices_begin();
       while((*vIt)->particles_in_size() != 2 && vIt != e.genEvent().vertices_end()){
         ++vIt;
       }
-      
+   
       if(vIt != e.genEvent().vertices_end()) _thePVertex = *vIt;
     }
     assert(_thePVertex);

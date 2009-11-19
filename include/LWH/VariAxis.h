@@ -72,7 +72,7 @@ public:
     return (--last)->first;
   }
 
-  /** 
+  /**
    * The number of bins (excluding underflow and overflow) on the IAxis.
    * @return The IAxis's number of bins.
    *
@@ -119,7 +119,7 @@ public:
    * @return The upper edge of the corresponding bin; for the overflow
    * bin this is <tt>Double.POSITIVE_INFINITY</tt>.
    *
-   */ 
+   */
   double binUpperEdge(int index) const {
     return binEdges(index).second;
   }
@@ -130,7 +130,7 @@ public:
    * or OVERFLOW or UNDERFLOW.
    * @return      The width of the corresponding bin.
    *
-   */ 
+   */
   double binWidth(int index) const {
     std::pair<double,double> edges = binEdges(index);
     return edges.second - edges.first;

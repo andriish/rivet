@@ -27,8 +27,8 @@ namespace Rivet {
     const PVertex& pvtx = applyProjection<PVertex>(e, "PV");
     const Vector3 pvpos = pvtx.position();
     const ChargedFinalState& chfs = applyProjection<ChargedFinalState>(e, "FS");
-    
-    // Produce vector of vertices, each containing a vector of all charged 
+ 
+    // Produce vector of vertices, each containing a vector of all charged
     // final state particles belonging to this vertex
     typedef map<GenVertex*,ParticleVector> VtxPartsMap;
     VtxPartsMap vtxparts;
@@ -39,7 +39,7 @@ namespace Rivet {
       HepMC::GenVertex* pvtx = p.genParticle().production_vertex();
       vtxparts[pvtx].push_back(p);
     }
-  
+
     // Check if jets are tagged, by means of selected vertices fulfilling track criteria
     _taggedjets.clear();
     for (VtxPartsMap::const_iterator vp = vtxparts.begin(); vp != vtxparts.end(); ++vp) {
@@ -53,31 +53,31 @@ namespace Rivet {
         }
       }
     }
-    
+ 
   }
-  
-  
-  
-  /// Analysis dependent cuts on vertex tracks in SVertex projection 
-  /// Since the analysis specific cuts are very complex, they are not 
+
+
+
+  /// Analysis dependent cuts on vertex tracks in SVertex projection
+  /// Since the analysis specific cuts are very complex, they are not
   /// implemented in the projection and are instead passed via a function (object).
-  /// SVertex member function implementation below 
+  /// SVertex member function implementation below
   /// in: reference to instance of SVertex projection, ParticleVector of
   ///     vertex to be analyzed, primary (Gen)Vertex
-  /// out: FourMomentum = visible Momentum of vertex (selected tracks), 
-  /// return bool: cuts passed? 1 : 0 
+  /// out: FourMomentum = visible Momentum of vertex (selected tracks),
+  /// return bool: cuts passed? 1 : 0
   /// @todo Move this into the projection concrete class.
-  bool SVertex::_applyVtxTrackCuts(const ParticleVector& vtxparts, 
-                                   const Vector3& pvtxpos, 
-                                   FourMomentum vtxVisMom) 
+  bool SVertex::_applyVtxTrackCuts(const ParticleVector& vtxparts,
+                                   const Vector3& pvtxpos,
+                                   FourMomentum vtxVisMom)
   {
     // Check vertex final state charged particles, if fulfilling track criteria
-    size_t pass1trk1pTdcaSig25(0), pass1trk05pTdcaSig25(0), 
+    size_t pass1trk1pTdcaSig25(0), pass1trk05pTdcaSig25(0),
       pass2trk15pTdcaSig3(0), pass2trk1pTdcaSig3(0);
-    
+ 
     foreach (const Particle& vp, vtxparts) {
       const double IPsig = get2dClosestApproach(vp.genParticle(), pvtxpos) / _IPres;
-      
+   
       // Update "visible momentum" vector (returned by reference).
       if (vp.momentum().pT() > 0.5) {
         vtxVisMom += vp.momentum();
@@ -91,7 +91,7 @@ namespace Rivet {
       if (vtxparts.size() >= 2 && IPsig > 3.) {
         if (vp.momentum().pT() > 1.5) pass2trk15pTdcaSig3++;
         else if (vp.momentum().pT() > 1.0) pass2trk1pTdcaSig3++;
-      } 
+      }
     }
 
     // Combine info from passes to make yes/no decision about whether this is significant:
@@ -100,6 +100,6 @@ namespace Rivet {
     return false;
   }
 
-  
- 
+
+
 }

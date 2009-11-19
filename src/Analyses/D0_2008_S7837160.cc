@@ -23,25 +23,25 @@ namespace Rivet {
     {
       // Run II W charge asymmetry
       setBeams(PROTON, ANTIPROTON);
-    } 
-    
-    
+    }
+ 
+ 
     /// @name Analysis methods
-    //@{ 
-    
+    //@{
+ 
     // Book histograms and set up projections
     void init() {
       // Leading electrons
       FinalState fs(-5.0, 5.0);
-      
+   
       LeadingParticlesFinalState efs(fs);
       efs.addParticleId(ELECTRON).addParticleId(POSITRON);
       addProjection(efs, "WDecayE");
-      
+   
       LeadingParticlesFinalState nufs(fs);
       nufs.addParticleId(NU_E).addParticleId(NU_EBAR);
       addProjection(nufs, "WDecayNu");
-      
+   
       // Final state w/o electron
       IdentifiedFinalState ifs(fs);
       ifs.acceptId(PHOTON);
@@ -56,24 +56,24 @@ namespace Rivet {
       _h_dsigplus_deta_25     = bookHistogram1D("/dsigplus_deta_25", 10, 0.0, 3.2);
       _h_dsigminus_deta_25    = bookHistogram1D("/dsigminus_deta_25", 10, 0.0, 3.2);
     }
-    
-    
-    /// Do the analysis 
+ 
+ 
+    /// Do the analysis
     void analyze(const Event & event) {
       const double weight = event.weight();
-      
+   
       /// @todo Use WFinder projection (includes photon summing)
 
       // Find the W decay products
       const FinalState& efs = applyProjection<FinalState>(event, "WDecayE");
       const FinalState& nufs = applyProjection<FinalState>(event, "WDecayNu");
-      
+   
       // If there is no e/nu_e pair in the FinalState, skip the event
       if (efs.particles().size() < 1 || nufs.particles().size() < 1) {
         getLog() << Log::DEBUG << "No e/nu_e pair found " << endl;
         vetoEvent;
       }
-      
+   
       // Identify leading nu and electron
       ParticleVector es = efs.particles();
       sort(es.begin(), es.end(), cmpParticleByEt);
@@ -82,14 +82,14 @@ namespace Rivet {
       ParticleVector nus = nufs.particles();
       sort(nus.begin(), nus.end(), cmpParticleByEt);
       Particle leading_nu = nus[0];
-      
+   
       // Require that the neutrino has Et > 25 GeV
       const FourMomentum nu = leading_nu.momentum();
       if (nu.Et() < 25*GeV) {
         getLog() << Log::DEBUG << "Neutrino fails Et cut" << endl;
         vetoEvent;
       }
-      
+   
       // Get "raw" electron 4-momentum and add back in photons that could have radiated from the electron
       FourMomentum e = leading_e.momentum();
       const ParticleVector photons = applyProjection<FinalState>(event, "PhotonFS").particles();
@@ -101,13 +101,13 @@ namespace Rivet {
           e += p.momentum();
         }
       }
-      
+   
       // Require that the electron has Et > 25 GeV
       if (e.Et() < 25*GeV) {
         getLog() << Log::DEBUG << "Electron fails Et cut" << endl;
         vetoEvent;
-      }      
-      
+      }
+   
       const double eta_e = fabs(e.pseudorapidity());
       const double et_e = e.Et();
       const int chg_e = PID::threeCharge(leading_e.pdgId());
@@ -133,13 +133,13 @@ namespace Rivet {
         _h_dsigplus_deta_25->fill(eta_e, weight);
       }
     }
-    
-    
+ 
+ 
     /// Finalize
     void finalize() {
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
       AIDA::IHistogramFactory& hf = histogramFactory();
-      
+   
       IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
       IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
       assert(num25_35 && denom25_35);
@@ -169,7 +169,7 @@ namespace Rivet {
       hf.destroy(_h_dsigplus_deta_25);
       hf.destroy(_h_dsigminus_deta_25);
     }
-    
+ 
     //@}
 
 
@@ -183,10 +183,10 @@ namespace Rivet {
     //@}
 
   };
-    
-  
-  
+ 
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2008_S7837160> plugin_D0_2008_S7837160;
-  
+
 }

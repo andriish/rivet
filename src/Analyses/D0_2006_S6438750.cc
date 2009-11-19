@@ -24,19 +24,19 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
-    } 
-    
+    }
+ 
     //@}
 
 
     /// @name Analysis methods
-    //@{ 
+    //@{
 
     void init() {
       // General FS for photon isolation
       FinalState fs(-1.5, 1.5);
       addProjection(fs, "AllFS");
-      
+   
       // Get leading photon
       LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
       photonfs.addParticleId(PHOTON);
@@ -45,9 +45,9 @@ namespace Rivet {
       // Book histograms
       _h_pTgamma = bookHistogram1D(1, 1, 1);
     }
-    
+ 
 
-    /// Do the analysis 
+    /// Do the analysis
     void analyze(const Event& event) {
 
       // Get the photon
@@ -61,13 +61,13 @@ namespace Rivet {
         getLog() << Log::DEBUG << "Leading photon has pT < 23 GeV: " << photon.pT()/GeV << endl;
         vetoEvent;
       }
-      
+   
       // Get all other particles
       const FinalState& fs = applyProjection<FinalState>(event, "AllFS");
       if (fs.empty()) {
         vetoEvent;
       }
-      
+   
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       const double egamma = photon.E();
       // Energy inside R = 0.2
@@ -89,7 +89,7 @@ namespace Rivet {
         getLog() << Log::DEBUG << "Vetoing event because photon is insufficiently isolated" << endl;
         vetoEvent;
       }
-      
+   
       // Veto if leading jet is outside plotted rapidity regions
       const double eta_gamma = fabs(photon.pseudorapidity());
       if (eta_gamma > 0.9) {
@@ -97,24 +97,24 @@ namespace Rivet {
                  << "|eta_gamma| = " << eta_gamma << endl;
         vetoEvent;
       }
-      
+   
       // Fill histo
       const double weight = event.weight();
-      _h_pTgamma->fill(photon.pT(), weight); 
+      _h_pTgamma->fill(photon.pT(), weight);
     }
-    
-    
+ 
+ 
 
     // Finalize
     void finalize() {
       /// @todo Generator cross-section from Pythia gives ~7500, vs. expected 2988!
       //normalize(_h_pTgamma, 2988.4869);
-      
+   
       const double lumi_gen = sumOfWeights()/crossSection();
       // Divide by effective lumi, plus rapidity bin width of 1.8
       scale(_h_pTgamma, 1/lumi_gen * 1/1.8);
     }
-    
+ 
     //@}
 
 

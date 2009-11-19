@@ -58,7 +58,7 @@ namespace Rivet {
 
     InvMassFinalState imfs(fs, std::make_pair(pid, -pid), m2_min, m2_max);
     addProjection(imfs, "IMFS");
-    
+ 
     ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
     addProjection(cphotons, "CPhotons");
 
@@ -91,8 +91,8 @@ namespace Rivet {
     if (cmp != EQUIVALENT) return cmp;
 
     return EQUIVALENT;
-  } 
-  
+  }
+
 
   void ZFinder::project(const Event& e) {
     _theParticles.clear();
@@ -123,6 +123,6 @@ namespace Rivet {
     getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
              << " particles." << endl;
   }
- 
- 
+
+
 }

@@ -12,13 +12,13 @@
 namespace Rivet {
 
 
-  template < typename T, typename C > 
+  template < typename T, typename C >
   class IsolationEstimator {
 
     public:
 
     virtual ~IsolationEstimator(){};
-    
+ 
       virtual double estimate(const T & t, const C & c) const = 0;
 
       virtual int compare(const IsolationEstimator < T, C > *other) const = 0;
@@ -41,7 +41,7 @@ namespace Rivet {
 
   // An estimator for the sum of the pt of the particles in collection C
   // being within radius from t
-  template < class T, class C > 
+  template < class T, class C >
   class PtInConeEstimator : public IsolationEstimator < T, C > {
   public:
     PtInConeEstimator(double radius, double ptmin = 0.0)
@@ -68,15 +68,15 @@ namespace Rivet {
       if (radcmp != 0)
          return radcmp;
        return 0;
-    } 
-    
+    }
+ 
     double radius() const {
       return _radius;
-    } 
-    
+    }
+ 
     double ptMin() const {
       return _ptmin;
-    } 
+    }
   private:
     double _radius;
     double _ptmin;
@@ -85,12 +85,12 @@ namespace Rivet {
 
   // An estimator for the number of particles in collection C
   // being within radius from t
-  template < class T, class C > 
+  template < class T, class C >
   class MultiplicityInConeEstimator : public IsolationEstimator < T, C > {
   public:
     MultiplicityInConeEstimator(double radius, double ptmin = 0.0)
       : _radius(radius), _ptmin(ptmin) {  }
-    
+ 
     virtual double estimate(const T & t, const C & c) const {
       double npart = 0;
       for (typename C::const_iterator ic = c.begin(); ic != c.end(); ++ic) {
@@ -99,7 +99,7 @@ namespace Rivet {
         if (deltaR(t.momentum(), ic->momentum()) < _radius) {
           npart++;
         }
-      } 
+      }
       return npart;
     }
 
@@ -112,16 +112,16 @@ namespace Rivet {
       if (radcmp != 0)
          return radcmp;
        return 0;
-    } 
-    
+    }
+ 
     double radius() const {
       return _radius;
-    } 
-    
+    }
+ 
     double ptMin() const {
       return _ptmin;
-    } 
-    
+    }
+ 
   private:
     double _radius;
     double _ptmin;
@@ -140,7 +140,7 @@ namespace Rivet {
             typedef IsolationEstimator<TYPE1, TYPE2> estimatorhelper;
   };
 
- 
+
 }
 
 #endif

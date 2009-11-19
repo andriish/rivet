@@ -23,11 +23,11 @@ namespace Rivet {
                                        double minmass, // min inv mass
                                        double maxmass) // max inv mass
     : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass)
-  { 
+  {
     setName("InvMassFinalState");
     addProjection(fsp, "FS");
   }
-  
+
 
   int InvMassFinalState::compare(const Projection& p) const {
     // First compare the final states we are running on
@@ -49,10 +49,10 @@ namespace Rivet {
     int decaycmp = cmp(_decayids, other._decayids);
     if (decaycmp != EQUIVALENT) return decaycmp;
 
-    // Finally compare them as final states 
+    // Finally compare them as final states
     return FinalState::compare(other);
-  } 
-  
+  }
+
 
 
   void InvMassFinalState::project(const Event& e) {
@@ -80,7 +80,7 @@ namespace Rivet {
     }
 
     // Temporary container of selected particles iterators
-    // Useful to compare iterators and avoid double occurrences of the same 
+    // Useful to compare iterators and avoid double occurrences of the same
     // particle in case it matches with more than another particle
     vector<const Particle*> tmp;
 
@@ -98,13 +98,13 @@ namespace Rivet {
             tmp.push_back(i2);
             _theParticles.push_back(*i2);
           }
-          getLog() << Log::DEBUG << "Selecting particles with IDs " 
+          getLog() << Log::DEBUG << "Selecting particles with IDs "
                    << i1->pdgId() << " & " << i2->pdgId()
                    << " and mass = " << v4.mass()/GeV << " GeV" << endl;
         }
       }
     }
-    
+ 
     getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles." << endl;
     if (getLog().isActive(Log::TRACE)) {
       foreach (const Particle& p, _theParticles) {
@@ -113,6 +113,6 @@ namespace Rivet {
       }
     }
   }
- 
- 
+
+
 }

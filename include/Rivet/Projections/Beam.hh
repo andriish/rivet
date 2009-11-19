@@ -11,11 +11,11 @@ namespace Rivet {
 
   /// Project out the incoming beams
   class Beam : public Projection {
-    
+ 
   public:
-    
+ 
     /// The default constructor.
-    Beam() { 
+    Beam() {
       setName("Beam");
     }
 
@@ -34,7 +34,7 @@ namespace Rivet {
 
     /// The pair of beam particle PDG codes in the current collision.
     const BeamPair beamIDs() const {
-      return make_pair(beams().first.pdgId(), 
+      return make_pair(beams().first.pdgId(),
                        beams().second.pdgId());
     }
 
@@ -57,7 +57,7 @@ namespace Rivet {
 
 
   private:
-    /// The beam particles in the current collision in GenEvent 
+    /// The beam particles in the current collision in GenEvent
     ParticlePair _theBeams;
 
   };

@@ -24,17 +24,17 @@ namespace Rivet {
   /// The main virtual functions to be overridden by concrete sub-classes
   /// are project(const Event &) and compare(const Projection &).
   class Projection : public ProjectionApplier {
-    
+ 
   public:
-    
+ 
     /// Event is a friend.
     friend class Event;
-    
+ 
     /// The Cmp specialization for Projection is a friend.
     friend class Cmp<Projection>;
-    
+ 
   public:
-    
+ 
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
@@ -42,14 +42,14 @@ namespace Rivet {
 
     /// Clone on the heap.
     virtual const Projection* clone() const = 0;
-    
+ 
     /// The destructor.
     virtual ~Projection();
     //@}
-    
+ 
 
   public:
-    
+ 
     /// Take the information available in the Event and make the
     /// calculations necessary to obtain the projection. Note that this
     /// function must never be called except inside the
@@ -57,7 +57,7 @@ namespace Rivet {
     virtual void project(const Event& e) = 0;
 
 
-  protected:    
+  protected:
 
     /// This function is used to define a unique ordering between
     /// different Projection objects of the same class. If this is
@@ -79,7 +79,7 @@ namespace Rivet {
     /// whether this should be ordered before or after \a p, or if it is
     /// equivalent with \a p.
     virtual int compare(const Projection& p) const = 0;
-    
+ 
   public:
 
     /// Determine whether this object should be ordered before the object
@@ -88,7 +88,7 @@ namespace Rivet {
     /// objects is used. Otherwise, if the objects are of the same class,
     /// the virtual compare(const Projection &) will be returned.
     bool before(const Projection& p) const;
-    
+ 
     /// Return the BeamConstraints for this projection, not including
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
@@ -106,8 +106,8 @@ namespace Rivet {
       _beamPairs.insert(BeamPair(beam1, beam2));
       return *this;
     }
-    
-    
+ 
+ 
     /// Get a Log object based on the getName() property of the calling projection object.
     Log& getLog() const {
       string logname = "Rivet.Projection." + name();
@@ -129,7 +129,7 @@ namespace Rivet {
     /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
     /// object automatically passed as one of the parent projections.
     Cmp<Projection> mkPCmp(const Projection& otherparent, const std::string& pname) const;
-   
+
 
   private:
 
@@ -139,7 +139,7 @@ namespace Rivet {
 
     /// Beam-type constraint.
     set<BeamPair> _beamPairs;
-    
+ 
   };
 
 
@@ -147,7 +147,7 @@ namespace Rivet {
 
 
 /// Define "less" operator for Projection* containers in terms of the Projection::before virtual method.
-inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projection* x, 
+inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projection* x,
                                                              const Rivet::Projection* y) const {
   return x->before(*y);
 }

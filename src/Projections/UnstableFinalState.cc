@@ -11,8 +11,8 @@ namespace Rivet {
   int UnstableFinalState::compare(const Projection& p) const {
     const UnstableFinalState& other = dynamic_cast<const UnstableFinalState&>(p);
     return \
-      cmp(_etamin, other._etamin) || 
-      cmp(_etamax, other._etamax) || 
+      cmp(_etamin, other._etamin) ||
+      cmp(_etamax, other._etamax) ||
       cmp(_ptmin, other._ptmin);
   }
 
@@ -46,8 +46,8 @@ namespace Rivet {
       }
 
       if (log.isActive(Log::TRACE)) {
-        log << Log::TRACE << std::boolalpha 
-            << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT 
+        log << Log::TRACE << std::boolalpha
+            << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT
             << ", eta = " << eta << ": result = " << passed << endl;
         if (pv!=NULL) {
           for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
@@ -66,7 +66,7 @@ namespace Rivet {
       }
       if (passed) _theParticles.push_back(Particle(**p));
     }
-    log << Log::DEBUG << "Number of final-state particles = " 
+    log << Log::DEBUG << "Number of final-state particles = "
         << _theParticles.size() << endl;
   }
 

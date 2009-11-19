@@ -21,7 +21,7 @@ class IDataPoint;
 
   class IDataPointSet {
 
-  public: 
+  public:
     virtual ~IDataPointSet() { /* nop */; }
     virtual IAnnotation & annotation() = 0;
     virtual const IAnnotation & annotation() const = 0;

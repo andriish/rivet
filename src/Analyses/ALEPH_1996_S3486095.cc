@@ -22,19 +22,19 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ALEPH_1996_S3486095() 
+    ALEPH_1996_S3486095()
       : Analysis("ALEPH_1996_S3486095")
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
       _numChParticles               = 0;
       _weightedTotalPartNum         = 0;
-      _weightedTotalNumPiPlus       = 0;       
-      _weightedTotalNumKPlus        = 0;      
-      _weightedTotalNumP            = 0;     
-      _weightedTotalNumPhoton       = 0;    
-      _weightedTotalNumPi0          = 0;   
-      _weightedTotalNumEta          = 0;  
-      _weightedTotalNumEtaPrime     = 0; 
+      _weightedTotalNumPiPlus       = 0;
+      _weightedTotalNumKPlus        = 0;
+      _weightedTotalNumP            = 0;
+      _weightedTotalNumPhoton       = 0;
+      _weightedTotalNumPi0          = 0;
+      _weightedTotalNumEta          = 0;
+      _weightedTotalNumEtaPrime     = 0;
       _weightedTotalNumK0           = 0;
       _weightedTotalNumLambda0      = 0;
       _weightedTotalNumXiMinus      = 0;
@@ -72,48 +72,48 @@ namespace Rivet {
       _histTMinor       = bookHistogram1D(4, 1, 1);
 
       _histY3           = bookHistogram1D(5, 1, 1);
-      _histHeavyJetMass = bookHistogram1D(6, 1, 1); 
-      _histCParam       = bookHistogram1D(7, 1, 1); 
-      _histOblateness   = bookHistogram1D(8, 1, 1); 
+      _histHeavyJetMass = bookHistogram1D(6, 1, 1);
+      _histCParam       = bookHistogram1D(7, 1, 1);
+      _histOblateness   = bookHistogram1D(8, 1, 1);
 
-      _histScaledMom    = bookHistogram1D(9, 1, 1); 
-      _histRapidityT    = bookHistogram1D(10, 1, 1); 
+      _histScaledMom    = bookHistogram1D(9, 1, 1);
+      _histRapidityT    = bookHistogram1D(10, 1, 1);
 
-      _histPtSIn        = bookHistogram1D(11, 1, 1); 
-      _histPtSOut       = bookHistogram1D(12, 1, 1); 
+      _histPtSIn        = bookHistogram1D(11, 1, 1);
+      _histPtSOut       = bookHistogram1D(12, 1, 1);
 
-      _histLogScaledMom = bookHistogram1D(17, 1, 1); 
+      _histLogScaledMom = bookHistogram1D(17, 1, 1);
 
-      _histChMult       = bookHistogram1D(18, 1, 1); 
-      _histMeanChMult   = bookHistogram1D(19, 1, 1); 
+      _histChMult       = bookHistogram1D(18, 1, 1);
+      _histMeanChMult   = bookHistogram1D(19, 1, 1);
 
-      _histMeanChMultRapt05= bookHistogram1D(20, 1, 1); 
-      _histMeanChMultRapt10= bookHistogram1D(21, 1, 1); 
-      _histMeanChMultRapt15= bookHistogram1D(22, 1, 1); 
-      _histMeanChMultRapt20= bookHistogram1D(23, 1, 1); 
+      _histMeanChMultRapt05= bookHistogram1D(20, 1, 1);
+      _histMeanChMultRapt10= bookHistogram1D(21, 1, 1);
+      _histMeanChMultRapt15= bookHistogram1D(22, 1, 1);
+      _histMeanChMultRapt20= bookHistogram1D(23, 1, 1);
 
 
       // Particle spectra
-      _histMultiPiPlus        = bookHistogram1D(25, 1, 1); 
-      _histMultiKPlus         = bookHistogram1D(26, 1, 1); 
-      _histMultiP             = bookHistogram1D(27, 1, 1); 
-      _histMultiPhoton        = bookHistogram1D(28, 1, 1); 
-      _histMultiPi0           = bookHistogram1D(29, 1, 1); 
-      _histMultiEta           = bookHistogram1D(30, 1, 1); 
-      _histMultiEtaPrime      = bookHistogram1D(31, 1, 1); 
-      _histMultiK0            = bookHistogram1D(32, 1, 1); 
-      _histMultiLambda0       = bookHistogram1D(33, 1, 1); 
-      _histMultiXiMinus       = bookHistogram1D(34, 1, 1); 
-      _histMultiSigma1385Plus = bookHistogram1D(35, 1, 1); 
-      _histMultiXi1530_0      = bookHistogram1D(36, 1, 1); 
-      _histMultiRho           = bookHistogram1D(37, 1, 1); 
-      _histMultiOmega782      = bookHistogram1D(38, 1, 1); 
-      _histMultiKStar892_0    = bookHistogram1D(39, 1, 1); 
-      _histMultiPhi           = bookHistogram1D(40, 1, 1); 
+      _histMultiPiPlus        = bookHistogram1D(25, 1, 1);
+      _histMultiKPlus         = bookHistogram1D(26, 1, 1);
+      _histMultiP             = bookHistogram1D(27, 1, 1);
+      _histMultiPhoton        = bookHistogram1D(28, 1, 1);
+      _histMultiPi0           = bookHistogram1D(29, 1, 1);
+      _histMultiEta           = bookHistogram1D(30, 1, 1);
+      _histMultiEtaPrime      = bookHistogram1D(31, 1, 1);
+      _histMultiK0            = bookHistogram1D(32, 1, 1);
+      _histMultiLambda0       = bookHistogram1D(33, 1, 1);
+      _histMultiXiMinus       = bookHistogram1D(34, 1, 1);
+      _histMultiSigma1385Plus = bookHistogram1D(35, 1, 1);
+      _histMultiXi1530_0      = bookHistogram1D(36, 1, 1);
+      _histMultiRho           = bookHistogram1D(37, 1, 1);
+      _histMultiOmega782      = bookHistogram1D(38, 1, 1);
+      _histMultiKStar892_0    = bookHistogram1D(39, 1, 1);
+      _histMultiPhi           = bookHistogram1D(40, 1, 1);
 
-      _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1); 
+      _histMultiKStar892Plus  = bookHistogram1D(43, 1, 1);
 
-      // Mean multiplicities 
+      // Mean multiplicities
       _histMeanMultiPi0           = bookHistogram1D(44, 1,  2);
       _histMeanMultiEta           = bookHistogram1D(44, 1,  3);
       _histMeanMultiEtaPrime      = bookHistogram1D(44, 1,  4);
@@ -150,15 +150,15 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
 
       // Thrusts
       getLog() << Log::DEBUG << "Calculating thrust" << endl;
       const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
-      _hist1MinusT->fill(1 - thrust.thrust(), weight); 
-      _histTMinor->fill(thrust.thrustMinor(), weight); 
+      _hist1MinusT->fill(1 - thrust.thrust(), weight);
+      _histTMinor->fill(thrust.thrustMinor(), weight);
       _histOblateness->fill(thrust.oblateness(), weight);
 
       // Jets
@@ -172,8 +172,8 @@ namespace Rivet {
       // Sphericities
       getLog() << Log::DEBUG << "Calculating sphericity" << endl;
       const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
-      _histSphericity->fill(sphericity.sphericity(), weight); 
-      _histAplanarity->fill(sphericity.aplanarity(), weight); 
+      _histSphericity->fill(sphericity.sphericity(), weight);
+      _histAplanarity->fill(sphericity.aplanarity(), weight);
 
       // C param
       getLog() << Log::DEBUG << "Calculating Parisi params" << endl;
@@ -204,8 +204,8 @@ namespace Rivet {
         const double mom = mom3.mod();
         const double scaledMom = mom/meanBeamMom;
         const double logInvScaledMom = -std::log(scaledMom);
-        _histLogScaledMom->fill(logInvScaledMom, weight); 
-        _histScaledMom->fill(scaledMom, weight); 
+        _histLogScaledMom->fill(logInvScaledMom, weight);
+        _histScaledMom->fill(scaledMom, weight);
 
         // Get momenta components w.r.t. thrust and sphericity.
         const double momT = dot(thrust.thrustAxis(), mom3);
@@ -228,7 +228,7 @@ namespace Rivet {
         }
         if (std::fabs(rapidityT) <= 2.0)  {
             rapt20 += 1.0;
-        } 
+        }
 
       }
 
@@ -251,7 +251,7 @@ namespace Rivet {
         const double scaledMom = mom/meanBeamMom;
         const double scaledEnergy = energy/meanBeamMom;  // meanBeamMom is approximately beam energy
         switch (id) {
-           case 22: 
+           case 22:
               _histMultiPhoton->fill(-1.*std::log(scaledMom), weight);
               _weightedTotalNumPhoton += weight;
               break;
@@ -356,19 +356,19 @@ namespace Rivet {
 
 
     /// Finalize
-    void finalize() { 
-      // Normalize inclusive single particle distributions to the average number 
+    void finalize() {
+      // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
       const double avgNumParts = _weightedTotalPartNum / sumOfWeights();
 
       normalize(_histPtSIn, avgNumParts);
-      normalize(_histPtSOut, avgNumParts); 
+      normalize(_histPtSOut, avgNumParts);
 
-      normalize(_histRapidityT, avgNumParts); 
-      normalize(_histY3); 
+      normalize(_histRapidityT, avgNumParts);
+      normalize(_histY3);
 
       normalize(_histLogScaledMom, avgNumParts);
-      normalize(_histScaledMom, avgNumParts); 
+      normalize(_histScaledMom, avgNumParts);
 
       // particle spectra
       scale(_histMultiPiPlus        ,1./sumOfWeights());
@@ -410,18 +410,18 @@ namespace Rivet {
       //normalize(_histMultiKStar892Plus  ,_weightedTotalNumKStar892Plus/sumOfWeights());
 
       // event shape
-      normalize(_hist1MinusT); 
-      normalize(_histTMinor); 
-      normalize(_histOblateness); 
+      normalize(_hist1MinusT);
+      normalize(_histTMinor);
+      normalize(_histOblateness);
 
-      normalize(_histSphericity); 
-      normalize(_histAplanarity); 
-      normalize(_histHeavyJetMass);  
-      normalize(_histCParam); 
+      normalize(_histSphericity);
+      normalize(_histAplanarity);
+      normalize(_histHeavyJetMass);
+      normalize(_histCParam);
 
 
-      // mean multiplicities 
-      scale(_histChMult              , 2.0/sumOfWeights()); // taking into account the binwidth of 2 
+      // mean multiplicities
+      scale(_histChMult              , 2.0/sumOfWeights()); // taking into account the binwidth of 2
       scale(_histMeanChMult          , 1.0/sumOfWeights());
       scale(_histMeanChMultRapt05    , 1.0/sumOfWeights());
       scale(_histMeanChMultRapt10    , 1.0/sumOfWeights());
@@ -451,16 +451,16 @@ namespace Rivet {
 
   private:
     /// Store the weighted sums of numbers of charged / charged+neutral
-    /// particles - used to calculate average number of particles for the 
+    /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
     double _weightedTotalPartNum;
-    double _weightedTotalNumPiPlus;       
-    double _weightedTotalNumKPlus;      
-    double _weightedTotalNumP;     
-    double _weightedTotalNumPhoton;    
-    double _weightedTotalNumPi0;   
-    double _weightedTotalNumEta;  
-    double _weightedTotalNumEtaPrime; 
+    double _weightedTotalNumPiPlus;
+    double _weightedTotalNumKPlus;
+    double _weightedTotalNumP;
+    double _weightedTotalNumPhoton;
+    double _weightedTotalNumPi0;
+    double _weightedTotalNumEta;
+    double _weightedTotalNumEtaPrime;
     double _weightedTotalNumK0;
     double _weightedTotalNumLambda0;
     double _weightedTotalNumXiMinus;
@@ -478,30 +478,30 @@ namespace Rivet {
     AIDA::IHistogram1D *_histSphericity;
     AIDA::IHistogram1D *_histAplanarity;
 
-    AIDA::IHistogram1D *_hist1MinusT; 
-    AIDA::IHistogram1D *_histTMinor; 
-    
+    AIDA::IHistogram1D *_hist1MinusT;
+    AIDA::IHistogram1D *_histTMinor;
+ 
     AIDA::IHistogram1D *_histY3;
     AIDA::IHistogram1D *_histHeavyJetMass;
     AIDA::IHistogram1D *_histCParam;
-    AIDA::IHistogram1D *_histOblateness; 
-    
-    AIDA::IHistogram1D *_histScaledMom; 
+    AIDA::IHistogram1D *_histOblateness;
+ 
+    AIDA::IHistogram1D *_histScaledMom;
     AIDA::IHistogram1D *_histRapidityT;
 
     AIDA::IHistogram1D *_histPtSIn;
     AIDA::IHistogram1D *_histPtSOut;
-    
+ 
     AIDA::IHistogram1D *_histJetRate2Durham;
     AIDA::IHistogram1D *_histJetRate3Durham;
     AIDA::IHistogram1D *_histJetRate4Durham;
     AIDA::IHistogram1D *_histJetRate5Durham;
-   
+
     AIDA::IHistogram1D *_histLogScaledMom;
-    
-    
+ 
+ 
     AIDA::IHistogram1D *_histChMult;
-    
+ 
 
     AIDA::IHistogram1D *_histMultiPiPlus;
     AIDA::IHistogram1D *_histMultiKPlus;
@@ -520,29 +520,29 @@ namespace Rivet {
     AIDA::IHistogram1D *_histMultiKStar892_0;
     AIDA::IHistogram1D *_histMultiPhi;
     AIDA::IHistogram1D *_histMultiKStar892Plus;
-   
+
     // mean multiplicities
     AIDA::IHistogram1D *_histMeanChMult;
     AIDA::IHistogram1D *_histMeanChMultRapt05;
     AIDA::IHistogram1D *_histMeanChMultRapt10;
     AIDA::IHistogram1D *_histMeanChMultRapt15;
     AIDA::IHistogram1D *_histMeanChMultRapt20;
-    
-    AIDA::IHistogram1D *_histMeanMultiPi0;          
-    AIDA::IHistogram1D *_histMeanMultiEta;          
-    AIDA::IHistogram1D *_histMeanMultiEtaPrime;     
-    AIDA::IHistogram1D *_histMeanMultiK0;           
-    AIDA::IHistogram1D *_histMeanMultiRho;          
-    AIDA::IHistogram1D *_histMeanMultiOmega782;        
-    AIDA::IHistogram1D *_histMeanMultiPhi;         
-    AIDA::IHistogram1D *_histMeanMultiKStar892Plus; 
-    AIDA::IHistogram1D *_histMeanMultiKStar892_0;   
-    AIDA::IHistogram1D *_histMeanMultiLambda0;      
-    AIDA::IHistogram1D *_histMeanMultiSigma0;       
-    AIDA::IHistogram1D *_histMeanMultiXiMinus;      
+ 
+    AIDA::IHistogram1D *_histMeanMultiPi0;
+    AIDA::IHistogram1D *_histMeanMultiEta;
+    AIDA::IHistogram1D *_histMeanMultiEtaPrime;
+    AIDA::IHistogram1D *_histMeanMultiK0;
+    AIDA::IHistogram1D *_histMeanMultiRho;
+    AIDA::IHistogram1D *_histMeanMultiOmega782;
+    AIDA::IHistogram1D *_histMeanMultiPhi;
+    AIDA::IHistogram1D *_histMeanMultiKStar892Plus;
+    AIDA::IHistogram1D *_histMeanMultiKStar892_0;
+    AIDA::IHistogram1D *_histMeanMultiLambda0;
+    AIDA::IHistogram1D *_histMeanMultiSigma0;
+    AIDA::IHistogram1D *_histMeanMultiXiMinus;
     AIDA::IHistogram1D *_histMeanMultiSigma1385Plus;
-    AIDA::IHistogram1D *_histMeanMultiXi1530_0;     
-    AIDA::IHistogram1D *_histMeanMultiOmegaOmegaBar;        
+    AIDA::IHistogram1D *_histMeanMultiXi1530_0;
+    AIDA::IHistogram1D *_histMeanMultiOmegaOmegaBar;
     //@}
 
   };

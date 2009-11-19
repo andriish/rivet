@@ -28,9 +28,9 @@ namespace Rivet {
   }
 
 
-  // Convert the GenEvent to use conventional alignment 
+  // Convert the GenEvent to use conventional alignment
   // (proton or electron on +ve z-axis?)
-  // For example, FHerwig only produces DIS events in the 
+  // For example, FHerwig only produces DIS events in the
   // unconventional orientation and has to be corrected
   void _geNormAlignment(GenEvent& ge) {
     if (!ge.valid_beam_particles()) return;
@@ -50,7 +50,7 @@ namespace Rivet {
     if (bps.first->pdg_id() != PROTON || bps.second->pdg_id() != PROTON) {
       if (bps.first->pdg_id() == PROTON) {
         plusgp = bps.first;
-      } else if (bps.second->pdg_id() == PROTON) { 
+      } else if (bps.second->pdg_id() == PROTON) {
         plusgp = bps.second;
       }
       if (plusgp && plusgp->momentum().pz() < 0) {
@@ -72,7 +72,7 @@ namespace Rivet {
 
 
   Event::Event(const GenEvent& ge)
-    : _genEvent(ge), _weight(1.0) 
+    : _genEvent(ge), _weight(1.0)
   {
     // Set the weight if there is one, otherwise default to 1.0
     if (!_genEvent.weights().empty()) {
@@ -81,7 +81,7 @@ namespace Rivet {
 
     // Use Rivet's preferred units if possible
     _geNormUnits(_genEvent);
-    
+ 
     // Use the conventional alignment
     _geNormAlignment(_genEvent);
 
@@ -91,9 +91,9 @@ namespace Rivet {
 
 
   Event::Event(const Event& e)
-    : _genEvent(e._genEvent), 
-      _weight(e._weight) 
-  { 
+    : _genEvent(e._genEvent),
+      _weight(e._weight)
+  {
     //
   }
 

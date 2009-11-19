@@ -28,12 +28,12 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Trigger -: " << _n_minus << ", Trigger +: " << _n_plus << endl;
 
     // Common SD/NSD trigger requirement: must activate at least one hodoscope
-    if (_n_minus == 0 && _n_plus == 0) return; 
+    if (_n_minus == 0 && _n_plus == 0) return;
     _decision_sd = true;
 
     // Extra NSD trigger requirements
     if (_n_minus == 0 || _n_plus == 0) return;
-    _decision_nsd_1 = true;    
+    _decision_nsd_1 = true;
     if (_n_minus < 2 || _n_plus < 2) return;
     _decision_nsd_2 = true;
   }

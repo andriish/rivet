@@ -1,5 +1,5 @@
-#ifndef RIVET_RIVETAIDA_HH 
-#define RIVET_RIVETAIDA_HH 
+#ifndef RIVET_RIVETAIDA_HH
+#define RIVET_RIVETAIDA_HH
 
 /// @author Andy Buckley
 /// @date   2009-01-30
@@ -27,8 +27,8 @@ namespace Rivet {
   /// Function to get a map of all the bin edge vectors in a paper with the
   /// given @a papername.
   const map<string, BinEdges> getBinEdges(string papername);
-  
-  const map<string, BinEdges> 
+
+  const map<string, BinEdges>
   getBinEdges(const map<string, vector<DPSXPoint> >& xpoints);
 
   const map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername);
@@ -52,12 +52,12 @@ namespace Rivet {
   /// Return the integral over the histogram bins assuming it has been
   // normalize()d.
   inline double integral(AIDA::IHistogram1D* histo) {
-    double intg = 0.; 
+    double intg = 0.;
     for ( int i = 0; i < histo->axis().bins(); ++i )
       intg += histo->binHeight(i) * histo->axis().binWidth(i);
     return intg;
   }
-  
+
 
 
   using AIDA::IHistogram1D;

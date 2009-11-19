@@ -11,28 +11,28 @@ namespace Rivet {
 
   /* Underlying event in jet + isolated photon events
    * @author Andy Buckley
-   */ 
+   */
   class MC_LHC_PHOTONJETUE : public Analysis {
   public:
-    
+ 
     /// Constructor
     MC_LHC_PHOTONJETUE()
       : Analysis("MC_LHC_PHOTONJETUE")
-    { 
+    {
       setBeams(PROTON, PROTON);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
-    
+ 
     // Book histograms and projections
     void init() {
       // Final state for the jet finding
       const FinalState fsj(-4.0, 4.0, 0.1*GeV);
       addProjection(fsj, "FSJ");
       addProjection(FastJets(fsj, FastJets::ANTIKT, 0.7), "Jets");
-      
+   
       // Charged final state for the distributions
       const ChargedFinalState cfs(-2.0, 2.0, 0.2*GeV);
       addProjection(cfs, "Tracks");
@@ -98,7 +98,7 @@ namespace Rivet {
         getLog() << Log::DEBUG << "No hard photons found" << endl;
         vetoEvent;
       }
-      const FourMomentum pgamma = photonfs.particlesByPt().front().momentum();      
+      const FourMomentum pgamma = photonfs.particlesByPt().front().momentum();
 
       // Check that leading photon is isolated from jets
       bool isolated = true;
@@ -209,12 +209,12 @@ namespace Rivet {
 
 
       }
-      
-      
+   
+   
       // Fill the histograms
       _hist_pnchg_jet->fill(jetpT/GeV, (numTrans1_jet+numTrans2_jet)/(4*PI/3), weight);
       _hist_pmaxnchg_jet->fill(jetpT/GeV, (numTrans1_jet>numTrans2_jet ? numTrans1_jet : numTrans2_jet)/(2*PI/3), weight);
-      _hist_pminnchg_jet->fill(jetpT/GeV, (numTrans1_jet<numTrans2_jet ? numTrans1_jet : numTrans2_jet)/(2*PI/3), weight);      
+      _hist_pminnchg_jet->fill(jetpT/GeV, (numTrans1_jet<numTrans2_jet ? numTrans1_jet : numTrans2_jet)/(2*PI/3), weight);
       _hist_pcptsum_jet->fill(jetpT/GeV, (ptSumTrans1_jet+ptSumTrans2_jet)/GeV/(4*PI/3), weight);
       _hist_pmaxcptsum_jet->fill(jetpT/GeV, (ptSumTrans1_jet>ptSumTrans2_jet ? ptSumTrans1_jet : ptSumTrans2_jet)/GeV/(2*PI/3), weight);
       _hist_pmincptsum_jet->fill(jetpT/GeV, (ptSumTrans1_jet<ptSumTrans2_jet ? ptSumTrans1_jet : ptSumTrans2_jet)/GeV/(2*PI/3), weight);
@@ -224,7 +224,7 @@ namespace Rivet {
       //
       _hist_pnchg_gamma->fill(gammapT/GeV, (numTrans1_gamma+numTrans2_gamma)/(4*PI/3), weight);
       _hist_pmaxnchg_gamma->fill(gammapT/GeV, (numTrans1_gamma>numTrans2_gamma ? numTrans1_gamma : numTrans2_gamma)/(2*PI/3), weight);
-      _hist_pminnchg_gamma->fill(gammapT/GeV, (numTrans1_gamma<numTrans2_gamma ? numTrans1_gamma : numTrans2_gamma)/(2*PI/3), weight);      
+      _hist_pminnchg_gamma->fill(gammapT/GeV, (numTrans1_gamma<numTrans2_gamma ? numTrans1_gamma : numTrans2_gamma)/(2*PI/3), weight);
       _hist_pcptsum_gamma->fill(gammapT/GeV, (ptSumTrans1_gamma+ptSumTrans2_gamma)/GeV/(4*PI/3), weight);
       _hist_pmaxcptsum_gamma->fill(gammapT/GeV, (ptSumTrans1_gamma>ptSumTrans2_gamma ? ptSumTrans1_gamma : ptSumTrans2_gamma)/GeV/(2*PI/3), weight);
       _hist_pmincptsum_gamma->fill(gammapT/GeV, (ptSumTrans1_gamma<ptSumTrans2_gamma ? ptSumTrans1_gamma : ptSumTrans2_gamma)/GeV/(2*PI/3), weight);
@@ -233,18 +233,18 @@ namespace Rivet {
       }
 
     }
-    
-    
-    void finalize() {  
+ 
+ 
+    void finalize() {
       //
     }
-    
-    
+ 
+ 
   private:
 
     AIDA::IHistogram1D* _hist_jetgamma_dR;
     AIDA::IHistogram1D* _hist_jetgamma_dphi;
-    
+ 
     AIDA::IProfile1D *_hist_pnchg_jet, *_hist_pnchg_gamma;
     AIDA::IProfile1D *_hist_pmaxnchg_jet, *_hist_pmaxnchg_gamma;
     AIDA::IProfile1D *_hist_pminnchg_jet, *_hist_pminnchg_gamma;
@@ -254,10 +254,10 @@ namespace Rivet {
     AIDA::IProfile1D *_hist_pcptave_jet, *_hist_pcptave_gamma;
 
   };
-  
-  
-  
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<MC_LHC_PHOTONJETUE> plugin_MC_LHC_PHOTONJETUE;
-  
+
 }

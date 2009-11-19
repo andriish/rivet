@@ -13,9 +13,9 @@ namespace Rivet {
   /// Project out the incoming beams
   class TriggerCDFRun0Run1 : public Projection {
   public:
-    
+ 
     /// Default constructor.
-    TriggerCDFRun0Run1() { 
+    TriggerCDFRun0Run1() {
       setName("TriggerCDFRun0Run1");
 
       addProjection(ChargedFinalState(-5.9, 5.9), "CFS");

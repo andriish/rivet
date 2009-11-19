@@ -27,7 +27,7 @@
 //  and by ordering relationship (std::set).
 
 struct Foo
-{ 
+{
   Foo( int _x ) : x(_x) {}
   ~Foo() { std::cout << "Destructing a Foo with x=" << x << "\n"; }
   int x;
@@ -67,8 +67,8 @@ int main()
 
   std::cout << "foo_vector:\n";
   std::for_each( foo_vector.begin(), foo_vector.end(), FooPtrOps() );
-  
-  std::cout << "\nfoo_set:\n"; 
+
+  std::cout << "\nfoo_set:\n";
   std::for_each( foo_set.begin(), foo_set.end(), FooPtrOps() );
   std::cout << "\n";
 
@@ -79,7 +79,7 @@ int main()
 //   1
 //   3
 //   2
-//   
+//
 //   foo_set:
 //   3
 //   2
@@ -89,6 +89,6 @@ int main()
 //   Destructing a Foo with x=1
 //   Destructing a Foo with x=3
 //   Destructing a Foo with x=2
-   
+
   return 0;
 }

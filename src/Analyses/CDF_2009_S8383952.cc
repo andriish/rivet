@@ -16,7 +16,7 @@ namespace Rivet {
 
     /// Constructor
     CDF_2009_S8383952()
-      : Analysis("CDF_2009_S8383952") 
+      : Analysis("CDF_2009_S8383952")
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -68,7 +68,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       scale(_h_xs, crossSection()/sumOfWeights());
-      // Data seems to have been normalized for the avg of the two sides 
+      // Data seems to have been normalized for the avg of the two sides
       // (+ve & -ve rapidity) rather than the sum, hence the 0.5:
       scale(_h_yZ, 0.5*crossSection()/sumOfWeights());
     }

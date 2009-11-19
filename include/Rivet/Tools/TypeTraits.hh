@@ -4,13 +4,13 @@
 
 namespace Rivet {
 
-  /// Mechanisms to allow references and pointers to templated types 
+  /// Mechanisms to allow references and pointers to templated types
   /// to be distinguished from one another (since C++ doesn't allow
   /// partial template specialisation for functions.
-  /// Traits methods use specialisation of class/struct templates, and 
-  /// some trickery with typedefs and static const integral types (or 
+  /// Traits methods use specialisation of class/struct templates, and
+  /// some trickery with typedefs and static const integral types (or
   /// enums) to implement partial function specialisation as a work-around.
-  
+
   struct RefType { };
   struct PtrType { };
 

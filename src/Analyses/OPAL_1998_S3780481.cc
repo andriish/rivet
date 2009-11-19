@@ -14,11 +14,11 @@ namespace Rivet {
   /// @author Hendrik Hoeth
   class OPAL_1998_S3780481 : public Analysis {
   public:
-    
+ 
     /// Constructor
     OPAL_1998_S3780481() : Analysis("OPAL_1998_S3780481")
     {
-      setBeams(ELECTRON, POSITRON); 
+      setBeams(ELECTRON, POSITRON);
 
       // Counters
       _weightedTotalPartNum = 0;
@@ -26,8 +26,8 @@ namespace Rivet {
       _SumOfcWeights = 0;
       _SumOfbWeights = 0;
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
 
@@ -35,27 +35,27 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-      
+   
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed ncharged cut" << endl;
         vetoEvent;
       }
       getLog() << Log::DEBUG << "Passed ncharged cut" << endl;
-      
+   
       // Get event weight for histo filling
       const double weight = e.weight();
       _weightedTotalPartNum += numParticles * weight;
-      
+   
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() + 
+      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
-      
+   
       int flavour = 0;
       const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
-      
+   
       // If we only have two quarks (qqbar), just take the flavour.
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       if (iqf.particles().size() == 2) {
@@ -75,7 +75,7 @@ namespace Rivet {
           }
         }
       }
-      
+   
       switch (flavour) {
       case 1:
       case 2:
@@ -89,7 +89,7 @@ namespace Rivet {
         _SumOfbWeights += weight;
         break;
       }
-      
+   
       foreach (const Particle& p, fs.particles()) {
         const double xp = p.momentum().vector3().mod()/meanBeamMom;
         const double logxp = -std::log(xp);
@@ -117,10 +117,10 @@ namespace Rivet {
           break;
         }
       }
-      
+   
     }
-    
-    
+ 
+ 
     void init() {
       // Projections
       addProjection(Beam(), "Beams");
@@ -141,8 +141,8 @@ namespace Rivet {
       _histMultiChargedb   = bookHistogram1D(9, 1, 3);
       _histMultiChargedall = bookHistogram1D(9, 1, 4);
     }
-    
-    
+ 
+ 
     /// Finalize
     void finalize() {
       const double avgNumParts = _weightedTotalPartNum / sumOfWeights();
@@ -154,20 +154,20 @@ namespace Rivet {
       normalize(_histLogXpc   , avgNumParts);
       normalize(_histLogXpb   , avgNumParts);
       normalize(_histLogXpall , avgNumParts);
-      
+   
       scale(_histMultiChargeduds, 1.0/_SumOfudsWeights);
       scale(_histMultiChargedc  , 1.0/_SumOfcWeights);
       scale(_histMultiChargedb  , 1.0/_SumOfbWeights);
       scale(_histMultiChargedall, 1.0/sumOfWeights());
     }
-    
+ 
     //@}
 
 
   private:
 
     /// Store the weighted sums of numbers of charged / charged+neutral
-    /// particles - used to calculate average number of particles for the 
+    /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
     double _weightedTotalPartNum;
 
@@ -192,9 +192,9 @@ namespace Rivet {
 
   };
 
-    
-    
+ 
+ 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<OPAL_1998_S3780481> plugin_OPAL_1998_S3780481;
-  
+
 }

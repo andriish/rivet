@@ -11,15 +11,15 @@ namespace Rivet {
 
   /// Project out all final-state particles in an event.
   class InitialQuarks : public Projection {
-    
+ 
   public:
-    
+ 
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     InitialQuarks()
-    { 
+    {
       setName("InitialQuarks");
     }
 
@@ -29,7 +29,7 @@ namespace Rivet {
       return new InitialQuarks(*this);
     }
     //@}
-        
+     
     /// Access the projected final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }
 
@@ -37,20 +37,20 @@ namespace Rivet {
     virtual const bool empty() const { return _theParticles.empty(); }
 
   protected:
-    
+ 
     /// Apply the projection to the event.
     virtual void project(const Event& e);
-    
+ 
     /// Compare projections.
     virtual int compare(const Projection& p) const;
-    
-  protected:
  
+  protected:
+
     /// The final-state particles.
     ParticleVector _theParticles;
-    
+ 
   };
-  
+
 }
 
 

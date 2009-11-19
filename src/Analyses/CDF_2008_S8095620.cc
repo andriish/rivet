@@ -14,26 +14,26 @@ namespace Rivet {
   /// Implementation of CDF Run II Z + b-jet cross section paper
   class CDF_2008_S8095620 : public Analysis {
   public:
-        
+     
     /// Constructor.
     /// jet cuts: |eta| <= 1.5
     CDF_2008_S8095620()
-      : Analysis("CDF_2008_S8095620"), 
-        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5),  
+      : Analysis("CDF_2008_S8095620"),
+        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5),
         _sumWeightSelected(0.0)
-    { 
+    {
       setBeams(PROTON, ANTIPROTON);
     }
-    
+ 
 
     /// @name Analysis methods
     //@{
-    
+ 
     void init() {
       // Set up projections
       const FinalState fs(-3.6, 3.6);
       addProjection(fs, "FS");
-      // Create a final state with any e+e- or mu+mu- pair with 
+      // Create a final state with any e+e- or mu+mu- pair with
       // invariant mass 76 -> 106 GeV and ET > 20 (Z decay products)
       vector<pair<long,long> > vids;
       vids.push_back(make_pair(ELECTRON, POSITRON));
@@ -53,22 +53,22 @@ namespace Rivet {
       _dSdNJet  = bookHistogram1D(3, 1, 1);
       _dSdNbJet = bookHistogram1D(4, 1, 1);
       _dSdZpT   = bookHistogram1D(5, 1, 1);
-    }  
-    
-   
+    }
+ 
+
     // Do the analysis
     void analyze(const Event& event) {
       // Check we have an l+l- pair that passes the kinematic cuts
       // Get the Z decay products (mu+mu- or e+e- pair)
       const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
       const ParticleVector&  ZDecayProducts =  invMassFinalState.particles();
-      
-      // make sure we have 2 Z decay products (mumu or ee) 
+   
+      // make sure we have 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
-      _sumWeightSelected += event.weight(); 
+      _sumWeightSelected += event.weight();
       // @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
-      
+   
       // Put all b-quarks in a vector
       ParticleVector bquarks;
       foreach (const GenParticle* p, particles(event.genEvent())) {
@@ -76,18 +76,18 @@ namespace Rivet {
           bquarks += Particle(*p);
         }
       }
-      
-      // Get jets 
+   
+      // Get jets
       const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
-      
+   
       const PseudoJets& jets = jetpro.pseudoJetsByPt();
       getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
-      
+   
       int numBJet = 0;
       int numJet  = 0;
       // for each b-jet plot the ET and the eta of the jet, normalise to the total cross section at the end
-      // for each event plot N jet and pT(Z), normalise to the total cross section at the end 
+      // for each event plot N jet and pT(Z), normalise to the total cross section at the end
       for (PseudoJets::const_iterator jt = jets.begin(); jt != jets.end(); ++jt) {
         // select jets that pass the kinematic cuts
         if (jt->perp() > _JetPtCut && fabs(jt->rapidity()) <= _JetEtaCut) {
@@ -102,27 +102,27 @@ namespace Rivet {
           } // end loop around b-jets
           if (bjet) {
             numBJet++;
-            _dSdET->fill(jt->perp(),event.weight()); 
-            _dSdETA->fill(jt->rapidity(),event.weight()); 
+            _dSdET->fill(jt->perp(),event.weight());
+            _dSdETA->fill(jt->rapidity(),event.weight());
           }
         }
       } // end loop around jets
-      
+   
       if(numJet > 0) _dSdNJet->fill(numJet,event.weight());
       if(numBJet > 0) {
         _dSdNbJet->fill(numBJet,event.weight());
-        _dSdZpT->fill(Zmom.pT(),event.weight()); 
-      } 
+        _dSdZpT->fill(Zmom.pT(),event.weight());
+      }
     }
-    
-  
+ 
+
 
     // Finalize
-    void finalize() {  
+    void finalize() {
       // normalise histograms
       // scale by 1 / the sum-of-weights of events that pass the Z cuts
       // since the cross sections are normalized to the inclusive
-      // Z cross sections. 
+      // Z cross sections.
       double Scale = 1.0;
       if (_sumWeightSelected != 0.0) Scale = 1.0/_sumWeightSelected;
       _dSdET->scale(Scale);
@@ -141,20 +141,20 @@ namespace Rivet {
     double _JetPtCut;
     double _JetEtaCut;
     double _sumWeightSelected;
- 
+
     //@{
     /// Histograms
     AIDA::IHistogram1D* _dSdET;
     AIDA::IHistogram1D* _dSdETA;
-    AIDA::IHistogram1D* _dSdNJet; 
-    AIDA::IHistogram1D* _dSdNbJet; 
-    AIDA::IHistogram1D* _dSdZpT; 
+    AIDA::IHistogram1D* _dSdNJet;
+    AIDA::IHistogram1D* _dSdNbJet;
+    AIDA::IHistogram1D* _dSdZpT;
 
     //@}
 
   };
-  
-  
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_2008_S8095620> plugin_CDF_2008_S8095620;
 

@@ -12,20 +12,20 @@ namespace Rivet {
     return FinalState::compare(p);
   }
 
-  
+
   bool hadronFilter(const Particle& p) {
     return ! PID::isHadron(p.pdgId());
   }
 
-  
+
   void HadronicFinalState::project(const Event& e) {
     FinalState fsp = static_cast<FinalState>(*this);
     const FinalState& fs = applyProjection(e, fsp);
     _theParticles.clear();
-    std::remove_copy_if(fs.particles().begin(), fs.particles().end(), 
+    std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
                         std::back_inserter(_theParticles), hadronFilter);
-    getLog() << Log::DEBUG << "Number of hadronic final-state particles = " 
+    getLog() << Log::DEBUG << "Number of hadronic final-state particles = "
              << _theParticles.size() << endl;
-  } 
-  
+  }
+
 }

@@ -33,7 +33,7 @@ namespace Rivet {
       this->setZ(other.z());
     }
 
-    FourVector(const Vector<4>& other) 
+    FourVector(const Vector<4>& other)
     : Vector<4>(other) { }
 
     FourVector(const double t, const double x, const double y, const double z) {
@@ -317,7 +317,7 @@ namespace Rivet {
       this->setPz(other.z());
     }
 
-    FourMomentum(const Vector<4>& other) 
+    FourMomentum(const Vector<4>& other)
       : FourVector(other) { }
 
     FourMomentum(const double E, const double px, const double py, const double pz) {
@@ -358,18 +358,18 @@ namespace Rivet {
     FourMomentum& setPz(double pz) { setZ(pz); return *this; }
 
     /// Get squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant).
-    double mass2() const { 
+    double mass2() const {
       return invariant();
     }
 
     /// Get mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant).
-    double mass() const { 
+    double mass() const {
       assert(Rivet::isZero(mass2()) || mass2() > 0);
-      return sqrt(mass2()); 
+      return sqrt(mass2());
     }
 
     /// Calculate rapidity.
-    double rapidity() const { 
+    double rapidity() const {
       return 0.5 * std::log( (E() + pz()) / (E() - pz()) );
     }
 
@@ -394,7 +394,7 @@ namespace Rivet {
     }
 
     /// Calculate boost vector (in units of \f$ \beta \f$).
-    Vector3 boostVector() const { 
+    Vector3 boostVector() const {
       // const Vector3 p3 = vector3();
       // const double m2 = mass2();
       // if (Rivet::isZero(m2)) return p3.unit();
@@ -406,45 +406,45 @@ namespace Rivet {
       //   return beta * p3.unit();
       // }
       /// @todo Be careful about c=1 convention...
-      return Vector3(px()/E(), py()/E(), pz()/E()); 
+      return Vector3(px()/E(), py()/E(), pz()/E());
     }
 
     /// struct for sorting by increasing energy
-    
+ 
     struct byEAscending{
       bool operator()(const FourMomentum &left, const FourMomentum &right) const{
         double pt2left = left.E();
         double pt2right = right.E();
         return pt2left < pt2right;
       }
-      
+   
       bool operator()(const FourMomentum *left, const FourMomentum *right) const{
         return (*this)(left, right);
       }
     };
-    
+ 
     /// struct for sorting by decreasing energy
-    
+ 
     struct byEDescending{
       bool operator()(const FourMomentum &left, const FourMomentum &right) const{
         return byEAscending()(right, left);
       }
-      
+   
       bool operator()(const FourMomentum *left, const FourVector *right) const{
         return (*this)(left, right);
       }
     };
-    
+ 
   };
 
 
   /// Get squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant) of a momentum 4-vector.
-  inline double mass2(const FourMomentum& v) { 
+  inline double mass2(const FourMomentum& v) {
     return v.mass2();
   }
 
   /// Get mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant) of a momentum 4-vector.
-  inline double mass(const FourMomentum& v) { 
+  inline double mass(const FourMomentum& v) {
     return v.mass();
   }
 
@@ -488,7 +488,7 @@ namespace Rivet {
   /// be chosen via the optional scheme parameter, which is discouraged in this
   /// case since @c RAPIDITY is only a valid option for vectors whose type is
   /// really the FourMomentum derived class.
-  inline double deltaR(const FourVector& a, const FourVector& b, 
+  inline double deltaR(const FourVector& a, const FourVector& b,
                        DeltaRScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY :
@@ -503,13 +503,13 @@ namespace Rivet {
         }
         return deltaR(*ma, *mb, scheme);
       }
-    default: 
+    default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
   }
 
 
-  inline double deltaR(const FourVector& v, 
+  inline double deltaR(const FourVector& v,
                        double eta2, double phi2,
                        DeltaRScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
@@ -524,14 +524,14 @@ namespace Rivet {
         }
         return deltaR(*mv, eta2, phi2, scheme);
       }
-    default: 
+    default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
   }
 
 
   inline double deltaR(double eta1, double phi1,
-                       const FourVector& v, 
+                       const FourVector& v,
                        DeltaRScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY :
@@ -545,7 +545,7 @@ namespace Rivet {
         }
         return deltaR(eta1, phi1, *mv, scheme);
       }
-    default: 
+    default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
   }
@@ -556,7 +556,7 @@ namespace Rivet {
   /// as to whether the pseudorapidity (a purely geometric concept) or the
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
-  inline double deltaR(const FourMomentum& a, const FourMomentum& b, 
+  inline double deltaR(const FourMomentum& a, const FourMomentum& b,
                        DeltaRScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY:
@@ -593,12 +593,12 @@ namespace Rivet {
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
-  }  
+  }
 
 
   //////////////////////////////////////////////////////
-  
-  
+
+
   /// Render a 4-vector as a string.
   inline const string toString(const FourVector& lv) {
     ostringstream out;
@@ -609,7 +609,7 @@ namespace Rivet {
         << ")";
     return out.str();
   }
-  
+
   /// Write a 4-vector to an ostream.
   inline std::ostream& operator<<(std::ostream& out, const FourVector& lv) {
     out << toString(lv);

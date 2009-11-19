@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #ifndef LWH_AIBaseHistogram_H
-#define LWH_AIBaseHistogram_H 
+#define LWH_AIBaseHistogram_H
 //
 
 #ifndef LWH_USING_AIDA

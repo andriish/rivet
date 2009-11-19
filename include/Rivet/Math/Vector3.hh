@@ -68,18 +68,18 @@ namespace Rivet {
     Vector3& setY(double y) { set(1, y); return *this; }
     Vector3& setZ(double z) { set(2, z); return *this; }
 
-    double dot(const Vector3& v) const { 
+    double dot(const Vector3& v) const {
       return _vec.dot(v._vec);
     }
 
-    Vector3 cross(const Vector3& v) const { 
+    Vector3 cross(const Vector3& v) const {
       Vector3 result;
       result._vec = _vec.cross(v._vec);
       return result;
     }
 
     double angle(const Vector3& v) const {
-      double localDotOther = unit().dot(v.unit());      
+      double localDotOther = unit().dot(v.unit());
       if(Rivet::isZero(localDotOther - 1.0)) return 0.0;
       return acos( localDotOther );
     }
@@ -139,7 +139,7 @@ namespace Rivet {
       case ZERO_2PI:
         if (value >= 0) {
           assert(value >= 0 && value < 2*PI);
-          return value; 
+          return value;
         } else if (Rivet::isZero(value)) {
           value = 0.0;
           return value;
@@ -149,10 +149,10 @@ namespace Rivet {
           return value;
         }
       default:
-        throw std::runtime_error("The specified phi mapping scheme is not yet implemented"); 
+        throw std::runtime_error("The specified phi mapping scheme is not yet implemented");
       }
     }
-    
+ 
     /// Synonym for azimuthalAngle.
     double phi(const PhiMapping mapping = ZERO_2PI) const {
       return azimuthalAngle(mapping);

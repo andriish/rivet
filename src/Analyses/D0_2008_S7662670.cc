@@ -27,21 +27,21 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
-    
+ 
     //@}
 
 
     /// @name Analysis methods
-    //@{ 
+    //@{
 
-    void init() 
+    void init()
     {
-      
+   
       // Full final state
       FinalState fs(-5.0, 5.0);
       addProjection(fs, "FS");
 
-      // Jets      
+      // Jets
       FastJets jetpro(fs, FastJets::D0ILCONE, 0.7, 6*GeV);
       addProjection(jetpro, "Jets");
 
@@ -53,20 +53,20 @@ namespace Rivet {
       _h_dsigdptdy_y16_20 = bookHistogram1D(5, 1, 1);
       _h_dsigdptdy_y20_24 = bookHistogram1D(6, 1, 1);
     }
-    
-    
-    
-    /// Do the analysis 
+ 
+ 
+ 
+    /// Do the analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      
+   
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
         getLog() << Log::DEBUG << "Empty event!" << endl;
         vetoEvent;
       }
-      
+   
       // Find the jets
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
       // If there are no jets, skip the event
@@ -80,7 +80,7 @@ namespace Rivet {
         const double pt = j.momentum().pT();
         const double y = fabs(j.momentum().rapidity());
         if (pt/GeV > 50) {
-          getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV 
+          getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV
                    << ", |y| = " << y << endl;
           if (y < 0.4) {
             _h_dsigdptdy_y00_04->fill(pt/GeV, weight);
@@ -97,9 +97,9 @@ namespace Rivet {
           }
         }
       }
-      
+   
     }
-    
+ 
 
     /// Finalize
     void finalize() {
@@ -129,10 +129,10 @@ namespace Rivet {
     //@}
 
   };
-    
-    
-    
+ 
+ 
+ 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2008_S7662670> plugin_D0_2008_S7662670;
-  
+
 }

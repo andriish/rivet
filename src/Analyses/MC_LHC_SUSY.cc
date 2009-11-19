@@ -15,21 +15,21 @@ namespace Rivet {
 
   /* Basic SUSY type validation analysis for the LHC
    * @author Andy Buckley
-   */ 
+   */
   class MC_LHC_SUSY : public Analysis {
   public:
-    
+ 
     /// Constructor
     MC_LHC_SUSY()
       : Analysis("MC_LHC_SUSY")
-    { 
+    {
       setBeams(PROTON, PROTON);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
-    
+ 
     // Book histograms
     void init() {
       // Basic final state
@@ -236,28 +236,28 @@ namespace Rivet {
       if (eminus_ok && eplus_ok) {
         const double m_ee = FourMomentum(peplus + peminus).mass();
         _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
-        if (epluses.size() == 1 && eminuses.size() == 1) 
+        if (epluses.size() == 1 && eminuses.size() == 1)
           _hist_mll_2_ossf_ee->fill(m_ee/GeV, weight);
       }
       // m_mumu
       if (muminus_ok && muplus_ok) {
         const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
         _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
-        if (mupluses.size() == 1 && muminuses.size() == 1) 
+        if (mupluses.size() == 1 && muminuses.size() == 1)
           _hist_mll_2_ossf_mumu->fill(m_mumu/GeV, weight);
       }
       // m_emu (both configurations)
       if (eminus_ok && muplus_ok) {
         const double m_emu = FourMomentum(pmuplus + peminus).mass();
         _hist_mll_osof_emu->fill(m_emu/GeV, weight);
-        if (mupluses.size() == 1 && eminuses.size() == 1) 
+        if (mupluses.size() == 1 && eminuses.size() == 1)
           _hist_mll_2_osof_emu->fill(m_emu/GeV, weight);
 
       }
       if (muminus_ok && eplus_ok) {
         const double m_mue = FourMomentum(peplus + pmuminus).mass();
         _hist_mll_osof_emu->fill(m_mue/GeV, weight);
-        if (epluses.size() == 1 && muminuses.size() == 1) 
+        if (epluses.size() == 1 && muminuses.size() == 1)
           _hist_mll_2_osof_emu->fill(m_mue/GeV, weight);
       }
 
@@ -292,17 +292,17 @@ namespace Rivet {
       }
 
     }
-    
-    
-    void finalize() {  
+ 
+ 
+    void finalize() {
       /// @todo Normalisations
     }
 
-    //@}    
-    
+    //@}
+ 
 
   private:
-    
+ 
     AIDA::IHistogram1D *_hist_n_trk, *_hist_phi_trk, *_hist_eta_trk, *_hist_pt_trk;
     AIDA::IHistogram1D *_hist_n_jet, *_hist_phi_jet, *_hist_eta_jet, *_hist_pt_jet;
     AIDA::IHistogram1D *_hist_n_e, *_hist_phi_e, *_hist_eta_e, *_hist_pt_e;
@@ -311,13 +311,13 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_n_gammaiso, *_hist_phi_gammaiso, *_hist_eta_gammaiso, *_hist_pt_gammaiso;
     AIDA::IHistogram1D *_hist_met;
     AIDA::IHistogram1D *_hist_mll_2_ossf_ee, *_hist_mll_2_ossf_mumu, *_hist_mll_2_osof_emu;
-    AIDA::IHistogram1D *_hist_mll_ossf_ee, *_hist_mll_ossf_mumu, *_hist_mll_osof_emu;    
+    AIDA::IHistogram1D *_hist_mll_ossf_ee, *_hist_mll_ossf_mumu, *_hist_mll_osof_emu;
     AIDA::IHistogram1D *_hist_mll_all_ossf_ee, *_hist_mll_all_ossf_mumu, *_hist_mll_all_osof_emu;
   };
-  
-  
-  
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<MC_LHC_SUSY> plugin_MC_LHC_SUSY;
-  
+
 }

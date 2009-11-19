@@ -20,7 +20,7 @@ namespace Rivet {
     return EQUIVALENT;
   }
 
-  
+
   void LeadingParticlesFinalState::project(const Event & e) {
     _theParticles.clear();
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
@@ -35,7 +35,7 @@ namespace Rivet {
       if (inList(*ifs) && FinalState::accept(ifs->genParticle())) {
         // Look for an existing particle in tmp container
         map < long, ParticleVector::const_iterator >::const_iterator itmp = tmp.find(ifs->pdgId());
-        if (itmp != tmp.end()) {  // if a particle with this type has been already selected 
+        if (itmp != tmp.end()) {  // if a particle with this type has been already selected
           // If the new pT is higher than the previous one, then substitute...
           if (ifs->momentum().pT() > itmp->second->momentum().pT()) {
             tmp[ifs->pdgId()] = ifs;
@@ -46,7 +46,7 @@ namespace Rivet {
         }
       }
     }
-    
+ 
     // Loop on the tmp container and fill _theParticles
     map<long, ParticleVector::const_iterator>::const_iterator i;
     for (i = tmp.begin(); i != tmp.end(); ++i) {

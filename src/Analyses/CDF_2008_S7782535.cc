@@ -22,7 +22,7 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
     }
-    
+ 
 
     /// @name Analysis methods
     //@{
@@ -45,15 +45,15 @@ namespace Rivet {
         _h_Psi_pT[i] = bookProfile1D(i+1, 2, 1);
       }
       _h_OneMinusPsi_vs_pT = bookDataPointSet(5, 1, 1);
-    }  
-    
-    
+    }
+ 
+ 
     // Do the analysis
     void analyze(const Event& event) {
-      // Get jets     
+      // Get jets
       const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jets.size() << endl;
-      
+   
       // Determine the central jet axes
       _jetaxes.clear();
       foreach (const Jet& j, jets) {
@@ -69,10 +69,10 @@ namespace Rivet {
         getLog() << Log::DEBUG << "No b-jet axes in acceptance" << endl;
         vetoEvent;
       }
-      
+   
       // Determine jet shapes
       const JetShape& js = applyProjection<JetShape>(event, "JetShape");
-      
+   
       /// @todo Replace with foreach
       for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
         // Put jet in correct pT bin
@@ -92,12 +92,12 @@ namespace Rivet {
           }
         }
       }
-      
+   
     }
-    
-    
+ 
+ 
     /// Finalize
-    void finalize() {  
+    void finalize() {
       vector<double> y, ey;
       for (size_t i = 0; i < _pTbins.size()-1; ++i) {
         // Get entry for rad_Psi = 0.2 bin
@@ -105,9 +105,9 @@ namespace Rivet {
         y.push_back(1.0 - ph_i->binHeight(1));
         ey.push_back(ph_i->binError(1));
       }
-      _h_OneMinusPsi_vs_pT->setCoordinate(1, y, ey); 
+      _h_OneMinusPsi_vs_pT->setCoordinate(1, y, ey);
     }
-    
+ 
     //@}
 
 
@@ -130,7 +130,7 @@ namespace Rivet {
 
   };
 
-  
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_2008_S7782535> plugin_CDF_2008_S7782535;
 

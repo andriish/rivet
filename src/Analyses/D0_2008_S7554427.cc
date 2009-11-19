@@ -21,11 +21,11 @@ namespace Rivet {
     {
       // Run II Z pT
       setBeams(PROTON, ANTIPROTON);
-    } 
-    
-    
+    }
+ 
+ 
     /// @name Analysis methods
-    //@{ 
+    //@{
 
     /// Book histograms
     void init() {
@@ -39,7 +39,7 @@ namespace Rivet {
 
 
 
-    /// Do the analysis 
+    /// Do the analysis
     void analyze(const Event & e) {
       const double weight = e.weight();
 
@@ -55,17 +55,17 @@ namespace Rivet {
       else {
         getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
       }
-      
+   
     }
-    
-    
-    
+ 
+ 
+ 
     // Finalize
     void finalize() {
       normalize(_h_ZpT);
       normalize(_h_forward_ZpT);
     }
-    
+ 
     //@}
 
 
@@ -79,8 +79,8 @@ namespace Rivet {
 
   };
 
-    
-    
+ 
+ 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2008_S7554427> plugin_D0_2008_S7554427;
 

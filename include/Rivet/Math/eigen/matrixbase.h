@@ -764,7 +764,7 @@ public:
     }
 
     /** Tests whether *this is approximately equal to the zero matrix.
-      * 
+      *
       * Equivalent to isNegligible(1). In other words, returns true if
       * all entries of *this are approximately zero, in the sense that
       * they have absolute value smaller than epsilon.

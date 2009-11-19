@@ -15,7 +15,7 @@ class IAnnotation;
 
 class IHistogram : virtual public IBaseHistogram {
 
-public: 
+public:
 
   virtual ~IHistogram() {}
 

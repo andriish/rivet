@@ -13,14 +13,14 @@ class IMeasurement;
 /**
  * Basic user-level interface class for holding and managing
  * a single set of "measurements".
- * 
+ *
  * @author The AIDA team (http://aida.freehep.org/)
  *
  */
 
 class IDataPoint {
 
-public: 
+public:
     virtual ~IDataPoint() {}
     virtual int dimension() const = 0;
     virtual IMeasurement * coordinate(int coord) = 0;

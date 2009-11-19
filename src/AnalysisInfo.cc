@@ -10,11 +10,11 @@
 namespace Rivet {
 
 
-  /// Ideas: 
+  /// Ideas:
   ///  * search RIVET_DATA_PATH etc. for <name>.info.yaml
   ///  * how to determine the name?
   ///  * only populate pointer on Analysis when requested
-  ///  * use smart pointer: deletes automatically when Analysis 
+  ///  * use smart pointer: deletes automatically when Analysis
   ///    goes out of scope
 
 
@@ -37,7 +37,7 @@ namespace Rivet {
       if (d.empty()) continue;
       /// @todo Use system-independent separator (e.g. Boost.File)
       datapath = d + "/" + ananame + ".info";
-      Log::getLog("Rivet.AnalysisInfo") 
+      Log::getLog("Rivet.AnalysisInfo")
         << Log::TRACE << "Looking for analysis data file '" << datapath << "'" << endl;
       if (access(datapath.c_str(), R_OK) == 0) {
         found = true;
@@ -57,8 +57,8 @@ namespace Rivet {
       parser.GetNextDocument(doc);
       //cout << doc << endl;
     } catch (const YAML::ParserException& ex) {
-      Log::getLog("Rivet.AnalysisInfo") 
-        << Log::ERROR << "Parse error when reading analysis data from " 
+      Log::getLog("Rivet.AnalysisInfo")
+        << Log::ERROR << "Parse error when reading analysis data from "
         << datapath << endl;
       return 0;
     }
@@ -70,7 +70,7 @@ namespace Rivet {
       stringstream sec;
       sec << it.second();
       const string secstr = sec.str().substr(0, sec.str().length()-1);
-      Log::getLog("Rivet.AnalysisInfo") 
+      Log::getLog("Rivet.AnalysisInfo")
         << Log::TRACE << key << ": " << secstr << endl;
       try {
         if (key == "Name") {
@@ -115,7 +115,7 @@ namespace Rivet {
           << Log::WARN << "Type error when reading analysis data '"
           << key << "' from " << datapath << endl;
       }
-    }  
+    }
     //cout << *ai << endl;
     return ai;
   }

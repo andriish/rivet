@@ -11,19 +11,19 @@ namespace Rivet {
 
   class MC_LHC_ZANALYSIS : public Analysis {
   public:
-  
+
     /// Default constructor
-    MC_LHC_ZANALYSIS() : Analysis("MC_LHC_ZANALYSIS") 
+    MC_LHC_ZANALYSIS() : Analysis("MC_LHC_ZANALYSIS")
     {
       //
     }
-    
+ 
 
     /// @name Analysis methods
     /// @todo change "Weights" to differential cross sections once histos normalised to cross-section.
     //@{
 
-    void init() { 
+    void init() {
       const ChargedFinalState cfs;
       addProjection(cfs, "CFS");
       /// @todo Handle muon-decay Zs as well
@@ -49,16 +49,16 @@ namespace Rivet {
       _hist_jetpt = bookHistogram1D("pt-jet", 50, 20, 100);
       _hist_jetlogpt = bookHistogram1D("logpt-jet", 20, 0, 20);
     }
-    
-    
+ 
+ 
     void analyze(const Event& event) {
       const double weight = event.weight();
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       const ZFinder& zf = applyProjection<ZFinder>(event, "ZF");
       const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
       const Jets jets = fastjets.jetsByPt();
-    
-      // Charged particles part    
+ 
+      // Charged particles part
       _hist_chargemulti->fill(cfs.particles().size(), weight);
       double meanpt(0), rmspt(0);
       foreach (const Particle& p, cfs.particles()) {
@@ -71,7 +71,7 @@ namespace Rivet {
       _hist_chargemeanpt->fill(meanpt/GeV, weight);
       rmspt = sqrt(rmspt / cfs.particles().size());
       _hist_chargermspt->fill(rmspt/GeV, weight);
-      
+   
       // Z part
       _hist_zcount->fill(zf.particles().size(), weight);
       foreach (const Particle& zp, zf.particles()) {
@@ -84,7 +84,7 @@ namespace Rivet {
         _hist_zmass->fill(m/GeV, weight);
         _hist_zlogmass->fill(log(m/GeV), weight);	
       }
-      
+   
       // Jet part
       _hist_jetcount->fill(fastjets.size(), weight);
       foreach(const Jet& j, fastjets.jetsByPt()) {
@@ -93,14 +93,14 @@ namespace Rivet {
         _hist_jetlogpt->fill(log(pT/GeV), weight);
       }
     }
-    
-    
+ 
+ 
     void finalize() {
       ///@todo Obtain cross-sections from generator and normalise histos to them.
     }
-    
+ 
     //@}
-    
+ 
 
   private:
 

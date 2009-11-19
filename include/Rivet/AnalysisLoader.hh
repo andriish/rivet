@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 
-namespace Rivet {  
+namespace Rivet {
 
 
   // Forward declarations
@@ -16,15 +16,15 @@ namespace Rivet {
 
   class AnalysisLoader {
   public:
-    
+ 
     /// Get all the available analyses' names.
     static vector<string> analysisNames();
-    
+ 
     /// Get an analysis by name.
     /// Warning: a name arg which matches no known analysis will return a null
     /// pointer. Check your return values before using them!
     static Analysis* getAnalysis(const string& analysisname);
-    
+ 
     /// Get all the available analyses.
     static vector<Analysis*> getAllAnalyses();
 
@@ -38,13 +38,13 @@ namespace Rivet {
 
     /// Load the available analyses at runtime.
     static void _loadAnalysisPlugins();
-    
+ 
     typedef map<string, const AnalysisBuilderBase*> AnalysisBuilderMap;
     static AnalysisBuilderMap _ptrs;
-    
+ 
   };
 
-  
+
 }
 
 #endif

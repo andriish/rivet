@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #ifndef LWH_Profile1D_H
-#define LWH_Profile1D_H 
+#define LWH_Profile1D_H
 //
 // This is the declaration of the Profile1D class.
 //
@@ -63,7 +63,7 @@ public:
   Profile1D(const Profile1D & h)
     : IBaseHistogram(h), IProfile(h), IProfile1D(h), ManagedObject(h),
       fax(0), vax(0), sum(h.sum), sumw(h.sumw), sumw2(h.sumw2),
-      sumxw(h.sumxw), sumx2w(h.sumx2w), sumyw(h.sumyw), sumy2w(h.sumy2w), 
+      sumxw(h.sumxw), sumx2w(h.sumx2w), sumyw(h.sumyw), sumy2w(h.sumy2w),
       sumy2w2(h.sumy2w2) {
     const VariAxis * hvax = dynamic_cast<const VariAxis *>(h.ax);
     if ( hvax ) ax = vax = new VariAxis(*hvax);
@@ -148,7 +148,7 @@ public:
    * Get the number of in-range entries in the Histogram.
    * @return The number of in-range entries.
    *
-   */ 
+   */
   int entries() const {
     int si = 0;
     for ( int i = 2; i < ax->bins() + 2; ++i ) si += sum[i];
@@ -300,7 +300,7 @@ public:
   }
 
   /**
-   * The weighted mean of a bin. 
+   * The weighted mean of a bin.
    * @param index The bin number (0...N-1) or OVERFLOW or UNDERFLOW.
    * @return      The mean in x of the corresponding bin.
    */
@@ -311,7 +311,7 @@ public:
   };
 
   /**
-   * The weighted RMS of a bin. 
+   * The weighted RMS of a bin.
    * @param index The bin number (0...N-1) or OVERFLOW or UNDERFLOW.
    * @return      The RMS in x of the corresponding bin.
    */
@@ -325,7 +325,7 @@ public:
    * Number of entries in the corresponding bin (ie the number of
    * times fill was called for this bin).
    * @param index The bin number (0...N-1) or OVERFLOW or UNDERFLOW.
-   * @return      The number of entries in the corresponding bin. 
+   * @return      The number of entries in the corresponding bin.
    */
   int binEntries(int index) const {
     return sum[index + 2];
@@ -339,7 +339,7 @@ public:
    */
   double binHeight(int index) const {
     double bH = 0.;
-    if (sumw[index+2] > 0. && sumyw[index+2] > 0.) 
+    if (sumw[index+2] > 0. && sumyw[index+2] > 0.)
       bH = sumyw[index+2]/sumw[index+2];
     return bH;
   }
@@ -353,7 +353,7 @@ public:
   double binError(int index) const {
     if (sumw[index+2] > 0.0) {
       double binErr2 = sumy2w[index+2]*sumw[index+2] - sumyw[index+2]*sumyw[index+2];
-      binErr2 /= sumw[index+2]*sumw[index+2] - sumw2[index+2]; 
+      binErr2 /= sumw[index+2]*sumw[index+2] - sumw2[index+2];
       binErr2 /= sumw[index+2]; //< s_hat ~ s/sqrt(N)
       if (binErr2 >= 0.0) return sqrt(binErr2);
     }
@@ -461,7 +461,7 @@ public:
   /**
    * Not implemented in LWH.
    * @return null pointer always.
-   */ 
+   */
   void * cast(const std::string &) const {
     return 0;
   }
@@ -490,7 +490,7 @@ public:
        << "\">\n      <statistic mean=\"" << mean()
        << "\" direction=\"x\"\n        rms=\"" << rms()
        << "\"/>\n    </statistics>\n    <data1d>\n";
-    for ( int i = 0; i < ax->bins() + 2; ++i ) 
+    for ( int i = 0; i < ax->bins() + 2; ++i )
       if ( sum[i] && binError(i)>0.) {
         os << "      <bin1d binNum=\"";
         if ( i == 0 ) os << "UNDERFLOW";
@@ -547,15 +547,15 @@ public:
       double* bins = new double[nbins+1];
       for (int i=0; i<nbins; ++i) {
 	bins[i] = vax->binEdges(i).first;
-      } 
-      bins[nbins] = vax->binEdges(nbins-1).second; //take last bin right border 
+      }
+      bins[nbins] = vax->binEdges(nbins-1).second; //take last bin right border
       prof1d = new TProfile(name.c_str(), title().c_str(), nbins, bins);
       delete bins;
     }
 
 
     double entries = 0;
-    for ( int i = 0; i < nbins + 2; ++i ) { 
+    for ( int i = 0; i < nbins + 2; ++i ) {
       if ( sum[i] && binError(i)>0.) {
 	//i==0: underflow->RootBin(0), i==1: overflow->RootBin(NBins+1)
 	entries = entries + sum[i];

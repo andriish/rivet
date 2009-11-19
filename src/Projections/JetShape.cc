@@ -6,12 +6,12 @@ namespace Rivet {
 
 
   /// Constructor.
-  JetShape::JetShape(const VetoedFinalState& vfsp, 
-                     const vector<FourMomentum>& jetaxes, 
-                     double rmin, double rmax, double interval, 
+  JetShape::JetShape(const VetoedFinalState& vfsp,
+                     const vector<FourMomentum>& jetaxes,
+                     double rmin, double rmax, double interval,
                      double r1minPsi, DeltaRScheme distscheme)
-    : _jetaxes(jetaxes), 
-      _rmin(rmin), _rmax(rmax), _interval(interval), 
+    : _jetaxes(jetaxes),
+      _rmin(rmin), _rmax(rmax), _interval(interval),
       _r1minPsi(r1minPsi), _distscheme(distscheme)
   {
     setName("JetShape");
@@ -51,7 +51,7 @@ namespace Rivet {
       foreach (const Particle& p, vfs.particles()) {
         double drad_min = TWOPI;
         size_t i_drad_min = 0;
-        
+     
         // Identify "best match" jet axis for this particle
         for (size_t j = 0; j < _jetaxes.size(); ++j) {
           const double drad = deltaR(_jetaxes[j], p.momentum(), _distscheme);
@@ -80,8 +80,8 @@ namespace Rivet {
         }
 
       }
-     
-      
+  
+   
       // Normalize to total pT
       for (size_t j = 0; j < _jetaxes.size(); j++) {
         const double psimax = _intjetshapes[j][_nbins-1];
@@ -94,9 +94,9 @@ namespace Rivet {
         }
       }
 
-      
+   
     }
   }
-  
-  
+
+
 }

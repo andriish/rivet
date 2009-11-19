@@ -11,15 +11,15 @@
 namespace Rivet {
 
 
-  /// Project out the total visible energy vector, allowing missing 
+  /// Project out the total visible energy vector, allowing missing
   /// \f$ E_T \f$ etc. to be calculated.
   class TotalVisibleMomentum : public Projection {
-    
+ 
   public:
-    
+ 
     /// Constructor. Make sure you supply an appropriately vetoed FS!
     TotalVisibleMomentum(const FinalState& fsp)
-    { 
+    {
       setName("TotalVisibleMomentum");
       addProjection(fsp, "FS");
     }
@@ -29,7 +29,7 @@ namespace Rivet {
       return new TotalVisibleMomentum(*this);
     }
 
-    
+ 
   public:
     /// The projected four-momentum vector
     FourMomentum& momentum() { return _momentum; }
@@ -39,26 +39,26 @@ namespace Rivet {
 
     /// The projected scalar transverse energy
     const double scalarET() const { return _set; }
-    
+ 
 
   protected:
-    
+ 
     /// Apply the projection to the event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
-        
+     
   private:
-    
+ 
     /// The total visible momentum
     FourMomentum _momentum;
-    
+ 
     /// Scalar transverse energy
     double _set;
-    
+ 
   };
-  
+
 }
 
 

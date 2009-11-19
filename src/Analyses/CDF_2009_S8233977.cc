@@ -10,31 +10,31 @@ namespace Rivet {
 
   /* @brief CDF Run II min-bias cross-section
    * @author Hendrik Hoeth
-   * 
+   *
    * Measurement of \f$ \langle p_T \rangle \f$ vs. \f$ n_\text{ch} \f$,
    * the track \f$ p_T \f$ distribution, and the \f$ \sum E_T \f$ distribution.
    * Particles are selected within |eta|<1 and with pT>0.4 GeV.
    * There is no pT cut for the \f$ \sum E_T \f$ measurement.
-   * 
+   *
    * @par Run conditions
-   * 
+   *
    * @arg \f$ \sqrt{s} = \f$ 1960 GeV
    * @arg Run with generic QCD events.
    * @arg Set particles with c*tau > 10 mm stable
-   * 
-   */ 
+   *
+   */
   class CDF_2009_S8233977 : public Analysis {
   public:
 
     /// Constructor
     CDF_2009_S8233977()
       : Analysis("CDF_2009_S8233977")
-    { 
+    {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
-    
-    
+ 
+ 
     /// @name Analysis methods
     //@{
 
@@ -50,7 +50,7 @@ namespace Rivet {
     }
 
 
-    
+ 
     /// Do the analysis
     void analyze(const Event& evt) {
       // Trigger: need at least one charged particle in both -4.7 < eta < -3.7 and 3.7 < eta < 4.7
@@ -75,7 +75,7 @@ namespace Rivet {
       foreach (const Particle& p, trackfs.particles()) {
         const double pT = p.momentum().pT() / GeV;
         _hist_pt_vs_multiplicity->fill(numParticles, pT, weight);
-        
+     
         // The weight for entries in the pT distribution should be weight/(pT*dPhi*dy).
         //
         // - dPhi = 2*PI
@@ -105,14 +105,14 @@ namespace Rivet {
       _hist_sumEt->fill(sumEt, weight);
     }
 
-    
-    
+ 
+ 
     /// Normalize histos
     void finalize() {
       scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*sumOfWeights()));
       scale(_hist_pt, crossSection()/millibarn/sumOfWeights());
     }
-    
+ 
     //@}
 
 

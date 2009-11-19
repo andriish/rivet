@@ -39,13 +39,13 @@ namespace Rivet {
   public:
 
     /// Return the generated event obtained from an external event generator.
-    const GenEvent& genEvent() const { 
-      return _genEvent; 
+    const GenEvent& genEvent() const {
+      return _genEvent;
     }
 
     /// The weight associated with the event.
-    double weight() const { 
-      return _weight; 
+    double weight() const {
+      return _weight;
     }
 
 
@@ -65,7 +65,7 @@ namespace Rivet {
         const Projection& pRef = **old;
         return pcast<PROJ>(pRef);
       }
-      // Add the projection via the Projection base class (only 
+      // Add the projection via the Projection base class (only
       // possible because Event is a friend of Projection)
       Projection* pp = const_cast<Projection*>(cpp);
       pp->project(*this);
@@ -96,7 +96,7 @@ namespace Rivet {
 
   };
 
-  
+
 }
 
 #endif

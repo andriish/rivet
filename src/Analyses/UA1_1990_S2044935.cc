@@ -23,13 +23,13 @@ namespace Rivet {
       _sumwTrig40 = 0;
       _sumwTrig80 = 0;
     }
-    
+ 
 
     /// @name Analysis methods
     //@{
 
     /// Book projections and histograms
-    void init() { 
+    void init() {
       addProjection(ChargedFinalState(-5.5, 5.5), "TriggerFS");
       addProjection(ChargedFinalState(-2.5, 2.5), "TrackFS");
       addProjection(Beam(), "Beam");
@@ -51,11 +51,11 @@ namespace Rivet {
       _hist_Pt63 = bookProfile1D(8,1,1);
       _hist_Pt200 = bookProfile1D(6,1,1);
       _hist_Pt900 = bookProfile1D(7,1,1);
-      _hist_Etavg200 = bookProfile1D(12,1,1); 
-      _hist_Etavg500 = bookProfile1D(12,1,2); 
+      _hist_Etavg200 = bookProfile1D(12,1,1);
+      _hist_Etavg500 = bookProfile1D(12,1,2);
       _hist_Etavg900 = bookProfile1D(12,1,3);
     }
-    
+ 
 
     void analyze(const Event& event) {
       // Trigger
@@ -67,7 +67,7 @@ namespace Rivet {
         else if (inRange(eta, 1.5, 5.5)) n_plus++;
       }
       getLog() << Log::DEBUG << "Trigger -: " << n_minus << ", Trigger +: " << n_plus << endl;
-      if (n_plus == 0 || n_minus == 0) vetoEvent;      
+      if (n_plus == 0 || n_minus == 0) vetoEvent;
       const double weight = event.weight();
       _sumwTrig += weight;
 
@@ -121,12 +121,12 @@ namespace Rivet {
             _sumwTrig80 += weight;
             _hist_Esigd3p80->fill(pt/GeV, scaled_weight);
           }
-        } 
+        }
       }
-      
+   
     }
-    
-    
+ 
+ 
     void finalize() {
       const double xsec = crossSection();
       if (_sumwTrig > 0) {
@@ -150,15 +150,15 @@ namespace Rivet {
         normalize(_hist_Et900, xsec/millibarn * _sumwTrig/sumOfWeights());
       }
     }
-    
+ 
     //@}
 
-    
+ 
   private:
 
     /// Weight counters
     double _sumwTrig, _sumwTrig08, _sumwTrig40, _sumwTrig80;
-    
+ 
     /// @name Histogram collections
     //@{
     AIDA::IHistogram1D* _hist_Nch200;
@@ -180,12 +180,12 @@ namespace Rivet {
     AIDA::IHistogram1D* _hist_Et500;
     AIDA::IHistogram1D* _hist_Et900;
     //@}
-    
+ 
   };
-  
-  
-  
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<UA1_1990_S2044935> plugin_UA1_1990_S2044935;
-  
+
 }

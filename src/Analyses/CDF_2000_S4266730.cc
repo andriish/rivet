@@ -16,7 +16,7 @@ namespace Rivet {
 
     /// Constructor
     CDF_2000_S4266730()
-      : Analysis("CDF_2000_S4266730") 
+      : Analysis("CDF_2000_S4266730")
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -63,7 +63,7 @@ namespace Rivet {
         vetoEvent;
       }
       _h_mjj->fill(mjj, weight);
-      
+   
     }
 
 

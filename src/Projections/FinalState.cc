@@ -13,26 +13,26 @@ namespace Rivet {
     const bool openpt = isZero(minpt);
     const bool openeta = (mineta <= -MAXRAPIDITY && maxeta >= MAXRAPIDITY);
     getLog() << Log::TRACE << "Check for open FS conditions:" << std::boolalpha
-             << " eta=" << openeta 
+             << " eta=" << openeta
              << ", pt=" << openpt << endl;
     if (!openeta || !openpt) {
-      addProjection(FinalState(), "OpenFS");    
+      addProjection(FinalState(), "OpenFS");
       if (!openeta) {
         _etaRanges.push_back(make_pair(mineta, maxeta));
       }
     }
   }
-  
-  
+
+
   FinalState::FinalState(const vector<pair<double, double> >& etaRanges, double minpt)
     : _etaRanges(etaRanges), _ptmin(minpt)
-  { 
+  {
     setName("FinalState");
     const bool openpt = isZero(minpt);
     /// @todo Properly check whether any of these eta ranges (or their combination) are actually open
     const bool openeta = etaRanges.empty();
     getLog() << Log::TRACE << "Check for open FS conditions:" << std::boolalpha
-             << " eta=" << openeta 
+             << " eta=" << openeta
              << ", pt=" << openpt << endl;
     if (!openeta || !openpt) {
       addProjection(FinalState(), "OpenFS");
@@ -65,7 +65,7 @@ namespace Rivet {
 
     // Handle "open FS" special case
     if (_etaRanges.empty() && _ptmin == 0) {
-      getLog() << Log::TRACE << "Open FS processing: should only see this once per event (" 
+      getLog() << Log::TRACE << "Open FS processing: should only see this once per event ("
                << e.genEvent().event_number() << ")" << endl;
       foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
         if (p->status() == 1) {
@@ -83,14 +83,14 @@ namespace Rivet {
       const bool passed = accept(p);
       if (getLog().isActive(Log::TRACE)) {
         getLog() << Log::TRACE
-                 << "Choosing: ID = " << p.pdgId() 
-                 << ", pT = " << p.momentum().pT() 
-                 << ", eta = " << p.momentum().eta() 
+                 << "Choosing: ID = " << p.pdgId()
+                 << ", pT = " << p.momentum().pT()
+                 << ", eta = " << p.momentum().eta()
                  << ": result = " << std::boolalpha << passed << endl;
       }
       if (passed) _theParticles.push_back(p);
     }
-    getLog() << Log::DEBUG << "Number of final-state particles = " 
+    getLog() << Log::DEBUG << "Number of final-state particles = "
              << _theParticles.size() << endl;
   }
 
@@ -106,7 +106,7 @@ namespace Rivet {
       if (pT < _ptmin) return false;
     }
 
-    // Check eta cuts 
+    // Check eta cuts
     if (!_etaRanges.empty()) {
       bool eta_pass = false;
       const double eta = p.momentum().eta();
@@ -119,7 +119,7 @@ namespace Rivet {
       }
       if (!eta_pass) return false;
     }
-    
+ 
     return true;
   }
 

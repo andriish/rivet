@@ -21,7 +21,7 @@ namespace Rivet {
   }
 
 
-  Analysis* AnalysisLoader::getAnalysis(const string& analysisname) { 
+  Analysis* AnalysisLoader::getAnalysis(const string& analysisname) {
     _loadAnalysisPlugins();
     AnalysisBuilderMap::const_iterator ai = _ptrs.find(analysisname);
     if (ai == _ptrs.end()) return 0;
@@ -51,7 +51,7 @@ namespace Rivet {
     Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Registering a plugin analysis called '" << name << "'" << endl;
     _ptrs[name] = ab;
   }
-  
+
 
   void AnalysisLoader::_loadAnalysisPlugins() {
     // Only run once
@@ -64,7 +64,7 @@ namespace Rivet {
     env = getenv("RIVET_ANALYSIS_PATH");
     if (env) dirs += split(env);
     // Then the Rivet library install path
-    dirs += getLibPath();    
+    dirs += getLibPath();
     // And then the user's (non-system) library path
     env = getenv("LD_LIBRARY_PATH");
     if (env) dirs += split(env);

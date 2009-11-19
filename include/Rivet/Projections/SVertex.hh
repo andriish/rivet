@@ -14,7 +14,7 @@ namespace Rivet {
 
   /**
      @brief Determine secondary vertices.
-     
+  
      Makes use of PVertex projection.
 
      @todo Replace function with a functor to improve equality comparisons.
@@ -23,14 +23,14 @@ namespace Rivet {
      Complex cuts on tracks and vertices to validate them have to be provided
      by an external function
      bool f(SVertex&, ParticleVector&, const HepMC::GenVertex&, FourMomentum);
-     which can be embedded in the analysis code. An example can be found 
-     in the S6653332 analysis. A pointer to this function has to be given 
+     which can be embedded in the analysis code. An example can be found
+     in the S6653332 analysis. A pointer to this function has to be given
      to the constructor of the SVertex projection. Its arguments are as follows:
 
      in: reference to instance of SVertex projection, ParticleVector of
          vertex to be analyzed, primary (Gen)Vertex
-     out: FourMomentum = visible Momentum of vertex (selected tracks), 
-     return bool: cuts passed? 1 : 0 
+     out: FourMomentum = visible Momentum of vertex (selected tracks),
+     return bool: cuts passed? 1 : 0
 
      In this way the SVertex projection can be kept as universal/flexible
      as possible.
@@ -45,15 +45,15 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
-    /// The default constructor. Must specify a PVertex 
+    /// The default constructor. Must specify a PVertex
     /// projection object which is assumed to live through the run.
-    SVertex(const ChargedFinalState& chfs, 
+    SVertex(const ChargedFinalState& chfs,
             const vector<FourMomentum>& jetaxes, double deltaR,
-            double detEta, double IPres, double DLS, double DLSres=0.0) 
+            double detEta, double IPres, double DLS, double DLSres=0.0)
       : _jetaxes(jetaxes), _deltaR(deltaR),
-        _detEta(detEta), _IPres(IPres), _DLS(DLS), 
+        _detEta(detEta), _IPres(IPres), _DLS(DLS),
         _DLSres(DLSres)
-    { 
+    {
       setName("SVertex");
       addProjection(PVertex(), "PV");
       addProjection(chfs, "FS");

@@ -25,7 +25,7 @@ namespace Rivet {
   ///
   class HistoHandler {
   private:
-    
+ 
     /// @name Construction. */
     //@{
     /// The standard constructor.

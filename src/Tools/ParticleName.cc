@@ -3,10 +3,10 @@
 // ParticleName.cc
 // Author: Lynn Garren and Walter Brown
 //
-//  Create a map that gives a standard name for each pre-defined 
-//  particle ID number.   Also create a map for the reverse lookup of 
-//  the ID number from a string.  These maps are initialized if and only if 
-//  the public functions are called. Because the maps are static, 
+//  Create a map that gives a standard name for each pre-defined
+//  particle ID number.   Also create a map for the reverse lookup of
+//  the ID number from a string.  These maps are initialized if and only if
+//  the public functions are called. Because the maps are static,
 //  the initialization happens only once.
 //
 //  The user NEVER calls ParticleNameInit()
@@ -46,11 +46,11 @@ public:
 
    typedef ParticleIdMap::const_iterator      idIterator;
    typedef ParticleLookupMap::const_iterator nameIterator;
-   
+
    ParticleNameMap(ParticleIdMap m1,ParticleLookupMap m2)
    : itsNameMap(m1), itsLookupMap(m2) {}
    ~ParticleNameMap() {}
-   
+
    ParticleIdMap       nameMap()    const { return itsNameMap; }
    ParticleLookupMap lookupMap()  const { return itsLookupMap; }
    idIterator   begin()               const { return itsNameMap.begin(); }
@@ -61,14 +61,14 @@ public:
    nameIterator findString( const std::string & s) const { return itsLookupMap.find(s); }
 
 private:
-   
+
    ParticleIdMap       itsNameMap;
    ParticleLookupMap itsLookupMap;
-   
+
    // copies are not allowed
    ParticleNameMap( const ParticleNameMap & );
    ParticleNameMap & operator = ( const ParticleNameMap & );
-   
+
 };
 
 namespace {	// ParticleNameInit and ParticleNameMap are private
@@ -305,12 +305,12 @@ ParticleNameMap const &  ParticleNameInit()
       {    9920022, "remnant photon" },
       {    9922212, "remnant nucleon" },
       {   -9922212, "remnant nucleon~" },
-      {    9900441, "cc~[1S08]" },     
-      {    9910441, "cc~[3P08]" },     
-      {    9900443, "cc~[3S18]" },     
-      {    9900551, "bb~[1S08]" },     
-      {    9910551, "bb~[3P08]" },     
-      {    9900553, "bb~[3S18]" },    
+      {    9900441, "cc~[1S08]" },
+      {    9910441, "cc~[3P08]" },
+      {    9900443, "cc~[3S18]" },
+      {    9900551, "bb~[1S08]" },
+      {    9910551, "bb~[3P08]" },
+      {    9900553, "bb~[3S18]" },
       {       1103, "dd_1" },
       {      -1103, "dd_1~" },
       {       2101, "ud_0" },
@@ -1683,7 +1683,7 @@ void  listParticleNames( std::ostream & os  )
     os << std::endl;
 
     // simple: static  PartcleIdMap const &  pmap = getPartcleIdMap();
-    // simple: for( PartcleIdMap::const_iterator cit = pmap.begin(), mend = pmap.end(); 
+    // simple: for( PartcleIdMap::const_iterator cit = pmap.begin(), mend = pmap.end();
     // simple:                                 cit != mend;
 	// simple: 			  ++cit ) {
 	// simple: os << "  PDT number: " ;
@@ -1822,5 +1822,5 @@ void  listParticleNames( std::ostream & os  )
     }
     return;
 }  // listParticleNames()
-    
+ 
   }}

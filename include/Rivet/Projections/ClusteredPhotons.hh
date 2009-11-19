@@ -18,12 +18,12 @@ namespace Rivet {
   class ClusteredPhotons : public FinalState {
 
   public:
-    
+ 
     /// @name Constructors
     //@{
     /// Constructor with the two final states, and the maximum separation in dR
     /// for clustered photons
-    ClusteredPhotons(const FinalState& fs, const FinalState& signal, double dRmax) 
+    ClusteredPhotons(const FinalState& fs, const FinalState& signal, double dRmax)
       : _dRmax(dRmax)
     {
       setName("ClusteredPhotons");
@@ -39,15 +39,15 @@ namespace Rivet {
       return new ClusteredPhotons(*this);
     }
     //@}
-    
+ 
 
   public:
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
 
@@ -56,10 +56,10 @@ namespace Rivet {
 
     /// maximum cone radius to find photons in
     double _dRmax;
-    
+ 
   };
 
-  
+
 }
 
 

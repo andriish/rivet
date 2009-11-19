@@ -9,7 +9,7 @@ namespace Rivet {
 
 
   class AnalysisInfo {
-    
+ 
   public:
 
     /// Static factory method: returns null pointer if no metadata found
@@ -32,8 +32,8 @@ namespace Rivet {
     /// building web pages and the analysis pages in the Rivet manual.
     //@{
     /// Get the name of the analysis. By default this is computed by
-    /// combining the results of the experiment, year and Spires ID 
-    /// metadata methods and you should only override it if there's a 
+    /// combining the results of the experiment, year and Spires ID
+    /// metadata methods and you should only override it if there's a
     /// good reason why those won't work.
     std::string name() const {
       if (!_name.empty()) return _name;
@@ -65,11 +65,11 @@ namespace Rivet {
     const std::string& description() const { return _description; }
 
     /// @brief Information about the events needed as input for this analysis.
-    /// Event types, energies, kinematic cuts, particles to be considered 
+    /// Event types, energies, kinematic cuts, particles to be considered
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
     const std::string& runInfo() const { return _runInfo; }
-    
+ 
     /// Experiment which performed and published this analysis.
     const std::string& experiment() const { return _experiment; }
 
@@ -80,7 +80,7 @@ namespace Rivet {
     // const BeamPair& beams() const { return _beams; }
 
     /// @brief When the original experimental analysis was published.
-    /// When the refereed paper on which this is based was published, 
+    /// When the refereed paper on which this is based was published,
     /// according to SPIRES.
     const std::string& year() const { return _year; }
 

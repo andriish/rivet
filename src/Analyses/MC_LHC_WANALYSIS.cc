@@ -11,19 +11,19 @@ namespace Rivet {
 
   class MC_LHC_WANALYSIS : public Analysis {
   public:
-  
+
     /// Default constructor
-    MC_LHC_WANALYSIS() : Analysis("MC_LHC_WANALYSIS") 
+    MC_LHC_WANALYSIS() : Analysis("MC_LHC_WANALYSIS")
     {
       //
     }
-    
+ 
 
     /// @name Analysis methods
     /// @todo change "Weights" to differential cross sections once histos normalised to cross-section.
     //@{
 
-    void init() { 
+    void init() {
       const ChargedFinalState cfs;
       addProjection(cfs, "CFS");
       /// @todo Handle muon-decay Ws as well
@@ -49,15 +49,15 @@ namespace Rivet {
       _hist_jetpt = bookHistogram1D("pt-jet", 50, 20, 100);
       _hist_jetlogpt = bookHistogram1D("logpt-jet", 20, 0, 20);
     }
-    
-    
+ 
+ 
     void analyze(const Event& event) {
       const double weight = event.weight();
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       const WFinder& wf = applyProjection<WFinder>(event, "WF");
       const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
       const Jets jets = fastjets.jetsByPt();
-    
+ 
       // Charged particles part
       _hist_chargemulti->fill(cfs.particles().size(), weight);
       double meanpt(0), rmspt(0);
@@ -71,7 +71,7 @@ namespace Rivet {
       _hist_chargemeanpt->fill(meanpt/GeV, weight);
       rmspt = sqrt(rmspt / cfs.particles().size());
       _hist_chargermspt->fill(rmspt/GeV, weight);
-      
+   
       // W part
       _hist_wcount->fill(wf.particles().size(), weight);
       foreach (const Particle& wp, wf.particles()) {
@@ -84,7 +84,7 @@ namespace Rivet {
         _hist_wmass->fill(m/GeV, weight);
         _hist_wlogmass->fill(log(m/GeV), weight);	
       }
-      
+   
       // Jet part
       _hist_jetcount->fill(fastjets.size(), weight);
       foreach(const Jet& j, fastjets.jetsByPt()) {
@@ -93,14 +93,14 @@ namespace Rivet {
         _hist_jetlogpt->fill(log(pT/GeV), weight);
       }
     }
-    
-    
+ 
+ 
     void finalize() {
       ///@todo Obtain cross-sections from generator and normalise histos to them.
     }
-    
+ 
     //@}
-    
+ 
   private:
 
     /// @name Histograms

@@ -12,7 +12,7 @@
 #include <algorithm>
 
 namespace Rivet {
-  
+
   using std::string;
   using std::ostream;
   using std::ostringstream;
@@ -44,7 +44,7 @@ namespace Rivet {
 
   /// Enum for range of \f$ \phi \f$ to be mapped into
   enum PhiMapping { MINUSPI_PLUSPI, ZERO_2PI };
-  
+
 }
 
 #endif

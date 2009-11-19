@@ -17,26 +17,26 @@ namespace Rivet {
   class LossyFinalState : public FinalState {
 
   public:
-    
+ 
     /// @name Constructors
     //@{
 
     /// Constructor from FinalState.
     LossyFinalState(const FinalState& fsp, double lossfraction)
       : _lossFraction(lossfraction)
-    { 
+    {
       setName("LossyFinalState");
       addProjection(fsp, "FS");
       assert(_lossFraction >= 0);
     }
-    
+ 
     /// Stand-alone constructor. Initialises the base FinalState projection.
     LossyFinalState(double lossfraction,
                     double mineta = -MAXRAPIDITY,
                     double maxeta = MAXRAPIDITY,
                     double minpt = 0.0)
       : _lossFraction(lossfraction)
-    { 
+    {
       setName("LossyFinalState");
       addProjection(FinalState(mineta, maxeta, minpt), "FS");
       assert(_lossFraction >= 0);
@@ -50,10 +50,10 @@ namespace Rivet {
     //@}
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
 
@@ -71,10 +71,10 @@ namespace Rivet {
 
     /// Fraction of particles to lose.
     const double _lossFraction;
-    
+ 
   };
 
-  
+
 }
 
 

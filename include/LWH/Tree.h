@@ -21,7 +21,7 @@ namespace LWH {
   
   
   enum fileformat {
-    flat, 
+    flat,
     xml
     #ifdef HAVE_ROOT
     , root
@@ -132,7 +132,7 @@ namespace LWH {
       //PathSet::iterator theIterator;
       //for( theIterator = dirs.begin(); theIterator != dirs.end(); theIterator++ ) {
       //std::cout << "1:" << pth2str(*theIterator);
-      //}   
+      //}
       //std::cout << std::endl;
       
       if ( dirs.find(path) == dirs.end() ) {
@@ -161,7 +161,7 @@ namespace LWH {
       return cwd;
     }
     
-    /** 
+    /**
      * List, into a given output stream, all the IManagedObjects, including
      * directories (but not "." and ".."), in a given path. Directories end
      * with "/". The list can be recursive.
@@ -236,7 +236,7 @@ namespace LWH {
      * @param dir The absolute or relative path of the new directory.
      * @return false If a subdirectory within the path does
      * not exist or it is not a directory. Also if the directory already exists.
-     */   
+     */
     bool mkdir(const std::string & dir) {
       Path p = purgepath(str2pth(fullpath(sts(dir))));
       Path base = p;
@@ -327,7 +327,7 @@ namespace LWH {
       //std::cout << 1 << std::endl;
       if ( it == objs.end() ) return false;
       //std::cout << 2 << std::endl;
-      // Changed from != by AB: surely the directory you're copying to must 
+      // Changed from != by AB: surely the directory you're copying to must
       // exist? Why can't we just change the name in the same directory?
       if ( dirs.find(newpath) == dirs.end() ) return false;
       newpath.push_back(oldpath.back());
@@ -373,8 +373,8 @@ namespace LWH {
           break;
         case xml:
           o->writeXML(of, path, name);
-          break; 
-          #ifdef HAVE_ROOT    
+          break;
+          #ifdef HAVE_ROOT
         case root:
           o->writeROOT(file, path, name);
           break;
@@ -440,7 +440,7 @@ namespace LWH {
     /**
      * Not implemented in LWH.
      * @return null pointer always.
-     */ 
+     */
     void * cast(const std::string &) const {
       return 0;
     }

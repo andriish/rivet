@@ -243,7 +243,7 @@ public:
     MatrixP & operator *= ( const MatrixP & other )
     { m_mat *= other.m_mat; return *this; }
 
-    /** Matrix-matrix product. Calls Matrix::operator*(). For better performance use 
+    /** Matrix-matrix product. Calls Matrix::operator*(). For better performance use
       * multiply(const MatrixP &, MatrixP *) const instead.
       *
       * \sa multiply(const MatrixP &, MatrixP *) const

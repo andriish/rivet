@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#ifndef RIVET_CONFIGURATION_HH 
+#ifndef RIVET_CONFIGURATION_HH
 #define RIVET_CONFIGURATION_HH
 
 #include "Rivet/Rivet.hh"
@@ -26,10 +26,10 @@ namespace Rivet {
   public:
     /// Standard constructor
     Configuration() :
-      numEvents(0), generatorName(""), beam1(Rivet::PROTON), beam2(Rivet::PROTON), 
-      mom1(7000.0), mom2(7000.0), histoName("Rivet"), histoFormat(Rivet::AIDAML), 
-      hepmlInFile(""), hepmlOutFile(""), hepmcInFile(""), hepmcOutFile(""), 
-      useLogColors(true), runRivet(false), readHepMC(false), writeHepMC(false), 
+      numEvents(0), generatorName(""), beam1(Rivet::PROTON), beam2(Rivet::PROTON),
+      mom1(7000.0), mom2(7000.0), histoName("Rivet"), histoFormat(Rivet::AIDAML),
+      hepmlInFile(""), hepmlOutFile(""), hepmcInFile(""), hepmcOutFile(""),
+      useLogColors(true), runRivet(false), readHepMC(false), writeHepMC(false),
       params(), analyses(), rngSeed(314159)
     { }
 

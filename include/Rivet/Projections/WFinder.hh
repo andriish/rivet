@@ -17,7 +17,7 @@ namespace Rivet {
   class WFinder : public FinalState {
 
   public:
-    
+ 
     /// @name Constructors
     //@{
 
@@ -58,19 +58,19 @@ namespace Rivet {
 
 
     /// Access to the remaining particles, after the Z and clustered photons
-    /// have been removed from the full final state 
+    /// have been removed from the full final state
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
 
-    /// Access to the Z constituent leptons final state 
+    /// Access to the Z constituent leptons final state
     /// (e.g. for more fine-grained cuts on the leptons)
     const FinalState& constituentsFinalState() const;
 
   protected:
-    
+ 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
-    
+ 
     /// Compare projections.
     int compare(const Projection& p) const;
 
@@ -91,7 +91,7 @@ namespace Rivet {
 
   };
 
-  
+
 }
 
 

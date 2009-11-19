@@ -24,7 +24,7 @@ using namespace AIDA;
  */
 class DataPointSetFactory: public IDataPointSetFactory {
 
-public: 
+public:
 
   /**
    * Standard constructor.
@@ -299,7 +299,7 @@ public:
          !dset->setCoordinate(1, y, eyp, eym) )
       throw std::runtime_error("LWH could add points to DataPointSet '" +
 			       title +  "'." );
-    return dset;   
+    return dset;
   }
 
   /**
@@ -405,7 +405,7 @@ public:
          !dset->setCoordinate(2, z, ezp, ezm) )
       throw std::runtime_error("LWH could add points to DataPointSet '" +
 			       title +  "'." );
-    return dset;   
+    return dset;
   }
 
   /**

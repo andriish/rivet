@@ -16,7 +16,7 @@ namespace Rivet {
 
     /// Constructor
     CDF_2009_S8436959()
-      : Analysis("CDF_2009_S8436959") 
+      : Analysis("CDF_2009_S8436959")
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -64,7 +64,7 @@ namespace Rivet {
       if (photons.size() != 1) {
         vetoEvent;
       }
-      
+   
       _h_Et_photon->fill(photons[0].momentum().Et(), weight);
     }
 

@@ -55,12 +55,12 @@ namespace Rivet {
     vector<Particle>& particles() {
       return _fullParticles;
     }
-    
+ 
     /// Get the Rivet::Particles (full information) in this jet (const version)
     const vector<Particle>& particles() const {
       return _fullParticles;
     }
-    
+ 
     /// Number of particles (tracks) in this jet.
     size_t size() const {
       return _particles.size();
@@ -74,7 +74,7 @@ namespace Rivet {
 
     /// Add a particle/track to this jet.
     Jet& addParticle(const Particle& particle);
-    
+ 
     /// Check whether this jet contains a particular particle.
     bool containsParticle(const Particle& particle) const;
 
@@ -89,7 +89,7 @@ namespace Rivet {
 
     /// Check whether this jet contains a bottom-flavoured hadron.
     bool containsBottom() const;
- 
+
     /// Reset this jet as empty.
     Jet& clear();
 
@@ -109,7 +109,7 @@ namespace Rivet {
 
     /// Get equivalent single momentum four-vector. (caches)
     const FourMomentum& momentum() const;
-    
+ 
     // /// Get equivalent single momentum four-vector. (caches)
     // FourMomentum& momentum();
 
@@ -122,7 +122,7 @@ namespace Rivet {
 
     /// Get the energy carried in this jet by neutral particles.
     double neutralEnergy() const;
-    
+ 
     /// Get the energy carried in this jet by hadrons.
     double hadronicEnergy() const;
 
@@ -162,10 +162,10 @@ namespace Rivet {
     mutable double _ptWeightedPhi, _ptWeightedEta;
     mutable bool _okPtWeightedPhi, _okPtWeightedEta;
 
-    /// Cached effective jet 4-vector 
+    /// Cached effective jet 4-vector
     mutable FourMomentum _momentum;
     mutable bool _okMomentum;
-    
+ 
   };
 
 

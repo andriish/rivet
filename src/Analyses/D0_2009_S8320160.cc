@@ -21,14 +21,14 @@ namespace Rivet {
     D0_2009_S8320160() : Analysis("D0_2009_S8320160")
     {
       setBeams(PROTON, ANTIPROTON);
-    } 
-    
+    }
+ 
     //@}
 
 
     /// @name Analysis methods
-    //@{ 
-    
+    //@{
+ 
     // Book histograms
     void init() {
       FinalState fs;
@@ -46,30 +46,30 @@ namespace Rivet {
       _h_chi_dijet.addHistogram(1000., 1100., bookHistogram1D(9, 1, 1));
       _h_chi_dijet.addHistogram(1100., 1960, bookHistogram1D(10, 1, 1));
     }
-    
-    
-    
-    /// Do the analysis 
+ 
+ 
+ 
+    /// Do the analysis
     void analyze(const Event & e) {
       const double weight = e.weight();
-      
-      const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt();      
+   
+      const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt();
       if (jets.size() < 2) vetoEvent;
-    
+ 
       FourMomentum j0(jets[0].momentum());
       FourMomentum j1(jets[1].momentum());
       double y0 = j0.rapidity();
       double y1 = j1.rapidity();
-      
+   
       if (fabs(y0+y1)>2) vetoEvent;
-      
+   
       double mjj = FourMomentum(j0+j1).mass();
       double chi = exp(fabs(y0-y1));
       _h_chi_dijet.fill(mjj, chi, weight);
     }
-    
-    
-    
+ 
+ 
+ 
     /// Finalize
     void finalize() {
       foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
@@ -78,20 +78,20 @@ namespace Rivet {
     }
 
     //@}
-    
-    
+ 
+ 
   private:
-    
+ 
     /// @name Histograms
     //@{
     BinnedHistogram<double> _h_chi_dijet;
     //@}
-    
+ 
   };
 
 
-  
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2009_S8320160> plugin_D0_2009_S8320160;
-  
+
 }

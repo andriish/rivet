@@ -19,7 +19,7 @@ namespace Rivet {
   }
 
   /// Find whether BeamPair @a pair is compatible with the template
-  /// BeamPair @a allowedpair. This assesses whether either of the 
+  /// BeamPair @a allowedpair. This assesses whether either of the
   /// two possible pairings of @a pair's constituents is compatible.
   inline bool compatible(const BeamPair& pair, const BeamPair& allowedpair) {
     bool oneToOne = compatible(pair.first, allowedpair.first);
@@ -31,13 +31,13 @@ namespace Rivet {
 
 
   /// Check particle compatibility of Particle pairs
-  inline bool compatible(const ParticlePair& ppair, 
+  inline bool compatible(const ParticlePair& ppair,
                          const BeamPair& allowedpair) {
-    return compatible(make_pdgid_pair(ppair.first.pdgId(), 
+    return compatible(make_pdgid_pair(ppair.first.pdgId(),
                                       ppair.second.pdgId()), allowedpair);
   }
   /// Check particle compatibility of Particle pairs (for symmetric completeness)
-  inline bool compatible(const BeamPair& allowedpair, 
+  inline bool compatible(const BeamPair& allowedpair,
                          const ParticlePair& ppair) {
     return compatible(ppair, allowedpair);
   }

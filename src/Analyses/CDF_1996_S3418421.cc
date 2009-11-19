@@ -40,7 +40,7 @@ namespace Rivet {
       _h_chi.addHistogram(400.0, 517.0, bookHistogram1D(1, 1, 3));
       _h_chi.addHistogram(517.0, 625.0, bookHistogram1D(1, 1, 4));
       _h_chi.addHistogram(625.0, 1800.0, bookHistogram1D(1, 1, 5));
-      
+   
       _h_ratio = bookHistogram1D(2,1,1);
       _chi_above_25.resize(_h_ratio->axis().bins());
       _chi_below_25.resize(_h_ratio->axis().bins());
@@ -63,10 +63,10 @@ namespace Rivet {
       if (eta2>2.0 || eta1>2.0 || chi>5.0) {
         vetoEvent;
       }
-      
+   
       double m = FourMomentum(jet1+jet2).mass();
       _h_chi.fill(m, chi, weight);
-      
+   
       // fill ratio counter
       int bin = _h_ratio->coordToIndex(m);
       _nevt++;
@@ -81,7 +81,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+   
       foreach (AIDA::IHistogram1D* hist, _h_chi.getHistograms()) {
         // because HepData contains 100/N instead of 1/N this is 100 in the aida
         normalize(hist, 100.0);

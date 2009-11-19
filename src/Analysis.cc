@@ -11,7 +11,7 @@ using namespace AIDA;
 namespace Rivet {
 
 
-  Analysis::Analysis(const string& name) 
+  Analysis::Analysis(const string& name)
     : _gotCrossSection(false),
       _needsCrossSection(false),
       _analysishandler(0),
@@ -23,10 +23,10 @@ namespace Rivet {
     setBeams(ANY, ANY);
   }
 
-  
+
   Analysis::~Analysis()
   {  }
-  
+
 
   IAnalysisFactory& Analysis::analysisFactory() {
     return handler().analysisFactory();
@@ -72,13 +72,13 @@ namespace Rivet {
   }
 
 
-  size_t Analysis::numEvents() const { 
-    return handler().numEvents(); 
+  size_t Analysis::numEvents() const {
+    return handler().numEvents();
   }
 
 
-  double Analysis::sumOfWeights() const { 
-    return handler().sumOfWeights(); 
+  double Analysis::sumOfWeights() const {
+    return handler().sumOfWeights();
   }
 
 
@@ -89,7 +89,7 @@ namespace Rivet {
     if (_info && !_info->name().empty()) return _info->name();
     return _defaultname;
   }
-  
+
   std::string Analysis::spiresId() const {
     if (!_info) return "NONE";
     return _info->spiresId();
@@ -99,7 +99,7 @@ namespace Rivet {
     if (!_info) return std::vector<std::string>();
     return _info->authors();
   }
-  
+
   std::string Analysis::summary() const {
     if (!_info) return "NONE";
     return _info->summary();
@@ -114,17 +114,17 @@ namespace Rivet {
     if (!_info) return "NONE";
     return _info->runInfo();
   }
-  
+
   std::string Analysis::experiment() const {
     if (!_info) return "NONE";
     return _info->experiment();
   }
-  
+
   std::string Analysis::collider() const {
     if (!_info) return "NONE";
     return _info->collider();
   }
-  
+
   const BeamPair& Analysis::beams() const {
     return _beams;
   }
@@ -133,7 +133,7 @@ namespace Rivet {
     if (!_info) return "NONE";
     return _info->year();
   }
-  
+
   std::vector<std::string> Analysis::references() const {
     if (!_info) return std::vector<std::string>();
     return _info->references();
@@ -143,11 +143,11 @@ namespace Rivet {
     if (!_info) return "UNVALIDATED";
     return _info->status();
   }
-  
+
   const BeamPair& Analysis::requiredBeams() const {
     return _beams;
   }
-  
+
   Analysis& Analysis::setBeams(const ParticleName& beam1, const ParticleName& beam2) {
     _beams.first = beam1;
     _beams.second = beam2;
@@ -157,31 +157,31 @@ namespace Rivet {
   bool Analysis::isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
     BeamPair beams(beam1, beam2);
     return compatible(beams, requiredBeams());
-    /// @todo Need to also check internal consistency of the analysis' 
+    /// @todo Need to also check internal consistency of the analysis'
     /// beam requirements with those of the projections it uses.
   }
-  
+
   bool Analysis::isCompatible(const BeamPair& beams) const {
     return compatible(beams, requiredBeams());
-    /// @todo Need to also check internal consistency of the analysis' 
+    /// @todo Need to also check internal consistency of the analysis'
     /// beam requirements with those of the projections it uses.
   }
-  
+
   Analysis& Analysis::setCrossSection(const double& xs) {
     _crossSection = xs;
     _gotCrossSection = true;
     return *this;
   }
-  
+
   bool Analysis::needsCrossSection() const {
     return _needsCrossSection;
   }
-  
+
   Analysis& Analysis::setNeedsCrossSection(bool needed) {
     _needsCrossSection = needed;
     return *this;
   }
-  
+
   const double& Analysis::crossSection() const {
     if (!_gotCrossSection) {
       string errMsg = "You did not set the cross section for the analysis " + name();
@@ -189,7 +189,7 @@ namespace Rivet {
     }
     return _crossSection;
   }
-  
+
   AnalysisHandler& Analysis::handler() const {
     return *_analysishandler;
   }
@@ -232,9 +232,9 @@ namespace Rivet {
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId, 
+  IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId,
                                           const size_t yAxisId, const string& title,
-                                          const string& xtitle, const string& ytitle) 
+                                          const string& xtitle, const string& ytitle)
   {
     const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookHistogram1D(axisCode, title, xtitle, ytitle);
@@ -260,7 +260,7 @@ namespace Rivet {
 
   IHistogram1D* Analysis::bookHistogram1D(const string& hname,
                                           const size_t nbins, const double lower, const double upper,
-                                          const string& title, 
+                                          const string& title,
                                           const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
@@ -274,7 +274,7 @@ namespace Rivet {
 
   IHistogram1D* Analysis::bookHistogram1D(const string& hname,
                                           const vector<double>& binedges,
-                                          const string& title, 
+                                          const string& title,
                                           const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
@@ -289,7 +289,7 @@ namespace Rivet {
   /////////////////
 
 
-  IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId, 
+  IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId,
                                       const size_t yAxisId, const string& title,
                                       const string& xtitle, const string& ytitle) {
     const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
@@ -298,7 +298,7 @@ namespace Rivet {
 
 
   IProfile1D* Analysis::bookProfile1D(const std::string& hname, const std::string& title,
-                                      const string& xtitle, const string& ytitle) 
+                                      const string& xtitle, const string& ytitle)
   {
     // Get the bin edges (only read the AIDA file once)
     _cacheBinEdges();
@@ -316,35 +316,35 @@ namespace Rivet {
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
     prof->setXTitle(xtitle);
-    prof->setYTitle(ytitle);    
+    prof->setYTitle(ytitle);
     return prof;
   }
 
 
   IProfile1D* Analysis::bookProfile1D(const string& hname,
                                       const size_t nbins, const double lower, const double upper,
-                                      const string& title, 
+                                      const string& title,
                                       const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, nbins, lower, upper);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
     prof->setXTitle(xtitle);
-    prof->setYTitle(ytitle);    
+    prof->setYTitle(ytitle);
     return prof;
   }
 
 
   IProfile1D* Analysis::bookProfile1D(const string& hname,
                                       const vector<double>& binedges,
-                                      const string& title, 
+                                      const string& title,
                                       const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, binedges);
     getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
     prof->setXTitle(xtitle);
-    prof->setYTitle(ytitle);    
+    prof->setYTitle(ytitle);
     return prof;
   }
 
@@ -360,7 +360,7 @@ namespace Rivet {
     IDataPointSet* dps = datapointsetFactory().create(path, title, 2);
     getLog() << Log::TRACE << "Made data point set " << hname <<  " for " << name() << endl;
     dps->setXTitle(xtitle);
-    dps->setYTitle(ytitle); 
+    dps->setYTitle(ytitle);
     return dps;
   }
 
@@ -383,7 +383,7 @@ namespace Rivet {
   }
 
 
-  IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId, 
+  IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId,
                                             const size_t yAxisId, const string& title,
                                             const string& xtitle, const string& ytitle) {
     // Get the bin edges (only read the AIDA file once)
@@ -433,7 +433,7 @@ namespace Rivet {
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
     getLog() << Log::TRACE << "Normalizing histo " << hpath << " to " << norm << endl;
-    
+ 
     double oldintg = 0.0;
     int nBins = histo->axis().bins();
     for (int iBin = 0; iBin != nBins; ++iBin) {
@@ -444,7 +444,7 @@ namespace Rivet {
       getLog() << Log::WARN << "Histo " << hpath << " has null integral during normalisation" << endl;
       return;
     }
-  
+
     // Scale by the normalisation factor.
     scale(histo, norm/oldintg);
   }
@@ -458,7 +458,7 @@ namespace Rivet {
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
     getLog() << Log::TRACE << "Scaling histo " << hpath << endl;
-    
+ 
     std::vector<double> x, y, ex, ey;
     for (size_t i = 0, N = histo->axis().bins(); i < N; ++i) {
       x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
@@ -472,24 +472,24 @@ namespace Rivet {
       // We'd like to do this: ey.push_back(histo->binError(i) * scale);
       ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
     }
-    
+ 
     std::string title = histo->title();
     std::string xtitle = histo->xtitle();
     std::string ytitle = histo->ytitle();
 
     tree().mkdir("/tmpnormalize");
     tree().mv(hpath, "/tmpnormalize");
-    
+ 
     AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
     dps->setXTitle(xtitle);
     dps->setYTitle(ytitle);
-    
+ 
     tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
     tree().rmdir("/tmpnormalize");
-    
+ 
     // Set histo pointer to null - it can no longer be used.
     histo = 0;
   }
-  
-  
+
+
 }

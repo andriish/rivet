@@ -10,17 +10,17 @@ namespace Rivet {
 
   class UA5_1982_S875503 : public Analysis {
   public:
-    
+ 
     /// Default constructor
     UA5_1982_S875503() : Analysis("UA5_1982_S875503") {
       //
     }
-  
+
 
     /// @name Analysis methods
     //@{
 
-    void init() { 
+    void init() {
       addProjection(TriggerUA5(), "Trigger");
       addProjection(ChargedFinalState(-3.5, 3.5), "CFS");
 
@@ -29,21 +29,21 @@ namespace Rivet {
       _hist_eta_pp    = bookHistogram1D(3,1,1);
       _hist_eta_ppbar = bookHistogram1D(4,1,1);
     }
-    
-    
+ 
+ 
     void analyze(const Event& event) {
       // Trigger
       const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
 
       // Get tracks
-      const double weight = event.weight(); 
+      const double weight = event.weight();
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-      
+   
       // Fill mean charged multiplicity histos
       if (trigger.samebeams()) { // PP
         _hist_nch_pp->fill(_hist_nch_pp->binMean(0), cfs.size());
-      } else { // PPbar 
+      } else { // PPbar
         _hist_nch_ppbar->fill(_hist_nch_ppbar->binMean(0), cfs.size());
       }
 
@@ -55,10 +55,10 @@ namespace Rivet {
           _hist_eta_ppbar->fill(fabs(p.momentum().eta()), weight);
         }
       }
-            
+         
     }
-    
-    
+ 
+ 
     void finalize() {
       scale(_hist_nch_pp,    1.0/sumOfWeights());
       scale(_hist_nch_ppbar, 1.0/sumOfWeights());
@@ -67,10 +67,10 @@ namespace Rivet {
     }
 
     //@}
-    
-  
+ 
+
   private:
-    
+ 
     /// @name Histogram collections
     //@{
     AIDA::IHistogram1D* _hist_nch_pp;
@@ -78,12 +78,12 @@ namespace Rivet {
     AIDA::IHistogram1D* _hist_eta_pp;
     AIDA::IHistogram1D* _hist_eta_ppbar;
     //@}
-    
+ 
   };
-  
-  
-  
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<UA5_1982_S875503> plugin_UA5_1982_S875503;
-  
+
 }

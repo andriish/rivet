@@ -7,10 +7,10 @@
 //
 //  In the standard numbering scheme, the PID digits (base 10) are:
 //            +/- n nr nl nq1 nq2 nq3 nj
-//  It is expected that any 7 digit number used as a PID will adhere to 
+//  It is expected that any 7 digit number used as a PID will adhere to
 //  the Monte Carlo numbering scheme documented by the PDG.
-//  Note that many "new" particles not explicitly defined already 
-//  can be expressed within this numbering scheme. 
+//  Note that many "new" particles not explicitly defined already
+//  can be expressed within this numbering scheme.
 //
 //  These are the same methods that can be found in HepPDT::ParticleID
 // ----------------------------------------------------------------------
@@ -28,15 +28,15 @@ enum location { nj=1, nq3, nq2, nq1, nl, nr, n, n8, n9, n10 };
 unsigned short digit( location loc, const int & pid );
 
 /// if this is a nucleus (ion), get A
-/// Ion numbers are +/- 10LZZZAAAI. 
+/// Ion numbers are +/- 10LZZZAAAI.
 int A(const int & pid );
 
 /// if this is a nucleus (ion), get Z
-/// Ion numbers are +/- 10LZZZAAAI. 
+/// Ion numbers are +/- 10LZZZAAAI.
 int Z(const int & pid );
 
 /// if this is a nucleus (ion), get nLambda
-/// Ion numbers are +/- 10LZZZAAAI. 
+/// Ion numbers are +/- 10LZZZAAAI.
 int lambda( const int & pid );
 
 /// absolute value of particle ID
@@ -47,7 +47,7 @@ int    fundamentalID( const int & pid );
 /// if this is a fundamental particle, does it have a valid antiparticle?
 //bool hasFundamentalAnti( const int & pid );
 
-/// returns everything beyond the 7th digit 
+/// returns everything beyond the 7th digit
 /// (e.g. outside the standard numbering scheme)
 int extraBits( const int & pid );
 

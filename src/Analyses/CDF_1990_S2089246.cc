@@ -46,7 +46,7 @@ namespace Rivet {
       if (!trigger) vetoEvent;
 
       // Get final state and energy
-      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS(); 
+      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
       const FinalState& fs = applyProjection<FinalState>(event, "CFS");
 
       // Loop over final state charged particles to fill eta histos
@@ -60,16 +60,16 @@ namespace Rivet {
         }
       }
     }
-    
-    
-    
+ 
+ 
+ 
     /// Finalize
     void finalize() {
       // Divide through by num events to get d<N>/d(eta) in bins
       scale(_hist_eta630, 1/sumOfWeights());
       scale(_hist_eta1800, 1/sumOfWeights());
     }
-   
+
     //@}
 
 
@@ -82,8 +82,8 @@ namespace Rivet {
     //@}
 
   };
+
  
-    
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_1990_S2089246> plugin_CDF_1990_S2089246;

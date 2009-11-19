@@ -33,13 +33,13 @@ namespace Rivet {
       _numdurjets = 0;
       _numjadejets = 0;
     }
-    
+ 
 
 
     /// @name Jet angle calculator functions
     /// @todo These shouldn't be object methods, as they have no state!
     //@{
-    
+ 
     /// @todo Use Jet or FourMomentum interface rather than PseudoJet
     /// @todo Move to utils?
     double calc_BZ(const vector<fastjet::PseudoJet>& jets) {
@@ -51,7 +51,7 @@ namespace Rivet {
 
 
     /// @todo Use Jet or FourMomentum interface rather than PseudoJet
-    /// @todo Move to utils? 
+    /// @todo Move to utils?
     double calc_KSW(const vector<fastjet::PseudoJet>& jets) {
       assert(jets.size() == 4);
       Vector3 p13 = cross( momentum3(jets[0]), momentum3(jets[2]));
@@ -61,10 +61,10 @@ namespace Rivet {
       return cos (0.5*( acos (dot(p14,p23) / (p14.mod()*p23.mod())) +
                         acos (dot(p13,p24) / (p13.mod()*p24.mod())) ));
     }
-    
+ 
 
     /// @todo Use Jet or FourMomentum interface rather than PseudoJet
-    /// @todo Move to utils? 
+    /// @todo Move to utils?
     double calc_NR(const vector<fastjet::PseudoJet>& jets) {
       assert(jets.size() == 4);
       Vector3 p12 = momentum3(jets[0]) - momentum3(jets[1]);
@@ -73,7 +73,7 @@ namespace Rivet {
     }
 
     /// @todo Use Jet or FourMomentum interface rather than PseudoJet
-    /// @todo Move to utils? 
+    /// @todo Move to utils?
     double calc_ALPHA34(const vector<fastjet::PseudoJet>& jets) {
       assert(jets.size() == 4);
       Vector3 p3 = momentum3(jets[2]);
@@ -109,17 +109,17 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-      
+   
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
         vetoEvent;
       }
       getLog() << Log::DEBUG << "Passed multiplicity cut" << endl;
-      
+   
       // Get event weight for histo filling
       const double weight = e.weight();
-      
+   
       // Jets
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       vector<fastjet::PseudoJet> jets_durham;
@@ -131,12 +131,12 @@ namespace Rivet {
           _histDurhamNR->fill(fabs(calc_NR(jets_durham)), weight);
           _histDurhamALPHA34->fill(calc_ALPHA34(jets_durham), weight);
         }
-        if (durjet.clusterSeq()->exclusive_ymerge(3) > 0.008 && 
+        if (durjet.clusterSeq()->exclusive_ymerge(3) > 0.008 &&
             durjet.clusterSeq()->exclusive_ymerge(4) < 0.008) {
           _numdurjets++;
         }
       }
-      
+   
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
       vector<fastjet::PseudoJet> jets_jade;
       if (jadejet.clusterSeq()) {
@@ -147,20 +147,20 @@ namespace Rivet {
           _histJadeNR->fill(fabs(calc_NR(jets_jade)), weight);
           _histJadeALPHA34->fill(calc_ALPHA34(jets_jade), weight);
         }
-        if (jadejet.clusterSeq()->exclusive_ymerge(3) > 0.015 && 
+        if (jadejet.clusterSeq()->exclusive_ymerge(3) > 0.015 &&
             jadejet.clusterSeq()->exclusive_ymerge(4) < 0.015) {
           _numjadejets++;
         }
       }
-      
-    }    
-    
-    
+   
+    }
+ 
+ 
     // Finalize
-    void finalize() { 
-      // Normalize inclusive single particle distributions to the average number 
+    void finalize() {
+      // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
-      
+   
       getLog() << Log::INFO << "Number of Durham jets = " << _numdurjets << endl;
       getLog() << Log::INFO << "Number of Jade jets   = " << _numjadejets << endl;
       normalize(_histDurhamBZ      , 0.0785);

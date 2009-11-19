@@ -11,27 +11,27 @@
 namespace Rivet{
 
 
-  /// PROJ1 can be either FinalState projections or JetAlg projections 
+  /// PROJ1 can be either FinalState projections or JetAlg projections
   /// PROJ1::entity_type and PROJ2::entity_type can be either Particle of Jet
-  template <typename PROJ1, typename PROJ2, 
+  template <typename PROJ1, typename PROJ2,
             typename EST = typename isohelper<typename PROJ1::entity_type, typename PROJ2::collection_type>::estimatorhelper>
   class IsolationProjection : public Projection {
     public:
     /// Constructor
-    IsolationProjection(PROJ1& iso, 
-                        PROJ2& ctrl, 
+    IsolationProjection(PROJ1& iso,
+                        PROJ2& ctrl,
                         EST* estimator,
-                        double ptmin = 0*GeV) : 
-      _estimator(estimator), 
+                        double ptmin = 0*GeV) :
+      _estimator(estimator),
       _ptmin(ptmin)
     {
       setName("IsolationProjection");
-      addProjection(iso, "ToBeIsolated"); 
-      addProjection(ctrl, "Control"); 
+      addProjection(iso, "ToBeIsolated");
+      addProjection(ctrl, "Control");
     }	
 
     /// Get the isolation values for the isofinalstate
-    const vector<pair<const typename PROJ1::entity_type*, double> > 
+    const vector<pair<const typename PROJ1::entity_type*, double> >
     isolatedParticles(double maxiso = numeric_limits<double>::max()) const;
 
     virtual const Projection* clone() const {
@@ -45,10 +45,10 @@ namespace Rivet{
 
     /// Compare projections.
     virtual int compare(const Projection& p) const;
-		    
+		
 
   private:
-    
+ 
     /// the estimator
     boost::shared_ptr<EST> _estimator;
 
@@ -68,10 +68,10 @@ namespace Rivet{
   inline const vector<pair<const typename PROJ1::entity_type*, double> > IsolationProjection<PROJ1, PROJ2, EST>
   ::isolatedParticles(double maxiso) const {
     vector<pair<const typename PROJ1::entity_type*, double> > out;
-    for (typename vector<pair<const typename PROJ1::entity_type*, double> >::const_iterator i = _isovalues.begin(); i != _isovalues.end(); ++i){ 
+    for (typename vector<pair<const typename PROJ1::entity_type*, double> >::const_iterator i = _isovalues.begin(); i != _isovalues.end(); ++i){
       if (i->second < maxiso) out.push_back(*i);
     }
-    return out;  
+    return out;
   }
 
 
@@ -81,7 +81,7 @@ namespace Rivet{
     _isovalues.clear();
     /// projetc the final states
     const PROJ1& isofs  = applyProjection<PROJ1>(e, "ToBeIsolated");
-    /// copy of particles is suboptimal, but FinalState returns 
+    /// copy of particles is suboptimal, but FinalState returns
     /// particles by referencem while JetAlg returns jets by value
     const typename PROJ1::collection_type isopart = isofs.entities();
     const PROJ2& ctrlfs = applyProjection<PROJ2>(e, "Control");
@@ -109,7 +109,7 @@ namespace Rivet{
     // compare the estimators
     //if (cmp(*(_estimator.get()),*(other._estimator.get())) == EQUIVALENT) cout << "Estimatori uguali!" << endl;
     return cmp(*(_estimator.get()),*(other._estimator.get()));
-  } 
+  }
 
 }
 

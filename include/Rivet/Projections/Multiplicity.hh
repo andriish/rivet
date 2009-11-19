@@ -18,7 +18,7 @@ namespace Rivet {
     /// Constructor. The provided FinalState projection must live throughout the run.
     Multiplicity(const FinalState& fsp)
       : _totalMult(0), _hadMult(0)
-    { 
+    {
       setName("Multiplicity");
       addProjection(fsp, "FS");
     }

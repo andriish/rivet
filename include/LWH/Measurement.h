@@ -22,7 +22,7 @@ using namespace AIDA;
  */
 class Measurement: public IMeasurement {
 
-public: 
+public:
 
   /**
    * Standard constructor.
