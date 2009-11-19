@@ -7,17 +7,17 @@ namespace Rivet {
   int LeadingParticlesFinalState::compare(const Projection& p) const {
     // First compare the final states we are running on
     int fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
 
     // Then compare the two as final states
     const LeadingParticlesFinalState& other = dynamic_cast<const LeadingParticlesFinalState&>(p);
     fscmp = FinalState::compare(other);
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
 
     // Finally compare the IDs
-    if (_ids < other._ids) return PCmp::ORDERED;
-    else if (other._ids < _ids) return PCmp::UNORDERED;
-    return PCmp::EQUIVALENT;
+    if (_ids < other._ids) return ORDERED;
+    else if (other._ids < _ids) return UNORDERED;
+    return EQUIVALENT;
   }
 
   

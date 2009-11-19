@@ -10,11 +10,11 @@ namespace Rivet {
 
   int IdentifiedFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
 
     const IdentifiedFinalState& other = dynamic_cast<const IdentifiedFinalState&>(p);
     int pidssize = cmp(_pids.size(), other._pids.size());
-    if (pidssize != PCmp::EQUIVALENT) return pidssize;
+    if (pidssize != EQUIVALENT) return pidssize;
     return cmp(_pids, other._pids);
   }
 

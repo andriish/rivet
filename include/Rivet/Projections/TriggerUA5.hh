@@ -67,7 +67,7 @@ namespace Rivet {
 
     /// Compare with other projections.
     virtual int compare(const Projection& p) const {
-      return PCmp::EQUIVALENT;
+      return EQUIVALENT;
     }
 
 

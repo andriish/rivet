@@ -9,7 +9,7 @@ namespace Rivet {
 
 
   int InitialQuarks::compare(const Projection& p) const {
-    return PCmp::EQUIVALENT;
+    return EQUIVALENT;
   }
 
 

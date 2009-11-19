@@ -32,22 +32,22 @@ namespace Rivet {
   int InvMassFinalState::compare(const Projection& p) const {
     // First compare the final states we are running on
     int fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
 
     // Then compare the two as final states
     const InvMassFinalState & other = dynamic_cast <const InvMassFinalState&>(p);
     fscmp = FinalState::compare(other);
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
 
     // Then compare the mass limits
     int massllimcmp = cmp(_minmass, other._minmass);
-    if (massllimcmp != PCmp::EQUIVALENT) return massllimcmp;
+    if (massllimcmp != EQUIVALENT) return massllimcmp;
     int masshlimcmp = cmp(_maxmass, other._maxmass);
-    if (masshlimcmp != PCmp::EQUIVALENT) return masshlimcmp;
+    if (masshlimcmp != EQUIVALENT) return masshlimcmp;
 
     // Compare the decay species
     int decaycmp = cmp(_decayids, other._decayids);
-    if (decaycmp != PCmp::EQUIVALENT) return decaycmp;
+    if (decaycmp != EQUIVALENT) return decaycmp;
 
     // Finally compare them as final states 
     return FinalState::compare(other);

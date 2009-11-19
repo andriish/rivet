@@ -85,12 +85,12 @@ namespace Rivet {
 
   int ZFinder::compare(const Projection& p) const {
     PCmp cmp = mkNamedPCmp(p, "IMFS");
-    if (cmp != PCmp::EQUIVALENT) return cmp;
+    if (cmp != EQUIVALENT) return cmp;
 
     cmp = mkNamedPCmp(p, "CPhotons");
-    if (cmp != PCmp::EQUIVALENT) return cmp;
+    if (cmp != EQUIVALENT) return cmp;
 
-    return PCmp::EQUIVALENT;
+    return EQUIVALENT;
   } 
   
 

@@ -100,14 +100,14 @@ namespace Rivet{
     const IsolationProjection & other = dynamic_cast<const IsolationProjection &>(p);
     //first check the final states	
     int isofscmp = mkNamedPCmp(other, "ToBeIsolated");
-    if (isofscmp != PCmp::EQUIVALENT) return isofscmp;
+    if (isofscmp != EQUIVALENT) return isofscmp;
     int isoctrlcmp = mkNamedPCmp(other, "Control");
-    if (isoctrlcmp != PCmp::EQUIVALENT) return isoctrlcmp;
+    if (isoctrlcmp != EQUIVALENT) return isoctrlcmp;
     // compare the ptmin of the isolated colection
     int ptmincmp = cmp(_ptmin, other._ptmin);
-    if (ptmincmp != PCmp::EQUIVALENT) return ptmincmp;
+    if (ptmincmp != EQUIVALENT) return ptmincmp;
     // compare the estimators
-    //if (cmp(*(_estimator.get()),*(other._estimator.get())) == PCmp::EQUIVALENT) cout << "Estimatori uguali!" << endl;
+    //if (cmp(*(_estimator.get()),*(other._estimator.get())) == EQUIVALENT) cout << "Estimatori uguali!" << endl;
     return cmp(*(_estimator.get()),*(other._estimator.get()));
   } 
 

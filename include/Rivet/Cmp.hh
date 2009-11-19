@@ -9,30 +9,20 @@
 
 
 namespace Rivet {
-
-   /// Cmp is a helper class to be used when checking the ordering of two
-   /// objects. When implicitly converted to an integer the value will be
-   /// negative if the two objects used in the constructor are ordered and
-   /// positive if they are not. Zero will be returned if they are equal.
-   ///
-   /// The main usage of the Cmp class is if several variables should be
-   /// checked for ordering in which case several Cmp objects can be
-   /// combined as follows: <code>cmp(a1, a2) || cmp(b1, b2) || cmp(c1,
-   /// c2)</code> where cmp is a global function for easy creation of Cmp
-   /// objects.
+  
+  
+  /// Cmp is a helper class to be used when checking the ordering of two
+  /// objects. When implicitly converted to an integer the value will be
+  /// negative if the two objects used in the constructor are ordered and
+  /// positive if they are not. Zero will be returned if they are equal.
+  ///
+  /// The main usage of the Cmp class is if several variables should be
+  /// checked for ordering in which case several Cmp objects can be
+  /// combined as follows: <code>cmp(a1, a2) || cmp(b1, b2) || cmp(c1,
+  /// c2)</code> where cmp is a global function for easy creation of Cmp
+  /// objects.
   template <typename T>
-  class Cmp {
-    
-  public:
-    
-    /// Enumerate the possible states of a Cmp object.
-    enum CmpState {
-      UNDEFINED = -2,  //< Undefined state.
-      ORDERED = -1,    //< The two corresponding objects are ordered.
-      EQUIVALENT = 0,  //< The two corresponding objects are equivalent.
-      UNORDERED = 1    //< The two corresponding objects are unordered.
-    };
-    
+  class Cmp {    
   public:
     
     /// @name Standard constructors etc.
@@ -44,7 +34,7 @@ namespace Rivet {
     /// The copy constructor.
     template <typename U>
     Cmp(const Cmp<U>& x)
-      : _value(x.operator int()), _objects(0, 0) { }
+      : _value(x), _objects(0, 0) { }
     
     /// The destructor is not virtual since this is not intended to be a base class.
     ~Cmp() { };
@@ -52,14 +42,20 @@ namespace Rivet {
     /// The assignment operator.
     template <typename U>
     const Cmp<T>& operator=(const Cmp<U>& x) {
-      _value = x.operator int();
+      _value = x;
       return *this;
     }
     //@}
     
   public:
     
-    /// Automatically convert to an integer. 
+    /// Automatically convert to an enum.
+    operator CmpState() const {
+      _compare();
+      return _value;
+    }
+
+    /// Automatically convert to an integer.
     operator int() const {
       _compare();
       return _value;
@@ -69,11 +65,10 @@ namespace Rivet {
     template <typename U>
     const Cmp<T>& operator||(const Cmp<U>& c) const {
       _compare();
-      if (_value == EQUIVALENT) _value = c.operator int();
+      if (_value == EQUIVALENT) _value = c;
       return *this;
     }
     
-
   private:
     
     /// Perform the actual comparison if necessary.
@@ -87,7 +82,7 @@ namespace Rivet {
     }
     
     /// The state of this object.
-    mutable int _value;
+    mutable CmpState _value;
     
     /// The objects to be compared.
     pair<const T*, const T*> _objects;
@@ -96,30 +91,20 @@ namespace Rivet {
 
   
   
-   /// Specialization of the Cmp helper class to be used when checking the
-   /// ordering of two Projection objects. When implicitly converted to an
-   /// integer the value will be negative if the two objects used in the
-   /// constructor are ordered and positive if they are not. Zero will be
-   /// returned if they are equal. This specialization uses directly the
-   /// virtual compare() function in the Projection class.
-   ///
-   /// The main usage of the Cmp class is if several variables should be
-   /// checked for ordering in which case several Cmp objects can be
-   /// combined as follows: <code>cmp(a1, a2) || cmp(b1, b2) || cmp(c1,
-   /// c2)</code> where cmp is a global function for easy creation of Cmp
-   /// objects.
+  /// Specialization of the Cmp helper class to be used when checking the
+  /// ordering of two Projection objects. When implicitly converted to an
+  /// integer the value will be negative if the two objects used in the
+  /// constructor are ordered and positive if they are not. Zero will be
+  /// returned if they are equal. This specialization uses directly the
+  /// virtual compare() function in the Projection class.
+  ///
+  /// The main usage of the Cmp class is if several variables should be
+  /// checked for ordering in which case several Cmp objects can be
+  /// combined as follows: <code>cmp(a1, a2) || cmp(b1, b2) || cmp(c1,
+  /// c2)</code> where cmp is a global function for easy creation of Cmp
+  /// objects.
   template <>
-  class Cmp<Projection> {
-  public:
-    
-    /// Enumerate the possible states of a Cmp object.
-    enum CmpState {
-      UNDEFINED = -2, //< Undefined state.
-      ORDERED = -1,   //< The two corresponding objects are ordered.
-      EQUIVALENT = 0,  //< The two corresponding objects are equivalent.
-      UNORDERED = 1   //< The two corresponding objects are unordered.
-    };
-    
+  class Cmp<Projection> {    
   public:
     
     /// @name Standard constructors and destructors.
@@ -132,7 +117,7 @@ namespace Rivet {
     /// The copy constructor.
     template <typename U>
     Cmp(const Cmp<U>& x)
-      : _value(x.operator int()), _objects(0, 0) 
+      : _value(x), _objects(0, 0) 
     { }
     
     /// The destructor is not virtual since this is not intended to be a base class.
@@ -141,13 +126,20 @@ namespace Rivet {
     /// The assignment operator.
     template <typename U>
     const Cmp<Projection>& operator=(const Cmp<U>& x) {
-      _value = x.operator int();
+      _value = x;
       return *this;
     }
     //@}
     
   public:
     
+    /// Automatically convert to an enum.
+    operator CmpState() const {
+      _compare();
+      return _value;
+    }
+
+
     /// Automatically convert to an integer. 
     operator int() const {
       _compare();
@@ -158,7 +150,7 @@ namespace Rivet {
     template <typename U>
     const Cmp<Projection>& operator||(const Cmp<U>& c) const {
       _compare();
-      if (_value == EQUIVALENT) _value = c.operator int();
+      if (_value == EQUIVALENT) _value = c;
       return *this;
     }
     
@@ -183,7 +175,7 @@ namespace Rivet {
   private:
     
     /// The state of this object.
-    mutable int _value;
+    mutable CmpState _value;
     
     /// The objects to be compared.
     pair<const Projection*, const Projection*> _objects;
@@ -193,31 +185,21 @@ namespace Rivet {
 
 
 
-   /// Specialization of the Cmp helper class to be used when checking the
-   /// ordering of two floating point numbers. When implicitly converted to an
-   /// integer the value will be negative if the two objects used in the
-   /// constructor are ordered and positive if they are not. Zero will be
-   /// returned if they are equal. This specialization uses the Rivet
-   /// fuzzyEquals function to indicate equivalence protected from numerical
-   /// precision effects.
-   ///
-   /// The main usage of the Cmp class is if several variables should be
-   /// checked for ordering in which case several Cmp objects can be
-   /// combined as follows: <code>cmp(a1, a2) || cmp(b1, b2) || cmp(c1,
-   /// c2)</code> where cmp is a global function for easy creation of Cmp
-   /// objects.
+  /// Specialization of the Cmp helper class to be used when checking the
+  /// ordering of two floating point numbers. When implicitly converted to an
+  /// integer the value will be negative if the two objects used in the
+  /// constructor are ordered and positive if they are not. Zero will be
+  /// returned if they are equal. This specialization uses the Rivet
+  /// fuzzyEquals function to indicate equivalence protected from numerical
+  /// precision effects.
+  ///
+  /// The main usage of the Cmp class is if several variables should be
+  /// checked for ordering in which case several Cmp objects can be
+  /// combined as follows: <code>cmp(a1, a2) || cmp(b1, b2) || cmp(c1,
+  /// c2)</code> where cmp is a global function for easy creation of Cmp
+  /// objects.
   template <>
   class Cmp<double> {
-  public:
-    
-    /// Enumerate the possible states of a Cmp object.
-    enum CmpState {
-      UNDEFINED = -2, //< Undefined state.
-      ORDERED = -1,   //< The two corresponding objects are ordered.
-      EQUIVALENT = 0,  //< The two corresponding objects are equivalent.
-      UNORDERED = 1   //< The two corresponding objects are unordered.
-    };
-    
   public:
     
     /// @name Standard constructors and destructors.
@@ -230,7 +212,7 @@ namespace Rivet {
     /// The copy constructor.
     template <typename U>
     Cmp(const Cmp<U>& x)
-      : _value(x.operator int()), _numA(0.0), _numB(0.0)
+      : _value(x), _numA(0.0), _numB(0.0)
     { }
     
     /// The destructor is not virtual since this is not intended to be a base class.
@@ -239,13 +221,19 @@ namespace Rivet {
     /// The assignment operator.
     template <typename U>
     const Cmp<double>& operator=(const Cmp<U>& x) {
-      _value = x.operator int();
+      _value = x;
       return *this;
     }
     //@}
     
   public:
     
+    /// Automatically convert to an enum.
+    operator CmpState() const {
+      _compare();
+      return _value;
+    }
+
     /// Automatically convert to an integer. 
     operator int() const {
       _compare();
@@ -256,7 +244,7 @@ namespace Rivet {
     template <typename U>
     const Cmp<double>& operator||(const Cmp<U>& c) const {
       _compare();
-      if (_value == EQUIVALENT) _value = c.operator int();
+      if (_value == EQUIVALENT) _value = c;
       return *this;
     }
     
@@ -274,7 +262,7 @@ namespace Rivet {
   private:
     
     /// The state of this object.
-    mutable int _value;
+    mutable CmpState _value;
     
     /// The objects to be compared.
     double _numA, _numB;

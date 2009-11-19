@@ -24,7 +24,7 @@ namespace Rivet {
 
   int Sphericity::compare(const Projection& p) const {
     PCmp fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
     const Sphericity& other = dynamic_cast<const Sphericity&>(p);
     if (fuzzyEquals(_regparam, other._regparam)) return 0;
     return cmp(_regparam, other._regparam);

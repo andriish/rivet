@@ -12,7 +12,7 @@ namespace Rivet {
 
   int SVertex::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "PV");
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
     const SVertex& other = pcast<SVertex>(p);
     return \
       cmp(_detEta, other._detEta) ||

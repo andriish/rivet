@@ -22,7 +22,7 @@ namespace Rivet {
 
   int JetShape::compare(const Projection& p) const {
     PCmp fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp == PCmp::EQUIVALENT) return PCmp::EQUIVALENT;
+    if (fscmp == EQUIVALENT) return EQUIVALENT;
     const JetShape& other = dynamic_cast<const JetShape&>(p);
     return cmp(&_jetaxes, &other._jetaxes);
   }

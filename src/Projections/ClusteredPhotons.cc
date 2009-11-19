@@ -9,10 +9,10 @@ namespace Rivet {
 
   int ClusteredPhotons::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "Photons");
-    if (fscmp != PCmp::EQUIVALENT) return fscmp;
+    if (fscmp != EQUIVALENT) return fscmp;
 
     const PCmp sigcmp = mkNamedPCmp(p, "Signal");
-    if (sigcmp != PCmp::EQUIVALENT) return sigcmp;
+    if (sigcmp != EQUIVALENT) return sigcmp;
 
     const ClusteredPhotons& other = dynamic_cast<const ClusteredPhotons&>(p);
     int rcmp = cmp(_dRmax, other._dRmax);

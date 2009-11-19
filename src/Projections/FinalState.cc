@@ -40,19 +40,24 @@ namespace Rivet {
   }
 
 
+
   int FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
 
+    //cout << "FS::compare: " << 1 << " " << this << " " << &p << endl;
     std::vector<std::pair<double, double> > eta1(_etaRanges);
     std::vector<std::pair<double, double> > eta2(other._etaRanges);
     std::sort(eta1.begin(), eta1.end());
     std::sort(eta2.begin(), eta2.end());
 
-    if (eta1 < eta2) return PCmp::ORDERED;
-    else if (eta2 < eta1) return PCmp::UNORDERED;
+    //cout << "FS::compare: " << 2 << " " << this << " " << &p << endl;
+    if (eta1 < eta2) return ORDERED;
+    else if (eta2 < eta1) return UNORDERED;
 
+    //cout << "FS::compare: " << 3 << " " << this << " " << &p << endl;
     return cmp(_ptmin, other._ptmin);
   }
+
 
 
   void FinalState::project(const Event& e) {
