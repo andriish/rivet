@@ -18,6 +18,20 @@ namespace Rivet {
     }
     
     
+    inline double cov_w_mean(int m, double m_mean, int n, double n_mean) {
+      return (m - m_mean)*(n - n_mean);
+    }
+  
+  
+    /// Calculate the correlation strength between two samples
+    inline double c_str(int m, double m_mean, int n, double n_mean) {
+      const double cov  = cov_w_mean(m, m_mean, n, n_mean);
+      const double var1 = cov_w_mean(m, m_mean, m, m_mean);
+      const double var2 = cov_w_mean(n, n_mean, n, n_mean);
+      const double correlation = cov/sqrt(var1*var2);
+      const double corr_strength = correlation*sqrt(var2/var1);
+      return corr_strength;
+    }
     /// @name Analysis methods
     //@{
 
@@ -47,64 +61,27 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.5, -2.5), "CFS35B");
       addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
             
-
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
-      _hist_correl_10_200 = bookHistogram1D(1, 1, 1);
-      _hist_correl_10_546 = bookHistogram1D(1, 1, 2);
-      _hist_correl_10_900 = bookHistogram1D(1, 1, 3);
+      _hist_correl_200 = bookProfile1D(2, 1, 1);
+      _hist_correl_546 = bookProfile1D(2, 1, 2);
+      _hist_correl_900 = bookProfile1D(2, 1, 3);
       
-      _hist_correl_15_200 = bookHistogram1D(2, 1, 1);
-      _hist_correl_15_546 = bookHistogram1D(2, 1, 2);
-      _hist_correl_15_900 = bookHistogram1D(2, 1, 3);
-      
-      _hist_correl_20_200 = bookHistogram1D(3, 1, 1);
-      _hist_correl_20_546 = bookHistogram1D(3, 1, 2);
-      _hist_correl_20_900 = bookHistogram1D(3, 1, 3);
-      
-      _hist_correl_25_200 = bookHistogram1D(4, 1, 1);
-      _hist_correl_25_546 = bookHistogram1D(4, 1, 2);
-      _hist_correl_25_900 = bookHistogram1D(4, 1, 3);
-      
-      _hist_correl_30_200 = bookHistogram1D(5, 1, 1);
-      _hist_correl_30_546 = bookHistogram1D(5, 1, 2);
-      _hist_correl_30_900 = bookHistogram1D(5, 1, 3);
-      
-      _hist_correl_35_200 = bookHistogram1D(6, 1, 1);
-      _hist_correl_35_546 = bookHistogram1D(6, 1, 2);
-      _hist_correl_35_900 = bookHistogram1D(6, 1, 3);
-      
-      _hist_correl_40_200 = bookHistogram1D(7, 1, 1);
-      _hist_correl_40_546 = bookHistogram1D(7, 1, 2);
-      _hist_correl_40_900 = bookHistogram1D(7, 1, 3);
-      
-      _hist_correl_asym_15_200 = bookHistogram1D(8, 1, 1);
-      _hist_correl_asym_15_546 = bookHistogram1D(8, 1, 2);
-      _hist_correl_asym_15_900 = bookHistogram1D(8, 1, 3);
-      
-      _hist_correl_asym_20_200 = bookHistogram1D(9, 1, 1);
-      _hist_correl_asym_20_546 = bookHistogram1D(9, 1, 2);
-      _hist_correl_asym_20_900 = bookHistogram1D(9, 1, 3);
-      
-      _hist_correl_asym_25_200 = bookHistogram1D(10, 1, 1);
-      _hist_correl_asym_25_546 = bookHistogram1D(10, 1, 2);
-      _hist_correl_asym_25_900 = bookHistogram1D(10, 1, 3);
-      
-      _hist_correl_asym_30_200 = bookHistogram1D(11, 1, 1);
-      _hist_correl_asym_30_546 = bookHistogram1D(11, 1, 2);
-      _hist_correl_asym_30_900 = bookHistogram1D(11, 1, 3);
+      _hist_correl_asym_200 = bookProfile1D(3, 1, 1);
+      _hist_correl_asym_546 = bookProfile1D(3, 1, 2);
+      _hist_correl_asym_900 = bookProfile1D(3, 1, 3);
     }
     
     
 
     void analyze(const Event& event) {
+      sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
+      
       // Trigger
       const bool trigger = applyProjection<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
 
-      const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
-      const double weight = event.weight();
             
-      // Count forward/backward rates
+      // Count forward/backward particles
       n_10f += applyProjection<ChargedFinalState>(event, "CFS10F").size();
       n_15f += applyProjection<ChargedFinalState>(event, "CFS15F").size();
       n_20f += applyProjection<ChargedFinalState>(event, "CFS20F").size();
@@ -123,123 +100,122 @@ namespace Rivet {
       //
       n_05 += applyProjection<ChargedFinalState>(event, "CFS05").size();
       
-      // Dummy fill
-      if (fuzzyEquals(sqrtS, 200.0, 1E-4)) {
-        _hist_correl_10_200->fill(_hist_correl_10_200->binMean(0), weight);
-        _hist_correl_15_200->fill(_hist_correl_15_200->binMean(0), weight);
-        _hist_correl_20_200->fill(_hist_correl_20_200->binMean(0), weight);
-        _hist_correl_25_200->fill(_hist_correl_25_200->binMean(0), weight);
-        _hist_correl_30_200->fill(_hist_correl_30_200->binMean(0), weight);
-        _hist_correl_35_200->fill(_hist_correl_35_200->binMean(0), weight);
-        _hist_correl_40_200->fill(_hist_correl_40_200->binMean(0), weight);
-        _hist_correl_asym_15_200->fill(_hist_correl_asym_15_200->binMean(0), weight);
-        _hist_correl_asym_20_200->fill(_hist_correl_asym_20_200->binMean(0), weight);
-        _hist_correl_asym_25_200->fill(_hist_correl_asym_25_200->binMean(0), weight);
-        _hist_correl_asym_30_200->fill(_hist_correl_asym_30_200->binMean(0), weight);
-      }
-      
-      else if (fuzzyEquals(sqrtS, 546.0, 1E-4)) {
-        _hist_correl_10_546->fill(_hist_correl_10_546->binMean(0), weight);
-        _hist_correl_15_546->fill(_hist_correl_15_546->binMean(0), weight);
-        _hist_correl_20_546->fill(_hist_correl_20_546->binMean(0), weight);
-        _hist_correl_25_546->fill(_hist_correl_25_546->binMean(0), weight);
-        _hist_correl_30_546->fill(_hist_correl_30_546->binMean(0), weight);
-        _hist_correl_35_546->fill(_hist_correl_35_546->binMean(0), weight);
-        _hist_correl_40_546->fill(_hist_correl_40_546->binMean(0), weight);
-        _hist_correl_asym_15_546->fill(_hist_correl_asym_15_546->binMean(0), weight);
-        _hist_correl_asym_20_546->fill(_hist_correl_asym_20_546->binMean(0), weight);
-        _hist_correl_asym_25_546->fill(_hist_correl_asym_25_546->binMean(0), weight);
-        _hist_correl_asym_30_546->fill(_hist_correl_asym_30_546->binMean(0), weight);
-      }
-      
-      else if (fuzzyEquals(sqrtS, 900.0, 1E-4)) {
-        _hist_correl_10_900->fill(_hist_correl_10_900->binMean(0), weight);
-        _hist_correl_15_900->fill(_hist_correl_15_900->binMean(0), weight);
-        _hist_correl_20_900->fill(_hist_correl_20_900->binMean(0), weight);
-        _hist_correl_25_900->fill(_hist_correl_25_900->binMean(0), weight);
-        _hist_correl_30_900->fill(_hist_correl_30_900->binMean(0), weight);
-        _hist_correl_35_900->fill(_hist_correl_35_900->binMean(0), weight);
-        _hist_correl_40_900->fill(_hist_correl_40_900->binMean(0), weight);
-        _hist_correl_asym_15_900->fill(_hist_correl_asym_15_900->binMean(0), weight);
-        _hist_correl_asym_20_900->fill(_hist_correl_asym_20_900->binMean(0), weight);
-        _hist_correl_asym_25_900->fill(_hist_correl_asym_25_900->binMean(0), weight);
-        _hist_correl_asym_30_900->fill(_hist_correl_asym_30_900->binMean(0), weight);
-      }
     }
     
     
     void finalize() {
-      // Get the correlation coefficients
-      //
-      // Symmetric eta intervals first
-      double correlation_cfs10 = correlation(n_10f, n_10b);
-      double correlation_cfs15 = correlation(n_15f, n_15b);
-      double correlation_cfs20 = correlation(n_20f, n_20b);
-      double correlation_cfs25 = correlation(n_25f, n_25b);
-      double correlation_cfs30 = correlation(n_30f, n_30b);
-      double correlation_cfs35 = correlation(n_35f, n_35b);
-      double correlation_cfs40 = correlation(n_40f, n_40b);
+      // Calculate mean number of particles in eta intervals
+      double mean_n_10f = mean(n_10f);
+      double mean_n_15f = mean(n_15f);
+      double mean_n_20f = mean(n_20f);
+      double mean_n_25f = mean(n_25f);
+      double mean_n_30f = mean(n_30f);
+      double mean_n_35f = mean(n_35f);
+      double mean_n_40f = mean(n_40f);
+                 
+      double mean_n_10b = mean(n_10b);
+      double mean_n_15b = mean(n_15b);
+      double mean_n_20b = mean(n_20b);
+      double mean_n_25b = mean(n_25b);
+      double mean_n_30b = mean(n_30b);
+      double mean_n_35b = mean(n_35b);
+      double mean_n_40b = mean(n_40b);
+                 
+      double mean_n_05  = mean(n_05) ;
 
-      // Assymetric eta intervals
-      //  1.5 ... 2.5 & -1.5 ... -0.5
-      double correlation_as_cfs15 = correlation(n_25f, n_15b);
-      //  2.0 ... 3.0 & -1.0 ...  0.0
-      double correlation_as_cfs20 = correlation(n_30f, n_10b);
-      //  2.5 ... 3.5 & -0.5 ...  0.5
-      double correlation_as_cfs25 = correlation(n_35f, n_05);
-      //  3.0 ... 4.0 &  0.0 ...  1.0
-      double correlation_as_cfs30 = correlation(n_40f, n_10f);
 
-      normalize(_hist_correl_10_200, correlation_cfs10);
-      normalize(_hist_correl_10_546, correlation_cfs10);
-      normalize(_hist_correl_10_900, correlation_cfs10);
+      // Fill histos
+      if (fuzzyEquals(sqrtS, 200.0, 1E-4)) {
+        for (int i = 0; i < n_10f.size(); i++) {
+          // Fill gap size histo (Fig 14), iterate over central gap size
+          _hist_correl_200->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+          _hist_correl_200->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+          _hist_correl_200->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+          _hist_correl_200->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+          _hist_correl_200->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+          _hist_correl_200->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+          _hist_correl_200->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+
+          // Fill gap-center histos (Fig 15), iterate over gap centers
+          //
+          // The first bin contains all the c_str strengths of
+          // the gap size histo above
+          _hist_correl_asym_200->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+          _hist_correl_asym_200->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+          _hist_correl_asym_200->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+          _hist_correl_asym_200->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+          _hist_correl_asym_200->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+          _hist_correl_asym_200->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+          _hist_correl_asym_200->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+          // Fill in c_str strength for assymetric intervals
+          _hist_correl_asym_200->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
+          _hist_correl_asym_200->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
+          _hist_correl_asym_200->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
+          _hist_correl_asym_200->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
+        }
+      }
       
-      normalize(_hist_correl_15_200, correlation_cfs15);
-      normalize(_hist_correl_15_546, correlation_cfs15);
-      normalize(_hist_correl_15_900, correlation_cfs15);
+      else if (fuzzyEquals(sqrtS, 546.0, 1E-4)) {
+        for (int i = 0; i < n_10f.size(); i++) {
+          _hist_correl_546->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+          _hist_correl_546->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+          _hist_correl_546->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+          _hist_correl_546->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+          _hist_correl_546->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+          _hist_correl_546->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+          _hist_correl_546->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+
+          _hist_correl_asym_546->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+          _hist_correl_asym_546->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+          _hist_correl_asym_546->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+          _hist_correl_asym_546->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+          _hist_correl_asym_546->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+          _hist_correl_asym_546->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+          _hist_correl_asym_546->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+          
+          _hist_correl_asym_546->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
+          _hist_correl_asym_546->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
+          _hist_correl_asym_546->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
+          _hist_correl_asym_546->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
+        }
+      }
       
-      normalize(_hist_correl_20_200, correlation_cfs20);
-      normalize(_hist_correl_20_546, correlation_cfs20);
-      normalize(_hist_correl_20_900, correlation_cfs20);
+      else if (fuzzyEquals(sqrtS, 900.0, 1E-4)) {
+        for (int i = 0; i < n_10f.size(); i++) {
+          _hist_correl_900->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+          _hist_correl_900->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+          _hist_correl_900->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+          _hist_correl_900->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+          _hist_correl_900->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+          _hist_correl_900->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+          _hist_correl_900->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+
+          _hist_correl_asym_900->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+          _hist_correl_asym_900->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+          _hist_correl_asym_900->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+          _hist_correl_asym_900->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+          _hist_correl_asym_900->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+          _hist_correl_asym_900->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+          _hist_correl_asym_900->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+          
+          _hist_correl_asym_900->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
+          _hist_correl_asym_900->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
+          _hist_correl_asym_900->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
+          _hist_correl_asym_900->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
+        }
+      }
+
       
-      normalize(_hist_correl_25_200, correlation_cfs25);
-      normalize(_hist_correl_25_546, correlation_cfs25);
-      normalize(_hist_correl_25_900, correlation_cfs25);
-      
-      normalize(_hist_correl_30_200, correlation_cfs30);
-      normalize(_hist_correl_30_546, correlation_cfs30);
-      normalize(_hist_correl_30_900, correlation_cfs30);
-      
-      normalize(_hist_correl_35_200, correlation_cfs35);
-      normalize(_hist_correl_35_546, correlation_cfs35);
-      normalize(_hist_correl_35_900, correlation_cfs35);
-      
-      normalize(_hist_correl_40_200, correlation_cfs40);
-      normalize(_hist_correl_40_546, correlation_cfs40);
-      normalize(_hist_correl_40_900, correlation_cfs40);
-      
-      normalize(_hist_correl_asym_15_200, correlation_as_cfs15);
-      normalize(_hist_correl_asym_15_546, correlation_as_cfs15);
-      normalize(_hist_correl_asym_15_900, correlation_as_cfs15);
-      
-      normalize(_hist_correl_asym_20_200, correlation_as_cfs20);
-      normalize(_hist_correl_asym_20_546, correlation_as_cfs20);
-      normalize(_hist_correl_asym_20_900, correlation_as_cfs20);
-      
-      normalize(_hist_correl_asym_25_200, correlation_as_cfs25);
-      normalize(_hist_correl_asym_25_546, correlation_as_cfs25);
-      normalize(_hist_correl_asym_25_900, correlation_as_cfs25);
-      
-      normalize(_hist_correl_asym_30_200, correlation_as_cfs30);
-      normalize(_hist_correl_asym_30_546, correlation_as_cfs30);
-      normalize(_hist_correl_asym_30_900, correlation_as_cfs30);      
     }
     
     //@}
     
     
   private:
-    
+   
+    // 
+    double sqrtS;
+
     /// @name Vectors for storing the number of particles in the different eta intervals per event.
     /// @todo Is there a better way?
     //@{
@@ -269,50 +245,14 @@ namespace Rivet {
     //@{
 
     // Symmetric eta intervals
-    AIDA::IHistogram1D *_hist_correl_10_200;
-    AIDA::IHistogram1D *_hist_correl_10_546;
-    AIDA::IHistogram1D *_hist_correl_10_900;
-
-    AIDA::IHistogram1D *_hist_correl_15_200;
-    AIDA::IHistogram1D *_hist_correl_15_546;
-    AIDA::IHistogram1D *_hist_correl_15_900;
-
-    AIDA::IHistogram1D *_hist_correl_20_200;
-    AIDA::IHistogram1D *_hist_correl_20_546;
-    AIDA::IHistogram1D *_hist_correl_20_900;
-    
-    AIDA::IHistogram1D *_hist_correl_25_200;
-    AIDA::IHistogram1D *_hist_correl_25_546;
-    AIDA::IHistogram1D *_hist_correl_25_900;
-    
-    AIDA::IHistogram1D *_hist_correl_30_200;
-    AIDA::IHistogram1D *_hist_correl_30_546;
-    AIDA::IHistogram1D *_hist_correl_30_900;
-
-    AIDA::IHistogram1D *_hist_correl_35_200;
-    AIDA::IHistogram1D *_hist_correl_35_900;
-    AIDA::IHistogram1D *_hist_correl_35_546;
-    
-    AIDA::IHistogram1D *_hist_correl_40_200;
-    AIDA::IHistogram1D *_hist_correl_40_546;
-    AIDA::IHistogram1D *_hist_correl_40_900;
+    AIDA::IProfile1D *_hist_correl_200;
+    AIDA::IProfile1D *_hist_correl_546;
+    AIDA::IProfile1D *_hist_correl_900;
     
     // For asymmetric eta intervals
-    AIDA::IHistogram1D *_hist_correl_asym_15_200;
-    AIDA::IHistogram1D *_hist_correl_asym_15_546;
-    AIDA::IHistogram1D *_hist_correl_asym_15_900;
-                                      
-    AIDA::IHistogram1D *_hist_correl_asym_20_200;
-    AIDA::IHistogram1D *_hist_correl_asym_20_546;
-    AIDA::IHistogram1D *_hist_correl_asym_20_900;
-                                      
-    AIDA::IHistogram1D *_hist_correl_asym_25_200;
-    AIDA::IHistogram1D *_hist_correl_asym_25_546;
-    AIDA::IHistogram1D *_hist_correl_asym_25_900;
-                                      
-    AIDA::IHistogram1D *_hist_correl_asym_30_200;
-    AIDA::IHistogram1D *_hist_correl_asym_30_546;
-    AIDA::IHistogram1D *_hist_correl_asym_30_900;
+    AIDA::IProfile1D *_hist_correl_asym_200;
+    AIDA::IProfile1D *_hist_correl_asym_546;
+    AIDA::IProfile1D *_hist_correl_asym_900;
     //@}
 
   };
