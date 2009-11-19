@@ -61,7 +61,9 @@ test -n "$tmp" && {
 
 ## "Pre-rolled" build info
 tmp=$( echo "$*" | egrep -- '--\<cppflags\>')
-test -n "$tmp" && OUT="$OUT -I@includedir@"
+irivet="@includedir@"
+ihepmc="@HEPMCINCPATH@"
+test -n "$tmp" && OUT="$OUT -I${irivet} -I${ihepmc}"
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
 test -n "$tmp" && OUT="$OUT -L@libdir@"

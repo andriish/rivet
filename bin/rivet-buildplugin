@@ -1,0 +1,53 @@
+#! /usr/bin/env bash
+
+## Print help
+PROG=$(basename $0)
+tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
+if test $# -lt 2 || test -n "$tmp"; then
+    echo "$PROG: compilation helper for Rivet analysis plugins"
+    echo
+    echo "Usage: $PROG <libname> <source1> [source2> ...]"
+    echo "<libname> can be a path, provided the filename is of the form 'Rivet*.so'"
+    echo
+    echo "Options:"
+    echo "  -h | --help: display this help message"
+    test -n "$tmp"
+    exit $?
+fi
+
+## Work out shared library build flags by platform
+shared_flags=
+SWVERS=`which sw_vers`
+if test "$SWVERS" && test -x "$SWVERS"; then
+  ## Mac OS X
+  shared_flags="-undefined dynamic_lookup -bundle"
+else
+  ## Unix
+  shared_flags="-shared -fPIC"
+fi
+
+## Get a C++ compiler
+if [[ -z "$CXX" ]]; then
+    CXX=g++
+fi
+
+## Get and check the library name
+libname=$1
+match=$(basename "$libname" | egrep '^Rivet.*\.so')
+if test -z "$match"; then
+    echo "Library name '$libname' does not have the required 'Rivet*.so' name pattern" 1>&2
+    exit 1
+fi
+
+## Get the source files
+shift
+sources="$@"
+
+## Get Rivet include flags
+RIVETCONFIG=$(PATH="$PATH:." which rivet-config)
+cppflags=$($RIVETCONFIG --cppflags)
+
+## Build
+cmd="$CXX -o \"$libname\" $shared_flags $cppflags $sources"
+echo $cmd
+eval $cmd
