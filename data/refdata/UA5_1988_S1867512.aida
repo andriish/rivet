@@ -2,526 +2,196 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.1" package="FreeHEP"/>
-  <dataPointSet name="d01-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d01-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d01-x01-y01" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-0.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.015" value="0.498"
-        errorMinus="0.015"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d01-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d01-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d01-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-0.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.011" value="0.587"
-        errorMinus="0.011"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d01-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d01-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d01-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-0.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.011" value="0.628"
-        errorMinus="0.011"/>
-    </dataPoint>
-  </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
+    path="/REF/UA5_1988_S1867512" title="CORR(P=3,P=4)">
     <annotation>
       <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d02-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d02-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1988_S1867512/d02-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ua51988.aida/REF/UA5_1988_S1867512/d02-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-1.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.396"
-        errorMinus="0.016"/>
+      <measurement errorPlus="5.000000e-01" value="0.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.500000e-02" value="4.980000e-01" errorMinus="1.500000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="1.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="3.960000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="2.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="3.300000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="3.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="2.570000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="4.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="1.740000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="5.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="1.010000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="6.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="6.400000e-02" errorMinus="1.600000e-02"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
+    path="/REF/UA5_1988_S1867512" title="CORR(P=3,P=4)">
     <annotation>
       <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d02-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d02-x01-y02" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1988_S1867512/d02-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/ua51988.aida/REF/UA5_1988_S1867512/d02-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-1.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.011" value="0.488"
-        errorMinus="0.011"/>
+      <measurement errorPlus="5.000000e-01" value="0.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.100000e-02" value="5.870000e-01" errorMinus="1.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="1.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.100000e-02" value="4.880000e-01" errorMinus="1.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="2.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.100000e-02" value="4.120000e-01" errorMinus="1.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="3.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.100000e-02" value="3.540000e-01" errorMinus="1.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="4.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="2.950000e-01" errorMinus="1.200000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="5.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="2.170000e-01" errorMinus="1.200000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="6.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="1.580000e-01" errorMinus="1.200000e-02"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
+    path="/REF/UA5_1988_S1867512" title="CORR(P=3,P=4)">
     <annotation>
       <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d02-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d02-x01-y03" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1988_S1867512/d02-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/ua51988.aida/REF/UA5_1988_S1867512/d02-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-1.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.551"
-        errorMinus="0.013"/>
+      <measurement errorPlus="5.000000e-01" value="0.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.100000e-02" value="6.280000e-01" errorMinus="1.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="1.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="5.510000e-01" errorMinus="1.300000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="2.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="4.860000e-01" errorMinus="1.300000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="3.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="4.310000e-01" errorMinus="1.300000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="4.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="3.850000e-01" errorMinus="1.300000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="5.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="2.740000e-01" errorMinus="1.300000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e-01" value="6.000000e+00" errorMinus="5.000000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="1.460000e-01" errorMinus="1.300000e-02"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
+    path="/REF/UA5_1988_S1867512" title="CORR(P=3,P=4)">
     <annotation>
       <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d03-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d03-x01-y01" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1988_S1867512/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ua51988.aida/REF/UA5_1988_S1867512/d03-x01-y01" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-1.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.33"
-        errorMinus="0.016"/>
+      <measurement errorPlus="2.500000e-01" value="0.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="3.300000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="5.000000e-01" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="3.170000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="1.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="6.000000e-03" value="2.730000e-01" errorMinus="6.000000e-03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="1.500000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="2.050000e-01" errorMinus="1.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="2.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.600000e-02" value="1.930000e-01" errorMinus="1.600000e-02"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
+    path="/REF/UA5_1988_S1867512" title="CORR(P=3,P=4)">
     <annotation>
       <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d03-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d03-x01-y02" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1988_S1867512/d03-x01-y02" sticky="true"/>
+      <item key="FullPath" value="/ua51988.aida/REF/UA5_1988_S1867512/d03-x01-y02" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-1.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.011" value="0.412"
-        errorMinus="0.011"/>
+      <measurement errorPlus="2.500000e-01" value="0.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.100000e-02" value="4.120000e-01" errorMinus="1.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="5.000000e-01" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="4.050000e-01" errorMinus="1.200000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="1.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="3.890000e-01" errorMinus="1.200000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="1.500000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="3.530000e-01" errorMinus="1.200000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e-01" value="2.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.200000e-02" value="2.700000e-01" errorMinus="1.200000e-02"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d03-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
+    path="/REF/UA5_1988_S1867512" title="CORR(P=3,P=4)">
     <annotation>
       <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d03-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d03-x01-y03" sticky="true"/>
+      <item key="AidaPath" value="/REF/UA5_1988_S1867512/d03-x01-y03" sticky="true"/>
+      <item key="FullPath" value="/ua51988.aida/REF/UA5_1988_S1867512/d03-x01-y03" sticky="true"/>
     </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-1.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.486"
-        errorMinus="0.013"/>
+      <measurement errorPlus="2.500000e-01" value="0.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="4.860000e-01" errorMinus="1.300000e-02"/>
     </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d04-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d04-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d04-x01-y01" sticky="true"/>
-    </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-2.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.257"
-        errorMinus="0.016"/>
+      <measurement errorPlus="2.500000e-01" value="5.000000e-01" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="4.750000e-01" errorMinus="1.300000e-02"/>
     </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d04-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d04-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d04-x01-y02" sticky="true"/>
-    </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-2.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.011" value="0.354"
-        errorMinus="0.011"/>
+      <measurement errorPlus="2.500000e-01" value="1.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="4.450000e-01" errorMinus="1.300000e-02"/>
     </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d04-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d04-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d04-x01-y03" sticky="true"/>
-    </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-2.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.431"
-        errorMinus="0.013"/>
+      <measurement errorPlus="2.500000e-01" value="1.500000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="4.160000e-01" errorMinus="1.300000e-02"/>
     </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d05-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d05-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d05-x01-y01" sticky="true"/>
-    </annotation>
     <dataPoint>
-      <measurement errorPlus="0.5" value="-2.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.174"
-        errorMinus="0.016"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d05-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d05-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d05-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-2.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.012" value="0.295"
-        errorMinus="0.012"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d05-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d05-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d05-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-2.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.385"
-        errorMinus="0.013"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d06-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d06-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d06-x01-y01" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-3.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.101"
-        errorMinus="0.016"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d06-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d06-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d06-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-3.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.012" value="0.217"
-        errorMinus="0.012"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d06-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d06-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d06-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-3.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.274"
-        errorMinus="0.013"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d07-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d07-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d07-x01-y01" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-3.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.064"
-        errorMinus="0.016"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d07-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d07-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d07-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-3.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.012" value="0.158"
-        errorMinus="0.012"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d07-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d07-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d07-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-3.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.146"
-        errorMinus="0.013"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d08-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d08-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d08-x01-y01" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-1.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="3178.0"
-        errorMinus="0.016"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d08-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d08-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d08-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-1.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.012" value="0.405"
-        errorMinus="0.012"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d08-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d08-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d08-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-1.0"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.475"
-        errorMinus="0.013"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d09-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d09-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d09-x01-y01" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-0.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.0060" value="0.273"
-        errorMinus="0.0060"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d09-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d09-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d09-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-0.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.012" value="0.389"
-        errorMinus="0.012"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d09-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d09-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d09-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="-0.5"
-        errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.445"
-        errorMinus="0.013"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d10-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d10-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d10-x01-y01" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.0" errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.205"
-        errorMinus="0.016"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d10-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d10-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d10-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.0" errorMinus="0.5"/>
-      <measurement errorPlus="0.012" value="0.353"
-        errorMinus="0.012"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d10-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d10-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d10-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.0" errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.416"
-        errorMinus="0.013"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d11-x01-y01" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d11-x01-y01" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d11-x01-y01" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.016" value="0.193"
-        errorMinus="0.016"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d11-x01-y02" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d11-x01-y02" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d11-x01-y02" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.012" value="0.27"
-        errorMinus="0.012"/>
-    </dataPoint>
-  </dataPointSet>
-  <dataPointSet name="d11-x01-y03" dimension="2"
-    path="/REF/UA5_1988_S1867512/" title="CORR(P=3,P=4)">
-    <annotation>
-      <item key="Title" value="CORR(P=3,P=4)" sticky="true"/>
-      <item key="AidaPath"
-        value="/REF/UA5_1988_S1867512/d11-x01-y03" sticky="true"/>
-      <item key="FullPath"
-        value="/UA5_1988_S1867512.aida/REF/UA5_1988_S1867512/d11-x01-y03" sticky="true"/>
-    </annotation>
-    <dataPoint>
-      <measurement errorPlus="0.5" value="0.5" errorMinus="0.5"/>
-      <measurement errorPlus="0.013" value="0.365"
-        errorMinus="0.013"/>
+      <measurement errorPlus="2.500000e-01" value="2.000000e+00" errorMinus="2.500000e-01"/>
+      <measurement errorPlus="1.300000e-02" value="3.650000e-01" errorMinus="1.300000e-02"/>
     </dataPoint>
   </dataPointSet>
 </aida>
