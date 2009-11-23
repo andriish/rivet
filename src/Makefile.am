@@ -1,8 +1,8 @@
 SUBDIRS = Projections
+SUBDIRS += Tools . Test
 if ENABLE_ANALYSES
 SUBDIRS += Analyses
 endif
-SUBDIRS += Tools . Test
 
 lib_LTLIBRARIES  = libRivet.la
 
