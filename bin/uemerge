@@ -404,6 +404,13 @@ if __name__ == "__main__":
 
     ## Field analysis
     logging.info("Processing CDF_2001_S4751469")
+    ## Angular distributions in different pT bins
+    useOnePt("/CDF_2001_S4751469/d01-x01-y01", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d01-x01-y02", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d01-x01-y03", "1800", "30")
+    useOnePt("/CDF_2001_S4751469/d02-x01-y01", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d02-x01-y02", "1800", "0")
+    useOnePt("/CDF_2001_S4751469/d02-x01-y03", "1800", "30")
     ## Number, profile in pT_lead (True?)
     useOnePt("/CDF_2001_S4751469/d03-x01-y01", "1800", "0")
     useOnePt("/CDF_2001_S4751469/d03-x01-y02", "1800", "0")
