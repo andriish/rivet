@@ -225,10 +225,23 @@ class Plot:
             if is2dim:
                 ymin=min(foo)
             else:
-                if min(foo) > -1e-4:
-                    ymin = 0
+                showzero = True
+                if inputdata.description.has_key('ShowZero'):
+                    if inputdata.description['ShowZero']=='0':
+                        showzero = False
+                if showzero:
+                    if min(foo) > -1e-4:
+                        ymin = 0
+                    else:
+                        ymin = 1.1*min(foo)
                 else:
-                    ymin = 1.1*min(foo)
+                    if min(foo) < -1e-4:
+                        ymin = 1.1*min(foo)
+                    elif min(foo) < 1e-4:
+                        ymin = 0
+                    else:
+                        ymin = 0.9*min(foo)
+
                 if inputdata.description['LogY']:
                     foo=[item for item in foo if item>0.0]
                     if len(foo)==0:
