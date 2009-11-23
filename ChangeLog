@@ -1,3 +1,11 @@
+2009-11-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Adding missing CDF_2001_S4751469 plots to uemerge
+	* New "ShowZero" option in make-plots
+	* Improving lots of plot defaults
+	* Fixing typos / non-existing bins in CDF_2001_S4751469
+	and CDF_2004_S5839831 reference data
+
 2009-11-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing our compare() for doubles.

@@ -73,6 +73,8 @@ Title=Integrated 2-jet rate with Jade algorithm (91.2 GeV)
 XLabel=$y_{\text{cut}}^\text{Jade}$
 YLabel=$R_2$
 LogX=1
+LegendYPos=0.65
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d09-x01-y02
@@ -80,6 +82,8 @@ Title=Integrated 3-jet rate with Jade algorithm (91.2 GeV)
 XLabel=$y_{\text{cut}}^\text{Jade}$
 YLabel=$R_3$
 LogX=1
+LegendYPos=0.65
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d09-x01-y03
@@ -87,6 +91,9 @@ Title=Integrated 4-jet rate with Jade algorithm (91.2 GeV)
 XLabel=$y_{\text{cut}}^\text{Jade}$
 YLabel=$R_4$
 LogX=1
+LegendXPos=0.75
+LegendYPos=0.65
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d09-x01-y04
@@ -94,6 +101,9 @@ Title=Integrated 5-jet rate with Jade algorithm (91.2 GeV)
 XLabel=$y_{\text{cut}}^\text{Jade}$
 YLabel=$R_5$
 LogX=1
+LegendXPos=0.7
+LegendYPos=0.65
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d09-x01-y05
@@ -101,6 +111,9 @@ Title=Integrated $\geq$6-jet rate with Jade algorithm (91.2 GeV)
 XLabel=$y_{\text{cut}}^\text{Jade}$
 YLabel=$R_{\geq 6}$
 LogX=1
+LegendXPos=0.55
+LegendYPos=0.65
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d10-x01-y01
@@ -356,6 +369,7 @@ LogX=1
 LegendYPos=0.6
 XMin=8.750000e-05
 XMax=3.555000e-01
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d18-x01-y02
@@ -367,6 +381,7 @@ LegendYPos=0.6
 LegendXPos=0.8
 XMin=3.690000e-05
 XMax=2.765000e-01
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d18-x01-y03
@@ -378,6 +393,7 @@ LegendYPos=0.6
 LegendXPos=0.7
 XMin=1.555000e-05
 XMax=8.750000e-02
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d18-x01-y04
@@ -389,6 +405,7 @@ LegendYPos=0.6
 LegendXPos=0.75
 XMin=8.350000e-06
 XMax=2.765000e-02
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d18-x01-y05
@@ -400,6 +417,7 @@ LegendYPos=0.6
 LegendXPos=0.5
 XMin=8.350000e-06
 XMax=1.165000e-02
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d19-x01-y01
@@ -674,6 +692,7 @@ LegendXPos=0.7
 LegendYPos=0.5
 XMin=3.160000e-05
 XMax=3.160000e-01
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d26-x01-y02
@@ -685,6 +704,7 @@ LegendXPos=0.6
 LegendYPos=0.5
 XMin=2.370000e-05
 XMax=1.000000e-01
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d26-x01-y03
@@ -696,6 +716,7 @@ LegendXPos=0.6
 LegendYPos=0.5
 XMin=1.000000e-05
 XMax=4.220000e-02
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d26-x01-y04
@@ -707,6 +728,7 @@ LegendXPos=0.6
 LegendYPos=0.5
 XMin=1.000000e-05
 XMax=1.780000e-02
+FullRange=1
 # END PLOT
 
 # BEGIN PLOT /JADE_OPAL_2000_S4300807/d27-x01-y01
