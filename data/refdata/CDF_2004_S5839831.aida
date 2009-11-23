@@ -6904,7 +6904,7 @@
     <dataPoint>
       <measurement errorPlus="0.019999999999999574"
         value="4.300000000000001" errorMinus="0.020000000000000462"/>
-      <measurement errorPlus="0.0" value="9.0" errorMinus="0.0"/>
+      <measurement errorPlus="0.0" value="98.0" errorMinus="0.0"/>
     </dataPoint>
     <dataPoint>
       <measurement errorPlus="0.020000000000000462"
