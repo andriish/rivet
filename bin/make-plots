@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 
-## 
+##
 ## This program is copyright by Hendrik Hoeth <hoeth@linta.de>. It may be used
 ## for scientific and private purposes. Patches are welcome, but please don't
 ## redistribute changed versions yourself.
-## 
+##
 ## $Date$
 ## $Revision$
-## 
+##
 
 
 # TODO:
@@ -154,7 +154,7 @@ class Inputdata:
             if re.match(regex,path):
                 dictionary.update({prop : value})
         return dictionary
-                
+
 class Plot:
     def __init__(self,inputdata):
         pass
@@ -489,7 +489,7 @@ class RatioPlot(Plot):
         out += ('\\psset{yunit=%scm}\n' %(inputdata.description['PlotSizeY']))
         out += ('\\rput(0,-1){%\n')
         out += self._draw(inputdata)
-        out += ('}\n') 
+        out += ('}\n')
         return out
 
     def calculate_ratios(self,inputdata):
@@ -633,7 +633,7 @@ class Legend:
             return self.description['LegendYPos']
         else:
             return '0.98'
-            
+
 
 
 class Labels:
@@ -904,7 +904,7 @@ class Histogram(DrawableObject):
                                           'UpEdge':  [float(linearray[1]), float(linearray[3])],
                                           'Content': float(linearray[4]),
                                           'Error':   float(linearray[5])})
-     
+
     def mangle_input(self):
         if (self.description.has_key('NormalizeToIntegral') and self.description['NormalizeToIntegral']=='1') or \
            (self.description.has_key('NormalizeToSum') and self.description['NormalizeToSum']=='1'):
@@ -1144,7 +1144,7 @@ class Histo1D(Histogram):
                                           'Error':   [float(linearray[3]),float(linearray[3])]})
                     else:
                         raise Exception('Histo1D does not have 8 columns.'+line)
-  
+
 
 
 class Frame:
@@ -1547,21 +1547,21 @@ TODO
                       help="Use Times as font.")
     parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
                       help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
-    parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PS", 
+    parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PS",
                       help="Create PostScript output (default).")
-    parser.add_option("--pdf", dest="OUTPUT_FORMAT", action="store_const", const="PDF", default="PS", 
+    parser.add_option("--pdf", dest="OUTPUT_FORMAT", action="store_const", const="PDF", default="PS",
                       help="Create PDF output.")
-    parser.add_option("--eps", dest="OUTPUT_FORMAT", action="store_const", const="EPS", default="PS", 
+    parser.add_option("--eps", dest="OUTPUT_FORMAT", action="store_const", const="EPS", default="PS",
                       help="Create Encapsulated PostScript output.")
-    parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS", 
+    parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS",
                      help="Create PNG output.")
-    parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PS", 
+    parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PS",
                       help="Create TeX/LaTeX output.")
-    parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False, 
+    parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
                       help="Keep temporary directory and print its filename.")
-    parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False, 
+    parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False,
                       help="Plot full y range in LogY plots.")
-    parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=None, 
+    parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=None,
                       help="Plot config file to be used. Overrides internal config blocks.")
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
@@ -1587,7 +1587,7 @@ TODO
 #     ## Test for ps2pdf
 #     if opts.OUTPUT_FORMAT == "PDF":
 #         ps2pdf
-#     ## Test for ps2eps        
+#     ## Test for ps2eps
 #     if opts.OUTPUT_FORMAT == "EPS":
 #         ps2eps
 
@@ -1611,7 +1611,7 @@ TODO
     datfiles = Queue.Queue(maxsize=-1)
     for d in args:
         datfiles.put(d)
-    
+
     ## Run threads
     for threadnum in range(opts.NUM_THREADS):
         procthread = MkPlotThread()
