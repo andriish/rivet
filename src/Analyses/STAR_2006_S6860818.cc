@@ -27,22 +27,8 @@ namespace Rivet {
       addProjection(bbc1, "BBC1");
       addProjection(bbc2, "BBC2");
 
-
-      IdentifiedFinalState k0sfs(-2.5, 2.5, 0.2*GeV);
-      IdentifiedFinalState kaonfs(-2.5, 2.5, 0.2*GeV);
-      IdentifiedFinalState lambdafs(-2.5, 2.5, 0.3*GeV);
-      IdentifiedFinalState xifs(-2.5, 2.5, 0.5*GeV);
-      IdentifiedFinalState omegafs(-2.5, 2.5, 0.5*GeV);
-      k0sfs.acceptIdPair(K0S);
-      kaonfs.acceptIdPair(KPLUS);
-      lambdafs.acceptIdPair(LAMBDA);
-      xifs.acceptIdPair(XIMINUS);
-      omegafs.acceptIdPair(OMEGAMINUS);
-      addProjection(k0sfs, "K0SFS");
-      addProjection(kaonfs, "KAONFS");
-      addProjection(lambdafs, "LAMBDAFS");
-      addProjection(xifs, "XIFS");
-      addProjection(omegafs, "OMEGAFS");
+      UnstableFinalState ufs(-2.5, 2.5, 0.2*GeV);
+      addProjection(ufs, "UFS");
 
       _h_pT_k0s        = bookHistogram1D(1, 1, 1);
       _h_pT_kminus     = bookHistogram1D(1, 2, 1);
@@ -66,60 +52,41 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      const IdentifiedFinalState& k0sfs = applyProjection<IdentifiedFinalState>(event, "K0SFS");
-      foreach (const Particle& p, k0sfs.particles()) {
+      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      foreach (const Particle& p, ufs.particles()) {
         if (fabs(p.momentum().rapidity()) < 0.5) {
+          const PdgId pid = p.pdgId();
           const double pT = p.momentum().pT() / GeV;
-          _h_pT_k0s->fill(pT, weight/pT);
+          switch (abs(pid)) {
+            case K0S:
+              if (pT > 0.2) {
+                _h_pT_k0s->fill(pT, weight/pT);
+              }
+              break;
+            case KPLUS:
+              if (pT > 0.2) {
+                pid > 0 ? _h_pT_kplus->fill(pT, weight/pT) : _h_pT_kminus->fill(pT, weight/pT);
+              }
+              break;
+            case LAMBDA:
+              if (pT > 0.3) {
+                pid > 0 ? _h_pT_lambda->fill(pT, weight/pT) : _h_pT_lambdabar->fill(pT, weight/pT);
+              }
+              break;
+            case XIMINUS:
+              if (pT > 0.5) {
+                pid > 0 ? _h_pT_ximinus->fill(pT, weight/pT) : _h_pT_xiplus->fill(pT, weight/pT);
+              }
+              break;
+            //case OMEGAMINUS:
+            //  if (pT > 0.5) {
+            //    _h_pT_omega->fill(pT, weight/pT);
+            //  }
+            //  break;
+          }
+
         }
       }
-
-      const IdentifiedFinalState& kaonfs = applyProjection<IdentifiedFinalState>(event, "KAONFS");
-      foreach (const Particle& p, kaonfs.particles()) {
-        if (fabs(p.momentum().rapidity()) < 0.5) {
-          const double pT = p.momentum().pT() / GeV;
-          if (p.pdgId()>0) {
-            _h_pT_kplus->fill(pT, weight/pT);
-          }
-          else {
-            _h_pT_kminus->fill(pT, weight/pT);
-          }
-        }
-      }
-
-      const IdentifiedFinalState& lambdafs = applyProjection<IdentifiedFinalState>(event, "LAMBDAFS");
-      foreach (const Particle& p, lambdafs.particles()) {
-        if (fabs(p.momentum().rapidity()) < 0.5) {
-          const double pT = p.momentum().pT() / GeV;
-          if (p.pdgId()>0) {
-            _h_pT_lambda->fill(pT, weight/pT);
-          }
-          else {
-            _h_pT_lambdabar->fill(pT, weight/pT);
-          }
-        }
-      }
-
-      const IdentifiedFinalState& xifs = applyProjection<IdentifiedFinalState>(event, "XIFS");
-      foreach (const Particle& p, xifs.particles()) {
-        if (fabs(p.momentum().rapidity()) < 0.5) {
-          const double pT = p.momentum().pT() / GeV;
-          if (p.pdgId()>0) {
-            _h_pT_ximinus->fill(pT, weight/pT);
-          }
-          else {
-            _h_pT_xiplus->fill(pT, weight/pT);
-          }
-        }
-      }
-
-      //const IdentifiedFinalState& omegafs = applyProjection<IdentifiedFinalState>(event, "OMEGAFS");
-      //foreach (const Particle& p, omegafs.particles()) {
-      //  if (fabs(p.momentum().rapidity()) < 0.5) {
-      //    const double pT = p.momentum().pT() / GeV;
-      //    _h_pT_omega->fill(pT, weight/pT);
-      //  }
-      //}
 
       _sumWeightSelected += event.weight();
     }
