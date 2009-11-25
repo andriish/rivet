@@ -16,6 +16,8 @@ from htmlentitydefs import codepoint2name
 unichr2entity = dict((unichr(code), u'&%s;' % name)
                          for code,name in codepoint2name.iteritems()
                          if code != 38) # exclude "&"
+
+
 def htmlescape(text, d=unichr2entity):
     if u"&" in text:
         text = text.replace(u"&", u"&amp;")
@@ -24,8 +26,9 @@ def htmlescape(text, d=unichr2entity):
             text = text.replace(key, value)
     return text
 
+
 # Histo and Bin classes were copied from aida2flat
-class Histo:
+class Histo(object):
     aidaindent = "  "
     def __init__(self):
         self._bins = []
@@ -73,22 +76,35 @@ class Histo:
         out += "# END PLOT\n"
         return out
 
-    def asFlat(self, gnuplot=False):
+    def asFlat(self):
         out = "# BEGIN HISTOGRAM %s\n" % self.fullPath()
         out += "AidaPath=%s\n" % self.fullPath()
         out += "Title=%s\n" % self.title
-        out += "XLabel=%s\n" % self.xlabel
-        out += "YLabel=%s\n" % self.ylabel
+        if self.xlabel:
+            out += "XLabel=%s\n" % self.xlabel
+        if self.ylabel:
+            out += "YLabel=%s\n" % self.ylabel
         if self.fullPath().startswith('/REF'):
             out += "PolyMarker=*\n"
             out += "ErrorBars=1\n"
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
-        if gnuplot:
-            out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
-        else:
-            out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
-        out += "\n".join([b.asFlat(gnuplot) for b in self.getBins()])
+        out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
+        out += "\n".join([b.asFlat() for b in self.getBins()])
+        out += "\n# END HISTOGRAM"
+        return out
+
+    def asGnuplot(self):
+        out  = "## HISTOGRAM: %s\n" % self.fullPath()
+        out += "## Title: %s\n" % self.title
+        if self.xlabel:
+            out += "## XLabel: %s\n" % self.xlabel
+        if self.ylabel:
+            out += "## YLabel: %s\n" % self.ylabel
+        out += "## Area: %s\n" % self.area()
+        out += "## Num bins: %d\n" % self.numBins()
+        out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
+        out += "\n".join([b.asGnuplot() for b in self.getBins()])
         out += "\n# END HISTOGRAM"
         return out
 
@@ -284,7 +300,7 @@ class Histo:
     fromFlat = classmethod(fromFlat)
 
 
-class Bin:
+class Bin(object):
     """A simple container for a binned value with an error."""
     aidaindent = "    "
     def __init__(self, xlow=None, xhigh=None, yval=0, yerrplus=0, yerrminus=0, focus=None):
@@ -301,12 +317,12 @@ class Bin:
         return out
 
     def asFlat(self, gnuplot):
-        if gnuplot:
-            out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval,
-                                              self.xlow, self.xhigh, 
-                                              self.yval-self.yerrminus, self.yval+self.yerrplus)
-        else:
-            out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
+        out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
+        return out
+
+    def asGnuplot(self):
+        out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval, self.xlow, self.xhigh, 
+                                          self.yval-self.yerrminus, self.yval+self.yerrplus)
         return out
 
     def asAIDA(self):

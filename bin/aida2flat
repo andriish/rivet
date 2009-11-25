@@ -77,10 +77,8 @@ if __name__ == "__main__":
     ## Initialise steering variables which need a bit more care
     if opts.PATHPATTERNS is None:
         opts.PATHPATTERNS = []
-    headerprefix = ""
     if opts.GNUPLOT:
         opts.SPLITOUTPUT = True
-        headerprefix = "# "
 
 
     ## Check that at least one file has been supplied
@@ -123,8 +121,12 @@ if __name__ == "__main__":
                         outfile = "%s-%s" % (paper, outfile)
                     #print "Writing to", outfile
                     out = open(outfile, "w")
-                    out.write(h.header() + "\n")
-                    out.write(h.asFlat() + "\n")
+                    if not opts.GNUPLOT:
+                        out.write(h.header() + "\n")
+                    if opts.GNUPLOT:
+                        out.write(h.asGnuplot() + "\n")
+                    else:
+                        out.write(h.asFlat() + "\n")
                     out.close()
             else:
                 if opts.SMARTOUTPUT:
