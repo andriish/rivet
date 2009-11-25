@@ -91,7 +91,8 @@ namespace Rivet {
  
 
     void finalize() {
-      /// @todo Get cross-section from the generator
+      // This normalisation is NOT a cross-section.
+      // DON'T TRY TO REPAIR THIS, YOU WILL BREAK IT.
       normalize(_hist_multiplicity_630, 3.21167);
       normalize(_hist_multiplicity_1800, 4.19121);
     }
