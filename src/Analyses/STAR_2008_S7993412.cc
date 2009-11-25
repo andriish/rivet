@@ -61,10 +61,6 @@ namespace Rivet {
  
     /// Finalize
     void finalize() {
-      /// @todo Use the generator cross-section
-      //_h_total_cross_section->fill(crossSection());
-      //normalize(_h_jet_pT_MB, 16603100);
-      //normalize(_h_jet_pT_HT, 1808234);
     }
  
     //@}
