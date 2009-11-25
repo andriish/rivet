@@ -4,5 +4,7 @@ XLabel=$p_\perp(Z)$ / GeV
 YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{p_\perp(Z)}$
 LogY=0
 XMax=45
+NormalizeToIntegral=1
+Scale=247.4
 # END PLOT
 

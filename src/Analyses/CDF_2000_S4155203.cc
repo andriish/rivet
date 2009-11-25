@@ -18,9 +18,11 @@ namespace Rivet {
 
     /// Constructor
     CDF_2000_S4155203()
-      : Analysis("CDF_2000_S4155203")
+      : Analysis("CDF_2000_S4155203"),
+        _sumWeightSelected(0.0)
     {
       setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
     }
 
 
@@ -49,13 +51,12 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Dilepton mass = " << pZ.mass()/GeV << " GeV"  << endl;
       getLog() << Log::DEBUG << "Dilepton pT   = " << pZ.pT()/GeV << " GeV" << endl;
       _hist_zpt->fill(pZ.pT()/GeV, e.weight());
+      _sumWeightSelected += e.weight();
     }
  
  
     void finalize() {
-      // Normalize to the experimental cross-section
-      /// @todo Get norm from generator cross-section
-      normalize(_hist_zpt, 247.4);
+      scale(_hist_zpt, crossSection()/picobarn/_sumWeightSelected);
     }
  
     //@}
@@ -63,7 +64,8 @@ namespace Rivet {
 
   private:
 
-    // Histogram
+    double _sumWeightSelected;
+
     AIDA::IHistogram1D *_hist_zpt;
 
   };
