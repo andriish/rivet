@@ -316,7 +316,7 @@ class Bin(object):
                 self.yval, self.yerrplus, self.yerrminus)
         return out
 
-    def asFlat(self, gnuplot):
+    def asFlat(self):
         out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
         return out
 
