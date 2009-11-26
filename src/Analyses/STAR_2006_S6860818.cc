@@ -94,9 +94,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      AIDA::IHistogramFactory& hf = histogramFactory();
-      const string dir = histoDir();
-
+      //AIDA::IHistogramFactory& hf = histogramFactory();
+      //const string dir = histoDir();
       //hf.divide(dir + "/d02-x01-y01", *_h_pT_piminus, *_h_pT_piplus);
       //hf.divide(dir + "/d02-x02-y01", *_h_pT_antiproton, *_h_pT_proton);
       //hf.divide(dir + "/d02-x03-y01", *_h_pT_proton, *_h_pT_piplus);
