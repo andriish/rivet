@@ -69,6 +69,7 @@ for aidafile in aidafiles:
 ## run compare-histos to get plain .dat files from .aida
 ch_cmd = ["compare-histos"]
 ch_cmd.append("--mc-errs")
+ch_cmd.append("--hier-out")
 ch_cmd.append("--plot-info-dir=../")
 if len(aidafiles)+len(reffiles)<2:
     ch_cmd.append("--show-ref-only")
@@ -82,13 +83,11 @@ index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html><head><title>%s</title></head><body>' % opts.OUTPUTDIR)
 for analysis in sorted(analyses):
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
-    os.mkdir(anapath)
     anaindex = open(os.path.join(anapath, "index.html"), 'w')
     anaindex.write("<html><head><title>%s - %s</title></head><body>\n" % (opts.OUTPUTDIR, analysis))
     
-    datfiles = glob.glob("%s/%s_*.dat" % (opts.OUTPUTDIR, analysis))
+    datfiles = glob.glob("%s/*.dat" % anapath)
     for fulldatfile in sorted(datfiles):
-        shutil.move(fulldatfile, anapath)
         datfile = os.path.basename(fulldatfile)
 
         ## make-plots run for each .dat file
