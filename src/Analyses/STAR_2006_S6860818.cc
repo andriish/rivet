@@ -18,6 +18,10 @@ namespace Rivet {
         _sumWeightSelected(0.0)
     {
       setBeams(PROTON, PROTON);
+      for (size_t i=0 ; i<4 ; i++) {
+        _nBaryon[i]=0.;
+        _nAntiBaryon[i]=0.;
+      }
     }
 
     /// Book projections and histograms
@@ -94,12 +98,11 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      //AIDA::IHistogramFactory& hf = histogramFactory();
-      //const string dir = histoDir();
-      //hf.divide(dir + "/d02-x01-y01", *_h_pT_piminus, *_h_pT_piplus);
-      //hf.divide(dir + "/d02-x02-y01", *_h_pT_antiproton, *_h_pT_proton);
-      //hf.divide(dir + "/d02-x03-y01", *_h_pT_proton, *_h_pT_piplus);
-      //hf.divide(dir + "/d02-x04-y01", *_h_pT_antiproton, *_h_pT_piminus);
+      AIDA::IHistogramFactory& hf = histogramFactory();
+      const string dir = histoDir();
+
+      hf.divide(dir + "/d02-x02-y01", *_h_pT_lambdabar, *_h_pT_lambda);
+      hf.divide(dir + "/d02-x03-y01", *_h_pT_xiplus, *_h_pT_ximinus);
 
       scale(_h_pT_k0s,       1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_kminus,    1./(2*M_PI*_sumWeightSelected));
@@ -116,6 +119,8 @@ namespace Rivet {
   private:
 
     double _sumWeightSelected;
+    double _nBaryon[4];
+    double _nAntiBaryon[4];
 
     AIDA::IHistogram1D * _h_pT_k0s;
     AIDA::IHistogram1D * _h_pT_kminus;
