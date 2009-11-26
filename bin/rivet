@@ -28,6 +28,13 @@ except:
     import dl
     sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
 
+## Try to rename the process on Linux
+try:
+   import ctypes
+   libc = ctypes.cdll.LoadLibrary('libc.so.6')
+   libc.prctl(15, 'rivet', 0, 0, 0)
+except Exception:
+   pass
 
 ## Try to use Psyco optimiser
 try:
