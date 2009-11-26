@@ -460,6 +460,9 @@ class PlotParser(object):
 
     def updateHistoHeaders(self, hist):
         headers = self.getHeaders(hist.histopath)
-        hist.title = headers["Title"]
-        hist.xlabel = headers["XLabel"]
-        hist.ylabel = headers["YLabel"]
+        if headers.has_key("Title"):
+            hist.title = headers["Title"]
+        if headers.has_key("XLabel"):
+            hist.xlabel = headers["XLabel"]
+        if headers.has_key("YLabel"):
+            hist.ylabel = headers["YLabel"]

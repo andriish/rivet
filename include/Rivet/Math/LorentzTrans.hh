@@ -1,6 +1,8 @@
 #ifndef RIVET_MATH_LORENTZTRANS
 #define RIVET_MATH_LORENTZTRANS
 
+#include <iostream>
+
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/MatrixN.hh"

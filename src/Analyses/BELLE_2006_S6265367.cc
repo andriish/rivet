@@ -1,4 +1,5 @@
 // -*- C++ -*-
+#include <iostream>
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -18,7 +19,7 @@ namespace Rivet {
     BELLE_2006_S6265367(): Analysis("BELLE_2006_S6265367")
     {
       setBeams(ELECTRON, POSITRON);
-      setNeedsCrossSection(true);
+      // setNeedsCrossSection(true);
     }
 
 
@@ -33,7 +34,11 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       const Beam beamproj = applyProjection<Beam>(e, "Beams");
-      //const ParticlePair& beams = beamproj.beams();
+      const ParticlePair& beams = beamproj.beams();
+      FourMomentum mom_tot = beamproj.beams().first.momentum() + 
+                             beamproj.beams().second.momentum();
+      LorentzTransform cms_boost(-mom_tot.boostVector());
+
       const double s = beamproj.sqrtS()*beamproj.sqrtS();
 
       // TODO: implement sqrtS() for asymm. beams in beam projection
@@ -43,11 +48,11 @@ namespace Rivet {
       // Particle masses from PDGlive (online 16. Nov. 2009).
       foreach (const Particle& p, ufs.particles()) {
         // TODO: Data is not corrected for branching fractions.
-        // TODO: transform vectors to e+e- rest frame
 
         double xp = 0.0;
         double mH2 = 0.0;
-        const double mom = p.momentum().vector3().mod();
+        // 3-momentum in CMS frame
+        const double mom = cms_boost.transform(p.momentum()).vector3().mod();
 
         const int PdgId = abs(p.pdgId());
         getLog() << Log::DEBUG << "pdgID = " << PdgId << "  mom = " << mom << endl;
@@ -149,21 +154,21 @@ namespace Rivet {
 
 
     void finalize() {
-      normalize(_histXpDstarplus2D0_R, crossSection());
-      normalize(_histXpD0_R, crossSection());
-      normalize(_histXpDplus_R, crossSection());
-      normalize(_histXpDplus_s_R, crossSection());
-      normalize(_histXpLambda_c_R, crossSection());
-      normalize(_histXpDstarplus2Dplus_R, crossSection());
-      normalize(_histXpDstar0_R, crossSection());
+      // normalize(_histXpDstarplus2D0_R, crossSection());
+      // normalize(_histXpD0_R, crossSection());
+      // normalize(_histXpDplus_R, crossSection());
+      // normalize(_histXpDplus_s_R, crossSection());
+      // normalize(_histXpLambda_c_R, crossSection());
+      // normalize(_histXpDstarplus2Dplus_R, crossSection());
+      // normalize(_histXpDstar0_R, crossSection());
 
-      normalize(_histXpDstarplus2D0_C, crossSection());
-      normalize(_histXpD0_C, crossSection());
-      normalize(_histXpDplus_C, crossSection());
-      normalize(_histXpDplus_s_C, crossSection());
-      normalize(_histXpLambda_c_C, crossSection());
-      normalize(_histXpDstarplus2Dplus_C, crossSection());
-      normalize(_histXpDstar0_C, crossSection());
+      // normalize(_histXpDstarplus2D0_C, crossSection());
+      // normalize(_histXpD0_C, crossSection());
+      // normalize(_histXpDplus_C, crossSection());
+      // normalize(_histXpDplus_s_C, crossSection());
+      // normalize(_histXpLambda_c_C, crossSection());
+      // normalize(_histXpDstarplus2Dplus_C, crossSection());
+      // normalize(_histXpDstar0_C, crossSection());
     } // finalize
 
 

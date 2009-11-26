@@ -49,6 +49,7 @@ namespace Rivet {
   bool Run::processEvent(bool firstEvent) {
     GenEvent* evt = new GenEvent();
     if (!m_io->fill_next_event(evt)) {
+      Log::getLog("Rivet.Run") << Log::DEBUG << "m_io->fill_next_event failed!" << endl;
       delete evt;
       return false;
     }
