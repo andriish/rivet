@@ -19,8 +19,10 @@ namespace Rivet {
     {
       setBeams(PROTON, PROTON);
       for (size_t i=0 ; i<4 ; i++) {
-        _nBaryon[i]=0.;
-        _nAntiBaryon[i]=0.;
+        _nBaryon[i]=0;
+        _nAntiBaryon[i]=0;
+        _nWeightedBaryon[i]=0.;
+        _nWeightedAntiBaryon[i]=0.;
       }
     }
 
@@ -42,6 +44,7 @@ namespace Rivet {
       _h_pT_ximinus    = bookHistogram1D(1, 6, 1);
       _h_pT_xiplus     = bookHistogram1D(1, 7, 1);
       //_h_pT_omega      = bookHistogram1D(1, 8, 1);
+      _h_antibaryon_baryon_ratio = bookDataPointSet(2, 1, 1);
     }
 
 
@@ -62,6 +65,11 @@ namespace Rivet {
           const PdgId pid = p.pdgId();
           const double pT = p.momentum().pT() / GeV;
           switch (abs(pid)) {
+            case PROTON:
+              if (pT > 0.4) {
+                pid > 0 ? _nBaryon[0]++ : _nAntiBaryon[0]++;
+                pid > 0 ? _nWeightedBaryon[0]+=weight : _nWeightedAntiBaryon[0]+=weight;
+              }
             case K0S:
               if (pT > 0.2) {
                 _h_pT_k0s->fill(pT, weight/pT);
@@ -75,18 +83,24 @@ namespace Rivet {
             case LAMBDA:
               if (pT > 0.3) {
                 pid > 0 ? _h_pT_lambda->fill(pT, weight/pT) : _h_pT_lambdabar->fill(pT, weight/pT);
+                pid > 0 ? _nBaryon[1]++ : _nAntiBaryon[1]++;
+                pid > 0 ? _nWeightedBaryon[1]+=weight : _nWeightedAntiBaryon[1]+=weight;
               }
               break;
             case XIMINUS:
               if (pT > 0.5) {
                 pid > 0 ? _h_pT_ximinus->fill(pT, weight/pT) : _h_pT_xiplus->fill(pT, weight/pT);
+                pid > 0 ? _nBaryon[2]++ : _nAntiBaryon[2]++;
+                pid > 0 ? _nWeightedBaryon[2]+=weight : _nWeightedAntiBaryon[2]+=weight;
               }
               break;
-            //case OMEGAMINUS:
-            //  if (pT > 0.5) {
-            //    _h_pT_omega->fill(pT, weight/pT);
-            //  }
-            //  break;
+            case OMEGAMINUS:
+              if (pT > 0.5) {
+                //_h_pT_omega->fill(pT, weight/pT);
+                pid > 0 ? _nBaryon[3]++ : _nAntiBaryon[3]++;
+                pid > 0 ? _nWeightedBaryon[3]+=weight : _nWeightedAntiBaryon[3]+=weight;
+              }
+              break;
           }
 
         }
@@ -100,6 +114,27 @@ namespace Rivet {
     void finalize() {
       AIDA::IHistogramFactory& hf = histogramFactory();
       const string dir = histoDir();
+
+      std::vector<double> xval;
+      std::vector<double> xerr;
+      std::vector<double> yval;
+      std::vector<double> yerr;
+      for (size_t i=0 ; i<4 ; i++) {
+        xval.push_back(i);
+        xerr.push_back(0.5);
+        if (_nWeightedBaryon[i]==0 || _nWeightedAntiBaryon[i]==0) {
+          yval.push_back(0);
+          yerr.push_back(0);
+        }
+        else {
+          double y  = _nWeightedAntiBaryon[i]/_nWeightedBaryon[i];
+          double dy = sqrt( _nAntiBaryon[i]/pow(_nWeightedAntiBaryon[i], 2) + _nBaryon[i]/pow(_nWeightedBaryon[i], 2) );
+          yval.push_back(y);
+          yerr.push_back(y*dy);
+        }
+      }
+      _h_antibaryon_baryon_ratio->setCoordinate(0, xval, xerr);
+      _h_antibaryon_baryon_ratio->setCoordinate(1, yval, yerr);
 
       hf.divide(dir + "/d02-x02-y01", *_h_pT_lambdabar, *_h_pT_lambda);
       hf.divide(dir + "/d02-x03-y01", *_h_pT_xiplus, *_h_pT_ximinus);
@@ -119,8 +154,10 @@ namespace Rivet {
   private:
 
     double _sumWeightSelected;
-    double _nBaryon[4];
-    double _nAntiBaryon[4];
+    int _nBaryon[4];
+    int _nAntiBaryon[4];
+    double _nWeightedBaryon[4];
+    double _nWeightedAntiBaryon[4];
 
     AIDA::IHistogram1D * _h_pT_k0s;
     AIDA::IHistogram1D * _h_pT_kminus;
@@ -130,6 +167,8 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_pT_ximinus;
     AIDA::IHistogram1D * _h_pT_xiplus;
     //AIDA::IHistogram1D * _h_pT_omega;
+
+    AIDA::IDataPointSet* _h_antibaryon_baryon_ratio;
   };
 
 
