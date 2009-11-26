@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import re
 import logging
 
 ## Work around lacking functionality in old Python versions:
@@ -381,3 +382,78 @@ class Bin(object):
         return self
 
     yerr = property(getYErr, setYErr)
+
+
+class PlotParser(object):
+    pat_begin_block = re.compile('^# BEGIN ([A-Z0-9_]+) ?(\S+)?')
+    # temporarily allow several hashes before END for YODA
+    pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
+    pat_comment = re.compile('^#|^\s*$')
+    pat_property = re.compile('^(\w+?)=(.*)$')
+    pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
+
+    def __init__(self, plotpaths=None):
+        if plotpaths is None:
+            plotpaths = []
+
+        self.plotpaths = plotpaths
+
+        if len(self.plotpaths) == 0:
+            try:
+                # Use old os.popen to be Python 2.3 compatible.
+                path = os.popen("rivet-config --datadir", "r").readline()
+                path = path.strip()
+                if not path:
+                    raise ValueError("path is empty!")
+                self.plotpaths.append(path)
+            except Exception:
+                raise ValueError("No plotpaths given and rivet-config call"
+                                 " failed!")
+
+    def getHeaders(self, hpath):
+        """Get a header dict for histogram hpath.
+
+        hpath must have the form /AnalysisID/HistogramID
+        """
+        # parts = os.path.split(hpath)
+        parts = hpath.split("/")
+        if len(parts) != 3:
+            raise ValueError("hpath has wrong number of parts (%i)" %
+                             (len(parts)))
+        base = parts[1] + ".plot"
+        plotfile = None
+        for pidir in self.plotpaths:
+            if os.access(os.path.join(pidir, base), os.R_OK):
+                plotfile = os.path.join(pidir, base)
+                break
+        if plotfile is None:
+            raise ValueError("no plot file %s found in plotpaths %s" %
+                             (base, self.plotpaths))
+        headers = {}
+        startreading = False
+        f = open(plotfile)
+        for line in f:
+            m = self.pat_begin_block.match(line)
+            if m:
+                tag, pathpat = m.group(1,2)
+                if tag == 'PLOT' and re.match(pathpat, hpath) is not None:
+                    startreading=True
+                    continue
+            if not startreading:
+                continue
+            if self.isEndMarker(line, 'PLOT'):
+                break
+            elif self.isComment(line):
+                continue
+            vm = self.pat_property.match(line)
+            if vm:
+                prop, value = vm.group(1,2)
+                headers[prop] = value
+        return headers
+
+    def isEndMarker(self, line, blockname):
+        m = self.pat_end_block.match(line)
+        return m and m.group(1) == blockname
+
+    def isComment(self, line):
+        return self.pat_comment.match(line) is not None

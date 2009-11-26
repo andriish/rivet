@@ -21,7 +21,7 @@ def sanitiseString(s):
     s = s.replace('%','\\%')
     return s
 
-from lighthisto import Histo
+from lighthisto import Histo, PlotParser
 
 
 ## Try to load faster but non-standard cElementTree module
@@ -36,24 +36,6 @@ except ImportError:
         except:
             sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
             sys.exit(1)
-## regex patterns ##
-import re
-pat_begin_block = re.compile('^# BEGIN ([A-Z0-9_]+) ?(\S+)?')
-# temporarily allow several hashes before END for YODA
-pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
-pat_comment = re.compile('^#|^\s*$')
-pat_property = re.compile('^(\w+?)=(.*)$')
-pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
-
-def is_end_marker(line, blockname):
-    m = pat_end_block.match(line)
-    return m and m.group(1) == blockname
-
-def is_comment(line):
-    return pat_comment.match(line) is not None
-
-## END HISTO HACKS
-##############################################################
 
 
 if __name__ == "__main__":
@@ -61,7 +43,7 @@ if __name__ == "__main__":
 
     usage = """%prog - generate comparison plots
 
-    USAGE: 
+    USAGE:
       %prog [options] [REF:'Expt data'] aidafile1:'label 1' [path/to/aidafile2:label2 ...]
 
     TODO:
@@ -259,6 +241,7 @@ if __name__ == "__main__":
     ## For < 2.4 compatibility, since Set has no 'sort' method
     NAMES = [i for i in NAMES]
     num_written = 0
+    plotparser = PlotParser(opts.PLOTINFODIR)
     for name in sorted(NAMES):
         logging.debug("Writing histos for plot '%s'" % name)
 
@@ -285,7 +268,7 @@ if __name__ == "__main__":
 
         if len(activefiles) == 1 and opts.NO_SHOW_IF_ONLY_ONE:
             logging.warning("Skipping histo '%s' since only one plot is present" % name)
-            continue 
+            continue
 
         ## Identify reference file for this histo
         ref = opts.REF_ID
@@ -295,33 +278,7 @@ if __name__ == "__main__":
 
 
         ## Header
-        plotfilebase = name.split("/")[1]+".plot"
-        plotfile = plotfilebase
-        for pidir in opts.PLOTINFODIR:
-            if os.access(os.path.join(pidir, plotfilebase), os.R_OK):
-                plotfile = os.path.join(pidir, plotfilebase)
-                break
-        headers = {}
-        if os.access(plotfile, os.R_OK):
-            f = open(plotfile)
-            startreading=False
-            for line in f:
-                m = pat_begin_block.match(line)
-                if m:
-                    tag, pathpat = m.group(1,2)
-                    if tag == 'PLOT' and re.match(pathpat, name) is not None:
-                        startreading=True
-                        continue
-                if not startreading:
-                    continue
-                if is_end_marker(line, 'PLOT'):
-                    break
-                elif is_comment(line):
-                    continue
-                vm = pat_property.match(line)
-                if vm:
-                    prop, value = vm.group(1,2)
-                    headers[prop] = value
+        headers = plotparser.getHeaders(name)
 
         drawonlystr = ""
         for hfile in activefiles:
