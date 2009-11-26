@@ -69,7 +69,7 @@ if __name__ == "__main__":
                       default=".", help="write data files into this directory")
     parser.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
                       default=None, help="this file contains a list of histograms to plot in the format /ANALYSIS_ID/histogramname, e.g. '/DELPHI_1996_S3430090/d01-x01-y01', on each line.")
-    parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False, 
+    parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
                       help="write output dat files into a directory hierarchy which matches the analysis paths")
     parser.add_option("--linear", action="store_true", dest="LINEAR",
                       default=False, help="plot with linear scale")
@@ -241,7 +241,7 @@ if __name__ == "__main__":
     ## For < 2.4 compatibility, since Set has no 'sort' method
     NAMES = [i for i in NAMES]
     num_written = 0
-    plotparser = PlotParser(opts.PLOTINFODIR)
+    plotparser = PlotParser(filter(lambda s: len(s) > 0, opts.PLOTINFODIR))
     for name in sorted(NAMES):
         logging.debug("Writing histos for plot '%s'" % name)
 

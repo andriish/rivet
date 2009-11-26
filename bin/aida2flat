@@ -37,20 +37,26 @@ except ImportError:
 
 if __name__ == "__main__":
 
+    rivet_data_dir=os.popen('rivet-config --datadir',"r").readline().strip()
+    if not rivet_data_dir:
+        rivet_data_dir=""
+
     ## Parse command line options
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
-    parser.add_option("-s", "--split", action="store_true", default=False, 
-                      help="Write each histo to a separate output file, with names based on the histo path", 
+    parser.add_option("-s", "--split", action="store_true", default=False,
+                      help="Write each histo to a separate output file, with names based on the histo path",
                       dest="SPLITOUTPUT")
-    parser.add_option("-g", "--gnuplot", action="store_true", default=False, 
+    parser.add_option("-g", "--gnuplot", action="store_true", default=False,
                       help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with xye'. Implies --split",
                       dest="GNUPLOT")
-    parser.add_option("-S", "--smart-output", action="store_true", default=False, 
-                      help="Write to output files with names based on the corresponding input filename", 
+    parser.add_option("--plot-info-dir", dest="PLOTINFODIR", action="append",
+                      default=["./", rivet_data_dir], help="directory which may contain plot header information")
+    parser.add_option("-S", "--smart-output", action="store_true", default=False,
+                      help="Write to output files with names based on the corresponding input filename",
                       dest="SMARTOUTPUT")
     parser.add_option("-m", "--match", action="append",
-                      help="Only write out histograms whose $path/$name string matches these regexes", 
+                      help="Only write out histograms whose $path/$name string matches these regexes",
                       dest="PATHPATTERNS")
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
@@ -86,6 +92,8 @@ if __name__ == "__main__":
         sys.stderr.write("Must specify at least one AIDA histogram file\n")
         sys.exit(1)
 
+    plotparser = lighthisto.PlotParser(filter(lambda s: len(s) > 0, opts.PLOTINFODIR))
+
 
     ## Run over the files, make histos and write out those that match the patterns
     import re
@@ -110,7 +118,9 @@ if __name__ == "__main__":
                         useThisDps = True
                         break
             if useThisDps:
-                histos.append(lighthisto.Histo.fromDPS(dps))
+                hist = lighthisto.Histo.fromDPS(dps)
+                plotparser.updateHistoHeaders(hist)
+                histos.append(hist)
         if len(histos) > 0:
             if opts.SPLITOUTPUT:
                 paper = os.path.basename(aidafile).replace(".aida", "")

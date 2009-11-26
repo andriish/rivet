@@ -457,3 +457,9 @@ class PlotParser(object):
 
     def isComment(self, line):
         return self.pat_comment.match(line) is not None
+
+    def updateHistoHeaders(self, hist):
+        headers = self.getHeaders(hist.histopath)
+        hist.title = headers["Title"]
+        hist.xlabel = headers["XLabel"]
+        hist.ylabel = headers["YLabel"]
