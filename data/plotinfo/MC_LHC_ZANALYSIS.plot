@@ -40,22 +40,10 @@ XLabel=$p_\perp(\text{Z})$ / GeV
 YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}p_\perp(\text{Z})$ / GeV$^{-1}$
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_ZANALYSIS/logpt-z
-Title=Z candidate $\log(p_\perp/\text{GeV})$
-XLabel=$\log(p_\perp(\text{Z})/\text{GeV})$
-YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}\log(p_\perp(\text{Z})/\text{GeV})$
-# END PLOT
-
 # BEGIN PLOT /MC_LHC_ZANALYSIS/pt-jet
 Title=Jet $p_\perp$
 XLabel=$p_\perp(\text{jet})$ / GeV
 YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp(\text{jet})$ / GeV$^{-1}$
-# END PLOT
-
-# BEGIN PLOT /MC_LHC_ZANALYSIS/logpt-jet
-Title=Jet $\log(p_\perp/\text{GeV})$
-XLabel=$\log(p_\perp(\text{jet})/\text{GeV})$
-YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}\log(p_\perp(\text{jet})/\text{GeV})$
 # END PLOT
 
 # BEGIN PLOT /MC_LHC_ZANALYSIS/eta-z
@@ -74,10 +62,4 @@ YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}\phi(\text{Z})$
 Title=Z candidate mass
 XLabel=$m(\text{Z})$ / GeV
 YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}m(\text{Z})$ / GeV$^{-1}$
-# END PLOT
-
-# BEGIN PLOT /MC_LHC_ZANALYSIS/m-z
-Title=Log of Z candidate mass
-XLabel=$\log(m(\text{Z})/\text{GeV})$
-YLabel=$\mathrm{d}N_\text{Z}/\mathrm{d}\log(m(\text{Z})/\text{GeV})$
 # END PLOT

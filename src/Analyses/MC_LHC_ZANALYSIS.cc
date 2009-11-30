@@ -27,7 +27,7 @@ namespace Rivet {
       const ChargedFinalState cfs;
       addProjection(cfs, "CFS");
       /// @todo Handle muon-decay Zs as well
-      const ZFinder zf(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON, 30.0*GeV, 115.0*GeV, 0.2);
+      const ZFinder zf(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON, 60.0*GeV, 120.0*GeV, 0.2);
       addProjection(zf, "ZF");
       FastJets fastjets(zf.remainingFinalState(), FastJets::KT, 0.7);
       addProjection(fastjets, "Jets");
@@ -40,14 +40,11 @@ namespace Rivet {
       _hist_chargermspt = bookHistogram1D("ptrms-ch", 25, 0, 10);
       _hist_zcount = bookHistogram1D("n-z", 16, -0.5, 15.5);
       _hist_zpt = bookHistogram1D("pt-z", 25, 0, 25);
-      _hist_zlogpt = bookHistogram1D("logpt-z", 30, 0, 6);
       _hist_zeta = bookHistogram1D("eta-z", 36, -6, 6);
       _hist_zphi = bookHistogram1D("phi-z", 25, 0, TWOPI);
       _hist_zmass = bookHistogram1D("m-z", 40, 60, 100);
-      _hist_zlogmass = bookHistogram1D("logm-z", 20, 0, 10);
       _hist_jetcount = bookHistogram1D("n-jet", 16, -0.5, 15.5);
       _hist_jetpt = bookHistogram1D("pt-jet", 50, 20, 100);
-      _hist_jetlogpt = bookHistogram1D("logpt-jet", 20, 0, 20);
     }
  
  
@@ -96,7 +93,18 @@ namespace Rivet {
  
  
     void finalize() {
-      ///@todo Obtain cross-sections from generator and normalise histos to them.
+      const double xsec_sumw = crossSectionPerEvent()/picobarn;
+      scale(_hist_chargemulti, xsec_sumw);
+      scale(_hist_chargept, xsec_sumw);
+      scale(_hist_chargemeanpt, xsec_sumw);
+      scale(_hist_chargermspt, xsec_sumw);
+      scale(_hist_zcount, xsec_sumw);
+      scale(_hist_zpt, xsec_sumw);
+      scale(_hist_zeta, xsec_sumw);
+      scale(_hist_zphi, xsec_sumw);
+      scale(_hist_zmass, xsec_sumw);
+      scale(_hist_jetcount, xsec_sumw);
+      scale(_hist_jetpt, xsec_sumw);
     }
  
     //@}
