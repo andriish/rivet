@@ -246,12 +246,12 @@ public:
     bool first = true;
     for ( int i = 3; i < ax->bins() + 2; ++i ) {
       if (sumw[i] > 0.) {
-	double yw = sumyw[i]/sumw[i];
-	if (first) {
-	  minw = yw;
-	  first = false;
-	}
-	else if (yw < minw) minw = yw;
+        double yw = sumyw[i]/sumw[i];
+        if (first) {
+          minw = yw;
+          first = false;
+        }
+        else if (yw < minw) minw = yw;
       }
     }
     return minw;
@@ -267,12 +267,12 @@ public:
     bool first = true;
     for ( int i = 3; i < ax->bins() + 2; ++i ) {
       if (sumw[i] > 0.) {
-	double yw = sumyw[i]/sumw[i];
-	if (first) {
-	  maxw = yw;
-	  first = false;
-	}
-	else if (yw > maxw) maxw = yw;
+        double yw = sumyw[i]/sumw[i];
+        if (first) {
+          maxw = yw;
+          first = false;
+        }
+        else if (yw > maxw) maxw = yw;
       }
     }
     return maxw;
@@ -352,6 +352,9 @@ public:
    */
   double binError(int index) const {
     if (sumw[index+2] > 0.0) {
+      if ((sumw[index+2]*sumw[index+2] - sumw2[index+2]) == 0) {
+        return sumyw[index+2]/sumw[index+2];
+      }
       double binErr2 = sumy2w[index+2]*sumw[index+2] - sumyw[index+2]*sumyw[index+2];
       binErr2 /= sumw[index+2]*sumw[index+2] - sumw2[index+2];
       binErr2 /= sumw[index+2]; //< s_hat ~ s/sqrt(N)
@@ -417,8 +420,8 @@ public:
    */
   bool add(const Profile1D & h) {
     if ( ax->upperEdge() != h.ax->upperEdge() ||
-	 ax->lowerEdge() != h.ax->lowerEdge() ||
-	 ax->bins() != h.ax->bins() ) return false;
+         ax->lowerEdge() != h.ax->lowerEdge() ||
+         ax->bins() != h.ax->bins() ) return false;
     for ( int i = 0; i < ax->bins() + 2; ++i ) {
       sum[i] += h.sum[i];
       sumw[i] += h.sumw[i];
@@ -481,7 +484,7 @@ public:
     if ( vax ) {
       os << ">\n";
       for ( int i = 0, N = ax->bins() - 1; i < N; ++i )
-	os << "      <binBorder value=\"" << ax->binUpperEdge(i) << "\"/>\n";
+        os << "      <binBorder value=\"" << ax->binUpperEdge(i) << "\"/>\n";
       os << "    </axis>\n";
     } else {
       os << "/>\n";
@@ -519,8 +522,8 @@ public:
        << " \"" << title() << " \"" << std::endl;
     for ( int i = 2; i < ax->bins() + 2; ++i )
       if ( sum[i] && binError(i)>0.)
-	os << binMean(i - 2) << " "
-	   << binHeight(i) << " " << binError(i) << " " << sum[i] << std::endl;
+        os << binMean(i - 2) << " "
+           << binHeight(i) << " " << binError(i) << " " << sum[i] << std::endl;
     os << std::endl;
     return true;
   }
@@ -546,7 +549,7 @@ public:
       nbins = vax->bins();
       double* bins = new double[nbins+1];
       for (int i=0; i<nbins; ++i) {
-	bins[i] = vax->binEdges(i).first;
+        bins[i] = vax->binEdges(i).first;
       }
       bins[nbins] = vax->binEdges(nbins-1).second; //take last bin right border
       prof1d = new TProfile(name.c_str(), title().c_str(), nbins, bins);
@@ -557,14 +560,14 @@ public:
     double entries = 0;
     for ( int i = 0; i < nbins + 2; ++i ) {
       if ( sum[i] && binError(i)>0.) {
-	//i==0: underflow->RootBin(0), i==1: overflow->RootBin(NBins+1)
-	entries = entries + sum[i];
-	int j=i;
-	if (i==0) j=0; //underflow
-	else if (i==1) j=nbins+1; //overflow
-	if (i>=2) j=i-1; //normal bin entries
-	prof1d->SetBinContent(j, binHeight(i));
-	prof1d->SetBinError(j, binError(i));
+        //i==0: underflow->RootBin(0), i==1: overflow->RootBin(NBins+1)
+        entries = entries + sum[i];
+        int j=i;
+        if (i==0) j=0; //underflow
+        else if (i==1) j=nbins+1; //overflow
+        if (i>=2) j=i-1; //normal bin entries
+        prof1d->SetBinContent(j, binHeight(i));
+        prof1d->SetBinError(j, binError(i));
       }
     }
     

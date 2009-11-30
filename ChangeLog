@@ -1,3 +1,8 @@
+2009-11-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing division by zero in Profile1D bin errors for
+	bins with just a single entry.
+
 2009-11-24  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* First working version of STAR_2006_S6860818
