@@ -1,144 +1,144 @@
-# BEGIN PLOT /MC_LHC_WANALYSIS/n-ch
+# BEGIN PLOT /MC_LHC_WANALYSIS/track-n
 Title=Charged multiplicity
 XLabel=$n_\text{ch}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{ch}$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/n-w
+# BEGIN PLOT /MC_LHC_WANALYSIS/w-n
 Title=W candidate multiplicity
 XLabel=$n_\text{W}^\pm$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{W}$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/n-wplus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wplus-n
 Title=\PWplus candidate multiplicity
 XLabel=$n_\text{W}^+$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{W}$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/n-wminus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wminus-n
 Title=\PWminus candidate multiplicity
 XLabel=$n_\text{W}^-$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{W}$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/n-jet
+# BEGIN PLOT /MC_LHC_WANALYSIS/jet-n
 Title=Jet multiplicity
 XLabel=$n_\text{jet}$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{jet}$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/pt-ch
+# BEGIN PLOT /MC_LHC_WANALYSIS/track-pt
 Title=Charged track $p_\perp$
 XLabel=$p_\perp$ / GeV
 YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}p_\perp^\text{ch}$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/ptavg-ch
+# BEGIN PLOT /MC_LHC_WANALYSIS/track-ptavg
 Title=Average charged track $p_\perp$
 XLabel=$\langle p_\perp^\text{ch} \rangle$ / GeV
 YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\langle p_\perp^\text{ch} \langle$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/ptrms-ch
+# BEGIN PLOT /MC_LHC_WANALYSIS/track-ptrms
 Title=Width of charged track $p_\perp$
 XLabel=$\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV
 YLabel=$\mathrm{d}N_\text{ch}/\mathrm{d}\hat{\sigma}_{p_\perp^\text{ch}}$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/pt-w
+# BEGIN PLOT /MC_LHC_WANALYSIS/w-pt
 Title=W candidate $p_\perp$
 XLabel=$p_\perp(\text{W})$ / GeV
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}p_\perp(\text{W})$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/pt-wplus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wplus-pt
 Title=\PWplus candidate $p_\perp$
 XLabel=$p_\perp(\text{\PWplus})$ / GeV
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}p_\perp(\text{W})$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/pt-wminus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wminus-pt
 Title=\PWminus candidate $p_\perp$
 XLabel=$p_\perp(\text{\PWminus})$ / GeV
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}p_\perp(\text{W})$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/pt-jet
+# BEGIN PLOT /MC_LHC_WANALYSIS/jet-pt
 Title=Jet $p_\perp$
 XLabel=$p_\perp(\text{jet})$ / GeV
 YLabel=$\mathrm{d}N_\text{jet}/\mathrm{d}p_\perp(\text{jet})$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/eta-w
+# BEGIN PLOT /MC_LHC_WANALYSIS/w-eta
 Title=W candidate $\eta$
 XLabel=$\eta(\text{W})$
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\eta(\text{W})$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/eta-wplus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wplus-eta
 Title=\PWplus candidate $\eta$
 XLabel=$\eta(\text{W})$
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\eta(\text{W})$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/eta-wminus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wminus-eta
 Title=\PWminus candidate $\eta$
 XLabel=$\eta(\text{W})$
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\eta(\text{W})$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/phi-w
+# BEGIN PLOT /MC_LHC_WANALYSIS/w-phi
 Title=W candidate $\phi$
 XLabel=$\phi(\text{W})$
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\phi(\text{W})$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/phi-wplus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wplus-phi
 Title=\PWplus candidate $\phi$
 XLabel=$\phi(\text{W})$
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\phi(\text{W})$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/phi-wminus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wminus-phi
 Title=\PWminus candidate $\phi$
 XLabel=$\phi(\text{W})$
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}\phi(\text{W})$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/m-w
+# BEGIN PLOT /MC_LHC_WANALYSIS/w-m
 Title=W candidate mass
 XLabel=$m(\text{W})$ / GeV
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}m(\text{W})$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/m-wplus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wplus-m
 Title=\PWplus candidate mass
 XLabel=$m(\text{W})$ / GeV
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}m(\text{W})$ / GeV$^{-1}$
 LogY=1
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_WANALYSIS/m-wminus
+# BEGIN PLOT /MC_LHC_WANALYSIS/wminus-m
 Title=\PWminus candidate mass
 XLabel=$m(\text{W})$ / GeV
 YLabel=$\mathrm{d}N_\text{W}/\mathrm{d}m(\text{W})$ / GeV$^{-1}$

@@ -32,42 +32,37 @@ namespace Rivet {
       FastJets fastjets(wf.remainingFinalState(), FastJets::KT, 0.7);
       addProjection(fastjets, "Jets");
 
-      _hist_chargemulti = bookHistogram1D("n-ch", 50, -0.5, 399.5);
-      _hist_chargept = bookHistogram1D("pt-ch", 25, 0, 25);
+      _hist_chargemulti = bookHistogram1D("track-n", 50, -0.5, 399.5);
+      _hist_chargept = bookHistogram1D("track-pt", 25, 0, 25);
       /// @todo Use profile plots instead:
-      _hist_chargemeanpt = bookHistogram1D("ptavg-ch", 20, 0, 10);
+      _hist_chargemeanpt = bookHistogram1D("track-ptavg", 20, 0, 10);
       /// @todo Use profile plots instead (and this isn't really an "RMS")
-      _hist_chargermspt = bookHistogram1D("ptrms-ch", 20, 0, 10);
+      _hist_chargermspt = bookHistogram1D("track-ptrms", 20, 0, 10);
       //
-      _hist_wcount = bookHistogram1D("n-w", 6, -0.5, 5.5);
-      _hist_wpluscount = bookHistogram1D("n-wplus", 6, -0.5, 5.5);
-      _hist_wminuscount = bookHistogram1D("n-wminus", 6, -0.5, 5.5);
-      _hist_wpt = bookHistogram1D("pt-w", 25, 0, 100);
-      _hist_wpluspt = bookHistogram1D("pt-wplus", 25, 0, 100);
-      _hist_wminuspt = bookHistogram1D("pt-wminus", 25, 0, 100);
-      _hist_weta = bookHistogram1D("eta-w", 36, -6, 6);
-      _hist_wpluseta = bookHistogram1D("eta-wplus", 36, -6, 6);
-      _hist_wminuseta = bookHistogram1D("eta-wminus", 36, -6, 6);
-      _hist_wphi = bookHistogram1D("phi-w", 25, 0, TWOPI);
-      _hist_wplusphi = bookHistogram1D("phi-wplus", 25, 0, TWOPI);
-      _hist_wminusphi = bookHistogram1D("phi-wminus", 25, 0, TWOPI);
-      _hist_wmass = bookHistogram1D("m-w", 40, 60, 100);
-      _hist_wplusmass = bookHistogram1D("m-wplus", 40, 60, 100);
-      _hist_wminusmass = bookHistogram1D("m-wminus", 40, 60, 100);
+      _hist_wcount = bookHistogram1D("w-n", 6, -0.5, 5.5);
+      _hist_wpluscount = bookHistogram1D("wplus-n", 6, -0.5, 5.5);
+      _hist_wminuscount = bookHistogram1D("wminus-n", 6, -0.5, 5.5);
+      _hist_wpt = bookHistogram1D("w-pt", 25, 0, 100);
+      _hist_wpluspt = bookHistogram1D("wplus-pt", 25, 0, 100);
+      _hist_wminuspt = bookHistogram1D("wminus-pt", 25, 0, 100);
+      _hist_weta = bookHistogram1D("w-eta", 36, -6, 6);
+      _hist_wpluseta = bookHistogram1D("wplus-eta", 36, -6, 6);
+      _hist_wminuseta = bookHistogram1D("wminus-eta", 36, -6, 6);
+      _hist_wphi = bookHistogram1D("w-phi", 25, 0, TWOPI);
+      _hist_wplusphi = bookHistogram1D("wplus-phi", 25, 0, TWOPI);
+      _hist_wminusphi = bookHistogram1D("wminus-phi", 25, 0, TWOPI);
+      _hist_wmass = bookHistogram1D("w-m", 40, 60, 100);
+      _hist_wplusmass = bookHistogram1D("wplus-m", 40, 60, 100);
+      _hist_wminusmass = bookHistogram1D("wminus-m", 40, 60, 100);
       //_hist_weta_asymm = bookProfile1D("asymm-eta-w", 20, -5.0, 5.0);
       //
-      _hist_jetcount = bookHistogram1D("n-jet", 11, -0.5, 10.5);
-      _hist_jetpt = bookHistogram1D("pt-jet", 50, 20, 100);
+      _hist_jetcount = bookHistogram1D("jet-n", 6, -0.5, 5.5);
+      _hist_jetpt = bookHistogram1D("jet-pt", 50, 20, 100);
     }
  
  
     void analyze(const Event& event) {
-      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       const WFinder& wf = applyProjection<WFinder>(event, "WF");
-      const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
-      const Jets jets = fastjets.jetsByPt();
-
-      // Veto if no Ws found
       if (wf.size() == 0) {
         getLog() << Log::DEBUG << "No W candidates found: vetoing" << endl;
         vetoEvent;
@@ -76,6 +71,7 @@ namespace Rivet {
       _sumWPass += weight;
  
       // Charged particles part
+      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       _hist_chargemulti->fill(cfs.particles().size(), weight);
       double meanpt(0), rmspt(0);
       foreach (const Particle& p, cfs.particles()) {
@@ -123,8 +119,10 @@ namespace Rivet {
       _hist_wminuscount->fill(n_wminus, weight);
 
       // Jet part
-      _hist_jetcount->fill(fastjets.jets().size(), weight);
-      foreach(const Jet& j, fastjets.jetsByPt()) {
+      const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
+      const Jets jets = fastjets.jetsByPt();
+      _hist_jetcount->fill(jets.size(), weight);
+      foreach (const Jet& j, jets) {
         const double pT = j.momentum().pT();
         _hist_jetpt->fill(pT/GeV, weight);
       }
