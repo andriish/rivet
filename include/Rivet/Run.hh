@@ -93,11 +93,11 @@ namespace Rivet {
     /// @name HepMC I/O members
     //@{
 
-    /// HepMC's own reader from streams
-    HepMC::IO_GenEvent* m_io;
+    /// Output stream for HepMC writer
+    shared_ptr<std::istream> _istr;
 
-    /// STL istream, used by IO_GenEvent if input is not a file
-    std::istream* m_istr;
+    /// HepMC I/O writer
+    shared_ptr<HepMC::IO_GenEvent> _io;
 
     //@}
 

@@ -15,6 +15,7 @@ namespace Rivet {
     /// Default constructor
     MC_LHC_WANALYSIS() : Analysis("MC_LHC_WANALYSIS")
     {
+      setNeedsCrossSection(true);
       _sumWPass = 0.0;
     }
  

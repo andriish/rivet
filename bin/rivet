@@ -397,7 +397,7 @@ for evtfile in HEPMCFILES:
         EVTNUM += 1
         logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
         if not run.processEvent(EVTNUM==1):
-            logging.warn("run.processEvent failed for evt #%i!" % (EVTNUM))
+            #logging.warn("run.processEvent failed for evt #%i!" % (EVTNUM))
             break
         if RECVD_KILL_SIGNAL is not None:
             break

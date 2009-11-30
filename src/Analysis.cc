@@ -12,9 +12,10 @@ namespace Rivet {
 
 
   Analysis::Analysis(const string& name)
-    : _gotCrossSection(false),
+    : _crossSection(-1.0),
+      _gotCrossSection(false),
       _needsCrossSection(false),
-      _analysishandler(0),
+      _analysishandler(NULL),
       _madeHistoDir(false)
   {
     ProjectionApplier::_allowProjReg = false;
@@ -183,7 +184,7 @@ namespace Rivet {
   }
 
   double Analysis::crossSection() const {
-    if (!_gotCrossSection) {
+    if (!_gotCrossSection || _crossSection < 0) {
       string errMsg = "You did not set the cross section for the analysis " + name();
       throw Error(errMsg);
     }

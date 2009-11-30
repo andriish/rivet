@@ -1,5 +1,8 @@
 2009-11-30  Andy Buckley  <andy@insectnation.org>
 
+	* Using shared pointers to make I/O object memory management
+	neater and less error-prone.
+
 	* Adding crossSectionPerEvent() method [==
 	crossSection()/sumOfWeights()] to Analysis. Useful for histogram
 	scaling since numerator of sumW_passed/sumW_total (to calculate
