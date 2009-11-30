@@ -182,12 +182,18 @@ namespace Rivet {
     return *this;
   }
 
-  const double& Analysis::crossSection() const {
+  double Analysis::crossSection() const {
     if (!_gotCrossSection) {
       string errMsg = "You did not set the cross section for the analysis " + name();
       throw Error(errMsg);
     }
     return _crossSection;
+  }
+
+  double Analysis::crossSectionPerEvent() const {
+    const double sumW = sumOfWeights();
+    assert(sumW > 0);
+    return _crossSection / sumW;
   }
 
   AnalysisHandler& Analysis::handler() const {

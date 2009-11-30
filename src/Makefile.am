@@ -7,7 +7,7 @@ endif
 lib_LTLIBRARIES  = libRivet.la
 
 libRivet_la_SOURCES = \
-  Event.cc Jet.cc \
+  Event.cc Jet.cc Particle.cc \
   ProjectionApplier.cc Projection.cc \
   Analysis.cc AnalysisLoader.cc AnalysisInfo.cc \
   AnalysisHandler.cc Run.cc ProjectionHandler.cc HistoHandler.cc

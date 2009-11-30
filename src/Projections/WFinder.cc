@@ -128,10 +128,9 @@ namespace Rivet {
     msg << " = " << pW;
     getLog() << Log::DEBUG << msg.str() << endl;
 
-    Particle W;
-    W.setMomentum(pW);
-
-    _theParticles.push_back(W);
+    // Make W Particle and insert into particles list
+    const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WPLUSBOSON;
+    _theParticles.push_back(Particle(wpid, pW));
     getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
              << " W candidates." << endl;
   }

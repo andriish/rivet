@@ -5,7 +5,9 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
+#include "Rivet/ParticleName.hh"
 #include "Rivet/Math/Vectors.hh"
+#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
 
@@ -15,16 +17,22 @@ namespace Rivet {
   public:
 
     /// Default constructor.
+    /// @deprecated A particle without info is useless. This only exists to keep STL containers happy.
     Particle() : ParticleBase(),
-      _original(0), _id(0), _momentum(), _mass(0.0)
+      _original(0), _id(0), _momentum()
     { }
 
+    /// Constructor without GenParticle.
+    Particle(PdgId pid, const FourMomentum& mom) : ParticleBase(),
+      _original(0), _id(pid), _momentum(mom)
+    { }
 
     /// Constructor from a HepMC GenParticle.
     Particle(const GenParticle& gp) : ParticleBase(),
     _original(&gp), _id(gp.pdg_id()),
-    _momentum(gp.momentum()), _mass(gp.momentum().m())
+    _momentum(gp.momentum())
     { }
+
 
   public:
 
@@ -36,41 +44,48 @@ namespace Rivet {
 
 
     /// Check if the particle corresponds to a GenParticle.
-    bool hasGenParticle() const { return bool(_original); }
+    bool hasGenParticle() const { 
+      return bool(_original); 
+    }
 
 
     /// The PDG ID code for this Particle.
-    long pdgId() const { return _id; }
+    long pdgId() const { 
+      return _id; 
+    }
 
 
     /// The momentum of this Particle.
-    FourMomentum& momentum() { return _momentum; }
-
-
-    /// The momentum of this Particle.
-    const FourMomentum& momentum() const { return _momentum; }
+    const FourMomentum& momentum() const { 
+      return _momentum; 
+    }
 
 
     /// Set the momentum of this Particle.
-    Particle& setMomentum(const FourMomentum& momentum) { _momentum = momentum; return *this; }
+    Particle& setMomentum(const FourMomentum& momentum) { 
+      _momentum = momentum; 
+      return *this; 
+    }
 
 
     /// The mass of this Particle.
-    double mass() const { return _mass; }
-
-
-    bool hasAncestor(long pdg_id) const {
-      GenVertex* prodVtx = genParticle().production_vertex();
-      if (prodVtx == 0) return false;
-      GenVertex::particle_iterator ibegin = prodVtx->particles_begin(HepMC::ancestors);
-      GenVertex::particle_iterator iend = prodVtx->particles_end(HepMC::ancestors);
-      for (GenVertex::particle_iterator ancestor = ibegin; ancestor != iend; ++ancestor) {
-        if ((*ancestor)->pdg_id() == pdg_id) {
-          return true;
-        }
-      }
-      return false;
+    double mass() const { 
+      return momentum().mass(); 
     }
+
+    // /// The charge of this Particle.
+    // double charge() const { 
+    //   return PID::charge(*this); 
+    // }
+
+    // /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
+    // int threeCharge() const { 
+    //   return PID::threeCharge(*this); 
+    // }
+
+
+    /// Check whether a given PID is found in the GenParticle's ancestor list
+    bool hasAncestor(PdgId pdg_id) const;
 
 
   private:
@@ -83,9 +98,6 @@ namespace Rivet {
 
     /// The momentum of this projection of the Particle.
     FourMomentum _momentum;
-
-    /// The mass of this Particle, stored for numerical hygiene.
-    double _mass;
   };
 
 

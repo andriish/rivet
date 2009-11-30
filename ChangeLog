@@ -1,3 +1,14 @@
+2009-11-30  Andy Buckley  <andy@insectnation.org>
+
+	* Adding crossSectionPerEvent() method [==
+	crossSection()/sumOfWeights()] to Analysis. Useful for histogram
+	scaling since numerator of sumW_passed/sumW_total (to calculate
+	pass-cuts xsec) is cancelled by dividing histo by sumW_passed.
+
+	* Clean-up of Particle class and provision of inline PID::
+	functions which take a Particle as an argument to avoid having to
+	explicitly call the Particle::pdgId() method.
+
 2009-11-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing division by zero in Profile1D bin errors for
@@ -12,8 +23,8 @@
 	* Adding missing CDF_2001_S4751469 plots to uemerge
 	* New "ShowZero" option in make-plots
 	* Improving lots of plot defaults
-	* Fixing typos / non-existing bins in CDF_2001_S4751469
-	and CDF_2004_S5839831 reference data
+	* Fixing typos / non-existing bins in CDF_2001_S4751469 and
+	CDF_2004_S5839831 reference data
 
 2009-11-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
@@ -21,8 +32,8 @@
 
 2009-11-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* Zeroth version of STAR_2006_S6860818 analysis (identified strange
-	particles). Not working yet for unstable particles.
+	* Zeroth version of STAR_2006_S6860818 analysis (identified
+	strange particles). Not working yet for unstable particles.
 
 2009-11-11  Andy Buckley  <andy@insectnation.org>
 
@@ -72,9 +83,9 @@
 
 2009-11-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* New analysis STAR_2006_S6500200 (pion and proton pT spectra
-	in pp collisions at 200 GeV). It is still unclear if they used
-	a cut in rapidity or pseudorapidity, thus the analysis is declared
+	* New analysis STAR_2006_S6500200 (pion and proton pT spectra in
+	pp collisions at 200 GeV). It is still unclear if they used a cut
+	in rapidity or pseudorapidity, thus the analysis is declared
 	"UNDER DEVELOPMENT" and "DO NOT USE".
 	* Fixing compare() in NeutralFinalState and MergedFinalState
 
@@ -89,12 +100,13 @@
 
 2009-11-02  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* Fixing normalisation issue with stacked histograms in make-plots.
+	* Fixing normalisation issue with stacked histograms in
+	make-plots.
 
 2009-10-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* CDF_2009_S8233977: Updating data and axes labels to match
-	final paper. Normalise to cross-section instead of data.
+	* CDF_2009_S8233977: Updating data and axes labels to match final
+	paper. Normalise to cross-section instead of data.
 
 2009-10-23  Andy Buckley  <andy@insectnation.org>
 
@@ -119,16 +131,16 @@
 	expected (E_T comparison still missing).
 
 	* Adding new MergedFinalState projection. This merges two final
-	states, removing duplicate particles. Duplicates are identified
-	by looking at the genParticle(), so users need to take care of
-	any manually added particles themselves.
+	states, removing duplicate particles. Duplicates are identified by
+	looking at the genParticle(), so users need to take care of any
+	manually added particles themselves.
 
 	* Fixing most open issues with the STAR_2009_UE_HELEN analysis.
 	There is only one question left, regarding the away region.
 
 	* Set the default split-merge value for SISCone in our FastJets
-	projection to the recommended (but not Fastjet-default!) value
-	of 0.75.
+	projection to the recommended (but not Fastjet-default!) value of
+	0.75.
 
 2009-10-17  Andy Buckley  <andy@insectnation.org>
 
@@ -424,8 +436,8 @@
 	* New analyses STAR_2006_S6870392 and STAR_2008_S7993412. In
 	STAR_2008_S7993412 only the first distribution is filled at the
 	moment. STAR_2006_S6870392 is normalised to data instead of the
-	Monte Carlo cross-section, since we don't have that available
-	in the HepMC stream yet.
+	Monte Carlo cross-section, since we don't have that available in
+	the HepMC stream yet.
 
 2009-05-05  Andy Buckley  <andy@insectnation.org>
 
@@ -525,7 +537,8 @@
 
 	* Moving CDF_2001 constructor into implementation file.
 
-	* Cleaning up CDF_2008_LEADINGJETS a bit, e.g. using foreach loops.
+	* Cleaning up CDF_2008_LEADINGJETS a bit, e.g. using foreach
+	loops.
 
 	* Adding function interface for specifying axis labels in histo
 	bookings. Currently has no effect, since AIDA doesn't seem to have
@@ -565,7 +578,8 @@
 
 2009-03-04  Andy Buckley  <andy@insectnation.org>
 
-	* Fixing use of fastjet-config to not use the user's PATH variable.
+	* Fixing use of fastjet-config to not use the user's PATH
+	variable.
 
 	* Fixing SWIG type table for HepMC object interchange.
 
@@ -604,7 +618,8 @@
 
 2009-01-19  Andy Buckley  <andy@insectnation.org>
 
-	* Added psyco Python optimiser to rivet, make-plots and compare-histos.
+	* Added psyco Python optimiser to rivet, make-plots and
+	compare-histos.
 
 	* bin/aida2root: Added "-" -> "_" mangling, following requests.
 

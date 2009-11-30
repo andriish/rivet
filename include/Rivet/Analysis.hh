@@ -193,8 +193,11 @@ namespace Rivet {
   protected:
 
     /// Get the process cross-section in pb. Throws if this hasn't been set.
-    const double& crossSection() const;
+    double crossSection() const;
  
+    /// Get the process cross-section per generated event in pb. Throws if this
+    /// hasn't been set.
+    double crossSectionPerEvent() const;
 
     /// Get a Log object based on the name() property of the calling analysis object.
     Log& getLog() const;
