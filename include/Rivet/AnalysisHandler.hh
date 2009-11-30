@@ -41,6 +41,7 @@ namespace Rivet {
 
     /// The destructor is not virtual as this class should not be inherited from.
     ~AnalysisHandler();
+
     //@}
 
 
