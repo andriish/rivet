@@ -4,9 +4,7 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
-// #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-// #include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
 
@@ -25,7 +23,7 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       //
-      // TODO: apply BELLE hadron selection cuts
+      /// @todo Apply BELLE hadron selection cuts
       //
 
       const double weight = e.weight();
@@ -33,15 +31,13 @@ namespace Rivet {
       // Loop through unstable FS particles and look for charmed mesons/baryons
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
+      /// @todo Implement sqrtS() for asymm. beams in beam projection
       const Beam beamproj = applyProjection<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
-      FourMomentum mom_tot = beamproj.beams().first.momentum() + 
-                             beamproj.beams().second.momentum();
+      FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
       LorentzTransform cms_boost(-mom_tot.boostVector());
+      const double s = sqr(beamproj.sqrtS());
 
-      const double s = beamproj.sqrtS()*beamproj.sqrtS();
-
-      // TODO: implement sqrtS() for asymm. beams in beam projection
       const bool onresonance = true;
       // const bool onresonance = fuzzyEquals(beamproj.sqrtS(), 10.58, 1E-4);
 
