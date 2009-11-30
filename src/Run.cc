@@ -103,7 +103,11 @@ namespace Rivet {
 
     // Set cross-section if specified from command line
     if (_xs > 0.0) {
-      _ah.setCrossSection(_xs);
+      if (firstEvent) {
+        Log::getLog("Rivet.Run") << Log::DEBUG
+                                 << "Setting user cross-section = " << _xs << " pb" << endl;
+        _ah.setCrossSection(_xs);
+      }
     }
     // Set cross-section if found in event
     #ifdef HEPMC_HAS_CROSS_SECTION
