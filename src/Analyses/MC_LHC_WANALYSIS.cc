@@ -25,16 +25,17 @@ namespace Rivet {
     //@{
 
     void init() {
-      const ChargedFinalState cfs;
+      const ChargedFinalState cfs(-2, 2, 200*MeV);
       addProjection(cfs, "CFS");
+
       /// @todo Handle muon-decay Ws as well
-      const WFinder wf(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON, 70.0*GeV, 90.0*GeV, 0.2);
+      const WFinder wf(-2, 2, 10.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0.2);
       addProjection(wf, "WF");
-      FastJets fastjets(wf.remainingFinalState(), FastJets::KT, 0.7);
+      FastJets fastjets(wf.remainingFinalState(), FastJets::KT, 1.0);
       addProjection(fastjets, "Jets");
 
-      _hist_chargemulti = bookHistogram1D("track-n", 50, -0.5, 399.5);
-      _hist_chargept = bookHistogram1D("track-pt", 25, 0, 25);
+      _hist_chargemulti = bookHistogram1D("track-n", 50, -0.5, 999.5);
+      _hist_chargept = bookHistogram1D("track-pt", 20, 0, 20);
       /// @todo Use profile plots instead:
       _hist_chargemeanpt = bookHistogram1D("track-ptavg", 20, 0, 10);
       /// @todo Use profile plots instead (and this isn't really an "RMS")
@@ -57,8 +58,8 @@ namespace Rivet {
       _hist_wminusmass = bookHistogram1D("wminus-m", 40, 60, 100);
       //_hist_weta_asymm = bookProfile1D("asymm-eta-w", 20, -5.0, 5.0);
       //
-      _hist_jetcount = bookHistogram1D("jet-n", 6, -0.5, 5.5);
-      _hist_jetpt = bookHistogram1D("jet-pt", 50, 20, 100);
+      // _hist_jetcount = bookHistogram1D("jet-n", 6, -0.5, 5.5);
+      // _hist_jetpt = bookHistogram1D("jet-pt", 50, 20, 100);
     }
  
  
@@ -119,14 +120,15 @@ namespace Rivet {
       _hist_wpluscount->fill(n_wplus, weight);   
       _hist_wminuscount->fill(n_wminus, weight);
 
-      // Jet part
-      const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
-      const Jets jets = fastjets.jetsByPt();
-      _hist_jetcount->fill(jets.size(), weight);
-      foreach (const Jet& j, jets) {
-        const double pT = j.momentum().pT();
-        _hist_jetpt->fill(pT/GeV, weight);
-      }
+      // // Jet part
+      // const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
+      // const Jets jets = fastjets.jetsByPt();
+      // cout << jets.size() << endl;
+      // _hist_jetcount->fill(jets.size(), weight);
+      // foreach (const Jet& j, jets) {
+      //   const double pT = j.momentum().pT();
+      //   _hist_jetpt->fill(pT/GeV, weight);
+      // }
 
     }
  
@@ -156,8 +158,8 @@ namespace Rivet {
       scale(_hist_wmass, xsec_sumw);
       scale(_hist_wplusmass, xsec_sumw_plus);
       scale(_hist_wminusmass, xsec_sumw_minus);
-      scale(_hist_jetcount, xsec_sumw);
-      scale(_hist_jetpt, xsec_sumw);
+      // scale(_hist_jetcount, xsec_sumw);
+      // scale(_hist_jetpt, xsec_sumw);
     }
  
     //@}
@@ -174,17 +176,17 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _hist_chargemulti;
-    AIDA::IHistogram1D* _hist_chargept;
-    AIDA::IHistogram1D* _hist_chargemeanpt;
-    AIDA::IHistogram1D* _hist_chargermspt;
+    AIDA::IHistogram1D *_hist_chargemulti;
+    AIDA::IHistogram1D *_hist_chargept;
+    AIDA::IHistogram1D *_hist_chargemeanpt;
+    AIDA::IHistogram1D *_hist_chargermspt;
     AIDA::IHistogram1D *_hist_wcount, *_hist_wpluscount, *_hist_wminuscount;
     AIDA::IHistogram1D *_hist_wpt, *_hist_wpluspt, *_hist_wminuspt;
     AIDA::IHistogram1D *_hist_weta, *_hist_wpluseta, *_hist_wminuseta;
     AIDA::IHistogram1D *_hist_wphi, *_hist_wplusphi, *_hist_wminusphi;
     AIDA::IHistogram1D *_hist_wmass, *_hist_wplusmass, *_hist_wminusmass;
-    AIDA::IHistogram1D* _hist_jetcount;
-    AIDA::IHistogram1D* _hist_jetpt;
+    // AIDA::IHistogram1D *_hist_jetcount;
+    // AIDA::IHistogram1D *_hist_jetpt;
     //@}
 
   };

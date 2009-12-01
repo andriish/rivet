@@ -57,7 +57,7 @@ namespace Rivet {
     addProjection(fs, "FS");
 
     assert(abs(pid) == ELECTRON || abs(pid) == MUON || abs(pid) == TAU);
-    PdgId nu_pid = -(abs(pid) + 1);
+    PdgId nu_pid = abs(pid) + 1;
     assert(abs(nu_pid) == NU_E || abs(nu_pid) == NU_MU || abs(nu_pid) == NU_TAU);
     std::vector<std::pair<long, long> > l_nu_ids;
     l_nu_ids += std::make_pair(abs(pid), -abs(nu_pid));
@@ -78,14 +78,12 @@ namespace Rivet {
   /////////////////////////////////////////////////////
 
 
-  const FinalState& WFinder::remainingFinalState() const
-  {
+  const FinalState& WFinder::remainingFinalState() const {
     return getProjection<FinalState>("RFS");
   }
 
 
-  const FinalState& WFinder::constituentsFinalState() const
-  {
+  const FinalState& WFinder::constituentsFinalState() const {
     return getProjection<FinalState>("IMFS");
   }
 
@@ -105,12 +103,15 @@ namespace Rivet {
     _theParticles.clear();
 
     const FinalState& imfs = applyProjection<FinalState>(e, "IMFS");
-    if (imfs.particles().size() != 2) return;
+    if (imfs.particles().size() != 2) {
+      getLog() << Log::DEBUG << "No W+- candidates found" << endl;
+      return;
+    }
+
     FourMomentum pW = imfs.particles()[0].momentum() + imfs.particles()[1].momentum();
-    const int w3charge = PID::threeCharge(imfs.particles()[0].pdgId()) + PID::threeCharge(imfs.particles()[1].pdgId());
+    const int w3charge = PID::threeCharge(imfs.particles()[0]) + PID::threeCharge(imfs.particles()[1]);
     assert(abs(w3charge) == 3);
-    const int wcharge = sign(w3charge);
-    /// @todo Provide W charge method
+    const int wcharge = w3charge/3;
 
     stringstream msg;
     string wsign = (wcharge == 1) ? "+" : "-";
@@ -129,10 +130,8 @@ namespace Rivet {
     getLog() << Log::DEBUG << msg.str() << endl;
 
     // Make W Particle and insert into particles list
-    const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WPLUSBOSON;
+    const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WMINUSBOSON;
     _theParticles.push_back(Particle(wpid, pW));
-    getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
-             << " W candidates." << endl;
   }
 
 
