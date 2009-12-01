@@ -2,7 +2,7 @@
 
 AC_PREREQ(2.59)
 AC_INIT([Rivet],[1.2.0a0],[rivet@projects.hepforge.org],[Rivet])
-AC_CONFIG_SRCDIR([src/Analysis.cc])
+AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
 AC_CONFIG_MACRO_DIR([m4])
@@ -255,6 +255,7 @@ AC_SUBST(AM_CXXFLAGS)
 AC_EMPTY_SUBST
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
+AC_CONFIG_FILES(src/Core/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile src/Tools/yaml-cpp/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/Analyses/Makefile)
