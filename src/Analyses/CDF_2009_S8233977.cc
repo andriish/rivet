@@ -28,7 +28,8 @@ namespace Rivet {
 
     /// Constructor
     CDF_2009_S8233977()
-      : Analysis("CDF_2009_S8233977")
+      : Analysis("CDF_2009_S8233977"),
+        _sumWeightSelected(0.0)
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -103,14 +104,17 @@ namespace Rivet {
         sumEt += p.momentum().Et();
       }
       _hist_sumEt->fill(sumEt, weight);
+      _sumWeightSelected += evt.weight();
     }
 
  
  
     /// Normalize histos
     void finalize() {
-      scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*sumOfWeights()));
-      scale(_hist_pt, crossSection()/millibarn/sumOfWeights());
+      scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*_sumWeightSelected));
+      scale(_hist_pt, crossSection()/millibarn/_sumWeightSelected);
+      getLog() << Log::DEBUG << "sumOfWeights()     = " << sumOfWeights() << std::endl;
+      getLog() << Log::DEBUG << "_sumWeightSelected = " << _sumWeightSelected << std::endl;
     }
  
     //@}
@@ -118,6 +122,7 @@ namespace Rivet {
 
   private:
 
+    double _sumWeightSelected;
     AIDA::IProfile1D *_hist_pt_vs_multiplicity;
     AIDA::IHistogram1D *_hist_pt;
     AIDA::IHistogram1D *_hist_sumEt;

@@ -1,3 +1,7 @@
+2009-12-01  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing trigger efficiency in CDF_2009_S8233977
+
 2009-11-30  Andy Buckley  <andy@insectnation.org>
 
 	* Using shared pointers to make I/O object memory management
