@@ -128,7 +128,7 @@ namespace Rivet {
         }
         else {
           double y  = _nWeightedAntiBaryon[i]/_nWeightedBaryon[i];
-          double dy = sqrt( _nAntiBaryon[i]/pow(_nWeightedAntiBaryon[i], 2) + _nBaryon[i]/pow(_nWeightedBaryon[i], 2) );
+          double dy = sqrt( 1./_nAntiBaryon[i] + 1./_nBaryon[i] );
           yval.push_back(y);
           yerr.push_back(y*dy);
         }
