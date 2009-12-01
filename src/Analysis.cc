@@ -20,8 +20,11 @@ namespace Rivet {
   {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
-    _info.reset( AnalysisInfo::make(name) );
-    setBeams(ANY, ANY);
+    AnalysisInfo* ai = AnalysisInfo::make(name);
+    assert(ai != 0);
+    _info.reset(ai);
+    assert(_info.get() != 0);
+    //setBeams(ANY, ANY);
   }
 
 
@@ -86,72 +89,81 @@ namespace Rivet {
   ////////////////////////////////////////////////////////////
   // Metadata
 
-  std::string Analysis::name() const {
+  const AnalysisInfo& Analysis::info() const {
+    assert(_info.get() != 0);
+    return *_info;
+  }
+
+  string Analysis::name() const {
     if (_info && !_info->name().empty()) return _info->name();
     return _defaultname;
   }
 
-  std::string Analysis::spiresId() const {
+  string Analysis::spiresId() const {
     if (!_info) return "NONE";
     return _info->spiresId();
   }
 
-  std::vector<std::string> Analysis::authors() const {
+  vector<string> Analysis::authors() const {
     if (!_info) return std::vector<std::string>();
     return _info->authors();
   }
 
-  std::string Analysis::summary() const {
+  string Analysis::summary() const {
     if (!_info) return "NONE";
     return _info->summary();
   }
 
-  std::string Analysis::description() const {
+  string Analysis::description() const {
     if (!_info) return "NONE";
     return _info->description();
   }
 
-  std::string Analysis::runInfo() const {
+  string Analysis::runInfo() const {
     if (!_info) return "NONE";
     return _info->runInfo();
   }
 
-  std::string Analysis::experiment() const {
+  const std::pair<ParticleName,ParticleName>& Analysis::beams() const {
+    return info().beams();
+  }
+
+  const std::vector<std::pair<double,double> >& Analysis::energies() const {
+    return info().energies();
+  }
+
+  string Analysis::experiment() const {
     if (!_info) return "NONE";
     return _info->experiment();
   }
 
-  std::string Analysis::collider() const {
+  string Analysis::collider() const {
     if (!_info) return "NONE";
     return _info->collider();
   }
 
-  const BeamPair& Analysis::beams() const {
-    return _beams;
-  }
-
-  std::string Analysis::year() const {
+  string Analysis::year() const {
     if (!_info) return "NONE";
     return _info->year();
   }
 
-  std::vector<std::string> Analysis::references() const {
-    if (!_info) return std::vector<std::string>();
+  vector<string> Analysis::references() const {
+    if (!_info) return vector<string>();
     return _info->references();
   }
 
-  std::string Analysis::status() const {
+  string Analysis::status() const {
     if (!_info) return "UNVALIDATED";
     return _info->status();
   }
 
-  const BeamPair& Analysis::requiredBeams() const {
-    return _beams;
+  const BeamPair Analysis::requiredBeams() const {
+    return make_pdgid_pair(info().beams());
   }
 
   Analysis& Analysis::setBeams(const ParticleName& beam1, const ParticleName& beam2) {
-    _beams.first = beam1;
-    _beams.second = beam2;
+    assert(_info.get() != 0);
+    _info->_beams = make_pair(beam1, beam2);
     return *this;
   }
 
@@ -304,7 +316,7 @@ namespace Rivet {
   }
 
 
-  IProfile1D* Analysis::bookProfile1D(const std::string& hname, const std::string& title,
+  IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title,
                                       const string& xtitle, const string& ytitle)
   {
     // Get the bin edges (only read the AIDA file once)
@@ -466,7 +478,7 @@ namespace Rivet {
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
     getLog() << Log::TRACE << "Scaling histo " << hpath << endl;
  
-    std::vector<double> x, y, ex, ey;
+    vector<double> x, y, ex, ey;
     for (size_t i = 0, N = histo->axis().bins(); i < N; ++i) {
       x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
       ex.push_back(histo->axis().binWidth(i)*0.5);
@@ -480,9 +492,9 @@ namespace Rivet {
       ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
     }
  
-    std::string title = histo->title();
-    std::string xtitle = histo->xtitle();
-    std::string ytitle = histo->ytitle();
+    string title = histo->title();
+    string xtitle = histo->xtitle();
+    string ytitle = histo->ytitle();
 
     tree().mkdir("/tmpnormalize");
     tree().mv(hpath, "/tmpnormalize");

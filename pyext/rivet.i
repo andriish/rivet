@@ -81,6 +81,8 @@ namespace Rivet {
     virtual std::string collider() const;
     virtual std::string year() const;
     virtual std::string status() const;
+    // const std::pair<ParticleName,ParticleName>& beams() const { return _beams; }
+    // const std::vector<std::pair<double,double> >& energies() const { return _energies; }
     virtual std::vector<std::string> authors() const;
     virtual std::vector<std::string> references() const;
     virtual const BeamPair& beams() const;

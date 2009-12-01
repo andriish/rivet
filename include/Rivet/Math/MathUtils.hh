@@ -71,8 +71,9 @@ namespace Rivet {
   /// Determine if @a value is in the range @a low to @a high, with boundary
   /// types defined by @a lowbound and @a highbound.
   /// @todo Optimise to one-line at compile time?
-  inline bool inRange(double value, double low, double high,
-                      RangeBoundary lowbound=OPEN, RangeBoundary highbound=OPEN) {
+  template<typename NUM>
+  inline bool inRange(NUM value, NUM low, NUM high,
+                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
     if (lowbound == OPEN && highbound == OPEN) {
       return (value > low && value < high);
     } else if (lowbound == OPEN && highbound == CLOSED) {
@@ -88,7 +89,7 @@ namespace Rivet {
   /// Determine if @a value is in the range @a low to @a high, with boundary
   /// types defined by @a lowbound and @a highbound.
   /// @todo Optimise to one-line at compile time?
-  inline bool inRange(long value, long low, long high,
+  inline bool inRange(int value, int low, int high,
                       RangeBoundary lowbound=CLOSED, RangeBoundary highbound=CLOSED) {
     if (lowbound == OPEN && highbound == OPEN) {
       return (value > low && value < high);

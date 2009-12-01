@@ -93,6 +93,9 @@ namespace Rivet {
     /// building web pages and the analysis pages in the Rivet manual.
     //@{
 
+    /// Get the actual AnalysisInfo object in which all this metadata is stored.
+    virtual const AnalysisInfo& info() const;
+
     /// @brief Get the name of the analysis.
     ///
     /// By default this is computed by combining the results of the experiment,
@@ -138,7 +141,10 @@ namespace Rivet {
     virtual std::string collider() const;
 
     /// Incoming beams required by this analysis.
-    virtual const BeamPair& beams() const;
+    virtual const std::pair<ParticleName, ParticleName>& beams() const;
+
+    /// Sets of valid beam energy pairs, in GeV
+    virtual const std::vector<std::pair<double, double> >& energies() const;
 
     /// @brief When the original experimental analysis was published.
     ///
@@ -151,13 +157,14 @@ namespace Rivet {
 
     /// Whether this analysis is trusted (in any way!)
     virtual std::string status() const;
+
     //@}
 
 
   public:
 
     /// Return the pair of incoming beams required by this analysis.
-    virtual const BeamPair& requiredBeams() const;
+    virtual const BeamPair requiredBeams() const;
 
     /// Is this analysis able to run on the supplied pair of beams?
     virtual bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
@@ -189,6 +196,7 @@ namespace Rivet {
 
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const;
+
 
   protected:
 
@@ -357,6 +365,7 @@ namespace Rivet {
 
     /// Make the axis code string (dsDD-xXX-yYY)
     string _makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) const;
+
     //@}
 
 
@@ -387,9 +396,6 @@ namespace Rivet {
     bool _needsCrossSection;
     //@}
  
-    /// Allowed beam-type pair.
-    BeamPair _beams;
-
     /// The controlling AnalysisHandler object.
     AnalysisHandler* _analysishandler;
 
@@ -406,10 +412,13 @@ namespace Rivet {
     /// @todo Reduce memory occupancy, or clear after initialisation?
     map<string, BinEdges> _histBinEdges;
 
+
   private:
+
     /// The assignment operator is private and must never be called.
     /// In fact, it should not even be implemented.
     Analysis& operator=(const Analysis&);
+
   };
 
 

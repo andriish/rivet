@@ -1,3 +1,7 @@
+2009-12-01  Andy Buckley  <andy@insectnation.org>
+
+	* Adding parsing of beam types and pairs of energies from YAML.
+
 2009-12-01  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing trigger efficiency in CDF_2009_S8233977

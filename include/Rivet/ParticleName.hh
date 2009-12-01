@@ -64,7 +64,7 @@ namespace Rivet {
   };
 
   /// Typedef for a PDG ID code.
-  typedef long PdgId;
+  typedef int PdgId;
 
   /// Convenience maker of particle ID pairs.
   inline std::pair<PdgId,PdgId> make_pdgid_pair(PdgId a, PdgId b) {
@@ -74,6 +74,11 @@ namespace Rivet {
   /// Convenience maker of particle ID pairs.
   inline std::pair<PdgId,PdgId> make_pdgid_pair(ParticleName aname, ParticleName bname) {
     return make_pdgid_pair(aname, bname);
+  }
+
+  /// Convenience maker of particle ID pairs.
+  inline std::pair<PdgId,PdgId> make_pdgid_pair(std::pair<ParticleName,ParticleName> pnamepair) {
+    return make_pdgid_pair(pnamepair.first, pnamepair.second);
   }
 
   /// Typedef for a map of beam particle name enums to strings.
@@ -120,6 +125,7 @@ namespace Rivet {
     return bpmap;
   }
 
+
   /// Function which returns a map from beam particle name strings to the corresponding enums.
   inline ParticleNameMapR getParticleNamesRMap() {
     ParticleNameMap bpmap = getParticleNamesMap();
@@ -147,8 +153,7 @@ namespace Rivet {
   }
 
 
-  /// Function which returns a vector of all the beam particle values in
-  /// the ParticleName enum.
+  /// Function which converts a particle name string to a ParticleName enum
   inline ParticleName getParticleNameEnum(const std::string& pname) {
     return (ParticleName) Rivet::getParticleNamesRMap()[pname];
   }

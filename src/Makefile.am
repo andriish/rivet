@@ -1,5 +1,4 @@
-SUBDIRS = Projections
-SUBDIRS += Tools . Test
+SUBDIRS = . Projections Tools Test
 if ENABLE_ANALYSES
 SUBDIRS += Analyses
 endif

@@ -8,22 +8,26 @@
 namespace Rivet {
 
 
-  class AnalysisInfo {
- 
+  class AnalysisInfo { 
+    /// @todo Remove this when all metadata taken from YAML
+    friend class Analysis;
+
   public:
 
     /// Static factory method: returns null pointer if no metadata found
     static AnalysisInfo* make(const std::string& name);
 
-
     /// @name Standard constructors and destructors.
     //@{
+
     /// The default constructor.
     AnalysisInfo() { }
 
     /// The destructor.
     ~AnalysisInfo() { }
+
     //@}
+
 
   public:
 
@@ -69,6 +73,12 @@ namespace Rivet {
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
     const std::string& runInfo() const { return _runInfo; }
+
+    /// Beam particle types
+    const std::pair<ParticleName,ParticleName>& beams() const { return _beams; }
+
+    /// Sets of valid beam energy pairs 
+    const std::vector<std::pair<double,double> >& energies() const { return _energies; }
  
     /// Experiment which performed and published this analysis.
     const std::string& experiment() const { return _experiment; }
@@ -104,7 +114,8 @@ namespace Rivet {
     std::string _runInfo;
     std::string _experiment;
     std::string _collider;
-    //std::pair<BeamParticle,BeamParticle> _beams;
+    std::pair<ParticleName, ParticleName> _beams;
+    std::vector<std::pair<double, double> > _energies;
     std::string _year;
     std::vector<std::string> _references;
     std::string _status;
