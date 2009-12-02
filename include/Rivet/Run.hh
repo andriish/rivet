@@ -55,22 +55,26 @@ namespace Rivet {
     //@{
 
     /// Set up HepMC file readers
-    bool prepareFile(const std::string& evtfile);
+    bool init(const std::string& evtfile);
+
+    /// Read the next HepMC event
+    bool readEvent();
 
     /// Handle next event
-    bool processEvent(bool firstEvent);
+    bool processEvent();
 
     /// Close up HepMC I/O
-    bool finalizeFile();
+    bool finalize();
 
     //@}
 
- 
+
   private:
 
     /// AnalysisHandler object
     AnalysisHandler& _ah;
  
+
     /// @name Run variables obtained from events or command line
     //@{
 
@@ -92,6 +96,9 @@ namespace Rivet {
 
     /// @name HepMC I/O members
     //@{
+
+    /// Current event
+    shared_ptr<GenEvent> _evt;
 
     /// Output stream for HepMC writer
     shared_ptr<std::istream> _istr;

@@ -12,7 +12,9 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(string basefilename,
                                    string runname, HistoFormat storetype)
-    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0) {
+    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), 
+      _sumOfWeights(0.0), _xs(-1.0) 
+  {
     _theAnalysisFactory = createAnalysisFactory();
     _setupFactories(basefilename, storetype);
   }
@@ -20,8 +22,10 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename,
                                    string runname, HistoFormat storetype)
-    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), _sumOfWeights(0.0),
-      _theAnalysisFactory(&afac) {
+    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), 
+      _sumOfWeights(0.0), _xs(-1.0),
+      _theAnalysisFactory(&afac) 
+  {
     _setupFactories(basefilename, storetype);
   }
 
@@ -288,10 +292,17 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs) {
+    _xs = xs;
     foreach (Analysis* a, _analyses) {
       a->setCrossSection(xs);
     }
     return *this;
   }
+
+
+  bool AnalysisHandler::hasCrossSection() const {
+    return (crossSection() >= 0);
+  }
+
 
 }

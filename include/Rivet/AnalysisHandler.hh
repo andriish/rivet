@@ -59,8 +59,12 @@ namespace Rivet {
 
   public:
 
+    /// @name Run properties 
+    //@{
+
     /// Get the name of this run.
     string runName() const;
+
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
@@ -74,8 +78,53 @@ namespace Rivet {
     /// Set sum of weights. This is useful if Rivet is steered externally and
     /// the analyses are run for a sub-contribution of the events
     /// (but of course have to be normalised to the total sum of weights)
-    void setSumOfWeights(const double& sum);
-   
+    void setSumOfWeights(const double& sum);   
+
+
+    /// Is cross-section information required by at least one child analysis?
+    bool needCrossSection() const;
+
+    /// Set the cross-section for the process being generated.
+    AnalysisHandler& setCrossSection(double xs);
+
+    /// Get the cross-section known to the handler.
+    double crossSection() const {
+      return _xs;
+    }
+
+    /// Whether the handler knows about a cross-section.
+    bool hasCrossSection() const;
+
+
+    /// Get beam IDs for this run, determined from first event
+    const BeamPair& beams() const { 
+      return _beams;
+    }
+
+    /// Set beam IDs for this run (as determined from first event)
+    AnalysisHandler& setBeams(const BeamPair& beams) { 
+      _beams = beams;
+      return *this;
+    }
+
+
+    /// Get energy for this run, determined from first event
+    double sqrtS() const {
+      return _sqrts;
+    }
+
+    /// Set energy for this run (as determined from first event)
+    AnalysisHandler& setSqrtS(double sqrts) {
+      _sqrts = sqrts;
+      return *this;
+    }
+
+
+    //@}
+
+
+    /// @name handle analyses
+    //@{
 
     /// Get a list of the currently registered analyses' names.
     std::vector<std::string> analysisNames();
@@ -111,6 +160,11 @@ namespace Rivet {
     /// Remove beam-incompatible analyses from the run list.
     AnalysisHandler& removeIncompatibleAnalyses(const BeamPair& beams);
 
+    //@}
+
+
+    /// @name Main init/execute/finalise
+    //@{
 
     /// Initialize a run. If this run is to be joined together with other
     /// runs, \a N should be set to the total number of runs to be
@@ -131,6 +185,11 @@ namespace Rivet {
     /// for further analysis or writing to file is left to the API user.
     void finalize();
 
+    //@}
+
+
+    /// @name AIDA factories etc.
+    //@{
 
     /// The AIDA analysis factory.
     AIDA::IAnalysisFactory& analysisFactory();
@@ -151,19 +210,17 @@ namespace Rivet {
     /// The AIDA histogram factory.
     AIDA::IDataPointSetFactory& datapointsetFactory();
 
-
-    /// Is cross-section information required by at least one child analysis?
-    bool needCrossSection() const;
-
-
-    /// Set the cross-section for the process being generated.
-    AnalysisHandler& setCrossSection(double xs);
+    //@}
 
 
   private:
 
     /// The collection of Analysis objects to be used.
     set<Analysis*> _analyses;
+
+
+    /// @name Run properties
+    //@{
 
     /// Run name
     std::string _runname;
@@ -181,6 +238,21 @@ namespace Rivet {
     /// Sum of event weights seen.
     double _sumOfWeights;
 
+    /// Cross-section known to AH
+    double _xs;
+
+    /// Beams used by this run.
+    BeamPair _beams;
+      
+    /// Centre of mass energy for this run
+    double _sqrts;
+
+    //@}
+
+
+    /// @name AIDA factory handles
+    //@{
+
     /// The AIDA analysis factory.
     AIDA::IAnalysisFactory* _theAnalysisFactory;
 
@@ -192,6 +264,8 @@ namespace Rivet {
 
     /// The AIDA data point set factory.
     AIDA::IDataPointSetFactory* _theDataPointSetFactory;
+
+    //@}
 
 
   private:

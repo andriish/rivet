@@ -1,3 +1,12 @@
+2009-12-02  Andy Buckley  <andy@insectnation.org>
+
+	* Adding passing of first event sqrt(s) and beams to analysis handler.
+
+	* Restructuring running to only use one HepMC input file (no-one
+	was using multiple ones, right?) and to break down the Run class
+	to cleanly separate the init and event loop phases. End of file is
+	now neater.
+
 2009-12-01  Andy Buckley  <andy@insectnation.org>
 
 	* Adding parsing of beam types and pairs of energies from YAML.

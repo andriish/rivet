@@ -103,6 +103,8 @@ namespace Rivet {
     std::string runName() const;
     size_t numEvents() const;
     double sumOfWeights() const;
+    double sqrtS() const;
+    const BeamPair& beams() const;
     std::vector<std::string> analysisNames();
     AnalysisHandler& addAnalysis(const std::string& analysisname);
     AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);

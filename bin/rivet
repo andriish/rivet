@@ -56,7 +56,7 @@ except:
 usage="""Run Rivet analyses on inputted events from file or Unix pipe
 
 Examples:
-  %prog [options] <hepmcfile> [<hepmcfile> ...]
+  %prog [options] <hepmcfile>
   my_generator -o myfifo & \ %prog [options] myfifo
   agile-runmc <genname> -n 100k | %prog [options]
 
@@ -377,42 +377,37 @@ def logNEvt(n, starttime, maxevtnum):
 ## Read and process events
 run = rivet.Run(ah)
 if opts.CROSS_SECTION is not None:
+    logging.info("User-supplied cross-section = %e pb" % opts.CROSS_SECTION)
     run.setCrossSection(opts.CROSS_SECTION)
 if opts.LIST_USED_ANALYSES is not None:
     run.setListAnalyses(opts.LIST_USED_ANALYSES)
 
-EVTNUM = 0
-starttime = time.time()
+## Print platform type
+import platform
+logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
 
-for evtfile in HEPMCFILES:
-    import platform
-    logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
-    if opts.CROSS_SECTION is not None:
-        logging.info("User-supplied cross-section = %e pb" % opts.CROSS_SECTION)
-    logging.info("Reading events from '%s'" % evtfile)
-    if not run.prepareFile(evtfile):
+## Init run based on one event
+evtfile = HEPMCFILES[0]
+logging.info("Reading events from '%s'" % evtfile)
+if not run.init(evtfile):
+    log.error("Failed to initialise on event file %s" % evtfile)
+    sys.exit(2)
+
+## Event loop
+starttime = time.time()
+EVTNUM = 0
+while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
+    EVTNUM += 1
+    logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
+    if not run.processEvent():
+        logging.warn("Event processing failed for evt #%i!" % (EVTNUM))
         break
-    
-    while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
-        EVTNUM += 1
-        logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
-        if not run.processEvent(EVTNUM==1):
-            #logging.warn("run.processEvent failed for evt #%i!" % (EVTNUM))
-            break
-        if RECVD_KILL_SIGNAL is not None:
-            break
-        
-    if not run.finalizeFile():
-        break
-        
     if RECVD_KILL_SIGNAL is not None:
         break
-    
+    if not run.readEvent():
+        break
 logging.info("Finished event loop")
-
-## Override any generator cross-section to that supplied on the command line, if there was one
-if opts.CROSS_SECTION is not None:
-    run.setCrossSection(opts.CROSS_SECTION)
+run.finalize()
 
 ## Finalize and write out data file
 ah.finalize()
