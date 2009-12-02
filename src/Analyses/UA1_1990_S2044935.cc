@@ -111,7 +111,7 @@ namespace Rivet {
           _hist_Esigd3p900->fill(pt/GeV, scaled_weight);
           // Also fill for specific dNch/deta ranges for 900 GeV
           /// @todo Check normalisation factor: currently low by factor of ~10-20
-          if (inRange(dnch_deta, 0.8, 4)) {
+          if (inRange(dnch_deta, 0.8, 4.0)) {
             _sumwTrig08 += weight;
             _hist_Esigd3p08->fill(pt/GeV, scaled_weight);
           } else if (dnch_deta > 4 && dnch_deta <= 8) {

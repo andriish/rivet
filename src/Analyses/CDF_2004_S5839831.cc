@@ -179,15 +179,15 @@ namespace Rivet {
               _pt90MinAvg1800->fill(ETlead/GeV, cones.ptMin/GeV, weight); // /numMin
               //
               const double ptTransTotal = cones.ptMax + cones.ptMin;
-              if (inRange(ETlead/GeV, 40, 80)) {
+              if (inRange(ETlead/GeV, 40., 80.)) {
                 _pt90Dbn1800Et40->fill(ptTransTotal/GeV, weight);
-              } else if (inRange(ETlead/GeV, 80, 120)) {
+              } else if (inRange(ETlead/GeV, 80., 120.)) {
                 _pt90Dbn1800Et80->fill(ptTransTotal/GeV, weight);
-              } else if (inRange(ETlead/GeV, 120, 160)) {
+              } else if (inRange(ETlead/GeV, 120., 160.)) {
                 _pt90Dbn1800Et120->fill(ptTransTotal/GeV, weight);
-              } else if (inRange(ETlead/GeV, 160, 200)) {
+              } else if (inRange(ETlead/GeV, 160., 200.)) {
                 _pt90Dbn1800Et160->fill(ptTransTotal/GeV, weight);
-              } else if (inRange(ETlead/GeV, 200, 270)) {
+              } else if (inRange(ETlead/GeV, 200., 270.)) {
                 _pt90Dbn1800Et200->fill(ptTransTotal/GeV, weight);
               }
             }

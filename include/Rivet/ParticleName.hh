@@ -72,9 +72,9 @@ namespace Rivet {
   }
 
   /// Convenience maker of particle ID pairs.
-  inline std::pair<PdgId,PdgId> make_pdgid_pair(ParticleName aname, ParticleName bname) {
-    return make_pdgid_pair(aname, bname);
-  }
+  // inline std::pair<PdgId,PdgId> make_pdgid_pair(ParticleName aname, ParticleName bname) {
+  //   return make_pdgid_pair(aname, bname);
+  // }
 
   /// Convenience maker of particle ID pairs.
   inline std::pair<PdgId,PdgId> make_pdgid_pair(std::pair<ParticleName,ParticleName> pnamepair) {

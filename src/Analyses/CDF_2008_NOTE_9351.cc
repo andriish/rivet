@@ -103,7 +103,7 @@ namespace Rivet {
 
       // Lepton pair should have an invariant mass between 70 and 110 and |eta| < 6
       const FourMomentum dilepton = leptons[0].momentum() + leptons[1].momentum();
-      if (!inRange(dilepton.mass()/GeV, 70, 110) || fabs(dilepton.eta()) >= 6) vetoEvent;
+      if (!inRange(dilepton.mass()/GeV, 70., 110.) || fabs(dilepton.eta()) >= 6) vetoEvent;
       getLog() << Log::DEBUG << "Dilepton mass = " << mass(dilepton)/GeV << " GeV" << endl;
       getLog() << Log::DEBUG << "Dilepton pT   = " << pT(dilepton)/GeV << " GeV" << endl;
    
