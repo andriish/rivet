@@ -2,7 +2,7 @@
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "yaml.h"
+#include "yaml-cpp/yaml.h"
 #include <iostream>
 #include <fstream>
 #include <unistd.h>
