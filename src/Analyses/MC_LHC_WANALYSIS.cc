@@ -88,7 +88,7 @@ namespace Rivet {
       _hist_chargermspt->fill(rmspt/GeV, weight);
    
       // W part
-      uint n_wplus(0), n_wminus(0);
+      unsigned int n_wplus(0), n_wminus(0);
       foreach (const Particle& wp, wf.particles()) {
         const double pT = wp.momentum().pT();
         const double eta = wp.momentum().eta();

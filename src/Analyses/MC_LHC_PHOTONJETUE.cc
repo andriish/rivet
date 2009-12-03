@@ -140,14 +140,14 @@ namespace Rivet {
       const FinalState& cfs = applyProjection<ChargedFinalState>(evt, "Tracks");
 
       // Whole-event counters
-      uint   numOverall(0);
+      unsigned int   numOverall(0);
       double ptSumOverall(0.0), ptMaxOverall(0.0);
       // Jet-oriented counters
-      uint   numToward_jet(0),     numTrans1_jet(0),     numTrans2_jet(0),     numAway_jet(0);
+      unsigned int   numToward_jet(0),     numTrans1_jet(0),     numTrans2_jet(0),     numAway_jet(0);
       double ptSumToward_jet(0.0), ptSumTrans1_jet(0.0), ptSumTrans2_jet(0.0), ptSumAway_jet(0.0);
       double ptMaxToward_jet(0.0), ptMaxTrans1_jet(0.0), ptMaxTrans2_jet(0.0), ptMaxAway_jet(0.0);
       // Photon-oriented counters
-      uint   numToward_gamma(0),     numTrans1_gamma(0),     numTrans2_gamma(0),     numAway_gamma(0);
+      unsigned int   numToward_gamma(0),     numTrans1_gamma(0),     numTrans2_gamma(0),     numAway_gamma(0);
       double ptSumToward_gamma(0.0), ptSumTrans1_gamma(0.0), ptSumTrans2_gamma(0.0), ptSumAway_gamma(0.0);
       double ptMaxToward_gamma(0.0), ptMaxTrans1_gamma(0.0), ptMaxTrans2_gamma(0.0), ptMaxAway_gamma(0.0);
 
