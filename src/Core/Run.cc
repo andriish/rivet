@@ -83,6 +83,12 @@ namespace Rivet {
     // Check that analyses are beam-compatible
     const size_t num_anas_requested = _ah.analysisNames().size();
     _ah.removeIncompatibleAnalyses(beams);
+    foreach (const Analysis* a, _ah.analyses()) {
+      if (toUpper(a->status()) != "VALIDATED") {
+        Log::getLog("Rivet.Run") << Log::WARN 
+                                 << "Analysis '" << a->name() << "' is unvalidated: be careful!" << endl;
+      }
+    }
     if (num_anas_requested > 0 && _ah.analysisNames().size() == 0) {
       Log::getLog("Rivet.Run") << Log::ERROR
                                << "All analyses were incompatible with the first event's beams\n"

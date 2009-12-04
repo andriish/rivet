@@ -236,7 +236,7 @@ namespace Rivet {
   }
 
 
-  std::vector<std::string> AnalysisHandler::analysisNames() {
+  std::vector<std::string> AnalysisHandler::analysisNames() const {
     std::vector<std::string> rtn;
     foreach (Analysis* a, _analyses) {
       rtn.push_back(a->name());

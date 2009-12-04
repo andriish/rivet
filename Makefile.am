@@ -6,7 +6,7 @@ EXTRA_DIST = GUIDELINES
 doc:
 	cd doc && $(MAKE) doc
 
-.PHONY : doc dox
+.PHONY : doc dox pyclean
 
 clean-local:
 	@rm -rf a.out
@@ -23,6 +23,9 @@ uninstall-local:
 	@rm -rf $(DESTDIR)$(pkgdatadir)/doc; \
 	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir --ignore-fail-on-non-empty $(DESTDIR)$(pkgdatadir)
 endif
+
+pyclean:
+	cd pyext && $(MAKE) clean
 
 ## Remove SVN dirs
 dist-hook:

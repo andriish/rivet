@@ -11,7 +11,7 @@ namespace Rivet {
 
     /// Log priority levels.
     enum Level {
-      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, ERROR = 40
+      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, WARNING = 30, ERROR = 40
     };
 
     /// Typedef for a collection of named logs.

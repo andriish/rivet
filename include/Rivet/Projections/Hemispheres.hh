@@ -92,39 +92,53 @@ namespace Rivet {
 
     /// @name Hemisphere masses (scaled by \f$ 1 / E^2_\mathrm{vis} \f$).
     ///@{
-    const double E2vis() const { return _E2vis; }
-    const double M2high() const { return _M2high; }
-    const double M2low() const { return _M2low; }
-    const double M2diff() const { return _M2high -_M2low; }
-    const double scaledM2high() const {
+
+    double E2vis() const { return _E2vis; }
+    double Evis() const { return sqrt(_E2vis); }
+
+    double M2high() const { return _M2high; }
+    double Mhigh() const { return sqrt(M2high()); }
+
+    double M2low() const { return _M2low; }
+    double Mlow() const { return sqrt(M2low()); }
+
+    double M2diff() const { return _M2high -_M2low; }
+    double Mdiff() const { return sqrt(M2diff()); }
+
+    double scaledM2high() const {
       if (_M2high == 0.0) return 0.0;
       if (_E2vis != 0.0) return _M2high/_E2vis;
       else return std::numeric_limits<double>::max();
     }
-    const double scaledM2low() const {
+    double scaledMhigh() const { return sqrt(scaledM2high()); }
+
+    double scaledM2low() const {
       if (_M2low == 0.0) return 0.0;
       if (_E2vis != 0.0) return _M2low/_E2vis;
       else return std::numeric_limits<double>::max();
     }
-    const double scaledM2diff() const {
+    double scaledMlow() const { return sqrt(scaledM2low()); }
+
+    double scaledM2diff() const {
       if (M2diff() == 0.0) return 0.0;
       if (_E2vis != 0.0) return M2diff()/_E2vis;
       else return std::numeric_limits<double>::max();
     }
+    double scaledMdiff() const { return sqrt(scaledM2diff()); }
     ///@}
 
 
     /// @name Hemisphere broadenings.
     ///@{
-    const double Bmax() const { return _Bmax; }
-    const double Bmin() const { return _Bmin; }
-    const double Bsum() const { return _Bmax + _Bmin; }
-    const double Bdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
+    double Bmax() const { return _Bmax; }
+    double Bmin() const { return _Bmin; }
+    double Bsum() const { return _Bmax + _Bmin; }
+    double Bdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
     ///@}
 
 
     /// Is the hemisphere with the max mass the same as the one with the max broadening?
-    const bool massMatchesBroadening() {
+    bool massMatchesBroadening() {
       return _highMassEqMaxBroad;
     }
 
@@ -144,6 +158,7 @@ namespace Rivet {
     bool _highMassEqMaxBroad;
 
   };
+
 
 }
 

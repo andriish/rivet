@@ -50,6 +50,7 @@ namespace Rivet {
 
     void init() {
       addProjection(Beam(), "Beams");
+      /// @todo pTmin and |eta| cuts
       const ChargedFinalState cfs;
       addProjection(cfs, "FS");
       addProjection(UnstableFinalState(), "UFS");

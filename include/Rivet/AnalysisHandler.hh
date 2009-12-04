@@ -125,11 +125,16 @@ namespace Rivet {
     //@}
 
 
-    /// @name handle analyses
+    /// @name Handle analyses
     //@{
 
     /// Get a list of the currently registered analyses' names.
-    std::vector<std::string> analysisNames();
+    std::vector<std::string> analysisNames() const;
+
+    /// Get a list of the currently registered analyses' names.
+    const std::set<Analysis*>& analyses() const {
+      return _analyses;
+    }
 
     /// Add an analysis to the run list using its name. The actual Analysis
     /// to be used will be obtained via AnalysisHandler::getAnalysis(string).

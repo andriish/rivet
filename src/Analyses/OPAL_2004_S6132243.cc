@@ -17,8 +17,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    OPAL_2004_S6132243() : Analysis("OPAL_2004_S6132243"),
-                           _isqrts(-1), _sumPassedWeights(0.0)
+    OPAL_2004_S6132243() 
+      : Analysis("OPAL_2004_S6132243"),
+        _isqrts(-1), _sumWTrack2(0.0), _sumWJet3(0.0)
     {
       //
     }
@@ -52,7 +53,8 @@ namespace Rivet {
     void init() {
       // Projections
       addProjection(Beam(), "Beams");
-      const ChargedFinalState cfs;
+      /// @todo pTmin and |eta| cuts
+      const ChargedFinalState cfs(-2, 2, 0.15*GeV);
       addProjection(cfs, "FS");
       addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
       addProjection(Sphericity(cfs), "Sphericity");
@@ -102,7 +104,7 @@ namespace Rivet {
 
       // Increment passed-cuts weight sum
       const double weight = event.weight();
-      _sumPassedWeights += weight;
+      _sumWTrack2 += weight;
 
       // Thrusts
       const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
@@ -120,8 +122,8 @@ namespace Rivet {
       // Jets
       const FastJets& durjet = applyProjection<FastJets>(event, "DurhamJets");
       if (durjet.clusterSeq()) {
-        /// @todo Need separate normalisation due to clusterseq / 3 jet requirement?
-        const double y23 = durjet.clusterSeq()->exclusive_ymerge(3);
+        _sumWJet3 += weight;
+        const double y23 = durjet.clusterSeq()->exclusive_ymerge(2);
         _histY23Durham[_isqrts]->fill(y23, weight);
         for (int n = 1; n <= 5; ++n) {
           _histY23DurhamMom[_isqrts]->fill(n, pow(y23, n)*weight);
@@ -150,8 +152,8 @@ namespace Rivet {
    
       // Hemispheres
       const Hemispheres& hemi = applyProjection<Hemispheres>(event, "Hemispheres");
-      const double hemi_mh = hemi.scaledM2high();
-      const double hemi_ml = hemi.scaledM2low();
+      const double hemi_mh = hemi.Mhigh()/sqrtS();
+      const double hemi_ml = hemi.Mlow()/sqrtS();
       const double hemi_bmax = hemi.Bmax();
       const double hemi_bmin = hemi.Bmin();
       const double hemi_bsum = hemi.Bsum();
@@ -171,33 +173,33 @@ namespace Rivet {
 
 
     void finalize() {
-      normalize(_hist1MinusT[_isqrts]);
-      normalize(_histTMajor[_isqrts]);
-      normalize(_histTMinor[_isqrts]);
-      normalize(_histOblateness[_isqrts]);
-      normalize(_histSphericity[_isqrts]);
-      normalize(_histAplanarity[_isqrts]);
-      normalize(_histHemiMassH[_isqrts]);
-      normalize(_histHemiMassL[_isqrts]);
-      normalize(_histHemiBroadW[_isqrts]);
-      normalize(_histHemiBroadN[_isqrts]);
-      normalize(_histHemiBroadT[_isqrts]);
-      normalize(_histCParam[_isqrts]);
-      normalize(_histDParam[_isqrts]);
-      normalize(_histY23Durham[_isqrts]);
+      scale(_hist1MinusT[_isqrts], 1.0/_sumWTrack2);
+      scale(_histTMajor[_isqrts], 1.0/_sumWTrack2);
+      scale(_histTMinor[_isqrts], 1.0/_sumWTrack2);
+      scale(_histOblateness[_isqrts], 1.0/_sumWTrack2);
+      scale(_histSphericity[_isqrts], 1.0/_sumWTrack2);
+      scale(_histAplanarity[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiMassH[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiMassL[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiBroadW[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiBroadN[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiBroadT[_isqrts], 1.0/_sumWTrack2);
+      scale(_histCParam[_isqrts], 1.0/_sumWTrack2);
+      scale(_histDParam[_isqrts], 1.0/_sumWTrack2);
+      scale(_histY23Durham[_isqrts], 1.0/_sumWJet3);
       //
-      scale(_hist1MinusTMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histTMajorMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histTMinorMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histOblatenessMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histSphericityMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histHemiMassHMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histHemiMassLMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histHemiBroadWMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histHemiBroadNMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histHemiBroadTMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histCParamMom[_isqrts], 1.0/_sumPassedWeights);
-      scale(_histY23DurhamMom[_isqrts], 1.0/_sumPassedWeights);
+      scale(_hist1MinusTMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histTMajorMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histTMinorMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histOblatenessMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histSphericityMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiMassHMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiMassLMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiBroadWMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiBroadNMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histHemiBroadTMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histCParamMom[_isqrts], 1.0/_sumWTrack2);
+      scale(_histY23DurhamMom[_isqrts], 1.0/_sumWJet3);
     }
     
     //@}
@@ -205,13 +207,16 @@ namespace Rivet {
     
   private:
     
-    // Beam energy index for histograms
+    /// Beam energy index for histograms
     int _isqrts;
     
-    // Counter of event weights passing the cuts
-    double _sumPassedWeights;
+    /// @name Counters of event weights passing the cuts
+    //@{
+    double _sumWTrack2, _sumWJet3;
+    //@}
 
-    // Event shape histos at 4 energies
+    /// @name Event shape histos at 4 energies
+    //@{
     AIDA::IHistogram1D* _hist1MinusT[4];
     AIDA::IHistogram1D* _histHemiMassH[4];
     AIDA::IHistogram1D* _histCParam[4];
@@ -226,8 +231,10 @@ namespace Rivet {
     AIDA::IHistogram1D* _histHemiMassL[4];
     AIDA::IHistogram1D* _histHemiBroadN[4];
     AIDA::IHistogram1D* _histDParam[4];
+    //@}
 
-    // Event shape moment histos at 4 energies
+    /// @name Event shape moment histos at 4 energies
+    //@{
     AIDA::IHistogram1D* _hist1MinusTMom[4];
     AIDA::IHistogram1D* _histHemiMassHMom[4];
     AIDA::IHistogram1D* _histCParamMom[4];
@@ -240,6 +247,7 @@ namespace Rivet {
     AIDA::IHistogram1D* _histOblatenessMom[4];
     AIDA::IHistogram1D* _histHemiMassLMom[4];
     AIDA::IHistogram1D* _histHemiBroadNMom[4];
+    //@}
 
   };
 
