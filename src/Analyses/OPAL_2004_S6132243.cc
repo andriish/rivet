@@ -53,8 +53,9 @@ namespace Rivet {
     void init() {
       // Projections
       addProjection(Beam(), "Beams");
-      /// @todo |eta| cuts
-      const ChargedFinalState cfs(-MAXRAPIDITY, MAXRAPIDITY, 0.15*GeV);
+      // Don't use pT or eta cuts here. Read the paper instead.
+      // Hint: It's section 4.2 and 5.2.
+      const ChargedFinalState cfs;
       addProjection(cfs, "FS");
       addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
       addProjection(Sphericity(cfs), "Sphericity");
@@ -153,9 +154,9 @@ namespace Rivet {
       // Hemispheres
       const Hemispheres& hemi = applyProjection<Hemispheres>(event, "Hemispheres");
       /// @todo Something wrong here: values are too low
-      const double hemi_mh = hemi.Mhigh()/sqrtS();
+      const double hemi_mh = sqrt(hemi.scaledM2high());
       /// @todo Something wrong here: values are too low
-      const double hemi_ml = hemi.Mlow()/sqrtS();
+      const double hemi_ml = sqrt(hemi.scaledM2low());
       const double hemi_bmax = hemi.Bmax();
       const double hemi_bmin = hemi.Bmin();
       const double hemi_bsum = hemi.Bsum();
