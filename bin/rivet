@@ -330,24 +330,6 @@ else:
     HEPMCFILES = ["-"]
 
 
-## Set up analysis handler
-RUNNAME = opts.RUN_NAME or ""
-ah = rivet.AnalysisHandler(opts.HISTOFILE, RUNNAME)
-if opts.ALL_ANALYSES:
-    opts.ANALYSES = all_analyses
-for a in opts.ANALYSES:
-    a_up = a.upper()
-    ## Print warning message and exit if not a valid analysis name
-    if not a_up in all_analyses:
-        print "'%s' is not a valid analysis. Available analyses are:" % a_up
-        for aa in all_analyses:
-            print "    %s" % aa
-        sys.exit(1)
-    logging.debug("Adding analysis '%s'" % a_up)
-    ah.addAnalysis(a_up)
-ah.init()
-        
-
 ## Event number logging
 def logNEvt(n, starttime, maxevtnum):
     nevtloglevel = logging.DEBUG
@@ -374,6 +356,22 @@ def logNEvt(n, starttime, maxevtnum):
                     % (n, timeelapsed, timeleft, eta))
 
 
+## Set up analysis handler
+RUNNAME = opts.RUN_NAME or ""
+ah = rivet.AnalysisHandler(opts.HISTOFILE, RUNNAME)
+if opts.ALL_ANALYSES:
+    opts.ANALYSES = all_analyses
+for a in opts.ANALYSES:
+    a_up = a.upper()
+    ## Print warning message and exit if not a valid analysis name
+    if not a_up in all_analyses:
+        print "'%s' is not a valid analysis. Available analyses are:" % a_up
+        for aa in all_analyses:
+            print "    %s" % aa
+        sys.exit(1)
+    logging.debug("Adding analysis '%s'" % a_up)
+    ah.addAnalysis(a_up)
+
 ## Read and process events
 run = rivet.Run(ah)
 if opts.CROSS_SECTION is not None:
@@ -392,6 +390,9 @@ logging.info("Reading events from '%s'" % evtfile)
 if not run.init(evtfile):
     log.error("Failed to initialise on event file %s" % evtfile)
     sys.exit(2)
+
+## Now that we have some idea of the run contents, init the analysis handler
+ah.init()
 
 ## Event loop
 starttime = time.time()

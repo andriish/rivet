@@ -49,10 +49,12 @@ namespace Rivet {
     /// The AnalysisHandler is a friend.
     friend class AnalysisHandler;
 
+
   public:
 
     /// @name Standard constructors and destructors.
     //@{
+
     /// The default constructor.
     //Analysis();
 
@@ -61,7 +63,9 @@ namespace Rivet {
 
     /// The destructor.
     virtual ~Analysis();
+
     //@}
+
 
   public:
 
@@ -84,7 +88,9 @@ namespace Rivet {
     /// overridden function must make sure it first calls the base class
     /// function.
     virtual void finalize() = 0;
+
     //@}
+
 
   public:
 
@@ -140,8 +146,8 @@ namespace Rivet {
     /// Collider on which the experiment ran.
     virtual std::string collider() const;
 
-    /// Incoming beams required by this analysis.
-    virtual const std::pair<ParticleName, ParticleName>& beams() const;
+    /// Return the pair of incoming beams required by this analysis.
+    virtual const BeamPair requiredBeams() const;
 
     /// Sets of valid beam energy pairs, in GeV
     virtual const std::vector<std::pair<double, double> >& energies() const;
@@ -161,10 +167,18 @@ namespace Rivet {
     //@}
 
 
-  public:
+    /// @name Run conditions
 
-    /// Return the pair of incoming beams required by this analysis.
-    virtual const BeamPair requiredBeams() const;
+    /// Incoming beams for this run
+    const BeamPair& beams() const;
+
+    /// Centre of mass energy for this run
+    double sqrtS() const;
+
+    //@}
+
+
+  public:
 
     /// Is this analysis able to run on the supplied pair of beams?
     virtual bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
@@ -200,15 +214,16 @@ namespace Rivet {
 
   protected:
 
+
+    /// Get a Log object based on the name() property of the calling analysis object.
+    Log& getLog() const;
+
     /// Get the process cross-section in pb. Throws if this hasn't been set.
     double crossSection() const;
  
     /// Get the process cross-section per generated event in pb. Throws if this
     /// hasn't been set.
     double crossSectionPerEvent() const;
-
-    /// Get a Log object based on the name() property of the calling analysis object.
-    Log& getLog() const;
 
     /// Get the number of events seen (via the analysis handler). Use in the
     /// finalize phase only.
@@ -220,6 +235,7 @@ namespace Rivet {
  
 
   protected:
+
     /// @name AIDA analysis infrastructure.
     //@{
     /// Access the AIDA analysis factory of the controlling AnalysisHandler object.
@@ -239,6 +255,7 @@ namespace Rivet {
 
     /// Get the canonical histogram path for the named histogram in this analysis.
     const std::string histoPath(const std::string& hname) const;
+
     //@}
 
 
@@ -372,6 +389,7 @@ namespace Rivet {
   protected:
 
     /// Set the colliding beam pair.
+    /// @deprecated Use .info file and AnalysisInfo class instead
     Analysis& setBeams(const ParticleName& beam1, const ParticleName& beam2);
 
     /// Declare whether this analysis needs to know the process cross-section from the generator.

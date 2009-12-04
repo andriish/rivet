@@ -13,7 +13,8 @@ namespace Rivet {
   AnalysisHandler::AnalysisHandler(string basefilename,
                                    string runname, HistoFormat storetype)
     : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), 
-      _sumOfWeights(0.0), _xs(-1.0) 
+      _sumOfWeights(0.0), _xs(-1.0), 
+      _beams(BeamPair(ANY,ANY)), _sqrts(-1.0)
   {
     _theAnalysisFactory = createAnalysisFactory();
     _setupFactories(basefilename, storetype);
@@ -24,6 +25,7 @@ namespace Rivet {
                                    string runname, HistoFormat storetype)
     : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), 
       _sumOfWeights(0.0), _xs(-1.0),
+      _beams(BeamPair(ANY,ANY)), _sqrts(-1.0),
       _theAnalysisFactory(&afac) 
   {
     _setupFactories(basefilename, storetype);

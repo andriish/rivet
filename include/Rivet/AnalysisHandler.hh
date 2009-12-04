@@ -103,6 +103,7 @@ namespace Rivet {
 
     /// Set beam IDs for this run (as determined from first event)
     AnalysisHandler& setBeams(const BeamPair& beams) { 
+      getLog() << Log::DEBUG << "Setting run beams = " << beams << endl;
       _beams = beams;
       return *this;
     }
@@ -115,6 +116,7 @@ namespace Rivet {
 
     /// Set energy for this run (as determined from first event)
     AnalysisHandler& setSqrtS(double sqrts) {
+      getLog() << Log::DEBUG << "Setting run sqrt(s) = " << sqrts << endl;
       _sqrts = sqrts;
       return *this;
     }

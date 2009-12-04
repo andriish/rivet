@@ -16,7 +16,6 @@ namespace Rivet {
     MC_LHC_WANALYSIS() : Analysis("MC_LHC_WANALYSIS")
     {
       setNeedsCrossSection(true);
-      _sumWPass = 0.0;
     }
  
 
@@ -58,8 +57,8 @@ namespace Rivet {
       _hist_wminusmass = bookHistogram1D("wminus-m", 40, 60, 100);
       //_hist_weta_asymm = bookProfile1D("asymm-eta-w", 20, -5.0, 5.0);
       //
-      // _hist_jetcount = bookHistogram1D("jet-n", 6, -0.5, 5.5);
-      // _hist_jetpt = bookHistogram1D("jet-pt", 50, 20, 100);
+      _hist_jetcount = bookHistogram1D("jet-n", 6, -0.5, 5.5);
+      _hist_jetpt = bookHistogram1D("jet-pt", 50, 20, 100);
     }
  
  
@@ -70,7 +69,6 @@ namespace Rivet {
         vetoEvent;
       }
       const double weight = event.weight();
-      _sumWPass += weight;
  
       // Charged particles part
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
@@ -120,15 +118,15 @@ namespace Rivet {
       _hist_wpluscount->fill(n_wplus, weight);   
       _hist_wminuscount->fill(n_wminus, weight);
 
-      // // Jet part
-      // const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
-      // const Jets jets = fastjets.jetsByPt();
-      // cout << jets.size() << endl;
-      // _hist_jetcount->fill(jets.size(), weight);
-      // foreach (const Jet& j, jets) {
-      //   const double pT = j.momentum().pT();
-      //   _hist_jetpt->fill(pT/GeV, weight);
-      // }
+      // Jet part
+      const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
+      const Jets jets = fastjets.jetsByPt(10*GeV);
+      cout << jets.size() << endl;
+      _hist_jetcount->fill(jets.size(), weight);
+      foreach (const Jet& j, jets) {
+        const double pT = j.momentum().pT();
+        _hist_jetpt->fill(pT/GeV, weight);
+      }
 
     }
  
@@ -158,21 +156,14 @@ namespace Rivet {
       scale(_hist_wmass, xsec_sumw);
       scale(_hist_wplusmass, xsec_sumw_plus);
       scale(_hist_wminusmass, xsec_sumw_minus);
-      // scale(_hist_jetcount, xsec_sumw);
-      // scale(_hist_jetpt, xsec_sumw);
+      scale(_hist_jetcount, xsec_sumw);
+      scale(_hist_jetpt, xsec_sumw);
     }
  
     //@}
 
  
   private:
-
-
-    /// @name Counters
-    //@{
-    double _sumWPass;
-    //@}
-
 
     /// @name Histograms
     //@{
@@ -185,8 +176,8 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_weta, *_hist_wpluseta, *_hist_wminuseta;
     AIDA::IHistogram1D *_hist_wphi, *_hist_wplusphi, *_hist_wminusphi;
     AIDA::IHistogram1D *_hist_wmass, *_hist_wplusmass, *_hist_wminusmass;
-    // AIDA::IHistogram1D *_hist_jetcount;
-    // AIDA::IHistogram1D *_hist_jetpt;
+    AIDA::IHistogram1D *_hist_jetcount;
+    AIDA::IHistogram1D *_hist_jetpt;
     //@}
 
   };

@@ -1,3 +1,8 @@
+2009-12-04  Andy Buckley  <andy@insectnation.org>
+
+	* Providing Analysis::sqrtS() and Analysis::beams(), and making
+	sure they're available by the time the init methods are called.
+
 2009-12-02  Andy Buckley  <andy@insectnation.org>
 
 	* Adding passing of first event sqrt(s) and beams to analysis handler.

@@ -52,6 +52,15 @@ namespace Rivet {
   }
 
 
+  double Analysis::sqrtS() const {
+    return handler().sqrtS();
+  }
+
+  const BeamPair& Analysis::beams() const {
+    return handler().beams();
+  }
+
+
   const string Analysis::histoDir() const {
     string path = "/" + name();
     if (handler().runName().length() > 0) {
@@ -124,10 +133,6 @@ namespace Rivet {
     return _info->runInfo();
   }
 
-  const std::pair<ParticleName,ParticleName>& Analysis::beams() const {
-    return info().beams();
-  }
-
   const std::vector<std::pair<double,double> >& Analysis::energies() const {
     return info().energies();
   }
@@ -167,6 +172,7 @@ namespace Rivet {
     return *this;
   }
 
+
   bool Analysis::isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
     BeamPair beams(beam1, beam2);
     return compatible(beams, requiredBeams());
@@ -179,6 +185,7 @@ namespace Rivet {
     /// @todo Need to also check internal consistency of the analysis'
     /// beam requirements with those of the projections it uses.
   }
+
 
   Analysis& Analysis::setCrossSection(const double& xs) {
     _crossSection = xs;
@@ -208,6 +215,7 @@ namespace Rivet {
     assert(sumW > 0);
     return _crossSection / sumW;
   }
+
 
   AnalysisHandler& Analysis::handler() const {
     return *_analysishandler;
