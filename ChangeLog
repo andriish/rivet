@@ -1,5 +1,12 @@
 2009-12-04  Andy Buckley  <andy@insectnation.org>
 
+	* Use scaling rather than normalising in DELPHI_1996: this is
+	generally desirable, since normalizing to 1 for 1/sig dsig/dx
+	observables isn't correct if any events fall outside the histo
+	bounds.
+
+	* Many fixes to OPAL_2004.
+
 	* Improved Hemispheres interface to remove unnecessary consts on
 	returned doubles, and to also return non-squared versions
 	of (scaled) hemisphere masses.

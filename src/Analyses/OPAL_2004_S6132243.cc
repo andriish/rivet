@@ -152,7 +152,9 @@ namespace Rivet {
    
       // Hemispheres
       const Hemispheres& hemi = applyProjection<Hemispheres>(event, "Hemispheres");
+      /// @todo Something wrong here: values are too low
       const double hemi_mh = hemi.Mhigh()/sqrtS();
+      /// @todo Something wrong here: values are too low
       const double hemi_ml = hemi.Mlow()/sqrtS();
       const double hemi_bmax = hemi.Bmax();
       const double hemi_bmin = hemi.Bmin();

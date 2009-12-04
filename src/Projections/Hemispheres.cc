@@ -13,7 +13,7 @@ namespace Rivet {
     FourMomentum p4With, p4Against;
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
     const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
-    const ParticleVector particles = fs.particles();
+    const ParticleVector& particles = fs.particles();
     getLog() << Log::DEBUG << "number of particles = " << particles.size() << endl;
     foreach (const Particle& p, particles) {
       const FourMomentum p4 = p.momentum();
@@ -48,21 +48,21 @@ namespace Rivet {
     _E2vis = Evis * Evis;
 
     // Calculate masses.
-    const double mass2With = p4With.invariant();
-    const double mass2Against = p4Against.invariant();
-    const bool withIsMaxMass = (mass2With > mass2Against);
-    _M2high = (withIsMaxMass) ? mass2With : mass2Against;
-    _M2low = (withIsMaxMass) ? mass2Against : mass2With;
+    const double mass2With = p4With.mass2();
+    const double mass2Against = p4Against.mass2();
+    _M2high = max(mass2With, mass2Against);
+    _M2low = min(mass2With, mass2Against);
 
     // Calculate broadenings.
     broadWith /= broadDenom;
     broadAgainst /= broadDenom;
-    const bool withIsMaxBroad = (broadWith > broadAgainst);
-    _Bmax = (withIsMaxBroad) ? broadWith : broadAgainst;
-    _Bmin = (withIsMaxBroad) ? broadAgainst : broadWith;
+    _Bmax = max(broadWith, broadAgainst);
+    _Bmin = min(broadWith, broadAgainst);
 
     // Calculate high-max correlation flag.
-    _highMassEqMaxBroad = ((withIsMaxMass && withIsMaxBroad) || (!withIsMaxMass && !withIsMaxBroad));
+    const int maxMassID = (mass2With >= mass2Against);
+    const int maxBroadID = (broadWith >= broadAgainst);
+    _highMassEqMaxBroad = (maxMassID == maxBroadID);
   }
 
 

@@ -40,8 +40,10 @@ namespace Rivet {
       : Analysis("DELPHI_1996_S3430090")
     {
       setBeams(ELECTRON, POSITRON);
-      _weightedTotalPartNum = 0;
-      _passedCutWeightSum = 0;
+      _weightedTotalPartNum = 0.0;
+      _passedCutWeightSum = 0.0;
+      _passedCut3WeightSum = 0.0;
+      _passedCut4WeightSum = 0.0;
     }
  
  
@@ -173,16 +175,20 @@ namespace Rivet {
    
       // Jets
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
-      if (durjet.clusterSeq()) {
-        _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge(2), weight);
-        _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge(3), weight);
-        _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight);
-      }
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
-      if (jadejet.clusterSeq()) {
+      if (durjet.clusterSeq() && jadejet.clusterSeq()) {
+        _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge(2), weight);
         _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(2), weight);
-        _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(3), weight);
-        _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight);
+        if (numParticles >= 3) {
+          _passedCut3WeightSum += weight;
+          _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge(3), weight);
+          _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(3), weight);
+        }
+        if (numParticles >= 4) {
+          _passedCut4WeightSum += weight;
+          _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight);
+          _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight);
+        }
       }
    
       // Sphericities
@@ -410,33 +416,33 @@ namespace Rivet {
       scale(_histMultiXi1530_0, 1.0/_passedCutWeightSum);
       scale(_histMultiLambdaB0, 1.0/_passedCutWeightSum);
 
-      normalize(_hist1MinusT);
-      normalize(_histTMajor);
-      normalize(_histTMinor);
-      normalize(_histOblateness);
+      scale(_hist1MinusT, 1.0/_passedCutWeightSum);
+      scale(_histTMajor, 1.0/_passedCutWeightSum);
+      scale(_histTMinor, 1.0/_passedCutWeightSum);
+      scale(_histOblateness, 1.0/_passedCutWeightSum);
 
-      normalize(_histSphericity);
-      normalize(_histAplanarity);
-      normalize(_histPlanarity);
+      scale(_histSphericity, 1.0/_passedCutWeightSum);
+      scale(_histAplanarity, 1.0/_passedCutWeightSum);
+      scale(_histPlanarity, 1.0/_passedCutWeightSum);
 
-      normalize(_histHemiMassD);
-      normalize(_histHemiMassH);
-      normalize(_histHemiMassL);
+      scale(_histHemiMassD, 1.0/_passedCutWeightSum);
+      scale(_histHemiMassH, 1.0/_passedCutWeightSum);
+      scale(_histHemiMassL, 1.0/_passedCutWeightSum);
 
-      normalize(_histHemiBroadW);
-      normalize(_histHemiBroadN);
-      normalize(_histHemiBroadT);
-      normalize(_histHemiBroadD);
+      scale(_histHemiBroadW, 1.0/_passedCutWeightSum);
+      scale(_histHemiBroadN, 1.0/_passedCutWeightSum);
+      scale(_histHemiBroadT, 1.0/_passedCutWeightSum);
+      scale(_histHemiBroadD, 1.0/_passedCutWeightSum);
 
-      normalize(_histCParam);
-      normalize(_histDParam);
+      scale(_histCParam, 1.0/_passedCutWeightSum);
+      scale(_histDParam, 1.0/_passedCutWeightSum);
 
-      normalize(_histDiffRate2Durham);
-      normalize(_histDiffRate2Jade);
-      normalize(_histDiffRate3Durham);
-      normalize(_histDiffRate3Jade);
-      normalize(_histDiffRate4Durham);
-      normalize(_histDiffRate4Jade);
+      scale(_histDiffRate2Durham, 1.0/_passedCutWeightSum);
+      scale(_histDiffRate2Jade, 1.0/_passedCutWeightSum);
+      scale(_histDiffRate3Durham, 1.0/_passedCut3WeightSum);
+      scale(_histDiffRate3Jade, 1.0/_passedCut3WeightSum);
+      scale(_histDiffRate4Durham, 1.0/_passedCut4WeightSum);
+      scale(_histDiffRate4Jade, 1.0/_passedCut4WeightSum);
     }
 
     //@}
@@ -449,7 +455,12 @@ namespace Rivet {
     /// inclusive single particle distributions' normalisations.
     double _weightedTotalPartNum;
 
+    /// @name Sums of weights past various cuts
+    //@{
     double _passedCutWeightSum;
+    double _passedCut3WeightSum;
+    double _passedCut4WeightSum;
+    //@}
 
     /// @name Histograms
     //@{
