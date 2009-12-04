@@ -53,8 +53,8 @@ namespace Rivet {
     void init() {
       // Projections
       addProjection(Beam(), "Beams");
-      /// @todo pTmin and |eta| cuts
-      const ChargedFinalState cfs(-2, 2, 0.15*GeV);
+      /// @todo |eta| cuts
+      const ChargedFinalState cfs(-MAXRAPIDITY, MAXRAPIDITY, 0.15*GeV);
       addProjection(cfs, "FS");
       addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
       addProjection(Sphericity(cfs), "Sphericity");
