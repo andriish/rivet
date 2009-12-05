@@ -9,8 +9,9 @@ Authors:
  - Niccolo' Moggi <niccolo.moggi@bo.infn.it>
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:
- - CDF public note 9337
- - hep-ex/0904.1098
+ - Phys.Rev.D79:112005,2009
+ - doi:10.1103/PhysRevD.79.112005
+ - arXiv:0904.1098 [hep-ex]
 RunInfo:
   "* ppbar QCD interactions at 1960 GeV.
   * Particles with $c \\tau > {}$10 mm should be set stable."
