@@ -63,19 +63,27 @@ namespace Rivet {
   public:
 
     /// Constructor.
-    Hemispheres(const AxesDefinition& ax)
-      : _E2vis(-1), _M2high(-1), _M2low(-1),
-        _Bmax(-1), _Bmin(-1),
-        _highMassEqMaxBroad(true)
-    {
+    Hemispheres(const AxesDefinition& ax) {
       setName("Hemispheres");
       addProjection(ax, "Axes");
+      clear();
     }
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new Hemispheres(*this);
     }
+
+    // Reset the projection
+    void clear() {
+      _E2vis = -1;
+      _M2high = -1;
+      _M2low = -1;
+      _Bmax = -1;
+      _Bmin = -1;
+      _highMassEqMaxBroad = true;
+    }
+
 
   protected:
 
@@ -91,10 +99,10 @@ namespace Rivet {
   public:
 
     /// @name Hemisphere masses (scaled by \f$ 1 / E^2_\mathrm{vis} \f$).
-    ///@{
+    //@{
 
     double E2vis() const { return _E2vis; }
-    double Evis() const { return sqrt(_E2vis); }
+    double Evis() const { return sqrt(E2vis()); }
 
     double M2high() const { return _M2high; }
     double Mhigh() const { return sqrt(M2high()); }
@@ -103,38 +111,38 @@ namespace Rivet {
     double Mlow() const { return sqrt(M2low()); }
 
     double M2diff() const { return _M2high -_M2low; }
-    double Mdiff() const { return sqrt(M2diff()); }
+    double Mdiff() const { return sqrt(Mhigh() - Mlow()); }
 
     double scaledM2high() const {
-      if (_M2high == 0.0) return 0.0;
-      if (_E2vis != 0.0) return _M2high/_E2vis;
+      if (M2high() == 0.0) return 0.0;
+      if (E2vis() != 0.0) return M2high()/E2vis();
       else return std::numeric_limits<double>::max();
     }
     double scaledMhigh() const { return sqrt(scaledM2high()); }
 
     double scaledM2low() const {
-      if (_M2low == 0.0) return 0.0;
-      if (_E2vis != 0.0) return _M2low/_E2vis;
+      if (M2low() == 0.0) return 0.0;
+      if (E2vis() != 0.0) return M2low()/E2vis();
       else return std::numeric_limits<double>::max();
     }
     double scaledMlow() const { return sqrt(scaledM2low()); }
 
     double scaledM2diff() const {
-      if (M2diff() == 0.0) return 0.0;
-      if (_E2vis != 0.0) return M2diff()/_E2vis;
+      if (Mdiff() == 0.0) return 0.0;
+      if (Evis() != 0.0) return Mdiff()/Evis();
       else return std::numeric_limits<double>::max();
     }
     double scaledMdiff() const { return sqrt(scaledM2diff()); }
-    ///@}
+    //@}
 
 
     /// @name Hemisphere broadenings.
-    ///@{
+    //@{
     double Bmax() const { return _Bmax; }
     double Bmin() const { return _Bmin; }
     double Bsum() const { return _Bmax + _Bmin; }
     double Bdiff() const { return fabs(_Bmax - _Bmin); } // <- fabs(), just in case...
-    ///@}
+    //@}
 
 
     /// Is the hemisphere with the max mass the same as the one with the max broadening?

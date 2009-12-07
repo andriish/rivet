@@ -53,8 +53,6 @@ namespace Rivet {
     void init() {
       // Projections
       addProjection(Beam(), "Beams");
-      // Don't use pT or eta cuts here. Read the paper instead.
-      // Hint: It's section 4.2 and 5.2.
       const ChargedFinalState cfs;
       addProjection(cfs, "FS");
       addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
@@ -153,8 +151,10 @@ namespace Rivet {
    
       // Hemispheres
       const Hemispheres& hemi = applyProjection<Hemispheres>(event, "Hemispheres");
-      const double hemi_mh = sqrt(hemi.scaledM2high());
-      const double hemi_ml = sqrt(hemi.scaledM2low());
+      // The paper says that M_H/L are scaled by sqrt(s), but scaling by E_vis is the way that fits the data...
+      const double hemi_mh = hemi.scaledMhigh();
+      const double hemi_ml = hemi.scaledMlow();
+      //
       const double hemi_bmax = hemi.Bmax();
       const double hemi_bmin = hemi.Bmin();
       const double hemi_bsum = hemi.Bsum();
