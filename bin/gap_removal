@@ -51,8 +51,14 @@ class Histogram:
     def write_datapointset_header(self, f):
             path  = self.description['AidaPath']
             title = self.description['Title'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
-            xlabel = self.description['XLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
-            ylabel = self.description['YLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
+            try:
+                xlabel = self.description['XLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
+            except:
+                xlabel = ''
+            try:
+                ylabel = self.description['YLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
+            except:
+                ylabel = ''
             f.write('  <dataPointSet name="%s" dimension="2"\n' % path.split('/')[-1])
             f.write('  path="%s" title="%s">\n' %(os.path.abspath(path.replace(path.split('/')[-1], '')), title))
             f.write('    <annotation>\n')
