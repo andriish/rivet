@@ -139,7 +139,7 @@ namespace Rivet {
       hf.divide(dir + "/d02-x02-y01", *_h_pT_lambdabar, *_h_pT_lambda);
       hf.divide(dir + "/d02-x03-y01", *_h_pT_xiplus, *_h_pT_ximinus);
 
-      scale(_h_pT_k0s,       1./(2*M_PI*_sumWeightSelected));
+      scale(_h_pT_k0s,       1./(2*M_PI*_sumWeightSelected)/2.); // additional factor 1/2 for K0S + K0Sbar
       scale(_h_pT_kminus,    1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_kplus,     1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_lambda,    1./(2*M_PI*_sumWeightSelected));
