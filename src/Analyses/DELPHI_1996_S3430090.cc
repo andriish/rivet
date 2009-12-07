@@ -53,9 +53,8 @@ namespace Rivet {
 
     void init() {
       addProjection(Beam(), "Beams");
-      // Don't try to introduce a pT or eta cut here.
-      // It's all corrected back. Read the paper. It's
-      // in section 2.
+      // Don't try to introduce a pT or eta cut here. It's all corrected
+      // back. (See Section 2 of the paper.)
       const ChargedFinalState cfs;
       addProjection(cfs, "FS");
       addProjection(UnstableFinalState(), "UFS");
@@ -179,24 +178,22 @@ namespace Rivet {
       // Jets
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
-      if (durjet.clusterSeq() && jadejet.clusterSeq()) {
-        if (numParticles >= 3) {
-          _passedCut3WeightSum += weight;
-          _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge(2), weight);
-          _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(2), weight);
-        }
-        if (numParticles >= 4) {
-          _passedCut4WeightSum += weight;
-          _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge(3), weight);
-          _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(3), weight);
-        }
-        if (numParticles >= 5) {
-          _passedCut5WeightSum += weight;
-          _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight);
-          _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight);
-        }
+      if (numParticles >= 3) {
+        _passedCut3WeightSum += weight;
+        if (durjet.clusterSeq()) _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge(2), weight);
+        if (jadejet.clusterSeq()) _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(2), weight);
       }
-   
+      if (numParticles >= 4) {
+        _passedCut4WeightSum += weight;
+        if (durjet.clusterSeq()) _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge(3), weight);
+        if (jadejet.clusterSeq()) _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(3), weight);
+      }
+      if (numParticles >= 5) {
+        _passedCut5WeightSum += weight;
+        if (durjet.clusterSeq()) _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight);
+        if (jadejet.clusterSeq()) _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight);
+      }
+      
       // Sphericities
       getLog() << Log::DEBUG << "Calculating sphericity" << endl;
       const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
