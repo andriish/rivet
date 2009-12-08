@@ -13,7 +13,7 @@ namespace Rivet {
     ANTIPROTON = -2212,
     PHOTON = 22,
     NEUTRON = 2112,
-    ANTINEUTRON = 2112,
+    ANTINEUTRON = -2112,
     MUON = 13,
     ANTIMUON = -13,
     NU_E = 12,
