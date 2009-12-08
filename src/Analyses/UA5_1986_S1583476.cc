@@ -59,11 +59,7 @@ namespace Rivet {
       const int numP = cfs50.size();
       const int ni = floor(static_cast<float>(numP-2)/10.0);
       const int num_idx = min(ni, (int)_sumWn.size()-1);
-      //cout << "***" << numP << " charged particles -> #" << ni << endl;
       getLog() << Log::TRACE << "Multiplicity index: " << numP << " charged particles -> #" << num_idx << endl;
-      // if (num_idx == _sumWn.size()-1) {
-      //   cout << "Multiplicity index: " << numP << " charged particles -> #" << num_idx << endl;
-      // }
 
       // Update weights
       const double weight = event.weight();
@@ -88,12 +84,12 @@ namespace Rivet {
     /// Scale histos
     void finalize() {
       getLog() << Log::DEBUG << "sumW_NSD,inel = " << _sumWTrigNSD << ", " << _sumWTrig << endl;
-      scale(_hist_eta_nsd, 1/_sumWTrigNSD);
-      scale(_hist_eta_inelastic, 1/_sumWTrig);
+      scale(_hist_eta_nsd, 0.5/_sumWTrigNSD);
+      scale(_hist_eta_inelastic, 0.5/_sumWTrig);
       //
       getLog() << Log::DEBUG << "sumW[n] = " << _sumWn << endl;
       for (size_t i = 0; i < _hists_eta_nsd.size(); ++i) {
-        scale(_hists_eta_nsd[i], 1/_sumWn[i]);
+        scale(_hists_eta_nsd[i], 0.5/_sumWn[i]);
       }
     }
  

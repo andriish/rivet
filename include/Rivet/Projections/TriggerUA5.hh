@@ -15,15 +15,7 @@ namespace Rivet {
   public:
  
     /// Default constructor.
-    TriggerUA5() {
-      setName("TriggerUA5");
-
-      addProjection(Beam(), "Beam");
-      addProjection(ChargedFinalState(-3.5, 3.5), "CFS");
-
-      _n_plus = 0;
-      _n_minus = 0;
-    }
+    TriggerUA5();
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

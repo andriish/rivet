@@ -4,8 +4,9 @@ Summary: Pseudorapidity distributions in ppbar (NSD, NSD+SD) events at c.m. ener
 Experiment: UA5
 Collider: CERN SPS
 SpiresID: 1583476
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
+ - Andy Buckley <andy.buckley@cern.ch>
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
  - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
 References:

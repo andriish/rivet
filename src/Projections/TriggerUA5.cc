@@ -8,7 +8,18 @@
 namespace Rivet {
 
 
+  TriggerUA5::TriggerUA5() {
+    setName("TriggerUA5");
+    
+    addProjection(Beam(), "Beam");
+    addProjection(ChargedFinalState(-5.6, 5.6), "CFS");
+  }
+
+
   void TriggerUA5::project(const Event& evt) {
+    _n_plus = 0;
+    _n_minus = 0;
+
     // Start with the assumption that the trigger fails
     _decision_sd = false;
     _decision_nsd_1 = false;
