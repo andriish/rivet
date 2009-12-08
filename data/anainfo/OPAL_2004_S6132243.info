@@ -4,14 +4,16 @@ Summary: Event shape distributions and moments in e+ e- -> hadrons at 91-209 GeV
 Experiment: OPAL
 Collider: LEP 1 & 2
 SpiresID: 6132243
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:
  - Eur.Phys.J.C40:287-316,2005
  - hep-ex/0503051
 RunInfo:
-  Hadronic e+ e- events at 4 representative energies (91, 133, 177, 197)
+  Hadronic e+ e- events at 4 representative energies (91, 133, 177, 197).
+  Runs with sqrt(s) above the Z mass need to have ISR suppressed, since
+  the data has been corrected to remove radiative return to the Z.
 NumEvents: 200000
 Energies: [91,133,177,197]
 PtCuts: [0]
