@@ -14,150 +14,104 @@ namespace Rivet {
     /// Constructor
     UA5_1986_S1583476() : Analysis("UA5_1986_S1583476") {
       setBeams(PROTON, ANTIPROTON);
+      _sumWTrig = 0;
+      _sumWTrigNSD = 0;
     }
- 
 
 
     /// @name Analysis methods
     //@{
- 
+
+    /// Set up projections and histograms 
     void init() {
       addProjection(TriggerUA5(), "Trigger");
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
 
       // Histograms
-      _hist_eta_nsd_200       = bookHistogram1D(1,1,1);
-      _hist_eta_inelastic_200 = bookHistogram1D(1,1,2);
-      _hist_eta_nsd_900       = bookHistogram1D(1,1,3);
-      _hist_eta_inelastic_900 = bookHistogram1D(1,1,4);
-   
-      _hist_eta_nsd_n_2_200  = bookHistogram1D(2,1,1);
-      _hist_eta_nsd_n_12_200 = bookHistogram1D(2,1,2);
-      _hist_eta_nsd_n_22_200 = bookHistogram1D(2,1,3);
-      _hist_eta_nsd_n_32_200 = bookHistogram1D(2,1,4);
-      _hist_eta_nsd_n_42_200 = bookHistogram1D(2,1,5);
-      _hist_eta_nsd_n_52_200 = bookHistogram1D(2,1,6);
-   
-      _hist_eta_nsd_n_2_900  = bookHistogram1D(3,1,1);
-      _hist_eta_nsd_n_12_900 = bookHistogram1D(3,1,2);
-      _hist_eta_nsd_n_22_900 = bookHistogram1D(3,1,3);
-      _hist_eta_nsd_n_32_900 = bookHistogram1D(3,1,4);
-      _hist_eta_nsd_n_42_900 = bookHistogram1D(3,1,5);
-      _hist_eta_nsd_n_52_900 = bookHistogram1D(3,1,6);
-      _hist_eta_nsd_n_62_900 = bookHistogram1D(3,1,7);
-      _hist_eta_nsd_n_72_900 = bookHistogram1D(3,1,8);
-      _hist_eta_nsd_n_82_900 = bookHistogram1D(3,1,9);
+      if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
+        _hist_eta_nsd       = bookHistogram1D(1,1,1);
+        _hist_eta_inelastic = bookHistogram1D(1,1,2);
+        for (int i = 1; i <= 6; ++i) {
+          _sumWn += 0.0;
+          _hists_eta_nsd += bookHistogram1D(2,1,i);
+        }
+      } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
+        _hist_eta_nsd       = bookHistogram1D(1,1,3);
+        _hist_eta_inelastic = bookHistogram1D(1,1,4);
+        for (int i = 1; i <= 9; ++i) {
+          _sumWn += 0.0;
+          _hists_eta_nsd += bookHistogram1D(3,1,i);
+        }
+      }
     }
- 
- 
+
+
+    /// Fill eta histograms (in Nch bins)
     void analyze(const Event& event) {
       // Trigger
       const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
       if (!trigger.sdDecision()) vetoEvent;
       const bool isNSD = trigger.nsdDecision();
 
-      const double weight = event.weight();
-      const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
-
-      // Iterate over particles in |eta| < 5.0 and fill histos with |eta|
+      // Get the index corresponding to the max Nch range histo/sum(w) vector index
       const ChargedFinalState& cfs50 = applyProjection<ChargedFinalState>(event, "CFS50");
-      const unsigned int numP = cfs50.size();
+      const int numP = cfs50.size();
+      const int ni = floor(static_cast<float>(numP-2)/10.0);
+      const int num_idx = min(ni, (int)_sumWn.size()-1);
+      //cout << "***" << numP << " charged particles -> #" << ni << endl;
+      getLog() << Log::TRACE << "Multiplicity index: " << numP << " charged particles -> #" << num_idx << endl;
+      // if (num_idx == _sumWn.size()-1) {
+      //   cout << "Multiplicity index: " << numP << " charged particles -> #" << num_idx << endl;
+      // }
+
+      // Update weights
+      const double weight = event.weight();
+      _sumWTrig += weight;
+      if (isNSD) {
+        _sumWTrigNSD += weight;
+        if (num_idx >= 0) _sumWn[num_idx] += weight;
+      }
+
+      // Fill histos
       foreach (const Particle& p, cfs50.particles()) {
-        double eta = fabs(p.momentum().pseudorapidity());
-     
-        // Fill 200 GeV histos
-        if (fuzzyEquals(sqrtS/GeV, 200.0, 1E-4)) {
-          // Fill histos that don't require a certain multiplicity
-          _hist_eta_inelastic_200->fill(eta, weight);
-          if (isNSD) {
-            // Fill histos that require a certain multiplicity
-            _hist_eta_nsd_200->fill(eta, weight);
-            if ( ( 2 <= numP ) && ( numP <= 10 ) ) _hist_eta_nsd_n_2_200->fill(eta, weight);
-            else if ( ( 12 <= numP ) && ( numP <= 20 ) ) _hist_eta_nsd_n_12_200->fill(eta, weight);
-            else if ( ( 22 <= numP ) && ( numP <= 30 ) ) _hist_eta_nsd_n_22_200->fill(eta, weight);
-            else if ( ( 32 <= numP ) && ( numP <= 40 ) ) _hist_eta_nsd_n_32_200->fill(eta, weight);
-            else if ( ( 42 <= numP ) && ( numP <= 50 ) ) _hist_eta_nsd_n_42_200->fill(eta, weight);
-            else if ( numP >= 52 ) _hist_eta_nsd_n_52_200->fill(eta, weight);
-          }
-        }
-     
-        // Fill 900 GeV histos
-        else if (fuzzyEquals(sqrtS/GeV, 900.0, 1E-4)) {
-          // Fill histos that don't require a certain multiplicity
-          _hist_eta_inelastic_900->fill(eta, weight);
-          if ( isNSD ) {
-            // Fill histos that require a certain multiplicity
-            _hist_eta_nsd_900->fill(eta, weight);
-            if ( ( 2 <= numP ) && ( numP <= 10 ) ) _hist_eta_nsd_n_2_900->fill(eta, weight);
-            else if ( ( 12 <= numP ) && ( numP <= 20 ) ) _hist_eta_nsd_n_12_900->fill(eta, weight);
-            else if ( ( 22 <= numP ) && ( numP <= 30 ) ) _hist_eta_nsd_n_22_900->fill(eta, weight);
-            else if ( ( 32 <= numP ) && ( numP <= 40 ) ) _hist_eta_nsd_n_32_900->fill(eta, weight);
-            else if ( ( 42 <= numP ) && ( numP <= 50 ) ) _hist_eta_nsd_n_42_900->fill(eta, weight);
-            else if ( ( 52 <= numP ) && ( numP <= 60 ) ) _hist_eta_nsd_n_52_900->fill(eta, weight);
-            else if ( ( 62 <= numP ) && ( numP <= 70 ) ) _hist_eta_nsd_n_62_900->fill(eta, weight);
-            else if ( ( 72 <= numP ) && ( numP <= 80 ) ) _hist_eta_nsd_n_72_900->fill(eta, weight);
-            else if ( numP >= 82 ) _hist_eta_nsd_n_82_900->fill(eta, weight);
-          }
+        const double eta = fabs(p.momentum().pseudorapidity());
+        _hist_eta_inelastic->fill(eta, weight);
+        if (isNSD) {
+          _hist_eta_nsd->fill(eta, weight);
+          if (num_idx >= 0) _hists_eta_nsd[num_idx]->fill(eta, weight);
         }
       }
-  }
+    }
 
 
+    /// Scale histos
     void finalize() {
-      // Scale histos to the area of the corresponding reference histos
-      normalize(_hist_eta_nsd_200, 10.2225);
-      normalize(_hist_eta_inelastic_200, 9.255);
-      normalize(_hist_eta_nsd_900, 15.285);
-      normalize(_hist_eta_inelastic_900, 13.9725);
-   
-      normalize(_hist_eta_nsd_n_2_200, 3.285);
-      normalize(_hist_eta_nsd_n_12_200, 7.34);
-      normalize(_hist_eta_nsd_n_22_200, 12.02);
-      normalize(_hist_eta_nsd_n_32_200, 17.2);
-      normalize(_hist_eta_nsd_n_42_200, 21.99);
-      normalize(_hist_eta_nsd_n_52_200, 27.8);
-   
-      normalize(_hist_eta_nsd_n_2_900, 2.7);
-      normalize(_hist_eta_nsd_n_12_900, 6.425);
-      normalize(_hist_eta_nsd_n_22_900, 10.54);
-      normalize(_hist_eta_nsd_n_32_900, 15.225);
-      normalize(_hist_eta_nsd_n_42_900, 19.885);
-      normalize(_hist_eta_nsd_n_52_900, 25.13);
-      normalize(_hist_eta_nsd_n_62_900, 29.235);
-      normalize(_hist_eta_nsd_n_72_900, 33.81);
-      normalize(_hist_eta_nsd_n_82_900, 41.75);
+      getLog() << Log::DEBUG << "sumW_NSD,inel = " << _sumWTrigNSD << ", " << _sumWTrig << endl;
+      scale(_hist_eta_nsd, 1/_sumWTrigNSD);
+      scale(_hist_eta_inelastic, 1/_sumWTrig);
+      //
+      getLog() << Log::DEBUG << "sumW[n] = " << _sumWn << endl;
+      for (size_t i = 0; i < _hists_eta_nsd.size(); ++i) {
+        scale(_hists_eta_nsd[i], 1/_sumWn[i]);
+      }
     }
  
 
   private:
 
+    /// @name Weight counters
+    //@{
+    double _sumWTrig;
+    double _sumWTrigNSD;
+    vector<double> _sumWn;
+    //@}
+
     /// @name Histograms
     //@{
-    // Histos of Figure 1 (HepData Table 1)
-    AIDA::IHistogram1D *_hist_eta_nsd_200;
-    AIDA::IHistogram1D *_hist_eta_inelastic_200;
-    AIDA::IHistogram1D *_hist_eta_nsd_900;
-    AIDA::IHistogram1D *_hist_eta_inelastic_900;
-
-    // Histos of Figure 3a (HepData Table 2)
-    AIDA::IHistogram1D *_hist_eta_nsd_n_2_200;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_12_200;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_22_200;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_32_200;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_42_200;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_52_200;
-
-    // Histos of Figure 3b (HepData Table 3)
-    AIDA::IHistogram1D *_hist_eta_nsd_n_2_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_12_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_22_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_32_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_42_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_52_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_62_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_72_900;
-    AIDA::IHistogram1D *_hist_eta_nsd_n_82_900;
+    AIDA::IHistogram1D *_hist_eta_nsd;
+    AIDA::IHistogram1D *_hist_eta_inelastic;
+    vector<AIDA::IHistogram1D*> _hists_eta_nsd;
     //@}
 
   };
