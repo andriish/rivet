@@ -15,8 +15,8 @@ install-exec-local:
 	$(PYTHON) setup.py install --prefix=$(DESTDIR)$(prefix)
 
 uninstall-local:
-	rm -rf $(DESTDIR)$(libdir)/python*/site-packages/*rivet*
-	rm -rf $(DESTDIR)$(libdir)/python*/site-packages/lighthisto.py*
+	rm -rf $(DESTDIR)$(prefix)/lib*/python*/site-packages/*rivet*
+	rm -rf $(DESTDIR)$(prefix)/lib*/python*/site-packages/lighthisto.py*
 
 clean-local:
 	$(PYTHON) setup.py clean --all
