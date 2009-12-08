@@ -7,6 +7,13 @@
 #include "Rivet/Projections/TriggerUA5.hh"
 
 namespace Rivet {
+
+
+  namespace {
+    inline double cov_w_mean(int m, double m_mean, int n, double n_mean) {
+      return (m - m_mean)*(n - n_mean);
+    }
+  }
   
 
   class UA5_1988_S1867512 : public Analysis {
@@ -15,13 +22,9 @@ namespace Rivet {
     UA5_1988_S1867512() : Analysis("UA5_1988_S1867512")
     {
       setBeams(PROTON, ANTIPROTON);
+      _sumWPassed = 0;
     }
-    
-    
-    inline double cov_w_mean(int m, double m_mean, int n, double n_mean) {
-      return (m - m_mean)*(n - n_mean);
-    }
-  
+      
   
     /// Calculate the correlation strength between two samples
     inline double c_str(int m, double m_mean, int n, double n_mean) {
@@ -32,10 +35,13 @@ namespace Rivet {
       const double corr_strength = correlation*sqrt(var2/var1);
       return corr_strength;
     }
+
+
     /// @name Analysis methods
     //@{
 
     void init() {
+      // Projections
       addProjection(TriggerUA5(), "Trigger");
       addProjection(Beam(), "Beams");
       
@@ -62,24 +68,25 @@ namespace Rivet {
       addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
             
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
-      _hist_correl_200 = bookProfile1D(2, 1, 1);
-      _hist_correl_546 = bookProfile1D(2, 1, 2);
-      _hist_correl_900 = bookProfile1D(2, 1, 3);
-      
-      _hist_correl_asym_200 = bookProfile1D(3, 1, 1);
-      _hist_correl_asym_546 = bookProfile1D(3, 1, 2);
-      _hist_correl_asym_900 = bookProfile1D(3, 1, 3);
+      if (fuzzyEquals(sqrtS(), 200.0, 1E-4)) {
+        _hist_correl_200 = bookProfile1D(2, 1, 1);
+        _hist_correl_asym_200 = bookProfile1D(3, 1, 1);
+      } else if (fuzzyEquals(sqrtS(), 546.0, 1E-4)) {
+        _hist_correl_546 = bookProfile1D(2, 1, 2);      
+        _hist_correl_asym_546 = bookProfile1D(3, 1, 2);
+      } else if (fuzzyEquals(sqrtS(), 900.0, 1E-4)) {
+        _hist_correl_900 = bookProfile1D(2, 1, 3);
+        _hist_correl_asym_900 = bookProfile1D(3, 1, 3);
+      }
     }
     
     
 
-    void analyze(const Event& event) {
-      sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
-      
+    void analyze(const Event& event) {      
       // Trigger
       const bool trigger = applyProjection<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
-
+      _sumWPassed += event.weight();
             
       // Count forward/backward particles
       n_10f += applyProjection<ChargedFinalState>(event, "CFS10F").size();
@@ -99,7 +106,6 @@ namespace Rivet {
       n_40b += applyProjection<ChargedFinalState>(event, "CFS40B").size();
       //
       n_05 += applyProjection<ChargedFinalState>(event, "CFS05").size();
-      
     }
     
     
@@ -121,11 +127,11 @@ namespace Rivet {
       double mean_n_35b = mean(n_35b);
       double mean_n_40b = mean(n_40b);
                  
-      double mean_n_05  = mean(n_05) ;
+      double mean_n_05  = mean(n_05);
 
 
       // Fill histos
-      if (fuzzyEquals(sqrtS, 200.0, 1E-4)) {
+      if (fuzzyEquals(sqrtS(), 200.0, 1E-4)) {
         for (size_t i = 0; i < n_10f.size(); i++) {
           // Fill gap size histo (Fig 14), iterate over central gap size
           _hist_correl_200->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
@@ -155,7 +161,7 @@ namespace Rivet {
         }
       }
       
-      else if (fuzzyEquals(sqrtS, 546.0, 1E-4)) {
+      else if (fuzzyEquals(sqrtS(), 546.0, 1E-4)) {
         for (size_t i = 0; i < n_10f.size(); i++) {
           _hist_correl_546->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
           _hist_correl_546->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
@@ -180,7 +186,7 @@ namespace Rivet {
         }
       }
       
-      else if (fuzzyEquals(sqrtS, 900.0, 1E-4)) {
+      else if (fuzzyEquals(sqrtS(), 900.0, 1E-4)) {
         for (size_t i = 0; i < n_10f.size(); i++) {
           _hist_correl_900->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
           _hist_correl_900->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
@@ -213,13 +219,15 @@ namespace Rivet {
     
   private:
    
-    // CoM energy
-    double sqrtS;
+    /// @name Counters
+    //@{
+    double _sumWPassed;
+    //@}
+
 
     /// @name Vectors for storing the number of particles in the different eta intervals per event.
     /// @todo Is there a better way?
-    //@{
-    
+    //@{    
     std::vector<int> n_10f;
     std::vector<int> n_15f;
     std::vector<int> n_20f;
@@ -227,7 +235,7 @@ namespace Rivet {
     std::vector<int> n_30f;
     std::vector<int> n_35f;
     std::vector<int> n_40f;
-                           
+    //                           
     std::vector<int> n_10b;
     std::vector<int> n_15b;
     std::vector<int> n_20b;
@@ -235,9 +243,8 @@ namespace Rivet {
     std::vector<int> n_30b;
     std::vector<int> n_35b;
     std::vector<int> n_40b;
-   
+    //
     std::vector<int> n_05;
-
     //@}
 
 

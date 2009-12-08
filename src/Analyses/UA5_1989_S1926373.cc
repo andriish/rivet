@@ -15,7 +15,7 @@ namespace Rivet {
     /// Constructor
     UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") {
       setBeams(PROTON, ANTIPROTON);
-      _numVetoed = 0;
+      _sumWPassed = 0;
     }
 
 
@@ -57,6 +57,7 @@ namespace Rivet {
 
       const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
       const double weight = event.weight();
+      _sumWPassed += weight;
    
       // Count final state particles in several eta regions
       const int numP05 = applyProjection<ChargedFinalState>(event, "CFS05").size();
@@ -86,35 +87,32 @@ namespace Rivet {
  
  
     void finalize() {
-      // Normalise to area of refhistos
-      /// @todo Use generator cross-sections
-      normalize(_hist_nch200, 2.011);
-      normalize(_hist_nch900, 2.0434);
-      normalize(_hist_nch200eta05, 1.01255);
-      normalize(_hist_nch200eta15, 1.0191);
-      normalize(_hist_nch200eta30, 1.02615);
-      normalize(_hist_nch200eta50, 1.03475);
-      normalize(_hist_nch900eta05, 1.0035);
-      normalize(_hist_nch900eta15, 1.01405);
-      normalize(_hist_nch900eta30, 1.03055);
-      normalize(_hist_nch900eta50, 1.02791);
-      // Scale to total number of weights
-      scale(_hist_mean_nch_200, 1.0/sumOfWeights());
-      scale(_hist_mean_nch_900, 1.0/sumOfWeights());
-   
-      // Print trigger statistics
-      getLog() << Log::INFO << "No. events vetoed: " << _numVetoed << endl;
-      getLog() << Log::INFO << "No. events accepted: " << sumOfWeights() - _numVetoed << endl;
-      getLog() << Log::INFO << "Relative trigger rate: " << 100.0*(sumOfWeights() - _numVetoed)/sumOfWeights() << "%" << endl;
+      scale(_hist_nch200, _sumWPassed);
+      scale(_hist_nch900, _sumWPassed);
+      scale(_hist_nch200eta05, _sumWPassed);
+      scale(_hist_nch200eta15, _sumWPassed);
+      scale(_hist_nch200eta30, _sumWPassed);
+      scale(_hist_nch200eta50, _sumWPassed);
+      scale(_hist_nch900eta05, _sumWPassed);
+      scale(_hist_nch900eta15, _sumWPassed);
+      scale(_hist_nch900eta30, _sumWPassed);
+      scale(_hist_nch900eta50, _sumWPassed);
+      scale(_hist_mean_nch_200, 1.0/_sumWPassed);
+      scale(_hist_mean_nch_900, 1.0/_sumWPassed);
     }
 
     //@}
 
 
   private:
- 
+
+    /// @name Counters
     //@{
-    /// Histograms
+    double _sumWPassed;
+    //@}
+
+    /// @name Histograms
+    //@{
     AIDA::IHistogram1D* _hist_nch200;
     AIDA::IHistogram1D* _hist_nch900;
     AIDA::IHistogram1D* _hist_nch200eta05;
@@ -129,7 +127,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _hist_mean_nch_900;
     //@}
 
-    unsigned int _numVetoed;
   };
 
 

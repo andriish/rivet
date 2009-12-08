@@ -1,6 +1,6 @@
 Name: UA5_1988_S1867512
 Year: 1988
-Summary: Charged particle correlations in non-single-diffractive events (ppbar) of the UA5 detector measured at c.m. energies of 200, 546 and 900 GeV.
+Summary: Charged particle correlations in ppbar non-single-diffractive events of the UA5 detector at sqrt(s) = 200, 546 and 900 GeV.
 Experiment: UA5
 Collider: CERN SPS
 SpiresID: 1867512
@@ -10,8 +10,21 @@ Authors:
 References:
  - Z.Phys.C37:191-213,1988 
 RunInfo:
-  PPbar events, non-single diffractive events need to be switched on. The trigger implementation is the same as in UA5_1989_S1926373.
+  ppbar events: non-single diffractive events need to be switched on. The trigger 
+  implementation is the same as in UA5_1989_S1926373.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  We present data on two-particle pseudorapidity and multiplicity correlations of charged particles for non single-diffractive $$p\bar p - collisions$$ at c.m. energies of 200, 546 and 900 GeV. Pseudorapidity correlations interpreted in terms of a cluster model, which has been motivated by this and other experiments, require on average about two charged particles per cluster. The decay width of the clusters in pseudorapidity is approximately independent of multiplicity and of c.m. energy. The investigations of correlations in terms of pseudorapidity gaps confirm the picture of cluster production. The strength of forward-backward multiplicity correlations increases linearly with ins and depends strongly on position and size of the pseudorapidity gap separating the forward and backward interval. All our correlation studies can be understood in terms of a cluster model in which clusters contain on average about two charged particles, i.e. are of similar magnitude to earlier estimates from the ISR.
+  Data on two-particle pseudorapidity and multiplicity correlations 
+  of charged particles for non single-diffractive $$p\bar p - collisions$$ at 
+  c.m. energies of 200, 546 and 900 GeV. Pseudorapidity correlations interpreted 
+  in terms of a cluster model, which has been motivated by this and other 
+  experiments, require on average about two charged particles per cluster. 
+  The decay width of the clusters in pseudorapidity is approximately independent 
+  of multiplicity and of c.m. energy. The investigations of correlations in terms 
+  of pseudorapidity gaps confirm the picture of cluster production. The strength 
+  of forward-backward multiplicity correlations increases linearly with ins and 
+  depends strongly on position and size of the pseudorapidity gap separating 
+  the forward and backward interval. All our correlation studies can be understood 
+  in terms of a cluster model in which clusters contain on average about two 
+  charged particles, i.e. are of similar magnitude to earlier estimates from the ISR.

@@ -16,9 +16,11 @@ class Inputdata:
                     self.histos[title] = Histogram(f)
         f.close()
 
+
 class Histogram:
     def __init__(self, f):
         self.read_input(f)
+
     def read_input(self, f):
         self.description = {}
         self.data = []
@@ -43,35 +45,39 @@ class Histogram:
                                           'UpEdge':  float(linearray[1]),
                                           'Content': float(linearray[2]),
                                           'Error':   [float(linearray[3]),float(linearray[4])]})
+
     def write_datapoint(self, f, xval, xerr, yval, yerr):
-            f.write('    <dataPoint>\n')
-            f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(xerr, xval, xerr))
-            f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(yerr[1], yval, yerr[0]))
-            f.write('    </dataPoint>\n')
+        f.write('    <dataPoint>\n')
+        f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(xerr, xval, xerr))
+        f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(yerr[1], yval, yerr[0]))
+        f.write('    </dataPoint>\n')
+
     def write_datapointset_header(self, f):
-            path  = self.description['AidaPath']
-            title = self.description['Title'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
-            try:
-                xlabel = self.description['XLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
-            except:
-                xlabel = ''
-            try:
-                ylabel = self.description['YLabel'].replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
-            except:
-                ylabel = ''
-            f.write('  <dataPointSet name="%s" dimension="2"\n' % path.split('/')[-1])
-            f.write('  path="%s" title="%s">\n' %(os.path.abspath(path.replace(path.split('/')[-1], '')), title))
-            f.write('    <annotation>\n')
-            f.write('      <item key="Title" value="%s" sticky="true"/>\n' %title)
-            f.write('      <item key="XLabel" value="%s" sticky="true"/>\n' %xlabel)
-            f.write('      <item key="YLabel" value="%s" sticky="true"/>\n' %ylabel)
-            f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
-            f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], path))
-            f.write('    </annotation>\n')
-            f.write('    <dimension dim="0" title="%s" />\n' %xlabel)
-            f.write('    <dimension dim="1" title="%s" />\n' %ylabel)
+        title = self.description.setdefault('Title', None)
+        xlabel = self.description.setdefault('XLabel', None)
+        ylabel = self.description.setdefault('YLabel', None)
+        path = self.description.setdefault('AidaPath', None)
+        if path is not None:
+            path = path.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
+        f.write('  <dataPointSet name="%s" dimension="2"\n' % path.split('/')[-1])
+        f.write('    path="%s" title="%s">\n' % (os.path.abspath(path.replace(path.split('/')[-1], '')), 
+                                                 title.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')))
+        f.write('    <annotation>\n')
+        if title is not None:
+            f.write('      <item key="Title" value="%s" sticky="true"/>\n' % title.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
+        if xlabel is not None:
+            f.write('      <item key="XLabel" value="%s" sticky="true"/>\n' % xlabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
+        if ylabel is not None:
+            f.write('      <item key="YLabel" value="%s" sticky="true"/>\n' % ylabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
+            f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' % path)
+            f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' % (filename.split('/')[-1], path))
+        f.write('    </annotation>\n')
+        f.write('    <dimension dim="0" title="%s" />\n' % xlabel)
+        f.write('    <dimension dim="1" title="%s" />\n' % ylabel)
+
     def write_datapointset_footer(self, f):
-            f.write('  </dataPointSet>\n')
+        f.write('  </dataPointSet>\n')
+
     def write_datapointset(self, f):
         self.write_datapointset_header(f)
         for bin, bindata in enumerate(self.data):
@@ -84,6 +90,7 @@ class Histogram:
             yerr = bindata['Error']
             self.write_datapoint(f, xval, xerr, yval, yerr)
         self.write_datapointset_footer(f)
+
     def remove_gaps(self):
         # only look at histograms which are present in the reference file:
         try:
