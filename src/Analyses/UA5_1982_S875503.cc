@@ -1,33 +1,37 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/TriggerUA5.hh"
 
 namespace Rivet {
+
 
   class UA5_1982_S875503 : public Analysis {
   public:
  
     /// Default constructor
     UA5_1982_S875503() : Analysis("UA5_1982_S875503") {
-      //
+      _sumWTrig = 0;
     }
 
 
     /// @name Analysis methods
     //@{
 
+    /// Set up projections and book histos
     void init() {
       addProjection(TriggerUA5(), "Trigger");
       addProjection(ChargedFinalState(-3.5, 3.5), "CFS");
 
-      _hist_nch_pp    = bookHistogram1D(2,1,1);
-      _hist_nch_ppbar = bookHistogram1D(2,1,2);
-      _hist_eta_pp    = bookHistogram1D(3,1,1);
-      _hist_eta_ppbar = bookHistogram1D(4,1,1);
+      // Book histos based on pp or ppbar beams
+      if (beams().first == beams().second) {
+        _hist_nch = bookHistogram1D(2,1,1);
+        _hist_eta = bookHistogram1D(3,1,1);
+      } else {
+        _hist_nch = bookHistogram1D(2,1,2);
+        _hist_eta = bookHistogram1D(4,1,1);
+      }
     }
  
  
@@ -35,48 +39,48 @@ namespace Rivet {
       // Trigger
       const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
+      const double weight = event.weight();
+      _sumWTrig += weight;
 
       // Get tracks
-      const double weight = event.weight();
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
    
       // Fill mean charged multiplicity histos
-      if (trigger.samebeams()) { // PP
-        _hist_nch_pp->fill(_hist_nch_pp->binMean(0), cfs.size());
-      } else { // PPbar
-        _hist_nch_ppbar->fill(_hist_nch_ppbar->binMean(0), cfs.size());
-      }
+      _hist_nch->fill(_hist_nch->binMean(0), cfs.size());
 
       // Iterate over all tracks and fill eta histograms
       foreach (const Particle& p, cfs.particles()) {
-        if (trigger.samebeams()) { // PP
-          _hist_eta_pp->fill(fabs(p.momentum().eta()), weight);
-        } else { // PPbar
-          _hist_eta_ppbar->fill(fabs(p.momentum().eta()), weight);
-        }
+        const double eta = fabs(p.momentum().pseudorapidity());
+        _hist_eta->fill(eta, weight);
       }
          
     }
  
  
     void finalize() {
-      scale(_hist_nch_pp,    1.0/sumOfWeights());
-      scale(_hist_nch_ppbar, 1.0/sumOfWeights());
-      normalize(_hist_eta_pp,    5.28);
-      normalize(_hist_eta_ppbar, 5.29);
+      /// @todo Why the factor of 2 on Nch for ppbar?
+      if (beams().first == beams().second) {
+        scale(_hist_nch, 1.0/_sumWTrig);
+      } else {
+        scale(_hist_nch, 0.5/_sumWTrig);
+      }
+      scale(_hist_eta, 0.5/_sumWTrig);
     }
 
     //@}
  
 
   private:
+
+    /// @name Counters
+    //@{
+    double _sumWTrig;
+    //@}
  
     /// @name Histogram collections
     //@{
-    AIDA::IHistogram1D* _hist_nch_pp;
-    AIDA::IHistogram1D* _hist_nch_ppbar;
-    AIDA::IHistogram1D* _hist_eta_pp;
-    AIDA::IHistogram1D* _hist_eta_ppbar;
+    AIDA::IHistogram1D* _hist_nch;
+    AIDA::IHistogram1D* _hist_eta;
     //@}
  
   };
