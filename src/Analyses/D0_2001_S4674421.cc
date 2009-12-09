@@ -43,17 +43,17 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       // Z -> e- e+
-      LeadingParticlesFinalState eeFS(fs, -2.5, 2.5, 0.); //20.);
+      LeadingParticlesFinalState eeFS(FinalState(-2.5, 2.5, 0.)); //20.);
       eeFS.addParticleIdPair(ELECTRON);
       addProjection(eeFS, "eeFS");
    
       // W- -> e- nu_e~
-      LeadingParticlesFinalState enuFS(fs, -2.5, 2.5, 0.); //25.);
+      LeadingParticlesFinalState enuFS(FinalState(-2.5, 2.5, 0.)); //25.);
       enuFS.addParticleId(ELECTRON).addParticleId(NU_EBAR);
       addProjection(enuFS, "enuFS");
    
       // W+ -> e+ nu_e
-      LeadingParticlesFinalState enubFS(fs, -2.5, 2.5, 0.); //25.);
+      LeadingParticlesFinalState enubFS(FinalState(-2.5, 2.5, 0.)); //25.);
       enubFS.addParticleId(POSITRON).addParticleId(NU_E);
       addProjection(enubFS, "enubFS");
 

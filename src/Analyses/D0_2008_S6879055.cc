@@ -33,7 +33,7 @@ namespace Rivet {
       addProjection(fs, "FS");
    
       // Leading electrons in tracking acceptance
-      LeadingParticlesFinalState lpfs(fs, -1.1, 1.1, 25*GeV);
+      LeadingParticlesFinalState lpfs(FinalState(-1.1, 1.1, 25*GeV));
       lpfs.addParticleId(ELECTRON).addParticleId(POSITRON);
       addProjection(lpfs, "LeadingElectronsFS");
    

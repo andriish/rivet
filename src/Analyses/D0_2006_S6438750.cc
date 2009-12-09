@@ -34,11 +34,11 @@ namespace Rivet {
 
     void init() {
       // General FS for photon isolation
-      FinalState fs(-1.5, 1.5);
+      FinalState fs;
       addProjection(fs, "AllFS");
    
       // Get leading photon
-      LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
+      LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 23.0*GeV));
       photonfs.addParticleId(PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 

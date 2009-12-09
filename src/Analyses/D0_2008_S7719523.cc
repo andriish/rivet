@@ -44,7 +44,7 @@ namespace Rivet {
       addProjection(fs, "FS");
    
       // Get leading photon
-      LeadingParticlesFinalState photonfs(fs, -1.0, 1.0);
+      LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0));
       photonfs.addParticleId(PHOTON);
       addProjection(photonfs, "LeadingPhoton");
    
