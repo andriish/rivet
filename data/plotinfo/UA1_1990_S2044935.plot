@@ -85,7 +85,7 @@ YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\Sigma E_\perp}$ [mb\,\inverse\GeV]
 # BEGIN PLOT /UA1_1990_S2044935/d11-x01-y01
 Title=Transverse energy cross section at $\sqrt{s} = \unit{900}{\GeV}$ and $|\eta|<6$
 XLabel=$\Sigma E_\perp$ [GeV]
-YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\Sigma E_\perp}$ [\unit{\millibarn \inverse\GeV}]
+YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{\Sigma E_\perp}$ [\unit{\millibarn\,\inverse\GeV}]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d12-x01-y01

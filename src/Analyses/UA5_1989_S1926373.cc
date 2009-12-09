@@ -2,7 +2,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/TriggerUA5.hh"
 
@@ -25,7 +24,6 @@ namespace Rivet {
     /// Book histograms and projections
     void init() {
       addProjection(TriggerUA5(), "Trigger");
-      addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
       addProjection(ChargedFinalState(-1.5, 1.5), "CFS15");
       addProjection(ChargedFinalState(-3.0, 3.0), "CFS30");
@@ -58,7 +56,6 @@ namespace Rivet {
       const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
 
-      const double sqrtS = applyProjection<Beam>(event, "Beams").sqrtS();
       const double weight = event.weight();
       _sumWPassed += weight;
    

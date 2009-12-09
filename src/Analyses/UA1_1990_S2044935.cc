@@ -105,7 +105,7 @@ namespace Rivet {
           if (inRange(dnch_deta, 0.8, 4.0)) {
             _sumwTrig08 += weight;
             _hist_Esigd3p08->fill(pt/GeV, scaled_weight);
-          } else if (inRange(dnch_deta, 4.0, 8)) {
+          } else if (inRange(dnch_deta, 4.0, 8.0)) {
             _sumwTrig40 += weight;
             _hist_Esigd3p40->fill(pt/GeV, scaled_weight);
           } else if(dnch_deta > 8.0) {
