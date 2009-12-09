@@ -10,9 +10,21 @@ namespace Rivet {
 
 
   namespace {
+
     inline double cov_w_mean(int m, double m_mean, int n, double n_mean) {
       return (m - m_mean)*(n - n_mean);
     }
+
+    /// Calculate the correlation strength between two samples
+    inline double c_str(int m, double m_mean, int n, double n_mean) {
+      const double cov  = cov_w_mean(m, m_mean, n, n_mean);
+      const double var1 = cov_w_mean(m, m_mean, m, m_mean);
+      const double var2 = cov_w_mean(n, n_mean, n, n_mean);
+      const double correlation = cov/sqrt(var1*var2);
+      const double corr_strength = correlation*sqrt(var2/var1);
+      return corr_strength;
+    }
+
   }
   
 
@@ -23,18 +35,7 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
       _sumWPassed = 0;
-    }
-      
-  
-    /// Calculate the correlation strength between two samples
-    inline double c_str(int m, double m_mean, int n, double n_mean) {
-      const double cov  = cov_w_mean(m, m_mean, n, n_mean);
-      const double var1 = cov_w_mean(m, m_mean, m, m_mean);
-      const double var2 = cov_w_mean(n, n_mean, n, n_mean);
-      const double correlation = cov/sqrt(var1*var2);
-      const double corr_strength = correlation*sqrt(var2/var1);
-      return corr_strength;
-    }
+    }  
 
 
     /// @name Analysis methods
@@ -68,13 +69,13 @@ namespace Rivet {
       addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
             
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
-      if (fuzzyEquals(sqrtS(), 200.0, 1E-4)) {
+      if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
         _hist_correl_200 = bookProfile1D(2, 1, 1);
         _hist_correl_asym_200 = bookProfile1D(3, 1, 1);
-      } else if (fuzzyEquals(sqrtS(), 546.0, 1E-4)) {
+      } else if (fuzzyEquals(sqrtS()/GeV, 546.0, 1E-4)) {
         _hist_correl_546 = bookProfile1D(2, 1, 2);      
         _hist_correl_asym_546 = bookProfile1D(3, 1, 2);
-      } else if (fuzzyEquals(sqrtS(), 900.0, 1E-4)) {
+      } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
         _hist_correl_900 = bookProfile1D(2, 1, 3);
         _hist_correl_asym_900 = bookProfile1D(3, 1, 3);
       }

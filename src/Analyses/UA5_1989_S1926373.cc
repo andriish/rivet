@@ -31,19 +31,22 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.0, 3.0), "CFS30");
       addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
 
-      // NB. _hist_nch{200,900} and _hist_nch{200,900}eta50 use the same data but different binning
-      _hist_nch200       = bookHistogram1D(1, 1, 1);
-      _hist_nch900       = bookHistogram1D(2, 1, 1);
-      _hist_nch200eta05  = bookHistogram1D(3, 1, 1);
-      _hist_nch200eta15  = bookHistogram1D(4, 1, 1);
-      _hist_nch200eta30  = bookHistogram1D(5, 1, 1);
-      _hist_nch200eta50  = bookHistogram1D(6, 1, 1);
-      _hist_nch900eta05  = bookHistogram1D(7, 1, 1);
-      _hist_nch900eta15  = bookHistogram1D(8, 1, 1);
-      _hist_nch900eta30  = bookHistogram1D(9, 1, 1);
-      _hist_nch900eta50  = bookHistogram1D(10, 1, 1);
-      _hist_mean_nch_200 = bookHistogram1D(11, 1, 1);
-      _hist_mean_nch_900 = bookHistogram1D(12, 1, 1);
+      // NB. _hist_nch and _hist_ncheta50 use the same data but different binning
+      if (fuzzyEquals(sqrtS()/GeV, 200, 1E-3)) {
+        _hist_nch        = bookHistogram1D(1, 1, 1);
+        _hist_nch_eta05  = bookHistogram1D(3, 1, 1);
+        _hist_nch_eta15  = bookHistogram1D(4, 1, 1);
+        _hist_nch_eta30  = bookHistogram1D(5, 1, 1);
+        _hist_nch_eta50  = bookHistogram1D(6, 1, 1);
+        _hist_mean_nch   = bookHistogram1D(11, 1, 1);
+      } else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+        _hist_nch        = bookHistogram1D(2, 1, 1);
+        _hist_nch_eta05  = bookHistogram1D(7, 1, 1);
+        _hist_nch_eta15  = bookHistogram1D(8, 1, 1);
+        _hist_nch_eta30  = bookHistogram1D(9, 1, 1);
+        _hist_nch_eta50  = bookHistogram1D(10, 1, 1);
+        _hist_mean_nch   = bookHistogram1D(12, 1, 1);
+      }
 
       /// @todo Moments of distributions
     }
@@ -66,39 +69,22 @@ namespace Rivet {
       const int numP50 = applyProjection<ChargedFinalState>(event, "CFS50").size();
    
       // Fill histograms
-      if (fuzzyEquals(sqrtS/GeV, 200.0, 1E-4)) {
-        _hist_nch200->fill(numP50, weight);
-        _hist_nch200eta05->fill(numP05, weight);
-        _hist_nch200eta15->fill(numP15, weight);
-        _hist_nch200eta30->fill(numP30, weight);
-        _hist_nch200eta50->fill(numP50, weight);
-        _hist_mean_nch_200->fill(_hist_mean_nch_200->binMean(0), numP50);
-      }
-      else if (fuzzyEquals(sqrtS/GeV, 900.0, 1E-4)) {
-        _hist_nch900->fill(numP50, weight);
-        _hist_nch900eta05->fill(numP05, weight);
-        _hist_nch900eta15->fill(numP15, weight);
-        _hist_nch900eta30->fill(numP30, weight);
-        _hist_nch900eta50->fill(numP50, weight);
-        _hist_mean_nch_900->fill(_hist_mean_nch_900->binMean(0), numP50);
-      }
-    }
- 
+      _hist_nch->fill(numP50, weight);
+      _hist_nch_eta05->fill(numP05, weight);
+      _hist_nch_eta15->fill(numP15, weight);
+      _hist_nch_eta30->fill(numP30, weight);
+      _hist_nch_eta50->fill(numP50, weight);
+      _hist_mean_nch->fill(_hist_mean_nch->binMean(0), numP50);
+    } 
  
  
     void finalize() {
-      scale(_hist_nch200, _sumWPassed);
-      scale(_hist_nch900, _sumWPassed);
-      scale(_hist_nch200eta05, _sumWPassed);
-      scale(_hist_nch200eta15, _sumWPassed);
-      scale(_hist_nch200eta30, _sumWPassed);
-      scale(_hist_nch200eta50, _sumWPassed);
-      scale(_hist_nch900eta05, _sumWPassed);
-      scale(_hist_nch900eta15, _sumWPassed);
-      scale(_hist_nch900eta30, _sumWPassed);
-      scale(_hist_nch900eta50, _sumWPassed);
-      scale(_hist_mean_nch_200, 1.0/_sumWPassed);
-      scale(_hist_mean_nch_900, 1.0/_sumWPassed);
+      scale(_hist_nch, _sumWPassed);
+      scale(_hist_nch_eta05, _sumWPassed);
+      scale(_hist_nch_eta15, _sumWPassed);
+      scale(_hist_nch_eta30, _sumWPassed);
+      scale(_hist_nch_eta50, _sumWPassed);
+      scale(_hist_mean_nch, 1.0/_sumWPassed);
     }
 
     //@}
@@ -113,18 +99,12 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _hist_nch200;
-    AIDA::IHistogram1D* _hist_nch900;
-    AIDA::IHistogram1D* _hist_nch200eta05;
-    AIDA::IHistogram1D* _hist_nch200eta15;
-    AIDA::IHistogram1D* _hist_nch200eta30;
-    AIDA::IHistogram1D* _hist_nch200eta50;
-    AIDA::IHistogram1D* _hist_nch900eta05;
-    AIDA::IHistogram1D* _hist_nch900eta15;
-    AIDA::IHistogram1D* _hist_nch900eta30;
-    AIDA::IHistogram1D* _hist_nch900eta50;
-    AIDA::IHistogram1D* _hist_mean_nch_200;
-    AIDA::IHistogram1D* _hist_mean_nch_900;
+    AIDA::IHistogram1D* _hist_nch;
+    AIDA::IHistogram1D* _hist_nch_eta05;
+    AIDA::IHistogram1D* _hist_nch_eta15;
+    AIDA::IHistogram1D* _hist_nch_eta30;
+    AIDA::IHistogram1D* _hist_nch_eta50;
+    AIDA::IHistogram1D* _hist_mean_nch;
     //@}
 
   };

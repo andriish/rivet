@@ -36,24 +36,30 @@ namespace Rivet {
       const FinalState calofs(-6.0, 6.0);
       addProjection(TotalVisibleMomentum(calofs), "Mom");
 
-      _hist_Nch200 = bookHistogram1D(1,1,1);
-      _hist_Nch500 = bookHistogram1D(1,1,2);
-      _hist_Nch900 = bookHistogram1D(1,1,3);
-      _hist_Esigd3p200 = bookHistogram1D(2,1,1);
-      _hist_Esigd3p500 = bookHistogram1D(2,1,2);
-      _hist_Esigd3p900 = bookHistogram1D(2,1,3);
-      _hist_Esigd3p08 = bookHistogram1D(3,1,1);
-      _hist_Esigd3p40 = bookHistogram1D(4,1,1);
-      _hist_Esigd3p80 = bookHistogram1D(5,1,1);
-      _hist_Et200 = bookHistogram1D(9,1,1);
-      _hist_Et500 = bookHistogram1D(10,1,1);
-      _hist_Et900 = bookHistogram1D(11,1,1);
-      _hist_Pt63 = bookProfile1D(8,1,1);
-      _hist_Pt200 = bookProfile1D(6,1,1);
-      _hist_Pt900 = bookProfile1D(7,1,1);
-      _hist_Etavg200 = bookProfile1D(12,1,1);
-      _hist_Etavg500 = bookProfile1D(12,1,2);
-      _hist_Etavg900 = bookProfile1D(12,1,3);
+      if (fuzzyEquals(sqrtS()/GeV, 63)) {
+        _hist_Pt = bookProfile1D(8,1,1);
+      } else if (fuzzyEquals(sqrtS()/GeV, 200)) {
+        _hist_Nch = bookHistogram1D(1,1,1);
+        _hist_Esigd3p = bookHistogram1D(2,1,1);
+        _hist_Pt = bookProfile1D(6,1,1);
+        _hist_Et = bookHistogram1D(9,1,1);
+        _hist_Etavg = bookProfile1D(12,1,1);
+      } else if (fuzzyEquals(sqrtS()/GeV, 500)) {
+        _hist_Nch = bookHistogram1D(1,1,2);
+        _hist_Esigd3p = bookHistogram1D(2,1,2);
+        _hist_Et = bookHistogram1D(10,1,1);
+        _hist_Etavg = bookProfile1D(12,1,2);
+      } else if (fuzzyEquals(sqrtS()/GeV, 900)) {
+        _hist_Nch = bookHistogram1D(1,1,3);
+        _hist_Esigd3p = bookHistogram1D(2,1,3);
+        _hist_Pt = bookProfile1D(7,1,1);
+        _hist_Et = bookHistogram1D(11,1,1);
+        _hist_Etavg = bookProfile1D(12,1,3);
+        _hist_Esigd3p08 = bookHistogram1D(3,1,1);
+        _hist_Esigd3p40 = bookHistogram1D(4,1,1);
+        _hist_Esigd3p80 = bookHistogram1D(5,1,1);
+      }
+
     }
  
 
@@ -72,52 +78,37 @@ namespace Rivet {
       _sumwTrig += weight;
 
       // Use good central detector tracks
-      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
       const FinalState& cfs = applyProjection<FinalState>(event, "TrackFS");
       const double Et = applyProjection<TotalVisibleMomentum>(event, "Mom").scalarET();
       const unsigned int nch = cfs.size();
 
       // Event level histos
-      if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
-        _hist_Nch200->fill(nch, weight);
-        _hist_Et200->fill(Et/GeV, weight);
-      } else if (fuzzyEquals(sqrtS/GeV, 500)) {
-        _hist_Nch500->fill(nch, weight);
-        _hist_Et500->fill(Et/GeV, weight);
-      }	else if (fuzzyEquals(sqrtS/GeV, 900)) {
-        _hist_Nch900->fill(nch, weight);
-        _hist_Et900->fill(Et/GeV, weight);
-      }
+      _hist_Nch->fill(nch, weight);
+      _hist_Et->fill(Et/GeV, weight);
+      /// @todo Doesn't fit data
+      _hist_Etavg->fill(nch, Et/GeV, weight);
 
       // Particle/track level histos
       const double deta = 2 * 5.0;
       const double dphi = TWOPI;
-      const double dnch_deta = nch/5.0; //< @todo No factor of 2 for both sides?
+      const double dnch_deta = nch/deta;
       foreach (const Particle& p, cfs.particles()) {
         const double pt = p.momentum().pT();
         const double scaled_weight = weight/(deta*dphi*pt/GeV);
-        if (fuzzyEquals(sqrtS/GeV, 63, 1E-3)) {
-          _hist_Pt63->fill(nch, pt/GeV, weight);
-        } else if (fuzzyEquals(sqrtS/GeV, 200, 1E-4)) {
-          _hist_Pt200->fill(nch, pt/GeV, weight);
-          _hist_Etavg200->fill(nch, Et/GeV, weight);
-          _hist_Esigd3p200->fill(pt/GeV, scaled_weight);
-        } else if (fuzzyEquals(sqrtS/GeV, 500)) {
-          _hist_Etavg500->fill(nch, Et/GeV, weight);
-          _hist_Esigd3p500->fill(pt/GeV, scaled_weight);
-        } else if (fuzzyEquals(sqrtS/GeV, 900)) {
-          _hist_Pt900->fill(nch, p.momentum().pT()/GeV, weight);
-          _hist_Etavg900->fill(nch, Et/GeV, weight);
-          _hist_Esigd3p900->fill(pt/GeV, scaled_weight);
-          // Also fill for specific dNch/deta ranges for 900 GeV
-          /// @todo Check normalisation factor: currently low by factor of ~10-20
+        _hist_Pt->fill(nch, pt/GeV, weight);
+        if (!fuzzyEquals(sqrtS()/GeV, 63, 1E-3)) {
+          _hist_Esigd3p->fill(pt/GeV, scaled_weight);
+        }
+        // Also fill for specific dn/deta ranges at 900 GeV
+        /// @todo Doesn't fit data: are these really ranges in dNch/deta? Scale factors?
+        if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
           if (inRange(dnch_deta, 0.8, 4.0)) {
             _sumwTrig08 += weight;
             _hist_Esigd3p08->fill(pt/GeV, scaled_weight);
-          } else if (dnch_deta > 4 && dnch_deta <= 8) {
+          } else if (inRange(dnch_deta, 4.0, 8)) {
             _sumwTrig40 += weight;
             _hist_Esigd3p40->fill(pt/GeV, scaled_weight);
-          } else if(dnch_deta > 8) {
+          } else if(dnch_deta > 8.0) {
             _sumwTrig80 += weight;
             _hist_Esigd3p80->fill(pt/GeV, scaled_weight);
           }
@@ -128,26 +119,18 @@ namespace Rivet {
  
  
     void finalize() {
-      const double xsec = crossSection();
-      if (_sumwTrig > 0) {
-        /// @todo Norm is low by factor of ~2:
-        normalize(_hist_Nch200, xsec/millibarn * _sumwTrig/sumOfWeights());
-        normalize(_hist_Nch500, xsec/millibarn * _sumwTrig/sumOfWeights());
-        normalize(_hist_Nch900, xsec/millibarn * _sumwTrig/sumOfWeights());
-        //
-        scale(_hist_Esigd3p200, xsec/millibarn * 1/_sumwTrig);
-        scale(_hist_Esigd3p500, xsec/millibarn * 1/_sumwTrig);
-        scale(_hist_Esigd3p900, xsec/millibarn * 1/_sumwTrig);
-        //
-        /// @todo Norm is low by factor of ~20!
-        if (_sumwTrig08 > 0) scale(_hist_Esigd3p08, xsec/microbarn * 1/_sumwTrig08);
-        if (_sumwTrig40 > 0) scale(_hist_Esigd3p40, xsec/microbarn * 1/_sumwTrig40);
-        if (_sumwTrig80 > 0) scale(_hist_Esigd3p80, xsec/microbarn * 1/_sumwTrig80);
-        //
-        /// @todo Norm is too *high*!
-        normalize(_hist_Et200, xsec/millibarn * _sumwTrig/sumOfWeights());
-        normalize(_hist_Et500, xsec/millibarn * _sumwTrig/sumOfWeights());
-        normalize(_hist_Et900, xsec/millibarn * _sumwTrig/sumOfWeights());
+      if (_sumwTrig <= 0) {
+        getLog() << Log::WARN << "No events passed the trigger!" << endl;
+        return;
+      }
+      const double xsec = crossSectionPerEvent();
+      scale(_hist_Nch, 2*xsec/millibarn); //< Factor of 2 for Nch bin widths?
+      scale(_hist_Esigd3p, xsec/millibarn);
+      scale(_hist_Et, xsec/millibarn);
+      if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
+        scale(_hist_Esigd3p08, xsec/microbarn);
+        scale(_hist_Esigd3p40, xsec/microbarn);
+        scale(_hist_Esigd3p80, xsec/microbarn);
       }
     }
  
@@ -156,29 +139,21 @@ namespace Rivet {
  
   private:
 
-    /// Weight counters
+    /// @name Weight counters
+    //@{
     double _sumwTrig, _sumwTrig08, _sumwTrig40, _sumwTrig80;
- 
+    //@}
+
     /// @name Histogram collections
     //@{
-    AIDA::IHistogram1D* _hist_Nch200;
-    AIDA::IHistogram1D* _hist_Nch500;
-    AIDA::IHistogram1D* _hist_Nch900;
-    AIDA::IHistogram1D* _hist_Esigd3p200;
-    AIDA::IHistogram1D* _hist_Esigd3p500;
-    AIDA::IHistogram1D* _hist_Esigd3p900;
+    AIDA::IHistogram1D* _hist_Nch;
+    AIDA::IHistogram1D* _hist_Esigd3p;
     AIDA::IHistogram1D* _hist_Esigd3p08;
     AIDA::IHistogram1D* _hist_Esigd3p40;
     AIDA::IHistogram1D* _hist_Esigd3p80;
-    AIDA::IProfile1D* _hist_Pt63;
-    AIDA::IProfile1D* _hist_Pt200;
-    AIDA::IProfile1D* _hist_Pt900;
-    AIDA::IProfile1D* _hist_Etavg200;
-    AIDA::IProfile1D* _hist_Etavg500;
-    AIDA::IProfile1D* _hist_Etavg900;
-    AIDA::IHistogram1D* _hist_Et200;
-    AIDA::IHistogram1D* _hist_Et500;
-    AIDA::IHistogram1D* _hist_Et900;
+    AIDA::IProfile1D* _hist_Pt;
+    AIDA::IProfile1D* _hist_Etavg;
+    AIDA::IHistogram1D* _hist_Et;
     //@}
  
   };
