@@ -57,7 +57,7 @@ namespace Rivet {
       // Get the index corresponding to the max Nch range histo/sum(w) vector index
       const ChargedFinalState& cfs50 = applyProjection<ChargedFinalState>(event, "CFS50");
       const int numP = cfs50.size();
-      const int ni = floor(static_cast<float>(numP-2)/10.0);
+      const int ni = (int)floor(static_cast<float>(numP-2)/10.0);
       const int num_idx = min(ni, (int)_sumWn.size()-1);
       getLog() << Log::TRACE << "Multiplicity index: " << numP << " charged particles -> #" << num_idx << endl;
 

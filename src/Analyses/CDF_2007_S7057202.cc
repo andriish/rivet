@@ -114,7 +114,7 @@ namespace Rivet {
  
     // Normalise histograms to cross-section
     void finalize() {
-      const double xSecPerEvent = crossSection()/nanobarn / sumOfWeights();
+      const double xSecPerEvent = crossSectionPerEvent()/nanobarn;
       getLog() << Log::INFO << "Cross-section = " << crossSection()/nanobarn << " nb" << endl;
    
       for (map<IHistogram1D*,double>::iterator histIt = _eventsPassed.begin(),

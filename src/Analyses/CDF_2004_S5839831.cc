@@ -294,14 +294,16 @@ namespace Rivet {
  
  
     void finalize() {
-      // Normalize to actual number of entries in pT dbn histos
+      /// @todo Take these normalisations from the data histo (it can't come from just the MC)
+
+      // Normalize to actual number of entries in pT dbn histos...
       normalize(_pt90Dbn1800Et40,  1656.75);
       normalize(_pt90Dbn1800Et80,  4657.5);
       normalize(_pt90Dbn1800Et120, 5395.5);
       normalize(_pt90Dbn1800Et160, 7248.75);
       normalize(_pt90Dbn1800Et200, 2442.0);
    
-      // and for min bias distributions:
+      // ...and for min bias distributions:
       normalize(_numTracksDbn1800MB, 309718.25);
       normalize(_numTracksDbn630MB, 1101024.0);
       normalize(_ptDbn1800MB, 33600.0);
