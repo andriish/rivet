@@ -102,7 +102,7 @@ namespace Rivet {
     //@{
 
     double E2vis() const { return _E2vis; }
-    double Evis() const { return sqrt(E2vis()); }
+    double Evis() const { return sqrt(_E2vis); }
 
     double M2high() const { return _M2high; }
     double Mhigh() const { return sqrt(M2high()); }
@@ -111,25 +111,25 @@ namespace Rivet {
     double Mlow() const { return sqrt(M2low()); }
 
     double M2diff() const { return _M2high -_M2low; }
-    double Mdiff() const { return sqrt(Mhigh() - Mlow()); }
+    double Mdiff() const { return sqrt(M2diff()); }
 
     double scaledM2high() const {
-      if (M2high() == 0.0) return 0.0;
-      if (E2vis() != 0.0) return M2high()/E2vis();
+      if (_M2high == 0.0) return 0.0;
+      if (_E2vis != 0.0) return _M2high/_E2vis;
       else return std::numeric_limits<double>::max();
     }
     double scaledMhigh() const { return sqrt(scaledM2high()); }
 
     double scaledM2low() const {
-      if (M2low() == 0.0) return 0.0;
-      if (E2vis() != 0.0) return M2low()/E2vis();
+      if (_M2low == 0.0) return 0.0;
+      if (_E2vis != 0.0) return _M2low/_E2vis;
       else return std::numeric_limits<double>::max();
     }
     double scaledMlow() const { return sqrt(scaledM2low()); }
 
     double scaledM2diff() const {
-      if (Mdiff() == 0.0) return 0.0;
-      if (Evis() != 0.0) return Mdiff()/Evis();
+      if (M2diff() == 0.0) return 0.0;
+      if (_E2vis != 0.0) return M2diff()/_E2vis;
       else return std::numeric_limits<double>::max();
     }
     double scaledMdiff() const { return sqrt(scaledM2diff()); }
