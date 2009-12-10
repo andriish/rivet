@@ -1,0 +1,278 @@
+#!/usr/bin/env python
+
+"""%prog -r <REFDATAPATH> -O <observable-file> <AIDAFILE>
+
+Normalise histos in observable-file of AIDAFILE to the area of the
+corresponding histos in REFAIDAPATH. REFAIDAPATH can either be
+a single AIDA-file or a directory containing AIDA-files.
+
+Or, if no REFAIDAPATH is given, normalise to new area given in
+observable-file "observables_and_areas", e.g.:
+CDF_2000_S4155203_d01-x01-y01  1.0
+
+Example:
+    %prog -r /usr/share/Rivet/ -O observables out.aida
+This will return the Z-boson pT-distribution, normalised to the histo-area
+measured by CDF.
+    %prog -O observables_and_areas out.aida
+This will return the Z-boson pT-distribution, normalised to 1.0
+
+TODO:
+    * allow to chop bins
+"""
+
+import os, re, sys, logging
+from lighthisto import Histo
+## Make "sorted" a builtin function on Python < 2.4
+if not 'sorted' in dir(__builtins__):
+    def sorted(iterable, cmp=None, key=None, reverse=None):
+        rtn = iterable
+        rtn.sort(cmp)
+        return rtn
+
+## Add logging.log if needed
+if not 'log' in dir(logging):
+    def _logit(level, msg):
+        l = logging.getLogger()
+        l.log(level, msg)
+    logging.log = _logit
+
+try:
+    from IPython.Shell import IPShellEmbed
+    ipshell = IPShellEmbed([])
+except:
+    logging.info("Ipython shell not available.")
+
+
+## Try to load faster but non-standard cElementTree module
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    try:
+        import cElementTree as ET
+    except ImportError:
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
+            sys.exit(1)
+
+
+def getHistosFromAIDA(aidafile):
+    '''Get a dictionary of histograms indexed by name.'''
+    if not re.match(r'.*\.aida$', aidafile):
+        logging.error("Error: input file '%s' is not an AIDA file" % aidafile)
+        sys.exit(2)
+    aidafilepath = os.path.abspath(aidafile)
+    if not os.access(aidafilepath, os.R_OK):
+        logging.error("Error: cannot read from %s" % aidafile)
+        sys.exit(2)
+
+    histos = {}
+    tree = ET.parse(aidafilepath)
+    for dps in tree.findall("dataPointSet"):
+        ## Get this histogram's path name
+        dpsname = os.path.join(dps.get("path"), dps.get("name"))
+        ## Is it a data histo?
+        h = Histo.fromDPS(dps)
+        h.isdata = dpsname.upper().startswith("/REF")
+        if h.isdata:
+            dpsname = dpsname.replace("/REF", "")
+        histos[dpsname] = h
+    return histos
+
+def getRefHistos(refpath):
+    """ Return dictionary of reference histos {name: histo}.
+    Refpath can either be a single file or a directory.
+    """
+    refhistos = {}
+    if not refpath is None:
+        try:
+            refhistos=getHistosFromAIDA(refpath)
+        except:
+            for aida in os.listdir(refpath):
+                if aida.endswith(".aida"):
+                    temp = getHistosFromAIDA(os.path.join(refpath, aida))
+                    for k, v in temp.iteritems():
+                        if not k in refhistos.keys():
+                            refhistos[k]=v
+    return refhistos
+
+def readObservableFile(obsfile):
+    """ Read observables to normalise from file obsfile.
+        Return-values are a list of the histo-names to normalise and a
+        dictionary with name:newarea entries.
+    """
+    obslist = []
+    obsnorms = {}
+    if obsfile is not None:
+        try:
+            f = open(obsfile, 'r')
+        except:
+            logging.error("Cannot open histo list file %s" % opts.obsfile)
+            sys.exit(2)
+        for line in f:
+            stripped = line.strip()
+            if len(stripped) == 0 or stripped.startswith("#"):
+                continue
+            split = stripped.split()
+            # Try to read areas to normalise to given in obsfile
+            if len(split) == 2:
+                obsnorms[split[0]] = float(split[1])
+            obslist.append(split[0])
+        f.close()
+    return obslist, obsnorms
+
+
+
+if __name__ == "__main__":
+    from optparse import OptionParser, OptionGroup
+    parser = OptionParser(usage=__doc__)
+
+    parser.add_option("-O", "--obsfile", default=None,
+                      help="Specify a file with histograms (and bin ranges) " +
+                      " that are to be normalised.")
+    parser.add_option("-r", "--refdir", default=None,
+                      help="Folder with reference histo files")
+    parser.add_option("-o", "--outdir",
+                      dest="outdir", default="renormalised",
+                      help="output directory (default: %default)")
+    parser.add_option("-a", dest="AIDA", default=False, action="store_true",
+                      help="Produce AIDA output rather than FLAT")
+    verbgroup = OptionGroup(parser, "Verbosity control")
+    verbgroup.add_option("-V", "--verbose", action="store_const",
+                         const=logging.DEBUG, dest="LOGLEVEL",
+                         help="print debug (very verbose) messages")
+    verbgroup.add_option("-Q", "--quiet", action="store_const",
+                         const=logging.WARNING, dest="LOGLEVEL",
+                         help="be very quiet")
+    parser.set_defaults(bins=[],
+            outdir=".",
+            LOGLEVEL=logging.INFO)
+    opts, args = parser.parse_args()
+
+
+    # Configure logging
+    try:
+        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+    except:
+        pass
+    h = logging.StreamHandler()
+    h.setFormatter(logging.Formatter("%(message)s"))
+    logging.getLogger().setLevel(opts.LOGLEVEL)
+    if logging.getLogger().handlers:
+        logging.getLogger().handlers[0] = h
+    else:
+        logging.getLogger().addHandler(h)
+
+
+
+    # Read in histogram files to normalise
+    histos = getHistosFromAIDA(args[0])
+
+    # Read in reference histos to get reference areas to normalise to
+    refhistos = getRefHistos(opts.refdir)
+
+    # Read in observables, if no observable file is given or observable file
+    # is empty all observables will be renormalised if possible
+    #obslist = [obs.split(":")[0] for obs in readObservableFile(opts.obsfile)]
+    obslist, obsnorms = readObservableFile(opts.obsfile)
+    if len(obslist) == 0:
+        logging.warning("No observable file given or empty, will try to ",
+                "normalise all histos.")
+        obslist = histos.keys()
+
+
+    # Create output filename
+    base = args[0].split("/")[-1].split(".aida")[0]
+    if opts.AIDA:
+        outfile = os.path.join(opts.outdir, base + "-renormed.aida")
+    else:
+        outfile = os.path.join(opts.outdir, base + "-renormed.dat")
+    if not os.path.exists(opts.outdir):
+        logging.info("Creating outdir %s"%opts.outdir)
+        os.mkdir(opts.outdir)
+
+    aidaheader = """<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="FreeHEP"/>
+    """
+    # Open file for output
+    f = open(outfile, "w")
+    if opts.AIDA:
+        f.write(aidaheader)
+
+
+    # Iterate over all histos
+    for name, histo in histos.iteritems():
+        # Make sure the reference histo for name exists
+        if name in obslist and name in refhistos.keys():
+            newarea = refhistos[name].getArea()
+            oldarea = histos[name].getArea()
+            renormed = histos[name].renormalise(newarea)
+            logging.info("Renormalising %s from %f to %f"%(name, oldarea,
+                newarea))
+            if opts.AIDA:
+                f.write(renormed.asAIDA())
+            else:
+                f.write(renormed.asFlat())
+        elif name in obsnorms.keys():
+            newarea = obsnorms[name]
+            oldarea = histos[name].getArea()
+            renormed = histos[name].renormalise(newarea)
+            logging.info("Renormalising %s from %f to %f"%(name, oldarea,
+                newarea))
+            if opts.AIDA:
+                f.write(renormed.asAIDA())
+            else:
+                f.write(renormed.asFlat())
+        else:
+            logging.warning("Could not find observable %s in refdir "%name +
+                    "%s or no normalisation given in %s"%(opts.refdir, opts.obsfile))
+            if opts.AIDA:
+                f.write(histos[name].asAIDA())
+            else:
+                f.write(histos[name].asFlat())
+
+    if opts.AIDA:
+        f.write("</aida>")
+
+    logging.info("Done. Written output to %s."%outfile)
+
+    #bindefs = {}
+    #f = open(opts.bins, "r")
+    #for line in f:
+    ##for bd in opts.bins:
+        #if not line.startswith("#"):
+            #try:
+                #path, low, high = line.split(":")
+            #except:
+                #sys.stderr.write("Problem parsing bin definition `%s'" % (line))
+                #sys.exit(1)
+            #if low == "":
+                #low = None
+            #else:
+                #low = float(low)
+            #if high == "":
+                #high = None
+            #else:
+                #high = float(high)
+            #bindefs[path] = (low, high)
+
+
+    #binedges = []
+    #sqrts.sort()
+    #for num, s in enumerate(sqrts):
+        #try:
+            #d = 0.5 * (sqrts[num+1] - s)
+            #binedges.append((s-d, s+d))
+        #except:
+            #binedges.append((s-d, s+d))
+
+    ## Read in and chop histos
+    #mchistos = getMCHistos(opts.mcdir, bindefs)
+
+
+
+
