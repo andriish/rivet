@@ -32,18 +32,10 @@ namespace Rivet {
   bool Run::readEvent() {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
-    // if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
-      //Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
-      // return false;
-    // }
-    if (_io->rdstate() != 0) {
-      Log::getLog("Rivet.Run") << Log::ERROR
-        << "Read failed: HepMC rdstate != 0" << endl;
-      return false;
-    } else if (!_io->fill_next_event(_evt.get())) {
-      Log::getLog("Rivet.Run") << Log::ERROR
-        << "HepMC fill_next_event failed!" << endl;
-      cout << "HepMC error: " << _io->error_message() << " (type: " << _io->error_type() << ")" << endl;
+    if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
+      Log::getLog("Rivet.Run") << Log::DEBUG
+        << "Read failed. End of file? HepMC error:" << _io->error_message()
+        << endl;
       return false;
     }
     return true;
