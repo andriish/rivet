@@ -4,7 +4,7 @@ Summary: CDF Run 2 min bias cross-section analysis
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 8233977
-Status: PARTIALLY VALIDATED
+Status: VALIDATED
 Authors:
  - Niccolo' Moggi <niccolo.moggi@bo.infn.it>
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
@@ -21,6 +21,3 @@ Description:
   Niccolo Moggi's min bias analysis. Minimum bias events are used to
   measure the average track pT vs. charged multiplicity, a track pT
   distribution and an inclusive $\sum E_T$ distribution. 
-  WARNING, only average track pT vs. charged multiplicity is validated,
-  the other two distributions look good but don't exactly match the
-  Monte Carlo curves in the paper!
