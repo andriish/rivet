@@ -232,6 +232,31 @@ class Histo(object):
                              b.getBinCenter()))
         return new
 
+    def renormalise(self, newarea):
+        """ Renormalise histo to newarea """
+        # Construc new histo
+        new = Histo()
+        # Use the same metadata
+        new.path = self.path
+        new.name = self.name
+        new.title = self.title
+        new.xlabel = self.xlabel
+        new.ylabel = self.ylabel
+
+        # The current histogram area
+        oldarea = self.getArea()
+
+        # Iterate over all bins
+        for b in self:
+            # Rescale YValue, YErr+, YErr-
+            newy = b.yval * float(newarea) / oldarea
+            newyerrplus = b.yerrplus * float(newarea) / oldarea
+            newyerrminus = b.yerrminus * float(newarea) / oldarea
+            newbin = Bin(b.xlow, b.xhigh, newy, newyerrplus, newyerrminus, b.focus)
+            new.addBin(newbin)
+
+        return new
+
     ## decorators are only available since Python 2.4
     def fromDPS(cls, dps):
         """Build a histogram from a xml dataPointSet."""
