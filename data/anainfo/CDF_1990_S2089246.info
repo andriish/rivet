@@ -4,17 +4,18 @@ Summary: CDF pseudorapidity distributions at 630 and 1800 GeV
 Experiment: CDF
 Collider: Tevatron Run 0
 SpiresID: 2089246
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:
  - Phys.Rev.D41:2330,1990
  - doi:10.1103/PhysRevD.41.2330
 RunInfo:
-  QCD events at sqrt(s) = 630 and 1800 GeV.
-  Particles with ctau>10cm should be set stable.
+  QCD min bias events at sqrt(s) = 630 and 1800 GeV.
+  Particles with ctau > 10cm should be set stable.
 NumEvents: 1000000
 PtCuts: [0]
+Energies: [630, 1800]
 Description:
   Pseudorapidity distributions based on the CDF 630 and 1800 GeV runs
   from 1987. All data is detector corrected. The data confirms the UA5

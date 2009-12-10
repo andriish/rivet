@@ -3,10 +3,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/TriggerCDFRun0Run1.hh"
 
 namespace Rivet {
@@ -23,6 +19,7 @@ namespace Rivet {
       : Analysis("CDF_1990_S2089246")
     {
       setBeams(PROTON, ANTIPROTON);
+      _sumWTrig = 0;
     }
 
 
@@ -30,12 +27,16 @@ namespace Rivet {
     //@{
 
     void init() {
+      // Setup projections
       addProjection(TriggerCDFRun0Run1(), "Trigger");
       addProjection(ChargedFinalState(-3.5, 3.5), "CFS");
-      addProjection(Beam(), "Beam");
 
-      _hist_eta1800 = bookHistogram1D(3, 1, 1);
-      _hist_eta630 = bookHistogram1D(4, 1, 1);
+      // Book histo
+      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+        _hist_eta = bookHistogram1D(3, 1, 1);
+      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+        _hist_eta = bookHistogram1D(4, 1, 1);
+      }
     }
 
 
@@ -44,20 +45,14 @@ namespace Rivet {
       // Trigger
       const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-
-      // Get final state and energy
-      const double sqrtS = applyProjection<Beam>(event, "Beam").sqrtS();
-      const FinalState& fs = applyProjection<FinalState>(event, "CFS");
+      const double weight = event.weight();
+      _sumWTrig += weight;
 
       // Loop over final state charged particles to fill eta histos
-      const double weight = event.weight();
+      const FinalState& fs = applyProjection<FinalState>(event, "CFS");
       foreach (const Particle& p, fs.particles()) {
         const double eta = p.momentum().pseudorapidity();
-        if (fuzzyEquals(sqrtS/GeV, 630)) {
-          _hist_eta630->fill(fabs(eta), weight);
-        } else if (fuzzyEquals(sqrtS/GeV, 1800)) {
-          _hist_eta1800->fill(fabs(eta), weight);
-        }
+        _hist_eta->fill(fabs(eta), weight);
       }
     }
  
@@ -66,8 +61,8 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       // Divide through by num events to get d<N>/d(eta) in bins
-      scale(_hist_eta630, 1/sumOfWeights());
-      scale(_hist_eta1800, 1/sumOfWeights());
+      // Factor of 1/2 for |eta| -> eta
+      scale(_hist_eta, 0.5/_sumWTrig);
     }
 
     //@}
@@ -75,10 +70,14 @@ namespace Rivet {
 
   private:
 
+    /// @name Weight counter
+    //@{
+    double _sumWTrig;
+    //@}
+
     /// @name Histogram collections
     //@{
-    AIDA::IHistogram1D* _hist_eta630;
-    AIDA::IHistogram1D* _hist_eta1800;
+    AIDA::IHistogram1D* _hist_eta;
     //@}
 
   };
