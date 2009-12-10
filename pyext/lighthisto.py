@@ -38,9 +38,9 @@ class Histo(object):
         # the observable name, e.g. d01-x02-y01
         self.name = None
         # the histogram title
-        self.title = None
-        self.xlabel = None
-        self.ylabel = None
+        self.title = ''
+        self.xlabel = ''
+        self.ylabel = ''
         self._sorted = False
 
     def __cmp__(self, other):
@@ -98,9 +98,9 @@ class Histo(object):
     def asGnuplot(self):
         out  = "## HISTOGRAM: %s\n" % self.fullPath()
         out += "## Title: %s\n" % self.title
-        if self.xlabel:
+        if (self.xlabel!=''):
             out += "## XLabel: %s\n" % self.xlabel
-        if self.ylabel:
+        if (self.ylabel!=''):
             out += "## YLabel: %s\n" % self.ylabel
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
@@ -119,14 +119,14 @@ class Histo(object):
         else:
             r += ind + '    path="%s" title="">\n' % (
                     os.path.dirname(self.path))
-        if self.xlabel is not None:
+        if (self.xlabel!=''):
             r += ind + '  <dimenstion dim="0" title="%s"/>\n' % (
                     htmlescape(self.xlabel))
-        if self.ylabel is not None:
+        if (self.ylabel!=''):
             r += ind + '  <dimenstion dim="1" title="%s"/>\n' % (
                     htmlescape(self.ylabel))
         r += ind + "  <annotation>\n"
-        if self.title is not None:
+        if (self.title!=''):
             r += ind + '    <item key="Title" value="%s" sticky="true"/>\n' % (
                     htmlescape(self.title))
         else:
