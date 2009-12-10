@@ -21,8 +21,8 @@ namespace Rivet {
  
     void init() {
       // Projection
-      const ChargedFinalState cfs();
-      addProjection(cfs, "FS");
+      // const ChargedFinalState cfs();
+      addProjection(ChargedFinalState(), "FS");
 
       // Histo
       _hist_multiplicity = bookHistogram1D(1, 1, 1);

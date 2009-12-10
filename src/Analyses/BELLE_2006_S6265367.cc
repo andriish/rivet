@@ -41,7 +41,7 @@ namespace Rivet {
       const bool onresonance = true;
       // const bool onresonance = fuzzyEquals(beamproj.sqrtS(), 10.58, 1E-4);
 
-      // Particle masses from PDGlive (online 16. Nov. 2009).
+      // Particle masses from PDGlive (accessed online 16. Nov. 2009).
       foreach (const Particle& p, ufs.particles()) {
         // TODO: Data is not corrected for branching fractions.
 
