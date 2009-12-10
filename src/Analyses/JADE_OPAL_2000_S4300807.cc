@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
 
@@ -11,23 +10,15 @@ namespace Rivet {
   /**
    * @brief Jet rates in e+e- at OPAL and JADE
    * @author Frank Siegert
-   *
-   * @par Run conditions
-   *
-   * @arg LEP1 beam energy: \f$ \sqrt{s} = \$f 91.2 GeV
-   * @arg Run with generic QCD events.
    */
   class JADE_OPAL_2000_S4300807 : public Analysis {
-
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    JADE_OPAL_2000_S4300807() : Analysis("JADE_OPAL_2000_S4300807"),
-        _initialised(false)
-    {
+    JADE_OPAL_2000_S4300807() : Analysis("JADE_OPAL_2000_S4300807") {
       setBeams(ELECTRON, POSITRON);
     }
  
@@ -38,52 +29,47 @@ namespace Rivet {
     //@{
 
     void init() {
-      addProjection(Beam(), "Beams");
+      // Projections
       const FinalState fs;
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::JADE, 0.7), "JadeJets");
       addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+
+      // Histos
+      int offset = 0;
+      switch (int(sqrtS()/GeV + 0.5)) {
+      case 35: offset = 7; break;
+      case 44: offset = 8; break;
+      case 91: offset = 9; break;
+      case 133: offset = 10; break;
+      case 161: offset = 11; break;
+      case 172: offset = 12; break;
+      case 183: offset = 13; break;
+      case 189: offset = 14; break;
+      default:
+        getLog() << Log::ERROR
+                 << "CMS energy of events sqrt(s) = " << sqrtS()/GeV
+                 <<" doesn't match any available analysis energy." << endl;
+        /// @todo Really call exit()? I don't like the break of "command chain" that this implies
+        exit(1);
+      }
+      for (size_t i = 0; i < 5; ++i) {
+        _h_R_Jade[i] = bookDataPointSet(offset, 1, i+1);
+        _h_R_Durham[i] = bookDataPointSet(offset+9, 1, i+1);
+        if (i < 4) _h_y_Durham[i] = bookHistogram1D(offset+17, 1, i+1);
+      }
     }
 
 
 
     void analyze(const Event& e) {
-   
-      // Which CMS energy are we running at?
-      if (!_initialised) {
-        const double sqrts = applyProjection<Beam>(e, "Beams").sqrtS()/GeV;
-        int offset(0);
-        switch (int(sqrts+0.5)) {
-        case 35: offset = 7; break;
-        case 44: offset = 8; break;
-        case 91: offset = 9; break;
-        case 133: offset = 10; break;
-        case 161: offset = 11; break;
-        case 172: offset = 12; break;
-        case 183: offset = 13; break;
-        case 189: offset = 14; break;
-        default:
-          getLog() << Log::ERROR
-              << "CMS energy of events sqrt(s) = " << sqrts
-              <<" doesn't match any available analysis energy." << endl;
-          /// @todo Really call exit()? I don't like the break of "command chain" that this implies
-          exit(1);
-        }
-        for (size_t i=0; i<5; ++i) {
-          _h_R_Jade[i]=bookDataPointSet(offset, 1, i+1);
-          _h_R_Durham[i]=bookDataPointSet(offset+9, 1, i+1);
-          if (i<4)_h_y_Durham[i]=bookHistogram1D(offset+17, 1, i+1);
-        }
-        _initialised = true;
-      }
-     
-   
       // Jets
       getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
       const double weight = e.weight();
    
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
       if (jadejet.clusterSeq()) {
+        /// @todo Put this in an index loop?
         double y_23 = jadejet.clusterSeq()->exclusive_ymerge(2);
         double y_34 = jadejet.clusterSeq()->exclusive_ymerge(3);
         double y_45 = jadejet.clusterSeq()->exclusive_ymerge(4);
@@ -127,6 +113,7 @@ namespace Rivet {
    
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
+        /// @todo Put this in an index loop?
         double y_23 = durjet.clusterSeq()->exclusive_ymerge(2);
         double y_34 = durjet.clusterSeq()->exclusive_ymerge(3);
         double y_45 = durjet.clusterSeq()->exclusive_ymerge(4);
@@ -183,7 +170,7 @@ namespace Rivet {
       }
    
       for (size_t n = 0; n < 5; ++n) {
-        /// scale integrated jet rates to 100%
+        // Scale integrated jet rates to 100%
         for (int i = 0; i < _h_R_Jade[n]->size(); ++i) {
           IDataPoint* dp = _h_R_Jade[n]->point(i);
           dp->coordinate(1)->setValue(dp->coordinate(1)->value()*100.0/sumOfWeights());
@@ -206,8 +193,6 @@ namespace Rivet {
     AIDA::IDataPointSet *_h_R_Durham[5];
     AIDA::IHistogram1D *_h_y_Durham[4];
     //@}
-
-    bool _initialised;
 
   };
 

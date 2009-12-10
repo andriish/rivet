@@ -12,15 +12,13 @@ namespace Rivet {
   /* Underlying event in leading jet, extended to the LHC
    * @author Andy Buckley
    */
-  class MC_LHC_LEADINGJETS : public Analysis {
+  class MC_LEADINGJETS : public Analysis {
   public:
  
     /// Constructor
-    MC_LHC_LEADINGJETS()
-      : Analysis("MC_LHC_LEADINGJETS")
-    {
-      setBeams(PROTON, PROTON);
-    }
+    MC_LEADINGJETS()
+      : Analysis("MC_LEADINGJETS")
+    {    }
  
  
     /// @name Analysis methods
@@ -168,6 +166,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_LHC_LEADINGJETS> plugin_MC_LHC_LEADINGJETS;
+  AnalysisBuilder<MC_LEADINGJETS> plugin_MC_LEADINGJETS;
 
 }

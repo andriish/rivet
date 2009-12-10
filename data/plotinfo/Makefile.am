@@ -56,16 +56,16 @@ dist_pkgdata_DATA = \
   H1_1995_S3167097.plot \
   H1_2000_S4129130.plot \
   JADE_OPAL_2000_S4300807.plot \
-  MC_LHC_LEADINGJETS.plot \
-  MC_LHC_DIJET.plot \
-  MC_LHC_DIPHOTON.plot \
-  MC_LHC_PHOTONJETUE.plot \
-  MC_LHC_ZANALYSIS.plot \
-  MC_LHC_WANALYSIS.plot \
-  MC_LHC_SUSY.plot \
-  MC_LHC_TTBAR.plot \
-  MC_TVT1960_PHOTONJETS.plot \
-  MC_TVT1960_ZJETS.plot \
+  MC_LEADINGJETS.plot \
+  MC_DIJET.plot \
+  MC_DIPHOTON.plot \
+  MC_PHOTONJETUE.plot \
+  MC_ZANALYSIS.plot \
+  MC_WANALYSIS.plot \
+  MC_SUSY.plot \
+  MC_TTBAR.plot \
+  MC_PHOTONJETS.plot \
+  MC_ZJETS.plot \
   OPAL_1998_S3780481.plot \
   OPAL_2004_S6132243.plot \
   PDG_HADRON_MULTIPLICITIES.plot \

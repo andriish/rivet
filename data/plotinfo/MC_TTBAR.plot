@@ -1,4 +1,4 @@
-# BEGIN PLOT /MC_LHC_TTBAR/pseudorap
+# BEGIN PLOT /MC_TTBAR/pseudorap
 Title=Pseudorapidity distribution
 XLabel=$\eta$
 YLabel=$\frac{dN}{d\eta}$

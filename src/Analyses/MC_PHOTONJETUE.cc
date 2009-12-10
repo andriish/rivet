@@ -12,15 +12,13 @@ namespace Rivet {
   /* Underlying event in jet + isolated photon events
    * @author Andy Buckley
    */
-  class MC_LHC_PHOTONJETUE : public Analysis {
+  class MC_PHOTONJETUE : public Analysis {
   public:
  
     /// Constructor
-    MC_LHC_PHOTONJETUE()
-      : Analysis("MC_LHC_PHOTONJETUE")
-    {
-      setBeams(PROTON, PROTON);
-    }
+    MC_PHOTONJETUE()
+      : Analysis("MC_PHOTONJETUE")
+    {    }
  
  
     /// @name Analysis methods
@@ -258,6 +256,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_LHC_PHOTONJETUE> plugin_MC_LHC_PHOTONJETUE;
+  AnalysisBuilder<MC_PHOTONJETUE> plugin_MC_PHOTONJETUE;
 
 }

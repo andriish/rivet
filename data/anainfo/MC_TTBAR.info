@@ -1,17 +1,14 @@
-Name: MC_LHC_TTBAR
-Year: none
+Name: MC_TTBAR
 Summary: MC analysis for ttbar studies at the LHC
-Experiment: none
 Collider: LHC
-SpiresID: none
 Status: UNVALIDATED
 Authors:
  - Holger Schulz <hschulz@physik.hu-berlin.de>
-References:
+ - Andy Buckley <andy.buckley@cern.ch>
 RunInfo:
-  For Pythia6, set MSEL=6
-  For fortran Herwig/Jimmy select IPROC=1706
+  For Pythia6, set MSEL=6.
+  For Fortran Herwig/Jimmy select IPROC=1706.
 NumEvents: 10000
-PtCuts: 
+PtCuts: [0]
 Description:
   This is a pure Monte Carlo study for t-tbar production at the LHC.

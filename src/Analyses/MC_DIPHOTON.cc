@@ -8,11 +8,11 @@
 namespace Rivet {
 
 
-  class MC_LHC_DIPHOTON : public Analysis {
+  class MC_DIPHOTON : public Analysis {
   public:
 
     /// Constructor
-    MC_LHC_DIPHOTON() : Analysis("MC_LHC_DIPHOTON") {
+    MC_DIPHOTON() : Analysis("MC_DIPHOTON") {
       setNeedsCrossSection(true);
     }
 
@@ -96,7 +96,7 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_LHC_DIPHOTON> plugin_MC_LHC_DIPHOTON;
+  AnalysisBuilder<MC_DIPHOTON> plugin_MC_DIPHOTON;
 
 }
 

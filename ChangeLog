@@ -1,5 +1,12 @@
 2009-12-10  Andy Buckley  <andy@insectnation.org>
 
+	* Updating JADE_OPAL to do the histo booking in init(), since
+	sqrtS() is now available at that stage.
+
+	* Renaming and slightly re-engineering all MC_*_* analyses to not
+	be collider-specific (now the Analysis::sqrtS/beams()) methods
+	mean that histograms can be dynamically binned.
+
 	* Creating RivetUnvalidated.so plugin library for unvalidated
 	analyses. Unvalidated analyses now need to be explicitly enabled
 	with a --enable-unvalidated flag on the configure script.

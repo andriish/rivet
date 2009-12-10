@@ -9,15 +9,14 @@ namespace Rivet {
 
   /// @brief Monte Carlo validation observables for Z[e+ e-] + jets production at Tevatron Run II
   /// @author Frank Siegert
-  class MC_TVT1960_ZJETS : public MC_JetAnalysis {
+  class MC_ZJETS : public MC_JetAnalysis {
 
   public:
 
     /// Default constructor
-    MC_TVT1960_ZJETS()
-      : MC_JetAnalysis("MC_TVT1960_ZJETS", 1960.0, 4, "Jets")
+    MC_ZJETS()
+      : MC_JetAnalysis("MC_ZJETS", 4, "Jets")
     {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
  
@@ -46,13 +45,12 @@ namespace Rivet {
 
  
     /// Do the analysis
-    void analyze(const Event & e) {
-      const double weight = e.weight();
-   
+    void analyze(const Event & e) {   
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size()!=1) {
         vetoEvent;
       }
+      const double weight = e.weight();
    
       FourMomentum zmom(zfinder.particles()[0].momentum());
       _h_Z_mass->fill(zmom.mass(),weight);
@@ -108,6 +106,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_TVT1960_ZJETS> plugin_MC_TVT1960_ZJETS;
+  AnalysisBuilder<MC_ZJETS> plugin_MC_ZJETS;
 
 }

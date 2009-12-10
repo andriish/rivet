@@ -28,9 +28,9 @@ RivetUnvalidated_la_SOURCES = \
     DELPHI_2003_WUD_03_11.cc \
     E735_1998_S3905616.cc \
     H1_1995_S3167097.cc \
-    MC_LHC_DIJET.cc \
-    MC_LHC_PHOTONJETUE.cc \
-    MC_LHC_TTBAR.cc \
+    MC_DIJET.cc \
+    MC_PHOTONJETUE.cc \
+    MC_TTBAR.cc \
     SFM_1984_S1178091.cc \
     STAR_2008_S7993412.cc \
     UA1_1990_S2044935.cc \
@@ -123,10 +123,10 @@ lib_LTLIBRARIES += RivetMCAnalyses.la
 RivetMCAnalyses_la_SOURCES = \
     ExampleAnalysis.cc \
     MC_JetAnalysis.cc \
-    MC_TVT1960_PHOTONJETS.cc \
-    MC_TVT1960_ZJETS.cc \
-    MC_LHC_LEADINGJETS.cc \
-    MC_LHC_DIPHOTON.cc \
-    MC_LHC_WANALYSIS.cc \
-    MC_LHC_ZANALYSIS.cc \
-    MC_LHC_SUSY.cc
+    MC_PHOTONJETS.cc \
+    MC_ZJETS.cc \
+    MC_LEADINGJETS.cc \
+    MC_DIPHOTON.cc \
+    MC_WANALYSIS.cc \
+    MC_ZANALYSIS.cc \
+    MC_SUSY.cc

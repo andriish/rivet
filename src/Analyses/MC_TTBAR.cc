@@ -8,22 +8,17 @@
 namespace Rivet {
 
 
-  class MC_LHC_TTBAR : public Analysis {
+  class MC_TTBAR : public Analysis {
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    MC_LHC_TTBAR()
-      : Analysis("MC_LHC_TTBAR")
+    MC_TTBAR()
+      : Analysis("MC_TTBAR")
     {
-      /// @todo Set approriate for your analysis
-      setBeams(PROTON, PROTON);
-   
-      /// @todo Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(false);
-
+      //setNeedsCrossSection(false);
     }
 
     //@}
@@ -41,7 +36,7 @@ namespace Rivet {
       addProjection(cfs, "CFS");
 
       /// @todo Book histograms here, e.g.:
-       _histPseudorapidity = bookHistogram1D("pseudorap", 20, -5.0, 5.0);
+      _hist_nch_eta = bookHistogram1D("nch-eta", 20, -5.0, 5.0);
 
     }
 
@@ -53,16 +48,15 @@ namespace Rivet {
    
       foreach (const Particle& p, cfs.particles()) {
         double eta = p.momentum().pseudorapidity();
-        _histPseudorapidity->fill(eta, weight);
-     }
+        _hist_nch_eta->fill(eta, weight);
+      }
 
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-    scale(_histPseudorapidity, 1.0/sumOfWeights());
-   
+      scale(_hist_nch_eta, 1.0/sumOfWeights());
     }
 
 
@@ -70,8 +64,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
-    AIDA::IHistogram1D *_histPseudorapidity;
+    AIDA::IHistogram1D* _hist_nch_eta;
     //@}
 
   };
@@ -79,7 +72,7 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_LHC_TTBAR> plugin_MC_LHC_TTBAR;
+  AnalysisBuilder<MC_TTBAR> plugin_MC_TTBAR;
 
 
 }

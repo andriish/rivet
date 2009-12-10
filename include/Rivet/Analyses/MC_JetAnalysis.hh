@@ -13,8 +13,9 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    MC_JetAnalysis(const std::string& name, const double& sqrts,
-                   const size_t& njet, const std::string& jetpro_name);
+    MC_JetAnalysis(const string& name,
+                   const size_t& njet, 
+                   const string& jetpro_name);
 
 
     /// @name Analysis methods
@@ -24,11 +25,10 @@ namespace Rivet {
     virtual void finalize();
     //@}
 
+
   protected:
  
-    /// The energy scale and number of jets for which histograms are to be
-    /// initialised
-    double m_sqrts;
+    /// The number of jets for which histograms are to be initialised
     size_t m_njet;
  
     /// The name of the jet projection to be used for this analysis

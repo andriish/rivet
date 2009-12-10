@@ -8,13 +8,12 @@
 namespace Rivet {
 
 
-  class MC_LHC_DIJET : public Analysis {
+  class MC_DIJET : public Analysis {
   public:
 
     /// Default constructor
-    MC_LHC_DIJET()
-      : Analysis("MC_LHC_DIJET") {
-    }
+    MC_DIJET() : Analysis("MC_DIJET") 
+    {    }
  
  
     /// @name Analysis methods
@@ -115,6 +114,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_LHC_DIJET> plugin_MC_LHC_DIJET;
+  AnalysisBuilder<MC_DIJET> plugin_MC_DIJET;
 
 }

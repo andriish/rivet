@@ -1,4 +1,4 @@
-Name: MC_LHC_ZANALYSIS
+Name: MC_ZANALYSIS
 SpiresID: none
 Summary: "Finding Zs at the LHC, and analysis of the residual jets."
 Description: "Analysis of jets and Z bosons at the LHC. Output gives

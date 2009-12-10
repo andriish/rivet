@@ -1,4 +1,4 @@
-Name: MC_LHC_PHOTONJETUE
+Name: MC_PHOTONJETUE
 SpiresID: None
 Summary: "Study the usual underlying event observables in photon+jet events"
 Description: "Modification of the MC leading jets underlying event analysis 

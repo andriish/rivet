@@ -1,4 +1,4 @@
-Name: MC_LHC_SUSY
+Name: MC_SUSY
 SpiresID: None
 Summary: "Validate generic SUSY events, including various lepton invariant mass"
 Description: "Analysis of generic SUSY events at the LHC, based on Atlas 

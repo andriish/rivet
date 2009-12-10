@@ -16,15 +16,13 @@ namespace Rivet {
   /* Basic SUSY type validation analysis for the LHC
    * @author Andy Buckley
    */
-  class MC_LHC_SUSY : public Analysis {
+  class MC_SUSY : public Analysis {
   public:
  
     /// Constructor
-    MC_LHC_SUSY()
-      : Analysis("MC_LHC_SUSY")
-    {
-      setBeams(PROTON, PROTON);
-    }
+    MC_SUSY()
+      : Analysis("MC_SUSY")
+    {    }
  
  
     /// @name Analysis methods
@@ -318,6 +316,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_LHC_SUSY> plugin_MC_LHC_SUSY;
+  AnalysisBuilder<MC_SUSY> plugin_MC_SUSY;
 
 }

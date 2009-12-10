@@ -9,11 +9,11 @@
 namespace Rivet {
 
 
-  class MC_LHC_ZANALYSIS : public Analysis {
+  class MC_ZANALYSIS : public Analysis {
   public:
 
     /// Default constructor
-    MC_LHC_ZANALYSIS() : Analysis("MC_LHC_ZANALYSIS")
+    MC_ZANALYSIS() : Analysis("MC_ZANALYSIS")
     {
       setNeedsCrossSection(true);
     }
@@ -137,6 +137,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_LHC_ZANALYSIS> plugin_MC_LHC_ZANALYSIS;
+  AnalysisBuilder<MC_ZANALYSIS> plugin_MC_ZANALYSIS;
 
 }

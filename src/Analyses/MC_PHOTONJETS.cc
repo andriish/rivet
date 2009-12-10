@@ -7,14 +7,13 @@
 
 namespace Rivet {
 
-  class MC_TVT1960_PHOTONJETS : public MC_JetAnalysis {
+  class MC_PHOTONJETS : public MC_JetAnalysis {
   public:
  
     /// Default constructor
-    MC_TVT1960_PHOTONJETS()
-      : MC_JetAnalysis("MC_TVT1960_PHOTONJETS", 1960.0, 4, "Jets")
+    MC_PHOTONJETS()
+      : MC_JetAnalysis("MC_PHOTONJETS", 4, "Jets")
     {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
  
@@ -51,9 +50,7 @@ namespace Rivet {
  
 
     /// Do the analysis
-    void analyze(const Event& e) {
-      const double weight = e.weight();
- 
+    void analyze(const Event& e) { 
       // Get the photon
       const ParticleVector photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
       if (photons.size() != 1) {
@@ -66,6 +63,9 @@ namespace Rivet {
       if (fs.empty()) {
         vetoEvent;
       }
+
+      // Passed cuts, so get the weight
+      const double weight = e.weight();
    
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       const double egamma = photon.E();
@@ -97,11 +97,11 @@ namespace Rivet {
  
     // Finalize
     void finalize() {
-      scale(_h_photon_pT, crossSection()/sumOfWeights());
-      scale(_h_photon_y, crossSection()/sumOfWeights());
-      scale(_h_photon_jet1_deta, crossSection()/sumOfWeights());
-      scale(_h_photon_jet1_dphi, crossSection()/sumOfWeights());
-      scale(_h_photon_jet1_dR, crossSection()/sumOfWeights());
+      scale(_h_photon_pT, crossSectionPerEvent());
+      scale(_h_photon_y, crossSectionPerEvent());
+      scale(_h_photon_jet1_deta, crossSectionPerEvent());
+      scale(_h_photon_jet1_dphi, crossSectionPerEvent());
+      scale(_h_photon_jet1_dR, crossSectionPerEvent());
    
       MC_JetAnalysis::finalize();
     }
@@ -125,6 +125,6 @@ namespace Rivet {
  
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_TVT1960_PHOTONJETS> plugin_MC_TVT1960_PHOTONJETS;
+  AnalysisBuilder<MC_PHOTONJETS> plugin_MC_PHOTONJETS;
 
 }

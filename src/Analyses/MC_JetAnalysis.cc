@@ -7,9 +7,10 @@
 namespace Rivet {
 
 
-  MC_JetAnalysis::MC_JetAnalysis(const std::string& name, const double& sqrts,
-                                 const size_t& njet, const std::string& jetpro_name)
-    : Analysis(name), m_sqrts(sqrts), m_njet(njet), m_jetpro_name(jetpro_name),
+  MC_JetAnalysis::MC_JetAnalysis(const string& name,
+                                 const size_t& njet, 
+                                 const string& jetpro_name)
+    : Analysis(name), m_njet(njet), m_jetpro_name(jetpro_name),
     _h_log10_d(njet, NULL), _h_log10_R(njet+1, NULL), _h_pT_jet(njet, NULL),
     _h_eta_jet(njet, NULL)
   {
@@ -32,7 +33,7 @@ namespace Rivet {
    
       stringstream pTname;
       pTname<<"jet_pT_"<<i+1;
-      double pTmax = 1.0/(double(i)+2.0)*m_sqrts/2.0;
+      double pTmax = 1.0/(double(i)+2.0)*sqrtS()/GeV/2.0;
       int nbins = 100/(i+1);
       _h_pT_jet[i] = bookHistogram1D(pTname.str(), nbins, 0.0, pTmax);
    

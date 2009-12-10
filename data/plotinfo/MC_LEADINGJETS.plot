@@ -1,67 +1,48 @@
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/gammajet-dR
-Title=$\Delta{R}$ between leading jet and leading photon 
-XLabel=$\Delta{R}$
-YLabel=$\mathrm{d}N/\mathrm{d}\Delta{R}$
-# END PLOT
-
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/gammajet-dphi
-Title=$\Delta{\phi}$ between leading jet and leading photon 
-XLabel=$\Delta{\phi}$
-YLabel=$\mathrm{d}N/\mathrm{d}\Delta{\phi}$
-# END PLOT
-
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/trans-nchg
+# BEGIN PLOT /MC_LEADINGJETS/trans-nchg
 Title=Transverse region charged particle density
 XLabel=Leading jet $p_\perp$ / GeV
 YLabel=$\mathrm{d}{N_\text{ch}}/\mathrm{d}{\phi}$
 LogY=0
-XMin=20
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/trans-maxnchg
+# BEGIN PLOT /MC_LEADINGJETS/trans-maxnchg
 Title=TransMAX region charged particle density
 XLabel=Leading jet $p_\perp$ / GeV
 YLabel=$\mathrm{d}{N_\text{ch}}/\mathrm{d}{\phi}$
 LogY=0
-XMin=20
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/trans-minnchg
+# BEGIN PLOT /MC_LEADINGJETS/trans-minnchg
 Title=TransMIN region charged particle density
 XLabel=Leading jet $p_\perp$ / GeV
 YLabel=$\mathrm{d}{N_\text{ch}}/\mathrm{d}{\phi}$
 LogY=0
-XMin=20
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/trans-ptsum
+# BEGIN PLOT /MC_LEADINGJETS/trans-ptsum
 Title=Transverse region charged pT sum density
 XLabel=Leading jet $p_\perp$ / GeV
 YLabel=$\mathrm{d}{\sum p_\perp^\text{sum}}/\mathrm{d}{\phi}$
 LogY=0
-XMin=20
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/trans-maxptsum
+# BEGIN PLOT /MC_LEADINGJETS/trans-maxptsum
 Title=TransMAX region charged pT sum density
 XLabel=Leading jet $p_\perp$ / GeV
 YLabel=$\mathrm{d}{\sum p_\perp^\text{sum}}/\mathrm{d}{\phi}$
 LogY=0
-XMin=20
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/trans-minptsum
+# BEGIN PLOT /MC_LEADINGJETS/trans-minptsum
 Title=TransMIN region charged pT sum density
 XLabel=Leading jet $p_\perp$ / GeV
 YLabel=$\mathrm{d}{\sum p_\perp^\text{sum}}/\mathrm{d}{\phi}$
 LogY=0
-XMin=20
 # END PLOT
 
-# BEGIN PLOT /MC_LHC_PHOTONJETUE/trans-ptavg
+# BEGIN PLOT /MC_LEADINGJETS/trans-ptavg
 Title=Transverse region charged pT average
 XLabel=Leading jet $p_\perp$ / GeV
 YLabel=$\langle p_\perp \rangle$
 LogY=0
-XMin=20
 # END PLOT

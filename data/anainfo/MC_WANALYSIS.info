@@ -1,4 +1,4 @@
-Name: MC_LHC_WANALYSIS
+Name: MC_WANALYSIS
 SpiresID: None
 Summary: "Finding leptonic Ws at the LHC, and analysis of the residual jets."
 Description: "Analysis of jets and W+- bosons at the LHC. Output gives

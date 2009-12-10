@@ -57,16 +57,16 @@ dist_pkgdata_DATA = \
   H1_1995_S3167097.info \
   H1_2000_S4129130.info \
   JADE_OPAL_2000_S4300807.info \
-  MC_LHC_LEADINGJETS.info \
-  MC_LHC_DIJET.info \
-  MC_LHC_DIPHOTON.info \
-  MC_LHC_PHOTONJETUE.info \
-  MC_LHC_SUSY.info \
-  MC_LHC_TTBAR.info \
-  MC_LHC_WANALYSIS.info \
-  MC_LHC_ZANALYSIS.info \
-  MC_TVT1960_PHOTONJETS.info \
-  MC_TVT1960_ZJETS.info \
+  MC_LEADINGJETS.info \
+  MC_DIJET.info \
+  MC_DIPHOTON.info \
+  MC_PHOTONJETUE.info \
+  MC_SUSY.info \
+  MC_TTBAR.info \
+  MC_WANALYSIS.info \
+  MC_ZANALYSIS.info \
+  MC_PHOTONJETS.info \
+  MC_ZJETS.info \
   OPAL_1998_S3780481.info \
   OPAL_2004_S6132243.info \
   PDG_HADRON_MULTIPLICITIES.info \
