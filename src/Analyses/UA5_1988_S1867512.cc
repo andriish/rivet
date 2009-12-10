@@ -44,7 +44,6 @@ namespace Rivet {
     void init() {
       // Projections
       addProjection(TriggerUA5(), "Trigger");
-      addProjection(Beam(), "Beams");
       
       // Symmetric eta interval
       addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
@@ -67,17 +66,17 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.0, -2.0), "CFS30B");
       addProjection(ChargedFinalState(-3.5, -2.5), "CFS35B");
       addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
-            
+      
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
       if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
-        _hist_correl_200 = bookProfile1D(2, 1, 1);
-        _hist_correl_asym_200 = bookProfile1D(3, 1, 1);
+        _hist_correl = bookProfile1D(2, 1, 1);
+        _hist_correl_asym = bookProfile1D(3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 546.0, 1E-4)) {
-        _hist_correl_546 = bookProfile1D(2, 1, 2);      
-        _hist_correl_asym_546 = bookProfile1D(3, 1, 2);
+        _hist_correl = bookProfile1D(2, 1, 2);      
+        _hist_correl_asym = bookProfile1D(3, 1, 2);
       } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
-        _hist_correl_900 = bookProfile1D(2, 1, 3);
-        _hist_correl_asym_900 = bookProfile1D(3, 1, 3);
+        _hist_correl = bookProfile1D(2, 1, 3);
+        _hist_correl_asym = bookProfile1D(3, 1, 3);
       }
     }
     
@@ -130,89 +129,35 @@ namespace Rivet {
                  
       double mean_n_05  = mean(n_05);
 
-
       // Fill histos
-      if (fuzzyEquals(sqrtS(), 200.0, 1E-4)) {
-        for (size_t i = 0; i < n_10f.size(); i++) {
-          // Fill gap size histo (Fig 14), iterate over central gap size
-          _hist_correl_200->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-          _hist_correl_200->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-          _hist_correl_200->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-          _hist_correl_200->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-          _hist_correl_200->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-          _hist_correl_200->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-          _hist_correl_200->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-
-          // Fill gap-center histos (Fig 15), iterate over gap centers
-          //
-          // The first bin contains all the c_str strengths of
-          // the gap size histo above
-          _hist_correl_asym_200->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-          _hist_correl_asym_200->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-          _hist_correl_asym_200->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-          _hist_correl_asym_200->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-          _hist_correl_asym_200->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-          _hist_correl_asym_200->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-          _hist_correl_asym_200->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-          // Fill in c_str strength for assymetric intervals
-          _hist_correl_asym_200->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
-          _hist_correl_asym_200->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
-          _hist_correl_asym_200->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
-          _hist_correl_asym_200->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
-        }
+      for (size_t i = 0; i < n_10f.size(); i++) {
+        // Fill gap size histo (Fig 14), iterate over central gap size
+        _hist_correl->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+        _hist_correl->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+        _hist_correl->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+        _hist_correl->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+        _hist_correl->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+        _hist_correl->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+        _hist_correl->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+        
+        // Fill gap-center histos (Fig 15), iterate over gap centers
+        //
+        // The first bin contains all the c_str strengths of
+        // the gap size histo above
+        _hist_correl_asym->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
+        _hist_correl_asym->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
+        _hist_correl_asym->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
+        _hist_correl_asym->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
+        _hist_correl_asym->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
+        _hist_correl_asym->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
+        _hist_correl_asym->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
+        // Fill in c_str strength for assymetric intervals
+        _hist_correl_asym->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
+        _hist_correl_asym->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
+        _hist_correl_asym->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
+        _hist_correl_asym->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
       }
-      
-      else if (fuzzyEquals(sqrtS(), 546.0, 1E-4)) {
-        for (size_t i = 0; i < n_10f.size(); i++) {
-          _hist_correl_546->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-          _hist_correl_546->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-          _hist_correl_546->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-          _hist_correl_546->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-          _hist_correl_546->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-          _hist_correl_546->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-          _hist_correl_546->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-
-          _hist_correl_asym_546->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-          _hist_correl_asym_546->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-          _hist_correl_asym_546->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-          _hist_correl_asym_546->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-          _hist_correl_asym_546->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-          _hist_correl_asym_546->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-          _hist_correl_asym_546->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-          
-          _hist_correl_asym_546->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
-          _hist_correl_asym_546->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
-          _hist_correl_asym_546->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
-          _hist_correl_asym_546->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
-        }
-      }
-      
-      else if (fuzzyEquals(sqrtS(), 900.0, 1E-4)) {
-        for (size_t i = 0; i < n_10f.size(); i++) {
-          _hist_correl_900->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-          _hist_correl_900->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-          _hist_correl_900->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-          _hist_correl_900->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-          _hist_correl_900->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-          _hist_correl_900->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-          _hist_correl_900->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-
-          _hist_correl_asym_900->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-          _hist_correl_asym_900->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-          _hist_correl_asym_900->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-          _hist_correl_asym_900->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-          _hist_correl_asym_900->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-          _hist_correl_asym_900->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-          _hist_correl_asym_900->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-          
-          _hist_correl_asym_900->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
-          _hist_correl_asym_900->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
-          _hist_correl_asym_900->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
-          _hist_correl_asym_900->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
-        }
-      }
-
-      
+    
     }
     
     //@}
@@ -251,16 +196,10 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
     // Symmetric eta intervals
-    AIDA::IProfile1D *_hist_correl_200;
-    AIDA::IProfile1D *_hist_correl_546;
-    AIDA::IProfile1D *_hist_correl_900;
-    
+    AIDA::IProfile1D *_hist_correl;    
     // For asymmetric eta intervals
-    AIDA::IProfile1D *_hist_correl_asym_200;
-    AIDA::IProfile1D *_hist_correl_asym_546;
-    AIDA::IProfile1D *_hist_correl_asym_900;
+    AIDA::IProfile1D *_hist_correl_asym;
     //@}
 
   };

@@ -4,6 +4,9 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
+#include "Rivet/Projections/TriggerCDFRun0Run1.hh"
+#include "Rivet/Projections/TriggerUA5.hh"
+
 namespace Rivet {
 
 
@@ -13,6 +16,7 @@ namespace Rivet {
     /// Constructor
     E735_1998_S3905616() : Analysis("E735_1998_S3905616") {
       setBeams(PROTON, ANTIPROTON);
+      _sumWTrig = 0;
     }
  
 
@@ -20,8 +24,10 @@ namespace Rivet {
     //@{
  
     void init() {
-      // Projection
-      // const ChargedFinalState cfs();
+      // Projections
+      /// @todo E735 trigger?
+      //addProjection(TriggerCDFRun0Run1(), "Trigger");
+      addProjection(TriggerUA5(), "Trigger");
       addProjection(ChargedFinalState(), "FS");
 
       // Histo
@@ -30,15 +36,20 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
+      //const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      const bool trigger = applyProjection<TriggerUA5>(event, "Trigger").nsdDecision();
+      if (!trigger) vetoEvent;
+      const double weight = event.weight();
+      _sumWTrig += weight;
+
       const ChargedFinalState& fs = applyProjection<ChargedFinalState>(event, "FS");
       const size_t numParticles = fs.particles().size();
-      const double weight = event.weight();
       _hist_multiplicity->fill(numParticles, weight);
     }
  
  
     void finalize() {
-      normalize(_hist_multiplicity);
+      scale(_hist_multiplicity, 1/_sumWTrig);
     }
  
     //@}
@@ -46,9 +57,14 @@ namespace Rivet {
 
   private:
 
+    /// @name Weight counter
+    //@{
+    double _sumWTrig;
+    //@}
+
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_hist_multiplicity;
+    AIDA::IHistogram1D* _hist_multiplicity;
     //@}
  
   };

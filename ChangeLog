@@ -1,7 +1,16 @@
+2009-12-10  Andy Buckley  <andy@insectnation.org>
+
+	* Creating RivetUnvalidated.so plugin library for unvalidated
+	analyses. Unvalidated analyses now need to be explicitly enabled
+	with a --enable-unvalidated flag on the configure script.
+
+	* Various min bias analyses updated and validated.
+
 2009-12-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* propagate SPECIAL and HISTOGRAM sections from .plot files
 	through compare-histos
+
 	* STAR_2006_S6860818: <pT> vs particle mass, validate analysis
 
 2009-12-04  Andy Buckley  <andy@insectnation.org>

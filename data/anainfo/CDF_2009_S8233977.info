@@ -6,8 +6,8 @@ Collider: Tevatron Run 2
 SpiresID: 8233977
 Status: VALIDATED
 Authors:
- - Niccolo' Moggi <niccolo.moggi@bo.infn.it>
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+ - Niccolo' Moggi <niccolo.moggi@bo.infn.it>
 References:
  - Phys.Rev.D79:112005,2009
  - doi:10.1103/PhysRevD.79.112005

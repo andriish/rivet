@@ -4,7 +4,7 @@ Summary: Topological distributions of inclusive three- and four-jet events
 Experiment: D0
 Collider: Tevatron Run 1
 SpiresID: 3214044
-Status: NOT FINISHED (wrong jet algorithm!)
+Status: UNVALIDATED - currently wrong jet algorithm!
 Authors:
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:

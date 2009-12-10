@@ -159,6 +159,18 @@ fi
 AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 
+## Disable build/install of unvalidated analyses
+AC_ARG_ENABLE([unvalidated],
+  [AC_HELP_STRING(--enable-unvalidated, [don't try to build or install standard analyses])],
+  [], [enable_unvalidated=no])
+if test x$enable_unvalidated = xyes; then
+   AC_MSG_WARN([Building unvalidated Rivet analyses, by request])
+else
+   AC_MSG_NOTICE([Not building unvalidated Rivet analyses])
+fi
+AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
+
+
 ## Build LaTeX docs if possible...
 AC_PATH_PROG(PDFLATEX, pdflatex)
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
