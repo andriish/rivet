@@ -303,6 +303,14 @@ if __name__ == "__main__":
             headstr += "%s=%s\n" % (key, val)
         headstr += "# END PLOT\n"
 
+        ## Special
+        special = plotparser.getSpecial(name)
+        if special:
+            headstr += "\n"
+            headstr += "# BEGIN SPECIAL %s\n" %name
+            headstr += special
+            headstr += "# END SPECIAL\n"
+
         ## Write histos
         histstrs = []
         i = 0

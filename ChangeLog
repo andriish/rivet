@@ -1,3 +1,7 @@
+2009-12-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* propagate SPECIAL sections from .plot files through compare-histos
+
 2009-12-04  Andy Buckley  <andy@insectnation.org>
 
 	* Use scaling rather than normalising in DELPHI_1996: this is

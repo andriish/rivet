@@ -449,7 +449,48 @@ class PlotParser(object):
             if vm:
                 prop, value = vm.group(1,2)
                 headers[prop] = value
+        f.close()
         return headers
+
+    def getSpecial(self, hpath):
+        """Get a SPECIAL section for histogram hpath.
+
+        hpath must have the form /AnalysisID/HistogramID
+        """
+        # parts = os.path.split(hpath)
+        parts = hpath.split("/")
+        if len(parts) != 3:
+            raise ValueError("hpath has wrong number of parts (%i)" %
+                             (len(parts)))
+        base = parts[1] + ".plot"
+        plotfile = None
+        for pidir in self.plotpaths:
+            if os.access(os.path.join(pidir, base), os.R_OK):
+                plotfile = os.path.join(pidir, base)
+                break
+        if plotfile is None:
+            raise ValueError("no plot file %s found in plotpaths %s" %
+                             (base, self.plotpaths))
+        special = None
+        startreading = False
+        f = open(plotfile)
+        for line in f:
+            m = self.pat_begin_block.match(line)
+            if m:
+                tag, pathpat = m.group(1,2)
+                if tag == 'SPECIAL' and re.match(pathpat, hpath) is not None:
+                    startreading=True
+                    special = ''
+                    continue
+            if not startreading:
+                continue
+            if self.isEndMarker(line, 'SPECIAL'):
+                break
+            elif self.isComment(line):
+                continue
+            special += line
+        f.close()
+        return special
 
     def isEndMarker(self, line, blockname):
         m = self.pat_end_block.match(line)
