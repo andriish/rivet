@@ -312,6 +312,7 @@ if __name__ == "__main__":
             headstr += "# END SPECIAL\n"
 
         ## Write histos
+        histopts = plotparser.getHistogramOptions(name)
         histstrs = []
         i = 0
         for hfile in activefiles:
@@ -327,6 +328,10 @@ if __name__ == "__main__":
                 histstr += 'LineColor=%s\n' % color
                 histstr += 'LineStyle=%s\n' % style
                 histstr += 'Title=%s\n' % LABELS[hfile]
+                for key, val in histopts.iteritems():
+                    if key == 'ErrorBars' and opts.MC_ERRS:
+                        continue
+                    histstr += "%s=%s\n" % (key, val)
                 i += 1
             for bin in HISTOS[hfile][name].getBins():
                 xmin, xmax = bin.getXRange()
