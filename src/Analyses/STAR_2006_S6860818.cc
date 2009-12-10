@@ -33,7 +33,7 @@ namespace Rivet {
       addProjection(bbc1, "BBC1");
       addProjection(bbc2, "BBC2");
 
-      UnstableFinalState ufs(-2.5, 2.5, 0.2*GeV);
+      UnstableFinalState ufs(-2.5, 2.5, 0.0*GeV);
       addProjection(ufs, "UFS");
 
       _h_pT_k0s        = bookHistogram1D(1, 1, 1);
@@ -45,6 +45,7 @@ namespace Rivet {
       _h_pT_xiplus     = bookHistogram1D(1, 7, 1);
       //_h_pT_omega      = bookHistogram1D(1, 8, 1);
       _h_antibaryon_baryon_ratio = bookDataPointSet(2, 1, 1);
+      _h_pT_vs_mass    = bookProfile1D(3, 1, 1);
     }
 
 
@@ -65,7 +66,11 @@ namespace Rivet {
           const PdgId pid = p.pdgId();
           const double pT = p.momentum().pT() / GeV;
           switch (abs(pid)) {
+            case PIPLUS:
+              if (pid < 0) _h_pT_vs_mass->fill(0.1396, pT, weight);
+              break;
             case PROTON:
+              if (pid < 0) _h_pT_vs_mass->fill(0.9383, pT, weight);
               if (pT > 0.4) {
                 pid > 0 ? _nBaryon[0]++ : _nAntiBaryon[0]++;
                 pid > 0 ? _nWeightedBaryon[0]+=weight : _nWeightedAntiBaryon[0]+=weight;
@@ -75,13 +80,34 @@ namespace Rivet {
               if (pT > 0.2) {
                 _h_pT_k0s->fill(pT, weight/pT);
               }
+              _h_pT_vs_mass->fill(0.5056, pT, weight);
+              break;
+            case K0L:
+              _h_pT_vs_mass->fill(0.5056, pT, weight);
+              break;
+            case 113: // rho0(770)
+              _h_pT_vs_mass->fill(0.7755, pT, weight);
+              break;
+            case 313: // K0*(892)
+              _h_pT_vs_mass->fill(0.8960, pT, weight);
+              break;
+            case 333: // phi(1020)
+              _h_pT_vs_mass->fill(1.0190, pT, weight);
+              break;
+            case 3214: // Sigma(1385)
+              _h_pT_vs_mass->fill(1.3840, pT, weight);
+              break;
+            case 3124: // Lambda(1520)
+              _h_pT_vs_mass->fill(1.5200, pT, weight);
               break;
             case KPLUS:
+              if (pid < 0) _h_pT_vs_mass->fill(0.4856, pT, weight);
               if (pT > 0.2) {
                 pid > 0 ? _h_pT_kplus->fill(pT, weight/pT) : _h_pT_kminus->fill(pT, weight/pT);
               }
               break;
             case LAMBDA:
+              pid > 0 ? _h_pT_vs_mass->fill(1.1050, pT, weight) : _h_pT_vs_mass->fill(1.1250, pT, weight);
               if (pT > 0.3) {
                 pid > 0 ? _h_pT_lambda->fill(pT, weight/pT) : _h_pT_lambdabar->fill(pT, weight/pT);
                 pid > 0 ? _nBaryon[1]++ : _nAntiBaryon[1]++;
@@ -89,6 +115,7 @@ namespace Rivet {
               }
               break;
             case XIMINUS:
+              pid > 0 ? _h_pT_vs_mass->fill(1.3120, pT, weight) : _h_pT_vs_mass->fill(1.3320, pT, weight);
               if (pT > 0.5) {
                 pid > 0 ? _h_pT_ximinus->fill(pT, weight/pT) : _h_pT_xiplus->fill(pT, weight/pT);
                 pid > 0 ? _nBaryon[2]++ : _nAntiBaryon[2]++;
@@ -96,6 +123,7 @@ namespace Rivet {
               }
               break;
             case OMEGAMINUS:
+              _h_pT_vs_mass->fill(1.6720, pT, weight);
               if (pT > 0.5) {
                 //_h_pT_omega->fill(pT, weight/pT);
                 pid > 0 ? _nBaryon[3]++ : _nAntiBaryon[3]++;
@@ -167,8 +195,8 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_pT_ximinus;
     AIDA::IHistogram1D * _h_pT_xiplus;
     //AIDA::IHistogram1D * _h_pT_omega;
-
     AIDA::IDataPointSet* _h_antibaryon_baryon_ratio;
+    AIDA::IProfile1D*    _h_pT_vs_mass;
   };
 
 

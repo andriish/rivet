@@ -2,6 +2,7 @@
 
 	* propagate SPECIAL and HISTOGRAM sections from .plot files
 	through compare-histos
+	* STAR_2006_S6860818: <pT> vs particle mass, validate analysis
 
 2009-12-04  Andy Buckley  <andy@insectnation.org>
 

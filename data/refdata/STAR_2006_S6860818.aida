@@ -666,4 +666,68 @@
       <measurement errorPlus="4.497560e-01" value="1.006650e+00" errorMinus="4.497560e-01"/>
     </dataPoint>
   </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2"
+    path="/REF/STAR_2006_S6860818" title="Mean $p_\perp$ vs particle mass">
+    <annotation>
+      <item key="Title" value="Mean $p_\perp$ vs particle mass" sticky="true"/>
+      <item key="AidaPath" value="/REF/STAR_2006_S6860818/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/STAR_2006_S6860818.aida/REF/STAR_2006_S6860818/d03-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.396000e-01" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="1.800000e-02" value="3.480000e-01" errorMinus="1.800000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="4.856000e-01" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="7.300000e-02" value="6.050000e-01" errorMinus="7.300000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="5.056000e-01" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="3.000000e-02" value="6.000000e-01" errorMinus="3.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="7.755000e-01" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="6.000000e-02" value="6.400000e-01" errorMinus="6.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="8.960000e-01" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="1.400000e-01" value="8.100000e-01" errorMinus="1.400000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="9.383000e-01" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="4.100000e-02" value="6.830000e-01" errorMinus="4.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.160000e-02" value="1.020600e+00" errorMinus="1.160000e-02"/>
+      <measurement errorPlus="5.000000e-02" value="8.200000e-01" errorMinus="5.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.105000e+00" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="4.000000e-02" value="7.800000e-01" errorMinus="4.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.125000e+00" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="4.000000e-02" value="7.600000e-01" errorMinus="4.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.312000e+00" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="1.300000e-01" value="9.240000e-01" errorMinus="1.300000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.332000e+00" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="1.300000e-01" value="8.810000e-01" errorMinus="1.300000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.384000e+00" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="8.000000e-02" value="1.020000e+00" errorMinus="8.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.520000e+00" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="1.100000e-01" value="1.080000e+00" errorMinus="1.100000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e-02" value="1.672000e+00" errorMinus="1.000000e-02"/>
+      <measurement errorPlus="3.000000e-01" value="1.080000e+00" errorMinus="3.000000e-01"/>
+    </dataPoint>
+  </dataPointSet>
 </aida>
