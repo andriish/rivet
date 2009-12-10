@@ -4,9 +4,10 @@ Summary: Charged particle multiplicity in ppbar collisions at sqrt(s) = 1.8 TeV
 Experiment: E735
 Collider: Tevatron
 SpiresID: 3905616
-Status: UNVALIDATED
+Status: UNVALIDATED - need trigger etc.
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
+ - Andy Buckley <andy.buckley@cern.ch>
 References:
  - Phys.Lett.B435:453-457,1998
 RunInfo: QCD events, diffractive processes need to be switched
