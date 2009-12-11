@@ -86,11 +86,12 @@ namespace Rivet {
  
     void finalize() {
       // Normalised to #events
-      normalize(_h_deta, 8830.0);
+      normalize(_h_deta, 8830.0); // fixed norm OK
    
       // I have no idea what this is normalised to... in the paper it says unity!
       /// @todo Understand this!
       foreach (IHistogram1D* histo, _h_dphi.getHistograms()) {
+        /// @todo Prefer to scale rather than normalize, if possible
         normalize(histo, 0.0798);
       }
    

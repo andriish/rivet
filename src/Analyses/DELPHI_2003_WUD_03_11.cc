@@ -9,36 +9,11 @@
 namespace Rivet {
 
 
-  /**
-   * @brief DELPHI 4-jet angular distributions
-   * @author Hendrik Hoeth
-   *
-   * This is Hendrik Hoeth's Diploma thesis, measuring the 4-jet angular
-   * distributions at LEP-1.
-   *
-   *
-   * @par Run conditions
-   *
-   * @arg LEP1 beam energy: \f$ \sqrt{s} = \$f 91.2 GeV
-   * @arg Run with generic QCD events.
-   * @arg No \f$ p_\perp^\text{min} \f$ cutoff is required
-   */
-  class DELPHI_2003_WUD_03_11 : public Analysis {
-  public:
-
-    /// Constructor
-    DELPHI_2003_WUD_03_11()
-      : Analysis("DELPHI_2003_WUD_03_11")
-    {
-      _numdurjets = 0;
-      _numjadejets = 0;
-    }
- 
-
+  namespace {
 
     /// @name Jet angle calculator functions
-    /// @todo These shouldn't be object methods, as they have no state!
     //@{
+    /// @todo Move to utils?
  
     /// @todo Use Jet or FourMomentum interface rather than PseudoJet
     /// @todo Move to utils?
@@ -83,6 +58,33 @@ namespace Rivet {
 
     //@}
 
+  }
+
+
+  /**
+   * @brief DELPHI 4-jet angular distributions
+   * @author Hendrik Hoeth
+   *
+   * This is Hendrik Hoeth's Diploma thesis, measuring the 4-jet angular
+   * distributions at LEP-1.
+   *
+   *
+   * @par Run conditions
+   *
+   * @arg LEP1 beam energy: \f$ \sqrt{s} = \$f 91.2 GeV
+   * @arg Run with generic QCD events.
+   * @arg No \f$ p_\perp^\text{min} \f$ cutoff is required
+   */
+  class DELPHI_2003_WUD_03_11 : public Analysis {
+  public:
+
+    /// Constructor
+    DELPHI_2003_WUD_03_11()
+      : Analysis("DELPHI_2003_WUD_03_11")
+    {
+      _numdurjets = 0;
+      _numjadejets = 0;
+    }
 
 
     /// @name Analysis methods
@@ -163,6 +165,8 @@ namespace Rivet {
    
       getLog() << Log::INFO << "Number of Durham jets = " << _numdurjets << endl;
       getLog() << Log::INFO << "Number of Jade jets   = " << _numjadejets << endl;
+
+      /// @todo Scale rather than normalize?
       normalize(_histDurhamBZ      , 0.0785);
       normalize(_histDurhamKSW     , 0.0785);
       normalize(_histDurhamNR      , 0.0785);

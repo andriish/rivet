@@ -18,6 +18,8 @@ namespace Rivet {
   /// Hence, we don't expose the HepMC GenVertex directly - if it were
   /// available, people might try to e.g. look at the \f$ p_T \f$
   /// of the vertex children, which would be extremely unreliable.
+  ///
+  /// @deprecated This should hardly ever be required for MC studies, and is not necessarily reliable!
   class PVertex : public Projection {
   public:
 

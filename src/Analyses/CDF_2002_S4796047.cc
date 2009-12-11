@@ -36,6 +36,7 @@ namespace Rivet {
       : Analysis("CDF_2002_S4796047")
     {
       setBeams(PROTON, ANTIPROTON);
+      _sumWTrig = 0;
     }
 
 
@@ -45,14 +46,17 @@ namespace Rivet {
     /// Book projections and histograms
     void init() {
       addProjection(TriggerCDFRun0Run1(), "Trigger");
-      addProjection(Beam(), "Beam");
       const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
       addProjection(cfs, "FS");
 
-      _hist_multiplicity_630  = bookHistogram1D(1, 1, 1);
-      _hist_multiplicity_1800 = bookHistogram1D(2, 1, 1);
-      _hist_pt_vs_multiplicity_630  = bookProfile1D(3, 1, 1);
-      _hist_pt_vs_multiplicity_1800 = bookProfile1D(4, 1, 1);
+      // Histos
+      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+        _hist_multiplicity  = bookHistogram1D(1, 1, 1);
+        _hist_pt_vs_multiplicity  = bookProfile1D(3, 1, 1);
+      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+        _hist_multiplicity = bookHistogram1D(2, 1, 1);
+        _hist_pt_vs_multiplicity = bookProfile1D(4, 1, 1);
+      }
     }
  
  
@@ -62,29 +66,19 @@ namespace Rivet {
       const bool trigger = applyProjection<TriggerCDFRun0Run1>(evt, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
       const double weight = evt.weight();
+      _sumWTrig += weight;
 
       // Get beam energy and tracks
-      const double sqrtS = applyProjection<Beam>(evt, "Beam").sqrtS();
       const ChargedFinalState& fs = applyProjection<ChargedFinalState>(evt, "FS");
       const size_t numParticles = fs.particles().size();
 
       // Fill histos of charged multiplicity distributions
-      if (fuzzyEquals(sqrtS, 630/GeV)) {
-        _hist_multiplicity_630->fill(numParticles, weight);
-      }
-      else if (fuzzyEquals(sqrtS, 1800/GeV)) {
-        _hist_multiplicity_1800->fill(numParticles, weight);
-      }
+      _hist_multiplicity->fill(numParticles, weight);
 
       // Fill histos for <pT> vs. charged multiplicity
       foreach (const Particle& p, fs.particles()) {
         const double pT = p.momentum().pT();
-        if (fuzzyEquals(sqrtS, 630/GeV)) {
-          _hist_pt_vs_multiplicity_630->fill(numParticles, pT/GeV, weight);
-        }
-        else if (fuzzyEquals(sqrtS, 1800/GeV)) {
-          _hist_pt_vs_multiplicity_1800->fill(numParticles, pT/GeV, weight);
-        }
+        _hist_pt_vs_multiplicity->fill(numParticles, pT/GeV, weight);
       }
    
     }
@@ -93,8 +87,12 @@ namespace Rivet {
     void finalize() {
       // This normalisation is NOT a cross-section.
       // DON'T TRY TO REPAIR THIS, YOU WILL BREAK IT.
-      normalize(_hist_multiplicity_630, 3.21167);
-      normalize(_hist_multiplicity_1800, 4.19121);
+      /// @todo What is it, then?
+      if (fuzzyEquals(sqrtS()/GeV, 630)) {
+        normalize(_hist_multiplicity, 3.21167); // fixed norm OK
+      } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
+        normalize(_hist_multiplicity, 4.19121); // fixed norm OK
+      }
     }
 
     //@}
@@ -102,10 +100,16 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D *_hist_multiplicity_630;
-    AIDA::IHistogram1D *_hist_multiplicity_1800;
-    AIDA::IProfile1D   *_hist_pt_vs_multiplicity_630 ;
-    AIDA::IProfile1D   *_hist_pt_vs_multiplicity_1800;
+    /// @name Counter
+    //@{
+    double _sumWTrig;
+    //@}
+
+    /// @name Histos
+    //@{
+    AIDA::IHistogram1D* _hist_multiplicity;
+    AIDA::IProfile1D* _hist_pt_vs_multiplicity;
+    //@}
 
   };
 

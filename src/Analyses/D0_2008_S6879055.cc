@@ -97,8 +97,8 @@ namespace Rivet {
       const Jets jets = jetpro.jetsByPt(20.0*GeV);
       vector<FourMomentum> finaljet_list;
       foreach (const Jet& j, jets) {
-        const double jeta = j.momentum().pseudorapidity();
-        const double jphi = j.momentum().azimuthalAngle();
+        const double jeta = j.momentum().eta();
+        const double jphi = j.momentum().phi();
         if (fabs(jeta) > 2.5) continue;
      
         FourMomentum e0 = invmassfs.particles()[0].momentum();
@@ -145,8 +145,8 @@ namespace Rivet {
       _crossSectionRatio->scale(1.0/_crossSectionRatio->binHeight(0));
    
       // Normalise jet pT's to integral of data
-      // there is no other way to do this, because these quantities are not
-      // detector corrected
+      // NB. There is no other way to do this, because these quantities are not
+      // detector-corrected
       normalize(_pTjet1, 10439.0);
       normalize(_pTjet2, 1461.5);
       normalize(_pTjet3, 217.0);
