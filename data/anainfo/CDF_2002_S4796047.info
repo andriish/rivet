@@ -14,6 +14,7 @@ RunInfo:
   QCD events at sqrt(s) = 630 and 1800 GeV.
 NumEvents: 1000000
 PtCuts: [0]
+Energies: [630,1800]
 Description:
   A study of ppbar collisions at sqrt(s) = 1800 and 630 GeV collected
   using a minimum bias trigger in which the data set is divided into two

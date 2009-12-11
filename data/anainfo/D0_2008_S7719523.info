@@ -1,6 +1,6 @@
 Name: D0_2008_S7719523
 Year: 2008
-Summary: Isolated gamma + jet cross-sections, differential in pT(gamma) for various y-bins
+Summary: Isolated $\gamma$ + jet cross-sections, differential in pT($\gamma$) for various $y$ bins
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 7719523
@@ -25,10 +25,10 @@ Description:
   $|y_\gamma| < 1.0$ with transverse momenta in the range 30--400 GeV,
   while jets are reconstructed in either the central $|y_jet| < 0.8$ or
   forward $1.5 < |y_\text{jet}| < 2.5$ rapidity intervals with
-  $pT_\text{jet} > 15~\text{GeV}$. The differential cross section
-  $\mathrm{d}^3 \sigma / \mathrm{d}{pT_\gamma} \mathrm{d}{y_\gamma}
-  \mathrm{d}{y_jet}$ is measured as a function of $pT_\gamma$ in four
+  $pT^\text{jet} > 15~\text{GeV}$. The differential cross section
+  $\mathrm{d}^3 \sigma / \mathrm{d}{pT^\gamma} \mathrm{d}{y_\gamma}
+  \mathrm{d}{y_\text{jet}}$ is measured as a function of $pT^\gamma$ in four
   regions, differing by the relative orientations of the photon and the
   jet.  MC predictions have trouble with simultaneously describing the
-  measured normalization and $pT_\gamma$ dependence of the cross section
+  measured normalization and $pT^\gamma$ dependence of the cross section
   in any of the four measured regions.

@@ -1,16 +1,11 @@
 Name: MC_WANALYSIS
-SpiresID: None
 Summary: "Finding leptonic Ws at the LHC, and analysis of the residual jets."
-Description: "Analysis of jets and W+- bosons at the LHC. Output gives
-             charged multiplicity, transverse momentum, mean 
-             transverse momentum, W counts, transverse momentum of
-             Ws, pseudorapidity distributions of Ws, azimuthal angle
-             distributions of Ws, W mass, jet counts and jet transverse
-             momenta."
-RunInfo: "W production events with CKIN(3)=20 at any energy"
+Description: 
+  Analysis of jets and W$^\pm$ bosons. Output gives charged multiplicity,
+  transverse momentum, mean transverse momentum, W counts, transverse momentum of
+  Ws, pseudorapidity distributions of Ws, azimuthal angle distributions of Ws, W
+  mass, jet counts and jet transverse momenta.
+RunInfo: W production events with CKIN(3)=20 at any energy
 Status: VALIDATED
-Experiment: None
-Collider: None
-Year: None
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

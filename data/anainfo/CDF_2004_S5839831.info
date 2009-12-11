@@ -11,11 +11,12 @@ References:
  - Phys. Rev. D70, 072002 (2004)
  - arXiv:hep-ex/0404004
 RunInfo:
-  QCD events at sqrt(s) = 630 & 1800 GeV
+  QCD events at sqrt(s) = 630 & 1800 GeV.
   Several pTmin cutoffs are probably required to fill the profile histograms,
-  e.g. 0 (min bias), 30, 90, 150 GeV  at 1800 GeV; and 0 (min bias), 20, 90, 
-  150 GeV } at 630 GeV
+  e.g. 0 (min bias), 30, 90, 150 GeV at 1800 GeV, and 0 (min bias), 20, 90, 
+  150 GeV at 630 GeV.
 NumEvents: 1000000
+Energies: [630, 1800]
 PtCuts: [0, 30, 90, 150] # for 1800, [0, 20, 90, 150] for 630
 Description:
   This analysis studies the underlying event via transverse cones of  $R
@@ -31,3 +32,6 @@ Description:
   included for $n = 2, 3$.  This analysis is useful for constraining the
   energy evolution of the underlying event, since it performs the same
   analyses at two distinct CoM energies.
+
+  WARNING! The pT plots are normalised to raw number of events. The min bias
+  data have not been reproduced by MC, and are not recommended for tuning.

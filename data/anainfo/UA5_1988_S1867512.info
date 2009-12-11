@@ -17,7 +17,7 @@ PtCuts: [0]
 Energies: [200, 546, 900]
 Description:
   Data on two-particle pseudorapidity and multiplicity correlations 
-  of charged particles for non single-diffractive $$p\bar p - collisions$$ at 
+  of charged particles for non single-diffractive $\bar{p}p$ collisions at 
   c.m. energies of 200, 546 and 900 GeV. Pseudorapidity correlations interpreted 
   in terms of a cluster model, which has been motivated by this and other 
   experiments, require on average about two charged particles per cluster. 

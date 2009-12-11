@@ -12,21 +12,21 @@ References:
  - doi:10.1007/s100520000287
  - arXiv:hep-ex/9907027v1
 RunInfo:
-  e+ p deep inelastic scattering with
-  p at 820 GeV, e+ at 27.5 GeV -> sqrt(s) = 300 GeV
+  $e^+ p$ deep inelastic scattering with
+  $p$ at 820 GeV, $e^+$ at 27.5 GeV -> sqrt(s) = 300 GeV
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   Measurements of transverse energy flow for neutral current deep-
   inelastic scattering events produced in positron-proton collisions at
   HERA. The kinematic range covers squared momentum transfers $Q^2$ from
-  3.2 to 2200 GeV^2; the Bjorken scaling variable $x$ from 8x10^-5 to
+  3.2 to 2200 GeV$^2$; the Bjorken scaling variable $x$ from $8 \times 10^{-5}$ to
   0.11 and the hadronic mass $W$ from 66 to 233 GeV. The transverse
   energy flow is measured in the hadronic centre of mass frame and is
   studied as a function of $Q^2$, $x$, $W$ and pseudorapidity. The
   behaviour of the mean transverse energy in the central pseudorapidity
   region and an interval corresponding to the photon fragmentation
-  region are analysed as a function of Q^2 and W.  This analysis is
+  region are analysed as a function of $Q^2$ and $W$.  This analysis is
   useful for exploring the effect of photon PDFs and for tuning models
   of parton evolution and treatment of fragmentation and the proton
   remnant in DIS.

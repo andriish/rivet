@@ -18,6 +18,6 @@ PtCuts: [0]
 Description:
   Cross sections as a function of jet transverse momentum in 1 and 2 jet
   events, and jet multiplicity in ppbar collisions at sqrt(s) = 1.96
-  TeV, based on an integrated luminosity of 1.7 fb^-1. The measurements
-  cover the rapidity region $|y_\text{jet}| < 2.1$ and the transverse
-  momentum range $pT_\text{jet} > 30~\text{GeV}/c$.
+  TeV, based on an integrated luminosity of $1.7~\text{fb}^{-1}$. The 
+  measurements cover the rapidity region $|y_\text{jet}| < 2.1$ and 
+  the transverse momentum range $pT^\text{jet} > 30~\text{GeV}/c$.

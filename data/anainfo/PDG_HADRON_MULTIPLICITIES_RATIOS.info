@@ -1,8 +1,8 @@
 Name: PDG_HADRON_MULTIPLICITIES_RATIOS
 Year: 2008
-Summary: Ratios (w.r.t. pi^+/pi^-) of hadron multiplicities in hadronic e+e- events
+Summary: Ratios (w.r.t. $pi^+/pi^-$) of hadron multiplicities in hadronic $e^+e^-$ events
 Experiment: PDG
-Collider: various
+Collider: Various
 SpiresID: 7857373
 Status: VALIDATED
 Authors:
@@ -14,7 +14,7 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Ratios (w.r.t. pi^+/pi^-) of hadron multiplicities in hadronic e+e-
+  Ratios (w.r.t. $pi^+/pi^-$) of hadron multiplicities in hadronic $e^+e^-$
   events, taken from Review of Particle Properties 2008, table 40.1,
   page 355.   Average hadron multiplicities per hadronic $e^+e^-$
   annihilation event at $\sqrt{s} \approx {}$ 10, 29--35, 91, and 130--
