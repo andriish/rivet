@@ -34,8 +34,7 @@ namespace Rivet {
     _evt.reset(new GenEvent());
     if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
       Log::getLog("Rivet.Run") << Log::DEBUG
-        << "Read failed. End of file? HepMC error:" << _io->error_message()
-        << endl;
+            << "Read failed. End of file?" << endl;
       return false;
     }
     return true;
