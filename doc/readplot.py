@@ -1,11 +1,14 @@
 #! /usr/bin/env python
 
+## TODO: Why don't these tests work within 'make'?
+
+
 ## Make "set" a builtin type on Python < 2.4
-if not 'set' in dir(__builtins__):
+if 'set' not in dir(__builtins__):
     from sets import Set as set
 
 ## Make "sorted" a builtin function on Python < 2.4
-if not 'sorted' in dir(__builtins__):
+if 'sorted' not in dir(__builtins__):
     def sorted(iterable, cmp=None, key=None, reverse=None):
         rtn = iterable
         rtn.sort(cmp)#, key, reverse)

@@ -47,12 +47,14 @@ import rivet
 
 def texify(s):
     t = s \
-        .replace("&", "\\&") \
-        .replace("->", "\\ensuremath{\\to}") \
-        .replace("_", "\\_") \
-        .replace("^", "") \
-        .replace("pT", "\\pT") \
-        .replace("sqrt(s)", "\\ensuremath{\\sqrt{s}}")
+        .replace(r"&", r"\&") \
+        .replace(r"\\&", r"\&") \
+        .replace(r"#", r"\#") \
+        .replace(r"->", r"\ensuremath{\to}") \
+        .replace(r"pT", r"\pT") \
+        .replace(r"sqrt(s)", r"\ensuremath{\sqrt{s}}")
+        # .replace(r"_", r"\_") \
+        # .replace(r"^", r"") \
     return t
 
 
@@ -63,12 +65,14 @@ pages = { "LEP":[], "Tevatron":[], "HERA":[], "Monte Carlo":[], "Example":[], "M
 for aname in sorted(list(all_analyses)):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
-    page += "\\subsection{%s}\n" % aname
+    page += "\\subsection{%s}\n" % aname.replace(r"_", r"\_")
     page += "\\textbf{%s}\\newline\n" %  ana.summary()
-    page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
-    spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
-    page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
-        (spiresbase, ana.spiresId(), ana.spiresId())
+    if ana.experiment():
+        page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
+    if ana.spiresId():
+        spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
+        page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
+            (spiresbase, ana.spiresId(), ana.spiresId())
     page += "\\textbf{Status:} %s\\newline\n" % ana.status()
 
 
@@ -86,7 +90,7 @@ for aname in sorted(list(all_analyses)):
             page += "  \\item %s\n" % s
         page += "\\end{itemize}\n"
     else:
-        page += "\\textbf{No authors listed}\n"
+        page += "\\textbf{No authors listed}\\ \n"
 
 
     if ana.references():
@@ -105,7 +109,7 @@ for aname in sorted(list(all_analyses)):
                 page += "  \\item %s\n" % r
         page += "\\end{itemize}\n"
     else:
-        page += "\\textbf{No references listed}\n"
+        page += "\\textbf{No references listed}\\ \n"
 
 
     if ana.runInfo():
@@ -119,7 +123,7 @@ for aname in sorted(list(all_analyses)):
             page += "  \\item %s\n" % l
         page += "\\end{itemize}\n"
     else:
-        page += "\\textbf{No run details listed}\n"
+        page += "\\textbf{No run details listed}\\ \n"
 
 
     for para in ana.description().split("\n\n"):
@@ -130,12 +134,12 @@ for aname in sorted(list(all_analyses)):
         import readplot
         info = readplot.plotinfo(ana.name())
         if info:
-            page += "\n\\vspace{1em}\\noindent"
+            page += "\n\\vspace{1em}\n\\noindent\n"
             page += "\\textbf{Histograms:}\n \\penalty 100\n"
             page += "\\begin{itemize}\n"
-            for hpath in info.keys():
+            for hpath in sorted(info.keys()):
                 htitle = info[hpath]["TITLE"]
-                page += "  \\item %s (\kbd{%s})\n" % (htitle, hpath)
+                page += "  \\item %s (\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
             page += "\\end{itemize}\n"
     except:
         pass 
