@@ -10,6 +10,13 @@ Or, if no REFAIDAPATH is given, normalise to new area given in
 observable-file "observables_and_areas", e.g.:
 CDF_2000_S4155203_d01-x01-y01  1.0
 
+You can also define bin to chop out in the observable-file in the
+same way as in chop_bins:
+CDF_2000_S4155203_d01-x01-y01:0:35  1.0
+This will chop the bins with Z-pT > 35 GeV and afterwards perform
+the renormalisation.
+
+
 Example:
     %prog -r /usr/share/Rivet/ -O observables out.aida
 This will return the Z-boson pT-distribution, normalised to the histo-area
@@ -17,8 +24,6 @@ measured by CDF.
     %prog -O observables_and_areas out.aida
 This will return the Z-boson pT-distribution, normalised to 1.0
 
-TODO:
-    * allow to chop bins
 """
 
 import os, re, sys, logging
@@ -105,6 +110,8 @@ def readObservableFile(obsfile):
     """
     obslist = []
     obsnorms = {}
+    bindefs = {}
+
     if obsfile is not None:
         try:
             f = open(obsfile, 'r')
@@ -113,16 +120,38 @@ def readObservableFile(obsfile):
             sys.exit(2)
         for line in f:
             stripped = line.strip()
+            # Skip empty or commented lines
             if len(stripped) == 0 or stripped.startswith("#"):
                 continue
-            split = stripped.split()
-            # Try to read areas to normalise to given in obsfile
-            if len(split) == 2:
-                obsnorms[split[0]] = float(split[1])
-            obslist.append(split[0])
-        f.close()
-    return obslist, obsnorms
 
+            # Split the line to find out whether newarea is given in obsfile
+            splitline = stripped.split()
+
+            # Try to read bin specs for chopping
+            try:
+                path, low, high = splitline[0].split(":")
+            except:
+                path = splitline[0].split(":")[0]
+                low  = ""
+                high = ""
+                logging.warning("No bin definition given for %s" % (line))
+                #sys.exit(1)
+            if low == "":
+                low = None
+            else:
+                low = float(low)
+            if high == "":
+                high = None
+            else:
+                high = float(high)
+            bindefs[path] = (low, high)
+
+            # Try to read areas to normalise to from obsfile
+            if len(splitline) == 2:
+                obsnorms[path] = float(splitline[1])
+            obslist.append(path)
+        f.close()
+    return obslist, obsnorms, bindefs
 
 
 if __name__ == "__main__":
@@ -133,12 +162,14 @@ if __name__ == "__main__":
                       help="Specify a file with histograms (and bin ranges) " +
                       " that are to be normalised.")
     parser.add_option("-r", "--refdir", default=None,
-                      help="Folder with reference histo files")
+                      help="File of folder with reference histos")
     parser.add_option("-o", "--outdir",
                       dest="outdir", default="renormalised",
                       help="output directory (default: %default)")
-    parser.add_option("-a", dest="AIDA", default=False, action="store_true",
+    parser.add_option("-a", dest="AIDA", default=True, action="store_true",
                       help="Produce AIDA output rather than FLAT")
+    parser.add_option("-f", dest="AIDA", action="store_false",
+                      help="Produce FLAT output rather than AIDA")
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-V", "--verbose", action="store_const",
                          const=logging.DEBUG, dest="LOGLEVEL",
@@ -175,8 +206,7 @@ if __name__ == "__main__":
 
     # Read in observables, if no observable file is given or observable file
     # is empty all observables will be renormalised if possible
-    #obslist = [obs.split(":")[0] for obs in readObservableFile(opts.obsfile)]
-    obslist, obsnorms = readObservableFile(opts.obsfile)
+    obslist, obsnorms, bindefs = readObservableFile(opts.obsfile)
     if len(obslist) == 0:
         logging.warning("No observable file given or empty, will try to ",
                 "normalise all histos.")
@@ -206,73 +236,40 @@ if __name__ == "__main__":
 
     # Iterate over all histos
     for name, histo in histos.iteritems():
-        # Make sure the reference histo for name exists
-        if name in obslist and name in refhistos.keys():
-            newarea = refhistos[name].getArea()
-            oldarea = histos[name].getArea()
-            renormed = histos[name].renormalise(newarea)
-            logging.info("Renormalising %s from %f to %f"%(name, oldarea,
-                newarea))
-            if opts.AIDA:
-                f.write(renormed.asAIDA())
-            else:
-                f.write(renormed.asFlat())
-        elif name in obsnorms.keys():
-            newarea = obsnorms[name]
-            oldarea = histos[name].getArea()
-            renormed = histos[name].renormalise(newarea)
-            logging.info("Renormalising %s from %f to %f"%(name, oldarea,
-                newarea))
-            if opts.AIDA:
-                f.write(renormed.asAIDA())
-            else:
-                f.write(renormed.asFlat())
+        # Find out whether ref-histo is given
+        if name in refhistos.keys():
+            tempref = refhistos[name]
         else:
-            logging.warning("Could not find observable %s in refdir "%name +
-                    "%s or no normalisation given in %s"%(opts.refdir, opts.obsfile))
-            if opts.AIDA:
-                f.write(histos[name].asAIDA())
-            else:
-                f.write(histos[name].asFlat())
+            tempref = histos[name]
+
+        # Try to chop bins
+        if name in bindefs.keys():
+            tempref = tempref.chop(bindefs[name])
+            tempold = histos[name].chop(bindefs[name])
+        else:
+            #tempref = refhistos[name]
+            tempold = histos[name]
+
+        # Get old and new histogram areas
+        oldarea = tempold.getArea()
+        if name in obsnorms.keys():
+            newarea = obsnorms[name]
+        else:
+            newarea = tempref.getArea()
+
+        # Renormalise histo
+        logging.info("Renormalising %s from %f to %f"%(name, oldarea,
+            newarea))
+        renormed = tempold.renormalise(newarea)
+
+        # Write to file
+        if opts.AIDA:
+            f.write(renormed.asAIDA())
+        else:
+            f.write(renormed.asFlat())
+
 
     if opts.AIDA:
         f.write("</aida>")
 
     logging.info("Done. Written output to %s."%outfile)
-
-    #bindefs = {}
-    #f = open(opts.bins, "r")
-    #for line in f:
-    ##for bd in opts.bins:
-        #if not line.startswith("#"):
-            #try:
-                #path, low, high = line.split(":")
-            #except:
-                #sys.stderr.write("Problem parsing bin definition `%s'" % (line))
-                #sys.exit(1)
-            #if low == "":
-                #low = None
-            #else:
-                #low = float(low)
-            #if high == "":
-                #high = None
-            #else:
-                #high = float(high)
-            #bindefs[path] = (low, high)
-
-
-    #binedges = []
-    #sqrts.sort()
-    #for num, s in enumerate(sqrts):
-        #try:
-            #d = 0.5 * (sqrts[num+1] - s)
-            #binedges.append((s-d, s+d))
-        #except:
-            #binedges.append((s-d, s+d))
-
-    ## Read in and chop histos
-    #mchistos = getMCHistos(opts.mcdir, bindefs)
-
-
-
-
