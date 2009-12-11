@@ -1,5 +1,5 @@
 bin_SCRIPTS = rivet-config rivet-buildplugin
-dist_bin_SCRIPTS = aida2flat aida2root compare-histos make-html make-plots rivet-mkanalysis chop_bins
+dist_bin_SCRIPTS = aida2flat aida2root compare-histos make-html make-plots rivet-mkanalysis chop_bins normalise-to-refdata
 EXTRA_DIST = flat2aida
 
 if ENABLE_PYEXT
