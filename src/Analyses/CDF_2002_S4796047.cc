@@ -86,8 +86,15 @@ namespace Rivet {
 
     void finalize() {
       // This normalisation is NOT a cross-section.
+      // In the paper the x-axes (!) of the histograms are
+      // scaled such that they can put both energies in the
+      // same plot. Of course this affects the area, too.
+      // Since we want to plot the actual multiplicity, we
+      // scale the x-axes back and have to adjust the areas
+      // accordingly. The scale factors are given in the
+      // legend of the plot in the paper. Have a look at
+      // figure 1 and everything immediately becomes clear.
       // DON'T TRY TO REPAIR THIS, YOU WILL BREAK IT.
-      /// @todo What is it, then?
       if (fuzzyEquals(sqrtS()/GeV, 630)) {
         normalize(_hist_multiplicity, 3.21167); // fixed norm OK
       } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
