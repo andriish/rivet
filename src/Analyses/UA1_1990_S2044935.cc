@@ -4,8 +4,6 @@
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 
 namespace Rivet {
@@ -32,7 +30,6 @@ namespace Rivet {
     void init() {
       addProjection(ChargedFinalState(-5.5, 5.5), "TriggerFS");
       addProjection(ChargedFinalState(-2.5, 2.5), "TrackFS");
-      addProjection(Beam(), "Beam");
       const FinalState calofs(-6.0, 6.0);
       addProjection(TotalVisibleMomentum(calofs), "Mom");
 

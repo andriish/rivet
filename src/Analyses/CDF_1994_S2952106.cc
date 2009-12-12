@@ -5,27 +5,22 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/PVertex.hh"
 
 namespace Rivet {
 
 
   /* @brief CDF Run I color coherence analysis
    * @author Lars Sonnenschein
+   * @todo BROKEN!
    */
   class CDF_1994_S2952106 : public Analysis {
   public:
 
     /// Constructor
-    CDF_1994_S2952106()
-      : Analysis("CDF_1994_S2952106"),
-        _pvzmax(600*mm), _leadJetPt(100*GeV), _3rdJetPt(10*GeV),
-        _etamax(0.7), _phimin(PI/18.0), _metsetmax(6.0*GeV)
+    CDF_1994_S2952106() : Analysis("CDF_1994_S2952106")
     {
       setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(true);
-         
-      _events3jPassed = 0.0;
+      // setNeedsCrossSection(true);
     }
 
 
@@ -37,7 +32,6 @@ namespace Rivet {
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "ConeJets");
       addProjection(TotalVisibleMomentum(fs), "CalMET");
-      addProjection(PVertex(), "PV");
    
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
@@ -92,19 +86,11 @@ namespace Rivet {
     void analyze(const Event & event) {
       const Jets jets = applyProjection<FastJets>(event, "ConeJets").jetsByPt();
       getLog() << Log::DEBUG << "Jet multiplicity before any cuts = " << jets.size() << endl;
-   
-      // Find vertex and check  that its z-component is < 60 cm from the nominal IP
-      const PVertex& pv = applyProjection<PVertex>(event, "PV");
-      if (fabs(pv.position().z())/mm > _pvzmax) {
-        vetoEvent;
-      }
-   
+      
       // Check there isn't too much missing Et
       const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
       getLog() << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT()/GeV << " GeV" << endl;
-      if ((caloMissEt.momentum().pT()/GeV) / sqrt(caloMissEt.scalarET()/GeV) > _metsetmax) {
-        vetoEvent;
-      }
+      if ((caloMissEt.momentum().pT()/GeV)/sqrt(caloMissEt.scalarET()/GeV) > 6.0) vetoEvent;
    
       // Check jet requirements
       if (jets.size() < 3) vetoEvent;
@@ -112,10 +98,10 @@ namespace Rivet {
    
       // More jet 1,2,3 checks
       FourMomentum pj1(jets[0].momentum()), pj2(jets[1].momentum()), pj3(jets[2].momentum());
-      if (fabs(pj1.eta()) > _etamax || fabs(pj2.eta()) > _etamax) vetoEvent;
+      if (fabs(pj1.eta()) > 0.7 || fabs(pj2.eta()) > 0.7) vetoEvent;
       getLog() << Log::DEBUG << "Jet 1 & 2 eta, pT requirements fulfilled" << endl;
    
-      if (deltaPhi(pj1.phi(), pj2.phi()) > _phimin) vetoEvent;
+      if (deltaPhi(pj1.phi(), pj2.phi()) > PI/18.0) vetoEvent;
       getLog() << Log::DEBUG << "Jet 1 & 2 phi requirement fulfilled" << endl;
    
       const double weight = event.weight();
@@ -125,9 +111,8 @@ namespace Rivet {
       _histJet3eta->fill(pj3.eta(), weight);
    
       // Next cut only required for alpha studies
-      if (pj3.pT() < _3rdJetPt) vetoEvent;
+      if (pj3.pT()/GeV < 10.0) vetoEvent;
       getLog() << Log::DEBUG << "3rd jet passes alpha histo pT cut" << endl;
-      _events3jPassed += weight;
    
       // Calc and plot alpha
       const double dPhi = deltaPhi(pj3.phi(), pj2.phi());
@@ -154,7 +139,7 @@ namespace Rivet {
       // }
       /// @todo Same correction to be applied for _hisR23 and _histJet3eta histograms
    
-      getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
+      //getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
       normalize(_histJet1Et);
       normalize(_histJet2Et);
       normalize(_histR23);
@@ -162,36 +147,6 @@ namespace Rivet {
       normalize(_histAlpha);
     }
 
-    //@}
-
-  private:
-
-    /// Counter for the number of events analysed
-    double _eventsTried;
-
-    /// Counter for the number of  3jet events passed
-    double _events3jPassed;
-
-
-    /// @name Analysis cuts
-    //@{
-    ///Cut on primary vertex z-position (z(PV) < 60 cm)
-    const double _pvzmax;
-
-    /// Min \f$ p_T \f$ of the leading and 3rd leading jets.
-    //@{
-    const double _leadJetPt;
-    const double _3rdJetPt;
-    //@}
-
-    /// Max pseudorapidity range of 2nd and 3rd leading jets.
-    const double _etamax;
-
-    /// Delta phi (azimuthal angle) requirement (transverse back to back'ness).
-    const double _phimin;
-
-    /// MET over sqrt(scalar \f$ E_T \f$) cut requirement.
-    const double _metsetmax;
     //@}
 
 

@@ -3,9 +3,8 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/JetShape.hh"
 
 namespace Rivet {
@@ -16,11 +15,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2008_S7782535()
-      : Analysis("CDF_2008_S7782535"),
-        _Rjet(0.7) , _NpTbins(4)
+    CDF_2008_S7782535() : Analysis("CDF_2008_S7782535")
     {
       setBeams(PROTON, ANTIPROTON);
+      _Rjet = 0.7;
+      _NpTbins = 4;
     }
  
 

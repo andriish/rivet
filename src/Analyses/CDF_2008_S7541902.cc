@@ -6,13 +6,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/ChargedLeptons.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/ChargedLeptons.hh"
-#include "Rivet/Projections/PVertex.hh"
-#include "Rivet/Projections/SVertex.hh"
 #include <algorithm>
 
 namespace Rivet {
@@ -24,7 +18,6 @@ namespace Rivet {
   /// as well as the jet multiplicity distribution in W + jets events.
   /// e-Print: arXiv:0711.4044 [hep-ex]
   class CDF_2008_S7541902 : public Analysis {
-
   public:
 
     /// Constructor
@@ -62,7 +55,6 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(invfs);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
-
 
       // Book histograms
       for (int i = 0 ; i < 4 ; ++i) {

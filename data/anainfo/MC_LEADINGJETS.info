@@ -4,10 +4,10 @@ Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 RunInfo:
-  * LHC pp QCD interactions at 0.9, 10 or 14 TeV.
+  "* LHC pp QCD interactions at 0.9, 10 or 14 TeV.
   * Particles with $c \tau > {}$10 mm should be set stable.
   * Several $pT^\text{min}$ cutoffs are probably required to fill the
-    profile histograms. 
+    profile histograms."
 NumEvents: 1000000
 PtCuts: [0]
 Description:

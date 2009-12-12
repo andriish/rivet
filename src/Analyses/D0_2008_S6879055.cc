@@ -6,7 +6,6 @@
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -53,10 +52,6 @@ namespace Rivet {
       FastJets jets(vfs, FastJets::D0ILCONE, 0.5, 20.0*GeV);
       addProjection(jets, "Jets");
    
-      // Vertex
-      PVertex vertex;
-      addProjection(vertex, "PrimaryVertex");
-
       _crossSectionRatio = bookHistogram1D(1, 1, 1);
       _pTjet1 = bookHistogram1D(2, 1, 1);
       _pTjet2 = bookHistogram1D(3, 1, 1);
@@ -66,22 +61,11 @@ namespace Rivet {
  
  
     /// Do the analysis
-    void analyze(const Event& event) {
-      const double weight = event.weight();
-   
+    void analyze(const Event& event) {   
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      if (fs.empty()) {
-        vetoEvent;
-      }
-   
-      // Check that the primary vertex is within 60 cm in z from (0,0,0)
-      const PVertex& vertex = applyProjection<PVertex>(event, "PrimaryVertex");
-      getLog() << Log::DEBUG << "Primary vertex is at " << vertex.position()/cm << " cm" << endl;
-      if (fabs(vertex.position().z())/cm > 60) {
-        getLog() << Log::DEBUG << "Vertex z-position " << vertex.position().z()/cm << " is outside cuts" << endl;
-        vetoEvent;
-      }
+      if (fs.empty()) vetoEvent;
+      const double weight = event.weight();
    
       // Find the Z candidates
       const InvMassFinalState& invmassfs = applyProjection<InvMassFinalState>(event, "ElectronsFromZ");
@@ -144,12 +128,12 @@ namespace Rivet {
       // Now divide by the inclusive result
       _crossSectionRatio->scale(1.0/_crossSectionRatio->binHeight(0));
    
-      // Normalise jet pT's to integral of data
+      // Normalise jet pTs to integrals of data
       // NB. There is no other way to do this, because these quantities are not
       // detector-corrected
-      normalize(_pTjet1, 10439.0);
-      normalize(_pTjet2, 1461.5);
-      normalize(_pTjet3, 217.0);
+      normalize(_pTjet1, 10439.0); // fixed norm OK
+      normalize(_pTjet2, 1461.5); // fixed norm OK
+      normalize(_pTjet3, 217.0); // fixed norm OK
     }
  
     //@}

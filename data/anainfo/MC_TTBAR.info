@@ -5,8 +5,8 @@ Authors:
  - Holger Schulz <hschulz@physik.hu-berlin.de>
  - Andy Buckley <andy.buckley@cern.ch>
 RunInfo:
-  * For Pythia6, set MSEL=6.
-  * For Fortran Herwig/Jimmy select IPROC=1706.
+  "* For Pythia6, set MSEL=6.
+  * For Fortran Herwig/Jimmy select IPROC=1706."
 NumEvents: 10000
 PtCuts: [0]
 Description:

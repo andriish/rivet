@@ -8,17 +8,15 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
 
 
   /**
      @brief Determine secondary vertices.
-  
+     
      Makes use of PVertex projection.
 
      @todo Replace function with a functor to improve equality comparisons.
-     @todo Why does SVertex inherit from PVertex? Anything that can't be done with composition?
 
      Complex cuts on tracks and vertices to validate them have to be provided
      by an external function
@@ -40,7 +38,6 @@ namespace Rivet {
      A list of tagged jets can be obtained via the getTaggedJets() function
   */
   class SVertex : public Projection {
-
   public:
 
     /// @name Standard constructors and destructors.

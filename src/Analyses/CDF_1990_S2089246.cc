@@ -55,8 +55,7 @@ namespace Rivet {
         _hist_eta->fill(fabs(eta), weight);
       }
     }
- 
- 
+  
  
     /// Finalize
     void finalize() {

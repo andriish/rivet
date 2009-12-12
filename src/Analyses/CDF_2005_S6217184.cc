@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/TotalVisibleMomentum.hh"
 #include "Rivet/Projections/JetShape.hh"
 
@@ -33,7 +32,6 @@ namespace Rivet {
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "Jets");
       addProjection(TotalVisibleMomentum(fs), "CalMET");
-      addProjection(PVertex(), "PV");
    
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);

@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Projections/PVertex.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
@@ -19,16 +18,7 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    //  - @c _mwmz = ratio of \f$ mW/mZ \f$ used in the publication analysis
-    //  - @c _brwenu = ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
-    //  - @c _brzee = ratio of \f$ BR(Z->ee) \f$ used in the publication analysis
-    //  - @c _mZmin = lower Z mass cut used in the publication analysis
-    //  - @c _mZmax = upper Z mass cut used in the publication analysis
-    D0_2001_S4674421()
-      : Analysis("D0_2001_S4674421"),
-        _mwmz(0.8820), _brwenu(0.1073), _brzee(0.033632),
-        _mZmin(75.*GeV), _mZmax(105.*GeV)
-    {
+    D0_2001_S4674421() : Analysis("D0_2001_S4674421") {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
@@ -69,6 +59,7 @@ namespace Rivet {
       // Histograms
       _h_dsigdpt_w = bookHistogram1D(1, 1, 1);
       _h_dsigdpt_z = bookHistogram1D(1, 1, 2);
+      /// @todo Can't take this from ref data? 
       vector<double> bins(23);
       bins += 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120, 160, 200;
       _h_dsigdpt_scaled_z = bookHistogram1D("d01-x01-y03", bins);
@@ -87,12 +78,13 @@ namespace Rivet {
         const ParticleVector& Zdaughters = eeFS.particles();
         const FourMomentum pmom = Zdaughters[0].momentum() + Zdaughters[1].momentum();
         double mass = sqrt(pmom.invariant());
-        if (mass/GeV > _mZmin && mass/GeV < _mZmax) {
+        if (inRange(mass/GeV, 75.0, 105.0)) {
           ++Zcount;
           _eventsFilledZ += weight;
           getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV" << endl;
+          const double MW_MZ = 0.8820; // Ratio M_W/M_Z
           _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
-          _h_dsigdpt_scaled_z->fill(pmom.pT()/GeV * _mwmz, weight);
+          _h_dsigdpt_scaled_z->fill(pmom.pT()/GeV * MW_MZ, weight);
         }
       } else {
         // There is no Z -> ee candidate... so this must be a W event, right?
@@ -121,7 +113,7 @@ namespace Rivet {
 
     void finalize() {
       // Get cross-section per event (i.e. per unit weight) from generator
-      const double xSecPerEvent = crossSection()/picobarn / sumOfWeights();
+      const double xSecPerEvent = crossSectionPerEvent()/picobarn;
 
       // Correct W pT distribution to W cross-section
       const double xSecW = xSecPerEvent * _eventsFilledW;
@@ -141,7 +133,8 @@ namespace Rivet {
       } else {
         // Scale factor converts event counts to cross-sections, and inverts the
         // branching ratios since only one decay channel has been analysed for each boson.
-        const double scalefactor = (xSecW / wpt_integral) / (xSecZ / zpt_scaled_integral) * (_brzee / _brwenu);
+        const double BRZEE_BRWENU = 0.033632 / 0.1073;
+        const double scalefactor = (xSecW / wpt_integral) / (xSecZ / zpt_scaled_integral) * BRZEE_BRWENU;
         for (int pt = 0; pt < div->size(); ++pt) {
           assert(div->point(pt)->dimension() == 2);
           AIDA::IMeasurement* m = div->point(pt)->coordinate(1);
@@ -162,30 +155,19 @@ namespace Rivet {
     //@}
  
   private:
- 
-    /// Analysis used ratio of mW/mZ
-    const double _mwmz;
- 
-    /// Ratio of \f$ BR(W->e,nu) \f$ used in the publication analysis
-    const double _brwenu;
- 
-    /// Ratio of \f$ \text{BR}( Z \to e^+ e^-) \f$ used in the publication analysis
-    const double _brzee;
- 
-    /// Invariant mass cuts for Z boson candidate (75 GeV < mZ < 105 GeV)
-    const double _mZmin, _mZmax;
 
-
-    // Event counters for cross section normalizations
+    /// @name Event counters for cross section normalizations
+    //@{
     double _eventsFilledW;
     double _eventsFilledZ;
- 
+    //@}
+
     //@{
     /// Histograms
     AIDA::IHistogram1D* _h_dsigdpt_w;
     AIDA::IHistogram1D* _h_dsigdpt_z;
     AIDA::IHistogram1D* _h_dsigdpt_scaled_z;
-   //@}
+    //@}
 
   };
 

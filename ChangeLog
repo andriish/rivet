@@ -1,3 +1,9 @@
+2009-12-11  Andy Buckley  <andy@insectnation.org>
+
+	* Removing use of PVertex from few remaining analyses. Still used
+	by SVertex, which is itself hardly used and could maybe be
+	removed...
+
 2009-12-10  Andy Buckley  <andy@insectnation.org>
 
 	* Updating JADE_OPAL to do the histo booking in init(), since
