@@ -420,7 +420,6 @@ class PlotParser(object):
     def __init__(self, plotpaths=None):
         if plotpaths is None:
             plotpaths = []
-
         self.plotpaths = plotpaths
 
         if len(self.plotpaths) == 0:
@@ -432,21 +431,21 @@ class PlotParser(object):
                     raise ValueError("path is empty!")
                 self.plotpaths.append(path)
             except Exception:
-                raise ValueError("No plotpaths given and rivet-config call"
-                                 " failed!")
+                raise ValueError("No plotpaths given and rivet-config call failed!")
 
     def getSection(self, section, hpath):
         """Get sections from a .plot file.
 
         hpath must have the form /AnalysisID/HistogramID
+
+        TODO: Caching!
         """
         if section not in ['PLOT', 'SPECIAL', 'HISTOGRAM']:
             raise ValueError("Can't parse section \'%s\'" %section)
 
         parts = hpath.split("/")
         if len(parts) != 3:
-            raise ValueError("hpath has wrong number of parts (%i)" %
-                             (len(parts)))
+            raise ValueError("hpath has wrong number of parts (%i)" % (len(parts)))
         base = parts[1] + ".plot"
         plotfile = None
         for pidir in self.plotpaths:
@@ -454,8 +453,7 @@ class PlotParser(object):
                 plotfile = os.path.join(pidir, base)
                 break
         if plotfile is None:
-            raise ValueError("no plot file %s found in plotpaths %s" %
-                             (base, self.plotpaths))
+            raise ValueError("no plot file %s found in plotpaths %s" % (base, self.plotpaths))
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         startreading = False
         f = open(plotfile)
@@ -463,10 +461,10 @@ class PlotParser(object):
             m = self.pat_begin_block.match(line)
             if m:
                 tag, pathpat = m.group(1,2)
-                if tag == section and re.match(pathpat, hpath) is not None:
+                if tag == section and pathpat == hpath:
                     startreading=True
                     if section in ['SPECIAL']:
-                        ret[section]=''
+                        ret[section] = ''
                     continue
             if not startreading:
                 continue
