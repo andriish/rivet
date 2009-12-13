@@ -9,18 +9,17 @@ namespace Rivet {
 
   /// Identify particles which can be paired to make an invariant mass within a given mass window
   class InvMassFinalState : public FinalState {
-
   public:
  
     // Constructor for a single inv-mass pair
     InvMassFinalState(const FinalState& fsp,
-                      const std::pair<long, long>& idpair, // pair of decay products
+                      const std::pair<PdgId, PdgId>& idpair, // pair of decay products
                       double minmass, // min inv mass
                       double maxmass); // max inv mass
 
 
     InvMassFinalState(const FinalState& fsp,
-                      const std::vector<std::pair<long, long> >& idpairs,  // vector of pairs of decay products
+                      const std::vector<std::pair<PdgId, PdgId> >& idpairs,  // vector of pairs of decay products
                       double minmass, // min inv mass
                       double maxmass); // max inv mass
  
@@ -29,6 +28,12 @@ namespace Rivet {
     virtual const Projection* clone() const {
     	return new InvMassFinalState(*this);
     }
+
+
+  public:
+
+    /// Constituent pairs
+    const std::vector<std::pair<Particle, Particle> >& particlePairs() const;
 		
 
   protected:
@@ -42,13 +47,19 @@ namespace Rivet {
 
   private:
  
-    /// ids of the decay products
-    std::vector<std::pair<long, long> > _decayids;
+    /// Handy typedef for a pair of PID codes
+    typedef pair<PdgId,PdgId> PidPair;
 
-    /// min inv mass
+    /// IDs of the decay products
+    std::vector<PidPair> _decayids;
+
+    /// Constituent pairs
+    std::vector<std::pair<Particle, Particle> > _particlePairs;
+
+    /// Min inv mass
     double _minmass;
 
-    /// max inv mass
+    /// Max inv mass
     double _maxmass;
  
   };

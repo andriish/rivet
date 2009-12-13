@@ -7,7 +7,7 @@ namespace Rivet {
 
 
   InvMassFinalState::InvMassFinalState(const FinalState& fsp,
-                                       const std::pair<long, long>& idpair, // pair of decay products
+                                       const pair<PdgId, PdgId>& idpair, // pair of decay products
                                        double minmass, // min inv mass
                                        double maxmass) // max inv mass
     : _minmass(minmass), _maxmass(maxmass)
@@ -19,7 +19,7 @@ namespace Rivet {
 
 
   InvMassFinalState::InvMassFinalState(const FinalState& fsp,
-                                       const std::vector<std::pair<long, long> >& idpairs,  // vector of pairs of decay products
+                                       const vector<pair<PdgId, PdgId> >& idpairs,  // vector of pairs of decay products
                                        double minmass, // min inv mass
                                        double maxmass) // max inv mass
     : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass)
@@ -57,6 +57,7 @@ namespace Rivet {
 
   void InvMassFinalState::project(const Event& e) {
     _theParticles.clear();
+    _particlePairs.clear();
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Containers for the particles of type specified in the pair
@@ -64,9 +65,8 @@ namespace Rivet {
     vector<const Particle*> type2;
     // Get all the particles of the type specified in the pair from the particle list
     foreach (const Particle& ipart, fs.particles()) {
-      // Loop around possible particle pairs
-      typedef pair<long,long> longpair;
-      foreach (const longpair& ipair, _decayids) {
+      // Loop around possible particle pairs (typedef needed to keep BOOST_FOREACH happy)
+      foreach (const PidPair& ipair, _decayids) {
         if (ipart.pdgId() == ipair.first) {
           if (accept(ipart.genParticle())) {
             type1 += &ipart;
@@ -89,29 +89,38 @@ namespace Rivet {
       foreach (const Particle* i2, type2) {
         FourMomentum v4 = i1->momentum() + i2->momentum();
         if (v4.mass() > _minmass && v4.mass() < _maxmass) {
-          // Avoid duplicates
-          if (find(tmp.begin(), tmp.end(), i1) == tmp.end()) {
-            tmp.push_back(i1);
-            _theParticles.push_back(*i1);
-          }
-          if (find(tmp.begin(), tmp.end(), i2) == tmp.end()) {
-            tmp.push_back(i2);
-            _theParticles.push_back(*i2);
-          }
           getLog() << Log::DEBUG << "Selecting particles with IDs "
                    << i1->pdgId() << " & " << i2->pdgId()
                    << " and mass = " << v4.mass()/GeV << " GeV" << endl;
+          // Store accepted particles, avoiding duplicates
+          if (find(tmp.begin(), tmp.end(), i1) == tmp.end()) {
+            tmp.push_back(i1);
+            _theParticles += *i1;
+          }
+          if (find(tmp.begin(), tmp.end(), i2) == tmp.end()) {
+            tmp.push_back(i2);
+            _theParticles += *i2;
+          }
+          // Store accepted particle pairs
+          _particlePairs += make_pair(*i1, *i2);          
         }
       }
     }
  
-    getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles." << endl;
+    getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles " 
+             << "(" << _particlePairs.size() << " pairs)" << endl;
     if (getLog().isActive(Log::TRACE)) {
       foreach (const Particle& p, _theParticles) {
         getLog() << Log::TRACE << "ID: " << p.pdgId()
                  << ", barcode: " << p.genParticle().barcode() << endl;
       }
     }
+  }
+
+
+  /// Constituent pairs
+  const std::vector<std::pair<Particle, Particle> >& InvMassFinalState::particlePairs() const {
+    return _particlePairs;
   }
 
 

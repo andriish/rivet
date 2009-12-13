@@ -355,4 +355,4 @@ if __name__ == "__main__":
         f.write(headstr + "\n" + "\n".join(histstrs))
         f.close()
         num_written += 1
-    logging.info("Wrote %d histo files to %s" % (num_written, outdir))
+    logging.info("Wrote %d histo files" % num_written)

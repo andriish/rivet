@@ -11,6 +11,26 @@ using namespace AIDA;
 namespace Rivet {
 
 
+  namespace {
+    string makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) {
+      stringstream axisCode;
+      axisCode << "d";
+      if (datasetId < 10) axisCode << 0;
+      axisCode << datasetId;
+      axisCode << "-x";
+      if (xAxisId < 10) axisCode << 0;
+      axisCode << xAxisId;
+      axisCode << "-y";
+      if (yAxisId < 10) axisCode << 0;
+      axisCode << yAxisId;
+      return axisCode.str();
+    }
+  }
+
+
+  ////////////////////////
+
+
   Analysis::Analysis(const string& name)
     : _crossSection(-1.0),
       _gotCrossSection(false),
@@ -187,7 +207,7 @@ namespace Rivet {
   }
 
 
-  Analysis& Analysis::setCrossSection(const double& xs) {
+  Analysis& Analysis::setCrossSection(double xs) {
     _crossSection = xs;
     _gotCrossSection = true;
     return *this;
@@ -227,7 +247,7 @@ namespace Rivet {
   // Histogramming
 
 
-  void Analysis::_cacheBinEdges() {
+  void Analysis::_cacheBinEdges() const {
     _cacheXAxisData();
     if (_histBinEdges.empty()) {
       getLog() << Log::TRACE << "Getting histo bin edges from AIDA for paper " << name() << endl;
@@ -236,7 +256,7 @@ namespace Rivet {
   }
 
 
-  void Analysis::_cacheXAxisData() {
+  void Analysis::_cacheXAxisData() const {
     if (_dpsData.empty()) {
       getLog() << Log::TRACE << "Getting DPS x-axis data from AIDA for paper " << name() << endl;
       _dpsData = getDPSXValsErrs(name());
@@ -244,26 +264,32 @@ namespace Rivet {
   }
 
 
-  string Analysis::_makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) const {
-    stringstream axisCode;
-    axisCode << "d";
-    if (datasetId < 10) axisCode << 0;
-    axisCode << datasetId;
-    axisCode << "-x";
-    if (xAxisId < 10) axisCode << 0;
-    axisCode << xAxisId;
-    axisCode << "-y";
-    if (yAxisId < 10) axisCode << 0;
-    axisCode << yAxisId;
-    return axisCode.str();
+  const BinEdges& Analysis::binEdges(const string& hname) const {
+    _cacheBinEdges();
+    getLog() << Log::TRACE << "Using histo bin edges for " << name() << ":" << hname << endl;
+    const BinEdges& edges = _histBinEdges.find(hname)->second; 
+    if (getLog().isActive(Log::TRACE)) {
+      stringstream edges_ss;
+      foreach (const double be, edges) {
+        edges_ss << " " << be;
+      }
+      getLog() << Log::TRACE << "Edges:" << edges_ss.str() << endl;
+    }
+    return edges;
+  }
+  
+
+  const BinEdges& Analysis::binEdges(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+    const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
+    return binEdges(hname);
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const size_t datasetId, const size_t xAxisId,
-                                          const size_t yAxisId, const string& title,
+  IHistogram1D* Analysis::bookHistogram1D(size_t datasetId, size_t xAxisId,
+                                          size_t yAxisId, const string& title,
                                           const string& xtitle, const string& ytitle)
   {
-    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookHistogram1D(axisCode, title, xtitle, ytitle);
   }
 
@@ -272,9 +298,7 @@ namespace Rivet {
                                           const string& xtitle, const string& ytitle)
   {
     // Get the bin edges (only read the AIDA file once)
-    _cacheBinEdges();
-    getLog() << Log::TRACE << "Using histo bin edges for " << name() << ":" << hname << endl;
-    const BinEdges edges = _histBinEdges.find(hname)->second;
+    const BinEdges edges = binEdges(hname);
     _makeHistoDir();
     const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
@@ -286,7 +310,7 @@ namespace Rivet {
 
 
   IHistogram1D* Analysis::bookHistogram1D(const string& hname,
-                                          const size_t nbins, const double lower, const double upper,
+                                          size_t nbins, double lower, double upper,
                                           const string& title,
                                           const string& xtitle, const string& ytitle) {
     _makeHistoDir();
@@ -316,10 +340,10 @@ namespace Rivet {
   /////////////////
 
 
-  IProfile1D* Analysis::bookProfile1D(const size_t datasetId, const size_t xAxisId,
-                                      const size_t yAxisId, const string& title,
+  IProfile1D* Analysis::bookProfile1D(size_t datasetId, size_t xAxisId,
+                                      size_t yAxisId, const string& title,
                                       const string& xtitle, const string& ytitle) {
-    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookProfile1D(axisCode, title, xtitle, ytitle);
   }
 
@@ -328,16 +352,7 @@ namespace Rivet {
                                       const string& xtitle, const string& ytitle)
   {
     // Get the bin edges (only read the AIDA file once)
-    _cacheBinEdges();
-    getLog() << Log::TRACE << "Using profile histo bin edges for " << name() << ":" << hname << endl;
-    const BinEdges edges = _histBinEdges.find(hname)->second;
-    if (getLog().isActive(Log::TRACE)) {
-        stringstream edges_ss;
-        foreach (const double be, edges) {
-          edges_ss << " " << be;
-        }
-        getLog() << Log::TRACE << "Edges:" << edges_ss.str() << endl;
-    }
+    const BinEdges edges = binEdges(hname);
     _makeHistoDir();
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
@@ -349,7 +364,7 @@ namespace Rivet {
 
 
   IProfile1D* Analysis::bookProfile1D(const string& hname,
-                                      const size_t nbins, const double lower, const double upper,
+                                      size_t nbins, double lower, double upper,
                                       const string& title,
                                       const string& xtitle, const string& ytitle) {
     _makeHistoDir();
@@ -393,7 +408,7 @@ namespace Rivet {
 
 
   IDataPointSet* Analysis::bookDataPointSet(const string& hname,
-                                            const size_t npts, const double lower, const double upper,
+                                            size_t npts, double lower, double upper,
                                             const string& title,
                                             const string& xtitle, const string& ytitle) {
     IDataPointSet* dps = bookDataPointSet(hname, title, xtitle, ytitle);
@@ -410,13 +425,13 @@ namespace Rivet {
   }
 
 
-  IDataPointSet* Analysis::bookDataPointSet(const size_t datasetId, const size_t xAxisId,
-                                            const size_t yAxisId, const string& title,
+  IDataPointSet* Analysis::bookDataPointSet(size_t datasetId, size_t xAxisId,
+                                            size_t yAxisId, const string& title,
                                             const string& xtitle, const string& ytitle) {
     // Get the bin edges (only read the AIDA file once)
     _cacheXAxisData();
     // Build the axis code
-    const string axisCode = _makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     //const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
     getLog() << Log::TRACE << "Using DPS x-positions for " << name() << ":" << axisCode << endl;
     IDataPointSet* dps = bookDataPointSet(axisCode, title, xtitle, ytitle);
@@ -452,7 +467,7 @@ namespace Rivet {
   }
 
 
-  void Analysis::normalize(AIDA::IHistogram1D*& histo, const double norm) {
+  void Analysis::normalize(AIDA::IHistogram1D*& histo, double norm) {
     if (!histo) {
       getLog() << Log::ERROR << "Failed to normalise histo=NULL in analysis "
                << name() << "(norm=" << norm << ")" << endl;
@@ -477,7 +492,7 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(AIDA::IHistogram1D*& histo, const double scale) {
+  void Analysis::scale(AIDA::IHistogram1D*& histo, double scale) {
     if (!histo) {
       getLog() << Log::ERROR << "Failed to scale histo=NULL in analysis "
           << name() << "(scale=" << scale << ")" << endl;

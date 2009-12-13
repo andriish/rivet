@@ -43,7 +43,7 @@ namespace Rivet {
    
       // Create a final state with any e+e- or mu+mu- pair with
       // invariant mass 76 -> 106 GeV and ET > 20 (Z decay products)
-      vector<pair<long,long> > vids;
+      vector<pair<PdgId,PdgId> > vids;
       vids.push_back(make_pair(ELECTRON, POSITRON));
       vids.push_back(make_pair(MUON, ANTIMUON));
       FinalState fs2(-3.6, 3.6);

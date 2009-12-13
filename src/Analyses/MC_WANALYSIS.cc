@@ -38,7 +38,7 @@ namespace Rivet {
       addProjection(fastjets, "Jets");
 
       // Histos
-      _hist_chargemulti = bookHistogram1D("track-n", 50, -0.5, 999.5);
+      _hist_chargemulti = bookHistogram1D("track-n", 50, -0.5, 199.5);
       _hist_chargept = bookHistogram1D("track-pt", 20, 0, 20);
       /// @todo Use profile plots instead:
       _hist_chargemeanpt = bookHistogram1D("track-ptavg", 20, 0, 10);

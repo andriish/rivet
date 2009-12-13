@@ -55,12 +55,14 @@ namespace Rivet {
   {
     setName("WFinder");
 
-    //addProjection(fs, "FS");
+    // Mass range
+    _m2_min = m2_min;
+    _m2_max = m2_max;
 
     assert(abs(pid) == ELECTRON || abs(pid) == MUON || abs(pid) == TAU);
     PdgId nu_pid = abs(pid) + 1;
     assert(abs(nu_pid) == NU_E || abs(nu_pid) == NU_MU || abs(nu_pid) == NU_TAU);
-    vector<pair<long, long> > l_nu_ids;
+    vector<pair<PdgId, PdgId> > l_nu_ids;
     l_nu_ids += make_pair(abs(pid), -abs(nu_pid));
     l_nu_ids += make_pair(-abs(pid), abs(nu_pid));
     InvMassFinalState imfs(fs, l_nu_ids, m2_min, m2_max);
@@ -128,8 +130,11 @@ namespace Rivet {
       pW += photon.momentum();
     }
     msg << " = " << pW;
-    getLog() << Log::DEBUG << msg.str() << endl;
 
+    // Check mass range again
+    if (!inRange(pW.mass()/GeV, _m2_min, _m2_max)) return;
+    getLog() << Log::DEBUG << msg.str() << endl;
+    
     // Make W Particle and insert into particles list
     const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WMINUSBOSON;
     _theParticles.push_back(Particle(wpid, pW));

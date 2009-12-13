@@ -12,10 +12,9 @@
 namespace Rivet {
 
 
-  /// Chain together different projections as convenience for finding Z's
+  /// Chain together different projections as convenience for finding W's
   /// from two leptons in the final state
   class WFinder : public FinalState {
-
   public:
  
     /// @name Constructors
@@ -57,14 +56,15 @@ namespace Rivet {
     //@}
 
 
-    /// Access to the remaining particles, after the Z and clustered photons
+    /// Access to the remaining particles, after the W and clustered photons
     /// have been removed from the full final state
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
 
-    /// Access to the Z constituent leptons final state
+    /// Access to the W constituent leptons final state
     /// (e.g. for more fine-grained cuts on the leptons)
     const FinalState& constituentsFinalState() const;
+
 
   protected:
  
@@ -88,6 +88,12 @@ namespace Rivet {
                PdgId pid,
                double m2_min, double m2_max,
                double dRmax);
+
+
+  private:
+
+    // Mass range
+    double _m2_min, _m2_max;
 
   };
 

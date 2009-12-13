@@ -43,7 +43,7 @@ namespace Rivet {
       addProjection(fs, "FS");
    
       // Create a final state with any e-nu pair with invariant mass 65 -> 95 GeV and ET > 20 (W decay products)
-      vector<pair<long,long> > vids;
+      vector<pair<PdgId,PdgId> > vids;
       vids += make_pair(ELECTRON, NU_EBAR);
       vids += make_pair(POSITRON, NU_E);
       FinalState fs2(-3.6, 3.6, 20*GeV);
