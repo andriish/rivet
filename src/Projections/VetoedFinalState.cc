@@ -42,14 +42,14 @@ namespace Rivet {
           codes.push_back(code->first);
         }
         const string codestr = "{ " + join(codes) + " }";
-        getLog() << Log::DEBUG << p.pdgId() << " vs. veto codes = "
+        getLog() << Log::TRACE << p.pdgId() << " vs. veto codes = "
                  << codestr << " (" << codes.size() << ")" << endl;
       }
       const long pdgid = p.pdgId();
       const double pt = p.momentum().pT();
       VetoDetails::iterator iter = _vetoCodes.find(pdgid);
       if (iter == _vetoCodes.end()) {
-        getLog() << Log::DEBUG << "Storing with PDG code = " << pdgid << ", pT = " << pt << endl;
+        getLog() << Log::TRACE << "Storing with PDG code = " << pdgid << ", pT = " << pt << endl;
         _theParticles.push_back(p);
       } else {
         // This particle code is listed as a possible veto... check pT.
@@ -60,14 +60,14 @@ namespace Rivet {
         if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
         rangess << " - ";
         if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
-        getLog() << Log::DEBUG << "ID = " << pdgid << ", pT range = " << rangess.str();
+        getLog() << Log::TRACE << "ID = " << pdgid << ", pT range = " << rangess.str();
         stringstream debugline;
         debugline << "with PDG code = " << pdgid << " pT = " << p.momentum().pT();
         if (pt < ptrange.first || pt > ptrange.second) {
-          getLog() << Log::DEBUG << "Storing " << debugline.str() << endl;
+          getLog() << Log::TRACE << "Storing " << debugline.str() << endl;
           _theParticles.push_back(p);
         } else {
-          getLog() << Log::DEBUG << "Vetoing " << debugline.str() << endl;
+          getLog() << Log::TRACE << "Vetoing " << debugline.str() << endl;
         }
       }
     }
@@ -118,16 +118,15 @@ namespace Rivet {
     for (set<ParticleVector::iterator>::reverse_iterator p = toErase.rbegin(); p != toErase.rend(); ++p) {
       _theParticles.erase(*p);
     }
- 
+
+    /// @todo Improve!
     for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
       for (ParticleVector::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
-        GenVertex *startVtx=((*p).genParticle()).production_vertex();
+        GenVertex* startVtx = ((*p).genParticle()).production_vertex();
         bool veto = false;
-        GenParticle HepMCP = (*p).genParticle();
         if (startVtx!=0) {
           for (GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
-               pIt != startVtx->particles_end(HepMC::ancestors) && !veto; ++pIt) {
-         
+                   pIt != startVtx->particles_end(HepMC::ancestors) && !veto; ++pIt) {
             if (*vIt == (*pIt)->pdg_id()) {
               veto = true;
               p = _theParticles.erase(p);
@@ -137,17 +136,18 @@ namespace Rivet {
         }
       }
     }
-
+    
     // Now veto on the FS
     foreach (const string& ifs, _vetofsnames) {
       const FinalState& vfs = applyProjection<FinalState>(e, ifs);
       const ParticleVector& vfsp = vfs.particles();
-      for (ParticleVector::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck){
+      for (ParticleVector::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck) {
         if (!icheck->hasGenParticle()) continue;
         bool found = false;
         for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
           if (!ipart->hasGenParticle()) continue;
-          getLog() << Log::DEBUG << "Comparing barcode " << icheck->genParticle().barcode() << " with veto particle " << ipart->genParticle().barcode() << endl;
+          getLog() << Log::TRACE << "Comparing barcode " << icheck->genParticle().barcode() 
+                   << " with veto particle " << ipart->genParticle().barcode() << endl;
           if (ipart->genParticle().barcode() == icheck->genParticle().barcode()){
             found = true;
             break;

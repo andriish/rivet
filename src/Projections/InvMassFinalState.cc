@@ -35,7 +35,7 @@ namespace Rivet {
     if (fscmp != EQUIVALENT) return fscmp;
 
     // Then compare the two as final states
-    const InvMassFinalState & other = dynamic_cast <const InvMassFinalState&>(p);
+    const InvMassFinalState& other = dynamic_cast<const InvMassFinalState&>(p);
     fscmp = FinalState::compare(other);
     if (fscmp != EQUIVALENT) return fscmp;
 
@@ -56,8 +56,8 @@ namespace Rivet {
 
 
   void InvMassFinalState::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Containers for the particles of type specified in the pair
     vector<const Particle*> type1;

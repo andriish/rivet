@@ -16,6 +16,9 @@ namespace Rivet {
     MC_WANALYSIS() : Analysis("MC_WANALYSIS")
     {
       setNeedsCrossSection(true);
+      _sumw = 0;
+      _sumw_wplus = 0;
+      _sumw_wminus = 0;
     }
  
 
@@ -24,15 +27,17 @@ namespace Rivet {
     //@{
 
     void init() {
+      // Projections
       const ChargedFinalState cfs(-2, 2, 200*MeV);
       addProjection(cfs, "CFS");
-
-      /// @todo Handle muon-decay Ws as well
-      const WFinder wf(-2, 2, 10.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0.2);
-      addProjection(wf, "WF");
-      FastJets fastjets(wf.remainingFinalState(), FastJets::KT, 1.0);
+      const WFinder wfe(-2, 2, 10.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0.2);
+      addProjection(wfe, "WFe");
+      const WFinder wfmu(-2, 2, 10.0*GeV, MUON, 60.0*GeV, 100.0*GeV, 0.2);
+      addProjection(wfmu, "WFmu");
+      FastJets fastjets(wfe.remainingFinalState(), FastJets::KT, 0.5);
       addProjection(fastjets, "Jets");
 
+      // Histos
       _hist_chargemulti = bookHistogram1D("track-n", 50, -0.5, 999.5);
       _hist_chargept = bookHistogram1D("track-pt", 20, 0, 20);
       /// @todo Use profile plots instead:
@@ -60,16 +65,18 @@ namespace Rivet {
       _hist_jetcount = bookHistogram1D("jet-n", 6, -0.5, 5.5);
       _hist_jetpt = bookHistogram1D("jet-pt", 50, 20, 100);
     }
+
  
  
     void analyze(const Event& event) {
-      const WFinder& wf = applyProjection<WFinder>(event, "WF");
+      const WFinder& wf = applyProjection<WFinder>(event, "WFe");
       if (wf.size() == 0) {
         getLog() << Log::DEBUG << "No W candidates found: vetoing" << endl;
         vetoEvent;
       }
       const double weight = event.weight();
- 
+      _sumw += weight; 
+
       // Charged particles part
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       _hist_chargemulti->fill(cfs.particles().size(), weight);
@@ -84,7 +91,7 @@ namespace Rivet {
       _hist_chargemeanpt->fill(meanpt/GeV, weight);
       rmspt = sqrt(rmspt / cfs.particles().size());
       _hist_chargermspt->fill(rmspt/GeV, weight);
-   
+      
       // W part
       unsigned int n_wplus(0), n_wminus(0);
       foreach (const Particle& wp, wf.particles()) {
@@ -99,12 +106,14 @@ namespace Rivet {
         _hist_wmass->fill(m/GeV, weight);
         if (wp.pdgId() == WPLUSBOSON) {
           n_wplus += 1;
+          _sumw_wplus += weight;
           _hist_wpluspt->fill(pT/GeV, weight);
           _hist_wpluseta->fill(eta, weight);
           _hist_wplusphi->fill(phi, weight);
           _hist_wplusmass->fill(m/GeV, weight);
         } else if (wp.pdgId() == WMINUSBOSON) {
           n_wminus += 1;
+          _sumw_wminus += weight;
           _hist_wminuspt->fill(pT/GeV, weight);
           _hist_wminuseta->fill(eta, weight);
           _hist_wminusphi->fill(phi, weight);
@@ -121,7 +130,6 @@ namespace Rivet {
       // Jet part
       const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
       const Jets jets = fastjets.jetsByPt(10*GeV);
-      cout << jets.size() << endl;
       _hist_jetcount->fill(jets.size(), weight);
       foreach (const Jet& j, jets) {
         const double pT = j.momentum().pT();
@@ -133,9 +141,8 @@ namespace Rivet {
  
     void finalize() {
       const double xsec_sumw = crossSectionPerEvent()/picobarn;
-      /// @todo Actually "measure" separate W+ and W- xsecs 
-      const double xsec_sumw_plus = xsec_sumw/2.0;
-      const double xsec_sumw_minus = xsec_sumw/2.0;
+      const double xsec_sumw_plus = _sumw_wplus/_sumw * xsec_sumw;
+      const double xsec_sumw_minus = _sumw_wminus/_sumw * xsec_sumw;
 
       scale(_hist_chargemulti, xsec_sumw);
       scale(_hist_chargept, xsec_sumw);
@@ -164,6 +171,13 @@ namespace Rivet {
 
  
   private:
+
+    /// @name Weight counters
+    //@{
+    double _sumw;
+    double _sumw_wplus;
+    double _sumw_wminus;
+    //@}
 
     /// @name Histograms
     //@{

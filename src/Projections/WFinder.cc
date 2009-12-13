@@ -32,14 +32,15 @@ namespace Rivet {
   WFinder::WFinder(const std::vector<std::pair<double, double> >& etaRanges,
                    double pTmin,
                    PdgId pid,
-                   double m2_min, const double m2_max,
+                   double m2_min, double m2_max,
                    double dRmax) {
     _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax);
   }
 
 
   void WFinder::_init(const std::vector<std::pair<double, double> >& etaRanges,
-                      double pTmin,  PdgId pid,
+                      double pTmin,  
+                      PdgId pid,
                       double m2_min, double m2_max,
                       double dRmax) {
     FinalState fs(etaRanges, pTmin);
@@ -54,14 +55,14 @@ namespace Rivet {
   {
     setName("WFinder");
 
-    addProjection(fs, "FS");
+    //addProjection(fs, "FS");
 
     assert(abs(pid) == ELECTRON || abs(pid) == MUON || abs(pid) == TAU);
     PdgId nu_pid = abs(pid) + 1;
     assert(abs(nu_pid) == NU_E || abs(nu_pid) == NU_MU || abs(nu_pid) == NU_TAU);
-    std::vector<std::pair<long, long> > l_nu_ids;
-    l_nu_ids += std::make_pair(abs(pid), -abs(nu_pid));
-    l_nu_ids += std::make_pair(-abs(pid), abs(nu_pid));
+    vector<pair<long, long> > l_nu_ids;
+    l_nu_ids += make_pair(abs(pid), -abs(nu_pid));
+    l_nu_ids += make_pair(-abs(pid), abs(nu_pid));
     InvMassFinalState imfs(fs, l_nu_ids, m2_min, m2_max);
     addProjection(imfs, "IMFS");
  

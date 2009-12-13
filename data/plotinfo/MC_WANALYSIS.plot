@@ -7,21 +7,21 @@ LogY=0
 
 # BEGIN PLOT /MC_WANALYSIS/w-n
 Title=W candidate multiplicity
-XLabel=$n_\text{W}^\pm$
+XLabel=$n(\text{W}^\pm)$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{W}$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_WANALYSIS/wplus-n
 Title=\PWplus candidate multiplicity
-XLabel=$n_\text{W}^+$
+XLabel=$n(\text{W}^+)$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{W}$
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /MC_WANALYSIS/wminus-n
 Title=\PWminus candidate multiplicity
-XLabel=$n_\text{W}^-$
+XLabel=$n(\text{W}^-)$
 YLabel=$\mathrm{d}N_\text{evt}/\mathrm{d}n_\text{W}$
 LogY=0
 # END PLOT
