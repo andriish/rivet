@@ -1,5 +1,8 @@
 2009-12-14  Andy Buckley  <andy@insectnation.org>
 
+	* AnalysisHandler::execute now calls AnalysisHandler::init(event)
+	if it has not yet been initialised.
+
 	* Adding more beam configuration features to Beam and
 	AnalysisHandler: the setRunBeams(...) methods on the latter now
 	allows a beam configuration for the run to be specified without

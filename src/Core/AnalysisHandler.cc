@@ -13,7 +13,7 @@ namespace Rivet {
   AnalysisHandler::AnalysisHandler(string basefilename,
                                    string runname, HistoFormat storetype)
     : _runname(runname), _numEvents(0), 
-      _sumOfWeights(0.0), _xs(-1.0)
+      _sumOfWeights(0.0), _xs(-1.0), _initialised(false)
   {
     _theAnalysisFactory = createAnalysisFactory();
     _setupFactories(basefilename, storetype);
@@ -23,7 +23,7 @@ namespace Rivet {
   AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename,
                                    string runname, HistoFormat storetype)
     : _runname(runname), _numEvents(0), 
-      _sumOfWeights(0.0), _xs(-1.0),
+      _sumOfWeights(0.0), _xs(-1.0), _initialised(false), 
       _theAnalysisFactory(&afac) 
   {
     _setupFactories(basefilename, storetype);
@@ -40,6 +40,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::init() {
+    assert(!_initialised);
     getLog() << Log::DEBUG << "Initialising the analysis handler" << endl;
     _numEvents = 0;
     _sumOfWeights = 0.0;
@@ -52,11 +53,18 @@ namespace Rivet {
       //a->checkConsistency();
       getLog() << Log::DEBUG << "Done initialising analysis: " << a->name() << endl;
     }
+    _initialised = true;
     getLog() << Log::DEBUG << "Analysis handler initialised" << endl;
   }
 
 
   void AnalysisHandler::analyze(const GenEvent& ge) {
+    // Call init with event as template if not already initialised
+    if (!_initialised) {
+      init(ge);
+    }
+    // Proceed with event analysis
+    assert(_initialised);
     Event event(ge);
     _numEvents++;
     // Weights
@@ -78,6 +86,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::finalize() {
+    assert(_initialised);
     getLog() << Log::INFO << "Finalising analyses" << endl;
     foreach (Analysis* a, _analyses) {
       a->finalize();
@@ -133,7 +142,6 @@ namespace Rivet {
   }
 
 
-  /// Remove beam-incompatible analyses from the run list.
   AnalysisHandler& AnalysisHandler::removeIncompatibleAnalyses(const BeamPair& beams) {
     vector<Analysis*> todelete;
     foreach (Analysis* a, _analyses) {

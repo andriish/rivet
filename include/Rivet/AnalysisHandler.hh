@@ -98,7 +98,7 @@ namespace Rivet {
 
 
     /// Set beams for this run (as determined from first event)
-    AnalysisHandler& setRunBeams(const Event& event) { 
+    AnalysisHandler& setRunBeams(const GenEvent& event) { 
       return setRunBeams(Rivet::beams(event));
     }
 
@@ -167,6 +167,7 @@ namespace Rivet {
     }
 
     /// Remove beam-incompatible analyses from the run list.
+    /// @todo Do this automatically in the init phase (including energies) and deprecate explicit use
     AnalysisHandler& removeIncompatibleAnalyses(const BeamPair& beams);
 
     //@}
@@ -201,6 +202,7 @@ namespace Rivet {
 
 
     /// @name AIDA factories etc.
+    /// @deprecated All this will be removed when histogramming is overhauled
     //@{
 
     /// The AIDA analysis factory.
@@ -248,7 +250,10 @@ namespace Rivet {
 
     /// Beams used by this run.
     ParticlePair _beams;
-    
+
+    /// Flag to check if init has been called
+    bool _initialised;
+
     //@}
 
 
