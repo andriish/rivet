@@ -71,8 +71,7 @@ namespace Rivet {
     Log::getLog("Rivet.Run") << Log::INFO << "First event beams: "
                              << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
     // Pass to analysis handler
-    _ah.setBeams(_beams);
-    _ah.setSqrtS(_sqrts);
+    _ah.setRunBeams(*_evt);
 
     // Set cross-section from command line
     if (_xs >= 0.0) {

@@ -170,7 +170,10 @@ namespace Rivet {
     /// @name Run conditions
 
     /// Incoming beams for this run
-    const BeamPair& beams() const;
+    const ParticlePair& beams() const;
+
+    /// Incoming beam IDs for this run
+    const BeamPair beamIds() const;
 
     /// Centre of mass energy for this run
     double sqrtS() const;

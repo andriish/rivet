@@ -26,8 +26,9 @@
 
 
 // Particle ID stuff
+%include "Rivet/Particle.fhh"
 %include "Rivet/ParticleName.hh"
-%template(BeamPair) std::pair<long,long>;
+//%template(BeamPair) std::pair<PdgId,PdgId>;
 
 
 // Logging interface
@@ -70,6 +71,7 @@ namespace Rivet {
   double sqrtS(const Event& e);
 
 
+  // Mapping of just the metadata parts of the Analysis API
   class Analysis {
   public:
     virtual std::string name() const;
@@ -84,7 +86,9 @@ namespace Rivet {
     virtual const std::vector<std::pair<double,double> >& energies() const;
     virtual std::vector<std::string> authors() const;
     virtual std::vector<std::string> references() const;
-    virtual const BeamPair& beams() const;
+    // virtual const ParticlePair& beams() const;
+    // virtual const BeamPair& beamIds() const;
+    // virtual double sqrtS() const;
     virtual const BeamPair& requiredBeams() const;
     virtual const bool isCompatible(const ParticleName& beam1, 
                                     const ParticleName& beam2) const;
@@ -98,20 +102,23 @@ namespace Rivet {
 
   class AnalysisHandler {
   public:
-    AnalysisHandler(std::string basefilename="Rivet", std::string runname="", 
+    AnalysisHandler(std::string basefilename="Rivet", 
+                    std::string runname="", 
                     HistoFormat storetype=AIDAML);
     std::string runName() const;
     size_t numEvents() const;
     double sumOfWeights() const;
     double sqrtS() const;
-    const BeamPair& beams() const;
+    const ParticlePair& beams() const;
+    const BeamPair& beamIds() const;
     std::vector<std::string> analysisNames();
     AnalysisHandler& addAnalysis(const std::string& analysisname);
     AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);
     AnalysisHandler& removeAnalysis(const std::string& analysisname);
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
     AnalysisHandler& removeIncompatibleAnalyses(const BeamPair& beams);
-    void init(int i=0, int N=0);
+    void init();
+    void init(const HepMC::GenEvent& event);
     void analyze(const HepMC::GenEvent& event);
     void finalize();
     bool needCrossSection();
@@ -125,6 +132,7 @@ namespace Rivet {
     static std::vector<std::string> analysisNames();
     static Analysis* getAnalysis(const std::string& analysisname);
   };
+
 
 }
 

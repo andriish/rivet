@@ -8,6 +8,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/AnalysisLoader.hh"
+#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
 
@@ -96,32 +97,33 @@ namespace Rivet {
     bool hasCrossSection() const;
 
 
-    /// Get beam IDs for this run, determined from first event
-    const BeamPair& beams() const { 
-      return _beams;
+    /// Set beams for this run (as determined from first event)
+    AnalysisHandler& setRunBeams(const Event& event) { 
+      return setRunBeams(Rivet::beams(event));
     }
 
-    /// Set beam IDs for this run (as determined from first event)
-    AnalysisHandler& setBeams(const BeamPair& beams) { 
+    /// Set beams for this run (as determined from beam particles)
+    AnalysisHandler& setRunBeams(const ParticlePair& beams) { 
       getLog() << Log::DEBUG << "Setting run beams = " << beams << endl;
       _beams = beams;
       return *this;
     }
 
+    /// Get beam IDs for this run, determined from first event
+    const ParticlePair& beams() const { 
+      return _beams;
+    }
+
+    /// Get beam IDs for this run, determined from first event
+    BeamPair beamIds() const { 
+      return Rivet::beamIds(beams());
+    }
 
     /// Get energy for this run, determined from first event
     double sqrtS() const {
-      return _sqrts;
+      return Rivet::sqrtS(beams());
     }
-
-    /// Set energy for this run (as determined from first event)
-    AnalysisHandler& setSqrtS(double sqrts) {
-      getLog() << Log::DEBUG << "Setting run sqrt(s) = " << sqrts << endl;
-      _sqrts = sqrts;
-      return *this;
-    }
-
-
+    
     //@}
 
 
@@ -157,7 +159,7 @@ namespace Rivet {
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
 
 
-    /// Add an analysis to the run list explicitely
+    /// Add an analysis to the run list by object
     AnalysisHandler& addAnalysis(Analysis* analysis) {
       analysis->_analysishandler = this;
       _analyses.insert(analysis);
@@ -173,12 +175,15 @@ namespace Rivet {
     /// @name Main init/execute/finalise
     //@{
 
-    /// Initialize a run. If this run is to be joined together with other
-    /// runs, \a N should be set to the total number of runs to be
-    /// combined, and \a i should be the index of this run. This function
-    /// will initialize the histogram factory and then call the
-    /// AnalysisBase::init() function of all included analysis objects.
-    void init(int i=0, int N=0);
+    /// Initialize a run (beam configuration should be specified first, via @c{setRunBeams}).
+    void init();
+
+
+    /// Initialize a run, with the run beams taken from the example event.
+    void init(const GenEvent& event) {
+      setRunBeams(event);
+      init();
+    }
 
 
     /// Analyze the given \a event. This function will call the
@@ -232,13 +237,6 @@ namespace Rivet {
     /// Run name
     std::string _runname;
  
-    /// If non-zero the number of runs to be combined into one analysis.
-    int _nRun;
-
-    /// If non-zero, the index of this run, if a part of several runs to
-    /// be combined into one.
-    int _iRun;
-
     /// Number of events seen.
     size_t _numEvents;
 
@@ -249,11 +247,8 @@ namespace Rivet {
     double _xs;
 
     /// Beams used by this run.
-    BeamPair _beams;
-      
-    /// Centre of mass energy for this run
-    double _sqrts;
-
+    ParticlePair _beams;
+    
     //@}
 
 

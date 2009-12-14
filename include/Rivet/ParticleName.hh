@@ -2,8 +2,10 @@
 #define RIVET_PARTICLENAME_HH
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/Particle.fhh"
 
 namespace Rivet {
+
 
   /// Enumeration of available beam particles (using PDG IDs where available)
   enum ParticleName {
@@ -61,8 +63,6 @@ namespace Rivet {
     PHOTOANTITAU
   };
 
-  /// Typedef for a PDG ID code.
-  typedef int PdgId;
 
   /// Convenience maker of particle ID pairs.
   inline std::pair<PdgId,PdgId> make_pdgid_pair(PdgId a, PdgId b) {
@@ -192,13 +192,9 @@ namespace Rivet {
     return os;
   }
 
+
   /////////////////////////////////////////////////
   // Beams
-
-
-  /// Typedef for a pair of beam particle names.
-  typedef std::pair<PdgId, PdgId> BeamPair;
-
 
   /// Print a BeamPair as a string.
   inline std::string toString(const BeamPair& pair) {

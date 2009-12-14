@@ -1,10 +1,7 @@
 EXTRA_DIST = rivet.i ez_setup.py
 
 rivet_wrap.cc rivet.py: rivet.i
-	if test ! -e rivet_wrap.cc -o ! -e rivet.py; then \
-      rm -f rivet_wrap.cc rivet.py; \
-      swig -c++ -python -I$(top_srcdir)/include -o rivet_wrap.cc $<; \
-      fi
+	swig -c++ -python -I$(top_srcdir)/include -o rivet_wrap.cc $<;
 
 if ENABLE_PYEXT
 

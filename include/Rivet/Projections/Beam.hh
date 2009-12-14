@@ -9,9 +9,34 @@
 namespace Rivet {
 
 
+  /// @name Stand-alone functions
+  //@{
+
+  /// Function to get beam particles from an event
+  ParticlePair beams(const Event& e);
+
+  /// Function to get beam particle IDs from an event
+  BeamPair beamIds(const Event& e);
+
+  /// Function to get beam particle IDs from a pair of particles
+  BeamPair beamIds(const ParticlePair& beams);
+
+  /// Function to get beam centre of mass energy from an event
+  double sqrtS(const Event& e);
+
+  /// Function to get beam centre of mass energy from a pair of particles
+  double sqrtS(const ParticlePair& beams);
+
+  /// Function to get beam centre of mass energy from a pair of beam momenta
+  double sqrtS(const FourMomentum& pa, const FourMomentum& pb);
+
+  //@}
+
+
+
+
   /// Project out the incoming beams
-  class Beam : public Projection {
- 
+  class Beam : public Projection { 
   public:
  
     /// The default constructor.
@@ -33,13 +58,12 @@ namespace Rivet {
     }
 
     /// The pair of beam particle PDG codes in the current collision.
-    const BeamPair beamIDs() const {
-      return make_pair(beams().first.pdgId(),
-                       beams().second.pdgId());
+    const BeamPair beamIds() const {
+      return Rivet::beamIds(beams());
     }
 
     /// Get centre of mass energy, \f$ \sqrt{s} \f$.
-    const double sqrtS() const;
+    double sqrtS() const;
 
 
   public:
@@ -57,28 +81,12 @@ namespace Rivet {
 
 
   private:
-    /// The beam particles in the current collision in GenEvent
+
+    /// The beam particles in the current collision
     ParticlePair _theBeams;
 
   };
 
-
-  ///////////////////////////////////////////////////////
-
-
-  /// @name Stand-alone functions
-  //@{
-
-  /// Function to get beam particles from an event
-  ParticlePair beams(const Event& e);
-
-  /// Function to get beam particle IDs from an event
-  BeamPair beamIds(const Event& e);
-
-  /// Function to get beam centre of mass energy from an event
-  double sqrtS(const Event& e);
-
-  //@}
 
 }
 

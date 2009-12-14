@@ -101,51 +101,88 @@ namespace Rivet {
   };
 
 
+  /// @name String representation
+  //@{
 
+  /// Print a ParticlePair as a string.
+  inline std::string toString(const ParticlePair& pair) {
+    stringstream out;
+    out << "[" 
+        << toParticleName(pair.first.pdgId()) << " @ "
+        << pair.first.momentum().E()/GeV << " GeV, "
+        << toParticleName(pair.second.pdgId()) << " @ "
+        << pair.second.momentum().E()/GeV << " GeV]";
+    return out.str();
+  }
+
+  /// Allow ParticlePair to be passed to an ostream.
+  inline std::ostream& operator<<(std::ostream& os, const ParticlePair& pp) {
+    os << toString(pp);
+    return os;
+  }
+
+  //@}
+
+
+  /// @name Comparison functors
+  //@{
+  /// Sort by descending transverse momentum, \f$ p_\perp \f$
   inline bool cmpParticleByPt(const Particle& a, const Particle& b) {
     return a.momentum().pT() > b.momentum().pT();
   }
+  /// Sort by ascending transverse momentum, \f$ p_\perp \f$
   inline bool cmpParticleByAscPt(const Particle& a, const Particle& b) {
     return a.momentum().pT() < b.momentum().pT();
   }
+  /// Sort by descending transverse energy, \f$ E_\perp \f$
   inline bool cmpParticleByEt(const Particle& a, const Particle& b) {
     return a.momentum().Et() > b.momentum().Et();
   }
+  /// Sort by ascending transverse energy, \f$ E_\perp \f$
   inline bool cmpParticleByAscEt(const Particle& a, const Particle& b) {
     return a.momentum().Et() < b.momentum().Et();
   }
+  /// Sort by descending energy, \f$ E \f$
   inline bool cmpParticleByE(const Particle& a, const Particle& b) {
     return a.momentum().E() > b.momentum().E();
   }
+  /// Sort by ascending energy, \f$ E \f$
   inline bool cmpParticleByAscE(const Particle& a, const Particle& b) {
     return a.momentum().E() < b.momentum().E();
   }
+  /// Sort by descending pseudorapidity, \f$ \eta \f$
   inline bool cmpParticleByDescPseudorapidity(const Particle& a, const Particle& b) {
     return a.momentum().pseudorapidity() > b.momentum().pseudorapidity();
   }
+  /// Sort by ascending pseudorapidity, \f$ \eta \f$
   inline bool cmpParticleByAscPseudorapidity(const Particle& a, const Particle& b) {
     return a.momentum().pseudorapidity() < b.momentum().pseudorapidity();
   }
+  /// Sort by descending absolute pseudorapidity, \f$ |\eta| \f$
   inline bool cmpParticleByDescAbsPseudorapidity(const Particle& a, const Particle& b) {
     return fabs(a.momentum().pseudorapidity()) > fabs(b.momentum().pseudorapidity());
   }
+  /// Sort by ascending absolute pseudorapidity, \f$ |\eta| \f$
   inline bool cmpParticleByAscAbsPseudorapidity(const Particle& a, const Particle& b) {
     return fabs(a.momentum().pseudorapidity()) < fabs(b.momentum().pseudorapidity());
   }
+  /// Sort by descending rapidity, \f$ y \f$
   inline bool cmpParticleByDescRapidity(const Particle& a, const Particle& b) {
     return a.momentum().rapidity() > b.momentum().rapidity();
   }
+  /// Sort by ascending rapidity, \f$ y \f$
   inline bool cmpParticleByAscRapidity(const Particle& a, const Particle& b) {
     return a.momentum().rapidity() < b.momentum().rapidity();
   }
+  /// Sort by descending absolute rapidity, \f$ |y| \f$
   inline bool cmpParticleByDescAbsRapidity(const Particle& a, const Particle& b) {
     return fabs(a.momentum().rapidity()) > fabs(b.momentum().rapidity());
   }
+  /// Sort by ascending absolute rapidity, \f$ |y| \f$
   inline bool cmpParticleByAscAbsRapidity(const Particle& a, const Particle& b) {
     return fabs(a.momentum().rapidity()) < fabs(b.momentum().rapidity());
   }
-
-
+  //@}
 
 
 }

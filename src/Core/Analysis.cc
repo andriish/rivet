@@ -76,8 +76,12 @@ namespace Rivet {
     return handler().sqrtS();
   }
 
-  const BeamPair& Analysis::beams() const {
+  const ParticlePair& Analysis::beams() const {
     return handler().beams();
+  }
+
+  const BeamPair Analysis::beamIds() const {
+    return handler().beamIds();
   }
 
 

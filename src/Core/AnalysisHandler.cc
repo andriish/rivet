@@ -12,9 +12,8 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(string basefilename,
                                    string runname, HistoFormat storetype)
-    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), 
-      _sumOfWeights(0.0), _xs(-1.0), 
-      _beams(BeamPair(ANY,ANY)), _sqrts(-1.0)
+    : _runname(runname), _numEvents(0), 
+      _sumOfWeights(0.0), _xs(-1.0)
   {
     _theAnalysisFactory = createAnalysisFactory();
     _setupFactories(basefilename, storetype);
@@ -23,9 +22,8 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename,
                                    string runname, HistoFormat storetype)
-    : _runname(runname), _nRun(0), _iRun(0), _numEvents(0), 
+    : _runname(runname), _numEvents(0), 
       _sumOfWeights(0.0), _xs(-1.0),
-      _beams(BeamPair(ANY,ANY)), _sqrts(-1.0),
       _theAnalysisFactory(&afac) 
   {
     _setupFactories(basefilename, storetype);
@@ -33,8 +31,7 @@ namespace Rivet {
 
 
   AnalysisHandler::~AnalysisHandler()
-  {
-  }
+  {  }
 
 
   Log& AnalysisHandler::getLog() {
@@ -42,10 +39,8 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::init(int i, int N) {
+  void AnalysisHandler::init() {
     getLog() << Log::DEBUG << "Initialising the analysis handler" << endl;
-    _nRun = N;
-    _iRun = i;
     _numEvents = 0;
     _sumOfWeights = 0.0;
     foreach (Analysis* a, _analyses) {

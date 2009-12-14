@@ -4,8 +4,8 @@
 
 #include "Rivet/Rivet.hh"
 
-
 namespace Rivet {
+
 
   class Particle;
   
@@ -14,6 +14,15 @@ namespace Rivet {
   
   /** Typedef a pair of Particle objects. */
   typedef std::pair<Particle, Particle> ParticlePair;
+
+  /// Typedef for a PDG ID code.
+  typedef int PdgId;
+
+  /// Typedef for a pair of particle names.
+  typedef std::pair<PdgId, PdgId> PidPair;
+
+  /// Typedef for a pair of beam particle names.
+  typedef std::pair<PdgId, PdgId> BeamPair;
 
 }
 

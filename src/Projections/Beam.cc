@@ -6,44 +6,6 @@
 namespace Rivet {
 
 
-  void Beam::project(const Event& e) {
-    assert(e.genEvent().particles_size() >= 2);
-    std::pair<HepMC::GenParticle*, HepMC::GenParticle*> beams =
-      e.genEvent().beam_particles();
-    assert(beams.first);
-    _theBeams.first = *(beams.first);
-    assert(beams.second);
-    _theBeams.second = *(beams.second);
-
-    getLog() << Log::DEBUG << "Beam particle IDs = "
-             << _theBeams.first.pdgId() << ", "
-             << _theBeams.second.pdgId() << endl;
-  }
-
-
-  const double Beam::sqrtS() const {
-    const double mom1 = beams().first.momentum().pz();
-    const double mom2 = beams().second.momentum().pz();
-    assert(sign(mom1) != sign(mom2));
-    double sqrts = 0.0;
-    if (fuzzyEquals(fabs(mom1), fabs(mom2))) {
-      sqrts = fabs(mom1) + fabs(mom2);
-    } else {
-      /// @todo Implement general sqrt(s) for asymmetric beams... requires particle masses.
-      getLog() << Log::WARN << "Asymmetric beams: mass treatment still to be implemented!" << endl;
-      const double E1 = beams().first.momentum().E();
-      const double E2 = beams().second.momentum().E();
-      sqrts = (E1+E2)*(E1+E2) - (mom1+mom2)*(mom1+mom2);
-      sqrts = sqrt(sqrts);
-    }
-    getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
-    return sqrts;
-  }
-
-
-  /////////////////////////////////////////////////
-
-
   ParticlePair beams(const Event& e) {
     Beam beamproj;
     beamproj.project(e);
@@ -53,7 +15,11 @@ namespace Rivet {
   BeamPair beamIds(const Event& e) {
     Beam beamproj;
     beamproj.project(e);
-    return beamproj.beamIDs();
+    return beamproj.beamIds();
+  }
+
+  BeamPair beamIds(const ParticlePair& beams) {
+    return make_pair(beams.first.pdgId(), beams.second.pdgId());
   }
 
   double sqrtS(const Event& e) {
@@ -61,6 +27,42 @@ namespace Rivet {
     beamproj.project(e);
     return beamproj.sqrtS();
   }
+
+  double sqrtS(const ParticlePair& beams) {
+    return sqrtS(beams.first.momentum(), beams.second.momentum());
+  }
+
+  double sqrtS(const FourMomentum& pa, const FourMomentum& pb) {
+    const double mom1 = pa.pz();
+    const double e1 = pa.E();
+    const double mom2 = pb.pz();
+    const double e2 = pb.E();
+    double sqrts = sqrt( sqr(e1+e2) - sqr(mom1+mom2) );
+    return sqrts;
+  }
+
+
+
+  /////////////////////////////////////////////
+
+
+
+  void Beam::project(const Event& e) {
+    assert(e.genEvent().particles_size() >= 2);
+    pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent().beam_particles();
+    assert(beams.first && beams.second);
+    _theBeams.first = *(beams.first);
+    _theBeams.second = *(beams.second);
+    getLog() << Log::DEBUG << "Beam particle IDs = " << beamIds() << endl;
+  }
+
+
+  double Beam::sqrtS() const {
+    double sqrts = Rivet::sqrtS(beams());
+    getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
+    return sqrts;
+  }
+  
 
 
 }

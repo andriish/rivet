@@ -1,3 +1,10 @@
+2009-12-14  Andy Buckley  <andy@insectnation.org>
+
+	* Adding more beam configuration features to Beam and
+	AnalysisHandler: the setRunBeams(...) methods on the latter now
+	allows a beam configuration for the run to be specified without
+	using the Run class.
+
 2009-12-11  Andy Buckley  <andy@insectnation.org>
 
 	* Removing use of PVertex from few remaining analyses. Still used
@@ -21,7 +28,7 @@
 
 2009-12-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* propagate SPECIAL and HISTOGRAM sections from .plot files
+	* Propagate SPECIAL and HISTOGRAM sections from .plot files
 	through compare-histos
 
 	* STAR_2006_S6860818: <pT> vs particle mass, validate analysis
