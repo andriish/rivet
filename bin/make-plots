@@ -47,8 +47,7 @@ class Inputdata:
 
         self.read_config_files(opts.CONFIGFILES)
 
-        global is2dim
-        is2dim=False
+        self.description['is2dim'] = False
         f = open(filename+'.dat')
         for line in f:
             m = pat_begin_block.match(line)
@@ -67,6 +66,7 @@ class Inputdata:
                     self.special[path] = Special(f, settings)
                 elif name == 'HISTOGRAM':
                     self.histos[path] = Histogram(f, settings)
+                    self.description['is2dim'] = self.histos[path].is2dimensional()
                 elif name == 'HISTO1D':
                     self.histos[path] = Histo1D(f, settings)
                 elif name == 'FUNCTION':
@@ -228,7 +228,7 @@ class Plot:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getYMin(xmin, xmax, inputdata.description['LogY']))
-            if is2dim:
+            if inputdata.description['is2dim']:
                 ymin=min(foo)
             else:
                 showzero = True
@@ -274,7 +274,7 @@ class Plot:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getYMax(xmin, xmax))
-            if is2dim:
+            if inputdata.description['is2dim']:
                 ymax=max(foo)
             else:
                 if inputdata.description['LogY']:
@@ -353,7 +353,7 @@ class Plot:
         out += ('\\SpecialCoor\n')
         out += ('\\begin{pspicture}(0,0)(0,0)\n')
         out += ('\\psset{xunit=%scm}\n' %(inputdata.description['PlotSizeX']))
-        if is2dim:
+        if inputdata.description['is2dim']:
             out += ('\\definecolorseries{gradientcolors}{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}\n')
             out += ('\\resetcolorseries[130]{gradientcolors}\n')
         return out
@@ -372,8 +372,7 @@ class MainPlot(Plot):
         self.stack_histograms(inputdata)
         self.set_borders(inputdata)
         self.yoffset = inputdata.description['PlotSizeY']
-        global coors
-        coors = Coordinates(inputdata)
+        self.coors = Coordinates(inputdata)
 
     def draw(self, inputdata):
         out = ""
@@ -389,30 +388,30 @@ class MainPlot(Plot):
         out = ""
         if inputdata.description.has_key('DrawSpecialFirst') and inputdata.description['DrawSpecialFirst']=='1':
             for i in inputdata.special.keys():
-                out += inputdata.special[i].draw()
+                out += inputdata.special[i].draw(self.coors)
             if inputdata.description.has_key('DrawFunctionFirst') and inputdata.description['DrawFunctionFirst']=='1':
                 for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
-                    out += inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
-                    out += inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw(self.coors)
                 for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw(self.coors)
         else:
             if inputdata.description.has_key('DrawFunctionFirst') and inputdata.description['DrawFunctionFirst']=='1':
                 for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
-                    out += inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
-                    out += inputdata.histos[i].draw()
+                    out += inputdata.histos[i].draw(self.coors)
                 for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw()
+                    out += inputdata.functions[i].draw(self.coors)
             for i in inputdata.special.keys():
-                out += inputdata.special[i].draw()
+                out += inputdata.special[i].draw(self.coors)
         if inputdata.description.has_key('Legend') and inputdata.description['Legend']=='1':
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
             out += legend.draw()
@@ -433,7 +432,7 @@ class MainPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     xcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        xticks = XTicks(inputdata.description)
+        xticks = XTicks(inputdata.description, self.coors)
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
             drawlabels=False
         else:
@@ -456,7 +455,7 @@ class MainPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        yticks = YTicks(inputdata.description)
+        yticks = YTicks(inputdata.description, self.coors)
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
                                customminortickmarks=ycustomminortickmarks,\
                                customticks=ycustomticks)
@@ -491,8 +490,7 @@ class RatioPlot(Plot):
         inputdata.histos[self.refdata].description['PolyMarker']=''
         self.calculate_ratios(inputdata)
         self.set_borders(inputdata)
-        global coors
-        coors = Coordinates(inputdata)
+        self.coors = Coordinates(inputdata)
 
     def draw(self, inputdata):
         out = ""
@@ -515,7 +513,7 @@ class RatioPlot(Plot):
     def _draw(self, inputdata):
         out = ""
         for i in inputdata.description['DrawOnly']:
-            out += inputdata.histos[i].draw()
+            out += inputdata.histos[i].draw(self.coors)
 
         frame = Frame()
         out += frame.draw()
@@ -534,7 +532,7 @@ class RatioPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     xcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        xticks = XTicks(inputdata.description)
+        xticks = XTicks(inputdata.description, self.coors)
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
                                customminortickmarks=xcustomminortickmarks,\
                                customticks=xcustomticks)
@@ -553,7 +551,7 @@ class RatioPlot(Plot):
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        yticks = YTicks(inputdata.description)
+        yticks = YTicks(inputdata.description, self.coors)
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
                                customminortickmarks=ycustomminortickmarks,\
                                customticks=ycustomticks)
@@ -698,7 +696,7 @@ class Special:
             else:
                 self.data.append(line)
 
-    def draw(self):
+    def draw(self,coors):
         out = ""
         out += ('\n%\n% Special\n%\n')
         for i in range(len(self.data)):
@@ -859,7 +857,7 @@ class Function(DrawableObject):
         if not iscode:
             print '++++++++++ ERROR: No code in function'
 
-    def draw(self):
+    def draw(self,coors):
         out = ""
         out += self.startclip()
         out += self.startpsset()
@@ -889,6 +887,7 @@ class Function(DrawableObject):
 class Histogram(DrawableObject):
     def __init__(self, f, settings):
         self.description = settings
+        self.is2dim = False
         self.data = []
         self.read_input_data(f)
 
@@ -917,8 +916,7 @@ class Histogram(DrawableObject):
                                           'Content': float(linearray[2]),
                                           'Error':   [float(linearray[3]),float(linearray[4])]})
                     else:
-                        global is2dim
-                        is2dim=True
+                        self.is2dim = True
                         self.data.append({'LowEdge': [float(linearray[0]), float(linearray[2])],
                                           'UpEdge':  [float(linearray[1]), float(linearray[3])],
                                           'Content': float(linearray[4]),
@@ -1000,12 +998,12 @@ class Histogram(DrawableObject):
             else:
                 print '+++ Error in Histogram.divide(): Binning of histograms differs'
 
-    def draw(self):
+    def draw(self,coors):
         out = ""
         out += self.startclip()
         out += self.startpsset()
         #
-        if is2dim:
+        if self.is2dim:
             for i in range(len(self.data)):
                 out += ('\\psframe')
                 color=int(129*(self.data[i]['Content']-zmin)/(zmax-zmin))
@@ -1068,20 +1066,23 @@ class Histogram(DrawableObject):
         out += self.stopclip()
         return out
 
+    def is2dimensional(self):
+        return self.is2dim
+
     def getXMin(self):
-        if is2dim:
+        if self.is2dim:
             return self.data[0]['LowEdge'][0]
         else:
             return min([self.data[i]['LowEdge'] for i in range(len(self.data))])
 
     def getXMax(self):
-        if is2dim:
+        if self.is2dim:
             return self.data[-1]['UpEdge'][0]
         else:
             return max([self.data[i]['UpEdge'] for i in range(len(self.data))])
 
     def getYMin(self, xmin, xmax, logy):
-        if is2dim:
+        if self.is2dim:
             return self.data[0]['LowEdge'][1]
         else:
             yvalues = []
@@ -1103,7 +1104,7 @@ class Histogram(DrawableObject):
                 return self.data[0]['Content']
 
     def getYMax(self, xmin, xmax):
-        if is2dim:
+        if self.is2dim:
             return self.data[-1]['UpEdge'][1]
         else:
             yvalues = []
@@ -1120,7 +1121,7 @@ class Histogram(DrawableObject):
                 return self.data[0]['Content']
 
     def getZMin(self):
-        if not is2dim:
+        if not self.is2dim:
             return 0
         zvalues = []
         for i in range(len(self.data)):
@@ -1130,7 +1131,7 @@ class Histogram(DrawableObject):
         return min(zvalues)
 
     def getZMax(self):
-        if not is2dim:
+        if not self.is2dim:
             return 0
         zvalues = []
         for i in range(len(self.data)):
@@ -1179,12 +1180,13 @@ class Frame:
 
 
 class Ticks:
-    def __init__(self, description):
+    def __init__(self, description, coors):
         self.majorticklinewidth = '0.3pt'
         self.minorticklinewidth = '0.3pt'
         self.majorticklength    = '9pt'
         self.minorticklength    = '4pt'
         self.description = description
+        self.coors = coors
 
     def draw_ticks(self, min, max, plotlog=False, customticks=[], customminortickmarks=-1, custommajortickmarks=-1,drawlabels=True,twosided=False):
         out = ""
@@ -1315,22 +1317,22 @@ class XTicks(Ticks):
 
     def draw_minortick(self, ticklabel, twosided):
         out = ''
-        out += '\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\minortickmarkx}\n'
+        out += '\\rput('+self.coors.strphys2frameX(ticklabel)+', 0){\\minortickmarkx}\n'
         if twosided:
-            out += '\\rput{180}('+coors.strphys2frameX(ticklabel)+', 1){\\minortickmarkx}\n'
+            out += '\\rput{180}('+self.coors.strphys2frameX(ticklabel)+', 1){\\minortickmarkx}\n'
         return out
 
     def draw_majortick(self, ticklabel, twosided):
         out = ''
-        out += '\\rput('+coors.strphys2frameX(ticklabel)+', 0){\\majortickmarkx}\n'
+        out += '\\rput('+self.coors.strphys2frameX(ticklabel)+', 0){\\majortickmarkx}\n'
         if twosided:
-            out += '\\rput{180}('+coors.strphys2frameX(ticklabel)+', 1){\\majortickmarkx}\n'
+            out += '\\rput{180}('+self.coors.strphys2frameX(ticklabel)+', 1){\\majortickmarkx}\n'
         return out
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,self.description['LogX'])
-        return ('\\rput('+coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut'+label+'}}\n')
+        return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut'+label+'}}\n')
 
 
 
@@ -1353,22 +1355,22 @@ class YTicks(Ticks):
 
     def draw_minortick(self, ticklabel, twosided):
         out = ''
-        out += '\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n'
+        out += '\\rput(0, '+self.coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n'
         if twosided:
-            out += '\\rput{180}(1, '+coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n'
+            out += '\\rput{180}(1, '+self.coors.strphys2frameY(ticklabel)+'){\\minortickmarky}\n'
         return out
 
     def draw_majortick(self, ticklabel, twosided):
         out = ''
-        out += '\\rput(0, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n'
+        out += '\\rput(0, '+self.coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n'
         if twosided:
-            out += '\\rput{180}(1, '+coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n'
+            out += '\\rput{180}(1, '+self.coors.strphys2frameY(ticklabel)+'){\\majortickmarky}\n'
         return out
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,self.description['LogY'])
-        return ('\\uput[180]{0}(0, '+coors.strphys2frameY(value)+'){\\strut{}'+label+'}\n')
+        return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'}\n')
 
 
 
