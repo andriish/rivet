@@ -3,6 +3,10 @@
 	* New option "MainPlot" in make-plots. For people who only want
 	the ratio plot and nothing else.
 
+	* New option "ConnectGaps" in make-plots. Set to 1 if you
+	want to connect gaps in histograms with a line when ErrorBars=0.
+	Works both in PLOT and in HISTOGRAM sections.
+
 	* Eliminated global variables for coordinates in make-plots and
 	enabled multithreading.
 

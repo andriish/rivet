@@ -218,6 +218,14 @@ DrawFunctionFirst=<0|1>
 By default the `SPECIAL` and `FUNCTION` sections are plotted after the
 histograms. With these options you can override that behaviour.
 
+--------------------
+ConnectGaps=<0|1>
+--------------------
+If error bars are disabled and you want to bridge gaps in a histogram, you
+can set this parameter. By default it is off. Setting it in the `PLOT` section
+affects all histograms, but you can also set it in the `HISTOGRAM` section for
+individual histograms. The local setting overrides the global settig.
+
 
 Comparison Plots
 ^^^^^^^^^^^^^^^^
@@ -326,6 +334,14 @@ LineDash=<dashstyle>
 If `LineStyle` is set to `dashed`, you can specify the dash style with this
 option. Anything that is understood by pstrick's `dash=...` option is valid.
 An example for a dash-dotted line is `LineDash=3pt 3pt .8pt 3pt`.
+
+--------------------
+ConnectGaps=<0|1>
+--------------------
+If error bars are disabled and you want to bridge gaps in a histogram, you
+can set this parameter. By default it is off. Setting it in the `PLOT` section
+affects all histograms, but you can also set it in the `HISTOGRAM` section for
+individual histograms. The local setting overrides the global settig.
 
 
 Fillstyles

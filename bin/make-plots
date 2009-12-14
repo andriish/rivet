@@ -186,6 +186,12 @@ class Plot:
                     inputdata.histos[i].add(inputdata.histos[previous])
                 previous=i
 
+    def set_histo_options(self,inputdata):
+        if inputdata.description.has_key('ConnectGaps'):
+            for i in inputdata.histos.keys():
+                if not inputdata.histos[i].description.has_key('ConnectGaps'):
+                    inputdata.histos[i].description['ConnectGaps']=inputdata.description['ConnectGaps']
+
     def set_borders(self,inputdata):
         self.set_xmax(inputdata)
         self.set_xmin(inputdata)
@@ -359,6 +365,7 @@ class MainPlot(Plot):
     def __init__(self, inputdata):
         self.set_normalization(inputdata)
         self.stack_histograms(inputdata)
+        self.set_histo_options(inputdata)
         self.set_borders(inputdata)
         self.yoffset = inputdata.description['PlotSizeY']
         self.coors = Coordinates(inputdata)
@@ -477,6 +484,7 @@ class RatioPlot(Plot):
         inputdata.histos[self.refdata].description['LineColor']='black'
         inputdata.histos[self.refdata].description['LineWidth']='0.3pt'
         inputdata.histos[self.refdata].description['PolyMarker']=''
+        inputdata.histos[self.refdata].description['ConnectGaps']='1'
         self.calculate_ratios(inputdata)
         self.set_borders(inputdata)
         self.coors = Coordinates(inputdata)
@@ -1039,6 +1047,9 @@ class Histogram(DrawableObject):
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
                                 + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                    if not (self.description.has_key('ConnectGaps') and self.description['ConnectGaps']=='1'):
+                        if (i+1 < len(self.data)) and (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
+                            out += ('\\psline')
                 if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
                     if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
                         out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
