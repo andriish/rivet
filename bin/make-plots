@@ -88,11 +88,17 @@ class Inputdata:
             del self.description['PlotSize']
 
         self.description['RatioPlotSizeY'] = 0.
+        if self.description.has_key('MainPlot') and self.description['MainPlot']=='0':
+            self.description['RatioPlot'] = '1'
+            self.description['PlotSizeY'] = 0.
         if self.description.has_key('RatioPlot') and self.description['RatioPlot']=='1':
             if self.description.has_key('RatioPlotYSize') and self.description['RatioPlotYSize']!='':
                 self.description['RatioPlotSizeY'] = float(self.description['RatioPlotYSize'])
             else:
-                self.description['RatioPlotSizeY'] = 3.
+                if self.description.has_key('MainPlot') and self.description['MainPlot']=='0':
+                    self.description['RatioPlotSizeY'] = 6.
+                else:
+                    self.description['RatioPlotSizeY'] = 3.
 
         self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
         self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
@@ -338,15 +344,15 @@ class Plot:
         out += ('\\usepackage{underscore}\n')
         out += ('\\usepackage{relsize}\n')
         out += ('\\usepackage[dvips,\n')
-        out += ('  left=%4.3fcm, right=0cm,\n' %(leftmargin-0.55,))
-        out += ('  top=%4.3fcm,  bottom=0cm,\n' %(topmargin+0.05,))
+        out += ('  left=%4.3fcm, right=0cm,\n' %(leftmargin-0.45,))
+        out += ('  top=%4.3fcm,  bottom=0cm,\n' %(topmargin-0.30,))
         out += ('  paperwidth=%scm,paperheight=%scm\n' %(papersizex,papersizey))
         out += (']{geometry}\n')
         out += ('\\begin{document}\n')
         out += ('\\pagestyle{empty}\n')
         out += ('\\SpecialCoor\n')
-        out += ('\\psset{xunit=%scm,yunit=%scm}\n' %(inputdata.description['PlotSizeX'], inputdata.description['PlotSizeY']))
-        out += ('\\begin{pspicture}(0,0)(1,1)\n')
+        out += ('\\begin{pspicture}(0,0)(0,0)\n')
+        out += ('\\psset{xunit=%scm}\n' %(inputdata.description['PlotSizeX']))
         if is2dim:
             out += ('\\definecolorseries{gradientcolors}{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}\n')
             out += ('\\resetcolorseries[130]{gradientcolors}\n')
@@ -365,13 +371,18 @@ class MainPlot(Plot):
         self.set_normalization(inputdata)
         self.stack_histograms(inputdata)
         self.set_borders(inputdata)
+        self.yoffset = inputdata.description['PlotSizeY']
         global coors
         coors = Coordinates(inputdata)
 
     def draw(self, inputdata):
         out = ""
-        out += self.write_header(inputdata)
+        out += ('\n%\n% MainPlot\n%\n')
+        out += ('\\psset{yunit=%scm}\n' %(self.yoffset))
+        out += ('\\rput(0,-1){%\n')
+        out += ('\\psset{yunit=%scm}\n' %(inputdata.description['PlotSizeY']))
         out += self._draw(inputdata)
+        out += ('}\n')
         return out
 
     def _draw(self, inputdata):
@@ -461,33 +472,34 @@ class MainPlot(Plot):
 
 class RatioPlot(Plot):
     def __init__(self, inputdata):
-        if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
-            self.refdata=inputdata.description['RatioPlotReference']
-            inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
-            inputdata.description['LogY'] = False
-            if inputdata.description.has_key('RatioPlotYMin'):
-                inputdata.description['YMin']=inputdata.description['RatioPlotYMin']
-            if inputdata.description.has_key('RatioPlotYMax'):
-                inputdata.description['YMax']=inputdata.description['RatioPlotYMax']
-            if not inputdata.description.has_key('RatioPlotErrorBandColor'):
-                inputdata.description['RatioPlotErrorBandColor']='yellow'
-            inputdata.histos[self.refdata].description['ErrorBandColor']=inputdata.description['RatioPlotErrorBandColor']
-            inputdata.histos[self.refdata].description['ErrorBands']='1'
-            inputdata.histos[self.refdata].description['ErrorBars']='0'
-            inputdata.histos[self.refdata].description['LineStyle']='solid'
-            inputdata.histos[self.refdata].description['LineColor']='black'
-            inputdata.histos[self.refdata].description['LineWidth']='0.3pt'
-            inputdata.histos[self.refdata].description['PolyMarker']=''
-            self.calculate_ratios(inputdata)
-            self.set_borders(inputdata)
-            global coors
-            coors = Coordinates(inputdata)
+        self.refdata=inputdata.description['RatioPlotReference']
+        self.yoffset = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY']
+        inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
+        inputdata.description['LogY'] = False
+        if inputdata.description.has_key('RatioPlotYMin'):
+            inputdata.description['YMin']=inputdata.description['RatioPlotYMin']
+        if inputdata.description.has_key('RatioPlotYMax'):
+            inputdata.description['YMax']=inputdata.description['RatioPlotYMax']
+        if not inputdata.description.has_key('RatioPlotErrorBandColor'):
+            inputdata.description['RatioPlotErrorBandColor']='yellow'
+        inputdata.histos[self.refdata].description['ErrorBandColor']=inputdata.description['RatioPlotErrorBandColor']
+        inputdata.histos[self.refdata].description['ErrorBands']='1'
+        inputdata.histos[self.refdata].description['ErrorBars']='0'
+        inputdata.histos[self.refdata].description['LineStyle']='solid'
+        inputdata.histos[self.refdata].description['LineColor']='black'
+        inputdata.histos[self.refdata].description['LineWidth']='0.3pt'
+        inputdata.histos[self.refdata].description['PolyMarker']=''
+        self.calculate_ratios(inputdata)
+        self.set_borders(inputdata)
+        global coors
+        coors = Coordinates(inputdata)
 
     def draw(self, inputdata):
         out = ""
         out += ('\n%\n% RatioPlot\n%\n')
-        out += ('\\psset{yunit=%scm}\n' %(inputdata.description['PlotSizeY']))
+        out += ('\\psset{yunit=%scm}\n' %(self.yoffset))
         out += ('\\rput(0,-1){%\n')
+        out += ('\\psset{yunit=%scm}\n' %(inputdata.description['PlotSizeY']))
         out += self._draw(inputdata)
         out += ('}\n')
         return out
@@ -546,9 +558,16 @@ class RatioPlot(Plot):
                                customminortickmarks=ycustomminortickmarks,\
                                customticks=ycustomticks)
 
-        labels = Labels(inputdata.description)
-        out += labels.draw(['XLabel','RatioPlotYLabel'])
+        if inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0':
+            if inputdata.description.has_key('Legend') and inputdata.description['Legend']=='1':
+                legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
+                out += legend.draw()
 
+        labels = Labels(inputdata.description)
+        if inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0':
+            out += labels.draw(['Title','XLabel','RatioPlotYLabel'])
+        else:
+            out += labels.draw(['XLabel','RatioPlotYLabel'])
         return out
 
 
@@ -1404,7 +1423,7 @@ def process_datfile(datfile):
     ## Create a temporary directory
     cwd = os.getcwd()
     datpath = os.path.join(cwd, datfile)
-    tempdir = tempfile.mkdtemp('.make_plot')
+    tempdir = tempfile.mkdtemp('.make-plots')
     tempdatpath = os.path.join(tempdir, datfile)
     shutil.copy(datpath, tempdir)
 
@@ -1412,12 +1431,15 @@ def process_datfile(datfile):
     inputdata = Inputdata(filename)
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
-    mp = MainPlot(inputdata)
-    texfile.write(mp.draw(inputdata))
+    p = Plot(inputdata)
+    texfile.write(p.write_header(inputdata))
+    if not (inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0'):
+        mp = MainPlot(inputdata)
+        texfile.write(mp.draw(inputdata))
     if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
         rp = RatioPlot(inputdata)
         texfile.write(rp.draw(inputdata))
-    texfile.write(mp.write_footer())
+    texfile.write(p.write_footer())
     texfile.close()
 
     if opts.OUTPUT_FORMAT != "TEX":

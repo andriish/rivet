@@ -243,6 +243,13 @@ RatioPlotYSize=<size>
 RatioPlotErrorBandColor=<color>
 --------------------
 
+If you only want the ratio plot without showing the actual data distribution,
+you can switch off the main plot. This option implies `RatioPlot=1`:
+
+--------------------
+MainPlot=0
+--------------------
+
 
 HISTOGRAM
 ~~~~~~~~~

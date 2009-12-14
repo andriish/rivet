@@ -1,3 +1,8 @@
+2009-12-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* New option "MainPlot" in make-plots. For people who only want
+	the ratio plot and nothing else.
+
 2009-12-14  Andy Buckley  <andy@insectnation.org>
 
 	* AnalysisHandler::execute now calls AnalysisHandler::init(event)
