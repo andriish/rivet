@@ -9,12 +9,6 @@
 ## $Revision$
 ##
 
-
-# TODO:
-# - Angabe von manuellen tickmarks und ticklabeln schoener machen.
-#   Im Moment ist die Syntax noch eine mit tab getrennte Liste von Wert und Beschriftung
-
-
 import os, sys, logging, re
 import tempfile
 import getopt
@@ -199,37 +193,35 @@ class Plot:
         self.set_ymin(inputdata)
         self.set_zmax(inputdata)
         self.set_zmin(inputdata)
+        inputdata.description['Borders']=(self.xmin, self.xmax, self.ymin, self.ymax, self.zmin, self.zmax)
 
     def set_xmin(self,inputdata):
-        global xmin
         if inputdata.description.has_key('XMin'):
-            xmin = float(inputdata.description['XMin'])
+            self.xmin = float(inputdata.description['XMin'])
         else:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getXMin())
-            xmin=min(foo)
+            self.xmin=min(foo)
 
     def set_xmax(self,inputdata):
-        global xmax
         if inputdata.description.has_key('XMax'):
-            xmax = float(inputdata.description['XMax'])
+            self.xmax = float(inputdata.description['XMax'])
         else:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getXMax())
-            xmax=max(foo)
+            self.xmax=max(foo)
 
     def set_ymin(self,inputdata):
-        global ymin, ymax
         if inputdata.description.has_key('YMin'):
-            ymin = float(inputdata.description['YMin'])
+            self.ymin = float(inputdata.description['YMin'])
         else:
             foo=[]
             for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getYMin(xmin, xmax, inputdata.description['LogY']))
+                foo.append(inputdata.histos[i].getYMin(self.xmin, self.xmax, inputdata.description['LogY']))
             if inputdata.description['is2dim']:
-                ymin=min(foo)
+                self.ymin=min(foo)
             else:
                 showzero = True
                 if inputdata.description.has_key('ShowZero'):
@@ -237,21 +229,21 @@ class Plot:
                         showzero = False
                 if showzero:
                     if min(foo) > -1e-4:
-                        ymin = 0
+                        self.ymin = 0
                     else:
-                        ymin = 1.1*min(foo)
+                        self.ymin = 1.1*min(foo)
                 else:
                     if min(foo) < -1e-4:
-                        ymin = 1.1*min(foo)
+                        self.ymin = 1.1*min(foo)
                     elif min(foo) < 1e-4:
-                        ymin = 0
+                        self.ymin = 0
                     else:
-                        ymin = 0.9*min(foo)
+                        self.ymin = 0.9*min(foo)
 
                 if inputdata.description['LogY']:
                     foo=[item for item in foo if item>0.0]
                     if len(foo)==0:
-                        foo.append(2e-4*ymax)
+                        foo.append(2e-4*self.ymax)
                     fullrange = opts.FULL_RANGE
                     if inputdata.description.has_key('FullRange'):
                         if inputdata.description['FullRange']=='1':
@@ -259,48 +251,45 @@ class Plot:
                         else:
                             fullrange = False
                     if fullrange:
-                        ymin = min(foo)/1.7
+                        self.ymin = min(foo)/1.7
                     else:
-                        ymin = max(min(foo)/1.7, 2e-4*ymax)
-                if ymin==ymax:
-                    ymin-=1
-                    ymax+=1
+                        self.ymin = max(min(foo)/1.7, 2e-4*self.ymax)
+                if self.ymin==self.ymax:
+                    self.ymin-=1
+                    self.ymax+=1
 
     def set_ymax(self,inputdata):
-        global ymax
         if inputdata.description.has_key('YMax'):
-            ymax = float(inputdata.description['YMax'])
+            self.ymax = float(inputdata.description['YMax'])
         else:
             foo=[]
             for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getYMax(xmin, xmax))
+                foo.append(inputdata.histos[i].getYMax(self.xmin, self.xmax))
             if inputdata.description['is2dim']:
-                ymax=max(foo)
+                self.ymax=max(foo)
             else:
                 if inputdata.description['LogY']:
-                    ymax=1.7*max(foo)
+                    self.ymax=1.7*max(foo)
                 else:
-                    ymax=1.1*max(foo)
+                    self.ymax=1.1*max(foo)
 
     def set_zmin(self,inputdata):
-        global zmin
         if inputdata.description.has_key('ZMin'):
-            zmin = float(inputdata.description['ZMin'])
+            self.zmin = float(inputdata.description['ZMin'])
         else:
             foo=[]
             for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getZMin())
-            zmin=min(foo)
+                foo.append(inputdata.histos[i].getZMin(self.xmin, self.xmax, self.ymin, self.ymax))
+            self.zmin=min(foo)
 
     def set_zmax(self,inputdata):
-        global zmax
         if inputdata.description.has_key('ZMax'):
-            zmax = float(inputdata.description['ZMax'])
+            self.zmax = float(inputdata.description['ZMax'])
         else:
             foo=[]
             for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getZMax())
-            zmax=min(foo)
+                foo.append(inputdata.histos[i].getZMax(self.xmin, self.xmax, self.ymin, self.ymax))
+            self.zmax=min(foo)
 
     def draw(self):
         pass
@@ -864,11 +853,11 @@ class Function(DrawableObject):
         if self.description.has_key('XMin') and self.description['XMin']!='':
             min=float(self.description['XMin'])
         else:
-            min=xmin
+            min=coors.xmin()
         if self.description.has_key('XMax') and self.description['XMax']!='':
             max=float(self.description['XMax'])
         else:
-            max=xmax
+            max=coors.xmax()
         dx=(max-min)/500.
         x=min-dx
         out += ('\\pscurve')
@@ -1006,10 +995,10 @@ class Histogram(DrawableObject):
         if self.is2dim:
             for i in range(len(self.data)):
                 out += ('\\psframe')
-                color=int(129*(self.data[i]['Content']-zmin)/(zmax-zmin))
-                if self.data[i]['Content']>zmax:
+                color=int(129*(self.data[i]['Content']-coors.zmin())/(coors.zmax()-coors.zmin()))
+                if self.data[i]['Content']>coors.zmax():
                     color=129
-                if self.data[i]['Content']<zmin:
+                if self.data[i]['Content']<coors.zmin():
                     color=0
                 out += ('[linewidth=0pt, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
                 out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
@@ -1120,7 +1109,7 @@ class Histogram(DrawableObject):
             else:
                 return self.data[0]['Content']
 
-    def getZMin(self):
+    def getZMin(self, xmin, xmax, ymin, ymax):
         if not self.is2dim:
             return 0
         zvalues = []
@@ -1130,7 +1119,7 @@ class Histogram(DrawableObject):
                 zvalues.append(self.data[i]['Content'])
         return min(zvalues)
 
-    def getZMax(self):
+    def getZMax(self, xmin, xmax, ymin, ymax):
         if not self.is2dim:
             return 0
         zvalues = []
@@ -1306,7 +1295,7 @@ class XTicks(Ticks):
         out += ('\n%\n% X-Ticks\n%\n')
         out += ('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
         out += ('\\def\\minortickmarkx{\\psline[linewidth='+self.minorticklinewidth+'](0,0)(0,'+self.minorticklength+')}%\n')
-        out += self.draw_ticks(xmin, xmax,\
+        out += self.draw_ticks(self.coors.xmin(), self.coors.xmax(),\
                                    plotlog=self.description['LogX'],\
                                    customticks=customticks,\
                                    custommajortickmarks=custommajortickmarks,\
@@ -1345,7 +1334,7 @@ class YTicks(Ticks):
         out += ('\n%\n% Y-Ticks\n%\n')
         out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
         out += ('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
-        out += self.draw_ticks(ymin, ymax,\
+        out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),\
                                    plotlog=self.description['LogY'],\
                                    customticks=customticks,\
                                    custommajortickmarks=custommajortickmarks,\
@@ -1381,11 +1370,11 @@ class Coordinates:
     def phys2frameX(self, x):
         if self.description['LogX']:
             if x>0:
-                result = 1.*(log10(x)-log10(xmin))/(log10(xmax)-log10(xmin))
+                result = 1.*(log10(x)-log10(self.xmin()))/(log10(self.xmax())-log10(self.xmin()))
             else:
                 return -10
         else:
-            result = 1.*(x-xmin)/(xmax-xmin)
+            result = 1.*(x-self.xmin())/(self.xmax()-self.xmin())
         if (fabs(result) < 1e-4):
             return 0
         else:
@@ -1394,11 +1383,11 @@ class Coordinates:
     def phys2frameY(self, y):
         if self.description['LogY']:
             if y>0:
-                result = 1.*(log10(y)-log10(ymin))/(log10(ymax)-log10(ymin))
+                result = 1.*(log10(y)-log10(self.ymin()))/(log10(self.ymax())-log10(self.ymin()))
             else:
                 return -10
         else:
-            result = 1.*(y-ymin)/(ymax-ymin)
+            result = 1.*(y-self.ymin())/(self.ymax()-self.ymin())
         if (fabs(result) < 1e-4):
             return 0
         else:
@@ -1409,6 +1398,24 @@ class Coordinates:
 
     def strphys2frameY(self, y):
         return str(self.phys2frameY(y))
+
+    def xmin(self):
+        return self.description['Borders'][0]
+
+    def xmax(self):
+        return self.description['Borders'][1]
+
+    def ymin(self):
+        return self.description['Borders'][2]
+
+    def ymax(self):
+        return self.description['Borders'][3]
+
+    def zmin(self):
+        return self.description['Borders'][4]
+
+    def zmax(self):
+        return self.description['Borders'][5]
 
 
 ####################
@@ -1552,11 +1559,6 @@ TODO
     numcores = os.sysconf('SC_NPROCESSORS_ONLN')
     if numcores is None:
         numcores = 1
-
-    ## Work-around for global variable locking bug.
-    ## We set the numcores default to 1 until we get
-    ## rid of the global variables.
-    numcores = 1
 
     ## Parse command line options
     from optparse import OptionParser, OptionGroup

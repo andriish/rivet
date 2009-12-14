@@ -3,6 +3,9 @@
 	* New option "MainPlot" in make-plots. For people who only want
 	the ratio plot and nothing else.
 
+	* Eliminated global variables for coordinates in make-plots and
+	enabled multithreading.
+
 2009-12-14  Andy Buckley  <andy@insectnation.org>
 
 	* AnalysisHandler::execute now calls AnalysisHandler::init(event)
