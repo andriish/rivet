@@ -11,7 +11,7 @@
 \author{Hendrik Hoeth\\ IPPP, Durham University, UK.\\ E-mail: \email{hendrik.hoeth@cern.ch}}
 \author{James Monk\\ HEP Group, Dept. of Physics and Astronomy, UCL, London, UK.\\ E-mail: \email{jmonk@hep.ucl.ac.uk}}
 \author{Holger Schulz\\ Institut f\"ur Physik, Berlin Humboldt University, Germany.\\ E-mail: \email{holger.schulz@@physik.hu-berlin.de}}
-%\author{Eike von Seggern\\ Institut f\"ur Physik, Berlin Humboldt University, Germany.\\ E-mail: \email{jan.eike.von.seggern@@physik.hu-berlin.de}}
+\author{Jan Eike von Seggern\\ Institut f\"ur Physik, Berlin Humboldt University, Germany.\\ E-mail: \email{vseggern@physik.hu-berlin.de}}
 \author{Frank Siegert\\ IPPP, Durham University, UK.\\ E-mail: \email{frank.siegert@durham.ac.uk}}
 \author{Lars Sonnenschein\\ CERN, Gen\`eve 1206, Switzerland.\\ E-mail: \email{sonne@cern.ch}}
 
@@ -416,6 +416,63 @@ checking the contents of an AIDA file, with \kbd{aida2flat Rivet.aida | less}.
   sample merging statistics for all data objects.
 \end{detail}
 
+\subsection{Chopping histograms}
+\newcommand{\chophisto}{\kbd{rivet-chop-bins }}
+In some cases you don't want to keep the complete histograms produced by Rivet.
+For generator tuning purposes, for example, you want to get rid of the bins you
+already know your generator is incapable of describing. You can use the script
+\chophisto to specify those bin-ranges you want to keep individually for each
+histogram in a Rivet output-file. The bin-ranges have to be specified using the
+corresponding x-values of that histogram.  The usage is very simple. You can
+specify bin ranges of histograms to keep on the command-line via the \kbd{-b}
+switch, which can be given multiple times, e.g.
+
+\kbd{\chophisto -b /CDF\_2001\_S4751469/d03-x01-y01:5:13 Rivet.aida} will chop
+all bins with $x<5$ and $x>13~$ from the histogram
+\kbd{/CDF\_2001\_S4751469/d03-x01-y01:5:13} in the file \kbd{Rivet.aida}. In
+this case $x$ would be a leading jet \pT.
+
+\subsection{Normalising histograms}
+\newcommand{\normhisto}{\kbd{rivet-normalise-histos }} Sometimes you want to
+use histograms normalised to, e.g., the generator cross-section or the area of
+a reference-data histogram. The script \normhisto was designed for these
+purposes. The usage is the following:
+
+\kbd{\normhisto -O observables -r RIVETDATA -o normalised Rivet.aida}
+By default, the normalised histograms are written to file in the AIDA-XML
+format. You can also give the {-f} switch on the command line to produce flat
+histograms.
+
+\paragraph{Normalising to reference data} You will need an output-file of
+Rivet, \kbd{Rivet.aida}, a folder that contains the reference-data histograms
+(e.g. \kbd{rivet-config --datadir}) and optionally, a text-file,
+\kbd{observables} that contains the names of the histograms you would like to
+normalise - those not given in the file will remain un-normalised. These
+are examples of how your \kbd{observables} file might look like:
+
+\begin{verbatim} /CDF_2000_S4155203/d01-x01-y01 \end{verbatim} If a histogram
+{/CDF\_2000\_S4155203/d01-x01-y01} is found in one of the reference-data files
+in the folder specified via the \kbd{-r} switch, then this will result in a
+histogram of 
+\\{/CDF\_2000\_S4155203/d01-x01-y01} being normalised to the area of the
+corresponding reference-data histogram.  You can further specify a certain
+range of bins to normalise as such: \begin{verbatim}
+/CDF_2000_S4155203/d01-x01-y01:2:35 \end{verbatim} This will chop off the bins
+with $x<2$ and $x>35$ of both, the histogram in your \kbd{Rivet.aida} and the
+reference-data histogram. The remaining MC histogram is then normalised to the
+remaining area of the reference-data histogram.
+
+\paragraph{Normalising to arbitrary areas} In the file \kbd{observables} you
+can further specify an arbitrary number, e.g. a generator cross-section, as
+follows: \begin{verbatim} /CDF_2000_S4155203/d01-x01-y01    1.0 \end{verbatim}
+This will result in the histogram {/CDF\_2000\_S4155203/d01-x01-y01} being
+normalised to one.
+
+\begin{verbatim} /CDF_2000_S4155203/d01-x01-y01:2:35    1.0 \end{verbatim}
+
+This will chop off the bins with $x<2$ and $x>35$ of the histogram\\
+{/CDF\_2000\_S4155203/d01-x01-y01} first and normalise the remaining histogram
+to one.
 
 \subsection{Plotting and comparing data}
 
@@ -1082,6 +1139,7 @@ Rivet development has been supported by a variety of sources:
 \item Andy Buckley has been supported by grants from the UK Science and
   Technology Facilities Council (Special Project Grant) and from the Scottish
   Universities Physics Alliance (Advanced Research Fellowship).
+\item Holger Schulz acknowledges the support of the German Research Foundation (DFG).
 \end{itemize}
 
 
