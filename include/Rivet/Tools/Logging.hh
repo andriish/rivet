@@ -15,10 +15,10 @@ namespace Rivet {
     };
 
     /// Typedef for a collection of named logs.
-    typedef std::map<const std::string, Log*> LogMap;
+    typedef std::map<std::string, Log*> LogMap;
 
     /// Typedef for a collection of named log levels.
-    typedef std::map<const std::string, int> LevelMap;
+    typedef std::map<std::string, int> LevelMap;
 
     /// Typedef for a collection of shell color codes, accessed by log level.
     typedef std::map<int, std::string> ColorCodes;
@@ -51,43 +51,41 @@ namespace Rivet {
   public:
     /// Set the log levels
     static void setLevel(const std::string& name, int level);
-    static void setLevels(LevelMap& logLevels);
+    static void setLevels(const LevelMap& logLevels);
 
-    static void setShowTimestamp(const bool showTime=true) {
+    static void setShowTimestamp(bool showTime=true) {
       showTimestamp = showTime;
     }
 
-    static void setShowLevel(const bool showLevel=true) {
+    static void setShowLevel(bool showLevel=true) {
       showLogLevel = showLevel;
     }
 
-    static void setShowLoggerName(const bool showName=true) {
+    static void setShowLoggerName(bool showName=true) {
       showLoggerName = showName;
     }
 
-    static void setUseColors(const bool useColors=true) {
+    static void setUseColors(bool useColors=true) {
       useShellColors = useColors;
     }
 
   protected:
+
     /// @name Hidden constructors etc.
     //@{
+
     /// Constructor 1
     Log(const std::string& name);
 
     /// Constructor 2
     Log(const std::string& name, int level);
 
-    /// Copy constructor
-    //Log(const Log&);
-
-    /// Copy assignment operator
-    //Log& operator=(const Log&);
     //@}
 
     static std::string getColorCode(int level);
 
   public:
+
     /// Get a logger with the given name. The level will be taken from the
     /// "requestedLevels" static map or will be INFO by default.
     static Log& getLog(const std::string& name);

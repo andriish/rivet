@@ -44,7 +44,7 @@ namespace Rivet {
   }
 
 
-  void Log::setLevels(LevelMap& logLevels) {
+  void Log::setLevels(const LevelMap& logLevels) {
     for (LevelMap::const_iterator lev = logLevels.begin(); lev != logLevels.end(); ++lev) {
       defaultLevels[lev->first] = lev->second;
     }
