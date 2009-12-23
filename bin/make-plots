@@ -469,8 +469,19 @@ class RatioPlot(Plot):
     def __init__(self, inputdata):
         self.refdata=inputdata.description['RatioPlotReference']
         self.yoffset = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY']
+        inputdata.description['RatioPlotStage'] = True
         inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
         inputdata.description['LogY'] = False
+        if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
+            inputdata.description['YLabel']='$(\\text{MC}-\\text{data})$'
+            inputdata.description['YMin']=-3.5
+            inputdata.description['YMax']=3.5
+        else:
+            inputdata.description['YLabel']='MC/data'
+            inputdata.description['YMin']=0.5
+            inputdata.description['YMax']=1.5
+        if inputdata.description.has_key('RatioPlotYLabel'):
+            inputdata.description['YLabel']=inputdata.description['RatioPlotYLabel']
         if inputdata.description.has_key('RatioPlotYMin'):
             inputdata.description['YMin']=inputdata.description['RatioPlotYMin']
         if inputdata.description.has_key('RatioPlotYMax'):
@@ -504,8 +515,14 @@ class RatioPlot(Plot):
         inputdata.description['DrawOnly'].insert(0,foo)
         for i in inputdata.description['DrawOnly']:
             if i!=self.refdata:
-                inputdata.histos[i].divide(inputdata.histos[self.refdata])
-        inputdata.histos[self.refdata].divide(inputdata.histos[self.refdata])
+                if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
+                    inputdata.histos[i].deviation(inputdata.histos[self.refdata])
+                else:
+                    inputdata.histos[i].divide(inputdata.histos[self.refdata])
+        if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
+            inputdata.histos[self.refdata].deviation(inputdata.histos[self.refdata])
+        else:
+            inputdata.histos[self.refdata].divide(inputdata.histos[self.refdata])
 
     def _draw(self, inputdata):
         out = ""
@@ -560,9 +577,9 @@ class RatioPlot(Plot):
 
         labels = Labels(inputdata.description)
         if inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0':
-            out += labels.draw(['Title','XLabel','RatioPlotYLabel'])
+            out += labels.draw(['Title','XLabel','YLabel'])
         else:
-            out += labels.draw(['XLabel','RatioPlotYLabel'])
+            out += labels.draw(['XLabel','YLabel'])
         return out
 
 
@@ -669,11 +686,6 @@ class Labels:
             if self.description.has_key('YLabelSep'):
                 ylabelsep=float(self.description['YLabelSep'])
             out += ('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['YLabel']+'}}\n')
-        if self.description.has_key('RatioPlotYLabel') and (axis.count('RatioPlotYLabel') or axis==[]):
-            ylabelsep=5.3
-            if self.description.has_key('YLabelSep'):
-                ylabelsep=float(self.description['YLabelSep'])
-            out += ('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['RatioPlotYLabel']+'}}\n')
         return out
 
 
@@ -977,7 +989,6 @@ class Histogram(DrawableObject):
         for i in range(len(self.data)):
             if self.data[i]['LowEdge']==name.data[i]['LowEdge'] and \
                self.data[i]['UpEdge']==name.data[i]['UpEdge']:
-                # FIXME: Is this kind of error calculation correct?
                 try:
                     self.data[i]['Error'][0] /= name.data[i]['Content']
                 except ZeroDivisionError:
@@ -994,6 +1005,28 @@ class Histogram(DrawableObject):
 #                self.data[i]['Error'][1] = sqrt(self.data[i]['Error'][1]**2 + name.data[i]['Error'][1]**2)
             else:
                 print '+++ Error in Histogram.divide(): Binning of histograms differs'
+
+    def deviation(self,name):
+        if len(self.data)!=len(name.data):
+            print '+++ Error in Histogram.deviation(): Binning of histograms differs'
+        for i in range(len(self.data)):
+            if self.data[i]['LowEdge']==name.data[i]['LowEdge'] and \
+               self.data[i]['UpEdge']==name.data[i]['UpEdge']:
+                self.data[i]['Content'] -= name.data[i]['Content']
+                try:
+                    self.data[i]['Content'] /= 0.5*(name.data[i]['Error'][0] + name.data[i]['Error'][1])
+                except ZeroDivisionError:
+                    self.data[i]['Content'] = 0.0
+                try:
+                    self.data[i]['Error'][0] /= name.data[i]['Error'][0]
+                except ZeroDivisionError:
+                    self.data[i]['Error'][0] = 0.0
+                try:
+                    self.data[i]['Error'][1] /= name.data[i]['Error'][1]
+                except ZeroDivisionError:
+                    self.data[i]['Error'][1] = 0.0
+            else:
+                print '+++ Error in Histogram.deviation(): Binning of histograms differs'
 
     def draw(self,coors):
         out = ""
@@ -1370,7 +1403,11 @@ class YTicks(Ticks):
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,self.description['LogY'])
-        return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'}\n')
+        if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode']=='deviation' \
+                and self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']==True:
+            return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n')
+        else:
+            return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'}\n')
 
 
 

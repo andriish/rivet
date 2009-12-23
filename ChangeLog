@@ -1,3 +1,7 @@
+2009-12-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* New option "RatioPlotMode=deviation" in make-plots.
+
 2009-12-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* New option "MainPlot" in make-plots. For people who only want
