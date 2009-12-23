@@ -290,10 +290,7 @@ if __name__ == "__main__":
                          "LogY" : "%d" % int((len(HISTOS[ref][name].getBins()) > 1) and not opts.LINEAR),
                          "DrawOnly" : drawonlystr,
                          "RatioPlot" : "%d" % int(not opts.NORATIO),
-                         "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath()),
-                         "RatioPlotYMin" : "0.5",
-                         "RatioPlotYMax" : "1.5",
-                         "RatioPlotYLabel" : "MC/data"}
+                         "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath())}
 
         headstr  = "# BEGIN PLOT\n"
         for param, default in paramdefaults.iteritems():
