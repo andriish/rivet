@@ -58,7 +58,6 @@ namespace Rivet {
       double efwd = 0.;
       foreach (const Particle& p, particles) {
         double th = 180.-p.momentum().angle(dl.in().momentum())/degree;
-        //      double th = beamAngle(p.momentum(),order);
         if (th > 4.4 && th < 15.0) efwd += p.momentum().E();
       }
       // There are four possible selections for events
@@ -144,7 +143,9 @@ namespace Rivet {
       evcut[3] &= bin[3] >= 0;
    
       // Veto if fails all cuts after bin selection
-      if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3]));
+      if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3])) {
+        vetoEvent;
+      }
    
       // Increment the count for normalisation
       const double weight = event.weight();
@@ -255,14 +256,6 @@ namespace Rivet {
 
   private:
  
-    /// Polar angle with right direction of the beam
-    inline double beamAngle(const FourVector& v, const bool & order) {
-      double thel = v.polarAngle()/degree;
-      if(thel<0.) thel+=180.;
-      if(!order) thel = 180.-thel;
-      return thel;
-    }
-
     /// @name Histograms
     //@{
     vector<AIDA::IHistogram1D *> _histETLowQa;
