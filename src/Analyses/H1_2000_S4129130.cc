@@ -11,14 +11,14 @@ namespace Rivet {
 
   /// @brief H1 energy flow and charged particle spectra
   /// @author Peter Richardson
-  /// Based on the HZtool analysis
+  /// Based on the HZtool analysis hz99091
   class H1_2000_S4129130 : public Analysis {
   public:
 
     /// Constructor
     H1_2000_S4129130() : Analysis("H1_2000_S4129130")
     {
-      setBeams(ELECTRON, PROTON);
+      setBeams(POSITRON, PROTON);
     }
  
  
@@ -64,21 +64,17 @@ namespace Rivet {
       // There are four possible selections for events
       bool evcut[4];
       // Low  Q2 selection a
-      /// @todo Units and inRange
-      evcut[0] = enel/GeV > 12. && w2 >= 4400. && efwd/GeV > 0.5 &&
-        thel > 157. && thel < 176.0;
+      evcut[0] = enel/GeV > 12. && w2 >= 4400.*GeV2 && efwd/GeV > 0.5 &&
+        inRange(thel,157.,176.);
       // Low  Q2 selection b
-      /// @todo Units and inRange
-      evcut[1] = enel/GeV > 12. && y > 0.3 && y < 0.5;
+      evcut[1] = enel/GeV > 12. && inRange(y,0.3,0.5);
       // High Q2 selection a
-      /// @todo Units and inRange
-      evcut[2] = thel > 12. && thel < 150.0 && y > 0.05 && y < 0.6 &&
-        w2 >= 4400. && efwd > 0.5;
+      evcut[2] = inRange(thel,12.,150.) && inRange(y,0.05,0.6) &&
+        w2 >= 4400.*GeV2 && efwd > 0.5;
       // High Q2 selection b
-      /// @todo Units and inRange
-      evcut[3] = thel > 12. && thel < 150.0 && y > 0.05 && y < 0.6 &&
-        w2 > 27110. && w2 < 45182.;
-   
+      evcut[3] = inRange(thel,12.,150.) && inRange(y,0.05,0.6) &&
+	inRange(w2,27110.*GeV2,45182.*GeV2);
+  
       // Veto if fails all cuts
       if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3]) ) {
         vetoEvent;
@@ -87,70 +83,64 @@ namespace Rivet {
       // Find the bins
       int bin[4] = {-1,-1,-1,-1};
       // For the low Q2 selection a)
-      /// @todo Units
-      if (q2 > 2.5 && q2 <= 5.) {
+      if (q2 > 2.5*GeV && q2 <= 5.*GeV) {
         if (x > 0.00005 && x <= 0.0001 ) bin[0] = 0;
         if (x > 0.0001  && x <= 0.0002 ) bin[0] = 1;
         if (x > 0.0002  && x <= 0.00035) bin[0] = 2;
         if (x > 0.00035 && x <= 0.0010 ) bin[0] = 3;
       }
-      /// @todo Units
-      else if(q2 > 5. && q2 <= 10.) {
+      else if(q2 > 5.*GeV && q2 <= 10.*GeV) {
         if (x > 0.0001  && x <= 0.0002 ) bin[0] = 4;
         if (x > 0.0002  && x <= 0.00035) bin[0] = 5;
         if (x > 0.00035 && x <= 0.0007 ) bin[0] = 6;
         if (x > 0.0007  && x <= 0.0020 ) bin[0] = 7;
       }
-      /// @todo Units
-      else if(q2 > 10. && q2 <= 20.) {
+      else if(q2 > 10.*GeV && q2 <= 20.*GeV) {
         if (x > 0.0002 && x <= 0.0005) bin[0] = 8;
         if (x > 0.0005 && x <= 0.0008) bin[0] = 9;
         if (x > 0.0008 && x <= 0.0015) bin[0] = 10;
         if (x > 0.0015 && x <= 0.040 ) bin[0] = 11;
       }
-      /// @todo Units
-      else if(q2 > 20. && q2 <= 50.) {
+      else if(q2 > 20.*GeV && q2 <= 50.*GeV) {
         if (x > 0.0005 && x <= 0.0014) bin[0] = 12;
         if (x > 0.0014 && x <= 0.0030) bin[0] = 13;
         if (x > 0.0030 && x <= 0.0100) bin[0] = 14;
       }
-      /// @todo Units
-      else if (q2 > 50. && q2 <= 100.) {
+      else if (q2 > 50.*GeV && q2 <= 100.*GeV) {
         if (x >0.0008 && x <= 0.0030) bin[0] = 15;
         if (x >0.0030 && x <= 0.0200) bin[0] = 16;
       }
-      /// @todo Huh?
+      // check in one of the bins
       evcut[0] &= bin[0] >= 0;
       // For the low Q2 selection b)
-      if (q2 > 2.5 && q2 <= 5.  ) bin[1] = 0;
-      if (q2 > 5.  && q2 <= 10. ) bin[1] = 1;
-      if (q2 > 10. && q2 <= 20. ) bin[1] = 2;
-      if (q2 > 20. && q2 <= 50. ) bin[1] = 3;
-      if (q2 > 50. && q2 <= 100.) bin[1] = 4;
+      if (q2 > 2.5*GeV && q2 <= 5.  *GeV) bin[1] = 0;
+      if (q2 > 5. *GeV && q2 <= 10. *GeV) bin[1] = 1;
+      if (q2 > 10.*GeV && q2 <= 20. *GeV) bin[1] = 2;
+      if (q2 > 20.*GeV && q2 <= 50. *GeV) bin[1] = 3;
+      if (q2 > 50.*GeV && q2 <= 100.*GeV) bin[1] = 4;
+      // check in one of the bins
       evcut[1] &= bin[1] >= 0;
       // for the high Q2 selection a)
-      /// @todo Units
-      if (q2 > 100. && q2 <= 400.) {
+      if (q2 > 100.*GeV && q2 <= 400.*GeV) {
         if (x > 0.00251 && x <= 0.00631) bin[2] = 0;
         if (x > 0.00631 && x <= 0.0158 ) bin[2] = 1;
         if (x > 0.0158  && x <= 0.0398 ) bin[2] = 2;
       }
-      /// @todo Units
-      else if (q2 > 400 && q2 <= 1100.) {
+      else if (q2 > 400.*GeV && q2 <= 1100.*GeV) {
         if (x > 0.00631 && x <= 0.0158 ) bin[2] = 3;
         if (x > 0.0158  && x <= 0.0398 ) bin[2] = 4;
         if (x > 0.0398  && x <= 1.     ) bin[2] = 5;
       }
-      /// @todo Units
-      else if (q2 > 1100. && q2 <= 100000.) {
+      else if (q2 > 1100.*GeV && q2 <= 100000.*GeV) {
         if (x > 0. && x <= 1.) bin[2] = 6;
       }
+      // check in one of the bins
       evcut[2] &= bin[2] >= 0;
       // for the high Q2 selection b)
-      /// @todo Units
-      if      (q2 > 100. && q2 <= 220.) bin[3] = 0;
-      else if (q2 > 220. && q2 <= 400.) bin[3] = 1;
+      if      (q2 > 100.*GeV && q2 <= 220.*GeV) bin[3] = 0;
+      else if (q2 > 220.*GeV && q2 <= 400.*GeV) bin[3] = 1;
       else if (q2 > 400.              ) bin[3] = 2;
+      // check in one of*GeV the bins
       evcut[3] &= bin[3] >= 0;
    
       // Veto if fails all cuts after bin selection
