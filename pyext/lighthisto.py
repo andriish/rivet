@@ -228,7 +228,7 @@ class Histo(object):
                         br[0] <= curran[1] <= br[1])):
                 new.addBin(b)
             else:
-                logging.info("Chopping bin %s:%f" % (self.fullPath(),
+                logging.debug("Chopping bin %s:%f" % (self.fullPath(),
                              b.getBinCenter()))
         return new
 
@@ -391,6 +391,10 @@ class Bin(object):
             return (self.xlow + self.xhigh)/2.0
         else:
             return self.focus
+
+    def getYVal(self):
+        """Y-value of the bin."""
+        return self.yval
 
     def area(self):
         return self.yval * (self.xhigh - self.xlow)
