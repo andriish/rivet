@@ -19,7 +19,7 @@ except ImportError:
 
 
 usage = """Webpages from histogram files written out by Rivet.
-You can specify multiple Monte-Carlo aida files to be compared. Reference data
+You can specify multiple Monte Carlo AIDA files to be compared. Reference data
 should be found automatically.
 
 Examples:
@@ -71,21 +71,25 @@ ch_cmd = ["compare-histos"]
 ch_cmd.append("--mc-errs")
 ch_cmd.append("--hier-out")
 ch_cmd.append("--plot-info-dir=../")
-if len(aidafiles)+len(reffiles)<2:
+if len(aidafiles)+len(reffiles) < 2:
     ch_cmd.append("--show-ref-only")
     ch_cmd.append("--no-ratio")
 for file in aidafiles+reffiles:
     ch_cmd.append("%s" % os.path.abspath(file))
 Popen(ch_cmd, cwd=opts.OUTPUTDIR).wait()
 
+style = """<style>
+  html { font-family: sans-serif; }
+  img { border: 0; }
+</style>"""
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
-index.write('<html><head><title>%s</title></head><body>' % opts.OUTPUTDIR)
+index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, style))
 for analysis in sorted(analyses):
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     anaindex = open(os.path.join(anapath, "index.html"), 'w')
-    anaindex.write("<html><head><title>%s - %s</title></head><body>\n" % (opts.OUTPUTDIR, analysis))
-    
+    anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, analysis, style))
+
     datfiles = glob.glob("%s/*.dat" % anapath)
     for fulldatfile in sorted(datfiles):
         datfile = os.path.basename(fulldatfile)
@@ -102,15 +106,15 @@ for analysis in sorted(analyses):
 
         psfile = datfile.replace(".dat", ".ps")
         if os.access(os.path.join(anapath, psfile), os.R_OK):
-            # convert to png and add to webpage
+            # Convert to png and add to web page
             pngfile = datfile.replace(".dat", ".png")
             Popen(["convert", "-density", "100", psfile, pngfile], cwd=anapath)
-            anaindex.write('<div style="float:left;">')
-            anaindex.write('<a href="%s" style="font-size:small;text-decoration:none;font-weight:bold;">' % psfile)
+            anaindex.write('  <div style="float:left;">')
+            anaindex.write('<a href="%s" style="font-size:smaller; text-decoration:none; font-weight:bold;">' % psfile)
             anaindex.write('%s:<br><img border="0" src="%s"></a></div>\n' % (psfile, pngfile))
 
-    anaindex.write("</body></html>\n")
+    anaindex.write("</body>\n</html>\n")
     index.write('<h1><a href="%s/index.html" style="text-decoration:none;">%s</a></h1>\n' %(analysis, analysis))
     description = Popen(["rivet", "--show-analysis", analysis], stdout=PIPE).communicate()[0]
-    index.write('<pre>%s</pre>\n' % description)
-index.write('</body></html>')
+    index.write('<p style="white-space: pre;">%s</p>\n' % description)
+index.write('</body>\n</html>')
