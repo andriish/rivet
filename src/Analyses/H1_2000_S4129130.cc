@@ -164,7 +164,7 @@ namespace Rivet {
         // Boost momentum to CMS
         const FourMomentum hcmMom = hcmboost.transform(p.momentum());
         double et = fabs(Et(hcmMom));
-        double eta = -hcmMom.pseudorapidity();
+        double eta = hcmMom.pseudorapidity();
         // Averages in central and forward region
         if (fabs(eta) < .5 ) etcent += et;
         if (eta > 2 && eta <= 3.) etfrag += et;
