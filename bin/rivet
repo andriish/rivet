@@ -388,7 +388,7 @@ logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.mac
 evtfile = HEPMCFILES[0]
 logging.info("Reading events from '%s'" % evtfile)
 if not run.init(evtfile):
-    log.error("Failed to initialise on event file %s" % evtfile)
+    logging.error("Failed to initialise on event file %s" % evtfile)
     sys.exit(2)
 
 ## Now that we have some idea of the run contents, init the analysis handler
