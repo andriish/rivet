@@ -1,3 +1,9 @@
+2010-01-15  Andy Buckley  <andy@insectnation.org>
+
+	* Add tests for "stable" heavy flavour hadrons in jets (rather
+	than just testing for c/b hadrons in the ancestor lists of stable
+	jet constituents)
+
 2009-12-23  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* New option "RatioPlotMode=deviation" in make-plots.

@@ -96,12 +96,14 @@ namespace Rivet {
 
   bool Jet::containsCharm() const {
     foreach (const Particle& p, particles()) {
-      if (abs(p.pdgId()) == CQUARK) return true;
+      const PdgId pid = p.pdgId();
+      if (abs(pid) == CQUARK) return true;
+      if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
-          const PdgId pid = pi->pdg_id();
-          if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
+          const PdgId pid2 = pi->pdg_id();
+          if (PID::isHadron(pid2) && PID::hasCharm(pid2)) return true;
         }
       }
     }
@@ -111,12 +113,14 @@ namespace Rivet {
 
   bool Jet::containsBottom() const {
     foreach (const Particle& p, particles()) {
-      if (abs(p.pdgId()) == BQUARK) return true;
+      const PdgId pid = p.pdgId();
+      if (abs(pid) == BQUARK) return true;
+      if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
       HepMC::GenVertex* gv = p.genParticle().production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
-          const PdgId pid = pi->pdg_id();
-          if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
+          const PdgId pid2 = pi->pdg_id();
+          if (PID::isHadron(pid2) && PID::hasBottom(pid2)) return true;
         }
       }
     }
