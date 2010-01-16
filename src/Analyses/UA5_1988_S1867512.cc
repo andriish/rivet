@@ -2,31 +2,13 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/TriggerUA5.hh"
 
 namespace Rivet {
 
-
-  namespace {
-
-    inline double cov_w_mean(int m, double m_mean, int n, double n_mean) {
-      return (m - m_mean)*(n - n_mean);
-    }
-
-    /// Calculate the correlation strength between two samples
-    inline double c_str(int m, double m_mean, int n, double n_mean) {
-      const double cov  = cov_w_mean(m, m_mean, n, n_mean);
-      const double var1 = cov_w_mean(m, m_mean, m, m_mean);
-      const double var2 = cov_w_mean(n, n_mean, n, n_mean);
-      const double correlation = cov/sqrt(var1*var2);
-      const double corr_strength = correlation*sqrt(var2/var1);
-      return corr_strength;
-    }
-
-  }
-  
 
   class UA5_1988_S1867512 : public Analysis {
   public:
@@ -81,7 +63,6 @@ namespace Rivet {
     }
     
     
-
     void analyze(const Event& event) {      
       // Trigger
       const bool trigger = applyProjection<TriggerUA5>(event, "Trigger").nsdDecision();
@@ -110,53 +91,44 @@ namespace Rivet {
     
     
     void finalize() {
-      // Calculate mean number of particles in eta intervals
-      double mean_n_10f = mean(n_10f);
-      double mean_n_15f = mean(n_15f);
-      double mean_n_20f = mean(n_20f);
-      double mean_n_25f = mean(n_25f);
-      double mean_n_30f = mean(n_30f);
-      double mean_n_35f = mean(n_35f);
-      double mean_n_40f = mean(n_40f);
-                 
-      double mean_n_10b = mean(n_10b);
-      double mean_n_15b = mean(n_15b);
-      double mean_n_20b = mean(n_20b);
-      double mean_n_25b = mean(n_25b);
-      double mean_n_30b = mean(n_30b);
-      double mean_n_35b = mean(n_35b);
-      double mean_n_40b = mean(n_40b);
-                 
-      double mean_n_05  = mean(n_05);
+      // The correlation strength is defined in formulas
+      // 4.1 and 4.2
 
-      // Fill histos
-      for (size_t i = 0; i < n_10f.size(); i++) {
-        // Fill gap size histo (Fig 14), iterate over central gap size
-        _hist_correl->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-        _hist_correl->fill(1.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-        _hist_correl->fill(2.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-        _hist_correl->fill(3.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-        _hist_correl->fill(4.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-        _hist_correl->fill(5.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-        _hist_correl->fill(6.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-        
-        // Fill gap-center histos (Fig 15), iterate over gap centers
-        //
-        // The first bin contains all the c_str strengths of
-        // the gap size histo above
-        _hist_correl_asym->fill(0.0, c_str(n_10f[i], mean_n_10f, n_10b[i], mean_n_10b));
-        _hist_correl_asym->fill(0.0, c_str(n_15f[i], mean_n_15f, n_15b[i], mean_n_15b));
-        _hist_correl_asym->fill(0.0, c_str(n_20f[i], mean_n_20f, n_20b[i], mean_n_20b));
-        _hist_correl_asym->fill(0.0, c_str(n_25f[i], mean_n_25f, n_25b[i], mean_n_25b));
-        _hist_correl_asym->fill(0.0, c_str(n_30f[i], mean_n_30f, n_30b[i], mean_n_30b));
-        _hist_correl_asym->fill(0.0, c_str(n_35f[i], mean_n_35f, n_35b[i], mean_n_35b));
-        _hist_correl_asym->fill(0.0, c_str(n_40f[i], mean_n_40f, n_40b[i], mean_n_40b));
-        // Fill in c_str strength for assymetric intervals
-        _hist_correl_asym->fill(0.5, c_str(n_25f[i], mean_n_25f, n_15b[i], mean_n_15b));
-        _hist_correl_asym->fill(1.0, c_str(n_30f[i], mean_n_30f, n_10b[i], mean_n_10b));
-        _hist_correl_asym->fill(1.5, c_str(n_35f[i], mean_n_35f, n_05[i] , mean_n_05 ));
-        _hist_correl_asym->fill(2.0, c_str(n_40f[i], mean_n_40f, n_10f[i], mean_n_10f));
-      }
+      // Fill histos, gap width histo comes first
+      _hist_correl->fill(0.0, correlation(n_10f, n_10b));
+      _hist_correl->fill(1.0, correlation(n_15f, n_15b));
+      _hist_correl->fill(2.0, correlation(n_20f, n_20b));
+      _hist_correl->fill(3.0, correlation(n_25f, n_25b));
+      _hist_correl->fill(4.0, correlation(n_30f, n_30b));
+      _hist_correl->fill(5.0, correlation(n_35f, n_35b));
+      _hist_correl->fill(6.0, correlation(n_40f, n_40b));
+
+      // Fill gap-center histo (Fig 15)
+      //
+      // The first bin contains all the c_str strengths of
+      // the gap size histo above, since the corresponding
+      // 'center of the separating gap' is always at eta=0
+      _hist_correl_asym->fill(0.0, correlation(n_10f, n_10b));
+      _hist_correl_asym->fill(0.0, correlation(n_15f, n_15b));
+      _hist_correl_asym->fill(0.0, correlation(n_20f, n_20b));
+      _hist_correl_asym->fill(0.0, correlation(n_25f, n_25b));
+      _hist_correl_asym->fill(0.0, correlation(n_30f, n_30b));
+      _hist_correl_asym->fill(0.0, correlation(n_35f, n_35b));
+      _hist_correl_asym->fill(0.0, correlation(n_40f, n_40b));
+      // Fill in correlation strength for assymetric intervals,
+      // see Tab. 5
+      _hist_correl_asym->fill(0.5, correlation(n_25f, n_15b));
+      _hist_correl_asym->fill(1.0, correlation(n_30f, n_10b));
+      _hist_correl_asym->fill(1.5, correlation(n_35f, n_05 ));
+      _hist_correl_asym->fill(2.0, correlation(n_40f, n_10f));
+
+      // TODO: find out what exactly n_F and n_B are in the
+      // asymmetric case. It's important for the definition
+      // of b (see Eq. 4.2)
+      //_hist_correl_asym->fill(0.5, correlation(n_15b, n_25f));
+      //_hist_correl_asym->fill(1.0, correlation(n_10b, n_30f));
+      //_hist_correl_asym->fill(1.5, correlation(n_05 , n_35f));
+      //_hist_correl_asym->fill(2.0, correlation(n_10f, n_40f));
     
     }
     
