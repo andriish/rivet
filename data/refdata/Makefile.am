@@ -65,6 +65,7 @@ dist_pkgdata_DATA = \
   CDF_2009_S8436959.aida         \
   D0_1996_S3214044.aida          \
   D0_1996_S3324664.aida          \
+  D0_1998_S3711838.aida          \
   D0_2001_S4674421.aida          \
   D0_2004_S5992206.aida          \
   D0_2006_S6438750.aida          \
