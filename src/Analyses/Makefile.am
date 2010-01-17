@@ -26,6 +26,7 @@ RivetUnvalidated_la_SOURCES = \
     CDF_2008_S8095620.cc \
     D0_1996_S3214044.cc \
     D0_1996_S3324664.cc \
+    D0_1998_S3711838.cc \
     DELPHI_2003_WUD_03_11.cc \
     E735_1998_S3905616.cc \
     H1_1995_S3167097.cc \
