@@ -66,7 +66,14 @@ namespace Rivet {
           p_e = pl;
           const double eta_e = fabs(p_e.pseudorapidity());
           if ( (pl.Et()/GeV < 12.0) || (pl.pT()/GeV < 6.0) || (eta_e > 1.1) ) {
-            getLog() << Log::DEBUG << l.pdgId() << " ET,pT,eta:" << pl.Et()/GeV << "," << pl.pT()/GeV << "," << eta_e << " fails electron cut" << endl;
+            getLog() << Log::DEBUG << l.pdgId() << " ET,pT,eta: " << pl.Et()/GeV << "," << pl.pT()/GeV << "," << eta_e << " fails electron cut" << endl;
+            vetoEvent;
+          }
+        }
+        else if (abs(l.pdgId()) == NU_E) {
+          FourMomentum p_nu = l.momentum();
+          if (p_nu.Et()/GeV < 20.0) {
+            getLog() << Log::DEBUG << l.pdgId() << " ET(miss): " << p_nu.Et() << "fails ETmiss cut" << endl;
             vetoEvent;
           }
         }
