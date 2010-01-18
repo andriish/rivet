@@ -192,8 +192,13 @@ namespace Rivet {
    
       IManagedObject* hobj = tree.find(path);
       if (hobj) {
-        IHistogram1D* histo = dynamic_cast<IHistogram1D*>(hobj);
+        
+        // Weird seg fault on SLC4 when trying to dyn cast an IProfile ptr to a IHistogram
+        // Fix by attempting to cast to IProfile first, only try IHistogram if it fails.
+        IHistogram1D *histo = 0;
         IProfile1D* prof = dynamic_cast<IProfile1D*>(hobj);
+        if(!prof) histo = dynamic_cast<IHistogram1D*>(hobj);
+        
         // If it's a normal histo:
         if (histo) {
           log << Log::TRACE << "Converting histo " << path << " to DPS" << endl;
