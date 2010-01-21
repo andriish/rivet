@@ -39,11 +39,29 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::init() {
+  void AnalysisHandler::init(const GenEvent& ge) {
     assert(!_initialised);
+    setRunBeams(Rivet::beams(ge));
     getLog() << Log::DEBUG << "Initialising the analysis handler" << endl;
     _numEvents = 0;
     _sumOfWeights = 0.0;
+    
+    // Check that analyses are beam-compatible
+    const size_t num_anas_requested = analysisNames().size();
+    removeIncompatibleAnalyses(beamIds());
+    foreach (const Analysis* a, analyses()) {
+      if (toUpper(a->status()) != "VALIDATED") {
+        getLog() << Log::WARN 
+                 << "Analysis '" << a->name() << "' is unvalidated: be careful!" << endl;
+      }
+    }
+    if (num_anas_requested > 0 && analysisNames().size() == 0) {
+      getLog() << Log::ERROR
+               << "All analyses were incompatible with the first event's beams\n"
+               << "Exiting, since this probably isn't intentional!" << endl;
+      exit(1);
+    }
+    
     foreach (Analysis* a, _analyses) {
       getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
       // Allow projection registration in the init phase onwards
@@ -65,6 +83,17 @@ namespace Rivet {
     }
     // Proceed with event analysis
     assert(_initialised);
+    // Ensure that beam details match those from first event
+    const BeamPair beams = Rivet::beamIds(ge);
+    const double sqrts = Rivet::sqrtS(ge);
+    if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
+      getLog() << Log::ERROR << "Event beams mismatch: "
+               << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+               << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+      exit(1);
+    }
+
+    
     Event event(ge);
     _numEvents++;
     // Weights

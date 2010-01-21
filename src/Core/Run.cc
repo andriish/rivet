@@ -9,7 +9,7 @@ namespace Rivet {
 
 
   Run::Run(AnalysisHandler& ah) 
-    : _ah(ah), _xs(-1.0), _sqrts(-1.0)
+    : _ah(ah), _xs(-1.0)
   { }
 
 
@@ -63,15 +63,8 @@ namespace Rivet {
       return false;
     }
 
-    // Set required beams for run based on first beams 
-    const BeamPair beams = beamIds(*_evt);
-    const double sqrts = Rivet::sqrtS(*_evt);
-    _beams = beams;
-    _sqrts = sqrts;
-    Log::getLog("Rivet.Run") << Log::INFO << "First event beams: "
-                             << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
-    // Pass to analysis handler
-    _ah.setRunBeams(*_evt);
+    // Initialise AnalysisHandler with beam information from first event
+    _ah.init(*_evt);
 
     // Set cross-section from command line
     if (_xs >= 0.0) {
@@ -80,22 +73,6 @@ namespace Rivet {
       _ah.setCrossSection(_xs);
     }
 
-    // Check that analyses are beam-compatible
-    const size_t num_anas_requested = _ah.analysisNames().size();
-    _ah.removeIncompatibleAnalyses(beams);
-    foreach (const Analysis* a, _ah.analyses()) {
-      if (toUpper(a->status()) != "VALIDATED") {
-        Log::getLog("Rivet.Run") << Log::WARN 
-                                 << "Analysis '" << a->name() << "' is unvalidated: be careful!" << endl;
-      }
-    }
-    if (num_anas_requested > 0 && _ah.analysisNames().size() == 0) {
-      Log::getLog("Rivet.Run") << Log::ERROR
-                               << "All analyses were incompatible with the first event's beams\n"
-                               << "Exiting, since this probably isn't intentional!" << endl;
-      return false;
-    }
-   
     // List the chosen & compatible analyses if requested
     if (_listAnalyses) {
       foreach (const std::string& ana, _ah.analysisNames()) {
@@ -108,17 +85,6 @@ namespace Rivet {
 
 
   bool Run::processEvent() {
-    // Ensure that beam details match those from first event
-    const BeamPair beams = beamIds(*_evt);
-    const double sqrts = Rivet::sqrtS(*_evt);
-    if (beams != _beams || !fuzzyEquals(sqrts, sqrtS())) {
-      Log::getLog("Rivet.Run") 
-        << Log::ERROR << "Event beams mismatch: "
-        << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-        << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
-      return false;
-    }
-
     // Set cross-section if found in event and not from command line
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (_xs < 0.0 && _evt->cross_section()) {
@@ -152,14 +118,6 @@ namespace Rivet {
   }
 
 
-  const BeamPair& Run::beams() const {
-    return _beams;
-  }
-
-
-  double Run::sqrtS() const {
-    return _sqrts;
-  }
 
 
 }

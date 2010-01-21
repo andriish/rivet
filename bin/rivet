@@ -391,9 +391,6 @@ if not run.init(evtfile):
     logging.error("Failed to initialise on event file %s" % evtfile)
     sys.exit(2)
 
-## Now that we have some idea of the run contents, init the analysis handler
-ah.init()
-
 ## Event loop
 starttime = time.time()
 EVTNUM = 0

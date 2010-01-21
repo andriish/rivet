@@ -97,15 +97,11 @@ namespace Rivet {
     bool hasCrossSection() const;
 
 
-    /// Set beams for this run (as determined from first event)
-    AnalysisHandler& setRunBeams(const GenEvent& event) { 
-      return setRunBeams(Rivet::beams(event));
-    }
-
-    /// Set beams for this run (as determined from beam particles)
+    /// Set beams for this run
     AnalysisHandler& setRunBeams(const ParticlePair& beams) { 
-      getLog() << Log::DEBUG << "Setting run beams = " << beams << endl;
       _beams = beams;
+      getLog() << Log::DEBUG << "Setting run beams = " << beams
+               << " @ " << sqrtS()/GeV << " GeV" << endl;
       return *this;
     }
 
@@ -176,15 +172,12 @@ namespace Rivet {
     /// @name Main init/execute/finalise
     //@{
 
-    /// Initialize a run (beam configuration should be specified first, via @c{setRunBeams}).
-    void init();
+    /// @deprecated Obsolete method, kept only for backwards compatibility
+    void init() {}
 
 
     /// Initialize a run, with the run beams taken from the example event.
-    void init(const GenEvent& event) {
-      setRunBeams(event);
-      init();
-    }
+    void init(const GenEvent& event);
 
 
     /// Analyze the given \a event. This function will call the

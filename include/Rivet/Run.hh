@@ -39,18 +39,6 @@ namespace Rivet {
     //@}
 
 
-    /// @name Get run conditions
-    //@{
-
-    /// Get beam IDs for this run, determined from first event
-    const BeamPair& beams() const;
-
-    /// Get energy for this run, determined from first event
-    double sqrtS() const;
-
-    //@}
-
-
     /// @name File processing stages
     //@{
 
@@ -80,12 +68,6 @@ namespace Rivet {
 
     /// Cross-section from command line
     double _xs;
-
-    /// Centre of mass energy, determined from first event
-    double _sqrts;
-
-    /// Beam IDs, determined from first event
-    BeamPair _beams;
 
     //@}
 
