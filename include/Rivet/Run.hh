@@ -45,6 +45,9 @@ namespace Rivet {
     /// Set up HepMC file readers
     bool init(const std::string& evtfile);
 
+    /// Open a HepMC GenEvent file
+    bool openFile(const std::string& evtfile);
+
     /// Read the next HepMC event
     bool readEvent();
 

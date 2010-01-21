@@ -39,9 +39,9 @@ namespace Rivet {
     }
     return true;
   }
-
-
-  bool Run::init(const std::string& evtfile) {
+  
+  
+  bool Run::openFile(const std::string& evtfile) {
     // Set up HepMC input reader objects
     if (evtfile == "-") {
       _io.reset(new HepMC::IO_GenEvent(std::cin));
@@ -54,6 +54,12 @@ namespace Rivet {
       Log::getLog("Rivet.Run") << Log::ERROR << "Read error on file " << evtfile << endl;
       return false;
     }
+    return true;
+  }
+
+
+  bool Run::init(const std::string& evtfile) {
+    if (!openFile(evtfile)) return false;
 
     // Read first event to define run conditions
     bool ok = readEvent();
