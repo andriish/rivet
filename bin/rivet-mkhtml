@@ -60,7 +60,8 @@ for aidafile in aidafiles:
         exit(2)
     tree = ET.parse(aidafilepath)
     for dps in tree.findall("dataPointSet"):
-        analysis = dps.get("path")[1:]
+        path = dps.get("path")
+        analysis = path[path.rfind("/")+1:]
         analyses.add(analysis)
         if os.access(os.path.join(datadir, analysis+".aida"), os.R_OK):
             reffiles.append("%s/%s.aida" % (datadir, analysis))
