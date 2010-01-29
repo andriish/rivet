@@ -19,6 +19,7 @@ namespace Rivet {
  
     /// Get all the available analyses' names.
     static vector<string> analysisNames();
+    static set<string> getAllAnalysisNames();
  
     /// Get an analysis by name.
     /// Warning: a name arg which matches no known analysis will return a null

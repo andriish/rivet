@@ -19,6 +19,16 @@ namespace Rivet {
     foreach (const AnalysisBuilderMap::value_type& p, _ptrs) names += p.first;
     return names;
   }
+  
+  
+  set<string> AnalysisLoader::getAllAnalysisNames() {
+    set<string> anaset;
+    vector<string> anas = analysisNames();
+    foreach (const string &ana, anas) {
+      anaset.insert(ana);
+    }
+    return anaset;
+  }
 
 
   Analysis* AnalysisLoader::getAnalysis(const string& analysisname) {
