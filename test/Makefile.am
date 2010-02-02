@@ -16,7 +16,10 @@ testApi_LDADD = ../src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
 
 export RIVET_REF_PATH=$(datadir)/Rivet
 export RIVET_DATA_PATH=$(datadir)/Rivet
+export LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(top_builddir)/src/Analyses/.libs:$(HEPMCLIBPATH):$(FASTJETLIBPATH)
+export PYTHONPATH=$(shell ls -d $(top_builddir)/pyext/build/lib.*)
+export PATH=$(top_builddir)/bin:$(shell echo $$PATH)
 
-TESTS = testMatVec testBoost testCmp testApi
+TESTS = testMatVec testBoost testCmp testApi testCmdLine.sh
 
 EXTRA_DIST = testApi.hepmc
