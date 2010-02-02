@@ -393,11 +393,8 @@ if not run.init(evtfile):
 ## Event loop
 starttime = time.time()
 EVTNUM = 0
-for file in HEPMCFILES:
-    logging.info("Reading events from '%s'" % file)
-    run.openFile(file)
-    if not run.readEvent():
-        continue
+for fileidx in range(len(HEPMCFILES)):
+    logging.info("Reading events from '%s'" % HEPMCFILES[fileidx])
     while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
         EVTNUM += 1
         logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
@@ -408,6 +405,10 @@ for file in HEPMCFILES:
             break
         if not run.readEvent():
             break
+    if fileidx<len(HEPMCFILES)-1:
+        run.openFile(HEPMCFILES[fileidx+1])
+        if not run.readEvent():
+            continue
 logging.info("Finished event loop")
 run.finalize()
 
