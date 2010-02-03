@@ -89,6 +89,9 @@ namespace Rivet {
    
       // Analyse, with pT > 0.5 GeV AND |eta| < 1
       const JetAlg& tj = applyProjection<JetAlg>(event, "TrackJet");
+
+      // Final state (lossy) charged particles
+      const LossyFinalState& fs = applyProjection<LossyFinalState>(event, "FS");
    
       // Get jets, sorted by pT
       const Jets jets = tj.jetsByPt();
@@ -128,55 +131,50 @@ namespace Rivet {
       LWH::Profile1D hist_pt_dphi_2(50, 0, 180), hist_pt_dphi_5(50, 0, 180), hist_pt_dphi_30(50, 0, 180);
 
       /// @todo Why not just run over charged particles directly?
-      foreach (const Jet& j, jets) {
-        foreach (const FourMomentum& p, j) {
-          // Calculate Delta(phi) from leading jet
-          const double dPhi = deltaPhi(p.azimuthalAngle(), phiLead);
-       
-          // Get pT sum and multiplicity values for each region
-          // (each is 1 number for each region per event)
-          /// @todo Include event weight factor?
-          if (dPhi < PI/3.0) {
-            ptSumToward += p.pT();
-            ++numToward;
-          }
-          else if (dPhi < 2*PI/3.0) {
-            ptSumTrans += p.pT();
-            ++numTrans;
-            // Fill transverse pT distributions
-            if (ptLead/GeV > 2.0) {
-              _ptTrans2->fill(p.pT()/GeV, weight);
-              _totalNumTrans2 += weight;
-            }
-            if (ptLead/GeV > 5.0) {
-              _ptTrans5->fill(p.pT()/GeV, weight);
-              _totalNumTrans5 += weight;
-            }
-            if (ptLead/GeV > 30.0) {
-              _ptTrans30->fill(p.pT()/GeV, weight);
-              _totalNumTrans30 += weight;
-            }
-          }
-          else {
-            ptSumAway += p.pT();
-            ++numAway;
-          }
-       
-          // Fill tmp histos to bin event's track Nch & pT in dphi
-          const double dPhideg = 180*dPhi/PI;
+      foreach (const Particle& p, fs.particles()) {
+        // Calculate DeltaPhi(p,leadingJet)
+        const double dPhi = deltaPhi(p.momentum().azimuthalAngle(), phiLead);
+        const double pT = p.momentum().pT();
+        
+        if (dPhi < PI/3.0) {
+          ptSumToward += pT;
+          ++numToward;
+        }
+        else if (dPhi < 2*PI/3.0) {
+          ptSumTrans += pT;
+          ++numTrans;
+          // Fill transverse pT distributions
           if (ptLead/GeV > 2.0) {
-            hist_num_dphi_2.fill(dPhideg, 1);
-            hist_pt_dphi_2.fill (dPhideg, p.pT()/GeV);
+            _ptTrans2->fill(pT/GeV, weight);
+            _totalNumTrans2 += weight;
           }
           if (ptLead/GeV > 5.0) {
-            hist_num_dphi_5.fill(dPhideg, 1);
-            hist_pt_dphi_5.fill (dPhideg, p.pT()/GeV);
+            _ptTrans5->fill(pT/GeV, weight);
+            _totalNumTrans5 += weight;
           }
           if (ptLead/GeV > 30.0) {
-            hist_num_dphi_30.fill(dPhideg, 1);
-            hist_pt_dphi_30.fill (dPhideg, p.pT()/GeV);
+            _ptTrans30->fill(pT/GeV, weight);
+            _totalNumTrans30 += weight;
           }
-
+        }
+        else {
+          ptSumAway += pT;
+          ++numAway;
+        }
+     
+        // Fill tmp histos to bin event's track Nch & pT in dphi
+        const double dPhideg = 180*dPhi/PI;
+        if (ptLead/GeV > 2.0) {
+          hist_num_dphi_2.fill(dPhideg, 1);
+          hist_pt_dphi_2.fill (dPhideg, pT/GeV);
+        }
+        if (ptLead/GeV > 5.0) {
+          hist_num_dphi_5.fill(dPhideg, 1);
+          hist_pt_dphi_5.fill (dPhideg, pT/GeV);
+        }
+        if (ptLead/GeV > 30.0) {
+          hist_num_dphi_30.fill(dPhideg, 1);
+          hist_pt_dphi_30.fill (dPhideg, pT/GeV);
         }
       }
 
