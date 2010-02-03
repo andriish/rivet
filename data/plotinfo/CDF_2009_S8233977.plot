@@ -7,6 +7,9 @@ LogX=1
 LogY=1
 FullRange=1
 # END PLOT
+# BEGIN HISTOGRAM /CDF_2009_S8233977/d01-x01-y01
+ErrorBars=0
+# END HISTOGRAM
 
 # BEGIN PLOT /CDF_2009_S8233977/d02-x01-y01
 Title=Mean track $p_T$ vs multiplicity, $|\eta|<1$, $p_\perp > 0.4$ GeV

@@ -100,6 +100,9 @@ XLabel=$p_\perp$ / GeV
 YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{p_\perp}$
 FullRange=1
 # END PLOT
+# BEGIN HISTOGRAM /CDF_2004_S5839831/d06-x01-y01
+ErrorBars=0
+# END HISTOGRAM
 
 # BEGIN PLOT /CDF_2004_S5839831/d07-x01-y01
 Title=Swiss Cheese $p_\perp^\text{sum}$ vs. $E_\perp^\text{lead}$ (for removal of 2 jets) at $\sqrt{s}$ = 1800 GeV
@@ -168,4 +171,7 @@ XLabel=$N_\text{ch}$
 YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{N_\text{ch}}$
 FullRange=1
 # END PLOT
+# BEGIN HISTOGRAM /CDF_2004_S5839831/d11-x01-y01
+ErrorBars=0
+# END HISTOGRAM
 
