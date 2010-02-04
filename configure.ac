@@ -27,7 +27,7 @@ AC_CEDAR_OSX
 AC_LCG_TAG
 
 ## Set default compiler flags
-if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O3"; fi
+if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
 
 ## Make compiler error messages more readable if gfilt is installed.
 dnl AC_CEDAR_CXXFILTER
