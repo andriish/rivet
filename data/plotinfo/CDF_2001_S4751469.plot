@@ -17,21 +17,21 @@ YLabel=$\langle N_\text{ch}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y01
-Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 2\text{ GeV}$) 
+Title=$\langle p_\perp^\text{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 2\text{ GeV}$) 
 XLabel=$\Delta\phi$ / degrees
-YLabel=$\langle p_{\perp, sum}\rangle$
+YLabel=$\langle p_\perp^\text{sum}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y02
-Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
+Title=$\langle p_\perp^\text{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 5\text{ GeV}$) 
 XLabel=$\Delta\phi$ / degrees
-YLabel=$\langle p_{\perp, sum}\rangle$
+YLabel=$\langle p_\perp^\text{sum}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d02-x01-y03
-Title=$\langle p_{\perp, sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
+Title=$\langle p_\perp^\text{sum}\rangle$ vs. $\Delta\phi$ from leading jet  ($p_\perp^\text{lead} > 30\text{ GeV}$) 
 XLabel=$\Delta\phi$ / degrees
-YLabel=$\langle p_{\perp, sum}\rangle$
+YLabel=$\langle p_\perp^\text{sum}\rangle$
 # END PLOT
 
 # BEGIN PLOT /CDF_2001_S4751469/d03-x01-y01
