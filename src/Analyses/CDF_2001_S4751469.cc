@@ -125,15 +125,14 @@ namespace Rivet {
       double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
       size_t numToward(0), numTrans(0), numAway(0);
 
-      // Temporary histos that bin N, pt in dphi
+      // Temporary histos that bin N and pT in dphi
       /// @todo Copy the permanent histos to get the binnings more robustly
       LWH::Profile1D hist_num_dphi_2(50, 0, 180), hist_num_dphi_5(50, 0, 180), hist_num_dphi_30(50, 0, 180);
       LWH::Profile1D hist_pt_dphi_2(50, 0, 180), hist_pt_dphi_5(50, 0, 180), hist_pt_dphi_30(50, 0, 180);
 
-      /// @todo Why not just run over charged particles directly?
       foreach (const Particle& p, fs.particles()) {
         // Calculate DeltaPhi(p,leadingJet)
-        const double dPhi = deltaPhi(p.momentum().azimuthalAngle(), phiLead);
+        const double dPhi = deltaPhi(p.momentum().phi(), phiLead);
         const double pT = p.momentum().pT();
         
         if (dPhi < PI/3.0) {
@@ -179,7 +178,7 @@ namespace Rivet {
       }
 
       // Update the "proper" dphi profile histograms
-      for (int i= 0; i < 50; i++) {
+      for (int i = 0; i < 50; i++) {
         if (ptLead/GeV > 2.0) {
           _numvsDeltaPhi2->fill(hist_num_dphi_2.binMean(i), hist_num_dphi_2.binHeight(i), weight);
           _pTvsDeltaPhi2->fill(hist_pt_dphi_2.binMean(i), hist_pt_dphi_2.binHeight(i), weight);
@@ -221,7 +220,7 @@ namespace Rivet {
                << numAway << "]"
                << endl;
    
-      // Update the N_jet profile histograms
+      // Update the N_track profile histograms
       _numTowardMB->fill(ptLead/GeV, numToward, weight);
       _numTowardJ20->fill(ptLead/GeV, numToward, weight);
    
