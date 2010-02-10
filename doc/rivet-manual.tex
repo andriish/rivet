@@ -217,7 +217,7 @@ canonical way of producing a stream of HepMC event data; if your interest is in
 running a generator like Sherpa or Herwig++ which provides its own native way to
 make HepMC output, or a generator like Cascade or PHOJET which is not currently
 supported by AGILe, then substitute the appropriate command in what follows.
-We'll discuss using these commands in detail in \SectionRef{sec:rivetgun}.
+We'll discuss using these commands in detail in \SectionRef{sec:agile-runmc}.
 
 
 \subsection{Getting generators for AGILe}
@@ -225,7 +225,7 @@ We'll discuss using these commands in detail in \SectionRef{sec:rivetgun}.
 
 One last thing before continuing, though: the generators themselves. Again, if
 you're running on a system with the CERN LCG AFS area mounted, then
-\kbd{rivetgun} will attempt to automatically use the generators packaged by the
+\kbd{agile-runmc} will attempt to automatically use the generators packaged by the
 LCG Genser team.
 
 Otherwise, you'll have to build your own mirror of the LCG generators. This
@@ -271,7 +271,7 @@ developers.
 
 
 \section{Running Rivet analyses}
-\label{sec:rivetgun}
+\label{sec:agile-runmc}
 
 The \kbd{rivet} executable is the easiest way to use Rivet, and will be our
 example throughout this manual. This command reads HepMC events in the standard
@@ -354,8 +354,8 @@ listed in \AppendixRef{app:agilerunmc}.
 
 \item \paragraph{Fine-grained logging:}{\kbd{rivet in.hepmc -A
       -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=DEBUG
-      -l~Rivet.Projection.FinalState=TRACE~\cmdbreak -l~RivetGun=WARN
-      -l~NEvt=WARN} analyse events as before, but will print different status
+      -l~Rivet.Projection.FinalState=TRACE~\cmdbreak -l~NEvt=WARN}
+    analyse events as before, but will print different status
     information as the run progresses. Hierarchical logging control is possible
     down to the level of individual analyses and projections as shown above;
     this is useful for debugging without getting overloaded with debug
@@ -433,12 +433,13 @@ all bins with $x<5$ and $x>13~$ from the histogram
 this case $x$ would be a leading jet \pT.
 
 \subsection{Normalising histograms}
-\newcommand{\normhisto}{\kbd{rivet-normalise-histos }} Sometimes you want to
+\newcommand{\normhisto}{\kbd{rivet-rescale }} Sometimes you want to
 use histograms normalised to, e.g., the generator cross-section or the area of
 a reference-data histogram. The script \normhisto was designed for these
 purposes. The usage is the following:
 
 \kbd{\normhisto -O observables -r RIVETDATA -o normalised Rivet.aida}
+
 By default, the normalised histograms are written to file in the AIDA-XML
 format. You can also give the {-f} switch on the command line to produce flat
 histograms.
@@ -479,14 +480,14 @@ to one.
 Rivet comes with two commands --- \kbd{compare-histos} and \kbd{make-plots} ---
 for comparing and plotting data files. These commands produce nice comparison
 plots of publication quality from the YODA format text files, e.g.:\\
-\inp{compare-plots path/to/CDF_2001_S4751469.aida py.aida:'Pythia 6.418' \cmdbreak hw.aida:'Herwig++ 2.3.0'}
+\inp{compare-histos path/to/CDF_2001_S4751469.aida py.aida:'Pythia 6.418' \cmdbreak hw.aida:'Herwig++ 2.3.0'}
 
 This command will have compared the three named data files (ending in
 \kbd{.aida}), identified which plots are available in them, and combined the MC
 and reference plots appropriately into a set of plot data files ending with
 \kbd{.dat}. The strings after the ":" for the MC files are specifying ID strings to
-appear in the plot legends. You can also run compare-plots to just compare MC--MC
-data files. More options are described by running \kbd{compare-histos --help}.
+appear in the plot legends. You can also run \kbd{compare-histos} to just compare
+MC--MC data files. More options are described by running \kbd{compare-histos --help}.
 
 Incidentally, the reference files for each Rivet analysis are to be found in the
 installed Rivet shared data directory, \kbd{\val{installdir}/share/Rivet}. You
@@ -1073,19 +1074,19 @@ the plugin system better, you should check out the documentation in the wiki on
 the Rivet website: \url{http://projects.hepforge.org/rivet/trac/wiki/}
 
 
-\cleardoublepage
-\part{How Rivet \emph{really} works}
-\label{part:internals}
-
-In time this will be the place to look for all the nitty gritty on what Rivet is
-doing internally. Not very many people need to know that, and the few that do
-currently don't need a manual for it!
-
-\section{Projection caching}
-\TODO{TODO}
-
-\subsection{Writing a Projection comparison operator}
-\TODO{TODO}
+% \cleardoublepage
+% \part{How Rivet \emph{really} works}
+% \label{part:internals}
+% 
+% In time this will be the place to look for all the nitty gritty on what Rivet is
+% doing internally. Not very many people need to know that, and the few that do
+% currently don't need a manual for it!
+% 
+% \section{Projection caching}
+% \TODO{TODO}
+% 
+% \subsection{Writing a Projection comparison operator}
+% \TODO{TODO}
 
 
 

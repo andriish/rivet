@@ -15,7 +15,7 @@ References:
 RunInfo:
   Drell-Yan $Z/\gamma*$ + jets events in ppbar collisions at 
   sqrt(s) = 1960 GeV. Needs mass cut on lepton pair to avoid photon 
-  singularity --- $m$ in range $71 < m_ee < 111$
+  singularity --- $m$ in range $71 < m_{ee} < 111$
 NumEvents: 1000000
 PtCuts: [0]
 Description:

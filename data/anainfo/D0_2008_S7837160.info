@@ -19,8 +19,8 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Measurement of the electron charge asymmetry in p pbar -> W + X -> e
-  nu_e  + X events at a center of mass energy of 1.96 TeV. The asymmetry
+  Measurement of the electron charge asymmetry in $p \bar p \to W + X \to
+  e \nu_e + X$ events at a center of mass energy of 1.96 TeV. The asymmetry
   is measured as a function of the electron transverse momentum and
   pseudorapidity in the interval (-3.2, 3.2).  This data is sensitive to
   proton parton distribution functions due to the valence asymmetry in

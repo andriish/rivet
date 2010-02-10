@@ -14,10 +14,10 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Ratios (w.r.t. $pi^+/pi^-$) of hadron multiplicities in hadronic $e^+e^-$
+  Ratios (w.r.t. $\pi^+/\pi^-$) of hadron multiplicities in hadronic $e^+e^-$
   events, taken from Review of Particle Properties 2008, table 40.1,
   page 355.   Average hadron multiplicities per hadronic $e^+e^-$
-  annihilation event at $\sqrt{s} \approx {}$ 10, 29--35, 91, and 130--
-  200 GeV,normalised to the pion multiplicity. The numbers are averages
+  annihilation event at $\sqrt{s} \approx$ 10, 29--35, 91, and
+  130--200 GeV,normalised to the pion multiplicity. The numbers are averages
   from various experiments. Correlations of the systematic uncertainties
   were considered for the calculation of the averages.

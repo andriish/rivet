@@ -14,5 +14,5 @@ Authors:
 References:
   - Phys.Rev.Lett.61:1819,1988
   - doi:10.1103/PhysRevLett.61.1819
-RunInfo: QCD min bias events at sqrtS = 630 GeV and 1800 GeV, |eta| < 1.0.
+RunInfo: QCD min bias events at sqrtS = 630 GeV and 1800 GeV, $|\eta| < 1.0$.
 Energies: [630,1800]

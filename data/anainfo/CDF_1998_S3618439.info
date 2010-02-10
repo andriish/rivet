@@ -11,7 +11,7 @@ References:
  - Phys.Rev.Lett.80:3461-3466,1998
  - 10.1103/PhysRevLett.80.3461
 RunInfo:
-  QCD events at Tevatron with $\sqrt{s}=1.8 TeV$ without MPI.
+  QCD events at Tevatron with $\sqrt{s}=1.8$ TeV without MPI.
 NumEvents: 1000000
 PtCuts: [0]
 Description:

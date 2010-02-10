@@ -60,7 +60,7 @@ def texify(s):
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
-pages = { "LEP":[], "Tevatron":[], "HERA":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
+pages = { "LEP":[], "Tevatron":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
 for aname in sorted(list(all_analyses)):
     page = ""
@@ -157,6 +157,8 @@ for aname in sorted(list(all_analyses)):
         pages["Tevatron"].append(page)
     elif "HERA" in ana.collider():
         pages["HERA"].append(page)
+    elif "RHIC" in ana.collider():
+        pages["RHIC"].append(page)
     elif "EXAMPLE" in ana.name().upper():
         pages["Example"].append(page)
     else:
@@ -189,6 +191,7 @@ body = \
     groups["LEP"] + "\n\n" + \
     groups["Tevatron"] + "\n\n" + \
     groups["HERA"] + "\n\n" + \
+    groups["RHIC"] + "\n\n" + \
     groups["Monte Carlo"] + "\n\n" + \
     groups["Example"] + "\n\n" + \
     groups["Misc."] + "\n\n"
