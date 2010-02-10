@@ -1,9 +1,9 @@
 bin_SCRIPTS = rivet-config 
 
 dist_bin_SCRIPTS = \
-	aida2flat aida2root \
+	aida2flat aida2root flat2aida \
 	compare-histos make-plots
-EXTRA_DIST = flat2aida
+EXTRA_DIST = 
 
 RIVETPROGS = \
     rivet \
