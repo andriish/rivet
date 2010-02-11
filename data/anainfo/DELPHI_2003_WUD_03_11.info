@@ -13,6 +13,6 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  The 4-jet angular distributions (Bengtsson-Zerwas, K"orner-Schierholz-
+  The 4-jet angular distributions (Bengtsson-Zerwas, K\"orner-Schierholz-
   Willrodt, Nachtmann-Reiter, and $\alpha_{34}$) have been measured with
   DELPHI at LEP 1 using Jade and Durham cluster algorithms.
