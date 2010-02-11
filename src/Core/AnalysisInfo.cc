@@ -11,7 +11,7 @@ namespace Rivet {
 
 
   /// Ideas:
-  ///  * search RIVET_DATA_PATH etc. for <name>.info.yaml
+  ///  * search RIVET_INFO_PATH etc. for <name>.info.yaml
   ///  * how to determine the name?
   ///  * only populate pointer on Analysis when requested
   ///  * use smart pointer: deletes automatically when Analysis
@@ -24,7 +24,7 @@ namespace Rivet {
     vector<string> dirs;
     char* env = 0;
     // First try to use the Rivet data path variable
-    env = getenv("RIVET_DATA_PATH");
+    env = getenv("RIVET_INFO_PATH");
     if (env) dirs += split(env);
     // Then try to use the Rivet data install path
     dirs += getRivetDataPath();

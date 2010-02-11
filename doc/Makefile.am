@@ -14,7 +14,7 @@ DOCS += analyses.html
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
-RIVET_DATA_PATH=$(top_srcdir)/data/anainfo \
+RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
 ./mk-analysis-html analyses.html
 
 endif
@@ -31,7 +31,7 @@ if ENABLE_PYEXT
 analyses.tex: $(top_srcdir)/include/Rivet/Analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
-RIVET_DATA_PATH=$(top_srcdir)/data/anainfo \
+RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
 ./mk-analysis-latex analyses.tex
 
 else
