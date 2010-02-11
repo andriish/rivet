@@ -14,7 +14,7 @@ References:
 RunInfo:
   820 GeV protons colliding with 27.5 GeV positrons;
   Direct and resolved photoproduction of dijets;
-  Leading jet pT > 14 GeV, second jet pT > 11 GeV;
+  Leading jet pT $>$ 14 GeV, second jet pT $>$ 11 GeV;
   Jet pseudorapidity $-1 < \eta < 2.4$
 NumEvents: 1000000
 PtCuts: [0]
@@ -30,4 +30,4 @@ Description:
   $x\gamma$, is in the region 0.1 to 1. Jets are reconstructed in the
   range $-1<|\eta|<2.4$ using the kT algorithm with an R parameter of
   1.0. The minimum pT of the leading jet should be greater then 14~GeV,
-  and at least one other jet must have pT>11~GeV.
+  and at least one other jet must have pT$>$11~GeV.

@@ -12,7 +12,7 @@ References:
  - Phys.Lett.B435:453-457,1998
 RunInfo: QCD events, diffractive processes need to be switched
   on in order to fill the low multiplicity regions. The measurement was done in
-  |eta| < 3.25 and was extrapolated to full phase space. However, the method of
+  $\left|\eta\right| ~< ~3.25$ and was extrapolated to full phase space. However, the method of
   extrapolation remains unclear.
 NumEvents: 1000000
 PtCuts: [0]
