@@ -1,3 +1,13 @@
+2010-02-11  Andy Buckley  <andy@insectnation.org>
+
+	* Change analysis loader behaviour to use ONLY RIVET_ANALYSIS_PATH
+	locations if set, otherwise use ONLY the standard Rivet analysis
+	install path. Should only impact users of personal plugin
+	analyses, who should now explicitly set RIVET_ANALYSIS_PATH to
+	load their analysis... and who can now create personal versions of
+	standard analyses without getting an error message about duplicate
+	loading.
+
 2010-01-15  Andy Buckley  <andy@insectnation.org>
 
 	* Add tests for "stable" heavy flavour hadrons in jets (rather

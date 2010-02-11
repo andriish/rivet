@@ -70,17 +70,14 @@ namespace Rivet {
     // Build the list of directories to search
     vector<string> dirs;
     char* env = 0;
-    // First use the Rivet analysis path variable
     env = getenv("RIVET_ANALYSIS_PATH");
-    if (env) dirs += split(env);
-    // Then the Rivet library install path
-    dirs += getLibPath();
-    // And then the user's (non-system) library path
-    env = getenv("LD_LIBRARY_PATH");
-    if (env) dirs += split(env);
-    // Use the current dir, and its libtool subdir, too.
-    dirs += ".";
-    dirs += ".libs";
+    if (env) {
+      // Use the Rivet analysis path variable if set...
+      dirs += split(env);
+    } else {
+      // ... otherwise fall back to the Rivet library install path
+      dirs += getLibPath();
+    }
 
     // Find plugin module library files
     const string libsuffix = ".so";
