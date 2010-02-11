@@ -17,7 +17,7 @@ testApi_LDADD = ../src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
 ## TODO: Move these non-POSIX shell escapes into variable exports from configure.ac
 TESTS_ENVIRONMENT = \
   RIVET_REF_PATH=$(top_builddir)/data/refdata \
-  RIVET_DATA_PATH=$(top_builddir)/data/refdata \
+  RIVET_DATA_PATH=$(top_builddir)/data/anainfo \
   RIVET_ANALYSIS_PATH=$(top_builddir)/src/Analyses/.libs \
   LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(FASTJETLIBPATH) \
   PYTHONPATH=$(shell ls -d $(top_builddir)/pyext/build/lib.*) \
