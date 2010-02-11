@@ -1068,7 +1068,7 @@ and not have to re-patch the main library when a newer version comes out
 (although chances are you will have to recompile, since the binary interface usually
 change between releases.)
 
-To load pluggable analyses you will need to set the \kbd{RIVET_ANALYSIS_PATH}
+To load pluggable analyses you will need to set the \var{RIVET_ANALYSIS_PATH}
 environment variable: this is a standard colon-separated UNIX path, specifying
 directories in which analysis plugin libraries may be found. If it is
 unspecified, the Rivet loader system will assume that the only entry is the
@@ -1084,6 +1084,11 @@ directories).
   bit more setup if you are to use personal plugin analyses, it also solves many
   niggling problems and areas for confusion!
 \end{change}
+
+You may also wish or need to use the \var{RIVET_REF_PATH} and
+\var{RIVET_INFO_PATH} variables, which respectively provide similar search paths
+for analysis reference data and analysis metadata (e.g. author, date, run
+conditions, experiment, etc.) files.
 
 You will find an example plugin analysis in the \kbd{plugindemo} directory in
 the Rivet source directory, with a corresponding \kbd{Makefile}. To understand
