@@ -1068,6 +1068,23 @@ and not have to re-patch the main library when a newer version comes out
 (although chances are you will have to recompile, since the binary interface usually
 change between releases.)
 
+To load pluggable analyses you will need to set the \kbd{RIVET_ANALYSIS_PATH}
+environment variable: this is a standard colon-separated UNIX path, specifying
+directories in which analysis plugin libraries may be found. If it is
+unspecified, the Rivet loader system will assume that the only entry is the
+\kbd{lib} directory in the Rivet installation area -- specifying the variable
+will disable this standard location to allow you to override standard analyses
+with same-named variants of your own (provided they are loaded from different
+directories). 
+
+\begin{change}
+  Note that the search path behaviour has changed as of Rivet 1.2.0: previously
+  the standard library install directory was \emph{always} used, as were the
+  current directory and \kbd{./.libs}, if found. While the new system requires a
+  bit more setup if you are to use personal plugin analyses, it also solves many
+  niggling problems and areas for confusion!
+\end{change}
+
 You will find an example plugin analysis in the \kbd{plugindemo} directory in
 the Rivet source directory, with a corresponding \kbd{Makefile}. To understand
 the plugin system better, you should check out the documentation in the wiki on

@@ -42,6 +42,7 @@
 %\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize \textit{#1}]%
 %{\raggedright\footnotesize \textit{#1}}}
 
+\newcommand{\warnimg}{\includegraphics[height=11mm]{warning}}
 \newcommand{\coneimg}{\includegraphics[height=11mm]{cone}}
 \newcommand{\bendimg}{\includegraphics[height=11mm]{bend}}
 \newcommand{\dblbendimg}{\bendimg\hspace{0.5mm}\bendimg}
@@ -50,35 +51,50 @@
 \setlength{\fboxsep}{5mm}
 \setlength{\linewidth}{5pt}
 
-\newenvironment{change}%
-{\begin{Sbox}%
-      \begin{minipage}{0.9\textwidth}%
-        \begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}%
-        {\par\end{window}%
-      \end{minipage}%
-  \end{Sbox}%
-  \vspace{5mm}%
-  \noindent%
-  \begin{center}%
-    \fbox{\TheSbox}%
-  \end{center}%
-  \vspace{5mm}%
-  \ignorespacesafterend}
-
-% \newenvironment{change}{%
-% \begin{window}[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}{\par%
-% % \showthe\prevgraf%
-% % \showthe\prevdepth%
-% % \ifnum\prevgraf<2\rule{1pt}{1.2cm}\fi%
-% \end{window}\ignorespacesafterend}
-
-%% Make narrower and box (box must be able to break over pages)
-\newenvironment{philosophy}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
-  \it\begin{window}[0,l,{\thinkimg},{}]
-  \setlength{\parindent}{0cm}\noindent}{%
-  \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
+\newenvironment{warning}{\begin{window}[0,l,{\warnimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
+
+\newenvironment{change}%
+{\begin{Sbox}%
+    \begin{minipage}{0.9\textwidth}%
+      \window[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}
+    {\par\endwindow%
+    \end{minipage}%
+  \end{Sbox}%
+  \vspace{2mm}%
+  \noindent%
+  \begin{center}%
+    \cornersize{0.1}
+    \Ovalbox{\TheSbox}%
+  \end{center}%
+  \vspace{2mm}%
+  \ignorespacesafterend}
+
+%% Make narrower and box (box must be able to break over pages)
+% \newenvironment{philosophy}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
+%   \it\begin{window}[0,l,{\thinkimg},{}]
+%   \setlength{\parindent}{0cm}\noindent}{%
+%   \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
+
+\newenvironment{philosophy}%
+{\begin{Sbox}%
+    \begin{minipage}{0.9\textwidth}%
+      \it
+      \window[0,l,{\thinkimg},{}]
+      \setlength{\parindent}{0cm}\noindent\hspace{-0.8ex}}
+    {\par\endwindow%
+    \end{minipage}%
+  \end{Sbox}%
+  \vspace{2mm}%
+  \noindent%
+  \begin{center}%
+    \cornersize{0.01}
+    \Ovalbox{\TheSbox}%
+  \end{center}%
+  \vspace{2mm}%
+  \ignorespacesafterend}
+
 
 \newcommand{\pT}{\ensuremath{p_\perp}\xspace}
 \newcommand{\ET}{\ensuremath{E_\perp}\xspace}
