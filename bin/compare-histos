@@ -278,7 +278,11 @@ if __name__ == "__main__":
 
 
         ## Header
-        headers = plotparser.getHeaders(name)
+        try:
+            headers = plotparser.getHeaders(name)
+        except ValueError, err:
+            logging.error("Could not get plot headers: %s" % (err))
+            headers = {}
 
         drawonlystr = ""
         for hfile in activefiles:
@@ -301,7 +305,11 @@ if __name__ == "__main__":
         headstr += "# END PLOT\n"
 
         ## Special
-        special = plotparser.getSpecial(name)
+        try:
+            special = plotparser.getSpecial(name)
+        except ValueError, err:
+            logging.error("Could not get histo specials: %s" % (err))
+            special = {}
         if special:
             headstr += "\n"
             headstr += "# BEGIN SPECIAL %s\n" %name
@@ -309,7 +317,11 @@ if __name__ == "__main__":
             headstr += "# END SPECIAL\n"
 
         ## Write histos
-        histopts = plotparser.getHistogramOptions(name)
+        try:
+            histopts = plotparser.getHistogramOptions(name)
+        except ValueError, err:
+            logging.error("Could not get histo options: %s" % (err))
+            histopts = {}
         histstrs = []
         i = 0
         for hfile in activefiles:
