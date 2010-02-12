@@ -1,4 +1,6 @@
-#!/bin/bash
+#! /usr/bin/env bash
+
+export PYTHONPATH=$(ls -d $PYTHON_BUILD_DIR/lib.*)
 
 cp testApi.hepmc file2.hepmc
 (rivet -a D0_2008_S7554427 testApi.hepmc file2.hepmc | grep -q "20 events") || exit 1
