@@ -37,9 +37,13 @@ parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default
 
 opts, aidafiles = parser.parse_args()
 
+refpaths = os.environ['RIVET_REF_PATH'].split(":")
 try:
     datadir = Popen(["rivet-config", "--datadir"], stdout=PIPE).communicate()[0].split()[0]
+    refpaths.append(datadir)
 except:
+    pass
+if not refpaths:
     print "Error: Didn't find rivet-config. Have you sourced rivetenv.sh?"
     exit(1)
 
@@ -63,8 +67,10 @@ for aidafile in aidafiles:
         path = dps.get("path")
         analysis = path[path.rfind("/")+1:]
         analyses.add(analysis)
-        if os.access(os.path.join(datadir, analysis+".aida"), os.R_OK):
-            reffiles.append("%s/%s.aida" % (datadir, analysis))
+        for refpath in refpaths:
+            if os.access(os.path.join(refpath, analysis+".aida"), os.R_OK):
+                reffiles.append("%s/%s.aida" % (refpath, analysis))
+                break
 
 
 ## run compare-histos to get plain .dat files from .aida
