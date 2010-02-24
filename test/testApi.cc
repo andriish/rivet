@@ -17,11 +17,14 @@ int main() {
 
   std::istream* file = new std::fstream("testApi.hepmc", std::ios::in);
   HepMC::IO_GenEvent hepmcio(*file);
-  HepMC::GenEvent evt;
+  HepMC::GenEvent* evt = hepmcio.read_next_event();
   double sum_of_weights = 0.0;
-  while (hepmcio.fill_next_event(&evt)) {
-    rivet.analyze(evt);
-    sum_of_weights+=evt.weights()[0];
+  while (evt) {
+    rivet.analyze(*evt);
+    sum_of_weights+=evt->weights()[0];
+    // clean up and get next event
+    delete evt;
+    hepmcio >> evt;
   }
   delete file;
 
