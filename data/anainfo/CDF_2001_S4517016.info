@@ -12,14 +12,14 @@ References:
  - doi:10.1103/PhysRevD.64.012001
  - arXiv:hep-ex/0012013
 RunInfo:
-  Dijet events at Tevatron with $\sqrt{s}=1.8 TeV$
+  Dijet events at Tevatron with $\sqrt{s}=1.8$ TeV
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   A measurement of the two-jet differential cross section, 
   $\mathrm{d}^3\sigma/\mathrm{d}E_T \mathrm{d}\eta_1 \mathrm{d}\eta_2$,
-  based on an integrated luminosity of $86 \mathrm{pb}^-1$.
+  based on an integrated luminosity of $86 \mathrm{pb}^{-1}$.
   The differential cross section is measured as a function of the transverse
-  energy, E_T, of a jet in the pseudorapidity region $0.1 < |\eta_1| < 0.7$ for
+  energy, $E_\perp$, of a jet in the pseudorapidity region $0.1 < |\eta_1| < 0.7$ for
   four different pseudorapidity bins of a second jet restricted to
   $0.1 < |\eta_2| < 3.0$.

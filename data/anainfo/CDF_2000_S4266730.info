@@ -12,10 +12,10 @@ References:
  - doi:10.1103/PhysRevD.61.091101
  - arXiv:hep-ex/9912022
 RunInfo:
-  Dijet events at Tevatron with $\sqrt{s}=1.8 TeV$
+  Dijet events at Tevatron with $\sqrt{s}=1.8$ TeV
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   Measurement of the cross section for production of two or more jets as a
   function of dijet mass in the range 180 to 1000 GeV.
-  It is based on an integrated luminosity of $86 \mathrm{pb}^-1$.
+  It is based on an integrated luminosity of $86 \mathrm{pb}^{-1}$.

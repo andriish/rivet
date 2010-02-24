@@ -10,13 +10,13 @@ Authors:
 References:
  - arXiv:0903.1748 [hep-ex]
 RunInfo:
-  ppbar -> e+ e- + jets at 1960 GeV.
+  $p \bar{p} \to e^+ e^-$ + jets at 1960~GeV.
   Needs mass cut on lepton pair to avoid photon singularity,
-  min. range $65 < m_Z < 115$
+  looser than $65 < m_{ee} < 115$ GeV.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   Cross sections as a function of pT of the three leading jets in
-  $Z/\gamma^{*} (\to e^{+} e^{-})$ + jet + X production in ppbar
+  $Z/\gamma^{*} (\to e^{+} e^{-})$ + jet + X production in $p \bar{p}$
   collisions at $\sqrt{s} = 1.96$ TeV, based on an integrated luminosity
-  of $1.0 \text{fb}^{-1}$.
+  of 1.0 fb$^{-1}$.

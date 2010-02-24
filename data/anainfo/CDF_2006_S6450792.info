@@ -17,7 +17,7 @@ NumEvents: 1000000
 PtCuts: [61]
 Description:
   Measurement of the inclusive jet cross section in ppbar interactions at
-  $\sqrt{s}=1.96$ TeV using 385 $pb^{-1}$ of data. The data cover the jet
+  $\sqrt{s}=1.96$ TeV using 385 $\mathrm{pb}^{-1}$ of data. The data cover the jet
   transverse momentum range from 61 to 620 GeV/c in $0.1 < |y| < 0.7$.
   This analysis has been updated with more data in more rapidity bins in
   CDF_2008_S7828950.

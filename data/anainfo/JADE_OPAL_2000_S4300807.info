@@ -11,7 +11,7 @@ References:
  - Eur.Phys.J.C17:19-51,2000
  - arXiv:hep-ex/0001055
 RunInfo:
-  e+ e- -> jet jet (+ jets)
+  $e^+ e^- \to$ jet jet (+ jets)
 NumEvents: 1000000
 PtCuts: [0]
 Description:

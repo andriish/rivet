@@ -11,8 +11,8 @@ References:
  - Phys.Rev.Lett.100:102001,2008
  - arXiv:0711.3717 [hep-ex]
 RunInfo:
-  ppbar -> e+ e- + jets at 1960 GeV. Needs mass cut on lepton pair to 
-  avoid photon singularity, $m$ in range $66 < m_{ee} < 116$
+  $p \bar{p} \to e^+ e^-$ + jets at 1960 GeV. Needs mass cut on lepton pair to 
+  avoid photon singularity, looser than $66 < m_{ee} < 116$
 NumEvents: 1000000
 PtCuts: [0]
 Description:

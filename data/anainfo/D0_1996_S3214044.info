@@ -12,14 +12,14 @@ References:
  - doi:10.1103/PhysRevD.53.6000
  - arXiv:hep-ex/9509005
 RunInfo:
-  ppbar -> jets at 1800 GeV with minimum jet pT in analysis = 20 GeV
+  $p \bar{p} \to$ jets at 1800 GeV with minimum jet pT in analysis = 20 GeV
 NumEvents: 1000000
 PtCuts: [10]
 Description:
   The global topologies of inclusive three- and four-jet events produced in
   pbar p interactions are described. The three- and four-jet events are
   selected from data recorded by the D0 detector at the Fermilab Tevatron
-  Collider operating at a center-of-mass energy of sqrt[s]=1800 GeV.
+  Collider operating at a center-of-mass energy of $\sqrt{s}$=1800 GeV.
   The studies also show that the topological distributions of the different
   subprocesses involving different numbers of quarks are very similar and
   reproduce the measured distributions well. The parton-shower Monte Carlo

@@ -13,11 +13,11 @@ References:
  - Phys.Rev.D76:012003,2007
  - arXiv:hep-ex/0702025
 RunInfo:
-  Drell-Yan $Z/\gamma*$ + jets events in ppbar collisions at 
-  sqrt(s) = 1960 GeV. Needs mass cut on lepton pair to avoid photon 
-  singularity --- $m$ in range $71 < m_{ee} < 111$
+  Drell-Yan $p \bar{p} \to Z/\gamma^*$ + jets events at 
+  $\sqrt{s}$ = 1960 GeV. Needs mass cut on lepton pair to avoid photon 
+  singularity, looser than  $71 < m_{ee} < 111$ GeV
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Cross sections as a function of boson rapidity ppbar collisions at
-  sqrt{s} = 1.96 TeV, based on an integrated luminosity of $0.4~\text{fb}^{-1}$.
+  Cross sections as a function of boson rapidity in $\p \bar{p}$ collisions at
+  $\sqrt{s}$ = 1.96 TeV, based on an integrated luminosity of $0.4~\text{fb}^{-1}$.

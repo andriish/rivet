@@ -12,10 +12,10 @@ References:
  - doi:10.1103/PhysRevD.64.032001
  - arXiv:hep-ph/0102074
 RunInfo:
-  Dijet events at Tevatron with $\sqrt{s}=1.8 TeV$
+  Dijet events at Tevatron with $\sqrt{s}=1.8$ TeV
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   Measurement of the inclusive jet cross section for jet transverse energies
   from 40 to 465 GeV in the pseudo-rapidity range $0.1<|\eta|<0.7$.
-  The results are based on 87 $pb^{-1}$ of data.
+  The results are based on 87 $\mathrm{pb}^{-1}$ of data.

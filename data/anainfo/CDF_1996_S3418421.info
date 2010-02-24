@@ -12,9 +12,9 @@ References:
  - doi:10.1103/PhysRevLett.77.5336
  - arXiv:hep-ex/9609011
 RunInfo:
-  QCD dijet events at Tevatron $\sqrt{s}=1.8 TeV$ without MPI.
+  QCD dijet events at Tevatron $\sqrt{s}=1.8$ TeV without MPI.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
   Measurement of jet angular distributions in events with two jets in the final
-  state in 5 bins of dijet invariant mass. Based on $106 pb^{-1}$
+  state in 5 bins of dijet invariant mass. Based on $106 \mathrm{pb}^{-1}$

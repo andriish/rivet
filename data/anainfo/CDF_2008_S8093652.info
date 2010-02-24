@@ -10,10 +10,10 @@ Authors:
 References:
  - arXiv:0812.4036 [hep-ex]
 RunInfo:
-  ppbar -> jets at 1960 GeV
+  $p \bar{p} \to$ jets at 1960 GeV
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Dijet mass spectrum  from 0.2 TeV to 1.4 TeV in ppbar collisions at
-  $\sqrt{s} = 1.96$ TeV, based on an integrated luminosity of $1.13
-  \text{fb}^{-1}$.
+  Dijet mass spectrum  from 0.2 TeV to 1.4 TeV in $p \bar{p}$ collisions at
+  $\sqrt{s} = 1.96$ TeV, based on an integrated luminosity of
+  1.13 fb$^{-1}$.

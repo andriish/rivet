@@ -11,7 +11,7 @@ References:
  - Z.Phys.C69:365-378,1996
  - doi:10.1007/s002880050037
 RunInfo:
-  e+ e- -> jets with $\pi$ and $\eta$ decays turned off.
+  $e^+e^-\to$ jets with $\pi$ and $\eta$ decays turned off.
 NumEvents: 1000000
 PtCuts: [0]
 Description:
