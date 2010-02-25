@@ -48,13 +48,13 @@ except:
     pass
 if not refpaths:
     print "Error: Didn't find rivet-config. Have you sourced rivetenv.sh?"
-    exit(1)
+    sys.exit(1)
 
 try:
     os.makedirs(opts.OUTPUTDIR)
 except:
     print "Error: Directory '%s' already exists. Set -o to something else." % opts.OUTPUTDIR
-    exit(1)
+    sys.exit(1)
 
 ## get set of analyses/reffiles involved in the runs
 analyses = set()
@@ -63,8 +63,8 @@ labels = []
 for aidafile in aidafiles:
     aidafilepath = os.path.abspath(aidafile.split(":")[0])
     if not os.access(aidafilepath, os.R_OK):
-        print "Error: cannot read from %s" % aidafile.split(":")[0]
-        exit(2)
+        print "Error: cannot read from %s" % aidafilepath
+        sys.exit(2)
     tree = ET.parse(aidafilepath)
     for dps in tree.findall("dataPointSet"):
         path = dps.get("path")
