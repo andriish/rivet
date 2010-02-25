@@ -37,7 +37,10 @@ parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default
 
 opts, aidafiles = parser.parse_args()
 
-refpaths = os.environ['RIVET_REF_PATH'].split(":")
+if os.environ.has_key('RIVET_REF_PATH'):
+    refpaths = os.environ['RIVET_REF_PATH'].split(":")
+else:
+    refpaths = []
 try:
     datadir = Popen(["rivet-config", "--datadir"], stdout=PIPE).communicate()[0].split()[0]
     refpaths.append(datadir)
