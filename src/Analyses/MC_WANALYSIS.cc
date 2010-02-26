@@ -30,9 +30,9 @@ namespace Rivet {
       // Projections
       const ChargedFinalState cfs(-2, 2, 200*MeV);
       addProjection(cfs, "CFS");
-      const WFinder wfe(-2, 2, 10.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0.2);
+      const WFinder wfe(-2, 2, 10.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 10*GeV, 0.2);
       addProjection(wfe, "WFe");
-      const WFinder wfmu(-2, 2, 10.0*GeV, MUON, 60.0*GeV, 100.0*GeV, 0.2);
+      const WFinder wfmu(-2, 2, 10.0*GeV, MUON, 60.0*GeV, 100.0*GeV, 10*GeV, 0.2);
       addProjection(wfmu, "WFmu");
       FastJets fastjets(wfe.remainingFinalState(), FastJets::KT, 0.5);
       addProjection(fastjets, "Jets");

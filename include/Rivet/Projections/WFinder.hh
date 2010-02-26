@@ -7,7 +7,7 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
-#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
@@ -23,9 +23,10 @@ namespace Rivet {
     /// Constructor taking a FinalState and type of the charged lepton, mass window,
     /// and maximum dR of photons around the charged lepton to take into account for W
     /// reconstruction.
-    WFinder(const FinalState& fs,
+    WFinder(const ChargedFinalState& fs_l,
             PdgId pid,
             double m2_min, double m2_max,
+            double missingET,
             double dRmax);
 
 
@@ -36,6 +37,7 @@ namespace Rivet {
             double pTmin,
             PdgId pid,
             double m2_min, double m2_max,
+            double missingET,
             double dRmax);
 
 
@@ -46,6 +48,7 @@ namespace Rivet {
             double pTmin,
             PdgId pid,
             double m2_min, const double m2_max,
+            double missingET,
             double dRmax);
 
 
@@ -61,9 +64,11 @@ namespace Rivet {
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
 
-    /// Access to the W constituent leptons final state
-    /// (e.g. for more fine-grained cuts on the leptons)
+    /// Access to the W constituent leptons and photons
     const FinalState& constituentsFinalState() const;
+
+    /// Access to the W constituent leptons
+    const FinalState& constituentLeptonsFinalState() const;
 
 
   protected:
@@ -81,12 +86,14 @@ namespace Rivet {
     void _init(const std::vector<std::pair<double, double> >& etaRanges,
                double pTmin,  PdgId pid,
                double m2_min, double m2_max,
+               double missingET,
                double dRmax);
 
     /// Common implementation of constructor operation, taking FS.
-    void _init(const FinalState& fs,
+    void _init(const ChargedFinalState& fs_l,
                PdgId pid,
                double m2_min, double m2_max,
+               double missingET,
                double dRmax);
 
 
@@ -94,6 +101,9 @@ namespace Rivet {
 
     // Mass range
     double _m2_min, _m2_max;
+
+    // Missing ET cut
+    double _etMiss;
 
   };
 

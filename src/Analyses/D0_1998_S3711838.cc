@@ -37,7 +37,8 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      WFinder wfe(-5, 5, 0.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0.2);
+      /// @todo Use separate pT and ETmiss cuts in WFinder
+      WFinder wfe(-5, 5, 0.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
       // Book histogram
@@ -56,6 +57,7 @@ namespace Rivet {
       }
 
       // Require the electron to have ET > 25 GeV  and |eta| < 1.1
+      /// @todo Use separate pT and ETmiss cuts in WFinder
       FourMomentum p_e;
       int chg_e = 0;
 

@@ -1,6 +1,8 @@
 // -*- C++ -*-
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
+#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/MergedFinalState.hh"
 #include "Rivet/Projections/ClusteredPhotons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -10,11 +12,12 @@
 namespace Rivet {
 
 
-  WFinder::WFinder(const FinalState& fs,
+  WFinder::WFinder(const ChargedFinalState& fs_l,
                    PdgId pid,
                    double m2_min, double m2_max,
+                   double missingET,
                    double dRmax) {
-    _init(fs, pid, m2_min, m2_max, dRmax);
+    _init(fs_l, pid, m2_min, m2_max, missingET, dRmax);
   }
 
 
@@ -22,10 +25,11 @@ namespace Rivet {
                    double pTmin,
                    PdgId pid,
                    double m2_min, double m2_max,
+                   double missingET,
                    double dRmax) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax);
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, missingET, dRmax);
   }
 
 
@@ -33,8 +37,9 @@ namespace Rivet {
                    double pTmin,
                    PdgId pid,
                    double m2_min, double m2_max,
+                   double missingET,
                    double dRmax) {
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax);
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, missingET, dRmax);
   }
 
 
@@ -42,38 +47,59 @@ namespace Rivet {
                       double pTmin,  
                       PdgId pid,
                       double m2_min, double m2_max,
+                      double missingET,
                       double dRmax) {
-    FinalState fs(etaRanges, pTmin);
-    _init(fs, pid, m2_min, m2_max, dRmax);
+    ChargedFinalState fs_l(etaRanges, pTmin);
+    _init(fs_l, pid, m2_min, m2_max, missingET, dRmax);
   }
 
 
-  void WFinder::_init(const FinalState& fs,
+  void WFinder::_init(const ChargedFinalState& fs_l,
                       PdgId pid,
                       double m2_min, double m2_max,
+                      double missingET,
                       double dRmax)
   {
     setName("WFinder");
+
+    // Check that the arguments are legal
+    assert(abs(pid) == ELECTRON || abs(pid) == MUON);
+    PdgId nu_pid = abs(pid) + 1;
+    assert(abs(nu_pid) == NU_E || abs(nu_pid) == NU_MU);
+
+    // Don't make pT or eta cuts on the neutrino
+    IdentifiedFinalState fs_nu;
+    fs_nu.acceptNeutrinos();
+
+    // Make a merged final state projection for charged and neutral leptons
+    MergedFinalState mergedFS(fs_l, fs_nu);
 
     // Mass range
     _m2_min = m2_min;
     _m2_max = m2_max;
 
-    assert(abs(pid) == ELECTRON || abs(pid) == MUON || abs(pid) == TAU);
-    PdgId nu_pid = abs(pid) + 1;
-    assert(abs(nu_pid) == NU_E || abs(nu_pid) == NU_MU || abs(nu_pid) == NU_TAU);
+    // Make and register an invariant mass final state for the W decay leptons
     vector<pair<PdgId, PdgId> > l_nu_ids;
     l_nu_ids += make_pair(abs(pid), -abs(nu_pid));
     l_nu_ids += make_pair(-abs(pid), abs(nu_pid));
-    InvMassFinalState imfs(fs, l_nu_ids, m2_min, m2_max);
+    InvMassFinalState imfs(mergedFS, l_nu_ids, m2_min, m2_max);
     addProjection(imfs, "IMFS");
  
+    // A projection for clustering photons on to the charged lepton
     ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
     addProjection(cphotons, "CPhotons");
 
+    // Projection for all signal constituents
+    MergedFinalState signalFS(imfs, cphotons);
+    addProjection(cphotons, "SignalParticles");
+    
+    // Add TotalVisibleMomentum proj to calc MET
+    TotalVisibleMomentum vismom(signalFS);
+    addProjection(vismom, "MissingET");
+    
+    // FS for non-signal bits of the event
     VetoedFinalState remainingFS;
-    remainingFS.addVetoOnThisFinalState(imfs);
-    remainingFS.addVetoOnThisFinalState(cphotons);
+    remainingFS.addVetoOnThisFinalState(signalFS);
     addProjection(remainingFS, "RFS");
   }
 
@@ -87,6 +113,11 @@ namespace Rivet {
 
 
   const FinalState& WFinder::constituentsFinalState() const {
+    return getProjection<FinalState>("SignalParticles");
+  }
+
+
+  const FinalState& WFinder::constituentLeptonsFinalState() const {
     return getProjection<FinalState>("IMFS");
   }
 
@@ -130,6 +161,15 @@ namespace Rivet {
       pW += photon.momentum();
     }
     msg << " = " << pW;
+
+    // Check missing ET
+    const TotalVisibleMomentum& vismom = applyProjection<TotalVisibleMomentum>(e, "MissingET");
+    /// @todo Restrict missing momentum eta range?
+    if (vismom.scalarET() < _etMiss) {
+      getLog() << Log::DEBUG << "Not enough missing ET: " << vismom.scalarET()/GeV 
+               << " GeV vs. " << _etMiss/GeV << " GeV" << endl;
+      return;
+    }
 
     // Check mass range again
     if (!inRange(pW.mass()/GeV, _m2_min, _m2_max)) return;

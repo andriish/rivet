@@ -35,6 +35,7 @@ RivetUnvalidated_la_SOURCES = \
     MC_TTBAR.cc \
     SFM_1984_S1178091.cc \
     STAR_2008_S7993412.cc \
+    STAR_2009_UE_HELEN.cc \
     UA1_1990_S2044935.cc \
     UA5_1988_S1867512.cc \
     ZEUS_2001_S4815815.cc
@@ -102,8 +103,7 @@ lib_LTLIBRARIES += RivetRHICAnalyses.la
 RivetRHICAnalyses_la_SOURCES = \
     STAR_2006_S6500200.cc \
     STAR_2006_S6860818.cc \
-    STAR_2006_S6870392.cc \
-    STAR_2009_UE_HELEN.cc
+    STAR_2006_S6870392.cc
 
 
 lib_LTLIBRARIES += RivetSPSAnalyses.la

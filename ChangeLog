@@ -1,3 +1,8 @@
+2010-02-26  Andy Buckley  <andy@insectnation.org>
+
+	* Update WFinder to not place cuts and other restrictions on the
+	neutrino.
+
 2010-02-11  Andy Buckley  <andy@insectnation.org>
 
 	* Change analysis loader behaviour to use ONLY RIVET_ANALYSIS_PATH

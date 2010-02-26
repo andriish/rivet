@@ -36,7 +36,8 @@ namespace Rivet {
     // Book histograms and set up projections
     void init() {
       // Projections
-      const WFinder wfe(-5, 5, 0.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0.2);
+      /// @todo Use separate pT and ETmiss cuts in WFinder
+      const WFinder wfe(-5, 5, 0.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
       // Cross-section histograms
@@ -59,6 +60,8 @@ namespace Rivet {
       }
 
       // Require that leptons have Et >= 25 GeV
+      /// @todo Use pT cut in WFinder
+      /// @todo Any ETmiss cut?
       FourMomentum p_e;
       int chg_e = 0;
       foreach (const Particle& l, wf.constituentsFinalState().particles()) {

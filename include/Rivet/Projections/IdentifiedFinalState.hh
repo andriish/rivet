@@ -14,25 +14,23 @@ namespace Rivet {
 
   /// Produce a final state which only contains specified particle IDs.
   class IdentifiedFinalState : public FinalState {
-
   public:
  
     /// @name Constructors
     //@{
-    /// Default constructor.
-    IdentifiedFinalState(double etamin=-MAXRAPIDITY, double etamax=MAXRAPIDITY, double ptMin=0.0*GeV)
-      : FinalState(etamin, etamax, ptMin)
-    {
-      setName("IdentifiedFinalState");
-      addProjection(FinalState(etamin, etamax, ptMin), "FS");
-    }
 
     /// Constructor with specific FinalState.
-    IdentifiedFinalState(const FinalState& fsp)
-    {
-      setName("IdentifiedFinalState");
-      addProjection(fsp, "FS");
-    }
+    IdentifiedFinalState(const FinalState& fsp);
+
+    /// Constructor with a single eta range argument.
+    IdentifiedFinalState(double etamin=-MAXRAPIDITY, 
+                         double etamax=MAXRAPIDITY, 
+                         double ptMin=0.0*GeV);
+    
+    /// Constructor which allows to specify multiple eta ranges
+    /// and the min \f$ p_T \f$.
+    IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
+                         double ptMin=0.0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

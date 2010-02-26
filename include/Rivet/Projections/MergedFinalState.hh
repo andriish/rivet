@@ -12,7 +12,7 @@
 namespace Rivet {
 
 
-  /// Project only merged final state particles.
+  /// Provide access to final state particles merged from two FinalState projections.
   class MergedFinalState : public FinalState {
 
   public:

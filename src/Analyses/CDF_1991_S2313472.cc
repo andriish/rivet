@@ -6,7 +6,6 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 
@@ -38,7 +37,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      WFinder wfe(-5, 5, 0.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0.2);
+      WFinder wfe(-5, 5, 0.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 20.0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
       // Book histogram
@@ -56,6 +55,7 @@ namespace Rivet {
       }
 
       // Require the electron to have ET > 20 GeV, pT > 6 GeV and |eta| < 1.1
+      /// @todo Use separate pT and ETmiss cuts in WFinder
       FourMomentum p_e;
       int chg_e = 0;
 
