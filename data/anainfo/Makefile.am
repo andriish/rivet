@@ -66,9 +66,8 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETUE.info \
   MC_SUSY.info \
   MC_TTBAR.info \
-  MC_WANALYSIS.info \
-  MC_ZANALYSIS.info \
   MC_PHOTONJETS.info \
+  MC_WJETS.info \
   MC_ZJETS.info \
   OPAL_1998_S3780481.info \
   OPAL_2004_S6132243.info \

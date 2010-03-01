@@ -63,11 +63,10 @@ dist_pkgdata_DATA = \
   MC_DIJET.plot \
   MC_DIPHOTON.plot \
   MC_PHOTONJETUE.plot \
-  MC_ZANALYSIS.plot \
-  MC_WANALYSIS.plot \
   MC_SUSY.plot \
   MC_TTBAR.plot \
   MC_PHOTONJETS.plot \
+  MC_WJETS.plot \
   MC_ZJETS.plot \
   OPAL_1998_S3780481.plot \
   OPAL_2004_S6132243.plot \

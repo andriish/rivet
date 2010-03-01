@@ -7,8 +7,6 @@
 
 namespace Rivet {
 
-  /// @brief Monte Carlo validation observables for Z[e+ e-] + jets production at Tevatron Run II
-  /// @author Frank Siegert
   class MC_ZJETS : public MC_JetAnalysis {
 
   public:
@@ -33,7 +31,9 @@ namespace Rivet {
 
       _h_Z_mass = bookHistogram1D("Z_mass", 50, 66.0, 116.0);
       _h_Z_pT = bookHistogram1D("Z_pT", 100, 0.0, 0.25*sqrtS());
+      _h_Z_pT_peak = bookHistogram1D("Z_pT", 25, 0.0, 25.0);
       _h_Z_y = bookHistogram1D("Z_y", 40, -4.0, 4.0);
+      _h_Z_phi = bookHistogram1D("Z_phi", 25, 0.0, TWOPI);
       _h_Z_jet1_deta = bookHistogram1D("Z_jet1_deta", 50, -5.0, 5.0);
       _h_Z_jet1_dR = bookHistogram1D("Z_jet1_dR", 25, 0.5, 7.0);
       _h_lepton_pT = bookHistogram1D("lepton_pT", 100, 0.0, 0.25*sqrtS());
@@ -55,7 +55,9 @@ namespace Rivet {
       FourMomentum zmom(zfinder.particles()[0].momentum());
       _h_Z_mass->fill(zmom.mass(),weight);
       _h_Z_pT->fill(zmom.pT(),weight);
+      _h_Z_pT_peak->fill(zmom.pT(),weight);
       _h_Z_y->fill(zmom.rapidity(),weight);
+      _h_Z_phi->fill(zmom.azimuthalAngle(),weight);
       foreach (const Particle& l, zfinder.constituentsFinalState().particles()) {
         _h_lepton_pT->fill(l.momentum().pT(), weight);
         _h_lepton_eta->fill(l.momentum().eta(), weight);
@@ -76,7 +78,9 @@ namespace Rivet {
     void finalize() {
       scale(_h_Z_mass, crossSection()/sumOfWeights());
       scale(_h_Z_pT, crossSection()/sumOfWeights());
+      scale(_h_Z_pT_peak, crossSection()/sumOfWeights());
       scale(_h_Z_y, crossSection()/sumOfWeights());
+      scale(_h_Z_phi, crossSection()/sumOfWeights());
       scale(_h_Z_jet1_deta, crossSection()/sumOfWeights());
       scale(_h_Z_jet1_dR, crossSection()/sumOfWeights());
       scale(_h_lepton_pT, crossSection()/sumOfWeights());
@@ -94,7 +98,9 @@ namespace Rivet {
     //@{
     AIDA::IHistogram1D * _h_Z_mass;
     AIDA::IHistogram1D * _h_Z_pT;
+    AIDA::IHistogram1D * _h_Z_pT_peak;
     AIDA::IHistogram1D * _h_Z_y;
+    AIDA::IHistogram1D * _h_Z_phi;
     AIDA::IHistogram1D * _h_Z_jet1_deta;
     AIDA::IHistogram1D * _h_Z_jet1_dR;
     AIDA::IHistogram1D * _h_lepton_pT;

@@ -126,9 +126,8 @@ RivetMCAnalyses_la_SOURCES = \
     ExampleAnalysis.cc \
     MC_JetAnalysis.cc \
     MC_PHOTONJETS.cc \
+    MC_WJETS.cc \
     MC_ZJETS.cc \
     MC_LEADINGJETS.cc \
     MC_DIPHOTON.cc \
-    MC_WANALYSIS.cc \
-    MC_ZANALYSIS.cc \
     MC_SUSY.cc
