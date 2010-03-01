@@ -22,7 +22,7 @@ namespace Rivet {
     foreach (const Particle& p, fs.particles()) {
       const FourMomentum& mom = p.momentum();
       _momentum += mom;
-      _set += mom.pT();
+      _set += mom.Et();
     }
   }
 

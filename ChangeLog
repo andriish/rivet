@@ -1,3 +1,14 @@
+2010-03-01  Andy Buckley  <andy@insectnation.org>
+
+	* Fix average Et plot in UA1 analysis to only apply to the tracker
+	acceptance (but to include neutral particle contributions,
+	i.e. the region of the calorimeter in the tracker acceptance).
+
+	* Use Et rather than pT in filling the scalar Et measure in
+	TotalVisibleMomentum.
+
+	* Fixes to UA1 normalisation (which is rather funny in the paper).
+
 2010-02-26  Andy Buckley  <andy@insectnation.org>
 
 	* Update WFinder to not place cuts and other restrictions on the

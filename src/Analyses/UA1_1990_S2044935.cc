@@ -9,6 +9,7 @@
 namespace Rivet {
 
 
+  /// Minimum bias track analysis from UA1
   class UA1_1990_S2044935 : public Analysis {
   public:
 
@@ -30,8 +31,10 @@ namespace Rivet {
     void init() {
       addProjection(ChargedFinalState(-5.5, 5.5), "TriggerFS");
       addProjection(ChargedFinalState(-2.5, 2.5), "TrackFS");
+      const FinalState trkcalofs(-2.5, 2.5);
+      addProjection(TotalVisibleMomentum(trkcalofs), "MET25");
       const FinalState calofs(-6.0, 6.0);
-      addProjection(TotalVisibleMomentum(calofs), "Mom");
+      addProjection(TotalVisibleMomentum(calofs), "MET60");
 
       if (fuzzyEquals(sqrtS()/GeV, 63)) {
         _hist_Pt = bookProfile1D(8,1,1);
@@ -76,14 +79,14 @@ namespace Rivet {
 
       // Use good central detector tracks
       const FinalState& cfs = applyProjection<FinalState>(event, "TrackFS");
-      const double Et = applyProjection<TotalVisibleMomentum>(event, "Mom").scalarET();
+      const double Et25 = applyProjection<TotalVisibleMomentum>(event, "MET25").scalarET();
+      const double Et60 = applyProjection<TotalVisibleMomentum>(event, "MET60").scalarET();
       const unsigned int nch = cfs.size();
 
       // Event level histos
       _hist_Nch->fill(nch, weight);
-      _hist_Et->fill(Et/GeV, weight);
-      /// @todo Doesn't fit data
-      _hist_Etavg->fill(nch, Et/GeV, weight);
+      _hist_Et->fill(Et60/GeV, weight);
+      _hist_Etavg->fill(nch, Et25/GeV, weight);
 
       // Particle/track level histos
       const double deta = 2 * 5.0;
@@ -100,7 +103,6 @@ namespace Rivet {
           _hist_Esigd3p->fill(pt/GeV, scaled_weight);
         }
         // Also fill for specific dn/deta ranges at 900 GeV
-        /// @todo Doesn't fit data: are these really ranges in dNch/deta? Scale factors?
         if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
           if (inRange(dnch_deta, 0.8, 4.0)) {
             _sumwTrig08 += weight;
@@ -128,9 +130,12 @@ namespace Rivet {
       scale(_hist_Esigd3p, xsec/millibarn);
       scale(_hist_Et, xsec/millibarn);
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        scale(_hist_Esigd3p08, xsec/microbarn);
-        scale(_hist_Esigd3p40, xsec/microbarn);
-        scale(_hist_Esigd3p80, xsec/microbarn);
+        const double scale08 = 0.933e5/_hist_Esigd3p08->binHeight(0);
+        scale(_hist_Esigd3p08, scale08);
+        const double scale40 = 1.369e5/_hist_Esigd3p40->binHeight(0);
+        scale(_hist_Esigd3p40, scale40);
+        const double scale80 = 1.657e5/_hist_Esigd3p80->binHeight(0);
+        scale(_hist_Esigd3p80, scale80);
       }
     }
  
