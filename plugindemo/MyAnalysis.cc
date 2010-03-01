@@ -12,10 +12,6 @@ namespace Rivet {
     
     /// Default constructor
     MyAnalysis() : Analysis("MYANALYSIS") {
-      const FinalState cnfs;
-      addProjection(cnfs, "CNFS");
-      const ChargedFinalState cfs;
-      addProjection(cfs, "CFS");
     }
         
     
@@ -64,7 +60,10 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
     void init() { 
-      // No histos, so nothing to do!
+      const FinalState cnfs;
+      addProjection(cnfs, "CNFS");
+      const ChargedFinalState cfs;
+      addProjection(cfs, "CFS");
     }
     
     void analyze(const Event& event) {
