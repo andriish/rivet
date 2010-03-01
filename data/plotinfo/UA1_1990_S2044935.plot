@@ -17,37 +17,37 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}{ n_\text{ch}}$ [mb]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y01 
-Title=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = \unit{200}{\GeV}$
+Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = \unit{200}{\GeV}$
 XLabel=$p_\perp$ [GeV]
 YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\millibarn\,\inverse\squared\GeV]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y02
-Title=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = \unit{500}{\GeV}$
+Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = \unit{500}{\GeV}$
 XLabel=$p_\perp$ [GeV]
 YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\millibarn\,\inverse\squared\GeV]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d02-x01-y03
-Title=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = \unit{900}{\GeV}$
+Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta =0$, $\sqrt{s} = \unit{900}{\GeV}$
 XLabel=$p_\perp$ [GeV]
 YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\millibarn\,\inverse\squared\GeV]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d03-x01-y01
-Title=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = \unit{900}{\GeV}$ ($\mathrm{d}n_\text{ch}/\mathrm{d}\eta = 0.8 \dots 4$)
+Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = \unit{900}{\GeV}$ ($\mathrm{d}n_\text{ch}/\mathrm{d}\eta = 0.8 \dots 4$)
 XLabel=$p_\perp$ [GeV]
 YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\microbarn\,\inverse\squared\GeV]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d04-x01-y01
-Title=Cross section $E \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = \unit{900}{\GeV}$ ($\mathrm{d}n_\text{ch}/\mathrm{d}\eta = 4 \dots 8$)
+Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = \unit{900}{\GeV}$ ($\mathrm{d}n_\text{ch}/\mathrm{d}\eta = 4 \dots 8$)
 XLabel=$p_\perp$ [GeV]
 YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\microbarn\,\inverse\squared\GeV]
 # END PLOT
 
 # BEGIN PLOT /UA1_1990_S2044935/d05-x01-y01
-Title=Cross section $E \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = \unit{900}{\GeV}$ ($\mathrm{d}n_\text{ch}/\mathrm{d}\eta > 8$)
+Title=$E \, \mathrm{d}^3\sigma/\mathrm{d}p^3$ at $\eta=0$, $\sqrt{s} = \unit{900}{\GeV}$ ($\mathrm{d}n_\text{ch}/\mathrm{d}\eta > 8$)
 XLabel=$p_\perp$ [GeV]
 YLabel=$E \mathrm{d}^3\sigma/\mathrm{d}p^3$ [\microbarn\,\inverse\squared\GeV]
 # END PLOT

@@ -130,11 +130,12 @@ namespace Rivet {
       scale(_hist_Esigd3p, xsec/millibarn);
       scale(_hist_Et, xsec/millibarn);
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        const double scale08 = 0.933e5/_hist_Esigd3p08->binHeight(0);
+        // NB. Ref data is normalised to a fixed value. Note silly AIDA binHeight forgets the bin width.
+        const double scale08 = 0.933e5/(_hist_Esigd3p08->binHeight(0)/_hist_Esigd3p08->binWidth(0));
         scale(_hist_Esigd3p08, scale08);
-        const double scale40 = 1.369e5/_hist_Esigd3p40->binHeight(0);
+        const double scale40 = 1.369e5/(_hist_Esigd3p40->binHeight(0)/_hist_Esigd3p40->binWidth(0));
         scale(_hist_Esigd3p40, scale40);
-        const double scale80 = 1.657e5/_hist_Esigd3p80->binHeight(0);
+        const double scale80 = 1.657e5/(_hist_Esigd3p80->binHeight(0)/_hist_Esigd3p80->binWidth(0));
         scale(_hist_Esigd3p80, scale80);
       }
     }

@@ -289,7 +289,8 @@ if len(opts.SHOW_ANALYSES) > 0:
         print "Status: %s" % ana.status()
         print ""
         print "Spires ID: %s" % ana.spiresId()
-        print "Spires URL: http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.spiresId()
+        print "Spires URL:  http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.spiresId()
+        print "HepData URL: http://hepdata.cedar.ac.uk/key+%s" % ana.spiresId()
         print "Experiment: %s" % ana.experiment(), ana.collider()
         print "Year of publication: %s" % ana.year()
         print "Authors:"
