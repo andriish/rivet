@@ -28,9 +28,9 @@ DOCS += rivet-manual.pdf
 
 if ENABLE_PYEXT
 
-analyses.tex: $(top_srcdir)/include/Rivet/Analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex
-	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
-DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
+analyses.tex: $(top_srcdir)/include/Rivet/Analyses $(top_srcdir)/src/Analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex
+	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH) \
+DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH) \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
 ./mk-analysis-latex analyses.tex
 

@@ -11,7 +11,7 @@ References:
  - Z.Phys.C63:377-390,1994
  - doi:10.1007/BF01580319
 RunInfo:
-  e- p / e+ p deep inelastic scattering,
+  $e^- p$ / $e^+ p$ deep inelastic scattering,
   820~GeV protons colliding with 26.7~GeV electrons
 NumEvents: 1000000
 PtCuts: [0]

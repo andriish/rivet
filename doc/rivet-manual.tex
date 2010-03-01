@@ -378,9 +378,9 @@ supply several scripts.
 \paragraph{Conversion to ROOT}
 
 Your knee-jerk reaction is probably to want to know how to plot your Rivet
-histograms in ROOT\cite{Antcheva:2009zz}. Don't worry; you can recover from this unfortunate behaviour
-after only a few months of therapy. For unrepentant ROOT junkies, Rivet installs
-an \kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
+histograms in ROOT\cite{Antcheva:2009zz}. Don't worry: a few months of therapy
+can work wonders. For unrepentant ROOT junkies, Rivet installs an
+\kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
 full of ROOT \kbd{TGraph}s. One word of warning: a bug in ROOT means that
 \kbd{TGraph}s do not render properly from file because the axis is not drawn by
 default. To display the plots correctly in ROOT you will need to pass the
@@ -411,32 +411,31 @@ checking the contents of an AIDA file, with \kbd{aida2flat Rivet.aida | less}.
 \end{detail}
 
 \subsection{Chopping histograms}
-\newcommand{\chophisto}{\kbd{rivet-chop-bins }}
-In some cases you don't want to keep the complete histograms produced by Rivet.
-For generator tuning purposes, for example, you want to get rid of the bins you
-already know your generator is incapable of describing. You can use the script
-\chophisto to specify those bin-ranges you want to keep individually for each
-histogram in a Rivet output-file. The bin-ranges have to be specified using the
-corresponding x-values of that histogram.  The usage is very simple. You can
-specify bin ranges of histograms to keep on the command-line via the \kbd{-b}
-switch, which can be given multiple times, e.g.
-
-\kbd{\chophisto -b /CDF\_2001\_S4751469/d03-x01-y01:5:13 Rivet.aida} will chop
-all bins with $x<5$ and $x>13~$ from the histogram
-\kbd{/CDF\_2001\_S4751469/d03-x01-y01:5:13} in the file \kbd{Rivet.aida}. In
-this case $x$ would be a leading jet \pT.
+\newcommand{\chophisto}{\kbd{rivet-chopbins}\xspace} In some cases you don't
+want to keep the complete histograms produced by Rivet.  For generator tuning
+purposes, for example, you want to get rid of the bins you already know your
+generator is incapable of describing. You can use the script \chophisto to
+specify those bin-ranges you want to keep individually for each histogram in a
+Rivet output-file. The bin-ranges have to be specified using the corresponding
+x-values of that histogram.  The usage is very simple. You can specify bin
+ranges of histograms to keep on the command-line via the \kbd{-b}
+switch, which can be given multiple times, e.g.\\
+\kbd{\chophisto -b /CDF\_2001\_S4751469/d03-x01-y01:5:13 Rivet.aida}\\
+%
+will chop all bins with $x<5$ and $x>13$ from the histogram
+\kbd{/CDF\_2001\_S4751469/d03-x01-y01:5:13} in the file \kbd{Rivet.aida}. (In
+this particular case, $x$ would be a leading jet \pT.)
 
 \subsection{Normalising histograms}
 \newcommand{\normhisto}{\kbd{rivet-rescale }} Sometimes you want to
 use histograms normalised to, e.g., the generator cross-section or the area of
 a reference-data histogram. The script \normhisto was designed for these
-purposes. The usage is the following:
-
-\kbd{\normhisto -O observables -r RIVETDATA -o normalised Rivet.aida}
-
+purposes. The usage is the following:\\
+\kbd{\normhisto -O observables -r RIVETDATA -o normalised Rivet.aida}\\
+%
 By default, the normalised histograms are written to file in the AIDA-XML
-format. You can also give the {-f} switch on the command line to produce flat
-histograms.
+format. You can also give the \kbd{-f} switch on the command line to produce
+flat histograms.
 
 \paragraph{Normalising to reference data} You will need an output-file of
 Rivet, \kbd{Rivet.aida}, a folder that contains the reference-data histograms
@@ -444,36 +443,51 @@ Rivet, \kbd{Rivet.aida}, a folder that contains the reference-data histograms
 \kbd{observables} that contains the names of the histograms you would like to
 normalise - those not given in the file will remain un-normalised. These
 are examples of how your \kbd{observables} file might look like:
+%
+\begin{snippet}
+/CDF_2000_S4155203/d01-x01-y01
+\end{snippet}
 
-\begin{verbatim} /CDF_2000_S4155203/d01-x01-y01 \end{verbatim} If a histogram
-{/CDF\_2000\_S4155203/d01-x01-y01} is found in one of the reference-data files
-in the folder specified via the \kbd{-r} switch, then this will result in a
-histogram of 
-\\{/CDF\_2000\_S4155203/d01-x01-y01} being normalised to the area of the
-corresponding reference-data histogram.  You can further specify a certain
-range of bins to normalise as such: \begin{verbatim}
-/CDF_2000_S4155203/d01-x01-y01:2:35 \end{verbatim} This will chop off the bins
+If a histogram \kbd{/CDF\_2000\_S4155203/d01-x01-y01} is found in one of the
+reference-data files in the folder specified via the \kbd{-r} switch, then this
+will result in a histogram \kbd{/CDF\_2000\_S4155203/d01-x01-y01} being
+normalised to the area of the corresponding reference-data histogram.  You can
+further specify a certain range of bins to normalise:
+%
+\begin{snippet}
+/CDF_2000_S4155203/d01-x01-y01:2:35
+\end{snippet}
+%
+\noindent will chop off the bins
 with $x<2$ and $x>35$ of both, the histogram in your \kbd{Rivet.aida} and the
 reference-data histogram. The remaining MC histogram is then normalised to the
 remaining area of the reference-data histogram.
 
-\paragraph{Normalising to arbitrary areas} In the file \kbd{observables} you
+\paragraph{Normalising to arbitrary areas}% 
+In the file \kbd{observables} you
 can further specify an arbitrary number, e.g. a generator cross-section, as
-follows: \begin{verbatim} /CDF_2000_S4155203/d01-x01-y01    1.0 \end{verbatim}
-This will result in the histogram {/CDF\_2000\_S4155203/d01-x01-y01} being
-normalised to one.
+follows: 
+%
+\begin{snippet}
+/CDF_2000_S4155203/d01-x01-y01  1.0
+\end{snippet}
+\noindent will result in the histogram \kbd{/CDF\_2000\_S4155203/d01-x01-y01} being
+normalised to 1.0, and
+%
+\begin{snippet}
+/CDF_2000_S4155203/d01-x01-y01:2:35  1.0
+\end{snippet}
+%
+\noindent will chop off the bins with $x<2$ and $x>35$ of the histogram\\
+\kbd{/CDF\_2000\_S4155203/d01-x01-y01} first and normalise the remaining
+histogram to one.
 
-\begin{verbatim} /CDF_2000_S4155203/d01-x01-y01:2:35    1.0 \end{verbatim}
-
-This will chop off the bins with $x<2$ and $x>35$ of the histogram\\
-{/CDF\_2000\_S4155203/d01-x01-y01} first and normalise the remaining histogram
-to one.
 
 \subsection{Plotting and comparing data}
-
-Rivet comes with three commands --- \kbd{rivet-mkhtml}, \kbd{compare-histos} and \kbd{make-plots} ---
-for comparing and plotting data files. These commands produce nice comparison
-plots of publication quality from the AIDA format text files.
+Rivet comes with three commands --- \kbd{rivet-mkhtml}, \kbd{compare-histos} and
+\kbd{make-plots} --- for comparing and plotting data files. These commands
+produce nice comparison plots of publication quality from the AIDA format text
+files.
 
 The high level program \kbd{rivet-mkhtml} will automatically create a plot
 webpage from the given AIDA files. It searches for reference data automatically
@@ -779,7 +793,7 @@ and \code{Analysis} constructors.
   type-safety, this proliferation of dynamic casting may worry you: the compiler
   can't possibly check if a projection of the requested name has been
   registered, nor whether the downcast to the requested concrete type is
-  legal. These are very legitimate concerns!\\
+  legal. These are very legitimate concerns!
 
   In truth, we'd like to have this level of extra safety! But in the past, when
   projections were held as members of \code{ProjectionApplier} classes rather
@@ -787,7 +801,7 @@ and \code{Analysis} constructors.
   strong typing were outweighed by more serious and subtle bugs relating to
   projection lifetime and object ``slicing''. At least when the current approach
   goes wrong it will throw an unmissable \emph{runtime} error --- until it's
-  fixed, of course! --- rather than silently do  the wrong thing.\\
+  fixed, of course! --- rather than silently do the wrong thing.
 
   Our problems here are a microcosm of the perpetual language battle between
   strict and dynamic typing, runtime versus compile time errors. In practice,
@@ -799,7 +813,7 @@ and \code{Analysis} constructors.
   at runtime. By pushing \emph{some} checking to the domain of runtime errors,
   Rivet's code is (we believe) in practice safer, and certainly more clear and
   elegant. However, we believe that with runtime checking should come a culture
-  of unit testing, which is not yet in place in Rivet.\\
+  of unit testing, which is not yet in place in Rivet.
 
   As a final thought, one reason for Rivet's internal complexity is that C++ is
   just not a very good language for this sort of thing: we are operating on the

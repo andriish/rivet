@@ -1,15 +1,14 @@
-
 \usepackage{xspace,graphicx,mparhack,amsmath}
 \usepackage{amssymb,url,underscore,fancyvrb,cancel}
 \usepackage{hepnicenames,hepunits}
 \usepackage{picinpar,fancybox}
 \usepackage{microtype,relsize}
-\usepackage{rivetversion}
 %\usepackage{xcolor}
 %\usepackage{palatino,mathpazo}
 %\usepackage{utopia}
 %\usepackage{euler}
 
+\usepackage{rivetversion}
 
 \DeclareRobustCommand{\TODO}[1]{\ensuremath{\bigstar}{#1}\xspace}
 %\DeclareRobustCommand{\TODO}[1]{\textcolor{red!20!black}{\ensuremath{\bigstar}{#1}}\xspace}
@@ -17,6 +16,11 @@
 
 %% Bold tt font
 \DeclareFontShape{OT1}{cmtt}{bx}{n}{<5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>cmttb10}{}
+
+%% Auto bold math in bold environments
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
 
 \newenvironment{snippet}{\Verbatim}{\endVerbatim}
 
@@ -55,45 +59,51 @@
 \newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
 
-\newenvironment{change}%
-{\begin{Sbox}%
-    \begin{minipage}{0.9\textwidth}%
-      \window[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}
-    {\par\endwindow%
-    \end{minipage}%
-  \end{Sbox}%
-  \vspace{2mm}%
-  \noindent%
-  \begin{center}%
-    \cornersize{0.1}
-    \Ovalbox{\TheSbox}%
-  \end{center}%
-  \vspace{2mm}%
-  \ignorespacesafterend}
+%% Make narrower and box (box must be able to break over pages)
+\newenvironment{change}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
+  \it\begin{window}[0,l,{\coneimg},{}]
+  \setlength{\parindent}{0cm}\noindent}{%
+  \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
+
+% \newenvironment{change}%
+% {\begin{Sbox}%
+%     \begin{minipage}{0.9\textwidth}%
+%       \window[0,l,{\coneimg},{}] \noindent\hspace{-0.8ex}}
+%     {\par\endwindow%
+%     \end{minipage}%
+%   \end{Sbox}%
+%   \vspace{2mm}%
+%   \noindent%
+%   \begin{center}%
+%     \cornersize{0.1}
+%     \Ovalbox{\TheSbox}%
+%   \end{center}%
+%   \vspace{2mm}%
+%   \ignorespacesafterend}
 
 %% Make narrower and box (box must be able to break over pages)
-% \newenvironment{philosophy}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
-%   \it\begin{window}[0,l,{\thinkimg},{}]
-%   \setlength{\parindent}{0cm}\noindent}{%
-%   \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
+\newenvironment{philosophy}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
+  \it\begin{window}[0,l,{\thinkimg},{}]
+  \setlength{\parindent}{0cm}\noindent}{%
+  \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
 
-\newenvironment{philosophy}%
-{\begin{Sbox}%
-    \begin{minipage}{0.9\textwidth}%
-      \it
-      \window[0,l,{\thinkimg},{}]
-      \setlength{\parindent}{0cm}\noindent\hspace{-0.8ex}}
-    {\par\endwindow%
-    \end{minipage}%
-  \end{Sbox}%
-  \vspace{2mm}%
-  \noindent%
-  \begin{center}%
-    \cornersize{0.01}
-    \Ovalbox{\TheSbox}%
-  \end{center}%
-  \vspace{2mm}%
-  \ignorespacesafterend}
+% \newenvironment{philosophy}%
+% {\begin{Sbox}%
+%     \begin{minipage}{0.9\textwidth}%
+%       \it
+%       \window[0,l,{\thinkimg},{}]
+%       \setlength{\parindent}{0cm}\noindent\hspace{-0.8ex}}
+%     {\par\endwindow%
+%     \end{minipage}%
+%   \end{Sbox}%
+%   \vspace{2mm}%
+%   \noindent%
+%   \begin{center}%
+%     \cornersize{0.01}
+%     \Ovalbox{\TheSbox}%
+%   \end{center}%
+%   \vspace{2mm}%
+%   \ignorespacesafterend}
 
 
 \newcommand{\pT}{\ensuremath{p_\perp}\xspace}

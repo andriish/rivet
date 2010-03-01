@@ -29,9 +29,17 @@ for d in os.listdir(pybuild):
     if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d):
         dirs.append(os.path.join(pybuild, d))
 sys.path = dirs + sys.path
-os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + \
-    os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
-anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", "*", ".libs"))
+try:
+    os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + \
+        os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
+except:
+    pass
+try:
+    os.environ["DYLD_LIBRARY_PATH"] = os.environ["DYLD_LIBRARY_PATH"] + ":" + \
+        os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
+except:
+    pass
+anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
 #print anadirs
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
 
@@ -155,6 +163,10 @@ foot = """\
 
 body = "\n\n".join(pages)
 outstr = head + toc + body + foot
-f = open(OUTFILE, "w")
-f.write(outstr)
-f.close()
+
+if OUTFILE == "-":
+    sys.stdout.write(outstr)
+else:
+    f = open(OUTFILE, "w")
+    f.write(outstr)
+    f.close()

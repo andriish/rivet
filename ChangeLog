@@ -1,5 +1,9 @@
 2010-03-01  Andy Buckley  <andy@insectnation.org>
 
+	* Updates to manual, manual generation scripts, analysis info etc.
+
+	* Add HepData URL to metadata print-out with rivet --show-analysis
+
 	* Fix average Et plot in UA1 analysis to only apply to the tracker
 	acceptance (but to include neutral particle contributions,
 	i.e. the region of the calorimeter in the tracker acceptance).

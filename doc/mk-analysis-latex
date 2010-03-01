@@ -28,9 +28,17 @@ for d in os.listdir(pybuild):
     if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d):
         dirs.append(os.path.join(pybuild, d))
 sys.path = dirs + sys.path
-os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + \
-    os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
-anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", "*", ".libs"))
+try:
+    os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + \
+        os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
+except:
+    pass
+try:
+    os.environ["DYLD_LIBRARY_PATH"] = os.environ["DYLD_LIBRARY_PATH"] + ":" + \
+        os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
+except:
+    pass
+anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
 #print anadirs
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
 
@@ -65,6 +73,7 @@ pages = { "LEP":[], "Tevatron":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Exam
 for aname in sorted(list(all_analyses)):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
+    page += "\\typeout{Handling analysis %s}\n" % aname
     page += "\\subsection{%s}\n" % aname.replace(r"_", r"\_")
     page += "\\textbf{%s}\\newline\n" %  ana.summary()
     if ana.experiment():
@@ -90,7 +99,7 @@ for aname in sorted(list(all_analyses)):
             page += "  \\item %s\n" % s
         page += "\\end{itemize}\n"
     else:
-        page += "\\textbf{No authors listed}\\ \n"
+        page += "\\textbf{No authors listed}\\\\ \n"
 
 
     if ana.references():
@@ -109,7 +118,7 @@ for aname in sorted(list(all_analyses)):
                 page += "  \\item %s\n" % r
         page += "\\end{itemize}\n"
     else:
-        page += "\\textbf{No references listed}\\ \n"
+        page += "\\textbf{No references listed}\\\\ \n"
 
 
     if ana.runInfo():
@@ -123,7 +132,7 @@ for aname in sorted(list(all_analyses)):
             page += "  \\item %s\n" % l
         page += "\\end{itemize}\n"
     else:
-        page += "\\textbf{No run details listed}\\ \n"
+        page += "\\textbf{No run details listed}\\\\ \n"
 
 
     for para in ana.description().split("\n\n"):
@@ -197,6 +206,10 @@ body = \
     groups["Misc."] + "\n\n"
 
 outstr = prefix + body
-f = open(OUTFILE, "w")
-f.write(outstr)
-f.close()
+
+if OUTFILE == "-":
+    sys.stdout.write(outstr)
+else:
+    f = open(OUTFILE, "w")
+    f.write(outstr)
+    f.close()
