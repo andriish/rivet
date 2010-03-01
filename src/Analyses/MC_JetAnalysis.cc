@@ -25,11 +25,12 @@ namespace Rivet {
     for (size_t i=0; i<m_njet; ++i) {
       stringstream dname;
       dname<<"log10_d_"<<i<<i+1;
-      _h_log10_d[i] = bookHistogram1D(dname.str(), 50, 0.2, 2.6);
+      
+      _h_log10_d[i] = bookHistogram1D(dname.str(), 50, 0.2, log10(0.5*sqrtS()));
    
       stringstream Rname;
       Rname<<"log10_R_"<<i;
-      _h_log10_R[i] = bookDataPointSet(Rname.str(), 50, 0.2, 2.6);
+      _h_log10_R[i] = bookDataPointSet(Rname.str(), 50, 0.2, log10(0.5*sqrtS()));
    
       stringstream pTname;
       pTname<<"jet_pT_"<<i+1;
@@ -55,7 +56,7 @@ namespace Rivet {
     }
     stringstream Rname;
     Rname<<"log10_R_"<<m_njet;
-    _h_log10_R[m_njet] = bookDataPointSet(Rname.str(), 50, 0.2, 2.6);
+    _h_log10_R[m_njet] = bookDataPointSet(Rname.str(), 50, 0.2, log10(0.5*sqrtS()));
  
     _h_jet_multi_exclusive = bookHistogram1D("jet_multi_exclusive", m_njet+3, -0.5, m_njet+3-0.5);
     _h_jet_multi_inclusive = bookHistogram1D("jet_multi_inclusive", m_njet+3, -0.5, m_njet+3-0.5);
