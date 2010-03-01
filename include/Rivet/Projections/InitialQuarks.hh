@@ -36,6 +36,8 @@ namespace Rivet {
 
     /// Is this final state empty?
     virtual const bool empty() const { return _theParticles.empty(); }
+    /// @deprecated Is this final state empty?
+    virtual const bool isEmpty() const { return _theParticles.empty(); }
 
   protected:
  
