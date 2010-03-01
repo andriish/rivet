@@ -93,7 +93,6 @@ namespace Rivet {
       const double dphi = TWOPI;
       const double dnch_deta = nch/deta;
       foreach (const Particle& p, cfs.particles()) {
-        /// @todo Use pion-mass trick (see CDF 2009) for eta -> y in d3sig/dp3?
         const double pt = p.momentum().pT();
         const double scaled_weight = weight/(deta*dphi*pt/GeV);
         if (!fuzzyEquals(sqrtS()/GeV, 500, 1E-3)) {
