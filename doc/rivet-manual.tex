@@ -37,7 +37,8 @@
 
 This manual is a users' guide to using the Rivet generator validation
 system. Rivet is a C++ class library, which provides the infrastructure and
-calculational tools for simulation-level analyses, enabling physicists to
+calculational tools for simulation-level analyses for high energy collider
+experiments, enabling physicists to
 validate event generator models and tunings with minimal effort and maximum
 portability. Rivet is designed to scale effectively to large numbers of analyses
 for truly global validation, by transparent use of an automated result caching
@@ -125,7 +126,7 @@ levels of detail:
 The current part of this manual is for the first sort of user, who wants to get
 on with studying some observables with a generator or tune, or comparing several
 such models. Since everyone will fall into this category at some point, our
-preent interest is to get you to that all-important ``physics plots'' stage as
+present interest is to get you to that all-important ``physics plots'' stage as
 quickly as possible. Analysis authors and Rivet service-mechanics will find the
 more detailed information that they crave in Part~\ref{part:writinganalyses}.
 
@@ -166,17 +167,12 @@ essential if you want to use the existing versions of FastJet, HepMC, generator
 libraries, and so on from CERN AFS: there are issues with these versions which
 the script works around, which you won't find easy to do yourself.
 
-You can get the bootstrap script from the following Web address:
-\url{http://svn.hepforge.org/rivet/bootstrap/rivet-bootstrap}
-
 To run the script, we recommend that you choose a personal installation
 directory. Personally, I make a \kbd{\home/local} directory for this purpose, to
 avoid polluting my home directory with a lot of files. If you already use a
 directory of the same name, you might want to use a separate one, say
 \kbd{\home/rivetlocal}, such that if you need to delete everything in the
-installation area you can do so without difficulties. You'll need to add
-\kbd{\val{localdir}/bin} to your \var{PATH} environment variable and
-\kbd{\val{localdir}/lib} to your \var{LD_LIBRARY_PATH}.
+installation area you can do so without difficulties.
 
 Now, change directory to your build area (you may also want to make this,
 e.g. \kbd{\home/build}), and download the script:\\
@@ -190,16 +186,19 @@ to the install area specified as the prefix argument, run this:\\
 
 If you are running on a system where the CERN AFS area is mounted as
 \path{/afs/cern.ch}, then the bootstrap script will attempt to use the pre-built
-HepMC, LHAPDF, FastJet and GSL libraries from the LCG software area. Either way,
-you'll see a large amount of build output, and finally a message telling you
-what changes to your environment variables will make the system useable. 
+HepMC\cite{Dobbs:2001ck}, LHAPDF\cite{Whalley:2005nh},
+FastJet\cite{Cacciari:2006sm} and GSL libraries from the LCG software area.
+Either way, finally the bootstrap script will write out a file containing the
+environment settings which will make the system useable. You can source this
+file, e.g. \kbd{source rivetenv.sh} to make your current shell ready-to-go
+for a Rivet run (use \kbd{rivetenv.csh} if you are a C shell user).
 
 You now have a working, installed copy of the Rivet and AGILe libraries, and the
 \kbd{rivet} and \kbd{agile-runmc} executables: respectively these are the
 command-line frontend to the Rivet analysis library, and a convenient steering
 command for generators which do not provide their own main program with HepMC
-output. To test that they work as expected, set the environment variables as
-instructed, if you've not already done so, run this:\\
+output. To test that they work as expected, source the setup scripts as above,
+if you've not already done so, and run this:\\
 \inp{rivet --help}\\
 %
 This should print a quick-reference user guide for the \kbd{rivet} command to
@@ -208,14 +207,14 @@ the terminal. Similarly, for \kbd{agile-runmc},\\
 \inp{agile-runmc --list-gens}\\
 \inp{agile-runmc --beams=pp:14TeV FPythia:6413}\\
 which should respectively print the help, list the available generators and make
-10 LHC-type events using the Fortran Pythia 6.4.13 generator. You're on your
+10 LHC-type events using the Fortran Pythia\cite{Sjostrand:2006za} 6.4.13 generator. You're on your
 way! If no generators are listed, you probaby need to install a local
 Genser-type generator repository: see \SectionRef{sec:genser}.
 
 In this manual, because of its convenience, we will use \kbd{agile-runmc} as our
 canonical way of producing a stream of HepMC event data; if your interest is in
-running a generator like Sherpa or Herwig++ which provides its own native way to
-make HepMC output, or a generator like Cascade or PHOJET which is not currently
+running a generator like Sherpa\cite{Gleisberg:2008ta} or Herwig++\cite{Bahr:2008pv} which provides its own native way to
+make HepMC output, or a generator like Cascade\cite{Jung:2000hk} or PHOJET which is not currently
 supported by AGILe, then substitute the appropriate command in what follows.
 We'll discuss using these commands in detail in \SectionRef{sec:agile-runmc}.
 
@@ -229,7 +228,7 @@ you're running on a system with the CERN LCG AFS area mounted, then
 LCG Genser team.
 
 Otherwise, you'll have to build your own mirror of the LCG generators. This
-process is not standardised at the moment (this will hopefully
+process is not standardised by Genser at the moment (this will hopefully
 change), so we've provided a script, \kbd{agile-genser-bootstrap}:\\
 \inp{wget \url{http://svn.hepforge.org/agile/genser/agile-genser-bootstrap}}
 
@@ -258,6 +257,8 @@ To use programmable completion, source the appropriate files from the install
 location:\\
 \inp{. \val{localdir}/share/Rivet/rivet-completion}\\
 \inp{. \val{localdir}/share/AGILe/agile-completion}\\
+(if you are using the setup script \kbd{rivetenv.sh} this is automatically
+done for you).
 If there is already a \kbd{\val{localdir}/etc/bash_completion.d} directory in
 your install path, Rivet and AGILe's installation scripts will install extra
 copies into that location, since automatically sourcing all completion files in
@@ -293,14 +294,7 @@ filesystem is involved! Here is an example:\\
 \inp{rivet -a EXAMPLE fifo.hepmc}\\
 %
 Note that the generator process (\kbd{agile-runmc} in this case) is
-\emph{backgrounded} before \kbd{rivet} is run. This is absolutely necessary,
-since the buffer size of a pipe in Linux is only 64K --- about the space
-required to store one LHC event in HepMC's textual event format. The generator
-process will have to wait until the buffer is cleared, e.g. by being read by
-\kbd{rivet}, before computing or writing any more events. By running the
-generator and \kbd{rivet} at the same time, this flow control through the buffer
-is invisible to the user.
-%http://home.gna.org/pysfst/tests/pipe-limit.html
+\emph{backgrounded} before \kbd{rivet} is run.
 
 Notably, \kbd{mkfifo} will not work if applied to a directory mounted via the
 AFS distributed filesystem, as widely used in HEP. This is not a big problem:
@@ -334,8 +328,8 @@ listed in \AppendixRef{app:agilerunmc}.
     ``noughties.''}
 
 \item \paragraph{Running particular analyses:}{\kbd{rivet -a~DELPHI_1996_S3430090
-      in.hepmc} will run the Rivet \kbd{DELPHI_1996_S3430090}\cite{Abreu:1996na}
-    analysis on the events in the \kbd{in.hepmc} data file. This analysis is the
+      fifo.hepmc} will run the Rivet \kbd{DELPHI_1996_S3430090}\cite{Abreu:1996na}
+    analysis on the events in the \kbd{fifo.hepmc} data file. This analysis is the
     one originally used for the \Delphi automated ``\textsc{Professor}''
     generator tuning.  If the first event in the data file does not have
     appropriate beams, the analysis will be disabled; since there is only one
@@ -347,15 +341,15 @@ listed in \AppendixRef{app:agilerunmc}.
     incompatible analyses (based on beam particle IDs), will be removed before 
     the main analysis run begins.}
 
-\item \paragraph{Histogramming:}{\kbd{rivet in.hepmc -H~foo} will read all the
-    events in the \kbd{in.hepmc} file. The \kbd{-H} switch is used to specify
+\item \paragraph{Histogramming:}{\kbd{rivet fifo.hepmc -H~foo} will read all the
+    events in the \kbd{fifo.hepmc} file. The \kbd{-H} switch is used to specify
     that the output histogram file will be named \kbd{foo.aida}. By default the
     output file is called \kbd{Rivet.aida}.}
 
-\item \paragraph{Fine-grained logging:}{\kbd{rivet in.hepmc -A
+\item \paragraph{Fine-grained logging:}{\kbd{rivet fifo.hepmc -A
       -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=DEBUG
       -l~Rivet.Projection.FinalState=TRACE~\cmdbreak -l~NEvt=WARN}
-    analyse events as before, but will print different status
+    will analyse events as before, but will print different status
     information as the run progresses. Hierarchical logging control is possible
     down to the level of individual analyses and projections as shown above;
     this is useful for debugging without getting overloaded with debug
@@ -377,14 +371,14 @@ plotting, validation and tuning.
 
 Rivet currently produces output histogram data in the AIDA XML format. Most
 people aren't familiar with AIDA (and we recommend that you remain that way!),
-and it will disappear entirely from Rivet in version 1.2.0. You will probably
+and it will disappear entirely from Rivet in version 2.0. You will probably
 wish to cast the AIDA files to a different format for plotting, and for this we
 supply several scripts.
 
 \paragraph{Conversion to ROOT}
 
 Your knee-jerk reaction is probably to want to know how to plot your Rivet
-histograms in ROOT. Don't worry; you can recover from this unfortunate behaviour
+histograms in ROOT\cite{Antcheva:2009zz}. Don't worry; you can recover from this unfortunate behaviour
 after only a few months of therapy. For unrepentant ROOT junkies, Rivet installs
 an \kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
 full of ROOT \kbd{TGraph}s. One word of warning: a bug in ROOT means that
@@ -477,17 +471,22 @@ to one.
 
 \subsection{Plotting and comparing data}
 
-Rivet comes with two commands --- \kbd{compare-histos} and \kbd{make-plots} ---
+Rivet comes with three commands --- \kbd{rivet-mkhtml}, \kbd{compare-histos} and \kbd{make-plots} ---
 for comparing and plotting data files. These commands produce nice comparison
-plots of publication quality from the YODA format text files, e.g.:\\
-\inp{compare-histos path/to/CDF_2001_S4751469.aida py.aida:'Pythia 6.418' \cmdbreak hw.aida:'Herwig++ 2.3.0'}
+plots of publication quality from the AIDA format text files.
 
-This command will have compared the three named data files (ending in
-\kbd{.aida}), identified which plots are available in them, and combined the MC
+The high level program \kbd{rivet-mkhtml} will automatically create a plot
+webpage from the given AIDA files. It searches for reference data automatically
+and uses the other two commands internally. Example:
+\inp{rivet-mkhtml withUE.aida:'With UE' withoutUE:'Without UE'}
+The strings after the ":" are specifying ID strings to
+appear in the plot legends.
+
+You can also run the other two commands separately.
+\kbd{compare-histos} will accept a number of AIDA files as input (ending in
+\kbd{.aida}), identify which plots are available in them, and combine the MC
 and reference plots appropriately into a set of plot data files ending with
-\kbd{.dat}. The strings after the ":" for the MC files are specifying ID strings to
-appear in the plot legends. You can also run \kbd{compare-histos} to just compare
-MC--MC data files. More options are described by running \kbd{compare-histos --help}.
+\kbd{.dat}. More options are described by running \kbd{compare-histos --help}.
 
 Incidentally, the reference files for each Rivet analysis are to be found in the
 installed Rivet shared data directory, \kbd{\val{installdir}/share/Rivet}. You
@@ -495,7 +494,7 @@ can find the location of this by using the \kbd{rivet-config} command:\\
 \inp{rivet-config --datadir}
 
 \noindent
-You can now plot the created data files using the make-plots command:\\
+You can plot the created data files using the make-plots command:\\
 \inp{make-plots --pdf *.dat}\\
 The \kbd{--pdf} flag makes the output plots in PDF format: by default the output
 is in PostScript (\kbd{.ps}), and flags for conversion to EPS and PNG are also
@@ -512,8 +511,7 @@ available.
 In this section we describe the standard experimental analyses included with the
 Rivet library. To maintain synchronisation with the code, these descriptions are
 generated automatically from the metadata in the analysis objects
-themselves. This is currently rather sparse, hence the briefness of the
-descriptions shown here. Richer metadata will be added to the code soon!
+themselves.
 
 \input{analyses}
 
@@ -533,7 +531,7 @@ particularly intimidating.
 The core objects in Rivet are ``projections'' and ``analyses''. Hopefully
 ``analyses'' isn't a surprise --- that's just the collection of routines that
 will make histograms to compare with reference data, and the only things that
-might differ there from experieces with HZTool are the new histogramming system
+might differ there from experiences with HZTool\cite{Bromley:1995np} are the new histogramming system
 and the fact that we've used some object orientation concepts to make life a bit
 easier. The meaning of ``projections'', as applied to event analysis, will
 probably be less obvious. We'll discuss them soon, but first a
@@ -590,7 +588,7 @@ several generators with similar leading accuracies but different sub-leading
 formalisms. While the HEPEVT record as written by HERWIG and PYTHIA has become
 familiar to many, there are many ambiguities in how it is filled, from the
 allowed graph structures to the particle content. Notably, the Sherpa event
-generator explicitly elides matrix element particles from the event record,
+generator explicitly elides Feynman diagram propagators from the event record,
 perhaps driven by a desire to protect us from our baser analytical
 instincts. The Herwig++ event generator takes the almost antipodal approach of
 expressing different contributing Feynman diagram topologies in different ways
@@ -701,7 +699,7 @@ self-explanatory, as a peek under the bonnet of e.g. the all-important
 Projections can be relatively simple things like event shapes (i.e. scalar,
 vector or tensor quantities), or arbitrarily complex things like lossy or
 selective views of the event final state. Most users will see them attached to
-analyses by declarations in each analysis' constructor, but they can also be
+analyses by declarations in each analysis' initialisation, but they can also be
 recursively ``nested'' inside other projections\footnote{Provided there are no
   dependency loops in the projection chains! Strictly, only acyclic graphs of
   projection dependencies are valid, but there is currently no code in Rivet
@@ -763,7 +761,8 @@ The reason for this central registration is to ensure that all projections'
 lifespans are managed in a consistent way, and to protect projection and
 analysis authors from some technical subtleties in how C++ polymorphism works.
 
-Inside the constructor of a \code{Projection} or \code{Analysis} class, you must
+Inside the constructor of a \code{Projection} or the \code{init} method of an
+\code{Analysis} class, you must
 call the \code{addProjection} function. This takes two arguments, the projection
 to be registered (by \code{const} reference), and a name. The name is local to
 the parent object, so you need not worry about name clashes between objects. A
@@ -865,25 +864,7 @@ namespace Rivet {
 }
 \end{snippet}
 
-\subsubsection{Analysis constructor}
-The constructor for the \code{UserAnalysis} class should add to the analysis all
-of the projections that will be used.  Projections can be added to an analysis
-with a call to \code{addProjection(Projection, std::string)}, which takes as
-argument the projection to be added and a name by which that projection can
-later be referenced.  For this example the \code{FinalState} projection is to be
-referenced by the string \code{"FS"} to provide access to all of the final state
-particles inside a detector pseudorapidity coverage of $\pm 5.0$.  The syntax to
-create and add that projection inside the constructor for \code{UserAnalysis} is
-as follows:
-%
-\begin{snippet}
-Rivet::UserAnalysis() {
-  const FinalState fs(-5.0, 5.0);
-  addProjection(fs, "FS");
-}
-\end{snippet}
-
-In addition to adding projections, the constructor may also impose certain
+The constructor for the \code{UserAnalysis} may impose certain
 requirements upon the events that the analysis will work with.  A call to the
 \code{setBeams} method declares that the analysis may only be run on events with
 specific types of beam particles, for example adding the line
@@ -895,7 +876,7 @@ specific types of beam particles, for example adding the line
 \noindent ensures that the analysis can only be run on events from proton-proton
 collisions.  Other types of beam particles that may be used include
 \code{ANTIPROTON}, \code{ELECTRON}, \code{POSITRON}, \code{MUON} and \code{ALL}.
-The later of these declares that the analysis is suitable for use with any type
+The latter of these declares that the analysis is suitable for use with any type
 of collision and is the default.
 
 Some analyses need to know the interaction cross section that was generated by
@@ -913,6 +894,26 @@ requiring the cross section by calling inside the constructor
 %
 \noindent In the absence of this call the default is to assume that the analysis
 does not need to know the cross section.
+
+The \code{init()} method for the \code{UserAnalysis} class should add to the analysis all
+of the projections that will be used.  Projections can be added to an analysis
+with a call to \code{addProjection(Projection, std::string)}, which takes as
+argument the projection to be added and a name by which that projection can
+later be referenced.  For this example the \code{FinalState} projection is to be
+referenced by the string \code{"FS"} to provide access to all of the final state
+particles inside a detector pseudorapidity coverage of $\pm 5.0$.  The syntax to
+create and add that projection is as follows:
+%
+\begin{snippet}
+Rivet::init() {
+  const FinalState fs(-5.0, 5.0);
+  addProjection(fs, "FS");
+}
+\end{snippet}
+%
+A second task of the \code{init()} method is the booking of all histograms which
+are later to be filled in the analysis code. Information about the histogramming
+system can be found in Section~\ref{section:histogramming}.
 
 % It is often the case that an analysis is only appropriate for a limited range of
 % Monte Carlo kinematic settings.  For example, an analysis may only be suitable
@@ -1003,6 +1004,7 @@ hopefully self-evident, and angular range-mapping functions such as
 
 
 \subsection{Histogramming}
+\label{section:histogramming}
 
 Rivet's histogramming uses the AIDA interfaces, composed of abstract classes
 \code{IHistogram1D}, \code{IProfile1D}, \code{IDataPointSet} etc. which are
@@ -1010,6 +1012,9 @@ built by a factories system. Since it's our feeling that much of the factory
 infrastructure constitutes an abstraction overload, we provide histogram booking
 functions as part of the \code{Analysis} class, so that in the \code{init}
 method of your analysis you should book histograms with function calls like:
+%
+% Should this be recommended without titles/labels, or is this what we want for
+% plugin analyses?
 %
 \begin{snippet}
   void MyAnalysis::init() {
@@ -1026,7 +1031,10 @@ data files from HepData, in which 1D histograms are constructed from a
 combination of $x$ and $y$ axes in a dataset $d$, corresponding to names of the
 form \kbd{d\val{d}-x\val{x}-y\val{y}}. This auto-booking of histograms saves you
 from having to copy out reams of bin edges and values into your code, and makes
-sure that any data fixes in HepData are easily propagated to Rivet. The third
+sure that any data fixes in HepData are easily propagated to Rivet. The
+reference data files which are used for these booking methods are distributed
+and installed with Rivet, you can find them in the
+\kbd{\val{installdir}/share/Rivet} directory of your installation. The third
 booking is for a histogram for which there is no such HepData entry: it uses the
 usual scheme of specifying the name, number of bins and the min/max $x$-axis
 limits manually.
@@ -1053,6 +1061,9 @@ included in the normalisation factor: for this you will have to track the
 passed-cuts weight sum yourself via a member variable, but the analysis class
 provides \code{Analysis::crossSection()} and \code{Analysis::sumOfWeights()}
 methods to access the pre-cuts cross-section and weight sum respectively.
+
+% TODO: \subsection{Analysis metadata}
+% .info and .plot files
 
 
 \subsection{Pluggable analyses}
