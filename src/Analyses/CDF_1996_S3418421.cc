@@ -83,8 +83,7 @@ namespace Rivet {
     void finalize() {
    
       foreach (AIDA::IHistogram1D* hist, _h_chi.getHistograms()) {
-        // because HepData contains 100/N instead of 1/N this is 100 in the aida
-        normalize(hist, 100.0);
+        normalize(hist);
       }
 
       // now mimic filling of the ratio histogram

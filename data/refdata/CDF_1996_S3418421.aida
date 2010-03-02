@@ -2,174 +2,174 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.0" package="HepData"/>
-  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/CDF_1996_S3418421" title="(100/N)*D(N)/DCHI" >
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/CDF_1996_S3418421" title="(1/N)*D(N)/DCHI" >
     <dataPoint>
       <measurement value="1.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="31.1" errorPlus="0.7" errorMinus="0.7"/>
+      <measurement value="0.311" errorPlus="0.0070" errorMinus="0.0070"/>
     </dataPoint>
     <dataPoint>
       <measurement value="1.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="26.8" errorPlus="0.6" errorMinus="0.6"/>
+      <measurement value="0.268" errorPlus="0.0060" errorMinus="0.0060"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.0" errorPlus="0.6" errorMinus="0.6"/>
+      <measurement value="0.23" errorPlus="0.0060" errorMinus="0.0060"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.4" errorPlus="0.6" errorMinus="0.6"/>
+      <measurement value="0.234" errorPlus="0.0060" errorMinus="0.0060"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.3" errorPlus="0.7" errorMinus="0.7"/>
+      <measurement value="0.243" errorPlus="0.0070" errorMinus="0.0070"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="22.5" errorPlus="0.6" errorMinus="0.6"/>
+      <measurement value="0.225" errorPlus="0.0060" errorMinus="0.0060"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.6" errorPlus="0.8" errorMinus="0.8"/>
+      <measurement value="0.246" errorPlus="0.0080" errorMinus="0.0080"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.4" errorPlus="0.8" errorMinus="0.8"/>
+      <measurement value="0.244" errorPlus="0.0080" errorMinus="0.0080"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d01-x01-y02" dimension="2" path="/REF/CDF_1996_S3418421" title="(100/N)*D(N)/DCHI" >
+  <dataPointSet name="d01-x01-y02" dimension="2" path="/REF/CDF_1996_S3418421" title="(1/N)*D(N)/DCHI" >
     <dataPoint>
       <measurement value="1.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="31.7" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.317" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="1.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="26.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.265" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.8" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.238" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.232" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.8" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.238" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.0" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.24" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.3" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.233" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.7" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.237" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d01-x01-y03" dimension="2" path="/REF/CDF_1996_S3418421" title="(100/N)*D(N)/DCHI" >
+  <dataPointSet name="d01-x01-y03" dimension="2" path="/REF/CDF_1996_S3418421" title="(1/N)*D(N)/DCHI" >
     <dataPoint>
       <measurement value="1.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="31.9" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.319" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="1.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="26.3" errorPlus="0.4" errorMinus="0.4"/>
+      <measurement value="0.263" errorPlus="0.0040" errorMinus="0.0040"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.3" errorPlus="0.4" errorMinus="0.4"/>
+      <measurement value="0.243" errorPlus="0.0040" errorMinus="0.0040"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.9" errorPlus="0.4" errorMinus="0.4"/>
+      <measurement value="0.239" errorPlus="0.0040" errorMinus="0.0040"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.5" errorPlus="0.4" errorMinus="0.4"/>
+      <measurement value="0.235" errorPlus="0.0040" errorMinus="0.0040"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.3" errorPlus="0.4" errorMinus="0.4"/>
+      <measurement value="0.233" errorPlus="0.0040" errorMinus="0.0040"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.6" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.236" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.1" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.231" errorPlus="0.0050" errorMinus="0.0050"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d01-x01-y04" dimension="2" path="/REF/CDF_1996_S3418421" title="(100/N)*D(N)/DCHI" >
+  <dataPointSet name="d01-x01-y04" dimension="2" path="/REF/CDF_1996_S3418421" title="(1/N)*D(N)/DCHI" >
     <dataPoint>
       <measurement value="1.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="32.6" errorPlus="1.2" errorMinus="1.2"/>
+      <measurement value="0.326" errorPlus="0.012" errorMinus="0.012"/>
     </dataPoint>
     <dataPoint>
       <measurement value="1.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="27.2" errorPlus="1.1" errorMinus="1.1"/>
+      <measurement value="0.272" errorPlus="0.011" errorMinus="0.011"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="25.1" errorPlus="1.1" errorMinus="1.1"/>
+      <measurement value="0.251" errorPlus="0.011" errorMinus="0.011"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="23.0" errorPlus="1.0" errorMinus="1.0"/>
+      <measurement value="0.23" errorPlus="0.01" errorMinus="0.01"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="21.2" errorPlus="1.0" errorMinus="1.0"/>
+      <measurement value="0.212" errorPlus="0.01" errorMinus="0.01"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.1" errorPlus="1.1" errorMinus="1.1"/>
+      <measurement value="0.241" errorPlus="0.011" errorMinus="0.011"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="22.8" errorPlus="1.1" errorMinus="1.1"/>
+      <measurement value="0.228" errorPlus="0.011" errorMinus="0.011"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.1" errorPlus="1.2" errorMinus="1.2"/>
+      <measurement value="0.241" errorPlus="0.012" errorMinus="0.012"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d01-x01-y05" dimension="2" path="/REF/CDF_1996_S3418421" title="(100/N)*D(N)/DCHI" >
+  <dataPointSet name="d01-x01-y05" dimension="2" path="/REF/CDF_1996_S3418421" title="(1/N)*D(N)/DCHI" >
     <dataPoint>
       <measurement value="1.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="31.7" errorPlus="2.4" errorMinus="2.4"/>
+      <measurement value="0.317" errorPlus="0.024" errorMinus="0.024"/>
     </dataPoint>
     <dataPoint>
       <measurement value="1.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="26.5" errorPlus="2.2" errorMinus="2.2"/>
+      <measurement value="0.265" errorPlus="0.022" errorMinus="0.022"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="26.3" errorPlus="2.2" errorMinus="2.2"/>
+      <measurement value="0.263" errorPlus="0.022" errorMinus="0.022"/>
     </dataPoint>
     <dataPoint>
       <measurement value="2.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="25.3" errorPlus="2.2" errorMinus="2.2"/>
+      <measurement value="0.253" errorPlus="0.022" errorMinus="0.022"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="21.6" errorPlus="2.0" errorMinus="2.0"/>
+      <measurement value="0.216" errorPlus="0.02" errorMinus="0.02"/>
     </dataPoint>
     <dataPoint>
       <measurement value="3.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="22.2" errorPlus="2.1" errorMinus="2.1"/>
+      <measurement value="0.222" errorPlus="0.021" errorMinus="0.021"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.25" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="22.4" errorPlus="2.1" errorMinus="2.1"/>
+      <measurement value="0.224" errorPlus="0.021" errorMinus="0.021"/>
     </dataPoint>
     <dataPoint>
       <measurement value="4.75" errorPlus="0.25" errorMinus="0.25"/>
-      <measurement value="24.0" errorPlus="2.2" errorMinus="2.2"/>
+      <measurement value="0.24" errorPlus="0.022" errorMinus="0.022"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/CDF_1996_S3418421" title="N(Q=LT)/N(Q=GT)" >
@@ -186,7 +186,7 @@
       <measurement value="0.703" errorPlus="0.03420526275297414" errorMinus="0.03420526275297414"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="557.0" errorPlus="68.0" errorMinus="50.0"/>
+      <measurement value="557.0" errorPlus="68.0" errorMinus="40.0"/>
       <measurement value="0.738" errorPlus="0.05869412236331675" errorMinus="0.05869412236331675"/>
     </dataPoint>
     <dataPoint>
