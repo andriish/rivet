@@ -19,7 +19,6 @@ namespace Rivet {
       : Analysis("CDF_1996_S3349578")
     {
       setBeams(PROTON, ANTIPROTON);
-      setNeedsCrossSection(true);
     }
 
     //@}
@@ -80,56 +79,71 @@ namespace Rivet {
     }
 
 
-    /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      /// Do the event by event analysis here
       Jets jets;
-      double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jetsByEt()) {
         double Et = jet.momentum().Et();
         if (Et > 20.0*GeV) {
+          bool separated=true;
+          foreach (const Jet& ref, jets) {
+            if (deltaR(jet.momentum(), ref.momentum())<0.9) {
+              separated=false;
+              break;
+            }
+          }
+          if (!separated) continue;
           jets.push_back(jet);
-          sumEt += Et;
           jetsystem += jet.momentum();
         }
+        if (jets.size()>=5) break;
       }
       /// @todo include gaussian jet energy resolution smearing?
    
-      if (jets.size() < 3) {
-        vetoEvent;
+      if (jets.size() > 4) {
+        _fiveJetAnalysis(jets, weight);
+        jets.resize(4);
       }
-   
-      if (sumEt < 420.0*GeV) {
-        vetoEvent;
+      if (jets.size() > 3) {
+        _fourJetAnalysis(jets, weight);
+        jets.resize(3);
       }
-   
       if (jets.size() > 2) _threeJetAnalysis(jets, weight);
-      if (jets.size() > 3) _fourJetAnalysis(jets, weight);
-      if (jets.size() > 4) _fiveJetAnalysis(jets, weight);
     }
  
+    
+    
+    
     void _threeJetAnalysis(const Jets& jets, const double& weight) {
       getLog() << Log::DEBUG << "3 jet analysis" << std::endl;
-      FourMomentum jjj(jets[0].momentum()+jets[1].momentum()+jets[2].momentum());
-      const double m3J = jjj.mass();
+
+      double sumEt=0.0;
+      FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
+      foreach (const Jet& jet, jets) {
+        sumEt+=jet.momentum().Et();
+        jetsystem+=jet.momentum();
+      }
+      if (sumEt < 420.0*GeV) return;
+      
+      const double m3J = jetsystem.mass();
       if (m3J<600*GeV) {
         return;
       }
  
-      LorentzTransform cms_boost(-jjj.boostVector());
-      vector<FourMomentum> jets_boosted;
+      LorentzTransform cms_boost(-jetsystem.boostVector());
+      vector<FourMomentum> jets3;
       foreach (Jet jet, jets) {
-        jets_boosted.push_back(cms_boost.transform(jet.momentum()));
+        jets3.push_back(cms_boost.transform(jet.momentum()));
       }
-      std::sort(jets_boosted.begin(), jets_boosted.end(), FourMomentum::byEDescending());
-      FourMomentum p3(jets_boosted[0]);
-      FourMomentum p4(jets_boosted[1]);
-      FourMomentum p5(jets_boosted[2]);
+      std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
+      FourMomentum p3(jets3[0]);
+      FourMomentum p4(jets3[1]);
+      FourMomentum p5(jets3[2]);
    
-      double costheta3 = cos(p3.theta());
+      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m3J, jetsystem.y()));
+      double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
       if (fabs(costheta3)>0.6) {
         return;
       }
@@ -138,14 +152,9 @@ namespace Rivet {
       if (X3>0.9) {
         return;
       }
-   
-   
-      // fill histograms
+      
       const double X4 = 2.0*p4.E()/m3J;
-      Vector3 beam1(0.0, 0.0, 1.0);
-      Vector3 p1xp3 = beam1.cross(p3.vector3());
-      Vector3 p4xp5 = p4.vector3().cross(p5.vector3());
-      const double cospsi3 = p1xp3.dot(p4xp5)/p1xp3.mod()/p4xp5.mod();
+      const double psi3 = _psi(p3, pAV, p4, p5);
       const double f3 = p3.mass()/m3J;
       const double f4 = p4.mass()/m3J;
       const double f5 = p5.mass()/m3J;
@@ -154,41 +163,46 @@ namespace Rivet {
       _h_3_X3->fill(X3, weight);
       _h_3_X4->fill(X4, weight);
       _h_3_costheta3->fill(costheta3, weight);
-      _h_3_psi3->fill(mapAngle0ToPi(acos(cospsi3)), weight);
+      _h_3_psi3->fill(psi3, weight);
       _h_3_f3->fill(f3, weight);
       _h_3_f4->fill(f4, weight);
       _h_3_f5->fill(f5, weight);
    
     }
 
+    
+    
+    
     void _fourJetAnalysis(const Jets& jets, const double& weight) {
       getLog() << Log::DEBUG << "4 jet analysis" << std::endl;
-      FourMomentum jjjj(0.0, 0.0, 0.0, 0.0);
-      vector<FourMomentum> jetmoms;
-      for (size_t i=0; i<4; ++i) {
-        jetmoms.push_back(jets[i].momentum());
-        jjjj += jets[i].momentum();
+      
+      double sumEt=0.0;
+      FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
+      foreach (const Jet& jet, jets) {
+        sumEt+=jet.momentum().Et();
+        jetsystem+=jet.momentum();
       }
-      const double m4J = jjjj.mass();
+      if (sumEt < 420.0*GeV) return;
+      
+      const double m4J = jetsystem.mass();
       if (m4J < 650*GeV) return;
    
-      FourMomentum pA, pB;
-      vector<FourMomentum> jetmoms3(_reduce(jetmoms, pA, pB));
-      LorentzTransform cms_boost(-jjjj.boostVector());
-      vector<FourMomentum> jetmoms3_boosted;
-      foreach (FourMomentum mom, jetmoms3) {
-        jetmoms3_boosted.push_back(cms_boost.transform(mom));
+      LorentzTransform cms_boost(-jetsystem.boostVector());
+      vector<FourMomentum> jets4;
+      foreach (Jet jet, jets) {
+        jets4.push_back(cms_boost.transform(jet.momentum()));
       }
-      pA = cms_boost.transform(pA);
-      pB = cms_boost.transform(pB);
+      std::sort(jets4.begin(), jets4.end(), FourMomentum::byEDescending());
+      
+      FourMomentum pA, pB;
+      vector<FourMomentum> jets3(_reduce(jets4, pA, pB));
+      std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
+      FourMomentum p3(jets3[0]);
+      FourMomentum p4(jets3[1]);
+      FourMomentum p5(jets3[2]);
    
-      sort(jetmoms3_boosted.begin(), jetmoms3_boosted.end(), FourMomentum::byEDescending());
-      if (pB.E()>pA.E()) std::swap(pA, pB);
-      FourMomentum p3(jetmoms3_boosted[0]);
-      FourMomentum p4(jetmoms3_boosted[1]);
-      FourMomentum p5(jetmoms3_boosted[2]);
-   
-      const double costheta3 = cos(p3.theta());
+      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m4J, jetsystem.y()));
+      double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
       if (fabs(costheta3)>0.8) {
         return;
       }
@@ -200,108 +214,96 @@ namespace Rivet {
    
       // fill histograms
       const double X4 = 2.0*p4.E()/m4J;
-      Vector3 beam1(0.0, 0.0, 1.0);
-      Vector3 p1xp3 = beam1.cross(p3.vector3());
-      Vector3 p4xp5 = p4.vector3().cross(p5.vector3());
-      const double cospsi3 = p1xp3.dot(p4xp5)/p1xp3.mod()/p4xp5.mod();
+      const double psi3 = _psi(p3, pAV, p4, p5);
       const double f3 = p3.mass()/m4J;
       const double f4 = p4.mass()/m4J;
       const double f5 = p5.mass()/m4J;
       const double fA = pA.mass()/m4J;
       const double fB = pB.mass()/m4J;
       const double XA = pA.E()/(pA.E()+pB.E());
-      FourMomentum pAB = pA+pB;
-      Vector3 pABxp1 = pAB.vector3().cross(beam1);
-      Vector3 pAxpB = pA.vector3().cross(pB.vector3());
-      const double cospsiAB = pAxpB.dot(pABxp1)/pAxpB.mod()/pABxp1.mod();
+      const double psiAB = _psi(pA, pB, pA+pB, pAV);
    
       _h_4_mNJ->fill(m4J, weight);
       _h_4_X3->fill(X3, weight);
       _h_4_X4->fill(X4, weight);
       _h_4_costheta3->fill(costheta3, weight);
-      _h_4_psi3->fill(mapAngle0ToPi(acos(cospsi3)), weight);
+      _h_4_psi3->fill(psi3, weight);
       _h_4_f3->fill(f3, weight);
       _h_4_f4->fill(f4, weight);
       _h_4_f5->fill(f5, weight);
       _h_4_XA->fill(XA, weight);
-      _h_4_psiAB->fill(mapAngle0ToPi(acos(cospsiAB)), weight);
+      _h_4_psiAB->fill(psiAB, weight);
       _h_4_fA->fill(fA, weight);
       _h_4_fB->fill(fB, weight);
     }
    
+    
+    
    
     void _fiveJetAnalysis(const Jets& jets, const double& weight) {
       getLog() << Log::DEBUG << "5 jet analysis" << std::endl;
-      FourMomentum jjjjj(0.0, 0.0, 0.0, 0.0);
-      vector<FourMomentum> jetmoms;
-      for (size_t i=0; i<5; ++i) {
-        jetmoms.push_back(jets[i].momentum());
-        jjjjj += jets[i].momentum();
+      
+      double sumEt=0.0;
+      FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
+      foreach (const Jet& jet, jets) {
+        sumEt+=jet.momentum().Et();
+        jetsystem+=jet.momentum();
       }
-      const double m5J = jjjjj.mass();
+      if (sumEt < 420.0*GeV) return;
+      
+      const double m5J = jetsystem.mass();
       if (m5J < 750*GeV) return;
-   
-      FourMomentum pA, pB, pC, pD;
-      vector<FourMomentum> jetmoms4(_reduce(jetmoms, pC, pD));
-      vector<FourMomentum> jetmoms3(_reduce(jetmoms4, pA, pB));
-   
-      LorentzTransform cms_boost(-jjjjj.boostVector());
-      vector<FourMomentum> jetmoms3_boosted;
-      foreach (FourMomentum mom, jetmoms3) {
-        jetmoms3_boosted.push_back(cms_boost.transform(mom));
+
+      LorentzTransform cms_boost(-jetsystem.boostVector());
+      vector<FourMomentum> jets5;
+      foreach (Jet jet, jets) {
+        jets5.push_back(cms_boost.transform(jet.momentum()));
       }
-      pA = cms_boost.transform(pA);
-      pB = cms_boost.transform(pB);
-      pC = cms_boost.transform(pC);
-      pD = cms_boost.transform(pD);
-   
-      sort(jetmoms3_boosted.begin(), jetmoms3_boosted.end(), FourMomentum::byEDescending());
-      if (pB.E()>pA.E()) std::swap(pA, pB);
-      if (pD.E()>pC.E()) std::swap(pD, pC);
-      FourMomentum p3(jetmoms3_boosted[0]);
-      FourMomentum p4(jetmoms3_boosted[1]);
-      FourMomentum p5(jetmoms3_boosted[2]);
+      std::sort(jets5.begin(), jets5.end(), FourMomentum::byEDescending());
+      
+      FourMomentum pC, pD;
+      vector<FourMomentum> jets4(_reduce(jets5, pC, pD));
+      std::sort(jets4.begin(), jets4.end(), FourMomentum::byEDescending());
+      
+      FourMomentum pA, pB;
+      vector<FourMomentum> jets3(_reduce(jets4, pA, pB));
+      std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
+      FourMomentum p3(jets3[0]);
+      FourMomentum p4(jets3[1]);
+      FourMomentum p5(jets3[2]);
    
       // fill histograms
-      const double costheta3 = cos(p3.theta());
+      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m5J, jetsystem.y()));
+      const double costheta3 = pAV.vector3().unit().dot(p3.vector3().unit());
       const double X3 = 2.0*p3.E()/m5J;
       const double X4 = 2.0*p4.E()/m5J;
-      Vector3 beam1(0.0, 0.0, 1.0);
-      Vector3 p1xp3 = beam1.cross(p3.vector3());
-      Vector3 p4xp5 = p4.vector3().cross(p5.vector3());
-      const double cospsi3 = p1xp3.dot(p4xp5)/p1xp3.mod()/p4xp5.mod();
+      const double psi3 = _psi(p3, pAV, p4, p5);
       const double f3 = p3.mass()/m5J;
       const double f4 = p4.mass()/m5J;
       const double f5 = p5.mass()/m5J;
       const double fA = pA.mass()/m5J;
       const double fB = pB.mass()/m5J;
       const double XA = pA.E()/(pA.E()+pB.E());
-      FourMomentum pAB = pA+pB;
-      Vector3 pABxp1 = pAB.vector3().cross(beam1);
-      Vector3 pAxpB = pA.vector3().cross(pB.vector3());
-      const double cospsiAB = pAxpB.dot(pABxp1)/pAxpB.mod()/pABxp1.mod();
+      const double psiAB = _psi(pA, pB, pA+pB, pAV);
       const double fC = pC.mass()/m5J;
       const double fD = pD.mass()/m5J;
       const double XC = pC.E()/(pC.E()+pD.E());
-      FourMomentum pCD = pC+pD;
-      Vector3 pCDxp1 = pCD.vector3().cross(beam1);
-      Vector3 pCxpD = pC.vector3().cross(pD.vector3());
-      const double cospsiCD = pCxpD.dot(pCDxp1)/pCxpD.mod()/pCDxp1.mod();
+      const double psiCD = _psi(pC, pD, pC+pD, pAV);
    
       _h_5_mNJ->fill(m5J, weight);
       _h_5_X3->fill(X3, weight);
       _h_5_X4->fill(X4, weight);
       _h_5_costheta3->fill(costheta3, weight);
-      _h_5_psi3->fill(mapAngle0ToPi(acos(cospsi3)), weight);
+      _h_5_psi3->fill(psi3, weight);
       _h_5_f3->fill(f3, weight);
       _h_5_f4->fill(f4, weight);
       _h_5_f5->fill(f5, weight);
       _h_5_XA->fill(XA, weight);
-      _h_5_psiAB->fill(mapAngle0ToPi(acos(cospsiAB)), weight);
+      _h_5_psiAB->fill(psiAB, weight);
       _h_5_fA->fill(fA, weight);
       _h_5_fB->fill(fB, weight);
       _h_5_XC->fill(XC, weight);
-      _h_5_psiCD->fill(mapAngle0ToPi(acos(cospsiCD)), weight);
+      _h_5_psiCD->fill(psiCD, weight);
       _h_5_fC->fill(fC, weight);
       _h_5_fD->fill(fD, weight);
     }
@@ -360,13 +362,11 @@ namespace Rivet {
                                  FourMomentum& combined1,
                                  FourMomentum& combined2) {
       double minMass2 = 1e9;
-      FourMomentum combined;
       size_t idx1(jets.size()), idx2(jets.size());
       for (size_t i=0; i<jets.size(); ++i) {
         for (size_t j=i+1; j<jets.size(); ++j) {
           double mass2 = FourMomentum(jets[i]+jets[j]).mass2();
           if (mass2<minMass2) {
-            combined = jets[i]+jets[j];
             idx1=i;
             idx2=j;
           }
@@ -376,10 +376,34 @@ namespace Rivet {
       for (size_t i=0; i<jets.size(); ++i) {
         if (i!=idx1 && i!=idx2) newjets.push_back(jets[i]);
       }
-      newjets.push_back(combined);
+      newjets.push_back(jets[idx1]+jets[idx2]);
       combined1 = jets[idx1];
       combined2 = jets[idx2];
       return newjets;
+    }
+    
+    FourMomentum _avg_beam_in_lab(const double& m, const double& y) {
+      FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
+      LorentzTransform cms_boost(-boostvec.boostVector());
+      cms_boost = cms_boost.inverse();
+      const double mt = m/2.0;
+      FourMomentum beam1(mt, 0, 0, mt);
+      FourMomentum beam2(mt, 0, 0, -mt);
+      beam1=cms_boost.transform(beam1);
+      beam2=cms_boost.transform(beam2);
+      if (beam1.E()>beam2.E()) {
+        return beam1-beam2;
+      }
+      else {
+        return beam2-beam1;
+      }
+    }
+    
+    double _psi(const FourMomentum& p1, const FourMomentum& p2,
+                const FourMomentum& p3, const FourMomentum& p4) {
+      Vector3 p1xp2 = p1.vector3().cross(p2.vector3());
+      Vector3 p3xp4 = p3.vector3().cross(p4.vector3());
+      return mapAngle0ToPi(acos(p1xp2.unit().dot(p3xp4.unit())));
     }
  
 

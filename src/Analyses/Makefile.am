@@ -16,6 +16,7 @@ RivetUnvalidated_la_SOURCES = \
     CDF_1996_S3349578.cc \
     CDF_1996_S3418421.cc \
     CDF_1994_S2952106.cc \
+    CDF_1997_S3541940.cc \
     CDF_2006_S6653332.cc \
     CDF_2007_S7057202.cc \
     CDF_2008_S7541902.cc \
