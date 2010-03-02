@@ -1,10 +1,17 @@
 ## TODO: make variable names POSIX-compliant in rivet-manual.pdf target!
 
 dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex
-EXTRA_DIST = compare-histos.txt heppennames.sty warning.png cone.png h-physrev3.bst hepnames.sty \
-  JHEP3.cls make-plots.html bend.png hepnicenames.sty JHEP.bst make-plots.txt rivet-manual.tex \
-  preamble.tex compare-histos.html hepparticles.sty maybemath.sty refs.bib rivet-manual.pdf \
-  thinker.png hepunits.sty underscore.sty microtype.sty readplot.py
+
+DOCSOURCES = compare-histos.txt  heppennames.sty warning.png thinker.png cone.png \
+  h-physrev3.bst hepnames.sty JHEP3.cls bend.png hepnicenames.sty JHEP.bst \
+  make-plots.txt rivet-manual.tex preamble.tex hepparticles.sty maybemath.sty \
+  rivet-manual.pdf hepunits.sty underscore.sty microtype.sty
+
+EXTRA_DIST = $(DOCSOURCES) readplot.py
+
+if WITH_ASCIIDOC
+EXTRA_DIST += compare-histos.html make-plots.html
+endif
 
 DOCS = 
 
@@ -80,7 +87,7 @@ endif
 ################
 
 
-.PHONY = all doc upload
+.PHONY = all doc upload arxivtar
 
 #all:
 #	@echo "Default make rule does nothing: use 'make doc'"
@@ -93,6 +100,14 @@ RSH=rsync
 DEST=login.hepforge.org:rivet/public_html/
 upload: $(DOCS)
 	$(RSH) $? $(DEST)
+
+arxivtar: $(DOCSOURCES) rivet-manual.bbl
+	for i in *.png; do convert $$i $${i/.png/.eps}; done
+	tar czf rivet-manual.tar.gz \
+rivet-manual.tex preamble.tex analyses.tex rivetversion.sty rivet-manual.bbl \
+hepnames.sty hepnicenames.sty hepparticles.sty heppennames.sty hepunits.sty maybemath.sty microtype.sty underscore.sty \
+bend.eps cone.eps thinker.eps \
+h-physrev3.bst JHEP3.cls JHEP.bst
 
 mostlyclean-local:
 	rm -rf *.aux *.log *.toc
