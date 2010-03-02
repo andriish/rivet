@@ -12,7 +12,7 @@ References:
  - Z.Phys.C73:11-60,1996
  - doi:10.1007/s002880050295
 RunInfo:
-  sqrt(s) = 91.2 GeV, e+ e- Z production with hadronic decays only
+  sqrt(s) = 91.2 GeV, $e^+ e^- -> Z^0$ production with hadronic decays only
 NumEvents: 1000000
 PtCuts: [0]
 Description:

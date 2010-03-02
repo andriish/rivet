@@ -1,6 +1,6 @@
 Name: CDF_2004_S5839831
 Year: 2004
-Summary: Transverse cone and 'Swiss cheese' underlying event studies
+Summary: Transverse cone and `Swiss cheese' underlying event studies
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 5839831
@@ -27,7 +27,7 @@ Description:
   TransMAX on an event-by-event basis, to give greater sensitivity to
   the UE component.
 
-  'Swiss Cheese' distributions, where cones around
+  `Swiss Cheese' distributions, where cones around
   the leading $n$ jets are excluded from the distributions, are also
   included for $n = 2, 3$.  This analysis is useful for constraining the
   energy evolution of the underlying event, since it performs the same

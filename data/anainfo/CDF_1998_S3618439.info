@@ -15,6 +15,8 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Measurement of the differential cross section $\mathrm{d}\sigma/\mathrm{d}E_\perp^j$ for the
-  production of multijet events in ppbar collisions where the sum is over all
-  jets with transverse energy $E_\perp^j > E_\perp^\mathrm{min}$. 
+  Measurement of the differential cross section 
+  $\mathrm{d}\sigma/\mathrm{d}E_\perp^j$ for the
+  production of multijet events in $p\bar{p}$ collisions where the 
+  sum is over all jets with transverse energy 
+  $E_\perp^j > E_\perp^\mathrm{min}$. 

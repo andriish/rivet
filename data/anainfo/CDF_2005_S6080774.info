@@ -1,6 +1,6 @@
 Name: CDF_2005_S6080774
 Year: 2005
-Summary: Differential cross sections for Prompt Diphoton Production
+Summary: Differential cross sections for prompt diphoton production
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 6080774
@@ -20,6 +20,6 @@ PtCuts: [5]
 Description:
   Measurement of the cross section of prompt diphoton production in $p\bar{p}$
   collisions at $\sqrt{s} = 1.96$ TeV using a data sample of
-  $207 \mathrm{pb}^{-1}$ as a function of the diphoton mass, the transverse
+  207~pb$^{-1}$ as a function of the diphoton mass, the transverse
   momentum of the diphoton system, and the azimuthal angle between the two
   photons.
