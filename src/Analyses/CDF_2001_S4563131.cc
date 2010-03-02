@@ -58,7 +58,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       double deta = 1.2;
-      scale(_h_ET, crossSection()/sumOfWeights()/deta);
+      scale(_h_ET, crossSection()/sumOfWeights()/deta/nanobarn);
     }
 
     //@}
