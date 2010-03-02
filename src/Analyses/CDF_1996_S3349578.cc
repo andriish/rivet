@@ -142,7 +142,7 @@ namespace Rivet {
       FourMomentum p4(jets3[1]);
       FourMomentum p5(jets3[2]);
    
-      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m3J, jetsystem.y()));
+      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m3J, jetsystem.rapidity()));
       double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
       if (fabs(costheta3)>0.6) {
         return;
@@ -201,7 +201,7 @@ namespace Rivet {
       FourMomentum p4(jets3[1]);
       FourMomentum p5(jets3[2]);
    
-      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m4J, jetsystem.y()));
+      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m4J, jetsystem.rapidity()));
       double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
       if (fabs(costheta3)>0.8) {
         return;
@@ -273,7 +273,7 @@ namespace Rivet {
       FourMomentum p5(jets3[2]);
    
       // fill histograms
-      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m5J, jetsystem.y()));
+      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m5J, jetsystem.rapidity()));
       const double costheta3 = pAV.vector3().unit().dot(p3.vector3().unit());
       const double X3 = 2.0*p3.E()/m5J;
       const double X4 = 2.0*p4.E()/m5J;

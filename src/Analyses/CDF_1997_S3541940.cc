@@ -113,7 +113,7 @@ namespace Rivet {
         vetoEvent;
       }
       
-      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m6J, jetsystem.y()));
+      FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m6J, jetsystem.rapidity()));
       double costheta3ppp=pAV.vector3().unit().dot(p3ppp.vector3().unit());
       if (fabs(costheta3ppp)>0.9) {
         vetoEvent;
