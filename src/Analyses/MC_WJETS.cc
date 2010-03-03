@@ -31,7 +31,7 @@ namespace Rivet {
 
       _h_W_mass = bookHistogram1D("W_mass", 50, 66.0, 116.0);
       _h_W_pT = bookHistogram1D("W_pT", 100, 0.0, 0.25*sqrtS());
-      _h_W_pT_peak = bookHistogram1D("W_pT", 25, 0.0, 25.0);
+      _h_W_pT_peak = bookHistogram1D("W_pT_peak", 25, 0.0, 25.0);
       _h_W_y = bookHistogram1D("W_y", 40, -4.0, 4.0);
       _h_W_phi = bookHistogram1D("W_phi", 25, 0.0, TWOPI);
       _h_W_jet1_deta = bookHistogram1D("W_jet1_deta", 50, -5.0, 5.0);
