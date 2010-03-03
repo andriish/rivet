@@ -127,7 +127,7 @@ namespace Rivet {
       }
       if (sumEt < 420.0*GeV) return;
       
-      const double m3J = jetsystem.mass();
+      const double m3J = _safeMass(jetsystem);
       if (m3J<600*GeV) {
         return;
       }
@@ -155,9 +155,9 @@ namespace Rivet {
       
       const double X4 = 2.0*p4.E()/m3J;
       const double psi3 = _psi(p3, pAV, p4, p5);
-      const double f3 = p3.mass()/m3J;
-      const double f4 = p4.mass()/m3J;
-      const double f5 = p5.mass()/m3J;
+      const double f3 = _safeMass(p3)/m3J;
+      const double f4 = _safeMass(p4)/m3J;
+      const double f5 = _safeMass(p5)/m3J;
    
       _h_3_mNJ->fill(m3J, weight);
       _h_3_X3->fill(X3, weight);
@@ -184,7 +184,7 @@ namespace Rivet {
       }
       if (sumEt < 420.0*GeV) return;
       
-      const double m4J = jetsystem.mass();
+      const double m4J = _safeMass(jetsystem);
       if (m4J < 650*GeV) return;
    
       LorentzTransform cms_boost(-jetsystem.boostVector());
@@ -215,11 +215,11 @@ namespace Rivet {
       // fill histograms
       const double X4 = 2.0*p4.E()/m4J;
       const double psi3 = _psi(p3, pAV, p4, p5);
-      const double f3 = p3.mass()/m4J;
-      const double f4 = p4.mass()/m4J;
-      const double f5 = p5.mass()/m4J;
-      const double fA = pA.mass()/m4J;
-      const double fB = pB.mass()/m4J;
+      const double f3 = _safeMass(p3)/m4J;
+      const double f4 = _safeMass(p4)/m4J;
+      const double f5 = _safeMass(p5)/m4J;
+      const double fA = _safeMass(pA)/m4J;
+      const double fB = _safeMass(pB)/m4J;
       const double XA = pA.E()/(pA.E()+pB.E());
       const double psiAB = _psi(pA, pB, pA+pB, pAV);
    
@@ -251,7 +251,7 @@ namespace Rivet {
       }
       if (sumEt < 420.0*GeV) return;
       
-      const double m5J = jetsystem.mass();
+      const double m5J = _safeMass(jetsystem);
       if (m5J < 750*GeV) return;
 
       LorentzTransform cms_boost(-jetsystem.boostVector());
@@ -278,15 +278,15 @@ namespace Rivet {
       const double X3 = 2.0*p3.E()/m5J;
       const double X4 = 2.0*p4.E()/m5J;
       const double psi3 = _psi(p3, pAV, p4, p5);
-      const double f3 = p3.mass()/m5J;
-      const double f4 = p4.mass()/m5J;
-      const double f5 = p5.mass()/m5J;
-      const double fA = pA.mass()/m5J;
-      const double fB = pB.mass()/m5J;
+      const double f3 = _safeMass(p3)/m5J;
+      const double f4 = _safeMass(p4)/m5J;
+      const double f5 = _safeMass(p5)/m5J;
+      const double fA = _safeMass(pA)/m5J;
+      const double fB = _safeMass(pB)/m5J;
       const double XA = pA.E()/(pA.E()+pB.E());
       const double psiAB = _psi(pA, pB, pA+pB, pAV);
-      const double fC = pC.mass()/m5J;
-      const double fD = pD.mass()/m5J;
+      const double fC = _safeMass(pC)/m5J;
+      const double fD = _safeMass(pD)/m5J;
       const double XC = pC.E()/(pC.E()+pD.E());
       const double psiCD = _psi(pC, pD, pC+pD, pAV);
    
@@ -383,14 +383,16 @@ namespace Rivet {
     }
     
     FourMomentum _avg_beam_in_lab(const double& m, const double& y) {
-      FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
-      LorentzTransform cms_boost(-boostvec.boostVector());
-      cms_boost = cms_boost.inverse();
       const double mt = m/2.0;
       FourMomentum beam1(mt, 0, 0, mt);
       FourMomentum beam2(mt, 0, 0, -mt);
-      beam1=cms_boost.transform(beam1);
-      beam2=cms_boost.transform(beam2);
+      if (fabs(y)>1e-3) {
+        FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
+        LorentzTransform cms_boost(-boostvec.boostVector());
+        cms_boost = cms_boost.inverse();
+        beam1=cms_boost.transform(beam1);
+        beam2=cms_boost.transform(beam2);
+      }
       if (beam1.E()>beam2.E()) {
         return beam1-beam2;
       }
@@ -404,6 +406,16 @@ namespace Rivet {
       Vector3 p1xp2 = p1.vector3().cross(p2.vector3());
       Vector3 p3xp4 = p3.vector3().cross(p4.vector3());
       return mapAngle0ToPi(acos(p1xp2.unit().dot(p3xp4.unit())));
+    }
+
+    double _safeMass(const FourMomentum& p) {
+      double mass2=p.mass2();
+      if (mass2>0.0) return sqrt(mass2);
+      else if (mass2<-1.0e-5) {
+        getLog() << Log::WARNING << "m2 = " << m2 << ". Assuming m2=0." << endl;
+        return 0.0;
+      }
+      else return 0.0;
     }
  
 

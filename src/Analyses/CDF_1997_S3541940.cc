@@ -81,7 +81,7 @@ namespace Rivet {
         vetoEvent;
       }
       
-      double m6J=jetsystem.mass();
+      double m6J=_safeMass(jetsystem);
       if (m6J<520.0*GeV) {
         vetoEvent;
       }
@@ -126,27 +126,27 @@ namespace Rivet {
       _h_costheta3ppp->fill(costheta3ppp, weight);
       double psi3ppp=_psi(p3ppp, pAV, p4ppp, p5ppp);
       _h_psi3ppp->fill(psi3ppp, weight);
-      _h_f3ppp->fill(p3ppp.mass()/m6J, weight);
-      _h_f4ppp->fill(p4ppp.mass()/m6J, weight);
-      _h_f5ppp->fill(p5ppp.mass()/m6J, weight);
+      _h_f3ppp->fill(_safeMass(p3ppp)/m6J, weight);
+      _h_f4ppp->fill(_safeMass(p4ppp)/m6J, weight);
+      _h_f5ppp->fill(_safeMass(p5ppp)/m6J, weight);
       
       // 4 -> 3 jet variables
-      _h_fApp->fill(pApp.mass()/m6J, weight);
-      _h_fBpp->fill(pApp.mass()/m6J, weight);
+      _h_fApp->fill(_safeMass(pApp)/m6J, weight);
+      _h_fBpp->fill(_safeMass(pApp)/m6J, weight);
       _h_XApp->fill(pApp.E()/(pApp.E()+pBpp.E()), weight);
       double psiAppBpp=_psi(pApp, pBpp, pApp+pBpp, pAV);
       _h_psiAppBpp->fill(psiAppBpp, weight);
       
       // 5 -> 4 jet variables
-      _h_fCp->fill(pCp.mass()/m6J, weight);
-      _h_fDp->fill(pDp.mass()/m6J, weight);
+      _h_fCp->fill(_safeMass(pCp)/m6J, weight);
+      _h_fDp->fill(_safeMass(pDp)/m6J, weight);
       _h_XCp->fill(pCp.E()/(pCp.E()+pDp.E()), weight);
       double psiCpDp=_psi(pCp, pDp, pCp+pDp, pAV);
       _h_psiCpDp->fill(psiCpDp, weight);
       
       // 6 -> 5 jet variables
-      _h_fE->fill(pE.mass()/m6J, weight);
-      _h_fF->fill(pF.mass()/m6J, weight);
+      _h_fE->fill(_safeMass(pE)/m6J, weight);
+      _h_fF->fill(_safeMass(pF)/m6J, weight);
       _h_XE->fill(pE.E()/(pE.E()+pF.E()), weight);
       double psiEF=_psi(pE, pF, pE+pF, pAV);
       _h_psiEF->fill(psiEF, weight);
@@ -207,14 +207,16 @@ namespace Rivet {
     }
     
     FourMomentum _avg_beam_in_lab(const double& m, const double& y) {
-      FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
-      LorentzTransform cms_boost(-boostvec.boostVector());
-      cms_boost = cms_boost.inverse();
       const double mt = m/2.0;
       FourMomentum beam1(mt, 0, 0, mt);
       FourMomentum beam2(mt, 0, 0, -mt);
-      beam1=cms_boost.transform(beam1);
-      beam2=cms_boost.transform(beam2);
+      if (fabs(y)>1e-3) {
+        FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
+        LorentzTransform cms_boost(-boostvec.boostVector());
+        cms_boost = cms_boost.inverse();
+        beam1=cms_boost.transform(beam1);
+        beam2=cms_boost.transform(beam2);
+      }
       if (beam1.E()>beam2.E()) {
         return beam1-beam2;
       }
@@ -228,6 +230,16 @@ namespace Rivet {
       Vector3 p1xp2 = p1.vector3().cross(p2.vector3());
       Vector3 p3xp4 = p3.vector3().cross(p4.vector3());
       return mapAngle0ToPi(acos(p1xp2.unit().dot(p3xp4.unit())));
+    }
+
+    double _safeMass(const FourMomentum& p) {
+      double mass2=p.mass2();
+      if (mass2>0.0) return sqrt(mass2);
+      else if (mass2<-1.0e-5) {
+        getLog() << Log::WARNING << "m2 = " << m2 << ". Assuming m2=0." << endl;
+        return 0.0;
+      }
+      else return 0.0;
     }
 
 

@@ -51,16 +51,16 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt(50.0*GeV);
+      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(50.0*GeV);
       if (jets.size()<2) {
         vetoEvent;
       }
       FourMomentum jet1 = jets[0].momentum();
       FourMomentum jet2 = jets[1].momentum();
-      double eta1 = fabs(jet1.eta());
-      double eta2 = fabs(jet2.eta());
+      double eta1 = jet1.eta();
+      double eta2 = jet2.eta();
       double chi = exp(fabs(eta1-eta2));
-      if (eta2>2.0 || eta1>2.0 || chi>5.0) {
+      if (fabs(eta2)>2.0 || fabs(eta1)>2.0 || chi>5.0) {
         vetoEvent;
       }
    
