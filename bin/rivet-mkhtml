@@ -33,6 +33,8 @@ parser.add_option("-o", "--outputdir", dest="OUTPUTDIR",
                   default="./plots", help="directory for webpage output.")
 parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                   help="Plot config file(s) to be used with make-plots.")
+parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
+                  default=False, help="Display plots on single webpage.")
 
 
 opts, aidafiles = parser.parse_args()
@@ -91,18 +93,56 @@ Popen(ch_cmd, cwd=opts.OUTPUTDIR).wait()
 style = """<style>
   html { font-family: sans-serif; }
   img { border: 0; }
+  a { text-decoration: none; font-weight: bold; }
 </style>"""
+
+
+import sys
+try:
+    import ctypes
+    sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
+except:
+    import dl
+    sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
+rivetavailable=True
+try:
+    import rivet
+except Exception, e:
+    rivetavailable=False
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, style))
 for analysis in sorted(analyses):
+    references=[]
+    summary=analysis
+    description="Description not available."
+    spiresid=analysis[analysis.rfind('S')+1:len(analysis)]
+    if rivetavailable:
+        ana=rivet.AnalysisLoader.getAnalysis(analysis)
+        summary="%s (%s)" % (ana.summary(), analysis)
+        references=ana.references()
+        description=ana.description()
+        spiresid=ana.spiresId()
+    if opts.SINGLE:
+        index.write('<h3 style="clear:left; padding-top:2em;">%s</h3>\n' % summary)
+    else:
+        index.write('<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' %(analysis, summary))
+    index.write('<p><a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
+    for ref in references:
+        index.write(' &#124; %s' % ref)
+    index.write('</p>\n')
+    index.write('<p style="font-size:small;">%s</p>\n' % description)
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
-    anaindex = open(os.path.join(anapath, "index.html"), 'w')
-    anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, analysis, style))
+    if not opts.SINGLE:
+        anaindex = open(os.path.join(anapath, "index.html"), 'w')
+        anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, analysis, style))
+    else:
+        anaindex = index
 
     datfiles = glob.glob("%s/*.dat" % anapath)
     for fulldatfile in sorted(datfiles):
         datfile = os.path.basename(fulldatfile)
+        obsname = datfile.replace(".dat", "")
 
         ## make-plots run for each .dat file
         mp_cmd = ["make-plots"]
@@ -114,17 +154,21 @@ for analysis in sorted(analyses):
         mp_cmd.append(datfile)
         Popen(mp_cmd, cwd=anapath).wait()
 
-        psfile = datfile.replace(".dat", ".ps")
+        psfile = obsname+".ps"
         if os.access(os.path.join(anapath, psfile), os.R_OK):
             # Convert to png and add to web page
-            pngfile = datfile.replace(".dat", ".png")
+            pngfile = obsname+".png"
             Popen(["convert", "-density", "100", psfile, pngfile], cwd=anapath)
-            anaindex.write('  <div style="float:left;">')
-            anaindex.write('<a href="%s" style="font-size:smaller; text-decoration:none; font-weight:bold;">' % psfile)
-            anaindex.write('%s:<br><img border="0" src="%s"></a></div>\n' % (psfile, pngfile))
+            if opts.SINGLE:
+                psfile = analysis+"/"+psfile
+                pngfile = analysis+"/"+pngfile
+            anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
+            anaindex.write('    <a href="#%s-%s">[&#9875;]</a> %s:<br>\n' % (analysis, obsname, psfile) )
+            anaindex.write('    <a href="%s">\n' % psfile)
+            anaindex.write('      <a name="%s-%s"><img src="%s"></a>\n' % (analysis,obsname,pngfile) )
+            anaindex.write('    </a>\n')
+            anaindex.write('  </div>\n')
 
-    anaindex.write("</body>\n</html>\n")
-    index.write('<h1><a href="%s/index.html" style="text-decoration:none;">%s</a></h1>\n' %(analysis, analysis))
-    description = Popen(["rivet", "--show-analysis", analysis], stdout=PIPE).communicate()[0]
-    index.write('<p style="white-space: pre;">%s</p>\n' % description)
+    if not opts.SINGLE:
+        anaindex.write("</body>\n</html>\n")
 index.write('</body>\n</html>')
