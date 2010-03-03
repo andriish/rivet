@@ -112,6 +112,19 @@ except Exception, e:
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, style))
+index.write('<h2>Plots from Rivet analyses</h2>\n\n')
+
+if opts.SINGLE:
+    # write table of contents
+    index.write('<ul>\n')
+    for analysis in sorted(analyses):
+        summary=analysis
+        if rivetavailable:
+            ana=rivet.AnalysisLoader.getAnalysis(analysis)
+            summary="%s (%s)" % (ana.summary(), analysis)
+        index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
+    index.write('</ul>\n')
+
 for analysis in sorted(analyses):
     references=[]
     summary=analysis
@@ -124,7 +137,7 @@ for analysis in sorted(analyses):
         description=ana.description()
         spiresid=ana.spiresId()
     if opts.SINGLE:
-        index.write('<h3 style="clear:left; padding-top:2em;">%s</h3>\n' % summary)
+        index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
     else:
         index.write('<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' %(analysis, summary))
     index.write('<p><a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
@@ -163,10 +176,10 @@ for analysis in sorted(analyses):
                 psfile = analysis+"/"+psfile
                 pngfile = analysis+"/"+pngfile
             anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
-            anaindex.write('    <a href="#%s-%s">[&#9875;]</a> %s:<br>\n' % (analysis, obsname, psfile) )
-            anaindex.write('    <a href="%s">\n' % psfile)
-            anaindex.write('      <a name="%s-%s"><img src="%s"></a>\n' % (analysis,obsname,pngfile) )
-            anaindex.write('    </a>\n')
+            anaindex.write('    <a href="#%s-%s">&#9875;</a> %s:<br>\n' % (analysis, obsname, psfile) )
+            anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis,obsname,psfile) )
+            anaindex.write('      <img src="%s">\n' % pngfile )
+            anaindex.write('    </a></a>\n')
             anaindex.write('  </div>\n')
 
     if not opts.SINGLE:
