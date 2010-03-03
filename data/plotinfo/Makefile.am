@@ -67,6 +67,7 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETUE.plot \
   MC_SUSY.plot \
   MC_TTBAR.plot \
+  MC_JETS.plot \
   MC_PHOTONJETS.plot \
   MC_WJETS.plot \
   MC_ZJETS.plot \

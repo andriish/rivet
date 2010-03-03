@@ -69,6 +69,7 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETUE.info \
   MC_SUSY.info \
   MC_TTBAR.info \
+  MC_JETS.info \
   MC_PHOTONJETS.info \
   MC_WJETS.info \
   MC_ZJETS.info \
