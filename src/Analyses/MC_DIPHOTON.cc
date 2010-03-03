@@ -28,8 +28,8 @@ namespace Rivet {
       ifs.acceptId(PHOTON);
       addProjection(ifs, "IFS");
 
-      _h_m_PP = bookHistogram1D("m_PP", 50, 10.0, 500.0);
-      _h_pT_PP = bookHistogram1D("pT_PP", 50, 0.0, 200.0);
+      _h_m_PP = bookHistogram1D("m_PP", logBinEdges(50, 1.0, 0.25*sqrtS()));
+      _h_pT_PP = bookHistogram1D("pT_PP", logBinEdges(50, 1.0, 0.25*sqrtS()));
       _h_dphi_PP = bookHistogram1D("dphi_PP", 20, 0.0, M_PI);
     }
 

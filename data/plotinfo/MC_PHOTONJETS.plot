@@ -20,6 +20,7 @@ YLabel=$\text{d}\sigma/\text{d}\Delta{\phi}(\gamma\text{, 1st jet})$
 Title=Photon $p_\perp$
 XLabel=$p_\perp^{\gamma}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}y_{\gamma}$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/photon_y
@@ -229,23 +230,27 @@ Rebin=2
 Title=
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_pT_2
 Title=
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_pT_3
 Title=
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_pT_4
 Title=
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
+LogX=1
 # END PLOT
 

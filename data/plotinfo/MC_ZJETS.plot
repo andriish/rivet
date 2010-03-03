@@ -20,6 +20,7 @@ YLabel=$\text{d}\sigma/\text{d}m_{\text{Z}}$
 Title=Z $p_\perp$
 XLabel=$p_\perp^{\text{Z}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{Z}}$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/Z_pT_peak
@@ -44,6 +45,7 @@ YLabel=$\text{d}\sigma/\text{d}\phi_{\text{Z}}$
 Title=Lepton $p_\perp$
 XLabel=$p_\perp^{\text{l}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{l}}$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/lepton_eta
@@ -253,23 +255,27 @@ Rebin=2
 Title=
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_2
 Title=
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_3
 Title=
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_4
 Title=
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
+LogX=1
 # END PLOT
 

@@ -289,6 +289,19 @@ namespace Rivet {
   }
 
 
+  BinEdges Analysis::logBinEdges(size_t nbins, double lower, double upper) {
+    assert(lower>0.0);
+    assert(upper>lower);
+    double loglower=log10(lower);
+    double logupper=log10(upper);
+    vector<double> binedges;
+    double stepwidth=(logupper-loglower)/double(nbins);
+    for (size_t i=0; i<=nbins; ++i) {
+      binedges.push_back(pow(10.0, loglower+double(i)*stepwidth));
+    }
+    return binedges;
+  }
+
   IHistogram1D* Analysis::bookHistogram1D(size_t datasetId, size_t xAxisId,
                                           size_t yAxisId, const string& title,
                                           const string& xtitle, const string& ytitle)

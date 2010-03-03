@@ -36,7 +36,7 @@ namespace Rivet {
       pTname<<"jet_pT_"<<i+1;
       double pTmax = 1.0/(double(i)+2.0)*sqrtS()/GeV/2.0;
       int nbins = 100/(i+1);
-      _h_pT_jet[i] = bookHistogram1D(pTname.str(), nbins, 0.0, pTmax);
+      _h_pT_jet[i] = bookHistogram1D(pTname.str(), logBinEdges(nbins, 10.0, pTmax));
    
       stringstream etaname;
       etaname<<"jet_eta_"<<i+1;

@@ -39,7 +39,7 @@ namespace Rivet {
       FastJets jetpro(vfs, FastJets::KT, 0.7, 20.0*GeV);
       addProjection(jetpro, "Jets");
 
-      _h_photon_pT = bookHistogram1D("photon_pT", 50, 0.0, 0.25*sqrtS());
+      _h_photon_pT = bookHistogram1D("photon_pT", logBinEdges(50, 1.0, 0.5*sqrtS()));
       _h_photon_y = bookHistogram1D("photon_y", 20, -1.0, 1.0);
       _h_photon_jet1_deta = bookHistogram1D("photon_jet1_deta", 50, -5.0, 5.0);
       _h_photon_jet1_dphi = bookHistogram1D("photon_jet1_dphi", 20, 0.0, M_PI);
