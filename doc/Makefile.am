@@ -19,8 +19,8 @@ if ENABLE_PYEXT
 
 DOCS += analyses.html
 analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
-	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
-DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
+	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(top_srcdir)/src/Tools/yaml-cpp/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
+DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(top_srcdir)/src/Tools/yaml-cpp/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
 ./mk-analysis-html analyses.html
 
