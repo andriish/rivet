@@ -40,14 +40,14 @@ namespace Rivet {
    
       stringstream etaname;
       etaname<<"jet_eta_"<<i+1;
-      _h_eta_jet[i] = bookHistogram1D(etaname.str(), 50, -5.0, 5.0);
+      _h_eta_jet[i] = bookHistogram1D(etaname.str(), i>1 ? 25 : 50, -5.0, 5.0);
    
       for (size_t j=i+1; j<m_njet; ++j) {
         std::pair<size_t, size_t> ij(std::make_pair(i, j));
      
         stringstream detaname;
         detaname<<"jets_deta_"<<i+1<<j+1;
-        _h_deta_jets.insert(make_pair(ij, bookHistogram1D(detaname.str(), 50, -5.0, 5.0)));
+        _h_deta_jets.insert(make_pair(ij, bookHistogram1D(detaname.str(), 25, -5.0, 5.0)));
      
         stringstream dRname;
         dRname<<"jets_dR_"<<i+1<<j+1;
