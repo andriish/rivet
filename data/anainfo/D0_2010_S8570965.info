@@ -1,0 +1,25 @@
+Name: D0_2010_S8570965
+Year: 2010
+Summary: Direct photon pair production
+Experiment: CDF
+Collider: Tevatron Run 2
+SpiresID: 8570965
+Status: UNVALIDATED
+Authors:
+ - Frank Siegert <frank.siegert@durham.ac.uk>
+References:
+ - arXiv:1002.4917
+RunInfo:
+  All processes that can produce prompt photon pairs, e.g. $jj \to jj$,
+  $jj \to j\gamma$ and $jj \to \gamma \gamma$.
+  Non-prompt photons from hadron decays like $\pi$ and $\eta$ have been
+  corrected for.
+NumEvents: 10000000
+PtCuts: [0]
+Description:
+  Direct photon pair production cross sections are measured using 4.2 fb$^{-1}$
+  of data. They are binned in diphoton mass, the transverse momentum of the
+  diphoton system, the azimuthal angle between the photons, and the polar
+  scattering angle of the photons. Also available are double differential cross
+  sections considering the last three kinematic variables in three diphoton
+  mass bins.
