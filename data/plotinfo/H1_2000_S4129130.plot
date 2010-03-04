@@ -194,11 +194,13 @@ YLabel=$1/N \, \mathrm{d}{E_\perp}/\mathrm{d}{\eta}$ / GeV
 Title=Average $E_\perp$ in the central region
 XLabel=$Q^2$ / $\text{GeV}^2$
 YLabel=$\langle E_\perp \rangle$ / GeV
+LogX=1
 # END PLOT
 
 # BEGIN PLOT /H1_2000_S4129130/d34-x01-y01
 Title=Average $E_\perp$ in the forward region
 XLabel=$Q^2$ / $\text{GeV}^2$
 YLabel=$\langle E_\perp \rangle$ / GeV
+LogX=1
 # END PLOT
 
