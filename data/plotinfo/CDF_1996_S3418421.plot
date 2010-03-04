@@ -32,3 +32,9 @@ XLabel=$\chi = \exp(|\eta_1-\eta_2|)$
 YLabel=1/N dN/d$\chi$
 LogY=0
 # END PLOT
+
+# BEGIN PLOT /CDF_1996_S3418421/d02-x01-y01
+Title=Dijet angular ratio as function of dijet mass
+XLabel=$m_{jj}$ [GeV]
+YLabel=Ratio $R_\chi=N(\chi<2.5)/N(2.5<\chi<5)$
+# END PLOT

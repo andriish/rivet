@@ -17,7 +17,7 @@ namespace Rivet {
 
     /// Constructor
     CDF_1996_S3418421()
-      : Analysis("CDF_1996_S3418421"), _nevt(0)
+      : Analysis("CDF_1996_S3418421")
     {
       setBeams(PROTON, ANTIPROTON);
     }
@@ -41,9 +41,9 @@ namespace Rivet {
       _h_chi.addHistogram(517.0, 625.0, bookHistogram1D(1, 1, 4));
       _h_chi.addHistogram(625.0, 1800.0, bookHistogram1D(1, 1, 5));
    
-      _h_ratio = bookHistogram1D(2,1,1);
-      _chi_above_25.resize(_h_ratio->axis().bins());
-      _chi_below_25.resize(_h_ratio->axis().bins());
+      _h_ratio = bookDataPointSet(2,1,1,"","","");
+      _chi_above_25.resize(_h_ratio->size());
+      _chi_below_25.resize(_h_ratio->size());
     }
 
 
@@ -68,13 +68,19 @@ namespace Rivet {
       _h_chi.fill(m, chi, weight);
    
       // fill ratio counter
-      int bin = _h_ratio->coordToIndex(m);
-      _nevt++;
-      if (chi>2.5) {
-        _chi_above_25[bin] += weight;
-      }
-      else {
-        _chi_below_25[bin] += weight;
+      if (m > _h_ratio->lowerExtent(0) && m < _h_ratio->upperExtent(0)) {
+        int bin=-1;
+        for (int i=0; i<_h_ratio->size(); ++i) {
+          AIDA::IMeasurement* x = _h_ratio->point(i)->coordinate(0);
+          if (m > x->value()-x->errorMinus() && m < x->value()+x->errorPlus()) {
+            bin=i;
+            break;
+          }
+        }
+        if (bin>-1) {
+          if (chi>2.5) _chi_above_25[bin] += weight;
+          else _chi_below_25[bin] += weight;
+        }
       }
     }
 
@@ -86,17 +92,9 @@ namespace Rivet {
         normalize(hist);
       }
 
-      // now mimic filling of the ratio histogram
-      std::vector<double> ratios(_h_ratio->axis().bins());
-      for (size_t i=0; i<ratios.size(); ++i) {
-        double binwidth = _h_ratio->axis().binWidth(i);
-        ratios[i] = _chi_below_25[i]/_chi_above_25[i]/double(_nevt)*binwidth;
-      }
-      for (size_t bin=0; bin<ratios.size(); ++bin) {
-        double coord = _h_ratio->binMean(bin);
-        for (size_t n=0; n<_nevt; ++n) {
-          _h_ratio->fill(coord, ratios[bin]);
-        }
+      for (int bin=0; bin<_h_ratio->size(); ++bin) {
+        _h_ratio->point(bin)->coordinate(1)->setValue(_chi_below_25[bin]/_chi_above_25[bin]);
+        /// @todo calculate errors while analysing and fill them here as well
       }
     }
 
@@ -108,14 +106,13 @@ namespace Rivet {
     // Data members like post-cuts event weight counters go here
     std::vector<double> _chi_above_25;
     std::vector<double> _chi_below_25;
-    size_t _nevt;
 
   private:
 
     /// @name Histograms
     //@{
     BinnedHistogram<double> _h_chi;
-    AIDA::IHistogram1D* _h_ratio;
+    AIDA::IDataPointSet* _h_ratio;
     //@}
 
   };
