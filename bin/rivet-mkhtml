@@ -90,6 +90,24 @@ for file in aidafiles+reffiles:
     ch_cmd.append("%s" % os.path.abspath(file))
 Popen(ch_cmd, cwd=opts.OUTPUTDIR).wait()
 
+
+## run make-plots on all generated .dat files
+mp_cmd = ["make-plots"]
+mp_cmd.append("--pspng")
+mp_cmd.append("--full-range")
+for configfile in opts.CONFIGFILES:
+    if os.access(os.path.expanduser(configfile), os.R_OK):
+        mp_cmd.append("-c")
+        mp_cmd.append(os.path.expanduser(configfile))
+for analysis in sorted(analyses):
+    anapath = os.path.join(opts.OUTPUTDIR, analysis)
+    datfiles = glob.glob("%s/*.dat" % anapath)
+    for datfile in sorted(datfiles):
+        mp_cmd.append(datfile)
+Popen(mp_cmd).wait()
+
+
+## write webpage containing all plots
 style = """<style>
   html { font-family: sans-serif; }
   img { border: 0; }
@@ -152,35 +170,21 @@ for analysis in sorted(analyses):
     else:
         anaindex = index
 
-    datfiles = glob.glob("%s/*.dat" % anapath)
-    for fulldatfile in sorted(datfiles):
-        datfile = os.path.basename(fulldatfile)
-        obsname = datfile.replace(".dat", "")
-
-        ## make-plots run for each .dat file
-        mp_cmd = ["make-plots"]
-        mp_cmd.append("--full-range")
-        for configfile in opts.CONFIGFILES:
-            if os.access(os.path.expanduser(configfile), os.R_OK):
-                mp_cmd.append("-c")
-                mp_cmd.append(os.path.expanduser(configfile))
-        mp_cmd.append(datfile)
-        Popen(mp_cmd, cwd=anapath).wait()
-
+    pngfiles = glob.glob("%s/*.png" % anapath)
+    for pngfile in sorted(pngfiles):
+        obsname = os.path.basename(pngfile).replace(".png", "")
+        pngfile = obsname+".png"
         psfile = obsname+".ps"
-        if os.access(os.path.join(anapath, psfile), os.R_OK):
-            # Convert to png and add to web page
-            pngfile = obsname+".png"
-            Popen(["convert", "-density", "100", psfile, pngfile], cwd=anapath)
-            if opts.SINGLE:
-                psfile = analysis+"/"+psfile
-                pngfile = analysis+"/"+pngfile
-            anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
-            anaindex.write('    <a href="#%s-%s">&#9875;</a> %s:<br>\n' % (analysis, obsname, psfile) )
-            anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis,obsname,psfile) )
-            anaindex.write('      <img src="%s">\n' % pngfile )
-            anaindex.write('    </a></a>\n')
-            anaindex.write('  </div>\n')
+        if opts.SINGLE:
+            pngfile = analysis+"/"+pngfile
+            psfile = analysis+"/"+psfile
+        
+        anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
+        anaindex.write('    <a href="#%s-%s">&#9875;</a> %s:<br>\n' % (analysis, obsname, psfile) )
+        anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis,obsname,psfile) )
+        anaindex.write('      <img src="%s">\n' % pngfile )
+        anaindex.write('    </a></a>\n')
+        anaindex.write('  </div>\n')
 
     if not opts.SINGLE:
         anaindex.write("</body>\n</html>\n")

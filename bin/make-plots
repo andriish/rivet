@@ -1472,20 +1472,22 @@ class Coordinates:
 import shutil
 def process_datfile(datfile):
     global opts
-
-    filename = datfile.replace('.dat','')
     if not os.access(datfile, os.R_OK):
         raise Exception("Could not read data file '%s'" % datfile)
 
+    dirname = os.path.dirname(datfile)
+    datfile = os.path.basename(datfile)
+    filename = datfile.replace('.dat','')
+
     ## Create a temporary directory
     cwd = os.getcwd()
-    datpath = os.path.join(cwd, datfile)
+    datpath = os.path.join(cwd, dirname, datfile)
     tempdir = tempfile.mkdtemp('.make-plots')
     tempdatpath = os.path.join(tempdir, datfile)
     shutil.copy(datpath, tempdir)
 
     ## Make TeX file
-    inputdata = Inputdata(filename)
+    inputdata = Inputdata(os.path.join(dirname,filename))
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
     p = Plot(inputdata)
@@ -1525,6 +1527,8 @@ def process_datfile(datfile):
             dvipsargs += ' -f | ps2eps > %s.eps 2> /dev/null' % filename
         elif opts.OUTPUT_FORMAT == "PNG":
             dvipsargs += ' -f | convert -density 250 -flatten - %s.png' % filename
+        elif opts.OUTPUT_FORMAT == "PSPNG":
+            dvipsargs += ' -o %s.ps && convert -density 100 -flatten %s.ps %s.png' % (filename, filename, filename)
         else:
             dvipsargs += ' -o %s.ps' % filename
         dvcmd = 'dvips %s %s' % (filename, dvipsargs)
@@ -1536,11 +1540,17 @@ def process_datfile(datfile):
     ## Copy results back to main dir
     outbasename = filename
     outname = outbasename + "." + opts.OUTPUT_FORMAT.lower()
-    outpath = os.path.join(tempdir, outname)
-    if os.path.exists(outpath):
-        shutil.copy(outpath, cwd)
+    if opts.OUTPUT_FORMAT == "PSPNG":
+        outpath = os.path.join(tempdir, outbasename+".ps")
+        shutil.copy(outpath, os.path.join(cwd,dirname))
+        outpath = os.path.join(tempdir, outbasename+".png")
+        shutil.copy(outpath, os.path.join(cwd,dirname))
     else:
-        logging.error("No output file '%s' from processing %s" % (outname, datfile))
+        outpath = os.path.join(tempdir, outname)
+        if os.path.exists(outpath):
+            shutil.copy(outpath, os.path.join(cwd,dirname))
+        else:
+            logging.error("No output file '%s' from processing %s" % (outname, datfile))
 
     ## Clean up
     if opts.NO_CLEANUP:
@@ -1629,6 +1639,8 @@ TODO
                       help="Create Encapsulated PostScript output.")
     parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS",
                      help="Create PNG output.")
+    parser.add_option("--pspng", dest="OUTPUT_FORMAT", action="store_const", const="PSPNG", default="PS",
+                     help="Create PS and PNG output.")
     parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PS",
                       help="Create TeX/LaTeX output.")
     parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
