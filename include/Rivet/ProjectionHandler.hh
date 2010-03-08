@@ -3,6 +3,7 @@
 #define RIVET_ProjectionHandler_HH
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetBoost.hh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/ProjectionApplier.fhh"
 #include "Rivet/Projection.fhh"

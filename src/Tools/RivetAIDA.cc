@@ -1,5 +1,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetBoost.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "LWH/AnalysisFactory.h"
 #include "TinyXML/tinyxml.h"

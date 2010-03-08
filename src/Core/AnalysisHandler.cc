@@ -3,6 +3,9 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Analysis.hh"
+#include "Rivet/Event.hh"
+#include "Rivet/Projections/Beam.hh"
 #include "LWH/AIManagedObject.h"
 
 using namespace AIDA;
@@ -341,6 +344,20 @@ namespace Rivet {
 
   bool AnalysisHandler::hasCrossSection() const {
     return (crossSection() >= 0);
+  }
+
+  AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
+    analysis->_analysishandler = this;
+    _analyses.insert(analysis);
+    return *this;
+  }
+
+  BeamPair AnalysisHandler::beamIds() const { 
+    return Rivet::beamIds(beams());
+  }
+
+  double AnalysisHandler::sqrtS() const {
+    return Rivet::sqrtS(beams());
   }
 
 

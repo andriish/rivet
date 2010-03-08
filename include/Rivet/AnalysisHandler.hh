@@ -5,10 +5,9 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/AnalysisHandler.fhh"
-#include "Rivet/Event.hh"
-#include "Rivet/Analysis.hh"
+#include "Rivet/Analysis.fhh"
+#include "Rivet/Event.fhh"
 #include "Rivet/AnalysisLoader.hh"
-#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
 
@@ -111,14 +110,10 @@ namespace Rivet {
     }
 
     /// Get beam IDs for this run, determined from first event
-    BeamPair beamIds() const { 
-      return Rivet::beamIds(beams());
-    }
+    BeamPair beamIds() const;
 
     /// Get energy for this run, determined from first event
-    double sqrtS() const {
-      return Rivet::sqrtS(beams());
-    }
+    double sqrtS() const;
     
     //@}
 
@@ -156,11 +151,7 @@ namespace Rivet {
 
 
     /// Add an analysis to the run list by object
-    AnalysisHandler& addAnalysis(Analysis* analysis) {
-      analysis->_analysishandler = this;
-      _analyses.insert(analysis);
-      return *this;
-    }
+    AnalysisHandler& addAnalysis(Analysis* analysis);
 
     /// Remove beam-incompatible analyses from the run list.
     /// @todo Do this automatically in the init phase (including energies) and deprecate explicit use

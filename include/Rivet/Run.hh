@@ -3,6 +3,7 @@
 #define RIVET_Run_HH
 
 #include "Rivet/AnalysisHandler.fhh"
+#include "Rivet/RivetBoost.hh"
 
 namespace HepMC {
   class IO_GenEvent;

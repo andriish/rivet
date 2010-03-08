@@ -3,7 +3,6 @@
 #define RIVET_MathUtils_HH
 
 #include "Rivet/Math/MathHeader.hh"
-#include "Rivet/RivetBoost.hh"
 
 namespace Rivet {
 
@@ -119,8 +118,8 @@ namespace Rivet {
   /// Calculate the mean of a sample
   inline double mean(const vector<int>& sample) {
     double mean = 0.0;
-    foreach (const int& i, sample) {
-      mean += i;
+    for (size_t i=0; i<sample.size(); ++i) {
+      mean += sample[i];
     }
     return mean/sample.size();
   }

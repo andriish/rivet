@@ -60,9 +60,6 @@ namespace Rivet {
 // AIDA headers
 #include "Rivet/RivetAIDA.fhh"
 
-// Pull some Boost defns into the Rivet namespace
-#include "Rivet/RivetBoost.hh"
-
 // HepMC headers and helper functions
 #include "Rivet/RivetHepMC.hh"
 
@@ -84,8 +81,8 @@ namespace Rivet {
   template<typename T>
   inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
     os << "[ ";
-    foreach (const T& i, vec) {
-      os << i << " ";
+    for (size_t i=0; i<vec.size(); ++i) {
+      os << vec[i] << " ";
     }
     os << "]";
     return os;
@@ -96,8 +93,8 @@ namespace Rivet {
   template<typename T>
   inline std::ostream& operator<<(std::ostream& os, const std::list<T>& vec) {
     os << "[ ";
-    foreach (const T& i, vec) {
-      os << i << " ";
+    for (size_t i=0; i<vec.size(); ++i) {
+      os << vec[i] << " ";
     }
     os << "]";
     return os;

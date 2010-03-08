@@ -2,6 +2,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/ParticleName.hh"
+#include "Rivet/RivetBoost.hh"
 
 namespace Rivet {
 
