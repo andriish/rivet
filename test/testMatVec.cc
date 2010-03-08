@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits>
+#include <cassert>
 
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
