@@ -28,7 +28,6 @@ namespace Rivet {
       FinalState fs(-2.0, 2.0);
       addProjection(fs, "FS");
       // R=0.4, pTmin=0, seed_threshold=0.5:
-      /// @todo Presumably this jet alg is wrong...
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.4, 0.0, 0.5), "MidpointJets");
 
       _h_jet_pT_MB = bookHistogram1D(1, 1, 1);
