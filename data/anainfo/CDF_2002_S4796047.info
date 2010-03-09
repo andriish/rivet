@@ -16,7 +16,7 @@ NumEvents: 1000000
 PtCuts: [0]
 Energies: [630,1800]
 Description:
-  A study of ppbar collisions at sqrt(s) = 1800 and 630 GeV collected
+  A study of $p\bar{p}$ collisions at sqrt(s) = 1800 and 630 GeV collected
   using a minimum bias trigger in which the data set is divided into two
   classes corresponding to `soft' and `hard' interactions. For each
   subsample, the analysis includes measurements of the multiplicity,

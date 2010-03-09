@@ -11,7 +11,7 @@ References:
  - Phys.Rev.D65:092002,2002
  - FNAL-PUB 01/211-E
 RunInfo:
-  ppbar QCD interactions at 1800 GeV. The leading jet is binned from
+  $p\bar{p}$ QCD interactions at 1800 GeV. The leading jet is binned from
   0--49 GeV, and histos can usually can be filled with a single generator
   run without kinematic sub-samples.
 NumEvents: 1000000

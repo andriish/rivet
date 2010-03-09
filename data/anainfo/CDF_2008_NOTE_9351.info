@@ -10,7 +10,7 @@ Authors:
 References:
  - CDF public note 9351
 RunInfo:
-  "* ppbar collisions at 1960 GeV.
+  "ppbar collisions at 1960 GeV.
   * Drell-Yan events with $Z/\\gamma* -> e e$ and $Z/\\gamma* -> \\mu\\mu$.
   * A mass cut $m_{ll} > 70~\\text{GeV}$ can be applied on generator level.
   * Particles with $c \\tau > 10~\\text{mm}$ should be set stable."
@@ -18,11 +18,11 @@ NumEvents: 1000000
 PtCuts: [0]
 Description:
   Deepak Kar and Rick Field's measurement of the underlying event in
-  Drell-Yan events. Z -> ee and Z -> $\mu\mu$ events are selected using
-  a Z mass window cut between 70 and 110 GeV. ``Toward'', ``away'' and
+  Drell-Yan events. $Z -> ee$ and $Z -> \mu\mu$ events are selected using
+  a $Z$ mass window cut between 70 and 110~GeV. ``Toward'', ``away'' and
   ``transverse'' regions are defined in the same way as in the original
-  (2001) CDF underlying event analysis. The reconstructed Z defines the
+  (2001) CDF underlying event analysis. The reconstructed $Z$ defines the
   $\phi$ direction of the toward region. The leptons are ignored after
-  the Z has been reconstructed. Thus the region most sensitive to the
+  the $Z$ has been reconstructed. Thus the region most sensitive to the
   underlying event is the toward region (the recoil jet is boosted into
   the away region).

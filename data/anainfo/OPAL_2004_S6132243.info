@@ -11,13 +11,13 @@ References:
  - Eur.Phys.J.C40:287-316,2005
  - hep-ex/0503051
 RunInfo:
-  Hadronic e+ e- events at 4 representative energies (91, 133, 177, 197).
+  Hadronic $e^+ e^-$ events at 4 representative energies (91, 133, 177, 197).
   Runs with sqrt(s) above the Z mass need to have ISR suppressed, since
   the data has been corrected to remove radiative return to the Z.
 NumEvents: 200000
 Energies: [91,133,177,197]
 PtCuts: [0]
 Description:
-  Measurement of e+ e- event shape variable distributions and their 1st 
+  Measurement of $e^+ e^-$ event shape variable distributions and their 1st 
   to 5th moments in LEP running from the Z pole to the highest LEP 2 energy
   of 209 GeV.

@@ -12,7 +12,7 @@ References:
  - doi:10.1103/PhysRevD.74.071103
  - arXiv:hep-ex/0512020
 RunInfo:
-  ppbar -> jets at 1960 GeV
+  $p\bar{p}$ -> jets at 1960 GeV
 NumEvents: 1000000
 PtCuts: [61]
 Description:

@@ -13,7 +13,8 @@ References:
  - doi:10.1103/PhysRevD.79.112005
  - arXiv:0904.1098 [hep-ex]
 RunInfo:
-  ppbar QCD interactions at 1960 GeV. Particles with $c \\tau > {}$10 mm should be set stable.
+  $p\bar{p}$ QCD interactions at 1960~GeV. Particles with $c \\tau > {}$10 mm 
+  should be set stable.
 NumEvents: 1000000
 PtCuts: [0]
 Description:

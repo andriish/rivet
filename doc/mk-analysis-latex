@@ -138,10 +138,11 @@ for aname in sorted(list(all_analyses)):
     if ana.runInfo():
         page += "\\textbf{Run details:}\n \\penalty 100\n"
         infos = ana.runInfo().split(" * ")
-        print ana.runInfo(), "->", infos
+        #print ana.runInfo(), "->", infos
         page += "\\begin{itemize}\n"
         for i in infos:
-            page += "\n  \\item %s" % i
+            if i:
+                page += "\n  \\item %s" % i
         page += "\\end{itemize}\n"
     else:
         page += "\\textbf{No run details listed}\\\\ \n"

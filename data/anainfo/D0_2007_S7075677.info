@@ -1,6 +1,6 @@
 Name: D0_2007_S7075677
 Year: 2007
-Summary: Z/gamma* + X cross-section shape, differential in y(Z)
+Summary: $Z/\gamma^* + X$ cross-section shape, differential in $y(Z)$
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 7075677
@@ -13,9 +13,8 @@ References:
  - Phys.Rev.D76:012003,2007
  - arXiv:hep-ex/0702025
 RunInfo:
-  Drell-Yan $p \bar{p} \to Z/\gamma^*$ + jets events at 
-  $\sqrt{s}$ = 1960 GeV. Needs mass cut on lepton pair to avoid photon 
-  singularity, looser than  $71 < m_{ee} < 111$ GeV
+  Drell-Yan $p \bar{p} \to Z/\gamma^*$ + jets events at $\sqrt{s}$ = 1960 GeV.
+  Needs mass cut on lepton pair to avoid photon singularity, looser than  $71 < m_{ee} < 111$ GeV
 NumEvents: 1000000
 PtCuts: [0]
 Description:
