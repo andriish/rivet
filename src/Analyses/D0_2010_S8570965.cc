@@ -37,17 +37,14 @@ namespace Rivet {
       _h_dPhi = bookHistogram1D(3, 1, 1);
       _h_costheta = bookHistogram1D(4, 1, 1);
       
-      std::vector<doublepair> M_ranges;
-      M_ranges.push_back(std::make_pair(30.0, 50.0));
-      M_ranges.push_back(std::make_pair(50.0, 80.0));
-      M_ranges.push_back(std::make_pair(80.0, 350.0));
-      int i=0;
+      std::pair<double, double> M_ranges[] = { std::make_pair(30.0, 50.0),
+                                               std::make_pair(50.0, 80.0),
+                                               std::make_pair(80.0, 350.0) };
       
-      foreach (const doublepair& M_range, M_ranges) {
-        _h_pT_M.addHistogram(M_range.first, M_range.second, bookHistogram1D(5+i, 1, 1));
-        _h_dPhi_M.addHistogram(M_range.first, M_range.second, bookHistogram1D(6+i, 1, 1));
-        _h_costheta_M.addHistogram(M_range.first, M_range.second, bookHistogram1D(7+i, 1, 1));
-        ++i;
+      for (size_t i=0; i<3; ++i) {
+        _h_pT_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHistogram1D(5+3*i, 1, 1));
+        _h_dPhi_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHistogram1D(6+3*i, 1, 1));
+        _h_costheta_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHistogram1D(7+3*i, 1, 1));
       }
     }
 
@@ -118,12 +115,12 @@ namespace Rivet {
       scale(_h_pT, crossSection()/sumOfWeights());
       scale(_h_dPhi, crossSection()/sumOfWeights());
       scale(_h_costheta, crossSection()/sumOfWeights());
-      std::vector<double> dMyy;
-      dMyy += 20.0, 30.0, 270.0;
+      double dMyy[] = {20.0, 30.0, 270.0};
       for (size_t i=0; i<3; ++i) {
-        scale(_h_pT_M.getHistograms()[i], crossSection()/sumOfWeights()/dMyy[i]);
-        scale(_h_dPhi_M.getHistograms()[i], crossSection()/sumOfWeights()/dMyy[i]);
-        scale(_h_costheta_M.getHistograms()[i], crossSection()/sumOfWeights()/dMyy[i]);
+        double scaleFac = crossSection()/sumOfWeights()/dMyy[i];
+        scale(_h_pT_M.getHistograms()[i], scaleFac);
+        scale(_h_dPhi_M.getHistograms()[i], scaleFac);
+        scale(_h_costheta_M.getHistograms()[i], scaleFac);
       }
       
     }
