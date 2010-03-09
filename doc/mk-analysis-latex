@@ -1,11 +1,12 @@
 #! /usr/bin/env python
 
 ## Get output filename
+OUTNAME = "analyses"
 import sys
 if len(sys.argv) < 2:
-    print "You must supply the output file as an argument"
-    exit(1)
-OUTFILE = sys.argv[1]
+    print "Using output name '%s'" % OUTNAME
+else:
+    OUTNAME = sys.argv[1]
 
 
 ## Make "set" a builtin type on Python < 2.4
@@ -65,16 +66,29 @@ def texify(s):
         # .replace(r"^", r"") \
     return t
 
+## For BibTeX
+## TODO: use spiresbib.py as an executable to dump to a pickle-based SpiresID -> (BibKey,BibTeX) file to avoid HTTP delays in doc build
+import spiresbib
+bib = {}
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
 pages = { "LEP":[], "Tevatron":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
 for aname in sorted(list(all_analyses)):
+    print "Handling analysis '%s'" % aname
     page = ""
-    ana = rivet.AnalysisLoader.getAnalysis(aname)
     page += "\\typeout{Handling analysis %s}\n" % aname
-    page += "\\subsection{%s}\n" % aname.replace(r"_", r"\_")
+    safe_aname = aname.replace(r"_", r"\_")
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    subtitle = "\\subsection{%s}\n" % safe_aname
+    if ana.spiresId():
+        bibkey, bibtex = spiresbib.get_bibtex_from_spires(ana.spiresId())
+        if bibkey and bibtex:
+            bib[bibkey] = bibtex
+            citetex = r"\cite{%s}" % bibkey
+            subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
+    page += subtitle
     page += "\\textbf{%s}\\newline\n" %  ana.summary()
     if ana.experiment():
         page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
@@ -83,7 +97,6 @@ for aname in sorted(list(all_analyses)):
         page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
             (spiresbase, ana.spiresId(), ana.spiresId())
     page += "\\textbf{Status:} %s\\newline\n" % ana.status()
-
 
     if ana.authors():
         page += "\\textbf{Authors:}\n \\penalty 100\n"
@@ -207,9 +220,12 @@ body = \
 
 outstr = prefix + body
 
-if OUTFILE == "-":
-    sys.stdout.write(outstr)
-else:
-    f = open(OUTFILE, "w")
-    f.write(outstr)
-    f.close()
+## Write out to TeX and BibTeX files
+f = open("%s.tex" % OUTNAME, "w")
+f.write(outstr)
+f.close()
+f = open("%s.bib" % OUTNAME, "w")
+#
+bibentries = "\n\n".join(["%% %s\n%s" % (k,b) for k,b in bib.iteritems()])
+f.write(bibentries)
+f.close()

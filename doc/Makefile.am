@@ -35,16 +35,17 @@ DOCS += rivet-manual.pdf
 
 if ENABLE_PYEXT
 
-analyses.tex: $(top_srcdir)/include/Rivet/Analyses $(top_srcdir)/src/Analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex
+analyses.bib analyses.tex: $(top_srcdir)/include/Rivet/Analyses $(top_srcdir)/src/Analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH) \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH) \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
-./mk-analysis-latex analyses.tex
+./mk-analysis-latex
 
 else
 
-analyses.tex:
+analyses.bib analyses.tex:
 	> analyses.tex
+	> analyses.bib
 
 endif
 
@@ -59,7 +60,7 @@ MAKEIDX = "^[^%]*\\makeindex"
 RM = rm -f
 
 DOCNAME = rivet-manual
-$(DOCNAME).pdf : $(DOCNAME).tex preamble.tex analyses.tex
+$(DOCNAME).pdf : $(DOCNAME).tex preamble.tex analyses.tex refs.bib analyses.bib
 	$(LATEX) $<; true
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<) > /dev/null; true
 	egrep -c $(RERUNBIB) $(DOCNAME).log && ($(BIBTEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<); true
