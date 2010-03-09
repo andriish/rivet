@@ -67,13 +67,14 @@ def texify(s):
     return t
 
 ## For BibTeX
-## TODO: use spiresbib.py as an executable to dump to a pickle-based SpiresID -> (BibKey,BibTeX) file to avoid HTTP delays in doc build
+## TODO: use spiresbib.py as an executable to dump to a pickle- or shelve-based
+##   SpiresID -> (BibKey,BibTeX) file to avoid HTTP delays in doc build
 import spiresbib
 bib = {}
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
-pages = { "LEP":[], "Tevatron":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
+pages = { "LEP":[], "Tevatron":[], "SPS":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
 for aname in sorted(list(all_analyses)):
     print "Handling analysis '%s'" % aname
@@ -136,13 +137,11 @@ for aname in sorted(list(all_analyses)):
 
     if ana.runInfo():
         page += "\\textbf{Run details:}\n \\penalty 100\n"
+        infos = ana.runInfo().split(" * ")
+        print ana.runInfo(), "->", infos
         page += "\\begin{itemize}\n"
-        #print ana.runInfo()
-        for l in ana.runInfo().split("\n*"):
-            l = l.strip()
-            if l.startswith("*"):
-                l = l[1:].strip()
-            page += "  \\item %s\n" % l
+        for i in infos:
+            page += "\n  \\item %s" % i
         page += "\\end{itemize}\n"
     else:
         page += "\\textbf{No run details listed}\\\\ \n"
@@ -177,6 +176,8 @@ for aname in sorted(list(all_analyses)):
         pages["LEP"].append(page)
     elif "Tevatron" in ana.collider():
         pages["Tevatron"].append(page)
+    elif "SPS" in ana.collider():
+        pages["SPS"].append(page)
     elif "HERA" in ana.collider():
         pages["HERA"].append(page)
     elif "RHIC" in ana.collider():
@@ -212,6 +213,7 @@ for group, ps in pages.iteritems():
 body = \
     groups["LEP"] + "\n\n" + \
     groups["Tevatron"] + "\n\n" + \
+    groups["SPS"] + "\n\n" + \
     groups["HERA"] + "\n\n" + \
     groups["RHIC"] + "\n\n" + \
     groups["Monte Carlo"] + "\n\n" + \

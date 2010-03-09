@@ -19,20 +19,9 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Multiplicity distributions of charged particles produced in non
-  single-diffractive collisions between protons and antiprotons at centre of
-  mass energies of 200 and 900 GeV are presented. The data were recorded in the
-  UA5 streamer chambers at the CERN Collider, which was operated in a pulsed
-  mode between the two energies. A new method to correct for acceptance
-  limitations and inefficiencies based on the principle of maximum entropy has
-  been used. Multiplicity distributions in full phase space and in intervals of
-  pseudorapidity are presented in tabular form. The violation of KNO scaling in
-  full phase space found by the UA5 group at an energy of 546 GeV is confirmed
-  also at 200 and 900 GeV. The shape of the 900 GeV distribution in full phase
-  space is narrower in the peak region than at 200 GeV but exhibits a pronounced
-  high multiplicity tail. The negative binomial distribution fits data at 200
-  GeV in all pseudorapidity intervals and in small intervals at 900 GeV. In
-  large intervals at 900 GeV, however, the negative binomial distribution. Fits
-  to the partially coherent laser distribution are also presented as well as
-  comparisons with predictions of the Dual Parton, the Fritiof and the Pythia
-  models.
+  Multiplicity distributions of charged particles produced in non-single-diffractive 
+  collisions between protons and antiprotons at centre-of-mass energies of 200 and 
+  900 GeV. The data were recorded in the UA5 streamer chambers at the CERN collider, 
+  which was operated in a pulsed mode between the two energies. This analysis
+  confirms the violation of KNO scaling in full phase space found by the UA5 group 
+  at an energy of 546 GeV, with similar measurements at 200 and 900 GeV.

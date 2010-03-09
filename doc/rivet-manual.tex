@@ -332,8 +332,9 @@ listed in \AppendixRef{app:agilerunmc}.
     analysis on the events in the \kbd{fifo.hepmc} data file. This analysis is the
     one originally used for the \Delphi automated ``\textsc{Professor}''
     generator tuning.  If the first event in the data file does not have
-    appropriate beams, the analysis will be disabled; since there is only one
-    analysis in this case, the command will exit immediately with a warning.}
+    appropriate beam particles, the analysis will be disabled; since there is only one
+    analysis in this case, the command will exit immediately with a warning if the 
+    first event is not an $\Ppositron\Pelectron$ event.}
 
 \item \paragraph{Using all analyses:}{\kbd{rivet -n~50000 -A -} will read up to 
     50k events from standard input (specified by the special ``-'' input filename) 
@@ -381,15 +382,15 @@ Your knee-jerk reaction is probably to want to know how to plot your Rivet
 histograms in ROOT\cite{Antcheva:2009zz}. Don't worry: a few months of therapy
 can work wonders. For unrepentant ROOT junkies, Rivet installs an
 \kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
-full of ROOT \kbd{TGraph}s. One word of warning: a bug in ROOT means that
-\kbd{TGraph}s do not render properly from file because the axis is not drawn by
+full of ROOT \texttt{TGraph}s. One word of warning: a bug in ROOT means that
+\texttt{TGraph}s do not render properly from file because the axis is not drawn by
 default. To display the plots correctly in ROOT you will need to pass the
 \kbd{"AP"} drawing option string to either the \kbd{TGraph::Draw()} method, or
 in the options box in the \kbd{TBrowser} GUI interface.
 
 \paragraph{Conversion to ``flat format''}
 
-Most of our histogramming is based around the YODA ``flat'' plain text format,
+Most of our histogramming is based around a ``flat'' plain text format,
 which can easily be read (and written) by hand. We provide a script called
 \kbd{aida2flat} to do this conversion. Run \kbd{aida2flat -h} to get usage
 instructions; in particular the Gnuplot and ``split output'' options are useful
@@ -423,7 +424,7 @@ switch, which can be given multiple times, e.g.\\
 \kbd{\chophisto -b /CDF\_2001\_S4751469/d03-x01-y01:5:13 Rivet.aida}\\
 %
 will chop all bins with $x<5$ and $x>13$ from the histogram
-\kbd{/CDF\_2001\_S4751469/d03-x01-y01:5:13} in the file \kbd{Rivet.aida}. (In
+\kbd{/CDF\_2001\_S4751469/d03-x01-y01} in the file \kbd{Rivet.aida}. (In
 this particular case, $x$ would be a leading jet \pT.)
 
 \subsection{Normalising histograms}

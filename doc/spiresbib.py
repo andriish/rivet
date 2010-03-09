@@ -45,6 +45,14 @@ def get_bibtex_from_spires(spiresid):
     return key, bibtex
 
 
+def get_bibtexs_from_spires(spiresids):
+    bibdb = {}
+    for spiresid in spiresids:
+        key, bibtex = get_bibtex_from_spires(spiresid)
+        if key and bibtex:
+            bibdb[spiresid] = (key, bibtex)
+    return bibdb
+
 
 if __name__ == '__main__':
     ## Parse command line options
@@ -52,7 +60,13 @@ if __name__ == '__main__':
     parser = OptionParser(usage=usage)
     opts, args = parser.parse_args()
 
-    for spiresid in args:
-        key, bibtex = get_bibtex_from_spires(spiresid)
-        if bibtex:
-            print key, "=>\n", bibtex
+    ## Build ref db
+    bibdb = get_bibtexs_from_spires(args)
+    for sid, (key, bibtex) in bibdb.iteritems():
+        print key, "=>\n", bibtex
+
+    ## Pickle ref db
+    import cPickle as pickle
+    fpkl = open("spiresbib.pkl", "w")
+    pickle.dump(bibdb)
+    fpkl.close()
