@@ -54,17 +54,19 @@
 \newif\if@JHEP\@JHEPfalse			%
 \newif\if@conf\@conffalse			%
 \newif\if@Jspecialurl\@Jspecialurlfalse
-\newif\ifpdf
-\ifx\pdfoutput\undefined
-\else
-  \ifx\pdfoutput\relax
-  \else
-    \ifcase\pdfoutput
-    \else
-      \pdftrue
-    \fi
-  \fi
-\fi
+
+\RequirePackage{ifpdf}
+% \newif\ifpdf
+% \ifx\pdfoutput\undefined
+% \else
+%   \ifx\pdfoutput\relax
+%   \else
+%     \ifcase\pdfoutput
+%     \else
+%       \pdftrue
+%     \fi
+%   \fi
+% \fi
 %%\newif\if@restonecol\@twocolumnfalse
 
 \if@compatibility

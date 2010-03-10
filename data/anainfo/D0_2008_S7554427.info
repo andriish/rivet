@@ -11,7 +11,7 @@ Authors:
 References:
  - arXiv:0712.0803
 RunInfo:
-  "* $p \bar{p} \to e^+ e^-$ + jets at 1960~GeV.
+  "* $p \\bar{p} \to e^+ e^-$ + jets at 1960~GeV.
   * Needs mass cut on lepton pair to avoid photon singularity,
     looser than $40 < m_{ee} < 200$ GeV."
 NumEvents: 1000000
