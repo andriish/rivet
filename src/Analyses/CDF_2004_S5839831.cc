@@ -110,31 +110,34 @@ namespace Rivet {
       addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
 
       // Book histograms
-      _pt90MaxAvg1800 = bookProfile1D(1, 1, 1);
-      _pt90MinAvg1800 = bookProfile1D(1, 1, 2);
-      _pt90Max1800 = bookProfile1D(2, 1, 1);
-      _pt90Min1800 = bookProfile1D(2, 1, 2);
-      _pt90Diff1800 = bookProfile1D(2, 1, 3);
-      _num90Max1800 = bookProfile1D(4, 1, 1);
-      _num90Min1800 = bookProfile1D(4, 1, 2);
-      _pTSum1800_2Jet = bookProfile1D(7, 1, 1);
-      _pTSum1800_3Jet = bookProfile1D(7, 1, 2);
-      _pt90Max630 = bookProfile1D(8, 1, 1);
-      _pt90Min630 = bookProfile1D(8, 1, 2);
-      _pt90Diff630 = bookProfile1D(8, 1, 3);
-      _pTSum630_2Jet = bookProfile1D(9, 1, 1);
-      _pTSum630_3Jet = bookProfile1D(9, 1, 2);
-   
-      _pt90Dbn1800Et40 = bookHistogram1D(3, 1, 1);
-      _pt90Dbn1800Et80 = bookHistogram1D(3, 1, 2);
-      _pt90Dbn1800Et120 = bookHistogram1D(3, 1, 3);
-      _pt90Dbn1800Et160 = bookHistogram1D(3, 1, 4);
-      _pt90Dbn1800Et200 = bookHistogram1D(3, 1, 5);
-      _ptDbn1800MB = bookHistogram1D(6, 1, 1);
-   
-      _numTracksDbn1800MB = bookHistogram1D(5, 1, 1);
-      _numTracksDbn630MB = bookHistogram1D(10, 1, 1);
-      _ptDbn630MB = bookHistogram1D(11, 1, 1);
+      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+        _pt90MaxAvg1800 = bookProfile1D(1, 1, 1);
+        _pt90MinAvg1800 = bookProfile1D(1, 1, 2);
+        _pt90Max1800 = bookProfile1D(2, 1, 1);
+        _pt90Min1800 = bookProfile1D(2, 1, 2);
+        _pt90Diff1800 = bookProfile1D(2, 1, 3);
+        _num90Max1800 = bookProfile1D(4, 1, 1);
+        _num90Min1800 = bookProfile1D(4, 1, 2);
+        _pTSum1800_2Jet = bookProfile1D(7, 1, 1);
+        _pTSum1800_3Jet = bookProfile1D(7, 1, 2);
+
+        _pt90Dbn1800Et40 = bookHistogram1D(3, 1, 1);
+        _pt90Dbn1800Et80 = bookHistogram1D(3, 1, 2);
+        _pt90Dbn1800Et120 = bookHistogram1D(3, 1, 3);
+        _pt90Dbn1800Et160 = bookHistogram1D(3, 1, 4);
+        _pt90Dbn1800Et200 = bookHistogram1D(3, 1, 5);
+        _numTracksDbn1800MB = bookHistogram1D(5, 1, 1);
+        _ptDbn1800MB = bookHistogram1D(6, 1, 1);
+      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+        _pt90Max630 = bookProfile1D(8, 1, 1);
+        _pt90Min630 = bookProfile1D(8, 1, 2);
+        _pt90Diff630 = bookProfile1D(8, 1, 3);
+        _pTSum630_2Jet = bookProfile1D(9, 1, 1);
+        _pTSum630_3Jet = bookProfile1D(9, 1, 2);
+
+        _numTracksDbn630MB = bookHistogram1D(10, 1, 1);
+        _ptDbn630MB = bookHistogram1D(11, 1, 1);
+      }
     }
  
  
@@ -296,18 +299,23 @@ namespace Rivet {
     void finalize() {
       /// @todo Take these normalisations from the data histo (it can't come from just the MC)
 
-      // Normalize to actual number of entries in pT dbn histos...
-      normalize(_pt90Dbn1800Et40,  1656.75); // norm OK
-      normalize(_pt90Dbn1800Et80,  4657.5); // norm OK
-      normalize(_pt90Dbn1800Et120, 5395.5); // norm OK
-      normalize(_pt90Dbn1800Et160, 7248.75); // norm OK
-      normalize(_pt90Dbn1800Et200, 2442.0); // norm OK
+      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+        // Normalize to actual number of entries in pT dbn histos...
+        normalize(_pt90Dbn1800Et40,  1656.75); // norm OK
+        normalize(_pt90Dbn1800Et80,  4657.5); // norm OK
+        normalize(_pt90Dbn1800Et120, 5395.5); // norm OK
+        normalize(_pt90Dbn1800Et160, 7248.75); // norm OK
+        normalize(_pt90Dbn1800Et200, 2442.0); // norm OK
+      }
    
       // ...and for min bias distributions:
-      normalize(_numTracksDbn1800MB, 309718.25); // norm OK
-      normalize(_numTracksDbn630MB, 1101024.0); // norm OK
-      normalize(_ptDbn1800MB, 33600.0); // norm OK
-      normalize(_ptDbn630MB, 105088.0); // norm OK
+      if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
+        normalize(_numTracksDbn1800MB, 309718.25); // norm OK
+        normalize(_ptDbn1800MB, 33600.0); // norm OK
+      } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
+        normalize(_numTracksDbn630MB, 1101024.0); // norm OK
+        normalize(_ptDbn630MB, 105088.0); // norm OK
+      }
     }
 
     //@}
