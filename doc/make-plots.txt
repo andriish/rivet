@@ -326,7 +326,10 @@ Any linestyle that is understood by the LaTeX pstricks package, e.g. `solid`,
 LineColor=<color>
 --------------------
 Color of the line. Default is black, but any color that pstricks understands
-can be used, including constructions like `red!70!blue!20`.
+can be used, including constructions like `red!70!blue!20` (for mixing colors),
+`{[rgb]{0.8,0,0.7}}` (for RGB-colors), `{[wave]{580}}` (for wavelengths in
+nm), `LineColor={[cmyk]{1,1,0,0}}` for CMYK-colors, or `[hsb]{0.5,1,1}` for
+HSB-colors.
 
 --------------------
 LineWidth=<width>
@@ -358,6 +361,7 @@ FillColor=<color>
 --------------------
 To fill the area below a histogram, set `FillStyle` and `FillColor` to
 something pstricks understands. Examples for the style are `solid` or `vlines`.
+See `LineColor` for examples of color definitions.
 
 --------------------
 HatchColor=<color>
@@ -378,7 +382,8 @@ Turn on error bars.
 ErrorBands=<0|1>
 ErrorBandColor=<color>
 --------------------
-Turn on error bands and set their color.
+Turn on error bands and set their color (see `LineColor` for a description
+of color definitions).
 
 --------------------
 PolyMarker=<dotstyle>
