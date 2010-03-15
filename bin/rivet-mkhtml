@@ -139,7 +139,8 @@ if opts.SINGLE:
         summary=analysis
         if rivetavailable:
             ana=rivet.AnalysisLoader.getAnalysis(analysis)
-            summary="%s (%s)" % (ana.summary(), analysis)
+            if ana:
+                summary="%s (%s)" % (ana.summary(), analysis)
         index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
     index.write('</ul>\n')
 
@@ -150,10 +151,11 @@ for analysis in sorted(analyses):
     spiresid=analysis[analysis.rfind('S')+1:len(analysis)]
     if rivetavailable:
         ana=rivet.AnalysisLoader.getAnalysis(analysis)
-        summary="%s (%s)" % (ana.summary(), analysis)
-        references=ana.references()
-        description=ana.description()
-        spiresid=ana.spiresId()
+        if ana:
+            summary="%s (%s)" % (ana.summary(), analysis)
+            references=ana.references()
+            description=ana.description()
+            spiresid=ana.spiresId()
     if opts.SINGLE:
         index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
     else:
