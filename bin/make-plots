@@ -336,7 +336,6 @@ class Plot:
         out += ('\\selectcolormodel{rgb}\n')
         out += ('\\usepackage{amsmath}\n')
         out += ('\\usepackage{amssymb}\n')
-        out += ('\\usepackage{underscore}\n')
         out += ('\\usepackage{relsize}\n')
         out += ('\\usepackage[dvips,\n')
         out += ('  left=%4.3fcm, right=0cm,\n' %(leftmargin-0.45,))
@@ -1685,7 +1684,7 @@ TODO
 
     ## Check for HEP LaTeX packages
     opts.LATEXPKGS = []
-    for pkg in ["hepnicenames", "hepunits"]:
+    for pkg in ["hepnicenames", "hepunits", "underscore"]:
         if os.system('kpsewhich %s.sty > /dev/null' % pkg) == 0:
             opts.LATEXPKGS.append(pkg)
 
