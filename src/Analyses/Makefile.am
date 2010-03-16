@@ -24,7 +24,6 @@ RivetUnvalidated_la_SOURCES = \
     D0_1996_S3214044.cc \
     D0_1996_S3324664.cc \
     D0_1998_S3711838.cc \
-    D0_2010_S8570965.cc \
     DELPHI_2003_WUD_03_11.cc \
     E735_1998_S3905616.cc \
     H1_1995_S3167097.cc \
@@ -80,7 +79,8 @@ RivetD0Analyses_la_SOURCES = \
     D0_2009_S8202443.cc \
     D0_2009_S8320160.cc \
     D0_2009_S8349509.cc \
-    D0_2010_S8566488.cc
+    D0_2010_S8566488.cc \
+    D0_2010_S8570965.cc
 
 
 lib_LTLIBRARIES += RivetHERAAnalyses.la

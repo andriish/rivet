@@ -115,12 +115,10 @@ namespace Rivet {
       scale(_h_pT, crossSection()/sumOfWeights());
       scale(_h_dPhi, crossSection()/sumOfWeights());
       scale(_h_costheta, crossSection()/sumOfWeights());
-      double dMyy[] = {20.0, 30.0, 270.0};
       for (size_t i=0; i<3; ++i) {
-        double scaleFac = crossSection()/sumOfWeights()/dMyy[i];
-        scale(_h_pT_M.getHistograms()[i], scaleFac);
-        scale(_h_dPhi_M.getHistograms()[i], scaleFac);
-        scale(_h_costheta_M.getHistograms()[i], scaleFac);
+        scale(_h_pT_M.getHistograms()[i], crossSection()/sumOfWeights());
+        scale(_h_dPhi_M.getHistograms()[i], crossSection()/sumOfWeights());
+        scale(_h_costheta_M.getHistograms()[i], crossSection()/sumOfWeights());
       }
       
     }
