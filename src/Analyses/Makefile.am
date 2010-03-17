@@ -38,6 +38,11 @@ RivetUnvalidated_la_SOURCES = \
 endif
 
 
+lib_LTLIBRARIES += RivetATLASAnalyses.la
+RivetATLASAnalyses_la_SOURCES = \
+    ATLAS_2010_S8591806.cc
+
+
 lib_LTLIBRARIES += RivetCDFAnalyses.la
 RivetCDFAnalyses_la_SOURCES = \
     CDF_1988_S1865951.cc \

@@ -74,7 +74,7 @@ bib = {}
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
-pages = { "LEP":[], "Tevatron":[], "SPS":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
+pages = { "LEP":[], "Tevatron":[], "LHC":[], "SPS":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
 for aname in sorted(list(all_analyses)):
     print "Handling analysis '%s'" % aname
@@ -177,6 +177,8 @@ for aname in sorted(list(all_analyses)):
         pages["LEP"].append(page)
     elif "Tevatron" in ana.collider():
         pages["Tevatron"].append(page)
+    elif "LHC" in ana.collider():
+        pages["LHC"].append(page)
     elif "SPS" in ana.collider():
         pages["SPS"].append(page)
     elif "HERA" in ana.collider():
@@ -214,6 +216,7 @@ for group, ps in pages.iteritems():
 body = \
     groups["LEP"] + "\n\n" + \
     groups["Tevatron"] + "\n\n" + \
+    groups["LHC"] + "\n\n" + \
     groups["SPS"] + "\n\n" + \
     groups["HERA"] + "\n\n" + \
     groups["RHIC"] + "\n\n" + \

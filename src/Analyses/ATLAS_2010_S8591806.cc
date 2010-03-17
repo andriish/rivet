@@ -1,0 +1,73 @@
+// -*- C++ -*-
+#include "Rivet/Analysis.hh"
+#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Tools/Logging.hh"
+
+namespace Rivet {
+
+
+  class ATLAS_2010_S8591806 : public Analysis {
+  public:
+
+    ATLAS_2010_S8591806() : Analysis("ATLAS_2010_S8591806"), _Nevt_after_cuts(0.0) {
+      setNeedsCrossSection(false);
+    }
+
+
+    void init() {
+      ChargedFinalState cfs(-2.5, 2.5, 0.5*GeV);
+      addProjection(cfs, "CFS");
+
+      _h_dNch_deta = bookHistogram1D(1, 1, 1);
+      _h_dNch_dpT = bookHistogram1D(1, 1, 2);
+      _h_dNevt_dNch = bookHistogram1D(1, 1, 3);
+      _p_meanpT_Nch = bookProfile1D(1, 1, 4);
+    }
+
+
+    void analyze(const Event& event) {
+      const double weight = event.weight();
+
+      const ChargedFinalState& charged = applyProjection<ChargedFinalState>(event, "CFS");
+      if (charged.particles().size()<1) {
+        vetoEvent;
+      }
+      _Nevt_after_cuts += weight;
+
+      _h_dNevt_dNch->fill(charged.particles().size(), weight);
+      foreach (const Particle& p, charged.particles()) {
+        double pT = p.momentum().pT()/GeV;
+        _h_dNch_deta->fill(p.momentum().eta(), weight);
+        _h_dNch_dpT->fill(pT, weight/pT);
+        _p_meanpT_Nch->fill(charged.particles().size(), pT, weight);
+      }
+    }
+    
+    
+    void finalize() {
+      double deta = 5.0;
+      scale(_h_dNch_deta, 1.0/_Nevt_after_cuts);
+      scale(_h_dNch_dpT, 1.0/_Nevt_after_cuts/2.0/M_PI/deta);
+      scale(_h_dNevt_dNch, 1.0/_Nevt_after_cuts);
+    }
+
+
+  private:
+
+    AIDA::IHistogram1D* _h_dNch_deta;
+    AIDA::IHistogram1D* _h_dNch_dpT;
+    AIDA::IHistogram1D* _h_dNevt_dNch;
+    AIDA::IProfile1D*   _p_meanpT_Nch;
+
+    double _Nevt_after_cuts;
+    
+  };
+
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<ATLAS_2010_S8591806> plugin_ATLAS_2010_S8591806;
+
+}
+
