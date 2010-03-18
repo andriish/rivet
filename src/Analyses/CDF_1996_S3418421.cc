@@ -33,7 +33,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs(-4.2, 4.2);
-      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7, 0.0*GeV), "Jets");
+      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
       _h_chi.addHistogram(241.0, 300.0, bookHistogram1D(1, 1, 1));
       _h_chi.addHistogram(300.0, 400.0, bookHistogram1D(1, 1, 2));
