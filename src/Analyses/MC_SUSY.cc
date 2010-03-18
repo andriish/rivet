@@ -49,7 +49,12 @@ namespace Rivet {
       mufs.acceptIdPair(MUON);
       addProjection(mufs, "Muons");
 
-      addProjection(TotalVisibleMomentum(fs), "MET");
+      VetoedFinalState missing(fs);
+      missing.vetoNeutrinos();
+      missing.addVetoId(1000022); // lightest neutralino = usual LSP
+      missing.addVetoId(1000039); // gravitino = LSP in GMSB
+      addProjection(TotalVisibleMomentum(missing), "MET");
+
       LeadingParticlesFinalState lpfs(fs);
       lpfs.addParticleIdPair(ELECTRON);
       lpfs.addParticleIdPair(MUON);
