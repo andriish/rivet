@@ -15,44 +15,28 @@ namespace Rivet {
 
   /// Final state modifier which excludes any particles which are not experimentally visible
   class VisibleFinalState : public FinalState {
-
   public:
  
     /// @name Constructors
     //@{
+
     /// Default constructor.
-    VisibleFinalState() {
-      setName("VisibleFinalState");
-      VetoedFinalState vfs;
-      vfs.vetoNeutrinos();
-      addProjection(vfs, "VFS");
-    }
+    VisibleFinalState();
 
     /// Constructor with min and max pseudorapidity \f$ \eta \f$ and min \f$ p_T
     /// \f$ (in GeV).
     VisibleFinalState(double mineta = -MAXRAPIDITY,
                       double maxeta =  MAXRAPIDITY,
-                      double minpt  =  0.0*GeV) {
-      setName("VisibleFinalState");
-      VetoedFinalState vfs(FinalState(mineta, maxeta, minpt));
-      vfs.vetoNeutrinos();
-      addProjection(vfs, "VFS");
-    }
+                      double minpt  =  0.0*GeV);
 
     /// Constructor with specific FinalState.
-    VisibleFinalState(const FinalState& fsp)
-    {
-      setName("VisibleFinalState");
-      VetoedFinalState vfs(fsp);
-      vfs.vetoNeutrinos();
-      addProjection(vfs, "VFS");
-    }
-
+    VisibleFinalState(const FinalState& fsp);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new VisibleFinalState(*this);
     }
+
     //@}
  
 
