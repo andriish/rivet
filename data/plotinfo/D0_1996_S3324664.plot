@@ -26,4 +26,9 @@ YLabel=$1/N \mathrm{d}N/\mathrm{d}\Delta\phi$
 Title=Correlation of the jets
 XLabel=$\Delta \eta = |\eta_1 - \eta_2|$
 YLabel=$\langle\cos(\pi-\Delta\phi)\rangle$
+LogY=0
+YMin=0.4
+YMax=1.0
+LegendXPos=0.5
+LegendYPos=0.5
 # END PLOT

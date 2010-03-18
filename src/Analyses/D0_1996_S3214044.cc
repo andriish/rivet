@@ -145,7 +145,7 @@ namespace Rivet {
     void _threeJetAnalysis(const Jets& jets, const double& weight) {
       // >=3 jet events
       FourMomentum jjj(jets[0].momentum()+jets[1].momentum()+jets[2].momentum());
-      const double sqrts = jjj.mass();
+      const double sqrts = _safeMass(jjj);
       if (sqrts<200*GeV) {
         return;
       }
@@ -169,16 +169,16 @@ namespace Rivet {
       _h_3j_x5->fill(2.0*p5.E()/sqrts, weight);
       _h_3j_costheta3->fill(fabs(cos(p3.theta())), weight);
       _h_3j_psi->fill(acos(cospsi)/degree, weight);
-      _h_3j_mu34->fill(FourMomentum(p3+p4).mass()/sqrts, weight);
-      _h_3j_mu35->fill(FourMomentum(p3+p5).mass()/sqrts, weight);
-      _h_3j_mu45->fill(FourMomentum(p4+p5).mass()/sqrts, weight);
+      _h_3j_mu34->fill(_safeMass(FourMomentum(p3+p4))/sqrts, weight);
+      _h_3j_mu35->fill(_safeMass(FourMomentum(p3+p5))/sqrts, weight);
+      _h_3j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts, weight);
     }
  
  
     void _fourJetAnalysis(const Jets& jets, const double& weight) {
       // >=4 jet events
       FourMomentum jjjj(jets[0].momentum() + jets[1].momentum() + jets[2].momentum()+ jets[3].momentum());
-      const double sqrts = jjjj.mass();
+      const double sqrts = _safeMass(jjjj);
       if (sqrts < 200*GeV) return;
    
       LorentzTransform cms_boost(-jjjj.boostVector());
@@ -212,17 +212,26 @@ namespace Rivet {
       _h_4j_cosomega45->fill(cos(p4.angle(p5)), weight);
       _h_4j_cosomega46->fill(cos(p4.angle(p6)), weight);
       _h_4j_cosomega56->fill(cos(p5.angle(p6)), weight);
-      _h_4j_mu34->fill(FourMomentum(p3+p4).mass()/sqrts, weight);
-      _h_4j_mu35->fill(FourMomentum(p3+p5).mass()/sqrts, weight);
-      _h_4j_mu36->fill(FourMomentum(p3+p6).mass()/sqrts, weight);
-      _h_4j_mu45->fill(FourMomentum(p4+p5).mass()/sqrts, weight);
-      _h_4j_mu46->fill(FourMomentum(p4+p6).mass()/sqrts, weight);
-      _h_4j_mu56->fill(FourMomentum(p5+p6).mass()/sqrts, weight);
+      _h_4j_mu34->fill(_safeMass(FourMomentum(p3+p4))/sqrts, weight);
+      _h_4j_mu35->fill(_safeMass(FourMomentum(p3+p5))/sqrts, weight);
+      _h_4j_mu36->fill(_safeMass(FourMomentum(p3+p6))/sqrts, weight);
+      _h_4j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts, weight);
+      _h_4j_mu46->fill(_safeMass(FourMomentum(p4+p6))/sqrts, weight);
+      _h_4j_mu56->fill(_safeMass(FourMomentum(p5+p6))/sqrts, weight);
       _h_4j_theta_BZ->fill(acos(costheta_BZ)/degree, weight);
       _h_4j_costheta_NR->fill(costheta_NR, weight);
    
     }
     
+    double _safeMass(const FourMomentum& p) {
+      double mass2=p.mass2();
+      if (mass2>0.0) return sqrt(mass2);
+      else if (mass2<-1.0e-5) {
+        getLog() << Log::WARNING << "m2 = " << m2 << ". Assuming m2=0." << endl;
+        return 0.0;
+      }
+      else return 0.0;
+    }
 
   private:
 
