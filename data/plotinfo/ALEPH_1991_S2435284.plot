@@ -2,5 +2,7 @@
 Title=Total charged multiplicity
 XLabel=$n_\text{ch}$
 YLabel=$2/\sigma \, \mathrm{d}{\sigma}/\mathrm{d}{n_\text{ch}}$
+LegendXPos=0.7
+LegendYPos=0.7
 # END PLOT
 
