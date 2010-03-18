@@ -34,7 +34,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      FinalState fs(-4.2, 4.2);
+      FinalState fs;
       FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
       addProjection(conefinder, "ConeFinder");
 

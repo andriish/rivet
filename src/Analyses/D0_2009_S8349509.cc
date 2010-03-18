@@ -32,7 +32,7 @@ namespace Rivet {
       ZFinder zfinder(-1.7, 1.7, 15.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2);
       addProjection(zfinder, "ZFinder");
    
-      FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5, 20.0*GeV);
+      FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       addProjection(conefinder, "ConeFinder");
    
       _h_dphi_jet_Z25 = bookHistogram1D(1, 1, 1);
@@ -57,7 +57,7 @@ namespace Rivet {
         _inclusive_Z_sumofweights += weight;
      
         Jets jets;
-        foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt()) {
+        foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20.0*GeV)) {
           if (fabs(j.momentum().pseudorapidity()) < 2.8) {
             jets.push_back(j);
             break;

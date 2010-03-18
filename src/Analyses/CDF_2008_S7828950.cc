@@ -31,7 +31,7 @@ namespace Rivet {
     // Book histos and set counters for number of events passed in each one
     void init() {
       const FinalState fs;
-      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7, 62.0*GeV), "JetsM07");
+      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "JetsM07");
 
       /// @todo What actually are these histos showing?
       _binnedHistosR07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1));
@@ -51,7 +51,7 @@ namespace Rivet {
     // Do the analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "JetsM07").jets()) {
+      foreach (const Jet& jet, applyProjection<FastJets>(event, "JetsM07").jets(62.0*GeV)) {
         _binnedHistosR07.fill(fabs(jet.momentum().rapidity()), jet.momentum().pT(), weight);
       }
     }

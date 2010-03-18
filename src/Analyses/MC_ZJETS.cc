@@ -26,7 +26,7 @@ namespace Rivet {
     void init() {
       ZFinder zfinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2);
       addProjection(zfinder, "ZFinder");
-      FastJets jetpro(zfinder.remainingFinalState(), FastJets::KT, 0.7, 20.0*GeV);
+      FastJets jetpro(zfinder.remainingFinalState(), FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
       _h_Z_mass = bookHistogram1D("Z_mass", 50, 66.0, 116.0);

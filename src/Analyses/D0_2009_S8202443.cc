@@ -39,13 +39,13 @@ namespace Rivet {
                                   65.0*GeV, 115.0*GeV, 0.2);
       addProjection(zfinder_constrained, "ZFinderConstrained");
       FastJets conefinder_constrained(zfinder_constrained.remainingFinalState(),
-                                      FastJets::D0ILCONE, 0.5, 20.0*GeV);
+                                      FastJets::D0ILCONE, 0.5);
       addProjection(conefinder_constrained, "ConeFinderConstrained");
    
       // Unconstrained leptons
       ZFinder zfinder(FinalState(), ELECTRON, 65.0*GeV, 115.0*GeV, 0.2);
       addProjection(zfinder, "ZFinder");
-      FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5, 20.0*GeV);
+      FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       addProjection(conefinder, "ConeFinder");
 
       _h_jet1_pT_constrained = bookHistogram1D(1, 1, 1);

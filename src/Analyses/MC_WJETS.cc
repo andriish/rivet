@@ -26,7 +26,7 @@ namespace Rivet {
     void init() {
       WFinder wfinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder, "WFinder");
-      FastJets jetpro(wfinder.remainingFinalState(), FastJets::KT, 0.7, 20.0*GeV);
+      FastJets jetpro(wfinder.remainingFinalState(), FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
       _h_W_mass = bookHistogram1D("W_mass", 50, 55.0, 105.0);

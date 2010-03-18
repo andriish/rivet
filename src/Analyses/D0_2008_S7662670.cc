@@ -38,11 +38,11 @@ namespace Rivet {
     {
    
       // Full final state
-      FinalState fs(-5.0, 5.0);
+      FinalState fs;
       addProjection(fs, "FS");
 
       // Jets
-      FastJets jetpro(fs, FastJets::D0ILCONE, 0.7, 6*GeV);
+      FastJets jetpro(fs, FastJets::D0ILCONE, 0.7);
       addProjection(jetpro, "Jets");
 
       // Book histograms
@@ -69,32 +69,24 @@ namespace Rivet {
    
       // Find the jets
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
-      // If there are no jets, skip the event
-      if (jetpro.jets().size() == 0) {
-        getLog() << Log::DEBUG << "No jets found" << endl;
-        vetoEvent;
-      }
-
       // Fill histo for each jet
-      foreach (const Jet& j, jetpro.jets()) {
+      foreach (const Jet& j, jetpro.jets(50.0*GeV)) {
         const double pt = j.momentum().pT();
         const double y = fabs(j.momentum().rapidity());
-        if (pt/GeV > 50) {
-          getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV
-                   << ", |y| = " << y << endl;
-          if (y < 0.4) {
-            _h_dsigdptdy_y00_04->fill(pt/GeV, weight);
-          } else if (y < 0.8) {
-            _h_dsigdptdy_y04_08->fill(pt/GeV, weight);
-          } else if (y < 1.2) {
-            _h_dsigdptdy_y08_12->fill(pt/GeV, weight);
-          } else if (y < 1.6) {
-            _h_dsigdptdy_y12_16->fill(pt/GeV, weight);
-          } else if (y < 2.0) {
-            _h_dsigdptdy_y16_20->fill(pt/GeV, weight);
-          } else if (y < 2.4) {
-            _h_dsigdptdy_y20_24->fill(pt/GeV, weight);
-          }
+        getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV
+            << ", |y| = " << y << endl;
+        if (y < 0.4) {
+          _h_dsigdptdy_y00_04->fill(pt/GeV, weight);
+        } else if (y < 0.8) {
+          _h_dsigdptdy_y04_08->fill(pt/GeV, weight);
+        } else if (y < 1.2) {
+          _h_dsigdptdy_y08_12->fill(pt/GeV, weight);
+        } else if (y < 1.6) {
+          _h_dsigdptdy_y12_16->fill(pt/GeV, weight);
+        } else if (y < 2.0) {
+          _h_dsigdptdy_y16_20->fill(pt/GeV, weight);
+        } else if (y < 2.4) {
+          _h_dsigdptdy_y20_24->fill(pt/GeV, weight);
         }
       }
    

@@ -36,7 +36,7 @@ namespace Rivet {
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
       addProjection(vfs, "JetFS");
-      FastJets jetpro(vfs, FastJets::KT, 0.7, 20.0*GeV);
+      FastJets jetpro(vfs, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
       _h_photon_pT = bookHistogram1D("photon_pT", logBinEdges(50, 1.0, 0.5*sqrtS()));

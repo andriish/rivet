@@ -47,7 +47,7 @@ namespace Rivet {
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
     FastJets(const FinalState& fsp, JetAlgName alg,
-             double rparameter, double pTmin=0.0, double seed_threshold=1.0);
+             double rparameter, double seed_threshold=1.0);
 
     /// Native argument constructor, using FastJet alg/scheme enums.
     FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,

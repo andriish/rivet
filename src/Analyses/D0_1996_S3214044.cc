@@ -30,10 +30,10 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      const FinalState fs(-4.5, 4.5);
+      const FinalState fs;
       addProjection(fs, "FS");
       /// @todo Use correct jet algorithm
-      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 20.0*GeV), "ConeJets");
+      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
    
       _h_3j_x3 = bookHistogram1D(1, 1, 1);
       _h_3j_x5 = bookHistogram1D(2, 1, 1);
@@ -73,7 +73,7 @@ namespace Rivet {
       const double weight = event.weight();
    
       Jets jets_in;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jetsByEt()) {
+      foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jetsByEt(20.0*GeV)) {
         if (fabs(jet.momentum().eta()) < 3.0) {
           jets_in.push_back(jet);
         }

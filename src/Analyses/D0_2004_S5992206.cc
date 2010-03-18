@@ -45,7 +45,7 @@ namespace Rivet {
       // Final state for jets, mET etc.
       const FinalState fs(-3.0, 3.0);
       addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7, 6*GeV), "Jets");
+      addProjection(FastJets(FinalState(), FastJets::D0ILCONE, 0.7), "Jets");
       addProjection(TotalVisibleMomentum(fs), "CalMET");
    
       // Veto neutrinos, and muons with pT above 1.0 GeV

@@ -49,7 +49,7 @@ namespace Rivet {
       addProjection(vfs, "JetFS");
    
       // Jet finder
-      FastJets jets(vfs, FastJets::D0ILCONE, 0.5, 20.0*GeV);
+      FastJets jets(vfs, FastJets::D0ILCONE, 0.5);
       addProjection(jets, "Jets");
    
       _crossSectionRatio = bookHistogram1D(1, 1, 1);
