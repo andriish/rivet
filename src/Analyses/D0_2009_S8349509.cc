@@ -16,7 +16,8 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    D0_2009_S8349509() : Analysis("D0_2009_S8349509")
+    D0_2009_S8349509() : Analysis("D0_2009_S8349509"),
+                         _inclusive_Z_sumofweights(0.0)
     {
       setBeams(PROTON, ANTIPROTON);
     }
@@ -55,6 +56,11 @@ namespace Rivet {
       if (zfinder.particles().size()==1) {
         // count inclusive sum of weights for histogram normalisation
         _inclusive_Z_sumofweights += weight;
+        
+        const FourMomentum Zmom = zfinder.particles()[0].momentum();
+        if (Zmom.pT()<25.0*GeV) {
+          vetoEvent;
+        }
      
         Jets jets;
         foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20.0*GeV)) {
@@ -80,7 +86,6 @@ namespace Rivet {
           }
         }
      
-        const FourMomentum Zmom = zfinder.particles()[0].momentum();
         const FourMomentum jetmom = jets[0].momentum();
         double yZ = Zmom.rapidity();
         double yjet = jetmom.rapidity();
