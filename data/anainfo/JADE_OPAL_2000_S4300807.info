@@ -13,9 +13,7 @@ References:
 RunInfo:
   $e^+ e^- \to$ jet jet (+ jets)
 NumEvents: 1000000
-Energies: [35, 44, 91, 189]
-ToDo:
- - Correct/complete list of valid energies in this metadata!
+Energies: [35, 44, 91, 133, 161, 172, 183, 189]
 PtCuts: [0]
 Description:
   Differential and integrated jet rates for Durham and JADE jet
