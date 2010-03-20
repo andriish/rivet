@@ -19,10 +19,10 @@ namespace Rivet {
       ChargedFinalState cfs(-2.5, 2.5, 0.5*GeV);
       addProjection(cfs, "CFS");
 
-      _h_dNch_deta = bookHistogram1D(1, 1, 1);
-      _h_dNch_dpT = bookHistogram1D(1, 1, 2);
-      _h_dNevt_dNch = bookHistogram1D(1, 1, 3);
-      _p_meanpT_Nch = bookProfile1D(1, 1, 4);
+      _h_dNch_deta = bookHistogram1D(2, 1, 1);
+      _h_dNch_dpT = bookHistogram1D(3, 1, 1);
+      _h_dNevt_dNch = bookHistogram1D(4, 1, 1);
+      _p_meanpT_Nch = bookProfile1D(5, 1, 1);
     }
 
 
