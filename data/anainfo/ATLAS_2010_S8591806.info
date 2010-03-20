@@ -4,7 +4,7 @@ Summary: Charged particles at 900 GeV in ATLAS
 Experiment: ATLAS
 Collider: LHC 900GeV
 SpiresID: 8591806
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:
@@ -21,3 +21,4 @@ Description:
   ity, and the relationship between transverse momentum and charged-particle
   multiplicity are measured for events with at least one charged particle in
   the kinematic range $|\eta| < 2.5$ and $p_\perp > 500$ MeV.
+  All data is corrected to the particle level.
