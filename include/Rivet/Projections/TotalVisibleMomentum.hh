@@ -4,15 +4,16 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projection.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
 namespace Rivet {
 
 
-  /// Project out the total visible energy vector, allowing missing
+  /// Project out the total energy vector, allowing missing
   /// \f$ E_T \f$ etc. to be calculated.
+  /// @deprecated This is confusing because the visibility is not automatic. Use MissingMomentum instead.
   class TotalVisibleMomentum : public Projection {
  
   public:

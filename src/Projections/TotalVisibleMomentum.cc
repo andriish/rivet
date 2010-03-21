@@ -17,8 +17,6 @@ namespace Rivet {
 
     // Project into final state
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
-
-    // Get hadron and charge info for each particle, and fill counters appropriately
     foreach (const Particle& p, fs.particles()) {
       const FourMomentum& mom = p.momentum();
       _momentum += mom;

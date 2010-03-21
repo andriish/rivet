@@ -1,3 +1,14 @@
+2010-03-21  Andy Buckley  <andy@insectnation.org>
+
+	* Adding MissingMomentum projection, as replacement for ~all uses
+	of now-deprecated TotalVisibleMomentum projection.
+
+	* Fixing bug with TotalVisibleMomentum projection usage in MC_SUSY
+	analysis.
+
+	* Frank Siegert fixed major bug in pTmin param passing to FastJets
+	projection. D'oh: requires patch release.
+
 2010-03-02  Andy Buckley  <andy@insectnation.org>
 
 	* Tagging for 1.2.0 release... at last!
