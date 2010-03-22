@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.2.0],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.2.1],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
@@ -258,6 +258,14 @@ AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
   AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g "])
+fi
+
+
+## Extra warnings flag (default=none)
+AC_ARG_ENABLE([extra-warnings], [AC_HELP_STRING(--enable-extra-warnings, 
+  [build with extra compiler warnings (recommended for developers)  @<:@default=no@:>@])], [], [enable_extra_warnings=no])
+if test x$enable_extra_warnings == xyes; then
+   AC_CEDAR_CHECKCXXFLAG([-Wextra], [AM_CXXFLAGS="$AM_CXXFLAGS -Wextra "])
 fi
 
 

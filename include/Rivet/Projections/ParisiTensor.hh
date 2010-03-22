@@ -38,22 +38,22 @@ namespace Rivet {
      \f$r\f$ parameter set to 1.
   */
   class ParisiTensor : public Projection {
-
   public:
 
     /// Constructor. The provided FinalState projection must live throughout the run.
     ParisiTensor(const FinalState& fsp)
-      : _C(0), _D(0)
     {
       setName("ParisiTensor");
       addProjection(fsp, "FS");
       addProjection(Sphericity(fsp, 1.0), "Sphericity");
+      clear();
     }
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new ParisiTensor(*this);
     }
+
 
   protected:
 
@@ -63,20 +63,28 @@ namespace Rivet {
     /// Compare with other projections.
     int compare(const Projection& p) const;
 
+
+  public:
+
+    /// Clear the projection.
+    void clear();
+
+
   public:
 
     /// @name Access the C and D params.
     ///@{
-    const double C() const { return _C; }
-    const double D() const { return _D; }
+    double C() const { return _C; }
+    double D() const { return _D; }
     ///@}
 
     /// @name Access the eigenvalues of \f$\theta\f$.
     ///@{
-    const double lambda1() const { return _lambda[0]; }
-    const double lambda2() const { return _lambda[1]; }
-    const double lambda3() const { return _lambda[2]; }
+    double lambda1() const { return _lambda[0]; }
+    double lambda2() const { return _lambda[1]; }
+    double lambda3() const { return _lambda[2]; }
     ///@}
+
      
   private:
  
@@ -85,7 +93,9 @@ namespace Rivet {
 
     /// Eigenvalues.
     double _lambda[3];
+
   };
+
 
 }
 

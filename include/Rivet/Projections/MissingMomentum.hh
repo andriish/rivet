@@ -52,13 +52,10 @@ namespace Rivet {
     const FourMomentum& momentum() const { return _momentum; }
 
     /// The projected scalar transverse energy
-    const double scalarET() const { return _set; }
+    double scalarET() const { return _set; }
  
 
   protected:
-
-    /// Clear the projection results.
-    void clear();
  
     /// Apply the projection to the event.
     void project(const Event& e);
@@ -66,6 +63,12 @@ namespace Rivet {
     /// Compare projections.
     int compare(const Projection& p) const;
      
+
+  public:
+
+    /// Clear the projection results.
+    void clear();
+
 
   private:
  

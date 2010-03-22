@@ -20,6 +20,18 @@
 #include <cassert>
 #include <fstream>
 
+
+// Macro to help with overzealous compiler warnings
+#ifdef UNUSED
+#elif defined(__GNUC__)
+# define UNUSED(x) UNUSED_ ## x __attribute__((unused))
+#elif defined(__LCLINT__)
+# define UNUSED(x) /*@unused@*/ x
+#else
+# define UNUSED(x) x
+#endif
+
+
 namespace Rivet {
 
   // Convenient imports of common STL classes and functions.

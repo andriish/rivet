@@ -82,13 +82,13 @@ namespace Rivet {
     /// @name Access the event shapes by name
     /// @{
     /// Sphericity
-    const double sphericity() const { return 3.0 / 2.0 * (lambda2() + lambda3()); }
+    double sphericity() const { return 3.0 / 2.0 * (lambda2() + lambda3()); }
     /// Transverse Sphericity
-    const double transSphericity() const { return 2.0 * lambda2() / ( lambda1() + lambda2() ); }
+    double transSphericity() const { return 2.0 * lambda2() / ( lambda1() + lambda2() ); }
     /// Planarity
-    const double planarity() const { return 2 * (sphericity() - 2 * aplanarity()) / 3.0; }
+    double planarity() const { return 2 * (sphericity() - 2 * aplanarity()) / 3.0; }
     /// Aplanarity
-    const double aplanarity() const { return 3 / 2.0 * lambda3(); }
+    double aplanarity() const { return 3 / 2.0 * lambda3(); }
     /// @}
 
     /// @name Access the sphericity basis vectors
@@ -110,9 +110,9 @@ namespace Rivet {
 
     /// @name Access the momentum tensor eigenvalues
     /// @{
-    const double lambda1() const { return _lambdas[0]; }
-    const double lambda2() const { return _lambdas[1]; }
-    const double lambda3() const { return _lambdas[2]; }
+    double lambda1() const { return _lambdas[0]; }
+    double lambda2() const { return _lambdas[1]; }
+    double lambda3() const { return _lambdas[2]; }
     /// @}
 
 

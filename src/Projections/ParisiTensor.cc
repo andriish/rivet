@@ -5,12 +5,24 @@
 
 namespace Rivet {
 
+
   int ParisiTensor::compare(const Projection& p) const {
     return mkNamedPCmp(p, "Sphericity");
   }
 
 
+  void ParisiTensor::clear() {
+    _lambda[0] = 0;
+    _lambda[1] = 0;
+    _lambda[2] = 0;
+    _C = 0;
+    _D = 0;
+  }
+
+
   void ParisiTensor::project(const Event & e) {
+    clear();
+
     // Apply sphericity projection to event
     Sphericity sph = applyProjection<Sphericity>(e, "Sphericity");
 
@@ -21,5 +33,6 @@ namespace Rivet {
     _C = 3 * ( lambda1()*lambda2() + lambda1()*lambda3() + lambda2()*lambda3() );
     _D = 27 * lambda1() * lambda2() * lambda3();
   }
+
 
 }

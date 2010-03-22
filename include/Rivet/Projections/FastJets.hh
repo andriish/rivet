@@ -54,7 +54,7 @@ namespace Rivet {
              fastjet::RecombinationScheme recom, double rparameter);
 
     /// Explicitly pass in an externally-constructed plugin
-    FastJets(const FinalState& fsp, const fastjet::JetDefinition::Plugin& plugin);
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin);
 
     // /// Explicit copy constructor.
     // FastJets(const FastJets& other);

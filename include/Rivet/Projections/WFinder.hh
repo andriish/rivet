@@ -80,6 +80,12 @@ namespace Rivet {
     int compare(const Projection& p) const;
 
 
+  public:
+
+    /// Clear the projection
+    void clear();
+
+
   private:
 
     /// Common implementation of constructor operation, taking FS params.

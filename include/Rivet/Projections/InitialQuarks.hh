@@ -9,10 +9,9 @@
 namespace Rivet {
 
 
-  /// Project out quarks from the hard process in e+e- -> Z0 events
+  /// Project out quarks from the hard process in e+ e- -> Z0 events
   /// @deprecated This is a very dangerous and specific projection! Use e.g. PID::hasBottom and friends instead
-  class InitialQuarks : public Projection {
- 
+  class InitialQuarks : public Projection { 
   public:
  
     /// @name Standard constructors and destructors.
@@ -35,9 +34,10 @@ namespace Rivet {
     virtual const ParticleVector& particles() const { return _theParticles; }
 
     /// Is this final state empty?
-    virtual const bool empty() const { return _theParticles.empty(); }
+    virtual bool empty() const { return _theParticles.empty(); }
     /// @deprecated Is this final state empty?
-    virtual const bool isEmpty() const { return _theParticles.empty(); }
+    virtual bool isEmpty() const { return _theParticles.empty(); }
+
 
   protected:
  
@@ -47,6 +47,7 @@ namespace Rivet {
     /// Compare projections.
     virtual int compare(const Projection& p) const;
  
+
   protected:
 
     /// The final-state particles.

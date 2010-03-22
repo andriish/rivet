@@ -22,7 +22,6 @@ namespace Rivet {
     setName("FastJets");
     getLog() << Log::DEBUG << "R parameter = " << rparameter << endl;
     getLog() << Log::DEBUG << "Seed threshold = " << seed_threshold << endl;
-    //addProjection(fsp, "FS");
     if (alg == KT) {
       _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
     } else if (alg == CAM) {
@@ -63,18 +62,17 @@ namespace Rivet {
     : JetAlg(fsp)
   {
     setName("FastJets");
-    //addProjection(fsp, "FS");
     _jdef = fastjet::JetDefinition(type, rparameter, recom);
   }
 
 
-  FastJets::FastJets(const FinalState& fsp, const fastjet::JetDefinition::Plugin& plugin)
+  FastJets::FastJets(const FinalState& fsp, 
+                     fastjet::JetDefinition::Plugin& plugin)
     : JetAlg(fsp)
   {
     setName("FastJets");
-    //addProjection(fsp, "FS");
-    /// @todo Need to copy the plugin to make a shared_ptr?
-    //_plugin = &plugin;
+    /// @todo Should we be copying the plugin?
+    _plugin.reset(&plugin);
     _jdef = fastjet::JetDefinition(_plugin.get());
   }
 

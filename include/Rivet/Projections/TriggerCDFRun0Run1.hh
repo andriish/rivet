@@ -30,7 +30,7 @@ namespace Rivet {
   public:
 
     /// The trigger result
-    const bool minBiasDecision() const {
+    bool minBiasDecision() const {
       return _decision_mb;
     }
 
@@ -41,7 +41,7 @@ namespace Rivet {
   protected:
 
     /// Compare with other projections.
-    virtual int compare(const Projection& p) const {
+    virtual int compare(const Projection& UNUSED(p)) const {
       return EQUIVALENT;
     }
 

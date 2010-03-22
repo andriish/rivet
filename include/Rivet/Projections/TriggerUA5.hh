@@ -26,23 +26,23 @@ namespace Rivet {
   public:
 
     /// The trigger result for non-single diffractive (2 arm) trigger
-    const bool sdDecision() const {
+    bool sdDecision() const {
       return _decision_sd;
     }
 
     /// The trigger result for non-single diffractive (2 arm) trigger
-    const bool nsdDecision() const {
+    bool nsdDecision() const {
       return _decision_nsd_1;
     }
 
     /// The trigger result for non-single diffractive (2 arm) trigger
     /// with special ">= 2" trigger for ppbar bg rejection
-    const bool nsd2Decision() const {
+    bool nsd2Decision() const {
       return _decision_nsd_2;
     }
 
     /// The trigger result
-    const bool samebeams() const {
+    bool samebeams() const {
       return _samebeams;
     }
 
@@ -58,7 +58,7 @@ namespace Rivet {
   protected:
 
     /// Compare with other projections.
-    virtual int compare(const Projection& p) const {
+    virtual int compare(const Projection& UNUSED(p)) const {
       return EQUIVALENT;
     }
 

@@ -78,6 +78,9 @@ namespace Rivet {
     _m2_min = m2_min;
     _m2_max = m2_max;
 
+    // Set ETmiss
+    _etMiss = missingET;
+
     // Make and register an invariant mass final state for the W decay leptons
     vector<pair<PdgId, PdgId> > l_nu_ids;
     l_nu_ids += make_pair(abs(pid), -abs(nu_pid));
@@ -133,8 +136,13 @@ namespace Rivet {
   }
 
 
-  void WFinder::project(const Event& e) {
+  void WFinder::clear() {
     _theParticles.clear();
+  }
+
+
+  void WFinder::project(const Event& e) {
+    clear();
 
     const FinalState& imfs = applyProjection<FinalState>(e, "IMFS");
     if (imfs.particles().size() != 2) {

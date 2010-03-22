@@ -20,7 +20,7 @@ namespace Rivet {
   /// risk of floating point error, this function just exists in
   /// case @c isZero is accidentally used on an integer type, to avoid
   /// implicit type conversion. The @a tolerance parameter is ignored.
-  inline bool isZero(long val, double tolerance=1E-8) {
+  inline bool isZero(long val, double UNUSED(tolerance)=1E-8) {
     return val == 0;
   }
 
@@ -58,7 +58,7 @@ namespace Rivet {
   /// used on an integer type, to avoid implicit type conversion. The @a
   /// tolerance parameter is ignored, even if it would have an
   /// absolute magnitude greater than 1.
-  inline bool fuzzyEquals(long a, long b, double tolerance=1E-5) {
+  inline bool fuzzyEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
     return a == b;
   }
 

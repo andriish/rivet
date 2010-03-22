@@ -12,7 +12,6 @@ namespace Rivet {
 
   /// Count the final-state particles in an event.
   class Multiplicity : public Projection {
-
   public:
 
     /// Constructor. The provided FinalState projection must live throughout the run.
@@ -28,6 +27,7 @@ namespace Rivet {
       return new Multiplicity(*this);
     }
 
+
   protected:
 
     /// Perform the projection on the Event.
@@ -36,15 +36,16 @@ namespace Rivet {
     /// Compare projections.
     int compare(const Projection& p) const;
 
+
   public:
 
     /// @name Access the projected multiplicities.
     //@ {
     /// Total multiplicity
-    const unsigned int totalMultiplicity() const { return _totalMult; }
+    unsigned int totalMultiplicity() const { return _totalMult; }
 
     /// Hadron multiplicity
-    const unsigned int hadronMultiplicity() const { return _hadMult; }
+    unsigned int hadronMultiplicity() const { return _hadMult; }
     //@ }
 
   private:

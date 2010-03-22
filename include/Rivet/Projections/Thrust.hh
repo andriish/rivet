@@ -78,13 +78,13 @@ namespace Rivet {
 
     ///@{ Thrust scalar accessors
     /// The thrust scalar, \f$ T \f$, (maximum thrust).
-    const double thrust() const { return _thrusts[0]; }
+    double thrust() const { return _thrusts[0]; }
     /// The thrust major scalar, \f$ M \f$, (thrust along thrust major axis).
-    const double thrustMajor() const { return _thrusts[1]; }
+    double thrustMajor() const { return _thrusts[1]; }
     /// The thrust minor scalar, \f$ m \f$, (thrust along thrust minor axis).
-    const double thrustMinor() const { return _thrusts[2]; }
+    double thrustMinor() const { return _thrusts[2]; }
     /// The oblateness, \f$ O = M - m \f$ .
-    const double oblateness() const { return _thrusts[1] - _thrusts[2]; }
+    double oblateness() const { return _thrusts[1] - _thrusts[2]; }
     ///@}
 
     ///@{ Thrust axis accessors

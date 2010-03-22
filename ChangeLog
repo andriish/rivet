@@ -1,3 +1,19 @@
+2010-03-22  Andy Buckley  <andy@insectnation.org>
+
+	* Tag as pach release 1.2.1.
+
+	* General tidying of return arguments and intentionally unused
+	parameters to keep -Wextra happy (some complaints remain from
+	TinyXML, FastJet, and HepMC).
+
+	* Some extra bug fixes: in FastJets projection with explicit
+	plugin argument, removing muon veto cut on FoxWolframMoments.
+
+	* Adding UNUSED macro to help with places where compiler warnings
+	can't be helped.
+
+	* Turning on -Wextra warnings, and fixing some violations.
+
 2010-03-21  Andy Buckley  <andy@insectnation.org>
 
 	* Adding MissingMomentum projection, as replacement for ~all uses

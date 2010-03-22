@@ -92,7 +92,8 @@ namespace Rivet {
 
 
   // Clone neatly
-  const Projection* ProjectionHandler::_clone(const ProjectionApplier& parent,
+  /// @todo Remove the 'parent' argument?
+  const Projection* ProjectionHandler::_clone(const ProjectionApplier& UNUSED(parent),
                                               const Projection& proj)
   {
     // Clone a new copy of the passed projection on the heap

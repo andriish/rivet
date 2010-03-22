@@ -51,9 +51,10 @@ namespace Rivet {
     /// Do the projection.
     void project(const Event& e);
 
+
     /// Compare projections.
-    int compare(const Projection & p) const {
-      return 0;
+    int compare(const Projection& UNUSED(p)) const {
+      return EQUIVALENT;
     }
  
 

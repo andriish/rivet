@@ -39,7 +39,7 @@ namespace Rivet {
     const FourMomentum& momentum() const { return _momentum; }
 
     /// The projected scalar transverse energy
-    const double scalarET() const { return _set; }
+    double scalarET() const { return _set; }
  
 
   protected:
