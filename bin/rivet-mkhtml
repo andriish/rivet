@@ -35,6 +35,8 @@ parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default
                   help="Plot config file(s) to be used with make-plots.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
                   default=False, help="Display plots on single webpage.")
+parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
+                  default=False, help="Ignore unvalidated analyses.")
 
 
 opts, aidafiles = parser.parse_args()
@@ -99,7 +101,7 @@ for configfile in opts.CONFIGFILES:
     if os.access(os.path.expanduser(configfile), os.R_OK):
         mp_cmd.append("-c")
         mp_cmd.append(os.path.expanduser(configfile))
-for analysis in sorted(analyses):
+for analysis in sorted(analyses, reverse=True):
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     datfiles = glob.glob("%s/*.dat" % anapath)
     for datfile in sorted(datfiles):
@@ -135,16 +137,18 @@ index.write('<h2>Plots from Rivet analyses</h2>\n\n')
 if opts.SINGLE:
     # write table of contents
     index.write('<ul>\n')
-    for analysis in sorted(analyses):
+    for analysis in sorted(analyses, reverse=True):
         summary=analysis
         if rivetavailable:
             ana=rivet.AnalysisLoader.getAnalysis(analysis)
             if ana:
                 summary="%s (%s)" % (ana.summary(), analysis)
+                if opts.IGNORE_UNVALIDATED and ana.status()!="VALIDATED":
+                    continue
         index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
     index.write('</ul>\n')
 
-for analysis in sorted(analyses):
+for analysis in sorted(analyses, reverse=True):
     references=[]
     summary=analysis
     description="Description not available."
@@ -156,6 +160,8 @@ for analysis in sorted(analyses):
             references=ana.references()
             description=ana.description()
             spiresid=ana.spiresId()
+            if opts.IGNORE_UNVALIDATED and ana.status()!="VALIDATED":
+                continue
     if opts.SINGLE:
         index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
     else:
