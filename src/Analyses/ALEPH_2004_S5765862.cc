@@ -127,60 +127,8 @@ namespace Rivet {
       // jet rates
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
-        /// @todo Put this in an index loop?
-        double y_12 = log(durjet.clusterSeq()->exclusive_ymerge(1));
-        double y_23 = log(durjet.clusterSeq()->exclusive_ymerge(2));
-        double y_34 = log(durjet.clusterSeq()->exclusive_ymerge(3));
-        double y_45 = log(durjet.clusterSeq()->exclusive_ymerge(4));
-        double y_56 = log(durjet.clusterSeq()->exclusive_ymerge(5));
-     
-        _h_y_Durham[0]->fill(-y_12, weight);
-        _h_y_Durham[1]->fill(-y_23, weight);
-        _h_y_Durham[2]->fill(-y_34, weight);
-        _h_y_Durham[3]->fill(-y_45, weight);
-        _h_y_Durham[4]->fill(-y_56, weight);
-     
-        /// @todo Do this more elegant, maybe even in finalize
-        for (int i = 0; i < _h_R_Durham[0]->size(); ++i) {
-          IDataPoint* dp = _h_R_Durham[0]->point(i);
-          if (y_12 < dp->coordinate(0)->value()) {
-            dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-          }
-        }
-        for (int i = 0; i < _h_R_Durham[1]->size(); ++i) {
-          IDataPoint* dp = _h_R_Durham[1]->point(i);
-          double ycut = dp->coordinate(0)->value();
-          if (y_23 < ycut && y_12 > ycut) {
-            dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-          }
-        }
-        for (int i = 0; i < _h_R_Durham[2]->size(); ++i) {
-          IDataPoint* dp = _h_R_Durham[2]->point(i);
-          double ycut = dp->coordinate(0)->value();
-          if (y_34 < ycut && y_23 > ycut) {
-            dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-          }
-        }
-        for (int i = 0; i < _h_R_Durham[3]->size(); ++i) {
-          IDataPoint* dp = _h_R_Durham[3]->point(i);
-          double ycut = dp->coordinate(0)->value();
-          if (y_45 < ycut && y_34 > ycut) {
-            dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-          }
-        }
-        for (int i = 0; i < _h_R_Durham[4]->size(); ++i) {
-          IDataPoint* dp = _h_R_Durham[4]->point(i);
-          double ycut = dp->coordinate(0)->value();
-          if (y_56 < ycut && y_45 > ycut) {
-            dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-          }
-        }
-        for (int i = 0; i < _h_R_Durham[5]->size(); ++i) {
-          IDataPoint* dp = _h_R_Durham[5]->point(i);
-          double ycut = dp->coordinate(0)->value();
-          if (y_56 > ycut) {
-            dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-          }
+        for (int i=0; i<5; ++i) {
+          _h_y_Durham[i]->fill(-log(durjet.clusterSeq()->exclusive_ymerge(i+1)), weight);
         }
       }
     }
@@ -201,17 +149,52 @@ namespace Rivet {
       normalize(_h_oblateness);
       normalize(_h_sphericity);
       
-      
-      for (size_t n = 0; n < 5; ++n) {
-        scale(_h_y_Durham[n], 1.0/sumOfWeights());
+      for (int N=1; N<7; ++N) {
+        // calculate the N jet fraction from the jet resolution histograms
+        
+        for (int i = 0; i < _h_R_Durham[N-1]->size(); ++i) {
+          IDataPoint* dp = _h_R_Durham[N-1]->point(i);
+          // get ycut at which the njet-fraction is to be calculated
+          /// @todo HepData has binwidths here, which doesn't make sense at all
+          /// I assume the low edge to be the ycut
+          double ycut = dp->coordinate(0)->value()-dp->coordinate(0)->errorMinus();
+          
+          // sum all >=N jet events
+          double sigmaNinclusive = 0.0; 
+          if (N>1) {
+            AIDA::IHistogram1D* y_Nminus1_N = _h_y_Durham[N-2];
+            // watch out, y_NM is negatively binned
+            int cutbin=y_Nminus1_N->coordToIndex(-ycut);
+            if (cutbin==AIDA::IAxis::UNDERFLOW_BIN) cutbin=0;
+            if (cutbin==AIDA::IAxis::OVERFLOW_BIN) cutbin=y_Nminus1_N->axis().bins()-1;
+            for (int ibin=0; ibin<cutbin; ++ibin) {
+              sigmaNinclusive += y_Nminus1_N->binHeight(ibin);
+            }
+          }
+          else sigmaNinclusive = sumOfWeights();
+          
+          // sum all >=N+1 jet events
+          double sigmaNplus1inclusive = 0.0;
+          if (N<6) {
+            AIDA::IHistogram1D* y_N_Nplus1 = _h_y_Durham[N-1];
+            // watch out, y_NM is negatively binned
+            int cutbin=y_N_Nplus1->coordToIndex(-ycut);
+            if (cutbin==AIDA::IAxis::UNDERFLOW_BIN) cutbin=0;
+            if (cutbin==AIDA::IAxis::OVERFLOW_BIN) cutbin=y_N_Nplus1->axis().bins();
+            for (int ibin=0; ibin<cutbin; ++ibin) {
+              sigmaNplus1inclusive += y_N_Nplus1->binHeight(ibin);
+            }
+          }
+
+          // njetfraction = (sigma(>=N jet) - sigma(>=N+1 jet)) / sigma(tot)
+          double njetfraction = (sigmaNinclusive-sigmaNplus1inclusive)/sumOfWeights();
+          dp->coordinate(1)->setValue(njetfraction);
+        }
       }
       
-      for (size_t n = 0; n < 6; ++n) {
-        // Scale integrated jet rates to 1
-        for (int i = 0; i < _h_R_Durham[n]->size(); ++i) {
-          IDataPoint* dp = _h_R_Durham[n]->point(i);
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value()/sumOfWeights());
-        }
+
+      for (size_t n = 0; n < 5; ++n) {
+        scale(_h_y_Durham[n], 1.0/sumOfWeights());
       }
       
     }
