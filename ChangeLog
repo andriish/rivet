@@ -1,6 +1,8 @@
-2010-03-22  Andy Buckley  <andy@insectnation.org>
+2010-03-23  Andy Buckley  <andy@insectnation.org>
 
-	* Tag as pach release 1.2.1.
+	* Tag as patch release 1.2.1.
+
+2010-03-22  Andy Buckley  <andy@insectnation.org>
 
 	* General tidying of return arguments and intentionally unused
 	parameters to keep -Wextra happy (some complaints remain from
