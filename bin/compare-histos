@@ -256,7 +256,7 @@ if __name__ == "__main__":
 
         ## Identify contributing data files for this histo
         activefiles = []
-        for f in FILES + ["REF"]:
+        for f in ["REF"] + FILES:
             if HISTOS.has_key(f):
                 d = HISTOS[f]
                 if d.has_key(name):
@@ -294,6 +294,9 @@ if __name__ == "__main__":
                          "LogY" : "%d" % int((len(HISTOS[ref][name].getBins()) > 1) and not opts.LINEAR),
                          "DrawOnly" : drawonlystr,
                          "RatioPlot" : "%d" % int(not opts.NORATIO),
+                         "XTwosidedTicks" : "1",
+                         "YTwosidedTicks" : "1",
+                         "LegendYPos" : "0.92",
                          "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath())}
 
         headstr  = "# BEGIN PLOT\n"
@@ -329,7 +332,7 @@ if __name__ == "__main__":
             if HISTOS[hfile][name].isdata:
                 histstr += "ErrorBars=1\n"
                 histstr += "PolyMarker=*\n"
-                histstr += "Title=%s\n" % LABELS["REF"]
+                histstr += "Title=%s data\n" % HISTOS[hfile][name].histoPath().split("_")[0]
             else:
                 color, style = STYLES[i % len(STYLES)]
                 if opts.MC_ERRS:
