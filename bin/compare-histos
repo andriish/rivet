@@ -332,7 +332,10 @@ if __name__ == "__main__":
             if HISTOS[hfile][name].isdata:
                 histstr += "ErrorBars=1\n"
                 histstr += "PolyMarker=*\n"
-                histstr += "Title=%s data\n" % HISTOS[hfile][name].histoPath().split("_")[0]
+                expname = HISTOS[hfile][name].histoPath().split("_")[0]
+                if expname.startswith("/"):
+                    expname = expname[1:]
+                histstr += "Title=%s data\n" % expname
             else:
                 color, style = STYLES[i % len(STYLES)]
                 if opts.MC_ERRS:
