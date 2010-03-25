@@ -121,7 +121,7 @@ if __name__ == "__main__":
                 hist = lighthisto.Histo.fromDPS(dps)
                 try:
                     plotparser.updateHistoHeaders(hist)
-                except VallueError, err:
+                except ValueError, err:
                     logging.warn(err.message)
                 histos.append(hist)
         if len(histos) > 0:
