@@ -144,8 +144,8 @@ if __name__ == "__main__":
     if opts.REF_ID != "REF":
         opts.REF_ID = os.path.abspath(opts.REF_ID)
         if not os.access(opts.REF_ID, os.R_OK):
-            logging.error("Error: cannot read reference file %s" % opts.REFNAME)
-            exit(2)
+            logging.error("Error: cannot read reference file %s" % opts.REF_ID)
+            sys.exit(2)
 
 
     def getHistos(aidafile):
@@ -332,10 +332,10 @@ if __name__ == "__main__":
             if HISTOS[hfile][name].isdata:
                 histstr += "ErrorBars=1\n"
                 histstr += "PolyMarker=*\n"
-                expname = HISTOS[hfile][name].histoPath().split("_")[0]
-                if expname.startswith("/"):
-                    expname = expname[1:]
-                histstr += "Title=%s data\n" % expname
+                legendtitle = LABELS["REF"]
+                if legendtitle == "data":
+                    legendtitle = "%s data" % HISTOS[hfile][name].histoPath().split("_")[0][1:]
+                histstr += "Title=%s\n" % legendtitle
             else:
                 color, style = STYLES[i % len(STYLES)]
                 if opts.MC_ERRS:
