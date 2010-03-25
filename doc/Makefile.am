@@ -7,7 +7,7 @@ DOCSOURCES = compare-histos.txt  heppennames.sty warning.png thinker.png cone.pn
   make-plots.txt rivet-manual.tex preamble.tex hepparticles.sty maybemath.sty \
   rivet-manual.pdf hepunits.sty underscore.sty microtype.sty
 
-EXTRA_DIST = $(DOCSOURCES) readplot.py
+EXTRA_DIST = $(DOCSOURCES) readplot.py spiresbib.py
 
 if WITH_ASCIIDOC
 EXTRA_DIST += compare-histos.html make-plots.html
