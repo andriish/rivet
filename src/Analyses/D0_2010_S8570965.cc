@@ -81,6 +81,7 @@ namespace Rivet {
       if (isolated_photons.size() != 2) {
         vetoEvent;
       }
+      std::sort(isolated_photons.begin(), isolated_photons.end(), cmpParticleByPt);
       
       FourMomentum y1=isolated_photons[0].momentum();
       FourMomentum y2=isolated_photons[1].momentum();
