@@ -63,7 +63,14 @@ test -n "$tmp" && {
 tmp=$( echo "$*" | egrep -- '--\<cppflags\>')
 irivet="@includedir@"
 ihepmc="@HEPMCINCPATH@"
-test -n "$tmp" && OUT="$OUT -I${irivet} -I${ihepmc}"
+ifastjet="@FASTJETINCPATH@"
+igsl="@GSLINCPATH@"
+if test -n "$tmp"; then
+    test -n "$irivet" && OUT="$OUT -I${irivet}"
+    test -n "$ihepmc" && OUT="$OUT -I${ihepmc}"
+    test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
+    test -n "$igsl" && OUT="$OUT -I${igsl}"
+fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
 test -n "$tmp" && OUT="$OUT -L@libdir@"
