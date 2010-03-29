@@ -61,15 +61,17 @@ test -n "$tmp" && {
 
 ## "Pre-rolled" build info
 tmp=$( echo "$*" | egrep -- '--\<cppflags\>')
-irivet="@includedir@"
-ihepmc="@HEPMCINCPATH@"
-ifastjet="@FASTJETINCPATH@"
-igsl="@GSLINCPATH@"
 if test -n "$tmp"; then
+    irivet="@includedir@"
     test -n "$irivet" && OUT="$OUT -I${irivet}"
+    ihepmc="@HEPMCINCPATH@"
     test -n "$ihepmc" && OUT="$OUT -I${ihepmc}"
+    ifastjet="@FASTJETINCPATH@"
     test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
+    igsl="@GSLINCPATH@"
     test -n "$igsl" && OUT="$OUT -I${igsl}"
+    iboost="@BOOSTINCPATH@"
+    test -n "$iboost" && OUT="$OUT -I${iboost}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
