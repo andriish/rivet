@@ -17,7 +17,7 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Measurement of differential W/Z boson cross section and ratio in p
-  pbar collisions at center-of-mass energy sqrt(s) = 1.8 TeV. The data
+  Measurement of differential W/Z boson cross section and ratio in $p
+  \bar{p}$ collisions at center-of-mass energy sqrt(s) = 1.8 TeV. The data
   cover electrons and neutrinos in a pseudo-rapidity range of -2.5 to
   2.5.

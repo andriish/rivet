@@ -21,10 +21,10 @@ PtCuts: [15]
 Description:
   Measurement of differential cross section for inclusive production of
   isolated photons in p pbar collisions at sqrt(s) = 1.96 TeV with the
-  D0 detector at the Fermilab Tevatron collider. The photons span
+  D\O detector at the Fermilab Tevatron collider. The photons span
   transverse momenta 23--300 GeV and have pseudorapidity $|\eta| < 0.9$.
-  Isolated direct photons are probes of pQCD via the annihilation (q
-  qbar -> gamma g) and quark-gluon Compton scattering (q g -> gamma q)
+  Isolated direct photons are probes of pQCD via the annihilation ($q
+  \bar{q} -> \gamma g$) and quark-gluon Compton scattering ($q g -> \gamma q$)
   processes, the latter of which is also sensitive to the gluon PDF. The
   initial state radiation / resummation formalisms are sensitive to the
   resulting photon pT spectrum

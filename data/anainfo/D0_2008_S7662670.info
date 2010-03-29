@@ -18,7 +18,7 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [40]
 Description:
-  Measurement of the inclusive jet cross section in p pbar collisions at
+  Measurement of the inclusive jet cross section in $p \bar{p}$ collisions at
   center-of-mass energy sqrt(s) = 1.96 TeV. The data cover jet
   transverse momenta from 50--600 GeV and jet rapidities in the range
   -2.4 to 2.4.

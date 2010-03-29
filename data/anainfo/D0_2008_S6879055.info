@@ -17,6 +17,6 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Cross sections as a function of pT of the three leading jets and n-jet
-  cross section ratios in ppbar collisions at $\sqrt{s}$ = 1.96 TeV, based
+  Cross sections as a function of pT of the three leading jets and $n$-jet
+  cross section ratios in $p \bar{p}$ collisions at $\sqrt{s}$ = 1.96 TeV, based
   on an integrated luminosity of $0.4~\text{fb}^{-1}$.
