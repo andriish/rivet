@@ -38,6 +38,7 @@ except ImportError:
             sys.exit(1)
 
 
+
 if __name__ == "__main__":
     import os, sys, re, logging
 
@@ -58,9 +59,9 @@ if __name__ == "__main__":
     except ImportError:
         pass
 
-    rivet_data_dir=os.popen('rivet-config --datadir',"r").readline().strip()
+    rivet_data_dir = os.popen('rivet-config --datadir',"r").readline().strip()
     if not rivet_data_dir:
-        rivet_data_dir=""
+        rivet_data_dir = ""
 
     ## Parse command line options
     from optparse import OptionParser
@@ -96,6 +97,17 @@ if __name__ == "__main__":
     opts, args = parser.parse_args()
 
 
+    ## Add RIVET_*_PATH to PLOTINFO path
+    def getpathvar(name):
+        rtn = []
+        if os.environ.has_key(name):
+            rtn = [i for i in os.environ[name].split(":") if i]
+        return rtn
+    if os.environ.has_key("RIVET_PLOT_PATH"):
+        opts.PLOTINFODIR += getpathvar("RIVET_PLOT_PATH")        
+    elif os.environ.has_key("RIVET_REF_PATH"):
+        opts.PLOTINFODIR += getpathvar("RIVET_REF_PATH")        
+
     ## Configure logging
     try:
         logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
@@ -121,17 +133,14 @@ if __name__ == "__main__":
 
     ## Get file names and labels
     FILES = []
-    LABELS = { "REF" : "data" }
+    FILELABELS = { }
     for a in args:
         path = a
-        tmp = os.path.basename(a)
-        tmp = re.sub(r'(.*)\.aida$', r'\1', tmp)
-        label = "MC (%s)" % tmp
+        label = None
         if ":" in a:
             path, label = a.split(":", 1)
-        if path != "REF":
-            FILES.append(path)
-        LABELS[path] = label
+        FILES.append(path)
+        FILELABELS[path] = label
 
 
     ## Check that the requested files are sensible
@@ -162,9 +171,9 @@ if __name__ == "__main__":
         tree = ET.parse(aidafilepath)
         for dps in tree.findall("dataPointSet"):
             ## Get this histogram's path name
-            dpsname = os.path.join(dps.get("path"), dps.get("name"))
-            ## Is it a data histo?
+            dpsname = os.path.join(dps.get("path"), dps.get("name"))            
             h = Histo.fromDPS(dps)
+            ## Is it a data histo?
             h.isdata = dpsname.upper().startswith("/REF")
             if h.isdata:
                 dpsname = dpsname.replace("/REF", "")
@@ -176,6 +185,7 @@ if __name__ == "__main__":
                 titles[dpsname] = h.title
                 xlabels[dpsname] = h.xlabel
                 ylabels[dpsname] = h.ylabel
+            h.expt = dpsname.split("_")[0][1:]
             histos[dpsname] = h
         return histos, titles, xlabels, ylabels
 
@@ -185,16 +195,30 @@ if __name__ == "__main__":
     TITLES = {}
     XLABELS = {}
     YLABELS = {}
+    LABELS = {}
+    DATAFILES = {}
     NAMES = set()
-    for f in FILES + ["REF"]:
+    for f in FILES:
         HISTOS[f] = {}
+        LABELS[f] = {}
     for f in FILES:
         histos, titles, xlabels, ylabels = getHistos(f)
         for n, h in histos.iteritems():
-            vfile = f
-            if h.isdata:
-                vfile = "REF"
-            HISTOS[vfile][n] = h
+            if h.isdata and DATAFILES.has_key(n):
+                DATAFILES[n] = f
+            if FILELABELS[f] is not None:
+                LABELS[f][n] = FILELABELS[f]
+            else:
+                if h.isdata:
+                    l = "data"
+                    if h.expt:
+                        l = "%s data" % h.expt
+                    LABELS[f][n] = l
+                else:
+                    tmp = os.path.basename(f)
+                    tmp = re.sub(r'(.*)\.aida$', r'\1', tmp)
+                    LABELS[f][n] = "MC (%s)" % tmp
+            HISTOS[f][n] = h
             NAMES.add(n)
         for n, t in titles.iteritems():
             TITLES[n] = t
@@ -256,7 +280,7 @@ if __name__ == "__main__":
 
         ## Identify contributing data files for this histo
         activefiles = []
-        for f in ["REF"] + FILES:
+        for f in FILES:
             if HISTOS.has_key(f):
                 d = HISTOS[f]
                 if d.has_key(name):
@@ -272,9 +296,10 @@ if __name__ == "__main__":
 
         ## Identify reference file for this histo
         ref = opts.REF_ID
+        if ref == "REF" and DATAFILES.has_key(name):
+            ref = DATAFILES[name]
         if not ref in activefiles:
             ref = activefiles[0]
-
 
 
         ## Header
@@ -304,7 +329,8 @@ if __name__ == "__main__":
             if param not in headers:
                 headers[param] = default
         for key, val in headers.iteritems():
-            headstr += "%s=%s\n" % (key, val)
+            directive = "%s=%s\n" % (key, val)
+            headstr += directive
         headstr += "# END PLOT\n"
 
         ## Special
@@ -332,17 +358,14 @@ if __name__ == "__main__":
             if HISTOS[hfile][name].isdata:
                 histstr += "ErrorBars=1\n"
                 histstr += "PolyMarker=*\n"
-                legendtitle = LABELS["REF"]
-                if legendtitle == "data":
-                    legendtitle = "%s data" % HISTOS[hfile][name].histoPath().split("_")[0][1:]
-                histstr += "Title=%s\n" % legendtitle
+                histstr += "Title=%s\n" % LABELS[hfile][name]
             else:
                 color, style = STYLES[i % len(STYLES)]
                 if opts.MC_ERRS:
                     histstr += "ErrorBars=1\n"
                 histstr += 'LineColor=%s\n' % color
                 histstr += 'LineStyle=%s\n' % style
-                histstr += 'Title=%s\n' % LABELS[hfile]
+                histstr += 'Title=%s\n' % LABELS[hfile][name]
                 for key, val in histopts.iteritems():
                     #if key == 'ErrorBars' and opts.MC_ERRS:
                     #    continue
