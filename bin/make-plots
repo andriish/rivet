@@ -1526,6 +1526,8 @@ def process_datfile(datfile):
             dvipsargs += ' -f | ps2eps > %s.eps 2> /dev/null' % filename
         elif opts.OUTPUT_FORMAT == "PNG":
             dvipsargs += ' -f | convert -density 250 -flatten - %s.png' % filename
+        elif opts.OUTPUT_FORMAT == "PDFPNG":
+            dvipsargs += ' -f | ps2pdf - > %s.pdf && convert -density 100 -flatten %s.pdf %s.png' % (filename, filename, filename)
         elif opts.OUTPUT_FORMAT == "PSPNG":
             dvipsargs += ' -o %s.ps && convert -density 100 -flatten %s.ps %s.png' % (filename, filename, filename)
         else:
@@ -1541,6 +1543,11 @@ def process_datfile(datfile):
     outname = outbasename + "." + opts.OUTPUT_FORMAT.lower()
     if opts.OUTPUT_FORMAT == "PSPNG":
         outpath = os.path.join(tempdir, outbasename+".ps")
+        shutil.copy(outpath, os.path.join(cwd,dirname))
+        outpath = os.path.join(tempdir, outbasename+".png")
+        shutil.copy(outpath, os.path.join(cwd,dirname))
+    elif opts.OUTPUT_FORMAT == "PDFPNG":
+        outpath = os.path.join(tempdir, outbasename+".pdf")
         shutil.copy(outpath, os.path.join(cwd,dirname))
         outpath = os.path.join(tempdir, outbasename+".png")
         shutil.copy(outpath, os.path.join(cwd,dirname))
@@ -1638,6 +1645,8 @@ TODO
                       help="Create Encapsulated PostScript output.")
     parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS",
                      help="Create PNG output.")
+    parser.add_option("--pdfpng", dest="OUTPUT_FORMAT", action="store_const", const="PDFPNG", default="PS",
+                     help="Create PDF and PNG output.")
     parser.add_option("--pspng", dest="OUTPUT_FORMAT", action="store_const", const="PSPNG", default="PS",
                      help="Create PS and PNG output.")
     parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PS",
