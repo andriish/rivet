@@ -116,6 +116,8 @@ namespace Rivet {
       scale(_h_pT, crossSection()/sumOfWeights());
       scale(_h_dPhi, crossSection()/sumOfWeights());
       scale(_h_costheta, crossSection()/sumOfWeights());
+      // despite what it says in the paper, the mass bin width doesn't seem
+      // to have been taken into account for these:
       for (size_t i=0; i<3; ++i) {
         scale(_h_pT_M.getHistograms()[i], crossSection()/sumOfWeights());
         scale(_h_dPhi_M.getHistograms()[i], crossSection()/sumOfWeights());

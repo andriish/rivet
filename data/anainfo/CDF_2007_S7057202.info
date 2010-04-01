@@ -4,10 +4,10 @@ Summary: CDF Run II inclusive jet cross-section using the kT algorithm
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 7057202
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - David Voong
- - James Monk <jmonk@hep.ucl.ac.uk>
+ - Frank Siegert <frank.siegert@durham.ac.uk>
 References:
  - Phys.Rev.D75:092006,2007
  - Erratum-ibid.D75:119901,2007

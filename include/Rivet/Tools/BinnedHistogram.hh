@@ -4,6 +4,8 @@
 #include "Rivet/Rivet.hh"
 
 namespace Rivet {
+  
+  class Analysis;
 
 
   /**
@@ -33,6 +35,10 @@ namespace Rivet {
                              const T& val,
                              double weight);
     
+    /// Scale histograms taking into account its "external" binwidth, i.e. by
+    /// scale/binWidth
+    void scale(const T& scale, Analysis* ana);
+    
     const vector<AIDA::IHistogram1D*>& getHistograms() const { return _histos; }
     vector<AIDA::IHistogram1D*>& getHistograms() { return _histos; }
  
@@ -42,6 +48,7 @@ namespace Rivet {
     map<T, AIDA::IHistogram1D*> _histosByUpperBound;
     map<T, AIDA::IHistogram1D*> _histosByLowerBound;
     vector<AIDA::IHistogram1D*> _histos;
+    map<AIDA::IHistogram1D*, T> _binWidths;
  
   };
 

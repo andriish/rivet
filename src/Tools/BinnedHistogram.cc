@@ -2,6 +2,7 @@
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/RivetBoost.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Analysis.hh"
 
 namespace Rivet {
 
@@ -26,6 +27,7 @@ namespace Rivet {
     
     if (!found){
       _histos.push_back(histo);
+      _binWidths[histo]=binMax-binMin;
     }
     
     return *this;
@@ -65,6 +67,14 @@ namespace Rivet {
     histo->fill(val, weight);
     
     return histo;
+  }
+  
+  
+  template<typename T>
+  void BinnedHistogram<T>::scale(const T& scale, Analysis* ana) {
+    foreach (AIDA::IHistogram1D* hist, getHistograms()) {
+      ana->scale(hist, scale/_binWidths[hist]);
+    }
   }
 
 

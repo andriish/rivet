@@ -65,10 +65,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double dymax=0.4;
-      foreach (AIDA::IHistogram1D* hist, _h_m_dijet.getHistograms()) {
-        scale(hist, crossSection()/sumOfWeights()/dymax);
-      }
+      _h_m_dijet.scale(crossSection()/sumOfWeights(), this);
     }
 
     //@}

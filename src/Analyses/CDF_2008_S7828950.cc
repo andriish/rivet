@@ -33,18 +33,12 @@ namespace Rivet {
       const FinalState fs;
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "JetsM07");
 
-      /// @todo What actually are these histos showing?
       _binnedHistosR07.addHistogram(  0, 0.1, bookHistogram1D(1, 1, 1));
       _binnedHistosR07.addHistogram(0.1, 0.7, bookHistogram1D(2, 1, 1));
       _binnedHistosR07.addHistogram(0.7, 1.1, bookHistogram1D(3, 1, 1));
       _binnedHistosR07.addHistogram(1.1, 1.6, bookHistogram1D(4, 1, 1));
       _binnedHistosR07.addHistogram(1.6, 2.1, bookHistogram1D(5, 1, 1));
 
-      size_t yind = 0;
-      foreach (AIDA::IHistogram1D* hist, _binnedHistosR07.getHistograms()) {
-        _yBinWidths[hist] = 2.0 * (_ybins[yind+1]-_ybins[yind]);
-        ++yind;
-      }
     }
 
 
@@ -59,9 +53,7 @@ namespace Rivet {
 
     // Normalise histograms to cross-section
     void finalize() {
-      foreach (AIDA::IHistogram1D* hist, _binnedHistosR07.getHistograms()) {
-        scale(hist, crossSection()/nanobarn/sumOfWeights()/_yBinWidths[hist]);
-      }
+      _binnedHistosR07.scale(crossSection()/nanobarn/sumOfWeights()/2.0, this);
     }
 
     //@}
@@ -69,24 +61,10 @@ namespace Rivet {
 
   private:
  
-    /// @name Histograms
-    //@{
-
-    /// The y bin width of each histogram
-    map<AIDA::IHistogram1D*, double> _yBinWidths;
-
-    /// The y bin edge values
-    /// @todo Yuck!
-    static const double _ybins[6];
-
     /// Histograms in different eta regions
     BinnedHistogram<double> _binnedHistosR07;
 
   };
-
-
-  // Initialise static
-  const double CDF_2008_S7828950::_ybins[] = { 0.0, 0.1, 0.7, 1.1, 1.6, 2.1 };
 
 
   // This global object acts as a hook for the plugin system
