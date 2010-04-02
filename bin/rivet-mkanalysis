@@ -1,78 +1,93 @@
-#! /usr/bin/env bash
+#! /usr/bin/env python
 
-prog=$(basename $0)
+from optparse import OptionParser
+import logging
+import os, sys
 
-tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
-if [[ $# -eq 0 || -n "$tmp" ]]; then
-    echo "$prog: make templates of analysis source files for Rivet"
-    echo
-    echo "Usage: $prog [--help|-h] [--srcroot=<srcrootdir>] <analysisname>"
-    echo "Options:"
-    echo "  --help | -h   : show this help message"
-    echo "  --srcroot     : install the templates into the Rivet source tree"
-    echo "                  (rooted at the given directory) rather than just"
-    echo "                  creating all in the current dir"
-fi
+usage = """\
+%prog: make templates of analysis source files for Rivet"
 
+Usage: %prog [--help|-h] [--srcroot=<srcrootdir>] <analysisname>
+"""
 
-ANANAMES=""
-for i in $*; do
-    tmp=$(echo $i | egrep "^--")
-    if [[ -z "$tmp" ]]; then
-        ANANAMES="$ANANAMES $i"
-    fi
-done
+## Handle command line
+parser = OptionParser(usage=usage)
+parser.add_option("--srcroot", metavar="DIR", dest="SRCROOT", default=None,
+                  help="install the templates into the Rivet source tree (rooted " +
+                  "at directory DIR) rather than just creating all in the current dir")
+parser.add_option("-Q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
+                  action="store_const", const=logging.WARNING, help="only write out warning and error messages")
+parser.add_option("-V", "--verbose", dest="LOGLEVEL", default=logging.INFO,
+                  action="store_const", const=logging.DEBUG, help="provide extra debugging messages")
+opts, args = parser.parse_args()
+try:
+    logging.basicConfig(format="%(msg)s", level=opts.LOGLEVEL)
+except:
+    pass
+ANANAMES = args
 
-
-ANASRCDIR="."
-ANAINFODIR="."
-ANAPLOTDIR="."
-tmp=$(echo $* | egrep -- '--\<srcroot')
-if [[ "$tmp" ]]; then
-    tmp=$(echo $* | egrep -- '--\<srcroot\>=[^[:space:][:cntrl:]]+')
-    echo $tmp
-    if [[ "$tmp" ]]; then
-        srcroot=$(echo $tmp | sed -e 's:^.*--srcroot=\([^\ ]\+\).*$:\1:')
-        if [[ ! -e "$srcroot" ]]; then
-            echo "Rivet source root dir $srcroot does not exist" 1>&2
-            exit 1
-        fi
-    else
-        srcroot="."
-    fi
-    ANASRCDIR="$srcroot/src/Analyses"
-    ANAINFODIR="$srcroot/data/anainfo"
-    ANAPLOTDIR="$srcroot/data/plotinfo"
-    if [[ ! -e "$ANASRCDIR" || ! -e "$ANAINFODIR" || ! -e "$ANAPLOTDIR" ]]; then
-        echo "Rivet analysis dirs do not exist under $srcroot" 1>&2
-        exit 1
-    fi
-fi
+## Work out installation paths
+ANAROOT = os.path.abspath(opts.SRCROOT or os.getcwd())
+if not os.access(ANAROOT, os.W_OK):
+    logging.error("Can't write to source root directory %s" % ANAROOT)
+    sys.exit(1)
+ANASRCDIR = os.getcwd()
+ANAINFODIR = os.getcwd()
+ANAPLOTDIR = os.getcwd()
+if opts.SRCROOT:
+    ANASRCDIR = os.path.join(ANAROOT, "src/Analyses")
+    ANAINFODIR = os.path.join(ANAROOT, "data/anainfo")
+    ANAPLOTDIR = os.path.join(ANAROOT, "data/plotinfo")
+    if not (os.exists(ANASRCDIR) and os.exists(ANAINFODIR) and os.exists(ANAPLOTDIR)):
+        logging.error("Rivet analysis dirs do not exist under %s" % ANAROOT)
+        sys.exit(1)
+if not (os.access(ANASRCDIR, os.W_OK) and os.access(ANAINFODIR, os.W_OK) and os.access(ANAPLOTDIR, os.W_OK)):
+    logging.error("Can't write to Rivet analysis dirs under %s" % ANAROOT)
+    sys.exit(1)
 
 
-if [[ ! -w "$ANASRCDIR" || ! -w "$ANAINFODIR" || ! -w "$ANAPLOTDIR" ]]; then
-    echo "Can't write to Rivet analysis dirs under $srcroot" 1>&2
-    exit 1
-fi
+## Check for disallowed characters in analysis names
+import string
+allowedchars = string.letters + string.digits + "_"
+all_ok = True
+for ananame in ANANAMES:
+    for c in ananame:
+        if c not in allowedchars:
+            logging.error("Analysis name '%s' contains disallowed character '%s'!" % (ananame, c))
+            all_ok = False
+            break
+if not all_ok:
+    logging.error("Exiting... please ensure that all analysis names are valid")
 
 
-for ANANAME in $ANANAMES; do
-    tmp=$(echo "$ANANAME" | egrep "[^[:alnum:]_]")
-    if [[ -n "$tmp" ]]; then
-        echo "$ANANAME contains bad characters --- skipping!" 1>&2
-        continue
-    fi
+## Now make each analysis
+for ANANAME in ANANAMES:
+    logging.info("Writing templates for %s to %s" % (ANANAME, ANAROOT))
 
-    tmp=$(echo "$ANANAME" | egrep "[[:alnum:]]+_[[:digit:]]+_S[[:digit:]]+")
-    if [[ -n "$tmp" ]]; then
-        ANAEXPT=$(echo "$ANANAME" | sed -e 's:^\([^_]\+\)_\([^_]\+\)_S\([^_]\+\)$:\1:')
-        ANAYEAR=$(echo "$ANANAME" | sed -e 's:^\([^_]\+\)_\([^_]\+\)_S\([^_]\+\)$:\2:')
-        ANASPIRESID=$(echo "$ANANAME" | sed -e 's:^\([^_]\+\)_\([^_]\+\)_S\([^_]\+\)$:\3:')
-    fi
+    ## Extract some metadata from the name if it matches the standard pattern
+    import re
+    re_stdana = re.compile(r"^(\w+)_(\d{4})_S(\d+)$")
+    match = re_stdana.match(ANANAME)
+    STDANA = False
+    ANAEXPT = None
+    ANAYEAR = None
+    ANASPIRESID = None
+    if match:
+        STDANA = True
+        ANAEXPT = match.group(1)
+        ANAYEAR = match.group(2)
+        ANASPIRESID = match.group(3)
+    KEYWORDS = {
+        "ANANAME" : ANANAME,
+        "ANAEXPT" : ANAEXPT,
+        "ANAYEAR" : ANAYEAR,
+        "ANASPIRESID" : ANASPIRESID
+        }
 
-    ANASRCFILE="$ANASRCDIR/$ANANAME.cc"
-    echo "Writing implementation template to $ANASRCFILE"
-    cat <<EOF > "$ANASRCFILE"
+    ANASRCFILE = os.path.join(ANASRCDIR, ANANAME+".cc")
+    logging.debug("Writing implementation template to %s" % ANASRCFILE)
+    f = open(ANASRCFILE, "w")
+    src = """\
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
@@ -83,15 +98,15 @@ for ANANAME in $ANANAMES; do
 namespace Rivet {
 
 
-  class $ANANAME : public Analysis {
+  class %(ANANAME)s : public Analysis {
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    $ANANAME()
-      : Analysis("$ANANAME") 
+    %(ANANAME)s()
+      : Analysis("%(ANANAME)s") 
     {
       /// @todo Set approriate for your analysis
       setBeams(PROTON, ANTIPROTON);
@@ -161,22 +176,24 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<$ANANAME> plugin_$ANANAME;
+  AnalysisBuilder<%(ANANAME)s> plugin_%(ANANAME)s;
 
 
 }
-EOF
+""" % KEYWORDS
+    f.write(src)
+    f.close()
 
-
-    ANAINFOFILE="$ANAINFODIR/$ANANAME.info"
-    echo "Writing info template to $ANAINFOFILE"
-    cat <<EOF > "$ANAINFOFILE"
-Name: $ANANAME
-Year: $ANAYEAR
-Summary: [Insert short $ANANAME description]
-Experiment: $ANAEXPT
-Collider: [Insert $ANANAME collider]
-SpiresID: $ANASPIRESID
+    ANAINFOFILE = os.path.join(ANAINFODIR, ANANAME+".info")
+    logging.debug("Writing info template to %s" % ANAINFOFILE)
+    f = open(ANAINFOFILE, "w")
+    src = """\
+Name: %(ANANAME)s
+Year: %(ANAYEAR)s
+Summary: [Insert short %(ANANAME)s description]
+Experiment: %(ANAEXPT)s
+Collider: [Insert %(ANANAME)s collider]
+SpiresID: %(ANASPIRESID)s
 Status: UNVALIDATED
 Authors:
  - Your Name <your@email.address>
@@ -189,17 +206,21 @@ RunInfo:
   efficiency cut(s) that may be needed, essentially any details needed to set
   up a generator to reproduce the data.]
 NumEvents: [Insert typical number of events needed for good statistics.]
-PtCuts: [Insert list of ptcuts, e.g. [15]]
+PtCuts: [Insert list of kinematic pT cuts in GeV, e.g. [0, 20]]
 Description:
   [Insert a fairly long description, including what is measured
   and if possible what it's useful for in terms of MC validation
   and tuning. Use \LaTeX for maths like $\pT > \unit{50}{\GeV}$.]
-EOF
+""" % KEYWORDS
+    f.write(src)
+    f.close()
 
-    ANAPLOTFILE="$ANAPLOTDIR/$ANANAME.plot"
-    echo "Writing plot template to $ANAPLOTFILE"
-    cat <<EOF > "$ANAPLOTFILE"
-# BEGIN PLOT /$ANANAME/d01-x01-y01
+
+    ANAPLOTFILE = os.path.join(ANAPLOTDIR, ANANAME+".plot")
+    logging.debug("Writing plot template to %s" % ANAPLOTFILE)
+    f = open(ANAPLOTFILE, "w")
+    src = """\
+# BEGIN PLOT /%(ANANAME)s/d01-x01-y01
 Title=[Insert title for histogram d01-x01-y01 here]
 XLabel=[Insert x-axis label for histogram d01-x01-y01 here]
 YLabel=[Insert y-axis label for histogram d01-x01-y01 here]
@@ -207,6 +228,6 @@ YLabel=[Insert y-axis label for histogram d01-x01-y01 here]
 # END PLOT
 
 # ... add more histograms as you need them ...
-EOF
-
-done
+""" % KEYWORDS
+    f.write(src)
+    f.close()
