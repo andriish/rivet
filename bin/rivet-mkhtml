@@ -76,8 +76,10 @@ for aidafile in aidafiles:
         analyses.add(analysis)
         for refpath in refpaths:
             if os.access(os.path.join(refpath, analysis+".aida"), os.R_OK):
-                reffiles.append("%s/%s.aida" % (refpath, analysis))
-                break
+                reffile = "%s/%s.aida" % (refpath, analysis)
+                if not reffile in reffiles:
+                    reffiles.append(reffile)
+                    break
 
 
 ## run compare-histos to get plain .dat files from .aida
