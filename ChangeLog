@@ -1,3 +1,23 @@
+2010-04-03  Andy Buckley  <andy@insectnation.org>
+
+	* Frank Siegert: Update of rivet-mkhtml to conform to improved
+	compare-histos.
+
+	* Frank Siegert: LWH output in precision-8 scientific notation, to
+	solve a binning precision problem... the first one!
+
+	* Improved treatment of data/reference datasets and labels in
+	compare-histos.
+
+	* Rewrite of rivet-mkanalysis in Python to make way for neat
+	additions.
+
+	* Improving SWIG tests, since once again the user's biuld system
+	must include SWIG (no test to check that it's a 'good SWIG', since
+	the meaning of that depends on which compiler is being used and we
+	hope that the user system is consistent... evidence from Finkified
+	Macs and bloody SLC5 notwithstanding).
+
 2010-03-23  Andy Buckley  <andy@insectnation.org>
 
 	* Tag as patch release 1.2.1.

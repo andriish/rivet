@@ -59,9 +59,6 @@ namespace Rivet {
     const long pdgId() const;
   };
 
-  typedef std::vector<Particle> ParticleVector;
-  typedef std::pair<Particle, Particle> ParticlePair;
-
   ParticlePair beams(const Event& e);
 
   BeamPair beamIds(const HepMC::GenEvent& e) {

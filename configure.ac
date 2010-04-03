@@ -218,26 +218,19 @@ if test x$enable_pyext == xyes; then
   fi
 fi
 ## SWIG version checks
-#if test x$enable_pyext == xyes -a ! -e pyext/lhapdf_wrap.cc; then
-#  AC_PATH_PROG(SWIG, swig)
-#  if test -x "$SWIG"; then
-#    swig_version=`$SWIG -version 2>&1 | grep Version | cut -f3 -d" "`
-#    swig_major=`echo $swig_version | cut -f1 -d.`
-#    swig_minor=`echo $swig_version | cut -f2 -d.`
-#    swig_micro=`echo $swig_version | cut -f3 -d.`
-#    let swig_version_num="1000*$swig_major+100*$swig_minor+$swig_micro"
-#    if test "$swig_version_num" -lt 1333; then
-#    #if test "$swig_major" -eq 1 -a "$swig_minor" -eq 3 -a "$swig_micro" -lt 33; then
-#      AC_MSG_WARN([Can't build Python extension since SWIG version is too old to build wrapper files: please use a tarball release])
-#      enable_pyext=no
-#    fi
-#  fi
+AC_PROG_SWIG
+if test x$SWIG == x; then
+  enable_pyext=no
+fi
+#if test x$enable_pyext == xyes; then
+#  SWIG_ENABLE_CXX
+#  SWIG_PYTHON
 #fi
 ## Finish
-AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 if test x$enable_pyext == xyes; then
   AC_MSG_NOTICE([All Python build checks successful: 'rivet' Python extension will be built])
 fi
+AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 
 
 ## Set default build flags
