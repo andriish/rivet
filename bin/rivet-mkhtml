@@ -90,7 +90,7 @@ ch_cmd.append("--plot-info-dir=../")
 if len(aidafiles)+len(reffiles) < 2:
     ch_cmd.append("--show-ref-only")
     ch_cmd.append("--no-ratio")
-for file in aidafiles+reffiles:
+for file in reffiles+aidafiles:
     ch_cmd.append("%s" % os.path.abspath(file))
 Popen(ch_cmd, cwd=opts.OUTPUTDIR).wait()
 
