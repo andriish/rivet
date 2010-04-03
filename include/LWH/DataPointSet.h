@@ -327,6 +327,7 @@ public:
    */
   bool writeXML(std::ostream & os, std::string path, std::string name) {
     //std::cout << "Writing out data point set " << name << " in AIDA file format!" << std::endl;
+    os << scientific << setprecision(8);
     os << "  <dataPointSet name=\"" << encodeForXML(name)
        << "\"\n    title=\"" << encodeForXML(title())
        << "\" path=\"" << path
