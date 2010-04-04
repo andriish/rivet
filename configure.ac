@@ -42,20 +42,7 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 ## GNU Scientific Library
-GSLCONFIG_PATH=$PATH
-test "$GSLPATH" && GSLCONFIG_PATH=$GSLPATH/bin:$GSLCONFIG_PATH 
-test "$with_gsl" && GSLCONFIG_PATH=$with_gsl/bin:$GSLCONFIG_PATH 
-AC_PATH_PROG(GSLCONFIG, gsl-config, [], [$GSLCONFIG_PATH])
-if test -f "$GSLCONFIG"; then
-  GSLPATH=`$GSLCONFIG --prefix`
-  GSLCBLASPATH=$GSLPATH
-  GSL_CXXFLAGS=`$GSLCONFIG --cflags`
-fi
-AC_CEDAR_LIBRARYANDHEADERS([gsl], , , [AC_MSG_ERROR([GNU Scientific Library is required])])
-AC_CEDAR_LIBRARY([gslcblas], , , [AC_MSG_ERROR([GSL CBLAS is required])])
-GSL_LDFLAGS="-l$GSLLIBNAME -l$GSLCBLASLIBNAME"
-AC_SUBST(GSL_CXXFLAGS)
-AC_SUBST(GSL_LDFLAGS)
+AC_SEARCH_GSL
 
 ## Boost C++ header library
 AC_CEDAR_HEADERS([Boost], , , [AC_MSG_ERROR([Boost is required])])
@@ -236,8 +223,8 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
 #AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen2"
+AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(BOOSTINCPATH) \$(BOOST_CPPFLAGS)"
-AM_CPPFLAGS="$AM_CPPFLAGS -I\$(GSLINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
 AC_CEDAR_CHECKCXXFLAG([-pedantic], [AM_CXXFLAGS="$AM_CXXFLAGS -pedantic "])
