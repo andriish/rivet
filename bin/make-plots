@@ -23,6 +23,14 @@ pat_comment = re.compile('^#|^\s*$')
 pat_property = re.compile('^(\w+?)=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 
+
+def fuzzyeq(a, b, tolerance=1e-6):
+    "Fuzzy equality comparison function for floats, with given fractional tolerance"
+    if a == 0 and b == 0:
+        return True
+    return 2.0*abs(a-b)/abs(a+b) < tolerance
+
+
 def is_end_marker(line, blockname):
     m = pat_end_block.match(line)
     return m and m.group(1) == blockname
@@ -974,8 +982,8 @@ class Histogram(DrawableObject):
         if len(self.data)!=len(name.data):
             print '+++ Error in Histogram.add(): Binning of histograms differs'
         for i in range(len(self.data)):
-            if self.data[i]['LowEdge']==name.data[i]['LowEdge'] and \
-                    self.data[i]['UpEdge']==name.data[i]['UpEdge']:
+            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
+               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
                 self.data[i]['Content'] += name.data[i]['Content']
                 self.data[i]['Error'][0] = sqrt(self.data[i]['Error'][0]**2 + name.data[i]['Error'][0]**2)
                 self.data[i]['Error'][1] = sqrt(self.data[i]['Error'][1]**2 + name.data[i]['Error'][1]**2)
@@ -986,8 +994,8 @@ class Histogram(DrawableObject):
         if len(self.data)!=len(name.data):
             print '+++ Error in Histogram.divide(): Binning of histograms differs'
         for i in range(len(self.data)):
-            if self.data[i]['LowEdge']==name.data[i]['LowEdge'] and \
-               self.data[i]['UpEdge']==name.data[i]['UpEdge']:
+            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
+               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
                 try:
                     self.data[i]['Error'][0] /= name.data[i]['Content']
                 except ZeroDivisionError:
@@ -1009,8 +1017,8 @@ class Histogram(DrawableObject):
         if len(self.data)!=len(name.data):
             print '+++ Error in Histogram.deviation(): Binning of histograms differs'
         for i in range(len(self.data)):
-            if self.data[i]['LowEdge']==name.data[i]['LowEdge'] and \
-               self.data[i]['UpEdge']==name.data[i]['UpEdge']:
+            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
+               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
                 self.data[i]['Content'] -= name.data[i]['Content']
                 try:
                     self.data[i]['Content'] /= 0.5*(name.data[i]['Error'][0] + name.data[i]['Error'][1])
