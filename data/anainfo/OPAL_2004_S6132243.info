@@ -15,7 +15,8 @@ RunInfo:
   Runs with sqrt(s) above the Z mass need to have ISR suppressed, since
   the data has been corrected to remove radiative return to the Z.
 NumEvents: 200000
-Energies: [91,133,177,197]
+Beams: [e+, e-]
+Energies: [91, 133, 177, 197]
 PtCuts: [0]
 Description:
   Measurement of $e^+ e^-$ event shape variable distributions and their 1st 

@@ -14,7 +14,9 @@ References:
 RunInfo:
   Pure QCD events without underlying event.
 NumEvents: 10000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [20]
 Description:
-  Multijet distributions corresponding to (4N-4) variables that span the N-body
-  parameter space in inclusive N=3, 4, 5 jet events.
+  Multijet distributions corresponding to ($4N-4$) variables that span 
+  the $N$-body parameter space in inclusive $N = 3$-, 4-, and 5-jet events.

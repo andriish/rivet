@@ -6,7 +6,6 @@ Authors:
 RunInfo:
   All event types will be accepted.
 NumEvents: 10000
-PtCuts: [0]
 Description:
   This analysis is a demonstration of how Rivet can be used to produce
   ROOT data trees rather than Rivet's own histograms. We don't recommend
@@ -18,3 +17,4 @@ Description:
   information, which are unphysical and also may be generator dependent.
   You should not use this method in your own analyses if you expect the
   results to be meaningfully comparable to data!
+PtCuts: [0]

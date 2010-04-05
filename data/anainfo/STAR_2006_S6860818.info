@@ -13,6 +13,8 @@ References:
 RunInfo:
   pp at 200 GeV
 NumEvents: 2500000
+Beams: [p-, p-]
+Energies: [200]
 PtCuts: [0]
 Description:
   pT distributions of identified strange particles in pp collisions 

@@ -12,6 +12,8 @@ References:
 RunInfo:
   Hadronic events in $e^+ e^-$ collisions
 NumEvents: 1000000
+Beams: [e+, e-]
+Energies: [91.2]
 PtCuts: [0]
 Description:
   Ratios (w.r.t. $\pi^+/\pi^-$) of hadron multiplicities in hadronic $e^+ e^-$

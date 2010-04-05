@@ -16,6 +16,8 @@ RunInfo:
   $p\bar{p}$ QCD interactions at 1960~GeV. Particles with $c \\tau > {}$10 mm 
   should be set stable.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   Niccolo Moggi's min bias analysis. Minimum bias events are used to

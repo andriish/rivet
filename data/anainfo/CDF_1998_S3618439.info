@@ -13,6 +13,8 @@ References:
 RunInfo:
   QCD events at Tevatron with $\sqrt{s}=1.8$ TeV without MPI.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [0]
 Description:
   Measurement of the differential cross section 

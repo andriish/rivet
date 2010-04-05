@@ -13,6 +13,8 @@ RunInfo:
   $p \bar{p} \to e^+ e^-$ + jets at 1960 GeV. Needs mass cut on lepton pair to 
   avoid photon singularity, looser than $66 < m_{ee} < 116$ GeV
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   CDF measurement of the total cross section and rapidity distribution,

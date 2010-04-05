@@ -13,6 +13,8 @@ References:
 RunInfo:
   $e^+e^-\to$ jets with $\pi$ and $\eta$ decays turned off.
 NumEvents: 1000000
+Beams: [e+, e-]
+Energies: [91.2]
 PtCuts: [0]
 Description:
   Earlier measurements at LEP of isolated hard photons in hadronic Z decays,

@@ -14,6 +14,8 @@ References:
 RunInfo:
   Pure QCD events without underlying event.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [0]
 Description:
   Multijet distributions corresponding to 20 variables that span the 6-body

@@ -13,7 +13,11 @@ References:
 RunInfo:
   Pure QCD events without underlying event.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [20]
 Description:
   Properties of two-, three-, four-, five-, and six-jet events...
   Multijet-mass, leading jet angle, jet pT.
+ToDo:
+ - This is at 1800 GeV only, or also 630 GeV?

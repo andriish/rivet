@@ -15,7 +15,9 @@ RunInfo:
   Z + jets events at sqrt(s) = 1960 GeV.
   Jets min pT cut = 20~GeV, leptons min pT cut = 10~GeV
 NumEvents: 1000000
+Beams: [p-, p+]
 PtCuts: [10]
+Energies: [1960]
 Description:
   Measurement of the b jet cross section in events with Z boson in p
   pbar collisions at center-of-mass energy sqrt(s) = 1.96 TeV. The data

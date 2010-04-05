@@ -16,6 +16,8 @@ RunInfo:
   $E_\perp$ is 62 GeV, so a cut on kinematic pTmin may be required for
   good statistics.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [62]
 Description:
   Measurement of the inclusive jet cross section in $p\bar{p}$

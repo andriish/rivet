@@ -101,6 +101,9 @@ namespace Rivet {
     /// Singleton creation function
     static ProjectionHandler* create();
 
+    /// Singleton deletion function
+    static void destroy();
+
 
   public:
 

@@ -17,6 +17,8 @@ RunInfo:
   and MSUB indices 14, 29 & 115 enabled). The lowest bin edge is at 30 GeV, so a kinematic 
   pTmin cut is probably required to fill the histograms."
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [20]
 Description:
   The process $p \bar{p}$ -> photon + jet + X as studied by the D0 detector

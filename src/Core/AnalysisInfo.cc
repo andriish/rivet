@@ -48,7 +48,7 @@ namespace Rivet {
 
     // Returned AI, in semi-null state
     AnalysisInfo* ai = new AnalysisInfo();
-    ai->_beams = make_pair(ANY,ANY);
+    ai->_beams += make_pair(ANY,ANY);
     ai->_name = ananame;
 
     /// If no ana data file found, return null AI
@@ -86,19 +86,37 @@ namespace Rivet {
         } else if (key == "Experiment") {
           it.second() >> ai->_experiment;
         } else if (key == "Beams") {
-          const YAML::Node& beams = it.second();
-          vector<ParticleName> beampair;
-          for (YAML::Iterator b = beams.begin(); b != beams.end(); ++b) {
-            string bstr;
-            *b >> bstr;
-            ParticleName beamname = getParticleNameEnum(bstr);
-            beampair += beamname;
+          const YAML::Node& beampairs = it.second();
+          vector<pair<ParticleName,ParticleName> > beam_pairs;
+          if (beampairs.size() == 2 && 
+              beampairs[0].GetType() == YAML::CT_SCALAR && 
+              beampairs[1].GetType() == YAML::CT_SCALAR) {
+            string bstr0, bstr1;
+            beampairs[0] >> bstr0;
+            ParticleName b0 = getParticleNameEnum(bstr0);
+            beampairs[1] >> bstr1;
+            ParticleName b1 = getParticleNameEnum(bstr1);
+            beam_pairs += make_pair<ParticleName,ParticleName>(b0, b1);
+          } else {            
+            for (YAML::Iterator bpi = beampairs.begin(); bpi != beampairs.end(); ++bpi) {
+              const YAML::Node& bp = *bpi;
+              if (bp.size() == 2 && 
+                  bp[0].GetType() == YAML::CT_SCALAR && 
+                  bp[1].GetType() == YAML::CT_SCALAR) {
+                string bstr0, bstr1;
+                bp[0] >> bstr0;
+                ParticleName b0 = getParticleNameEnum(bstr0);
+                bp[1] >> bstr1;
+                ParticleName b1 = getParticleNameEnum(bstr1);
+                beam_pairs += make_pair<ParticleName,ParticleName>(b0, b1);
+              } else {
+                assert(0 && "Beam ID pairs have to be either a 2-tuple or a list of 2-tuples of particle names");
+              }
+            }
           }
-          assert(beampair.size() == 2);
-          ai->_beams = make_pair<ParticleName,ParticleName>(beampair[0], beampair[1]);
-        // } else if (key == "NeedCrossSection") {
-        //   // it.second() >> ai->_needsCrossSection;
-        } else if (key == "Energies") {
+          ai->_beams = beam_pairs;
+        } 
+        else if (key == "Energies") {
           const YAML::Node& energies = it.second();
           vector<pair<double,double> > beam_energy_pairs;
           for (YAML::Iterator be = energies.begin(); be != energies.end(); ++be) {
@@ -108,15 +126,21 @@ namespace Rivet {
               *be >> sqrts;
               beam_energy_pairs += make_pair(sqrts/2.0, sqrts/2.0);
             } else if (be->GetType() == YAML::CT_SEQUENCE) {
-              const YAML::Node& beamenergy_strs = be.second();
-              vector<double> beamenergies;
-              for (YAML::Iterator e = beamenergy_strs.begin(); e != beamenergy_strs.end(); ++e) {
-                double beamenergy;
-                *e >> beamenergy;
-                beamenergies += beamenergy;
+              const YAML::Node& beseq = *be;
+              // If the sub-sequence is of length 1, then it's another scalar sqrt(s)!
+              if (beseq.size() == 1) {
+                double sqrts;
+                (*be)[0] >> sqrts;
+                beam_energy_pairs += make_pair(sqrts/2.0, sqrts/2.0);
+              } else if (beseq.size() == 2) {
+                vector<double> beamenergies;
+                double beamenergy0, beamenergy1;
+                beseq[0] >> beamenergy0;
+                beseq[1] >> beamenergy1;
+                beam_energy_pairs += make_pair(beamenergy0, beamenergy1);
+              } else {
+                assert(0 && "Beam energies have to be a list of either numbers or pairs of numbers");
               }
-              assert(beamenergies.size() == 2);
-              beam_energy_pairs += make_pair(beamenergies[0], beamenergies[1]);
             } else {
               assert(0 && "Beam energies have to be a list of either numbers or pairs of numbers");
             }
@@ -126,8 +150,21 @@ namespace Rivet {
           it.second() >> ai->_collider;
         } else if (key == "SpiresID") {
           it.second() >> ai->_spiresId;
+        } else if (key == "BibKey") {
+          it.second() >> ai->_bibKey;
+        } else if (key == "BibTeX") {
+          it.second() >> ai->_bibTeX;//Body;
         } else if (key == "Status") {
           it.second() >> ai->_status;
+        } else if (key == "ToDo") {
+          const YAML::Node& todos = it.second();
+          for (YAML::Iterator todo = todos.begin(); todo != todos.end(); ++todo) {
+            string s;
+            *todo >> s;
+            ai->_todos += s;
+          }
+        } else if (key == "NeedCrossSection") {
+          it.second() >> ai->_needsCrossSection;
         } else if (key == "RunInfo") {
           it.second() >> ai->_runInfo;
         } else if (key == "Description") {

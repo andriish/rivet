@@ -147,7 +147,7 @@ namespace Rivet {
     virtual std::string collider() const;
 
     /// Return the pair of incoming beams required by this analysis.
-    virtual const BeamPair requiredBeams() const;
+    virtual const std::vector<BeamPair> requiredBeams() const;
 
     /// Sets of valid beam energy pairs, in GeV
     virtual const std::vector<std::pair<double, double> >& energies() const;
@@ -161,8 +161,17 @@ namespace Rivet {
     /// Journal, and preprint references.
     virtual std::vector<std::string> references() const;
 
+    /// BibTeX citation key for this article.
+    virtual std::string bibKey() const;
+
+    /// BibTeX citation entry for this article.
+    virtual std::string bibTeX() const;
+
     /// Whether this analysis is trusted (in any way!)
     virtual std::string status() const;
+
+    /// Any work to be done on this analysis.
+    virtual std::vector<std::string> todos() const;
 
     //@}
 

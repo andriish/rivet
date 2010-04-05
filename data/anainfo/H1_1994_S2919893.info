@@ -14,6 +14,8 @@ RunInfo:
   $e^- p$ / $e^+ p$ deep inelastic scattering,
   820~GeV protons colliding with 26.7~GeV electrons
 NumEvents: 1000000
+Beams: [[p-, e-], [p-, e+]]
+Energies: [[820, 26.7]]
 PtCuts: [0]
 Description:
   Global properties of the hadronic final state in deep inelastic

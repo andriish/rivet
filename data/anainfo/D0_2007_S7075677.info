@@ -16,6 +16,8 @@ RunInfo:
   Drell-Yan $p \bar{p} \to Z/\gamma^*$ + jets events at $\sqrt{s}$ = 1960 GeV.
   Needs mass cut on lepton pair to avoid photon singularity, looser than  $71 < m_{ee} < 111$ GeV
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   Cross sections as a function of boson rapidity in $p \bar{p}$ 

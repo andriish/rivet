@@ -15,7 +15,8 @@ RunInfo: QCD events, diffractive processes need to be switched
   $\left|\eta\right| ~< ~3.25$ and was extrapolated to full phase space. However, the method of
   extrapolation remains unclear.
 NumEvents: 1000000
-PtCuts: [0]
+Beams: [p-, p+]
 Energies: [1800]
+PtCuts: [0]
 Description:
   A measurement of the charged multiplicity distribution at sqrt(s) = 1.8 TeV.

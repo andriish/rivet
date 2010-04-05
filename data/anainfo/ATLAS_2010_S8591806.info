@@ -12,6 +12,8 @@ References:
 RunInfo:
   pp QCD interactions at 900 GeV including diffractive events.
 NumEvents: 10000000
+Beams: [p-, p-]
+Energies: [900]
 PtCuts: [0]
 Description:
   The ﬁrst measurements with the ATLAS detector at the LHC.

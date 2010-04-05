@@ -9,3 +9,4 @@ RunInfo: "Generic QCD events at any energy."
 Status: UNVALIDATED
 Author:
  - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>
+PtCuts: [0]

@@ -12,6 +12,8 @@ References:
 RunInfo:
   $p \bar{p} \to$ jets at 1960 GeV. Analysis needs two hard jets above 40 GeV.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [30]
 Description:
   The inclusive dijet production double differential cross section as a

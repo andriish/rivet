@@ -15,6 +15,8 @@ RunInfo:
   $p\bar{p}$ collisions at 1800 GeV.
   $Z/\gamma^*$ Drell-Yan events with $e^+e^-$ decay mode only.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [0]
 Description:
   Measurement of transverse momentum and total cross section of $e^+e^-$

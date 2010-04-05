@@ -15,6 +15,8 @@ RunInfo:
   Needs mass cut on lepton pair to avoid photon singularity,
   looser than $75 < m_{ee} < 105$ GeV.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   Cross sections as a function of pT of the three leading jets and $n$-jet

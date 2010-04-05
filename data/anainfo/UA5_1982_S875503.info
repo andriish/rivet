@@ -6,7 +6,9 @@ Experiment: UA5
 Collider: SPS
 Year: 1982
 RunInfo: Min bias QCD events at sqrt(s) = 53~GeV. Run with both $pp$ and $p\bar{p}$ beams.
+Beams: [p-, p+]
 Energies: [53]
+PtCuts: [0]
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
  - Christophe Vaillant <c.l.j.j.vaillant@durham.ac.uk>

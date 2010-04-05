@@ -13,6 +13,7 @@ References:
 RunInfo:
   $e^+ e^- \to$ jet jet (+ jets)
 NumEvents: 1000000
+Beams: [e+, e-]
 Energies: [35, 44, 91, 133, 161, 172, 183, 189]
 PtCuts: [0]
 Description:

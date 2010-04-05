@@ -12,6 +12,8 @@ References:
 RunInfo:
   $p \bar{p} \to$ jets at 1960 GeV
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   Dijet mass spectrum  from 0.2 TeV to 1.4 TeV in $p \bar{p}$ collisions at

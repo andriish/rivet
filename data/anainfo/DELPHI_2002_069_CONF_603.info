@@ -11,10 +11,12 @@ References:
 RunInfo:
   Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
 NumEvents: 1000000
+Beams: [e+, e-]
+Energies: [91.2]
 PtCuts: [0]
 Description:
-  Measurement of the b-quark fragmentation function by DELPHI using 1994
+  Measurement of the $b$-quark fragmentation function by DELPHI using 1994
   LEP 1 data. The fragmentation function for both weakly decaying and
-  primary b-quarks has been determined in a model independent way.
+  primary $b$-quarks has been determined in a model independent way.
   Nevertheless the authors trust $f(x_B^\text{weak})$ more than
   $f(x_B^\text{prim})$.

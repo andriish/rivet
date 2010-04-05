@@ -13,8 +13,9 @@ RunInfo:
   ppbar events. Non-single diffractive events need to be switched on.
   The trigger implementation is the same as in UA5_1989_S1926373.
 NumEvents: 100000
-PtCuts: [0]
+Beams: [p-, p+]
 Energies: [200, 546, 900]
+PtCuts: [0]
 Description:
   Data on two-particle pseudorapidity and multiplicity correlations 
   of charged particles for non single-diffractive $\bar{p}p$ collisions at 

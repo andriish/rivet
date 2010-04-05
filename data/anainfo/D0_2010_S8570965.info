@@ -15,6 +15,8 @@ RunInfo:
   Non-prompt photons from hadron decays like $\pi$ and $\eta$ have been
   corrected for.
 NumEvents: 10000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   Direct photon pair production cross sections are measured using 4.2 fb$^{-1}$

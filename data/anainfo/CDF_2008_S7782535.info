@@ -14,6 +14,8 @@ References:
 RunInfo:
   Requires  $2\rightarrow{2}$ QCD scattering processes. The minimum jet Et is 52 GeV, so a cut on kinematic pTmin may be required for good statistics.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   A measurement of the shapes of b-jets using 300 pb$^{-1}$ of data

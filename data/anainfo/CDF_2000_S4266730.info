@@ -14,6 +14,8 @@ References:
 RunInfo:
   Dijet events at Tevatron with $\sqrt{s}=1.8$ TeV
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [0]
 Description:
   Measurement of the cross section for production of two or more jets as a

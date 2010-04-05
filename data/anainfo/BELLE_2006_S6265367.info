@@ -10,6 +10,8 @@ References:
 RunInfo:
   $e^+ e^-$ analysis on the $\Upsilon(4S)$ resonance, with CoM boost -- 8.0~GeV~($e^−$) and 3.5~GeV~($e^+$)
 NumEvents: 1000000
+Beams: [e+, e-]
+Energies: [[3.5, 8.0]]
 PtCuts: [0]
 Description:
   Analysis of charm quark fragmentation at 10.6 GeV, based on a data

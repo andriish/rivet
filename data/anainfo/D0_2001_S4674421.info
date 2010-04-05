@@ -15,6 +15,8 @@ RunInfo:
   W/Z events with decays to first generation leptons, in ppbar
   collisions at sqrt(s) = 1800~GeV
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [0]
 Description:
   Measurement of differential W/Z boson cross section and ratio in $p

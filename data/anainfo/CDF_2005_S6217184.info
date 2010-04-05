@@ -17,6 +17,8 @@ RunInfo:
   Jet pTmin in plots is 37 GeV/c --- choose generator min pT somewhere 
   well below this.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [30]
 Description:
   Measurement of jet shapes in inclusive jet production in p pbar

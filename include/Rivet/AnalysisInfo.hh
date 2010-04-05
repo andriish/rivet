@@ -12,6 +12,7 @@ namespace Rivet {
     /// @todo Remove this when all metadata taken from YAML
     friend class Analysis;
 
+
   public:
 
     /// Static factory method: returns null pointer if no metadata found
@@ -21,7 +22,7 @@ namespace Rivet {
     //@{
 
     /// The default constructor.
-    AnalysisInfo() { }
+    AnalysisInfo() { clear(); }
 
     /// The destructor.
     ~AnalysisInfo() { }
@@ -75,7 +76,7 @@ namespace Rivet {
     const std::string& runInfo() const { return _runInfo; }
 
     /// Beam particle types
-    const std::pair<ParticleName,ParticleName>& beams() const { return _beams; }
+    const std::vector<std::pair<ParticleName,ParticleName> >& beams() const { return _beams; }
 
     /// Sets of valid beam energy pairs 
     const std::vector<std::pair<double,double> >& energies() const { return _energies; }
@@ -86,9 +87,6 @@ namespace Rivet {
     /// Collider on which the experiment ran.
     const std::string& collider() const { return _collider; }
 
-    /// Incoming beams required by this analysis.
-    // const BeamPair& beams() const { return _beams; }
-
     /// @brief When the original experimental analysis was published.
     /// When the refereed paper on which this is based was published,
     /// according to SPIRES.
@@ -97,12 +95,25 @@ namespace Rivet {
     /// Journal, and preprint references.
     const std::vector<std::string>& references() const { return _references; }
 
+    /// BibTeX citation key for this article.
+    const std::string& bibKey() const { return _bibKey;}
+
+    /// BibTeX citation entry for this article.
+    const std::string& bibTeX() const { 
+      //return "@Article{" + bibKey() + ",\n" + _bibTeXBody + "\n}";
+      return _bibTeX;
+    }
+
     /// Whether this analysis is trusted (in any way!)
     const std::string& status() const { return _status; }
+
+    /// Any work to be done on this analysis.
+    const std::vector<std::string>& todos() const { return _todos; }
     //@}
 
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const { return _needsCrossSection; }
+
 
   private:
 
@@ -114,12 +125,37 @@ namespace Rivet {
     std::string _runInfo;
     std::string _experiment;
     std::string _collider;
-    std::pair<ParticleName, ParticleName> _beams;
+    std::vector<std::pair<ParticleName, ParticleName> > _beams;
     std::vector<std::pair<double, double> > _energies;
     std::string _year;
     std::vector<std::string> _references;
+    std::string _bibKey;
+    std::string _bibTeX;
+    //std::string _bibTeXBody; //< Was thinking of avoiding duplication of BibKey...
     std::string _status;
+    std::vector<std::string> _todos;
     bool _needsCrossSection;
+
+    void clear() {
+      _name = "";
+      _spiresId = "";
+      _authors.clear();
+      _summary = "";
+      _description = "";
+      _runInfo = "";
+      _experiment = "";
+      _collider = "";
+      _beams.clear();
+      _energies.clear();
+      _year = "";
+      _references.clear();
+      _bibKey = "";
+      _bibTeX = "";
+      //_bibTeXBody = "";
+      _status = "";
+      _todos.clear();
+      _needsCrossSection = false;
+    }
 
   };
 

@@ -181,31 +181,58 @@ namespace Rivet {
     return _info->references();
   }
 
+  string Analysis::bibKey() const {
+    if (!_info) return "";
+    return _info->bibKey();
+  }
+
+  string Analysis::bibTeX() const {
+    if (!_info) return "";
+    return _info->bibTeX();
+  }
+
   string Analysis::status() const {
     if (!_info) return "UNVALIDATED";
     return _info->status();
   }
 
-  const BeamPair Analysis::requiredBeams() const {
-    return make_pdgid_pair(info().beams());
+  vector<string> Analysis::todos() const {
+    if (!_info) return vector<string>();
+    return _info->todos();
   }
 
+  const vector<BeamPair> Analysis::requiredBeams() const {
+    vector<BeamPair> reqbeams;
+    typedef std::pair<ParticleName,ParticleName> ParticleNamePair;
+    foreach (const ParticleNamePair& bp, info().beams()) {
+      reqbeams += bp;
+    }
+    return reqbeams;
+  }
+
+
+  /// @todo Deprecate?
   Analysis& Analysis::setBeams(const ParticleName& beam1, const ParticleName& beam2) {
     assert(_info.get() != 0);
-    _info->_beams = make_pair(beam1, beam2);
+    _info->_beams.clear();
+    _info->_beams += make_pair(beam1, beam2);
     return *this;
   }
 
 
+  /// @todo Deprecate?
   bool Analysis::isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
     BeamPair beams(beam1, beam2);
-    return compatible(beams, requiredBeams());
-    /// @todo Need to also check internal consistency of the analysis'
-    /// beam requirements with those of the projections it uses.
+    return isCompatible(beams);
   }
 
+
+  /// @todo Deprecate?
   bool Analysis::isCompatible(const BeamPair& beams) const {
-    return compatible(beams, requiredBeams());
+    foreach (const BeamPair& bp, requiredBeams()) {
+      if (compatible(beams, bp)) return true;
+    }
+    return false;
     /// @todo Need to also check internal consistency of the analysis'
     /// beam requirements with those of the projections it uses.
   }
@@ -217,10 +244,12 @@ namespace Rivet {
     return *this;
   }
 
+  /// @todo Deprecate, eventually
   bool Analysis::needsCrossSection() const {
     return _needsCrossSection;
   }
 
+  /// @todo Deprecate, eventually
   Analysis& Analysis::setNeedsCrossSection(bool needed) {
     _needsCrossSection = needed;
     return *this;

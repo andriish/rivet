@@ -12,11 +12,15 @@ References:
 RunInfo:
   QCD events with W+- production and electronic decays
 NumEvents: The measurement had 7132 events. Maybe 100k MC events are enough.
-PtCuts: 
+Beams: [p-, p+]
+Energies: [1800]
+PtCuts: [0]
 Description:
-  This is a D0 analysis from run 1, where the distribution of the transverse
+  This is a D0 analysis from Run 1, where the distribution of the transverse
   momentum of W candidates that decay  electronically, is measured. The electron
   is required to be within $\left|\eta\right| < 1.1$ and to have a transverse
   energy of $E_\perp > 25~\GeV$.  The neutrino is required to produce a missing
   energy of $E_{\perp, \text{ miss}}>25~\GeV$. The analysed data sample is three
   times as large as the similar measurement performed at CDF in 1991.
+ToDo:
+ - This is at 1800 GeV, right?

@@ -13,10 +13,11 @@ References:
  - Z. Phys. C - Particles and Fields 43, 357-374 (1989)
  - doi:10.1007/BF01506531
 RunInfo:
-  MinBias events at sqrt(s) = 200 and 900 GeV.
-  Enable single and double diffractive events in addition
-  to minimum bias and non-diffractive processes.
+  Minimum bias events at sqrt(s) = 200 and 900 GeV.
+  Enable single and double diffractive events in addition to non-diffractive processes.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [200, 900]
 PtCuts: [0]
 Description:
   Multiplicity distributions of charged particles produced in non-single-diffractive 

@@ -25,6 +25,10 @@ namespace Rivet {
   }
 
 
+  void ProjectionHandler::destroy() {
+    delete _instance;
+  }
+
 
   // Get a logger.
   Log& ProjectionHandler::getLog() const {

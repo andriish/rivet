@@ -15,6 +15,8 @@ RunInfo:
   The corresponding merging points are at $p_T = $ 0, 30, 50, 80, 
   130, 180 GeV
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0, 10, 20, 50, 100, 150]
 Description:
   Rick Field's measurement of the underlying event in leading jet

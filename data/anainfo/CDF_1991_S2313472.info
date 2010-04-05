@@ -12,6 +12,8 @@ References:
 RunInfo:
   QCD events with W+- production and electronic decays
 NumEvents: The measurement had 2500 events. Maybe 100k MC events are enough.
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: 
 Description:
   This is a CDF analysis from run 1, where the distribution of the transverse

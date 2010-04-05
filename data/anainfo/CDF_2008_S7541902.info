@@ -1,6 +1,6 @@
 Name: CDF_2008_S7541902
 Year: 2008
-Summary: Jet pT distributions for 4 jet multiplicity bins as well as the jet multiplicity distribution in W + jets events.
+Summary: Jet pT and multiplicity distributions in W + jets events
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 7541902
@@ -12,10 +12,12 @@ References:
  - arXiv:0711.4044 [hep-ex]
  - Phys.Rev.D77:011108,2008
 RunInfo:
-  Requires the process $p\bar{p} \rightarrow {W} \rightarrow{e}\nu$, 
-  additional hard jets will also have to be included to get a good 
+  Requires the process $p\bar{p} \rightarrow {W} \rightarrow {e}\nu$. 
+  Additional hard jets will also have to be included to get a good 
   description. The LO process in Herwig is set with IPROC=1451.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   Measurement of the cross section for W boson production in association

@@ -13,6 +13,8 @@ References:
 RunInfo:
   QCD events at sqrt(s) = 1800 GeV. Leading jet pTmin = 100 GeV.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1800]
 PtCuts: [80]
 Description:
   CDF Run I color coherence analysis. Events with $\ge 3$ jets are

@@ -17,6 +17,8 @@ RunInfo:
   hard processes, which for Pythia 6 means MSEL=10 for with MSUB indices 
   14, 18, 29, 114, 115 enabled.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [15]
 Description:
   Measurement of differential cross section for inclusive production of

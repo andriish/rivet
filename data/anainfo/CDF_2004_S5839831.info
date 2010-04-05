@@ -16,6 +16,7 @@ RunInfo:
   e.g. 0 (min bias), 30, 90, 150 GeV at 1800 GeV, and 0 (min bias), 20, 90, 
   150 GeV at 630 GeV.
 NumEvents: 1000000
+Beams: [p-, p+]
 Energies: [630, 1800]
 PtCuts: [0, 30, 90, 150] # for 1800, [0, 20, 90, 150] for 630
 Description:

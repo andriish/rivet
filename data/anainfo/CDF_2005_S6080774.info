@@ -16,6 +16,8 @@ RunInfo:
   with pT larger then 13 GeV. To allow for shifts in the shower, the ME
   cut on the transverse photon momentum shouldn't be too hard, e.g. 5 GeV.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [5]
 Description:
   Measurement of the cross section of prompt diphoton production in $p\bar{p}$

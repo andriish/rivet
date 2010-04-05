@@ -10,8 +10,10 @@ Authors:
 References:
  - Phys. Lett. B, 667, 1 (2008)
 RunInfo:
-  Hadronic events in $e+e-$ collisions
+  Hadronic events in $e^+ e^-$ collisions
 NumEvents: 1000000
+Beams: [e+, e-]
+Energies: [91.2]
 PtCuts: [0]
 Description:
   Hadron multiplicities in hadronic $e^+e^-$ events, taken from Review of

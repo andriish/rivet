@@ -17,6 +17,8 @@ RunInfo:
   p-pbar collisions at 1960~GeV. Jet pT bins from 54~GeV to 700~GeV. 
   Jet rapidity $< |2.1|$.
 NumEvents: 1000000
+Beams: [p-, p+]
+Energies: [1960]
 PtCuts: [0]
 Description:
   CDF Run II measurement of inclusive jet cross sections at a p-pbar

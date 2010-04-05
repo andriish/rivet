@@ -15,6 +15,8 @@ References:
 RunInfo:
   pp at 200 GeV
 NumEvents: 1000000
+Beams: [p-, p-]
+Energies: [200]
 PtCuts: [2, 10]
 Description:
   UE analysis similar to Rick Field's leading jet analysis. SIScone with
