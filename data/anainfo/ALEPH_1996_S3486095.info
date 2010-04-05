@@ -19,3 +19,16 @@ Description:
   Summary paper of QCD results as measured by ALEPH at LEP 1. The
   publication includes various event shape variables, multiplicities
   (identified particles and inclusive), and particle spectra.
+BibKey: Barate:1996fi
+BibTeX: '@Article{Barate:1996fi,
+     author    = "Barate, R. and others",
+ collaboration = "ALEPH",
+     title     = "{Studies of quantum chromodynamics with the ALEPH
+                  detector}",
+     journal   = "Phys. Rept.",
+     volume    = "294",
+     year      = "1998",
+     pages     = "1-165",
+     doi       = "10.1016/S0370-1573(97)00045-8",
+     SLACcitation  = "%%CITATION = PRPLC,294,1;%%"
+}'

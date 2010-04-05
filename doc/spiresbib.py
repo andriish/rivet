@@ -60,13 +60,21 @@ if __name__ == '__main__':
     parser = OptionParser(usage=usage)
     opts, args = parser.parse_args()
 
-    ## Build ref db
-    bibdb = get_bibtexs_from_spires(args)
-    for sid, (key, bibtex) in bibdb.iteritems():
-        print key, "=>\n", bibtex
+    ## Make individual bibinfo files
+    for sid in args:
+        key, bibtex = get_bibtex_from_spires(sid)
+        import sys
+        f = sys.stdout
+        f.write("BibKey: %s\n" % key)
+        f.write("BibTeX: '%s'\n" % bibtex)
 
-    ## Pickle ref db
-    import cPickle as pickle
-    fpkl = open("spiresbib.pkl", "w")
-    pickle.dump(bibdb)
-    fpkl.close()
+    # ## Build ref db
+    # bibdb = get_bibtexs_from_spires(args)
+    # for sid, (key, bibtex) in bibdb.iteritems():
+    #     print key, "=>\n", bibtex
+
+    # ## Pickle ref db
+    # import cPickle as pickle
+    # fpkl = open("spiresbib.pkl", "w")
+    # pickle.dump(bibdb)
+    # fpkl.close()

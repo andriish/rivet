@@ -45,9 +45,15 @@ namespace Rivet {
     /// The copy constructor is hidden.
     HistoHandler(const HistoHandler&);
 
+
   public:
+
     /// Singleton creation function
     static HistoHandler* create();
+
+
+    /// Singleton deletion function
+    static void destroy();
 
 
     ////////////////////////////////////////////////////////

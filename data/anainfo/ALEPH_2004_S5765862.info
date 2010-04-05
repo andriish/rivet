@@ -22,3 +22,16 @@ Description:
   measured in $e^+ e^-$ collisions at CMS energies between 91 and 209 GeV.
   The previously published data at 91.2 GeV and 133 GeV have been re-processed
   and the higher energy data are presented here for the first time.
+BibKey: Heister:2003aj
+BibTeX: '@Article{Heister:2003aj,
+     author    = "Heister, A. and others",
+ collaboration = "ALEPH",
+     title     = "{Studies of QCD at e+ e- centre-of-mass energies between
+                  91-GeV and  209-GeV}",
+     journal   = "Eur. Phys. J.",
+     volume    = "C35",
+     year      = "2004",
+     pages     = "457-486",
+     doi       = "10.1140/epjc/s2004-01891-4",
+     SLACcitation  = "%%CITATION = EPHJA,C35,457;%%"
+}'

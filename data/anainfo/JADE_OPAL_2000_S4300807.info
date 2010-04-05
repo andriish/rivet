@@ -19,3 +19,18 @@ PtCuts: [0]
 Description:
   Differential and integrated jet rates for Durham and JADE jet
   algorithms.
+BibKey: Pfeifenschneider:1999rz
+BibTeX: '@Article{Pfeifenschneider:1999rz,
+     author    = "Pfeifenschneider, P. and others",
+ collaboration = "JADE",
+     title     = "{QCD analyses and determinations of alpha(s) in e+ e-
+                  annihilation at  energies between 35-GeV and 189-GeV}",
+     journal   = "Eur. Phys. J.",
+     volume    = "C17",
+     year      = "2000",
+     pages     = "19-51",
+     eprint    = "hep-ex/0001055",
+     archivePrefix = "arXiv",
+     doi       = "10.1007/s100520000432",
+     SLACcitation  = "%%CITATION = HEP-EX/0001055;%%"
+}'

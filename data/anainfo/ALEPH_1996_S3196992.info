@@ -25,3 +25,16 @@ Description:
   statistical subtraction of non-prompt photons, the quark-to-photon
   fragmentation function, $D(z)$, is extracted directly from the measured 2-jet
   rate.
+BibKey: Buskulic:1995au
+BibTeX: '@Article{Buskulic:1995au,
+     author    = "Buskulic, D. and others",
+ collaboration = "ALEPH",
+     title     = "{First measurement of the quark to photon fragmentation
+                  function}",
+     journal   = "Z. Phys.",
+     volume    = "C69",
+     year      = "1996",
+     pages     = "365-378",
+     doi       = "10.1007/s002880050037",
+     SLACcitation  = "%%CITATION = ZEPYA,C69,365;%%"
+}'

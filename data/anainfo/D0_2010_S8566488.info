@@ -22,3 +22,15 @@ Description:
   event is measured using 0.7 fb$^{-1}$ of data.
   The measurement is performed in six rapidity regions up to
   $|y|_\text{max}=2.4$.
+BibKey: Abazov:2010fr
+BibTeX: '@Article{Abazov:2010fr,
+     author    = "Abazov, V. M. and others",
+ collaboration = "D0",
+     title     = "{Measurement of the dijet invariant mass cross section in
+                  $p\overline{p}$ collisions at $\sqrt{s} =$ 1.96 TeV}",
+     year      = "2010",
+     eprint    = "1002.4594",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     SLACcitation  = "%%CITATION = 1002.4594;%%"
+}'

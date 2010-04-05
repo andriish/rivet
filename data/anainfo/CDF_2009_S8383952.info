@@ -21,3 +21,16 @@ Description:
   $\mathrm{d}\sigma/\mathrm{d}y$, for $q\bar{q}\to \gamma^{*}/Z\to e^{+}e^{-}$ events in the $Z$
   boson mass region ($66<M_{ee}<116$ GeV/c$^2$) produced in $p\bar{p}$
   collisions at $\sqrt{s}=1.96$ TeV with 2.1 fb$^{-1}$ of integrated luminosity.
+BibKey: Aaltonen:2009pc
+BibTeX: '@Article{Aaltonen:2009pc,
+     author    = "Aaltonen, T. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of $d\sigma/dy$ of Drell-Yan $e^+e^-$ pairs in
+                  the $Z$ Mass Region from $p\bar{p}$ Collisions at
+                  $\sqrt{s}=1.96$ TeV}",
+     year      = "2009",
+     eprint    = "0908.3914",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     SLACcitation  = "%%CITATION = 0908.3914;%%"
+}'

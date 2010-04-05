@@ -23,6 +23,11 @@ namespace Rivet {
   }
 
 
+  void HistoHandler::destroy() {
+    delete _instance;
+  }
+
+
   // Get a logger.
   Log& HistoHandler::getLog() const {
     return Log::getLog("Rivet.HistoHandler");

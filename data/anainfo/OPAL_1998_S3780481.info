@@ -21,3 +21,18 @@ Description:
   multiplicities in flavour tagged events at LEP 1. OPAL measured these
   observables in uds-, c-, and b-events separately. An inclusive
   measurement is also included.
+BibKey: Ackerstaff:1998hz
+BibTeX: '@Article{Ackerstaff:1998hz,
+     author    = "Ackerstaff, K. and others",
+ collaboration = "OPAL",
+     title     = "{Measurements of flavour dependent fragmentation functions
+                  in  Z0 --> q anti-q events}",
+     journal   = "Eur. Phys. J.",
+     volume    = "C7",
+     year      = "1999",
+     pages     = "369-381",
+     eprint    = "hep-ex/9807004",
+     archivePrefix = "arXiv",
+     doi       = "10.1007/s100529901067",
+     SLACcitation  = "%%CITATION = HEP-EX/9807004;%%"
+}'

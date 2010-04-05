@@ -39,3 +39,20 @@ Description:
   jet(s) predictions. These measurements can be used to test and tune
   QCD predictions for the number of jets in and kinematics of $W$ + jets
   events.
+BibKey: Aaltonen:2007ip
+BibTeX: '@Article{Aaltonen:2007ip,
+     author    = "Aaltonen, T. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of the cross section for $W^-$ boson
+                  production in association with jets in ppbar collisions at
+                  $\sqrt{s}$ = 1.96-TeV}",
+     journal   = "Phys. Rev.",
+     volume    = "D77",
+     year      = "2008",
+     pages     = "011108",
+     eprint    = "0711.4044",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1103/PhysRevD.77.011108",
+     SLACcitation  = "%%CITATION = 0711.4044;%%"
+}'

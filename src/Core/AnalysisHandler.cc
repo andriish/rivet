@@ -139,6 +139,10 @@ namespace Rivet {
     }
     _analyses.clear();
 
+    // Delete singletons
+    ProjectionHandler::destroy();
+    //HistoHandler::destroy();
+
     // Print out MCnet boilerplate
     cout << endl;
     cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;

@@ -66,16 +66,11 @@ def texify(s):
         # .replace(r"^", r"") \
     return t
 
-## For BibTeX
-## TODO: use spiresbib.py as an executable to dump to a pickle- or shelve-based
-##   SpiresID -> (BibKey,BibTeX) file to avoid HTTP delays in doc build
-import spiresbib
-bib = {}
-
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
 pages = { "LEP":[], "Tevatron":[], "LHC":[], "SPS":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
+bib = {}
 for aname in sorted(list(all_analyses)):
     print "Handling analysis '%s'" % aname
     page = ""
@@ -83,12 +78,10 @@ for aname in sorted(list(all_analyses)):
     safe_aname = aname.replace(r"_", r"\_")
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     subtitle = "\\subsection{%s}\n" % safe_aname
-    if ana.spiresId():
-        bibkey, bibtex = spiresbib.get_bibtex_from_spires(ana.spiresId())
-        if bibkey and bibtex:
-            bib[bibkey] = bibtex
-            citetex = r"\cite{%s}" % bibkey
-            subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
+    if ana.bibKey() and ana.bibTeX():
+        bib[ana.bibKey()] = ana.bibTeX()
+        citetex = r"\cite{%s}" % ana.bibKey()
+        subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
     page += subtitle
     page += "\\textbf{%s}\\newline\n" %  ana.summary()
     if ana.experiment():

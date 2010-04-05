@@ -25,3 +25,16 @@ Description:
   laboratory frame are presented.  Historically, the Ariadne colour
   dipole model provided the only satisfactory description of this data,
   hence making it a useful 'target' analysis for MC shower models.
+BibKey: Abt:1994ye
+BibTeX: '@Article{Abt:1994ye,
+     author    = "Abt, I. and others",
+ collaboration = "H1",
+     title     = "{Energy flow and charged particle spectrum in deep
+                  inelastic scattering at HERA}",
+     journal   = "Z. Phys.",
+     volume    = "C63",
+     year      = "1994",
+     pages     = "377-390",
+     doi       = "10.1007/BF01580319",
+     SLACcitation  = "%%CITATION = ZEPYA,C63,377;%%"
+}'

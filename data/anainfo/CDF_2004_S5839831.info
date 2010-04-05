@@ -36,3 +36,18 @@ Description:
 
   WARNING! The pT plots are normalised to raw number of events. The min bias
   data have not been reproduced by MC, and are not recommended for tuning.
+BibKey: Acosta:2004wqa
+BibTeX: '@Article{Acosta:2004wqa,
+     author    = "Acosta, Darin E. and others",
+ collaboration = "CDF",
+     title     = "{The underlying event in hard interactions at the Tevatron
+                  $\bar{p}p$  collider}",
+     journal   = "Phys. Rev.",
+     volume    = "D70",
+     year      = "2004",
+     pages     = "072002",
+     eprint    = "hep-ex/0404004",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevD.70.072002",
+     SLACcitation  = "%%CITATION = HEP-EX/0404004;%%"
+}'

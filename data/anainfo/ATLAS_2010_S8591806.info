@@ -24,3 +24,17 @@ Description:
   multiplicity are measured for events with at least one charged particle in
   the kinematic range $|\eta| < 2.5$ and $p_\perp > 500$ MeV.
   All data is corrected to the particle level.
+BibKey: Aad:2010rd
+BibTeX: '@Article{Aad:2010rd,
+     author    = "Aad, G. and others",
+ collaboration = "ALTAS",
+     title     = "{Charged-particle multiplicities in pp interactions at
+                  sqrt(s) = 900 GeV measured with the ATLAS detector at the
+                  LHC}",
+     year      = "2010",
+     eprint    = "1003.3124",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1016/j.physletb.2010.03.064",
+     SLACcitation  = "%%CITATION = 1003.3124;%%"
+}'

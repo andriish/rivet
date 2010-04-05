@@ -22,3 +22,20 @@ Description:
   $Z/\gamma^{*} (\to e^{+} e^{-})$ + jet + X production in $p \bar{p}$
   collisions at $\sqrt{s} = 1.96$ TeV, based on an integrated luminosity
   of 1.0 fb$^{-1}$.
+BibKey: Abazov:2009av
+BibTeX: '@Article{Abazov:2009av,
+     author    = "Abazov, V. M. and others",
+ collaboration = "D0",
+     title     = "{Measurements of differential cross sections of $Z
+                  /\gamma^\ast$+jets+X events in proton anti-proton
+                  collisions at $\sqrt{s}$=1.96 TeV}",
+     journal   = "Phys. Lett.",
+     volume    = "B678",
+     year      = "2009",
+     pages     = "45-54",
+     eprint    = "0903.1748",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1016/j.physletb.2009.05.058",
+     SLACcitation  = "%%CITATION = 0903.1748;%%"
+}'

@@ -25,3 +25,19 @@ Description:
   the range -1.5 to 1.5. Z bosons are identified in their electron and
   muon decay modes in an invariant dilepton mass range between 66 and
   116 GeV.
+BibKey: Abulencia:2006ce
+BibTeX: '@Article{Abulencia:2006ce,
+     author    = "Abulencia, A. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of the $b$ jet cross-section in events with a
+                  $Z$ boson in $p \bar{p}$ collisions at $\sqrt{s}$ = 1.96-
+                  TeV}",
+     journal   = "Phys. Rev.",
+     volume    = "D74",
+     year      = "2006",
+     pages     = "032008",
+     eprint    = "hep-ex/0605099",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevD.74.032008",
+     SLACcitation  = "%%CITATION = HEP-EX/0605099;%%"
+}'

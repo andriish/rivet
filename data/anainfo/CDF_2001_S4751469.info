@@ -29,3 +29,16 @@ Description:
   \in [60\degree, 120\degree]$ for $|\eta| < 1$. The pT ranges for the
   leading jet are divided experimentally into the `min-bias' sample from
   0--20 GeV, and the `JET20' sample from 18--49 GeV.
+BibKey: Affolder:2001xt
+BibTeX: '@Article{Affolder:2001xt,
+     author    = "Affolder, Anthony Allen and others",
+ collaboration = "CDF",
+     title     = "{Charged jet evolution and the underlying event in
+                  $p\bar{p}$ collisions at 1.8 TeV}",
+     journal   = "Phys. Rev.",
+     volume    = "D65",
+     year      = "2002",
+     pages     = "092002",
+     doi       = "10.1103/PhysRevD.65.092002",
+     SLACcitation  = "%%CITATION = PHRVA,D65,092002;%%"
+}'

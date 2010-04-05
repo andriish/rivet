@@ -30,3 +30,18 @@ Description:
   processes, the latter of which is also sensitive to the gluon PDF. The
   initial state radiation / resummation formalisms are sensitive to the
   resulting photon pT spectrum
+BibKey: Abazov:2005wc
+BibTeX: '@Article{Abazov:2005wc,
+     author    = "Abazov, V. M. and others",
+ collaboration = "D0",
+     title     = "{Measurement of the isolated photon cross section in $p
+                  \bar{p}$ collisions at $\sqrt{s}$ = 1.96-TeV}",
+     journal   = "Phys. Lett.",
+     volume    = "B639",
+     year      = "2006",
+     pages     = "151-158",
+     eprint    = "hep-ex/0511054",
+     archivePrefix = "arXiv",
+     doi       = "10.1016/j.physletb.2006.04.048",
+     SLACcitation  = "%%CITATION = HEP-EX/0511054;%%"
+}'

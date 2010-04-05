@@ -34,3 +34,20 @@ Description:
   jet.  MC predictions have trouble with simultaneously describing the
   measured normalization and $pT^\gamma$ dependence of the cross section
   in any of the four measured regions.
+BibKey: Abazov:2008er
+BibTeX: '@Article{Abazov:2008er,
+     author    = "Abazov, V. M. and others",
+ collaboration = "D0",
+     title     = "{Measurement of the differential cross-section for the
+                  production of an isolated photon with associated jet in $p
+                  \bar{p}$ collisions at $\sqrt{s}$ = 1.96-TeV}",
+     journal   = "Phys. Lett.",
+     volume    = "B666",
+     year      = "2008",
+     pages     = "435-445",
+     eprint    = "0804.1107",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1016/j.physletb.2008.06.076",
+     SLACcitation  = "%%CITATION = 0804.1107;%%"
+}'

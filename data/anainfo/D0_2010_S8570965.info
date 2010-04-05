@@ -25,3 +25,16 @@ Description:
   scattering angle of the photons. Also available are double differential cross
   sections considering the last three kinematic variables in three diphoton
   mass bins.
+BibKey: Abazov:2010ah
+BibTeX: '@Article{Abazov:2010ah,
+     author    = "Abazov, V. M. and others",
+ collaboration = "The D0",
+     title     = "{Measurement of direct photon pair production cross
+                  sections in $p \bar{p}$ collisions at $\sqrt(s)=1.96$
+                  TeV}",
+     year      = "2010",
+     eprint    = "1002.4917",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     SLACcitation  = "%%CITATION = 1002.4917;%%"
+}'

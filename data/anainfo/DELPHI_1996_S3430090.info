@@ -25,3 +25,16 @@ Description:
   generators by the original PROFESSOR method.  This is a critical
   analysis for MC event generator tuning of final state radiation and
   both flavour and kinematic aspects of hadronisation models.
+BibKey: Abreu:1996na
+BibTeX: '@Article{Abreu:1996na,
+     author    = "Abreu, P. and others",
+ collaboration = "DELPHI",
+     title     = "{Tuning and test of fragmentation models based on
+                  identified particles  and precision event shape data}",
+     journal   = "Z. Phys.",
+     volume    = "C73",
+     year      = "1996",
+     pages     = "11-60",
+     doi       = "10.1007/s002880050295",
+     SLACcitation  = "%%CITATION = ZEPYA,C73,11;%%"
+}'

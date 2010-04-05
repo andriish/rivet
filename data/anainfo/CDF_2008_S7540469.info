@@ -23,3 +23,20 @@ Description:
   TeV, based on an integrated luminosity of $1.7~\text{fb}^{-1}$. The 
   measurements cover the rapidity region $|y_\text{jet}| < 2.1$ and 
   the transverse momentum range $pT^\text{jet} > 30~\text{GeV}/c$.
+BibKey: :2007cp
+BibTeX: '@Article{:2007cp,
+     author    = "Aaltonen, T. and others",
+ collaboration = "CDF - Run II",
+     title     = "{Measurement of inclusive jet cross-sections in Z/gamma*(--
+                  -> $e^{+} e^{-)}$ + jets production in $p \bar{p}$
+                  collisions at $\sqrt{s}$ = 1.96-TeV}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "100",
+     year      = "2008",
+     pages     = "102001",
+     eprint    = "0711.3717",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "",
+     SLACcitation  = "%%CITATION = 0711.3717;%%"
+}'

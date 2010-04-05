@@ -30,3 +30,16 @@ Description:
   the forward and backward interval. All our correlation studies can be understood 
   in terms of a cluster model in which clusters contain on average about two 
   charged particles, i.e. are of similar magnitude to earlier estimates from the ISR.
+BibKey: Ansorge:1988fg
+BibTeX: '@Article{Ansorge:1988fg,
+     author    = "Ansorge, R. E. and others",
+ collaboration = "UA5",
+     title     = "{CHARGED PARTICLE CORRELATIONS IN ANTI-P P COLLISIONS AT
+                  C.M. ENERGIES OF 200-GEV, 546-GEV AND 900-GEV}",
+     journal   = "Z. Phys.",
+     volume    = "C37",
+     year      = "1988",
+     pages     = "191-213",
+     doi       = "10.1007/BF01579906",
+     SLACcitation  = "%%CITATION = ZEPYA,C37,191;%%"
+}'

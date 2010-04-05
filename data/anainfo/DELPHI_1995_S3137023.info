@@ -20,3 +20,15 @@ Description:
   momentum distributions by DELPHI at LEP 1. The paper also has the
   production cross-sections of these particles, but that's not
   implemented in Rivet.
+BibKey: Abreu:1995qx
+BibTeX: '@Article{Abreu:1995qx,
+     author    = "Abreu, P. and others",
+ collaboration = "DELPHI",
+     title     = "{Strange baryon production in Z hadronic decays}",
+     journal   = "Z. Phys.",
+     volume    = "C67",
+     year      = "1995",
+     pages     = "543-554",
+     doi       = "10.1007/BF01553980",
+     SLACcitation  = "%%CITATION = ZEPYA,C67,543;%%"
+}'

@@ -22,3 +22,16 @@ Description:
   a transverse energy of $E_\perp > 20~\GeV$ and a $p_\perp > 12~\GeV$.
   The neutrino is required to produce a missing energy of 
   $E_{\perp, \text{ miss}}>20~\GeV$.
+BibKey: Abe:1991rk
+BibTeX: '@Article{Abe:1991rk,
+     author    = "Abe, F. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of the W P(T) distribution in $\bar{p}p$
+                  collisions at $\sqrt{s} = 1.8$ TeV}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "66",
+     year      = "1991",
+     pages     = "2951-2955",
+     doi       = "10.1103/PhysRevLett.66.2951",
+     SLACcitation  = "%%CITATION = PRLTA,66,2951;%%"
+}'

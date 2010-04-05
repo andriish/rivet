@@ -33,3 +33,19 @@ Description:
   definition, since the Rivet implementation reconstructs the Z momentum from the
   dilepton pair with finite cones for QED bremstrahlung summation, rather than
   non-portable direct use of the (sometimes absent) Z in the event record.
+BibKey: Affolder:1999jh
+BibTeX: '@Article{Affolder:1999jh,
+     author    = "Affolder, Anthony Allen and others",
+ collaboration = "CDF",
+     title     = "{The transverse momentum and total cross section of $e^+e^-
+                  $ pairs in the $Z$ boson region from $p\bar{p}$ collisions
+                  at $\sqrt{s} = 1.8$ TeV}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "84",
+     year      = "2000",
+     pages     = "845-850",
+     eprint    = "hep-ex/0001021",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevLett.84.845",
+     SLACcitation  = "%%CITATION = HEP-EX/0001021;%%"
+}'

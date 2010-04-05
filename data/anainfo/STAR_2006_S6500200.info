@@ -21,3 +21,18 @@ Description:
   pT distributions of charged pions and (anti)protons in pp collisions 
   at $\sqrt{s} = 200$ GeV, measured by the STAR experiment at RHIC in
   non-single-diffractive minbias events.
+BibKey: Adams:2006nd
+BibTeX: '@Article{Adams:2006nd,
+     author    = "Adams, John and others",
+ collaboration = "STAR",
+     title     = "{Identified hadron spectra at large transverse momentum in
+                  p + p and d +  Au collisions at s(NN)**(1/2) = 200-GeV}",
+     journal   = "Phys. Lett.",
+     volume    = "B637",
+     year      = "2006",
+     pages     = "161-169",
+     eprint    = "nucl-ex/0601033",
+     archivePrefix = "arXiv",
+     doi       = "10.1016/j.physletb.2006.04.032",
+     SLACcitation  = "%%CITATION = NUCL-EX/0601033;%%"
+}'

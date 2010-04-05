@@ -22,3 +22,19 @@ Description:
   Measurement of $e^+ e^-$ event shape variable distributions and their 1st 
   to 5th moments in LEP running from the Z pole to the highest LEP 2 energy
   of 209 GeV.
+BibKey: Abbiendi:2004qz
+BibTeX: '@Article{Abbiendi:2004qz,
+     author    = "Abbiendi, G. and others",
+ collaboration = "OPAL",
+     title     = "{Measurement of event shape distributions and moments in e+
+                  e- -->  hadrons at 91-GeV - 209-GeV and a determination of
+                  alpha(s)}",
+     journal   = "Eur. Phys. J.",
+     volume    = "C40",
+     year      = "2005",
+     pages     = "287-316",
+     eprint    = "hep-ex/0503051",
+     archivePrefix = "arXiv",
+     doi       = "10.1140/epjc/s2005-02120-6",
+     SLACcitation  = "%%CITATION = HEP-EX/0503051;%%"
+}'

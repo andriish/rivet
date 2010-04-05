@@ -24,3 +24,18 @@ Description:
 ToDo:
  -  So far, this analysis is using the wrong jet algorithm, namely the D0 Run
     II Improved Legacy cone.
+BibKey: Abachi:1996et
+BibTeX: '@Article{Abachi:1996et,
+     author    = "Abachi, S. and others",
+ collaboration = "D0",
+     title     = "{The Azimuthal decorrelation of jets widely separated in
+                  rapidity}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "77",
+     year      = "1996",
+     pages     = "595-600",
+     eprint    = "hep-ex/9603010",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevLett.77.595",
+     SLACcitation  = "%%CITATION = HEP-EX/9603010;%%"
+}'

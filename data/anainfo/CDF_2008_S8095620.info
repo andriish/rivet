@@ -28,3 +28,20 @@ Description:
   momentum, number of jets, and number of b-jets. The first two
   measurements have an entry for each b-jet in the event, the last three
   measurements have one entry per event.
+BibKey: Aaltonen:2008mt
+BibTeX: '@Article{Aaltonen:2008mt,
+     author    = "Aaltonen, T. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of Cross Sections for $b$ Jet Production in
+                  Events with a $Z$ Boson in $p^-$ anti-p Collisions at
+                  $\sqrt{s}$ = 1.96-TeV}",
+     journal   = "Phys. Rev.",
+     volume    = "D79",
+     year      = "2009",
+     pages     = "052008",
+     eprint    = "0812.4458",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1103/PhysRevD.79.052008",
+     SLACcitation  = "%%CITATION = 0812.4458;%%"
+}'

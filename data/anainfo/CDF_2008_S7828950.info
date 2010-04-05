@@ -27,3 +27,20 @@ Description:
   using the cone-based Midpoint jet clustering algorithm in rapidity
   bins within $|y|<2.1$. This measurement can be used to provide
   increased precision in PDFs at high parton momentum fraction $x$.
+BibKey: Aaltonen:2008eq
+BibTeX: '@Article{Aaltonen:2008eq,
+     author    = "Aaltonen, T. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of the Inclusive Jet Cross Section at the
+                  Fermilab Tevatron p-pbar Collider Using a Cone-Based Jet
+                  Algorithm}",
+     journal   = "Phys. Rev.",
+     volume    = "D78",
+     year      = "2008",
+     pages     = "052006",
+     eprint    = "0807.2204",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1103/PhysRevD.78.052006",
+     SLACcitation  = "%%CITATION = 0807.2204;%%"
+}'

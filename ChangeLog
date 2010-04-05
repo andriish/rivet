@@ -1,5 +1,11 @@
 2010-04-05  Andy Buckley  <andy@insectnation.org>
 
+	* Adding BibKey and BibTeX entries to analysis metadata files, and
+	updating doc build to use them rather than the time-consuming
+	SPIRES screen-scraping. Added SPIRES BibTeX dumps to all analysis
+	metadata using new (uninstalled & unpackaged) doc/get-spires-data
+	script hack.
+
 	* Updating metadata files to add Energies, Beams and PtCuts
 	entries to all of them.
 

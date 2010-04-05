@@ -33,3 +33,18 @@ Description:
   range $-1 < |\eta| < 2.4$ using the $k_\perp$ algorithm with an $R$ 
   parameter of 1.0. The minimum pT of the leading jet should be greater
   than 14~GeV, and at least one other jet must have $pT > 11$~GeV.
+BibKey: Chekanov:2001bw
+BibTeX: '@Article{Chekanov:2001bw,
+     author    = "Chekanov, S. and others",
+ collaboration = "ZEUS",
+     title     = "{Dijet photoproduction at HERA and the structure of the
+                  photon}",
+     journal   = "Eur. Phys. J.",
+     volume    = "C23",
+     year      = "2002",
+     pages     = "615-631",
+     eprint    = "hep-ex/0112029",
+     archivePrefix = "arXiv",
+     doi       = "10.1007/s100520200936",
+     SLACcitation  = "%%CITATION = HEP-EX/0112029;%%"
+}'

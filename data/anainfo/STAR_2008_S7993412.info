@@ -23,3 +23,18 @@ Description:
   collisions at 200 GeV. Nevertheless, it is very proton-proton like and
   can therefore be compared to $pp$ Monte Carlo (not for tuning, but for
   qualitative studies.)
+BibKey: Nattrass:2008tw
+BibTeX: '@Article{Nattrass:2008tw,
+     author    = "Nattrass, Christine",
+     title     = "{Energy and system dependence of high-$p_T$ triggered two-
+                  particle near-side correlations}",
+     journal   = "Eur. Phys. J.",
+     volume    = "C62",
+     year      = "2009",
+     pages     = "265-269",
+     eprint    = "0809.5261",
+     archivePrefix = "arXiv",
+     primaryClass  =  "nucl-ex",
+     doi       = "10.1140/epjc/s10052-009-1037-8",
+     SLACcitation  = "%%CITATION = 0809.5261;%%"
+}'

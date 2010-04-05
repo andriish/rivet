@@ -24,3 +24,19 @@ Description:
   times as large as the similar measurement performed at CDF in 1991.
 ToDo:
  - This is at 1800 GeV, right?
+BibKey: Abbott:1998jy
+BibTeX: '@Article{Abbott:1998jy,
+     author    = "Abbott, B. and others",
+ collaboration = "D0",
+     title     = "{Measurement of the shape of the transverse momentum
+                  distribution of $W$ bosons produced in $p\bar{p}$
+                  collisions at $\sqrt{s} = 1.8$ TeV}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "80",
+     year      = "1998",
+     pages     = "5498-5503",
+     eprint    = "hep-ex/9803003",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevLett.80.5498",
+     SLACcitation  = "%%CITATION = HEP-EX/9803003;%%"
+}'

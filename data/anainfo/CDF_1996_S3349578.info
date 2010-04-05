@@ -20,3 +20,18 @@ PtCuts: [20]
 Description:
   Multijet distributions corresponding to ($4N-4$) variables that span 
   the $N$-body parameter space in inclusive $N = 3$-, 4-, and 5-jet events.
+BibKey: Abe:1996nn
+BibTeX: '@Article{Abe:1996nn,
+     author    = "Abe, F. and others",
+ collaboration = "CDF",
+     title     = "{Further Properties of High-Mass Multijet Events at the
+                  Fermilab Proton-Antiproton Collider}",
+     journal   = "Phys. Rev.",
+     volume    = "D54",
+     year      = "1996",
+     pages     = "4221-4233",
+     eprint    = "hep-ex/9605004",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevD.54.4221",
+     SLACcitation  = "%%CITATION = HEP-EX/9605004;%%"
+}'

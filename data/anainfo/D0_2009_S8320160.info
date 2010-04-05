@@ -19,3 +19,20 @@ Description:
   Dijet angular distributions in different bins of dijet mass from 0.25
   TeV to above 1.1 TeV in $p \bar{p}$ collisions at $\sqrt{s} = 1.96$ TeV,
   based on an integrated luminosity of 0.7 fb$^{-1}$.
+BibKey: :2009mh
+BibTeX: '@Article{:2009mh,
+     author    = "Abazov, V. M. and others",
+ collaboration = "D0",
+     title     = "{Measurement of dijet angular distributions at
+                  sqrt{s}=1.96TeV and searches for quark compositeness and
+                  extra spatial dimensions}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "103",
+     year      = "2009",
+     pages     = "191803",
+     eprint    = "0906.4819",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1103/PhysRevLett.103.191803",
+     SLACcitation  = "%%CITATION = 0906.4819;%%"
+}'

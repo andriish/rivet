@@ -22,3 +22,20 @@ Description:
   Cross sections as a function of pT of the vector boson inclusive and
   in forward region ($|y| > 2$, $pT<30$ GeV) in $p \bar{p}$ collisions
   at $\sqrt{s}$ = 1.96 TeV, based on an integrated luminosity of 0.98~fb$^{-1}$.
+BibKey: :2007nt
+BibTeX: '@Article{:2007nt,
+     author    = "Abazov, V. M. and others",
+ collaboration = "D0",
+     title     = "{Measurement of the shape of the boson transverse  momentum
+                  distribution in $p \bar{p} \to Z / \gamma^{*} \to e^+ e^- +
+                  X$ events produced at $\sqrt{s}$=1.96-TeV}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "100",
+     year      = "2008",
+     pages     = "102002",
+     eprint    = "0712.0803",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1103/PhysRevLett.100.102002",
+     SLACcitation  = "%%CITATION = 0712.0803;%%"
+}'

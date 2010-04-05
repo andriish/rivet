@@ -20,3 +20,17 @@ PtCuts: [0]
 Description:
   Measurement of jet angular distributions in events with two jets in the final
   state in 5 bins of dijet invariant mass. Based on $106 \mathrm{pb}^{-1}$
+BibKey: Abe:1996mj
+BibTeX: '@Article{Abe:1996mj,
+     author    = "Abe, F. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of dijet angular distributions at CDF}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "77",
+     year      = "1996",
+     pages     = "5336-5341",
+     eprint    = "hep-ex/9609011",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevLett.77.5336",
+     SLACcitation  = "%%CITATION = HEP-EX/9609011;%%"
+}'

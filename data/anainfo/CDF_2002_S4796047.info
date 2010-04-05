@@ -26,3 +26,16 @@ Description:
   results shows distinct differences in the behavior of the two samples
   as a function of the center of mass energy. The properties of the soft
   sample are invariant as a function of c.m. energy.
+BibKey: Acosta:2001rm
+BibTeX: '@Article{Acosta:2001rm,
+     author    = "Acosta, Darin E. and others",
+ collaboration = "CDF",
+     title     = "{Soft and hard interactions in $p\bar{p}$ collisions at
+                  $\sqrt{s}=$ 1800-GeV and 630-GeV}",
+     journal   = "Phys. Rev.",
+     volume    = "D65",
+     year      = "2002",
+     pages     = "072005",
+     doi       = "10.1103/PhysRevD.65.072005",
+     SLACcitation  = "%%CITATION = PHRVA,D65,072005;%%"
+}'

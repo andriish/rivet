@@ -25,3 +25,18 @@ Description:
   proton remnant and the struck quark jet. Performing a transverse
   energy sum in bins of $x$ and $\eta$ may distinguish between DGLAP and
   BFKL evolution.
+BibKey: Aid:1995we
+BibTeX: '@Article{Aid:1995we,
+     author    = "Aid, S. and others",
+ collaboration = "H1",
+     title     = "{Transverse energy and forward jet production in the low x
+                  regime at HERA}",
+     journal   = "Phys. Lett.",
+     volume    = "B356",
+     year      = "1995",
+     pages     = "118-128",
+     eprint    = "hep-ex/9506012",
+     archivePrefix = "arXiv",
+     doi       = "10.1016/0370-2693(95)00804-T",
+     SLACcitation  = "%%CITATION = HEP-EX/9506012;%%"
+}'

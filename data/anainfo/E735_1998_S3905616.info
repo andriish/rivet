@@ -20,3 +20,15 @@ Energies: [1800]
 PtCuts: [0]
 Description:
   A measurement of the charged multiplicity distribution at sqrt(s) = 1.8 TeV.
+BibKey: Alexopoulos:1998bi
+BibTeX: '@Article{Alexopoulos:1998bi,
+     author    = "Alexopoulos, T. and others",
+     title     = "{The role of double parton collisions in soft hadron
+                  interactions}",
+     journal   = "Phys. Lett.",
+     volume    = "B435",
+     year      = "1998",
+     pages     = "453-457",
+     doi       = "10.1016/S0370-2693(98)00921-6",
+     SLACcitation  = "%%CITATION = PHLTA,B435,453;%%"
+}'

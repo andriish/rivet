@@ -21,3 +21,16 @@ Description:
   and 62.2 GeV using a minimum-bias trigger. The data is sub-divided 
   into inleastic as well as non-single-diffractive events. However, 
   the implementation of the diffractive events will require some work.
+BibKey: Breakstone:1983ns
+BibTeX: '@Article{Breakstone:1983ns,
+     author    = "Breakstone, A. and others",
+ collaboration = "Ames-Bologna-CERN-Dortmund-Heidelberg-Warsaw",
+     title     = "{Charged Multiplicity Distribution in p p Interactions at
+                  ISR Energies}",
+     journal   = "Phys. Rev.",
+     volume    = "D30",
+     year      = "1984",
+     pages     = "528",
+     doi       = "10.1103/PhysRevD.30.528",
+     SLACcitation  = "%%CITATION = PHRVA,D30,528;%%"
+}'

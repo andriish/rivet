@@ -23,3 +23,15 @@ Description:
   130--200 GeV, normalised to the pion multiplicity. The numbers are averages
   from various experiments. Correlations of the systematic uncertainties
   were considered for the calculation of the averages.
+BibKey: Amsler:2008zzb
+BibTeX: '@Article{Amsler:2008zzb,
+     author    = "Amsler, Claude and others",
+ collaboration = "Particle Data Group",
+     title     = "{Review of particle physics}",
+     journal   = "Phys. Lett.",
+     volume    = "B667",
+     year      = "2008",
+     pages     = "1",
+     doi       = "10.1016/j.physletb.2008.07.018",
+     SLACcitation  = "%%CITATION = PHLTA,B667,1;%%"
+}'

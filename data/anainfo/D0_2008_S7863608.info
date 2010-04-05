@@ -23,3 +23,20 @@ Description:
   Cross sections as a function of pT and rapidity of the boson and pT
   and rapidity of the leading jet in $p \bar{p}$ collisions at $\sqrt{s}$ = 1.96
   TeV, based on an integrated luminosity of 1.0 fb$^{-1}$.
+BibKey: Abazov:2008ez
+BibTeX: '@Article{Abazov:2008ez,
+     author    = "Abazov, V. M. and others",
+ collaboration = "D0",
+     title     = "{Measurement of differential $Z / \gamma^{*}$ + jet + $X$
+                  cross sections in $p \bar{p}$ collisions at $\sqrt{s}$ =
+                  1.96-TeV}",
+     journal   = "Phys. Lett.",
+     volume    = "B669",
+     year      = "2008",
+     pages     = "278-286",
+     eprint    = "0808.1296",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1016/j.physletb.2008.09.060",
+     SLACcitation  = "%%CITATION = 0808.1296;%%"
+}'

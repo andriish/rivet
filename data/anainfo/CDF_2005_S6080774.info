@@ -25,3 +25,19 @@ Description:
   207~pb$^{-1}$ as a function of the diphoton mass, the transverse
   momentum of the diphoton system, and the azimuthal angle between the two
   photons.
+BibKey: Acosta:2004sn
+BibTeX: '@Article{Acosta:2004sn,
+     author    = "Acosta, Darin E. and others",
+ collaboration = "CDF",
+     title     = "{Measurement of the cross section for prompt diphoton
+                  production in $p\bar{p}$ collisions at $\sqrt{s} = 1.96$
+                  TeV}",
+     journal   = "Phys. Rev. Lett.",
+     volume    = "95",
+     year      = "2005",
+     pages     = "022003",
+     eprint    = "hep-ex/0412050",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevLett.95.022003",
+     SLACcitation  = "%%CITATION = HEP-EX/0412050;%%"
+}'
