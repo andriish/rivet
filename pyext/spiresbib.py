@@ -16,7 +16,7 @@ def fetch_spires_bibtex(spiresid):
     hreq = urllib2.urlopen(spiresurl)
     bibtexhtml = hreq.read()
     hreq.close()
-    logging.debug(bibtexhtml)
+    #logging.debug(bibtexhtml)
     return bibtexhtml
 
 

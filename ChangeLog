@@ -1,5 +1,9 @@
 2010-04-05  Andy Buckley  <andy@insectnation.org>
 
+	* Using spiresbib in rivet-mkanalysis: analysis templates made
+	with rivet-mkanalysis will now contain a SPIRES-dumped BibTeX key
+	and entry if possible!
+
 	* Adding BibKey and BibTeX entries to analysis metadata files, and
 	updating doc build to use them rather than the time-consuming
 	SPIRES screen-scraping. Added SPIRES BibTeX dumps to all analysis

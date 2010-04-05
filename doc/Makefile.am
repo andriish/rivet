@@ -7,7 +7,8 @@ DOCSOURCES = compare-histos.txt  heppennames.sty warning.png thinker.png cone.pn
   make-plots.txt rivet-manual.tex preamble.tex hepparticles.sty maybemath.sty \
   rivet-manual.pdf hepunits.sty underscore.sty microtype.sty
 
-EXTRA_DIST = $(DOCSOURCES) readplot.py spiresbib.py
+## TODO: replace readplot with lighthisto/YODA functionality
+EXTRA_DIST = $(DOCSOURCES) readplot.py
 
 if WITH_ASCIIDOC
 EXTRA_DIST += compare-histos.html make-plots.html
@@ -22,6 +23,7 @@ analyses.html: $(top_srcdir)/include/Rivet/Analyses mk-analysis-html
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(top_srcdir)/src/Tools/yaml-cpp/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(top_srcdir)/src/Tools/yaml-cpp/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
+PYTHONPATH=$(top_srcdir)/pyext:$(PYTHONPATH) \
 ./mk-analysis-html analyses.html
 
 endif

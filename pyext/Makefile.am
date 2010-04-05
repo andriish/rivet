@@ -1,4 +1,4 @@
-EXTRA_DIST = rivet.i ez_setup.py lighthisto.py
+EXTRA_DIST = rivet.i ez_setup.py lighthisto.py spiresbib.py
 
 rivet_wrap.cc rivet.py: rivet.i
 	$(SWIG) -c++ -python -I$(top_srcdir)/include -o rivet_wrap.cc $<;

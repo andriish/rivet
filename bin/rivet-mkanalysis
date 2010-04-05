@@ -84,6 +84,24 @@ for ANANAME in ANANAMES:
         "ANASPIRESID" : ANASPIRESID
         }
 
+
+    ## Try to get bib info from SPIRES
+    ANABIBKEY = "<Insert SPIRES BibTeX key>"
+    ANABIBTEX = "<Insert SPIRES BibTeX block>"
+    bibkey, bibtex = None, None
+    try:
+        import spiresbib
+        logging.debug("Getting SPIRES biblio data for '%s'" % ANANAME)
+        bibkey, bibtex = spiresbib.get_bibtex_from_spires(ANASPIRESID)
+    except Exception, e:
+        print "Oops:", e
+    if bibkey and bibtex:
+        ANABIBKEY = bibkey
+        ANABIBTEX = bibtex
+    KEYWORDS["ANABIBKEY"] = ANABIBKEY
+    KEYWORDS["ANABIBTEX"] = ANABIBTEX
+
+
     ANASRCFILE = os.path.join(ANASRCDIR, ANANAME+".cc")
     logging.debug("Writing implementation template to %s" % ANASRCFILE)
     f = open(ANASRCFILE, "w")
@@ -215,8 +233,8 @@ Description:
   and if possible what it's useful for in terms of MC validation
   and tuning. Use \LaTeX for maths like $\pT > \unit{50}{\GeV}$.
   Use single quotes around the block if required (see YAML 1.2 manual)>'
-BibKey: <Insert SPIRES BibTeX key>
-BibTeX: '<Insert SPIRES BibTeX block>'
+BibKey: %(ANABIBKEY)s
+BibTeX: '%(ANABIBTEX)s'
 ToDo:
  - <Example: Use correct jet algorithm>
  - <Example: Add simplified trigger definition>
