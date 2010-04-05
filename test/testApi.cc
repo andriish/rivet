@@ -21,12 +21,13 @@ int main() {
   double sum_of_weights = 0.0;
   while (evt) {
     rivet.analyze(*evt);
-    sum_of_weights+=evt->weights()[0];
-    // clean up and get next event
-    delete evt;
+    sum_of_weights += evt->weights()[0];
+
+    // Clean up and get next event
+    delete evt; evt = 0;
     hepmcio >> evt;
   }
-  delete file;
+  delete file; file = 0;
 
   rivet.setCrossSection(1.0);
   rivet.setSumOfWeights(sum_of_weights); // not necessary, but allowed

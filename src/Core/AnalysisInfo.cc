@@ -74,10 +74,10 @@ namespace Rivet {
       string key;
       it.first() >> key;
       stringstream sec;
-      sec << it.second();
-      const string secstr = sec.str().substr(0, sec.str().length()-1);
-      Log::getLog("Rivet.AnalysisInfo")
-        << Log::TRACE << key << ": " << secstr << endl;
+      // sec << it.second();
+      // const string secstr = sec.str().substr(0, sec.str().length()-1);
+      // Log::getLog("Rivet.AnalysisInfo")
+      //   << Log::TRACE << key << ": " << secstr << endl;
       try {
         if (key == "Name") {
           it.second() >> ai->_name;
