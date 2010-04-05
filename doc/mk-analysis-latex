@@ -238,5 +238,5 @@ f.close()
 f = open("%s.bib" % OUTNAME, "w")
 #
 bibentries = "\n\n".join(["%% %s\n%s" % (k,b) for k,b in bib.iteritems()])
-f.write(bibentries)
+f.write(bibentries + "\n")
 f.close()
