@@ -140,7 +140,7 @@ namespace Rivet {
     _analyses.clear();
 
     // Delete singletons
-    ProjectionHandler::destroy();
+    //ProjectionHandler::destroy();
     //HistoHandler::destroy();
 
     // Print out MCnet boilerplate
