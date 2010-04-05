@@ -19,17 +19,18 @@
 %include "std_pair.i"
 %include "std_map.i"
 %template(StrList) std::vector<std::string>;
-
+%template(DblPair) std::pair<double, double>;
+%template(DblPairList) std::vector< std::pair<double, double> >;
 
 // Histo format enum
 %include "Rivet/HistoFormat.hh"
 
-
 // Particle ID stuff
 %include "Rivet/Particle.fhh"
 %include "Rivet/ParticleName.hh"
-//%template(BeamPair) std::pair<PdgId,PdgId>;
-
+%template(PdgIdPair) std::pair<Rivet::PdgId,Rivet::PdgId>;
+%template(PdgIdPairList) std::vector<Rivet::BeamPair>;
+//%template(PdgIdPairList) std::vector< std::pair<PdgId,PdgId> >;
 
 // Logging interface
 %template(LogLevelMap) std::map<std::string, int>;
