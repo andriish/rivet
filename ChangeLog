@@ -1,3 +1,12 @@
+2010-04-05  Andy Buckley  <andy@insectnation.org>
+
+	* Updating metadata files to add Energies, Beams and PtCuts
+	entries to all of them.
+
+	* Adding ToDo, NeedsCrossSection, and better treatment of Beams
+	and Energies entries in metadata files and in AnalysisInfo and
+	Analysis interfaces.
+
 2010-04-03  Andy Buckley  <andy@insectnation.org>
 
 	* Frank Siegert: Update of rivet-mkhtml to conform to improved
