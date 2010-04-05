@@ -84,6 +84,18 @@ for aname in sorted(list(all_analyses)):
         subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
     page += subtitle
     page += "\\textbf{%s}\\newline\n" %  ana.summary()
+    ## TODO: fix and tidy!
+    # if ana.requiredBeams():
+    #     print ana.requiredBeams()
+    #     reqbeampairstrs = []
+    #     for pair in ana.requiredBeams():
+    #         reqbeampairstrs.append(str(pair[0])+":"+str(pair[1]))
+    #     page += "\\textbf{Beams:} %s \\newline\n" % ", ".join(reqbeampairstrs)
+    # if ana.energies():
+    #     energypairstrs = []
+    #     for pair in ana.energies():
+    #         energypairstrs.append(str(pair[0])+":"+str(pair[1]))
+    #     page += "\\textbf{Energies:} %s \\newline\n" % ", ".join(energypairstrs)        
     if ana.experiment():
         page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
     if ana.spiresId():
