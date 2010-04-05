@@ -79,14 +79,14 @@ namespace Rivet {
     virtual std::string experiment() const;
     virtual std::string collider() const;
     virtual std::string year() const;
-    virtual std::string status() const;
+    virtual const std::vector<BeamPair>& requiredBeams() const;
     virtual const std::vector<std::pair<double,double> >& energies() const;
     virtual std::vector<std::string> authors() const;
     virtual std::vector<std::string> references() const;
-    // virtual const ParticlePair& beams() const;
-    // virtual const BeamPair& beamIds() const;
-    // virtual double sqrtS() const;
-    virtual const BeamPair& requiredBeams() const;
+    virtual std::vector<std::string> todos() const;
+    virtual std::string status() const;
+    virtual std::string bibKey() const;
+    virtual std::string bibTeX() const;
     virtual const bool isCompatible(const ParticleName& beam1, 
                                     const ParticleName& beam2) const;
     virtual const bool isCompatible(const BeamPair& beams) const;
