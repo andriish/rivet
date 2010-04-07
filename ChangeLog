@@ -1,3 +1,9 @@
+2010-04-08  Andy Buckley  <andy@insectnation.org>
+
+	* bin/root2flat: Adding this little helper script, minimally
+	modified from one which Holger Schulz made for internal use in
+	ATLAS.
+
 2010-04-05  Andy Buckley  <andy@insectnation.org>
 
 	* Using spiresbib in rivet-mkanalysis: analysis templates made
@@ -23,7 +29,8 @@
 	compare-histos.
 
 	* Frank Siegert: LWH output in precision-8 scientific notation, to
-	solve a binning precision problem... the first one!
+	solve a binning precision problem... the first time weve noticed a
+	problem!
 
 	* Improved treatment of data/reference datasets and labels in
 	compare-histos.
