@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/ParticleName.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Analysis.hh"
@@ -20,6 +21,7 @@ namespace Rivet {
   {
     _theAnalysisFactory = createAnalysisFactory();
     _setupFactories(basefilename, storetype);
+    initializeParticleNames();
   }
 
 
@@ -30,6 +32,7 @@ namespace Rivet {
       _theAnalysisFactory(&afac) 
   {
     _setupFactories(basefilename, storetype);
+    initializeParticleNames();
   }
 
 
@@ -86,15 +89,15 @@ namespace Rivet {
     }
     // Proceed with event analysis
     assert(_initialised);
-    // Ensure that beam details match those from first event
-    const BeamPair beams = Rivet::beamIds(ge);
-    const double sqrts = Rivet::sqrtS(ge);
-    if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-      getLog() << Log::ERROR << "Event beams mismatch: "
-               << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-               << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
-      exit(1);
-    }
+//     // Ensure that beam details match those from first event @todo This is too expensive
+//     const BeamPair beams = Rivet::beamIds(ge);
+//     const double sqrts = Rivet::sqrtS(ge);
+//     if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
+//       getLog() << Log::ERROR << "Event beams mismatch: "
+//                << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+//                << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+//       exit(1);
+//     }
 
     
     Event event(ge);
@@ -363,6 +366,41 @@ namespace Rivet {
   double AnalysisHandler::sqrtS() const {
     return Rivet::sqrtS(beams());
   }
+
+
+  void AnalysisHandler::initializeParticleNames() {
+    Rivet::s_pnames[ELECTRON] = "ELECTRON";
+    Rivet::s_pnames[POSITRON] = "POSITRON";
+    Rivet::s_pnames[PROTON] = "PROTON";
+    Rivet::s_pnames[ANTIPROTON] = "ANTIPROTON";
+    Rivet::s_pnames[PHOTON] = "PHOTON";
+    Rivet::s_pnames[NEUTRON] = "NEUTRON";
+    Rivet::s_pnames[ANTINEUTRON] = "ANTINEUTRON";
+    Rivet::s_pnames[MUON] = "MUON";
+    Rivet::s_pnames[ANTIMUON] = "ANTIMUON";
+    Rivet::s_pnames[NU_E] = "NU_E";
+    Rivet::s_pnames[NU_EBAR] = "NU_EBAR";
+    Rivet::s_pnames[NU_MU] = "NU_MU";
+    Rivet::s_pnames[NU_MUBAR] = "NU_MUBAR";
+    Rivet::s_pnames[NU_TAU] = "NU_TAU";
+    Rivet::s_pnames[NU_TAUBAR] = "NU_TAUBAR";
+    Rivet::s_pnames[PIPLUS] = "PIPLUS";
+    Rivet::s_pnames[PIMINUS] = "PIMINUS";
+    Rivet::s_pnames[TAU] = "TAU";
+    Rivet::s_pnames[WPLUSBOSON] = "WPLUSBOSON";
+    Rivet::s_pnames[WMINUSBOSON] = "WMINUSBOSON";
+    Rivet::s_pnames[ZBOSON] = "ZBOSON";
+    Rivet::s_pnames[HIGGS] = "HIGGS";
+    Rivet::s_pnames[ANTITAU] = "ANTITAU";
+    Rivet::s_pnames[PHOTOELECTRON] = "PHOTOELECTRON";
+    Rivet::s_pnames[PHOTOPOSITRON] = "PHOTOPOSITRON";
+    Rivet::s_pnames[PHOTOMUON] = "PHOTOMUON";
+    Rivet::s_pnames[PHOTOANTIMUON] = "PHOTOANTIMUON";
+    Rivet::s_pnames[PHOTOTAU] = "PHOTOTAU";
+    Rivet::s_pnames[PHOTOANTITAU] = "PHOTOANTITAU";
+    Rivet::s_pnames[ANY] = "*";
+  }
+
 
 
 }

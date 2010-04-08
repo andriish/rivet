@@ -7,15 +7,6 @@
 namespace Rivet {
 
 
-  // Convert the GenEvent to use conventional units (GeV, mm)
-  void _geNormUnits(GenEvent& ge) {
-    // Specify units if supported
-    #ifdef HEPMC_HAS_UNITS
-    ge.use_units(HepMC::Units::GEV, HepMC::Units::MM);
-    #endif
-  }
-
-
   void _geRot180x(GenEvent& ge) {
     for (HepMC::GenEvent::particle_iterator ip = ge.particles_begin(); ip != ge.particles_end(); ++ip) {
       const HepMC::FourVector& mom = (*ip)->momentum();
@@ -32,12 +23,12 @@ namespace Rivet {
   // (proton or electron on +ve z-axis?)
   // For example, FHerwig only produces DIS events in the
   // unconventional orientation and has to be corrected
-  void _geNormAlignment(GenEvent& ge) {
-    if (!ge.valid_beam_particles()) return;
+  void Event::_geNormAlignment() {
+    if (!_genEvent.valid_beam_particles()) return;
     typedef pair<HepMC::GenParticle*, HepMC::GenParticle*> GPPair;
-    GPPair bps = ge.beam_particles();
+    GPPair bps = _genEvent.beam_particles();
     const BeamPair beamids = make_pdgid_pair(bps.first->pdg_id(), bps.second->pdg_id());
-    Log::getLog("Rivet.Event") << Log::TRACE << "Beam IDs: " << beamids << endl;
+    //Log::getLog("Rivet.Event") << Log::TRACE << "Beam IDs: " << beamids << endl;
     const HepMC::GenParticle* plusgp = 0;
     bool rot = false;
 
@@ -66,13 +57,14 @@ namespace Rivet {
                                    << bps.first->pdg_id() << "@pz=" << bps.first->momentum().pz()/GeV << ", "
                                    << bps.second->pdg_id() << "@pz=" << bps.second->momentum().pz()/GeV << endl;
       }
-      _geRot180x(ge);
+      if (!_modGenEvent) _modGenEvent = new GenEvent(_genEvent);
+      _geRot180x(*_modGenEvent);
     }
   }
 
 
   Event::Event(const GenEvent& ge)
-    : _genEvent(ge), _weight(1.0)
+    : _genEvent(ge), _modGenEvent(NULL), _weight(1.0)
   {
     // Set the weight if there is one, otherwise default to 1.0
     if (!_genEvent.weights().empty()) {
@@ -80,10 +72,16 @@ namespace Rivet {
     }
 
     // Use Rivet's preferred units if possible
-    _geNormUnits(_genEvent);
+    #ifdef HEPMC_HAS_UNITS
+    if (_genEvent.momentum_unit()!=HepMC::Units::GEV ||
+        _genEvent.length_unit()!=HepMC::Units::MM) {
+      if (!_modGenEvent) _modGenEvent = new GenEvent(ge);
+      _modGenEvent->use_units(HepMC::Units::GEV, HepMC::Units::MM);
+    }
+    #endif
  
     // Use the conventional alignment
-    _geNormAlignment(_genEvent);
+    _geNormAlignment();
 
     // Debug printout to check that copying/magling has worked
     //_genEvent.print();
@@ -91,17 +89,20 @@ namespace Rivet {
 
 
   Event::Event(const Event& e)
-    : _genEvent(e._genEvent),
+    : _genEvent(e._genEvent), _modGenEvent(e._modGenEvent),
       _weight(e._weight)
   {
     //
   }
 
 
-  Event& Event::operator=(const Event& e) {
-    _genEvent = e._genEvent;
-    _weight = e._weight;
-    return *this;
+  Event::~Event() {
+    if (_modGenEvent) delete _modGenEvent;
+  }
+
+  const GenEvent& Event::genEvent() const {
+    if (_modGenEvent) return *_modGenEvent;
+    return _genEvent;
   }
 
 

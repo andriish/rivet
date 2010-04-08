@@ -87,48 +87,13 @@ namespace Rivet {
   typedef std::map<std::string, PdgId> ParticleNameMapR;
 
 
-  /// Function which returns a map from beam particle enums to the corresponding name strings.
-  inline ParticleNameMap getParticleNamesMap() {
-    ParticleNameMap bpmap;
-    bpmap[ELECTRON] = "ELECTRON";
-    bpmap[POSITRON] = "POSITRON";
-    bpmap[PROTON] = "PROTON";
-    bpmap[ANTIPROTON] = "ANTIPROTON";
-    bpmap[PHOTON] = "PHOTON";
-    bpmap[NEUTRON] = "NEUTRON";
-    bpmap[ANTINEUTRON] = "ANTINEUTRON";
-    bpmap[MUON] = "MUON";
-    bpmap[ANTIMUON] = "ANTIMUON";
-    bpmap[NU_E] = "NU_E";
-    bpmap[NU_EBAR] = "NU_EBAR";
-    bpmap[NU_MU] = "NU_MU";
-    bpmap[NU_MUBAR] = "NU_MUBAR";
-    bpmap[NU_TAU] = "NU_TAU";
-    bpmap[NU_TAUBAR] = "NU_TAUBAR";
-    bpmap[PIPLUS] = "PIPLUS";
-    bpmap[PIMINUS] = "PIMINUS";
-    bpmap[TAU] = "TAU";
-    bpmap[WPLUSBOSON] = "WPLUSBOSON";
-    bpmap[WMINUSBOSON] = "WMINUSBOSON";
-    bpmap[ZBOSON] = "ZBOSON";
-    bpmap[HIGGS] = "HIGGS";
-    bpmap[ANTITAU] = "ANTITAU";
-    bpmap[PHOTOELECTRON] = "PHOTOELECTRON";
-    bpmap[PHOTOPOSITRON] = "PHOTOPOSITRON";
-    bpmap[PHOTOMUON] = "PHOTOMUON";
-    bpmap[PHOTOANTIMUON] = "PHOTOANTIMUON";
-    bpmap[PHOTOTAU] = "PHOTOTAU";
-    bpmap[PHOTOANTITAU] = "PHOTOANTITAU";
-    bpmap[ANY] = "*";
-    return bpmap;
-  }
+  static ParticleNameMap s_pnames;
 
 
   /// Function which returns a map from beam particle name strings to the corresponding enums.
   inline ParticleNameMapR getParticleNamesRMap() {
-    ParticleNameMap bpmap = getParticleNamesMap();
     ParticleNameMapR bpmapr;
-    for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
+    for (ParticleNameMap::const_iterator bp = s_pnames.begin(); bp != s_pnames.end(); ++bp) {
       bpmapr[bp->second] = bp->first;
     }
     return bpmapr;
@@ -143,8 +108,7 @@ namespace Rivet {
   /// the ParticleName enum.
   inline ParticleNameList getParticleNameEnums() {
     ParticleNameList names;
-    ParticleNameMap bpmap = getParticleNamesMap();
-    for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
+    for (ParticleNameMap::const_iterator bp = s_pnames.begin(); bp != s_pnames.end(); ++bp) {
       names.push_back(bp->first);
     }
     return names;
@@ -161,8 +125,7 @@ namespace Rivet {
   /// Function which returns a vector of all the beam particle name strings.
   inline std::vector<std::string> getParticleNames() {
     vector<string> names;
-    ParticleNameMap bpmap = getParticleNamesMap();
-    for (ParticleNameMap::const_iterator bp = bpmap.begin(); bp != bpmap.end(); ++bp) {
+    for (ParticleNameMap::const_iterator bp = s_pnames.begin(); bp != s_pnames.end(); ++bp) {
       names.push_back(bp->second);
     }
     return names;
@@ -171,14 +134,14 @@ namespace Rivet {
 
   /// Print a ParticleName as a string.
   inline std::string toString(const ParticleName& p) {
-    return getParticleNamesMap()[p];
+    return s_pnames[p];
   }
 
 
   /// Print a PdgId as a named string.
   inline std::string toParticleName(PdgId p) {
-    if (getParticleNamesMap().find(p) != getParticleNamesMap().end()) {
-      return getParticleNamesMap()[p];
+    if (s_pnames.find(p) != s_pnames.end()) {
+      return s_pnames[p];
     }
     ostringstream ss;
     ss << p;

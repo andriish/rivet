@@ -269,6 +269,8 @@ namespace Rivet {
     /// fact, it should not even be implemented.
     AnalysisHandler(const AnalysisHandler&);
 
+    static void initializeParticleNames();
+
   };
 
 

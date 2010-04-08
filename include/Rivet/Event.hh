@@ -30,8 +30,8 @@ namespace Rivet {
     /// The copy constructor.
     Event(const Event& e);
 
-    /// Copy assignment operator
-    Event& operator=(const Event& e);
+    /// The destructor
+    ~Event();
 
     //@}
 
@@ -39,9 +39,7 @@ namespace Rivet {
   public:
 
     /// Return the generated event obtained from an external event generator.
-    const GenEvent& genEvent() const {
-      return _genEvent;
-    }
+    const GenEvent& genEvent() const;
 
     /// The weight associated with the event.
     double weight() const {
@@ -82,10 +80,14 @@ namespace Rivet {
 
 
   private:
+    void _geNormAlignment();
+
 
     /// @brief The generated event, obtained from an external generator.
     /// Note that it is only externally accessible via a const reference.
-    GenEvent _genEvent;
+    GenEvent const& _genEvent;
+
+    GenEvent* _modGenEvent;
 
     /// The set of Projection objects applied so far.
     mutable std::set<ConstProjectionPtr> _projections;
