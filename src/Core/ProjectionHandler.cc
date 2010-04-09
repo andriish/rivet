@@ -265,8 +265,8 @@ namespace Rivet {
 
   const Projection& ProjectionHandler::getProjection(const ProjectionApplier& parent,
                                                      const string& name) const {
-    getLog() << Log::TRACE << "Searching for child projection '"
-             << name << "' of " << &parent << endl;
+    //getLog() << Log::TRACE << "Searching for child projection '"
+    //         << name << "' of " << &parent << endl;
     NamedProjsMap::const_iterator nps = _namedprojs.find(&parent);
     if (nps == _namedprojs.end()) {
       ostringstream msg;

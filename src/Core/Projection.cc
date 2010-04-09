@@ -11,12 +11,12 @@ namespace Rivet {
     : _name("BaseProjection")
   {
     addBeamPair(ANY, ANY);
-    getLog() << Log::TRACE << "Creating " << name() << " at " << this << endl;
+    //getLog() << Log::TRACE << "Creating " << name() << " at " << this << endl;
   }
 
 
   Projection:: ~Projection() {
-    getLog() << Log::TRACE << "Destroying " << name() << " at " << this << endl;
+    //getLog() << Log::TRACE << "Destroying " << name() << " at " << this << endl;
   }
 
 

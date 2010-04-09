@@ -89,15 +89,15 @@ namespace Rivet {
     }
     // Proceed with event analysis
     assert(_initialised);
-//     // Ensure that beam details match those from first event @todo This is too expensive
-//     const BeamPair beams = Rivet::beamIds(ge);
-//     const double sqrts = Rivet::sqrtS(ge);
-//     if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-//       getLog() << Log::ERROR << "Event beams mismatch: "
-//                << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-//                << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
-//       exit(1);
-//     }
+    // Ensure that beam details match those from first event
+    const BeamPair beams = Rivet::beamIds(ge);
+    const double sqrts = Rivet::sqrtS(ge);
+    if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
+      getLog() << Log::ERROR << "Event beams mismatch: "
+               << beams << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+               << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+      exit(1);
+    }
 
     
     Event event(ge);
@@ -105,7 +105,7 @@ namespace Rivet {
     // Weights
     const double weight = event.weight();
     _sumOfWeights += weight;
-    getLog() << Log::DEBUG << "Event #" << _numEvents << " weight = " << weight << endl;
+    //getLog() << Log::DEBUG << "Event #" << _numEvents << " weight = " << weight << endl;
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
       const double xs = ge.cross_section()->cross_section();
@@ -113,9 +113,9 @@ namespace Rivet {
     }
     #endif
     foreach (Analysis* a, _analyses) {
-      getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
+      //getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
       a->analyze(event);
-      getLog() << Log::DEBUG << "Finished running analysis " << a->name() << endl;
+      //getLog() << Log::DEBUG << "Finished running analysis " << a->name() << endl;
     }
   }
 

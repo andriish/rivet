@@ -53,13 +53,13 @@ namespace Rivet {
     assert(beams.first && beams.second);
     _theBeams.first = *(beams.first);
     _theBeams.second = *(beams.second);
-    getLog() << Log::DEBUG << "Beam particle IDs = " << beamIds() << endl;
+    //getLog() << Log::DEBUG << "Beam particle IDs = " << beamIds() << endl;
   }
 
 
   double Beam::sqrtS() const {
     double sqrts = Rivet::sqrtS(beams());
-    getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
+    //getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
     return sqrts;
   }
   

@@ -65,8 +65,8 @@ namespace Rivet {
 
     // Handle "open FS" special case
     if (_etaRanges.empty() && _ptmin == 0) {
-      getLog() << Log::TRACE << "Open FS processing: should only see this once per event ("
-               << e.genEvent().event_number() << ")" << endl;
+      //getLog() << Log::TRACE << "Open FS processing: should only see this once per event ("
+      //         << e.genEvent().event_number() << ")" << endl;
       foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
         if (p->status() == 1) {
           //cout << "FS GV = " << p->production_vertex() << endl;
@@ -81,17 +81,17 @@ namespace Rivet {
     const ParticleVector allstable = applyProjection<FinalState>(e, "OpenFS").particles();
     foreach (const Particle& p, allstable) {
       const bool passed = accept(p);
-      if (getLog().isActive(Log::TRACE)) {
-        getLog() << Log::TRACE
-                 << "Choosing: ID = " << p.pdgId()
-                 << ", pT = " << p.momentum().pT()
-                 << ", eta = " << p.momentum().eta()
-                 << ": result = " << std::boolalpha << passed << endl;
-      }
+//       if (getLog().isActive(Log::TRACE)) {
+//         getLog() << Log::TRACE
+//                  << "Choosing: ID = " << p.pdgId()
+//                  << ", pT = " << p.momentum().pT()
+//                  << ", eta = " << p.momentum().eta()
+//                  << ": result = " << std::boolalpha << passed << endl;
+//       }
       if (passed) _theParticles.push_back(p);
     }
-    getLog() << Log::DEBUG << "Number of final-state particles = "
-             << _theParticles.size() << endl;
+    //getLog() << Log::DEBUG << "Number of final-state particles = "
+    //         << _theParticles.size() << endl;
   }
 
 
