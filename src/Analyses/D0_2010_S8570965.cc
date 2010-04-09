@@ -97,7 +97,7 @@ namespace Rivet {
       }
       
       double dPhiyy = mapAngle0ToPi(y1.phi()-y2.phi());
-      double costhetayy = fabs(tanh(y1.eta()-y2.eta())/2.0);
+      double costhetayy = fabs(tanh((y1.eta()-y2.eta())/2.0));
       
       _h_M->fill(Myy, weight);
       _h_pT->fill(pTyy, weight);
