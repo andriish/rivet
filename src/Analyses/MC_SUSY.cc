@@ -208,6 +208,7 @@ namespace Rivet {
 
       // Calculate and fill missing Et histos
       const TotalVisibleMomentum& met = applyProjection<TotalVisibleMomentum>(evt, "MET");
+      /// @todo should this really be the scalarET sum, and not met.momentum().Et()?
       _hist_met->fill(met.scalarET()/GeV);
 
       // Choose highest-pT leptons of each sign and flavour for dilepton mass edges

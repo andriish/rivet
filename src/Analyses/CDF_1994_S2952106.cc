@@ -90,6 +90,7 @@ namespace Rivet {
       // Check there isn't too much missing Et
       const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
       getLog() << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT()/GeV << " GeV" << endl;
+      /// @todo should this really be scalar ET here, and not caloMissEt.momentum().Et()?
       if ((caloMissEt.momentum().pT()/GeV)/sqrt(caloMissEt.scalarET()/GeV) > 6.0) vetoEvent;
    
       // Check jet requirements
