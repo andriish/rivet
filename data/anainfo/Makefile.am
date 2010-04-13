@@ -8,6 +8,7 @@ dist_pkgdata_DATA = \
   CDF_1988_S1865951.info \
   CDF_1990_S2089246.info \
   CDF_1991_S2313472.info \
+  CDF_1993_S2742446.info \
   CDF_1994_S2952106.info \
   CDF_1996_S3108457.info \
   CDF_1996_S3349578.info \

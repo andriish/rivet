@@ -12,6 +12,7 @@ if ENABLE_UNVALIDATED
 lib_LTLIBRARIES += RivetUnvalidated.la
 RivetUnvalidated_la_SOURCES = \
     CDF_1991_S2313472.cc \
+    CDF_1993_S2742446.cc \
     CDF_1994_S2952106.cc \
     CDF_1996_S3108457.cc \
     CDF_1996_S3349578.cc \
