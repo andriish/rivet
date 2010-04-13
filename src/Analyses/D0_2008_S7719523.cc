@@ -158,10 +158,13 @@ namespace Rivet {
                 *_h_forward_opp_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
    
       // Use generator cross section for remaining histograms
-      scale(_h_central_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
-      scale(_h_central_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
-      scale(_h_forward_same_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
-      scale(_h_forward_opp_cross_section, 1.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
+      // Each of these needs the additional factor 2 because the
+      // y_photon * y_jet requirement reduces the corresponding 2D "bin width"
+      // by a factor 1/2.
+      scale(_h_central_same_cross_section, 2.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
+      scale(_h_central_opp_cross_section, 2.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_central);
+      scale(_h_forward_same_cross_section, 2.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
+      scale(_h_forward_opp_cross_section, 2.0/lumi_gen * 1.0/dy_photon * 1.0/dy_jet_forward);
     }
  
     //@}
