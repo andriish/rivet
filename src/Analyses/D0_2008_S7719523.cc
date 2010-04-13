@@ -40,18 +40,22 @@ namespace Rivet {
     /// Set up projections and book histograms
     void init() {
       // General FS
-      FinalState fs(-5.0, 5.0);
+      FinalState fs;
       addProjection(fs, "FS");
    
       // Get leading photon
-      LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0));
+      LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
       photonfs.addParticleId(PHOTON);
       addProjection(photonfs, "LeadingPhoton");
-   
-      // FS for jets excludes the leading photon
+      
+      // FS excluding the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
       addProjection(vfs, "JetFS");
+      
+      // Jets
+      FastJets jetpro(vfs, FastJets::D0ILCONE, 0.7);
+      addProjection(jetpro, "Jets");
 
       // Histograms
       _h_central_same_cross_section = bookHistogram1D(1, 1, 1);
@@ -69,26 +73,18 @@ namespace Rivet {
       // Get the photon
       const FinalState& photonfs = applyProjection<FinalState>(event, "LeadingPhoton");
       if (photonfs.particles().size() != 1) {
-        getLog() << Log::DEBUG << "No photon found" << endl;
         vetoEvent;
       }
       const FourMomentum photon = photonfs.particles().front().momentum();
-      if (photon.pT()/GeV < 30) {
-        getLog() << Log::DEBUG << "Leading photon has pT < 30 GeV: " << photon.pT()/GeV << endl;
-        vetoEvent;
-      }
-   
-      // Get all charged particles
-      const FinalState& fs = applyProjection<FinalState>(event, "JetFS");
-      if (fs.empty()) {
-        vetoEvent;
-      }
    
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
-      const double egamma = photon.E();
+      double egamma = photon.E();
+      double eta_P = photon.pseudorapidity();
+      double phi_P = photon.azimuthalAngle();
       double econe = 0.0;
-      foreach (const Particle& p, fs.particles()) {
-        if (deltaR(photon, p.momentum()) < 0.4) {
+      foreach (const Particle& p, applyProjection<FinalState>(event, "JetFS").particles()) {
+        if (deltaR(eta_P, phi_P,
+                   p.momentum().pseudorapidity(), p.momentum().azimuthalAngle()) < 0.4) {
           econe += p.momentum().E();
           // Veto as soon as E_cone gets larger
           if (econe/egamma > 0.07) {
@@ -98,30 +94,15 @@ namespace Rivet {
         }
       }
    
-   
-      /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
-      FastJets jetpro(fs, FastJets::D0ILCONE, 0.7); //< @todo This fs arg makes no sense!
-      jetpro.calc(fs.particles());
-      Jets isolated_jets;
-      foreach (const Jet& j, jetpro.jets()) {
-        const FourMomentum pjet = j.momentum();
-        const double dr = deltaR(photon.pseudorapidity(), photon.azimuthalAngle(),
-                                 pjet.pseudorapidity(), pjet.azimuthalAngle());
-        if (dr > 0.7 && pjet.pT()/GeV > 15) {
-          isolated_jets.push_back(j);
-        }
-      }
-   
-      getLog() << Log::DEBUG << "Num jets after isolation and pT cuts = "
-               << isolated_jets.size() << endl;
-      if (isolated_jets.empty()) {
-        getLog() << Log::DEBUG << "No jets pass cuts" << endl;
+      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(15.0*GeV);
+      if (jets.size()==0) {
         vetoEvent;
       }
-   
-      // Sort by pT and get leading jet
-      sort(isolated_jets.begin(), isolated_jets.end(), cmpJetsByPt);
-      const FourMomentum leadingJet = isolated_jets.front().momentum();
+      FourMomentum leadingJet = jets[0].momentum();
+      if (deltaR(eta_P, phi_P, leadingJet.eta(), leadingJet.phi())<0.7) {
+        vetoEvent;
+      }
+      
       int photon_jet_sign = sign( leadingJet.rapidity() * photon.rapidity() );
    
       // Veto if leading jet is outside plotted rapidity regions

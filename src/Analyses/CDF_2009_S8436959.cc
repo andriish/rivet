@@ -3,7 +3,7 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/IdentifiedFinalState.hh"
+#include "Rivet/Projections/LeadingParticlesFinalState.hh"
 
 namespace Rivet {
 
@@ -35,9 +35,9 @@ namespace Rivet {
       FinalState fs;
       addProjection(fs, "FS");
 
-      IdentifiedFinalState ifs(-1.0, 1.0, 30.0*GeV);
-      ifs.acceptId(PHOTON);
-      addProjection(ifs, "IFS");
+      LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
+      photonfs.addParticleId(PHOTON);
+      addProjection(photonfs, "LeadingPhoton");
 
       _h_Et_photon = bookHistogram1D(1, 1, 1);
 
@@ -48,24 +48,24 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      ParticleVector photons;
       ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
-      foreach (const Particle& photon, applyProjection<IdentifiedFinalState>(event, "IFS").particles()) {
-        FourMomentum mom_in_cone;
-        foreach (const Particle& p, fs) {
-          if (deltaR(p.momentum(), photon.momentum()) < 0.4) {
-            mom_in_cone += p.momentum();
-          }
-        }
-        if (mom_in_cone.Et()-photon.momentum().Et() < 2.0*GeV) {
-          photons.push_back(photon);
-        }
-      }
-      if (photons.size() != 1) {
+      ParticleVector photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
+      if (photons.size()!=1) {
         vetoEvent;
       }
-   
-      _h_Et_photon->fill(photons[0].momentum().Et(), weight);
+      FourMomentum leadingPhoton = photons[0].momentum();
+      double eta_P = leadingPhoton.eta();
+      double phi_P = leadingPhoton.phi();
+      FourMomentum mom_in_cone;
+      foreach (const Particle& p, fs) {
+        if (deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) < 0.4) {
+            mom_in_cone += p.momentum();
+        }
+      }
+      if (mom_in_cone.Et()-leadingPhoton.Et() > 2.0*GeV) {
+        vetoEvent;
+      }
+      _h_Et_photon->fill(leadingPhoton.Et(), weight);
     }
 
 
