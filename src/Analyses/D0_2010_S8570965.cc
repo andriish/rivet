@@ -4,7 +4,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 
 namespace Rivet {
@@ -63,17 +62,16 @@ namespace Rivet {
       ParticleVector isolated_photons;
       ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
       foreach (const Particle& photon, photons) {
-        FourMomentum mom_in_cone;
         double eta_P = photon.momentum().eta();
         double phi_P = photon.momentum().phi();
         double Etsum=0.0;
         foreach (const Particle& p, fs) {
-          if (deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) < 0.4) {
-            mom_in_cone += p.momentum();
-            if (PID::threeCharge(p.pdgId())!=0) Etsum += p.momentum().Et();
+          if (p.genParticle().barcode()!=photon.genParticle().barcode() &&
+              deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) < 0.4) {
+            Etsum += p.momentum().Et();
           }
         }
-        if (mom_in_cone.E()/photon.momentum().E() < 1.1 && Etsum<1.5*GeV) {
+        if (Etsum<2.5*GeV) {
           isolated_photons.push_back(photon);
         }
       }
@@ -91,12 +89,20 @@ namespace Rivet {
       
       FourMomentum yy=y1+y2;
       double Myy = yy.mass()/GeV;
+      if (Myy<30.0 || Myy>350.0) {
+        vetoEvent;
+      }
+      
       double pTyy = yy.pT()/GeV;
       if (Myy<pTyy) {
         vetoEvent;
       }
       
       double dPhiyy = mapAngle0ToPi(y1.phi()-y2.phi());
+      if (dPhiyy<0.5*M_PI) {
+        vetoEvent;
+      }
+      
       double costhetayy = fabs(tanh((y1.eta()-y2.eta())/2.0));
       
       _h_M->fill(Myy, weight);
@@ -116,13 +122,10 @@ namespace Rivet {
       scale(_h_pT, crossSection()/sumOfWeights());
       scale(_h_dPhi, crossSection()/sumOfWeights());
       scale(_h_costheta, crossSection()/sumOfWeights());
-      // despite what it says in the paper, the mass bin width doesn't seem
-      // to have been taken into account for these:
-      for (size_t i=0; i<3; ++i) {
-        scale(_h_pT_M.getHistograms()[i], crossSection()/sumOfWeights());
-        scale(_h_dPhi_M.getHistograms()[i], crossSection()/sumOfWeights());
-        scale(_h_costheta_M.getHistograms()[i], crossSection()/sumOfWeights());
-      }
+
+      _h_pT_M.scale(crossSection()/sumOfWeights(), this);
+      _h_dPhi_M.scale(crossSection()/sumOfWeights(), this);
+      _h_costheta_M.scale(crossSection()/sumOfWeights(), this);
       
     }
 

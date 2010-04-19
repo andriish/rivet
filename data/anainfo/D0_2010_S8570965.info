@@ -25,6 +25,10 @@ Description:
   scattering angle of the photons. Also available are double differential cross
   sections considering the last three kinematic variables in three diphoton
   mass bins.
+  Note: The numbers in version 1 of the arXiv preprint were missing the dM
+  normalisation in the double differential cross sections. This has been
+  reported to and fixed by the authors in v2 and the journal submission.
+  HepData as well as the Rivet analysis have also been updated.
 BibKey: Abazov:2010ah
 BibTeX: '@Article{Abazov:2010ah,
      author    = "Abazov, V. M. and others",
