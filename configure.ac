@@ -148,7 +148,7 @@ AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 ## Disable build/install of unvalidated analyses
 AC_ARG_ENABLE([unvalidated],
-  [AC_HELP_STRING(--enable-unvalidated, [don't try to build or install standard analyses])],
+  [AC_HELP_STRING(--enable-unvalidated, [build and install unvalidated analyses])],
   [], [enable_unvalidated=no])
 if test x$enable_unvalidated = xyes; then
    AC_MSG_WARN([Building unvalidated Rivet analyses, by request])

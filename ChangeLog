@@ -2,6 +2,7 @@
 
 	* bin/make-plots: real support for 2-dim histograms plotted as
 	colormaps, updated the documentation accordingly.
+	* fix misleading help comment in configure.ac
 
 2010-04-08  Andy Buckley  <andy@insectnation.org>
 
