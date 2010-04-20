@@ -67,20 +67,24 @@ The title of the plot.
 --------------------
 XLabel=<label>
 YLabel=<label>
+ZLabel=<label>
 --------------------
-Axis labels for the x- and y-axis.
+Axis labels for the x-, y-, and z-axis.
 
 --------------------
 XLabelSep=<distance>
 YLabelSep=<distance>
+ZLabelSep=<distance>
 --------------------
 Distance between the axis label and the plot in units of `\labelsep`.
 
 --------------------
 XMajorTickMarks=<last_digit>
 YMajorTickMarks=<last_digit>
+ZMajorTickMarks=<last_digit>
 XMinorTickMarks=<nticks>
 YMinorTickMarks=<nticks>
+ZMinorTickMarks=<nticks>
 --------------------
 `make-plots` tries to guess the distance between tickmarks automatically.
 If you are not satisfied with its result, you can override this by setting
@@ -97,6 +101,7 @@ Draw tickmarks also on the upper and/or right side of the plot.
 --------------------
 XCustomTicks=<list>
 YCustomTicks=<list>
+ZCustomTicks=<list>
 --------------------
 To specify ticks at arbitrary positions and/or with arbitrary labels.
 `<list>` is a tab separated list of format `value1 <tab> label1 <tab> value2
@@ -109,8 +114,9 @@ Axes
 --------------------
 LogX=<0|1>
 LogY=<0|1>
+LogZ=<0|1>
 --------------------
-Use a logarithmic x- or y-axis. Default is linear.
+Use a logarithmic x-, y-, or z-axis. Default is linear.
 
 --------------------
 XMin=<value>
@@ -296,8 +302,8 @@ format can be
 <lowerbinedge>  <upperbinedge>  <value>  <minuserror>  <pluserror>
 --------------------
 
-2-dimensional histograms are not well supported. They are plotted as colormap
-(error is ignored, and there is no range reference shown) and specified as
+2-dimensional histograms are supported, too. They are plotted as colormap
+(errors are ignored) and specified as
 
 --------------------
 <lowerxbinedge>  <upperxbinedge>  <lowerybinedge>  <upperybinedge>  <value>  <error>

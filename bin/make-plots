@@ -38,6 +38,8 @@ def is_end_marker(line, blockname):
 def is_comment(line):
     return pat_comment.match(line) is not None
 
+
+
 class Inputdata:
     def __init__(self, filename):
         self.histos = {}
@@ -82,6 +84,8 @@ class Inputdata:
         self.set_path_based_properties()
 
         self.description['PlotSizeX'] = 10.
+        if self.description['is2dim']:
+            self.description['PlotSizeX'] -= 1.5
         self.description['PlotSizeY'] = 6.
         if self.description.has_key('PlotSize') and self.description['PlotSize']!='':
             plotsizex,plotsizey = self.description['PlotSize'].split(',')
@@ -104,6 +108,7 @@ class Inputdata:
 
         self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
         self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
+        self.description['LogZ'] = self.description.has_key('LogZ') and self.description['LogZ']=='1'
 
         foo=[]
         if self.description.has_key('DrawOnly'):
@@ -162,6 +167,8 @@ class Inputdata:
             if re.match(regex,path):
                 dictionary.update({prop : value})
         return dictionary
+
+
 
 class Plot:
     def __init__(self,inputdata):
@@ -325,6 +332,8 @@ class Plot:
             bottommargin = float(inputdata.description['BottomMargin'])
         else:
             bottommargin = 0.95
+        if inputdata.description['is2dim']:
+            rightmargin += 1.5
         papersizex = inputdata.description['PlotSizeX'] + 0.1 + leftmargin + rightmargin
         papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + topmargin + bottommargin
         #
@@ -418,6 +427,9 @@ class MainPlot(Plot):
         if inputdata.description.has_key('Legend') and inputdata.description['Legend']=='1':
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
             out += legend.draw()
+        if inputdata.description['is2dim']:
+            colorscale = Colorscale(inputdata.description,self.coors)
+            out += colorscale.draw()
         frame = Frame()
         out += frame.draw()
 
@@ -467,7 +479,10 @@ class MainPlot(Plot):
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
             out += labels.draw(['Title','YLabel'])
         else:
-            out += labels.draw(['Title','XLabel','YLabel'])
+            if not inputdata.description['is2dim']:
+                out += labels.draw(['Title','XLabel','YLabel'])
+            else:
+                out += labels.draw(['Title','XLabel','YLabel','ZLabel'])
         return out
 
 
@@ -590,6 +605,7 @@ class RatioPlot(Plot):
         return out
 
 
+
 class Legend:
     def __init__(self, description, histos, functions):
         self.histos = histos
@@ -674,6 +690,48 @@ class Legend:
 
 
 
+class Colorscale:
+    def __init__(self, description, coors):
+        self.description = description
+        self.coors = coors
+    def draw(self):
+        out = ''
+        out += '\n%\n% Colorscale\n%\n'
+        out += '\\rput(1,0){\n'
+        out += '  \\psset{xunit=4mm}\n'
+        out += '  \\rput(0.5,0){\n'
+        out += '    \\psset{yunit=0.0076923, linestyle=none, fillstyle=solid}\n'
+        out += '    \\multido{\\ic=0+1,\\id=1+1}{130}{\n'
+        out += '      \\psframe[fillcolor={gradientcolors!![\\ic]}](0, \\ic)(1, \\id)\n'
+        out += '    }\n'
+        out += '  }\n'
+        out += '  \\rput(0.5,0){\n'
+        out += '    \\psframe[linewidth=0.3pt,dimen=middle](0,0)(1,1)\n'
+
+        if self.description.has_key('ZMajorTickMarks') and self.description['ZMajorTickMarks']!='':
+            zcustommajortickmarks=int(self.description['ZMajorTickMarks'])
+        else:
+            zcustommajortickmarks=-1
+        if self.description.has_key('ZMinorTickMarks') and self.description['ZMinorTickMarks']!='':
+            zcustomminortickmarks=int(self.description['ZMinorTickMarks'])
+        else:
+            zcustomminortickmarks=-1
+        zcustomticks=[]
+        if self.description.has_key('ZCustomTicks') and self.description['ZCustomTicks']!='':
+            FOO=self.description['ZCustomTicks'].strip().split('\t')
+            if not len(FOO)%2:
+                for i in range(0,len(FOO),2):
+                    zcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+        zticks = ZTicks(self.description, self.coors)
+        out += zticks.draw(custommajortickmarks=zcustommajortickmarks,\
+                               customminortickmarks=zcustomminortickmarks,\
+                               customticks=zcustomticks)
+        out += '  }\n'
+        out += '}\n'
+        return out
+
+
+
 class Labels:
     def __init__(self, description):
         self.description = description
@@ -693,6 +751,11 @@ class Labels:
             if self.description.has_key('YLabelSep'):
                 ylabelsep=float(self.description['YLabelSep'])
             out += ('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['YLabel']+'}}\n')
+        if self.description.has_key('ZLabel') and (axis.count('ZLabel') or axis==[]):
+            zlabelsep=5.3
+            if self.description.has_key('ZLabelSep'):
+                zlabelsep=float(self.description['ZLabelSep'])
+            out += ('\\rput(1,1){\\rput(%4.3f\\labelsep,0){\\psset{xunit=4mm}\\rput[lB]{270}(1.5,0){\\normalsize '%(zlabelsep) +self.description['ZLabel']+'}}}\n')
         return out
 
 
@@ -1043,7 +1106,7 @@ class Histogram(DrawableObject):
         if self.is2dim:
             for i in range(len(self.data)):
                 out += ('\\psframe')
-                color=int(129*(self.data[i]['Content']-coors.zmin())/(coors.zmax()-coors.zmin()))
+                color=int(129*coors.phys2frameZ(self.data[i]['Content']))
                 if self.data[i]['Content']>coors.zmax():
                     color=129
                 if self.data[i]['Content']<coors.zmin():
@@ -1111,19 +1174,19 @@ class Histogram(DrawableObject):
 
     def getXMin(self):
         if self.is2dim:
-            return self.data[0]['LowEdge'][0]
+            return min([self.data[i]['LowEdge'][0] for i in range(len(self.data))])
         else:
             return min([self.data[i]['LowEdge'] for i in range(len(self.data))])
 
     def getXMax(self):
         if self.is2dim:
-            return self.data[-1]['UpEdge'][0]
+            return max([self.data[i]['UpEdge'][0] for i in range(len(self.data))])
         else:
             return max([self.data[i]['UpEdge'] for i in range(len(self.data))])
 
     def getYMin(self, xmin, xmax, logy):
         if self.is2dim:
-            return self.data[0]['LowEdge'][1]
+            return min([self.data[i]['LowEdge'][1] for i in range(len(self.data))])
         else:
             yvalues = []
             for i in range(len(self.data)):
@@ -1145,7 +1208,7 @@ class Histogram(DrawableObject):
 
     def getYMax(self, xmin, xmax):
         if self.is2dim:
-            return self.data[-1]['UpEdge'][1]
+            return max([self.data[i]['UpEdge'][1] for i in range(len(self.data))])
         else:
             yvalues = []
             for i in range(len(self.data)):
@@ -1418,6 +1481,44 @@ class YTicks(Ticks):
 
 
 
+class ZTicks(Ticks):
+    def __init__(self, description, coors):
+        self.majorticklinewidth = '0.3pt'
+        self.minorticklinewidth = '0.3pt'
+        self.majorticklength    = '6pt'
+        self.minorticklength    = '2.6pt'
+        self.description = description
+        self.coors = coors
+    def draw(self, customticks=[], custommajortickmarks=-1, customminortickmarks=-1):
+        out = ""
+        out += ('\n%\n% Z-Ticks\n%\n')
+        out += ('\\def\\majortickmarkz{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
+        out += ('\\def\\minortickmarkz{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
+        out += self.draw_ticks(self.coors.zmin(), self.coors.zmax(),\
+                                   plotlog=self.description['LogZ'],\
+                                   customticks=customticks,\
+                                   custommajortickmarks=custommajortickmarks,\
+                                   customminortickmarks=customminortickmarks,\
+                                   twosided=False)
+        return out
+
+    def draw_minortick(self, ticklabel, twosided):
+        return '\\rput{180}(1, '+self.coors.strphys2frameZ(ticklabel)+'){\\minortickmarkz}\n'
+
+    def draw_majortick(self, ticklabel, twosided):
+        return '\\rput{180}(1, '+self.coors.strphys2frameZ(ticklabel)+'){\\majortickmarkz}\n'
+
+    def draw_majorticklabel(self, value, label=''):
+        if label=='':
+            label=self.get_ticklabel(value,self.description['LogZ'])
+        if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode']=='deviation' \
+                and self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']==True:
+            return ('\\uput[0]{0}(1, '+self.coors.strphys2frameZ(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n')
+        else:
+            return ('\\uput[0]{0}(1, '+self.coors.strphys2frameZ(value)+'){\\strut{}'+label+'}\n')
+
+
+
 class Coordinates:
     def __init__(self, inputdata):
         self.description = inputdata.description
@@ -1448,11 +1549,27 @@ class Coordinates:
         else:
             return min(max(result,-10),10)
 
+    def phys2frameZ(self, z):
+        if self.description['LogZ']:
+            if z>0:
+                result = 1.*(log10(z)-log10(self.zmin()))/(log10(self.zmax())-log10(self.zmin()))
+            else:
+                return -10
+        else:
+            result = 1.*(z-self.zmin())/(self.zmax()-self.zmin())
+        if (fabs(result) < 1e-4):
+            return 0
+        else:
+            return min(max(result,-10),10)
+
     def strphys2frameX(self, x):
         return str(self.phys2frameX(x))
 
     def strphys2frameY(self, y):
         return str(self.phys2frameY(y))
+
+    def strphys2frameZ(self, z):
+        return str(self.phys2frameZ(z))
 
     def xmin(self):
         return self.description['Borders'][0]
