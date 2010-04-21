@@ -12,12 +12,10 @@
 namespace Rivet {
 
 
-  /// Randomly lose a fraction of the particles from the supplied final state projection.
-  /// @todo This needs an overhaul to make the base projections work properly. Slicing + inheritance again.
+  /// @brief Randomly lose a fraction of the particles from the supplied final state projection.
   class LossyFinalState : public FinalState {
-
   public:
- 
+
     /// @name Constructors
     //@{
 
@@ -29,7 +27,7 @@ namespace Rivet {
       addProjection(fsp, "FS");
       assert(_lossFraction >= 0);
     }
- 
+
     /// Stand-alone constructor. Initialises the base FinalState projection.
     LossyFinalState(double lossfraction,
                     double mineta = -MAXRAPIDITY,
@@ -49,13 +47,15 @@ namespace Rivet {
 
     //@}
 
+
   protected:
- 
+
     /// Apply the projection on the supplied event.
     void project(const Event& e);
- 
+
     /// Compare projections.
     int compare(const Projection& p) const;
+
 
   private:
 
@@ -71,11 +71,10 @@ namespace Rivet {
 
     /// Fraction of particles to lose.
     const double _lossFraction;
- 
+
   };
 
 
 }
-
 
 #endif

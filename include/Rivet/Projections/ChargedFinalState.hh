@@ -12,11 +12,10 @@
 namespace Rivet {
 
 
-  /// Project only charged final state particles.
+  /// @brief Project only charged final state particles.
   class ChargedFinalState : public FinalState {
-
   public:
- 
+
     /// @name Constructors
     //@{
     ChargedFinalState(const FinalState& fsp);
@@ -39,10 +38,10 @@ namespace Rivet {
 
 
   protected:
- 
+
     /// Apply the projection on the supplied event.
     void project(const Event& e);
- 
+
     /// Compare projections.
     int compare(const Projection& p) const;
   };

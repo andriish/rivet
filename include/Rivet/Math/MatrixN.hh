@@ -25,6 +25,7 @@ namespace Rivet {
   ///////////////////////////////////
 
 
+  /// @brief General \f$ N \f$-dimensional mathematical matrix object.
   template <size_t N>
   class Matrix {
     template <size_t M>

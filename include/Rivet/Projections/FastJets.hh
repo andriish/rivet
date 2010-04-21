@@ -29,7 +29,12 @@ namespace Rivet {
   typedef vector<fastjet::PseudoJet> PseudoJets;
 
 
-  /// Project out jets found using fastJet package.
+
+  /////////////////////////
+
+
+
+  /// Project out jets found using the FastJet package jet algorithms.
   class FastJets : public JetAlg {
 
   public:

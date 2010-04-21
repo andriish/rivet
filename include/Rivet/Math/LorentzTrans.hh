@@ -17,6 +17,7 @@ namespace Rivet {
   }
 
 
+  /// @brief Object implementing Lorentz transform calculations and boosts.
   class LorentzTransform {
     friend string toString(const LorentzTransform& lt);
 

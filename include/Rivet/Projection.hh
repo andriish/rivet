@@ -15,6 +15,8 @@
 
 namespace Rivet {
 
+  /// @brief Base class for all Rivet projections.
+  ///
   /// Projection is the base class of all Projections to be used by
   /// Rivet. A Projection object can be assigned to an Event object and
   /// will then define a processed part of the information available in
@@ -24,17 +26,17 @@ namespace Rivet {
   /// The main virtual functions to be overridden by concrete sub-classes
   /// are project(const Event &) and compare(const Projection &).
   class Projection : public ProjectionApplier {
- 
+
   public:
- 
+
     /// Event is a friend.
     friend class Event;
- 
+
     /// The Cmp specialization for Projection is a friend.
     friend class Cmp<Projection>;
- 
+
   public:
- 
+
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor.
@@ -42,14 +44,14 @@ namespace Rivet {
 
     /// Clone on the heap.
     virtual const Projection* clone() const = 0;
- 
+
     /// The destructor.
     virtual ~Projection();
     //@}
- 
+
 
   public:
- 
+
     /// Take the information available in the Event and make the
     /// calculations necessary to obtain the projection. Note that this
     /// function must never be called except inside the
@@ -79,7 +81,7 @@ namespace Rivet {
     /// whether this should be ordered before or after \a p, or if it is
     /// equivalent with \a p.
     virtual int compare(const Projection& p) const = 0;
- 
+
   public:
 
     /// Determine whether this object should be ordered before the object
@@ -88,7 +90,7 @@ namespace Rivet {
     /// objects is used. Otherwise, if the objects are of the same class,
     /// the virtual compare(const Projection &) will be returned.
     bool before(const Projection& p) const;
- 
+
     /// Return the BeamConstraints for this projection, not including
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
@@ -106,8 +108,8 @@ namespace Rivet {
       _beamPairs.insert(BeamPair(beam1, beam2));
       return *this;
     }
- 
- 
+
+
     /// Get a Log object based on the getName() property of the calling projection object.
     Log& getLog() const {
       string logname = "Rivet.Projection." + name();
@@ -139,7 +141,7 @@ namespace Rivet {
 
     /// Beam-type constraint.
     set<BeamPair> _beamPairs;
- 
+
   };
 
 

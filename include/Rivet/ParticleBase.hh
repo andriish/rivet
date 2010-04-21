@@ -7,6 +7,7 @@
 namespace Rivet {
 
 
+  /// @brief Base class for particle-like things like Particle and Jet
   class ParticleBase {
   public:
 

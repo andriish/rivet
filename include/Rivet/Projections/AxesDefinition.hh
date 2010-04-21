@@ -8,7 +8,9 @@
 namespace Rivet {
 
   /**
-    @brief A pure virtual interface for projections which define a set of 3
+    @brief Base class for projections which define a spatial basis.
+
+    A pure virtual interface for projections which define a set of 3
     basis vectors. This allows e.g. Thrust and Sphericity to be used
     interchangeably as defining bases for e.g. hemisphere mass and broadening
     calculations.

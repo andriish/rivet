@@ -1,7 +1,7 @@
 2010-04-21  Andy Buckley  <andy@insectnation.org>
 
-	* Add @brief Doxygen comments to all analyses which were missing
-	them.
+	* Add @brief Doxygen comments to all analyses, projections and
+	core classes which were missing them.
 
 2010-04-21  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 

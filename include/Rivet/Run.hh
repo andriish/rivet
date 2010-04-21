@@ -12,8 +12,8 @@ namespace HepMC {
 namespace Rivet {
 
 
+  /// @brief Interface to handle a run of events read from a HepMC stream or file.
   class Run {
-
   public:
 
     /// @name Standard constructors and destructors. */
@@ -65,7 +65,7 @@ namespace Rivet {
 
     /// AnalysisHandler object
     AnalysisHandler& _ah;
- 
+
 
     /// @name Run variables obtained from events or command line
     //@{

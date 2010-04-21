@@ -9,11 +9,13 @@
 namespace Rivet {
 
 
-  /// Project out quarks from the hard process in e+ e- -> Z0 events
-  /// @warning This is a very dangerous and specific projection! Use e.g. PID::hasBottom and friends instead
-  class InitialQuarks : public Projection { 
+  /// @brief Project out quarks from the hard process in \f$ e^+ e^- \to Z^0 \f$ events
+  ///
+  /// @warning This is a very dangerous and specific projection! Use
+  ///   e.g. PID::hasBottom and friends instead whenever possible
+  class InitialQuarks : public Projection {
   public:
- 
+
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor. May specify the minimum and maximum
@@ -29,7 +31,7 @@ namespace Rivet {
       return new InitialQuarks(*this);
     }
     //@}
-     
+
     /// Access the projected final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }
 
@@ -40,19 +42,19 @@ namespace Rivet {
 
 
   protected:
- 
+
     /// Apply the projection to the event.
     virtual void project(const Event& e);
- 
+
     /// Compare projections.
     virtual int compare(const Projection& p) const;
- 
+
 
   protected:
 
     /// The final-state particles.
     ParticleVector _theParticles;
- 
+
   };
 
 }

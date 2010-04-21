@@ -35,10 +35,10 @@ namespace Rivet {
 
 
 
-  /// Project out the incoming beams
-  class Beam : public Projection { 
+  /// @brief Project out the incoming beams
+  class Beam : public Projection {
   public:
- 
+
     /// The default constructor.
     Beam() {
       setName("Beam");

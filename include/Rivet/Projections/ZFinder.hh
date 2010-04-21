@@ -12,12 +12,14 @@
 namespace Rivet {
 
 
+  /// @brief Convenience finder of leptonically decaying Zs
+  ///
   /// Chain together different projections as convenience for finding Z's
-  /// from two leptons in the final state
+  /// from two leptons in the final state, including photon clustering.
   class ZFinder : public FinalState {
 
   public:
- 
+
     /// @name Constructors
     //@{
 
@@ -67,10 +69,10 @@ namespace Rivet {
     const FinalState& constituentsFinalState() const;
 
   protected:
- 
+
     /// Apply the projection on the supplied event.
     void project(const Event& e);
- 
+
     /// Compare projections.
     int compare(const Projection& p) const;
 

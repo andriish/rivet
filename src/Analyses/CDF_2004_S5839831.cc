@@ -35,12 +35,16 @@ namespace Rivet {
 
   private:
 
+
+    /// @cond CONEUE_DETAIL
+
     struct ConesInfo {
       ConesInfo() : numMax(0), numMin(0), ptMax(0), ptMin(0), ptDiff(0) {}
       unsigned int numMax, numMin;
       double ptMax, ptMin, ptDiff;
     };
 
+    /// @endcond
 
     ConesInfo _calcTransCones(const double etaLead, const double phiLead,
                               const ParticleVector& tracks) {

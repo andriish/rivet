@@ -13,10 +13,10 @@
 namespace Rivet {
 
 
-  /// Final state modifier which excludes any particles which are not experimentally visible
+  /// @brief Final state modifier excluding particles which are not experimentally visible
   class VisibleFinalState : public FinalState {
   public:
- 
+
     /// @name Constructors
     //@{
 
@@ -38,13 +38,13 @@ namespace Rivet {
     }
 
     //@}
- 
+
 
   protected:
- 
+
     /// Apply the projection on the supplied event.
     void project(const Event& e);
- 
+
     /// Compare projections.
     int compare(const Projection& p) const;
 

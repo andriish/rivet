@@ -19,6 +19,8 @@
 #ifndef OSLINK_OSDIR_HEADER_H_
 #define OSLINK_OSDIR_HEADER_H_
 
+/// @cond OSDIR
+
 #if defined(unix) || defined(__unix) || defined(__unix__)
 #define OSLINK_OSDIR_POSIX
 #elif defined(_WIN32)
@@ -105,7 +107,7 @@ namespace oslink
 			directory(const std::string& aName)
 				: handle(INVALID_HANDLE_VALUE), willfail(false)
 				{
-					// First check the attributes trying to access a non-directory with 
+					// First check the attributes trying to access a non-directory with
 					// FindFirstFile takes ages
 					DWORD attrs = GetFileAttributes(aName.c_str());
 					if ( (attrs == 0xFFFFFFFF) || ((attrs && FILE_ATTRIBUTE_DIRECTORY) == 0) )
@@ -114,7 +116,7 @@ namespace oslink
 						return;
 					}
 					std::string Full(aName);
-					// Circumvent a problem in FindFirstFile with c:\\* as parameter 
+					// Circumvent a problem in FindFirstFile with c:\\* as parameter
 					if ( (Full.length() > 0) && (Full[Full.length()-1] != '\\') )
 						Full += "\\";
 					WIN32_FIND_DATA entry;
@@ -130,7 +132,7 @@ namespace oslink
 						FindClose(handle);
 				}
 
-			operator void*() const				
+			operator void*() const
 				{
 					return willfail ? (void*)0:(void*)(-1);
 				}
@@ -143,7 +145,7 @@ namespace oslink
 						willfail = true;
 					else
 						current = entry.cFileName;
-					return current; 
+					return current;
 				}
 		private:
 			HANDLE	handle;
@@ -154,6 +156,8 @@ namespace oslink
 
 
 #endif
+
+/// @endcond
 
 #endif
 

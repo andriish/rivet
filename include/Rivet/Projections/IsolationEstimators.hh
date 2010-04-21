@@ -11,6 +11,7 @@
 
 namespace Rivet {
 
+  /// @cond ISOLATION_DETAILS
 
   template < typename T, typename C >
   class IsolationEstimator {
@@ -18,7 +19,7 @@ namespace Rivet {
     public:
 
     virtual ~IsolationEstimator(){};
- 
+
       virtual double estimate(const T & t, const C & c) const = 0;
 
       virtual int compare(const IsolationEstimator < T, C > *other) const = 0;
@@ -69,11 +70,11 @@ namespace Rivet {
          return radcmp;
        return 0;
     }
- 
+
     double radius() const {
       return _radius;
     }
- 
+
     double ptMin() const {
       return _ptmin;
     }
@@ -90,7 +91,7 @@ namespace Rivet {
   public:
     MultiplicityInConeEstimator(double radius, double ptmin = 0.0)
       : _radius(radius), _ptmin(ptmin) {  }
- 
+
     virtual double estimate(const T & t, const C & c) const {
       double npart = 0;
       for (typename C::const_iterator ic = c.begin(); ic != c.end(); ++ic) {
@@ -113,15 +114,15 @@ namespace Rivet {
          return radcmp;
        return 0;
     }
- 
+
     double radius() const {
       return _radius;
     }
- 
+
     double ptMin() const {
       return _ptmin;
     }
- 
+
   private:
     double _radius;
     double _ptmin;
@@ -140,6 +141,8 @@ namespace Rivet {
             typedef IsolationEstimator<TYPE1, TYPE2> estimatorhelper;
   };
 
+
+  /// @endcond
 
 }
 

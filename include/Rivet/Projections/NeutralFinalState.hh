@@ -12,7 +12,7 @@
 namespace Rivet {
 
 
-  /// Project only neutral final state particles.
+  /// @brief Project only neutral final state particles.
   class NeutralFinalState : public FinalState {
 
   public:

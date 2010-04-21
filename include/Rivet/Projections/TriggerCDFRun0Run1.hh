@@ -10,10 +10,10 @@
 namespace Rivet {
 
 
-  /// Project out the incoming beams
+  /// @brief Access to the min bias triggers used by CDF in Run 0 and Run 1
   class TriggerCDFRun0Run1 : public Projection {
   public:
- 
+
     /// Default constructor.
     TriggerCDFRun0Run1() {
       setName("TriggerCDFRun0Run1");

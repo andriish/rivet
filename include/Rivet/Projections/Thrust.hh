@@ -11,9 +11,7 @@ namespace Rivet {
 
 
   /**
-    @brief Obtain the e+ e- thrust event shape, consisting of the thrust basis and the
-    thrust scalar values in each direction (the thrust, thrust major and thrust
-    minor).
+    @brief Get the e+ e- thrust basis and the thrust, thrust major and thrust minor scalars.
 
     @author Andy Buckley
 
@@ -117,7 +115,7 @@ namespace Rivet {
 
     /// Manually calculate the thrust, without engaging the caching system
     void calc(const vector<FourMomentum>& fsmomenta);
-   
+
     /// Manually calculate the thrust, without engaging the caching system
     void calc(const vector<Vector3>& threeMomenta);
 

@@ -11,12 +11,11 @@
 namespace Rivet {
 
 
-  /// This class projects out the DIS kinematic variables and relevant
-  /// boosts for an event.
+  /// @brief Get the DIS kinematic variables and relevant boosts for an event.
   class DISKinematics : public Projection {
 
   public:
-     
+
     /// The default constructor.
     DISKinematics()
       : _theQ2(-1.0), _theW2(-1.0), _theX(-1.0), _theY(-1.0), _theS(-1.0)
@@ -32,9 +31,9 @@ namespace Rivet {
       return new DISKinematics(*this);
     }
 
- 
+
   protected:
- 
+
     /// Perform the projection operation on the supplied event.
     virtual void project(const Event& e);
 
@@ -75,7 +74,7 @@ namespace Rivet {
     const Particle& beamHadron() const {
       return _inHadron;
     }
- 
+
   private:
 
     /// The \f$Q^2\f$.
@@ -94,7 +93,7 @@ namespace Rivet {
     double _theS;
 
     Particle _inHadron;
- 
+
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
     LorentzTransform _hcm;
 

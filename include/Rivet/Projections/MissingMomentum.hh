@@ -12,10 +12,11 @@ namespace Rivet {
 
 
   /// @brief Calculate missing \f$ E \f$, \f$ E_\perp \f$ etc.
+  ///
   /// Project out the total visible energy vector, allowing missing
-  /// \f E \f$, \f$ E_\perp \f$ etc. to be calculated. Final state 
+  /// \f E \f$, \f$ E_\perp \f$ etc. to be calculated. Final state
   /// visibility restrictions are automatic.
-  class MissingMomentum : public Projection { 
+  class MissingMomentum : public Projection {
   public:
 
     /// Default constructor with uncritical FS.
@@ -27,7 +28,7 @@ namespace Rivet {
       addProjection(VisibleFinalState(fs), "VisibleFS");
     }
 
- 
+
     /// Constructor.
     MissingMomentum(const FinalState& fs)
     {
@@ -42,7 +43,7 @@ namespace Rivet {
       return new MissingMomentum(*this);
     }
 
- 
+
   public:
 
     /// The projected four-momentum vector
@@ -53,16 +54,16 @@ namespace Rivet {
 
     /// The projected scalar transverse energy
     double scalarET() const { return _set; }
- 
+
 
   protected:
- 
+
     /// Apply the projection to the event.
     void project(const Event& e);
- 
+
     /// Compare projections.
     int compare(const Projection& p) const;
-     
+
 
   public:
 
@@ -71,13 +72,13 @@ namespace Rivet {
 
 
   private:
- 
+
     /// The total visible momentum
     FourMomentum _momentum;
- 
+
     /// Scalar transverse energy
     double _set;
- 
+
   };
 
 }

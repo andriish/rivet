@@ -45,7 +45,7 @@ namespace Rivet {
   /// histograms. Writing the histograms to a file is, however, done by
   /// the Rivet class.
   class Analysis : public ProjectionApplier {
- 
+
     /// The AnalysisHandler is a friend.
     friend class AnalysisHandler;
 
@@ -139,7 +139,7 @@ namespace Rivet {
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
     virtual std::string runInfo() const;
- 
+
     /// Experiment which performed and published this analysis.
     virtual std::string experiment() const;
 
@@ -232,7 +232,7 @@ namespace Rivet {
 
     /// Get the process cross-section in pb. Throws if this hasn't been set.
     double crossSection() const;
- 
+
     /// Get the process cross-section per generated event in pb. Throws if this
     /// hasn't been set.
     double crossSectionPerEvent() const;
@@ -244,7 +244,7 @@ namespace Rivet {
     /// Get the sum of event weights seen (via the analysis handler). Use in the
     /// finalize phase only.
     double sumOfWeights() const;
- 
+
 
   protected:
 
@@ -309,7 +309,7 @@ namespace Rivet {
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
-    AIDA::IHistogram1D* bookHistogram1D(size_t datasetId, size_t xAxisId, size_t yAxisId, 
+    AIDA::IHistogram1D* bookHistogram1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
                                         const std::string& title="",
                                         const std::string& xtitle="", const std::string& ytitle="");
 
@@ -342,11 +342,11 @@ namespace Rivet {
     /// record file with the same filename as the analysis' name() property.
     AIDA::IProfile1D* bookProfile1D(const std::string& name, const std::string& title="",
                                     const std::string& xtitle="", const std::string& ytitle="");
- 
+
     /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
-    AIDA::IProfile1D* bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId, 
+    AIDA::IProfile1D* bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
                                     const std::string& title="",
                                     const std::string& xtitle="", const std::string& ytitle="");
     //@}
@@ -381,7 +381,7 @@ namespace Rivet {
     /// Book a 2-dimensional data point set based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
-    AIDA::IDataPointSet* bookDataPointSet(size_t datasetId, size_t xAxisId, size_t yAxisId, 
+    AIDA::IDataPointSet* bookDataPointSet(size_t datasetId, size_t xAxisId, size_t yAxisId,
                                           const std::string& title="",
                                           const std::string& xtitle="", const std::string& ytitle="");
 
@@ -423,7 +423,7 @@ namespace Rivet {
     /// Pointer to analysis metadata object
     shared_ptr<AnalysisInfo> _info;
 
- 
+
   private:
 
     /// @name Cross-section variables
@@ -432,7 +432,7 @@ namespace Rivet {
     bool _gotCrossSection;
     bool _needsCrossSection;
     //@}
- 
+
     /// The controlling AnalysisHandler object.
     AnalysisHandler* _analysishandler;
 
@@ -463,13 +463,14 @@ namespace Rivet {
   /////////////////////////////////////////////////////////////////////
 
 
+  /// @cond ANALYSIS_PLUGIN_DETAILS
 
-  // Interface for analysis builders
+  /// @brief Interface for analysis builders
   class AnalysisBuilderBase {
   public:
     AnalysisBuilderBase() { }
     virtual ~AnalysisBuilderBase() { }
- 
+
     virtual Analysis* mkAnalysis() const = 0;
 
     const string name() const {
@@ -486,7 +487,7 @@ namespace Rivet {
   };
 
 
-  // Self-registering analysis plugin builder
+  /// @brief Self-registering analysis plugin builder
   template <typename T>
   class AnalysisBuilder : public AnalysisBuilderBase {
   public:
@@ -499,6 +500,7 @@ namespace Rivet {
     }
   };
 
+  /// @endcond
 
 }
 

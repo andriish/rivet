@@ -9,11 +9,10 @@
 namespace Rivet {
 
 
-  /// Project out all final-state particles in an event.
+  /// @brief Project out all physical-but-decayed particles in an event.
   class UnstableFinalState : public Projection {
- 
   public:
- 
+
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor. May specify the minimum and maximum
@@ -35,7 +34,7 @@ namespace Rivet {
       return new UnstableFinalState(*this);
     }
     //@}
-     
+
     /// Access the projected final-state particles.
     virtual const ParticleVector& particles() const { return _theParticles; }
 
@@ -44,29 +43,32 @@ namespace Rivet {
     /// @deprecated Is this final state empty?
     virtual bool isEmpty() const { return _theParticles.empty(); }
 
+
   protected:
- 
+
     /// Apply the projection to the event.
     virtual void project(const Event& e);
- 
+
     /// Compare projections.
     virtual int compare(const Projection& p) const;
- 
+
+
   protected:
 
     /// The minimum allowed pseudorapidity.
     double _etamin;
- 
+
     /// The maximum allowed pseudorapidity.
     double _etamax;
- 
+
     /// The minimum allowed transverse momentum.
     double _ptmin;
- 
+
     /// The final-state particles.
     ParticleVector _theParticles;
- 
+
   };
+
 
 }
 

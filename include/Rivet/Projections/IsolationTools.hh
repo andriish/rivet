@@ -6,12 +6,14 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/JetAlg.hh"
 
+namespace Rivet {
 
-namespace Rivet{
   typedef IsolationProjection<JetAlg, JetAlg> AllJetsIso;
 
   typedef IsolationProjection<FinalState, FinalState> AllParticleIso;
 
   typedef IsolationProjection<FinalState, JetAlg> ParticleFromJetIso;
+
 }
+
 #endif

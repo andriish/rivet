@@ -22,7 +22,7 @@ namespace Rivet {
   Vector3 operator-(const Vector3&, const Vector3&);
 
 
-
+  /// @brief Three-dimensional specialisation of Vector.
   class Vector3 : public Vector<3> {
 
     friend class Matrix3;
@@ -152,7 +152,7 @@ namespace Rivet {
         throw std::runtime_error("The specified phi mapping scheme is not yet implemented");
       }
     }
- 
+
     /// Synonym for azimuthalAngle.
     double phi(const PhiMapping mapping = ZERO_2PI) const {
       return azimuthalAngle(mapping);

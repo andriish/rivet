@@ -12,11 +12,13 @@
 namespace Rivet {
 
 
+  /// @brief Convenience finder of leptonically decaying Ws
+  ///
   /// Chain together different projections as convenience for finding W's
-  /// from two leptons in the final state
+  /// from two leptons in the final state, including photon clustering.
   class WFinder : public FinalState {
   public:
- 
+
     /// @name Constructors
     //@{
 
@@ -72,10 +74,10 @@ namespace Rivet {
 
 
   protected:
- 
+
     /// Apply the projection on the supplied event.
     void project(const Event& e);
- 
+
     /// Compare projections.
     int compare(const Projection& p) const;
 

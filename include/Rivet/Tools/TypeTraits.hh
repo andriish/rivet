@@ -11,7 +11,10 @@ namespace Rivet {
   /// some trickery with typedefs and static const integral types (or
   /// enums) to implement partial function specialisation as a work-around.
 
+  /// @cond INTERNAL
+
   struct RefType { };
+
   struct PtrType { };
 
   template <typename T>
@@ -26,6 +29,8 @@ namespace Rivet {
   struct TypeTraits<const U*> {
     typedef PtrType ArgType;
   };
+
+  /// @endcond
 
 }
 

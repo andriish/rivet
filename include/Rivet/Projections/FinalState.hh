@@ -6,14 +6,14 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
-
 namespace Rivet {
 
 
-  /// Project out all final-state particles in an event.
+  /// @brief Project out all final-state particles in an event.
+  /// Probably the most important projection in Rivet!
   class FinalState : public Projection {
   public:
- 
+
     /// @name Standard constructors and destructors.
     //@{
     /// The default constructor. May specify the minimum and maximum
@@ -21,7 +21,7 @@ namespace Rivet {
     FinalState(double mineta = -MAXRAPIDITY,
                double maxeta =  MAXRAPIDITY,
                double minpt  =  0.0*GeV);
- 
+
     /// A constructor which allows to specify multiple eta ranges
     /// and the min \f$ p_T \f$ (in GeV).
     FinalState(const vector<pair<double, double> >& etaRanges,
@@ -92,28 +92,28 @@ namespace Rivet {
 
 
   protected:
- 
+
     /// Apply the projection to the event.
     virtual void project(const Event& e);
- 
+
     /// Compare projections.
     virtual int compare(const Projection& p) const;
 
     /// Decide if a particle is to be accepted or not.
     bool accept(const Particle& p) const;
 
- 
+
   protected:
 
     /// The ranges allowed for pseudorapidity.
     vector<pair<double,double> > _etaRanges;
- 
+
     /// The minimum allowed transverse momentum.
     double _ptmin;
- 
+
     /// The final-state particles.
     mutable ParticleVector _theParticles;
- 
+
   };
 
 

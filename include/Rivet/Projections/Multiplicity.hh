@@ -10,7 +10,7 @@
 
 namespace Rivet {
 
-  /// Count the final-state particles in an event.
+  /// @brief Count the final-state particles in an event.
   class Multiplicity : public Projection {
   public:
 

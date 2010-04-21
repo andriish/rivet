@@ -12,10 +12,10 @@
 namespace Rivet {
 
 
-  /// Produce a final state which only contains specified particle IDs.
+  /// @brief Produce a final state which only contains specified particle IDs.
   class IdentifiedFinalState : public FinalState {
   public:
- 
+
     /// @name Constructors
     //@{
 
@@ -23,10 +23,10 @@ namespace Rivet {
     IdentifiedFinalState(const FinalState& fsp);
 
     /// Constructor with a single eta range argument.
-    IdentifiedFinalState(double etamin=-MAXRAPIDITY, 
-                         double etamax=MAXRAPIDITY, 
+    IdentifiedFinalState(double etamin=-MAXRAPIDITY,
+                         double etamax=MAXRAPIDITY,
                          double ptMin=0.0*GeV);
-    
+
     /// Constructor which allows to specify multiple eta ranges
     /// and the min \f$ p_T \f$.
     IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
@@ -37,7 +37,7 @@ namespace Rivet {
       return new IdentifiedFinalState(*this);
     }
     //@}
- 
+
 
   public:
 
@@ -96,13 +96,13 @@ namespace Rivet {
     void reset() {
       _pids.clear();
     }
- 
+
 
   protected:
- 
+
     /// Apply the projection on the supplied event.
     void project(const Event& e);
- 
+
     /// Compare projections.
     int compare(const Projection& p) const;
 
@@ -111,7 +111,7 @@ namespace Rivet {
 
     /// The final-state particles.
     set<PdgId> _pids;
- 
+
   };
 
 

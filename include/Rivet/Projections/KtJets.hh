@@ -7,14 +7,14 @@
 #include "KtJet/KtJet.h"
 #include "KtJet/KtEvent.h"
 
-
 namespace Rivet {
 
-  /// Project out jets based on configurable kT algorithm.
+
+  /// @brief Project out jets based on configurable kT algorithm.
   class KtJets : public Projection {
- 
+
   public:
- 
+
     /// @name Standard constructors and destructors.
     //@{
 
@@ -38,7 +38,7 @@ namespace Rivet {
       setName("KtJets");
       addProjection(fsp, "FS");
     }
- 
+
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -52,7 +52,7 @@ namespace Rivet {
     }
     //@}
 
- 
+
   protected:
 
     /// Perform the projection on the Event.
@@ -63,7 +63,7 @@ namespace Rivet {
 
 
   public:
- 
+
     /// @name Access the projected NJets.
     //@ {
     int getNJets() const { return _pktev->getNJets(); }
@@ -88,7 +88,7 @@ namespace Rivet {
 
 
   private:
- 
+
     /// Internal KtEvent, rebuilt every time an event is projected, but not otherwise.
     KtJet::KtEvent* _pktev;
 
@@ -97,7 +97,7 @@ namespace Rivet {
 
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
     mutable map<int, vector<double> > _yscales;
- 
+
   };
 
 }

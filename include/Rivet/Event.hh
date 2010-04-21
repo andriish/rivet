@@ -8,6 +8,8 @@
 namespace Rivet {
 
 
+  /// Rivet wrapper for HepMC event and Projection references.
+  ///
   /// Event is a concrete class representing an generated event in
   /// Rivet. It is constructed given a HepMC::GenEvent, a pointer to
   /// which is kept by the Event object throughout its lifetime. The user
@@ -18,7 +20,6 @@ namespace Rivet {
   /// track of all Projections object which have been applied to the
   /// Event so far.
   class Event {
-
   public:
 
     /// @name Standard constructors and destructors.

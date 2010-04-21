@@ -10,7 +10,7 @@ namespace Rivet {
 
   class Particle;
 
-  /// Project only the highest-pT occurrences of FS particles with the specified PDG IDs.
+  /// @brief Get the highest-pT occurrences of FS particles with the specified PDG IDs.
   class LeadingParticlesFinalState : public FinalState {
 
   public:
@@ -47,7 +47,7 @@ namespace Rivet {
     // /// Get a particle of a particular ID (check it exists first)
     // bool get(const PdgId pid) const;
 
- 
+
   protected:
 
     /// Apply the projection on the supplied event.

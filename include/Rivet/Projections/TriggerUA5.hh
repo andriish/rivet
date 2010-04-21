@@ -10,10 +10,10 @@
 namespace Rivet {
 
 
-  /// Project out the incoming beams
+  /// @brief Access to the min bias triggers used by UA5
   class TriggerUA5 : public Projection {
   public:
- 
+
     /// Default constructor.
     TriggerUA5();
 
@@ -51,7 +51,7 @@ namespace Rivet {
       return make_pair(_n_plus, _n_minus);
     }
 
-    /// Project on to the Event
+    /// Project on to the event
     void project(const Event& evt);
 
 

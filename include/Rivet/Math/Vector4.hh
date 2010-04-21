@@ -16,6 +16,7 @@ namespace Rivet {
   FourVector transform(const LorentzTransform& lt, const FourVector& v4);
 
 
+  /// @brief Specialisation of VectorN to a general (non-momentum) Lorentz 4-vector.
   class FourVector : public Vector<4> {
     friend FourVector multiply(const double a, const FourVector& v);
     friend FourVector multiply(const FourVector& v, const double a);
@@ -410,31 +411,31 @@ namespace Rivet {
     }
 
     /// struct for sorting by increasing energy
- 
+
     struct byEAscending{
       bool operator()(const FourMomentum &left, const FourMomentum &right) const{
         double pt2left = left.E();
         double pt2right = right.E();
         return pt2left < pt2right;
       }
-   
+
       bool operator()(const FourMomentum *left, const FourMomentum *right) const{
         return (*this)(left, right);
       }
     };
- 
+
     /// struct for sorting by decreasing energy
- 
+
     struct byEDescending{
       bool operator()(const FourMomentum &left, const FourMomentum &right) const{
         return byEAscending()(right, left);
       }
-   
+
       bool operator()(const FourMomentum *left, const FourVector *right) const{
         return (*this)(left, right);
       }
     };
- 
+
   };
 
 

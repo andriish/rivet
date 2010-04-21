@@ -25,6 +25,7 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
+
     /// The default constructor.
     PVertex()
       : _thePVertex(0)
@@ -45,9 +46,9 @@ namespace Rivet {
       return Vector3(0,0,0);
     }
 
- 
+
   protected:
- 
+
     /// Do the projection.
     void project(const Event& e);
 
@@ -56,13 +57,13 @@ namespace Rivet {
     int compare(const Projection& UNUSED(p)) const {
       return EQUIVALENT;
     }
- 
+
 
   private:
 
     /// The Primary Vertex in the current collision.
     GenVertex* _thePVertex;
- 
+
   };
 
 }

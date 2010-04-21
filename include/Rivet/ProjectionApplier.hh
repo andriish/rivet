@@ -13,7 +13,8 @@
 namespace Rivet {
 
 
-
+  /// @brief Common base class for Projection and Analysis, used for internal polymorphism
+  ///
   /// Empty interface used for storing Projection and Analysis pointers in the
   /// same container (used by the ProjectionHandler)
   class ProjectionApplier {
@@ -122,14 +123,14 @@ namespace Rivet {
     const Projection& _addProjection(const Projection& proj, const std::string& name);
 
     //@}
- 
- 
+
+
   private:
- 
+
     /// Non-templated version of string-based applyProjection, to work around
     /// header dependency issue.
     const Projection& _applyProjection(const Event& evt, const std::string& name) const;
- 
+
     /// Non-templated version of proj-based applyProjection, to work around
     /// header dependency issue.
     const Projection& _applyProjection(const Event& evt, const Projection& proj) const;
@@ -139,13 +140,13 @@ namespace Rivet {
 
     /// Flag to forbid projection registration in analyses until the init phase
     bool _allowProjReg;
- 
- 
+
+
   private:
- 
+
     /// Pointer to projection handler.
     ProjectionHandler* _projhandler;
- 
+
   };
 
 }

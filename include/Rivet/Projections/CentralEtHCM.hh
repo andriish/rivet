@@ -6,11 +6,12 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projections/FinalStateHCM.hh"
 
-
 namespace Rivet {
 
 
-  /// Sum up Et of all particles in the hadronic final state in the
+  /// @brief Summed \f$ E_\perp \f$ of central particles in HCM system.
+  ///
+  /// Sum up \f$ E_\perp \f$ of all particles in the hadronic final state in the
   /// central rapidity bin of the HCM system.
   class CentralEtHCM : public Projection {
 

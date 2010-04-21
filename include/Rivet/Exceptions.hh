@@ -7,25 +7,25 @@
 
 namespace Rivet {
 
-  /// Generic runtime Rivet error.
+  /// @brief Generic runtime Rivet error.
   class Error : public std::runtime_error {
   public:
     Error(const std::string& what) : std::runtime_error(what) {}
   };
 
 
-  /// Also typedef Exception, so that it's there.
+  /// @brief Rivet::Exception is a synonym for Rivet::Error.
   typedef Error Exception;
 
 
-  /// Error for e.g. use of invalid bin ranges.
+  /// @brief Error for e.g. use of invalid bin ranges.
   class RangeError : public Error {
   public:
     RangeError(const std::string& what) : Error(what) {}
   };
 
 
-  /// @todo Clarify where this might arise!
+  /// @brief Error specialisation for places where alg logic has failed.
   class LogicError : public Error {
   public:
     LogicError(const std::string& what) : Error(what) {}
