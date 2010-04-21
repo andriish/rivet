@@ -18,8 +18,6 @@ namespace Rivet {
   void InitialQuarks::project(const Event& e) {
     _theParticles.clear();
 
-    /// @todo This is all fragile and application-specific: remove!
-
     foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
       const GenVertex* pv = p->production_vertex();
       const GenVertex* dv = p->end_vertex();

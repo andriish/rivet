@@ -5,7 +5,6 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/InitialQuarks.hh"
 
 
 /// @todo Use inline PID functions instead
@@ -35,7 +34,6 @@ namespace Rivet {
     void init() {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
-      addProjection(InitialQuarks(), "IQF");
 
       _histXbprim     = bookHistogram1D(1, 1, 1);
       _histXbweak     = bookHistogram1D(2, 1, 1);

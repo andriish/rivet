@@ -10,7 +10,7 @@ namespace Rivet {
 
 
   /// Project out quarks from the hard process in e+ e- -> Z0 events
-  /// @deprecated This is a very dangerous and specific projection! Use e.g. PID::hasBottom and friends instead
+  /// @warning This is a very dangerous and specific projection! Use e.g. PID::hasBottom and friends instead
   class InitialQuarks : public Projection { 
   public:
  
