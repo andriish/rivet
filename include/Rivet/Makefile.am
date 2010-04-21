@@ -58,7 +58,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/IsolationTools.hh \
   Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
-  Projections/KtJets.hh         \
   Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
@@ -84,7 +83,6 @@ nobase_pkginclude_HEADERS +=   \
 nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
   Tools/Logging.fhh \
-  Tools/Configuration.hh \
   Tools/Utils.hh \
   Tools/BinnedHistogram.hh \
   Tools/ParticleIdUtils.hh \

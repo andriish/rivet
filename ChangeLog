@@ -1,5 +1,9 @@
 2010-04-21  Andy Buckley  <andy@insectnation.org>
 
+	* Removing defunct and unused KtJets and Configuration classes.
+
+	* Hiding some internal details from Doxygen.
+
 	* Add @brief Doxygen comments to all analyses, projections and
 	core classes which were missing them.
 
