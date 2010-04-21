@@ -7,8 +7,9 @@
 
 namespace Rivet {
 
-  class MC_ZJETS : public MC_JetAnalysis {
 
+  /// @brief MC validation analysis for Z + jets events
+  class MC_ZJETS : public MC_JetAnalysis {
   public:
 
     /// Default constructor
@@ -17,8 +18,8 @@ namespace Rivet {
     {
       setNeedsCrossSection(true);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
 
@@ -38,20 +39,20 @@ namespace Rivet {
       _h_Z_jet1_dR = bookHistogram1D("Z_jet1_dR", 25, 0.5, 7.0);
       _h_lepton_pT = bookHistogram1D("lepton_pT", logBinEdges(100, 10.0, 0.25*sqrtS()));
       _h_lepton_eta = bookHistogram1D("lepton_eta", 40, -4.0, 4.0);
-   
+
       MC_JetAnalysis::init();
     }
- 
 
- 
+
+
     /// Do the analysis
-    void analyze(const Event & e) {   
+    void analyze(const Event & e) {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size()!=1) {
         vetoEvent;
       }
       const double weight = e.weight();
-   
+
       FourMomentum zmom(zfinder.particles()[0].momentum());
       _h_Z_mass->fill(zmom.mass(),weight);
       _h_Z_pT->fill(zmom.pT(),weight);
@@ -62,17 +63,17 @@ namespace Rivet {
         _h_lepton_pT->fill(l.momentum().pT(), weight);
         _h_lepton_eta->fill(l.momentum().eta(), weight);
       }
-   
+
       const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
       const Jets& jets = jetpro.jetsByPt(20.0*GeV);
       if (jets.size() > 0) {
         _h_Z_jet1_deta->fill(zmom.eta()-jets[0].momentum().eta(), weight);
         _h_Z_jet1_dR->fill(deltaR(zmom, jets[0].momentum()), weight);
       }
-   
+
       MC_JetAnalysis::analyze(e);
     }
- 
+
 
     /// Finalize
     void finalize() {
@@ -85,10 +86,10 @@ namespace Rivet {
       scale(_h_Z_jet1_dR, crossSection()/sumOfWeights());
       scale(_h_lepton_pT, crossSection()/sumOfWeights());
       scale(_h_lepton_eta, crossSection()/sumOfWeights());
-   
+
       MC_JetAnalysis::finalize();
     }
- 
+
     //@}
 
 

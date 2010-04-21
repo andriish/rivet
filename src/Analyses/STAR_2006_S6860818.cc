@@ -8,7 +8,8 @@
 
 namespace Rivet {
 
-  /// @brief strange particle spectra in pp at 200 GeV
+
+  /// @brief STAR strange particle spectra in pp at 200 GeV
   class STAR_2006_S6860818 : public Analysis {
   public:
 

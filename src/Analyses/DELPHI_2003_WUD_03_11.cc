@@ -14,7 +14,7 @@ namespace Rivet {
     /// @name Jet angle calculator functions
     //@{
     /// @todo Move to utils?
- 
+
     /// @todo Use Jet or FourMomentum interface rather than PseudoJet
     /// @todo Move to utils?
     double calc_BZ(const vector<fastjet::PseudoJet>& jets) {
@@ -36,7 +36,7 @@ namespace Rivet {
       return cos (0.5*( acos (dot(p14,p23) / (p14.mod()*p23.mod())) +
                         acos (dot(p13,p24) / (p13.mod()*p24.mod())) ));
     }
- 
+
 
     /// @todo Use Jet or FourMomentum interface rather than PseudoJet
     /// @todo Move to utils?
@@ -67,7 +67,6 @@ namespace Rivet {
    *
    * This is Hendrik Hoeth's Diploma thesis, measuring the 4-jet angular
    * distributions at LEP-1.
-   *
    *
    * @par Run conditions
    *
@@ -111,17 +110,17 @@ namespace Rivet {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-   
+
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
         vetoEvent;
       }
       getLog() << Log::DEBUG << "Passed multiplicity cut" << endl;
-   
+
       // Get event weight for histo filling
       const double weight = e.weight();
-   
+
       // Jets
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       vector<fastjet::PseudoJet> jets_durham;
@@ -138,7 +137,7 @@ namespace Rivet {
           _numdurjets++;
         }
       }
-   
+
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
       vector<fastjet::PseudoJet> jets_jade;
       if (jadejet.clusterSeq()) {
@@ -154,15 +153,15 @@ namespace Rivet {
           _numjadejets++;
         }
       }
-   
+
     }
- 
- 
+
+
     // Finalize
     void finalize() {
       // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
-   
+
       getLog() << Log::INFO << "Number of Durham jets = " << _numdurjets << endl;
       getLog() << Log::INFO << "Number of Jade jets   = " << _numjadejets << endl;
 

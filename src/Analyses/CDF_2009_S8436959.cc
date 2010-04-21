@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF inclusive isolated prompt photon cross-section
   class CDF_2009_S8436959 : public Analysis {
   public:
 

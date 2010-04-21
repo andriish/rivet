@@ -9,6 +9,7 @@
 namespace Rivet {
 
 
+  /// @brief D0 dijet invariant mass measurement
   class D0_2010_S8566488 : public Analysis {
   public:
 
@@ -17,7 +18,7 @@ namespace Rivet {
 
     /// Constructor
     D0_2010_S8566488()
-      : Analysis("D0_2010_S8566488") 
+      : Analysis("D0_2010_S8566488")
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
@@ -53,12 +54,12 @@ namespace Rivet {
 
       const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt(40.0*GeV);
       if (jets.size() < 2) vetoEvent;
- 
+
       FourMomentum j0(jets[0].momentum());
       FourMomentum j1(jets[1].momentum());
       double ymax = std::max(fabs(j0.rapidity()), fabs(j1.rapidity()));
       double mjj = FourMomentum(j0+j1).mass();
-      
+
       _h_m_dijet.fill(ymax, mjj/TeV, weight);
     }
 

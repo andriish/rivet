@@ -5,11 +5,11 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 
 
+  /// @brief D0 Run I Z boson \f$ p_\perp \f$ measurement
   class D0_1998_S3711838 : public Analysis {
   public:
 
@@ -18,11 +18,11 @@ namespace Rivet {
 
     /// Constructor
     D0_1998_S3711838()
-      : Analysis("D0_1998_S3711838") 
+      : Analysis("D0_1998_S3711838")
     {
       /// @todo Set approriate for your analysis
       setBeams(PROTON, ANTIPROTON);
-      
+
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
     }
@@ -93,7 +93,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
     }
 
     //@}

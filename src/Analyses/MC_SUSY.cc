@@ -13,21 +13,20 @@
 namespace Rivet {
 
 
-  /* Basic SUSY type validation analysis for the LHC
-   * @author Andy Buckley
-   */
+  /// @brief MC validation analysis for SUSY events
+  /// @author Andy Buckley
   class MC_SUSY : public Analysis {
   public:
- 
+
     /// Constructor
     MC_SUSY()
       : Analysis("MC_SUSY")
     {    }
- 
- 
+
+
     /// @name Analysis methods
     //@{
- 
+
     // Book histograms
     void init() {
       // Basic final state
@@ -296,17 +295,17 @@ namespace Rivet {
       }
 
     }
- 
- 
+
+
     void finalize() {
       /// @todo Normalisations
     }
 
     //@}
- 
+
 
   private:
- 
+
     AIDA::IHistogram1D *_hist_n_trk, *_hist_phi_trk, *_hist_eta_trk, *_hist_pt_trk;
     AIDA::IHistogram1D *_hist_n_jet, *_hist_phi_jet, *_hist_eta_jet, *_hist_pt_jet;
     AIDA::IHistogram1D *_hist_n_e, *_hist_phi_e, *_hist_eta_e, *_hist_pt_e;

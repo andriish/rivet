@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF diff cross-section in events with large missing energy
   class CDF_1998_S3618439 : public Analysis {
   public:
 

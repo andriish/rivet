@@ -8,9 +8,8 @@
 namespace Rivet {
 
 
-  /* @brief CDF pseudorapidity analysis
-   * @author Andy Buckley
-   */
+  /// @brief CDF pseudorapidity analysis at 630 and 1800 GeV
+  /// @author Andy Buckley
   class CDF_1990_S2089246 : public Analysis {
   public:
 
@@ -55,8 +54,8 @@ namespace Rivet {
         _hist_eta->fill(fabs(eta), weight);
       }
     }
-  
- 
+
+
     /// Finalize
     void finalize() {
       // Divide through by num events to get d<N>/d(eta) in bins
@@ -81,7 +80,7 @@ namespace Rivet {
 
   };
 
- 
+
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_1990_S2089246> plugin_CDF_1990_S2089246;

@@ -45,19 +45,29 @@ namespace Rivet {
       return _theParticles;
     }
 
-    /// Get the final-state particles, ordered by \f$ p_T \f$.
+    /// Get the final-state particles, ordered by decreasing \f$ p_T \f$.
     const ParticleVector& particlesByPt() const {
       return particles(cmpParticleByPt);
     }
 
-    /// Get the final-state particles, ordered by \f$ E \f$.
+    /// Get the final-state particles, ordered by decreasing \f$ E \f$.
     const ParticleVector& particlesByE() const {
       return particles(cmpParticleByE);
     }
 
-    /// Get the final-state particles, ordered by \f$ E_T \f$.
+    /// Get the final-state particles, ordered by decreasing \f$ E_T \f$.
     const ParticleVector& particlesByEt() const {
       return particles(cmpParticleByEt);
+    }
+
+    /// Get the final-state particles, ordered by increasing \f$ \eta \f$.
+    const ParticleVector& particlesByEta() const {
+      return particles(cmpParticleByAscPseudorapidity);
+    }
+
+    /// Get the final-state particles, ordered by increasing \f$ |\eta| \f$.
+    const ParticleVector& particlesByModEta() const {
+      return particles(cmpParticleByAscAbsPseudorapidity);
     }
 
 

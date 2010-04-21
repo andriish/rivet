@@ -13,11 +13,13 @@
 namespace Rivet {
 
 
+  /// @brief OPAL event shapes and moments at 91, 133, 177, and 197 GeV
+  /// @author Andy Buckley
   class OPAL_2004_S6132243 : public Analysis {
   public:
 
     /// Constructor
-    OPAL_2004_S6132243() 
+    OPAL_2004_S6132243()
       : Analysis("OPAL_2004_S6132243"),
         _isqrts(-1), _sumWTrack2(0.0), _sumWJet3(0.0)
     {
@@ -148,7 +150,7 @@ namespace Rivet {
       for (int n = 1; n <= 5; ++n) {
         _histCParamMom[_isqrts]->fill(n, pow(cparam, n)*weight);
       }
-   
+
       // Hemispheres
       const Hemispheres& hemi = applyProjection<Hemispheres>(event, "Hemispheres");
       // The paper says that M_H/L are scaled by sqrt(s), but scaling by E_vis is the way that fits the data...
@@ -202,15 +204,15 @@ namespace Rivet {
       scale(_histCParamMom[_isqrts], 1.0/_sumWTrack2);
       scale(_histY23DurhamMom[_isqrts], 1.0/_sumWJet3);
     }
-    
+
     //@}
-    
-    
+
+
   private:
-    
+
     /// Beam energy index for histograms
     int _isqrts;
-    
+
     /// @name Counters of event weights passing the cuts
     //@{
     double _sumWTrack2, _sumWJet3;

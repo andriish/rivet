@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF Run I inclusive jet cross-section
   class CDF_2001_S4563131 : public Analysis {
   public:
 
@@ -51,7 +52,7 @@ namespace Rivet {
           _h_ET->fill(jet.momentum().Et(), weight);
         }
       }
-   
+
     }
 
 

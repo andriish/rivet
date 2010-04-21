@@ -7,7 +7,8 @@
 
 namespace Rivet {
 
-  /// @brief inclusive jet cross-section in pp at 200 GeV
+
+  /// @brief STAR inclusive jet cross-section in pp at 200 GeV
   class STAR_2006_S6870392 : public Analysis {
   public:
 

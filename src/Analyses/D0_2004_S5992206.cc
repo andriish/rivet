@@ -8,11 +8,10 @@
 namespace Rivet {
 
 
-  /* @brief D0 Run II jet analysis
+  /* @brief D0 Run II angular correlations in di-jet events
    * @author Lars Sonnenschein
    *
    * Measurement of angular correlations in di-jet events.
-   *
    *
    * @par Run conditions
    *
@@ -47,7 +46,7 @@ namespace Rivet {
       addProjection(fs, "FS");
       addProjection(FastJets(FinalState(), FastJets::D0ILCONE, 0.7), "Jets");
       addProjection(TotalVisibleMomentum(fs), "CalMET");
-   
+
       // Veto neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
@@ -68,7 +67,7 @@ namespace Rivet {
       // Analyse and print some info
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
-   
+
       const Jets jets  = jetpro.jetsByPt(40.0*GeV);
       if (jets.size() >= 2) {
         getLog() << Log::DEBUG << "Jet multiplicity after pT > 40 GeV cut = " << jets.size() << endl;
@@ -82,13 +81,13 @@ namespace Rivet {
       }
       getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
       const double pT1 = jets[0].momentum().pT();
-   
+
       const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
       getLog() << Log::DEBUG << "Missing Et = " << caloMissEt.momentum().pT()/GeV << endl;
       if (caloMissEt.momentum().pT() > 0.7*pT1) {
         vetoEvent;
       }
-   
+
       if (pT1/GeV >= 75.0) {
         const double weight = event.weight();
         const double dphi = deltaPhi(jets[0].momentum().phi(), jets[1].momentum().phi());
@@ -102,10 +101,10 @@ namespace Rivet {
           _histJetAzimuth_pTmax180_->fill(dphi, weight);
         }
       }
-   
+
     }
- 
- 
+
+
     // Finalize
     void finalize() {
       // Normalize histograms to unit area
@@ -114,7 +113,7 @@ namespace Rivet {
       normalize(_histJetAzimuth_pTmax130_180);
       normalize(_histJetAzimuth_pTmax180_);
     }
- 
+
     //@}
 
 
@@ -130,8 +129,8 @@ namespace Rivet {
 
   };
 
- 
- 
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2004_S5992206> plugin_D0_2004_S5992206;
 

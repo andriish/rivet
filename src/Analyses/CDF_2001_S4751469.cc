@@ -16,9 +16,10 @@
 namespace Rivet {
 
 
-  /* @brief "Field-Stuart" CDF Run I underlying event analysis
+  /* @brief "Field-Stuart" CDF Run I track-jet underlying event analysis
    * @author Andy Buckley
    *
+   * The "original" underlying event analysis, using a non-standard track-jet algorithm.
    *
    * @par Run conditions
    *
@@ -40,11 +41,11 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
- 
+
     // Book histograms
     void init() {
       addProjection(TriggerCDFRun0Run1(), "Trigger");
@@ -53,46 +54,46 @@ namespace Rivet {
       const LossyFinalState lfs(cfs, 0.08);
       addProjection(lfs, "FS");
       addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
-   
+
       _numvsDeltaPhi2 =  bookProfile1D(1, 1, 1);
       _numvsDeltaPhi5 =  bookProfile1D(1, 1, 2);
       _numvsDeltaPhi30 = bookProfile1D(1, 1, 3);
       _pTvsDeltaPhi2 =   bookProfile1D(2, 1, 1);
       _pTvsDeltaPhi5 =   bookProfile1D(2, 1, 2);
       _pTvsDeltaPhi30 =  bookProfile1D(2, 1, 3);
-   
+
       _numTowardMB = bookProfile1D(3, 1, 1);
       _numTransMB = bookProfile1D(3, 1, 2);
       _numAwayMB = bookProfile1D(3, 1, 3);
       _numTowardJ20 = bookProfile1D(4, 1, 1);
       _numTransJ20 = bookProfile1D(4, 1, 2);
       _numAwayJ20 = bookProfile1D(4, 1, 3);
-   
+
       _ptsumTowardMB = bookProfile1D(5, 1, 1);
       _ptsumTransMB = bookProfile1D(5, 1, 2);
       _ptsumAwayMB = bookProfile1D(5, 1, 3);
       _ptsumTowardJ20 = bookProfile1D(6, 1, 1);
       _ptsumTransJ20 = bookProfile1D(6, 1, 2);
       _ptsumAwayJ20 = bookProfile1D(6, 1, 3);
-   
+
       _ptTrans2 = bookHistogram1D(7, 1, 1);
       _ptTrans5 = bookHistogram1D(7, 1, 2);
       _ptTrans30 = bookHistogram1D(7, 1, 3);
     }
- 
+
 
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
       const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-   
+
       // Analyse, with pT > 0.5 GeV AND |eta| < 1
       const JetAlg& tj = applyProjection<JetAlg>(event, "TrackJet");
 
       // Final state (lossy) charged particles
       const LossyFinalState& fs = applyProjection<LossyFinalState>(event, "FS");
-   
+
       // Get jets, sorted by pT
       const Jets jets = tj.jetsByPt();
       if (jets.empty()) {
@@ -102,7 +103,7 @@ namespace Rivet {
       Jet leadingJet = jets.front();
       const double phiLead = leadingJet.ptWeightedPhi();
       const double ptLead = leadingJet.ptSum();
-   
+
       // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
       if (ptLead/GeV < 0.5) vetoEvent;
       if (ptLead/GeV > 50.0) vetoEvent;
@@ -120,7 +121,7 @@ namespace Rivet {
       if (ptLead/GeV > 30.0) {
         _sumWeightsPtLead30 += weight;
       }
-   
+
       // Run over tracks
       double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
       size_t numToward(0), numTrans(0), numAway(0);
@@ -134,7 +135,7 @@ namespace Rivet {
         // Calculate DeltaPhi(p,leadingJet)
         const double dPhi = deltaPhi(p.momentum().phi(), phiLead);
         const double pT = p.momentum().pT();
-        
+
         if (dPhi < PI/3.0) {
           ptSumToward += pT;
           ++numToward;
@@ -160,7 +161,7 @@ namespace Rivet {
           ptSumAway += pT;
           ++numAway;
         }
-     
+
         // Fill tmp histos to bin event's track Nch & pT in dphi
         const double dPhideg = 180*dPhi/PI;
         if (ptLead/GeV > 2.0) {
@@ -192,7 +193,7 @@ namespace Rivet {
           _pTvsDeltaPhi30->fill(hist_pt_dphi_30.binMean(i), hist_pt_dphi_30.binHeight(i), weight);
         }
       }
-   
+
       // Log some event details about pT
       getLog() << Log::DEBUG
                << "pT [lead; twd, away, trans] = ["
@@ -205,13 +206,13 @@ namespace Rivet {
       // Update the pT profile histograms
       _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
       _ptsumTowardJ20->fill(ptLead/GeV, ptSumToward/GeV, weight);
-   
+
       _ptsumTransMB->fill(ptLead/GeV, ptSumTrans/GeV, weight);
       _ptsumTransJ20->fill(ptLead/GeV, ptSumTrans/GeV, weight);
-   
+
       _ptsumAwayMB->fill(ptLead/GeV, ptSumAway/GeV, weight);
       _ptsumAwayJ20->fill(ptLead/GeV, ptSumAway/GeV, weight);
-   
+
       // Log some event details about Nch
       getLog() << Log::DEBUG
                << "N [twd, away, trans] = ["
@@ -219,26 +220,26 @@ namespace Rivet {
                << numTrans << ", "
                << numAway << "]"
                << endl;
-   
+
       // Update the N_track profile histograms
       _numTowardMB->fill(ptLead/GeV, numToward, weight);
       _numTowardJ20->fill(ptLead/GeV, numToward, weight);
-   
+
       _numTransMB->fill(ptLead/GeV, numTrans, weight);
       _numTransJ20->fill(ptLead/GeV, numTrans, weight);
-   
+
       _numAwayMB->fill(ptLead/GeV, numAway, weight);
       _numAwayJ20->fill(ptLead/GeV, numAway, weight);
     }
- 
- 
+
+
     /// Normalize histos
     void finalize() {
       normalize(_ptTrans2, _totalNumTrans2 / _sumWeightsPtLead2);
       normalize(_ptTrans5, _totalNumTrans5 / _sumWeightsPtLead5);
       normalize(_ptTrans30, _totalNumTrans30 / _sumWeightsPtLead30);
     }
- 
+
     //@}
 
 
@@ -280,7 +281,7 @@ namespace Rivet {
 
   };
 
- 
+
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_2001_S4751469> plugin_CDF_2001_S4751469;

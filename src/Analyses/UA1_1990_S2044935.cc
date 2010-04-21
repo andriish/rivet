@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// Minimum bias track analysis from UA1
+  /// @brief UA1 minbias track multiplicities, \f$ p_\perp \f$ and \f$ E_\perp \f$
   class UA1_1990_S2044935 : public Analysis {
   public:
 
@@ -22,7 +22,7 @@ namespace Rivet {
       _sumwTrig40 = 0;
       _sumwTrig80 = 0;
     }
- 
+
 
     /// @name Analysis methods
     //@{
@@ -61,7 +61,7 @@ namespace Rivet {
       }
 
     }
- 
+
 
     void analyze(const Event& event) {
       // Trigger
@@ -115,10 +115,10 @@ namespace Rivet {
           }
         }
       }
-   
+
     }
- 
- 
+
+
     void finalize() {
       if (_sumwTrig <= 0) {
         getLog() << Log::WARN << "No events passed the trigger!" << endl;
@@ -138,10 +138,10 @@ namespace Rivet {
         scale(_hist_Esigd3p80, scale80);
       }
     }
- 
+
     //@}
 
- 
+
   private:
 
     /// @name Weight counters
@@ -160,7 +160,7 @@ namespace Rivet {
     AIDA::IProfile1D* _hist_Etavg;
     AIDA::IHistogram1D* _hist_Et;
     //@}
- 
+
   };
 
 

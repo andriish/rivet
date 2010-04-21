@@ -6,7 +6,8 @@
 
 namespace Rivet {
 
-  /// @brief di-hadron correlations in d-Au at 200 GeV
+
+  /// @brief STAR di-hadron correlations in d-Au at 200 GeV
   class STAR_2008_S7993412 : public Analysis {
   public:
 
@@ -14,8 +15,8 @@ namespace Rivet {
     {
       setBeams(PROTON, PROTON);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
 
@@ -38,7 +39,7 @@ namespace Rivet {
                  << " because no final state found " << endl;
         vetoEvent;
       }
-   
+
       const double weight = event.weight();
 
       foreach (const Particle& tp, fs.particles()) {
@@ -57,12 +58,12 @@ namespace Rivet {
         }
       }
     }
- 
- 
+
+
     /// Finalize
     void finalize() {
     }
- 
+
     //@}
 
 
@@ -76,8 +77,8 @@ namespace Rivet {
 
   };
 
- 
- 
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<STAR_2008_S7993412> plugin_STAR_2008_S7993412;
 

@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF Z boson rapidity measurement
   class CDF_2009_S8383952 : public Analysis {
   public:
 

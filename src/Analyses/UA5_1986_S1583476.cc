@@ -8,6 +8,8 @@
 
 namespace Rivet {
 
+
+  /// @brief UA5 \f$ \eta \f$ distributions at 200 and 900 GeV
   class UA5_1986_S1583476 : public Analysis {
   public:
 
@@ -22,7 +24,7 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
-    /// Set up projections and histograms 
+    /// Set up projections and histograms
     void init() {
       addProjection(TriggerUA5(), "Trigger");
       addProjection(Beam(), "Beams");
@@ -92,7 +94,7 @@ namespace Rivet {
         scale(_hists_eta_nsd[i], 0.5/_sumWn[i]);
       }
     }
- 
+
 
   private:
 

@@ -11,6 +11,7 @@
 namespace Rivet {
 
 
+  /// @brief D0 topological distributions of 3- and 4-jet events.
   class D0_1996_S3214044 : public Analysis {
   public:
 
@@ -23,8 +24,8 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(false);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
 
@@ -34,7 +35,7 @@ namespace Rivet {
       addProjection(fs, "FS");
       /// @todo Use correct jet algorithm
       addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
-   
+
       _h_3j_x3 = bookHistogram1D(1, 1, 1);
       _h_3j_x5 = bookHistogram1D(2, 1, 1);
       _h_3j_costheta3 = bookHistogram1D(3, 1, 1);
@@ -42,7 +43,7 @@ namespace Rivet {
       _h_3j_mu34 = bookHistogram1D(5, 1, 1);
       _h_3j_mu35 = bookHistogram1D(6, 1, 1);
       _h_3j_mu45 = bookHistogram1D(7, 1, 1);
-   
+
       _h_4j_x3 = bookHistogram1D(8, 1, 1);
       _h_4j_x4 = bookHistogram1D(9, 1, 1);
       _h_4j_x5 = bookHistogram1D(10, 1, 1);
@@ -65,20 +66,20 @@ namespace Rivet {
       _h_4j_mu56 = bookHistogram1D(27, 1, 1);
       _h_4j_theta_BZ = bookHistogram1D(28, 1, 1);
       _h_4j_costheta_NR = bookHistogram1D(29, 1, 1);
-   
+
     }
- 
- 
+
+
     void analyze(const Event& event) {
       const double weight = event.weight();
-   
+
       Jets jets_in;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jetsByEt(20.0*GeV)) {
         if (fabs(jet.momentum().eta()) < 3.0) {
           jets_in.push_back(jet);
         }
       }
-   
+
       Jets jets_isolated;
       for (size_t i = 0; i < jets_in.size(); ++i) {
         bool isolated=true;
@@ -92,11 +93,11 @@ namespace Rivet {
           jets_isolated.push_back(jets_in[i]);
         }
       }
-   
+
       if (jets_isolated.size() == 0 || jets_isolated[0].momentum().Et() < 60.0*GeV) {
         vetoEvent;
       }
-   
+
       if (jets_isolated.size() > 2) _threeJetAnalysis(jets_isolated, weight);
       if (jets_isolated.size() > 3) _fourJetAnalysis(jets_isolated, weight);
     }
@@ -133,7 +134,7 @@ namespace Rivet {
       normalize(_h_4j_theta_BZ, 1.0);
       normalize(_h_4j_costheta_NR, 1.0);
     }
- 
+
     //@}
 
 
@@ -141,7 +142,7 @@ namespace Rivet {
 
     /// @name Helper functions
     //@{
- 
+
     void _threeJetAnalysis(const Jets& jets, const double& weight) {
       // >=3 jet events
       FourMomentum jjj(jets[0].momentum()+jets[1].momentum()+jets[2].momentum());
@@ -149,7 +150,7 @@ namespace Rivet {
       if (sqrts<200*GeV) {
         return;
       }
- 
+
       LorentzTransform cms_boost(-jjj.boostVector());
       vector<FourMomentum> jets_boosted;
       foreach (Jet jet, jets) {
@@ -159,12 +160,12 @@ namespace Rivet {
       FourMomentum p3(jets_boosted[0]);
       FourMomentum p4(jets_boosted[1]);
       FourMomentum p5(jets_boosted[2]);
-   
+
       Vector3 beam1(0.0, 0.0, 1.0);
       Vector3 p1xp3 = beam1.cross(p3.vector3());
       Vector3 p4xp5 = p4.vector3().cross(p5.vector3());
       const double cospsi = p1xp3.dot(p4xp5)/p1xp3.mod()/p4xp5.mod();
-   
+
       _h_3j_x3->fill(2.0*p3.E()/sqrts, weight);
       _h_3j_x5->fill(2.0*p5.E()/sqrts, weight);
       _h_3j_costheta3->fill(fabs(cos(p3.theta())), weight);
@@ -173,14 +174,14 @@ namespace Rivet {
       _h_3j_mu35->fill(_safeMass(FourMomentum(p3+p5))/sqrts, weight);
       _h_3j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts, weight);
     }
- 
- 
+
+
     void _fourJetAnalysis(const Jets& jets, const double& weight) {
       // >=4 jet events
       FourMomentum jjjj(jets[0].momentum() + jets[1].momentum() + jets[2].momentum()+ jets[3].momentum());
       const double sqrts = _safeMass(jjjj);
       if (sqrts < 200*GeV) return;
-   
+
       LorentzTransform cms_boost(-jjjj.boostVector());
       vector<FourMomentum> jets_boosted;
       foreach (Jet jet, jets) {
@@ -191,13 +192,13 @@ namespace Rivet {
       FourMomentum p4(jets_boosted[1]);
       FourMomentum p5(jets_boosted[2]);
       FourMomentum p6(jets_boosted[3]);
-   
+
       Vector3 p3xp4 = p3.vector3().cross(p4.vector3());
       Vector3 p5xp6 = p5.vector3().cross(p6.vector3());
       const double costheta_BZ = p3xp4.dot(p5xp6)/p3xp4.mod()/p5xp6.mod();
       const double costheta_NR = (p3.vector3()-p4.vector3()).dot(p5.vector3()-p6.vector3())/
         (p3.vector3()-p4.vector3()).mod()/(p5.vector3()-p6.vector3()).mod();
-   
+
       _h_4j_x3->fill(2.0*p3.E()/sqrts, weight);
       _h_4j_x4->fill(2.0*p4.E()/sqrts, weight);
       _h_4j_x5->fill(2.0*p5.E()/sqrts, weight);
@@ -220,9 +221,9 @@ namespace Rivet {
       _h_4j_mu56->fill(_safeMass(FourMomentum(p5+p6))/sqrts, weight);
       _h_4j_theta_BZ->fill(acos(costheta_BZ)/degree, weight);
       _h_4j_costheta_NR->fill(costheta_NR, weight);
-   
+
     }
-    
+
     double _safeMass(const FourMomentum& p) {
       double mass2=p.mass2();
       if (mass2>0.0) return sqrt(mass2);
@@ -245,7 +246,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_3j_mu34;
     AIDA::IHistogram1D *_h_3j_mu35;
     AIDA::IHistogram1D *_h_3j_mu45;
- 
+
     AIDA::IHistogram1D *_h_4j_x3;
     AIDA::IHistogram1D *_h_4j_x4;
     AIDA::IHistogram1D *_h_4j_x5;
@@ -271,9 +272,9 @@ namespace Rivet {
     //@}
 
   };
- 
- 
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_1996_S3214044> plugin_D0_1996_S3214044;
- 
+
 }

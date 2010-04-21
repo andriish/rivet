@@ -8,6 +8,7 @@
 
 namespace Rivet {
 
+
   /// @brief H1 energy flow and charged particle spectra
   /// @author Peter Richardson
   /// Based on the equivalent HZTool analysis
@@ -27,17 +28,17 @@ namespace Rivet {
       _w117 = make_pair(0.0, 0.0);
       _wEnergy = make_pair(0.0, 0.0);
     }
- 
+
 
 
     /// @name Analysis methods
     //@{
- 
+
     void analyze(const Event& event) {
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
       const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
-   
+
       // Get the DIS kinematics
       double x  = dk.x();
       double w2 = dk.W2();
@@ -48,7 +49,7 @@ namespace Rivet {
       double ptel = pT(leptonMom);
       double enel = leptonMom.E();
       double thel = leptonMom.angle(dk.beamHadron().momentum())/degree;
-   
+
       // Extract the particles other than the lepton
       ParticleVector particles;
       particles.reserve(fs.particles().size());
@@ -58,7 +59,7 @@ namespace Rivet {
         if (&loopGP == &dislepGP) continue;
         particles.push_back(p);
       }
-   
+
       // Cut on the forward energy
       double efwd = 0.0;
       foreach (const Particle& p, particles) {
@@ -67,13 +68,13 @@ namespace Rivet {
           efwd += p.momentum().E();
         }
       }
-   
+
       // Apply the cuts
       // Lepton energy and angle, w2 and forward energy
       getLog()<<Log::DEBUG<<"enel/GeV = "<<enel/GeV<<", thel = "<<thel<<", w2 = "<<w2<<", efwd/GeV = "<<efwd/GeV<<std::endl;
       bool cut = enel/GeV > 14. && thel > 157. && thel < 172.5 && w2 >= 3000. && efwd/GeV > 0.5;
       if (!cut) vetoEvent;
-   
+
       // Weight of the event
       const double weight = event.weight();
       // weights for x<1e-3 and x>1e-3
@@ -82,20 +83,20 @@ namespace Rivet {
       } else {
         _wEnergy.second += weight;
       }
-   
+
       // Boost to hadronic CM
       const LorentzTransform hcmboost = dk.boostHCM();
       // Loop over the particles
       long ncharged(0);
       for (size_t ip1 = 0; ip1 < particles.size(); ++ip1) {
         const Particle& p = particles[ip1];
-     
+
         double th = p.momentum().angle(dk.beamHadron().momentum()) / degree;
         // Boost momentum to lab
         const FourMomentum hcmMom = hcmboost.transform(p.momentum());
         // Angular cut
         if (th <= 4.4) continue;
-     
+
         // Energy flow histogram
         double et = fabs(Et(hcmMom));
         double eta = -hcmMom.pseudorapidity();

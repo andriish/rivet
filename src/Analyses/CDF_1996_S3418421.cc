@@ -9,6 +9,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF dijet angular distributions
   class CDF_1996_S3418421 : public Analysis {
   public:
 
@@ -40,7 +41,7 @@ namespace Rivet {
       _h_chi.addHistogram(400.0, 517.0, bookHistogram1D(1, 1, 3));
       _h_chi.addHistogram(517.0, 625.0, bookHistogram1D(1, 1, 4));
       _h_chi.addHistogram(625.0, 1800.0, bookHistogram1D(1, 1, 5));
-   
+
       _h_ratio = bookDataPointSet(2,1,1,"","","");
       _chi_above_25.resize(_h_ratio->size());
       _chi_below_25.resize(_h_ratio->size());
@@ -63,10 +64,10 @@ namespace Rivet {
       if (fabs(eta2)>2.0 || fabs(eta1)>2.0 || chi>5.0) {
         vetoEvent;
       }
-   
+
       double m = FourMomentum(jet1+jet2).mass();
       _h_chi.fill(m, chi, weight);
-   
+
       // fill ratio counter
       if (m > _h_ratio->lowerExtent(0) && m < _h_ratio->upperExtent(0)) {
         int bin=-1;
@@ -87,7 +88,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-   
+
       foreach (AIDA::IHistogram1D* hist, _h_chi.getHistograms()) {
         normalize(hist);
       }

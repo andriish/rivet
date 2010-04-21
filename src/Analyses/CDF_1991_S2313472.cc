@@ -10,6 +10,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF W boson \f$ p_\perp \f$ measurement at 1800 GeV
   class CDF_1991_S2313472 : public Analysis {
   public:
 
@@ -18,11 +19,11 @@ namespace Rivet {
 
     /// Constructor
     CDF_1991_S2313472()
-      : Analysis("CDF_1991_S2313472") 
+      : Analysis("CDF_1991_S2313472")
     {
       /// @todo Set approriate for your analysis
       setBeams(PROTON, ANTIPROTON);
-      
+
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
     }
@@ -89,8 +90,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
-      
+
+
     }
 
     //@}

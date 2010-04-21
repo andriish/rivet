@@ -7,7 +7,8 @@
 namespace Rivet {
 
 
-  /// CDF in-jet kT distribution analysis
+  /// @brief CDF in-jet kT distribution analysis
+  /// @todo Finish!
   class CDF_2009_S8057893 : public Analysis {
   public:
 

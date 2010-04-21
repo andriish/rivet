@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /* CDF Run II underlying event in leading jet events
+  /* @brief CDF Run II underlying event in leading jet events
    * @author Hendrik Hoeth
    *
    * Rick Field's measurement of the underlying event in "leading jet" events.

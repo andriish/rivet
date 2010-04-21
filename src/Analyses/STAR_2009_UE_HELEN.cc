@@ -12,9 +12,8 @@
 namespace Rivet {
 
 
-  /* STAR underlying event
-   * @author Hendrik Hoeth
-   */
+  /// @brief STAR underlying event
+  /// @author Hendrik Hoeth
   class STAR_2009_UE_HELEN : public Analysis {
   public:
 

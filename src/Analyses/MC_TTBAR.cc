@@ -3,11 +3,12 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 
 
+  /// @brief MC validation analysis for Z + jets events
+  /// @todo More! This analysis just checks the \f$ \eta \f$ distribution at the moment.
   class MC_TTBAR : public Analysis {
   public:
 
@@ -45,7 +46,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-   
+
       foreach (const Particle& p, cfs.particles()) {
         double eta = p.momentum().pseudorapidity();
         _hist_nch_eta->fill(eta, weight);

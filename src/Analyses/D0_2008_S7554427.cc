@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of D0 Run II Z pT differential cross-section shape
+  /// @brief D0 Run II Z \f$ p_\perp \f$ differential cross-section shape
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   /// @author Frank Siegert
@@ -22,8 +22,8 @@ namespace Rivet {
       // Run II Z pT
       setBeams(PROTON, ANTIPROTON);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
 
@@ -55,17 +55,17 @@ namespace Rivet {
       else {
         getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
       }
-   
+
     }
- 
- 
- 
+
+
+
     // Finalize
     void finalize() {
       normalize(_h_ZpT);
       normalize(_h_forward_ZpT);
     }
- 
+
     //@}
 
 
@@ -79,8 +79,8 @@ namespace Rivet {
 
   };
 
- 
- 
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2008_S7554427> plugin_D0_2008_S7554427;
 

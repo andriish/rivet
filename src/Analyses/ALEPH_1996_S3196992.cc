@@ -11,6 +11,7 @@
 namespace Rivet {
 
 
+  /// @brief ALEPH measurement of quark-to-photon fragmentation function
   class ALEPH_1996_S3196992 : public Analysis {
   public:
 
@@ -53,7 +54,7 @@ namespace Rivet {
       if (applyProjection<FinalState>(event, "CFS").particles().size()<2) {
         vetoEvent;
       }
-   
+
       const ParticleVector allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
       ParticleVector photons;
       foreach (const Particle& photon, allphotons) {
@@ -64,7 +65,7 @@ namespace Rivet {
       if (photons.size()<1) {
         vetoEvent;
       }
-   
+
       const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
       if (fabs(cos(thrust.thrustAxis().theta()))>0.95) {
         vetoEvent;
@@ -73,7 +74,7 @@ namespace Rivet {
       const FastJets& durjet = applyProjection<FastJets>(event, "DurhamJets");
 
       foreach (const Particle& photon, photons) {
-     
+
         PseudoJets jets_001 = durjet.clusterSeq()->exclusive_jets_ycut(0.01);
         foreach (const fastjet::PseudoJet& jet, jets_001) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
@@ -84,7 +85,7 @@ namespace Rivet {
             break;
           }
         }
-     
+
         PseudoJets jets_006 = durjet.clusterSeq()->exclusive_jets_ycut(0.06);
         foreach (const fastjet::PseudoJet& jet, jets_006) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
@@ -94,7 +95,7 @@ namespace Rivet {
             break;
           }
         }
-     
+
         PseudoJets jets_01 = durjet.clusterSeq()->exclusive_jets_ycut(0.1);
         foreach (const fastjet::PseudoJet& jet, jets_01) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
@@ -104,7 +105,7 @@ namespace Rivet {
             break;
           }
         }
-     
+
         PseudoJets jets_033 = durjet.clusterSeq()->exclusive_jets_ycut(0.33);
         foreach (const fastjet::PseudoJet& jet, jets_033) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
@@ -113,11 +114,11 @@ namespace Rivet {
             break;
           }
         }
-     
+
       }
     }
- 
- 
+
+
     bool particleInJet(const Particle& p, const fastjet::PseudoJet& jet,
                        const fastjet::ClusterSequence* cseq ) {
       foreach (const fastjet::PseudoJet& jetpart, cseq->constituents(jet)) {

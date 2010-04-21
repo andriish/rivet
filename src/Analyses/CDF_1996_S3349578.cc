@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF properties of high-mass multi-jet events
   class CDF_1996_S3349578 : public Analysis {
   public:
 
@@ -45,7 +46,7 @@ namespace Rivet {
       _h_3_f3 = bookHistogram1D(14, 1, 1);
       _h_3_f4 = bookHistogram1D(14, 1, 2);
       _h_3_f5 = bookHistogram1D(14, 1, 3);
-   
+
       _h_4_mNJ = bookHistogram1D(1, 1, 2);
       _h_4_X3 = bookHistogram1D(4, 1, 1);
       _h_4_X4 = bookHistogram1D(5, 1, 1);
@@ -58,7 +59,7 @@ namespace Rivet {
       _h_4_psiAB = bookHistogram1D(19, 1, 1);
       _h_4_fA = bookHistogram1D(21, 1, 1);
       _h_4_fB = bookHistogram1D(21, 1, 2);
-   
+
       _h_5_mNJ = bookHistogram1D(1, 1, 3);
       _h_5_X3 = bookHistogram1D(6, 1, 1);
       _h_5_X4 = bookHistogram1D(7, 1, 1);
@@ -75,7 +76,7 @@ namespace Rivet {
       _h_5_fB = bookHistogram1D(23, 1, 1);
       _h_5_fC = bookHistogram1D(24, 1, 1);
       _h_5_fD = bookHistogram1D(25, 1, 1);
-   
+
     }
 
 
@@ -101,7 +102,7 @@ namespace Rivet {
         if (jets.size()>=5) break;
       }
       /// @todo include gaussian jet energy resolution smearing?
-   
+
       if (jets.size() > 4) {
         _fiveJetAnalysis(jets, weight);
         jets.resize(4);
@@ -112,10 +113,10 @@ namespace Rivet {
       }
       if (jets.size() > 2) _threeJetAnalysis(jets, weight);
     }
- 
-    
-    
-    
+
+
+
+
     void _threeJetAnalysis(const Jets& jets, const double& weight) {
       getLog() << Log::DEBUG << "3 jet analysis" << std::endl;
 
@@ -126,12 +127,12 @@ namespace Rivet {
         jetsystem+=jet.momentum();
       }
       if (sumEt < 420.0*GeV) return;
-      
+
       const double m3J = _safeMass(jetsystem);
       if (m3J<600*GeV) {
         return;
       }
- 
+
       LorentzTransform cms_boost(-jetsystem.boostVector());
       vector<FourMomentum> jets3;
       foreach (Jet jet, jets) {
@@ -141,24 +142,24 @@ namespace Rivet {
       FourMomentum p3(jets3[0]);
       FourMomentum p4(jets3[1]);
       FourMomentum p5(jets3[2]);
-   
+
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m3J, jetsystem.rapidity()));
       double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
       if (fabs(costheta3)>0.6) {
         return;
       }
-   
+
       double X3 = 2.0*p3.E()/m3J;
       if (X3>0.9) {
         return;
       }
-      
+
       const double X4 = 2.0*p4.E()/m3J;
       const double psi3 = _psi(p3, pAV, p4, p5);
       const double f3 = _safeMass(p3)/m3J;
       const double f4 = _safeMass(p4)/m3J;
       const double f5 = _safeMass(p5)/m3J;
-   
+
       _h_3_mNJ->fill(m3J, weight);
       _h_3_X3->fill(X3, weight);
       _h_3_X4->fill(X4, weight);
@@ -167,15 +168,15 @@ namespace Rivet {
       _h_3_f3->fill(f3, weight);
       _h_3_f4->fill(f4, weight);
       _h_3_f5->fill(f5, weight);
-   
+
     }
 
-    
-    
-    
+
+
+
     void _fourJetAnalysis(const Jets& jets, const double& weight) {
       getLog() << Log::DEBUG << "4 jet analysis" << std::endl;
-      
+
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, jets) {
@@ -183,35 +184,35 @@ namespace Rivet {
         jetsystem+=jet.momentum();
       }
       if (sumEt < 420.0*GeV) return;
-      
+
       const double m4J = _safeMass(jetsystem);
       if (m4J < 650*GeV) return;
-   
+
       LorentzTransform cms_boost(-jetsystem.boostVector());
       vector<FourMomentum> jets4;
       foreach (Jet jet, jets) {
         jets4.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets4.begin(), jets4.end(), FourMomentum::byEDescending());
-      
+
       FourMomentum pA, pB;
       vector<FourMomentum> jets3(_reduce(jets4, pA, pB));
       std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
       FourMomentum p3(jets3[0]);
       FourMomentum p4(jets3[1]);
       FourMomentum p5(jets3[2]);
-   
+
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m4J, jetsystem.rapidity()));
       double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
       if (fabs(costheta3)>0.8) {
         return;
       }
-   
+
       const double X3 = 2.0*p3.E()/m4J;
       if (X3>0.9) {
         return;
       }
-   
+
       // fill histograms
       const double X4 = 2.0*p4.E()/m4J;
       const double psi3 = _psi(p3, pAV, p4, p5);
@@ -222,7 +223,7 @@ namespace Rivet {
       const double fB = _safeMass(pB)/m4J;
       const double XA = pA.E()/(pA.E()+pB.E());
       const double psiAB = _psi(pA, pB, pA+pB, pAV);
-   
+
       _h_4_mNJ->fill(m4J, weight);
       _h_4_X3->fill(X3, weight);
       _h_4_X4->fill(X4, weight);
@@ -236,13 +237,13 @@ namespace Rivet {
       _h_4_fA->fill(fA, weight);
       _h_4_fB->fill(fB, weight);
     }
-   
-    
-    
-   
+
+
+
+
     void _fiveJetAnalysis(const Jets& jets, const double& weight) {
       getLog() << Log::DEBUG << "5 jet analysis" << std::endl;
-      
+
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, jets) {
@@ -250,7 +251,7 @@ namespace Rivet {
         jetsystem+=jet.momentum();
       }
       if (sumEt < 420.0*GeV) return;
-      
+
       const double m5J = _safeMass(jetsystem);
       if (m5J < 750*GeV) return;
 
@@ -260,18 +261,18 @@ namespace Rivet {
         jets5.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets5.begin(), jets5.end(), FourMomentum::byEDescending());
-      
+
       FourMomentum pC, pD;
       vector<FourMomentum> jets4(_reduce(jets5, pC, pD));
       std::sort(jets4.begin(), jets4.end(), FourMomentum::byEDescending());
-      
+
       FourMomentum pA, pB;
       vector<FourMomentum> jets3(_reduce(jets4, pA, pB));
       std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
       FourMomentum p3(jets3[0]);
       FourMomentum p4(jets3[1]);
       FourMomentum p5(jets3[2]);
-   
+
       // fill histograms
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m5J, jetsystem.rapidity()));
       const double costheta3 = pAV.vector3().unit().dot(p3.vector3().unit());
@@ -289,7 +290,7 @@ namespace Rivet {
       const double fD = _safeMass(pD)/m5J;
       const double XC = pC.E()/(pC.E()+pD.E());
       const double psiCD = _psi(pC, pD, pC+pD, pAV);
-   
+
       _h_5_mNJ->fill(m5J, weight);
       _h_5_X3->fill(X3, weight);
       _h_5_X4->fill(X4, weight);
@@ -307,11 +308,11 @@ namespace Rivet {
       _h_5_fC->fill(fC, weight);
       _h_5_fD->fill(fD, weight);
     }
-   
-   
+
+
     /// Normalise histograms etc., after the run
     void finalize() {
-   
+
       /// Normalise, scale and otherwise manipulate histograms here
       normalize(_h_3_mNJ, 1.0);
       normalize(_h_3_X3, 1.0);
@@ -321,7 +322,7 @@ namespace Rivet {
       normalize(_h_3_f3, 1.0);
       normalize(_h_3_f4, 1.0);
       normalize(_h_3_f5, 1.0);
-   
+
       normalize(_h_4_mNJ, 1.0);
       normalize(_h_4_X3, 1.0);
       normalize(_h_4_X4, 1.0);
@@ -334,7 +335,7 @@ namespace Rivet {
       normalize(_h_4_psiAB, 1.0);
       normalize(_h_4_fA, 1.0);
       normalize(_h_4_fB, 1.0);
-   
+
       normalize(_h_5_mNJ, 1.0);
       normalize(_h_5_X3, 1.0);
       normalize(_h_5_X4, 1.0);
@@ -351,7 +352,7 @@ namespace Rivet {
       normalize(_h_5_fB, 1.0);
       normalize(_h_5_fC, 1.0);
       normalize(_h_5_fD, 1.0);
-   
+
     }
 
     //@}
@@ -381,7 +382,7 @@ namespace Rivet {
       combined2 = jets[idx2];
       return newjets;
     }
-    
+
     FourMomentum _avg_beam_in_lab(const double& m, const double& y) {
       const double mt = m/2.0;
       FourMomentum beam1(mt, 0, 0, mt);
@@ -400,7 +401,7 @@ namespace Rivet {
         return beam2-beam1;
       }
     }
-    
+
     double _psi(const FourMomentum& p1, const FourMomentum& p2,
                 const FourMomentum& p3, const FourMomentum& p4) {
       Vector3 p1xp2 = p1.vector3().cross(p2.vector3());
@@ -417,7 +418,7 @@ namespace Rivet {
       }
       else return 0.0;
     }
- 
+
 
   private:
 
@@ -431,7 +432,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_3_f3;
     AIDA::IHistogram1D *_h_3_f4;
     AIDA::IHistogram1D *_h_3_f5;
- 
+
     AIDA::IHistogram1D *_h_4_mNJ;
     AIDA::IHistogram1D *_h_4_X3;
     AIDA::IHistogram1D *_h_4_X4;
@@ -444,7 +445,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_4_psiAB;
     AIDA::IHistogram1D *_h_4_fA;
     AIDA::IHistogram1D *_h_4_fB;
- 
+
     AIDA::IHistogram1D *_h_5_mNJ;
     AIDA::IHistogram1D *_h_5_X3;
     AIDA::IHistogram1D *_h_5_X4;

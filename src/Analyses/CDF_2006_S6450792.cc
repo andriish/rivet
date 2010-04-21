@@ -7,6 +7,8 @@
 
 namespace Rivet {
 
+
+  /// @brief CDF Inclusive jet cross-section differential in \f$ p_\perp \f$
   class CDF_2006_S6450792 : public Analysis {
   public:
 
@@ -15,11 +17,11 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
- 
+
     void init() {
       FinalState fs;
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "ConeFinder");
@@ -37,8 +39,8 @@ namespace Rivet {
         }
       }
     }
- 
- 
+
+
     void finalize() {
       const double delta_y = 1.2;
       scale(_h_jet_pt, crossSection()/nanobarn/sumOfWeights()/delta_y);

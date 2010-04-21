@@ -10,19 +10,20 @@
 namespace Rivet {
 
 
+  /// @brief E735 charged multiplicity in NSD-triggered events
   class E735_1998_S3905616 : public Analysis {
   public:
- 
+
     /// Constructor
     E735_1998_S3905616() : Analysis("E735_1998_S3905616") {
       setBeams(PROTON, ANTIPROTON);
       _sumWTrig = 0;
     }
- 
+
 
     /// @name Analysis methods
     //@{
- 
+
     void init() {
       // Projections
       /// @todo E735 trigger?
@@ -46,12 +47,12 @@ namespace Rivet {
       const size_t numParticles = fs.particles().size();
       _hist_multiplicity->fill(numParticles, weight);
     }
- 
- 
+
+
     void finalize() {
       scale(_hist_multiplicity, 1/_sumWTrig);
     }
- 
+
     //@}
 
 
@@ -66,7 +67,7 @@ namespace Rivet {
     //@{
     AIDA::IHistogram1D* _hist_multiplicity;
     //@}
- 
+
   };
 
 

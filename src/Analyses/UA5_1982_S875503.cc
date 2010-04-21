@@ -7,9 +7,10 @@
 namespace Rivet {
 
 
+  /// @brief UA5 multiplicity and \f$ \eta \f$ distributions
   class UA5_1982_S875503 : public Analysis {
   public:
- 
+
     /// Default constructor
     UA5_1982_S875503() : Analysis("UA5_1982_S875503") {
       _sumWTrig = 0;
@@ -33,8 +34,8 @@ namespace Rivet {
         _hist_eta = bookHistogram1D(4,1,1);
       }
     }
- 
- 
+
+
     void analyze(const Event& event) {
       // Trigger
       const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
@@ -44,7 +45,7 @@ namespace Rivet {
 
       // Get tracks
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-   
+
       // Fill mean charged multiplicity histos
       _hist_nch->fill(_hist_nch->binMean(0), cfs.size());
 
@@ -53,10 +54,10 @@ namespace Rivet {
         const double eta = fabs(p.momentum().pseudorapidity());
         _hist_eta->fill(eta, weight);
       }
-         
+
     }
- 
- 
+
+
     void finalize() {
       /// @todo Why the factor of 2 on Nch for ppbar?
       if (beamIds().first == beamIds().second) {
@@ -68,7 +69,7 @@ namespace Rivet {
     }
 
     //@}
- 
+
 
   private:
 
@@ -76,13 +77,13 @@ namespace Rivet {
     //@{
     double _sumWTrig;
     //@}
- 
+
     /// @name Histogram collections
     //@{
     AIDA::IHistogram1D* _hist_nch;
     AIDA::IHistogram1D* _hist_eta;
     //@}
- 
+
   };
 
 

@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF properties of high-mass multi-jet events
   class CDF_1996_S3108457 : public Analysis {
   public:
 
@@ -36,7 +37,7 @@ namespace Rivet {
       /// Initialise and register projections here
       const FinalState fs(-4.2, 4.2);
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-   
+
 
       /// Book histograms here, e.g.:
       for (size_t i=0; i<5; ++i) {
@@ -65,29 +66,29 @@ namespace Rivet {
         }
       }
       /// @todo include gaussian jet energy resolution smearing?
-   
+
       if (jets.size() < 2 || jets.size() > 6) {
         vetoEvent;
       }
-   
+
       if (sumEt < 420.0*GeV) {
         vetoEvent;
       }
-   
+
       LorentzTransform cms_boost(-jetsystem.boostVector());
       FourMomentum jet0boosted(cms_boost.transform(jets[0].momentum()));
-   
+
       double mass = jetsystem.mass();
       double costheta0 = fabs(cos(jet0boosted.theta()));
-   
+
       if (costheta0 < 2.0/3.0) {
         _h_m[jets.size()-2]->fill(mass, weight);
       }
-   
+
       if (mass > 600.0*GeV) {
         _h_costheta[jets.size()-2]->fill(costheta0, weight);
       }
-   
+
       if (costheta0 < 2.0/3.0 && mass > 600.0*GeV) {
         foreach (const Jet jet, jets) {
           _h_pT[jets.size()-2]->fill(jet.momentum().pT(), weight);
@@ -98,14 +99,14 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-   
+
       /// Normalise, scale and otherwise manipulate histograms here
       for (size_t i=0; i<5; ++i) {
         normalize(_h_m[i], 40.0);
         normalize(_h_costheta[i], 2.0);
         normalize(_h_pT[i], 20.0);
       }
-   
+
     }
 
     //@}
@@ -119,7 +120,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_m[5];
     AIDA::IHistogram1D *_h_costheta[5];
     AIDA::IHistogram1D *_h_pT[5];
- 
+
     //@}
 
   };

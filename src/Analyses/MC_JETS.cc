@@ -9,10 +9,11 @@
 namespace Rivet {
 
 
+  /// @brief MC validation analysis for jet events
   class MC_JETS : public MC_JetAnalysis {
   public:
 
-    MC_JETS() : MC_JetAnalysis("MC_JETS", 4, "Jets") 
+    MC_JETS() : MC_JetAnalysis("MC_JETS", 4, "Jets")
     {
       setNeedsCrossSection(true);
     }
@@ -24,7 +25,7 @@ namespace Rivet {
       FinalState fs;
       FastJets jetpro(fs, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
-      
+
       MC_JetAnalysis::init();
     }
 

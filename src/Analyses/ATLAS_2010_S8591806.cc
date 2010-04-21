@@ -7,6 +7,8 @@
 namespace Rivet {
 
 
+  /// @brief ATLAS minimum bias analysis at 900 GeV
+  /// @author Frank Siegert
   class ATLAS_2010_S8591806 : public Analysis {
   public:
 
@@ -43,8 +45,8 @@ namespace Rivet {
         _p_meanpT_Nch->fill(charged.particles().size(), pT, weight);
       }
     }
-    
-    
+
+
     void finalize() {
       double deta = 5.0;
       scale(_h_dNch_deta, 1.0/_Nevt_after_cuts);
@@ -61,7 +63,7 @@ namespace Rivet {
     AIDA::IProfile1D*   _p_meanpT_Nch;
 
     double _Nevt_after_cuts;
-    
+
   };
 
 

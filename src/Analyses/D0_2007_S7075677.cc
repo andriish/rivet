@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of D0 Run II Z pT diff cross-section shape
+  /// @brief Measurement of D0 Run II Z \f$ p_\perp \f$ diff cross-section shape
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   /// @author Frank Siegert
@@ -21,7 +21,7 @@ namespace Rivet {
       // Run II Z rapidity
       setBeams(PROTON, ANTIPROTON);
     }
- 
+
 
     /// @name Analysis methods
     //@{
@@ -45,7 +45,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const double weight = e.weight();
-   
+
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size() == 1) {
         const ParticleVector& el(zfinder.constituentsFinalState().particles());
@@ -58,8 +58,8 @@ namespace Rivet {
         getLog() << Log::DEBUG << "No unique lepton pair found." << endl;
       }
     }
- 
- 
+
+
     // Finalize
     void finalize() {
       // Data seems to have been normalized for the avg of the two sides

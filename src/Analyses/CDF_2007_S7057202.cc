@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF inclusive jet cross-section using the \f$ k_\perp \f$ algorithm
   class CDF_2007_S7057202 : public Analysis {
   public:
 
@@ -18,7 +19,7 @@ namespace Rivet {
       setNeedsCrossSection(true);
     }
 
- 
+
     void init() {
       // Set up projections
       const FinalState fs;
@@ -35,39 +36,39 @@ namespace Rivet {
       _histoD05 = bookHistogram1D(6, 1, 1);
       _histoD10 = bookHistogram1D(7, 1, 1);
     }
- 
- 
+
+
     void analyze(const Event& event) {
       const double weight = event.weight();
-   
+
       foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD07").jets(54.0*GeV)) {
         double y = fabs(jet.momentum().rapidity());
         _binnedHistosD07.fill(y, jet.momentum().pT(), weight);
       }
-   
+
       foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD05").jets(54.0*GeV)) {
         double y = fabs(jet.momentum().rapidity());
         if (y >= 0.1 && y < 0.7) _histoD05->fill(jet.momentum().pT(), weight);
       }
-   
+
       foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD10").jets(54.0*GeV)) {
         double y = fabs(jet.momentum().rapidity());
         if (y >= 0.1 && y < 0.7) _histoD10->fill(jet.momentum().pT(), weight);
       }
     }
- 
- 
+
+
     // Normalise histograms to cross-section
     void finalize() {
       const double xSec = crossSectionPerEvent()/nanobarn;
-      
+
       scale(_histoD05, xSec);
       scale(_histoD10, xSec);
       // scale to xSec/yBinWidth and take into account the double yBinWidth due
       // to the absolute value of y
       _binnedHistosD07.scale(xSec/2.0, this);
     }
- 
+
   private:
 
     BinnedHistogram<double> _binnedHistosD07;

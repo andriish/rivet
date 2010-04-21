@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF diff cross-sections for prompt di-photon production
   class CDF_2005_S6080774 : public Analysis {
   public:
 
@@ -24,7 +25,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       addProjection(fs, "FS");
-   
+
       IdentifiedFinalState ifs(-0.9, 0.9, 13.0*GeV);
       ifs.acceptId(PHOTON);
       addProjection(ifs, "IFS");
@@ -39,13 +40,13 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       const double weight = event.weight();
-   
+
       ParticleVector photons = applyProjection<IdentifiedFinalState>(event, "IFS").particlesByPt();
       if (photons.size() < 2 ||
           (photons[0].momentum().pT() < 14.0*GeV)) {
         vetoEvent;
       }
-   
+
       // Isolate photons with ET_sum in cone
       ParticleVector isolated_photons;
       ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
@@ -62,11 +63,11 @@ namespace Rivet {
           isolated_photons.push_back(photon);
         }
       }
-   
+
       if (isolated_photons.size() != 2) {
         vetoEvent;
       }
-   
+
       FourMomentum mom_PP = isolated_photons[0].momentum() + isolated_photons[1].momentum();
       for (size_t i=0; i<4; ++i) {
         _h_m_PP[i]->fill(mom_PP.mass(), weight);
@@ -75,8 +76,8 @@ namespace Rivet {
                                           isolated_photons[1].momentum().phi())/M_PI, weight);
       }
     }
- 
- 
+
+
     void finalize() {
       for (size_t i=0; i<4; ++i) {
         scale(_h_m_PP[i], crossSection()/sumOfWeights());
@@ -96,8 +97,8 @@ namespace Rivet {
     std::vector<AIDA::IHistogram1D*> _h_pT_PP;
     std::vector<AIDA::IHistogram1D*> _h_dphi_PP;
     //@}
- 
- 
+
+
   };
 
 

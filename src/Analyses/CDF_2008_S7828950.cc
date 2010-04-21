@@ -10,13 +10,14 @@
 namespace Rivet {
 
 
-  /// CDF Run II inclusive jet cross-section using the Midpoint algorithm.
+  /// @brief CDF Run II inclusive jet cross-section using the Midpoint algorithm.
+  ///
   /// The analysis includes 1.1fb^-1 of CDF data and is the first with a
   /// cone algorithm to include the forward region of the detector.
   /// arXiv:0807.2204 to be published in PRD
   class CDF_2008_S7828950 : public Analysis {
   public:
- 
+
     /// Constructor
     CDF_2008_S7828950() : Analysis("CDF_2008_S7828950")
     {
@@ -60,7 +61,7 @@ namespace Rivet {
 
 
   private:
- 
+
     /// Histograms in different eta regions
     BinnedHistogram<double> _binnedHistosR07;
 

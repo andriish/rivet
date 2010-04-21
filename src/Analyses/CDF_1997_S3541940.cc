@@ -8,11 +8,12 @@
 namespace Rivet {
 
 
+  /// @brief CDF properties of 6-jet events with large 6-jet mass
   class CDF_1997_S3541940 : public Analysis {
   public:
 
     CDF_1997_S3541940()
-      : Analysis("CDF_1997_S3541940") 
+      : Analysis("CDF_1997_S3541940")
     {
       setBeams(PROTON, ANTIPROTON);
     }
@@ -24,7 +25,7 @@ namespace Rivet {
 
       const FinalState fs(-4.2, 4.2);
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-      
+
       _h_m6J = bookHistogram1D(1, 1, 1);
       _h_X3ppp = bookHistogram1D(2, 1, 1);
       _h_X4ppp = bookHistogram1D(3, 1, 1);
@@ -72,53 +73,53 @@ namespace Rivet {
         }
         if (jets.size()>=6) break;
       }
-      
+
       if (jets.size()<6) {
         vetoEvent;
       }
-      
+
       if (sumEt<320.0*GeV) {
         vetoEvent;
       }
-      
+
       double m6J=_safeMass(jetsystem);
       if (m6J<520.0*GeV) {
         vetoEvent;
       }
-      
+
       LorentzTransform cms_boost(-jetsystem.boostVector());
       vector<FourMomentum> jets6;
       foreach (Jet jet, jets) {
         jets6.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets6.begin(), jets6.end(), FourMomentum::byEDescending());
-      
+
       FourMomentum pE, pF;
       vector<FourMomentum> jets5(_reduce(jets6, pE, pF));
       std::sort(jets5.begin(), jets5.end(), FourMomentum::byEDescending());
-      
+
       FourMomentum pCp, pDp;
       vector<FourMomentum> jets4(_reduce(jets5, pCp, pDp));
       std::sort(jets4.begin(), jets4.end(), FourMomentum::byEDescending());
-      
+
       FourMomentum pApp, pBpp;
       vector<FourMomentum> jets3(_reduce(jets4, pApp, pBpp));
       std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
       FourMomentum p3ppp(jets3[0]);
       FourMomentum p4ppp(jets3[1]);
       FourMomentum p5ppp(jets3[2]);
-      
+
       double X3ppp = 2.0*p3ppp.E()/m6J;
       if (X3ppp>0.9) {
         vetoEvent;
       }
-      
+
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m6J, jetsystem.rapidity()));
       double costheta3ppp=pAV.vector3().unit().dot(p3ppp.vector3().unit());
       if (fabs(costheta3ppp)>0.9) {
         vetoEvent;
       }
-      
+
       // 3-jet-system variables
       _h_m6J->fill(m6J, weight);
       _h_X3ppp->fill(X3ppp, weight);
@@ -129,21 +130,21 @@ namespace Rivet {
       _h_f3ppp->fill(_safeMass(p3ppp)/m6J, weight);
       _h_f4ppp->fill(_safeMass(p4ppp)/m6J, weight);
       _h_f5ppp->fill(_safeMass(p5ppp)/m6J, weight);
-      
+
       // 4 -> 3 jet variables
       _h_fApp->fill(_safeMass(pApp)/m6J, weight);
       _h_fBpp->fill(_safeMass(pApp)/m6J, weight);
       _h_XApp->fill(pApp.E()/(pApp.E()+pBpp.E()), weight);
       double psiAppBpp=_psi(pApp, pBpp, pApp+pBpp, pAV);
       _h_psiAppBpp->fill(psiAppBpp, weight);
-      
+
       // 5 -> 4 jet variables
       _h_fCp->fill(_safeMass(pCp)/m6J, weight);
       _h_fDp->fill(_safeMass(pDp)/m6J, weight);
       _h_XCp->fill(pCp.E()/(pCp.E()+pDp.E()), weight);
       double psiCpDp=_psi(pCp, pDp, pCp+pDp, pAV);
       _h_psiCpDp->fill(psiCpDp, weight);
-      
+
       // 6 -> 5 jet variables
       _h_fE->fill(_safeMass(pE)/m6J, weight);
       _h_fF->fill(_safeMass(pF)/m6J, weight);
@@ -154,7 +155,7 @@ namespace Rivet {
 
 
     void finalize() {
-      
+
       normalize(_h_m6J);
       normalize(_h_X3ppp);
       normalize(_h_X4ppp);
@@ -175,7 +176,7 @@ namespace Rivet {
       normalize(_h_fDp);
       normalize(_h_fE);
       normalize(_h_fF);
-      
+
     }
 
 
@@ -205,7 +206,7 @@ namespace Rivet {
       combined2 = jets[idx2];
       return newjets;
     }
-    
+
     FourMomentum _avg_beam_in_lab(const double& m, const double& y) {
       const double mt = m/2.0;
       FourMomentum beam1(mt, 0, 0, mt);
@@ -224,7 +225,7 @@ namespace Rivet {
         return beam2-beam1;
       }
     }
-    
+
     double _psi(const FourMomentum& p1, const FourMomentum& p2,
                 const FourMomentum& p3, const FourMomentum& p4) {
       Vector3 p1xp2 = p1.vector3().cross(p2.vector3());

@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement differential Z/gamma* + jet + X cross sections
+  /// @brief Measurement differential Z/\f$ \gamma^* \f$ + jet + \f$ X \f$ cross sections
   /// @author Frank Siegert
   class CDF_2008_S7540469 : public Analysis {
 
@@ -24,7 +24,7 @@ namespace Rivet {
       setNeedsCrossSection(true);
     }
 
- 
+
     /// @name Analysis methods
     //@{
 
@@ -33,7 +33,7 @@ namespace Rivet {
       // Full final state
       FinalState fs(-5.0, 5.0);
       addProjection(fs, "FS");
-   
+
       // Leading electrons in tracking acceptance
       IdentifiedFinalState elfs(-5.0, 5.0, 25.0*GeV);
       elfs.acceptIdPair(ELECTRON);
@@ -43,12 +43,12 @@ namespace Rivet {
       _h_jet_pT_cross_section_incl_1jet = bookHistogram1D(2, 1, 1);
       _h_jet_pT_cross_section_incl_2jet = bookHistogram1D(3, 1, 1);
     }
- 
- 
+
+
     /// Do the analysis
     void analyze(const Event & event) {
       const double weight = event.weight();
-   
+
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -56,7 +56,7 @@ namespace Rivet {
                  << " because no final state pair found " << endl;
         vetoEvent;
       }
-   
+
       // Find the Z candidates
       const FinalState & electronfs = applyProjection<FinalState>(event, "LeadingElectrons");
       std::vector<std::pair<Particle, Particle> > Z_candidates;
@@ -91,7 +91,7 @@ namespace Rivet {
                  << " because no unique electron pair found " << endl;
         vetoEvent;
       }
-   
+
       // Now build the jets on a FS without the electrons from the Z
       // (including their QED radiation)
       ParticleVector jetparts;
@@ -122,7 +122,7 @@ namespace Rivet {
       /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
       FastJets jetpro(fs, FastJets::CDFMIDPOINT, 0.7);
       jetpro.calc(jetparts);
-   
+
       // Take jets with pt > 30, |eta| < 2.1:
       /// @todo Make this neater, using the JetAlg interface and the built-in sorting
       const Jets& jets = jetpro.jets();
@@ -133,16 +133,16 @@ namespace Rivet {
         }
       }
       getLog() << Log::DEBUG << "Num jets above 30 GeV = " << jets_cut.size() << endl;
-   
+
       // Return if there are no jets:
       if (jets_cut.empty()) {
         getLog() << Log::DEBUG << "No jets pass cuts " << endl;
         vetoEvent;
       }
-   
+
       // Sort by pT:
       sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
-   
+
       // cut on Delta R between jet and electrons
       foreach (const Jet& j, jets_cut) {
         Particle el = Z_candidates[0].first;
@@ -156,7 +156,7 @@ namespace Rivet {
           vetoEvent;
         }
       }
-   
+
       for (size_t njet=1; njet<=jets_cut.size(); ++njet) {
         _h_jet_multiplicity->fill(njet, weight);
       }
@@ -169,8 +169,8 @@ namespace Rivet {
         }
       }
     }
- 
- 
+
+
     /// Rescale histos
     void finalize() {
       const double invlumi = crossSection()/femtobarn/sumOfWeights();
@@ -182,14 +182,14 @@ namespace Rivet {
     //@}
 
   private:
- 
+
     /// @name Histograms
     //@{
     AIDA::IHistogram1D * _h_jet_multiplicity;
     AIDA::IHistogram1D * _h_jet_pT_cross_section_incl_1jet;
     AIDA::IHistogram1D * _h_jet_pT_cross_section_incl_2jet;
     //@}
- 
+
   };
 
 

@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of D0 differential jet cross sections
+  /// @brief D0 differential jet cross sections
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   class D0_2008_S7662670 : public Analysis {
@@ -27,7 +27,7 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
- 
+
     //@}
 
 
@@ -36,7 +36,7 @@ namespace Rivet {
 
     void init()
     {
-   
+
       // Full final state
       FinalState fs;
       addProjection(fs, "FS");
@@ -53,20 +53,20 @@ namespace Rivet {
       _h_dsigdptdy_y16_20 = bookHistogram1D(5, 1, 1);
       _h_dsigdptdy_y20_24 = bookHistogram1D(6, 1, 1);
     }
- 
- 
- 
+
+
+
     /// Do the analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-   
+
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
         getLog() << Log::DEBUG << "Empty event!" << endl;
         vetoEvent;
       }
-   
+
       // Find the jets
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
       // Fill histo for each jet
@@ -89,9 +89,9 @@ namespace Rivet {
           _h_dsigdptdy_y20_24->fill(pt/GeV, weight);
         }
       }
-   
+
     }
- 
+
 
     /// Finalize
     void finalize() {
@@ -121,9 +121,9 @@ namespace Rivet {
     //@}
 
   };
- 
- 
- 
+
+
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<D0_2008_S7662670> plugin_D0_2008_S7662670;
 

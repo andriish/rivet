@@ -7,6 +7,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF track \f$ p_\perp \f$ distributions at 630 and 1800 GeV
   class CDF_1988_S1865951 : public Analysis {
   public:
 
@@ -21,7 +22,7 @@ namespace Rivet {
 
     /// @name Analysis methods
     //@{
- 
+
     /// Book histograms and set up projections
     void init() {
       // Set up projections
@@ -36,8 +37,8 @@ namespace Rivet {
         _hist_pt = bookHistogram1D(2, 1, 1);
       }
     }
- 
- 
+
+
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
@@ -46,7 +47,7 @@ namespace Rivet {
       const double weight = event.weight();
       _sumWTrig += weight;
 
-      const FinalState& trackfs = applyProjection<ChargedFinalState>(event, "CFS");   
+      const FinalState& trackfs = applyProjection<ChargedFinalState>(event, "CFS");
       foreach (Particle p, trackfs.particles()) {
         const double pt = p.momentum().pT();
         // Effective weight for d3sig/dp3 = weight / ( Delta eta * 2pi * pt ), with Delta(eta) = 2
@@ -54,8 +55,8 @@ namespace Rivet {
         _hist_pt->fill(pt, eff_weight);
       }
     }
- 
- 
+
+
     /// Scale histos
     void finalize() {
       scale(_hist_pt, crossSectionPerEvent()/millibarn);
@@ -70,7 +71,7 @@ namespace Rivet {
     //@{
     double _sumWTrig;
     //@}
- 
+
     /// @name Histos
     //@{
     AIDA::IHistogram1D* _hist_pt;

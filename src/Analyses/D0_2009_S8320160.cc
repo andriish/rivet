@@ -10,8 +10,8 @@
 namespace Rivet {
 
 
+  /// @brief D0 dijet angular distributions
   class D0_2009_S8320160 : public Analysis {
-
   public:
 
     /// @name Construction
@@ -22,13 +22,13 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
     }
- 
+
     //@}
 
 
     /// @name Analysis methods
     //@{
- 
+
     // Book histograms
     void init() {
       FinalState fs;
@@ -46,30 +46,30 @@ namespace Rivet {
       _h_chi_dijet.addHistogram(1000., 1100., bookHistogram1D(9, 1, 1));
       _h_chi_dijet.addHistogram(1100., 1960, bookHistogram1D(10, 1, 1));
     }
- 
- 
- 
+
+
+
     /// Do the analysis
     void analyze(const Event & e) {
       const double weight = e.weight();
-   
+
       const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt();
       if (jets.size() < 2) vetoEvent;
- 
+
       FourMomentum j0(jets[0].momentum());
       FourMomentum j1(jets[1].momentum());
       double y0 = j0.rapidity();
       double y1 = j1.rapidity();
-   
+
       if (fabs(y0+y1)>2) vetoEvent;
-   
+
       double mjj = FourMomentum(j0+j1).mass();
       double chi = exp(fabs(y0-y1));
       _h_chi_dijet.fill(mjj, chi, weight);
     }
- 
- 
- 
+
+
+
     /// Finalize
     void finalize() {
       foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
@@ -78,15 +78,15 @@ namespace Rivet {
     }
 
     //@}
- 
- 
+
+
   private:
- 
+
     /// @name Histograms
     //@{
     BinnedHistogram<double> _h_chi_dijet;
     //@}
- 
+
   };
 
 

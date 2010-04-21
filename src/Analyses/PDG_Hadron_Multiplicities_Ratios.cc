@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// @brief Implementation of PDG hadron multiplicities as ratios to pi+- multiplicity
+  /// @brief Implementation of PDG hadron multiplicities as ratios to \f$ \pi^\pm \f$ multiplicity
   /// @author Holger Schulz
   class PDG_HADRON_MULTIPLICITIES_RATIOS : public Analysis {
   public:

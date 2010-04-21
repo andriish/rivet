@@ -7,7 +7,8 @@
 
 namespace Rivet {
 
-  /// @brief identified hadron spectra in pp at 200 GeV
+
+  /// @brief STAR identified hadron spectra in pp at 200 GeV
   class STAR_2006_S6500200 : public Analysis {
   public:
 

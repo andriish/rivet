@@ -11,11 +11,12 @@
 namespace Rivet {
 
 
+  /// @brief CDF <what is this analysis doing?>
   class CDF_1993_S2742446 : public Analysis {
   public:
 
     CDF_1993_S2742446()
-      : Analysis("CDF_1993_S2742446") 
+      : Analysis("CDF_1993_S2742446")
     {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(false);
@@ -35,17 +36,17 @@ namespace Rivet {
       VetoedFinalState vfs(FinalState(-4.2, 4.2));
       vfs.addVetoOnThisFinalState(photonfs);
       addProjection(vfs, "VFS");
-      
+
       // Jets
       addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.7), "Jets");
-      
+
       _h_costheta = bookHistogram1D(1, 1, 1);
 
     }
 
 
     void analyze(const Event& event) {
-      
+
       const double weight = event.weight();
 
       ParticleVector photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
@@ -55,8 +56,8 @@ namespace Rivet {
       FourMomentum leadingPhoton = photons[0].momentum();
       double eta_P = leadingPhoton.eta();
       double phi_P = leadingPhoton.phi();
-      
-      // photon isolation: less than 2 GeV EM E_T 
+
+      // photon isolation: less than 2 GeV EM E_T
       double Etsum=0.0;
       foreach (const Particle& p, applyProjection<VetoedFinalState>(event, "VFS").particles()) {
         if (PID::threeCharge(p.pdgId())!=0 &&
@@ -67,7 +68,7 @@ namespace Rivet {
       if (Etsum > 2.0*GeV) {
         vetoEvent;
       }
-      
+
       // sum all jets in the opposite hemisphere in phi from the photon
       FourMomentum jetsum;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(10.0*GeV)) {
@@ -77,16 +78,16 @@ namespace Rivet {
       }
 
       double costheta = fabs(tanh((jetsum.eta()-eta_P)/2.0));
-      
+
       _h_costheta->fill(costheta, weight);
 
     }
 
 
     void finalize() {
-      
+
       normalize(_h_costheta, 1.4271); // fixed norm ok
-      
+
     }
 
 

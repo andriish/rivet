@@ -8,6 +8,7 @@
 namespace Rivet {
 
 
+  /// @brief CDF dijet cross-section, differential in dijet mass
   class CDF_2000_S4266730 : public Analysis {
   public:
 
@@ -63,7 +64,7 @@ namespace Rivet {
         vetoEvent;
       }
       _h_mjj->fill(mjj, weight);
-   
+
     }
 
 

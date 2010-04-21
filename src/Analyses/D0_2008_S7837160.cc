@@ -14,7 +14,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of W charge asymmetry from D0 Run II
+  /// @brief D0 Run II measurement of W charge asymmetry
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   class D0_2008_S7837160 : public Analysis {
@@ -28,11 +28,11 @@ namespace Rivet {
       // Run II W charge asymmetry
       setBeams(PROTON, ANTIPROTON);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
- 
+
     // Book histograms and set up projections
     void init() {
       // Projections
@@ -50,7 +50,7 @@ namespace Rivet {
       _h_dsigminus_deta_25    = bookHistogram1D("/dsigminus_deta_25", edges);
     }
 
- 
+
     /// Do the analysis
     void analyze(const Event & event) {
       const WFinder& wf = applyProjection<WFinder>(event, "WFe");
@@ -76,7 +76,7 @@ namespace Rivet {
         }
       }
       assert(chg_e != 0);
-      
+
       const double weight = event.weight();
       const double eta_e = fabs(p_e.pseudorapidity());
       const double et_e = p_e.Et();
@@ -108,7 +108,7 @@ namespace Rivet {
     void finalize() {
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
       AIDA::IHistogramFactory& hf = histogramFactory();
-   
+
       IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
       IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
       assert(num25_35 && denom25_35);
@@ -138,7 +138,7 @@ namespace Rivet {
       hf.destroy(_h_dsigplus_deta_25);
       hf.destroy(_h_dsigminus_deta_25);
     }
- 
+
     //@}
 
 

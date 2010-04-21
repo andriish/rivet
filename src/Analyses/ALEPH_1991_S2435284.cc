@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// @brief Measurement of ALEPH LEP1 charged multiplicity
+  /// @brief ALEPH LEP1 charged multiplicity in hadronic Z decay
   /// @author Andy Buckley
   class ALEPH_1991_S2435284 : public Analysis {
   public:
@@ -23,7 +23,7 @@ namespace Rivet {
 
     /// @name Analysis methods
     //@{
- 
+
     /// Book projections and histogram
     void init() {
       const ChargedFinalState cfs;
@@ -59,7 +59,7 @@ namespace Rivet {
 
   };
 
- 
+
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<ALEPH_1991_S2435284> plugin_ALEPH_1991_S2435284;
 

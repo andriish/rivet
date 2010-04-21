@@ -13,6 +13,7 @@
 namespace Rivet {
 
 
+  /// @brief ALEPH jet rates and event shapes at LEP 1 and 2
   class ALEPH_2004_S5765862 : public Analysis {
   public:
 
@@ -37,7 +38,7 @@ namespace Rivet {
       addProjection(Sphericity(fs), "Sphericity");
       addProjection(ParisiTensor(fs), "Parisi");
       addProjection(Hemispheres(thrust), "Hemispheres");
-      
+
       // Histos
       int offset = 0;
       switch (int(sqrtS()/GeV + 0.5)) {
@@ -56,7 +57,7 @@ namespace Rivet {
         _initialised=false;
         return;
       }
-      
+
       // event shapes
       _h_thrust = bookHistogram1D(offset+54, 1, 1);
       _h_heavyjetmass = bookHistogram1D(offset+62, 1, 1);
@@ -70,8 +71,8 @@ namespace Rivet {
       // planarity is missing the 91 gev data, so left out
       _h_oblateness = bookHistogram1D(offset+133, 1, 1);
       _h_sphericity = bookHistogram1D(offset+141, 1, 1);
-      
-      
+
+
       // Durham n->m jet resolutions
       _h_y_Durham[0] = bookHistogram1D(offset+149, 1, 1);   // y12 d149 ... d156
       _h_y_Durham[1] = bookHistogram1D(offset+157, 1, 1);   // y23 d157 ... d164
@@ -88,8 +89,8 @@ namespace Rivet {
         _h_y_Durham[3] = bookHistogram1D(179, 1, 1);
         _h_y_Durham[4] = bookHistogram1D(186, 1, 1);
       }
-      
-      // Durham n-jet fractions      
+
+      // Durham n-jet fractions
       _h_R_Durham[0] = bookDataPointSet(offset+187, 1, 1); // R1 d187 ... d194
       _h_R_Durham[1] = bookDataPointSet(offset+195, 1, 1); // R2 d195 ... d202
       _h_R_Durham[2] = bookDataPointSet(offset+203, 1, 1); // R3 d203 ... d210
@@ -110,13 +111,13 @@ namespace Rivet {
       _h_thrustmajor->fill(thrust.thrustMajor(),weight);
       _h_thrustminor->fill(log(thrust.thrustMinor()),weight);
       _h_oblateness->fill(thrust.oblateness(),weight);
-      
+
       const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
       _h_heavyjetmass->fill(hemi.scaledM2high(),weight);
       _h_jetmassdifference->fill(hemi.scaledM2diff(),weight);
       _h_totaljetbroadening->fill(hemi.Bsum(),weight);
       _h_widejetbroadening->fill(hemi.Bmax(),weight);
-      
+
       const ParisiTensor& parisi = applyProjection<ParisiTensor>(e, "Parisi");
       _h_cparameter->fill(parisi.C(),weight);
 
@@ -136,7 +137,7 @@ namespace Rivet {
 
     void finalize() {
       if (!_initialised) return;
-      
+
       normalize(_h_thrust);
       normalize(_h_heavyjetmass);
       normalize(_h_totaljetbroadening);
@@ -148,19 +149,19 @@ namespace Rivet {
       normalize(_h_aplanarity);
       normalize(_h_oblateness);
       normalize(_h_sphericity);
-      
+
       for (int N=1; N<7; ++N) {
         // calculate the N jet fraction from the jet resolution histograms
-        
+
         for (int i = 0; i < _h_R_Durham[N-1]->size(); ++i) {
           IDataPoint* dp = _h_R_Durham[N-1]->point(i);
           // get ycut at which the njet-fraction is to be calculated
           /// @todo HepData has binwidths here, which doesn't make sense at all
           /// I assume the low edge to be the ycut
           double ycut = dp->coordinate(0)->value()-dp->coordinate(0)->errorMinus();
-          
+
           // sum all >=N jet events
-          double sigmaNinclusive = 0.0; 
+          double sigmaNinclusive = 0.0;
           if (N>1) {
             AIDA::IHistogram1D* y_Nminus1_N = _h_y_Durham[N-2];
             // watch out, y_NM is negatively binned
@@ -172,7 +173,7 @@ namespace Rivet {
             }
           }
           else sigmaNinclusive = sumOfWeights();
-          
+
           // sum all >=N+1 jet events
           double sigmaNplus1inclusive = 0.0;
           if (N<6) {
@@ -191,17 +192,17 @@ namespace Rivet {
           dp->coordinate(1)->setValue(njetfraction);
         }
       }
-      
+
 
       for (size_t n = 0; n < 5; ++n) {
         scale(_h_y_Durham[n], 1.0/sumOfWeights());
       }
-      
+
     }
 
 
   private:
-    
+
     bool _initialised;
 
     AIDA::IHistogram1D *_h_thrust;
@@ -215,7 +216,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_aplanarity;
     AIDA::IHistogram1D *_h_oblateness;
     AIDA::IHistogram1D *_h_sphericity;
-    
+
     AIDA::IDataPointSet *_h_R_Durham[6];
     AIDA::IHistogram1D *_h_y_Durham[5];
 

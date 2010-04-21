@@ -11,10 +11,10 @@
 namespace Rivet {
 
 
-  /// Implementation of CDF Run II Z + b-jet cross section paper
+  /// @brief CDF Run II Z + b-jet cross-section measurement
   class CDF_2008_S8095620 : public Analysis {
   public:
-     
+
     /// Constructor.
     /// jet cuts: |eta| <= 1.5
     CDF_2008_S8095620()
@@ -24,11 +24,11 @@ namespace Rivet {
     {
       setBeams(PROTON, ANTIPROTON);
     }
- 
+
 
     /// @name Analysis methods
     //@{
- 
+
     void init() {
       // Set up projections
       const FinalState fs(-3.6, 3.6);
@@ -54,7 +54,7 @@ namespace Rivet {
       _dSdNbJet = bookHistogram1D(4, 1, 1);
       _dSdZpT   = bookHistogram1D(5, 1, 1);
     }
- 
+
 
     // Do the analysis
     void analyze(const Event& event) {
@@ -62,13 +62,13 @@ namespace Rivet {
       // Get the Z decay products (mu+mu- or e+e- pair)
       const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
       const ParticleVector&  ZDecayProducts =  invMassFinalState.particles();
-   
+
       // make sure we have 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
       _sumWeightSelected += event.weight();
       // @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
-   
+
       // Put all b-quarks in a vector
       ParticleVector bquarks;
       foreach (const GenParticle* p, particles(event.genEvent())) {
@@ -76,14 +76,14 @@ namespace Rivet {
           bquarks += Particle(*p);
         }
       }
-   
+
       // Get jets
       const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
-   
+
       const PseudoJets& jets = jetpro.pseudoJetsByPt();
       getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
-   
+
       int numBJet = 0;
       int numJet  = 0;
       // for each b-jet plot the ET and the eta of the jet, normalise to the total cross section at the end
@@ -107,14 +107,14 @@ namespace Rivet {
           }
         }
       } // end loop around jets
-   
+
       if(numJet > 0) _dSdNJet->fill(numJet,event.weight());
       if(numBJet > 0) {
         _dSdNbJet->fill(numBJet,event.weight());
         _dSdZpT->fill(Zmom.pT(),event.weight());
       }
     }
- 
+
 
 
     // Finalize

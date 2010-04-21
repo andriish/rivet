@@ -9,37 +9,36 @@
 namespace Rivet {
 
 
-  /* CDF Run II jet shape analysis
-   * @author Lars Sonnenschein
-   * @author Andy Buckley
-   */	
+  /// @brief CDF Run II jet shape analysis
+  /// @author Lars Sonnenschein
+  /// @author Andy Buckley
   class CDF_2005_S6217184 : public Analysis {
   public:
- 
+
     /// Constructor
     CDF_2005_S6217184()
       : Analysis("CDF_2005_S6217184")
     {
       setBeams(PROTON, ANTIPROTON);
     }
-     
+
     /// @name Analysis methods
     //@{
- 
+
     void init() {
       // Set up projections
       const FinalState fs(-2.0, 2.0);
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "Jets");
       addProjection(TotalVisibleMomentum(fs), "CalMET");
-   
+
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
       addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
-   
+
       // Specify pT bins
       _pTbins += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0,
         148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
@@ -53,19 +52,19 @@ namespace Rivet {
           _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1);
         }
       }
-   
+
       _profhistPsi = bookProfile1D(13, 1, 1);
     }
- 
- 
- 
+
+
+
     /// Do the analysis
     void analyze(const Event& event) {
-   
+
       // Get jets and require at least one to pass pT and y cuts
       const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
       getLog() << Log::DEBUG << "Jet multiplicity before cuts = " << jets.size() << endl;
-   
+
       // Determine the central jet axes
       _jetaxes.clear();
       foreach (const Jet& jt, jets) {
@@ -75,11 +74,11 @@ namespace Rivet {
         }
       }
       if (_jetaxes.empty()) vetoEvent;
-   
+
       // Calculate and histogram jet shapes
       const double weight = event.weight();
       const JetShape& js = applyProjection<JetShape>(event, "JetShape");
-   
+
       /// @todo Use BinnedHistogram, for collections of histos each for a range of values of an extra variable
       for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
         for (size_t ipT = 0; ipT < 18; ++ipT) {
@@ -96,15 +95,15 @@ namespace Rivet {
           }
         }
       }
-   
+
     }
- 
- 
+
+
     // Finalize
     void finalize() {
       //
     }
- 
+
     //@}
 
 
@@ -129,7 +128,7 @@ namespace Rivet {
     //@}
 
   };
- 
+
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<CDF_2005_S6217184> plugin_CDF_2005_S6217184;

@@ -25,7 +25,6 @@ namespace Rivet {
    * jet rates in the Durham and JADE schemes, and incorporates identified
    * particle spectra, from other LEP analyses.
    *
-   *
    * @par Run conditions
    *
    * @arg LEP1 beam energy: \f$ \sqrt{s} = \$f 91.2 GeV
@@ -46,8 +45,8 @@ namespace Rivet {
       _passedCut4WeightSum = 0.0;
       _passedCut5WeightSum = 0.0;
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
 
@@ -70,31 +69,31 @@ namespace Rivet {
       _histPtTOut = bookHistogram1D(2, 1, 1);
       _histPtSIn = bookHistogram1D(3, 1, 1);
       _histPtSOut = bookHistogram1D(4, 1, 1);
-   
+
       _histRapidityT = bookHistogram1D(5, 1, 1);
       _histRapidityS = bookHistogram1D(6, 1, 1);
       _histScaledMom = bookHistogram1D(7, 1, 1);
       _histLogScaledMom = bookHistogram1D(8, 1, 1);
-   
+
       _histPtTOutVsXp = bookProfile1D(9,  1, 1);
       _histPtVsXp = bookProfile1D(10, 1, 1);
-   
+
       _hist1MinusT = bookHistogram1D(11, 1, 1);
       _histTMajor = bookHistogram1D(12, 1, 1);
       _histTMinor = bookHistogram1D(13, 1, 1);
       _histOblateness = bookHistogram1D(14, 1, 1);
-   
+
       _histSphericity = bookHistogram1D(15, 1, 1);
       _histAplanarity = bookHistogram1D(16, 1, 1);
       _histPlanarity = bookHistogram1D(17, 1, 1);
-   
+
       _histCParam = bookHistogram1D(18, 1, 1);
       _histDParam = bookHistogram1D(19, 1, 1);
-   
+
       _histHemiMassH = bookHistogram1D(20, 1, 1);
       _histHemiMassL = bookHistogram1D(21, 1, 1);
       _histHemiMassD = bookHistogram1D(22, 1, 1);
-   
+
       _histHemiBroadW = bookHistogram1D(23, 1, 1);
       _histHemiBroadN = bookHistogram1D(24, 1, 1);
       _histHemiBroadT = bookHistogram1D(25, 1, 1);
@@ -160,13 +159,13 @@ namespace Rivet {
       const double weight = e.weight();
       _passedCutWeightSum += weight;
       _weightedTotalPartNum += numParticles * weight;
-   
+
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
-   
+
       // Thrusts
       getLog() << Log::DEBUG << "Calculating thrust" << endl;
       const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
@@ -174,7 +173,7 @@ namespace Rivet {
       _histTMajor->fill(thrust.thrustMajor(), weight);
       _histTMinor->fill(thrust.thrustMinor(), weight);
       _histOblateness->fill(thrust.oblateness(), weight);
-   
+
       // Jets
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
@@ -193,20 +192,20 @@ namespace Rivet {
         if (durjet.clusterSeq()) _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge(4), weight);
         if (jadejet.clusterSeq()) _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge(4), weight);
       }
-      
+
       // Sphericities
       getLog() << Log::DEBUG << "Calculating sphericity" << endl;
       const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
       _histSphericity->fill(sphericity.sphericity(), weight);
       _histAplanarity->fill(sphericity.aplanarity(), weight);
       _histPlanarity->fill(sphericity.planarity(), weight);
-   
+
       // C & D params
       getLog() << Log::DEBUG << "Calculating Parisi params" << endl;
       const ParisiTensor& parisi = applyProjection<ParisiTensor>(e, "Parisi");
       _histCParam->fill(parisi.C(), weight);
       _histDParam->fill(parisi.D(), weight);
-   
+
       // Hemispheres
       getLog() << Log::DEBUG << "Calculating hemisphere variables" << endl;
       const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
@@ -217,7 +216,7 @@ namespace Rivet {
       _histHemiBroadN->fill(hemi.Bmin(), weight);
       _histHemiBroadT->fill(hemi.Bsum(), weight);
       _histHemiBroadD->fill(hemi.Bdiff(), weight);
-   
+
       // Iterate over all the charged final state particles.
       double Evis = 0.0;
       double Evis2 = 0.0;
@@ -227,14 +226,14 @@ namespace Rivet {
         const Vector3 mom3 = p->momentum().vector3();
         const double energy = p->momentum().E();
         Evis += energy;
-     
+
         // Scaled momenta.
         const double mom = mom3.mod();
         const double scaledMom = mom/meanBeamMom;
         const double logInvScaledMom = -std::log(scaledMom);
         _histLogScaledMom->fill(logInvScaledMom, weight);
         _histScaledMom->fill(scaledMom, weight);
-     
+
         // Get momenta components w.r.t. thrust and sphericity.
         const double momT = dot(thrust.thrustAxis(), mom3);
         const double momS = dot(sphericity.sphericityAxis(), mom3);
@@ -249,7 +248,7 @@ namespace Rivet {
         _histPtSOut->fill(fabs(pToutS/GeV), weight);
         _histPtVsXp->fill(scaledMom, fabs(pT/GeV), weight);
         _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV), weight);
-     
+
         // Calculate rapidities w.r.t. thrust and sphericity.
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
@@ -274,13 +273,13 @@ namespace Rivet {
           _histAEEC->fill(-cosij, -eec*weight);
         }
       }
-   
+
       _histMultiCharged->fill(_histMultiCharged->binMean(0), numParticles*weight);
-   
-   
+
+
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-   
+
       foreach (const Particle& p, ufs.particles()) {
         int id = abs(p.pdgId());
         switch (id) {
@@ -495,7 +494,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_histHemiMassD;
     AIDA::IHistogram1D *_histHemiMassH;
     AIDA::IHistogram1D *_histHemiMassL;
-            
+
     AIDA::IHistogram1D *_histHemiBroadW;
     AIDA::IHistogram1D *_histHemiBroadN;
     AIDA::IHistogram1D *_histHemiBroadT;
