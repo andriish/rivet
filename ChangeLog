@@ -1,3 +1,8 @@
+2010-04-21  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* remove obsolete reference to InitialQuarks from DELPHI_2002
+	* fix normalisation in CDF_2000_S4155203
+
 2010-04-20  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* bin/make-plots: real support for 2-dim histograms plotted as
