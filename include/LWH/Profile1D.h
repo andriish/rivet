@@ -188,7 +188,7 @@ public:
     }
     return sw2/(sw*sw);
   }
-    
+
   /**
    * Sum of weighted in-range bin profile heights in the IProfile,
    * UNDERFLOW and OVERFLOW bins are excluded.
@@ -206,7 +206,7 @@ public:
     if (sw > 0.) sBH = syw/sw;
     return sBH;
   }
-    
+
   /**
    * Sum of the heights of all the IHistogram's bins,
    * i.e in-range bins, UNDERFLOW and OVERFLOW.
@@ -351,13 +351,14 @@ public:
    *
    */
   double binError(int index) const {
-    if (sumw[index+2] > 0.0) {
-      if ((sumw[index+2]*sumw[index+2] - sumw2[index+2]) == 0) {
-        return sumyw[index+2]/sumw[index+2];
+    const size_t i = index + 2;
+    if (sumw[i] > 0.0) {
+      if ((sumw[i]*sumw[i] - sumw2[i]) == 0) {
+        return sumyw[i]/sumw[i];
       }
-      double binErr2 = sumy2w[index+2]*sumw[index+2] - sumyw[index+2]*sumyw[index+2];
-      binErr2 /= sumw[index+2]*sumw[index+2] - sumw2[index+2];
-      binErr2 /= sumw[index+2]; //< s_hat ~ s/sqrt(N)
+      double binErr2 = sumy2w[i]*sumw[i] - sumyw[i]*sumyw[i];
+      binErr2 /= sumw[i]*sumw[i] - sumw2[i];
+      //binErr2 *= sumw[i];
       if (binErr2 >= 0.0) return sqrt(binErr2);
     }
     return 0.0;
@@ -412,7 +413,7 @@ public:
   int coordToIndex(double coord) const {
     return ax->coordToIndex(coord);
   }
-  
+
   /**
    * Add to this Profile1D the contents of another IProfile1D.
    * @param h The Profile1D to be added to this IProfile1D.
@@ -510,7 +511,7 @@ public:
     os << "    </data1d>\n  </profile1d>" << std::endl;
     return true;
   }
-  
+
 
   /**
    * Write out the histogram in a flat text file suitable for
@@ -570,10 +571,10 @@ public:
         prof1d->SetBinError(j, binError(i));
       }
     }
-    
+
     prof1d->Sumw2();
     prof1d->SetEntries(entries);
-    
+
     std::string DirName; //remove preceding slash from directory name, else ROOT error
     for (unsigned int i=1; i<path.size(); ++i) DirName += path[i];
     if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
