@@ -186,6 +186,8 @@ if __name__ == "__main__":
                 xlabels[dpsname] = h.xlabel
                 ylabels[dpsname] = h.ylabel
             h.expt = dpsname.split("_")[0][1:]
+            if h.expt=="D0":
+                h.expt="D\O\ "
             histos[dpsname] = h
         return histos, titles, xlabels, ylabels
 
