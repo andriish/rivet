@@ -141,14 +141,21 @@ namespace Rivet {
       scale(_h_pT_jet[i], crossSection()/sumOfWeights());
       scale(_h_eta_jet[i], crossSection()/sumOfWeights());
 
-      for (size_t j=i+1; j<m_njet; ++j) {
-      }
     }
     for (int ibin=0; ibin<_h_log10_R[m_njet]->size(); ++ibin) {
       IDataPoint* dp=_h_log10_R[m_njet]->point(ibin);
       dp->coordinate(1)->setValue(dp->coordinate(1)->value()*crossSection()/sumOfWeights());
     }
 
+    // scale the d{eta,R} histograms
+    map<pair<size_t, size_t>, AIDA::IHistogram1D*>::iterator it;
+    for (it=_h_deta_jets.begin(); it!=_h_deta_jets.begin(); ++it) {
+      scale(it->second, crossSection()/sumOfWeights());
+    }
+    for (it=_h_dR_jets.begin(); it!=_h_dR_jets.begin(); ++it) {
+      scale(it->second, crossSection()/sumOfWeights());
+    }
+    
     // fill inclusive jet multi ratio
     int Nbins=_h_jet_multi_inclusive->axis().bins();
     std::vector<double> ratio(Nbins-1, 0.0);
