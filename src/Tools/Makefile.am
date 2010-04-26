@@ -14,6 +14,7 @@ libRivetTools_la_SOURCES = \
   TinyXML/tinyxml.cpp \
   TinyXML/tinyxmlerror.cpp \
   TinyXML/tinyxmlparser.cpp \
+  MC_JetAnalysis.cc \
   BinnedHistogram.cc
 
 dist_noinst_HEADERS = binreloc.h

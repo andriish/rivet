@@ -26,8 +26,7 @@ nobase_pkginclude_HEADERS += \
 
 nobase_pkginclude_HEADERS += \
   Config/RivetConfig.hh \
-  Config/BuildOptions.hh \
-  Analyses/MC_JetAnalysis.hh
+  Config/BuildOptions.hh
 
 
 ## Projections
@@ -82,6 +81,7 @@ nobase_pkginclude_HEADERS += \
   Tools/Utils.hh \
   Tools/BinnedHistogram.hh \
   Tools/ParticleIdUtils.hh \
+  Tools/MC_JetAnalysis.hh \
   Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
