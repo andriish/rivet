@@ -14,7 +14,7 @@ namespace Rivet {
   public:
     Matrix3() { }
 
-    Matrix3(const Matrix<3>& m3) :  Matrix<3>::Matrix<3>(m3) { }
+    Matrix3(const Matrix<3>& m3) :  Matrix<3>::Matrix(m3) { }
 
     Matrix3(const Vector3& axis, const double angle) {
       const Vector3 normaxis = axis.unit();
