@@ -26,11 +26,7 @@ nobase_pkginclude_HEADERS += \
 
 nobase_pkginclude_HEADERS += \
   Config/RivetConfig.hh \
-  Config/BuildOptions.hh
-
-
-## Standard analyses
-nobase_dist_noinst_HEADERS += \
+  Config/BuildOptions.hh \
   Analyses/MC_JetAnalysis.hh
 
 
