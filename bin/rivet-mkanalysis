@@ -38,7 +38,7 @@ if opts.SRCROOT:
     ANASRCDIR = os.path.join(ANAROOT, "src/Analyses")
     ANAINFODIR = os.path.join(ANAROOT, "data/anainfo")
     ANAPLOTDIR = os.path.join(ANAROOT, "data/plotinfo")
-    if not (os.exists(ANASRCDIR) and os.exists(ANAINFODIR) and os.exists(ANAPLOTDIR)):
+    if not (os.path.exists(ANASRCDIR) and os.path.exists(ANAINFODIR) and os.path.exists(ANAPLOTDIR)):
         logging.error("Rivet analysis dirs do not exist under %s" % ANAROOT)
         sys.exit(1)
 if not (os.access(ANASRCDIR, os.W_OK) and os.access(ANAINFODIR, os.W_OK) and os.access(ANAPLOTDIR, os.W_OK)):
