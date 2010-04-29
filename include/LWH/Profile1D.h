@@ -353,13 +353,23 @@ public:
   double binError(int index) const {
     const size_t i = index + 2;
     if (sumw[i] > 0.0) {
-      if ((sumw[i]*sumw[i] - sumw2[i]) == 0) {
+      const double denom = sumw[i]*sumw[i] - sumw2[i];
+      // Handle case where error blows up due to null denominator
+      if (denom <= 0) {
+        /// @todo This returns the mean *value*. What should actually be done?
+        /// @todo Does this ever happen in practice, other than when bin only has one (unit-weight)
+        ///       entry (i.e. unweighting is N-1 -> 0, so error is unestimatable anyway)?
         return sumyw[i]/sumw[i];
       }
-      double binErr2 = sumy2w[i]*sumw[i] - sumyw[i]*sumyw[i];
-      binErr2 /= sumw[i]*sumw[i] - sumw2[i];
-      //binErr2 *= sumw[i];
-      if (binErr2 >= 0.0) return sqrt(binErr2);
+      const double numer = sumy2w[i]*sumw[i] - sumyw[i]*sumyw[i];
+      const double variance = numer/denom;
+      const double n_eff = sumw2[i] / sumw[i]*sumw[i];
+      /// @todo Is this biasing again? I.e. do we actually need a 1 / (n_eff - 1)?
+      const double stdvar = variance / n_eff;
+      if (stdvar > 0.0) {
+        const double stderr = sqrt(stdvar);
+        return stderr;
+      }
     }
     return 0.0;
   }

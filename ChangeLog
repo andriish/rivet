@@ -1,3 +1,7 @@
+2010-04-29  Andy Buckley  <andy@insectnation.org>
+
+	* Fixing (I hope!) the treatment of weighted profile bin errors in LWH.
+
 2010-04-21  Andy Buckley  <andy@insectnation.org>
 
 	* Removing defunct and unused KtJets and Configuration classes.
