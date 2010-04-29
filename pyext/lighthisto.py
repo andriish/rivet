@@ -14,9 +14,9 @@ if not 'sorted' in dir(__builtins__):
 
 
 from htmlentitydefs import codepoint2name
-unichr2entity = dict((unichr(code), u'&%s;' % name)
-                         for code,name in codepoint2name.iteritems()
-                         if code != 38) # exclude "&"
+unichr2entity = dict( (unichr(code), u'&%s;' % name) \
+                          for code,name in codepoint2name.iteritems() \
+                          if code != 38 ) # exclude "&"
 
 
 def htmlescape(text, d=unichr2entity):
@@ -347,7 +347,7 @@ class Bin(object):
         return out
 
     def asGnuplot(self):
-        out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval, self.xlow, self.xhigh, 
+        out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval, self.xlow, self.xhigh,
                                           self.yval-self.yerrminus, self.yval+self.yerrplus)
         return out
 
