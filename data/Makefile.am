@@ -16,4 +16,4 @@ EXTRA_DIST = rivet-completion
 endif
 
 
-SUBDIRS = refdata anainfo plotinfo
+SUBDIRS = refdata anainfo plotinfo texmf

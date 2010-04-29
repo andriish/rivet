@@ -1,3 +1,7 @@
+2010-04-21  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing LaTeX problems (make-plots) on ancient machines, like lxplus.
+
 2010-04-29  Andy Buckley  <andy@insectnation.org>
 
 	* Fixing (I hope!) the treatment of weighted profile bin errors in LWH.
