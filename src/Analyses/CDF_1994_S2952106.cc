@@ -67,7 +67,7 @@ namespace Rivet {
 
       /// @todo Need better title
       //_histAlphaCDF = bookHistogram1D("alphaCDF", 42, -PI/2., PI/2.);
-      _histAlphaIdeal = bookHistogram1D(6,1,1);
+      _histAlphaCDF = bookHistogram1D(6,1,1);
 
       /// @todo Need better title
       //_histAlphaIdeal = bookHistogram1D("alphaIdeal", 42, -PI/2., PI/2.);
@@ -76,7 +76,7 @@ namespace Rivet {
 
       /// @todo Need better title
       //_histR23CDF = bookHistogram1D("R23CDF", 50, 0., 5.);
-      _histR23Ideal = bookHistogram1D(7,1,1);
+      _histR23CDF = bookHistogram1D(7,1,1);
 
       /// @todo Need better title
       //_histR23Ideal = bookHistogram1D("R23Ideal", 50, 0., 5.);
@@ -140,6 +140,107 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
+
+      const double alpha_CDF_sim[] = {0.0517, 0.0461, 0.049, 0.0452, 0.0451, 
+				      0.0435, 0.0317, 0.0287, 0.0294, 0.0261, 
+				      0.0231, 0.022, 0.0233, 0.0192, 0.0213, 
+				      0.0166, 0.0176, 0.0146, 0.0136, 0.0156, 
+				      0.0142, 0.0152, 0.0151, 0.0147, 0.0164, 
+				      0.0186, 0.018, 0.021, 0.0198, 0.0189, 
+				      0.0197, 0.0211, 0.027, 0.0236, 0.0243, 
+				      0.0269, 0.0257, 0.0276, 0.0246, 0.0286};
+      
+      const double alpha_CDF_sim_err[] = {0.0024, 0.0025, 0.0024, 0.0024, 0.0024, 
+					 0.0022, 0.0019, 0.0018, 0.0019, 0.0016, 
+					 0.0017, 0.0017, 0.0019, 0.0013, 0.0017, 
+					 0.0014, 0.0016, 0.0013, 0.0012, 0.0009, 
+					 0.0014, 0.0014, 0.0014, 0.0014, 0.0014, 
+					 0.0015, 0.0014, 0.0016, 0.0016, 0.0015, 
+					 0.0016, 0.0016, 0.0019, 0.0017, 0.0019, 
+					 0.0018, 0.0018, 0.0018, 0.0018, 0.0019};
+
+      const double alpha_Ideal_sim[] = {0.0552, 0.0558, 0.0583, 0.055, 0.0495, 
+				       0.0433, 0.0393, 0.0346, 0.0331, 0.0296, 
+				       0.0258, 0.0196, 0.0171, 0.0179, 0.0174, 
+				       0.0141, 0.0114, 0.0096, 0.0076, 0.0087, 
+				       0.0099, 0.0079, 0.0102, 0.0114, 0.0124, 
+				       0.013, 0.0165, 0.016, 0.0177, 0.019, 
+				       0.0232, 0.0243, 0.0238, 0.0248, 0.0235, 
+				       0.0298, 0.0292, 0.0291, 0.0268, 0.0316};
+
+      for (int ibin = 0;  ibin < 40; ++ibin) {
+	_histAlphaCDF->fill(alpha_CDF_sim[ibin], 
+			    alpha_CDF_sim_err[ibin]*alpha_CDF_sim_err[ibin]/alpha_CDF_sim[ibin]);
+
+      }
+
+      /*
+      for (int ibin = 0;  ibin < 40; ++ibin) {
+	double raw = _histAlpha->GetBinContent(ibin);
+	double corr = alpha_CDF_sim[ibin]/alpha_Ideal_sim[ibin];
+	_histAlpha->SetBinContent(raw*corr);
+	double rawerr = _histAlpha->GetBinError(ibin);
+	double CDF_sim_err = alpha_CDF_sim_err[ibin];
+	_histAlpha->SetBinError(ibin, sqrt(corr*corr*rawerr*rawerr + 
+					   raw*raw/(alpha_Ideal_sim[ibin]*alpha_Ideal_sim[ibin])*
+					   alpha_CDF_sim_err[ibin]*alpha_CDF_sim_err[ibin]) );
+      }
+      */
+
+      const double R23_CDF_sim[] = {0.0005, 0.0161, 0.057, 0.0762, 0.0723, 
+				   0.0705, 0.0598, 0.0563, 0.0557, 0.0579, 
+				   0.0538, 0.0522, 0.0486, 0.0449, 0.0418, 
+				   0.0361, 0.0326, 0.0304, 0.0252, 0.0212, 
+				   0.0173, 0.0176, 0.0145, 0.0127, 0.0103, 
+				   0.0065, 0.0049, 0.0045, 0.0035, 0.0029, 
+				   0.0024, 0.0014, 0.0011, 0.001, 0.0009};
+
+      const double R23_CDF_sim_err[] = {0.0013, 0.0009, 0.0022, 0.0029, 0.0026, 
+				       0.0024, 0.0022, 0.0025, 0.0023, 0.0024, 
+				       0.0021, 0.0021, 0.0021, 0.0021, 0.0021, 
+				       0.0019, 0.0019, 0.0016, 0.0017, 0.0014, 
+				       0.001, 0.0014, 0.0012, 0.0013, 0.001, 
+				       0.0011, 0.001, 0.001, 0.001, 0.0011, 
+				       0.0011, 0.0009, 0.0008, 0.0008, 0.0009};
+
+      const double R23_Ideal_sim[] = {0.0005, 0.0176, 0.0585, 0.0862, 0.0843, 
+				     0.0756, 0.0673, 0.0635, 0.0586, 0.0619, 
+				     0.0565, 0.0515, 0.0466, 0.0472, 0.0349, 
+				     0.0349, 0.0266, 0.0254, 0.0204, 0.0179, 
+				     0.0142, 0.0134, 0.0101, 0.009, 0.008, 
+				     0.0034, 0.003, 0.0033, 0.0027, 0.0021, 
+				     0.0012, 0.0006, 0.0004, 0.0005, 0.0003};
+      
+      const double eta3_CDF_sim[] = {0.0013, 0.0037, 0.0047, 0.0071, 0.0093, 
+				    0.0117, 0.0151, 0.0149, 0.0197, 0.0257, 
+				    0.0344, 0.0409, 0.0481, 0.0454, 0.0394, 
+				    0.0409, 0.0387, 0.0387, 0.0322, 0.0313, 
+				    0.029, 0.0309, 0.0412, 0.0417, 0.0412, 
+				    0.0397, 0.0417, 0.0414, 0.0376, 0.0316, 
+				    0.027, 0.0186, 0.0186, 0.0132, 0.0127, 
+				    0.0106, 0.0071, 0.004, 0.002, 0.0013};
+
+      const double eta3_CDF_sim_err[] = {0.0009, 0.0009, 0.0007, 0.0007, 0.0007, 
+					0.001, 0.0012, 0.0012, 0.0013, 0.0016, 
+					0.0017, 0.002, 0.002, 0.0022, 0.002, 
+					0.002, 0.0018, 0.0018, 0.0016, 0.0017, 
+					0.0017, 0.0019, 0.002, 0.0021, 0.002, 
+					0.002, 0.0019, 0.002, 0.0018, 0.0017, 
+					0.0017, 0.0014, 0.0014, 0.0009, 0.001, 
+					0.0009, 0.0009, 0.0008, 0.0008, 0.0009};
+
+      const double eta3_Ideal_sim[] = {0.0017, 0.003, 0.0033, 0.0062, 0.0062, 
+				      0.0112, 0.0177, 0.0164, 0.0196, 0.0274, 
+				      0.0351, 0.0413, 0.052, 0.0497, 0.0448, 
+				      0.0446, 0.0375, 0.0329, 0.0291, 0.0272, 
+				      0.0233, 0.0288, 0.0384, 0.0396, 0.0468, 
+				      0.0419, 0.0459, 0.0399, 0.0355, 0.0329, 
+				      0.0274, 0.023, 0.0201, 0.012, 0.01, 
+				      0.008, 0.0051, 0.0051, 0.001, 0.001};
+
+
+
+
       /// @todo Apply correction
       // double a, b, c, erra, errb, errc;
       // for (int ibin = 0;  ibin < _histAlpha->getNbins(); ++ibin) {
@@ -156,11 +257,11 @@ namespace Rivet {
       /// @todo Same correction to be applied for _hisR23 and _histJet3eta histograms
 
       //getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
-      normalize(_histJet1Et);
-      normalize(_histJet2Et);
-      normalize(_histR23);
-      normalize(_histJet3eta);
-      normalize(_histAlpha);
+      normalize(_histJet1Et, 12.3025); //norm to integral of Ref data
+      normalize(_histJet2Et, 12.4565); //norm to integral of Ref data
+      normalize(_histJet3eta, 0.19864); //norm to integral of Ref data
+      normalize(_histR23, 0.125675); //norm to integral of Ref data
+      normalize(_histAlpha, 4.5099); //norm to integral of Ref data
     }
 
     //@}
