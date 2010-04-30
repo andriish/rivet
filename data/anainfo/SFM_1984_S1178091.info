@@ -13,7 +13,7 @@ References:
 RunInfo:
   QCD events, double-diffractive events should be turned on as well.
 NumEvents: 1000000
-Beams: [p-, p-]
+Beams: [p+, p+]
 Energies: [30.4, 44.5, 52.2, 62.2]
 PtCuts: [0]
 Description:

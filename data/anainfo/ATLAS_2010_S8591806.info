@@ -11,8 +11,8 @@ References:
  - arXiv:1003.3124
 RunInfo:
   pp QCD interactions at 900 GeV including diffractive events.
-NumEvents: 10000000
-Beams: [p-, p-]
+NumEvents: 1000000
+Beams: [p+, p+]
 Energies: [900]
 PtCuts: [0]
 Description:

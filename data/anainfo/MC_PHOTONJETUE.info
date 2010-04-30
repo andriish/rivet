@@ -11,5 +11,5 @@ RunInfo: Photon + jet events at any energy. pT cutoff at 10 GeV advised.
 Status: UNVALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
-Beams: [[p-, p-], [p-, p+]]
+Beams: [[p+, p+], [p-, p+]]
 PtCuts: [0]

@@ -13,7 +13,7 @@ References:
 RunInfo:
   d-Au at 200 GeV (use pp Monte Carlo! See description)
 NumEvents: 1000000
-Beams: [p-, p-]
+Beams: [p+, p+]
 Energies: [200]
 PtCuts: [0]
 Description:

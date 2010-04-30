@@ -13,7 +13,7 @@ References:
 RunInfo:
   pp at 200 GeV
 NumEvents: 2500000
-Beams: [p-, p-]
+Beams: [p+, p+]
 Energies: [200]
 PtCuts: [0]
 Description:
