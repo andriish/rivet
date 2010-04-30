@@ -14,9 +14,11 @@ if not 'sorted' in dir(__builtins__):
 
 
 from htmlentitydefs import codepoint2name
-unichr2entity = dict( (unichr(code), u'&%s;' % name) \
-                          for code,name in codepoint2name.iteritems() \
-                          if code != 38 ) # exclude "&"
+unichr2entity = {}
+for code, name in codepoint2name.iteritems():
+    # exclude "&"
+    if code != 38:
+        unichr2entity[unichr(code)] = u"&%s;" % (name)
 
 
 def htmlescape(text, d=unichr2entity):
