@@ -126,7 +126,8 @@ def getBinsFromTH1F(R_histo):
     """ A little helper function that returns a list of bin-dictionaries).
     """
     allbins=[]
-    for i in xrange(R_histo.GetNbinsX()):
+    for ii in xrange(R_histo.GetNbinsX()):
+        i = ii + 1
         xlow  = R_histo.GetBinLowEdge(i)
         xhigh = xlow + R_histo.GetBinWidth(i)
         y     = R_histo.GetBinContent(i)
@@ -140,7 +141,8 @@ def getBinsFromTGraph(TGraph):
     allbins=[]
     X = TGraph.GetX()
     Y = TGraph.GetY()
-    for i in xrange(TGraph.GetN()):
+    for ii in xrange(TGraph.GetN()):
+        i = ii + 1
         xlow  = X[i] - TGraph.GetErrorXlow(i)
         xhigh = X[i] + TGraph.GetErrorXhigh(i)
         y     = Y[i]
@@ -165,6 +167,8 @@ def writeHisto(name, R_histo, tgraph=False):
     histo = getFlatHisto(bins, name, title)
 
     flatname = name.replace("/","_") + ".dat"
+    if flatname.startswith("_"):
+        flatname = flatname[1:]
     flatfile = os.path.join(opts.OUTDIR, flatname)
     f = open(flatfile, "w")
     f.write(head)
@@ -180,7 +184,7 @@ def getFlatHisto(bins, name, title):
     histo += "ErrorBars=1\n"
     histo += "PolyMarker=*\n"
     histo += "Title=%s\n" % title
-    for bin in bins[1:]: # first ROOT bin seems to be under/overflow? At least for TProfile...
+    for bin in bins:
         histo += "%.8e\t%.8e\t%.8e\t%.8e\t%.8e\n" % (bin["xlow"], bin["xhigh"],
                                                      bin["y"], bin["y_err_low"], bin["y_err_high"])
     histo += "# END HISTOGRAM\n"
