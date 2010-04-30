@@ -17,7 +17,7 @@ RunInfo:
   Leading jet $pT > 14$ GeV, second jet $pT > 11$ GeV;
   Jet pseudorapidity $-1 < |\eta| < 2.4$
 NumEvents: 1000000
-Beams: [p-, e+]
+Beams: [p+, e+]
 Energies: [[820, 27.5]]
 PtCuts: [0]
 Description:
@@ -30,7 +30,7 @@ Description:
   partons inside the proton, predominantly in the region between 0.01
   and 0.1. The fractional momentum of the partons from the photon,
   $x\gamma$, is in the region 0.1 to 1. Jets are reconstructed in the
-  range $-1 < |\eta| < 2.4$ using the $k_\perp$ algorithm with an $R$ 
+  range $-1 < |\eta| < 2.4$ using the $k_\perp$ algorithm with an $R$
   parameter of 1.0. The minimum pT of the leading jet should be greater
   than 14~GeV, and at least one other jet must have $pT > 11$~GeV.
 BibKey: Chekanov:2001bw

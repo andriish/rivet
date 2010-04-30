@@ -15,7 +15,7 @@ RunInfo:
   DIS events with an outgoing electron energy $> 12~\text{GeV}$.
   $5~\text{GeV}^2 < Q^2 < 100~\text{GeV}^2$, $10^{-4} < x < 10^{-2}$.
 NumEvents: 1000000
-Beams: [p-, e-]
+Beams: [p+, e-]
 Energies: [[820, 26.7]]
 PtCuts: [0]
 Description:

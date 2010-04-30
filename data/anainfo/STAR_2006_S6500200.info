@@ -18,7 +18,7 @@ Beams: [p+, p+]
 Energies: [200]
 PtCuts: [0]
 Description:
-  pT distributions of charged pions and (anti)protons in pp collisions 
+  pT distributions of charged pions and (anti)protons in pp collisions
   at $\sqrt{s} = 200$ GeV, measured by the STAR experiment at RHIC in
   non-single-diffractive minbias events.
 BibKey: Adams:2006nd

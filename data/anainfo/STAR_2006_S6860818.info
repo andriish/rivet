@@ -17,7 +17,7 @@ Beams: [p+, p+]
 Energies: [200]
 PtCuts: [0]
 Description:
-  pT distributions of identified strange particles in pp collisions 
+  pT distributions of identified strange particles in pp collisions
   at $\sqrt{s} = 200$ GeV, measured by the STAR experiment at RHIC in
   non-single-diffractive minbias events. WARNING The $\langle pT \rangle$ vs.
   particle mass plot is not validated yet and might be wrong.

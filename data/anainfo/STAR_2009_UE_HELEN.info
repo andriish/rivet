@@ -25,7 +25,7 @@ Description:
   to have zero mass. Only jets with neutral energy $< 0.7$ are included.
   For the transMIN and transMAX $\Delta(\phi)$ is between $\pi/3$ and $2\pi/3$, and
   $\Delta(\eta) < 2.0$. For the jet region the area of the jet is used for the
-  normalization, i.e. the scaling factor is $\pi R^2$ and not 
-  $\mathrm{d}\phi\mathrm{d}\eta$ (this is different from what Rick Field does!). 
-  The tracking efficiency is $\sim 0.8$, but that is an approximation, 
+  normalization, i.e. the scaling factor is $\pi R^2$ and not
+  $\mathrm{d}\phi\mathrm{d}\eta$ (this is different from what Rick Field does!).
+  The tracking efficiency is $\sim 0.8$, but that is an approximation,
   as below $pT \sim 0.6~\text{GeV}$ it is falling quite steeply.

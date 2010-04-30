@@ -17,7 +17,7 @@ Beams: [p+, p+]
 Energies: [200]
 PtCuts: [0]
 Description:
-  Inclusive jet cross section as a function of pT in pp collisions 
+  Inclusive jet cross section as a function of pT in pp collisions
   at $\sqrt{s} = 200$ GeV, measured by the STAR experiment at RHIC.
 BibKey: Abelev:2006uq
 BibTeX: '@Article{Abelev:2006uq,
