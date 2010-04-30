@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#! /usr/bin/env python
 """%prog
 
 Read in .root files and write out the histograms in FLAT
@@ -11,7 +11,6 @@ Usage:
     %prog [options] file1.root
 
 Use --help to get information for all options.
-
 """
 
 import os, optparse, logging, ROOT
@@ -97,7 +96,7 @@ def browse(f, branch=None):
 
 
 def convertHisto(R_histo):
-    """ This sunction read a single ROOT histo and converts it into the
+    """ This function reads a single ROOT histo and converts it into the
         FLAT format suitable for plotting with make-plots.
     """
     title = R_histo.GetTitle().replace("#","\\")
@@ -163,26 +162,27 @@ def writeHisto(name, R_histo, tgraph=False):
     head = "# BEGIN PLOT\nTitle=%s\nLegend=1\nLogY=1\nDrawOnly=%s\n"%(title, name)
     head += "XLabel=%s\nYLabel=%s\n# END PLOT\n"%(xlabel, ylabel)
 
-    histo = getFlatHisto(bins, name)
+    histo = getFlatHisto(bins, name, title)
 
     flatname = name.replace("/","_") + ".dat"
     flatfile = os.path.join(opts.OUTDIR, flatname)
     f = open(flatfile, "w")
     f.write(head)
+    f.write("\n")
     f.write(histo)
     f.close()
 
 
-def getFlatHisto(bins, name):
+def getFlatHisto(bins, name, title):
     """ This returns a histo in the FLAT format. """
-    histo= "# BEGIN HISTOGRAM %s\n"%name
+    histo= "# BEGIN HISTOGRAM %s\n" % name
     histo += "LineColor=black\n"
     histo += "ErrorBars=1\n"
     histo += "PolyMarker=*\n"
-    histo += "Title=%s\n"%name
-    for bin in bins:
-        histo += "%.8e\t%.8e\t%.8e\t%.8e\t%.8e\n"%(bin["xlow"], bin["xhigh"], bin["y"],
-                bin["y_err_low"], bin["y_err_high"])
+    histo += "Title=%s\n" % title
+    for bin in bins[1:]: # first ROOT bin seems to be under/overflow? At least for TProfile...
+        histo += "%.8e\t%.8e\t%.8e\t%.8e\t%.8e\n" % (bin["xlow"], bin["xhigh"],
+                                                     bin["y"], bin["y_err_low"], bin["y_err_high"])
     histo += "# END HISTOGRAM\n"
     return histo
 
