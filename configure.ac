@@ -100,7 +100,7 @@ if test -f "$FJCONFIG"; then
   AC_MSG_CHECKING([FastJet version using fastjet-config])
   fjversion=$($FJCONFIG --version)
   AC_MSG_RESULT([$fjversion])
-  
+
   fjmajor=$(echo $fjversion | cut -f1 -d.)
   fjminor=$(echo $fjversion | cut -f2 -d.)
   if test "$fjmajor" -lt 2 -o "$fjmajor" -eq 2 -a "$fjminor" -lt 4 ; then
@@ -181,8 +181,8 @@ AC_CEDAR_LIBRARYANDHEADERS([yaml-cpp], , , [AC_MSG_NOTICE([Rivet will install th
 
 
 ## Python extension
-AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext, 
-  [don't build Python module (default=build)])], 
+AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
+  [don't build Python module (default=build)])],
   [], [enable_pyext=yes])
 AZ_PYTHON_DEFAULT
 ## Basic Python checks
@@ -223,7 +223,7 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
 #AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen2"
-AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CXXFLAGS)"
+AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(BOOSTINCPATH) \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
@@ -234,7 +234,7 @@ AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-lon
 
 
 ## Debug flag (default=none)
-AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug, 
+AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
   AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g "])
@@ -242,7 +242,7 @@ fi
 
 
 ## Extra warnings flag (default=none)
-AC_ARG_ENABLE([extra-warnings], [AC_HELP_STRING(--enable-extra-warnings, 
+AC_ARG_ENABLE([extra-warnings], [AC_HELP_STRING(--enable-extra-warnings,
   [build with extra compiler warnings (recommended for developers)  @<:@default=no@:>@])], [], [enable_extra_warnings=no])
 if test x$enable_extra_warnings == xyes; then
    AC_CEDAR_CHECKCXXFLAG([-Wextra], [AM_CXXFLAGS="$AM_CXXFLAGS -Wextra "])
@@ -282,10 +282,10 @@ Now build and install (to the $prefix tree) with e.g.
 make -j2 && make -j2 install
 
 To use Rivet, we recommend reading HepMC files from a file
-or pipe (the latter may be made with mkfifo) using the 
+or pipe (the latter may be made with mkfifo) using the
 'rivet' executable.
 
-For a more pleasant command line experience, you can include 
+For a more pleasant command line experience, you can include
 the data/rivet-completion file into your .bashrc file,
 or your bash_completion.d directory if you have one.
 ************************************************************
