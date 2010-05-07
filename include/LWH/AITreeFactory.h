@@ -22,6 +22,8 @@ public:
 			 bool = false, bool = false,
 			 const std::string & = "") = 0;
 
+  virtual ITree * create() = 0;
+
 };
 
 }

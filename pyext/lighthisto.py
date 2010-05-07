@@ -434,7 +434,7 @@ class PlotParser(object):
                 path = os.popen("rivet-config --datadir", "r").readline()
                 path = path.strip()
                 if not path:
-                    raise ValueError("path is empty!")
+                    raise ValueError("Path is empty!")
                 self.plotpaths.append(path)
             except Exception:
                 raise ValueError("No plotpaths given and rivet-config call failed!")
@@ -459,7 +459,7 @@ class PlotParser(object):
                 plotfile = os.path.join(pidir, base)
                 break
         if plotfile is None:
-            raise ValueError("no plot file %s found in plotpaths %s" % (base, self.plotpaths))
+            raise ValueError("No plot file %s found in plotpaths %s" % (base, self.plotpaths))
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         startreading = False
         f = open(plotfile)

@@ -18,7 +18,7 @@ if 'log' not in dir(logging):
         l = logging.getLogger()
         l.log(level, msg)
     logging.log = _logit
-        
+
 
 ## Change dlopen status to GLOBAL for Rivet lib
 try:
@@ -61,11 +61,11 @@ Examples:
   agile-runmc <genname> -n 100k | %prog [options]
 
 ENVIRONMENT:
- * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin 
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
      analysis libraries at runtime
- * RIVET_REF_PATH: list of paths to be searched for reference 
+ * RIVET_REF_PATH: list of paths to be searched for reference
      data files
- * RIVET_INFO_PATH: list of paths to be searched for analysis 
+ * RIVET_INFO_PATH: list of paths to be searched for analysis
      metadata files
 """
 
@@ -88,7 +88,7 @@ except:
 ## Parse command line options
 parser = OptionParser(usage=usage, version="rivet v%s" % version)
 parser.add_option("-n", "--nevts", dest="MAXEVTNUM", type="int",
-                  default=None, metavar="NUM", 
+                  default=None, metavar="NUM",
                   help="max number of events to read.")
 parser.add_option("-a", "--analysis", dest="ANALYSES", action="append",
                   default=[], metavar="ANA",
@@ -97,14 +97,14 @@ parser.add_option("-A", "--all-analyses", dest="ALL_ANALYSES", action="store_tru
                   default=False, help="add all analyses to the processing list.")
 parser.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
                   default=False, help="show the list of available analyses' names. With -V, it shows the descriptions, too")
-parser.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES", 
+parser.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES",
                   default=False, help="list the analyses used by this command (after subtraction of inappropriate ones)")
 parser.add_option("--show-analysis", dest="SHOW_ANALYSES", action="append",
                   default=[], help="show the details of an analysis")
 parser.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                   help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
-parser.add_option("-H", "--histo-file", dest="HISTOFILE", 
-                  default="Rivet", help="specify the output histo file path")
+parser.add_option("-H", "--histo-file", dest="HISTOFILE",
+                  default="Rivet.aida", help="specify the output histo file path")
 parser.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                   default=None, metavar="XS",
                   help="specify the signal process cross-section in pb")
@@ -297,7 +297,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         for a in ana.authors():
             print "  " + a
         print ""
-        print "Description:" 
+        print "Description:"
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
         print twrap.fill(ana.description())
         print ""
@@ -361,7 +361,7 @@ def logNEvt(n, starttime, maxevtnum):
 
 ## Set up analysis handler
 RUNNAME = opts.RUN_NAME or ""
-ah = rivet.AnalysisHandler(opts.HISTOFILE, RUNNAME)
+ah = rivet.AnalysisHandler(RUNNAME)
 if opts.ALL_ANALYSES:
     opts.ANALYSES = all_analyses
 for a in opts.ANALYSES:
@@ -408,7 +408,7 @@ for fileidx in range(len(HEPMCFILES)):
             break
         if not run.readEvent():
             break
-    if fileidx<len(HEPMCFILES)-1:
+    if fileidx < len(HEPMCFILES)-1:
         run.openFile(HEPMCFILES[fileidx+1])
         if not run.readEvent():
             continue
@@ -417,4 +417,4 @@ run.finalize()
 
 ## Finalize and write out data file
 ah.finalize()
-ah.commitData();
+ah.writeData(opts.HISTOFILE)

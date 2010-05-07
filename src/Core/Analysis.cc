@@ -86,6 +86,7 @@ namespace Rivet {
 
 
   const string Analysis::histoDir() const {
+    /// @todo This doesn't change: calc and cache at Analysis construction!
     string path = "/" + name();
     if (handler().runName().length() > 0) {
       path = "/" + handler().runName() + path;
@@ -300,7 +301,7 @@ namespace Rivet {
   const BinEdges& Analysis::binEdges(const string& hname) const {
     _cacheBinEdges();
     getLog() << Log::TRACE << "Using histo bin edges for " << name() << ":" << hname << endl;
-    const BinEdges& edges = _histBinEdges.find(hname)->second; 
+    const BinEdges& edges = _histBinEdges.find(hname)->second;
     if (getLog().isActive(Log::TRACE)) {
       stringstream edges_ss;
       foreach (const double be, edges) {
@@ -310,7 +311,7 @@ namespace Rivet {
     }
     return edges;
   }
-  
+
 
   const BinEdges& Analysis::binEdges(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
     const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
@@ -521,7 +522,7 @@ namespace Rivet {
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
     getLog() << Log::TRACE << "Normalizing histo " << hpath << " to " << norm << endl;
- 
+
     double oldintg = 0.0;
     int nBins = histo->axis().bins();
     for (int iBin = 0; iBin != nBins; ++iBin) {
@@ -546,7 +547,7 @@ namespace Rivet {
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
     getLog() << Log::TRACE << "Scaling histo " << hpath << endl;
- 
+
     vector<double> x, y, ex, ey;
     for (size_t i = 0, N = histo->axis().bins(); i < N; ++i) {
       x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
@@ -560,21 +561,21 @@ namespace Rivet {
       // We'd like to do this: ey.push_back(histo->binError(i) * scale);
       ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
     }
- 
+
     string title = histo->title();
     string xtitle = histo->xtitle();
     string ytitle = histo->ytitle();
 
     tree().mkdir("/tmpnormalize");
     tree().mv(hpath, "/tmpnormalize");
- 
+
     AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
     dps->setXTitle(xtitle);
     dps->setYTitle(ytitle);
- 
+
     tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
     tree().rmdir("/tmpnormalize");
- 
+
     // Set histo pointer to null - it can no longer be used.
     histo = 0;
   }

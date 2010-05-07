@@ -15,11 +15,11 @@
 #include <string>
 
 namespace LWH {
-  
-  
+
+
   using namespace AIDA;
-  
-  
+
+
   enum fileformat {
     flat,
     xml
@@ -27,31 +27,31 @@ namespace LWH {
     , root
     #endif
   };
-  
-  
+
+
   /**
    * The Tree class is a simple implementation of the AIDA::ITree
    * interface.
    */
   class Tree: public ITree {
-    
+
   public:
-    
+
     /** The AnalysisFactory is a friend. */
     friend class AnalysisFactory;
-    
+
     /** A path is a vector of directory names. */
     typedef std::vector<std::string> Path;
-    
+
     /** A set of paths */
     typedef std::set<Path> PathSet;
-    
+
     /** Map of paths to objects. */
     typedef std::map<std::string, IManagedObject *> ObjMap;
-    
-    
+
+
   public:
-    
+
     /**
      * The standard constructor.
      */
@@ -61,7 +61,7 @@ namespace LWH {
       dirs.insert(Path());
       //: name(storename), flat(!xml), cwd("/"), overwrite(true) {
     }
-    
+
     /**
      * The default constructor.
      */
@@ -69,7 +69,7 @@ namespace LWH {
     Tree(): name(""), fform(xml), cwd("") {
       dirs.insert(Path());
     }
-    
+
     /**
      * The copy constructor.
      */
@@ -77,13 +77,13 @@ namespace LWH {
       //: ITree(dt), name(dt.name), flat(dt.flat), dirs(dt.dirs),
       : ITree(dt), name(dt.name), fform(dt.fform), dirs(dt.dirs),
         objs(dt.objs), cwd(dt.cwd), overwrite(true) {}
-    
+
     /// Destructor.
     virtual ~Tree() {
       for ( ObjMap::iterator it = objs.begin(); it != objs.end(); ++it )
         delete it->second;
     }
-    
+
     /**
      * Get the name of the store.
      * @return The store's name.
@@ -91,7 +91,7 @@ namespace LWH {
     std::string storeName() const {
       return name;
     }
-    
+
     /**
      * Get the IManagedObject at a given path in the ITree. The path can either be
      * absolute or relative to the current working directory.
@@ -102,7 +102,7 @@ namespace LWH {
       ObjMap::const_iterator it = objs.find(path);
       return it == objs.end()? (IManagedObject *)0: it->second;
     }
-    
+
     /**
      * LWH cannot get a mounted ITree at a given path in the current ITree.
      * @return     0 always.
@@ -110,7 +110,7 @@ namespace LWH {
     ITree * findTree(const std::string &) {
       return 0;
     }
-    
+
     /**
      * Change to a given directory.
      * @param dir The absolute or relative path of the directory we are
@@ -123,7 +123,7 @@ namespace LWH {
       cwd = pth2str(*it);
       return true;
     }
-    
+
     /**
      * Insert the ManagedObject \a o in the tree with the path \a str.
      */
@@ -134,7 +134,7 @@ namespace LWH {
       //std::cout << "1:" << pth2str(*theIterator);
       //}
       //std::cout << std::endl;
-      
+
       if ( dirs.find(path) == dirs.end() ) {
         std::string fullname = pth2str(path);
         path.pop_back();
@@ -152,7 +152,7 @@ namespace LWH {
       }
       return false;
     }
-    
+
     /**
      * Get the path of the current working directory.
      * @return The path of the current working directory.
@@ -160,7 +160,7 @@ namespace LWH {
     std::string pwd() const {
       return cwd;
     }
-    
+
     /**
      * List, into a given output stream, all the IManagedObjects, including
      * directories (but not "." and ".."), in a given path. Directories end
@@ -183,7 +183,7 @@ namespace LWH {
         os << names[i] << std::endl;
       return true;
     }
-    
+
     /**
      * Get the list of names of the IManagedObjects under a given path,
      * including directories (but not "." and ".."). Directories end with "/".
@@ -214,14 +214,14 @@ namespace LWH {
             ret.push_back(pth + "/");
         }
       }
-      
+
       if ( path == "." )
         for ( int i = 0, N = ret.size(); i < N; ++i )
           ret[i] = ret[i].substr(dir.size());
-      
+
       return ret;
     }
-    
+
     /**
      * Not implemented in LWH.
      */
@@ -229,7 +229,7 @@ namespace LWH {
                                              bool = false) const {
       return std::vector<std::string>();
     }
-    
+
     /**
      * Create a new directory. Given a path only the last directory
      * in it is created if all the intermediate subdirectories already exist.
@@ -245,7 +245,7 @@ namespace LWH {
       dirs.insert(p);
       return true;
     }
-    
+
     /**
      * Create a directory recursively. Given a path the last directory
      * and all the intermediate non-existing subdirectories are created.
@@ -256,7 +256,7 @@ namespace LWH {
     bool mkdirs(const std::string & dir) {
       return mkdirs(purgepath(str2pth(fullpath(sts(dir)))));
     }
-    
+
     /**
      * Create a directory recursively. Given a Path the last directory
      * and all the intermediate non-existing subdirectories are created.
@@ -270,7 +270,7 @@ namespace LWH {
       p.pop_back();
       return mkdirs(p);
     }
-    
+
     /**
      * Remove a directory and all the contents underneeth.
      * @param dir The absolute or relative path of the directory to be removed.
@@ -285,7 +285,7 @@ namespace LWH {
       dirs.erase(path);
       return true;
     }
-    
+
     /**
      * Remove and delete an IManagedObject by specifying its path.
      * @param path The absolute or relative path of the IManagedObject to be
@@ -299,7 +299,7 @@ namespace LWH {
       objs.erase(it);
       return true;
     }
-    
+
     /**
      * Get the full path of an IManagedObject.
      * @param o The IManagedObject whose path is to be returned.
@@ -311,7 +311,7 @@ namespace LWH {
         if ( it->second == &o ) return it->first;
       return "";
     }
-    
+
     /**
      * Move an IManagedObject or a directory from one directory to another.
      * @param oldp The path of the IManagedObject [not direcoty] to be moved.
@@ -337,7 +337,23 @@ namespace LWH {
       objs.erase(foldp);
       return true;
     }
-    
+
+    /**
+     * Print all histograms to the supplied filename, in the supplied format.
+     * @return false if something went wrong.
+     */
+    bool commit(std::string storename) {
+      // Back up state
+      const std::string oldname = name;
+      // Set up temporary state
+      name = storename;
+      // Do the do
+      const bool rtn = commit();
+      // Reset!
+      name = oldname;
+      return rtn;
+    }
+
     /**
      * Print all histograms to the current filename.
      * @return false if something went wrong.
@@ -352,7 +368,7 @@ namespace LWH {
           << "<aida version=\"3.0\">\n"
           << "<implementation version=\"1.0\" package=\"LWH\"/>" << std::endl;
       }
-      
+
       #ifdef HAVE_ROOT
       #include "TFile.h"
       TFile* file = 0;
@@ -360,13 +376,13 @@ namespace LWH {
         file = new TFile(name.c_str(),"RECREATE");
       }
       #endif
-      
+
       for ( ObjMap::const_iterator it = objs.begin(); it != objs.end(); ++it ) {
         ManagedObject * o = dynamic_cast<ManagedObject *>(it->second);
         if (!o) continue;
         std::string path = it->first.substr(0, it->first.rfind('/'));
         std::string name = it->first.substr(it->first.rfind('/') + 1);
-        
+
         switch(fform) {
         case flat:
           o->writeFLAT(of, path, name);
@@ -383,21 +399,22 @@ namespace LWH {
       }
 
       if (fform==xml) of << "</aida>" << std::endl;
-     
+
 #ifdef HAVE_ROOT
       if(fform==root) file->Close();
 #endif
-      
+
       return of.good();
     }
-    
+
+
     /**
      * Not implemented in LWH.
      */
     void setOverwrite(bool o = true) {
       overwrite = o;
     }
-    
+
     /**
      * Not implemented in LWH.
      * @return false always.
@@ -405,7 +422,7 @@ namespace LWH {
     bool cp(const std::string &, const std::string &, bool = false) {
       return false;
     }
-    
+
     /**
      * Not implemented in LWH.
      * @return false always.
@@ -413,7 +430,7 @@ namespace LWH {
     bool symlink(const std::string &, const std::string &) {
       return false;
     }
-    
+
     /**
      * Not implemented in LWH.
      * @return false always.
@@ -421,7 +438,7 @@ namespace LWH {
     bool mount(const std::string &, ITree &, const std::string &) {
       return false;
     }
-    
+
     /**
      * Not implemented in LWH.
      * @return false always.
@@ -429,14 +446,14 @@ namespace LWH {
     bool unmount(const std::string &) {
       return false;
     }
-    
+
     /**
      * Calls commit().
      */
     bool close() {
       return commit();
     }
-    
+
     /**
      * Not implemented in LWH.
      * @return null pointer always.
@@ -444,29 +461,29 @@ namespace LWH {
     void * cast(const std::string &) const {
       return 0;
     }
-    
+
   protected:
-    
+
     /** Strip trailing slash. */
     std::string sts(std::string s) const {
       if ( s[s.length() - 1] == '/' ) s = s.substr(0, s.length() - 1);
       if ( s[s.length() - 1] == '/' ) return "";
       return s;
     }
-    
+
     /** Strip trailing name */
     std::string stn(std::string s) const {
       std::string::size_type slash = s.rfind('/');
       return s.substr(0, slash);
     }
-    
+
     /** Get proper full path from possibly relative path. */
     std::string fullpath(std::string d) const {
       if ( d.empty() ) d = cwd;
       else if ( d[0] != '/' ) d = cwd + "/" + d;
       return pth2str(purgepath(str2pth(d)));
     }
-    
+
     /** Convert a string containing a path to a Path object. */
     Path str2pth(std::string s) const {
       Path pth;
@@ -481,14 +498,14 @@ namespace LWH {
       }
       return pth;
     }
-    
+
     /** Convert a Path object to a corresponding string. */
     std::string pth2str(const Path & pth) const {
       std::string str;
       for ( int i = 0, N = pth.size(); i < N; ++i ) str += "/" + pth[i];
       return str;
     }
-    
+
     /** Remove '..' and '.' components of the given Path object. */
     Path purgepath(const Path & pth) const {
       Path p;
@@ -498,29 +515,29 @@ namespace LWH {
       }
       return p;
     }
-    
+
   private:
-    
+
     /** The filename to print histograms to. */
     std::string name;
-    
+
     /** Format to write out in: AIDA XML, "flat" or ROOT. */
     fileformat fform;
-    
+
     /** The set of defined directories. */
     PathSet dirs;
-    
+
     /** The set of defined objects. */
     ObjMap objs;
-    
+
     /** The current working directory. */
     std::string cwd;
-    
+
     /** Overwrite strategy. */
     bool overwrite;
-    
+
   };
-  
+
 }
 
 #endif /* LWH_Tree_H */

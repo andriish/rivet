@@ -77,8 +77,9 @@ namespace Rivet {
           triedAllParents = true;
         }
       }
-      for (LevelMap::const_iterator l = defaultLevels.begin(); l != defaultLevels.end(); ++l) {
-      }
+      // for (LevelMap::const_iterator l = defaultLevels.begin(); l != defaultLevels.end(); ++l) {
+      // 
+      // }
       existingLogs[name] = new Log(name, level);
     }
     return *existingLogs[name];

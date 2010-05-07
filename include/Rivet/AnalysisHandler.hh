@@ -16,12 +16,23 @@ namespace Rivet {
   /// generated events. An {@link Analysis}' AnalysisHandler is also responsible
   /// for handling the final writing-out of histograms.
   class AnalysisHandler {
-
   public:
 
-    /// @name Standard constructors and destructors. */
+    /// @name Constructors and destructors. */
     //@{
-    /// The standard constructor.
+
+    /// Preferred constructor, with optional run name.
+    AnalysisHandler(const string& runname="");
+
+
+    /// @brief Make a Rivet handler with a set base filename and store type.
+    ///
+    /// An AnalysisHandler built with this constructor sets the output histo format
+    /// and filename when the handler is created rather than when it is written.
+    /// This is not the preferred behaviour, to allow for more flexible histogramming
+    /// in future, use the writeData() method to supply the filename and format at
+    /// the point of file-writing.
+    ///
     /// @param basefilename the name of the file (no extension) where histograms
     ///   are to be stored.
     /// @param runname optional name of this run, prepended to AIDA data paths.
@@ -32,14 +43,31 @@ namespace Rivet {
     /// @param afac an AIDA analysis factory object. The caller must make
     ///   sure that the lifetime of the factory object exceeds the AnalysisHandler
     ///   object.
-    AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet",
-                    string runname="", HistoFormat storetype=AIDAML);
+    ///
+    /// @deprecated Prefer to specify output files and formats explicitly.
+    // ND. Removed since no-one ever supplies their own AIDA analysis factory, and we want
+    // to break the AIDA dependency.
+    // AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet",
+    //                 string runname="", HistoFormat storetype=AIDAML);
 
-    /// Make a Rivet handler with a set base filename and store type.
-    AnalysisHandler(string basefilename="Rivet",
-                    string runname="", HistoFormat storetype=AIDAML);
 
-    /// The destructor is not virtual as this class should not be inherited from.
+    /// @brief Make a Rivet handler with a set base filename and store type.
+    ///
+    /// An AnalysisHandler built with this constructor sets the output histo format
+    /// and filename when the handler is created rather than when it is written.
+    /// This is not the preferred behaviour, to allow for more flexible histogramming
+    /// in future, use the writeData() method to supply the filename and format at
+    /// the point of file-writing.
+    ///
+    /// Note that the run name is now a compulsory argument: this is to avoid
+    /// conflict with the preferred one-argument constructor.
+    ///
+    /// @deprecated Prefer to specify output files and formats explicitly.
+    AnalysisHandler(const string& basefilename, const string& runname, HistoFormat storetype=AIDAML);
+
+
+    /// @brief Destructor
+    /// The destructor is not virtual, as this class should not be inherited from.
     ~AnalysisHandler();
 
     //@}
@@ -48,9 +76,15 @@ namespace Rivet {
   private:
 
     /// Do the initialisation of the AIDA analysis factories.
-    void _setupFactories(string basefilename, HistoFormat storetype);
+    /// @deprecated When AIDA goes, this goes...
+    void _setupFactories(const string& basefilename, HistoFormat storetype);
+
+    /// Do the initialisation of the AIDA analysis factories with no store.
+    /// @deprecated When AIDA goes, this goes...
+    void _setupFactories();
 
     /// Convert any IHistogram1D objects in the AIDA tree to IDataPointSet objects.
+    /// @deprecated When AIDA goes, this goes...
     void _normalizeTree(AIDA::ITree& tree);
 
     /// Get a logger object.
@@ -59,7 +93,7 @@ namespace Rivet {
 
   public:
 
-    /// @name Run properties 
+    /// @name Run properties
     //@{
 
     /// Get the name of this run.
@@ -78,7 +112,7 @@ namespace Rivet {
     /// Set sum of weights. This is useful if Rivet is steered externally and
     /// the analyses are run for a sub-contribution of the events
     /// (but of course have to be normalised to the total sum of weights)
-    void setSumOfWeights(const double& sum);   
+    void setSumOfWeights(const double& sum);
 
 
     /// Is cross-section information required by at least one child analysis?
@@ -97,7 +131,7 @@ namespace Rivet {
 
 
     /// Set beams for this run
-    AnalysisHandler& setRunBeams(const ParticlePair& beams) { 
+    AnalysisHandler& setRunBeams(const ParticlePair& beams) {
       _beams = beams;
       getLog() << Log::DEBUG << "Setting run beams = " << beams
                << " @ " << sqrtS()/GeV << " GeV" << endl;
@@ -105,7 +139,7 @@ namespace Rivet {
     }
 
     /// Get beam IDs for this run, determined from first event
-    const ParticlePair& beams() const { 
+    const ParticlePair& beams() const {
       return _beams;
     }
 
@@ -114,7 +148,7 @@ namespace Rivet {
 
     /// Get energy for this run, determined from first event
     double sqrtS() const;
-    
+
     //@}
 
 
@@ -190,22 +224,32 @@ namespace Rivet {
     //@{
 
     /// The AIDA analysis factory.
+    /// @deprecated When AIDA goes, this goes...
     AIDA::IAnalysisFactory& analysisFactory();
 
 
     /// Commit the AIDA tree to file.
+    /// @deprecated When AIDA goes, this goes...
     void commitData();
- 
+
+
+    /// Write the AIDA tree to the named file.
+    /// @deprecated When AIDA goes, this goes...
+    void writeData(const std::string& filename);
+
 
     /// The AIDA tree object.
+    /// @deprecated When AIDA goes, this goes...
     AIDA::ITree& tree();
 
- 
+
     /// The AIDA histogram factory.
+    /// @deprecated When AIDA goes, this goes...
     AIDA::IHistogramFactory& histogramFactory();
 
 
     /// The AIDA histogram factory.
+    /// @deprecated When AIDA goes, this goes...
     AIDA::IDataPointSetFactory& datapointsetFactory();
 
     //@}
@@ -222,7 +266,7 @@ namespace Rivet {
 
     /// Run name
     std::string _runname;
- 
+
     /// Number of events seen.
     size_t _numEvents;
 

@@ -1,3 +1,13 @@
+2010-05-07  Andy Buckley  <andy@insectnation.org>
+
+	* Revamping the AnalysisHandler constructor and data writing, with
+	some LWH/AIDA mangling to bypass the stupid AIDA idea of having to
+	specify the sole output file and format when making the data
+	tree. Preferred AnalysisHandler constructor now takes only one arg
+	-- the runname -- and there is a new AH.writeData(outfile) method
+	to replace AH.commitData(). Doing this now to begin migration to
+	more flexible histogramming in the long term.
+
 2010-04-21  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing LaTeX problems (make-plots) on ancient machines, like lxplus.

@@ -23,6 +23,7 @@ public:
   virtual IManagedObject * find(const std::string & name) = 0;
   virtual std::string pwd() const = 0;
   virtual bool commit() = 0;
+  virtual bool commit(std::string storename) = 0;
   virtual bool close() = 0;
   virtual bool mkdir(const std::string &) = 0;
   virtual bool mkdirs(const std::string &) = 0;

@@ -14,26 +14,40 @@ using namespace AIDA;
 namespace Rivet {
 
 
-  AnalysisHandler::AnalysisHandler(string basefilename,
-                                   string runname, HistoFormat storetype)
-    : _runname(runname), _numEvents(0), 
-      _sumOfWeights(0.0), _xs(-1.0), _initialised(false)
+  AnalysisHandler::AnalysisHandler(const string& runname)
+    : _runname(runname), _numEvents(0),
+      _sumOfWeights(0.0), _xs(-1.0),
+      _initialised(false)
   {
+    _theAnalysisFactory = createAnalysisFactory();
+    _setupFactories();
+    initializeParticleNames();
+  }
+
+
+  AnalysisHandler::AnalysisHandler(const string& basefilename,
+                                   const string& runname, HistoFormat storetype)
+    : _runname(runname), _numEvents(0),
+      _sumOfWeights(0.0), _xs(-1.0),
+      _initialised(false)
+  {
+    cerr << "AnalysisHandler(basefilename, runname, format) constructor is deprecated: "
+         << "please migrate your code to use the one-arg constructor" << endl;
     _theAnalysisFactory = createAnalysisFactory();
     _setupFactories(basefilename, storetype);
     initializeParticleNames();
   }
 
 
-  AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename,
-                                   string runname, HistoFormat storetype)
-    : _runname(runname), _numEvents(0), 
-      _sumOfWeights(0.0), _xs(-1.0), _initialised(false), 
-      _theAnalysisFactory(&afac) 
-  {
-    _setupFactories(basefilename, storetype);
-    initializeParticleNames();
-  }
+  // AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename,
+  //                                  string runname, HistoFormat storetype)
+  //   : _runname(runname), _numEvents(0),
+  //     _sumOfWeights(0.0), _xs(-1.0), _initialised(false),
+  //     _theAnalysisFactory(&afac)
+  // {
+  //   _setupFactories(basefilename, storetype);
+  //   initializeParticleNames();
+  // }
 
 
   AnalysisHandler::~AnalysisHandler()
@@ -51,13 +65,13 @@ namespace Rivet {
     getLog() << Log::DEBUG << "Initialising the analysis handler" << endl;
     _numEvents = 0;
     _sumOfWeights = 0.0;
-    
+
     // Check that analyses are beam-compatible
     const size_t num_anas_requested = analysisNames().size();
     removeIncompatibleAnalyses(beamIds());
     foreach (const Analysis* a, analyses()) {
       if (toUpper(a->status()) != "VALIDATED") {
-        getLog() << Log::WARN 
+        getLog() << Log::WARN
                  << "Analysis '" << a->name() << "' is unvalidated: be careful!" << endl;
       }
     }
@@ -67,7 +81,7 @@ namespace Rivet {
                << "Exiting, since this probably isn't intentional!" << endl;
       exit(1);
     }
-    
+
     foreach (Analysis* a, _analyses) {
       getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
       // Allow projection registration in the init phase onwards
@@ -99,7 +113,7 @@ namespace Rivet {
       exit(1);
     }
 
-    
+
     Event event(ge);
     _numEvents++;
     // Weights
@@ -198,7 +212,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::_setupFactories(string basefilename, HistoFormat storetype) {
+  void AnalysisHandler::_setupFactories(const string& basefilename, HistoFormat storetype) {
     string filename(basefilename), storetypestr("");
     if (storetype == AIDAML) {
       if (!endsWith(filename, ".aida")) filename += ".aida";
@@ -216,8 +230,20 @@ namespace Rivet {
   }
 
 
+  void AnalysisHandler::_setupFactories() {
+    _theTree = _theAnalysisFactory->createTreeFactory()->create();
+    _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
+    _theDataPointSetFactory = _theAnalysisFactory->createDataPointSetFactory(tree());
+  }
+
+
   void AnalysisHandler::commitData() {
     tree().commit();
+  }
+
+
+  void AnalysisHandler::writeData(const string& filename) {
+    tree().commit(filename);
   }
 
 
@@ -228,16 +254,16 @@ namespace Rivet {
     const string tmpdir = "/RivetNormalizeTmp";
     tree.mkdir(tmpdir);
     foreach (const string& path, paths) {
-   
+
       IManagedObject* hobj = tree.find(path);
       if (hobj) {
-        
+
         // Weird seg fault on SLC4 when trying to dyn cast an IProfile ptr to a IHistogram
         // Fix by attempting to cast to IProfile first, only try IHistogram if it fails.
         IHistogram1D* histo = 0;
         IProfile1D* prof = dynamic_cast<IProfile1D*>(hobj);
         if (!prof) histo = dynamic_cast<IHistogram1D*>(hobj);
-        
+
         // If it's a normal histo:
         if (histo) {
           log << Log::TRACE << "Converting histo " << path << " to DPS" << endl;
@@ -268,7 +294,7 @@ namespace Rivet {
         }
 
       }
-   
+
     }
     tree.rmdir(tmpdir);
   }
@@ -359,7 +385,7 @@ namespace Rivet {
     return *this;
   }
 
-  BeamPair AnalysisHandler::beamIds() const { 
+  BeamPair AnalysisHandler::beamIds() const {
     return Rivet::beamIds(beams());
   }
 

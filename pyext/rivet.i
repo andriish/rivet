@@ -88,7 +88,7 @@ namespace Rivet {
     virtual std::string status() const;
     virtual std::string bibKey() const;
     virtual std::string bibTeX() const;
-    virtual const bool isCompatible(const ParticleName& beam1, 
+    virtual const bool isCompatible(const ParticleName& beam1,
                                     const ParticleName& beam2) const;
     virtual const bool isCompatible(const BeamPair& beams) const;
     //AnalysisHandler& handler() const;
@@ -100,8 +100,9 @@ namespace Rivet {
 
   class AnalysisHandler {
   public:
-    AnalysisHandler(std::string basefilename="Rivet", 
-                    std::string runname="", 
+    AnalysisHandler(const std::string& runname);
+    AnalysisHandler(const std::string& basefilename,
+                    const std::string& runname,
                     HistoFormat storetype=AIDAML);
     std::string runName() const;
     size_t numEvents() const;
@@ -122,6 +123,7 @@ namespace Rivet {
     bool needCrossSection();
     AnalysisHandler& setCrossSection(double xs);
     void commitData();
+    void writeData(const std::string& filename);
   };
 
 

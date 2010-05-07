@@ -71,6 +71,7 @@ namespace Rivet {
 
     /// @name Main analysis methods
     //@{
+
     /// Initialize this analysis object. A concrete class should here
     /// book all necessary histograms. An overridden function must make
     /// sure it first calls the base class function.

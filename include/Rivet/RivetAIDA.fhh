@@ -1,4 +1,4 @@
-#ifndef ANALYSIS_RIVETAIDA_FHH 
+#ifndef ANALYSIS_RIVETAIDA_FHH
 #define ANALYSIS_RIVETAIDA_FHH
 
 /// @author Andy Buckley
@@ -19,9 +19,10 @@ namespace AIDA {
   class IAxis;
 }
 
-
 #include <vector>
+
 namespace Rivet {
+
   /// Typedef for a collection of bin edges.
   typedef std::vector<double> BinEdges;
 
