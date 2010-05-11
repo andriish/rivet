@@ -107,7 +107,7 @@ def convertHisto(R_histo):
         try:
             binstr = ""
             for key in ["xlow", "xhigh", "y", "y_err_low", "y_err_high"]:
-                binstr += "%s: %f "%(key, bin[key])
+                binstr += "%s: %e "%(key, bin[key])
             logging.info(binstr)
         except:
             pass
