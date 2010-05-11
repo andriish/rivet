@@ -35,7 +35,8 @@ namespace Rivet {
 
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
       /// @todo This doesn't seem to be being used for anything...
-      VetoedFinalState vfs(VisibleFinalState(fs));
+      VisibleFinalState visfs(fs);
+      VetoedFinalState vfs(visfs);
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
 
@@ -117,7 +118,7 @@ namespace Rivet {
 
       // Check there isn't too much missing Et
       const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
-      getLog() << Log::DEBUG << "Missing ET = " << caloMissEt.visibleMomentum().ET()/GeV << " GeV" << endl;
+      getLog() << Log::DEBUG << "Missing ET = " << caloMissEt.visibleMomentum().Et()/GeV << " GeV" << endl;
       /// @todo Looks dodgy to me... only difference is pT vs. Et. Really?
       if ((caloMissEt.visibleMomentum().pT()/GeV)/sqrt(caloMissEt.visibleMomentum().Et()/GeV) > 6.0) vetoEvent;
 
