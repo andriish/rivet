@@ -14,9 +14,9 @@
 ##
 ## Usage example:
 ##  $ uemerge hwpp/hpp-1800-{030.aida:1800:30,090.aida:1800:90} > hpp-hists.dat
-##  $ flat2aida hpp-hists.dat 
+##  $ flat2aida hpp-hists.dat
 ##  $ mkdir plots && cd plots
-##  $ compare_histos.py ../ref04.aida ../hpp-hists.aida 
+##  $ compare_histos.py ../ref04.aida ../hpp-hists.aida
 ##  $ make_plot.py --pdf *.dat
 
 
@@ -164,7 +164,7 @@ class Bin:
         global opts
 #         if opts.GNUPLOT:
 #             out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval,
-#                                               self.xlow, self.xhigh, 
+#                                               self.xlow, self.xhigh,
 #                                               self.yval-self.yerrminus, self.yval+self.yerrplus)
 #         else:
         out = "%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, 0.5*(self.yerrminus+self.yerrplus))
@@ -280,7 +280,7 @@ def fillAbove(desthisto, sourcehistosbyptmin):
                 desthisto.setBin(i, newb)
                 ##### This logging line breaks the output!!!!!!!
                 ####logging.debug("Copied: %s / %s" % (str(b), str(histosS[hpath][sqrts].getBin(i))) )
-    
+
 def mergeByPt(hpath, sqrts):
     global inhistos
     global outhistos
@@ -302,7 +302,7 @@ def useOnePt(hpath, sqrts, ptmin):
                 closest_ptmin = float(ptm)
         if closest_ptmin != float(ptmin):
             logging.warning("Inexact match for requested pTmin=%s: " % ptmin + \
-                                "using pTmin=%f instead" % closest_ptmin)
+                                "using pTmin=%e instead" % closest_ptmin)
         outhistos[hpath] =  inhistos[hpath][sqrts][closest_ptmin]
     except:
         pass

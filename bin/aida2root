@@ -15,7 +15,7 @@
 import sys, os
 from array import array
 try:
-    from ROOT import TGraphAsymmErrors, TFile 
+    from ROOT import TGraphAsymmErrors, TFile
 except:
     sys.stderr.write("Couldn't find PyROOT module. If ROOT is installed, PyROOT probably is too, but it's not currently accessible\n")
     foundpyroot = False
@@ -136,11 +136,11 @@ class Bin:
         self.focus= focus
 
     def __str__(self):
-        out = "%f to %f: %f +- %f" % (self.xval-self.xerrminus, self.xval+self.xerrplus, self._yval, self._yerr)
+        out = "%e to %e: %e +- %e" % (self.xval-self.xerrminus, self.xval+self.xerrplus, self._yval, self._yerr)
         return out
 
     def asFlat(self):
-        out = "%f %f %f %f %f" % (self.xval-self.xerrminus, self.xval+self.xerrplus, self.yval, self.yerrminus, self.yerrplus)
+        out = "%e %e %e %e %e" % (self.xval-self.xerrminus, self.xval+self.xerrplus, self.yval, self.yerrminus, self.yerrplus)
         return out
 
     def __cmp__(self, other):
@@ -238,11 +238,11 @@ def mkHistoFromDPS(dps):
 
 from optparse import OptionParser
 parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
-parser.add_option("-s", "--smart-output", action="store_true", default=True, 
-                  help="Write to output files with names based on the corresponding input filename", 
+parser.add_option("-s", "--smart-output", action="store_true", default=True,
+                  help="Write to output files with names based on the corresponding input filename",
                   dest="SMARTOUTPUT")
 parser.add_option("-m", "--match", action="append",
-                  help="Only write out histograms whose $path/$name string matches these regexes", 
+                  help="Only write out histograms whose $path/$name string matches these regexes",
                   dest="PATHPATTERNS")
 opts, args = parser.parse_args()
 if opts.PATHPATTERNS is None:

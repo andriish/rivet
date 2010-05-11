@@ -102,7 +102,7 @@ def getRefHistos(refpath):
         try:
             refhistos=getHistosFromAIDA(refpath)
             logging.info("Read ref histos from file %s"%refpath)
-        # Otherwise assume refpath is a directory    
+        # Otherwise assume refpath is a directory
         except:
             for aida in os.listdir(refpath):
                 if aida.endswith(".aida"):
@@ -172,9 +172,9 @@ def getBindef(line):
     if len(splitline) == 2:
         try:
             area = float(splitline[1])
-            logging.debug("Success: %f"%area)
+            logging.debug("Success: %e" % area)
         except:
-            logging.debug("Failed: %s"%splitline[1])
+            logging.debug("Failed: %s" % splitline[1])
             pass
     return (low, high, area)
 
@@ -298,8 +298,7 @@ if __name__ == "__main__":
                 newarea = tempref.getArea()
 
             # Renormalise histo
-            logging.info("Rescaling %s from %f to %f"%(name, oldarea,
-                newarea))
+            logging.info("Rescaling %s from %e to %e" % (name, oldarea, newarea))
             renormed = tempold.renormalise(newarea)
 
             # Write to file
@@ -312,4 +311,4 @@ if __name__ == "__main__":
     if opts.AIDA:
         f.write("</aida>")
 
-    logging.info("Done. Written output to %s."%outfile)
+    logging.info("Done. Written output to %s." % outfile)
