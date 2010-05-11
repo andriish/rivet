@@ -117,8 +117,9 @@ namespace Rivet {
 
       // Check there isn't too much missing Et
       const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
-      getLog() << Log::DEBUG << "Missing pT = " << caloMissEt.momentum().pT()/GeV << " GeV" << endl;
-      if ((caloMissEt.momentum().pT()/GeV)/sqrt(caloMissEt.momentum().Et()/GeV) > 6.0) vetoEvent;
+      getLog() << Log::DEBUG << "Missing ET = " << caloMissEt.visibleMomentum().ET()/GeV << " GeV" << endl;
+      /// @todo Looks dodgy to me... only difference is pT vs. Et. Really?
+      if ((caloMissEt.visibleMomentum().pT()/GeV)/sqrt(caloMissEt.visibleMomentum().Et()/GeV) > 6.0) vetoEvent;
 
       // Check jet requirements
       if (jets.size() < 3) vetoEvent;
