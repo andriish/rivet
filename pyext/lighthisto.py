@@ -230,8 +230,7 @@ class Histo(object):
                         br[0] <= curran[1] <= br[1])):
                 new.addBin(b)
             else:
-                logging.debug("Chopping bin %s:%f" % (self.fullPath(),
-                             b.getBinCenter()))
+                logging.debug("Chopping bin %s: %e" % (self.fullPath(), b.getBinCenter()))
         return new
 
     def renormalise(self, newarea):
