@@ -3,7 +3,9 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/VisibleFinalState.hh"
+#include "Rivet/Projections/MissingMomentum.hh"
 
 namespace Rivet {
 
@@ -45,12 +47,13 @@ namespace Rivet {
       const FinalState fs(-3.0, 3.0);
       addProjection(fs, "FS");
       addProjection(FastJets(FinalState(), FastJets::D0ILCONE, 0.7), "Jets");
-      addProjection(TotalVisibleMomentum(fs), "CalMET");
+      addProjection(MissingMomentum(fs), "CalMET");
 
       // Veto neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState vfs(fs);
-      vfs.vetoNeutrinos();
-      vfs.addVetoPairDetail(MUON, 1.0, MAXDOUBLE);
+      /// @todo This doesn't seem to be used for anything: fix!
+      VisibleFinalState visfs(fs);
+      VetoedFinalState vfs(visfs);
+      vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
 
       // Book histograms
@@ -82,9 +85,9 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
       const double pT1 = jets[0].momentum().pT();
 
-      const TotalVisibleMomentum& caloMissEt = applyProjection<TotalVisibleMomentum>(event, "CalMET");
-      getLog() << Log::DEBUG << "Missing Et = " << caloMissEt.momentum().pT()/GeV << endl;
-      if (caloMissEt.momentum().pT() > 0.7*pT1) {
+      const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
+      getLog() << Log::DEBUG << "Missing scalar Et = " << caloMissEt.scalarET()/GeV << " GeV" << endl;
+      if (caloMissEt.scalarET() > 0.7*pT1) {
         vetoEvent;
       }
 

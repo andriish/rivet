@@ -7,7 +7,7 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 
 namespace Rivet {
@@ -48,11 +48,8 @@ namespace Rivet {
       mufs.acceptIdPair(MUON);
       addProjection(mufs, "Muons");
 
-      VetoedFinalState missing(fs);
-      missing.vetoNeutrinos();
-      missing.addVetoId(1000022); // lightest neutralino = usual LSP
-      missing.addVetoId(1000039); // gravitino = LSP in GMSB
-      addProjection(TotalVisibleMomentum(missing), "MET");
+      MissingMomentum missing(fs);
+      addProjection(missing, "MET");
 
       LeadingParticlesFinalState lpfs(fs);
       lpfs.addParticleIdPair(ELECTRON);
@@ -206,9 +203,8 @@ namespace Rivet {
       }
 
       // Calculate and fill missing Et histos
-      const TotalVisibleMomentum& met = applyProjection<TotalVisibleMomentum>(evt, "MET");
-      /// @todo should this really be the scalarET sum, and not met.momentum().Et()?
-      _hist_met->fill(met.scalarET()/GeV);
+      const MissingMomentum& met = applyProjection<MissingMomentum>(evt, "MET");
+      _hist_met->fill(met.vectorET()/GeV);
 
       // Choose highest-pT leptons of each sign and flavour for dilepton mass edges
       const FinalState& lpfs = applyProjection<FinalState>(evt, "LeadingParticles");

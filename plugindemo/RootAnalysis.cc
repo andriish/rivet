@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 // ROOT stuff
@@ -16,13 +16,13 @@ namespace Rivet {
   /// @brief Book and fill a ROOT tree with simulated data.
   ///
   /// This does some things, e.g. access parton level information, which
-  /// are not recommended in Rivet analyses, since the information is 
+  /// are not recommended in Rivet analyses, since the information is
   /// unphysical and so cannot be compared to data, and also may be generator dependent.
-  /// 
+  ///
   class RootAnalysis : public Analysis {
   public:
 
-    RootAnalysis() : Analysis("ROOTANALYSIS") { 
+    RootAnalysis() : Analysis("ROOTANALYSIS") {
       // Choose cuts
       _jet_pt_cut = 20*GeV;
       _subj_pt_cut = 20*GeV;
@@ -30,24 +30,15 @@ namespace Rivet {
       _store_partons = true;
       _treeFileName = "rivetTree.root";
     }
-    
-    
+
+
     void init() {
       const FinalState fs(-4.0, 4.0, 0.0*GeV);
       addProjection(fs, "FS");
       addProjection(ChargedLeptons(fs), "ChLeptons");
       addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
-      
-      /// Veto neutrinos, antineutrinos and LSP
-      VetoedFinalState vfs(fs);
-      vfs
-        .addVetoDetail(NU_E, 10.0*GeV, 50.0*GeV)
-        .addVetoPairId(NU_MU)
-        .addVetoPairId(NU_TAU)
-        .addVetoId(1000022); // Assumes that neutralino_1 is the LSP
-      addProjection(vfs, "VFS");
-      addProjection(TotalVisibleMomentum(vfs), "TotalVisMom");
-      
+      addProjection(MissingMomentum(fs), "TotalVisMom");
+
       ZFinder zs(fs, ELECTRON, 80*GeV, 100*GeV, 0.2);
       addProjection(zs, "Zs");
 
@@ -55,12 +46,12 @@ namespace Rivet {
       _treeFile = new TFile(_treeFileName, "recreate");
       _rivetTree = new TTree("Rivet Tree", "Rivet Example Tree");
       _rivetTree->Branch("nevt", &_nevt, "nevt/I");
-      
+
       // Vector bosons
       _rivetTree->Branch("nvb", &_nvb, "nvb/I");
       _rivetTree->Branch("vbtype", &_vbtype, "vbtype[nvb]/I");
       _rivetTree->Branch("vbvec", &_vbvec, "vbvec[nvb][4]/F");
-      // Jets      
+      // Jets
       _rivetTree->Branch("njet", &_njet, "njet/I");
       _rivetTree->Branch("vjet", &_vjet, "vjet[njet][4]/F");
       // Subjets
@@ -79,13 +70,13 @@ namespace Rivet {
       // Missing Et
       _rivetTree->Branch("esumr", &_esumr, "esumr[4]/F");
     }
-    
+
 
     // Do the analysis
     void analyze(const Event& event) {
       const GenEvent& ev = event.genEvent();
       _nevt = ev.event_number();
-      
+
       // Get the vector bosons
       _nvb = 0;
       const FinalState& zs = applyProjection<FinalState>(event, "Zs");
@@ -98,13 +89,13 @@ namespace Rivet {
         _vbtype[_nvb]   = 1;
         ++_nvb;
       }
-      
+
       // Get the partons. This is generator-dependent and should not be
       // used in normal analyses.
       _npart = 0;
       if (_store_partons) {
         foreach (const HepMC::GenParticle* p, particles(event.genEvent())) {
-          // Only include particles which are documentation line (status >1) 
+          // Only include particles which are documentation line (status >1)
           // The result/meaning will be generator dependent.
           if (p->status() >= 2) {
             const FourMomentum p4 = p->momentum();
@@ -130,8 +121,8 @@ namespace Rivet {
           }
         }
       }
-      
-      
+
+
       // Get the jets in decreasing pT order.
       const FastJets& jets = applyProjection<FastJets>(event, "Jets");
       PseudoJets jetList = jets.pseudoJetsByPt();
@@ -156,12 +147,12 @@ namespace Rivet {
                 _ysubsj[_nsub][i] = 0;
               }
             }
-            ++_nsub;	 
+            ++_nsub;
           }
           ++_njet;
         }
       }
-      
+
       // Loop over leptons
       _nlep = 0;
       const ChargedLeptons& cl = applyProjection<ChargedLeptons>(event, "ChLeptons");
@@ -175,24 +166,24 @@ namespace Rivet {
           ++_nlep;
         }
       }
-      
-      // Missing Et/total energy
-      const TotalVisibleMomentum& tvm = applyProjection<TotalVisibleMomentum>(event, "TotalVisMom");
-      _esumr[0] = tvm.momentum().E()/GeV;
-      _esumr[1] = tvm.momentum().px()/GeV;
-      _esumr[2] = tvm.momentum().py()/GeV;
-      _esumr[3] = tvm.momentum().pz()/GeV;
-      
+
+      // Total energy vector == -1 * invisible momentum
+      const MissingMomentum& tvm = applyProjection<MissingMomentum>(event, "TotalVisMom");
+      _esumr[0] = tvm.visibleMomentum().E()/GeV;
+      _esumr[1] = tvm.visibleMomentum().px()/GeV;
+      _esumr[2] = tvm.visibleMomentum().py()/GeV;
+      _esumr[3] = tvm.visibleMomentum().pz()/GeV;
+
       // Finally fill the tree
       _rivetTree->Fill();
     }
-    
-    
-    void finalize() { 
+
+
+    void finalize() {
       // Write the tree to file.
       _rivetTree->Write();
     }
-    
+
     //@}
 
 
@@ -200,7 +191,7 @@ namespace Rivet {
 
     /// The tree
     TTree* _rivetTree;
-    
+
     /// The file for the Tree
     TFile* _treeFile;
 
@@ -211,22 +202,22 @@ namespace Rivet {
     /// @name The ntuple variables.
     //@{
     /// Event number
-    int _nevt;            
+    int _nevt;
 
     /// Number of W bosons
-    int _nvb;             
+    int _nvb;
     /// 4 momentum of W bosons.
     float _vbvec[8][4];
     /// Type (i.e. decay mode) of W bosons.
-    int _vbtype[8]; 
+    int _vbtype[8];
 
     /// Number of jets
-    int _njet; 
+    int _njet;
     /// Four momentum of the jets
-    float _vjet[50][4]; 
+    float _vjet[50][4];
 
     /// Number of jets for which the subjet analysis was performed.
-    int _nsub; 
+    int _nsub;
     /// Four vector of jets for which we found subjets.
     float _sjet3[200][4];
     /// y 1->2, 2->3, 3->4, 4->5 for the above jets.
@@ -239,7 +230,7 @@ namespace Rivet {
     float _vlep[150][4];
 
     /// Number of partons
-    int _npart; 
+    int _npart;
     float _ppart[4000][4];
     int _pid[4000];
     int _mo[4000];
@@ -262,7 +253,7 @@ namespace Rivet {
 
   };
 
-  
+
 
   // This global object acts as a hook for the plugin system
   AnalysisBuilder<RootAnalysis> plugin_RootAnalysis;

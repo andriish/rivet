@@ -22,6 +22,8 @@ namespace Rivet {
     {
       setName("TotalVisibleMomentum");
       addProjection(fsp, "FS");
+      getLog() << Log::WARNING << "TotalVisibleMomentum projection is deprecated: "
+               << "please use the MissingMomentum projection instead." << endl;
     }
 
     /// Clone on the heap.

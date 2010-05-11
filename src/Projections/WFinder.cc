@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
 #include "Rivet/Projections/ClusteredPhotons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
@@ -44,7 +44,7 @@ namespace Rivet {
 
 
   void WFinder::_init(const std::vector<std::pair<double, double> >& etaRanges,
-                      double pTmin,  
+                      double pTmin,
                       PdgId pid,
                       double m2_min, double m2_max,
                       double missingET,
@@ -87,7 +87,7 @@ namespace Rivet {
     l_nu_ids += make_pair(-abs(pid), abs(nu_pid));
     InvMassFinalState imfs(mergedFS, l_nu_ids, m2_min, m2_max);
     addProjection(imfs, "IMFS");
- 
+
     // A projection for clustering photons on to the charged lepton
     ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
     addProjection(cphotons, "CPhotons");
@@ -95,11 +95,11 @@ namespace Rivet {
     // Projection for all signal constituents
     MergedFinalState signalFS(imfs, cphotons);
     addProjection(cphotons, "SignalParticles");
-    
-    // Add TotalVisibleMomentum proj to calc MET
-    TotalVisibleMomentum vismom(signalFS);
+
+    // Add MissingMomentum proj to calc MET
+    MissingMomentum vismom(signalFS);
     addProjection(vismom, "MissingET");
-    
+
     // FS for non-signal bits of the event
     VetoedFinalState remainingFS;
     remainingFS.addVetoOnThisFinalState(signalFS);
@@ -171,10 +171,10 @@ namespace Rivet {
     msg << " = " << pW;
 
     // Check missing ET
-    const TotalVisibleMomentum& vismom = applyProjection<TotalVisibleMomentum>(e, "MissingET");
-    /// @todo Restrict missing momentum eta range?
+    const MissingMomentum& vismom = applyProjection<MissingMomentum>(e, "MissingET");
+    /// @todo Restrict missing momentum eta range? Use vectorET()?
     if (vismom.scalarET() < _etMiss) {
-      getLog() << Log::DEBUG << "Not enough missing ET: " << vismom.scalarET()/GeV 
+      getLog() << Log::DEBUG << "Not enough missing ET: " << vismom.scalarET()/GeV
                << " GeV vs. " << _etMiss/GeV << " GeV" << endl;
       return;
     }
@@ -182,7 +182,7 @@ namespace Rivet {
     // Check mass range again
     if (!inRange(pW.mass()/GeV, _m2_min, _m2_max)) return;
     getLog() << Log::DEBUG << msg.str() << endl;
-    
+
     // Make W Particle and insert into particles list
     const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WMINUSBOSON;
     _theParticles.push_back(Particle(wpid, pW));

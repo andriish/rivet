@@ -3,7 +3,8 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Projections/JetShape.hh"
 
 namespace Rivet {
@@ -30,13 +31,11 @@ namespace Rivet {
       const FinalState fs(-2.0, 2.0);
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-      addProjection(TotalVisibleMomentum(fs), "CalMET");
 
       // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState vfs(fs);
-      vfs.vetoNeutrinos();
+      VisibleFinalState visfs(fs);
+      VetoedFinalState vfs(visfs);
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(vfs, "VFS");
       addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
 
       // Specify pT bins
@@ -62,7 +61,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
+      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
       getLog() << Log::DEBUG << "Jet multiplicity before cuts = " << jets.size() << endl;
 
       // Determine the central jet axes

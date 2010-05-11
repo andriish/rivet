@@ -1,3 +1,8 @@
+2010-05-11  Andy Buckley  <andy@insectnation.org>
+
+	* Replacing TotalVisibleMomentum with MissingMomentum in analyses
+	and WFinder. Using vector ET rather than scalar ET in some places.
+
 2010-05-07  Andy Buckley  <andy@insectnation.org>
 
 	* Revamping the AnalysisHandler constructor and data writing, with
