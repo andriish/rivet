@@ -26,7 +26,7 @@ int main() {
   while (evt) {
     rivet.analyze(*evt);
     // Problem with HepMC file portability: temporarily disable
-    // sum_of_weights += evt->weights()[0];
+    sum_of_weights += evt->weights()[0];
 
     // Clean up and get next event
     delete evt; evt = 0;
