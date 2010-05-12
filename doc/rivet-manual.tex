@@ -30,7 +30,7 @@
 \keywords{Event generator, simulation, validation, tuning, QCD}
 
 
-\begin{document} 
+\begin{document}
 
 
 \section{Introduction}
@@ -180,7 +180,7 @@ e.g. \kbd{\home/build}), and download the script:\\
 \inp{chmod +x rivet-bootstrap}\\
 Now run it to get some help:
 \inp{./rivet-bootstrap --help}\\
-Now to actually do the install: for example, to bootstrap Rivet and AGILe 
+Now to actually do the install: for example, to bootstrap Rivet and AGILe
 to the install area specified as the prefix argument, run this:\\
 \inp{./rivet-bootstrap --install-agile --prefix=\val{localdir}}
 
@@ -287,10 +287,10 @@ experiment simulation chains), we recommend using a Unix \emph{named pipe} (or
 unusual at first, it is just a nice way of ``pretending'' that we are writing to
 and reading from a file, without actually involving any slow disk access or
 building of huge files: a 1M event LHC run would occupy $\sim 60 GB$ on disk,
-and typically it takes twice as long to make and analyse the events when the 
+and typically it takes twice as long to make and analyse the events when the
 filesystem is involved! Here is an example:\\
 \inp{mkfifo fifo.hepmc}\\
-\inp{agile-runmc Pythia:6418 -o fifo.hepmc \&}\\
+\inp{agile-runmc Pythia6:422 -o fifo.hepmc \&}\\
 \inp{rivet -a EXAMPLE fifo.hepmc}\\
 %
 Note that the generator process (\kbd{agile-runmc} in this case) is
@@ -333,13 +333,13 @@ listed in \AppendixRef{app:agilerunmc}.
     one originally used for the \Delphi automated ``\textsc{Professor}''
     generator tuning.  If the first event in the data file does not have
     appropriate beam particles, the analysis will be disabled; since there is only one
-    analysis in this case, the command will exit immediately with a warning if the 
+    analysis in this case, the command will exit immediately with a warning if the
     first event is not an $\Ppositron\Pelectron$ event.}
 
-\item \paragraph{Using all analyses:}{\kbd{rivet -n~50000 -A -} will read up to 
-    50k events from standard input (specified by the special ``-'' input filename) 
-    and analyse them with \emph{all} the Rivet library analyses. As above, 
-    incompatible analyses (based on beam particle IDs), will be removed before 
+\item \paragraph{Using all analyses:}{\kbd{rivet -n~50000 -A -} will read up to
+    50k events from standard input (specified by the special ``-'' input filename)
+    and analyse them with \emph{all} the Rivet library analyses. As above,
+    incompatible analyses (based on beam particle IDs), will be removed before
     the main analysis run begins.}
 
 \item \paragraph{Histogramming:}{\kbd{rivet fifo.hepmc -H~foo} will read all the
@@ -464,10 +464,10 @@ with $x<2$ and $x>35$ of both, the histogram in your \kbd{Rivet.aida} and the
 reference-data histogram. The remaining MC histogram is then normalised to the
 remaining area of the reference-data histogram.
 
-\paragraph{Normalising to arbitrary areas}% 
+\paragraph{Normalising to arbitrary areas}%
 In the file \kbd{observables} you
 can further specify an arbitrary number, e.g. a generator cross-section, as
-follows: 
+follows:
 %
 \begin{snippet}
 /CDF_2000_S4155203/d01-x01-y01  1.0
@@ -643,7 +643,7 @@ objects. And of course Rivet provides lots of tools to do almost all the
 standard fiddly bits for you, so there's no excuse!\\[\lineskip]
 
 \noindent
-Good luck, and be careful! 
+Good luck, and be careful!
 
 % While the event record "truth" structure may look very
 % compellingly like a history of the event processes, it is extremely important to
@@ -671,7 +671,7 @@ Good luck, and be careful!
 %     * The generator-level barcodes do not have any reliable meaning: any use of them is based on HEPEVT conventions whihc may break, especially for new generators which have never used HEPEVT
 %     * Many (all?) generators contain multiple copies of single internal particles, as a bookkeeping tools for various stages of event processing. Determining which (if any) is physically meaningful (e.g. which boosts were or weren't applied, whether QED radiation was included, etc.) is not defined in a cross-generator way.
 %     * The distinction between "matrix element" and "parton shower" is ill-defined: ideally everything would be emitted from the parton shower and indeed the trend is to head at least partially in this direction (cf. CKKW/POWHEG). You probably can't make a physically useful interpretation of the "hard process", even if particular event records allow you to identify such a thing.
-%     * Quark and gluon jets aren't as simple as the names imply on the "truth" level: to perform colour neutralisation, jets must include more contributions than a single hard process parton. When you look at event graphs, it becomes hard to define these things on a truth level. Use an observable-based heuristic definition instead. 
+%     * Quark and gluon jets aren't as simple as the names imply on the "truth" level: to perform colour neutralisation, jets must include more contributions than a single hard process parton. When you look at event graphs, it becomes hard to define these things on a truth level. Use an observable-based heuristic definition instead.
 
 % Hence, any truth-structure assumptions need to checked and probably modified
 % when moving from one generator to another: clearly this can lead to
@@ -1035,7 +1035,7 @@ method of your analysis you should book histograms with function calls like:
   void MyAnalysis::init() {
     _h_one = bookHistogram1D(2,1,1, "Title 2", "x label", "y label");
     _h_two = bookProfile1D(3,1,2, "Title 2", "x label", "y label");
-    _h_three = bookHistogram1D("d00-x00-y00", "Title", 
+    _h_three = bookHistogram1D("d00-x00-y00", "Title",
                                "x label", "y label", 50, 0.0, 1.0);
   }
 \end{snippet}
@@ -1101,7 +1101,7 @@ unspecified, the Rivet loader system will assume that the only entry is the
 \kbd{lib} directory in the Rivet installation area -- specifying the variable
 will disable this standard location to allow you to override standard analyses
 with same-named variants of your own (provided they are loaded from different
-directories). 
+directories).
 
 \begin{change}
   Note that the search path behaviour has changed as of Rivet 1.2.0: previously
@@ -1125,14 +1125,14 @@ the Rivet website: \url{http://projects.hepforge.org/rivet/trac/wiki/}
 % \cleardoublepage
 % \part{How Rivet \emph{really} works}
 % \label{part:internals}
-% 
+%
 % In time this will be the place to look for all the nitty gritty on what Rivet is
 % doing internally. Not very many people need to know that, and the few that do
 % currently don't need a manual for it!
-% 
+%
 % \section{Projection caching}
 % \TODO{TODO}
-% 
+%
 % \subsection{Writing a Projection comparison operator}
 % \TODO{TODO}
 
@@ -1151,8 +1151,8 @@ the Rivet website: \url{http://projects.hepforge.org/rivet/trac/wiki/}
       -n~1000} will use the Fortran Herwig 6.5.10 generator (the \kbd{-g} option
     switch) to generate 1000 events (the \kbd{-n} switch) in LEP1 mode,
     i.e. $\Ppositron\Pelectron$ collisions at $\sqrt{s} = \unit{91.2}{\GeV}$.}
-  
-\item \paragraph{Parameter changes:}{\kbd{agile-runmc Pythia6:418
+
+\item \paragraph{Parameter changes:}{\kbd{agile-runmc Pythia6:422
       --beams=LEP:91.2 -n~1000 \cmdbreak -P~myrun.params -p~"PARJ(82)=5.27"}
     will generate 1000 events using the Fortran Pythia 6.4.18 generator, again
     in LEP1 mode. The \kbd{-P} switch is actually the way of specifying a
@@ -1165,8 +1165,8 @@ the Rivet website: \url{http://projects.hepforge.org/rivet/trac/wiki/}
     line is useful for scanning parameter ranges from a shell loop, or rapid
     testing of parameter values without needing to write a parameters file for
     use with~\kbd{-P}.}
-  
-\item \paragraph{Writing out HepMC events:}{\kbd{agile-runmc Pythia6:418
+
+\item \paragraph{Writing out HepMC events:}{\kbd{agile-runmc Pythia6:422
       --beams=LHC:14TeV -n~50 -o~out.hepmc -R} will generate 50 LHC events with
     Pythia. The~\kbd{-o} switch is being used here to tell \kbd{agile-runmc} to
     write the generated events to the \kbd{out.hepmc} file. This file will be a
