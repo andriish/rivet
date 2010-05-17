@@ -46,15 +46,16 @@ namespace Rivet {
       // Final state for jets, mET etc.
       const FinalState fs(-3.0, 3.0);
       addProjection(fs, "FS");
-      addProjection(FastJets(FinalState(), FastJets::D0ILCONE, 0.7), "Jets");
-      addProjection(MissingMomentum(fs), "CalMET");
-
       // Veto neutrinos, and muons with pT above 1.0 GeV
-      /// @todo This doesn't seem to be used for anything: fix!
-      VisibleFinalState visfs(fs);
-      VetoedFinalState vfs(visfs);
+      VetoedFinalState vfs(fs);
+      vfs.vetoNeutrinos();
+      //VisibleFinalState vfs(fs);
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
+      addProjection(FastJets(vfs, FastJets::D0ILCONE, 0.7), "Jets");
+      addProjection(MissingMomentum(vfs), "CalMET");
+
+
 
       // Book histograms
       _histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1);
