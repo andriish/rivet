@@ -36,25 +36,13 @@ namespace Rivet {
   /// Get the file system path to the AIDA reference file for this paper.
   const string getDataPath(string papername);
 
-  /// Normalize the histogram to @a norm .
-  inline void normalize(AIDA::IHistogram1D* histo, const double norm=1.0) {
-    assert(norm != 0.0);
-    double area = 0;
-    for (int i=0; i < histo->axis().bins(); ++i) {
-      area += histo->binHeight(i) * histo->axis().binWidth(i);
-    }
-    if (area != 0) {
-      histo->scale(norm/area);
-    }
-  }
-
-
   /// Return the integral over the histogram bins assuming it has been
   // normalize()d.
   inline double integral(AIDA::IHistogram1D* histo) {
     double intg = 0.;
     for ( int i = 0; i < histo->axis().bins(); ++i )
-      intg += histo->binHeight(i) * histo->axis().binWidth(i);
+      // Don't multiply with binWidth -- it's already included in binHeight
+      intg += histo->binHeight(i); // * histo->axis().binWidth(i);
     return intg;
   }
 
