@@ -559,7 +559,7 @@ namespace Rivet {
 
       // "Bin error" is a misnomer in the AIDA spec: width is neglected.
       // We'd like to do this: ey.push_back(histo->binError(i) * scale);
-      ey.push_back(histo->binError(i)*scale/(0.5*histo->axis().binWidth(i)));
+      ey.push_back(histo->binError(i)*scale/(histo->axis().binWidth(i)));
     }
 
     string title = histo->title();
