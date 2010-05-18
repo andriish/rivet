@@ -59,10 +59,7 @@ namespace Rivet {
       // Histograms
       _h_dsigdpt_w = bookHistogram1D(1, 1, 1);
       _h_dsigdpt_z = bookHistogram1D(1, 1, 2);
-      /// @todo Can't take this from ref data? 
-      vector<double> bins(23);
-      bins += 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 25, 30, 35, 40, 50, 60, 70, 80, 100, 120, 160, 200;
-      _h_dsigdpt_scaled_z = bookHistogram1D("d01-x01-y03", bins);
+      _h_dsigdpt_scaled_z = bookDataPointSet(2, 1, 1);
     }
 
 
@@ -81,10 +78,8 @@ namespace Rivet {
         if (inRange(mass/GeV, 75.0, 105.0)) {
           ++Zcount;
           _eventsFilledZ += weight;
-          getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV" << endl;
-          const double MW_MZ = 0.8820; // Ratio M_W/M_Z
+          //getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV" << endl;
           _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
-          _h_dsigdpt_scaled_z->fill(pmom.pT()/GeV * MW_MZ, weight);
         }
       } else {
         // There is no Z -> ee candidate... so this must be a W event, right?
@@ -123,31 +118,48 @@ namespace Rivet {
 
       // Get W and Z pT integrals
       const double wpt_integral = integral(_h_dsigdpt_w);
-      const double zpt_scaled_integral = integral(_h_dsigdpt_scaled_z);
+      const double zpt_integral = integral(_h_dsigdpt_z);
 
       // Divide and scale ratio histos
-      AIDA::IDataPointSet* div = histogramFactory().divide(histoDir() + "/d02-x01-y01", *_h_dsigdpt_w, *_h_dsigdpt_scaled_z);
-      div->setTitle("$[\\mathrm{d}\\sigma/\\mathrm{d}p_\\perp(W)] / [\\mathrm{d}\\sigma/\\mathrm{d}(p_\\perp(Z) \\cdot M_W/M_Z)]$");
-      if (xSecW == 0 || wpt_integral == 0 || xSecZ == 0 || zpt_scaled_integral == 0) {
+      if (xSecW == 0 || wpt_integral == 0 || xSecZ == 0 || zpt_integral == 0) {
         getLog() << Log::WARN << "Not filling ratio plot because input histos are empty" << endl;
       } else {
+        std::vector<double> xval;
+        std::vector<double> xerr;
+        std::vector<double> yval;
+        std::vector<double> yerr;
+
         // Scale factor converts event counts to cross-sections, and inverts the
         // branching ratios since only one decay channel has been analysed for each boson.
-        const double BRZEE_BRWENU = 0.033632 / 0.1073;
-        const double scalefactor = (xSecW / wpt_integral) / (xSecZ / zpt_scaled_integral) * BRZEE_BRWENU;
-        for (int pt = 0; pt < div->size(); ++pt) {
-          assert(div->point(pt)->dimension() == 2);
-          AIDA::IMeasurement* m = div->point(pt)->coordinate(1);
-          m->setValue(m->value() * scalefactor);
-          m->setErrorPlus(m->errorPlus() * scalefactor);
-          m->setErrorMinus(m->errorPlus() * scalefactor);
+        // Oh, and we put MW/MZ in, like they do in the paper.
+        const double MW_MZ = 0.8820; // Ratio M_W/M_Z
+        const double BRZEE_BRWENU = 0.033632 / 0.1073; // Ratio of branching fractions
+        const double scalefactor = (xSecW / wpt_integral) / (xSecZ / zpt_integral) * MW_MZ * BRZEE_BRWENU;
+        for (int ibin=0; ibin<_h_dsigdpt_scaled_z->size(); ibin++) {
+          /// @todo I would love to use axis().binMidPoint(ibin) here, but this #*&$*^%$ LWH IAxis doesn't have it!!!!
+          ///       It's only in Axis and VariAxis, but doesn't get passed through to the user. I WANT YODA!!! *SIGH*
+          xval.push_back(0.5*(_h_dsigdpt_w->axis().binUpperEdge(ibin)+_h_dsigdpt_w->axis().binLowerEdge(ibin)));
+          xerr.push_back(0.5*_h_dsigdpt_w->axis().binWidth(ibin));
+          if (_h_dsigdpt_w->binHeight(ibin) == 0 || _h_dsigdpt_z->binHeight(ibin) == 0) {
+            yval.push_back(0.);
+            yerr.push_back(0.);
+          } else {
+            yval.push_back(scalefactor * _h_dsigdpt_w->binHeight(ibin) / _h_dsigdpt_z->binHeight(ibin));
+            double dy2 = 0.;
+            // binWidth(ibin) is needed because binHeight is actually sumofweights. It's AIDA. Don't ask.  :-((((
+            dy2 += pow(_h_dsigdpt_w->binError(ibin)/_h_dsigdpt_w->binHeight(ibin)*_h_dsigdpt_w->axis().binWidth(ibin),2);
+            dy2 += pow(_h_dsigdpt_z->binError(ibin)/_h_dsigdpt_z->binHeight(ibin)*_h_dsigdpt_z->axis().binWidth(ibin),2);
+            double dy = scalefactor * _h_dsigdpt_w->binHeight(ibin)/_h_dsigdpt_z->binHeight(ibin) * sqrt(dy2);
+            yerr.push_back(dy);
+          }
         }
+        _h_dsigdpt_scaled_z->setCoordinate(0, xval, xerr);
+        _h_dsigdpt_scaled_z->setCoordinate(1, yval, yerr);
       }
 
       // Normalize non-ratio histos
       normalize(_h_dsigdpt_w, xSecW);
       normalize(_h_dsigdpt_z, xSecZ);
-      normalize(_h_dsigdpt_scaled_z, xSecZ);
 
     }
 
@@ -164,9 +176,9 @@ namespace Rivet {
 
     //@{
     /// Histograms
-    AIDA::IHistogram1D* _h_dsigdpt_w;
-    AIDA::IHistogram1D* _h_dsigdpt_z;
-    AIDA::IHistogram1D* _h_dsigdpt_scaled_z;
+    AIDA::IHistogram1D*  _h_dsigdpt_w;
+    AIDA::IHistogram1D*  _h_dsigdpt_z;
+    AIDA::IDataPointSet* _h_dsigdpt_scaled_z;
     //@}
 
   };

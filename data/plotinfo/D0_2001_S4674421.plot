@@ -10,9 +10,10 @@ XLabel=$p_\perp$ / GeV/$c$
 YLabel=$\mathrm{d}{\sigma}/\mathrm{d}{p_\perp(Z)}$
 # END PLOT
 
-# BEGIN PLOT /D0_2001_S4674421/d01-x01-y03
-Title=$\mathrm{d}{\sigma} / \mathrm{d}{(p_\perp(Z) \cdot M_W/M_Z)}$
-XLabel=$p_\perp(W)/M_W$
-YLabel=$R_p_\perp$
+# BEGIN PLOT /D0_2001_S4674421/d02-x01-y01
+Title=$W/Z$ differential cross section ratio
+XLabel=$p_\perp$ / GeV/$c$
+YLabel=$R_{p_\perp}$
+LogY=0
 # END PLOT
 

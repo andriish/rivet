@@ -1,3 +1,9 @@
+2010-05-18  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixing factor-of-2 bug in the error calculation when scaling
+	histograms.
+	* Fixing D0_2001_S4674421 analysis.
+
 2010-05-11  Andy Buckley  <andy@insectnation.org>
 
 	* Replacing TotalVisibleMomentum with MissingMomentum in analyses
