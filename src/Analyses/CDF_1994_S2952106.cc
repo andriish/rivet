@@ -33,12 +33,9 @@ namespace Rivet {
       // Veto neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
-      //VisibleFinalState vfs(fs);
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.7), "ConeJets");
-      //addProjection(MissingMomentum(vfs), "CalMET");
-
 
       /// @todo Use histogram auto-booking
 
@@ -119,28 +116,16 @@ namespace Rivet {
       const Jets jets = applyProjection<FastJets>(event, "ConeJets").jetsByPt();
       getLog() << Log::DEBUG << "Jet multiplicity before any cuts = " << jets.size() << endl;
 
-      // Check there isn't too much missing Et
-      ///const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
-      ///getLog() << Log::DEBUG << "Missing ET = " << caloMissEt.visibleMomentum().Et()/GeV << " GeV" << endl;
-      /// @todo Looks dodgy to me... only difference is pT vs. Et. Really?
-      //if ((caloMissEt.visibleMomentum().pT()/GeV)/sqrt(caloMissEt.visibleMomentum().Et()/GeV) > 6.0) vetoEvent;
-      //if ((caloMissEt.visibleMomentum().ET()/GeV)/sqrt(caloMissEt.scalarET()/GeV) > 6.0) vetoEvent;
-      //if ((caloMissEt.visibleMomentum().Et()/GeV)/sqrt(caloMissEt.momentum().Et()/GeV) > 6.0) vetoEvent;
-
-
-      //Et's only from jets:
+      // ETs only from jets:
       _Et_sinphi = 0.;
       _Et_cosphi = 0.;
       _Et = 0.;
       for (int i=0; i< jets.size(); ++i) {
-	_Et_sinphi = jets[i].momentum().Et() * sin(jets[i].phi());
-	_Et_cosphi = jets[i].momentum().Et() * sin(jets[i].phi());
-	_Et = jets[i].momentum().Et() * sin(jets[i].phi());
-
+        _Et_sinphi = jets[i].momentum().Et() * sin(jets[i].phi());
+        _Et_cosphi = jets[i].momentum().Et() * sin(jets[i].phi());
+        _Et = jets[i].momentum().Et() * sin(jets[i].phi());
       }
       if (sqrt(_Et_sinphi*_Et_sinphi + _Et_cosphi*_Et_cosphi)/_Et > 6.0) vetoEvent;
-
-
 
       // Check jet requirements
       if (jets.size() < 3) vetoEvent;
@@ -245,7 +230,7 @@ namespace Rivet {
 
       vector<double> xval_R23, xerr_R23, yval_R23, yerr_R23;
       for (int ibin = 0;  ibin < 35; ++ibin) { // x-value + weight=err^2/y-value
-	xval_R23.push_back((ibin+0.5)*4.375/35.);
+        xval_R23.push_back((ibin+0.5)*4.375/35.);
         xerr_R23.push_back(0.5*4.375/35.);
         yval_R23.push_back(R23_CDF_sim[ibin]/R23_Ideal_sim[ibin]);
         yerr_R23.push_back(R23_CDF_sim_err[ibin]/R23_Ideal_sim[ibin]);
