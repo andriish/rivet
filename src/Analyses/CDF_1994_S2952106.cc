@@ -12,7 +12,7 @@ namespace Rivet {
 
   /// @brief CDF Run I color coherence analysis
   /// @author Lars Sonnenschein
-  /// @todo BROKEN!
+  /// @todo Apply detector correction factor
   class CDF_1994_S2952106 : public Analysis {
   public:
 
@@ -117,15 +117,16 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Jet multiplicity before any cuts = " << jets.size() << endl;
 
       // ETs only from jets:
-      _Et_sinphi = 0.;
-      _Et_cosphi = 0.;
-      _Et = 0.;
+      _Et_sinphi_sum = 0.;
+      _Et_cosphi_sum = 0.;
+      _Et_sum = 0.;
       for (int i=0; i< jets.size(); ++i) {
-        _Et_sinphi = jets[i].momentum().Et() * sin(jets[i].phi());
-        _Et_cosphi = jets[i].momentum().Et() * sin(jets[i].phi());
-        _Et = jets[i].momentum().Et() * sin(jets[i].phi());
+	_Et_sinphi_sum = jets[i].momentum().Et() * sin(jets[i].phi());
+	_Et_cosphi_sum = jets[i].momentum().Et() * sin(jets[i].phi());
+	_Et_sum = jets[i].momentum().Et() * sin(jets[i].phi());
       }
-      if (sqrt(_Et_sinphi*_Et_sinphi + _Et_cosphi*_Et_cosphi)/_Et > 6.0) vetoEvent;
+      if (sqrt(_Et_sinphi_sum*_Et_sinphi_sum + _Et_cosphi_sum*_Et_cosphi_sum)/_Et_sum > 6.0) 
+	vetoEvent;
 
       // Check jet requirements
       if (jets.size() < 3) vetoEvent;
@@ -194,15 +195,11 @@ namespace Rivet {
         xerr_eta3.push_back(0.5*8./40.);
         yval_eta3.push_back(eta3_CDF_sim[ibin]/eta3_Ideal_sim[ibin]);
         yerr_eta3.push_back(eta3_CDF_sim_err[ibin]/eta3_Ideal_sim[ibin]);
-        _histEta3Corr->setCoordinate(0, xval_eta3, xerr_eta3);
-        _histEta3Corr->setCoordinate(1, yval_eta3, yerr_eta3);
-	/*
-        _histEta3Corr->fill(-4. + (ibin+0.5)*8./40., //x-value
-	eta3_CDF_sim_err[ibin]/eta3_Ideal_sim[ibin] //error
-                            / eta3_CDF_sim[ibin] * eta3_Ideal_sim[ibin] //norm. weight to value
-                            ); //(Ideal error identical zero)
-	*/
       }
+      _histEta3Corr->setCoordinate(0, xval_eta3, xerr_eta3);
+      _histEta3Corr->setCoordinate(1, yval_eta3, yerr_eta3);
+
+
 
       const double R23_CDF_sim[] = {0.0005, 0.0161, 0.057, 0.0762, 0.0723,
 				    0.0705, 0.0598, 0.0563, 0.0557, 0.0579,
@@ -234,15 +231,9 @@ namespace Rivet {
         xerr_R23.push_back(0.5*4.375/35.);
         yval_R23.push_back(R23_CDF_sim[ibin]/R23_Ideal_sim[ibin]);
         yerr_R23.push_back(R23_CDF_sim_err[ibin]/R23_Ideal_sim[ibin]);
-        _histR23Corr->setCoordinate(0, xval_R23, xerr_R23);
-        _histR23Corr->setCoordinate(1, yval_R23, yerr_R23);
-	/*
-        _histR23Corr->fill((ibin+0.5)*4.375/35., //x-value
-                           R23_CDF_sim_err[ibin]/R23_Ideal_sim[ibin] //error
-                           / R23_CDF_sim[ibin] * R23_Ideal_sim[ibin] //norm. weight to y-value
-                           ); //(Ideal error identical zero)
-	*/
       }
+      _histR23Corr->setCoordinate(0, xval_R23, xerr_R23);
+      _histR23Corr->setCoordinate(1, yval_R23, yerr_R23);
 
 
 
@@ -279,35 +270,29 @@ namespace Rivet {
         xerr_alpha.push_back(0.5*180./40.);
         yval_alpha.push_back(alpha_CDF_sim[ibin]/alpha_Ideal_sim[ibin]);
         yerr_alpha.push_back(alpha_CDF_sim_err[ibin]/alpha_Ideal_sim[ibin]);
-        _histAlphaCorr->setCoordinate(0, xval_alpha, xerr_alpha);
-        _histAlphaCorr->setCoordinate(1, yval_alpha, yerr_alpha);
-	/*
-        _histAlphaCorr->fill(-90. + (ibin+0.5)*180./40., //y-value
-                             alpha_CDF_sim_err[ibin]/alpha_Ideal_sim[ibin] //error
-                             / alpha_CDF_sim[ibin] * alpha_Ideal_sim[ibin] //norm. weight to y-value
-                             ); //(Ideal error identical zero)
-        //getLog() << Log::TRACE << "bin i=" << ibin << " val=" << alpha_CDF_sim[ibin]/alpha_Ideal_sim[ibin]
-        //         << " err^2/value=" << alpha_CDF_sim_err[ibin]/alpha_Ideal_sim[ibin] / alpha_CDF_sim[ibin] * alpha_Ideal_sim[ibin] << endl;
-	*/
       }
+      _histAlphaCorr->setCoordinate(0, xval_alpha, xerr_alpha);
+      _histAlphaCorr->setCoordinate(1, yval_alpha, yerr_alpha);
 
-      AIDA::IHistogramFactory& hf = histogramFactory();
+
+      //AIDA::IHistogramFactory& hf = histogramFactory();
+      AIDA::IDataPointSetFactory& hf = datapointsetFactory();
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d03-x01-y01", *_histJet3eta, *_histEta3Corr);
       //hf.multiply("/_histJet3eta", *_histJet3eta, *_histEta3Corr);
       //_histJet3eta = hf.multiply("/_histJet3eta", *_histJet3eta, *_histEta3Corr);
-      //hf.destroy(_histEta3Corr);
+      hf.destroy(_histEta3Corr);
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d04-x01-y01", *_histR23, *_histR23Corr);
       //hf.multiply("/_histR23", *_histR23, *_histR23Corr);
-      //hf.destroy(_histR23Corr);
+      hf.destroy(_histR23Corr);
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d05-x01-y01", *_histAlpha, *_histAlphaCorr);
       //hf.multiply("/_histAlpha", *_histAlpha, *_histAlphaCorr);
-      //hf.destroy(_histAlphaCorr);
+      hf.destroy(_histAlphaCorr);
 
 
       //getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
@@ -348,9 +333,10 @@ namespace Rivet {
     AIDA::IDataPointSet* _histAlphaCorr;
     //@}
 
-    double _Et_sinphi;
-    double _Et_cosphi;
-    double _Et;
+    /// @name jet MET variables
+    double _Et_sinphi_sum;
+    double _Et_cosphi_sum;
+    double _Et_sum;
 
   };
 
