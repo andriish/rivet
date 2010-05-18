@@ -120,7 +120,7 @@ namespace Rivet {
       _Et_sinphi_sum = 0.;
       _Et_cosphi_sum = 0.;
       _Et_sum = 0.;
-      for (int i=0; i< jets.size(); ++i) {
+      for (size_t i=0; i< jets.size(); ++i) {
 	_Et_sinphi_sum = jets[i].momentum().Et() * sin(jets[i].phi());
 	_Et_cosphi_sum = jets[i].momentum().Et() * sin(jets[i].phi());
 	_Et_sum = jets[i].momentum().Et() * sin(jets[i].phi());
