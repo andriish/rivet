@@ -72,12 +72,12 @@ namespace Rivet {
       // sum all jets in the opposite hemisphere in phi from the photon
       FourMomentum jetsum;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(10.0*GeV)) {
-        if (jet.momentum().phi()-phi_P > M_PI) {
+        if (fabs(jet.momentum().phi()-phi_P) > M_PI) {
           jetsum+=jet.momentum();
         }
       }
 
-      double costheta = fabs(tanh((jetsum.eta()-eta_P)/2.0));
+      double costheta = fabs(tanh((eta_P-jetsum.eta())/2.0));
 
       _h_costheta->fill(costheta, weight);
 
