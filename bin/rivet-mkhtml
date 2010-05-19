@@ -153,12 +153,13 @@ if opts.SINGLE:
 for analysis in sorted(analyses, reverse=True):
     references=[]
     summary=analysis
-    description="Description not available."
+    description="NONE"
     spiresid=analysis[analysis.rfind('S')+1:len(analysis)]
     if rivetavailable:
         ana=rivet.AnalysisLoader.getAnalysis(analysis)
         if ana:
-            summary="%s (%s)" % (ana.summary(), analysis)
+            if ana.summary() is not "NONE":
+                summary="%s (%s)" % (ana.summary(), analysis)
             references=ana.references()
             description=ana.description()
             spiresid=ana.spiresId()
@@ -168,7 +169,8 @@ for analysis in sorted(analyses, reverse=True):
         index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
     else:
         index.write('<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' %(analysis, summary))
-    index.write('<p><a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
+    if spiresid is not "NONE":
+        index.write('<p><a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
     for ref in references:
         index.write(' &#124; %s' % ref)
     index.write('</p>\n')
