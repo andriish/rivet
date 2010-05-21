@@ -282,17 +282,17 @@ namespace Rivet {
       //hf.multiply(histoDir() + "/d03-x01-y01", *_histJet3eta, *_histEta3Corr);
       //hf.multiply("/_histJet3eta", *_histJet3eta, *_histEta3Corr);
       //_histJet3eta = hf.multiply("/_histJet3eta", *_histJet3eta, *_histEta3Corr);
-      hf.destroy(_histEta3Corr);
+      //hf.destroy(_histEta3Corr);
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d04-x01-y01", *_histR23, *_histR23Corr);
       //hf.multiply("/_histR23", *_histR23, *_histR23Corr);
-      hf.destroy(_histR23Corr);
+      //hf.destroy(_histR23Corr);
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d05-x01-y01", *_histAlpha, *_histAlphaCorr);
       //hf.multiply("/_histAlpha", *_histAlpha, *_histAlphaCorr);
-      hf.destroy(_histAlphaCorr);
+      //hf.destroy(_histAlphaCorr);
 
 
       //getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
