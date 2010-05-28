@@ -105,6 +105,8 @@ parser.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                   help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 parser.add_option("-H", "--histo-file", dest="HISTOFILE",
                   default="Rivet.aida", help="specify the output histo file path")
+parser.add_option("--histo-interval", dest="HISTO_WRITE_INTERVAL", type=int,
+                  default=None, help="specify how often histograms are written in #events [experimental]")
 parser.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                   default=None, metavar="XS",
                   help="specify the signal process cross-section in pb")
@@ -395,19 +397,22 @@ if not run.init(evtfile):
 
 ## Event loop
 starttime = time.time()
-EVTNUM = 0
+evtnum = 0
 for fileidx in range(len(HEPMCFILES)):
     logging.info("Reading events from '%s'" % HEPMCFILES[fileidx])
-    while opts.MAXEVTNUM is None or EVTNUM < opts.MAXEVTNUM:
-        EVTNUM += 1
-        logNEvt(EVTNUM, starttime, opts.MAXEVTNUM)
+    while opts.MAXEVTNUM is None or evtnum < opts.MAXEVTNUM:
+        evtnum += 1
+        logNEvt(evtnum, starttime, opts.MAXEVTNUM)
         if not run.processEvent():
-            logging.warn("Event processing failed for evt #%i!" % (EVTNUM))
+            logging.warn("Event processing failed for evt #%i!" % evtnum)
             break
         if RECVD_KILL_SIGNAL is not None:
             break
         if not run.readEvent():
             break
+        if opts.HISTO_WRITE_INTERVAL is not None:
+            if evtnum % opts.HISTO_WRITE_INTERVAL == 0:
+                ah.writeData(opts.HISTOFILE)
     if fileidx < len(HEPMCFILES)-1:
         run.openFile(HEPMCFILES[fileidx+1])
         if not run.readEvent():
