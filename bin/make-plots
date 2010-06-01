@@ -1721,6 +1721,8 @@ class MkPlotThread( threading.Thread ):
                 break
             except Exception, e:
                 print "Error: %s" % str(e)
+                import traceback
+                logging.debug(traceback.format_exc())
                 #exit(1)
 
 ####################
