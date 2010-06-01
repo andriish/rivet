@@ -17,7 +17,7 @@ LegendYPos=0.5
 # BEGIN PLOT /CDF_2004_S5839831/d02-x01-y01
 Title=$\langle p_\perp^\text{max} \rangle$ vs. $E_\perp^\text{lead}$ at $\sqrt{s}$ = 1800 GeV
 XLabel=$E_\perp^\text{lead}$ / GeV
-YLabel=$p_\perp^\text{max} \rangle$ / GeV
+YLabel=$\langle p_\perp^\text{max} \rangle$ / GeV
 LogY=0
 LegendYPos=0.5
 # END PLOT
@@ -25,14 +25,14 @@ LegendYPos=0.5
 # BEGIN PLOT /CDF_2004_S5839831/d02-x01-y02
 Title=$\langle p_\perp^\text{min} \rangle$ vs. $E_\perp^\text{lead}$ at $\sqrt{s}$ = 1800 GeV
 XLabel=$E_\perp^\text{lead}$ / GeV
-YLabel=$p_\perp^\text{min}$ / GeV
+YLabel=$\langle p_\perp^\text{min} \rangle$ / GeV
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /CDF_2004_S5839831/d02-x01-y03
 Title=$\langle p_\perp^\text{diff} \rangle$ vs. $E_\perp^\text{lead}$ at $\sqrt{s}$ = 1800 GeV
 XLabel=$E_\perp^\text{lead}$ / GeV
-YLabel=$p_\perp^\text{diff}$ / GeV
+YLabel=$\langle p_\perp^\text{diff} \rangle$ / GeV
 LogY=0
 LegendYPos=0.5
 # END PLOT
