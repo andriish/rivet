@@ -135,7 +135,7 @@ def readObservableFile(obsfile):
                 continue
 
             # Split the line to find out whether newarea is given in obsfile
-            low, high, area = getBindef(line)
+            path, low, high, area = getBindef(line)
             bindefs[path] = (low, high)
             if area:
                 obsnorms[path] = float(area)
@@ -176,7 +176,7 @@ def getBindef(line):
         except:
             logging.debug("Failed: %s" % splitline[1])
             pass
-    return (low, high, area)
+    return (path, low, high, area)
 
 if __name__ == "__main__":
     from optparse import OptionParser, OptionGroup
