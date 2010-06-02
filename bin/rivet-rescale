@@ -306,6 +306,12 @@ if __name__ == "__main__":
                 f.write(renormed.asAIDA())
             else:
                 f.write(renormed.asFlat())
+        else:
+            if opts.AIDA:
+                f.write(histos[name].asAIDA())
+            else:
+                f.write(histos[name].asFlat())
+
 
 
     if opts.AIDA:
