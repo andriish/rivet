@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  class AnalysisInfo { 
+  class AnalysisInfo {
     /// @todo Remove this when all metadata taken from YAML
     friend class Analysis;
 
@@ -76,11 +76,11 @@ namespace Rivet {
     const std::string& runInfo() const { return _runInfo; }
 
     /// Beam particle types
-    const std::vector<std::pair<ParticleName,ParticleName> >& beams() const { return _beams; }
+    const std::vector<std::pair<PdgId,PdgId> >& beams() const { return _beams; }
 
-    /// Sets of valid beam energy pairs 
+    /// Sets of valid beam energy pairs
     const std::vector<std::pair<double,double> >& energies() const { return _energies; }
- 
+
     /// Experiment which performed and published this analysis.
     const std::string& experiment() const { return _experiment; }
 
@@ -99,7 +99,7 @@ namespace Rivet {
     const std::string& bibKey() const { return _bibKey;}
 
     /// BibTeX citation entry for this article.
-    const std::string& bibTeX() const { 
+    const std::string& bibTeX() const {
       //return "@Article{" + bibKey() + ",\n" + _bibTeXBody + "\n}";
       return _bibTeX;
     }
@@ -125,7 +125,7 @@ namespace Rivet {
     std::string _runInfo;
     std::string _experiment;
     std::string _collider;
-    std::vector<std::pair<ParticleName, ParticleName> > _beams;
+    std::vector<std::pair<PdgId, PdgId> > _beams;
     std::vector<std::pair<double, double> > _energies;
     std::string _year;
     std::vector<std::string> _references;

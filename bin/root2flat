@@ -107,7 +107,7 @@ def convertHisto(R_histo):
         try:
             binstr = ""
             for key in ["xlow", "xhigh", "y", "y_err_low", "y_err_high"]:
-                binstr += "%s: %e "%(key, bin[key])
+                binstr += "%s: %e " % (key, bin[key])
             logging.info(binstr)
         except:
             pass
@@ -161,8 +161,8 @@ def writeHisto(name, R_histo, tgraph=False):
         title, xlabel, ylabel, bins = convertTGraph(R_histo)
     else:
         title, xlabel, ylabel, bins = convertHisto(R_histo)
-    head = "# BEGIN PLOT\nTitle=%s\nLegend=1\nLogY=1\nDrawOnly=%s\n"%(title, name)
-    head += "XLabel=%s\nYLabel=%s\n# END PLOT\n"%(xlabel, ylabel)
+    head = "# BEGIN PLOT\nTitle=%s\nLegend=1\nLogY=1\nDrawOnly=%s\n" % (title, name)
+    head += "XLabel=%s\nYLabel=%s\n# END PLOT\n" % (xlabel, ylabel)
 
     histo = getFlatHisto(bins, name, title)
 

@@ -2,7 +2,7 @@
 #ifndef RIVET_Utils_HH
 #define RIVET_Utils_HH
 
-#include <Rivet/Rivet.hh>
+// #include <Rivet/Rivet.hh>
 #include <Rivet/Math/Math.hh>
 #include <cctype>
 #include <algorithm>
@@ -83,28 +83,10 @@ namespace Rivet {
   /// Get Rivet data install path
   const string getRivetDataPath();
 
-  /// Get RivetGun data install path
-  const string getRivetgunDataPath();
-
-
-  // Return distance of closest approach from track to given (primary) vertex position.
-  double get2dClosestApproach(const HepMC::GenParticle& track, const Vector3& vtx3pos);
-
-  // Return distance of closest approach from track to given (primary) vertex position.
-  double get3dClosestApproach(const HepMC::GenParticle& track, const Vector3& vtx3pos);
-
-  /// Return 2-dimensional decay length between two vertices in transverse plane.
-  double get2dDecayLength(const Vector3& vtx1, const Vector3& vtx2, const FourMomentum& jetaxis);
-
-  /// Return 3-dimensional decay length between vertices.
-  double get3dDecayLength(const Vector3& vtx1, const Vector3& vtx2, const FourMomentum& jetaxis);
 
 }
-#endif
 
 
-#ifndef CEDARSTD
-#define CEDARSTD
 namespace std {
 
   template <typename T>
@@ -132,4 +114,5 @@ namespace std {
   }
 
 }
+
 #endif

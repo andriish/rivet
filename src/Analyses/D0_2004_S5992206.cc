@@ -49,13 +49,10 @@ namespace Rivet {
       // Veto neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
-      //VisibleFinalState vfs(fs);
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::D0ILCONE, 0.7), "Jets");
       addProjection(MissingMomentum(vfs), "CalMET");
-
-
 
       // Book histograms
       _histJetAzimuth_pTmax75_100  = bookHistogram1D(1, 2, 1);

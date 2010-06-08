@@ -95,7 +95,7 @@ namespace Rivet {
     /// recursion. Derived classes should ensure that all contained projections
     /// are registered in the @a _projections set for the beam constraint
     /// chaining to work.
-    virtual const std::set<BeamPair> beamPairs() const;
+    virtual const std::set<PdgIdPair> beamPairs() const;
 
     /// Get the name of the projection.
     virtual std::string name() const {
@@ -104,8 +104,8 @@ namespace Rivet {
 
 
     /// Add a colliding beam pair.
-    Projection& addBeamPair(const ParticleName& beam1, const ParticleName& beam2) {
-      _beamPairs.insert(BeamPair(beam1, beam2));
+    Projection& addPdgIdPair(PdgId beam1, PdgId beam2) {
+      _beamPairs.insert(PdgIdPair(beam1, beam2));
       return *this;
     }
 
@@ -140,7 +140,7 @@ namespace Rivet {
     string _name;
 
     /// Beam-type constraint.
-    set<BeamPair> _beamPairs;
+    set<PdgIdPair> _beamPairs;
 
   };
 

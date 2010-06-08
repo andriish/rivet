@@ -12,13 +12,13 @@ namespace Rivet {
     return beamproj.beams();
   }
 
-  BeamPair beamIds(const Event& e) {
+  PdgIdPair beamIds(const Event& e) {
     Beam beamproj;
     beamproj.project(e);
     return beamproj.beamIds();
   }
 
-  BeamPair beamIds(const ParticlePair& beams) {
+  PdgIdPair beamIds(const ParticlePair& beams) {
     return make_pair(beams.first.pdgId(), beams.second.pdgId());
   }
 

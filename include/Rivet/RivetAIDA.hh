@@ -19,8 +19,8 @@
 #include "LWH/AITree.h"
 #include "LWH/AIAxis.h"
 
-
 namespace Rivet {
+
 
   AIDA::IAnalysisFactory* createAnalysisFactory();
 
@@ -36,16 +36,15 @@ namespace Rivet {
   /// Get the file system path to the AIDA reference file for this paper.
   const string getDataPath(string papername);
 
-  /// Return the integral over the histogram bins assuming it has been
-  // normalize()d.
+  /// Return the integral over the histogram bins
   inline double integral(AIDA::IHistogram1D* histo) {
     double intg = 0.;
-    for ( int i = 0; i < histo->axis().bins(); ++i )
+    for ( int i = 0; i < histo->axis().bins(); ++i ) {
       // Don't multiply with binWidth -- it's already included in binHeight
       intg += histo->binHeight(i); // * histo->axis().binWidth(i);
+    }
     return intg;
   }
-
 
 
   using AIDA::IHistogram1D;
@@ -55,6 +54,7 @@ namespace Rivet {
   using AIDA::ITree;
   using AIDA::IAxis;
   using AIDA::IProfile1D;
+
 
 }
 

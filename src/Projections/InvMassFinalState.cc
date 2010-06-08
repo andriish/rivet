@@ -66,7 +66,7 @@ namespace Rivet {
     // Get all the particles of the type specified in the pair from the particle list
     foreach (const Particle& ipart, fs.particles()) {
       // Loop around possible particle pairs (typedef needed to keep BOOST_FOREACH happy)
-      foreach (const PidPair& ipair, _decayids) {
+      foreach (const PdgIdPair& ipair, _decayids) {
         if (ipart.pdgId() == ipair.first) {
           if (accept(ipart.genParticle())) {
             type1 += &ipart;
@@ -102,12 +102,12 @@ namespace Rivet {
             _theParticles += *i2;
           }
           // Store accepted particle pairs
-          _particlePairs += make_pair(*i1, *i2);          
+          _particlePairs += make_pair(*i1, *i2);
         }
       }
     }
- 
-    getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles " 
+
+    getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles "
              << "(" << _particlePairs.size() << " pairs)" << endl;
     if (getLog().isActive(Log::TRACE)) {
       foreach (const Particle& p, _theParticles) {

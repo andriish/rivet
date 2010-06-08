@@ -205,14 +205,15 @@ if test x$enable_pyext == xyes; then
   fi
 fi
 ## SWIG version checks
-AC_PROG_SWIG
-if test x$SWIG == x; then
-  enable_pyext=no
+if test x$enable_pyext == xyes; then
+  AC_PROG_SWIG
+  if test x$SWIG == x; then
+    AC_MSG_WARN([Can't build Python extension since swig could not be found])
+    ## TODO: Test that SWIG makes a compilable source file...
+    ## cf. g++ 4.x requires that string literal is "_const_ char*"
+    enable_pyext=no
+  fi
 fi
-#if test x$enable_pyext == xyes; then
-#  SWIG_ENABLE_CXX
-#  SWIG_PYTHON
-#fi
 ## Finish
 if test x$enable_pyext == xyes; then
   AC_MSG_NOTICE([All Python build checks successful: 'rivet' Python extension will be built])

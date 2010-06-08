@@ -80,7 +80,7 @@ namespace Rivet {
     return handler().beams();
   }
 
-  const BeamPair Analysis::beamIds() const {
+  const PdgIdPair Analysis::beamIds() const {
     return handler().beamIds();
   }
 
@@ -202,10 +202,9 @@ namespace Rivet {
     return _info->todos();
   }
 
-  const vector<BeamPair> Analysis::requiredBeams() const {
-    vector<BeamPair> reqbeams;
-    typedef std::pair<ParticleName,ParticleName> ParticleNamePair;
-    foreach (const ParticleNamePair& bp, info().beams()) {
+  const vector<PdgIdPair> Analysis::requiredBeams() const {
+    vector<PdgIdPair> reqbeams;
+    foreach (const PdgIdPair& bp, info().beams()) {
       reqbeams += bp;
     }
     return reqbeams;
@@ -213,7 +212,7 @@ namespace Rivet {
 
 
   /// @todo Deprecate?
-  Analysis& Analysis::setBeams(const ParticleName& beam1, const ParticleName& beam2) {
+  Analysis& Analysis::setBeams(PdgId beam1, PdgId beam2) {
     assert(_info.get() != 0);
     _info->_beams.clear();
     _info->_beams += make_pair(beam1, beam2);
@@ -222,15 +221,15 @@ namespace Rivet {
 
 
   /// @todo Deprecate?
-  bool Analysis::isCompatible(const ParticleName& beam1, const ParticleName& beam2) const {
-    BeamPair beams(beam1, beam2);
+  bool Analysis::isCompatible(PdgId beam1, PdgId beam2) const {
+    PdgIdPair beams(beam1, beam2);
     return isCompatible(beams);
   }
 
 
   /// @todo Deprecate?
-  bool Analysis::isCompatible(const BeamPair& beams) const {
-    foreach (const BeamPair& bp, requiredBeams()) {
+  bool Analysis::isCompatible(const PdgIdPair& beams) const {
+    foreach (const PdgIdPair& bp, requiredBeams()) {
       if (compatible(beams, bp)) return true;
     }
     return false;
@@ -559,7 +558,7 @@ namespace Rivet {
 
       // "Bin error" is a misnomer in the AIDA spec: width is neglected.
       // We'd like to do this: ey.push_back(histo->binError(i) * scale);
-      ey.push_back(histo->binError(i)*scale/(histo->axis().binWidth(i)));
+      ey.push_back(histo->binError(i)*scale/histo->axis().binWidth(i));
     }
 
     string title = histo->title();

@@ -1,7 +1,7 @@
 noinst_LTLIBRARIES  = libRivetCore.la
 
 libRivetCore_la_SOURCES = \
-  Event.cc Jet.cc Particle.cc \
+  Event.cc Jet.cc Particle.cc ParticleName.cc \
   ProjectionApplier.cc Projection.cc \
   Analysis.cc AnalysisLoader.cc AnalysisInfo.cc \
   AnalysisHandler.cc Run.cc ProjectionHandler.cc HistoHandler.cc

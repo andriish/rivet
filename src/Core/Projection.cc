@@ -10,7 +10,7 @@ namespace Rivet {
   Projection::Projection()
     : _name("BaseProjection")
   {
-    addBeamPair(ANY, ANY);
+    addPdgIdPair(ANY, ANY);
     //getLog() << Log::TRACE << "Creating " << name() << " at " << this << endl;
   }
 
@@ -36,8 +36,8 @@ namespace Rivet {
   }
 
 
-  const set<BeamPair> Projection::beamPairs() const {
-    set<BeamPair> ret = _beamPairs;
+  const set<PdgIdPair> Projection::beamPairs() const {
+    set<PdgIdPair> ret = _beamPairs;
     set<ConstProjectionPtr> projs = getProjections();
     for (set<ConstProjectionPtr>::const_iterator ip = projs.begin(); ip != projs.end(); ++ip) {
       ConstProjectionPtr p = *ip;

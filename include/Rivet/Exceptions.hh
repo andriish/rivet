@@ -7,6 +7,7 @@
 
 namespace Rivet {
 
+
   /// @brief Generic runtime Rivet error.
   class Error : public std::runtime_error {
   public:
@@ -31,6 +32,14 @@ namespace Rivet {
     LogicError(const std::string& what) : Error(what) {}
   };
 
+
+  /// @brief Error specialisation for failures relating to particle ID codes.
+  class PidError : public Error {
+  public:
+    PidError(const std::string& what) : Error(what) {}
+  };
+
+
   /// @brief Errors relating to event/bin weights
   /// Arises in computing statistical quantities because e.g. the bin
   /// weight is zero or negative.
@@ -38,6 +47,7 @@ namespace Rivet {
   public:
     WeightError(const std::string& what) : Error(what) {}
   };
+
 
 }
 

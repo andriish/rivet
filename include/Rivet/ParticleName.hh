@@ -1,180 +1,177 @@
 #ifndef RIVET_PARTICLENAME_HH
 #define RIVET_PARTICLENAME_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Particle.fhh"
+#include "Rivet/Exceptions.hh"
+
 
 namespace Rivet {
 
 
-  /// Enumeration of available beam particles (using PDG IDs where available)
-  enum ParticleName {
-    ELECTRON = 11,
-    POSITRON = -11,
-    PROTON = 2212,
-    ANTIPROTON = -2212,
-    PHOTON = 22,
-    NEUTRON = 2112,
-    ANTINEUTRON = -2112,
-    MUON = 13,
-    ANTIMUON = -13,
-    NU_E = 12,
-    NU_EBAR = -12,
-    NU_MU = 14,
-    NU_MUBAR = -14,
-    NU_TAU = 16,
-    NU_TAUBAR = -16,
-    PIPLUS = 211,
-    PIMINUS = -211,
-    K0L = 130,
-    K0S = 310,
-    KPLUS = 321,
-    KMINUS = -321,
-    LAMBDA = 3122,
-    LAMBDABAR = -3122,
-    XIMINUS = 3312,
-    XIPLUS = -3312,
-    OMEGAMINUS = 3334,
-    OMEGAPLUS = -3334,
-    TAU = 15,
-    ANTITAU = -15,
-    EMINUS = 11,
-    EPLUS = -11,
-    P = 2212,
-    PBAR = -2212,
-    GLUON = 21,
-    GAMMA = 22,
-    WPLUSBOSON = 24,
-    WMINUSBOSON = -24,
-    ZBOSON = 23,
-    HIGGS = 25,
-    DQUARK = 1,
-    UQUARK = 2,
-    SQUARK = 3,
-    CQUARK = 4,
-    BQUARK = 5,
-    TQUARK = 6,
-    ANY = 10000,
-    PHOTOELECTRON,
-    PHOTOPOSITRON,
-    PHOTOMUON,
-    PHOTOANTIMUON,
-    PHOTOTAU,
-    PHOTOANTITAU
+  /// @name Static const convenience particle ID names
+  //@{
+  static const PdgId ELECTRON = 11;
+  static const PdgId POSITRON = -11;
+  static const PdgId PROTON = 2212;
+  static const PdgId ANTIPROTON = -2212;
+  static const PdgId PHOTON = 22;
+  static const PdgId NEUTRON = 2112;
+  static const PdgId ANTINEUTRON = -2112;
+  static const PdgId MUON = 13;
+  static const PdgId ANTIMUON = -13;
+  static const PdgId NU_E = 12;
+  static const PdgId NU_EBAR = -12;
+  static const PdgId NU_MU = 14;
+  static const PdgId NU_MUBAR = -14;
+  static const PdgId NU_TAU = 16;
+  static const PdgId NU_TAUBAR = -16;
+  static const PdgId PIPLUS = 211;
+  static const PdgId PIMINUS = -211;
+  static const PdgId K0L = 130;
+  static const PdgId K0S = 310;
+  static const PdgId KPLUS = 321;
+  static const PdgId KMINUS = -321;
+  static const PdgId LAMBDA = 3122;
+  static const PdgId LAMBDABAR = -3122;
+  static const PdgId XIMINUS = 3312;
+  static const PdgId XIPLUS = -3312;
+  static const PdgId OMEGAMINUS = 3334;
+  static const PdgId OMEGAPLUS = -3334;
+  static const PdgId TAU = 15;
+  static const PdgId ANTITAU = -15;
+  static const PdgId EMINUS = 11;
+  static const PdgId EPLUS = -11;
+  static const PdgId P = 2212;
+  static const PdgId PBAR = -2212;
+  static const PdgId GLUON = 21;
+  static const PdgId GAMMA = 22;
+  static const PdgId WPLUSBOSON = 24;
+  static const PdgId WMINUSBOSON = -24;
+  static const PdgId ZBOSON = 23;
+  static const PdgId HIGGS = 25;
+  static const PdgId DQUARK = 1;
+  static const PdgId UQUARK = 2;
+  static const PdgId SQUARK = 3;
+  static const PdgId CQUARK = 4;
+  static const PdgId BQUARK = 5;
+  static const PdgId TQUARK = 6;
+  static const PdgId ANY = 10000;
+  // static const PdgId PHOTOELECTRON;
+  // static const PdgId PHOTOPOSITRON;
+  // static const PdgId PHOTOMUON;
+  // static const PdgId PHOTOANTIMUON;
+  // static const PdgId PHOTOTAU;
+  // static const PdgId PHOTOANTITAU;
+  //@}
+
+
+  class ParticleNames {
+  public:
+
+    static const std::string& particleName(PdgId pid) {
+      if (!_instance) _instance = new ParticleNames();
+      return _instance->_particleName(pid);
+    }
+
+    static PdgId particleId(const std::string& pname) {
+      if (!_instance) _instance = new ParticleNames();
+      return _instance->_particleId(pname);
+    }
+
+
+  public:
+
+    const std::string& _particleName(PdgId pid);
+
+
+    PdgId _particleId(const std::string& pname);
+
+
+  private:
+
+    ParticleNames() {
+      _add_pid_name(ELECTRON, "ELECTRON");
+      _add_pid_name(POSITRON, "POSITRON");
+      _add_pid_name(PROTON, "PROTON");
+      _add_pid_name(ANTIPROTON, "ANTIPROTON");
+      _add_pid_name(PHOTON, "PHOTON");
+      _add_pid_name(NEUTRON, "NEUTRON");
+      _add_pid_name(ANTINEUTRON, "ANTINEUTRON");
+      _add_pid_name(MUON, "MUON");
+      _add_pid_name(ANTIMUON, "ANTIMUON");
+      _add_pid_name(NU_E, "NU_E");
+      _add_pid_name(NU_EBAR, "NU_EBAR");
+      _add_pid_name(NU_MU, "NU_MU");
+      _add_pid_name(NU_MUBAR, "NU_MUBAR");
+      _add_pid_name(NU_TAU, "NU_TAU");
+      _add_pid_name(NU_TAUBAR, "NU_TAUBAR");
+      _add_pid_name(PIPLUS, "PIPLUS");
+      _add_pid_name(PIMINUS, "PIMINUS");
+      _add_pid_name(TAU, "TAU");
+      _add_pid_name(WPLUSBOSON, "WPLUSBOSON");
+      _add_pid_name(WMINUSBOSON, "WMINUSBOSON");
+      _add_pid_name(ZBOSON, "ZBOSON");
+      _add_pid_name(HIGGS, "HIGGS");
+      _add_pid_name(ANTITAU, "ANTITAU");
+      // _add_pid_name(PHOTOELECTRON, "PHOTOELECTRON");
+      // _add_pid_name(PHOTOPOSITRON, "PHOTOPOSITRON");
+      // _add_pid_name(PHOTOMUON, "PHOTOMUON");
+      // _add_pid_name(PHOTOANTIMUON, "PHOTOANTIMUON");
+      // _add_pid_name(PHOTOTAU, "PHOTOTAU");
+      // _add_pid_name(PHOTOANTITAU, "PHOTOANTITAU");
+      _add_pid_name(ANY, "*");
+    }
+
+    void _add_pid_name(PdgId pid, const std::string& pname) {
+      _ids_names[pid] = pname;
+      _names_ids[pname] = pid;
+    }
+
+
+    static ParticleNames* _instance;
+
+    std::map<PdgId, std::string> _ids_names;
+
+    std::map<std::string, PdgId> _names_ids;
+
   };
 
 
-  /// Convenience maker of particle ID pairs.
-  inline std::pair<PdgId,PdgId> make_pdgid_pair(PdgId a, PdgId b) {
-    return make_pair<PdgId,PdgId>(a, b);
-  }
-
-  /// Convenience maker of particle ID pairs.
-  // inline std::pair<PdgId,PdgId> make_pdgid_pair(ParticleName aname, ParticleName bname) {
-  //   return make_pdgid_pair(aname, bname);
-  // }
-
-  /// Convenience maker of particle ID pairs.
-  inline std::pair<PdgId,PdgId> make_pdgid_pair(const std::pair<ParticleName,ParticleName>& pnamepair) {
-    return make_pdgid_pair(pnamepair.first, pnamepair.second);
-  }
-
-  /// Typedef for a map of beam particle name enums to strings.
-  typedef std::map<PdgId, std::string> ParticleNameMap;
-
-
-  /// Typedef for a map of beam particle name strings to enums.
-  typedef std::map<std::string, PdgId> ParticleNameMapR;
-
-
-  static ParticleNameMap s_pnames;
-
-
-  /// Function which returns a map from beam particle name strings to the corresponding enums.
-  inline ParticleNameMapR getParticleNamesRMap() {
-    ParticleNameMapR bpmapr;
-    for (ParticleNameMap::const_iterator bp = s_pnames.begin(); bp != s_pnames.end(); ++bp) {
-      bpmapr[bp->second] = bp->first;
-    }
-    return bpmapr;
-  }
-
-
-  /// Typedef for a collection of beam particle name enums.
-  typedef std::vector<PdgId> ParticleNameList;
-
-
-  /// Function which returns a vector of all the beam particle values in
-  /// the ParticleName enum.
-  inline ParticleNameList getParticleNameEnums() {
-    ParticleNameList names;
-    for (ParticleNameMap::const_iterator bp = s_pnames.begin(); bp != s_pnames.end(); ++bp) {
-      names.push_back(bp->first);
-    }
-    return names;
-  }
-
-
-  /// Function which converts a particle name string to a ParticleName enum
-  inline ParticleName getParticleNameEnum(const std::string& pname) {
-    return (ParticleName) Rivet::getParticleNamesRMap()[pname];
-  }
-
-
-
-  /// Function which returns a vector of all the beam particle name strings.
-  inline std::vector<std::string> getParticleNames() {
-    vector<string> names;
-    for (ParticleNameMap::const_iterator bp = s_pnames.begin(); bp != s_pnames.end(); ++bp) {
-      names.push_back(bp->second);
-    }
-    return names;
-  }
-
-
-  /// Print a ParticleName as a string.
-  inline std::string toString(const ParticleName& p) {
-    return s_pnames[p];
+  /// Print a PdgId as a named string.
+  inline const std::string& toParticleName(PdgId p) {
+    return ParticleNames::particleName(p);
   }
 
 
   /// Print a PdgId as a named string.
-  inline std::string toParticleName(PdgId p) {
-    if (s_pnames.find(p) != s_pnames.end()) {
-      return s_pnames[p];
-    }
-    ostringstream ss;
-    ss << p;
-    return ss.str();
+  inline PdgId toParticleId(const std::string& pname) {
+    return ParticleNames::particleId(pname);
   }
 
 
-  /// Allow ParticleName to be passed to an iostream.
-  inline std::ostream& operator<<(std::ostream& os, const ParticleName& p) {
-    os << toString(p);
-    return os;
+  /// Convenience maker of particle ID pairs from PdgIds.
+  inline std::pair<PdgId,PdgId> make_pdgid_pair(PdgId a, PdgId b) {
+    return make_pair<PdgId,PdgId>(a, b);
   }
 
 
-  /////////////////////////////////////////////////
-  // Beams
+  /// Convenience maker of particle ID pairs from particle names.
+  inline std::pair<PdgId,PdgId> make_pdgid_pair(const std::string& a, const std::string& b) {
+    const PdgId pa = toParticleId(a);
+    const PdgId pb = toParticleId(b);
+    return make_pair<PdgId,PdgId>(pa, pb);
+  }
 
-  /// Print a BeamPair as a string.
-  inline std::string toString(const BeamPair& pair) {
+
+  /// Print a PdgIdPair as a string.
+  inline std::string toBeamsString(const PdgIdPair& pair) {
     string out = "[" +
       toParticleName(pair.first) + ", " +
       toParticleName(pair.second) + "]";
     return out;
   }
 
-  /// Allow BeamPair to be passed to an ostream.
-  inline std::ostream& operator<<(std::ostream& os, const BeamPair& bp) {
-    os << toString(bp);
-    return os;
-  }
-
 
 }
-
 
 #endif

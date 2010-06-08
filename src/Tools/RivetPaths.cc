@@ -22,9 +22,5 @@ namespace Rivet {
     return getDataPath() + "/Rivet";
   }
 
-  const string getRivetgunDataPath() {
-    return getDataPath() + "/AGILe";
-  }
-
 
 }

@@ -95,7 +95,7 @@ THAT'S ALL!
 
 We hope this was useful as a quick guide to getting started with running Rivet's
 built-in analyses for Monte Carlo generator validation. Be aware that we will be
-overhauling Rivet's histogramming system in version 1.2.0, from which point all
+overhauling Rivet's histogramming system in version 1.3.0, from which point all
 the conversions away from AIDA XML will no longer be necessary, and a fully
 programmatic interface to the Rivet data files will be possible. Please bear
 with us while we get this sorted out: we're as keen to have better histogramming

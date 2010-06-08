@@ -1,7 +1,24 @@
+2010-06-08  Andy Buckley  <andy@insectnation.org>
+
+	* Removing check for CEDARSTD #define guard, since we no longer
+	compile against AGILe and don't have to be careful about
+	duplication.
+
+	* Moving crappy closest approach and decay significance functions
+	from Utils into SVertex, which is the only place they have ever
+	been used (and is itself almost entirely pointless).
+
+	* Overhauling particle ID <-> name system to clear up ambiguities
+	between enums, ints, particles and beams. There are no more enums,
+	although the names are still available as const static ints, and
+	names are now obtained via a singleton class which wraps an STL
+	map for name/ID lookups in both directions.
+
 2010-05-18  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixing factor-of-2 bug in the error calculation when scaling
 	histograms.
+
 	* Fixing D0_2001_S4674421 analysis.
 
 2010-05-11  Andy Buckley  <andy@insectnation.org>

@@ -148,7 +148,7 @@ namespace Rivet {
     virtual std::string collider() const;
 
     /// Return the pair of incoming beams required by this analysis.
-    virtual const std::vector<BeamPair> requiredBeams() const;
+    virtual const std::vector<PdgIdPair> requiredBeams() const;
 
     /// Sets of valid beam energy pairs, in GeV
     virtual const std::vector<std::pair<double, double> >& energies() const;
@@ -183,7 +183,7 @@ namespace Rivet {
     const ParticlePair& beams() const;
 
     /// Incoming beam IDs for this run
-    const BeamPair beamIds() const;
+    const PdgIdPair beamIds() const;
 
     /// Centre of mass energy for this run
     double sqrtS() const;
@@ -194,10 +194,10 @@ namespace Rivet {
   public:
 
     /// Is this analysis able to run on the supplied pair of beams?
-    virtual bool isCompatible(const ParticleName& beam1, const ParticleName& beam2) const;
+    virtual bool isCompatible(PdgId beam1, PdgId beam2) const;
 
-    /// Is this analysis able to run on the BeamPair @a beams ?
-    virtual bool isCompatible(const BeamPair& beams) const;
+    /// Is this analysis able to run on the PdgIdPair @a beams ?
+    virtual bool isCompatible(const PdgIdPair& beams) const;
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const;
@@ -410,7 +410,7 @@ namespace Rivet {
 
     /// Set the colliding beam pair.
     /// @deprecated Use .info file and AnalysisInfo class instead
-    Analysis& setBeams(const ParticleName& beam1, const ParticleName& beam2);
+    Analysis& setBeams(PdgId beam1, PdgId beam2);
 
     /// Declare whether this analysis needs to know the process cross-section from the generator.
     Analysis& setNeedsCrossSection(bool needed);

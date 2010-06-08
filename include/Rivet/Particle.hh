@@ -18,19 +18,22 @@ namespace Rivet {
 
     /// Default constructor.
     /// @deprecated A particle without info is useless. This only exists to keep STL containers happy.
-    Particle() : ParticleBase(),
-      _original(0), _id(0), _momentum()
+    Particle()
+      : ParticleBase(),
+        _original(0), _id(0), _momentum()
     { }
 
     /// Constructor without GenParticle.
-    Particle(PdgId pid, const FourMomentum& mom) : ParticleBase(),
-      _original(0), _id(pid), _momentum(mom)
+    Particle(PdgId pid, const FourMomentum& mom)
+      : ParticleBase(),
+        _original(0), _id(pid), _momentum(mom)
     { }
 
     /// Constructor from a HepMC GenParticle.
-    Particle(const GenParticle& gp) : ParticleBase(),
-    _original(&gp), _id(gp.pdg_id()),
-    _momentum(gp.momentum())
+    Particle(const GenParticle& gp)
+      : ParticleBase(),
+        _original(&gp), _id(gp.pdg_id()),
+        _momentum(gp.momentum())
     { }
 
 
@@ -44,43 +47,43 @@ namespace Rivet {
 
 
     /// Check if the particle corresponds to a GenParticle.
-    bool hasGenParticle() const { 
-      return bool(_original); 
+    bool hasGenParticle() const {
+      return bool(_original);
     }
 
 
     /// The PDG ID code for this Particle.
-    long pdgId() const { 
-      return _id; 
+    long pdgId() const {
+      return _id;
     }
 
 
     /// The momentum of this Particle.
-    const FourMomentum& momentum() const { 
-      return _momentum; 
+    const FourMomentum& momentum() const {
+      return _momentum;
     }
 
 
     /// Set the momentum of this Particle.
-    Particle& setMomentum(const FourMomentum& momentum) { 
-      _momentum = momentum; 
-      return *this; 
+    Particle& setMomentum(const FourMomentum& momentum) {
+      _momentum = momentum;
+      return *this;
     }
 
 
     /// The mass of this Particle.
-    double mass() const { 
-      return momentum().mass(); 
+    double mass() const {
+      return momentum().mass();
     }
 
     // /// The charge of this Particle.
-    // double charge() const { 
-    //   return PID::charge(*this); 
+    // double charge() const {
+    //   return PID::charge(*this);
     // }
 
     // /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
-    // int threeCharge() const { 
-    //   return PID::threeCharge(*this); 
+    // int threeCharge() const {
+    //   return PID::threeCharge(*this);
     // }
 
 
@@ -107,7 +110,7 @@ namespace Rivet {
   /// Print a ParticlePair as a string.
   inline std::string toString(const ParticlePair& pair) {
     stringstream out;
-    out << "[" 
+    out << "["
         << toParticleName(pair.first.pdgId()) << " @ "
         << pair.first.momentum().E()/GeV << " GeV, "
         << toParticleName(pair.second.pdgId()) << " @ "

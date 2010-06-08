@@ -144,7 +144,7 @@ namespace Rivet {
     }
 
     /// Get beam IDs for this run, determined from first event
-    BeamPair beamIds() const;
+    PdgIdPair beamIds() const;
 
     /// Get energy for this run, determined from first event
     double sqrtS() const;
@@ -189,7 +189,7 @@ namespace Rivet {
 
     /// Remove beam-incompatible analyses from the run list.
     /// @todo Do this automatically in the init phase (including energies) and deprecate explicit use
-    AnalysisHandler& removeIncompatibleAnalyses(const BeamPair& beams);
+    AnalysisHandler& removeIncompatibleAnalyses(const PdgIdPair& beams);
 
     //@}
 
@@ -312,8 +312,6 @@ namespace Rivet {
     /// The copy constructor is private and must never be called.  In
     /// fact, it should not even be implemented.
     AnalysisHandler(const AnalysisHandler&);
-
-    static void initializeParticleNames();
 
   };
 

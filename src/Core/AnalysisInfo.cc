@@ -87,35 +87,31 @@ namespace Rivet {
           it.second() >> ai->_experiment;
         } else if (key == "Beams") {
           const YAML::Node& beampairs = it.second();
-          vector<pair<ParticleName,ParticleName> > beam_pairs;
-          if (beampairs.size() == 2 && 
-              beampairs[0].GetType() == YAML::CT_SCALAR && 
+          vector<PdgIdPair> beam_pairs;
+          if (beampairs.size() == 2 &&
+              beampairs[0].GetType() == YAML::CT_SCALAR &&
               beampairs[1].GetType() == YAML::CT_SCALAR) {
             string bstr0, bstr1;
             beampairs[0] >> bstr0;
-            ParticleName b0 = getParticleNameEnum(bstr0);
             beampairs[1] >> bstr1;
-            ParticleName b1 = getParticleNameEnum(bstr1);
-            beam_pairs += make_pair<ParticleName,ParticleName>(b0, b1);
-          } else {            
+            beam_pairs += make_pdgid_pair(bstr0, bstr1);
+          } else {
             for (YAML::Iterator bpi = beampairs.begin(); bpi != beampairs.end(); ++bpi) {
               const YAML::Node& bp = *bpi;
-              if (bp.size() == 2 && 
-                  bp[0].GetType() == YAML::CT_SCALAR && 
+              if (bp.size() == 2 &&
+                  bp[0].GetType() == YAML::CT_SCALAR &&
                   bp[1].GetType() == YAML::CT_SCALAR) {
                 string bstr0, bstr1;
                 bp[0] >> bstr0;
-                ParticleName b0 = getParticleNameEnum(bstr0);
                 bp[1] >> bstr1;
-                ParticleName b1 = getParticleNameEnum(bstr1);
-                beam_pairs += make_pair<ParticleName,ParticleName>(b0, b1);
+                beam_pairs += make_pdgid_pair(bstr0, bstr1);
               } else {
                 assert(0 && "Beam ID pairs have to be either a 2-tuple or a list of 2-tuples of particle names");
               }
             }
           }
           ai->_beams = beam_pairs;
-        } 
+        }
         else if (key == "Energies") {
           const YAML::Node& energies = it.second();
           vector<pair<double,double> > beam_energy_pairs;

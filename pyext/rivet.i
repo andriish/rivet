@@ -29,8 +29,7 @@
 %include "Rivet/Particle.fhh"
 %include "Rivet/ParticleName.hh"
 %template(PdgIdPair) std::pair<Rivet::PdgId,Rivet::PdgId>;
-%template(PdgIdPairList) std::vector<Rivet::BeamPair>;
-//%template(PdgIdPairList) std::vector< std::pair<PdgId,PdgId> >;
+%template(PdgIdPairList) std::vector<Rivet::PdgIdPair>;
 
 // Logging interface
 %template(LogLevelMap) std::map<std::string, int>;
@@ -62,7 +61,7 @@ namespace Rivet {
 
   ParticlePair beams(const Event& e);
 
-  BeamPair beamIds(const HepMC::GenEvent& e) {
+  PdgIdPair beamIds(const HepMC::GenEvent& e) {
     return beamIds(Event(e));
   }
 
@@ -80,7 +79,7 @@ namespace Rivet {
     virtual std::string experiment() const;
     virtual std::string collider() const;
     virtual std::string year() const;
-    virtual const std::vector<BeamPair>& requiredBeams() const;
+    virtual const std::vector<PdgIdPair>& requiredBeams() const;
     virtual const std::vector<std::pair<double,double> >& energies() const;
     virtual std::vector<std::string> authors() const;
     virtual std::vector<std::string> references() const;
@@ -88,9 +87,8 @@ namespace Rivet {
     virtual std::string status() const;
     virtual std::string bibKey() const;
     virtual std::string bibTeX() const;
-    virtual const bool isCompatible(const ParticleName& beam1,
-                                    const ParticleName& beam2) const;
-    virtual const bool isCompatible(const BeamPair& beams) const;
+    virtual const bool isCompatible(PdgId beam1, PdgId beam2) const;
+    virtual const bool isCompatible(const PdgIdPair& beams) const;
     //AnalysisHandler& handler() const;
     bool needsCrossSection() const;
   private:
@@ -109,13 +107,13 @@ namespace Rivet {
     double sumOfWeights() const;
     double sqrtS() const;
     const ParticlePair& beams() const;
-    const BeamPair& beamIds() const;
+    const PdgIdPair& beamIds() const;
     std::vector<std::string> analysisNames();
     AnalysisHandler& addAnalysis(const std::string& analysisname);
     AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);
     AnalysisHandler& removeAnalysis(const std::string& analysisname);
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
-    AnalysisHandler& removeIncompatibleAnalyses(const BeamPair& beams);
+    AnalysisHandler& removeIncompatibleAnalyses(const PdgIdPair& beams);
     void init();
     void init(const HepMC::GenEvent& event);
     void analyze(const HepMC::GenEvent& event);

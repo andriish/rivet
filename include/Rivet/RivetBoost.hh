@@ -19,6 +19,7 @@ namespace Rivet {
 
   // Clever casts
   using boost::lexical_cast;
+  using boost::bad_lexical_cast;
 
   // Clever assignment shortcuts
   using namespace boost::assign;

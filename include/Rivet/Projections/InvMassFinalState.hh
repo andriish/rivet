@@ -47,11 +47,8 @@ namespace Rivet {
 
   private:
 
-    /// Handy typedef for a pair of PID codes
-    typedef pair<PdgId,PdgId> PidPair;
-
     /// IDs of the decay products
-    std::vector<PidPair> _decayids;
+    std::vector<PdgIdPair> _decayids;
 
     /// Constituent pairs
     std::vector<std::pair<Particle, Particle> > _particlePairs;

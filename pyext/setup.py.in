@@ -2,9 +2,9 @@
 
 from distutils.core import setup, Extension
 
-longdesc = """This is a simple SWIG wrapper on the main steering interface of 
-the Rivet event simulation analysis library. It is used to create, query and 
-use the Rivet C++ analysis classes from a Python program, of which the prime 
+longdesc = """This is a simple SWIG wrapper on the main steering interface of
+the Rivet event simulation analysis library. It is used to create, query and
+use the Rivet C++ analysis classes from a Python program, of which the prime
 example is Rivet's own command line interface.
 """
 

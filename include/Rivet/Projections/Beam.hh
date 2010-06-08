@@ -16,10 +16,10 @@ namespace Rivet {
   ParticlePair beams(const Event& e);
 
   /// Function to get beam particle IDs from an event
-  BeamPair beamIds(const Event& e);
+  PdgIdPair beamIds(const Event& e);
 
   /// Function to get beam particle IDs from a pair of particles
-  BeamPair beamIds(const ParticlePair& beams);
+  PdgIdPair beamIds(const ParticlePair& beams);
 
   /// Function to get beam centre of mass energy from an event
   double sqrtS(const Event& e);
@@ -58,7 +58,7 @@ namespace Rivet {
     }
 
     /// The pair of beam particle PDG codes in the current collision.
-    const BeamPair beamIds() const {
+    const PdgIdPair beamIds() const {
       return Rivet::beamIds(beams());
     }
 
