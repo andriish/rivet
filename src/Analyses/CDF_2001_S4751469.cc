@@ -8,7 +8,7 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/LossyFinalState.hh"
+#include "Rivet/Projections/ConstLossyFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/TriggerCDFRun0Run1.hh"
 #include "LWH/Profile1D.h"
@@ -51,7 +51,11 @@ namespace Rivet {
       addProjection(TriggerCDFRun0Run1(), "Trigger");
       // Randomly discard 8% of charged particles as a kind of hacky detector correction.
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      const LossyFinalState lfs(cfs, 0.08);
+      const ConstLossyFinalState lfs(cfs, 0.08);
+      /// @todo Problem! Getting bad_cast exception... don't know why :(
+      // const LossyFinalState<ConstRandomFilter> lfs(cfs, ConstRandomFilter(0.08));
+      // const Projection* f = new ConstLossyFinalState(0.08);
+      // const ConstLossyFinalState* fp = dynamic_cast<const ConstLossyFinalState*>(f);
       addProjection(lfs, "FS");
       addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
 
@@ -92,7 +96,7 @@ namespace Rivet {
       const JetAlg& tj = applyProjection<JetAlg>(event, "TrackJet");
 
       // Final state (lossy) charged particles
-      const LossyFinalState& fs = applyProjection<LossyFinalState>(event, "FS");
+      const FinalState& fs = applyProjection<FinalState>(event, "FS");
 
       // Get jets, sorted by pT
       const Jets jets = tj.jetsByPt();

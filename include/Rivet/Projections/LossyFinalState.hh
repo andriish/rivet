@@ -12,7 +12,8 @@
 namespace Rivet {
 
 
-  /// @brief Randomly lose a fraction of the particles from the supplied final state projection.
+  /// @brief Templated FS projection which can lose some of the supplied particles.
+  template <typename FILTER>
   class LossyFinalState : public FinalState {
   public:
 
@@ -20,29 +21,30 @@ namespace Rivet {
     //@{
 
     /// Constructor from FinalState.
-    LossyFinalState(const FinalState& fsp, double lossfraction)
-      : _lossFraction(lossfraction)
+    LossyFinalState(const FinalState& fsp, const FILTER& filter)
+      : _filter(filter)
     {
       setName("LossyFinalState");
       addProjection(fsp, "FS");
-      assert(_lossFraction >= 0);
     }
 
     /// Stand-alone constructor. Initialises the base FinalState projection.
-    LossyFinalState(double lossfraction,
+    LossyFinalState(const FILTER& filter,
                     double mineta = -MAXRAPIDITY,
                     double maxeta = MAXRAPIDITY,
                     double minpt = 0.0)
-      : _lossFraction(lossfraction)
+      : _filter(filter)
     {
       setName("LossyFinalState");
       addProjection(FinalState(mineta, maxeta, minpt), "FS");
-      assert(_lossFraction >= 0);
     }
 
+    /// Virtual destructor, to allow subclassing
+    virtual ~LossyFinalState() { }
+
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new LossyFinalState(*this);
+    virtual const Projection* clone() {
+      return new LossyFinalState<FILTER>(*this);
     }
 
     //@}
@@ -51,26 +53,29 @@ namespace Rivet {
   protected:
 
     /// Apply the projection on the supplied event.
-    void project(const Event& e);
+    void project(const Event& e) {
+      const FinalState& fs = applyProjection<FinalState>(e, "FS");
+      getLog() << Log::DEBUG << "Pre-loss number of FS particles = " << fs.particles().size() << endl;
+      _theParticles.clear();
+      std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
+                          std::back_inserter(_theParticles), _filter);
+      getLog() << Log::DEBUG << "Filtered number of FS particles = " << _theParticles.size() << endl;
+    }
+
 
     /// Compare projections.
-    int compare(const Projection& p) const;
+    int compare(const Projection& p) const {
+      const LossyFinalState<FILTER>& other = pcast< LossyFinalState<FILTER> >(p);
+      const int fscmp = mkNamedPCmp(other, "FS");
+      if (fscmp) return fscmp;
+      return _filter.compare(other._filter);
+    }
 
 
-  private:
+  protected:
 
-    /// Inner functor used to implement the random lossiness.
-    struct RandomFilter {
-      RandomFilter(double lossFraction) : _lossFraction(lossFraction) {}
-      bool operator()(const Particle& p) {
-        /// @todo Use a better RNG
-        return (rand()/static_cast<double>(RAND_MAX) < _lossFraction);
-      }
-      double _lossFraction;
-    };
-
-    /// Fraction of particles to lose.
-    const double _lossFraction;
+    /// Filtering object: must support operator(const Particle&) and compare(const Filter&)
+    FILTER _filter;
 
   };
 

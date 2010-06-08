@@ -19,7 +19,6 @@ libRivetProjections_la_SOURCES = \
   JetAlg.cc \
   JetShape.cc \
   LeadingParticlesFinalState.cc \
-  LossyFinalState.cc \
   MergedFinalState.cc \
   MissingMomentum.cc \
   Multiplicity.cc \
