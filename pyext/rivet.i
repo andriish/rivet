@@ -43,7 +43,12 @@ namespace Rivet {
 // Rivet class mappings
 namespace Rivet {
 
+
+  const std::string getLibPath();
+  const std::string getDataPath();
+  const std::string getRivetDataPath();
   std::string version();
+
 
   class Event {
     Event();
