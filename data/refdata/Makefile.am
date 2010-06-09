@@ -11,6 +11,7 @@ dist_pkgdata_DATA = \
   DELPHI_2002_069_CONF_603.aida  \
   DELPHI_2003_WUD_03_11.aida     \
   OPAL_2004_S6132243.aida        \
+  OPAL_2001_S4553896.aida        \
   OPAL_1998_S3780481.aida        \
   CLEO_1997_S3486664.aida        \
   CLEO_2001_S4557530.aida        \
