@@ -4,7 +4,7 @@ Summary: Charged particle correlations in ppbar non-single-diffractive events of
 Experiment: UA5
 Collider: CERN SPS
 SpiresID: 1867512
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
 References:
@@ -12,12 +12,14 @@ References:
 RunInfo:
   ppbar events. Non-single diffractive events need to be switched on.
   The trigger implementation is the same as in UA5_1989_S1926373.
+  Important: Only the correlation strengths with symmetric eta bins 
+  should be used for tuning.
 NumEvents: 100000
 Beams: [p-, p+]
 Energies: [200, 546, 900]
 PtCuts: [0]
 Description:
-  Data on two-particle pseudorapidity and multiplicity correlations 
+  'Data on two-particle pseudorapidity and multiplicity correlations 
   of charged particles for non single-diffractive $\bar{p}p$ collisions at 
   c.m. energies of 200, 546 and 900 GeV. Pseudorapidity correlations interpreted 
   in terms of a cluster model, which has been motivated by this and other 
@@ -29,7 +31,7 @@ Description:
   depends strongly on position and size of the pseudorapidity gap separating 
   the forward and backward interval. All our correlation studies can be understood 
   in terms of a cluster model in which clusters contain on average about two 
-  charged particles, i.e. are of similar magnitude to earlier estimates from the ISR.
+  charged particles, i.e. are of similar magnitude to earlier estimates from the ISR.'
 BibKey: Ansorge:1988fg
 BibTeX: '@Article{Ansorge:1988fg,
      author    = "Ansorge, R. E. and others",
@@ -43,3 +45,6 @@ BibTeX: '@Article{Ansorge:1988fg,
      doi       = "10.1007/BF01579906",
      SLACcitation  = "%%CITATION = ZEPYA,C37,191;%%"
 }'
+ToDo:
+ - Check sanity of implementation of b with assymetric eta bins
+ - Get rid of vectors, use temp. histos instead

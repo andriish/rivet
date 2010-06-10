@@ -33,7 +33,6 @@ RivetUnvalidated_la_SOURCES = \
     SFM_1984_S1178091.cc \
     STAR_2008_S7993412.cc \
     STAR_2009_UE_HELEN.cc \
-    UA5_1988_S1867512.cc \
     ZEUS_2001_S4815815.cc
 endif
 
@@ -121,6 +120,8 @@ RivetSPSAnalyses_la_SOURCES = \
     UA1_1990_S2044935.cc \
     UA5_1982_S875503.cc \
     UA5_1986_S1583476.cc \
+    UA5_1987_S1640666.cc \
+    UA5_1988_S1867512.cc \
     UA5_1989_S1926373.cc
 
 

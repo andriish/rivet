@@ -35,6 +35,7 @@ dist_pkgdata_DATA = \
   UA5_1986_S1583476.aida         \
   UA5_1989_S1926373.aida         \
   UA5_1988_S1867512.aida         \
+  UA5_1987_S1640666.aida         \
   CDF_1988_S1865951.aida         \
   CDF_1990_S2089246.aida         \
   CDF_1991_S2313472.aida         \
