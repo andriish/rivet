@@ -115,7 +115,8 @@ namespace Rivet {
     template <typename PROJ>
     const PROJ& addProjection(const PROJ& proj, const std::string& name) {
       const Projection& reg = _addProjection(proj, name);
-      return dynamic_cast<const PROJ&>(reg);
+      const PROJ& rtn = dynamic_cast<const PROJ&>(reg);
+      return rtn;
     }
 
 
