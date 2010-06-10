@@ -49,7 +49,7 @@ namespace Rivet {
 
       const FinalState& trackfs = applyProjection<ChargedFinalState>(event, "CFS");
       foreach (Particle p, trackfs.particles()) {
-        const double pt = p.momentum().pT();
+        const double pt = p.momentum().pT()/GeV;
         // Effective weight for d3sig/dp3 = weight / ( Delta eta * 2pi * pt ), with Delta(eta) = 2
         const double eff_weight = weight/(2*2*TWOPI*pt);
         _hist_pt->fill(pt, eff_weight);
