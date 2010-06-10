@@ -41,7 +41,7 @@ namespace Rivet {
 
       stringstream massname;
       massname<<"jet_mass_"<<i+1;
-      double mmax = 1.0/(double(i)+2.0)*sqrtS()/GeV/2.0;
+      double mmax = 100.0;
       int nbins_m = 100/(i+1);
       _h_mass_jet[i] = bookHistogram1D(massname.str(), logBinEdges(nbins_m, 1.0, mmax));
 
