@@ -8,11 +8,12 @@ namespace Rivet {
 
 
   MC_JetAnalysis::MC_JetAnalysis(const string& name,
-                                 const size_t& njet,
-                                 const string& jetpro_name)
-    : Analysis(name), m_njet(njet), m_jetpro_name(jetpro_name),
-    _h_log10_d(njet, NULL), _h_log10_R(njet+1, NULL), _h_pT_jet(njet, NULL),
-    _h_eta_jet(njet, NULL)
+                                 size_t njet,
+                                 const string& jetpro_name,
+                                 double jetptcut)
+    : Analysis(name), m_njet(njet), m_jetpro_name(jetpro_name), m_jetptcut(jetptcut),
+      _h_log10_d(njet, NULL), _h_log10_R(njet+1, NULL), _h_pT_jet(njet, NULL),
+      _h_eta_jet(njet, NULL), _h_rap_jet(njet, NULL), _h_mass_jet(njet, NULL)
   {
     setNeedsCrossSection(true);
   }
@@ -35,12 +36,22 @@ namespace Rivet {
       stringstream pTname;
       pTname<<"jet_pT_"<<i+1;
       double pTmax = 1.0/(double(i)+2.0)*sqrtS()/GeV/2.0;
-      int nbins = 100/(i+1);
-      _h_pT_jet[i] = bookHistogram1D(pTname.str(), logBinEdges(nbins, 10.0, pTmax));
+      int nbins_pT = 100/(i+1);
+      _h_pT_jet[i] = bookHistogram1D(pTname.str(), logBinEdges(nbins_pT, 10.0, pTmax));
+
+      stringstream massname;
+      massname<<"jet_mass_"<<i+1;
+      double mmax = 1.0/(double(i)+2.0)*sqrtS()/GeV/2.0;
+      int nbins_m = 100/(i+1);
+      _h_mass_jet[i] = bookHistogram1D(massname.str(), logBinEdges(nbins_m, 1.0, mmax));
 
       stringstream etaname;
       etaname<<"jet_eta_"<<i+1;
       _h_eta_jet[i] = bookHistogram1D(etaname.str(), i>1 ? 25 : 50, -5.0, 5.0);
+
+      stringstream rapname;
+      rapname<<"jet_y_"<<i+1;
+      _h_rap_jet[i] = bookHistogram1D(rapname.str(), i>1 ? 25 : 50, -5.0, 5.0);
 
       for (size_t j=i+1; j<m_njet; ++j) {
         std::pair<size_t, size_t> ij(std::make_pair(i, j));
@@ -67,22 +78,22 @@ namespace Rivet {
 
   // Do the analysis
   void MC_JetAnalysis::analyze(const Event & e) {
-    double weight = e.weight();
+    const double weight = e.weight();
 
     const FastJets& jetpro = applyProjection<FastJets>(e, m_jetpro_name);
 
-    // jet resolutions and integrated jet rates
+    // Jet resolutions and integrated jet rates
     const fastjet::ClusterSequence* seq = jetpro.clusterSeq();
     if (seq!=NULL) {
       double previous_dij = 10.0;
       for (size_t i=0; i<m_njet; ++i) {
-        // jet resolution i -> j
+        // Jet resolution i -> j
         double d_ij=log10(sqrt(seq->exclusive_dmerge_max(i)));
 
-        // fill differential jet resolution
+        // Fill differential jet resolution
         _h_log10_d[i]->fill(d_ij, weight);
 
-        // fill integrated jet resolution
+        // Fill integrated jet resolution
         for (int ibin=0; ibin<_h_log10_R[i]->size(); ++ibin) {
           IDataPoint* dp=_h_log10_R[i]->point(ibin);
           double dcut=dp->coordinate(0)->value();
@@ -92,7 +103,7 @@ namespace Rivet {
         }
         previous_dij = d_ij;
       }
-      // one remaining integrated jet resolution
+      // One remaining integrated jet resolution
       for (int ibin=0; ibin<_h_log10_R[m_njet]->size(); ++ibin) {
         IDataPoint* dp=_h_log10_R[m_njet]->point(ibin);
         double dcut=dp->coordinate(0)->value();
@@ -102,13 +113,16 @@ namespace Rivet {
       }
     }
 
-    const Jets& jets = jetpro.jetsByPt(20.0);
+    const Jets& jets = jetpro.jetsByPt(m_jetptcut);
 
-    // the remaining direct jet observables
+    // The remaining direct jet observables
     for (size_t i=0; i<m_njet; ++i) {
       if (jets.size()<i+1) continue;
-      _h_pT_jet[i]->fill(jets[i].momentum().pT(), weight);
+      _h_pT_jet[i]->fill(jets[i].momentum().pT()/GeV, weight);
+      _h_mass_jet[i]->fill(jets[i].momentum().mass()/GeV, weight);
       _h_eta_jet[i]->fill(jets[i].momentum().eta(), weight);
+      _h_rap_jet[i]->fill(jets[i].momentum().rapidity(), weight);
+      // cout << "Jet mass [" << i+1 << "] = " << jets[i].momentum().mass()/GeV << " GeV" << endl;
 
       for (size_t j=i+1; j<m_njet; ++j) {
         if (jets.size()<j+1) continue;
@@ -139,7 +153,9 @@ namespace Rivet {
       }
 
       scale(_h_pT_jet[i], crossSection()/sumOfWeights());
+      scale(_h_mass_jet[i], crossSection()/sumOfWeights());
       scale(_h_eta_jet[i], crossSection()/sumOfWeights());
+      scale(_h_rap_jet[i], crossSection()/sumOfWeights());
 
     }
     for (int ibin=0; ibin<_h_log10_R[m_njet]->size(); ++ibin) {
@@ -147,7 +163,7 @@ namespace Rivet {
       dp->coordinate(1)->setValue(dp->coordinate(1)->value()*crossSection()/sumOfWeights());
     }
 
-    // scale the d{eta,R} histograms
+    // Scale the d{eta,R} histograms
     map<pair<size_t, size_t>, AIDA::IHistogram1D*>::iterator it;
     for (it=_h_deta_jets.begin(); it!=_h_deta_jets.begin(); ++it) {
       scale(it->second, crossSection()/sumOfWeights());
@@ -155,8 +171,8 @@ namespace Rivet {
     for (it=_h_dR_jets.begin(); it!=_h_dR_jets.begin(); ++it) {
       scale(it->second, crossSection()/sumOfWeights());
     }
-    
-    // fill inclusive jet multi ratio
+
+    // Fill inclusive jet multi ratio
     int Nbins=_h_jet_multi_inclusive->axis().bins();
     std::vector<double> ratio(Nbins-1, 0.0);
     std::vector<double> err(Nbins-1, 0.0);

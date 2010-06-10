@@ -14,8 +14,9 @@ namespace Rivet {
 
     /// Default constructor.
     MC_JetAnalysis(const string& name,
-                   const size_t& njet,
-                   const string& jetpro_name);
+                   size_t njet,
+                   const string& jetpro_name,
+                   double jetptcut=20*GeV);
 
 
     /// @name Analysis methods
@@ -35,12 +36,19 @@ namespace Rivet {
     /// (this projection has to be registered by the derived analysis!)
     const std::string m_jetpro_name;
 
+    /// Jet pT cutoff
+    double m_jetptcut;
+
+    /// @todo Add jet masses and d(rap)
+
     /// @name Histograms
     //@{
     std::vector<AIDA::IHistogram1D *> _h_log10_d;
     std::vector<AIDA::IDataPointSet *> _h_log10_R;
     std::vector<AIDA::IHistogram1D *> _h_pT_jet;
     std::vector<AIDA::IHistogram1D *> _h_eta_jet;
+    std::vector<AIDA::IHistogram1D *> _h_rap_jet;
+    std::vector<AIDA::IHistogram1D *> _h_mass_jet;
     std::map<std::pair<size_t, size_t>, AIDA::IHistogram1D*> _h_deta_jets;
     std::map<std::pair<size_t, size_t>, AIDA::IHistogram1D*> _h_dR_jets;
     AIDA::IHistogram1D * _h_jet_multi_exclusive;
