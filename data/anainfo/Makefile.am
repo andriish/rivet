@@ -36,6 +36,7 @@ dist_pkgdata_DATA = \
   CDF_2008_S8093652.info \
   CDF_2008_S8095620.info \
   CDF_2009_S8233977.info \
+  CDF_2009_NOTE_9936.info \
   CDF_2009_S8383952.info \
   CDF_2009_S8436959.info \
   D0_1996_S3214044.info \

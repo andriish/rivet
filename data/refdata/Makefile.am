@@ -68,6 +68,7 @@ dist_pkgdata_DATA = \
   CDF_2008_NOTE_9351.aida        \
   CDF_2008_LEADINGJETS.aida      \
   CDF_2009_S8233977.aida         \
+  CDF_2009_NOTE_9936.aida        \
   CDF_2009_S8383952.aida         \
   CDF_2009_S8436959.aida         \
   D0_1996_S3214044.aida          \
