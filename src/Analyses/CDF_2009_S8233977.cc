@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/TriggerCDFRun2.hh"
 
 namespace Rivet {
 
@@ -41,7 +42,7 @@ namespace Rivet {
 
     /// Book histograms and projections
     void init() {
-      addProjection(ChargedFinalState(-4.7, 4.7, 0.0*GeV), "TriggerFS");
+      addProjection(TriggerCDFRun2(), "Trigger");
       addProjection(FinalState(-1.0, 1.0, 0.0*GeV), "EtFS");
       addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
 
@@ -54,16 +55,9 @@ namespace Rivet {
  
     /// Do the analysis
     void analyze(const Event& evt) {
-      // Trigger: need at least one charged particle in both -4.7 < eta < -3.7 and 3.7 < eta < 4.7
-      const FinalState& trigfs = applyProjection<FinalState>(evt, "TriggerFS");
-      unsigned int n_plus(0), n_minus(0);
-      foreach (const Particle& p, trigfs.particles()) {
-        const double eta = p.momentum().eta();
-        if (inRange(eta, -4.7, -3.7)) n_minus++;
-        else if (inRange(eta, 3.7, 4.7)) n_plus++;
-      }
-      getLog() << Log::DEBUG << "Trigger -: " << n_minus << ", Trigger +: " << n_plus << endl;
-      if (n_plus == 0 || n_minus == 0) vetoEvent;
+      // MinBias Trigger
+      const bool trigger = applyProjection<TriggerCDFRun2>(evt, "Trigger").minBiasDecision();
+      if (!trigger) vetoEvent;
 
       // Get the event weight
       const double weight = evt.weight();
