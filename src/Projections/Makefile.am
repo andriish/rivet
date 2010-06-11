@@ -30,6 +30,7 @@ libRivetProjections_la_SOURCES = \
   Thrust.cc \
   TotalVisibleMomentum.cc \
   TriggerCDFRun0Run1.cc \
+  TriggerCDFRun2.cc \
   TriggerUA5.cc \
   UnstableFinalState.cc \
   VetoedFinalState.cc \
