@@ -321,9 +321,9 @@ if __name__ == "__main__":
     parser.add_option("-o", "--out", dest="OUTFILE", default="-")
     parser.add_option("--append", dest="APPEND_OUTPUT", action="store_true", default=False)
     verbgroup = OptionGroup(parser, "Verbosity control")
-    verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+    verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                          default=logging.INFO, help="print debug (very verbose) messages")
-    verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+    verbgroup.add_option("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
                          default=logging.INFO, help="be very quiet")
     parser.add_option_group(verbgroup)
     (opts, args) = parser.parse_args()

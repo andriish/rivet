@@ -199,10 +199,10 @@ if __name__ == "__main__":
     parser.add_option("-f", dest="AIDA", action="store_false",
                       help="Produce FLAT output rather than AIDA")
     verbgroup = OptionGroup(parser, "Verbosity control")
-    verbgroup.add_option("-V", "--verbose", action="store_const",
+    verbgroup.add_option("-v", "--verbose", action="store_const",
                          const=logging.DEBUG, dest="LOGLEVEL",
                          help="print debug (very verbose) messages")
-    verbgroup.add_option("-Q", "--quiet", action="store_const",
+    verbgroup.add_option("-q", "--quiet", action="store_const",
                          const=logging.WARNING, dest="LOGLEVEL",
                          help="be very quiet")
     parser.set_defaults(bins=[],

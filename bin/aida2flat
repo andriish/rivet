@@ -61,9 +61,9 @@ if __name__ == "__main__":
                       help="Only write out histograms whose $path/$name string matches these regexes",
                       dest="PATHPATTERNS")
     verbgroup = OptionGroup(parser, "Verbosity control")
-    verbgroup.add_option("-V", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+    verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                          default=logging.INFO, help="print debug (very verbose) messages")
-    verbgroup.add_option("-Q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+    verbgroup.add_option("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
                          default=logging.INFO, help="be very quiet")
     opts, args = parser.parse_args()
 

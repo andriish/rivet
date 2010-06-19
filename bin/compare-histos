@@ -96,9 +96,9 @@ if __name__ == "__main__":
                       default="REF", help="ID of reference data set (file path for non-REF data)")
     parser.add_option("--plot-info-dir", dest="PLOTINFODIR", action="append",
                       default=["./", rivet_data_dir], help="directory which may contain plot header information")
-    parser.add_option("-Q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
+    parser.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
                       action="store_const", default=logging.INFO, const=logging.WARNING)
-    parser.add_option("-V", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
+    parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
                       action="store_const", default=logging.INFO, const=logging.DEBUG)
     opts, args = parser.parse_args()
 

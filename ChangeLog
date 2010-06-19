@@ -1,5 +1,12 @@
 2010-06-19  Andy Buckley  <andy@insectnation.org>
 
+	* Adding --analysis-path and --analysis-path-append command-line
+	flags to the rivet script, as a "persistent" way to set or extend
+	the RIVET_ANALYSIS_PATH variable.
+
+	* Changing -Q/-V script verbosity arguments to more standard
+	-q/-v, after Hendrik moaned about it ;)
+
 	* Small fix to TinyXML operator precendence: removes a warning,
 	and I think fixes a small bug.
 

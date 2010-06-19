@@ -15,9 +15,9 @@ parser = OptionParser(usage=usage)
 parser.add_option("--srcroot", metavar="DIR", dest="SRCROOT", default=None,
                   help="install the templates into the Rivet source tree (rooted " +
                   "at directory DIR) rather than just creating all in the current dir")
-parser.add_option("-Q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
+parser.add_option("-q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
                   action="store_const", const=logging.WARNING, help="only write out warning and error messages")
-parser.add_option("-V", "--verbose", dest="LOGLEVEL", default=logging.INFO,
+parser.add_option("-v", "--verbose", dest="LOGLEVEL", default=logging.INFO,
                   action="store_const", const=logging.DEBUG, help="provide extra debugging messages")
 opts, args = parser.parse_args()
 try:
