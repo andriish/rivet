@@ -5,7 +5,7 @@ endif
 
 lib_LTLIBRARIES = libRivet.la
 
-libRivet_la_SOURCES = 
+libRivet_la_SOURCES =
 
 libRivet_la_LDFLAGS = \
   -L$(prefix)/lib \
@@ -15,6 +15,7 @@ libRivet_la_LDFLAGS = \
 libRivet_la_LIBADD  = \
   Core/libRivetCore.la \
   Projections/libRivetProjections.la \
+  Analyses/libRivetAnalysisTools.la \
   Tools/libRivetTools.la \
   -ldl -lm \
   $(GSL_LDFLAGS) $(FASTJETCONFIGLIBADD)

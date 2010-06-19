@@ -4,6 +4,11 @@ LIBS = -lCDFConesPlugin -lSISConePlugin -lsiscone -lJadePlugin
 lib_LTLIBRARIES =
 
 
+noinst_LTLIBRARIES = libRivetAnalysisTools.la
+libRivetAnalysisTools_la_SOURCES = \
+  MC_JetAnalysis.cc
+
+
 ## Unvalidated analyses: add new standard analyses here, and only
 ## move them into the collider-specific standard plugin libraries
 ## once they have been finished and checked. The --enable-unvalidated

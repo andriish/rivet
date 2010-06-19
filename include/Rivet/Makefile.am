@@ -77,6 +77,11 @@ nobase_pkginclude_HEADERS +=   \
   Projections/ZFinder.hh
 
 
+## Analysis base class headers
+nobase_pkginclude_HEADERS += \
+  Analyses/MC_JetAnalysis.hh
+
+
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
@@ -84,7 +89,6 @@ nobase_pkginclude_HEADERS += \
   Tools/Utils.hh \
   Tools/BinnedHistogram.hh \
   Tools/ParticleIdUtils.hh \
-  Tools/MC_JetAnalysis.hh \
   Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh

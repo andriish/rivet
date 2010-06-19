@@ -1,10 +1,9 @@
 // -*- C++ -*-
-#include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/MC_JetAnalysis.hh"
+#include "Rivet/Analyses/MC_JetAnalysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/RivetAIDA.hh"
 
 namespace Rivet {
 
@@ -23,6 +22,7 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
+      //FastJets jetpro(fs, FastJets::ANTIKT, 0.4);
       FastJets jetpro(fs, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 

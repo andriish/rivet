@@ -1,3 +1,16 @@
+2010-06-19  Andy Buckley  <andy@insectnation.org>
+
+	* Small fix to TinyXML operator precendence: removes a warning,
+	and I think fixes a small bug.
+
+	* Adding plotinfo entries for new jet rapidity and jet mass plots
+	in MC_JetAnalysis derivatives.
+
+	* Moving MC_JetAnalysis base class into a new
+	libRivetAnalysisTools library, with analysis base class and helper
+	headers to be stored in the reinstated Rivet/Analyses include
+	directory.
+
 2010-06-08  Andy Buckley  <andy@insectnation.org>
 
 	* Removing check for CEDARSTD #define guard, since we no longer

@@ -125,6 +125,54 @@ XLabel=$\eta(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$
 # END PLOT
 
+# BEGIN PLOT /MC_PHOTONJETS/jet_y_1
+Title=
+XLabel=$y(\text{jet 1})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 1})$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jet_y_2
+Title=
+XLabel=$y(\text{jet 2})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 2})$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jet_y_3
+Title=
+XLabel=$y(\text{jet 3})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 3})$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jet_y_4
+Title=
+XLabel=$y(\text{jet 4})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 4})$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jet_mass_1
+Title=
+XLabel=$m(\text{jet 1})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 1})$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jet_mass_2
+Title=
+XLabel=$m(\text{jet 2})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 2})$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jet_mass_3
+Title=
+XLabel=$m(\text{jet 3})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 3})$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jet_mass_4
+Title=
+XLabel=$m(\text{jet 4})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 4})$
+# END PLOT
+
 # BEGIN PLOT /MC_PHOTONJETS/jet_multi_exclusive
 Title=Exclusive jet multiplicity
 XLabel=$N_{\text{jet}}$
