@@ -125,7 +125,7 @@ namespace Rivet {
 	_Et_cosphi_sum = jets[i].momentum().Et() * sin(jets[i].phi());
 	_Et_sum = jets[i].momentum().Et() * sin(jets[i].phi());
       }
-      if (sqrt(_Et_sinphi_sum*_Et_sinphi_sum + _Et_cosphi_sum*_Et_cosphi_sum)/_Et_sum > 6.0) 
+      if (sqrt(_Et_sinphi_sum*_Et_sinphi_sum + _Et_cosphi_sum*_Et_cosphi_sum)/_Et_sum > 6.0)
 	vetoEvent;
 
       // Check jet requirements
@@ -276,7 +276,7 @@ namespace Rivet {
 
 
       //AIDA::IHistogramFactory& hf = histogramFactory();
-      AIDA::IDataPointSetFactory& hf = datapointsetFactory();
+      //AIDA::IDataPointSetFactory& hf = datapointsetFactory();
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d03-x01-y01", *_histJet3eta, *_histEta3Corr);

@@ -46,7 +46,7 @@ namespace Rivet {
   const map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername) {
     // Get filename
     const string xmlfile = getDatafilePath(papername);
- 
+
     // Open AIDA XML file
     TiXmlDocument doc(xmlfile);
     doc.LoadFile();
@@ -56,10 +56,10 @@ namespace Rivet {
       cerr << err << endl;
       throw Error(err);
     }
- 
+
     // Return value, to be populated
     map<string, vector<DPSXPoint> > rtn;
- 
+
     try {
       // Walk down tree to get to the <paper> element
       const TiXmlNode* aidaN = doc.FirstChild("aida");
@@ -73,7 +73,7 @@ namespace Rivet {
           cerr << "Skipping non-reference histogram " << plotname << endl;
           continue;
         }
-     
+
         /// @todo Check that "path" matches filename
         vector<DPSXPoint> points;
         for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling()) {
@@ -99,11 +99,11 @@ namespace Rivet {
             /// @todo Throw an exception here?
           }
         }
-     
+
         // Add to the map
         rtn[plotname] = points;
       }
-   
+
     }
     // Write out the error
     /// @todo Rethrow as a general XML failure.
@@ -111,11 +111,11 @@ namespace Rivet {
       cerr << e.what() << endl;
       throw;
     }
- 
+
     // Return
     return rtn;
   }
- 
+
 
 
   const map<string, BinEdges>
