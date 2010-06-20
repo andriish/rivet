@@ -1,7 +1,8 @@
-SUBDIRS = Core Projections Tools .
+SUBDIRS = Core Projections Tools
 if ENABLE_ANALYSES
 SUBDIRS += Analyses
 endif
+SUBDIRS += .
 
 lib_LTLIBRARIES = libRivet.la
 
