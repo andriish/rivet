@@ -4,14 +4,17 @@ from optparse import OptionParser
 import logging
 import os, sys
 
-usage = """\
+"""\
 %prog: make templates of analysis source files for Rivet"
 
 Usage: %prog [--help|-h] [--srcroot=<srcrootdir>] <analysisname>
+
+Without the --srcroot flag, the analysis files will be created in the current
+directory.
 """
 
 ## Handle command line
-parser = OptionParser(usage=usage)
+parser = OptionParser(usage=__doc__)
 parser.add_option("--srcroot", metavar="DIR", dest="SRCROOT", default=None,
                   help="install the templates into the Rivet source tree (rooted " +
                   "at directory DIR) rather than just creating all in the current dir")
@@ -124,11 +127,11 @@ namespace Rivet {
 
     /// Constructor
     %(ANANAME)s()
-      : Analysis("%(ANANAME)s") 
+      : Analysis("%(ANANAME)s")
     {
       /// @todo Set approriate for your analysis
       setBeams(PROTON, ANTIPROTON);
-      
+
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(true);
     }
@@ -164,12 +167,12 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       /// @todo Normalise, scale and otherwise manipulate histograms here
-      
+
       // scale(_histYYYY, crossSection()/sumOfWeights()); # norm to cross section
       // normalize(_histYYYY); # normalize to unity
-      
+
     }
 
     //@}
@@ -225,7 +228,7 @@ RunInfo:
   up a generator to reproduce the data.>
 NumEvents: <Insert typical number of events needed for good statistics.>
 Beams: <Insert beam pair(s), e.g. [p-, p+] or [[p-, e-], [p-, e+]]>
-Energies: <Insert list of run energies or beam energy pairs in GeV, 
+Energies: <Insert list of run energies or beam energy pairs in GeV,
            e.g. [1960] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
 PtCuts: <Insert list of kinematic pT cuts in GeV, e.g. [0, 20]>
 Description:
