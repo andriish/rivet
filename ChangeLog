@@ -1,3 +1,20 @@
+2010-06-21  Andy Buckley  <andy@insectnation.org>
+
+	* Making SWIG configure-time check include testing for
+	incompatibilities with the C++ compiler (re. the recurring _const_
+	char* literals issue).
+
+	* Various tweaks to scripts: make-plots and compare-histos
+	processes are now renamed (on Linux), rivet-config is avoided when
+	computing the Rivet version,and RIVET_REF_PATH is also set using
+	the rivet --analysis-path* flags. compare-histos now uses multiple
+	ref data paths for .aida file globbing.
+
+	* Hendrik changed VetoedFinalState comparison to always return
+	UNDEFINED if vetoing on the results of other FS projections is
+	being used. This is the only simple way to avoid problems
+	emanating from the remainingFinalState thing.
+
 2010-06-19  Andy Buckley  <andy@insectnation.org>
 
 	* Adding --analysis-path and --analysis-path-append command-line

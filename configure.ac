@@ -202,17 +202,48 @@ if test x$enable_pyext == xyes; then
       AC_MSG_WARN([Can't build Python extension since header file $python_header cannot be found])
       enable_pyext=no
     fi
+  else
+    AC_MSG_WARN([Can't build Python extension since python can't be found])
+    enable_pyext=no
   fi
 fi
-## SWIG version checks
+## SWIG checks
 if test x$enable_pyext == xyes; then
   AC_PROG_SWIG
   if test x$SWIG == x; then
     AC_MSG_WARN([Can't build Python extension since swig could not be found])
-    ## TODO: Test that SWIG makes a compilable source file...
-    ## cf. g++ 4.x requires that string literal is "_const_ char*"
     enable_pyext=no
+  else
+    ## Test that SWIG makes a compilable source file...
+    ## cf. g++ 4.x requires that string literal is "_const_ char*"
+    cat > conftest.i <<EOL
+%module conftest
+%{
+  void foo();
+%}
+void foo();
+EOL
+    AC_MSG_CHECKING([if $SWIG can make a Python function wrapper])
+    flag_ok=yes
+    stat_string=`$SWIG -c++ -python conftest.i 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
+    AC_MSG_RESULT([$flag_ok])
+    if test x$flag_ok != xyes; then
+      AC_MSG_WARN([Can't build Python extension since $SWIG is not able to make a Python wrapper])
+      enable_pyext=no
+    else
+      AC_MSG_CHECKING([if $SWIG is compatible with the $CXX compiler])
+      flag_ok=yes
+      if test x$flag_ok == xyes; then
+        stat_string=`$CXX -c conftest_wrap.cxx -I$python_incpath 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
+      fi
+      AC_MSG_RESULT([$flag_ok])
+      if test x$flag_ok != xyes; then
+        AC_MSG_WARN([Can't build Python extension since $SWIG is not compatible with $CXX])
+        enable_pyext=no
+      fi
+    fi
   fi
+  rm -rf conftest*
 fi
 ## Finish
 if test x$enable_pyext == xyes; then
