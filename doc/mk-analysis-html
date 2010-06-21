@@ -43,7 +43,7 @@ anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
 #print anadirs
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
 
-        
+
 ## Change dlopen status to GLOBAL for Rivet lib
 try:
     import ctypes
@@ -112,6 +112,15 @@ for aname in sorted(list(all_analyses)):
     else:
         page += "<b>No references listed</b>\n"
 
+
+    page += "<b>Beams:</b> %s<br/>\n" % "; ".join(ana.requiredBeamsNames())
+    page += "<b>Beam energies:</b> "
+    if ana.energies():
+        page += "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()])
+        page += "GeV"
+    else:
+        page += "ANY"
+    page += "<br/>\n"
 
     if ana.runInfo():
         page += "<b>Run details:</b>\n"

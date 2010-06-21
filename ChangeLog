@@ -1,5 +1,7 @@
 2010-06-21  Andy Buckley  <andy@insectnation.org>
 
+	* Using .info file beam ID and energy info in HTML and LaTeX documentation.
+
 	* Using .info file beam ID and energy info in command-line printout.
 
 	* Fixing a couple of references to temporary variables in the
