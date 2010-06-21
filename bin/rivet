@@ -44,14 +44,6 @@ except ImportError:
     pass
 
 
-## Get version from rivet-config
-version = "HEAD"
-try:
-    version = commands.getoutput("rivet-config --version")
-except:
-    pass
-
-
 ## Description / usage message
 usage="""Run Rivet analyses on inputted events from file or Unix pipe
 
@@ -85,8 +77,17 @@ except:
     pass
 
 
+## Try importing rivet
+try:
+    import rivet
+except Exception, e:
+    sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
+    logging.debug(str(e))
+    sys.exit(1)
+
+
 ## Parse command line options
-parser = OptionParser(usage=usage, version="rivet v%s" % version)
+parser = OptionParser(usage=usage, version="rivet v%s" % rivet.version())
 parser.add_option("-n", "--nevts", dest="MAXEVTNUM", type="int",
                   default=None, metavar="NUM",
                   help="max number of events to read.")
@@ -138,15 +139,6 @@ if logging.getLogger().handlers:
     logging.getLogger().handlers[0] = h
 else:
     logging.getLogger().addHandler(h)
-
-
-## Try importing rivet
-try:
-    import rivet
-except Exception, e:
-    sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
-    logging.debug(str(e))
-    sys.exit(1)
 
 
 ## Control native Rivet library logger
@@ -244,13 +236,17 @@ except:
 ## Override/modify analysis search path
 if opts.ANALYSIS_PATH:
     os.environ["RIVET_ANALYSIS_PATH"] = opts.ANALYSIS_PATH
+    os.environ["RIVET_REF_PATH"] = opts.ANALYSIS_PATH
 if opts.ANALYSIS_PATH_APPEND:
-    anapath = os.environ.get("RIVET_ANALYSIS_PATH", "")
-    if anapath:
-        anapath += ":"
-    anapath += opts.ANALYSIS_PATH_APPEND
-    os.environ["RIVET_ANALYSIS_PATH"] = anapath
+    for var in ["RIVET_ANALYSIS_PATH", "RIVET_REF_PATH"]:
+        anapath = os.environ.get(var, "")
+        if anapath:
+            anapath += ":"
+        anapath += opts.ANALYSIS_PATH_APPEND
+        os.environ[var] = anapath
 logging.debug("RIVET_ANALYSIS_PATH = " + os.environ.get("RIVET_ANALYSIS_PATH", ""))
+logging.debug("RIVET_REF_PATH = " + os.environ.get("RIVET_REF_PATH", ""))
+logging.debug("RIVET_INFO_PATH = " + os.environ.get("RIVET_INFO_PATH", ""))
 
 
 ## List of analyses

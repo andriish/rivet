@@ -1,5 +1,16 @@
 #! /usr/bin/env python
 
+"""\
+%prog - generate comparison plots
+
+USAGE:
+ %prog [options] [REF:'Expt data'] aidafile1:'label 1' [path/to/aidafile2:label2 ...]
+
+TODO:
+ * regex selector
+ * ask/force overwrite modes
+"""
+
 
 ## Make "set" a builtin type on Python < 2.4
 if 'set' not in dir(__builtins__):
@@ -42,15 +53,13 @@ except ImportError:
 if __name__ == "__main__":
     import os, sys, re, logging
 
-    usage = """%prog - generate comparison plots
-
-    USAGE:
-      %prog [options] [REF:'Expt data'] aidafile1:'label 1' [path/to/aidafile2:label2 ...]
-
-    TODO:
-      * regex selector
-      * ask/force overwrite modes
-    """
+    ## Try to rename the process on Linux
+    try:
+       import ctypes
+       libc = ctypes.cdll.LoadLibrary('libc.so.6')
+       libc.prctl(15, 'compare-histos', 0, 0, 0)
+    except Exception:
+       pass
 
     ## Try to use Psyco optimiser
     try:
@@ -60,16 +69,21 @@ if __name__ == "__main__":
         pass
 
     ## Get Rivet data dir
-    rivet_data_dir = ""
+    rivet_data_dirs = []
     try:
         import rivet
-        rivet_data_dir = rivet.getRivetDataPath()
+        if os.environ.has_key("RIVET_REF_PATH"):
+            env = os.environ.get("RIVET_REF_PATH").strip()
+            if env != ":":
+                rivet_data_dirs = os.environ.get("RIVET_REF_PATH").split(":")
+        else:
+            rivet_data_dirs.append(rivet.getRivetDataPath())
     except:
         pass
 
     ## Parse command line options
     from optparse import OptionParser
-    parser = OptionParser(usage=usage)
+    parser = OptionParser(usage=__doc__)
     parser.add_option("-o", "--outdir", dest="OUTDIR",
                       default=".", help="write data files into this directory")
     parser.add_option("-R", "--rivet-refs", dest="RIVETREFS", action="store_true",
@@ -95,7 +109,7 @@ if __name__ == "__main__":
     parser.add_option("--refid", dest="REF_ID",
                       default="REF", help="ID of reference data set (file path for non-REF data)")
     parser.add_option("--plot-info-dir", dest="PLOTINFODIR", action="append",
-                      default=["./", rivet_data_dir], help="directory which may contain plot header information")
+                      default=["./", rivet_data_dirs[0]], help="directory which may contain plot header information")
     parser.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
                       action="store_const", default=logging.INFO, const=logging.WARNING)
     parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
@@ -140,9 +154,11 @@ if __name__ == "__main__":
     ## Get file names and labels
     FILES = []
     FILELABELS = { }
-    if opts.RIVETREFS and rivet_data_dir:
-        import glob
-        reffiles = glob.glob(os.path.join(rivet_data_dir, "*.aida"))
+    if opts.RIVETREFS and rivet_data_dirs:
+        reffiles = []
+        for d in rivet_data_dirs:
+            import glob
+            reffiles += glob.glob(os.path.join(d, "*.aida"))
         args = reffiles + args
     for a in args:
         path = a

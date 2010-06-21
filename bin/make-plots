@@ -1,5 +1,14 @@
 #! /usr/bin/env python
 
+"""\
+Usage: %prog [options] file.dat [file2.dat ...]
+
+TODO
+ * use std method (from compphys marking) to kill the subprocess
+ * Tidy LaTeX-writing code
+ * Handle boolean values flexibly (yes, no, true, false, etc. as well as 1, 0)
+"""
+
 ##
 ## This program is copyright by Hendrik Hoeth <hoeth@linta.de>. It may be used
 ## for scientific and private purposes. Patches are welcome, but please don't
@@ -1729,14 +1738,14 @@ class MkPlotThread( threading.Thread ):
 
 
 if __name__ == '__main__':
-    msg = """\
-Usage: %prog [options] file.dat [file2.dat ...]
 
-TODO
- * use std method (from compphys marking) to kill the subprocess
- * Tidy LaTeX-writing code
- * Handle boolean values flexibly (yes, no, true, false, etc. as well as 1, 0)
-"""
+    ## Try to rename the process on Linux
+    try:
+       import ctypes
+       libc = ctypes.cdll.LoadLibrary('libc.so.6')
+       libc.prctl(15, 'make-plots', 0, 0, 0)
+    except Exception:
+       pass
 
     ## Try to use Psyco optimiser
     try:
@@ -1745,7 +1754,6 @@ TODO
     except ImportError:
         pass
 
-
     ## Find number of (virtual) processing units
     numcores = os.sysconf('SC_NPROCESSORS_ONLN')
     if numcores is None:
@@ -1753,7 +1761,7 @@ TODO
 
     ## Parse command line options
     from optparse import OptionParser, OptionGroup
-    parser = OptionParser(usage=msg)
+    parser = OptionParser(usage=__doc__)
     parser.add_option("-n", "--num-threads", dest="NUM_THREADS", type="int",
                       default=numcores, help="max number of threads to be used [%s]" % numcores)
     parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
