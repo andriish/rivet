@@ -1,5 +1,12 @@
 2010-06-21  Andy Buckley  <andy@insectnation.org>
 
+	* Using .info file beam ID and energy info in command-line printout.
+
+	* Fixing a couple of references to temporary variables in the
+	analysis beam info, which had been introduced during refactoring:
+	have reinstated reference-type returns as the more efficient
+	solution. This should not affect API compatibility.
+
 	* Making SWIG configure-time check include testing for
 	incompatibilities with the C++ compiler (re. the recurring _const_
 	char* literals issue).

@@ -270,7 +270,7 @@ if opts.LIST_ANALYSES:
             msg = aname
             if opts.LOGLEVEL == logging.DEBUG:
                 a = rivet.AnalysisLoader.getAnalysis(aname)
-                msg = "%-25s %s" % (aname, "  " + a.summary())
+                msg = "%-25s   %s" % (aname, a.summary())
             print msg
     sys.exit(0)
 
@@ -315,6 +315,11 @@ if len(opts.SHOW_ANALYSES) > 0:
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
         print twrap.fill(ana.description())
         print ""
+        print "Beams:", "; ".join(ana.requiredBeamsNames())
+        if ana.energies():
+            print "Beam energies:", "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()]), "GeV"
+        else:
+            print "Beam energies: ANY"
         print "Run details:"
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
         for l in ana.runInfo().split("\n"):

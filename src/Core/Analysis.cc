@@ -202,12 +202,8 @@ namespace Rivet {
     return _info->todos();
   }
 
-  const vector<PdgIdPair> Analysis::requiredBeams() const {
-    vector<PdgIdPair> reqbeams;
-    foreach (const PdgIdPair& bp, info().beams()) {
-      reqbeams += bp;
-    }
-    return reqbeams;
+  const vector<PdgIdPair>& Analysis::requiredBeams() const {
+    return info().beams();
   }
 
 

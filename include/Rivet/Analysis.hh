@@ -148,7 +148,7 @@ namespace Rivet {
     virtual std::string collider() const;
 
     /// Return the pair of incoming beams required by this analysis.
-    virtual const std::vector<PdgIdPair> requiredBeams() const;
+    virtual const std::vector<PdgIdPair>& requiredBeams() const;
 
     /// Sets of valid beam energy pairs, in GeV
     virtual const std::vector<std::pair<double, double> >& energies() const;

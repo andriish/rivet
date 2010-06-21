@@ -5,6 +5,7 @@
   #include "Rivet/Analysis.hh"
   #include "Rivet/AnalysisHandler.hh"
   #include "Rivet/AnalysisLoader.hh"
+  #include "Rivet/AnalysisInfo.hh"
   #include "Rivet/Run.hh"
   #include "Rivet/Tools/Logging.hh"
   #include "Rivet/Event.hh"
@@ -72,6 +73,10 @@ namespace Rivet {
 
   double sqrtS(const Event& e);
 
+  // std::string toBeamsString(const PdgIdPair& pair);
+  const std::string& toParticleName(PdgId p);
+  PdgId toParticleId(const std::string& pname);
+
 
   // Mapping of just the metadata parts of the Analysis API
   class Analysis {
@@ -100,6 +105,17 @@ namespace Rivet {
     Analysis();
   };
 
+  %extend Analysis {
+    std::vector<std::string> requiredBeamsNames() {
+      std::vector<std::string> rtn;
+      foreach (const Rivet::PdgIdPair& bp, $self->info().beams()) {
+        std::string bps = Rivet::toBeamsString(bp);
+        rtn.push_back(bps);
+      }
+      return rtn;
+    }
+  }
+
 
   class AnalysisHandler {
   public:
@@ -112,7 +128,7 @@ namespace Rivet {
     double sumOfWeights() const;
     double sqrtS() const;
     const ParticlePair& beams() const;
-    const PdgIdPair& beamIds() const;
+    const PdgIdPair beamIds() const;
     std::vector<std::string> analysisNames();
     AnalysisHandler& addAnalysis(const std::string& analysisname);
     AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);
