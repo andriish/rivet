@@ -11,19 +11,8 @@ namespace Rivet {
   int VetoedFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
     if (fscmp != EQUIVALENT) return fscmp;
+    if (_vetofsnames.size() != 0) return UNDEFINED;
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
-    int vfssize = cmp(_vetofsnames.size(), other._vetofsnames.size());
-    if (vfssize != EQUIVALENT) return vfssize;
-    //if the size is the same retrieve the FS projections, store them in two ordered set,
-    //compare the sets element by element
-    set<const Projection*> vfs;
-    set<const Projection*> other_vfs;
-    foreach (const string& ifs, _vetofsnames) {
-      vfs.insert(&(getProjection(ifs)));
-      other_vfs.insert(&(other.getProjection(ifs)));
-    }
-    int isetcmp = cmp(vfs, other_vfs);
-    if (isetcmp != EQUIVALENT) return isetcmp;
     return \
       cmp(_vetoCodes, other._vetoCodes) ||
       cmp(_compositeVetoes, other._compositeVetoes) ||
