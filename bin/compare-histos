@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
 
     ## Line styles
-    COLORS = ('red', 'blue', 'blue!8!red!8!green', 'orange', 'magenta')
+    COLORS = ('red', 'blue', 'blue!8!red!8!green', 'magenta', 'orange')
     LINESTYLES = ('solid', 'dashed', 'dotted')
     STYLES=[]
     for ls in LINESTYLES:
@@ -192,6 +192,8 @@ if __name__ == "__main__":
                     xlabels[dpsname] = h.xlabel
                     ylabels[dpsname] = h.ylabel
             else:
+                if dpsname.count('/') > 2:
+                    dpsname = '/' + dpsname.split('/',2)[-1]
                 titles[dpsname] = h.title
                 xlabels[dpsname] = h.xlabel
                 ylabels[dpsname] = h.ylabel
