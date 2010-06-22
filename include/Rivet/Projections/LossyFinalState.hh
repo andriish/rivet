@@ -21,7 +21,7 @@ namespace Rivet {
     //@{
 
     /// Constructor from FinalState.
-    LossyFinalState(const FinalState& fsp, const FILTER& filter)
+    LossyFinalState(const FinalState& fsp, FILTER filter)
       : _filter(filter)
     {
       setName("LossyFinalState");
@@ -29,7 +29,7 @@ namespace Rivet {
     }
 
     /// Stand-alone constructor. Initialises the base FinalState projection.
-    LossyFinalState(const FILTER& filter,
+    LossyFinalState(FILTER filter,
                     double mineta = -MAXRAPIDITY,
                     double maxeta = MAXRAPIDITY,
                     double minpt = 0.0)
@@ -43,7 +43,7 @@ namespace Rivet {
     virtual ~LossyFinalState() { }
 
     /// Clone on the heap.
-    virtual const Projection* clone() {
+    virtual const Projection* clone() const {
       return new LossyFinalState<FILTER>(*this);
     }
 

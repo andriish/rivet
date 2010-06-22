@@ -65,7 +65,7 @@ namespace Rivet {
     }
 
     /// Clone on the heap.
-    virtual const Projection* clone() {
+    virtual const Projection* clone() const {
       return new ConstLossyFinalState(*this);
     }
 
