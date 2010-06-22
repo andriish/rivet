@@ -1838,6 +1838,7 @@ if __name__ == '__main__':
 
     ## Fill queue
     datfiles = Queue.Queue(maxsize=-1)
+    print "Making %d plots" % len(args)
     for d in args:
         datfiles.put(d)
 
@@ -1845,4 +1846,3 @@ if __name__ == '__main__':
     for threadnum in range(opts.NUM_THREADS):
         procthread = MkPlotThread()
         procthread.start()
-

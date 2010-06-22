@@ -1,50 +1,42 @@
 #! /usr/bin/env python
 
-from optparse import OptionParser, OptionGroup
-import sys, os, glob, shutil
-from subprocess import Popen, PIPE
+"""\
+%prog [options] <aidafile1> [<aidafile2> <aidafile3>...]
 
-## Try to load faster but non-standard cElementTree module
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:
-    try:
-        import cElementTree as ET
-    except ImportError:
-        try:
-            import xml.etree.ElementTree as ET
-        except:
-            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
-            sys.exit(1)
-
-
-usage = """Webpages from histogram files written out by Rivet.
+Make web pages from histogram files written out by Rivet.
 You can specify multiple Monte Carlo AIDA files to be compared. Reference data
 should be found automatically.
-
-Examples:
-  source /path/to/rivetenv.sh
-  %prog [options] <aidafile1> [<aidafile2> <aidafile3>...]
 """
 
-
-parser = OptionParser(usage=usage)
+from optparse import OptionParser
+parser = OptionParser(usage=__doc__)
 parser.add_option("-o", "--outputdir", dest="OUTPUTDIR",
                   default="./plots", help="directory for webpage output.")
 parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                   help="Plot config file(s) to be used with make-plots.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
                   default=False, help="Display plots on single webpage.")
+parser.add_option("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
+                  default=None, help="Request make-plots to use a specific number of threads.")
+parser.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
+                  default="PS", help="Use PDF as the vector plot format.")
+parser.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
+                  default="PS", help="Use PostScript as the vector plot format.")
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
                   default=False, help="Ignore unvalidated analyses.")
-
-
+parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
+                  help="Only write out histograms from analyses whose name matches any of these regexes")
 opts, aidafiles = parser.parse_args()
+
+
+import sys, os, glob, shutil
+from subprocess import Popen, PIPE
 
 if os.environ.has_key('RIVET_REF_PATH'):
     refpaths = os.environ['RIVET_REF_PATH'].split(":")
 else:
     refpaths = []
+
 try:
     datadir = Popen(["rivet-config", "--datadir"], stdout=PIPE).communicate()[0].split()[0]
     refpaths.append(datadir)
@@ -60,7 +52,22 @@ except:
     print "Error: Directory '%s' already exists. Set -o to something else." % opts.OUTPUTDIR
     sys.exit(1)
 
-## get set of analyses/reffiles involved in the runs
+
+## Try to load faster but non-standard cElementTree module
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    try:
+        import cElementTree as ET
+    except ImportError:
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
+            sys.exit(1)
+
+
+## Get set of analyses/reffiles involved in the runs
 analyses = set()
 reffiles = list()
 labels = []
@@ -73,6 +80,18 @@ for aidafile in aidafiles:
     for dps in tree.findall("dataPointSet"):
         path = dps.get("path")
         analysis = path[path.rfind("/")+1:]
+        if analysis in analyses:
+            continue
+        ## If regexes have been provided, only add analyses which match
+        if opts.PATHPATTERNS:
+            import re
+            matched = False
+            for patt in opts.PATHPATTERNS:
+                if re.search(patt, analysis) is not None:
+                    matched = True
+                    break
+            if not matched:
+                continue
         analyses.add(analysis)
         for refpath in refpaths:
             if os.access(os.path.join(refpath, analysis+".aida"), os.R_OK):
@@ -82,22 +101,127 @@ for aidafile in aidafiles:
                     break
 
 
-## run compare-histos to get plain .dat files from .aida
+## Run compare-histos to get plain .dat files from .aida
+## We do this here since it also makes the necessary directories
 ch_cmd = ["compare-histos"]
 ch_cmd.append("--mc-errs")
 ch_cmd.append("--hier-out")
 ch_cmd.append("--plot-info-dir=../")
-if len(aidafiles)+len(reffiles) < 2:
+if len(aidafiles) + len(reffiles) < 2:
     ch_cmd.append("--show-ref-only")
     ch_cmd.append("--no-ratio")
-for file in reffiles+aidafiles:
+for file in reffiles + aidafiles:
     ch_cmd.append("%s" % os.path.abspath(file))
-Popen(ch_cmd, cwd=opts.OUTPUTDIR).wait()
+Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
 
 
-## run make-plots on all generated .dat files
+## Write web page containing all (matched) plots
+## Make web pages first so that we can load it locally in
+## a browser to view the output before all plots are made
+style = """<style>
+  html { font-family: sans-serif; }
+  img { border: 0; }
+  a { text-decoration: none; font-weight: bold; }
+</style>"""
+
+import sys
+try:
+    import ctypes
+    sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
+except:
+    import dl
+    sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
+rivetavailable = True
+try:
+    import rivet
+except Exception, e:
+    rivetavailable = False
+
+index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
+index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, style))
+index.write('<h2>Plots from Rivet analyses</h2>\n\n')
+
+if opts.SINGLE:
+    ## Write table of contents
+    index.write('<ul>\n')
+    for analysis in sorted(analyses, reverse=True):
+        summary = analysis
+        if rivetavailable:
+            ana = rivet.AnalysisLoader.getAnalysis(analysis)
+            if ana:
+                summary = "%s (%s)" % (ana.summary(), analysis)
+                if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
+                    continue
+        index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
+    index.write('</ul>\n')
+
+for analysis in sorted(analyses, reverse=True):
+    references = []
+    summary = analysis
+    description = "NONE"
+    spiresid = analysis[analysis.rfind('S')+1:len(analysis)]
+    if rivetavailable:
+        ana = rivet.AnalysisLoader.getAnalysis(analysis)
+        if ana:
+            if ana.summary() is not "NONE":
+                summary = "%s (%s)" % (ana.summary(), analysis)
+            references = ana.references()
+            description = ana.description()
+            spiresid = ana.spiresId()
+            if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
+                continue
+    if opts.SINGLE:
+        index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
+    else:
+        index.write('<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
+    if spiresid is not "NONE":
+        index.write('<p><a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
+    for ref in references:
+        index.write(' &#124; %s' % ref)
+    index.write('</p>\n')
+    index.write('<p style="font-size:small;">%s</p>\n' % description)
+    anapath = os.path.join(opts.OUTPUTDIR, analysis)
+    if not opts.SINGLE:
+        anaindex = open(os.path.join(anapath, "index.html"), 'w')
+        anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>\n' %
+                       (opts.OUTPUTDIR, analysis, style))
+        anaindex.write('<h3>%s</h3>\n' % analysis)
+        anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
+        anaindex.write('<p>\n  %s\n</p>\n' % summary)
+    else:
+        anaindex = index
+
+    datfiles = glob.glob("%s/*.dat" % anapath)
+    for datfile in sorted(datfiles):
+        obsname = os.path.basename(datfile).replace(".dat", "")
+        pngfile = obsname+".png"
+        vecfile = obsname+"."+opts.VECTORFORMAT.lower()
+        if opts.SINGLE:
+            pngfile = analysis+"/"+pngfile
+            vecfile = analysis+"/"+vecfile
+
+        anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
+        anaindex.write('    <a href="#%s-%s">&#9875;</a> %s:<br>\n' % (analysis, obsname, vecfile) )
+        anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis, obsname, vecfile) )
+        anaindex.write('      <img src="%s">\n' % pngfile )
+        anaindex.write('    </a></a>\n')
+        anaindex.write('  </div>\n')
+
+    if not opts.SINGLE:
+        anaindex.write("</body>\n</html>\n")
+index.write('</body>\n</html>')
+
+
+## Now make the plots
+
+## Run make-plots on all generated .dat files
 mp_cmd = ["make-plots"]
-mp_cmd.append("--pspng")
+if opts.NUMTHREADS:
+    mp_cmd.append("--num-threads=%d" % opts.NUMTHREADS)
+if opts.VECTORFORMAT == "PDF":
+    mp_cmd.append("--pdfpng")
+elif opts.VECTORFORMAT == "PS":
+    mp_cmd.append("--pspng")
 mp_cmd.append("--full-range")
 for configfile in opts.CONFIGFILES:
     if os.access(os.path.expanduser(configfile), os.R_OK):
@@ -109,95 +233,3 @@ for analysis in sorted(analyses, reverse=True):
     for datfile in sorted(datfiles):
         mp_cmd.append(datfile)
 Popen(mp_cmd).wait()
-
-
-## write webpage containing all plots
-style = """<style>
-  html { font-family: sans-serif; }
-  img { border: 0; }
-  a { text-decoration: none; font-weight: bold; }
-</style>"""
-
-
-import sys
-try:
-    import ctypes
-    sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
-except:
-    import dl
-    sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
-rivetavailable=True
-try:
-    import rivet
-except Exception, e:
-    rivetavailable=False
-
-index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
-index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, style))
-index.write('<h2>Plots from Rivet analyses</h2>\n\n')
-
-if opts.SINGLE:
-    # write table of contents
-    index.write('<ul>\n')
-    for analysis in sorted(analyses, reverse=True):
-        summary=analysis
-        if rivetavailable:
-            ana=rivet.AnalysisLoader.getAnalysis(analysis)
-            if ana:
-                summary="%s (%s)" % (ana.summary(), analysis)
-                if opts.IGNORE_UNVALIDATED and ana.status()!="VALIDATED":
-                    continue
-        index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
-    index.write('</ul>\n')
-
-for analysis in sorted(analyses, reverse=True):
-    references=[]
-    summary=analysis
-    description="NONE"
-    spiresid=analysis[analysis.rfind('S')+1:len(analysis)]
-    if rivetavailable:
-        ana=rivet.AnalysisLoader.getAnalysis(analysis)
-        if ana:
-            if ana.summary() is not "NONE":
-                summary="%s (%s)" % (ana.summary(), analysis)
-            references=ana.references()
-            description=ana.description()
-            spiresid=ana.spiresId()
-            if opts.IGNORE_UNVALIDATED and ana.status()!="VALIDATED":
-                continue
-    if opts.SINGLE:
-        index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
-    else:
-        index.write('<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' %(analysis, summary))
-    if spiresid is not "NONE":
-        index.write('<p><a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
-    for ref in references:
-        index.write(' &#124; %s' % ref)
-    index.write('</p>\n')
-    index.write('<p style="font-size:small;">%s</p>\n' % description)
-    anapath = os.path.join(opts.OUTPUTDIR, analysis)
-    if not opts.SINGLE:
-        anaindex = open(os.path.join(anapath, "index.html"), 'w')
-        anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, analysis, style))
-    else:
-        anaindex = index
-
-    pngfiles = glob.glob("%s/*.png" % anapath)
-    for pngfile in sorted(pngfiles):
-        obsname = os.path.basename(pngfile).replace(".png", "")
-        pngfile = obsname+".png"
-        psfile = obsname+".ps"
-        if opts.SINGLE:
-            pngfile = analysis+"/"+pngfile
-            psfile = analysis+"/"+psfile
-        
-        anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
-        anaindex.write('    <a href="#%s-%s">&#9875;</a> %s:<br>\n' % (analysis, obsname, psfile) )
-        anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis,obsname,psfile) )
-        anaindex.write('      <img src="%s">\n' % pngfile )
-        anaindex.write('    </a></a>\n')
-        anaindex.write('  </div>\n')
-
-    if not opts.SINGLE:
-        anaindex.write("</body>\n</html>\n")
-index.write('</body>\n</html>')
