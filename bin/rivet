@@ -244,9 +244,9 @@ if opts.ANALYSIS_PATH_APPEND:
             anapath += ":"
         anapath += opts.ANALYSIS_PATH_APPEND
         os.environ[var] = anapath
-logging.debug("RIVET_ANALYSIS_PATH = " + os.environ.get("RIVET_ANALYSIS_PATH", ""))
-logging.debug("RIVET_REF_PATH = " + os.environ.get("RIVET_REF_PATH", ""))
-logging.debug("RIVET_INFO_PATH = " + os.environ.get("RIVET_INFO_PATH", ""))
+# logging.debug("RIVET_ANALYSIS_PATH = " + os.environ.get("RIVET_ANALYSIS_PATH", ""))
+# logging.debug("RIVET_REF_PATH = " + os.environ.get("RIVET_REF_PATH", ""))
+# logging.debug("RIVET_INFO_PATH = " + os.environ.get("RIVET_INFO_PATH", ""))
 
 
 ## List of analyses
