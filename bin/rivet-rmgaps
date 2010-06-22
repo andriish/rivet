@@ -1,5 +1,18 @@
 #! /usr/bin/env python
 
+"""\
+%prog datafile.aida mcfile.aida [outputfile.aida]
+
+Remove bins in Rivet-generated MC AIDA files which are actually binning gaps in
+the reference histogram. Rivet's histogramming system currently has no way to
+leave gaps between bins, hence this clean-up script.
+
+If the output file is not specified, the input MC file will be overwritten.
+
+TODO:
+ * Remove need to specify the ref file.
+"""
+
 import os, sys, tempfile
 
 class Inputdata:
@@ -60,7 +73,7 @@ class Histogram:
         if path is not None:
             path = path.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
         f.write('  <dataPointSet name="%s" dimension="2"\n' % path.split('/')[-1])
-        f.write('    path="%s" title="%s">\n' % (os.path.abspath(path.replace(path.split('/')[-1], '')), 
+        f.write('    path="%s" title="%s">\n' % (os.path.abspath(path.replace(path.split('/')[-1], '')),
                                                  title.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')))
         f.write('    <annotation>\n')
         if title is not None:
@@ -113,23 +126,30 @@ class Histogram:
 
 
 from optparse import OptionParser
-parser = OptionParser(usage="%prog datafile MCfile outputfile")
+parser = OptionParser(usage=__doc__)
 opts, args = parser.parse_args()
 
-if len(args) != 3:
-    sys.stderr.write("Must specity a reference, a MC, and an output file\n")
+if len(args) < 2:
+    sys.stderr.write("Must specify at least the reference and MC input files\n")
     sys.exit(1)
+OUTFILE = args[1]
+if len(args) == 3:
+    OUTFILE = args[2]
 
 # Convert the aida input files to flat files we can parse:
-tempdir=tempfile.mkdtemp('.gap_removal')
+tempdir = tempfile.mkdtemp('.gap_removal')
 
 filename = args[0].replace(".aida", "")
-os.system("%s/aida2flat %s.aida > %s/%s.dat" %(os.path.dirname(os.path.realpath(sys.argv[0])), filename, tempdir, os.path.basename(filename)))
-refdata = Inputdata("%s/%s" %(tempdir, os.path.basename(filename)))
+os.system("%s/aida2flat %s.aida > %s/%s.dat" % \
+              (os.path.dirname(os.path.realpath(sys.argv[0])),
+               filename, tempdir, os.path.basename(filename)))
+refdata = Inputdata("%s/%s" % (tempdir, os.path.basename(filename)))
 
 filename = args[1].replace(".aida", "")
-os.system("%s/aida2flat %s.aida > %s/%s.dat" %(os.path.dirname(os.path.realpath(sys.argv[0])), filename, tempdir, os.path.basename(filename)))
-mcdata = Inputdata("%s/%s" %(tempdir, os.path.basename(filename)))
+os.system("%s/aida2flat %s.aida > %s/%s.dat" % \
+              (os.path.dirname(os.path.realpath(sys.argv[0])),
+               filename, tempdir, os.path.basename(filename)))
+mcdata = Inputdata("%s/%s" % (tempdir, os.path.basename(filename)))
 
 # Cleanup:
 for i in os.listdir(tempdir):
@@ -141,14 +161,12 @@ for i in mcdata.description['DrawOnly']:
     mcdata.histos[i].remove_gaps()
 
 # Write the new aida file with removed gap bins:
-f = open(args[2], 'w')
+f = open(OUTFILE, 'w')
 f.write('<?xml version="1.0" encoding="ISO-8859-1" ?>\n')
 f.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
 f.write('<aida version="3.3">\n')
 f.write('  <implementation version="1.1" package="FreeHEP"/>\n')
-
 for i in mcdata.description['DrawOnly']:
     mcdata.histos[i].write_datapointset(f)
-
 f.write('</aida>\n')
 f.close
