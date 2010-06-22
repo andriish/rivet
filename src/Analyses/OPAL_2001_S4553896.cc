@@ -108,9 +108,12 @@ namespace Rivet {
       }
 
       const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
-      vector<fastjet::PseudoJet> jets;
       if (fastjets.clusterSeq()) {
-        jets = fastjet::sorted_by_E(fastjets.clusterSeq()->exclusive_jets_ycut(0.008));
+        vector<fastjet::PseudoJet> jets;
+        foreach (const fastjet::PseudoJet& jet,
+                 fastjet::sorted_by_E(fastjets.clusterSeq()->exclusive_jets_ycut(0.008))) {
+          if (jet.E()>3.0*GeV) jets.push_back(jet);
+        }
         if (jets.size() == 4) {
           _h_BZ->fill(fabs(calc_BZ(jets)), weight);
           _h_KSW->fill(calc_KSW(jets), weight);
