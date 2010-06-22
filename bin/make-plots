@@ -1809,7 +1809,7 @@ if __name__ == '__main__':
     ## Check for no args
     if len(args) == 0:
         logging.error(parser.get_usage())
-        exit(2)
+        sys.exit(2)
 
 #     ## Test for latex and dvips
 #     latex/dvips

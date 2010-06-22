@@ -154,6 +154,7 @@ if __name__ == "__main__":
     ## Get file names and labels
     FILES = []
     FILELABELS = { }
+    FILEOPTIONS = { }
     if opts.RIVETREFS and rivet_data_dirs:
         reffiles = []
         for d in rivet_data_dirs:
@@ -161,12 +162,15 @@ if __name__ == "__main__":
             reffiles += glob.glob(os.path.join(d, "*.aida"))
         args = reffiles + args
     for a in args:
-        path = a
-        label = None
-        if ":" in a:
-            path, label = a.split(":", 1)
+        asplit = a.split(":")
+        path = asplit[0]
         FILES.append(path)
-        FILELABELS[path] = label
+        if len(asplit)>1:
+            FILELABELS[path] = asplit[1]
+        if len(asplit)>2:
+            FILEOPTIONS[path] = []
+        for i in range(2, len(asplit)):
+            FILEOPTIONS[path].append(asplit[i])
 
 
     ## Check that the requested files are sensible
@@ -236,7 +240,7 @@ if __name__ == "__main__":
         for n, h in histos.iteritems():
             if h.isdata and DATAFILES.has_key(n):
                 DATAFILES[n] = f
-            if FILELABELS[f] is not None:
+            if f in FILELABELS:
                 LABELS[f][n] = FILELABELS[f]
             else:
                 if h.isdata:
@@ -401,6 +405,9 @@ if __name__ == "__main__":
                     #if key == 'ErrorBars' and opts.MC_ERRS:
                     #    continue
                     histstr += "%s=%s\n" % (key, val)
+                if hfile in FILEOPTIONS:
+                    for option in FILEOPTIONS[hfile]:
+                        histstr += '%s\n' % option
                 i += 1
             for bin in HISTOS[hfile][name].getBins():
                 xmin, xmax = bin.getXRange()
