@@ -7,8 +7,7 @@ nobase_pkginclude_HEADERS =
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
   Rivet.hh             Exceptions.hh \
-  RivetBoost.hh        RivetHepMC.hh \
-  RivetSTL.hh \
+  RivetBoost.hh        RivetHepMC.hh       RivetSTL.hh \
   Constraints.hh       BeamConstraint.hh \
   Event.hh             Event.fhh \
   ParticleBase.hh      Jet.hh \
@@ -87,6 +86,7 @@ nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
   Tools/Logging.fhh \
   Tools/Utils.hh \
+  Tools/RivetPaths.hh \
   Tools/BinnedHistogram.hh \
   Tools/ParticleIdUtils.hh \
   Tools/TypeTraits.hh

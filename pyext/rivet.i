@@ -40,14 +40,13 @@ namespace Rivet {
 }
 %include "Rivet/Tools/Logging.hh"
 
+// Rivet search paths
+%include "Rivet/Tools/RivetPaths.hh"
 
-// Rivet class mappings
+
+// Main Rivet class mappings
 namespace Rivet {
 
-
-  const std::string getLibPath();
-  const std::string getDataPath();
-  const std::string getRivetDataPath();
   std::string version();
 
 

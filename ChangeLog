@@ -1,3 +1,7 @@
+2010-06-23  Andy Buckley  <andy@insectnation.org>
+
+	* Adding environment-aware functions for Rivet search path list access.
+
 2010-06-21  Andy Buckley  <andy@insectnation.org>
 
 	* Using .info file beam ID and energy info in HTML and LaTeX documentation.

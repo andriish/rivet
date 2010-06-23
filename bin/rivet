@@ -80,6 +80,7 @@ except:
 ## Try importing rivet
 try:
     import rivet
+    #print rivet.getAnalysisLibPaths()
 except Exception, e:
     sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
     logging.debug(str(e))
