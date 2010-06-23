@@ -22,6 +22,8 @@ parser.add_option("-q", "--quiet", dest="LOGLEVEL", default=logging.INFO,
                   action="store_const", const=logging.WARNING, help="only write out warning and error messages")
 parser.add_option("-v", "--verbose", dest="LOGLEVEL", default=logging.INFO,
                   action="store_const", const=logging.DEBUG, help="provide extra debugging messages")
+parser.add_option("-i", "--inline-info", dest="INLINE", action="store_true",
+                  default=False, help="Put analysis info into source file instead of separate data file.")
 opts, args = parser.parse_args()
 try:
     logging.basicConfig(format="%(msg)s", level=opts.LOGLEVEL)
@@ -105,6 +107,29 @@ for ANANAME in ANANAMES:
     KEYWORDS["ANABIBTEX"] = ANABIBTEX
 
 
+    if opts.INLINE:
+        INLINEMETHODS="""
+  public:
+    string experiment()         const { return "%(ANAEXPT)s"; }
+    string year()               const { return "%(ANAYEAR)s"; }
+    string spiresId()           const { return "%(ANASPIRESID)s"; }
+    string collider()           const { return "None"; }
+    string summary()            const { return "None"; }
+    string description()        const { return "None"; }
+    string runInfo()            const { return "None"; }
+    string bibKey()             const { return "%(ANABIBKEY)s"; }
+    string bibTeX()             const { return "%(ANABIBTEX)s"; }
+    string status()             const { return "UNVALIDATED"; }
+    vector<string> authors()    const { return vector<string>(); }
+    vector<string> references() const { return vector<string>(); }
+    vector<std::string> todos() const { return vector<string>(); }
+    """ % KEYWORDS
+    else:
+        INLINEMETHODS=""
+
+    KEYWORDS["INLINEMETHODS"] = INLINEMETHODS
+
+
     ANASRCFILE = os.path.join(ANASRCDIR, ANANAME+".cc")
     logging.debug("Writing implementation template to %s" % ANASRCFILE)
     f = open(ANASRCFILE, "w")
@@ -129,9 +154,6 @@ namespace Rivet {
     %(ANANAME)s()
       : Analysis("%(ANANAME)s")
     {
-      /// @todo Set approriate for your analysis
-      setBeams(PROTON, ANTIPROTON);
-
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(true);
     }
@@ -150,8 +172,8 @@ namespace Rivet {
       /// @todo Initialise and register projections here
 
       /// @todo Book histograms here, e.g.:
-      // _histXXXX = bookProfile1D(1, 1, 1);
-      // _histYYYY = bookHistogram1D(2, 1, 1);
+      // _h_XXXX = bookProfile1D(1, 1, 1);
+      // _h_YYYY = bookHistogram1D(2, 1, 1);
 
     }
 
@@ -170,8 +192,8 @@ namespace Rivet {
 
       /// @todo Normalise, scale and otherwise manipulate histograms here
 
-      // scale(_histYYYY, crossSection()/sumOfWeights()); # norm to cross section
-      // normalize(_histYYYY); # normalize to unity
+      // scale(_h_YYYY, crossSection()/sumOfWeights()); # norm to cross section
+      // normalize(_h_YYYY); # normalize to unity
 
     }
 
@@ -188,9 +210,10 @@ namespace Rivet {
     /// @name Histograms
     //@{
 
-    AIDA::IProfile1D *_histXXXX;
-    AIDA::IHistogram1D *_histYYYY;
+    AIDA::IProfile1D *_h_XXXX;
+    AIDA::IHistogram1D *_h_YYYY;
     //@}
+%(INLINEMETHODS)s
 
   };
 
@@ -205,6 +228,24 @@ namespace Rivet {
     f.write(src)
     f.close()
 
+    ANAPLOTFILE = os.path.join(ANAPLOTDIR, ANANAME+".plot")
+    logging.debug("Writing plot template to %s" % ANAPLOTFILE)
+    f = open(ANAPLOTFILE, "w")
+    src = """\
+# BEGIN PLOT /%(ANANAME)s/d01-x01-y01
+Title=[Insert title for histogram d01-x01-y01 here]
+XLabel=[Insert x-axis label for histogram d01-x01-y01 here]
+YLabel=[Insert y-axis label for histogram d01-x01-y01 here]
+# + any additional plot settings you might like, see make-plots documentation
+# END PLOT
+
+# ... add more histograms as you need them ...
+""" % KEYWORDS
+    f.write(src)
+    f.close()
+
+    if opts.INLINE:
+        sys.exit(0)
     ANAINFOFILE = os.path.join(ANAINFODIR, ANANAME+".info")
     logging.debug("Writing info template to %s" % ANAINFOFILE)
     f = open(ANAINFOFILE, "w")
@@ -242,23 +283,6 @@ ToDo:
  - <Example: Use correct jet algorithm>
  - <Example: Add simplified trigger definition>
 
-""" % KEYWORDS
-    f.write(src)
-    f.close()
-
-
-    ANAPLOTFILE = os.path.join(ANAPLOTDIR, ANANAME+".plot")
-    logging.debug("Writing plot template to %s" % ANAPLOTFILE)
-    f = open(ANAPLOTFILE, "w")
-    src = """\
-# BEGIN PLOT /%(ANANAME)s/d01-x01-y01
-Title=[Insert title for histogram d01-x01-y01 here]
-XLabel=[Insert x-axis label for histogram d01-x01-y01 here]
-YLabel=[Insert y-axis label for histogram d01-x01-y01 here]
-# + any additional plot settings you might like, see make-plots documentation
-# END PLOT
-
-# ... add more histograms as you need them ...
 """ % KEYWORDS
     f.write(src)
     f.close()
