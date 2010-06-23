@@ -273,6 +273,8 @@ class Plot:
                 if inputdata.description['LogY']:
                     foo=[item for item in foo if item>0.0]
                     if len(foo)==0:
+                        if self.ymax==0:
+                            self.ymax=1
                         foo.append(2e-4*self.ymax)
                     fullrange = opts.FULL_RANGE
                     if inputdata.description.has_key('FullRange'):
@@ -1741,11 +1743,11 @@ if __name__ == '__main__':
 
     ## Try to rename the process on Linux
     try:
-       import ctypes
-       libc = ctypes.cdll.LoadLibrary('libc.so.6')
-       libc.prctl(15, 'make-plots', 0, 0, 0)
+        import ctypes
+        libc = ctypes.cdll.LoadLibrary('libc.so.6')
+        libc.prctl(15, 'make-plots', 0, 0, 0)
     except Exception:
-       pass
+        pass
 
     ## Try to use Psyco optimiser
     try:
