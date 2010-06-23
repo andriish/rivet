@@ -4,7 +4,10 @@
 %prog - generate comparison plots
 
 USAGE:
- %prog [options] [REF:'Expt data'] aidafile1:'label 1' [path/to/aidafile2:label2 ...]
+ %prog [options] aidafile1[:'PlotOption1=Value':'PlotOption2=Value'] [path/to/aidafile2 ...]
+ 
+where the plot options are described in the make-plots manual in the HISTOGRAM
+section.
 
 TODO:
  * regex selector
@@ -153,7 +156,6 @@ if __name__ == "__main__":
 
     ## Get file names and labels
     FILES = []
-    FILELABELS = { }
     FILEOPTIONS = { }
     if opts.RIVETREFS and rivet_data_dirs:
         reffiles = []
@@ -166,10 +168,10 @@ if __name__ == "__main__":
         path = asplit[0]
         FILES.append(path)
         if len(asplit)>1:
-            FILELABELS[path] = asplit[1]
-        if len(asplit)>2:
             FILEOPTIONS[path] = []
-        for i in range(2, len(asplit)):
+        for i in range(1, len(asplit)):
+            if not "=" in asplit[i]:
+                asplit[i]="Title=%s" % asplit[i]
             FILEOPTIONS[path].append(asplit[i])
 
 
@@ -240,18 +242,15 @@ if __name__ == "__main__":
         for n, h in histos.iteritems():
             if h.isdata and DATAFILES.has_key(n):
                 DATAFILES[n] = f
-            if f in FILELABELS:
-                LABELS[f][n] = FILELABELS[f]
+            if h.isdata:
+                l = "data"
+                if h.expt:
+                    l = "%s data" % h.expt
+                LABELS[f][n] = l
             else:
-                if h.isdata:
-                    l = "data"
-                    if h.expt:
-                        l = "%s data" % h.expt
-                    LABELS[f][n] = l
-                else:
-                    tmp = os.path.basename(f)
-                    tmp = re.sub(r'(.*)\.aida$', r'\1', tmp)
-                    LABELS[f][n] = "MC (%s)" % tmp
+                tmp = os.path.basename(f)
+                tmp = re.sub(r'(.*)\.aida$', r'\1', tmp)
+                LABELS[f][n] = "MC (%s)" % tmp
             HISTOS[f][n] = h
             NAMES.add(n)
         for n, t in titles.iteritems():
@@ -405,10 +404,10 @@ if __name__ == "__main__":
                     #if key == 'ErrorBars' and opts.MC_ERRS:
                     #    continue
                     histstr += "%s=%s\n" % (key, val)
-                if hfile in FILEOPTIONS:
-                    for option in FILEOPTIONS[hfile]:
-                        histstr += '%s\n' % option
                 i += 1
+            if hfile in FILEOPTIONS:
+                for option in FILEOPTIONS[hfile]:
+                    histstr += '%s\n' % option
             for bin in HISTOS[hfile][name].getBins():
                 xmin, xmax = bin.getXRange()
                 histstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.yval, bin.yerr)

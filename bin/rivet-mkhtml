@@ -4,8 +4,9 @@
 %prog [options] <aidafile1> [<aidafile2> <aidafile3>...]
 
 Make web pages from histogram files written out by Rivet.
-You can specify multiple Monte Carlo AIDA files to be compared. Reference data
-should be found automatically.
+You can specify multiple Monte Carlo AIDA files to be compared in the same
+syntax as for compare-histos, i.e. including plotting options.
+Reference data should be found automatically.
 """
 
 from optparse import OptionParser
