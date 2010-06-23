@@ -71,7 +71,7 @@ namespace Rivet {
     const Projection* p = _getEquiv(proj);
     if (p == 0) { // a null pointer is a non-match
       // If there is no equivalent projection, clone proj and use the clone for registering
-      p = _clone(parent, proj);
+      p = _clone(proj);
     }
 
     // Do the registering
@@ -96,9 +96,7 @@ namespace Rivet {
 
 
   // Clone neatly
-  /// @todo Remove the 'parent' argument?
-  const Projection* ProjectionHandler::_clone(const ProjectionApplier& UNUSED(parent),
-                                              const Projection& proj)
+  const Projection* ProjectionHandler::_clone(const Projection& proj)
   {
     // Clone a new copy of the passed projection on the heap
     getLog() << Log::TRACE << "Cloning projection " << proj.name() << " from " << &proj << endl;

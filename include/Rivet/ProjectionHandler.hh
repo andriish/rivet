@@ -84,7 +84,7 @@ namespace Rivet {
 
 
   private:
- 
+
     /// @name Construction. */
     //@{
     /// The standard constructor.
@@ -131,8 +131,7 @@ namespace Rivet {
     const Projection* _getEquiv(const Projection& proj) const;
 
     /// Make a clone of proj, copying across child references from the original
-    const Projection* _clone(const ProjectionApplier& parent,
-                             const Projection& proj);
+    const Projection* _clone(const Projection& proj);
 
     /// Internal function to do the registering
     const Projection* _register(const ProjectionApplier& parent,
@@ -141,7 +140,7 @@ namespace Rivet {
 
     /// Get a string dump of the current ProjHandler structure
     string _getStatus() const;
- 
+
     /// Check that this parent projection doesn't already use this name
     bool _checkDuplicate(const ProjectionApplier& parent,
                          const Projection& proj,
@@ -161,7 +160,7 @@ namespace Rivet {
     /// problems and there is no need to do so.
     const Projection& getProjection(const ProjectionApplier& parent,
                                     const string& name) const;
- 
+
     /// Get child projections for the given parent. By default this will just
     /// return the projections directly contained by the @a parent, but the @a
     /// depth argument can be changed to do a deep retrieval, which will recurse
