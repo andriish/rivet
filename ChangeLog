@@ -1,8 +1,16 @@
 2010-06-23  Andy Buckley  <andy@insectnation.org>
 
+	* Adding protection and warning about numerical precision issues
+	in jet mass calculation/histogramming to the MC_JetAnalysis
+	analysis.
+
+	* Numerical precision improvement in calculation of
+	Vector4::mass2.
+
 	* Adding relative scale ratio plot flag to compare-histos
 
-	* Extended command completion to rivet-config, compare-histos, and make-plots.
+	* Extended command completion to rivet-config, compare-histos, and
+	make-plots.
 
 	* Providing protected log messaging macros,
 	MSG_{TRACE,DEBUG,INFO,WARNING,ERROR} cf. Athena.

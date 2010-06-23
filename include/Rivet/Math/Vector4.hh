@@ -57,7 +57,8 @@ namespace Rivet {
     FourVector& setZ(const double z) { set(3, z); return *this; }
 
     double invariant() const {
-      return t()*t() - x()*x() - y()*y() - z()*z();
+      // Done this way for numerical precision
+      return (t() + z())*(t() - z()) - x()*x() - y()*y();
     }
 
     double angle(const FourVector& v) const {

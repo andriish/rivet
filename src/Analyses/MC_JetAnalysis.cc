@@ -119,7 +119,14 @@ namespace Rivet {
     for (size_t i=0; i<m_njet; ++i) {
       if (jets.size()<i+1) continue;
       _h_pT_jet[i]->fill(jets[i].momentum().pT()/GeV, weight);
-      _h_mass_jet[i]->fill(jets[i].momentum().mass()/GeV, weight);
+      // Check for numerical precision issues with jet masses
+      double m2_i = jets[i].momentum().mass2();
+      if (m2_i < 0) {
+        getLog() << Log::WARNING << "Jet mass2 is negative: " << m2_i << " GeV^2. "
+                 << "Truncating to 0.0, assuming numerical precision is to blame." << endl;
+        m2_i = 0.0;
+      }
+      _h_mass_jet[i]->fill(sqrt(m2_i)/GeV, weight);
       _h_eta_jet[i]->fill(jets[i].momentum().eta(), weight);
       _h_rap_jet[i]->fill(jets[i].momentum().rapidity(), weight);
       // cout << "Jet mass [" << i+1 << "] = " << jets[i].momentum().mass()/GeV << " GeV" << endl;
