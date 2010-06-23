@@ -14,7 +14,7 @@ if WITH_ASCIIDOC
 EXTRA_DIST += compare-histos.html make-plots.html
 endif
 
-DOCS = 
+DOCS =
 
 if ENABLE_PYEXT
 
@@ -33,6 +33,7 @@ if ENABLE_PDFMANUAL
 if WITH_PDFLATEX
 
 DOCS += rivet-manual.pdf
+EXTRA_DIST += analyses.bib
 
 
 if ENABLE_PYEXT
@@ -76,7 +77,7 @@ endif
 
 if WITH_ASCIIDOC
 
-DOCS += compare-histos.html make-plots.html 
+DOCS += compare-histos.html make-plots.html
 
 compare-histos.html: compare-histos.txt
 	asciidoc -a toc compare-histos.txt
