@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src pyext data include bin doc test
 
-EXTRA_DIST = GUIDELINES plugindemo/Makefile plugindemo/MyAnalysis.cc plugindemo/RootAnalysis.cc
+EXTRA_DIST = GUIDELINES
 
 doc:
 	cd doc && $(MAKE) doc
