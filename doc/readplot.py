@@ -4,7 +4,10 @@
 
 
 ## Make "set" a builtin type on Python < 2.4
-if 'set' not in dir(__builtins__):
+try:
+    tmp = set()
+    del tmp
+except:
     from sets import Set as set
 
 ## Make "sorted" a builtin function on Python < 2.4
@@ -29,7 +32,7 @@ anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", "*", ".li
 #print anadirs
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
 
-        
+
 ## Change dlopen status to GLOBAL for Rivet lib
 try:
     import ctypes
@@ -41,7 +44,7 @@ import rivet
 
 
 # all_analyses = rivet.AnalysisLoader.analysisNames()
-# for a in 
+# for a in
 #plotinfos = glob.glob(os.path.join(os.getcwd(), "..", "data", "plotinfo", "*"))
 
 
@@ -65,7 +68,7 @@ def plotinfo(aname):
 
     current_histo = None
     for line in finfo:
-        mbegin = pat_begin_block.match(line)        
+        mbegin = pat_begin_block.match(line)
         if mbegin:
             current_histo = mbegin.group(2)
             rtn.setdefault(current_histo, dict())

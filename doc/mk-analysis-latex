@@ -4,13 +4,17 @@
 OUTNAME = "analyses"
 import sys
 if len(sys.argv) < 2:
-    print "Using output name '%s'" % OUTNAME
+    pass
+    #print "Using output name '%s'" % OUTNAME
 else:
     OUTNAME = sys.argv[1]
 
 
 ## Make "set" a builtin type on Python < 2.4
-if not 'set' in dir(__builtins__):
+try:
+    tmp = set()
+    del tmp
+except:
     from sets import Set as set
 
 ## Make "sorted" a builtin function on Python < 2.4
@@ -84,11 +88,27 @@ for aname in sorted(list(all_analyses)):
         subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
     page += subtitle
     page += "\\textbf{%s}\\newline\n" %  ana.summary()
-    if ana.requiredBeamsNames():
-        page += "\\textbf{Beams:} %s \\newline\n" % "; ".join(ana.requiredBeamsNames())
+    if ana.requiredBeams():
+        def pid_to_str(pid):
+            if pid == 11:
+                return "$e^-$"
+            elif pid == -11:
+                return "$e^+$"
+            elif pid == 2212:
+                return "$p$"
+            elif pid == -2212:
+                return "$\\bar{p}$"
+            elif pid == 10000:
+                return "$*$"
+            else:
+                return str(pid)
+        beamstrs = []
+        for bp in ana.requiredBeams():
+            beamstrs.append(pid_to_str(bp[0]) + "\\," + pid_to_str(bp[1]))
+        page += "\\textbf{Beams:} %s \\newline\n" % ", ".join(beamstrs)
     if ana.energies():
         page += "\\textbf{Energies:} %s GeV \\newline\n" % \
-            "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()])
+            ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()])
     if ana.experiment():
         page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
     if ana.spiresId():

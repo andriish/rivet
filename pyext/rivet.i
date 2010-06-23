@@ -105,17 +105,6 @@ namespace Rivet {
     Analysis();
   };
 
-  %extend Analysis {
-    std::vector<std::string> requiredBeamsNames() {
-      std::vector<std::string> rtn;
-      foreach (const Rivet::PdgIdPair& bp, self->info().beams()) {
-        std::string bps = Rivet::toBeamsString(bp);
-        rtn.push_back(bps);
-      }
-      return rtn;
-    }
-  }
-
 
   class AnalysisHandler {
   public:

@@ -1,16 +1,19 @@
 #! /usr/bin/env python
 
-
 ## Get output filename
+OUTFILE = "analyses.html"
 import sys
 if len(sys.argv) < 2:
-    print "You must supply the output file as an argument"
-    exit(1)
-OUTFILE = sys.argv[1]
-
+    pass
+    #print "Using output name '%s'" % OUTNAME
+else:
+    OUTFILE = sys.argv[1]
 
 ## Make "set" a builtin type on Python < 2.4
-if not 'set' in dir(__builtins__):
+try:
+    tmp = set()
+    del tmp
+except:
     from sets import Set as set
 
 ## Make "sorted" a builtin function on Python < 2.4
@@ -113,7 +116,26 @@ for aname in sorted(list(all_analyses)):
         page += "<b>No references listed</b>\n"
 
 
-    page += "<b>Beams:</b> %s<br/>\n" % "; ".join(ana.requiredBeamsNames())
+    if ana.requiredBeams():
+        def pid_to_str(pid):
+            if pid == 11:
+                return "e-"
+            elif pid == -11:
+                return "e+"
+            elif pid == 2212:
+                return "p+"
+            elif pid == -2212:
+                return "p-"
+            elif pid == 10000:
+                return "*"
+            else:
+                return str(pid)
+        beamstrs = []
+        for bp in ana.requiredBeams():
+            beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
+        page += "<b>Beams:</b> %s<br/>\n" % ", ".join(beamstrs)
+
+
     page += "<b>Beam energies:</b> "
     if ana.energies():
         page += "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()])

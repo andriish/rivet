@@ -315,7 +315,24 @@ if len(opts.SHOW_ANALYSES) > 0:
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
         print twrap.fill(ana.description())
         print ""
-        print "Beams:", "; ".join(ana.requiredBeamsNames())
+        if ana.requiredBeams():
+            def pid_to_str(pid):
+                if pid == 11:
+                    return "e-"
+                elif pid == -11:
+                    return "e+"
+                elif pid == 2212:
+                    return "p+"
+                elif pid == -2212:
+                    return "p-"
+                elif pid == 10000:
+                    return "*"
+                else:
+                    return str(pid)
+            beamstrs = []
+            for bp in ana.requiredBeams():
+                beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
+            print "Beams:", ", ".join(beamstrs)
         if ana.energies():
             print "Beam energies:", "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()]), "GeV"
         else:
