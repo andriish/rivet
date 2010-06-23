@@ -1,5 +1,5 @@
 ## -*- sh -*-
-## Analysis name completion for rivet
+## Analysis name completion for rivet scripts
 
 function _rivet() {
 	local cur prev commands options command
@@ -47,3 +47,112 @@ function _rivet() {
 
 
 complete -F _rivet -o default rivet
+
+
+##########################
+
+
+function _rivet_config() {
+	local cur prev commands options command
+	COMPREPLY=()
+	#cur=`_get_cword`
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    opts="--help --version"
+    opts="$opts --prefix --includedir --libdir --datadir"
+    opts="$opts --pythonpath --cppflags --ldflags --ldadd"
+    opts="$opts -h"
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
+    COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
+    if test -n "$COMPREPLY"; then
+        return 0
+    fi
+
+    return 0
+}
+
+
+complete -F _rivet_config -o default rivet-config
+
+
+##############################
+
+
+function _compare_histos() {
+	local cur prev commands options command
+	COMPREPLY=()
+	#cur=`_get_cword`
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    opts="--help -h"
+    opts="$opts --outdir -o"
+    opts="$opts --rivet-refs -R"
+    opts="$opts --histogram-list -l"
+    opts="$opts --hier-out --linear --logarithmic --mc-errs"
+    opts="$opts --no-ratio --rel-ratio --abs-ratio"
+    opts="$opts --all --no-ref-only --show-ref-only --refid"
+    opts="$opts --plot-info-dir"
+    opts="$opts --quiet -q --verbose -v"
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
+    files=$(ls *.aida)
+    COMPREPLY=( $(compgen -W "$opts $files" -- ${cur}) )
+    if test -n "$COMPREPLY"; then
+        return 0
+    fi
+
+    return 0
+}
+
+
+complete -F _compare_histos -o default compare-histos
+
+
+##############################
+
+
+function _make_plots() {
+	local cur prev commands options command
+	COMPREPLY=()
+	#cur=`_get_cword`
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    opts="--help -h"
+    opts="$opts --num-threads -n"
+    opts="$opts --palatino --cm --times --minion"
+    opts="$opts --ps --pdf --eps --png --pdfpng --pspng"
+    opts="$opts --tex --no-cleanup --full-range"
+    opts="$opts --config -c"
+    opts="$opts --quiet -q --verbose -v"
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
+    files=$(ls *.dat)
+    COMPREPLY=( $(compgen -W "$opts $files" -- ${cur}) )
+    if test -n "$COMPREPLY"; then
+        return 0
+    fi
+
+    return 0
+}
+
+
+complete -F _make_plots -o default make-plots

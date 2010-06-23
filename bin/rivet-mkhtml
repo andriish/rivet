@@ -14,19 +14,19 @@ parser = OptionParser(usage=__doc__)
 parser.add_option("-o", "--outputdir", dest="OUTPUTDIR",
                   default="./plots", help="directory for webpage output.")
 parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
-                  help="Plot config file(s) to be used with make-plots.")
+                  help="plot config file(s) to be used with make-plots.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
-                  default=False, help="Display plots on single webpage.")
+                  default=False, help="display plots on single webpage.")
 parser.add_option("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
-                  default=None, help="Request make-plots to use a specific number of threads.")
+                  default=None, help="request make-plots to use a specific number of threads.")
 parser.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
-                  default="PS", help="Use PDF as the vector plot format.")
+                  default="PS", help="use PDF as the vector plot format.")
 parser.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
-                  default="PS", help="Use PostScript as the vector plot format.")
+                  default="PS", help="use PostScript as the vector plot format.")
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
-                  default=False, help="Ignore unvalidated analyses.")
+                  default=False, help="ignore unvalidated analyses.")
 parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
-                  help="Only write out histograms from analyses whose name matches any of these regexes")
+                  help="only write out histograms from analyses whose name matches any of these regexes")
 opts, aidafiles = parser.parse_args()
 
 

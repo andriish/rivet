@@ -5,7 +5,7 @@
 
 USAGE:
  %prog [options] aidafile1[:'PlotOption1=Value':'PlotOption2=Value'] [path/to/aidafile2 ...]
- 
+
 where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
 
@@ -103,6 +103,10 @@ if __name__ == "__main__":
                       default=False, help="show vertical error bars on the MC lines")
     parser.add_option("--no-ratio", action="store_true", dest="NORATIO",
                       default=False, help="disable the ratio plot")
+    parser.add_option("--rel-ratio", action="store_true", dest="RATIO_DEVIATION",
+                      default=False, help="show the ratio plots scaled to the ref error")
+    parser.add_option("--abs-ratio", action="store_false", dest="RATIO_DEVIATION",
+                      default=False, help="show the ratio plots with an absolute scale")
     parser.add_option("--all", action="store_false", dest="NO_SHOW_IF_ONLY_ONE",
                       default=True, help="make plot file even if there is only one dataset to be plotted")
     parser.add_option("--no-ref-only", action="store_true", dest="NO_SHOW_IF_ONLY_ONE",
@@ -357,6 +361,10 @@ if __name__ == "__main__":
                          "YTwosidedTicks" : "1",
                          "LegendYPos" : "0.92",
                          "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath())}
+
+        if opts.RATIO_DEVIATION:
+            paramdefaults["RatioPlotMode"] = "deviation"
+
 
         headstr  = "# BEGIN PLOT\n"
         for param, default in paramdefaults.iteritems():
