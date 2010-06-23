@@ -132,7 +132,7 @@ if __name__ == "__main__":
                 try:
                     plotparser.updateHistoHeaders(hist)
                 except ValueError, err:
-                    logging.warn(err.message)
+                    logging.debug(err)
                 histos.append(hist)
         if len(histos) > 0:
             if opts.SPLITOUTPUT:

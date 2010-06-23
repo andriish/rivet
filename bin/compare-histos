@@ -340,7 +340,7 @@ if __name__ == "__main__":
         try:
             headers = plotparser.getHeaders(name)
         except ValueError, err:
-            logging.error("Could not get plot headers: %s" % (err))
+            logging.debug("Could not get plot headers: %s" % err)
             headers = {}
 
         drawonlystr = ""
