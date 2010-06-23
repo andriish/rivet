@@ -33,7 +33,7 @@ if ENABLE_PDFMANUAL
 if WITH_PDFLATEX
 
 DOCS += rivet-manual.pdf
-EXTRA_DIST += analyses.bib
+EXTRA_DIST += analyses.tex analyses.bib refs.bib
 
 
 if ENABLE_PYEXT
