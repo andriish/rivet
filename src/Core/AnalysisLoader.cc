@@ -19,8 +19,8 @@ namespace Rivet {
     foreach (const AnalysisBuilderMap::value_type& p, _ptrs) names += p.first;
     return names;
   }
-  
-  
+
+
   set<string> AnalysisLoader::getAllAnalysisNames() {
     set<string> anaset;
     vector<string> anas = analysisNames();
@@ -68,16 +68,7 @@ namespace Rivet {
     if (!_ptrs.empty()) return;
 
     // Build the list of directories to search
-    vector<string> dirs;
-    char* env = 0;
-    env = getenv("RIVET_ANALYSIS_PATH");
-    if (env) {
-      // Use the Rivet analysis path variable if set...
-      dirs += split(env);
-    } else {
-      // ... otherwise fall back to the Rivet library install path
-      dirs += getLibPath();
-    }
+    const vector<string> dirs = getAnalysisLibPaths();
 
     // Find plugin module library files
     const string libsuffix = ".so";
