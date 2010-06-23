@@ -1,5 +1,8 @@
 2010-06-23  Andy Buckley  <andy@insectnation.org>
 
+	* Providing protected log messaging macros,
+	MSG_{TRACE,DEBUG,INFO,WARNING,ERROR} cf. Athena.
+
 	* Adding environment-aware functions for Rivet search path list access.
 
 2010-06-21  Andy Buckley  <andy@insectnation.org>

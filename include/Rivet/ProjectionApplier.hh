@@ -10,6 +10,20 @@
 #include "Rivet/Tools/Logging.hh"
 
 
+#define MSG_LVL(lvl, x) \
+  do { \
+    if (this->getLog().isActive(lvl)) { \
+      this->getLog() << lvl << x << endl;   \
+    } \
+  } while (0)
+
+#define MSG_TRACE(x)   MSG_LVL(Log::TRACE, x)
+#define MSG_DEBUG(x)   MSG_LVL(Log::DEBUG, x)
+#define MSG_INFO(x)    MSG_LVL(Log::INFO, x)
+#define MSG_WARNING(x) MSG_LVL(Log::WARNING, x)
+#define MSG_ERROR(x)   MSG_LVL(Log::ERROR, x)
+
+
 namespace Rivet {
 
 
