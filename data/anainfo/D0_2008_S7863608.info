@@ -10,6 +10,8 @@ Authors:
  - Gavin Hesketh <gavin.hesketh@fnal.gov>
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:
+ - Phys.Lett. B669 (2008) 278-286
+ - doi:10.1016/j.physletb.2008.09.060
  - arXiv:0808.1296 [hep-ex]
 RunInfo:
   $p \bar{p} \to \mu^+ \mu^-$ + jets at 1960~GeV.
