@@ -53,8 +53,7 @@ namespace Rivet {
 
  /// Finalize
     void finalize() {
-      const double invlumi = 1.0/sumOfWeights();
-      scale(_h_Z_pT_cross_section, invlumi);
+      normalize(_h_Z_pT_cross_section, 1.0);
     }
     //@}
 

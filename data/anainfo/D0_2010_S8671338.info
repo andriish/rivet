@@ -3,11 +3,11 @@ Year: 2010
 Summary: Measurement of differential $Z/\gamma^*$ pT
 Experiment: D0
 Collider: Tevatron Run 2
-SpiresID: 7863608
-Status: UNVALIDATED
+SpiresID: 8671338
+Status: VALIDATED
 Authors:
- - Flavia Dias
- - Gavin Hesketh <gavin.hesketh@fnal.gov>
+ - Flavia Dias <fladias@gmail.com>
+ - Gavin Hesketh <gavin.hesketh@cern.ch>
  - Frank Siegert <frank.siegert@durham.ac.uk>
 References:
  - arXiv:1006.0618 [hep-ex]

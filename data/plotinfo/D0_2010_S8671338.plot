@@ -2,5 +2,4 @@
 Title=Z boson pT
 XLabel=$p_{\perp}$(Z) [GeV]
 YLabel=$1/\sigma \; \text{d}\sigma/\text{d}p_\perp(Z)$
-LogX=1
 # END PLOT
