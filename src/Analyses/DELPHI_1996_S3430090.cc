@@ -221,10 +221,10 @@ namespace Rivet {
       double Evis = 0.0;
       double Evis2 = 0.0;
       getLog() << Log::DEBUG << "About to iterate over charged FS particles" << endl;
-      for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      foreach (const Particle& p, fs.particles()) {
         // Get momentum and energy of each particle.
-        const Vector3 mom3 = p->momentum().vector3();
-        const double energy = p->momentum().E();
+        const Vector3 mom3 = p.momentum().vector3();
+        const double energy = p.momentum().E();
         Evis += energy;
 
         // Scaled momenta.
@@ -254,6 +254,7 @@ namespace Rivet {
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
         _histRapidityT->fill(rapidityT, weight);
         _histRapidityS->fill(rapidityS, weight);
+        //cerr << fabs(rapidityT) << " " << scaledMom/GeV << endl;
       }
       Evis2 = Evis*Evis;
 
