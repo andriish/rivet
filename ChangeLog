@@ -1,3 +1,8 @@
+2010-06-24  Andy Buckley  <andy@insectnation.org>
+
+	* Making rivet-buildplugin look in its own bin directory when
+	trying to find rivet-config.
+
 2010-06-23  Andy Buckley  <andy@insectnation.org>
 
 	* Adding protection and warning about numerical precision issues

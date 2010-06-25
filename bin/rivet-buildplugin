@@ -44,7 +44,7 @@ shift
 sources="$@"
 
 ## Get Rivet include flags
-RIVETCONFIG=$(PATH="$PATH:." which rivet-config)
+RIVETCONFIG=$(PATH="`dirname $0`:$PATH:." which rivet-config)
 cppflags=$($RIVETCONFIG --cppflags)
 
 ## Build
