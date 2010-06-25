@@ -61,9 +61,8 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      // Jets
-      getLog() << Log::DEBUG << "Using FastJet JADE patch to make diff jet rate plots:" << endl;
       const double weight = e.weight();
+      MSG_DEBUG("Num particles = " << applyProjection<FinalState>(e, "FS").particles().size());
 
       const FastJets& jadejet = applyProjection<FastJets>(e, "JadeJets");
       if (jadejet.clusterSeq()) {
