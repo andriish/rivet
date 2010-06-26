@@ -301,6 +301,7 @@ AC_CONFIG_FILES(autopackage/default.apspec)
 AC_CONFIG_FILES(autopackage/data.apspec)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config)
 AC_CONFIG_FILES(Makefile Doxyfile)
+AC_CONFIG_FILES(rivetenv.sh)
 
 AC_OUTPUT
 

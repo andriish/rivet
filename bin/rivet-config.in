@@ -71,7 +71,16 @@ if test -n "$tmp"; then
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
-test -n "$tmp" && OUT="$OUT -L@libdir@"
+if test -n "$tmp"; then
+    lrivet="@libdir@"
+    test -n "$lrivet" && OUT="$OUT -L${lrivet}"
+    lhepmc="@HEPMCLIBPATH@"
+    test -n "$lhepmc" && OUT="$OUT -L${lhepmc}"
+    lfastjet="@FASTJETLIBPATH@"
+    test -n "$lfastjet" && OUT="$OUT -L${lfastjet}"
+    lgsl="@GSLLIBPATH@"
+    test -n "$lgsl" && OUT="$OUT -L${lgsl}"
+fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldadd\>')
 test -n "$tmp" && OUT="$OUT -lRivet"
