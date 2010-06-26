@@ -90,7 +90,7 @@ class Histo(object):
         if self.fullPath().startswith('/REF'):
             out += "PolyMarker=*\n"
             out += "ErrorBars=1\n"
-        out += "## Area: %s\n" % self.area()
+        out += "## Area: %e\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
         out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
