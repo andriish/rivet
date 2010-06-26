@@ -63,7 +63,7 @@ namespace Rivet {
 
 
     /// Do the analysis
-    void analyze(const Event & event) {
+    void analyze(const Event& event) {
 
       // Analyse and print some info
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
@@ -84,8 +84,11 @@ namespace Rivet {
       const double pT1 = jets[0].momentum().pT();
 
       const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
-      getLog() << Log::DEBUG << "Missing scalar Et = " << caloMissEt.scalarET()/GeV << " GeV" << endl;
-      if (caloMissEt.scalarET() > 0.7*pT1) {
+      getLog() << Log::DEBUG << "Missing vector Et = " << caloMissEt.vectorET()/GeV << " GeV" << endl;
+      if (caloMissEt.vectorET() > 0.7*pT1) {
+        MSG_DEBUG("Vetoing event with too much missing Et: "
+                  << caloMissEt.vectorET()/GeV << " GeV > "
+                  << 0.7*pT1/GeV << " GeV");
         vetoEvent;
       }
 
