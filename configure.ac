@@ -103,8 +103,11 @@ if test -f "$FJCONFIG"; then
 
   fjmajor=$(echo $fjversion | cut -f1 -d.)
   fjminor=$(echo $fjversion | cut -f2 -d.)
-  if test "$fjmajor" -lt 2 -o "$fjmajor" -eq 2 -a "$fjminor" -lt 4 ; then
-    AC_MSG_ERROR([FastJet version 2.4.0 or later is required])
+  fjmicro=$(echo $fjversion | cut -f3 -d.)
+  if test "$fjmajor" -lt 2 \
+    -o "$fjmajor" -eq 2 -a "$fjminor" -lt 4 \
+    -o "$fjmajor" -eq 2 -a "$fjminor" -eq 4 -a "$fjminor" -lt 2; then
+    AC_MSG_ERROR([FastJet version 2.4.2 or later is required])
   fi
   FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\-\-rpath/-rpath/g')"
   #FASTJETLIBPATH="$($FJCONFIG --libs | sed 's/.*\-L\([^\ ]\+\).*/\1/')"
