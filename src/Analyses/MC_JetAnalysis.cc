@@ -121,7 +121,7 @@ namespace Rivet {
       _h_pT_jet[i]->fill(jets[i].momentum().pT()/GeV, weight);
       // Check for numerical precision issues with jet masses
       double m2_i = jets[i].momentum().mass2();
-      if (m2_i < 0) {
+      if (m2_i < -1e-8) {
         getLog() << Log::WARNING << "Jet mass2 is negative: " << m2_i << " GeV^2. "
                  << "Truncating to 0.0, assuming numerical precision is to blame." << endl;
         m2_i = 0.0;
