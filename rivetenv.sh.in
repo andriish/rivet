@@ -1,0 +1,11 @@
+# These variables need to exist
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+
+export PATH="$exec_prefix/bin:$PATH"
+export LD_LIBRARY_PATH="@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$LD_LIBRARY_PATH"
+ppath="@PYTHON_PREFIX@/lib/python@PYTHON_VERSION@/site-packages"
+if test -e "@PYTHON_PREFIX@/lib64/python@PYTHON_VERSION@/site-packages"; then
+    ppath="$ppath:@PYTHON_PREFIX@/lib64/python@PYTHON_VERSION@/site-packages"
+fi
+export PYTHONPATH="$ppath:$PYTHONPATH"
