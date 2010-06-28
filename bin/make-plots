@@ -1637,46 +1637,96 @@ def process_datfile(datfile):
     texfile.close()
 
     if opts.OUTPUT_FORMAT != "TEX":
+        import subprocess
+
         ## Run LaTeX (in no-stop mode)
         logging.debug(os.listdir(tempdir))
-        chdir = 'cd %s && ' % tempdir
-        lcmd = 'latex "\scrollmode\input" %s' % texpath
-        if not logging.getLogger().isEnabledFor(logging.DEBUG):
-            lcmd += " > /dev/null"
-        cmd = "(" + chdir + lcmd + ")"
-        logging.debug(cmd)
-        os.system(cmd)
+        texcmd = ["latex", "\scrollmode\input", texpath]
+        logging.debug("TeX command: " + " ".join(texcmd))
+        texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
+        logging.debug(texproc.communicate()[0])
         logging.debug(os.listdir(tempdir))
 
         ## Run dvips
-        dvipsargs = ""
+        dvcmd = ["dvips", filename]
         if not logging.getLogger().isEnabledFor(logging.DEBUG):
-            dvipsargs += "-q"
+            dvcmd.append("-q")
         ## Handle Minion Font
         if opts.OUTPUT_FONT == "MINION":
-            dvipsargs += ' -Pminion'
+            dvcmd.append(' -Pminion')
         ## Choose format
-        if opts.OUTPUT_FORMAT == "PDF":
-            dvipsargs += ' -f | ps2pdf - > %s.pdf' % filename
+        if opts.OUTPUT_FORMAT == "PS":
+            dvcmd += ["-o", "%s.ps" % filename]
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            dvproc.wait()
+        elif opts.OUTPUT_FORMAT == "PDF":
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
+            f.write(cnvproc.communicate()[0])
+            f.close()
         elif opts.OUTPUT_FORMAT == "EPS":
-            dvipsargs += ' -f | ps2eps > %s.eps 2> /dev/null' % filename
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=tempdir)
+            f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
+            f.write(cnvproc.communicate()[0])
+            f.close()
         elif opts.OUTPUT_FORMAT == "PNG":
-            dvipsargs += ' -f | convert -density 250 -flatten - %s.png' % filename
-        elif opts.OUTPUT_FORMAT == "PDFPNG":
-            dvipsargs += ' -f | ps2pdf - > %s.pdf && convert -density 100 -flatten %s.pdf %s.png' % (filename, filename, filename)
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            pngcmd = ["convert", "-density", "250", "-flatten", "-", "%s.png" % filename]
+            logging.debug(" ".join(pngcmd))
+            pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            pngproc.wait()
         elif opts.OUTPUT_FORMAT == "PSPNG":
-            dvipsargs += ' -o %s.ps && convert -density 100 -flatten %s.ps %s.png' % (filename, filename, filename)
+            dvcmd += ["-o", "%s.ps" % filename]
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            dvproc.wait()
+            pngcmd = ["convert", "-density", "100", "-flatten", "%s.ps" % filename, "%s.png" % filename]
+            logging.debug(" ".join(pngcmd))
+            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            pngproc.wait()
+        elif opts.OUTPUT_FORMAT == "PDFPNG":
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
+            f.write(cnvproc.communicate()[0])
+            f.close()
+            logging.debug(os.listdir(tempdir))
+            pngcmd = ["convert", "-density", "100", "-flatten", "%s.pdf" % filename, "%s.png" % filename]
+            logging.debug(" ".join(pngcmd))
+            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            pngproc.wait()
+        elif opts.OUTPUT_FORMAT == "EPSPNG":
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=tempdir)
+            f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
+            f.write(cnvproc.communicate()[0])
+            f.close()
+            pngcmd = ["convert", "-density", "100", "-flatten", "%s.eps" % filename, "%s.png" % filename]
+            logging.debug(" ".join(pngcmd))
+            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            pngproc.wait()
         else:
-            dvipsargs += ' -o %s.ps' % filename
-        dvcmd = 'dvips %s %s' % (filename, dvipsargs)
-        cmd = "(" + chdir + dvcmd + ")"
-        logging.debug(cmd)
-        os.system(cmd)
+            logging.error("Unknown format: %s" % opts.OUTPUT_FORMAT)
+            system.exit(1)
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
     outbasename = filename
     outname = outbasename + "." + opts.OUTPUT_FORMAT.lower()
+    ## TODO: Make this neater: if "PNG" in opts.OUTPUT_FORMAT: ...
     if opts.OUTPUT_FORMAT == "PSPNG":
         outpath = os.path.join(tempdir, outbasename+".ps")
         shutil.copy(outpath, os.path.join(cwd,dirname))
@@ -1684,6 +1734,11 @@ def process_datfile(datfile):
         shutil.copy(outpath, os.path.join(cwd,dirname))
     elif opts.OUTPUT_FORMAT == "PDFPNG":
         outpath = os.path.join(tempdir, outbasename+".pdf")
+        shutil.copy(outpath, os.path.join(cwd,dirname))
+        outpath = os.path.join(tempdir, outbasename+".png")
+        shutil.copy(outpath, os.path.join(cwd,dirname))
+    elif opts.OUTPUT_FORMAT == "EPSPNG":
+        outpath = os.path.join(tempdir, outbasename+".eps")
         shutil.copy(outpath, os.path.join(cwd,dirname))
         outpath = os.path.join(tempdir, outbasename+".png")
         shutil.copy(outpath, os.path.join(cwd,dirname))
@@ -1701,28 +1756,16 @@ def process_datfile(datfile):
         shutil.rmtree(tempdir, ignore_errors=True)
 
 
-# ## Set up signal handling
-# import signal
-# RECVD_KILL_SIGNAL = None
-# def handleKillSignal(signum, frame):
-#     "Declare us as having been signalled, and return to default handling behaviour"
-#     logging.critical("Signal handler called with signal " + str(signum))
-#     RECVD_KILL_SIGNAL = signum
-#     signal.signal(signum, signal.SIG_DFL)
-# ## Signals to handle
-# signal.signal(signal.SIGTERM, handleKillSignal);
-# signal.signal(signal.SIGHUP,  handleKillSignal);
-
-
 ## Wrapper for a process thread which attempts to process datfiles until empty
 import threading, Queue
 class MkPlotThread( threading.Thread ):
     def run(self):
         global opts
         global datfiles
+        global RECVD_KILL_SIGNAL
         while True:
-            #if RECVD_KILL_SIGNAL is not None:
-            #    exit(1)
+            if RECVD_KILL_SIGNAL is not None:
+               exit(1)
             try:
                 datfile = datfiles.get_nowait()
                 logging.info("Plotting %s" % datfile)
@@ -1735,6 +1778,7 @@ class MkPlotThread( threading.Thread ):
                 import traceback
                 logging.debug(traceback.format_exc())
                 #exit(1)
+
 
 ####################
 
@@ -1782,10 +1826,12 @@ if __name__ == '__main__':
                       help="Create Encapsulated PostScript output.")
     parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PS",
                      help="Create PNG output.")
-    parser.add_option("--pdfpng", dest="OUTPUT_FORMAT", action="store_const", const="PDFPNG", default="PS",
-                     help="Create PDF and PNG output.")
     parser.add_option("--pspng", dest="OUTPUT_FORMAT", action="store_const", const="PSPNG", default="PS",
                      help="Create PS and PNG output.")
+    parser.add_option("--pdfpng", dest="OUTPUT_FORMAT", action="store_const", const="PDFPNG", default="PS",
+                     help="Create PDF and PNG output.")
+    parser.add_option("--epspng", dest="OUTPUT_FORMAT", action="store_const", const="EPSPNG", default="PS",
+                     help="Create EPS and PNG output.")
     parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PS",
                       help="Create TeX/LaTeX output.")
     parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
@@ -1840,9 +1886,25 @@ if __name__ == '__main__':
 
     ## Fill queue
     datfiles = Queue.Queue(maxsize=-1)
-    print "Making %d plots" % len(args)
+    plotword = "plot"
+    if len(args) > 1:
+        plotword = "plots"
+    logging.info("Making %d %s" % (len(args), plotword))
     for d in args:
         datfiles.put(d)
+
+    ## Set up signal handling
+    import signal
+    RECVD_KILL_SIGNAL = None
+    def handleKillSignal(signum, frame):
+        "Declare us as having been signalled, and return to default handling behaviour"
+        logging.critical("Signal handler called with signal " + str(signum))
+        RECVD_KILL_SIGNAL = signum
+        signal.signal(signum, signal.SIG_DFL)
+    ## Signals to handle
+    signal.signal(signal.SIGTERM, handleKillSignal)
+    signal.signal(signal.SIGHUP,  handleKillSignal)
+    signal.signal(signal.SIGUSR2, handleKillSignal)
 
     ## Run threads
     for threadnum in range(opts.NUM_THREADS):
