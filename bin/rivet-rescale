@@ -193,6 +193,8 @@ if __name__ == "__main__":
                       help="Produce AIDA output rather than FLAT")
     parser.add_option("-f", dest="AIDA", default=True, action="store_false",
                       help="Produce FLAT output rather than AIDA")
+    parser.add_option("-i", "--in-place", dest="IN_PLACE", default=False, action="store_true",
+                      help="Overwrite input file rather than making input-rescaled.aida")
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                          default=logging.INFO, help="print debug (very verbose) messages")
@@ -238,10 +240,12 @@ if __name__ == "__main__":
     if len(args) > 1:
         outfile = args[1]
     else:
+        if not opts.IN_PLACE:
+            base += "-rescaled"
         if opts.AIDA:
-            outfile = base + "-rescaled.aida"
+            outfile = base + ".aida"
         else:
-            outfile = base + "-rescaled.dat"
+            outfile = base + ".dat"
 
     aidaheader = """<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
