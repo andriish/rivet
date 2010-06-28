@@ -129,7 +129,7 @@ namespace Rivet {
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
         for (int i=0; i<5; ++i) {
-          _h_y_Durham[i]->fill(-log(durjet.clusterSeq()->exclusive_ymerge(i+1)), weight);
+          _h_y_Durham[i]->fill(-log(durjet.clusterSeq()->exclusive_ymerge_max(i+1)), weight);
         }
       }
     }

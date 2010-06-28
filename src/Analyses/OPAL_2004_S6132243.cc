@@ -124,7 +124,7 @@ namespace Rivet {
       const FastJets& durjet = applyProjection<FastJets>(event, "DurhamJets");
       if (durjet.clusterSeq()) {
         _sumWJet3 += weight;
-        const double y23 = durjet.clusterSeq()->exclusive_ymerge(2);
+        const double y23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
         _histY23Durham[_isqrts]->fill(y23, weight);
         for (int n = 1; n <= 5; ++n) {
           _histY23DurhamMom[_isqrts]->fill(n, pow(y23, n)*weight);

@@ -132,8 +132,8 @@ namespace Rivet {
           _histDurhamNR->fill(fabs(calc_NR(jets_durham)), weight);
           _histDurhamALPHA34->fill(calc_ALPHA34(jets_durham), weight);
         }
-        if (durjet.clusterSeq()->exclusive_ymerge(3) > 0.008 &&
-            durjet.clusterSeq()->exclusive_ymerge(4) < 0.008) {
+        if (durjet.clusterSeq()->exclusive_ymerge_max(3) > 0.008 &&
+            durjet.clusterSeq()->exclusive_ymerge_max(4) < 0.008) {
           _numdurjets++;
         }
       }
@@ -148,8 +148,8 @@ namespace Rivet {
           _histJadeNR->fill(fabs(calc_NR(jets_jade)), weight);
           _histJadeALPHA34->fill(calc_ALPHA34(jets_jade), weight);
         }
-        if (jadejet.clusterSeq()->exclusive_ymerge(3) > 0.015 &&
-            jadejet.clusterSeq()->exclusive_ymerge(4) < 0.015) {
+        if (jadejet.clusterSeq()->exclusive_ymerge_max(3) > 0.015 &&
+            jadejet.clusterSeq()->exclusive_ymerge_max(4) < 0.015) {
           _numjadejets++;
         }
       }
