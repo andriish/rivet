@@ -1,3 +1,16 @@
+2010-06-28  Andy Buckley  <andy@insectnation.org>
+
+	* Rivet 1.2.2 release.
+
+	* Converting rivet Python module to be a package, with the dlopen
+	flag setting etc. done around the SWIG generated core wrapper
+	module (rivet.rivetwrap).
+
+	* Requiring Python >= 2.4.0 in rivet scripts (and adding a Python
+	version checker function to rivet module)
+
+	* Adding --epspng option to make-plots (and converting to use subprocess.Popen).
+
 2010-06-27  Andy Buckley  <andy@insectnation.org>
 
 	* Converting JADE_OPAL analysis to use the fastjet

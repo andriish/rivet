@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.2.2a],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.2.2],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
@@ -295,8 +295,7 @@ AC_CONFIG_FILES(src/Tools/Makefile src/Tools/yaml-cpp/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/Analyses/Makefile)
 AC_CONFIG_FILES(test/Makefile)
-AC_CONFIG_FILES(pyext/Makefile)
-AC_CONFIG_FILES(pyext/setup.py)
+AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
 AC_CONFIG_FILES(data/Makefile data/refdata/Makefile data/anainfo/Makefile data/plotinfo/Makefile data/texmf/Makefile)
 AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(doc/rivetversion.sty)

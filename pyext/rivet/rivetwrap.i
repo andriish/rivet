@@ -1,4 +1,4 @@
-%module rivet
+%module rivetwrap
 
 %{
   #define SWIG_FILE_WITH_INIT
@@ -143,14 +143,3 @@ namespace Rivet {
 }
 
 %include "Rivet/Run.hh"
-
-
-// Provide an extra Python-only function used to enforce the Rivet scripts' minimal Python version
-%pythoncode %{
-def check_python_version():
-    import sys
-    req_version = (2,4,0)
-    if sys.version_info[:3] < req_version:
-        print "rivet scripts require Python version >= %s... exiting" % ".".join(req_version)
-        sys.exit(1)
-%}
