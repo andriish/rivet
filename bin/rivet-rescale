@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""%prog -r <REFDATAPATH> -O <observable-file> <AIDAFILE>
+"""%prog [-R|-r <REFDATAPATH>] -O <observable-file> <AIDAFILE> [<OUTFILE>]
 
 Rescale histos in observable-file of AIDAFILE to the area of the
 corresponding histos in REFAIDAPATH. REFAIDAPATH can either be
@@ -20,19 +20,19 @@ Giving bin definitions on the command line as such:
     -b "/CDF_2000_S4155203/d01-x01-y01:5:135  2.0"
 overrides bin definitions read for file.
 
-Example:
-    %prog -r /usr/share/Rivet/ -O observables out.aida
-This will return the Z-boson pT-distribution, scaled to the histo-area
-measured by CDF.
+Examples:
 
-    %prog -r /usr/share/Rivet/CDF_2000_S4155203.aida
-    -b "/CDF_2000_S4155203/d01-x01-y01:5:135  2.0" out.aida
-This will chop the Z-boson pT-distribution (both, ref and MC) histos to
-5 < x < 135 and rescale to the remaining ref-histo area.
+ * %prog -R -O observables out.aida
+   This will return the Z-boson pT-distribution, scaled to the histo-area
+   measured by CDF.
 
-    %prog -O observables_and_areas out.aida
-This will return the Z-boson pT-distribution, scaled to 1.0
+ * %prog -r path/to/CDF_2000_S4155203.aida \
+     -b "/CDF_2000_S4155203/d01-x01-y01:5:135  2.0" out.aida
+   This will chop the Z-boson pT-distribution (both, ref and MC) histos to
+   5 < x < 135 and rescale to the remaining ref-histo area.
 
+ * %prog -O observables_and_areas out.aida
+   This will return the Z-boson pT-distribution, scaled to 1.0
 """
 
 import sys
@@ -86,25 +86,26 @@ def getHistosFromAIDA(aidafile):
     return histos
 
 
-def getRefHistos(refpath):
+def getRefHistos(refpaths):
     """ Return dictionary of reference histos {name: histo}.
     Refpath can either be a single file or a directory.
     """
     refhistos = {}
-    if refpath:
-        # Assume refpath is a single file first
-        try:
-            refhistos=getHistosFromAIDA(refpath)
-            logging.info("Read ref histos from file %s"%refpath)
-        # Otherwise assume refpath is a directory
-        except:
-            for aida in os.listdir(refpath):
-                if aida.endswith(".aida"):
-                    temp = getHistosFromAIDA(os.path.join(refpath, aida))
-                    for k, v in temp.iteritems():
-                        if not k in refhistos.keys():
-                            refhistos[k]=v
-            logging.info("Read ref histos from folder %s"%refpath)
+    if refpaths:
+        for refpath in refpaths:
+            # Assume refpath is a single file first
+            try:
+                refhistos=getHistosFromAIDA(refpath)
+                logging.info("Read ref histos from file %s"%refpath)
+            # Otherwise assume refpath is a directory
+            except:
+                for aida in os.listdir(refpath):
+                    if aida.endswith(".aida"):
+                        temp = getHistosFromAIDA(os.path.join(refpath, aida))
+                        for k, v in temp.iteritems():
+                            if not k in refhistos.keys():
+                                refhistos[k]=v
+                logging.info("Read ref histos from folder %s"%refpath)
     return refhistos
 
 
@@ -121,7 +122,7 @@ def readObservableFile(obsfile):
         try:
             f = open(obsfile, 'r')
         except:
-            logging.error("Cannot open histo list file %s" % opts.obsfile)
+            logging.error("Cannot open histo list file %s" % opts.OBSFILE)
             sys.exit(2)
         for line in f:
             stripped = line.strip()
@@ -180,70 +181,67 @@ if __name__ == "__main__":
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
 
-    parser.add_option("-O", "--obsfile", default=None,
-                      help="Specify a file with histograms (and bin ranges) " +
-                      " that are to be normalised.")
-    parser.add_option("-b", "--bins", default=None,
-                      action="append",
-                      help="Specify a histogram and bin range that is to be"
-                           " kept. The format is `AIDAPATH:start:stop'.")
-    parser.add_option("-r", "--refdir", default=None,
+    parser.add_option("-O", "--obsfile", dest="OBSFILE", default=None,
+                      help="Specify a file with histograms (and bin ranges) that are to be normalised.")
+    parser.add_option("-b", "--bins", dest="BINRANGES", action="append", default=[],
+                      help="Specify a histogram and bin range that is to be kept. The format is `AIDAPATH:start:stop'.")
+    parser.add_option("-r", "--refdir", dest="REFDIR", default=None,
                       help="File of folder with reference histos")
-    parser.add_option("-o", "--outdir",
-                      dest="outdir", default="renormalised",
-                      help="output directory (default: %default)")
+    parser.add_option("-R", "--rivet-refs", dest="RIVET_REFS", action="store_true", default=False,
+                      help="Use Rivet ref path to search for reference histos")
     parser.add_option("-a", dest="AIDA", default=True, action="store_true",
                       help="Produce AIDA output rather than FLAT")
-    parser.add_option("-f", dest="AIDA", action="store_false",
+    parser.add_option("-f", dest="AIDA", default=True, action="store_false",
                       help="Produce FLAT output rather than AIDA")
     verbgroup = OptionGroup(parser, "Verbosity control")
-    verbgroup.add_option("-v", "--verbose", action="store_const",
-                         const=logging.DEBUG, dest="LOGLEVEL",
-                         help="print debug (very verbose) messages")
-    verbgroup.add_option("-q", "--quiet", action="store_const",
-                         const=logging.WARNING, dest="LOGLEVEL",
-                         help="be very quiet")
-    parser.set_defaults(bins=[],
-            outdir=".",
-            LOGLEVEL=logging.INFO)
+    verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                         default=logging.INFO, help="print debug (very verbose) messages")
+    verbgroup.add_option("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                         default=logging.INFO, help="be very quiet")
     opts, args = parser.parse_args()
-
 
     # Configure logging
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
+
+    ## Get MC histos
     histos = getHistosFromAIDA(args[0])
 
     # Read in reference histos to get reference areas to normalise to
-    refhistos = getRefHistos(opts.refdir)
+    refdirs = []
+    if opts.REFDIR:
+        refdirs.append(opts.REFDIR)
+    if opts.RIVET_REFS:
+        import rivet
+        refdirs += rivet.getAnalysisRefPaths()
+    refhistos = getRefHistos(refdirs)
 
     # Read in observables, if no bindefinitions are given in the file or the
     # command line, all observables will be renormalised if possible to the
     # corresponding refhisto area
-    obslist, obsnorms, bindefs = readObservableFile(opts.obsfile)
-    if opts.bins:
+    obslist, obsnorms, bindefs = readObservableFile(opts.OBSFILE)
+    if opts.BINRANGES:
         obslist = []
-        for b in opts.bins:
+        for b in opts.BINRANGES:
             name = b.strip().split(":")[0]
             low, high, area = getBindef(b)
             obslist.append(name)
             bindefs[name] = getBindef(b)
             if area:
                 obsnorms[name] = area
-    if len(obslist) == 0 and not opts.bins:
-        logging.info("No bin-definitions given (!file !command line)"+
-                "Will normalise all histos.")
+    if len(obslist) == 0 and not opts.BINRANGES:
+        logging.info("No bin-definitions given: all histos wil be rescaled to match the data")
         obslist = histos.keys()
 
-    # Create output filename
+    ## Create output filename
     base = args[0].split("/")[-1].split(".aida")[0]
-    if opts.AIDA:
-        outfile = os.path.join(opts.outdir, base + "-rescaled.aida")
+    if len(args) > 1:
+        outfile = args[1]
     else:
-        outfile = os.path.join(opts.outdir, base + "-rescaled.dat")
-    if not os.path.exists(opts.outdir):
-        logging.info("Creating outdir %s"%opts.outdir)
-        os.mkdir(opts.outdir)
+        if opts.AIDA:
+            outfile = base + "-rescaled.aida"
+        else:
+            outfile = base + "-rescaled.dat"
 
     aidaheader = """<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
@@ -305,4 +303,4 @@ if __name__ == "__main__":
     if opts.AIDA:
         f.write("</aida>")
 
-    logging.info("Done. Written output to %s." % outfile)
+    logging.debug("Output written to %s" % outfile)
