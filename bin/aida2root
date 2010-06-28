@@ -1,18 +1,25 @@
 #! /usr/bin/env python
 
+"""\
+%prog aidafile [aidafile2 ...]"
 
-#Verify in the ROOT user manual what needs to be setup
-# for use of ROOT with python
-#
-#E.g. do the following additional setup steps:
-# setup setenv PYTHONDIR /usr
-# setenv PATH $ROOTSYS/bin:$PYTHONDIR/bin:$PATH
-# setenv LD_LIBRARY_PATH $ROOTSYS/lib:$PYTHONDIR/lib/python2.3:$LD_LIBRARY_PATH
-# setenv PYTHONPATH $ROOTSYS/lib:$PYTHONDIR/lib/python2.3
+Verify in the ROOT user manual what needs to be setup for use of ROOT with python
+
+E.g. do the following additional setup steps:
+ setup setenv PYTHONDIR /usr
+ setenv PATH $ROOTSYS/bin:$PYTHONDIR/bin:$PATH
+ setenv LD_LIBRARY_PATH $ROOTSYS/lib:$PYTHONDIR/lib/python2.3:$LD_LIBRARY_PATH
+ setenv PYTHONPATH $ROOTSYS/lib:$PYTHONDIR/lib/python2.3
+"""
+
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
 
 
 
-import sys, os
+import os
 from array import array
 try:
     from ROOT import TGraphAsymmErrors, TFile
@@ -34,14 +41,7 @@ except:
     sys.exit(1)
 
 
-try:
-    sorted([])
-except:
-    def sorted(coll):
-        coll.sort()
-        return coll
-
-
+## TODO: replace with lighthisto
 class Histo:
     def __init__(self):
         self._bins = []
@@ -124,6 +124,7 @@ class Histo:
         return self.getBin(index)
 
 
+## TODO: replace with lighthisto
 class Bin:
     """A simple container for a binned value with an error."""
     def __init__(self, xval=0, xerrminus=None, xerrplus=None, yval=0, yerrminus=0, yerrplus=0, focus=None):
@@ -237,7 +238,7 @@ def mkHistoFromDPS(dps):
 
 
 from optparse import OptionParser
-parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
+parser = OptionParser(usage=__doc__)
 parser.add_option("-s", "--smart-output", action="store_true", default=True,
                   help="Write to output files with names based on the corresponding input filename",
                   dest="SMARTOUTPUT")

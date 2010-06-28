@@ -1720,7 +1720,7 @@ def process_datfile(datfile):
             pngproc.wait()
         else:
             logging.error("Unknown format: %s" % opts.OUTPUT_FORMAT)
-            system.exit(1)
+            sys.exit(1)
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
@@ -1848,10 +1848,7 @@ if __name__ == '__main__':
     parser.add_option_group(verbgroup)
 
     opts, args = parser.parse_args()
-    try:
-        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-    except:
-        logging.getLogger().setLevel(opts.LOGLEVEL)
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
 
     ## Check for no args
@@ -1868,21 +1865,27 @@ if __name__ == '__main__':
 #     if opts.OUTPUT_FORMAT == "EPS":
 #         ps2eps
 
+    import subprocess
+
     ## Check minion font
     if opts.OUTPUT_FONT == "MINION":
-        if os.system('kpsewhich minion.sty > /dev/null') != 0:
+        p = subprocess.Popen(["kpsewhich", "minion.sty"], stdout=subprocess.PIPE)
+        if p.returncode != 0:
             logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
             opts.OUTPUT_FONT = "PALATINO"
 
     ## Check for HEP LaTeX packages
     opts.LATEXPKGS = []
     for pkg in ["hepnicenames", "hepunits", "underscore"]:
-        if os.system('kpsewhich %s.sty > /dev/null' % pkg) == 0:
+        p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
+        if p.returncode == 0:
             opts.LATEXPKGS.append(pkg)
 
     ## Check for Palatino old style figures and small caps
-    if (opts.OUTPUT_FONT == "PALATINO") and not(os.system('kpsewhich ot1pplx.fd > /dev/null')):
-        opts.OUTPUT_FONT = "PALATINO_OSF"
+    if opts.OUTPUT_FONT == "PALATINO":
+        p = subprocess.Popen(["kpsewhich", "ot1pplx.fd"], stdout=subprocess.PIPE)
+        if p.returncode == 0:
+            opts.OUTPUT_FONT = "PALATINO_OSF"
 
     ## Fill queue
     datfiles = Queue.Queue(maxsize=-1)

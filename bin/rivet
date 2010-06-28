@@ -1,26 +1,35 @@
 #! /usr/bin/env python
 
-import sys, os, time
+"""\
+Run Rivet analyses on inputted events from file or Unix pipe
+
+Examples:
+  %prog [options] <hepmcfile>
+  my_generator -o myfifo & \ %prog [options] myfifo
+  agile-runmc <genname> -n 100k | %prog [options]
+
+ENVIRONMENT:
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
+     analysis libraries at runtime
+ * RIVET_REF_PATH: list of paths to be searched for reference
+     data files
+ * RIVET_INFO_PATH: list of paths to be searched for analysis
+     metadata files
+"""
+
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+
+import os, time
 import logging, signal
 from optparse import OptionParser, OptionGroup
 
 
-## Make "sorted" a builtin function on Python < 2.4
-if 'sorted' not in dir(__builtins__):
-    def sorted(iterable, cmp=None, key=None, reverse=None):
-        rtn = iterable
-        rtn.sort(cmp)
-        return rtn
-
-## Add logging.log if needed
-if 'log' not in dir(logging):
-    def _logit(level, msg):
-        l = logging.getLogger()
-        l.log(level, msg)
-    logging.log = _logit
-
-
 ## Change dlopen status to GLOBAL for Rivet lib
+## TODO: Push this into rivet.py
 try:
     import ctypes
     sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
@@ -43,25 +52,6 @@ try:
 except ImportError:
     pass
 
-
-## Description / usage message
-usage="""Run Rivet analyses on inputted events from file or Unix pipe
-
-Examples:
-  %prog [options] <hepmcfile>
-  my_generator -o myfifo & \ %prog [options] myfifo
-  agile-runmc <genname> -n 100k | %prog [options]
-
-ENVIRONMENT:
- * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
-     analysis libraries at runtime
- * RIVET_REF_PATH: list of paths to be searched for reference
-     data files
- * RIVET_INFO_PATH: list of paths to be searched for analysis
-     metadata files
-"""
-
-
 PROGPATH = sys.argv[0]
 PROGNAME = os.path.basename(PROGPATH)
 
@@ -80,6 +70,7 @@ except:
 ## Try importing rivet
 try:
     import rivet
+    rivet.check_python_version()
     #print rivet.getAnalysisLibPaths()
 except Exception, e:
     sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
@@ -88,7 +79,7 @@ except Exception, e:
 
 
 ## Parse command line options
-parser = OptionParser(usage=usage, version="rivet v%s" % rivet.version())
+parser = OptionParser(usage=__doc__, version="rivet v%s" % rivet.version())
 parser.add_option("-n", "--nevts", dest="MAXEVTNUM", type="int",
                   default=None, metavar="NUM",
                   help="max number of events to read.")
@@ -129,17 +120,7 @@ opts, args = parser.parse_args()
 
 
 ## Configure logging
-try:
-    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-except:
-    pass
-h = logging.StreamHandler()
-h.setFormatter(logging.Formatter("%(message)s"))
-logging.getLogger().setLevel(opts.LOGLEVEL)
-if logging.getLogger().handlers:
-    logging.getLogger().handlers[0] = h
-else:
-    logging.getLogger().addHandler(h)
+logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
 
 ## Control native Rivet library logger

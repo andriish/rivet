@@ -1,24 +1,16 @@
 #! /usr/bin/env python
 
-import sys, os, logging
+"""\
+%prog aidafile [aidafile2 ...]
+"""
 
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+import os, logging
 import lighthisto
-
-
-## Make "sorted" a builtin function on Python < 2.4
-if 'sorted' not in dir(__builtins__):
-    def sorted(iterable, cmp=None, key=None, reverse=None):
-        rtn = iterable
-        rtn.sort(cmp)
-        return rtn
-
-## Add logging.log if needed
-if 'log' not in dir(logging):
-    def _logit(level, msg):
-        l = logging.getLogger()
-        l.log(level, msg)
-    logging.log = _logit
-
 
 ## Try to load faster but non-standard cElementTree module
 try:
@@ -39,13 +31,14 @@ except ImportError:
 
 if __name__ == "__main__":
 
+    ## TODO: replace with rivet.getAnalysisRefDirs()
     rivet_data_dir = os.popen('rivet-config --datadir',"r").readline().strip()
     if not rivet_data_dir:
         rivet_data_dir = ""
 
     ## Parse command line options
     from optparse import OptionParser, OptionGroup
-    parser = OptionParser(usage="%prog aidafile [aidafile2 ...]")
+    parser = OptionParser(usage=__doc__)
     parser.add_option("-s", "--split", action="store_true", default=False,
                       help="Write each histo to a separate output file, with names based on the histo path",
                       dest="SPLITOUTPUT")
@@ -69,17 +62,7 @@ if __name__ == "__main__":
 
 
     ## Configure logging
-    try:
-        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-    except:
-        pass
-    h = logging.StreamHandler()
-    h.setFormatter(logging.Formatter("%(message)s"))
-    logging.getLogger().setLevel(opts.LOGLEVEL)
-    if logging.getLogger().handlers:
-        logging.getLogger().handlers[0] = h
-    else:
-        logging.getLogger().addHandler(h)
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
 
     ## Initialise steering variables which need a bit more care

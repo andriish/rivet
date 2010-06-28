@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#! /usr/bin/env python
+
 """%prog -b <HISTO/PATH:min:max> [ -b ... ] <AIDAFILE> [...]
 
 Strip specified bins from data sets. Histograms not specified will be passed
@@ -21,25 +22,14 @@ TODO:
     * what if the same observable is mentioned multiple times?
 """
 
-import os
 import sys
-import logging
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
 
+
+import os, logging
 import lighthisto
-## Make "sorted" a builtin function on Python < 2.4
-if 'sorted' not in dir(__builtins__):
-    def sorted(iterable, cmp=None, key=None, reverse=None):
-        rtn = iterable
-        rtn.sort(cmp)
-        return rtn
-
-## Add logging.log if needed
-if 'log' not in dir(logging):
-    def _logit(level, msg):
-        l = logging.getLogger()
-        l.log(level, msg)
-    logging.log = _logit
-
 
 ## Try to load faster but non-standard cElementTree module
 try:
@@ -81,17 +71,7 @@ if __name__ == "__main__":
 
 
     ## Configure logging
-    try:
-        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-    except:
-        pass
-    h = logging.StreamHandler()
-    h.setFormatter(logging.Formatter("%(message)s"))
-    logging.getLogger().setLevel(opts.LOGLEVEL)
-    if logging.getLogger().handlers:
-        logging.getLogger().handlers[0] = h
-    else:
-        logging.getLogger().addHandler(h)
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
 
     if len(args) == 0:

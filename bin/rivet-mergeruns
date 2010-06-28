@@ -1,35 +1,33 @@
 #! /usr/bin/env python
 
-## Script for merging parts of multiple histo files made with
-## different run params (kinematic pT cuts and energies) into one
-## histo file for plotting or further analysis.
-##
-## TODO:
-##  * take merge specs from a conf file instead of hard-coding
-##  * generalise to more generic merge ranges (i.e. not just sqrts & pT)
-##  * improve cmd line interface
-##  * rationalise all histogramming formats... remove AIDA!
-##  * use external histo classes (YODA), since I've now lost track
-##    of which changes have had to be made to which copies of Histo, Bin etc.!
-##
-## Usage example:
-##  $ uemerge hwpp/hpp-1800-{030.aida:1800:30,090.aida:1800:90} > hpp-hists.dat
-##  $ flat2aida hpp-hists.dat
-##  $ mkdir plots && cd plots
-##  $ compare_histos.py ../ref04.aida ../hpp-hists.aida
-##  $ make_plot.py --pdf *.dat
+"""%prog
 
+Script for merging parts of multiple histo files made with different run params
+(kinematic pT cuts and energies) into one histo file for plotting or further
+analysis.
 
-import sys, os, copy, re
+TODO:
+ * take merge specs from a conf file instead of hard-coding
+ * generalise to more generic merge ranges (i.e. not just sqrts & pT)
+ * improve cmd line interface
+ * rationalise all histogramming formats... remove AIDA!
+ * use lighthisto (then YODA)
+
+Usage example:
+ $ uemerge hwpp/hpp-1800-{030.aida:1800:30,090.aida:1800:90} > hpp-hists.dat
+ $ flat2aida hpp-hists.dat
+ $ mkdir plots && cd plots
+ $ compare_histos.py ../ref04.aida ../hpp-hists.aida
+ $ make_plot.py --pdf *.dat
+"""
+
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+import os, copy, re
 from math import sqrt
-
-
-try:
-    sorted([])
-except:
-    def sorted(coll):
-        coll.sort()
-        return coll
 
 
 def mean(*args):
@@ -41,6 +39,7 @@ def mean(*args):
     return total / float(num)
 
 
+## TODO: replace with lighthisto
 class Histo:
     def __init__(self):
         self.clear()
@@ -133,6 +132,7 @@ class Histo:
         return self.getBin(index)
 
 
+## TODO: replace with lighthisto
 class Bin:
     """A simple container for a binned value with an error."""
     def __init__(self, xlow=None, xhigh=None, yval=0, yerrplus=0, yerrminus=0, focus=None):
@@ -234,6 +234,7 @@ except ImportError:
             sys.exit(1)
 
 
+## TODO: replace with lighthisto
 def mkHistoFromDPS(dps):
     """Make a mini histo representation from an AIDA dataPointSet tag."""
     myhist = Histo()

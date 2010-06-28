@@ -1,7 +1,16 @@
 #! /usr/bin/env python
 
-import os, sys
+"""\
+%prog flatfile [flatfile2 ...]
+"""
 
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+
+import os
 from htmlentitydefs import codepoint2name
 unichr2entity = dict((unichr(code), u'&%s;' % name) \
                          for code,name in codepoint2name.iteritems() \
@@ -60,30 +69,34 @@ class Histogram:
                                           'UpEdge':  float(linearray[1]),
                                           'Content': float(linearray[2]),
                                           'Error':   [float(linearray[3]),float(linearray[4])]})
+
     def write_datapoint(self, f, xval, xerr, yval, yerr):
-            f.write('    <dataPoint>\n')
-            f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(xerr, xval, xerr))
-            f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(yerr[1], yval, yerr[0]))
-            f.write('    </dataPoint>\n')
+        f.write('    <dataPoint>\n')
+        f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(xerr, xval, xerr))
+        f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(yerr[1], yval, yerr[0]))
+        f.write('    </dataPoint>\n')
+
     def write_datapointset_header(self, f, count, bin):
-            path = '/REF/%s/d%02d-x01-y%02d' %(filename.split('/')[-1], count, bin+1)
-            if self.description.has_key("AidaPath"):
-                path = self.description["AidaPath"]
-            f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(path)))
-            if not self.description.has_key('Title'):
-                self.description['Title'] = ""
-            f.write('    path="%s" title="%s">\n' % (os.path.dirname(path), htmlescape(self.description['Title'])))
-            if self.description.has_key("XLabel") and self.description["XLabel"] is not None:
-                f.write('    <dimension dim="0" title="%s" />\n' % htmlescape(self.description['XLabel']))
-            if self.description.has_key("YLabel") and self.description["YLabel"] is not None:
-                f.write('    <dimension dim="1" title="%s" />\n' % htmlescape(self.description['YLabel']))
-            f.write('    <annotation>\n')
-            f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(htmlescape(self.description['Title'])))
-            f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
-            f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], path))
-            f.write('    </annotation>\n')
+        path = '/REF/%s/d%02d-x01-y%02d' %(filename.split('/')[-1], count, bin+1)
+        if self.description.has_key("AidaPath"):
+            path = self.description["AidaPath"]
+        f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(path)))
+        if not self.description.has_key('Title'):
+            self.description['Title'] = ""
+        f.write('    path="%s" title="%s">\n' % (os.path.dirname(path), htmlescape(self.description['Title'])))
+        if self.description.has_key("XLabel") and self.description["XLabel"] is not None:
+            f.write('    <dimension dim="0" title="%s" />\n' % htmlescape(self.description['XLabel']))
+        if self.description.has_key("YLabel") and self.description["YLabel"] is not None:
+            f.write('    <dimension dim="1" title="%s" />\n' % htmlescape(self.description['YLabel']))
+        f.write('    <annotation>\n')
+        f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(htmlescape(self.description['Title'])))
+        f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
+        f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], path))
+        f.write('    </annotation>\n')
+
     def write_datapointset_footer(self, f):
-            f.write('  </dataPointSet>\n')
+        f.write('  </dataPointSet>\n')
+
     def write_datapointset(self, f, count):
         if not opts.SPLITHISTOS:
             self.write_datapointset_header(f, count, 0)
@@ -104,29 +117,30 @@ class Histogram:
             self.write_datapointset_footer(f)
 
 
-from optparse import OptionParser
-parser = OptionParser(usage="%prog flatfile [flatfile2 ...]")
-parser.add_option("-s", "--split-histos", action="store_true", default=False,
-                  help="Split histograms into individual bins", dest="SPLITHISTOS")
-opts, args = parser.parse_args()
+if __name__ == "__main__":
+    from optparse import OptionParser
+    parser = OptionParser(usage=__doc__)
+    parser.add_option("-s", "--split-histos", action="store_true", default=False,
+                      help="Split histograms into individual bins", dest="SPLITHISTOS")
+    opts, args = parser.parse_args()
 
-if len(args) < 1:
-    sys.stderr.write("Must specity at least one histogram file\n")
-    sys.exit(1)
+    if len(args) < 1:
+        sys.stderr.write("Must specity at least one histogram file\n")
+        sys.exit(1)
 
-for flatfile in args:
-    filename = flatfile.replace(".dat", "")
-    
-    inputdata = Inputdata(filename)
-    
-    f = open(filename+'.aida', 'w')
-    f.write('<?xml version="1.0" encoding="ISO-8859-1" ?>\n')
-    f.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
-    f.write('<aida version="3.3">\n')
-    f.write('  <implementation version="1.1" package="FreeHEP"/>\n')
-    
-    for i, d in enumerate(inputdata.description['DrawOnly']):
-        inputdata.histos[d].write_datapointset(f, i+1)
-    
-    f.write('</aida>\n')
-    f.close
+    for flatfile in args:
+        filename = flatfile.replace(".dat", "")
+
+        inputdata = Inputdata(filename)
+
+        f = open(filename+'.aida', 'w')
+        f.write('<?xml version="1.0" encoding="ISO-8859-1" ?>\n')
+        f.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
+        f.write('<aida version="3.3">\n')
+        f.write('  <implementation version="1.1" package="FreeHEP"/>\n')
+
+        for i, d in enumerate(inputdata.description['DrawOnly']):
+            inputdata.histos[d].write_datapointset(f, i+1)
+
+        f.write('</aida>\n')
+        f.close

@@ -14,17 +14,10 @@ TODO:
  * ask/force overwrite modes
 """
 
-
-## Make "set" a builtin type on Python < 2.4
-if 'set' not in dir(__builtins__):
-    from sets import Set as set
-
-## Make "sorted" a builtin function on Python < 2.4
-if 'sorted' not in dir(__builtins__):
-    def sorted(iterable, cmp=None, key=None, reverse=None):
-        rtn = iterable
-        rtn.sort(cmp)#, key, reverse)
-        return rtn
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
 
 
 def sanitiseString(s):
@@ -141,17 +134,7 @@ if __name__ == "__main__":
         opts.PLOTINFODIR += getpathvar("RIVET_REF_PATH")
 
     ## Configure logging
-    try:
-        logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-    except:
-        pass
-    h = logging.StreamHandler()
-    h.setFormatter(logging.Formatter("%(message)s"))
-    logging.getLogger().setLevel(opts.LOGLEVEL)
-    if logging.getLogger().handlers:
-        logging.getLogger().handlers[0] = h
-    else:
-        logging.getLogger().addHandler(h)
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
 
     ## Line styles

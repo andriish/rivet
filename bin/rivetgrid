@@ -1,10 +1,6 @@
 #! /usr/bin/env python
 # -*- python -*-
 
-import os, sys, logging
-import glob, tempfile, commands
-from optparse import OptionParser, OptionGroup
-
 version = "0.2.0"
 usage = """Submit a rivet job to the Grid, using the gLite tools.
 %prog --vo=<VO> [options] <rgargs>
@@ -17,25 +13,34 @@ TODO:
   * Allow control over the submission system
 """
 
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+import os, logging
+import glob, tempfile, commands
+
 ## Parse command line options
+from optparse import OptionParser, OptionGroup
 parser = OptionParser(usage=usage, version="%prog "+version)
 #parser.add_option("-n", "--number", dest="MAXEVTNUM", type=int,
-#                  default=None, metavar="NUM", 
+#                  default=None, metavar="NUM",
 #                  help="max number of events to read.")
 #parser.add_option("-a", "--analysis", dest="ANALYSES", action="append",
 #                  default=[], metavar="ANA",
 #                  help="add an analysis to the processing list.")
-parser.add_option("--vo", dest="VO", default=None, 
+parser.add_option("--vo", dest="VO", default=None,
                   help="specify the virtual organisation to run under")
-parser.add_option("-m", "--machine", dest="MACHINE", 
-                  choices=["32","64"], default="32", 
+parser.add_option("-m", "--machine", dest="MACHINE",
+                  choices=["32","64"], default="32",
                   help="specify the target machine architecture - either 32 (default) or 64 bit")
-parser.add_option("-u", "--url", dest="ARCHIVE_URL", 
+parser.add_option("-u", "--url", dest="ARCHIVE_URL",
                   default="http://www.hep.ucl.ac.uk/~jmonk/Rivet/",
                   help="specify the base URL from which to fetch the RivetGrid and Genser packages")
-parser.add_option("-j", "--jobname", dest="JOB_NAME", default="Rivet", 
+parser.add_option("-j", "--jobname", dest="JOB_NAME", default="Rivet",
                   help="specify the job name (affects the names of the output log and histo files)")
-parser.add_option("--dry-run", dest="DRY_RUN", action="store_true", default=False, 
+parser.add_option("--dry-run", dest="DRY_RUN", action="store_true", default=False,
                   help="do everything but actually submit the job")
 verbgroup = OptionGroup(parser, "Verbosity control")
 verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
@@ -43,11 +48,8 @@ verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBU
 verbgroup.add_option("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
                      default=logging.INFO, help="be very quiet")
 parser.add_option_group(verbgroup)
-(opts, args) = parser.parse_args()
-try:
-    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-except:
-    logging.getLogger().setLevel(opts.LOGLEVEL)
+opts, args = parser.parse_args()
+logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
 
 ## Check VO specification
@@ -77,7 +79,7 @@ if len(RG_ARGS) == 0:
             break
         else:
             logging.critical("Invalid response: '%s'" % cont)
-            
+
 logging.info("Rivet will be run as: 'rivetgun " + RG_ARGS + "'")
 
 
@@ -113,8 +115,8 @@ ls -lh $WORKDIR/RivetGrid/bin >> $OUT
 mv $WORKDIR/$OUT $SANDBOXDIR/
 mv $WORKDIR/$AIDA $SANDBOXDIR/
 cd $SANDBOXDIR
-rm -r $WORKDIR""" % { 
-    "jname" : opts.JOB_NAME, 
+rm -r $WORKDIR""" % {
+    "jname" : opts.JOB_NAME,
     "rgurl" : RIVETGRID_URL,
     "gensurl" : GENS_URL,
     "rgargs" : RG_ARGS
