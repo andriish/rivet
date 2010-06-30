@@ -1,6 +1,12 @@
-2010-06-28  Andy Buckley  <andy@insectnation.org>
+2010-06-30  Andy Buckley  <andy@insectnation.org>
 
-	* Rivet 1.2.2 release.
+	* Minimising amount of Log class mapped into SWIG.
+
+	* Making Python ext build checks fail with error rather than
+	warning if it has been requested (or, rather, not explicitly
+	disabled).
+
+2010-06-28  Andy Buckley  <andy@insectnation.org>
 
 	* Converting rivet Python module to be a package, with the dlopen
 	flag setting etc. done around the SWIG generated core wrapper

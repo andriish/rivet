@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.2.2],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.2.2b],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
@@ -199,14 +199,14 @@ if test x$enable_pyext == xyes; then
     AC_MSG_RESULT([$python_incpath])
     python_header="$python_incpath/Python.h"
     if test -z "$python_incpath"; then
-      AC_MSG_WARN([Can't build Python extension since include directory cannot be determined from distutils])
+      AC_MSG_ERROR([Can't build Python extension since include directory cannot be determined from distutils])
       enable_pyext=no
     elif test ! -e "$python_header"; then
-      AC_MSG_WARN([Can't build Python extension since header file $python_header cannot be found])
+      AC_MSG_ERROR([Can't build Python extension since header file $python_header cannot be found])
       enable_pyext=no
     fi
   else
-    AC_MSG_WARN([Can't build Python extension since python can't be found])
+    AC_MSG_ERROR([Can't build Python extension since python can't be found])
     enable_pyext=no
   fi
 fi
@@ -214,7 +214,7 @@ fi
 if test x$enable_pyext == xyes; then
   AC_PROG_SWIG
   if test x$SWIG == x; then
-    AC_MSG_WARN([Can't build Python extension since swig could not be found])
+    AC_MSG_ERROR([Can't build Python extension since swig could not be found])
     enable_pyext=no
   else
     ## Test that SWIG makes a compilable source file...
@@ -231,7 +231,7 @@ EOL
     stat_string=`$SWIG -c++ -python conftest.i 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
     AC_MSG_RESULT([$flag_ok])
     if test x$flag_ok != xyes; then
-      AC_MSG_WARN([Can't build Python extension since $SWIG is not able to make a Python wrapper])
+      AC_MSG_ERROR([Can't build Python extension since $SWIG is not able to make a Python wrapper])
       enable_pyext=no
     else
       AC_MSG_CHECKING([if $SWIG is compatible with the $CXX compiler])
@@ -241,7 +241,7 @@ EOL
       fi
       AC_MSG_RESULT([$flag_ok])
       if test x$flag_ok != xyes; then
-        AC_MSG_WARN([Can't build Python extension since $SWIG is not compatible with $CXX])
+        AC_MSG_ERROR([Can't build Python extension since $SWIG is not compatible with $CXX])
         enable_pyext=no
       fi
     fi
