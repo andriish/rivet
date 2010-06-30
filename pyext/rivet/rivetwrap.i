@@ -33,12 +33,23 @@
 %template(PdgIdPairList) std::vector<Rivet::PdgIdPair>;
 
 // Logging interface
-%template(LogLevelMap) std::map<std::string, int>;
+// Not mapping whole log interface, since we only want to be able to set log levels.
+//%template(LogLevelMap) std::map<std::string, int>;
 %ignore operator<<;
 namespace Rivet {
   %rename(setLogLevel) Log::setLevel(const std::string&, int);
+  class Log {
+  public:
+    enum Level {
+      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, WARNING = 30, ERROR = 40
+    };
+    static void setLevel(const std::string& name, int level);
+  protected:
+    Log(const std::string& name);
+    Log(const std::string& name, int level);
+  };
 }
-%include "Rivet/Tools/Logging.hh"
+//%include "Rivet/Tools/Logging.hh"
 
 // Rivet search paths
 %include "Rivet/Tools/RivetPaths.hh"
