@@ -65,6 +65,7 @@ for ananame in ANANAMES:
             break
 if not all_ok:
     logging.error("Exiting... please ensure that all analysis names are valid")
+    sys.exit(1)
 
 
 ## Now make each analysis
