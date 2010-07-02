@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-"""%prog [-R|-r <REFDATAPATH>] -O <observable-file> <AIDAFILE> [<OUTFILE>]
+"""\
+%prog [-R|-r <REFDATAPATH>] -O <observable-file> <AIDAFILE> [<OUTFILE>]
 
 Rescale histos in observable-file of AIDAFILE to the area of the
 corresponding histos in REFAIDAPATH. REFAIDAPATH can either be

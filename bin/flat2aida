@@ -37,11 +37,15 @@ class Inputdata:
                     title = line.split('BEGIN HISTOGRAM', 1)[1].strip()
                     self.description['DrawOnly'].append(title)
                     self.histos[title] = Histogram(f)
+                    if title:
+                        self.histos[title].path = title
         f.close()
 
 class Histogram:
     def __init__(self, f):
         self.read_input(f)
+        self.path = None
+
     def read_input(self, f):
         self.description = {}
         self.data = []
@@ -58,7 +62,7 @@ class Histogram:
                     #print "@", key, val
                     self.description[key] = val
                 else:
-                    linearray = line.split('\t')
+                    linearray = line.split()
                     if len(linearray)==4:
                         self.data.append({'LowEdge': float(linearray[0]),
                                           'UpEdge':  float(linearray[1]),
@@ -69,6 +73,8 @@ class Histogram:
                                           'UpEdge':  float(linearray[1]),
                                           'Content': float(linearray[2]),
                                           'Error':   [float(linearray[3]),float(linearray[4])]})
+                    else:
+                        raise Exception("Unexpected line format: '%s'" % linearray)
 
     def write_datapoint(self, f, xval, xerr, yval, yerr):
         f.write('    <dataPoint>\n')
@@ -77,21 +83,23 @@ class Histogram:
         f.write('    </dataPoint>\n')
 
     def write_datapointset_header(self, f, count, bin):
-        path = '/REF/%s/d%02d-x01-y%02d' %(filename.split('/')[-1], count, bin+1)
+        path = '/REF/%s/d%02d-x01-y%02d' % (filename.split('/')[-1], count, bin+1)
         if self.description.has_key("AidaPath"):
             path = self.description["AidaPath"]
-        f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(path)))
+        if not self.path:
+            self.path = path
+        f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(self.path)))
         if not self.description.has_key('Title'):
             self.description['Title'] = ""
-        f.write('    path="%s" title="%s">\n' % (os.path.dirname(path), htmlescape(self.description['Title'])))
+        f.write('    path="%s" title="%s">\n' % (os.path.dirname(self.path), htmlescape(self.description['Title'])))
         if self.description.has_key("XLabel") and self.description["XLabel"] is not None:
             f.write('    <dimension dim="0" title="%s" />\n' % htmlescape(self.description['XLabel']))
         if self.description.has_key("YLabel") and self.description["YLabel"] is not None:
             f.write('    <dimension dim="1" title="%s" />\n' % htmlescape(self.description['YLabel']))
         f.write('    <annotation>\n')
         f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(htmlescape(self.description['Title'])))
-        f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(path))
-        f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], path))
+        f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(self.path))
+        f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], self.path))
         f.write('    </annotation>\n')
 
     def write_datapointset_footer(self, f):
