@@ -33,6 +33,11 @@ Examples:
 
  * %prog -O observables_and_areas out.aida
    This will return the Z-boson pT-distribution, scaled to 1.0
+
+ * Adding the switch --multiply yields in histograms being rescaled by a factor
+   given in the bin-definitions or observable file
+
+TODO: * Allow for comments in the observable file
 """
 
 import sys
@@ -154,7 +159,7 @@ def getBindef(line):
         path = splitline[0].split(":")[0]
         low  = ""
         high = ""
-        logging.warning("No bin definition given for %s" % (line))
+        logging.warning("No bin-definition given for %s" % (line))
     if low == "":
         low = None
     else:
@@ -193,6 +198,8 @@ if __name__ == "__main__":
                       help="Produce AIDA output rather than FLAT")
     parser.add_option("-f", dest="AIDA", default=True, action="store_false",
                       help="Produce FLAT output rather than AIDA")
+    parser.add_option("--multiply", default=False, action="store_true",
+                      help="Rescale histos using weight given as factor rather than new area")
     parser.add_option("-i", "--in-place", dest="IN_PLACE", default=False, action="store_true",
                       help="Overwrite input file rather than making input-rescaled.aida")
     verbgroup = OptionGroup(parser, "Verbosity control")
@@ -283,12 +290,20 @@ if __name__ == "__main__":
             # Get old and new histogram areas
             oldarea = tempold.getArea()
             if name in obsnorms.keys():
-                newarea = obsnorms[name]
+
+                # Check if we want to scale histos by a factor
+                if opts.multiply:
+                    newarea = oldarea*obsnorms[name]
+                else:
+                    # Rescale to manually given new area
+                    newarea = obsnorms[name]
+
+            # Rescale this histo ro ref-histo area
             else:
                 newarea = tempref.getArea()
 
             # Renormalise histo
-            logging.info("Rescaling %s from %e to %e" % (name, oldarea, newarea))
+            logging.info("Rescaling %s from %.3e to %.3e" % (name, oldarea, newarea))
             renormed = tempold.renormalise(newarea)
 
             # Write to file
