@@ -4,12 +4,16 @@
 %prog [-R|-r <REFDATAPATH>] -O <observable-file> <AIDAFILE> [<OUTFILE>]
 
 Rescale histos in observable-file of AIDAFILE to the area of the
-corresponding histos in REFAIDAPATH. REFAIDAPATH can either be
+corresponding histos in REFDATAPATH. REFDATAPATH can either be
 a single AIDA-file or a directory containing AIDA-files.
 
-Or, if no REFAIDAPATH is given, normalise to new area given in
+Or, if no REFDATAPATH is given, normalise to new area given in
 observable-file "observables_and_areas", e.g.:
 /CDF_2000_S4155203/d01-x01-y01  1.0
+
+Or, if no REFDATAPATH is given and no areas are explicitly specified,
+do nothing, very verbosely. So don't be surprised if this script doesn't
+do what you expect -- just do yourself a favour and specify a REFDATAPATH.
 
 You can also define bins to chop out in the observable-file in the
 same way as in chop_bins:
@@ -160,7 +164,7 @@ def getBindef(line):
         path = splitline[0].split(":")[0]
         low  = ""
         high = ""
-        logging.warning("No bin-definition given for %s" % (line))
+        logging.warning("No bin-definition given for %s" % (line.strip()))
     if low == "":
         low = None
     else:
@@ -225,6 +229,8 @@ if __name__ == "__main__":
         import rivet
         refdirs += rivet.getAnalysisRefPaths()
     refhistos = getRefHistos(refdirs)
+    if len(refhistos)==0 and not opts.multiply:
+        logging.warning ("\n+++ You haven't specified any reference histograms. You better know what you're doing.\n")
 
     # Read in observables, if no bindefinitions are given in the file or the
     # command line, all observables will be renormalised if possible to the
@@ -240,7 +246,7 @@ if __name__ == "__main__":
             if area:
                 obsnorms[name] = area
     if len(obslist) == 0 and not opts.BINRANGES:
-        logging.info("No bin-definitions given: all histos wil be rescaled to match the data")
+        logging.info("No bin-definitions given: all histos will be rescaled to match the data")
         obslist = histos.keys()
 
     ## Create output filename
