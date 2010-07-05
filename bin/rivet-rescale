@@ -96,7 +96,7 @@ def getHistosFromAIDA(aidafile):
     return histos
 
 
-def getRefHistos(refpaths):
+def getRefHistos(refpaths, analyses):
     """ Return dictionary of reference histos {name: histo}.
     Refpath can either be a single file or a directory.
     """
@@ -109,12 +109,21 @@ def getRefHistos(refpaths):
                 logging.info("Read ref histos from file %s"%refpath)
             # Otherwise assume refpath is a directory
             except:
-                for aida in os.listdir(refpath):
-                    if aida.endswith(".aida"):
-                        temp = getHistosFromAIDA(os.path.join(refpath, aida))
+                if opts.fast:
+                    logging.info("Fast mode - not loading all data-files")
+                    for ana in analyses:
+                        temp = getHistosFromAIDA(os.path.join(refpath, ana+".aida"))
                         for k, v in temp.iteritems():
                             if not k in refhistos.keys():
                                 refhistos[k]=v
+
+                else:
+                    for aida in os.listdir(refpath):
+                        if aida.endswith(".aida"):
+                            temp = getHistosFromAIDA(os.path.join(refpath, aida))
+                            for k, v in temp.iteritems():
+                                if not k in refhistos.keys():
+                                    refhistos[k]=v
                 logging.info("Read ref histos from folder %s"%refpath)
     return refhistos
 
@@ -205,6 +214,8 @@ if __name__ == "__main__":
                       help="Rescale histos using weight given as factor rather than new area")
     parser.add_option("-i", "--in-place", dest="IN_PLACE", default=False, action="store_true",
                       help="Overwrite input file rather than making input-rescaled.aida")
+    parser.add_option("--fast", default=False, action="store_true",
+                      help="Try loading only reference files from refpath that match analyses in input-file" )
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                          default=logging.INFO, help="print debug (very verbose) messages")
@@ -218,7 +229,9 @@ if __name__ == "__main__":
 
     ## Get MC histos
     histos = getHistosFromAIDA(args[0])
-    ipshell()
+
+    # Get unique analyses identifiers to speed up ref-data loading
+    analyses = set([obs.split("/")[1] for obs in histos.keys()])
 
     # Read in reference histos to get reference areas to normalise to
     refdirs = []
@@ -227,7 +240,7 @@ if __name__ == "__main__":
     else:
         import rivet
         refdirs += rivet.getAnalysisRefPaths()
-    refhistos = getRefHistos(refdirs)
+    refhistos = getRefHistos(refdirs, analyses)
     if len(refhistos)==0 and not opts.multiply:
         logging.warning ("\n+++ You haven't specified any reference histograms. You better know what you're doing.\n")
 
