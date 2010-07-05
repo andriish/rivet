@@ -53,11 +53,11 @@ if sys.version_info[:3] < (2,4,0):
 import os, re, logging
 from lighthisto import Histo
 
-#try:
-#    from IPython.Shell import IPShellEmbed
-#    ipshell = IPShellEmbed([])
-#except:
-#    logging.info("Ipython shell not available.")
+try:
+    from IPython.Shell import IPShellEmbed
+    ipshell = IPShellEmbed([])
+except:
+    logging.info("Ipython shell not available.")
 
 
 ## Try to load faster but non-standard cElementTree module
@@ -218,6 +218,7 @@ if __name__ == "__main__":
 
     ## Get MC histos
     histos = getHistosFromAIDA(args[0])
+    ipshell()
 
     # Read in reference histos to get reference areas to normalise to
     refdirs = []
