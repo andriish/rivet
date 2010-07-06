@@ -10,7 +10,6 @@
 #include "DataPointSet.h"
 #include "Profile1D.h"
 #include "Tree.h"
-#include "Rivet/Math/MathUtils.hh"
 #include <string>
 #include <stdexcept>
 
@@ -629,9 +628,9 @@ public:
     h->setTitle(path.substr(path.rfind('/') + 1));
     for (int i = 0; i < h1.ax->bins(); ++i) {
       for (int j = 0; j < h2.ax->bins(); ++j) {
-        if (!Rivet::fuzzyEquals(h1.ax->binWidth(i), h2.ax->binWidth(j)) ||
-            !Rivet::fuzzyEquals(h1.ax->binLowerEdge(i), h2.ax->binLowerEdge(j)) ||
-            !Rivet::fuzzyEquals(h1.ax->binUpperEdge(i), h2.ax->binUpperEdge(j))) {
+        if (!fuzzyEquals(h1.ax->binWidth(i), h2.ax->binWidth(j)) ||
+            !fuzzyEquals(h1.ax->binLowerEdge(i), h2.ax->binLowerEdge(j)) ||
+            !fuzzyEquals(h1.ax->binUpperEdge(i), h2.ax->binUpperEdge(j))) {
           continue;
         }
         const double binwidth = h1.ax->binWidth(i);
@@ -936,6 +935,14 @@ public:
 
 
 private:
+  /// Compare two floating point numbers with a degree of fuzziness
+  /// expressed by the fractional @a tolerance parameter.
+  inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
+    const double absavg = fabs(a + b)/2.0;
+    const double absdiff = fabs(a - b);
+    const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
+    return rtn;
+  }
 
   /** Throw a suitable error. */
   template <typename T>
