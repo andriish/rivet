@@ -1,7 +1,9 @@
 #! /usr/bin/env bash
-# @configure_input@
+## @configure_input@
 
-# These variables need to exist
+## These variables need to exist
+## Note no use of $DESTDIR... we ignore it so that destdir can be used
+## for temp installs later copied to /
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 datarootdir=@datarootdir@
@@ -47,13 +49,7 @@ tmp=$( echo "$*" | egrep -- '--\<datadir\>')
 test -n "$tmp" && OUT="$OUT @datadir@/@PACKAGE_TARNAME@"
 
 tmp=$( echo "$*" | egrep -- '--\<pythonpath\>')
-test -n "$tmp" && {
-    ppath="@PYTHON_PREFIX@/lib/python@PYTHON_VERSION@/site-packages"
-    if test -e "@PYTHON_PREFIX@/lib64/python@PYTHON_VERSION@/site-packages"; then
-        ppath="$ppath:@PYTHON_PREFIX@/lib64/python@PYTHON_VERSION@/site-packages"
-    fi
-    OUT="$OUT $ppath"
-}
+test -n "$tmp" && OUT="$OUT @RIVET_PYTHONPATH@"
 
 ## "Pre-rolled" build info
 tmp=$( echo "$*" | egrep -- '--\<cppflags\>')
