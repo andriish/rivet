@@ -17,7 +17,7 @@ namespace AIDA {
   class IHistogram3D;
   class IProfile1D;
   class IProfile2D;
-  
+  class IDataPointSet;
   
   class IHistogramFactory {
     
