@@ -23,6 +23,8 @@ parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default
                   help="plot config file(s) to be used with make-plots.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
                   default=False, help="display plots on single webpage.")
+parser.add_option("--no-mc-errs", dest="MC_ERRS", action="store_false",
+                  default=True, help="don't plot error bars.")
 parser.add_option("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
                   default=None, help="request make-plots to use a specific number of threads.")
 parser.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
@@ -114,7 +116,8 @@ for aidafile in aidafiles:
 ## Run compare-histos to get plain .dat files from .aida
 ## We do this here since it also makes the necessary directories
 ch_cmd = ["compare-histos"]
-ch_cmd.append("--mc-errs")
+if opts.MC_ERRS:
+    ch_cmd.append("--mc-errs")
 ch_cmd.append("--hier-out")
 ch_cmd.append("--plot-info-dir=../")
 if len(aidafiles) + len(reffiles) < 2:
