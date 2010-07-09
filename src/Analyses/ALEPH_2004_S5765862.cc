@@ -76,16 +76,18 @@ namespace Rivet {
       // Durham n->m jet resolutions
       _h_y_Durham[0] = bookHistogram1D(offset+149, 1, 1);   // y12 d149 ... d156
       _h_y_Durham[1] = bookHistogram1D(offset+157, 1, 1);   // y23 d157 ... d164
-      _h_y_Durham[2] = bookHistogram1D(offset+165, 1, 1);   // y34 d165 ... d172
-      if (offset<6) { // there is no y45 and y56 for 200 gev
+      if (offset<6) { // there is no y34, y45 and y56 for 200 gev
+        _h_y_Durham[2] = bookHistogram1D(offset+165, 1, 1); // y34 d165 ... d172, but not 171
         _h_y_Durham[3] = bookHistogram1D(offset+173, 1, 1); // y45 d173 ... d179
         _h_y_Durham[4] = bookHistogram1D(offset+180, 1, 1); // y56 d180 ... d186
       }
       else if (offset==6) {
+        _h_y_Durham[2] = NULL;
         _h_y_Durham[3] = NULL;
         _h_y_Durham[4] = NULL;
       }
       else if (offset==7) {
+        _h_y_Durham[2] = bookHistogram1D(172, 1, 1);
         _h_y_Durham[3] = bookHistogram1D(179, 1, 1);
         _h_y_Durham[4] = bookHistogram1D(186, 1, 1);
       }
@@ -128,8 +130,10 @@ namespace Rivet {
       // jet rates
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
-        for (int i=0; i<5; ++i) {
-          _h_y_Durham[i]->fill(-log(durjet.clusterSeq()->exclusive_ymerge_max(i+1)), weight);
+        for (size_t i=0; i<5; ++i) {
+          if (_h_y_Durham[i]) {
+            _h_y_Durham[i]->fill(-log(durjet.clusterSeq()->exclusive_ymerge_max(i+1)), weight);
+          }
         }
       }
     }
@@ -153,7 +157,7 @@ namespace Rivet {
       for (int N=1; N<7; ++N) {
         // calculate the N jet fraction from the jet resolution histograms
 
-        for (int i = 0; i < _h_R_Durham[N-1]->size(); ++i) {
+        for (size_t i = 0; i < _h_R_Durham[N-1]->size(); ++i) {
           IDataPoint* dp = _h_R_Durham[N-1]->point(i);
           // get ycut at which the njet-fraction is to be calculated
           /// @todo HepData has binwidths here, which doesn't make sense at all
@@ -163,13 +167,15 @@ namespace Rivet {
           // sum all >=N jet events
           double sigmaNinclusive = 0.0;
           if (N>1) {
-            AIDA::IHistogram1D* y_Nminus1_N = _h_y_Durham[N-2];
-            // watch out, y_NM is negatively binned
-            int cutbin=y_Nminus1_N->coordToIndex(-ycut);
-            if (cutbin==AIDA::IAxis::UNDERFLOW_BIN) cutbin=0;
-            if (cutbin==AIDA::IAxis::OVERFLOW_BIN) cutbin=y_Nminus1_N->axis().bins()-1;
-            for (int ibin=0; ibin<cutbin; ++ibin) {
-              sigmaNinclusive += y_Nminus1_N->binHeight(ibin);
+            if (_h_y_Durham[N-2]) {
+              AIDA::IHistogram1D* y_Nminus1_N = _h_y_Durham[N-2];
+              // watch out, y_NM is negatively binned
+              int cutbin=y_Nminus1_N->coordToIndex(-ycut);
+              if (cutbin==AIDA::IAxis::UNDERFLOW_BIN) cutbin=0;
+              if (cutbin==AIDA::IAxis::OVERFLOW_BIN) cutbin=y_Nminus1_N->axis().bins()-1;
+              for (int ibin=0; ibin<cutbin; ++ibin) {
+                sigmaNinclusive += y_Nminus1_N->binHeight(ibin);
+              }
             }
           }
           else sigmaNinclusive = sumOfWeights();
@@ -177,13 +183,15 @@ namespace Rivet {
           // sum all >=N+1 jet events
           double sigmaNplus1inclusive = 0.0;
           if (N<6) {
-            AIDA::IHistogram1D* y_N_Nplus1 = _h_y_Durham[N-1];
-            // watch out, y_NM is negatively binned
-            int cutbin=y_N_Nplus1->coordToIndex(-ycut);
-            if (cutbin==AIDA::IAxis::UNDERFLOW_BIN) cutbin=0;
-            if (cutbin==AIDA::IAxis::OVERFLOW_BIN) cutbin=y_N_Nplus1->axis().bins();
-            for (int ibin=0; ibin<cutbin; ++ibin) {
-              sigmaNplus1inclusive += y_N_Nplus1->binHeight(ibin);
+            if (_h_y_Durham[N-1]) {
+              AIDA::IHistogram1D* y_N_Nplus1 = _h_y_Durham[N-1];
+              // watch out, y_NM is negatively binned
+              int cutbin=y_N_Nplus1->coordToIndex(-ycut);
+              if (cutbin==AIDA::IAxis::UNDERFLOW_BIN) cutbin=0;
+              if (cutbin==AIDA::IAxis::OVERFLOW_BIN) cutbin=y_N_Nplus1->axis().bins();
+              for (int ibin=0; ibin<cutbin; ++ibin) {
+                sigmaNplus1inclusive += y_N_Nplus1->binHeight(ibin);
+              }
             }
           }
 
@@ -195,7 +203,9 @@ namespace Rivet {
 
 
       for (size_t n = 0; n < 5; ++n) {
-        scale(_h_y_Durham[n], 1.0/sumOfWeights());
+        if (_h_y_Durham[n]) {
+          scale(_h_y_Durham[n], 1.0/sumOfWeights());
+        }
       }
 
     }
