@@ -44,9 +44,7 @@ endif
 
 lib_LTLIBRARIES += RivetATLASAnalyses.la
 RivetATLASAnalyses_la_SOURCES = \
-    ATLAS_2010_S8591806.cc \
-    ATLAS_900_UE.cc \
-    ATLAS_7000_UE.cc
+    ATLAS_2010_S8591806.cc
 
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la
