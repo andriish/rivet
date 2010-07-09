@@ -11,7 +11,15 @@ Reference data should be found automatically.
 
 import sys
 if sys.version_info[:3] < (2,4,0):
-    print "rivet scripts require Python version >= 2.4.0... exiting"
+    print >> sys.stderr, "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+import traceback
+try:
+    import rivet
+except ImportError:
+    traceback.print_exc(file=sys.stderr)
+    print >> sys.stderr, "rivet is broken... exiting"
     sys.exit(1)
 
 
@@ -141,11 +149,6 @@ style = """<style>
 </style>"""
 
 import sys
-rivetavailable = True
-try:
-    import rivet
-except Exception, e:
-    rivetavailable = False
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, style))
@@ -156,12 +159,11 @@ if opts.SINGLE:
     index.write('<ul>\n')
     for analysis in sorted(analyses, reverse=True):
         summary = analysis
-        if rivetavailable:
-            ana = rivet.AnalysisLoader.getAnalysis(analysis)
-            if ana:
-                summary = "%s (%s)" % (ana.summary(), analysis)
-                if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
-                    continue
+        ana = rivet.AnalysisLoader.getAnalysis(analysis)
+        if ana:
+            summary = "%s (%s)" % (ana.summary(), analysis)
+            if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
+                continue
         index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
     index.write('</ul>\n')
 
@@ -170,16 +172,15 @@ for analysis in sorted(analyses, reverse=True):
     summary = analysis
     description = "NONE"
     spiresid = analysis[analysis.rfind('S')+1:len(analysis)]
-    if rivetavailable:
-        ana = rivet.AnalysisLoader.getAnalysis(analysis)
-        if ana:
-            if ana.summary() is not "NONE":
-                summary = "%s (%s)" % (ana.summary(), analysis)
-            references = ana.references()
-            description = ana.description()
-            spiresid = ana.spiresId()
-            if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
-                continue
+    ana = rivet.AnalysisLoader.getAnalysis(analysis)
+    if ana:
+        if ana.summary() is not "NONE":
+            summary = "%s (%s)" % (ana.summary(), analysis)
+        references = ana.references()
+        description = ana.description()
+        spiresid = ana.spiresId()
+        if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
+            continue
     if opts.SINGLE:
         index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
     else:
