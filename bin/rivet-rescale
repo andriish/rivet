@@ -1,48 +1,53 @@
 #!/usr/bin/env python
 
 """\
-%prog [-R|-r <REFDATAPATH>] -O <observable-file> <AIDAFILE> [<OUTFILE>]
+%prog [-r <REFDATAPATH>] [-O <observable-file>] [-b <bindef> [-b ...]] <AIDAFILE> [<OUTFILE>]
 
 Rescale histos in observable-file of AIDAFILE to the area of the
 corresponding histos in REFDATAPATH. REFDATAPATH can either be
-a single AIDA-file or a directory containing AIDA-files.
+a single AIDA-file or a directory containing AIDA-files. By default
+the standard Rivet reference files are used.
 
-Or, if no REFDATAPATH is given, normalise to new area given in
-observable-file "observables_and_areas", e.g.:
+Observable definitions of the form
 /CDF_2000_S4155203/d01-x01-y01  1.0
-
-Or, if no REFDATAPATH is given and no areas are explicitly specified,
-do nothing, very verbosely. So don't be surprised if this script doesn't
-do what you expect -- just do yourself a favour and specify a REFDATAPATH.
+can be used to specify an absolute normalisation (1.0, here) for a
+histogram rather than using the reference histo. If the --multiply
+switch is used, the ref histo area will be scaled by the given factor
+to give the target normalisation.
 
 You can also define bins to chop out in the observable-file in the
 same way as in chop_bins:
 /CDF_2000_S4155203/d01-x01-y01:0:35  1.0
-This will chop the bins with Z-pT > 35 GeV and afterwards perform
-the rescaling.
+This will chop the bins with Z-pT > 35 GeV and obtain a rescaling factor
+from that restricted bin range: note that the output histograms will
+be rescaled but *unchopped*.
 
-Giving bin definitions on the command line as such:
-    -b "/CDF_2000_S4155203/d01-x01-y01:5:135  2.0"
-overrides bin definitions read for file.
+Only one bin definition can be used for each histogram, so the last bindef
+specified for that histo path will be the one which is applied. The bindefs
+are constructed in order from those in the obsfile, and then those given on
+the command line with the -b flag, like this:
+    -b "/CDF_2000_S4155203/d01-x01-y01:5:135 2.0"
+
 
 Examples:
 
- * %prog -R -O observables out.aida
-   This will return the Z-boson pT-distribution, scaled to the histo-area
-   measured by CDF.
+ * %prog out.aida
+   This will return the histos in out.aida, scaled to match the overall
+   normalisations of the Rivet ref data.
+
+ * %prog -O observables.obs out.aida
+   This will return the histos in out.aida, scaled by the bin definitions
+   specified in observables.obs (and using the Rivet ref data again)
 
  * %prog -r path/to/CDF_2000_S4155203.aida \
-     -b "/CDF_2000_S4155203/d01-x01-y01:5:135  2.0" out.aida
-   This will chop the Z-boson pT-distribution (both, ref and MC) histos to
-   5 < x < 135 and rescale to the remaining ref-histo area.
+     -b "/CDF_2000_S4155203/d01-x01-y01:2:5" out.aida
+   For this Z-boson pT-distribution, the normalisation to the provided ref
+   data file is only applied between 2 < x < 5 GeV.
 
- * %prog -O observables_and_areas out.aida
-   This will return the Z-boson pT-distribution, scaled to 1.0
 
- * Adding the switch --multiply yields in histograms being rescaled by a factor
-   given in the bin-definitions or observable file
+TODO:
 
-TODO: * Allow for comments in the observable file
+ * Allow for comments in the observable file
 """
 
 import sys
@@ -133,7 +138,7 @@ def readObservableFile(obsfile):
         Return-values are a list of the histo-names to normalise and a
         dictionary with name:newarea entries.
     """
-    obslist = []
+    obslist = set()
     obsnorms = {}
     bindefs = {}
 
@@ -155,7 +160,7 @@ def readObservableFile(obsfile):
             if area:
                 obsnorms[path] = float(area)
 
-            obslist.append(path)
+            obslist.add(path)
         f.close()
     return obslist, obsnorms, bindefs
 
@@ -249,12 +254,11 @@ if __name__ == "__main__":
     # corresponding refhisto area
     obslist, obsnorms, bindefs = readObservableFile(opts.OBSFILE)
     if opts.BINRANGES:
-        obslist = []
         for b in opts.BINRANGES:
             name = b.strip().split(":")[0]
-            low, high, area = getBindef(b)
-            obslist.append(name)
-            bindefs[name] = getBindef(b)
+            path, low, high, area = getBindef(b)
+            obslist.add(name)
+            bindefs[name] = (low, high)
             if area:
                 obsnorms[name] = area
     if len(obslist) == 0 and not opts.BINRANGES:
@@ -291,39 +295,43 @@ if __name__ == "__main__":
             # Find out whether ref-histo is given
             if name in refhistos.keys():
                 tempref = refhistos[name]
-                logging.debug("Rescaling to ref-histo for %s"%name)
+                logging.debug("Rescaling to ref-histo for %s" % name)
             else:
                 tempref = histos[name]
-                logging.debug("Not using refhisto for rescaling of %s"%name)
+                logging.debug("Not using refhisto for rescaling of %s" % name)
 
             # Try to chop bins
             if name in bindefs.keys():
                 tempref = tempref.chop(bindefs[name])
                 tempold = histos[name].chop(bindefs[name])
-                logging.debug("Using bindefs for rescaling of %s"%name)
+                logging.debug("Using bindefs for rescaling of %s" % name)
             else:
-                #tempref = refhistos[name]
+                tempref = refhistos[name]
                 tempold = histos[name]
-                logging.debug("Not using bindefs for rescaling of %s"%name)
+                logging.debug("Not using bindefs for rescaling of %s" % name)
 
             # Get old and new histogram areas
             oldarea = tempold.getArea()
             if name in obsnorms.keys():
-
                 # Check if we want to scale histos by a factor
                 if opts.multiply:
                     newarea = oldarea*obsnorms[name]
                 else:
                     # Rescale to manually given new area
                     newarea = obsnorms[name]
-
-            # Rescale this histo ro ref-histo area
+            # Rescale this histo to ref-histo area
             else:
                 newarea = tempref.getArea()
+            scalefactor = newarea/oldarea
+            ## TODO: Allow inline histo chopping
+            oldarea = histos[name].getArea()
+            newarea = histos[name].getArea() * scalefactor
 
-            # Renormalise histo
-            logging.info("Rescaling %s from %.3e to %.3e" % (name, oldarea, newarea))
-            renormed = tempold.renormalise(newarea)
+            # Scale histo
+            logging.info("Rescaling %s by factor %.3e" % (name, scalefactor))
+            ## TODO: Allow inline histo chopping
+            #renormed = tempold.renormalise(newarea)
+            renormed = histos[name].renormalise(newarea)
 
             # Write to file
             if opts.AIDA:
@@ -335,7 +343,6 @@ if __name__ == "__main__":
                 f.write(histos[name].asAIDA())
             else:
                 f.write(histos[name].asFlat())
-
 
 
     if opts.AIDA:
