@@ -40,7 +40,7 @@ namespace Rivet {
     void analyze(const Event& e) {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size() != 1) {
-        getLog() << Log::DEBUG << "No unique e+e- pair found" << endl;
+        getLog() << Log::DEBUG << "Num e+ e- pairs found = " << zfinder.particles().size() << endl;
         vetoEvent;
       }
 
