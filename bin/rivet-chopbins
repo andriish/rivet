@@ -44,6 +44,52 @@ except ImportError:
             sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
             sys.exit(1)
 
+def getBindef(line):
+    """ Try to read bin definitions (xlow, xhigh) from single
+        string.
+    """
+    splitline = line.strip().split()
+    try:
+        path, low, high = splitline[0].split(":")
+    except:
+        logging.error("No bin-definition given for %s" % (line.strip()))
+        sys.exit(1)
+    if low == "":
+        low = None
+    else:
+        low = float(low)
+    if high == "":
+        high = None
+    else:
+        high = float(high)
+
+    return (path, low, high)
+
+
+def readObservableFile(obsfile):
+    """ Read observables to normalise from file obsfile.
+        Return-values are a list of the histo-names to normalise and a
+        dictionary with name:newarea entries.
+    """
+    bindefs = {}
+
+    if obsfile is not None:
+        try:
+            f = open(obsfile, 'r')
+        except:
+            logging.error("Cannot open histo list file %s" % opts.OBSFILE)
+            sys.exit(2)
+        for line in f:
+            stripped = line.strip()
+            # Skip empty or commented lines
+            if len(stripped) == 0 or stripped.startswith("#"):
+                continue
+
+            # Split the line to find out whether newarea is given in obsfile
+            path, low, high = getBindef(line)
+            bindefs[path] = (low, high)
+        f.close()
+    return bindefs
 
 if __name__ == "__main__":
     from optparse import OptionParser, OptionGroup
@@ -53,9 +99,13 @@ if __name__ == "__main__":
                       action="append",
                       help="Specify a histogram and bin range that is to be"
                            " kept. The format is `AIDAPATH:start:stop'.")
+    parser.add_option("-O", "--obsfile", default=None,
+                      help="Specify a file with bin-definitions to chop")
     parser.add_option("-o", "--out",
                       dest="outdir",
                       help="output directory (default: %default)")
+    parser.add_option("-i", "--in-place", dest="IN_PLACE", default=False, action="store_true",
+                      help="Overwrite input file rather than making input-chop.aida")
 
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-v", "--verbose", action="store_const",
@@ -77,26 +127,25 @@ if __name__ == "__main__":
     if len(args) == 0:
         sys.stderr.write("Must specify at least one AIDA histogram file!\n")
         sys.exit(1)
-    if len(opts.bins) == 0:
+    if len(opts.bins) == 0 and not opts.obsfile:
         sys.stderr.write("No bins specified, so I'm doing nothing!\n")
         sys.exit(1)
 
-    bindefs = {}
-    for bd in opts.bins:
-        try:
-            path, low, high = bd.split(":")
-        except:
-            sys.stderr.write("Problem parsing bin definition `%s'" % (bd))
-            sys.exit(1)
-        if low == "":
-            low = None
-        else:
-            low = float(low)
-        if high == "":
-            high = None
-        else:
-            high = float(high)
-        bindefs[path] = (low, high)
+
+    # Read in bin-definitions from file
+    if opts.obsfile:
+        bindefs = readObservableFile(opts.obsfile)
+
+    # If no file is given, try reading bin-definitions from CLOptions
+    else:
+        bindefs = {}
+        for bd in opts.bins:
+            try:
+                path, low, high = getBindef(bd)
+                bindefs[path] = (low, high)
+            except:
+                sys.stderr.write("Problem parsing bin definition `%s'" % (bd))
+                sys.exit(1)
 
     for aidafile in args:
         if not os.access(aidafile, os.R_OK):
@@ -104,7 +153,17 @@ if __name__ == "__main__":
             break
 
         base, ext = os.path.splitext(os.path.basename(aidafile))
-        chopfile = os.path.join(opts.outdir, base + "-chop" + ext)
+
+        ## Create output filename
+        base = args[0].split(".aida")[0]
+        if len(args) > 1:
+            outfile = args[1]
+        else:
+            if not opts.IN_PLACE:
+                base += "-chop"
+            outfile = base + ".aida"
+
+        chopfile = os.path.join(opts.outdir, outfile)
         outhistos = []
 
         tree = ET.parse(aidafile)
