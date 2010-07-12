@@ -119,14 +119,15 @@ class Histogram:
 
         ## Check for differences in the binning and remove superfluous MC bins:
         if len(refhist.data) != len(self.data):
-            logging.info(self.description['AidaPath'])
+            numrm = abs(len(self.data) - len(refhist.data))
+            logging.info("Stripping %d bins from %s" % (numrm, self.description['AidaPath']))
             newdata = []
             for i in range(len(self.data)):
                 if self.data[i]['LowEdge'] == refhist.data[i]['LowEdge'] and \
                    self.data[i]['UpEdge'] == refhist.data[i]['UpEdge']:
                     newdata.append(self.data[i])
                 else:
-                    logging.info('Deleted bin %d' % i)
+                    logging.debug('Deleted bin %d' % i)
                     refhist.data.insert(i, self.data[i])
             self.data = newdata
 
