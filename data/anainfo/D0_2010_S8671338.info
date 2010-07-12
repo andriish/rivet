@@ -15,6 +15,9 @@ RunInfo:
   $p \bar{p} \to \mu^+ \mu^-$ + jets at 1960~GeV.
   Needs mass cut on lepton pair to avoid photon singularity,
   looser than $65 < m_{\mu\mu} < 115$ GeV.
+  Restrict $Z/\gamma^*$ mass range to roughly $50~\text{GeV}/c^2 < m_{\mu\mu}
+    < 120~\text{GeV}/c^2$ for efficiency.
+  Weighted events and kinematic sampling enhancement can help to fill the pT tail.
 NumEvents: 1000000
 Beams: [p-, p+]
 Energies: [1960]

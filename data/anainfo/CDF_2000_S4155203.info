@@ -14,7 +14,9 @@ References:
 RunInfo:
   $p\bar{p}$ collisions at 1800 GeV.
   $Z/\gamma^*$ Drell-Yan events with $e^+e^-$ decay mode only.
-NumEvents: 1000000
+  Restrict $Z/\gamma^*$ mass range to roughly $50~\text{GeV}/c^2 < m_{ee}
+    < 120~\text{GeV}/c^2$ for efficiency.
+NumEvents: 100000
 Beams: [p-, p+]
 Energies: [1800]
 PtCuts: [0]
@@ -27,7 +29,7 @@ Description:
   (ISR) and the primordial/intrinsic pT of the Z's parent partons in the
   incoming hadrons. The Z pT is important in generator tuning to fix the
   interplay of ISR and multi-parton interactions (MPI) ingenerating
-  `underlying event' activity. 
+  `underlying event' activity.
 
   This analysis is subject to ambiguities in the experimental Z pT
   definition, since the Rivet implementation reconstructs the Z momentum from the
