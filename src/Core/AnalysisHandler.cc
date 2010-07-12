@@ -166,6 +166,14 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) {
+    // Check for a duplicate analysis
+    /// @todo Might we want to be able to run an analysis twice, with different params? Requires avoiding histo clashes.
+    foreach (const Analysis* a, _analyses) {
+      if (a->name() == analysisname) {
+        getLog() << Log::WARNING << "Analysis '" << analysisname << "' already registered: skipping duplicate" << endl;
+        return *this;
+      }
+    }
     Analysis* analysis = AnalysisLoader::getAnalysis(analysisname);
     if (analysis) { // < Check for null analysis.
       getLog() << Log::DEBUG << "Adding analysis '" << analysisname << "'" << endl;
