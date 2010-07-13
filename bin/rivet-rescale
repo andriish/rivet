@@ -110,7 +110,7 @@ def getRefHistos(refpaths, analyses):
         for refpath in refpaths:
             # Assume refpath is a single file first
             try:
-                refhistos=getHistosFromAIDA(refpath)
+                refhistos = getHistosFromAIDA(refpath)
                 logging.info("Read ref histos from file %s"%refpath)
             # Otherwise assume refpath is a directory
             except:
