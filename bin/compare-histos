@@ -126,12 +126,17 @@ if __name__ == "__main__":
     def getpathvar(name):
         rtn = []
         if os.environ.has_key(name):
-            rtn = [i for i in os.environ[name].split(":") if i]
+            rtn = [os.path.abspath(i) for i in os.environ[name].split(":") if i]
         return rtn
     if os.environ.has_key("RIVET_PLOT_PATH"):
         opts.PLOTINFODIR += getpathvar("RIVET_PLOT_PATH")
     elif os.environ.has_key("RIVET_REF_PATH"):
         opts.PLOTINFODIR += getpathvar("RIVET_REF_PATH")
+    for a in args:
+        adir = os.path.abspath(os.path.split(a)[0])
+        if not adir in opts.PLOTINFODIR:
+            opts.PLOTINFODIR.append(adir)
+
 
     ## Configure logging
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
@@ -367,7 +372,7 @@ if __name__ == "__main__":
         try:
             special = plotparser.getSpecial(name)
         except ValueError, err:
-            logging.error("Could not get histo specials: %s" % (err))
+            logging.error("Could not get histo specials: %s" % err)
             special = {}
         if special:
             headstr += "\n"
@@ -379,7 +384,7 @@ if __name__ == "__main__":
         try:
             histopts = plotparser.getHistogramOptions(name)
         except ValueError, err:
-            logging.error("Could not get histo options: %s" % (err))
+            logging.error("Could not get histo options: %s" % err)
             histopts = {}
         histstrs = []
         i = 0
