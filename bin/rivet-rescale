@@ -102,34 +102,34 @@ def getHistosFromAIDA(aidafile):
 
 
 def getRefHistos(refpaths, analyses):
-    """ Return dictionary of reference histos {name: histo}.
-    Refpath can either be a single file or a directory.
+    """
+    Return dictionary of reference histos {name: histo}.
+    refpaths can either be a single file or a directory.
     """
     refhistos = {}
     if refpaths:
         for refpath in refpaths:
-            # Assume refpath is a single file first
-            try:
+            if os.path.isfile(refpath):
+                logging.debug("Reading ref histos from file %s" % refpath)
                 refhistos = getHistosFromAIDA(refpath)
-                logging.info("Read ref histos from file %s"%refpath)
-            # Otherwise assume refpath is a directory
-            except:
+            elif os.path.isdir(refpath):
                 if opts.fast:
-                    logging.info("Fast mode - not loading all data-files")
+                    logging.debug("Fast mode - not loading all data-files")
                     for ana in analyses:
-                        temp = getHistosFromAIDA(os.path.join(refpath, ana+".aida"))
-                        for k, v in temp.iteritems():
-                            if not k in refhistos.keys():
-                                refhistos[k]=v
-
+                        refaida = os.path.join(refpath, ana+".aida")
+                        if os.path.isfile(refaida):
+                            temp = getHistosFromAIDA(refaida)
+                            for k, v in temp.iteritems():
+                                if not k in refhistos.keys():
+                                    refhistos[k] = v
                 else:
                     for aida in os.listdir(refpath):
                         if aida.endswith(".aida"):
                             temp = getHistosFromAIDA(os.path.join(refpath, aida))
                             for k, v in temp.iteritems():
                                 if not k in refhistos.keys():
-                                    refhistos[k]=v
-                logging.info("Read ref histos from folder %s"%refpath)
+                                    refhistos[k] = v
+                logging.debug("Read ref histos from folder %s" % refpath)
     return refhistos
 
 
@@ -178,7 +178,7 @@ def getBindef(line):
         path = splitline[0].split(":")[0]
         low  = ""
         high = ""
-        logging.warning("No bin-definition given for %s" % (line.strip()))
+        logging.debug("No bin-definition given for %s" % line.strip())
     if low == "":
         low = None
     else:
@@ -246,8 +246,8 @@ if __name__ == "__main__":
         import rivet
         refdirs += rivet.getAnalysisRefPaths()
     refhistos = getRefHistos(refdirs, analyses)
-    if len(refhistos)==0 and not opts.multiply:
-        logging.warning ("\n+++ You haven't specified any reference histograms. You better know what you're doing.\n")
+    if len(refhistos) == 0 and not opts.multiply:
+        logging.warning("You haven't specified any reference histograms. You'd better know what you're doing!")
 
     # Read in observables, if no bindefinitions are given in the file or the
     # command line, all observables will be renormalised if possible to the
@@ -294,21 +294,21 @@ if __name__ == "__main__":
         if name in obslist:
             # Find out whether ref-histo is given
             if name in refhistos.keys():
-                tempref = refhistos[name]
                 logging.debug("Rescaling to ref-histo for %s" % name)
+                tempref = refhistos[name]
             else:
-                tempref = histos[name]
                 logging.debug("Not using refhisto for rescaling of %s" % name)
+                tempref = histos[name]
 
             # Try to chop bins
             if name in bindefs.keys():
+                logging.debug("Using bindefs for rescaling of %s" % name)
                 tempref = tempref.chop(bindefs[name])
                 tempold = histos[name].chop(bindefs[name])
-                logging.debug("Using bindefs for rescaling of %s" % name)
             else:
-                tempref = refhistos[name]
-                tempold = histos[name]
                 logging.debug("Not using bindefs for rescaling of %s" % name)
+                #tempref = refhistos[name]
+                tempold = histos[name]
 
             # Get old and new histogram areas
             oldarea = tempold.getArea()
@@ -322,27 +322,28 @@ if __name__ == "__main__":
             # Rescale this histo to ref-histo area
             else:
                 newarea = tempref.getArea()
+
             scalefactor = newarea/oldarea
-            ## TODO: Allow inline histo chopping
-            oldarea = histos[name].getArea()
-            newarea = histos[name].getArea() * scalefactor
+            if scalefactor != 1.0:
+                oldarea = histos[name].getArea()
+                newarea = histos[name].getArea() * scalefactor
 
-            # Scale histo
-            logging.info("Rescaling %s by factor %.3e" % (name, scalefactor))
-            ## TODO: Allow inline histo chopping
-            #renormed = tempold.renormalise(newarea)
-            renormed = histos[name].renormalise(newarea)
+                # Scale histo
+                logging.info("Rescaling %s by factor %.3e (area %.3e -> %.3e)" % (name, scalefactor, oldarea, newarea))
+                renormed = histos[name].renormalise(newarea)
 
-            # Write to file
-            if opts.AIDA:
-                f.write(renormed.asAIDA())
-            else:
-                f.write(renormed.asFlat())
+                # Write to file
+                if opts.AIDA:
+                    f.write(renormed.asAIDA())
+                else:
+                    f.write(renormed.asFlat())
+                continue
+
+        ## Fallback to no rescaling if loop is not escaped early
+        if opts.AIDA:
+            f.write(histos[name].asAIDA())
         else:
-            if opts.AIDA:
-                f.write(histos[name].asAIDA())
-            else:
-                f.write(histos[name].asFlat())
+            f.write(histos[name].asFlat())
 
 
     if opts.AIDA:
