@@ -17,15 +17,16 @@ int main() {
   vector<string> moreanalyses(1, "D0_2007_S7075677");
   rivet.addAnalyses(moreanalyses);
 
-  rivet.init(); //< Obsolete, but allowed for compatibility
+  // Initialise: obsolete, but allowed for compatibility
+  rivet.init();
 
   std::istream* file = new std::fstream("testApi.hepmc", std::ios::in);
   HepMC::IO_GenEvent hepmcio(*file);
   HepMC::GenEvent* evt = hepmcio.read_next_event();
   double sum_of_weights = 0.0;
   while (evt) {
+    // Analyse current event
     rivet.analyze(*evt);
-    // Problem with HepMC file portability: temporarily disable
     sum_of_weights += evt->weights()[0];
 
     // Clean up and get next event
@@ -35,7 +36,7 @@ int main() {
   delete file; file = 0;
 
   rivet.setCrossSection(1.0);
-  rivet.setSumOfWeights(sum_of_weights); // not necessary, but allowed
+  rivet.setSumOfWeights(sum_of_weights); //< Not necessary, but allowed
   rivet.finalize();
   rivet.writeData("out");
 
