@@ -52,10 +52,8 @@ namespace Rivet {
       // Randomly discard 8% of charged particles as a kind of hacky detector correction.
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       const ConstLossyFinalState lfs(cfs, 0.08);
-      /// @todo Problem! Getting bad_cast exception... don't know why :(
-      // const LossyFinalState<ConstRandomFilter> lfs(cfs, ConstRandomFilter(0.08));
-      // const Projection* f = new ConstLossyFinalState(0.08);
-      // const ConstLossyFinalState* fp = dynamic_cast<const ConstLossyFinalState*>(f);
+
+      // const LossyFinalState<StarRandomFilter> lfs(cfs, StarRandomFilter());
       addProjection(lfs, "FS");
       addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
 

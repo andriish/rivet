@@ -23,6 +23,7 @@ namespace Rivet {
       assert(_lossFraction >= 0);
     }
 
+    // If operator() returns true, particle is deleted ("lost")
     bool operator()(const Particle& p) {
       /// @todo Use a better RNG
       return (rand()/static_cast<double>(RAND_MAX) < _lossFraction);
