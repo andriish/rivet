@@ -1,3 +1,11 @@
+2010-07-14  Andy Buckley  <andy@insectnation.org>
+
+	* FastJets projection now allows setting of a jet area definition,
+	plus a hacky mapping for getting the area-enabled cluster
+	sequence. Requested by Pavel Starovoitov & Paolo Francavilla.
+
+	* Lots of script updates in last two weeks!
+
 2010-06-30  Andy Buckley  <andy@insectnation.org>
 
 	* Minimising amount of Log class mapped into SWIG.

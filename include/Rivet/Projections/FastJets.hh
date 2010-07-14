@@ -8,7 +8,10 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Jet.hh"
 
+#include "fastjet/JetDefinition.hh"
+#include "fastjet/AreaDefinition.hh"
 #include "fastjet/ClusterSequence.hh"
+#include "fastjet/ClusterSequenceArea.hh"
 #include "fastjet/PseudoJet.hh"
 
 namespace Rivet {
@@ -74,8 +77,15 @@ namespace Rivet {
 
   public:
 
-    /// Reset the projection. Jet def etc are unchanged.
+    /// Reset the projection. Jet def, etc. are unchanged.
     void reset();
+
+    /// @brief Use provided jet area definition
+    /// @warning adef is NOT copied, the user must ensure that it remains valid!
+    /// Provide an adef null pointer to re-disable jet area calculation
+    void useJetArea(fastjet::AreaDefinition* adef) {
+      _adef = adef;
+    }
 
     /// Number of jets above the \f$ p_\perp \f$ cut.
     size_t numJets(double ptmin = 0.0) const;
@@ -120,9 +130,21 @@ namespace Rivet {
       return _cseq.get();
     }
 
+    /// Return the cluster sequence (FastJet-specific).
+    const fastjet::ClusterSequenceArea* clusterSeqArea() const {
+      /// @todo Throw error if no area def? Or just blindly call dynamic_cast?
+      if (_adef == 0) return (fastjet::ClusterSequenceArea*) 0;
+      return dynamic_cast<fastjet::ClusterSequenceArea*>(_cseq.get());
+    }
+
     /// Return the jet definition (FastJet-specific).
     const fastjet::JetDefinition& jetDef() const {
       return _jdef;
+    }
+
+    /// Return the area definition (FastJet-specific). May be null.
+    const fastjet::AreaDefinition* areaDef() const {
+      return _adef;
     }
 
     /// Get the subjet splitting variables for the given jet.
@@ -158,6 +180,9 @@ namespace Rivet {
 
     /// Jet definition
     fastjet::JetDefinition _jdef;
+
+    /// Pointer to user-handled area definition
+    fastjet::AreaDefinition* _adef;
 
     /// Cluster sequence
     shared_ptr<fastjet::ClusterSequence> _cseq;

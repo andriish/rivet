@@ -3,8 +3,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
 
-#include "fastjet/JetDefinition.hh"
-#include "fastjet/ClusterSequence.hh"
 #include "fastjet/SISConePlugin.hh"
 #include "fastjet/CDFJetCluPlugin.hh"
 #include "fastjet/CDFMidPointPlugin.hh"
@@ -17,7 +15,7 @@ namespace Rivet {
 
 
   FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double seed_threshold)
-    : JetAlg(fsp)
+    : JetAlg(fsp), _adef(0)
   {
     setName("FastJets");
     getLog() << Log::DEBUG << "R parameter = " << rparameter << endl;
@@ -59,33 +57,22 @@ namespace Rivet {
 
   FastJets::FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
                      fastjet::RecombinationScheme recom, double rparameter)
-    : JetAlg(fsp)
+    : JetAlg(fsp), _adef(0)
   {
     setName("FastJets");
     _jdef = fastjet::JetDefinition(type, rparameter, recom);
   }
 
 
-  FastJets::FastJets(const FinalState& fsp, 
+  FastJets::FastJets(const FinalState& fsp,
                      fastjet::JetDefinition::Plugin& plugin)
-    : JetAlg(fsp)
+    : JetAlg(fsp), _adef(0)
   {
     setName("FastJets");
     /// @todo Should we be copying the plugin?
     _plugin.reset(&plugin);
     _jdef = fastjet::JetDefinition(_plugin.get());
   }
-
-
-//   FastJets::FastJets(const FastJets& other)
-//     : JetAlg
-// //_cseq(other._cseq),
-//     _jdef(other._jdef),
-//     _plugin(other._plugin),
-//     _yscales(other._yscales)
-//   {
-//     setName("FastJets");
-//   }
 
 
   int FastJets::compare(const Projection& p) const {
@@ -95,7 +82,8 @@ namespace Rivet {
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
-      cmp(_jdef.R(), other._jdef.R());
+      cmp(_jdef.R(), other._jdef.R()) ||
+      cmp(_adef, other._adef);
   }
 
 
@@ -120,7 +108,13 @@ namespace Rivet {
       ++counter;
     }
     getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
-    _cseq.reset(new fastjet::ClusterSequence(vecs, _jdef));
+
+    // Choose CSeq as basic or area-calculating depending on whether _adef pointer is non-null.
+    if (_adef == 0) {
+      _cseq.reset(new fastjet::ClusterSequence(vecs, _jdef));
+    } else {
+      _cseq.reset(new fastjet::ClusterSequenceArea(vecs, _jdef, *_adef));
+    }
   }
 
 
