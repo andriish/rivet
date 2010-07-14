@@ -94,7 +94,7 @@ namespace Rivet {
 
     // Projection for all signal constituents
     MergedFinalState signalFS(imfs, cphotons);
-    addProjection(cphotons, "SignalParticles");
+    addProjection(signalFS, "SignalParticles");
 
     // Add MissingMomentum proj to calc MET
     MissingMomentum vismom(signalFS);
