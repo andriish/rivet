@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+## -*- sh -*-
 ## @configure_input@
 
 ## These variables need to exist

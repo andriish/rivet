@@ -1121,6 +1121,98 @@ the plugin system better, you should check out the documentation in the wiki on
 the Rivet website: \url{http://projects.hepforge.org/rivet/trac/wiki/}
 
 
+
+\section{Using Rivet as a library}
+
+You don't have to use Rivet via the provided command-line programmes: for some
+applications you may want to have more direct control of how Rivet processes
+events. Here are some possible reasons:
+%
+\begin{itemize}
+\item You need to not waste CPU cycles and I/O resources on rendering HepMC
+  events to a string representation which is immediately read back in. The FIFO
+  idiom is not perfect: we use it in circumstances where the convenience and
+  decoupling outweighs the CPU cost.
+\item You don't want to write out histograms to file, preferring to use them as
+  code objects. Perhaps for applications which want to manipulate histogram data
+  periodically before the end of the run.
+\item You enjoy tormenting Rivet developers who know their API is far from
+  perfect, by complaining if the flawed one changes!
+\item \dots and many more!
+\end{itemize}
+
+The Rivet API (application programming interface) has been designed in the hope
+of very simple integration into other applications: all you have to do is create
+a \code{Rivet::AnalysisHandler} object, tell it which analyses to apply on the
+events, and then call its \code{analyse(evt)} method for each HepMC event --
+wherever they come from. The API is (we hope) stable, with the exception of the
+histogramming parts: these have long been advertised as marked for replacement,
+and while progress in that area has lagger far behind our ambitions, it
+\emph{will} happen before the 2.0.0 release, with unavoidable impact on the
+related parts of the API. You have been warned!
+
+The best way to expain is, of course, by example. Here is a simple C++ example
+based on the \kbd{test/testApi.cc} source which we use in development to ensure
+continuing API functionality:
+%
+\begin{snippet}
+#include "Rivet/AnalysisHandler.hh"
+#include "HepMC/GenEvent.h"
+#include "HepMC/IO_GenEvent.h"
+
+using namespace std;
+
+int main() {
+
+  // Create analysis handler
+  Rivet::AnalysisHandler rivet;
+
+  // Specify the analyses to be used
+  rivet.addAnalysis("D0_2008_S7554427");
+  vector<string> moreanalyses(1, "D0_2007_S7075677");
+  rivet.addAnalyses(moreanalyses);
+
+  // The usual mess of reading from a HepMC file!
+  std::istream* file = new std::fstream("testApi.hepmc", std::ios::in);
+  HepMC::IO_GenEvent hepmcio(*file);
+  HepMC::GenEvent* evt = hepmcio.read_next_event();
+  double sum_of_weights = 0.0;
+  while (evt) {
+    // Analyse the current event
+    rivet.analyze(*evt);
+    sum_of_weights += evt->weights()[0];
+
+    // Clean up and get next event
+    delete evt; evt = 0;
+    hepmcio >> evt;
+  }
+  delete file; file = 0;
+
+  rivet.setCrossSection(1.0);
+  rivet.setSumOfWeights(sum_of_weights); // not necessary, but allowed
+  rivet.finalize();
+  rivet.writeData("out");
+
+  return 0;
+}
+\end{snippet}
+
+Compilation of this, if placed in a file called \kbd{myrivet.cc}, into an
+executable called \kbd{myrivet} is simplest and most robust with use of the
+\kbd{rivet-config} script:
+\begin{snippet}
+  g++ myrivet.cc -o myrivet `rivet-config --cppflags --ldflags --libs`
+\end{snippet}
+It \emph{should} just work! If you are doing something a bit more advanced, for
+example using the AGILe package's similar API to generate Fortran generator
+Pythia events and pass them directly to the Rivet analysis handler, you will
+need to also add the various compiler and linker flags for the extra libraries, e.g.
+\begin{snippet}
+  g++ myrivet.cc -o myrivet \
+    `rivet-config --cppflags --ldflags --libs` \
+    `agile-config --cppflags --ldflags --libs`
+\end{snippet}
+
 % \cleardoublepage
 % \part{How Rivet \emph{really} works}
 % \label{part:internals}

@@ -1,5 +1,8 @@
 2010-07-14  Andy Buckley  <andy@insectnation.org>
 
+	* Adding a manual section on use of Rivet (and AGILe) as
+	libraries, and how to use the -config scripts to aid compilation.
+
 	* FastJets projection now allows setting of a jet area definition,
 	plus a hacky mapping for getting the area-enabled cluster
 	sequence. Requested by Pavel Starovoitov & Paolo Francavilla.
