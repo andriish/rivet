@@ -205,18 +205,20 @@ This should print a quick-reference user guide for the \kbd{rivet} command to
 the terminal. Similarly, for \kbd{agile-runmc},\\
 \inp{agile-runmc --help}\\
 \inp{agile-runmc --list-gens}\\
-\inp{agile-runmc --beams=pp:14TeV FPythia:6413}\\
+\inp{agile-runmc --beams=pp:14TeV Pythia6:423}\\
 which should respectively print the help, list the available generators and make
-10 LHC-type events using the Fortran Pythia\cite{Sjostrand:2006za} 6.4.13 generator. You're on your
+10 LHC-type events using the Fortran Pythia\cite{Sjostrand:2006za} 6.423 generator. You're on your
 way! If no generators are listed, you probaby need to install a local
 Genser-type generator repository: see \SectionRef{sec:genser}.
 
 In this manual, because of its convenience, we will use \kbd{agile-runmc} as our
 canonical way of producing a stream of HepMC event data; if your interest is in
-running a generator like Sherpa\cite{Gleisberg:2008ta} or Herwig++\cite{Bahr:2008pv} which provides its own native way to
-make HepMC output, or a generator like Cascade\cite{Jung:2000hk} or PHOJET which is not currently
-supported by AGILe, then substitute the appropriate command in what follows.
-We'll discuss using these commands in detail in \SectionRef{sec:agile-runmc}.
+running a generator like Sherpa\cite{Gleisberg:2008ta},
+Pythia~8\cite{Sjostrand:2007gs,Sjostrand:2008vc}, or Herwig++\cite{Bahr:2008pv}
+which provides their own native way to make HepMC output, or a generator like
+PHOJET which is not currently supported by AGILe, then substitute the
+appropriate command in what follows.  We'll discuss using these commands in
+detail in \SectionRef{sec:agile-runmc}.
 
 
 \subsection{Getting generators for AGILe}
@@ -279,6 +281,7 @@ example throughout this manual. This command reads HepMC events in the standard
 ASCII format, either from file or from a text stream.
 
 \subsection{The FIFO idiom}
+\label{sec:fifo-idiom}
 
 Since you rarely want to store simulated HepMC events and they are
 computationally cheap to produce (at least when compared to the remainder of
@@ -290,7 +293,7 @@ building of huge files: a 1M event LHC run would occupy $\sim 60 GB$ on disk,
 and typically it takes twice as long to make and analyse the events when the
 filesystem is involved! Here is an example:\\
 \inp{mkfifo fifo.hepmc}\\
-\inp{agile-runmc Pythia6:422 -o fifo.hepmc \&}\\
+\inp{agile-runmc Pythia6:423 -o fifo.hepmc \&}\\
 \inp{rivet -a EXAMPLE fifo.hepmc}\\
 %
 Note that the generator process (\kbd{agile-runmc} in this case) is
@@ -1131,8 +1134,8 @@ events. Here are some possible reasons:
 \begin{itemize}
 \item You need to not waste CPU cycles and I/O resources on rendering HepMC
   events to a string representation which is immediately read back in. The FIFO
-  idiom is not perfect: we use it in circumstances where the convenience and
-  decoupling outweighs the CPU cost.
+  idiom (Section~\ref{sec:fifo-idiom}) is not perfect: we use it in circumstances
+  where the convenience and decoupling outweighs the CPU cost.
 \item You don't want to write out histograms to file, preferring to use them as
   code objects. Perhaps for applications which want to manipulate histogram data
   periodically before the end of the run.
@@ -1243,9 +1246,9 @@ need to also add the various compiler and linker flags for the extra libraries, 
     switch) to generate 1000 events (the \kbd{-n} switch) in LEP1 mode,
     i.e. $\Ppositron\Pelectron$ collisions at $\sqrt{s} = \unit{91.2}{\GeV}$.}
 
-\item \paragraph{Parameter changes:}{\kbd{agile-runmc Pythia6:422
+\item \paragraph{Parameter changes:}{\kbd{agile-runmc Pythia6:423
       --beams=LEP:91.2 -n~1000 \cmdbreak -P~myrun.params -p~"PARJ(82)=5.27"}
-    will generate 1000 events using the Fortran Pythia 6.4.18 generator, again
+    will generate 1000 events using the Fortran Pythia 6.423 generator, again
     in LEP1 mode. The \kbd{-P} switch is actually the way of specifying a
     parameters file, with one parameter per line in the format ``\val{key}
     \val{value}'': in this case, the file \kbd{lep1.params} is loaded from the
@@ -1257,7 +1260,7 @@ need to also add the various compiler and linker flags for the extra libraries, 
     testing of parameter values without needing to write a parameters file for
     use with~\kbd{-P}.}
 
-\item \paragraph{Writing out HepMC events:}{\kbd{agile-runmc Pythia6:422
+\item \paragraph{Writing out HepMC events:}{\kbd{agile-runmc Pythia6:423
       --beams=LHC:14TeV -n~50 -o~out.hepmc -R} will generate 50 LHC events with
     Pythia. The~\kbd{-o} switch is being used here to tell \kbd{agile-runmc} to
     write the generated events to the \kbd{out.hepmc} file. This file will be a
