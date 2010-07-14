@@ -85,8 +85,11 @@ namespace Rivet {
 
 
 }
+#endif
 
 
+#ifndef CEDARSTD
+#define CEDARSTD
 namespace std {
 
   template <typename T>
@@ -114,5 +117,4 @@ namespace std {
   }
 
 }
-
 #endif
