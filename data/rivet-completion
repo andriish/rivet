@@ -61,7 +61,7 @@ function _rivet_config() {
 
     opts="--help --version"
     opts="$opts --prefix --includedir --libdir --datadir"
-    opts="$opts --pythonpath --cppflags --ldflags --ldadd"
+    opts="$opts --pythonpath --cppflags --ldflags --libs"
     opts="$opts -h"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )

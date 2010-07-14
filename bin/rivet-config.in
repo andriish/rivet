@@ -28,7 +28,7 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo "  --pythonpath  : show the path(s) to the directory containing Rivet Python modules"
     echo "  --cppflags    : returns a Rivet '-I' string for insertion into CPPFLAGS"
     echo "  --ldflags     : returns a Rivet '-L' string for insertion into LDFLAGS"
-    echo "  --ldadd       : returns a Rivet '-l' string for insertion into LIBS or LIBADD"
+    echo "  --libs        : returns a Rivet '-l' string for insertion into LIBS or LIBADD"
     echo
     echo "  --version     : returns Rivet release version number"
 fi
@@ -78,7 +78,7 @@ if test -n "$tmp"; then
     test -n "$lgsl" && OUT="$OUT -L${lgsl}"
 fi
 
-tmp=$( echo "$*" | egrep -- '--\<ldadd\>')
+tmp=$( echo "$*" | egrep -- '--\<libs\>|--\<ldadd\>')
 test -n "$tmp" && OUT="$OUT -lRivet -lHepMC"
 
 
