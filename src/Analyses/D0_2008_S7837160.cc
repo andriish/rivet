@@ -78,7 +78,9 @@ namespace Rivet {
       assert(chg_e != 0);
 
       const double weight = event.weight();
-      const double eta_e = fabs(p_e.pseudorapidity());
+      double eta_e = p_e.pseudorapidity();
+      if(eta_e<0) chg_e *= -1;
+      eta_e = fabs(eta_e);
       const double et_e = p_e.Et();
       if (et_e < 35*GeV) {
         // 25 <= ET < 35
@@ -110,6 +112,7 @@ namespace Rivet {
       AIDA::IHistogramFactory& hf = histogramFactory();
 
       IHistogram1D* num25_35 = hf.subtract("/num25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
+      num25_35->scale(100.);
       IHistogram1D* denom25_35 = hf.add("/denom25_35", *_h_dsigplus_deta_25_35, *_h_dsigminus_deta_25_35);
       assert(num25_35 && denom25_35);
       hf.divide(histoDir() + "/d01-x01-y01", *num25_35, *denom25_35);
@@ -117,6 +120,7 @@ namespace Rivet {
       hf.destroy(denom25_35);
       //
       IHistogram1D* num35 = hf.subtract("/num35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
+      num35->scale(100.);
       IHistogram1D* denom35 = hf.add("/denom35", *_h_dsigplus_deta_35, *_h_dsigminus_deta_35);
       assert(num35 && denom35);
       hf.divide(histoDir() + "/d01-x01-y02", *num35, *denom35);
@@ -124,6 +128,7 @@ namespace Rivet {
       hf.destroy(denom35);
       //
       IHistogram1D* num25 = hf.subtract("/num25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
+      num25->scale(100.);
       IHistogram1D* denom25 = hf.add("/denom25", *_h_dsigplus_deta_25, *_h_dsigminus_deta_25);
       assert(num25 && denom25);
       hf.divide(histoDir() + "/d01-x01-y03", *num25, *denom25);
