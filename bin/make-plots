@@ -1689,10 +1689,20 @@ def process_datfile(datfile):
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             dvproc.wait()
-            pngcmd = ["convert", "-density", "100", "-flatten", "%s.ps" % filename, "%s.png" % filename]
-            logging.debug(" ".join(pngcmd))
-            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            pngproc.wait()
+            convertavailable = True
+            testconvert = subprocess.Popen(["which", "convert"], stdout=open("/dev/null", "w"), stderr=subprocess.STDOUT)
+            if testconvert.wait() != 0:
+                convertavailable = False
+            if convertavailable:
+                pngcmd = ["convert", "-density", "100", "-flatten", "%s.ps" % filename, "%s.png" % filename]
+                logging.debug(" ".join(pngcmd))
+                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+                pngproc.wait()
+            else:
+                pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait %s.ps" % filename
+                p1 = subprocess.Popen(pstopnm.split(" "), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
+                p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, filename), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
+                p2.wait()
         elif opts.OUTPUT_FORMAT == "PDFPNG":
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
