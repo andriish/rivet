@@ -41,7 +41,7 @@ namespace Rivet {
   class Log {
   public:
     enum Level {
-      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, WARNING = 30, ERROR = 40
+      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, WARNING = 30, ERROR = 40, CRITICAL = 50, ALWAYS = 50
     };
     static void setLevel(const std::string& name, int level);
   protected:

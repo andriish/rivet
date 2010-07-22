@@ -10,10 +10,11 @@ all-local: rivet/rivetwrap_wrap.cc
 install-exec-local:
 	$(PYTHON) setup.py install --prefix=$(DESTDIR)$(prefix)
 
+## TODO: Really want DESTDIR here?
 uninstall-local:
-	rm -rf $(DESTDIR)$(prefix)/lib*/python*/site-packages/rivet
-	rm -rf $(DESTDIR)$(prefix)/lib*/python*/site-packages/lighthisto.py*
-	rm -rf $(DESTDIR)$(prefix)/lib*/python*/site-packages/spiresbib.py*
+	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/rivet
+	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/lighthisto.py*
+	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/spiresbib.py*
 
 clean-local:
 	$(PYTHON) setup.py clean --all
