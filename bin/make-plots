@@ -18,7 +18,12 @@ TODO
 ## $Revision$
 ##
 
-import os, sys, logging, re
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+import os, logging, re
 import tempfile
 import getopt
 import string

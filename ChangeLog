@@ -1,3 +1,9 @@
+2010-07-16  Andy Buckley  <andy@insectnation.org>
+
+	* Adding an explicit library dependency declaration on libHepMC,
+	and hence removing the -lHepMC from the rivet-config --libs
+	output.
+
 2010-07-14  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a manual section on use of Rivet (and AGILe) as

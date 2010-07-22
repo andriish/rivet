@@ -11,7 +11,7 @@ namespace Rivet {
 
     /// Log priority levels.
     enum Level {
-      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, WARNING = 30, ERROR = 40
+      TRACE = 0, DEBUG = 10, INFO = 20, WARN = 30, WARNING = 30, ERROR = 40, CRITICAL = 50, ALWAYS = 50
     };
 
     /// Typedef for a collection of named logs.
@@ -129,7 +129,7 @@ namespace Rivet {
     void trace(const std::string& message) { log(TRACE, message); }
 
     void debug(const std::string& message) { log(DEBUG, message); }
- 
+
     void info(const std::string& message) { log(INFO, message); }
 
     void warn(const std::string& message) { log(WARN, message); }
@@ -140,10 +140,10 @@ namespace Rivet {
   private:
     /// This logger's name
     std::string _name;
- 
+
     /// Threshold level for this logger.
     int _level;
- 
+
   protected:
     /// Write a message at a particular level.
     void log(int level, const std::string& message);

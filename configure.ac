@@ -191,7 +191,7 @@ AZ_PYTHON_DEFAULT
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
   AZ_PYTHON_PATH
-  AZ_PYTHON_VERSION_ENSURE([2.3])
+  AZ_PYTHON_VERSION_ENSURE([2.4])
   PYTHON_VERSION=`$PYTHON -c "import sys; print '.'.join(map(str, sys.version_info@<:@:2@:>@));"`
   AC_SUBST(PYTHON_VERSION)
   RIVET_PYTHONPATH=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_lib(prefix='$prefix');"`
