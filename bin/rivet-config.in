@@ -80,7 +80,7 @@ if test -n "$tmp"; then
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<libs\>|--\<ldadd\>')
-test -n "$tmp" && OUT="$OUT -lRivet -lHepMC"
+test -n "$tmp" && OUT="$OUT -lRivet"
 
 
 ## Version

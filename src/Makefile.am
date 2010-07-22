@@ -11,6 +11,7 @@ libRivet_la_SOURCES =
 libRivet_la_LDFLAGS = \
   -L$(prefix)/lib \
   -L$(GSLLIBPATH) \
+  -L$(HEPMCLIBPATH) \
   -export-dynamic $(VERSIONINFOFLAGS)
 
 libRivet_la_LIBADD  = \
@@ -18,5 +19,5 @@ libRivet_la_LIBADD  = \
   Projections/libRivetProjections.la \
   Analyses/libRivetAnalysisTools.la \
   Tools/libRivetTools.la \
-  -ldl -lm \
+  -ldl -lm -lHepMC \
   $(GSL_LDFLAGS) $(FASTJETCONFIGLIBADD)
