@@ -15,18 +15,18 @@ namespace Rivet {
   /// @brief Just measures a few random things as an example.
   class ExampleAnalysis : public Analysis {
   public:
- 
+
     /// Constructor
     ExampleAnalysis()
       : Analysis("EXAMPLE")
     {
       // No counters etc. to initialise, hence nothing to do here!
     }
- 
+
 
     /// @name Analysis methods
     //@{
- 
+
     /// Set up projections and book histograms
     void init() {
       // Projections
@@ -58,41 +58,41 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      // Analyse and print some info
-      const Multiplicity& cm = applyProjection<Multiplicity>(event, "CMult");
+      // Make sure to always include the event weight in fills!
+      const double weight = event.weight();
+
       const Multiplicity& cnm = applyProjection<Multiplicity>(event, "CNMult");
-      getLog() << Log::DEBUG << "Total multiplicity = " << cnm.totalMultiplicity()  << endl;
-      getLog() << Log::DEBUG << "Total charged multiplicity = " << cm.totalMultiplicity()   << endl;
-      getLog() << Log::DEBUG << "Hadron multiplicity = " << cnm.hadronMultiplicity() << endl;
-      getLog() << Log::DEBUG << "Hadron charged multiplicity = " << cm.hadronMultiplicity()  << endl;
-   
+      MSG_DEBUG("Total multiplicity = " << cnm.totalMultiplicity());
+      _histTot->fill(cnm.totalMultiplicity(), weight);
+      MSG_DEBUG("Hadron multiplicity = " << cnm.hadronMultiplicity());
+      _histHadrTot->fill(cnm.hadronMultiplicity(), weight);
+
+      const Multiplicity& cm = applyProjection<Multiplicity>(event, "CMult");
+      MSG_DEBUG("Total charged multiplicity = " << cm.totalMultiplicity());
+      _histChTot->fill(cm.totalMultiplicity(), weight);
+      MSG_DEBUG("Hadron charged multiplicity = " << cm.hadronMultiplicity());
+      _histHadrChTot->fill(cm.hadronMultiplicity(), weight);
+
       const Thrust& t = applyProjection<Thrust>(event, "Thrust");
-      getLog() << Log::DEBUG << "Thrust = " << t.thrust() << endl;
-   
+      MSG_DEBUG("Thrust = " << t.thrust());
+      _histThrust->fill(t.thrust(), weight);
+      _histMajor->fill(t.thrustMajor(), weight);
+
       const Sphericity& s = applyProjection<Sphericity>(event, "Sphericity");
-      getLog() << Log::DEBUG << "Sphericity = " << s.sphericity() << endl;
-      getLog() << Log::DEBUG << "Aplanarity = " << s.aplanarity() << endl;
-   
-      size_t num_b_jets = 0;
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jets();
+      MSG_DEBUG("Sphericity = " << s.sphericity());
+      _histSphericity->fill(s.sphericity(), weight);
+      MSG_DEBUG("Aplanarity = " << s.aplanarity());
+      _histAplanarity->fill(s.aplanarity(), weight);
+
+      unsigned int num_b_jets = 0;
+      const Jets jets = applyProjection<FastJets>(event, "Jets").jets(5*GeV);
       foreach (const Jet& j, jets) {
         if (j.containsBottom()) ++num_b_jets;
       }
-      getLog() << Log::DEBUG << "#B-jets = " << num_b_jets << endl;
-   
-      // Fill histograms
-      const double weight = event.weight();
-      _histTot->fill(cnm.totalMultiplicity(), weight);
-      _histChTot->fill(cm.totalMultiplicity(), weight);
-      _histHadrTot->fill(cnm.hadronMultiplicity(), weight);
-      _histHadrChTot->fill(cm.hadronMultiplicity(), weight);
-      _histThrust->fill(t.thrust(), weight);
-      _histMajor->fill(t.thrustMajor(), weight);
-      _histSphericity->fill(s.sphericity(), weight);
-      _histAplanarity->fill(s.aplanarity(), weight);
+      MSG_DEBUG("Num B-jets with pT > 5 GeV = " << num_b_jets);
     }
- 
- 
+
+
     /// Finalize
     void finalize() {
       normalize(_histTot);
@@ -109,7 +109,7 @@ namespace Rivet {
 
 
   private:
- 
+
     //@{
     /// Histograms
     AIDA::IHistogram1D* _histTot;
@@ -123,7 +123,7 @@ namespace Rivet {
     //@}
 
   };
- 
+
 
 
   // This global object acts as a hook for the plugin system
