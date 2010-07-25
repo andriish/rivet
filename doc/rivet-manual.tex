@@ -761,7 +761,7 @@ what is going on.
 Observant readers may have noticed a problem with all this projection caching
 cleverness: what if the final states aren't defined the same way? One might
 provide charged final state particles only, or the acceptances (defined in
-rapidity range and a IR \pT cutoff) might differ. Rivet handles this by
+pseudorapidity range and a IR \pT cutoff) might differ. Rivet handles this by
 making each projection provide a comparison operator which is used to decide
 whether the cached version is acceptable or if the calculation must be re-run
 with different settings. Because projections can be nested, applying a top-level
@@ -970,7 +970,8 @@ without some of the historical baggage.
 \paragraph{Vector components}%
 The \code{FourMomentum} \code{E()}, \code{px()}, \code{py()}, \code{pz()} \&
 \code{mass()} methods are (unsurprisingly) accessors for the vector's energy,
-momentum components and mass.
+momentum components and mass. The \code{vector3()} method returns a spatial
+\code{Vector3} object, i.e. the 3 spatial components of the 4-vector.
 
 \paragraph{Useful properties}%
 The \code{pT()} and \code{Et()} methods are used to calculate the transverse
@@ -980,8 +981,8 @@ angle and polar angle respectively. More explicitly named versions of these also
 exist, named \code{pseudorapidity()}, \code{azimuthalAngle()} and
 \code{polarAngle()}. Finally, the true rapidity is accessed via the
 \code{rapidity()} method. Many of these functions are also available as external
-functions, as are algebraic functions such as \code{cross(vec1, vec2)}, which is
-perhaps more palatable than \code{vec1.cross(vec2)}.
+functions, as are algebraic functions such as \code{cross(vec3a, vec3b)}, which
+is perhaps more palatable than \code{vec3a.cross(vec3b)}.
 
 \paragraph{Distances}%
 The $\eta$--$\phi$ distance between any two four-vectors (and/or three-vectors)
