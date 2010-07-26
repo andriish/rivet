@@ -4,8 +4,21 @@ set exec_prefix=@exec_prefix@
 
 setenv PATH "$exec_prefix/bin:$PATH"
 setenv LD_LIBRARY_PATH "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$LD_LIBRARY_PATH"
+
 if ($?PYTHONPATH) then
 setenv PYTHONPATH "@RIVET_PYTHONPATH@:$PYTHONPATH"
 else
 setenv PYTHONPATH "@RIVET_PYTHONPATH@"
+endif
+
+if ($?TEXMFHOME) then
+setenv TEXMFHOME "@datadir@/Rivet/texmf:$TEXMFHOME"
+else
+setenv TEXMFHOME "@datadir@/Rivet/texmf"
+endif
+
+if ($?HOMETEXMF) then
+setenv HOMETEXMF "@datadir@/Rivet/texmf:$HOMETEXMF"
+else
+setenv HOMETEXMF "@datadir@/Rivet/texmf"
 endif
