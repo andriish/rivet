@@ -3,7 +3,7 @@ prefix=@prefix@
 exec_prefix=@exec_prefix@
 
 export PATH="$exec_prefix/bin:$PATH"
-export LD_LIBRARY_PATH="@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$LD_LIBRARY_PATH"
+export @LIBPATHVARNAME@="@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$@LIBPATHVARNAME@"
 export PYTHONPATH="@RIVET_PYTHONPATH@:$PYTHONPATH"
 export TEXMFHOME="@datadir@/Rivet/texmf:$TEXMFHOME"
 export HOMETEXMF="@datadir@/Rivet/texmf:$HOMETEXMF"
