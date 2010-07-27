@@ -1,4 +1,6 @@
-#!/usr/bin/env python
+# Use posixpath instead of os.path for AIDA path handling to be platform
+# independent, i.e. always use "/" as path delimiter.
+import posixpath
 
 import os
 import re
@@ -21,7 +23,11 @@ for code, name in codepoint2name.iteritems():
         unichr2entity[unichr(code)] = u"&%s;" % (name)
 
 
-def htmlescape(text, d=unichr2entity):
+# Using mutable types as (dict, list) as default arguments can have nasty
+# side effects.
+def htmlescape(text, d=None):
+    if d is None:
+        d = unichr2entity
     if u"&" in text:
         text = text.replace(u"&", u"&amp;")
     for key, value in d.iteritems():
@@ -58,7 +64,7 @@ class Histo(object):
         return out
 
     def fullPath(self):
-        return os.path.join(self.path, self.name)
+        return posixpath.join(self.path, self.name)
     fullpath = property(fullPath,
             doc="Full AIDA path including leading '/REF' and histogram name")
 
@@ -120,7 +126,7 @@ class Histo(object):
                     self.path, htmlescape(self.title))
         else:
             r += ind + '    path="%s" title="">\n' % (
-                    os.path.dirname(self.path))
+                    posixpath.dirname(self.path))
         if (self.xlabel!=''):
             r += ind + '  <dimenstion dim="0" title="%s"/>\n' % (
                     htmlescape(self.xlabel))
@@ -211,8 +217,8 @@ class Histo(object):
         irange = 0
         curran = xranges[irange]
         for b in self:
-            lowok = False
-            highok = False
+            #lowok = False
+            #highok = False
             br = b.getXRange()
             # print curran, "->", br
             # update the current range used if we exceed the current upper
@@ -276,7 +282,7 @@ class Histo(object):
                 elif (a.get("dim")=="1"):
                     new.ylabel = a.get("title")
         points = dps.findall("dataPoint")
-        numbins = len(points)
+        #numbins = len(points)
         for binnum, point in enumerate(points):
             bin = Bin()
             for d, m in enumerate(point.findall("measurement")):
@@ -316,7 +322,7 @@ class Histo(object):
                                    float(linearray[3]), float(linearray[4])))
                 else:
                     logging.error("Unknown line format in '%s'" % (line))
-        new.path, new.name = os.path.split(desc["AidaPath"])
+        new.path, new.name = posixpath.split(desc["AidaPath"])
         if desc.has_key("Title"):
             new.title = desc["Title"]
         if desc.has_key("XLabel"):
@@ -326,10 +332,28 @@ class Histo(object):
         return new
     fromFlat = classmethod(fromFlat)
 
+    # Do we want to use this with rivet as well?
+    # def fromAIDA(cls, path):
+        # """Load all histograms in file 'path' into a histo-path=>histo dict.
+
+        # The keys of the dictionary are the full paths of the histogram, i.e.
+        # AnaylsisID/HistoID, a leading "/REF" is stripped from the keys.
+        # """
+        # runhistos = dict()
+        # tree = ET.parse(path)
+        # for dps in tree.findall("dataPointSet"):
+            # fullpath = posixpath.join(dps.get("path"), dps.get("name"))
+            # if fullpath.startswith("/REF"):
+                # fullpath = fullpath[4:]
+            # runhistos[fullpath] = cls.fromDPS(dps)
+        # return runhistos
+    # fromAIDA = classmethod(fromAIDA)
+
 
 class Bin(object):
     """A simple container for a binned value with an error."""
     aidaindent = "    "
+    __slots__ = ["xlow", "xhigh", "yval", "yerrplus", "yerrminus", "focus"]
     def __init__(self, xlow=None, xhigh=None, yval=0, yerrplus=0, yerrminus=0, focus=None):
         self.xlow = xlow
         self.xhigh= xhigh
@@ -492,20 +516,32 @@ class PlotParser(object):
         """Get a header dict for histogram hpath.
 
         hpath must have the form /AnalysisID/HistogramID
+
+        Returns
+        -------
+        plot_section : dict
+            The dictionary usually contains the 'Title', 'XLabel' and
+            'YLabel' properties of the respective plot.
         """
         return self.getSection('PLOT', hpath)
 
     def getSpecial(self, hpath):
         """Get a SPECIAL section for histogram hpath.
 
-        hpath must have the form /AnalysisID/HistogramID
+        Parameters
+        ----------
+        hpath : str
+            Histogram path. Must have the form /AnalysisID/HistogramID .
         """
         return self.getSection('SPECIAL', hpath)
 
     def getHistogramOptions(self, hpath):
-        """Get a SPECIAL section for histogram hpath.
+        """Get a HISTOGRAM section for histogram hpath.
 
-        hpath must have the form /AnalysisID/HistogramID
+        Parameters
+        ----------
+        hpath : str
+            Histogram path. Must have the form /AnalysisID/HistogramID .
         """
         return self.getSection('HISTOGRAM', hpath)
 
