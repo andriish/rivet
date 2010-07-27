@@ -1,6 +1,7 @@
 # These variables need to exist
 set prefix=@prefix@
 set exec_prefix=@exec_prefix@
+set datarootdir=@datarootdir@
 
 setenv PATH "$exec_prefix/bin:$PATH"
 setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$@LIBPATHVARNAME@"

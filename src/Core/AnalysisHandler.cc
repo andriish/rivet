@@ -117,7 +117,7 @@ namespace Rivet {
     // Weights
     const double weight = event.weight();
     _sumOfWeights += weight;
-    //getLog() << Log::DEBUG << "Event #" << _numEvents << " weight = " << weight << endl;
+    getLog() << Log::DEBUG << "Event #" << _numEvents << " weight = " << weight << endl;
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
       const double xs = ge.cross_section()->cross_section();
