@@ -1204,18 +1204,82 @@ int main() {
 Compilation of this, if placed in a file called \kbd{myrivet.cc}, into an
 executable called \kbd{myrivet} is simplest and most robust with use of the
 \kbd{rivet-config} script:
+%
 \begin{snippet}
   g++ myrivet.cc -o myrivet `rivet-config --cppflags --ldflags --libs`
 \end{snippet}
-It \emph{should} just work! If you are doing something a bit more advanced, for
-example using the AGILe package's similar API to generate Fortran generator
-Pythia events and pass them directly to the Rivet analysis handler, you will
-need to also add the various compiler and linker flags for the extra libraries, e.g.
+%
+It \emph{should} just work!
+
+If you are doing something a bit more advanced, for example using the AGILe
+package's similar API to generate Fortran generator Pythia events and pass them
+directly to the Rivet analysis handler, you will need to also add the various
+compiler and linker flags for the extra libraries, e.g.
+%
 \begin{snippet}
   g++ myrivet.cc -o myrivet \
     `rivet-config --cppflags --ldflags --libs` \
     `agile-config --cppflags --ldflags --libs`
 \end{snippet}
+%
+would be needed to compile the following AGILe+Rivet code:
+%
+\goodbreak
+\begin{snippet}
+#include "AGILe/Loader.hh"
+#include "AGILe/Generator.hh"
+#include "Rivet/AnalysisHandler.hh"
+#include "HepMC/GenEvent.h"
+#include "HepMC/IO_GenEvent.h"
+
+using namespace std;
+
+int main() {
+  // Have a look what generators are available
+  AGILe::Loader::initialize();
+  const vector<string> gens = AGILe::Loader::getAvailableGens();
+  foreach (const string& gen, gens) {
+    cout << gen << endl;
+  }
+
+  // Load libraries for a specific generator and instantiate it
+  AGILe::Loader::loadGenLibs("Pythia6:423");
+  AGILe::Generator* generator = AGILe::Loader::createGen();
+  cout << "Running " << generator->getName()
+       << " version " << generator->getVersion() << endl;
+
+  // Set generator initial state for LEP
+  const int particle1 = AGILe::ELECTRON;
+  const int particle2 = AGILe::POSITRON;
+  const double sqrts = 91;
+  generator->setInitialState(particle1, energy1, sqrts/2.0, sqrts/2.0);
+  generator->setSeed(14283);
+
+  // Set some parameters
+  generator->setParam("MSTP(5)", "320"); //< PYTHIA tune
+  // ...
+
+  // Set up Rivet with a LEP analysis
+  Rivet::AnalysisHandler rivet;
+  rivet.addAnalysis("DELPHI_1996_S3430090");
+
+  // Run events
+  const int EVTMAX = 10000;
+  HepMC::GenEvent evt;
+  for (int i = 0; i < EVTMAX; ++i) {
+    generator->makeEvent(evt);
+    rivet.analyze(evt);
+  }
+
+  // Finalize Rivet and generator
+  rivet.finalize();
+  rivet.writeData("out.aida");
+  generator->finalize();
+
+  return 0;
+}
+\end{snippet}
+
 
 % \cleardoublepage
 % \part{How Rivet \emph{really} works}
