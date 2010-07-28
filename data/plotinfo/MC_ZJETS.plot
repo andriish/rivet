@@ -21,6 +21,8 @@ Title=Z $p_\perp$
 XLabel=$p_\perp^{\text{Z}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{Z}}$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/Z_pT_peak
@@ -33,6 +35,8 @@ YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{Z}}$
 Title=Z rapidity
 XLabel=$y_{\text{Z}}$
 YLabel=$\text{d}\sigma/\text{d}y_{\text{Z}}$
+LegendXPos=0.8
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/Z_phi
@@ -55,9 +59,11 @@ YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jets_dR_12
-Title=
+Title=Separation between leading and second leading jet
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$
+LegendXPos=0.5
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jets_dR_13
@@ -230,7 +236,6 @@ ErrorBands=1
 Title=$\log_{10}$(Integrated $0$ jet rate in $k_\perp$ [GeV])
 XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
 YLabel=$R_{0}$
-Rebin=2
 LegendYPos=0.8
 LegendXPos=1.2
 # END PLOT
@@ -239,28 +244,24 @@ LegendXPos=1.2
 Title=$\log_{10}$(Integrated $1$ jet rate in $k_\perp$ [GeV])
 XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
 YLabel=$R_{1}$
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/log10_R_2
 Title=$\log_{10}$(Integrated $2$ jet rate in $k_\perp$ [GeV])
 XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
 YLabel=$R_{2}$
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/log10_R_3
 Title=$\log_{10}$(Integrated $3$ jet rate in $k_\perp$ [GeV])
 XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
 YLabel=$R_{3}$
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/log10_R_4
 Title=$\log_{10}$(Integrated $4$ jet rate in $k_\perp$ [GeV])
 XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
 YLabel=$R_{\geq4}$
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/log10_d_01
@@ -269,7 +270,6 @@ XLabel=$\log_{10}(d_{01}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{01})$
 LegendXPos=0.5
 LegendYPos=0.5
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/log10_d_12
@@ -278,7 +278,6 @@ XLabel=$\log_{10}(d_{12}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{12})$
 LegendXPos=0.5
 LegendYPos=0.5
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/log10_d_23
@@ -287,7 +286,6 @@ XLabel=$\log_{10}(d_{23}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{23})$
 LegendXPos=0.5
 LegendYPos=0.5
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/log10_d_34
@@ -296,7 +294,6 @@ XLabel=$\log_{10}(d_{34}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{34})$
 LegendXPos=0.5
 LegendYPos=0.5
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_1
