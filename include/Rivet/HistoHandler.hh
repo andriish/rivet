@@ -25,16 +25,12 @@ namespace Rivet {
   ///
   class HistoHandler {
   private:
- 
+
     /// @name Construction. */
     //@{
     /// The standard constructor.
     HistoHandler() { }
     //@}
-
-    /// Singleton instance
-    /// @todo Threading?
-    static HistoHandler* _instance;
 
     /// Private destructor means no inheritance from this class.
     ~HistoHandler();
@@ -48,12 +44,11 @@ namespace Rivet {
 
   public:
 
-    /// Singleton creation function
-    static HistoHandler* create();
-
-
-    /// Singleton deletion function
-    static void destroy();
+    /// Singleton getter function
+    static HistoHandler& getInstance() {
+      static HistoHandler _instance;
+      return _instance;
+    }
 
 
     ////////////////////////////////////////////////////////

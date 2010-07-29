@@ -8,26 +8,6 @@
 namespace Rivet {
 
 
-  // Initialize instance pointer to null.
-  HistoHandler* HistoHandler::_instance = 0;
-
-
-  HistoHandler* HistoHandler::create() {
-    if (!_instance) {
-      _instance = new HistoHandler();
-      Log::getLog("Rivet.HistoHandler")
-        << Log::TRACE << "Created new HistoHandler at "
-        << _instance << endl;
-    }
-    return _instance;
-  }
-
-
-  void HistoHandler::destroy() {
-    delete _instance;
-  }
-
-
   // Get a logger.
   Log& HistoHandler::getLog() const {
     return Log::getLog("Rivet.HistoHandler");
@@ -52,7 +32,7 @@ namespace Rivet {
              << " analysis object " << &ao
              << " for parent " << &parent << "(" << parent.name() << ")"
              << " with name '" << name << "'" << endl;
- 
+
     // If this name is already registered for this analysis, throw a complaint
     NamedHistosMap::const_iterator nhs = _namedhistos.find(&parent);
     if (nhs != _namedhistos.end()) {
