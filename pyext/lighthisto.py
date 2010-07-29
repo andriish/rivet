@@ -476,39 +476,35 @@ class PlotParser(object):
         if len(parts) != 3:
             raise ValueError("hpath has wrong number of parts (%i)" % (len(parts)))
         base = parts[1] + ".plot"
-        plotfile = None
+        ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
             if os.access(os.path.join(pidir, base), os.R_OK):
                 plotfile = os.path.join(pidir, base)
-                break
-        if plotfile is None:
-            raise ValueError("No plot file %s found in plotpaths %s" % (base, self.plotpaths))
-        ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
-        startreading = False
-        f = open(plotfile)
-        for line in f:
-            m = self.pat_begin_block.match(line)
-            if m:
-                tag, pathpat = m.group(1,2)
-                if tag == section and pathpat == hpath:
-                    startreading=True
-                    if section in ['SPECIAL']:
-                        ret[section] = ''
-                    continue
-            if not startreading:
-                continue
-            if self.isEndMarker(line, section):
-                break
-            elif self.isComment(line):
-                continue
-            if section in ['PLOT', 'HISTOGRAM']:
-                vm = self.pat_property.match(line)
-                if vm:
-                    prop, value = vm.group(1,2)
-                    ret[section][prop] = value
-            elif section in ['SPECIAL']:
-                ret[section] += line
-        f.close()
+                startreading = False
+                f = open(plotfile)
+                for line in f:
+                    m = self.pat_begin_block.match(line)
+                    if m:
+                        tag, pathpat = m.group(1,2)
+                        if tag == section and pathpat == hpath:
+                            startreading=True
+                            if section in ['SPECIAL']:
+                                ret[section] = ''
+                            continue
+                    if not startreading:
+                        continue
+                    if self.isEndMarker(line, section):
+                        break
+                    elif self.isComment(line):
+                        continue
+                    if section in ['PLOT', 'HISTOGRAM']:
+                        vm = self.pat_property.match(line)
+                        if vm:
+                            prop, value = vm.group(1,2)
+                            ret[section][prop] = value
+                    elif section in ['SPECIAL']:
+                        ret[section] += line
+                f.close()
         return ret[section]
 
 
