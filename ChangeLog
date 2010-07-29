@@ -1,3 +1,8 @@
+2010-07-30  Andy Buckley  <andy@insectnation.org>
+
+	* Merging in a fix for shared_ptrs not being compared for
+	insertion into a set based on raw pointer value.
+
 2010-07-16  Andy Buckley  <andy@insectnation.org>
 
 	* Adding an explicit library dependency declaration on libHepMC,
