@@ -118,9 +118,6 @@ namespace Rivet {
   class AnalysisHandler {
   public:
     AnalysisHandler(const std::string& runname);
-    AnalysisHandler(const std::string& basefilename,
-                    const std::string& runname,
-                    HistoFormat storetype=AIDAML);
     std::string runName() const;
     size_t numEvents() const;
     double sumOfWeights() const;

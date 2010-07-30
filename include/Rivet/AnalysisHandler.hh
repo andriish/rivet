@@ -3,6 +3,7 @@
 #define RIVET_RivetHandler_HH
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/RivetBoost.hh"
 #include "Rivet/Tools/Logging.fhh"
 #include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/Analysis.fhh"
@@ -10,6 +11,16 @@
 #include "Rivet/AnalysisLoader.hh"
 
 namespace Rivet {
+
+  /// Typedef for Analysis (smart) pointer
+  typedef shared_ptr<Analysis> AnaHandle;
+
+  // Needed to make smart pointers compare equivalent in the STL set
+  struct AnaHandleLess {
+    bool operator()(const AnaHandle& a, const AnaHandle& b) {
+      return a.get() < b.get();
+    }
+  };
 
 
   /// A class which handles a number of analysis objects to be applied to
@@ -158,8 +169,8 @@ namespace Rivet {
     /// Get a list of the currently registered analyses' names.
     std::vector<std::string> analysisNames() const;
 
-    /// Get a list of the currently registered analyses' names.
-    const std::set<Analysis*>& analyses() const {
+    /// Get the collection of currently registered analyses.
+    const std::set<AnaHandle, AnaHandleLess>& analyses() const {
       return _analyses;
     }
 
@@ -258,7 +269,7 @@ namespace Rivet {
   private:
 
     /// The collection of Analysis objects to be used.
-    set<Analysis*> _analyses;
+    set<AnaHandle, AnaHandleLess> _analyses;
 
 
     /// @name Run properties
@@ -286,10 +297,14 @@ namespace Rivet {
 
 
     /// @name AIDA factory handles
+    /// Note that only the analysis factory can be a shared_ptr, since it deletes all the others.
     //@{
 
     /// The AIDA analysis factory.
-    AIDA::IAnalysisFactory* _theAnalysisFactory;
+    shared_ptr<AIDA::IAnalysisFactory> _theAnalysisFactory;
+
+    /// The AIDA tree factory.
+    AIDA::ITreeFactory* _theTreeFactory;
 
     /// The AIDA tree object.
     AIDA::ITree* _theTree;

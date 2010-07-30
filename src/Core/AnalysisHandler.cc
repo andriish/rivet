@@ -19,7 +19,7 @@ namespace Rivet {
       _sumOfWeights(0.0), _xs(-1.0),
       _initialised(false)
   {
-    _theAnalysisFactory = createAnalysisFactory();
+    _theAnalysisFactory.reset( createAnalysisFactory() );
     _setupFactories();
   }
 
@@ -32,7 +32,7 @@ namespace Rivet {
   {
     cerr << "AnalysisHandler(basefilename, runname, format) constructor is deprecated: "
          << "please migrate your code to use the one-arg constructor" << endl;
-    _theAnalysisFactory = createAnalysisFactory();
+    _theAnalysisFactory.reset( createAnalysisFactory() );
     _setupFactories(basefilename, storetype);
   }
 
@@ -67,7 +67,7 @@ namespace Rivet {
     // Check that analyses are beam-compatible
     const size_t num_anas_requested = analysisNames().size();
     removeIncompatibleAnalyses(beamIds());
-    foreach (const Analysis* a, analyses()) {
+    foreach (const AnaHandle a, analyses()) {
       if (toUpper(a->status()) != "VALIDATED") {
         getLog() << Log::WARN
                  << "Analysis '" << a->name() << "' is unvalidated: be careful!" << endl;
@@ -80,7 +80,7 @@ namespace Rivet {
       exit(1);
     }
 
-    foreach (Analysis* a, _analyses) {
+    foreach (AnaHandle a, _analyses) {
       getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
       // Allow projection registration in the init phase onwards
       a->_allowProjReg = true;
@@ -124,7 +124,7 @@ namespace Rivet {
       setCrossSection(xs);
     }
     #endif
-    foreach (Analysis* a, _analyses) {
+    foreach (AnaHandle a, _analyses) {
       //getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
       a->analyze(event);
       //getLog() << Log::DEBUG << "Finished running analysis " << a->name() << endl;
@@ -135,7 +135,7 @@ namespace Rivet {
   void AnalysisHandler::finalize() {
     assert(_initialised);
     getLog() << Log::INFO << "Finalising analyses" << endl;
-    foreach (Analysis* a, _analyses) {
+    foreach (AnaHandle a, _analyses) {
       a->finalize();
     }
 
@@ -149,14 +149,7 @@ namespace Rivet {
 
     // Delete analyses
     getLog() << Log::DEBUG << "Deleting analyses" << endl;
-    foreach (Analysis* a, _analyses) {
-      delete a;
-    }
     _analyses.clear();
-
-    // Delete singletons
-    //ProjectionHandler::destroy();
-    //HistoHandler::destroy();
 
     // Print out MCnet boilerplate
     cout << endl;
@@ -167,15 +160,16 @@ namespace Rivet {
 
   AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) {
     // Check for a duplicate analysis
-    /// @todo Might we want to be able to run an analysis twice, with different params? Requires avoiding histo clashes.
-    foreach (const Analysis* a, _analyses) {
+    /// @todo Might we want to be able to run an analysis twice, with different params?
+    ///       Requires avoiding histo tree clashes, i.e. storing the histos on the analysis objects.
+    foreach (const AnaHandle& a, _analyses) {
       if (a->name() == analysisname) {
         getLog() << Log::WARNING << "Analysis '" << analysisname << "' already registered: skipping duplicate" << endl;
         return *this;
       }
     }
-    Analysis* analysis = AnalysisLoader::getAnalysis(analysisname);
-    if (analysis) { // < Check for null analysis.
+    AnaHandle analysis( AnalysisLoader::getAnalysis(analysisname) );
+    if (analysis.get() != 0) { // < Check for null analysis.
       getLog() << Log::DEBUG << "Adding analysis '" << analysisname << "'" << endl;
       analysis->_analysishandler = this;
       _analyses.insert(analysis);
@@ -185,34 +179,32 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::removeAnalysis(const string& analysisname) {
-    Analysis* toremove = 0;
-    foreach (Analysis* a, _analyses) {
+    shared_ptr<Analysis> toremove;
+    foreach (const AnaHandle a, _analyses) {
       if (a->name() == analysisname) {
-        toremove = a;
+        toremove.reset( a.get() );
         break;
       }
     }
-    if (toremove) {
+    if (toremove.get() != 0) {
       getLog() << Log::DEBUG << "Removing analysis '" << analysisname << "'" << endl;
       _analyses.erase(toremove);
-      delete toremove;
     }
     return *this;
   }
 
 
   AnalysisHandler& AnalysisHandler::removeIncompatibleAnalyses(const PdgIdPair& beams) {
-    vector<Analysis*> todelete;
-    foreach (Analysis* a, _analyses) {
+    vector<string> anamestodelete;
+    foreach (const AnaHandle a, _analyses) {
       if (! a->isCompatible(beams)) {
-        todelete.push_back(a);
+        anamestodelete.push_back(a->name());
       }
     }
-    foreach (Analysis* a, todelete) {
+    foreach (const string& aname, anamestodelete) {
       getLog() << Log::WARN << "Removing incompatible analysis '"
-               << a->name() << "'" << endl;
-      _analyses.erase(a);
-      delete a;
+               << aname << "'" << endl;
+      removeAnalysis(aname);
     }
     return *this;
   }
@@ -230,18 +222,16 @@ namespace Rivet {
       if (!endsWith(filename, ".root")) filename += ".root";
       storetypestr = "root";
     }
-    AIDA::ITreeFactory* tf = _theAnalysisFactory->createTreeFactory();
-    _theTree = tf->create(filename, storetypestr, false, true);
-    delete tf;
+    _theTreeFactory = _theAnalysisFactory->createTreeFactory();
+    _theTree = _theTreeFactory->create(filename, storetypestr, false, true);
     _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
     _theDataPointSetFactory = _theAnalysisFactory->createDataPointSetFactory(tree());
   }
 
 
   void AnalysisHandler::_setupFactories() {
-    AIDA::ITreeFactory* tf = _theAnalysisFactory->createTreeFactory();
-    _theTree = tf->create();
-    delete tf;
+    _theTreeFactory = _theAnalysisFactory->createTreeFactory();
+    _theTree = _theTreeFactory->create();
     _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
     _theDataPointSetFactory = _theAnalysisFactory->createDataPointSetFactory(tree());
   }
@@ -314,6 +304,7 @@ namespace Rivet {
   size_t AnalysisHandler::numEvents() const { return _numEvents; }
   double AnalysisHandler::sumOfWeights() const { return _sumOfWeights; }
 
+
   void AnalysisHandler::setSumOfWeights(const double& sum) {
     _sumOfWeights=sum;
   }
@@ -321,7 +312,7 @@ namespace Rivet {
 
   std::vector<std::string> AnalysisHandler::analysisNames() const {
     std::vector<std::string> rtn;
-    foreach (Analysis* a, _analyses) {
+    foreach (AnaHandle a, _analyses) {
       rtn.push_back(a->name());
     }
     return rtn;
@@ -368,7 +359,7 @@ namespace Rivet {
 
   bool AnalysisHandler::needCrossSection() const {
     bool rtn = false;
-    foreach (const Analysis* a, _analyses) {
+    foreach (const AnaHandle a, _analyses) {
       if (!rtn) rtn = a->needsCrossSection();
       if (rtn) break;
     }
@@ -378,7 +369,7 @@ namespace Rivet {
 
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs) {
     _xs = xs;
-    foreach (Analysis* a, _analyses) {
+    foreach (AnaHandle a, _analyses) {
       a->setCrossSection(xs);
     }
     return *this;
@@ -389,15 +380,18 @@ namespace Rivet {
     return (crossSection() >= 0);
   }
 
+
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
     analysis->_analysishandler = this;
-    _analyses.insert(analysis);
+    _analyses.insert(AnaHandle(analysis));
     return *this;
   }
+
 
   PdgIdPair AnalysisHandler::beamIds() const {
     return Rivet::beamIds(beams());
   }
+
 
   double AnalysisHandler::sqrtS() const {
     return Rivet::sqrtS(beams());

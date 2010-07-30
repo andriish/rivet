@@ -188,7 +188,7 @@ namespace Rivet {
           << key << "' from " << datapath << endl;
       }
     }
-    Log::getLog("Rivet.AnalysisInfo") << Log::DEBUG << ai << endl;
+    Log::getLog("Rivet.AnalysisInfo") << Log::TRACE << "AnalysisInfo pointer = " << ai << endl;
     return ai;
   }
 
