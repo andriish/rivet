@@ -10,14 +10,18 @@ namespace Rivet {
   const string getLibPath() {
     BrInitError error;
     br_init_lib(&error);
-    const string libdir = br_find_lib_dir(DEFAULTLIBDIR);
+    char* temp = br_find_lib_dir(DEFAULTLIBDIR);
+    const string libdir(temp);
+    free (temp);
     return libdir;
   }
 
   const string getDataPath() {
     BrInitError error;
     br_init_lib(&error);
-    const string sharedir = br_find_data_dir(DEFAULTDATADIR);
+    char* temp = br_find_data_dir(DEFAULTDATADIR);
+    const string sharedir(temp);
+    free (temp);
     return sharedir;
   }
 

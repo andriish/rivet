@@ -161,8 +161,9 @@ _br_find_exe (BrInitError *error)
 			*error = BR_INIT_ERROR_INVALID_MAPS;
 		return NULL;
 	}
-
-	path = strdup (path);
+	char * oldpath = path;
+	path = strdup (oldpath);
+	free (oldpath);
 	free (line);
 	fclose (f);
 	return path;
