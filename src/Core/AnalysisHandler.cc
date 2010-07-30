@@ -230,7 +230,9 @@ namespace Rivet {
       if (!endsWith(filename, ".root")) filename += ".root";
       storetypestr = "root";
     }
-    _theTree = _theAnalysisFactory->createTreeFactory()->create(filename, storetypestr, false, true);
+    AIDA::ITreeFactory* tf = _theAnalysisFactory->createTreeFactory();
+    _theTree = tf->create(filename, storetypestr, false, true);
+    delete tf;
     _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
     _theDataPointSetFactory = _theAnalysisFactory->createDataPointSetFactory(tree());
   }
