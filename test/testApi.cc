@@ -13,8 +13,11 @@ int main() {
   Rivet::AnalysisHandler rivet;
 
   // Specify the analyses to be used
-  rivet.addAnalysis("D0_2008_S7554427");
-  vector<string> moreanalyses(1, "D0_2007_S7075677");
+  rivet.addAnalysis("EXAMPLE");
+  // rivet.addAnalysis("D0_2008_S7554427");
+
+  //vector<string> moreanalyses(1, "D0_2007_S7075677");
+  vector<string> moreanalyses(1, "MC_JETS");
   rivet.addAnalyses(moreanalyses);
 
   // Initialise: obsolete, but allowed for compatibility
@@ -38,7 +41,7 @@ int main() {
   rivet.setCrossSection(1.0);
   rivet.setSumOfWeights(sum_of_weights); //< Not necessary, but allowed
   rivet.finalize();
-  rivet.writeData("out");
+  rivet.writeData("out.aida");
 
   return 0;
 }

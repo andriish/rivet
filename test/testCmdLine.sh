@@ -6,6 +6,14 @@ if [[ -z "$PYTHON_BUILD_DIR" ]]; then
 fi
 export PYTHONPATH=$(ls -d $PYTHON_BUILD_DIR/lib.*):$PYTHONPATH
 
+#echo PYTHONPATH=$PYTHONPATH \
+#    PYTHON_BUILD_DIR=$PYTHON_BUILD_DIR \
+#    LD_LIBRARY_PATH=$LD_LIBRARY_PATH \
+#    PATH=$PATH \
+#    RIVET_REF_PATH=$RIVET_REF_PATH \
+#    RIVET_INFO_PATH=$RIVET_INFO_PATH \
+#    RIVET_ANALYSIS_PATH=$RIVET_ANALYSIS_PATH
+
 
 function _clean() {
     rm -f fifo.hepmc
@@ -28,6 +36,8 @@ function _check() {
 
 
 _setup
+
+rivet --list-analyses > log || exit $?
 
 rivet -a D0_2008_S7554427 testApi.hepmc file2.hepmc > log || exit $?
 grep -q "20 events" log

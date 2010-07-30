@@ -25,3 +25,6 @@ TESTS_ENVIRONMENT = \
 TESTS = testMatVec testBoost testCmp testApi testCmdLine.sh
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh
+
+clean-local:
+	@rm -f out.aida log a.out fifo.hepmc file2.hepmc
