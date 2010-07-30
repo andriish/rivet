@@ -239,7 +239,9 @@ namespace Rivet {
 
 
   void AnalysisHandler::_setupFactories() {
-    _theTree = _theAnalysisFactory->createTreeFactory()->create();
+    AIDA::ITreeFactory* tf = _theAnalysisFactory->createTreeFactory();
+    _theTree = tf->create();
+    delete tf;
     _theHistogramFactory = _theAnalysisFactory->createHistogramFactory(tree());
     _theDataPointSetFactory = _theAnalysisFactory->createDataPointSetFactory(tree());
   }
