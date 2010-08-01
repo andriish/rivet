@@ -83,43 +83,68 @@ if __name__ == "__main__":
         sys.exit(1)
 
     ## Parse command line options
-    from optparse import OptionParser
+    from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
-    parser.add_option("-o", "--outdir", dest="OUTDIR",
-                      default=".", help="write data files into this directory")
     parser.add_option("-R", "--rivet-refs", dest="RIVETREFS", action="store_true",
                       default=False, help="try to use Rivet reference data files")
-    parser.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
-                      default=None, help="this file contains a list of histograms to plot in the format /ANALYSIS_ID/histogramname, e.g. '/DELPHI_1996_S3430090/d01-x01-y01', on each line.")
+    parser.add_option("-o", "--outdir", dest="OUTDIR",
+                      default=".", help="write data files into this directory")
     parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
                       help="write output dat files into a directory hierarchy which matches the analysis paths")
-    parser.add_option("--linear", action="store_true", dest="LINEAR",
-                      default=False, help="plot with linear scale")
-    parser.add_option("--logarithmic", action="store_false", dest="LINEAR",
-                      default=False, help="plot with logarithmic scale (default behaviour)")
-    parser.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
-                      default=False, help="show vertical error bars on the MC lines")
-    parser.add_option("--no-ratio", action="store_true", dest="NORATIO",
-                      default=False, help="disable the ratio plot")
-    parser.add_option("--rel-ratio", action="store_true", dest="RATIO_DEVIATION",
-                      default=False, help="show the ratio plots scaled to the ref error")
-    parser.add_option("--abs-ratio", action="store_false", dest="RATIO_DEVIATION",
-                      default=False, help="show the ratio plots with an absolute scale")
-    parser.add_option("--all", action="store_false", dest="NO_SHOW_IF_ONLY_ONE",
-                      default=True, help="make plot file even if there is only one dataset to be plotted")
-    parser.add_option("--no-ref-only", action="store_true", dest="NO_SHOW_IF_ONLY_ONE",
-                      default=True, help="don't make plot file if there is only one dataset to be plotted")
-    parser.add_option("--show-ref-only", action="store_false", dest="NO_SHOW_IF_ONLY_ONE",
-                      default=True, help="make plot file even if there is only one dataset to be plotted")
-    parser.add_option("--refid", dest="REF_ID",
-                      default="REF", help="ID of reference data set (file path for non-REF data)")
     parser.add_option("--plot-info-dir", dest="PLOTINFODIR", action="append",
                       default=[rivet_data_dirs[0], "./"], help="directory which may contain plot header information")
-    parser.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
-                      action="store_const", default=logging.INFO, const=logging.WARNING)
-    parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
-                      action="store_const", default=logging.INFO, const=logging.DEBUG)
+
+    stygroup = OptionGroup(parser, "Plot style")
+    stygroup.add_option("--refid", dest="REF_ID",
+                        default="REF", help="ID of reference data set (file path for non-REF data)")
+    stygroup.add_option("--linear", action="store_true", dest="LINEAR",
+                      default=False, help="plot with linear scale")
+    stygroup.add_option("--logarithmic", action="store_false", dest="LINEAR",
+                      default=False, help="plot with logarithmic scale (default behaviour)")
+    stygroup.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
+                      default=False, help="show vertical error bars on the MC lines")
+    stygroup.add_option("--no-ratio", action="store_true", dest="NORATIO",
+                      default=False, help="disable the ratio plot")
+    stygroup.add_option("--rel-ratio", action="store_true", dest="RATIO_DEVIATION",
+                      default=False, help="show the ratio plots scaled to the ref error")
+    stygroup.add_option("--abs-ratio", action="store_false", dest="RATIO_DEVIATION",
+                      default=False, help="show the ratio plots with an absolute scale")
+    parser.add_option_group(stygroup)
+
+    selgroup = OptionGroup(parser, "Selective plotting")
+    selgroup.add_option("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
+                        default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
+                        "[default=%default]. If the value is 'no', single plots are always skipped, for 'ref' and 'mc', "
+                        "the plot will be written only if the single plot is a reference plot or an MC "
+                        "plot respectively, and 'all' will always create single plot files.\n The 'ref' and 'all' values "
+                        "should be used with great care, as they will also write out plot files for all reference "
+                        "histograms without MC traces: combined with the -R/--rivet-refs flag, this is a great way to "
+                        "write out several thousand irrelevant reference data histograms!")
+    selgroup.add_option("--show-mc-only", "--all", action="store_true", dest="SHOW_IF_MC_ONLY",
+                        default=False, help="make a plot file even if there is only one dataset to be plotted and "
+                        "it is an MC one. Deprecated and will be removed: use --show-single instead, which overrides this.")
+    selgroup.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
+                        default=None, help="specify a file containing a list of histograms to plot, in the format "
+                        "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
+    parser.add_option_group(selgroup)
+
+    verbgrp = OptionGroup(parser, "Verbosity control")
+    verbgrp.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
+                       action="store_const", default=logging.INFO, const=logging.WARNING)
+    verbgrp.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
+                       action="store_const", default=logging.INFO, const=logging.DEBUG)
+    parser.add_option_group(verbgrp)
+
     opts, args = parser.parse_args()
+
+
+    ## Work out the implications of the SHOW_SINGLE option
+    opts.SHOW_IF_MC_ONLY = False
+    opts.SHOW_IF_REF_ONLY = False
+    if opts.SHOW_SINGLE in ("all", "mc"):
+        opts.SHOW_IF_MC_ONLY = True
+    if opts.SHOW_SINGLE in ("all", "ref"):
+        opts.SHOW_IF_REF_ONLY = True
 
 
     ## Add RIVET_*_PATH to PLOTINFO path
@@ -309,21 +334,31 @@ if __name__ == "__main__":
         ylabel = YLABELS[name]
 
         ## Identify contributing data files for this histo
-        activefiles = []
+        activemcfiles = []
+        activereffiles = []
         for f in FILES:
             if HISTOS.has_key(f):
                 d = HISTOS[f]
                 if d.has_key(name):
-                    activefiles.append(f)
+                    if d[name].isdata:
+                        activereffiles.append(f)
+                    else:
+                        activemcfiles.append(f)
+        activefiles = activemcfiles + activereffiles
         #print activefiles
         if len(activefiles) == 0:
             logging.warning("Something's wrong... somehow there's no data for histogram '%s'!" % name)
             continue
 
-        if len(activefiles) == 1 and opts.NO_SHOW_IF_ONLY_ONE:
-            if not opts.RIVETREFS:
-                logging.warning("Skipping histo '%s' since only one plot is present" % name)
-            continue
+        if len(activefiles) < 2:
+            if len(activereffiles) == 0 and not opts.SHOW_IF_MC_ONLY:
+                if not opts.RIVETREFS:
+                    logging.warning("Skipping histo '%s' since only one (MC) plot is present" % name)
+                continue
+            if len(activemcfiles) == 0 and not opts.SHOW_IF_REF_ONLY:
+                if not opts.RIVETREFS:
+                    logging.warning("Skipping histo '%s' since only one (reference) plot is present" % name)
+                continue
 
         ## Identify reference file for this histo
         ref = opts.REF_ID

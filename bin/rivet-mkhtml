@@ -127,11 +127,12 @@ ch_cmd = ["compare-histos"]
 if opts.MC_ERRS:
     ch_cmd.append("--mc-errs")
 ch_cmd.append("--hier-out")
+ch_cmd.append("--rivet-refs")
 ch_cmd.append("--plot-info-dir=../")
-if len(aidafiles) + len(reffiles) < 2:
-    ch_cmd.append("--show-ref-only")
-    ch_cmd.append("--no-ratio")
-for file in reffiles + aidafiles:
+# if len(aidafiles) + len(reffiles) < 2:
+#     ch_cmd.append("--show-ref-only")
+#     ch_cmd.append("--no-ratio")
+for file in aidafiles:
     ch_cmd.append("%s" % os.path.abspath(file))
 if opts.VERBOSE:
     print "Calling compare-histos with the following options:"
@@ -185,7 +186,7 @@ for analysis in sorted(analyses, reverse=True):
         index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
     else:
         index.write('<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
-    if spiresid is not "NONE":
+    if spiresid and spiresid is not "NONE":
         index.write('<p><a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
     for ref in references:
         index.write(' &#124; %s' % ref)
