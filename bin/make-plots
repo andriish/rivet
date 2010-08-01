@@ -1885,6 +1885,7 @@ if __name__ == '__main__':
     ## Check minion font
     if opts.OUTPUT_FONT == "MINION":
         p = subprocess.Popen(["kpsewhich", "minion.sty"], stdout=subprocess.PIPE)
+        p.wait()
         if p.returncode != 0:
             logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
             opts.OUTPUT_FONT = "PALATINO"
@@ -1893,12 +1894,14 @@ if __name__ == '__main__':
     opts.LATEXPKGS = []
     for pkg in ["hepnicenames", "hepunits", "underscore"]:
         p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
+        p.wait()
         if p.returncode == 0:
             opts.LATEXPKGS.append(pkg)
 
     ## Check for Palatino old style figures and small caps
     if opts.OUTPUT_FONT == "PALATINO":
         p = subprocess.Popen(["kpsewhich", "ot1pplx.fd"], stdout=subprocess.PIPE)
+        p.wait()
         if p.returncode == 0:
             opts.OUTPUT_FONT = "PALATINO_OSF"
 
