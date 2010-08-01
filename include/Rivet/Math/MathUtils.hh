@@ -49,7 +49,7 @@ namespace Rivet {
   inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
     const double absavg = fabs(a + b)/2.0;
     const double absdiff = fabs(a - b);
-    const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff/absavg < tolerance;
+    const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff < tolerance*absavg;
     return rtn;
   }
 
