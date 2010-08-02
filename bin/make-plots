@@ -1451,7 +1451,7 @@ class XTicks(Ticks):
     def draw_majorticklabel(self, value, label=''):
         if label=='':
             label=self.get_ticklabel(value,self.description['LogX'])
-        return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut'+label+'}}\n')
+        return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut{}'+label+'}}\n')
 
 
 
