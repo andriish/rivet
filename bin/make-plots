@@ -1783,7 +1783,8 @@ class MkPlotThread( threading.Thread ):
                exit(1)
             try:
                 datfile = datfiles.get_nowait()
-                logging.info("Plotting %s" % datfile)
+                rem = datfiles.qsize()
+                logging.info("Plotting %s (%d remaining)" % (datfile, rem))
                 process_datfile(datfile)
             except Queue.Empty, e:
                 #print "%s ending." % self.getName()
