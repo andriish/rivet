@@ -12,7 +12,10 @@ namespace Rivet {
   class ATLAS_2010_S8591806 : public Analysis {
   public:
 
-    ATLAS_2010_S8591806() : Analysis("ATLAS_2010_S8591806"), _Nevt_after_cuts(0.0) {
+    ATLAS_2010_S8591806()
+      : Analysis("ATLAS_2010_S8591806"),
+        _Nevt_after_cuts(0.0)
+    {
       setNeedsCrossSection(false);
     }
 
@@ -32,17 +35,17 @@ namespace Rivet {
       const double weight = event.weight();
 
       const ChargedFinalState& charged = applyProjection<ChargedFinalState>(event, "CFS");
-      if (charged.particles().size()<1) {
+      if (charged.size() < 1) {
         vetoEvent;
       }
       _Nevt_after_cuts += weight;
 
-      _h_dNevt_dNch->fill(charged.particles().size(), weight);
+      _h_dNevt_dNch->fill(charged.size(), weight);
       foreach (const Particle& p, charged.particles()) {
         double pT = p.momentum().pT()/GeV;
         _h_dNch_deta->fill(p.momentum().eta(), weight);
         _h_dNch_dpT->fill(pT, weight/pT);
-        _p_meanpT_Nch->fill(charged.particles().size(), pT, weight);
+        _p_meanpT_Nch->fill(charged.size(), pT, weight);
       }
     }
 
@@ -50,7 +53,7 @@ namespace Rivet {
     void finalize() {
       double deta = 5.0;
       scale(_h_dNch_deta, 1.0/_Nevt_after_cuts);
-      scale(_h_dNch_dpT, 1.0/_Nevt_after_cuts/2.0/M_PI/deta);
+      scale(_h_dNch_dpT, 1.0/_Nevt_after_cuts/TWOPI/deta);
       scale(_h_dNevt_dNch, 1.0/_Nevt_after_cuts);
     }
 

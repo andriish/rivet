@@ -45,6 +45,11 @@ namespace Rivet {
       }
 
       FourMomentum pZ = zfinder.particles()[0].momentum();
+      if (pZ.mass2() < 0) {
+        getLog() << Log::DEBUG << "Negative Z mass**2 = " << pZ.mass2()/GeV2 << "!" << endl;
+        vetoEvent;
+      }
+
       getLog() << Log::DEBUG << "Dilepton mass = " << pZ.mass()/GeV << " GeV"  << endl;
       getLog() << Log::DEBUG << "Dilepton pT   = " << pZ.pT()/GeV << " GeV" << endl;
       _hist_zpt->fill(pZ.pT()/GeV, e.weight());
