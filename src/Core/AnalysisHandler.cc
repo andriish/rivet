@@ -82,11 +82,17 @@ namespace Rivet {
 
     foreach (AnaHandle a, _analyses) {
       getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
-      // Allow projection registration in the init phase onwards
-      a->_allowProjReg = true;
-      a->init();
-      //getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
-      //a->checkConsistency();
+      try {
+        // Allow projection registration in the init phase onwards
+        a->_allowProjReg = true;
+        a->init();
+        //getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
+        //a->checkConsistency();
+      } catch (const Error& err) {
+        getLog() << Log::ERROR << "Error in " << a->name() << "::init method: "
+                 << err.what() << endl;
+        exit(1);
+      }
       getLog() << Log::DEBUG << "Done initialising analysis: " << a->name() << endl;
     }
     _initialised = true;
@@ -126,7 +132,13 @@ namespace Rivet {
     #endif
     foreach (AnaHandle a, _analyses) {
       //getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
-      a->analyze(event);
+      try {
+        a->analyze(event);
+      } catch (const Error& err) {
+        getLog() << Log::ERROR << "Error in " << a->name() << "::analyze method: "
+                 << err.what() << endl;
+        exit(1);
+      }
       //getLog() << Log::DEBUG << "Finished running analysis " << a->name() << endl;
     }
   }
@@ -136,7 +148,13 @@ namespace Rivet {
     assert(_initialised);
     getLog() << Log::INFO << "Finalising analyses" << endl;
     foreach (AnaHandle a, _analyses) {
-      a->finalize();
+      try {
+        a->finalize();
+      } catch (const Error& err) {
+        getLog() << Log::ERROR << "Error in " << a->name() << "::finalize method: "
+                 << err.what() << endl;
+        exit(1);
+      }
     }
 
     // Print out number of events processed
