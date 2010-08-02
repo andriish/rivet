@@ -1,5 +1,9 @@
 2010-08-02  Andy Buckley  <andy@insectnation.org>
 
+	* Adding rivet-nopy: a super-simple Rivet C++ command line
+	interface which avoids Python to make profiling and debugging
+	easier.
+
 	* Adding graceful exception handling to the AnalysisHandler event
 	loop methods.
 
