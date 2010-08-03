@@ -35,6 +35,18 @@ namespace Rivet {
     double errplus;
   };
 
+  /// Container for x-axis point details
+  struct DPSXYPoint {
+    DPSXYPoint(double xval, double xerrminus, double xerrplus, double yval, double yerrminus, double yerrplus) :
+      xval(xval), xerrminus(xerrminus), xerrplus(xerrplus), yval(yval), yerrminus(yerrminus), yerrplus(yerrplus) { }
+    double xval;
+    double xerrminus;
+    double xerrplus;
+    double yval;
+    double yerrminus;
+    double yerrplus;
+  };
+
 }
 
 #endif

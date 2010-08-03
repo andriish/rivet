@@ -33,6 +33,8 @@ namespace Rivet {
 
   const map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername);
 
+  const map<string, vector<DPSXYPoint> > getDPSXYValsErrs(string papername);
+
   /// Get the file system path to the AIDA reference file for this paper.
   const string getDataPath(string papername);
 
