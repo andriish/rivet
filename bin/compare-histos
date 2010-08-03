@@ -185,6 +185,7 @@ if __name__ == "__main__":
             import glob
             reffiles += glob.glob(os.path.join(d, "*.aida"))
         args = reffiles + args
+        ## TODO: Really want to behave as if all the Rivet ref files were listed on the command line?
     for a in args:
         asplit = a.split(":")
         path = asplit[0]
@@ -254,16 +255,14 @@ if __name__ == "__main__":
     XLABELS = {}
     YLABELS = {}
     LABELS = {}
-    DATAFILES = {}
     NAMES = set()
+    MCNAMES = set()
     for f in FILES:
         HISTOS[f] = {}
         LABELS[f] = {}
     for f in FILES:
         histos, titles, xlabels, ylabels = getHistos(f)
         for n, h in histos.iteritems():
-            if h.isdata and DATAFILES.has_key(n):
-                DATAFILES[n] = f
             if h.isdata:
                 l = "data"
                 if h.expt:
@@ -275,6 +274,8 @@ if __name__ == "__main__":
                 LABELS[f][n] = "MC (%s)" % tmp
             HISTOS[f][n] = h
             NAMES.add(n)
+            if not h.isdata:
+                MCNAMES.add(n)
         for n, t in titles.iteritems():
             TITLES[n] = t
         for n, t in xlabels.iteritems():
@@ -299,6 +300,7 @@ if __name__ == "__main__":
             hnames.add(stripped.split()[0])
         f.close()
         NAMES = NAMES.intersection(hnames)
+        MCNAMES = MCNAMES.intersection(hnames)
 
 
     ## Function to make output dirs
@@ -315,13 +317,16 @@ if __name__ == "__main__":
             logging.error(msg)
             raise Exception(msg)
 
+    ## Pre-emptively reduce number of files to iterate through
+    ## (assuming, reasonably, that there is only one ref file per histo)
+    activenames = NAMES
+    if not opts.SHOW_IF_REF_ONLY:
+        activenames = MCNAMES
 
     ## Write out histos
-    ## For < 2.4 compatibility, since Set has no 'sort' method
-    NAMES = [i for i in NAMES]
     num_written = 0
     plotparser = PlotParser(filter(lambda s: len(s) > 0, opts.PLOTINFODIR))
-    for name in sorted(NAMES):
+    for name in sorted(activenames):
         logging.debug("Writing histos for plot '%s'" % name)
 
         ## Determine the title
@@ -345,6 +350,7 @@ if __name__ == "__main__":
                     else:
                         activemcfiles.append(f)
         activefiles = activemcfiles + activereffiles
+        #print activereffiles
         #print activefiles
         if len(activefiles) == 0:
             logging.warning("Something's wrong... somehow there's no data for histogram '%s'!" % name)
@@ -362,8 +368,8 @@ if __name__ == "__main__":
 
         ## Identify reference file for this histo
         ref = opts.REF_ID
-        if ref == "REF" and DATAFILES.has_key(name):
-            ref = DATAFILES[name]
+        if ref == "REF":
+            ref = activereffiles[0]
         if not ref in activefiles:
             ref = activefiles[0]
 
