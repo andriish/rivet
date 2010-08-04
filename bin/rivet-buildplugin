@@ -17,7 +17,7 @@ fi
 
 ## Work out shared library build flags by platform
 shared_flags=
-SWVERS=`which sw_vers`
+SWVERS=$(which sw_vers 2> /dev/null)
 if test "$SWVERS" && test -x "$SWVERS"; then
   ## Mac OS X
   shared_flags="-undefined dynamic_lookup -bundle"
