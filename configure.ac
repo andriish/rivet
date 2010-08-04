@@ -245,7 +245,7 @@ EOL
       fi
       AC_MSG_RESULT([$flag_ok])
       if test x$flag_ok != xyes; then
-        AC_MSG_ERROR([Can't build Python extension since $SWIG is not compatible with $CXX])
+        AC_MSG_ERROR([Can't build Python extension since $SWIG is not compatible with $CXX. Get a newer SWIG version!])
         enable_pyext=no
       fi
     fi
