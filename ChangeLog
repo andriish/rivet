@@ -1,3 +1,8 @@
+2010-08-03  Andy Buckley  <andy@insectnation.org>
+
+	* Fixing compare-histos treatment of what is now a ref file, and
+	speeding things up... again. What a mess!
+
 2010-08-02  Andy Buckley  <andy@insectnation.org>
 
 	* Adding rivet-nopy: a super-simple Rivet C++ command line

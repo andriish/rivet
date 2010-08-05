@@ -238,16 +238,12 @@ EOL
       AC_MSG_ERROR([Can't build Python extension since $SWIG is not able to make a Python wrapper])
       enable_pyext=no
     else
-    
       swig_compiler=$CXX
-                
-      AC_CEDAR_CHECKCXXFLAG([-Wno-format], [AC_MSG_NOTICE([Adding -Wno-format to swig compilation test]);
+      AC_CEDAR_CHECKCXXFLAG([-Wno-format], [AC_MSG_NOTICE([adding -Wno-format to swig compilation test]);
         swig_compiler="$swig_compiler -Wno-format"])
-    
       AC_MSG_CHECKING([if $SWIG is compatible with the $CXX compiler])
       flag_ok=yes
       if test x$flag_ok == xyes; then
-      
         stat_string=`$swig_compiler -c conftest_wrap.cxx -I$python_incpath 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
       fi
       AC_MSG_RESULT([$flag_ok])
