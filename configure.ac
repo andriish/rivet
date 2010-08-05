@@ -241,10 +241,8 @@ EOL
     
       swig_compiler=$CXX
                 
-      if test x"`echo $swig_compiler | grep g++`" != x ; then
-        AC_MSG_NOTICE([Adding -Wno-format to swig compilation test])
-        swig_compiler="$swig_compiler -Wno-format"
-      fi
+      AC_CEDAR_CHECKCXXFLAG([-Wno-format], [AC_MSG_NOTICE([Adding -Wno-format to swig compilation test]);
+        swig_compiler="$swig_compiler -Wno-format"])
     
       AC_MSG_CHECKING([if $SWIG is compatible with the $CXX compiler])
       flag_ok=yes
