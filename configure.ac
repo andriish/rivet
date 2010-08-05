@@ -239,17 +239,18 @@ EOL
       enable_pyext=no
     else
     
+      swig_compiler=$CXX
+                
+      if test x"`echo $swig_compiler | grep g++`" != x ; then
+        AC_MSG_NOTICE([Adding -Wno-format to swig compilation test])
+        swig_compiler="$swig_compiler -Wno-format"
+      fi
+    
       AC_MSG_CHECKING([if $SWIG is compatible with the $CXX compiler])
       flag_ok=yes
       if test x$flag_ok == xyes; then
       
-        swig_compiler=$CXX
-        
-        if test "x$swig_compiler" = "xg++" ; then
-          swig_compiler = "$swig_compiler -Wno-format"
-        fi
-      
-        stat_string=`$swig_compiler -Wno-format -c conftest_wrap.cxx -I$python_incpath 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
+        stat_string=`$swig_compiler -c conftest_wrap.cxx -I$python_incpath 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
       fi
       AC_MSG_RESULT([$flag_ok])
       if test x$flag_ok != xyes; then
