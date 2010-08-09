@@ -77,6 +77,7 @@ dist_pkgdata_DATA = \
   MC_TTBAR.info \
   MC_JETS.info \
   MC_PHOTONJETS.info \
+  MC_HJETS.info \
   MC_WJETS.info \
   MC_ZJETS.info \
   OPAL_1998_S3780481.info \

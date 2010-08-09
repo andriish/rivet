@@ -145,6 +145,7 @@ RivetMCAnalyses_la_SOURCES = \
     ExampleAnalysis.cc \
     MC_JETS.cc \
     MC_PHOTONJETS.cc \
+    MC_HJETS.cc \
     MC_WJETS.cc \
     MC_ZJETS.cc \
     MC_LEADINGJETS.cc \
