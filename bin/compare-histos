@@ -368,7 +368,7 @@ if __name__ == "__main__":
 
         ## Identify reference file for this histo
         ref = opts.REF_ID
-        if ref == "REF":
+        if ref == "REF" and activereffiles:
             ref = activereffiles[0]
         if not ref in activefiles:
             ref = activefiles[0]
