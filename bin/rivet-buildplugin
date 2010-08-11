@@ -6,7 +6,7 @@ tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
 if test $# -lt 2 || test -n "$tmp"; then
     echo "$PROG: compilation helper for Rivet analysis plugins"
     echo
-    echo "Usage: $PROG <libname> <source1> [source2> ...]"
+    echo "Usage: $PROG <libname> <source1> [<source2> [compiler_flags] ...]"
     echo "<libname> can be a path, provided the filename is of the form 'Rivet*.so'"
     echo
     echo "Options:"
@@ -39,7 +39,7 @@ if test -z "$match"; then
     exit 1
 fi
 
-## Get the source files
+## Get the source files (and more flags)
 shift
 sources="$@"
 
