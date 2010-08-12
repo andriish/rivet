@@ -35,6 +35,7 @@ RivetUnvalidated_la_SOURCES = \
     MC_DIJET.cc \
     MC_PHOTONJETUE.cc \
     MC_TTBAR.cc \
+    OPAL_1993_S2692198.cc \
     SFM_1984_S1178091.cc \
     STAR_2008_S7993412.cc \
     STAR_2009_UE_HELEN.cc \

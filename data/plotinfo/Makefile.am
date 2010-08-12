@@ -78,6 +78,7 @@ dist_pkgdata_DATA = \
   MC_HJETS.plot \
   MC_WJETS.plot \
   MC_ZJETS.plot \
+  OPAL_1993_S2692198.plot \
   OPAL_1998_S3780481.plot \
   OPAL_2001_S4553896.plot \
   OPAL_2004_S6132243.plot \

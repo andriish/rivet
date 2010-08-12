@@ -80,6 +80,7 @@ dist_pkgdata_DATA = \
   MC_HJETS.info \
   MC_WJETS.info \
   MC_ZJETS.info \
+  OPAL_1993_S2692198.info \
   OPAL_1998_S3780481.info \
   OPAL_2001_S4553896.info \
   OPAL_2004_S6132243.info \
