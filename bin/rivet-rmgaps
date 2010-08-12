@@ -120,7 +120,10 @@ class Histogram:
         ## Check for differences in the binning and remove superfluous MC bins:
         if len(refhist.data) != len(self.data):
             numrm = abs(len(self.data) - len(refhist.data))
-            plural = "s" if numrm != 1 else ""
+            if numrm != 1:
+                plural = "s"
+            else:
+                plural = ""
             logging.info("Stripping %d bin%s from %s" % (numrm, plural, self.description['AidaPath']))
             newdata = []
             for i in range(len(self.data)):
