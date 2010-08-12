@@ -301,6 +301,9 @@ Title=
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_pT_2
@@ -308,6 +311,9 @@ Title=
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_pT_3
@@ -315,6 +321,9 @@ Title=
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_pT_4
@@ -322,4 +331,7 @@ Title=
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT

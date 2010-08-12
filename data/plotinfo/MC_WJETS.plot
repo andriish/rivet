@@ -21,6 +21,8 @@ Title=W $p_\perp$
 XLabel=$p_\perp^{\text{W}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/W_pT_peak
@@ -33,6 +35,8 @@ YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$
 Title=W rapidity
 XLabel=$y_{\text{W}}$
 YLabel=$\text{d}\sigma/\text{d}y_{\text{W}}$
+LegendXPos=0.8
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/W_phi
@@ -304,6 +308,9 @@ Title=
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/jet_pT_2
@@ -311,6 +318,9 @@ Title=
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/jet_pT_3
@@ -318,6 +328,9 @@ Title=
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/jet_pT_4
@@ -325,5 +338,8 @@ Title=
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
 LogX=1
+XMin=20.0
+LegendXPos=0.5
+LegendYPos=0.5
 # END PLOT
 
