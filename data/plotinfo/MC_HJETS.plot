@@ -62,7 +62,7 @@ YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$
 Title=Separation between leading and second leading jet
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$
-LegendXPos=0.5
+LegendXPos=0.8
 LegendYPos=0.5
 # END PLOT
 
