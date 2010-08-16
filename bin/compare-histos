@@ -349,7 +349,7 @@ if __name__ == "__main__":
                         activereffiles.append(f)
                     else:
                         activemcfiles.append(f)
-        activefiles = activemcfiles + activereffiles
+        activefiles = activereffiles + activemcfiles
         #print activereffiles
         #print activefiles
         if len(activefiles) == 0:
