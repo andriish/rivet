@@ -78,6 +78,7 @@ RivetCDFAnalyses_la_SOURCES = \
 
 lib_LTLIBRARIES += RivetD0Analyses.la
 RivetD0Analyses_la_SOURCES = \
+    D0_2000_S4480767.cc \
     D0_2001_S4674421.cc \
     D0_2004_S5992206.cc \
     D0_2006_S6438750.cc \

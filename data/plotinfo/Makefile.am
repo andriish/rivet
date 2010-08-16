@@ -41,6 +41,7 @@ dist_pkgdata_DATA = \
   D0_1996_S3214044.plot \
   D0_1996_S3324664.plot \
   D0_1998_S3711838.plot \
+  D0_2000_S4480767.plot \
   D0_2001_S4674421.plot \
   D0_2004_S5992206.plot \
   D0_2006_S6438750.plot \
