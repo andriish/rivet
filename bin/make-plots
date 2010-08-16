@@ -123,6 +123,9 @@ class Inputdata:
         self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
         self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
         self.description['LogZ'] = self.description.has_key('LogZ') and self.description['LogZ']=='1'
+        if self.description.has_key('Rebin'):
+            for i in self.histos:
+                self.histos[i].description['Rebin'] = self.description['Rebin']
 
         foo=[]
         if self.description.has_key('DrawOnly'):
@@ -194,6 +197,10 @@ class Plot:
                 for i in inputdata.description['DrawOnly']:
                     if not inputdata.histos[i].description.has_key(method):
                         inputdata.histos[i].description[method] = inputdata.description[method]
+        if inputdata.description.has_key('NoScale'):
+            for i in inputdata.description['DrawOnly']:
+                if not inputdata.histos[i].description.has_key('NoScale'):
+                    inputdata.histos[i].description['NoScale'] = inputdata.description['NoScale']
         if inputdata.description.has_key('Scale'):
             for i in inputdata.description['DrawOnly']:
                 if inputdata.histos[i].description.has_key('Scale'):
@@ -1033,7 +1040,8 @@ class Histogram(DrawableObject):
                 self.data[i]['Content']  /= foo
                 self.data[i]['Error'][0] /= foo
                 self.data[i]['Error'][1] /= foo
-        if self.description.has_key('Scale') and self.description['Scale']!='':
+        if self.description.has_key('Scale') and self.description['Scale']!='' and \
+             (not self.description.has_key('NoScale') or self.description['NoScale']=='0'):
             scale = float(self.description['Scale'])
             for i in range(len(self.data)):
                 self.data[i]['Content']  *= scale
