@@ -512,7 +512,7 @@ namespace Rivet {
   void Analysis::normalize(AIDA::IHistogram1D*& histo, double norm) {
     if (!histo) {
       getLog() << Log::ERROR << "Failed to normalise histo=NULL in analysis "
-               << name() << "(norm=" << norm << ")" << endl;
+               << name() << " (norm=" << norm << ")" << endl;
       return;
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
@@ -537,7 +537,7 @@ namespace Rivet {
   void Analysis::scale(AIDA::IHistogram1D*& histo, double scale) {
     if (!histo) {
       getLog() << Log::ERROR << "Failed to scale histo=NULL in analysis "
-          << name() << "(scale=" << scale << ")" << endl;
+          << name() << " (scale=" << scale << ")" << endl;
       return;
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
