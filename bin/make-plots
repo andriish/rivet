@@ -655,7 +655,7 @@ class Legend:
                 out += ('\\rput[Bl](-0.35,' + str(ypos) + '){' + title + '}\n')
                 out += ('\\rput[Bl](-0.35,%s){%s\n' %(ypos,'%'))
                 if drawobject.getErrorBands():
-                    out += ('\\psframe[linecolor=%s,fillstyle=solid,fillcolor=%s]' %(drawobject.getErrorBandColor(),drawobject.getErrorBandColor()))
+                    out += ('\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s]' %drawobject.getErrorBandColor())
                     out += ('(-0.10, 0.033)(-0.02, 0.001)\n')
                 out += ('\\psline[linestyle=' + drawobject.getLineStyle() \
                             + ', linecolor=' + drawobject.getLineColor() \
@@ -1150,7 +1150,7 @@ class Histogram(DrawableObject):
             else:
                 if self.getErrorBands():
                     for i in range(len(self.data)):
-                        out += ('\\psframe[dimen=outer,linecolor=%s,fillstyle=solid,fillcolor=%s]' %(self.getErrorBandColor(),self.getErrorBandColor()))
+                        out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s]' %self.getErrorBandColor())
                         out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
                                     + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
                                     + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
