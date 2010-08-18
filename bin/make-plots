@@ -526,14 +526,15 @@ class RatioPlot(Plot):
             inputdata.description['YMax']=inputdata.description['RatioPlotYMax']
         if not inputdata.description.has_key('RatioPlotErrorBandColor'):
             inputdata.description['RatioPlotErrorBandColor']='yellow'
-        inputdata.histos[self.refdata].description['ErrorBandColor']=inputdata.description['RatioPlotErrorBandColor']
-        inputdata.histos[self.refdata].description['ErrorBands']='1'
-        inputdata.histos[self.refdata].description['ErrorBars']='0'
-        inputdata.histos[self.refdata].description['LineStyle']='solid'
-        inputdata.histos[self.refdata].description['LineColor']='black'
-        inputdata.histos[self.refdata].description['LineWidth']='0.3pt'
-        inputdata.histos[self.refdata].description['PolyMarker']=''
-        inputdata.histos[self.refdata].description['ConnectGaps']='1'
+        if not inputdata.description.has_key('RatioPlotSameStyle') or inputdata.description['RatioPlotSameStyle']=='0':
+            inputdata.histos[self.refdata].description['ErrorBandColor']=inputdata.description['RatioPlotErrorBandColor']
+            inputdata.histos[self.refdata].description['ErrorBands']='1'
+            inputdata.histos[self.refdata].description['ErrorBars']='0'
+            inputdata.histos[self.refdata].description['LineStyle']='solid'
+            inputdata.histos[self.refdata].description['LineColor']='black'
+            inputdata.histos[self.refdata].description['LineWidth']='0.3pt'
+            inputdata.histos[self.refdata].description['PolyMarker']=''
+            inputdata.histos[self.refdata].description['ConnectGaps']='1'
         self.calculate_ratios(inputdata)
         self.set_borders(inputdata)
         self.coors = Coordinates(inputdata)
@@ -550,7 +551,10 @@ class RatioPlot(Plot):
 
     def calculate_ratios(self,inputdata):
         foo=inputdata.description['DrawOnly'].pop(inputdata.description['DrawOnly'].index(self.refdata))
-        inputdata.description['DrawOnly'].insert(0,foo)
+        if inputdata.histos[self.refdata].description.has_key('ErrorBands') and inputdata.histos[self.refdata].description['ErrorBands']=='1':
+            inputdata.description['DrawOnly'].insert(0,foo)
+        else:
+            inputdata.description['DrawOnly'].append(foo)
         for i in inputdata.description['DrawOnly']:
             if i!=self.refdata:
                 if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':

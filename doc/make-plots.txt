@@ -267,6 +267,14 @@ RatioPlotYSize=<size>
 RatioPlotErrorBandColor=<color>
 --------------------
 
+By default, the reference data is plotted using a yellow error band around the
+central value of the ratio plot. If you would rather have it plotted in the
+same style as in the main plot (e.g. with black errorbars), you can specify:
+
+--------------------
+RatioPlotSameStyle=1
+--------------------
+
 If you only want the ratio plot without showing the actual data distribution,
 you can switch off the main plot. This option implies `RatioPlot=1`:
 
