@@ -1,3 +1,7 @@
+2010-08-18  Andy Buckley  <andy@insectnation.org>
+
+	* Adding MC_GENERIC analysis. NB. Frank Siegert also added MC_HJETS.
+
 2010-08-03  Andy Buckley  <andy@insectnation.org>
 
 	* Fixing compare-histos treatment of what is now a ref file, and

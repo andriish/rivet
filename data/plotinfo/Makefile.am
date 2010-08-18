@@ -68,6 +68,7 @@ dist_pkgdata_DATA = \
   H1_1995_S3167097.plot \
   H1_2000_S4129130.plot \
   JADE_OPAL_2000_S4300807.plot \
+  MC_GENERIC.plot \
   MC_LEADINGJETS.plot \
   MC_DIJET.plot \
   MC_DIPHOTON.plot \

@@ -1,0 +1,170 @@
+// -*- C++ -*-
+#include "Rivet/Analysis.hh"
+#include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
+#include "LWH/Histogram1D.h"
+
+namespace Rivet {
+
+
+  /// Generic analysis looking at various distributions of final state particles
+  class MC_GENERIC : public Analysis {
+  public:
+
+    /// Constructor
+    MC_GENERIC()
+      : Analysis("MC_GENERIC")
+    {    }
+
+
+  public:
+
+    /// @name Analysis methods
+    //@{
+
+    /// Book histograms and initialise projections before the run
+    void init() {
+
+      // Projections
+      const FinalState cnfs(-5.0, 5.0, 500*MeV);
+      const ChargedFinalState cfs(-5.0, 5.0, 500*MeV);
+      addProjection(cfs, "CFS");
+      addProjection(cnfs, "FS");
+
+      // Histograms
+      // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
+      _histMult   = bookHistogram1D("Mult", 100, -0.5, 199.5);
+      _histMultCh = bookHistogram1D("MultCh", 100, -0.5, 199.5);
+
+      _histPt    = bookHistogram1D("Pt", 300, 0, 30);
+      _histPtCh  = bookHistogram1D("PtCh", 300, 0, 30);
+
+      _histE    = bookHistogram1D("E", 100, 0, 200);
+      _histECh  = bookHistogram1D("ECh", 100, 0, 200);
+
+      _histEta    = bookHistogram1D("Eta", 50, -5, 5);
+      _histEtaCh  = bookHistogram1D("EtaCh", 50, -5, 5);
+      _tmphistEtaPlus.reset(new LWH::Histogram1D(25, 0, 5));
+      _tmphistEtaMinus.reset(new LWH::Histogram1D(25, 0, 5));
+      _tmphistEtaChPlus.reset(new LWH::Histogram1D(25, 0, 5));
+      _tmphistEtaChMinus.reset(new LWH::Histogram1D(25, 0, 5));
+
+      _histRapidity    = bookHistogram1D("Rapidity", 50, -5, 5);
+      _histRapidityCh  = bookHistogram1D("RapidityCh", 50, -5, 5);
+      _tmphistRapPlus.reset(new LWH::Histogram1D(25, 0, 5));
+      _tmphistRapMinus.reset(new LWH::Histogram1D(25, 0, 5));
+      _tmphistRapChPlus.reset(new LWH::Histogram1D(25, 0, 5));
+      _tmphistRapChMinus.reset(new LWH::Histogram1D(25, 0, 5));
+
+      _histPhi    = bookHistogram1D("Phi", 50, 0, TWOPI);
+      _histPhiCh  = bookHistogram1D("PhiCh", 50, 0, TWOPI);
+    }
+
+
+
+    /// Perform the per-event analysis
+    void analyze(const Event& event) {
+      const double weight = event.weight();
+
+      // Analyse and print some info
+      const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
+      getLog() << Log::DEBUG << "Total multiplicity = " << cnfs.size() << endl;
+      _histMult->fill(cnfs.size(), weight);
+      foreach (const Particle& p, cnfs.particles()) {
+        const double eta = p.momentum().eta();
+        _histEta->fill(eta, weight);
+        if (eta > 0) {
+          _tmphistEtaPlus->fill(fabs(eta), weight);
+        } else {
+          _tmphistEtaMinus->fill(fabs(eta), weight);
+        }
+        const double rapidity = p.momentum().rapidity();
+        _histRapidity->fill(rapidity, weight);
+        if (rapidity > 0) {
+          _tmphistRapPlus->fill(fabs(rapidity), weight);
+        } else {
+          _tmphistRapMinus->fill(fabs(rapidity), weight);
+        }
+        _histPt->fill(p.momentum().pT()/GeV, weight);
+        _histE->fill(p.momentum().E()/GeV, weight);
+        _histPhi->fill(p.momentum().phi(), weight);
+      }
+
+      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
+      getLog() << Log::DEBUG << "Total charged multiplicity = " << cfs.size() << endl;
+      _histMultCh->fill(cfs.size(), weight);
+      foreach (const Particle& p, cfs.particles()) {
+        const double eta = p.momentum().eta();
+        _histEtaCh->fill(eta, weight);
+        if (eta > 0) {
+          _tmphistEtaChPlus->fill(fabs(eta), weight);
+        } else {
+          _tmphistEtaChMinus->fill(fabs(eta), weight);
+        }
+        const double rapidity = p.momentum().rapidity();
+        _histRapidityCh->fill(rapidity, weight);
+        if (rapidity > 0) {
+          _tmphistRapChPlus->fill(fabs(rapidity), weight);
+        } else {
+          _tmphistRapChMinus->fill(fabs(rapidity), weight);
+        }
+        _histPtCh->fill(p.momentum().pT()/GeV, weight);
+        _histECh->fill(p.momentum().E()/GeV, weight);
+        _histPhiCh->fill(p.momentum().phi(), weight);
+      }
+
+    }
+
+
+    /// Finalize
+    void finalize() {
+      scale(_histMult, 1/sumOfWeights());
+      scale(_histMultCh, 1/sumOfWeights());
+      scale(_histEta, 1/sumOfWeights());
+      scale(_histEtaCh, 1/sumOfWeights());
+      scale(_histRapidity, 1/sumOfWeights());
+      scale(_histRapidityCh, 1/sumOfWeights());
+      scale(_histPt, 1/sumOfWeights());
+      scale(_histPtCh, 1/sumOfWeights());
+      scale(_histE, 1/sumOfWeights());
+      scale(_histECh, 1/sumOfWeights());
+      scale(_histPhi, 1/sumOfWeights());
+      scale(_histPhiCh, 1/sumOfWeights());
+
+      histogramFactory().divide("/MC_GENERIC/EtaPMRatio", *_tmphistEtaPlus, *_tmphistEtaMinus);
+      histogramFactory().divide("/MC_GENERIC/EtaChPMRatio", *_tmphistEtaChPlus, *_tmphistEtaChMinus);
+      histogramFactory().divide("/MC_GENERIC/RapidityPMRatio", *_tmphistRapPlus, *_tmphistRapMinus);
+      histogramFactory().divide("/MC_GENERIC/RapidityChPMRatio", *_tmphistRapChPlus, *_tmphistRapChMinus);
+    }
+
+    //@}
+
+
+  private:
+
+    /// Temporary histos used to calculate eta+/eta- ratio plot
+    shared_ptr<LWH::Histogram1D> _tmphistEtaPlus, _tmphistEtaMinus;
+    shared_ptr<LWH::Histogram1D> _tmphistEtaChPlus, _tmphistEtaChMinus;
+    shared_ptr<LWH::Histogram1D> _tmphistRapPlus, _tmphistRapMinus;
+    shared_ptr<LWH::Histogram1D> _tmphistRapChPlus, _tmphistRapChMinus;
+
+    //@{
+    /// Histograms
+    AIDA::IHistogram1D *_histMult, *_histMultCh;
+    AIDA::IHistogram1D *_histEta, *_histEtaCh;
+    AIDA::IHistogram1D *_histRapidity, *_histRapidityCh;
+    AIDA::IHistogram1D *_histPt, *_histPtCh;
+    AIDA::IHistogram1D *_histE, *_histECh;
+    AIDA::IHistogram1D *_histPhi, *_histPhiCh;
+    //@}
+
+  };
+
+
+
+  // This global object acts as a hook for the plugin system
+  AnalysisBuilder<MC_GENERIC> plugin_MC_GENERIC;
+
+}

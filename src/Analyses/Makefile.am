@@ -145,6 +145,7 @@ RivetMiscAnalyses_la_SOURCES = \
 lib_LTLIBRARIES += RivetMCAnalyses.la
 RivetMCAnalyses_la_SOURCES = \
     ExampleAnalysis.cc \
+    MC_GENERIC.cc \
     MC_JETS.cc \
     MC_PHOTONJETS.cc \
     MC_HJETS.cc \
