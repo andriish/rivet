@@ -1,5 +1,5 @@
 # BEGIN PLOT /MC_ZJETS/Z_jet1_dR
-Title=
+Title=Separation between Z boson and leading jet
 XLabel=$\Delta R(\text{Z, 1st jet})$
 YLabel=$\text{d}\sigma/\text{d}\Delta R(\text{Z, 1st jet})$
 LegendXPos=0.8
@@ -135,25 +135,25 @@ YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_eta_1
-Title=
+Title=Pseudorapidity of leading jet
 XLabel=$\eta(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 1})$
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_eta_2
-Title=
+Title=Pseudorapidity of second jet
 XLabel=$\eta(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 2})$
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_eta_3
-Title=
+Title=Pseudorapidity of third jet
 XLabel=$\eta(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 3})$
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_eta_4
-Title=
+Title=Pseudorapidity of fourth jet
 XLabel=$\eta(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$
 # END PLOT
@@ -270,7 +270,7 @@ YLabel=$R_{\geq4}$
 Title=$\log_{10}$($k_\perp$ jet resolution $0 \to 1$ [GeV])
 XLabel=$\log_{10}(d_{01}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{01})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 # END PLOT
 
@@ -278,7 +278,7 @@ LegendYPos=0.5
 Title=$\log_{10}$($k_\perp$ jet resolution $1 \to 2$ [GeV])
 XLabel=$\log_{10}(d_{12}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{12})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 # END PLOT
 
@@ -286,7 +286,7 @@ LegendYPos=0.5
 Title=$\log_{10}$($k_\perp$ jet resolution $2 \to 3$ [GeV])
 XLabel=$\log_{10}(d_{23}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{23})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 # END PLOT
 
@@ -294,12 +294,12 @@ LegendYPos=0.5
 Title=$\log_{10}$($k_\perp$ jet resolution $3 \to 4$ [GeV])
 XLabel=$\log_{10}(d_{34}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{34})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_1
-Title=
+Title=Transverse momentum of leading jet
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
 LogX=1
@@ -309,7 +309,7 @@ XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_2
-Title=
+Title=Transverse momentum of second jet
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
 LogX=1
@@ -319,7 +319,7 @@ XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_3
-Title=
+Title=Transverse momentum of third jet
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
 LogX=1
@@ -329,7 +329,7 @@ XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_4
-Title=
+Title=Transverse momentum of fourth jet
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
 LogX=1

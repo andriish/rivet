@@ -71,25 +71,25 @@ YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_1
-Title=
+Title=Pseudorapidity of leading jet
 XLabel=$\eta(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 1})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_2
-Title=
+Title=Pseudorapidity of second jet
 XLabel=$\eta(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 2})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_3
-Title=
+Title=Pseudorapidity of third jet
 XLabel=$\eta(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 3})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_4
-Title=
+Title=Pseudorapidity of fourth jet
 XLabel=$\eta(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$
 # END PLOT
@@ -244,28 +244,28 @@ Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_pT_1
-Title=
+Title=Transverse momentum of leading jet
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
 LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_pT_2
-Title=
+Title=Transverse momentum of second jet
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
 LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_pT_3
-Title=
+Title=Transverse momentum of third jet
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
 LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_pT_4
-Title=
+Title=Transverse momentum of fourth jet
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
 LogX=1

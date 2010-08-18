@@ -2,7 +2,7 @@
 Title=Inclusive Z boson rapidity
 XLabel=$|y|$(Z)
 YLabel=$1/\sigma \; \text{d}\sigma/\text{d}|y|(Z)$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.6
 # END PLOT
 
