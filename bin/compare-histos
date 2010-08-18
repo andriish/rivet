@@ -394,10 +394,13 @@ if __name__ == "__main__":
                          "XTwosidedTicks" : "1",
                          "YTwosidedTicks" : "1",
                          "LegendYPos" : "0.92",
-                         "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath())}
+                         "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath()),
+                         "RatioPlotYLabel" : "Ratio"}
 
         if opts.RATIO_DEVIATION:
             paramdefaults["RatioPlotMode"] = "deviation"
+        if HISTOS[ref][name].isdata:
+            paramdefaults["RatioPlotYLabel"] = "MC/data"
 
 
         headstr  = "# BEGIN PLOT\n"
