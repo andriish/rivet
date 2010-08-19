@@ -87,8 +87,8 @@ namespace Rivet {
 
     /// return 3 times the charge (3 x quark charge is an int)
     int threeCharge( const int & pid );
-    /// return 3 times the charge (3 x quark charge is an int)
-    inline double charge( const int & pid ) { return 3.0 * threeCharge(pid); }
+    /// return the charge
+    inline double charge( const int & pid ) { return threeCharge(pid)/3.0; }
 
     //@}
 
@@ -156,8 +156,8 @@ namespace Rivet {
 
     /// return 3 times the charge (3 x quark charge is an int)
     inline int threeCharge( const Particle& p ) { return threeCharge(p.pdgId()); }
-    /// return 3 times the charge (3 x quark charge is an int)
-    inline double charge( const Particle& p ) { return 3.0 * threeCharge(p); }
+    /// return the charge
+    inline double charge( const Particle& p ) { return threeCharge(p)/3.0; }
 
     //@}
 
