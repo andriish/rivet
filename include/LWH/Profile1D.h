@@ -407,28 +407,44 @@ public:
 
   
   /** The counts. */
-  std::vector<int> getSum() {return sum;}
+  int getSum(int index) const {
+      return sum[index + 2];
+  }
 
   /** The weights. */
-  std::vector<double> getSumW() {return sumw;}
+  double getSumW(int index) const {
+      return sumw[index + 2];
+  }
 
   /** The squared weights. */
-  std::vector<double> getSumW2() {return sumw2;}
+  double getSumW2(int index) const {
+      return sumw2[index + 2];
+  }
 
   /** The weighted x-values. */
-  std::vector<double> getSumXW() {return sumxw;}
+  double getSumXW(int index) const {
+      return sumxw[index + 2];
+  }
 
   /** The weighted x-square-values. */
-  std::vector<double> getSumX2W() {return sumx2w;}
+  double getSumX2W(int index) const {
+      return sumx2w[index + 2];
+  }
 
   /** The weighted y-values. */
-  std::vector<double> getSumYW() {return sumyw;}
+  double getSumYW(int index) const {
+      return sumyw[index + 2];
+  }
 
   /** The weighted y-square-values. */
-  std::vector<double> getSumY2W() {return sumy2w;}
+  double getSumY2W(int index) const {
+      return sumy2w[index + 2];
+  }
 
   /** The squared weighted y-square-values. */
-  std::vector<double> getSumY2W2() {return sumy2w2;}
+  double getSumY2W2(int index) const {
+      return sumy2w2[index + 2];
+  }
   
   /**
    * Get the x axis of the IHistogram1D.
