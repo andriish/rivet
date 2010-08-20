@@ -168,7 +168,7 @@ if __name__ == "__main__":
 
 
     ## Line styles
-    COLORS = ('red', 'blue', 'blue!8!red!8!green', 'magenta', 'orange')
+    COLORS = ('red', 'blue', '{[rgb]{0.12,0.57,0.14}}', 'magenta', 'orange')
     LINESTYLES = ('solid', 'dashed', 'dotted')
     STYLES=[]
     for ls in LINESTYLES:
