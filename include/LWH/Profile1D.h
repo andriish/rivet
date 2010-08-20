@@ -405,6 +405,31 @@ public:
       ax->upperEdge() - ax->lowerEdge();
   }
 
+  
+  /** The counts. */
+  std::vector<int> getSum() {return sum;}
+
+  /** The weights. */
+  std::vector<double> getSumW() {return sumw;}
+
+  /** The squared weights. */
+  std::vector<double> getSumW2() {return sumw2;}
+
+  /** The weighted x-values. */
+  std::vector<double> getSumXW() {return sumxw;}
+
+  /** The weighted x-square-values. */
+  std::vector<double> getSumX2W() {return sumx2w;}
+
+  /** The weighted y-values. */
+  std::vector<double> getSumYW() {return sumyw;}
+
+  /** The weighted y-square-values. */
+  std::vector<double> getSumY2W() {return sumy2w;}
+
+  /** The squared weighted y-square-values. */
+  std::vector<double> getSumY2W2() {return sumy2w2;}
+  
   /**
    * Get the x axis of the IHistogram1D.
    * @return The x coordinate IAxis.
