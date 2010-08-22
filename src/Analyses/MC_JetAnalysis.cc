@@ -190,15 +190,14 @@ namespace Rivet {
 
       // Create eta/rapidity ratio plots
       stringstream etaname;
-      etaname << "jet_eta_pmratio_" << i;
+      etaname << "jet_eta_pmratio_" << i+1;
       histogramFactory().divide(histoPath(etaname.str()), *_h_eta_jet_plus[i], *_h_eta_jet_minus[i]);
       stringstream rapname;
-      rapname << "jet_rap_pmratio_" << i;
+      rapname << "jet_rap_pmratio_" << i+1;
       histogramFactory().divide(histoPath(rapname.str()), *_h_rap_jet_plus[i], *_h_rap_jet_minus[i]);
     }
 
-
-    for (int ibin = 0; ibin<_h_log10_R[m_njet]->size(); ++ibin) {
+    for (int ibin = 0; ibin < _h_log10_R[m_njet]->size(); ++ibin) {
       IDataPoint* dp =_h_log10_R[m_njet]->point(ibin);
       dp->coordinate(1)->setValue(dp->coordinate(1)->value()*crossSection()/sumOfWeights());
     }
