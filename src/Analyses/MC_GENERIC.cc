@@ -133,10 +133,10 @@ namespace Rivet {
       scale(_histPhi, 1/sumOfWeights());
       scale(_histPhiCh, 1/sumOfWeights());
 
-      histogramFactory().divide("/MC_GENERIC/EtaPMRatio", *_tmphistEtaPlus, *_tmphistEtaMinus);
-      histogramFactory().divide("/MC_GENERIC/EtaChPMRatio", *_tmphistEtaChPlus, *_tmphistEtaChMinus);
-      histogramFactory().divide("/MC_GENERIC/RapidityPMRatio", *_tmphistRapPlus, *_tmphistRapMinus);
-      histogramFactory().divide("/MC_GENERIC/RapidityChPMRatio", *_tmphistRapChPlus, *_tmphistRapChMinus);
+      histogramFactory().divide(histoPath("EtaPMRatio"), *_tmphistEtaPlus, *_tmphistEtaMinus);
+      histogramFactory().divide(histoPath("EtaChPMRatio"), *_tmphistEtaChPlus, *_tmphistEtaChMinus);
+      histogramFactory().divide(histoPath("RapidityPMRatio"), *_tmphistRapPlus, *_tmphistRapMinus);
+      histogramFactory().divide(histoPath("RapidityChPMRatio"), *_tmphistRapChPlus, *_tmphistRapChMinus);
     }
 
     //@}

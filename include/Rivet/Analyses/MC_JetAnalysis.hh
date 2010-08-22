@@ -4,6 +4,7 @@
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "LWH/Histogram1D.h"
 
 namespace Rivet {
 
@@ -47,7 +48,9 @@ namespace Rivet {
     std::vector<AIDA::IDataPointSet *> _h_log10_R;
     std::vector<AIDA::IHistogram1D *> _h_pT_jet;
     std::vector<AIDA::IHistogram1D *> _h_eta_jet;
+    std::vector<shared_ptr<LWH::Histogram1D> > _h_eta_jet_plus, _h_eta_jet_minus;
     std::vector<AIDA::IHistogram1D *> _h_rap_jet;
+    std::vector<shared_ptr<LWH::Histogram1D> > _h_rap_jet_plus, _h_rap_jet_minus;
     std::vector<AIDA::IHistogram1D *> _h_mass_jet;
     std::map<std::pair<size_t, size_t>, AIDA::IHistogram1D*> _h_deta_jets;
     std::map<std::pair<size_t, size_t>, AIDA::IHistogram1D*> _h_dR_jets;

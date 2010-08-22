@@ -13,7 +13,9 @@ namespace Rivet {
                                  double jetptcut)
     : Analysis(name), m_njet(njet), m_jetpro_name(jetpro_name), m_jetptcut(jetptcut),
       _h_log10_d(njet, NULL), _h_log10_R(njet+1, NULL), _h_pT_jet(njet, NULL),
-      _h_eta_jet(njet, NULL), _h_rap_jet(njet, NULL), _h_mass_jet(njet, NULL)
+      _h_eta_jet(njet, NULL), _h_eta_jet_plus(njet), _h_eta_jet_minus(njet),
+      _h_rap_jet(njet, NULL), _h_rap_jet_plus(njet), _h_rap_jet_minus(njet),
+      _h_mass_jet(njet, NULL)
   {
     setNeedsCrossSection(true);
   }
@@ -35,7 +37,7 @@ namespace Rivet {
 
       stringstream pTname;
       pTname << "jet_pT_" << i+1;
-      double pTmax = 1.0/(double(i)+2.0)*sqrtS()/GeV/2.0;
+      double pTmax = 1.0/(double(i)+2.0) * sqrtS()/GeV/2.0;
       int nbins_pT = 100/(i+1);
       _h_pT_jet[i] = bookHistogram1D(pTname.str(), logBinEdges(nbins_pT, 10.0, pTmax));
 
@@ -47,14 +49,18 @@ namespace Rivet {
 
       stringstream etaname;
       etaname << "jet_eta_" << i+1;
-      _h_eta_jet[i] = bookHistogram1D(etaname.str(), i>1 ? 25 : 50, -5.0, 5.0);
+      _h_eta_jet[i] = bookHistogram1D(etaname.str(), i > 1 ? 25 : 50, -5.0, 5.0);
+      _h_eta_jet_plus[i].reset(new LWH::Histogram1D(i > 1 ? 15 : 25, 0, 5));
+      _h_eta_jet_minus[i].reset(new LWH::Histogram1D(i > 1 ? 15 : 25, 0, 5));
 
       stringstream rapname;
       rapname << "jet_y_" << i+1;
       _h_rap_jet[i] = bookHistogram1D(rapname.str(), i>1 ? 25 : 50, -5.0, 5.0);
+      _h_rap_jet_plus[i].reset(new LWH::Histogram1D(i > 1 ? 15 : 25, 0, 5));
+      _h_rap_jet_minus[i].reset(new LWH::Histogram1D(i > 1 ? 15 : 25, 0, 5));
 
-      for (size_t j=i+1; j<m_njet; ++j) {
-        std::pair<size_t, size_t> ij(std::make_pair(i, j));
+      for (size_t j = i+1; j < m_njet; ++j) {
+        std::pair<size_t, size_t> ij = std::make_pair(i, j);
 
         stringstream detaname;
         detaname << "jets_deta_" << i+1 << j+1;
@@ -117,7 +123,7 @@ namespace Rivet {
 
     // The remaining direct jet observables
     for (size_t i = 0; i < m_njet; ++i) {
-      if (jets.size()<i+1) continue;
+      if (jets.size() < i+1) continue;
       _h_pT_jet[i]->fill(jets[i].momentum().pT()/GeV, weight);
       // Check for numerical precision issues with jet masses
       double m2_i = jets[i].momentum().mass2();
@@ -128,13 +134,30 @@ namespace Rivet {
         }
         m2_i = 0.0;
       }
-      _h_mass_jet[i]->fill(sqrt(m2_i)/GeV, weight);
-      _h_eta_jet[i]->fill(jets[i].momentum().eta(), weight);
-      _h_rap_jet[i]->fill(jets[i].momentum().rapidity(), weight);
 
+      // Jet mass
+      _h_mass_jet[i]->fill(sqrt(m2_i)/GeV, weight);
+
+      // Jet eta
+      _h_eta_jet[i]->fill(jets[i].momentum().eta(), weight);
+      if (jets[i].momentum().eta() > 0.0) {
+        _h_eta_jet_plus[i]->fill(jets[i].momentum().eta(), weight);
+      } else {
+        _h_eta_jet_minus[i]->fill(jets[i].momentum().eta(), weight);
+      }
+
+      // Jet rapidity
+      _h_rap_jet[i]->fill(jets[i].momentum().rapidity(), weight);
+      if (jets[i].momentum().rapidity() > 0.0) {
+        _h_rap_jet_plus[i]->fill(jets[i].momentum().rapidity(), weight);
+      } else {
+        _h_rap_jet_minus[i]->fill(jets[i].momentum().rapidity(), weight);
+      }
+
+      // Inter-jet properties
       for (size_t j = i+1; j < m_njet; ++j) {
         if (jets.size() < j+1) continue;
-        std::pair<size_t, size_t> ij(std::make_pair(i, j));
+        std::pair<size_t, size_t> ij = std::make_pair(i, j);
         double deta = jets[i].momentum().eta()-jets[j].momentum().eta();
         double dR = deltaR(jets[i].momentum(), jets[j].momentum());
         _h_deta_jets[ij]->fill(deta, weight);
@@ -165,7 +188,16 @@ namespace Rivet {
       scale(_h_eta_jet[i], crossSection()/sumOfWeights());
       scale(_h_rap_jet[i], crossSection()/sumOfWeights());
 
+      // Create eta/rapidity ratio plots
+      stringstream etaname;
+      etaname << "jet_eta_pmratio_" << i;
+      histogramFactory().divide(histoPath(etaname.str()), *_h_eta_jet_plus[i], *_h_eta_jet_minus[i]);
+      stringstream rapname;
+      rapname << "jet_rap_pmratio_" << i;
+      histogramFactory().divide(histoPath(rapname.str()), *_h_rap_jet_plus[i], *_h_rap_jet_minus[i]);
     }
+
+
     for (int ibin = 0; ibin<_h_log10_R[m_njet]->size(); ++ibin) {
       IDataPoint* dp =_h_log10_R[m_njet]->point(ibin);
       dp->coordinate(1)->setValue(dp->coordinate(1)->value()*crossSection()/sumOfWeights());
