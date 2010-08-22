@@ -94,50 +94,98 @@ XLabel=$\eta(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$
 # END PLOT
 
+# BEGIN PLOT /MC_JETS/jet_eta_pmratio_1
+Title=Pseudorapidity $+/-$ ratio of first jet
+XLabel=$\eta(\text{jet 1})_+/\eta(\text{jet 1})_-$
+YLabel=$|\eta(\text{jet 1}|$
+# END PLOT
+
+# BEGIN PLOT /MC_JETS/jet_eta_pmratio_2
+Title=Pseudorapidity $+/-$ ratio of second jet
+XLabel=$\eta(\text{jet 2})_+/\eta(\text{jet 2})_-$
+YLabel=$|\eta(\text{jet 2}|$
+# END PLOT
+
+# BEGIN PLOT /MC_JETS/jet_eta_pmratio_3
+Title=Pseudorapidity $+/-$ ratio of third jet
+XLabel=$\eta(\text{jet 3})_+/\eta(\text{jet 3})_-$
+YLabel=$|\eta(\text{jet 3}|$
+# END PLOT
+
+# BEGIN PLOT /MC_JETS/jet_eta_pmratio_4
+Title=Pseudorapidity $+/-$ ratio of fourth jet
+XLabel=$\eta(\text{jet 4})_+/\eta(\text{jet 4})_-$
+YLabel=$|\eta(\text{jet 4}|$
+# END PLOT
+
 # BEGIN PLOT /MC_JETS/jet_y_1
-Title=
+Title=Rapidity of first jet
 XLabel=$y(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 1})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_2
-Title=
+Title=Rapidity of second jet
 XLabel=$y(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 2})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_3
-Title=
+Title=Rapidity of third jet
 XLabel=$y(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 3})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_4
-Title=
+Title=Rapidity of fourth jet
 XLabel=$y(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 4})$
 # END PLOT
 
+# BEGIN PLOT /MC_JETS/jet_y_pmratio_1
+Title=Rapidity $+/-$ ratio of first jet
+XLabel=$y(\text{jet 1})_+/y(\text{jet 1})_-$
+YLabel=$|y(\text{jet 1}|$
+# END PLOT
+
+# BEGIN PLOT /MC_JETS/jet_y_pmratio_2
+Title=Rapidity $+/-$ ratio of second jet
+XLabel=$y(\text{jet 2})_+/y(\text{jet 2})_-$
+YLabel=$|y(\text{jet 2}|$
+# END PLOT
+
+# BEGIN PLOT /MC_JETS/jet_y_pmratio_3
+Title=Rapidity $+/-$ ratio of third jet
+XLabel=$y(\text{jet 3})_+/y(\text{jet 3})_-$
+YLabel=$|y(\text{jet 3}|$
+# END PLOT
+
+# BEGIN PLOT /MC_JETS/jet_y_pmratio_4
+Title=Rapidity $+/-$ ratio of fourth jet
+XLabel=$y(\text{jet 4})_+/y(\text{jet 4})_-$
+YLabel=$|y(\text{jet 4}|$
+# END PLOT
+
 # BEGIN PLOT /MC_JETS/jet_mass_1
-Title=
+Title=Mass of first jet
 XLabel=$m(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 1})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_2
-Title=
+Title=Mass of second jet
 XLabel=$m(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 2})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_3
-Title=
+Title=Mass of third jet
 XLabel=$m(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 3})$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_4
-Title=
+Title=Mass of fourth jet
 XLabel=$m(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 4})$
 # END PLOT

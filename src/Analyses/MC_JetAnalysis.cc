@@ -139,19 +139,21 @@ namespace Rivet {
       _h_mass_jet[i]->fill(sqrt(m2_i)/GeV, weight);
 
       // Jet eta
-      _h_eta_jet[i]->fill(jets[i].momentum().eta(), weight);
-      if (jets[i].momentum().eta() > 0.0) {
-        _h_eta_jet_plus[i]->fill(jets[i].momentum().eta(), weight);
+      const double eta_i = jets[i].momentum().eta();
+      _h_eta_jet[i]->fill(eta_i, weight);
+      if (eta_i > 0.0) {
+        _h_eta_jet_plus[i]->fill(eta_i, weight);
       } else {
-        _h_eta_jet_minus[i]->fill(jets[i].momentum().eta(), weight);
+        _h_eta_jet_minus[i]->fill(fabs(eta_i), weight);
       }
 
       // Jet rapidity
-      _h_rap_jet[i]->fill(jets[i].momentum().rapidity(), weight);
-      if (jets[i].momentum().rapidity() > 0.0) {
-        _h_rap_jet_plus[i]->fill(jets[i].momentum().rapidity(), weight);
+      const double rap_i = jets[i].momentum().rapidity();
+      _h_rap_jet[i]->fill(rap_i, weight);
+      if (rap_i > 0.0) {
+        _h_rap_jet_plus[i]->fill(rap_i, weight);
       } else {
-        _h_rap_jet_minus[i]->fill(jets[i].momentum().rapidity(), weight);
+        _h_rap_jet_minus[i]->fill(fabs(rap_i), weight);
       }
 
       // Inter-jet properties
@@ -193,7 +195,7 @@ namespace Rivet {
       etaname << "jet_eta_pmratio_" << i+1;
       histogramFactory().divide(histoPath(etaname.str()), *_h_eta_jet_plus[i], *_h_eta_jet_minus[i]);
       stringstream rapname;
-      rapname << "jet_rap_pmratio_" << i+1;
+      rapname << "jet_y_pmratio_" << i+1;
       histogramFactory().divide(histoPath(rapname.str()), *_h_rap_jet_plus[i], *_h_rap_jet_minus[i]);
     }
 
