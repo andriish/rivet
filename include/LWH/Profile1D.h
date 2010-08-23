@@ -406,11 +406,6 @@ public:
   }
 
   
-  /** The counts. */
-  int getSum(int index) const {
-      return sum[index + 2];
-  }
-
   /** The weights. */
   double getSumW(int index) const {
       return sumw[index + 2];
