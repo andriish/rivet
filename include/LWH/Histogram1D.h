@@ -332,7 +332,27 @@ namespace LWH {
         ax->upperEdge() - ax->lowerEdge();
     }
 
-    /**
+    /** The weights. */
+    double getSumW(int index) const {
+        return sumw[index + 2];
+    }
+
+    /** The squared weights. */
+    double getSumW2(int index) const {
+        return sumw2[index + 2];
+    }
+
+    /** The weighted x-values. */
+    double getSumXW(int index) const {
+        return sumxw[index + 2];
+    }
+
+    /** The weighted x-square-values. */
+    double getSumX2W(int index) const {
+        return sumx2w[index + 2];
+    }
+    
+     /**
      * Get the x axis of the IHistogram1D.
      * @return The x coordinate IAxis.
      */
