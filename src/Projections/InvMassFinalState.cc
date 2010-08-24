@@ -88,7 +88,10 @@ namespace Rivet {
     foreach (const Particle* i1, type1) {
       foreach (const Particle* i2, type2) {
         FourMomentum v4 = i1->momentum() + i2->momentum();
-        if (v4.mass2() < 0) continue;
+        if (v4.mass2() < 0) {
+          getLog() << Log::DEBUG << "Constructed negative inv mass2: skipping!" << endl;
+          continue;
+        }
         if (v4.mass() > _minmass && v4.mass() < _maxmass) {
           getLog() << Log::DEBUG << "Selecting particles with IDs "
                    << i1->pdgId() << " & " << i2->pdgId()
