@@ -62,6 +62,8 @@ YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$
 Title=
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$
+LegendXPos=0.7
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_dR_13
@@ -134,6 +136,8 @@ YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$
 Title=Pseudorapidity of leading jet
 XLabel=$\eta(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 1})$
+LegendXPos=0.8
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_eta_2
