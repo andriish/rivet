@@ -206,8 +206,7 @@ if __name__ == "__main__":
 
     ## Handle a request for a reference dataset other than REF
     if opts.REF_ID != "REF":
-        opts.REF_ID = os.path.abspath(opts.REF_ID)
-        if not os.access(opts.REF_ID, os.R_OK):
+        if not os.access(os.path.abspath(opts.REF_ID), os.R_OK):
             logging.error("Error: cannot read reference file %s" % opts.REF_ID)
             sys.exit(2)
 

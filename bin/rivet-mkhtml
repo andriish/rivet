@@ -33,6 +33,8 @@ parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
                   default=False, help="display plots on single webpage.")
 parser.add_option("--no-mc-errs", dest="MC_ERRS", action="store_false",
                   default=True, help="don't plot error bars.")
+parser.add_option("--refid", dest="REF_ID",
+                  default=None, help="ID of reference data set (file path for non-REF data)")
 parser.add_option("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
                   default=None, help="request make-plots to use a specific number of threads.")
 parser.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
@@ -126,6 +128,8 @@ for aidafile in aidafiles:
 ch_cmd = ["compare-histos"]
 if opts.MC_ERRS:
     ch_cmd.append("--mc-errs")
+if opts.REF_ID is not None:
+    ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
 ch_cmd.append("--hier-out")
 ch_cmd.append("--rivet-refs")
 ch_cmd.append("--plot-info-dir=../")
