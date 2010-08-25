@@ -30,9 +30,11 @@ YLabel=$\text{d}\sigma/\text{d}y_{\gamma}$
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_dR_12
-Title=
+Title=Separation between leading and second leading jet
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$
+LegendXPos=0.5
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_dR_13
@@ -290,7 +292,7 @@ Rebin=2
 Title=$\log_{10}$($k_\perp$ jet resolution $0 \to 1$ [GeV])
 XLabel=$\log_{10}(d_{01}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{01})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
 # END PLOT
@@ -299,7 +301,7 @@ Rebin=2
 Title=$\log_{10}$($k_\perp$ jet resolution $1 \to 2$ [GeV])
 XLabel=$\log_{10}(d_{12}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{12})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
 # END PLOT
@@ -308,7 +310,7 @@ Rebin=2
 Title=$\log_{10}$($k_\perp$ jet resolution $2 \to 3$ [GeV])
 XLabel=$\log_{10}(d_{23}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{23})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
 # END PLOT
@@ -317,7 +319,7 @@ Rebin=2
 Title=$\log_{10}$($k_\perp$ jet resolution $3 \to 4$ [GeV])
 XLabel=$\log_{10}(d_{34}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{34})$
-LegendXPos=0.5
+LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
 # END PLOT
@@ -327,6 +329,9 @@ Title=Transverse momentum of leading jet
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_pT_2
@@ -334,6 +339,9 @@ Title=Transverse momentum of second jet
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_pT_3
@@ -341,6 +349,9 @@ Title=Transverse momentum of third jet
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_pT_4
@@ -348,4 +359,7 @@ Title=Transverse momentum of fourth jet
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT

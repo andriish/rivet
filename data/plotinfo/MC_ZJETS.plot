@@ -61,9 +61,11 @@ YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jets_dR_12
-Title=
+Title=Separation between leading and second leading jet
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$
+LegendXPos=0.5
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jets_dR_13
@@ -358,6 +360,9 @@ Title=Transverse momentum of leading jet
 XLabel=$p_\perp(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_2
@@ -365,6 +370,9 @@ Title=Transverse momentum of second jet
 XLabel=$p_\perp(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_3
@@ -372,6 +380,9 @@ Title=Transverse momentum of third jet
 XLabel=$p_\perp(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
 
 # BEGIN PLOT /MC_ZJETS/jet_pT_4
@@ -379,4 +390,7 @@ Title=Transverse momentum of fourth jet
 XLabel=$p_\perp(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
 LogX=1
+LegendXPos=0.5
+LegendYPos=0.5
+XMin=20.0
 # END PLOT
