@@ -14,14 +14,6 @@ namespace Rivet {
   /// Typedef for Projection (smart) pointer
   typedef shared_ptr<const Projection> ProjHandle;
 
-  // Needed to make smart pointers compare equivalent in the STL set
-  struct ProjHandleLess {
-    bool operator()(const ProjHandle& a, const ProjHandle& b) {
-      return a.get() < b.get();
-    }
-  };
-
-
   // Forward declaration.
   class ProjectionApplier;
 
@@ -54,7 +46,7 @@ namespace Rivet {
     friend class ProjectionApplier;
 
     /// Typedef for a vector of Projection pointers.
-    typedef set<ProjHandle, ProjHandleLess> ProjHandles;
+    typedef set<ProjHandle> ProjHandles;
 
     /// @brief Typedef for the structure used to contain named projections for a
     /// particular containing Analysis or Projection.
