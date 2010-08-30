@@ -125,6 +125,12 @@ namespace Rivet {
   }
 
 
+  const FinalState& WFinder::clusteredPhotonsFinalState() const
+  {
+    return getProjection<FinalState>("CPhotons");
+  }
+
+
   int WFinder::compare(const Projection& p) const {
     PCmp cmp = mkNamedPCmp(p, "IMFS");
     if (cmp != EQUIVALENT) return cmp;

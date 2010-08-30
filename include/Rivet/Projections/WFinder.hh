@@ -72,6 +72,9 @@ namespace Rivet {
     /// Access to the W constituent leptons
     const FinalState& constituentLeptonsFinalState() const;
 
+    /// Access to the photons which have been clustered to the leptons
+    const FinalState& clusteredPhotonsFinalState() const;
+
 
   protected:
 

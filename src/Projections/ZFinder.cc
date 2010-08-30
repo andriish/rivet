@@ -83,6 +83,11 @@ namespace Rivet {
     return getProjection<FinalState>("IMFS");
   }
 
+  const FinalState& ZFinder::clusteredPhotonsFinalState() const
+  {
+    return getProjection<FinalState>("CPhotons");
+  }
+
   int ZFinder::compare(const Projection& p) const {
     PCmp cmp = mkNamedPCmp(p, "IMFS");
     if (cmp != EQUIVALENT) return cmp;

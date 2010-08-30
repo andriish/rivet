@@ -68,6 +68,9 @@ namespace Rivet {
     /// (e.g. for more fine-grained cuts on the leptons)
     const FinalState& constituentsFinalState() const;
 
+    /// Access to the photons which have been clustered to the leptons
+    const FinalState& clusteredPhotonsFinalState() const;
+
   protected:
 
     /// Apply the projection on the supplied event.
