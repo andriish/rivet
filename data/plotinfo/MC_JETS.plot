@@ -1,7 +1,7 @@
 # BEGIN PLOT /MC_JETS/jets_dR_12
 Title=Separation between leading and second leading jet
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$ [pb]
 LegendXPos=0.5
 LegendYPos=0.5
 # END PLOT
@@ -9,91 +9,91 @@ LegendYPos=0.5
 # BEGIN PLOT /MC_JETS/jets_dR_13
 Title=
 XLabel=$\Delta{R}(\text{jet 1, jet 3})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 3})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_dR_14
 Title=
 XLabel=$\Delta{R}(\text{jet 1, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 4})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_dR_23
 Title=
 XLabel=$\Delta{R}(\text{jet 2, jet 3})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 2, jet 3})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 2, jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_dR_24
 Title=
 XLabel=$\Delta{R}(\text{jet 2, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 2, jet 4})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 2, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_dR_34
 Title=
 XLabel=$\Delta{R}(\text{jet 3, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 3, jet 4})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 3, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_deta_12
 Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 2})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 2})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_deta_13
 Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 3})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 3})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_deta_14
 Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 4})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_deta_23
 Title=
 XLabel=$\Delta\eta(\text{jet 2, jet 3})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 3})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_deta_24
 Title=
 XLabel=$\Delta\eta(\text{jet 2, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 4})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_deta_34
 Title=
 XLabel=$\Delta\eta(\text{jet 3, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_1
 Title=Pseudorapidity of leading jet
 XLabel=$\eta(\text{jet 1})$
-YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 1})$
+YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 1})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_2
 Title=Pseudorapidity of second jet
 XLabel=$\eta(\text{jet 2})$
-YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 2})$
+YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_3
 Title=Pseudorapidity of third jet
 XLabel=$\eta(\text{jet 3})$
-YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 3})$
+YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_4
 Title=Pseudorapidity of fourth jet
 XLabel=$\eta(\text{jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$
+YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_pmratio_1
@@ -123,25 +123,25 @@ YLabel=$|\eta(\text{jet 4}|$
 # BEGIN PLOT /MC_JETS/jet_y_1
 Title=Rapidity of first jet
 XLabel=$y(\text{jet 1})$
-YLabel=$\text{d}\sigma/\text{d}y(\text{jet 1})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 1})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_2
 Title=Rapidity of second jet
 XLabel=$y(\text{jet 2})$
-YLabel=$\text{d}\sigma/\text{d}y(\text{jet 2})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 2})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_3
 Title=Rapidity of third jet
 XLabel=$y(\text{jet 3})$
-YLabel=$\text{d}\sigma/\text{d}y(\text{jet 3})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_4
 Title=Rapidity of fourth jet
 XLabel=$y(\text{jet 4})$
-YLabel=$\text{d}\sigma/\text{d}y(\text{jet 4})$
+YLabel=$\text{d}\sigma/\text{d}y(\text{jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_pmratio_1
@@ -171,31 +171,31 @@ YLabel=$|y(\text{jet 4}|$
 # BEGIN PLOT /MC_JETS/jet_mass_1
 Title=Mass of first jet
 XLabel=$m(\text{jet 1})$
-YLabel=$\text{d}\sigma/\text{d}m(\text{jet 1})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 1})$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_2
 Title=Mass of second jet
 XLabel=$m(\text{jet 2})$
-YLabel=$\text{d}\sigma/\text{d}m(\text{jet 2})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 2})$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_3
 Title=Mass of third jet
 XLabel=$m(\text{jet 3})$
-YLabel=$\text{d}\sigma/\text{d}m(\text{jet 3})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 3})$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_4
 Title=Mass of fourth jet
 XLabel=$m(\text{jet 4})$
-YLabel=$\text{d}\sigma/\text{d}m(\text{jet 4})$
+YLabel=$\text{d}\sigma/\text{d}m(\text{jet 4})$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_multi_exclusive
 Title=Exclusive jet multiplicity
 XLabel=$N_{\text{jet}}$
-YLabel=$\sigma(N_{\text{jet}})$
+YLabel=$\sigma(N_{\text{jet}})$ [pb]
 XMajorTickMarks=10
 XMinorTickMarks=0
 ErrorBands=1
@@ -204,7 +204,7 @@ ErrorBands=1
 # BEGIN PLOT /MC_JETS/jet_multi_inclusive
 Title=Inclusive jet multiplicity
 XLabel=$N_{\text{jet}}$
-YLabel=$\sigma(\geq N_{\text{jet}})$
+YLabel=$\sigma(\geq N_{\text{jet}})$ [pb]
 XMajorTickMarks=10
 XMinorTickMarks=0
 ErrorBands=1
@@ -260,7 +260,7 @@ Rebin=2
 # BEGIN PLOT /MC_JETS/log10_d_01
 Title=$\log_{10}$($k_\perp$ jet resolution $0 \to 1$ [GeV])
 XLabel=$\log_{10}(d_{01}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{01})$
+YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{01})$ [pb/$\log_{10}$(GeV)]
 LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
@@ -269,7 +269,7 @@ Rebin=2
 # BEGIN PLOT /MC_JETS/log10_d_12
 Title=$\log_{10}$($k_\perp$ jet resolution $1 \to 2$ [GeV])
 XLabel=$\log_{10}(d_{12}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{12})$
+YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{12})$ [pb/$\log_{10}$(GeV)]
 LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
@@ -278,7 +278,7 @@ Rebin=2
 # BEGIN PLOT /MC_JETS/log10_d_23
 Title=$\log_{10}$($k_\perp$ jet resolution $2 \to 3$ [GeV])
 XLabel=$\log_{10}(d_{23}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{23})$
+YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{23})$ [pb/$\log_{10}$(GeV)]
 LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
@@ -287,7 +287,7 @@ Rebin=2
 # BEGIN PLOT /MC_JETS/log10_d_34
 Title=$\log_{10}$($k_\perp$ jet resolution $3 \to 4$ [GeV])
 XLabel=$\log_{10}(d_{34}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{34})$
+YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{34})$ [pb/$\log_{10}$(GeV)]
 LegendXPos=0.6
 LegendYPos=0.5
 Rebin=2
@@ -295,8 +295,8 @@ Rebin=2
 
 # BEGIN PLOT /MC_JETS/jet_pT_1
 Title=Transverse momentum of leading jet
-XLabel=$p_\perp(\text{jet 1})$
-YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$
+XLabel=$p_\perp(\text{jet 1})$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$ [pb/GeV]
 LogX=1
 LegendXPos=0.5
 LegendYPos=0.5
@@ -305,8 +305,8 @@ XMin=20.0
 
 # BEGIN PLOT /MC_JETS/jet_pT_2
 Title=Transverse momentum of second jet
-XLabel=$p_\perp(\text{jet 2})$
-YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$
+XLabel=$p_\perp(\text{jet 2})$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$ [pb/GeV]
 LogX=1
 LegendXPos=0.5
 LegendYPos=0.5
@@ -315,8 +315,8 @@ XMin=20.0
 
 # BEGIN PLOT /MC_JETS/jet_pT_3
 Title=Transverse momentum of third jet
-XLabel=$p_\perp(\text{jet 3})$
-YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$
+XLabel=$p_\perp(\text{jet 3})$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$ [pb/GeV]
 LogX=1
 LegendXPos=0.5
 LegendYPos=0.5
@@ -325,8 +325,8 @@ XMin=20.0
 
 # BEGIN PLOT /MC_JETS/jet_pT_4
 Title=Transverse momentum of fourth jet
-XLabel=$p_\perp(\text{jet 4})$
-YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$
+XLabel=$p_\perp(\text{jet 4})$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$ [pb/GeV]
 LogX=1
 LegendXPos=0.5
 LegendYPos=0.5
