@@ -77,6 +77,8 @@ namespace Rivet {
 
       // global stuff
       _h_HT = bookHistogram1D("HT", logBinEdges(100, 100.0, 0.5*sqrtS()));
+      _h_jets_dphi_12 = bookHistogram1D("jets_dphi_12", 25.0, 0.0, PI);
+      _h_jets_m_12 = bookHistogram1D("jets_m_12", logBinEdges(100, 1.0, 0.25*sqrtS()));
 
       MC_JetAnalysis::init();
     }
@@ -174,6 +176,13 @@ namespace Rivet {
       }
       if (HT>0.0) _h_HT->fill(HT, weight);
 
+      if (jets.size()>1) {
+        FourMomentum jet1(jets[0].momentum());
+        FourMomentum jet2(jets[1].momentum());
+        _h_jets_dphi_12->fill(mapAngle0ToPi(jet1.phi()-jet2.phi()), weight);
+        _h_jets_m_12->fill(FourMomentum(jet1+jet2).mass(), weight);
+      }
+
       MC_JetAnalysis::analyze(e);
     }
 
@@ -202,6 +211,8 @@ namespace Rivet {
       scale(_h_WW_jet1_deta, norm);
       scale(_h_WW_jet1_dR, norm);
       scale(_h_We_jet1_dR, norm);
+      scale(_h_jets_dphi_12, norm);
+      scale(_h_jets_m_12, norm);
       scale(_h_HT, norm);
 
       MC_JetAnalysis::finalize();
@@ -235,6 +246,8 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_WW_jet1_deta;
     AIDA::IHistogram1D * _h_WW_jet1_dR;
     AIDA::IHistogram1D * _h_We_jet1_dR;
+    AIDA::IHistogram1D * _h_jets_dphi_12;
+    AIDA::IHistogram1D * _h_jets_m_12;
     AIDA::IHistogram1D * _h_HT;
     //@}
 
