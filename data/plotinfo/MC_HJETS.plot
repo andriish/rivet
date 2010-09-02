@@ -1,25 +1,25 @@
 # BEGIN PLOT /MC_HJETS/H_jet1_dR
 Title=Separation between Higgs boson and leading jet
 XLabel=$\Delta R(\text{h, 1st jet})$
-YLabel=$\text{d}\sigma/\text{d}\Delta R(\text{h, 1st jet})$
+YLabel=$\text{d}\sigma/\text{d}\Delta R(\text{h, 1st jet})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_jet1_deta
 Title=
 XLabel=$\Delta{\eta}(\text{h, 1st jet})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{\eta}(\text{h, 1st jet})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{\eta}(\text{h, 1st jet})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_mass
 Title=Higgs mass
 XLabel=$m_{\text{h}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}m_{\text{h}}$
+YLabel=$\text{d}\sigma/\text{d}m_{\text{h}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_pT
 Title=Higgs $p_\perp$
 XLabel=$p_\perp^{\text{h}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{h}}$
+YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{h}}$ [pb/GeV]
 LogX=1
 LegendXPos=0.6
 LegendYPos=0.5
@@ -28,13 +28,13 @@ LegendYPos=0.5
 # BEGIN PLOT /MC_HJETS/H_pT_peak
 Title=Higgs $p_\perp$ in peak region
 XLabel=$p_\perp^{\text{h}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{h}}$
+YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{h}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_y
 Title=Higgs rapidity
 XLabel=$y_{\text{h}}$
-YLabel=$\text{d}\sigma/\text{d}y_{\text{h}}$
+YLabel=$\text{d}\sigma/\text{d}y_{\text{h}}$ [pb]
 LegendXPos=0.8
 LegendYPos=0.5
 # END PLOT
@@ -42,20 +42,20 @@ LegendYPos=0.5
 # BEGIN PLOT /MC_HJETS/H_phi
 Title=Higgs azimuthal angle
 XLabel=$\phi_{\text{h}}$
-YLabel=$\text{d}\sigma/\text{d}\phi_{\text{h}}$
+YLabel=$\text{d}\sigma/\text{d}\phi_{\text{h}}$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/lepton_pT
 Title=Lepton $p_\perp$
 XLabel=$p_\perp^{\text{l}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{l}}$
+YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{l}}$ [pb/GeV]
 LogX=1
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/lepton_eta
 Title=Lepton $\eta$
 XLabel=$\eta_{\text{l}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$
+YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_dR_12
