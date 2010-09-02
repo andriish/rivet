@@ -319,7 +319,7 @@ YLabel=$R_{\geq4}$
 Rebin=2
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/log10_d_01
+# BEGIN PLOT /MC_WJETS/log10_d_01
 Title=$\log_{10}$($k_\perp$ jet resolution $0 \to 1$ [GeV])
 XLabel=$\log_{10}(d_{01}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{01}/\text{GeV})$ [pb]
@@ -328,7 +328,7 @@ LegendYPos=0.5
 Rebin=2
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/log10_d_12
+# BEGIN PLOT /MC_WJETS/log10_d_12
 Title=$\log_{10}$($k_\perp$ jet resolution $1 \to 2$ [GeV])
 XLabel=$\log_{10}(d_{12}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{12}/\text{GeV})$ [pb]
@@ -337,7 +337,7 @@ LegendYPos=0.5
 Rebin=2
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/log10_d_23
+# BEGIN PLOT /MC_WJETS/log10_d_23
 Title=$\log_{10}$($k_\perp$ jet resolution $2 \to 3$ [GeV])
 XLabel=$\log_{10}(d_{23}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{23}/\text{GeV})$ [pb]
@@ -346,7 +346,7 @@ LegendYPos=0.5
 Rebin=2
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/log10_d_34
+# BEGIN PLOT /MC_WJETS/log10_d_34
 Title=$\log_{10}$($k_\perp$ jet resolution $3 \to 4$ [GeV])
 XLabel=$\log_{10}(d_{34}/\text{GeV})$
 YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{34}/\text{GeV})$ [pb]
