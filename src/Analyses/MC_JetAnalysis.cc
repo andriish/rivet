@@ -206,10 +206,10 @@ namespace Rivet {
 
     // Scale the d{eta,R} histograms
     map<pair<size_t, size_t>, AIDA::IHistogram1D*>::iterator it;
-    for (it = _h_deta_jets.begin(); it != _h_deta_jets.begin(); ++it) {
+    for (it = _h_deta_jets.begin(); it != _h_deta_jets.end(); ++it) {
       scale(it->second, crossSection()/sumOfWeights());
     }
-    for (it = _h_dR_jets.begin(); it != _h_dR_jets.begin(); ++it) {
+    for (it = _h_dR_jets.begin(); it != _h_dR_jets.end(); ++it) {
       scale(it->second, crossSection()/sumOfWeights());
     }
 
