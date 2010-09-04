@@ -33,7 +33,7 @@ YLabel=$\text{d}\sigma/\text{d}y_{\gamma}$ [pb]
 Title=Separation between leading and second leading jet
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$ [pb]
-LegendXPos=0.5
+LegendXPos=0.55
 LegendYPos=0.5
 # END PLOT
 
@@ -68,63 +68,83 @@ YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 3, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_12
-Title=
+Title=$\eta$ difference between leading and second leading jet
 XLabel=$\Delta\eta(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 2})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_13
 Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 3})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_14
 Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_23
 Title=
 XLabel=$\Delta\eta(\text{jet 2, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 3})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_24
 Title=
 XLabel=$\Delta\eta(\text{jet 2, jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_34
 Title=
 XLabel=$\Delta\eta(\text{jet 3, jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_eta_1
 Title=Pseudorapidity of leading jet
 XLabel=$\eta(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 1})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_eta_2
 Title=Pseudorapidity of second jet
 XLabel=$\eta(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 2})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_eta_3
 Title=Pseudorapidity of third jet
 XLabel=$\eta(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 3})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_eta_4
 Title=Pseudorapidity of fourth jet
 XLabel=$\eta(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_eta_pmratio_1

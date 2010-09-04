@@ -11,13 +11,13 @@ YLabel=$\text{d}\sigma/\text{d}\Delta{\eta}(\text{h, 1st jet})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_mass
-Title=Higgs mass
+Title=Higgs boson mass
 XLabel=$m_{\text{h}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m_{\text{h}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_pT
-Title=Higgs $p_\perp$
+Title=Higgs boson $p_\perp$
 XLabel=$p_\perp^{\text{h}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{h}}$ [pb/GeV]
 LogX=1
@@ -26,13 +26,16 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_pT_peak
-Title=Higgs $p_\perp$ in peak region
+Title=Higgs boson $p_\perp$ in peak region
 XLabel=$p_\perp^{\text{h}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{h}}$ [pb/GeV]
+LogY=0
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_y
-Title=Higgs rapidity
+Title=Higgs boson rapidity
 XLabel=$y_{\text{h}}$
 YLabel=$\text{d}\sigma/\text{d}y_{\text{h}}$ [pb]
 LegendXPos=0.8
@@ -40,7 +43,7 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/H_phi
-Title=Higgs azimuthal angle
+Title=Higgs boson azimuthal angle
 XLabel=$\phi_{\text{h}}$
 YLabel=$\text{d}\sigma/\text{d}\phi_{\text{h}}$ [pb]
 # END PLOT
@@ -62,7 +65,7 @@ YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$ [pb]
 Title=Separation between leading and second leading jet
 XLabel=$\Delta{R}(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$ [pb]
-LegendXPos=0.5
+LegendXPos=0.55
 LegendYPos=0.5
 # END PLOT
 
@@ -97,63 +100,83 @@ YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 3, jet 4})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_deta_12
-Title=
+Title=$\eta$ difference between leading and second leading jet
 XLabel=$\Delta\eta(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 2})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_deta_13
 Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 3})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_deta_14
 Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_deta_23
 Title=
 XLabel=$\Delta\eta(\text{jet 2, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 3})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_deta_24
 Title=
 XLabel=$\Delta\eta(\text{jet 2, jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jets_deta_34
 Title=
 XLabel=$\Delta\eta(\text{jet 3, jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_eta_1
 Title=Pseudorapidity of leading jet
 XLabel=$\eta(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 1})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_eta_2
 Title=Pseudorapidity of second jet
 XLabel=$\eta(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 2})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_eta_3
 Title=Pseudorapidity of third jet
 XLabel=$\eta(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 3})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_eta_4
 Title=Pseudorapidity of fourth jet
 XLabel=$\eta(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}\eta(\text{jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.75
 # END PLOT
 
 # BEGIN PLOT /MC_HJETS/jet_eta_pmratio_1
