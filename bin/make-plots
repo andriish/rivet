@@ -335,7 +335,7 @@ class Plot:
         if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
             leftmargin = float(inputdata.description['LeftMargin'])
         else:
-            leftmargin = 1.25
+            leftmargin = 1.4
         if inputdata.description.has_key('RightMargin') and inputdata.description['RightMargin']!='':
             rightmargin = float(inputdata.description['RightMargin'])
         else:
@@ -767,7 +767,7 @@ class Labels:
                 xlabelsep=float(self.description['XLabelSep'])
             out += ('\\rput(1,0){\\rput[rB](0,-%4.3f\\labelsep){\\normalsize '%(xlabelsep) +self.description['XLabel']+'}}\n')
         if self.description.has_key('YLabel') and (axis.count('YLabel') or axis==[]):
-            ylabelsep=5.3
+            ylabelsep=6.5
             if self.description.has_key('YLabelSep'):
                 ylabelsep=float(self.description['YLabelSep'])
             out += ('\\rput(0,1){\\rput[rB]{90}(-%4.3f\\labelsep,0){\\normalsize '%(ylabelsep) +self.description['YLabel']+'}}\n')
