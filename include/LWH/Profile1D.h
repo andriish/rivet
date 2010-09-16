@@ -353,22 +353,20 @@ public:
   double binError(int index) const {
     const size_t i = index + 2;
     if (sumw[i] > 0.0) {
-      const double denom = sumw[i]*sumw[i] - sumw2[i];
-      // Handle case where error blows up due to null denominator
-      if (denom <= 0) {
-        /// @todo This returns the mean *value*. What should actually be done?
-        /// @todo Does this ever happen in practice, other than when bin only has one (unit-weight)
-        ///       entry (i.e. unweighting is N-1 -> 0, so error is unestimatable anyway)?
-        return sumyw[i]/sumw[i];
+      const double n_eff = sumw[i]*sumw[i] / sumw2[i];
+      if (n_eff < 1.0) {
+        return sumyw[i]/n_eff;
       }
+      const double denom = sumw[i]*sumw[i] - sumw2[i];
       const double numer = sumy2w[i]*sumw[i] - sumyw[i]*sumyw[i];
+      assert(denom > 0);
       const double variance = numer/denom;
-      const double n_eff = sumw2[i] / sumw[i]*sumw[i];
       /// @todo Is this biasing again? I.e. do we actually need a 1 / (n_eff - 1)?
-      const double stdvar = variance / n_eff;
-      if (stdvar > 0.0) {
-        const double stderr = sqrt(stdvar);
-        return stderr;
+      const double std_var = variance / n_eff;
+      if (std_var > 0.0) {
+        const double std_err = sqrt(std_var);
+        // std::cout << "@@ " << index << " " << std_err << " " << sumyw[i]/sumw[i] << std::endl;
+        return std_err;
       }
     }
     return 0.0;
@@ -405,7 +403,7 @@ public:
       ax->upperEdge() - ax->lowerEdge();
   }
 
-  
+
   /** The weights. */
   double getSumW(int index) const {
       return sumw[index + 2];
@@ -440,7 +438,7 @@ public:
   double getSumY2W2(int index) const {
       return sumy2w2[index + 2];
   }
-  
+
   /**
    * Get the x axis of the IHistogram1D.
    * @return The x coordinate IAxis.

@@ -1,3 +1,7 @@
+2010-09-16  Andy Buckley  <andy@insectnation.org>
+
+	* Fix error in N_effective definition for weighted profile errors.
+
 2010-08-18  Andy Buckley  <andy@insectnation.org>
 
 	* Adding MC_GENERIC analysis. NB. Frank Siegert also added MC_HJETS.
