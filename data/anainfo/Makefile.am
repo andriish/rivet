@@ -94,6 +94,7 @@ dist_pkgdata_DATA = \
   STAR_2006_S6500200.info \
   STAR_2006_S6860818.info \
   STAR_2006_S6870392.info \
+  STAR_2008_S7869363.info \
   STAR_2008_S7993412.info \
   STAR_2009_UE_HELEN.info \
   ZEUS_2001_S4815815.info \

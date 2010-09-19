@@ -37,6 +37,7 @@ RivetUnvalidated_la_SOURCES = \
     MC_TTBAR.cc \
     OPAL_1993_S2692198.cc \
     SFM_1984_S1178091.cc \
+    STAR_2008_S7869363.cc \
     STAR_2008_S7993412.cc \
     STAR_2009_UE_HELEN.cc \
     ZEUS_2001_S4815815.cc

@@ -96,6 +96,7 @@ dist_pkgdata_DATA = \
   E735_1993_S2896508.aida        \
   E735_1998_S3905616.aida        \
   SFM_1984_S1178091.aida         \
+  STAR_2008_S7869363.aida        \
   PDG_HADRON_MULTIPLICITIES.aida \
   PDG_HADRON_MULTIPLICITIES_RATIOS.aida \
   BELLE_2006_S6265367.aida

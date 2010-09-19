@@ -92,6 +92,7 @@ dist_pkgdata_DATA = \
   STAR_2006_S6500200.plot \
   STAR_2006_S6860818.plot \
   STAR_2006_S6870392.plot \
+  STAR_2008_S7869363.plot \
   STAR_2008_S7993412.plot \
   STAR_2009_UE_HELEN.plot \
   ZEUS_2001_S4815815.plot \
