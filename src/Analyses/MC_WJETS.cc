@@ -4,6 +4,7 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
@@ -39,6 +40,8 @@ namespace Rivet {
       _h_W_jet1_dR = bookHistogram1D("W_jet1_dR", 25, 0.5, 7.0);
       _h_lepton_pT = bookHistogram1D("lepton_pT", logBinEdges(100, 10.0, 0.25*sqrtS()));
       _h_lepton_eta = bookHistogram1D("lepton_eta", 40, -4.0, 4.0);
+      _htmp_dsigminus_deta = bookHistogram1D("lepton_dsigminus_deta", 20, 0.0, 4.0);
+      _htmp_dsigplus_deta  = bookHistogram1D("lepton_dsigplus_deta", 20, 0.0, 4.0);
 
       MC_JetAnalysis::init();
     }
@@ -48,20 +51,34 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const WFinder& wfinder = applyProjection<WFinder>(e, "WFinder");
-      if (wfinder.particles().size()!=1) {
+      if (wfinder.particles().size() != 1) {
         vetoEvent;
       }
       const double weight = e.weight();
 
-      FourMomentum wmom(wfinder.particles()[0].momentum());
-      _h_W_mass->fill(wmom.mass(),weight);
-      _h_W_pT->fill(wmom.pT(),weight);
-      _h_W_pT_peak->fill(wmom.pT(),weight);
-      _h_W_y->fill(wmom.rapidity(),weight);
-      _h_W_phi->fill(wmom.azimuthalAngle(),weight);
+      int charge3_x_eta = 0;
+      FourMomentum emom;
+      FourMomentum wmom(wfinder.particles().front().momentum());
+      _h_W_mass->fill(wmom.mass(), weight);
+      _h_W_pT->fill(wmom.pT(), weight);
+      _h_W_pT_peak->fill(wmom.pT(), weight);
+      _h_W_y->fill(wmom.rapidity(), weight);
+      _h_W_phi->fill(wmom.azimuthalAngle(), weight);
       foreach (const Particle& l, wfinder.constituentLeptonsFinalState().particles()) {
         _h_lepton_pT->fill(l.momentum().pT(), weight);
         _h_lepton_eta->fill(l.momentum().eta(), weight);
+        if (PID::threeCharge(l.pdgId()) != 0) {
+          emom = l.momentum();
+          charge3_x_eta = PID::threeCharge(l.pdgId()) * emom.eta();
+        }
+      }
+      assert(charge3_x_eta != 0);
+      if (emom.Et() > 30/GeV) {
+        if (charge3_x_eta < 0) {
+          _htmp_dsigminus_deta->fill(emom.eta(), weight);
+        } else {
+          _htmp_dsigplus_deta->fill(emom.eta(), weight);
+        }
       }
 
       const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
@@ -87,6 +104,17 @@ namespace Rivet {
       scale(_h_lepton_pT, crossSection()/sumOfWeights());
       scale(_h_lepton_eta, crossSection()/sumOfWeights());
 
+      // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
+      AIDA::IHistogramFactory& hf = histogramFactory();
+      IHistogram1D* numtmp = hf.subtract("/numtmp", *_htmp_dsigplus_deta, *_htmp_dsigminus_deta);
+      IHistogram1D* dentmp = hf.add("/dentmp", *_htmp_dsigplus_deta, *_htmp_dsigminus_deta);
+      assert(numtmp && dentmp);
+      hf.divide(histoDir() + "/W_chargeasymm_eta", *numtmp, *dentmp);
+      hf.destroy(numtmp);
+      hf.destroy(dentmp);
+      hf.destroy(_htmp_dsigplus_deta);
+      hf.destroy(_htmp_dsigplus_deta);
+
       MC_JetAnalysis::finalize();
     }
 
@@ -106,6 +134,9 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_W_jet1_dR;
     AIDA::IHistogram1D * _h_lepton_pT;
     AIDA::IHistogram1D * _h_lepton_eta;
+
+    AIDA::IHistogram1D * _htmp_dsigminus_deta;
+    AIDA::IHistogram1D * _htmp_dsigplus_deta;
     //@}
 
   };
