@@ -112,7 +112,7 @@ namespace Rivet {
       hf.divide(histoDir() + "/W_chargeasymm_eta", *numtmp, *dentmp);
       hf.destroy(numtmp);
       hf.destroy(dentmp);
-      hf.destroy(_htmp_dsigplus_deta);
+      hf.destroy(_htmp_dsigminus_deta);
       hf.destroy(_htmp_dsigplus_deta);
 
       MC_JetAnalysis::finalize();
