@@ -64,7 +64,7 @@ namespace Rivet {
       /// @todo Any ETmiss cut?
       FourMomentum p_e;
       int chg_e = 0;
-      foreach (const Particle& l, wf.constituentsFinalState().particles()) {
+      foreach (const Particle& l, wf.constituentLeptonsFinalState().particles()) {
         const FourMomentum pl = l.momentum();
         if (abs(l.pdgId()) == ELECTRON) {
           chg_e = PID::threeCharge(l.pdgId());
@@ -75,12 +75,11 @@ namespace Rivet {
           vetoEvent;
         }
       }
+      if (p_e.eta() < 0) chg_e *= -1;
       assert(chg_e != 0);
 
       const double weight = event.weight();
-      double eta_e = p_e.pseudorapidity();
-      if(eta_e<0) chg_e *= -1;
-      eta_e = fabs(eta_e);
+      const double eta_e = fabs(p_e.eta());
       const double et_e = p_e.Et();
       if (et_e < 35*GeV) {
         // 25 <= ET < 35
