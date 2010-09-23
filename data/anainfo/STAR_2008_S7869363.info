@@ -15,7 +15,7 @@ RunInfo:
 NumEvents: 1.000.000
 Beams: [p+, p+]
 Energies: [200]
-PtCuts: 
+PtCuts:
 Description:
   'Charged Mulitplicity and identified charged particle spectra'
 BibKey: :2008ez
@@ -36,4 +36,4 @@ BibTeX: '@Article{:2008ez,
 }'
 ToDo:
  - Understand first bin in multiplicity distribution
-
+ - Normalise to generator values (just scale by 1/nPassedCuts?) rather than data areas

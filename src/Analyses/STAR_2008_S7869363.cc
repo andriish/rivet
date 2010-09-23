@@ -5,28 +5,22 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/LossyFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 
+
   class STARRandomFilter {
   public:
-    
-    STARRandomFilter()
-    {
-      // Tracking efficiency, binned in pT of track between 0 and 600 MeV, spacing = 50 MeV
-      // above pT, the efficiency is constant at 88pct.
-      //_trkeff = {0,0,0.38,0.72,0.78,0.81,0.82,0.84,0.85,0.86,0.87,0.88}; 
-    }
+
+    STARRandomFilter() { }
 
     // Return true to throw away a particle
     bool operator()(const Particle& p) {
-      /// @todo Use a better RNG
+      /// @todo Use a better RNG?
       size_t idx = floor(p.momentum().pT()/MeV/50);
       if (idx > 11) idx = 11;
       return (rand()/static_cast<double>(RAND_MAX) > _trkeff[idx]);
     }
-
 
     int compare(const STARRandomFilter& other) const {
       return true;
@@ -34,7 +28,7 @@ namespace Rivet {
 
   private:
 
-    const static double _trkeff[12]; 
+    const static double _trkeff[12];
 
   };
 
@@ -54,11 +48,10 @@ namespace Rivet {
     /// Constructor
     STAR_2008_S7869363()
       : Analysis("STAR_2008_S7869363"),
-      nCutsPassed(0), nPi(0), nPiPlus(0), nKaon(0), nKaonPlus(0), nProton(0), nAntiProton(0)
+        nCutsPassed(0),
+        nPi(0), nPiPlus(0), nKaon(0), nKaonPlus(0), nProton(0), nAntiProton(0)
     {
-      /// @todo Set approriate for your analysis
       setBeams(PROTON, PROTON);
-      /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
     }
 
@@ -83,9 +76,6 @@ namespace Rivet {
       _h_dpT_Kaonplus   = bookHistogram1D(2, 1, 4);
       _h_dpT_AntiProton = bookHistogram1D(2, 1, 5);
       _h_dpT_Proton     = bookHistogram1D(2, 1, 6);
-
-
-       
     }
 
 
@@ -93,53 +83,50 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& charged = applyProjection<FinalState>(event, "FS");
 
-      //if (charged.particles().size() == 0) {
-        //vetoEvent;
-      //}
-      
-      // Vertex reconstrucion efficiency, for events with more than 23 reconstructed tracks,
-      // the efficiency is constant at 100pct.
-      double vtxeffs[24] = {0.,0.512667,0.739365,0.847131,0.906946,0.940922,0.959328,
-        0.96997,0.975838,0.984432,0.988311,0.990327,0.990758,0.995767,0.99412,0.992271,
-        0.996631,0.994802,0.99635,0.997384,0.998986,0.996441,0.994513,1.};
-      
+      // Vertex reconstruction efficiencies as a function of charged multiplicity.
+      // For events with more than 23 reconstructed tracks the efficiency is 100%.
+      double vtxeffs[24] = { 0.000000,0.512667,0.739365,0.847131,0.906946,0.940922,0.959328,0.96997,
+                             0.975838,0.984432,0.988311,0.990327,0.990758,0.995767,0.99412,0.992271,
+                             0.996631,0.994802,0.99635,0.997384,0.998986,0.996441,0.994513,1.000000 };
+
       double vtxeff = 1.0;
-      if (charged.particles().size() < 24) vtxeff = vtxeffs[charged.particles().size()];
-      
+      if (charged.particles().size() < 24) {
+        vtxeff = vtxeffs[charged.particles().size()];
+      }
+
       const double weight = vtxeff * event.weight();
 
       foreach (const Particle& p, charged.particles()) {
         double pT = p.momentum().pT()/GeV;
         double y = p.momentum().rapidity();
-        
-        if ( fabs(y) < 0.1 ) {
-          nCutsPassed+=weight;
+        if (fabs(y) < 0.1) {
+          nCutsPassed += weight;
           const PdgId id = p.pdgId();
           switch (id) {
-             case -211:
-              _h_dpT_Pi->fill(pT, weight/(TWOPI*pT*0.2));
-              nPi+=weight;
-              break;
-             case 211:
-              _h_dpT_Piplus->fill(pT, weight/(TWOPI*pT*0.2));
-              nPiPlus+=weight;
-              break;
-             case -321:
-              _h_dpT_Kaon->fill(pT, weight/(TWOPI*pT*0.2));
-              nKaon+=weight;
-              break;
-             case 321:
-              _h_dpT_Kaonplus->fill(pT, weight/(TWOPI*pT*0.2));
-              nKaonPlus+=weight;
-              break;
-             case -2212:
-              _h_dpT_AntiProton->fill(pT, weight/(TWOPI*pT*0.2));
-              nAntiProton+=weight;
-              break;
-             case 2212:
-              _h_dpT_Proton->fill(pT, weight/(TWOPI*pT*0.2));
-              nProton+=weight;
-              break;
+          case -211:
+            _h_dpT_Pi->fill(pT, weight/(TWOPI*pT*0.2));
+            nPi += weight;
+            break;
+          case 211:
+            _h_dpT_Piplus->fill(pT, weight/(TWOPI*pT*0.2));
+            nPiPlus += weight;
+            break;
+          case -321:
+            _h_dpT_Kaon->fill(pT, weight/(TWOPI*pT*0.2));
+            nKaon += weight;
+            break;
+          case 321:
+            _h_dpT_Kaonplus->fill(pT, weight/(TWOPI*pT*0.2));
+            nKaonPlus += weight;
+            break;
+          case -2212:
+            _h_dpT_AntiProton->fill(pT, weight/(TWOPI*pT*0.2));
+            nAntiProton += weight;
+            break;
+          case 2212:
+            _h_dpT_Proton->fill(pT, weight/(TWOPI*pT*0.2));
+            nProton += weight;
+            break;
           }
         }
         else {
@@ -152,23 +139,17 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double nTot = nPi + nPiPlus + nKaon + nKaonPlus + nProton + nAntiProton;
-      
-      
-       normalize(_h_dNch);
-       
-       // Norm to data, I know, I know
+      //double nTot = nPi + nPiPlus + nKaon + nKaonPlus + nProton + nAntiProton;
+      normalize(_h_dNch);
 
-       normalize(_h_dpT_Pi        , 0.389825 );
-       normalize(_h_dpT_Piplus    , 0.396025 );
-       normalize(_h_dpT_Kaon      , 0.03897  );
-       normalize(_h_dpT_Kaonplus  , 0.04046  );
-       normalize(_h_dpT_AntiProton, 0.0187255);
-       normalize(_h_dpT_Proton    , 0.016511 );
-
-      
+      /// @todo Norm to data!
+      normalize(_h_dpT_Pi        , 0.389825 );
+      normalize(_h_dpT_Piplus    , 0.396025 );
+      normalize(_h_dpT_Kaon      , 0.03897  );
+      normalize(_h_dpT_Kaonplus  , 0.04046  );
+      normalize(_h_dpT_AntiProton, 0.0187255);
+      normalize(_h_dpT_Proton    , 0.016511 );
     }
-
 
 
   private:
@@ -182,8 +163,6 @@ namespace Rivet {
 
     AIDA::IProfile1D   *_h_pT_vs_Nch;
     double nCutsPassed, nPi, nPiPlus, nKaon, nKaonPlus, nProton, nAntiProton;
-
-
   };
 
 
