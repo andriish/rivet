@@ -56,7 +56,7 @@ namespace Rivet {
       }
       const double weight = e.weight();
 
-      int charge3_x_eta = 0;
+      double charge3_x_eta = 0;
       FourMomentum emom;
       FourMomentum wmom(wfinder.particles().front().momentum());
       _h_W_mass->fill(wmom.mass(), weight);
