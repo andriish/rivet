@@ -10,6 +10,7 @@ nobase_include_HEADERS = \
   LWH/AIManagedObject.h \
   LWH/AIBaseHistogram.h \
   LWH/AIHistogram1D.h \
+  LWH/AIHistogram2D.h \
   LWH/AIProfile1D.h \
   LWH/AIDataPointSet.h \
   LWH/AIMeasurement.h \
@@ -22,6 +23,7 @@ nobase_include_HEADERS = \
   LWH/DataPointSetFactory.h \
   LWH/ManagedObject.h \
   LWH/Histogram1D.h \
+  LWH/Histogram2D.h \
   LWH/Profile1D.h \
   LWH/DataPointSet.h \
   LWH/DataPoint.h \

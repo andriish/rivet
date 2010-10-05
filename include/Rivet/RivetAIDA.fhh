@@ -9,6 +9,7 @@ namespace AIDA {
   class IAnalysisFactory;
   class IHistogramFactory;
   class IHistogram1D;
+  class IHistogram2D;
   class IProfile1D;
   class IDataPointSetFactory;
   class IDataPointSet;

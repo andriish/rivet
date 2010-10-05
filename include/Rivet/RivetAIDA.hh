@@ -10,6 +10,7 @@
 #include "LWH/AIAnalysisFactory.h"
 #include "LWH/AIHistogramFactory.h"
 #include "LWH/AIHistogram1D.h"
+#include "LWH/AIHistogram2D.h"
 #include "LWH/AIProfile1D.h"
 #include "LWH/AITreeFactory.h"
 #include "LWH/AIDataPointSetFactory.h"

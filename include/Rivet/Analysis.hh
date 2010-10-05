@@ -218,6 +218,22 @@ namespace Rivet {
     /// @warning The old histogram will be deleted, and its pointer set to zero.
     void scale(AIDA::IHistogram1D*& histo, double scale);
 
+    /// Normalize the given histogram, @a histo. After this call the
+    /// histogram will have been transformed to a DataPointSet with the
+    /// same name and path. It has the same effect as
+    /// @c scale(histo, norm/sumOfWeights).
+    /// @param histo The histogram to be normalised.
+    /// @param norm The new area of the histogram.
+    /// @warning The old histogram will be deleted, and its pointer set to zero.
+    void normalize(AIDA::IHistogram2D*& histo, double norm=1.0);
+
+    /// Multiplicatively scale the given histogram, @a histo. After this call the
+    /// histogram will have been transformed to a DataPointSet with the same name and path.
+    /// @param histo The histogram to be scaled.
+    /// @param scale The factor used to multiply the histogram bin heights.
+    /// @warning The old histogram will be deleted, and its pointer set to zero.
+    void scale(AIDA::IHistogram2D*& histo, double scale);
+
     /// Set the cross section from the generator
     Analysis& setCrossSection(double xs);
 
@@ -300,6 +316,33 @@ namespace Rivet {
     AIDA::IHistogram1D* bookHistogram1D(const std::string& name,
                                         const std::vector<double>& binedges, const std::string& title="",
                                         const std::string& xtitle="", const std::string& ytitle="");
+
+    /// Book a 2D histogram with @a nxbins and @a nybins uniformly
+    /// distributed across the ranges @a xlower - @a xupper and @a
+    /// ylower - @a yupper respectively along the x- and y-axis.
+    /// (NB. this returns a pointer rather than a reference since it
+    /// will have to be stored in the analysis class - there's no
+    /// point in forcing users to explicitly get the pointer from a
+    /// reference before they can use it!)
+    AIDA::IHistogram2D*
+    bookHistogram2D(const std::string& name,
+		    size_t nxbins, double xlower, double xupper,
+		    size_t nybins, double ylower, double yupper,
+		    const std::string& title="", const std::string& xtitle="",
+		    const std::string& ytitle="", const std::string& ztitle="");
+
+    /// Book a 2D histogram with non-uniform bins defined by the
+    /// vectorx of bin edges @a xbinedges and @a ybinedges.
+    /// (NB. this returns a pointer rather than a reference since it
+    /// will have to be stored in the analysis class - there's no
+    /// point in forcing users to explicitly get the pointer from a
+    /// reference before they can use it!)
+    AIDA::IHistogram2D*
+    bookHistogram2D(const std::string& name,
+		    const std::vector<double>& xbinedges,
+		    const std::vector<double>& ybinedges,
+		    const std::string& title="", const std::string& xtitle="",
+		    const std::string& ytitle="", const std::string& ztitle="");
 
     /// Book a 1D histogram based on the name in the corresponding AIDA
     /// file. The binnings will be obtained by reading the bundled AIDA data

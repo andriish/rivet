@@ -113,11 +113,60 @@ class IDataPoint;
       return true;
     }
 
+    /**
+     * Get the z-axis title.
+     * @return The title.
+     *
+     */
+    std::string ztitle() const {
+      return theZTitle;
+    }
+
+    /**
+     * Set the z-axis title.
+     * @param title The new title.
+     * @return false If the title cannot be set.
+     *
+     */
+    bool setZTitle(const std::string & ztitle) {
+      theZTitle = ztitle;
+      return true;
+    }
+
+    /**
+     * Get the z-axis title.
+     * @return The title.
+     *
+     */
+    std::string title(int i) const {
+      switch ( i ) {
+      case 0: return theXTitle;
+      case 1: return theYTitle;
+      case 2: return theZTitle;
+      default: return "";
+      }
+    }
+
+    /**
+     * Set the <i>-axis title.
+     * @param title The new title.
+     * @return false If the title cannot be set.
+     *
+     */
+    bool setTitle(int i, const std::string & title) {
+      if ( i == 0 ) theXTitle = title;
+      else if ( i == 1 ) theYTitle = title;
+      else if ( i == 2 ) theZTitle = title;
+      else return false;
+      return true;
+    }
+
 
   protected:
     std::string theTitle;
     std::string theXTitle;
     std::string theYTitle;
+    std::string theZTitle;
 
   };
 

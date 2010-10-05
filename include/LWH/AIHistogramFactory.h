@@ -67,7 +67,26 @@ namespace AIDA {
     // virtual IDataPointSet * divide(const std::string &, const IProfile1D &,
     //                                const IProfile1D &) = 0;
 
-    
+    virtual IHistogram2D *
+    createHistogram2D(const std::string & path, const std::string & title,
+		      int nx, double xlo, double xup,
+		      int ny, double ylo, double yup,
+		      const std::string & = "") = 0;
+
+    virtual IHistogram2D *
+    createHistogram2D(const std::string & pathAndTitle,
+		      int nx, double xlo, double xup,
+		      int ny, double ylo, double yup) = 0;
+
+    virtual IHistogram2D *
+    createHistogram2D(const std::string & path, const std::string & title,
+		      const std::vector<double> & xedges,
+		      const std::vector<double> & yedges,
+		      const std::string & = "") = 0;
+
+    virtual IHistogram2D *
+    createCopy(const std::string & path, const IHistogram2D & hist) = 0;
+
   };
   
 }

@@ -8,6 +8,7 @@
 #include "AIDataPointSetFactory.h"
 #include "DataPointSet.h"
 #include "Histogram1D.h"
+#include "Histogram2D.h"
 #include "Profile1D.h"
 #include "Tree.h"
 #include <string>
@@ -58,7 +59,7 @@ public:
     if ( !tree->insert(path, dset) ) {
       delete dset;
       dset = 0;
-      throw std::runtime_error("LWH could not create DataPointSet '"
+      throw std::runtime_error("LWH couldn't create DataPointSet '"
 			       + title + "'." );
     }
     return dset;
@@ -399,11 +400,11 @@ public:
 	    const std::vector<double> & exm, const std::vector<double> & eym,
 	    const std::vector<double>  & ezm) {
     IDataPointSet * dset = create(path, title, 3);
-    for ( int i = 0, N = y.size(); i < N; ++i ) dset->addPoint(DataPoint(3));
+    for ( int i = 0, N = z.size(); i < N; ++i ) dset->addPoint(DataPoint(3));
     if ( !dset->setCoordinate(0, x, exp, exm) ||
          !dset->setCoordinate(1, y, eyp, eym) ||
          !dset->setCoordinate(2, z, ezp, ezm) )
-      throw std::runtime_error("LWH could add points to DataPointSet '" +
+      throw std::runtime_error("LWH could not add points to DataPointSet '" +
 			       title +  "'." );
     return dset;
   }
@@ -562,6 +563,56 @@ public:
 
 
   /**
+   * Create an IDataPointSet from an IHistogram2D.
+   * @param path  The path of the IDataPointSet. The path can either
+   *              be a relative or full path.
+   *              ("/folder1/folder2/dataName" and "../folder/dataName"
+   *              are valid paths). All the directories in the path
+   *              must exist. The characther `/` cannot be used in
+   *              names; it is only used to delimit directories within
+   *		    paths.
+   * @param hist    The IHistogram2D from which the data is taken.
+   * @param options Options, currently not specified
+   * @return        The newly created IDataPointSet.
+   */
+  virtual IDataPointSet *
+  create(const std::string & path, const IHistogram2D & hist,
+         const std::string & = "") {
+    IDataPointSet * dset = create(path, hist.title(), 3);
+    //std::cout << hist.xtitle() << " & " << hist.ytitle() << std::endl;
+
+    dset->setXTitle(hist.xtitle());
+    dset->setYTitle(hist.ytitle());
+    std::vector<double> x, y, z, ex, ey, ez;
+    for ( int ix = 2, Nx = hist.xAxis().bins() + 2; ix < Nx; ++ix )
+      for ( int iy = 2, Ny = hist.yAxis().bins() + 2; iy < Ny; ++iy ) {
+      dset->addPoint(DataPoint(3));
+      //x.push_back(hist.binMean(i - 2)); // < "Dynamic" version
+      // Shouldn't IAxis have a binCentre(size_t binId) method? (According to Java AIDA v3.3.0 API)
+      x.push_back((hist.xAxis().binLowerEdge(ix - 2) +
+		   hist.xAxis().binUpperEdge(ix - 2))/2.0);
+      ex.push_back(hist.xAxis().binWidth(ix - 2)/2.0);
+      /// @todo This is not really the height or error: width needs to be included...
+      y.push_back((hist.yAxis().binLowerEdge(iy - 2) +
+		   hist.yAxis().binUpperEdge(iy - 2))/2.0);
+      ey.push_back(hist.yAxis().binWidth(iy - 2)/2.0);
+      /// @todo This is not really the height or error: width needs to be included...
+      const double binwidth = hist.xAxis().binWidth(ix - 2)*
+	hist.yAxis().binWidth(iy - 2);
+      z.push_back(hist.binHeight(ix - 2, iy - 2)/binwidth);
+      //ey.push_back(hist.binError(i - 2)/2.0/binwidth);
+      ez.push_back(hist.binError(ix - 2, iy - 2)/binwidth);
+    }
+    if ( !dset->setCoordinate(0, x, ex, ex) ||
+         !dset->setCoordinate(1, y, ey, ey) ||
+         !dset->setCoordinate(2, z, ez, ez) )
+      throw std::runtime_error("LWH could not add points to DataPointSet '" +
+			       hist.title() +  "'." );
+    return dset;
+  }
+
+
+  /**
    * Create an IDataPointSet from an IProfile1D.
    * @param path  The path of the IDataPointSet. The path can either
    *              be a relative or full path.
@@ -599,14 +650,6 @@ public:
     return dset;
   }
 
-
-  /**
-   * LWH cannot handle a IHistogram2D.
-   */
-  virtual IDataPointSet * create(const std::string &, const IHistogram2D &,
-				 const std::string & = "") {
-    return error<IDataPointSet>("IHistogram2D");
-  }
 
   /**
    * LWH cannot handle a IHistogram3D.

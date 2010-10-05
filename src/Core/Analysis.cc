@@ -378,6 +378,44 @@ namespace Rivet {
     return hist;
   }
 
+  IHistogram2D*
+  Analysis::bookHistogram2D(const string& hname,
+			    size_t nxbins, double xlower, double xupper,
+			    size_t nybins, double ylower, double yupper,
+			    const string& title, const string& xtitle,
+			    const string& ytitle, const string& ztitle) {
+    _makeHistoDir();
+    const string path = histoPath(hname);
+    IHistogram2D* hist =
+      histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
+					   nybins, ylower, yupper);
+    getLog() << Log::TRACE << "Made 2D histogram "
+	     << hname <<  " for " << name() << endl;
+    hist->setXTitle(xtitle);
+    hist->setYTitle(ytitle);
+    hist->setZTitle(ztitle);
+    return hist;
+  }
+
+
+  IHistogram2D*
+  Analysis::bookHistogram2D(const string& hname,
+			    const vector<double>& xbinedges,
+			    const vector<double>& ybinedges,
+			    const string& title, const string& xtitle,
+			    const string& ytitle, const string& ztitle) {
+    _makeHistoDir();
+    const string path = histoPath(hname);
+    IHistogram2D* hist =
+      histogramFactory().createHistogram2D(path, title, xbinedges, ybinedges);
+    getLog() << Log::TRACE << "Made 2D histogram " << hname <<  " for "
+	     << name() << endl;
+    hist->setXTitle(xtitle);
+    hist->setYTitle(ytitle);
+    hist->setZTitle(ztitle);
+    return hist;
+  }
+
 
   /////////////////
 
@@ -567,6 +605,87 @@ namespace Rivet {
     AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
     dps->setXTitle(xtitle);
     dps->setYTitle(ytitle);
+
+    tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
+    tree().rmdir("/tmpnormalize");
+
+    // Set histo pointer to null - it can no longer be used.
+    histo = 0;
+  }
+
+
+  void Analysis::normalize(AIDA::IHistogram2D*& histo, double norm) {
+    if (!histo) {
+      getLog() << Log::ERROR << "Failed to normalise histo=NULL in analysis "
+               << name() << " (norm=" << norm << ")" << endl;
+      return;
+    }
+    const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
+    getLog() << Log::TRACE << "Normalizing histo " << hpath << " to " << norm << endl;
+
+    double oldintg = 0.0;
+    int nxBins = histo->xAxis().bins();
+    int nyBins = histo->yAxis().bins();
+    for (int ixBin = 0; ixBin != nxBins; ++ixBin)
+      for (int iyBin = 0; iyBin != nyBins; ++iyBin) {
+      // Leaving out factor of binWidth because AIDA's "height"
+      // already includes a width factor.
+	oldintg += histo->binHeight(ixBin, iyBin); // * histo->axis().binWidth(iBin);
+    }
+    if (oldintg == 0.0) {
+      getLog() << Log::WARN << "Histo " << hpath
+	       << " has null integral during normalisation" << endl;
+      return;
+    }
+
+    // Scale by the normalisation factor.
+    scale(histo, norm/oldintg);
+  }
+
+
+  void Analysis::scale(AIDA::IHistogram2D*& histo, double scale) {
+    if (!histo) {
+      getLog() << Log::ERROR << "Failed to scale histo=NULL in analysis "
+	       << name() << " (scale=" << scale << ")" << endl;
+      return;
+    }
+    const string hpath =
+      tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
+    getLog() << Log::TRACE << "Scaling histo " << hpath << endl;
+
+    vector<double> x, y, z, ex, ey, ez;
+    for (size_t ix = 0, Nx = histo->xAxis().bins(); ix < Nx; ++ix)
+      for (size_t iy = 0, Ny = histo->yAxis().bins(); iy < Ny; ++iy) {
+	x.push_back(0.5 * (histo->xAxis().binLowerEdge(ix) +
+			   histo->xAxis().binUpperEdge(ix)));
+	ex.push_back(histo->xAxis().binWidth(ix)*0.5);
+	y.push_back(0.5 * (histo->yAxis().binLowerEdge(iy) +
+			   histo->yAxis().binUpperEdge(iy)));
+	ey.push_back(histo->yAxis().binWidth(iy)*0.5);
+
+	// "Bin height" is a misnomer in the AIDA spec: width is neglected.
+	// We'd like to do this: y.push_back(histo->binHeight(i) * scale);
+	z.push_back(histo->binHeight(ix, iy)*scale/
+		    (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
+	// "Bin error" is a misnomer in the AIDA spec: width is neglected.
+	// We'd like to do this: ey.push_back(histo->binError(i) * scale);
+	ez.push_back(histo->binError(ix, iy)*scale/
+		     (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
+    }
+
+    string title = histo->title();
+    string xtitle = histo->xtitle();
+    string ytitle = histo->ytitle();
+    string ztitle = histo->ztitle();
+
+    tree().mkdir("/tmpnormalize");
+    tree().mv(hpath, "/tmpnormalize");
+
+    AIDA::IDataPointSet* dps =
+      datapointsetFactory().createXYZ(hpath, title, x, y, z, ex, ey, ez);
+    dps->setXTitle(xtitle);
+    dps->setYTitle(ytitle);
+    dps->setZTitle(ztitle);
 
     tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
     tree().rmdir("/tmpnormalize");

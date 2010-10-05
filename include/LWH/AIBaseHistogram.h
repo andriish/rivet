@@ -87,11 +87,32 @@ namespace AIDA {
       return true;
     }
 
+    /**
+     * Get the z-axis title.
+     * @return The title.
+     *
+     */
+    std::string ztitle() const {
+      return theZTitle;
+    }
+
+    /**
+     * Set the z-axis title.
+     * @param title The new title.
+     * @return false If the title cannot be set.
+     *
+     */
+    bool setZTitle(const std::string & ztitle) {
+      theZTitle = ztitle;
+      return true;
+    }
+
 
   protected:
     std::string theTitle;
     std::string theXTitle;
     std::string theYTitle;
+    std::string theZTitle;
 
   };
   
