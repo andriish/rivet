@@ -11,6 +11,7 @@ if test $# -lt 2 || test -n "$tmp"; then
     echo
     echo "Options:"
     echo "  -h | --help: display this help message"
+    echo "  --with-root: add ROOT link options (requires root-config on system)"
     test -n "$tmp"
     exit $?
 fi
@@ -31,6 +32,13 @@ if [[ -z "$CXX" ]]; then
     CXX=g++
 fi
 
+## Link against ROOT if requested
+with_root=$(echo $* | egrep -- '--\<with-root\>')
+# echo $with_root
+tmp=${@//--with-root/}
+set $tmp
+
+
 ## Get and check the library name
 libname=$1
 match=$(basename "$libname" | egrep '^Rivet.*\.so')
@@ -41,13 +49,18 @@ fi
 
 ## Get the source files (and more flags)
 shift
-sources="$@"
+sources_and_flags="$@"
+if [[ -n $with_root ]]; then
+    root_flags=$(root-config --libs 2> /dev/null)
+    # echo $root_flags
+    sources_and_flags="$root_flags $sources_and_flags"
+fi
 
 ## Get Rivet include flags
 RIVETCONFIG=$(PATH="`dirname $0`:$PATH:." which rivet-config)
 cppflags=$($RIVETCONFIG --cppflags)
 
 ## Build
-cmd="$CXX -o \"$libname\" $shared_flags $cppflags $sources"
+cmd="$CXX -o \"$libname\" $shared_flags $cppflags $sources_and_flags"
 echo $cmd
 eval $cmd
