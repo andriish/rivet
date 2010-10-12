@@ -283,6 +283,22 @@ MainPlot=0
 --------------------
 
 
+Color Palettes for 2-dim Plots
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With the option `ColorSeries` you can define a custom color palette for
+2-dimensional plots. The syntax is the same as for the `\definecolorseries`
+command in the `xcolor` LaTeX package after the color series name, i.e.
+`{core-model}{method}[begin-model]{begin-spec}[end-model]{end-spec}`. For more
+information you can consult the 
+http://www.ctan.org/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf[xcolor documentation].
+Here is an example:
+
+--------------------
+ColorSeries={rgb}{last}[rgb]{1,0.97,0.94}[rgb]{0.6,0.0,0.05}
+--------------------
+
+
 HISTOGRAM
 ~~~~~~~~~
 

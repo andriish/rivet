@@ -381,7 +381,11 @@ class Plot:
         out += ('\\begin{pspicture}(0,0)(0,0)\n')
         out += ('\\psset{xunit=%scm}\n' %(inputdata.description['PlotSizeX']))
         if inputdata.description['is2dim']:
-            out += ('\\definecolorseries{gradientcolors}{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}\n')
+            if inputdata.description.has_key('ColorSeries') and inputdata.description['ColorSeries']!='':
+                colorseries = inputdata.description['ColorSeries']
+            else:
+                colorseries = '{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}'
+            out += ('\\definecolorseries{gradientcolors}%s\n' %colorseries)
             out += ('\\resetcolorseries[130]{gradientcolors}\n')
         return out
 
