@@ -11,6 +11,7 @@
 #include "VariAxis.h"
 #include <vector>
 #include <stdexcept>
+#include <cassert>
 
 #include <iostream>
 #ifdef HAVE_ROOT
@@ -354,7 +355,7 @@ public:
     const size_t i = index + 2;
     if (sumw[i] > 0.0) {
       const double n_eff = sumw[i]*sumw[i] / sumw2[i];
-      if (n_eff < 1.0) {
+      if (n_eff <= 1.0) {
         return sumyw[i]/n_eff;
       }
       const double denom = sumw[i]*sumw[i] - sumw2[i];
