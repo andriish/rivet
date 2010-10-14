@@ -10,7 +10,6 @@ libRivet_la_SOURCES =
 
 libRivet_la_LDFLAGS = \
   -L$(prefix)/lib \
-  -L$(GSLLIBPATH) \
   -L$(HEPMCLIBPATH) \
   -export-dynamic $(VERSIONINFOFLAGS)
 

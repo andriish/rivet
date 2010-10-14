@@ -4,7 +4,7 @@ exec_prefix=@exec_prefix@
 datarootdir=@datarootdir@
 
 export PATH="$exec_prefix/bin:$PATH"
-export @LIBPATHVARNAME@="@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$@LIBPATHVARNAME@"
+export @LIBPATHVARNAME@="@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:$@LIBPATHVARNAME@"
 export PYTHONPATH="@RIVET_PYTHONPATH@:$PYTHONPATH"
 export TEXMFHOME="@datadir@/Rivet/texmf:$TEXMFHOME"
 export HOMETEXMF="@datadir@/Rivet/texmf:$HOMETEXMF"

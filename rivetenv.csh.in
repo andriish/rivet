@@ -4,7 +4,7 @@ set exec_prefix=@exec_prefix@
 set datarootdir=@datarootdir@
 
 setenv PATH "$exec_prefix/bin:$PATH"
-setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@GSLLIBPATH@:$@LIBPATHVARNAME@"
+setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:$@LIBPATHVARNAME@"
 
 if ($?PYTHONPATH) then
 setenv PYTHONPATH "@RIVET_PYTHONPATH@:$PYTHONPATH"
