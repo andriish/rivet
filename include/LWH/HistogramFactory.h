@@ -781,8 +781,8 @@ public:
 
 
   inline bool _neq(double a, double b, double eps = 1e-5) const {
-    if (a == 0 && b == 0) return false;
-    if (fabs(a-b) < eps*(a+b)) return false;
+    if ( a == 0 && b == 0 ) return false;
+    if ( fabs(a - b) < eps*(fabs(a) + fabs(b)) ) return false;
     return true;
   }
 
