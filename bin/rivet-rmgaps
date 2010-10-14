@@ -72,9 +72,9 @@ class Histogram:
         f.write('    </dataPoint>\n')
 
     def write_datapointset_header(self, f):
-        title = self.description.setdefault('Title', None)
-        xlabel = self.description.setdefault('XLabel', None)
-        ylabel = self.description.setdefault('YLabel', None)
+        title = self.description.setdefault('Title', '')
+        xlabel = self.description.setdefault('XLabel', '')
+        ylabel = self.description.setdefault('YLabel', '')
         path = self.description.setdefault('AidaPath', None)
         if path is not None:
             path = path.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')
@@ -82,12 +82,9 @@ class Histogram:
         f.write('    path="%s" title="%s">\n' % (os.path.abspath(path.replace(path.split('/')[-1], '')),
                                                  title.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;')))
         f.write('    <annotation>\n')
-        if title is not None:
-            f.write('      <item key="Title" value="%s" sticky="true"/>\n' % title.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
-        if xlabel is not None:
-            f.write('      <item key="XLabel" value="%s" sticky="true"/>\n' % xlabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
-        if ylabel is not None:
-            f.write('      <item key="YLabel" value="%s" sticky="true"/>\n' % ylabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
+        f.write('      <item key="Title" value="%s" sticky="true"/>\n' % title.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
+        f.write('      <item key="XLabel" value="%s" sticky="true"/>\n' % xlabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
+        f.write('      <item key="YLabel" value="%s" sticky="true"/>\n' % ylabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
         f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' % path)
         f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' % (filename.split('/')[-1], path))
         f.write('    </annotation>\n')
