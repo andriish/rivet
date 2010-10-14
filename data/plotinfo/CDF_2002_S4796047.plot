@@ -15,7 +15,7 @@ FullRange=1
 # BEGIN PLOT /CDF_2002_S4796047/d03-x01-y01
 Title=$\langle p_\perp \rangle$ vs. multiplicity at $\sqrt{s} = 630~\text{GeV}$, $|\eta| < 1$, $p_T > 0.4~\text{GeV}$
 XLabel=$N_\text{ch}$
-YLabel=$\left< p_T \right>$
+YLabel=$\langle p_T \rangle$
 LogY=0
 LegendXPos=0.55
 ShowZero=0
@@ -24,7 +24,7 @@ ShowZero=0
 # BEGIN PLOT /CDF_2002_S4796047/d04-x01-y01
 Title=$\langle p_\perp \rangle$ vs. multiplicity at $\sqrt{s} = 1800~\text{GeV}$, $|\eta| < 1$, $p_T > 0.4~\text{GeV}$
 XLabel=$N_\text{ch}$
-YLabel=$\left< p_T \right>$
+YLabel=$\langle p_T \rangle$
 LogY=0
 LegendXPos=0.55
 ShowZero=0
