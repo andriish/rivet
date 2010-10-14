@@ -88,8 +88,8 @@ class Histogram:
             f.write('      <item key="XLabel" value="%s" sticky="true"/>\n' % xlabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
         if ylabel is not None:
             f.write('      <item key="YLabel" value="%s" sticky="true"/>\n' % ylabel.replace('>', '&gt;').replace('<', '&lt;').replace('"', '&quot;'))
-            f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' % path)
-            f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' % (filename.split('/')[-1], path))
+        f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' % path)
+        f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' % (filename.split('/')[-1], path))
         f.write('    </annotation>\n')
         f.write('    <dimension dim="0" title="%s" />\n' % xlabel)
         f.write('    <dimension dim="1" title="%s" />\n' % ylabel)
