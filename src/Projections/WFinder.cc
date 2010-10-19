@@ -149,15 +149,33 @@ namespace Rivet {
 
   void WFinder::project(const Event& e) {
     clear();
+    const InvMassFinalState& imfs = applyProjection<InvMassFinalState>(e, "IMFS");
 
-    const FinalState& imfs = applyProjection<FinalState>(e, "IMFS");
+    Particle p1 = imfs.particles()[0];
+    Particle p2 = imfs.particles()[1];
     if (imfs.particles().size() != 2) {
-      getLog() << Log::DEBUG << "No W+- candidates found" << endl;
-      return;
+      // no candiate, return
+      if(imfs.particles().empty()) {
+	getLog() << Log::DEBUG << "No W+- candidates found" << " "
+		 << imfs.particles().size() << " " << endl;
+	return;
+      }
+      // more than one, pick the one nearer the W mass
+      double deltaM = 1e30;
+      for(unsigned int ix=0;ix<imfs.particlePairs().size();++ix) {
+	FourMomentum pW = imfs.particlePairs()[ix].first .momentum()+
+	  imfs.particlePairs()[ix].second.momentum();
+	double mW = pW.mass();
+	if(abs(mW-80.403)<deltaM) {
+	  deltaM = abs(mW-80.4);
+	  p1 = imfs.particlePairs()[ix].first ;
+	  p2 = imfs.particlePairs()[ix].second;
+	}
+      }
     }
 
-    FourMomentum pW = imfs.particles()[0].momentum() + imfs.particles()[1].momentum();
-    const int w3charge = PID::threeCharge(imfs.particles()[0]) + PID::threeCharge(imfs.particles()[1]);
+    FourMomentum pW = p1.momentum() + p2.momentum();
+    const int w3charge = PID::threeCharge(p1) + PID::threeCharge(p2);
     assert(abs(w3charge) == 3);
     const int wcharge = w3charge/3;
 
@@ -165,8 +183,8 @@ namespace Rivet {
     string wsign = (wcharge == 1) ? "+" : "-";
     string wstr = "W" + wsign;
     msg << wstr << " reconstructed from: " << endl
-        << "   " << imfs.particles()[0].momentum() << " " << imfs.particles()[0].pdgId() << endl
-        << " + " << imfs.particles()[1].momentum() << " " << imfs.particles()[1].pdgId() << endl;
+        << "   " << p1.momentum() << " " << p1.pdgId() << endl
+        << " + " << p2.momentum() << " " << p2.pdgId() << endl;
 
     // Add in clustered photons
     const FinalState& photons = applyProjection<FinalState>(e, "CPhotons");
