@@ -87,6 +87,18 @@ namespace Rivet {
     // Now calculate the inv mass
     foreach (const Particle* i1, type1) {
       foreach (const Particle* i2, type2) {
+	// check this is actually a pair 
+	// (if more than one pair in vector particles can be unrelated)
+	bool found = false;
+	foreach (const PdgIdPair& ipair, _decayids) {
+	  if (i1->pdgId() == ipair.first &&
+	      i2->pdgId() == ipair.second) {
+	    found=true;
+	    break;
+	  }
+	}
+	if(!found) continue;
+
         FourMomentum v4 = i1->momentum() + i2->momentum();
         if (v4.mass2() < 0) {
           getLog() << Log::DEBUG << "Constructed negative inv mass2: skipping!" << endl;
