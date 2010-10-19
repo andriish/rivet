@@ -151,9 +151,12 @@ namespace Rivet {
     clear();
     const InvMassFinalState& imfs = applyProjection<InvMassFinalState>(e, "IMFS");
 
-    Particle p1 = imfs.particles()[0];
-    Particle p2 = imfs.particles()[1];
-    if (imfs.particles().size() != 2) {
+    Particle p1,p2;
+    if(imfs.particles().size() == 2) {
+      p1 = imfs.particles()[0];
+      p2 = imfs.particles()[1];
+    }
+    else {
       // no candiate, return
       if(imfs.particles().empty()) {
 	getLog() << Log::DEBUG << "No W+- candidates found" << " "
