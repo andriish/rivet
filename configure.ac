@@ -66,13 +66,13 @@ AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I$HEPMCINCPATH"
 if test -e "$HEPMCINCPATH/HepMC/HepMCDefs.h"; then
-  AC_LANG_CONFTEST([#include <iostream>
+  AC_LANG_CONFTEST([AC_LANG_SOURCE([#include <iostream>
 #include "HepMC/HepMCDefs.h"
-int main() { std::cout << HEPMC_VERSION << std::endl; return 0; }])
+int main() { std::cout << HEPMC_VERSION << std::endl; return 0; }])])
 else
-  AC_LANG_CONFTEST([#include <iostream>
+  AC_LANG_CONFTEST([AC_LANG_SOURCE([#include <iostream>
 #include "HepMC/defs.h"
-int main() { std::cout << VERSION << std::endl; return 0; }])
+int main() { std::cout << VERSION << std::endl; return 0; }])])
 fi
 if test -f conftest.cc; then
   $CXX $CPPFLAGS conftest.cc -o conftest 2>&1 1>&5
