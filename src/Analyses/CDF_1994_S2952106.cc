@@ -122,8 +122,8 @@ namespace Rivet {
       _Et_sum = 0.;
       for (size_t i=0; i< jets.size(); ++i) {
         _Et_sinphi_sum = jets[i].momentum().Et() * sin(jets[i].phi());
-        _Et_cosphi_sum = jets[i].momentum().Et() * sin(jets[i].phi());
-        _Et_sum = jets[i].momentum().Et() * sin(jets[i].phi());
+        _Et_cosphi_sum = jets[i].momentum().Et() * cos(jets[i].phi());
+        _Et_sum = jets[i].momentum().Et();
       }
       if (sqrt(_Et_sinphi_sum*_Et_sinphi_sum + _Et_cosphi_sum*_Et_cosphi_sum)/_Et_sum > 6.0)
         vetoEvent;
@@ -138,7 +138,7 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Jet 1 & 2 eta, pT requirements fulfilled" << endl;
 
       // Require that jets are back-to-back within 20 degrees in phi
-      if (deltaPhi(pj1.phi(), pj2.phi()) < 17.0/18.0 * PI) vetoEvent;
+      if (deltaPhi(pj1.phi(), pj2.phi()) < 8./9. * PI) vetoEvent;
       getLog() << Log::DEBUG << "Jet 1 & 2 phi requirement fulfilled" << endl;
 
       const double weight = event.weight();
@@ -282,33 +282,31 @@ namespace Rivet {
       _histAlphaCorr->setCoordinate(1, yval_alpha, yerr_alpha);
 
 
-      //AIDA::IHistogramFactory& hf = histogramFactory();
-      //AIDA::IDataPointSetFactory& hf = datapointsetFactory();
-
+      AIDA::IDataPointSetFactory& hf = datapointsetFactory();
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d03-x01-y01", *_histJet3eta, *_histEta3Corr);
       //hf.multiply("/_histJet3eta", *_histJet3eta, *_histEta3Corr);
       //_histJet3eta = hf.multiply("/_histJet3eta", *_histJet3eta, *_histEta3Corr);
-      //hf.destroy(_histEta3Corr);
+      datapointsetFactory().destroy(_histEta3Corr);
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d04-x01-y01", *_histR23, *_histR23Corr);
       //hf.multiply("/_histR23", *_histR23, *_histR23Corr);
-      //hf.destroy(_histR23Corr);
+      datapointsetFactory().destroy(_histR23Corr);
 
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d05-x01-y01", *_histAlpha, *_histAlphaCorr);
       //hf.multiply("/_histAlpha", *_histAlpha, *_histAlphaCorr);
-      //hf.destroy(_histAlphaCorr);
+      datapointsetFactory().destroy(_histAlphaCorr);
 
-
-      // //getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
-      // Prefer to norm to ref data via rivet-rescale
-      // normalize(_histJet1Et, 12.3025); //norm to integral of Ref data
-      // normalize(_histJet2Et, 12.4565); //norm to integral of Ref data
-      // normalize(_histJet3eta, 0.19864); //norm to integral of Ref data
-      // normalize(_histR23, 0.125675); //norm to integral of Ref data
-      // normalize(_histAlpha, 4.5099); //norm to integral of Ref data
+      //getLog() << Log::INFO << "Cross-section = " << crossSection()/picobarn << " pb" << endl;
+      // plots have unit area given error from reading data from plot in paper
+      // so divide by bin width
+      normalize(_histJet1Et, 12.5);
+      normalize(_histJet2Et, 12.5);
+      normalize(_histJet3eta, 0.2);
+      normalize(_histR23, 0.125);
+      normalize(_histAlpha, 4.5);
     }
 
     //@}
