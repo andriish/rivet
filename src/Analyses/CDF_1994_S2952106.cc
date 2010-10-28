@@ -282,7 +282,7 @@ namespace Rivet {
       _histAlphaCorr->setCoordinate(1, yval_alpha, yerr_alpha);
 
 
-      AIDA::IDataPointSetFactory& hf = datapointsetFactory();
+      //AIDA::IDataPointSetFactory& hf = datapointsetFactory();
       /// @todo Histo factory output paths don't work this way
       //hf.multiply(histoDir() + "/d03-x01-y01", *_histJet3eta, *_histEta3Corr);
       //hf.multiply("/_histJet3eta", *_histJet3eta, *_histEta3Corr);

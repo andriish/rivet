@@ -10,7 +10,7 @@ libRivet_la_SOURCES =
 
 libRivet_la_LDFLAGS = \
   -L$(prefix)/lib \
-  -L$(HEPMCLIBPATH) \
+  -L$(HEPMCLIBPATH) -R$(HEPMCLIBPATH) \
   -export-dynamic $(VERSIONINFOFLAGS)
 
 libRivet_la_LIBADD  = \
