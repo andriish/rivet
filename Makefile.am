@@ -1,6 +1,8 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src pyext data include bin doc test
 
+dist_pkgdata_DATA = rivetenv.sh rivetenv.csh
+
 EXTRA_DIST = GUIDELINES
 
 doc:

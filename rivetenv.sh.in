@@ -8,3 +8,5 @@ export @LIBPATHVARNAME@="@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:$@LIBPATHVARNA
 export PYTHONPATH="@RIVET_PYTHONPATH@:$PYTHONPATH"
 export TEXMFHOME="@datadir@/Rivet/texmf:$TEXMFHOME"
 export HOMETEXMF="@datadir@/Rivet/texmf:$HOMETEXMF"
+
+if (complete &> /dev/null); then source "@datadir@/Rivet/rivet-completion"; fi
