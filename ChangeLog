@@ -1,3 +1,8 @@
+2010-10-29  Andy Buckley  <andy@insectnation.org>
+
+	* Allow passing a general FinalState reference to the JetShape
+	projection, rather than requiring a VetoedFS.
+
 2010-10-07  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a --with-root flag to rivet-buildplugin to add
