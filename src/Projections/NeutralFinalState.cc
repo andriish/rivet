@@ -18,7 +18,7 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     foreach (const Particle& p, fs.particles()){
-      if ((PID::threeCharge(p.pdgId()) != 0) && (p.momentum().Et() > _Etmin)) {
+      if ((PID::threeCharge(p.pdgId()) == 0) && (p.momentum().Et() > _Etmin)) {
         _theParticles.push_back(p);
         if (getLog().isActive(Log::TRACE)) {
           getLog() << Log::TRACE
