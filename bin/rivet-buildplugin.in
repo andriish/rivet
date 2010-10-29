@@ -36,14 +36,33 @@ else
 fi
 
 ## Get Rivet system C++ compiler (fall back to $CXX and then g++ if needed)
-MYCXX=g++
-RIVETCXX=$(which "@CXX@" 2> /dev/null)
-ABSCXX=$(which "$CXX" 2> /dev/null)
-if [[ -x "$RIVETCXX" ]]; then
-    MYCXX="@CXX@"
-elif [[ -x "$ABSCXX" ]]; then
-    MYCXX=$CXX
+mycxx=g++
+rivetcxx=$(which "@CXX@" 2> /dev/null)
+abscxx=$(which "$CXX" 2> /dev/null)
+if [[ -x "$rivetcxx" ]]; then
+    mycxx="@CXX@"
+elif [[ -x "$abscxx" ]]; then
+    mycxx=$CXX
 fi
+
+## Get Rivet system C++ compiler flags
+mycxxflags=""
+if [[ -n "@CXXFLAGS@" ]]; then
+    mycxxflags="@CXXFLAGS@"
+fi
+
+## Get Rivet system C preprocessor flags (duplicating that in rivet-config.in)
+mycppflags=""
+irivet="@includedir@"
+test -n "$irivet" && mycppflags="$mycppflags -I${irivet}"
+ihepmc="@HEPMCINCPATH@"
+test -n "$ihepmc" && mycppflags="$mycppflags -I${ihepmc}"
+ifastjet="@FASTJETINCPATH@"
+test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
+igsl="@GSLINCPATH@"
+test -n "$igsl" && mycppflags="$mycppflags -I${igsl}"
+iboost="@BOOSTINCPATH@"
+test -n "$iboost" && mycppflags="$mycppflags -I${iboost}"
 
 ## Link against ROOT if requested
 with_root=$(echo $* | egrep -- '--\<with-root\>')
@@ -69,11 +88,7 @@ if [[ -n $with_root ]]; then
     sources_and_flags="$root_flags $sources_and_flags"
 fi
 
-## Get Rivet include flags
-RIVETCONFIG=$(PATH="`dirname $0`:$PATH:." which rivet-config)
-cppflags=$($RIVETCONFIG --cppflags)
-
 ## Build
-cmd="$MYCXX -o \"$libname\" $shared_flags $cppflags $sources_and_flags"
+cmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $CPPFLAGS $CXXFLAGS $sources_and_flags"
 echo $cmd
 eval $cmd
