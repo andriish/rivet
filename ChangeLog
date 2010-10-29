@@ -1,5 +1,11 @@
 2010-10-29  Andy Buckley  <andy@insectnation.org>
 
+	* Making rivet-buildplugin use the same C++ compiler and CXXFLAGS
+	variable as used for the Rivet system build.
+
+	* Fixing NeutralFinalState projection to, erm, actually select
+	neutral particles (by Hendrik).
+
 	* Allow passing a general FinalState reference to the JetShape
 	projection, rather than requiring a VetoedFS.
 

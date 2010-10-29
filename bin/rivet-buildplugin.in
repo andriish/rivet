@@ -1,4 +1,6 @@
 #! /usr/bin/env bash
+## -*- sh -*-
+## @configure_input@
 
 ## Print help
 PROG=$(basename $0)
@@ -33,9 +35,14 @@ else
   shared_flags="-shared -fPIC"
 fi
 
-## Get a C++ compiler
-if [[ -z "$CXX" ]]; then
-    CXX=g++
+## Get Rivet system C++ compiler (fall back to $CXX and then g++ if needed)
+MYCXX=g++
+RIVETCXX=$(which "@CXX@" 2> /dev/null)
+ABSCXX=$(which "$CXX" 2> /dev/null)
+if [[ -x "$RIVETCXX" ]]; then
+    MYCXX="@CXX@"
+elif [[ -x "$ABSCXX" ]]; then
+    MYCXX=$CXX
 fi
 
 ## Link against ROOT if requested
@@ -67,6 +74,6 @@ RIVETCONFIG=$(PATH="`dirname $0`:$PATH:." which rivet-config)
 cppflags=$($RIVETCONFIG --cppflags)
 
 ## Build
-cmd="$CXX -o \"$libname\" $shared_flags $cppflags $sources_and_flags"
+cmd="$MYCXX -o \"$libname\" $shared_flags $cppflags $sources_and_flags"
 echo $cmd
 eval $cmd

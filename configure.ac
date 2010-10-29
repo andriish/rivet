@@ -308,7 +308,7 @@ AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(doc/rivetversion.sty)
 AC_CONFIG_FILES(autopackage/default.apspec)
 AC_CONFIG_FILES(autopackage/data.apspec)
-AC_CONFIG_FILES(bin/Makefile bin/rivet-config)
+AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
 AC_CONFIG_FILES(Makefile Doxyfile)
 AC_CONFIG_FILES(rivetenv.sh rivetenv.csh)
 
@@ -330,6 +330,9 @@ or pipe (the latter may be made with mkfifo) using the
 For a more pleasant command line experience, you can include
 the data/rivet-completion file into your .bashrc file,
 or your bash_completion.d directory if you have one.
+
+The rivetenv.*sh files will not be installed, but can help you
+to set up a Rivet runtime environment in future.
 ************************************************************
 EOF
 fi
