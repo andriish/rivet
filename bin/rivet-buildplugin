@@ -7,7 +7,13 @@ if test $# -lt 2 || test -n "$tmp"; then
     echo "$PROG: compilation helper for Rivet analysis plugins"
     echo
     echo "Usage: $PROG <libname> <source1> [<source2> [compiler_flags] ...]"
+    echo
     echo "<libname> can be a path, provided the filename is of the form 'Rivet*.so'"
+    echo
+    echo "To make special build variations you can add appropriate compiler flags"
+    echo "to the arguments and these will be passed directly to the compiler. For"
+    echo "example, for a debug build of your plugin library, add '-g', and for a"
+    echo "32 bit build on a 64 bit system add '-m32'."
     echo
     echo "Options:"
     echo "  -h | --help: display this help message"
