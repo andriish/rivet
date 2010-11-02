@@ -4,6 +4,7 @@ dist_pkgdata_DATA = \
   ALEPH_1996_S3196992.plot \
   ALEPH_2004_S5765862.plot \
   ATLAS_2010_S8591806.plot \
+  ATLAS_2010_S8817804.plot \
   CDF_1988_S1865951.plot \
   CDF_1990_S2089246.plot \
   CDF_1991_S2313472.plot \
