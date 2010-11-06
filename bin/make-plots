@@ -1007,7 +1007,7 @@ class Histogram(DrawableObject):
                     prop, value = m.group(1,2)
                     self.description[prop] = value
                 else:
-                    linearray = line.split('\t')
+                    linearray = line.split()
                     if len(linearray)==4:
                         self.data.append({'LowEdge': float(linearray[0]),
                                           'UpEdge':  float(linearray[1]),
