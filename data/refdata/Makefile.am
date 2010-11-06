@@ -6,6 +6,7 @@ dist_pkgdata_DATA = \
   ALEPH_2004_S5765862.aida       \
   ATLAS_2010_S8591806.aida       \
   ATLAS_2010_S8817804.aida       \
+  ATLAS_2010_CONF_2010_031.aida  \
   DELPHI_1994_S3021912.aida      \
   DELPHI_1995_S3137023.aida      \
   DELPHI_1996_S3430090.aida      \

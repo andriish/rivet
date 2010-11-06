@@ -1,3 +1,7 @@
+2010-11-05  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Adding ATLAS-CONF-2010-031 conference note. Data is read from plots.
+
 2010-10-29  Andy Buckley  <andy@insectnation.org>
 
 	* Making rivet-buildplugin use the same C++ compiler and CXXFLAGS

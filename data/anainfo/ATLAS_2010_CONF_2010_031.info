@@ -1,0 +1,22 @@
+Name: ATLAS_2010_CONF_2010_031
+Year: 2010
+Summary: Charged particles at 900 and 7000 GeV in ATLAS
+Experiment: ATLAS
+Collider: LHC 900GeV, LHC 7000GeV
+SpiresID: None
+Status: VALIDATED -- but PRELIMINARY DATA!
+Authors:
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - ATLAS-CONF-2010-031
+RunInfo:
+  pp QCD interactions at 900 or 7000 GeV including diffractive events.
+NumEvents: 1000000
+Beams: [p+, p+]
+Energies: [900, 7000]
+PtCuts: [0]
+Description:
+  Minimum bias data measured by ATLAS at 900 and 7000 GeV. Same as
+  ATLAS_2010_S8591806, but with an additional cut on the charged particle
+  multiplicity of $N_\mathrm{ch} \ge 6$. $|\eta| < 2.5$ and $p_\perp > 500$ MeV.
+  All data is corrected to the particle level. ATTENTION - Data read from plots!
