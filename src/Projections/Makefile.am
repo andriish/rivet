@@ -4,6 +4,7 @@ libRivetProjections_la_SOURCES = \
   ChargedFinalState.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc \
+  ClosestJetShape.cc \
   ClusteredPhotons.cc \
   DISKinematics.cc \
   DISLepton.cc \

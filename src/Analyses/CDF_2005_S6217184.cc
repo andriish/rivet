@@ -5,7 +5,7 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
-#include "Rivet/Projections/JetShape.hh"
+#include "Rivet/Projections/ClosestJetShape.hh"
 
 namespace Rivet {
 
@@ -13,6 +13,7 @@ namespace Rivet {
   /// @brief CDF Run II jet shape analysis
   /// @author Lars Sonnenschein
   /// @author Andy Buckley
+  /// @todo Convert to use the correct jet shape algorithm
   class CDF_2005_S6217184 : public Analysis {
   public:
 
@@ -36,7 +37,7 @@ namespace Rivet {
       VisibleFinalState visfs(fs);
       VetoedFinalState vfs(visfs);
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
+      addProjection(ClosestJetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
 
       // Specify pT bins
       _pTbins += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0,
@@ -76,7 +77,7 @@ namespace Rivet {
 
       // Calculate and histogram jet shapes
       const double weight = event.weight();
-      const JetShape& js = applyProjection<JetShape>(event, "JetShape");
+      const ClosestJetShape& js = applyProjection<ClosestJetShape>(event, "JetShape");
 
       /// @todo Use BinnedHistogram, for collections of histos each for a range of values of an extra variable
       for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {

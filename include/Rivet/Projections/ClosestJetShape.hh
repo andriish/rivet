@@ -1,10 +1,10 @@
 // -*- C++ -*-
-#ifndef RIVET_JetShape_HH
-#define RIVET_JetShape_HH
+#ifndef RIVET_ClosestJetShape_HH
+#define RIVET_ClosestJetShape_HH
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Projection.hh"
-#include "Rivet/Projections/JetAlg.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Tools/Utils.hh"
@@ -16,9 +16,7 @@ namespace Rivet {
      @brief Calculate the jet shape.
 
      Calculate the differential and integral jet shapes in \f$P_{\perp}\f$ for a given
-     set of jets. This particular jet shape projection calculates jet shapes relative
-     to jet centroids, using only the particles associated to each jet, for the hardest
-     \f$ n \f$ jets.
+     set of jet axes each event.
 
      The rapidity scheme (\f$ \eta \f$ or \f$ y \f$) has to be specified when
      invoking the constructor.
@@ -43,40 +41,42 @@ namespace Rivet {
      The constructor expects also the equidistant binning in radius \f$ r \f$ to produce the
      jet shape of all bins in a vector and this separately for each jet to allow
      post-selection.
+
+     In this implementation, the jet axes are passed for each event.
+
+     @deprecated The closest-axis jet shape algorithm is incorrect and should not be used.
   */
-  class JetShape : public Projection {
+  class ClosestJetShape : public Projection {
+
+    /// @todo Review: remove external jet axes, binning, etc.
+
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor.
-    JetShape(const JetAlg& jetalg,
-             /// @todo Provide bin edges instead -- and util functions for making lin and log spaces
-             double rmin=0.0, double rmax=0.7, double interval=0.1,
-             DeltaRScheme distscheme=RAPIDITY);
+    ClosestJetShape(const FinalState& fs, const vector<FourMomentum>& jetaxes,
+                    double rmin=0.0, double rmax=0.7, double interval=0.1,
+                    double r1minPsi=0.3, DeltaRScheme distscheme=RAPIDITY);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
-      return new JetShape(*this);
+      return new ClosestJetShape(*this);
     }
 
     //@}
 
 
-    /// Reset projection between events.
+    /// Reset projection between events
     void clear();
-
-
-    /// Do the calculation directly on a supplied collection of Jet objects.
-    void calc(const Jets& jets);
 
 
   public:
 
 
     /// Number of equidistant radius bins.
-    size_t numBins() const {
+    double numBins() const {
       return _nbins;
     }
 
@@ -90,31 +90,28 @@ namespace Rivet {
       return _rmax;
     }
 
+    /// Radius interval size.
+    double interval() const {
+      return _interval;
+    }
+
     /// Return value of differential jet shape profile histo bin.
     /// @todo Remove this external indexing thing
-    double diffJetShape(size_t rbin) const {
-      return _diffjetshapes[rbin];
+    double diffJetShape(size_t pTbin, size_t rbin) const {
+      return _diffjetshapes[pTbin][rbin];
     }
 
     /// Return value of integrated jet shape profile histo bin.
     /// @todo Remove this external indexing thing
-    double intJetShape(size_t rbin) const {
-      double rtn  = 0;
-      for (size_t i = 0; i <= rbin; ++i) {
-        rtn += _diffjetshapes[i];
-      }
-      return rtn;
+    double intJetShape(size_t pTbin, size_t rbin) const {
+      return _intjetshapes[pTbin][rbin];
     }
 
-    /// @todo Provide int and diff jet shapes with some sort of area normalisation?
-
-    /// @todo Support some sort of jet pT binning?
-
-    // /// Return value of \f$ \Psi \f$ (integrated jet shape) at given radius for a \f$ p_T \f$ bin.
-    // /// @todo Remove this external indexing thing
-    // double psi(size_t pTbin) const {
-    //   return _PsiSlot[pTbin];
-    // }
+    /// Return value of \f$ \Psi \f$ (integrated jet shape) at given radius for a \f$ p_T \f$ bin.
+    /// @todo Remove this external indexing thing
+    double psi(size_t pTbin) const {
+      return _PsiSlot[pTbin];
+    }
 
 
   protected:
@@ -128,11 +125,17 @@ namespace Rivet {
 
   private:
 
+    /// The jet axes of the jet algorithm projection
+    const vector<FourMomentum>& _jetaxes;
+
+
     /// @name The projected jet shapes
     //@{
 
     /// Jet shape histo
-    vector<double> _diffjetshapes;
+    vector<vector<double> > _diffjetshapes;
+    vector<vector<double> > _intjetshapes;
+    vector<double> _PsiSlot;
 
     //@}
 
@@ -148,6 +151,9 @@ namespace Rivet {
 
     /// Length of radius interval
     double _interval;
+
+    /// One minus Psi radius
+    double _r1minPsi;
 
     /// Rapidity scheme
     DeltaRScheme _distscheme;

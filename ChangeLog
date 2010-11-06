@@ -1,3 +1,13 @@
+2010-11-06  Andy Buckley  <andy@insectnation.org>
+
+	* Deprecating the old JetShape projection and renaming to
+	ClosestJetShape: the algorithm has a tenuous relationship with
+	that actually used in the CDF (and ATLAS) jet shape analyses. CDF
+	analyses to be migrated to the new JetShape projection... and some
+	of that projection's features, design elements, etc. to be
+	finished off: we may as well take this opportunity to clear up
+	what was one of our nastiest pieces of code.
+
 2010-11-05  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Adding ATLAS-CONF-2010-031 conference note. Data is read from plots.

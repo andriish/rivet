@@ -5,12 +5,13 @@
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/JetShape.hh"
+#include "Rivet/Projections/ClosestJetShape.hh"
 
 namespace Rivet {
 
 
   /// @brief CDF Run II b-jet shape paper
+  /// @todo Migrate to use new JetShape
   class CDF_2008_S7782535 : public Analysis {
   public:
 
@@ -36,7 +37,7 @@ namespace Rivet {
       vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
       addProjection(vfs, "VFS");
       addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-      addProjection(JetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
+      addProjection(ClosestJetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
 
       // Book histograms
       _pTbins += 52, 80, 104, 142, 300;
@@ -70,7 +71,7 @@ namespace Rivet {
       }
 
       // Determine jet shapes
-      const JetShape& js = applyProjection<JetShape>(event, "JetShape");
+      const ClosestJetShape& js = applyProjection<ClosestJetShape>(event, "JetShape");
 
       /// @todo Replace with foreach
       for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
