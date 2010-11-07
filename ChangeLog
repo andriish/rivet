@@ -1,3 +1,7 @@
+2010-11-07  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Adding ATLAS-CONF-2010-081 conference note. Data is read from plots.
+
 2010-11-06  Andy Buckley  <andy@insectnation.org>
 
 	* Deprecating the old JetShape projection and renaming to

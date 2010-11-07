@@ -48,7 +48,8 @@ lib_LTLIBRARIES += RivetATLASAnalyses.la
 RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2010_S8591806.cc \
     ATLAS_2010_S8817804.cc \
-    ATLAS_2010_CONF_2010_031.cc
+    ATLAS_2010_CONF_2010_031.cc \
+    ATLAS_2010_CONF_2010_081.cc
 
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la
