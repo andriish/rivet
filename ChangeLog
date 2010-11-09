@@ -1,3 +1,12 @@
+2010-11-09  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Adding ATLAS-CONF-2010-049 conference note. Data is read from plots.
+	Fragmentation functions look good, but I can't reproduce the MC lines
+	(or even the relative differences between them) in the jet cross-section
+	plots. So consider those unvalidated for now. Oh, and it seems ATLAS
+	screwed up the error bands in their ratio plots, too. They are
+	upside-down.
+
 2010-11-07  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Adding ATLAS-CONF-2010-081 conference note. Data is read from plots.
