@@ -1,3 +1,11 @@
+2010-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Adding ATLAS-CONF-2010-083 conference note. Data is read from plots.
+	When I run Pythia 6 the bins close to pi/2 are higher than in the note,
+	so I call this "unvalidated". But then ... the note doesn't specify
+	a tune or even just a version for the generators in the plots. Not even
+	if they used Pythia 6 or Pythia 8. Probably 6, since they mention AGILe.
+
 2010-11-10  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a JetAlg::useInvisibles(bool) mechanism to allow ATLAS

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="FreeHEP"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+    path="/REF/ATLAS_2010_CONF_2010_083" title="">
+    <annotation>
+      <item key="Title" value="" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2010_CONF_2010_083/d01-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ATLAS_2010_CONF_2010_083.aida/REF/ATLAS_2010_ATLAS_CONF_2010_083/d01-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="1.884955e-01" value="1.759292e+00" errorMinus="1.884955e-01"/>
+      <measurement errorPlus="1.740000e-03" value="4.146000e-03" errorMinus="1.740000e-03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.570797e-01" value="2.104867e+00" errorMinus="1.570797e-01"/>
+      <measurement errorPlus="6.520000e-03" value="2.801000e-02" errorMinus="6.520000e-03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.413716e-01" value="2.403318e+00" errorMinus="1.413716e-01"/>
+      <measurement errorPlus="1.190000e-02" value="1.134000e-01" errorMinus="1.190000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.099557e-01" value="2.654646e+00" errorMinus="1.099557e-01"/>
+      <measurement errorPlus="2.640000e-02" value="3.532000e-01" errorMinus="2.640000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.853980e-02" value="2.843141e+00" errorMinus="7.853980e-02"/>
+      <measurement errorPlus="6.270000e-02" value="9.249000e-01" errorMinus="6.270000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="6.283185e-02" value="2.984513e+00" errorMinus="6.283185e-02"/>
+      <measurement errorPlus="7.870000e-02" value="2.315000e+00" errorMinus="7.870000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="4.712390e-02" value="3.094469e+00" errorMinus="4.712390e-02"/>
+      <measurement errorPlus="1.940000e-01" value="4.695000e+00" errorMinus="1.940000e-01"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2"
+    path="/REF/ATLAS_2010_CONF_2010_083" title="">
+    <annotation>
+      <item key="Title" value="" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2010_CONF_2010_083/d02-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ATLAS_2010_CONF_2010_083.aida/REF/ATLAS_2010_ATLAS_CONF_2010_083/d02-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="1.884955e-01" value="1.759292e+00" errorMinus="1.884955e-01"/>
+      <measurement errorPlus="3.060000e-03" value="4.923000e-03" errorMinus="3.060000e-03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.570797e-01" value="2.104867e+00" errorMinus="1.570797e-01"/>
+      <measurement errorPlus="9.750000e-03" value="3.427000e-02" errorMinus="9.750000e-03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.413716e-01" value="2.403318e+00" errorMinus="1.413716e-01"/>
+      <measurement errorPlus="2.700000e-02" value="1.779000e-01" errorMinus="2.700000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.099557e-01" value="2.654646e+00" errorMinus="1.099557e-01"/>
+      <measurement errorPlus="4.850000e-02" value="4.487000e-01" errorMinus="4.850000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.853980e-02" value="2.843141e+00" errorMinus="7.853980e-02"/>
+      <measurement errorPlus="7.260000e-02" value="1.026000e+00" errorMinus="7.260000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="6.283185e-02" value="2.984513e+00" errorMinus="6.283185e-02"/>
+      <measurement errorPlus="1.210000e-01" value="2.312000e+00" errorMinus="1.210000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="4.712390e-02" value="3.094469e+00" errorMinus="4.712390e-02"/>
+      <measurement errorPlus="2.160000e-01" value="4.095000e+00" errorMinus="2.160000e-01"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2"
+    path="/REF/ATLAS_2010_CONF_2010_083" title="">
+    <annotation>
+      <item key="Title" value="" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2010_CONF_2010_083/d03-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ATLAS_2010_CONF_2010_083.aida/REF/ATLAS_2010_ATLAS_CONF_2010_083/d03-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="1.570797e-01" value="2.104867e+00" errorMinus="1.570797e-01"/>
+      <measurement errorPlus="1.220000e-02" value="2.923000e-02" errorMinus="1.220000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.413716e-01" value="2.403318e+00" errorMinus="1.413716e-01"/>
+      <measurement errorPlus="2.920000e-02" value="1.193000e-01" errorMinus="2.920000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.099557e-01" value="2.654646e+00" errorMinus="1.099557e-01"/>
+      <measurement errorPlus="6.320000e-02" value="4.724000e-01" errorMinus="6.320000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.853980e-02" value="2.843141e+00" errorMinus="7.853980e-02"/>
+      <measurement errorPlus="1.000000e-01" value="8.953000e-01" errorMinus="1.000000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="6.283185e-02" value="2.984513e+00" errorMinus="6.283185e-02"/>
+      <measurement errorPlus="1.670000e-01" value="2.142000e+00" errorMinus="1.670000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="4.712390e-02" value="3.094469e+00" errorMinus="4.712390e-02"/>
+      <measurement errorPlus="3.170000e-01" value="4.684000e+00" errorMinus="3.170000e-01"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2"
+    path="/REF/ATLAS_2010_CONF_2010_083" title="">
+    <annotation>
+      <item key="Title" value="" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2010_CONF_2010_083/d04-x01-y01" sticky="true"/>
+      <item key="FullPath" value="/ATLAS_2010_CONF_2010_083.aida/REF/ATLAS_2010_ATLAS_CONF_2010_083/d04-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="1.413716e-01" value="2.403318e+00" errorMinus="1.413716e-01"/>
+      <measurement errorPlus="6.230000e-02" value="1.219000e-01" errorMinus="6.230000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.099557e-01" value="2.654646e+00" errorMinus="1.099557e-01"/>
+      <measurement errorPlus="1.100000e-01" value="2.851000e-01" errorMinus="1.100000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.853980e-02" value="2.843141e+00" errorMinus="7.853980e-02"/>
+      <measurement errorPlus="2.810000e-01" value="1.264000e+00" errorMinus="2.810000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="6.283185e-02" value="2.984513e+00" errorMinus="6.283185e-02"/>
+      <measurement errorPlus="3.820000e-01" value="1.955000e+00" errorMinus="3.820000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="4.712390e-02" value="3.094469e+00" errorMinus="4.712390e-02"/>
+      <measurement errorPlus="6.750000e-01" value="4.857000e+00" errorMinus="6.750000e-01"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
