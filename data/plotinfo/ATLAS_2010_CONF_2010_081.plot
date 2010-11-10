@@ -292,15 +292,6 @@ CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_081/d15-x01-y02
-Title=$N_\text{ch}$ vs $\Delta \phi$ wrt leading track, $p_\perp^\text{lead}>\text{1.5\,GeV}$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=$\Delta \phi$ wrt leading track
-YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
-LogY=0
-YMin=0.25
-CustomLegend={\large ATLAS preliminary}
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2010_CONF_2010_081/d15-x01-y03
 Title=$N_\text{ch}$ vs $\Delta \phi$ wrt leading track, $p_\perp^\text{lead}>\text{2\,GeV}$, $\sqrt{s}=\text{7\,TeV}$
 XLabel=$\Delta \phi$ wrt leading track
 YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
@@ -309,8 +300,17 @@ YMin=0.25
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
+# BEGIN PLOT /ATLAS_2010_CONF_2010_081/d15-x01-y03
+Title=$N_\text{ch}$ vs $\Delta \phi$ wrt leading track, $p_\perp^\text{lead}>\text{3\,GeV}$, $\sqrt{s}=\text{7\,TeV}$
+XLabel=$\Delta \phi$ wrt leading track
+YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
+LogY=0
+YMin=0.25
+CustomLegend={\large ATLAS preliminary}
+# END PLOT
+
 # BEGIN PLOT /ATLAS_2010_CONF_2010_081/d15-x01-y04
-Title=$N_\text{ch}$ vs $\Delta \phi$ wrt leading track, $p_\perp^\text{lead}>\text{2.5\,GeV}$, $\sqrt{s}=\text{7\,TeV}$
+Title=$N_\text{ch}$ vs $\Delta \phi$ wrt leading track, $p_\perp^\text{lead}>\text{5\,GeV}$, $\sqrt{s}=\text{7\,TeV}$
 XLabel=$\Delta \phi$ wrt leading track
 YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
