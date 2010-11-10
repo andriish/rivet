@@ -57,7 +57,6 @@ namespace Rivet {
 
   /// Abstract base class for projections which can return a set of {@link Jet}s.
   class JetAlg : public Projection {
- 
   public:
 
     /// Constructor
@@ -69,6 +68,18 @@ namespace Rivet {
     /// Destructor
     virtual ~JetAlg() { }
 
+    /// @brief Include invisible particles in jet construction.
+    /// The default behaviour is that jets are only constructed from visible
+    /// (i.e. charged under an SM gauge group) particles. Some jet studies,
+    /// including those from ATLAS, use a definition in which neutrinos from hadron
+    /// decays are included (via MC correction) in the experimental jet definition.
+    /// Setting this flag to true avoids the automatic restriction to a VisibleFinalState.
+    void useInvisibles(bool useinvis=true) {
+      _useInvisibles = useinvis;
+    }
+
+    /// Get jets in no guaranteed order, with an optional cut on min \f$ p_\perp \f$.
+    /// @todo Provide an extra optional cut on ptmax?
     virtual Jets jets(double ptmin=0.0) const = 0;
 
     /// Get the jets, ordered by supplied sorting function object.
@@ -112,7 +123,7 @@ namespace Rivet {
     collection_type entities() const { return jets(); }
 
     /// Do the calculation locally (no caching).
-    void calc(const ParticleVector& ps);
+    virtual void calc(const ParticleVector& ps) = 0;
 
 
   protected:
@@ -122,6 +133,12 @@ namespace Rivet {
 
     /// Compare projections.
     virtual int compare(const Projection& p) const = 0;
+
+
+  protected:
+
+    /// Flag to determine whether or not the VFS wrapper is to be used.
+    bool _useInvisibles;
 
   };
 

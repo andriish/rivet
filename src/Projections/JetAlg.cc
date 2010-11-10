@@ -6,11 +6,13 @@
 namespace Rivet {
 
 
-  JetAlg::JetAlg(const FinalState& fs) {
+  JetAlg::JetAlg(const FinalState& fs)
+    : _useInvisibles(false)
+  {
     setName("JetAlg");
     VisibleFinalState vfs(fs);
     getLog() << Log::DEBUG << "Making visible final state from provided FS" << endl;
-    addProjection(vfs, "FS");
+    addProjection(vfs, "VFS");
   }
 
 

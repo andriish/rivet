@@ -87,7 +87,7 @@ namespace Rivet {
           // Fill each entry in profile
           for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
             const double rad_Psi = js.rMin() + (rbin+1.0)*js.interval();
-            /// @todo Yuck... JetShape's interface sucks
+            /// @todo Yuck... ClosestJetShape's interface sucks
             _h_Psi_pT[jet_pt_bin]->fill(rad_Psi/_Rjet, js.intJetShape(jind, rbin), event.weight() );
           }
         }

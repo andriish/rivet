@@ -1,3 +1,10 @@
+2010-11-10  Andy Buckley  <andy@insectnation.org>
+
+	* Adding a JetAlg::useInvisibles(bool) mechanism to allow ATLAS
+	jet studies to include neutrinos. Anyone who chooses to use this
+	mechanism had better be careful to remove hard neutrinos manually
+	in the provided FinalState object.
+
 2010-11-09  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Adding ATLAS-CONF-2010-049 conference note. Data is read from plots.

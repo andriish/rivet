@@ -78,7 +78,7 @@ namespace Rivet {
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
-      mkNamedPCmp(other, "FS") ||
+      (_useInvisibles ? mkNamedPCmp(other, "FS") : mkNamedPCmp(other, "VFS")) ||
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
@@ -89,8 +89,13 @@ namespace Rivet {
 
 
   void FastJets::project(const Event& e) {
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
-    calc(fs.particles());
+    ParticleVector particles;
+    if (_useInvisibles) {
+      particles = applyProjection<FinalState>(e, "FS").particles();
+    } else {
+      particles = applyProjection<FinalState>(e, "VFS").particles();
+    }
+    calc(particles);
   }
 
 
