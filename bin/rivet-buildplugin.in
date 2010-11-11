@@ -53,6 +53,7 @@ fi
 
 ## Get Rivet system C preprocessor flags (duplicating that in rivet-config.in)
 mycppflags=""
+prefix="@prefix@"
 irivet="@includedir@"
 test -n "$irivet" && mycppflags="$mycppflags -I${irivet}"
 ihepmc="@HEPMCINCPATH@"
