@@ -1,3 +1,9 @@
+2010-11-11  Andy Buckley  <andy@insectnation.org>
+
+	* Adding special handling of FourMomentum::mass() for computed
+	zero-mass vectors for which mass2 can go (very slightly) negative
+	due to numerical precision.
+
 2010-11-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Adding ATLAS-CONF-2010-083 conference note. Data is read from plots.

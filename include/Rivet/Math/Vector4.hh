@@ -367,7 +367,11 @@ namespace Rivet {
     /// Get mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant).
     double mass() const {
       assert(Rivet::isZero(mass2()) || mass2() > 0);
-      return sqrt(mass2());
+      if (Rivet::isZero(mass2())) {
+        return 0.0;
+      } else {
+        return sqrt(mass2());
+      }
     }
 
     /// Calculate rapidity.
