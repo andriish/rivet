@@ -16,6 +16,7 @@ namespace Rivet {
       : Analysis("CDF_1988_S1865951")
     {
       setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
       _sumWTrig = 0;
     }
 
