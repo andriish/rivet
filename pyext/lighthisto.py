@@ -495,7 +495,8 @@ class PlotParser(object):
                     if not startreading:
                         continue
                     if self.isEndMarker(line, section):
-                        break
+                        startreading=False
+                        continue
                     elif self.isComment(line):
                         continue
                     if section in ['PLOT', 'HISTOGRAM']:
