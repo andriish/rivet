@@ -96,7 +96,8 @@ namespace Rivet {
 
     void finalize() {
       for (size_t i=0 ; i<2 ; i++) {
-        scale(_h_xsec[i], crossSection()/microbarn/sumOfWeights());
+        // deta = 2*0.57
+        scale(_h_xsec[i], crossSection()/microbarn/sumOfWeights()/(2*0.57));
         scale(_h_frag_04_06[i], 1./_njets_04_06[i]);
         scale(_h_frag_06_10[i], 1./_njets_06_10[i]);
         scale(_h_frag_10_15[i], 1./_njets_10_15[i]);
