@@ -486,7 +486,8 @@ class PlotParser(object):
                     m = self.pat_begin_block.match(line)
                     if m:
                         tag, pathpat = m.group(1,2)
-                        if tag == section and pathpat == hpath:
+                        # pathpat could be a regex
+                        if tag == section and re.match(pathpat,hpath):
                             startreading=True
                             if section in ['SPECIAL']:
                                 ret[section] = ''
