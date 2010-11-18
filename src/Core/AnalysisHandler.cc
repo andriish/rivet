@@ -182,7 +182,9 @@ namespace Rivet {
     ///       Requires avoiding histo tree clashes, i.e. storing the histos on the analysis objects.
     foreach (const AnaHandle& a, _analyses) {
       if (a->name() == analysisname) {
-        getLog() << Log::WARNING << "Analysis '" << analysisname << "' already registered: skipping duplicate" << endl;
+        getLog() << Log::WARNING 
+		 << "Analysis '" << analysisname 
+		 << "' already registered: skipping duplicate" << endl;
         return *this;
       }
     }
@@ -191,6 +193,11 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Adding analysis '" << analysisname << "'" << endl;
       analysis->_analysishandler = this;
       _analyses.insert(analysis);
+    }
+    else {
+      getLog() << Log::WARNING 
+	       << "Analysis '" << analysisname 
+	       << "' not found." << endl;
     }
     return *this;
   }
