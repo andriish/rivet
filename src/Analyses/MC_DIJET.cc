@@ -87,7 +87,7 @@ namespace Rivet {
 
 
     void finalize() {
-      /// @todo Normalise!
+      /// @todo Normalise! 
     }
 
     //@}
