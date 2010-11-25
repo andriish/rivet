@@ -5,28 +5,53 @@
 namespace Rivet {
 
 
-  /// Constructor.
+  // Constructor.
   JetShape::JetShape(const JetAlg& jetalg,
-                     double rmin, double rmax, double interval,
-                     DeltaRScheme distscheme)
-    : _rmin(rmin), _rmax(rmax), _interval(interval),
-      _distscheme(distscheme)
+                     double rmin, double rmax, size_t nbins,
+                     double ptmin, double ptmax,
+                     double rapmin, double rapmax,
+                     RapScheme rapscheme)
+    : _rapscheme(rapscheme)
   {
     setName("JetShape");
-    _nbins = int(round((rmax-rmin)/interval));
+    _binedges = linspace(rmin, rmax, nbins);
+    _ptcuts = make_pair(ptmin, ptmax);
+    addProjection(jetalg, "Jets");
+  }
+
+
+  // Constructor.
+  JetShape::JetShape(const JetAlg& jetalg,
+                     vector<double> binedges,
+                     double ptmin, double ptmax,
+                     double rapmin, double rapmax,
+                     RapScheme rapscheme)
+    : _binedges(binedges), _rapscheme(rapscheme)
+  {
+    setName("JetShape");
+    _ptcuts = make_pair(ptmin, ptmax);
     addProjection(jetalg, "Jets");
   }
 
 
   int JetShape::compare(const Projection& p) const {
-    PCmp jcmp = mkNamedPCmp(p, "Jets");
-    return jcmp;
-    /// @todo Also compare bin edges.
+    const int jcmp = mkNamedPCmp(p, "Jets");
+    if (jcmp != EQUIVALENT) return jcmp;
+    const JetShape& other = pcast<JetShape>(p);
+    const int ptcmp = cmp(ptMin(), other.ptMin()) || cmp(ptMax(), other.ptMax());
+    if (ptcmp != EQUIVALENT) return ptcmp;
+    int bincmp = cmp(numBins(), other.numBins());
+    if (bincmp != EQUIVALENT) return bincmp;
+    for (size_t i = 0; i < _binedges.size(); ++i) {
+      bincmp = cmp(_binedges[i], other._binedges[i]);
+      if (bincmp != EQUIVALENT) return bincmp;
+    }
+    return EQUIVALENT;
   }
 
 
   void JetShape::clear() {
-    _diffjetshapes = vector<double>(_nbins, 0.0);
+    _diffjetshapes = vector<double>(numBins(), 0.0);
   }
 
 
@@ -35,20 +60,31 @@ namespace Rivet {
 
     foreach (const Jet& j, jets) {
       FourMomentum pj = j.momentum();
+      // These cuts are already applied when getting the jets in ::project(), but we check again for direct calc use.
+      if (!inRange(pj.pT(), _ptcuts)) continue;
+      if (_rapscheme == PSEUDORAPIDITY && !inRange(pj.eta(), _rapcuts)) continue;
+      if (_rapscheme == RAPIDITY && !inRange(pj.rapidity(), _rapcuts)) continue;
       foreach (const Particle& p, j.particles()) {
-        const double dR = deltaR(pj, p.momentum());
-        size_t dRindex = int(floor((dR-_rmin)/(_rmax - _rmin)));
-        assert(dRindex < _nbins);
+        const double dR = deltaR(pj, p.momentum(), _rapscheme);
+        if (!inRange(dR, _binedges.front(), _binedges.back())) continue; //< Out of histo range
+        size_t dRindex = -1;
+        for (size_t i = 1; i < _binedges.size(); ++i) {
+          if (dR < _binedges[i]) {
+            dRindex = i-1;
+            break;
+          }
+        }
+        assert(inRange(dRindex, 0, numBins()));
         _diffjetshapes[dRindex] += p.momentum().pT();
       }
     }
 
     // Normalize to total pT
     double integral = 0.0;
-    for (size_t i = 0; i < _nbins; ++i) {
+    for (size_t i = 0; i < numBins(); ++i) {
       integral += _diffjetshapes[i];
     }
-    for (size_t i = 0; i < _nbins; ++i) {
+    for (size_t i = 0; i < numBins(); ++i) {
       _diffjetshapes[i] /= integral;
     }
 
@@ -56,7 +92,8 @@ namespace Rivet {
 
 
   void JetShape::project(const Event& e) {
-    const Jets jets = applyProjection<JetAlg>(e, "Jets").jets();
+    const Jets jets = applyProjection<JetAlg>(e, "Jets").jets(_ptcuts.first, _ptcuts.second,
+                                                              _rapcuts.first, _rapcuts.second, _rapscheme);
     calc(jets);
   }
 

@@ -156,25 +156,25 @@ namespace Rivet {
   }
 
 
-  Jets FastJets::jets(double ptmin) const {
+  Jets FastJets::_jets(double ptmin) const {
     Jets rtn = _pseudojetsToJets(pseudoJets(ptmin));
     return rtn;
   }
 
 
-  Jets FastJets::jetsByPt(double ptmin) const {
-    return _pseudojetsToJets(pseudoJetsByPt(ptmin));
-  }
+  // Jets FastJets::jetsByPt(double ptmin) const {
+  //   return _pseudojetsToJets(pseudoJetsByPt(ptmin));
+  // }
 
 
-  Jets FastJets::jetsByE(double ptmin) const {
-    return _pseudojetsToJets(pseudoJetsByE(ptmin));
-  }
+  // Jets FastJets::jetsByE(double ptmin) const {
+  //   return _pseudojetsToJets(pseudoJetsByE(ptmin));
+  // }
 
 
-  Jets FastJets::jetsByRapidity(double ptmin) const {
-    return _pseudojetsToJets(pseudoJetsByRapidity(ptmin));
-  }
+  // Jets FastJets::jetsByRapidity(double ptmin) const {
+  //   return _pseudojetsToJets(pseudoJetsByRapidity(ptmin));
+  // }
 
 
   PseudoJets FastJets::pseudoJets(double ptmin) const {

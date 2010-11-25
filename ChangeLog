@@ -1,3 +1,23 @@
+2010-11-25  Andy Buckley  <andy@insectnation.org>
+
+	* Cmp.hh: Adding ASC/DESC (and ANTISORTED) as preferred
+	non-EQUIVALENT enum value synonyms over misleading
+	SORTED/UNSORTED.
+
+	* Change of rapidity scheme enum name to RapScheme
+
+	* Reworking JetShape a bit further: constructor args now avoid
+	inconsistencies (it was previously possible to define incompatible
+	range-ends and interval). Internal binning implementation also
+	reworked to use a vector of bin edges: the bin details are
+	available via the interface. The general jet pT cuts can be
+	applied via the JetShape constructor.
+
+	* MathUtils.hh: Adding linspace and logspace utility
+	functions. Useful for defining binnings.
+
+	* Adding more general cuts on jet pT and (pseudo)rapidity.
+
 2010-11-11  Andy Buckley  <andy@insectnation.org>
 
 	* Adding special handling of FourMomentum::mass() for computed

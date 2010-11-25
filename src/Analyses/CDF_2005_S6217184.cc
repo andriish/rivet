@@ -5,7 +5,7 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
-#include "Rivet/Projections/ClosestJetShape.hh"
+#include "Rivet/Projections/JetShape.hh"
 
 namespace Rivet {
 
@@ -31,28 +31,29 @@ namespace Rivet {
       // Set up projections
       const FinalState fs(-2.0, 2.0);
       addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-
-      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VisibleFinalState visfs(fs);
-      VetoedFinalState vfs(visfs);
-      vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(ClosestJetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
+      FastJets fj(fs, FastJets::CDFMIDPOINT, 0.7);
+      fj.useInvisibles();
+      addProjection(fj, "Jets");
 
       // Specify pT bins
-      _pTbins += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0,
-        148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
+      _ptedges = { 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0,
+                   148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 };
 
-      /// Book histograms
-      // 18 = 6x3 pT bins, one histogram each
+      // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 6; ++i) {
         for (size_t j = 0; j < 3; ++j) {
-          size_t k = i*3 + j;
+          const size_t k = i*3 + j;
+          stringstream ss; ss << "JetShape" << k;
+          const string pname = ss.str();
+          _jsnames_pT[k] = pname;
+          const JetShape jsp(fj, 0.0, 0.7, 6, _ptedges[k], _ptedges[k+1], 0.1, 0.7, RAPIDITY);
+          addProjection(jsp, pname);
           _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1);
           _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1);
         }
       }
 
+      // Final histo
       _profhistPsi = bookProfile1D(13, 1, 1);
     }
 
@@ -62,38 +63,28 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
+      /// @todo Need a different rapidity cut -- discontinuous in |y|
+      const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(37, 380, 0.1, 0.7);
       getLog() << Log::DEBUG << "Jet multiplicity before cuts = " << jets.size() << endl;
-
-      // Determine the central jet axes
-      _jetaxes.clear();
-      foreach (const Jet& jt, jets) {
-        const FourMomentum pj = jt.momentum();
-        if (inRange(pj.pT()/GeV, 37.0, 380.0) && inRange(fabs(pj.rapidity()), 0.1, 0.7)) {
-          _jetaxes.push_back(jt.momentum());
-        }
+      if (jets.size() == 0) {
+        MSG_DEBUG("No jets found in required pT range");
+        vetoEvent(event);
       }
-      if (_jetaxes.empty()) vetoEvent;
 
       // Calculate and histogram jet shapes
       const double weight = event.weight();
-      const ClosestJetShape& js = applyProjection<ClosestJetShape>(event, "JetShape");
 
-      /// @todo Use BinnedHistogram, for collections of histos each for a range of values of an extra variable
-      for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
-        for (size_t ipT = 0; ipT < 18; ++ipT) {
-          if (_jetaxes[jind].pT() > _pTbins[ipT] && _jetaxes[jind].pT() <= _pTbins[ipT+1]) {
-            for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
-              const double rad_Rho = js.rMin() + (rbin+0.5)*js.interval();
-              _profhistRho_pT[ipT]->fill(rad_Rho/0.7, (0.7/1.0)*js.diffJetShape(jind, rbin), weight);
-              /// @todo Calc int histos from diff histos
-              const double rad_Psi = js.rMin() +(rbin+1.0)*js.interval();
-              _profhistPsi_pT[ipT]->fill(rad_Psi/0.7, js.intJetShape(jind, rbin), weight);
-            }
-            /// @todo Calc int histos from diff histos
-            _profhistPsi->fill((_pTbins[ipT] + _pTbins[ipT+1])/2.0, js.psi(jind), weight);
-          }
+      for (size_t ipT = 0; ipT < 18; ++ipT) {
+        const JetShape& jsipt = applyProjection<JetShape>(event, _jsnames_pT[ipT]);
+        for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
+          const double r_rho = jsipt.rBinMid(rbin);
+          _profhistRho_pT[ipT]->fill(r_rho/0.7, (0.7/1.0)*jsipt.diffJetShape(rbin), weight);
+          const double r_Psi = jsipt.rBinMax(rbin);
+          _profhistPsi_pT[ipT]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
         }
+        // Final histo is 1 - Psi(0.3/R) as a function of jet pT bin
+        const double ptmid = (_ptedges[ipT] + _ptedges[ipT+1])/2.0;
+        _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
       }
 
     }
@@ -112,11 +103,12 @@ namespace Rivet {
     /// @name Analysis data
     //@{
 
-    /// Vector of jet axes
-    vector<FourMomentum> _jetaxes;
+    /// Jet \f$ p_\perp\f$ bins.
+    double _ptedges[19];
 
-    /// \f$p_\perp\f$ bins to be distinguished during analysis
-    vector<double> _pTbins;
+    /// JetShape projection name for each \f$p_\perp\f$ bin.
+    string _jsnames_pT[18];
+
     //@}
 
 

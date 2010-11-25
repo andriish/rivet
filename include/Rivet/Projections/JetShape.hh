@@ -50,11 +50,18 @@ namespace Rivet {
     /// @name Constructors etc.
     //@{
 
-    /// Constructor.
+    /// Constructor from histo range and number of bins.
     JetShape(const JetAlg& jetalg,
-             /// @todo Provide bin edges instead -- and util functions for making lin and log spaces
-             double rmin=0.0, double rmax=0.7, double interval=0.1,
-             DeltaRScheme distscheme=RAPIDITY);
+             double rmin, double rmax, size_t nbins,
+             double ptmin=0, double ptmax=MAXDOUBLE,
+             double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+             RapScheme rapscheme=RAPIDITY);
+
+    /// Constructor from vector of bin edges.
+    JetShape(const JetAlg& jetalg, vector<double> binedges,
+             double ptmin=0, double ptmax=MAXDOUBLE,
+             double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+             RapScheme rapscheme=RAPIDITY);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -77,28 +84,61 @@ namespace Rivet {
 
     /// Number of equidistant radius bins.
     size_t numBins() const {
-      return _nbins;
+      return _binedges.size() - 1;
     }
 
     /// \f$ r_\text{min} \f$ value.
     double rMin() const {
-      return _rmin;
+      return _binedges.front();
     }
 
     /// \f$ r_\text{max} \f$ value.
     double rMax() const {
-      return _rmax;
+      return _binedges.back();
+    }
+
+    /// \f$ p_\perp^\text{min} \f$ value.
+    double ptMin() const {
+      return _ptcuts.first;
+    }
+
+    /// \f$ p_\perp^\text{max} \f$ value.
+    double ptMax() const {
+      return _ptcuts.second;
+    }
+
+    /// Central \f$ r \f$ value for bin @a rbin.
+    /// @todo This external indexing thing is a bit nasty...
+    double rBinMin(size_t rbin) const {
+      assert(inRange(rbin, 0, numBins()));
+      return _binedges[rbin];
+    }
+
+    /// Central \f$ r \f$ value for bin @a rbin.
+    /// @todo This external indexing thing is a bit nasty...
+    double rBinMax(size_t rbin) const {
+      assert(inRange(rbin, 0, numBins()));
+      return _binedges[rbin+1];
+    }
+
+    /// Central \f$ r \f$ value for bin @a rbin.
+    /// @todo This external indexing thing is a bit nasty...
+    double rBinMid(size_t rbin) const {
+      assert(inRange(rbin, 0, numBins()));
+      return (_binedges[rbin] + _binedges[rbin+1])/2.0;
     }
 
     /// Return value of differential jet shape profile histo bin.
-    /// @todo Remove this external indexing thing
+    /// @todo This external indexing thing is a bit nasty...
     double diffJetShape(size_t rbin) const {
+      assert(inRange(rbin, 0, numBins()));
       return _diffjetshapes[rbin];
     }
 
     /// Return value of integrated jet shape profile histo bin.
-    /// @todo Remove this external indexing thing
+    /// @todo This external indexing thing is a bit nasty...
     double intJetShape(size_t rbin) const {
+      assert(inRange(rbin, 0, numBins()));
       double rtn  = 0;
       for (size_t i = 0; i <= rbin; ++i) {
         rtn += _diffjetshapes[i];
@@ -107,8 +147,6 @@ namespace Rivet {
     }
 
     /// @todo Provide int and diff jet shapes with some sort of area normalisation?
-
-    /// @todo Support some sort of jet pT binning?
 
     // /// Return value of \f$ \Psi \f$ (integrated jet shape) at given radius for a \f$ p_T \f$ bin.
     // /// @todo Remove this external indexing thing
@@ -128,6 +166,24 @@ namespace Rivet {
 
   private:
 
+    /// @name Jet shape parameters
+    //@{
+
+    /// Vector of radius bin edges
+    vector<double> _binedges;
+
+    /// Lower and upper cuts on contributing jet \f$ p_\perp \f$.
+    pair<double, double> _ptcuts;
+
+    /// Lower and upper cuts on contributing jet (pseudo)rapidity.
+    pair<double, double> _rapcuts;
+
+    /// Rapidity scheme
+    RapScheme _rapscheme;
+
+    //@}
+
+
     /// @name The projected jet shapes
     //@{
 
@@ -136,26 +192,6 @@ namespace Rivet {
 
     //@}
 
-
-    /// @name Jet shape parameters
-    //@{
-
-    /// Min radius (typically r=0)
-    double _rmin;
-
-    /// Max radius
-    double _rmax;
-
-    /// Length of radius interval
-    double _interval;
-
-    /// Rapidity scheme
-    DeltaRScheme _distscheme;
-
-    /// Number of bins
-    size_t _nbins;
-
-    //@}
   };
 
 

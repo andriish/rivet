@@ -78,13 +78,29 @@ namespace Rivet {
       _useInvisibles = useinvis;
     }
 
-    /// Get jets in no guaranteed order, with an optional cut on min \f$ p_\perp \f$.
-    /// @todo Provide an extra optional cut on ptmax?
-    virtual Jets jets(double ptmin=0.0) const = 0;
+    /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    virtual Jets jets(double ptmin=0.0, double ptmax=MAXDOUBLE,
+                      double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                      RapScheme rapscheme=PSEUDORAPIDITY) const {
+      const Jets rawjets = _jets(ptmin);
+      Jets rtn;
+      foreach (const Jet& j, rawjets) {
+        const FourMomentum pj = j.momentum();
+        if (!inRange(pj.pT(), ptmin, ptmax)) continue;
+        if (rapscheme == PSEUDORAPIDITY && !inRange(pj.eta(), rapmin, rapmax)) continue;
+        if (rapscheme == RAPIDITY && !inRange(pj.rapidity(), rapmin, rapmax)) continue;
+        rtn += j;
+      }
+      return rtn;
+    }
 
-    /// Get the jets, ordered by supplied sorting function object.
+    /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     template <typename F>
-    Jets jets(F sorter, double ptmin=0.0) const {
+    Jets jets(F sorter, double ptmin=0.0, double ptmax=MAXDOUBLE,
+              double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+              RapScheme rapscheme=PSEUDORAPIDITY) const {
       Jets js = jets(ptmin);
       if (sorter != 0) {
         std::sort(js.begin(), js.end(), sorter);
@@ -92,20 +108,38 @@ namespace Rivet {
       return js;
     }
 
-    /// Get the jets, ordered by \f$ p_T \f$.
-    Jets jetsByPt(double ptmin=0.0) const {
-      return jets(cmpJetsByPt, ptmin);
+    /// Get the jets, ordered by \f$ p_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    Jets jetsByPt(double ptmin=0.0, double ptmax=MAXDOUBLE,
+                  double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                  RapScheme rapscheme=PSEUDORAPIDITY) const {
+      return jets(cmpJetsByPt, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
 
-    /// Get the jets, ordered by \f$ E \f$.
-    Jets jetsByE(double ptmin=0.0) const {
-      return jets(cmpJetsByE, ptmin);
+    /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    Jets jetsByE(double ptmin=0.0, double ptmax=MAXDOUBLE,
+                 double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                 RapScheme rapscheme=PSEUDORAPIDITY) const {
+      return jets(cmpJetsByE, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
 
-    /// Get the jets, ordered by \f$ E_T \f$.
-    Jets jetsByEt(double ptmin=0.0) const {
-      return jets(cmpJetsByEt, ptmin);
+    /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    Jets jetsByEt(double ptmin=0.0, double ptmax=MAXDOUBLE,
+                  double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                  RapScheme rapscheme=PSEUDORAPIDITY) const {
+      return jets(cmpJetsByEt, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
+
+
+  protected:
+
+    /// @brief Internal pure virtual method for getting jets in no guaranteed order.
+    /// An optional cut on min \f$ p_\perp \f$ is applied in this function, since that is
+    /// directly supported by FastJet and it seems a shame to not make use of that. But
+    /// all other jet cuts are applied at the @c ::jets() function level.
+    virtual Jets _jets(double ptmin=0.0) const = 0;
 
 
   public:

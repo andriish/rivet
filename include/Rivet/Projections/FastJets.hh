@@ -96,16 +96,7 @@ namespace Rivet {
     }
 
     /// Get the jets (unordered).
-    Jets jets(double ptmin = 0.0) const;
-
-    /// Get the jets, ordered by \f$ p_T \f$.
-    Jets jetsByPt(double ptmin = 0.0) const;
-
-    /// Get the jets, ordered by \f$ E \f$.
-    Jets jetsByE(double ptmin = 0.0) const;
-
-    /// Get the jets, ordered by rapidity.
-    Jets jetsByRapidity(double ptmin = 0.0) const;
+    Jets _jets(double ptmin = 0.0) const;
 
     /// Get the pseudo jets (unordered).
     PseudoJets pseudoJets(double ptmin = 0.0) const;

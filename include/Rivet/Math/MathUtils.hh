@@ -3,6 +3,7 @@
 #define RIVET_MathUtils_HH
 
 #include "Rivet/Math/MathHeader.hh"
+#include "Rivet/RivetBoost.hh"
 #include <cassert>
 
 namespace Rivet {
@@ -86,6 +87,14 @@ namespace Rivet {
   }
 
 
+  /// Alternative version of inRange which accepts a pair for the range arguments.
+  template<typename NUM>
+  inline bool inRange(NUM value, pair<NUM, NUM> lowhigh,
+                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+    return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
+  }
+
+
   /// Determine if @a value is in the range @a low to @a high, with boundary
   /// types defined by @a lowbound and @a highbound.
   /// @todo Optimise to one-line at compile time?
@@ -101,6 +110,47 @@ namespace Rivet {
       return (value >= low && value <= high);
     }
   }
+
+
+  /// Alternative version of @c inRange<int> which accepts a pair for the range arguments.
+  inline bool inRange(int value, pair<int, int> lowhigh,
+                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+    return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
+  }
+
+
+  /// Make a list of @a nbins + 1 values equally spaced between @a start and @a end inclusive.
+  inline vector<double> linspace(double start, double end, size_t nbins) {
+    assert(end >= start);
+    assert(nbins > 0);
+    vector<double> rtn;
+    const double interval = (end-start)/static_cast<double>(nbins);
+    double edge = start;
+    while (inRange(edge, start, end, CLOSED, CLOSED)) {
+      rtn.push_back(edge);
+      edge += interval;
+    }
+    assert(rtn.size() == nbins+1);
+    return rtn;
+  }
+
+
+  /// Make a list of @a nbins + 1 values exponentially spaced between @a start and @a end inclusive.
+  inline vector<double> logspace(double start, double end, size_t nbins) {
+    assert(end >= start);
+    assert(start > 0);
+    assert(nbins > 0);
+    const double logstart = std::log(start);
+    const double logend = std::log(end);
+    const vector<double> logvals = linspace(logstart, logend, nbins);
+    vector<double> rtn;
+    foreach (double logval, logvals) {
+      rtn.push_back(std::exp(logval));
+    }
+    assert(rtn.size() == nbins+1);
+    return rtn;
+  }
+
 
 
   /// Named number-type squaring operation.
@@ -208,9 +258,9 @@ namespace Rivet {
 
   /// Calculate the distance between two points in 2D rapidity-azimuthal
   /// ("eta-phi") space. The phi values are given in radians.
-  inline double deltaR(double y1, double phi1, double y2, double phi2) {
+  inline double deltaR(double rap1, double phi1, double rap2, double phi2) {
     const double dphi = deltaPhi(phi1, phi2);
-    return sqrt( sqr(y1-y2) + sqr(dphi) );
+    return sqrt( sqr(rap1-rap2) + sqr(dphi) );
   }
 
   /// Calculate a rapidity value from the supplied energy @a E and longitudinal momentum @pz.

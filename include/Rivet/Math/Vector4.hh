@@ -495,7 +495,7 @@ namespace Rivet {
   /// case since @c RAPIDITY is only a valid option for vectors whose type is
   /// really the FourMomentum derived class.
   inline double deltaR(const FourVector& a, const FourVector& b,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY :
       return deltaR(a.vector3(), b.vector3());
@@ -517,7 +517,7 @@ namespace Rivet {
 
   inline double deltaR(const FourVector& v,
                        double eta2, double phi2,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY :
       return deltaR(v.vector3(), eta2, phi2);
@@ -538,7 +538,7 @@ namespace Rivet {
 
   inline double deltaR(double eta1, double phi1,
                        const FourVector& v,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY :
       return deltaR(eta1, phi1, v.vector3());
@@ -563,7 +563,7 @@ namespace Rivet {
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourMomentum& a, const FourMomentum& b,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY:
       return deltaR(a.vector3(), b.vector3());
@@ -576,7 +576,7 @@ namespace Rivet {
 
   inline double deltaR(const FourMomentum& v,
                        double eta2, double phi2,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY:
       return deltaR(v.vector3(), eta2, phi2);
@@ -590,7 +590,7 @@ namespace Rivet {
 
   inline double deltaR(double eta1, double phi1,
                        const FourMomentum& v,
-                       DeltaRScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY:
       return deltaR(eta1, phi1, v.vector3());

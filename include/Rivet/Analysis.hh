@@ -17,7 +17,7 @@
 
 /// @def vetoEvent
 /// Preprocessor define for vetoing events, including the log message and return.
-#define vetoEvent { getLog() << Log::DEBUG << "Vetoing event on line " << __LINE__ << " of " << __FILE__ << endl; return; }
+#define vetoEvent { MSG_DEBUG("Vetoing event on line " << __LINE__ << " of " << __FILE__); return; }
 
 
 namespace Rivet {

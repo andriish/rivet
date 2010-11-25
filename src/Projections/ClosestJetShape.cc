@@ -9,7 +9,7 @@ namespace Rivet {
   ClosestJetShape::ClosestJetShape(const FinalState& fs,
                      const vector<FourMomentum>& jetaxes,
                      double rmin, double rmax, double interval,
-                     double r1minPsi, DeltaRScheme distscheme)
+                     double r1minPsi, RapScheme distscheme)
     : _jetaxes(jetaxes),
       _rmin(rmin), _rmax(rmax), _interval(interval),
       _r1minPsi(r1minPsi), _distscheme(distscheme)

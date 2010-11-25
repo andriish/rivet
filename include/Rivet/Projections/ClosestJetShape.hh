@@ -58,7 +58,7 @@ namespace Rivet {
     /// Constructor.
     ClosestJetShape(const FinalState& fs, const vector<FourMomentum>& jetaxes,
                     double rmin=0.0, double rmax=0.7, double interval=0.1,
-                    double r1minPsi=0.3, DeltaRScheme distscheme=RAPIDITY);
+                    double r1minPsi=0.3, RapScheme distscheme=RAPIDITY);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -156,7 +156,7 @@ namespace Rivet {
     double _r1minPsi;
 
     /// Rapidity scheme
-    DeltaRScheme _distscheme;
+    RapScheme _distscheme;
 
     /// Number of bins
     size_t _nbins;

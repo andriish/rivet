@@ -70,7 +70,6 @@ namespace Rivet {
       return particles(cmpParticleByAscAbsPseudorapidity);
     }
 
-
     /// Access the projected final-state particles.
     virtual size_t size() const { return _theParticles.size(); }
 
@@ -78,6 +77,9 @@ namespace Rivet {
     virtual bool empty() const { return _theParticles.empty(); }
     /// @deprecated Is this final state empty?
     virtual bool isEmpty() const { return _theParticles.empty(); }
+
+    /// Minimum-\f$ p_\perp \f$ requirement.
+    virtual size_t ptMin() const { return _ptmin; }
 
 
   public:
