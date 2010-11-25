@@ -54,13 +54,13 @@ namespace Rivet {
     JetShape(const JetAlg& jetalg,
              double rmin, double rmax, size_t nbins,
              double ptmin=0, double ptmax=MAXDOUBLE,
-             double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+             double absrapmin=-MAXDOUBLE, double absrapmax=-MAXDOUBLE,
              RapScheme rapscheme=RAPIDITY);
 
     /// Constructor from vector of bin edges.
     JetShape(const JetAlg& jetalg, vector<double> binedges,
              double ptmin=0, double ptmax=MAXDOUBLE,
-             double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+             double absrapmin=-MAXDOUBLE, double absrapmax=-MAXDOUBLE,
              RapScheme rapscheme=RAPIDITY);
 
     /// Clone on the heap.

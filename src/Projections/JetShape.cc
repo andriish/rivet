@@ -9,13 +9,14 @@ namespace Rivet {
   JetShape::JetShape(const JetAlg& jetalg,
                      double rmin, double rmax, size_t nbins,
                      double ptmin, double ptmax,
-                     double rapmin, double rapmax,
+                     double absrapmin, double absrapmax,
                      RapScheme rapscheme)
     : _rapscheme(rapscheme)
   {
     setName("JetShape");
     _binedges = linspace(rmin, rmax, nbins);
     _ptcuts = make_pair(ptmin, ptmax);
+    _rapcuts = make_pair(absrapmin, absrapmax);
     addProjection(jetalg, "Jets");
   }
 
@@ -24,12 +25,13 @@ namespace Rivet {
   JetShape::JetShape(const JetAlg& jetalg,
                      vector<double> binedges,
                      double ptmin, double ptmax,
-                     double rapmin, double rapmax,
+                     double absrapmin, double absrapmax,
                      RapScheme rapscheme)
     : _binedges(binedges), _rapscheme(rapscheme)
   {
     setName("JetShape");
     _ptcuts = make_pair(ptmin, ptmax);
+    _rapcuts = make_pair(absrapmin, absrapmax);
     addProjection(jetalg, "Jets");
   }
 
@@ -60,10 +62,10 @@ namespace Rivet {
 
     foreach (const Jet& j, jets) {
       FourMomentum pj = j.momentum();
-      // These cuts are already applied when getting the jets in ::project(), but we check again for direct calc use.
       if (!inRange(pj.pT(), _ptcuts)) continue;
-      if (_rapscheme == PSEUDORAPIDITY && !inRange(pj.eta(), _rapcuts)) continue;
-      if (_rapscheme == RAPIDITY && !inRange(pj.rapidity(), _rapcuts)) continue;
+      /// @todo Introduce a better (i.e. more safe and general) eta/y selection mechanism: MomentumFilter
+      if (_rapscheme == PSEUDORAPIDITY && !inRange(fabs(pj.eta()), _rapcuts)) continue;
+      if (_rapscheme == RAPIDITY && !inRange(fabs(pj.rapidity()), _rapcuts)) continue;
       foreach (const Particle& p, j.particles()) {
         const double dR = deltaR(pj, p.momentum(), _rapscheme);
         if (!inRange(dR, _binedges.front(), _binedges.back())) continue; //< Out of histo range
@@ -93,7 +95,7 @@ namespace Rivet {
 
   void JetShape::project(const Event& e) {
     const Jets jets = applyProjection<JetAlg>(e, "Jets").jets(_ptcuts.first, _ptcuts.second,
-                                                              _rapcuts.first, _rapcuts.second, _rapscheme);
+                                                              -_rapcuts.second, _rapcuts.second, _rapscheme);
     calc(jets);
   }
 
