@@ -126,7 +126,7 @@ class Histo(object):
                     self.path, htmlescape(self.title))
         else:
             r += ind + '    path="%s" title="">\n' % (
-                    posixpath.dirname(self.path))
+                    self.path)
         if (self.xlabel!=''):
             r += ind + '  <dimenstion dim="0" title="%s"/>\n' % (
                     htmlescape(self.xlabel))
