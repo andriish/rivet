@@ -1,7 +1,6 @@
 # Use posixpath instead of os.path for AIDA path handling to be platform
 # independent, i.e. always use "/" as path delimiter.
 import posixpath
-
 import os
 import re
 import logging
@@ -37,7 +36,30 @@ def htmlescape(text, d=None):
 
 
 # Histo and Bin classes were copied from aida2flat
+
 class Histo(object):
+    """Simple container for histograms storing a list of :class:`Bin` instances.
+
+    Histogram trees can be read in from AIDA and flat format files with
+    :meth:`~Histo.fromAIDA` and :meth:`~histo.fromFlat`. These methods
+    produce dictionaries mapping histogram paths to histograms. For string
+    representations for AIDA and flat output :meth:`~Histo.asFlat` and
+    :meth:`~Histo.asAIDA` can be used.
+
+    Two different paths for histograms exist:
+
+    :attr:`histopath`
+        The path of the histogram.
+
+    :attr:`fullpath`
+        The full path of the histogram including "/REF" for reference histograms.
+
+    Looping over the bins in a histogram can be simply done by::
+
+        >>> for b in myhisto:
+        ...     # do stuff with Bin b
+
+    """
     aidaindent = "  "
     def __init__(self):
         self._bins = []
@@ -220,7 +242,6 @@ class Histo(object):
             #lowok = False
             #highok = False
             br = b.getXRange()
-            # print curran, "->", br
             # update the current range used if we exceed the current upper
             # limit
             while (curran[1] is not None and
@@ -355,12 +376,16 @@ class Bin(object):
     aidaindent = "    "
     __slots__ = ["xlow", "xhigh", "yval", "yerrplus", "yerrminus", "focus"]
     def __init__(self, xlow=None, xhigh=None, yval=0, yerrplus=0, yerrminus=0, focus=None):
-        self.xlow = xlow
-        self.xhigh= xhigh
-        self.yval = yval
-        self.yerrplus = yerrplus
-        self.yerrminus = yerrminus
-        self.focus= focus
+        def _float(f):
+            if f is None:
+                return None
+            return float(f)
+        self.xlow = _float(xlow)
+        self.xhigh= _float(xhigh)
+        self.yval = _float(yval)
+        self.yerrplus = _float(yerrplus)
+        self.yerrminus = _float(yerrminus)
+        self.focus= _float(focus)
 
     def __str__(self):
         out = "%e to %e: %e +%e-%e" % (self.xlow, self.xhigh,
@@ -372,8 +397,9 @@ class Bin(object):
         return out
 
     def asGnuplot(self):
-        out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval, self.xlow, self.xhigh,
-                                          self.yval-self.yerrminus, self.yval+self.yerrplus)
+        out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval,
+                self.xlow, self.xhigh, self.yval-self.yerrminus,
+                self.yval+self.yerrplus)
         return out
 
     def asAIDA(self):
@@ -402,7 +428,7 @@ class Bin(object):
 
     def getBinCenter(self):
         """Geometric middle of the bin range."""
-        return self.xlow + .5*(self.xhigh - self.xlow)
+        return float(self.xlow + .5*(self.xhigh - self.xlow))
 
     def getXErrPlus(self):
         return self.xhigh - self.getBinCenter()
@@ -439,6 +465,7 @@ class Bin(object):
 
 
 class PlotParser(object):
+    """Parser for rivet's .plot plotinfo files."""
     pat_begin_block = re.compile('^# BEGIN ([A-Z0-9_]+) ?(\S+)?')
     # temporarily allow several hashes before END for YODA
     pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
@@ -447,6 +474,20 @@ class PlotParser(object):
     pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 
     def __init__(self, plotpaths=None):
+        """
+        Parameters
+        ----------
+        plotpaths : list of str, optional
+            The directories to search for .plot files.
+            The default is to call :command:`rivet-config --datadir` to get
+            the directory where the .plot files can be found.
+
+        Raises
+        ------
+        ValueError
+            If `plotpaths` is not specified and calling
+            :command:`rivet-config` fails.
+        """
         if plotpaths is None:
             plotpaths = []
         self.plotpaths = plotpaths
@@ -463,11 +504,20 @@ class PlotParser(object):
                 raise ValueError("No plotpaths given and rivet-config call failed!")
 
     def getSection(self, section, hpath):
-        """Get sections from a .plot file.
+        """Get a section for a histogram from a .plot file.
 
-        hpath must have the form /AnalysisID/HistogramID
+        Parameters
+        ----------
+        section : ('PLOT'|'SPECIAL'|'HISTOGRAM')
+            The section that should be extracted.
+        hpath : str
+            The histogram path, i.e. /AnaylsisID/HistogramID .
 
-        TODO: Caching!
+        Todo
+        ----
+        Caching
+            At the moment the result of the lookup is not cache so every
+            call requires a file to be opened.
         """
         if section not in ['PLOT', 'SPECIAL', 'HISTOGRAM']:
             raise ValueError("Can't parse section \'%s\'" %section)
@@ -511,35 +561,56 @@ class PlotParser(object):
 
 
     def getHeaders(self, hpath):
-        """Get a header dict for histogram hpath.
+        """Get the plot headers for histogram hpath.
 
-        hpath must have the form /AnalysisID/HistogramID
+        This returns the PLOT section.
+
+        Parameters
+        ----------
+        hpath : str
+            The histogram path, i.e. /AnaylsisID/HistogramID .
 
         Returns
         -------
         plot_section : dict
             The dictionary usually contains the 'Title', 'XLabel' and
             'YLabel' properties of the respective plot.
+
+        See also
+        --------
+        :meth:`getSection`
         """
         return self.getSection('PLOT', hpath)
 
     def getSpecial(self, hpath):
         """Get a SPECIAL section for histogram hpath.
 
+        The SPECIAL section is only available in a few analyses.
+
         Parameters
         ----------
         hpath : str
             Histogram path. Must have the form /AnalysisID/HistogramID .
+
+        See also
+        --------
+        :meth:`getSection`
         """
         return self.getSection('SPECIAL', hpath)
 
     def getHistogramOptions(self, hpath):
         """Get a HISTOGRAM section for histogram hpath.
 
+        The HISTOGRAM section is only available in a few analyses.
+
         Parameters
         ----------
         hpath : str
             Histogram path. Must have the form /AnalysisID/HistogramID .
+
+        See also
+        --------
+        :meth:`getSection`
         """
         return self.getSection('HISTOGRAM', hpath)
 
