@@ -40,9 +40,7 @@ namespace Rivet {
      \f]
      with \f$ 0 \le r \le R \f$ and \f$ P_\perp(r_1, r_2) = \sum_{\in [r_1, r_2)} p_\perp \f$.
 
-     The constructor expects also the equidistant binning in radius \f$ r \f$ to produce the
-     jet shape of all bins in a vector and this separately for each jet to allow
-     post-selection.
+     The constructor expects also the binning in radius \f$ r \f$ to be supplied.
   */
   class JetShape : public Projection {
   public:

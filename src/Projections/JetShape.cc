@@ -42,6 +42,8 @@ namespace Rivet {
     const JetShape& other = pcast<JetShape>(p);
     const int ptcmp = cmp(ptMin(), other.ptMin()) || cmp(ptMax(), other.ptMax());
     if (ptcmp != EQUIVALENT) return ptcmp;
+    const int rapcmp = cmp(_rapcuts.first, other._rapcuts.first) || cmp(_rapcuts.second, other._rapcuts.second);
+    if (rapcmp != EQUIVALENT) return rapcmp;
     int bincmp = cmp(numBins(), other.numBins());
     if (bincmp != EQUIVALENT) return bincmp;
     for (size_t i = 0; i < _binedges.size(); ++i) {
