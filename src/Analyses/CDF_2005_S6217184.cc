@@ -35,8 +35,8 @@ namespace Rivet {
       addProjection(fj, "Jets");
 
       // Specify pT bins
-      _ptedges = { 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, \
-                   148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 };
+      _ptedges += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0,
+          148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
 
       // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 6; ++i) {
@@ -66,23 +66,24 @@ namespace Rivet {
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT range");
-        vetoEvent(evt);
       }
 
       // Calculate and histogram jet shapes
       const double weight = evt.weight();
 
-      for (size_t ipt = 0; ipt < 18; ++ipt) {
-        const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt]);
-        for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
-          const double r_rho = jsipt.rBinMid(rbin);
-          _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/1.0)*jsipt.diffJetShape(rbin), weight);
-          const double r_Psi = jsipt.rBinMax(rbin);
-          _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
+      if (jets.size() > 0) {
+        for (size_t ipt = 0; ipt < 18; ++ipt) {
+          const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt]);
+          for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
+            const double r_rho = jsipt.rBinMid(rbin);
+            _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/1.0)*jsipt.diffJetShape(rbin), weight);
+            const double r_Psi = jsipt.rBinMax(rbin);
+            _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
+          }
+          // Final histo is 1 - Psi(0.3/R) as a function of jet pT bin
+          const double ptmid = (_ptedges[ipt] + _ptedges[ipt+1])/2.0;
+          _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
         }
-        // Final histo is 1 - Psi(0.3/R) as a function of jet pT bin
-        const double ptmid = (_ptedges[ipt] + _ptedges[ipt+1])/2.0;
-        _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
       }
 
     }
@@ -102,7 +103,7 @@ namespace Rivet {
     //@{
 
     /// Jet \f$ p_\perp\f$ bins.
-    double _ptedges[19];
+    vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
 
     /// JetShape projection name for each \f$p_\perp\f$ bin.
     string _jsnames_pT[18];

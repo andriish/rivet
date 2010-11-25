@@ -67,7 +67,7 @@ $(DOCNAME).pdf : $(DOCNAME).tex preamble.tex analyses.tex refs.bib analyses.bib
 	$(LATEX) $<; true
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<) > /dev/null; true
 	egrep -c $(RERUNBIB) $(DOCNAME).log && ($(BIBTEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<); true
-	for i in `seq 10`; do if egrep $(RERUN) $(DOCNAME).log; then echo "LaTeX re-run $i"; cp $(DOCNAME).toc $(DOCNAME).toc.bak; $(LATEX) $<; else break; fi; done; true
+	for i in `seq 5`; do if egrep $(RERUN) $(DOCNAME).log; then echo "LaTeX re-run $i"; cp $(DOCNAME).toc $(DOCNAME).toc.bak; $(LATEX) $<; else break; fi; done; true
 	if cmp -s $(DOCNAME).toc $(DOCNAME).toc.bak; then true; else $(LATEX) $<; true; fi
 	$(RM) $(DOCNAME).toc.bak; true
 
