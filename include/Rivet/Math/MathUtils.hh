@@ -152,10 +152,26 @@ namespace Rivet {
   }
 
 
+  /// @brief Return the bin index of the given value, @a val, given a vector of bin edges
+  /// NB. The @a binedges vector must be sorted
+  template <typename NUM>
+  inline int index_between(const NUM& val, const vector<NUM>& binedges) {
+    if (!inRange(val, binedges.front(), binedges.back())) return -1; //< Out of histo range
+    int index = -1;
+    for (size_t i = 1; i < binedges.size(); ++i) {
+      if (val < binedges[i]) {
+        index = i-1;
+        break;
+      }
+    }
+    assert(inRange(index, -1, binedges.size()-1));
+    return index;
+  }
+
 
   /// Named number-type squaring operation.
-  template <typename Num>
-  inline Num sqr(Num a) {
+  template <typename NUM>
+  inline NUM sqr(NUM a) {
     return a*a;
   }
 

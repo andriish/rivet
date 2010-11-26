@@ -70,15 +70,8 @@ namespace Rivet {
       if (_rapscheme == RAPIDITY && !inRange(fabs(pj.rapidity()), _rapcuts)) continue;
       foreach (const Particle& p, j.particles()) {
         const double dR = deltaR(pj, p.momentum(), _rapscheme);
-        if (!inRange(dR, _binedges.front(), _binedges.back())) continue; //< Out of histo range
-        size_t dRindex = -1;
-        for (size_t i = 1; i < _binedges.size(); ++i) {
-          if (dR < _binedges[i]) {
-            dRindex = i-1;
-            break;
-          }
-        }
-        assert(inRange(dRindex, 0, numBins()));
+        const int dRindex = index_between(dR, _binedges);
+        if (dRindex == -1) continue; //< Out of histo range
         _diffjetshapes[dRindex] += p.momentum().pT();
       }
     }

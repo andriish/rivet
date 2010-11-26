@@ -66,24 +66,25 @@ namespace Rivet {
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT range");
+        vetoEvent;
       }
 
       // Calculate and histogram jet shapes
       const double weight = evt.weight();
 
-      if (jets.size() > 0) {
-        for (size_t ipt = 0; ipt < 18; ++ipt) {
-          const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt]);
-          for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
-            const double r_rho = jsipt.rBinMid(rbin);
-            _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/1.0)*jsipt.diffJetShape(rbin), weight);
-            const double r_Psi = jsipt.rBinMax(rbin);
-            _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
-          }
-          // Final histo is 1 - Psi(0.3/R) as a function of jet pT bin
-          const double ptmid = (_ptedges[ipt] + _ptedges[ipt+1])/2.0;
-          _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
+      for (size_t ipt = 0; ipt < 18; ++ipt) {
+        const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt]);
+        for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
+          const double r_rho = jsipt.rBinMid(rbin);
+          _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/1.0)*jsipt.diffJetShape(rbin), weight);
+          const double r_Psi = jsipt.rBinMax(rbin);
+          _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
         }
+
+        // Final histo is Psi(0.3/R) as a function of jet pT bin
+        /// @todo Can this actually be calculated event by event, or does it need to be assembled in a DPS in finalize? See CDF_2008_S7782535.
+        const double ptmid = (_ptedges[ipt] + _ptedges[ipt+1])/2.0;
+        _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
       }
 
     }

@@ -5,13 +5,12 @@
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/ClosestJetShape.hh"
+#include "Rivet/Projections/JetShape.hh"
 
 namespace Rivet {
 
 
   /// @brief CDF Run II b-jet shape paper
-  /// @todo Migrate to use new JetShape
   class CDF_2008_S7782535 : public Analysis {
   public:
 
@@ -19,8 +18,6 @@ namespace Rivet {
     CDF_2008_S7782535() : Analysis("CDF_2008_S7782535")
     {
       setBeams(PROTON, ANTIPROTON);
-      _Rjet = 0.7;
-      _NpTbins = 4;
     }
 
 
@@ -31,17 +28,18 @@ namespace Rivet {
       // Set up projections
       const FinalState fs(-3.6, 3.6);
       addProjection(fs, "FS");
-      // Veto (anti)neutrinos, and muons with pT above 1.0 GeV
-      VetoedFinalState vfs(fs);
-      vfs.vetoNeutrinos();
-      vfs.addVetoPairDetail(MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(vfs, "VFS");
-      addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
-      addProjection(ClosestJetShape(vfs, _jetaxes, 0.0, 0.7, 0.1, 0.3), "JetShape");
+      FastJets jetproj(fs, FastJets::CDFMIDPOINT, 0.7);
+      jetproj.useInvisibles();
+      addProjection(jetproj, "Jets");
 
-      // Book histograms
-      _pTbins += 52, 80, 104, 142, 300;
-      for (int i = 0; i < _NpTbins; ++i) {
+      // Book histograms and corresponding jet shape projections
+      _ptedges += 52, 80, 104, 142, 300;
+      for (size_t i = 0; i < 4; ++i) {
+        stringstream ss; ss << "JetShape" << i;
+        const string pname = ss.str();
+        _jsnames_pT[i] = pname;
+        const JetShape jsp(jetproj, 0.0, 0.7, 6, _ptedges[i], _ptedges[i+1], 0.0, 0.7, RAPIDITY);
+        addProjection(jsp, pname);
         _h_Psi_pT[i] = bookProfile1D(i+1, 2, 1);
       }
       _h_OneMinusPsi_vs_pT = bookDataPointSet(5, 1, 1);
@@ -50,46 +48,43 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& event) {
-      // Get jets
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
+      const Jets& jets = applyProjection<FastJets>(event, "Jets").jets(_ptedges.front(), _ptedges.back(), 0.0, 0.7);
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jets.size() << endl;
-
-      // Determine the central jet axes
-      _jetaxes.clear();
-      foreach (const Jet& j, jets) {
-        if (j.containsBottom()) {
-          // Only use central calorimeter jets
-          FourMomentum pjet = j.momentum();
-          if (pjet.pT()/GeV > _pTbins[0] && fabs(pjet.rapidity()) < 0.7) {
-            _jetaxes.push_back(pjet);
-          }
-        }
-      }
-      if (_jetaxes.empty())  {
-        getLog() << Log::DEBUG << "No b-jet axes in acceptance" << endl;
+      if (jets.size() == 0) {
+        MSG_DEBUG("No jets found in required pT range");
         vetoEvent;
       }
 
-      // Determine jet shapes
-      const ClosestJetShape& js = applyProjection<ClosestJetShape>(event, "JetShape");
+      // Filter to just get a vector of b-jets
+      Jets bjets;
+      foreach (const Jet& j, jets) {
+        if (j.containsBottom()) bjets += j;
+      }
+      if (bjets.empty())  {
+        MSG_DEBUG("No b-jet axes in acceptance");
+        vetoEvent;
+      }
 
-      /// @todo Replace with foreach
-      for (size_t jind = 0; jind < _jetaxes.size(); ++jind) {
-        // Put jet in correct pT bin
-        int jet_pt_bin = -1;
-        for (size_t i = 0; i < 4; ++i) {
-          if (inRange(_jetaxes[jind].pT(), _pTbins[i], _pTbins[i+1])) {
-            jet_pt_bin = i;
-            break;
-          }
-        }
-        if (jet_pt_bin > -1) {
-          // Fill each entry in profile
-          for (size_t rbin = 0; rbin < js.numBins(); ++rbin) {
-            const double rad_Psi = js.rMin() + (rbin+1.0)*js.interval();
-            /// @todo Yuck... ClosestJetShape's interface sucks
-            _h_Psi_pT[jet_pt_bin]->fill(rad_Psi/_Rjet, js.intJetShape(jind, rbin), event.weight() );
-          }
+      // Bin b-jets in pT
+      Jets bjets_ptbinned[4];
+      foreach (const Jet& bj, bjets) {
+        const FourMomentum pbj = bj.momentum();
+        const int ipt = index_between(pbj.pT(), _ptedges);
+        if (ipt == -1) continue; //< Out of pT range (somehow!)
+        bjets_ptbinned[ipt] += bj;
+      }
+
+      // Loop over jet pT bins and fill shape profiles
+      const double weight = event.weight();
+      for (size_t ipt = 0; ipt < 4; ++ipt) {
+        if (bjets_ptbinned[ipt].empty()) continue;
+
+        // Don't use the cached result: copy construct and calculate for provided b-jets only
+        JetShape jsipt = applyProjection<JetShape>(event, _jsnames_pT[ipt]);
+        jsipt.calc(bjets_ptbinned[ipt]);
+        for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
+          const double r_Psi = jsipt.rBinMax(rbin);
+          _h_Psi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
         }
       }
 
@@ -98,14 +93,17 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
+
+      // Construct final 1-Psi(0.3/0.7) profile from Psi profiles
       vector<double> y, ey;
-      for (size_t i = 0; i < _pTbins.size()-1; ++i) {
+      for (size_t i = 0; i < _ptedges.size()-1; ++i) {
         // Get entry for rad_Psi = 0.2 bin
         AIDA::IProfile1D* ph_i = _h_Psi_pT[i];
         y.push_back(1.0 - ph_i->binHeight(1));
         ey.push_back(ph_i->binError(1));
       }
       _h_OneMinusPsi_vs_pT->setCoordinate(1, y, ey);
+
     }
 
     //@}
@@ -115,10 +113,13 @@ namespace Rivet {
 
     /// @name Analysis data
     //@{
-    vector<FourMomentum> _jetaxes;
-    double _Rjet;
-    vector<double> _pTbins;
-    int _NpTbins;
+
+    /// Jet \f$ p_\perp\f$ bins.
+    vector<double> _ptedges; // This can't be a raw array if we want to initialise it non-painfully
+
+    /// JetShape projection name for each \f$p_\perp\f$ bin.
+    string _jsnames_pT[4];
+
     //@}
 
 
