@@ -1,5 +1,13 @@
 2010-11-26  Andy Buckley  <andy@insectnation.org>
 
+	* Tweak to floating point inRange to use fuzzyEquals for CLOSED
+	interval equality comparisons.
+
+	* Some BibTeX generation improvements, and fixing the ATLAS dijet
+	BibTeX key.
+
+	* Resolution upgrade in PNG make-plots output.
+
 	* CDF_2005_S6217184.cc, CDF_2008_S7782535.cc: Updates to use the
 	new per-jet JetAlg interface (and some other fixes).
 

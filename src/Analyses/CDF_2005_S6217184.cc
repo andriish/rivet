@@ -45,7 +45,7 @@ namespace Rivet {
           stringstream ss; ss << "JetShape" << k;
           const string pname = ss.str();
           _jsnames_pT[k] = pname;
-          const JetShape jsp(fj, 0.0, 0.7, 6, _ptedges[k], _ptedges[k+1], 0.1, 0.7, RAPIDITY);
+          const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[k], _ptedges[k+1], 0.1, 0.7, RAPIDITY);
           addProjection(jsp, pname);
           _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1);
           _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1);
@@ -79,7 +79,7 @@ namespace Rivet {
         for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
           for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
             const double r_rho = jsipt.rBinMid(rbin);
-            // cout << ipt << " " << rbin << " " << jsipt.diffJetShape(ijet, rbin) << endl;
+            // cout << ipt << " " << rbin << " (" << r_rho << ") " << jsipt.diffJetShape(ijet, rbin) << endl;
             /// Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
             _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin), weight);
             const double r_Psi = jsipt.rBinMax(rbin);
