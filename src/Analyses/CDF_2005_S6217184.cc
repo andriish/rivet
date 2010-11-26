@@ -53,8 +53,7 @@ namespace Rivet {
       }
 
       // Final histo
-      //_profhistPsi = bookProfile1D(13, 1, 1);
-      _profhistOneMinusPsi_pT = bookDataPointSet(13, 1, 1);
+      _profhistPsi_vs_pT = bookDataPointSet(13, 1, 1);
     }
 
 
@@ -99,10 +98,10 @@ namespace Rivet {
       for (size_t i = 0; i < _ptedges.size()-1; ++i) {
         // Get entry for rad_Psi = 0.2 bin
         AIDA::IProfile1D* ph_i = _profhistPsi_pT[i];
-        y.push_back(1.0 - ph_i->binHeight(2)); //< Definitely 1-Psi?
+        y.push_back(ph_i->binHeight(2));
         ey.push_back(ph_i->binError(1));
       }
-      _profhistOneMinusPsi_pT->setCoordinate(1, y, ey);
+      _profhistPsi_vs_pT->setCoordinate(1, y, ey);
 
     }
 
@@ -127,8 +126,7 @@ namespace Rivet {
     //@{
     AIDA::IProfile1D* _profhistRho_pT[18];
     AIDA::IProfile1D* _profhistPsi_pT[18];
-    //AIDA::IProfile1D* _profhistPsi;
-    AIDA::IDataPointSet* _profhistOneMinusPsi_pT;
+    AIDA::IDataPointSet* _profhistPsi_vs_pT;
     //@}
 
   };
