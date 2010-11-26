@@ -22,9 +22,8 @@ Description:
 BibKey: Barate:1996fi
 BibTeX: '@Article{Barate:1996fi,
      author    = "Barate, R. and others",
- collaboration = "ALEPH",
-     title     = "{Studies of quantum chromodynamics with the ALEPH
-                  detector}",
+     collaboration = "ALEPH",
+     title     = "{Studies of quantum chromodynamics with the ALEPH detector}",
      journal   = "Phys. Rept.",
      volume    = "294",
      year      = "1998",

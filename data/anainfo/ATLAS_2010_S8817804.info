@@ -19,13 +19,14 @@ Description:
   The first jet cross section measurement made with the ATLAS detector at the LHC.
   Jets are resconstructed within $|y|<2.8$ and above 60~GeV for the inclusive jet
   cross section plots.  For the di-jet plots the second jet must have pT>30~GeV.
-  Jet pT and di-jet mass spectra are plotted in bins or rapidity $|y|<0.3$, 
+  Jet pT and di-jet mass spectra are plotted in bins or rapidity $|y|<0.3$,
   $0.3<|y|<0.8$, $0.8<|y|<1.2$, $1.2<|y|<2.1$, $2.1<|y|<2.8$.  Di-jet $\chi$
-  spectra are plotted in bins of di-jet mass $340~GeV<m_{12}<520~GeV$, 
+  spectra are plotted in bins of di-jet mass $340~GeV<m_{12}<520~GeV$,
   $520~GeV<m_{12}<800~GeV$ and $800~GeV<m_{12}<1200~GeV$.
 BibKey: Aad:2010wv
-BibTeX: '@Article{Collaboration:2010wv,
-     author    = "Collaboration, ATLAS",
+BibTeX: '@Article{Aad:2010wv,
+     author    = "Aad, G. and others",
+     collaboration = "ATLAS",
      title     = "{Measurement of inclusive jet and dijet cross sections in
                   proton-proton collisions at 7 TeV centre-of-mass energy
                   with the ATLAS detector}",
