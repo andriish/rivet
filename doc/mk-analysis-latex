@@ -68,7 +68,7 @@ for aname in sorted(list(all_analyses)):
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     subtitle = "\\subsection{%s}\n" % safe_aname
     if ana.bibKey() and ana.bibTeX():
-        bib[ana.bibKey()] = ana.bibTeX()
+        bib[ana.bibKey()] = "%% (%s)\n" % aname + ana.bibTeX()
         citetex = r"\cite{%s}" % ana.bibKey()
         subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
     page += subtitle
