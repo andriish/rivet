@@ -80,7 +80,8 @@ namespace Rivet {
           for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
             const double r_rho = jsipt.rBinMid(rbin);
             // cout << ipt << " " << rbin << " " << jsipt.diffJetShape(ijet, rbin) << endl;
-            _profhistRho_pT[ipt]->fill(r_rho/0.7, 0.7*jsipt.diffJetShape(ijet, rbin), weight);
+            /// Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
+            _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin), weight);
             const double r_Psi = jsipt.rBinMax(rbin);
             _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin), weight);
           }
