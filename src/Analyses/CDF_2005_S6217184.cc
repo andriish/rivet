@@ -76,18 +76,15 @@ namespace Rivet {
 
       for (size_t ipt = 0; ipt < 18; ++ipt) {
         const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt]);
-        for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
-          const double r_rho = jsipt.rBinMid(rbin);
-          cout << ipt << " " << rbin << " " << jsipt.diffJetShape(rbin) << endl;
-          _profhistRho_pT[ipt]->fill(r_rho/0.7, 0.7*jsipt.diffJetShape(rbin), weight);
-          const double r_Psi = jsipt.rBinMax(rbin);
-          _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
+        for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
+          for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
+            const double r_rho = jsipt.rBinMid(rbin);
+            // cout << ipt << " " << rbin << " " << jsipt.diffJetShape(ijet, rbin) << endl;
+            _profhistRho_pT[ipt]->fill(r_rho/0.7, 0.7*jsipt.diffJetShape(ijet, rbin), weight);
+            const double r_Psi = jsipt.rBinMax(rbin);
+            _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin), weight);
+          }
         }
-
-        // Final histo is Psi(0.3/R) as a function of jet pT bin
-        /// @todo Can this actually be calculated event by event, or does it need to be assembled in a DPS in finalize? See CDF_2008_S7782535.
-        // const double ptmid = (_ptedges[ipt] + _ptedges[ipt+1])/2.0;
-        // _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
       }
 
     }

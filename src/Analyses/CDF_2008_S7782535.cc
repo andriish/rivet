@@ -79,13 +79,14 @@ namespace Rivet {
       const double weight = event.weight();
       for (size_t ipt = 0; ipt < 4; ++ipt) {
         if (bjets_ptbinned[ipt].empty()) continue;
-
         // Don't use the cached result: copy construct and calculate for provided b-jets only
         JetShape jsipt = applyProjection<JetShape>(event, _jsnames_pT[ipt]);
         jsipt.calc(bjets_ptbinned[ipt]);
-        for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
-          const double r_Psi = jsipt.rBinMax(rbin);
-          _h_Psi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
+        for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
+          for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
+            const double r_Psi = jsipt.rBinMax(rbin);
+            _h_Psi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin), weight);
+          }
         }
       }
 

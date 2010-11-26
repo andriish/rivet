@@ -1,3 +1,14 @@
+2010-11-26  Andy Buckley  <andy@insectnation.org>
+
+	* CDF_2005_S6217184.cc, CDF_2008_S7782535.cc: Updates to use the
+	new per-jet JetAlg interface (and some other fixes).
+
+	* JetAlg.cc: Changed the interface on request to return per-jet
+	rather than per-event jet shapes, with an extra jet index argument.
+
+	* MathUtils.hh: Adding index_between(...) function, which is handy
+	for working out which bin a value falls in, given a set of bin edges.
+
 2010-11-25  Andy Buckley  <andy@insectnation.org>
 
 	* Cmp.hh: Adding ASC/DESC (and ANTISORTED) as preferred

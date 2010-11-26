@@ -85,6 +85,11 @@ namespace Rivet {
       return _binedges.size() - 1;
     }
 
+    /// Number of jets which passed cuts.
+    size_t numJets() const {
+      return _diffjetshapes.size();
+    }
+
     /// \f$ r_\text{min} \f$ value.
     double rMin() const {
       return _binedges.front();
@@ -106,40 +111,37 @@ namespace Rivet {
     }
 
     /// Central \f$ r \f$ value for bin @a rbin.
-    /// @todo This external indexing thing is a bit nasty...
     double rBinMin(size_t rbin) const {
       assert(inRange(rbin, 0, numBins()));
       return _binedges[rbin];
     }
 
     /// Central \f$ r \f$ value for bin @a rbin.
-    /// @todo This external indexing thing is a bit nasty...
     double rBinMax(size_t rbin) const {
       assert(inRange(rbin, 0, numBins()));
       return _binedges[rbin+1];
     }
 
     /// Central \f$ r \f$ value for bin @a rbin.
-    /// @todo This external indexing thing is a bit nasty...
     double rBinMid(size_t rbin) const {
       assert(inRange(rbin, 0, numBins()));
       return (_binedges[rbin] + _binedges[rbin+1])/2.0;
     }
 
     /// Return value of differential jet shape profile histo bin.
-    /// @todo This external indexing thing is a bit nasty...
-    double diffJetShape(size_t rbin) const {
+    double diffJetShape(size_t ijet, size_t rbin) const {
+      assert(inRange(ijet, 0, numJets()));
       assert(inRange(rbin, 0, numBins()));
-      return _diffjetshapes[rbin];
+      return _diffjetshapes[ijet][rbin];
     }
 
     /// Return value of integrated jet shape profile histo bin.
-    /// @todo This external indexing thing is a bit nasty...
-    double intJetShape(size_t rbin) const {
+    double intJetShape(size_t ijet, size_t rbin) const {
+      assert(inRange(ijet, 0, numJets()));
       assert(inRange(rbin, 0, numBins()));
       double rtn  = 0;
       for (size_t i = 0; i <= rbin; ++i) {
-        rtn += _diffjetshapes[i];
+        rtn += _diffjetshapes[ijet][i];
       }
       return rtn;
     }
@@ -185,8 +187,8 @@ namespace Rivet {
     /// @name The projected jet shapes
     //@{
 
-    /// Jet shape histo
-    vector<double> _diffjetshapes;
+    /// Jet shape histo -- first index is jet number, second is r bin
+    vector< vector<double> > _diffjetshapes;
 
     //@}
 

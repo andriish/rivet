@@ -55,7 +55,7 @@ namespace Rivet {
 
 
   void JetShape::clear() {
-    _diffjetshapes = vector<double>(numBins(), 0.0);
+    _diffjetshapes.clear();
   }
 
 
@@ -63,27 +63,39 @@ namespace Rivet {
     clear();
 
     foreach (const Jet& j, jets) {
+      // Apply jet cuts
       FourMomentum pj = j.momentum();
       if (!inRange(pj.pT(), _ptcuts)) continue;
       /// @todo Introduce a better (i.e. more safe and general) eta/y selection mechanism: MomentumFilter
       if (_rapscheme == PSEUDORAPIDITY && !inRange(fabs(pj.eta()), _rapcuts)) continue;
       if (_rapscheme == RAPIDITY && !inRange(fabs(pj.rapidity()), _rapcuts)) continue;
+
+      // Fill bins
+      vector<double> bins(numBins(), 0.0);
       foreach (const Particle& p, j.particles()) {
         const double dR = deltaR(pj, p.momentum(), _rapscheme);
         const int dRindex = index_between(dR, _binedges);
         if (dRindex == -1) continue; //< Out of histo range
-        _diffjetshapes[dRindex] += p.momentum().pT();
+        bins[dRindex] += p.momentum().pT();
       }
+
+      // Add bin vector for this jet to the diffjetshapes container
+      _diffjetshapes += bins;
     }
 
     // Normalize to total pT
-    double integral = 0.0;
-    for (size_t i = 0; i < numBins(); ++i) {
-      integral += _diffjetshapes[i];
-    }
-    if (integral > 0) {
+    foreach (vector<double>& binsref, _diffjetshapes) {
+      double integral = 0.0;
       for (size_t i = 0; i < numBins(); ++i) {
-        _diffjetshapes[i] /= integral;
+        integral += binsref[i];
+      }
+      if (integral > 0) {
+        for (size_t i = 0; i < numBins(); ++i) {
+          binsref[i] /= integral;
+        }
+      } else {
+        // It's just-about conceivable that a jet would have no particles in the given Delta(r) range...
+        MSG_DEBUG("No pT contributions in jet Delta(r) range: weird!");
       }
     }
 
