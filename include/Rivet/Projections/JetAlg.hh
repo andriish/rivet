@@ -81,10 +81,11 @@ namespace Rivet {
     /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     virtual Jets jets(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                      double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                      double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                       RapScheme rapscheme=PSEUDORAPIDITY) const {
       const Jets rawjets = _jets(ptmin);
       Jets rtn;
+      MSG_DEBUG("Raw jet size (with pTmin cut) = " << rawjets.size());
       foreach (const Jet& j, rawjets) {
         const FourMomentum pj = j.momentum();
         if (!inRange(pj.pT(), ptmin, ptmax)) continue;
@@ -99,7 +100,7 @@ namespace Rivet {
     /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     template <typename F>
     Jets jets(F sorter, double ptmin=0.0, double ptmax=MAXDOUBLE,
-              double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+              double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
               RapScheme rapscheme=PSEUDORAPIDITY) const {
       Jets js = jets(ptmin);
       if (sorter != 0) {
@@ -111,7 +112,7 @@ namespace Rivet {
     /// Get the jets, ordered by \f$ p_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     Jets jetsByPt(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                  double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                   RapScheme rapscheme=PSEUDORAPIDITY) const {
       return jets(cmpJetsByPt, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
@@ -119,7 +120,7 @@ namespace Rivet {
     /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     Jets jetsByE(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                 double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                 double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                  RapScheme rapscheme=PSEUDORAPIDITY) const {
       return jets(cmpJetsByE, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
@@ -127,7 +128,7 @@ namespace Rivet {
     /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     Jets jetsByEt(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                  double rapmin=-MAXDOUBLE, double rapmax=-MAXDOUBLE,
+                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                   RapScheme rapscheme=PSEUDORAPIDITY) const {
       return jets(cmpJetsByEt, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }

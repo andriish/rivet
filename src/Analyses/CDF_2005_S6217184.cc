@@ -36,7 +36,7 @@ namespace Rivet {
 
       // Specify pT bins
       _ptedges += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0,
-          148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
+        148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
 
       // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 6; ++i) {
@@ -53,7 +53,8 @@ namespace Rivet {
       }
 
       // Final histo
-      _profhistPsi = bookProfile1D(13, 1, 1);
+      //_profhistPsi = bookProfile1D(13, 1, 1);
+      _profhistOneMinusPsi_pT = bookDataPointSet(13, 1, 1);
     }
 
 
@@ -62,10 +63,11 @@ namespace Rivet {
     void analyze(const Event& evt) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets jets = applyProjection<FastJets>(evt, "Jets").jetsByPt(37, 380, 0.1, 0.7);
+      const Jets jets = applyProjection<FastJets>(evt, "Jets").jetsByPt(_ptedges.front()*GeV, _ptedges.back()*GeV,
+                                                                        -0.7, 0.7, RAPIDITY);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
-        MSG_DEBUG("No jets found in required pT range");
+        MSG_DEBUG("No jets found in required pT & rapidity range");
         vetoEvent;
       }
 
@@ -76,15 +78,16 @@ namespace Rivet {
         const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt]);
         for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
           const double r_rho = jsipt.rBinMid(rbin);
-          _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/1.0)*jsipt.diffJetShape(rbin), weight);
+          cout << ipt << " " << rbin << " " << jsipt.diffJetShape(rbin) << endl;
+          _profhistRho_pT[ipt]->fill(r_rho/0.7, 0.7*jsipt.diffJetShape(rbin), weight);
           const double r_Psi = jsipt.rBinMax(rbin);
           _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(rbin), weight);
         }
 
         // Final histo is Psi(0.3/R) as a function of jet pT bin
         /// @todo Can this actually be calculated event by event, or does it need to be assembled in a DPS in finalize? See CDF_2008_S7782535.
-        const double ptmid = (_ptedges[ipt] + _ptedges[ipt+1])/2.0;
-        _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
+        // const double ptmid = (_ptedges[ipt] + _ptedges[ipt+1])/2.0;
+        // _profhistPsi->fill(ptmid/GeV, jsipt.intJetShape(2), weight);
       }
 
     }
@@ -92,7 +95,17 @@ namespace Rivet {
 
     // Finalize
     void finalize() {
-      //
+
+      // Construct final 1-Psi(0.3/0.7) profile from Psi profiles
+      vector<double> y, ey;
+      for (size_t i = 0; i < _ptedges.size()-1; ++i) {
+        // Get entry for rad_Psi = 0.2 bin
+        AIDA::IProfile1D* ph_i = _profhistPsi_pT[i];
+        y.push_back(1.0 - ph_i->binHeight(2)); //< Definitely 1-Psi?
+        ey.push_back(ph_i->binError(1));
+      }
+      _profhistOneMinusPsi_pT->setCoordinate(1, y, ey);
+
     }
 
     //@}
@@ -116,7 +129,8 @@ namespace Rivet {
     //@{
     AIDA::IProfile1D* _profhistRho_pT[18];
     AIDA::IProfile1D* _profhistPsi_pT[18];
-    AIDA::IProfile1D* _profhistPsi;
+    //AIDA::IProfile1D* _profhistPsi;
+    AIDA::IDataPointSet* _profhistOneMinusPsi_pT;
     //@}
 
   };

@@ -77,6 +77,7 @@ namespace Rivet {
 
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
+    // cout << "CMP " << _useInvisibles << endl;
     return \
       (_useInvisibles ? mkNamedPCmp(other, "FS") : mkNamedPCmp(other, "VFS")) ||
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||

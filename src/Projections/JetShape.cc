@@ -81,8 +81,10 @@ namespace Rivet {
     for (size_t i = 0; i < numBins(); ++i) {
       integral += _diffjetshapes[i];
     }
-    for (size_t i = 0; i < numBins(); ++i) {
-      _diffjetshapes[i] /= integral;
+    if (integral > 0) {
+      for (size_t i = 0; i < numBins(); ++i) {
+        _diffjetshapes[i] /= integral;
+      }
     }
 
   }

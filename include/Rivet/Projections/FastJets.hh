@@ -43,8 +43,8 @@ namespace Rivet {
   public:
     /// Wrapper enum for selected Fastjet jet algorithms.
     enum JetAlgName { KT, CAM, SISCONE, ANTIKT, PXCONE,
-                  CDFJETCLU, CDFMIDPOINT, D0ILCONE,
-                  JADE, DURHAM, TRACKJET };
+                      CDFJETCLU, CDFMIDPOINT, D0ILCONE,
+                      JADE, DURHAM, TRACKJET };
 
 
     /// @name Constructors etc.
