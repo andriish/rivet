@@ -1,5 +1,8 @@
 2010-11-27  Andy Buckley  <andy@insectnation.org>
 
+	* MathUtils.hh: Adding fuzzyGtrEquals and fuzzyLessEquals, and
+	tidying up the math utils collection a bit.
+
 	* CDF 1994 colour coherence analysis overhauled and
 	correction/norm factors fixed. Moved to VALIDATED status.
 

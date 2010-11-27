@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// @name Number comparisons etc.
+  /// @name Comparison functions for safe floating point equality tests
   //@{
 
   /// Compare a floating point number to zero with a degree
@@ -24,6 +24,131 @@ namespace Rivet {
   /// implicit type conversion. The @a tolerance parameter is ignored.
   inline bool isZero(long val, double UNUSED(tolerance)=1E-8) {
     return val == 0;
+  }
+
+
+  /// @brief Compare two floating point numbers for equality with a degree of fuzziness
+  /// The @a tolerance parameter is fractional.
+  inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
+    const double absavg = fabs(a + b)/2.0;
+    const double absdiff = fabs(a - b);
+    const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff < tolerance*absavg;
+    return rtn;
+  }
+
+  /// @brief Compare two integral-type numbers for equality with a degree of fuzziness.
+  /// Since there is no risk of floating point error with integral types,
+  /// this function just exists in case @c fuzzyEquals is accidentally
+  /// used on an integer type, to avoid implicit type conversion. The @a
+  /// tolerance parameter is ignored, even if it would have an
+  /// absolute magnitude greater than 1.
+  inline bool fuzzyEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
+    return a == b;
+  }
+
+
+  /// @brief Compare two floating point numbers for >= with a degree of fuzziness
+  /// The @a tolerance parameter on the equality test is as for @c fuzzyEquals.
+  inline bool fuzzyGtrEquals(double a, double b, double tolerance=1E-5) {
+    return a > b || fuzzyEquals(a, b, tolerance);
+  }
+
+  /// @brief Compare two integral-type numbers for >= with a degree of fuzziness.
+  /// Since there is no risk of floating point error with integral types,
+  /// this function just exists in case @c fuzzyGtrEquals is accidentally
+  /// used on an integer type, to avoid implicit type conversion. The @a
+  /// tolerance parameter is ignored, even if it would have an
+  /// absolute magnitude greater than 1.
+  inline bool fuzzyGtrEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
+    return a >= b;
+  }
+
+
+  /// @brief Compare two floating point numbers for <= with a degree of fuzziness
+  /// The @a tolerance parameter on the equality test is as for @c fuzzyEquals.
+  inline bool fuzzyLessEquals(double a, double b, double tolerance=1E-5) {
+    return a < b || fuzzyEquals(a, b, tolerance);
+  }
+
+  /// @brief Compare two integral-type numbers for <= with a degree of fuzziness.
+  /// Since there is no risk of floating point error with integral types,
+  /// this function just exists in case @c fuzzyLessEquals is accidentally
+  /// used on an integer type, to avoid implicit type conversion. The @a
+  /// tolerance parameter is ignored, even if it would have an
+  /// absolute magnitude greater than 1.
+  inline bool fuzzyLessEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
+    return a <= b;
+  }
+
+  //@}
+
+
+  /// @name Ranges and intervals
+  //@{
+
+  /// Represents whether an interval is open (non-inclusive) or closed
+  /// (inclusive). For example, the interval \f$ [0, \pi) \f$ is closed (an inclusive
+  /// boundary) at 0, and open (a non-inclusive boundary) at \f$ \pi \f$.
+  enum RangeBoundary { OPEN=0, SOFT=0, CLOSED=1, HARD=1 };
+
+
+  /// @brief Determine if @a value is in the range @a low to @a high, for floating point numbers
+  /// Interval boundary types are defined by @a lowbound and @a highbound.
+  /// @todo Optimise to one-line at compile time?
+  template<typename NUM>
+  inline bool inRange(NUM value, NUM low, NUM high,
+                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+    if (lowbound == OPEN && highbound == OPEN) {
+      return (value > low && value < high);
+    } else if (lowbound == OPEN && highbound == CLOSED) {
+      return (value > low && (value < high || fuzzyEquals(value, high)));
+    } else if (lowbound == CLOSED && highbound == OPEN) {
+      return ((value > low || fuzzyEquals(value, low)) && value < high);
+    } else { // if (lowbound == CLOSED && highbound == CLOSED) {
+      return ((value > low || fuzzyEquals(value, low)) && (value < high || fuzzyEquals(value, high)));
+    }
+  }
+
+  /// Alternative version of inRange for doubles, which accepts a pair for the range arguments.
+  template<typename NUM>
+  inline bool inRange(NUM value, pair<NUM, NUM> lowhigh,
+                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+    return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
+  }
+
+
+  /// @brief Determine if @a value is in the range @a low to @a high, for integer types
+  /// Interval boundary types are defined by @a lowbound and @a highbound.
+  /// @todo Optimise to one-line at compile time?
+  inline bool inRange(int value, int low, int high,
+                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=CLOSED) {
+    if (lowbound == OPEN && highbound == OPEN) {
+      return (value > low && value < high);
+    } else if (lowbound == OPEN && highbound == CLOSED) {
+      return (value > low && value <= high);
+    } else if (lowbound == CLOSED && highbound == OPEN) {
+      return (value >= low && value < high);
+    } else { // if (lowbound == CLOSED && highbound == CLOSED) {
+      return (value >= low && value <= high);
+    }
+  }
+
+  /// Alternative version of @c inRange for ints, which accepts a pair for the range arguments.
+  inline bool inRange(int value, pair<int, int> lowhigh,
+                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+    return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
+  }
+
+  //@}
+
+
+  /// @name Miscellaneous numerical helpers
+  //@{
+
+  /// Named number-type squaring operation.
+  template <typename NUM>
+  inline NUM sqr(NUM a) {
+    return a*a;
   }
 
   /// Find the sign of a number
@@ -45,79 +170,11 @@ namespace Rivet {
     return (val > 0) ? PLUS : MINUS;
   }
 
-  /// Compare two floating point numbers with a degree of fuzziness
-  /// expressed by the fractional @a tolerance parameter.
-  inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
-    const double absavg = fabs(a + b)/2.0;
-    const double absdiff = fabs(a - b);
-    const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff < tolerance*absavg;
-    return rtn;
-  }
-
-  /// Compare two integral-type numbers with a degree of fuzziness.
-  /// Since there is no risk of floating point error with integral types,
-  /// this function just exists in case @c fuzzyEquals is accidentally
-  /// used on an integer type, to avoid implicit type conversion. The @a
-  /// tolerance parameter is ignored, even if it would have an
-  /// absolute magnitude greater than 1.
-  inline bool fuzzyEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
-    return a == b;
-  }
-
-  /// Represents whether an interval is open (non-inclusive) or closed
-  /// (inclusive). For example, the interval \f$ [0, \pi) \f$ is closed (an inclusive
-  /// boundary) at 0, and open (a non-inclusive boundary) at \f$ \pi \f$.
-  enum RangeBoundary { OPEN=0, SOFT=0, CLOSED=1, HARD=1 };
-
-  /// Determine if @a value is in the range @a low to @a high, with boundary
-  /// types defined by @a lowbound and @a highbound.
-  /// @todo Optimise to one-line at compile time?
-  template<typename NUM>
-  inline bool inRange(NUM value, NUM low, NUM high,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
-    if (lowbound == OPEN && highbound == OPEN) {
-      return (value > low && value < high);
-    } else if (lowbound == OPEN && highbound == CLOSED) {
-      return (value > low && (value < high || fuzzyEquals(value, high)));
-    } else if (lowbound == CLOSED && highbound == OPEN) {
-      return ((value > low || fuzzyEquals(value, low)) && value < high);
-    } else { // if (lowbound == CLOSED && highbound == CLOSED) {
-      return ((value > low || fuzzyEquals(value, low)) && (value < high || fuzzyEquals(value, high)));
-    }
-  }
+  //@}
 
 
-  /// Alternative version of inRange which accepts a pair for the range arguments.
-  template<typename NUM>
-  inline bool inRange(NUM value, pair<NUM, NUM> lowhigh,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
-    return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
-  }
-
-
-  /// Determine if @a value is in the range @a low to @a high, with boundary
-  /// types defined by @a lowbound and @a highbound.
-  /// @todo Optimise to one-line at compile time?
-  inline bool inRange(int value, int low, int high,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=CLOSED) {
-    if (lowbound == OPEN && highbound == OPEN) {
-      return (value > low && value < high);
-    } else if (lowbound == OPEN && highbound == CLOSED) {
-      return (value > low && value <= high);
-    } else if (lowbound == CLOSED && highbound == OPEN) {
-      return (value >= low && value < high);
-    } else { // if (lowbound == CLOSED && highbound == CLOSED) {
-      return (value >= low && value <= high);
-    }
-  }
-
-
-  /// Alternative version of @c inRange<int> which accepts a pair for the range arguments.
-  inline bool inRange(int value, pair<int, int> lowhigh,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
-    return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
-  }
-
+  /// @name Binning helper functions
+  //@{
 
   /// Make a list of @a nbins + 1 values equally spaced between @a start and @a end inclusive.
   inline vector<double> linspace(double start, double end, size_t nbins) {
@@ -168,15 +225,7 @@ namespace Rivet {
     return index;
   }
 
-
-  /// Named number-type squaring operation.
-  template <typename NUM>
-  inline NUM sqr(NUM a) {
-    return a*a;
-  }
-
   //@}
-
 
 
   /// @name Statistics functions
@@ -194,12 +243,12 @@ namespace Rivet {
 
   /// Calculate the covariance (variance) between two samples
   inline double covariance(const vector<int>& sample1, const vector<int>& sample2) {
-    double mean1 = mean(sample1);
-    double mean2 = mean(sample2);
-    int N = sample1.size();
+    const double mean1 = mean(sample1);
+    const double mean2 = mean(sample2);
+    const int N = sample1.size();
     double cov = 0.0;
     for (int i = 0; i < N; i++) {
-      double cov_i = (sample1[i] - mean1)*(sample2[i] - mean2);
+      const double cov_i = (sample1[i] - mean1)*(sample2[i] - mean2);
       cov += cov_i;
     }
     if (N > 1) return cov/(N-1);
@@ -292,9 +341,10 @@ namespace Rivet {
     return 0.5*log((E+pz)/(E-pz));
   }
 
+  //@}
+
 
 }
 
-//@}
 
 #endif
