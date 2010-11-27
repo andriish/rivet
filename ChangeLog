@@ -1,7 +1,9 @@
 2010-11-27  Andy Buckley  <andy@insectnation.org>
 
+	* Adding programmable completion for aida2flat and flat2aida.
+
 	* Improvements to programmable completion using the neat _filedir
-	completoin shell function which I just discovered.
+	completion shell function which I just discovered.
 
 2010-11-26  Andy Buckley  <andy@insectnation.org>
 
