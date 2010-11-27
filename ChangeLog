@@ -1,3 +1,8 @@
+2010-11-27  Andy Buckley  <andy@insectnation.org>
+
+	* Improvements to programmable completion using the neat _filedir
+	completoin shell function which I just discovered.
+
 2010-11-26  Andy Buckley  <andy@insectnation.org>
 
 	* Tweak to floating point inRange to use fuzzyEquals for CLOSED
