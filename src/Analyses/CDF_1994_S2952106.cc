@@ -108,8 +108,8 @@ namespace Rivet {
     void finalize() {
 
       // Normal scalings
-      scale(_histJet1Et, 10/_sumw1);
-      scale(_histJet2Et, 10/_sumw1);
+      normalize(_histJet1Et, 12.3);
+      normalize(_histJet2Et, 12.3);
 
       // eta3 correction
       const double eta3_CDF_sim[] =
