@@ -4,9 +4,10 @@ Summary: CDF Run I color coherence analysis.
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 2952106
-Status: UNVALIDATED - not functional
+Status: VALIDATED
 Authors:
  - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>
+ - Andy Buckley <andy.buckley@cern.ch>
 References:
  - Phys.Rev.D50,5562,1994
  - doi:10.1103/PhysRevD.50.5562
@@ -15,7 +16,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [p-, p+]
 Energies: [1800]
-PtCuts: [80]
+PtCuts: [90]
 Description:
   CDF Run I color coherence analysis. Events with $\ge 3$ jets are
   selected and Et distributions of the three highest-pT jets are

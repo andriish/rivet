@@ -18,7 +18,6 @@ lib_LTLIBRARIES += RivetUnvalidated.la
 RivetUnvalidated_la_SOURCES = \
     CDF_1991_S2313472.cc \
     CDF_1993_S2742446.cc \
-    CDF_1994_S2952106.cc \
     CDF_1996_S3108457.cc \
     CDF_1996_S3349578.cc \
     CDF_1997_S3541940.cc \
@@ -56,6 +55,7 @@ lib_LTLIBRARIES += RivetCDFAnalyses.la
 RivetCDFAnalyses_la_SOURCES = \
     CDF_1988_S1865951.cc \
     CDF_1990_S2089246.cc \
+    CDF_1994_S2952106.cc \
     CDF_1996_S3418421.cc \
     CDF_1998_S3618439.cc \
     CDF_2000_S4155203.cc \
