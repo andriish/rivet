@@ -44,9 +44,9 @@ namespace Rivet {
       _histAlpha   = bookDataPointSet(5,1,1);
 
       // Temporary histos: these are the ones we actually fill for the plots which require correction
-      _tmphistJet3eta = new LWH::Histogram1D(binEdges(3,1,1));
-      _tmphistR23     = new LWH::Histogram1D(binEdges(4,1,1));
-      _tmphistAlpha   = new LWH::Histogram1D(binEdges(5,1,1));
+      _tmphistJet3eta.reset(new LWH::Histogram1D(binEdges(3,1,1)));
+      _tmphistR23.reset(    new LWH::Histogram1D(binEdges(4,1,1)));
+      _tmphistAlpha.reset(  new LWH::Histogram1D(binEdges(5,1,1)));
     }
 
 
@@ -203,16 +203,14 @@ namespace Rivet {
     /// @name Histograms
     //@{
 
-    AIDA::IHistogram1D* _histJet1Et;
-    AIDA::IHistogram1D* _histJet2Et;
+    /// Straightforward output histos
+    AIDA::IHistogram1D *_histJet1Et, *_histJet2Et;
 
-    AIDA::IDataPointSet* _histR23;
-    AIDA::IDataPointSet* _histJet3eta;
-    AIDA::IDataPointSet* _histAlpha;
+    /// Output histos which need to have correction factors applied
+    AIDA::IDataPointSet *_histR23, *_histJet3eta, *_histAlpha;
 
-    LWH::IHistogram1D* _tmphistR23;
-    LWH::IHistogram1D* _tmphistJet3eta;
-    LWH::IHistogram1D* _tmphistAlpha;
+    /// Temporary histos, to be converted to DPSes
+    shared_ptr<LWH::IHistogram1D> _tmphistR23, _tmphistJet3eta, _tmphistAlpha;
 
     //@}
 
