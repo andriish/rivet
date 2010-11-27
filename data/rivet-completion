@@ -93,7 +93,7 @@ function _compare_histos() {
     opts="$opts --hier-out --linear --logarithmic --mc-errs"
     opts="$opts --no-ratio --rel-ratio --abs-ratio"
     opts="$opts --all --show-mc-only --show-single --refid"
-    opts="$opts --plot-info-dir"
+    opts="$opts --plotinfodir"
     opts="$opts --quiet -q --verbose -v"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
@@ -102,7 +102,7 @@ function _compare_histos() {
         fi
     fi
 
-    if [[ ${prev} == "--show-single" ]]; then
+    if [[ ${prev} == --show-single* ]]; then
         COMPREPLY=( $(compgen -W "no mc ref all" -- ${cur}) )
         return 0
     fi
@@ -165,7 +165,7 @@ function _aida2flat() {
     opts="$opts --match -m"
     opts="$opts --quiet -q --verbose -v"
 
-    if [[ ${cur} == "--plotinfodir" ]] ; then
+    if [[ ${cur} == --plotinfodir* ]] ; then
         _filedir -d
         return 0
     fi

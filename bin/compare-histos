@@ -91,7 +91,7 @@ if __name__ == "__main__":
                       default=".", help="write data files into this directory")
     parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
                       help="write output dat files into a directory hierarchy which matches the analysis paths")
-    parser.add_option("--plot-info-dir", dest="PLOTINFODIR", action="append",
+    parser.add_option("--plotinfodir", dest="PLOTINFODIR", action="append",
                       default=[rivet_data_dirs[0], "./"], help="directory which may contain plot header information")
 
     stygroup = OptionGroup(parser, "Plot style")

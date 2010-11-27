@@ -128,8 +128,8 @@ class Histogram:
 if __name__ == "__main__":
     from optparse import OptionParser
     parser = OptionParser(usage=__doc__)
-    parser.add_option("-s", "--split-histos", action="store_true", default=False,
-                      help="Split histograms into individual bins", dest="SPLITHISTOS")
+    parser.add_option("-s", "--split", action="store_true", default=False,
+                      help="Split histograms into individual files", dest="SPLITHISTOS")
     opts, args = parser.parse_args()
 
     if len(args) < 1:

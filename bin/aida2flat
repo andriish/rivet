@@ -45,7 +45,7 @@ if __name__ == "__main__":
     parser.add_option("-g", "--gnuplot", action="store_true", default=False,
                       help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with xye'. Implies --split",
                       dest="GNUPLOT")
-    parser.add_option("--plot-info-dir", dest="PLOTINFODIR", action="append",
+    parser.add_option("--plotinfodir", dest="PLOTINFODIR", action="append",
                       default=["./", rivet_data_dir], help="directory which may contain plot header information")
     parser.add_option("-S", "--smart-output", action="store_true", default=False,
                       help="Write to output files with names based on the corresponding input filename",
