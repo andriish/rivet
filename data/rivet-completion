@@ -1,10 +1,18 @@
 ## -*- sh -*-
 ## Analysis name completion for rivet scripts
 
+test _filedir || \
+function _filedir() {
+	local cur prev commands options command
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=( $(compgen -W "$(ls ${cur}*)" -- ${cur}) )
+    return 0
+}
+
+
 function _rivet() {
 	local cur prev commands options command
 	COMPREPLY=()
-	#cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
