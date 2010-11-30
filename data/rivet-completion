@@ -1,8 +1,8 @@
 ## -*- sh -*-
 ## Analysis name completion for rivet scripts
 
-test _filedir || \
-function _filedir() {
+_filedir &> /dev/null
+test "$?" -eq 0 || function _filedir() {
 	local cur prev commands options command
     cur="${COMP_WORDS[COMP_CWORD]}"
     COMPREPLY=( $(compgen -W "$(ls ${cur}*)" -- ${cur}) )
@@ -22,33 +22,39 @@ function _rivet() {
     opts="$opts --histo-file --histo-interval"
     opts="$opts -a -A -n -h -x -H -l -v -q"
     if [[ ${cur} == -* ]] ; then
-        #if test -x "$(which rivet)"; then
-        #    anas=$(rivet --list-options)
-        #fi
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         if test -n "$COMPREPLY"; then
             return 0
         fi
     fi
 
-    if test -x "$(which rivet)"; then
+    if test -x "$(which rivet 2> /dev/null)"; then
         anas=$(rivet --list-analyses)
-        if [[ ${prev} == "-a" || ${prev} == "--analysis" || \
-            ${prev} == "--show-analysis" ]]; then
+        if [[ ${prev} == "-a" || ${prev} == "--analysis" || ${prev} == "--show-analysis" ]]; then
             COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
             return 0
-        elif [[ ${cur} == "--analysis=" || \
-            ${cur} == "--show-analysis=" ]] ; then
+        elif [[ ${cur} == "--analysis=" || ${cur} == "--show-analysis=" ]] ; then
             COMPREPLY=( $(compgen -W "$anas" --) )
             return 0
         fi
     fi
 
+    if $(echo ${prev} | egrep -- "-n|--nevts|--runname|--histo-interval|--cross-section|-x" &> /dev/null); then
+        COMPREPLY=()
+        return 0
+    fi
+
+    if [[ ${prev} == "--analysis-path" || ${prev} == "--analysis-path-append" ]] ; then
+        _filedir -d
+        return 0
+    fi
+
+    _filedir
     return 0
 }
 
 
-complete -F _rivet -o default rivet
+complete -F _rivet rivet
 
 
 ##########################
@@ -110,7 +116,7 @@ function _compare_histos() {
         fi
     fi
 
-    if [[ ${cur} == "--plotinfodir" ]] ; then
+    if [[ ${prev} == "--plotinfodir" ]] ; then
         _filedir -d
         return 0
     fi
