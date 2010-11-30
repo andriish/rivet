@@ -1,5 +1,5 @@
 ## Flags for building all plugins
-AM_LDFLAGS = $(LDFLAGS) -module -L$(FASTJETLIBPATH)
+AM_LDFLAGS = $(LDFLAGS) -module -avoid-version -L$(FASTJETLIBPATH)
 LIBS = -lCDFConesPlugin -lSISConePlugin -lsiscone -lJadePlugin
 lib_LTLIBRARIES =
 
