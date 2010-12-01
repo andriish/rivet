@@ -245,7 +245,7 @@ EOL
       AC_MSG_CHECKING([if $SWIG is compatible with the $CXX compiler])
       flag_ok=yes
       if test x$flag_ok == xyes; then
-        stat_string=`$swig_compiler -c conftest_wrap.cxx -I$python_incpath 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
+        stat_string=`$swig_compiler -c conftest_wrap.cxx $CPPFLAGS $CXXFLAGS -I$python_incpath 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
       fi
       AC_MSG_RESULT([$flag_ok])
       if test x$flag_ok != xyes; then
