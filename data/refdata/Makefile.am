@@ -4,6 +4,7 @@ dist_pkgdata_DATA = \
   ALEPH_1996_S3486095.aida       \
   ALEPH_1996_S3196992.aida       \
   ALEPH_2004_S5765862.aida       \
+  ALICE_2010_S8706239.aida       \
   ATLAS_2010_S8591806.aida       \
   ATLAS_2010_S8817804.aida       \
   ATLAS_2010_CONF_2010_031.aida  \

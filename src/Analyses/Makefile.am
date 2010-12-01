@@ -41,6 +41,10 @@ RivetUnvalidated_la_SOURCES = \
 endif
 
 
+lib_LTLIBRARIES += RivetALICEAnalyses.la
+RivetALICEAnalyses_la_SOURCES = \
+    ALICE_2010_S8706239.cc				
+
 lib_LTLIBRARIES += RivetATLASAnalyses.la
 RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2010_S8591806.cc \
