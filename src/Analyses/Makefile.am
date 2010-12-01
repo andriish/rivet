@@ -43,7 +43,8 @@ endif
 
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
-    ALICE_2010_S8706239.cc				
+    ALICE_2010_S8706239.cc	\
+    ALICE_2010_S8625980.cc
 
 lib_LTLIBRARIES += RivetATLASAnalyses.la
 RivetATLASAnalyses_la_SOURCES = \
