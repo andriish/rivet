@@ -90,6 +90,6 @@ if [[ -n $with_root ]]; then
 fi
 
 ## Build
-cmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $CPPFLAGS $CXXFLAGS $sources_and_flags"
+cmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $sources_and_flags"
 echo $cmd
 eval $cmd
