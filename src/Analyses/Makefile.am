@@ -6,7 +6,7 @@ lib_LTLIBRARIES =
 
 noinst_LTLIBRARIES = libRivetAnalysisTools.la
 libRivetAnalysisTools_la_SOURCES = \
-  MC_JetAnalysis.cc
+    MC_JetAnalysis.cc
 
 
 ## Unvalidated analyses: add new standard analyses here, and only
@@ -44,9 +44,10 @@ endif
 
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
-    ALICE_2010_S8706239.cc	\
-    ALICE_2010_S8625980.cc      \
+    ALICE_2010_S8706239.cc \
+    ALICE_2010_S8625980.cc \
     ALICE_2010_S8624100.cc
+
 
 lib_LTLIBRARIES += RivetATLASAnalyses.la
 RivetATLASAnalyses_la_SOURCES = \
