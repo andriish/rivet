@@ -109,6 +109,19 @@ for ANANAME in ANANAMES:
     KEYWORDS["ANABIBKEY"] = ANABIBKEY
     KEYWORDS["ANABIBTEX"] = ANABIBTEX
 
+    ## Try do download AIDA data file from hepdata
+    try:
+        import urllib
+        logging.debug("Getting data file from hepdata for '%s'" % ANANAME)
+        url = urllib.urlopen('http://hepdata.cedar.ac.uk/view/irn%s/aida'%ANASPIRESID)
+        f = open("%s.aida"%ANANAME, "w")
+        for line in url.readlines():
+            f.write(line)
+        f.close()
+        url.close()
+    except Exception, e:
+        print "HepData Oops:", e
+
 
     if opts.INLINE:
         INLINEMETHODS="""
