@@ -78,6 +78,7 @@ dist_pkgdata_DATA = \
   H1_1995_S3167097.info \
   H1_2000_S4129130.info \
   JADE_OPAL_2000_S4300807.info \
+  LHCB_2010_S8758301.info \
   MC_GENERIC.info \
   MC_LEADINGJETS.info \
   MC_DIJET.info \

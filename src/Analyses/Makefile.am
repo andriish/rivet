@@ -37,6 +37,7 @@ RivetUnvalidated_la_SOURCES = \
     STAR_2008_S7869363.cc \
     STAR_2008_S7993412.cc \
     STAR_2009_UE_HELEN.cc \
+    LHCB_2010_S8758301.cc \
     ZEUS_2001_S4815815.cc
 endif
 

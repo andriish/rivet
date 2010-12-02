@@ -1,4 +1,5 @@
 dist_pkgdata_DATA = \
+  LHCB_2010_S8758301.aida        \
   JADE_OPAL_2000_S4300807.aida   \
   ALEPH_1991_S2435284.aida       \
   ALEPH_1996_S3486095.aida       \
