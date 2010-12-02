@@ -38,6 +38,8 @@ namespace Rivet {
 
       /// @todo Book histograms here, e.g.:
       _hist_nch_eta = bookHistogram1D("nch-eta", 20, -5.0, 5.0);
+      _hist_nch_pt  = bookHistogram1D("nch-pt", 100, 0.0, 200.0);
+      _hist_nch_phi = bookHistogram1D("nch-phi", 100, 0.0, TWOPI);
 
     }
 
@@ -49,7 +51,11 @@ namespace Rivet {
 
       foreach (const Particle& p, cfs.particles()) {
         double eta = p.momentum().pseudorapidity();
+        double pT = p.momentum().perp();
+        double phi = p.momentum().phi();
         _hist_nch_eta->fill(eta, weight);
+        _hist_nch_pt->fill(pT, weight);
+        _hist_nch_phi->fill(phi, weight);
       }
 
     }
@@ -58,6 +64,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       scale(_hist_nch_eta, 1.0/sumOfWeights());
+      scale(_hist_nch_pt,  1.0/sumOfWeights());
+      scale(_hist_nch_phi, 1.0/sumOfWeights());
     }
 
 
@@ -66,6 +74,8 @@ namespace Rivet {
     /// @name Histograms
     //@{
     AIDA::IHistogram1D* _hist_nch_eta;
+    AIDA::IHistogram1D* _hist_nch_pt;
+    AIDA::IHistogram1D* _hist_nch_phi;
     //@}
 
   };
