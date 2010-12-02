@@ -102,7 +102,7 @@ for ANANAME in ANANAMES:
         logging.debug("Getting SPIRES biblio data for '%s'" % ANANAME)
         bibkey, bibtex = spiresbib.get_bibtex_from_spires(ANASPIRESID)
     except Exception, e:
-        print "Oops:", e
+        logging.error("SPIRES oops: %s" % e)
     if bibkey and bibtex:
         ANABIBKEY = bibkey
         ANABIBTEX = bibtex
@@ -112,15 +112,19 @@ for ANANAME in ANANAMES:
     ## Try do download AIDA data file from hepdata
     try:
         import urllib
-        logging.debug("Getting data file from hepdata for '%s'" % ANANAME)
-        url = urllib.urlopen('http://hepdata.cedar.ac.uk/view/irn%s/aida'%ANASPIRESID)
-        f = open("%s.aida"%ANANAME, "w")
-        for line in url.readlines():
-            f.write(line)
-        f.close()
-        url.close()
+        hdurl = "http://hepdata.cedar.ac.uk/view/irn%s/aida" % ANASPIRESID
+        logging.debug("Getting data file from HepData at %s" % hdurl)
+        httpstream = urllib.urlopen(hdurl)
+        aidastr = httpstream.read()
+        if "<html>" in aidastr:
+            logging.warning("Problem encountered when getting data from HepData (%s). No reference data file written." % hdurl)
+        else:
+            f = open("%s.aida" % ANANAME, "w")
+            f.write(aidastr)
+            f.close()
+        httpstream.close()
     except Exception, e:
-        print "HepData Oops:", e
+        logging.error("HepData oops: %s" % e)
 
 
     if opts.INLINE:
