@@ -44,6 +44,11 @@ function _rivet() {
         return 0
     fi
 
+    if [[ ${prev} == "--histo-file" || ${prev} == "-H" ]] ; then
+        _filedir aida
+        return 0
+    fi
+
     if [[ ${prev} == "--analysis-path" || ${prev} == "--analysis-path-append" ]] ; then
         _filedir -d
         return 0
