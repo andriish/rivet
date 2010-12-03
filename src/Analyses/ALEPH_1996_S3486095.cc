@@ -334,7 +334,9 @@ namespace Rivet {
               _weightedTotalNumXiMinus += weight;
               break;
            case 3114:
-           case -3114: //maybe missing sigma(1385p13)
+           case -3114:
+           case 3224:
+           case -3224:
               _histMultiSigma1385Plus->fill(scaledEnergy, weight);
               _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->binMean(0), weight);
               _weightedTotalNumSigma1385Plus += weight;
