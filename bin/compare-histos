@@ -185,7 +185,6 @@ if __name__ == "__main__":
             import glob
             reffiles += glob.glob(os.path.join(d, "*.aida"))
         args = reffiles + args
-        ## TODO: Really want to behave as if all the Rivet ref files were listed on the command line?
     for a in args:
         asplit = a.split(":")
         path = asplit[0]
@@ -382,7 +381,7 @@ if __name__ == "__main__":
 
         drawonlystr = ""
         for hfile in activefiles:
-            drawonlystr += hfile + HISTOS[hfile][name].fullPath()+" "
+            drawonlystr += hfile + HISTOS[hfile][name].fullPath() + " "
         paramdefaults = {"Title" : title,
                          "XLabel" : xlabel,
                          "YLabel" : ylabel,
@@ -452,8 +451,21 @@ if __name__ == "__main__":
             if hfile in FILEOPTIONS:
                 for option in FILEOPTIONS[hfile]:
                     histstr += '%s\n' % option
-            for bin in HISTOS[hfile][name].getBins():
+            def eq(a, b):
+                if a == 0 and b == 0:
+                    return True
+                return abs((b-a)/(b+a)) < 10e-3
+            numskipped = 0
+            #print hfile, name, HISTOS[hfile][name].numBins(), HISTOS[ref][name].numBins()
+            for ibin, bin in enumerate(HISTOS[hfile][name].getBins()):
                 xmin, xmax = bin.getXRange()
+                ## Skip writing this MC bin if the bin edges don't match, and the MC histo has too many bins
+                if hfile != ref and HISTOS[hfile][name].numBins() > HISTOS[ref][name].numBins():
+                    rxmin, rxmax = HISTOS[ref][name].getBin(ibin-numskipped).getXRange()
+                    if not eq(rxmin, xmin) or not eq(rxmax, xmax):
+                        numskipped += 1
+                        assert(numskipped <= (HISTOS[hfile][name].numBins() - HISTOS[ref][name].numBins()))
+                        continue
                 histstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.yval, bin.yerr)
             histstr += "# END HISTOGRAM\n"
             histstrs.append(histstr)

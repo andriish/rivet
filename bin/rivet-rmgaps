@@ -123,7 +123,7 @@ class Histogram:
                 plural = ""
             logging.info("Stripping %d bin%s from %s" % (numrm, plural, self.description['AidaPath']))
             newdata = []
-            for i in range(len(self.data)):
+            for i in xrange(len(self.data)):
                 if self.data[i]['LowEdge'] == refhist.data[i]['LowEdge'] and \
                    self.data[i]['UpEdge'] == refhist.data[i]['UpEdge']:
                     newdata.append(self.data[i])

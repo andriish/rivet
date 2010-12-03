@@ -1,3 +1,11 @@
+2010-12-03  Andy Buckley  <andy@insectnation.org>
+
+	* 1.4.0 release.
+
+	* Add bin-skipping to compare-histos to avoid one use of
+	rivet-rmgaps (it's still needed for non-plotting post-processing
+	like Professor).
+
 2010-11-27  Andy Buckley  <andy@insectnation.org>
 
 	* MathUtils.hh: Adding fuzzyGtrEquals and fuzzyLessEquals, and
