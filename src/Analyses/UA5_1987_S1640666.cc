@@ -53,7 +53,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       
-      scale(_hist_nch, _sumWPassed);
+      scale(_hist_nch, 1.0/_sumWPassed);
       scale(_hist_mean_nch, 1.0/_sumWPassed);
       
     }
