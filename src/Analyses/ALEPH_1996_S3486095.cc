@@ -327,6 +327,7 @@ namespace Rivet {
            case 3212:
            case -3212:
               _histMeanMultiSigma0->fill(_histMeanMultiSigma0->binMean(0), weight);
+              break;
            case 3312:
            case -3312:
               _histMultiXiMinus->fill(scaledEnergy, weight);
