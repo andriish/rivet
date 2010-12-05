@@ -326,7 +326,7 @@ class Plot:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getZMax(self.xmin, self.xmax, self.ymin, self.ymax))
-            self.zmax = max(foo) if foo else 0
+            self.zmax = max(foo) if foo else 1
 
 
     def draw(self):
@@ -1589,6 +1589,8 @@ class Coordinates:
             return 0
         else:
             return min(max(result,-10),10)
+
+    # TODO: Add frame2phys functions (to allow linear function sampling in the frame space rather than the physical space)
 
     def strphys2frameX(self, x):
         return str(self.phys2frameX(x))
