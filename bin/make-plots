@@ -317,7 +317,7 @@ class Plot:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getZMin(self.xmin, self.xmax, self.ymin, self.ymax))
-            self.zmin=min(foo)
+            self.zmin = min(foo) if foo else 0
 
     def set_zmax(self,inputdata):
         if inputdata.description.has_key('ZMax'):
@@ -326,7 +326,8 @@ class Plot:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getZMax(self.xmin, self.xmax, self.ymin, self.ymax))
-            self.zmax=min(foo)
+            self.zmax = max(foo) if foo else 0
+
 
     def draw(self):
         pass
@@ -959,31 +960,34 @@ class Function(DrawableObject):
                         self.description[prop] = value
         if not iscode:
             print '++++++++++ ERROR: No code in function'
+        else:
+            foo = compile(self.code, '<string>', 'exec')
+            exec(foo)
+            self.plotfunction = plotfunction
+
 
     def draw(self,coors):
         out = ""
         out += self.startclip()
         out += self.startpsset()
-        if self.description.has_key('XMin') and self.description['XMin']!='':
-            min=float(self.description['XMin'])
-        else:
-            min=coors.xmin()
-        if self.description.has_key('XMax') and self.description['XMax']!='':
-            max=float(self.description['XMax'])
-        else:
-            max=coors.xmax()
-        dx=(max-min)/500.
-        x=min-dx
-        out += ('\\pscurve')
-        while x<(max+2*dx):
-            foo=compile(self.code, '<string>', 'exec')
-            exec(foo)
-            y=plotfunction(x)
+        xmin = coors.xmin()
+        if self.description.has_key('XMin') and self.description['XMin']:
+            xmin = float(self.description['XMin'])
+        xmax=coors.xmax()
+        if self.description.has_key('XMax') and self.description['XMax']:
+            xmax=float(self.description['XMax'])
+        # TODO: Space sample points logarithmically if LogX=1
+        dx = (xmax-xmin)/500.
+        x = xmin-dx
+        out += '\\pscurve'
+        while x < (xmax+2*dx):
+            y = self.plotfunction(x)
             out += ('(%s,%s)\n' % (coors.strphys2frameX(x), coors.strphys2frameY(y)))
-            x+=dx
+            x += dx
         out += self.stoppsset()
         out += self.stopclip()
         return out
+
 
 
 

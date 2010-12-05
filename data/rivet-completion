@@ -30,11 +30,8 @@ function _rivet() {
 
     if test -x "$(which rivet 2> /dev/null)"; then
         anas=$(rivet --list-analyses)
-        if [[ ${prev} == "-a" || ${prev} == "--analysis" || ${prev} == "--show-analysis" ]]; then
+        if $(echo ${prev} | egrep -- "-a|--analysis|--show-analysis|--list-analyses" &> /dev/null); then
             COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
-            return 0
-        elif [[ ${cur} == "--analysis=" || ${cur} == "--show-analysis=" ]] ; then
-            COMPREPLY=( $(compgen -W "$anas" --) )
             return 0
         fi
     fi
@@ -44,12 +41,12 @@ function _rivet() {
         return 0
     fi
 
-    if [[ ${prev} == "--histo-file" || ${prev} == "-H" ]] ; then
+    if $(echo ${prev} | egrep -- "--histo-file|-H" &> /dev/null); then
         _filedir aida
         return 0
     fi
 
-    if [[ ${prev} == "--analysis-path" || ${prev} == "--analysis-path-append" ]] ; then
+    if $(echo ${prev} | egrep -- "--analysis-path|--analysis-path-append" &> /dev/null); then
         _filedir -d
         return 0
     fi
