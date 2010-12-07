@@ -31,21 +31,18 @@ namespace Rivet {
       const double weight = event.weight();
 
       const FastJets & jetsproj = applyProjection<FastJets>(event, "Jets");
-      Jets alljets;
+      Jets jets;
       foreach (const Jet jet, jetsproj.jetsByPt(100.0*GeV)) {
         if (fabs(jet.momentum().rapidity())<2.8) {
-          alljets.push_back(jet);
-        }
-      }
-      Jets jets;
-      foreach (const Jet jet, alljets) {
-        if (fabs(jet.momentum().rapidity())<0.8) {
           jets.push_back(jet);
         }
         if (jets.size()==2) break;
       }
 
-      if (jets.size() < 2 || jets[0].momentum().pT() < 110.0*GeV) {
+      if (jets.size() < 2 ||
+          jets[0].momentum().pT() < 110.0*GeV ||
+          fabs(jets[0].momentum().rapidity()) >= 0.8 ||
+          fabs(jets[1].momentum().rapidity()) >= 0.8 ) {
         vetoEvent;
       }
 
