@@ -70,7 +70,7 @@ namespace Rivet {
 
       // Analyse and print some info
       const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
-      getLog() << Log::DEBUG << "Total multiplicity = " << cnfs.size() << endl;
+      MSG_DEBUG("Total multiplicity = " << cnfs.size());
       _histMult->fill(cnfs.size(), weight);
       foreach (const Particle& p, cnfs.particles()) {
         const double eta = p.momentum().eta();
@@ -93,7 +93,7 @@ namespace Rivet {
       }
 
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
-      getLog() << Log::DEBUG << "Total charged multiplicity = " << cfs.size() << endl;
+      MSG_DEBUG("Total charged multiplicity = " << cfs.size());
       _histMultCh->fill(cfs.size(), weight);
       foreach (const Particle& p, cfs.particles()) {
         const double eta = p.momentum().eta();
