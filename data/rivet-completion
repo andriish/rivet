@@ -5,7 +5,7 @@ _filedir &> /dev/null
 test "$?" -eq 0 || function _filedir() {
 	local cur prev commands options command
     cur="${COMP_WORDS[COMP_CWORD]}"
-    COMPREPLY=( $(compgen -W "$(ls ${cur}*)" -- ${cur}) )
+    COMPREPLY=( $(compgen -W "$(ls ${cur}* 2> /dev/null)" -- ${cur}) )
     return 0
 }
 
