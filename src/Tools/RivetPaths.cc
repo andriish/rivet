@@ -36,12 +36,25 @@ namespace Rivet {
     env = getenv("RIVET_ANALYSIS_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
-      dirs += split(env);
+      dirs += pathsplit(env);
     } else {
       // ... otherwise fall back to the Rivet library install path
       dirs += getLibPath();
     }
     return dirs;
+  }
+
+
+  void setAnalysisLibPaths(const vector<string>& paths) {
+    const string pathstr = pathjoin(paths);
+    setenv("RIVET_ANALYSIS_PATH", pathstr.c_str(), 1);
+  }
+
+
+  void addAnalysisLibPath(const string& extrapath) {
+    vector<string> paths = getAnalysisLibPaths();
+    paths.push_back(extrapath);
+    setAnalysisLibPaths(paths);
   }
 
 
@@ -51,10 +64,12 @@ namespace Rivet {
     env = getenv("RIVET_REF_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
-      dirs += split(env);
+      dirs += pathsplit(env);
     } else {
       // ... otherwise fall back to the Rivet data install path
       dirs += getRivetDataPath();
+      // ... and also add any analysis plugin search dirs for convenience
+      dirs += getAnalysisLibPaths();
     }
     return dirs;
   }
@@ -66,10 +81,12 @@ namespace Rivet {
     env = getenv("RIVET_INFO_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
-      dirs += split(env);
+      dirs += pathsplit(env);
     } else {
       // ... otherwise fall back to the Rivet data install path
       dirs += getRivetDataPath();
+      // ... and also add any analysis plugin search dirs for convenience
+      dirs += getAnalysisLibPaths();
     }
     return dirs;
   }

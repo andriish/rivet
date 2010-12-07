@@ -22,13 +22,7 @@ namespace Rivet {
 
 
   const string getDatafilePath(string papername) {
-    char* env = getenv("RIVET_REF_PATH");
-    vector<string> searchpaths;
-    if (env) {
-      searchpaths = split(env);
-    }
-    searchpaths.push_back(getRivetDataPath());
-    searchpaths.push_back(".");
+    const vector<string> searchpaths = getAnalysisRefPaths();
     foreach (const string& dir, searchpaths) {
       std::ifstream in;
       const string file = dir + "/" + papername + ".aida";

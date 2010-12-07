@@ -1125,7 +1125,10 @@ directories).
 You may also wish or need to use the \var{RIVET_REF_PATH} and
 \var{RIVET_INFO_PATH} variables, which respectively provide similar search paths
 for analysis reference data and analysis metadata (e.g. author, date, run
-conditions, experiment, etc.) files.
+conditions, experiment, etc.) files. To make life easier for typical users who
+have written a few plugins of their own, the analysis plugin library lookup
+paths are searched for the reference data and analysis info files -- but again
+only if the corresponding variables are \emph{not} set.
 
 To get started writing your analysis and understand
 the plugin system better, you should check out the documentation in the wiki on

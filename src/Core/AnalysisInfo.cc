@@ -26,7 +26,7 @@ namespace Rivet {
     char* env = 0;
     // First try to use the Rivet data path variable
     env = getenv("RIVET_INFO_PATH");
-    if (env) dirs += split(env);
+    if (env) dirs += pathsplit(env);
     // Then try to use the Rivet data install path
     dirs += getRivetDataPath();
     // And the current dir

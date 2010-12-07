@@ -2,7 +2,6 @@
 #ifndef RIVET_Utils_HH
 #define RIVET_Utils_HH
 
-// #include <Rivet/Rivet.hh>
 #include <Rivet/Math/Math.hh>
 #include <cctype>
 #include <algorithm>
@@ -51,28 +50,48 @@ namespace Rivet {
   }
 
 
+  /// Check whether a string @a end is found at the end of @a s
   inline bool endsWith(const string& s, const string& end) {
     if (s.length() < end.length()) return false;
     return s.substr(s.length() - end.length()) == end;
   }
 
-  /// Split a string with single-character delimiters, ignoring zero-length
-  /// substrings. Designed for getting elements of filesystem paths, naturally.
-  inline vector<string> split(string path, const string delim = ":") {
+
+  /// @brief Split a path string with colon delimiters.
+  /// Ignores zero-length substrings. Designed for getting elements of filesystem paths, naturally.
+  inline vector<string> pathsplit(const string& path) {
+    const string delim = ":";
     vector<string> dirs;
-    if (delim.length() != 1) {
-      throw Error("Rivet::split(string): delimiter must be a single character.");
-    }
+    string tmppath = path;
     while (true) {
-      const size_t delim_pos = path.find(delim);
+      const size_t delim_pos = tmppath.find(delim);
       if (delim_pos == string::npos) break;
-      const string dir = path.substr(0, delim_pos);
+      const string dir = tmppath.substr(0, delim_pos);
       if (dir.length()) dirs.push_back(dir); // Don't insert "empties"
-      path.replace(0, delim_pos+1, "");
+      tmppath.replace(0, delim_pos+1, "");
     }
-    if (path.length()) dirs.push_back(path); // Don't forget the trailing component!
+    if (tmppath.length()) dirs.push_back(tmppath); // Don't forget the trailing component!
     return dirs;
   }
+
+  /// @deprecated Use @c pathsplit instead.
+  inline vector<string> split(const string& path, const string& UNUSED(delim) = ":") {
+    return pathsplit(path);
+  }
+
+  /// @brief Join several filesystem paths together with a delimiter character.
+  /// Note that this does NOT join path elements together with a platform-portable
+  /// directory delimiter, cf. the Python @c{os.path.join}!
+  inline string pathjoin(const vector<string>& paths) {
+    const string delim = ":";
+    string rtn;
+    for (vector<string>::const_iterator is = paths.begin(); is != paths.end(); ++is) {
+      if (rtn.size() > 0) rtn += delim;
+      rtn += *is;
+    }
+    return rtn;
+  }
+
 
   /// Get library install path
   const string getLibPath();

@@ -1,3 +1,20 @@
+2010-12-07  Andy Buckley  <andy@insectnation.org>
+
+	* Update the documentation to explain this latest bump to path
+	lookup behaviours.
+
+	* Various improvements to existing path lookups. In particular,
+	the analysis lib path locations are added to the info and ref
+	paths to avoid having to set three variables when you have all
+	three file types in the same personal plugin directory.
+
+	* Adding setAnalysisLibPaths and addAnalysisLibPath
+	functions. rivet --analysis-path{,-append} now use these and work
+	correctly. Hurrah!
+
+	* Add --show-analyses as an alias for --show-analysis, following a
+	comment at the ATLAS tutorial.
+
 2010-12-07  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Change LegendXPos behaviour in make-plots. Now the top left

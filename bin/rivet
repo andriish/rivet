@@ -207,18 +207,10 @@ except:
 
 ## Override/modify analysis search path
 if opts.ANALYSIS_PATH:
-    os.environ["RIVET_ANALYSIS_PATH"] = opts.ANALYSIS_PATH
-    os.environ["RIVET_REF_PATH"] = opts.ANALYSIS_PATH
+    rivet.setAnalysisLibPaths(opts.ANALYSIS_PATH.split(":"))
 if opts.ANALYSIS_PATH_APPEND:
-    for var in ["RIVET_ANALYSIS_PATH", "RIVET_REF_PATH"]:
-        anapath = os.environ.get(var, "")
-        if anapath:
-            anapath += ":"
-        anapath += opts.ANALYSIS_PATH_APPEND
-        os.environ[var] = anapath
-# logging.debug("RIVET_ANALYSIS_PATH = " + os.environ.get("RIVET_ANALYSIS_PATH", ""))
-# logging.debug("RIVET_REF_PATH = " + os.environ.get("RIVET_REF_PATH", ""))
-# logging.debug("RIVET_INFO_PATH = " + os.environ.get("RIVET_INFO_PATH", ""))
+    for ap in opts.ANALYSIS_PATH_APPEND.split(":"):
+        rivet.addAnalysisLibPath(ap)
 
 
 ## List of analyses

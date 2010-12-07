@@ -18,6 +18,12 @@ namespace Rivet {
   /// Get Rivet analysis plugin library search paths
   const std::vector<std::string> getAnalysisLibPaths();
 
+  /// Set the Rivet analysis plugin library search paths
+  void setAnalysisLibPaths(const std::vector<std::string>& paths);
+
+  /// Set the Rivet analysis plugin library search paths
+  void addAnalysisLibPath(const std::string& extrapath);
+
   /// Get Rivet analysis reference data search paths
   const std::vector<std::string> getAnalysisRefPaths();
 
