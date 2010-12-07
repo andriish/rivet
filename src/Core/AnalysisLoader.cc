@@ -55,7 +55,7 @@ namespace Rivet {
     if (_ptrs.find(name) != _ptrs.end()) {
       // Protect against overwriting analyses by throwing an error
       /// @todo Tidy this up!
-      Log::getLog("Rivet.AnalysisLoader") << Log::ERROR << "Tried to register a second plugin analysis called '" << name << "'" << endl;
+      cerr << "Tried to register a second plugin analysis called '" << name << "'" << endl;
       exit(1);
     }
     Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Registering a plugin analysis called '" << name << "'" << endl;

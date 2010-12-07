@@ -44,12 +44,7 @@ namespace Rivet {
       case 172: offset = 12; break;
       case 183: offset = 13; break;
       case 189: offset = 14; break;
-      default:
-        getLog() << Log::ERROR
-                 << "CMS energy of events sqrt(s) = " << sqrtS()/GeV
-                 <<" doesn't match any available analysis energy." << endl;
-        /// @todo Really call exit()? I don't like the break of "command chain" that this implies
-        exit(1);
+      default: break;
       }
       for (size_t i = 0; i < 5; ++i) {
         _h_R_Jade[i] = bookDataPointSet(offset, 1, i+1);

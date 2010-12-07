@@ -74,8 +74,7 @@ namespace Rivet {
       }
     }
     if (num_anas_requested > 0 && analysisNames().size() == 0) {
-      getLog() << Log::ERROR
-               << "All analyses were incompatible with the first event's beams\n"
+      cerr     << "All analyses were incompatible with the first event's beams\n"
                << "Exiting, since this probably isn't intentional!" << endl;
       exit(1);
     }
@@ -89,7 +88,7 @@ namespace Rivet {
         //getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
         //a->checkConsistency();
       } catch (const Error& err) {
-        getLog() << Log::ERROR << "Error in " << a->name() << "::init method: "
+        cerr     << "Error in " << a->name() << "::init method: "
                  << err.what() << endl;
         exit(1);
       }
@@ -111,7 +110,7 @@ namespace Rivet {
     const PdgIdPair beams = Rivet::beamIds(ge);
     const double sqrts = Rivet::sqrtS(ge);
     if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-      getLog() << Log::ERROR << "Event beams mismatch: "
+      cerr     << "Event beams mismatch: "
                << toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
                << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
       exit(1);
@@ -135,7 +134,7 @@ namespace Rivet {
       try {
         a->analyze(event);
       } catch (const Error& err) {
-        getLog() << Log::ERROR << "Error in " << a->name() << "::analyze method: "
+        cerr     << "Error in " << a->name() << "::analyze method: "
                  << err.what() << endl;
         exit(1);
       }
@@ -151,7 +150,7 @@ namespace Rivet {
       try {
         a->finalize();
       } catch (const Error& err) {
-        getLog() << Log::ERROR << "Error in " << a->name() << "::finalize method: "
+        cerr     << "Error in " << a->name() << "::finalize method: "
                  << err.what() << endl;
         exit(1);
       }

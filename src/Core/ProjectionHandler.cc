@@ -65,7 +65,10 @@ namespace Rivet {
 
     // Check for duplicate use of "name" on "parent"
     const bool dupOk = _checkDuplicate(parent, proj, name);
-    if (!dupOk) exit(1);
+    if (!dupOk) {
+      cerr << "Duplicate name '" << name << "' in parent '" << parent.name() << "'." << endl;
+      exit(1);
+    }
 
     // Choose which version of the projection to register with this parent and name
     const Projection* p = _getEquiv(proj);
