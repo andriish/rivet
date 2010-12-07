@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     void init() {
-      FinalState fs(-1.5, 1.5, 0.0*GeV);
+      FinalState fs(-4.5, 4.5, 0.0*GeV);
       FastJets jetsproj(fs, FastJets::ANTIKT, 0.6);
       addProjection(jetsproj, "Jets");
 
@@ -31,10 +31,15 @@ namespace Rivet {
       const double weight = event.weight();
 
       const FastJets & jetsproj = applyProjection<FastJets>(event, "Jets");
-      Jets alljets = jetsproj.jetsByPt(100.0*GeV);
+      Jets alljets;
+      foreach (const Jet jet, jetsproj.jetsByPt(100.0*GeV)) {
+        if (fabs(jet.momentum().rapidity())<2.8) {
+          alljets.push_back(jet);
+        }
+      }
       Jets jets;
       foreach (const Jet jet, alljets) {
-        if (fabs(jet.momentum().eta())<0.8) {
+        if (fabs(jet.momentum().rapidity())<0.8) {
           jets.push_back(jet);
         }
         if (jets.size()==2) break;
