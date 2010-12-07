@@ -114,7 +114,6 @@ Title=Sphericity, $S$
 XLabel=$S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{S}$
 LegendXPos=1.1
-LegendYPos=0.95
 FullRange=1
 # END PLOT
 
@@ -242,7 +241,6 @@ Title=Energy-energy correlation, EEC
 XLabel=$\cos{\chi}$
 YLabel=EEC
 LegendXPos=0.9
-LegendYPos=0.9
 FullRange=1
 # END PLOT
 

@@ -36,7 +36,6 @@ XLabel=$E_\perp^\text{lead}$ / GeV
 YLabel=$\langle p_\perp^\text{diff} \rangle$ / GeV
 LogY=0
 LegendXPos=0.5
-LegendYPos=0.9
 # END PLOT
 
 # BEGIN PLOT /CDF_2004_S5839831/d03-x01-y01
