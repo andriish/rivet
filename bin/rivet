@@ -86,7 +86,7 @@ parser.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
                   default=False, help="show the list of available analyses' names. With -v, it shows the descriptions, too")
 parser.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES",
                   default=False, help="list the analyses used by this command (after subtraction of inappropriate ones)")
-parser.add_option("--show-analysis", dest="SHOW_ANALYSES", action="append",
+parser.add_option("--show-analysis", "--show-analyses", dest="SHOW_ANALYSES", action="append",
                   default=[], help="show the details of an analysis")
 parser.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                   help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
