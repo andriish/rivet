@@ -45,7 +45,7 @@ Title=$\cos(\alpha_{34})$, Durham $y_\text{cut}=0.008$
 XLabel=$\cos(\alpha_{34})$
 YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}\,\cos(\alpha_{34})$
 LogY=0
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -54,7 +54,7 @@ Title=$\cos(\alpha_{34})$, Jade $y_\text{cut}=0.015$
 XLabel=$\cos(\alpha_{34})$
 YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}\,\cos(\alpha_{34})$
 LogY=0
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 

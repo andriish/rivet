@@ -4,7 +4,7 @@ XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle N_\text{ch} \rangle / \text{d}\eta\,\text{d}\phi$
 CustomLegend={\large STAR preliminary}
 LogY=0
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.5
 # END PLOT
 

@@ -8,7 +8,7 @@ YLabel=$\text{d}\sigma/\text{d}p_{\perp}$(1st jet)
 Title=Differential cross section in leading jet rapidity
 XLabel=$|y|$(1st jet)
 YLabel=$\text{d}\sigma/\text{d}|y|$(1st jet)
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -22,7 +22,7 @@ YLabel=$\text{d}\sigma/\text{d}p_{\perp}$(Z)
 Title=Differential cross section in Z/$\gamma*$ rapidity
 XLabel=$|y|$(Z)
 YLabel=$\text{d}\sigma/\text{d}|y|$(Z)
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.7
 # END PLOT
 

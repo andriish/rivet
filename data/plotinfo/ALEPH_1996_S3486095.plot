@@ -30,7 +30,7 @@ FullRange=1
 Title=Two-jet resolution variable, $Y_3$ (charged)
 XLabel=$Y_3$
 YLabel=$1/N \, \text{d}{N}/\text{d}{Y_3}$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.8
 FullRange=1
 # END PLOT
@@ -46,7 +46,7 @@ FullRange=1
 Title=$C$ parameter (charged)
 XLabel=$C$
 YLabel=$1/N \, \text{d}{N}/\text{d}{C}$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.65
 FullRange=1
 # END PLOT
@@ -69,7 +69,7 @@ FullRange=1
 Title=Rapidity w.r.t. thrust axes, $y_T$ (charged)
 XLabel=$y_T$
 YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}{y_T}$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.8
 FullRange=1
 # END PLOT
@@ -100,7 +100,7 @@ FullRange=1
 Title=Charged multiplicity distribution
 XLabel=$N_\text{ch}$
 YLabel=$1/N \, \text{d}{N}/\text{d}{N_\text{ch}}$
-LegendXPos=0.65
+LegendXPos=0.20
 LegendYPos=0.75
 FullRange=1
 # END PLOT

@@ -15,7 +15,7 @@ ErrorBars=0
 Title=Mean track $p_T$ vs multiplicity, $|\eta|<1$, $p_\perp > 0.4$ GeV
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_T \rangle$ / GeV
-LegendXPos=0.55
+LegendXPos=0.10
 LogY=0
 ShowZero=0
 # END PLOT
@@ -25,7 +25,7 @@ Title=$\sum E_T$, $|\eta|<1$
 XLabel=$\sum E_T$ / GeV
 YLabel=$\text{d}^3 \sigma / \text{d}E_T \text{d}\eta \text{d}\phi$ / (mb/GeV)
 YLabelSep=5.5
-LegendXPos=0.55
+LegendXPos=0.10
 LegendYPos=0.85
 LogX=1
 LogY=1

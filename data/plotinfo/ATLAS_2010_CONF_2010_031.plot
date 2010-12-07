@@ -48,7 +48,7 @@ Title=Charged particle density, $\sqrt{s}={}$7000\,GeV
 XLabel=$N_\mathrm{ch}$
 YLabel=$1/N_\mathrm{ev} \mathrm{d}N_\mathrm{ev}/\mathrm{d}N_\mathrm{ch}$
 FullRange=1
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -58,7 +58,7 @@ XLabel=$p_\perp$ [GeV]
 YLabel=$1/N_\mathrm{ev} \; 1/(2\pi p_\perp) \; \mathrm{d}^2N_\mathrm{ch}/\mathrm{d}\eta\mathrm{d}p_\perp$ [GeV$^{-2}$]
 LogX=1
 FullRange=1
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 

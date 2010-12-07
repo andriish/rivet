@@ -2,7 +2,7 @@
 Title=Charged multiplicity at a function of energy
 XLabel=$E_\mathrm{CMS}/GeV$
 YLabel=$N_\text{ch}$
-LegendXPos=0.65
+LegendXPos=0.20
 LegendYPos=0.85
 FullRange=1
 # END PLOT
@@ -251,7 +251,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -260,7 +260,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -269,7 +269,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -278,7 +278,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -287,7 +287,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -296,7 +296,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=196$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -305,7 +305,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -314,7 +314,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$ ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -323,7 +323,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -332,7 +332,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -341,7 +341,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -350,7 +350,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -359,7 +359,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -368,7 +368,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=196$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -377,7 +377,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -386,7 +386,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$ ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.2
 # END PLOT
 
@@ -450,7 +450,7 @@ LegendYPos=0.8
 Title=Heavy jet mass ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.8
 # END PLOT
 
@@ -458,7 +458,7 @@ LegendYPos=0.8
 Title=Heavy jet mass ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=1.1
 # END PLOT
 
@@ -466,7 +466,7 @@ LegendYPos=1.1
 Title=Heavy jet mass ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -474,7 +474,7 @@ LegendYPos=0.8
 Title=Heavy jet mass ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -482,7 +482,7 @@ LegendYPos=0.8
 Title=Heavy jet mass ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -490,7 +490,7 @@ LegendYPos=0.8
 Title=Heavy jet mass ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -498,7 +498,7 @@ LegendYPos=0.8
 Title=Heavy jet mass ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -506,7 +506,7 @@ LegendYPos=0.8
 Title=Heavy jet mass ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\rho$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\rho$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -514,7 +514,7 @@ LegendYPos=0.8
 Title=Total jet broadening ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -522,7 +522,7 @@ LegendYPos=0.6
 Title=Total jet broadening ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -530,7 +530,7 @@ LegendYPos=0.3
 Title=Total jet broadening ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -538,7 +538,7 @@ LegendYPos=0.3
 Title=Total jet broadening ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -546,7 +546,7 @@ LegendYPos=0.3
 Title=Total jet broadening ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -554,7 +554,7 @@ LegendYPos=0.3
 Title=Total jet broadening ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -562,7 +562,7 @@ LegendYPos=0.3
 Title=Total jet broadening ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -570,7 +570,7 @@ LegendYPos=0.3
 Title=Total jet broadening ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$B_T$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_T$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -578,7 +578,7 @@ LegendYPos=0.3
 Title=Wide jet broadening ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -586,7 +586,7 @@ LegendYPos=0.6
 Title=Wide jet broadening ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -594,7 +594,7 @@ LegendYPos=0.3
 Title=Wide jet broadening ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -602,7 +602,7 @@ LegendYPos=0.3
 Title=Wide jet broadening ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -610,7 +610,7 @@ LegendYPos=0.3
 Title=Wide jet broadening ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -618,7 +618,7 @@ LegendYPos=0.3
 Title=Wide jet broadening ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -626,7 +626,7 @@ LegendYPos=0.3
 Title=Wide jet broadening ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -634,7 +634,7 @@ LegendYPos=0.3
 Title=Wide jet broadening ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$B_W$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}B_W$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -642,7 +642,7 @@ LegendYPos=0.3
 Title=C-Parameter ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -650,7 +650,7 @@ LegendYPos=0.6
 Title=C-Parameter ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -658,7 +658,7 @@ LegendYPos=0.3
 Title=C-Parameter ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -666,7 +666,7 @@ LegendYPos=0.3
 Title=C-Parameter ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -674,7 +674,7 @@ LegendYPos=0.3
 Title=C-Parameter ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -682,7 +682,7 @@ LegendYPos=0.3
 Title=C-Parameter ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -690,7 +690,7 @@ LegendYPos=0.3
 Title=C-Parameter ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -698,7 +698,7 @@ LegendYPos=0.3
 Title=C-Parameter ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$C$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}C$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.3
 # END PLOT
 
@@ -706,7 +706,7 @@ LegendYPos=0.3
 Title=Thrust major ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -714,7 +714,7 @@ LegendYPos=0.6
 Title=Thrust major ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -722,7 +722,7 @@ LegendYPos=0.8
 Title=Thrust major ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -730,7 +730,7 @@ LegendYPos=0.8
 Title=Thrust major ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -738,7 +738,7 @@ LegendYPos=0.8
 Title=Thrust major ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -746,7 +746,7 @@ LegendYPos=0.8
 Title=Thrust major ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -754,7 +754,7 @@ LegendYPos=0.8
 Title=Thrust major ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -762,7 +762,7 @@ LegendYPos=0.8
 Title=Thrust major ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$T_\mathrm{major}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{major}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -770,7 +770,7 @@ LegendYPos=0.8
 Title=Thrust minor ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(T_\mathrm{minor})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(T_\mathrm{minor})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -778,7 +778,7 @@ LegendYPos=0.6
 Title=Thrust minor ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$T_\mathrm{minor}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{minor}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -786,7 +786,7 @@ LegendYPos=0.8
 Title=Thrust minor ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$T_\mathrm{minor}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{minor}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -794,7 +794,7 @@ LegendYPos=0.8
 Title=Thrust minor ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$T_\mathrm{minor}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{minor}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -802,7 +802,7 @@ LegendYPos=0.8
 Title=Thrust minor ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$T_\mathrm{minor}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{minor}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -810,7 +810,7 @@ LegendYPos=0.8
 Title=Thrust minor ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$T_\mathrm{minor}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{minor}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -818,7 +818,7 @@ LegendYPos=0.8
 Title=Thrust minor ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$T_\mathrm{minor}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{minor}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -826,7 +826,7 @@ LegendYPos=0.8
 Title=Thrust minor ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$T_\mathrm{minor}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}T_\mathrm{minor}$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -834,7 +834,7 @@ LegendYPos=0.8
 Title=Jet mass difference ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -842,7 +842,7 @@ LegendYPos=0.6
 Title=Jet mass difference ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -850,7 +850,7 @@ LegendYPos=0.8
 Title=Jet mass difference ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -858,7 +858,7 @@ LegendYPos=0.8
 Title=Jet mass difference ($E_\mathrm{CMS}=1722$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -866,7 +866,7 @@ LegendYPos=0.8
 Title=Jet mass difference ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -874,7 +874,7 @@ LegendYPos=0.8
 Title=Jet mass difference ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -882,7 +882,7 @@ LegendYPos=0.8
 Title=Jet mass difference ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -890,7 +890,7 @@ LegendYPos=0.8
 Title=Jet mass difference ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$M_D$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}M_D$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -988,7 +988,7 @@ YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}P$
 Title=Oblateness ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -996,7 +996,7 @@ LegendYPos=0.6
 Title=Oblateness ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1004,7 +1004,7 @@ LegendYPos=0.8
 Title=Oblateness ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1012,7 +1012,7 @@ LegendYPos=0.8
 Title=Oblateness ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1020,7 +1020,7 @@ LegendYPos=0.8
 Title=Oblateness ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1028,7 +1028,7 @@ LegendYPos=0.8
 Title=Oblateness ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1036,7 +1036,7 @@ LegendYPos=0.8
 Title=Oblateness ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1044,7 +1044,7 @@ LegendYPos=0.8
 Title=Oblateness ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$O$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}O$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1100,7 +1100,7 @@ YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}S$
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1108,7 +1108,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1116,7 +1116,7 @@ LegendYPos=0.8
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1124,7 +1124,7 @@ LegendYPos=0.8
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=173$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1132,7 +1132,7 @@ LegendYPos=0.8
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1140,7 +1140,7 @@ LegendYPos=0.8
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1148,7 +1148,7 @@ LegendYPos=0.8
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1156,7 +1156,7 @@ LegendYPos=0.8
 Title=Durham jet resolution $2 \to 1$ ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$-\ln(y_{12})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{12})$
-LegendXPos=1.1
+LegendXPos=0.65
 LegendYPos=0.8
 # END PLOT
 
@@ -1164,7 +1164,7 @@ LegendYPos=0.8
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1172,7 +1172,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1180,7 +1180,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1188,7 +1188,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1196,7 +1196,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1204,7 +1204,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1212,7 +1212,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1220,7 +1220,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $3 \to 2$ ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$-\ln(y_{23})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{23})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1228,7 +1228,7 @@ LegendYPos=0.6
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1236,7 +1236,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1244,7 +1244,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1252,7 +1252,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1260,7 +1260,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1268,7 +1268,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1276,7 +1276,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1284,7 +1284,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $4 \to 3$ ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$-\ln(y_{34})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{34})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1292,7 +1292,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $5 \to 4$ ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$-\ln(y_{45})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{45})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1300,7 +1300,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $5 \to 4$ ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$-\ln(y_{45})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{45})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1308,7 +1308,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $5 \to 4$ ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$-\ln(y_{45})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{45})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1316,7 +1316,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $5 \to 4$ ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$-\ln(y_{45})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{45})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1324,7 +1324,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $5 \to 4$ ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$-\ln(y_{45})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{45})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1332,7 +1332,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $5 \to 4$ ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$-\ln(y_{45})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{45})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1340,7 +1340,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $5 \to 4$ ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$-\ln(y_{45})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{45})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1348,7 +1348,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $6 \to 5$ ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$-\ln(y_{56})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{56})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1356,7 +1356,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $6 \to 5$ ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$-\ln(y_{56})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{56})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1364,7 +1364,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $6 \to 5$ ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$-\ln(y_{56})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{56})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1372,7 +1372,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $6 \to 5$ ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$-\ln(y_{56})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{56})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1380,7 +1380,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $6 \to 5$ ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$-\ln(y_{56})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{56})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1388,7 +1388,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $6 \to 5$ ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$-\ln(y_{56})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{56})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1396,7 +1396,7 @@ LegendYPos=0.4
 Title=Durham jet resolution $6 \to 5$ ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$-\ln(y_{56})$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\ln(y_{56})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.4
 # END PLOT
 
@@ -1412,7 +1412,7 @@ Title=1-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{1 jet})/\sigma(\text{inclusive})$
 LegendYPos=0.8
-LegendXPos=0.5
+LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d189-x01-y01
@@ -1420,7 +1420,7 @@ Title=1-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{1 jet})/\sigma(\text{inclusive})$
 LegendYPos=0.8
-LegendXPos=0.5
+LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d190-x01-y01
@@ -1428,7 +1428,7 @@ Title=1-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{1 jet})/\sigma(\text{inclusive})$
 LegendYPos=0.8
-LegendXPos=0.5
+LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d191-x01-y01
@@ -1436,7 +1436,7 @@ Title=1-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{1 jet})/\sigma(\text{inclusive})$
 LegendYPos=0.8
-LegendXPos=0.5
+LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d192-x01-y01
@@ -1444,7 +1444,7 @@ Title=1-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{1 jet})/\sigma(\text{inclusive})$
 LegendYPos=0.8
-LegendXPos=0.5
+LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d193-x01-y01
@@ -1452,7 +1452,7 @@ Title=1-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{1 jet})/\sigma(\text{inclusive})$
 LegendYPos=0.8
-LegendXPos=0.5
+LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d194-x01-y01
@@ -1460,7 +1460,7 @@ Title=1-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{1 jet})/\sigma(\text{inclusive})$
 LegendYPos=0.8
-LegendXPos=0.5
+LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d195-x01-y01
@@ -1523,7 +1523,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1531,7 +1531,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1539,7 +1539,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1547,7 +1547,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1555,7 +1555,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1563,7 +1563,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1571,7 +1571,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1579,7 +1579,7 @@ LegendYPos=0.6
 Title=3-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{3 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.7
+LegendXPos=0.25
 LegendYPos=0.6
 # END PLOT
 
@@ -1587,7 +1587,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1595,7 +1595,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1603,7 +1603,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1611,7 +1611,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1619,7 +1619,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1627,7 +1627,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1635,7 +1635,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1643,7 +1643,7 @@ LegendYPos=0.6
 Title=4-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{4 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1651,7 +1651,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 # END PLOT
 
@@ -1659,7 +1659,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1667,7 +1667,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1675,7 +1675,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1683,7 +1683,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1691,7 +1691,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1699,7 +1699,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1707,7 +1707,7 @@ LegendYPos=0.6
 Title=5-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma(\text{5 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.6
 # END PLOT
 
@@ -1715,7 +1715,7 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=91.2$ GeV)
 XLabel=$\ln(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1723,7 +1723,7 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=133$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1731,7 +1731,7 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=161$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1739,7 +1739,7 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=172$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1747,7 +1747,7 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=183$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1755,7 +1755,7 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=189$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1763,7 +1763,7 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=200$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT
 
@@ -1771,6 +1771,6 @@ LegendYPos=0.6
 Title=$\geq$6-jet fraction ($E_\mathrm{CMS}=206$ GeV)
 XLabel=$\log(y_\mathrm{cut})$
 YLabel=$\sigma($\geq$\text{6 jet})/\sigma(\text{inclusive})$
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.6
 # END PLOT

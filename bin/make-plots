@@ -661,8 +661,8 @@ class Legend:
             if title == '':
                 continue
             else:
-                out += ('\\rput[Bl](-0.35,' + str(ypos) + '){' + title + '}\n')
-                out += ('\\rput[Bl](-0.35,%s){%s\n' %(ypos,'%'))
+                out += ('\\rput[Bl](0.1,' + str(ypos) + '){' + title + '}\n')
+                out += ('\\rput[Bl](0.1,%s){%s\n' %(ypos,'%'))
                 if drawobject.getErrorBands():
                     out += ('\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s]' %drawobject.getErrorBandColor())
                     out += ('(-0.10, 0.033)(-0.02, 0.001)\n')
@@ -696,7 +696,7 @@ class Legend:
                 ypos -= 0.075*6/self.description['PlotSizeY']
         if self.description.has_key('CustomLegend'):
             for i in self.description['CustomLegend'].strip().split('\\\\'):
-                out += ('\\rput[Bl](-0.35,' + str(ypos) + '){' + i + '}\n')
+                out += ('\\rput[Bl](0.1,' + str(ypos) + '){' + i + '}\n')
                 ypos -= 0.075*6/self.description['PlotSizeY']
         out += ('}\n')
         return out
@@ -705,13 +705,13 @@ class Legend:
         if self.description.has_key('LegendXPos'):
             return self.description['LegendXPos']
         else:
-            return '0.98'
+            return '0.53'
 
     def getLegendYPos(self):
         if self.description.has_key('LegendYPos'):
             return self.description['LegendYPos']
         else:
-            return '0.98'
+            return '0.93'
 
 
 

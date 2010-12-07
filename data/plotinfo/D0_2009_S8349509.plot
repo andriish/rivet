@@ -2,14 +2,14 @@
 Title=Azimuthal distribution for $p_\perp^Z > 25$ GeV
 XLabel=$\Delta \phi$(Z, jet) [rad]
 YLabel=$1/\sigma_\mathrm{Z} \times \mathrm{d}\sigma_\mathrm{Z+jet}/\mathrm{d}\Delta \phi$ [1/rad]
-LegendXPos=0.55
+LegendXPos=0.10
 # END PLOT
 
 # BEGIN PLOT /D0_2009_S8349509/d02-x01-y01
 Title=Azimuthal distribution for $p_\perp^Z>45$ GeV
 XLabel=$\Delta \phi$(Z, jet) [rad]
 YLabel=$1/\sigma_\mathrm{Z} \times \mathrm{d}\sigma_\mathrm{Z+jet}/\mathrm{d}\Delta \phi$ [1/rad]
-LegendXPos=0.55
+LegendXPos=0.10
 # END PLOT
 
 # BEGIN PLOT /D0_2009_S8349509/d03-x01-y01

@@ -2,7 +2,7 @@
 Title=Jet--jet azimuthal angle, $p_\perp^\text{max} \in [110,160]\text{ GeV}$
 XLabel=$\Delta \phi_\text{dijet}$ / rad
 YLabel=$1/\sigma_\text{dijet} \, \text{d}\sigma_\text{dijet}/\text{d}\Delta\phi_\text{dijet}$
-LegendXPos=0.50
+LegendXPos=0.05
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -10,7 +10,7 @@ CustomLegend={\large ATLAS preliminary}
 Title=Jet--jet azimuthal angle, $p_\perp^\text{max} \in [160,210]\text{ GeV}$
 XLabel=$\Delta \phi_\text{dijet}$ / rad
 YLabel=$1/\sigma_\text{dijet} \, \text{d}\sigma_\text{dijet}/\text{d}\Delta\phi_\text{dijet}$
-LegendXPos=0.50
+LegendXPos=0.05
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -18,7 +18,7 @@ CustomLegend={\large ATLAS preliminary}
 Title=Jet--jet azimuthal angle, $p_\perp^\text{max} \in [210,310]\text{ GeV}$
 XLabel=$\Delta \phi_\text{dijet}$ / rad
 YLabel=$1/\sigma_\text{dijet} \, \text{d}\sigma_\text{dijet}/\text{d}\Delta\phi_\text{dijet}$
-LegendXPos=0.50
+LegendXPos=0.05
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -26,7 +26,7 @@ CustomLegend={\large ATLAS preliminary}
 Title=Jet--jet azimuthal angle, $p_\perp^\text{max} > 310\text{ GeV}$
 XLabel=$\Delta \phi_\text{dijet}$ / rad
 YLabel=$1/\sigma_\text{dijet} \, \text{d}\sigma_\text{dijet}/\text{d}\Delta\phi_\text{dijet}$
-LegendXPos=0.50
+LegendXPos=0.05
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 

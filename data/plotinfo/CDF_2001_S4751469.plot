@@ -84,7 +84,7 @@ LogY=0
 Title=$p_\perp^\text{sum}$ (toward) for min-bias
 XLabel=$p_\perp^\text{lead}$ / GeV
 YLabel=$p_\perp^\text{sum}$ / GeV
-LegendXPos=0.55
+LegendXPos=0.10
 LogY=0
 # END PLOT
 
@@ -92,7 +92,7 @@ LogY=0
 Title=$p_\perp^\text{sum}$ (transverse) for min-bias
 XLabel=$p_\perp^\text{lead}$ / GeV
 YLabel=$p_\perp^\text{sum}$ / GeV
-LegendXPos=0.55
+LegendXPos=0.10
 LogY=0
 # END PLOT
 
@@ -100,7 +100,7 @@ LogY=0
 Title=$p_\perp^\text{sum}$ (away) for min-bias
 XLabel=$p_\perp^\text{lead}$ / GeV
 YLabel=$p_\perp^\text{sum}$ / GeV
-LegendXPos=0.55
+LegendXPos=0.10
 LogY=0
 # END PLOT
 
@@ -108,7 +108,7 @@ LogY=0
 Title=$p_\perp^\text{sum}$ (toward) for JET20
 XLabel=$p_\perp^\text{lead}$ / GeV
 YLabel=$p_\perp^\text{sum}$ / GeV
-LegendXPos=0.55
+LegendXPos=0.10
 LogY=0
 ShowZero=0
 # END PLOT
@@ -117,7 +117,7 @@ ShowZero=0
 Title=$p_\perp^\text{sum}$ (transverse) for JET20
 XLabel=$p_\perp^\text{lead}$ / GeV
 YLabel=$p_\perp^\text{sum}$ / GeV
-LegendXPos=0.55
+LegendXPos=0.10
 LogY=0
 # END PLOT
 
@@ -125,7 +125,7 @@ LogY=0
 Title=$p_\perp^\text{sum}$ (away) for JET20
 XLabel=$p_\perp^\text{lead}$ / GeV
 YLabel=$p_\perp^\text{sum}$ / GeV
-LegendXPos=0.55
+LegendXPos=0.10
 LogY=0
 # END PLOT
 

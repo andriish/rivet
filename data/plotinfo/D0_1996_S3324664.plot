@@ -29,6 +29,6 @@ YLabel=$\langle\cos(\pi-\Delta\phi)\rangle$
 LogY=0
 YMin=0.4
 YMax=1.0
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.5
 # END PLOT

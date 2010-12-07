@@ -1,3 +1,8 @@
+2010-12-07  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Change LegendXPos behaviour in make-plots. Now the top left
+	corner of the legend is used as anchor point.
+
 2010-12-03  Andy Buckley  <andy@insectnation.org>
 
 	* 1.4.0 release.
@@ -5,6 +10,10 @@
 	* Add bin-skipping to compare-histos to avoid one use of
 	rivet-rmgaps (it's still needed for non-plotting post-processing
 	like Professor).
+
+2010-12-03  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fix normalisation issues in UA5 and ALEPH analyses
 
 2010-11-27  Andy Buckley  <andy@insectnation.org>
 

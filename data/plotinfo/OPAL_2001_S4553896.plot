@@ -22,7 +22,7 @@ XLabel=$|\cos(\theta^*_\text{NR})|$
 YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}|\cos(\theta^*_\text{NR})|$
 LogY=0
 YMin=0.4
-LegendXPos=0.5
+LegendXPos=0.05
 RatioPlotYMin=0.9
 RatioPlotYMax=1.1
 # END PLOT
@@ -32,7 +32,7 @@ Title=Angle between the two softest jets (parton level)
 XLabel=$\cos(\alpha_{34})$
 YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}\,\cos(\alpha_{34})$
 LogY=0
-LegendXPos=0.5
+LegendXPos=0.05
 LegendYPos=0.5
 RatioPlotYMin=0.9
 RatioPlotYMax=1.1

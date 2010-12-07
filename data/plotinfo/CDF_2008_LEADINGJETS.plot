@@ -34,7 +34,7 @@ Title=Transverse region charged $\sum p_\perp$ density
 XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle \sum p_T^\text{track} \rangle / \text{d}\eta\,\text{d}\phi$ / GeV
 LogY=0
-LegendXPos=0.55
+LegendXPos=0.10
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_LEADINGJETS/d06-x01-y01
@@ -42,7 +42,7 @@ Title=TransMAX region charged $\sum p_\perp$ density
 XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle \sum p_T^\text{track} \rangle / \text{d}\eta\,\text{d}\phi$ / GeV
 LogY=0
-LegendXPos=0.55
+LegendXPos=0.10
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_LEADINGJETS/d07-x01-y01
@@ -57,7 +57,7 @@ Title=TransDIF region charged $\sum p_\perp$ density
 XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle \sum p_T^\text{track} \rangle / \text{d}\eta\,\text{d}\phi$ / GeV
 LogY=0
-LegendXPos=0.55
+LegendXPos=0.10
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_LEADINGJETS/d09-x01-y01
@@ -65,6 +65,6 @@ Title=Transverse region charged $p_\perp$ average
 XLabel=$p_T(\text{leading jet})$ / GeV
 YLabel=$\langle p_T^\text{track} \rangle$ / GeV
 LogY=0
-LegendXPos=0.55
+LegendXPos=0.10
 ShowZero=0
 # END PLOT

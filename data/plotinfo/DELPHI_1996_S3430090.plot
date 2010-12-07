@@ -31,7 +31,7 @@ Title=Rapidity w.r.t. thrust axes, $y_T$
 XLabel=$y_T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_T}$
 FullRange=1
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.8
 # END PLOT
 
@@ -40,7 +40,7 @@ Title=Rapidity w.r.t. sphericity axes, $y_S$
 XLabel=$y_S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{y_S}$
 FullRange=1
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.8
 # END PLOT
 
@@ -64,7 +64,7 @@ Title=Mean out-of-plane $p_\perp$ in GeV w.r.t. thrust axes vs. $x_p$
 XLabel=$x_p$
 YLabel=$p_\perp^\text{out}$ / GeV
 LogY=0
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.7
 # END PLOT
 
@@ -73,7 +73,7 @@ Title=Mean $p_\perp$ in GeV vs. $x_p$
 XLabel=$x_p$
 YLabel=$p_\perp$ / GeV
 LogY=0
-LegendXPos=0.8
+LegendXPos=0.35
 LegendYPos=0.7
 # END PLOT
 
@@ -81,7 +81,7 @@ LegendYPos=0.7
 Title=$1-\text{Thrust}$
 XLabel=$1-T$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{(1-T)}$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 FullRange=1
 # END PLOT
@@ -90,7 +90,7 @@ FullRange=1
 Title=Thrust major, $M$
 XLabel=$M$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{M}$
-LegendXPos=0.6
+LegendXPos=0.15
 LegendYPos=0.6
 FullRange=1
 # END PLOT
@@ -113,7 +113,7 @@ FullRange=1
 Title=Sphericity, $S$
 XLabel=$S$
 YLabel=$N \, \text{d}{\sigma}/\text{d}{S}$
-LegendXPos=1.1
+LegendXPos=0.65
 FullRange=1
 # END PLOT
 
@@ -240,7 +240,7 @@ FullRange=1
 Title=Energy-energy correlation, EEC
 XLabel=$\cos{\chi}$
 YLabel=EEC
-LegendXPos=0.9
+LegendXPos=0.45
 FullRange=1
 # END PLOT
 

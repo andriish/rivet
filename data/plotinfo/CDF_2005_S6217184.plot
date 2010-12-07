@@ -293,7 +293,7 @@ YLabel=$\Psi(0.3/R)$
 LogY=0
 YMin=0.0
 YMax=1.19
-LegendXPos=0.55
+LegendXPos=0.10
 LegendYPos=0.4
 # END PLOT
 

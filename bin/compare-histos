@@ -391,7 +391,6 @@ if __name__ == "__main__":
                          "RatioPlot" : "%d" % int(not opts.NORATIO),
                          "XTwosidedTicks" : "1",
                          "YTwosidedTicks" : "1",
-                         "LegendYPos" : "0.92",
                          "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath()),
                          "RatioPlotYLabel" : "Ratio"}
 

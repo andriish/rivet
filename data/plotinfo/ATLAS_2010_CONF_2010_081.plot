@@ -3,7 +3,7 @@ Title=Toward $N_\text{ch}$ density vs $p_\perp$ (leading track), $\sqrt{s}=\text
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle N_\text{ch} \rangle/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -13,7 +13,7 @@ Title=Transverse $N_\text{ch}$ density vs $p_\perp$ (leading track), $\sqrt{s}=\
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle N_\text{ch} \rangle/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -23,7 +23,7 @@ Title=Away $N_\text{ch}$ density vs $p_\perp$ (leading track), $\sqrt{s}=\text{9
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle N_\text{ch} \rangle/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -33,7 +33,7 @@ Title=Toward $\sum p_\perp$ density vs $p_\perp$ (leading track), $\sqrt{s}=\tex
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle \sum p_\perp \rangle/\mathrm{d}\eta\mathrm{d}\phi$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -43,7 +43,7 @@ Title=Transverse $\sum p_\perp$ density vs $p_\perp$ (leading track), $\sqrt{s}=
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle \sum p_\perp \rangle/\mathrm{d}\eta\mathrm{d}\phi$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -53,7 +53,7 @@ Title=Away $\sum p_\perp$ density vs $p_\perp$ (leading track), $\sqrt{s}=\text{
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle \sum p_\perp \rangle/\mathrm{d}\eta\mathrm{d}\phi$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -63,7 +63,7 @@ Title=Toward $\langle p_\perp \rangle$ vs $p_\perp$ (leading track), $\sqrt{s}=\
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -73,7 +73,7 @@ Title=Transverse $\langle p_\perp \rangle$ vs $p_\perp$ (leading track), $\sqrt{
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -83,7 +83,7 @@ Title=Away $\langle p_\perp \rangle$ vs $p_\perp$ (leading track), $\sqrt{s}=\te
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -93,7 +93,7 @@ Title=Toward $\langle p_\perp \rangle$ vs $N_\text{ch}$, $\sqrt{s}=\text{900\,Ge
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 YMin=0.45
 CustomLegend={\large ATLAS preliminary}
@@ -104,7 +104,7 @@ Title=Transverse $\langle p_\perp \rangle$ vs $N_\text{ch}$, $\sqrt{s}=\text{900
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 YMin=0.45
 CustomLegend={\large ATLAS preliminary}
@@ -115,7 +115,7 @@ Title=Away $\langle p_\perp \rangle$ vs $N_\text{ch}$, $\sqrt{s}=\text{900\,GeV}
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 YMin=0.45
 CustomLegend={\large ATLAS preliminary}
@@ -128,7 +128,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -139,7 +139,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -150,7 +150,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -161,7 +161,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -172,7 +172,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -183,7 +183,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -194,7 +194,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -205,7 +205,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.15
 YMax=0.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -216,7 +216,7 @@ Title=Toward $N_\text{ch}$ density vs $p_\perp$ (leading track), $\sqrt{s}=\text
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle N_\text{ch} \rangle/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -226,7 +226,7 @@ Title=Transverse $N_\text{ch}$ density vs $p_\perp$ (leading track), $\sqrt{s}=\
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle N_\text{ch} \rangle/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -236,7 +236,7 @@ Title=Away $N_\text{ch}$ density vs $p_\perp$ (leading track), $\sqrt{s}=\text{7
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle N_\text{ch} \rangle/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -246,7 +246,7 @@ Title=Toward $\sum p_\perp$ density vs $p_\perp$ (leading track), $\sqrt{s}=\tex
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle \sum p_\perp \rangle/\mathrm{d}\eta\mathrm{d}\phi$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -256,7 +256,7 @@ Title=Transverse $\sum p_\perp$ density vs $p_\perp$ (leading track), $\sqrt{s}=
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle \sum p_\perp \rangle/\mathrm{d}\eta\mathrm{d}\phi$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -266,7 +266,7 @@ Title=Away $\sum p_\perp$ density vs $p_\perp$ (leading track), $\sqrt{s}=\text{
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\mathrm{d}^2 \langle \sum p_\perp \rangle/\mathrm{d}\eta\mathrm{d}\phi$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -276,7 +276,7 @@ Title=Toward $\langle p_\perp \rangle$ vs $p_\perp$ (leading track), $\sqrt{s}=\
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -286,7 +286,7 @@ Title=Transverse $\langle p_\perp \rangle$ vs $p_\perp$ (leading track), $\sqrt{
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -296,7 +296,7 @@ Title=Away $\langle p_\perp \rangle$ vs $p_\perp$ (leading track), $\sqrt{s}=\te
 XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
@@ -306,7 +306,7 @@ Title=Toward $\langle p_\perp \rangle$ vs $N_\text{ch}$, $\sqrt{s}=\text{7\,TeV}
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 YMin=0.45
 CustomLegend={\large ATLAS preliminary}
@@ -317,7 +317,7 @@ Title=Transverse $\langle p_\perp \rangle$ vs $N_\text{ch}$, $\sqrt{s}=\text{7\,
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 YMin=0.45
 CustomLegend={\large ATLAS preliminary}
@@ -328,7 +328,7 @@ Title=Away $\langle p_\perp \rangle$ vs $N_\text{ch}$, $\sqrt{s}=\text{7\,TeV}$
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_\perp \rangle$ [GeV]
 LogY=0
-LegendXPos=0.82
+LegendXPos=0.37
 LegendYPos=0.4
 YMin=0.45
 CustomLegend={\large ATLAS preliminary}
@@ -341,7 +341,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.32
 YMax=1.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -352,7 +352,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.32
 YMax=1.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -363,7 +363,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.32
 YMax=1.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -374,7 +374,7 @@ YLabel=$\mathrm{d}^2 N_\text{ch}/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.32
 YMax=1.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -385,7 +385,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.28
 YMax=2.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -396,7 +396,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.28
 YMax=2.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -407,7 +407,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.28
 YMax=2.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
@@ -418,7 +418,7 @@ YLabel=$\mathrm{d}^2 p_\perp/\mathrm{d}\eta\mathrm{d}\Delta\phi$
 LogY=0
 YMin=0.28
 YMax=2.8
-LegendXPos=0.82
+LegendXPos=0.37
 CustomLegend={\large ATLAS preliminary}
 # END PLOT
 

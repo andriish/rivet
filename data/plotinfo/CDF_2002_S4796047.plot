@@ -17,7 +17,7 @@ Title=$\langle p_\perp \rangle$ vs. multiplicity at $\sqrt{s} = 630~\text{GeV}$,
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_T \rangle$
 LogY=0
-LegendXPos=0.55
+LegendXPos=0.10
 ShowZero=0
 # END PLOT
 
@@ -26,6 +26,6 @@ Title=$\langle p_\perp \rangle$ vs. multiplicity at $\sqrt{s} = 1800~\text{GeV}$
 XLabel=$N_\text{ch}$
 YLabel=$\langle p_T \rangle$
 LogY=0
-LegendXPos=0.55
+LegendXPos=0.10
 ShowZero=0
 # END PLOT

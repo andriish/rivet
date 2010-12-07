@@ -9,7 +9,7 @@ LegendYPos=0.60
 Title=$b$ quark fragmentation function $f(x_B^\text{weak})$
 XLabel=$x_B$
 YLabel=$1/N \, \text{d}{N}/\text{d}x_B$
-LegendXPos=0.55
+LegendXPos=0.10
 # END PLOT
 
 # BEGIN PLOT /DELPHI_2002_069_CONF_603/d04-x01-y01
