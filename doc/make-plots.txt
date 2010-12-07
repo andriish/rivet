@@ -192,8 +192,8 @@ Custom text that is added to the legend.
 LegendXPos=<pos>
 LegendYPos=<pos>
 --------------------
-Position of the legend within the plot. Units typically range between 0 and
-1.5.
+Position of the legend within the plot. Anchor point is the top left corner of
+the legend, so units typically range between 0.0 and 1.0.
 
 --------------------
 LegendOnly=<list>
