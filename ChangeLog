@@ -8,6 +8,9 @@
 
 	* New option "SmoothLine" for HISTOGRAM sections in make-plots
 
+	* Changed CustomTicks to CustomMajorTicks and added CustomMinorTicks
+	in make-plots.
+
 2010-12-07  Andy Buckley  <andy@insectnation.org>
 
 	* Update the documentation to explain this latest bump to path

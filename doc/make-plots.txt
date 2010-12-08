@@ -103,10 +103,17 @@ XCustomMajorTicks=<list>
 YCustomMajorTicks=<list>
 ZCustomMajorTicks=<list>
 --------------------
-To specify ticks at arbitrary positions and/or with arbitrary labels.
+To specify major ticks at arbitrary positions and/or with arbitrary labels.
 `<list>` is a tab separated list of format `value1 <tab> label1 <tab> value2
 <tab> label2 ...`.
 
+--------------------
+XCustomMinorTicks=<list>
+YCustomMinorTicks=<list>
+ZCustomMinorTicks=<list>
+--------------------
+To specify minor ticks at arbitrary positions. `<list>` is a tab separated
+list of format `value1 <tab> value2 <tab> value3 ...`.
 
 Axes
 ^^^^
