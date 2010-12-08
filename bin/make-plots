@@ -1175,7 +1175,7 @@ class Histogram(DrawableObject):
                                     + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                     + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
                 if self.getSmoothLine():
-                    out += ('\pscurve')
+                    out += ('\psbezier')
                 else:
                     out += ('\psline')
                 if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
