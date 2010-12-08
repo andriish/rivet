@@ -99,9 +99,9 @@ YTwosidedTicks=<0|1>
 Draw tickmarks also on the upper and/or right side of the plot.
 
 --------------------
-XCustomTicks=<list>
-YCustomTicks=<list>
-ZCustomTicks=<list>
+XCustomMajorTicks=<list>
+YCustomMajorTicks=<list>
+ZCustomMajorTicks=<list>
 --------------------
 To specify ticks at arbitrary positions and/or with arbitrary labels.
 `<list>` is a tab separated list of format `value1 <tab> label1 <tab> value2

@@ -462,12 +462,16 @@ class MainPlot(Plot):
             xcustomminortickmarks=int(inputdata.description['XMinorTickMarks'])
         else:
             xcustomminortickmarks=-1
-        xcustomticks=[]
+        xcustommajorticks=[]
+        # TODO: remove XCustomTicks after 2011-12-31:
         if inputdata.description.has_key('XCustomTicks') and inputdata.description['XCustomTicks']!='':
-            FOO=inputdata.description['XCustomTicks'].strip().split('\t')
+            logging.warning('Warning: XCustomTicks is deprecated. Use XCustomMajorTicks instead.')
+            inputdata.description['XCustomMajorTicks']=inputdata.description['XCustomTicks']
+        if inputdata.description.has_key('XCustomMajorTicks') and inputdata.description['XCustomMajorTicks']!='':
+            FOO=inputdata.description['XCustomMajorTicks'].strip().split('\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
-                    xcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+                    xcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         xticks = XTicks(inputdata.description, self.coors)
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
             drawlabels=False
@@ -475,7 +479,7 @@ class MainPlot(Plot):
             drawlabels=True
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
                                customminortickmarks=xcustomminortickmarks,\
-                               customticks=xcustomticks,drawlabels=drawlabels)
+                               customticks=xcustommajorticks,drawlabels=drawlabels)
 
         if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks']!='':
             ycustommajortickmarks=int(inputdata.description['YMajorTickMarks'])
@@ -485,16 +489,20 @@ class MainPlot(Plot):
             ycustomminortickmarks=int(inputdata.description['YMinorTickMarks'])
         else:
             ycustomminortickmarks=-1
-        ycustomticks=[]
+        ycustommajorticks=[]
+        # TODO: remove YCustomTicks after 2011-12-31:
         if inputdata.description.has_key('YCustomTicks') and inputdata.description['YCustomTicks']!='':
-            FOO=inputdata.description['YCustomTicks'].strip().split('\t')
+            logging.warning('Warning: YCustomTicks is deprecated. Use YCustomMajorTicks instead.')
+            inputdata.description['YCustomMajorTicks']=inputdata.description['YCustomTicks']
+        if inputdata.description.has_key('YCustomMajorTicks') and inputdata.description['YCustomMajorTicks']!='':
+            FOO=inputdata.description['YCustomMajorTicks'].strip().split('\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
-                    ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+                    ycustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         yticks = YTicks(inputdata.description, self.coors)
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
                                customminortickmarks=ycustomminortickmarks,\
-                               customticks=ycustomticks)
+                               customticks=ycustommajorticks)
 
         labels = Labels(inputdata.description)
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
@@ -588,16 +596,20 @@ class RatioPlot(Plot):
             xcustomminortickmarks=int(inputdata.description['XMinorTickMarks'])
         else:
             xcustomminortickmarks=-1
-        xcustomticks=[]
+        xcustommajorticks=[]
+        # TODO: remove XCustomTicks after 2011-12-31:
         if inputdata.description.has_key('XCustomTicks') and inputdata.description['XCustomTicks']!='':
-            FOO=inputdata.description['XCustomTicks'].strip().split('\t')
+            logging.warning('Warning: XCustomTicks is deprecated. Use XCustomMajorTicks instead.')
+            inputdata.description['XCustomMajorTicks']=inputdata.description['XCustomTicks']
+        if inputdata.description.has_key('XCustomMajorTicks') and inputdata.description['XCustomMajorTicks']!='':
+            FOO=inputdata.description['XCustomMajorTicks'].strip().split('\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
-                    xcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+                    xcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         xticks = XTicks(inputdata.description, self.coors)
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
                                customminortickmarks=xcustomminortickmarks,\
-                               customticks=xcustomticks)
+                               customticks=xcustommajorticks)
 
         if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks']!='':
             ycustommajortickmarks=int(inputdata.description['YMajorTickMarks'])
@@ -607,16 +619,20 @@ class RatioPlot(Plot):
             ycustomminortickmarks=int(inputdata.description['YMinorTickMarks'])
         else:
             ycustomminortickmarks=-1
-        ycustomticks=[]
+        ycustommajorticks=[]
+        # TODO: remove YCustomTicks after 2011-12-31:
         if inputdata.description.has_key('YCustomTicks') and inputdata.description['YCustomTicks']!='':
-            FOO=inputdata.description['YCustomTicks'].strip().split('\t')
+            logging.warning('Warning: YCustomTicks is deprecated. Use YCustomMajorTicks instead.')
+            inputdata.description['YCustomMajorTicks']=inputdata.description['YCustomTicks']
+        if inputdata.description.has_key('YCustomMajorTicks') and inputdata.description['YCustomMajorTicks']!='':
+            FOO=inputdata.description['YCustomMajorTicks'].strip().split('\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
-                    ycustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+                    ycustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         yticks = YTicks(inputdata.description, self.coors)
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
                                customminortickmarks=ycustomminortickmarks,\
-                               customticks=ycustomticks)
+                               customticks=ycustommajorticks)
 
         if inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0':
             if inputdata.description.has_key('Legend') and inputdata.description['Legend']=='1':
@@ -742,16 +758,20 @@ class Colorscale:
             zcustomminortickmarks=int(self.description['ZMinorTickMarks'])
         else:
             zcustomminortickmarks=-1
-        zcustomticks=[]
-        if self.description.has_key('ZCustomTicks') and self.description['ZCustomTicks']!='':
-            FOO=self.description['ZCustomTicks'].strip().split('\t')
+        zcustommajorticks=[]
+        # TODO: remove ZCustomTicks after 2011-12-31:
+        if inputdata.description.has_key('ZCustomTicks') and inputdata.description['ZCustomTicks']!='':
+            logging.warning('Warning: ZCustomTicks is deprecated. Use ZCustomMajorTicks instead.')
+            inputdata.description['ZCustomMajorTicks']=inputdata.description['ZCustomTicks']
+        if self.description.has_key('ZCustomMajorTicks') and self.description['ZCustomMajorTicks']!='':
+            FOO=self.description['ZCustomMajorTicks'].strip().split('\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
-                    zcustomticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+                    zcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         zticks = ZTicks(self.description, self.coors)
         out += zticks.draw(custommajortickmarks=zcustommajortickmarks,\
                                customminortickmarks=zcustomminortickmarks,\
-                               customticks=zcustomticks)
+                               customticks=zcustommajorticks)
         out += '  }\n'
         out += '}\n'
         return out
