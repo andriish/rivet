@@ -525,6 +525,7 @@ class RatioPlot(Plot):
             inputdata.description['YMax']=1.5
         if inputdata.description.has_key('RatioPlotYLabel'):
             inputdata.description['YLabel']=inputdata.description['RatioPlotYLabel']
+        inputdata.description['YLabel']='\\rput(-%s,0){%s}'%(0.5*inputdata.description['PlotSizeY']/inputdata.description['PlotSizeX'],inputdata.description['YLabel'])
         if inputdata.description.has_key('RatioPlotYMin'):
             inputdata.description['YMin']=inputdata.description['RatioPlotYMin']
         if inputdata.description.has_key('RatioPlotYMax'):
