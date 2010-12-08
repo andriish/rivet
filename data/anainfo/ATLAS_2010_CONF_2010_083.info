@@ -4,7 +4,7 @@ Summary: Dijet azimuthal decorrelation at 7000 GeV in ATLAS
 Experiment: ATLAS
 Collider: LHC 7000GeV
 SpiresID: None
-Status: UNVALIDATED -- but PRELIMINARY DATA!
+Status: VALIDATED -- but PRELIMINARY DATA!
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:
