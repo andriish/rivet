@@ -1,3 +1,11 @@
+2010-12-08  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fixes in ATLAS_2010_CONF_083, declaring it validated
+
+	* Added ATLAS_2010_CONF_046, only two plots are implemented.
+	The paper will be out soon, and we don't need the other plots
+	right now. Data is read off the plots in the note.
+
 2010-12-07  Andy Buckley  <andy@insectnation.org>
 
 	* Update the documentation to explain this latest bump to path
