@@ -386,6 +386,11 @@ can set this parameter. By default it is off. Setting it in the `PLOT` section
 affects all histograms, but you can also set it in the `HISTOGRAM` section for
 individual histograms. The local setting overrides the global settig.
 
+--------------------
+SmoothLine=<0|1>
+--------------------
+Draw a smooth curve rather than a histogram
+
 
 Fillstyles
 ^^^^^^^^^^
