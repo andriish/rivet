@@ -18,7 +18,6 @@ namespace Rivet {
 
 
   void UnstableFinalState::project(const Event& e) {
-    Log& log = getLog();
     _theParticles.clear();
 
     for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin();
@@ -28,46 +27,43 @@ namespace Rivet {
       const double eta = (*p)->momentum().eta();
       const GenVertex* pv = (*p)->production_vertex();
       const GenVertex* dv = (*p)->end_vertex();
-      bool passed = ( st == 1 || (st == 2 && abs((*p)->pdg_id()) != 22) ) &&
-                    !isZero(pT) &&
-                    pT >= _ptmin &&
-                    eta > _etamin &&
-                    eta < _etamax &&
-                    !IS_PARTON_PDGID((*p)->pdg_id());
+      bool passed = \
+        ( st == 1 || (st == 2 && abs((*p)->pdg_id()) != 22) ) &&
+        !isZero(pT) &&
+        pT >= _ptmin &&
+        eta > _etamin &&
+        eta < _etamax &&
+        !IS_PARTON_PDGID((*p)->pdg_id());
+      // Avoid double counting by re-marking as unpassed if particle == parent
+      if (passed && pv) {
+        for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
+             pp != pv->particles_in_const_end() ; ++pp) {
+          if ( (*p)->pdg_id() == (*pp)->pdg_id() )
+            passed = false;
+        }
+      }
       if (passed) {
-        if (pv!=NULL) {
-          for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
-              pp != pv->particles_in_const_end() ; ++pp) {
-            // Avoid double counting if particle == parent
-            if ( (*p)->pdg_id() == (*pp)->pdg_id() )
-              passed = false;
-          }
-        }
+        _theParticles.push_back(Particle(**p));
       }
-
-      if (log.isActive(Log::TRACE)) {
-        log << Log::TRACE << std::boolalpha
-            << "ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT
-            << ", eta = " << eta << ": result = " << passed << endl;
-        if (pv!=NULL) {
+      if (getLog().isActive(Log::TRACE)) {
+        MSG_TRACE("ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT
+                  << ", eta = " << eta << ": result = " << std::boolalpha << passed);
+        if (pv) {
           for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
-              pp != pv->particles_in_const_end() ; ++pp) {
-            log << Log::TRACE << std::boolalpha
-                << "     parent ID = " << (*pp)->pdg_id() << endl;
+               pp != pv->particles_in_const_end() ; ++pp) {
+            MSG_TRACE("  parent ID = " << (*pp)->pdg_id());
           }
         }
-        if (dv!=NULL) {
+        if (dv) {
           for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ;
-              pp != dv->particles_out_const_end() ; ++pp) {
-            log << Log::TRACE << std::boolalpha
-                << "     child ID  = " << (*pp)->pdg_id() << endl;
+               pp != dv->particles_out_const_end() ; ++pp) {
+            MSG_TRACE("  child ID  = " << (*pp)->pdg_id());
           }
         }
       }
-      if (passed) _theParticles.push_back(Particle(**p));
     }
-    log << Log::DEBUG << "Number of final-state particles = "
-        << _theParticles.size() << endl;
+    MSG_DEBUG("Number of final-state particles = " << _theParticles.size());
   }
+
 
 }

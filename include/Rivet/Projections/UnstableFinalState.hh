@@ -40,6 +40,7 @@ namespace Rivet {
 
     /// Is this final state empty?
     virtual bool empty() const { return _theParticles.empty(); }
+
     /// @deprecated Is this final state empty?
     virtual bool isEmpty() const { return _theParticles.empty(); }
 
