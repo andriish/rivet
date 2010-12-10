@@ -1,3 +1,7 @@
+2010-12-10  Andy Buckley  <andy@insectnation.org>
+
+	* Fixing unbooked-histo segfault in UA1_1990_S2044935 at 63 GeV.
+
 2010-12-08  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fixes in ATLAS_2010_CONF_083, declaring it validated

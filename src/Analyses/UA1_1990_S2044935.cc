@@ -72,7 +72,7 @@ namespace Rivet {
         if (inRange(eta, -5.5, -1.5)) n_minus++;
         else if (inRange(eta, 1.5, 5.5)) n_plus++;
       }
-      getLog() << Log::DEBUG << "Trigger -: " << n_minus << ", Trigger +: " << n_plus << endl;
+      MSG_DEBUG("Trigger -: " << n_minus << ", Trigger +: " << n_plus);
       if (n_plus == 0 || n_minus == 0) vetoEvent;
       const double weight = event.weight();
       _sumwTrig += weight;
@@ -84,9 +84,11 @@ namespace Rivet {
       const unsigned int nch = cfs.size();
 
       // Event level histos
-      _hist_Nch->fill(nch, weight);
-      _hist_Et->fill(Et60/GeV, weight);
-      _hist_Etavg->fill(nch, Et25/GeV, weight);
+      if (!fuzzyEquals(sqrtS()/GeV, 63, 1E-3)) {
+        _hist_Nch->fill(nch, weight);
+        _hist_Et->fill(Et60/GeV, weight);
+        _hist_Etavg->fill(nch, Et25/GeV, weight);
+      }
 
       // Particle/track level histos
       const double deta = 2 * 5.0;
@@ -121,7 +123,7 @@ namespace Rivet {
 
     void finalize() {
       if (_sumwTrig <= 0) {
-        getLog() << Log::WARN << "No events passed the trigger!" << endl;
+        MSG_WARNING("No events passed the trigger!");
         return;
       }
       const double xsec = crossSectionPerEvent();
@@ -129,7 +131,7 @@ namespace Rivet {
       scale(_hist_Esigd3p, xsec/millibarn);
       scale(_hist_Et, xsec/millibarn);
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        // NB. Ref data is normalised to a fixed value. Note silly AIDA binHeight forgets the bin width.
+        // NB. Ref data is normalised to a fixed value not reproducible from MC. Note silly AIDA binHeight forgets the bin width.
         const double scale08 = 0.933e5/(_hist_Esigd3p08->binHeight(0)/_hist_Esigd3p08->axis().binWidth(0));
         scale(_hist_Esigd3p08, scale08);
         const double scale40 = 1.369e5/(_hist_Esigd3p40->binHeight(0)/_hist_Esigd3p40->axis().binWidth(0));
