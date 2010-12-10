@@ -16,6 +16,7 @@ libRivetAnalysisTools_la_SOURCES = \
 if ENABLE_UNVALIDATED
 lib_LTLIBRARIES += RivetUnvalidated.la
 RivetUnvalidated_la_SOURCES = \
+    ATLAS_2010_CONF_2010_049.cc \
     CDF_1991_S2313472.cc \
     CDF_1993_S2742446.cc \
     CDF_1996_S3108457.cc \
@@ -36,7 +37,6 @@ RivetUnvalidated_la_SOURCES = \
     SFM_1984_S1178091.cc \
     STAR_2008_S7869363.cc \
     STAR_2008_S7993412.cc \
-    STAR_2009_UE_HELEN.cc \
     LHCB_2010_S8758301.cc \
     ZEUS_2001_S4815815.cc
 endif
@@ -55,7 +55,6 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2010_S8817804.cc \
     ATLAS_2010_CONF_2010_031.cc \
     ATLAS_2010_CONF_2010_046.cc \
-    ATLAS_2010_CONF_2010_049.cc \
     ATLAS_2010_CONF_2010_081.cc \
     ATLAS_2010_CONF_2010_083.cc
 
@@ -136,7 +135,8 @@ lib_LTLIBRARIES += RivetRHICAnalyses.la
 RivetRHICAnalyses_la_SOURCES = \
     STAR_2006_S6500200.cc \
     STAR_2006_S6860818.cc \
-    STAR_2006_S6870392.cc
+    STAR_2006_S6870392.cc \
+    STAR_2009_UE_HELEN.cc
 
 
 lib_LTLIBRARIES += RivetSPSAnalyses.la
