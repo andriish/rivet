@@ -91,9 +91,14 @@ parser.add_option("--show-analysis", "--show-analyses", dest="SHOW_ANALYSES", ac
 parser.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                   help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 parser.add_option("-H", "--histo-file", dest="HISTOFILE",
-                  default="Rivet.aida", help="specify the output histo file path")
+                  default="Rivet.aida", help="specify the output histo file path (default = %default)")
+parser.add_option("--event-timeout", dest="EVENT_TIMEOUT", type="int",
+                  default=3600, metavar="NSECS",
+                  help="max time in whole seconds to wait for an event to be generated from the specified source (default = %default)")
 parser.add_option("--histo-interval", dest="HISTO_WRITE_INTERVAL", type=int,
-                  default=None, help="specify how often histograms are written in #events [experimental]")
+                  default=None, help="[experimental!] specify the number of events between histogram file updates. "
+                  "Default is to only write out at the end of the run. Note that intermediate histograms will be those "
+                  "from the analyze step only: analysis finalizing is currently not executed until the end of the run.")
 parser.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                   default=None, metavar="XS",
                   help="specify the signal process cross-section in pb")
@@ -389,22 +394,14 @@ import platform
 logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
 
 
-## Timeout handlers for the event initialisation and loop
-EVENT_TIMEOUT = 600
-def evtinithandler(signum, frame):
-    logging.warn("It has taken more than %d secs to get the first event! Is the input event stream working?" % EVENT_TIMEOUT)
-    raise Exception("Event initialisation timeout")
-# def evtloophandler(signum, frame):
-#     global evtnum, HEPMCFILES
-#     logging.warn("Event #%i timeout: it has taken more than %d secs to process this event! Is the input event stream working?" % (evtnum, EVENT_TIMEOUT))
-#     logging.warn("Abandoning processing of events from %s; is this input event stream actually working?" % hepmcfile)
-#     raise Exception("Event generation timeout")
-
-
 ## Init run based on one event
 hepmcfile = HEPMCFILES[0]
-signal.signal(signal.SIGALRM, evtinithandler)
-signal.alarm(EVENT_TIMEOUT)
+if opts.EVENT_TIMEOUT:
+    def evtinithandler(signum, frame):
+        logging.warn("It has taken more than %d secs to get the first event! Is the input event stream working?" % opts.EVENT_TIMEOUT)
+        raise Exception("Event initialisation timeout")
+    signal.signal(signal.SIGALRM, evtinithandler)
+    signal.alarm(opts.EVENT_TIMEOUT)
 try:
     init_ok = run.init(hepmcfile)
     if not init_ok:
@@ -413,6 +410,8 @@ try:
 except:
     logging.error("Timeout in initialisation from event file %s... exiting" % hepmcfile)
     sys.exit(3)
+## Cancel timeout
+signal.alarm(0)
 
 
 ## Event loop

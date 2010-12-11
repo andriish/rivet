@@ -19,7 +19,7 @@ function _rivet() {
     opts="--help --verbose --quiet --version --nevts --cross-section"
     opts="$opts --analysis --runname --list-analyses --show-analysis"
     opts="$opts --analysis-path --analysis-path-append"
-    opts="$opts --histo-file --histo-interval"
+    opts="$opts --histo-file --histo-interval --event-timeout"
     opts="$opts -a -A -n -h -x -H -l -v -q"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
@@ -36,7 +36,7 @@ function _rivet() {
         fi
     fi
 
-    if $(echo ${prev} | egrep -- "-n|--nevts|--runname|--histo-interval|--cross-section|-x" &> /dev/null); then
+    if $(echo ${prev} | egrep -- "-n|--nevts|--runname|--histo-interval|--cross-section|-x|--event-timeout" &> /dev/null); then
         COMPREPLY=()
         return 0
     fi

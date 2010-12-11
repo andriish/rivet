@@ -1,5 +1,9 @@
 2010-12-11  Andy Buckley  <andy@insectnation.org>
 
+	* Adding a --event-timeout option to control the event timeout,
+	adding it to the completion script, and making sure that the init
+	time check is turned OFF once successful!
+
 	* Adding an 3600 second timeout for initialising an event file. If
 	it takes longer than (or anywhere close to) this long, chances are
 	that the event source is inactive for some reason (perhaps
