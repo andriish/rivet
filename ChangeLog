@@ -1,3 +1,16 @@
+2010-12-11  Andy Buckley  <andy@insectnation.org>
+
+	* Adding an 3600 second timeout for initialising an event file. If
+	it takes longer than (or anywhere close to) this long, chances are
+	that the event source is inactive for some reason (perhaps
+	accidentally unspecified and stdin is not active, or the event
+	generator has died at the other end of the pipe. The reason for
+	not making it something shorter is that e.g. Herwig++ or Sherpa
+	can have long initialisation times to set up the MPI handler or to
+	run the matrix element integration. An timeout after an hour is
+	still better than a batch job which runs for two days before you
+	realise that you forgot to generate any events!
+
 2010-12-10  Andy Buckley  <andy@insectnation.org>
 
 	* Fixing unbooked-histo segfault in UA1_1990_S2044935 at 63 GeV.

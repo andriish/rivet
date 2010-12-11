@@ -349,7 +349,7 @@ def logNEvt(n, starttime, maxevtnum):
     if n % 10000 == 0:
         nevtloglevel = logging.CRITICAL
     timecurrent = time.time()
-    timeelapsed = timecurrent - starttime;
+    timeelapsed = timecurrent - starttime
     if maxevtnum is None:
         logging.log(nevtloglevel, "Event %d (%d s elapsed)" % (n, timeelapsed))
     else:
@@ -368,9 +368,10 @@ for a in opts.ANALYSES:
     a_up = a.upper()
     ## Print warning message and exit if not a valid analysis name
     if not a_up in all_analyses:
-        print "'%s' is not a valid analysis. Available analyses are:" % a_up
+        logging.warning("'%s' is not a valid analysis. Available analyses are:" % a_up)
         for aa in all_analyses:
-            print "    %s" % aa
+            logging.warning("    %s" % aa)
+            logging.warning("Exiting...")
         sys.exit(1)
     logging.debug("Adding analysis '%s'" % a_up)
     ah.addAnalysis(a_up)
@@ -387,34 +388,63 @@ if opts.LIST_USED_ANALYSES is not None:
 import platform
 logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
 
+
+## Timeout handlers for the event initialisation and loop
+EVENT_TIMEOUT = 600
+def evtinithandler(signum, frame):
+    logging.warn("It has taken more than %d secs to get the first event! Is the input event stream working?" % EVENT_TIMEOUT)
+    raise Exception("Event initialisation timeout")
+# def evtloophandler(signum, frame):
+#     global evtnum, HEPMCFILES
+#     logging.warn("Event #%i timeout: it has taken more than %d secs to process this event! Is the input event stream working?" % (evtnum, EVENT_TIMEOUT))
+#     logging.warn("Abandoning processing of events from %s; is this input event stream actually working?" % hepmcfile)
+#     raise Exception("Event generation timeout")
+
+
 ## Init run based on one event
-evtfile = HEPMCFILES[0]
-if not run.init(evtfile):
-    logging.error("Failed to initialise on event file %s" % evtfile)
-    sys.exit(2)
+hepmcfile = HEPMCFILES[0]
+signal.signal(signal.SIGALRM, evtinithandler)
+signal.alarm(EVENT_TIMEOUT)
+try:
+    init_ok = run.init(hepmcfile)
+    if not init_ok:
+        logging.error("Failed to initialise on event file %s... exiting" % hepmcfile)
+        sys.exit(2)
+except:
+    logging.error("Timeout in initialisation from event file %s... exiting" % hepmcfile)
+    sys.exit(3)
+
 
 ## Event loop
-starttime = time.time()
 evtnum = 0
-for fileidx in range(len(HEPMCFILES)):
-    logging.info("Reading events from '%s'" % HEPMCFILES[fileidx])
+starttime = time.time()
+for fileidx, hepmcfile in enumerate(HEPMCFILES):
+    ## Open next HepMC file (does not apply to first file: it was already used for the run init)
+    if fileidx > 0:
+        run.openFile(hepmcfile)
+        if not run.readEvent():
+            logging.warning("Could not read events from '%s'" % hepmcfile)
+            continue
+    logging.info("Reading events from '%s'" % hepmcfile)
     while opts.MAXEVTNUM is None or evtnum < opts.MAXEVTNUM:
         evtnum += 1
         logNEvt(evtnum, starttime, opts.MAXEVTNUM)
-        if not run.processEvent():
+        ## Process this event
+        processed_ok = run.processEvent()
+        if not processed_ok:
             logging.warn("Event processing failed for evt #%i!" % evtnum)
             break
+        ## Exit the loop if signalled
         if RECVD_KILL_SIGNAL is not None:
             break
-        if not run.readEvent():
+        ## Read next event
+        read_ok = run.readEvent()
+        if not read_ok:
             break
+        ## Write a histo file snapshot if appropriate
         if opts.HISTO_WRITE_INTERVAL is not None:
             if evtnum % opts.HISTO_WRITE_INTERVAL == 0:
                 ah.writeData(opts.HISTOFILE)
-    if fileidx < len(HEPMCFILES)-1:
-        run.openFile(HEPMCFILES[fileidx+1])
-        if not run.readEvent():
-            continue
 logging.info("Finished event loop")
 run.finalize()
 
