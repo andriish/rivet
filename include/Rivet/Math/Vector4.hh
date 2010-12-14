@@ -24,6 +24,7 @@ namespace Rivet {
     friend FourVector transform(const LorentzTransform& lt, const FourVector& v4);
 
   public:
+
     FourVector() : Vector<4>() { }
 
     template<typename V4>
@@ -47,6 +48,7 @@ namespace Rivet {
     virtual ~FourVector() { }
 
   public:
+
     double t() const { return get(0); }
     double x() const { return get(1); }
     double y() const { return get(2); }
@@ -61,14 +63,19 @@ namespace Rivet {
       return (t() + z())*(t() - z()) - x()*x() - y()*y();
     }
 
+    /// Angle between this vector and another
     double angle(const FourVector& v) const {
       return vector3().angle( v.vector3() );
     }
 
+    /// Angle between this vector and another (3-vector)
     double angle(const Vector3& v3) const {
       return vector3().angle(v3);
     }
 
+    /// @brief Square of the projection of the 3-vector on to the \f$ x-y \f$ plane
+    /// This is a more efficient function than @c polarRadius, as it avoids the square root.
+    /// Use it if you only need the squared value, or e.g. an ordering by magnitude.
     double polarRadius2() const {
       return vector3().polarRadius2();
     }
@@ -83,6 +90,7 @@ namespace Rivet {
       return vector3().rho2();
     }
 
+    /// Projection of 3-vector on to the \f$ x-y \f$ plane
     double polarRadius() const {
       return vector3().polarRadius();
     }
@@ -117,6 +125,7 @@ namespace Rivet {
       return vector3().theta();
     }
 
+    /// Pseudorapidity (defined purely by the 3-vector components)
     double pseudorapidity() const {
       return vector3().pseudorapidity();
     }
@@ -131,7 +140,9 @@ namespace Rivet {
       return Vector3(get(1), get(2), get(3));
     }
 
+
   public:
+
     /// Contract two 4-vectors, with metric signature (+ - - -).
     double contract(const FourVector& v) const {
       const double result = t()*v.t() - x()*v.x() - y()*v.y() - z()*v.z();
@@ -308,6 +319,11 @@ namespace Rivet {
 
   /// Specialized version of the FourVector with momentum/energy functionality.
   class FourMomentum : public FourVector {
+    friend FourMomentum multiply(const double a, const FourMomentum& v);
+    friend FourMomentum multiply(const FourMomentum& v, const double a);
+    friend FourMomentum add(const FourMomentum& a, const FourMomentum& b);
+    friend FourMomentum transform(const LorentzTransform& lt, const FourMomentum& v4);
+
   public:
     FourMomentum() { }
 
@@ -415,33 +431,99 @@ namespace Rivet {
       return Vector3(px()/E(), py()/E(), pz()/E());
     }
 
-    /// struct for sorting by increasing energy
-
-    struct byEAscending{
-      bool operator()(const FourMomentum &left, const FourMomentum &right) const{
+    /// Struct for sorting by increasing energy
+    struct byEAscending {
+      bool operator()(const FourMomentum& left, const FourMomentum& right) const{
         double pt2left = left.E();
         double pt2right = right.E();
         return pt2left < pt2right;
       }
 
-      bool operator()(const FourMomentum *left, const FourMomentum *right) const{
+      bool operator()(const FourMomentum* left, const FourMomentum* right) const{
         return (*this)(left, right);
       }
     };
 
-    /// struct for sorting by decreasing energy
-
-    struct byEDescending{
-      bool operator()(const FourMomentum &left, const FourMomentum &right) const{
+    /// Struct for sorting by decreasing energy
+    struct byEDescending {
+      bool operator()(const FourMomentum& left, const FourMomentum& right) const{
         return byEAscending()(right, left);
       }
 
-      bool operator()(const FourMomentum *left, const FourVector *right) const{
+      bool operator()(const FourMomentum* left, const FourVector* right) const{
         return (*this)(left, right);
       }
     };
 
+
+    /// Multiply by a scalar
+    FourMomentum& operator*=(double a) {
+      _vec = multiply(a, *this)._vec;
+      return *this;
+    }
+
+    /// Divide by a scalar
+    FourMomentum& operator/=(double a) {
+      _vec = multiply(1.0/a, *this)._vec;
+      return *this;
+    }
+
+    FourMomentum& operator+=(const FourMomentum& v) {
+      _vec = add(*this, v)._vec;
+      return *this;
+    }
+
+    FourMomentum& operator-=(const FourMomentum& v) {
+      _vec = add(*this, -v)._vec;
+      return *this;
+    }
+
+    FourMomentum operator-() const {
+      FourMomentum result;
+      result._vec = -_vec;
+      return result;
+    }
+
+
   };
+
+
+  inline FourMomentum multiply(const double a, const FourMomentum& v) {
+    FourMomentum result;
+    result._vec = a * v._vec;
+    return result;
+  }
+
+  inline FourMomentum multiply(const FourMomentum& v, const double a) {
+    return multiply(a, v);
+  }
+
+  inline FourMomentum operator*(const double a, const FourMomentum& v) {
+    return multiply(a, v);
+  }
+
+  inline FourMomentum operator*(const FourMomentum& v, const double a) {
+    return multiply(a, v);
+  }
+
+  inline FourMomentum operator/(const FourMomentum& v, const double a) {
+    return multiply(1.0/a, v);
+  }
+
+  inline FourMomentum add(const FourMomentum& a, const FourMomentum& b) {
+    FourMomentum result;
+    result._vec = a._vec + b._vec;
+    return result;
+  }
+
+  inline FourMomentum operator+(const FourMomentum& a, const FourMomentum& b) {
+    return add(a, b);
+  }
+
+  inline FourMomentum operator-(const FourMomentum& a, const FourMomentum& b) {
+    return add(a, -b);
+  }
+
 
 
   /// Get squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant) of a momentum 4-vector.
@@ -487,13 +569,16 @@ namespace Rivet {
   //////////////////////////////////////////////////////
 
 
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// four-vectors. There is a scheme ambiguity for momentum-type four vectors
-  /// as to whether the pseudorapidity (a purely geometric concept) or the
-  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
-  /// be chosen via the optional scheme parameter, which is discouraged in this
-  /// case since @c RAPIDITY is only a valid option for vectors whose type is
-  /// really the FourMomentum derived class.
+  /// @name \f$ \Delta R \f$ calculations from 4-vectors
+  //@{
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors as to whether
+  /// the pseudorapidity (a purely geometric concept) or the rapidity (a
+  /// relativistic energy-momentum quantity) is to be used: this can be chosen
+  /// via the optional scheme parameter. Use of this scheme option is
+  /// discouraged in this case since @c RAPIDITY is only a valid option for
+  /// vectors whose type is really the FourMomentum derived class.
   inline double deltaR(const FourVector& a, const FourVector& b,
                        RapScheme scheme = PSEUDORAPIDITY) {
     switch (scheme) {
@@ -504,7 +589,7 @@ namespace Rivet {
         const FourMomentum* ma = dynamic_cast<const FourMomentum*>(&a);
         const FourMomentum* mb = dynamic_cast<const FourMomentum*>(&b);
         if (!ma || !mb) {
-          string err = "deltaR with scheme RAPIDITY, can be called with FourMomenta only";
+          string err = "deltaR with scheme RAPIDITY can only be called with FourMomentum objects, not FourVectors";
           throw std::runtime_error(err);
         }
         return deltaR(*ma, *mb, scheme);
@@ -515,6 +600,11 @@ namespace Rivet {
   }
 
 
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourVector& v,
                        double eta2, double phi2,
                        RapScheme scheme = PSEUDORAPIDITY) {
@@ -525,7 +615,7 @@ namespace Rivet {
       {
         const FourMomentum* mv = dynamic_cast<const FourMomentum*>(&v);
         if (!mv) {
-          string err = "deltaR with scheme RAPIDITY, can be called with FourMomenta only";
+          string err = "deltaR with scheme RAPIDITY can only be called with FourMomentum objects, not FourVectors";
           throw std::runtime_error(err);
         }
         return deltaR(*mv, eta2, phi2, scheme);
@@ -536,6 +626,11 @@ namespace Rivet {
   }
 
 
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
   inline double deltaR(double eta1, double phi1,
                        const FourVector& v,
                        RapScheme scheme = PSEUDORAPIDITY) {
@@ -546,7 +641,7 @@ namespace Rivet {
       {
         const FourMomentum* mv = dynamic_cast<const FourMomentum*>(&v);
         if (!mv) {
-          string err = "deltaR with scheme RAPIDITY, can be called with FourMomenta only";
+          string err = "deltaR with scheme RAPIDITY can only be called with FourMomentum objects, not FourVectors";
           throw std::runtime_error(err);
         }
         return deltaR(eta1, phi1, *mv, scheme);
@@ -557,8 +652,8 @@ namespace Rivet {
   }
 
 
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// four-vectors. There is a scheme ambiguity for momentum-type four vectors
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
   /// as to whether the pseudorapidity (a purely geometric concept) or the
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
@@ -574,6 +669,11 @@ namespace Rivet {
     }
   }
 
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourMomentum& v,
                        double eta2, double phi2,
                        RapScheme scheme = PSEUDORAPIDITY) {
@@ -588,6 +688,11 @@ namespace Rivet {
   }
 
 
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
   inline double deltaR(double eta1, double phi1,
                        const FourMomentum& v,
                        RapScheme scheme = PSEUDORAPIDITY) {
@@ -601,9 +706,14 @@ namespace Rivet {
     }
   }
 
+  //@}
+
 
   //////////////////////////////////////////////////////
 
+
+  /// @name 4-vector string representations
+  //@{
 
   /// Render a 4-vector as a string.
   inline const string toString(const FourVector& lv) {
@@ -621,6 +731,8 @@ namespace Rivet {
     out << toString(lv);
     return out;
   }
+
+  //@}
 
 
 }

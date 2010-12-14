@@ -329,25 +329,26 @@ namespace Rivet {
   /////////////////////////////////////////////////////
 
 
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// spatial vectors.
+  /// @name \f$ \Delta R \f$ calculations from 3-vectors
+  //@{
+
+  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two spatial vectors.
   inline double deltaR(const Vector3& a, const Vector3& b) {
     return deltaR(a.pseudorapidity(), a.azimuthalAngle(),
                   b.pseudorapidity(), b.azimuthalAngle());
   }
 
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// spatial vectors.
+  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two spatial vectors.
   inline double deltaR(const Vector3& v, double eta2, double phi2) {
     return deltaR(v.pseudorapidity(), v.azimuthalAngle(), eta2, phi2);
   }
 
-  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two
-  /// spatial vectors.
+  /// Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two spatial vectors.
   inline double deltaR(double eta1, double phi1, const Vector3& v) {
     return deltaR(eta1, phi1, v.pseudorapidity(), v.azimuthalAngle());
   }
 
+  //@}
 
 }
 

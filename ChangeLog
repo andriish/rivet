@@ -1,3 +1,9 @@
+2010-12-14  Andy Buckley  <andy@insectnation.org>
+
+	* Augmenting the physics vector functionality to make FourMomentum
+	support maths operators with the correct return type (FourMomentum
+	rather than FourVector).
+
 2010-12-11  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a --event-timeout option to control the event timeout,

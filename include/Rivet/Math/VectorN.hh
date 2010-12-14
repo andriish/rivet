@@ -155,6 +155,9 @@ namespace Rivet {
   /////////////////////////////////////////////////
 
 
+  /// @name String representations of vectors
+  //@{
+
   /// Make string representation
   template <size_t N>
   inline const string toString(const Vector<N>& v) {
@@ -174,6 +177,8 @@ namespace Rivet {
     out << toString(v);
     return out;
   }
+
+  //@}
 
 
   /////////////////////////////////////////////////
