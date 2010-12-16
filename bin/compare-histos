@@ -68,15 +68,10 @@ if __name__ == "__main__":
         pass
 
     ## Get Rivet data dir
-    rivet_data_dirs = []
+    rivet_data_dirs = None
     try:
         import rivet
-        if os.environ.has_key("RIVET_REF_PATH"):
-            env = os.environ.get("RIVET_REF_PATH").strip()
-            if env != ":":
-                rivet_data_dirs = os.environ.get("RIVET_REF_PATH").split(":")
-        else:
-            rivet_data_dirs.append(rivet.getRivetDataPath())
+        rivet_data_dirs = rivet.getAnalysisRefPaths()
     except Exception, e:
         sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
         logging.debug(str(e))
@@ -92,7 +87,8 @@ if __name__ == "__main__":
     parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
                       help="write output dat files into a directory hierarchy which matches the analysis paths")
     parser.add_option("--plotinfodir", dest="PLOTINFODIR", action="append",
-                      default=[rivet_data_dirs[0], "./"], help="directory which may contain plot header information")
+                      default=["."], help="directory which may contain plot header information (in addition "
+                      "to standard Rivet search paths)")
 
     stygroup = OptionGroup(parser, "Plot style")
     stygroup.add_option("--refid", dest="REF_ID",
@@ -147,16 +143,11 @@ if __name__ == "__main__":
         opts.SHOW_IF_REF_ONLY = True
 
 
-    ## Add RIVET_*_PATH to PLOTINFO path
-    def getpathvar(name):
-        rtn = []
-        if os.environ.has_key(name):
-            rtn = [os.path.abspath(i) for i in os.environ[name].split(":") if i]
-        return rtn
+    ## Add RIVET_PLOT_PATH and ref data dirs to PLOTINFO path
     if os.environ.has_key("RIVET_PLOT_PATH"):
-        opts.PLOTINFODIR += getpathvar("RIVET_PLOT_PATH")
-    elif os.environ.has_key("RIVET_REF_PATH"):
-        opts.PLOTINFODIR += getpathvar("RIVET_REF_PATH")
+        opts.PLOTINFODIR += [os.path.abspath(i) for i in os.environ["RIVET_PLOT_PATH"].split(":") if i]
+    opts.PLOTINFODIR += rivet_data_dirs
+    #print opts.PLOTINFODIR
     for a in args:
         adir = os.path.abspath(os.path.split(a)[0])
         if not adir in opts.PLOTINFODIR:
@@ -323,7 +314,7 @@ if __name__ == "__main__":
 
     ## Write out histos
     num_written = 0
-    plotparser = PlotParser(filter(lambda s: len(s) > 0, opts.PLOTINFODIR))
+    plotparser = PlotParser(opts.PLOTINFODIR)
     for name in sorted(activenames):
         logging.debug("Writing histos for plot '%s'" % name)
 

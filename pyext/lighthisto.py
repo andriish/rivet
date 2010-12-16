@@ -465,8 +465,8 @@ class Bin(object):
 
 
 class PlotParser(object):
-    """Parser for rivet's .plot plotinfo files."""
-    pat_begin_block = re.compile('^# BEGIN ([A-Z0-9_]+) ?(\S+)?')
+    """Parser for Rivet's .plot plot info files."""
+    pat_begin_block = re.compile('^#+ BEGIN ([A-Z0-9_]+) ?(\S+)?')
     # temporarily allow several hashes before END for YODA
     pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
     pat_comment = re.compile('^#|^\s*$')
@@ -494,14 +494,10 @@ class PlotParser(object):
 
         if len(self.plotpaths) == 0:
             try:
-                # Use old os.popen to be Python 2.3 compatible.
-                path = os.popen("rivet-config --datadir", "r").readline()
-                path = path.strip()
-                if not path:
-                    raise ValueError("Path is empty!")
-                self.plotpaths.append(path)
+                import rivet
+                self.plotpaths = rivet.getAnalysisRefPaths()
             except Exception:
-                raise ValueError("No plotpaths given and rivet-config call failed!")
+                raise ValueError("No plotpaths given and the rivet module could not be loaded!")
 
     def getSection(self, section, hpath):
         """Get a section for a histogram from a .plot file.
@@ -515,9 +511,9 @@ class PlotParser(object):
 
         Todo
         ----
-        Caching
-            At the moment the result of the lookup is not cache so every
-            call requires a file to be opened.
+        Caching!
+            At the moment the result of the lookup is not cached so every
+            call requires a file to be searched for and opened.
         """
         if section not in ['PLOT', 'SPECIAL', 'HISTOGRAM']:
             raise ValueError("Can't parse section \'%s\'" %section)
@@ -528,8 +524,9 @@ class PlotParser(object):
         base = parts[1] + ".plot"
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
-            if os.access(os.path.join(pidir, base), os.R_OK):
-                plotfile = os.path.join(pidir, base)
+            plotfile = os.path.join(pidir, base)
+            if os.access(plotfile, os.R_OK):
+                #print plotfile
                 startreading = False
                 f = open(plotfile)
                 for line in f:
@@ -538,14 +535,14 @@ class PlotParser(object):
                         tag, pathpat = m.group(1,2)
                         # pathpat could be a regex
                         if tag == section and re.match(pathpat,hpath):
-                            startreading=True
+                            startreading = True
                             if section in ['SPECIAL']:
                                 ret[section] = ''
                             continue
                     if not startreading:
                         continue
                     if self.isEndMarker(line, section):
-                        startreading=False
+                        startreading = False
                         continue
                     elif self.isComment(line):
                         continue
@@ -553,10 +550,12 @@ class PlotParser(object):
                         vm = self.pat_property.match(line)
                         if vm:
                             prop, value = vm.group(1,2)
+                            #print prop, value
                             ret[section][prop] = value
                     elif section in ['SPECIAL']:
                         ret[section] += line
                 f.close()
+                break
         return ret[section]
 
 
@@ -568,7 +567,7 @@ class PlotParser(object):
         Parameters
         ----------
         hpath : str
-            The histogram path, i.e. /AnaylsisID/HistogramID .
+            The histogram path, i.e. /AnalysisID/HistogramID .
 
         Returns
         -------

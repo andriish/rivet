@@ -178,15 +178,9 @@ def getBindef(line):
         path = splitline[0].split(":")[0]
         low  = ""
         high = ""
-        logging.debug("No bin-definition given for %s" % line.strip())
-    if low == "":
-        low = None
-    else:
-        low = float(low)
-    if high == "":
-        high = None
-    else:
-        high = float(high)
+        logging.debug("No bin range supplied for %s" % path)
+    low = float(low) if low else None
+    high = float(high) if high else None
 
     # Try to get area to normalise to
     logging.debug("Trying to read area to rescale to from bindef...")
@@ -208,7 +202,7 @@ if __name__ == "__main__":
     parser.add_option("-O", "--obsfile", dest="OBSFILE", default=None,
                       help="Specify a file with histograms (and bin ranges) that are to be normalised.")
     parser.add_option("-b", "--bins", dest="BINRANGES", action="append", default=[],
-                      help="Specify a histogram and bin range that is to be kept. The format is `AIDAPATH:start:stop'.")
+                      help="Specify a histogram and bin range that is to be used. The format is `AIDAPATH:start:stop'.")
     parser.add_option("-r", "--refdir", dest="REFDIR", default=None,
                       help="File of folder with reference histos")
     parser.add_option("-a", dest="AIDA", default=True, action="store_true",

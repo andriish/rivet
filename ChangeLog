@@ -1,3 +1,11 @@
+2010-12-16  Andy Buckley  <andy@insectnation.org>
+
+	* bin/compare-histos, pyext/lighthisto.py: Take ref paths from
+	rivet module API rather than getting the environment by hand.
+
+	* pyext/lighthisto.py: Only read .plot info from the first
+	matching file (speed-up compare-histos).
+
 2010-12-14  Andy Buckley  <andy@insectnation.org>
 
 	* Augmenting the physics vector functionality to make FourMomentum
