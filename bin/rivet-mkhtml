@@ -22,6 +22,9 @@ except ImportError:
     print >> sys.stderr, "rivet is broken... exiting"
     sys.exit(1)
 
+import sys, os, glob, shutil
+from subprocess import Popen, PIPE
+
 
 from optparse import OptionParser
 parser = OptionParser(usage=__doc__)
@@ -50,28 +53,21 @@ parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERB
 opts, aidafiles = parser.parse_args()
 
 
-import sys, os, glob, shutil
-from subprocess import Popen, PIPE
-
-## TODO: replace with rivet.getAnalysisRefPaths()
-if os.environ.has_key('RIVET_REF_PATH'):
-    refpaths = os.environ['RIVET_REF_PATH'].split(":")
-else:
-    refpaths = []
-
-try:
-    datadir = Popen(["rivet-config", "--datadir"], stdout=PIPE).communicate()[0].split()[0]
-    refpaths.append(datadir)
-except:
-    pass
-if not refpaths:
-    print "Error: Didn't find rivet-config. Have you sourced rivetenv.sh?"
+## Check that there are some arguments!
+if not aidafiles:
+    print "Error: You need to specify some .aida files to be plotted!"
     sys.exit(1)
 
+
+## Get ref data search paths
+refpaths = rivet.getAnalysisRefPaths()
+
+
+## Make output directory
 try:
     os.makedirs(opts.OUTPUTDIR)
 except:
-    print "Error: Directory '%s' already exists. Set -o to something else." % opts.OUTPUTDIR
+    print "Error: failed to make new directory '%s'" % opts.OUTPUTDIR
     sys.exit(1)
 
 
