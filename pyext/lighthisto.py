@@ -5,14 +5,6 @@ import os
 import re
 import logging
 
-## Work around lacking functionality in old Python versions:
-## Make "sorted" a builtin function on Python < 2.4
-if not 'sorted' in dir(__builtins__):
-    def sorted(iterable, cmp=None, key=None, reverse=None):
-        rtn = iterable
-        rtn.sort(cmp)
-        return rtn
-
 
 from htmlentitydefs import codepoint2name
 unichr2entity = {}
