@@ -3,7 +3,6 @@
 import posixpath
 import os
 import re
-import logging
 
 
 from htmlentitydefs import codepoint2name
@@ -314,6 +313,8 @@ class Histo(object):
         return new
     fromDPS = classmethod(fromDPS)
 
+
+    @classmethod
     def fromFlat(cls, stringbuf):
         """Build a histogram from a string buffer containing flat-format."""
         desc = {}
@@ -343,24 +344,23 @@ class Histo(object):
         if desc.has_key("YLabel"):
             new.title = desc["YLabel"]
         return new
-    fromFlat = classmethod(fromFlat)
 
-    # Do we want to use this with rivet as well?
-    # def fromAIDA(cls, path):
-        # """Load all histograms in file 'path' into a histo-path=>histo dict.
 
-        # The keys of the dictionary are the full paths of the histogram, i.e.
-        # AnaylsisID/HistoID, a leading "/REF" is stripped from the keys.
-        # """
-        # runhistos = dict()
-        # tree = ET.parse(path)
-        # for dps in tree.findall("dataPointSet"):
-            # fullpath = posixpath.join(dps.get("path"), dps.get("name"))
-            # if fullpath.startswith("/REF"):
-                # fullpath = fullpath[4:]
-            # runhistos[fullpath] = cls.fromDPS(dps)
-        # return runhistos
-    # fromAIDA = classmethod(fromAIDA)
+    @classmethod
+    def fromAIDA(cls, path):
+        """Load all histograms in file 'path' into a histo-path=>histo dict.
+
+        The keys of the dictionary are the full paths of the histogram, i.e.
+        AnaylsisID/HistoID, a leading "/REF" is stripped from the keys.
+        """
+        runhistos = dict()
+        tree = ET.parse(path)
+        for dps in tree.findall("dataPointSet"):
+            fullpath = posixpath.join(dps.get("path"), dps.get("name"))
+            if fullpath.startswith("/REF"):
+                fullpath = fullpath[4:]
+            runhistos[fullpath] = cls.fromDPS(dps)
+        return runhistos
 
 
 class Bin(object):
