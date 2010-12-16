@@ -420,6 +420,7 @@ if __name__ == "__main__":
             histopts = {}
         histstrs = []
         i = 0
+        logging.debug("Active files: %s" % activefiles)
         for hfile in activefiles:
             histstr = '# BEGIN HISTOGRAM %s%s\n' % (hfile, HISTOS[hfile][name].fullPath())
             if HISTOS[hfile][name].isdata:

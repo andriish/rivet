@@ -129,12 +129,10 @@ if opts.REF_ID is not None:
 ch_cmd.append("--hier-out")
 ch_cmd.append("--rivet-refs")
 ch_cmd.append("--plotinfodir=../")
-# if len(aidafiles) + len(reffiles) < 2:
-#     ch_cmd.append("--show-ref-only")
-#     ch_cmd.append("--no-ratio")
-for file in aidafiles:
-    ch_cmd.append("%s" % os.path.abspath(file))
+for af in aidafiles:
+    ch_cmd.append("%s" % os.path.abspath(af))
 if opts.VERBOSE:
+    ch_cmd.append("--verbose")
     print "Calling compare-histos with the following options:"
     print ch_cmd
 Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
@@ -221,6 +219,7 @@ for analysis in sorted(analyses, reverse=True):
 
     if not opts.SINGLE:
         anaindex.write("</body>\n</html>\n")
+# TODO: Why doesn't the index file work until late in the image processing?
 index.write('</body>\n</html>')
 
 
