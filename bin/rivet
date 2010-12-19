@@ -376,7 +376,7 @@ for a in opts.ANALYSES:
         logging.warning("'%s' is not a valid analysis. Available analyses are:" % a_up)
         for aa in all_analyses:
             logging.warning("    %s" % aa)
-            logging.warning("Exiting...")
+        logging.warning("Exiting...")
         sys.exit(1)
     logging.debug("Adding analysis '%s'" % a_up)
     ah.addAnalysis(a_up)
