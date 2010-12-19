@@ -1,3 +1,7 @@
+2010-12-19  Andy Buckley  <andy@insectnation.org>
+
+	* Removing defunct and unused ClosestJetShape projection.
+
 2010-12-16  Andy Buckley  <andy@insectnation.org>
 
 	* bin/compare-histos, pyext/lighthisto.py: Take ref paths from
