@@ -4,6 +4,8 @@
 #include "Rivet/Projections/FastJets.hh"
 
 #include "fastjet/SISConePlugin.hh"
+#include "fastjet/ATLASConePlugin.hh"
+#include "fastjet/CMSIterativeConePlugin.hh"
 #include "fastjet/CDFJetCluPlugin.hh"
 #include "fastjet/CDFMidPointPlugin.hh"
 #include "fastjet/D0RunIIConePlugin.hh"
@@ -18,8 +20,8 @@ namespace Rivet {
     : JetAlg(fsp), _adef(0)
   {
     setName("FastJets");
-    getLog() << Log::DEBUG << "R parameter = " << rparameter << endl;
-    getLog() << Log::DEBUG << "Seed threshold = " << seed_threshold << endl;
+    MSG_DEBUG("R parameter = " << rparameter);
+    MSG_DEBUG("Seed threshold = " << seed_threshold);
     if (alg == KT) {
       _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
     } else if (alg == CAM) {
@@ -34,13 +36,20 @@ namespace Rivet {
         const double OVERLAP_THRESHOLD = 0.75;
         _plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
       } else if (alg == PXCONE) {
-        throw Error("PxCone currently not supported, since FastJet doesn't install it by default");
+        string msg = "PxCone currently not supported, since FastJet doesn't install it by default. ";
+        msg += "Please notify the Rivet authors if this behaviour should be changed.";
+        throw Error(msg);
         //_plugin.reset(new fastjet::PxConePlugin(rparameter));
+      } else if (alg == ATLASCONE) {
+        const double OVERLAP_THRESHOLD = 0.5;
+        _plugin.reset(new fastjet::ATLASConePlugin(rparameter, seed_threshold, OVERLAP_THRESHOLD));
+      } else if (alg == CMSCONE) {
+        _plugin.reset(new fastjet::CMSIterativeConePlugin(rparameter, seed_threshold));
       } else if (alg == CDFJETCLU) {
         const double OVERLAP_THRESHOLD = 0.75;
         _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
       } else if (alg == CDFMIDPOINT) {
-        const double OVERLAP_THRESHOLD = 0.75;
+        const double OVERLAP_THRESHOLD = 0.5;
         _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
       } else if (alg == D0ILCONE) {
         const double min_jet_Et = 6.0;
@@ -113,7 +122,7 @@ namespace Rivet {
       _particles[counter] = p;
       ++counter;
     }
-    getLog() << Log::DEBUG << "Running FastJet ClusterSequence construction" << endl;
+    MSG_DEBUG("Running FastJet ClusterSequence construction");
 
     // Choose CSeq as basic or area-calculating depending on whether _adef pointer is non-null.
     if (_adef == 0) {
@@ -216,12 +225,12 @@ namespace Rivet {
 
     // Get the jet back again
     fastjet::PseudoJet remadeJet = cs.inclusive_jets()[0];
-    getLog() << Log::DEBUG << "Jet2:" << remadeJet.m() << "," << remadeJet.e() << endl;
+    MSG_DEBUG("Jet2:" << remadeJet.m() << "," << remadeJet.e());
 
     fastjet::PseudoJet parent1, parent2;
     fastjet::PseudoJet split(0.0, 0.0, 0.0, 0.0);
     while (cs.has_parents(remadeJet, parent1, parent2)) {
-      getLog() << Log::DEBUG << "Parents:" << parent1.m() << "," << parent2.m() << endl;
+      MSG_DEBUG("Parents:" << parent1.m() << "," << parent2.m());
       if (parent1.m2() < parent2.m2()) {
         fastjet::PseudoJet tmp;
         tmp = parent1; parent1 = parent2; parent2 = tmp;

@@ -1,5 +1,14 @@
 2010-12-19  Andy Buckley  <andy@insectnation.org>
 
+	* Fixing CDF midpoint cone jet algorithm default construction to
+	have an overlap threshold of 0.5 rather than 0.75. This was
+	recommended by the FastJet manual, and noticed while adding the
+	ATLAS and CMS cones.
+
+	* Adding ATLAS and CMS old iterative cones as "official" FastJets
+	constructor options (they could always have been used by explicit
+	instantiation and attachment of a Fastjet plugin object).
+
 	* Removing defunct and unused ClosestJetShape projection.
 
 2010-12-16  Andy Buckley  <andy@insectnation.org>
