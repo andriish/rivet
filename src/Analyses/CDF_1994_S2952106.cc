@@ -12,8 +12,8 @@ namespace Rivet {
 
 
   /// @brief CDF Run I color coherence analysis
-  /// @author Lars Sonnenschein
   /// @author Andy Buckley
+  /// @author Lars Sonnenschein
   class CDF_1994_S2952106 : public Analysis {
   public:
 
@@ -32,9 +32,8 @@ namespace Rivet {
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
-      // Zero event weight passed-cuts counters
-      _sumw1 = 0;
-      _sumw2 = 0;
+      // Zero passed-cuts event weight counters
+      _sumw = 0;
 
       // Output histograms
       _histJet1Et  = bookHistogram1D(1,1,1);
@@ -53,7 +52,7 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event & event) {
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt();
+      const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt();
       MSG_DEBUG("Jet multiplicity before any cuts = " << jets.size());
 
       // ETs only from jets:
@@ -71,7 +70,8 @@ namespace Rivet {
 
       // Check jet requirements
       if (jets.size() < 3) vetoEvent;
-      if (jets[0].momentum().pT() < 100*GeV) vetoEvent;
+      if (jets[0].momentum().pT() < 110*GeV) vetoEvent;
+      if (jets[2].momentum().pT() < 10*GeV) vetoEvent;
 
       // More jet 1,2,3 checks
       FourMomentum pj1(jets[0].momentum()), pj2(jets[1].momentum()), pj3(jets[2].momentum());
@@ -83,18 +83,13 @@ namespace Rivet {
       MSG_DEBUG("Jet 1 & 2 phi requirement fulfilled");
 
       const double weight = event.weight();
-      _sumw1 += weight;
+      _sumw += weight;
 
       // Fill histos
       _histJet1Et->fill(pj1.pT(), weight);
       _histJet2Et->fill(pj2.pT(), weight);
       _tmphistJet3eta->fill(pj3.eta(), weight);
       _tmphistR23->fill(deltaR(pj2, pj3), weight);
-
-      // Next cut only required for alpha studies
-      if (pj3.pT() < 10.0*GeV) vetoEvent;
-      MSG_DEBUG("3rd jet passes alpha histo pT cut");
-      _sumw2 += weight;
 
       // Calc and plot alpha
       const double dPhi = deltaPhi(pj3.phi(), pj2.phi());
@@ -130,9 +125,9 @@ namespace Rivet {
       vector<double> yval_eta3, yerr_eta3;
       for (size_t i = 0;  i < 40; ++i) {
         const double yval = _tmphistJet3eta->binHeight(i) * (eta3_CDF_sim[i]/eta3_Ideal_sim[i]);
-        yval_eta3.push_back(yval/_sumw1);
+        yval_eta3.push_back(yval/_sumw);
         const double yerr = _tmphistJet3eta->binError(i) * (eta3_CDF_sim_err[i]/eta3_Ideal_sim[i]);
-        yerr_eta3.push_back(yerr/_sumw1);
+        yerr_eta3.push_back(yerr/_sumw);
       }
       _histJet3eta->setCoordinate(1, yval_eta3, yerr_eta3);
 
@@ -155,9 +150,9 @@ namespace Rivet {
       vector<double> yval_R23, yerr_R23;
       for (size_t i = 0;  i < 35; ++i) {
         const double yval = _tmphistR23->binHeight(i) * (R23_CDF_sim[i]/R23_Ideal_sim[i]);
-        yval_R23.push_back(yval/_sumw1);
+        yval_R23.push_back(yval/_sumw);
         const double yerr = _tmphistR23->binError(i) * (R23_CDF_sim_err[i]/R23_Ideal_sim[i]);
-        yerr_R23.push_back(yerr/_sumw1);
+        yerr_R23.push_back(yerr/_sumw);
       }
       _histR23->setCoordinate(1, yval_R23, yerr_R23);
 
@@ -180,9 +175,9 @@ namespace Rivet {
       vector<double> yval_alpha, yerr_alpha;
       for (size_t i = 0;  i < 40; ++i) {
         const double yval = _tmphistAlpha->binHeight(i) * (alpha_CDF_sim[i]/alpha_Ideal_sim[i]);
-        yval_alpha.push_back(yval/_sumw2);
+        yval_alpha.push_back(yval/_sumw);
         const double yerr = _tmphistAlpha->binError(i) * (alpha_CDF_sim_err[i]/alpha_Ideal_sim[i]);
-        yerr_alpha.push_back(yerr/_sumw2);
+        yerr_alpha.push_back(yerr/_sumw);
       }
       _histAlpha->setCoordinate(1, yval_alpha, yerr_alpha);
     }
@@ -195,7 +190,7 @@ namespace Rivet {
     /// @name Event weight counters
     //@{
 
-    double _sumw1, _sumw2;
+    double _sumw;
 
     //@}
 

@@ -1,3 +1,7 @@
+2010-12-21  Andy Buckley  <andy@insectnation.org>
+
+	* Fix the cuts in the CDF 1994 colour coherence analysis.
+
 2010-12-19  Andy Buckley  <andy@insectnation.org>
 
 	* Fixing CDF midpoint cone jet algorithm default construction to
