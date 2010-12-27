@@ -151,6 +151,18 @@ namespace Rivet {
     return a*a;
   }
 
+  /// Named number-type addition in quadrature operation.
+  template <typename Num>
+  inline Num add_quad(Num a, Num b) {
+    return sqrt(a*a + b*b);
+  }
+
+  /// Named number-type addition in quadrature operation.
+  template <typename Num>
+  inline Num add_quad(Num a, Num b, Num c) {
+    return sqrt(a*a + b*b + c*c);
+  }
+
   /// Find the sign of a number
   inline int sign(double val) {
     if (isZero(val)) return ZERO;
