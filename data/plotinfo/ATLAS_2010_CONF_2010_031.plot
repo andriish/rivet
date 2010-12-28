@@ -44,7 +44,7 @@ CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_031/d03-x02-y01
-Title=Charged particle density, $\sqrt{s}={}$7000\,GeV
+Title=Charged multiplicity, $\sqrt{s}={}$7000\,GeV
 XLabel=$N_\mathrm{ch}$
 YLabel=$1/N_\mathrm{ev} \mathrm{d}N_\mathrm{ev}/\mathrm{d}N_\mathrm{ch}$
 FullRange=1
@@ -63,7 +63,7 @@ CustomLegend={\large ATLAS preliminary}
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_031/d03-x04-y01
-Title=Average transverse momentum as function of $N_\mathrm{ch}$, $\sqrt{s}={}$7000\,GeV
+Title=$\langle p_\perp \rangle$ vs $N_\mathrm{ch}$, $\sqrt{s}={}$7000\,GeV
 XLabel=$N_\mathrm{ch}$
 YLabel=$\langle p_\perp \rangle$ [GeV]
 YMin=0.65
