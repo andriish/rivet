@@ -1,3 +1,11 @@
+2010-12-30  Andy Buckley  <andy@insectnation.org>
+
+	* Adding a run timeout option, and small bug-fixes to the event
+	timeout handling, and making first event timeout work nicely with
+	the run timeout. Run timeout is intended to be used in conjunction
+	with timed batch token expiry, of the type that likes to make 0
+	byte AIDA files on LCG when Grid proxies time out.
+
 2010-12-21  Andy Buckley  <andy@insectnation.org>
 
 	* Fix the cuts in the CDF 1994 colour coherence analysis.
