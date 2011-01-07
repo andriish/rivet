@@ -1,9 +1,9 @@
 ## -*- sh -*-
 ## Analysis name completion for rivet scripts
 
-_filedir &> /dev/null
-test "$?" -eq 0 || function _filedir() {
-	local cur prev commands options command
+(type _filedir &> /dev/null) || \
+function _filedir() {
+    local cur prev commands options command
     cur="${COMP_WORDS[COMP_CWORD]}"
     COMPREPLY=( $(compgen -W "$(ls ${cur}* 2> /dev/null)" -- ${cur}) )
     return 0
@@ -11,8 +11,8 @@ test "$?" -eq 0 || function _filedir() {
 
 
 function _rivet() {
-	local cur prev commands options command
-	COMPREPLY=()
+    local cur prev commands options command
+    COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -63,9 +63,9 @@ complete -F _rivet rivet
 
 
 function _rivet_config() {
-	local cur prev commands options command
-	COMPREPLY=()
-	#cur=`_get_cword`
+    local cur prev commands options command
+    COMPREPLY=()
+    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -96,9 +96,9 @@ complete -F _rivet_config rivet-config
 
 
 function _compare_histos() {
-	local cur prev commands options command
-	COMPREPLY=()
-	#cur=`_get_cword`
+    local cur prev commands options command
+    COMPREPLY=()
+    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -140,9 +140,9 @@ complete -F _compare_histos -o default compare-histos
 
 
 function _make_plots() {
-	local cur prev commands options command
-	COMPREPLY=()
-	#cur=`_get_cword`
+    local cur prev commands options command
+    COMPREPLY=()
+    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -172,9 +172,9 @@ complete -F _make_plots -o default make-plots
 
 
 function _aida2flat() {
-	local cur prev commands options command
-	COMPREPLY=()
-	#cur=`_get_cword`
+    local cur prev commands options command
+    COMPREPLY=()
+    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -210,9 +210,9 @@ complete -F _aida2flat -o default aida2flat
 
 
 function _flat2aida() {
-	local cur prev commands options command
-	COMPREPLY=()
-	#cur=`_get_cword`
+    local cur prev commands options command
+    COMPREPLY=()
+    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
