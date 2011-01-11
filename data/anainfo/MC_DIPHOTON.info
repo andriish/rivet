@@ -2,7 +2,7 @@ Name: MC_DIPHOTON
 Summary: Monte Carlo validation observables for diphoton production at LHC
 Status: VALIDATED
 Authors:
- - Frank Siegert <frank.siegert@durham.ac.uk>
+ - Frank Siegert <frank.siegert@cern.ch>
 RunInfo:
   LHC pp -> jet+jet, photon+jet, photon+photon, all with EW+QCD shower
 NumEvents: 10000000

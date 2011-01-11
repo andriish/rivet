@@ -6,7 +6,7 @@ Collider: Tevatron Run 2
 SpiresID: 8383952
 Status: VALIDATED
 Authors:
- - Frank Siegert <frank.siegert@durham.ac.uk>
+ - Frank Siegert <frank.siegert@cern.ch>
 References:
  - arXiv:0908.3914 [hep-ex]
 RunInfo:
