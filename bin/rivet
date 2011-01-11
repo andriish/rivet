@@ -399,12 +399,22 @@ import platform
 logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
 
 
+def min_nonnull(a, b):
+    "A version of min which considers None to always be greater than a real number"
+    rtn = min(a, b)
+    if rtn is not None:
+        return rtn
+    return a if a is not None else b
+
+
 ## Set up an event timeout handler
+class TimeoutException(Exception):
+    pass
 if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
     def evttimeouthandler(signum, frame):
         logging.warn("It has taken more than %d secs to get an event! Is the input event stream working?" %
-                     min(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
-        raise Exception("Event timeout")
+                     min_nonnull(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
+        raise TimeoutException("Event timeout")
     signal.signal(signal.SIGALRM, evttimeouthandler)
 
 
@@ -412,13 +422,13 @@ if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
 hepmcfile = HEPMCFILES[0]
 try:
     if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
-        signal.alarm(min(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
+        signal.alarm(min_nonnull(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
     init_ok = run.init(hepmcfile)
     signal.alarm(0)
     if not init_ok:
         logging.error("Failed to initialise using event file '%s'... exiting" % hepmcfile)
         sys.exit(2)
-except:
+except TimeoutException, te:
     logging.error("Timeout in initialisation from event file '%s'... exiting" % hepmcfile)
     sys.exit(3)
 
@@ -461,7 +471,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             signal.alarm(0)
             if not read_ok:
                 break
-        except:
+        except TimeoutException, te:
             logging.error("Timeout in reading event from '%s'... exiting" % hepmcfile)
             sys.exit(3)
 
