@@ -1,3 +1,7 @@
+2011-01-11  Andy Buckley  <andy@insectnation.org>
+
+	* Clean up ATLAS dijet analysis.
+
 2010-12-30  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a run timeout option, and small bug-fixes to the event
