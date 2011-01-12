@@ -2,6 +2,7 @@
 #include "Rivet/RivetBoost.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/Utils.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "yaml-cpp/yaml.h"
 #include <iostream>
@@ -12,7 +13,6 @@ namespace Rivet {
 
 
   /// Ideas:
-  ///  * search RIVET_INFO_PATH etc. for <name>.info.yaml
   ///  * how to determine the name?
   ///  * only populate pointer on Analysis when requested
   ///  * use smart pointer: deletes automatically when Analysis
@@ -22,15 +22,9 @@ namespace Rivet {
   /// Static factory method
   AnalysisInfo* AnalysisInfo::make(const std::string& ananame) {
     // Build the list of directories to search
-    vector<string> dirs;
-    char* env = 0;
-    // First try to use the Rivet data path variable
-    env = getenv("RIVET_INFO_PATH");
-    if (env) dirs += pathsplit(env);
-    // Then try to use the Rivet data install path
-    dirs += getRivetDataPath();
+    vector<string> dirs = getAnalysisInfoPaths();
     // And the current dir
-    dirs += ".";
+    // dirs += ".";
 
     bool found = false;
     string datapath = "";

@@ -1,3 +1,18 @@
+2011-01-12  Andy Buckley  <andy@insectnation.org>
+
+	* Fix several rendering and comparison bugs in rivet-mkhtml.
+
+	* Allow make-plots to write into an existing directory, at the
+	user's own risk.
+
+	* Make rivet-mkhtml produce PDF-based output rather than PS by
+	default (most people want PDF these days). Can we do the same
+	change of default for make-plots?
+
+	* Add getAnalysisPlotPaths() function, and use it in compare-histos
+
+	* Use proper .info file search path function internally in AnalysisInfo::make.
+
 2011-01-11  Andy Buckley  <andy@insectnation.org>
 
 	* Clean up ATLAS dijet analysis.

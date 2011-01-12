@@ -143,11 +143,8 @@ if __name__ == "__main__":
         opts.SHOW_IF_REF_ONLY = True
 
 
-    ## Add RIVET_PLOT_PATH and ref data dirs to PLOTINFO path
-    if os.environ.has_key("RIVET_PLOT_PATH"):
-        opts.PLOTINFODIR += [os.path.abspath(i) for i in os.environ["RIVET_PLOT_PATH"].split(":") if i]
-    opts.PLOTINFODIR += rivet_data_dirs
-    #print opts.PLOTINFODIR
+    ## Add standard locations and the input files' dirs to the PLOTINFO search paths
+    opts.PLOTINFODIR += rivet.getAnalysisPlotPaths()
     for a in args:
         adir = os.path.abspath(os.path.split(a)[0])
         if not adir in opts.PLOTINFODIR:

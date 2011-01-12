@@ -10,14 +10,14 @@ namespace Rivet {
 
 
   /// @brief ATLAS inclusive jet pT spectrum, di-jet Mass and di-jet chi
-  class ATLAS_2010_S8817804: public Analysis{
+  class ATLAS_2010_S8817804: public Analysis {
   public:
 
-    ATLAS_2010_S8817804()
-      : Analysis("ATLAS_2010_S8817804")
+    ATLAS_2010_S8817804() : Analysis("ATLAS_2010_S8817804")
     {
       setBeams(PROTON, PROTON);
       setNeedsCrossSection(true);
+      _sumW = 0;
     }
 
 
@@ -64,34 +64,47 @@ namespace Rivet {
       jetAr[AKT4] = applyProjection<FastJets>(evt, "AntiKT06").jetsByPt(30*GeV);
       jetAr[AKT6] = applyProjection<FastJets>(evt, "AntiKT04").jetsByPt(30*GeV);
 
-      // Cut values
-      const double rapMax(2.8), leadPTCut(60*GeV), asymmetryCut(log(30.)), ySumCut(2.2);
+      cout << -1 << endl;
 
+      // Identify the dijets
       for (size_t alg = 0; alg < 2; ++alg) {
+        cout << 0 << endl;
+
         vector<FourMomentum> leadjets;
         foreach (const Jet& jet, jetAr[alg]) {
+          cout << 0.1 << endl;
           double pT = jet.momentum().pT();
-          double fabsy = fabs(jet.momentum().rapidity());
-          _pTHistos[alg].fill(fabsy, pT/GeV, evt.weight());
+          double absy = fabs(jet.momentum().rapidity());
+          cout << 0.2 << endl;
+          _pTHistos[alg].fill(absy, pT/GeV, evt.weight());
 
-          if (fabsy < rapMax && leadjets.size() < 2) {
-            if (leadjets.empty() && pT < leadPTCut) continue;
+          cout << 0.3 << endl;
+
+          if (absy < 2.8 && leadjets.size() < 2) {
+            if (leadjets.empty() && pT < 60*GeV) continue;
             leadjets.push_back(jet.momentum());
           }
+          cout << 0.4 << endl;
         }
 
+        cout << 1 << endl;
+
+        // Veto if no acceptable dijet found
         if (leadjets.size() < 2) {
           MSG_DEBUG("Could not find two suitable leading jets");
           continue;
         }
+        _sumW += evt.weight();
+
+        cout << 2 << endl;
 
         const double rap1 = leadjets[0].rapidity();
         const double rap2 = leadjets[1].rapidity();
         const double mass = (leadjets[0] + leadjets[1]).mass();
-        const double ymax = (fabs(rap1) > fabs(rap2)) ? fabs(rap1) : fabs(rap2);
+        //const double ymax = (fabs(rap1) > fabs(rap2)) ? fabs(rap1) : fabs(rap2);
+        const double ymax = max(fabs(rap1), fabs(rap2));
         const double chi = exp(fabs(rap1 - rap2));
-
-        if (fabs(rap1 + rap2) < ySumCut && fabs(rap1 - rap2) < asymmetryCut) {
+        if (fabs(rap1 + rap2) < 2.2) {
           _chiVsMass[alg].fill(mass/GeV, chi, evt.weight());
         }
         _massVsY[alg].fill(ymax, mass/GeV, evt.weight());
@@ -101,16 +114,18 @@ namespace Rivet {
 
 
     void finalize() {
-      const double xs = crossSectionPerEvent() / picobarn;
       for (size_t alg = 0; alg < 2; ++alg) {
-        _pTHistos[alg].scale(xs, this);
-        _massVsY[alg].scale(xs, this);
-        _chiVsMass[alg].scale(xs, this);
+        _pTHistos[alg].scale(crossSectionPerEvent()/picobarn, this);
+        _massVsY[alg].scale(crossSection()/_sumW/picobarn, this);
+        _chiVsMass[alg].scale(crossSection()/_sumW/picobarn, this);
       }
     }
 
 
   private:
+
+    /// Counter for weights passing the dijet requirement cut
+    double _sumW;
 
     /// The inclusive pT spectrum for akt6 and akt4 jets (array index is jet type from enum above)
     BinnedHistogram<double> _pTHistos[2];

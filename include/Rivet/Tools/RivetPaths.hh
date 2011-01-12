@@ -30,6 +30,9 @@ namespace Rivet {
   /// Get Rivet analysis info metadata search paths
   const std::vector<std::string> getAnalysisInfoPaths();
 
+  /// Get Rivet analysis plot style search paths
+  const std::vector<std::string> getAnalysisPlotPaths();
+
 
 }
 

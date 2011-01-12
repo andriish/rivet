@@ -92,4 +92,21 @@ namespace Rivet {
   }
 
 
+  const vector<string> getAnalysisPlotPaths() {
+    vector<string> dirs;
+    char* env = 0;
+    env = getenv("RIVET_PLOT_PATH");
+    if (env) {
+      // Use the Rivet analysis path variable if set...
+      dirs += pathsplit(env);
+    } else {
+      // ... otherwise fall back to the Rivet data install path
+      dirs += getRivetDataPath();
+      // ... and also add any analysis plugin search dirs for convenience
+      dirs += getAnalysisLibPaths();
+    }
+    return dirs;
+  }
+
+
 }
