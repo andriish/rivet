@@ -36,10 +36,16 @@ namespace Rivet {
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       addProjection(conefinder, "ConeFinder");
 
+      _sum_of_weights_inclusive=0.0;
+
       _h_jet_pT_cross_section = bookHistogram1D(1, 1, 1);
+      _h_jet_pT_normalised = bookHistogram1D(1, 1, 2);
       _h_jet_y_cross_section = bookHistogram1D(2, 1, 1);
+      _h_jet_y_normalised = bookHistogram1D(2, 1, 2);
       _h_Z_pT_cross_section = bookHistogram1D(3, 1, 1);
+      _h_Z_pT_normalised = bookHistogram1D(3, 1, 2);
       _h_Z_y_cross_section = bookHistogram1D(4, 1, 1);
+      _h_Z_y_normalised = bookHistogram1D(4, 1, 2);
       _h_total_cross_section = bookHistogram1D(5, 1, 1);
     }
 
@@ -51,6 +57,7 @@ namespace Rivet {
 
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size()==1) {
+        _sum_of_weights_inclusive += weight;
         const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
         const Jets& jets = jetpro.jetsByPt(20.0*GeV);
         Jets jets_cut;
@@ -81,11 +88,15 @@ namespace Rivet {
 
         // In jet pT
         _h_jet_pT_cross_section->fill( jets_cut[0].momentum().pT(), weight);
+        _h_jet_pT_normalised->fill( jets_cut[0].momentum().pT(), weight);
         _h_jet_y_cross_section->fill( fabs(jets_cut[0].momentum().rapidity()), weight);
+        _h_jet_y_normalised->fill( fabs(jets_cut[0].momentum().rapidity()), weight);
 
         // In Z pT
         _h_Z_pT_cross_section->fill(Zmom.pT(), weight);
+        _h_Z_pT_normalised->fill(Zmom.pT(), weight);
         _h_Z_y_cross_section->fill(fabs(Zmom.rapidity()), weight);
+        _h_Z_y_normalised->fill(fabs(Zmom.rapidity()), weight);
 
         _h_total_cross_section->fill(1960.0, weight);
       }
@@ -101,6 +112,13 @@ namespace Rivet {
       scale(_h_jet_y_cross_section, invlumi);
       scale(_h_Z_pT_cross_section, invlumi);
       scale(_h_Z_y_cross_section, invlumi);
+
+      double factor=1.0/_sum_of_weights_inclusive;
+      if (_sum_of_weights_inclusive==0.0) factor=0.0;
+      scale(_h_jet_pT_normalised, factor);
+      scale(_h_jet_y_normalised, factor);
+      scale(_h_Z_pT_normalised, factor);
+      scale(_h_Z_y_normalised, factor);
     }
 
     //@}
@@ -115,7 +133,13 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_Z_pT_cross_section;
     AIDA::IHistogram1D * _h_Z_y_cross_section;
     AIDA::IHistogram1D * _h_total_cross_section;
+    AIDA::IHistogram1D * _h_jet_pT_normalised;
+    AIDA::IHistogram1D * _h_jet_y_normalised;
+    AIDA::IHistogram1D * _h_Z_pT_normalised;
+    AIDA::IHistogram1D * _h_Z_y_normalised;
     //@}
+
+    double _sum_of_weights_inclusive;
 
   };
 
