@@ -16,7 +16,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d03-x01-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.6$, $p_\perp \in [4..6]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
@@ -25,7 +25,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d03-x02-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.6$, $p_\perp \in [6..10]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
@@ -34,7 +34,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d03-x03-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.6$, $p_\perp \in [10..15]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
@@ -43,7 +43,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d03-x04-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.6$, $p_\perp \in [15..24]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
@@ -52,7 +52,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d04-x01-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.4$, $p_\perp \in [4..6]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
@@ -61,7 +61,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d04-x02-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.4$, $p_\perp \in [6..10]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
@@ -70,7 +70,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d04-x03-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.4$, $p_\perp \in [10..15]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
@@ -79,7 +79,7 @@ CustomLegend={\large ATLAS preliminary}
 
 # BEGIN PLOT /ATLAS_2010_CONF_2010_049/d04-x04-y01
 Title=$z$ in anti-$k_t$ jets, $R=0.4$, $p_\perp \in [15..24]\,\text{GeV}$, $|\eta|<0.57$, $\sqrt{s}=\text{7\,TeV}$
-XLabel=track jet $p_\perp$ [GeV]
+XLabel=$z_\text{track}$
 YLabel=$(1/N_\text{jet})\mathrm{d}N_\text{track}/\mathrm{d}z_\text{track}$
 LogY=0
 LegendXPos=0.37
