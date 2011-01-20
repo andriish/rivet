@@ -404,7 +404,9 @@ def min_nonnull(a, b):
     rtn = min(a, b)
     if rtn is not None:
         return rtn
-    return a if a is not None else b
+    if a is not None:
+        return a
+    return b
 
 
 ## Set up an event timeout handler
