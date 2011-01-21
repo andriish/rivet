@@ -487,7 +487,7 @@ class PlotParser(object):
         if len(self.plotpaths) == 0:
             try:
                 import rivet
-                self.plotpaths = rivet.getAnalysisRefPaths()
+                self.plotpaths = rivet.getAnalysisPlotPaths()
             except Exception:
                 raise ValueError("No plotpaths given and the rivet module could not be loaded!")
 
