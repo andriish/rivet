@@ -4,7 +4,7 @@ Summary: W+jets jet multiplicities and pT
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 8919674
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:
@@ -39,3 +39,5 @@ BibTeX: '@Article{Aad:2010pg,
      SLACcitation  = "%%CITATION = 1012.5382;%%"
 }'
 ToDo:
+ - Implement jet multiplicity ratio plots.
+ - Export original AIDA file from HepForge.
