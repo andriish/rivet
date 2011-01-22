@@ -159,6 +159,9 @@ namespace Rivet {
           if (jets.size()>=3) {
             _h_mu_njet_inclusive->fill(3, weight);
           }
+          if (jets.size()>=4) {
+            _h_mu_njet_inclusive->fill(4, weight);
+          }
         }
       }
 
