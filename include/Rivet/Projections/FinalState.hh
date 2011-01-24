@@ -79,7 +79,7 @@ namespace Rivet {
     virtual bool isEmpty() const { return _theParticles.empty(); }
 
     /// Minimum-\f$ p_\perp \f$ requirement.
-    virtual size_t ptMin() const { return _ptmin; }
+    virtual double ptMin() const { return _ptmin; }
 
 
   public:
