@@ -50,6 +50,11 @@ namespace Rivet {
       return particles(cmpParticleByPt);
     }
 
+    /// Get the final-state particles, ordered by decreasing \f$ p \f$.
+    const ParticleVector& particlesByP() const {
+      return particles(cmpParticleByP);
+    }
+
     /// Get the final-state particles, ordered by decreasing \f$ E \f$.
     const ParticleVector& particlesByE() const {
       return particles(cmpParticleByE);
