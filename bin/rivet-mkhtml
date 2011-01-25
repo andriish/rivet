@@ -182,7 +182,10 @@ for analysis in sorted(analyses, reverse=True):
     references = []
     summary = analysis
     description = "NONE"
-    spiresid = analysis[analysis.rfind('S')+1:len(analysis)] if analysis.startswith("S") else "NONE"
+    if analysis.startswith("S"):
+        spiresid = analysis[analysis.rfind('S')+1:len(analysis)]
+    else:
+        spiresid = "NONE"
     ana = rivet.AnalysisLoader.getAnalysis(analysis)
     if ana:
         if ana.summary() and ana.summary() != "NONE":
