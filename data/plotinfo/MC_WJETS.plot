@@ -32,6 +32,7 @@ Title=W $p_\perp$ in peak region
 XLabel=$p_\perp^{\text{W}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$ [pb/GeV]
 LogY=0
+LogX=0
 LegendYPos=0.5
 LegendXPos=0.30
 # END PLOT
