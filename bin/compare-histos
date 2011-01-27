@@ -454,7 +454,7 @@ if __name__ == "__main__":
                         numskipped += 1
                         assert(numskipped <= (HISTOS[hfile][name].numBins() - HISTOS[ref][name].numBins()))
                         continue
-                histstr += '%e\t%e\t%e\t%e\n' % (xmin, xmax, bin.yval, bin.yerr)
+                histstr += '%s\n' % (bin.asFlat())
             histstr += "# END HISTOGRAM\n"
             histstrs.append(histstr)
 
