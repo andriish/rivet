@@ -775,7 +775,7 @@ class Colorscale:
         out += '  \\rput(0.5,0){\n'
         out += '    \\psset{yunit=0.0076923, linestyle=none, fillstyle=solid}\n'
         out += '    \\multido{\\ic=0+1,\\id=1+1}{130}{\n'
-        out += '      \\psframe[fillcolor={gradientcolors!![\\ic]}](0, \\ic)(1, \\id)\n'
+        out += '      \\psframe[fillcolor={gradientcolors!![\\ic]},dimen=inner,linewidth=0.1pt](0, \\ic)(1, \\id)\n'
         out += '    }\n'
         out += '  }\n'
         out += '  \\rput(0.5,0){\n'
@@ -792,16 +792,16 @@ class Colorscale:
         zcustommajorticks=[]
         zcustomminorticks=[]
         # TODO: remove ZCustomTicks after 2011-12-31:
-        if inputdata.description.has_key('ZCustomTicks') and inputdata.description['ZCustomTicks']!='':
+        if self.description.has_key('ZCustomTicks') and self.description['ZCustomTicks']!='':
             logging.warning('Warning: ZCustomTicks is deprecated. Use ZCustomMajorTicks instead.')
-            inputdata.description['ZCustomMajorTicks']=inputdata.description['ZCustomTicks']
+            self.description['ZCustomMajorTicks']=self.description['ZCustomTicks']
         if self.description.has_key('ZCustomMajorTicks') and self.description['ZCustomMajorTicks']!='':
             FOO=self.description['ZCustomMajorTicks'].strip().split('\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     zcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        if inputdata.description.has_key('ZCustomMinorTicks') and inputdata.description['ZCustomMinorTicks']!='':
-            FOO=inputdata.description['ZCustomMinorTicks'].strip().split('\t')
+        if self.description.has_key('ZCustomMinorTicks') and self.description['ZCustomMinorTicks']!='':
+            FOO=self.description['ZCustomMinorTicks'].strip().split('\t')
             for i in range(len(FOO)):
                 zcustomminorticks.append({'Value': float(FOO[i])})
         zticks = ZTicks(self.description, self.coors)
