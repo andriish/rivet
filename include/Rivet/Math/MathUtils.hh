@@ -163,6 +163,15 @@ namespace Rivet {
     return sqrt(a*a + b*b + c*c);
   }
 
+  /// A more efficient version of pow for raising numbers to integer powers.
+  template <typename Num>
+  inline Num intpow(Num val, unsigned int exp) {
+    assert(exp >= 0);
+    if (exp == 0) return (Num) 1;
+    else if (exp == 1) return val;
+    else return val * intpow(val, exp-1);
+  }
+
   /// Find the sign of a number
   inline int sign(double val) {
     if (isZero(val)) return ZERO;
