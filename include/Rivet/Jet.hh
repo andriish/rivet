@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// A minimal class representing a jet of particles.
+  /// @brief A minimal class representing a jet of particles.
   class Jet : public ParticleBase {
   public:
 
@@ -143,8 +143,8 @@ namespace Rivet {
     /// Const because cache variables are mutable.
     void _calcMomVector() const;
 
-    /// Internal caching method to calculate the average \f$ \eta \f$ and \f$
-    /// \phi \f$ for this jet, weighted by the \f$ p_T \f$ values of the
+    /// Internal caching method to calculate the average \f$ \eta \f$ and
+    /// \f$ \phi \f$ for this jet, weighted by the \f$ p_T \f$ values of the
     /// constituent tracks.
     /// Const because cache variables are mutable.
     void _calcPtAvgs() const;

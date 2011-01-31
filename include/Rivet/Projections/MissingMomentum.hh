@@ -14,7 +14,7 @@ namespace Rivet {
   /// @brief Calculate missing \f$ E \f$, \f$ E_\perp \f$ etc.
   ///
   /// Project out the total visible energy vector, allowing missing
-  /// \f E \f$, \f$ E_\perp \f$ etc. to be calculated. Final state
+  /// \f$ E \f$, \f$ E_\perp \f$ etc. to be calculated. Final state
   /// visibility restrictions are automatic.
   class MissingMomentum : public Projection {
   public:
@@ -84,7 +84,7 @@ namespace Rivet {
 
   };
 
-}
 
+}
 
 #endif

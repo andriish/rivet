@@ -81,7 +81,7 @@ namespace Rivet {
 
   /// @brief Join several filesystem paths together with a delimiter character.
   /// Note that this does NOT join path elements together with a platform-portable
-  /// directory delimiter, cf. the Python @c{os.path.join}!
+  /// directory delimiter, cf. the Python @c {os.path.join}!
   inline string pathjoin(const vector<string>& paths) {
     const string delim = ":";
     string rtn;

@@ -27,7 +27,7 @@ namespace Rivet {
    *
    * @par Run conditions
    *
-   * @arg LEP1 beam energy: \f$ \sqrt{s} = \$f 91.2 GeV
+   * @arg LEP1 beam energy: \f$ \sqrt{s} = \f$ 91.2 GeV
    * @arg Run with generic QCD events.
    * @arg No \f$ p_\perp^\text{min} \f$ cutoff is required
    */

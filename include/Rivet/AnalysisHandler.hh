@@ -44,32 +44,6 @@ namespace Rivet {
     /// in future, use the writeData() method to supply the filename and format at
     /// the point of file-writing.
     ///
-    /// @param basefilename the name of the file (no extension) where histograms
-    ///   are to be stored.
-    /// @param runname optional name of this run, prepended to AIDA data paths.
-    /// @param storetype a string indicating to the AIDA analysis factory
-    ///   how to store the histograms. Which strings are allowed depends on
-    ///   actual AIDA implementation used. To output in standard AIDA XML the
-    ///   string is typically "xml".
-    /// @param afac an AIDA analysis factory object. The caller must make
-    ///   sure that the lifetime of the factory object exceeds the AnalysisHandler
-    ///   object.
-    ///
-    /// @deprecated Prefer to specify output files and formats explicitly.
-    // ND. Removed since no-one ever supplies their own AIDA analysis factory, and we want
-    // to break the AIDA dependency.
-    // AnalysisHandler(AIDA::IAnalysisFactory& afac, string basefilename="Rivet",
-    //                 string runname="", HistoFormat storetype=AIDAML);
-
-
-    /// @brief Make a Rivet handler with a set base filename and store type.
-    ///
-    /// An AnalysisHandler built with this constructor sets the output histo format
-    /// and filename when the handler is created rather than when it is written.
-    /// This is not the preferred behaviour, to allow for more flexible histogramming
-    /// in future, use the writeData() method to supply the filename and format at
-    /// the point of file-writing.
-    ///
     /// Note that the run name is now a compulsory argument: this is to avoid
     /// conflict with the preferred one-argument constructor.
     ///

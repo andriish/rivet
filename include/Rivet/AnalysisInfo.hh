@@ -52,7 +52,7 @@ namespace Rivet {
     const std::string& spiresId() const { return _spiresId; }
 
     /// @brief Names & emails of paper/analysis authors.
-    /// Names and email of authors in 'NAME <EMAIL>' format. The first
+    /// Names and email of authors in 'NAME \<EMAIL\>' format. The first
     /// name in the list should be the primary contact person.
     const std::vector<std::string>& authors() const { return _authors; }
 

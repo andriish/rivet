@@ -29,6 +29,7 @@ namespace Rivet {
 
     /// @name Standard constructors etc.
     //@{
+
     /// The default constructor.
     Cmp(const T& t1, const T& t2)
       : _value(UNDEFINED), _objects(&t1, &t2) { }
@@ -47,6 +48,7 @@ namespace Rivet {
       _value = x;
       return *this;
     }
+
     //@}
 
   public:
