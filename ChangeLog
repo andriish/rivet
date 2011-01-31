@@ -1,5 +1,8 @@
 2011-01-31  Andy Buckley  <andy@insectnation.org>
 
+	* Doc tweaks and adding cmp-by-|p| functions for Jets, to match
+	those added by Hendrik for Particles.
+
 	* Don't sum photons around muons in the D0 2010 Z pT analysis.
 
 2011-01-27  Andy Buckley  <andy@insectnation.org>

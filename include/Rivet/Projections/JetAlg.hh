@@ -17,6 +17,12 @@ namespace Rivet {
   inline bool cmpMomByAscPt(const FourMomentum& a, const FourMomentum& b) {
     return a.pT() < b.pT();
   }
+  inline bool cmpMomByP(const FourMomentum& a, const FourMomentum& b) {
+    return a.vector3().mod() > b.vector3().mod();
+  }
+  inline bool cmpMomByAscP(const FourMomentum& a, const FourMomentum& b) {
+    return a.vector3().mod() < b.vector3().mod();
+  }
   inline bool cmpMomByEt(const FourMomentum& a, const FourMomentum& b) {
     return a.Et() > b.Et();
   }
@@ -115,6 +121,14 @@ namespace Rivet {
                   double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                   RapScheme rapscheme=PSEUDORAPIDITY) const {
       return jets(cmpJetsByPt, ptmin, ptmax, rapmin, rapmax, rapscheme);
+    }
+
+    /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    Jets jetsByP(double ptmin=0.0, double ptmax=MAXDOUBLE,
+                 double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
+                 RapScheme rapscheme=PSEUDORAPIDITY) const {
+      return jets(cmpJetsByP, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
 
     /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.

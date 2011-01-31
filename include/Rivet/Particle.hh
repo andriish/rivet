@@ -137,11 +137,11 @@ namespace Rivet {
   inline bool cmpParticleByAscPt(const Particle& a, const Particle& b) {
     return a.momentum().pT() < b.momentum().pT();
   }
-  /// Sort by descending transverse momentum, \f$ p \f$
+  /// Sort by descending momentum, \f$ p \f$
   inline bool cmpParticleByP(const Particle& a, const Particle& b) {
     return a.momentum().vector3().mod() > b.momentum().vector3().mod();
   }
-  /// Sort by ascending transverse momentum, \f$ p \f$
+  /// Sort by ascending momentum, \f$ p \f$
   inline bool cmpParticleByAscP(const Particle& a, const Particle& b) {
     return a.momentum().vector3().mod() < b.momentum().vector3().mod();
   }

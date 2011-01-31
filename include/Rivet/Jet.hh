@@ -176,15 +176,24 @@ namespace Rivet {
   /// @name Jet comparison functions for STL sorting
   //@{
 
-  // @brief Compare jets by \f$ p_\perp \f$ (descending - usual sorting for HEP)
+  /// @brief Compare jets by \f$ p_\perp \f$ (descending - usual sorting for HEP)
   /// Use this so that highest \f$ p_\perp \f$ is at the front of the list
   inline bool cmpJetsByPt(const Jet& a, const Jet& b) {
     return a.ptSum() > b.ptSum();
   }
-  // @brief Compare jets by \f$ p_\perp \f$ (ascending)
+  /// @brief Compare jets by \f$ p_\perp \f$ (ascending)
   /// Use this so that lowest \f$ p_\perp \f$ is at the front of the list
   inline bool cmpJetsByAscPt(const Jet& a, const Jet& b) {
     return a.ptSum() < b.ptSum();
+  }
+
+  /// @brief Compare jets by descending momentum, \f$ p \f$
+  inline bool cmpJetsByP(const Jet& a, const Jet& b) {
+    return a.momentum().vector3().mod() > b.momentum().vector3().mod();
+  }
+  /// @brief Compare jets by ascending momentum, \f$ p \f$
+  inline bool cmpJetsByAscP(const Jet& a, const Jet& b) {
+    return a.momentum().vector3().mod() < b.momentum().vector3().mod();
   }
 
   // @brief Compare jets by \f$ E_\perp \f$ (descending - usual sorting for HEP)
@@ -198,56 +207,56 @@ namespace Rivet {
     return a.EtSum() < b.EtSum();
   }
 
-  // @brief Compare jets by \f$ E \f$ (descending - usual sorting for HEP)
+  /// @brief Compare jets by \f$ E \f$ (descending - usual sorting for HEP)
   /// Use this so that highest \f$ E \f$ is at the front of the list
   inline bool cmpJetsByE(const Jet& a, const Jet& b) {
     return a.momentum().E() > b.momentum().E();
   }
-  // @brief Compare jets by \f$ E \f$ (ascending)
+  /// @brief Compare jets by \f$ E \f$ (ascending)
   /// Use this so that lowest \f$ E \f$ is at the front of the list
   inline bool cmpJetsByAscE(const Jet& a, const Jet& b) {
     return a.momentum().E() < b.momentum().E();
   }
 
-  // @brief Compare jets by \f$ \eta \f$ (descending)
+  /// @brief Compare jets by \f$ \eta \f$ (descending)
   /// Use this so that highest \f$ \eta \f$ is at the front of the list
   inline bool cmpJetsByDescPseudorapidity(const Jet& a, const Jet& b) {
     return a.momentum().pseudorapidity() > b.momentum().pseudorapidity();
   }
-  // @brief Compare jets by \f$ \eta \f$ (ascending)
+  /// @brief Compare jets by \f$ \eta \f$ (ascending)
   /// Use this so that lowest \f$ \eta \f$ is at the front of the list
   inline bool cmpJetsByAscPseudorapidity(const Jet& a, const Jet& b) {
     return a.momentum().pseudorapidity() < b.momentum().pseudorapidity();
   }
 
-  // @brief Compare jets by \f$ |\eta| \f$ (descending)
+  /// @brief Compare jets by \f$ |\eta| \f$ (descending)
   /// Use this so that highest \f$ |\eta| \f$ is at the front of the list
   inline bool cmpJetsByDescAbsPseudorapidity(const Jet& a, const Jet& b) {
     return fabs(a.momentum().pseudorapidity()) > fabs(b.momentum().pseudorapidity());
   }
-  // @brief Compare jets by \f$ |\eta| \f$ (ascending)
+  /// @brief Compare jets by \f$ |\eta| \f$ (ascending)
   /// Use this so that lowest \f$ |\eta| \f$ is at the front of the list
   inline bool cmpJetsByAscAbsPseudorapidity(const Jet& a, const Jet& b) {
     return fabs(a.momentum().pseudorapidity()) < fabs(b.momentum().pseudorapidity());
   }
 
-  // @brief Compare jets by \f$ y \f$ (descending)
+  /// @brief Compare jets by \f$ y \f$ (descending)
   /// Use this so that highest \f$ y \f$ is at the front of the list
   inline bool cmpJetsByDescRapidity(const Jet& a, const Jet& b) {
     return a.momentum().rapidity() > b.momentum().rapidity();
   }
-  // @brief Compare jets by \f$ y \f$ (ascending)
+  /// @brief Compare jets by \f$ y \f$ (ascending)
   /// Use this so that lowest \f$ y \f$ is at the front of the list
   inline bool cmpJetsByAscRapidity(const Jet& a, const Jet& b) {
     return a.momentum().rapidity() < b.momentum().rapidity();
   }
 
-  // @brief Compare jets by \f$ |y| \f$ (descending)
+  /// @brief Compare jets by \f$ |y| \f$ (descending)
   /// Use this so that highest \f$ |y| \f$ is at the front of the list
   inline bool cmpJetsByDescAbsRapidity(const Jet& a, const Jet& b) {
     return fabs(a.momentum().rapidity()) > fabs(b.momentum().rapidity());
   }
-  // @brief Compare jets by \f$ |y| \f$ (ascending)
+  /// @brief Compare jets by \f$ |y| \f$ (ascending)
   /// Use this so that lowest \f$ |y| \f$ is at the front of the list
   inline bool cmpJetsByAscAbsRapidity(const Jet& a, const Jet& b) {
     return fabs(a.momentum().rapidity()) < fabs(b.momentum().rapidity());
