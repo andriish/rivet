@@ -12,7 +12,7 @@ namespace Rivet {
   namespace {
 
     inline void _moments_to_stddev(AIDA::IProfile1D* moment_profiles[], AIDA::IDataPointSet* target_dps) {
-      for (size_t b = 0; b < target_dps->size(); ++b) { // loop over bins
+      for (int b = 0; b < target_dps->size(); ++b) { // loop over bins
         /// @todo Assuming unit weights here! Should use N_effective = sumW**2/sumW2? How?
         const double numentries = moment_profiles[0]->binEntries(b);
         const double var = moment_profiles[1]->binHeight(b) - intpow(moment_profiles[0]->binHeight(b), 2);
