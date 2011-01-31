@@ -94,7 +94,7 @@ namespace Rivet {
   };
 
 
-  /// @brief Specialization of Cmp for checking the ordering of two @a{Projection}s.
+  /// @brief Specialization of Cmp for checking the ordering of two @a {Projection}s.
   ///
   /// Specialization of the Cmp helper class to be used when checking the
   /// ordering of two Projection objects. When implicitly converted to an
