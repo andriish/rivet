@@ -21,6 +21,7 @@ namespace Rivet {
                          _inclusive_Z_sumofweights(0.0)
     {
       setBeams(PROTON, ANTIPROTON);
+      setNeedsCrossSection(true);
     }
 
     //@}
@@ -45,6 +46,15 @@ namespace Rivet {
 
       _h_yboost_jet_Z25 = bookHistogram1D(5, 1, 1);
       _h_yboost_jet_Z45 = bookHistogram1D(6, 1, 1);
+
+      _h_dphi_jet_Z25_xs = bookHistogram1D(1, 1, 2);
+      _h_dphi_jet_Z45_xs = bookHistogram1D(2, 1, 2);
+
+      _h_dy_jet_Z25_xs = bookHistogram1D(3, 1, 2);
+      _h_dy_jet_Z45_xs = bookHistogram1D(4, 1, 2);
+
+      _h_yboost_jet_Z25_xs = bookHistogram1D(5, 1, 2);
+      _h_yboost_jet_Z45_xs = bookHistogram1D(6, 1, 2);
 
       _inclusive_Z_sumofweights = 0.0;
     }
@@ -98,11 +108,17 @@ namespace Rivet {
           _h_dphi_jet_Z25->fill(dphi,weight);
           _h_dy_jet_Z25->fill(dy, weight);
           _h_yboost_jet_Z25->fill(yboost, weight);
+          _h_dphi_jet_Z25_xs->fill(dphi,weight);
+          _h_dy_jet_Z25_xs->fill(dy, weight);
+          _h_yboost_jet_Z25_xs->fill(yboost, weight);
         }
         if (Zmom.pT() > 45.0*GeV) {
           _h_dphi_jet_Z45->fill(dphi,weight);
           _h_dy_jet_Z45->fill(dy, weight);
           _h_yboost_jet_Z45->fill(yboost, weight);
+          _h_dphi_jet_Z45_xs->fill(dphi,weight);
+          _h_dy_jet_Z45_xs->fill(dy, weight);
+          _h_yboost_jet_Z45_xs->fill(yboost, weight);
         }
       }
 
@@ -117,6 +133,13 @@ namespace Rivet {
       scale(_h_dy_jet_Z45, 1.0/_inclusive_Z_sumofweights);
       scale(_h_yboost_jet_Z25, 1.0/_inclusive_Z_sumofweights);
       scale(_h_yboost_jet_Z45, 1.0/_inclusive_Z_sumofweights);
+
+      scale(_h_dphi_jet_Z25_xs, crossSectionPerEvent());
+      scale(_h_dphi_jet_Z45_xs, crossSectionPerEvent());
+      scale(_h_dy_jet_Z25_xs, crossSectionPerEvent());
+      scale(_h_dy_jet_Z45_xs, crossSectionPerEvent());
+      scale(_h_yboost_jet_Z25_xs, crossSectionPerEvent());
+      scale(_h_yboost_jet_Z45_xs, crossSectionPerEvent());
     }
 
     //@}
@@ -127,7 +150,7 @@ namespace Rivet {
 
   private:
 
-    /// @name Histograms
+    /// @name Histograms (normalised)
     //@{
     AIDA::IHistogram1D *_h_dphi_jet_Z25;
     AIDA::IHistogram1D *_h_dphi_jet_Z45;
@@ -137,6 +160,18 @@ namespace Rivet {
 
     AIDA::IHistogram1D *_h_yboost_jet_Z25;
     AIDA::IHistogram1D *_h_yboost_jet_Z45;
+    //@}
+
+    /// @name Histograms (absolute cross sections)
+    //@{
+    AIDA::IHistogram1D *_h_dphi_jet_Z25_xs;
+    AIDA::IHistogram1D *_h_dphi_jet_Z45_xs;
+
+    AIDA::IHistogram1D *_h_dy_jet_Z25_xs;
+    AIDA::IHistogram1D *_h_dy_jet_Z45_xs;
+
+    AIDA::IHistogram1D *_h_yboost_jet_Z25_xs;
+    AIDA::IHistogram1D *_h_yboost_jet_Z45_xs;
     //@}
 
     double _inclusive_Z_sumofweights;

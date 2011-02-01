@@ -35,7 +35,8 @@ namespace Rivet {
       ZFinder zfinder(-1.7, 1.7, 15.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.0);
       addProjection(zfinder, "ZFinder");
 
-      _h_Z_pT_cross_section = bookHistogram1D(1, 1, 1);
+      _h_Z_pT_normalised = bookHistogram1D(1, 1, 1);
+      _h_Z_pT_xs = bookHistogram1D(2, 1, 1);
     }
 
 
@@ -43,15 +44,18 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-      if (zfinder.particles().size() == 1) {
-        _h_Z_pT_cross_section->fill(zfinder.particles()[0].momentum().pT()/GeV, weight);
+      if (zfinder.particles().size()==1) {
+        double ZpT = zfinder.particles()[0].momentum().pT()/GeV;
+        _h_Z_pT_normalised->fill(ZpT, weight);
+        _h_Z_pT_xs->fill(ZpT, weight);
       }
     }
 
 
     /// Finalize
     void finalize() {
-      normalize(_h_Z_pT_cross_section, 1.0);
+      normalize(_h_Z_pT_normalised, 1.0);
+      scale(_h_Z_pT_xs, crossSectionPerEvent());
     }
 
     //@}
@@ -60,7 +64,8 @@ namespace Rivet {
   private:
 
     /// @name Histogram
-    AIDA::IHistogram1D * _h_Z_pT_cross_section;
+    AIDA::IHistogram1D * _h_Z_pT_normalised;
+    AIDA::IHistogram1D * _h_Z_pT_xs;
 
   };
 
