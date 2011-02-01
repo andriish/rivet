@@ -2,7 +2,6 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src pyext data include bin doc test
 
 #dist_pkgdata_DATA = rivetenv.sh rivetenv.csh
-
 EXTRA_DIST = GUIDELINES
 
 doc:
@@ -13,10 +12,14 @@ doc:
 clean-local:
 	@rm -rf a.out
 
+
 ## Doxygen
 if WITH_DOXYGEN
 dox:
-	$(DOXYGEN) $(top_srcdir)/Doxyfile || true
+	@echo "Running Doxygen..."
+	@$(DOXYGEN) $(top_srcdir)/Doxyfile || true
+#all-local: dox
+#	@true
 install-dox:
 	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
 mostlyclean-local:
@@ -26,12 +29,15 @@ uninstall-local:
 	test ! -d $(DESTDIR)$(pkgdatadir) || rmdir --ignore-fail-on-non-empty $(DESTDIR)$(pkgdatadir)
 endif
 
+
 pyclean:
 	cd pyext && $(MAKE) clean
+
 
 ## Remove SVN dirs
 dist-hook:
 	@rm -rf `find $(distdir) -name ".svn"`
+
 
 ## Upload to HepForge
 RSH=rsync

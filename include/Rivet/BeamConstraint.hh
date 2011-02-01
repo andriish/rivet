@@ -52,7 +52,7 @@ namespace Rivet {
     return false;
   }
 
-  /// Return the intersection of two sets of {@link PdgIdPair}s.
+  /// Return the intersection of two sets of {PdgIdPair}s.
   inline set<PdgIdPair> intersection(const set<PdgIdPair>& a, const set<PdgIdPair>& b) {
     set<PdgIdPair> ret;
     for (set<PdgIdPair>::const_iterator bp = a.begin(); bp != a.end(); ++bp) {

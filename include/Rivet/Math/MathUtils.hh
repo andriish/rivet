@@ -343,13 +343,13 @@ namespace Rivet {
   }
 
   /// Calculate the distance between two points in 2D rapidity-azimuthal
-  /// ("eta-phi") space. The phi values are given in radians.
+  /// ("\f$ \eta-\phi \f$") space. The phi values are given in radians.
   inline double deltaR(double rap1, double phi1, double rap2, double phi2) {
     const double dphi = deltaPhi(phi1, phi2);
     return sqrt( sqr(rap1-rap2) + sqr(dphi) );
   }
 
-  /// Calculate a rapidity value from the supplied energy @a E and longitudinal momentum @pz.
+  /// Calculate a rapidity value from the supplied energy @a E and longitudinal momentum @a pz.
   inline double rapidity(double E, double pz) {
     if (isZero(E - pz)) {
       throw std::runtime_error("Divergent positive rapidity");
