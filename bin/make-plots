@@ -30,9 +30,8 @@ import string
 from math import *
 
 ## regex patterns ##
-pat_begin_block = re.compile('^# BEGIN ([A-Z0-9_]+) ?(\S+)?')
-# temporarily allow several hashes before END for YODA
-pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
+pat_begin_block = re.compile(r'^#+\s*BEGIN ([A-Z0-9_]+) ?(\S+)?')
+pat_end_block =   re.compile('^#+\s*END ([A-Z0-9_]+)')
 pat_comment = re.compile('^#|^\s*$')
 pat_property = re.compile('^(\w+?)=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
@@ -234,19 +233,15 @@ class Plot:
         if inputdata.description.has_key('XMin'):
             self.xmin = float(inputdata.description['XMin'])
         else:
-            foo=[]
-            for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getXMin())
-            self.xmin=min(foo)
+            self.xmin = min(inputdata.histos[i].getXMin() for i in inputdata.description['DrawOnly'])
 
     def set_xmax(self,inputdata):
+        #print inputdata.description
         if inputdata.description.has_key('XMax'):
             self.xmax = float(inputdata.description['XMax'])
         else:
-            foo=[]
-            for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getXMax())
-            self.xmax=max(foo)
+            #print inputdata.description['DrawOnly']
+            self.xmax = max(inputdata.histos[i].getXMax() for i in inputdata.description['DrawOnly'])
 
     def set_ymin(self,inputdata):
         if inputdata.description.has_key('YMin'):
