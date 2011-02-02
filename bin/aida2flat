@@ -94,12 +94,12 @@ if __name__ == "__main__":
         out = sys.stdout
         if not os.access(aidafile, os.R_OK):
             logging.error("%s can not be read" % aidafile)
-            break
+            sys.exit(1)
         try:
             tree = ET.parse(aidafile)
         except:
             logging.error("%s can not be parsed as XML" % aidafile)
-            break
+            sys.exit(1)
         histos = []
         for dps in tree.findall("dataPointSet"):
             useThisDps = True
