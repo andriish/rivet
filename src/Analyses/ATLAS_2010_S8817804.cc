@@ -41,17 +41,17 @@ namespace Rivet {
       size_t ptDsOffset(0), massDsOffset(10), chiDsOffset(20);
       for (size_t alg = 0; alg < 2; ++alg) {
         for (size_t i = 0; i < 5; ++i) {
-          _pThistos[alg].addHistogram(ybins[i], ybins[i+1], bookHistogram1D(i + ptDsOffset, 1, 1));
+          _pThistos[alg].addHistogram(ybins[i], ybins[i+1], bookHistogram1D(i + 1 + ptDsOffset, 1, 1));
         }
         ptDsOffset += 5;
 
         for (size_t i = 0; i < 5; ++i) {
-          _massVsY[alg].addHistogram(ybins[i], ybins[i+1], bookHistogram1D(i + massDsOffset, 1, 1));
+          _massVsY[alg].addHistogram(ybins[i], ybins[i+1], bookHistogram1D(i + 1 + massDsOffset, 1, 1));
         }
         massDsOffset += 5;
 
         for (size_t i = 0; i < 3; ++i) {
-          _chiVsMass[alg].addHistogram(massBinsForChi[i], massBinsForChi[i+1], bookHistogram1D(i + chiDsOffset, 1, 1));
+          _chiVsMass[alg].addHistogram(massBinsForChi[i], massBinsForChi[i+1], bookHistogram1D(i + 1 + chiDsOffset, 1, 1));
         }
         chiDsOffset += 3;
       }
@@ -100,13 +100,9 @@ namespace Rivet {
 
     void finalize() {
       for (size_t alg = 0; alg < 2; ++alg) {
-        //cout << 0 << endl;
         _pThistos[alg].scale(crossSectionPerEvent()/picobarn, this);
-        //cout << 1 << endl;
         _massVsY[alg].scale(crossSection()/_sumW/picobarn, this);
-        //cout << 2 << endl;
         _chiVsMass[alg].scale(crossSection()/_sumW/picobarn, this);
-        //cout << 3 << endl;
       }
     }
 
