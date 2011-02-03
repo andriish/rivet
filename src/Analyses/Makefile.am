@@ -111,7 +111,8 @@ RivetD0Analyses_la_SOURCES = \
     D0_2009_S8349509.cc \
     D0_2010_S8566488.cc \
     D0_2010_S8570965.cc \
-    D0_2010_S8671338.cc
+    D0_2010_S8671338.cc \
+    D0_2010_S8821313.cc
 
 
 lib_LTLIBRARIES += RivetHERAAnalyses.la

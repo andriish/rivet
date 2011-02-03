@@ -70,6 +70,7 @@ dist_pkgdata_DATA = \
   D0_2010_S8566488.plot \
   D0_2010_S8570965.plot \
   D0_2010_S8671338.plot \
+  D0_2010_S8821313.plot \
   E735_1998_S3905616.plot \
   DELPHI_1995_S3137023.plot \
   DELPHI_1996_S3430090.plot \
