@@ -22,6 +22,7 @@ Description:
   measured in $e^+ e^-$ collisions at CMS energies between 91 and 209 GeV.
   The previously published data at 91.2 GeV and 133 GeV have been re-processed
   and the higher energy data are presented here for the first time.
+  Note that the data have been corrected to include neutrinos.
 BibKey: Heister:2003aj
 BibTeX: '@Article{Heister:2003aj,
      author    = "Heister, A. and others",

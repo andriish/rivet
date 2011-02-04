@@ -33,7 +33,9 @@ namespace Rivet {
       _initialisedSpectra = true;
       const FinalState fs;
       addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+      FastJets durhamjets(fs, FastJets::DURHAM, 0.7);
+      durhamjets.useInvisibles(true);
+      addProjection(durhamjets, "DurhamJets");
 
       const Thrust thrust(fs);
       addProjection(thrust, "Thrust");
