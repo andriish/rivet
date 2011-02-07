@@ -26,9 +26,9 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      ZFinder zeefinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2);
+      ZFinder zeefinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, 0.2);
       addProjection(zeefinder, "ZeeFinder");
-      ZFinder zmmfinder(-3.5, 3.5, 25.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2);
+      ZFinder zmmfinder(-3.5, 3.5, 25.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2, 0.2);
       addProjection(zmmfinder, "ZmmFinder");
       VetoedFinalState jetinput;
       jetinput

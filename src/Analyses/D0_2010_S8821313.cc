@@ -40,10 +40,10 @@ namespace Rivet {
       etaRanges_ee.push_back(make_pair(-3.0, -1.5));
       etaRanges_ee.push_back(make_pair(-1.1, 1.1));
       etaRanges_ee.push_back(make_pair(1.5, 3.0));
-      ZFinder zfinder_ee(etaRanges_ee, 20.0*GeV, ELECTRON, 70.0*GeV, 110.0*GeV, 0.2);
+      ZFinder zfinder_ee(etaRanges_ee, 20.0*GeV, ELECTRON, 70.0*GeV, 110.0*GeV, 0.2, 0.0);
       addProjection(zfinder_ee, "zfinder_ee");
 
-      ZFinder zfinder_mm(-2.0, 2.0, 15.0*GeV, MUON, 70.0*GeV, 110.0*GeV, 0.0);
+      ZFinder zfinder_mm(-2.0, 2.0, 15.0*GeV, MUON, 70.0*GeV, 110.0*GeV, 0.0, 0.0);
       addProjection(zfinder_mm, "zfinder_mm");
 
       /// Book histograms here

@@ -13,8 +13,9 @@ namespace Rivet {
   ZFinder::ZFinder(const FinalState& fs,
                    PdgId pid,
                    double m2_min, double m2_max,
-                   double dRmax) {
-    _init(fs, pid, m2_min, m2_max, dRmax);
+                   double dRmax_clustering,
+                   double dRmax_exclusion) {
+    _init(fs, pid, m2_min, m2_max, dRmax_clustering, dRmax_exclusion);
   }
 
 
@@ -22,10 +23,11 @@ namespace Rivet {
                    double pTmin,
                    PdgId pid,
                    double m2_min, double m2_max,
-                   double dRmax) {
+                   double dRmax_clustering,
+                   double dRmax_exclusion) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax);
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax_clustering, dRmax_exclusion);
   }
 
 
@@ -33,24 +35,27 @@ namespace Rivet {
                    double pTmin,
                    PdgId pid,
                    double m2_min, const double m2_max,
-                   double dRmax) {
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax);
+                   double dRmax_clustering,
+                   double dRmax_exclusion) {
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax_clustering, dRmax_exclusion);
   }
 
 
   void ZFinder::_init(const std::vector<std::pair<double, double> >& etaRanges,
                       double pTmin,  PdgId pid,
                       double m2_min, double m2_max,
-                      double dRmax) {
+                      double dRmax_clustering,
+                      double dRmax_exclusion) {
     FinalState fs(etaRanges, pTmin);
-    _init(fs, pid, m2_min, m2_max, dRmax);
+    _init(fs, pid, m2_min, m2_max, dRmax_clustering, dRmax_exclusion);
   }
 
 
   void ZFinder::_init(const FinalState& fs,
                       PdgId pid,
                       double m2_min, double m2_max,
-                      double dRmax)
+                      double dRmax_clustering,
+                      double dRmax_exclusion)
   {
     setName("ZFinder");
 
@@ -59,12 +64,12 @@ namespace Rivet {
     InvMassFinalState imfs(fs, std::make_pair(pid, -pid), m2_min, m2_max);
     addProjection(imfs, "IMFS");
  
-    ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
+    ClusteredPhotons cphotons(FinalState(), imfs, dRmax_clustering);
     addProjection(cphotons, "CPhotons");
 
     VetoedFinalState remainingFS;
     remainingFS.addVetoOnThisFinalState(imfs);
-    remainingFS.addVetoOnThisFinalState(cphotons);
+    remainingFS.addVetoOnThisFinalState(ClusteredPhotons(FinalState(), imfs, dRmax_exclusion));
     addProjection(remainingFS, "RFS");
   }
 

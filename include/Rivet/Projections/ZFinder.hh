@@ -25,31 +25,34 @@ namespace Rivet {
 
     /// Constructor taking a FinalState and type of the leptons, mass window,
     /// and maximum dR of photons around leptons to take into account for Z
-    /// reconstruction.
+    /// reconstruction (both for clustering to leptons, and exclusion from jets).
     ZFinder(const FinalState& fs,
             PdgId pid,
             double m2_min, double m2_max,
-            double dRmax);
+            double dRmax_clustering,
+            double dRmax_exclusion);
 
 
     /// Constructor taking single eta/pT bounds and type of the leptons, mass
     /// window, and maximum dR of photons around leptons to take into account
-    /// for Z reconstruction.
+    /// for Z reconstruction (both for clustering to leptons, and exclusion from jets).
     ZFinder(double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
             double m2_min, double m2_max,
-            double dRmax);
+            double dRmax_clustering,
+            double dRmax_exclusion);
 
 
     /// Constructor taking multiple eta/pT bounds and type of the leptons, mass
     /// window, and maximum dR of photons around leptons to take into account
-    /// for Z reconstruction.
+    /// for Z reconstruction (both for clustering to leptons, and exclusion from jets).
     ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
             double pTmin,
             PdgId pid,
             double m2_min, const double m2_max,
-            double dRmax);
+            double dRmax_clustering,
+            double dRmax_exclusion);
 
 
     /// Clone on the heap.
@@ -85,13 +88,15 @@ namespace Rivet {
     void _init(const std::vector<std::pair<double, double> >& etaRanges,
                double pTmin,  PdgId pid,
                double m2_min, double m2_max,
-               double dRmax);
+               double dRmax_clustering,
+               double dRmax_exclusion);
 
     /// Common implementation of constructor operation, taking FS.
     void _init(const FinalState& fs,
                PdgId pid,
                double m2_min, double m2_max,
-               double dRmax);
+               double dRmax_clustering,
+               double dRmax_exclusion);
 
   };
 
