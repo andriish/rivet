@@ -19,7 +19,8 @@ Description:
   Using 7.3 pb-1 the distribution of the variable $\phi^*$ is measured, which
   probes the same physical effects as the $Z/\gamma^*$ boson transverse
   momentum, but is less susceptible to the effects of experimental resolution
-  and efficiency.
+  and efficiency. Results are presented for both the di-electron and di-muon
+  channel.
 BibKey: Abazov:2010mk
 BibTeX: '@Article{Abazov:2010mk,
      author    = "Abazov, Victor Mukhamedovich and others",

@@ -98,7 +98,7 @@ namespace Rivet {
   /// Decide if a particle is to be accepted or not.
   bool FinalState::accept(const Particle& p) const {
     // Not having s.c. == 1 should never happen!
-    assert(p.genParticle().status() == 1);
+    assert(!p.hasGenParticle() || p.genParticle().status() == 1);
 
     // Check pT cut
     if (_ptmin > 0.0) {

@@ -55,6 +55,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
   Projections/LeadingParticlesFinalState.hh \
+  Projections/LeptonClusters.hh \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
   Projections/MissingMomentum.hh \

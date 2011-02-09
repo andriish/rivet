@@ -68,11 +68,11 @@ namespace Rivet {
       // Loop around possible particle pairs (typedef needed to keep BOOST_FOREACH happy)
       foreach (const PdgIdPair& ipair, _decayids) {
         if (ipart.pdgId() == ipair.first) {
-          if (accept(ipart.genParticle())) {
+          if (accept(ipart)) {
             type1 += &ipart;
           }
         } else if (ipart.pdgId() == ipair.second) {
-          if (accept(ipart.genParticle())) {
+          if (accept(ipart)) {
             type2 += &ipart;
           }
         }

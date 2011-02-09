@@ -36,14 +36,15 @@ namespace Rivet {
       etaRanges.push_back(make_pair(-1.1, 1.1));
       etaRanges.push_back(make_pair(1.5, 2.5));
       ZFinder zfinder_constrained(etaRanges, 25.0*GeV, ELECTRON,
-                                  65.0*GeV, 115.0*GeV, 0.2, 0.2);
+                                  65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zfinder_constrained, "ZFinderConstrained");
       FastJets conefinder_constrained(zfinder_constrained.remainingFinalState(),
                                       FastJets::D0ILCONE, 0.5);
       addProjection(conefinder_constrained, "ConeFinderConstrained");
 
       // Unconstrained leptons
-      ZFinder zfinder(FinalState(), ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, 0.2);
+      ZFinder zfinder(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
+                      65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zfinder, "ZFinder");
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       addProjection(conefinder, "ConeFinder");

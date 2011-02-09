@@ -3,7 +3,6 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 

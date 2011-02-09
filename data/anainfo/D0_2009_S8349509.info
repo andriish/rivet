@@ -19,7 +19,7 @@ Energies: [1960]
 PtCuts: [0]
 Description:
   First measurements at a hadron collider of differential cross
-  sections for $Z$+jet+X production in $\Delta\phi(Z, j)$,
+  sections for $Z (\to \mu\mu)$+jet+X production in $\Delta\phi(Z, j)$,
   $|\Delta y(Z, j)|$ and $|y_\mathrm{boost}(Z, j)|$.
   Vector boson production in association with jets is an excellent
   probe of QCD and constitutes the main background to many small

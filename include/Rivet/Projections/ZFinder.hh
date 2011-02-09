@@ -23,36 +23,30 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Constructor taking a FinalState and type of the leptons, mass window,
-    /// and maximum dR of photons around leptons to take into account for Z
-    /// reconstruction (both for clustering to leptons, and exclusion from jets).
-    ZFinder(const FinalState& fs,
-            PdgId pid,
-            double m2_min, double m2_max,
-            double dRmax_clustering,
-            double dRmax_exclusion);
-
-
     /// Constructor taking single eta/pT bounds and type of the leptons, mass
     /// window, and maximum dR of photons around leptons to take into account
-    /// for Z reconstruction (both for clustering to leptons, and exclusion from jets).
+    /// for Z reconstruction.
+    /// It has to be specified separately whether such photons are
+    /// supposed to be clustered to the lepton objects and whether they should
+    /// be excluded from the remaining FS.
     ZFinder(double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
             double m2_min, double m2_max,
-            double dRmax_clustering,
-            double dRmax_exclusion);
+            double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
 
 
     /// Constructor taking multiple eta/pT bounds and type of the leptons, mass
     /// window, and maximum dR of photons around leptons to take into account
-    /// for Z reconstruction (both for clustering to leptons, and exclusion from jets).
+    /// for Z reconstruction.
+    /// It has to be specified separately whether such photons are
+    /// supposed to be clustered to the lepton objects and whether they should
+    /// be excluded from the remaining FS.
     ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
             double pTmin,
             PdgId pid,
             double m2_min, const double m2_max,
-            double dRmax_clustering,
-            double dRmax_exclusion);
+            double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
 
 
     /// Clone on the heap.
@@ -67,12 +61,11 @@ namespace Rivet {
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
 
-    /// Access to the Z constituent leptons final state
-    /// (e.g. for more fine-grained cuts on the leptons)
+    /// Access to the Z constituent clustered leptons final state
+    /// (e.g. for more fine-grained cuts on the clustered leptons)
     const FinalState& constituentsFinalState() const;
 
-    /// Access to the photons which have been clustered to the leptons
-    const FinalState& clusteredPhotonsFinalState() const;
+    const FinalState& originalConstituentsFinalState() const;
 
   protected:
 
@@ -88,15 +81,7 @@ namespace Rivet {
     void _init(const std::vector<std::pair<double, double> >& etaRanges,
                double pTmin,  PdgId pid,
                double m2_min, double m2_max,
-               double dRmax_clustering,
-               double dRmax_exclusion);
-
-    /// Common implementation of constructor operation, taking FS.
-    void _init(const FinalState& fs,
-               PdgId pid,
-               double m2_min, double m2_max,
-               double dRmax_clustering,
-               double dRmax_exclusion);
+               double dRmax, bool clusterPhotons, bool excludePhotonsFromJets);
 
   };
 

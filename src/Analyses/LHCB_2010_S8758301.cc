@@ -4,7 +4,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
 
 namespace Rivet {
 

@@ -20,7 +20,7 @@ Beams: [p-, p+]
 Energies: [1960]
 PtCuts: [0]
 Description:
-  Cross sections as a function of boson rapidity in $p \bar{p}$ 
+  Cross sections as a function of di-electron rapidity $p \bar{p}$
   collisions at $\sqrt{s}$ = 1.96 TeV, based on an integrated luminosity 
   of $0.4~\text{fb}^{-1}$.
 BibKey: Abazov:2007jy
