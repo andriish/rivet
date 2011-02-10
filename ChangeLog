@@ -1,3 +1,9 @@
+2011-02-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* remove ATLAS conf note analyses for which we have final data
+	* reshuffle histograms in ATLAS minbias analysis to match Hepdata
+	* small pT-cut fix in ATLAS track based UE analysis
+
 2011-01-31  Andy Buckley  <andy@insectnation.org>
 
 	* Doc tweaks and adding cmp-by-|p| functions for Jets, to match
