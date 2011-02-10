@@ -224,7 +224,7 @@ namespace Rivet {
       else if (fuzzyEquals(sqrtS(), 7*TeV)) {
         ptcut += 1.0; ptcut += 2.0; ptcut += 3.0; ptcut += 5.0;
       }
-      assert(ptcut.size == 4);
+      assert(ptcut.size() == 4);
       for (size_t i = 0; i < nbins; ++i) {
         // First Nch
         const double binmean_num = hist_num_dphi_500.binMean(i);
