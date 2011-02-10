@@ -17,7 +17,6 @@ namespace Rivet {
     {
       setBeams(PROTON, PROTON);
       setNeedsCrossSection(true);
-      _sumW = 0;
     }
 
 
@@ -82,7 +81,6 @@ namespace Rivet {
           MSG_DEBUG("Could not find two suitable leading jets");
           continue;
         }
-        _sumW += evt.weight();
 
         const double rap1 = leadjets[0].rapidity();
         const double rap2 = leadjets[1].rapidity();
@@ -100,17 +98,15 @@ namespace Rivet {
 
     void finalize() {
       for (size_t alg = 0; alg < 2; ++alg) {
-        _pThistos[alg].scale(crossSectionPerEvent()/picobarn, this);
-        _massVsY[alg].scale(crossSection()/_sumW/picobarn, this);
-        _chiVsMass[alg].scale(crossSection()/_sumW/picobarn, this);
+        // factor 0.5 needed because it is differential in dy and not d|y|
+        _pThistos[alg].scale(0.5*crossSectionPerEvent()/picobarn, this);
+        _massVsY[alg].scale(crossSectionPerEvent()/picobarn, this);
+        _chiVsMass[alg].scale(crossSectionPerEvent()/picobarn, this);
       }
     }
 
 
   private:
-
-    /// Counter for weights passing the dijet requirement cut
-    double _sumW;
 
     /// The inclusive pT spectrum for akt6 and akt4 jets (array index is jet type from enum above)
     BinnedHistogram<double> _pThistos[2];
