@@ -12,8 +12,8 @@ namespace Rivet {
   class ATLAS_2010_S8918562 : public Analysis {
   public:
 
-	/// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
-	void fillPtEtaNch(const ChargedFinalState& cfs, int nchcut, double weight,
+    /// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
+    void fillPtEtaNch(const ChargedFinalState& cfs, int nchcut, double weight,
                       AIDA::IHistogram1D* h_nch, AIDA::IHistogram1D* h_pt,
                       AIDA::IHistogram1D* h_eta, AIDA::IProfile1D* h_ptnch = 0) {
 
@@ -26,15 +26,15 @@ namespace Rivet {
       // Loop over particles, fill pT, eta and ptnch
       foreach (const Particle& p, cfs.particles()) {
         const double pt = p.momentum().pT();
-		h_pt->fill(pt/GeV, weight/pt);
-		h_eta->fill(p.momentum().eta(), weight);
-		if (h_ptnch != 0) h_ptnch->fill(nch, pt/GeV, weight);
+        h_pt->fill(pt/GeV, weight/pt);
+        h_eta->fill(p.momentum().eta(), weight);
+        if (h_ptnch != 0) h_ptnch->fill(nch, pt/GeV, weight);
       }
-	}
+    }
 
 
-	/// Default constructor
-	ATLAS_2010_S8918562() : Analysis("ATLAS_2010_S8918562") {
+    /// Default constructor
+    ATLAS_2010_S8918562() : Analysis("ATLAS_2010_S8918562") {
       _sumW_pt100_nch2 = 0;
       _sumW_pt100_nch20 = 0;
       _sumW_pt500_nch1 = 0;
@@ -43,8 +43,8 @@ namespace Rivet {
     }
 
 
-	/// Initialization, called once before running
-	void init() {
+    /// Initialization, called once before running
+    void init() {
       // Projections
       const ChargedFinalState cfs100(-2.5, 2.5, 100.0*MeV);
       addProjection(cfs100, "CFS100");
@@ -55,71 +55,71 @@ namespace Rivet {
 
       // Book histograms
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
-        _hist_pt100_nch2_nch = bookHistogram1D(7, 1, 1);
-        _hist_pt100_nch2_pt = bookHistogram1D(7, 2, 1);
-        _hist_pt100_nch2_eta = bookHistogram1D(7, 3, 1);
-        _hist_pt100_nch2_ptnch = bookProfile1D(7, 4, 1);
+        _hist_pt100_nch2_nch = bookHistogram1D(18, 1, 1);
+        _hist_pt100_nch2_pt = bookHistogram1D(11, 1, 1);
+        _hist_pt100_nch2_eta = bookHistogram1D(4, 1, 1);
+        _hist_pt100_nch2_ptnch = bookProfile1D(24, 1, 1);
 
-        _hist_pt100_nch20_nch = bookHistogram1D(8, 1, 1);
-        _hist_pt100_nch20_pt = bookHistogram1D(8, 2, 1);
-        _hist_pt100_nch20_eta = bookHistogram1D(8, 3, 1);
+        _hist_pt100_nch20_nch = bookHistogram1D(34, 1, 1);
+        _hist_pt100_nch20_pt = bookHistogram1D(30, 1, 1);
+        _hist_pt100_nch20_eta = bookHistogram1D(26, 1, 1);
 
-        _hist_pt500_nch1_nch = bookHistogram1D(10, 1, 1);
-        _hist_pt500_nch1_pt = bookHistogram1D(10, 2, 1);
-        _hist_pt500_nch1_eta = bookHistogram1D(10, 3, 1);
-        _hist_pt500_nch1_ptnch = bookProfile1D(10, 4, 1);
+        _hist_pt500_nch1_nch = bookHistogram1D(15, 1, 1);
+        _hist_pt500_nch1_pt = bookHistogram1D(8, 1, 1);
+        _hist_pt500_nch1_eta = bookHistogram1D(1, 1, 1);
+        _hist_pt500_nch1_ptnch = bookProfile1D(22, 1, 1);
 
-        _hist_pt500_nch6_nch = bookHistogram1D(11, 1, 1);
-        _hist_pt500_nch6_pt = bookHistogram1D(11, 2, 1);
-        _hist_pt500_nch6_eta = bookHistogram1D(11, 3, 1);
+        _hist_pt500_nch6_nch = bookHistogram1D(20, 1, 1);
+        _hist_pt500_nch6_pt = bookHistogram1D(13, 1, 1);
+        _hist_pt500_nch6_eta = bookHistogram1D(6, 1, 1);
 
-        _hist_pt2500_nch1_nch = bookHistogram1D(9, 1, 1);
-        _hist_pt2500_nch1_pt = bookHistogram1D(9, 2, 1);
-        _hist_pt2500_nch1_eta = bookHistogram1D(9, 3, 1);
-        _hist_pt2500_nch1_ptnch = bookProfile1D(9, 4, 1);
+        _hist_pt2500_nch1_nch = bookHistogram1D(36, 1, 1);
+        _hist_pt2500_nch1_pt = bookHistogram1D(32, 1, 1);
+        _hist_pt2500_nch1_eta = bookHistogram1D(28, 1, 1);
+        _hist_pt2500_nch1_ptnch = bookProfile1D(38, 1, 1);
 
       } else if (fuzzyEquals(sqrtS()/GeV, 2360)) {
 
-        _hist_pt500_nch1_nch = bookHistogram1D(1, 1, 1);
-        _hist_pt500_nch1_pt = bookHistogram1D(1, 2, 1);
-        _hist_pt500_nch1_eta = bookHistogram1D(1, 3, 1);
+        _hist_pt500_nch1_nch = bookHistogram1D(16, 1, 1);
+        _hist_pt500_nch1_pt = bookHistogram1D(9, 1, 1);
+        _hist_pt500_nch1_eta = bookHistogram1D(2, 1, 1);
         // This one histogram might be called while unbooked, so ensure its pointer is null!
         _hist_pt500_nch1_ptnch = 0;
 
       } else if (fuzzyEquals(sqrtS()/GeV, 7000)) {
 
-        _hist_pt100_nch2_nch = bookHistogram1D(2, 1, 1);
-        _hist_pt100_nch2_pt = bookHistogram1D(2, 2, 1);
-        _hist_pt100_nch2_eta = bookHistogram1D(2, 3, 1);
-        _hist_pt100_nch2_ptnch = bookProfile1D(2, 4, 1);
+        _hist_pt100_nch2_nch = bookHistogram1D(19, 1, 1);
+        _hist_pt100_nch2_pt = bookHistogram1D(12, 1, 1);
+        _hist_pt100_nch2_eta = bookHistogram1D(5, 1, 1);
+        _hist_pt100_nch2_ptnch = bookProfile1D(25, 1, 1);
 
-        _hist_pt100_nch20_nch = bookHistogram1D(3, 1, 1);
-        _hist_pt100_nch20_pt = bookHistogram1D(3, 2, 1);
-        _hist_pt100_nch20_eta = bookHistogram1D(3, 3, 1);
+        _hist_pt100_nch20_nch = bookHistogram1D(35, 1, 1);
+        _hist_pt100_nch20_pt = bookHistogram1D(31, 1, 1);
+        _hist_pt100_nch20_eta = bookHistogram1D(27, 1, 1);
 
-        _hist_pt500_nch1_nch = bookHistogram1D(5, 1, 1);
-        _hist_pt500_nch1_pt = bookHistogram1D(5, 2, 1);
-        _hist_pt500_nch1_eta = bookHistogram1D(5, 3, 1);
-        _hist_pt500_nch1_ptnch = bookProfile1D(5, 4, 1);
+        _hist_pt500_nch1_nch = bookHistogram1D(17, 1, 1);
+        _hist_pt500_nch1_pt = bookHistogram1D(10, 1, 1);
+        _hist_pt500_nch1_eta = bookHistogram1D(3, 1, 1);
+        _hist_pt500_nch1_ptnch = bookProfile1D(23, 1, 1);
 
-        _hist_pt500_nch6_nch = bookHistogram1D(6, 1, 1);
-        _hist_pt500_nch6_pt = bookHistogram1D(6, 2, 1);
-        _hist_pt500_nch6_eta = bookHistogram1D(6, 3, 1);
+        _hist_pt500_nch6_nch = bookHistogram1D(21, 1, 1);
+        _hist_pt500_nch6_pt = bookHistogram1D(14, 1, 1);
+        _hist_pt500_nch6_eta = bookHistogram1D(7, 1, 1);
 
-        _hist_pt2500_nch1_nch = bookHistogram1D(4, 1, 1);
-        _hist_pt2500_nch1_pt = bookHistogram1D(4, 2, 1);
-        _hist_pt2500_nch1_eta = bookHistogram1D(4, 3, 1);
-        _hist_pt2500_nch1_ptnch = bookProfile1D(4, 4, 1);
+        _hist_pt2500_nch1_nch = bookHistogram1D(37, 1, 1);
+        _hist_pt2500_nch1_pt = bookHistogram1D(33, 1, 1);
+        _hist_pt2500_nch1_eta = bookHistogram1D(29, 1, 1);
+        _hist_pt2500_nch1_ptnch = bookProfile1D(39, 1, 1);
 
       } else {
         throw LogicError("The ATLAS_2010_S8918562 analysis is only valid for sqrt(s) = 900, 2360 and 7000 GeV!");
       }
 
-	}
+    }
 
 
 
-	void analyze(const Event& event) {
+    void analyze(const Event& event) {
       const double weight = event.weight();
 
       // 100 GeV final states
@@ -152,11 +152,11 @@ namespace Rivet {
         fillPtEtaNch(cfs2500, 1, weight, _hist_pt2500_nch1_nch, _hist_pt2500_nch1_pt, _hist_pt2500_nch1_eta, _hist_pt2500_nch1_ptnch);
       }
 
-	}
+    }
 
 
 
-	void finalize() {
+    void finalize() {
 
       if (!fuzzyEquals(sqrtS()/GeV, 2360)) {
         if (_sumW_pt100_nch2 > 0) {
@@ -189,7 +189,7 @@ namespace Rivet {
         _hist_pt500_nch1_pt->scale(1.0/_sumW_pt500_nch1/TWOPI/5);
         _hist_pt500_nch1_eta->scale(1.0/_sumW_pt500_nch1);
       }
-	}
+    }
 
 
   private:
