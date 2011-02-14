@@ -46,8 +46,6 @@ namespace Rivet {
       const ChargedFinalState cfs;
       addProjection(Beam(), "Beams");
       addProjection(cfs, "CFS");
-      addProjection(Thrust(cfs), "ChargedThrust");
-      addProjection(Sphericity(cfs), "ChargedSphericity");
 
       // Histos
       // offset for the event shapes and jets
@@ -140,10 +138,13 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       const double weight = e.weight();
+
+      const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
+      const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
+
       if(_initialisedJets) {
         bool LEP1 = fuzzyEquals(sqrtS(),91.2*GeV,0.01);
         // event shapes
-        const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
         double thr = LEP1 ? thrust.thrust() : 1.0 - thrust.thrust();
         _h_thrust->fill(thr,weight);
         _h_thrustmajor->fill(thrust.thrustMajor(),weight);
@@ -162,7 +163,6 @@ namespace Rivet {
         const ParisiTensor& parisi = applyProjection<ParisiTensor>(e, "Parisi");
         _h_cparameter->fill(parisi.C(),weight);
 
-        const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
         _h_aplanarity->fill(sphericity.aplanarity(),weight);
         if(_h_planarity)
           _h_planarity->fill(sphericity.planarity(),weight);
@@ -212,8 +212,6 @@ namespace Rivet {
         const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
         const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                      beams.second.momentum().vector3().mod() ) / 2.0;
-        const Thrust& cthrust = applyProjection<Thrust>(e, "ChargedThrust");
-        const Sphericity& csphere = applyProjection<Sphericity>(e, "ChargedSphericity");
         foreach (const Particle& p, cfs.particles()) {
           const double xp = p.momentum().vector3().mod()/meanBeamMom;
           _h_xp->fill(xp   , weight);
@@ -221,15 +219,15 @@ namespace Rivet {
           _h_xi->fill(logxp, weight);
           const double xe = p.momentum().E()/meanBeamMom;
           _h_xe->fill(xe   , weight);
-          const double pTinT  = dot(p.momentum().vector3(), cthrust.thrustMajorAxis());
-          const double pToutT = dot(p.momentum().vector3(), cthrust.thrustMinorAxis());
+          const double pTinT  = dot(p.momentum().vector3(), thrust.thrustMajorAxis());
+          const double pToutT = dot(p.momentum().vector3(), thrust.thrustMinorAxis());
           _h_pTin->fill(fabs(pTinT/GeV), weight);
           if(_h_pTout) _h_pTout->fill(fabs(pToutT/GeV), weight);
-          const double momT = dot(cthrust.thrustAxis()        ,p.momentum().vector3());
+          const double momT = dot(thrust.thrustAxis()        ,p.momentum().vector3());
           const double rapidityT = 0.5 * std::log((p.momentum().E() + momT) /
                                                   (p.momentum().E() - momT));
           _h_rapidityT->fill(rapidityT, weight);
-          const double momS = dot(csphere.sphericityAxis(),p.momentum().vector3());
+          const double momS = dot(sphericity.sphericityAxis(),p.momentum().vector3());
           const double rapidityS = 0.5 * std::log((p.momentum().E() + momS) /
                                                   (p.momentum().E() - momS));
           _h_rapidityS->fill(rapidityS, weight);
