@@ -45,6 +45,11 @@ namespace Rivet {
   public:
 
     /// Constructor.
+    Thrust()
+      : _calculatedThrust(false)
+    {
+    }
+
     Thrust(const FinalState& fsp)
       : _calculatedThrust(false)
     {
