@@ -59,6 +59,9 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2011_S8971293.cc \
     ATLAS_2010_CONF_2010_083.cc
 
+lib_LTLIBRARIES += RivetCMSAnalyses.la
+RivetCMSAnalyses_la_SOURCES = \
+    CMS_2011_S8957746.cc
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la
 RivetCDFAnalyses_la_SOURCES = \

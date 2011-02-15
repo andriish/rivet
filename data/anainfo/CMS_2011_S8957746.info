@@ -1,0 +1,24 @@
+Name: CMS_2011_S8957746
+Year: 2011
+Summary: Event shapes
+Experiment: CMS
+Collider: LHC
+SpiresID: 8957746
+Status: VALIDATED
+Authors:
+ - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - arXiv:1102.0068
+RunInfo:
+  pp QCD interactions at 7000 GeV. Particles with c*tau>10mm are stable.
+NumEvents: 1000000000
+Beams: [p+, p+]
+Energies: [7000]
+PtCuts: [30.0]
+Description:
+  Central transverse Thrust and Minor measured by ATLAS at 7 TeV. Data is
+  read off the plots.
+BibKey: TODO
+BibTeX: 'TODO'
+ToDo:
+  Add BibKey and BibTeX as soon as it is fixed on Spires.
