@@ -1,4 +1,14 @@
 2011-02-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+	* Simple NOOP constructor for Thrust projection
+	* Add CMS event shape analysis. Data read off the plots. We
+	will get the final numbers when the paper is accepted by
+	the journal.
+
+2011-02-10  Frank Siegert <frank.siegert@cern.ch>
+
+	* Add final version of ATLAS dijet azimuthal decorrelation
+
+2011-02-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* remove ATLAS conf note analyses for which we have final data
 	* reshuffle histograms in ATLAS minbias analysis to match Hepdata
