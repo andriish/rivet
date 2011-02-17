@@ -42,7 +42,7 @@ namespace Rivet {
       addProjection(jetpro, "Jets");
 
       _h_photon_pT = bookHistogram1D("photon_pT", logBinEdges(50, 30.0, 0.5*sqrtS()));
-      _h_photon_y = bookHistogram1D("photon_y", 20, -1.0, 1.0);
+      _h_photon_y = bookHistogram1D("photon_y", 50, -5.0, 5.0);
       _h_photon_jet1_deta = bookHistogram1D("photon_jet1_deta", 50, -5.0, 5.0);
       _h_photon_jet1_dphi = bookHistogram1D("photon_jet1_dphi", 20, 0.0, M_PI);
       _h_photon_jet1_dR = bookHistogram1D("photon_jet1_dR", 25, 0.5, 7.0);
