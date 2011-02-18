@@ -707,11 +707,13 @@ class Legend:
                 out += ('\\rput[Bl](0.1,' + str(ypos) + '){' + title + '}\n')
                 out += ('\\rput[Bl](0.1,%s){%s\n' %(ypos,'%'))
                 if drawobject.getErrorBands():
-                    out += ('\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s]' %drawobject.getErrorBandColor())
+                    out += ('\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(drawobject.getErrorBandColor(),drawobject.getErrorBandOpacity()))
                     out += ('(-0.10, 0.033)(-0.02, 0.001)\n')
                 out += ('\\psline[linestyle=' + drawobject.getLineStyle() \
                             + ', linecolor=' + drawobject.getLineColor() \
-                            + ', linewidth=' + drawobject.getLineWidth())
+                            + ', linewidth=' + drawobject.getLineWidth() \
+                            + ', strokeopacity=' + drawobject.getLineOpacity() \
+                            + ', opacity=' + drawobject.getFillOpacity())
                 if drawobject.getLineDash()!='':
                     out += (', dash=' + drawobject.getLineDash())
                 if drawobject.getFillStyle()!='none':
@@ -730,6 +732,8 @@ class Legend:
                                 + ', linestyle='  + drawobject.getLineStyle() \
                                 + ', fillstyle='  + drawobject.getFillStyle() \
                                 + ', fillcolor='  + drawobject.getFillColor() \
+                                + ', strokeopacity=' + drawobject.getLineOpacity() \
+                                + ', opacity=' + drawobject.getFillOpacity() \
                                 + ', hatchcolor=' + drawobject.getHatchColor())
                     if drawobject.getFillStyle()!='none':
                         out += ('](-0.06, 0.028)\n')
@@ -904,11 +908,23 @@ class DrawableObject:
         else:
             return 'black'
 
+    def getLineOpacity(self):
+        if self.description.has_key('LineOpacity'):
+            return self.description['LineOpacity']
+        else:
+            return '1.0'
+
     def getFillColor(self):
         if self.description.has_key('FillColor'):
             return self.description['FillColor']
         else:
             return 'white'
+
+    def getFillOpacity(self):
+        if self.description.has_key('FillOpacity'):
+            return self.description['FillOpacity']
+        else:
+            return '1.0'
 
     def getHatchColor(self):
         if self.description.has_key('HatchColor'):
@@ -958,6 +974,12 @@ class DrawableObject:
         else:
             return 'yellow'
 
+    def getErrorBandOpacity(self):
+        if self.description.has_key('ErrorBandOpacity'):
+            return self.description['ErrorBandOpacity']
+        else:
+            return '1.0'
+
     def getSmoothLine(self):
         if self.description.has_key('SmoothLine'):
             return bool(int(self.description['SmoothLine']))
@@ -978,6 +1000,8 @@ class DrawableObject:
         out += ('\\psset{fillstyle='+self.getFillStyle()+'}\n')
         out += ('\\psset{fillcolor='+self.getFillColor()+'}\n')
         out += ('\\psset{hatchcolor='+self.getHatchColor()+'}\n')
+        out += ('\\psset{strokeopacity='+self.getLineOpacity()+'}\n')
+        out += ('\\psset{opacity='+self.getFillOpacity()+'}\n')
         if self.getLineDash()!='':
             out += ('\\psset{dash='+self.getLineDash()+'}\n')
         return out
@@ -990,6 +1014,8 @@ class DrawableObject:
         out += ('\\psset{fillstyle=none}\n')
         out += ('\\psset{fillcolor=white}\n')
         out += ('\\psset{hatchcolor=black}\n')
+        out += ('\\psset{strokeopacity=1.0}\n')
+        out += ('\\psset{opacity=1.0}\n')
         return out
 
 
@@ -1222,7 +1248,7 @@ class Histogram(DrawableObject):
                 if self.getErrorBands():
                     self.description['SmoothLine']=0
                     for i in range(len(self.data)):
-                        out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s]' %self.getErrorBandColor())
+                        out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
                         out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
                                     + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
                                     + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \

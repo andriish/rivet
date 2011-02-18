@@ -1,3 +1,11 @@
+2011-02-18  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Support for transparency in make-plots
+
+2011-02-18  Frank Siegert <frank.siegert@cern.ch>
+
+	* Added ATLAS prompt photon analysis ATLAS_2010_S8914702
+
 2011-02-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 	* Simple NOOP constructor for Thrust projection
 	* Add CMS event shape analysis. Data read off the plots. We

@@ -374,6 +374,11 @@ nm), `LineColor={[cmyk]{1,1,0,0}}` for CMYK-colors, or `[hsb]{0.5,1,1}` for
 HSB-colors.
 
 --------------------
+LineOpacity=<opacity>
+--------------------
+Set the opacity of the line. Default is 1.0. This might not work for ps output.
+
+--------------------
 LineWidth=<width>
 --------------------
 Width of the line.
@@ -411,6 +416,12 @@ something pstricks understands. Examples for the style are `solid` or `vlines`.
 See `LineColor` for examples of color definitions.
 
 --------------------
+FillOpacity=<opacity>
+--------------------
+Set the opacity of the solid fillcolor. Default is 1.0. This might not work for
+ps output.
+
+--------------------
 HatchColor=<color>
 --------------------
 The color of a hatch pattern used for filling the area below a histogram. This
@@ -431,6 +442,12 @@ ErrorBandColor=<color>
 --------------------
 Turn on error bands and set their color (see `LineColor` for a description
 of color definitions).
+
+--------------------
+ErrorBandOpacity=<opacity>
+--------------------
+Set the opacity of the error band. Default is 1.0. This might not work for ps
+output.
 
 --------------------
 PolyMarker=<dotstyle>
