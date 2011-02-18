@@ -16,7 +16,7 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [30.0]
 Description:
-  Central transverse Thrust and Minor measured by ATLAS at 7 TeV. Data is
+  Central transverse Thrust and Minor measured by CMS at 7 TeV. Data is
   read off the plots.
 BibKey: TODO
 BibTeX: 'TODO'
