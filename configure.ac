@@ -44,6 +44,11 @@ AC_PROG_LIBTOOL
 
 ## GNU Scientific Library
 AC_SEARCH_GSL
+AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
+oldCPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
+AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
+CPPFLAGS=$oldCPPFLAGS
 
 ## Boost C++ header library
 AC_CEDAR_HEADERS([Boost], , , [AC_MSG_ERROR([Boost is required])])
