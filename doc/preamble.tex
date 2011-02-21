@@ -55,9 +55,14 @@
 \setlength{\fboxsep}{5mm}
 \setlength{\linewidth}{5pt}
 
-\newenvironment{warning}{\begin{window}[0,l,{\warnimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{detail}{\begin{window}[0,l,{\bendimg},{}]}{\end{window}\ignorespacesafterend}
 \newenvironment{dbldetail}{\begin{window}[0,l,{\dblbendimg},{}]}{\end{window}\ignorespacesafterend}
+
+%% Make narrower and box (box must be able to break over pages)
+\newenvironment{warning}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%
+  \begin{window}[0,l,{\warnimg},{}]
+  \setlength{\parindent}{0cm}\noindent}{%
+  \end{window}\endgroup\vspace{3mm}\nobreak\hrule\vspace{5mm}\ignorespacesafterend}
 
 %% Make narrower and box (box must be able to break over pages)
 \newenvironment{change}{\vspace{5mm}\hrule\nobreak\vspace{3mm}\begingroup%

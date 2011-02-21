@@ -17,7 +17,6 @@
 
 
 \preprint{}
-%\preprint{\hepth{9912999}}
 
 \abstract{This is the manual and user guide for the Rivet system for the
   validation and tuning of Monte Carlo event generators. As well as the core
@@ -330,25 +329,27 @@ listed in \AppendixRef{app:agilerunmc}.
     details of all available CDF experiment analyses published in the
     ``noughties.''}
 
-\item \paragraph{Running particular analyses:}{\kbd{rivet -a~DELPHI_1996_S3430090
-      fifo.hepmc} will run the Rivet \kbd{DELPHI_1996_S3430090}\cite{Abreu:1996na}
-    analysis on the events in the \kbd{fifo.hepmc} data file. This analysis is the
-    one originally used for the \Delphi automated ``\textsc{Professor}''
-    generator tuning.  If the first event in the data file does not have
-    appropriate beam particles, the analysis will be disabled; since there is only one
-    analysis in this case, the command will exit immediately with a warning if the
-    first event is not an $\Ppositron\Pelectron$ event.}
+\item \paragraph{Running analyses:}{\kbd{rivet -a~DELPHI_1996_S3430090
+      fifo.hepmc} will run the Rivet
+    \kbd{DELPHI_1996_S3430090}\cite{Abreu:1996na} analysis on the events in the
+    \kbd{fifo.hepmc} file (which, from the name, is probably a filesystem named
+    pipe rather than a normal \emph{file}). This analysis is the one originally
+    used for the \Delphi ``\textsc{Professor}'' generator tuning. If the first
+    event in the data file does not have appropriate beam particles, the
+    analysis will be disabled; since there is only one analysis in this case,
+    the command will exit immediately with a warning if the first event is not
+    an $\Ppositron\Pelectron$ event.}
 
-\item \paragraph{Using all analyses:}{\kbd{rivet -n~50000 -A -} will read up to
-    50k events from standard input (specified by the special ``-'' input filename)
-    and analyse them with \emph{all} the Rivet library analyses. As above,
-    incompatible analyses (based on beam particle IDs), will be removed before
-    the main analysis run begins.}
+% \item \paragraph{Using all analyses:}{\kbd{rivet -n~50000 -A -} will read up to
+%     50k events from standard input (specified by the special ``-'' input
+%     filename) and analyse them with \emph{all} the Rivet library analyses. As
+%     above, incompatible analyses will be removed before the main analysis run
+%     begins.}
 
-\item \paragraph{Histogramming:}{\kbd{rivet fifo.hepmc -H~foo} will read all the
-    events in the \kbd{fifo.hepmc} file. The \kbd{-H} switch is used to specify
-    that the output histogram file will be named \kbd{foo.aida}. By default the
-    output file is called \kbd{Rivet.aida}.}
+\item \paragraph{Histogramming:}{\kbd{rivet fifo.hepmc -H~foo.aida} will read all the
+    events in the \kbd{fifo.hepmc} file. The \kbd{-H} switch is used to
+    specify that the output histogram file will be named \kbd{foo.aida}. By
+    default the output file is called \kbd{Rivet.aida}.}
 
 \item \paragraph{Fine-grained logging:}{\kbd{rivet fifo.hepmc -A
       -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=DEBUG
@@ -427,7 +428,7 @@ switch, which can be given multiple times, e.g.\\
 \kbd{\chophisto -b /CDF\_2001\_S4751469/d03-x01-y01:5:13 Rivet.aida}\\
 %
 will chop all bins with $x<5$ and $x>13$ from the histogram
-\kbd{/CDF\_2001\_S4751469/d03-x01-y01} in the file \kbd{Rivet.aida}. (In
+\kbd{/CDF\_2001\_S4751469/d03\-x01\-y01} in the file \kbd{Rivet.aida}. (In
 this particular case, $x$ would be a leading jet \pT.)
 
 \subsection{Normalising histograms}
@@ -1079,7 +1080,7 @@ function. Remember to specify the event weight as you fill:
 \end{snippet}
 
 Finally, histogram normalisations, scalings, divisions etc. are done in the
-\code{MyAnalysis::finalize()} method. For normalisations and scalings you will
+\code{MyAnalysis::\-finalize()} method. For normalisations and scalings you will
 find appropriate convenience methods \code{Analysis::normalize(histo, norm)} and
 \code{Analysis::scale(histo, scalefactor)}. Many analyses need to be scaled to
 the generator cross-section, with the number of event weights to pass cuts being
@@ -1088,8 +1089,57 @@ passed-cuts weight sum yourself via a member variable, but the analysis class
 provides \code{Analysis::crossSection()} and \code{Analysis::sumOfWeights()}
 methods to access the pre-cuts cross-section and weight sum respectively.
 
-% TODO: \subsection{Analysis metadata}
-% .info and .plot files
+
+\subsection{Analysis metadata}
+
+To keep the analysis source code uncluttered, and to allow for iteration of data
+plot presentation without re-compilation and/or re-running, Rivet prefers that
+analysis metadata is provided via separate files rather than hard-coded into the
+analysis library. There are two such files: an \emph{analysis info} file, with
+the suffix \kbd{.info}, and a \emph{plot styling} file, with the suffix
+\kbd{.plot}.
+
+\subsubsection{Analysis info files}
+
+The analysis info files are in YAML format: a simple data format intended to be
+cleaner and more human-readable/writeable than XML. As well as the analysis name
+(which must coincide with the filename and the name provided to the
+\kbd{Analysis} constructor, this file stores details of the collider,
+experiment, date of the analysis, Rivet/data analysis authors and contact email
+addresses, one-line and more complete descriptions of the analysis, advice on
+how to run it, suggested generator-level cuts, and BibTeX keys and entries for
+this user manual. It is also where the validation status of the analysis is declared:
+
+See the standard analyses' info files for guidance on how to populate this
+file. Info files are searched for in the paths known to the
+\kbd{Rivet::getAnalysisInfoPaths()} function, which many be prepended to using
+the \var{RIVET_INFO_PATH} environment variable: the first matching file to be
+found will be used.
+
+
+\subsubsection{Plot styling files}
+
+The \kbd{.plot} files are in the header format for the \kbd{make-plots} plotting
+system and are picked up and merged with the plot data by the Rivet
+\kbd{compare-histos} script which produces the \kbd{make-plots} input data
+files. All the analysis' plots should have a \kbd{BEGIN PLOT ... END PLOT}
+section in this file, specifying the title and $x$/$y$-axis labels (the
+\kbd{Title}, and \kbd{XLabel}/\kbd{YLabel} directives). In addition, you can use
+this file to choose whether the $x$ and/or $y$ axes should be shown with a log
+scale (\kbd{LogX}, \kbd{LogY}), to position the legend box to minimise clashes
+with the data points and MC lines (\kbd{LegendXPos}, \kbd{LegendYPos}) and any
+other valid \kbd{make-plots} directives including special text labels or forced
+plot range boundaries. Regular expressions may be used to apply a directive to
+all analysis names matching a pattern rather than having to specify the same
+directive repeatedly for many plots.
+
+See the standard analyses' plot files and the \kbd{make-plots} documentation
+(e.g. on the Rivet website) for guidance on how to write these files. Plot info
+files are searched for in the paths known to the
+\kbd{Rivet::getAnalysisPlotPaths()} function, which many be prepended to using
+the \var{RIVET_PLOT_PATH} environment variable. As usual, the first matching
+file to be found will be used.
+
 
 
 \subsection{Pluggable analyses}
@@ -1105,6 +1155,17 @@ and not have to re-patch the main library when a newer version comes out
 (although chances are you will have to recompile, since the binary interface usually
 change between releases.)
 
+To get started writing your analysis and understand the plugin system better,
+you should check out the documentation in the wiki on the Rivet website:
+\url{http://projects.hepforge.org/rivet/trac/wiki/}. The standard
+\kbd{rivet-mkanalysis} and \kbd{rivet-buildplugin} scripts can respectively be
+used to make an analysis template with many ``boilerplate'' details filled in
+(including bibliographic information from SPIRES if available), and to build a
+plugin library with the appropriate compiler options.
+
+
+\subsubsection{Plugin paths}
+
 To load pluggable analyses you will need to set the \var{RIVET_ANALYSIS_PATH}
 environment variable: this is a standard colon-separated UNIX path, specifying
 directories in which analysis plugin libraries may be found. If it is
@@ -1119,20 +1180,36 @@ directories).
   the standard library install directory was \emph{always} used, as were the
   current directory and \kbd{./.libs}, if found. While the new system requires a
   bit more setup if you are to use personal plugin analyses, it also solves many
-  niggling problems and areas for confusion!
+  niggling problems and areas for confusion.
+
+  Note also that the behaviour is planned to change again, to a more standard
+  system where all paths will be searched but only the \emph{first} analysis of
+  a given name to be found will be used.
 \end{change}
 
-You may also wish or need to use the \var{RIVET_REF_PATH} and
-\var{RIVET_INFO_PATH} variables, which respectively provide similar search paths
-for analysis reference data and analysis metadata (e.g. author, date, run
-conditions, experiment, etc.) files. To make life easier for typical users who
-have written a few plugins of their own, the analysis plugin library lookup
-paths are searched for the reference data and analysis info files -- but again
-only if the corresponding variables are \emph{not} set.
+Several further environment variables are used to load analysis reference data
+and metadata files:
+\begin{description}
+\item[\var{RIVET_REF_PATH}:] A standard colon-separated path list, whose
+  elements are searched in order for reference histogram files. If the required
+  file is not found in this path, Rivet will fall back to looking in the
+  analysis library paths (for convenience, as it is normal for plugin analysis
+  developers to put analysis library and data files in the same directory and it
+  would be annoying to have to set several variables to make this work), and
+  then the standard Rivet installation data directory.
+\item[\var{RIVET_INFO_PATH}:] The path list searched first for analysis
+  \kbd{.info} metadata files. The search fallback mechanism works as for
+  \var{RIVET_REF_PATH}.
+\item[\var{RIVET_PLOT_PATH}:] The path list searched first for analysis
+  \kbd{.plot} presentation style files. The search fallbacks again work as for
+  \var{RIVET_REF_PATH}.
+\end{description}
 
-To get started writing your analysis and understand
-the plugin system better, you should check out the documentation in the wiki on
-the Rivet website: \url{http://projects.hepforge.org/rivet/trac/wiki/}
+These paths can be accessed from the API using the
+\kbd{Rivet::getAnalysisLibPaths()} etc. functions, and can be searched for files
+using the Rivet lookup rules via the \kbd{Rivet::find\-Analysis\-LibFile(filename)}
+etc. functions. These functions are also available in the Python \kbd{rivet}
+module. See the Doxygen documentation for more details.
 
 
 
@@ -1151,23 +1228,39 @@ events. Here are some possible reasons:
   code objects. Perhaps for applications which want to manipulate histogram data
   periodically before the end of the run.
 \item You enjoy tormenting Rivet developers who know their API is far from
-  perfect, by complaining if the flawed one changes!
+  perfect, by complaining if it changes!
 \item \dots and many more!
 \end{itemize}
 
 The Rivet API (application programming interface) has been designed in the hope
 of very simple integration into other applications: all you have to do is create
-a \code{Rivet::AnalysisHandler} object, tell it which analyses to apply on the
+a \code{Rivet::Analysis\-Handler} object, tell it which analyses to apply on the
 events, and then call its \code{analyse(evt)} method for each HepMC event --
 wherever they come from. The API is (we hope) stable, with the exception of the
-histogramming parts: these have long been advertised as marked for replacement,
-and while progress in that area has lagger far behind our ambitions, it
-\emph{will} happen before the 2.0.0 release, with unavoidable impact on the
-related parts of the API. You have been warned!
+histogramming parts.
 
-The best way to expain is, of course, by example. Here is a simple C++ example
-based on the \kbd{test/testApi.cc} source which we use in development to ensure
-continuing API functionality:
+\begin{warning}
+  The histogramming interfaces in Rivet have long been advertised as marked for
+  replacement, and while progress in that area has lagger far behind our
+  ambitions, it \emph{will} happen before the 2.0.0 release, with unavoidable
+  impact on the related parts of the API. You have been warned!
+\end{warning}
+
+The API is available for C++ and, in a more restricted form, Python. We will
+explain the C++ version here; if you wish to operate Rivet (or e.g. use its
+path-searching capabilities to find Rivet-related files in the standard way)
+from Python then take a look inside the \kbd{rivet} and \kbd{rivet-*} Python
+scripts (e.g. \kbd{less `which rivet`}) or use the module documentation cf.
+%
+\begin{snippet}
+> python
+>>> import rivet
+>>> help(rivet)
+\end{snippet}
+
+And now the C++ API. The best way to explain is, of course, by example. Here is
+a simple C++ example based on the \kbd{test/testApi.cc} source which we use in
+development to ensure continuing API functionality:
 %
 \begin{snippet}
 #include "Rivet/AnalysisHandler.hh"
@@ -1216,7 +1309,7 @@ executable called \kbd{myrivet} is simplest and most robust with use of the
 \kbd{rivet-config} script:
 %
 \begin{snippet}
-  g++ myrivet.cc -o myrivet `rivet-config --cppflags --ldflags --libs`
+g++ myrivet.cc -o myrivet `rivet-config --cppflags --ldflags --libs`
 \end{snippet}
 %
 It \emph{should} just work!
@@ -1227,9 +1320,9 @@ directly to the Rivet analysis handler, you will need to also add the various
 compiler and linker flags for the extra libraries, e.g.
 %
 \begin{snippet}
-  g++ myrivet.cc -o myrivet \
-    `rivet-config --cppflags --ldflags --libs` \
-    `agile-config --cppflags --ldflags --libs`
+g++ myrivet.cc -o myrivet \
+  `rivet-config --cppflags --ldflags --libs` \
+  `agile-config --cppflags --ldflags --libs`
 \end{snippet}
 %
 would be needed to compile the following AGILe+Rivet code:
@@ -1316,13 +1409,14 @@ int main() {
 \label{app:agilerunmc}
 
 \begin{itemize}
-\item \paragraph{Simple run:}{\kbd{agile-runmc Herwig:6510 -P~lep1.params --beams=LEP:91.2
-      -n~1000} will use the Fortran Herwig 6.5.10 generator (the \kbd{-g} option
-    switch) to generate 1000 events (the \kbd{-n} switch) in LEP1 mode,
-    i.e. $\Ppositron\Pelectron$ collisions at $\sqrt{s} = \unit{91.2}{\GeV}$.}
+\item \paragraph{Simple run:}{\kbd{agile-runmc Herwig:6510 -P~lep1.params
+      --beams=LEP:91.2 \cmdbreak -n~1000} will use the Fortran Herwig 6.5.10
+    generator (the \kbd{-g} option switch) to generate 1000 events (the \kbd{-n}
+    switch) in LEP1 mode, i.e. $\Ppositron\Pelectron$ collisions at $\sqrt{s} =
+    \unit{91.2}{\GeV}$.}
 
 \item \paragraph{Parameter changes:}{\kbd{agile-runmc Pythia6:423
-      --beams=LEP:91.2 -n~1000 \cmdbreak -P~myrun.params -p~"PARJ(82)=5.27"}
+      --beams=LEP:91.2 \cmdbreak -n~1000 -P~myrun.params -p~"PARJ(82)=5.27"}
     will generate 1000 events using the Fortran Pythia 6.423 generator, again
     in LEP1 mode. The \kbd{-P} switch is actually the way of specifying a
     parameters file, with one parameter per line in the format ``\val{key}
@@ -1355,8 +1449,9 @@ Rivet development has been supported by a variety of sources:
   is a Marie Curie Research Training Network funded under Framework Programme 6
   contract MRTN-CT-2006-035606.
 \item Andy Buckley has been supported by grants from the UK Science and
-  Technology Facilities Council (Special Project Grant) and from the Scottish
-  Universities Physics Alliance (Advanced Research Fellowship).
+  Technology Facilities Council (Special Project Grant), the Scottish
+  Universities Physics Alliance (Advanced Research Fellowship), and the
+  Institute for Particle Physics Phenomenology (Associateship).
 \item Holger Schulz acknowledges the support of the German Research Foundation (DFG).
 \end{itemize}
 
