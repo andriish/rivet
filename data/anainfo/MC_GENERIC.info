@@ -5,6 +5,7 @@ Authors:
  - Ian Bruce <ibruce@cern.ch>
  - Andy Buckley <andy.buckley@cern.ch>
 NumEvents: 50000
-# Beams: [*, *]
+RunInfo: Any!
 Description:
-  Generic analysis of typical event distributions such as $\eta$, $y$, $pT$, $\phi$...
+  Generic analysis of typical event distributions such as $\eta$, $y$,
+  $pT$, $\phi$\dots

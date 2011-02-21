@@ -11,7 +11,7 @@ References:
  - Phys.Rev.Lett.100:102001,2008
  - arXiv:0711.3717 [hep-ex]
 RunInfo:
-  $p \bar{p} \to e^+ e^-$ + jets at 1960 GeV. Needs mass cut on lepton pair to 
+  $p \bar{p} \to e^+ e^-$ + jets at 1960 GeV. Needs mass cut on lepton pair to
   avoid photon singularity, looser than $66 < m_{ee} < 116$
 NumEvents: 1000000
 Beams: [p-, p+]
@@ -20,13 +20,13 @@ PtCuts: [0]
 Description:
   Cross sections as a function of jet transverse momentum in 1 and 2 jet
   events, and jet multiplicity in ppbar collisions at sqrt(s) = 1.96
-  TeV, based on an integrated luminosity of $1.7~\text{fb}^{-1}$. The 
-  measurements cover the rapidity region $|y_\text{jet}| < 2.1$ and 
+  TeV, based on an integrated luminosity of $1.7~\text{fb}^{-1}$. The
+  measurements cover the rapidity region $|y_\text{jet}| < 2.1$ and
   the transverse momentum range $pT^\text{jet} > 30~\text{GeV}/c$.
 BibKey: :2007cp
 BibTeX: '@Article{:2007cp,
      author    = "Aaltonen, T. and others",
- collaboration = "CDF - Run II",
+     collaboration = "CDF",
      title     = "{Measurement of inclusive jet cross-sections in Z/gamma*(--
                   -> $e^{+} e^{-)}$ + jets production in $p \bar{p}$
                   collisions at $\sqrt{s}$ = 1.96-TeV}",

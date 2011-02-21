@@ -18,7 +18,17 @@ PtCuts: [30.0]
 Description:
   Central transverse Thrust and Minor measured by CMS at 7 TeV. Data is
   read off the plots.
-BibKey: TODO
-BibTeX: 'TODO'
+BibKey: Khachatryan:2011dx
+BibTeX: '@Article{Khachatryan:2011dx,
+     author    = "Khachatryan, Vardan and others",
+ collaboration = "CMS",
+     title     = "{First Measurement of Hadronic Event Shapes in pp
+                  Collisions at sqrt(s)=7 TeV}",
+     year      = "2011",
+     eprint    = "1102.0068",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     SLACcitation  = "%%CITATION = 1102.0068;%%"
+}'
 ToDo:
-  Add BibKey and BibTeX as soon as it is fixed on Spires.
+  Check BibKey and BibTeX consistency when fixed on SPIRES.

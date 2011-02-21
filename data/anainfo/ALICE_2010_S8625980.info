@@ -1,6 +1,6 @@
 Name: ALICE_2010_S8625980
 Year: 2010
-Summary: Pseudorapidities at three energies, charged multiplicity at 7 TeV. 
+Summary: Pseudorapidities at three energies, charged multiplicity at 7 TeV.
 Experiment: ALICE
 Collider: LHC
 SpiresID: 8625980
@@ -27,7 +27,7 @@ BibTeX: '@article{Aamodt:2010pp,
       title          = "{Charged-particle multiplicity measurement in
                         proton-proton collisions at sqrt(s) = 7 TeV with ALICE at
                         LHC}",
-      collaboration  = "ALICE Collaboration",
+      collaboration  = "ALICE",
       journal        = "Eur.Phys.J.",
       volume         = "C68",
       pages          = "345-354",

@@ -32,7 +32,7 @@ Description:
 BibKey: Abazov:2010ah
 BibTeX: '@Article{Abazov:2010ah,
      author    = "Abazov, V. M. and others",
- collaboration = "The D0",
+     collaboration = "D0",
      title     = "{Measurement of direct photon pair production cross
                   sections in $p \bar{p}$ collisions at $\sqrt(s)=1.96$
                   TeV}",

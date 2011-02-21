@@ -20,7 +20,16 @@ Description:
   'Dijet azimuthal decorrelation measured by ATLAS at 7 TeV. Jets are anti-
   kt with $R=0.6$, $p_\perp>100$ GeV, $|\eta|<0.8$. The analysis is binned
   in  leading jet $p_\perp$ bins. All data is fully corrected.'
-BibKey: TODO
-BibTeX: 'TODO'
+BibKey: Aad:2011ni
+BibTeX: '@Article{Aad:2011ni,
+     author    = "Collaboration, The ATLAS",
+     title     = "{Measurement of Dijet Azimuthal Decorrelations in pp
+                  Collisions at sqrt(s)=7 TeV}",
+     year      = "2011",
+     eprint    = "1102.2696",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     SLACcitation  = "%%CITATION = 1102.2696;%%"
+}'
 ToDo:
-  Add BibKey and BibTeX as soon as it is fixed on Spires.
+  Check BibKey and BibTeX consistency when fixed on SPIRES.

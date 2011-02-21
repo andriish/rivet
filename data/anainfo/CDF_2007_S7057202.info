@@ -14,7 +14,7 @@ References:
  - FNAL-PUB 07/026-E
  - hep-ex/0701051
 RunInfo:
-  p-pbar collisions at 1960~GeV. Jet pT bins from 54~GeV to 700~GeV. 
+  p-pbar collisions at 1960~GeV. Jet pT bins from 54~GeV to 700~GeV.
   Jet rapidity $< |2.1|$.
 NumEvents: 1000000
 Beams: [p-, p+]
@@ -31,7 +31,7 @@ Description:
 BibKey: Abulencia:2007ez
 BibTeX: '@Article{Abulencia:2007ez,
      author    = "Abulencia, A. and others",
- collaboration = "CDF - Run II",
+     collaboration = "CDF",
      title     = "{Measurement of the Inclusive Jet Cross Section using the
                   {\boldmath $k_{\rm T}$} algorithmin{\boldmath
                   $p\overline{p}$} Collisions at{\boldmath $\sqrt{s}$} = 1.96
