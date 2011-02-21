@@ -1,3 +1,21 @@
+2011-02-21  Andy Buckley  <andy@insectnation.org>
+
+	* Adding PDF documentation for path searching and .info/.plot
+	files, and tidying overfull lines.
+
+	* Removing unneeded const declarations from various return by
+	value path and internal binning functions. Should not affect ABI
+	compatibility but will force recompilation of external packages
+	using the RivetPaths.hh and Utils.hh headers.
+
+	* Adding findAnalysis*File(fname) functions, to be used by Rivet
+	scripts and external programs to find files known to Rivet
+	according to Rivet's (newly standard) lookup rule.
+
+	* Changing search path function behaviour to always return *all*
+	search directories rather than overriding the built-in locations
+	if the environment variables are set.
+
 2011-02-20  Andy Buckley  <andy@insectnation.org>
 
 	* Adding the ATLAS 2011 transverse jet shapes analysis.
@@ -11,7 +29,9 @@
 	* Added ATLAS prompt photon analysis ATLAS_2010_S8914702
 
 2011-02-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
 	* Simple NOOP constructor for Thrust projection
+
 	* Add CMS event shape analysis. Data read off the plots. We
 	will get the final numbers when the paper is accepted by
 	the journal.

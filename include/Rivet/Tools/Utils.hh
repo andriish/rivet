@@ -93,16 +93,6 @@ namespace Rivet {
   }
 
 
-  /// Get library install path
-  const string getLibPath();
-
-  /// Get data install path
-  const string getDataPath();
-
-  /// Get Rivet data install path
-  const string getRivetDataPath();
-
-
 }
 #endif
 

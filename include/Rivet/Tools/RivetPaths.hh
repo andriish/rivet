@@ -5,18 +5,26 @@
 namespace Rivet {
 
 
+  /// @name Installation directory paths
+  //@{
+
   /// Get library install path
-  const std::string getLibPath();
+  std::string getLibPath();
 
   /// Get data install path
-  const std::string getDataPath();
+  std::string getDataPath();
 
   /// Get Rivet data install path
-  const std::string getRivetDataPath();
+  std::string getRivetDataPath();
 
+  //@}
+
+
+  /// @name Analysis library search paths
+  //@{
 
   /// Get Rivet analysis plugin library search paths
-  const std::vector<std::string> getAnalysisLibPaths();
+  std::vector<std::string> getAnalysisLibPaths();
 
   /// Set the Rivet analysis plugin library search paths
   void setAnalysisLibPaths(const std::vector<std::string>& paths);
@@ -24,14 +32,38 @@ namespace Rivet {
   /// Set the Rivet analysis plugin library search paths
   void addAnalysisLibPath(const std::string& extrapath);
 
+  /// @brief Find the first file of the given name in the analysis library search dirs
+  /// @note If none found, returns an empty string
+  std::string findAnalysisLibFile(const std::string& filename);
+
+  //@}
+
+
+  /// @name Analysis data/metadata paths and search functions
+  //@{
+
   /// Get Rivet analysis reference data search paths
-  const std::vector<std::string> getAnalysisRefPaths();
+  std::vector<std::string> getAnalysisRefPaths();
+
+  /// @brief Find the first file of the given name in the ref data file search dirs
+  /// @note If none found, returns an empty string
+  std::string findAnalysisRefFile(const std::string& filename);
 
   /// Get Rivet analysis info metadata search paths
-  const std::vector<std::string> getAnalysisInfoPaths();
+  std::vector<std::string> getAnalysisInfoPaths();
+
+  /// @brief Find the first file of the given name in the analysis info file search dirs
+  /// @note If none found, returns an empty string
+  std::string findAnalysisInfoFile(const std::string& filename);
 
   /// Get Rivet analysis plot style search paths
-  const std::vector<std::string> getAnalysisPlotPaths();
+  std::vector<std::string> getAnalysisPlotPaths();
+
+  /// @brief Find the first file of the given name in the analysis plot file search dirs
+  /// @note If none found, returns an empty string
+  std::string findAnalysisPlotFile(const std::string& filename);
+
+  //@}
 
 
 }

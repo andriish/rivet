@@ -3,11 +3,25 @@
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/RivetBoost.hh"
 #include "binreloc.h"
+//#include <sys/stat.h>
 
 namespace Rivet {
 
 
-  const string getLibPath() {
+  inline string _findFile(const string& filename, const vector<string>& paths) {
+    //struct stat stFileInfo;
+    foreach (const string& dir, paths) {
+      const string path = dir + "/" + filename;
+      //if (stat(path.c_str(), &stFileInfo) == 0) {
+      if (access(path.c_str(), R_OK) == 0) {
+        return path;
+      }
+    }
+    return "";
+  }
+
+
+  string getLibPath() {
     BrInitError error;
     br_init_lib(&error);
     char* temp = br_find_lib_dir(DEFAULTLIBDIR);
@@ -16,7 +30,7 @@ namespace Rivet {
     return libdir;
   }
 
-  const string getDataPath() {
+  string getDataPath() {
     BrInitError error;
     br_init_lib(&error);
     char* temp = br_find_data_dir(DEFAULTDATADIR);
@@ -25,12 +39,24 @@ namespace Rivet {
     return sharedir;
   }
 
-  const string getRivetDataPath() {
+  string getRivetDataPath() {
     return getDataPath() + "/Rivet";
   }
 
 
-  const vector<string> getAnalysisLibPaths() {
+
+  void setAnalysisLibPaths(const vector<string>& paths) {
+    const string pathstr = pathjoin(paths);
+    setenv("RIVET_ANALYSIS_PATH", pathstr.c_str(), 1);
+  }
+
+  void addAnalysisLibPath(const string& extrapath) {
+    vector<string> paths = getAnalysisLibPaths();
+    paths.push_back(extrapath);
+    setAnalysisLibPaths(paths);
+  }
+
+  vector<string> getAnalysisLibPaths() {
     vector<string> dirs;
     char* env = 0;
     env = getenv("RIVET_ANALYSIS_PATH");
@@ -44,68 +70,68 @@ namespace Rivet {
     return dirs;
   }
 
-
-  void setAnalysisLibPaths(const vector<string>& paths) {
-    const string pathstr = pathjoin(paths);
-    setenv("RIVET_ANALYSIS_PATH", pathstr.c_str(), 1);
+  string findAnalysisLibFile(const string& filename) {
+    return _findFile(filename, getAnalysisLibPaths());
   }
 
 
-  void addAnalysisLibPath(const string& extrapath) {
-    vector<string> paths = getAnalysisLibPaths();
-    paths.push_back(extrapath);
-    setAnalysisLibPaths(paths);
-  }
-
-
-  const vector<string> getAnalysisRefPaths() {
+  vector<string> getAnalysisRefPaths() {
     vector<string> dirs;
     char* env = 0;
     env = getenv("RIVET_REF_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
-    } else {
-      // ... otherwise fall back to the Rivet data install path
-      dirs += getRivetDataPath();
-      // ... and also add any analysis plugin search dirs for convenience
-      dirs += getAnalysisLibPaths();
     }
+    // Then fall back to the Rivet data install path...
+    dirs += getRivetDataPath();
+    // ... and also add any analysis plugin search dirs for convenience
+    dirs += getAnalysisLibPaths();
     return dirs;
   }
 
+  string findAnalysisRefFile(const string& filename) {
+    return _findFile(filename, getAnalysisRefPaths());
+  }
 
-  const vector<string> getAnalysisInfoPaths() {
+
+  vector<string> getAnalysisInfoPaths() {
     vector<string> dirs;
     char* env = 0;
     env = getenv("RIVET_INFO_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
-    } else {
-      // ... otherwise fall back to the Rivet data install path
-      dirs += getRivetDataPath();
-      // ... and also add any analysis plugin search dirs for convenience
-      dirs += getAnalysisLibPaths();
     }
+    // Then fall back to the Rivet data install path...
+    dirs += getRivetDataPath();
+    // ... and also add any analysis plugin search dirs for convenience
+    dirs += getAnalysisLibPaths();
     return dirs;
   }
 
+  string findAnalysisInfoFile(const string& filename) {
+    return _findFile(filename, getAnalysisInfoPaths());
+  }
 
-  const vector<string> getAnalysisPlotPaths() {
+
+  vector<string> getAnalysisPlotPaths() {
     vector<string> dirs;
     char* env = 0;
     env = getenv("RIVET_PLOT_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
-    } else {
-      // ... otherwise fall back to the Rivet data install path
-      dirs += getRivetDataPath();
-      // ... and also add any analysis plugin search dirs for convenience
-      dirs += getAnalysisLibPaths();
     }
+    // Then fall back to the Rivet data install path...
+    dirs += getRivetDataPath();
+    // ... and also add any analysis plugin search dirs for convenience
+    dirs += getAnalysisLibPaths();
     return dirs;
+  }
+
+  string findAnalysisPlotFile(const string& filename) {
+    return _findFile(filename, getAnalysisPlotPaths());
   }
 
 

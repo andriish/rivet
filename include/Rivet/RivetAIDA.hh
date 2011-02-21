@@ -27,17 +27,16 @@ namespace Rivet {
 
   /// Function to get a map of all the bin edge vectors in a paper with the
   /// given @a papername.
-  const map<string, BinEdges> getBinEdges(string papername);
+  map<string, BinEdges> getBinEdges(string papername);
 
-  const map<string, BinEdges>
-  getBinEdges(const map<string, vector<DPSXPoint> >& xpoints);
+  map<string, BinEdges> getBinEdges(const map<string, vector<DPSXPoint> >& xpoints);
 
-  const map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername);
+  map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername);
 
-  const map<string, vector<DPSXYPoint> > getDPSXYValsErrs(string papername);
+  map<string, vector<DPSXYPoint> > getDPSXYValsErrs(string papername);
 
   /// Get the file system path to the AIDA reference file for this paper.
-  const string getDataPath(string papername);
+  string getDatafilePath(string papername);
 
   /// Return the integral over the histogram bins
   inline double integral(AIDA::IHistogram1D* histo) {
@@ -48,7 +47,6 @@ namespace Rivet {
     }
     return intg;
   }
-
 
   using AIDA::IHistogram1D;
   using AIDA::IDataPointSet;

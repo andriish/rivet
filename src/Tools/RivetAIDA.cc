@@ -2,6 +2,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetBoost.hh"
 #include "Rivet/Tools/Utils.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include "LWH/AnalysisFactory.h"
 #include "TinyXML/tinyxml.h"
 #include <sstream>
@@ -17,26 +18,16 @@ namespace Rivet {
   }
 
 
-  // Forward declaration of generated function.
-  const string getRivetDataPath();
-
-
-  const string getDatafilePath(string papername) {
-    const vector<string> searchpaths = getAnalysisRefPaths();
-    foreach (const string& dir, searchpaths) {
-      std::ifstream in;
-      const string file = dir + "/" + papername + ".aida";
-      if (access(file.c_str(), R_OK) == 0) {
-        return file;
-      }
-    }
+  string getDatafilePath(string papername) {
+    const string path =  findAnalysisRefFile(papername + ".aida");
+    if (!path.empty()) return path;
     throw Rivet::Error("Couldn't find ref data file '" + papername + ".aida" +
                        " in $RIVET_REF_PATH, " + getRivetDataPath() + ", or .");
     return "";
   }
 
 
-  const map<string, vector<DPSXYPoint> > getDPSXYValsErrs(string papername) {
+  map<string, vector<DPSXYPoint> > getDPSXYValsErrs(string papername) {
     // Get filename
     const string xmlfile = getDatafilePath(papername);
 
@@ -118,7 +109,7 @@ namespace Rivet {
     return rtn;
   }
 
-  const map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername) {
+  map<string, vector<DPSXPoint> > getDPSXValsErrs(string papername) {
     // Get filename
     const string xmlfile = getDatafilePath(papername);
 
@@ -193,16 +184,14 @@ namespace Rivet {
 
 
 
-  const map<string, BinEdges>
-  getBinEdges(string papername) {
+  map<string, BinEdges> getBinEdges(string papername) {
     const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
     return getBinEdges(xpoints);
   }
 
 
 
-  const map<string, BinEdges>
-  getBinEdges(const map<string, vector<DPSXPoint> >& xpoints) {
+  map<string, BinEdges> getBinEdges(const map<string, vector<DPSXPoint> >& xpoints) {
 
     map<string, BinEdges> rtn;
     for (map<string, vector<DPSXPoint> >::const_iterator dsit = xpoints.begin(); dsit != xpoints.end(); ++dsit) {
