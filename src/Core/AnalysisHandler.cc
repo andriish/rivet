@@ -60,7 +60,7 @@ namespace Rivet {
   void AnalysisHandler::init(const GenEvent& ge) {
     assert(!_initialised);
     setRunBeams(Rivet::beams(ge));
-    getLog() << Log::DEBUG << "Initialising the analysis handler" << endl;
+    MSG_DEBUG("Initialising the analysis handler");
     _numEvents = 0;
     _sumOfWeights = 0.0;
 
@@ -68,9 +68,10 @@ namespace Rivet {
     const size_t num_anas_requested = analysisNames().size();
     removeIncompatibleAnalyses(beamIds());
     foreach (const AnaHandle a, analyses()) {
-      if (toUpper(a->status()) != "VALIDATED") {
-        getLog() << Log::WARN
-                 << "Analysis '" << a->name() << "' is unvalidated: be careful!" << endl;
+      if (toUpper(a->status()) != "PRELIMINARY") {
+        MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
+      } else if (toUpper(a->status()) != "VALIDATED") {
+        MSG_WARNING("Analysis '" << a->name() << "' is unvalidated: be careful, it may be broken!");
       }
     }
     if (num_anas_requested > 0 && analysisNames().size() == 0) {
@@ -80,22 +81,22 @@ namespace Rivet {
     }
 
     foreach (AnaHandle a, _analyses) {
-      getLog() << Log::DEBUG << "Initialising analysis: " << a->name() << endl;
+      MSG_DEBUG("Initialising analysis: " << a->name());
       try {
         // Allow projection registration in the init phase onwards
         a->_allowProjReg = true;
         a->init();
-        //getLog() << Log::DEBUG << "Checking consistency of analysis: " << a->name() << endl;
+        //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
       } catch (const Error& err) {
         cerr     << "Error in " << a->name() << "::init method: "
                  << err.what() << endl;
         exit(1);
       }
-      getLog() << Log::DEBUG << "Done initialising analysis: " << a->name() << endl;
+      MSG_DEBUG("Done initialising analysis: " << a->name());
     }
     _initialised = true;
-    getLog() << Log::DEBUG << "Analysis handler initialised" << endl;
+    MSG_DEBUG("Analysis handler initialised");
   }
 
 
@@ -122,7 +123,7 @@ namespace Rivet {
     // Weights
     const double weight = event.weight();
     _sumOfWeights += weight;
-    getLog() << Log::DEBUG << "Event #" << _numEvents << " weight = " << weight << endl;
+    MSG_DEBUG("Event #" << _numEvents << " weight = " << weight);
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
       const double xs = ge.cross_section()->cross_section();
@@ -130,7 +131,7 @@ namespace Rivet {
     }
     #endif
     foreach (AnaHandle a, _analyses) {
-      //getLog() << Log::DEBUG << "About to run analysis " << a->name() << endl;
+      //MSG_DEBUG("About to run analysis " << a->name());
       try {
         a->analyze(event);
       } catch (const Error& err) {
@@ -138,14 +139,14 @@ namespace Rivet {
                  << err.what() << endl;
         exit(1);
       }
-      //getLog() << Log::DEBUG << "Finished running analysis " << a->name() << endl;
+      //MSG_DEBUG("Finished running analysis " << a->name());
     }
   }
 
 
   void AnalysisHandler::finalize() {
     assert(_initialised);
-    getLog() << Log::INFO << "Finalising analyses" << endl;
+    MSG_INFO("Finalising analyses");
     foreach (AnaHandle a, _analyses) {
       try {
         a->finalize();
@@ -157,15 +158,15 @@ namespace Rivet {
     }
 
     // Print out number of events processed
-    getLog() << Log::INFO << "Processed " << _numEvents << " event" << (_numEvents == 1 ? "" : "s") << endl;
+    MSG_INFO("Processed " << _numEvents << " event" << (_numEvents == 1 ? "" : "s"));
 
     // Change AIDA histos into data point sets
-    getLog() << Log::DEBUG << "Converting histograms to scatter plots" << endl;
+    MSG_DEBUG("Converting histograms to scatter plots");
     assert(_theTree != 0);
     _normalizeTree(tree());
 
     // Delete analyses
-    getLog() << Log::DEBUG << "Deleting analyses" << endl;
+    MSG_DEBUG("Deleting analyses");
     _analyses.clear();
 
     // Print out MCnet boilerplate
@@ -181,22 +182,17 @@ namespace Rivet {
     ///       Requires avoiding histo tree clashes, i.e. storing the histos on the analysis objects.
     foreach (const AnaHandle& a, _analyses) {
       if (a->name() == analysisname) {
-        getLog() << Log::WARNING 
-		 << "Analysis '" << analysisname 
-		 << "' already registered: skipping duplicate" << endl;
+        MSG_WARNING("Analysis '" << analysisname << "' already registered: skipping duplicate");
         return *this;
       }
     }
     AnaHandle analysis( AnalysisLoader::getAnalysis(analysisname) );
     if (analysis.get() != 0) { // < Check for null analysis.
-      getLog() << Log::DEBUG << "Adding analysis '" << analysisname << "'" << endl;
+      MSG_DEBUG("Adding analysis '" << analysisname << "'");
       analysis->_analysishandler = this;
       _analyses.insert(analysis);
-    }
-    else {
-      getLog() << Log::WARNING 
-	       << "Analysis '" << analysisname 
-	       << "' not found." << endl;
+    } else {
+      MSG_WARNING("Analysis '" << analysisname << "' not found.");
     }
     return *this;
   }
@@ -211,7 +207,7 @@ namespace Rivet {
       }
     }
     if (toremove.get() != 0) {
-      getLog() << Log::DEBUG << "Removing analysis '" << analysisname << "'" << endl;
+      MSG_DEBUG("Removing analysis '" << analysisname << "'");
       _analyses.erase(toremove);
     }
     return *this;
@@ -226,8 +222,7 @@ namespace Rivet {
       }
     }
     foreach (const string& aname, anamestodelete) {
-      getLog() << Log::WARN << "Removing incompatible analysis '"
-               << aname << "'" << endl;
+      MSG_WARNING("Removing incompatible analysis '" << aname << "'");
       removeAnalysis(aname);
     }
     return *this;
@@ -272,9 +267,8 @@ namespace Rivet {
 
 
   void AnalysisHandler::_normalizeTree(ITree& tree) {
-    Log& log = getLog();
     const vector<string> paths = tree.listObjectNames("/", true); // args set recursive listing
-    log << Log::TRACE << "Number of objects in AIDA tree = " << paths.size() << endl;
+    MSG_TRACE("Number of objects in AIDA tree = " << paths.size());
     const string tmpdir = "/RivetNormalizeTmp";
     tree.mkdir(tmpdir);
     foreach (const string& path, paths) {
@@ -290,28 +284,28 @@ namespace Rivet {
 
         // If it's a normal histo:
         if (histo) {
-          log << Log::TRACE << "Converting histo " << path << " to DPS" << endl;
+          MSG_TRACE("Converting histo " << path << " to DPS");
           tree.mv(path, tmpdir);
           const size_t lastslash = path.find_last_of("/");
           const string basename = path.substr(lastslash+1, path.length() - (lastslash+1));
           const string tmppath = tmpdir + "/" + basename;
           IHistogram1D* tmphisto = dynamic_cast<IHistogram1D*>(tree.find(tmppath));
           if (tmphisto) {
-            //getLog() << Log::TRACE << "Temp histo " << tmppath << " exists" << endl;
+            //MSG_TRACE("Temp histo " << tmppath << " exists");
             datapointsetFactory().create(path, *tmphisto);
           }
           tree.rm(tmppath);
         }
         // If it's a profile histo:
         else if (prof) {
-          log << Log::TRACE << "Converting profile histo " << path << " to DPS" << endl;
+          MSG_TRACE("Converting profile histo " << path << " to DPS");
           tree.mv(path, tmpdir);
           const size_t lastslash = path.find_last_of("/");
           const string basename = path.substr(lastslash+1, path.length() - (lastslash+1));
           const string tmppath = tmpdir + "/" + basename;
           IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
           if (tmpprof) {
-            //getLog() << Log::TRACE << "Temp profile histo " << tmppath << " exists" << endl;
+            //MSG_TRACE("Temp profile histo " << tmppath << " exists");
             datapointsetFactory().create(path, *tmpprof);
           }
           tree.rm(tmppath);
@@ -345,7 +339,7 @@ namespace Rivet {
 
   AnalysisHandler& AnalysisHandler::addAnalyses(const std::vector<std::string>& analysisnames) {
     foreach (const string& aname, analysisnames) {
-      //getLog() << Log::DEBUG << "Adding analysis '" << aname << "'" << endl;
+      //MSG_DEBUG("Adding analysis '" << aname << "'");
       addAnalysis(aname);
     }
     return *this;
