@@ -64,10 +64,6 @@ if not aidafiles:
     sys.exit(1)
 
 
-## Get ref data search paths
-refpaths = rivet.getAnalysisRefPaths()
-
-
 ## Make output directory
 if os.path.exists(opts.OUTPUTDIR):
     import shutil
@@ -123,12 +119,10 @@ for aidafile in aidafiles:
             if not matched:
                 continue
         analyses.add(analysis)
-        for refpath in refpaths:
-            if os.access(os.path.join(refpath, analysis+".aida"), os.R_OK):
-                reffile = "%s/%s.aida" % (refpath, analysis)
-                if not reffile in reffiles:
-                    reffiles.append(reffile)
-                    break
+        reffile = rivet.findAnalysisRefFile(analysis+".aida")
+        if reffile and reffile not in reffiles:
+            reffiles.append(reffile)
+            break
 
 
 ## Run compare-histos to get plain .dat files from .aida

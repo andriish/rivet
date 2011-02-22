@@ -31,10 +31,14 @@ except ImportError:
 
 if __name__ == "__main__":
 
-    ## TODO: replace with rivet.getAnalysisRefDirs()
-    rivet_data_dir = os.popen('rivet-config --datadir',"r").readline().strip()
-    if not rivet_data_dir:
-        rivet_data_dir = ""
+    ## Default plot file search paths
+    default_plotdirs = ["."]
+    try:
+        import rivet
+        default_plotdirs += rivet.getAnalysisPlotPaths()
+    except:
+        pass
+
 
     ## Parse command line options
     from optparse import OptionParser, OptionGroup
@@ -46,7 +50,7 @@ if __name__ == "__main__":
                       help="Provide output suitable for Gnuplot's 'plot \"foo.dat\" with xye'. Implies --split",
                       dest="GNUPLOT")
     parser.add_option("--plotinfodir", dest="PLOTINFODIR", action="append",
-                      default=["./", rivet_data_dir], help="directory which may contain plot header information")
+                      default=default_plotdirs, help="directory which may contain plot header information")
     parser.add_option("-S", "--smart-output", action="store_true", default=False,
                       help="Write to output files with names based on the corresponding input filename",
                       dest="SMARTOUTPUT")

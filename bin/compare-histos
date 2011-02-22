@@ -81,7 +81,9 @@ if __name__ == "__main__":
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
     parser.add_option("-R", "--rivet-refs", dest="RIVETREFS", action="store_true",
-                      default=False, help="try to use Rivet reference data files")
+                      default=True, help="use Rivet reference data files (default)")
+    parser.add_option("--no-rivet-refs", dest="RIVETREFS", action="store_false",
+                      default=True, help="don't use Rivet reference data files")
     parser.add_option("-o", "--outdir", dest="OUTDIR",
                       default=".", help="write data files into this directory")
     parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,

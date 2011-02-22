@@ -60,7 +60,6 @@ except:
 try:
     import rivet
     rivet.check_python_version()
-    #print rivet.getAnalysisLibPaths()
 except Exception, e:
     sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n")
     sys.stderr.write(str(e)+'\n')

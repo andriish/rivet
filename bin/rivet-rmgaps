@@ -137,8 +137,10 @@ class Histogram:
 import logging
 from optparse import OptionParser
 parser = OptionParser(usage=__doc__)
-parser.add_option("-R", "--rivet-refs", dest="USE_RIVETREFS", action="store_true", default=False,
-                  help="use the Rivet reference files by default")
+parser.add_option("-R", "--rivet-refs", dest="USE_RIVETREFS", action="store_true", default=True,
+                  help="use the Rivet reference data files for comparison")
+parser.add_option("--no-rivet-refs", dest="USE_RIVETREFS", action="store_true", default=True,
+                  help="don't use the Rivet reference data files for comparison")
 parser.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                   default=logging.INFO, help="print debug (very verbose) messages")
 parser.add_option("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
@@ -150,10 +152,9 @@ logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
 
 if opts.USE_RIVETREFS:
-    REFDIRS = []
     try:
         import rivet
-        REFDIRS = rivet.getAnalysisRefPaths()
+        rivet.getAnalysisRefPaths()
     except:
         logging.error("Could not find the Rivet ref paths because the 'rivet' Python module could not be loaded")
         sys.exit(1)
@@ -205,11 +206,10 @@ if opts.USE_RIVETREFS:
         anas.add(ana)
     #print anas
     for a in anas:
-        for rd in REFDIRS:
-            rp = os.path.join(rd, a+".aida")
-            if os.access(rp, os.R_OK):
-                REFFILES.append(rp)
-                break
+        apath = rivet.findAnalysisRefFile(a+".aida")
+        if apath:
+            REFFILES.append(apath)
+            break
     #print REFFILES
 
 
