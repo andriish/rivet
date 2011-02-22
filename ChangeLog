@@ -11,6 +11,9 @@
 
 	* make lighthisto.py aware of 2D histograms
 
+	* Adding published versions of the CDF_2008 leading jets and DY
+	analyses, and marking the preliminary ones as "OBSOLETE".
+
 2011-02-21  Andy Buckley  <andy@insectnation.org>
 
 	* Adding PDF documentation for path searching and .info/.plot

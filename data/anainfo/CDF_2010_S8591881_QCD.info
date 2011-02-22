@@ -1,12 +1,14 @@
-Name: CDF_2008_LEADINGJETS
-Year: 2008
+Name: CDF_2010_S8591881_QCD
+Year: 2010
 Summary: CDF Run 2 underlying event in leading jet events
 Experiment: CDF
 Collider: Tevatron Run 2
-SpiresID: NONE
-Status: OBSOLETE
+SpiresID: 8591881
+Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
+References:
+ - Phys.Rev.D82:034001,2010
 RunInfo:
   $p\bar{p}$ QCD interactions at 1960~GeV. Particles with 
   $c \tau > {}$10 mm should be set stable. Several $p_\perp^\text{min}$ 

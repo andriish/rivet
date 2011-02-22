@@ -1,14 +1,14 @@
-Name: CDF_2008_NOTE_9351
-Year: 2008
+Name: CDF_2010_S8591881_DY
+Year: 2010
 Summary: CDF Run 2 underlying event in Drell-Yan
 Experiment: CDF
 Collider: Tevatron Run 2
-SpiresID: NONE
-Status: OBSOLETE
+SpiresID: 8591881
+Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:
- - CDF public note 9351
+ - Phys.Rev.D82:034001,2010
 RunInfo:
   "ppbar collisions at 1960 GeV.
   * Drell-Yan events with $Z/\\gamma* -> e e$ and $Z/\\gamma* -> \\mu\\mu$.
