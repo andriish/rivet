@@ -1,5 +1,34 @@
 2011-02-22  Andy Buckley  <andy@insectnation.org>
 
+	* Moving the definition of the MSG_* macros into the Logging.hh
+	header. They can't be used everywhere, though, as they depend on
+	the existence of a this->getLog() method in the call scope. This
+	move makes them available in e.g. AnalysisHandler and other bits
+	of framework other than projections and analyses.
+
+	* Adding a gentle print-out from the Rivet AnalysisHandler if
+	preliminary analyses are being used, and strengthening the current
+	warning if unvalidated analyses are used.
+
+	* Adding documentation about the validation "process" and
+	the (un)validated and preliminary analysis statuses.
+
+	* Adding the new RivetPreliminary analysis library, and the
+	corresponding --disable-preliminary configure flag. Analyses in
+	this library are subject to change names, histograms, reference
+	data values, etc. between releases: make sure you check any
+	dependences on these analyses when upgrading Rivet.
+
+	* Change the Python script ref data search behaviours to use Rivet
+	ref data by default where available, rather than requiring a -R
+	option. Where relevant, -R is still a valid option, to avoid
+	breaking legacy scripts, and there is a new --no-rivet-refs option
+	to turn the default searching *off*.
+
+	* Add the prepending and appending optional arguments to the path
+	searching functions. This will make it easier to combine the
+	search functions with user-supplied paths in Python scripts.
+
 	* Make make-plots killable!
 
 	* Adding Rivet version to top of run printout.
@@ -9,7 +38,7 @@
 
 2011-02-22  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* make lighthisto.py aware of 2D histograms
+	* Make lighthisto.py aware of 2D histograms
 
 	* Adding published versions of the CDF_2008 leading jets and DY
 	analyses, and marking the preliminary ones as "OBSOLETE".
