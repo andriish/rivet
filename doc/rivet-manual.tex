@@ -310,6 +310,50 @@ that reads from that location. Some typical \kbd{agile-runmc} commands are
 listed in \AppendixRef{app:agilerunmc}.
 
 
+\subsection{Analysis status}
+
+The standard Rivet analyses are divided into three classes: validated,
+preliminary, and unvalidated (in decreasing order of academic
+acceptability).
+
+The Rivet ``validation procedure'' is not (as of February 2011) formally
+defined, but generally implies that an analysis has been checked to ensure
+reproduction of MC points shown in the paper where possible, and is believed to
+have no outstanding issues with analysis procedure or cuts.  Additionally,
+analyses marked as ``validated'' and distributed with Rivet should normally have
+been code-checked by an experienced developer to ensure that the code is a good
+example of Rivet usage and is not more complex than required or otherwise
+difficult to read or maintain. Such analyses are regarded as fully ready for use
+in any MC validation or tuning studies.
+
+Validated analyses which implement an unfinished piece of experimental work are
+considered to be trustworthy in their implementation of a conference note or
+similar ``informal'' publication, but do not have the magic stamp of approval
+that comes from a journal publication. This remains the standard mark of
+experimental respectability and accordingly we do not include such analyses in
+the Rivet standard analysis libraries, but in a special ``preliminary''
+library. While preliminary analyses may be used for physics studies, please be
+aware of the incomplete status of the corresponding experimental study, and also
+be aware that the histograms in such analyses may be renamed or removed
+entirely, as may the analysis itself. Preliminary analyses will not have a
+SPIRES preprint number, and hence on their move into the standard Rivet analysis
+library they will normally undergo a name change: please ensure when you upgrade
+between Rivet versions that any scripts or programs which were using preliminary
+analyses are not broken by the disappearance or change of that analysis in the
+newer version. The minor perils of using preliminary analyses can be avoided by
+the cautious by building Rivet with the \kbd{-{}-disable-preliminary}
+configuration flag, in which case their temptation will not even be offered.
+
+Finally, unvalidated analyses are those whose implementation is incomplete,
+flawed or just troubled by doubts. Running such analyses is not a good idea if
+you aren't trying to fix them, and Rivet's command line tools will print copious
+warning messages if you do. Unvalidated analyses in the Rivet distribution are
+not built by default, as they are only of interest to developers and would be
+distracting clutter for the majority of users: if you \emph{really} need them,
+building Rivet with the \kbd{-{}-enable-unvalidated} configuration flag will
+slake your thirst for danger.
+
+
 \subsection{Example \kbd{rivet} commands}
 
 \begin{itemize}
