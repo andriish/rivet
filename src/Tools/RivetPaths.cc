@@ -90,8 +90,10 @@ namespace Rivet {
     return dirs;
   }
 
-  string findAnalysisRefFile(const string& filename) {
-    return _findFile(filename, getAnalysisRefPaths());
+  string findAnalysisRefFile(const string& filename,
+                             const vector<string>& pathprepend, const vector<string>& pathappend) {
+    const vector<string> paths = pathprepend + getAnalysisRefPaths() + pathappend;
+    return _findFile(filename, paths);
   }
 
 
@@ -110,8 +112,10 @@ namespace Rivet {
     return dirs;
   }
 
-  string findAnalysisInfoFile(const string& filename) {
-    return _findFile(filename, getAnalysisInfoPaths());
+  string findAnalysisInfoFile(const string& filename,
+                              const vector<string>& pathprepend, const vector<string>& pathappend) {
+    const vector<string> paths = pathprepend + getAnalysisInfoPaths() + pathappend;
+    return _findFile(filename, paths);
   }
 
 
@@ -130,8 +134,10 @@ namespace Rivet {
     return dirs;
   }
 
-  string findAnalysisPlotFile(const string& filename) {
-    return _findFile(filename, getAnalysisPlotPaths());
+  string findAnalysisPlotFile(const string& filename,
+                              const vector<string>& pathprepend, const vector<string>& pathappend) {
+    const vector<string> paths = pathprepend + getAnalysisPlotPaths() + pathappend;
+    return _findFile(filename, paths);
   }
 
 
