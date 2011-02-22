@@ -1,3 +1,7 @@
+2011-02-22  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* make lighthisto.py aware of 2D histograms
+
 2011-02-21  Andy Buckley  <andy@insectnation.org>
 
 	* Adding PDF documentation for path searching and .info/.plot

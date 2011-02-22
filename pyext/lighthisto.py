@@ -111,7 +111,7 @@ class Histo(object):
             out += "ErrorBars=1\n"
         out += "## Area: %e\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
-        out += "## xlow  \txhigh   \tyval    \tyerrminus\tyerrplus\n"
+        out += "## xlow  \txhigh   \tval    \terrminus\terrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
         out += "\n# END HISTOGRAM"
         return out
@@ -125,7 +125,7 @@ class Histo(object):
             out += "## YLabel: %s\n" % self.ylabel
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
-        out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
+        out += "## xval  \tval    \txlow    \txhigh    \tylow     \tyhigh\n"
         out += "\n".join([b.asGnuplot() for b in self.getBins()])
         out += "\n# END HISTOGRAM"
         return out
@@ -267,16 +267,16 @@ class Histo(object):
 
         # Iterate over all bins
         for b in self:
-            # Rescale YValue, YErr+, YErr-
-            newy = b.yval * float(newarea) / oldarea
-            newyerrplus = b.yerrplus * float(newarea) / oldarea
-            newyerrminus = b.yerrminus * float(newarea) / oldarea
-            newbin = Bin(b.xlow, b.xhigh, newy, newyerrplus, newyerrminus, b.focus)
+            # Rescale Value, Err+, Err-
+            newy = b.val * float(newarea) / oldarea
+            newerrplus = b.errplus * float(newarea) / oldarea
+            newerrminus = b.errminus * float(newarea) / oldarea
+            newbin = Bin(b.xlow, b.xhigh, newy, newerrplus, newerrminus, b.focus)
             new.addBin(newbin)
 
         return new
 
-    ## decorators are only available since Python 2.4
+    @classmethod
     def fromDPS(cls, dps):
         """Build a histogram from a xml dataPointSet."""
         new = cls()
@@ -287,17 +287,20 @@ class Histo(object):
         # if new.path.startswith("/REF"):
             # new.path = new.path[4:]
         axes = dps.findall("dimension")
-        if (len(axes)==2):
+        if (len(axes)>=2):
             for a in axes:
                 if (a.get("dim")=="0"):
                     new.xlabel = a.get("title")
                 elif (a.get("dim")=="1"):
                     new.ylabel = a.get("title")
+                elif (a.get("dim")=="2"):
+                    new.zlabel = a.get("title")
         points = dps.findall("dataPoint")
         #numbins = len(points)
         for binnum, point in enumerate(points):
             bin = Bin()
-            for d, m in enumerate(point.findall("measurement")):
+            measurements = point.findall("measurement")
+            for d, m in enumerate(measurements):
                 val  = float(m.get("value"))
                 down = float(m.get("errorMinus"))
                 up = float(m.get("errorPlus"))
@@ -305,13 +308,16 @@ class Histo(object):
                     low  = val - down
                     high = val + up
                     bin.setXRange(low, high)
-                elif d == 1:
-                    bin.yval = val
-                    bin.yerrplus = up
-                    bin.yerrminus = down
+                elif (len(measurements) == 2 and d == 1) or (len(measurements) == 3 and d == 2):
+                    bin.val = val
+                    bin.errplus = up
+                    bin.errminus = down
+                elif (len(measurements) == 3 and d == 1):
+                    low  = val - down
+                    high = val + up
+                    bin.setYRange(low, high)
             new.addBin(bin)
         return new
-    fromDPS = classmethod(fromDPS)
 
 
     @classmethod
@@ -366,32 +372,37 @@ class Histo(object):
 class Bin(object):
     """A simple container for a binned value with an error."""
     aidaindent = "    "
-    __slots__ = ["xlow", "xhigh", "yval", "yerrplus", "yerrminus", "focus"]
-    def __init__(self, xlow=None, xhigh=None, yval=0, yerrplus=0, yerrminus=0, focus=None):
+    __slots__ = ["xlow", "xhigh", "ylow", "yhigh", "val", "errplus", "errminus", "focus"]
+    def __init__(self, xlow=None, xhigh=None, val=0, errplus=0, errminus=0, focus=None, ylow=None, yhigh=None):
         def _float(f):
             if f is None:
                 return None
             return float(f)
         self.xlow = _float(xlow)
         self.xhigh= _float(xhigh)
-        self.yval = _float(yval)
-        self.yerrplus = _float(yerrplus)
-        self.yerrminus = _float(yerrminus)
+        self.ylow = _float(ylow)
+        self.yhigh= _float(yhigh)
+        self.val = _float(val)
+        self.errplus = _float(errplus)
+        self.errminus = _float(errminus)
         self.focus= _float(focus)
 
     def __str__(self):
         out = "%e to %e: %e +%e-%e" % (self.xlow, self.xhigh,
-                self.yval, self.yerrplus, self.yerrminus)
+                self.val, self.errplus, self.errminus)
         return out
 
     def asFlat(self):
-        out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.yval, self.yerrminus, self.yerrplus)
+        if self.ylow==None or self.yhigh==None:
+            out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.val, self.errminus, self.errplus)
+        else:
+            out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.ylow, self.yhigh, self.val, 0.5*(self.errminus+self.errplus))
         return out
 
     def asGnuplot(self):
-        out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.yval,
-                self.xlow, self.xhigh, self.yval-self.yerrminus,
-                self.yval+self.yerrplus)
+        out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.getBinCenter(), self.val,
+                self.xlow, self.xhigh, self.val-self.errminus,
+                self.val+self.errplus)
         return out
 
     def asAIDA(self):
@@ -400,10 +411,10 @@ class Bin(object):
         return (ind + "<dataPoint>\n"
             + ind
             + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                self.getXErrPlus(), self.getBinCenter(), self.getXErrMinus())
+                .5*(self.xhigh - self.xlow), self.getBinCenter(), .5*(self.xhigh - self.xlow))
             + ind
             + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                self.yerrplus, self.yval, self.yerrminus)
+                self.errplus, self.val, self.errminus)
             + ind + "</dataPoint>\n")
 
     def __cmp__(self, other):
@@ -413,20 +424,22 @@ class Bin(object):
     def getXRange(self):
         return (self.xlow, self.xhigh)
 
+    def getYRange(self):
+        return (self.ylow, self.yhigh)
+
     def setXRange(self, xlow, xhigh):
         self.xlow = xlow
         self.xhigh = xhigh
         return self
 
+    def setYRange(self, ylow, yhigh):
+        self.ylow = ylow
+        self.yhigh = yhigh
+        return self
+
     def getBinCenter(self):
         """Geometric middle of the bin range."""
         return float(self.xlow + .5*(self.xhigh - self.xlow))
-
-    def getXErrPlus(self):
-        return self.xhigh - self.getBinCenter()
-
-    def getXErrMinus(self):
-        return self.getBinCenter() - self.xlow
 
     def getFocus(self):
         """Mean x-value of the bin."""
@@ -435,25 +448,25 @@ class Bin(object):
         else:
             return self.focus
 
-    def getYVal(self):
+    def getVal(self):
         """Y-value of the bin."""
-        return self.yval
+        return self.val
 
     def area(self):
-        return self.yval * (self.xhigh - self.xlow)
+        return self.val * (self.xhigh - self.xlow)
     getArea = area
 
-    def getYErr(self):
+    def getErr(self):
         """Get mean of +ve and -ve y-errors."""
-        return (self.yerrplus + self.yerrminus)/2.0
+        return (self.errplus + self.errminus)/2.0
 
-    def setYErr(self, yerr):
+    def setErr(self, err):
         """Set both +ve and -ve y-errors simultaneously."""
-        self.yerrplus = yerr
-        self.yerrminus = yerr
+        self.errplus = err
+        self.errminus = err
         return self
 
-    yerr = property(getYErr, setYErr)
+    err = property(getErr, setErr)
 
 
 class PlotParser(object):
