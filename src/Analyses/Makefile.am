@@ -42,6 +42,24 @@ RivetUnvalidated_la_SOURCES = \
 endif
 
 
+## Preliminary analyses: validated analyses whose experimental paper has not
+## been fully accepted for publication should go here. Analyses in this group
+## are considered safe to use but the reference data may yet change. In
+## progressing from the preliminary analyses library to a permanent published
+## analyses collection, the analysis name is likely to change, so you should
+## ensure that any Rivet-using scripts are not broken by such name changes
+## when upgrading between Rivet versions. These analyses will not be available
+## if Rivet is built with the --disable-preliminary configure flag.
+if ENABLE_PRELIMINARY
+lib_LTLIBRARIES += RivetPreliminary.la
+RivetPreliminary_la_SOURCES = \
+    CDF_2008_LEADINGJETS.cc \
+    CDF_2008_NOTE_9351.cc \
+    CDF_2009_NOTE_9936.cc \
+    STAR_2009_UE_HELEN.cc
+endif
+
+
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
     ALICE_2010_S8706239.cc \
@@ -60,9 +78,11 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2011_S8924791.cc \
     ATLAS_2011_S8971293.cc
 
+
 lib_LTLIBRARIES += RivetCMSAnalyses.la
 RivetCMSAnalyses_la_SOURCES = \
     CMS_2011_S8957746.cc
+
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la
 RivetCDFAnalyses_la_SOURCES = \
@@ -83,14 +103,11 @@ RivetCDFAnalyses_la_SOURCES = \
     CDF_2006_S6450792.cc \
     CDF_2006_S6653332.cc \
     CDF_2007_S7057202.cc \
-    CDF_2008_LEADINGJETS.cc \
-    CDF_2008_NOTE_9351.cc \
     CDF_2008_S7540469.cc \
     CDF_2008_S7828950.cc \
     CDF_2008_S8093652.cc \
     CDF_2008_S8095620.cc \
     CDF_2009_S8233977.cc \
-    CDF_2009_NOTE_9936.cc \
     CDF_2009_S8383952.cc \
     CDF_2009_S8436959.cc \
     CDF_2010_S8591881_DY.cc \
@@ -143,8 +160,7 @@ lib_LTLIBRARIES += RivetRHICAnalyses.la
 RivetRHICAnalyses_la_SOURCES = \
     STAR_2006_S6500200.cc \
     STAR_2006_S6860818.cc \
-    STAR_2006_S6870392.cc \
-    STAR_2009_UE_HELEN.cc
+    STAR_2006_S6870392.cc
 
 
 lib_LTLIBRARIES += RivetSPSAnalyses.la

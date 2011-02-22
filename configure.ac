@@ -167,6 +167,18 @@ fi
 AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
 
 
+## Disable build/install of validated-but-preliminary analyses
+AC_ARG_ENABLE([preliminary],
+  [AC_HELP_STRING(--disable-preliminary, [build and install validated-but-preliminary analyses])],
+  [], [enable_preliminary-yes])
+if test x$enable_preliminary = xyes; then
+   AC_MSG_NOTICE([Building preliminary Rivet analyses])
+else
+   AC_MSG_NOTICE([Not building preliminary Rivet analyses, by request])
+fi
+AM_CONDITIONAL(ENABLE_PRELIMINARY, [test x$enable_preliminary = xyes])
+
+
 ## Build LaTeX docs if possible...
 AC_PATH_PROG(PDFLATEX, pdflatex)
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
