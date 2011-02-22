@@ -1894,7 +1894,10 @@ class MkPlotThread( threading.Thread ):
         global RECVD_KILL_SIGNAL
         while True:
             if RECVD_KILL_SIGNAL is not None:
-               exit(1)
+                ## Empty the queue
+                while not datfiles.empty():
+                    dummy = datfiles.get_nowait()
+                break
             try:
                 datfile = datfiles.get_nowait()
                 rem = datfiles.qsize()
@@ -2034,10 +2037,12 @@ if __name__ == '__main__':
     RECVD_KILL_SIGNAL = None
     def handleKillSignal(signum, frame):
         "Declare us as having been signalled, and return to default handling behaviour"
+        global RECVD_KILL_SIGNAL
         logging.critical("Signal handler called with signal " + str(signum))
         RECVD_KILL_SIGNAL = signum
         signal.signal(signum, signal.SIG_DFL)
     ## Signals to handle
+    signal.signal(signal.SIGINT,  handleKillSignal)
     signal.signal(signal.SIGTERM, handleKillSignal)
     signal.signal(signal.SIGHUP,  handleKillSignal)
     signal.signal(signal.SIGUSR2, handleKillSignal)
@@ -2045,4 +2050,9 @@ if __name__ == '__main__':
     ## Run threads
     for threadnum in range(opts.NUM_THREADS):
         procthread = MkPlotThread()
+        #procthread.daemon = True
         procthread.start()
+
+    import time
+    while not datfiles.empty() and not RECVD_KILL_SIGNAL:
+        time.sleep(0.25)
