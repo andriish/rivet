@@ -109,10 +109,40 @@ namespace std {
   }
 
   template <typename T>
-  inline void operator+=(vector<T>& s1, const vector<T>& s2) {
-    for (typename vector<T>::const_iterator s = s2.begin(); s != s2.end(); ++s) {
-      s1.push_back(*s);
+  inline set<T> operator+(const set<T>& s1, const set<T>& s2) {
+    set<T> rtn(s1);
+    rtn += s2;
+    return rtn;
+  }
+
+  template <typename T>
+  inline string join(const set<T>& s, const string& sep = " ") {
+    stringstream out;
+    bool first = false;
+    for (typename set<T>::const_iterator it = s.begin(); it != s.end(); ++it) {
+      if (first) {
+        first = false;
+      } else {
+        out << sep;
+      }
+      out << *it;
     }
+    return out.str();
+  }
+
+
+  template <typename T>
+  inline void operator+=(vector<T>& v1, const vector<T>& v2) {
+    for (typename vector<T>::const_iterator s = v2.begin(); s != v2.end(); ++s) {
+      v1.push_back(*s);
+    }
+  }
+
+  template <typename T>
+  inline vector<T> operator+(const vector<T>& v1, const vector<T>& v2) {
+    vector<T> rtn(v1);
+    rtn += v2;
+    return rtn;
   }
 
   template <typename T>

@@ -47,21 +47,27 @@ namespace Rivet {
 
   /// @brief Find the first file of the given name in the ref data file search dirs
   /// @note If none found, returns an empty string
-  std::string findAnalysisRefFile(const std::string& filename);
+  std::string findAnalysisRefFile(const std::string& filename,
+                                  const std::vector<std::string>& pathprepend=std::vector<std::string>(),
+                                  const std::vector<std::string>& pathappend=std::vector<std::string>());
 
   /// Get Rivet analysis info metadata search paths
   std::vector<std::string> getAnalysisInfoPaths();
 
   /// @brief Find the first file of the given name in the analysis info file search dirs
   /// @note If none found, returns an empty string
-  std::string findAnalysisInfoFile(const std::string& filename);
+  std::string findAnalysisInfoFile(const std::string& filename,
+                                   const std::vector<std::string>& pathprepend=std::vector<std::string>(),
+                                   const std::vector<std::string>& pathappend=std::vector<std::string>());
 
   /// Get Rivet analysis plot style search paths
   std::vector<std::string> getAnalysisPlotPaths();
 
   /// @brief Find the first file of the given name in the analysis plot file search dirs
   /// @note If none found, returns an empty string
-  std::string findAnalysisPlotFile(const std::string& filename);
+  std::string findAnalysisPlotFile(const std::string& filename,
+                                   const std::vector<std::string>& pathprepend=std::vector<std::string>(),
+                                   const std::vector<std::string>& pathappend=std::vector<std::string>());
 
   //@}
 
