@@ -2,7 +2,7 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.0" package="HepData"/>
-  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.3907" errorPlus="0.0315" errorMinus="0.0315"/>
@@ -84,7 +84,7 @@
       <measurement value="0.4466" errorPlus="0.1921" errorMinus="0.1921"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d01-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d01-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4261" errorPlus="0.027" errorMinus="0.027"/>
@@ -166,7 +166,7 @@
       <measurement value="0.6116" errorPlus="0.1836" errorMinus="0.1836"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d01-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d01-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4831" errorPlus="0.0291" errorMinus="0.0291"/>
@@ -248,7 +248,7 @@
       <measurement value="2.6714" errorPlus="0.3277" errorMinus="0.3277"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.6472" errorPlus="0.0273" errorMinus="0.0273"/>
@@ -330,7 +330,7 @@
       <measurement value="1.0287" errorPlus="0.2265" errorMinus="0.2265"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d02-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.205" errorPlus="0.0467" errorMinus="0.0467"/>
@@ -412,7 +412,7 @@
       <measurement value="0.3307" errorPlus="0.2891" errorMinus="0.2891"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d02-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4422" errorPlus="0.0541" errorMinus="0.0541"/>
@@ -494,7 +494,7 @@
       <measurement value="0.698" errorPlus="0.3673" errorMinus="0.3673"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.3902" errorPlus="0.0268" errorMinus="0.0268"/>
@@ -576,7 +576,7 @@
       <measurement value="0.7288" errorPlus="0.4521" errorMinus="0.4521"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d03-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.431" errorPlus="0.0229" errorMinus="0.0229"/>
@@ -658,7 +658,7 @@
       <measurement value="1.2085" errorPlus="0.4749" errorMinus="0.4749"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d03-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4935" errorPlus="0.0255" errorMinus="0.0255"/>
@@ -740,7 +740,7 @@
       <measurement value="9.9282" errorPlus="1.3073" errorMinus="1.3073"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.6757" errorPlus="0.0234" errorMinus="0.0234"/>
@@ -822,7 +822,7 @@
       <measurement value="1.8654" errorPlus="0.708" errorMinus="0.708"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d04-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.1863" errorPlus="0.0393" errorMinus="0.0393"/>
@@ -904,7 +904,7 @@
       <measurement value="0.5515" errorPlus="0.6333" errorMinus="0.6333"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d04-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4894" errorPlus="0.0457" errorMinus="0.0457"/>
@@ -986,7 +986,7 @@
       <measurement value="1.3139" errorPlus="0.9499" errorMinus="0.9499"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PT) IN GEV" >
+  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PT) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.9646" errorPlus="0.0129" errorMinus="0.0129"/>
@@ -1068,7 +1068,7 @@
       <measurement value="1.3072" errorPlus="0.3129" errorMinus="0.3129"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PT) IN GEV" >
+  <dataPointSet name="d05-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PT) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.9673" errorPlus="0.0145" errorMinus="0.0145"/>
@@ -1150,7 +1150,7 @@
       <measurement value="1.304" errorPlus="0.2085" errorMinus="0.2085"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PTMAX) IN GEV" >
+  <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PTMAX) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="1.2626" errorPlus="0.017" errorMinus="0.017"/>
@@ -1232,7 +1232,7 @@
       <measurement value="2.7485" errorPlus="2.3062" errorMinus="2.3062"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PTMAX) IN GEV" >
+  <dataPointSet name="d06-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PTMAX) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="1.2844" errorPlus="0.0189" errorMinus="0.0189"/>
@@ -1314,7 +1314,7 @@
       <measurement value="2.6156" errorPlus="0.8924" errorMinus="0.8924"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PT) IN GEV" >
+  <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PT) IN GEV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="6.9235" errorPlus="0.209" errorMinus="0.209"/>
@@ -1460,7 +1460,7 @@
       <measurement value="67.7035" errorPlus="49.3146" errorMinus="49.3146"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PT) IN GEV" >
+  <dataPointSet name="d08-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PT) IN GEV" >
     <dataPoint>
       <measurement value="1.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="0.9425" errorPlus="0.0368" errorMinus="0.0368"/>
@@ -1618,7 +1618,7 @@
       <measurement value="2.8364" errorPlus="0.9057" errorMinus="0.9057"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d09-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PT) IN GEV" >
+  <dataPointSet name="d09-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PT) IN GEV" >
     <dataPoint>
       <measurement value="1.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="0.899" errorPlus="0.0316" errorMinus="0.0316"/>
@@ -1736,7 +1736,7 @@
       <measurement value="1.1715" errorPlus="0.1933" errorMinus="0.1933"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d10-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d10-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4854" errorPlus="0.283" errorMinus="0.283"/>
@@ -1834,7 +1834,7 @@
       <measurement value="3.0324" errorPlus="0.2025" errorMinus="0.2025"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d10-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d10-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.3054" errorPlus="0.0428" errorMinus="0.0428"/>
@@ -1972,7 +1972,7 @@
       <measurement value="0.6556" errorPlus="0.1005" errorMinus="0.1005"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d10-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d10-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.3749" errorPlus="0.1708" errorMinus="0.1708"/>
@@ -2070,7 +2070,7 @@
       <measurement value="3.3898" errorPlus="0.2221" errorMinus="0.2221"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d11-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d11-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4889" errorPlus="0.0582" errorMinus="0.0582"/>
@@ -2208,7 +2208,7 @@
       <measurement value="1.0756" errorPlus="0.1902" errorMinus="0.1902"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d11-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d11-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.1219" errorPlus="0.0627" errorMinus="0.0627"/>
@@ -2346,7 +2346,7 @@
       <measurement value="0.2357" errorPlus="0.0648" errorMinus="0.0648"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d11-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
+  <dataPointSet name="d11-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(N)/DETARAP(P=5)/DPHI(P=5)" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.367" errorPlus="0.0855" errorMinus="0.0855"/>
@@ -2484,7 +2484,7 @@
       <measurement value="0.8398" errorPlus="0.2009" errorMinus="0.2009"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d12-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d12-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.5045" errorPlus="0.3192" errorMinus="0.3192"/>
@@ -2582,7 +2582,7 @@
       <measurement value="20.6237" errorPlus="2.0063" errorMinus="2.0063"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d12-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d12-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.2581" errorPlus="0.0715" errorMinus="0.0715"/>
@@ -2720,7 +2720,7 @@
       <measurement value="1.4878" errorPlus="0.4646" errorMinus="0.4646"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d12-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d12-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.3269" errorPlus="0.1621" errorMinus="0.1621"/>
@@ -2818,7 +2818,7 @@
       <measurement value="18.0113" errorPlus="1.7984" errorMinus="1.7984"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d13-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d13-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.4235" errorPlus="0.1167" errorMinus="0.1167"/>
@@ -2956,7 +2956,7 @@
       <measurement value="2.7033" errorPlus="0.922" errorMinus="0.922"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d13-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d13-x01-y02" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.0926" errorPlus="0.0826" errorMinus="0.0826"/>
@@ -3094,7 +3094,7 @@
       <measurement value="0.2723" errorPlus="0.1152" errorMinus="0.1152"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d13-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
+  <dataPointSet name="d13-x01-y03" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="D(PT)/DETARAP(P=5)/DPHI(P=5) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.3309" errorPlus="0.143" errorMinus="0.143"/>
@@ -3232,7 +3232,7 @@
       <measurement value="2.4309" errorPlus="0.9292" errorMinus="0.9292"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d14-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PT) IN GEV" >
+  <dataPointSet name="d14-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PT) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.8473" errorPlus="0.0465" errorMinus="0.0465"/>
@@ -3370,7 +3370,7 @@
       <measurement value="1.4586" errorPlus="0.2111" errorMinus="0.2111"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d15-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881" title="MEAN(NAME=PTMAX) IN GEV" >
+  <dataPointSet name="d15-x01-y01" dimension="2" path="/REF/CDF_2010_S8591881_DY" title="MEAN(NAME=PTMAX) IN GEV" >
     <dataPoint>
       <measurement value="2.5" errorPlus="2.5" errorMinus="2.5"/>
       <measurement value="0.9807" errorPlus="0.1466" errorMinus="0.1466"/>
