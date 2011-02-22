@@ -396,7 +396,7 @@ if opts.LIST_USED_ANALYSES is not None:
 
 ## Print platform type
 import platform
-logging.info("Rivet running on machine %s (%s)" % (platform.node(), platform.machine()))
+logging.info("Rivet %s running on machine %s (%s)" % (rivet.version(), platform.node(), platform.machine()))
 
 
 def min_nonnull(a, b):
@@ -486,5 +486,6 @@ logging.info("Finished event loop")
 run.finalize()
 
 ## Finalize and write out data file
+print "Cross-section = %e pb" % ah.crossSection()
 ah.finalize()
 ah.writeData(opts.HISTOFILE)

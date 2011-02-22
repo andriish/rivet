@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  Run::Run(AnalysisHandler& ah) 
+  Run::Run(AnalysisHandler& ah)
     : _ah(ah), _xs(-1.0)
   { }
 
@@ -19,6 +19,11 @@ namespace Rivet {
   Run& Run::setCrossSection(const double xs) {
     _xs = xs;
     return *this;
+  }
+
+
+  double Run::crossSection() const {
+    return _ah.crossSection();
   }
 
 
@@ -39,8 +44,8 @@ namespace Rivet {
     }
     return true;
   }
-  
-  
+
+
   bool Run::openFile(const std::string& evtfile) {
     // Set up HepMC input reader objects
     if (evtfile == "-") {
@@ -74,7 +79,7 @@ namespace Rivet {
 
     // Set cross-section from command line
     if (_xs >= 0.0) {
-      Log::getLog("Rivet.Run") 
+      Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
       _ah.setCrossSection(_xs);
     }
@@ -102,16 +107,16 @@ namespace Rivet {
     #endif
     // Complain about absence of cross-section if required!
     if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
-      Log::getLog("Rivet.Run") 
+      Log::getLog("Rivet.Run")
         << Log::ERROR
         << "Total cross-section needed for at least one of the analyses. "
         << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
       return false;
     }
-     
+
     // Analyze event
     _ah.analyze(*_evt);
- 
+
     return true;
   }
 

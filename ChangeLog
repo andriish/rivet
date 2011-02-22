@@ -1,3 +1,12 @@
+2011-02-22  Andy Buckley  <andy@insectnation.org>
+
+	* Make make-plots killable!
+
+	* Adding Rivet version to top of run printout.
+
+	* Adding Run::crossSection() and printing out the cross-section in
+	pb at the end of a Rivet run.
+
 2011-02-22  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* make lighthisto.py aware of 2D histograms
