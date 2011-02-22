@@ -86,7 +86,7 @@ dist_pkgdata_DATA = \
   CDF_2009_S8383952.aida         \
   CDF_2009_S8436959.aida         \
   CDF_2010_S8591881_DY.aida      \
-  CDF_2010_S8591881_QCD.adia     \
+  CDF_2010_S8591881_QCD.aida     \
   D0_1996_S3214044.aida          \
   D0_1996_S3324664.aida          \
   D0_1998_S3711838.aida          \
