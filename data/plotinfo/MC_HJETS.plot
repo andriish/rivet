@@ -16,7 +16,7 @@ XLabel=$m_{\text{h}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m_{\text{h}}$ [pb/GeV]
 # END PLOT
 
-# BEGIN PLOT /MC_HJETS/H_pT
+# BEGIN PLOT /MC_HJETS/H_pT$
 Title=Higgs boson $p_\perp$
 XLabel=$p_\perp^{\text{h}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{h}}$ [pb/GeV]

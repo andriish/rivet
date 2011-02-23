@@ -1,4 +1,4 @@
-# BEGIN PLOT /MC_WWJETS/WW_pT
+# BEGIN PLOT /MC_WWJETS/WW_pT$
 Title=Transverse momentum of boson pair
 XLabel=$p_\perp^{\text{WW}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{WW}}$ [pb/GeV]

@@ -18,7 +18,7 @@ XLabel=$m_{\text{W}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m_{\text{W}}$ [pb/GeV]
 # END PLOT
 
-# BEGIN PLOT /MC_WJETS/W_pT
+# BEGIN PLOT /MC_WJETS/W_pT$
 Title=W $p_\perp$
 XLabel=$p_\perp^{\text{W}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$ [pb/GeV]

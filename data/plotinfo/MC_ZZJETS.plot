@@ -1,4 +1,4 @@
-# BEGIN PLOT /MC_ZZJETS/ZZ_pT
+# BEGIN PLOT /MC_ZZJETS/ZZ_pT$
 Title=Transverse momentum of boson pair
 XLabel=$p_\perp^{\text{ZZ}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{ZZ}}$ [pb/GeV]

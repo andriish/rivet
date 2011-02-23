@@ -18,7 +18,7 @@ XLabel=$m_{\text{Z}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m_{\text{Z}}$ [pb/GeV]
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/Z_pT
+# BEGIN PLOT /MC_ZJETS/Z_pT$
 Title=Z $p_\perp$
 XLabel=$p_\perp^{\text{Z}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{Z}}$ [pb/GeV]
