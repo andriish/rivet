@@ -68,7 +68,7 @@ namespace Rivet {
     const size_t num_anas_requested = analysisNames().size();
     removeIncompatibleAnalyses(beamIds());
     foreach (const AnaHandle a, analyses()) {
-      if (toUpper(a->status()) != "PRELIMINARY") {
+      if (toUpper(a->status()) == "PRELIMINARY") {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
       } else if (toUpper(a->status()) != "VALIDATED") {
         MSG_WARNING("Analysis '" << a->name() << "' is unvalidated: be careful, it may be broken!");
