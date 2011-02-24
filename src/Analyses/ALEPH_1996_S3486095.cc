@@ -276,14 +276,18 @@ namespace Rivet {
               _weightedTotalNumPi0 += weight;
               break;
            case 221:
-              _histMultiEta->fill(scaledEnergy, weight);
-              _histMeanMultiEta->fill(_histMeanMultiEta->binMean(0), weight);
-              _weightedTotalNumEta += weight;
+              if (scaledMom >= 0.1) {
+                _histMultiEta->fill(scaledEnergy, weight);
+                _histMeanMultiEta->fill(_histMeanMultiEta->binMean(0), weight);
+                _weightedTotalNumEta += weight;
+              }
               break;
            case 331:
-              _histMultiEtaPrime->fill(scaledEnergy, weight);
-              _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->binMean(0), weight);
-              _weightedTotalNumEtaPrime += weight;
+              if (scaledMom >= 0.1) {
+                _histMultiEtaPrime->fill(scaledEnergy, weight);
+                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->binMean(0), weight);
+                _weightedTotalNumEtaPrime += weight;
+              }
               break;
            case 130: //klong
            case 310: //kshort
