@@ -123,6 +123,13 @@ for aidafile in aidafiles:
         if reffile and reffile not in reffiles:
             reffiles.append(reffile)
 
+def anasort(name):
+    if len(name.split("_"))==3 and not name.startswith("MC"):
+        if name.split("_")[2].startswith("S"):
+            return name.split("_")[2][1:]
+    return "0"+name
+analyses=sorted(analyses, key=anasort, reverse=True)
+
 
 ## Run compare-histos to get plain .dat files from .aida
 ## We do this here since it also makes the necessary directories
@@ -161,7 +168,7 @@ index.write('<h2>Plots from Rivet analyses</h2>\n\n')
 if opts.SINGLE:
     ## Write table of contents
     index.write('<ul>\n')
-    for analysis in sorted(analyses, reverse=True):
+    for analysis in analyses:
         summary = analysis
         ana = rivet.AnalysisLoader.getAnalysis(analysis)
         if ana:
@@ -171,7 +178,7 @@ if opts.SINGLE:
         index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
     index.write('</ul>\n')
 
-for analysis in sorted(analyses, reverse=True):
+for analysis in analyses:
     references = []
     summary = analysis
     description = "NONE"
@@ -251,7 +258,7 @@ for configfile in opts.CONFIGFILES:
         mp_cmd.append("-c")
         mp_cmd.append(os.path.expanduser(configfile))
 datfiles = []
-for analysis in sorted(analyses, reverse=True):
+for analysis in analyses:
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     #print anapath
     anadatfiles = glob.glob("%s/*.dat" % anapath)
