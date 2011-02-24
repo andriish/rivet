@@ -122,7 +122,6 @@ for aidafile in aidafiles:
         reffile = rivet.findAnalysisRefFile(analysis+".aida")
         if reffile and reffile not in reffiles:
             reffiles.append(reffile)
-            break
 
 
 ## Run compare-histos to get plain .dat files from .aida
