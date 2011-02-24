@@ -513,7 +513,7 @@ namespace Rivet {
     // Build the axis code
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     //const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
-    getLog() << Log::TRACE << "Using DPS x-positions for " << name() << ":" << axisCode << endl;
+    MSG_TRACE("Using DPS x-positions for " << name() << ":" << axisCode);
     IDataPointSet* dps = bookDataPointSet(axisCode, title, xtitle, ytitle);
     const vector<DPSXPoint> xpts = _dpsData.find(axisCode)->second;
     for (size_t pt = 0; pt < xpts.size(); ++pt) {
@@ -523,7 +523,7 @@ namespace Rivet {
       meas->setErrorPlus(xpts[pt].errplus);
       meas->setErrorMinus(xpts[pt].errminus);
     }
-    getLog() << Log::TRACE << "Made DPS " << axisCode <<  " for " << name() << endl;
+    MSG_TRACE("Made DPS " << axisCode <<  " for " << name());
     return dps;
   }
 

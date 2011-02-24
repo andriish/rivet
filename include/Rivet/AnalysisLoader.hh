@@ -3,6 +3,7 @@
 #define RIVET_AnalysisLoader_HH
 
 #include "Rivet/Rivet.hh"
+#include "Rivet/Tools/Logging.fhh"
 #include <map>
 #include <string>
 
@@ -32,6 +33,7 @@ namespace Rivet {
 
 
   private:
+
     /// Allow the analysis builders to call the private _registerBuilder function
     friend class AnalysisBuilderBase;
 

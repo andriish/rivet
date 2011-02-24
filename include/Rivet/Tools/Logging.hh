@@ -172,8 +172,8 @@ namespace Rivet {
 // NB. Only usable in classes where a getLog() method is provided
 #define MSG_LVL(lvl, x) \
   do { \
-    if (this->getLog().isActive(lvl)) { \
-      this->getLog() << lvl << x << endl;   \
+    if (getLog().isActive(lvl)) { \
+      getLog() << lvl << x << endl;   \
     } \
   } while (0)
 

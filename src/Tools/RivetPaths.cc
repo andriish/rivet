@@ -63,10 +63,9 @@ namespace Rivet {
     if (env) {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
-    } else {
-      // ... otherwise fall back to the Rivet library install path
-      dirs += getLibPath();
     }
+    // ... otherwise fall back to the Rivet library install path
+    dirs += getLibPath();
     return dirs;
   }
 

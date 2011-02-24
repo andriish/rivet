@@ -1,3 +1,12 @@
+2011-02-24  Andy Buckley  <andy@insectnation.org>
+
+	* Changing analysis plugin registration to fall back through
+	available paths rather than have RIVET_ANALYSIS_PATH totally
+	override the built-in paths. The first analysis hook of a given
+	name to be found is now the one that's used: any duplicates found
+	will be warned about but unused. getAnalysisLibPaths() now returns
+	*all* the search paths, in keeping with the new search behaviour.
+
 2011-02-22  Andy Buckley  <andy@insectnation.org>
 
 	* Moving the definition of the MSG_* macros into the Logging.hh

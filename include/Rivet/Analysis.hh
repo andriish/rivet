@@ -503,49 +503,11 @@ namespace Rivet {
   };
 
 
-
-  /////////////////////////////////////////////////////////////////////
-
-
-  /// @cond ANALYSIS_PLUGIN_DETAILS
-
-  /// @brief Interface for analysis builders
-  class AnalysisBuilderBase {
-  public:
-    AnalysisBuilderBase() { }
-    virtual ~AnalysisBuilderBase() { }
-
-    virtual Analysis* mkAnalysis() const = 0;
-
-    const string name() const {
-      Analysis* a = mkAnalysis();
-      string rtn = a->name();
-      delete a;
-      return rtn;
-    }
-
-  protected:
-    void _register() {
-      AnalysisLoader::_registerBuilder(this);
-    }
-  };
-
-
-  /// @brief Self-registering analysis plugin builder
-  template <typename T>
-  class AnalysisBuilder : public AnalysisBuilderBase {
-  public:
-    AnalysisBuilder() {
-      _register();
-    }
-
-    Analysis* mkAnalysis() const {
-      return new T();
-    }
-  };
-
-  /// @endcond
-
 }
+
+
+// Include definition of analysis plugin system so that analyses automatically see it when including Analysis.hh
+#include "Rivet/AnalysisBuilder.hh"
+
 
 #endif

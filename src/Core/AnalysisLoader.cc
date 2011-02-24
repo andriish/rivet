@@ -9,6 +9,12 @@
 namespace Rivet {
 
 
+  namespace {
+    inline Log& getLog() {
+      return Log::getLog("Rivet.AnalysisLoader");
+    }
+  }
+
   // Initialise static ptr collection
   AnalysisLoader::AnalysisBuilderMap AnalysisLoader::_ptrs;
 
@@ -53,13 +59,13 @@ namespace Rivet {
     if (!ab) return;
     const string name = ab->name();
     if (_ptrs.find(name) != _ptrs.end()) {
-      // Protect against overwriting analyses by throwing an error
-      /// @todo Tidy this up!
-      cerr << "Tried to register a second plugin analysis called '" << name << "'" << endl;
-      exit(1);
+      // Duplicate analyses will be ignored... loudly
+      cerr << "Ignoring duplicate plugin analysis called '" << name << "'" << endl;
+      MSG_WARNING("Ignoring duplicate plugin analysis called '" << name << "'");
+    } else {
+      MSG_TRACE("Registering a plugin analysis called '" << name << "'");
+      _ptrs[name] = ab;
     }
-    Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Registering a plugin analysis called '" << name << "'" << endl;
-    _ptrs[name] = ab;
   }
 
 
@@ -78,7 +84,7 @@ namespace Rivet {
       oslink::directory dir(d);
       while (dir) {
         string filename = dir.next();
-        // Require that name *starts* with 'Rivet' with new loader
+        // Require that plugin lib name starts with 'Rivet'
         if (filename.find("Rivet") != 0) continue;
         size_t posn = filename.find(libsuffix);
         if (posn == string::npos || posn != filename.length()-libsuffix.length()) continue;
@@ -93,12 +99,12 @@ namespace Rivet {
     }
 
     // Load the plugin files
-    Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Candidate analysis plugin libs: " << pluginfiles << endl;
+    MSG_TRACE("Candidate analysis plugin libs: " << pluginfiles);
     foreach (const string& pf, pluginfiles) {
-      Log::getLog("Rivet.AnalysisLoader") << Log::TRACE << "Trying to load plugin analyses from file " << pf << endl;
+      MSG_TRACE("Trying to load plugin analyses from file " << pf);
       void* handle = dlopen(pf.c_str(), RTLD_LAZY);
       if (!handle) {
-        Log::getLog("Rivet.AnalysisLoader") << Log::WARN << "Cannot open " << pf << ": " << dlerror() << endl;
+        MSG_WARNING("Cannot open " << pf << ": " << dlerror());
         continue;
       }
     }
