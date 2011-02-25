@@ -560,7 +560,7 @@ class PlotParser(object):
                     elif section in ['SPECIAL']:
                         ret[section] += line
                 f.close()
-                break
+                # no break, as we can collect settings from multiple .plot files
         return ret[section]
 
 
