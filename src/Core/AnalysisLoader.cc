@@ -60,7 +60,7 @@ namespace Rivet {
     const string name = ab->name();
     if (_ptrs.find(name) != _ptrs.end()) {
       // Duplicate analyses will be ignored... loudly
-      cerr << "Ignoring duplicate plugin analysis called '" << name << "'" << endl;
+      //cerr << "Ignoring duplicate plugin analysis called '" << name << "'" << endl;
       MSG_WARNING("Ignoring duplicate plugin analysis called '" << name << "'");
     } else {
       MSG_TRACE("Registering a plugin analysis called '" << name << "'");

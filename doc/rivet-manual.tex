@@ -312,8 +312,8 @@ listed in \AppendixRef{app:agilerunmc}.
 
 \subsection{Analysis status}
 
-The standard Rivet analyses are divided into three classes: validated,
-preliminary, and unvalidated (in decreasing order of academic
+The standard Rivet analyses are divided into four status classes: validated,
+preliminary, obsolete, and unvalidated (in roughly decreasing order of academic
 acceptability).
 
 The Rivet ``validation procedure'' is not (as of February 2011) formally
@@ -335,14 +335,28 @@ the Rivet standard analysis libraries, but in a special ``preliminary''
 library. While preliminary analyses may be used for physics studies, please be
 aware of the incomplete status of the corresponding experimental study, and also
 be aware that the histograms in such analyses may be renamed or removed
-entirely, as may the analysis itself. Preliminary analyses will not have a
-SPIRES preprint number, and hence on their move into the standard Rivet analysis
-library they will normally undergo a name change: please ensure when you upgrade
-between Rivet versions that any scripts or programs which were using preliminary
-analyses are not broken by the disappearance or change of that analysis in the
-newer version. The minor perils of using preliminary analyses can be avoided by
-the cautious by building Rivet with the \kbd{-{}-disable-preliminary}
-configuration flag, in which case their temptation will not even be offered.
+entirely, as may the analysis itself.
+
+Preliminary analyses will not have a SPIRES preprint number, and hence on their
+move into the standard Rivet analysis library they will normally undergo a name
+change: please ensure when you upgrade between Rivet versions that any scripts
+or programs which were using preliminary analyses are not broken by the
+disappearance or change of that analysis in the newer version. The minor perils
+of using preliminary analyses can be avoided by the cautious by building Rivet
+with the \kbd{-{}-disable-preliminary} configuration flag, in which case their
+temptation will not even be offered.
+
+To make transitions between Rivet versions more smooth and predictable for users
+of preliminary analyses, preliminary analyses which are superseded by a
+validated version will be reclassified as obsolete and will be retained for one
+major version of Rivet with a status of "obsolete" before being removed, to give
+users time to migrate their run scripts, i.e. if an analysis is marked as
+obsolete in version 1.4.2, it will remain in Rivet's distribution until version
+1.5.0.  Obsolete analyses may have different reference histograms from the final
+version and will not be maintained. Obsolete analyses will not be built if
+either the \kbd{-{}-disable-obsolete} configuration flag is specified at build
+time: for convenience, the default value of this flag is the value of the
+\kbd{-{}-disable-preliminary} flag.
 
 Finally, unvalidated analyses are those whose implementation is incomplete,
 flawed or just troubled by doubts. Running such analyses is not a good idea if

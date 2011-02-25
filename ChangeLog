@@ -1,3 +1,14 @@
+2011-02-25  Andy Buckley  <andy@insectnation.org>
+
+	* Adding --disable-obsolete, which takes its value from the value
+	of --disable-preliminary by default.
+
+	* Replacing RivetUnvalidated and RivetPreliminary plugin libraries
+	with optionally-configured analysis contents in the
+	experiment-specific plugin libraries. This avoids issues with
+	making libraries rebuild consistently when sources were reassigned
+	between libraries.
+
 2011-02-24  Andy Buckley  <andy@insectnation.org>
 
 	* Changing analysis plugin registration to fall back through
