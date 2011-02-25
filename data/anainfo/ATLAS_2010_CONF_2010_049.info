@@ -4,7 +4,7 @@ Summary: Cross-section of and fragmentation function in anti-kt track jets
 Experiment: ATLAS
 Collider: LHC 7000GeV
 SpiresID: None
-Status: UNVALIDATED -- but PRELIMINARY DATA!
+Status: PRELIMINARY
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:

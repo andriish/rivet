@@ -170,7 +170,7 @@ AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
 ## Disable build/install of validated-but-preliminary analyses
 AC_ARG_ENABLE([preliminary],
   [AC_HELP_STRING(--disable-preliminary, [build and install validated-but-preliminary analyses])],
-  [], [enable_preliminary-yes])
+  [], [enable_preliminary=yes])
 if test x$enable_preliminary = xyes; then
    AC_MSG_NOTICE([Building preliminary Rivet analyses])
 else

@@ -4,7 +4,7 @@ Summary: UE measurement in pp at 200 GeV
 Experiment: STAR
 Collider: RHIC pp 200 GeV
 SpiresID: None
-Status: VALIDATED -- but PRELIMINARY DATA!
+Status: PRELIMINARY
 Authors:
  - Helen Caines <helen.caines@yale.edu>
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
