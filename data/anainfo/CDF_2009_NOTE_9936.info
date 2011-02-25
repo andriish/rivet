@@ -4,7 +4,7 @@ Summary: CDF Run 2 min bias charged multiplicity analysis
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: None
-Status: OBSOLETE
+Status: PRELIMINARY
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
 References:
