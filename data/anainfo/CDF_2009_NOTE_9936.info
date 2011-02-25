@@ -4,14 +4,14 @@ Summary: CDF Run 2 min bias charged multiplicity analysis
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: None
-Status: VALIDATED
+Status: OBSOLETE
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
 References:
  - CDF public note 9936
  - "http://www-cdf.fnal.gov/physics/new/qcd/minbias_mult09/multpage.html"
 RunInfo:
-  $p\bar{p}$ QCD interactions at 1960~GeV. Particles with $c \\tau > {}$10 mm 
+  $p\bar{p}$ QCD interactions at 1960~GeV. Particles with $c \\tau > {}$10 mm
   should be set stable.
 NumEvents: 1000000
 Beams: [p-, p+]
@@ -21,7 +21,7 @@ Description:
   "Niccolo Moggi's min bias analysis. Minimum bias events are used to
   measure the charged multiplicity distribution. The multiplicity
   distribution was not published in S8233977 but the numbers and a
-  public note are available from the CDF website given above. 
+  public note are available from the CDF website given above.
   Note: the systematic and statistical errors in Rivet were added
   in quadrature."
 ToDo:
