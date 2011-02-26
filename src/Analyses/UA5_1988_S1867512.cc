@@ -51,15 +51,16 @@ namespace Rivet {
       addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
 
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
+      // TODO use DataPointSet to be able to output errors
       if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
-        _hist_correl = bookProfile1D(2, 1, 1);
-        _hist_correl_asym = bookProfile1D(3, 1, 1);
+        _hist_correl = bookDataPointSet(2, 1, 1);
+        _hist_correl_asym = bookDataPointSet(3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 546.0, 1E-4)) {
-        _hist_correl = bookProfile1D(2, 1, 2);
-        _hist_correl_asym = bookProfile1D(3, 1, 2);
+        _hist_correl = bookDataPointSet(2, 1, 2);
+        _hist_correl_asym = bookDataPointSet(3, 1, 2);
       } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
-        _hist_correl = bookProfile1D(2, 1, 3);
-        _hist_correl_asym = bookProfile1D(3, 1, 3);
+        _hist_correl = bookDataPointSet(2, 1, 3);
+        _hist_correl_asym = bookDataPointSet(3, 1, 3);
       }
     }
 
@@ -96,41 +97,100 @@ namespace Rivet {
       // 4.1 and 4.2
 
       // Fill histos, gap width histo comes first
-      _hist_correl->fill(0.0, correlation(n_10f, n_10b));
-      _hist_correl->fill(1.0, correlation(n_15f, n_15b));
-      _hist_correl->fill(2.0, correlation(n_20f, n_20b));
-      _hist_correl->fill(3.0, correlation(n_25f, n_25b));
-      _hist_correl->fill(4.0, correlation(n_30f, n_30b));
-      _hist_correl->fill(5.0, correlation(n_35f, n_35b));
-      _hist_correl->fill(6.0, correlation(n_40f, n_40b));
+      //      * set errors as  b * 1/sqrt(Nf**2 + Nb**2)
+      //
+      // Define vectors to be able to fill DataPointSets
+
+      vector<double> xvals;
+      vector<double> xerrs;
+      vector<double> yvals;
+      vector<double> yerrs;
+
+
+      // This defines the binning eventually
+      for (int i=0; i<7; i++) {
+        xvals.push_back(static_cast<double>(i));
+        xerrs.push_back(0.5);
+      }
+
+      // Fill the y-value vector
+      yvals.push_back(correlation(n_10f, n_10b));
+      yvals.push_back(correlation(n_15f, n_15b));
+      yvals.push_back(correlation(n_20f, n_20b));
+      yvals.push_back(correlation(n_25f, n_25b));
+      yvals.push_back(correlation(n_30f, n_30b));
+      yvals.push_back(correlation(n_35f, n_35b));
+      yvals.push_back(correlation(n_40f, n_40b));
+
+      // Fill the y-error vector
+      yerrs.push_back(correlation(n_10f, n_10b)/sqrt(pow(2, n_10f.size()) + pow(2, n_10b.size())));
+      yerrs.push_back(correlation(n_15f, n_15b)/sqrt(pow(2, n_15f.size()) + pow(2, n_15b.size())));
+      yerrs.push_back(correlation(n_20f, n_20b)/sqrt(pow(2, n_20f.size()) + pow(2, n_20b.size())));
+      yerrs.push_back(correlation(n_25f, n_25b)/sqrt(pow(2, n_25f.size()) + pow(2, n_25b.size())));
+      yerrs.push_back(correlation(n_30f, n_30b)/sqrt(pow(2, n_30f.size()) + pow(2, n_30b.size())));
+      yerrs.push_back(correlation(n_35f, n_35b)/sqrt(pow(2, n_35f.size()) + pow(2, n_35b.size())));
+      yerrs.push_back(correlation(n_40f, n_40b)/sqrt(pow(2, n_40f.size()) + pow(2, n_40b.size())));
+
+      // Fill the DPS
+      _hist_correl->setCoordinate(0, xvals, xerrs);
+      _hist_correl->setCoordinate(1, yvals, yerrs);
+
+      // Now do the other histo -- clear already defined vectors first
+      xvals.clear();
+      xerrs.clear();
+      yvals.clear();
+      yerrs.clear();
+      
+      // Different binning for this one
+      for (int i=0; i<6; i++) {
+        xvals.push_back(0.5* static_cast<double>(i));
+        xerrs.push_back(0.25);
+      }
 
       // Fill gap-center histo (Fig 15)
       //
       // The first bin contains all the c_str strengths of
       // the gap size histo above, since the corresponding
       // 'center of the separating gap' is always at eta=0
-      _hist_correl_asym->fill(0.0, correlation(n_10f, n_10b));
-      _hist_correl_asym->fill(0.0, correlation(n_15f, n_15b));
-      _hist_correl_asym->fill(0.0, correlation(n_20f, n_20b));
-      _hist_correl_asym->fill(0.0, correlation(n_25f, n_25b));
-      _hist_correl_asym->fill(0.0, correlation(n_30f, n_30b));
-      _hist_correl_asym->fill(0.0, correlation(n_35f, n_35b));
-      _hist_correl_asym->fill(0.0, correlation(n_40f, n_40b));
+      //
+      // Use the simple mean for the 0-bin
+      double x0val = 0.0;
+      x0val += correlation(n_10f, n_10b);
+      x0val += correlation(n_15f, n_15b);
+      x0val += correlation(n_20f, n_20b);
+      x0val += correlation(n_25f, n_25b);
+      x0val += correlation(n_30f, n_30b);
+      x0val += correlation(n_35f, n_35b);
+      x0val += correlation(n_40f, n_40b);
+      x0val /= 7.0;
+
+      // Fill the y-value vector
+      yvals.push_back(x0val);
+      yvals.push_back(correlation(n_25f, n_15b));
+      yvals.push_back(correlation(n_30f, n_10b));
+      yvals.push_back(correlation(n_35f, n_05 ));
+      yvals.push_back(correlation(n_40f, n_10f));
+
+      // Fill the y-error vector
+      yerrs.push_back(x0val/sqrt(pow(2, n_10f.size()) + pow(2, n_10b.size()) +
+                                 pow(2, n_15f.size()) + pow(2, n_15b.size()) +
+                                 pow(2, n_20f.size()) + pow(2, n_20b.size()) +
+                                 pow(2, n_25f.size()) + pow(2, n_25b.size()) +
+                                 pow(2, n_30f.size()) + pow(2, n_30b.size()) +
+                                 pow(2, n_35f.size()) + pow(2, n_35b.size()) +
+                                 pow(2, n_40f.size()) + pow(2, n_40b.size())));
+
+      yerrs.push_back(correlation(n_25f, n_15b)/sqrt(pow(2, n_25f.size()) + pow(2, n_15b.size())));
+      yerrs.push_back(correlation(n_30f, n_10b)/sqrt(pow(2, n_30f.size()) + pow(2, n_10b.size())));
+      yerrs.push_back(correlation(n_35f, n_05 )/sqrt(pow(2, n_35f.size()) + pow(2, n_05 .size())));
+      yerrs.push_back(correlation(n_40f, n_10f)/sqrt(pow(2, n_40f.size()) + pow(2, n_10f.size())));
+
+
       // Fill in correlation strength for assymetric intervals,
       // see Tab. 5
-      _hist_correl_asym->fill(0.5, correlation(n_25f, n_15b));
-      _hist_correl_asym->fill(1.0, correlation(n_30f, n_10b));
-      _hist_correl_asym->fill(1.5, correlation(n_35f, n_05 ));
-      _hist_correl_asym->fill(2.0, correlation(n_40f, n_10f));
-
-      // TODO: find out what exactly n_F and n_B are in the
-      // asymmetric case. It's important for the definition
-      // of b (see Eq. 4.2)
-      //_hist_correl_asym->fill(0.5, correlation(n_15b, n_25f));
-      //_hist_correl_asym->fill(1.0, correlation(n_10b, n_30f));
-      //_hist_correl_asym->fill(1.5, correlation(n_05 , n_35f));
-      //_hist_correl_asym->fill(2.0, correlation(n_10f, n_40f));
-
+      // Fill the DPS
+      _hist_correl_asym->setCoordinate(0, xvals, xerrs);
+      _hist_correl_asym->setCoordinate(1, yvals, yerrs);
     }
 
     //@}
@@ -170,9 +230,9 @@ namespace Rivet {
     /// @name Histograms
     //@{
     // Symmetric eta intervals
-    AIDA::IProfile1D *_hist_correl;
+    AIDA::IDataPointSet *_hist_correl;
     // For asymmetric eta intervals
-    AIDA::IProfile1D *_hist_correl_asym;
+    AIDA::IDataPointSet *_hist_correl_asym;
     //@}
 
   };
