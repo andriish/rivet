@@ -157,6 +157,9 @@ RivetHERAAnalyses_la_SOURCES += \
     ZEUS_2001_S4815815.cc
 endif
 
+lib_LTLIBRARIES += RivetPetraAnalyses.la
+RivetPetraAnalyses_la_SOURCES = \
+    JADE_1998_S3612880.cc
 
 lib_LTLIBRARIES += RivetLEPAnalyses.la
 RivetLEPAnalyses_la_SOURCES = \

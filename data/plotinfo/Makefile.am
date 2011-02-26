@@ -83,6 +83,7 @@ dist_pkgdata_DATA = \
   H1_1995_S3167097.plot \
   H1_2000_S4129130.plot \
   JADE_OPAL_2000_S4300807.plot \
+  JADE_1998_S3612880.plot \
   LHCB_2010_S8758301.plot \
   MC_GENERIC.plot \
   MC_LEADINGJETS.plot \
