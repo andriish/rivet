@@ -126,7 +126,8 @@ for aidafile in aidafiles:
 def anasort(name):
     if name.startswith("MC"):
         return "0"+name
-    return name.split("_")[1:]
+    else:
+        return name
 analyses=sorted(analyses, key=anasort, reverse=True)
 
 
