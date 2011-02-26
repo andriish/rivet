@@ -73,7 +73,7 @@ namespace Rivet {
     void _normalizeTree(AIDA::ITree& tree);
 
     /// Get a logger object.
-    Log& getLog();
+    Log& getLog() const;
 
 
   public:
@@ -118,20 +118,19 @@ namespace Rivet {
     /// Set beams for this run
     AnalysisHandler& setRunBeams(const ParticlePair& beams) {
       _beams = beams;
-      getLog() << Log::DEBUG << "Setting run beams = " << beams
-               << " @ " << sqrtS()/GeV << " GeV" << endl;
+      MSG_DEBUG("Setting run beams = " << beams << " @ " << sqrtS()/GeV << " GeV");
       return *this;
     }
 
-    /// Get beam IDs for this run, determined from first event
+    /// Get beam IDs for this run, usually determined from the first event.
     const ParticlePair& beams() const {
       return _beams;
     }
 
-    /// Get beam IDs for this run, determined from first event
+    /// Get beam IDs for this run, usually determined from the first event.
     PdgIdPair beamIds() const;
 
-    /// Get energy for this run, determined from first event
+    /// Get energy for this run, usually determined from the first event.
     double sqrtS() const;
 
     //@}
@@ -172,19 +171,11 @@ namespace Rivet {
     /// Add an analysis to the run list by object
     AnalysisHandler& addAnalysis(Analysis* analysis);
 
-    /// Remove beam-incompatible analyses from the run list.
-    /// @todo Do this automatically in the init phase (including energies) and deprecate explicit use
-    AnalysisHandler& removeIncompatibleAnalyses(const PdgIdPair& beams);
-
     //@}
 
 
     /// @name Main init/execute/finalise
     //@{
-
-    /// @deprecated Obsolete method, kept only for backwards compatibility
-    void init() {}
-
 
     /// Initialize a run, with the run beams taken from the example event.
     void init(const GenEvent& event);

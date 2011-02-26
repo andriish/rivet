@@ -62,7 +62,7 @@ namespace Rivet {
     Analysis(const std::string& name);
 
     /// The destructor.
-    virtual ~Analysis();
+    virtual ~Analysis() {}
 
     //@}
 
@@ -147,16 +147,7 @@ namespace Rivet {
     /// Collider on which the experiment ran.
     virtual std::string collider() const;
 
-    /// Return the pair of incoming beams required by this analysis.
-    virtual const std::vector<PdgIdPair>& requiredBeams() const;
-
-    /// Sets of valid beam energy pairs, in GeV
-    virtual const std::vector<std::pair<double, double> >& energies() const;
-
-    /// @brief When the original experimental analysis was published.
-    ///
-    /// When the refereed paper on which this is based was published,
-    /// according to SPIRES.
+    /// When the original experimental analysis was published.
     virtual std::string year() const;
 
     /// Journal, and preprint references.
@@ -174,10 +165,17 @@ namespace Rivet {
     /// Any work to be done on this analysis.
     virtual std::vector<std::string> todos() const;
 
+    /// Return the pair of incoming beams required by this analysis.
+    virtual const std::vector<PdgIdPair>& requiredBeams() const;
+
+    /// Sets of valid beam energy pairs, in GeV
+    virtual const std::vector<std::pair<double, double> >& requiredEnergies() const;
+
     //@}
 
 
     /// @name Run conditions
+    //@{
 
     /// Incoming beams for this run
     const ParticlePair& beams() const;
@@ -191,13 +189,22 @@ namespace Rivet {
     //@}
 
 
+    /// @name Analysis / beam compatibility testing
+    //@{
+
+    /// Check if analysis is compatible with the provided beam particle IDs and energies
+    bool isCompatible(const ParticlePair& beams) const;
+
+    /// Check if analysis is compatible with the provided beam particle IDs and energies
+    bool isCompatible(PdgId beam1, PdgId beam2, double e1, double e2) const;
+
+    /// Check if analysis is compatible with the provided beam particle IDs and energies
+    bool isCompatible(const PdgIdPair& beams, const std::pair<double,double>& energies) const;
+
+    //@}
+
+
   public:
-
-    /// Is this analysis able to run on the supplied pair of beams?
-    virtual bool isCompatible(PdgId beam1, PdgId beam2) const;
-
-    /// Is this analysis able to run on the PdgIdPair @a beams ?
-    virtual bool isCompatible(const PdgIdPair& beams) const;
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const;
@@ -238,11 +245,12 @@ namespace Rivet {
     Analysis& setCrossSection(double xs);
 
     /// Return true if this analysis needs to know the process cross-section.
-    bool needsCrossSection() const;
+    bool needsCrossSection() const {
+      return _needsCrossSection;
+    }
 
 
   protected:
-
 
     /// Get a Log object based on the name() property of the calling analysis object.
     Log& getLog() const;
@@ -456,7 +464,10 @@ namespace Rivet {
     Analysis& setBeams(PdgId beam1, PdgId beam2);
 
     /// Declare whether this analysis needs to know the process cross-section from the generator.
-    Analysis& setNeedsCrossSection(bool needed);
+    Analysis& setNeedsCrossSection(bool needed=true) {
+      _needsCrossSection = needed;
+      return *this;
+    }
 
 
   protected:

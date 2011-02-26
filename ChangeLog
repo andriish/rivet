@@ -1,3 +1,17 @@
+2011-02-26  Andy Buckley  <andy@insectnation.org>
+
+	* Changing internal storage and return type of Particle::pdgId()
+	to PdgId, and adding Particle::energy().
+
+	* Renaming Analysis::energies() as Analysis::requiredEnergies().
+
+	* Adding beam energies into beam consistency checking:
+	Analysis::isCompatible methods now also require the beam energies
+	to be provided.
+
+	* Removing long-deprecated AnalysisHandler::init() constructor and
+	AnalysisHandler::removeIncompatibleAnalyses() methods.
+
 2011-02-25  Andy Buckley  <andy@insectnation.org>
 
 	* Adding --disable-obsolete, which takes its value from the value

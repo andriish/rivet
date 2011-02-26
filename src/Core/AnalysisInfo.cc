@@ -12,45 +12,29 @@
 namespace Rivet {
 
 
-  /// Ideas:
-  ///  * how to determine the name?
-  ///  * only populate pointer on Analysis when requested
-  ///  * use smart pointer: deletes automatically when Analysis
-  ///    goes out of scope
+  namespace {
+    Log& getLog() {
+      return Log::getLog("Rivet.AnalysisInfo");
+    }
+  }
 
 
   /// Static factory method
   AnalysisInfo* AnalysisInfo::make(const std::string& ananame) {
-    // Build the list of directories to search
-    vector<string> dirs = getAnalysisInfoPaths();
-    // And the current dir
-    // dirs += ".";
-
-    bool found = false;
-    string datapath = "";
-    foreach (const string& d, dirs) {
-      if (d.empty()) continue;
-      /// @todo Use system-independent separator (e.g. Boost.File)
-      datapath = d + "/" + ananame + ".info";
-      Log::getLog("Rivet.AnalysisInfo")
-        << Log::TRACE << "Looking for analysis data file '" << datapath << "'" << endl;
-      if (access(datapath.c_str(), R_OK) == 0) {
-        found = true;
-        break;
-      }
-    }
-
     // Returned AI, in semi-null state
     AnalysisInfo* ai = new AnalysisInfo();
-    ai->_beams += make_pair(ANY,ANY);
+    ai->_beams += make_pair(ANY, ANY);
     ai->_name = ananame;
 
     /// If no ana data file found, return null AI
-    if (!found) return ai;
+    const string datapath = findAnalysisInfoFile(ananame + ".info");
+    if (datapath.empty()) {
+      MSG_DEBUG("No datafile " << ananame + ".info found");
+      return ai;
+    }
 
     // Read data from YAML document
-    Log::getLog("Rivet.AnalysisInfo")
-      << Log::DEBUG << "Reading analysis data from " << datapath << endl;
+    MSG_DEBUG("Reading analysis data from " << datapath);
     std::ifstream io(datapath.c_str());
     YAML::Parser parser(io);
     YAML::Node doc;
@@ -58,9 +42,7 @@ namespace Rivet {
       parser.GetNextDocument(doc);
       //cout << doc << endl;
     } catch (const YAML::ParserException& ex) {
-      Log::getLog("Rivet.AnalysisInfo")
-        << Log::ERROR << "Parse error when reading analysis data from "
-        << datapath << endl;
+      MSG_ERROR("Parse error when reading analysis data from " << datapath);
       return ai;
     }
 
@@ -70,8 +52,7 @@ namespace Rivet {
       stringstream sec;
       // sec << it.second();
       // const string secstr = sec.str().substr(0, sec.str().length()-1);
-      // Log::getLog("Rivet.AnalysisInfo")
-      //   << Log::TRACE << key << ": " << secstr << endl;
+      // MSG_TRACE(key << ": " << secstr);
       try {
         if (key == "Name") {
           it.second() >> ai->_name;
@@ -182,7 +163,7 @@ namespace Rivet {
           << key << "' from " << datapath << endl;
       }
     }
-    Log::getLog("Rivet.AnalysisInfo") << Log::TRACE << "AnalysisInfo pointer = " << ai << endl;
+    MSG_TRACE("AnalysisInfo pointer = " << ai);
     return ai;
   }
 

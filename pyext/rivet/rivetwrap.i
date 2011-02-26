@@ -71,7 +71,9 @@ namespace Rivet {
     Particle();
     bool hasGenParticle() const;
     const HepMC::GenParticle& genParticle() const;
-    const long pdgId() const;
+    const PdgId pdgId() const;
+    const double mass() const;
+    const double energy() const;
   };
 
   ParticlePair beams(const Event& e);
@@ -99,15 +101,16 @@ namespace Rivet {
     virtual std::string collider() const;
     virtual std::string year() const;
     virtual const std::vector<PdgIdPair>& requiredBeams() const;
-    virtual const std::vector<std::pair<double,double> >& energies() const;
+    virtual const std::vector<std::pair<double,double> >& requiredEnergies() const;
     virtual std::vector<std::string> authors() const;
     virtual std::vector<std::string> references() const;
     virtual std::vector<std::string> todos() const;
     virtual std::string status() const;
     virtual std::string bibKey() const;
     virtual std::string bibTeX() const;
-    virtual const bool isCompatible(PdgId beam1, PdgId beam2) const;
-    virtual const bool isCompatible(const PdgIdPair& beams) const;
+    virtual const bool isCompatible(PdgId beam1, PdgId beam2, double e1, double e2) const;
+    virtual const bool isCompatible(const PdgIdPair& beamids, const std::pair<double, double>& beamenergies) const;
+    virtual const bool isCompatible(const ParticlePair& beams) const;
     //AnalysisHandler& handler() const;
     bool needsCrossSection() const;
   private:
@@ -129,8 +132,6 @@ namespace Rivet {
     AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);
     AnalysisHandler& removeAnalysis(const std::string& analysisname);
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
-    AnalysisHandler& removeIncompatibleAnalyses(const PdgIdPair& beams);
-    void init();
     void init(const HepMC::GenEvent& event);
     void analyze(const HepMC::GenEvent& event);
     void finalize();

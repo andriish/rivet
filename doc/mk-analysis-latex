@@ -91,9 +91,9 @@ for aname in sorted(list(all_analyses)):
         for bp in ana.requiredBeams():
             beamstrs.append(pid_to_str(bp[0]) + "\\," + pid_to_str(bp[1]))
         page += "\\textbf{Beams:} %s \\newline\n" % ", ".join(beamstrs)
-    if ana.energies():
+    if ana.requiredEnergies():
         page += "\\textbf{Energies:} %s GeV \\newline\n" % \
-            ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()])
+            ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
     if ana.experiment():
         page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
     if ana.spiresId():

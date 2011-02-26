@@ -37,22 +37,11 @@ namespace Rivet {
   }
 
 
-  // AnalysisHandler::AnalysisHandler(IAnalysisFactory& afac, string basefilename,
-  //                                  string runname, HistoFormat storetype)
-  //   : _runname(runname), _numEvents(0),
-  //     _sumOfWeights(0.0), _xs(-1.0), _initialised(false),
-  //     _theAnalysisFactory(&afac)
-  // {
-  //   _setupFactories(basefilename, storetype);
-  //   initializeParticleNames();
-  // }
-
-
   AnalysisHandler::~AnalysisHandler()
   {  }
 
 
-  Log& AnalysisHandler::getLog() {
+  Log& AnalysisHandler::getLog() const {
     return Log::getLog("Rivet.Analysis.Handler");
   }
 
@@ -64,24 +53,37 @@ namespace Rivet {
     _numEvents = 0;
     _sumOfWeights = 0.0;
 
-    // Check that analyses are beam-compatible
+    // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
-    removeIncompatibleAnalyses(beamIds());
+    vector<string> anamestodelete;
+    foreach (const AnaHandle a, _analyses) {
+      if (!a->isCompatible(beams())) {
+        //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
+        anamestodelete.push_back(a->name());
+      }
+    }
+    foreach (const string& aname, anamestodelete) {
+      MSG_WARNING("Removing incompatible analysis '" << aname << "'");
+      removeAnalysis(aname);
+    }
+    if (num_anas_requested > 0 && analysisNames().size() == 0) {
+      cerr << "All analyses were incompatible with the first event's beams\n"
+           << "Exiting, since this probably isn't intentional!" << endl;
+      exit(1);
+    }
+
+    // Warn if any analysis' status is not unblemished
     foreach (const AnaHandle a, analyses()) {
       if (toUpper(a->status()) == "PRELIMINARY") {
         MSG_WARNING("Analysis '" << a->name() << "' is preliminary: be careful, it may change and/or be renamed!");
       } else if (toUpper(a->status()) == "OBSOLETE") {
         MSG_WARNING("Analysis '" << a->name() << "' is obsolete: please update!");
-      } else if (toUpper(a->status()) != "VALIDATED") {
+      } else if (toUpper(a->status()).find("UNVALIDATED") != string::npos) {
         MSG_WARNING("Analysis '" << a->name() << "' is unvalidated: be careful, it may be broken!");
       }
     }
-    if (num_anas_requested > 0 && analysisNames().size() == 0) {
-      cerr     << "All analyses were incompatible with the first event's beams\n"
-               << "Exiting, since this probably isn't intentional!" << endl;
-      exit(1);
-    }
 
+    // Initialize the remaining analyses
     foreach (AnaHandle a, _analyses) {
       MSG_DEBUG("Initialising analysis: " << a->name());
       try {
@@ -91,8 +93,7 @@ namespace Rivet {
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
       } catch (const Error& err) {
-        cerr     << "Error in " << a->name() << "::init method: "
-                 << err.what() << endl;
+        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
         exit(1);
       }
       MSG_DEBUG("Done initialising analysis: " << a->name());
@@ -211,21 +212,6 @@ namespace Rivet {
     if (toremove.get() != 0) {
       MSG_DEBUG("Removing analysis '" << analysisname << "'");
       _analyses.erase(toremove);
-    }
-    return *this;
-  }
-
-
-  AnalysisHandler& AnalysisHandler::removeIncompatibleAnalyses(const PdgIdPair& beams) {
-    vector<string> anamestodelete;
-    foreach (const AnaHandle a, _analyses) {
-      if (! a->isCompatible(beams)) {
-        anamestodelete.push_back(a->name());
-      }
-    }
-    foreach (const string& aname, anamestodelete) {
-      MSG_WARNING("Removing incompatible analysis '" << aname << "'");
-      removeAnalysis(aname);
     }
     return *this;
   }

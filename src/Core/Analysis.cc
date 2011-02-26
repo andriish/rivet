@@ -40,16 +40,12 @@ namespace Rivet {
   {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
+
     AnalysisInfo* ai = AnalysisInfo::make(name);
     assert(ai != 0);
     _info.reset(ai);
     assert(_info.get() != 0);
-    //setBeams(ANY, ANY);
   }
-
-
-  Analysis::~Analysis()
-  {  }
 
 
   IAnalysisFactory& Analysis::analysisFactory() {
@@ -86,7 +82,7 @@ namespace Rivet {
 
 
   const string Analysis::histoDir() const {
-    /// @todo This doesn't change: calc and cache at Analysis construction!
+    /// @todo This doesn't change: calc and cache at first use!
     string path = "/" + name();
     if (handler().runName().length() > 0) {
       path = "/" + handler().runName() + path;
@@ -158,10 +154,6 @@ namespace Rivet {
     return _info->runInfo();
   }
 
-  const std::vector<std::pair<double,double> >& Analysis::energies() const {
-    return info().energies();
-  }
-
   string Analysis::experiment() const {
     if (!_info) return "NONE";
     return _info->experiment();
@@ -206,9 +198,14 @@ namespace Rivet {
     return info().beams();
   }
 
+  const std::vector<std::pair<double,double> >& Analysis::requiredEnergies() const {
+    return info().energies();
+  }
+
 
   /// @todo Deprecate?
   Analysis& Analysis::setBeams(PdgId beam1, PdgId beam2) {
+    /// @todo Print out a warning when beams def are used from info files and AI fields can be publicly set
     assert(_info.get() != 0);
     _info->_beams.clear();
     _info->_beams += make_pair(beam1, beam2);
@@ -216,19 +213,42 @@ namespace Rivet {
   }
 
 
-  /// @todo Deprecate?
-  bool Analysis::isCompatible(PdgId beam1, PdgId beam2) const {
-    PdgIdPair beams(beam1, beam2);
-    return isCompatible(beams);
+  bool Analysis::isCompatible(const ParticlePair& beams) const {
+    return isCompatible(beams.first.pdgId(), beams.second.pdgId(),
+                        beams.first.energy(), beams.first.energy());
   }
 
 
-  /// @todo Deprecate?
-  bool Analysis::isCompatible(const PdgIdPair& beams) const {
+  bool Analysis::isCompatible(PdgId beam1, PdgId beam2, double e1, double e2) const {
+    PdgIdPair beams(beam1, beam2);
+    pair<double,double> energies(e1, e2);
+    return isCompatible(beams, energies);
+  }
+
+
+  bool Analysis::isCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
+    // First check the beam IDs
+    bool beamIdsOk = false;
     foreach (const PdgIdPair& bp, requiredBeams()) {
-      if (compatible(beams, bp)) return true;
+      if (compatible(beams, bp)) {
+        beamIdsOk =  true;
+        break;
+      }
     }
-    return false;
+    if (!beamIdsOk) return false;
+
+    // Next check that the energies are compatible
+    bool beamEnergiesOk = false;
+    typedef pair<double,double> DoublePair;
+    foreach (const DoublePair& ep, requiredEnergies()) {
+      if ((fuzzyEquals(ep.first, energies.first) && fuzzyEquals(ep.second, energies.second)) ||
+          (fuzzyEquals(ep.first, energies.second) && fuzzyEquals(ep.second, energies.first))) {
+        beamEnergiesOk =  true;
+        break;
+      }
+    }
+    return beamEnergiesOk;
+
     /// @todo Need to also check internal consistency of the analysis'
     /// beam requirements with those of the projections it uses.
   }
@@ -237,17 +257,6 @@ namespace Rivet {
   Analysis& Analysis::setCrossSection(double xs) {
     _crossSection = xs;
     _gotCrossSection = true;
-    return *this;
-  }
-
-  /// @todo Deprecate, eventually
-  bool Analysis::needsCrossSection() const {
-    return _needsCrossSection;
-  }
-
-  /// @todo Deprecate, eventually
-  Analysis& Analysis::setNeedsCrossSection(bool needed) {
-    _needsCrossSection = needed;
     return *this;
   }
 
@@ -279,7 +288,7 @@ namespace Rivet {
   void Analysis::_cacheBinEdges() const {
     _cacheXAxisData();
     if (_histBinEdges.empty()) {
-      getLog() << Log::TRACE << "Getting histo bin edges from AIDA for paper " << name() << endl;
+      MSG_TRACE("Getting histo bin edges from AIDA for paper " << name());
       _histBinEdges = getBinEdges(_dpsData);
     }
   }
@@ -287,7 +296,7 @@ namespace Rivet {
 
   void Analysis::_cacheXAxisData() const {
     if (_dpsData.empty()) {
-      getLog() << Log::TRACE << "Getting DPS x-axis data from AIDA for paper " << name() << endl;
+      MSG_TRACE("Getting DPS x-axis data from AIDA for paper " << name());
       _dpsData = getDPSXValsErrs(name());
     }
   }
@@ -295,14 +304,14 @@ namespace Rivet {
 
   const BinEdges& Analysis::binEdges(const string& hname) const {
     _cacheBinEdges();
-    getLog() << Log::TRACE << "Using histo bin edges for " << name() << ":" << hname << endl;
+    MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
     const BinEdges& edges = _histBinEdges.find(hname)->second;
     if (getLog().isActive(Log::TRACE)) {
       stringstream edges_ss;
       foreach (const double be, edges) {
         edges_ss << " " << be;
       }
-      getLog() << Log::TRACE << "Edges:" << edges_ss.str() << endl;
+      MSG_TRACE("Edges:" << edges_ss.str());
     }
     return edges;
   }
@@ -344,7 +353,7 @@ namespace Rivet {
     _makeHistoDir();
     const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
-    getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
     hist->setYTitle(ytitle);
     return hist;
@@ -358,7 +367,7 @@ namespace Rivet {
     _makeHistoDir();
     const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
-    getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
     hist->setYTitle(ytitle);
     return hist;
@@ -372,7 +381,7 @@ namespace Rivet {
     _makeHistoDir();
     const string path = histoPath(hname);
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, binedges);
-    getLog() << Log::TRACE << "Made histogram " << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
     hist->setYTitle(ytitle);
     return hist;
@@ -389,8 +398,7 @@ namespace Rivet {
     IHistogram2D* hist =
       histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
 					   nybins, ylower, yupper);
-    getLog() << Log::TRACE << "Made 2D histogram "
-	     << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
     hist->setYTitle(ytitle);
     hist->setZTitle(ztitle);
@@ -408,8 +416,7 @@ namespace Rivet {
     const string path = histoPath(hname);
     IHistogram2D* hist =
       histogramFactory().createHistogram2D(path, title, xbinedges, ybinedges);
-    getLog() << Log::TRACE << "Made 2D histogram " << hname <<  " for "
-	     << name() << endl;
+    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
     hist->setYTitle(ytitle);
     hist->setZTitle(ztitle);
@@ -436,7 +443,7 @@ namespace Rivet {
     _makeHistoDir();
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
-    getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setXTitle(xtitle);
     prof->setYTitle(ytitle);
     return prof;
@@ -450,7 +457,7 @@ namespace Rivet {
     _makeHistoDir();
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, nbins, lower, upper);
-    getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setXTitle(xtitle);
     prof->setYTitle(ytitle);
     return prof;
@@ -464,7 +471,7 @@ namespace Rivet {
     _makeHistoDir();
     const string path = histoPath(hname);
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, binedges);
-    getLog() << Log::TRACE << "Made profile histogram " << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setXTitle(xtitle);
     prof->setYTitle(ytitle);
     return prof;
@@ -480,7 +487,7 @@ namespace Rivet {
     _makeHistoDir();
     const string path = histoPath(hname);
     IDataPointSet* dps = datapointsetFactory().create(path, title, 2);
-    getLog() << Log::TRACE << "Made data point set " << hname <<  " for " << name() << endl;
+    MSG_TRACE("Made data point set " << hname <<  " for " << name());
     dps->setXTitle(xtitle);
     dps->setYTitle(ytitle);
     return dps;
@@ -549,12 +556,12 @@ namespace Rivet {
 
   void Analysis::normalize(AIDA::IHistogram1D*& histo, double norm) {
     if (!histo) {
-      getLog() << Log::ERROR << "Failed to normalise histo=NULL in analysis "
-               << name() << " (norm=" << norm << ")" << endl;
+      MSG_ERROR("Failed to normalize histo=NULL in analysis "
+                << name() << " (norm=" << norm << ")");
       return;
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    getLog() << Log::TRACE << "Normalizing histo " << hpath << " to " << norm << endl;
+    MSG_TRACE("Normalizing histo " << hpath << " to " << norm);
 
     double oldintg = 0.0;
     int nBins = histo->axis().bins();
@@ -563,7 +570,7 @@ namespace Rivet {
       oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
     }
     if (oldintg == 0.0) {
-      getLog() << Log::WARN << "Histo " << hpath << " has null integral during normalisation" << endl;
+      MSG_WARNING("Histo " << hpath << " has null integral during normalization");
       return;
     }
 
@@ -574,12 +581,12 @@ namespace Rivet {
 
   void Analysis::scale(AIDA::IHistogram1D*& histo, double scale) {
     if (!histo) {
-      getLog() << Log::ERROR << "Failed to scale histo=NULL in analysis "
-          << name() << " (scale=" << scale << ")" << endl;
+      MSG_ERROR("Failed to scale histo=NULL in analysis "
+                << name() << " (scale=" << scale << ")");
       return;
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    getLog() << Log::TRACE << "Scaling histo " << hpath << endl;
+    MSG_TRACE("Scaling histo " << hpath);
 
     vector<double> x, y, ex, ey;
     for (size_t i = 0, N = histo->axis().bins(); i < N; ++i) {
@@ -616,12 +623,12 @@ namespace Rivet {
 
   void Analysis::normalize(AIDA::IHistogram2D*& histo, double norm) {
     if (!histo) {
-      getLog() << Log::ERROR << "Failed to normalise histo=NULL in analysis "
-               << name() << " (norm=" << norm << ")" << endl;
+      MSG_ERROR("Failed to normalize histo=NULL in analysis "
+                << name() << " (norm=" << norm << ")");
       return;
     }
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    getLog() << Log::TRACE << "Normalizing histo " << hpath << " to " << norm << endl;
+    MSG_TRACE("Normalizing histo " << hpath << " to " << norm);
 
     double oldintg = 0.0;
     int nxBins = histo->xAxis().bins();
@@ -633,8 +640,7 @@ namespace Rivet {
 	oldintg += histo->binHeight(ixBin, iyBin); // * histo->axis().binWidth(iBin);
     }
     if (oldintg == 0.0) {
-      getLog() << Log::WARN << "Histo " << hpath
-	       << " has null integral during normalisation" << endl;
+      MSG_WARNING("Histo " << hpath << " has null integral during normalization");
       return;
     }
 
@@ -645,13 +651,13 @@ namespace Rivet {
 
   void Analysis::scale(AIDA::IHistogram2D*& histo, double scale) {
     if (!histo) {
-      getLog() << Log::ERROR << "Failed to scale histo=NULL in analysis "
-	       << name() << " (scale=" << scale << ")" << endl;
+      MSG_ERROR("Failed to scale histo=NULL in analysis "
+                << name() << " (scale=" << scale << ")");
       return;
     }
     const string hpath =
       tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    getLog() << Log::TRACE << "Scaling histo " << hpath << endl;
+    MSG_TRACE("Scaling histo " << hpath);
 
     vector<double> x, y, z, ex, ey, ez;
     for (size_t ix = 0, Nx = histo->xAxis().bins(); ix < Nx; ++ix)

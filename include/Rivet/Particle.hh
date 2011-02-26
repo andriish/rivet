@@ -53,14 +53,8 @@ namespace Rivet {
 
 
     /// The PDG ID code for this Particle.
-    long pdgId() const {
+    PdgId pdgId() const {
       return _id;
-    }
-
-
-    /// The momentum of this Particle.
-    const FourMomentum& momentum() const {
-      return _momentum;
     }
 
 
@@ -70,6 +64,15 @@ namespace Rivet {
       return *this;
     }
 
+    /// The momentum of this Particle.
+    const FourMomentum& momentum() const {
+      return _momentum;
+    }
+
+    /// The energy of this Particle.
+    double energy() const {
+      return momentum().E();
+    }
 
     /// The mass of this Particle.
     double mass() const {
@@ -97,7 +100,7 @@ namespace Rivet {
     const GenParticle* _original;
 
     /// The PDG ID code for this Particle.
-    long _id;
+    PdgId _id;
 
     /// The momentum of this projection of the Particle.
     FourMomentum _momentum;
