@@ -886,12 +886,17 @@ class DrawableObject:
 
     def getLineStyle(self):
         if self.description.has_key('LineStyle'):
+            if self.description['LineStyle']=='dashdotted':
+                self.description['LineStyle']='dashed'
+                self.description['LineDash']='3pt 3pt .8pt 3pt'
             return self.description['LineStyle']
         else:
             return 'solid'
 
     def getLineDash(self):
         if self.description.has_key('LineDash'):
+            # Check if LineStyle=='dashdotted' before returning something
+            self.getLineStyle()
             return self.description['LineDash']
         else:
             return ''
