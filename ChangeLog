@@ -1,3 +1,9 @@
+2011-02-27  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Support LineStyle=dashdotted in make-plots
+
+	* cleaner uninstall
+
 2011-02-26  Andy Buckley  <andy@insectnation.org>
 
 	* Changing internal storage and return type of Particle::pdgId()
