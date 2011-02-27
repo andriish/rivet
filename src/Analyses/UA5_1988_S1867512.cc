@@ -97,7 +97,7 @@ namespace Rivet {
       // 4.1 and 4.2
 
       // Fill histos, gap width histo comes first
-      //      * set errors as  b * 1/sqrt(Nf**2 + Nb**2)
+      //      * set errors as  b * 1/sqrt(sumweight)
       //
       // Define vectors to be able to fill DataPointSets
 
@@ -123,13 +123,13 @@ namespace Rivet {
       yvals.push_back(correlation(n_40f, n_40b));
 
       // Fill the y-error vector
-      yerrs.push_back(correlation(n_10f, n_10b)/sqrt(pow(2, n_10f.size()) + pow(2, n_10b.size())));
-      yerrs.push_back(correlation(n_15f, n_15b)/sqrt(pow(2, n_15f.size()) + pow(2, n_15b.size())));
-      yerrs.push_back(correlation(n_20f, n_20b)/sqrt(pow(2, n_20f.size()) + pow(2, n_20b.size())));
-      yerrs.push_back(correlation(n_25f, n_25b)/sqrt(pow(2, n_25f.size()) + pow(2, n_25b.size())));
-      yerrs.push_back(correlation(n_30f, n_30b)/sqrt(pow(2, n_30f.size()) + pow(2, n_30b.size())));
-      yerrs.push_back(correlation(n_35f, n_35b)/sqrt(pow(2, n_35f.size()) + pow(2, n_35b.size())));
-      yerrs.push_back(correlation(n_40f, n_40b)/sqrt(pow(2, n_40f.size()) + pow(2, n_40b.size())));
+      yerrs.push_back(correlation(n_10f, n_10b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_15f, n_15b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_20f, n_20b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_25f, n_25b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_30f, n_30b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_35f, n_35b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_40f, n_40b)/sqrt(_sumWPassed));
 
       // Fill the DPS
       _hist_correl->setCoordinate(0, xvals, xerrs);
@@ -171,19 +171,13 @@ namespace Rivet {
       yvals.push_back(correlation(n_35f, n_05 ));
       yvals.push_back(correlation(n_40f, n_10f));
 
-      // Fill the y-error vector
-      yerrs.push_back(x0val/sqrt(pow(2, n_10f.size()) + pow(2, n_10b.size()) +
-                                 pow(2, n_15f.size()) + pow(2, n_15b.size()) +
-                                 pow(2, n_20f.size()) + pow(2, n_20b.size()) +
-                                 pow(2, n_25f.size()) + pow(2, n_25b.size()) +
-                                 pow(2, n_30f.size()) + pow(2, n_30b.size()) +
-                                 pow(2, n_35f.size()) + pow(2, n_35b.size()) +
-                                 pow(2, n_40f.size()) + pow(2, n_40b.size())));
+      // Fill the y-error vector (first bin has 7 times the statistics than the others)
+      yerrs.push_back(x0val/sqrt(7*_sumWPassed));
 
-      yerrs.push_back(correlation(n_25f, n_15b)/sqrt(pow(2, n_25f.size()) + pow(2, n_15b.size())));
-      yerrs.push_back(correlation(n_30f, n_10b)/sqrt(pow(2, n_30f.size()) + pow(2, n_10b.size())));
-      yerrs.push_back(correlation(n_35f, n_05 )/sqrt(pow(2, n_35f.size()) + pow(2, n_05 .size())));
-      yerrs.push_back(correlation(n_40f, n_10f)/sqrt(pow(2, n_40f.size()) + pow(2, n_10f.size())));
+      yerrs.push_back(correlation(n_25f, n_15b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_30f, n_10b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_35f, n_05 )/sqrt(_sumWPassed));
+      yerrs.push_back(correlation(n_40f, n_10f)/sqrt(_sumWPassed));
 
 
       // Fill in correlation strength for assymetric intervals,
