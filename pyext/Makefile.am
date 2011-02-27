@@ -15,6 +15,7 @@ uninstall-local:
 	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/rivet
 	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/lighthisto.py*
 	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/spiresbib.py*
+	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/Rivet-*.egg-info
 
 clean-local:
 	$(PYTHON) setup.py clean --all
