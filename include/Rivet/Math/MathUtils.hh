@@ -261,6 +261,14 @@ namespace Rivet {
     return mean/sample.size();
   }
 
+  // Calculate the error on the mean, assuming poissonian errors
+  inline double mean_err(const vector<int>& sample) {
+    double mean_e = 0.0;
+    for (size_t i=0; i<sample.size(); ++i) {
+      mean_e += sqrt(sample[i]);
+    }
+    return mean_e/sample.size();
+  }
 
   /// Calculate the covariance (variance) between two samples
   inline double covariance(const vector<int>& sample1, const vector<int>& sample2) {
@@ -276,6 +284,23 @@ namespace Rivet {
     else return 0.0;
   }
 
+  /// Calculate the error on the covariance (variance) of two samples, assuming poissonian errors
+  inline double covariance_err(const vector<int>& sample1, const vector<int>& sample2) {
+    const double mean1 = mean(sample1);
+    const double mean2 = mean(sample2);
+    const double mean1_e = mean_err(sample1);
+    const double mean2_e = mean_err(sample2);
+    const int N = sample1.size();
+    double cov_e = 0.0;
+    for (int i = 0; i < N; i++) {
+      const double cov_i = (sqrt(sample1[i]) - mean1_e)*(sample2[i] - mean2) +
+        (sample1[i] - mean1)*(sqrt(sample2[i]) - mean2_e);
+      cov_e += cov_i;
+    }
+    if (N > 1) return cov_e/(N-1);
+    else return 0.0;
+  }
+
 
   /// Calculate the correlation strength between two samples
   inline double correlation(const vector<int>& sample1, const vector<int>& sample2) {
@@ -287,6 +312,28 @@ namespace Rivet {
     return corr_strength;
   }
 
+  /// Calculate the error of the correlation strength between two samples assuming Poissonian errors
+  inline double correlation_err(const vector<int>& sample1, const vector<int>& sample2) {
+    const double cov = covariance(sample1, sample2);
+    const double var1 = covariance(sample1, sample1);
+    const double var2 = covariance(sample2, sample2);
+    const double cov_e = covariance_err(sample1, sample2);
+    const double var1_e = covariance_err(sample1, sample1);
+    const double var2_e = covariance_err(sample2, sample2);
+
+    // Calculate the correlation
+    const double correlation = cov/sqrt(var1*var2);
+    // Calculate the error on the correlation
+    const double correlation_err = cov_e/sqrt(var1*var2) -
+      cov/(2*pow(3./2., var1*var2)) * (var1_e * var2 + var1 * var2_e);
+
+
+    // Calculate the error on the correlation strength
+    const double corr_strength_err = correlation_err*sqrt(var2/var1) + 
+      correlation/(2*sqrt(var2/var1)) * (var2_e/var1 - var2*var1_e/pow(2, var2));
+
+    return corr_strength_err;
+  }
   //@}
 
 
