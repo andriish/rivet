@@ -97,8 +97,13 @@ namespace Rivet {
       // 4.1 and 4.2
 
       // Fill histos, gap width histo comes first
-      //      * set errors as  b * 1/sqrt(sumweight)
+      //      * Set the errors as Delta b / sqrt(sumWPassed) with
+      //      Delta b being the absolute uncertainty of b according to
+      //      Gaussian error-propagation (linear limit) and assuming
+      //      Poissonian uncertainties for the number of particles in
+      //      the eta-intervals
       //
+      
       // Define vectors to be able to fill DataPointSets
 
       vector<double> xvals;
@@ -123,13 +128,13 @@ namespace Rivet {
       yvals.push_back(correlation(n_40f, n_40b));
 
       // Fill the y-error vector
-      yerrs.push_back(correlation(n_10f, n_10b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_15f, n_15b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_20f, n_20b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_25f, n_25b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_30f, n_30b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_35f, n_35b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_40f, n_40b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_10f, n_10b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_15f, n_15b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_20f, n_20b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_25f, n_25b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_30f, n_30b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_35f, n_35b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_40f, n_40b)/sqrt(_sumWPassed));
 
       // Fill the DPS
       _hist_correl->setCoordinate(0, xvals, xerrs);
@@ -140,7 +145,7 @@ namespace Rivet {
       xerrs.clear();
       yvals.clear();
       yerrs.clear();
-      
+
       // Different binning for this one
       for (int i=0; i<6; i++) {
         xvals.push_back(0.5* static_cast<double>(i));
@@ -149,35 +154,22 @@ namespace Rivet {
 
       // Fill gap-center histo (Fig 15)
       //
-      // The first bin contains all the c_str strengths of
-      // the gap size histo above, since the corresponding
-      // 'center of the separating gap' is always at eta=0
+      // The first bin contains the c_str strengths of
+      // the gap size histo that has ane eta gap of two
       //
-      // Use the simple mean for the 0-bin
-      double x0val = 0.0;
-      x0val += correlation(n_10f, n_10b);
-      x0val += correlation(n_15f, n_15b);
-      x0val += correlation(n_20f, n_20b);
-      x0val += correlation(n_25f, n_25b);
-      x0val += correlation(n_30f, n_30b);
-      x0val += correlation(n_35f, n_35b);
-      x0val += correlation(n_40f, n_40b);
-      x0val /= 7.0;
-
       // Fill the y-value vector
-      yvals.push_back(x0val);
+      yvals.push_back(correlation(n_20f, n_20b));
       yvals.push_back(correlation(n_25f, n_15b));
       yvals.push_back(correlation(n_30f, n_10b));
       yvals.push_back(correlation(n_35f, n_05 ));
       yvals.push_back(correlation(n_40f, n_10f));
 
-      // Fill the y-error vector (first bin has 7 times the statistics than the others)
-      yerrs.push_back(x0val/sqrt(7*_sumWPassed));
-
-      yerrs.push_back(correlation(n_25f, n_15b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_30f, n_10b)/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_35f, n_05 )/sqrt(_sumWPassed));
-      yerrs.push_back(correlation(n_40f, n_10f)/sqrt(_sumWPassed));
+      // Fill the y-error vector
+      yerrs.push_back(correlation_err(n_20f, n_20b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_25f, n_15b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_30f, n_10b)/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_35f, n_05 )/sqrt(_sumWPassed));
+      yerrs.push_back(correlation_err(n_40f, n_10f)/sqrt(_sumWPassed));
 
 
       // Fill in correlation strength for assymetric intervals,
