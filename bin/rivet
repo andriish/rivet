@@ -306,8 +306,8 @@ if len(opts.SHOW_ANALYSES) > 0:
             for bp in ana.requiredBeams():
                 beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
             print "Beams:", ", ".join(beamstrs)
-        if ana.energies():
-            print "Beam energies:", "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.energies()]), "GeV"
+        if ana.requiredEnergies():
+            print "Beam energies:", "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()]), "GeV"
         else:
             print "Beam energies: ANY"
         print "Run details:"
