@@ -238,7 +238,7 @@ namespace Rivet {
     if (!beamIdsOk) return false;
 
     // Next check that the energies are compatible
-    bool beamEnergiesOk = false;
+    bool beamEnergiesOk = requiredEnergies().size()>0 ? false : true;
     typedef pair<double,double> DoublePair;
     foreach (const DoublePair& ep, requiredEnergies()) {
       if ((fuzzyEquals(ep.first, energies.first) && fuzzyEquals(ep.second, energies.second)) ||
