@@ -177,6 +177,10 @@ namespace Rivet {
     /// @name Main init/execute/finalise
     //@{
 
+    /// @deprecated Obsolete method, kept only for backwards compatibility
+    void init() {}
+
+
     /// Initialize a run, with the run beams taken from the example event.
     void init(const GenEvent& event);
 
