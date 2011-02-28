@@ -63,12 +63,12 @@ namespace Rivet {
       }
     }
     foreach (const string& aname, anamestodelete) {
-      MSG_WARNING("Removing incompatible analysis '" << aname << "'");
+      MSG_WARNING("Analysis '" << aname << "' is incompatible with the provided beams: removing");
       removeAnalysis(aname);
     }
     if (num_anas_requested > 0 && analysisNames().size() == 0) {
       cerr << "All analyses were incompatible with the first event's beams\n"
-           << "Exiting, since this probably isn't intentional!" << endl;
+           << "Exiting, since this probably wasn't intentional!" << endl;
       exit(1);
     }
 
