@@ -4,7 +4,7 @@
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/TotalVisibleMomentum.hh"
+#include "Rivet/Projections/MissingMomentum.hh"
 
 namespace Rivet {
 
@@ -32,9 +32,9 @@ namespace Rivet {
       addProjection(ChargedFinalState(-5.5, 5.5), "TriggerFS");
       addProjection(ChargedFinalState(-2.5, 2.5), "TrackFS");
       const FinalState trkcalofs(-2.5, 2.5);
-      addProjection(TotalVisibleMomentum(trkcalofs), "MET25");
+      addProjection(MissingMomentum(trkcalofs), "MET25");
       const FinalState calofs(-6.0, 6.0);
-      addProjection(TotalVisibleMomentum(calofs), "MET60");
+      addProjection(MissingMomentum(calofs), "MET60");
 
       if (fuzzyEquals(sqrtS()/GeV, 63)) {
         _hist_Pt = bookProfile1D(8,1,1);
@@ -79,8 +79,8 @@ namespace Rivet {
 
       // Use good central detector tracks
       const FinalState& cfs = applyProjection<FinalState>(event, "TrackFS");
-      const double Et25 = applyProjection<TotalVisibleMomentum>(event, "MET25").scalarET();
-      const double Et60 = applyProjection<TotalVisibleMomentum>(event, "MET60").scalarET();
+      const double Et25 = applyProjection<MissingMomentum>(event, "MET25").scalarET();
+      const double Et60 = applyProjection<MissingMomentum>(event, "MET60").scalarET();
       const unsigned int nch = cfs.size();
 
       // Event level histos
@@ -127,9 +127,11 @@ namespace Rivet {
         return;
       }
       const double xsec = crossSectionPerEvent();
-      scale(_hist_Nch, 2*xsec/millibarn); //< Factor of 2 for Nch bin widths?
-      scale(_hist_Esigd3p, xsec/millibarn);
-      scale(_hist_Et, xsec/millibarn);
+      if (!fuzzyEquals(sqrtS()/GeV, 63, 1E-3)) {
+        scale(_hist_Nch, 2*xsec/millibarn); //< Factor of 2 for Nch bin widths?
+        scale(_hist_Esigd3p, xsec/millibarn);
+        scale(_hist_Et, xsec/millibarn);
+      }
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         // NB. Ref data is normalised to a fixed value not reproducible from MC. Note silly AIDA binHeight forgets the bin width.
         const double scale08 = 0.933e5/(_hist_Esigd3p08->binHeight(0)/_hist_Esigd3p08->axis().binWidth(0));
