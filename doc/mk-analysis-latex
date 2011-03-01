@@ -95,7 +95,10 @@ for aname in sorted(list(all_analyses)):
         page += "\\textbf{Energies:} %s GeV \\newline\n" % \
             ", ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
     if ana.experiment():
-        page += "\\textbf{Experiment:} %s (%s) \\newline\n" % (ana.experiment(), ana.collider())
+        page += "\\textbf{Experiment:} %s" % ana.experiment()
+        if ana.collider():
+            page += " (%s)" % ana.collider()
+        page += "\\newline\n"
     if ana.spiresId():
         spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
         page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \

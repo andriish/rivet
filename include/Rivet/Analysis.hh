@@ -115,7 +115,7 @@ namespace Rivet {
 
     /// Get a the SPIRES/Inspire ID code for this analysis.
     virtual std::string spiresId() const {
-      return (info().spiresId().empty()) ? "NONE" : info().spiresId();
+      return info().spiresId();
     }
 
     /// @brief Names & emails of paper/analysis authors.
@@ -123,7 +123,7 @@ namespace Rivet {
     /// Names and email of authors in 'NAME \<EMAIL\>' format. The first
     /// name in the list should be the primary contact person.
     virtual std::vector<std::string> authors() const {
-      return (info().authors().empty()) ? std::vector<std::string>() : info().authors();
+      return info().authors();
     }
 
     /// @brief Get a short description of the analysis.
@@ -132,7 +132,7 @@ namespace Rivet {
     /// Use @a description() to provide full descriptive paragraphs
     /// of analysis details.
     virtual std::string summary() const {
-      return (info().summary().empty()) ? "NONE" : info().summary();
+      return info().summary();
     }
 
     /// @brief Get a full description of the analysis.
@@ -142,7 +142,7 @@ namespace Rivet {
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
     /// with equations to be rendered as LaTeX with amsmath operators.
     virtual std::string description() const {
-      return (info().description().empty()) ? "NONE" : info().description();
+      return info().description();
     }
 
     /// @brief Information about the events needed as input for this analysis.
@@ -151,37 +151,37 @@ namespace Rivet {
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
     virtual std::string runInfo() const {
-      return (info().runInfo().empty()) ? "NONE" : info().runInfo();
+      return info().runInfo();
     }
 
     /// Experiment which performed and published this analysis.
     virtual std::string experiment() const {
-      return (info().experiment().empty()) ? "NONE" : info().experiment();
+      return info().experiment();
     }
 
     /// Collider on which the experiment ran.
     virtual std::string collider() const {
-      return (info().collider().empty()) ? "NONE" : info().collider();
+      return info().collider();
     }
 
     /// When the original experimental analysis was published.
     virtual std::string year() const {
-      return (info().year().empty()) ? "NONE" : info().year();
+      return info().year();
     }
 
     /// Journal, and preprint references.
     virtual std::vector<std::string> references() const {
-      return (info().references().empty()) ? std::vector<std::string>() : info().references();
+      return info().references();
     }
 
     /// BibTeX citation key for this article.
     virtual std::string bibKey() const {
-      return (info().bibKey().empty()) ? "NONE" : info().bibKey();
+      return info().bibKey();
     }
 
     /// BibTeX citation entry for this article.
     virtual std::string bibTeX() const {
-      return (info().bibTeX().empty()) ? "NONE" : info().bibTeX();
+      return info().bibTeX();
     }
 
     /// Whether this analysis is trusted (in any way!)
@@ -191,7 +191,7 @@ namespace Rivet {
 
     /// Any work to be done on this analysis.
     virtual std::vector<std::string> todos() const {
-      return (info().todos().empty()) ? std::vector<std::string>() : info().todos();
+      return info().todos();
     }
 
 
