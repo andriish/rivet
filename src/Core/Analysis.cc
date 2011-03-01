@@ -34,7 +34,6 @@ namespace Rivet {
   Analysis::Analysis(const string& name)
     : _crossSection(-1.0),
       _gotCrossSection(false),
-      _needsCrossSection(false),
       _analysishandler(NULL),
       _madeHistoDir(false)
   {
@@ -116,101 +115,7 @@ namespace Rivet {
   }
 
 
-  ////////////////////////////////////////////////////////////
-  // Metadata
-
-  const AnalysisInfo& Analysis::info() const {
-    assert(_info.get() != 0);
-    return *_info;
-  }
-
-  string Analysis::name() const {
-    if (_info && !_info->name().empty()) return _info->name();
-    return _defaultname;
-  }
-
-  string Analysis::spiresId() const {
-    if (!_info) return "NONE";
-    return _info->spiresId();
-  }
-
-  vector<string> Analysis::authors() const {
-    if (!_info) return std::vector<std::string>();
-    return _info->authors();
-  }
-
-  string Analysis::summary() const {
-    if (!_info) return "NONE";
-    return _info->summary();
-  }
-
-  string Analysis::description() const {
-    if (!_info) return "NONE";
-    return _info->description();
-  }
-
-  string Analysis::runInfo() const {
-    if (!_info) return "NONE";
-    return _info->runInfo();
-  }
-
-  string Analysis::experiment() const {
-    if (!_info) return "NONE";
-    return _info->experiment();
-  }
-
-  string Analysis::collider() const {
-    if (!_info) return "NONE";
-    return _info->collider();
-  }
-
-  string Analysis::year() const {
-    if (!_info) return "NONE";
-    return _info->year();
-  }
-
-  vector<string> Analysis::references() const {
-    if (!_info) return vector<string>();
-    return _info->references();
-  }
-
-  string Analysis::bibKey() const {
-    if (!_info) return "";
-    return _info->bibKey();
-  }
-
-  string Analysis::bibTeX() const {
-    if (!_info) return "";
-    return _info->bibTeX();
-  }
-
-  string Analysis::status() const {
-    if (!_info) return "UNVALIDATED";
-    return _info->status();
-  }
-
-  vector<string> Analysis::todos() const {
-    if (!_info) return vector<string>();
-    return _info->todos();
-  }
-
-  const vector<PdgIdPair>& Analysis::requiredBeams() const {
-    return info().beams();
-  }
-
-  const std::vector<std::pair<double,double> >& Analysis::requiredEnergies() const {
-    return info().energies();
-  }
-
-
-  /// @todo Deprecate?
-  Analysis& Analysis::setBeams(PdgId beam1, PdgId beam2) {
-    /// @todo Print out a warning when beams def are used from info files and AI fields can be publicly set
-    assert(_info.get() != 0);
-    _info->_beams.clear();
-    _info->_beams += make_pair(beam1, beam2);
-    return *this;
-  }
+  ///////////////////////////////////////////
 
 
   bool Analysis::isCompatible(const ParticlePair& beams) const {
@@ -254,6 +159,9 @@ namespace Rivet {
   }
 
 
+  ///////////////////////////////////////////
+
+
   Analysis& Analysis::setCrossSection(double xs) {
     _crossSection = xs;
     _gotCrossSection = true;
@@ -272,11 +180,6 @@ namespace Rivet {
     const double sumW = sumOfWeights();
     assert(sumW > 0);
     return _crossSection / sumW;
-  }
-
-
-  AnalysisHandler& Analysis::handler() const {
-    return *_analysishandler;
   }
 
 

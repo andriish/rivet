@@ -36,6 +36,7 @@ namespace Rivet {
     /// Metadata is used for querying from the command line and also for
     /// building web pages and the analysis pages in the Rivet manual.
     //@{
+
     /// Get the name of the analysis. By default this is computed by
     /// combining the results of the experiment, year and Spires ID
     /// metadata methods and you should only override it if there's a
@@ -48,19 +49,35 @@ namespace Rivet {
       return "";
     }
 
-    /// Get a description of the analysis.
+    /// Set the name of the analysis.
+    void setName(const std::string& name) { _name = name; }
+
+
+    /// Get the SPIRES ID code for this analysis.
     const std::string& spiresId() const { return _spiresId; }
+
+    /// Set the SPIRES ID code for this analysis.
+    void setSpiresId(const std::string& spiresId) { _spiresId = spiresId; }
+
 
     /// @brief Names & emails of paper/analysis authors.
     /// Names and email of authors in 'NAME \<EMAIL\>' format. The first
     /// name in the list should be the primary contact person.
     const std::vector<std::string>& authors() const { return _authors; }
 
+    /// Set the author list.
+    void setAuthors(const std::vector<std::string>& authors) { _authors = authors; }
+
+
     /// @brief Get a short description of the analysis.
     /// Short (one sentence) description used as an index entry.
     /// Use @a description() to provide full descriptive paragraphs
     /// of analysis details.
     const std::string& summary() const { return _summary; }
+
+    /// Set the short description for this analysis.
+    void setSummary(const std::string& summary) { _summary = summary; }
+
 
     /// @brief Get a full description of the analysis.
     /// Full textual description of this analysis, what it is useful for,
@@ -69,50 +86,99 @@ namespace Rivet {
     /// with equations to be rendered as LaTeX with amsmath operators.
     const std::string& description() const { return _description; }
 
+    /// Set the full description for this analysis.
+    void setDescription(const std::string& description) { _description = description; }
+
+
     /// @brief Information about the events needed as input for this analysis.
     /// Event types, energies, kinematic cuts, particles to be considered
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
     const std::string& runInfo() const { return _runInfo; }
 
-    /// Beam particle types
-    const std::vector<std::pair<PdgId,PdgId> >& beams() const { return _beams; }
+    /// Set the full description for this analysis.
+    void setRunInfo(const std::string& runInfo) { _runInfo = runInfo; }
 
-    /// Sets of valid beam energy pairs
+
+    /// Beam particle types
+    const std::vector<PdgIdPair>& beams() const { return _beams; }
+
+    /// Set beam particle types
+    void setBeams(const std::vector<PdgIdPair>& beams) { _beams = beams; }
+
+
+    /// Sets of valid beam energies
     const std::vector<std::pair<double,double> >& energies() const { return _energies; }
+
+    /// Set the valid beam energies
+    void setEnergies(const std::vector<std::pair<double, double> >& energies) { _energies = energies; }
+
 
     /// Experiment which performed and published this analysis.
     const std::string& experiment() const { return _experiment; }
 
+    /// Set the experiment which performed and published this analysis.
+    void setExperiment(const std::string& experiment) { _experiment = experiment; }
+
+
     /// Collider on which the experiment ran.
     const std::string& collider() const { return _collider; }
+
+    /// Set the collider on which the experiment ran.
+    void setCollider(const std::string& collider) { _collider = collider; }
+
 
     /// @brief When the original experimental analysis was published.
     /// When the refereed paper on which this is based was published,
     /// according to SPIRES.
     const std::string& year() const { return _year; }
 
-    /// Journal, and preprint references.
+    /// Set the year in which the original experimental analysis was published.
+    void setYear(const std::string& year) { _year = year; }
+
+
+    /// Journal and preprint references.
     const std::vector<std::string>& references() const { return _references; }
+
+    /// Set the journal and preprint reference list.
+    void setReferences(const std::vector<std::string>& references) { _references = references; }
+
 
     /// BibTeX citation key for this article.
     const std::string& bibKey() const { return _bibKey;}
 
+    /// Set the BibTeX citation key for this article.
+    void setBibKey(const std::string& bibKey) { _bibKey = bibKey; }
+
+
     /// BibTeX citation entry for this article.
-    const std::string& bibTeX() const {
-      //return "@Article{" + bibKey() + ",\n" + _bibTeXBody + "\n}";
-      return _bibTeX;
-    }
+    const std::string& bibTeX() const { return _bibTeX; }
+
+    /// Set the BibTeX citation entry for this article.
+    void setBibTeX(const std::string& bibTeX) { _bibTeX = bibTeX; }
+
 
     /// Whether this analysis is trusted (in any way!)
     const std::string& status() const { return _status; }
 
+    /// Set the analysis code status.
+    void setStatus(const std::string& status) { _status = status; }
+
+
     /// Any work to be done on this analysis.
     const std::vector<std::string>& todos() const { return _todos; }
-    //@}
+
+    /// Set the to-do list.
+    void setTodos(const std::vector<std::string>& todos) { _todos = todos; }
+
 
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const { return _needsCrossSection; }
+
+    /// Return true if this analysis needs to know the process cross-section.
+    void setNeedsCrossSection(bool needXsec) { _needsCrossSection = needXsec; }
+
+    //@}
 
 
   private:

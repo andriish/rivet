@@ -1,3 +1,11 @@
+2011-03-01  Andy Buckley  <andy@insectnation.org>
+
+	* Bump ABI version numbers for 1.5.0 release.
+
+	* Use AnalysisInfo for storage of the NeedsCrossSection analysis flag.
+
+	* Allow field setting in AnalysisInfo.
+
 2011-02-27  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Support LineStyle=dashdotted in make-plots

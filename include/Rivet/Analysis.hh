@@ -4,6 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.fhh"
+#include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/ProjectionApplier.hh"
@@ -21,9 +22,6 @@
 
 
 namespace Rivet {
-
-  // Forward declaration
-  class AnalysisInfo;
 
 
   /// @brief This is the base class of all analysis classes in Rivet.
@@ -101,30 +99,41 @@ namespace Rivet {
     //@{
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored.
-    virtual const AnalysisInfo& info() const;
+    const AnalysisInfo& info() const {
+      assert(_info.get() != 0 && "No AnalysisInfo object :O");
+      return *_info;
+    }
 
     /// @brief Get the name of the analysis.
     ///
     /// By default this is computed by combining the results of the experiment,
     /// year and Spires ID metadata methods and you should only override it if
     /// there's a good reason why those won't work.
-    virtual std::string name() const;
+    virtual std::string name() const {
+      return (info().name().empty()) ? _defaultname : info().name();
+    }
 
     /// Get a the SPIRES/Inspire ID code for this analysis.
-    virtual std::string spiresId() const;
+    virtual std::string spiresId() const {
+      return (info().spiresId().empty()) ? "NONE" : info().spiresId();
+    }
 
     /// @brief Names & emails of paper/analysis authors.
     ///
     /// Names and email of authors in 'NAME \<EMAIL\>' format. The first
     /// name in the list should be the primary contact person.
-    virtual std::vector<std::string> authors() const;
+    virtual std::vector<std::string> authors() const {
+      return (info().authors().empty()) ? std::vector<std::string>() : info().authors();
+    }
 
     /// @brief Get a short description of the analysis.
     ///
     /// Short (one sentence) description used as an index entry.
     /// Use @a description() to provide full descriptive paragraphs
     /// of analysis details.
-    virtual std::string summary() const;
+    virtual std::string summary() const {
+      return (info().summary().empty()) ? "NONE" : info().summary();
+    }
 
     /// @brief Get a full description of the analysis.
     ///
@@ -132,44 +141,110 @@ namespace Rivet {
     /// what experimental techniques are applied, etc. Should be treated
     /// as a chunk of restructuredText (http://docutils.sourceforge.net/rst.html),
     /// with equations to be rendered as LaTeX with amsmath operators.
-    virtual std::string description() const;
+    virtual std::string description() const {
+      return (info().description().empty()) ? "NONE" : info().description();
+    }
 
     /// @brief Information about the events needed as input for this analysis.
     ///
     /// Event types, energies, kinematic cuts, particles to be considered
     /// stable, etc. etc. Should be treated as a restructuredText bullet list
     /// (http://docutils.sourceforge.net/rst.html)
-    virtual std::string runInfo() const;
+    virtual std::string runInfo() const {
+      return (info().runInfo().empty()) ? "NONE" : info().runInfo();
+    }
 
     /// Experiment which performed and published this analysis.
-    virtual std::string experiment() const;
+    virtual std::string experiment() const {
+      return (info().experiment().empty()) ? "NONE" : info().experiment();
+    }
 
     /// Collider on which the experiment ran.
-    virtual std::string collider() const;
+    virtual std::string collider() const {
+      return (info().collider().empty()) ? "NONE" : info().collider();
+    }
 
     /// When the original experimental analysis was published.
-    virtual std::string year() const;
+    virtual std::string year() const {
+      return (info().year().empty()) ? "NONE" : info().year();
+    }
 
     /// Journal, and preprint references.
-    virtual std::vector<std::string> references() const;
+    virtual std::vector<std::string> references() const {
+      return (info().references().empty()) ? std::vector<std::string>() : info().references();
+    }
 
     /// BibTeX citation key for this article.
-    virtual std::string bibKey() const;
+    virtual std::string bibKey() const {
+      return (info().bibKey().empty()) ? "NONE" : info().bibKey();
+    }
 
     /// BibTeX citation entry for this article.
-    virtual std::string bibTeX() const;
+    virtual std::string bibTeX() const {
+      return (info().bibTeX().empty()) ? "NONE" : info().bibTeX();
+    }
 
     /// Whether this analysis is trusted (in any way!)
-    virtual std::string status() const;
+    virtual std::string status() const {
+      return (info().status().empty()) ? "UNVALIDATED" : info().status();
+    }
 
     /// Any work to be done on this analysis.
-    virtual std::vector<std::string> todos() const;
+    virtual std::vector<std::string> todos() const {
+      return (info().todos().empty()) ? std::vector<std::string>() : info().todos();
+    }
 
-    /// Return the pair of incoming beams required by this analysis.
-    virtual const std::vector<PdgIdPair>& requiredBeams() const;
+
+    /// Return the allowed pairs of incoming beams required by this analysis.
+    virtual const std::vector<PdgIdPair>& requiredBeams() const {
+      return info().beams();
+    }
+    /// Declare the allowed pairs of incoming beams required by this analysis.
+    virtual Analysis& setRequiredBeams(const std::vector<PdgIdPair>& requiredBeams) {
+      info().setBeams(requiredBeams);
+      return *this;
+    }
+
 
     /// Sets of valid beam energy pairs, in GeV
-    virtual const std::vector<std::pair<double, double> >& requiredEnergies() const;
+    virtual const std::vector<std::pair<double, double> >& requiredEnergies() const {
+      return info().energies();
+    }
+    /// Declare the list of valid beam energy pairs, in GeV
+    virtual Analysis& setRequiredEnergies(const std::vector<std::pair<double, double> >& requiredEnergies) {
+      info().setEnergies(requiredEnergies);
+      return *this;
+    }
+
+
+    /// Return true if this analysis needs to know the process cross-section.
+    bool needsCrossSection() const {
+      return info().needsCrossSection();
+    }
+    /// Declare whether this analysis needs to know the process cross-section from the generator.
+    Analysis& setNeedsCrossSection(bool needed=true) {
+      info().setNeedsCrossSection(needed);
+      return *this;
+    }
+
+    //@}
+
+
+    /// @name Internal metadata modifiying methods
+    //@{
+
+    /// Get the actual AnalysisInfo object in which all this metadata is stored (non-const).
+    AnalysisInfo& info() {
+      assert(_info.get() != 0 && "No AnalysisInfo object :O");
+      return *_info;
+    }
+
+    /// Set the required beams
+    /// @deprecated To be removed in 2.0.0. Use .info file and AnalysisInfo class instead
+    virtual Analysis& setBeams(PdgId beam1, PdgId beam2) {
+      /// @todo Print out a warning to use setRequiredBeams() instead (and really to use .info files)
+      return setRequiredBeams(std::vector<PdgIdPair>(1, make_pair(beam1, beam2)));
+    }
 
     //@}
 
@@ -207,7 +282,7 @@ namespace Rivet {
   public:
 
     /// Access the controlling AnalysisHandler object.
-    AnalysisHandler& handler() const;
+    AnalysisHandler& handler() const { return *_analysishandler; }
 
     /// Normalize the given histogram, @a histo. After this call the
     /// histogram will have been transformed to a DataPointSet with the
@@ -243,11 +318,6 @@ namespace Rivet {
 
     /// Set the cross section from the generator
     Analysis& setCrossSection(double xs);
-
-    /// Return true if this analysis needs to know the process cross-section.
-    bool needsCrossSection() const {
-      return _needsCrossSection;
-    }
 
 
   protected:
@@ -459,19 +529,6 @@ namespace Rivet {
 
   protected:
 
-    /// Set the colliding beam pair.
-    /// @deprecated Use .info file and AnalysisInfo class instead
-    Analysis& setBeams(PdgId beam1, PdgId beam2);
-
-    /// Declare whether this analysis needs to know the process cross-section from the generator.
-    Analysis& setNeedsCrossSection(bool needed=true) {
-      _needsCrossSection = needed;
-      return *this;
-    }
-
-
-  protected:
-
     /// Name passed to constructor (used to find .info analysis data file, and as a fallback)
     string _defaultname;
 
@@ -485,7 +542,6 @@ namespace Rivet {
     //@{
     double _crossSection;
     bool _gotCrossSection;
-    bool _needsCrossSection;
     //@}
 
     /// The controlling AnalysisHandler object.
