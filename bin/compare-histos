@@ -10,6 +10,7 @@ where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
 
 TODO:
+ * two ref datas shouldn't be possible... but it does happen!
  * regex selector
  * ask/force overwrite modes
 """
@@ -96,18 +97,22 @@ if __name__ == "__main__":
     stygroup.add_option("--refid", dest="REF_ID",
                         default="REF", help="ID of reference data set (file path for non-REF data)")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
-                      default=False, help="plot with linear scale")
+                        default=False, help="plot with linear scale")
     stygroup.add_option("--logarithmic", action="store_false", dest="LINEAR",
-                      default=False, help="plot with logarithmic scale (default behaviour)")
+                        default=False, help="plot with logarithmic scale (default behaviour)")
     stygroup.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
-                      default=False, help="show vertical error bars on the MC lines")
+                        default=False, help="show vertical error bars on the MC lines")
     stygroup.add_option("--no-ratio", action="store_true", dest="NORATIO",
-                      default=False, help="disable the ratio plot")
+                        default=False, help="disable the ratio plot")
     stygroup.add_option("--rel-ratio", action="store_true", dest="RATIO_DEVIATION",
-                      default=False, help="show the ratio plots scaled to the ref error")
+                        default=False, help="show the ratio plots scaled to the ref error")
     stygroup.add_option("--abs-ratio", action="store_false", dest="RATIO_DEVIATION",
-                      default=False, help="show the ratio plots with an absolute scale")
-    stygroup.add_option("--style", dest="STYLE", default="default", help="change plotting style: default|bw|talk")
+                        default=False, help="show the ratio plots with an absolute scale")
+    stygroup.add_option("--no-plottitle", action="store_true", dest="NOPLOTTITLE",
+                        default=False, help="don't show the plot title on the plot "
+                        "(useful when the plot description should only be given in a caption)")
+    stygroup.add_option("--style", dest="STYLE", default="default",
+                        help="change plotting style: default|bw|talk")
     parser.add_option_group(stygroup)
 
     selgroup = OptionGroup(parser, "Selective plotting")
@@ -408,8 +413,9 @@ if __name__ == "__main__":
             if param not in headers:
                 headers[param] = default
         for key, val in headers.iteritems():
-            directive = "%s=%s\n" % (key, val)
-            headstr += directive
+            if key != "Title" or not opts.NOPLOTTITLE:
+                directive = "%s=%s\n" % (key, val)
+                headstr += directive
         headstr += "# END PLOT\n"
 
         ## Special

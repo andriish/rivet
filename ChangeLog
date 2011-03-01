@@ -1,5 +1,7 @@
 2011-03-01  Andy Buckley  <andy@insectnation.org>
 
+	* Adding --no-plottitle to compare-histos (+ completion).
+
 	* Fixing segfaults in UA1_1990_S2044935 and UA5_1982_S875503.
 
 	* Bump ABI version numbers for 1.5.0 release.
