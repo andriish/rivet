@@ -111,9 +111,12 @@ namespace Rivet {
           } else if (inRange(dnch_deta, 4.0, 8.0)) {
             _sumwTrig40 += weight;
             _hist_Esigd3p40->fill(pt/GeV, scaled_weight);
-          } else if (dnch_deta > 8.0) {
-            _sumwTrig80 += weight;
-            _hist_Esigd3p80->fill(pt/GeV, scaled_weight);
+          } else {
+            //MSG_WARNING(dnch_deta);
+            if (dnch_deta > 8.0) {
+              _sumwTrig80 += weight;
+              _hist_Esigd3p80->fill(pt/GeV, scaled_weight);
+            }
           }
         }
       }
@@ -134,11 +137,14 @@ namespace Rivet {
       }
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         // NB. Ref data is normalised to a fixed value not reproducible from MC. Note silly AIDA binHeight forgets the bin width.
-        const double scale08 = 0.933e5/(_hist_Esigd3p08->binHeight(0)/_hist_Esigd3p08->axis().binWidth(0));
+        const double scale08 =  (_hist_Esigd3p08->binHeight(0) > 0) ?
+          0.933e5/(_hist_Esigd3p08->binHeight(0)/_hist_Esigd3p08->axis().binWidth(0)) : 0;
         scale(_hist_Esigd3p08, scale08);
-        const double scale40 = 1.369e5/(_hist_Esigd3p40->binHeight(0)/_hist_Esigd3p40->axis().binWidth(0));
+        const double scale40 = (_hist_Esigd3p40->binHeight(0) > 0) ?
+          1.369e5/(_hist_Esigd3p40->binHeight(0)/_hist_Esigd3p40->axis().binWidth(0)) : 0;
         scale(_hist_Esigd3p40, scale40);
-        const double scale80 = 1.657e5/(_hist_Esigd3p80->binHeight(0)/_hist_Esigd3p80->axis().binWidth(0));
+        const double scale80 = (_hist_Esigd3p80->binHeight(0) > 0) ?
+          1.657e5/(_hist_Esigd3p80->binHeight(0)/_hist_Esigd3p80->axis().binWidth(0)) : 0;
         scale(_hist_Esigd3p80, scale80);
       }
     }
