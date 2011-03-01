@@ -3,7 +3,7 @@ Year: 2010
 Summary: Differential cross section measurement of $K^0_S$ production in three
   rapidity windows at $\sqrt{s}=\unit{0.9}{\TeV}$
 Experiment: LHCB
-Collider: LHCB
+Collider: LHC
 SpiresID: 8758301
 Status: UNVALIDATED
 Authors:
@@ -12,7 +12,7 @@ References:
  - Phys.Lett.B693:69-80,2010
  - arXiv:1008.3105[hep-ex]
 RunInfo:
-  QCD events. See paper for MC discussion. 
+  QCD events. See paper for MC discussion.
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [900]
