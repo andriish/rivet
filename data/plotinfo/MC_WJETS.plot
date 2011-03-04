@@ -1,3 +1,22 @@
+# BEGIN PLOT /MC_WJETS/W_chargeasymm_eta
+Title=Charge asymmetry vs. $\eta(\ell)$
+XLabel=$\eta(\ell)$ [GeV]
+YLabel=$(\mathrm{d}\sigma(\ell^+)-\mathrm{d}\sigma(\ell^-))\;/\;(\mathrm{d}\sigma(\ell^+)+\mathrm{d}\sigma(\ell^-))$
+LogY=0
+Scale=1.0
+# END PLOT
+
+# BEGIN PLOT /MC_WJETS/W_chargeasymm_pT
+Title=Charge asymmetry vs. $p_\perp(W)$
+XLabel=$p_\perp(W)$ [GeV]
+YLabel=$\mathrm{d}\sigma(W^+)\;/\;\mathrm{d}\sigma(W^-)$
+LogX=1
+LogY=0
+Scale=1.0
+YMin=0.0
+YMax=3.0
+# END PLOT
+
 # BEGIN PLOT /MC_WJETS/W_jet1_dR
 Title=Separation between W boson and leading jet
 XLabel=$\Delta R(\text{W, 1st jet})$
@@ -19,7 +38,7 @@ YLabel=$\text{d}\sigma/\text{d}m_{\text{W}}$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/W_pT$
-Title=W $p_\perp$
+Title=W boson $p_\perp$
 XLabel=$p_\perp^{\text{W}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$ [pb/GeV]
 LogX=1
@@ -28,7 +47,7 @@ LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/W_pT_peak
-Title=W $p_\perp$ in peak region
+Title=W boson $p_\perp$ in peak region
 XLabel=$p_\perp^{\text{W}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$ [pb/GeV]
 LogY=0
@@ -38,7 +57,7 @@ LegendXPos=0.30
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/W_y
-Title=W rapidity
+Title=W boson rapidity
 XLabel=$y_{\text{W}}$
 YLabel=$\text{d}\sigma/\text{d}y_{\text{W}}$ [pb]
 LegendXPos=0.35
@@ -49,6 +68,24 @@ LegendYPos=0.5
 Title=W azimuthal angle
 XLabel=$\phi_{\text{W}}$
 YLabel=$\text{d}\sigma/\text{d}\phi_{\text{W}}$ [pb]
+# END PLOT
+
+# BEGIN PLOT /MC_WJETS/Wplus_pT$
+Title=$p_\perp$ of $W^+$ boson
+XLabel=$p_\perp^{W^+}$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}p_\perp^{W^+}$ [pb/GeV]
+LogX=1
+LegendXPos=0.05
+LegendYPos=0.5
+# END PLOT
+
+# BEGIN PLOT /MC_WJETS/Wminus_pT$
+Title=$p_\perp$ of $W^-$ boson
+XLabel=$p_\perp^{W^-}$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}p_\perp^{W^-}$ [pb/GeV]
+LogX=1
+LegendXPos=0.05
+LegendYPos=0.5
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/lepton_pT

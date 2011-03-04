@@ -38,6 +38,8 @@ namespace Rivet {
       _h_W_phi = bookHistogram1D("W_phi", 25, 0.0, TWOPI);
       _h_W_jet1_deta = bookHistogram1D("W_jet1_deta", 50, -5.0, 5.0);
       _h_W_jet1_dR = bookHistogram1D("W_jet1_dR", 25, 0.5, 7.0);
+      _h_Wplus_pT = bookHistogram1D("Wplus_pT", logBinEdges(100, 1.0, 0.5*sqrtS()));
+      _h_Wminus_pT = bookHistogram1D("Wminus_pT", logBinEdges(100, 1.0, 0.5*sqrtS()));
       _h_lepton_pT = bookHistogram1D("lepton_pT", logBinEdges(100, 10.0, 0.25*sqrtS()));
       _h_lepton_eta = bookHistogram1D("lepton_eta", 40, -4.0, 4.0);
       _htmp_dsigminus_deta = bookHistogram1D("lepton_dsigminus_deta", 20, 0.0, 4.0);
@@ -80,6 +82,11 @@ namespace Rivet {
           _htmp_dsigplus_deta->fill(emom.eta(), weight);
         }
       }
+      if (charge3_x_eta < 0) {
+        _h_Wminus_pT->fill(wmom.pT(), weight);
+      } else {
+        _h_Wplus_pT->fill(wmom.pT(), weight);
+      }
 
       const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
       const Jets& jets = jetpro.jetsByPt(20.0*GeV);
@@ -115,6 +122,11 @@ namespace Rivet {
       hf.destroy(_htmp_dsigminus_deta);
       hf.destroy(_htmp_dsigplus_deta);
 
+      // W charge asymmetry vs. pTW: dsig+/dpT / dsig-/dpT
+      hf.divide(histoDir() + "/W_chargeasymm_pT", *_h_Wplus_pT, *_h_Wminus_pT);
+      scale(_h_Wplus_pT, crossSection()/sumOfWeights());
+      scale(_h_Wminus_pT, crossSection()/sumOfWeights());
+
       MC_JetAnalysis::finalize();
     }
 
@@ -132,6 +144,8 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_W_phi;
     AIDA::IHistogram1D * _h_W_jet1_deta;
     AIDA::IHistogram1D * _h_W_jet1_dR;
+    AIDA::IHistogram1D * _h_Wplus_pT;
+    AIDA::IHistogram1D * _h_Wminus_pT;
     AIDA::IHistogram1D * _h_lepton_pT;
     AIDA::IHistogram1D * _h_lepton_eta;
 
