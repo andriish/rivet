@@ -24,7 +24,7 @@ analyses.html: $(top_srcdir)/src/Analyses mk-analysis-html
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(top_srcdir)/src/Tools/yaml-cpp/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
 PYTHONPATH=$(top_srcdir)/pyext:$(PYTHONPATH) \
-./mk-analysis-html analyses.html
+$(PYTHON) mk-analysis-html analyses.html
 
 endif
 
@@ -42,7 +42,7 @@ analyses.bib analyses.tex: $(top_srcdir)/src/Analyses $(top_srcdir)/data/plotinf
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH) \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH) \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
-./mk-analysis-latex
+$(PYTHON) mk-analysis-latex
 
 else
 
