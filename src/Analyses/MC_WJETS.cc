@@ -38,8 +38,8 @@ namespace Rivet {
       _h_W_phi = bookHistogram1D("W_phi", 25, 0.0, TWOPI);
       _h_W_jet1_deta = bookHistogram1D("W_jet1_deta", 50, -5.0, 5.0);
       _h_W_jet1_dR = bookHistogram1D("W_jet1_dR", 25, 0.5, 7.0);
-      _h_Wplus_pT = bookHistogram1D("Wplus_pT", logBinEdges(100, 1.0, 0.5*sqrtS()));
-      _h_Wminus_pT = bookHistogram1D("Wminus_pT", logBinEdges(100, 1.0, 0.5*sqrtS()));
+      _h_Wplus_pT = bookHistogram1D("Wplus_pT", logBinEdges(25, 10.0, 0.5*sqrtS()));
+      _h_Wminus_pT = bookHistogram1D("Wminus_pT", logBinEdges(25, 10.0, 0.5*sqrtS()));
       _h_lepton_pT = bookHistogram1D("lepton_pT", logBinEdges(100, 10.0, 0.25*sqrtS()));
       _h_lepton_eta = bookHistogram1D("lepton_eta", 40, -4.0, 4.0);
       _htmp_dsigminus_deta = bookHistogram1D("lepton_dsigminus_deta", 20, 0.0, 4.0);
@@ -59,6 +59,7 @@ namespace Rivet {
       const double weight = e.weight();
 
       double charge3_x_eta = 0;
+      int charge3 = 0;
       FourMomentum emom;
       FourMomentum wmom(wfinder.particles().front().momentum());
       _h_W_mass->fill(wmom.mass(), weight);
@@ -72,9 +73,11 @@ namespace Rivet {
         if (PID::threeCharge(l.pdgId()) != 0) {
           emom = l.momentum();
           charge3_x_eta = PID::threeCharge(l.pdgId()) * emom.eta();
+          charge3 = PID::threeCharge(l.pdgId());
         }
       }
       assert(charge3_x_eta != 0);
+      assert(charge3!=0);
       if (emom.Et() > 30/GeV) {
         if (charge3_x_eta < 0) {
           _htmp_dsigminus_deta->fill(emom.eta(), weight);
@@ -82,7 +85,7 @@ namespace Rivet {
           _htmp_dsigplus_deta->fill(emom.eta(), weight);
         }
       }
-      if (charge3_x_eta < 0) {
+      if (charge3 < 0) {
         _h_Wminus_pT->fill(wmom.pT(), weight);
       } else {
         _h_Wplus_pT->fill(wmom.pT(), weight);
