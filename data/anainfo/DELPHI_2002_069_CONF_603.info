@@ -12,7 +12,7 @@ RunInfo:
   Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
 NumEvents: 1000000
 Beams: [e+, e-]
-Energies: [91.2]
+Energies: [91.25]
 PtCuts: [0]
 Description:
   Measurement of the $b$-quark fragmentation function by DELPHI using 1994
