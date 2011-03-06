@@ -14,7 +14,7 @@ RunInfo:
   $e^+ e^- \to$ jet jet (+ jets)
 NumEvents: 1000000
 Beams: [e+, e-]
-Energies: [35, 44, 91.25, 133, 161, 172, 183, 189]
+Energies: [35, 44, 91.2, 133, 161, 172, 183, 189]
 PtCuts: [0]
 Description:
   Differential and integrated jet rates for Durham and JADE jet

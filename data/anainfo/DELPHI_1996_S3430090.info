@@ -15,7 +15,7 @@ RunInfo:
   sqrt(s) = 91.2 GeV, $e^+ e^- -> Z^0$ production with hadronic decays only
 NumEvents: 1000000
 Beams: [e+, e-]
-Energies: [91.25]
+Energies: [91.2]
 PtCuts: [0]
 Description:
   Event shape and charged particle inclusive distributions measured

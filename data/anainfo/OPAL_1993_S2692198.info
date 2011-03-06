@@ -14,7 +14,7 @@ RunInfo:
   $e^+ e^- \to$ jet jet (+ photons)
 NumEvents: 1000000
 Beams: [e+, e-]
-Energies: [91.25]
+Energies: [91.2]
 PtCuts: [0]
 Description:
   Measurement of the production of photons in $e^+ e^-\to q \bar q$ events at LEP 1.

@@ -17,7 +17,7 @@ RunInfo:
   parton level.
 NumEvents: 10000000
 Beams: [e+, e-]
-Energies: [91.25]
+Energies: [91.2]
 PtCuts: [0]
 Description:
   'Angles between the leading (in energy) four jets defined using the Durham

@@ -15,7 +15,7 @@ RunInfo:
   $e^+ e^- \to$ jet jet (+ jets)
 NumEvents: 1000000
 Beams: [e+, e-]
-Energies: [91.25, 133, 161, 172, 183, 189, 200, 206]
+Energies: [91.2, 133, 161, 172, 183, 189, 200, 206]
 PtCuts: [0]
 Description:
   Jet rates, event-shape variables and inclusive charged particle spectra are
