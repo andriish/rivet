@@ -1,3 +1,9 @@
+2011-03-07  Andy Buckley  <andy@insectnation.org>
+
+	* Changing the accuracy of the beam energy checking to 1%, to make
+	the UI a bit more forgiving. It's still best to specify exactly the right
+	energy of course!
+
 2011-03-01  Andy Buckley  <andy@insectnation.org>
 
 	* Adding --no-plottitle to compare-histos (+ completion).

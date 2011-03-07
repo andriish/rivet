@@ -142,12 +142,12 @@ namespace Rivet {
     }
     if (!beamIdsOk) return false;
 
-    // Next check that the energies are compatible
+    // Next check that the energies are compatible (within 1%, to give a bit of UI forgiveness)
     bool beamEnergiesOk = requiredEnergies().size()>0 ? false : true;
     typedef pair<double,double> DoublePair;
     foreach (const DoublePair& ep, requiredEnergies()) {
-      if ((fuzzyEquals(ep.first, energies.first) && fuzzyEquals(ep.second, energies.second)) ||
-          (fuzzyEquals(ep.first, energies.second) && fuzzyEquals(ep.second, energies.first))) {
+      if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
+          (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01))) {
         beamEnergiesOk =  true;
         break;
       }
