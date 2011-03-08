@@ -1,3 +1,7 @@
+2011-03-08  Andy Buckley  <andy@insectnation.org>
+
+	* Adding some extra checks for external packages in make-plots.
+
 2011-03-07  Andy Buckley  <andy@insectnation.org>
 
 	* Changing the accuracy of the beam energy checking to 1%, to make

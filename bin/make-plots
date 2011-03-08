@@ -1778,7 +1778,10 @@ def process_datfile(datfile):
         ## Handle Minion Font
         if opts.OUTPUT_FONT == "MINION":
             dvcmd.append('-Pminion')
+
         ## Choose format
+        # TODO: Rationalise this monstrosity!
+        # TODO: Use a multi-format string and object handler cf. slhaplot (see, SUSY *is* useful...)
         if opts.OUTPUT_FORMAT == "PS":
             dvcmd += ["-o", "%s.ps" % filename]
             logging.debug(" ".join(dvcmd))
@@ -1994,39 +1997,76 @@ if __name__ == '__main__':
         logging.error(parser.get_usage())
         sys.exit(2)
 
-#     ## Test for latex and dvips
-#     latex/dvips
-#     ## Test for ps2pdf
-#     if opts.OUTPUT_FORMAT == "PDF":
-#         ps2pdf
-#     ## Test for ps2eps
-#     if opts.OUTPUT_FORMAT == "EPS":
-#         ps2eps
 
-    import subprocess
+    ## Test for external programs (kpsewhich, latex, dvips, ps2pdf/ps2eps, and convert)
+    if opts.OUTPUT_FORMAT != "TEX":
+        try:
+            import subprocess
+            ## latex
+            p = subprocess.Popen(["which", "latex"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            rtn = p.wait()
+            if rtn != 0:
+                logging.error("ERROR: required program 'latex' could not be found. Exiting...")
+                sys.exit(1)
+            ## dvips
+            p = subprocess.Popen(["which", "dvips"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            rtn = p.wait()
+            if rtn != 0:
+                logging.error("ERROR: required program 'dvips' could not be found. Exiting...")
+                sys.exit(1)
 
-    ## Check minion font
-    if opts.OUTPUT_FONT == "MINION":
-        p = subprocess.Popen(["kpsewhich", "minion.sty"], stdout=subprocess.PIPE)
-        p.wait()
-        if p.returncode != 0:
-            logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
-            opts.OUTPUT_FONT = "PALATINO"
+            ## ps2pdf / ps2eps
+            if "PDF" in opts.OUTPUT_FORMAT:
+                p = subprocess.Popen(["which", "ps2pdf"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                rtn = p.wait()
+                if rtn != 0:
+                    logging.error("ERROR: required program 'ps2pdf' (for PDF output) could not be found. Exiting...")
+                    sys.exit(1)
+            elif "EPS" in opts.OUTPUT_FORMAT:
+                p = subprocess.Popen(["which", "ps2eps"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                rtn = p.wait()
+                if rtn != 0:
+                    logging.error("ERROR: required program 'ps2eps' (for EPS output) could not be found. Exiting...")
+                    sys.exit(1)
+            ## PNG output converter
+            if "PNG" in opts.OUTPUT_FORMAT:
+                p = subprocess.Popen(["which", "convert"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                rtn = p.wait()
+                if rtn != 0:
+                    logging.error("ERROR: required program 'convert' (for PNG output) could not be found. Exiting...")
+                    sys.exit(1)
 
-    ## Check for HEP LaTeX packages
-    opts.LATEXPKGS = []
-    for pkg in ["hepnicenames", "hepunits", "underscore"]:
-        p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
-        p.wait()
-        if p.returncode == 0:
-            opts.LATEXPKGS.append(pkg)
+            ## kpsewhich: required for LaTeX package testing
+            p = subprocess.Popen(["which", "kpsewhich"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            rtn = p.wait()
+            if rtn != 0:
+                logging.warning("WARNING: required program 'kpsewhich' (for LaTeX package checks) could not be found")
+            else:
+                ## Check minion font
+                if opts.OUTPUT_FONT == "MINION":
+                    p = subprocess.Popen(["kpsewhich", "minion.sty"], stdout=subprocess.PIPE)
+                    p.wait()
+                    if p.returncode != 0:
+                        logging.warning('Warning: Using "--minion" requires minion.sty to be installed. Ignoring it.')
+                        opts.OUTPUT_FONT = "PALATINO"
 
-    ## Check for Palatino old style figures and small caps
-    if opts.OUTPUT_FONT == "PALATINO":
-        p = subprocess.Popen(["kpsewhich", "ot1pplx.fd"], stdout=subprocess.PIPE)
-        p.wait()
-        if p.returncode == 0:
-            opts.OUTPUT_FONT = "PALATINO_OSF"
+                ## Check for HEP LaTeX packages
+                opts.LATEXPKGS = []
+                for pkg in ["hepnicenames", "hepunits", "underscore"]:
+                    p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
+                    p.wait()
+                    if p.returncode == 0:
+                        opts.LATEXPKGS.append(pkg)
+
+                ## Check for Palatino old style figures and small caps
+                if opts.OUTPUT_FONT == "PALATINO":
+                    p = subprocess.Popen(["kpsewhich", "ot1pplx.fd"], stdout=subprocess.PIPE)
+                    p.wait()
+                    if p.returncode == 0:
+                        opts.OUTPUT_FONT = "PALATINO_OSF"
+        except Exception, e:
+            logging.warning("Problem while testing for external packages. I'm going to try and continue without testing, but don't hold your breath...")
+
 
     ## Fill queue
     datfiles = Queue.Queue(maxsize=-1)
