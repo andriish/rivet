@@ -98,6 +98,7 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETS.info \
   MC_HJETS.info \
   MC_WJETS.info \
+  MC_WPOL.info \
   MC_WWJETS.info \
   MC_ZJETS.info \
   MC_ZZJETS.info \

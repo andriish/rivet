@@ -230,6 +230,7 @@ RivetMCAnalyses_la_SOURCES = \
     MC_PHOTONJETS.cc \
     MC_HJETS.cc \
     MC_WJETS.cc \
+    MC_WPOL.cc \
     MC_WWJETS.cc \
     MC_ZJETS.cc \
     MC_ZZJETS.cc \

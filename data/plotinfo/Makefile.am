@@ -96,6 +96,7 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETS.plot \
   MC_HJETS.plot \
   MC_WJETS.plot \
+  MC_WPOL.plot \
   MC_WWJETS.plot \
   MC_ZJETS.plot \
   MC_ZZJETS.plot \
