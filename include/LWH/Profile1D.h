@@ -340,7 +340,7 @@ public:
    */
   double binHeight(int index) const {
     double bH = 0.;
-    if (sumw[index+2] > 0. && sumyw[index+2] > 0.)
+    if (sumw[index+2] != 0. && sumyw[index+2] != 0.)
       bH = sumyw[index+2]/sumw[index+2];
     return bH;
   }
