@@ -159,7 +159,8 @@ endif
 
 lib_LTLIBRARIES += RivetPetraAnalyses.la
 RivetPetraAnalyses_la_SOURCES = \
-    JADE_1998_S3612880.cc
+    JADE_1998_S3612880.cc \
+    TASSO_1990_S2148048.cc
 
 lib_LTLIBRARIES += RivetLEPAnalyses.la
 RivetLEPAnalyses_la_SOURCES = \
