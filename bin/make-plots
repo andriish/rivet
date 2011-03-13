@@ -1078,7 +1078,6 @@ class Function(DrawableObject):
             x += dx
         if self.description.has_key('FillStyle') and self.description['FillStyle']!='none':
             out += '(%s,%s)\n' % (coors.strphys2frameX(xmax),coors.strphys2frameY(coors.ymin()))
-        print xmin, xmax, coors.ymin()
         out += self.stoppsset()
         out += self.stopclip()
         return out
