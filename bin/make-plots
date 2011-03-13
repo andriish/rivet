@@ -1070,10 +1070,15 @@ class Function(DrawableObject):
         dx = (xmax-xmin)/500.
         x = xmin-dx
         out += '\\pscurve'
+        if self.description.has_key('FillStyle') and self.description['FillStyle']!='none':
+            out += '(%s,%s)\n' % (coors.strphys2frameX(xmin),coors.strphys2frameY(coors.ymin()))
         while x < (xmax+2*dx):
             y = self.plotfunction(x)
             out += ('(%s,%s)\n' % (coors.strphys2frameX(x), coors.strphys2frameY(y)))
             x += dx
+        if self.description.has_key('FillStyle') and self.description['FillStyle']!='none':
+            out += '(%s,%s)\n' % (coors.strphys2frameX(xmax),coors.strphys2frameY(coors.ymin()))
+        print xmin, xmax, coors.ymin()
         out += self.stoppsset()
         out += self.stopclip()
         return out
