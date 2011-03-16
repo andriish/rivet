@@ -1103,10 +1103,9 @@ method of your analysis you should book histograms with function calls like:
 %
 \begin{snippet}
   void MyAnalysis::init() {
-    _h_one = bookHistogram1D(2,1,1, "Title 2", "x label", "y label");
-    _h_two = bookProfile1D(3,1,2, "Title 2", "x label", "y label");
-    _h_three = bookHistogram1D("d00-x00-y00", "Title",
-                               "x label", "y label", 50, 0.0, 1.0);
+    _h_one = bookHistogram1D(2,1,1);
+    _h_two = bookProfile1D(3,1,2);
+    _h_three = bookHistogram1D("d00-x00-y00", 50, 0.0, 1.0);
   }
 \end{snippet}
 %
