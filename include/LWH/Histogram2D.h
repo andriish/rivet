@@ -707,7 +707,9 @@ namespace LWH {
       os << "    <statistics entries=\"" << entries()
          << "\">\n      <statistic mean=\"" << meanX()
          << "\" direction=\"x\"\n        rms=\"" << rmsX()
-         << "\"/>\n    </statistics>\n      <statistic mean=\"" << meanY()
+         << "\"/>\n    </statistics>\n"
+         << "    <statistics entries=\"" << entries()
+         << "\">\n      <statistic mean=\"" << meanY()
          << "\" direction=\"y\"\n        rms=\"" << rmsY()
          << "\"/>\n    </statistics>\n    <data2d>\n";
       for ( int ix = 0; ix < xax->bins() + 2; ++ix )
