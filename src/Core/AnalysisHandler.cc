@@ -205,7 +205,7 @@ namespace Rivet {
     shared_ptr<Analysis> toremove;
     foreach (const AnaHandle a, _analyses) {
       if (a->name() == analysisname) {
-        toremove.reset( a.get() );
+        toremove = a;
         break;
       }
     }
