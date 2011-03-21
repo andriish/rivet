@@ -2,13 +2,13 @@
 <!DOCTYPE aida SYSTEM 'http://aida.freehep.org/schemas/3.3/aida.dtd'>
 <aida version="3.3">
   <implementation package="FreeHEP" version="1.1" />
-  <dataPointSet dimension="2" name="d01-x01-y01" path="/REF/ATLAS_2010_UE_CLUSTER" title="900 GeV Transverse region Particle density vs. $p_T$(lead)">
+  <dataPointSet dimension="2" name="d01-x01-y01" path="/REF/ATLAS_2010_S8994773" title="900 GeV Transverse region Particle density vs. $p_T$(lead)">
     <dimension title="$p_T$(lead)[GeV]" dim="0" sticky="True"/>
     <dimension title="$\langle\mathrm{d}^2\mathrm{N}/\mathrm{d}\eta\mathrm{d}\phi\rangle$" dim="1" sticky="True" />
     <annotation>
       <item Title="900 GeV Transverse region Particle density vs. $p_T$(lead)"/>
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d01-x01-y01" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d01-x01-y01"/>
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d01-x01-y01" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d01-x01-y01"/>
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.25" errorPlus="0.25" value="1.25" />
@@ -35,13 +35,13 @@
       <measurement errorMinus="0.0537727735937" errorPlus="0.0909886881709" value="0.677668273449" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d02-x01-y01" path="/REF/ATLAS_2010_UE_CLUSTER" title="7 TeV Transverse region Particle density vs. $p_T$(lead)">
+  <dataPointSet dimension="2" name="d02-x01-y01" path="/REF/ATLAS_2010_S8994773" title="7 TeV Transverse region Particle density vs. $p_T$(lead)">
     <dimension title="$p_T$(lead)[GeV]" dim="0" sticky="True"/>
     <dimension title="$\langle\mathrm{d}^2\mathrm{N}/\mathrm{d}\eta\mathrm{d}\phi\rangle$" dim="1" sticky="True" />
     <annotation>
       <item Title="7 TeV Transverse region Particle density vs. $p_T$(lead)"/>
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d02-x01-y01" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d02-x01-y01"/>
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d02-x01-y01" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d02-x01-y01"/>
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.25" errorPlus="0.25" value="1.25" />
@@ -76,13 +76,13 @@
       <measurement errorMinus="0.109448947012" errorPlus="0.147910743952" value="1.48666870594" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d03-x01-y01" path="/REF/ATLAS_2010_UE_CLUSTER" title="900 GeV Transverse region $\sum p_T$ density vs. $p_T$(lead)">
+  <dataPointSet dimension="2" name="d03-x01-y01" path="/REF/ATLAS_2010_S8994773" title="900 GeV Transverse region $\sum p_T$ density vs. $p_T$(lead)">
     <dimension title="$p_T$(lead)[GeV]" dim="0" sticky="True" />
     <dimension title="$\langle\mathrm{d}^2\sum p_T/\mathrm{d}\eta\mathrm{d}\phi\rangle$" dim="1" sticky="True" />
     <annotation>
       <item Title="900 GeV Transverse region $\sum p_T$ density vs. $p_T$(lead)" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d03-x01-y01" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d03-x01-y01" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d03-x01-y01" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d03-x01-y01" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.25" errorPlus="0.25" value="1.25" />
@@ -109,13 +109,13 @@
       <measurement errorMinus="0.0420824438334" errorPlus="0.0820690467954" value="0.654921770096" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d04-x01-y01" path="/REF/ATLAS_2010_UE_CLUSTER" title="7 TeV Transverse region $\sum p_T$ density vs. $p_T$(lead)">
+  <dataPointSet dimension="2" name="d04-x01-y01" path="/REF/ATLAS_2010_S8994773" title="7 TeV Transverse region $\sum p_T$ density vs. $p_T$(lead)">
     <dimension title="$p_T$(lead)[GeV]" dim="0" sticky="True" />
     <dimension title="$\langle\mathrm{d}^2\sum p_T/\mathrm{d}\eta\mathrm{d}\phi\rangle$" dim="1" sticky="True" />
     <annotation>
       <item Title="7 TeV Transverse region $\sum p_T$ density vs. $p_T$(lead)" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d04-x01-y01" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d04-x01-y01" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d04-x01-y01" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d04-x01-y01" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.25" errorPlus="0.25" value="1.25" />
@@ -150,13 +150,13 @@
       <measurement errorMinus="0.128762736917" errorPlus="0.168712303042" value="1.71066105366" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d13-x01-y01" path="/REF/ATLAS_2010_UE_CLUSTER" title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 1 GeV">
+  <dataPointSet dimension="2" name="d13-x01-y01" path="/REF/ATLAS_2010_S8994773" title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 1 GeV">
     <dimension title="$\Delta\phi$[rad]" dim="0" sticky="True" />
     <dimension title="$\mathrm{d}\langle N\rangle/\mathrm{d}\Delta\phi$" dim="1" sticky="True" />
     <annotation>
       <item Title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 1 GeV" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d13-x01-y01" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d13-x01-y01" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d13-x01-y01" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d13-x01-y01" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.038292683661" errorPlus="0.038292683661" value="0.038292683661" />
@@ -243,13 +243,13 @@
       <measurement errorMinus="0.0201846547425" errorPlus="0.0251285918057" value="0.466575503349" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d13-x01-y02" path="/REF/ATLAS_2010_UE_CLUSTER" title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 2 GeV">
+  <dataPointSet dimension="2" name="d13-x01-y02" path="/REF/ATLAS_2010_S8994773" title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 2 GeV">
     <dimension title="$\Delta\phi$[rad]" dim="0" sticky="True" />
     <dimension title="$\mathrm{d}\langle N\rangle/\mathrm{d}\Delta\phi$" dim="1" sticky="True" />
     <annotation>
       <item Title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 2 GeV" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d13-x01-y02" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d13-x01-y02" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d13-x01-y02" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d13-x01-y02" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.038292683661" errorPlus="0.038292683661" value="0.038292683661" />
@@ -336,13 +336,13 @@
       <measurement errorMinus="0.0345377400517" errorPlus="0.0235129054636" value="0.737221777439" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d13-x01-y03" path="/REF/ATLAS_2010_UE_CLUSTER" title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 3 GeV">
+  <dataPointSet dimension="2" name="d13-x01-y03" path="/REF/ATLAS_2010_S8994773" title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 3 GeV">
     <dimension title="$\Delta\phi$[rad]" dim="0" sticky="True" />
     <dimension title="$\mathrm{d}\langle N\rangle/\mathrm{d}\Delta\phi$" dim="1" sticky="True" />
     <annotation>
       <item title="900 GeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 3 GeV" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d13-x01-y03" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d13-x01-y03" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d13-x01-y03" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d13-x01-y03" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.038292683661" errorPlus="0.038292683661" value="0.038292683661" />
@@ -429,13 +429,13 @@
       <measurement errorMinus="0.0553117208183" errorPlus="0.0425654761493" value="0.954339563847" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d14-x01-y01" path="/REF/ATLAS_2010_UE_CLUSTER" title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 1 GeV">
+  <dataPointSet dimension="2" name="d14-x01-y01" path="/REF/ATLAS_2010_S8994773" title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 1 GeV">
     <dimension title="$\Delta\phi$[rad]" dim="0" sticky="True" />
     <dimension title="$\mathrm{d}\langle N\rangle/\mathrm{d}\Delta\phi$" dim="1" sticky="True" />
     <annotation>
       <item title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 3 GeV" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d14-x01-y01" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d14-x01-y01" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d14-x01-y01" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d14-x01-y01" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.038292683661" errorPlus="0.038292683661" value="0.038292683661" />
@@ -522,13 +522,13 @@
       <measurement errorMinus="0.0422461591661" errorPlus="0.0597557798028" value="0.764581680298" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d14-x01-y02" path="/REF/ATLAS_2010_UE_CLUSTER" title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 2 GeV">
+  <dataPointSet dimension="2" name="d14-x01-y02" path="/REF/ATLAS_2010_S8994773" title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 2 GeV">
     <dimension title="$\Delta\phi$[rad]" dim="0" sticky="True" />
     <dimension title="$\mathrm{d}\langle N\rangle/\mathrm{d}\Delta\phi$" dim="1" sticky="True" />
     <annotation>
       <item title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 2 GeV" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d14-x01-y02" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d14-x01-y02" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d14-x01-y02" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d14-x01-y02" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.038292683661" errorPlus="0.038292683661" value="0.038292683661" />
@@ -615,13 +615,13 @@
       <measurement errorMinus="0.0469157807529" errorPlus="0.06546985358" value="1.14304447174" />
     </dataPoint>
   </dataPointSet>
-  <dataPointSet dimension="2" name="d14-x01-y03" path="/REF/ATLAS_2010_UE_CLUSTER" title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 3 GeV">
+  <dataPointSet dimension="2" name="d14-x01-y03" path="/REF/ATLAS_2010_S8994773" title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 3 GeV">
     <dimension title="$\Delta\phi$[rad]" dim="0" sticky="True" />
     <dimension title="$\mathrm{d}\langle N\rangle/\mathrm{d}\Delta\phi$" dim="1" sticky="True" />
     <annotation>
       <item title="7 TeV Particle density vs. $\Delta\phi$ with $p_T$(lead) $>$ 3 GeV" />
-      <item AidaPath="/REF/ATLAS_2010_UE_CLUSTER/d14-x01-y03" />
-      <item FullPath="/ATLAS_2010_UE_CLUSTER.aida/REF/ATLAS_2010_UE_CLUSTER/d14-x01-y03" />
+      <item AidaPath="/REF/ATLAS_2010_S8994773/d14-x01-y03" />
+      <item FullPath="/ATLAS_2010_S8994773.aida/REF/ATLAS_2010_S8994773/d14-x01-y03" />
     </annotation>
     <dataPoint>
       <measurement errorMinus="0.038292683661" errorPlus="0.038292683661" value="0.038292683661" />

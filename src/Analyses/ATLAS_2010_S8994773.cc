@@ -10,11 +10,11 @@ namespace Rivet {
 
 
   /// @author Jinlong Zhang
-  class ATLAS_2010_UE_CLUSTER : public Analysis {
+  class ATLAS_2010_S8994773 : public Analysis {
   public:
 
-    ATLAS_2010_UE_CLUSTER()
-      : Analysis("ATLAS_2010_UE_CLUSTER") {    }
+    ATLAS_2010_S8994773()
+      : Analysis("ATLAS_2010_S8994773") {    }
 
 
     void init() {
@@ -133,6 +133,6 @@ namespace Rivet {
 
 
   // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2010_UE_CLUSTER> plugin_ATLAS_2010_UE_CLUSTER;
+  AnalysisBuilder<ATLAS_2010_S8994773> plugin_ATLAS_2010_S8994773;
 
 }
