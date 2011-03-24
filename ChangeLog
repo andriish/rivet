@@ -1,3 +1,9 @@
+2011-03-24  Andy Buckley  <andy@insectnation.org>
+
+	* bin/aida2flat: Adding a -M option to *exclude* histograms whose
+	paths match a regex. Writing a negative lookahead regex with
+	positive matching was far too awkward!
+
 2011-03-18  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Core/AnalysisHandler.cc (AnalysisHandler::removeAnalysis):

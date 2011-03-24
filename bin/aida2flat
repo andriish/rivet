@@ -57,6 +57,9 @@ if __name__ == "__main__":
     parser.add_option("-m", "--match", action="append",
                       help="Only write out histograms whose $path/$name string matches these regexes",
                       dest="PATHPATTERNS")
+    parser.add_option("-M", "--unmatch", action="append",
+                      help="Exclude histograms whose $path/$name string matches these regexes",
+                      dest="PATHUNPATTERNS")
     verbgroup = OptionGroup(parser, "Verbosity control")
     verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
                          default=logging.INFO, help="print debug (very verbose) messages")
@@ -72,6 +75,8 @@ if __name__ == "__main__":
     ## Initialise steering variables which need a bit more care
     if opts.PATHPATTERNS is None:
         opts.PATHPATTERNS = []
+    if opts.PATHUNPATTERNS is None:
+        opts.PATHUNPATTERNS = []
     if opts.GNUPLOT:
         opts.SPLITOUTPUT = True
 
@@ -106,14 +111,22 @@ if __name__ == "__main__":
             sys.exit(1)
         histos = []
         for dps in tree.findall("dataPointSet"):
+
+            ## Pattern matching to include and/or exclude certain histo paths
             useThisDps = True
-            if len(opts.PATHPATTERNS) > 0:
+            dpspath = os.path.join(dps.get("path"), dps.get("name"))
+            if opts.PATHPATTERNS:
                 useThisDps = False
-                dpspath = os.path.join(dps.get("path"), dps.get("name"))
                 for regex in opts.PATHPATTERNS:
                     if re.compile(regex).search(dpspath):
                         useThisDps = True
                         break
+            if useThisDps and opts.PATHUNPATTERNS:
+                for regex in opts.PATHUNPATTERNS:
+                    if re.compile(regex).search(dpspath):
+                        useThisDps = False
+                        break
+
             if useThisDps:
                 hist = lighthisto.Histo.fromDPS(dps)
                 try:
