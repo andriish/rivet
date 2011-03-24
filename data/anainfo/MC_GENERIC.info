@@ -1,6 +1,6 @@
 Name: MC_GENERIC
 Summary: Generic MC testing analysis
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Ian Bruce <ibruce@cern.ch>
  - Andy Buckley <andy.buckley@cern.ch>
