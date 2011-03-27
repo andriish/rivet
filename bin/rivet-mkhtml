@@ -34,7 +34,9 @@ from subprocess import Popen, PIPE
 from optparse import OptionParser
 parser = OptionParser(usage=__doc__)
 parser.add_option("-o", "--outputdir", dest="OUTPUTDIR",
-                  default="./plots", help="directory for webpage output.")
+                  default="./plots", help="directory for webpage output")
+parser.add_option("-t", "--title", dest="TITLE",
+                  default="Plots from Rivet analyses", help="title to be displayed on the main web page")
 parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                   help="plot config file(s) to be used with make-plots.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
@@ -161,9 +163,15 @@ style = """<style>
   a { text-decoration: none; font-weight: bold; }
 </style>"""
 
+
+## A timestamp HTML fragment to be used on each page:
+import datetime
+timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
+
+
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.OUTPUTDIR, style))
-index.write('<h2>Plots from Rivet analyses</h2>\n\n')
+index.write('<h2>%s</h2>\n\n' % opts.TITLE)
 
 if opts.SINGLE:
     ## Write table of contents
@@ -239,8 +247,8 @@ for analysis in analyses:
         anaindex.write('  </div>\n')
 
     if not opts.SINGLE:
-        anaindex.write("</body>\n</html>\n")
-index.write('</body>\n</html>')
+        anaindex.write("</body>\n%s</html>\n" % timestamp)
+index.write('</body>\n%s</html>' % timestamp)
 
 
 ## Run make-plots on all generated .dat files
