@@ -105,7 +105,6 @@ namespace Rivet {
     }
 
     Vector<N> getColumn(const size_t col) const {
-      const Eigen::Vector<double,N> eVec = _matrix.column(col);
       Vector<N> rtn;
       for (size_t i = 0; i < N; ++i) {
         rtn.set(i, _matrix(i,col));
