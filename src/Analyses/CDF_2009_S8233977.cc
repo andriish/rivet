@@ -35,8 +35,8 @@ namespace Rivet {
       setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
 
@@ -52,7 +52,7 @@ namespace Rivet {
     }
 
 
- 
+
     /// Do the analysis
     void analyze(const Event& evt) {
       // MinBias Trigger
@@ -70,7 +70,7 @@ namespace Rivet {
       foreach (const Particle& p, trackfs.particles()) {
         const double pT = p.momentum().pT() / GeV;
         _hist_pt_vs_multiplicity->fill(numParticles, pT, weight);
-     
+
         // The weight for entries in the pT distribution should be weight/(pT*dPhi*dy).
         //
         // - dPhi = 2*PI
@@ -101,16 +101,16 @@ namespace Rivet {
       _sumWeightSelected += evt.weight();
     }
 
- 
- 
+
+
     /// Normalize histos
     void finalize() {
       scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*_sumWeightSelected));
       scale(_hist_pt, crossSection()/millibarn/_sumWeightSelected);
-      getLog() << Log::DEBUG << "sumOfWeights()     = " << sumOfWeights() << std::endl;
-      getLog() << Log::DEBUG << "_sumWeightSelected = " << _sumWeightSelected << std::endl;
+      MSG_DEBUG("sumOfWeights()     = " << sumOfWeights());
+      MSG_DEBUG("_sumWeightSelected = " << _sumWeightSelected);
     }
- 
+
     //@}
 
 
