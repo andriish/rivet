@@ -1,3 +1,14 @@
+2011-03-31  Andy Buckley  <andy@insectnation.org>
+
+	* bin/compare-histos: Write more appropriate ratio plot labels
+	when not comparing to data, and use the default make-plots labels
+	when comparing to data.
+
+	* bin/rivet-mkhtml: Adding a timestamp to the generated pages, and
+	a -t/--title option to allow setting the main HTML page title on
+	the command line: otherwise it becomes impossible to tell these
+	pages apart when you have a lot of them, except by URL!
+
 2011-03-24  Andy Buckley  <andy@insectnation.org>
 
 	* bin/aida2flat: Adding a -M option to *exclude* histograms whose
