@@ -110,7 +110,7 @@ arxivtar: $(DOCSOURCES) rivet-manual.bbl
 	tar czf rivet-manual.tar.gz \
 rivet-manual.tex preamble.tex analyses.tex rivetversion.sty rivet-manual.bbl \
 hepnames.sty hepnicenames.sty hepparticles.sty heppennames.sty hepunits.sty maybemath.sty microtype.sty underscore.sty \
-bend.eps cone.eps thinker.eps \
+bend.eps cone.eps thinker.eps warning.eps \
 h-physrev3.bst JHEP3.cls JHEP.bst
 
 mostlyclean-local:

@@ -234,6 +234,7 @@ outstr = prefix + body
 
 ## Write out to TeX and BibTeX files
 f = open("%s.tex" % OUTNAME, "w")
+f.write("%auto-ignore\n")
 f.write(outstr)
 f.close()
 f = open("%s.bib" % OUTNAME, "w")
