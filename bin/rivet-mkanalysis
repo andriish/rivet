@@ -77,9 +77,9 @@ for ANANAME in ANANAMES:
     re_stdana = re.compile(r"^(\w+)_(\d{4})_S(\d+)$")
     match = re_stdana.match(ANANAME)
     STDANA = False
-    ANAEXPT = None
-    ANAYEAR = None
-    ANASPIRESID = None
+    ANAEXPT = "<Insert the experiment name>"
+    ANAYEAR = "<Insert year of publication>"
+    ANASPIRESID = "<Insert the SPIRES IRN ID>"
     if match:
         STDANA = True
         ANAEXPT = match.group(1)
@@ -94,37 +94,40 @@ for ANANAME in ANANAMES:
 
 
     ## Try to get bib info from SPIRES
-    ANABIBKEY = "<Insert SPIRES BibTeX key>"
-    ANABIBTEX = "<Insert SPIRES BibTeX block>"
+    ANABIBKEY = ""
+    ANABIBTEX = ""
     bibkey, bibtex = None, None
-    try:
-        import spiresbib
-        logging.debug("Getting SPIRES biblio data for '%s'" % ANANAME)
-        bibkey, bibtex = spiresbib.get_bibtex_from_spires(ANASPIRESID)
-    except Exception, e:
-        logging.error("SPIRES oops: %s" % e)
-    if bibkey and bibtex:
-        ANABIBKEY = bibkey
-        ANABIBTEX = bibtex
+    if STDANA:
+        try:
+            import spiresbib
+            logging.debug("Getting SPIRES biblio data for '%s'" % ANANAME)
+            bibkey, bibtex = spiresbib.get_bibtex_from_spires(ANASPIRESID)
+        except Exception, e:
+            logging.error("SPIRES oops: %s" % e)
+        if bibkey and bibtex:
+            ANABIBKEY = bibkey
+            ANABIBTEX = bibtex
     KEYWORDS["ANABIBKEY"] = ANABIBKEY
     KEYWORDS["ANABIBTEX"] = ANABIBTEX
 
+
     ## Try do download AIDA data file from hepdata
-    try:
-        import urllib
-        hdurl = "http://hepdata.cedar.ac.uk/view/irn%s/aida" % ANASPIRESID
-        logging.debug("Getting data file from HepData at %s" % hdurl)
-        httpstream = urllib.urlopen(hdurl)
-        aidastr = httpstream.read()
-        if "<html>" in aidastr:
-            logging.warning("Problem encountered when getting data from HepData (%s). No reference data file written." % hdurl)
-        else:
-            f = open("%s.aida" % ANANAME, "w")
-            f.write(aidastr)
-            f.close()
-        httpstream.close()
-    except Exception, e:
-        logging.error("HepData oops: %s" % e)
+    if STDANA:
+        try:
+            import urllib
+            hdurl = "http://hepdata.cedar.ac.uk/view/irn%s/aida" % ANASPIRESID
+            logging.debug("Getting data file from HepData at %s" % hdurl)
+            httpstream = urllib.urlopen(hdurl)
+            aidastr = httpstream.read()
+            if "<html>" in aidastr:
+                logging.warning("Problem encountered when getting data from HepData (%s). No reference data file written." % hdurl)
+            else:
+                f = open("%s.aida" % ANANAME, "w")
+                f.write(aidastr)
+                f.close()
+            httpstream.close()
+        except Exception, e:
+            logging.error("HepData oops: %s" % e)
 
 
     if opts.INLINE:
@@ -133,10 +136,10 @@ for ANANAME in ANANAMES:
     string experiment()         const { return "%(ANAEXPT)s"; }
     string year()               const { return "%(ANAYEAR)s"; }
     string spiresId()           const { return "%(ANASPIRESID)s"; }
-    string collider()           const { return "None"; }
-    string summary()            const { return "None"; }
-    string description()        const { return "None"; }
-    string runInfo()            const { return "None"; }
+    string collider()           const { return ""; }
+    string summary()            const { return ""; }
+    string description()        const { return ""; }
+    string runInfo()            const { return ""; }
     string bibKey()             const { return "%(ANABIBKEY)s"; }
     string bibTeX()             const { return "%(ANABIBTEX)s"; }
     string status()             const { return "UNVALIDATED"; }
@@ -253,9 +256,9 @@ namespace Rivet {
     f = open(ANAPLOTFILE, "w")
     src = """\
 # BEGIN PLOT /%(ANANAME)s/d01-x01-y01
-Title=[Insert title for histogram d01-x01-y01 here]
-XLabel=[Insert x-axis label for histogram d01-x01-y01 here]
-YLabel=[Insert y-axis label for histogram d01-x01-y01 here]
+#Title=[Uncomment and insert title for histogram d01-x01-y01 here]
+#XLabel=[Uncomment and insert x-axis label for histogram d01-x01-y01 here]
+#YLabel=[Uncomment and insert y-axis label for histogram d01-x01-y01 here]
 # + any additional plot settings you might like, see make-plots documentation
 # END PLOT
 
@@ -279,29 +282,28 @@ SpiresID: %(ANASPIRESID)s
 Status: UNVALIDATED
 Authors:
  - Your Name <your@email.address>
-References:
- - <Example: Phys.Lett.B639:151-158,2006, Erratum-ibid.B658:285-289,2008>
- - <Example: doi:10.1016/j.physletb.2006.04.048>
- - <Example: arXiv:hep-ex/0511054 (plus erratum)>
+#References:
+# - <Example: Phys.Lett.B639:151-158,2006, Erratum-ibid.B658:285-289,2008>
+# - <Example: doi:10.1016/j.physletb.2006.04.048>
+# - <Example: arXiv:hep-ex/0511054 (plus erratum)>
 RunInfo:
   <Insert event types (not gen-specific), energy, any kinematic
-  efficiency cut(s) that may be needed, essentially any details needed to set
+  efficiency cut(s) that may be needed; essentially any details needed to set
   up a generator to reproduce the data.>
-NumEvents: <Insert typical number of events needed for good statistics.>
-Beams: <Insert beam pair(s), e.g. [p-, p+] or [[p-, e-], [p-, e+]]>
-Energies: <Insert list of run energies or beam energy pairs in GeV,
-           e.g. [1960] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
-PtCuts: <Insert list of kinematic pT cuts in GeV, e.g. [0, 20]>
+NumEvents: 1000000
+#Beams: <Insert beam pair(s), e.g. [p-, p+] or [[p-, e-], [p-, e+]]>
+#Energies: <Insert list of run energies or beam energy pairs in GeV,
+#           e.g. [1960] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
+#PtCuts: <Insert list of kinematic pT cuts in GeV, e.g. [0, 20]>
 Description:
   '<Insert a fairly long description, including what is measured
-  and if possible what it's useful for in terms of MC validation
+  and if possible what it is useful for in terms of MC validation
   and tuning. Use \LaTeX for maths like $\pT > \unit{50}{\GeV}$.
   Use single quotes around the block if required (see YAML 1.2 manual)>'
 BibKey: %(ANABIBKEY)s
 BibTeX: '%(ANABIBTEX)s'
 ToDo:
- - <Example: Use correct jet algorithm>
- - <Example: Add simplified trigger definition>
+ - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
 
 """ % KEYWORDS
     f.write(src)
