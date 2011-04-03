@@ -18,7 +18,7 @@ ENVIRONMENT:
 """
 
 import sys
-if sys.version_info[:3] < (2,4,0):
+if sys.version_info[:3] < (2, 4, 0):
     print "rivet scripts require Python version >= 2.4.0... exiting"
     sys.exit(1)
 
@@ -28,11 +28,11 @@ import logging, signal
 
 ## Try to rename the process on Linux
 try:
-   import ctypes
-   libc = ctypes.cdll.LoadLibrary('libc.so.6')
-   libc.prctl(15, 'rivet', 0, 0, 0)
+    import ctypes
+    libc = ctypes.cdll.LoadLibrary('libc.so.6')
+    libc.prctl(15, 'rivet', 0, 0, 0)
 except Exception:
-   pass
+    pass
 
 ## Try to use Psyco optimiser
 try:
@@ -278,10 +278,9 @@ if len(opts.SHOW_ANALYSES) > 0:
         print "Spires ID: %s" % ana.spiresId()
         print "Spires URL:  http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key+%s" % ana.spiresId()
         print "HepData URL: http://hepdata.cedar.ac.uk/view/irn%s" % ana.spiresId()
+        coll = ""
         if ana.collider():
-            coll=ana.collider()
-        else:
-            coll=""
+            coll = ana.collider()
         print "Experiment: %s" % ana.experiment(), "(%s)" % coll
         print "Year of publication: %s" % ana.year()
         print "Authors:"

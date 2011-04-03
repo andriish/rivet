@@ -16,7 +16,7 @@ TODO:
 """
 
 import sys
-if sys.version_info[:3] < (2,4,0):
+if sys.version_info[:3] < (2, 4, 0):
     print "rivet scripts require Python version >= 2.4.0... exiting"
     sys.exit(1)
 
@@ -48,18 +48,18 @@ except ImportError:
 
 
 if __name__ == "__main__":
-    import os, sys, re, logging
+    import os, re, logging
 
     PROGPATH = sys.argv[0]
     PROGNAME = os.path.basename(PROGPATH)
 
     ## Try to rename the process on Linux
     try:
-       import ctypes
-       libc = ctypes.cdll.LoadLibrary('libc.so.6')
-       libc.prctl(15, 'compare-histos', 0, 0, 0)
+        import ctypes
+        libc = ctypes.cdll.LoadLibrary('libc.so.6')
+        libc.prctl(15, 'compare-histos', 0, 0, 0)
     except Exception:
-       pass
+        pass
 
     ## Try to use Psyco optimiser
     try:
@@ -74,7 +74,7 @@ if __name__ == "__main__":
         import rivet
         rivet_data_dirs = rivet.getAnalysisRefPaths()
     except Exception, e:
-        sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n");
+        sys.stderr.write(PROGNAME + " requires the 'rivet' Python module\n")
         logging.debug(str(e))
         sys.exit(1)
 
@@ -168,17 +168,17 @@ if __name__ == "__main__":
     PLOTSTYLES = ''
     COLORS = ('red', 'blue', '{[rgb]{0.12,0.57,0.14}}', 'magenta')
     LINESTYLES = ('solid', 'dashed', 'dashdotted', 'dotted')
-    STYLES=[]
+    STYLES = []
     for ls in LINESTYLES:
         for c in COLORS:
             STYLES.append( (c, ls) )
-    if opts.STYLE=='talk':
+    if opts.STYLE == 'talk':
         PLOTSTYLES += 'PlotSize=8,6\n'
         HISTSTYLES += 'LineWidth=1pt\n'
-    if opts.STYLE=='bw':
+    if opts.STYLE == 'bw':
         PLOTSTYLES += 'RatioPlotErrorBandColor=black!10\n'
         COLORS = ('black!90', 'black!50', 'black!30')
-        STYLES=[]
+        STYLES = []
         for c in COLORS:
             for ls in LINESTYLES:
                 STYLES.append( (c, ls) )
@@ -200,7 +200,7 @@ if __name__ == "__main__":
             FILEOPTIONS[path] = []
         for i in range(1, len(asplit)):
             if not "=" in asplit[i]:
-                asplit[i]="Title=%s" % asplit[i]
+                asplit[i] = "Title=%s" % asplit[i]
             FILEOPTIONS[path].append(asplit[i])
 
 
@@ -243,13 +243,14 @@ if __name__ == "__main__":
                     ylabels[dpsname] = h.ylabel
             else:
                 if dpsname.count('/') > 2:
-                    dpsname = '/' + dpsname.split('/',2)[-1]
+                    dpsname = '/' + dpsname.split('/', 2)[-1]
                 titles[dpsname] = h.title
                 xlabels[dpsname] = h.xlabel
                 ylabels[dpsname] = h.ylabel
             h.expt = dpsname.split("_")[0][1:]
-            if h.expt=="D0":
-                h.expt="D\O\ "
+            ## Hard-coded cosmetic handling for the D0 experiment name!
+            if h.expt == "D0":
+                h.expt = "D\O\ "
             histos[dpsname] = h
         return histos, titles, xlabels, ylabels
 
@@ -429,7 +430,7 @@ if __name__ == "__main__":
             special = {}
         if special:
             headstr += "\n"
-            headstr += "# BEGIN SPECIAL %s\n" %name
+            headstr += "# BEGIN SPECIAL %s\n" % name
             headstr += special
             headstr += "# END SPECIAL\n"
 
