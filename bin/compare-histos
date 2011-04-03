@@ -403,11 +403,11 @@ if __name__ == "__main__":
 
 
         if opts.RATIO_DEVIATION:
-             paramdefaults["RatioPlotMode"] = "deviation"
-         if not HISTOS[ref][name].isdata:
-             paramdefaults["RatioPlotYLabel"] = "Ratio"
-             if opts.RATIO_DEVIATION:
-                 paramdefaults["RatioPlotYLabel"] = "Deviation"
+            paramdefaults["RatioPlotMode"] = "deviation"
+        if not HISTOS[ref][name].isdata:
+            paramdefaults["RatioPlotYLabel"] = "Ratio"
+            if opts.RATIO_DEVIATION:
+                paramdefaults["RatioPlotYLabel"] = "Deviation"
 
 
         headstr  = "# BEGIN PLOT\n"
