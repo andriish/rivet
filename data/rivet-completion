@@ -104,7 +104,7 @@ function _compare_histos() {
 
     opts="--help -h"
     opts="$opts --outdir -o"
-    opts="$opts --rivet-refs -R"
+    opts="$opts --rivet-refs -R --no-rivet-refs"
     opts="$opts --histogram-list -l"
     opts="$opts --hier-out --linear --logarithmic --mc-errs"
     opts="$opts --no-ratio --rel-ratio --abs-ratio"
