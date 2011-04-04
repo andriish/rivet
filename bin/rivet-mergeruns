@@ -512,17 +512,23 @@ if __name__ == "__main__":
     ## Rick Field Run-II Leading Jets UE analysis
     logging.info("Processing CDF_2010_S8591881_QCD")
     ## charged particle density
-    mergeByPt("/CDF_2010_S8591881_QCD/d01-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_QCD/d02-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_QCD/d03-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_QCD/d04-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d10-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d10-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d10-x01-y03", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d11-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d11-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d11-x01-y03", "1960")
     ## pT sum density
-    mergeByPt("/CDF_2010_S8591881_QCD/d05-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_QCD/d06-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_QCD/d07-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_QCD/d08-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d12-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d12-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d12-x01-y03", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d13-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d13-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d13-x01-y03", "1960")
     ## mean pT
-    mergeByPt("/CDF_2010_S8591881_QCD/d09-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_QCD/d14-x01-y01", "1960")
+    ## pT max
+    mergeByPt("/CDF_2010_S8591881_QCD/d15-x01-y01", "1960")
     ##
     ## And again, with the deprecated name:
     ##
@@ -544,30 +550,28 @@ if __name__ == "__main__":
     logging.info("Processing CDF_2010_S8591881_DY")
     ## charged particle density
     mergeByPt("/CDF_2010_S8591881_DY/d01-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d01-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d01-x01-y03", "1960")
     mergeByPt("/CDF_2010_S8591881_DY/d02-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d03-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d04-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d05-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d06-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d02-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d02-x01-y03", "1960")
     ## pT sum density
-    mergeByPt("/CDF_2010_S8591881_DY/d07-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d08-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d09-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d10-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d11-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d12-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d03-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d03-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d03-x01-y03", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d04-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d04-x01-y02", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d04-x01-y03", "1960")
     ## mean pT
-    mergeByPt("/CDF_2010_S8591881_DY/d13-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d14-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d15-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d05-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d05-x01-y02", "1960")
     ## max pT
-    mergeByPt("/CDF_2010_S8591881_DY/d16-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d17-x01-y01", "1960")
-    mergeByPt("/CDF_2010_S8591881_DY/d18-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d06-x01-y01", "1960")
+    mergeByPt("/CDF_2010_S8591881_DY/d06-x01-y02", "1960")
     ##
-    #useOnePt("/CDF_2010_S8591881_DY/d19-x01-y01", "1960", "10")
-    #useOnePt("/CDF_2010_S8591881_DY/d20-x01-y01", "1960", "10")
-    #useOnePt("/CDF_2010_S8591881_DY/d21-x01-y01", "1960", "10")
+    #useOnePt("/CDF_2010_S8591881_DY/d07-x01-y01", "1960", "10")
+    #useOnePt("/CDF_2010_S8591881_DY/d08-x01-y01", "1960", "10")
+    #useOnePt("/CDF_2010_S8591881_DY/d09-x01-y01", "1960", "10")
     ##
     ## And again, with the deprecated name:
     ##
