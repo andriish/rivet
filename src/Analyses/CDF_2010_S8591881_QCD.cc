@@ -49,10 +49,6 @@ namespace Rivet {
       addProjection(fsj, "FSJ");
       addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
 
-      // Final state for the sum(ET) distributions
-      const FinalState fs(-1.0, 1.0, 0.0*GeV);
-      addProjection(fs, "FS");
-
       // Charged final state for the distributions
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       addProjection(cfs, "CFS");
@@ -108,7 +104,6 @@ namespace Rivet {
 
       size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
       double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
-      //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
       double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
 
       // Calculate all the charged stuff
