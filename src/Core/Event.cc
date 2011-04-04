@@ -27,7 +27,7 @@ namespace Rivet {
     if (!_genEvent.valid_beam_particles()) return;
     typedef pair<HepMC::GenParticle*, HepMC::GenParticle*> GPPair;
     GPPair bps = _genEvent.beam_particles();
-    const PdgIdPair beamids = make_pdgid_pair(bps.first->pdg_id(), bps.second->pdg_id());
+    //const PdgIdPair beamids = make_pdgid_pair(bps.first->pdg_id(), bps.second->pdg_id());
     //Log::getLog("Rivet.Event") << Log::TRACE << "Beam IDs: " << beamids << endl;
     const HepMC::GenParticle* plusgp = 0;
     bool rot = false;
