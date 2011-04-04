@@ -27,6 +27,13 @@ namespace Rivet {
     assert(ge);
     return particles(*ge);
   }
+//  inline std::pair<GenEvent::particle_const_iterator, GenEvent::particle_const_iterator> particles(const GenEvent& ge) {
+//    return make_pair(ge.particles_begin(), ge.particles_end());
+//  }
+//  inline std::pair<GenEvent::particle_const_iterator, GenEvent::particle_const_iterator> particles(const GenEvent* ge) {
+//    assert(ge);
+//    return particles(*ge);
+//  }
 
 
   inline vector<GenVertex*> vertices(const GenEvent& ge) {
@@ -40,23 +47,22 @@ namespace Rivet {
     assert(ge);
     return vertices(*ge);
   }
+//  inline std::pair<GenEvent::vertex_const_iterator, GenEvent::vertex_const_iterator> vertices(const GenEvent& ge) {
+//    return make_pair(ge.vertices_begin(), ge.vertices_end());
+//  }
+//  inline std::pair<GenEvent::vertex_const_iterator, GenEvent::vertex_const_iterator> vertices(const GenEvent* ge) {
+//    assert(ge);
+//    return vertices(*ge);
+//  }
 
 
-  inline const vector<GenParticle*> particles_in(const GenVertex* gv) {
-    vector<GenParticle*> rtn;
-    for (GenVertex::particles_in_const_iterator pi = gv->particles_in_const_begin(); pi != gv->particles_in_const_end(); ++pi) {
-      rtn.push_back(*pi);
-    }
-    return rtn;
+  inline const std::pair<GenVertex::particles_in_const_iterator, GenVertex::particles_in_const_iterator> particles_in(const GenVertex* gv) {
+    return make_pair(gv->particles_in_const_begin(), gv->particles_in_const_end());
   }
 
 
-  inline const vector<GenParticle*> particles_out(const GenVertex* gv) {
-    vector<GenParticle*> rtn;
-    for (GenVertex::particles_out_const_iterator pi = gv->particles_out_const_begin(); pi != gv->particles_out_const_end(); ++pi) {
-      rtn.push_back(*pi);
-    }
-    return rtn;
+  inline const std::pair<GenVertex::particles_out_const_iterator, GenVertex::particles_out_const_iterator> particles_out(const GenVertex* gv) {
+    return make_pair(gv->particles_out_const_begin(), gv->particles_out_const_end());
   }
 
 
@@ -67,6 +73,9 @@ namespace Rivet {
     }
     return rtn;
   }
+//  inline std::pair<GenVertex::particle_iterator, GenVertex::particle_iterator> particles(GenVertex* gv, HepMC::IteratorRange range=HepMC::relatives) {
+//    return make_pair(gv->particles_begin(range), gv->particles_end(range));
+//  }
 
 
 }
