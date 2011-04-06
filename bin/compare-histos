@@ -399,8 +399,7 @@ if __name__ == "__main__":
                          "RatioPlot" : "%d" % int(not opts.NORATIO),
                          "XTwosidedTicks" : "1",
                          "YTwosidedTicks" : "1",
-                         "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath()),
-                         "RatioPlotYLabel" : "Ratio"}
+                         "RatioPlotReference" : "%s%s" % (ref, HISTOS[ref][name].fullPath())}
 
 
         if opts.RATIO_DEVIATION:
