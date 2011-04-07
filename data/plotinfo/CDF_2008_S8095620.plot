@@ -7,7 +7,7 @@ YLabel=$1/\sigma(Z) \times \sigma(Z + b\,\text{jet})$
 # BEGIN PLOT /CDF_2008_S8095620/d02-x01-y01
 Title=
 XLabel=$E_{T}^{b\,\text{jet}}$ [GeV]
-YLabel=$1/\sigma(Z) \times \mathrm{d\sigma(Z + b\,\text{jet})/\mathrm{d}E_{T}^{b\,\text{jet}}$
+YLabel=$1/\sigma(Z) \times \mathrm{d}\sigma(Z + b\,\text{jet})/\mathrm{d}E_{T}^{b\,\text{jet}}$
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S8095620/d03-x01-y01
