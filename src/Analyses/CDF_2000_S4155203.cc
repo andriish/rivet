@@ -41,18 +41,18 @@ namespace Rivet {
     void analyze(const Event& e) {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.particles().size() != 1) {
-        getLog() << Log::DEBUG << "Num e+ e- pairs found = " << zfinder.particles().size() << endl;
+        MSG_DEBUG("Num e+ e- pairs found = " << zfinder.particles().size());
         vetoEvent;
       }
 
       FourMomentum pZ = zfinder.particles()[0].momentum();
       if (pZ.mass2() < 0) {
-        getLog() << Log::DEBUG << "Negative Z mass**2 = " << pZ.mass2()/GeV2 << "!" << endl;
+        MSG_DEBUG("Negative Z mass**2 = " << pZ.mass2()/GeV2 << "!");
         vetoEvent;
       }
 
-      getLog() << Log::DEBUG << "Dilepton mass = " << pZ.mass()/GeV << " GeV"  << endl;
-      getLog() << Log::DEBUG << "Dilepton pT   = " << pZ.pT()/GeV << " GeV" << endl;
+      MSG_DEBUG("Dilepton mass = " << pZ.mass()/GeV << " GeV");
+      MSG_DEBUG("Dilepton pT   = " << pZ.pT()/GeV << " GeV");
       _hist_zpt->fill(pZ.pT()/GeV, e.weight());
     }
 

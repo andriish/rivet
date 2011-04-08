@@ -204,9 +204,9 @@ for analysis in analyses:
         if opts.IGNORE_UNVALIDATED and ana.status().upper() != "VALIDATED":
             continue
     if opts.SINGLE:
-        index.write('<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
+        index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
     else:
-        index.write('<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
+        index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
     reflist = []
     if spiresid and spiresid != "NONE":
         reflist.append('<a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
@@ -248,7 +248,7 @@ for analysis in analyses:
 
     if not opts.SINGLE:
         anaindex.write("</body>\n%s</html>\n" % timestamp)
-index.write('</body>\n%s</html>' % timestamp)
+index.write('</body>\n%s</html>\n' % timestamp)
 
 
 ## Run make-plots on all generated .dat files
