@@ -101,6 +101,7 @@ dist_pkgdata_DATA = \
   MC_WJETS.info \
   MC_WPOL.info \
   MC_WWJETS.info \
+  MC_XS.info \
   MC_ZJETS.info \
   MC_ZZJETS.info \
   OPAL_1993_S2692198.info \

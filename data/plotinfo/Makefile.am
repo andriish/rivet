@@ -99,6 +99,7 @@ dist_pkgdata_DATA = \
   MC_WJETS.plot \
   MC_WPOL.plot \
   MC_WWJETS.plot \
+  MC_XS.plot \
   MC_ZJETS.plot \
   MC_ZZJETS.plot \
   OPAL_1993_S2692198.plot \

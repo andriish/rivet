@@ -243,5 +243,6 @@ if ENABLE_UNVALIDATED
 RivetMCAnalyses_la_SOURCES += \
     MC_DIJET.cc \
     MC_PHOTONJETUE.cc \
-    MC_TTBAR.cc
+    MC_TTBAR.cc \
+    MC_XS.cc
 endif
