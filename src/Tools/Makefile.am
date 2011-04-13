@@ -14,9 +14,11 @@ libRivetTools_la_SOURCES = \
   TinyXML/tinyxml.cpp \
   TinyXML/tinyxmlerror.cpp \
   TinyXML/tinyxmlparser.cpp \
-  BinnedHistogram.cc
+  BinnedHistogram.cc \
+  mt2_bisect.cc \
+  RivetMT2.cc
 
-dist_noinst_HEADERS = binreloc.h
+dist_noinst_HEADERS = binreloc.h mt2_bisect.hh
 
 libRivetTools_la_CPPFLAGS = \
   $(AM_CPPFLAGS) \
