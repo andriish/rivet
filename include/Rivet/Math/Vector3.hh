@@ -328,6 +328,47 @@ namespace Rivet {
 
   /////////////////////////////////////////////////////
 
+  /// @name \f$ |\Delta eta| \f$ calculations from 3-vectors
+  //@{
+
+  /// Calculate the difference in pseudorapidity between two spatial vectors.
+  inline double deltaEta(const Vector3& a, const Vector3& b) {
+    return deltaEta(a.pseudorapidity(), b.pseudorapidity());
+  }
+
+  /// Calculate the difference in pseudorapidity between two spatial vectors.
+  inline double deltaEta(const Vector3& v, double eta2) {
+    return deltaEta(v.pseudorapidity(), eta2);
+  }
+
+  /// Calculate the difference in pseudorapidity between two spatial vectors.
+  inline double deltaEta(double eta1, const Vector3& v) {
+    return deltaEta(eta1, v.pseudorapidity());
+  }
+
+  //@}
+
+
+  /// @name \f$ \Delta phi \f$ calculations from 3-vectors
+  //@{
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const Vector3& a, const Vector3& b) {
+    return deltaPhi(a.azimuthalAngle(), b.azimuthalAngle());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const Vector3& v, double phi2) {
+    return deltaPhi(v.azimuthalAngle(), phi2);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(double phi1, const Vector3& v) {
+    return deltaPhi(phi1, v.azimuthalAngle());
+  }
+
+  //@}
+
 
   /// @name \f$ \Delta R \f$ calculations from 3-vectors
   //@{

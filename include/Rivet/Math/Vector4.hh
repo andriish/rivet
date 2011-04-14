@@ -706,8 +706,195 @@ namespace Rivet {
     }
   }
 
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR(const FourMomentum& a, const FourVector& b,
+                       RapScheme scheme = PSEUDORAPIDITY) {
+    switch (scheme) {
+    case PSEUDORAPIDITY:
+      return deltaR(a.vector3(), b.vector3());
+    case RAPIDITY:
+      return deltaR(a.rapidity(), a.azimuthalAngle(), FourMomentum(b).rapidity(), b.azimuthalAngle());
+    default:
+      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
+    }
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR(const FourVector& a, const FourMomentum& b,
+                       RapScheme scheme = PSEUDORAPIDITY) {
+    switch (scheme) {
+    case PSEUDORAPIDITY:
+      return deltaR(a.vector3(), b.vector3());
+    case RAPIDITY:
+      return deltaR(FourMomentum(a).rapidity(), a.azimuthalAngle(), b.rapidity(), b.azimuthalAngle());
+    default:
+      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
+    }
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
+  inline double deltaR(const FourMomentum& a, const Vector3& b) {
+    return deltaR(a.vector3(), b);
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
+  inline double deltaR(const Vector3& a, const FourMomentum& b) {
+    return deltaR(a, b.vector3());
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
+  inline double deltaR(const FourVector& a, const Vector3& b) {
+    return deltaR(a.vector3(), b);
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
+  inline double deltaR(const Vector3& a, const FourVector& b) {
+    return deltaR(a, b.vector3());
+  }
+
   //@}
 
+  /// @name \f$ \Delta phi \f$ calculations from 4-vectors
+  //@{
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourMomentum& a, const FourMomentum& b) {
+    return deltaPhi(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourMomentum& v, double phi2) {
+    return deltaPhi(v.vector3(), phi2);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(double phi1, const FourMomentum& v) {
+    return deltaPhi(phi1, v.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourVector& a, const FourVector& b) {
+    return deltaPhi(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourVector& v, double phi2) {
+    return deltaPhi(v.vector3(), phi2);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(double phi1, const FourVector& v) {
+    return deltaPhi(phi1, v.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourVector& a, const FourMomentum& b) {
+    return deltaPhi(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourMomentum& a, const FourVector& b) {
+    return deltaPhi(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourVector& a, const Vector3& b) {
+    return deltaPhi(a.vector3(), b);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const Vector3& a, const FourVector& b) {
+    return deltaPhi(a, b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const FourMomentum& a, const Vector3& b) {
+    return deltaPhi(a.vector3(), b);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaPhi(const Vector3& a, const FourMomentum& b) {
+    return deltaPhi(a, b.vector3());
+  }
+
+  //@}
+
+  /// @name \f$ |\Delta eta| \f$ calculations from 4-vectors
+  //@{
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourMomentum& a, const FourMomentum& b) {
+    return deltaEta(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourMomentum& v, double eta2) {
+    return deltaEta(v.vector3(), eta2);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(double eta1, const FourMomentum& v) {
+    return deltaEta(eta1, v.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourVector& a, const FourVector& b) {
+    return deltaEta(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourVector& v, double eta2) {
+    return deltaEta(v.vector3(), eta2);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(double eta1, const FourVector& v) {
+    return deltaEta(eta1, v.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourVector& a, const FourMomentum& b) {
+    return deltaEta(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourMomentum& a, const FourVector& b) {
+    return deltaEta(a.vector3(), b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourVector& a, const Vector3& b) {
+    return deltaEta(a.vector3(), b);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const Vector3& a, const FourVector& b) {
+    return deltaEta(a, b.vector3());
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const FourMomentum& a, const Vector3& b) {
+    return deltaEta(a.vector3(), b);
+  }
+
+  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  inline double deltaEta(const Vector3& a, const FourMomentum& b) {
+    return deltaEta(a, b.vector3());
+  }
+
+  //@}
 
   //////////////////////////////////////////////////////
 

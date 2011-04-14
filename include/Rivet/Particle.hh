@@ -198,6 +198,120 @@ namespace Rivet {
   }
   //@}
 
+  inline double deltaR(const Particle& p1, const Particle& p2,
+                       RapScheme scheme = PSEUDORAPIDITY) {
+    return deltaR(p1.momentum(), p2.momentum(), scheme);
+  }
+
+  inline double deltaR(const Particle& p, const FourMomentum& v,
+                       RapScheme scheme = PSEUDORAPIDITY) {
+    return deltaR(p.momentum(), v, scheme);
+  }
+
+  inline double deltaR(const Particle& p, const FourVector& v,
+                       RapScheme scheme = PSEUDORAPIDITY) {
+    return deltaR(p.momentum(), v, scheme);
+  }
+
+  inline double deltaR(const Particle& p, const Vector3& v) {
+    return deltaR(p.momentum(), v);
+  }
+
+  inline double deltaR(const Particle& p, double eta, double phi) {
+    return deltaR(p.momentum(), eta, phi);
+  }
+
+  inline double deltaR(const FourMomentum& v, const Particle& p,
+                       RapScheme scheme = PSEUDORAPIDITY) {
+    return deltaR(v, p.momentum(), scheme);
+  }
+
+  inline double deltaR(const FourVector& v, const Particle& p,
+                       RapScheme scheme = PSEUDORAPIDITY) {
+    return deltaR(v, p.momentum(), scheme);
+  }
+
+  inline double deltaR(const Vector3& v, const Particle& p) {
+    return deltaR(v, p.momentum());
+  }
+
+  inline double deltaR(double eta, double phi, const Particle& p) {
+    return deltaR(eta, phi, p.momentum());
+  }
+
+
+  inline double deltaPhi(const Particle& p1, const Particle& p2) {
+    return deltaPhi(p1.momentum(), p2.momentum());
+  }
+
+  inline double deltaPhi(const Particle& p, const FourMomentum& v) {
+    return deltaPhi(p.momentum(), v);
+  }
+
+  inline double deltaPhi(const Particle& p, const FourVector& v) {
+    return deltaPhi(p.momentum(), v);
+  }
+
+  inline double deltaPhi(const Particle& p, const Vector3& v) {
+    return deltaPhi(p.momentum(), v);
+  }
+
+  inline double deltaPhi(const Particle& p, double phi) {
+    return deltaPhi(p.momentum(), phi);
+  }
+
+  inline double deltaPhi(const FourMomentum& v, const Particle& p) {
+    return deltaPhi(v, p.momentum());
+  }
+
+  inline double deltaPhi(const FourVector& v, const Particle& p) {
+    return deltaPhi(v, p.momentum());
+  }
+
+  inline double deltaPhi(const Vector3& v, const Particle& p) {
+    return deltaPhi(v, p.momentum());
+  }
+
+  inline double deltaPhi(double phi, const Particle& p) {
+    return deltaPhi(phi, p.momentum());
+  }
+
+
+  inline double deltaEta(const Particle& p1, const Particle& p2) {
+    return deltaEta(p1.momentum(), p2.momentum());
+  }
+
+  inline double deltaEta(const Particle& p, const FourMomentum& v) {
+    return deltaEta(p.momentum(), v);
+  }
+
+  inline double deltaEta(const Particle& p, const FourVector& v) {
+    return deltaEta(p.momentum(), v);
+  }
+
+  inline double deltaEta(const Particle& p, const Vector3& v) {
+    return deltaEta(p.momentum(), v);
+  }
+
+  inline double deltaEta(const Particle& p, double eta) {
+    return deltaEta(p.momentum(), eta);
+  }
+
+  inline double deltaEta(const FourMomentum& v, const Particle& p) {
+    return deltaEta(v, p.momentum());
+  }
+
+  inline double deltaEta(const FourVector& v, const Particle& p) {
+    return deltaEta(v, p.momentum());
+  }
+
+  inline double deltaEta(const Vector3& v, const Particle& p) {
+    return deltaEta(v, p.momentum());
+  }
+
+  inline double deltaEta(double eta, const Particle& p) {
+    return deltaEta(eta, p.momentum());
+  }
 
 }
 

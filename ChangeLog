@@ -1,3 +1,13 @@
+2011-04-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* deltaR, deltaPhi, deltaEta now available in all combinations of
+	FourVector, FourMomentum, Vector3, doubles. They also accept jets
+	and particles as arguments now.
+
+2011-04-13  David Grellscheid <david.grellscheid@durham.ac.uk>
+
+	* added ATLAS 8983313: 0-lepton BSM
+
 2011-04-01  Andy Buckley  <andy@insectnation.org>
 
 	* bin/rivet-mkanalysis: Don't try to download SPIRES or HepData

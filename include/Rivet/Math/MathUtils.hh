@@ -389,6 +389,12 @@ namespace Rivet {
     return mapAngle0ToPi(phi1 - phi2);
   }
 
+  /// Calculate the difference between two pseudorapidities,
+  /// returning the unsigned value.
+  inline double deltaEta(double eta1, double eta2) {
+    return fabs(eta1 - eta2);
+  }
+
   /// Calculate the distance between two points in 2D rapidity-azimuthal
   /// ("\f$ \eta-\phi \f$") space. The phi values are given in radians.
   inline double deltaR(double rap1, double phi1, double rap2, double phi2) {
