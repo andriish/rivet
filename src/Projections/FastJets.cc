@@ -198,7 +198,6 @@ namespace Rivet {
 
   vector<double> FastJets::ySubJet(const fastjet::PseudoJet& jet) const {
     assert(clusterSeq());
-    map<int,vector<double> >::iterator iter = _yscales.find(jet.cluster_hist_index());
     fastjet::ClusterSequence subjet_cseq(clusterSeq()->constituents(jet), _jdef);
     vector<double> yMergeVals;
     for (int i = 1; i < 4; ++i) {
