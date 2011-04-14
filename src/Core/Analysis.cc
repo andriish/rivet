@@ -119,8 +119,8 @@ namespace Rivet {
 
 
   bool Analysis::isCompatible(const ParticlePair& beams) const {
-    return isCompatible(beams.first.pdgId(), beams.second.pdgId(),
-                        beams.first.energy(), beams.first.energy());
+    return isCompatible(beams.first.pdgId(),  beams.second.pdgId(),
+                        beams.first.energy(), beams.second.energy());
   }
 
 
