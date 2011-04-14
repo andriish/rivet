@@ -6,6 +6,7 @@
 #include <ostream>
 #include <sstream>
 #include <iostream>
+#include <limits>
 #include <cmath>
 #include <map>
 #include <vector>
