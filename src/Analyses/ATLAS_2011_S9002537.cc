@@ -59,7 +59,7 @@ namespace Rivet {
       }
       if (selected_muons.size()!=1) vetoEvent;
 
-      const FourMomentum muonmom = selected_muons.begin()->momentum();
+      const FourMomentum muonmom = selected_muons[0].momentum();
       const MissingMomentum& missmom = applyProjection<MissingMomentum>(event, "MissingMomentum");
       FourMomentum missvec = -missmom.visibleMomentum();
       if (fabs(missvec.Et())<25) vetoEvent;
@@ -67,7 +67,7 @@ namespace Rivet {
       double MTW = sqrt(2.*missvec.pT()*muonmom.pT()*(1.-cos(deltaPhi(missvec.phi(),muonmom.phi()))));
       if (MTW<40.*GeV) vetoEvent;
 
-      if (selected_muons.begin()->pdgId()>0)
+      if (selected_muons[0].pdgId()>0)
         _h_minus->fill(muonmom.eta(),event.weight());
       else
         _h_plus->fill(muonmom.eta(),event.weight());
@@ -79,10 +79,9 @@ namespace Rivet {
       int Nbins = _h_plus->axis().bins();
       std::vector<double> asym, asym_err;
       for (int i=0; i<Nbins; i++) {
-        double num(0.), denom(0.), err(0.);
-        num   = _h_plus->binHeight(i) - _h_minus->binHeight(i);
-        denom = _h_plus->binHeight(i) + _h_minus->binHeight(i);
-        err   = _h_plus->binError(i)  + _h_minus->binError(i);
+        double num   = _h_plus->binHeight(i) - _h_minus->binHeight(i);
+        double denom = _h_plus->binHeight(i) + _h_minus->binHeight(i);
+        double err   = _h_plus->binError(i)  + _h_minus->binError(i);
 
         if (num==0 || denom==0) {
           asym.push_back(0.);
