@@ -2003,6 +2003,7 @@ if __name__ == '__main__':
 
 
     ## Test for external programs (kpsewhich, latex, dvips, ps2pdf/ps2eps, and convert)
+    opts.LATEXPKGS = []
     if opts.OUTPUT_FORMAT != "TEX":
         try:
             import subprocess
@@ -2055,7 +2056,6 @@ if __name__ == '__main__':
                         opts.OUTPUT_FONT = "PALATINO"
 
                 ## Check for HEP LaTeX packages
-                opts.LATEXPKGS = []
                 for pkg in ["hepnicenames", "hepunits", "underscore"]:
                     p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
                     p.wait()
