@@ -92,7 +92,7 @@ parser.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
 parser.add_option("-H", "--histo-file", dest="HISTOFILE",
                   default="Rivet.aida", help="specify the output histo file path (default = %default)")
 parser.add_option("--event-timeout", dest="EVENT_TIMEOUT", type="int",
-                  default=3600, metavar="NSECS",
+                  default=21600, metavar="NSECS",
                   help="max time in whole seconds to wait for an event to be generated from the specified source (default = %default)")
 parser.add_option("--run-timeout", dest="RUN_TIMEOUT", type="int",
                   default=None, metavar="NSECS",
