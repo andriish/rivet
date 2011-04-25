@@ -4,6 +4,8 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Projections/MissingMomentum.hh"
 #include "LWH/Histogram1D.h"
 
 namespace Rivet {
@@ -29,9 +31,10 @@ namespace Rivet {
 
       // Projections
       const FinalState cnfs(-5.0, 5.0, 500*MeV);
-      const ChargedFinalState cfs(-5.0, 5.0, 500*MeV);
-      addProjection(cfs, "CFS");
       addProjection(cnfs, "FS");
+      addProjection(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
+      addProjection(UnstableFinalState(-5.0, 5.0, 500*MeV), "UFS");
+      //addProjection(MissingMomentum(cnfs), "ETmiss");
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
@@ -50,6 +53,11 @@ namespace Rivet {
       _tmphistEtaMinus.reset(new LWH::Histogram1D(25, 0, 5));
       _tmphistEtaChPlus.reset(new LWH::Histogram1D(25, 0, 5));
       _tmphistEtaChMinus.reset(new LWH::Histogram1D(25, 0, 5));
+
+      _histEtaPi       = bookHistogram1D("EtaPi", 25, 0, 5);
+      _histEtaK        = bookHistogram1D("EtaK", 25, 0, 5);
+      _histEtaLambda   = bookHistogram1D("EtaLambda", 25, 0, 5);
+      _histEtaSumEt    = bookProfile1D("EtaSumEt", 25, 0, 5);
 
       _histRapidity    = bookHistogram1D("Rapidity", 50, -5, 5);
       _histRapidityCh  = bookHistogram1D("RapidityCh", 50, -5, 5);
@@ -75,6 +83,7 @@ namespace Rivet {
       foreach (const Particle& p, cnfs.particles()) {
         const double eta = p.momentum().eta();
         _histEta->fill(eta, weight);
+        _histEtaSumEt->fill(fabs(eta), p.momentum().Et(), weight);
         if (eta > 0) {
           _tmphistEtaPlus->fill(fabs(eta), weight);
         } else {
@@ -115,21 +124,44 @@ namespace Rivet {
         _histPhiCh->fill(p.momentum().phi(), weight);
       }
 
+
+      // Histogram identified particle eta spectra
+      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      foreach (const Particle& p, ufs.particles()) {
+        const double eta_abs = fabs(p.momentum().eta());
+        const PdgId pid = abs(p.pdgId());
+        //if (PID::isMeson(pid) && PID::hasStrange()) {
+        if (pid == 211 || pid == 111) _histEtaPi->fill(eta_abs, weight);
+        else if (pid == 321 || pid == 130 || pid == 310) _histEtaK->fill(eta_abs, weight);
+        else if (pid == 3122) _histEtaLambda->fill(eta_abs, weight);
+        // const MissingMomentum& met = applyProjection<MissingMomentum>(event, "ETmiss");
+      }
+
     }
+
 
 
     /// Finalize
     void finalize() {
       scale(_histMult, 1/sumOfWeights());
       scale(_histMultCh, 1/sumOfWeights());
+
       scale(_histEta, 1/sumOfWeights());
       scale(_histEtaCh, 1/sumOfWeights());
+
+      scale(_histEtaPi, 1/sumOfWeights());
+      scale(_histEtaK, 1/sumOfWeights());
+      scale(_histEtaLambda, 1/sumOfWeights());
+
       scale(_histRapidity, 1/sumOfWeights());
       scale(_histRapidityCh, 1/sumOfWeights());
+
       scale(_histPt, 1/sumOfWeights());
       scale(_histPtCh, 1/sumOfWeights());
+
       scale(_histE, 1/sumOfWeights());
       scale(_histECh, 1/sumOfWeights());
+
       scale(_histPhi, 1/sumOfWeights());
       scale(_histPhiCh, 1/sumOfWeights());
 
@@ -153,6 +185,8 @@ namespace Rivet {
     //@{
     /// Histograms
     AIDA::IHistogram1D *_histMult, *_histMultCh;
+    AIDA::IHistogram1D *_histEtaPi, *_histEtaK, *_histEtaLambda;
+    AIDA::IProfile1D   *_histEtaSumEt;
     AIDA::IHistogram1D *_histEta, *_histEtaCh;
     AIDA::IHistogram1D *_histRapidity, *_histRapidityCh;
     AIDA::IHistogram1D *_histPt, *_histPtCh;

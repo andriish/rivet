@@ -31,15 +31,15 @@ namespace Rivet {
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
-        getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
+        MSG_DEBUG("Failed leptonic event cut");
         vetoEvent;
       }
-      getLog() << Log::DEBUG << "Passed leptonic event cut" << endl;
+      MSG_DEBUG("Passed leptonic event cut");
 
       // Get event weight for histo filling
       const double weight = e.weight();
 
-      getLog() << Log::DEBUG << "sqrt(S) = " << sqrtS()/GeV << " GeV" << endl;
+      MSG_DEBUG("sqrt(s) = " << sqrtS()/GeV << " GeV");
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");

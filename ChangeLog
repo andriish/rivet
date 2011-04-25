@@ -1,5 +1,7 @@
 2011-04-25  Andy Buckley  <andy@insectnation.org>
 
+	* Adding some hadron-specific N and sumET vs. |eta| plots to MC_GENERIC.
+
 	* Re-adding an explicit attempt to get the beam particles, since
 	HepMC's IO_HERWIG seems to not always set them even though it's
 	meant to.
