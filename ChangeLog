@@ -1,3 +1,9 @@
+2011-04-25  Andy Buckley  <andy@insectnation.org>
+
+	* Re-adding an explicit attempt to get the beam particles, since
+	HepMC's IO_HERWIG seems to not always set them even though it's
+	meant to.
+
 2011-04-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added ATLAS_2011_S9002537 W asymmetry analysis

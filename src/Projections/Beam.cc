@@ -49,10 +49,15 @@ namespace Rivet {
 
   void Beam::project(const Event& e) {
     assert(e.genEvent().particles_size() >= 2);
-    pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent().beam_particles();
-    assert(beams.first && beams.second);
-    _theBeams.first = *(beams.first);
-    _theBeams.second = *(beams.second);
+    if (e.genEvent().valid_beam_particles()) {
+      pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent().beam_particles();
+      assert(beams.first && beams.second);
+      _theBeams.first = *(beams.first);
+      _theBeams.second = *(beams.second);
+    } else {
+      _theBeams.first = *(e.genEvent().barcode_to_particle(1));
+      _theBeams.second = *(e.genEvent().barcode_to_particle(2));
+    }
     //getLog() << Log::DEBUG << "Beam particle IDs = " << beamIds() << endl;
   }
 
@@ -62,7 +67,7 @@ namespace Rivet {
     //getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
     return sqrts;
   }
-  
+
 
 
 }
