@@ -44,6 +44,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FinalState.hh     \
   Projections/FinalStateHCM.hh  \
   Projections/FoxWolframMoments.hh \
+  Projections/FParameter.hh \
   Projections/HadronicFinalState.hh \
   Projections/Hemispheres.hh    \
   Projections/IdentifiedFinalState.hh \
@@ -64,6 +65,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/ParisiTensor.hh   \
   Projections/PVertex.hh        \
   Projections/Sphericity.hh     \
+  Projections/Spherocity.hh     \
   Projections/SVertex.hh	    \
   Projections/Thrust.hh         \
   Projections/TotalVisibleMomentum.hh \

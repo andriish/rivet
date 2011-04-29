@@ -11,6 +11,7 @@ libRivetProjections_la_SOURCES = \
   FinalState.cc \
   FinalStateHCM.cc \
   FoxWolframMoments.cc \
+  FParameter.cc \
   HadronicFinalState.cc \
   Hemispheres.cc \
   IdentifiedFinalState.cc \
@@ -27,6 +28,7 @@ libRivetProjections_la_SOURCES = \
   ParisiTensor.cc \
   PVertex.cc \
   Sphericity.cc \
+  Spherocity.cc \
   SVertex.cc \
   Thrust.cc \
   TotalVisibleMomentum.cc \
