@@ -78,6 +78,7 @@ namespace Rivet {
     _h_jet_multi_exclusive = bookHistogram1D("jet_multi_exclusive", m_njet+3, -0.5, m_njet+3-0.5);
     _h_jet_multi_inclusive = bookHistogram1D("jet_multi_inclusive", m_njet+3, -0.5, m_njet+3-0.5);
     _h_jet_multi_ratio = bookDataPointSet("jet_multi_ratio", m_njet+2, 0.5, m_njet+3-0.5);
+    _h_jet_HT = bookHistogram1D("jet_HT", logBinEdges(50, m_jetptcut, sqrtS()/GeV/2.0));
   }
 
 
@@ -173,6 +174,12 @@ namespace Rivet {
         _h_jet_multi_inclusive->fill(i, weight);
       }
     }
+
+    double HT=0.0;
+    foreach (const Jet& jet, jets) {
+      HT += jet.momentum().pT();
+    }
+    _h_jet_HT->fill(HT, weight);
   }
 
 
@@ -229,6 +236,7 @@ namespace Rivet {
 
     scale(_h_jet_multi_exclusive, crossSection()/sumOfWeights());
     scale(_h_jet_multi_inclusive, crossSection()/sumOfWeights());
+    scale(_h_jet_HT, crossSection()/sumOfWeights());
   }
 
 

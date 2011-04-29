@@ -517,3 +517,10 @@ LegendXPos=0.05
 LegendYPos=0.5
 XMin=20.0
 # END PLOT
+
+# BEGIN PLOT /MC_ZZJETS/jet_HT
+Title=Scalar sum of jet transverse momenta (HT)
+XLabel=$HT$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}HT$ [pb/GeV]
+LogX=1
+# END PLOT

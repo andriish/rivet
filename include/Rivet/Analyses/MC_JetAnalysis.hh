@@ -57,6 +57,7 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_jet_multi_exclusive;
     AIDA::IHistogram1D * _h_jet_multi_inclusive;
     AIDA::IDataPointSet * _h_jet_multi_ratio;
+    AIDA::IHistogram1D * _h_jet_HT;
     //@}
 
   };
