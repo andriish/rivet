@@ -32,8 +32,8 @@ namespace Rivet {
       addProjection(zmmfinder, "ZmmFinder");
       VetoedFinalState jetinput;
       jetinput
-          .addVetoOnThisFinalState(zeefinder.constituentsFinalState())
-          .addVetoOnThisFinalState(zmmfinder.constituentsFinalState());
+          .addVetoOnThisFinalState(zeefinder.originalConstituentsFinalState())
+          .addVetoOnThisFinalState(zmmfinder.originalConstituentsFinalState());
       FastJets jetpro(jetinput, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
