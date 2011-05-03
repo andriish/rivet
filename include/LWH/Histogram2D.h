@@ -28,7 +28,7 @@ namespace LWH {
    * User level interface to 1D Histogram.
    */
   class Histogram2D: public IHistogram2D, public ManagedObject {
-    
+
   public:
 
     /** HistFactory is a friend. */
@@ -40,15 +40,15 @@ namespace LWH {
      * Standard constructor.
      */
     Histogram2D(int nx, double lox, double upx,
-		int ny, double loy, double upy)
+                int ny, double loy, double upy)
       : xfax(new Axis(nx, lox, upx)), xvax(0), yfax(new Axis(ny, loy, upy)),
-	sum(nx + 2, std::vector<int>(ny + 2)),
-	sumw(nx + 2, std::vector<double>(ny + 2)),
-	sumw2(nx + 2, std::vector<double>(ny + 2)),
-	sumxw(nx + 2, std::vector<double>(ny + 2)),
-	sumx2w(nx + 2, std::vector<double>(ny + 2)),
-	sumyw(nx + 2, std::vector<double>(ny + 2)),
-	sumy2w(nx + 2, std::vector<double>(ny + 2)) {
+        sum(nx + 2, std::vector<int>(ny + 2)),
+        sumw(nx + 2, std::vector<double>(ny + 2)),
+        sumw2(nx + 2, std::vector<double>(ny + 2)),
+        sumxw(nx + 2, std::vector<double>(ny + 2)),
+        sumx2w(nx + 2, std::vector<double>(ny + 2)),
+        sumyw(nx + 2, std::vector<double>(ny + 2)),
+        sumy2w(nx + 2, std::vector<double>(ny + 2)) {
       xax = xfax;
       yax = yfax;
     }
@@ -57,16 +57,16 @@ namespace LWH {
      * Standard constructor for variable bin width.
      */
     Histogram2D(const std::vector<double> & xedges,
-		const std::vector<double> & yedges)
+                const std::vector<double> & yedges)
       : xfax(0), xvax(new VariAxis(xedges)),
-	yfax(0), yvax(new VariAxis(xedges)),
+        yfax(0), yvax(new VariAxis(xedges)),
         sum(xedges.size() + 1, std::vector<int>(yedges.size() + 1)),
-	sumw(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
-	sumw2(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
+        sumw(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
+        sumw2(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
         sumxw(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
-	sumx2w(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
+        sumx2w(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
         sumyw(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
-	sumy2w(xedges.size() + 1, std::vector<double>(yedges.size() + 1)) {
+        sumy2w(xedges.size() + 1, std::vector<double>(yedges.size() + 1)) {
       xax = xvax;
       yax = yvax;
     }
@@ -77,7 +77,7 @@ namespace LWH {
     Histogram2D(const Histogram2D & h)
       : IBaseHistogram(h), IHistogram(h), IHistogram2D(h), ManagedObject(h),
         xfax(0), xvax(0),  yfax(0), yvax(0),
-	sum(h.sum), sumw(h.sumw), sumw2(h.sumw2),
+        sum(h.sum), sumw(h.sumw), sumw2(h.sumw2),
         sumxw(h.sumxw), sumx2w(h.sumx2w) ,
         sumyw(h.sumyw), sumy2w(h.sumy2w){
       const VariAxis * hxvax = dynamic_cast<const VariAxis *>(h.xax);
@@ -169,7 +169,7 @@ namespace LWH {
     int entries() const {
       int si = 0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy ) si += sum[ix][iy];
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy ) si += sum[ix][iy];
       return si;
     }
 
@@ -191,9 +191,9 @@ namespace LWH {
     int extraEntries() const {
       int esum = sum[0][0] + sum[1][0] + sum[0][1] + sum[1][1];
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	esum += sum[ix][0] + sum[ix][1];
+        esum += sum[ix][0] + sum[ix][1];
       for ( int iy = 2; iy < yax->bins() + 2; ++iy )
-	esum += sum[0][iy] + sum[1][iy];
+        esum += sum[0][iy] + sum[1][iy];
       return esum;
     }
 
@@ -206,10 +206,10 @@ namespace LWH {
       double sw = 0.0;
       double sw2 = 0.0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
-	  sw += sumw[ix][iy];
-	  sw2 += sumw2[ix][iy];
-	}
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
+          sw += sumw[ix][iy];
+          sw2 += sumw2[ix][iy];
+        }
       return sw2/(sw*sw);
     }
 
@@ -222,7 +222,7 @@ namespace LWH {
     double sumBinHeights() const {
       double sw = 0.0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy ) sw += sumw[ix][iy];
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy ) sw += sumw[ix][iy];
       return sw;
     }
 
@@ -242,9 +242,9 @@ namespace LWH {
     double sumExtraBinHeights() const {
       int esum = sumw[0][0] + sumw[1][0] + sumw[0][1] + sumw[1][1];
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	esum += sumw[ix][0] + sumw[ix][1];
+        esum += sumw[ix][0] + sumw[ix][1];
       for ( int iy = 2; iy < yax->bins() + 2; ++iy )
-	esum += sumw[0][iy] + sumw[1][iy];
+        esum += sumw[0][iy] + sumw[1][iy];
       return esum;
     }
 
@@ -256,8 +256,8 @@ namespace LWH {
     double minBinHeight() const {
       double minw = sumw[2][2];
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy )
-	  minw = std::min(minw, sumw[ix][iy]);
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy )
+          minw = std::min(minw, sumw[ix][iy]);
       return minw;
     }
 
@@ -269,8 +269,8 @@ namespace LWH {
     double maxBinHeight() const{
       double maxw = sumw[2][2];
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy )
-	  maxw = std::max(maxw, sumw[ix][iy]);
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy )
+          maxw = std::max(maxw, sumw[ix][iy]);
       return maxw;
     }
 
@@ -331,7 +331,7 @@ namespace LWH {
       int iy = yindex + 2;
       return sumw[ix][iy] == 0.0 || sum[ix][iy] < 2? xax->binWidth(xindex):
         std::sqrt(std::max(sumw[ix][iy]*sumx2w[ix][iy] -
-			   sumxw[ix][iy]*sumxw[ix][iy], 0.0))/sumw[ix][iy];
+                           sumxw[ix][iy]*sumxw[ix][iy], 0.0))/sumw[ix][iy];
     };
 
     /**
@@ -345,7 +345,7 @@ namespace LWH {
       int iy = yindex + 2;
       return sumw[ix][iy] == 0.0 || sum[ix][iy] < 2? yax->binWidth(yindex):
         std::sqrt(std::max(sumw[ix][iy]*sumy2w[ix][iy] -
-			   sumyw[ix][iy]*sumyw[ix][iy], 0.0))/sumw[ix][iy];
+                           sumyw[ix][iy]*sumyw[ix][iy], 0.0))/sumw[ix][iy];
     };
 
     /**
@@ -362,13 +362,13 @@ namespace LWH {
      * Sum of all the entries of the bins along a given x bin.
      * This is equivalent to <tt>projectionX().binEntries(index)</tt>.
      * @param index The x bin number (0...N-1) or OVERFLOW or UNDERFLOW.
-     * @return      The number of entries in the corresponding set of bins. 
+     * @return      The number of entries in the corresponding set of bins.
      *
      */
     virtual int binEntriesX(int index) const {
       int ret = 0;
       for ( int iy = 2; iy < yax->bins() + 2; ++iy )
-	ret += sum[index + 2][iy];
+        ret += sum[index + 2][iy];
       return ret;
     }
 
@@ -376,13 +376,13 @@ namespace LWH {
      * Sum of all the entries of the bins along a given y bin.
      * This is equivalent to <tt>projectionY().binEntries(index)</tt>.
      * @param index The y bin number (0...N-1) or OVERFLOW or UNDERFLOW.
-     * @return      The number of entries in the corresponding set of bins. 
+     * @return      The number of entries in the corresponding set of bins.
      *
      */
     virtual int binEntriesY(int index) const {
       int ret = 0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	ret += sum[ix][index + 2];
+        ret += sum[ix][index + 2];
       return ret;
     }
 
@@ -402,13 +402,13 @@ namespace LWH {
      * Sum of all the heights of the bins along a given x bin.
      * This is equivalent to <tt>projectionX().binHeight(index)</tt>.
      * @param index The x bin number (0...N-1) or OVERFLOW or UNDERFLOW.
-     * @return      The sum of the heights in the corresponding set of bins. 
+     * @return      The sum of the heights in the corresponding set of bins.
      *
      */
     virtual double binHeightX(int index) const {
       double ret = 0;
       for ( int iy = 2; iy < yax->bins() + 2; ++iy )
-	ret += sumw[index + 2][iy];
+        ret += sumw[index + 2][iy];
       return ret;
     }
 
@@ -416,13 +416,13 @@ namespace LWH {
      * Sum of all the heights of the bins along a given y bin.
      * This is equivalent to <tt>projectionY().binHeight(index)</tt>.
      * @param index The y bin number (0...N-1) or OVERFLOW or UNDERFLOW.
-     * @return      The sum of the heights in the corresponding set of bins. 
+     * @return      The sum of the heights in the corresponding set of bins.
      *
      */
     virtual double binHeightY(int index) const {
       double ret = 0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	ret += sumw[ix][index + 2];
+        ret += sumw[ix][index + 2];
       return ret;
     }
 
@@ -445,7 +445,7 @@ namespace LWH {
       double s = 0.0;
       double sx = 0.0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
         s += sumw[ix][iy];
         sx += sumxw[ix][iy];
       }
@@ -461,7 +461,7 @@ namespace LWH {
       double s = 0.0;
       double sy = 0.0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
         s += sumw[ix][iy];
         sy += sumyw[ix][iy];
       }
@@ -478,7 +478,7 @@ namespace LWH {
       double sx = 0.0;
       double sx2 = 0.0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
         s += sumw[ix][iy];
         sx += sumxw[ix][iy];
         sx2 += sumx2w[ix][iy];
@@ -497,7 +497,7 @@ namespace LWH {
       double sy = 0.0;
       double sy2 = 0.0;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy ) {
         s += sumw[ix][iy];
         sy += sumyw[ix][iy];
         sy2 += sumy2w[ix][iy];
@@ -525,7 +525,7 @@ namespace LWH {
     double getSumX2W(int xindex, int yindex) const {
         return sumx2w[xindex + 2][yindex + 2];
     }
-    
+
     /** The weighted x-values. */
     double getSumYW(int xindex, int yindex) const {
         return sumyw[xindex + 2][yindex + 2];
@@ -535,7 +535,7 @@ namespace LWH {
     double getSumY2W(int xindex, int yindex) const {
         return sumy2w[xindex + 2][yindex + 2];
     }
-    
+
     /**
      * Get the x axis of the IHistogram2D.
      * @return The x coordinate IAxis.
@@ -581,21 +581,21 @@ namespace LWH {
      */
     bool add(const Histogram2D & h) {
       if ( xax->upperEdge() != h.xax->upperEdge() ||
-	   xax->lowerEdge() != h.xax->lowerEdge() ||
-	   xax->bins() != h.xax->bins() ) return false;
+           xax->lowerEdge() != h.xax->lowerEdge() ||
+           xax->bins() != h.xax->bins() ) return false;
       if ( yax->upperEdge() != h.yax->upperEdge() ||
-	   yax->lowerEdge() != h.yax->lowerEdge() ||
-	   yax->bins() != h.yax->bins() ) return false;
+           yax->lowerEdge() != h.yax->lowerEdge() ||
+           yax->bins() != h.yax->bins() ) return false;
       for ( int ix = 0; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 0; iy < yax->bins() + 2; ++iy ) {
-	  sum[ix][iy] += h.sum[ix][iy];
-	  sumw[ix][iy] += h.sumw[ix][iy];
-	  sumxw[ix][iy] += h.sumxw[ix][iy];
-	  sumx2w[ix][iy] += h.sumx2w[ix][iy];
-	  sumyw[ix][iy] += h.sumyw[ix][iy];
-	  sumy2w[ix][iy] += h.sumy2w[ix][iy];
-	  sumw2[ix][iy] += h.sumw2[ix][iy];
-	}
+        for ( int iy = 0; iy < yax->bins() + 2; ++iy ) {
+          sum[ix][iy] += h.sum[ix][iy];
+          sumw[ix][iy] += h.sumw[ix][iy];
+          sumxw[ix][iy] += h.sumxw[ix][iy];
+          sumx2w[ix][iy] += h.sumx2w[ix][iy];
+          sumyw[ix][iy] += h.sumyw[ix][iy];
+          sumy2w[ix][iy] += h.sumy2w[ix][iy];
+          sumw2[ix][iy] += h.sumw2[ix][iy];
+        }
       return true;
     }
 
@@ -614,13 +614,13 @@ namespace LWH {
      */
     bool scale(double s) {
       for ( int ix = 0; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 0; iy < yax->bins() + 2; ++iy ) {
-	  sumw[ix][iy] *= s;
-	  sumxw[ix][iy] *= s;
-	  sumx2w[ix][iy] *= s;
-	  sumyw[ix][iy] *= s;
-	  sumy2w[ix][iy] *= s;
-	  sumw2[ix][iy] *= s*s;
+        for ( int iy = 0; iy < yax->bins() + 2; ++iy ) {
+          sumw[ix][iy] *= s;
+          sumxw[ix][iy] *= s;
+          sumx2w[ix][iy] *= s;
+          sumyw[ix][iy] *= s;
+          sumy2w[ix][iy] *= s;
+          sumw2[ix][iy] *= s*s;
       }
       return true;
     }
@@ -636,11 +636,11 @@ namespace LWH {
       double oldintg = sumAllBinHeights();
       if ( oldintg == 0.0 ) return;
       for ( int ix = 0; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 0; iy < yax->bins() + 2; ++iy ) {
-	  double fac = intg/oldintg;
-	  if ( ix >= 2 && iy >= 2 )
-	    fac /= (xax->binUpperEdge(ix - 2) - xax->binLowerEdge(ix - 2))*
-	      (yax->binUpperEdge(iy - 2) - yax->binLowerEdge(iy - 2));
+        for ( int iy = 0; iy < yax->bins() + 2; ++iy ) {
+          double fac = intg/oldintg;
+          if ( ix >= 2 && iy >= 2 )
+            fac /= (xax->binUpperEdge(ix - 2) - xax->binLowerEdge(ix - 2))*
+              (yax->binUpperEdge(iy - 2) - yax->binLowerEdge(iy - 2));
         sumw[ix][iy] *= fac;
         sumxw[ix][iy] *= fac;
         sumx2w[ix][iy] *= fac;
@@ -713,25 +713,25 @@ namespace LWH {
          << "\" direction=\"y\"\n        rms=\"" << rmsY()
          << "\"/>\n    </statistics>\n    <data2d>\n";
       for ( int ix = 0; ix < xax->bins() + 2; ++ix )
-	for ( int iy = 0; iy < yax->bins() + 2; ++iy )
-	  if ( sum[ix][iy] ) {
-	    os << "      <bin2d binNumX=\"";
-	    if ( ix == 0 ) os << "UNDERFLOW";
-	    else if ( ix == 1 ) os << "OVERFLOW";
-	    else os << ix - 2;
-	    os << "\" binNumY=\"";
-	    if ( iy == 0 ) os << "UNDERFLOW";
-	    else if ( iy == 1 ) os << "OVERFLOW";
-	    else os << iy - 2;
-	    os << "\" entries=\"" << sum[ix][iy]
-	       << "\" height=\"" << sumw[ix][iy]
-	       << "\"\n        error=\"" << std::sqrt(sumw2[ix][iy])
-	       << "\" error2=\"" << sumw2[ix][iy]
-	       << "\"\n        weightedMeanX=\"" << binMeanX(ix - 2, iy - 2)
-	       << "\" weightedRmsX=\"" << binRmsX(ix - 2, iy - 2)
-	       << "\"\n        weightedMeanY=\"" << binMeanY(ix - 2, iy - 2)
-	       << "\" weightedRmsY=\"" << binRmsY(ix - 2, iy - 2)
-	       << "\"/>\n";
+        for ( int iy = 0; iy < yax->bins() + 2; ++iy )
+          if ( sum[ix][iy] ) {
+            os << "      <bin2d binNumX=\"";
+            if ( ix == 0 ) os << "UNDERFLOW";
+            else if ( ix == 1 ) os << "OVERFLOW";
+            else os << ix - 2;
+            os << "\" binNumY=\"";
+            if ( iy == 0 ) os << "UNDERFLOW";
+            else if ( iy == 1 ) os << "OVERFLOW";
+            else os << iy - 2;
+            os << "\" entries=\"" << sum[ix][iy]
+               << "\" height=\"" << sumw[ix][iy]
+               << "\"\n        error=\"" << std::sqrt(sumw2[ix][iy])
+               << "\" error2=\"" << sumw2[ix][iy]
+               << "\"\n        weightedMeanX=\"" << binMeanX(ix - 2, iy - 2)
+               << "\" weightedRmsX=\"" << binRmsX(ix - 2, iy - 2)
+               << "\"\n        weightedMeanY=\"" << binMeanY(ix - 2, iy - 2)
+               << "\" weightedRmsY=\"" << binRmsY(ix - 2, iy - 2)
+               << "\"/>\n";
         }
       os << "    </data2d>\n  </histogram2d>" << std::endl;
       return true;
@@ -745,15 +745,15 @@ namespace LWH {
     bool writeFLAT(std::ostream & os, std::string path, std::string name) {
       os << "#2D " << path << "/" << name << " " << xax->lowerEdge()
          << " " << xax->bins() << " " << xax->upperEdge() << " "
-	 << yax->lowerEdge() << " " << yax->bins() << " " << yax->upperEdge()
+         << yax->lowerEdge() << " " << yax->bins() << " " << yax->upperEdge()
          << " \"" << title() << "\"" << std::endl;
       for ( int ix = 2; ix < xax->bins() + 2; ++ix ) {
-	for ( int iy = 2; iy < yax->bins() + 2; ++iy )
-	  os << 0.5*(xax->binLowerEdge(ix - 2)+xax->binUpperEdge(ix - 2)) << " "
-	     << 0.5*(yax->binLowerEdge(iy - 2)+yax->binUpperEdge(iy - 2))
-	     << " " << sumw[ix][iy] << " " << sqrt(sumw2[ix][iy])
-	     << " " << sum[ix][iy] << std::endl;
-	os << std::endl;
+        for ( int iy = 2; iy < yax->bins() + 2; ++iy )
+          os << 0.5*(xax->binLowerEdge(ix - 2)+xax->binUpperEdge(ix - 2)) << " "
+             << 0.5*(yax->binLowerEdge(iy - 2)+yax->binUpperEdge(iy - 2))
+             << " " << sumw[ix][iy] << " " << sqrt(sumw2[ix][iy])
+             << " " << sum[ix][iy] << std::endl;
+        os << std::endl;
       }
       os << std::endl;
       return true;
