@@ -240,7 +240,7 @@ namespace LWH {
      * @return The sum of the heights of the out-of-range bins.
      */
     double sumExtraBinHeights() const {
-      int esum = sumw[0][0] + sumw[1][0] + sumw[0][1] + sumw[1][1];
+      double esum = sumw[0][0] + sumw[1][0] + sumw[0][1] + sumw[1][1];
       for ( int ix = 2; ix < xax->bins() + 2; ++ix )
         esum += sumw[ix][0] + sumw[ix][1];
       for ( int iy = 2; iy < yax->bins() + 2; ++iy )
