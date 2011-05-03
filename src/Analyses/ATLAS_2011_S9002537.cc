@@ -57,7 +57,7 @@ namespace Rivet {
         if (ratio<0.2)
           selected_muons.push_back(muon);
       }
-      if (selected_muons.size()!=1) vetoEvent;
+      if (selected_muons.size()<1) vetoEvent;
 
       const FourMomentum muonmom = selected_muons[0].momentum();
       const MissingMomentum& missmom = applyProjection<MissingMomentum>(event, "MissingMomentum");
