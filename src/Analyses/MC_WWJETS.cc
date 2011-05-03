@@ -77,7 +77,7 @@ namespace Rivet {
 
       // global stuff
       _h_HT = bookHistogram1D("HT", logBinEdges(100, 100.0, 0.5*sqrtS()));
-      _h_jets_dphi_12 = bookHistogram1D("jets_dphi_12", 25.0, 0.0, PI);
+      _h_jets_dphi_12 = bookHistogram1D("jets_dphi_12", 25, 0.0, PI);
       _h_jets_m_12 = bookHistogram1D("jets_m_12", logBinEdges(100, 1.0, 0.25*sqrtS()));
 
       MC_JetAnalysis::init();

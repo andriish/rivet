@@ -17,7 +17,7 @@ namespace Rivet {
     // Return true to throw away a particle
     bool operator()(const Particle& p) {
       /// @todo Use a better RNG?
-      size_t idx = floor(p.momentum().pT()/MeV/50);
+      size_t idx = int(floor(p.momentum().pT()/MeV/50));
       if (idx > 11) idx = 11;
       return (rand()/static_cast<double>(RAND_MAX) > _trkeff[idx]);
     }

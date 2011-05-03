@@ -159,21 +159,21 @@ namespace Rivet {
     else {
       // no candiate, return
       if(imfs.particles().empty()) {
-	getLog() << Log::DEBUG << "No W+- candidates found" << " "
-		 << imfs.particles().size() << " " << endl;
-	return;
+        getLog() << Log::DEBUG << "No W+- candidates found" << " "
+                 << imfs.particles().size() << " " << endl;
+        return;
       }
       // more than one, pick the one nearer the W mass
       double deltaM = 1e30;
       for(unsigned int ix=0;ix<imfs.particlePairs().size();++ix) {
-	FourMomentum pW = imfs.particlePairs()[ix].first .momentum()+
-	  imfs.particlePairs()[ix].second.momentum();
-	double mW = pW.mass();
-	if(abs(mW-80.403)<deltaM) {
-	  deltaM = abs(mW-80.4);
-	  p1 = imfs.particlePairs()[ix].first ;
-	  p2 = imfs.particlePairs()[ix].second;
-	}
+        FourMomentum pW = imfs.particlePairs()[ix].first .momentum()+
+          imfs.particlePairs()[ix].second.momentum();
+        double mW = pW.mass();
+        if(fabs(mW-80.403)<deltaM) {
+          deltaM = fabs(mW-80.4);
+          p1 = imfs.particlePairs()[ix].first ;
+          p2 = imfs.particlePairs()[ix].second;
+        }
       }
     }
 
