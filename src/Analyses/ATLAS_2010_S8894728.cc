@@ -121,7 +121,7 @@ namespace Rivet {
 
     // Little helper function to identify Delta(phi) regions
     inline int region_index(double dphi) {
-      assert(inRange(dphi, 0, PI, CLOSED, CLOSED));
+      assert(inRange(dphi, 0.0, PI, CLOSED, CLOSED));
       if (dphi < PI/3.0) return 0;
       if (dphi < 2*PI/3.0) return 1;
       return 2;
