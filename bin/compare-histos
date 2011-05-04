@@ -168,6 +168,10 @@ if __name__ == "__main__":
     PLOTSTYLES = ''
     COLORS = ('red', 'blue', '{[rgb]{0.12,0.57,0.14}}', 'magenta')
     LINESTYLES = ('solid', 'dashed', 'dashdotted', 'dotted')
+    if opts.MC_ERRS:
+        ## If using MC errors, dashed lines often aren't visible, so we put them
+        ## to the back of the style list
+        LINESTYLES = ('solid', 'dotted', 'dashdotted', 'dashed')
     STYLES = []
     for ls in LINESTYLES:
         for c in COLORS:

@@ -1,3 +1,14 @@
+2011-05-04  Andy Buckley  <andy@insectnation.org>
+
+	* compare-histos: If using --mc-errs style, prefer dotted and
+	dashdotted line styles to dashed, since dashes are often too long
+	to be distinguishable from solid lines. Even better might be to
+	always use a solid line for MC errs style, and to add more colours.
+
+	* rivet-mkhtml: use a no-mc-errors drawing style by default,
+	to match the behaviour of compare-histos, which it calls. The
+	--no-mc-errs option has been replaced with an --mc-errs option.
+
 2011-05-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Ignore duplicate files in compare-histos.

@@ -41,8 +41,8 @@ parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default
                   help="plot config file(s) to be used with make-plots.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
                   default=False, help="display plots on single webpage.")
-parser.add_option("--no-mc-errs", dest="MC_ERRS", action="store_false",
-                  default=True, help="don't plot error bars.")
+parser.add_option("--mc-errs", dest="MC_ERRS", action="store_true",
+                  default=True, help="plot error bars.")
 parser.add_option("--refid", dest="REF_ID",
                   default=None, help="ID of reference data set (file path for non-REF data)")
 parser.add_option("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
