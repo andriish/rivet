@@ -1,3 +1,7 @@
+2011-05-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Ignore duplicate files in compare-histos.
+
 2011-04-25  Andy Buckley  <andy@insectnation.org>
 
 	* Adding some hadron-specific N and sumET vs. |eta| plots to MC_GENERIC.
