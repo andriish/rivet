@@ -189,13 +189,13 @@ if __name__ == "__main__":
 
     ## Get file names and labels
     FILES = []
-    REFFILES = []
     FILEOPTIONS = { }
     if opts.RIVETREFS and rivet_data_dirs:
+        reffiles = []
         for d in rivet_data_dirs:
             import glob
-            REFFILES += glob.glob(os.path.join(d, "*.aida"))
-        args = REFFILES + args
+            reffiles += glob.glob(os.path.join(d, "*.aida"))
+        args = reffiles + args
     for a in args:
         asplit = a.split(":")
         path = asplit[0]
@@ -207,8 +207,6 @@ if __name__ == "__main__":
                 asplit[i] = "Title=%s" % asplit[i]
             FILEOPTIONS[path].append(asplit[i])
 
-    ## Ignore duplicates
-    FILES = list(set(FILES))
 
     ## Check that the requested files are sensible
     if (len(FILES) < 1):
@@ -275,8 +273,6 @@ if __name__ == "__main__":
     for f in FILES:
         histos, titles, xlabels, ylabels = getHistos(f)
         for n, h in histos.iteritems():
-            if not h.isdata and f not in REFFILES:
-                continue
             if h.isdata:
                 l = "data"
                 if h.expt:
