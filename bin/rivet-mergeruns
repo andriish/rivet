@@ -402,6 +402,16 @@ if __name__ == "__main__":
 
     ######
 
+    ## ATLAS dijet azimuthal decorrelation
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y01", "7000", "110")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y02", "7000", "160")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y03", "7000", "210")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y04", "7000", "260")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y05", "7000", "310")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y06", "7000", "400")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y07", "7000", "500")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y08", "7000", "600")
+    useOnePt("/ATLAS_2011_S8971293/d01-x01-y09", "7000", "800")
 
     ## Field analysis
     logging.info("Processing CDF_2001_S4751469")
