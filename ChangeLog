@@ -1,3 +1,11 @@
+2011-05-08  Andy Buckley  <andy@insectnation.org>
+
+	* Extending aida2flat to have a better usage message, to accept
+	input from stdin for command chaining via pipes, and to be a bit
+	more sensibly internally structured (although it also now has to
+	hold all histos in memory before writing out -- that shouldn't be
+	a problem for anything other than truly huge histo files).
+
 2011-05-04  Andy Buckley  <andy@insectnation.org>
 
 	* compare-histos: If using --mc-errs style, prefer dotted and
