@@ -43,11 +43,6 @@ Examples:
      -b "/CDF_2000_S4155203/d01-x01-y01:2:5" out.aida
    For this Z-boson pT-distribution, the normalisation to the provided ref
    data file is only applied between 2 < x < 5 GeV.
-
-
-TODO:
-
- * Allow for comments in the observable file
 """
 
 import sys
@@ -222,9 +217,13 @@ if __name__ == "__main__":
                          default=logging.INFO, help="be very quiet")
     opts, args = parser.parse_args()
 
-    # Configure logging
+    ## Configure logging
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
 
+    ## Check number of args
+    if len(args) not in (1, 2):
+        print "Usage: %s" % __doc__.splitlines()[0]
+        sys.exit(1)
 
     ## Get MC histos
     histos = getHistosFromAIDA(args[0])
