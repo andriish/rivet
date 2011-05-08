@@ -1,5 +1,15 @@
 2011-05-08  Andy Buckley  <andy@insectnation.org>
 
+	* Extending flat2aida to be able to read from and write to
+	stdin/out as for aida2flat, and also eliminating the internal
+	histo parsing representation in favour of the one in
+	lighthisto. lighthisto's fromFlat also needed a bit of an
+	overhaul: it has been extended to parse each histo's chunk of
+	text (including BEGIN and END lines) in fromFlatHisto, and for
+	fromFlat to parse a collection of histos from a file, in keeping
+	with the behaviour of fromDPS/fromAIDA. Merging into Professor is
+	now needed.
+
 	* Extending aida2flat to have a better usage message, to accept
 	input from stdin for command chaining via pipes, and to be a bit
 	more sensibly internally structured (although it also now has to

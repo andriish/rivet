@@ -89,10 +89,13 @@ if __name__ == "__main__":
 
 
     ## Initialise steering variables which need a bit more care
+    import re
     if opts.PATHPATTERNS is None:
         opts.PATHPATTERNS = []
+    opts.PATHPATTERNS = [re.compile(r) for r in opts.PATHPATTERNS]
     if opts.PATHUNPATTERNS is None:
         opts.PATHUNPATTERNS = []
+    opts.PATHUNPATTERNS = [re.compile(r) for r in opts.PATHUNPATTERNS]
     if opts.GNUPLOT:
         opts.SPLITOUTPUT = True
 
@@ -117,34 +120,32 @@ if __name__ == "__main__":
     ## Run over the files and build histo objects selected by the pattern filtering
     histos = {}
     for aidafile in args:
-        if aidafile != "-":
-            if not os.access(aidafile, os.R_OK):
-                logging.error("%s can not be read" % aidafile)
-                sys.exit(1)
         try:
             if aidafile == "-":
                 tree = ET.parse(sys.stdin)
             else:
+                if not os.access(aidafile, os.R_OK):
+                    logging.error("%s can not be read" % aidafile)
+                    sys.exit(1)
                 tree = ET.parse(aidafile)
         except:
             logging.error("%s can not be parsed as XML" % aidafile)
             sys.exit(1)
         for dps in tree.findall("dataPointSet"):
-            useThisDps = True
+            useThis = True
             dpspath = os.path.join(dps.get("path"), dps.get("name"))
-            import re
             if opts.PATHPATTERNS:
-                useThisDps = False
+                useThis = False
                 for regex in opts.PATHPATTERNS:
-                    if re.compile(regex).search(dpspath):
-                        useThisDps = True
+                    if regex.search(dpspath):
+                        useThis = True
                         break
-            if useThisDps and opts.PATHUNPATTERNS:
+            if useThis and opts.PATHUNPATTERNS:
                 for regex in opts.PATHUNPATTERNS:
-                    if re.compile(regex).search(dpspath):
-                        useThisDps = False
+                    if regex.search(dpspath):
+                        useThis = False
                         break
-            if useThisDps:
+            if useThis:
                 hist = lighthisto.Histo.fromDPS(dps)
                 try:
                     plotparser.updateHistoHeaders(hist)
@@ -157,13 +158,10 @@ if __name__ == "__main__":
     if histos:
         ## Split output per-histogram
         if opts.SPLITOUTPUT:
-            paper = os.path.basename(aidafile).replace(".aida", "")
             for f, hs in sorted(histos.iteritems()):
                 for h in sorted(hs):
                     histo = h.fullPath()[1:].replace("/", "_")
                     outfile = "%s.dat" % histo
-                    if opts.SMARTOUTPUT:
-                        outfile = "%s-%s" % (paper, outfile)
                     #print "Writing to", outfile
                     out = open(outfile, "w")
                     if not opts.GNUPLOT:

@@ -1,8 +1,7 @@
 # Use posixpath instead of os.path for AIDA path handling to be platform
 # independent, i.e. always use "/" as path delimiter.
 import posixpath
-import os
-import re
+import os, sys, re
 
 
 from htmlentitydefs import codepoint2name
@@ -248,7 +247,7 @@ class Histo(object):
                         br[0] <= curran[1] <= br[1])):
                 new.addBin(b)
             else:
-                logging.debug("Chopping bin %s: %e" % (self.fullPath(), b.getBinCenter()))
+                sys.stderr.write("Chopping bin %s: %e\n" % (self.fullPath(), b.getBinCenter()))
         return new
 
     def renormalise(self, newarea):
@@ -321,15 +320,25 @@ class Histo(object):
 
 
     @classmethod
-    def fromFlat(cls, stringbuf):
-        """Build a histogram from a string buffer containing flat-format."""
+    def fromFlatHisto(cls, stringbuf):
+        """Build a histogram from its flat text representation.
+        """
         desc = {}
         new = cls()
-        for line in stringbuf:
-            line = line.rstrip()
-            if "=" in line:
-                linearray = line.split("=", 0)
+        for line in stringbuf.splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if 'BEGIN HISTOGRAM' in line:
+                fullpath = line.split('BEGIN HISTOGRAM', 1)[1].strip()
+                new.path = os.path.dirname(fullpath)
+                new.name = os.path.basename(fullpath)
+                continue
+            elif "=" in line:
+                linearray = line.split("=", 1)
                 desc[linearray[0]] = linearray[1]
+            elif 'END HISTOGRAM' in line:
+                break
             else:
                 linearray = line.split()
                 if len(linearray) == 4:
@@ -341,8 +350,10 @@ class Histo(object):
                                    float(linearray[2]),
                                    float(linearray[3]), float(linearray[4])))
                 else:
-                    logging.error("Unknown line format in '%s'" % (line))
-        new.path, new.name = posixpath.split(desc["AidaPath"])
+                    sys.stderr.write("Unknown line format in '%s'\n" % line)
+        ## Apply special annotations as histo obj attributes
+        if desc.has_key("AidaPath"):
+            new.path, new.name = posixpath.split(desc["AidaPath"])
         if desc.has_key("Title"):
             new.title = desc["Title"]
         if desc.has_key("XLabel"):
@@ -353,16 +364,51 @@ class Histo(object):
 
 
     @classmethod
+    def fromFlat(cls, path):
+        """Load all histograms in file 'path' into a histo-path=>histo dict.
+
+        The keys of the dictionary are the full paths of the histogram, i.e.
+        AnalysisID/HistoID, a leading "/REF" is stripped from the keys.
+        """
+        runhistos = dict()
+        if path == "-":
+            f = sys.stdin
+        else:
+            f = open(path, "r")
+        fullpath = None
+        s = ""
+        for line in f:
+            if "BEGIN HISTOGRAM" in line:
+                fullpath = line.split('BEGIN HISTOGRAM', 1)[1].strip()
+                # TODO: Really? Here?
+                if fullpath.startswith("/REF"):
+                    fullpath = fullpath[4:]
+            if fullpath:
+                s += line
+                if "END HISTOGRAM" in line:
+                    runhistos[fullpath] = cls.fromFlatHisto(s)
+                    ## Reset for next histo
+                    fullpath = None
+                    s = ""
+        if f is not sys.stdin:
+            f.close()
+        return runhistos
+
+
+    @classmethod
     def fromAIDA(cls, path):
         """Load all histograms in file 'path' into a histo-path=>histo dict.
 
         The keys of the dictionary are the full paths of the histogram, i.e.
-        AnaylsisID/HistoID, a leading "/REF" is stripped from the keys.
+        AnalysisID/HistoID, a leading "/REF" is stripped from the keys.
+
+        TODO: /REF stripping should really happen in user code...
         """
         runhistos = dict()
         tree = ET.parse(path)
         for dps in tree.findall("dataPointSet"):
             fullpath = posixpath.join(dps.get("path"), dps.get("name"))
+            # TODO: Really? Here?
             if fullpath.startswith("/REF"):
                 fullpath = fullpath[4:]
             runhistos[fullpath] = cls.fromDPS(dps)

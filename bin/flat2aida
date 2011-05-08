@@ -1,7 +1,15 @@
 #! /usr/bin/env python
 
 """\
-%prog flatfile [flatfile2 ...]
+%prog [options] flatfile [flatfile2 ...]
+
+Convert make-plots data files to AIDA XML format. The output is by default
+written out to a file with the same name as the input (out.aida in the case of
+stdin) unless the --output option is specified. When specifying either input or
+output filenames, a '-' is used to refer to stdin or stdout as appropriate.
+
+Histograms can also be filtered by histo path, using the -m or -M options for a
+positive or negative regex pattern patch respectively.
 """
 
 import sys
@@ -10,145 +18,162 @@ if sys.version_info[:3] < (2,4,0):
     sys.exit(1)
 
 
-import os
-from htmlentitydefs import codepoint2name
-unichr2entity = dict((unichr(code), u'&%s;' % name) \
-                         for code,name in codepoint2name.iteritems() \
-                         if code != 38) # exclude "&"
-def htmlescape(text, d=unichr2entity):
-    if u"&" in text:
-        text = text.replace(u"&", u"&amp;")
-    for key, value in d.iteritems():
-        if key in text:
-            text = text.replace(key, value)
-    return text
+import os, logging
+import lighthisto
 
 
-
-class Inputdata:
-    def __init__(self, filename):
-        self.histos = {}
-        self.description = {}
-        self.description['DrawOnly'] = []
-        f = open(filename+'.dat', 'r')
-        for line in f:
-            if (line.count('#',0,1)):
-                if (line.count('BEGIN HISTOGRAM')):
-                    title = line.split('BEGIN HISTOGRAM', 1)[1].strip()
-                    self.description['DrawOnly'].append(title)
-                    self.histos[title] = Histogram(f)
-                    if title:
-                        self.histos[title].path = title
-        f.close()
-
-class Histogram:
-    def __init__(self, f):
-        self.read_input(f)
-        self.path = None
-
-    def read_input(self, f):
-        self.description = {}
-        self.data = []
-        for line in f:
-            if (line.count('#',0,1)):
-                if (line.count('END HISTOGRAM')):
-                    break
-            else:
-                line = line.rstrip()
-                if (line.count('=')):
-                    linearray = line.split('=', 1)
-                    key = linearray[0].strip()
-                    val = linearray[1].strip()
-                    #print "@", key, val
-                    self.description[key] = val
-                else:
-                    linearray = line.split()
-                    if len(linearray)==4:
-                        self.data.append({'LowEdge': float(linearray[0]),
-                                          'UpEdge':  float(linearray[1]),
-                                          'Content': float(linearray[2]),
-                                          'Error':   [float(linearray[3]),float(linearray[3])]})
-                    elif len(linearray)==5:
-                        self.data.append({'LowEdge': float(linearray[0]),
-                                          'UpEdge':  float(linearray[1]),
-                                          'Content': float(linearray[2]),
-                                          'Error':   [float(linearray[3]),float(linearray[4])]})
-                    else:
-                        raise Exception("Unexpected line format: '%s'" % linearray)
-
-    def write_datapoint(self, f, xval, xerr, yval, yerr):
-        f.write('    <dataPoint>\n')
-        f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(xerr, xval, xerr))
-        f.write('      <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' %(yerr[1], yval, yerr[0]))
-        f.write('    </dataPoint>\n')
-
-    def write_datapointset_header(self, f, count, bin):
-        path = '/REF/%s/d%02d-x01-y%02d' % (filename.split('/')[-1], count, bin+1)
-        if self.description.has_key("AidaPath"):
-            path = self.description["AidaPath"]
-        if not self.path:
-            self.path = path
-        f.write('  <dataPointSet name="%s" dimension="2"\n' % (os.path.basename(self.path)))
-        if not self.description.has_key('Title'):
-            self.description['Title'] = ""
-        f.write('    path="%s" title="%s">\n' % (os.path.dirname(self.path), htmlescape(self.description['Title'])))
-        if self.description.has_key("XLabel") and self.description["XLabel"] is not None:
-            f.write('    <dimension dim="0" title="%s" />\n' % htmlescape(self.description['XLabel']))
-        if self.description.has_key("YLabel") and self.description["YLabel"] is not None:
-            f.write('    <dimension dim="1" title="%s" />\n' % htmlescape(self.description['YLabel']))
-        f.write('    <annotation>\n')
-        f.write('      <item key="Title" value="%s" sticky="true"/>\n' %(htmlescape(self.description['Title'])))
-        f.write('      <item key="AidaPath" value="%s" sticky="true"/>\n' %(self.path))
-        f.write('      <item key="FullPath" value="/%s.aida%s" sticky="true"/>\n' %(filename.split('/')[-1], self.path))
-        f.write('    </annotation>\n')
-
-    def write_datapointset_footer(self, f):
-        f.write('  </dataPointSet>\n')
-
-    def write_datapointset(self, f, count):
-        if not opts.SPLITHISTOS:
-            self.write_datapointset_header(f, count, 0)
-        for bin, bindata in enumerate(self.data):
-            xval = 0.5*(bindata['UpEdge'] + bindata['LowEdge'])
-            if bindata['UpEdge'] == bindata['LowEdge']:
-                xerr = 0.5
-            else:
-                xerr = 0.5*(bindata['UpEdge'] - bindata['LowEdge'])
-            yval = bindata['Content']
-            yerr = bindata['Error']
-            if opts.SPLITHISTOS:
-                self.write_datapointset_header(f, count, bin)
-            self.write_datapoint(f, xval, xerr, yval, yerr)
-            if opts.SPLITHISTOS:
-                self.write_datapointset_footer(f)
-        if not opts.SPLITHISTOS:
-            self.write_datapointset_footer(f)
+##########################################################
 
 
 if __name__ == "__main__":
-    from optparse import OptionParser
+
+    ## Default plot file search paths
+    default_plotdirs = ["."]
+    try:
+        import rivet
+        default_plotdirs += rivet.getAnalysisPlotPaths()
+    except:
+        pass
+
+
+    ## Parse command line options
+    from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
+    parser.add_option("-o", "--output", default=None,
+                      help="Write all histos to a single output file. "
+                      "stdout can be explicitly specified by setting '-' as the output filename. This option will "
+                      "be disregarded if --split is specified.",
+                      dest="OUTPUT")
     parser.add_option("-s", "--split", action="store_true", default=False,
-                      help="Split histograms into individual files", dest="SPLITHISTOS")
+                      help="Split histograms into individual files", dest="SPLITOUTPUT")
+    parser.add_option("--plotinfodir", dest="PLOTINFODIR", action="append",
+                      default=default_plotdirs, help="directory which may contain plot header information")
+    parser.add_option("-m", "--match", action="append",
+                      help="Only write out histograms whose $path/$name string matches these regexes",
+                      dest="PATHPATTERNS")
+    parser.add_option("-M", "--unmatch", action="append",
+                      help="Exclude histograms whose $path/$name string matches these regexes",
+                      dest="PATHUNPATTERNS")
+    verbgroup = OptionGroup(parser, "Verbosity control")
+    verbgroup.add_option("-v", "--verbose", action="store_const", const=logging.DEBUG, dest="LOGLEVEL",
+                         default=logging.INFO, help="print debug (very verbose) messages")
+    verbgroup.add_option("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
+                         default=logging.INFO, help="be very quiet")
     opts, args = parser.parse_args()
 
+
+    ## Configure logging
+    logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+
+
+    ## Initialise steering variables which need a bit more care
+    import re
+    if opts.PATHPATTERNS is None:
+        opts.PATHPATTERNS = []
+    opts.PATHPATTERNS = [re.compile(r) for r in opts.PATHPATTERNS]
+    if opts.PATHUNPATTERNS is None:
+        opts.PATHUNPATTERNS = []
+    opts.PATHUNPATTERNS = [re.compile(r) for r in opts.PATHUNPATTERNS]
+
+
+    ## Check that at least one file has been supplied
     if len(args) < 1:
-        sys.stderr.write("Must specity at least one histogram file\n")
+        sys.stderr.write("Must specity at least one histogram file (or stdin)\n")
         sys.exit(1)
 
+
+    ## Add directories to the plotinfo path
     for flatfile in args:
-        filename = flatfile.replace(".dat", "")
+        if flatfile != "-":
+            flatdir = os.path.dirname(flatfile)
+            if flatdir not in opts.PLOTINFODIR:
+                opts.PLOTINFODIR.append(flatdir)
+    ## Remove empty path entries
+    opts.PLOTINFODIR = filter(lambda s: len(s) > 0, opts.PLOTINFODIR)
+    ## Create plot file parser
+    plotparser = lighthisto.PlotParser(opts.PLOTINFODIR)
 
-        inputdata = Inputdata(filename)
 
-        f = open(filename+'.aida', 'w')
-        f.write('<?xml version="1.0" encoding="ISO-8859-1" ?>\n')
-        f.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
-        f.write('<aida version="3.3">\n')
-        f.write('  <implementation version="1.1" package="FreeHEP"/>\n')
+    ## Run over the files and build histo objects selected by the pattern filtering
+    histos = {}
+    for flatfile in args:
+        if flatfile != "-" and not os.access(flatfile, os.R_OK):
+            logging.error("%s can not be read" % flatfile)
+            sys.exit(1)
+        try:
+            allhistos = lighthisto.Histo.fromFlat(flatfile)
+        except Exception, e:
+            logging.error("%s can not be parsed" % flatfile)
+            print e
+            sys.exit(1)
 
-        for i, d in enumerate(inputdata.description['DrawOnly']):
-            inputdata.histos[d].write_datapointset(f, i+1)
+        for histpath, hist in allhistos.iteritems():
+            useThis = True
+            if opts.PATHPATTERNS:
+                useThis = False
+                for regex in opts.PATHPATTERNS:
+                    if regex.search(histpath):
+                        useThis = True
+                        break
+            if useThis and opts.PATHUNPATTERNS:
+                for regex in opts.PATHUNPATTERNS:
+                    if regex.search(histpath):
+                        useThis = False
+                        break
+            if useThis:
+                try:
+                    plotparser.updateHistoHeaders(hist)
+                except ValueError, err:
+                    logging.debug(err)
+                histos.setdefault(flatfile, []).append(hist)
 
-        f.write('</aida>\n')
-        f.close
+
+    ## Write output
+    if histos:
+        ## Split output per-histogram
+        if opts.SPLITOUTPUT:
+            for f, hs in sorted(histos.iteritems()):
+                for h in sorted(hs):
+                    histo = h.fullPath()[1:].replace("/", "_")
+                    outfile = "%s.aida" % histo
+                    #print "Writing to", outfile
+                    out = open(outfile, "w")
+                    out.write('<?xml version="1.0" ?>\n')
+                    out.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
+                    out.write('<aida version="3.3">\n')
+                    out.write('  <implementation version="1.1" package="Rivet"/>\n')
+                    out.write(h.asAIDA())
+                    out.write('</aida>\n')
+                    out.close()
+        ## Write all output to a single file (stdout by default)
+        elif opts.OUTPUT:
+            outfile = opts.OUTPUT
+            if outfile == "-":
+                out = sys.stdout
+            else:
+                out = open(outfile, "w")
+            out.write('<?xml version="1.0" ?>\n')
+            out.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
+            out.write('<aida version="3.3">\n')
+            out.write('  <implementation version="1.1" package="Rivet"/>\n')
+            for f, hs in sorted(histos.iteritems()):
+                for h in sorted(hs):
+                    out.write(h.asAIDA())
+            out.write('</aida>\n')
+            if outfile != "-":
+                out.close()
+        ## Split output per-infile
+        else:
+            for f, hs in sorted(histos.iteritems()):
+                outfile = os.path.basename(f).replace(".dat", ".aida")
+                if f == "-":
+                    outfile = "out.dat"
+                out = open(outfile, "w")
+                out.write('<?xml version="1.0" ?>\n')
+                out.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
+                out.write('<aida version="3.3">\n')
+                out.write('  <implementation version="1.1" package="Rivet"/>\n')
+                for h in sorted(hs):
+                    out.write(h.asAIDA())
+                out.write('</aida>\n')
+                out.close()
