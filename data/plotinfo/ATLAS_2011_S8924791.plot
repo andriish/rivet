@@ -1,3 +1,8 @@
+## BEGIN PLOT /ATLAS_2011_S8924791/d..-x..-y02
+LogY=0
+LegendYPos=0.6
+## END PLOT
+
 ## BEGIN PLOT /ATLAS_2011_S8924791/d01-x01-y01
 Title=Jet shape $\rho$ for $p_\perp \in 30$--40\,GeV, $y \in 0.0$--0.3
 XLabel=$r$
