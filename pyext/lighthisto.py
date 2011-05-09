@@ -547,7 +547,7 @@ class PlotParser(object):
             try:
                 import rivet
                 try:
-                self.plotpaths = rivet.getAnalysisPlotPaths()
+                    self.plotpaths = rivet.getAnalysisPlotPaths()
                 except AttributeError:
                     self.plotpaths = rivet.getAnalysisRefPaths()
                 except AttributeError, e:
