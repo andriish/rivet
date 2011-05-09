@@ -124,7 +124,7 @@ class Histo(object):
             out += "## YLabel: %s\n" % self.ylabel
         out += "## Area: %s\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
-        out += "## xval  \tval    \txlow    \txhigh    \tylow     \tyhigh\n"
+        out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
         out += "\n".join([b.asGnuplot() for b in self.getBins()])
         out += "\n# END HISTOGRAM"
         return out
@@ -546,9 +546,18 @@ class PlotParser(object):
         if len(self.plotpaths) == 0:
             try:
                 import rivet
+                try:
                 self.plotpaths = rivet.getAnalysisPlotPaths()
-            except Exception:
-                raise ValueError("No plotpaths given and the rivet module could not be loaded!")
+                except AttributeError:
+                    self.plotpaths = rivet.getAnalysisRefPaths()
+                except AttributeError, e:
+                    logging.error("Failed to load Rivet analysis plot/reference paths: %s" % e)
+                    logging.error("Rivet version is too old.")
+                    raise ValueError("No plot paths given and rivet module is too old.")
+            except ImportError, e:
+                logging.error("Failed to import rivet module: %s" % e)
+                raise ValueError("No plot paths given and the rivet module could not be loaded!")
+
 
     def getSection(self, section, hpath):
         """Get a section for a histogram from a .plot file.
