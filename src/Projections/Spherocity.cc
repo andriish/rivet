@@ -10,7 +10,8 @@ namespace Rivet {
   void Spherocity::calc(const FinalState& fs) {
     calc(fs.particles());
   }
-  
+
+
   void Spherocity::calc(const vector<Particle>& fsparticles) {
     vector<Vector3> threeMomenta;
     threeMomenta.reserve(fsparticles.size());
@@ -20,7 +21,8 @@ namespace Rivet {
     }
     _calcSpherocity(threeMomenta);
   }
-  
+
+
   void Spherocity::calc(const vector<FourMomentum>& fsmomenta) {
     vector<Vector3> threeMomenta;
     threeMomenta.reserve(fsmomenta.size());
@@ -30,6 +32,7 @@ namespace Rivet {
     _calcSpherocity(threeMomenta);
   }
 
+
   void Spherocity::calc(const vector<Vector3>& fsmomenta) {
     _calcSpherocity(fsmomenta);
   }
@@ -38,11 +41,11 @@ namespace Rivet {
   /////////////////////////////////////////////////
 
 
+  // Inline functions to avoid template hell
   inline bool mod2Cmp(const Vector<2>& a, const Vector<2>& b) {
     return a.mod2() > b.mod2();
   }
 
-  // Inline functions to avoid template hell
   inline double dot(const Vector<2>& a, const Vector<2>& b) {
     return a[0]*b[0] + a[1]*b[1];
   }
@@ -64,7 +67,7 @@ namespace Rivet {
     // direction of one of the transverse momentum vectors of the events particles.
     // Thus we carry out the calculation of Sphero for all particles and pick the
     // one that yields the smallerst values
-    
+
     vector<Vector3> p = perpmomenta;
     vector<double> sval;
 
@@ -88,7 +91,7 @@ namespace Rivet {
 
       sval.push_back(s);
     }
-    
+
 
     // Pick the solution with the smallest spherocity
     sphero = 999.;
@@ -104,12 +107,12 @@ namespace Rivet {
 
   // Do the full calculation
   void Spherocity::_calcSpherocity(const vector<Vector3>& fsmomenta) {
-   
+
     // Make a vector of the three-momenta in the final state
     // Explicitly set the z-component (parallel to beam axis) to zero
     // This creates a 3D-vector representation of the transverse momentum
     // but take the full information momentum vectors as input
-    
+
     vector<Vector3> fsperpmomenta;
     // A small iteration over full momenta but set z-coord. to 0.0 to get transverse momenta
     foreach (const Vector3& p, fsmomenta) {
@@ -156,27 +159,25 @@ namespace Rivet {
       return;
     }
 
-
     // Temporary variables for calcs
     Vector3 axis(0,0,0);
     double val = 0.;
 
-
     // Get spherocity
     _calcS(fsperpmomenta, val, axis);
-    getLog() << Log::DEBUG << "Mom sum = " << perpmomentumSum << endl;
+    MSG_DEBUG("Mom sum = " << perpmomentumSum);
     double spherocity = PI*PI* val*val / (4 * perpmomentumSum*perpmomentumSum);
     _spherocities.push_back(spherocity);
 
     // See if calclulated spherocity value makes sense
     if (spherocity < 0.0 || spherocity > 1.0) {
-       getLog() << Log::WARN << "Spherocity = " << spherocity << endl;
+      MSG_WARNING("Spherocity = " << spherocity);
     }
-    
-    getLog() << Log::DEBUG << "Spherocity value = " << spherocity << endl;
 
-    getLog() << Log::DEBUG << "Sperocity axis = " << axis << endl;
-   
+    MSG_DEBUG("Spherocity value = " << spherocity);
+
+    MSG_DEBUG("Sperocity axis = " << axis);
+
     _spherocityAxes.push_back(axis);
 
 
@@ -207,7 +208,6 @@ namespace Rivet {
     //}
 
   }
-
 
 
 }

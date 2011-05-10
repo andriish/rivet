@@ -25,10 +25,10 @@ namespace Rivet {
     direction, and the vector perpendicular to both the spherocity and spherocity major directions
     is the spherocity minor. Both the major and minor directions have associated spherocity
     scalars.
-    
-    Care must be taken in the case of Drell-Yann processes - there we should use the
-    newly proposed observable a_T.
-   
+
+    Care must be taken in the case of Drell-Yan processes - there we should use the
+    newly proposed observable \f$ a_T \f$.
+
    */
   class Spherocity : public AxesDefinition {
   public:
@@ -46,6 +46,7 @@ namespace Rivet {
       return new Spherocity(*this);
     }
 
+
   protected:
 
     /// Perform the projection on the Event
@@ -54,6 +55,7 @@ namespace Rivet {
         = applyProjection<FinalState>(e, "FS").particles();
       calc(ps);
     }
+
 
     /// Compare projections
     int compare(const Projection& p) const {
@@ -68,6 +70,7 @@ namespace Rivet {
     double spherocity() const { return _spherocities[0]; }
     ///@}
 
+
     ///@{ Spherocity axis accessors
     /// The spherocity axis.
     const Vector3& spherocityAxis() const { return _spherocityAxes[0]; }
@@ -76,6 +79,7 @@ namespace Rivet {
     /// The spherocity minor axis (axis perpendicular to spherocity and spherocity major).
     const Vector3& spherocityMinorAxis() const { return _spherocityAxes[2]; }
     ///@}
+
 
     ///@{ AxesDefinition axis accessors.
     const Vector3& axis1() const { return spherocityAxis(); }
@@ -115,6 +119,7 @@ namespace Rivet {
 
     /// Caching flag to avoid costly recalculations.
     bool _calculatedSpherocity;
+
 
   private:
 
