@@ -3,7 +3,6 @@
 import posixpath
 import os, sys, re
 
-
 from htmlentitydefs import codepoint2name
 unichr2entity = {}
 for code, name in codepoint2name.iteritems():
@@ -551,11 +550,11 @@ class PlotParser(object):
                 except AttributeError:
                     self.plotpaths = rivet.getAnalysisRefPaths()
                 except AttributeError, e:
-                    logging.error("Failed to load Rivet analysis plot/reference paths: %s" % e)
-                    logging.error("Rivet version is too old.")
+                    sys.stderr.write("Failed to load Rivet analysis plot/reference paths: %s\n" % e)
+                    sys.stderr.write("Rivet version is too old.\n")
                     raise ValueError("No plot paths given and rivet module is too old.")
             except ImportError, e:
-                logging.error("Failed to import rivet module: %s" % e)
+                sys.stderr.write("Failed to import rivet module: %s\n" % e)
                 raise ValueError("No plot paths given and the rivet module could not be loaded!")
 
 
