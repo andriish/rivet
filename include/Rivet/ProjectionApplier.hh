@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     // The proj handler needs access to reset the _allowProjReg flag before calling a.init()
-    friend class Projectionhandler;
+    // friend class ProjectionHandler;
 
     /// Constructor
     ProjectionApplier();
@@ -93,8 +93,7 @@ namespace Rivet {
 
     /// Get a reference to the ProjectionHandler for this thread.
     ProjectionHandler& getProjHandler() const {
-      assert(_projhandler);
-      return *_projhandler;
+      return _projhandler;
     }
 
 
@@ -145,7 +144,7 @@ namespace Rivet {
   private:
 
     /// Pointer to projection handler.
-    ProjectionHandler* _projhandler;
+    ProjectionHandler& _projhandler;
 
   };
 

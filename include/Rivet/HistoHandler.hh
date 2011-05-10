@@ -28,9 +28,9 @@ namespace Rivet {
 
     /// @name Construction. */
     //@{
+
     /// The standard constructor.
     HistoHandler() { }
-    //@}
 
     /// Private destructor means no inheritance from this class.
     ~HistoHandler();
@@ -40,6 +40,8 @@ namespace Rivet {
 
     /// The copy constructor is hidden.
     HistoHandler(const HistoHandler&);
+
+    //@}
 
 
   public:

@@ -11,23 +11,15 @@ namespace Rivet {
   // Initialize instance pointer to null.
   ProjectionHandler* ProjectionHandler::_instance = 0;
 
-
-  //int Log_TRACE = Log::INFO;
-
-
-  ProjectionHandler* ProjectionHandler::create() {
+  ProjectionHandler& ProjectionHandler::getInstance() {
     if (!_instance) {
       _instance = new ProjectionHandler();
       Log::getLog("Rivet.ProjectionHandler")
         << Log::TRACE << "Created new ProjectionHandler at " << _instance << endl;
     }
-    return _instance;
+    return *_instance;
   }
 
-
-  void ProjectionHandler::destroy() {
-    delete _instance;
-  }
 
 
   // Get a logger.
@@ -36,12 +28,10 @@ namespace Rivet {
   }
 
 
-
   void ProjectionHandler::clear() {
     _projs.clear();
     _namedprojs.clear();
   }
-
 
 
   // Delete contained pointers.

@@ -73,6 +73,9 @@ namespace Rivet {
 
   private:
 
+    /// @name Construction. */
+    //@{
+
     /// Private destructor means no inheritance from this class.
     ~ProjectionHandler();
 
@@ -82,27 +85,24 @@ namespace Rivet {
     /// The copy constructor is hidden.
     ProjectionHandler(const ProjectionHandler&);
 
-
-  private:
-
-    /// @name Construction. */
-    //@{
     /// The standard constructor.
     ProjectionHandler() { }
-    //@}
 
-    /// Singleton instance
-    /// @todo Threading?
+    /// @todo Remove in favour of the static singleton function
     static ProjectionHandler* _instance;
+
+    //@}
 
 
   public:
 
     /// Singleton creation function
-    static ProjectionHandler* create();
-
-    /// Singleton deletion function
-    static void destroy();
+    static ProjectionHandler& getInstance(); // {
+    /// @todo This is a better form of singleton, which cleans up properly... but it can't
+    /// yet be used as it highlights a projection memory problem. Please fix so we can use this!
+    //   static ProjectionHandler _instance;
+    //   return _instance;
+    // }
 
 
   public:

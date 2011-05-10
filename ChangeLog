@@ -1,3 +1,15 @@
+2011-05-10  Andy Buckley  <andy@insectnation.org>
+
+	* Internal minor changes to the ProjectionHandler and
+	ProjectionApplier interfaces, in particular changing the
+	ProjectionHandler::create() function to be called getInstance and
+	to return a reference rather than a pointer. The reference change
+	is to make way for an improved singleton implementation, which
+	cannot yet be used due to a bug in projection memory
+	management. The code of the improved singleton is available, but
+	commented out, in ProjectionManager.hh to allow for easier
+	migration and to avoid branching.
+
 2011-05-08  Andy Buckley  <andy@insectnation.org>
 
 	* Extending flat2aida to be able to read from and write to
