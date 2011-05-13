@@ -25,7 +25,7 @@ YLabel=$1/\sigma(Z) \times \mathrm{d}\sigma(Z + b\,\text{jet})/\mathrm{d}p_{T}^{
 # BEGIN PLOT /CDF_2008_S8095620/d05-x01-y01
 Title=
 XLabel=Number of jets
-YLabel=$1/\sigma(Z) \times \mathrm{d}\sigma(Z + N^{\text{jet}})/\mathrm{d}N^{\text{jet}}$
+YLabel=$1/\sigma(Z) \times \mathrm{d}\sigma(Z + N^{\text{jet}},\geq 1\,b\,\text{jet})/\mathrm{d}N^{\text{jet}}$
 # END PLOT
 
 # BEGIN PLOT /CDF_2008_S8095620/d06-x01-y01
