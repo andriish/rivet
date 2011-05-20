@@ -41,6 +41,8 @@ parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default
                   help="plot config file(s) to be used with make-plots.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
                   default=False, help="display plots on single webpage.")
+parser.add_option("--no-ratio", dest="SHOW_RATIO", action="store_false",
+                  default=True, help="don't draw a ratio plot under each main plot.")
 parser.add_option("--mc-errs", dest="MC_ERRS", action="store_true",
                   default=False, help="plot error bars.")
 parser.add_option("--refid", dest="REF_ID",
@@ -138,6 +140,8 @@ analyses=sorted(analyses, key=anasort, reverse=True)
 ch_cmd = ["compare-histos"]
 if opts.MC_ERRS:
     ch_cmd.append("--mc-errs")
+if not opts.SHOW_RATIO:
+    ch_cmd.append("--no-ratio")
 if opts.REF_ID is not None:
     ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
 ch_cmd.append("--hier-out")
