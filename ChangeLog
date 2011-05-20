@@ -1,5 +1,9 @@
 2011-05-20  Andy Buckley  <andy@insectnation.org>
 
+	* Removing import of ipython shell from rivet-rescale, having just
+	seen it throw a multi-coloured warning message on a student's
+	lxplus Rivet session!
+
 	* Adding support for the compare-histos --no-ratio flag when using
 	rivet-mkhtml. Adding --rel-ratio, --linear, etc. is an exercise
 	for the enthusiast ;-)
