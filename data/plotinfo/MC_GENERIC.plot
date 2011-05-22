@@ -91,6 +91,20 @@ YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}N$
 LogY=0
 # END PLOT
 
+# BEGIN PLOT /MC_GENERIC/MultsDecayedPIDs
+Title=Average per-event multiplicity of decayed particle IDs
+XLabel=$|\text{PID}|$
+YLabel=$\langle N_\text{PID} \rangle$
+LogY=0
+# END PLOT
+
+# BEGIN PLOT /MC_GENERIC/MultsStablePIDs
+Title=Average per-event multiplicity of stable particle IDs
+XLabel=$|\text{PID}|$
+YLabel=$\langle N_\text{PID} \rangle$
+LogY=0
+# END PLOT
+
 # BEGIN PLOT /MC_GENERIC/PhiCh
 Title=Azimuthal distribution of charged particles
 XLabel=$\phi$

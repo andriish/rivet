@@ -41,8 +41,8 @@ namespace Rivet {
       _histMult   = bookHistogram1D("Mult", 100, -0.5, 199.5);
       _histMultCh = bookHistogram1D("MultCh", 100, -0.5, 199.5);
 
-      _histStablePIDs  = bookHistogram1D("MultsStablePIDs", 3335, 0, 3334.5);
-      _histDecayedPIDs = bookHistogram1D("MultsDecayedPIDs", 3335, 0, 3334.5);
+      _histStablePIDs  = bookHistogram1D("MultsStablePIDs", 3335, -0.5, 3334.5);
+      _histDecayedPIDs = bookHistogram1D("MultsDecayedPIDs", 3335, -0.5, 3334.5);
 
       _histPt    = bookHistogram1D("Pt", 300, 0, 30);
       _histPtCh  = bookHistogram1D("PtCh", 300, 0, 30);
