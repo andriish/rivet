@@ -5,6 +5,7 @@ Usage: %prog [options] file.dat [file2.dat ...]
 
 TODO
  * use std method (from compphys marking) to kill the subprocess
+ * Optimise output for e.g. lots of same-height bins in a row
  * Tidy LaTeX-writing code
  * Handle boolean values flexibly (yes, no, true, false, etc. as well as 1, 0)
 """

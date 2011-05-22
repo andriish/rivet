@@ -41,8 +41,8 @@ namespace Rivet {
       _histMult   = bookHistogram1D("Mult", 100, -0.5, 199.5);
       _histMultCh = bookHistogram1D("MultCh", 100, -0.5, 199.5);
 
-      _histStablePIDs  = bookHistogram1D("MultsStablePIDs", 6669, -3334.5, 3334.5);
-      _histDecayedPIDs = bookHistogram1D("MultsDecayedPIDs", 6669, -3334.5, 3334.5);
+      _histStablePIDs  = bookHistogram1D("MultsStablePIDs", 3335, 0, 3334.5);
+      _histDecayedPIDs = bookHistogram1D("MultsDecayedPIDs", 3335, 0, 3334.5);
 
       _histPt    = bookHistogram1D("Pt", 300, 0, 30);
       _histPtCh  = bookHistogram1D("PtCh", 300, 0, 30);
@@ -84,8 +84,7 @@ namespace Rivet {
       MSG_DEBUG("Total multiplicity = " << cnfs.size());
       _histMult->fill(cnfs.size(), weight);
       foreach (const Particle& p, cnfs.particles()) {
-        const PdgId pid = abs(p.pdgId());
-        _histStablePIDs->fill(pid, weight);
+        _histStablePIDs->fill(abs(p.pdgId()), weight);
         const double eta = p.momentum().eta();
         _histEta->fill(eta, weight);
         _histEtaSumEt->fill(fabs(eta), p.momentum().Et(), weight);
@@ -134,8 +133,8 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         const double eta_abs = fabs(p.momentum().eta());
+        _histDecayedPIDs->fill(p.pdgId(), weight);
         const PdgId pid = abs(p.pdgId());
-        _histDecayedPIDs->fill(pid, weight);
         //if (PID::isMeson(pid) && PID::hasStrange()) {
         if (pid == 211 || pid == 111) _histEtaPi->fill(eta_abs, weight);
         else if (pid == 321 || pid == 130 || pid == 310) _histEtaK->fill(eta_abs, weight);
