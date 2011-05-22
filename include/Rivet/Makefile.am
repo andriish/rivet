@@ -16,7 +16,7 @@ nobase_pkginclude_HEADERS += \
   Analysis.hh          Analysis.fhh  AnalysisBuilder.hh \
   AnalysisHandler.hh   AnalysisHandler.fhh \
   AnalysisInfo.hh      ProjectionHandler.hh \
-  ProjectionApplier.hh ProjectionApplier.fhh \
+  ProjectionApplier.hh \
   Projection.hh        Projection.fhh \
   Cmp.hh               Cmp.fhh \
   ParticleName.hh      AnalysisLoader.hh \
