@@ -1,5 +1,8 @@
 2011-05-22  Andy Buckley  <andy@insectnation.org>
 
+	* Adding plots of stable and decayed PID multiplicities to
+	MC_GENERIC (useful for sanity-checking generator setups).
+
 	* Removing actually-unused ProjectionApplier.fhh forward
 	declaration header.
 

@@ -52,13 +52,13 @@ namespace Rivet {
       // Non-uniform binning example:
       double edges[11] = { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 };
       vector<double> vedges(edges, edges+11);
-      _histThrust      = bookHistogram1D("Thrust", vedges);
+      _histThrust = bookHistogram1D("Thrust", vedges);
     }
 
 
     /// Do the analysis
     void analyze(const Event& event) {
-      // Make sure to always include the event weight in fills!
+      // Make sure to always include the event weight in histogram fills!
       const double weight = event.weight();
 
       const Multiplicity& cnm = applyProjection<Multiplicity>(event, "CNMult");
@@ -87,7 +87,7 @@ namespace Rivet {
       unsigned int num_b_jets = 0;
       const Jets jets = applyProjection<FastJets>(event, "Jets").jets(5*GeV);
       foreach (const Jet& j, jets) {
-        if (j.containsBottom()) ++num_b_jets;
+        if (j.containsBottom()) num_b_jets += 1;
       }
       MSG_DEBUG("Num B-jets with pT > 5 GeV = " << num_b_jets);
     }

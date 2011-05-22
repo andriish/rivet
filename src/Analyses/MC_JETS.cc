@@ -22,7 +22,6 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
-      //FastJets jetpro(fs, FastJets::ANTIKT, 0.4);
       FastJets jetpro(fs, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
