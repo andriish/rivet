@@ -43,6 +43,7 @@ namespace Rivet {
 
       _histStablePIDs  = bookHistogram1D("MultsStablePIDs", 3335, -0.5, 3334.5);
       _histDecayedPIDs = bookHistogram1D("MultsDecayedPIDs", 3335, -0.5, 3334.5);
+      _histAllPIDs  = bookHistogram1D("MultsAllPIDs", 3335, -0.5, 3334.5);
 
       _histPt    = bookHistogram1D("Pt", 300, 0, 30);
       _histPtCh  = bookHistogram1D("PtCh", 300, 0, 30);
@@ -79,7 +80,12 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      // Analyse and print some info
+      // Unphysical (debug) plotting of all PIDs in the event, physical or otherwise
+      foreach (const GenParticle* gp, particles(event.genEvent())) {
+        _histAllPIDs->fill(abs(gp->pdg_id()), weight);
+      }
+
+      // Charged + neutral final state
       const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
       MSG_DEBUG("Total multiplicity = " << cnfs.size());
       _histMult->fill(cnfs.size(), weight);
@@ -153,6 +159,7 @@ namespace Rivet {
 
       scale(_histStablePIDs, 1/sumOfWeights());
       scale(_histDecayedPIDs, 1/sumOfWeights());
+      scale(_histAllPIDs, 1/sumOfWeights());
 
       scale(_histEta, 1/sumOfWeights());
       scale(_histEtaCh, 1/sumOfWeights());
@@ -193,7 +200,7 @@ namespace Rivet {
     //@{
     /// Histograms
     AIDA::IHistogram1D *_histMult, *_histMultCh;
-    AIDA::IHistogram1D *_histStablePIDs, *_histDecayedPIDs;
+    AIDA::IHistogram1D *_histStablePIDs, *_histDecayedPIDs, *_histAllPIDs;
     AIDA::IHistogram1D *_histEtaPi, *_histEtaK, *_histEtaLambda;
     AIDA::IProfile1D   *_histEtaSumEt;
     AIDA::IHistogram1D *_histEta, *_histEtaCh;

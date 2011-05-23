@@ -10,28 +10,34 @@ XLabel=$E$ [GeV]
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}E$ [GeV$^{-1}$]
 # END PLOT
 
-# BEGIN PLOT /MC_GENERIC/EtaCh
-Title=Pseudorapidity of charged particles
+# BEGIN PLOT /MC_GENERIC/Eta.*
 XLabel=$\eta$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
 LogY=0
 LegendYPos=0.5
 # END PLOT
 
-# BEGIN PLOT /MC_GENERIC/EtaChPMRatio
-Title=Pseudorapidity $+/-$ ratio of charged particles
+# BEGIN PLOT /MC_GENERIC/Eta$
+Title=Pseudorapidity of all particles
+# END PLOT
+
+# BEGIN PLOT /MC_GENERIC/EtaCh
+Title=Pseudorapidity of charged particles
+# END PLOT
+
+# BEGIN PLOT /MC_GENERIC/Eta.*PMRatio
 XLabel=$|\eta|$
 YLabel=$\mathrm{d}\sigma/\mathrm{d}\eta_+ \; / \; \mathrm{d}\sigma/\mathrm{d}\eta_-$
 LogY=0
 LegendYPos=0.5
 # END PLOT
 
-# BEGIN PLOT /MC_GENERIC/Eta
-Title=Pseudorapidity of all particles
-XLabel=$\eta$
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
-LogY=0
-LegendYPos=0.5
+# BEGIN PLOT /MC_GENERIC/EtaPMRatio
+Title=Pseudorapidity $+/-$ ratio of all particles
+# END PLOT
+
+# BEGIN PLOT /MC_GENERIC/EtaChPMRatio
+Title=Pseudorapidity $+/-$ ratio of charged particles
 # END PLOT
 
 # BEGIN PLOT /MC_GENERIC/EtaK
@@ -69,14 +75,6 @@ LegendXPos=0.3
 LegendYPos=0.5
 # END PLOT
 
-# BEGIN PLOT /MC_GENERIC/EtaPMRatio
-Title=Pseudorapidity $+/-$ ratio of all particles
-XLabel=$|\eta|$
-YLabel=$\mathrm{d}\sigma/\mathrm{d}\eta_+ \; / \; \mathrm{d}\sigma/\mathrm{d}\eta_-$
-LogY=0
-LegendYPos=0.5
-# END PLOT
-
 # BEGIN PLOT /MC_GENERIC/MultCh
 Title=Charged multiplicity of events
 XLabel=$N_text{ch}$
@@ -91,18 +89,22 @@ YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}N$
 LogY=0
 # END PLOT
 
-# BEGIN PLOT /MC_GENERIC/MultsDecayedPIDs
-Title=Average per-event multiplicity of decayed particle IDs
+# BEGIN PLOT /MC_GENERIC/Mults.*PIDs
 XLabel=$|\text{PID}|$
 YLabel=$\langle N_\text{PID} \rangle$
-LogY=0
+LogY=1
+# END PLOT
+
+# BEGIN PLOT /MC_GENERIC/MultsDecayedPIDs
+Title=Average per-event multiplicity of decayed particle IDs
 # END PLOT
 
 # BEGIN PLOT /MC_GENERIC/MultsStablePIDs
 Title=Average per-event multiplicity of stable particle IDs
-XLabel=$|\text{PID}|$
-YLabel=$\langle N_\text{PID} \rangle$
-LogY=0
+# END PLOT
+
+# BEGIN PLOT /MC_GENERIC/MultsAllPIDs
+Title=Average per-event multiplicity of \emph{all} (unphysical) particle IDs
 # END PLOT
 
 # BEGIN PLOT /MC_GENERIC/PhiCh
