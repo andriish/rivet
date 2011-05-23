@@ -16,7 +16,7 @@ XLabel=$1-T$
 YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}(1-T)$
 # END PLOT
 
-# BEGIN PLOT /OPAL_2004_S6132243/d01-x01-y01
+# BEGIN PLOT /OPAL_2004_S6132243/d01-x01-y04
 Title=Thrust, $1-T$, at 197 (189--209) GeV
 XLabel=$1-T$
 YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}(1-T)$
