@@ -115,8 +115,9 @@ namespace Rivet {
 
       ParticleVector cand_mu;
       ParticleVector chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
-      foreach ( const Particle & mu, applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
-	double pTinCone = 0.0;
+      foreach ( const Particle & mu, 
+		applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
+	double pTinCone = -mu.momentum().pT();
 	foreach ( const Particle & track, chg_tracks ) {
 	  if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
 	    pTinCone += track.momentum().pT();
