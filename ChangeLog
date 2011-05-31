@@ -6,6 +6,8 @@
 
 	* Fix OPAL_2004_S6132243: They are using charged+neutral.
 
+	* Release 1.5.1
+
 2011-05-22  Andy Buckley  <andy@insectnation.org>
 
 	* Adding plots of stable and decayed PID multiplicities to
