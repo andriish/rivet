@@ -2,6 +2,8 @@
 
 	* Add basic infrastructure for Taylor plots in make-plots
 
+	* Fix OPAL_2004_S6132243: They are using charged+neutral.
+
 2011-05-22  Andy Buckley  <andy@insectnation.org>
 
 	* Adding plots of stable and decayed PID multiplicities to

@@ -3,6 +3,7 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Sphericity.hh"
 #include "Rivet/Projections/Thrust.hh"
@@ -55,12 +56,14 @@ namespace Rivet {
     void init() {
       // Projections
       addProjection(Beam(), "Beams");
+      const FinalState fs;
+      addProjection(fs, "FS");
       const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-      addProjection(Sphericity(cfs), "Sphericity");
-      addProjection(ParisiTensor(cfs), "Parisi");
-      const Thrust thrust(cfs);
+      addProjection(cfs, "CFS");
+      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+      addProjection(Sphericity(fs), "Sphericity");
+      addProjection(ParisiTensor(fs), "Parisi");
+      const Thrust thrust(fs);
       addProjection(thrust, "Thrust");
       addProjection(Hemispheres(thrust), "Hemispheres");
 
@@ -100,7 +103,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
-      const FinalState& cfs = applyProjection<FinalState>(event, "FS");
+      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent;
 
       // Increment passed-cuts weight sum
