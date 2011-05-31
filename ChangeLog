@@ -1,5 +1,7 @@
 2011-05-31  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
+	* Fix LIBS for fastjet-3.0
+
 	* Add basic infrastructure for Taylor plots in make-plots
 
 	* Fix OPAL_2004_S6132243: They are using charged+neutral.

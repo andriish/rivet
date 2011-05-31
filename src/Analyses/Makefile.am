@@ -1,6 +1,6 @@
 ## Flags for building all plugins
 AM_LDFLAGS = $(LDFLAGS) -module -avoid-version -L$(FASTJETLIBPATH)
-LIBS = -lCDFConesPlugin -lSISConePlugin -lsiscone -lJadePlugin
+LIBS = $(FASTJETCONFIGLIBADD)
 lib_LTLIBRARIES =
 
 noinst_LTLIBRARIES = libRivetAnalysisTools.la
