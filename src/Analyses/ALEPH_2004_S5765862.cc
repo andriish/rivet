@@ -31,6 +31,9 @@ namespace Rivet {
     void init() {
       _initialisedJets    = true;
       _initialisedSpectra = true;
+      // TODO: According to the paper they seem to discard neutral particles
+      //       between 1 and 2 GeV. That correction is included in the systematic
+      //       uncertainties and overly complicated to program, so we ignore it.
       const FinalState fs;
       addProjection(fs, "FS");
       FastJets durhamjets(fs, FastJets::DURHAM, 0.7);
