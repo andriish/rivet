@@ -531,9 +531,27 @@ class MainPlot(Plot):
 
 
 
+class TaylorPlot(Plot):
+    def __init__(self, inputdata):
+        self.refdata = inputdata.description['TaylorPlotReference']
+        self.calculate_taylorcoordinates(inputdata)
+
+    def calculate_taylorcoordinates(self,inputdata):
+        foo=inputdata.description['DrawOnly'].pop(inputdata.description['DrawOnly'].index(self.refdata))
+        inputdata.description['DrawOnly'].append(foo)
+        for i in inputdata.description['DrawOnly']:
+            print i
+            print 'meanbinval  = ', inputdata.histos[i].getMeanBinValue()
+            print 'sigmabinval = ', inputdata.histos[i].getSigmaBinValue()
+            print 'chi2/nbins  = ', inputdata.histos[i].getChi2(inputdata.histos[self.refdata])
+            print 'correlation = ', inputdata.histos[i].getCorrelation(inputdata.histos[self.refdata])
+            print 'distance    = ', inputdata.histos[i].getRMSdistance(inputdata.histos[self.refdata])
+
+
+
 class RatioPlot(Plot):
     def __init__(self, inputdata):
-        self.refdata=inputdata.description['RatioPlotReference']
+        self.refdata = inputdata.description['RatioPlotReference']
         self.yoffset = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY']
         inputdata.description['RatioPlotStage'] = True
         inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
@@ -1092,6 +1110,8 @@ class Histogram(DrawableObject):
         self.is2dim = False
         self.data = []
         self.read_input_data(f)
+        self.sigmabinvalue = None
+        self.meanbinvalue = None
 
     def read_input_data(self, f):
         for line in f:
@@ -1220,6 +1240,91 @@ class Histogram(DrawableObject):
                     self.data[i]['Error'][1] = 0.0
             else:
                 print '+++ Error in Histogram.deviation(): Binning of histograms differs'
+
+    def getChi2(self,name):
+        chi2 = 0.
+        for i in range(len(self.data)):
+            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
+               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+                try:
+                    chi2 += (self.data[i]['Content']-name.data[i]['Content'])**2/((0.5*self.data[i]['Error'][0]+0.5*self.data[i]['Error'][1])**2 + (0.5*name.data[i]['Error'][0]+0.5*name.data[i]['Error'][1])**2)
+                except ZeroDivisionError:
+                    pass
+            else:
+                print '+++ Error in Histogram.divide(): Binning of histograms differs'
+        return chi2/len(self.data)
+
+    def getSigmaBinValue(self):
+        if self.sigmabinvalue==None:
+            self.sigmabinvalue = 0.
+            sumofweights = 0.
+            for i in range(len(self.data)):
+                if self.is2dim:
+                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
+                                   *(self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]))
+                else:
+                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
+                self.sigmabinvalue += binwidth*(self.data[i]['Content']-self.getMeanBinValue())**2
+                sumofweights += binwidth
+            self.sigmabinvalue = sqrt(self.sigmabinvalue/sumofweights)
+        return self.sigmabinvalue
+
+    def getMeanBinValue(self):
+        if self.meanbinvalue==None:
+            self.meanbinvalue = 0.
+            sumofweights = 0.
+            for i in range(len(self.data)):
+                if self.is2dim:
+                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
+                                   *(self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]))
+                else:
+                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
+                self.meanbinvalue += binwidth*self.data[i]['Content']
+                sumofweights += binwidth
+            self.meanbinvalue /= sumofweights
+        return self.meanbinvalue
+
+    def getCorrelation(self,name):
+        correlation = 0.
+        sumofweights = 0.
+        for i in range(len(self.data)):
+            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
+               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+                if self.is2dim:
+                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
+                                  * (self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]) )
+                else:
+                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
+                correlation += binwidth * ( self.data[i]['Content'] - self.getMeanBinValue() ) \
+                                        * ( name.data[i]['Content'] - name.getMeanBinValue() )
+                sumofweights += binwidth
+            else:
+                print '+++ Error in Histogram.divide(): Binning of histograms differs'
+        correlation /= sumofweights
+        try:
+            correlation /= self.getSigmaBinValue()*name.getSigmaBinValue()
+        except ZeroDivisionError:
+            correlation = 0
+        return correlation
+
+    def getRMSdistance(self,name):
+        distance = 0.
+        sumofweights = 0.
+        for i in range(len(self.data)):
+            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
+               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+                if self.is2dim:
+                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
+                                  * (self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]) )
+                else:
+                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
+                distance += binwidth * ( (self.data[i]['Content'] - self.getMeanBinValue())
+                                        -(name.data[i]['Content'] - name.getMeanBinValue()))**2
+                sumofweights += binwidth
+            else:
+                print '+++ Error in Histogram.divide(): Binning of histograms differs'
+        distance = sqrt(distance/sumofweights)
+        return distance
 
     def draw(self,coors):
         out = ""
