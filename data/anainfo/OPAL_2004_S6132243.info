@@ -12,8 +12,9 @@ References:
  - hep-ex/0503051
 RunInfo:
   Hadronic $e^+ e^-$ events at 4 representative energies (91, 133, 177, 197).
-  Runs with sqrt(s) above the Z mass need to have ISR suppressed, since
-  the data has been corrected to remove radiative return to the Z.
+  Runs need to have ISR suppressed, since the analysis was done using a cut of
+  $\sqrt{s} - \sqrt{s_\text{reco}} < 1\,\text{GeV}$. Particles with a livetime
+  $> 3 \cdot 10^{-10}\,\text{s}$ are considered to be stable.
 NumEvents: 200000
 Beams: [e+, e-]
 Energies: [91.2, 133, 177, 197]
