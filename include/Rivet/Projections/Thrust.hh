@@ -45,14 +45,9 @@ namespace Rivet {
   public:
 
     /// Constructor.
-    Thrust()
-      : _calculatedThrust(false)
-    {
-    }
+    Thrust() {}
 
-    Thrust(const FinalState& fsp)
-      : _calculatedThrust(false)
-    {
+    Thrust(const FinalState& fsp) {
       setName("Thrust");
       addProjection(fsp, "FS");
     }
@@ -134,9 +129,6 @@ namespace Rivet {
 
     /// The thrust axes.
     vector<Vector3> _thrustAxes;
-
-    /// Caching flag to avoid costly recalculations.
-    bool _calculatedThrust;
 
   private:
 
