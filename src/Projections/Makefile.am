@@ -1,6 +1,7 @@
 noinst_LTLIBRARIES = libRivetProjections.la
 libRivetProjections_la_SOURCES = \
   Beam.cc \
+  BeamThrust.cc \
   ChargedFinalState.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc \

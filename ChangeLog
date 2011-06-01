@@ -1,3 +1,7 @@
+2011-06-01  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Add BeamThrust projection
+
 2011-05-31  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fix LIBS for fastjet-3.0
