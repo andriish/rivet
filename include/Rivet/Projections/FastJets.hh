@@ -14,6 +14,16 @@
 #include "fastjet/ClusterSequenceArea.hh"
 #include "fastjet/PseudoJet.hh"
 
+#include "fastjet/SISConePlugin.hh"
+#include "fastjet/ATLASConePlugin.hh"
+#include "fastjet/CMSIterativeConePlugin.hh"
+#include "fastjet/CDFJetCluPlugin.hh"
+#include "fastjet/CDFMidPointPlugin.hh"
+#include "fastjet/D0RunIIConePlugin.hh"
+#include "fastjet/TrackJetPlugin.hh"
+#include "fastjet/JadePlugin.hh"
+//#include "fastjet/PxConePlugin.hh"
+
 namespace Rivet {
 
 
