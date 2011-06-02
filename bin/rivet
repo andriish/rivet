@@ -424,10 +424,15 @@ if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
 
 ## Init run based on one event
 hepmcfile = HEPMCFILES[0]
+## Apply a file-level weight derived from the filename
+hepmcfileweight = 1.0
+if ":" in hepmcfile:
+    hepmcfile, hepmcfileweight = hepmcfile.rsplit(":", 1)
+    hepmcfileweight = float(hepmcfileweight)
 try:
     if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
         signal.alarm(min_nonnull(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
-    init_ok = run.init(hepmcfile)
+    init_ok = run.init(hepmcfile, hepmcfileweight)
     signal.alarm(0)
     if not init_ok:
         logging.error("Failed to initialise using event file '%s'... exiting" % hepmcfile)
@@ -441,13 +446,21 @@ except TimeoutException, te:
 evtnum = 0
 starttime = time.time()
 for fileidx, hepmcfile in enumerate(HEPMCFILES):
+    ## Apply a file-level weight derived from the filename
+    hepmcfileweight = 1.0
+    if ":" in hepmcfile:
+        hepmcfile, hepmcfileweight = hepmcfile.rsplit(":", 1)
+        hepmcfileweight = float(hepmcfileweight)
     ## Open next HepMC file (NB. this doesn't apply to the first file: it was already used for the run init)
     if fileidx > 0:
-        run.openFile(hepmcfile)
+        run.openFile(hepmcfile, hepmcfileweight)
         if not run.readEvent():
             logging.warning("Could not read events from '%s'" % hepmcfile)
             continue
-    logging.info("Reading events from '%s'" % hepmcfile)
+    msg = "Reading events from '%s'" % hepmcfile
+    if hepmcfileweight != 1.0:
+        msg += " (file weight = %e)" % hepmcfileweight
+    logging.info(msg)
     while opts.MAXEVTNUM is None or evtnum < opts.MAXEVTNUM:
         evtnum += 1
         logNEvt(evtnum, starttime, opts.MAXEVTNUM)

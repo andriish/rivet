@@ -1,3 +1,12 @@
+2011-06-03  Andy Buckley  <andy@insectnation.org>
+
+	* Adding a file-weight feature to the Run object, which will
+	optionally rescale the weights in the provided HepMC files. This
+	should be useful for e.g. running on multiple differently-weighted
+	AlpGen HepMC files/streams. The new functionality is used by the
+	rivet command via an optional weight appended to the filename with
+	a colon delimiter, e.g. "rivet fifo1.hepmc fifo2.hepmc:2.31"
+
 2011-06-01  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Add BeamThrust projection

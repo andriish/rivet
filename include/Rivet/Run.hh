@@ -47,11 +47,11 @@ namespace Rivet {
     /// @name File processing stages
     //@{
 
-    /// Set up HepMC file readers
-    bool init(const std::string& evtfile);
+    /// Set up HepMC file readers (using the appropriate file weight for the first file)
+    bool init(const std::string& evtfile, double weight=1.0);
 
-    /// Open a HepMC GenEvent file
-    bool openFile(const std::string& evtfile);
+    /// Open a HepMC GenEvent file (using the appropriate file weight for the first file)
+    bool openFile(const std::string& evtfile, double weight=1.0);
 
     /// Read the next HepMC event
     bool readEvent();
@@ -70,11 +70,14 @@ namespace Rivet {
     /// AnalysisHandler object
     AnalysisHandler& _ah;
 
-
     /// @name Run variables obtained from events or command line
     //@{
 
-    /// Cross-section from command line
+    /// @brief An extra event weight scaling per event file.
+    /// Useful for e.g. AlpGen n-parton event file combination.
+    double _fileweight;
+
+    /// Cross-section from command line.
     double _xs;
 
     //@}

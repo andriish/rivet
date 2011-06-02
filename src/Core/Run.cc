@@ -3,13 +3,14 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "HepMC/IO_GenEvent.h"
 #include "Rivet/Projections/Beam.hh"
+#include "Rivet/Math/MathUtils.hh"
 #include <limits>
 
 namespace Rivet {
 
 
   Run::Run(AnalysisHandler& ah)
-    : _ah(ah), _xs(-1.0)
+    : _ah(ah), _fileweight(1.0), _xs(-1.0)
   { }
 
 
@@ -38,15 +39,23 @@ namespace Rivet {
     /// @todo Clear rather than new the GenEvent object per-event?
     _evt.reset(new GenEvent());
     if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
-      Log::getLog("Rivet.Run") << Log::DEBUG
-            << "Read failed. End of file?" << endl;
+      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
       return false;
+    }
+    // Rescale event weights by file-level weight, if scaling is non-trivial
+    if (!fuzzyEquals(_fileweight, 1.0)) {
+      for (size_t i = 0; i < _evt->weights().size(); ++i) {
+        _evt->weights()[i] *= _fileweight;
+      }
     }
     return true;
   }
 
 
-  bool Run::openFile(const std::string& evtfile) {
+  bool Run::openFile(const std::string& evtfile, double weight) {
+    // Set current weight-scaling member
+    _fileweight = weight;
+
     // Set up HepMC input reader objects
     if (evtfile == "-") {
       _io.reset(new HepMC::IO_GenEvent(std::cin));
@@ -63,8 +72,8 @@ namespace Rivet {
   }
 
 
-  bool Run::init(const std::string& evtfile) {
-    if (!openFile(evtfile)) return false;
+  bool Run::init(const std::string& evtfile, double weight) {
+    if (!openFile(evtfile, weight)) return false;
 
     // Read first event to define run conditions
     bool ok = readEvent();
