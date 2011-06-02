@@ -68,6 +68,8 @@ namespace Rivet {
     /// Constructor
     JetAlg(const FinalState& fs);
 
+    JetAlg() {};
+
     /// Clone on the heap.
     virtual const Projection* clone() const = 0;
 
