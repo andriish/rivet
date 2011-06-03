@@ -10,6 +10,7 @@ namespace AIDA {
 
 class IDataPointSet;
 class IHistogram1D;
+class IHistogram2D;
 class IProfile1D;
 
 class IDataPointSetFactory {
@@ -90,6 +91,8 @@ public:
     createCopy(const std::string &, const IDataPointSet &) = 0;
     virtual bool destroy(IDataPointSet *) = 0;
     virtual IDataPointSet * create(const std::string &, const IHistogram1D &,
+				   const std::string & = "") = 0;
+    virtual IDataPointSet * create(const std::string &, const IHistogram2D &,
 				   const std::string & = "") = 0;
     virtual IDataPointSet * create(const std::string &, const IProfile1D &,
 				   const std::string & = "") = 0;

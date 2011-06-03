@@ -267,37 +267,37 @@ namespace Rivet {
         // Weird seg fault on SLC4 when trying to dyn cast an IProfile ptr to a IHistogram
         // Fix by attempting to cast to IProfile first, only try IHistogram if it fails.
         IHistogram1D* histo = 0;
-        IProfile1D* prof = dynamic_cast<IProfile1D*>(hobj);
-        if (!prof) histo = dynamic_cast<IHistogram1D*>(hobj);
+        IHistogram2D* histo2 = 0;
+        IProfile1D* prof = 0;
+        histo = dynamic_cast<IHistogram1D*>(hobj);
+        if (!histo) prof = dynamic_cast<IProfile1D*>(hobj);
+        if (!histo && !prof) histo2 = dynamic_cast<IHistogram2D*>(hobj);
+
+        // AIDA path mangling
+        const size_t lastslash = path.find_last_of("/");
+        const string basename = path.substr(lastslash+1, path.length() - (lastslash+1));
+        const string tmppath = tmpdir + "/" + basename;
 
         // If it's a normal histo:
+        tree.mv(path, tmpdir);
         if (histo) {
           MSG_TRACE("Converting histo " << path << " to DPS");
-          tree.mv(path, tmpdir);
-          const size_t lastslash = path.find_last_of("/");
-          const string basename = path.substr(lastslash+1, path.length() - (lastslash+1));
-          const string tmppath = tmpdir + "/" + basename;
           IHistogram1D* tmphisto = dynamic_cast<IHistogram1D*>(tree.find(tmppath));
-          if (tmphisto) {
-            //MSG_TRACE("Temp histo " << tmppath << " exists");
-            datapointsetFactory().create(path, *tmphisto);
-          }
-          tree.rm(tmppath);
+          if (tmphisto) datapointsetFactory().create(path, *tmphisto);
         }
         // If it's a profile histo:
         else if (prof) {
           MSG_TRACE("Converting profile histo " << path << " to DPS");
-          tree.mv(path, tmpdir);
-          const size_t lastslash = path.find_last_of("/");
-          const string basename = path.substr(lastslash+1, path.length() - (lastslash+1));
-          const string tmppath = tmpdir + "/" + basename;
           IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
-          if (tmpprof) {
-            //MSG_TRACE("Temp profile histo " << tmppath << " exists");
-            datapointsetFactory().create(path, *tmpprof);
-          }
-          tree.rm(tmppath);
+          if (tmpprof) datapointsetFactory().create(path, *tmpprof);
         }
+        // If it's a 2D histo:
+        else if (histo2) {
+          MSG_TRACE("Converting 2D histo " << path << " to DPS");
+          IHistogram2D* tmphisto2 = dynamic_cast<IHistogram2D*>(tree.find(tmppath));
+          if (tmphisto2) datapointsetFactory().create(path, *tmphisto2);
+        }
+        tree.rm(tmppath);
 
       }
 
