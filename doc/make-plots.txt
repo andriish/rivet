@@ -290,6 +290,47 @@ MainPlot=0
 --------------------
 
 
+Goodness of Fit
+^^^^^^^^^^^^^^^
+
+`make-plots` can calculate the goodness of fit between histograms and display the
+result in the legend. It is also possible to change the color of the margin around
+the plot depending on the GoF. This is useful to provide a quick overview when
+looking at many plots.
+
+--------------------
+GofType=chi2
+--------------------
+
+The type of GoF. The default is `chi2` and currently that's the only option.
+
+--------------------
+GofReference=<histogram_ID>
+--------------------
+
+specifies the reference histogram to be used for the GoF calculation.
+
+The GoF calculation is activated by two options:
+
+--------------------
+GofLegend=<0|1>
+GofFrame=<histogram_ID>
+--------------------
+
+`GofLegend` calculates the GoF for all histograms and displays the results in
+the legend. With `GofFrame` you can specify a single histogram for which the
+GoF result will be shown in the legend and used to assign a color to the plot
+margins. You can use
+
+--------------------
+GofFrameColor=<colorthresholds>
+--------------------
+
+to specify the thresholds for the frame color. This option takes a list of
+`<threshold>:<color>` pairs, separated by whitespace. The default is
+`GofFrameColor=0:green 3:yellow 5:red`.
+
+
 Color Palettes for 2-dim Plots
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

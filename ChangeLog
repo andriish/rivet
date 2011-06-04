@@ -1,3 +1,10 @@
+2011-06-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Add support for goodness-of-fit calculations to make-plots.
+	The results are shown in the legend, and one histogram can
+	be selected to determine the color of the plot margin. See
+	the documentation for more details.
+
 2011-06-04  Andy Buckley  <andy@insectnation.org>
 
 	* Adding auto conversion of Histogram2D to DataPointSets in the

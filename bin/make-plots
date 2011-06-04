@@ -336,25 +336,27 @@ class Plot:
 
     def write_header(self,inputdata):
         if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
-            leftmargin = float(inputdata.description['LeftMargin'])
+            inputdata.description['LeftMargin'] = float(inputdata.description['LeftMargin'])
         else:
-            leftmargin = 1.4
+            inputdata.description['LeftMargin'] = 1.4
         if inputdata.description.has_key('RightMargin') and inputdata.description['RightMargin']!='':
-            rightmargin = float(inputdata.description['RightMargin'])
+            inputdata.description['RightMargin'] = float(inputdata.description['RightMargin'])
         else:
-            rightmargin = 0.35
+            inputdata.description['RightMargin'] = 0.35
         if inputdata.description.has_key('TopMargin') and inputdata.description['TopMargin']!='':
-            topmargin = float(inputdata.description['TopMargin'])
+            inputdata.description['TopMargin'] = float(inputdata.description['TopMargin'])
         else:
-            topmargin = 0.65
+            inputdata.description['TopMargin'] = 0.65
         if inputdata.description.has_key('BottomMargin') and inputdata.description['BottomMargin']!='':
-            bottommargin = float(inputdata.description['BottomMargin'])
+            inputdata.description['BottomMargin'] = float(inputdata.description['BottomMargin'])
         else:
-            bottommargin = 0.95
+            inputdata.description['BottomMargin'] = 0.95
         if inputdata.description['is2dim']:
-            rightmargin += 1.5
-        papersizex = inputdata.description['PlotSizeX'] + 0.1 + leftmargin + rightmargin
-        papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + topmargin + bottommargin
+            inputdata.description['RightMargin'] += 1.5
+        papersizex = inputdata.description['PlotSizeX'] + 0.1 + \
+                     inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
+        papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + \
+                     inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
         #
         out = ""
         out += '\\documentclass{article}\n'
@@ -374,8 +376,8 @@ class Plot:
         out += ('\\usepackage{amssymb}\n')
         out += ('\\usepackage{relsize}\n')
         out += ('\\usepackage[dvips,\n')
-        out += ('  left=%4.3fcm, right=0cm,\n' %(leftmargin-0.45,))
-        out += ('  top=%4.3fcm,  bottom=0cm,\n' %(topmargin-0.30,))
+        out += ('  left=%4.3fcm, right=0cm,\n' %(inputdata.description['LeftMargin']-0.45,))
+        out += ('  top=%4.3fcm,  bottom=0cm,\n' %(inputdata.description['TopMargin']-0.30,))
         out += ('  paperwidth=%scm,paperheight=%scm\n' %(papersizex,papersizey))
         out += (']{geometry}\n')
         out += ('\\begin{document}\n')
@@ -404,6 +406,10 @@ class MainPlot(Plot):
     def __init__(self, inputdata):
         self.set_normalization(inputdata)
         self.stack_histograms(inputdata)
+        if (inputdata.description.has_key('GofLegend')  and inputdata.description['GofLegend']=='1') or \
+           (inputdata.description.has_key('GofFrame')   and inputdata.description['GofFrame']!='') and not \
+           (inputdata.description.has_key('TaylorPlot') and inputdata.description['TaylorPlot']=='1'):
+            self.calculate_gof(inputdata)
         self.set_histo_options(inputdata)
         self.set_borders(inputdata)
         self.yoffset = inputdata.description['PlotSizeY']
@@ -454,7 +460,7 @@ class MainPlot(Plot):
             colorscale = Colorscale(inputdata.description,self.coors)
             out += colorscale.draw()
         frame = Frame()
-        out += frame.draw()
+        out += frame.draw(inputdata)
 
         if inputdata.description.has_key('XMajorTickMarks') and inputdata.description['XMajorTickMarks']!='':
             xcustommajortickmarks=int(inputdata.description['XMajorTickMarks'])
@@ -528,6 +534,47 @@ class MainPlot(Plot):
             else:
                 out += labels.draw(['Title','XLabel','YLabel','ZLabel'])
         return out
+
+    def calculate_gof(self, inputdata):
+        refdata = None
+        if inputdata.description.has_key('GofReference') and inputdata.description['GofReference']!='':
+            refdata = inputdata.description['GofReference']
+        elif inputdata.description.has_key('RatioPlotReference') and inputdata.description['RatioPlotReference']!='':
+            refdata = inputdata.description['RatioPlotReference']
+
+        if refdata==None:
+            inputdata.description['GofLegend'] = '0'
+            inputdata.description['GofFrame'] = ''
+            return
+
+        def pickcolor(gof):
+            color=None
+            colordefs = {}
+            for i in inputdata.description.setdefault('GofFrameColor', '0:green 3:yellow 5:red').strip().split():
+                foo = i.split(':')
+                if len(foo)!=2: continue
+                colordefs[float(foo[0])] = foo[1]
+            for i in sorted(colordefs.keys()):
+                if gof>=i:
+                    color=colordefs[i]
+            return color
+
+        inputdata.description.setdefault('GofLegend','0')
+        inputdata.description.setdefault('GofFrame','')
+        inputdata.description['DrawGofFrame']=None
+
+        for i in inputdata.description['DrawOnly']:
+            if i==refdata: continue
+            if inputdata.description['GofLegend']!='1' and i!=inputdata.description['GofFrame']: continue
+
+            if inputdata.description.has_key('GofType') and inputdata.description['GofType']!='chi2':
+                return
+            gof = inputdata.histos[i].getChi2(inputdata.histos[refdata])
+            if i==inputdata.description['GofFrame']:
+                inputdata.description['DrawGofFrame']=pickcolor(gof)
+            if inputdata.histos[i].description.setdefault('Title', '')!='':
+                inputdata.histos[i].description['Title'] += ', '
+            inputdata.histos[i].description['Title'] += '$\\chi^2/n={}$%1.2f' %gof
 
 
 
@@ -619,7 +666,7 @@ class RatioPlot(Plot):
             out += inputdata.histos[i].draw(self.coors)
 
         frame = Frame()
-        out += frame.draw()
+        out += frame.draw(inputdata)
 
         if inputdata.description.has_key('XMajorTickMarks') and inputdata.description['XMajorTickMarks']!='':
             xcustommajortickmarks=int(inputdata.description['XMajorTickMarks'])
@@ -1508,11 +1555,39 @@ class Histo1D(Histogram):
 
 class Frame:
     def __init__(self):
-        self.framelinewidth     = '0.3pt'
+        self.framelinewidth = '0.3pt'
 
-    def draw(self):
-        out = ""
-        out += ('\n%\n% Frame\n%\n')
+    def draw(self,inputdata):
+        out = ('\n%\n% Frame\n%\n')
+        if inputdata.description.has_key('DrawGofFrame') and inputdata.description['DrawGofFrame']!=None:
+            color = inputdata.description['DrawGofFrame']
+            # We want to draw this frame only once, so set it to False for next time:
+            inputdata.description['DrawGofFrame']=None
+
+            # Calculate how high and wide the overall plot is
+            height = [0,0]
+            width  = inputdata.description['PlotSizeX']
+            if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
+                height[1] = -inputdata.description['RatioPlotSizeY']
+            if not (inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0'):
+                height[0] = inputdata.description['PlotSizeY']
+            else:
+                height[0] = -height[1]
+                height[1] = 0
+
+            # Get the margin widths
+            left = inputdata.description['LeftMargin']+0.1
+            right = inputdata.description['RightMargin']+0.1
+            top = inputdata.description['TopMargin']+0.1
+            bottom = inputdata.description['BottomMargin']+0.1
+
+            # 
+            out += ('\\rput(0,1){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(top, color, -left, top/2, width+right, top/2))
+            out += ('\\rput(0,%scm){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(height[1], bottom, color, -left, -bottom/2, width+right, -bottom/2))
+            out += ('\\rput(0,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(left, color, -left/2, height[1]-0.0001, -left/2, height[0]+0.0001))
+            out += ('\\rput(1,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(right, color, right/2, height[1]-0.0001, right/2, height[0]+0.0001))
+
+
         out += ('\\psframe[linewidth='+self.framelinewidth+',dimen=middle](0,0)(1,1)\n')
         return out
 
