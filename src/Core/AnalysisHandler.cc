@@ -264,14 +264,14 @@ namespace Rivet {
       IManagedObject* hobj = tree.find(path);
       if (hobj) {
 
-        // Weird seg fault on SLC4 when trying to dyn cast an IProfile ptr to a IHistogram
-        // Fix by attempting to cast to IProfile first, only try IHistogram if it fails.
-        IHistogram1D* histo = 0;
-        IHistogram2D* histo2 = 0;
-        IProfile1D* prof = 0;
-        histo = dynamic_cast<IHistogram1D*>(hobj);
-        if (!histo) prof = dynamic_cast<IProfile1D*>(hobj);
-        if (!histo && !prof) histo2 = dynamic_cast<IHistogram2D*>(hobj);
+        // Try to cast to specific histogram types
+        const IProfile1D* prof = dynamic_cast<IProfile1D*>(hobj);
+        const IHistogram1D* histo = dynamic_cast<IHistogram1D*>(hobj);
+        const IHistogram2D* histo2 = dynamic_cast<IHistogram2D*>(hobj);
+        if (!(histo || histo2 || prof)) {
+          MSG_TRACE("Could not find the type of histo for " << path << ": it's probably already a DPS");
+          continue;
+        }
 
         // AIDA path mangling
         const size_t lastslash = path.find_last_of("/");
@@ -285,17 +285,17 @@ namespace Rivet {
           IHistogram1D* tmphisto = dynamic_cast<IHistogram1D*>(tree.find(tmppath));
           if (tmphisto) datapointsetFactory().create(path, *tmphisto);
         }
-        // If it's a profile histo:
-        else if (prof) {
-          MSG_TRACE("Converting profile histo " << path << " to DPS");
-          IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
-          if (tmpprof) datapointsetFactory().create(path, *tmpprof);
-        }
         // If it's a 2D histo:
         else if (histo2) {
           MSG_TRACE("Converting 2D histo " << path << " to DPS");
           IHistogram2D* tmphisto2 = dynamic_cast<IHistogram2D*>(tree.find(tmppath));
           if (tmphisto2) datapointsetFactory().create(path, *tmphisto2);
+        }
+        // If it's a profile histo:
+        else if (prof) {
+          MSG_TRACE("Converting profile histo " << path << " to DPS");
+          IProfile1D* tmpprof = dynamic_cast<IProfile1D*>(tree.find(tmppath));
+          if (tmpprof) datapointsetFactory().create(path, *tmpprof);
         }
         tree.rm(tmppath);
 

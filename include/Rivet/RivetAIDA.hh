@@ -49,6 +49,7 @@ namespace Rivet {
   }
 
   using AIDA::IHistogram1D;
+  using AIDA::IHistogram2D;
   using AIDA::IDataPointSet;
   using AIDA::IDataPoint;
   using AIDA::IMeasurement;
