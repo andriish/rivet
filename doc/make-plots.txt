@@ -308,7 +308,8 @@ The type of GoF. The default is `chi2` and currently that's the only option.
 GofReference=<histogram_ID>
 --------------------
 
-specifies the reference histogram to be used for the GoF calculation.
+specifies the reference histogram to be used for the GoF calculation. If this
+option is omitted, the fallback is `RatioPlotReference`.
 
 The GoF calculation is activated by two options:
 
