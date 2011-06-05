@@ -126,7 +126,7 @@ class Histo(object):
         out += "## Num bins: %d\n" % self.numBins()
         out += "## xlow  \txhigh   \tval    \terrminus\terrplus\n"
         out += "\n".join([b.asFlat() for b in self.getBins()])
-        out += "\n# END HISTOGRAM"
+        out += "\n# END HISTOGRAM\n"
         return out
 
     def asGnuplot(self):
@@ -140,7 +140,7 @@ class Histo(object):
         out += "## Num bins: %d\n" % self.numBins()
         out += "## xval  \tyval    \txlow    \txhigh    \tylow     \tyhigh\n"
         out += "\n".join([b.asGnuplot() for b in self.getBins()])
-        out += "\n# END HISTOGRAM"
+        out += "\n# END HISTOGRAM\n"
         return out
 
     def asAIDA(self):
