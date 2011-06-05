@@ -3,6 +3,21 @@
 import posixpath
 import os, sys, re
 
+if "ET" not in dir():
+    try:
+        import xml.etree.cElementTree as ET
+    except ImportError:
+        logging.debug("Could not load module xml.etree.cElementTree,"
+                      " so we're on a Python < 2.5 system."
+                      " Trying to load cElementTree...")
+        try:
+            import cElementTree as ET
+        except ImportError:
+            logging.warning("Could not load module cElementTree:"
+                            " using slower xml.etree.ElementTree instead!")
+            import xml.etree.ElementTree as ET
+
+
 from htmlentitydefs import codepoint2name
 unichr2entity = {}
 for code, name in codepoint2name.iteritems():
