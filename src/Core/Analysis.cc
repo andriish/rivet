@@ -169,7 +169,7 @@ namespace Rivet {
   }
 
   double Analysis::crossSection() const {
-    if (!_gotCrossSection || _crossSection < 0) {
+    if (!_gotCrossSection || std::isnan(_crossSection)) {
       string errMsg = "You did not set the cross section for the analysis " + name();
       throw Error(errMsg);
     }
