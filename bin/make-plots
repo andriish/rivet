@@ -550,7 +550,7 @@ class MainPlot(Plot):
         def pickcolor(gof):
             color=None
             colordefs = {}
-            for i in inputdata.description.setdefault('GofFrameColor', '0:green 3:yellow 5:red').strip().split():
+            for i in inputdata.description.setdefault('GofFrameColor', '0:green 3:yellow 6:red!70').strip().split():
                 foo = i.split(':')
                 if len(foo)!=2: continue
                 colordefs[float(foo[0])] = foo[1]
@@ -1274,7 +1274,8 @@ class Histogram(DrawableObject):
                fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
                 self.data[i]['Content'] -= name.data[i]['Content']
                 try:
-                    self.data[i]['Content'] /= 0.5*(name.data[i]['Error'][0] + name.data[i]['Error'][1])
+                    self.data[i]['Content'] /= 0.5*sqrt((name.data[i]['Error'][0] + name.data[i]['Error'][1])**2 + \
+                                                        (self.data[i]['Error'][0] + self.data[i]['Error'][1])**2)
                 except ZeroDivisionError:
                     self.data[i]['Content'] = 0.0
                 try:
@@ -1584,8 +1585,8 @@ class Frame:
             # 
             out += ('\\rput(0,1){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(top, color, -left, top/2, width+right, top/2))
             out += ('\\rput(0,%scm){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(height[1], bottom, color, -left, -bottom/2, width+right, -bottom/2))
-            out += ('\\rput(0,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(left, color, -left/2, height[1]-0.0001, -left/2, height[0]+0.0001))
-            out += ('\\rput(1,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(right, color, right/2, height[1]-0.0001, right/2, height[0]+0.0001))
+            out += ('\\rput(0,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(left, color, -left/2, height[1]-0.05, -left/2, height[0]+0.05))
+            out += ('\\rput(1,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(right, color, right/2, height[1]-0.05, right/2, height[0]+0.05))
 
 
         out += ('\\psframe[linewidth='+self.framelinewidth+',dimen=middle](0,0)(1,1)\n')

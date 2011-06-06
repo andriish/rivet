@@ -2,6 +2,9 @@
 
 	* Allow for negative cross-sections. NLO tools need this.
 
+	* make-plots: For RatioPlotMode=deviation also consider the MC
+	uncertainties, not just data.
+
 2011-06-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Add support for goodness-of-fit calculations to make-plots.

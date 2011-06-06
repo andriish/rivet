@@ -329,7 +329,7 @@ GofFrameColor=<colorthresholds>
 
 to specify the thresholds for the frame color. This option takes a list of
 `<threshold>:<color>` pairs, separated by whitespace. The default is
-`GofFrameColor=0:green 3:yellow 5:red`.
+`GofFrameColor=0:green 3:yellow 6:red!70`.
 
 
 Color Palettes for 2-dim Plots
