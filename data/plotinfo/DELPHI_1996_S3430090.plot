@@ -251,185 +251,116 @@ YLabel=AEEC
 FullRange=1
 # END PLOT
 
-# BEGIN PLOT /DELPHI_1996_S3430090/d35-x01-y01
-Title=Mean charged multiplicity
+
+
+# BEGIN PLOT /DELPHI_1996_S3430090/d(3[5-9]|40)
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
+# END PLOT
+
+# BEGIN PLOT /DELPHI_1996_S3430090/d35-x01-y01
+Title=Mean charged multiplicity
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y01
 Title=Mean $\pi^+/\pi^-$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y02
 Title=Mean $\pi^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y03
 Title=Mean $K^+/K^-$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y04
 Title=Mean $K^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y05
 Title=Mean $\eta$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y06
 Title=Mean $\eta'$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y07
 Title=Mean $D^+$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y08
 Title=Mean $D^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d36-x01-y09
 Title=Mean $B^+/B^-/B^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d37-x01-y01
 Title=Mean $f_0(980)$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d38-x01-y01
 Title=Mean $\rho$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d38-x01-y02
 Title=Mean $K^*(892)^+/K^*(892)^-$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d38-x01-y03
 Title=Mean $K^*(892)^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d38-x01-y04
 Title=Mean $\phi$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d38-x01-y05
 Title=Mean $D^*(2010)^+/D^*(2010)^-$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d39-x01-y01
 Title=Mean $f_2(1270)$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d39-x01-y02
 Title=Mean $K_2^*(1430)^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y01
 Title=Mean p multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y02
 Title=Mean $\Lambda^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y03
 Title=Mean $\Xi^-$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y04
 Title=Mean $\Omega^-$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y05
 Title=Mean $\Delta(1232)^{++}$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y06
 Title=Mean $\Sigma(1385)^+/\Sigma(1385)^-$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y07
 Title=Mean $\Xi(1530)^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y08
 Title=Mean $\Lambda_b^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
