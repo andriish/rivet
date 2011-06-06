@@ -383,7 +383,7 @@ namespace Rivet {
 
 
   bool AnalysisHandler::hasCrossSection() const {
-    return (crossSection() >= 0);
+    return (!std::isnan(crossSection()));
   }
 
 
