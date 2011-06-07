@@ -432,7 +432,7 @@ class Histo(object):
 class Bin(object):
     """A simple container for a binned value with an error."""
     aidaindent = "    "
-    __slots__ = ["xlow", "xhigh", "ylow", "yhigh", "val", "errplus", "errminus", "focus"]
+    __slots__ = ["xlow", "xhigh", "ylow", "yhigh", "val", "errplus", "errminus", "_focus"]
     def __init__(self, xlow=None, xhigh=None, val=0, errplus=0, errminus=0, focus=None, ylow=None, yhigh=None):
         def _float(f):
             if f is None:
@@ -503,10 +503,10 @@ class Bin(object):
 
     def getFocus(self):
         """Mean x-value of the bin."""
-        if self.focus is not None:
+        if self._focus is not None:
             return (self.xlow + self.xhigh)/2.0
         else:
-            return self.focus
+            return self._focus
     focus = property(getFocus)
 
     def getVal(self):
