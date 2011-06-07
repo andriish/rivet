@@ -445,7 +445,7 @@ class Bin(object):
         self.val = _float(val)
         self.errplus = _float(errplus)
         self.errminus = _float(errminus)
-        self.focus= _float(focus)
+        self._focus= _float(focus)
 
     def __str__(self):
         out = "%e to %e: %e +%e-%e" % (self.xlow, self.xhigh,
@@ -507,6 +507,7 @@ class Bin(object):
             return (self.xlow + self.xhigh)/2.0
         else:
             return self.focus
+    focus = property(getFocus)
 
     def getVal(self):
         """Y-value of the bin."""
