@@ -251,8 +251,10 @@ for analysis in analyses:
         anaindex.write('  </div>\n')
 
     if not opts.SINGLE:
-        anaindex.write("</body>\n%s</html>\n" % timestamp)
-index.write('</body>\n%s</html>\n' % timestamp)
+        anaindex.write("<br>%s</body>\n</html>\n" % timestamp)
+        anaindex.close()
+index.write('<br>%s</body>\n</html>' % timestamp)
+index.close()
 
 
 ## Run make-plots on all generated .dat files
