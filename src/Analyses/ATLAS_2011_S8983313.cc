@@ -144,16 +144,31 @@ namespace Rivet {
       }
 
       ParticleVector recon_e, recon_mu;
-      foreach ( const Jet& jet, cand_jets_2 ) {
-	foreach ( const Particle & e, cand_e ) {
-	  if ( deltaR(e.momentum(),jet.momentum()) >= 0.4 )
-	    recon_e.push_back( e );
+
+      foreach ( const Particle & e, cand_e ) {
+	bool away = true;
+	foreach ( const Jet& jet, cand_jets_2 ) {
+	  if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
+	    away = false;
+	    break;
+	  }
 	}
-	foreach ( const Particle & mu, cand_mu ) {
-	  if ( deltaR(mu.momentum(),jet.momentum()) >= 0.4 )
-	    recon_mu.push_back( mu );
-	}
+	if ( away )
+	  recon_e.push_back( e );
       }
+
+      foreach ( const Particle & mu, cand_mu ) {
+	bool away = true;
+	foreach ( const Jet& jet, cand_jets_2 ) {
+	  if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
+	    away = false;
+	    break;
+	  }
+	}
+	if ( away )
+	  recon_mu.push_back( mu );
+      }
+
 
       // pTmiss
       ParticleVector vfs_particles = applyProjection<VisibleFinalState>(event, "vfs").particles();
