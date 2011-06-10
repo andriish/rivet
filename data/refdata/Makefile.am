@@ -56,7 +56,6 @@ dist_pkgdata_DATA = \
   UA5_1987_S1640666.aida         \
   CDF_1988_S1865951.aida         \
   CDF_1990_S2089246.aida         \
-  CDF_1991_S2313472.aida         \
   CDF_1993_S2742446.aida         \
   CDF_1994_S2952106.aida         \
   CDF_1996_S3108457.aida         \
@@ -93,7 +92,6 @@ dist_pkgdata_DATA = \
   CDF_2010_S8591881_QCD.aida     \
   D0_1996_S3214044.aida          \
   D0_1996_S3324664.aida          \
-  D0_1998_S3711838.aida          \
   D0_2000_S4480767.aida          \
   D0_2001_S4674421.aida          \
   D0_2004_S5992206.aida          \

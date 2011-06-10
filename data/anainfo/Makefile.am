@@ -21,7 +21,6 @@ dist_pkgdata_DATA = \
   BELLE_2006_S6265367.info \
   CDF_1988_S1865951.info \
   CDF_1990_S2089246.info \
-  CDF_1991_S2313472.info \
   CDF_1993_S2742446.info \
   CDF_1994_S2952106.info \
   CDF_1996_S3108457.info \
@@ -58,7 +57,6 @@ dist_pkgdata_DATA = \
   CMS_2011_S8957746.info \
   D0_1996_S3214044.info \
   D0_1996_S3324664.info \
-  D0_1998_S3711838.info \
   D0_2000_S4480767.info \
   D0_2001_S4674421.info \
   D0_2004_S5992206.info \

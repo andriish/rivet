@@ -19,7 +19,6 @@ dist_pkgdata_DATA = \
   ATLAS_2010_CONF_2010_049.plot \
   CDF_1988_S1865951.plot \
   CDF_1990_S2089246.plot \
-  CDF_1991_S2313472.plot \
   CDF_1993_S2742446.plot \
   CDF_1994_S2952106.plot \
   CDF_1996_S3108457.plot \
@@ -56,7 +55,6 @@ dist_pkgdata_DATA = \
   CMS_2011_S8957746.plot \
   D0_1996_S3214044.plot \
   D0_1996_S3324664.plot \
-  D0_1998_S3711838.plot \
   D0_2000_S4480767.plot \
   D0_2001_S4674421.plot \
   D0_2004_S5992206.plot \
