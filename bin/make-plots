@@ -928,18 +928,21 @@ class Special:
     def draw(self,coors):
         out = ""
         out += ('\n%\n% Special\n%\n')
+        import re
+        regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(([^,]+),([^,]+)\)(.*)')
         for i in range(len(self.data)):
-            import re
-            regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(([^,]+),([^,]+)\)(.*)')
             while regex.search(self.data[i]):
                 match = regex.search(self.data[i])
                 xcoor, ycoor = float(match.group(3)), float(match.group(4))
-                if match.group(2) in ["physicscoor", "physicsxcoor"]:
-                    xcoor = coors.strphys2frameX(xcoor)
-                if match.group(2) in ["physicscoor", "physicsycoor"]:
-                    ycoor = coors.strphys2frameY(ycoor)
-                line = "%s(%1.2e,%1.2e)%s" % (match.group(1), xcoor, ycoor, match.group(5))
+                if match.group(2)[1:] in ["physicscoor", "physicsxcoor"]:
+                    print xcoor, coors.phys2frameX(xcoor)
+                    xcoor = coors.phys2frameX(xcoor)
+                if match.group(2)[1:] in ["physicscoor", "physicsycoor"]:
+                    ycoor = coors.phys2frameY(ycoor)
+                line = "%s(%1.2e, %1.2e)%s" % (match.group(1), xcoor, ycoor, match.group(5))
+                print line
                 self.data[i] = line
+            print self.data[i]
             out += self.data[i]+'\n'
         return out
 
