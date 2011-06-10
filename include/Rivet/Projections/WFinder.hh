@@ -22,14 +22,14 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Constructor taking a FinalState and type of the charged lepton, mass window,
-    /// and maximum dR of photons around the charged lepton to take into account for W
-    /// reconstruction.
-    WFinder(const ChargedFinalState& fs_l,
-            PdgId pid,
-            double m2_min, double m2_max,
-            double missingET,
-            double dRmax);
+    // /// Constructor taking a FinalState and type of the charged lepton, mass window,
+    // /// and maximum dR of photons around the charged lepton to take into account for W
+    // /// reconstruction.
+    // WFinder(const ChargedFinalState& fs_l,
+    //         PdgId pid,
+    //         double m2_min, double m2_max,
+    //         double missingET,
+    //         double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
 
 
     /// Constructor taking single eta/pT bounds and type of the charged lepton, mass
@@ -40,7 +40,7 @@ namespace Rivet {
             PdgId pid,
             double m2_min, double m2_max,
             double missingET,
-            double dRmax);
+            double dRmax, bool clusterPhotons=true, bool excludePhotonsFromRFS=false);
 
 
     /// Constructor taking multiple eta/pT bounds and type of the charged lepton, mass
@@ -51,7 +51,7 @@ namespace Rivet {
             PdgId pid,
             double m2_min, const double m2_max,
             double missingET,
-            double dRmax);
+            double dRmax, bool clusterPhotons=true, bool excludePhotonsFromRFS=false);
 
 
     /// Clone on the heap.
@@ -66,15 +66,12 @@ namespace Rivet {
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
 
-    /// Access to the W constituent leptons and photons
-    const FinalState& constituentsFinalState() const;
+    /// Access to the W constituent clustered lepton
+    /// (e.g. for more fine-grained cuts on the clustered lepton)
+    Particle constituentLepton() const;
+    Particle constituentNeutrino() const;
 
-    /// Access to the W constituent leptons
-    const FinalState& constituentLeptonsFinalState() const;
-
-    /// Access to the photons which have been clustered to the leptons
-    const FinalState& clusteredPhotonsFinalState() const;
-
+    const FinalState& originalLeptonFinalState() const;
 
   protected:
 
@@ -98,14 +95,7 @@ namespace Rivet {
                double pTmin,  PdgId pid,
                double m2_min, double m2_max,
                double missingET,
-               double dRmax);
-
-    /// Common implementation of constructor operation, taking FS.
-    void _init(const ChargedFinalState& fs_l,
-               PdgId pid,
-               double m2_min, double m2_max,
-               double missingET,
-               double dRmax);
+               double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
 
 
   private:

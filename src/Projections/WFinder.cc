@@ -3,7 +3,7 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
-#include "Rivet/Projections/ClusteredPhotons.hh"
+#include "Rivet/Projections/LeptonClusters.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -12,24 +12,16 @@
 namespace Rivet {
 
 
-  WFinder::WFinder(const ChargedFinalState& fs_l,
-                   PdgId pid,
-                   double m2_min, double m2_max,
-                   double missingET,
-                   double dRmax) {
-    _init(fs_l, pid, m2_min, m2_max, missingET, dRmax);
-  }
-
-
   WFinder::WFinder(double etaMin, double etaMax,
                    double pTmin,
                    PdgId pid,
                    double m2_min, double m2_max,
                    double missingET,
-                   double dRmax) {
+                   double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, missingET, dRmax);
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, missingET,
+          dRmax, clusterPhotons, excludePhotonsFromRFS);
   }
 
 
@@ -38,8 +30,9 @@ namespace Rivet {
                    PdgId pid,
                    double m2_min, double m2_max,
                    double missingET,
-                   double dRmax) {
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, missingET, dRmax);
+                   double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS) {
+    _init(etaRanges, pTmin, pid, m2_min, m2_max, missingET,
+          dRmax, clusterPhotons, excludePhotonsFromRFS);
   }
 
 
@@ -48,19 +41,12 @@ namespace Rivet {
                       PdgId pid,
                       double m2_min, double m2_max,
                       double missingET,
-                      double dRmax) {
-    ChargedFinalState fs_l(etaRanges, pTmin);
-    _init(fs_l, pid, m2_min, m2_max, missingET, dRmax);
-  }
-
-
-  void WFinder::_init(const ChargedFinalState& fs_l,
-                      PdgId pid,
-                      double m2_min, double m2_max,
-                      double missingET,
-                      double dRmax)
+                      double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS) 
   {
     setName("WFinder");
+
+
+
 
     // Check that the arguments are legal
     assert(abs(pid) == ELECTRON || abs(pid) == MUON);
@@ -71,38 +57,36 @@ namespace Rivet {
     IdentifiedFinalState fs_nu;
     fs_nu.acceptNeutrinos();
 
+    // lepton clusters
+    FinalState fs;
+    IdentifiedFinalState bareleptons(fs);
+    bareleptons.acceptIdPair(pid);
+    LeptonClusters leptons(fs, bareleptons, dRmax,
+                           clusterPhotons, excludePhotonsFromRFS,
+                           etaRanges, pTmin);
+    addProjection(leptons, "LeptonClusters");
+
+
     // Make a merged final state projection for charged and neutral leptons
-    MergedFinalState mergedFS(fs_l, fs_nu);
-
-    // Mass range
-    _m2_min = m2_min;
-    _m2_max = m2_max;
-
-    // Set ETmiss
-    _etMiss = missingET;
+    MergedFinalState mergedFS(leptons, fs_nu);
 
     // Make and register an invariant mass final state for the W decay leptons
     vector<pair<PdgId, PdgId> > l_nu_ids;
     l_nu_ids += make_pair(abs(pid), -abs(nu_pid));
     l_nu_ids += make_pair(-abs(pid), abs(nu_pid));
-    InvMassFinalState imfs(mergedFS, l_nu_ids, m2_min, m2_max);
+    InvMassFinalState imfs(mergedFS, l_nu_ids, m2_min, m2_max, 80.403);
     addProjection(imfs, "IMFS");
 
-    // A projection for clustering photons on to the charged lepton
-    ClusteredPhotons cphotons(FinalState(), imfs, dRmax);
-    addProjection(cphotons, "CPhotons");
-
-    // Projection for all signal constituents
-    MergedFinalState signalFS(imfs, cphotons);
-    addProjection(signalFS, "SignalParticles");
-
     // Add MissingMomentum proj to calc MET
-    MissingMomentum vismom(signalFS);
+    MissingMomentum vismom(fs);
     addProjection(vismom, "MissingET");
+    // Set ETmiss
+    _etMiss = missingET;
 
     // FS for non-signal bits of the event
     VetoedFinalState remainingFS;
-    remainingFS.addVetoOnThisFinalState(signalFS);
+    remainingFS.addVetoOnThisFinalState(leptons.constituentsFinalState());
+    remainingFS.addVetoOnThisFinalState(fs_nu);
     addProjection(remainingFS, "RFS");
   }
 
@@ -115,27 +99,47 @@ namespace Rivet {
   }
 
 
-  const FinalState& WFinder::constituentsFinalState() const {
-    return getProjection<FinalState>("SignalParticles");
+  Particle WFinder::constituentLepton() const {
+    const InvMassFinalState& imfs = getProjection<InvMassFinalState>("IMFS");
+    assert(imfs.particles().size()==2);
+
+    Particle p1,p2;
+    p1 = imfs.particles()[0];
+    p2 = imfs.particles()[1];
+    if (p1.pdgId() == ELECTRON || p1.pdgId() == MUON) {
+      return p1;
+    }
+    else {
+      return p2;
+    }
   }
 
 
-  const FinalState& WFinder::constituentLeptonsFinalState() const {
-    return getProjection<FinalState>("IMFS");
+  Particle WFinder::constituentNeutrino() const {
+    const InvMassFinalState& imfs = getProjection<InvMassFinalState>("IMFS");
+    assert(imfs.particles().size()==2);
+
+    Particle p1,p2;
+    p1 = imfs.particles()[0];
+    p2 = imfs.particles()[1];
+    if (p1.pdgId() == ELECTRON || p1.pdgId() == MUON) {
+      return p2;
+    }
+    else {
+      return p1;
+    }
   }
 
 
-  const FinalState& WFinder::clusteredPhotonsFinalState() const
+  const FinalState& WFinder::originalLeptonFinalState() const
   {
-    return getProjection<FinalState>("CPhotons");
+    const LeptonClusters& leptons=getProjection<LeptonClusters>("LeptonClusters");
+    return leptons.constituentsFinalState();
   }
 
 
   int WFinder::compare(const Projection& p) const {
     PCmp cmp = mkNamedPCmp(p, "IMFS");
-    if (cmp != EQUIVALENT) return cmp;
-
-    cmp = mkNamedPCmp(p, "CPhotons");
     if (cmp != EQUIVALENT) return cmp;
 
     return EQUIVALENT;
@@ -149,33 +153,14 @@ namespace Rivet {
 
   void WFinder::project(const Event& e) {
     clear();
+
     const InvMassFinalState& imfs = applyProjection<InvMassFinalState>(e, "IMFS");
+    applyProjection<FinalState>(e, "RFS");
+    if (imfs.particles().size() != 2) return;
 
     Particle p1,p2;
-    if(imfs.particles().size() == 2) {
-      p1 = imfs.particles()[0];
-      p2 = imfs.particles()[1];
-    }
-    else {
-      // no candiate, return
-      if(imfs.particles().empty()) {
-        getLog() << Log::DEBUG << "No W+- candidates found" << " "
-                 << imfs.particles().size() << " " << endl;
-        return;
-      }
-      // more than one, pick the one nearer the W mass
-      double deltaM = 1e30;
-      for(unsigned int ix=0;ix<imfs.particlePairs().size();++ix) {
-        FourMomentum pW = imfs.particlePairs()[ix].first .momentum()+
-          imfs.particlePairs()[ix].second.momentum();
-        double mW = pW.mass();
-        if(fabs(mW-80.403)<deltaM) {
-          deltaM = fabs(mW-80.4);
-          p1 = imfs.particlePairs()[ix].first ;
-          p2 = imfs.particlePairs()[ix].second;
-        }
-      }
-    }
+    p1 = imfs.particles()[0];
+    p2 = imfs.particles()[1];
 
     FourMomentum pW = p1.momentum() + p2.momentum();
     const int w3charge = PID::threeCharge(p1) + PID::threeCharge(p2);
@@ -189,14 +174,6 @@ namespace Rivet {
         << "   " << p1.momentum() << " " << p1.pdgId() << endl
         << " + " << p2.momentum() << " " << p2.pdgId() << endl;
 
-    // Add in clustered photons
-    const FinalState& photons = applyProjection<FinalState>(e, "CPhotons");
-    foreach (const Particle& photon, photons.particles()) {
-      msg << " + " << photon.momentum() << " " << photon.pdgId() << endl;
-      pW += photon.momentum();
-    }
-    msg << " = " << pW;
-
     // Check missing ET
     const MissingMomentum& vismom = applyProjection<MissingMomentum>(e, "MissingET");
     /// @todo Restrict missing momentum eta range? Use vectorET()?
@@ -205,10 +182,6 @@ namespace Rivet {
                << " GeV vs. " << _etMiss/GeV << " GeV" << endl;
       return;
     }
-
-    // Check mass range again
-    if (!inRange(pW.mass()/GeV, _m2_min, _m2_max)) return;
-    getLog() << Log::DEBUG << msg.str() << endl;
 
     // Make W Particle and insert into particles list
     const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WMINUSBOSON;

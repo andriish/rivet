@@ -37,7 +37,7 @@ namespace Rivet {
     void init() {
       // Projections
       /// @todo Use separate pT and ETmiss cuts in WFinder
-      const WFinder wfe(-5, 5, 0.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 0*GeV, 0.2);
+      const WFinder wfe(-5, 5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
       // Cross-section histograms
@@ -62,19 +62,8 @@ namespace Rivet {
       // Require that leptons have Et >= 25 GeV
       /// @todo Use pT cut in WFinder
       /// @todo Any ETmiss cut?
-      FourMomentum p_e;
-      int chg_e = 0;
-      foreach (const Particle& l, wf.constituentLeptonsFinalState().particles()) {
-        const FourMomentum pl = l.momentum();
-        if (abs(l.pdgId()) == ELECTRON) {
-          chg_e = PID::threeCharge(l.pdgId());
-          p_e = pl;
-        }
-        if (pl.Et()/GeV < 25.0) {
-          getLog() << Log::DEBUG << l.pdgId() << " fails Et cut" << endl;
-          vetoEvent;
-        }
-      }
+      FourMomentum p_e=wf.constituentLepton().momentum();
+      int chg_e = PID::threeCharge(wf.constituentLepton().pdgId());
       if (p_e.eta() < 0) chg_e *= -1;
       assert(chg_e != 0);
 

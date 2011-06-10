@@ -32,10 +32,8 @@ namespace Rivet {
       addProjection(wmnufinder, "WmnuFinder");
       VetoedFinalState jetinput;
       jetinput
-          .addVetoOnThisFinalState(wenufinder.constituentsFinalState())
-          .addVetoOnThisFinalState(wenufinder.clusteredPhotonsFinalState())
-          .addVetoOnThisFinalState(wmnufinder.constituentsFinalState())
-          .addVetoOnThisFinalState(wmnufinder.clusteredPhotonsFinalState());
+        .addVetoOnThisFinalState(wenufinder.originalLeptonFinalState())
+        .addVetoOnThisFinalState(wmnufinder.originalLeptonFinalState());
       FastJets jetpro(jetinput, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
@@ -103,24 +101,10 @@ namespace Rivet {
       FourMomentum wmnu(wmnufinder.particles()[0].momentum());
       FourMomentum ww(wenu+wmnu);
       // find leptons
-      FourMomentum ep(0.0,0.0,0.0,0.0), enu(0.0,0.0,0.0,0.0);
-      if (PID::threeCharge(wenufinder.constituentsFinalState().particles()[0])>0.0) {
-        ep=wenufinder.constituentsFinalState().particles()[0].momentum();
-        enu=wenufinder.constituentsFinalState().particles()[1].momentum();
-      }
-      else {
-        ep=wenufinder.constituentsFinalState().particles()[1].momentum();
-        enu=wenufinder.constituentsFinalState().particles()[0].momentum();
-      }
-      FourMomentum mnu(0.0,0.0,0.0,0.0), mm(0.0,0.0,0.0,0.0);
-      if (PID::threeCharge(wmnufinder.constituentsFinalState().particles()[0])==0.0) {
-        mnu=wmnufinder.constituentsFinalState().particles()[0].momentum();
-        mm=wmnufinder.constituentsFinalState().particles()[1].momentum();
-      }
-      else {
-        mnu=wmnufinder.constituentsFinalState().particles()[1].momentum();
-        mm=wmnufinder.constituentsFinalState().particles()[0].momentum();
-      }
+      FourMomentum ep=wenufinder.constituentLepton().momentum();
+      FourMomentum enu=wenufinder.constituentNeutrino().momentum();
+      FourMomentum mm=wmnufinder.constituentLepton().momentum();
+      FourMomentum mnu=wmnufinder.constituentNeutrino().momentum();
 
       _h_WW_pT->fill(ww.pT(),weight);
       _h_WW_pT_peak->fill(ww.pT(),weight);
@@ -167,12 +151,6 @@ namespace Rivet {
       double HT=ep.pT()+mm.pT()+FourMomentum(enu+mnu).pT();
       foreach (const Jet& jet, jets) {
         HT+=jet.momentum().pT();
-      }
-      foreach (const Particle& p, wenufinder.clusteredPhotonsFinalState().particles()) {
-        HT+=p.momentum().pT();
-      }
-      foreach (const Particle& p, wmnufinder.clusteredPhotonsFinalState().particles()) {
-        HT+=p.momentum().pT();
       }
       if (HT>0.0) _h_HT->fill(HT, weight);
 

@@ -112,7 +112,6 @@ RivetCDFAnalyses_la_SOURCES += \
 endif
 if ENABLE_UNVALIDATED
 RivetCDFAnalyses_la_SOURCES += \
-    CDF_1991_S2313472.cc \
     CDF_1993_S2742446.cc \
     CDF_1996_S3108457.cc \
     CDF_1996_S3349578.cc \
@@ -145,8 +144,7 @@ RivetD0Analyses_la_SOURCES = \
 if ENABLE_UNVALIDATED
 RivetD0Analyses_la_SOURCES += \
     D0_1996_S3214044.cc \
-    D0_1996_S3324664.cc \
-    D0_1998_S3711838.cc
+    D0_1996_S3324664.cc
 endif
 
 

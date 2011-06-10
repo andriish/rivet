@@ -9,8 +9,9 @@ namespace Rivet {
   InvMassFinalState::InvMassFinalState(const FinalState& fsp,
                                        const pair<PdgId, PdgId>& idpair, // pair of decay products
                                        double minmass, // min inv mass
-                                       double maxmass) // max inv mass
-    : _minmass(minmass), _maxmass(maxmass)
+                                       double maxmass, // max inv mass
+                                       double masstarget)
+    : _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget)
   {
     setName("InvMassFinalState");
     addProjection(fsp, "FS");
@@ -21,8 +22,9 @@ namespace Rivet {
   InvMassFinalState::InvMassFinalState(const FinalState& fsp,
                                        const vector<pair<PdgId, PdgId> >& idpairs,  // vector of pairs of decay products
                                        double minmass, // min inv mass
-                                       double maxmass) // max inv mass
-    : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass)
+                                       double maxmass, // max inv mass
+                                       double masstarget)
+    : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget)
   {
     setName("InvMassFinalState");
     addProjection(fsp, "FS");
@@ -85,6 +87,7 @@ namespace Rivet {
     vector<const Particle*> tmp;
 
     // Now calculate the inv mass
+    pair<double, pair<Particle, Particle> > closestPair;
     foreach (const Particle* i1, type1) {
       foreach (const Particle* i2, type2) {
 	// check this is actually a pair 
@@ -119,8 +122,22 @@ namespace Rivet {
           }
           // Store accepted particle pairs
           _particlePairs += make_pair(*i1, *i2);
+          if (_masstarget>0.0) {
+            double diff=fabs(v4.mass()-_masstarget);
+            if (diff<closestPair.first) {
+              closestPair.first=diff;
+              closestPair.second=make_pair(*i1, *i2);
+            }
+          }
         }
       }
+    }
+    if (_masstarget>0.0) {
+      _theParticles.clear();
+      _particlePairs.clear();
+      _theParticles += closestPair.second.first;
+      _theParticles += closestPair.second.second;
+      _particlePairs += closestPair.second;
     }
 
     getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles "

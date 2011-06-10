@@ -78,7 +78,7 @@ namespace Rivet {
       const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
 
       FourMomentum pb1(beams.second.momentum()), pb2(beams.first.momentum());
-      Particle lepton=wfinder.constituentLeptonsFinalState().particles()[0];
+      Particle lepton=wfinder.constituentLepton();
       FourMomentum pl(lepton.momentum());
       size_t idx = (PID::threeCharge(lepton.pdgId())>0 ? 0 : 1);
       FourMomentum plnu(wfinder.particles()[0].momentum());

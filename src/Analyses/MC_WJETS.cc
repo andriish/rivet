@@ -67,14 +67,13 @@ namespace Rivet {
       _h_W_pT_peak->fill(wmom.pT(), weight);
       _h_W_y->fill(wmom.rapidity(), weight);
       _h_W_phi->fill(wmom.azimuthalAngle(), weight);
-      foreach (const Particle& l, wfinder.constituentLeptonsFinalState().particles()) {
-        _h_lepton_pT->fill(l.momentum().pT(), weight);
-        _h_lepton_eta->fill(l.momentum().eta(), weight);
-        if (PID::threeCharge(l.pdgId()) != 0) {
-          emom = l.momentum();
-          charge3_x_eta = PID::threeCharge(l.pdgId()) * emom.eta();
-          charge3 = PID::threeCharge(l.pdgId());
-        }
+      Particle l=wfinder.constituentLepton();
+      _h_lepton_pT->fill(l.momentum().pT(), weight);
+      _h_lepton_eta->fill(l.momentum().eta(), weight);
+      if (PID::threeCharge(l.pdgId()) != 0) {
+        emom = l.momentum();
+        charge3_x_eta = PID::threeCharge(l.pdgId()) * emom.eta();
+        charge3 = PID::threeCharge(l.pdgId());
       }
       assert(charge3_x_eta != 0);
       assert(charge3!=0);

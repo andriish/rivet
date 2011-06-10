@@ -15,13 +15,15 @@ namespace Rivet {
     InvMassFinalState(const FinalState& fsp,
                       const std::pair<PdgId, PdgId>& idpair, // pair of decay products
                       double minmass, // min inv mass
-                      double maxmass); // max inv mass
+                      double maxmass, // max inv mass
+                      double masstarget=-1.0);
 
 
     InvMassFinalState(const FinalState& fsp,
                       const std::vector<std::pair<PdgId, PdgId> >& idpairs,  // vector of pairs of decay products
                       double minmass, // min inv mass
-                      double maxmass); // max inv mass
+                      double maxmass, // max inv mass
+                      double masstarget=-1.0);
 
 
     /// Clone on the heap.
@@ -58,6 +60,9 @@ namespace Rivet {
 
     /// Max inv mass
     double _maxmass;
+
+    /// Target mass if only one pair should be returned
+    double _masstarget;
 
   };
 

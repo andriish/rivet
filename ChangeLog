@@ -1,3 +1,7 @@
+2011-06-10  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Bugfixes in WFinder.
+
 2011-06-10  Andy Buckley  <andy@insectnation.org>
 
 	* Adding \physicsxcoor and \physicsycoor treatment to make-plots.
