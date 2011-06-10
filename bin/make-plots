@@ -56,6 +56,7 @@ def is_comment(line):
 
 class Inputdata:
     def __init__(self, filename):
+        self.filename=filename+".dat"
         self.histos = {}
         self.special = {}
         self.functions = {}
@@ -143,7 +144,7 @@ class Inputdata:
 
                 for line in cf:
                     m = pat_begin_block.match(line)
-                    if m and m.group(1) == 'PLOT':
+                    if m and m.group(1) == 'PLOT' and m.group(2) == self.filename:
                         self.read_input(cf)
                     elif is_comment(line):
                         continue
@@ -161,7 +162,8 @@ class Inputdata:
             m = pat_property.match(line)
             if m:
                 prop, value = m.group(1,2)
-                self.description[prop] = value
+                if not prop in self.description:
+                    self.description[prop] = value
 
 
     def read_path_based_input(self, line):
