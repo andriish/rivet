@@ -144,7 +144,7 @@ class Inputdata:
 
                 for line in cf:
                     m = pat_begin_block.match(line)
-                    if m and m.group(1) == 'PLOT' and m.group(2) == self.filename:
+                    if m and m.group(1) == 'PLOT' and re.match(m.group(2),self.filename):
                         self.read_input(cf)
                     elif is_comment(line):
                         continue
