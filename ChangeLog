@@ -1,3 +1,7 @@
+2011-06-10  Andy Buckley  <andy@insectnation.org>
+
+	* Adding \physicsxcoor and \physicsycoor treatment to make-plots.
+
 2011-06-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Allow for negative cross-sections. NLO tools need this.

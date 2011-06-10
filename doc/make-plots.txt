@@ -339,7 +339,7 @@ With the option `ColorSeries` you can define a custom color palette for
 2-dimensional plots. The syntax is the same as for the `\definecolorseries`
 command in the `xcolor` LaTeX package after the color series name, i.e.
 `{core-model}{method}[begin-model]{begin-spec}[end-model]{end-spec}`. For more
-information you can consult the 
+information you can consult the
 http://www.ctan.org/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf[xcolor documentation].
 Here is an example:
 
@@ -505,7 +505,7 @@ DotScale=<factor>
 --------------------
 The size of the markers. With `DotSize` you can specify the absolute size, e.g.
 in units of `pt`, while `DotScale` is a relative measure with respect to the
-default size. 
+default size.
 
 
 Normalization, Rebinning
@@ -592,7 +592,8 @@ and `(1,1)` at the upper right corner of the plot. By putting the
 `\physicscoor` command in front of a coordinate pair, these coordinates are
 interpreted not in the pstricks coordinate system, but in the physics
 coordinate system of the plot, which is useful e.g. for marking cut values in a
-plot.
+plot. Similar `\physicsxcoor` and `\physicsycoor` commands exist which will only
+treat the x or y coordinate respectively as being in physics units.
 
 Hint: If you want to clip your `SPECIAL` code to the plot area, you can use
 --------------------

@@ -929,14 +929,17 @@ class Special:
         out = ""
         out += ('\n%\n% Special\n%\n')
         for i in range(len(self.data)):
-            if self.data[i].count('\\physicscoor'):
-                line = self.data[i].split('\\physicscoor')
-                self.data[i] = line[0]
-                for j in range(1,len(line)):
-                    coor = line[j].split(')')[0].lstrip(' (').split(',')
-                    self.data[i] +=   '(' + coors.strphys2frameX(float(coor[0])) \
-                                    + ',' + coors.strphys2frameY(float(coor[1])) \
-                                    + ')' + line[j].split(')',1)[1]
+            import re
+            regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(([^,]+),([^,]+)\)(.*)')
+            while regex.search(self.data[i]):
+                match = regex.search(self.data[i])
+                xcoor, ycoor = float(match.group(3)), float(match.group(4))
+                if match.group(2) in ["physicscoor", "physicsxcoor"]:
+                    xcoor = coors.strphys2frameX(xcoor)
+                if match.group(2) in ["physicscoor", "physicsycoor"]:
+                    ycoor = coors.strphys2frameY(ycoor)
+                line = "%s(%1.2e,%1.2e)%s" % (match.group(1), xcoor, ycoor, match.group(5))
+                self.data[i] = line
             out += self.data[i]+'\n'
         return out
 
@@ -1584,7 +1587,7 @@ class Frame:
             top = inputdata.description['TopMargin']+0.1
             bottom = inputdata.description['BottomMargin']+0.1
 
-            # 
+            #
             out += ('\\rput(0,1){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(top, color, -left, top/2, width+right, top/2))
             out += ('\\rput(0,%scm){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(height[1], bottom, color, -left, -bottom/2, width+right, -bottom/2))
             out += ('\\rput(0,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(left, color, -left/2, height[1]-0.05, -left/2, height[0]+0.05))
