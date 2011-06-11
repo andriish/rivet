@@ -19,7 +19,7 @@ YLabel=$\text{d}\sigma/\text{d}\Delta{\phi}(\gamma\text{, 1st jet})$ [pb]
 # BEGIN PLOT /MC_PHOTONJETS/photon_pT
 Title=Photon $p_\perp$
 XLabel=$p_\perp^{\gamma}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}y_{\gamma}$ [pb/GeV]
+YLabel=$\text{d}\sigma/\text{d}p_\perp^{\gamma}$ [pb/GeV]
 LogX=1
 # END PLOT
 
