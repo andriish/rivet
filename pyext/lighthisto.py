@@ -68,13 +68,14 @@ class Histo(object):
     def __init__(self):
         self._bins = []
         # the leading AIDA path (including /REF) but not the observable name
-        self.path = None
+        self.path = "/"
         # the observable name, e.g. d01-x02-y01
         self.name = None
         # the histogram title
         self.title = ''
         self.xlabel = ''
         self.ylabel = ''
+        self.annotations = {}
         self._sorted = False
 
     def __cmp__(self, other):
@@ -90,7 +91,13 @@ class Histo(object):
         return out
 
     def fullPath(self):
-        return posixpath.join(self.path, self.name)
+        if self.path and self.name:
+            return posixpath.join(self.path, self.name)
+        if self.path:
+            return self.path
+        if self.name:
+            return "/" + self.name
+        return None
     fullpath = property(fullPath,
             doc="Full AIDA path including leading '/REF' and histogram name")
 
@@ -119,9 +126,11 @@ class Histo(object):
             out += "XLabel=%s\n" % self.xlabel
         if self.ylabel:
             out += "YLabel=%s\n" % self.ylabel
-        if self.fullPath().startswith('/REF'):
+        if self.fullpath and self.fullpath.startswith('/REF'):
             out += "PolyMarker=*\n"
             out += "ErrorBars=1\n"
+        for aname, aval in self.annotations.iteritems():
+            out += "%s=%s\n" % (aname, aval)
         out += "## Area: %e\n" % self.area()
         out += "## Num bins: %d\n" % self.numBins()
         out += "## xlow  \txhigh   \tval    \terrminus\terrplus\n"
@@ -201,6 +210,13 @@ class Histo(object):
         return self.getBins()[index]
 
     bins = property(getBins, setBins)
+
+    def addAnnotation(self, aname, aval):
+        self.annotations[aname] = aval
+        return self
+
+    def getAnnotation(self, aname):
+        return self.annotations.get(aname)
 
     def area(self):
         return sum([bin.area() for bin in self.bins])
