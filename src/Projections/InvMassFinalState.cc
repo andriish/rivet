@@ -80,6 +80,7 @@ namespace Rivet {
         }
       }
     }
+    if(type1.empty() || type2.empty()) return;
 
     // Temporary container of selected particles iterators
     // Useful to compare iterators and avoid double occurrences of the same
@@ -88,6 +89,7 @@ namespace Rivet {
 
     // Now calculate the inv mass
     pair<double, pair<Particle, Particle> > closestPair;
+    closestPair.first = 1e30;
     foreach (const Particle* i1, type1) {
       foreach (const Particle* i2, type2) {
 	// check this is actually a pair 
@@ -132,7 +134,7 @@ namespace Rivet {
         }
       }
     }
-    if (_masstarget>0.0) {
+    if (_masstarget>0.0&&closestPair.first<1e30) {
       _theParticles.clear();
       _particlePairs.clear();
       _theParticles += closestPair.second.first;
