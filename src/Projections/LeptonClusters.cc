@@ -61,7 +61,7 @@ namespace Rivet {
 
     for (size_t i=0; i<bareleptons.size(); ++i) {
       _theParticles.push_back(bareleptons[i]);
-      _clusteredLeptons.push_back(Particle(bareleptons[i].pdgId(), bareleptons[i].momentum()));
+      _clusteredLeptons.push_back(Particle(bareleptons[i]));
     }
 
     const FinalState& photons = applyProjection<FinalState>(e, "Photons");
