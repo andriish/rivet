@@ -106,7 +106,7 @@ namespace Rivet {
     Particle p1,p2;
     p1 = imfs.particles()[0];
     p2 = imfs.particles()[1];
-    if (p1.pdgId() == ELECTRON || p1.pdgId() == MUON) {
+    if (abs(p1.pdgId()) == ELECTRON || abs(p1.pdgId()) == MUON) {
       return p1;
     }
     else {
@@ -122,7 +122,7 @@ namespace Rivet {
     Particle p1,p2;
     p1 = imfs.particles()[0];
     p2 = imfs.particles()[1];
-    if (p1.pdgId() == ELECTRON || p1.pdgId() == MUON) {
+    if (abs(p1.pdgId()) == ELECTRON || abs(p1.pdgId()) == MUON) {
       return p2;
     }
     else {
