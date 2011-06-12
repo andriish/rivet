@@ -74,7 +74,8 @@ namespace Rivet {
       // Jets also must have a neutral energy fraction of < 0.7
       Jets jets;
       foreach (const Jet jet, alljets) {
-        if (jet.neutralEnergy() < 0.7 && fabs(jet.momentum().eta()) < 0.3)
+        if (jet.neutralEnergy()/jet.totalEnergy() < 0.7 && 
+	    fabs(jet.momentum().eta()) < 0.3)
           jets.push_back(jet);
       }
 
