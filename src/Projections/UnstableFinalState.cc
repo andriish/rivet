@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Projections/UnstableFinalState.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Cmp.hh"
 
@@ -20,34 +21,55 @@ namespace Rivet {
   void UnstableFinalState::project(const Event& e) {
     _theParticles.clear();
 
-    for (GenEvent::particle_const_iterator p = e.genEvent().particles_begin();
-         p != e.genEvent().particles_end(); ++p) {
-      const int st = (*p)->status();
-      const double pT = (*p)->momentum().perp();
-      const double eta = (*p)->momentum().eta();
-      const GenVertex* pv = (*p)->production_vertex();
-      const GenVertex* dv = (*p)->end_vertex();
+    foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
+      const int st = p->status();
       bool passed = \
-        ( st == 1 || (st == 2 && abs((*p)->pdg_id()) != 22) ) &&
-        !isZero(pT) &&
-        pT >= _ptmin &&
-        eta > _etamin &&
-        eta < _etamax &&
-        !IS_PARTON_PDGID((*p)->pdg_id());
-      // Avoid double counting by re-marking as unpassed if particle == parent
+        ( st == 1 || (st == 2 && abs(p->pdg_id()) != 22) ) &&
+        !isZero(p->momentum().perp()) && p->momentum().perp() >= _ptmin &&
+        p->momentum().eta() > _etamin && p->momentum().eta() < _etamax &&
+        !IS_PARTON_PDGID(p->pdg_id());
+
+      // DEBUGGING PRINTOUTS FOR HERWIG
+      // if (p->status() == 2) {
+      //   std::cout << "* "
+      //             << "pid=" << p->pdg_id()
+      //             << ", st=" << st
+      //             << ", passed=" << std::boolalpha << passed
+      //             << ", isparton=" << std::boolalpha << (IS_PARTON_PDGID(p->pdg_id())) << std::endl;
+      // }
+      // if (abs(p->pdg_id()) > 3000) {
+      //   std::cout << "% "
+      //             << "pid=" << p->pdg_id()
+      //             << ", st=" << st
+      //             << ", passed=" << std::boolalpha << passed
+      //             << ", isparton=" << std::boolalpha << (IS_PARTON_PDGID(p->pdg_id())) << std::endl;
+      // }
+
+      // Avoid double counting by re-marking as unpassed if particle ID == parent ID
+      const GenVertex* pv = p->production_vertex();
+      const GenVertex* dv = p->end_vertex();
       if (passed && pv) {
         for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
              pp != pv->particles_in_const_end() ; ++pp) {
-          if ( (*p)->pdg_id() == (*pp)->pdg_id() )
+          if ( p->pdg_id() == (*pp)->pdg_id() ) {
             passed = false;
+            break;
+          }
         }
       }
+
+      // Add to output particles collection
       if (passed) {
-        _theParticles.push_back(Particle(**p));
+        _theParticles.push_back(Particle(*p));
       }
+
+      // Log parents and children
       if (getLog().isActive(Log::TRACE)) {
-        MSG_TRACE("ID = " << (*p)->pdg_id() << ", status = " << st << ", pT = " << pT
-                  << ", eta = " << eta << ": result = " << std::boolalpha << passed);
+        MSG_TRACE("ID = " << p->pdg_id()
+                  << ", status = " << st
+                  << ", pT = " << p->momentum().perp()
+                  << ", eta = " << p->momentum().eta()
+                  << ": result = " << std::boolalpha << passed);
         if (pv) {
           for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
                pp != pv->particles_in_const_end() ; ++pp) {
