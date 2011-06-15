@@ -110,6 +110,7 @@ Title=Mean charged multiplicity
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d20-x01-y01
@@ -117,6 +118,7 @@ Title=Mean charged multiplicity for rapidity $|Y| < 0.5$
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d21-x01-y01
@@ -124,6 +126,7 @@ Title=Mean charged multiplicity for rapidity $|Y| < 1.0$
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d22-x01-y01
@@ -131,6 +134,7 @@ Title=Mean charged multiplicity for rapidity $|Y| < 1.5$
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d23-x01-y01
@@ -138,6 +142,7 @@ Title=Mean charged multiplicity for rapidity $|Y| < 2.0$
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d25-x01-y01
@@ -260,108 +265,71 @@ YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}{x_E}$
 FullRange=1
 # END PLOT
 
-# BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y02
-Title=Mean $\pi^0$ multiplicity
+
+# BEGIN PLOT /ALEPH_1996_S3486095/d44-
 XLabel=
 YLabel=Multiplicity
 ShowZero=0
+LogY=0
+# END PLOT
+
+# BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y02
+Title=Mean $\pi^0$ multiplicity
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y03
 Title=Mean $\eta$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y04
 Title=Mean $\eta'$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y05
 Title=Mean $K_S + K_L$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y06
 Title=Mean $\rho^0$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y07
 Title=Mean $\omega(782)$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y08
 Title=Mean $\phi$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y09
 Title=Mean $K^{*\pm}$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y10
 Title=Mean $K^{*0}$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y11
 Title=Mean $\Lambda$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y12
 Title=Mean $\Sigma$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y13
 Title=Mean $\Xi$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y14
 Title=Mean $\Sigma(1385)$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y15
 Title=Mean $\Xi(1530)$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_1996_S3486095/d44-x01-y16
 Title=Mean $\Omega^\mp$ multiplicity
-XLabel=
-YLabel=Multiplicity
-ShowZero=0
 # END PLOT
 
