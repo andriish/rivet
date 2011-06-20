@@ -1,7 +1,7 @@
 # Use posixpath instead of os.path for AIDA path handling to be platform
 # independent, i.e. always use "/" as path delimiter.
 import posixpath
-import os, sys, re
+import os, sys, re, logging
 
 if "ET" not in dir():
     try:
