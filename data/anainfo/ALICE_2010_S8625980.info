@@ -15,7 +15,7 @@ RunInfo:
   Diffractive events need to be switched on on addition to QCD.
 NumEvents: 1000000
 Beams: [p+, p+]
-Energies: [900.0, 2360.0, 7000.0]
+Energies: [900, 2360, 7000]
 PtCuts:
 Description:
   'This is an ALICE publication with pseudorapities for $\unit{0.9, 2.36 and 7}{\TeV}$

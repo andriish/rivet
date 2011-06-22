@@ -15,6 +15,8 @@ RunInfo:
   pp QCD interactions at 7TeV GeV, corresponding to JX samples. Matching plots to
   kinematic pT cut samples, or merging from slices or pT-enhanced sampling is advised.
 NumEvents: 10000000
+Beams: [p+, p+]
+Energies: [7000]
 PtCuts: [10, 20, 40, 70, 150, 200, 300]
 Description:
   Measurement of jet shapes in inclusive jet production in pp collisions at 7 TeV
