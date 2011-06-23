@@ -315,10 +315,45 @@ class Plot:
             foo=[]
             for i in inputdata.description['DrawOnly']:
                 foo.append(inputdata.histos[i].getZMin(self.xmin, self.xmax, self.ymin, self.ymax))
-            if foo:
+            if not foo:
                 self.zmin = min(foo)
             else:
-                self.zmin = 0
+                showzero = True
+                if inputdata.description.has_key('ShowZero'):
+                    if inputdata.description['ShowZero']=='0':
+                        showzero = False
+                if showzero:
+                    if min(foo) > -1e-4:
+                        self.zmin = 0
+                    else:
+                        self.zmin = 1.1*min(foo)
+                else:
+                    if min(foo) < -1e-4:
+                        self.zmin = 1.1*min(foo)
+                    elif min(foo) < 1e-4:
+                        self.zmin = 0
+                    else:
+                        self.zmin = 0.9*min(foo)
+
+                if inputdata.description['LogZ']:
+                    foo=[item for item in foo if item>0.0]
+                    if len(foo)==0:
+                        if self.zmax==0:
+                            self.zmax=1
+                        foo.append(2e-4*self.zmax)
+                    fullrange = opts.FULL_RANGE
+                    if inputdata.description.has_key('FullRange'):
+                        if inputdata.description['FullRange']=='1':
+                            fullrange = True
+                        else:
+                            fullrange = False
+                    if fullrange:
+                        self.zmin = min(foo)/1.7
+                    else:
+                        self.zmin = max(min(foo)/1.7, 2e-4*self.zmax)
+                if self.zmin==self.zmax:
+                    self.zmin-=1
+                    self.zmax+=1
 
     def set_zmax(self,inputdata):
         if inputdata.description.has_key('ZMax'):
