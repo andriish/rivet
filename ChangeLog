@@ -1,3 +1,13 @@
+2011-06-23  Andy Buckley  <andy@insectnation.org>
+
+	* Adding a tentative rivet-updateanalyses script, based on
+	lhapdf-getdata, which will download new analyses as requested. We
+	could change our analysis-providing behaviour a bit to allow this
+	sort of delivery mechanism to be used as the normal way of getting
+	analysis updates without us having to make a whole new Rivet
+	release. It is nice to be able to identify analyses with releases,
+	though, for tracking whether bugs have been addressed.
+
 2011-06-10  Frank Siegert  <frank.siegert@cern.ch>
 
 	* Bugfixes in WFinder.
