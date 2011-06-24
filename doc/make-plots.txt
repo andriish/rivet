@@ -432,8 +432,8 @@ LineDash=<dashstyle>
 If `LineStyle` is set to `dashed`, you can specify the dash style with this
 option. Anything that is understood by pstrick's `dash=...` option is valid.
 An example for a dash-dotted line is `LineDash=3pt 3pt .8pt 3pt`. You can use
-`LineStyle=dashdotted` as an abbreviation for `LineStyle=dashed` with
-`LineDash=3pt 3pt .8pt 3pt`.
+`LineStyle=dashdotted` or `LineStyle=dotdashed` as an abbreviation for
+`LineStyle=dashed` with `LineDash=3pt 3pt .8pt 3pt`.
 
 --------------------
 ConnectGaps=<0|1>
