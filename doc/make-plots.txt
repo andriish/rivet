@@ -404,7 +404,8 @@ Linestyles
 LineStyle=<style>
 --------------------
 Any linestyle that is understood by the LaTeX pstricks package, e.g. `solid`,
-`dotted`, `dashed`, `none`.
+`dotted`, `dashed`, `none`, as well as a special `dashdotted` (or `dotdashed`)
+linestyle which does what you might expect.
 
 --------------------
 LineColor=<color>
