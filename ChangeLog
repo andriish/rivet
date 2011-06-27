@@ -1,3 +1,9 @@
+2011-06-27  Andy Buckley  <andy@insectnation.org>
+
+	* pyext/setup.py.in: Use CXXFLAGS and LDFLAGS safely in the Python
+	extension build, and improve the use of build/src directory
+	arguments.
+
 2011-06-23  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a tentative rivet-updateanalyses script, based on

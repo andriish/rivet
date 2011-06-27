@@ -10,15 +10,19 @@ from distutils.core import setup, Extension
 
 ## Extension definition
 import os
-incdir = os.path.abspath('@top_srcdir@/include')
-srcdir = os.path.abspath('@top_srcdir@/src')
+wrapsrc = '@srcdir@/rivet/rivetwrap_wrap.cc'
+incdir_src = os.path.abspath('@top_srcdir@/include')
+incdir_build = os.path.abspath('@top_builddir@/include')
+libdir = os.path.abspath('@top_builddir@/src/.libs')
+cxxargs = '@CXXFLAGS@'.split()
+ldargs = '@LDFLAGS@'.split()
 ext = Extension('_rivetwrap',
-                ['@srcdir@/rivet/rivetwrap_wrap.cc'],
+                [wrapsrc],
                 define_macros = [("SWIG_TYPE_TABLE", "hepmccompat")],
-                #include_dirs=[incdir, os.path.join(incdir, 'eigen2'), '@HEPMCINCPATH@', '@BOOSTINCPATH@', '@GSLINCPATH@'],
-                include_dirs=[incdir, '@HEPMCINCPATH@', '@BOOSTINCPATH@', '@GSLINCPATH@'],
-                #should replace '.libs' -> os.path.join(srcdir,'@LT_OBJDIR@'), but doesn't work
-                library_dirs=[srcdir, os.path.join(srcdir,'.libs'), '@HEPMCLIBPATH@'],
+                include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@BOOSTINCPATH@', '@GSLINCPATH@'],
+                library_dirs=[libdir, '@HEPMCLIBPATH@'],
+                extra_compile_args = cxxargs,
+                extra_link_args = ldargs,
                 libraries=['HepMC', 'Rivet'])
 
 ## Setup definition
