@@ -65,9 +65,13 @@ namespace Rivet {
       addProjection(muons, "muons");
 
 
+      VetoedFinalState vfs;
+      vfs.addVetoPairDetail(MUON,20*GeV,7000*GeV);
+      vfs.addVetoPairDetail(ELECTRON,20*GeV,7000*GeV);
+
 
       /// Jet finder
-      addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.4), 
+      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), 
 		    "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
