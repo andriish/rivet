@@ -131,7 +131,8 @@ class Inputdata:
         foo=[]
         if self.description.has_key('DrawOnly'):
             for i in self.description['DrawOnly'].strip().split():
-                if i in self.histos.keys(): foo.append(i)
+                if i in self.histos.keys():
+                    foo.append(i)
         else:
             foo=self.histos.keys()
         self.description['DrawOnly']=foo
@@ -162,8 +163,9 @@ class Inputdata:
             m = pat_property.match(line)
             if m:
                 prop, value = m.group(1,2)
-                if not prop in self.description:
-                    self.description[prop] = value
+                if prop in self.description:
+                    logging.debug("Overwriting property %s = %s -> %s" % (prop, self.description[prop], value))
+                self.description[prop] = value
 
 
     def read_path_based_input(self, line):
