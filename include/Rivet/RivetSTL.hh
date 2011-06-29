@@ -35,6 +35,7 @@ namespace Rivet {
   using std::runtime_error;
   using std::min;
   using std::max;
+  using std::abs;
   using std::numeric_limits;
   using std::ostream;
   using std::istream;

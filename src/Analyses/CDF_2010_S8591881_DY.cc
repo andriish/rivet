@@ -102,7 +102,8 @@ namespace Rivet {
       getLog() << Log::DEBUG << "Dilepton pT   = " << pT(dilepton)/GeV << " GeV" << endl;
 
       // Calculate the observables
-      size_t   numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0);
+      size_t   numToward(0),     numAway(0);
+      long int numTrans1(0),     numTrans2(0);
       double ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
       double ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
       const double phiZ = azimuthalAngle(dilepton);

@@ -104,7 +104,8 @@ namespace Rivet {
       // Get the final states to work with for filling the distributions
       const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
 
-      size_t numOverall(0),     numToward(0),     numTrans1(0),     numTrans2(0),     numAway(0)  ;
+      size_t numOverall(0),     numToward(0),      numAway(0)  ;
+      long int    numTrans1(0),     numTrans2(0);
       double ptSumOverall(0.0), ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
       //double EtSumOverall(0.0), EtSumToward(0.0), EtSumTrans1(0.0), EtSumTrans2(0.0), EtSumAway(0.0);
       double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
