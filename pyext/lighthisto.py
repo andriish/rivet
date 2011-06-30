@@ -402,7 +402,7 @@ class Histo(object):
         The keys of the dictionary are the full paths of the histogram, i.e.
         AnalysisID/HistoID, a leading "/REF" is stripped from the keys.
         """
-        runhistos = dict()
+        runhistos = []
         if path == "-":
             f = sys.stdin
         else:
@@ -418,7 +418,7 @@ class Histo(object):
             if fullpath:
                 s += line
                 if "END HISTOGRAM" in line:
-                    runhistos[fullpath] = cls.fromFlatHisto(s)
+                    runhistos.append(cls.fromFlatHisto(s))
                     ## Reset for next histo
                     fullpath = None
                     s = ""

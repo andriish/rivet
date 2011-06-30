@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
 
     ## Run over the files and build histo objects selected by the pattern filtering
-    histos = {}
+    histos = []
     for flatfile in args:
         if flatfile != "-" and not os.access(flatfile, os.R_OK):
             logging.error("%s can not be read" % flatfile)
@@ -107,7 +107,8 @@ if __name__ == "__main__":
             print e
             sys.exit(1)
 
-        for histpath, hist in allhistos.iteritems():
+        for hist in allhistos:
+            histpath = hist.fullPath()
             useThis = True
             if opts.PATHPATTERNS:
                 useThis = False
@@ -125,26 +126,24 @@ if __name__ == "__main__":
                     plotparser.updateHistoHeaders(hist)
                 except ValueError, err:
                     logging.debug(err)
-                histos.setdefault(flatfile, []).append(hist)
+                histos.append((flatfile, hist))
 
 
     ## Write output
     if histos:
         ## Split output per-histogram
         if opts.SPLITOUTPUT:
-            for f, hs in sorted(histos.iteritems()):
-                for h in sorted(hs):
-                    histo = h.fullPath()[1:].replace("/", "_")
-                    outfile = "%s.aida" % histo
-                    #print "Writing to", outfile
-                    out = open(outfile, "w")
-                    out.write('<?xml version="1.0" ?>\n')
-                    out.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
-                    out.write('<aida version="3.3">\n')
-                    out.write('  <implementation version="1.1" package="Rivet"/>\n')
-                    out.write(h.asAIDA())
-                    out.write('</aida>\n')
-                    out.close()
+            for f, h in histos:
+                histo = h.fullPath()[1:].replace("/", "_")
+                outfile = "%s.aida" % histo
+                out = open(outfile, "w")
+                out.write('<?xml version="1.0" ?>\n')
+                out.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
+                out.write('<aida version="3.3">\n')
+                out.write('  <implementation version="1.1" package="Rivet"/>\n')
+                out.write(h.asAIDA())
+                out.write('</aida>\n')
+                out.close()
         ## Write all output to a single file (stdout by default)
         elif opts.OUTPUT:
             outfile = opts.OUTPUT
@@ -156,15 +155,18 @@ if __name__ == "__main__":
             out.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
             out.write('<aida version="3.3">\n')
             out.write('  <implementation version="1.1" package="Rivet"/>\n')
-            for f, hs in sorted(histos.iteritems()):
-                for h in sorted(hs):
-                    out.write(h.asAIDA())
+            for f, h in histos:
+                out.write(h.asAIDA())
             out.write('</aida>\n')
             if outfile != "-":
                 out.close()
         ## Split output per-infile
         else:
-            for f, hs in sorted(histos.iteritems()):
+            histodict = dict()
+            for f, h in histos:
+                histodict.setdefault(f, [])
+                histodict[f].append(h)
+            for f, hs in histodict.iteritems():
                 outfile = os.path.basename(f).replace(".dat", ".aida")
                 if f == "-":
                     outfile = "out.dat"
@@ -173,7 +175,7 @@ if __name__ == "__main__":
                 out.write('<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">\n')
                 out.write('<aida version="3.3">\n')
                 out.write('  <implementation version="1.1" package="Rivet"/>\n')
-                for h in sorted(hs):
+                for h in hs:
                     out.write(h.asAIDA())
                 out.write('</aida>\n')
                 out.close()

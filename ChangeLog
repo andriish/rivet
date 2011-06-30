@@ -1,3 +1,10 @@
+2011-06-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* fix fromFlat() in lighthistos: It would ignore histogram paths
+	before.
+
+	* flat2aida: preserve histogram order from .dat files
+
 2011-06-27  Andy Buckley  <andy@insectnation.org>
 
 	* pyext/setup.py.in: Use CXXFLAGS and LDFLAGS safely in the Python
