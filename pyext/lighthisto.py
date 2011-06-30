@@ -357,18 +357,20 @@ class Histo(object):
         new = cls()
         for line in stringbuf.splitlines():
             line = line.strip()
-            if not line or line.startswith("#"):
+            if not line:
                 continue
             if 'BEGIN HISTOGRAM' in line:
                 fullpath = line.split('BEGIN HISTOGRAM', 1)[1].strip()
                 new.path = os.path.dirname(fullpath)
                 new.name = os.path.basename(fullpath)
                 continue
+            elif 'END HISTOGRAM' in line:
+                break
+            elif line.startswith("#"):
+                continue
             elif "=" in line:
                 linearray = line.split("=", 1)
                 desc[linearray[0]] = linearray[1]
-            elif 'END HISTOGRAM' in line:
-                break
             else:
                 linearray = line.split()
                 if len(linearray) == 4:
