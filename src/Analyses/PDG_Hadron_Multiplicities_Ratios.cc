@@ -60,7 +60,6 @@ namespace Rivet {
                 break;
              case 130:
              case 310:
-             case 311:
                 _histMeanMultiK0->fill(_histMeanMultiK0->binMean(0), weight);
                 break;
              case 221:
@@ -169,7 +168,6 @@ namespace Rivet {
                 break;
              case 130:
              case 310:
-             case 311:
                 _histMeanMultiK0->fill(_histMeanMultiK0->binMean(0), weight);
                 break;
              case 221:
@@ -259,7 +257,6 @@ namespace Rivet {
                 break;
              case 130:
              case 310:
-             case 311:
                 _histMeanMultiK0->fill(_histMeanMultiK0->binMean(0), weight);
                 break;
              case 221:
@@ -423,7 +420,6 @@ namespace Rivet {
                 break;
              case 130:
              case 310:
-             case 311:
                 _histMeanMultiK0->fill(_histMeanMultiK0->binMean(0), weight);
                 break;
              case 2212:
