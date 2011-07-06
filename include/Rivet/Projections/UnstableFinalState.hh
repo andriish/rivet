@@ -2,7 +2,7 @@
 #ifndef RIVET_UnstableFinalState_HH
 #define RIVET_UnstableFinalState_HH
 
-#include "Rivet/Projection.hh"
+#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -10,7 +10,7 @@ namespace Rivet {
 
 
   /// @brief Project out all physical-but-decayed particles in an event.
-  class UnstableFinalState : public Projection {
+  class UnstableFinalState : public FinalState {
   public:
 
     /// @name Standard constructors and destructors.
