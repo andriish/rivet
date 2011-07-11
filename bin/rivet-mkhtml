@@ -57,6 +57,8 @@ parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", actio
                   default=False, help="ignore unvalidated analyses.")
 parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
                   help="only write out histograms from analyses whose name matches any of these regexes")
+parser.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS"
+                  help="Exclude histograms whose $path/$name string matches these regexes")
 parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERBOSE",
                   action="store_true", default=False)
 opts, aidafiles = parser.parse_args()
@@ -95,6 +97,7 @@ except ImportError:
 
 ## Get set of analyses/reffiles involved in the runs
 analyses = set()
+blocked_analyses = set()
 reffiles = list()
 labels = []
 for aidafile in aidafiles:
@@ -110,9 +113,9 @@ for aidafile in aidafiles:
     for dps in tree.findall("dataPointSet"):
         path = dps.get("path")
         analysis = path[path.rfind("/")+1:]
-        if analysis in analyses:
+        if analysis in analyses.union(blocked_analyses):
             continue
-        ## If regexes have been provided, only add analyses which match
+        ## If regexes have been provided, only add analyses which match and don't unmatch
         if opts.PATHPATTERNS:
             import re
             matched = False
@@ -120,7 +123,13 @@ for aidafile in aidafiles:
                 if re.search(patt, analysis) is not None:
                     matched = True
                     break
+            if matched and opts.PATHUNPATTERNS:
+                for patt in opts.PATHUNPATTERNS:
+                    if re.search(patt, analysis):
+                        matched = False
+                        break
             if not matched:
+                blocked_analyses.add(analysis)
                 continue
         analyses.add(analysis)
         reffile = rivet.findAnalysisRefFile(analysis+".aida")
