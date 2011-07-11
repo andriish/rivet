@@ -1,6 +1,7 @@
 2011-07-12  Andy Buckley  <andy@insectnation.org>
 
-	* bin/make-plots: Protect property reading against unstripped \r characters from DOS newlines.
+	* bin/make-plots: Protect property reading against unstripped \r
+	characters from DOS newlines.
 
 	* bin/rivet-mkhtml: Add a -M unmatch regex flag (note that these
 	are matching the analysis path rather than individual histos on
