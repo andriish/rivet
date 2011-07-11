@@ -148,9 +148,15 @@ def getCommandLineOptions():
     selgroup.add_option("--show-mc-only", "--all", action="store_true", dest="SHOW_IF_MC_ONLY",
                         default=False, help="make a plot file even if there is only one dataset to be plotted and "
                         "it is an MC one. Deprecated and will be removed: use --show-single instead, which overrides this.")
-    selgroup.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
-                        default=None, help="specify a file containing a list of histograms to plot, in the format "
-                        "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
+    # selgroup.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
+    #                     default=None, help="specify a file containing a list of histograms to plot, in the format "
+    #                     "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
+    selgroup.add_option("-m", "--match", action="append",
+                        help="Only write out histograms whose $path/$name string matches these regexes",
+                        dest="PATHPATTERNS")
+    selgroup.add_option("-M", "--unmatch", action="append",
+                        help="Exclude histograms whose $path/$name string matches these regexes",
+                        dest="PATHUNPATTERNS")
     parser.add_option_group(selgroup)
 
     verbgrp = OptionGroup(parser, "Verbosity control")
@@ -197,6 +203,16 @@ if __name__ == "__main__":
 
     parser = getCommandLineOptions()
     opts, args = parser.parse_args()
+
+
+    ## Initialise regex list variables
+    import re
+    if opts.PATHPATTERNS is None:
+        opts.PATHPATTERNS = []
+    opts.PATHPATTERNS = [re.compile(r) for r in opts.PATHPATTERNS]
+    if opts.PATHUNPATTERNS is None:
+        opts.PATHUNPATTERNS = []
+    opts.PATHUNPATTERNS = [re.compile(r) for r in opts.PATHUNPATTERNS]
 
 
     ## Work out the implications of the SHOW_SINGLE option
@@ -315,23 +331,44 @@ if __name__ == "__main__":
             YLABELS[n] = t
 
 
-    ## Choose histos - use all histos with MC data, or restrict with a list read from file
-    if opts.HISTOGRAMLIST is not None:
-        newnames = []
-        try:
-            f = open(opts.HISTOGRAMLIST, 'r')
-        except:
-            logging.error("Cannot open histo list file %s" % opts.HISTOGRAMLIST)
-            exit(2)
-        hnames = set()
-        for line in f:
-            stripped = line.strip()
-            if len(stripped) == 0 or stripped.startswith("#"):
-                continue
-            hnames.add(stripped.split()[0])
-        f.close()
-        NAMES = NAMES.intersection(hnames)
-        MCNAMES = MCNAMES.intersection(hnames)
+    # ## Choose histos - use all histos with MC data, or restrict with a list read from file
+    # if opts.HISTOGRAMLIST is not None:
+    #     newnames = []
+    #     try:
+    #         f = open(opts.HISTOGRAMLIST, 'r')
+    #     except:
+    #         logging.error("Cannot open histo list file %s" % opts.HISTOGRAMLIST)
+    #         exit(2)
+    #     hnames = set()
+    #     for line in f:
+    #         stripped = line.strip()
+    #         if len(stripped) == 0 or stripped.startswith("#"):
+    #             continue
+    #         hnames.add(stripped.split()[0])
+    #     f.close()
+    #     NAMES = NAMES.intersection(hnames)
+    #     MCNAMES = MCNAMES.intersection(hnames)
+
+
+    ## Use regex matching to reduce the number of histos
+    acceptednames = set()
+    for path in NAMES.union(MCNAMES):
+        useThis = True
+        if opts.PATHPATTERNS:
+            useThis = False
+            for regex in opts.PATHPATTERNS:
+                if regex.search(path):
+                    useThis = True
+                    break
+        if useThis and opts.PATHUNPATTERNS:
+            for regex in opts.PATHUNPATTERNS:
+                if regex.search(path):
+                    useThis = False
+                    break
+        if useThis:
+            acceptednames.add(path)
+    NAMES = NAMES.intersection(acceptednames)
+    MCNAMES = MCNAMES.intersection(acceptednames)
 
 
     ## Pre-emptively reduce number of files to iterate through
