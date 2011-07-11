@@ -1,3 +1,18 @@
+2011-07-12  Andy Buckley  <andy@insectnation.org>
+
+	* bin/make-plots: Protect property reading against unstripped \r
+	characters from DOS newlines.
+
+	* bin/rivet-mkhtml: Add a -M unmatch regex flag (note that these
+	are matching the analysis path rather than individual histos on
+	this script), and speed up the initial analysis identification and
+	selection by avoiding loops of regex comparisons for repeats of
+	strings which have already been analysed.
+
+	* bin/compare-histos: remove the completely (?) unused histogram
+	list, and add -m and -M regex flags, as for aida2flat and
+	flat2aida.
+
 2011-06-30  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* fix fromFlat() in lighthistos: It would ignore histogram paths

@@ -134,6 +134,8 @@ if __name__ == "__main__":
         for dps in tree.findall("dataPointSet"):
             useThis = True
             dpspath = os.path.join(dps.get("path"), dps.get("name"))
+
+            ## If regexes have been provided, only add analyses which match and don't unmatch
             if opts.PATHPATTERNS:
                 useThis = False
                 for regex in opts.PATHPATTERNS:
@@ -145,6 +147,7 @@ if __name__ == "__main__":
                     if regex.search(dpspath):
                         useThis = False
                         break
+
             if useThis:
                 hist = lighthisto.Histo.fromDPS(dps)
                 try:
