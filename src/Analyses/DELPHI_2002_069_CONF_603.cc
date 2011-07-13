@@ -5,7 +5,6 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/PartonFinalState.hh"
 
 
 /// @todo Use inline PID functions instead
@@ -35,14 +34,11 @@ namespace Rivet {
     void init() {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
-      addProjection(PartonFinalState(), "PFS");
 
       _histXbprim     = bookHistogram1D(1, 1, 1);
       _histXbweak     = bookHistogram1D(2, 1, 1);
       _histMeanXbprim = bookProfile1D(4, 1, 1);
       _histMeanXbweak = bookProfile1D(5, 1, 1);
-      _histXbpart     = bookHistogram1D("Xbpart", binEdges(1, 1, 1));
-      _histMeanXbpart = bookProfile1D("MeanXbpart", binEdges(5, 1, 1));
     }
 
 
@@ -66,15 +62,7 @@ namespace Rivet {
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
    
-      const ParticleVector partons = applyProjection<PartonFinalState>(e, "PFS").partons();
-      foreach (Particle p, partons) {
-        if (abs(p.pdg_id()) == 5) {
-          const double xp = p.momentum().E()/meanBeamMom;
-          _histXbpart->fill(xp, weight);
-          _histMeanXbpart->fill(_histMeanXbpart->binMean(0), xp, weight);
-        }
-      }
-
+   
       foreach (const GenParticle* p, particles(e.genEvent())) {
         const GenVertex* pv = p->production_vertex();
         const GenVertex* dv = p->end_vertex();
@@ -117,7 +105,6 @@ namespace Rivet {
     void finalize() {
       normalize(_histXbprim);
       normalize(_histXbweak);
-      normalize(_histXbpart);
     }
 
 
@@ -129,11 +116,9 @@ namespace Rivet {
 
     AIDA::IHistogram1D *_histXbprim;
     AIDA::IHistogram1D *_histXbweak;
-    AIDA::IHistogram1D *_histXbpart;
 
     AIDA::IProfile1D *_histMeanXbprim;
     AIDA::IProfile1D *_histMeanXbweak;
-    AIDA::IProfile1D *_histMeanXbpart;
 
     //@}
 
