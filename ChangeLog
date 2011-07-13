@@ -1,3 +1,8 @@
+2011-07-13  Andy Buckley  <andy@insectnation.org>
+
+	* Rivet PDF manual updates, to not spread disinformation about
+	bootstrapping a Genser repo.
+
 2011-07-12  Andy Buckley  <andy@insectnation.org>
 
 	* bin/make-plots: Protect property reading against unstripped \r

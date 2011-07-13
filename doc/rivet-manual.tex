@@ -204,7 +204,7 @@ This should print a quick-reference user guide for the \kbd{rivet} command to
 the terminal. Similarly, for \kbd{agile-runmc},\\
 \inp{agile-runmc --help}\\
 \inp{agile-runmc --list-gens}\\
-\inp{agile-runmc --beams=pp:14TeV Pythia6:423}\\
+\inp{agile-runmc --beams=pp:14000 Pythia6:425}\\
 which should respectively print the help, list the available generators and make
 10 LHC-type events using the Fortran Pythia\cite{Sjostrand:2006za} 6.423 generator. You're on your
 way! If no generators are listed, you probaby need to install a local
@@ -229,19 +229,15 @@ you're running on a system with the CERN LCG AFS area mounted, then
 LCG Genser team.
 
 Otherwise, you'll have to build your own mirror of the LCG generators. This
-process is not standardised by Genser at the moment (this will hopefully
-change), so we've provided a script, \kbd{agile-genser-bootstrap}:\\
-\inp{wget \url{http://svn.hepforge.org/agile/genser/agile-genser-bootstrap}}
-
-Now make yourself a Genser installation directory, e.g. \kbd{\var{HOME}/genser},
-and \kbd{cd} into it. Then run the \kbd{agile-genser-bootstrap} script, and wait
-for it all to build. Finally, set the \var{AGILE_GEN_PATH} path variable to
-contain the \kbd{\val{genserDir}} directory: you should now have a few
-generators to play with.
+process is evolving with time, and so, rather than provide information in this
+manual which will be outdated by the time you read it, we simply refer you to
+the relevant page on the Rivet wiki:
+\url{http://projects.hepforge.org/rivet/trac/wiki/GenserMirror}.
 
 If you are interested in using a generator not currently supported by AGILe,
 which does not output HepMC events in its native state, then please contact the
-authors and hopefully we can help.
+authors (via the Rivet developer contact email address) and hopefully we can
+help.
 
 
 \subsection{Command completion}
@@ -292,7 +288,7 @@ building of huge files: a 1M event LHC run would occupy $\sim 60 GB$ on disk,
 and typically it takes twice as long to make and analyse the events when the
 filesystem is involved! Here is an example:\\
 \inp{mkfifo fifo.hepmc}\\
-\inp{agile-runmc Pythia6:423 -o fifo.hepmc \&}\\
+\inp{agile-runmc Pythia6:425 -o fifo.hepmc \&}\\
 \inp{rivet -a EXAMPLE fifo.hepmc}\\
 %
 Note that the generator process (\kbd{agile-runmc} in this case) is
@@ -1398,7 +1394,7 @@ int main() {
   }
 
   // Load libraries for a specific generator and instantiate it
-  AGILe::Loader::loadGenLibs("Pythia6:423");
+  AGILe::Loader::loadGenLibs("Pythia6:425");
   AGILe::Generator* generator = AGILe::Loader::createGen();
   cout << "Running " << generator->getName()
        << " version " << generator->getVersion() << endl;
@@ -1467,7 +1463,7 @@ int main() {
     switch) in LEP1 mode, i.e. $\Ppositron\Pelectron$ collisions at $\sqrt{s} =
     \unit{91.2}{\GeV}$.}
 
-\item \paragraph{Parameter changes:}{\kbd{agile-runmc Pythia6:423
+\item \paragraph{Parameter changes:}{\kbd{agile-runmc Pythia6:425
       --beams=LEP:91.2 \cmdbreak -n~1000 -P~myrun.params -p~"PARJ(82)=5.27"}
     will generate 1000 events using the Fortran Pythia 6.423 generator, again
     in LEP1 mode. The \kbd{-P} switch is actually the way of specifying a
@@ -1481,7 +1477,7 @@ int main() {
     testing of parameter values without needing to write a parameters file for
     use with~\kbd{-P}.}
 
-\item \paragraph{Writing out HepMC events:}{\kbd{agile-runmc Pythia6:423
+\item \paragraph{Writing out HepMC events:}{\kbd{agile-runmc Pythia6:425
       --beams=LHC:14TeV -n~50 -o~out.hepmc -R} will generate 50 LHC events with
     Pythia. The~\kbd{-o} switch is being used here to tell \kbd{agile-runmc} to
     write the generated events to the \kbd{out.hepmc} file. This file will be a
