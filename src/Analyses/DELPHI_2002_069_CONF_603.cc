@@ -43,7 +43,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      // First, veto on leptonic events by requiring at least 4 charged FS particles
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
    
