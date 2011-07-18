@@ -2,6 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
