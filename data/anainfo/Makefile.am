@@ -56,6 +56,7 @@ dist_pkgdata_DATA = \
   CDF_2009_S8436959.info \
   CDF_2010_S8591881_DY.info \
   CDF_2010_S8591881_QCD.info \
+  CMS_2010_S8656010.info \
   CMS_2011_S8884919.info \
   CMS_2011_S8957746.info \
   D0_1996_S3214044.info \
