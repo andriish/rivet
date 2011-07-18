@@ -66,7 +66,8 @@ lib_LTLIBRARIES += RivetCMSAnalyses.la
 RivetCMSAnalyses_la_SOURCES = \
     CMS_2010_S8656010.cc \
     CMS_2011_S8884919.cc \
-    CMS_2011_S8957746.cc
+    CMS_2011_S8957746.cc \
+    CMS_2011_S8968497.cc
 
 
 lib_LTLIBRARIES += RivetLHCbAnalyses.la

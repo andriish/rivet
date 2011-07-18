@@ -3,6 +3,7 @@
 	* Added CMS_2011_S8884919 (charged hadron multiplicity in NSD
 	events corrected to pT>=0).
 	* Added CMS_2010_S8656010 (charged hadron pT and eta in NSD events)
+	* Added CMS_2011_S8968497 (chi_dijet)
 
 2011-07-13  Andy Buckley  <andy@insectnation.org>
 

@@ -55,6 +55,7 @@ dist_pkgdata_DATA = \
   CMS_2010_S8656010.plot \
   CMS_2011_S8884919.plot \
   CMS_2011_S8957746.plot \
+  CMS_2011_S8968497.plot \
   D0_1996_S3214044.plot \
   D0_1996_S3324664.plot \
   D0_2000_S4480767.plot \
