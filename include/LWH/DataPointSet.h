@@ -255,10 +255,10 @@ public:
   bool scale(double scale) {
     for ( int i = 0, N = dset.size(); i < N; ++i )
       for ( int j = 0, M = dset[i].dimension(); j < M; ++j ) {
-	IMeasurement * m = dset[i].coordinate(j);
-	m->setValue(m->value()*scale);
-	m->setErrorPlus(m->errorPlus()*scale);
-	m->setErrorMinus(m->errorPlus()*scale);
+        IMeasurement * m = dset[i].coordinate(j);
+        m->setValue(m->value()*scale);
+        m->setErrorPlus(m->errorPlus()*scale);
+        m->setErrorMinus(m->errorMinus()*scale);
       }
     return true;
   }
@@ -278,11 +278,11 @@ public:
       IMeasurement * m = dset[i].coordinate(coord);
       m->setValue(m->value()*scale);
       m->setErrorPlus(m->errorPlus()*scale);
-      m->setErrorMinus(m->errorPlus()*scale);
+      m->setErrorMinus(m->errorMinus()*scale);
     }
     return true;
   }
-	
+
   /**
    * Scales the values of all the measurements
    * of each point by a given factor.
@@ -307,9 +307,9 @@ public:
   bool scaleErrors(double scale) {
     for ( int i = 0, N = dset.size(); i < N; ++i )
       for ( int j = 0, M = dset[i].dimension(); j < M; ++j ) {
-	IMeasurement * m = dset[i].coordinate(j);
-	m->setErrorPlus(m->errorPlus()*scale);
-	m->setErrorMinus(m->errorPlus()*scale);
+        IMeasurement * m = dset[i].coordinate(j);
+        m->setErrorPlus(m->errorPlus()*scale);
+        m->setErrorMinus(m->errorMinus()*scale);
       }
     return true;
   }
@@ -386,9 +386,9 @@ public:
            << "choose different file format!" << endl;
       return false;
     }
-    
+
     //Replace "-" by "_" because cint interprets - as a minus.
-    
+
     for(std::string::iterator c = name.begin();
         c != name.end(); ++c){
       if(*c == *"-"){
@@ -397,11 +397,11 @@ public:
         name.replace(c, cEnd, "_");
       }
     }
-    
+
     //cout << "Writing out TGraph " << name.c_str() << " in ROOT file format" << endl;
-      
+
     int N = size();
-    
+
     vector<double> x, y, exl, exh, eyl, eyh;
 
     for ( int i = 0; i < N; ++i ) {
@@ -412,22 +412,22 @@ public:
       eyl.push_back(point(i)->coordinate(1)->errorMinus());
       eyh.push_back(point(i)->coordinate(1)->errorPlus());
     }
-        
+
     TGraphAsymmErrors* graph = new TGraphAsymmErrors(N, &(x[0]), &(y[0]),
                                                      &(exl[0]), &(exh[0]),
                                                      &(eyl[0]), &(eyh[0]) );
-        
+
     graph->SetTitle(title().c_str());
     graph->SetName(name.c_str());
-        
+
     std::string DirName; //remove preceding slash from directory name, else ROOT error
     for (unsigned int i=1; i<path.size(); ++i) DirName += path[i];
     if (!file->Get(DirName.c_str())) file->mkdir(DirName.c_str());
     file->cd(DirName.c_str());
-        
+
     graph->Write();
     delete graph;
-    
+
     return true;
   }
 
