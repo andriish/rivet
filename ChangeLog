@@ -1,3 +1,8 @@
+2011-07-18  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added CMS_2011_S8884919 (charged hadron multiplicity in NSD
+	events corrected to pT>=0).
+
 2011-07-13  Andy Buckley  <andy@insectnation.org>
 
 	* Rivet PDF manual updates, to not spread disinformation about
