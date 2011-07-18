@@ -42,6 +42,9 @@ namespace Rivet {
       const ChargedFinalState& charged = applyProjection<ChargedFinalState>(event, "CFS");
 
       foreach (const Particle& p, charged.particles()) {
+        //selecting only charged hadrons
+        if(! PID::isHadron(p.pdgId())) continue;
+
         const double pT = p.momentum().pT();
         const double eta = p.momentum().eta();
 
