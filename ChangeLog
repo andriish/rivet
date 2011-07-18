@@ -1,5 +1,9 @@
 2011-07-18  Andy Buckley  <andy@insectnation.org>
 
+	* bin/rivet-buildplugin.in: Pass the AM_CXXFLAGS
+	variable (including the warning flags) to the C++ compiler when
+	building user analysis plugins.
+
 	* include/LWH/DataPointSet.h: Fix accidental setting of errorMinus
 	= scalefactor * error_Plus_. Thanks to Anton Karneyeu for the bug
 	report!
