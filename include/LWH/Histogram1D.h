@@ -177,7 +177,7 @@ namespace LWH {
         sw += sumw[i];
         sw2 += sumw2[i];
       }
-      return sw2/(sw*sw);
+      return (sw*sw)/sw2;
     }
 
     /**

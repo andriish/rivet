@@ -210,7 +210,7 @@ namespace LWH {
           sw += sumw[ix][iy];
           sw2 += sumw2[ix][iy];
         }
-      return sw2/(sw*sw);
+      return (sw*sw)/sw2;
     }
 
     /**
