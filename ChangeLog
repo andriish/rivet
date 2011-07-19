@@ -1,3 +1,7 @@
+2011-07-18  David Mallows <dave.mallows@gmail.com>
+
+	* Replaced MC_TTBAR: Added t,tbar reconstruction. Not yet working.
+
 2011-07-18  Andy Buckley  <andy@insectnation.org>
 
 	* bin/rivet-buildplugin.in: Pass the AM_CXXFLAGS
