@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.5.2a0],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.5.2b0],[rivet@projects.hepforge.org],[Rivet])
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
@@ -17,8 +17,8 @@ AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
 
 ## Set library version info code
-## Set for version 1.5.0
-VERSIONINFOFLAGS="-version-info 8:0:0"
+## Set for version 1.5.2
+VERSIONINFOFLAGS="-version-info 9:0:0"
 AC_SUBST(VERSIONINFOFLAGS)
 
 ## OS X

@@ -1,3 +1,8 @@
+2011-07-19  Andy Buckley  <andy@insectnation.org>
+
+	* Version bump to 1.5.2.b01 in preparation for a release in the
+	very near future.
+
 2011-07-18  David Mallows <dave.mallows@gmail.com>
 
 	* Replaced MC_TTBAR: Added t,tbar reconstruction. Not yet working.
