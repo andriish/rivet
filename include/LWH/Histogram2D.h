@@ -59,7 +59,7 @@ namespace LWH {
     Histogram2D(const std::vector<double> & xedges,
                 const std::vector<double> & yedges)
       : xfax(0), xvax(new VariAxis(xedges)),
-        yfax(0), yvax(new VariAxis(xedges)),
+        yfax(0), yvax(new VariAxis(yedges)),
         sum(xedges.size() + 1, std::vector<int>(yedges.size() + 1)),
         sumw(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
         sumw2(xedges.size() + 1, std::vector<double>(yedges.size() + 1)),
