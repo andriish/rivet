@@ -1,3 +1,7 @@
+2011-07-20  Andy Buckley  <andy@insectnation.org>
+
+	* Making MC_TTBAR work with semileptonic ttbar events and generally tidying the code.
+
 2011-07-19  Andy Buckley  <andy@insectnation.org>
 
 	* Version bump to 1.5.2.b01 in preparation for a release in the
