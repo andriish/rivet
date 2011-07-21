@@ -23,6 +23,34 @@ All available options can be listed by running
  make-plots --help
 --------------------
 
+Configuration files
+~~~~~~~~~~~~~~~~~~~
+
+`make-plots` typically takes the plotting instructions and settings from the
+input ascii files as described in the "Input Format" chapter.
+It is also possible though to pass a global configuration file to `make-plots`
+(cf. `--help`) which allows to specify/overwrite settings for certain plots or
+histograms in a plot on top of what the input files specify. This could be
+useful if the ascii files are generated automatically (e.g. with `rivet-mkhtml`
+or `compare-histos`) and you still want to apply custom plotting options.
+
+An example for this looks like:
+
+--------------------
+# BEGIN PLOT figures/MC_WJETS/W_mass.dat
+XMin=60.0
+XMax=100.0
+LegendXPos=0.65
+# END PLOT
+
+.*myLOrun.aida/D0_2008_S7554427/d01-x01-y01::Scale=1.0
+--------------------
+
+Here first the options in the `PLOT` section of a specific ascii file are
+being amended/overwritten. The second part shows how to overwrite the `Scale`
+property of one specific histogram line using the ID of the histogram.
+
+
 Input Format
 ------------
 
