@@ -24,7 +24,7 @@ namespace Rivet {
 
   /// @brief Measurement of isolated diphoton + X differential cross-sections
   ///
-  /// Inclusive isolated gamma gamma cross-sections, differential in M(gg), pT(gg), 
+  /// Inclusive isolated gamma gamma cross-sections, differential in M(gg), pT(gg),
   /// dphi(gg)
   ///
   /// @author Giovanni Marchiori
@@ -48,8 +48,6 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      MSG_DEBUG("Entering init.");
-
       FinalState fs;
       addProjection(fs, "FS");
 
@@ -62,35 +60,20 @@ namespace Rivet {
       photonfs.acceptId(PHOTON);
       addProjection(photonfs, "Photon");
 
-      MSG_DEBUG("\t... Booking Histograms ");
-      /// use autobook option, histo d01-x01-y01
-      _h_M = bookHistogram1D(1, 1, 1); 
-      /// use autobook option, histo d02-x01-y01
-      _h_pT = bookHistogram1D(2, 1, 1);
-      /// use autobook option, histo d03-x01-y01
+      _h_M    = bookHistogram1D(1, 1, 1);
+      _h_pT   = bookHistogram1D(2, 1, 1);
       _h_dPhi = bookHistogram1D(3, 1, 1);
-
-      MSG_DEBUG("Exiting init.");
     }
 
 
-    int getEtaBin(double eta_w, bool area_eta) const {
+    int getEtaBin(double eta_w) const {
       double eta = fabs(eta_w);
 
       int v_iter=0;
-      if(!area_eta){
-	for(v_iter=0; v_iter < (int)_eta_bins.size()-1; v_iter++){
-	  if(eta >= _eta_bins.at(v_iter) && eta < _eta_bins.at(v_iter+1))
-	    break;
-	}
+      for(v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++){
+        if(inRange(eta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1]))
+          break;
       }
-      else{
-	for(v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++){
-	  if(eta >= _eta_bins_areaoffset.at(v_iter) && eta < _eta_bins_areaoffset.at(v_iter+1))
-	    break;
-	}
-      }
-
       return v_iter;
     }
 
@@ -98,20 +81,15 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      MSG_DEBUG("Entering Analyze.");
-
       const double weight = event.weight();
 
       ///
       /// require at least 2 photons in final state
       ///
-      MSG_DEBUG("...First projections.");
       ParticleVector photons = applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
       if (photons.size() < 2){
-	MSG_DEBUG("...Going to veto event.");
         vetoEvent;
       }
-      MSG_DEBUG("...Didn't veto event(1).");
 
       ///
       /// compute the median energy density
@@ -122,38 +100,38 @@ namespace Rivet {
       std::vector< std::vector<double> > ptDensities;
       std::vector<double> emptyVec;
       ptDensities.assign(_eta_bins_areaoffset.size()-1,emptyVec);
-      
+
       const fastjet::ClusterSequenceArea* clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
       foreach (const fastjet::PseudoJet& jet, applyProjection<FastJets>(event, "KtJetsD05").pseudoJets(0.0*GeV)) {
-	double eta = fabs(jet.eta());
-	double pt = fabs(jet.perp());
-	
-	/// get the cluster sequence
-	double area = clust_seq_area->area(jet);
-	
-	if(area > 10e-4 && fabs(eta)<_eta_bins_areaoffset[_eta_bins_areaoffset.size()-1]){
-	  ptDensities.at(getEtaBin(fabs(eta),true)).push_back(pt/area);
-	}
+        double eta = fabs(jet.eta());
+        double pt = fabs(jet.perp());
+
+        /// get the cluster sequence
+        double area = clust_seq_area->area(jet);
+
+        if(area > 10e-4 && fabs(eta)<_eta_bins_areaoffset[_eta_bins_areaoffset.size()-1]){
+          ptDensities.at(getEtaBin(fabs(eta))).push_back(pt/area);
+        }
       }
-      
+
       for(int b=0; b<(int)_eta_bins_areaoffset.size()-1;b++){
-	double median = 0.0;
-	double sigma = 0.0;
-	int Njets = 0;
-	if(ptDensities[b].size() > 0)
-	  {
-	    std::sort(ptDensities[b].begin(), ptDensities[b].end());
-	    int nDens = ptDensities[b].size();
-	    if( nDens%2 == 0 )
-	      median = (ptDensities[b][nDens/2]+ptDensities[b][(nDens-2)/2])/2;
-	    else
-	      median = ptDensities[b][(nDens-1)/2];
-	    sigma = ptDensities[b][(int)(.15865*nDens)];
-	    Njets = nDens;
-	  }
-	_ptDensity.push_back(median);
-	_sigma.push_back(sigma);
-	_Njets.push_back(Njets);
+        double median = 0.0;
+        double sigma = 0.0;
+        int Njets = 0;
+        if(ptDensities[b].size() > 0)
+          {
+            std::sort(ptDensities[b].begin(), ptDensities[b].end());
+            int nDens = ptDensities[b].size();
+            if( nDens%2 == 0 )
+              median = (ptDensities[b][nDens/2]+ptDensities[b][(nDens-2)/2])/2;
+            else
+              median = ptDensities[b][(nDens-1)/2];
+            sigma = ptDensities[b][(int)(.15865*nDens)];
+            Njets = nDens;
+          }
+        _ptDensity.push_back(median);
+        _sigma.push_back(sigma);
+        _Njets.push_back(Njets);
       }
 
 
@@ -163,62 +141,55 @@ namespace Rivet {
       ParticleVector isolated_photons;
       foreach (const Particle& photon, photons) {
 
-	///
-	/// remove photons in crack
-	///
+        ///
+        /// remove photons in crack
+        ///
         double eta_P = photon.momentum().eta();
-	if(fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
+        if(fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
 
         double phi_P = photon.momentum().phi();
-	
-	///
-	/// compute isolation
-	///
-	
-	/// std EtCone
-	ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
-	FourMomentum mom_in_EtCone;
-	foreach (const Particle& p, fs) {
-	  /// check if it's in the cone of .4
-	  if (deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) >= 0.4) continue;
-	  
-	  /// check if it's in the 5x7 central core
-	  if (fabs(eta_P-p.momentum().eta()) < .025*7.0*0.5 && 
-	      fabs(phi_P-p.momentum().phi()) < (PI/128.)*5.0*0.5) continue;
-	  
-	  mom_in_EtCone += p.momentum();
-	}
-	
-	MSG_DEBUG("...Done with initial EtCone.");
-	
-	/// now figure out the correction (area*density)
-	float EtCone_area = PI*.4*.4 - (7.0*.025)*(5.0*PI/128.);
-	float correction = _ptDensity[getEtaBin(eta_P,true)]*EtCone_area;
-	
-	MSG_DEBUG("...Done with jet-area correction.");
 
-      	/// shouldn't need to subtract photon
-	/// note: using expected cut at hadron/particle level, not cut at reco level
-	if(mom_in_EtCone.Et()-correction > 4.0*GeV){ 
-	  continue;
-	}
+        ///
+        /// compute isolation
+        ///
 
-	/// add photon to list of isolated ones
-	isolated_photons.push_back(photon);
+        /// std EtCone
+        ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
+        FourMomentum mom_in_EtCone;
+        foreach (const Particle& p, fs) {
+          /// check if it's in the cone of .4
+          if (deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) >= 0.4) continue;
+
+          /// check if it's in the 5x7 central core
+          if (fabs(eta_P-p.momentum().eta()) < .025*7.0*0.5 &&
+              fabs(phi_P-p.momentum().phi()) < (PI/128.)*5.0*0.5) continue;
+
+          mom_in_EtCone += p.momentum();
+        }
+
+        /// now figure out the correction (area*density)
+        float EtCone_area = PI*.4*.4 - (7.0*.025)*(5.0*PI/128.);
+        float correction = _ptDensity[getEtaBin(eta_P)]*EtCone_area;
+
+        /// shouldn't need to subtract photon
+        /// note: using expected cut at hadron/particle level, not cut at reco level
+        if(mom_in_EtCone.Et()-correction > 4.0*GeV){
+          continue;
+        }
+
+        /// add photon to list of isolated ones
+        isolated_photons.push_back(photon);
       }
 
       ///
       /// require at least two isolated photons
       ///
       if (isolated_photons.size() < 2) {
-	MSG_DEBUG("...Going to veto event(2).");
         vetoEvent;
       }
-      MSG_DEBUG("...Didn't veto event(2).");
-
 
       ///
-      /// select leading pT pair 
+      /// select leading pT pair
       ///
       std::sort(isolated_photons.begin(), isolated_photons.end(), cmpParticleByPt);
       FourMomentum y1=isolated_photons[0].momentum();
@@ -239,21 +210,14 @@ namespace Rivet {
       _h_M->fill(Myy, weight);
       _h_pT->fill(pTyy, weight);
       _h_dPhi->fill(dPhiyy, weight);
-
-      MSG_DEBUG("...Done with analyze.");
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      MSG_DEBUG("In finalize.");
-
       scale(_h_M, crossSection()/sumOfWeights());
       scale(_h_pT, crossSection()/sumOfWeights());
       scale(_h_dPhi, crossSection()/sumOfWeights());
-
-      MSG_DEBUG("Done with finalize.");
     }
 
   private:
@@ -264,14 +228,12 @@ namespace Rivet {
 
     fastjet::AreaDefinition* _area_def;
 
-    std::vector<float> _eta_bins;
     std::vector<float> _eta_bins_areaoffset;
 
     std::vector<float> _ptDensity;
     std::vector<float> _sigma;
     std::vector<float> _Njets;
   };
-
 
 
   // This global object acts as a hook for the plugin system
