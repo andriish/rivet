@@ -31,6 +31,8 @@ namespace Rivet {
 
       _h_m_PP = bookHistogram1D("m_PP", logBinEdges(50, 1.0, 0.25*sqrtS()));
       _h_pT_PP = bookHistogram1D("pT_PP", logBinEdges(50, 1.0, 0.25*sqrtS()));
+      _h_pT_P1 = bookHistogram1D("pT_P1", 50, 0.0, 70.0);
+      _h_pT_P2 = bookHistogram1D("pT_P2", 50, 0.0, 70.0);
       _h_dphi_PP = bookHistogram1D("dphi_PP", 20, 0.0, M_PI);
     }
 
@@ -46,7 +48,7 @@ namespace Rivet {
 
       // Isolate photons with ET_sum in cone
       ParticleVector isolated_photons;
-      ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
+      ParticleVector fs = applyProjection<FinalState>(event, "FS").particlesByPt();
       foreach (const Particle& photon, photons) {
         FourMomentum mom_in_cone;
         double eta_P = photon.momentum().eta();
@@ -56,7 +58,7 @@ namespace Rivet {
             mom_in_cone += p.momentum();
           }
         }
-        if (mom_in_cone.Et()-photon.momentum().Et() < 1.0*GeV) {
+        if (mom_in_cone.Et()-photon.momentum().Et() < 4.0*GeV) {
           isolated_photons.push_back(photon);
         }
       }
@@ -65,17 +67,21 @@ namespace Rivet {
         vetoEvent;
       }
 
+      _h_pT_P1->fill(isolated_photons[0].momentum().pT(), weight);
+      _h_pT_P2->fill(isolated_photons[1].momentum().pT(), weight);
       FourMomentum mom_PP = isolated_photons[0].momentum() + isolated_photons[1].momentum();
       _h_m_PP->fill(mom_PP.mass(), weight);
       _h_pT_PP->fill(mom_PP.pT(), weight);
-      _h_dphi_PP->fill(mapAngle0ToPi(isolated_photons[0].momentum().phi()-
-                                     isolated_photons[1].momentum().phi())/M_PI, weight);
+      _h_dphi_PP->fill(deltaPhi(isolated_photons[0].momentum().phi(),
+                                isolated_photons[1].momentum().phi()), weight);
     }
 
 
     void finalize() {
       scale(_h_m_PP, crossSection()/sumOfWeights());
       scale(_h_pT_PP, crossSection()/sumOfWeights());
+      scale(_h_pT_P1, crossSection()/sumOfWeights());
+      scale(_h_pT_P2, crossSection()/sumOfWeights());
       scale(_h_dphi_PP, crossSection()/sumOfWeights());
     }
 
@@ -88,6 +94,8 @@ namespace Rivet {
     //@{
     AIDA::IHistogram1D* _h_m_PP;
     AIDA::IHistogram1D* _h_pT_PP;
+    AIDA::IHistogram1D* _h_pT_P1;
+    AIDA::IHistogram1D* _h_pT_P2;
     AIDA::IHistogram1D* _h_dphi_PP;
     //@}
 
