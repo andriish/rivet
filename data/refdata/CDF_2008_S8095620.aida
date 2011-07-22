@@ -4,7 +4,7 @@
   <implementation version="1.0" package="HepData"/>
   <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/CDF_2008_S8095620" title="SIG(Q=Z0+BJET)/SIG(Q=Z0)" >
     <dataPoint>
-      <measurement value="1960.0" errorPlus="0.0" errorMinus="0.0"/>
+      <measurement value="1960.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="0.00332" errorPlus="6.762396025078685E-4" errorMinus="6.762396025078685E-4"/>
     </dataPoint>
   </dataPointSet>
@@ -56,21 +56,21 @@
   </dataPointSet>
   <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/CDF_2008_S8095620" title="SIG(Q=Z0+BJET)/SIG(Q=Z0)" >
     <dataPoint>
-      <measurement value="1.0" errorPlus="0.0" errorMinus="0.0"/>
+      <measurement value="1.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="0.00223" errorPlus="5.047771785649585E-4" errorMinus="5.047771785649585E-4"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.0" errorPlus="0.0" errorMinus="0.0"/>
+      <measurement value="2.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="7.8E-4" errorPlus="2.3769728648009427E-4" errorMinus="2.3769728648009427E-4"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/CDF_2008_S8095620" title="SIG(Q=Z0+BJET)/SIG(Q=Z0)" >
     <dataPoint>
-      <measurement value="1.0" errorPlus="0.0" errorMinus="0.0"/>
+      <measurement value="1.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="0.00275" errorPlus="5.813776741499454E-4" errorMinus="5.813776741499454E-4"/>
     </dataPoint>
     <dataPoint>
-      <measurement value="2.0" errorPlus="0.0" errorMinus="0.0"/>
+      <measurement value="2.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="2.2E-4" errorPlus="1.2083045973594573E-4" errorMinus="1.2083045973594573E-4"/>
     </dataPoint>
   </dataPointSet>
