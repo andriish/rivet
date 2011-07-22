@@ -27,6 +27,7 @@ libRivetProjections_la_SOURCES = \
   Multiplicity.cc \
   NeutralFinalState.cc \
   ParisiTensor.cc \
+  PartonFinalState.cc \
   PVertex.cc \
   Sphericity.cc \
   Spherocity.cc \

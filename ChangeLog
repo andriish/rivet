@@ -2,6 +2,11 @@
 
 	* Added ATLAS_2011_S9120807
 
+	* Add two more observables to MC_DIPHOTON and make its isolation cut
+	more LHC-like
+
+	* Add linear photon pT histo to MC_PHOTONJETS
+
 2011-07-20  Andy Buckley  <andy@insectnation.org>
 
 	* Making MC_TTBAR work with semileptonic ttbar events and generally
