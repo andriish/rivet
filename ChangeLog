@@ -1,6 +1,11 @@
+2011-07-22  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Added ATLAS_2011_S9120807
+
 2011-07-20  Andy Buckley  <andy@insectnation.org>
 
-	* Making MC_TTBAR work with semileptonic ttbar events and generally tidying the code.
+	* Making MC_TTBAR work with semileptonic ttbar events and generally
+	tidying the code.
 
 2011-07-19  Andy Buckley  <andy@insectnation.org>
 
