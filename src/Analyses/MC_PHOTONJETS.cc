@@ -42,6 +42,7 @@ namespace Rivet {
       addProjection(jetpro, "Jets");
 
       _h_photon_pT = bookHistogram1D("photon_pT", logBinEdges(50, 30.0, 0.5*sqrtS()));
+      _h_photon_pT_lin = bookHistogram1D("photon_pT_lin", 50, 0.0, 70.0);
       _h_photon_y = bookHistogram1D("photon_y", 50, -5.0, 5.0);
       _h_photon_jet1_deta = bookHistogram1D("photon_jet1_deta", 50, -5.0, 5.0);
       _h_photon_jet1_dphi = bookHistogram1D("photon_jet1_dphi", 20, 0.0, M_PI);
@@ -83,6 +84,7 @@ namespace Rivet {
       }
 
       _h_photon_pT->fill(photon.pT(),weight);
+      _h_photon_pT_lin->fill(photon.pT(),weight);
       _h_photon_y->fill(photon.rapidity(),weight);
 
       const FastJets& jetpro = applyProjection<FastJets>(e, "Jets");
@@ -100,6 +102,7 @@ namespace Rivet {
     // Finalize
     void finalize() {
       scale(_h_photon_pT, crossSectionPerEvent());
+      scale(_h_photon_pT_lin, crossSectionPerEvent());
       scale(_h_photon_y, crossSectionPerEvent());
       scale(_h_photon_jet1_deta, crossSectionPerEvent());
       scale(_h_photon_jet1_dphi, crossSectionPerEvent());
@@ -116,6 +119,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     AIDA::IHistogram1D * _h_photon_pT;
+    AIDA::IHistogram1D * _h_photon_pT_lin;
     AIDA::IHistogram1D * _h_photon_y;
     AIDA::IHistogram1D * _h_photon_jet1_deta;
     AIDA::IHistogram1D * _h_photon_jet1_dphi;
