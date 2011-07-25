@@ -1,3 +1,13 @@
+2011-07-25  Andy Buckley  <andy@insectnation.org>
+
+	* Adding a useTransverseMass flag method and implementation to
+	InvMassFinalState, and using it in the WFinder, after feedback
+	from Gavin Hesketh. This was the neatest way I could do it :S Some
+	other tidying up happened along the way.
+
+	* Adding transverse mass massT and massT2 methods and functions
+	for FourMomentum.
+
 2011-07-22  Frank Siegert  <frank.siegert@cern.ch>
 
 	* Added ATLAS_2011_S9120807

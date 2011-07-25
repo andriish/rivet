@@ -11,7 +11,7 @@ namespace Rivet {
   class InvMassFinalState : public FinalState {
   public:
 
-    // Constructor for a single inv-mass pair
+    /// Constructor for a single inv-mass pair.
     InvMassFinalState(const FinalState& fsp,
                       const std::pair<PdgId, PdgId>& idpair, // pair of decay products
                       double minmass, // min inv mass
@@ -19,6 +19,7 @@ namespace Rivet {
                       double masstarget=-1.0);
 
 
+    /// Constructor for multiple inv-mass pairs.
     InvMassFinalState(const FinalState& fsp,
                       const std::vector<std::pair<PdgId, PdgId> >& idpairs,  // vector of pairs of decay products
                       double minmass, // min inv mass
@@ -34,8 +35,14 @@ namespace Rivet {
 
   public:
 
-    /// Constituent pairs
+    /// Constituent pairs.
     const std::vector<std::pair<Particle, Particle> >& particlePairs() const;
+
+
+    /// Choose whether to use the full inv mass or just the transverse mass.
+    void useTransverseMass(bool usetrans=true) {
+      _useTransverseMass = usetrans;
+    }
 
 
   protected:
@@ -49,21 +56,23 @@ namespace Rivet {
 
   private:
 
-    /// IDs of the decay products
+    /// IDs of the decay products.
     std::vector<PdgIdPair> _decayids;
 
-    /// Constituent pairs
+    /// Constituent pairs.
     std::vector<std::pair<Particle, Particle> > _particlePairs;
 
-    /// Min inv mass
+    /// Min inv mass.
     double _minmass;
 
-    /// Max inv mass
+    /// Max inv mass.
     double _maxmass;
 
-    /// Target mass if only one pair should be returned
+    /// Target mass if only one pair should be returned.
     double _masstarget;
 
+    /// Flag to decide whether to use the full inv mass or just the transverse mass.
+    bool _useTransverseMass;
   };
 
 

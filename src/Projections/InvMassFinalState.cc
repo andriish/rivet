@@ -41,7 +41,9 @@ namespace Rivet {
     fscmp = FinalState::compare(other);
     if (fscmp != EQUIVALENT) return fscmp;
 
-    // Then compare the mass limits
+    // Compare the mass limits
+    int masstypecmp = cmp(_useTransverseMass, other._useTransverseMass);
+    if (masstypecmp != EQUIVALENT) return masstypecmp;
     int massllimcmp = cmp(_minmass, other._minmass);
     if (massllimcmp != EQUIVALENT) return massllimcmp;
     int masshlimcmp = cmp(_maxmass, other._maxmass);
@@ -92,27 +94,32 @@ namespace Rivet {
     closestPair.first = 1e30;
     foreach (const Particle* i1, type1) {
       foreach (const Particle* i2, type2) {
-	// check this is actually a pair 
-	// (if more than one pair in vector particles can be unrelated)
-	bool found = false;
-	foreach (const PdgIdPair& ipair, _decayids) {
-	  if (i1->pdgId() == ipair.first &&
-	      i2->pdgId() == ipair.second) {
-	    found=true;
-	    break;
-	  }
-	}
-	if(!found) continue;
+        // check this is actually a pair
+        // (if more than one pair in vector particles can be unrelated)
+        bool found = false;
+        foreach (const PdgIdPair& ipair, _decayids) {
+          if (i1->pdgId() == ipair.first && i2->pdgId() == ipair.second) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) continue;
 
         FourMomentum v4 = i1->momentum() + i2->momentum();
         if (v4.mass2() < 0) {
-          getLog() << Log::DEBUG << "Constructed negative inv mass2: skipping!" << endl;
+          MSG_DEBUG("Constructed negative inv mass2: skipping!");
           continue;
         }
-        if (v4.mass() > _minmass && v4.mass() < _maxmass) {
-          getLog() << Log::DEBUG << "Selecting particles with IDs "
-                   << i1->pdgId() << " & " << i2->pdgId()
-                   << " and mass = " << v4.mass()/GeV << " GeV" << endl;
+        bool passedMassCut = false;
+        if (_useTransverseMass) {
+          passedMassCut = inRange(v4.mass(), _minmass, _maxmass);
+        } else {
+          passedMassCut = inRange(v4.massT(), _minmass, _maxmass);
+        }
+
+        if (passedMassCut) {
+          MSG_DEBUG("Selecting particles with IDs " << i1->pdgId() << " & " << i2->pdgId()
+                    << " and mass = " << v4.mass()/GeV << " GeV");
           // Store accepted particles, avoiding duplicates
           if (find(tmp.begin(), tmp.end(), i1) == tmp.end()) {
             tmp.push_back(i1);
@@ -134,7 +141,7 @@ namespace Rivet {
         }
       }
     }
-    if (_masstarget>0.0&&closestPair.first<1e30) {
+    if (_masstarget > 0.0 && closestPair.first < 1e30) {
       _theParticles.clear();
       _particlePairs.clear();
       _theParticles += closestPair.second.first;
@@ -142,12 +149,10 @@ namespace Rivet {
       _particlePairs += closestPair.second;
     }
 
-    getLog() << Log::DEBUG << "Selected " << _theParticles.size() << " particles "
-             << "(" << _particlePairs.size() << " pairs)" << endl;
+    MSG_DEBUG("Selected " << _theParticles.size() << " particles " << "(" << _particlePairs.size() << " pairs)");
     if (getLog().isActive(Log::TRACE)) {
       foreach (const Particle& p, _theParticles) {
-        getLog() << Log::TRACE << "ID: " << p.pdgId()
-                 << ", barcode: " << p.genParticle().barcode() << endl;
+        MSG_TRACE("ID: " << p.pdgId() << ", barcode: " << p.genParticle().barcode());
       }
     }
   }

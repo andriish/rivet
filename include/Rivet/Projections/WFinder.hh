@@ -32,7 +32,7 @@ namespace Rivet {
     //         double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
 
 
-    /// Constructor taking single eta/pT bounds and type of the charged lepton, mass
+    /// Constructor taking single eta/pT bounds and type of the charged lepton, transverse mass
     /// window, and maximum dR of photons around the charged lepton to take into account
     /// for W reconstruction.
     WFinder(double etaMin, double etaMax,
@@ -43,7 +43,7 @@ namespace Rivet {
             double dRmax, bool clusterPhotons=true, bool excludePhotonsFromRFS=false);
 
 
-    /// Constructor taking multiple eta/pT bounds and type of the charged lepton, mass
+    /// Constructor taking multiple eta/pT bounds and type of the charged lepton, transverse mass
     /// window, and maximum dR of photons around the charged lepton to take into account
     /// for W reconstruction.
     WFinder(const std::vector<std::pair<double, double> >& etaRanges,
@@ -85,7 +85,9 @@ namespace Rivet {
   public:
 
     /// Clear the projection
-    void clear();
+    void clear() {
+      _theParticles.clear();
+    }
 
 
   private:

@@ -41,12 +41,9 @@ namespace Rivet {
                       PdgId pid,
                       double m2_min, double m2_max,
                       double missingET,
-                      double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS) 
+                      double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS)
   {
     setName("WFinder");
-
-
-
 
     // Check that the arguments are legal
     assert(abs(pid) == ELECTRON || abs(pid) == MUON);
@@ -57,7 +54,7 @@ namespace Rivet {
     IdentifiedFinalState fs_nu;
     fs_nu.acceptNeutrinos();
 
-    // lepton clusters
+    // Lepton clusters
     FinalState fs;
     IdentifiedFinalState bareleptons(fs);
     bareleptons.acceptIdPair(pid);
@@ -65,7 +62,6 @@ namespace Rivet {
                            clusterPhotons, excludePhotonsFromRFS,
                            etaRanges, pTmin);
     addProjection(leptons, "LeptonClusters");
-
 
     // Make a merged final state projection for charged and neutral leptons
     MergedFinalState mergedFS(leptons, fs_nu);
@@ -75,6 +71,7 @@ namespace Rivet {
     l_nu_ids += make_pair(abs(pid), -abs(nu_pid));
     l_nu_ids += make_pair(-abs(pid), abs(nu_pid));
     InvMassFinalState imfs(mergedFS, l_nu_ids, m2_min, m2_max, 80.403);
+    imfs.useTransverseMass();
     addProjection(imfs, "IMFS");
 
     // Add MissingMomentum proj to calc MET
@@ -95,12 +92,15 @@ namespace Rivet {
 
 
   const FinalState& WFinder::remainingFinalState() const {
+    /// @todo This must already have been applied to be useful
     return getProjection<FinalState>("RFS");
   }
 
 
   Particle WFinder::constituentLepton() const {
+    /// @todo Is this safe? This isn't applying the rest of the selection cuts
     const InvMassFinalState& imfs = getProjection<InvMassFinalState>("IMFS");
+    /// @todo Is this really meant to be _impossible_?
     assert(imfs.particles().size()==2);
 
     Particle p1,p2;
@@ -116,7 +116,9 @@ namespace Rivet {
 
 
   Particle WFinder::constituentNeutrino() const {
+    /// @todo Is this safe? This isn't applying the rest of the selection cuts
     const InvMassFinalState& imfs = getProjection<InvMassFinalState>("IMFS");
+    /// @todo Is this really meant to be _impossible_?
     assert(imfs.particles().size()==2);
 
     Particle p1,p2;
@@ -131,23 +133,14 @@ namespace Rivet {
   }
 
 
-  const FinalState& WFinder::originalLeptonFinalState() const
-  {
+  const FinalState& WFinder::originalLeptonFinalState() const {
     const LeptonClusters& leptons=getProjection<LeptonClusters>("LeptonClusters");
     return leptons.constituentsFinalState();
   }
 
 
   int WFinder::compare(const Projection& p) const {
-    PCmp cmp = mkNamedPCmp(p, "IMFS");
-    if (cmp != EQUIVALENT) return cmp;
-
-    return EQUIVALENT;
-  }
-
-
-  void WFinder::clear() {
-    _theParticles.clear();
+    return mkNamedPCmp(p, "IMFS");
   }
 
 
@@ -155,8 +148,10 @@ namespace Rivet {
     clear();
 
     const InvMassFinalState& imfs = applyProjection<InvMassFinalState>(e, "IMFS");
-    applyProjection<FinalState>(e, "RFS");
     if (imfs.particles().size() != 2) return;
+
+    /// Apply the RFS here so that it can be acquired later via the remainingFinalState method
+    applyProjection<FinalState>(e, "RFS");
 
     Particle p1,p2;
     p1 = imfs.particles()[0];
