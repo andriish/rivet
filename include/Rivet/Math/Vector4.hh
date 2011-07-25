@@ -375,12 +375,7 @@ namespace Rivet {
     /// Set z-component of momentum \f$ p_z \f$.
     FourMomentum& setPz(double pz) { setZ(pz); return *this; }
 
-    /// Get squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant).
-    double mass2() const {
-      return invariant();
-    }
-
-    /// Get mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant).
+    /// Get the mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant).
     double mass() const {
       assert(Rivet::isZero(mass2()) || mass2() > 0);
       if (Rivet::isZero(mass2())) {
@@ -390,32 +385,47 @@ namespace Rivet {
       }
     }
 
-    /// Calculate rapidity.
+    /// Calculate the transverse mass \f$ m_T = m \sin{\theta} \f$.
+    double massT() const {
+      return mass() * sin(polarAngle());
+    }
+
+    /// Get the squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant).
+    double mass2() const {
+      return invariant();
+    }
+
+    /// Calculate the squared transverse mass \f$ m_T^2 = m^2 \sin^2{\theta} \f$.
+    double massT2() const {
+      return massT() * massT();
+    }
+
+    /// Calculate the rapidity.
     double rapidity() const {
       return 0.5 * std::log( (E() + pz()) / (E() - pz()) );
     }
 
-    /// Calculate squared transverse momentum \f$ p_T^2 \f$.
+    /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
     double pT2() const {
       return vector3().polarRadius2();
     }
 
-    /// Calculate transverse momentum \f$ p_T \f$.
+    /// Calculate the transverse momentum \f$ p_T \f$.
     double pT() const {
       return sqrt(pT2());
     }
 
-    /// Calculate transverse energy \f$ E_T^2 = E^2 \sin^2{\theta} \f$.
+    /// Calculate the transverse energy \f$ E_T^2 = E^2 \sin^2{\theta} \f$.
     double Et2() const {
       return Et() * Et();
     }
 
-    /// Calculate transverse energy \f$ E_T = E \sin{\theta} \f$.
+    /// Calculate the transverse energy \f$ E_T = E \sin{\theta} \f$.
     double Et() const {
       return E() * sin(polarAngle());
     }
 
-    /// Calculate boost vector (in units of \f$ \beta \f$).
+    /// Calculate the boost vector (in units of \f$ \beta \f$).
     Vector3 boostVector() const {
       // const Vector3 p3 = vector3();
       // const double m2 = mass2();
@@ -526,41 +536,51 @@ namespace Rivet {
 
 
 
-  /// Get squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant) of a momentum 4-vector.
-  inline double mass2(const FourMomentum& v) {
-    return v.mass2();
-  }
-
-  /// Get mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant) of a momentum 4-vector.
+  /// Get the mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant) of a momentum 4-vector.
   inline double mass(const FourMomentum& v) {
     return v.mass();
   }
 
-  /// Calculate rapidity of a momentum 4-vector.
+  /// Get the transverse mass \f$ m_T = m \sin{\theta} \f$ of a momentum 4-vector.
+  inline double massT(const FourMomentum& v) {
+    return v.massT();
+  }
+
+  /// Get the squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant) of a momentum 4-vector.
+  inline double mass2(const FourMomentum& v) {
+    return v.mass2();
+  }
+
+  /// Get the squared transverse mass \f$ m_T^2 = m^2 \sin^2{\theta} \f$ of a momentum 4-vector.
+  inline double massT2(const FourMomentum& v) {
+    return v.massT2();
+  }
+
+  /// Calculate the rapidity of a momentum 4-vector.
   inline double rapidity(const FourMomentum& v) {
     return v.rapidity();
   }
 
-  /// Calculate squared transverse momentum \f$ p_T^2 \f$ of a momentum 4-vector.
+  /// Calculate the squared transverse momentum \f$ p_T^2 \f$ of a momentum 4-vector.
   inline double pT2(const FourMomentum& v) {
     return v.pT2();
   }
 
-  /// Calculate transverse momentum \f$ p_T \f$ of a momentum 4-vector.
+  /// Calculate the transverse momentum \f$ p_T \f$ of a momentum 4-vector.
   inline double pT(const FourMomentum& v) {
     return v.pT();
   }
 
-  /// Calculate transverse energy squared, \f$ E_T^2 = E^2 \sin^2{\theta} \f$ of a momentum 4-vector.
+  /// Calculate the transverse energy squared, \f$ E_T^2 = E^2 \sin^2{\theta} \f$ of a momentum 4-vector.
   inline double Et2(const FourMomentum& v) {
     return v.Et2();}
 
-  /// Calculate transverse energy \f$ E_T = E \sin{\theta} \f$ of a momentum 4-vector.
+  /// Calculate the transverse energy \f$ E_T = E \sin{\theta} \f$ of a momentum 4-vector.
   inline double Et(const FourMomentum& v) {
     return v.Et();
   }
 
-  /// Calculate velocity boost vector of a momentum 4-vector.
+  /// Calculate the velocity boost vector of a momentum 4-vector.
   inline Vector3 boostVector(const FourMomentum& v) {
     return v.boostVector();
   }
