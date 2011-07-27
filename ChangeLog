@@ -1,3 +1,7 @@
+2011-07-27  David Mallows <dave.mallows@gmail.com>
+
+	* Updated MC_TTBAR.plot to reflect updated analysis.
+
 2011-07-25  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a useTransverseMass flag method and implementation to
