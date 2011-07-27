@@ -24,10 +24,10 @@ namespace Rivet {
       addProjection(ChargedLeptons(FinalState(-4.2, 4.2, 30*GeV)), "LFS");
       addProjection(FastJets(FinalState(-4.2, 4.2, 0*GeV), FastJets::ANTIKT, 0.4), "Jets");
 
-      _h_jet_1_pT = bookHistogram1D("jet_1_pT", 50, 0, 250);
-      _h_jet_2_pT = bookHistogram1D("jet_2_pT", 50, 0, 250);
-      _h_jet_3_pT = bookHistogram1D("jet_3_pT", 50, 0, 250);
-      _h_jet_4_pT = bookHistogram1D("jet_4_pT", 50, 0, 250);
+      _h_jet_1_pT = bookHistogram1D("jet_1_pT", 50, 0, 500);
+      _h_jet_2_pT = bookHistogram1D("jet_2_pT", 50, 0, 400);
+      _h_jet_3_pT = bookHistogram1D("jet_3_pT", 50, 0, 300);
+      _h_jet_4_pT = bookHistogram1D("jet_4_pT", 50, 0, 200);
 
       _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", 50, 0, 250);
       _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", 50, 0, 250);
