@@ -64,8 +64,6 @@ class Inputdata:
         self.description = {}
         self.pathdescriptions = []
 
-        self.read_config_files(opts.CONFIGFILES)
-
         self.description['is2dim'] = False
         f = open(filename+'.dat')
         for line in f:
@@ -76,27 +74,24 @@ class Inputdata:
                 if path is None and name != 'PLOT':
                     raise Exception('BEGIN sections need a path name.')
 
-                if path is not None:
-                    settings = self.get_path_settings(path)
-
                 if name == 'PLOT':
                     self.read_input(f);
                 elif name == 'SPECIAL':
-                    self.special[path] = Special(f, settings)
+                    self.special[path] = Special(f)
                 elif name == 'HISTOGRAM':
-                    self.histos[path] = Histogram(f, settings)
+                    self.histos[path] = Histogram(f)
                     self.description['is2dim'] = self.histos[path].is2dimensional()
                 elif name == 'HISTO1D':
-                    self.histos[path] = Histo1D(f, settings)
+                    self.histos[path] = Histo1D(f)
                 elif name == 'FUNCTION':
-                    self.functions[path] = Function(f, settings)
+                    self.functions[path] = Function(f)
 #            elif is_comment(line):
 #                continue
 #            else:
 #                self.read_path_based_input(line)
         f.close()
 
-        self.set_path_based_properties()
+        self.apply_config_files(opts.CONFIGFILES)
 
         self.description['PlotSizeX'] = 10.
         if self.description['is2dim']:
@@ -138,22 +133,6 @@ class Inputdata:
         self.description['DrawOnly']=foo
 
 
-    def read_config_files(self, conffiles):
-        if conffiles is not None:
-            for filename in conffiles:
-                cf = open(filename,'r')
-
-                for line in cf:
-                    m = pat_begin_block.match(line)
-                    if m and m.group(1) == 'PLOT' and re.match(m.group(2),self.filename):
-                        self.read_input(cf)
-                    elif is_comment(line):
-                        continue
-                    else:
-                        self.read_path_based_input(line)
-                cf.close()
-
-
     def read_input(self, f):
         for line in f:
             if is_end_marker(line, 'PLOT'):
@@ -169,28 +148,42 @@ class Inputdata:
                 self.description[prop.strip()] = value.strip()
 
 
-    def read_path_based_input(self, line):
-        m = pat_path_property.match(line)
-        if m:
-            # append (regex, property, value)
-            self.pathdescriptions.append(m.group(1,2,3))
-
-
-    def set_path_based_properties(self):
-        for obj_dict in [self.special, self.histos, self.functions]:
-            for path, obj in obj_dict.iteritems():
-                for regex, prop, value in self.pathdescriptions:
-                    if re.match(regex, path):
-                        ## Use strip here to deal with DOS newlines containing \r
-                        obj.description.update({prop.strip() : value.strip()})
-
-    def get_path_settings(self, path):
-        dictionary = {}
-        for regex, prop, value in self.pathdescriptions:
-            if re.match(regex, path):
-                ## Use strip here to deal with DOS newlines containing \r
-                dictionary.update({prop.strip() : value.strip()})
-        return dictionary
+    def apply_config_files(self, conffiles):
+        if conffiles is not None:
+            for filename in conffiles:
+                cf = open(filename,'r')
+                lines = cf.readlines()
+                for i in range(0, len(lines)):
+                    ## First evaluate PLOT sections
+                    m = pat_begin_block.match(lines[i])
+                    if m and m.group(1) == 'PLOT' and re.match(m.group(2),self.filename):
+                        while i<len(lines)-1:
+                            i = i+1
+                            if is_end_marker(lines[i], 'PLOT'):
+                                break
+                            elif is_comment(lines[i]):
+                                continue
+                            m = pat_property.match(lines[i])
+                            if m:
+                                prop, value = m.group(1,2)
+                                if prop in self.description:
+                                    logging.debug("Overwriting from conffile property %s = %s -> %s" % (prop, self.description[prop], value))
+                                ## Use strip here to deal with DOS newlines containing \r
+                                self.description[prop.strip()] = value.strip()
+                    elif is_comment(lines[i]):
+                        continue
+                    else:
+                        ## Then evaluate path-based settings, e.g. for HISTOGRAMs
+                        m = pat_path_property.match(lines[i])
+                        if m:
+                            regex, prop, value=m.group(1,2,3)
+                            for obj_dict in [self.special, self.histos, self.functions]:
+                                for path, obj in obj_dict.iteritems():
+                                    if re.match(regex, path):
+                                        ## Use strip here to deal with DOS newlines containing \r
+                                        obj.description.update({prop.strip() : value.strip()})
+                cf.close()
+        
 
 
 
@@ -951,8 +944,8 @@ class Labels:
 
 
 class Special:
-    def __init__(self, f, settings):
-        self.description = settings
+    def __init__(self, f):
+        self.description = {}
         self.data = []
         self.read_input(f)
 
@@ -1139,8 +1132,8 @@ class DrawableObject:
 
 
 class Function(DrawableObject):
-    def __init__(self, f, settings):
-        self.description = settings
+    def __init__(self, f):
+        self.description = {}
         self.read_input(f)
 
     def read_input(self, f):
@@ -1199,8 +1192,8 @@ class Function(DrawableObject):
 
 
 class Histogram(DrawableObject):
-    def __init__(self, f, settings):
-        self.description = settings
+    def __init__(self, f):
+        self.description = {}
         self.is2dim = False
         self.data = []
         self.read_input_data(f)

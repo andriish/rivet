@@ -4,6 +4,10 @@
 
 	* New version of aida2root from James Monk.
 
+2011-07-29  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Fix implementation of --config file option in make-plots.
+
 2011-07-27  David Mallows <dave.mallows@gmail.com>
 
 	* Updated MC_TTBAR.plot to reflect updated analysis.
