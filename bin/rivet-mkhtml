@@ -57,7 +57,7 @@ parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", actio
                   default=False, help="ignore unvalidated analyses.")
 parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
                   help="only write out histograms from analyses whose name matches any of these regexes")
-parser.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS"
+parser.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS",
                   help="Exclude histograms whose $path/$name string matches these regexes")
 parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERBOSE",
                   action="store_true", default=False)
