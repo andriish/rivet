@@ -71,7 +71,11 @@ namespace Rivet {
     l_nu_ids += make_pair(abs(pid), -abs(nu_pid));
     l_nu_ids += make_pair(-abs(pid), abs(nu_pid));
     InvMassFinalState imfs(mergedFS, l_nu_ids, m2_min, m2_max, 80.403);
-    imfs.useTransverseMass();
+
+    ///@todo this breaks existing analyses like D0_2008_S7837160 which use mass
+    /// cuts. have to make this optional.
+    //imfs.useTransverseMass();
+
     addProjection(imfs, "IMFS");
 
     // Add MissingMomentum proj to calc MET
