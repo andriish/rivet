@@ -40,12 +40,12 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-      if (zfinder.particles().size() != 1) {
-        MSG_DEBUG("Num e+ e- pairs found = " << zfinder.particles().size());
+      if (zfinder.bosons().size() != 1) {
+        MSG_DEBUG("Num e+ e- pairs found = " << zfinder.bosons().size());
         vetoEvent;
       }
 
-      FourMomentum pZ = zfinder.particles()[0].momentum();
+      FourMomentum pZ = zfinder.bosons()[0].momentum();
       if (pZ.mass2() < 0) {
         MSG_DEBUG("Negative Z mass**2 = " << pZ.mass2()/GeV2 << "!");
         vetoEvent;

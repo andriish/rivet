@@ -44,9 +44,9 @@ namespace Rivet {
       const double weight = event.weight();
 
       const WFinder& wf = applyProjection<WFinder>(event, "WFinder");
-      if (wf.size() == 0) vetoEvent;
+      if (wf.bosons().size() == 0) vetoEvent;
 
-      _h_W_pT->fill(wf.particles()[0].momentum().pT()/GeV, weight);
+      _h_W_pT->fill(wf.bosons()[0].momentum().pT()/GeV, weight);
     }
 
 

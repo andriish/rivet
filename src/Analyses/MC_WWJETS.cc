@@ -32,8 +32,8 @@ namespace Rivet {
       addProjection(wmnufinder, "WmnuFinder");
       VetoedFinalState jetinput;
       jetinput
-        .addVetoOnThisFinalState(wenufinder.originalLeptonFinalState())
-        .addVetoOnThisFinalState(wmnufinder.originalLeptonFinalState());
+          .addVetoOnThisFinalState(wenufinder)
+          .addVetoOnThisFinalState(wmnufinder);
       FastJets jetpro(jetinput, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
@@ -88,23 +88,23 @@ namespace Rivet {
       const double weight = e.weight();
 
       const WFinder& wenufinder = applyProjection<WFinder>(e, "WenuFinder");
-      if (wenufinder.particles().size()!=1) {
+      if (wenufinder.bosons().size()!=1) {
         vetoEvent;
       }
 
       const WFinder& wmnufinder = applyProjection<WFinder>(e, "WmnuFinder");
-      if (wmnufinder.particles().size()!=1) {
+      if (wmnufinder.bosons().size()!=1) {
         vetoEvent;
       }
 
-      FourMomentum wenu(wenufinder.particles()[0].momentum());
-      FourMomentum wmnu(wmnufinder.particles()[0].momentum());
+      FourMomentum wenu(wenufinder.bosons()[0].momentum());
+      FourMomentum wmnu(wmnufinder.bosons()[0].momentum());
       FourMomentum ww(wenu+wmnu);
       // find leptons
-      FourMomentum ep=wenufinder.constituentLepton().momentum();
-      FourMomentum enu=wenufinder.constituentNeutrino().momentum();
-      FourMomentum mm=wmnufinder.constituentLepton().momentum();
-      FourMomentum mnu=wmnufinder.constituentNeutrino().momentum();
+      FourMomentum ep=wenufinder.constituentLeptons()[0].momentum();
+      FourMomentum enu=wenufinder.constituentNeutrinos()[0].momentum();
+      FourMomentum mm=wmnufinder.constituentLeptons()[0].momentum();
+      FourMomentum mnu=wmnufinder.constituentNeutrinos()[0].momentum();
 
       _h_WW_pT->fill(ww.pT(),weight);
       _h_WW_pT_peak->fill(ww.pT(),weight);

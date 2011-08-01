@@ -72,16 +72,16 @@ namespace Rivet {
       const double weight = event.weight();
 
       const WFinder& wfinder = applyProjection<WFinder>(event, "WFinder");
-      if (wfinder.particles().size() != 1) {
+      if (wfinder.bosons().size() != 1) {
         vetoEvent;
       }
       const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
 
       FourMomentum pb1(beams.second.momentum()), pb2(beams.first.momentum());
-      Particle lepton=wfinder.constituentLepton();
+      Particle lepton=wfinder.constituentLeptons()[0];
       FourMomentum pl(lepton.momentum());
       size_t idx = (PID::threeCharge(lepton.pdgId())>0 ? 0 : 1);
-      FourMomentum plnu(wfinder.particles()[0].momentum());
+      FourMomentum plnu(wfinder.bosons()[0].momentum());
 
       LorentzTransform cms(-plnu.boostVector());
       Matrix3 zrot(plnu.vector3(), Vector3(0.0, 0.0, 1.0));
@@ -98,7 +98,7 @@ namespace Rivet {
       Matrix3 xrot(Vector3(xref.x(), xref.y(), 0.0), Vector3(1.0, 0.0, 0.0));
       pl3=xrot*pl3;
 
-      double ptw(wfinder.particles()[0].momentum().pT()/GeV);
+      double ptw(wfinder.bosons()[0].momentum().pT()/GeV);
       double thetas(pl3.theta()), phis(pl3.phi());
       double costhetas(cos(thetas)), sinthetas(sin(thetas));
       double cosphis(cos(phis)), sinphis(sin(phis));

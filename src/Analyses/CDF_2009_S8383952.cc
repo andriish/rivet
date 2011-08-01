@@ -54,8 +54,8 @@ namespace Rivet {
       const double weight = event.weight();
 
       const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
-      if (zfinder.particles().size() == 1) {
-        double yZ = fabs(zfinder.particles()[0].momentum().rapidity());
+      if (zfinder.bosons().size() == 1) {
+        double yZ = fabs(zfinder.bosons()[0].momentum().rapidity());
         _h_yZ->fill(yZ, weight);
         _h_xs->fill(1960.0, weight);
       }

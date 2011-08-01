@@ -60,15 +60,19 @@ namespace Rivet {
 
 
   void InvMassFinalState::project(const Event& e) {
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    calc(fs.particles());
+  }
+
+  void InvMassFinalState::calc(const ParticleVector& inparticles) {
     _theParticles.clear();
     _particlePairs.clear();
-    const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Containers for the particles of type specified in the pair
     vector<const Particle*> type1;
     vector<const Particle*> type2;
     // Get all the particles of the type specified in the pair from the particle list
-    foreach (const Particle& ipart, fs.particles()) {
+    foreach (const Particle& ipart, inparticles) {
       // Loop around possible particle pairs (typedef needed to keep BOOST_FOREACH happy)
       foreach (const PdgIdPair& ipair, _decayids) {
         if (ipart.pdgId() == ipair.first) {

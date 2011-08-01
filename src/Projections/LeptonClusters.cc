@@ -6,11 +6,20 @@
 
 namespace Rivet {
 
-  const FinalState& LeptonClusters::constituentsFinalState() const
+  LeptonClusters::LeptonClusters(const FinalState& photons, const FinalState& signal,
+                 double dRmax, bool cluster,
+                 const std::vector<std::pair<double, double> >& etaRanges,
+                 double pTmin) :
+    FinalState(etaRanges, pTmin),
+    _dRmax(dRmax), _cluster(cluster)
   {
-    return getProjection<FinalState>("Constituents");
-  }
+    setName("LeptonClusters");
 
+    IdentifiedFinalState photonfs(photons);
+    photonfs.acceptId(PHOTON);
+    addProjection(photonfs, "Photons");
+    addProjection(signal, "Signal");
+  }
 
   int LeptonClusters::compare(const Projection& p) const {
     // Compare the two as final states (for pT and eta cuts)
@@ -18,40 +27,17 @@ namespace Rivet {
     int fscmp = FinalState::compare(other);
     if (fscmp != EQUIVALENT) return fscmp;
 
-    fscmp = mkNamedPCmp(p, "Constituents");
-    return fscmp;
-  }
-
-
-  void LeptonClusters::project(const Event& e) {
-    _theParticles.clear();
-
-    const LeptonClustersConstituents& constituents =
-        applyProjection<LeptonClustersConstituents>(e, "Constituents");
-
-    foreach (const Particle& p, constituents.clusteredLeptons()) {
-      if (accept(p)) {
-        _theParticles.push_back(p);
-      }
-    }
-  }
-
-
-
-  int LeptonClustersConstituents::compare(const Projection& p) const {
-    const PCmp fscmp = mkNamedPCmp(p, "Photons");
-    if (fscmp != EQUIVALENT) return fscmp;
+    const PCmp phcmp = mkNamedPCmp(p, "Photons");
+    if (phcmp != EQUIVALENT) return phcmp;
 
     const PCmp sigcmp = mkNamedPCmp(p, "Signal");
     if (sigcmp != EQUIVALENT) return sigcmp;
 
-    const LeptonClustersConstituents& other = dynamic_cast<const LeptonClustersConstituents&>(p);
-    return (cmp(_dRmax, other._dRmax) || cmp(_cluster, other._cluster) ||
-            cmp(_track, other._track));
+    return (cmp(_dRmax, other._dRmax) || cmp(_cluster, other._cluster));
   }
 
 
-  void LeptonClustersConstituents::project(const Event& e) {
+  void LeptonClusters::project(const Event& e) {
     _theParticles.clear();
     _clusteredLeptons.clear();
 
@@ -59,14 +45,14 @@ namespace Rivet {
     ParticleVector bareleptons=signal.particles();
     if (bareleptons.size()==0) return;
 
+    vector<ClusteredLepton> allClusteredLeptons;
     for (size_t i=0; i<bareleptons.size(); ++i) {
-      _theParticles.push_back(bareleptons[i]);
-      _clusteredLeptons.push_back(Particle(bareleptons[i]));
+      allClusteredLeptons.push_back(ClusteredLepton(bareleptons[i]));
     }
 
     const FinalState& photons = applyProjection<FinalState>(e, "Photons");
-    foreach (const Particle& p, photons.particles()) {
-      const FourMomentum p_P = p.momentum();
+    foreach (const Particle& photon, photons.particles()) {
+      const FourMomentum p_P = photon.momentum();
       double dRmin=_dRmax;
       int idx=-1;
       for (size_t i=0; i<bareleptons.size(); ++i) {
@@ -81,10 +67,18 @@ namespace Rivet {
         }
       }
       if (idx>-1) {
-        if (_cluster) _clusteredLeptons[idx].setMomentum(_clusteredLeptons[idx].momentum()+p_P);
-        if (_track) _theParticles.push_back(p);
+        if (_cluster) allClusteredLeptons[idx].addPhoton(photon, _cluster);
+      }
+    }
+
+    foreach (const ClusteredLepton& lepton, allClusteredLeptons) {
+      if (accept(lepton)) {
+        _clusteredLeptons.push_back(lepton);
+        _theParticles.push_back(lepton.constituentLepton());
+        _theParticles.insert(_theParticles.end(),
+                             lepton.constituentPhotons().begin(),
+                             lepton.constituentPhotons().end());
       }
     }
   }
-
 }

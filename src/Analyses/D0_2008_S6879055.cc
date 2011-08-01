@@ -46,12 +46,12 @@ namespace Rivet {
 
 
       const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
-      if (zfinder.particles().size()!=1) {
+      if (zfinder.bosons().size()!=1) {
         vetoEvent;
       }
 
-      FourMomentum e0 = zfinder.constituentsFinalState().particles()[0].momentum();
-      FourMomentum e1 = zfinder.constituentsFinalState().particles()[1].momentum();
+      FourMomentum e0 = zfinder.constituents()[0].momentum();
+      FourMomentum e1 = zfinder.constituents()[1].momentum();
       const double e0eta = e0.eta();
       const double e0phi = e0.phi();
       const double e1eta = e1.eta();

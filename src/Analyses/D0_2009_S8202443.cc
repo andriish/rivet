@@ -65,7 +65,7 @@ namespace Rivet {
 
       // unconstrained electrons first
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-      if (zfinder.particles().size()==1) {
+      if (zfinder.bosons().size()==1) {
         _sum_of_weights += weight;
         const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
         const Jets& jets = jetpro.jetsByPt(20.0*GeV);
@@ -93,7 +93,7 @@ namespace Rivet {
 
       // constrained electrons
       const ZFinder& zfinder_constrained = applyProjection<ZFinder>(e, "ZFinderConstrained");
-      if (zfinder_constrained.particles().size()==1) {
+      if (zfinder_constrained.bosons().size()==1) {
         _sum_of_weights_constrained += weight;
         const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinderConstrained");
         const Jets& jets = jetpro.jetsByPt(20.0*GeV);

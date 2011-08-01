@@ -56,7 +56,7 @@ namespace Rivet {
       const double weight = e.weight();
 
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-      if (zfinder.particles().size()==1) {
+      if (zfinder.bosons().size()==1) {
         _sum_of_weights_inclusive += weight;
         const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
         const Jets& jets = jetpro.jetsByPt(20.0*GeV);
@@ -74,7 +74,7 @@ namespace Rivet {
           vetoEvent;
         }
 
-        const FourMomentum Zmom = zfinder.particles()[0].momentum();
+        const FourMomentum Zmom = zfinder.bosons()[0].momentum();
 
         // In jet pT
         _h_jet_pT_cross_section->fill( jets_cut[0].momentum().pT(), weight);

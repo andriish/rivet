@@ -64,11 +64,11 @@ namespace Rivet {
       const double weight = event.weight();
 
       const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
-      if (zfinder.particles().size()==1) {
+      if (zfinder.bosons().size()==1) {
         // count inclusive sum of weights for histogram normalisation
         _inclusive_Z_sumofweights += weight;
 
-        const FourMomentum Zmom = zfinder.particles()[0].momentum();
+        const FourMomentum Zmom = zfinder.bosons()[0].momentum();
         if (Zmom.pT()<25.0*GeV) {
           vetoEvent;
         }

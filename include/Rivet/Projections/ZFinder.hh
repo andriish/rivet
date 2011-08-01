@@ -8,6 +8,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/LeptonClusters.hh"
 
 namespace Rivet {
 
@@ -32,8 +33,9 @@ namespace Rivet {
     ZFinder(double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
-            double m2_min, double m2_max,
-            double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
+            double minmass, double maxmass,
+            double dRmax, bool clusterPhotons, bool trackPhotons,
+            double masstarget=91.2*GeV);
 
 
     /// Constructor taking multiple eta/pT bounds and type of the leptons, mass
@@ -45,8 +47,9 @@ namespace Rivet {
     ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
             double pTmin,
             PdgId pid,
-            double m2_min, const double m2_max,
-            double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
+            double minmass, const double maxmass,
+            double dRmax, bool clusterPhotons, bool trackPhotons,
+            double masstarget=91.2*GeV);
 
 
     /// Clone on the heap.
@@ -56,16 +59,18 @@ namespace Rivet {
     //@}
 
 
+    /// Access to the found bosons (currently either 0 or 1)
+    const ParticleVector& bosons() const { return _bosons; }
+
+    /// Access to the Z constituent clustered leptons
+    /// (e.g. for more fine-grained cuts on the clustered leptons)
+    const vector<Particle>& constituents() const { return _constituents; }
+
     /// Access to the remaining particles, after the Z and clustered photons
     /// have been removed from the full final state
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
 
-    /// Access to the Z constituent clustered leptons final state
-    /// (e.g. for more fine-grained cuts on the clustered leptons)
-    const FinalState& constituentsFinalState() const;
-
-    const FinalState& originalConstituentsFinalState() const;
 
   protected:
 
@@ -76,17 +81,49 @@ namespace Rivet {
     int compare(const Projection& p) const;
 
 
+  public:
+
+    /// Clear the projection
+    void clear() {
+      _theParticles.clear();
+      _bosons.clear();
+      _constituents.clear();
+    }
+
+
   private:
     /// Common implementation of constructor operation, taking FS params.
     void _init(const std::vector<std::pair<double, double> >& etaRanges,
                double pTmin,  PdgId pid,
-               double m2_min, double m2_max,
-               double dRmax, bool clusterPhotons, bool excludePhotonsFromJets);
+               double minmass, double maxmass,
+               double dRmax, bool clusterPhotons, bool trackPhotons,
+               double masstarget);
+
+    /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
+    double _minmass, _maxmass, _masstarget;
+
+    /// Switch for tracking of photons (whether to add them to _theParticles)
+    /// This is relevant when the ZFinder::_theParticles are to be excluded
+    /// from e.g. the input to a jet finder, to specify whether the clustered
+    /// photons are to be excluded as well.
+    /// (Yes, some experiments make a difference between clusterPhotons and
+    /// trackPhotons!)
+    bool _trackPhotons;
+
+    /// Lepton flavour
+    PdgId _pid;
+
+    /// list of found bosons (currently either 0 or 1)
+    ParticleVector _bosons;
+
+    /// Clustered leptons
+    vector<Particle> _constituents;
 
   };
 
 
 }
+
 
 
 #endif

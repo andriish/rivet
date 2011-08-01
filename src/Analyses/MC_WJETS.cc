@@ -53,7 +53,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const WFinder& wfinder = applyProjection<WFinder>(e, "WFinder");
-      if (wfinder.particles().size() != 1) {
+      if (wfinder.bosons().size() != 1) {
         vetoEvent;
       }
       const double weight = e.weight();
@@ -61,13 +61,13 @@ namespace Rivet {
       double charge3_x_eta = 0;
       int charge3 = 0;
       FourMomentum emom;
-      FourMomentum wmom(wfinder.particles().front().momentum());
+      FourMomentum wmom(wfinder.bosons().front().momentum());
       _h_W_mass->fill(wmom.mass(), weight);
       _h_W_pT->fill(wmom.pT(), weight);
       _h_W_pT_peak->fill(wmom.pT(), weight);
       _h_W_y->fill(wmom.rapidity(), weight);
       _h_W_phi->fill(wmom.azimuthalAngle(), weight);
-      Particle l=wfinder.constituentLepton();
+      Particle l=wfinder.constituentLeptons()[0];
       _h_lepton_pT->fill(l.momentum().pT(), weight);
       _h_lepton_eta->fill(l.momentum().eta(), weight);
       if (PID::threeCharge(l.pdgId()) != 0) {

@@ -44,8 +44,8 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-      if (zfinder.particles().size()==1) {
-        double ZpT = zfinder.particles()[0].momentum().pT()/GeV;
+      if (zfinder.bosons().size()==1) {
+        double ZpT = zfinder.bosons()[0].momentum().pT()/GeV;
         _h_Z_pT_normalised->fill(ZpT, weight);
         _h_Z_pT_xs->fill(ZpT, weight);
       }

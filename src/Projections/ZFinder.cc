@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
-#include "Rivet/Projections/ClusteredPhotons.hh"
 #include "Rivet/Projections/LeptonClusters.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -14,42 +13,49 @@ namespace Rivet {
   ZFinder::ZFinder(double etaMin, double etaMax,
                    double pTmin,
                    PdgId pid,
-                   double m2_min, double m2_max,
-                   double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS) {
+                   double minmass, double maxmass,
+                   double dRmax, bool clusterPhotons, bool trackPhotons,
+                   double masstarget) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax, clusterPhotons, excludePhotonsFromRFS);
+    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
   }
 
 
   ZFinder::ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
                    double pTmin,
                    PdgId pid,
-                   double m2_min, const double m2_max,
-                   double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS) {
-    _init(etaRanges, pTmin, pid, m2_min, m2_max, dRmax, clusterPhotons, excludePhotonsFromRFS);
+                   double minmass, const double maxmass,
+                   double dRmax, bool clusterPhotons, bool trackPhotons,
+                   double masstarget) {
+    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
   }
 
 
   void ZFinder::_init(const std::vector<std::pair<double, double> >& etaRanges,
                       double pTmin,  PdgId pid,
-                      double m2_min, double m2_max,
-                      double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS)
+                      double minmass, double maxmass,
+                      double dRmax, bool clusterPhotons, bool trackPhotons,
+                      double masstarget)
   {
     setName("ZFinder");
+
+    _minmass = minmass;
+    _maxmass = maxmass;
+    _masstarget = masstarget;
+    _pid = pid;
+    _trackPhotons = trackPhotons;
 
     FinalState fs;
     IdentifiedFinalState bareleptons(fs);
     bareleptons.acceptIdPair(pid);
     LeptonClusters leptons(fs, bareleptons, dRmax,
-                           clusterPhotons, excludePhotonsFromRFS,
+                           clusterPhotons,
                            etaRanges, pTmin);
     addProjection(leptons, "LeptonClusters");
-    InvMassFinalState imfs(leptons, std::make_pair(pid, -pid), m2_min, m2_max);
-    addProjection(imfs, "IMFS");
 
     VetoedFinalState remainingFS;
-    remainingFS.addVetoOnThisFinalState(leptons.constituentsFinalState());
+    remainingFS.addVetoOnThisFinalState(*this);
     addProjection(remainingFS, "RFS");
   }
 
@@ -63,46 +69,59 @@ namespace Rivet {
   }
 
 
-  const FinalState& ZFinder::constituentsFinalState() const
-  {
-    return getProjection<FinalState>("IMFS");
-  }
-
-  const FinalState& ZFinder::originalConstituentsFinalState() const
-  {
-    const LeptonClusters& leptons=getProjection<LeptonClusters>("LeptonClusters");
-    return leptons.constituentsFinalState();
-  }
-
   int ZFinder::compare(const Projection& p) const {
-    //std::cout<<"Comparing ZFinder"<<std::endl;
-    PCmp cmp = mkNamedPCmp(p, "IMFS");
-    //std::cout<<"Result "<<(int)cmp<<std::endl;
-    if (cmp != EQUIVALENT) return cmp;
+    PCmp LCcmp = mkNamedPCmp(p, "LeptonClusters");
+    if (LCcmp != EQUIVALENT) return LCcmp;
 
-    return EQUIVALENT;
+    const ZFinder& other = dynamic_cast<const ZFinder&>(p);
+    return (cmp(_minmass, other._minmass) || cmp(_maxmass, other._maxmass) ||
+            cmp(_pid, other._pid) || cmp(_trackPhotons, other._trackPhotons));
   }
 
 
   void ZFinder::project(const Event& e) {
-    _theParticles.clear();
+    clear();
 
-    const FinalState& imfs=applyProjection<FinalState>(e, "IMFS");
-    applyProjection<FinalState>(e, "RFS");
-    if (imfs.particles().size() != 2) return;
-    FourMomentum pZ = imfs.particles()[0].momentum() + imfs.particles()[1].momentum();
-    const int z3charge = PID::threeCharge(imfs.particles()[0].pdgId()) + PID::threeCharge(imfs.particles()[1].pdgId());
+    const LeptonClusters& leptons = applyProjection<LeptonClusters>(e, "LeptonClusters");
+
+    InvMassFinalState imfs(FinalState(), std::make_pair(_pid, -_pid), _minmass, _maxmass, _masstarget);
+    ParticleVector tmp;
+    tmp.insert(tmp.end(), leptons.clusteredLeptons().begin(), leptons.clusteredLeptons().end());
+    imfs.calc(tmp);
+
+    if (imfs.particlePairs().size() < 1) return;
+    ParticlePair Zconstituents(imfs.particlePairs()[0]);
+    Particle l1(Zconstituents.first), l2(Zconstituents.second);
+    _constituents += l1, l2;
+    FourMomentum pZ = l1.momentum() + l2.momentum();
+    const int z3charge = PID::threeCharge(l1.pdgId()) + PID::threeCharge(l2.pdgId());
     assert(z3charge == 0);
 
     stringstream msg;
     msg << "Z reconstructed from: " << endl
-        << "   " << imfs.particles()[0].momentum() << " " << imfs.particles()[0].pdgId() << endl
-        << " + " << imfs.particles()[1].momentum() << " " << imfs.particles()[1].pdgId() << endl;
+        << "   " << l1.momentum() << " " << l1.pdgId() << endl
+        << " + " << l2.momentum() << " " << l2.pdgId() << endl;
 
-    Particle Z;
-    Z.setMomentum(pZ);
-    _theParticles.push_back(Z);
+    _bosons.push_back(Particle(ZBOSON, pZ));
     getLog() << Log::DEBUG << name() << " found one Z." << endl;
+
+    // find the LeptonClusters which survived the IMFS cut such that we can
+    // extract their original particles
+    foreach (const Particle& p, _constituents) {
+      foreach (const ClusteredLepton& l, leptons.clusteredLeptons()) {
+        if (p.pdgId()==l.pdgId() && p.momentum()==l.momentum()) {
+          _theParticles.push_back(l.constituentLepton());
+          if (_trackPhotons) {
+            _theParticles.insert(_theParticles.end(),
+                                 l.constituentPhotons().begin(),
+                                 l.constituentPhotons().end());
+          }
+        }
+      }
+    }
+
+//    /// Apply the RFS here so that it can be acquired later via the remainingFinalState method
+//    applyProjection<FinalState>(e, "RFS");
   }
 
 

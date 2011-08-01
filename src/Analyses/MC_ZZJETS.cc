@@ -32,8 +32,8 @@ namespace Rivet {
       addProjection(zmmfinder, "ZmmFinder");
       VetoedFinalState jetinput;
       jetinput
-          .addVetoOnThisFinalState(zeefinder.originalConstituentsFinalState())
-          .addVetoOnThisFinalState(zmmfinder.originalConstituentsFinalState());
+          .addVetoOnThisFinalState(zeefinder)
+          .addVetoOnThisFinalState(zmmfinder);
       FastJets jetpro(jetinput, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
@@ -86,36 +86,36 @@ namespace Rivet {
       const double weight = e.weight();
 
       const ZFinder& zeefinder = applyProjection<ZFinder>(e, "ZeeFinder");
-      if (zeefinder.particles().size()!=1) {
+      if (zeefinder.bosons().size()!=1) {
         vetoEvent;
       }
 
       const ZFinder& zmmfinder = applyProjection<ZFinder>(e, "ZmmFinder");
-      if (zmmfinder.particles().size()!=1) {
+      if (zmmfinder.bosons().size()!=1) {
         vetoEvent;
       }
 
-      FourMomentum zee(zeefinder.particles()[0].momentum());
-      FourMomentum zmm(zmmfinder.particles()[0].momentum());
+      FourMomentum zee(zeefinder.bosons()[0].momentum());
+      FourMomentum zmm(zmmfinder.bosons()[0].momentum());
       FourMomentum zz(zee+zmm);
       // find leptons
       FourMomentum ep(0.0,0.0,0.0,0.0), em(0.0,0.0,0.0,0.0);
-      if (PID::threeCharge(zeefinder.constituentsFinalState().particles()[0])>0.0) {
-        ep=zeefinder.constituentsFinalState().particles()[0].momentum();
-        em=zeefinder.constituentsFinalState().particles()[1].momentum();
+      if (PID::threeCharge(zeefinder.constituents()[0])>0.0) {
+        ep=zeefinder.constituents()[0].momentum();
+        em=zeefinder.constituents()[1].momentum();
       }
       else {
-        ep=zeefinder.constituentsFinalState().particles()[1].momentum();
-        em=zeefinder.constituentsFinalState().particles()[0].momentum();
+        ep=zeefinder.constituents()[1].momentum();
+        em=zeefinder.constituents()[0].momentum();
       }
       FourMomentum mp(0.0,0.0,0.0,0.0), mm(0.0,0.0,0.0,0.0);
-      if (PID::threeCharge(zmmfinder.constituentsFinalState().particles()[0])>0.0) {
-        mp=zmmfinder.constituentsFinalState().particles()[0].momentum();
-        mm=zmmfinder.constituentsFinalState().particles()[1].momentum();
+      if (PID::threeCharge(zmmfinder.constituents()[0])>0.0) {
+        mp=zmmfinder.constituents()[0].momentum();
+        mm=zmmfinder.constituents()[1].momentum();
       }
       else {
-        mp=zmmfinder.constituentsFinalState().particles()[1].momentum();
-        mm=zmmfinder.constituentsFinalState().particles()[0].momentum();
+        mp=zmmfinder.constituents()[1].momentum();
+        mm=zmmfinder.constituents()[0].momentum();
       }
 
       _h_ZZ_pT->fill(zz.pT(),weight);

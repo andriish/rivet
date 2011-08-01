@@ -48,18 +48,18 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const ZFinder& hfinder = applyProjection<ZFinder>(e, "Hfinder");
-      if (hfinder.particles().size()!=1) {
+      if (hfinder.bosons().size()!=1) {
         vetoEvent;
       }
       const double weight = e.weight();
 
-      FourMomentum hmom(hfinder.particles()[0].momentum());
+      FourMomentum hmom(hfinder.bosons()[0].momentum());
       _h_H_mass->fill(hmom.mass(),weight);
       _h_H_pT->fill(hmom.pT(),weight);
       _h_H_pT_peak->fill(hmom.pT(),weight);
       _h_H_y->fill(hmom.rapidity(),weight);
       _h_H_phi->fill(hmom.azimuthalAngle(),weight);
-      foreach (const Particle& l, hfinder.constituentsFinalState().particles()) {
+      foreach (const Particle& l, hfinder.constituents()) {
         _h_lepton_pT->fill(l.momentum().pT(), weight);
         _h_lepton_eta->fill(l.momentum().eta(), weight);
       }

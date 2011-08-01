@@ -54,7 +54,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & event) {
       const WFinder& wf = applyProjection<WFinder>(event, "WFe");
-      if (wf.size() == 0) {
+      if (wf.bosons().size() == 0) {
         getLog() << Log::DEBUG << "No W candidates found: vetoing" << endl;
         vetoEvent;
       }
@@ -62,8 +62,8 @@ namespace Rivet {
       // Require that leptons have Et >= 25 GeV
       /// @todo Use pT cut in WFinder
       /// @todo Any ETmiss cut?
-      FourMomentum p_e=wf.constituentLepton().momentum();
-      int chg_e = PID::threeCharge(wf.constituentLepton().pdgId());
+      FourMomentum p_e=wf.constituentLeptons()[0].momentum();
+      int chg_e = PID::threeCharge(wf.constituentLeptons()[0].pdgId());
       if (p_e.eta() < 0) chg_e *= -1;
       assert(chg_e != 0);
 
