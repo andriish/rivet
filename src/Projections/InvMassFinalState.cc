@@ -11,7 +11,7 @@ namespace Rivet {
                                        double minmass, // min inv mass
                                        double maxmass, // max inv mass
                                        double masstarget)
-    : _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget)
+    : _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget), _useTransverseMass(false)
   {
     setName("InvMassFinalState");
     addProjection(fsp, "FS");
@@ -24,7 +24,7 @@ namespace Rivet {
                                        double minmass, // min inv mass
                                        double maxmass, // max inv mass
                                        double masstarget)
-    : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget)
+    : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget), _useTransverseMass(false)
   {
     setName("InvMassFinalState");
     addProjection(fsp, "FS");
