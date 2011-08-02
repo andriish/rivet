@@ -107,9 +107,9 @@ namespace Rivet {
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     template <typename F>
-    Jets jets(F sorter, double ptmin=0.0, double ptmax=MAXDOUBLE,
-              double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-              RapScheme rapscheme=PSEUDORAPIDITY) const {
+    Jets jets(F sorter, double ptmin, double,
+              double, double,
+              RapScheme) const {
       Jets js = jets(ptmin);
       if (sorter != 0) {
         std::sort(js.begin(), js.end(), sorter);
