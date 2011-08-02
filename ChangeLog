@@ -1,6 +1,14 @@
-2011-07-29  Andy Buckley  <andy@insectnation.org>
+2011-08-02  Frank Siegert  <frank.siegert@cern.ch>
 
-	* Version 1.5.2 release!
+	Version 1.6.0 release!
+
+2011-08-01  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Overhaul of the WFinder and ZFinder projections, including a change
+	of interface. This solves potential problems with leptons which are not
+	W/Z constituents being excluded from the RemainingFinalState.
+
+2011-07-29  Andy Buckley  <andy@insectnation.org>
 
 	* New version of aida2root from James Monk.
 
