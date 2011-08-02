@@ -182,9 +182,6 @@ namespace Rivet {
         }
       }
     }
-
-//    /// Apply the RFS here so that it can be acquired later via the remainingFinalState method
-//    applyProjection<FinalState>(e, "RFS");
   }
 
 
