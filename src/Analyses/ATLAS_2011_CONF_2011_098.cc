@@ -290,19 +290,19 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
 	scale( _hist_pTj_2bjet, 40. * 830. * crossSection()/sumOfWeights() );
 
 	
-cerr<< '\n'<<'\n'
-<< "Saw " 
-<< bj << " events aft bjets cut, "
-<< jets << " events aft jet cuts, "
-<< eTmisscut << " events aft eTmiss cut, "
-<< zerolept << " events after 0-lept cut. "
-<< '\n'
-<< threeJA << " 3JA events, " 
-<< threeJB << " 3JB events, "
-<< threeJC << " 3JC events, " 
-<< threeJD << " 3JD events. "
-<< '\n'
-;
+// cerr<< '\n'<<'\n'
+// << "Saw " 
+// << bj << " events aft bjets cut, "
+// << jets << " events aft jet cuts, "
+// << eTmisscut << " events aft eTmiss cut, "
+// << zerolept << " events after 0-lept cut. "
+// << '\n'
+// << threeJA << " 3JA events, " 
+// << threeJB << " 3JB events, "
+// << threeJC << " 3JC events, " 
+// << threeJD << " 3JD events. "
+// << '\n'
+// ;
 
     }
 

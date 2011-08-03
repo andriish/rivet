@@ -121,7 +121,7 @@ count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(
       const double weight = event.weight();      
       
 ///DEBUG
-      count +=1; cerr<< "Event " << count << '\n';
+      count +=1; //cerr<< "Event " << count << '\n';
  // debug
 
 
@@ -180,7 +180,7 @@ count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(
       }
 
       if ( cand_e.empty() && cand_mu.empty() ) {
-cerr<<" ->Event vetoed. No candidate lept"<<'\n'; 
+	//cerr<<" ->Event vetoed. No candidate lept"<<'\n'; 
 	vetoEvent;
       }
 
@@ -188,10 +188,10 @@ cerr<<" ->Event vetoed. No candidate lept"<<'\n';
 //DEBUG
 else{
 foreach (const Particle & mu,  cand_mu) {
-cerr << "cand mu: " << "Id " << mu.pdgId() << "      eta " << mu.momentum().eta() << "      pT " << mu.momentum().pT() << '\n';
+  //cerr << "cand mu: " << "Id " << mu.pdgId() << "      eta " << mu.momentum().eta() << "      pT " << mu.momentum().pT() << '\n';
 } 
 foreach (const Particle & lepton,  cand_e) {
-cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.momentum().eta() << "      pT " << lepton.momentum().pT() << '\n';
+  //cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.momentum().eta() << "      pT " << lepton.momentum().pT() << '\n';
 }} // debug
 
 
@@ -227,9 +227,9 @@ cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.momentum
 
 
 //DEBUG
-cerr << " Num of recon jets: " << recon_jets.size() << '\n'; 
-cerr << " Num of cand e: " << cand_e.size() << '\n';
-cerr << " Num of cand mu: " << cand_mu.size() << '\n';
+// cerr << " Num of recon jets: " << recon_jets.size() << '\n'; 
+// cerr << " Num of cand e: " << cand_e.size() << '\n';
+// cerr << " Num of cand mu: " << cand_mu.size() << '\n';
 //debug
 
 
@@ -239,7 +239,7 @@ cerr << " Num of cand mu: " << cand_mu.size() << '\n';
   
       // At least 2 hard jets
       if ( recon_jets.size() < 2 ) {
-cerr << " ->Event vetoed. Not enough hard jets." << '\n';
+	//cerr << " ->Event vetoed. Not enough hard jets." << '\n';
 	vetoEvent;
       }
 ++Njetscut;
@@ -407,7 +407,7 @@ cerr << " ->Event vetoed. Not enough hard jets." << '\n';
       if ( single_lept ) {
 
         if ( eTmiss <= 25*GeV ) {
-cerr << " ->Event vetoed. eTmiss=" << eTmiss << '\n';
+	  //cerr << " ->Event vetoed. eTmiss=" << eTmiss << '\n';
           vetoEvent;
         }
 ++eTmisscut;
@@ -442,14 +442,14 @@ cerr << " ->Event vetoed. eTmiss=" << eTmiss << '\n';
 		p_l1.pT() <= 30*GeV || p_l2.pT() <= 30*GeV || 
 		p_j[0].pT() <= 30*GeV || p_j[1].pT() <= 30*GeV ||
 		St_ll <= 450*GeV ) {
-cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';	 
+	  //cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';	 
 	  vetoEvent;
 	}
 	else {
 
 
 ++mumujj;	
-cerr<< " ->MUMUJJ event selected." << '\n';
+// cerr<< " ->MUMUJJ event selected." << '\n';
 	    _hist_St_mumu->fill(St_ll, weight);
 	    _count_mumujj->fill(0.5, weight);
 
@@ -462,13 +462,13 @@ cerr<< " ->MUMUJJ event selected." << '\n';
 		p_l1.pT() <= 30*GeV || p_l2.pT() <= 30*GeV || 
 		p_j[0].pT() <= 30*GeV || p_j[1].pT() <= 30*GeV ||
 		St_ll <= 450*GeV ) {
-cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';	 
+	  //cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';	 
 	  vetoEvent;
 	}
 	else {
 
 ++eejj;	
-cerr<< " ->EEJJ event selected." << '\n';
+//cerr<< " ->EEJJ event selected." << '\n';
    	    _hist_St_ee->fill(St_ll, weight);
 	    _count_eejj->fill(0.5, weight);
 
@@ -482,28 +482,28 @@ cerr<< " ->EEJJ event selected." << '\n';
 
 	
 	if (M_LQ<=150*GeV) {
-cerr<<" ->muvjj event vetoed. Not enough M_LQ: " << M_LQ<< '\n';
+//cerr<<" ->muvjj event vetoed. Not enough M_LQ: " << M_LQ<< '\n';
 	  vetoEvent;
 	}
 ++MLQonelept;
 	if (Mt_LQ<=150*GeV) {
-cerr<<" ->muvjj event vetoed. Not enough Mt_LQ: " << Mt_LQ<< '\n';
+//cerr<<" ->muvjj event vetoed. Not enough Mt_LQ: " << Mt_LQ<< '\n';
 	  vetoEvent;
 	}
 ++MtLQonelept;
 	if (St_v<=400*GeV) {
-cerr<<" ->muvjj event vetoed. Not enough St_v: " << St_v<< '\n';
+//cerr<<" ->muvjj event vetoed. Not enough St_v: " << St_v<< '\n';
 	  vetoEvent;
 	}
 ++Stvonelept;
         if (mT<=160*GeV) {
-cerr<<" ->muvjj event vetoed. Not enough mT: " << mT<<'\n';
+//cerr<<" ->muvjj event vetoed. Not enough mT: " << mT<<'\n';
 	  vetoEvent;
 	}
 ++mTonelept;
 	//else {
 ++muvjj;
-cerr<< " ->MUVJJ event selected." << '\n';
+//cerr<< " ->MUVJJ event selected." << '\n';
             _hist_MLQ_muv->fill(M_LQ, weight);
 	    _count_muvjj->fill(0.5, weight);
 
@@ -514,49 +514,49 @@ cerr<< " ->MUVJJ event selected." << '\n';
       else if ( cand_e.size() == 1 ) {
 
 if (M_LQ<=180*GeV) {
-cerr<<" ->evjj event vetoed. Not enough M_LQ: " << M_LQ<< '\n';
+//cerr<<" ->evjj event vetoed. Not enough M_LQ: " << M_LQ<< '\n';
 	  vetoEvent;
 	}
 ++MLQev;
 	if (Mt_LQ<=180*GeV) {
-cerr<<" ->evjj event vetoed. Not enough Mt_LQ: " << Mt_LQ<< '\n';
+//cerr<<" ->evjj event vetoed. Not enough Mt_LQ: " << Mt_LQ<< '\n';
 	  vetoEvent;
 	}
 ++MtLQev;
 	if (St_v<=410*GeV) {
-cerr<<" ->evjj event vetoed. Not enough St_v: " << St_v<< '\n';
+//cerr<<" ->evjj event vetoed. Not enough St_v: " << St_v<< '\n';
 	  vetoEvent;
 	}
 ++Stvev;
 if (mT<=200*GeV) {
-cerr<<" ->evjj event vetoed. Not enough mT: " << mT<<'\n';
+//cerr<<" ->evjj event vetoed. Not enough mT: " << mT<<'\n';
 	  vetoEvent;
 	}
 ++mTev;
 	//else {
 ++evjj;
-cerr<< " ->EVJJ event selected." << '\n';
+//cerr<< " ->EVJJ event selected." << '\n';
 _hist_MLQ_ev->fill(M_LQ, weight);
 	    _count_evjj->fill(0.5, weight);
 
 
-/*
-	if ( mT <= 200*GeV ||
-		M_LQ <= 180*GeV ||
-		Mt_LQ <= 180*GeV ||
-		St_v <= 410*GeV ) {
-cerr<<" ->evjj event vetoed. Doesn't pass table 4 cuts." << '\n';
-	  vetoEvent;
-	}
-	else {
-++evjj;
-cerr<< " ->EVJJ event selected." << '\n';
-_hist_MLQ_ev->fill(M_LQ, weight);
-	    _count_evjj->fill(0.5, weight);
 
-	}
+// 	if ( mT <= 200*GeV ||
+// 		M_LQ <= 180*GeV ||
+// 		Mt_LQ <= 180*GeV ||
+// 		St_v <= 410*GeV ) {
+// cerr<<" ->evjj event vetoed. Doesn't pass table 4 cuts." << '\n';
+// 	  vetoEvent;
+// 	}
+// 	else {
+// ++evjj;
+// cerr<< " ->EVJJ event selected." << '\n';
+// _hist_MLQ_ev->fill(M_LQ, weight);
+// 	    _count_evjj->fill(0.5, weight);
 
-*/
+// 	}
+
+
       }
 
 
@@ -566,33 +566,33 @@ _hist_MLQ_ev->fill(M_LQ, weight);
 
     
     void finalize() {
-cerr << '\n' << "Of " << count << " events, saw " 
-<< vetoe << " (after veto region cut), " 
-<< Njetscut << " (after 2jet req). " 
-<< '\n'
-<< "For " << dilept << " dilept events: " 
-<< candmumujj << " cand mumujj events, "
-<< candeejj << " cand eejj events."
-<< '\n'
-<< "For " << onelept << " onelept events: "
-<< candmvjj << " preselected mvjj events, "
-<< candevjj << " preselected evjj events; "
-<< eTmisscut << " (eTmiss req); "
-<< emuvjj << " leftover; "
-<< MLQonelept << " (muvjj M_LQ cut), "
-<< MtLQonelept << " (muvjj Mt_LQ cut), "
-<< Stvonelept << " (muvjj St_v cut), "
-<< mTonelept << " (muvjj mT cut); "
-<< MLQev << " (evjj M_LQ cut), "
-<< MtLQev << " (evjj Mt_LQ cut), "
-<< Stvev << " (evjj St_v cut), "
-<< mTev << " (evjj mT cut). "
-<< '\n'<<'\n'
-;
+// cerr << '\n' << "Of " << count << " events, saw " 
+// << vetoe << " (after veto region cut), " 
+// << Njetscut << " (after 2jet req). " 
+// << '\n'
+// << "For " << dilept << " dilept events: " 
+// << candmumujj << " cand mumujj events, "
+// << candeejj << " cand eejj events."
+// << '\n'
+// << "For " << onelept << " onelept events: "
+// << candmvjj << " preselected mvjj events, "
+// << candevjj << " preselected evjj events; "
+// << eTmisscut << " (eTmiss req); "
+// << emuvjj << " leftover; "
+// << MLQonelept << " (muvjj M_LQ cut), "
+// << MtLQonelept << " (muvjj Mt_LQ cut), "
+// << Stvonelept << " (muvjj St_v cut), "
+// << mTonelept << " (muvjj mT cut); "
+// << MLQev << " (evjj M_LQ cut), "
+// << MtLQev << " (evjj Mt_LQ cut), "
+// << Stvev << " (evjj St_v cut), "
+// << mTev << " (evjj mT cut). "
+// << '\n'<<'\n'
+// ;
 
-cerr << "CR - " << "mumu Z: " << mumuZCR << "  ee Z: " << eeZCR << "  munu W+2jets: " << munuW2CR << "  munu tt: " << munuttCR << "  enu W+2jets: " << enuW2CR << "  enu tt: " << enuttCR << '\n';
+// cerr << "CR - " << "mumu Z: " << mumuZCR << "  ee Z: " << eeZCR << "  munu W+2jets: " << munuW2CR << "  munu tt: " << munuttCR << "  enu W+2jets: " << enuW2CR << "  enu tt: " << enuttCR << '\n';
 
-cerr << "mumujj: " << mumujj << "      eejj: " << eejj << "      muvjj: " << muvjj << "      evjj: " << evjj << '\n';
+// cerr << "mumujj: " << mumujj << "      eejj: " << eejj << "      muvjj: " << muvjj << "      evjj: " << evjj << '\n';
 
 
 	scale( _hist_St_ee, 120. * 35. * crossSection()/sumOfWeights() );
