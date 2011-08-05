@@ -1,4 +1,4 @@
-// -*- C++ -*- 
+// -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/RivetAIDA.hh"
@@ -61,8 +61,8 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
 
 
       /// Jet finder
-      addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.4), 
-		    "AntiKtJets04");
+      addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.4),
+                    "AntiKtJets04");
 
 
       // all tracks (to do deltaR with leptons)
@@ -73,16 +73,16 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
 
 
       /// Book histograms
-      _count_threeJA = bookHistogram1D("count_threeJA", 1, 0., 1.);
-      _count_threeJB = bookHistogram1D("count_threeJB", 1, 0., 1.);
-      _count_threeJC = bookHistogram1D("count_threeJC", 1, 0., 1.);
-      _count_threeJD = bookHistogram1D("count_threeJD", 1, 0., 1.);
-      _hist_meff_1bjet = bookHistogram1D("meff_1bjet", 32, 0., 1600.);
+      _count_threeJA     = bookHistogram1D("count_threeJA", 1, 0., 1.);
+      _count_threeJB     = bookHistogram1D("count_threeJB", 1, 0., 1.);
+      _count_threeJC     = bookHistogram1D("count_threeJC", 1, 0., 1.);
+      _count_threeJD     = bookHistogram1D("count_threeJD", 1, 0., 1.);
+      _hist_meff_1bjet   = bookHistogram1D("meff_1bjet", 32, 0., 1600.);
       _hist_eTmiss_1bjet = bookHistogram1D("eTmiss_1bjet", 6, 0., 600.);
-      _hist_pTj_1bjet = bookHistogram1D("pTjet_1bjet", 20, 0., 800.);
-      _hist_meff_2bjet = bookHistogram1D("meff_2bjet", 32, 0., 1600.);
+      _hist_pTj_1bjet    = bookHistogram1D("pTjet_1bjet", 20, 0., 800.);
+      _hist_meff_2bjet   = bookHistogram1D("meff_2bjet", 32, 0., 1600.);
       _hist_eTmiss_2bjet = bookHistogram1D("eTmiss_2bjet", 6, 0., 600.);
-      _hist_pTj_2bjet = bookHistogram1D("pTjet_2bjet", 20, 0., 800.);
+      _hist_pTj_2bjet    = bookHistogram1D("pTjet_2bjet", 20, 0., 800.);
 
 
     }
@@ -93,44 +93,44 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
 
       const double weight = event.weight();
 
-      // Temp: calorimeter module failure with 10% acceptance loss; 
-      // region unknown ==> randomly choose 10% of events to be vetoed 
-      if ( rand()/RAND_MAX < 0.1 ) 
-	vetoEvent;
+      // Temp: calorimeter module failure with 10% acceptance loss;
+      // region unknown ==> randomly choose 10% of events to be vetoed
+      if ( rand()/RAND_MAX < 0.1 )
+        vetoEvent;
 
       Jets tmp_cand_jets;
-      foreach (const Jet& jet, 
-	       applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+      foreach (const Jet& jet,
+               applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.momentum().eta() ) < 2.8 ) {
           tmp_cand_jets.push_back(jet);
         }
-      } 
+      }
 
-      ParticleVector cand_e = 
-	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      ParticleVector cand_mu = 
-	applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
-      ParticleVector chg_tracks = 
-	applyProjection<ChargedFinalState>(event, "cfs").particles();
-      
+      ParticleVector cand_e =
+        applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      ParticleVector cand_mu =
+        applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
+      ParticleVector chg_tracks =
+        applyProjection<ChargedFinalState>(event, "cfs").particles();
+
 //cerr << "cand_e.size(): " << cand_e.size() << "   cand_mu.size(): " << cand_mu.size() << '\n';
 
 
       Jets cand_jets;
       foreach ( const Jet& jet, tmp_cand_jets ) {
-	if ( fabs( jet.momentum().eta() ) >= 2.8 )
-	  cand_jets.push_back( jet );
-	else {
-	  bool away_from_e = true;
-	  foreach ( const Particle & e, cand_e ) {
-	    if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
-	      away_from_e = false;
-	      break;
-	    }
-	  }
-	  if ( away_from_e )
-	    cand_jets.push_back( jet );
-	}
+        if ( fabs( jet.momentum().eta() ) >= 2.8 )
+          cand_jets.push_back( jet );
+        else {
+          bool away_from_e = true;
+          foreach ( const Particle & e, cand_e ) {
+            if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+              away_from_e = false;
+              break;
+            }
+          }
+          if ( away_from_e )
+            cand_jets.push_back( jet );
+        }
       }
 
       ParticleVector cand_lept;
@@ -138,33 +138,33 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
       bool isolated_e;
       foreach ( const Particle & e, cand_e ) {
         isolated_e = true;
-	foreach ( const Jet& jet, cand_jets ) {  
+        foreach ( const Jet& jet, cand_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 )
-	    isolated_e = false;
+            isolated_e = false;
         }
         if ( isolated_e == true )
-          cand_lept.push_back( e );  	
+          cand_lept.push_back( e );
        }
 
 
        bool isolated_mu;
        foreach ( const Particle & mu, cand_mu ) {
          isolated_mu = true;
-         foreach ( const Jet& jet, cand_jets ) {	
+         foreach ( const Jet& jet, cand_jets ) {
            if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
-	     isolated_mu = false;
-	}
-	if ( isolated_mu == true) 
-	  cand_lept.push_back( mu );
+             isolated_mu = false;
+        }
+        if ( isolated_mu == true)
+          cand_lept.push_back( mu );
       }
 
 
       // pTmiss
-      ParticleVector vfs_particles 
-	= applyProjection<VisibleFinalState>(event, "vfs").particles();
+      ParticleVector vfs_particles
+        = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
-	pTmiss -= p.momentum();
+        pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
 
@@ -172,9 +172,9 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
       // bjets
       Jets bjets;
       foreach (const Jet& j, cand_jets) {
-	if ( j.momentum().pT() > 20*GeV ) {
+        if ( j.momentum().pT() > 20*GeV ) {
           if (j.containsBottom()) bjets += j;
-	}
+        }
       }
 
       if (bjets.empty())  {
@@ -183,93 +183,93 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
       }
 
 ++bj;
-     
+
 
 
       // Jets event selection
-      if ( cand_jets.size() < 3 ) 	
-	vetoEvent; 
-      if ( cand_jets[0].momentum().pT() <= 130*GeV )	
-	vetoEvent;      
+      if ( cand_jets.size() < 3 )
+        vetoEvent;
+      if ( cand_jets[0].momentum().pT() <= 130*GeV )
+        vetoEvent;
       if ( cand_jets[1].momentum().pT() <= 50*GeV ||
-	        cand_jets[2].momentum().pT() <= 50*GeV ) 
-	vetoEvent;
-++jets;      
+                cand_jets[2].momentum().pT() <= 50*GeV )
+        vetoEvent;
+++jets;
 
       // eTmiss cut
-      if ( eTmiss <= 130*GeV ) 
-	vetoEvent;
+      if ( eTmiss <= 130*GeV )
+        vetoEvent;
 
 ++eTmisscut;
 
       // 0-lepton requirement
-      if ( !cand_lept.empty() ) 
-	vetoEvent;
+      if ( !cand_lept.empty() )
+        vetoEvent;
 ++zerolept;
 
       // m_eff cut
-      double m_eff = eTmiss 
-	+ cand_jets[0].momentum().pT() 
-	+ cand_jets[1].momentum().pT()
-	+ cand_jets[2].momentum().pT();
+      double m_eff = eTmiss
+        + cand_jets[0].momentum().pT()
+        + cand_jets[1].momentum().pT()
+        + cand_jets[2].momentum().pT();
 
-      if ( eTmiss / m_eff <= 0.25 ) 
-	vetoEvent;
+      if ( eTmiss / m_eff <= 0.25 )
+        vetoEvent;
 
 
       // min_dPhi
       double min_dPhi = 999.999;
       for ( int i = 0; i < 3; ++i ) {
-	double dPhi = deltaPhi( pTmiss.phi(), cand_jets[i].momentum().phi() );
-	min_dPhi = min( min_dPhi, dPhi );
-      } 
+        double dPhi = deltaPhi( pTmiss.phi(), cand_jets[i].momentum().phi() );
+        min_dPhi = min( min_dPhi, dPhi );
+      }
 
-      if ( min_dPhi <= 0.4 ) 
-	vetoEvent;
+      if ( min_dPhi <= 0.4 )
+        vetoEvent;
 
 
-  
+
     // ==================== FILL ====================
 
 
       // 1 bjet
       if ( bjets.size() >= 1 ) {
 
-	_hist_meff_1bjet->fill(m_eff, weight);
-	_hist_eTmiss_1bjet->fill(eTmiss, weight);
-	_hist_pTj_1bjet->fill(cand_jets[0].momentum().pT(), weight);
+        _hist_meff_1bjet->fill(m_eff, weight);
+        _hist_eTmiss_1bjet->fill(eTmiss, weight);
+        _hist_pTj_1bjet->fill(cand_jets[0].momentum().pT(), weight);
 
-        // 3JA region 
-	if ( m_eff > 200*GeV ) {
+        // 3JA region
+        if ( m_eff > 200*GeV ) {
 ++threeJA;
-	_count_threeJA->fill(0.5, weight);
+        _count_threeJA->fill(0.5, weight);
         }
 
         // 3JB region
         if ( m_eff > 700*GeV ) {
 ++threeJB;
-	_count_threeJB->fill(0.5, weight);
-	}
+        _count_threeJB->fill(0.5, weight);
+        }
       }
 
       // 2 bjets
       if ( bjets.size() >= 2 ) {
 
-	_hist_meff_2bjet->fill(m_eff, weight);
-	_hist_eTmiss_2bjet->fill(eTmiss, weight);
-	_hist_pTj_2bjet->fill(cand_jets[0].momentum().pT(), weight);
+        _hist_meff_2bjet->fill(m_eff, weight);
+        _hist_eTmiss_2bjet->fill(eTmiss, weight);
+        _hist_pTj_2bjet->fill(cand_jets[0].momentum().pT(), weight);
 
         // 3JC region
         if ( m_eff > 500*GeV ) {
 ++threeJC;
-  	  _count_threeJC->fill(0.5, weight);
+          _count_threeJC->fill(0.5, weight);
         }
 
         // 3JD region
         if ( m_eff > 700*GeV ) {
 ++threeJD;
-  	  _count_threeJD->fill(0.5, weight);
-	}
+          _count_threeJD->fill(0.5, weight);
+        }
       }
 
 
@@ -278,28 +278,28 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
     }
 
     //@}
-    
+
     void finalize() {
 
 
-	scale( _hist_meff_1bjet, 50. * 830. * crossSection()/sumOfWeights() );
-	scale( _hist_eTmiss_1bjet, 100. * 830. * crossSection()/sumOfWeights() );
-	scale( _hist_pTj_1bjet, 40. * 830. * crossSection()/sumOfWeights() );
-	scale( _hist_meff_2bjet, 50. * 830. * crossSection()/sumOfWeights() );
-	scale( _hist_eTmiss_2bjet, 100. * 830. * crossSection()/sumOfWeights() );
-	scale( _hist_pTj_2bjet, 40. * 830. * crossSection()/sumOfWeights() );
+        scale( _hist_meff_1bjet, 50. * 830. * crossSection()/sumOfWeights() );
+        scale( _hist_eTmiss_1bjet, 100. * 830. * crossSection()/sumOfWeights() );
+        scale( _hist_pTj_1bjet, 40. * 830. * crossSection()/sumOfWeights() );
+        scale( _hist_meff_2bjet, 50. * 830. * crossSection()/sumOfWeights() );
+        scale( _hist_eTmiss_2bjet, 100. * 830. * crossSection()/sumOfWeights() );
+        scale( _hist_pTj_2bjet, 40. * 830. * crossSection()/sumOfWeights() );
 
-	
+
 // cerr<< '\n'<<'\n'
-// << "Saw " 
+// << "Saw "
 // << bj << " events aft bjets cut, "
 // << jets << " events aft jet cuts, "
 // << eTmisscut << " events aft eTmiss cut, "
 // << zerolept << " events after 0-lept cut. "
 // << '\n'
-// << threeJA << " 3JA events, " 
+// << threeJA << " 3JA events, "
 // << threeJB << " 3JB events, "
-// << threeJC << " 3JC events, " 
+// << threeJC << " 3JC events, "
 // << threeJD << " 3JD events. "
 // << '\n'
 // ;

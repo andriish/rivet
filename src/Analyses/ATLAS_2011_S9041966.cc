@@ -1,4 +1,4 @@
-// -*- C++ -*- 
+// -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/RivetAIDA.hh"
@@ -24,7 +24,7 @@ namespace Rivet {
       : Analysis("ATLAS_2011_S9041966"),
 
 //DEBUG
-count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(0), eTmisscut(0), candmvjj(0), candevjj(0), mumujj(0), eejj(0), mTonelept(0), MLQonelept(0), MtLQonelept(0), Stvonelept(0), mTev(0), MLQev(0), MtLQev(0), Stvev(0), muvjj(0), evjj(0), emuvjj(0), cande(0), candmu(0), tmpmu(0), tmpe(0), mumuZCR(0), eeZCR(0), munuW2CR(0), munuttCR(0), enuW2CR(0), enuttCR(0)
+count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(0), eTmisscut(0), candmvjj(0), candevjj(0), mumujj(0), eejj(0), mTonelept(0), MLQonelept(0), MtLQonelept(0), Stvonelept(0), mTev(0), MLQev(0), MtLQev(0), Stvev(0), muvjj(0), evjj(0), emuvjj(0), cande(0), candmu(0), tmpe(0), tmpmu(0), mumuZCR(0), eeZCR(0), munuW2CR(0), munuttCR(0), enuW2CR(0), enuttCR(0)
 
     {
       /// Set whether your finalize method needs the generator cross section
@@ -50,7 +50,7 @@ count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(
       addProjection(elecs, "elecs");
 
 
-      // veto region electrons 
+      // veto region electrons
       std::vector<std::pair<double, double> > eta_v_e;
       eta_v_e.push_back(make_pair(-1.52,-1.35));
       eta_v_e.push_back(make_pair( 1.35, 1.52));
@@ -63,7 +63,7 @@ count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(
       IdentifiedFinalState all_mu_e;
       all_mu_e.acceptIdPair(MUON);
       all_mu_e.acceptIdPair(ELECTRON);
-      addProjection(all_mu_e, "all_mu_e"); //debug 
+      addProjection(all_mu_e, "all_mu_e"); //debug
 
 
 
@@ -93,23 +93,21 @@ count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(
 
       /// Book histograms
       _count_mumujj = bookHistogram1D("count_2muons_dijet", 1, 0., 1.);
-      _count_eejj = bookHistogram1D("count_2elecs_dijet", 1, 0., 1.); 
-      _count_muvjj = bookHistogram1D("count_muon_neutrino_dijet", 1, 0., 1.); 
-      _count_evjj = bookHistogram1D("count_elec_neutrino_dijet", 1, 0., 1.); 
+      _count_eejj   = bookHistogram1D("count_2elecs_dijet", 1, 0., 1.);
+      _count_muvjj  = bookHistogram1D("count_muon_neutrino_dijet", 1, 0., 1.);
+      _count_evjj   = bookHistogram1D("count_elec_neutrino_dijet", 1, 0., 1.);
 
       _hist_St_mumu = bookHistogram1D("hist_mumujj_St", 10, 450., 1650.);
-      _hist_St_ee = bookHistogram1D("hist_eejj_St", 10, 450., 1650.);
+      _hist_St_ee   = bookHistogram1D("hist_eejj_St", 10, 450., 1650.);
       _hist_MLQ_muv = bookHistogram1D("hist_munujj_MLQ", 9, 150., 600.);
-      _hist_MLQ_ev = bookHistogram1D("hist_enujj_MLQ", 9, 150., 600.);
+      _hist_MLQ_ev  = bookHistogram1D("hist_enujj_MLQ", 9, 150., 600.);
 
-
-
-      _hist_St_mumu_ZCR = bookHistogram1D("CR_Zjets_St_mumu", 40, 0., 800.);
-      _hist_St_ee_ZCR = bookHistogram1D("CR_Zjets_Stee", 40, 0., 800.);
+      _hist_St_mumu_ZCR   = bookHistogram1D("CR_Zjets_St_mumu", 40, 0., 800.);
+      _hist_St_ee_ZCR     = bookHistogram1D("CR_Zjets_Stee", 40, 0., 800.);
       _hist_MLQ_munu_W2CR = bookHistogram1D("CR_W2jets_MLQ_munu", 20, 0., 400.);
-      _hist_MLQ_enu_W2CR = bookHistogram1D("CR_W2jets_MLQ_enu", 20, 0., 400.);
+      _hist_MLQ_enu_W2CR  = bookHistogram1D("CR_W2jets_MLQ_enu", 20, 0., 400.);
       _hist_MLQ_munu_ttCR = bookHistogram1D("CR_tt_MLQ_munu", 35, 0., 700.);
-      _hist_MLQ_enu_ttCR = bookHistogram1D("CR_tt_MLQ_enu", 35, 0., 700.);
+      _hist_MLQ_enu_ttCR  = bookHistogram1D("CR_tt_MLQ_enu", 35, 0., 700.);
 
     }
 
@@ -118,88 +116,88 @@ count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();      
-      
+      const double weight = event.weight();
+
 ///DEBUG
       count +=1; //cerr<< "Event " << count << '\n';
  // debug
 
 
-      ParticleVector veto_e 
-	= applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
+      ParticleVector veto_e
+        = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
-       	MSG_DEBUG("electrons in veto region");
-       	vetoEvent;
+        MSG_DEBUG("electrons in veto region");
+        vetoEvent;
       }
 ++vetoe;
 
 
       Jets cand_jets;
-      foreach ( const Jet& jet, 
-       	  applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+      foreach ( const Jet& jet,
+          applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.momentum().eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
-      } 
+      }
 
 
-      ParticleVector candtemp_e = 
-	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();      
-      ParticleVector candtemp_mu = 
-	applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
+      ParticleVector candtemp_e =
+        applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      ParticleVector candtemp_mu =
+        applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
       ParticleVector cand_mu;
       ParticleVector cand_e;
-      ParticleVector vfs_particles 
-	= applyProjection<VisibleFinalState>(event, "vfs").particles();
+      ParticleVector vfs_particles
+        = applyProjection<VisibleFinalState>(event, "vfs").particles();
 
 
-      // pTcone around muon track 
+      // pTcone around muon track
       foreach ( const Particle & mu, candtemp_mu ) {
 ++tmpmu;
-	double pTinCone = -mu.momentum().pT();
-	foreach ( const Particle & track, vfs_particles ) {
-	  if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
-	}
-	if ( pTinCone/mu.momentum().pT() < 0.25 ) 
+        double pTinCone = -mu.momentum().pT();
+        foreach ( const Particle & track, vfs_particles ) {
+          if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
+            pTinCone += track.momentum().pT();
+        }
+        if ( pTinCone/mu.momentum().pT() < 0.25 )
 ++candmu;
-	  cand_mu.push_back(mu);
+          cand_mu.push_back(mu);
       }
 
       // pTcone around electron
       foreach ( const Particle e, candtemp_e ) {
 ++tmpe;
-	double pTinCone = -e.momentum().pT();
-	foreach ( const Particle & track, vfs_particles ) {
-	  if ( deltaR(e.momentum(),track.momentum()) < 0.2 )  
-	    pTinCone += track.momentum().pT();
-	}
-	if ( pTinCone/e.momentum().pT() < 0.2 )
+        double pTinCone = -e.momentum().pT();
+        foreach ( const Particle & track, vfs_particles ) {
+          if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
+            pTinCone += track.momentum().pT();
+        }
+        if ( pTinCone/e.momentum().pT() < 0.2 )
 ++cande;
-	  cand_e.push_back(e);
+          cand_e.push_back(e);
       }
 
       if ( cand_e.empty() && cand_mu.empty() ) {
-	//cerr<<" ->Event vetoed. No candidate lept"<<'\n'; 
-	vetoEvent;
+        //cerr<<" ->Event vetoed. No candidate lept"<<'\n';
+        vetoEvent;
       }
 
 
 //DEBUG
-else{
-foreach (const Particle & mu,  cand_mu) {
-  //cerr << "cand mu: " << "Id " << mu.pdgId() << "      eta " << mu.momentum().eta() << "      pT " << mu.momentum().pT() << '\n';
-} 
-foreach (const Particle & lepton,  cand_e) {
-  //cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.momentum().eta() << "      pT " << lepton.momentum().pT() << '\n';
-}} // debug
+// else{
+// foreach (const Particle & mu,  cand_mu) {
+//   cerr << "cand mu: " << "Id " << mu.pdgId() << "      eta " << mu.momentum().eta() << "      pT " << mu.momentum().pT() << '\n';
+// }
+// foreach (const Particle & lepton,  cand_e) {
+//   cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.momentum().eta() << "      pT " << lepton.momentum().pT() << '\n';
+// }} // debug
 
 
 
-     // pTmiss  
+     // pTmiss
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
-	pTmiss -= p.momentum();
+        pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
 
@@ -207,107 +205,107 @@ foreach (const Particle & lepton,  cand_e) {
       // discard jets that overlap with leptons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-	  bool away_from_lept = true;
-	  foreach ( const Particle e, cand_e ) {
-	    if ( deltaR(e.momentum(),jet.momentum()) <= 0.5 ) {
-	      away_from_lept = false;
-	      break;
-	    }
-	  }
-	  foreach ( const Particle & mu, cand_mu ) {
-	    if ( deltaR(mu.momentum(),jet.momentum()) <= 0.5 ) {
-	      away_from_lept = false;
-	      break;
-	    }
-	  }
-	  if ( away_from_lept ) 
-	    recon_jets.push_back( jet );
+          bool away_from_lept = true;
+          foreach ( const Particle e, cand_e ) {
+            if ( deltaR(e.momentum(),jet.momentum()) <= 0.5 ) {
+              away_from_lept = false;
+              break;
+            }
+          }
+          foreach ( const Particle & mu, cand_mu ) {
+            if ( deltaR(mu.momentum(),jet.momentum()) <= 0.5 ) {
+              away_from_lept = false;
+              break;
+            }
+          }
+          if ( away_from_lept )
+            recon_jets.push_back( jet );
       }
 
 
 
 //DEBUG
-// cerr << " Num of recon jets: " << recon_jets.size() << '\n'; 
+// cerr << " Num of recon jets: " << recon_jets.size() << '\n';
 // cerr << " Num of cand e: " << cand_e.size() << '\n';
 // cerr << " Num of cand mu: " << cand_mu.size() << '\n';
 //debug
 
 
-     
+
       // ================ OBSERVABLES ================
 
-  
+
       // At least 2 hard jets
       if ( recon_jets.size() < 2 ) {
-	//cerr << " ->Event vetoed. Not enough hard jets." << '\n';
-	vetoEvent;
+        //cerr << " ->Event vetoed. Not enough hard jets." << '\n';
+        vetoEvent;
       }
 ++Njetscut;
 
-    
+
       // Initialize variables for observables
-      double M_ll, M_LQ, St_ll, Mt_LQ, St_v, mT;
+      double M_ll=0., M_LQ=0., St_ll=0., Mt_LQ=0., St_v=0., mT=0.;
       FourMomentum p_l, p_l1, p_l2, p_j[2];
-      p_j[0] = recon_jets[0].momentum(); 
-      p_j[1] = recon_jets[1].momentum(); 
-    
+      p_j[0] = recon_jets[0].momentum();
+      p_j[1] = recon_jets[1].momentum();
+
       ParticleVector dilept_pair;
-      bool single_lept = false; 
+      bool single_lept = false;
 
       if ( cand_mu.size() == 2 && cand_e.empty() ) {
 ++candmumujj;
-        foreach ( const Particle& mu, cand_mu ) 
- 	  dilept_pair.push_back(mu);
+        foreach ( const Particle& mu, cand_mu )
+          dilept_pair.push_back(mu);
       }
       else if ( cand_e.size() == 2 && cand_mu.empty() ) {
 ++candeejj;
-	  foreach ( const Particle& e, cand_e ) 
- 	    dilept_pair.push_back(e);
+          foreach ( const Particle& e, cand_e )
+            dilept_pair.push_back(e);
       }
       else if ( cand_mu.size() == 1 && cand_e.empty() ) {
 ++candmvjj;
         p_l = cand_mu[0].momentum();
-	single_lept = true; 
+        single_lept = true;
       }
       else if ( cand_e.size() == 1 && cand_mu.empty() ) {
 ++candevjj;
-	p_l = cand_e[0].momentum();
-	single_lept = true;
+        p_l = cand_e[0].momentum();
+        single_lept = true;
       }
 
-      // Dilepton channel observables 
+      // Dilepton channel observables
       if ( ! dilept_pair.empty() ) {
 
-	double E_l1, E_l2, E_j1, E_j2;
-	double tmpM_LQ1[2], tmpM_LQ2[2], M_LQDiff1, M_LQDiff2;
-	
-        p_l1 = dilept_pair[0].momentum(); 
-	p_l2 = dilept_pair[1].momentum(); 
-	E_l1 = p_l1.E(); 
-	E_l2 = p_l2.E();
+        double E_l1, E_l2, E_j1, E_j2;
+        double tmpM_LQ1[2], tmpM_LQ2[2], M_LQDiff1, M_LQDiff2;
 
- 	E_j1 = p_j[0].E(); 
-	E_j2 = p_j[1].E();
+        p_l1 = dilept_pair[0].momentum();
+        p_l2 = dilept_pair[1].momentum();
+        E_l1 = p_l1.E();
+        E_l2 = p_l2.E();
+
+        E_j1 = p_j[0].E();
+        E_j2 = p_j[1].E();
 
         // Calculate possible leptoquark mass M_LQ and reconstruct average M_LQ
 
-	tmpM_LQ1[0] = E_l1 + E_j1; 
-	tmpM_LQ1[1] = E_l2 + E_j2;
-	M_LQDiff1 = abs( tmpM_LQ1[0] - tmpM_LQ1[1] );
+        tmpM_LQ1[0] = E_l1 + E_j1;
+        tmpM_LQ1[1] = E_l2 + E_j2;
+        M_LQDiff1 = abs( tmpM_LQ1[0] - tmpM_LQ1[1] );
 
-	tmpM_LQ2[0] = E_l1 + E_j2; 
-	tmpM_LQ2[1] = E_l2 + E_j1;
+        tmpM_LQ2[0] = E_l1 + E_j2;
+        tmpM_LQ2[1] = E_l2 + E_j1;
         M_LQDiff2 = abs( tmpM_LQ2[0] - tmpM_LQ2[1] );
 
-        if ( M_LQDiff1 > M_LQDiff2 ) 
-	  M_LQ = ( tmpM_LQ2[0] + tmpM_LQ2[1] ) / 2;
-	else 
-	  M_LQ = ( tmpM_LQ1[0] + tmpM_LQ1[1] ) / 2;
+        if ( M_LQDiff1 > M_LQDiff2 )
+          M_LQ = ( tmpM_LQ2[0] + tmpM_LQ2[1] ) / 2;
+        else
+          M_LQ = ( tmpM_LQ1[0] + tmpM_LQ1[1] ) / 2;
 
         // Calculate event transverse energy St
-	St_ll = p_l1.pT() + p_l2.pT() + p_j[0].pT() + p_j[1].pT(); 
+        St_ll = p_l1.pT() + p_l2.pT() + p_j[0].pT() + p_j[1].pT();
 
-	// Dilept pair invariant mass M_ll
+        // Dilept pair invariant mass M_ll
         M_ll = E_l1 + E_l2;
 
       }
@@ -317,119 +315,119 @@ foreach (const Particle & lepton,  cand_e) {
 
         double tmpM_LQ[2], tmpMt_LQ[2], dPhi_j[2], M_LQDiff1, M_LQDiff2;
 
-	// List of possible M_LQ, Mt_LQ pairings 
+        // List of possible M_LQ, Mt_LQ pairings
 
-	for ( int i = 0; i < 2; ++i ) {
+        for ( int i = 0; i < 2; ++i ) {
           tmpM_LQ[i] = p_l.E() + p_j[i].E();
           dPhi_j[1-i] = deltaPhi( p_j[1-i].phi(), pTmiss.phi() );
           tmpMt_LQ[i] = sqrt( 2 * p_j[1-i].pT() * eTmiss * (1 - cos( dPhi_j[1-i] )) );
         }
 
-	// Choose pairing that gives smallest absolute difference
+        // Choose pairing that gives smallest absolute difference
 
         M_LQDiff1 = abs( tmpM_LQ[0] - tmpMt_LQ[0] );
-	M_LQDiff2 = abs( tmpM_LQ[1] - tmpMt_LQ[1] );
+        M_LQDiff2 = abs( tmpM_LQ[1] - tmpMt_LQ[1] );
 
         if ( M_LQDiff1 > M_LQDiff2 ) {
           M_LQ = tmpM_LQ[1];
-	  Mt_LQ = tmpMt_LQ[1];
-	}
-	else {
-	  M_LQ = tmpM_LQ[0];
-	  Mt_LQ = tmpMt_LQ[0];
-	}
+          Mt_LQ = tmpMt_LQ[1];
+        }
+        else {
+          M_LQ = tmpM_LQ[0];
+          Mt_LQ = tmpMt_LQ[0];
+        }
 
         // Event transverse energy
-	St_v = p_l.pT() + eTmiss + p_j[0].pT() + p_j[1].pT();
+        St_v = p_l.pT() + eTmiss + p_j[0].pT() + p_j[1].pT();
 
         // Transverse mass mT
-        double dPhi_l = deltaPhi( p_l.phi(), pTmiss.phi());	
+        double dPhi_l = deltaPhi( p_l.phi(), pTmiss.phi());
         mT = sqrt( 2 * p_l.pT() * eTmiss * (1 - cos(dPhi_l)) );
 
       }
-      
+
 
     // ============== CONTROL REGIONS ===============
 
       // mumujj, Z control region
       if ( cand_mu.size() == 2 ) {
-	if ( M_ll >= 81*GeV && M_ll <= 101*GeV ) {
-++mumuZCR; 
-	  _hist_St_mumu_ZCR->fill(St_ll, weight);
-	}
+        if ( M_ll >= 81*GeV && M_ll <= 101*GeV ) {
+++mumuZCR;
+          _hist_St_mumu_ZCR->fill(St_ll, weight);
+        }
       }
       // eejj, Z control region
       else if ( cand_e.size() == 2 ) {
-	if ( M_ll >= 81*GeV && M_ll <= 101*GeV ) {
+        if ( M_ll >= 81*GeV && M_ll <= 101*GeV ) {
 ++eeZCR;
-	  _hist_St_ee_ZCR->fill(St_ll, weight);
+          _hist_St_ee_ZCR->fill(St_ll, weight);
 
-	}
+        }
       }
 
       if ( cand_mu.size() == 1 ) {
         // munujj, W+2jets control region
-	if ( recon_jets.size() == 2 && 
-	     mT >= 40*GeV && mT <= 150*GeV ) {
+        if ( recon_jets.size() == 2 &&
+             mT >= 40*GeV && mT <= 150*GeV ) {
 ++munuW2CR;
-	  _hist_MLQ_munu_W2CR->fill(M_LQ, weight);
+          _hist_MLQ_munu_W2CR->fill(M_LQ, weight);
         }
-	// munujj, tt control region
-	if ( recon_jets.size() >= 4 && 
+        // munujj, tt control region
+        if ( recon_jets.size() >= 4 &&
              recon_jets[0].momentum().pT() > 50*GeV && recon_jets[1].momentum().pT() > 40*GeV && recon_jets[2].momentum().pT() > 30*GeV ) {
 ++munuttCR;
-	  _hist_MLQ_munu_ttCR->fill(M_LQ, weight);
-	}
+          _hist_MLQ_munu_ttCR->fill(M_LQ, weight);
+        }
       }
       if ( cand_e.size() == 1 ) {
         // enujj, W+2jets control region
-	if ( recon_jets.size() == 2 && 
-	     mT >= 40*GeV && mT <= 150*GeV ) {
+        if ( recon_jets.size() == 2 &&
+             mT >= 40*GeV && mT <= 150*GeV ) {
 ++enuW2CR;
-	  _hist_MLQ_enu_W2CR->fill(M_LQ, weight);
+          _hist_MLQ_enu_W2CR->fill(M_LQ, weight);
         }
-	// enujj, tt control region
-	if ( recon_jets.size() >= 4 && 
+        // enujj, tt control region
+        if ( recon_jets.size() >= 4 &&
              recon_jets[0].momentum().pT() > 50*GeV && recon_jets[1].momentum().pT() > 40*GeV && recon_jets[2].momentum().pT() > 30*GeV ) {
 ++enuttCR;
-	  _hist_MLQ_enu_ttCR->fill(M_LQ, weight);
-	}
-      }  
+          _hist_MLQ_enu_ttCR->fill(M_LQ, weight);
+        }
+      }
 
-	  
-	  
+
+
 
     // ========= PRESELECTION =======================
 
 
 
-      // Single lepton channel cuts 
+      // Single lepton channel cuts
       if ( single_lept ) {
 
         if ( eTmiss <= 25*GeV ) {
-	  //cerr << " ->Event vetoed. eTmiss=" << eTmiss << '\n';
+          //cerr << " ->Event vetoed. eTmiss=" << eTmiss << '\n';
           vetoEvent;
         }
 ++eTmisscut;
 
-        if ( mT <= 40*GeV ) 
+        if ( mT <= 40*GeV )
           vetoEvent;
-        
+
 //++mTcut;
 
         // enujj channel
         if ( cand_e.size() == 1 && cand_mu.empty() ) {
 
-          // Triangle cut        
+          // Triangle cut
           double dPhi_jet1 = deltaPhi( recon_jets[0].phi(), pTmiss.phi() );
           double dPhi_jet2 = deltaPhi( recon_jets[1].phi(), pTmiss.phi() );
 
-          if ( dPhi_jet1 <= 1.5 * (1 - eTmiss/45) || 
+          if ( dPhi_jet1 <= 1.5 * (1 - eTmiss/45) ||
                dPhi_jet2 <= 1.5 * (1 - eTmiss/45) ) {
 ++emuvjj;
             vetoEvent;
-          } 
-       }      
+          }
+       }
      }
 
     // ==================== FILL ====================
@@ -438,123 +436,123 @@ foreach (const Particle & lepton,  cand_e) {
       // mumujj channel
       if ( cand_mu.size() == 2 ) {
         if ( M_ll <= 120*GeV ||
-		M_LQ <= 150*GeV ||
-		p_l1.pT() <= 30*GeV || p_l2.pT() <= 30*GeV || 
-		p_j[0].pT() <= 30*GeV || p_j[1].pT() <= 30*GeV ||
-		St_ll <= 450*GeV ) {
-	  //cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';	 
-	  vetoEvent;
-	}
-	else {
+                M_LQ <= 150*GeV ||
+                p_l1.pT() <= 30*GeV || p_l2.pT() <= 30*GeV ||
+                p_j[0].pT() <= 30*GeV || p_j[1].pT() <= 30*GeV ||
+                St_ll <= 450*GeV ) {
+          //cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';
+          vetoEvent;
+        }
+        else {
 
 
-++mumujj;	
+++mumujj;
 // cerr<< " ->MUMUJJ event selected." << '\n';
-	    _hist_St_mumu->fill(St_ll, weight);
-	    _count_mumujj->fill(0.5, weight);
+            _hist_St_mumu->fill(St_ll, weight);
+            _count_mumujj->fill(0.5, weight);
 
-	}
+        }
       }
       // eejj channel
       else if ( cand_e.size() == 2 ) {
         if ( M_ll <= 120*GeV ||
-		M_LQ <= 150*GeV ||
-		p_l1.pT() <= 30*GeV || p_l2.pT() <= 30*GeV || 
-		p_j[0].pT() <= 30*GeV || p_j[1].pT() <= 30*GeV ||
-		St_ll <= 450*GeV ) {
-	  //cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';	 
-	  vetoEvent;
-	}
-	else {
+                M_LQ <= 150*GeV ||
+                p_l1.pT() <= 30*GeV || p_l2.pT() <= 30*GeV ||
+                p_j[0].pT() <= 30*GeV || p_j[1].pT() <= 30*GeV ||
+                St_ll <= 450*GeV ) {
+          //cerr<<" ->Dilept event vetoed. Table 4 cuts." << '\n';
+          vetoEvent;
+        }
+        else {
 
-++eejj;	
+++eejj;
 //cerr<< " ->EEJJ event selected." << '\n';
-   	    _hist_St_ee->fill(St_ll, weight);
-	    _count_eejj->fill(0.5, weight);
+            _hist_St_ee->fill(St_ll, weight);
+            _count_eejj->fill(0.5, weight);
 
-	}
+        }
       }
-	
-	
+
+
       // muvjj channel
       else if ( cand_mu.size() == 1 ) {
-	
 
-	
-	if (M_LQ<=150*GeV) {
+
+
+        if (M_LQ<=150*GeV) {
 //cerr<<" ->muvjj event vetoed. Not enough M_LQ: " << M_LQ<< '\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++MLQonelept;
-	if (Mt_LQ<=150*GeV) {
+        if (Mt_LQ<=150*GeV) {
 //cerr<<" ->muvjj event vetoed. Not enough Mt_LQ: " << Mt_LQ<< '\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++MtLQonelept;
-	if (St_v<=400*GeV) {
+        if (St_v<=400*GeV) {
 //cerr<<" ->muvjj event vetoed. Not enough St_v: " << St_v<< '\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++Stvonelept;
         if (mT<=160*GeV) {
 //cerr<<" ->muvjj event vetoed. Not enough mT: " << mT<<'\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++mTonelept;
-	//else {
+        //else {
 ++muvjj;
 //cerr<< " ->MUVJJ event selected." << '\n';
             _hist_MLQ_muv->fill(M_LQ, weight);
-	    _count_muvjj->fill(0.5, weight);
+            _count_muvjj->fill(0.5, weight);
 
-	//}
+        //}
       }
-	
+
       // evjj channel
       else if ( cand_e.size() == 1 ) {
 
 if (M_LQ<=180*GeV) {
 //cerr<<" ->evjj event vetoed. Not enough M_LQ: " << M_LQ<< '\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++MLQev;
-	if (Mt_LQ<=180*GeV) {
+        if (Mt_LQ<=180*GeV) {
 //cerr<<" ->evjj event vetoed. Not enough Mt_LQ: " << Mt_LQ<< '\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++MtLQev;
-	if (St_v<=410*GeV) {
+        if (St_v<=410*GeV) {
 //cerr<<" ->evjj event vetoed. Not enough St_v: " << St_v<< '\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++Stvev;
 if (mT<=200*GeV) {
 //cerr<<" ->evjj event vetoed. Not enough mT: " << mT<<'\n';
-	  vetoEvent;
-	}
+          vetoEvent;
+        }
 ++mTev;
-	//else {
+        //else {
 ++evjj;
 //cerr<< " ->EVJJ event selected." << '\n';
 _hist_MLQ_ev->fill(M_LQ, weight);
-	    _count_evjj->fill(0.5, weight);
+            _count_evjj->fill(0.5, weight);
 
 
 
-// 	if ( mT <= 200*GeV ||
-// 		M_LQ <= 180*GeV ||
-// 		Mt_LQ <= 180*GeV ||
-// 		St_v <= 410*GeV ) {
+//      if ( mT <= 200*GeV ||
+//              M_LQ <= 180*GeV ||
+//              Mt_LQ <= 180*GeV ||
+//              St_v <= 410*GeV ) {
 // cerr<<" ->evjj event vetoed. Doesn't pass table 4 cuts." << '\n';
-// 	  vetoEvent;
-// 	}
-// 	else {
+//        vetoEvent;
+//      }
+//      else {
 // ++evjj;
 // cerr<< " ->EVJJ event selected." << '\n';
 // _hist_MLQ_ev->fill(M_LQ, weight);
-// 	    _count_evjj->fill(0.5, weight);
+//          _count_evjj->fill(0.5, weight);
 
-// 	}
+//      }
 
 
       }
@@ -564,13 +562,13 @@ _hist_MLQ_ev->fill(M_LQ, weight);
 
     //@}
 
-    
+
     void finalize() {
-// cerr << '\n' << "Of " << count << " events, saw " 
-// << vetoe << " (after veto region cut), " 
-// << Njetscut << " (after 2jet req). " 
+// cerr << '\n' << "Of " << count << " events, saw "
+// << vetoe << " (after veto region cut), "
+// << Njetscut << " (after 2jet req). "
 // << '\n'
-// << "For " << dilept << " dilept events: " 
+// << "For " << dilept << " dilept events: "
 // << candmumujj << " cand mumujj events, "
 // << candeejj << " cand eejj events."
 // << '\n'
@@ -595,19 +593,19 @@ _hist_MLQ_ev->fill(M_LQ, weight);
 // cerr << "mumujj: " << mumujj << "      eejj: " << eejj << "      muvjj: " << muvjj << "      evjj: " << evjj << '\n';
 
 
-	scale( _hist_St_ee, 120. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_St_mumu, 120. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_MLQ_muv, 50. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_MLQ_ev, 50. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_St_ee, 120. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_St_mumu, 120. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_MLQ_muv, 50. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_MLQ_ev, 50. * 35. * crossSection()/sumOfWeights() );
 
 
 
-	scale( _hist_St_mumu_ZCR, 20. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_St_ee_ZCR, 20. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_MLQ_munu_W2CR, 20. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_MLQ_enu_W2CR, 20. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_MLQ_munu_ttCR, 20. * 35. * crossSection()/sumOfWeights() );
-	scale( _hist_MLQ_enu_ttCR, 20. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_St_mumu_ZCR, 20. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_St_ee_ZCR, 20. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_MLQ_munu_W2CR, 20. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_MLQ_enu_W2CR, 20. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_MLQ_munu_ttCR, 20. * 35. * crossSection()/sumOfWeights() );
+        scale( _hist_MLQ_enu_ttCR, 20. * 35. * crossSection()/sumOfWeights() );
 
 /*
 scale( _hist_eTmiss_mu, binwidth*luminosity* crossSection()/sumOfWeights() );
@@ -677,7 +675,7 @@ int munuW2CR;
 int munuttCR;
 int enuW2CR;
 int enuttCR;
- 
+
   };
 
 
