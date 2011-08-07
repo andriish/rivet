@@ -23,3 +23,15 @@ setenv HOMETEXMF "@datadir@/Rivet/texmf:$HOMETEXMF"
 else
 setenv HOMETEXMF "@datadir@/Rivet/texmf"
 endif
+
+if ($?TEXINPUTS) then
+setenv TEXINPUTS "@datadir@/Rivet/texmf:$TEXINPUTS"
+else
+setenv TEXINPUTS "@datadir@/Rivet/texmf/tex//"
+endif
+
+if ($?LATEXINPUTS) then
+setenv LATEXINPUTS "@datadir@/Rivet/texmf:$LATEXINPUTS"
+else
+setenv LATEXINPUTS "@datadir@/Rivet/texmf/tex//"
+endif

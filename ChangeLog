@@ -1,3 +1,11 @@
+2011-08-07  Andy Buckley  <andy@insectnation.org>
+
+	* Adding TEXINPUTS and LATEXINPUTS prepend definitions to the
+	variables provided by rivetenv.(c)sh. A manual setting of these
+	variables that didn't include the Rivet TEXMFHOME path was
+	breaking make-plots on lxplus, presumably since the system LaTeX
+	packages are so old there.
+
 2011-08-02  Frank Siegert  <frank.siegert@cern.ch>
 
 	Version 1.6.0 release!
