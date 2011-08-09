@@ -133,6 +133,14 @@ if __name__ == "__main__":
             sys.exit(1)
         for dps in tree.findall("dataPointSet"):
             useThis = True
+            
+            ## Check dataPointSet contains at least one measurement
+            try:
+                if dps.find('dataPoint').find('measurement') is None:
+                    useThis = False
+            except AttributeError, err:
+                logging.debug(err)
+
             dpspath = os.path.join(dps.get("path"), dps.get("name"))
 
             ## If regexes have been provided, only add analyses which match and don't unmatch
