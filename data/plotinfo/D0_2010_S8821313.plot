@@ -1,3 +1,8 @@
+# BEGIN PLOT /D0_2010_S8821313/d.*
+LegendXPos=0.1
+LegendYPos=0.5
+# END PLOT
+
 # BEGIN PLOT /D0_2010_S8821313/d01-x01-y01
 Title=Electron channel ($|y_Z|<1$)
 XLabel=$\phi^*_\eta$
