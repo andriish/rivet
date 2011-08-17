@@ -333,7 +333,7 @@ Title=Mean $K_2^*(1430)^0$ multiplicity
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y01
-Title=Mean p multiplicity
+Title=Mean $p$ multiplicity
 # END PLOT
 
 # BEGIN PLOT /DELPHI_1996_S3430090/d40-x01-y02
