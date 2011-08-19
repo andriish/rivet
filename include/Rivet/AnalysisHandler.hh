@@ -133,6 +133,9 @@ namespace Rivet {
     /// Get energy for this run, usually determined from the first event.
     double sqrtS() const;
 
+    /// Setter for _ignoreBeams
+    void setIgnoreBeams(bool ignore=true);
+
     //@}
 
 
@@ -182,7 +185,7 @@ namespace Rivet {
 
 
     /// Initialize a run, with the run beams taken from the example event.
-    void init(const GenEvent& event, bool ignorebeams=false);
+    void init(const GenEvent& event);
 
 
     /// Analyze the given \a event. This function will call the
@@ -261,6 +264,9 @@ namespace Rivet {
 
     /// Flag to check if init has been called
     bool _initialised;
+
+    /// Flag whether input event beams should be ignored in compatibility check
+    bool _ignoreBeams;
 
     //@}
 

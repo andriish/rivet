@@ -17,7 +17,7 @@ namespace Rivet {
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname), _numEvents(0),
       _sumOfWeights(0.0), _xs(-1.0),
-      _initialised(false)
+      _initialised(false), _ignoreBeams(false)
   {
     _theAnalysisFactory.reset( createAnalysisFactory() );
     _setupFactories();
@@ -28,7 +28,7 @@ namespace Rivet {
                                    const string& runname, HistoFormat storetype)
     : _runname(runname), _numEvents(0),
       _sumOfWeights(0.0), _xs(-1.0),
-      _initialised(false)
+      _initialised(false), _ignoreBeams(false)
   {
     cerr << "AnalysisHandler(basefilename, runname, format) constructor is deprecated: "
          << "please migrate your code to use the one-arg constructor" << endl;
@@ -46,7 +46,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::init(const GenEvent& ge, bool ignorebeams) {
+  void AnalysisHandler::init(const GenEvent& ge) {
     assert(!_initialised);
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
@@ -57,7 +57,7 @@ namespace Rivet {
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
     foreach (const AnaHandle a, _analyses) {
-      if ((!a->isCompatible(beams())) && (!ignorebeams)) {
+      if ((!a->isCompatible(beams())) && (!_ignoreBeams)) {
         //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
         anamestodelete.push_back(a->name());
       }
@@ -401,6 +401,10 @@ namespace Rivet {
 
   double AnalysisHandler::sqrtS() const {
     return Rivet::sqrtS(beams());
+  }
+
+  void AnalysisHandler::setIgnoreBeams(bool ignore) {
+    _ignoreBeams=ignore;
   }
 
 

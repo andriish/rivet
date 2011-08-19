@@ -376,6 +376,7 @@ def logNEvt(n, starttime, maxevtnum):
 ## Set up analysis handler
 RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
+ah.setIgnoreBeams(opts.IGNORE_BEAMS)
 if opts.ALL_ANALYSES:
     opts.ANALYSES = all_analyses
 for a in opts.ANALYSES:
@@ -434,7 +435,7 @@ if ":" in hepmcfile:
 try:
     if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
         signal.alarm(min_nonnull(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
-    init_ok = run.init(hepmcfile, hepmcfileweight, opts.IGNORE_BEAMS)
+    init_ok = run.init(hepmcfile, hepmcfileweight)
     signal.alarm(0)
     if not init_ok:
         logging.error("Failed to initialise using event file '%s'... exiting" % hepmcfile)

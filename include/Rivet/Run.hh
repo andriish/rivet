@@ -48,7 +48,7 @@ namespace Rivet {
     //@{
 
     /// Set up HepMC file readers (using the appropriate file weight for the first file)
-    bool init(const std::string& evtfile, double weight=1.0, bool ignorebeams=false);
+    bool init(const std::string& evtfile, double weight=1.0);
 
     /// Open a HepMC GenEvent file (using the appropriate file weight for the first file)
     bool openFile(const std::string& evtfile, double weight=1.0);

@@ -71,7 +71,7 @@ namespace Rivet {
   }
 
 
-  bool Run::init(const std::string& evtfile, double weight, bool ignorebeams) {
+  bool Run::init(const std::string& evtfile, double weight) {
     if (!openFile(evtfile, weight)) return false;
 
     // Read first event to define run conditions
@@ -83,7 +83,7 @@ namespace Rivet {
     }
 
     // Initialise AnalysisHandler with beam information from first event
-    _ah.init(*_evt, ignorebeams);
+    _ah.init(*_evt);
 
     // Set cross-section from command line
     if (_xs >= 0.0) {
