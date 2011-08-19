@@ -9,6 +9,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d09-x01-y01
 Title=Charged particle $p_\perp$ at 2360\,GeV, track $p_\perp > 500\,\text{MeV}$, for $N_\text{ch} \ge 1$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -32,6 +33,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d12-x01-y01
 Title=Charged particle $p_\perp$ at 7\,TeV, track $p_\perp > 100\,\text{MeV}$, for $N_\text{ch} \ge 2$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -63,6 +65,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d31-x01-y01
 Title=Charged particle $p_\perp$ at 7\,TeV, track $p_\perp > 100\,\text{MeV}$, for $N_\text{ch} \ge 20$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -86,6 +89,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d33-x01-y01
 Title=Charged particle $p_\perp$ at 7\,TeV, track $p_\perp > 2500\,\text{MeV}$, for $N_\text{ch} \ge 1$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -116,6 +120,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d10-x01-y01
 Title=Charged particle $p_\perp$ at 7\,TeV, track $p_\perp > 500\,\text{MeV}$, for $N_\text{ch} \ge 1$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -147,6 +152,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d14-x01-y01
 Title=Charged particle $p_\perp$ at 7\,TeV, track $p_\perp > 500\,\text{MeV}$, for $N_\text{ch} \ge 6$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -170,6 +176,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d11-x01-y01
 Title=Charged particle $p_\perp$ at 900\,GeV, track $p_\perp > 100\,\text{MeV}$, for $N_\text{ch} \ge 2$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -201,6 +208,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d30-x01-y01
 Title=Charged particle $p_\perp$ at 900\,GeV, track $p_\perp > 100\,\text{MeV}$, for $N_\text{ch} \ge 20$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -224,6 +232,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d32-x01-y01
 Title=Charged particle $p_\perp$ at 900\,GeV, track $p_\perp > 2500\,\text{MeV}$, for $N_\text{ch} \ge 1$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -255,6 +264,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d08-x01-y01
 Title=Charged particle $p_\perp$ at 900\,GeV, track $p_\perp > 500\,\text{MeV}$, for $N_\text{ch} \ge 1$
 LogY=1
+LogX=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
 # END PLOT
@@ -286,6 +296,7 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 # BEGIN PLOT /ATLAS_2010_S8918562/d13-x01-y01
 Title=Charged particle $p_\perp$ at 900\,GeV, track $p_\perp > 500\,\text{MeV}$, for $N_\text{ch} \ge 6$
 LogY=1
+LogX=1
 FullRange=1
 XLabel=$p_\perp$ \; [GeV]
 YLabel=$1/N_\text{ev} \, 1/2\pi{}p_\perp \, \mathrm{d}\sigma/\mathrm{d}\eta\mathrm{d}p_\perp$
