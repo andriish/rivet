@@ -127,6 +127,7 @@ namespace Rivet {
     double sqrtS() const;
     const ParticlePair& beams() const;
     const PdgIdPair beamIds() const;
+    void setIgnoreBeams(bool ignore);
     std::vector<std::string> analysisNames();
     AnalysisHandler& addAnalysis(const std::string& analysisname);
     AnalysisHandler& addAnalyses(const std::vector<std::string>& analysisnames);

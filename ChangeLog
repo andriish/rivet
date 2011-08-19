@@ -1,3 +1,8 @@
+2011-08-19  Frank Siegert <frank.siegert@cern.ch>
+	* More NLO parton level generator friendliness: Don't crash or fail when
+	there are no beam particles.
+	* Add --ignore-beams option to skip compatibility check.
+
 2011-08-09  David Mallows <dave.mallows@gmail.com>
 	* Fix aida2flat to ignore empty dataPointSet
 
