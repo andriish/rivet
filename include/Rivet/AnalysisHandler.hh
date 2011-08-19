@@ -182,7 +182,7 @@ namespace Rivet {
 
 
     /// Initialize a run, with the run beams taken from the example event.
-    void init(const GenEvent& event);
+    void init(const GenEvent& event, bool ignorebeams=false);
 
 
     /// Analyze the given \a event. This function will call the

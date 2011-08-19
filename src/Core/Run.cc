@@ -2,7 +2,6 @@
 #include "Rivet/Run.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "HepMC/IO_GenEvent.h"
-#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include <limits>
 
@@ -72,7 +71,7 @@ namespace Rivet {
   }
 
 
-  bool Run::init(const std::string& evtfile, double weight) {
+  bool Run::init(const std::string& evtfile, double weight, bool ignorebeams) {
     if (!openFile(evtfile, weight)) return false;
 
     // Read first event to define run conditions
@@ -84,7 +83,7 @@ namespace Rivet {
     }
 
     // Initialise AnalysisHandler with beam information from first event
-    _ah.init(*_evt);
+    _ah.init(*_evt, ignorebeams);
 
     // Set cross-section from command line
     if (_xs >= 0.0) {

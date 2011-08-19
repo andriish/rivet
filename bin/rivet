@@ -106,6 +106,8 @@ parser.add_option("--histo-interval", dest="HISTO_WRITE_INTERVAL", type=int,
 parser.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                   default=None, metavar="XS",
                   help="specify the signal process cross-section in pb")
+parser.add_option("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
+                  help="Ignore input event beams when checking analysis compatibility.")
 
 verbgroup = OptionGroup(parser, "Verbosity control")
 parser.add_option("-l", dest="NATIVE_LOG_STRS", action="append",
@@ -432,7 +434,7 @@ if ":" in hepmcfile:
 try:
     if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
         signal.alarm(min_nonnull(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
-    init_ok = run.init(hepmcfile, hepmcfileweight)
+    init_ok = run.init(hepmcfile, hepmcfileweight, opts.IGNORE_BEAMS)
     signal.alarm(0)
     if not init_ok:
         logging.error("Failed to initialise using event file '%s'... exiting" % hepmcfile)

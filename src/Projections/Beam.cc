@@ -54,9 +54,13 @@ namespace Rivet {
       assert(beams.first && beams.second);
       _theBeams.first = *(beams.first);
       _theBeams.second = *(beams.second);
-    } else {
+    } else if(e.genEvent().barcode_to_particle(1) && e.genEvent().barcode_to_particle(2)) {
       _theBeams.first = *(e.genEvent().barcode_to_particle(1));
       _theBeams.second = *(e.genEvent().barcode_to_particle(2));
+    }
+    else {
+      _theBeams.first = Particle(ANY, FourMomentum());
+      _theBeams.second = Particle(ANY, FourMomentum());
     }
     //getLog() << Log::DEBUG << "Beam particle IDs = " << beamIds() << endl;
   }

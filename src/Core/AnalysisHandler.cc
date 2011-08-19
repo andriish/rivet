@@ -46,7 +46,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::init(const GenEvent& ge) {
+  void AnalysisHandler::init(const GenEvent& ge, bool ignorebeams) {
     assert(!_initialised);
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
@@ -57,7 +57,7 @@ namespace Rivet {
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
     foreach (const AnaHandle a, _analyses) {
-      if (!a->isCompatible(beams())) {
+      if ((!a->isCompatible(beams())) && (!ignorebeams)) {
         //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
         anamestodelete.push_back(a->name());
       }
