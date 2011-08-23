@@ -199,8 +199,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2010_S8919674> plugin_ATLAS_2010_S8919674;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2010_S8919674);
 
 }

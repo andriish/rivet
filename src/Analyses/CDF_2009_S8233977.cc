@@ -9,21 +9,19 @@
 namespace Rivet {
 
 
-  /* @brief CDF Run II min-bias cross-section
-   * @author Hendrik Hoeth
-   *
-   * Measurement of \f$ \langle p_T \rangle \f$ vs. \f$ n_\text{ch} \f$,
-   * the track \f$ p_T \f$ distribution, and the \f$ \sum E_T \f$ distribution.
-   * Particles are selected within |eta|<1 and with pT>0.4 GeV.
-   * There is no pT cut for the \f$ \sum E_T \f$ measurement.
-   *
-   * @par Run conditions
-   *
-   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
-   * @arg Run with generic QCD events.
-   * @arg Set particles with c*tau > 10 mm stable
-   *
-   */
+  /// @brief CDF Run II min-bias cross-section
+  /// @author Hendrik Hoeth
+  ///
+  /// Measurement of \f$ \langle p_T \rangle \f$ vs. \f$ n_\text{ch} \f$,
+  /// the track \f$ p_T \f$ distribution, and the \f$ \sum E_T \f$ distribution.
+  /// Particles are selected within |eta|<1 and with pT>0.4 GeV.
+  /// There is no pT cut for the \f$ \sum E_T \f$ measurement.
+  ///
+  /// @par Run conditions
+  ///
+  /// @arg \f$ \sqrt{s} = \f$ 1960 GeV
+  /// @arg Run with generic QCD events.
+  /// @arg Set particles with c*tau > 10 mm stable
   class CDF_2009_S8233977 : public Analysis {
   public:
 
@@ -123,7 +121,8 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CDF_2009_S8233977> plugin_CDF_2009_S8233977;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CDF_2009_S8233977);
 
 }

@@ -11,7 +11,7 @@
 namespace Rivet {
 
 
-  /// @brief OPAL photon production 
+  /// @brief OPAL photon production
   /// @author Peter Richardson
   class OPAL_1993_S2692198 : public Analysis {
   public:
@@ -89,7 +89,7 @@ namespace Rivet {
 	  bool accept(true);
 	  double ycut = _nPhotonDurham->point(j)->coordinate(0)->value();
 	  double dcut = sqr(evis)*ycut;
-	  vector<fastjet::PseudoJet> exclusive_jets = 
+	  vector<fastjet::PseudoJet> exclusive_jets =
 	    sorted_by_E(clust_seq.exclusive_jets(dcut));
 	  for(unsigned int iy=0;iy<exclusive_jets.size();++iy) {
 	    FourMomentum pjet(momentum(exclusive_jets[iy]));
@@ -116,7 +116,7 @@ namespace Rivet {
 	  bool accept(true);
 	  double ycut = _nPhotonJade->point(j)->coordinate(0)->value();
 	  double dcut = sqr(evis)*ycut;
-	  vector<fastjet::PseudoJet> exclusive_jets = 
+	  vector<fastjet::PseudoJet> exclusive_jets =
 	    sorted_by_E(clust_seq2.exclusive_jets(dcut));
 	  for(unsigned int iy=0;iy<exclusive_jets.size();++iy) {
 	    FourMomentum pjet(momentum(exclusive_jets[iy]));
@@ -138,7 +138,7 @@ namespace Rivet {
 	}
 	// add this photon back in for the next interation of the loop
 	if(ix+1!=photons.size())
-	  input_particles[nonPhotons.size()+ix] = 
+	  input_particles[nonPhotons.size()+ix] =
 	    fastjet::PseudoJet(photons[ix].momentum().px(),photons[ix].momentum().py(),
 			       photons[ix].momentum().pz(),photons[ix].momentum().E());
       }
@@ -191,7 +191,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<OPAL_1993_S2692198> plugin_OPAL_1993_S2692198;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(OPAL_1993_S2692198);
 
 }

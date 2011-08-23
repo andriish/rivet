@@ -13,10 +13,10 @@ namespace Rivet {
 
     /// Constructor
     UA5_1987_S1640666()
-      : Analysis("UA5_1987_S1640666") 
+      : Analysis("UA5_1987_S1640666")
     {
       _sumWPassed = 0;
-      
+
     }
 
     /// Book histograms and initialise projections before the run
@@ -51,14 +51,14 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       scale(_hist_nch, 1.0/_sumWPassed);
       scale(_hist_mean_nch, 1.0/_sumWPassed);
-      
+
     }
 
   private:
-    
+
     double _sumWPassed;
 
     AIDA::IHistogram1D *_hist_mean_nch;
@@ -68,8 +68,8 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<UA5_1987_S1640666> plugin_UA5_1987_S1640666;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(UA5_1987_S1640666);
 
 
 }

@@ -241,9 +241,8 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<%(ANANAME)s> plugin_%(ANANAME)s;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(%(ANANAME)s);
 
 }
 """ % KEYWORDS
@@ -294,6 +293,7 @@ NumEvents: 1000000
 #Energies: <Insert list of run energies or beam energy pairs in GeV,
 #           e.g. [1960] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
 #PtCuts: <Insert list of kinematic pT cuts in GeV, e.g. [0, 20]>
+#NeedCrossSection: True
 Description:
   '<Insert a fairly long description, including what is measured
   and if possible what it is useful for in terms of MC validation

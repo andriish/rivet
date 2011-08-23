@@ -23,7 +23,6 @@ namespace Rivet {
     ATLAS_2011_S8983313()
       : Analysis("ATLAS_2011_S8983313")
     {
-      /// Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
     }
 
@@ -71,7 +70,7 @@ namespace Rivet {
 
 
       /// Jet finder
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), 
+      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
 		    "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
@@ -98,7 +97,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      ParticleVector veto_e 
+      ParticleVector veto_e
 	= applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
 	MSG_DEBUG("electrons in veto region");
@@ -107,19 +106,19 @@ namespace Rivet {
 
 
       Jets cand_jets;
-      foreach (const Jet& jet, 
+      foreach (const Jet& jet,
 	       applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.momentum().eta() ) < 4.9 ) {
           cand_jets.push_back(jet);
         }
-      } 
+      }
 
       ParticleVector cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      
+
 
       ParticleVector cand_mu;
       ParticleVector chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
-      foreach ( const Particle & mu, 
+      foreach ( const Particle & mu,
 		applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
 	double pTinCone = -mu.momentum().pT();
 	foreach ( const Particle & track, chg_tracks ) {
@@ -190,7 +189,7 @@ namespace Rivet {
 	  recon_jets.push_back( jet );
       }
 
-      
+
       // now only use recon_jets, recon_mu, recon_e
 
       if ( ! ( recon_mu.empty() && recon_e.empty() ) ) {
@@ -208,7 +207,7 @@ namespace Rivet {
 	MSG_DEBUG("No hard leading jet in " << recon_jets.size() << " jets");
 	vetoEvent;
       }
-	
+
       // ==================== observables ====================
 
       // Njets, min_dPhi
@@ -219,7 +218,7 @@ namespace Rivet {
       foreach ( const Jet& jet, recon_jets ) {
 	if ( jet.momentum().pT() > 40 * GeV ) {
 	  if ( Njets < 3 )
-	    min_dPhi = min( min_dPhi, 
+	    min_dPhi = min( min_dPhi,
 			    deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
 	  ++Njets;
 	}
@@ -237,8 +236,8 @@ namespace Rivet {
 
       // m_eff
 
-      double m_eff_2j = eTmiss 
-	+ recon_jets[0].momentum().pT() 
+      double m_eff_2j = eTmiss
+	+ recon_jets[0].momentum().pT()
 	+ recon_jets[1].momentum().pT();
 
       double m_eff_3j = recon_jets.size() < 3 ? -999.0 : m_eff_2j + recon_jets[2].momentum().pT();
@@ -247,7 +246,7 @@ namespace Rivet {
 
       double et_meff_2j = eTmiss / m_eff_2j;
       double et_meff_3j = eTmiss / m_eff_3j;
-              
+
       FourMomentum a = recon_jets[0].momentum();
       FourMomentum b = recon_jets[1].momentum();
 
@@ -255,11 +254,11 @@ namespace Rivet {
 			      b,
 			      pTmiss,
 			      0.0 ); // zero mass invisibles
-      
-  
+
+
     // ==================== FILL ====================
 
-      MSG_DEBUG( "Trying to fill " 
+      MSG_DEBUG( "Trying to fill "
 		 << Njets << ' '
 		 << m_eff_2j << ' '
 		 << et_meff_2j << ' '
@@ -287,9 +286,9 @@ namespace Rivet {
 
       // need 3 jets for C and D
       if ( Njets >= 3 && et_meff_3j > 0.25 ) {
-	
+
 	_hist_meff_CD->fill(m_eff_3j, weight);
-	
+
 	// CCCCCCCCCC
 	if ( m_eff_3j > 500 * GeV ) {
 	  MSG_DEBUG("Hits C");
@@ -306,8 +305,9 @@ namespace Rivet {
     }
 
     //@}
-    
+
     void finalize() {}
+
 
   private:
 
@@ -323,13 +323,11 @@ namespace Rivet {
     AIDA::IHistogram1D* _hist_eTmiss;
     //@}
 
-
   };
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2011_S8983313> plugin_ATLAS_2011_S8983313;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_S8983313);
 
 }

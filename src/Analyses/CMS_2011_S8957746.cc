@@ -17,6 +17,7 @@ namespace Rivet {
     CMS_2011_S8957746() : Analysis("CMS_2011_S8957746") {
     }
 
+
     /// Initialization, called once before running
     void init() {
       // Projections
@@ -32,6 +33,7 @@ namespace Rivet {
       _hist_m_200 = bookHistogram1D(6, 1, 1);
     }
 
+
     void analyze(const Event& event) {
       const double weight = event.weight();
       const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
@@ -42,7 +44,7 @@ namespace Rivet {
         vetoEvent;
       }
       std::vector<Vector3> momenta;
-      foreach (Jet j, jets) {
+      foreach (const Jet& j, jets) {
         if (fabs(j.momentum().eta())<1.3) {
           Vector3 mom = j.momentum().vector3();
           mom.setZ(0.0);
@@ -71,6 +73,7 @@ namespace Rivet {
       }
     }
 
+
     void finalize() {
       normalize(_hist_T_90);
       normalize(_hist_m_90);
@@ -80,6 +83,7 @@ namespace Rivet {
       normalize(_hist_m_200);
     }
 
+
   private:
 
     AIDA::IHistogram1D *_hist_T_90;
@@ -88,8 +92,12 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_m_125;
     AIDA::IHistogram1D *_hist_T_200;
     AIDA::IHistogram1D *_hist_m_200;
+
   };
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CMS_2011_S8957746> plugin_CMS_2011_S8957746;
+
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CMS_2011_S8957746);
+
 }

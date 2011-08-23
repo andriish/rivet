@@ -147,7 +147,8 @@ namespace Rivet {
   const double H1_1995_S3167097::_xmax = 6.0;
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<H1_1995_S3167097> plugin_H1_1995_S3167097;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(H1_1995_S3167097);
 
 }

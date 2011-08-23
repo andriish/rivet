@@ -49,8 +49,8 @@ namespace Rivet {
         _histJetEt1->fill(j.momentum().pT(), weight);
       }
     }
- 
- 
+
+
     // Finalize
     void finalize() {
       //
@@ -68,9 +68,9 @@ namespace Rivet {
 
   };
 
- 
- 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ZEUS_2001_S4815815> plugin_ZEUS_2001_S4815815;
+
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ZEUS_2001_S4815815);
 
 }

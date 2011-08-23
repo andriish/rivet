@@ -31,9 +31,9 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    D0_2004_S5992206() : Analysis("D0_2004_S5992206")
-    {
-    }
+    D0_2004_S5992206()
+      : Analysis("D0_2004_S5992206")
+    {  }
 
     //@}
 
@@ -134,7 +134,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<D0_2004_S5992206> plugin_D0_2004_S5992206;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(D0_2004_S5992206);
 
 }

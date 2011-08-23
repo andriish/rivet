@@ -59,7 +59,7 @@ namespace Rivet {
       const ChargedFinalState& charged_05 = applyProjection<ChargedFinalState>(event, "CFS05");
       const ChargedFinalState& charged_10 = applyProjection<ChargedFinalState>(event, "CFS10");
       const ChargedFinalState& charged_13 = applyProjection<ChargedFinalState>(event, "CFS13");
-      
+
       _h_dN_dNch_05->fill(charged_05.size(), weight);
       _h_dN_dNch_10->fill(charged_10.size(), weight);
       _h_dN_dNch_13->fill(charged_13.size(), weight);
@@ -93,8 +93,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ALICE_2010_S8624100> plugin_ALICE_2010_S8624100;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ALICE_2010_S8624100);
 
 }

@@ -119,7 +119,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<SFM_1984_S1178091> plugin_SFM_1984_S1178091;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(SFM_1984_S1178091);
 
 }

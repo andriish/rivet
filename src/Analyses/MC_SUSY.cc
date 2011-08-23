@@ -316,7 +316,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_SUSY> plugin_MC_SUSY;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(MC_SUSY);
 
 }

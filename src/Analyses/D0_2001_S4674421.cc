@@ -21,11 +21,11 @@ namespace Rivet {
     D0_2001_S4674421() : Analysis("D0_2001_S4674421") {
       setNeedsCrossSection(true);
     }
- 
- 
+
+
     /// @name Analysis methods
     //@{
- 
+
     void init() {
       // Final state projection
       FinalState fs(-5.0, 5.0); // corrected for detector acceptance
@@ -35,12 +35,12 @@ namespace Rivet {
       LeadingParticlesFinalState eeFS(FinalState(-2.5, 2.5, 0.)); //20.);
       eeFS.addParticleIdPair(ELECTRON);
       addProjection(eeFS, "eeFS");
-   
+
       // W- -> e- nu_e~
       LeadingParticlesFinalState enuFS(FinalState(-2.5, 2.5, 0.)); //25.);
       enuFS.addParticleId(ELECTRON).addParticleId(NU_EBAR);
       addProjection(enuFS, "enuFS");
-   
+
       // W+ -> e+ nu_e
       LeadingParticlesFinalState enubFS(FinalState(-2.5, 2.5, 0.)); //25.);
       enubFS.addParticleId(POSITRON).addParticleId(NU_E);
@@ -164,7 +164,7 @@ namespace Rivet {
 
 
     //@}
- 
+
   private:
 
     /// @name Event counters for cross section normalizations
@@ -184,7 +184,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<D0_2001_S4674421> plugin_D0_2001_S4674421;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(D0_2001_S4674421);
 
 }

@@ -18,7 +18,13 @@
 
 /// @def vetoEvent
 /// Preprocessor define for vetoing events, including the log message and return.
-#define vetoEvent { MSG_DEBUG("Vetoing event on line " << __LINE__ << " of " << __FILE__); return; }
+#define vetoEvent \
+  do { MSG_DEBUG("Vetoing event on line " << __LINE__ << " of " << __FILE__); return; } while(0)
+
+/// @def DECLARE_RIVET_PLUGIN
+/// Preprocessor define to prettify the global-object plugin hook mechanism.
+#define DECLARE_RIVET_PLUGIN(clsname) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
+
 
 
 namespace Rivet {

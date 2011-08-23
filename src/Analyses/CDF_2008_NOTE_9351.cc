@@ -17,16 +17,14 @@ namespace Rivet {
   /// \f$ Z/\gamma^* \to \mu^+ \mu^- \f$ events. The reconstructed
   /// Z defines the \f$ \phi \f$ orientation. A Z mass window cut is applied.
   ///
-  /* @par Run conditions
-   *
-   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
-   * @arg produce Drell-Yan events
-   * @arg Set particles with c*tau > 10 mm stable
-   * @arg Z decay mode: Z -> e+e- and Z -> mu+mu-
-   * @arg gamma decay mode: gamma -> e+e- and gamma -> mu+mu-
-   * @arg minimum invariant mass of the fermion pair coming from the Z/gamma: 70 GeV
-   *
-   */
+  /// @par Run conditions
+  ///
+  /// @arg \f$ \sqrt{s} = \f$ 1960 GeV
+  /// @arg produce Drell-Yan events
+  /// @arg Set particles with c*tau > 10 mm stable
+  /// @arg Z decay mode: Z -> e+e- and Z -> mu+mu-
+  /// @arg gamma decay mode: gamma -> e+e- and gamma -> mu+mu-
+  /// @arg minimum invariant mass of the fermion pair coming from the Z/gamma: 70 GeV
   class CDF_2008_NOTE_9351 : public Analysis {
   public:
 
@@ -220,7 +218,8 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CDF_2008_NOTE_9351> plugin_CDF_2008_NOTE_9351;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CDF_2008_NOTE_9351);
 
 }

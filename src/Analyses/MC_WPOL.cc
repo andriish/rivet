@@ -153,8 +153,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_WPOL> plugin_MC_WPOL;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(MC_WPOL);
 
 }

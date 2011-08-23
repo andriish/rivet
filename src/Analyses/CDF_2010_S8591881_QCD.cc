@@ -19,16 +19,13 @@ namespace Rivet {
   /// is a \f$ p_\perp > 0.5 \f$ GeV cut. For \f$ \sum E_\perp \f$ there is no
   /// \f$ p_\perp \f$ cut.
   ///
-  /* @par Run conditions
-   *
-   * @arg \f$ \sqrt{s} = \f$ 1960 GeV
-   * @arg Run with generic QCD events.
-   * @arg Set particles with c*tau > 10 mm stable
-   * @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the profile histograms:
-   *   @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 10, 20, 50, 100, 150 GeV
-   *   @arg The corresponding merging points are at \f$ p_T = \f$ 0, 30, 50, 80, 130, 180 GeV
-   *
-   */
+  /// @par Run conditions
+  /// @arg \f$ \sqrt{s} = \f$ 1960 GeV
+  /// @arg Run with generic QCD events.
+  /// @arg Set particles with c*tau > 10 mm stable
+  /// @arg Several \f$ p_\perp^\text{min} \f$ cutoffs are probably required to fill the profile histograms:
+  /// @arg \f$ p_\perp^\text{min} = \f$ 0 (min bias), 10, 20, 50, 100, 150 GeV
+  /// @arg The corresponding merging points are at \f$ p_T = \f$ 0, 30, 50, 80, 130, 180 GeV
   class CDF_2010_S8591881_QCD : public Analysis {
   public:
 
@@ -191,7 +188,8 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CDF_2010_S8591881_QCD> plugin_CDF_2010_S8591881_QCD;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CDF_2010_S8591881_QCD);
 
 }

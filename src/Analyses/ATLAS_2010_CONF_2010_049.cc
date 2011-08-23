@@ -8,6 +8,7 @@
 
 namespace Rivet {
 
+
   class ATLAS_2010_CONF_2010_049 : public Analysis {
   public:
 
@@ -119,8 +120,9 @@ namespace Rivet {
     double _njets_15_24[2];
   };
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2010_CONF_2010_049> plugin_ATLAS_2010_CONF_2010_049;
+
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2010_CONF_2010_049);
 
 }
-

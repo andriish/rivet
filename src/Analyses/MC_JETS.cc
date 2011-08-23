@@ -40,6 +40,8 @@ namespace Rivet {
 
   };
 
-  AnalysisBuilder<MC_JETS> plugin_MC_JETS;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(MC_JETS);
 
 }

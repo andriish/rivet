@@ -215,5 +215,8 @@ namespace Rivet {
     //@}
   };
 
-  AnalysisBuilder<BELLE_2006_S6265367> plugin_BELLE_2006_S6265367;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(BELLE_2006_S6265367);
+
 }

@@ -12,6 +12,8 @@
 namespace Rivet {
 
 
+  /// 1-lepton and 2-lepton search for first or second generation leptoquarks
+  /// @todo Clean up the debug stuff
   class ATLAS_2011_S9041966 : public Analysis {
   public:
 
@@ -19,13 +21,21 @@ namespace Rivet {
     //@{
 
     /// Constructor
-
     ATLAS_2011_S9041966()
       : Analysis("ATLAS_2011_S9041966"),
-
-//DEBUG
-count(0), vetoe(0), Njetscut(0), dilept(0), candmumujj(0), candeejj(0), onelept(0), eTmisscut(0), candmvjj(0), candevjj(0), mumujj(0), eejj(0), mTonelept(0), MLQonelept(0), MtLQonelept(0), Stvonelept(0), mTev(0), MLQev(0), MtLQev(0), Stvev(0), muvjj(0), evjj(0), emuvjj(0), cande(0), candmu(0), tmpe(0), tmpmu(0), mumuZCR(0), eeZCR(0), munuW2CR(0), munuttCR(0), enuW2CR(0), enuttCR(0)
-
+        // DEBUG
+        count(0), vetoe(0), Njetscut(0), dilept(0),
+        candmumujj(0), candeejj(0), onelept(0),
+        eTmisscut(0), candmvjj(0), candevjj(0),
+        mumujj(0), eejj(0),
+        mTonelept(0), MLQonelept(0), MtLQonelept(0), Stvonelept(0),
+        mTev(0), MLQev(0), MtLQev(0), Stvev(0),
+        muvjj(0), evjj(0), emuvjj(0),
+        cande(0), candmu(0),
+        tmpe(0), tmpmu(0),
+        mumuZCR(0), eeZCR(0),
+        munuW2CR(0), munuttCR(0),
+        enuW2CR(0), enuttCR(0)
     {
       /// Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
@@ -640,48 +650,46 @@ scale( _hist_eTmiss_mu, binwidth*luminosity* crossSection()/sumOfWeights() );
     //@}
 
 
-//DEBUG VARIABLES
-
-int count;
-int vetoe;
-int Njetscut;
-int dilept;
-int candmumujj;
-int candeejj;
-int onelept;
-int eTmisscut;
-int candmvjj;
-int candevjj;
-int mumujj;
-int eejj;
-int mTonelept;
-int MLQonelept;
-int MtLQonelept;
-int Stvonelept;
-int mTev;
-int MLQev;
-int MtLQev;
-int Stvev;
-int muvjj;
-int evjj;
-int emuvjj;
-int cande;
-int candmu;
-int tmpe;
-int tmpmu;
-int mumuZCR;
-int eeZCR;
-int munuW2CR;
-int munuttCR;
-int enuW2CR;
-int enuttCR;
+    // DEBUG VARIABLES
+    int count;
+    int vetoe;
+    int Njetscut;
+    int dilept;
+    int candmumujj;
+    int candeejj;
+    int onelept;
+    int eTmisscut;
+    int candmvjj;
+    int candevjj;
+    int mumujj;
+    int eejj;
+    int mTonelept;
+    int MLQonelept;
+    int MtLQonelept;
+    int Stvonelept;
+    int mTev;
+    int MLQev;
+    int MtLQev;
+    int Stvev;
+    int muvjj;
+    int evjj;
+    int emuvjj;
+    int cande;
+    int candmu;
+    int tmpe;
+    int tmpmu;
+    int mumuZCR;
+    int eeZCR;
+    int munuW2CR;
+    int munuttCR;
+    int enuW2CR;
+    int enuttCR;
 
   };
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2011_S9041966> plugin_ATLAS_2011_S9041966;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9041966);
 
 }

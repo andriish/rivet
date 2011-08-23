@@ -12,6 +12,7 @@ namespace Rivet {
 
     CMS_2010_S8656010() : Analysis("CMS_2010_S8656010") {}
 
+
     void init() {
       ChargedFinalState cfs(-2.5, 2.5, 0.0*GeV);
       addProjection(cfs, "CFS");
@@ -35,7 +36,7 @@ namespace Rivet {
 
       foreach (const Particle& p, charged.particles()) {
         //selecting only charged hadrons
-        if(! PID::isHadron(p.pdgId())) continue;
+        if (! PID::isHadron(p.pdgId())) continue;
 
         const double pT = p.momentum().pT();
         const double eta = p.momentum().eta();
@@ -43,17 +44,18 @@ namespace Rivet {
         // The data is actually a duplicated folded distribution.  This should mimic it.
         _h_dNch_dEta->fill(eta, 0.5*weight);
         _h_dNch_dEta->fill(-eta, 0.5*weight);
-        if (fabs(eta)<2.4 && pT>0.1) {
-          if (pT<6.0) {
-            _h_dNch_dpT_all->fill(pT, weight/pT);
-            if (pT<2.0) {
+        if (fabs(eta) < 2.4 && pT > 0.1*GeV) {
+          if (pT < 6.0*GeV) {
+            _h_dNch_dpT_all->fill(pT/GeV, weight/(pT/GeV));
+            if (pT < 2.0*GeV) {
               int ietabin = fabs(eta)/0.2;
-              _h_dNch_dpT[ietabin]->fill(pT, weight);
+              _h_dNch_dpT[ietabin]->fill(pT/GeV, weight);
             }
           }
         }
       }
     }
+
 
     void finalize() {
       const double normfac = 1.0/sumOfWeights(); // Normalizing to unit eta is automatic
@@ -73,12 +75,16 @@ namespace Rivet {
 
 
   private:
+
     std::vector<AIDA::IHistogram1D*> _h_dNch_dpT;
     AIDA::IHistogram1D* _h_dNch_dpT_all;
     AIDA::IHistogram1D* _h_dNch_dEta;
-   };
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CMS_2010_S8656010> plugin_CMS_2010_S8656010;
+  };
+
+
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CMS_2010_S8656010);
+
 }
-

@@ -31,7 +31,7 @@ namespace Rivet {
       const ChargedFinalState cfs(-MAXRAPIDITY, MAXRAPIDITY, 0.1/GeV);
       addProjection(cfs, "CFS");
       addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-      
+
       // Thrust
       const Thrust thrust(cfs);
       addProjection(thrust, "Thrust");
@@ -86,7 +86,7 @@ namespace Rivet {
       const FastJets& durjet = applyProjection<FastJets>(event, "DurhamJets");
 
       double y23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
-      
+
       // Make sure we don't run into a segfault by trying to fill non-existing histos
       int s = int(sqrtS()/GeV);
       if (s == 44 || s == 35) {
@@ -129,8 +129,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<JADE_1998_S3612880> plugin_JADE_1998_S3612880;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(JADE_1998_S3612880);
 
 }

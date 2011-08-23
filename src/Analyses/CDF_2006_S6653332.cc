@@ -13,16 +13,15 @@
 namespace Rivet {
 
 
-  /* @brief CDF Run II analysis: jet \f$ p_T \f$ and \f$ \eta \f$
-   *   distributions in Z + (b) jet production
-   * @author Lars Sonnenschein
-   *
-   * This CDF analysis provides \f$ p_T \f$ and \f$ \eta \f$ distributions of
-   * jets in Z + (b) jet production, before and after tagging.
-   */
+  /// @brief CDF Run II analysis: jet \f$ p_T \f$ and \f$ \eta \f$
+  ///   distributions in Z + (b) jet production
+  /// @author Lars Sonnenschein
+  ///
+  /// This CDF analysis provides \f$ p_T \f$ and \f$ \eta \f$ distributions of
+  /// jets in Z + (b) jet production, before and after tagging.
   class CDF_2006_S6653332 : public Analysis {
   public:
-    
+
     /// Constructor
     CDF_2006_S6653332()
       : Analysis("CDF_2006_S6653332"),
@@ -31,15 +30,15 @@ namespace Rivet {
     {
       setNeedsCrossSection(true);
     }
-    
-    
+
+
     /// @name Analysis methods
     //@{
-    
+
     void init() {
       const FinalState fs(-3.6, 3.6);
       addProjection(fs, "FS");
-   
+
       // Create a final state with any e+e- or mu+mu- pair with
       // invariant mass 76 -> 106 GeV and ET > 20 (Z decay products)
       vector<pair<PdgId,PdgId> > vids;
@@ -48,7 +47,7 @@ namespace Rivet {
       FinalState fs2(-3.6, 3.6);
       InvMassFinalState invfs(fs2, vids, 66*GeV, 116*GeV);
       addProjection(invfs, "INVFS");
-   
+
       // Make a final state without the Z decay products for jet clustering
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(invfs);
@@ -68,7 +67,7 @@ namespace Rivet {
       // Get the Z decay products (mu+mu- or e+e- pair)
       const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
       const ParticleVector&  ZDecayProducts =  invMassFinalState.particles();
-   
+
       // Make sure we have at least 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
       //
@@ -83,13 +82,13 @@ namespace Rivet {
         vetoEvent;
       }
       if (Lep1Pt < _Lep1PtCut && Lep2Pt < _Lep1PtCut) vetoEvent;
-      
+
       //
-      
+
       _sumWeightsWithZ += event.weight();
       // @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
-   
+
       // Put all b-quarks in a vector
       /// @todo Use jet contents rather than accessing quarks directly
       ParticleVector bquarks;
@@ -100,14 +99,14 @@ namespace Rivet {
           bquarks.push_back(Particle(**p));
         }
       }
-   
+
       // Get jets
       const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
-   
+
       const PseudoJets& jets = jetpro.pseudoJetsByPt();
       getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
-   
+
       int numBJet = 0;
       int numJet  = 0;
       // for each b-jet plot the ET and the eta of the jet, normalise to the total cross section at the end
@@ -118,7 +117,7 @@ namespace Rivet {
           ++numJet;
           // Does the jet contain a b-quark?
           /// @todo Use jet contents rather than accessing quarks directly
-       
+
           bool bjet = false;
           foreach (const Particle& bquark,  bquarks) {
             if (deltaR(jt->rapidity(), jt->phi(), bquark.momentum().rapidity(),bquark.momentum().azimuthalAngle()) <= _Rjet) {
@@ -131,28 +130,28 @@ namespace Rivet {
           }
         }
       } // end loop around jets
-   
+
       if (numJet > 0)    _sumWeightsWithZJet += event.weight();
       if (numBJet > 0) {
         _sigmaBJet->fill(1960.0,event.weight());
         _ratioBJetToZ->fill(1960.0,event.weight());
         _ratioBJetToJet->fill(1960.0,event.weight());
       }
-   
+
     }
- 
+
 
     /// Finalize
     void finalize() {
       getLog() << Log::DEBUG << "Total sum of weights = " << sumOfWeights() << endl;
       getLog() << Log::DEBUG << "Sum of weights for Z production in mass range = " << _sumWeightsWithZ << endl;
       getLog() << Log::DEBUG << "Sum of weights for Z+jet production in mass range = " << _sumWeightsWithZJet << endl;
-   
+
       _sigmaBJet->scale(crossSection()/sumOfWeights());
       _ratioBJetToZ->scale(1.0/_sumWeightsWithZ);
       _ratioBJetToJet->scale(1.0/_sumWeightsWithZJet);
     }
- 
+
         //@}
 
 
@@ -167,7 +166,7 @@ namespace Rivet {
     double _Lep1PtCut;
     double _Lep2PtCut;
     double _LepEtaCut;
-    
+
     double _sumWeightsWithZ;
     double _sumWeightsWithZJet;
 
@@ -179,11 +178,12 @@ namespace Rivet {
     AIDA::IHistogram1D* _ratioBJetToZ;
     AIDA::IHistogram1D* _ratioBJetToJet;
     //@}
- 
+
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CDF_2006_S6653332> plugin_CDF_2006_S6653332;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CDF_2006_S6653332);
 
 }

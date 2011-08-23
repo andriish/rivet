@@ -193,7 +193,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<OPAL_1998_S3780481> plugin_OPAL_1998_S3780481;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(OPAL_1998_S3780481);
 
 }

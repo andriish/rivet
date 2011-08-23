@@ -81,7 +81,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CDF_1988_S1865951> plugin_CDF_1988_S1865951;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CDF_1988_S1865951);
 
 }

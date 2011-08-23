@@ -18,11 +18,11 @@ namespace Rivet {
       : Analysis("STAR_2006_S6860818"),
         _sumWeightSelected(0.0)
     {
-      for (size_t i=0 ; i<4 ; i++) {
-        _nBaryon[i]=0;
-        _nAntiBaryon[i]=0;
-        _nWeightedBaryon[i]=0.;
-        _nWeightedAntiBaryon[i]=0.;
+      for (size_t i = 0; i < 4; i++) {
+        _nBaryon[i] = 0;
+        _nAntiBaryon[i] = 0;
+        _nWeightedBaryon[i] = 0.;
+        _nWeightedAntiBaryon[i] = 0.;
       }
     }
 
@@ -201,7 +201,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<STAR_2006_S6860818> plugin_STAR_2006_S6860818;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(STAR_2006_S6860818);
 
 }

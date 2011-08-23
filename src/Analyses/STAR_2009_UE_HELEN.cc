@@ -73,7 +73,7 @@ namespace Rivet {
       // Jets also must have a neutral energy fraction of < 0.7
       Jets jets;
       foreach (const Jet jet, alljets) {
-        if (jet.neutralEnergy()/jet.totalEnergy() < 0.7 && 
+        if (jet.neutralEnergy()/jet.totalEnergy() < 0.7 &&
 	    fabs(jet.momentum().eta()) < 0.3)
           jets.push_back(jet);
       }
@@ -163,7 +163,8 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<STAR_2009_UE_HELEN> plugin_STAR_2009_UE_HELEN;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(STAR_2009_UE_HELEN);
 
 }

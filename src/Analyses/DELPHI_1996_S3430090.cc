@@ -546,7 +546,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<DELPHI_1996_S3430090> plugin_DELPHI_1996_S3430090;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(DELPHI_1996_S3430090);
 
 }

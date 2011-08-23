@@ -5,6 +5,7 @@
 
 namespace Rivet {
 
+
   class ALICE_2011_S8945144 : public Analysis {
   public:
 
@@ -12,7 +13,9 @@ namespace Rivet {
       : Analysis("ALICE_2011_S8945144")
     {}
 
+
   public:
+
     void init() {
       const ChargedFinalState cfs(-15, 15);
       addProjection(cfs, "CFS");
@@ -26,9 +29,9 @@ namespace Rivet {
       _histAveragePt      = bookProfile1D("d04-x01-y01");
     }
 
+
     void analyze(const Event& event) {
       const double weight = event.weight();
-
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
         if(fabs(p.momentum().rapidity())<0.5) {
@@ -62,6 +65,7 @@ namespace Rivet {
       }
     }
 
+
     void finalize() {
       scale(_histPtPions,       1./sumOfWeights());
       scale(_histPtProtons,     1./sumOfWeights());
@@ -71,7 +75,9 @@ namespace Rivet {
       scale(_histPtAntiKaons,   1./sumOfWeights());
     }
 
+
   private:
+
     AIDA::IHistogram1D *_histPtPions;
     AIDA::IHistogram1D *_histPtProtons;
     AIDA::IHistogram1D *_histPtKaons;
@@ -79,7 +85,12 @@ namespace Rivet {
     AIDA::IHistogram1D *_histPtAntiProtons;
     AIDA::IHistogram1D *_histPtAntiKaons;
     AIDA::IProfile1D   *_histAveragePt;
+
   };
 
-  AnalysisBuilder<ALICE_2011_S8945144> plugin_ALICE_2011_S8945144;
+
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ALICE_2011_S8945144);
+
 }

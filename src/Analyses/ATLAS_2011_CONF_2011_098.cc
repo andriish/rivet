@@ -22,13 +22,9 @@ namespace Rivet {
     /// Constructor
     ATLAS_2011_CONF_2011_098()
       : Analysis("ATLAS_2011_CONF_2011_098"),
-
 //debug variables
 threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTmisscut(0)
-
-
     {
-      /// Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
     }
 
@@ -279,16 +275,14 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
 
     //@}
 
+
     void finalize() {
-
-
-        scale( _hist_meff_1bjet, 50. * 830. * crossSection()/sumOfWeights() );
-        scale( _hist_eTmiss_1bjet, 100. * 830. * crossSection()/sumOfWeights() );
-        scale( _hist_pTj_1bjet, 40. * 830. * crossSection()/sumOfWeights() );
-        scale( _hist_meff_2bjet, 50. * 830. * crossSection()/sumOfWeights() );
-        scale( _hist_eTmiss_2bjet, 100. * 830. * crossSection()/sumOfWeights() );
-        scale( _hist_pTj_2bjet, 40. * 830. * crossSection()/sumOfWeights() );
-
+      scale( _hist_meff_1bjet, 50. * 830. * crossSection()/sumOfWeights() );
+      scale( _hist_eTmiss_1bjet, 100. * 830. * crossSection()/sumOfWeights() );
+      scale( _hist_pTj_1bjet, 40. * 830. * crossSection()/sumOfWeights() );
+      scale( _hist_meff_2bjet, 50. * 830. * crossSection()/sumOfWeights() );
+      scale( _hist_eTmiss_2bjet, 100. * 830. * crossSection()/sumOfWeights() );
+      scale( _hist_pTj_2bjet, 40. * 830. * crossSection()/sumOfWeights() );
 
 // cerr<< '\n'<<'\n'
 // << "Saw "
@@ -305,6 +299,7 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
 // ;
 
     }
+
 
   private:
 
@@ -323,6 +318,7 @@ threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTm
 
     //@}
 
+
 // debug variables
 int threeJA;
 int threeJB;
@@ -337,8 +333,7 @@ int eTmisscut;
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2011_CONF_2011_098> plugin_ATLAS_2011_CONF_2011_098;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_CONF_2011_098);
 
 }

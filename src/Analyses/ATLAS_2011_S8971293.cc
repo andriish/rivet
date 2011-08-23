@@ -58,7 +58,7 @@ namespace Rivet {
         if (fabs(jet.momentum().rapidity()) < 2.8) {
           jets06.push_back(jet);
         }
-      } 
+      }
       if (jets06.size()>1){
         if (fabs(jets06[0].momentum().rapidity())<0.8 && fabs(jets06[1].momentum().rapidity())<0.8) {
           double observable = mapAngle0ToPi(jets06[0].momentum().phi()-jets06[1].momentum().phi()) / M_PI;
@@ -90,8 +90,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2011_S8971293> plugin_ATLAS_2011_S8971293;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_S8971293);
 
 }

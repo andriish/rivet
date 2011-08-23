@@ -5,9 +5,14 @@
 
 namespace Rivet {
 
+
   class CMS_2011_S8968497 : public Analysis {
   public:
-    CMS_2011_S8968497() : Analysis("CMS_2011_S8968497") {}
+
+    CMS_2011_S8968497()
+      : Analysis("CMS_2011_S8968497")
+    { }
+
 
     void init() {
       FinalState fs;
@@ -24,6 +29,7 @@ namespace Rivet {
       _h_chi_dijet.addHistogram( 250.,  350., bookHistogram1D(9, 1, 1));
     }
 
+
     void analyze(const Event& event) {
       const double weight = event.weight();
       const Jets& jets = applyProjection<JetAlg>(event, "ANTIKT").jetsByPt();
@@ -38,16 +44,23 @@ namespace Rivet {
       _h_chi_dijet.fill(mjj, chi, weight);
     }
 
+
     void finalize() {
       foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
         normalize(hist);
       }
     }
 
+
   private:
+
     BinnedHistogram<double> _h_chi_dijet;
-   };
 
-  AnalysisBuilder<CMS_2011_S8968497> plugin_CMS_2011_S8968497;
+  };
+
+
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CMS_2011_S8968497);
+
 }
-

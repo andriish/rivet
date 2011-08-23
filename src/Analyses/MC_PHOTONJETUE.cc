@@ -254,7 +254,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_PHOTONJETUE> plugin_MC_PHOTONJETUE;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(MC_PHOTONJETUE);
 
 }

@@ -321,8 +321,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ALEPH_2004_S5765862> plugin_ALEPH_2004_S5765862;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ALEPH_2004_S5765862);
 
 }

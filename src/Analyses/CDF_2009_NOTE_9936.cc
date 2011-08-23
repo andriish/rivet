@@ -16,11 +16,11 @@ namespace Rivet {
 
     /// Constructor
     CDF_2009_NOTE_9936()
-      : Analysis("CDF_2009_NOTE_9936") 
+      : Analysis("CDF_2009_NOTE_9936")
         //_sumWPassed(0.0)
     {
       /// @todo Set approriate for your analysis
-      
+
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
     }
@@ -37,7 +37,7 @@ namespace Rivet {
     void init() {
 
       addProjection(TriggerCDFRun2(), "Trigger");
-      
+
       addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
 
       _hist_nch = bookHistogram1D(1, 1, 1);
@@ -74,8 +74,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CDF_2009_NOTE_9936> plugin_CDF_2009_NOTE_9936;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CDF_2009_NOTE_9936);
 
 }

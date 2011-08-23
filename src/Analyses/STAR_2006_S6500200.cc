@@ -16,8 +16,8 @@ namespace Rivet {
     STAR_2006_S6500200()
       : Analysis("STAR_2006_S6500200"),
         _sumWeightSelected(0.0)
-    {
-    }
+    {  }
+
 
     /// Book projections and histograms
     void init() {
@@ -110,7 +110,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<STAR_2006_S6500200> plugin_STAR_2006_S6500200;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(STAR_2006_S6500200);
 
 }

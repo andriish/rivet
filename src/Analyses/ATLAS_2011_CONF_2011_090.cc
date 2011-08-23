@@ -1,4 +1,4 @@
-// -*- C++ -*- 
+// -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/RivetAIDA.hh"
@@ -82,7 +82,7 @@ namespace Rivet {
 
       /// Book histograms
       _count_mu_channel = bookHistogram1D("count_muon_channel", 1, 0., 1.);
-      _count_e_channel = bookHistogram1D("count_electron_channel", 1, 0., 1.); 
+      _count_e_channel = bookHistogram1D("count_electron_channel", 1, 0., 1.);
       _hist_eTmiss_e = bookHistogram1D("Et_miss_e", 50, 0., 500.);
       _hist_eTmiss_mu = bookHistogram1D("Et_miss_mu", 50, 0., 500.);
       _hist_m_eff_e = bookHistogram1D("m_eff_e", 30, 0., 1500.);
@@ -99,10 +99,10 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();      
-      
+      const double weight = event.weight();
 
-      ParticleVector veto_e 
+
+      ParticleVector veto_e
 	= applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
        	MSG_DEBUG("electrons in veto region");
@@ -110,31 +110,31 @@ namespace Rivet {
       }
 
       Jets cand_jets;
-      foreach ( const Jet& jet, 
+      foreach ( const Jet& jet,
        	  applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.momentum().eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
-      } 
+      }
 
-      ParticleVector candtemp_e = 
-	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();      
-      ParticleVector candtemp_mu = 
+      ParticleVector candtemp_e =
+	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      ParticleVector candtemp_mu =
 	applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
-      ParticleVector chg_tracks = 
+      ParticleVector chg_tracks =
 	applyProjection<ChargedFinalState>(event, "cfs").particles();
       ParticleVector cand_mu;
       ParticleVector cand_e;
 
 
-      // pTcone around muon track 
+      // pTcone around muon track
       foreach ( const Particle & mu, candtemp_mu ) {
 	double pTinCone = -mu.momentum().pT();
 	foreach ( const Particle & track, chg_tracks ) {
 	  if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
 	    pTinCone += track.momentum().pT();
 	}
-	if ( pTinCone < 1.8*GeV ) 
+	if ( pTinCone < 1.8*GeV )
 	  cand_mu.push_back(mu);
       }
 
@@ -143,7 +143,7 @@ namespace Rivet {
       foreach ( const Particle e, candtemp_e ) {
 	double pTinCone = -e.momentum().pT();
 	foreach ( const Particle & track, chg_tracks ) {
-	  if ( deltaR(e.momentum(),track.momentum()) < 0.2 )  
+	  if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
 	    pTinCone += track.momentum().pT();
 	}
 	if ( pTinCone < 0.10 * e.momentum().pT() )
@@ -162,35 +162,35 @@ namespace Rivet {
 	      break;
 	    }
 	  }
-	  if ( away_from_e ) 
+	  if ( away_from_e )
 	    cand_jets_2.push_back( jet );
       }
-      
+
       // only consider leptons far from jet
-      ParticleVector recon_e, recon_mu;  
+      ParticleVector recon_e, recon_mu;
       foreach ( const Particle & e, cand_e ) {
         bool e_near_jet = false;
-	foreach ( const Jet& jet, cand_jets_2 ) {  
-          if ( deltaR(e.momentum(),jet.momentum()) < 0.4 && 
-	       deltaR(e.momentum(),jet.momentum()) > 0.2 ) 
+	foreach ( const Jet& jet, cand_jets_2 ) {
+          if ( deltaR(e.momentum(),jet.momentum()) < 0.4 &&
+	       deltaR(e.momentum(),jet.momentum()) > 0.2 )
 	    e_near_jet = true;
 	}
         if ( e_near_jet == false )
-          recon_e.push_back( e );  
+          recon_e.push_back( e );
        }
 
       foreach ( const Particle & mu, cand_mu ) {
          bool mu_near_jet = false;
-         foreach ( const Jet& jet, cand_jets_2 ) {	
-           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) 
-	     mu_near_jet = true;	   
+         foreach ( const Jet& jet, cand_jets_2 ) {
+           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
+	     mu_near_jet = true;
 	 }
-	 if ( mu_near_jet == false ) 
+	 if ( mu_near_jet == false )
 	  recon_mu.push_back( mu );
-       } 
+       }
 
       // pTmiss
-      ParticleVector vfs_particles 
+      ParticleVector vfs_particles
 	= applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
@@ -207,7 +207,7 @@ namespace Rivet {
 
 
 
-	
+
       // ==================== observables ====================
 
 
@@ -216,9 +216,9 @@ namespace Rivet {
       int Njets = 0;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-	if ( fabs(jet.momentum().eta()) < 2.8 ) 
+	if ( fabs(jet.momentum().eta()) < 2.8 )
 	  Njets+=1;
-      }     
+      }
       if ( Njets < 3 ) {
 	MSG_DEBUG("Only " << Njets << " jets w/ eta<2.8 left");
 	vetoEvent;
@@ -232,7 +232,7 @@ namespace Rivet {
 	if ( recon_jets[i].momentum().pT() <= 25*GeV ) {
 	  vetoEvent;
 	}
-      }      
+      }
 
       for ( int i = 0; i < 3; ++i ) {
 	double dPhi = deltaPhi( pTmiss_phi, recon_jets[i].momentum().phi() );
@@ -250,9 +250,9 @@ namespace Rivet {
 	vetoEvent;
       }
       else {
-	foreach ( const Particle & mu, recon_mu ) 
+	foreach ( const Particle & mu, recon_mu )
 	    lepton.push_back(mu);
-        foreach ( const Particle & e, recon_e ) 
+        foreach ( const Particle & e, recon_e )
 	    lepton.push_back(e);
       }
 
@@ -262,62 +262,62 @@ namespace Rivet {
       double mu_id = 13;
 
       // one hard leading lepton cut
-      if ( fabs(lepton[0].pdgId()) == e_id && 
+      if ( fabs(lepton[0].pdgId()) == e_id &&
            lepton[0].momentum().pT() <= 25*GeV ) {
 	vetoEvent;
       }
-      else if ( fabs(lepton[0].pdgId()) == mu_id && 
+      else if ( fabs(lepton[0].pdgId()) == mu_id &&
                 lepton[0].momentum().pT() <= 20*GeV ) {
 	vetoEvent;
       }
-      
+
       // exactly one hard leading lepton cut
-      if ( fabs(lepton[1].pdgId()) == e_id && 
+      if ( fabs(lepton[1].pdgId()) == e_id &&
            lepton[1].momentum().pT() > 20*GeV ) {
 	  vetoEvent;
       }
-      else if ( fabs(lepton[1].pdgId()) == mu_id && 
+      else if ( fabs(lepton[1].pdgId()) == mu_id &&
                 lepton[1].momentum().pT() > 10*GeV ) {
 	  vetoEvent;
       }
-     
-     
+
+
 
     // ==================== FILL ====================
 
 
       FourMomentum pT_l = lepton[0].momentum();
-     
+
 
       double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
       double mT = sqrt( 2 * pT_l.pT() * eTmiss * (1 - cos(dPhi)) );
 
 
       // effective mass
-      double m_eff = eTmiss + pT_l.pT() 
-	+ recon_jets[0].momentum().pT() 
+      double m_eff = eTmiss + pT_l.pT()
+	+ recon_jets[0].momentum().pT()
 	+ recon_jets[1].momentum().pT()
 	+ recon_jets[2].momentum().pT();
 
-     
+
       // Electron channel signal region
-      
+
       if ( fabs( lepton[0].pdgId() ) == e_id ) {
 
         _hist_eTmiss_e->fill(eTmiss, weight);
         _hist_m_eff_e->fill(m_eff, weight);
 
-        if ( mT > 100*GeV && eTmiss > 125*GeV ) { 
+        if ( mT > 100*GeV && eTmiss > 125*GeV ) {
 	  _hist_m_eff_e_final->fill(m_eff, weight);
 	  if ( m_eff > 500*GeV && eTmiss > 0.25*m_eff ) {
-            _count_e_channel->fill(0.5,weight);	
+            _count_e_channel->fill(0.5,weight);
 	  }
         }
       }
 
       // Muon channel signal region
 
-      else if ( fabs( lepton[0].pdgId() ) == mu_id ) {      
+      else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
 
         _hist_eTmiss_mu->fill(eTmiss, weight);
         _hist_m_eff_mu->fill(m_eff, weight);
@@ -328,15 +328,15 @@ namespace Rivet {
             _count_mu_channel->fill(0.5,weight);
           }
         }
-     
-      }   
+
+      }
 
 
     }
 
     //@}
 
-    
+
     void finalize() {
 
 
@@ -368,13 +368,12 @@ namespace Rivet {
 
     //@}
 
-    
+
   };
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2011_CONF_2011_090> plugin_ATLAS_2011_CONF_2011_090;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_CONF_2011_090);
 
 }

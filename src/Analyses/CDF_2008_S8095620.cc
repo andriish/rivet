@@ -14,7 +14,7 @@ namespace Rivet {
   /// @brief CDF Run II Z + b-jet cross-section measurement
   class CDF_2008_S8095620 : public Analysis {
   public:
-    
+
     /// Constructor.
     /// jet cuts: |eta| <= 1.5
     CDF_2008_S8095620()
@@ -23,11 +23,11 @@ namespace Rivet {
         _sumWeightSelected(0.0)
     {
     }
- 
+
 
     /// @name Analysis methods
     //@{
- 
+
     void init() {
       // Set up projections
       const FinalState fs(-3.2, 3.2);
@@ -54,7 +54,7 @@ namespace Rivet {
       _dSdNJet  = bookHistogram1D(5, 1, 1);
       _dSdNbJet = bookHistogram1D(6, 1, 1);
      }
- 
+
 
     // Do the analysis
     void analyze(const Event& event) {
@@ -62,7 +62,7 @@ namespace Rivet {
       // Get the Z decay products (mu+mu- or e+e- pair)
       const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
       const ParticleVector&  ZDecayProducts =  invMassFinalState.particles();
-   
+
       // make sure we have 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
       //new cuts
@@ -73,22 +73,22 @@ namespace Rivet {
 
       if (Lep1Eta > _LepEtaCut || Lep2Eta > _LepEtaCut) vetoEvent;
 
-      if (abs(ZDecayProducts[0].pdgId())==13 && 
+      if (abs(ZDecayProducts[0].pdgId())==13 &&
           ((Lep1Eta > 1.5 || Lep2Eta > 1.5) || (Lep1Eta > 1.0 && Lep2Eta > 1.0))) {
         vetoEvent;
       }
-      
+
       if (Lep1Pt > Lep2Pt) {
         if (Lep1Pt < _Lep1PtCut || Lep2Pt < _Lep2PtCut) vetoEvent;
       }
       else {
         if (Lep1Pt < _Lep2PtCut || Lep2Pt < _Lep1PtCut) vetoEvent;
       }
-      
+
       _sumWeightSelected += event.weight();
       // @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
-   
+
       // Put all b-quarks in a vector
       ParticleVector bquarks;
       foreach (const GenParticle* p, particles(event.genEvent())) {
@@ -96,14 +96,14 @@ namespace Rivet {
           bquarks += Particle(*p);
         }
       }
-   
+
       // Get jets
       const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
       getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
-   
+
       const PseudoJets& jets = jetpro.pseudoJetsByPt();
       getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
-   
+
       int numBJet = 0;
       int numJet  = 0;
       // for each b-jet plot the ET and the eta of the jet, normalise to the total cross section at the end
@@ -127,7 +127,7 @@ namespace Rivet {
           }
         }
       } // end loop around jets
-   
+
       // wasn't asking for b-jets before!!!!
       if(numJet > 0 && numBJet > 0) _dSdNJet->fill(numJet,event.weight());
       if(numBJet > 0) {
@@ -136,7 +136,7 @@ namespace Rivet {
         _dSdZpT->fill(Zmom.pT(),event.weight());
       }
     }
- 
+
 
 
     // Finalize
@@ -182,7 +182,8 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CDF_2008_S8095620> plugin_CDF_2008_S8095620;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CDF_2008_S8095620);
 
 }

@@ -104,8 +104,8 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_DIPHOTON> plugin_MC_DIPHOTON;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(MC_DIPHOTON);
 
 }
 

@@ -250,8 +250,7 @@ namespace Rivet {
   };
 
 
-
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_GENERIC> plugin_MC_GENERIC;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(MC_GENERIC);
 
 }

@@ -8,12 +8,15 @@
 
 namespace Rivet {
 
-  typedef std::pair<double, double> doublepair;
-
 
   /// @brief D0 direct photon pair production
   class D0_2010_S8570965 : public Analysis {
+
+    typedef std::pair<double, double> doublepair;
+
+
   public:
+
 
     D0_2010_S8570965()
       : Analysis("D0_2010_S8570965")
@@ -145,8 +148,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<D0_2010_S8570965> plugin_D0_2010_S8570965;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(D0_2010_S8570965);
 
 }

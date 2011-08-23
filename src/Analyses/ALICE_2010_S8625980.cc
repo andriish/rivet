@@ -98,8 +98,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ALICE_2010_S8625980> plugin_ALICE_2010_S8625980;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ALICE_2010_S8625980);
 
 }

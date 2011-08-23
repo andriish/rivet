@@ -766,7 +766,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<PDG_HADRON_MULTIPLICITIES> plugin_PDG_HADRON_MULTIPLICITIES;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(PDG_HADRON_MULTIPLICITIES);
 
 }

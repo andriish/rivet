@@ -9,14 +9,17 @@
 
 namespace Rivet {
 
+
   class ATLAS_2011_S9002537 : public Analysis {
+  public:
+
+    ATLAS_2011_S9002537()
+      : Analysis("ATLAS_2011_S9002537")
+    {  }
+
 
   public:
-    ATLAS_2011_S9002537(): Analysis("ATLAS_2011_S9002537")
-    {
-    }
 
-  public:
     void init() {
       IdentifiedFinalState Muons(-2.4,2.4,20.*GeV);
       Muons.acceptIdPair(MUON);
@@ -32,6 +35,7 @@ namespace Rivet {
       _h_minus  = bookHistogram1D("_h_minus", binEdges(1,1,1));
       _h_asym   = bookDataPointSet(1,1,1);
     }
+
 
     void analyze(const Event& event) {
       const IdentifiedFinalState& muons =
@@ -98,11 +102,16 @@ namespace Rivet {
       histogramFactory().destroy(_h_minus);
     }
 
+
   private:
+
     AIDA::IHistogram1D  *_h_plus, *_h_minus;
     AIDA::IDataPointSet *_h_asym;
 
   };
 
-  AnalysisBuilder<ATLAS_2011_S9002537> plugin_ATLAS_2011_S9002537;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9002537);
+
 }

@@ -19,8 +19,8 @@
 #include "fastjet/ClusterSequenceArea.hh"
 #include "fastjet/PseudoJet.hh"
 
-
 namespace Rivet {
+
 
   /// @brief Measurement of isolated diphoton + X differential cross-sections
   ///
@@ -28,7 +28,6 @@ namespace Rivet {
   /// dphi(gg)
   ///
   /// @author Giovanni Marchiori
-
   class ATLAS_2011_S9120807 : public Analysis {
   public:
 
@@ -42,6 +41,7 @@ namespace Rivet {
       _eta_bins_areaoffset.push_back(1.5);
       _eta_bins_areaoffset.push_back(3.0);
     }
+
 
   public:
 
@@ -69,8 +69,8 @@ namespace Rivet {
       double eta = fabs(eta_w);
 
       int v_iter=0;
-      for(v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++){
-        if(inRange(eta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1]))
+      for (v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++){
+        if (inRange(eta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1]))
           break;
       }
       return v_iter;
@@ -235,6 +235,8 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2011_S9120807> plugin_ATLAS_2011_S9120807;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9120807);
+
 }

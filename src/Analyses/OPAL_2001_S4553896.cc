@@ -57,7 +57,7 @@ namespace Rivet {
     //@}
 
   }
-  
+
 
   class OPAL_2001_S4553896 : public Analysis {
   public:
@@ -67,7 +67,7 @@ namespace Rivet {
 
     /// Constructor
     OPAL_2001_S4553896()
-      : Analysis("OPAL_2001_S4553896") 
+      : Analysis("OPAL_2001_S4553896")
     {
       setNeedsCrossSection(false);
     }
@@ -87,7 +87,7 @@ namespace Rivet {
       const FinalState fs;
       addProjection(fs, "FS");
       addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "Jets");
-      
+
 
       /// @todo Book histograms here, e.g.:
       _h_BZ      = bookHistogram1D(3, 1, 1);
@@ -100,7 +100,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      
+
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (applyProjection<FinalState>(event, "FS").particles().size() < 2) {
         vetoEvent;
@@ -120,20 +120,20 @@ namespace Rivet {
           _h_ALPHA34->fill(calc_ALPHA34(jets), weight);
         }
       }
-      
+
 
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       /// Normalise, scale and otherwise manipulate histograms here
       normalize(_h_BZ);
       normalize(_h_KSW);
       normalize(_h_NR);
       normalize(_h_ALPHA34);
-      
+
     }
 
     //@}
@@ -154,8 +154,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<OPAL_2001_S4553896> plugin_OPAL_2001_S4553896;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(OPAL_2001_S4553896);
 
 }

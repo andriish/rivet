@@ -37,16 +37,16 @@ namespace Rivet {
     void init() {
       const ChargedFinalState cfs(-MAXRAPIDITY, MAXRAPIDITY, 0.1/GeV);
       addProjection(cfs, "CFS");
-      
+
       //// Beams -- needed for x_p calculation
       //addProjection(Beam(), "Beams");
-      
+
       // Thrust
       addProjection(Thrust(cfs), "Thrust");
 
       // For Sphericity and the like
       addProjection(Sphericity(cfs), "Sphericity");
-      
+
       // Histos
       int offset = 0;
       switch (int(sqrtS()/GeV)) {
@@ -80,7 +80,7 @@ namespace Rivet {
       //const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
       //const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    //beams.second.momentum().vector3().mod() ) / 2.0;
-      
+
       // TASSO hadronic event selection TODO: move this into a trigger definition
       // See page 2 in publication
       // Condition 1)  --- require at least 5 (4) 'good' tracks
@@ -89,7 +89,7 @@ namespace Rivet {
         getLog() << Log::DEBUG << "Failed # good tracks cut: " << nch << endl;
         vetoEvent;
       }
-      // Condition 2) --- 
+      // Condition 2) ---
       // Condition 5) --- scalar momentum (not pT!!!) sum >= 0.265*s
       double momsum = 0.0;
       foreach (const Particle& p, cfs.particles()) {
@@ -111,7 +111,7 @@ namespace Rivet {
         //getLog() << Log::DEBUG << "Failed thrust angle cut: " << fabs(cos(theta)) << endl;
         //vetoEvent;
       //}
-      
+
       const Sphericity& sphericity = applyProjection<Sphericity>(event, "Sphericity");
 
       //// Fill histograms in order of appearance in paper
@@ -162,8 +162,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<TASSO_1990_S2148048> plugin_TASSO_1990_S2148048;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(TASSO_1990_S2148048);
 
 }

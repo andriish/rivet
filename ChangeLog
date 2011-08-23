@@ -1,5 +1,10 @@
 2011-08-23  Andy Buckley  <andy@insectnation.org>
 
+	* Adding a new DECLARE_RIVET_PLUGIN wrapper macro to hide the
+	details of the plugin hook system from analysis authors. Migration
+	of all analyses and the rivet-mkanalysis script to use this as the
+	standard plugin hook syntax.
+
 	* Also call the --cflags option on root-config when using the
 	--root option with rivet-biuldplugin (thanks to Richard Corke for
 	the report)

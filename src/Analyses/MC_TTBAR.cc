@@ -146,7 +146,8 @@ namespace Rivet {
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<MC_TTBAR> plugin_MC_TTBAR;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(MC_TTBAR);
 
 }

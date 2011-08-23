@@ -486,28 +486,28 @@ namespace Rivet {
 
     AIDA::IHistogram1D *_hist1MinusT;
     AIDA::IHistogram1D *_histTMinor;
- 
+
     AIDA::IHistogram1D *_histY3;
     AIDA::IHistogram1D *_histHeavyJetMass;
     AIDA::IHistogram1D *_histCParam;
     AIDA::IHistogram1D *_histOblateness;
- 
+
     AIDA::IHistogram1D *_histScaledMom;
     AIDA::IHistogram1D *_histRapidityT;
 
     AIDA::IHistogram1D *_histPtSIn;
     AIDA::IHistogram1D *_histPtSOut;
- 
+
     AIDA::IHistogram1D *_histJetRate2Durham;
     AIDA::IHistogram1D *_histJetRate3Durham;
     AIDA::IHistogram1D *_histJetRate4Durham;
     AIDA::IHistogram1D *_histJetRate5Durham;
 
     AIDA::IHistogram1D *_histLogScaledMom;
- 
- 
+
+
     AIDA::IHistogram1D *_histChMult;
- 
+
 
     AIDA::IHistogram1D *_histMultiPiPlus;
     AIDA::IHistogram1D *_histMultiKPlus;
@@ -533,7 +533,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_histMeanChMultRapt10;
     AIDA::IHistogram1D *_histMeanChMultRapt15;
     AIDA::IHistogram1D *_histMeanChMultRapt20;
- 
+
     AIDA::IHistogram1D *_histMeanMultiPi0;
     AIDA::IHistogram1D *_histMeanMultiEta;
     AIDA::IHistogram1D *_histMeanMultiEtaPrime;
@@ -555,7 +555,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ALEPH_1996_S3486095> plugin_ALEPH_1996_S3486095;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ALEPH_1996_S3486095);
 
 }

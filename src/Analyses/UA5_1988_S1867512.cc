@@ -102,7 +102,7 @@ namespace Rivet {
       //      Poissonian uncertainties for the number of particles in
       //      the eta-intervals
       //
-      
+
       // Define vectors to be able to fill DataPointSets
 
       vector<double> xvals;
@@ -224,7 +224,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<UA5_1988_S1867512> plugin_UA5_1988_S1867512;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(UA5_1988_S1867512);
 
 }

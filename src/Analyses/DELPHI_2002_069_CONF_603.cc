@@ -44,30 +44,30 @@ namespace Rivet {
     void analyze(const Event& e) {
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
-   
+
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
         getLog() << Log::DEBUG << "Failed ncharged cut" << endl;
         vetoEvent;
       }
       getLog() << Log::DEBUG << "Passed ncharged cut" << endl;
-   
+
       // Get event weight for histo filling
       const double weight = e.weight();
-   
+
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
       getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
-   
-   
+
+
       foreach (const GenParticle* p, particles(e.genEvent())) {
         const GenVertex* pv = p->production_vertex();
         const GenVertex* dv = p->end_vertex();
         if (IS_BHADRON_PDGID(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
-       
+
           // If the B-hadron has a parton as parent, call it primary B-hadron:
           if (pv) {
             bool is_primary = false;
@@ -79,7 +79,7 @@ namespace Rivet {
               _histMeanXbprim->fill(_histMeanXbprim->binMean(0), xp, weight);
             }
           }
-       
+
           // If the B-hadron has no B-hadron as a child, it decayed weakly:
           if (dv) {
             bool is_weak = true;
@@ -94,11 +94,11 @@ namespace Rivet {
               _histMeanXbweak->fill(_histMeanXbweak->binMean(0), xp, weight);
             }
           }
-       
+
         }
       }
     }
- 
+
 
     // Finalize
     void finalize() {
@@ -125,7 +125,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<DELPHI_2002_069_CONF_603> plugin_DELPHI_2002_069_CONF_603;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(DELPHI_2002_069_CONF_603);
 
 }

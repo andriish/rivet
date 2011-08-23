@@ -189,12 +189,7 @@ namespace Rivet {
 
 
 
-  //////////////////////////////////////////////////////////////
-
-
-
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<JADE_OPAL_2000_S4300807> plugin_JADE_OPAL_2000_S4300807;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(JADE_OPAL_2000_S4300807);
 
 }

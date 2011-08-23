@@ -6,6 +6,7 @@
 
 namespace Rivet {
 
+
   /// @brief CMS strange particle spectra (Ks, Lambda, Cascade) in pp at 900 and 7000 GeV
   /// @author Kevin Stenson
   class CMS_2011_S8978280 : public Analysis {
@@ -105,6 +106,7 @@ namespace Rivet {
 
 
   private:
+
     // Particle distributions versus rapidity and transverse momentum
     AIDA::IHistogram1D *_h_dNKshort_dy;
     AIDA::IHistogram1D *_h_dNKshort_dpT;
@@ -112,10 +114,12 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_dNLambda_dpT;
     AIDA::IHistogram1D *_h_dNXi_dy;
     AIDA::IHistogram1D *_h_dNXi_dpT;
+
   };
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<CMS_2011_S8978280> plugin_CMS_2011_S8978280;
+
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(CMS_2011_S8978280);
 
 }

@@ -126,7 +126,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ExampleAnalysis> plugin_ExampleAnalysis;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ExampleAnalysis);
 
 }

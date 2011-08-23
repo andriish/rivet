@@ -166,8 +166,7 @@ namespace Rivet {
 
 
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<STAR_2008_S7869363> plugin_STAR_2008_S7869363;
-
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(STAR_2008_S7869363);
 
 }
