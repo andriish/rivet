@@ -87,7 +87,7 @@ fi
 shift
 sources_and_flags="$@"
 if [[ -n $with_root ]]; then
-    root_flags=$(root-config --libs 2> /dev/null)
+    root_flags=$(root-config --libs --cflags 2> /dev/null)
     # echo $root_flags
     sources_and_flags="$root_flags $sources_and_flags"
 fi

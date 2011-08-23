@@ -1,3 +1,9 @@
+2011-08-23  Andy Buckley  <andy@insectnation.org>
+
+	* Also call the --cflags option on root-config when using the
+	--root option with rivet-biuldplugin (thanks to Richard Corke for
+	the report)
+
 2011-08-23  Frank Siegert <frank.siegert@cern.ch>
 
 	* Added ATLAS_2011_S9126244
