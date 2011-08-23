@@ -17,7 +17,6 @@ namespace Rivet {
       : Analysis("STAR_2006_S6500200"),
         _sumWeightSelected(0.0)
     {
-      setBeams(PROTON, PROTON);
     }
 
     /// Book projections and histograms

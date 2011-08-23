@@ -15,7 +15,6 @@ namespace Rivet {
 
     /// Default constructor
     CMS_2011_S8957746() : Analysis("CMS_2011_S8957746") {
-      setBeams(PROTON, PROTON);
     }
 
     /// Initialization, called once before running

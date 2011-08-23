@@ -20,7 +20,6 @@ namespace Rivet {
     CDF_2001_S4517016()
       : Analysis("CDF_2001_S4517016")
     {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
 

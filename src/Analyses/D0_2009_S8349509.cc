@@ -20,7 +20,6 @@ namespace Rivet {
     D0_2009_S8349509() : Analysis("D0_2009_S8349509"),
                          _inclusive_Z_sumofweights(0.0)
     {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
 

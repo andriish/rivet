@@ -2,6 +2,8 @@
 
 	* Added ALICE_2011_S8945144
 
+	* Remove obsolete setBeams() from the analyses
+
 2011-08-19  Frank Siegert <frank.siegert@cern.ch>
 
 	* More NLO parton level generator friendliness: Don't crash or fail when

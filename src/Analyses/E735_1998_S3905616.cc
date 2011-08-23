@@ -16,7 +16,6 @@ namespace Rivet {
 
     /// Constructor
     E735_1998_S3905616() : Analysis("E735_1998_S3905616") {
-      setBeams(PROTON, ANTIPROTON);
       _sumWTrig = 0;
     }
 

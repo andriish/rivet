@@ -20,7 +20,6 @@ namespace Rivet {
         //_sumWPassed(0.0)
     {
       /// @todo Set approriate for your analysis
-      setBeams(PROTON, ANTIPROTON);
       
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);

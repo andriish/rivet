@@ -28,7 +28,6 @@ namespace Rivet {
         _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0),
         _xpoint(1960.)
     {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
 

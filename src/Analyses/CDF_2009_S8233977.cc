@@ -32,7 +32,6 @@ namespace Rivet {
       : Analysis("CDF_2009_S8233977"),
         _sumWeightSelected(0.0)
     {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
 

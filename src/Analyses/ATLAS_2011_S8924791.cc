@@ -19,7 +19,6 @@ namespace Rivet {
     ATLAS_2011_S8924791()
       : Analysis("ATLAS_2011_S8924791")
     {
-      setBeams(PROTON, PROTON);
     }
 
 

@@ -19,7 +19,6 @@ namespace Rivet {
     CDF_1996_S3349578()
       : Analysis("CDF_1996_S3349578")
     {
-      setBeams(PROTON, ANTIPROTON);
     }
 
     //@}

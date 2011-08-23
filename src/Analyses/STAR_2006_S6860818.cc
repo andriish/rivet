@@ -18,7 +18,6 @@ namespace Rivet {
       : Analysis("STAR_2006_S6860818"),
         _sumWeightSelected(0.0)
     {
-      setBeams(PROTON, PROTON);
       for (size_t i=0 ; i<4 ; i++) {
         _nBaryon[i]=0;
         _nAntiBaryon[i]=0;

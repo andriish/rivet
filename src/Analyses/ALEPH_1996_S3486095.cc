@@ -25,7 +25,6 @@ namespace Rivet {
     ALEPH_1996_S3486095()
       : Analysis("ALEPH_1996_S3486095")
     {
-      setBeams(ELECTRON, POSITRON);
       _numChParticles               = 0;
       _weightedTotalPartNum         = 0;
       _weightedTotalNumPiPlus       = 0;

@@ -19,7 +19,6 @@ namespace Rivet {
     DELPHI_1995_S3137023()
       : Analysis("DELPHI_1995_S3137023")
     {
-      setBeams(ELECTRON, POSITRON);
       _weightedTotalNumXiMinus = 0;
       _weightedTotalNumSigma1385Plus = 0;
     }

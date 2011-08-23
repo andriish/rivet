@@ -17,7 +17,6 @@ namespace Rivet {
     /// Constructor
     PDG_HADRON_MULTIPLICITIES_RATIOS() : Analysis("PDG_HADRON_MULTIPLICITIES_RATIOS")
     {
-      setBeams(ELECTRON, POSITRON);
       _weightedTotalNumPiPlus = 0;
     }
 

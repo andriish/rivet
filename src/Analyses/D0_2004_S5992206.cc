@@ -33,7 +33,6 @@ namespace Rivet {
     /// Constructor.
     D0_2004_S5992206() : Analysis("D0_2004_S5992206")
     {
-      setBeams(PROTON, ANTIPROTON);
     }
 
     //@}

@@ -18,7 +18,6 @@ namespace Rivet {
     /// Constructor
     H1_2000_S4129130() : Analysis("H1_2000_S4129130")
     {
-      setBeams(POSITRON, PROTON);
     }
  
  

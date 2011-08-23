@@ -15,7 +15,6 @@ namespace Rivet {
 
     /// Constructor
     UA1_1990_S2044935() : Analysis("UA1_1990_S2044935") {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
       _sumwTrig = 0;
       _sumwTrig08 = 0;

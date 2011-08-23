@@ -33,7 +33,6 @@ namespace Rivet {
     /// Constructor
     CDF_2010_S8591881_DY() : Analysis("CDF_2010_S8591881_DY")
     {
-      setBeams(PROTON, ANTIPROTON);
     }
 
 

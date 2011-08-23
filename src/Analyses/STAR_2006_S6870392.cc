@@ -16,7 +16,6 @@ namespace Rivet {
     STAR_2006_S6870392()
       : Analysis("STAR_2006_S6870392")
     {
-      setBeams(PROTON, PROTON);
       setNeedsCrossSection(true);
     }
 

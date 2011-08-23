@@ -35,7 +35,6 @@ namespace Rivet {
     CDF_2002_S4796047()
       : Analysis("CDF_2002_S4796047")
     {
-      setBeams(PROTON, ANTIPROTON);
       _sumWTrig = 0;
     }
 

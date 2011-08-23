@@ -22,7 +22,6 @@ namespace Rivet {
         _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(3.2),
         _sumWeightSelected(0.0)
     {
-      setBeams(PROTON, ANTIPROTON);
     }
  
 

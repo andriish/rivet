@@ -20,7 +20,6 @@ namespace Rivet {
     D0_2008_S7554427() : Analysis("D0_2008_S7554427")
     {
       // Run II Z pT
-      setBeams(PROTON, ANTIPROTON);
     }
 
 

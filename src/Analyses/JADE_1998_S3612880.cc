@@ -22,7 +22,6 @@ namespace Rivet {
       : Analysis("JADE_1998_S3612880")
     {
       /// @todo Set whether your finalize method needs the generator cross section
-      setBeams(ELECTRON, POSITRON);
     }
 
 

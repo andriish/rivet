@@ -18,7 +18,6 @@ namespace Rivet {
 
     /// Constructor
     D0_1996_S3324664() : Analysis("D0_1996_S3324664") {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(false);
     }
 

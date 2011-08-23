@@ -22,7 +22,6 @@ namespace Rivet {
       : Analysis("TASSO_1990_S2148048")
     {
       /// @todo Set whether your finalize method needs the generator cross section
-      setBeams(ELECTRON, POSITRON);
       //_sumWPassed = 0;
     }
 

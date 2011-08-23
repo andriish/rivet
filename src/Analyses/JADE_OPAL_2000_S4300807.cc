@@ -17,7 +17,6 @@ namespace Rivet {
 
     /// Constructor
     JADE_OPAL_2000_S4300807() : Analysis("JADE_OPAL_2000_S4300807") {
-      setBeams(ELECTRON, POSITRON);
     }
 
     //@}

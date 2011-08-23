@@ -19,7 +19,6 @@ namespace Rivet {
     D0_2009_S8202443() : Analysis("D0_2009_S8202443"),
         _sum_of_weights(0.0), _sum_of_weights_constrained(0.0)
     {
-      setBeams(PROTON, ANTIPROTON);
     }
 
     //@}

@@ -15,7 +15,6 @@ namespace Rivet {
 
     ATLAS_2010_S8817804() : Analysis("ATLAS_2010_S8817804")
     {
-      setBeams(PROTON, PROTON);
       setNeedsCrossSection(true);
     }
 

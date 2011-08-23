@@ -16,7 +16,6 @@ namespace Rivet {
 
     UA5_1988_S1867512() : Analysis("UA5_1988_S1867512")
     {
-      setBeams(PROTON, ANTIPROTON);
       _sumWPassed = 0;
     }
 

@@ -16,7 +16,6 @@ namespace Rivet {
 
     BELLE_2006_S6265367(): Analysis("BELLE_2006_S6265367")
     {
-      setBeams(ELECTRON, POSITRON);
       // setNeedsCrossSection(true);
     }
 

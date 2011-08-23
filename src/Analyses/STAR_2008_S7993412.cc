@@ -13,7 +13,6 @@ namespace Rivet {
 
     STAR_2008_S7993412() : Analysis("STAR_2008_S7993412")
     {
-      setBeams(PROTON, PROTON);
     }
 
 

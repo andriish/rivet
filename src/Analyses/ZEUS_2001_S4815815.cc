@@ -19,7 +19,6 @@ namespace Rivet {
     /// Constructor
     ZEUS_2001_S4815815() : Analysis("ZEUS_2001_S4815815")
     {
-      setBeams(POSITRON, PROTON);
     }
 
 

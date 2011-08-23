@@ -19,7 +19,6 @@ namespace Rivet {
         _Nevt_after_cuts(0.0)
     {
       setNeedsCrossSection(false);
-      setBeams(PROTON, PROTON);
     }
 
     //@}

@@ -39,7 +39,6 @@ namespace Rivet {
         _totalNumTrans2(0), _totalNumTrans5(0), _totalNumTrans30(0),
         _sumWeightsPtLead2(0),_sumWeightsPtLead5(0), _sumWeightsPtLead30(0)
     {
-      setBeams(PROTON, ANTIPROTON);
     }
 
 

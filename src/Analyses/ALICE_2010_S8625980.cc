@@ -20,7 +20,6 @@ namespace Rivet {
     {
       /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
-      setBeams(PROTON, PROTON);
     }
 
     //@}

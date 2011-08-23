@@ -15,7 +15,6 @@ namespace Rivet {
 
     /// Constructor
     UA5_1986_S1583476() : Analysis("UA5_1986_S1583476") {
-      setBeams(PROTON, ANTIPROTON);
       _sumWTrig = 0;
       _sumWTrigNSD = 0;
     }

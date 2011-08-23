@@ -14,7 +14,6 @@ namespace Rivet {
 
     /// Constructor
     UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") {
-      setBeams(PROTON, ANTIPROTON);
       _sumWPassed = 0;
     }
 

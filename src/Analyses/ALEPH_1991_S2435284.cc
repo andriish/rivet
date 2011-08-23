@@ -17,7 +17,6 @@ namespace Rivet {
     ALEPH_1991_S2435284()
       : Analysis("ALEPH_1991_S2435284")
     {
-      setBeams(ELECTRON, POSITRON);
     }
 
 

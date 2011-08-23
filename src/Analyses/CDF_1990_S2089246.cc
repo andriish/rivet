@@ -17,7 +17,6 @@ namespace Rivet {
     CDF_1990_S2089246()
       : Analysis("CDF_1990_S2089246")
     {
-      setBeams(PROTON, ANTIPROTON);
       _sumWTrig = 0;
     }
 

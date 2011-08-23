@@ -13,7 +13,6 @@ namespace Rivet {
 
     /// Constructor
     SFM_1984_S1178091() : Analysis("SFM_1984_S1178091") {
-      setBeams(PROTON, PROTON);
       _sumW = 0;
       _sumWDiff = 0;
     }

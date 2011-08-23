@@ -16,7 +16,6 @@ namespace Rivet {
     /// Constructor
     H1_1995_S3167097() : Analysis("H1_1995_S3167097")
     {
-      setBeams(ELECTRON, PROTON);
     }
 
 

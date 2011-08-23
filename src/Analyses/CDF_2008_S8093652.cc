@@ -16,7 +16,6 @@ namespace Rivet {
     CDF_2008_S8093652()
       : Analysis("CDF_2008_S8093652")
     {
-      setBeams(PROTON, ANTIPROTON);
       setNeedsCrossSection(true);
     }
 

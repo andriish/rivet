@@ -19,7 +19,6 @@ namespace Rivet {
     H1_1994_S2919893()
       : Analysis("H1_1994_S2919893")
     {
-      setBeams(ELECTRON, PROTON);
 
       // Initialise member variables
       _w77  = make_pair(0.0, 0.0);

@@ -19,7 +19,6 @@ namespace Rivet {
     /// Constructor
     OPAL_1993_S2692198() : Analysis("OPAL_1993_S2692198")
     {
-      setBeams(ELECTRON, POSITRON);
 
     }
 

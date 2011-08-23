@@ -21,7 +21,6 @@ namespace Rivet {
     STAR_2009_UE_HELEN()
       : Analysis("STAR_2009_UE_HELEN")
     {
-      setBeams(PROTON, PROTON);
     }
 
 

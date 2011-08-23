@@ -36,7 +36,6 @@ namespace Rivet {
     CDF_2010_S8591881_QCD()
       : Analysis("CDF_2010_S8591881_QCD")
     {
-      setBeams(PROTON, ANTIPROTON);
     }
 
 

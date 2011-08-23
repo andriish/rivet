@@ -22,7 +22,6 @@ namespace Rivet {
       : Analysis("ALEPH_2004_S5765862") , _initialisedJets(false),
         _initialisedSpectra(false), _weightedTotalChargedPartNum(0)
     {
-      setBeams(ELECTRON, POSITRON);
     }
 
 

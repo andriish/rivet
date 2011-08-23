@@ -38,7 +38,6 @@ namespace Rivet {
     DELPHI_1996_S3430090()
       : Analysis("DELPHI_1996_S3430090")
     {
-      setBeams(ELECTRON, POSITRON);
       _weightedTotalPartNum = 0.0;
       _passedCutWeightSum = 0.0;
       _passedCut3WeightSum = 0.0;

@@ -23,7 +23,6 @@ namespace Rivet {
     DELPHI_2002_069_CONF_603()
       : Analysis("DELPHI_2002_069_CONF_603")
     {
-      setBeams(ELECTRON, POSITRON);
     }
 
 

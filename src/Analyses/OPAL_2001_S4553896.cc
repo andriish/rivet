@@ -69,7 +69,6 @@ namespace Rivet {
     OPAL_2001_S4553896()
       : Analysis("OPAL_2001_S4553896") 
     {
-      setBeams(ELECTRON, POSITRON);
       setNeedsCrossSection(false);
     }
 
