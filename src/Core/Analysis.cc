@@ -250,6 +250,9 @@ namespace Rivet {
     const BinEdges edges = binEdges(hname);
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
@@ -264,6 +267,9 @@ namespace Rivet {
                                           const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
@@ -278,6 +284,9 @@ namespace Rivet {
                                           const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, binedges);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
@@ -293,6 +302,9 @@ namespace Rivet {
 			    const string& ytitle, const string& ztitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IHistogram2D* hist =
       histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
 					   nybins, ylower, yupper);
@@ -312,6 +324,9 @@ namespace Rivet {
 			    const string& ytitle, const string& ztitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IHistogram2D* hist =
       histogramFactory().createHistogram2D(path, title, xbinedges, ybinedges);
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
@@ -340,6 +355,9 @@ namespace Rivet {
     const BinEdges edges = binEdges(hname);
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setXTitle(xtitle);
@@ -354,6 +372,9 @@ namespace Rivet {
                                       const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, nbins, lower, upper);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setXTitle(xtitle);
@@ -368,6 +389,9 @@ namespace Rivet {
                                       const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IProfile1D* prof = histogramFactory().createProfile1D(path, title, binedges);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setXTitle(xtitle);
@@ -384,6 +408,9 @@ namespace Rivet {
                                             const string& xtitle, const string& ytitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
+    if (path.find(" ") != string::npos) {
+      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
+    }
     IDataPointSet* dps = datapointsetFactory().create(path, title, 2);
     MSG_TRACE("Made data point set " << hname <<  " for " << name());
     dps->setXTitle(xtitle);
@@ -507,6 +534,9 @@ namespace Rivet {
     tree().mkdir("/tmpnormalize");
     tree().mv(hpath, "/tmpnormalize");
 
+    if (hpath.find(" ") != string::npos) {
+      throw Error("Histogram path '" + hpath + "' is invalid: spaces are not permitted in paths");
+    }
     AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
     dps->setXTitle(xtitle);
     dps->setYTitle(ytitle);
@@ -585,6 +615,9 @@ namespace Rivet {
     tree().mkdir("/tmpnormalize");
     tree().mv(hpath, "/tmpnormalize");
 
+    if (hpath.find(" ") != string::npos) {
+      throw Error("Histogram path '" + hpath + "' is invalid: spaces are not permitted in paths");
+    }
     AIDA::IDataPointSet* dps =
       datapointsetFactory().createXYZ(hpath, title, x, y, z, ex, ey, ez);
     dps->setXTitle(xtitle);
