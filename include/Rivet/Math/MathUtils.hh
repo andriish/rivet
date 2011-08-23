@@ -18,9 +18,10 @@ namespace Rivet {
     return (fabs(val) < tolerance);
   }
 
-  /// Compare an integral-type number to zero. Since there is no
-  /// risk of floating point error, this function just exists in
-  /// case @c isZero is accidentally used on an integer type, to avoid
+  /// Compare an integral-type number to zero.
+  ///
+  /// Since there is no risk of floating point error, this function just exists
+  /// in case @c isZero is accidentally used on an integer type, to avoid
   /// implicit type conversion. The @a tolerance parameter is ignored.
   inline bool isZero(long val, double UNUSED(tolerance)=1E-8) {
     return val == 0;
@@ -28,15 +29,18 @@ namespace Rivet {
 
 
   /// @brief Compare two floating point numbers for equality with a degree of fuzziness
-  /// The @a tolerance parameter is fractional.
+  ///
+  /// The @a tolerance parameter is fractional, based on absolute values of the args.
   inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
-    const double absavg = fabs(a + b)/2.0;
+    const double absavg = (fabs(a) + fabs(b))/2.0;
     const double absdiff = fabs(a - b);
-    const bool rtn = (absavg == 0.0 && absdiff == 0.0) || absdiff < tolerance*absavg;
+    const bool rtn = (isZero(a) && isZero(b)) || absdiff < tolerance*absavg;
+    // cout << a << " == " << b << "? " << rtn << endl;
     return rtn;
   }
 
   /// @brief Compare two integral-type numbers for equality with a degree of fuzziness.
+  ///
   /// Since there is no risk of floating point error with integral types,
   /// this function just exists in case @c fuzzyEquals is accidentally
   /// used on an integer type, to avoid implicit type conversion. The @a
@@ -48,12 +52,14 @@ namespace Rivet {
 
 
   /// @brief Compare two floating point numbers for >= with a degree of fuzziness
+  ///
   /// The @a tolerance parameter on the equality test is as for @c fuzzyEquals.
   inline bool fuzzyGtrEquals(double a, double b, double tolerance=1E-5) {
     return a > b || fuzzyEquals(a, b, tolerance);
   }
 
   /// @brief Compare two integral-type numbers for >= with a degree of fuzziness.
+  ///
   /// Since there is no risk of floating point error with integral types,
   /// this function just exists in case @c fuzzyGtrEquals is accidentally
   /// used on an integer type, to avoid implicit type conversion. The @a
@@ -65,12 +71,14 @@ namespace Rivet {
 
 
   /// @brief Compare two floating point numbers for <= with a degree of fuzziness
+  ///
   /// The @a tolerance parameter on the equality test is as for @c fuzzyEquals.
   inline bool fuzzyLessEquals(double a, double b, double tolerance=1E-5) {
     return a < b || fuzzyEquals(a, b, tolerance);
   }
 
   /// @brief Compare two integral-type numbers for <= with a degree of fuzziness.
+  ///
   /// Since there is no risk of floating point error with integral types,
   /// this function just exists in case @c fuzzyLessEquals is accidentally
   /// used on an integer type, to avoid implicit type conversion. The @a
@@ -86,13 +94,15 @@ namespace Rivet {
   /// @name Ranges and intervals
   //@{
 
-  /// Represents whether an interval is open (non-inclusive) or closed
-  /// (inclusive). For example, the interval \f$ [0, \pi) \f$ is closed (an inclusive
+  /// Represents whether an interval is open (non-inclusive) or closed (inclusive).
+  ///
+  /// For example, the interval \f$ [0, \pi) \f$ is closed (an inclusive
   /// boundary) at 0, and open (a non-inclusive boundary) at \f$ \pi \f$.
   enum RangeBoundary { OPEN=0, SOFT=0, CLOSED=1, HARD=1 };
 
 
   /// @brief Determine if @a value is in the range @a low to @a high, for floating point numbers
+  ///
   /// Interval boundary types are defined by @a lowbound and @a highbound.
   /// @todo Optimise to one-line at compile time?
   template<typename NUM>
@@ -101,11 +111,11 @@ namespace Rivet {
     if (lowbound == OPEN && highbound == OPEN) {
       return (value > low && value < high);
     } else if (lowbound == OPEN && highbound == CLOSED) {
-      return (value > low && (value < high || fuzzyEquals(value, high)));
+      return (value > low && fuzzyLessEquals(value, high));
     } else if (lowbound == CLOSED && highbound == OPEN) {
-      return ((value > low || fuzzyEquals(value, low)) && value < high);
+      return (fuzzyGtrEquals(value, low) && value < high);
     } else { // if (lowbound == CLOSED && highbound == CLOSED) {
-      return ((value > low || fuzzyEquals(value, low)) && (value < high || fuzzyEquals(value, high)));
+      return (fuzzyGtrEquals(value, low) && fuzzyLessEquals(value, high));
     }
   }
 
@@ -118,6 +128,7 @@ namespace Rivet {
 
 
   /// @brief Determine if @a value is in the range @a low to @a high, for integer types
+  ///
   /// Interval boundary types are defined by @a lowbound and @a highbound.
   /// @todo Optimise to one-line at compile time?
   inline bool inRange(int value, int low, int high,
@@ -221,6 +232,7 @@ namespace Rivet {
     const double logstart = std::log(start);
     const double logend = std::log(end);
     const vector<double> logvals = linspace(logstart, logend, nbins);
+    assert(logvals.size() == nbins+1);
     vector<double> rtn;
     foreach (double logval, logvals) {
       rtn.push_back(std::exp(logval));
@@ -231,6 +243,7 @@ namespace Rivet {
 
 
   /// @brief Return the bin index of the given value, @a val, given a vector of bin edges
+  ///
   /// NB. The @a binedges vector must be sorted
   template <typename NUM>
   inline int index_between(const NUM& val, const vector<NUM>& binedges) {
@@ -329,7 +342,7 @@ namespace Rivet {
 
 
     // Calculate the error on the correlation strength
-    const double corr_strength_err = correlation_err*sqrt(var2/var1) + 
+    const double corr_strength_err = correlation_err*sqrt(var2/var1) +
       correlation/(2*sqrt(var2/var1)) * (var2_e/var1 - var2*var1_e/pow(2, var2));
 
     return corr_strength_err;
@@ -340,8 +353,10 @@ namespace Rivet {
   /// @name Angle range mappings
   //@{
 
-  /// Reduce any number to the range [-2PI, 2PI] by repeated addition or
-  /// subtraction of 2PI as required. Used to normalise angular measures.
+  /// @brief Reduce any number to the range [-2PI, 2PI]
+  ///
+  /// Achieved by repeated addition or subtraction of 2PI as required. Used to
+  /// normalise angular measures.
   inline double _mapAngleM2PITo2Pi(double angle) {
     double rtn = fmod(angle, TWOPI);
     if (isZero(rtn)) return 0;
@@ -383,8 +398,9 @@ namespace Rivet {
   /// @name Phase space measure helpers
   //@{
 
-  /// Calculate the difference between two angles in radians,
-  /// returning in the range [0, PI].
+  /// @brief Calculate the difference between two angles in radians
+  ///
+  /// Returns in the range [0, PI].
   inline double deltaPhi(double phi1, double phi2) {
     return mapAngle0ToPi(phi1 - phi2);
   }
