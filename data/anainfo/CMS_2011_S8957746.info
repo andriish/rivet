@@ -8,6 +8,7 @@ Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:
+ - Phys.Lett.B699:48-67,2011
  - arXiv:1102.0068
 RunInfo:
   pp QCD interactions at 7000 GeV. Particles with c*tau>10mm are stable.
@@ -16,19 +17,24 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [30.0]
 Description:
-  Central transverse Thrust and Minor measured by CMS at 7 TeV. Data is
-  read off the plots.
+   Central transverse Thrust and Minor have been measured in proton-proton
+   collisions at sqrt(s)=7 TeV, with a data sample collected with the CMS
+   detector at the LHC. The sample corresponds to an integrated luminosity of
+   3.2 inverse picobarns.
 BibKey: Khachatryan:2011dx
 BibTeX: '@Article{Khachatryan:2011dx,
      author    = "Khachatryan, Vardan and others",
  collaboration = "CMS",
      title     = "{First Measurement of Hadronic Event Shapes in pp
                   Collisions at sqrt(s)=7 TeV}",
+     journal   = "Phys. Lett.",
+     volume    = "B699",
      year      = "2011",
+     pages     = "48-67",
      eprint    = "1102.0068",
      archivePrefix = "arXiv",
      primaryClass  =  "hep-ex",
+     doi       = "10.1016/j.physletb.2011.03.060",
      SLACcitation  = "%%CITATION = 1102.0068;%%"
 }'
 ToDo:
-  Check BibKey and BibTeX consistency when fixed on SPIRES.

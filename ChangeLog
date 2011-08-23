@@ -4,6 +4,8 @@
 
 	* Remove obsolete setBeams() from the analyses
 
+	* Update CMS_2011_S8957746 reference data to the official numbers
+
 2011-08-19  Frank Siegert <frank.siegert@cern.ch>
 
 	* More NLO parton level generator friendliness: Don't crash or fail when

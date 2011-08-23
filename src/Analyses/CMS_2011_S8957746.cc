@@ -26,10 +26,10 @@ namespace Rivet {
       // Book histograms
       _hist_T_90  = bookHistogram1D(1, 1, 1);
       _hist_m_90  = bookHistogram1D(2, 1, 1);
-      _hist_T_125 = bookHistogram1D(1, 2, 1);
-      _hist_m_125 = bookHistogram1D(2, 2, 1);
-      _hist_T_200 = bookHistogram1D(1, 3, 1);
-      _hist_m_200 = bookHistogram1D(2, 3, 1);
+      _hist_T_125 = bookHistogram1D(3, 1, 1);
+      _hist_m_125 = bookHistogram1D(4, 1, 1);
+      _hist_T_200 = bookHistogram1D(5, 1, 1);
+      _hist_m_200 = bookHistogram1D(6, 1, 1);
     }
 
     void analyze(const Event& event) {
