@@ -183,7 +183,7 @@ class Inputdata:
                                         ## Use strip here to deal with DOS newlines containing \r
                                         obj.description.update({prop.strip() : value.strip()})
                 cf.close()
-        
+
 
 
 

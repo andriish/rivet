@@ -232,7 +232,6 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
     AIDA::IProfile1D *_h_XXXX;
     AIDA::IHistogram1D *_h_YYYY;
     //@}
