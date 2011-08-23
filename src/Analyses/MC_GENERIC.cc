@@ -72,6 +72,14 @@ namespace Rivet {
 
       _histPhi    = bookHistogram1D("Phi", 50, 0, TWOPI);
       _histPhiCh  = bookHistogram1D("PhiCh", 50, 0, TWOPI);
+
+      _histPdfX = bookHistogram1D("PdfX", logspace(0.000001, 1.0, 50));
+      _histPdfXmin = bookHistogram1D("PdfXmin", logspace(0.000001, 1.0, 50));
+      _histPdfXmax = bookHistogram1D("PdfXmax", logspace(0.000001, 1.0, 50));
+      _histPdfQ = bookHistogram1D("PdfQ", 50, 0.0, 30.0);
+      // _histPdfXQ = bookHistogram2D("PdfXQ", logspace(0.000001, 1.0, 50), linspace(0.0, 30.0, 50));
+      // _histPdfTrackptVsX = bookProfile1D("PdfTrackptVsX", logspace(0.000001, 1.0, 50));
+      // _histPdfTrackptVsQ = bookProfile1D("PdfTrackptVsQ", 50, 0.0, 30.0);
     }
 
 
@@ -83,6 +91,19 @@ namespace Rivet {
       // Unphysical (debug) plotting of all PIDs in the event, physical or otherwise
       foreach (const GenParticle* gp, particles(event.genEvent())) {
         _histAllPIDs->fill(abs(gp->pdg_id()), weight);
+      }
+
+      // Print and plot PDF info
+      if (event.genEvent().pdf_info() != 0) {
+        HepMC::PdfInfo pdfi = *event.genEvent().pdf_info();
+        MSG_DEBUG("PDF Q = " << pdfi.scalePDF() << " for (id, x) = "
+                  << "(" << pdfi.id1() << ", " << pdfi.x1() << ") "
+                  << "(" << pdfi.id2() << ", " << pdfi.x2() << ")");
+        _histPdfX->fill(pdfi.x1(), weight);
+        _histPdfX->fill(pdfi.x2(), weight);
+        _histPdfXmin->fill(std::min(pdfi.x1(), pdfi.x2()), weight);
+        _histPdfXmax->fill(std::max(pdfi.x1(), pdfi.x2()), weight);
+        _histPdfQ->fill(pdfi.scalePDF(), weight); // always in GeV?
       }
 
       // Charged + neutral final state
@@ -132,6 +153,15 @@ namespace Rivet {
         _histPtCh->fill(p.momentum().pT()/GeV, weight);
         _histECh->fill(p.momentum().E()/GeV, weight);
         _histPhiCh->fill(p.momentum().phi(), weight);
+
+        // if (event.genEvent().pdf_info() != 0) {
+        //   if (fabs(eta) < 2.5 && p.momentum().pT() > 10*GeV) {
+        //     HepMC::PdfInfo pdfi = *event.genEvent().pdf_info();
+        //     _histPdfTrackptVsX->fill(pdfi.x1(), p.momentum().pT()/GeV, weight);
+        //     _histPdfTrackptVsX->fill(pdfi.x2(), p.momentum().pT()/GeV, weight);
+        //     _histPdfTrackptVsQ->fill(pdfi.scalePDF(), p.momentum().pT()/GeV, weight);
+        //   }
+        // }
       }
 
 
@@ -180,6 +210,11 @@ namespace Rivet {
       scale(_histPhi, 1/sumOfWeights());
       scale(_histPhiCh, 1/sumOfWeights());
 
+      scale(_histPdfX, 1/sumOfWeights());
+      scale(_histPdfXmin, 1/sumOfWeights());
+      scale(_histPdfXmax, 1/sumOfWeights());
+      scale(_histPdfQ, 1/sumOfWeights());
+
       histogramFactory().divide(histoPath("EtaPMRatio"), *_tmphistEtaPlus, *_tmphistEtaMinus);
       histogramFactory().divide(histoPath("EtaChPMRatio"), *_tmphistEtaChPlus, *_tmphistEtaChMinus);
       histogramFactory().divide(histoPath("RapidityPMRatio"), *_tmphistRapPlus, *_tmphistRapMinus);
@@ -197,8 +232,8 @@ namespace Rivet {
     shared_ptr<LWH::Histogram1D> _tmphistRapPlus, _tmphistRapMinus;
     shared_ptr<LWH::Histogram1D> _tmphistRapChPlus, _tmphistRapChMinus;
 
+    /// @name Histograms
     //@{
-    /// Histograms
     AIDA::IHistogram1D *_histMult, *_histMultCh;
     AIDA::IHistogram1D *_histStablePIDs, *_histDecayedPIDs, *_histAllPIDs;
     AIDA::IHistogram1D *_histEtaPi, *_histEtaK, *_histEtaLambda;
@@ -208,6 +243,8 @@ namespace Rivet {
     AIDA::IHistogram1D *_histPt, *_histPtCh;
     AIDA::IHistogram1D *_histE, *_histECh;
     AIDA::IHistogram1D *_histPhi, *_histPhiCh;
+    AIDA::IHistogram1D *_histPdfX, *_histPdfXmin, *_histPdfXmax, *_histPdfQ;
+    // AIDA::IProfile1D   *_histPdfTrackptVsX, *_histPdfTrackptVsQ;
     //@}
 
   };
