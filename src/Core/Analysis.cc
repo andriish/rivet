@@ -11,26 +11,6 @@ using namespace AIDA;
 namespace Rivet {
 
 
-  namespace {
-    string makeAxisCode(const size_t datasetId, const size_t xAxisId, const size_t yAxisId) {
-      stringstream axisCode;
-      axisCode << "d";
-      if (datasetId < 10) axisCode << 0;
-      axisCode << datasetId;
-      axisCode << "-x";
-      if (xAxisId < 10) axisCode << 0;
-      axisCode << xAxisId;
-      axisCode << "-y";
-      if (yAxisId < 10) axisCode << 0;
-      axisCode << yAxisId;
-      return axisCode.str();
-    }
-  }
-
-
-  ////////////////////////
-
-
   Analysis::Analysis(const string& name)
     : _crossSection(-1.0),
       _gotCrossSection(false),
@@ -96,6 +76,21 @@ namespace Rivet {
   const string Analysis::histoPath(const string& hname) const {
     const string path = histoDir() + "/" + hname;
     return path;
+  }
+
+
+  const string Analysis::makeAxisCode(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+    stringstream axisCode;
+    axisCode << "d";
+    if (datasetId < 10) axisCode << 0;
+    axisCode << datasetId;
+    axisCode << "-x";
+    if (xAxisId < 10) axisCode << 0;
+    axisCode << xAxisId;
+    axisCode << "-y";
+    if (yAxisId < 10) axisCode << 0;
+    axisCode << yAxisId;
+    return axisCode.str();
   }
 
 

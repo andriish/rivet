@@ -363,6 +363,9 @@ namespace Rivet {
     /// Get the canonical histogram path for the named histogram in this analysis.
     const std::string histoPath(const std::string& hname) const;
 
+    /// Get the internal histogram name for given d, x and y (cf. HepData)
+    const std::string makeAxisCode(size_t datasetId, size_t xAxisId, size_t yAxisId) const;
+
     //@}
 
 
