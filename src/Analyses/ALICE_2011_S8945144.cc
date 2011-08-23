@@ -32,38 +32,31 @@ namespace Rivet {
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
         if(fabs(p.momentum().rapidity())<0.5) {
-          if(p.pdgId() == 211) {
-            _histPtPions->fill(p.momentum().pT()/GeV, weight);
-            _histAveragePt->fill(p.mass()/GeV,p.momentum().pT()/GeV,weight);
-            continue;
-          }
-
-          if(p.pdgId() == -211) {
-            _histPtAntiPions->fill(p.momentum().pT()/GeV, weight);
-            _histAveragePt->fill(p.mass()/GeV,p.momentum().pT()/GeV,weight);
-            continue;
-          }
-
-          if(p.pdgId() == 2212) {
-            _histPtProtons->fill(p.momentum().pT()/GeV, weight);
-            _histAveragePt->fill(p.mass()/GeV,p.momentum().pT()/GeV,weight);
-            continue;
-          }
-          if(p.pdgId() == -2212) {
-            _histPtAntiProtons->fill(p.momentum().pT()/GeV, weight);
-            _histAveragePt->fill(p.mass()/GeV,p.momentum().pT()/GeV,weight);
-            continue;
-          }
-
-          if(p.pdgId() == 321) {
-            _histPtKaons->fill(p.momentum().pT()/GeV, weight);
-            _histAveragePt->fill(p.mass()/GeV,p.momentum().pT()/GeV,weight);
-            continue;
-          }
-          if(p.pdgId() == -321) {
-            _histPtAntiKaons->fill(p.momentum().pT()/GeV, weight);
-            _histAveragePt->fill(p.mass()/GeV,p.momentum().pT()/GeV,weight);
-            continue;
+          switch (p.pdgId()) {
+            case 211:
+              _histPtPions->fill(p.momentum().pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              break;
+            case -211:
+              _histPtAntiPions->fill(p.momentum().pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              break;
+            case 2212:
+              _histPtProtons->fill(p.momentum().pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              break;
+            case -2212:
+              _histPtAntiProtons->fill(p.momentum().pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              break;
+            case 321:
+              _histPtKaons->fill(p.momentum().pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              break;
+            case -321:
+              _histPtAntiKaons->fill(p.momentum().pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              break;
           }
         }
       }
