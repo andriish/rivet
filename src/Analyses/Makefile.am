@@ -36,9 +36,10 @@ libRivetAnalysisTools_la_SOURCES = \
 
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
-    ALICE_2010_S8706239.cc \
+    ALICE_2010_S8624100.cc \
     ALICE_2010_S8625980.cc \
-    ALICE_2010_S8624100.cc
+    ALICE_2010_S8706239.cc \
+    ALICE_2011_S8945144.cc
 
 
 lib_LTLIBRARIES += RivetATLASAnalyses.la

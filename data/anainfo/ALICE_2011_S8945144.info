@@ -1,0 +1,37 @@
+Name: ALICE_2011_S8945144
+Year: 2011
+Summary: Tranverse momentum spectra of pions, kaons and protons in pp collisions at $sqrt(s) = 0.9 TeV$ with ALICE at the LHC.
+Experiment: ALICE
+Collider: LHC
+SpiresID: 8945144
+Status: VALIDATED
+Authors:
+ - Pablo Bueno Gomez <UO189399@uniovi.es>
+ - Eva Sicking <esicking@cern.ch>
+References:
+ - Eur.Phys.J.C71:1655,2011. 
+RunInfo:
+  Diffractive events need to be switched on.
+NumEvents: 1000000
+Beams: [p+, p+]
+Energies: [900]
+PtCuts:
+Description:
+  'Obtaining the tranverse momentum spectra of pions, kaons and protons in pp collisions at $sqrt(s) = 0.9 TeV$ with ALICE at the LHC. Mean transverse momentum as a function of the mass  of the emitted particle also included.'
+BibKey: Aamodt:2011my
+BibTeX: '@Article{Aamodt:2011my,
+     author    = "Aamodt, K and others",
+ collaboration = "ALICE",
+     title     = "{Production of pions, kaons and protons in pp collisions at sqrt(s)= 900 GeV with ALICE at the LHC.}",
+     journal   = "Eur.Phys.J. C",
+     volume    = "71",
+     year      = "2011",
+     pages     = "1655",
+     eprint    = "1101.4110",
+     archivePrefix = "arXiv",
+     primaryClass  =  "hep-ex",
+     doi       = "10.1140/epjc/s10052-011-1655-9"
+    EXP CERN-LHC-ALICE | Reaction Data (Durham) 
+     SLACcitation  = "%%CITATION = 1101.4110;%%"
+}'
+ToDo:
