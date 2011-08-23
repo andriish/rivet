@@ -11,7 +11,7 @@ Web interface and write it to stdout.
 """
 
 def fetch_spires_bibtex(spiresid):
-    spiresurl = "http://www.slac.stanford.edu/spires/find/hep/www?key=%s&FORMAT=WWWBRIEFBIBTEX" % str(spiresid)
+    spiresurl = "http://inspire-hep.net/search?p=find+key+%s&of=hx" % str(spiresid)
     logging.debug("Downloading SPIRES BibTeX from %s" % spiresurl)
     hreq = urllib2.urlopen(spiresurl)
     bibtexhtml = hreq.read()
@@ -22,7 +22,7 @@ def fetch_spires_bibtex(spiresid):
 
 def extract_bibtex(spireshtml):
     ## Extract BibTeX block from HTML
-    re_spiresbibtex = re.compile(r'<!-- START RESULTS -->.*?<pre>(.*?)</pre>', re.MULTILINE | re.DOTALL)
+    re_spiresbibtex = re.compile(r'<pre>(.*?)</pre>', re.MULTILINE | re.DOTALL)
     m = re_spiresbibtex.search(spireshtml)
     if m is None:
         return None, None

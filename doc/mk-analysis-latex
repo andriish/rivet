@@ -100,7 +100,7 @@ for aname in sorted(list(all_analyses)):
             page += " (%s)" % ana.collider()
         page += "\\newline\n"
     if ana.spiresId():
-        spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
+        spiresbase = "http://inspire-hep.net/search?p=find+key"
         page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
             (spiresbase, ana.spiresId(), ana.spiresId())
     page += "\\textbf{Status:} %s\\newline\n" % ana.status()

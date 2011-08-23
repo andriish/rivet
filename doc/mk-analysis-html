@@ -60,7 +60,7 @@ for aname in sorted(list(all_analyses)):
     page += "<h3 id='%s'>%s</h3>\n" % (aname, aname)
     page += "<b>%s</b><br/>\n" %  ana.summary()
     page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
-    spiresbase = "http://www.slac.stanford.edu/spires/find/hep/www?rawcmd=key"
+    spiresbase = "http://inspire-hep.net/search?p=find+key"
     page += "<b>Spires ID:</b> <a href='%s+%s'>%s</a><br/>\n" % \
         (spiresbase, ana.spiresId(), ana.spiresId())
     page += "<b>Status:</b> %s<br/>\n" % ana.status()
