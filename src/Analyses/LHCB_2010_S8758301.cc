@@ -20,7 +20,6 @@ namespace Rivet {
       sumKs0_30(0.0), sumKs0_35(0.0), sumKs0_40(0.0)
 
     {
-      /// @todo Set whether your finalize method needs the generator cross section
       setNeedsCrossSection(false);
     }
 
@@ -72,22 +71,17 @@ namespace Rivet {
           }
         }
       }
-      
+
 
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-
-      // here we normalise to reference data... 
+      /// @todo We have to normalise to reference data... for now
       scale(_h_K0s_pt_y_30, 4.880000e+02/sumKs0_30);
       scale(_h_K0s_pt_y_35, 4.442000e+02/sumKs0_35);
       scale(_h_K0s_pt_y_40, 3.868000e+02/sumKs0_40);
-
-
-
     }
 
     //@}
@@ -95,14 +89,8 @@ namespace Rivet {
 
   private:
 
-    // Data members like post-cuts event weight counters go here
-
-
-  private:
-
     /// @name Histograms
     //@{
-
 
     AIDA::IHistogram1D *_h_K0s_pt_y_30;
     AIDA::IHistogram1D *_h_K0s_pt_y_35;
