@@ -74,7 +74,7 @@ namespace Rivet {
         double pT = p.momentum().pT();
         double eta = p.momentum().eta();
         sumpt += pT;
-        for (size_t ietabin = _etabins.size() - 1; ietabin >= 0; --ietabin) {
+        for (int ietabin = _etabins.size() - 1; ietabin >= 0; --ietabin) {
           if (fabs(eta) <= _etabins[ietabin]){
             ++(_nch_in_Evt[ietabin]);
             if (pT > 0.5/GeV) ++(_nch_in_Evt_pt500[ietabin]);
