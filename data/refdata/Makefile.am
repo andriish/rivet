@@ -24,6 +24,7 @@ dist_pkgdata_DATA = \
   ATLAS_2010_CONF_2010_049.aida  \
   ATLAS_2011_S9120807.aida       \
   ATLAS_2011_S9126244.aida       \
+  ATLAS_2011_S9128077.aida       \
   CMS_2010_S8547297.aida         \
   CMS_2010_S8656010.aida         \
   CMS_2011_S8884919.aida         \
