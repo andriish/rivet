@@ -163,10 +163,10 @@ class Histo(object):
             r += ind + '    path="%s" title="">\n' % (
                     self.path)
         if (self.xlabel!=''):
-            r += ind + '  <dimenstion dim="0" title="%s"/>\n' % (
+            r += ind + '  <dimension dim="0" title="%s"/>\n' % (
                     htmlescape(self.xlabel))
         if (self.ylabel!=''):
-            r += ind + '  <dimenstion dim="1" title="%s"/>\n' % (
+            r += ind + '  <dimension dim="1" title="%s"/>\n' % (
                     htmlescape(self.ylabel))
         r += ind + "  <annotation>\n"
         if (self.title!=''):
@@ -389,9 +389,9 @@ class Histo(object):
         if desc.has_key("Title"):
             new.title = desc["Title"]
         if desc.has_key("XLabel"):
-            new.title = desc["XLabel"]
+            new.xlabel = desc["XLabel"]
         if desc.has_key("YLabel"):
-            new.title = desc["YLabel"]
+            new.ylabel = desc["YLabel"]
         return new
 
 

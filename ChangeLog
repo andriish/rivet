@@ -1,3 +1,7 @@
+2011-09-04  Andy Buckley  <andy@insectnation.org>
+
+	* lighthisto fixes from Christian Roehr.
+
 2011-08-23  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a new DECLARE_RIVET_PLUGIN wrapper macro to hide the
