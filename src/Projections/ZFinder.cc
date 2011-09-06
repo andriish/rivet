@@ -103,9 +103,9 @@ namespace Rivet {
         << " + " << l2.momentum() << " " << l2.pdgId() << endl;
 
     _bosons.push_back(Particle(ZBOSON, pZ));
-    getLog() << Log::DEBUG << name() << " found one Z." << endl;
+    MSG_DEBUG(name() << " found one Z");
 
-    // find the LeptonClusters which survived the IMFS cut such that we can
+    // Find the LeptonClusters which survived the IMFS cut such that we can
     // extract their original particles
     foreach (const Particle& p, _constituents) {
       foreach (const ClusteredLepton& l, leptons.clusteredLeptons()) {

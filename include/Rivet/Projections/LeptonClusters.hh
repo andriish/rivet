@@ -12,22 +12,24 @@
 
 namespace Rivet {
 
-  class ClusteredLepton : public Particle {
 
+  class ClusteredLepton : public Particle {
   public:
+
     ClusteredLepton(Particle lepton) :
       Particle(lepton.pdgId(), lepton.momentum()),
       _constituentLepton(lepton) {}
 
     void addPhoton(const Particle& p, bool cluster) {
       _constituentPhotons.push_back(p);
-      if (cluster) setMomentum(momentum()+p.momentum());
+      if (cluster) setMomentum(momentum() + p.momentum());
     }
 
     const Particle& constituentLepton() const { return _constituentLepton; }
     const ParticleVector& constituentPhotons() const { return _constituentPhotons; }
 
   private:
+
     ParticleVector _constituentPhotons;
     Particle _constituentLepton;
   };
@@ -67,12 +69,12 @@ namespace Rivet {
 
   private:
 
-    /// maximum cone radius to find photons in
+    /// Maximum cone radius to find photons in
     double _dRmax;
-    /// whether to actually add the photon momenta to clusteredLeptons
+    /// Whether to actually add the photon momenta to clusteredLeptons
     bool _cluster;
 
-    /// container which stores the clustered lepton objects
+    /// Container which stores the clustered lepton objects
     vector<ClusteredLepton> _clusteredLeptons;
   };
 
