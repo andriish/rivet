@@ -6,6 +6,7 @@
 
 namespace Rivet {
 
+
   LeptonClusters::LeptonClusters(const FinalState& photons, const FinalState& signal,
                  double dRmax, bool cluster,
                  const std::vector<std::pair<double, double> >& etaRanges,
@@ -20,6 +21,7 @@ namespace Rivet {
     addProjection(photonfs, "Photons");
     addProjection(signal, "Signal");
   }
+
 
   int LeptonClusters::compare(const Projection& p) const {
     // Compare the two as final states (for pT and eta cuts)
@@ -42,11 +44,11 @@ namespace Rivet {
     _clusteredLeptons.clear();
 
     const FinalState& signal = applyProjection<FinalState>(e, "Signal");
-    ParticleVector bareleptons=signal.particles();
-    if (bareleptons.size()==0) return;
+    ParticleVector bareleptons = signal.particles();
+    if (bareleptons.empty()) return;
 
     vector<ClusteredLepton> allClusteredLeptons;
-    for (size_t i=0; i<bareleptons.size(); ++i) {
+    for (size_t i = 0; i < bareleptons.size(); ++i) {
       allClusteredLeptons.push_back(ClusteredLepton(bareleptons[i]));
     }
 
@@ -54,8 +56,8 @@ namespace Rivet {
     foreach (const Particle& photon, photons.particles()) {
       const FourMomentum p_P = photon.momentum();
       double dRmin=_dRmax;
-      int idx=-1;
-      for (size_t i=0; i<bareleptons.size(); ++i) {
+      int idx = -1;
+      for (size_t i = 0; i < bareleptons.size(); ++i) {
         FourMomentum p_l = bareleptons[i].momentum();
         // Only cluster photons around *charged* signal particles
         if (PID::threeCharge(bareleptons[i].pdgId()) == 0) continue;
@@ -63,10 +65,10 @@ namespace Rivet {
         double dR=deltaR(p_l, p_P);
         if (dR < dRmin) {
           dRmin=dR;
-          idx=i;
+          idx = i;
         }
       }
-      if (idx>-1) {
+      if (idx > -1) {
         if (_cluster) allClusteredLeptons[idx].addPhoton(photon, _cluster);
       }
     }
