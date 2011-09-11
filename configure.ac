@@ -2,6 +2,9 @@
 
 AC_PREREQ(2.59)
 AC_INIT([Rivet],[1.6.1alpha0],[rivet@projects.hepforge.org],[Rivet])
+if test "$prefix" = "$PWD"; then
+  AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
+fi
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE(dist-bzip2)
