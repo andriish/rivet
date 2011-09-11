@@ -23,6 +23,7 @@ namespace Rivet {
         _theChargedLeptons += Particle(p);
       }
     }
+    std::sort(_theChargedLeptons.begin(), _theChargedLeptons.end(), cmpParticleByPt);
   }
 
 
