@@ -66,11 +66,11 @@ namespace Rivet {
 
       // Analyse and print some info
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
-      getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
+      MSG_DEBUG("Jet multiplicity before any pT cut = " << jetpro.size());
 
       const Jets jets  = jetpro.jetsByPt(40.0*GeV);
       if (jets.size() >= 2) {
-        getLog() << Log::DEBUG << "Jet multiplicity after pT > 40 GeV cut = " << jets.size() << endl;
+        MSG_DEBUG("Jet multiplicity after pT > 40 GeV cut = " << jets.size());
       } else {
         vetoEvent;
       }
@@ -79,14 +79,14 @@ namespace Rivet {
       if (fabs(rap1) > 0.5 || fabs(rap2) > 0.5) {
         vetoEvent;
       }
-      getLog() << Log::DEBUG << "Jet eta and pT requirements fulfilled" << endl;
+      MSG_DEBUG("Jet eta and pT requirements fulfilled");
       const double pT1 = jets[0].momentum().pT();
 
       const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
-      getLog() << Log::DEBUG << "Missing vector Et = " << caloMissEt.vectorET()/GeV << " GeV" << endl;
-      if (caloMissEt.vectorET() > 0.7*pT1) {
-        MSG_DEBUG("Vetoing event with too much missing Et: "
-                  << caloMissEt.vectorET()/GeV << " GeV > "
+      MSG_DEBUG("Missing vector Et = " << caloMissEt.vectorEt()/GeV << " GeV");
+      if (caloMissEt.vectorEt().mod() > 0.7*pT1) {
+        MSG_DEBUG("Vetoing event with too much missing ET: "
+                  << caloMissEt.vectorEt()/GeV << " GeV > "
                   << 0.7*pT1/GeV << " GeV");
         vetoEvent;
       }

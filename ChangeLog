@@ -1,3 +1,35 @@
+2011-09-10  Andy Buckley  <andy@insectnation.org>
+
+	* Changing the behaviour and interface of the MissingMomentum
+	projection to calculate vector ET correctly. This was previously
+	calculated according to the common definition of -E*sin(theta) of
+	the summed visible 4-momentum in the event, but that is incorrect
+	because the timelike term grows monotonically. Instead, transverse
+	2-vectors of size ET need to be constructed for each visible
+	particle, and vector-summed in the transverse plane.
+
+	The rewrite of this behaviour made it opportune to make an API
+	improvement: the previous method names scalarET/vectorET() have
+	been renamed to scalar/vectorEt() to better match the Rivet
+	FourMomentum::Et() method, and MissingMomentum::vectorEt() now
+	returns a Vector3 rather than a double so that the transverse
+	missing Et direction is also available.
+
+	Only one data analysis has been affected by this change in
+	behaviour: the D0_2004_S5992206 dijet delta(phi) analysis. It's
+	expected that this change will not be very significant, as it is
+	a *veto* on significant missing ET to reduce non-QCD
+	contributions. MC studies using this analysis ~always run with QCD
+	events only, so these contributions should be small. The analysis
+	efficiency may have been greatly improved, as fewer events will
+	now fail the missing ET veto cut.
+
+	* Add sorting of the ParticleVector returned by the ChargedLeptons
+	projection.
+
+	* configure.ac: Adding a check to make sure that no-one tries to
+	install into --prefix=$PWD.
+
 2011-09-04  Andy Buckley  <andy@insectnation.org>
 
 	* lighthisto fixes from Christian Roehr.

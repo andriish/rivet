@@ -47,16 +47,13 @@ namespace Rivet {
   public:
 
     /// The vector-summed visible four-momentum in the event.
-    FourMomentum& visibleMomentum() { return _momentum; }
-
-    /// The vector-summed visible four-momentum in the event.
     const FourMomentum& visibleMomentum() const { return _momentum; }
 
     /// The vector-summed (in)visible transverse energy in the event
-    double vectorET() const { return _momentum.Et(); }
+    const Vector3& vectorEt() const { return _vet; }
 
-    /// The scalar-summed (in)visible transverse energy in the event.
-    double scalarET() const { return _set; }
+    /// The scalar-summed visible transverse energy in the event.
+    double scalarEt() const { return _set; }
 
 
   protected:
@@ -81,6 +78,9 @@ namespace Rivet {
 
     /// Scalar transverse energy
     double _set;
+
+    /// Vector transverse energy
+    Vector3 _vet;
 
   };
 

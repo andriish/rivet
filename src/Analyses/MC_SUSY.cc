@@ -204,7 +204,7 @@ namespace Rivet {
 
       // Calculate and fill missing Et histos
       const MissingMomentum& met = applyProjection<MissingMomentum>(evt, "MET");
-      _hist_met->fill(met.vectorET()/GeV);
+      _hist_met->fill(met.vectorEt().mod()/GeV);
 
       // Choose highest-pT leptons of each sign and flavour for dilepton mass edges
       const FinalState& lpfs = applyProjection<FinalState>(evt, "LeadingParticles");
