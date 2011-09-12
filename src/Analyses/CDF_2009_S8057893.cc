@@ -32,9 +32,9 @@ namespace Rivet {
     void CDF_2009_S8057893::analyze(const Event& event) {
       const FastJets& jetpro = applyProjection<FastJets>(e, "MidpointJets");
       const Jets& jets = jetpro.jetsByPt();
-      getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
+      MSG_DEBUG("Jet multiplicity = " << jets.size());
       if (jets.size() < 1) {
-        getLog() << Log::DEBUG << "Failed jet multiplicity cut" << endl;
+        MSG_DEBUG("Failed jet multiplicity cut");
         vetoEvent;
       }
 

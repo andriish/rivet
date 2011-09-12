@@ -117,7 +117,7 @@ namespace Rivet {
 
 
     void _threeJetAnalysis(const Jets& jets, const double& weight) {
-      getLog() << Log::DEBUG << "3 jet analysis" << std::endl;
+      MSG_DEBUG("3 jet analysis");
 
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
@@ -174,7 +174,7 @@ namespace Rivet {
 
 
     void _fourJetAnalysis(const Jets& jets, const double& weight) {
-      getLog() << Log::DEBUG << "4 jet analysis" << std::endl;
+      MSG_DEBUG("4 jet analysis");
 
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
@@ -241,7 +241,7 @@ namespace Rivet {
 
 
     void _fiveJetAnalysis(const Jets& jets, const double& weight) {
-      getLog() << Log::DEBUG << "5 jet analysis" << std::endl;
+      MSG_DEBUG("5 jet analysis");
 
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
@@ -412,7 +412,7 @@ namespace Rivet {
       double mass2=p.mass2();
       if (mass2>0.0) return sqrt(mass2);
       else if (mass2<-1.0e-5) {
-        getLog() << Log::WARNING << "m2 = " << m2 << ". Assuming m2=0." << endl;
+        MSG_WARNING("m2 = " << m2 << ". Assuming m2=0.");
         return 0.0;
       }
       else return 0.0;

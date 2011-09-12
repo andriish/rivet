@@ -99,10 +99,10 @@ namespace Rivet {
 
       // Get jets
       const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
-      getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jetpro.size() << endl;
+      MSG_DEBUG("Jet multiplicity before any pT cut = " << jetpro.size());
 
       const PseudoJets& jets = jetpro.pseudoJetsByPt();
-      getLog() << Log::DEBUG << "jetlist size = " << jets.size() << endl;
+      MSG_DEBUG("jetlist size = " << jets.size());
 
       int numBJet = 0;
       int numJet  = 0;

@@ -88,7 +88,7 @@ namespace Rivet {
           econe += p.momentum().E();
           // Veto as soon as E_cone gets larger
           if (econe/egamma > 0.07) {
-            getLog() << Log::DEBUG << "Vetoing event because photon is insufficiently isolated" << endl;
+            MSG_DEBUG("Vetoing event because photon is insufficiently isolated");
             vetoEvent;
           }
         }
@@ -108,8 +108,8 @@ namespace Rivet {
       // Veto if leading jet is outside plotted rapidity regions
       const double abs_y1 = fabs(leadingJet.rapidity());
       if (inRange(abs_y1, 0.8, 1.5) || abs_y1 > 2.5) {
-        getLog() << Log::DEBUG << "Leading jet falls outside acceptance range; |y1| = "
-                 << abs_y1 << endl;
+        MSG_DEBUG("Leading jet falls outside acceptance range; |y1| = "
+                  << abs_y1);
         vetoEvent;
       }
 

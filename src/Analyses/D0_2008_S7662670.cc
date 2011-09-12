@@ -62,7 +62,7 @@ namespace Rivet {
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
-        getLog() << Log::DEBUG << "Empty event!" << endl;
+        MSG_DEBUG("Empty event!");
         vetoEvent;
       }
 
@@ -72,8 +72,8 @@ namespace Rivet {
       foreach (const Jet& j, jetpro.jets(50.0*GeV)) {
         const double pt = j.momentum().pT();
         const double y = fabs(j.momentum().rapidity());
-        getLog() << Log::TRACE << "Filling histos: pT = " << pt/GeV
-            << ", |y| = " << y << endl;
+        MSG_TRACE("Filling histos: pT = " << pt/GeV
+            << ", |y| = " << y);
         if (y < 0.4) {
           _h_dsigdptdy_y00_04->fill(pt/GeV, weight);
         } else if (y < 0.8) {

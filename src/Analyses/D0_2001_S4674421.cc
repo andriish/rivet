@@ -77,7 +77,7 @@ namespace Rivet {
         if (inRange(mass/GeV, 75.0, 105.0)) {
           ++Zcount;
           _eventsFilledZ += weight;
-          //getLog() << Log::DEBUG << "Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV" << endl;
+          //MSG_DEBUG("Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV");
           _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
         }
       } else {
@@ -121,7 +121,7 @@ namespace Rivet {
 
       // Divide and scale ratio histos
       if (xSecW == 0 || wpt_integral == 0 || xSecZ == 0 || zpt_integral == 0) {
-        getLog() << Log::WARN << "Not filling ratio plot because input histos are empty" << endl;
+        MSG_WARNING("Not filling ratio plot because input histos are empty");
       } else {
         std::vector<double> xval;
         std::vector<double> xerr;

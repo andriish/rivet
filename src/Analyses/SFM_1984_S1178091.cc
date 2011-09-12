@@ -70,10 +70,9 @@ namespace Rivet {
         if (eta > 0.0) n_right += 1;
         else if (eta < 0.0) n_left += 1;
       }
-      getLog() << Log::DEBUG
-               << "N_left: " << n_left << ", "
-               << "N_right: " << n_right << ", "
-               << "N_large_x: " << n_large_x << endl;
+      MSG_DEBUG("N_left: " << n_left << ", "
+                << "N_right: " << n_right << ", "
+                << "N_large_x: " << n_large_x);
 
       // Not sure about the "=="!
       // @todo Not sure about the "== 1", the paper says no charged particle

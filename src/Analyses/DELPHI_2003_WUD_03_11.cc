@@ -113,10 +113,10 @@ namespace Rivet {
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
-        getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
+        MSG_DEBUG("Failed multiplicity cut");
         vetoEvent;
       }
-      getLog() << Log::DEBUG << "Passed multiplicity cut" << endl;
+      MSG_DEBUG("Passed multiplicity cut");
 
       // Get event weight for histo filling
       const double weight = e.weight();
@@ -162,8 +162,8 @@ namespace Rivet {
       // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
 
-      getLog() << Log::INFO << "Number of Durham jets = " << _numdurjets << endl;
-      getLog() << Log::INFO << "Number of Jade jets   = " << _numjadejets << endl;
+      MSG_INFO("Number of Durham jets = " << _numdurjets);
+      MSG_INFO("Number of Jade jets   = " << _numjadejets);
 
       /// @todo Scale rather than normalize?
       normalize(_histDurhamBZ      , 0.0785);

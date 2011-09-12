@@ -49,9 +49,9 @@ namespace Rivet {
                               const ParticleVector& tracks) {
       const double phiTransPlus = mapAngle0To2Pi(phiLead + PI/2.0);
       const double phiTransMinus = mapAngle0To2Pi(phiLead - PI/2.0);
-      getLog() << Log::DEBUG << "phi_lead = " << phiLead
+      MSG_DEBUG("phi_lead = " << phiLead
                << " -> trans = (" << phiTransPlus
-               << ", " << phiTransMinus << ")" << endl;
+               << ", " << phiTransMinus << ")");
 
       unsigned int numPlus(0), numMinus(0);
       double ptPlus(0), ptMinus(0);
@@ -79,10 +79,10 @@ namespace Rivet {
       rtn.ptMin = (ptPlus >= ptMinus) ? ptMinus : ptPlus;
       rtn.ptDiff = fabs(rtn.ptMax - rtn.ptMin);
 
-      getLog() << Log::DEBUG << "Min cone has " << rtn.numMin << " tracks -> "
-               << "pT_min = " << rtn.ptMin/GeV << " GeV" << endl;
-      getLog() << Log::DEBUG << "Max cone has " << rtn.numMax << " tracks -> "
-               << "pT_max = " << rtn.ptMax/GeV << " GeV" << endl;
+      MSG_DEBUG("Min cone has " << rtn.numMin << " tracks -> "
+               << "pT_min = " << rtn.ptMin/GeV << " GeV");
+      MSG_DEBUG("Max cone has " << rtn.numMax << " tracks -> "
+               << "pT_max = " << rtn.ptMax/GeV << " GeV");
 
       return rtn;
     }
@@ -159,7 +159,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       {
-        getLog() << Log::DEBUG << "Running max/min analysis" << endl;
+        MSG_DEBUG("Running max/min analysis");
         vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").jetsByE();
         if (!jets.empty()) {
           // Leading jet must be in central |eta| < 0.5 region
@@ -167,10 +167,10 @@ namespace Rivet {
           const double etaLead = leadingjet.momentum().eta();
           // Get Et of the leading jet: used to bin histograms
           const double ETlead = leadingjet.EtSum();
-          getLog() << Log::DEBUG << "Leading Et = " << ETlead/GeV << " GeV" << endl;
+          MSG_DEBUG("Leading Et = " << ETlead/GeV << " GeV");
           if (fabs(etaLead) > 0.5 && ETlead < 15*GeV) {
-            getLog() << Log::DEBUG << "Leading jet eta = " << etaLead
-                     << " not in |eta| < 0.5 & pT > 15 GeV" << endl;
+            MSG_DEBUG("Leading jet eta = " << etaLead
+                     << " not in |eta| < 0.5 & pT > 15 GeV");
           } else {
             // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
             const ParticleVector tracks = applyProjection<FinalState>(event, "TrackFS").particles();
@@ -209,7 +209,7 @@ namespace Rivet {
 
       // Fill min bias total track multiplicity histos
       {
-        getLog() << Log::DEBUG << "Running min bias multiplicity analysis" << endl;
+        MSG_DEBUG("Running min bias multiplicity analysis");
         const ParticleVector mbtracks = applyProjection<FinalState>(event, "MBFS").particles();
         if (fuzzyEquals(sqrtS/GeV, 1800)) {
           _numTracksDbn1800MB->fill(mbtracks.size(), weight);
@@ -236,11 +236,11 @@ namespace Rivet {
       // different set of charged tracks, with |eta| < 1.0, is used here, and all
       // the removed jets must have Et > 5 GeV.
       {
-        getLog() << Log::DEBUG << "Running Swiss Cheese analysis" << endl;
+        MSG_DEBUG("Running Swiss Cheese analysis");
         const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
         vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").jetsByE();
         if (cheesejets.empty()) {
-          getLog() << Log::DEBUG << "No 'cheese' jets found in event" << endl;
+          MSG_DEBUG("No 'cheese' jets found in event");
           return;
         }
         if (cheesejets.size() > 1 &&
@@ -263,12 +263,12 @@ namespace Rivet {
             // Subtracting 2 leading jets
             const double deltaR1 = deltaR(trackMom, eta1, phi1);
             const double deltaR2 = deltaR(trackMom, eta2, phi2);
-            getLog() << Log::TRACE << "Track vs jet(1): "
+            MSG_TRACE("Track vs jet(1): "
                      << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
-                     << "|(" << eta1 << ", " << phi1 << ")| = " << deltaR1 << endl;
-            getLog() << Log::TRACE << "Track vs jet(2): "
+                     << "|(" << eta1 << ", " << phi1 << ")| = " << deltaR1);
+            MSG_TRACE("Track vs jet(2): "
                      << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
-                     << "|(" << eta2 << ", " << phi2 << ")| = " << deltaR2 << endl;
+                     << "|(" << eta2 << ", " << phi2 << ")| = " << deltaR2);
             if (deltaR1 > 0.7 && deltaR2 > 0.7) {
               ptSumSub2 += pt;
 
@@ -278,9 +278,9 @@ namespace Rivet {
                 const double eta3 = cheesejets[2].momentum().pseudorapidity();
                 const double phi3 = cheesejets[2].momentum().azimuthalAngle();
                 const double deltaR3 = deltaR(trackMom, eta3, phi3);
-                getLog() << Log::TRACE << "Track vs jet(3): "
+                MSG_TRACE("Track vs jet(3): "
                          << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
-                         << "|(" << eta3 << ", " << phi3 << ")| = " << deltaR3 << endl;
+                         << "|(" << eta3 << ", " << phi3 << ")| = " << deltaR3);
                 if (deltaR3 > 0.7) {
                   ptSumSub3 += pt;
                 }

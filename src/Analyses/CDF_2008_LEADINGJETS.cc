@@ -76,24 +76,24 @@ namespace Rivet {
 
       const FinalState& fsj = applyProjection<FinalState>(e, "FSJ");
       if (fsj.particles().size() < 1) {
-        getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
+        MSG_DEBUG("Failed multiplicity cut");
         vetoEvent;
       }
 
       const Jets& jets = applyProjection<FastJets>(e, "MidpointJets").jetsByPt();
-      getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
+      MSG_DEBUG("Jet multiplicity = " << jets.size());
 
       // We require the leading jet to be within |eta|<2
       if (jets.size() < 1 || fabs(jets[0].momentum().eta()) >= 2) {
-        getLog() << Log::DEBUG << "Failed leading jet cut" << endl;
+        MSG_DEBUG("Failed leading jet cut");
         vetoEvent;
       }
 
       const double jetphi = jets[0].momentum().phi();
       const double jeteta = jets[0].momentum().eta();
       const double jetpT  = jets[0].momentum().pT();
-      getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT
-               << ", eta = " << jeteta << ", phi = " << jetphi << endl;
+      MSG_DEBUG("Leading jet: pT = " << jetpT
+                << ", eta = " << jeteta << ", phi = " << jetphi);
 
       // Get the event weight
       const double weight = e.weight();

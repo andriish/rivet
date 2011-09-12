@@ -120,20 +120,19 @@ namespace Rivet {
       default:
         _initialisedSpectra=false;
       }
-      if(_initialisedSpectra) {
+      if (_initialisedSpectra) {
         _h_xp = bookHistogram1D( 2+offset, 1, 1);
         _h_xi = bookHistogram1D(11+offset, 1, 1);
         _h_xe = bookHistogram1D(19+offset, 1, 1);
         _h_pTin  = bookHistogram1D(27+offset, 1, 1);
-        _h_pTout = offset!=7 ? NULL : bookHistogram1D(35, 1, 1);
+        _h_pTout = offset != 7 ? NULL : bookHistogram1D(35, 1, 1);
         _h_rapidityT = bookHistogram1D(36+offset, 1, 1);
         _h_rapidityS = bookHistogram1D(44+offset, 1, 1);
       }
 
-      if(!_initialisedSpectra && !_initialisedJets) {
-        getLog() << Log::WARNING
-                 << "CMS energy of events sqrt(s) = " << sqrtS()/GeV
-                 <<" doesn't match any available analysis energy ." << endl;
+      if (!_initialisedSpectra && !_initialisedJets) {
+        MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
+                    << " doesn't match any available analysis energy .");
       }
     }
 

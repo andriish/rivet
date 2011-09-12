@@ -68,9 +68,9 @@ namespace Rivet {
 
       // Get jets
       const Jets jets = applyProjection<FastJets>(evt, "Jets").jetsByPt();
-      getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
+      MSG_DEBUG("Jet multiplicity = " << jets.size());
       if (jets.size() < 1) {
-        getLog() << Log::DEBUG << "No jets found" << endl;
+        MSG_DEBUG("No jets found");
         vetoEvent;
       }
 
@@ -79,20 +79,20 @@ namespace Rivet {
       const double jeteta = pjet.eta();
       const double jetphi = pjet.phi();
       const double jetpT  = pjet.pT();
-      getLog() << Log::DEBUG << "Leading jet: pT = " << jetpT/GeV << " GeV"
+      MSG_DEBUG("Leading jet: pT = " << jetpT/GeV << " GeV"
                << ", eta = " << jeteta
-               << ", phi = " << jetphi << endl;
+               << ", phi = " << jetphi);
 
       // Require the leading jet to be within |eta| < 2
       if (fabs(jeteta) > 2) {
-        getLog() << Log::DEBUG << "Failed leading jet eta cut" << endl;
+        MSG_DEBUG("Failed leading jet eta cut");
         vetoEvent;
       }
 
       // Get the leading photon
       const FinalState& photonfs = applyProjection<FinalState>(evt, "Photons");
       if (photonfs.size() < 1) {
-        getLog() << Log::DEBUG << "No hard photons found" << endl;
+        MSG_DEBUG("No hard photons found");
         vetoEvent;
       }
       const FourMomentum pgamma = photonfs.particlesByPt().front().momentum();
@@ -106,7 +106,7 @@ namespace Rivet {
         }
       }
       if (!isolated) {
-        getLog() << Log::DEBUG << "Leading photon is not isolated from jets" << endl;
+        MSG_DEBUG("Leading photon is not isolated from jets");
         vetoEvent;
       }
 
@@ -114,9 +114,9 @@ namespace Rivet {
       const double gammaeta = pgamma.eta();
       const double gammaphi = pgamma.phi();
       const double gammapT  = pgamma.pT();
-      getLog() << Log::DEBUG << "Leading photon: pT = " << gammapT/GeV << " GeV"
-               << ", eta = " << gammaeta
-               << ", phi = " << gammaphi << endl;
+      MSG_DEBUG("Leading photon: pT = " << gammapT/GeV << " GeV"
+                << ", eta = " << gammaeta
+                << ", phi = " << gammaphi);
 
       // Get the event weight
       const double weight = evt.weight();

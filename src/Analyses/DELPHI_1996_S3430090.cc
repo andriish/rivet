@@ -151,10 +151,10 @@ namespace Rivet {
       const size_t numParticles = fs.particles().size();
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
-        getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
+        MSG_DEBUG("Failed leptonic event cut");
         vetoEvent;
       }
-      getLog() << Log::DEBUG << "Passed leptonic event cut" << endl;
+      MSG_DEBUG("Passed leptonic event cut");
       const double weight = e.weight();
       _passedCutWeightSum += weight;
       _weightedTotalPartNum += numParticles * weight;
@@ -163,10 +163,10 @@ namespace Rivet {
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
-      getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
+      MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Thrusts
-      getLog() << Log::DEBUG << "Calculating thrust" << endl;
+      MSG_DEBUG("Calculating thrust");
       const Thrust& thrust = applyProjection<Thrust>(e, "Thrust");
       _hist1MinusT->fill(1 - thrust.thrust(), weight);
       _histTMajor->fill(thrust.thrustMajor(), weight);
@@ -193,20 +193,20 @@ namespace Rivet {
       }
 
       // Sphericities
-      getLog() << Log::DEBUG << "Calculating sphericity" << endl;
+      MSG_DEBUG("Calculating sphericity");
       const Sphericity& sphericity = applyProjection<Sphericity>(e, "Sphericity");
       _histSphericity->fill(sphericity.sphericity(), weight);
       _histAplanarity->fill(sphericity.aplanarity(), weight);
       _histPlanarity->fill(sphericity.planarity(), weight);
 
       // C & D params
-      getLog() << Log::DEBUG << "Calculating Parisi params" << endl;
+      MSG_DEBUG("Calculating Parisi params");
       const ParisiTensor& parisi = applyProjection<ParisiTensor>(e, "Parisi");
       _histCParam->fill(parisi.C(), weight);
       _histDParam->fill(parisi.D(), weight);
 
       // Hemispheres
-      getLog() << Log::DEBUG << "Calculating hemisphere variables" << endl;
+      MSG_DEBUG("Calculating hemisphere variables");
       const Hemispheres& hemi = applyProjection<Hemispheres>(e, "Hemispheres");
       _histHemiMassH->fill(hemi.scaledM2high(), weight);
       _histHemiMassL->fill(hemi.scaledM2low(), weight);
@@ -219,7 +219,7 @@ namespace Rivet {
       // Iterate over all the charged final state particles.
       double Evis = 0.0;
       double Evis2 = 0.0;
-      getLog() << Log::DEBUG << "About to iterate over charged FS particles" << endl;
+      MSG_DEBUG("About to iterate over charged FS particles");
       foreach (const Particle& p, fs.particles()) {
         // Get momentum and energy of each particle.
         const Vector3 mom3 = p.momentum().vector3();
@@ -253,7 +253,7 @@ namespace Rivet {
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
         _histRapidityT->fill(rapidityT, weight);
         _histRapidityS->fill(rapidityS, weight);
-        //cerr << fabs(rapidityT) << " " << scaledMom/GeV << endl;
+        MSG_TRACE(fabs(rapidityT) << " " << scaledMom/GeV);
       }
       Evis2 = Evis*Evis;
 

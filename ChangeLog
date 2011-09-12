@@ -1,3 +1,8 @@
+2011-09-12  Andy Buckley  <andy@insectnation.org>
+
+	* Removing uses of getLog, cout, cerr, and endl from all standard
+	analyses, except in a very few special cases.
+
 2011-09-10  Andy Buckley  <andy@insectnation.org>
 
 	* Changing the behaviour and interface of the MissingMomentum

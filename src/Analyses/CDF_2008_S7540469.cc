@@ -51,8 +51,8 @@ namespace Rivet {
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
-        getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-                 << " because no final state pair found " << endl;
+        MSG_DEBUG("Skipping event " << event.genEvent().event_number()
+                 << " because no final state pair found ");
         vetoEvent;
       }
 
@@ -86,8 +86,8 @@ namespace Rivet {
         }
       }
       if (Z_candidates.size() != 1) {
-        getLog() << Log::DEBUG << "Skipping event " << event.genEvent().event_number()
-                 << " because no unique electron pair found " << endl;
+        MSG_DEBUG("Skipping event " << event.genEvent().event_number()
+                 << " because no unique electron pair found ");
         vetoEvent;
       }
 
@@ -131,11 +131,11 @@ namespace Rivet {
           jets_cut.push_back(j);
         }
       }
-      getLog() << Log::DEBUG << "Num jets above 30 GeV = " << jets_cut.size() << endl;
+      MSG_DEBUG("Num jets above 30 GeV = " << jets_cut.size());
 
       // Return if there are no jets:
       if (jets_cut.empty()) {
-        getLog() << Log::DEBUG << "No jets pass cuts " << endl;
+        MSG_DEBUG("No jets pass cuts ");
         vetoEvent;
       }
 

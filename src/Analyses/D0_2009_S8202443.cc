@@ -86,7 +86,7 @@ namespace Rivet {
         }
       }
       else {
-        getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
+        MSG_DEBUG("no unique lepton pair found.");
       }
 
 
@@ -114,7 +114,7 @@ namespace Rivet {
         }
       }
       else {
-        getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
+        MSG_DEBUG("no unique lepton pair found.");
         vetoEvent;
       }
     }

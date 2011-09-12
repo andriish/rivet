@@ -195,13 +195,8 @@ namespace Rivet {
       }
 
       // Log some event details about pT
-      getLog() << Log::DEBUG
-               << "pT [lead; twd, away, trans] = ["
-               << ptLead << "; "
-               << ptSumToward << ", "
-               << ptSumAway << ", "
-               << ptSumTrans << "]"
-               << endl;
+      MSG_DEBUG("pT [lead; twd, away, trans] = [" << ptLead << "; "
+                << ptSumToward << ", " << ptSumAway << ", " << ptSumTrans << "]");
 
       // Update the pT profile histograms
       _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
@@ -214,12 +209,8 @@ namespace Rivet {
       _ptsumAwayJ20->fill(ptLead/GeV, ptSumAway/GeV, weight);
 
       // Log some event details about Nch
-      getLog() << Log::DEBUG
-               << "N [twd, away, trans] = ["
-               << numToward << ", "
-               << numTrans << ", "
-               << numAway << "]"
-               << endl;
+      MSG_DEBUG("N [twd, away, trans] = [" << ptLead << "; "
+               << numToward << ", " << numTrans << ", " << numAway << "]");
 
       // Update the N_track profile histograms
       _numTowardMB->fill(ptLead/GeV, numToward, weight);

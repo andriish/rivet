@@ -49,7 +49,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const Jets& jets = applyProjection<FastJets>(event, "Jets").jets(_ptedges.front()*GeV, _ptedges.back()*GeV,
                                                                        0.0, 0.7, RAPIDITY);
-      getLog() << Log::DEBUG << "Jet multiplicity before any pT cut = " << jets.size() << endl;
+      MSG_DEBUG("Jet multiplicity before any pT cut = " << jets.size());
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT range");
         vetoEvent;

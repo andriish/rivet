@@ -37,10 +37,10 @@ namespace Rivet {
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
-        getLog() << Log::DEBUG << "Failed ncharged cut" << endl;
+        MSG_DEBUG("Failed ncharged cut");
         vetoEvent;
       }
-      getLog() << Log::DEBUG << "Passed ncharged cut" << endl;
+      MSG_DEBUG("Passed ncharged cut");
 
       // Get event weight for histo filling
       const double weight = e.weight();
@@ -50,7 +50,7 @@ namespace Rivet {
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
-      getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
+      MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       int flavour = 0;
       const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");

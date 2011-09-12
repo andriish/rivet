@@ -32,10 +32,10 @@ namespace Rivet {
 //       const size_t numParticles = cfs.particles().size();
 
 //       if (numParticles < 4) {
-//         getLog() << Log::DEBUG << "Failed ncharged cut" << endl;
+//         MSG_DEBUG("Failed ncharged cut");
 //         vetoEvent;
 //       }
-//       getLog() << Log::DEBUG << "Passed ncharged cut" << endl;
+//       MSG_DEBUG("Passed ncharged cut");
 
       // Get event weight for histo filling
       const double weight = e.weight();

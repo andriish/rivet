@@ -62,12 +62,12 @@ namespace Rivet {
     void analyze(const Event& e) {
       const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
       if (cfs.particles().size() < 1) {
-        getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
+        MSG_DEBUG("Failed multiplicity cut");
         vetoEvent;
       }
 
       const Jets& alljets = applyProjection<FastJets>(e, "AllJets").jetsByPt();
-      getLog() << Log::DEBUG << "Total jet multiplicity = " << alljets.size() << endl;
+      MSG_DEBUG("Total jet multiplicity = " << alljets.size());
 
       // The jet acceptance region is |eta|<(1-R)=0.3  (with R = jet radius)
       // Jets also must have a neutral energy fraction of < 0.7
@@ -82,7 +82,7 @@ namespace Rivet {
       // WARNING: There is more data in preparation, some of which
       //          does _not_ have this constraint!
       if (jets.size() != 2) {
-        getLog() << Log::DEBUG << "Failed jet multiplicity cut" << endl;
+        MSG_DEBUG("Failed jet multiplicity cut");
         vetoEvent;
       }
 
@@ -93,7 +93,7 @@ namespace Rivet {
       if (deltaPhi(jets[0].momentum().phi(), jets[1].momentum().phi()) <= 5*PI/6 ||
           jets[1].momentum().pT()/jets[0].momentum().pT() <= 0.7)
       {
-        getLog() << Log::DEBUG << "Failed di-jet criteria" << endl;
+        MSG_DEBUG("Failed di-jet criteria");
         vetoEvent;
       }
 

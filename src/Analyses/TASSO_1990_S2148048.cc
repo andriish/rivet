@@ -86,7 +86,7 @@ namespace Rivet {
       // Condition 1)  --- require at least 5 (4) 'good' tracks
       int nch = cfs.particles().size();
       if ( (int(sqrtS()/GeV) > 27 && nch < 5) || (int(sqrtS()/GeV) <= 27 && nch < 4 ) ) {
-        getLog() << Log::DEBUG << "Failed # good tracks cut: " << nch << endl;
+        MSG_DEBUG("Failed # good tracks cut: " << nch);
         vetoEvent;
       }
       // Condition 2) ---
@@ -97,7 +97,7 @@ namespace Rivet {
         momsum += mom;
       }
       if (momsum <=0.265 * sqrtS()/GeV) {
-        getLog() << Log::DEBUG << "Failed pTsum cut: " << momsum << " < " << 0.265 * sqrtS()/GeV << endl;
+        MSG_DEBUG("Failed pTsum cut: " << momsum << " < " << 0.265 * sqrtS()/GeV);
         vetoEvent;
       }
 
@@ -108,7 +108,7 @@ namespace Rivet {
       //const Vector3 & thrustAxis = thrust.thrustAxis ();
       //double theta = thrustAxis.theta();
       //if ( fabs(cos(theta)) >= 0.8 ) {
-        //getLog() << Log::DEBUG << "Failed thrust angle cut: " << fabs(cos(theta)) << endl;
+        //MSG_DEBUG("Failed thrust angle cut: " << fabs(cos(theta)));
         //vetoEvent;
       //}
 

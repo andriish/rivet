@@ -54,7 +54,7 @@ namespace Rivet {
       const ChargedFinalState& bbc1 = applyProjection<ChargedFinalState>(event, "BBC1");
       const ChargedFinalState& bbc2 = applyProjection<ChargedFinalState>(event, "BBC2");
       if (bbc1.size()<1 || bbc2.size()<1) {
-        getLog() << Log::DEBUG << "Failed beam-beam-counter trigger" << std::endl;
+        MSG_DEBUG("Failed beam-beam-counter trigger");
         vetoEvent;
       }
 
@@ -175,8 +175,8 @@ namespace Rivet {
       scale(_h_pT_ximinus,   1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_xiplus,    1./(2*M_PI*_sumWeightSelected));
       //scale(_h_pT_omega,     1./(2*M_PI*_sumWeightSelected));
-      getLog() << Log::DEBUG << "sumOfWeights()     = " << sumOfWeights() << std::endl;
-      getLog() << Log::DEBUG << "_sumWeightSelected = " << _sumWeightSelected << std::endl;
+      MSG_DEBUG("sumOfWeights()     = " << sumOfWeights());
+      MSG_DEBUG("_sumWeightSelected = " << _sumWeightSelected);
     }
 
   private:

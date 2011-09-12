@@ -77,7 +77,7 @@ namespace Rivet {
       const Vector3 & thrustAxis = thrust.thrustAxis ();
       double theta = thrustAxis.theta();
       if ( fabs(cos(theta)) >= 0.8 ) {
-        getLog() << Log::DEBUG << "Failed thrust angle cut: " << fabs(cos(theta)) << endl;
+        MSG_DEBUG("Failed thrust angle cut: " << fabs(cos(theta)));
         vetoEvent;
       }
       // TODO Evis, pmiss, pbal

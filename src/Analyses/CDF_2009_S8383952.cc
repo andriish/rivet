@@ -59,7 +59,7 @@ namespace Rivet {
         _h_xs->fill(1960.0, weight);
       }
       else {
-        getLog() << Log::DEBUG << "no unique lepton pair found." << endl;
+        MSG_DEBUG("no unique lepton pair found.");
       }
 
     }

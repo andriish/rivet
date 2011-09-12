@@ -227,7 +227,7 @@ namespace Rivet {
       double mass2=p.mass2();
       if (mass2>0.0) return sqrt(mass2);
       else if (mass2<-1.0e-5) {
-        getLog() << Log::WARNING << "m2 = " << m2 << ". Assuming m2=0." << endl;
+        MSG_WARNING("m2 = " << m2 << ". Assuming m2=0.");
         return 0.0;
       }
       else return 0.0;

@@ -36,7 +36,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       const Multiplicity& m = applyProjection<Multiplicity>(event, "Mult");
-      getLog() << Log::DEBUG << "Total charged multiplicity = " << m.totalMultiplicity() << endl;
+      MSG_DEBUG("Total charged multiplicity = " << m.totalMultiplicity());
       _histChTot->fill(m.totalMultiplicity(), event.weight());
     }
 

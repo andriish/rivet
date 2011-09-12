@@ -50,12 +50,12 @@ namespace Rivet {
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
 
         const int PdgId = abs(p.pdgId());
-        getLog() << Log::DEBUG << "pdgID = " << PdgId << "  mom = " << mom << endl;
+        MSG_DEBUG("pdgID = " << PdgId << "  mom = " << mom);
 
         switch (PdgId) {
 
           case 421:
-            getLog() << Log::DEBUG << "D0 found" << endl;
+            MSG_DEBUG("D0 found");
             mH2 = 3.47763; // 1.86484^2
             xp = mom/sqrt(s/4.0 - mH2);
             if (onresonance)
@@ -65,7 +65,7 @@ namespace Rivet {
             break;
 
           case 411:
-            getLog() << Log::DEBUG << "D+ found" << endl;
+            MSG_DEBUG("D+ found");
             mH2 = 3.49547; // 1.86962^2
             xp = mom/sqrt(s/4.0 - mH2);
             if (onresonance)
@@ -75,7 +75,7 @@ namespace Rivet {
             break;
 
           case 431:
-            getLog() << Log::DEBUG << "D+_s found" << endl;
+            MSG_DEBUG("D+_s found");
             mH2 = 3.87495; // 1.96849^2
             xp = mom/sqrt(s/4.0 - mH2);
             if (onresonance)
@@ -85,7 +85,7 @@ namespace Rivet {
             break;
 
           case 4122:
-            getLog() << Log::DEBUG << "Lambda_c found" << endl;
+            MSG_DEBUG("Lambda_c found");
             mH2 = 5.22780; // 2.28646^2
             xp = mom/sqrt(s/4.0 - mH2);
             if (onresonance)
@@ -95,7 +95,7 @@ namespace Rivet {
             break;
 
           case 413: {
-            getLog() << Log::DEBUG << "D*+ found" << endl;
+            MSG_DEBUG("D*+ found");
             mH2 = 4.04119; // 2.01027^2
             xp = mom/sqrt(s/4.0 - mH2);
 
@@ -127,16 +127,16 @@ namespace Rivet {
               else
                 _histXpDstarplus2Dplus_C->fill(xp, weight);
             } else {
-              getLog() << Log::WARN << "Unexpected D* decay!" << endl;
+              MSG_WARNING("Unexpected D* decay!");
             }
             break;
             }
 
           case 423:
-            getLog() << Log::DEBUG << "D*0 found" << endl;
+            MSG_DEBUG("D*0 found");
             mH2 = 4.02793; // 2.00697**2
             xp = mom/sqrt(s/4.0 - mH2);
-            getLog() << Log::DEBUG << "xp = " << xp << endl;
+            MSG_DEBUG("xp = " << xp);
             if (onresonance)
               _histXpDstar0_R->fill(xp, weight);
             else

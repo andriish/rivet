@@ -54,7 +54,7 @@ namespace Rivet {
     void analyze(const Event & event) {
       const WFinder& wf = applyProjection<WFinder>(event, "WFe");
       if (wf.bosons().size() == 0) {
-        getLog() << Log::DEBUG << "No W candidates found: vetoing" << endl;
+        MSG_DEBUG("No W candidates found: vetoing");
         vetoEvent;
       }
 

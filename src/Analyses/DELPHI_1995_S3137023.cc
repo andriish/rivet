@@ -44,10 +44,10 @@ namespace Rivet {
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 2) {
-        getLog() << Log::DEBUG << "Failed leptonic event cut" << endl;
+        MSG_DEBUG("Failed leptonic event cut");
         vetoEvent;
       }
-      getLog() << Log::DEBUG << "Passed leptonic event cut" << endl;
+      MSG_DEBUG("Passed leptonic event cut");
 
       // Get event weight for histo filling
       const double weight = e.weight();
@@ -56,7 +56,7 @@ namespace Rivet {
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0;
-      getLog() << Log::DEBUG << "Avg beam momentum = " << meanBeamMom << endl;
+      MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");

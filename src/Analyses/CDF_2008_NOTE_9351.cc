@@ -81,7 +81,7 @@ namespace Rivet {
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (numParticles < 1) {
-        getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
+        MSG_DEBUG("Failed multiplicity cut");
         vetoEvent;
       }
 
@@ -92,7 +92,7 @@ namespace Rivet {
       const ParticleVector& leptons = applyProjection<ChargedLeptons>(e, "CL").chargedLeptons();
 
       // We want exactly two leptons of the same flavour.
-      getLog() << Log::DEBUG << "lepton multiplicity = " << leptons.size() << endl;
+      MSG_DEBUG("lepton multiplicity = " << leptons.size());
       if (leptons.size() != 2 || leptons[0].pdgId() != -leptons[1].pdgId() ) vetoEvent;
 
       // Lepton pT > 20 GeV
@@ -101,8 +101,8 @@ namespace Rivet {
       // Lepton pair should have an invariant mass between 70 and 110 and |eta| < 6
       const FourMomentum dilepton = leptons[0].momentum() + leptons[1].momentum();
       if (!inRange(dilepton.mass()/GeV, 70., 110.) || fabs(dilepton.eta()) >= 6) vetoEvent;
-      getLog() << Log::DEBUG << "Dilepton mass = " << mass(dilepton)/GeV << " GeV" << endl;
-      getLog() << Log::DEBUG << "Dilepton pT   = " << pT(dilepton)/GeV << " GeV" << endl;
+      MSG_DEBUG("Dilepton mass = " << mass(dilepton)/GeV << " GeV");
+      MSG_DEBUG("Dilepton pT   = " << pT(dilepton)/GeV << " GeV");
 
       // Calculate the observables
       size_t   numToward(0),     numAway(0);

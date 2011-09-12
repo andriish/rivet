@@ -110,7 +110,7 @@ namespace Rivet {
     void analyze(const Event& evt) {
       const FinalState& tracks = applyProjection<FinalState>(evt, "Tracks");
       if (tracks.particles().empty()) {
-        getLog() << Log::DEBUG << "Failed multiplicity cut" << endl;
+        MSG_DEBUG("Failed multiplicity cut");
         vetoEvent;
       }
 
@@ -129,7 +129,7 @@ namespace Rivet {
       // Get jets and fill jet histos
       const FastJets& jetpro = applyProjection<FastJets>(evt, "Jets");
       const Jets jets = jetpro.jetsByPt();
-      getLog() << Log::DEBUG << "Jet multiplicity = " << jets.size() << endl;
+      MSG_DEBUG("Jet multiplicity = " << jets.size());
       _hist_n_jet->fill(jets.size(), weight);
       foreach (const Jet& j, jets) {
         const FourMomentum& pj = j.momentum();

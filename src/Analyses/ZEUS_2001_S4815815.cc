@@ -31,9 +31,9 @@ namespace Rivet {
       addProjection(fs, "FS");
       /// @todo This is the *wrong* jet def: correct it!
       addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
-      getLog() << Log::WARN << "This analysis uses the wrong jet definition: the "
+      MSG_WARNING("This analysis uses the wrong jet definition: the "
                << "paper just says 'a cone algorithm was applied to the CAL cells and jets "
-               << "were reconstructed using the energies and positions of these cells'" << endl;
+               << "were reconstructed using the energies and positions of these cells'");
 
       /// @todo This doesn't seem to correspond to the plots in the paper (SPIRES 4730372)
       _histJetEt1 = bookHistogram1D("JetET1", 11, 14.0, 75.0);
@@ -44,7 +44,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       const JetAlg& jets = applyProjection<FastJets>(event, "Jets");
-      getLog() << Log::INFO << "Jet multiplicity = " << jets.size() << endl;
+      MSG_INFO("Jet multiplicity = " << jets.size());
       foreach (const Jet& j, jets.jets()) {
         _histJetEt1->fill(j.momentum().pT(), weight);
       }
