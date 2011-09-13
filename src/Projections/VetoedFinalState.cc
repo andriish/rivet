@@ -25,20 +25,19 @@ namespace Rivet {
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
     foreach (const Particle& p, fs.particles()) {
-      if (getLog().isActive(Log::DEBUG)) {
+      if (getLog().isActive(Log::TRACE)) {
         vector<long> codes;
         for (VetoDetails::const_iterator code = _vetoCodes.begin(); code != _vetoCodes.end(); ++code) {
           codes.push_back(code->first);
         }
         const string codestr = "{ " + join(codes) + " }";
-        getLog() << Log::TRACE << p.pdgId() << " vs. veto codes = "
-                 << codestr << " (" << codes.size() << ")" << endl;
+        MSG_TRACE(p.pdgId() << " vs. veto codes = " << codestr << " (" << codes.size() << ")");
       }
       const long pdgid = p.pdgId();
       const double pt = p.momentum().pT();
       VetoDetails::iterator iter = _vetoCodes.find(pdgid);
       if (iter == _vetoCodes.end()) {
-        getLog() << Log::TRACE << "Storing with PDG code = " << pdgid << ", pT = " << pt << endl;
+        MSG_TRACE("Storing with PDG code = " << pdgid << ", pT = " << pt);
         _theParticles.push_back(p);
       } else {
         // This particle code is listed as a possible veto... check pT.
@@ -49,14 +48,14 @@ namespace Rivet {
         if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
         rangess << " - ";
         if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
-        getLog() << Log::TRACE << "ID = " << pdgid << ", pT range = " << rangess.str();
+        MSG_TRACE("ID = " << pdgid << ", pT range = " << rangess.str());
         stringstream debugline;
         debugline << "with PDG code = " << pdgid << " pT = " << p.momentum().pT();
         if (pt < ptrange.first || pt > ptrange.second) {
-          getLog() << Log::TRACE << "Storing " << debugline.str() << endl;
+          MSG_TRACE("Storing " << debugline.str());
           _theParticles.push_back(p);
         } else {
-          getLog() << Log::TRACE << "Vetoing " << debugline.str() << endl;
+          MSG_TRACE("Vetoing " << debugline.str());
         }
       }
     }
@@ -70,7 +69,7 @@ namespace Rivet {
       start.insert(_theParticles.begin());
       oldMasses.insert(pair<set<ParticleVector::iterator>, FourMomentum>
                        (start, _theParticles.begin()->momentum()));
-   
+
       for (int nParts = 1; nParts != *nIt; ++nParts) {
         for (map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
              mIt != oldMasses.end(); ++mIt) {
@@ -103,7 +102,7 @@ namespace Rivet {
         }
       }
     }
- 
+
     for (set<ParticleVector::iterator>::reverse_iterator p = toErase.rbegin(); p != toErase.rend(); ++p) {
       _theParticles.erase(*p);
     }
@@ -125,7 +124,7 @@ namespace Rivet {
         }
       }
     }
-    
+
     // Now veto on the FS
     foreach (const string& ifs, _vetofsnames) {
       const FinalState& vfs = applyProjection<FinalState>(e, ifs);
@@ -135,8 +134,8 @@ namespace Rivet {
         bool found = false;
         for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
           if (!ipart->hasGenParticle()) continue;
-          getLog() << Log::TRACE << "Comparing barcode " << icheck->genParticle().barcode() 
-                   << " with veto particle " << ipart->genParticle().barcode() << endl;
+          MSG_TRACE("Comparing barcode " << icheck->genParticle().barcode()
+                   << " with veto particle " << ipart->genParticle().barcode());
           if (ipart->genParticle().barcode() == icheck->genParticle().barcode()){
             found = true;
             break;
@@ -145,8 +144,8 @@ namespace Rivet {
         if (found) {
           _theParticles.erase(icheck);
           --icheck;
-        }	
-      }	
+        }
+      }
     }
   }
 

@@ -98,12 +98,11 @@ namespace Rivet {
     assert(z3charge == 0);
 
     stringstream msg;
-    msg << "Z reconstructed from: " << endl
-        << "   " << l1.momentum() << " " << l1.pdgId() << endl
-        << " + " << l2.momentum() << " " << l2.pdgId() << endl;
-
+    msg << "Z reconstructed from: \n"
+        << "   " << l1.momentum() << " " << l1.pdgId() << "\n"
+        << " + " << l2.momentum() << " " << l2.pdgId();
+    MSG_DEBUG(msg.str());
     _bosons.push_back(Particle(ZBOSON, pZ));
-    MSG_DEBUG(name() << " found one Z");
 
     // Find the LeptonClusters which survived the IMFS cut such that we can
     // extract their original particles

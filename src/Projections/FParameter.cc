@@ -56,7 +56,7 @@ namespace Rivet {
 
     // Return (with "safe nonsense" sphericity params) if there are no final state particles.
     if (fsmomenta.empty()) {
-      getLog() << Log::DEBUG << "No particles in final state..." << endl;
+      MSG_DEBUG("No particles in final state...");
       clear();
       return;
     }
@@ -69,7 +69,7 @@ namespace Rivet {
 
     // Iterate over all the final state particles.
     Matrix<2> mMom;
-    getLog() << Log::DEBUG << "Number of particles = " << fsperpmomenta.size() << endl;
+    MSG_DEBUG("Number of particles = " << fsperpmomenta.size());
     foreach (const Vector3& p3, fsperpmomenta) {
 
       double prefactor = 1.0/mod(p3);
@@ -83,23 +83,23 @@ namespace Rivet {
       mMom += prefactor * mMomPart;
     }
 
-    getLog() << Log::DEBUG << "Linearised transverse momentum tensor = " << endl << mMom << endl;
+    MSG_DEBUG("Linearised transverse momentum tensor = " << mMom);
 
     // Check that the matrix is symmetric.
     const bool isSymm = mMom.isSymm();
     if (!isSymm) {
-      getLog() << Log::ERROR << "Error: momentum tensor not symmetric:" << endl;
-      getLog() << Log::ERROR << "[0,1] vs. [1,0]: " << mMom.get(0,1) << ", " << mMom.get(1,0) << endl;
-      getLog() << Log::ERROR << "[0,2] vs. [2,0]: " << mMom.get(0,2) << ", " << mMom.get(2,0) << endl;
-      getLog() << Log::ERROR << "[1,2] vs. [2,1]: " << mMom.get(1,2) << ", " << mMom.get(2,1) << endl;
+      MSG_ERROR("Error: momentum tensor not symmetric:");
+      MSG_ERROR("[0,1] vs. [1,0]: " << mMom.get(0,1) << ", " << mMom.get(1,0));
+      MSG_ERROR("[0,2] vs. [2,0]: " << mMom.get(0,2) << ", " << mMom.get(2,0));
+      MSG_ERROR("[1,2] vs. [2,1]: " << mMom.get(1,2) << ", " << mMom.get(2,1));
     }
     // If not symmetric, something's wrong (we made sure the error msg appeared first).
     assert(isSymm);
 
     // Diagonalize momentum matrix.
     const EigenSystem<2> eigen2 = diagonalize(mMom);
-    getLog() << Log::DEBUG << "Diag momentum tensor = " << endl << eigen2.getDiagMatrix() << endl;
- 
+    MSG_DEBUG("Diag momentum tensor = " << eigen2.getDiagMatrix());
+
     // Reset and set eigenvalue parameters.
     _lambdas.clear();
     const EigenSystem<2>::EigenPairs epairs = eigen2.getEigenPairs();
@@ -109,8 +109,8 @@ namespace Rivet {
     }
 
     // Debug output.
-    getLog() << Log::DEBUG << "Lambdas = ("
-             << lambda1() << ", " << lambda2() << ")" << endl;
-    getLog() << Log::DEBUG << "Sum of lambdas = " << lambda1() + lambda2() << endl;
+    MSG_DEBUG("Lambdas = ("
+             << lambda1() << ", " << lambda2() << ")");
+    MSG_DEBUG("Sum of lambdas = " << lambda1() + lambda2());
   }
 }

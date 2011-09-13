@@ -31,9 +31,9 @@ namespace Rivet {
     // Require at least 4 tracks with at least one in each of the forward
     // and backward hemispheres:
     if (n_trig_1 == 0 || n_trig_2 == 0) return;
-    getLog() << Log::DEBUG << "Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2 << endl;
+    MSG_DEBUG("Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2);
     if (n_backward + n_forward < 4 || n_backward == 0 || n_forward == 0) return;
-    getLog() << Log::DEBUG << " Num. forward: " << n_forward  << ", Num. backward: " << n_backward << endl;
+    MSG_DEBUG(" Num. forward: " << n_forward  << ", Num. backward: " << n_backward);
  
     // Trigger success:
     _decision_mb = true;

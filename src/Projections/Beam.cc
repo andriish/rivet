@@ -62,13 +62,13 @@ namespace Rivet {
       _theBeams.first = Particle(ANY, FourMomentum());
       _theBeams.second = Particle(ANY, FourMomentum());
     }
-    //getLog() << Log::DEBUG << "Beam particle IDs = " << beamIds() << endl;
+    //MSG_DEBUG("Beam particle IDs = " << beamIds());
   }
 
 
   double Beam::sqrtS() const {
     double sqrts = Rivet::sqrtS(beams());
-    //getLog() << Log::DEBUG << "sqrt(s) = " << sqrts/GeV << " GeV" << endl;
+    //MSG_DEBUG("sqrt(s) = " << sqrts/GeV << " GeV");
     return sqrts;
   }
 

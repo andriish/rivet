@@ -24,7 +24,7 @@ namespace Rivet {
     
     // Require at least one charged particle in both -4.7 < eta < -3.7 and 3.7 < eta < 4.7
     if (n_trig_1 == 0 || n_trig_2 == 0) return;
-    getLog() << Log::DEBUG << "Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2 << endl;
+    MSG_DEBUG("Trigger 1: " << n_trig_1 << " Trigger 2: " << n_trig_2);
  
     // Trigger success:
     _decision_mb = true;

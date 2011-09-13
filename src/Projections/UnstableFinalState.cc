@@ -29,22 +29,6 @@ namespace Rivet {
         p->momentum().eta() > _etamin && p->momentum().eta() < _etamax &&
         !IS_PARTON_PDGID(p->pdg_id());
 
-      // DEBUGGING PRINTOUTS FOR HERWIG
-      // if (p->status() == 2) {
-      //   std::cout << "* "
-      //             << "pid=" << p->pdg_id()
-      //             << ", st=" << st
-      //             << ", passed=" << std::boolalpha << passed
-      //             << ", isparton=" << std::boolalpha << (IS_PARTON_PDGID(p->pdg_id())) << std::endl;
-      // }
-      // if (abs(p->pdg_id()) > 3000) {
-      //   std::cout << "% "
-      //             << "pid=" << p->pdg_id()
-      //             << ", st=" << st
-      //             << ", passed=" << std::boolalpha << passed
-      //             << ", isparton=" << std::boolalpha << (IS_PARTON_PDGID(p->pdg_id())) << std::endl;
-      // }
-
       // Avoid double counting by re-marking as unpassed if particle ID == parent ID
       const GenVertex* pv = p->production_vertex();
       const GenVertex* dv = p->end_vertex();

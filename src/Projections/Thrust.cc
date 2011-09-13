@@ -106,7 +106,7 @@ namespace Rivet {
     foreach (const Vector3& p3, fsmomenta) {
       momentumSum += mod(p3);
     }
-    getLog() << Log::DEBUG << "Number of particles = " << fsmomenta.size() << endl;
+    MSG_DEBUG("Number of particles = " << fsmomenta.size());
 
 
     // Clear the caches
@@ -151,12 +151,12 @@ namespace Rivet {
 
     // Get thrust
     _calcT(fsmomenta, val, axis);
-    getLog() << Log::DEBUG << "Mom sum = " << momentumSum << endl;
+    MSG_DEBUG("Mom sum = " << momentumSum);
     _thrusts.push_back(val / momentumSum);
     // Make sure that thrust always points along the +ve z-axis.
     if (axis.z() < 0) axis = -axis;
     axis = axis.unit();
-    getLog() << Log::DEBUG << "Axis = " << axis << endl;
+    MSG_DEBUG("Axis = " << axis);
     _thrustAxes.push_back(axis);
 
     // Get thrust major

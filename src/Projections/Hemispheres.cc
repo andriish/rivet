@@ -8,13 +8,13 @@ namespace Rivet {
     // Get thrust axes.
     const AxesDefinition& ax = applyProjection<AxesDefinition>(e, "Axes");
     const Vector3 n = ax.axis1();
-    getLog() << Log::DEBUG << "Thrust axis = " << n << endl;
+    MSG_DEBUG("Thrust axis = " << n);
 
     FourMomentum p4With, p4Against;
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
     const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
     const ParticleVector& particles = fs.particles();
-    getLog() << Log::DEBUG << "number of particles = " << particles.size() << endl;
+    MSG_DEBUG("number of particles = " << particles.size());
     foreach (const Particle& p, particles) {
       const FourMomentum p4 = p.momentum();
       const Vector3 p3 = p4.vector3();
@@ -36,7 +36,7 @@ namespace Rivet {
       } else {
         // In the incredibly unlikely event that a particle goes exactly along the
         // thrust plane, add half to each hemisphere.
-        getLog() << Log::DEBUG << "Particle split between hemispheres" << endl;
+        MSG_DEBUG("Particle split between hemispheres");
         p4With += 0.5 * p4;
         p4Against += 0.5 * p4;
         broadWith += 0.5 * p3Trans;

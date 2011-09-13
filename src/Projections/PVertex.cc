@@ -10,7 +10,7 @@ namespace Rivet {
   void PVertex::project(const Event& e) {
     // We'll *try* to do it right, in case any generators are doing the right thing...
     _thePVertex = e.genEvent().signal_process_vertex();
-    getLog() << Log::DEBUG << "PVertex ptr from HepMC = " << _thePVertex << endl;
+    MSG_DEBUG("PVertex ptr from HepMC = " << _thePVertex);
     if (!_thePVertex) {
       // Since no signal vertices are filled in existing Fortran & C++ MC's,
       // the decay vertex from first vertex in event with 2 incoming particles

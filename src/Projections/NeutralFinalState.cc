@@ -20,17 +20,13 @@ namespace Rivet {
     foreach (const Particle& p, fs.particles()){
       if ((PID::threeCharge(p.pdgId()) == 0) && (p.momentum().Et() > _Etmin)) {
         _theParticles.push_back(p);
-        if (getLog().isActive(Log::TRACE)) {
-          getLog() << Log::TRACE
-                   << "Selected: ID = " << p.pdgId()
-                   << ", Et = " << p.momentum().Et()
-                   << ", eta = " << p.momentum().eta()
-                   << ", charge = " << PID::threeCharge(p.pdgId())/3.0 << endl;
-        }
+        MSG_TRACE("Selected: ID = " << p.pdgId()
+                  << ", Et = " << p.momentum().Et()
+                  << ", eta = " << p.momentum().eta()
+                  << ", charge = " << PID::threeCharge(p.pdgId())/3.0);
       }
     }
-    getLog() << Log::DEBUG << "Number of neutral final-state particles = "
-             << _theParticles.size() << endl;
+    MSG_DEBUG("Number of neutral final-state particles = " << _theParticles.size());
   }
 
 

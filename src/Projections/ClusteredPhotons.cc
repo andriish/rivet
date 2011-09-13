@@ -42,8 +42,8 @@ namespace Rivet {
       }
       if (clustered) _theParticles.push_back(p);
     }
-    getLog() << Log::DEBUG << name() << " found " << _theParticles.size()
-             << " matching photons." << endl;
+    MSG_DEBUG(name() << " found " << _theParticles.size()
+             << " matching photons.");
   }
 
 }

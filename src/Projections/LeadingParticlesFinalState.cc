@@ -29,7 +29,7 @@ namespace Rivet {
     map<long, ParticleVector::const_iterator> tmp;
 
     const ParticleVector& particles = fs.particles();
-    getLog() << Log::DEBUG << "Original final state particles size " << particles.size() << endl;
+    MSG_DEBUG("Original final state particles size " << particles.size());
     ParticleVector::const_iterator ifs;
     for (ifs = particles.begin(); ifs != particles.end(); ++ifs) {
       if (inList(*ifs) && FinalState::accept(ifs->genParticle())) {
@@ -50,8 +50,8 @@ namespace Rivet {
     // Loop on the tmp container and fill _theParticles
     map<long, ParticleVector::const_iterator>::const_iterator i;
     for (i = tmp.begin(); i != tmp.end(); ++i) {
-      getLog() << Log::DEBUG << "LeadingParticlesFinalState is accepting particle ID " << i->second->pdgId()
-               << " with momentum " << i->second->momentum() << endl;
+      MSG_DEBUG("LeadingParticlesFinalState is accepting particle ID " << i->second->pdgId()
+               << " with momentum " << i->second->momentum());
       _theParticles.push_back(*(i->second));
     }
   }

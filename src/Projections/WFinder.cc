@@ -148,9 +148,10 @@ namespace Rivet {
     stringstream msg;
     string wsign = (wcharge == 1) ? "+" : "-";
     string wstr = "W" + wsign;
-    msg << wstr << " reconstructed from: " << endl
-        << "   " << p1.momentum() << " " << p1.pdgId() << endl
-        << " + " << p2.momentum() << " " << p2.pdgId() << endl;
+    msg << wstr << " reconstructed from: " << "\n"
+        << "   " << p1.momentum() << " " << p1.pdgId() << "\n"
+        << " + " << p2.momentum() << " " << p2.pdgId();
+    MSG_DEBUG(msg.str());
 
     // Check missing ET
     const MissingMomentum& vismom = applyProjection<MissingMomentum>(e, "MissingET");

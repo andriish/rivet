@@ -36,7 +36,7 @@ namespace Rivet {
       if (inRange(eta, -5.6, -2.0)) _n_minus++;
       else if (inRange(eta, 2.0, 5.6)) _n_plus++;
     }
-    getLog() << Log::DEBUG << "Trigger -: " << _n_minus << ", Trigger +: " << _n_plus << endl;
+    MSG_DEBUG("Trigger -: " << _n_minus << ", Trigger +: " << _n_plus);
 
     // Common SD/NSD trigger requirement: must activate at least one hodoscope
     if (_n_minus == 0 && _n_plus == 0) return;

@@ -35,11 +35,10 @@ namespace Rivet {
         _theParticles.push_back(pb);
       }
     }
-    getLog() << Log::DEBUG << "Number of particles in the two final states to be merged: = \n"
-             << "   1st final state = " << fsa.particles().size() << endl
-             << "   2nd final state = " << fsb.particles().size() << endl;
-    getLog() << Log::DEBUG << "Number of merged final-state particles = "
-             << _theParticles.size() << endl;
+    MSG_DEBUG("Number of particles in the two final states to be merged: = \n"
+              << "   1st final state = " << fsa.particles().size() << "\n"
+              << "   2nd final state = " << fsb.particles().size());
+    MSG_DEBUG("Number of merged final-state particles = " << _theParticles.size());
   }
 
 

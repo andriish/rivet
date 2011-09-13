@@ -39,30 +39,29 @@ namespace Rivet {
         const int st = p->status();
         const double pT = p->momentum().perp();
         const double eta = p->momentum().eta();
-        getLog() << Log::TRACE << std::boolalpha
-                 << "ID = " << p->pdg_id() << ", status = " << st << ", pT = " << pT
-                 << ", eta = " << eta << ": result = " << passed << endl;
+        MSG_TRACE(std::boolalpha
+                  << "ID = " << p->pdg_id() << ", status = " << st << ", pT = " << pT
+                  << ", eta = " << eta << ": result = " << passed);
         if (pv != 0) {
           foreach (const GenParticle* pp, particles_in(pv)) {
-            getLog() << Log::TRACE << std::boolalpha
-                     << "     parent ID = " << pp->pdg_id() << endl;
+            MSG_TRACE(std::boolalpha << " parent ID = " << pp->pdg_id());
           }
         }
         if (dv != 0) {
           foreach (const GenParticle* pp, particles_out(dv)) {
-            getLog() << Log::TRACE << std::boolalpha
-                     << "     child ID  = " << pp->pdg_id() << endl;
+            MSG_TRACE(std::boolalpha
+                      << " child ID  = " << pp->pdg_id());
           }
         }
       }
       if (passed) _theParticles.push_back(Particle(*p));
     }
-    getLog() << Log::DEBUG << "Number of initial quarks = "
-             << _theParticles.size() << endl;
-    if (! _theParticles.empty())
-      for (size_t i=0 ; i < _theParticles.size() ; i++)
-        getLog() << Log::DEBUG << "Initial quark[" << i << "] = "
-                 << _theParticles[i].pdgId() << std::endl;
+    MSG_DEBUG("Number of initial quarks = " << _theParticles.size());
+    if (!_theParticles.empty()) {
+      for (size_t i = 0; i < _theParticles.size(); i++) {
+        MSG_DEBUG("Initial quark[" << i << "] = " << _theParticles[i].pdgId());
+      }
+    }
   }
 
 

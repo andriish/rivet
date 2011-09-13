@@ -67,11 +67,11 @@ namespace Rivet {
 
   // Actually do the calculation
   void Sphericity::_calcSphericity(const vector<Vector3>& fsmomenta) {
-    getLog() << Log::DEBUG << "Calculating sphericity with r = " << _regparam << endl;
+    MSG_DEBUG("Calculating sphericity with r = " << _regparam);
 
     // Return (with "safe nonsense" sphericity params) if there are no final state particles.
     if (fsmomenta.empty()) {
-      getLog() << Log::DEBUG << "No particles in final state..." << endl;
+      MSG_DEBUG("No particles in final state...");
       clear();
       return;
     }
@@ -79,7 +79,7 @@ namespace Rivet {
     // Iterate over all the final state particles.
     Matrix3 mMom;
     double totalMomentum = 0.0;
-    getLog() << Log::DEBUG << "Number of particles = " << fsmomenta.size() << endl;
+    MSG_DEBUG("Number of particles = " << fsmomenta.size());
     foreach (const Vector3& p3, fsmomenta) {
       // Build the (regulated) normalising factor.
       totalMomentum += pow(p3.mod(), _regparam);
@@ -87,7 +87,7 @@ namespace Rivet {
       // Build (regulated) quadratic momentum components.
       const double regfactor = pow(p3.mod(), _regparam-2);
       if (!fuzzyEquals(regfactor, 1.0)) {
-        getLog() << Log::TRACE << "Regfactor (r=" << _regparam << ") = " << regfactor << endl;
+        MSG_TRACE("Regfactor (r=" << _regparam << ") = " << regfactor);
       }
 
       Matrix3 mMomPart;
@@ -101,23 +101,23 @@ namespace Rivet {
 
     // Normalise to total (regulated) momentum.
     mMom /= totalMomentum;
-    getLog() << Log::DEBUG << "Momentum tensor = " << endl << mMom << endl;
+    MSG_DEBUG("Momentum tensor = " << "\n" << mMom);
 
     // Check that the matrix is symmetric.
     const bool isSymm = mMom.isSymm();
     if (!isSymm) {
-      getLog() << Log::ERROR << "Error: momentum tensor not symmetric (r=" << _regparam << ")" << endl;
-      getLog() << Log::ERROR << "[0,1] vs. [1,0]: " << mMom.get(0,1) << ", " << mMom.get(1,0) << endl;
-      getLog() << Log::ERROR << "[0,2] vs. [2,0]: " << mMom.get(0,2) << ", " << mMom.get(2,0) << endl;
-      getLog() << Log::ERROR << "[1,2] vs. [2,1]: " << mMom.get(1,2) << ", " << mMom.get(2,1) << endl;
+      MSG_ERROR("Error: momentum tensor not symmetric (r=" << _regparam << ")");
+      MSG_ERROR("[0,1] vs. [1,0]: " << mMom.get(0,1) << ", " << mMom.get(1,0));
+      MSG_ERROR("[0,2] vs. [2,0]: " << mMom.get(0,2) << ", " << mMom.get(2,0));
+      MSG_ERROR("[1,2] vs. [2,1]: " << mMom.get(1,2) << ", " << mMom.get(2,1));
     }
     // If not symmetric, something's wrong (we made sure the error msg appeared first).
     assert(isSymm);
 
     // Diagonalize momentum matrix.
     const EigenSystem<3> eigen3 = diagonalize(mMom);
-    getLog() << Log::DEBUG << "Diag momentum tensor = " << endl << eigen3.getDiagMatrix() << endl;
- 
+    MSG_DEBUG("Diag momentum tensor = " << "\n" << eigen3.getDiagMatrix());
+
     // Reset and set eigenvalue/vector parameters.
     _lambdas.clear();
     _sphAxes.clear();
@@ -129,13 +129,13 @@ namespace Rivet {
     }
 
     // Debug output.
-    getLog() << Log::DEBUG << "Lambdas = ("
-             << lambda1() << ", " << lambda2() << ", " << lambda3() << ")" << endl;
-    getLog() << Log::DEBUG << "Sum of lambdas = " << lambda1() + lambda2() + lambda3() << endl;
-    getLog() << Log::DEBUG << "Vectors = "
+    MSG_DEBUG("Lambdas = ("
+             << lambda1() << ", " << lambda2() << ", " << lambda3() << ")");
+    MSG_DEBUG("Sum of lambdas = " << lambda1() + lambda2() + lambda3());
+    MSG_DEBUG("Vectors = "
              << sphericityAxis() << ", "
              << sphericityMajorAxis() << ", "
-             << sphericityMinorAxis() << ")" << endl;
+             << sphericityMinorAxis() << ")");
   }
 
 }
