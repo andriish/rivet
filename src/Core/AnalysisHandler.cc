@@ -266,8 +266,8 @@ namespace Rivet {
 
         // Try to cast to specific histogram types
         const IProfile1D* prof = dynamic_cast<IProfile1D*>(hobj);
-        const IHistogram1D* histo = dynamic_cast<IHistogram1D*>(hobj);
-        const IHistogram2D* histo2 = dynamic_cast<IHistogram2D*>(hobj);
+        const IHistogram1D* histo = (prof) ? 0 : dynamic_cast<IHistogram1D*>(hobj);
+        const IHistogram2D* histo2 = (prof || histo) ? 0 : dynamic_cast<IHistogram2D*>(hobj);
         if (!(histo || histo2 || prof)) {
           MSG_TRACE("Could not find the type of histo for " << path << ": it's probably already a DPS");
           continue;
