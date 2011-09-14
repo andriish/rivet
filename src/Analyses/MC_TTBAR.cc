@@ -43,19 +43,17 @@ namespace Rivet {
       _h_jet_2_pT = bookHistogram1D("jet_2_pT", 50, 0, 400);
       _h_jet_3_pT = bookHistogram1D("jet_3_pT", 50, 0, 300);
       _h_jet_4_pT = bookHistogram1D("jet_4_pT", 50, 0, 200);
-      _h_jet_HT   = bookHistogram1D("jet_HT", 50, 0, 1000);
+      _h_jet_HT   = bookHistogram1D("jet_HT", logspace(0, 2000, 50));
       //
-      _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", 50, 0, 250);
-      _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", 50, 0, 250);
+      _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", 50, 0, 400);
+      _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", 50, 0, 300);
       //
-      _h_ljet_1_pT = bookHistogram1D("jetl_1_pT", 50, 0, 250);
-      _h_ljet_2_pT = bookHistogram1D("jetl_2_pT", 50, 0, 250);
+      _h_ljet_1_pT = bookHistogram1D("jetl_1_pT", 50, 0, 400);
+      _h_ljet_2_pT = bookHistogram1D("jetl_2_pT", 50, 0, 300);
       //
       _h_W_mass = bookHistogram1D("W_mass", 75, 30, 180);
       _h_t_mass = bookHistogram1D("t_mass", 150, 130, 430);
       _h_t_mass_W_cut = bookHistogram1D("t_mass_W_cut", 150, 130, 430);
-      // _h_W_comb_mass = bookHistogram1D("W_comb_mass", 75, 30, 180);
-      // _h_t_comb_mass = bookHistogram1D("t_comb_mass", 150, 130, 430);
     }
 
 
@@ -184,21 +182,7 @@ namespace Rivet {
       _h_t_mass->fill(t1.mass(), weight);
       _h_t_mass->fill(t2.mass(), weight);
 
-      // // Fill histograms for all of the combinatoric 2-jet masses
-      // _h_W_comb_mass->fill(mass(jets[0].momentum() + jets[1].momentum()), weight);
-      // _h_W_comb_mass->fill(mass(jets[0].momentum() + jets[2].momentum()), weight);
-      // _h_W_comb_mass->fill(mass(jets[0].momentum() + jets[3].momentum()), weight);
-      // _h_W_comb_mass->fill(mass(jets[1].momentum() + jets[2].momentum()), weight);
-      // _h_W_comb_mass->fill(mass(jets[1].momentum() + jets[3].momentum()), weight);
-      // _h_W_comb_mass->fill(mass(jets[2].momentum() + jets[3].momentum()), weight);
-      // // Fill histograms for all of the combinatoric 3-jet masses
-      // _h_t_comb_mass->fill(mass(jets[0].momentum() + jets[1].momentum() + jets[2].momentum()), weight);
-      // _h_t_comb_mass->fill(mass(jets[0].momentum() + jets[1].momentum() + jets[3].momentum()), weight);
-      // _h_t_comb_mass->fill(mass(jets[0].momentum() + jets[2].momentum() + jets[3].momentum()), weight);
-      // _h_t_comb_mass->fill(mass(jets[1].momentum() + jets[2].momentum() + jets[3].momentum()), weight);
-
-      // Placing a cut on the W mass (which is well known) helps to reduce
-      // backgrounds.
+      // Placing a cut on the well-known W mass helps to reduce backgrounds
       if (inRange(W.mass()/GeV, 75, 85)) {
         MSG_DEBUG("W found with mass " << W.mass()/GeV << " GeV");
         _sumwPassedWMass += weight;
@@ -219,8 +203,6 @@ namespace Rivet {
       scale(_h_bjet_2_pT, 1/_sumwPassedJetID);
       scale(_h_ljet_1_pT, 1/_sumwPassedJetID);
       scale(_h_ljet_2_pT, 1/_sumwPassedJetID);
-      // scale(_h_W_comb_mass, 1/_sumwPassedJetID);
-      // scale(_h_t_comb_mass, 1/_sumwPassedJetID);
       scale(_h_W_mass, 1/_sumwPassedJetID);
       scale(_h_t_mass, 1/_sumwPassedJetID);
       scale(_h_t_mass_W_cut, 1/_sumwPassedWMass);
@@ -242,10 +224,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_bjet_1_pT, *_h_bjet_2_pT;
     AIDA::IHistogram1D *_h_ljet_1_pT, *_h_ljet_2_pT;
     AIDA::IHistogram1D *_h_W_mass;
-    AIDA::IHistogram1D *_h_t_mass;
-    // AIDA::IHistogram1D *_h_W_comb_mass;
-    // AIDA::IHistogram1D *_h_t_comb_mass;
-    AIDA::IHistogram1D *_h_t_mass_W_cut;
+    AIDA::IHistogram1D *_h_t_mass, *_h_t_mass_W_cut;
 
     //@}
 
