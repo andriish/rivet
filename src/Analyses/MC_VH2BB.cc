@@ -65,31 +65,6 @@ namespace Rivet {
     }
 
 
-    /// @todo Replace with angle range mapper functions
-    double correctPhi(double phi) {
-      bool flag = false;
-
-      while(flag == false){
-        if(phi > M_PI){
-          phi = phi - (2*M_PI);
-        } else {
-          flag = true;
-        }
-      }
-
-      flag = false;
-      while (flag == false) {
-        if (phi <= -M_PI) {
-          phi = phi + (2*M_PI);
-        } else {
-          flag = true;
-        }
-      }
-
-      return phi;
-    }
-
-
     /// Book histograms and initialise projections before the run
     void init() {
 
@@ -139,7 +114,9 @@ namespace Rivet {
       _h_VB_pT = bookHistogram1D("VB_pT", 50, 0, 500);
 
       _h_jet_bVB_angle_Hframe = bookHistogram1D("jet_bVB_angle_Hframe", 50, 0, M_PI);
+      _h_jet_bVB_cosangle_Hframe = bookHistogram1D("jet_bVB_cosangle_Hframe", 50, -1, 1);
       _h_jet_bb_angle_Hframe = bookHistogram1D("jet_bb_angle_Hframe", 50, 0, M_PI);
+      _h_jet_bb_cosangle_Hframe = bookHistogram1D("jet_bb_cosangle_Hframe", 50, -1, 1);
     }
 
 
@@ -171,7 +148,7 @@ namespace Rivet {
       Jets bjets;
       foreach (const Jet& jet, jets) {
         const double jetEta = jet.momentum().eta();
-        const double jetPhi = correctPhi(jet.momentum().phi());
+        const double jetPhi = jet.momentum().phi();
         const double jetPt = jet.momentum().pT();
         _h_jet_eta->fill(jetEta, weight);
         _h_jet_phi->fill(jetPhi, weight);
@@ -229,6 +206,8 @@ namespace Rivet {
             const vector<double> angles = boostAngles(jet1.momentum(), jet2.momentum(), v.momentum());
             _h_jet_bVB_angle_Hframe->fill(angles[0], weight);
             _h_jet_bb_angle_Hframe->fill(angles[1], weight);
+            _h_jet_bVB_cosangle_Hframe->fill(cos(angles[0]), weight);
+            _h_jet_bb_cosangle_Hframe->fill(cos(angles[1]), weight);
           }
 
         }
@@ -268,6 +247,8 @@ namespace Rivet {
 
       scale(_h_jet_bVB_angle_Hframe, crossSection()/sumOfWeights());
       scale(_h_jet_bb_angle_Hframe, crossSection()/sumOfWeights());
+      scale(_h_jet_bVB_cosangle_Hframe, crossSection()/sumOfWeights());
+      scale(_h_jet_bb_cosangle_Hframe, crossSection()/sumOfWeights());
     }
 
     //@}
@@ -285,7 +266,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_jet_eta, *_h_jet_multiplicity, *_h_jet_phi, *_h_jet_pT;
     AIDA::IHistogram1D *_h_jet_VBbb_Delta_eta, *_h_jet_VBbb_Delta_phi, *_h_jet_VBbb_Delta_pT, *_h_jet_VBbb_Delta_R;
     AIDA::IHistogram1D *_h_VB_eta, *_h_VB_mass, *_h_VB_phi, *_h_VB_pT;
-    AIDA::IHistogram1D *_h_jet_bVB_angle_Hframe, *_h_jet_bb_angle_Hframe;
+    AIDA::IHistogram1D *_h_jet_bVB_angle_Hframe, *_h_jet_bb_angle_Hframe, *_h_jet_bVB_cosangle_Hframe, *_h_jet_bb_cosangle_Hframe;
     //AIDA::IProfile1D *_h_jet_cuts_bb_deltaR_v_HpT;
 
     //@}
