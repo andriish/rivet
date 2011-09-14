@@ -226,10 +226,11 @@ namespace Rivet {
             _h_jet_VBbb_Delta_R->fill(deltaRVH, weight);
 
             // Calculate boost angles
-            const vector<double> boostAngles = angularCookbook(jet1.momentum(), jet2.momentum(), v.momentum());
-            _h_jet_bVB_angle_Hframe->fill(boostAngles[0], weight);
-            _h_jet_bb_angle_Hframe->fill(boostAngles[1], weight);
+            const vector<double> angles = boostAngles(jet1.momentum(), jet2.momentum(), v.momentum());
+            _h_jet_bVB_angle_Hframe->fill(angles[0], weight);
+            _h_jet_bb_angle_Hframe->fill(angles[1], weight);
           }
+
         }
       }
     }
