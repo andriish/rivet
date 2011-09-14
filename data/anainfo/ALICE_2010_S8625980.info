@@ -12,11 +12,10 @@ References:
  - Eur.Phys.J. C68 (2010) 345-354
  - arXiv:1004.3514 [hep-ex]
 RunInfo:
-  Diffractive events need to be switched on on addition to QCD.
+  Diffractive events need to be enabled.
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [900, 2360, 7000]
-PtCuts:
 Description:
   'This is an ALICE publication with pseudorapities for $\unit{0.9, 2.36 and 7}{\TeV}$
   and the charged multiplicity at $\unit{7}{\TeV}$. The analysis requires at least on
@@ -25,8 +24,8 @@ BibKey: Aamodt:2010pp
 BibTeX: '@article{Aamodt:2010pp,
       author         = "Aamodt, K. and others",
       title          = "{Charged-particle multiplicity measurement in
-                        proton-proton collisions at sqrt(s) = 7 TeV with ALICE at
-                        LHC}",
+                        proton-proton collisions at $\sqrt{s} = 7$ TeV with
+                        ALICE at LHC}",
       collaboration  = "ALICE",
       journal        = "Eur.Phys.J.",
       volume         = "C68",
@@ -37,5 +36,3 @@ BibTeX: '@article{Aamodt:2010pp,
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
 }'
-ToDo:
- - Add NSD histos?

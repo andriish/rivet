@@ -17,7 +17,6 @@ RunInfo:
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [900, 2360]
-PtCuts:
 Description:
   'This is an ALICE analysis where charged particle multiplicities (including
    the zero bin) have been measured in three different pseudorapidity intervals
