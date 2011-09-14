@@ -110,6 +110,7 @@ dist_pkgdata_DATA = \
   MC_TTBAR.info \
   MC_JETS.info \
   MC_PHOTONJETS.info \
+  MC_VH2BB.info \
   MC_HJETS.info \
   MC_WJETS.info \
   MC_WPOL.info \

@@ -103,6 +103,7 @@ dist_pkgdata_DATA = \
   MC_TTBAR.plot \
   MC_JETS.plot \
   MC_PHOTONJETS.plot \
+  MC_VH2BB.plot \
   MC_HJETS.plot \
   MC_WJETS.plot \
   MC_WPOL.plot \

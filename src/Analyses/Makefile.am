@@ -243,6 +243,7 @@ RivetMCAnalyses_la_SOURCES = \
     MC_GENERIC.cc \
     MC_JETS.cc \
     MC_PHOTONJETS.cc \
+    MC_VH2BB.cc \
     MC_HJETS.cc \
     MC_WJETS.cc \
     MC_WPOL.cc \

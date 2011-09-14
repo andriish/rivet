@@ -1,0 +1,18 @@
+Name: MC_VH2BB
+Year: 2011
+Summary: MC unboosted VH2bb validation plots
+Experiment: ATLAS
+Collider: LHC
+Status: UNVALIDATED
+Authors:
+ - Ben Smart <bsmart@cern.ch>
+ - Andy Buckley <andy.buckley@cern.ch>
+RunInfo:
+  $VH$ with $H \to b \bar{b}$ and the vector boson decaying to electron or
+  muon channels.
+NumEvents: 100000
+Beams: [p+, p+]
+Energies: [7000]
+PtCuts: [0]
+Description:
+  'Various plots for characterising the process $V H \to b\bar{b}$'
