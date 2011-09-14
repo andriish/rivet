@@ -376,6 +376,7 @@ namespace Rivet {
         // Calculate the efficiency uncertainty
         double efficiency = vetoPtWeightSum/totalWeightSum;
         double efficiencyError = std::sqrt(efficiency*(1.0-efficiency)/totalWeightSum);
+        if (totalWeightSum==0.) efficiency = efficiencyError = 0.;
 
         xCoord->setValue(m_q0BinEdges[x+1]);
         xCoord->setErrorPlus(2.5);
