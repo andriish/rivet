@@ -23,19 +23,17 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    // /// Constructor taking a FinalState and type of the charged lepton, mass window,
-    // /// and maximum dR of photons around the charged lepton to take into account for W
-    // /// reconstruction.
-    // WFinder(const ChargedFinalState& fs_l,
-    //         PdgId pid,
-    //         double minmass, double maxmass,
-    //         double missingET,
-    //         double dRmax, bool clusterPhotons, bool excludePhotonsFromRFS);
-
-
-    /// Constructor taking single eta/pT bounds and type of the charged lepton, transverse mass
-    /// window, and maximum dR of photons around the charged lepton to take into account
-    /// for W reconstruction.
+    /// Constructor taking single eta/pT bounds
+    /// @param pid type of the charged lepton
+    /// @param minmass,maxmass (transverse) mass window
+    /// @param missingET minimal amount of missing ET (neutrinos) required
+    /// @param dRmax maximum dR of photons around charged lepton to take into account
+    ///  for W reconstruction (only relevant if one of the following are true)
+    /// @param clusterPhotons whether such photons are supposed to be
+    ///  clustered to the lepton object and thus W mom
+    /// @param trackPhotons whether such photons should be added to _theParticles
+    ///  (cf. _trackPhotons)
+    /// @param useTransverseMass whether mass window should be applied using mT
     WFinder(double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
@@ -46,9 +44,17 @@ namespace Rivet {
             bool useTransverseMass=false);
 
 
-    /// Constructor taking multiple eta/pT bounds and type of the charged lepton, transverse mass
-    /// window, and maximum dR of photons around the charged lepton to take into account
-    /// for W reconstruction.
+    /// Constructor taking multiple eta/pT bounds
+    /// @param pid type of the charged lepton
+    /// @param minmass,maxmass (transverse) mass window
+    /// @param missingET minimal amount of missing ET (neutrinos) required
+    /// @param dRmax maximum dR of photons around charged lepton to take into account
+    ///  for W reconstruction (only relevant if one of the following are true)
+    /// @param clusterPhotons whether such photons are supposed to be
+    ///  clustered to the lepton object and thus W mom
+    /// @param trackPhotons whether such photons should be added to _theParticles
+    ///  (cf. _trackPhotons)
+    /// @param useTransverseMass whether mass window should be applied using mT
     WFinder(const std::vector<std::pair<double, double> >& etaRanges,
             double pTmin,
             PdgId pid,

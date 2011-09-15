@@ -24,12 +24,15 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Constructor taking single eta/pT bounds and type of the leptons, mass
-    /// window, and maximum dR of photons around leptons to take into account
-    /// for Z reconstruction.
-    /// It has to be specified separately whether such photons are
-    /// supposed to be clustered to the lepton objects and whether they should
-    /// be excluded from the remaining FS.
+    /// Constructor taking single eta/pT bounds
+    /// @param pid type of the leptons
+    /// @param minmass,maxmass mass window
+    /// @param dRmax maximum dR of photons around leptons to take into account
+    ///  for Z reconstruction (only relevant if one of the following are true)
+    /// @param clusterPhotons whether such photons are supposed to be
+    ///  clustered to the lepton objects and thus Z mom
+    /// @param trackPhotons whether such photons should be added to _theParticles
+    ///  (cf. _trackPhotons)
     ZFinder(double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
@@ -38,12 +41,15 @@ namespace Rivet {
             double masstarget=91.2*GeV);
 
 
-    /// Constructor taking multiple eta/pT bounds and type of the leptons, mass
-    /// window, and maximum dR of photons around leptons to take into account
-    /// for Z reconstruction.
-    /// It has to be specified separately whether such photons are
-    /// supposed to be clustered to the lepton objects and whether they should
-    /// be excluded from the remaining FS.
+    /// Constructor taking multiple eta/pT bounds
+    /// @param pid type of the leptons
+    /// @param minmass,maxmass mass window
+    /// @param dRmax maximum dR of photons around leptons to take into account
+    ///  for Z reconstruction (only relevant if one of the following are true)
+    /// @param clusterPhotons whether such photons are supposed to be
+    ///  clustered to the lepton objects and thus Z mom
+    /// @param trackPhotons whether such photons should be added to _theParticles
+    ///  (cf. _trackPhotons)
     ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
             double pTmin,
             PdgId pid,
