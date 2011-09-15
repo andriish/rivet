@@ -53,6 +53,7 @@ namespace Rivet {
     std::vector<shared_ptr<LWH::Histogram1D> > _h_rap_jet_plus, _h_rap_jet_minus;
     std::vector<AIDA::IHistogram1D *> _h_mass_jet;
     std::map<std::pair<size_t, size_t>, AIDA::IHistogram1D*> _h_deta_jets;
+    std::map<std::pair<size_t, size_t>, AIDA::IHistogram1D*> _h_dphi_jets;
     std::map<std::pair<size_t, size_t>, AIDA::IHistogram1D*> _h_dR_jets;
     AIDA::IHistogram1D * _h_jet_multi_exclusive;
     AIDA::IHistogram1D * _h_jet_multi_inclusive;

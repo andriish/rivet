@@ -35,90 +35,66 @@ XLabel=$y_{\gamma}$
 YLabel=$\text{d}\sigma/\text{d}y_{\gamma}$ [pb]
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONJETS/jets_dR_12
-Title=Separation between leading and second leading jet
-XLabel=$\Delta{R}(\text{jet 1, jet 2})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$ [pb]
+# BEGIN PLOT /MC_PHOTONJETS/jets_dR_
+Title=$\Delta R$ separation between jets
 LegendXPos=0.10
 LegendYPos=0.5
 # END PLOT
 
+# BEGIN PLOT /MC_PHOTONJETS/jets_dR_12
+XLabel=$\Delta{R}(\text{jet 1, jet 2})$
+YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 2})$ [pb]
+# END PLOT
+
 # BEGIN PLOT /MC_PHOTONJETS/jets_dR_13
-Title=
 XLabel=$\Delta{R}(\text{jet 1, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 3})$ [pb]
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONJETS/jets_dR_14
-Title=
-XLabel=$\Delta{R}(\text{jet 1, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 1, jet 4})$ [pb]
-# END PLOT
-
 # BEGIN PLOT /MC_PHOTONJETS/jets_dR_23
-Title=
 XLabel=$\Delta{R}(\text{jet 2, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 2, jet 3})$ [pb]
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONJETS/jets_dR_24
-Title=
-XLabel=$\Delta{R}(\text{jet 2, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 2, jet 4})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /MC_PHOTONJETS/jets_dR_34
-Title=
-XLabel=$\Delta{R}(\text{jet 3, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta{R}(\text{jet 3, jet 4})$ [pb]
+# BEGIN PLOT /MC_PHOTONJETS/jets_deta_
+Title=Pseudorapidity separation between jets
+LegendYPos=0.5
+LegendXPos=0.30
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_12
-Title=$\eta$ difference between leading and second leading jet
 XLabel=$\Delta\eta(\text{jet 1, jet 2})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 2})$ [pb]
-LegendYPos=0.5
-LegendXPos=0.30
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_13
-Title=
 XLabel=$\Delta\eta(\text{jet 1, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 3})$ [pb]
-LegendYPos=0.5
-LegendXPos=0.30
-# END PLOT
-
-# BEGIN PLOT /MC_PHOTONJETS/jets_deta_14
-Title=
-XLabel=$\Delta\eta(\text{jet 1, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 1, jet 4})$ [pb]
-LegendYPos=0.5
-LegendXPos=0.30
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jets_deta_23
-Title=
 XLabel=$\Delta\eta(\text{jet 2, jet 3})$
 YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 3})$ [pb]
-LegendYPos=0.5
-LegendXPos=0.30
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONJETS/jets_deta_24
-Title=
-XLabel=$\Delta\eta(\text{jet 2, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 4})$ [pb]
-LegendYPos=0.5
-LegendXPos=0.30
+# BEGIN PLOT /MC_PHOTONJETS/jets_dphi_
+Title=Pseudorapidity separation between jets
+LegendXPos=0.1
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONJETS/jets_deta_34
-Title=
-XLabel=$\Delta\eta(\text{jet 3, jet 4})$
-YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 3, jet 4})$ [pb]
-LegendYPos=0.5
-LegendXPos=0.30
+# BEGIN PLOT /MC_PHOTONJETS/jets_dphi_12
+XLabel=$\Delta\phi(\text{jet 1, jet 2})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\phi(\text{jet 1, jet 2})$ [pb]
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jets_dphi_13
+XLabel=$\Delta\phi(\text{jet 1, jet 3})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\phi(\text{jet 1, jet 3})$ [pb]
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONJETS/jets_dphi_23
+XLabel=$\Delta\phi(\text{jet 2, jet 3})$
+YLabel=$\text{d}\sigma/\text{d}\Delta\phi(\text{jet 2, jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONJETS/jet_eta_1

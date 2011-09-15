@@ -59,12 +59,16 @@ namespace Rivet {
       _h_rap_jet_plus[i].reset(new LWH::Histogram1D(i > 1 ? 15 : 25, 0, 5));
       _h_rap_jet_minus[i].reset(new LWH::Histogram1D(i > 1 ? 15 : 25, 0, 5));
 
-      for (size_t j = i+1; j < m_njet; ++j) {
+      for (size_t j = i+1; j < min(size_t(3),m_njet); ++j) {
         std::pair<size_t, size_t> ij = std::make_pair(i, j);
 
         stringstream detaname;
         detaname << "jets_deta_" << i+1 << j+1;
         _h_deta_jets.insert(make_pair(ij, bookHistogram1D(detaname.str(), 25, -5.0, 5.0)));
+
+        stringstream dphiname;
+        dphiname << "jets_dphi_" << i+1 << j+1;
+        _h_dphi_jets.insert(make_pair(ij, bookHistogram1D(dphiname.str(), 25, 0.0, M_PI)));
 
         stringstream dRname;
         dRname << "jets_dR_" << i+1 << j+1;
@@ -158,12 +162,14 @@ namespace Rivet {
       }
 
       // Inter-jet properties
-      for (size_t j = i+1; j < m_njet; ++j) {
+      for (size_t j = i+1; j < min(size_t(3),m_njet); ++j) {
         if (jets.size() < j+1) continue;
         std::pair<size_t, size_t> ij = std::make_pair(i, j);
         double deta = jets[i].momentum().eta()-jets[j].momentum().eta();
+        double dphi = deltaPhi(jets[i].momentum(),jets[j].momentum());
         double dR = deltaR(jets[i].momentum(), jets[j].momentum());
         _h_deta_jets[ij]->fill(deta, weight);
+        _h_dphi_jets[ij]->fill(dphi, weight);
         _h_dR_jets[ij]->fill(dR, weight);
       }
     }
@@ -214,6 +220,9 @@ namespace Rivet {
     // Scale the d{eta,R} histograms
     map<pair<size_t, size_t>, AIDA::IHistogram1D*>::iterator it;
     for (it = _h_deta_jets.begin(); it != _h_deta_jets.end(); ++it) {
+      scale(it->second, crossSection()/sumOfWeights());
+    }
+    for (it = _h_dphi_jets.begin(); it != _h_dphi_jets.end(); ++it) {
       scale(it->second, crossSection()/sumOfWeights());
     }
     for (it = _h_dR_jets.begin(); it != _h_dR_jets.end(); ++it) {
