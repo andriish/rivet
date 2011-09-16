@@ -1,3 +1,11 @@
+2011-09-16  Andy Buckley  <andy@insectnation.org>
+
+	* Adding ATLAS track jet analysis, modified from the version
+	provided by Seth Zenz: ATLAS_2011_I919017. Note that this analysis
+	is currently using the Inspire ID rather than the Spires one:
+	we're clearly going to have to update the API to handle Inspire
+	codes, so might as well start now...
+
 2011-09-14  Andy Buckley  <andy@insectnation.org>
 
 	* Applying histogram dynamic_cast protection patch from Anton

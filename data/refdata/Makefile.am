@@ -26,6 +26,12 @@ dist_pkgdata_DATA = \
   ATLAS_2011_S9126244.aida       \
   ATLAS_2011_S9128077.aida       \
   ATLAS_2011_S9131140.aida       \
+  ATLAS_2011_I919017.aida        \
+  BABAR_2006_S6511112.aida       \
+  BELLE_2006_S6265367.aida       \
+  CLEO_1997_S3486664.aida        \
+  CLEO_2001_S4557530.aida        \
+  CLEO_2004_S5809304.aida        \
   CMS_2010_S8547297.aida         \
   CMS_2010_S8656010.aida         \
   CMS_2011_S8884919.aida         \
@@ -41,11 +47,6 @@ dist_pkgdata_DATA = \
   OPAL_2004_S6132243.aida        \
   OPAL_2001_S4553896.aida        \
   OPAL_1998_S3780481.aida        \
-  CLEO_1997_S3486664.aida        \
-  CLEO_2001_S4557530.aida        \
-  CLEO_2004_S5809304.aida        \
-  BABAR_2006_S6511112.aida       \
-  BELLE_2006_S6265367.aida       \
   H1_1994_S2919893.aida          \
   H1_1995_S3167097.aida          \
   H1_2000_S4129130.aida          \
