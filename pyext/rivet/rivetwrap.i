@@ -59,7 +59,6 @@ namespace Rivet {
 
   std::string version();
 
-
   class Event {
     Event();
     Event(const HepMC::GenEvent&);
@@ -84,7 +83,6 @@ namespace Rivet {
 
   double sqrtS(const Event& e);
 
-  // std::string toBeamsString(const PdgIdPair& pair);
   const std::string& toParticleName(PdgId p);
   PdgId toParticleId(const std::string& pname);
 
@@ -93,6 +91,7 @@ namespace Rivet {
   class Analysis {
   public:
     virtual std::string name() const;
+    virtual std::string inspireId() const;
     virtual std::string spiresId() const;
     virtual std::string summary() const;
     virtual std::string description() const;

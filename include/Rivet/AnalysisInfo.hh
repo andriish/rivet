@@ -9,10 +9,6 @@ namespace Rivet {
 
 
   class AnalysisInfo {
-    /// @todo Remove this when all metadata taken from YAML
-    friend class Analysis;
-
-
   public:
 
     /// Static factory method: returns null pointer if no metadata found
@@ -37,20 +33,29 @@ namespace Rivet {
     /// building web pages and the analysis pages in the Rivet manual.
     //@{
 
-    /// Get the name of the analysis. By default this is computed by
-    /// combining the results of the experiment, year and Spires ID
-    /// metadata methods and you should only override it if there's a
-    /// good reason why those won't work.
+    /// Get the name of the analysis. By default this is computed using the
+    /// experiment, year and Inspire/Spires ID metadata methods.
     std::string name() const {
       if (!_name.empty()) return _name;
-      if (!experiment().empty() && !year().empty() && !spiresId().empty()) {
-        return experiment() + "_" + year() + "_S" + spiresId();
+      if (!experiment().empty() && !year().empty()) {
+        if (!inspireId().empty()) {
+          return experiment() + "_" + year() + "_I" + inspireId();
+        } else if (!spiresId().empty()) {
+          return experiment() + "_" + year() + "_S" + spiresId();
+        }
       }
       return "";
     }
 
     /// Set the name of the analysis.
     void setName(const std::string& name) { _name = name; }
+
+
+    /// Get the Inspire (SPIRES replacement) ID code for this analysis.
+    const std::string& inspireId() const { return _inspireId; }
+
+    /// Set the Inspire (SPIRES replacement) ID code for this analysis.
+    void setInspireId(const std::string& inspireId) { _inspireId = inspireId; }
 
 
     /// Get the SPIRES ID code for this analysis.
@@ -184,7 +189,7 @@ namespace Rivet {
   private:
 
     std::string _name;
-    std::string _spiresId;
+    std::string _spiresId, _inspireId;
     std::vector<std::string> _authors;
     std::string _summary;
     std::string _description;
@@ -205,6 +210,7 @@ namespace Rivet {
     void clear() {
       _name = "";
       _spiresId = "";
+      _inspireId = "";
       _authors.clear();
       _summary = "";
       _description = "";

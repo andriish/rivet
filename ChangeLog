@@ -1,3 +1,10 @@
+2011-09-17  Andy Buckley  <andy@insectnation.org>
+
+	* Adding Inspire support to the AnalysisInfo and Analysis
+	interfaces. Maybe we can find a way to combine the two,
+	e.g. return the SPIRES code prefixed with an "S" if no Inspire ID
+	is available...
+
 2011-09-18  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added ALICE_2011_S8909580 (strange particle production at 900 GeV)

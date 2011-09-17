@@ -3,7 +3,7 @@ Year: 2011
 Summary: Measurement of ATLAS track jet properties at 7 TeV
 Experiment: ATLAS
 Collider: LHC
-#InspireID: 919017
+InspireID: 919017
 Status: UNVALIDATED
 Authors:
  - Seth Zenz <seth.zenz@cern.ch>

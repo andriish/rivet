@@ -59,8 +59,8 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
 
-    /// The default constructor.
-    //Analysis();
+    // /// The default constructor.
+    // Analysis();
 
     /// Constructor
     Analysis(const std::string& name);
@@ -119,7 +119,12 @@ namespace Rivet {
       return (info().name().empty()) ? _defaultname : info().name();
     }
 
-    /// Get a the SPIRES/Inspire ID code for this analysis.
+    /// Get the Inspire ID code for this analysis.
+    virtual std::string inspireId() const {
+      return info().inspireId();
+    }
+
+    /// Get the SPIRES ID code for this analysis (~deprecated).
     virtual std::string spiresId() const {
       return info().spiresId();
     }
